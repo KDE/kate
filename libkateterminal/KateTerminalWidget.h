@@ -2,12 +2,14 @@
 
 #include <QTabWidget>
 
+#include "kateterm_export.h"
+
 /**
  * A wrapper over QTermWidget which
  * tries to provide the same interace as
  * Konsole::TerminalInterface
  */
-class KateTerminalWidget : public QTabWidget
+class KATE_TERMINAL_EXPORT KateTerminalWidget : public QTabWidget
 {
     Q_OBJECT
 public:
@@ -21,9 +23,14 @@ public:
     // Will return empty string
     QString foregroundProcessName() const;
 
+    static bool isAvailable();
+
+    QString currentWorkingDirectory() const;
+
 public Q_SLOTS:
     void createSession(const QString &profile, const QString &workingDir);
 
 private:
+    void tabRemoved(int) override;
     void newTab(const QString &workingDir);
 };

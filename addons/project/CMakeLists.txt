@@ -21,6 +21,7 @@ target_link_libraries(
     kateprojectplugin
     PRIVATE
         kateprivate
+        kateterminal
         Qt::Concurrent
         KF${KF_MAJOR_VERSION}::GuiAddons
         KF${KF_MAJOR_VERSION}::I18n

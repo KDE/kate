@@ -69,6 +69,7 @@ public:
     TerminalWidget(const QString &dir, const TerminalConfig &config, QWidget *parent = nullptr)
         : QTermWidget(parent)
     {
+        setContentsMargins({});
         setBidiEnabled(false);
         setTerminalFont(config.font);
         if (!config.colorScheme.isEmpty()) {
@@ -85,7 +86,7 @@ public:
                 }
             }
             if (!shell.isEmpty()) {
-                setShellProgram(GetWindowsShell());
+                setShellProgram(shell);
                 setEnvironment(QProcess::systemEnvironment());
                 setWorkingDirectory(dir);
                 startShellProgram();
@@ -150,13 +151,7 @@ private:
 static TerminalConfig getDefaultTerminalConfig(QWidget *w)
 {
     TerminalConfig c;
-    int lightness = w->palette().base().color().lightness();
-    const bool darkMode = lightness < 127;
-    if (darkMode) {
-        c.colorScheme = (QStringLiteral("Breeze"));
-    } else {
-        c.colorScheme = (QStringLiteral("BlackOnWhite"));
-    }
+    c.colorScheme = (QStringLiteral("Breeze"));
     c.font = KTextEditor::Editor::instance()->font();
     return c;
 }
@@ -166,12 +161,15 @@ static bool init = false;
 KateTerminalWidget::KateTerminalWidget(QWidget *parent)
     : QTabWidget(parent)
 {
+    setContentsMargins({});
     setTabBarAutoHide(true);
     if (!init) {
         init = true;
         QTermWidget_initResources();
     }
+    setDocumentMode(true);
     setTabsClosable(true);
+    setTabPosition(QTabWidget::TabPosition::South);
 
     connect(this, &QTabWidget::tabCloseRequested, this, [this](int idx) {
         auto w = static_cast<TerminalWidget *>(widget(idx));
@@ -209,10 +207,41 @@ void KateTerminalWidget::newTab(const QString &workingDir)
 {
     auto w = new TerminalWidget(workingDir, getDefaultTerminalConfig(this), this);
     addTab(w, i18n("Terminal %1", count() + 1));
+    connect(w, &QTermWidget::finished, this, [this, w] {
+        int idx = indexOf(w);
+        if (idx >= 0) {
+            removeTab(idx);
+        }
+    });
+    setCurrentWidget(w);
 }
 
 QString KateTerminalWidget::foregroundProcessName() const
 {
     // Not supported atm
     return {};
+}
+
+bool KateTerminalWidget::isAvailable()
+{
+    // CONPTY_MINIMAL_WINDOWS_VERSION 18309
+    qint32 buildNumber = QSysInfo::kernelVersion().split(QLatin1String(".")).last().toInt();
+    if (buildNumber < 18309)
+        return false;
+    return true;
+}
+
+QString KateTerminalWidget::currentWorkingDirectory() const
+{
+    if (count() == 0) {
+        return QDir::currentPath();
+    }
+    return static_cast<TerminalWidget *>(currentWidget())->workingDirectory();
+}
+
+void KateTerminalWidget::tabRemoved(int)
+{
+    if (count() == 0) {
+        deleteLater();
+    }
 }

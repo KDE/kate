@@ -8,6 +8,8 @@
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectpluginview.h"
 
+#include "KateTerminalWidget.h"
+
 #include <KActionCollection>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -63,6 +65,10 @@ KateProjectInfoViewTerminal::~KateProjectInfoViewTerminal()
     if (m_konsolePart) {
         disconnect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
     }
+
+    if (m_termWidget) {
+        disconnect(m_termWidget, &QObject::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
+    }
 }
 
 KPluginFactory *KateProjectInfoViewTerminal::pluginFactory()
@@ -78,7 +84,7 @@ void KateProjectInfoViewTerminal::showEvent(QShowEvent *)
     /**
      * we delay the terminal construction until we have some part to have a usable WINDOWID, see bug 411965
      */
-    if (!m_konsolePart) {
+    if (!m_konsolePart && !m_termWidget) {
         loadTerminal();
     }
     if (m_searchInFilesAction && hasFocus()) {
@@ -88,53 +94,63 @@ void KateProjectInfoViewTerminal::showEvent(QShowEvent *)
 
 void KateProjectInfoViewTerminal::loadTerminal()
 {
-    /**
-     * null in any case, if loadTerminal fails below and we are in the destroyed event
-     */
-    m_konsolePart = nullptr;
-    setFocusProxy(nullptr);
+    if (hasKonsole() && !forceOwnTerm()) {
+        /**
+         * null in any case, if loadTerminal fails below and we are in the destroyed event
+         */
+        m_konsolePart = nullptr;
+        setFocusProxy(nullptr);
 
-    /**
-     * we shall not arrive here without a factory, if it is not there, no terminal toolview shall be created
-     */
-    Q_ASSERT(pluginFactory());
+        /**
+         * we shall not arrive here without a factory, if it is not there, no terminal toolview shall be created
+         */
+        Q_ASSERT(pluginFactory());
 
-    /**
-     * create part
-     */
-    m_konsolePart = pluginFactory()->create<KParts::ReadOnlyPart>(this);
-    if (!m_konsolePart) {
-        return;
+        /**
+         * create part
+         */
+        m_konsolePart = pluginFactory()->create<KParts::ReadOnlyPart>(this);
+        if (!m_konsolePart) {
+            return;
+        }
+
+        /**
+         * init locale translation stuff
+         */
+        // FIXME KF5 KGlobal::locale()->insertCatalog("konsole");
+
+        /**
+         * switch to right directory
+         */
+        qobject_cast<TerminalInterface *>(m_konsolePart)->showShellInDir(m_directory);
+
+        /**
+         * add to widget
+         */
+        if (auto konsoleTabWidget = qobject_cast<QTabWidget *>(m_konsolePart->widget())) {
+            konsoleTabWidget->setTabBarAutoHide(true);
+            konsoleTabWidget->installEventFilter(this);
+        }
+        m_layout->addWidget(m_konsolePart->widget());
+
+        setFocusProxy(m_konsolePart->widget());
+
+        /**
+         * guard destruction, create new terminal!
+         */
+        connect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
+        // clang-format off
+        connect(m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent*,bool&)), this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
+        // clang-format on
+    } else {
+        m_termWidget = new KateTerminalWidget(this);
+        m_layout->addWidget(m_termWidget);
+        setFocusProxy(m_termWidget);
+        m_termWidget->showShellInDir(m_directory);
+        m_termWidget->installEventFilter(this);
+
+        connect(m_termWidget, &QObject::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
     }
-
-    /**
-     * init locale translation stuff
-     */
-    // FIXME KF5 KGlobal::locale()->insertCatalog("konsole");
-
-    /**
-     * switch to right directory
-     */
-    qobject_cast<TerminalInterface *>(m_konsolePart)->showShellInDir(m_directory);
-
-    /**
-     * add to widget
-     */
-    if (auto konsoleTabWidget = qobject_cast<QTabWidget *>(m_konsolePart->widget())) {
-        konsoleTabWidget->setTabBarAutoHide(true);
-        konsoleTabWidget->installEventFilter(this);
-    }
-    m_layout->addWidget(m_konsolePart->widget());
-
-    setFocusProxy(m_konsolePart->widget());
-
-    /**
-     * guard destruction, create new terminal!
-     */
-    connect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
-    // clang-format off
-    connect(m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent*,bool&)), this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
-    // clang-format on
 }
 
 void KateProjectInfoViewTerminal::overrideShortcut(QKeyEvent *keyEvent, bool &override)
@@ -160,18 +176,22 @@ static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral
 
 bool KateProjectInfoViewTerminal::ignoreEsc() const
 {
-    if (!m_konsolePart || !KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyBehaviour", true)) {
-        return false;
-    }
+    if (hasKonsole() && !forceOwnTerm()) {
+        if (!m_konsolePart || !KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyBehaviour", true)) {
+            return false;
+        }
 
-    const QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
-    const auto app = qobject_cast<TerminalInterface *>(m_konsolePart)->foregroundProcessName();
-    return exceptList.contains(app);
+        const QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
+        const auto app = qobject_cast<TerminalInterface *>(m_konsolePart)->foregroundProcessName();
+        return exceptList.contains(app);
+    }
+    // KateTerminalWidget doesn't have foregroundProcessName
+    return false;
 }
 
 bool KateProjectInfoViewTerminal::isLoadable()
 {
-    return (pluginFactory() != nullptr);
+    return KateTerminalWidget::isAvailable() || (pluginFactory() != nullptr);
 }
 
 void KateProjectInfoViewTerminal::respawn(const QString &directory)
@@ -180,11 +200,19 @@ void KateProjectInfoViewTerminal::respawn(const QString &directory)
         return;
     }
 
-    m_directory = directory;
-    disconnect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
+    if (hasKonsole() && !forceOwnTerm()) {
+        m_directory = directory;
+        disconnect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
 
-    if (m_konsolePart != nullptr) {
-        delete m_konsolePart;
+        if (m_konsolePart != nullptr) {
+            delete m_konsolePart;
+        }
+    } else {
+        if (m_termWidget) {
+            disconnect(m_termWidget, &QObject::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
+        }
+        delete m_termWidget;
+        m_termWidget = nullptr;
     }
 
     loadTerminal();
@@ -197,7 +225,7 @@ static bool isCtrlShiftT(QKeyEvent *ke)
 
 bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
 {
-    if (!m_konsolePart) {
+    if (!m_konsolePart && !m_termWidget) {
         return QWidget::eventFilter(w, e);
     }
 
@@ -215,11 +243,17 @@ bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
         if (isCtrlShiftT(keyEvent)) {
             e->accept();
-            auto tiface = qobject_cast<TerminalInterface *>(m_konsolePart);
-            const auto profile = QString{};
-            const auto workingDir = tiface->currentWorkingDirectory();
-            QMetaObject::invokeMethod(m_konsolePart, "createSession", Q_ARG(QString, profile), Q_ARG(QString, workingDir));
-            return true;
+            if (m_konsolePart) {
+                auto tiface = qobject_cast<TerminalInterface *>(m_konsolePart);
+                const auto profile = QString{};
+                const auto workingDir = tiface->currentWorkingDirectory();
+                QMetaObject::invokeMethod(m_konsolePart, "createSession", Q_ARG(QString, profile), Q_ARG(QString, workingDir));
+                return true;
+            } else if (m_termWidget) {
+                const auto profile = QString{};
+                const auto workingDir = m_termWidget->currentWorkingDirectory();
+                m_termWidget->createSession({}, workingDir);
+            }
         }
     }
 
@@ -228,12 +262,22 @@ bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
 
 void KateProjectInfoViewTerminal::runCommand(const QString &workingDir, const QString &cmd)
 {
-    auto terminal = qobject_cast<TerminalInterface *>(m_konsolePart);
-    if (!terminal) {
-        loadTerminal();
+    if (hasKonsole() && !forceOwnTerm()) {
+        auto terminal = qobject_cast<TerminalInterface *>(m_konsolePart);
+        if (!terminal) {
+            loadTerminal();
+        }
+        terminal->sendInput(QStringLiteral("\x05\x15"));
+        const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
+        terminal->sendInput(changeDirCmd);
+        terminal->sendInput(cmd.trimmed() + QStringLiteral("\n"));
+    } else if (isLoadable()) {
+        if (!m_termWidget) {
+            loadTerminal();
+        }
+        m_termWidget->sendInput(QStringLiteral("\x05\x15"));
+        const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
+        m_termWidget->sendInput(changeDirCmd);
+        m_termWidget->sendInput(cmd.trimmed() + QStringLiteral("\n"));
     }
-    terminal->sendInput(QStringLiteral("\x05\x15"));
-    const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
-    terminal->sendInput(changeDirCmd);
-    terminal->sendInput(cmd.trimmed() + QStringLiteral("\n"));
 }

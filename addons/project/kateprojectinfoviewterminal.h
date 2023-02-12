@@ -82,6 +82,19 @@ private:
      */
     static KPluginFactory *pluginFactory();
 
+    bool hasKonsole() const
+    {
+        return pluginFactory() != nullptr;
+    }
+
+    bool forceOwnTerm() const
+    {
+#ifdef Q_OS_WIN
+        return true;
+#endif
+        return false; // Change to use on linux
+    }
+
 private:
     /**
      * plugin factory for the terminal
@@ -107,6 +120,11 @@ private:
      * konsole part
      */
     KParts::ReadOnlyPart *m_konsolePart;
+
+    /**
+     * Active on windows 10 and onwards
+     */
+    class KateTerminalWidget *m_termWidget = nullptr;
 
     QPointer<QAction> m_showProjectInfoViewAction;
     QPointer<QAction> m_searchInFilesAction;

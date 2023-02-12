@@ -49,6 +49,8 @@ const QByteArray KeyboardTranslatorManager::defaultTranslatorText(
     "keyboard \"Fallback Key Translator\"\n"
     "key Tab : \"\\t\"");
 
+static QMap<QString, QString> qrc_translator_name_path;
+
 #ifdef Q_OS_MAC
 // On Mac, Qt::ControlModifier means Cmd, and MetaModifier means Ctrl
 const Qt::KeyboardModifier KeyboardTranslator::CTRL_MOD = Qt::MetaModifier;
@@ -59,13 +61,24 @@ const Qt::KeyboardModifier KeyboardTranslator::CTRL_MOD = Qt::ControlModifier;
 KeyboardTranslatorManager::KeyboardTranslatorManager()
     : _haveLoadedAll(false)
 {
+    qrc_translator_name_path.insert(QStringLiteral("default"), QStringLiteral(":/kblayout/kb-layouts/default.keytab"));
+    qrc_translator_name_path.insert(QStringLiteral("linux"), QStringLiteral(":/kblayout/kb-layouts/linux.keytab"));
+    qrc_translator_name_path.insert(QStringLiteral("macbook"), QStringLiteral(":/kblayout/kb-layouts/macbook.keytab"));
+    qrc_translator_name_path.insert(QStringLiteral("solaris"), QStringLiteral(":/kblayout/kb-layouts/solaris.keytab"));
+    qrc_translator_name_path.insert(QStringLiteral("vt420pc"), QStringLiteral(":/kblayout/kb-layouts/vt420pc.keytab"));
 }
+
 KeyboardTranslatorManager::~KeyboardTranslatorManager()
 {
     qDeleteAll(_translators);
 }
+
 QString KeyboardTranslatorManager::findTranslatorPath(const QString &name)
 {
+    if (qrc_translator_name_path.contains(name)) {
+        return qrc_translator_name_path.value(name);
+    }
+
     return QString(get_kb_layout_dir() + name + QLatin1String(".keytab"));
     // return KGlobal::dirs()->findResource("data","konsole/"+name+".keytab");
 }
@@ -151,8 +164,10 @@ bool KeyboardTranslatorManager::saveTranslator(const KeyboardTranslator *transla
 KeyboardTranslator *KeyboardTranslatorManager::loadTranslator(const QString &name)
 {
     const QString &path = findTranslatorPath(name);
+    qDebug() << "load trans" << name << path;
 
     QFile source(path);
+    qDebug() << source.exists();
     if (name.isEmpty() || !source.open(QIODevice::ReadOnly | QIODevice::Text))
         return nullptr;
 

@@ -1,7 +1,15 @@
+<?xml version="1.0"?>
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/colorschemes">
         <file>color-schemes/BlackOnWhite.colorscheme</file>
         <file>color-schemes/Breeze.colorscheme</file>
+    </qresource>
+    <qresource prefix="/kblayout">
+        <file>kb-layouts/default.keytab</file>
+        <file>kb-layouts/linux.keytab</file>
+        <file>kb-layouts/macbook.keytab</file>
+        <file>kb-layouts/solaris.keytab</file>
+        <file>kb-layouts/vt420pc.keytab</file>
     </qresource>
 </RCC>

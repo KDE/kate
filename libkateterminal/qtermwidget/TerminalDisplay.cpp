@@ -28,9 +28,11 @@
 #include <QApplication>
 #include <QBoxLayout>
 #include <QClipboard>
+#include <QDebug>
 #include <QDrag>
 #include <QEvent>
 #include <QFile>
+#include <QFontDatabase>
 #include <QGridLayout>
 #include <QKeyEvent>
 #include <QLabel>
@@ -45,7 +47,6 @@
 #include <QTime>
 #include <QTimer>
 #include <QUrl>
-#include <QtDebug>
 
 // KDE
 // #include <kshell.h>
@@ -369,6 +370,8 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
     , _topBaseMargin(1)
     , _drawLineChars(true)
 {
+    setVTFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+
     // variables for draw text
     _drawTextAdditionHeight = 0;
     _drawTextTestFlag = false;

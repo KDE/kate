@@ -213,6 +213,7 @@ void KateTerminalWidget::newTab(const QString &workingDir)
             removeTab(idx);
         }
     });
+    connect(w, &QTermWidget::overrideShortcutCheck, this, &KateTerminalWidget::overrideShortcutCheck);
     setCurrentWidget(w);
 }
 

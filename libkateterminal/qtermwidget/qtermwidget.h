@@ -287,6 +287,8 @@ Q_SIGNALS:
      */
     void receivedData(const QString &text);
 
+    void overrideShortcutCheck(QKeyEvent *keyEvent, bool &overridee);
+
 public Q_SLOTS:
     // Copy selection to clipboard
     void copyClipboard();

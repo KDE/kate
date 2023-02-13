@@ -2748,7 +2748,7 @@ QVariant TerminalDisplay::inputMethodQuery(Qt::InputMethodQuery query) const
 
 bool TerminalDisplay::handleShortcutOverrideEvent(QKeyEvent *keyEvent)
 {
-    int modifiers = keyEvent->modifiers();
+    const int modifiers = keyEvent->modifiers();
 
     //  When a possible shortcut combination is pressed,
     //  Q_EMIT the overrideShortcutCheck() signal to allow the host
@@ -2758,8 +2758,9 @@ bool TerminalDisplay::handleShortcutOverrideEvent(QKeyEvent *keyEvent)
         unsigned int currentModifier = Qt::ShiftModifier;
 
         while (currentModifier <= Qt::KeypadModifier) {
-            if (modifiers & currentModifier)
+            if ((modifiers & currentModifier) != 0u) {
                 modifierCount++;
+            }
             currentModifier <<= 1;
         }
         if (modifierCount < 2) {
@@ -2784,7 +2785,9 @@ bool TerminalDisplay::handleShortcutOverrideEvent(QKeyEvent *keyEvent)
     case Qt::Key_Backspace:
     case Qt::Key_Left:
     case Qt::Key_Right:
-    case Qt::Key_Escape:
+    case Qt::Key_Slash:
+    case Qt::Key_Period:
+    case Qt::Key_Space:
         keyEvent->accept();
         return true;
     }

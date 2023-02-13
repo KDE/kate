@@ -33,4 +33,7 @@ public Q_SLOTS:
 private:
     void tabRemoved(int) override;
     void newTab(const QString &workingDir);
+
+Q_SIGNALS:
+    void overrideShortcutCheck(QKeyEvent *keyEvent, bool &overridee);
 };

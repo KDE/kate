@@ -150,6 +150,7 @@ void KateProjectInfoViewTerminal::loadTerminal()
         m_termWidget->installEventFilter(this);
 
         connect(m_termWidget, &QObject::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
+        connect(m_termWidget, &KateTerminalWidget::overrideShortcutCheck, this, &KateProjectInfoViewTerminal::overrideShortcut);
     }
 }
 

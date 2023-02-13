@@ -327,6 +327,7 @@ void QTermWidget::init(int startnow)
     connect(m_impl->m_terminalDisplay, &TerminalDisplay::keyPressedSignal, this, [this](QKeyEvent *e, bool) {
         Q_EMIT termKeyPressed(e);
     });
+    connect(m_impl->m_terminalDisplay, &TerminalDisplay::overrideShortcutCheck, this, &QTermWidget::overrideShortcutCheck);
     //    m_impl->m_terminalDisplay->setSize(80, 40);
 
     QFont font = QApplication::font();

@@ -813,8 +813,7 @@ private:
                       // than 'columns' if the character image provided with setImage() is smaller
                       // than the maximum image size which can be displayed
 
-    int _contentHeight;
-    int _contentWidth;
+    QRect _contentRect;
     Character *_image; // [lines][columns]
                        // only the area [usedLines][usedColumns] in the image contains valid data
 
@@ -911,10 +910,10 @@ private:
     // the delay in milliseconds between redrawing blinking text
     static const int TEXT_BLINK_DELAY = 500;
 
-    int _leftBaseMargin;
-    int _topBaseMargin;
-
     bool _drawLineChars;
+
+    int _margin = 1; // the contents margin
+    bool _centerContents = true; // center the contents between margins
 
 public:
     static void setTransparencyEnabled(bool enable)

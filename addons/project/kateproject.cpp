@@ -318,6 +318,8 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
     }
 
     auto column = m_model.invisibleRootItem()->takeColumn(0);
+    m_untrackedDocumentsRoot = nullptr;
+    m_file2Item.reset();
     auto deleter = QRunnable::create([column = std::move(column)] {
         qDeleteAll(column);
     });
@@ -344,7 +346,6 @@ void KateProject::loadProjectDone(const KateProjectSharedQStandardItem &topLevel
     /**
      * readd the documents that are open atm
      */
-    m_untrackedDocumentsRoot = nullptr;
     for (auto i = m_documents.constBegin(); i != m_documents.constEnd(); i++) {
         registerDocument(i.key());
     }

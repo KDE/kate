@@ -138,6 +138,8 @@ public:
         m.addAction(m_paste);
         m.addAction(m_find);
         m.addAction(m_clear);
+        const auto actions = filterActions(pos);
+        m.addActions(actions);
         m.exec(mapToGlobal(pos));
     }
 

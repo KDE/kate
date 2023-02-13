@@ -2,7 +2,7 @@
 
 #include "qtermwidget.h"
 
-#include <KTextEditor/Editor>
+#include <QActionGroup>
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
@@ -13,6 +13,7 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <KStandardAction>
+#include <KTextEditor/Editor>
 
 enum Modifier {
 #ifdef Q_OS_MACOS

@@ -9,7 +9,9 @@
 #include <QMenu>
 #include <QProcess>
 
+#include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 #include <KStandardAction>
 
 enum Modifier {
@@ -74,7 +76,7 @@ public:
         setTerminalFont(config.font);
         setScrollBarPosition(QTermWidget::ScrollBarRight);
         if (!config.colorScheme.isEmpty()) {
-            setColorScheme(config.colorScheme);
+            setColorScheme(m_colorScheme = config.colorScheme);
         }
 
 #ifdef Q_OS_WIN
@@ -128,6 +130,12 @@ public:
 
         setContextMenuPolicy(Qt::CustomContextMenu);
         connect(this, &QWidget::customContextMenuRequested, this, &TerminalWidget::contextMenu);
+
+        connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, [this] {
+            if (getTerminalFont() != KTextEditor::Editor::instance()->font()) {
+                setTerminalFont(KTextEditor::Editor::instance()->font());
+            }
+        });
     }
 
     void contextMenu(QPoint pos)
@@ -141,7 +149,35 @@ public:
         m.addAction(m_clear);
         const auto actions = filterActions(pos);
         m.addActions(actions);
+
+        auto schemeMenu = new QMenu(&m);
+        schemeMenu->setTitle(i18n("Colorschemes"));
+
+        const QStringList schemes = getAvailableColorSchemes();
+        QActionGroup *g = new QActionGroup(schemeMenu);
+        for (const auto &s : schemes) {
+            auto a = schemeMenu->addAction(s);
+            a->setActionGroup(g);
+            a->setCheckable(true);
+            if (a->text() == m_colorScheme) {
+                a->setChecked(true);
+            }
+            connect(a, &QAction::toggled, this, [s, this] {
+                saveColorscheme(s);
+            });
+        }
+        m.addMenu(schemeMenu);
+
         m.exec(mapToGlobal(pos));
+    }
+
+    void saveColorscheme(const QString &scheme)
+    {
+        if (m_colorScheme != scheme) {
+            KConfigGroup cg(KSharedConfig::openConfig(), "KateTerminal");
+            cg.writeEntry("Colorscheme", scheme);
+            setColorScheme(scheme);
+        }
     }
 
 private:
@@ -149,12 +185,14 @@ private:
     QAction *m_paste = nullptr;
     QAction *m_find = nullptr;
     QAction *m_clear = nullptr;
+    QString m_colorScheme;
 };
 
-static TerminalConfig getDefaultTerminalConfig(QWidget *w)
+static TerminalConfig getDefaultTerminalConfig(QWidget *)
 {
     TerminalConfig c;
-    c.colorScheme = (QStringLiteral("Breeze"));
+    KConfigGroup cg(KSharedConfig::openConfig(), "KateTerminal");
+    c.colorScheme = cg.readEntry("Colorscheme", (QStringLiteral("WhiteOnBlack")));
     c.font = KTextEditor::Editor::instance()->font();
     return c;
 }

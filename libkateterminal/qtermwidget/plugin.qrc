@@ -4,7 +4,6 @@
     <qresource prefix="/colorschemes">
         <file>color-schemes/WhiteOnBlack.colorscheme</file>
         <file>color-schemes/Breeze.colorscheme</file>
-        <file>color-schemes/Monokai.colorscheme</file>
     </qresource>
     <qresource prefix="/kblayout">
         <file>kb-layouts/default.keytab</file>

@@ -284,7 +284,9 @@ void TerminalDisplay::setVTFont(const QFont &f)
     // but then there was revealed that various Linux distros
     // have this problem too...
     // FIXME
-    // font.setStyleStrategy(QFont::ForceIntegerMetrics);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    font.setStyleStrategy(QFont::ForceIntegerMetrics);
+#endif
 
     if (!QFontInfo(font).fixedPitch()) {
         qDebug() << "Using a variable-width font in the terminal.  This may cause performance degradation and display/alignment errors.";

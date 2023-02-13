@@ -81,14 +81,14 @@ void Vt102Emulation::clearEntireScreen()
     bufferedUpdate();
 }
 
-void Vt102Emulation::reset()
+void Vt102Emulation::reset(bool softReset, bool preservePrompt)
 {
     resetTokenizer();
     resetModes();
     resetCharset(0);
-    _screen[0]->reset();
+    _screen[0]->reset(softReset, preservePrompt);
     resetCharset(1);
-    _screen[1]->reset();
+    _screen[1]->reset(softReset, preservePrompt);
     setCodec(LocaleCodec);
 
     bufferedUpdate();

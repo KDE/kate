@@ -594,9 +594,11 @@ void QTermWidget::setKeyBindings(const QString &kb)
 
 void QTermWidget::clear()
 {
-    m_impl->m_session->emulation()->reset();
+    m_impl->m_session->emulation()->reset(false, true);
     m_impl->m_session->refresh();
     m_impl->m_session->clearHistory();
+    m_impl->m_terminalDisplay->updateImage(); // To reset view scrollbar
+    m_impl->m_terminalDisplay->repaint();
 }
 
 void QTermWidget::setFlowControlEnabled(bool enabled)

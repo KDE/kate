@@ -570,26 +570,50 @@ QVector<LineProperty> Screen::getLineProperties(int startLine, int endLine) cons
     return result;
 }
 
-void Screen::reset(bool clearScreen)
+void Screen::reset(bool clearScreen, bool preservePrompt)
 {
+    setDefaultRendition();
+
+    if (!clearScreen) {
+        if (preservePrompt) {
+            // Clear screen, but preserve the current line and X position
+            scrollUp(0, cuY);
+            cuY = 0;
+        } else {
+            clearEntireScreen();
+            cuY = 0;
+            cuX = 0;
+        }
+
+        resetMode(MODE_Screen); // screen not inverse
+        resetMode(MODE_NewLine);
+
+        initTabStops();
+    }
+
+    currentModes[MODE_Origin] = 0;
+    savedModes[MODE_Origin] = 0;
+
     setMode(MODE_Wrap);
     saveMode(MODE_Wrap); // wrap at end of margin
-    resetMode(MODE_Origin);
-    saveMode(MODE_Origin); // position refers to [1,1]
+
     resetMode(MODE_Insert);
     saveMode(MODE_Insert); // overstroke
+
     setMode(MODE_Cursor); // cursor visible
-    resetMode(MODE_Screen); // screen not inverse
-    resetMode(MODE_NewLine);
+    // resetMode(MODE_SelectCursor);
 
     _topMargin = 0;
     _bottomMargin = lines - 1;
 
-    setDefaultRendition();
+    // Other terminal emulators reset the entire scroll history during a reset
+    //    setScroll(getScroll(), false);
+
     saveCursor();
 
-    if (clearScreen)
-        clear();
+    // DECSTR homes the saved cursor even though it doesn't home the current cursor
+    savedState.cursorColumn = 0;
+    savedState.cursorLine = 0;
 }
 
 void Screen::clear()

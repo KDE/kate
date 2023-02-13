@@ -118,13 +118,7 @@ public:
             m_copy->setEnabled(s);
         });
 
-        m_clear = KStandardAction::clear(
-            this,
-            [this] {
-                clear();
-                sendText(QStringLiteral("\n"));
-            },
-            this);
+        m_clear = KStandardAction::clear(this, &QTermWidget::clear, this);
         m_clear->setShortcut(Modifier::ACCEL | Qt::Key_K);
         addAction(m_clear);
 

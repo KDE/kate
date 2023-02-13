@@ -225,7 +225,7 @@ public:
     virtual void clearEntireScreen() = 0;
 
     /** Resets the state of the terminal. */
-    virtual void reset() = 0;
+    virtual void reset(bool softReset = false, bool preservePrompt = false) = 0;
 
     /**
      * Returns true if the active terminal program wants

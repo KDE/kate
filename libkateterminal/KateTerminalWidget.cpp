@@ -72,6 +72,7 @@ public:
         setContentsMargins({});
         setBidiEnabled(false);
         setTerminalFont(config.font);
+        setScrollBarPosition(QTermWidget::ScrollBarRight);
         if (!config.colorScheme.isEmpty()) {
             setColorScheme(config.colorScheme);
         }

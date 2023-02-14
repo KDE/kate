@@ -13,7 +13,9 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <KStandardAction>
+#include <KTextEditor/Application>
 #include <KTextEditor/Editor>
+#include <QDesktopServices>
 
 enum Modifier {
 #ifdef Q_OS_MACOS
@@ -129,6 +131,14 @@ public:
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, [this] {
             if (getTerminalFont() != KTextEditor::Editor::instance()->font()) {
                 setTerminalFont(KTextEditor::Editor::instance()->font());
+            }
+        });
+
+        connect(this, &QTermWidget::urlActivated, this, [](const QUrl &url, bool) {
+            if (url.isLocalFile()) {
+                KTextEditor::Editor::instance()->application()->openUrl(url);
+            } else {
+                QDesktopServices::openUrl(url);
             }
         });
     }

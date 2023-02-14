@@ -179,11 +179,14 @@ KateConsole::~KateConsole()
     if (m_part) {
         disconnect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);
     }
+    if (m_terminal) {
+        disconnect(m_terminal, &QObject::destroyed, this, &KateConsole::slotDestroyed);
+    }
 }
 
 void KateConsole::loadConsoleIfNeeded()
 {
-    if (m_part) {
+    if (m_part || m_terminal) {
         return;
     }
 
@@ -194,37 +197,49 @@ void KateConsole::loadConsoleIfNeeded()
         return;
     }
 
-    /**
-     * get konsole part factory
-     */
-    KPluginFactory *factory = KPluginFactory::loadFactory(QStringLiteral("konsolepart")).plugin;
-    if (!factory) {
-        return;
+    if (hasKonsole() && !forceOwnTerm()) {
+        /**
+         * get konsole part factory
+         */
+        KPluginFactory *factory = KPluginFactory::loadFactory(QStringLiteral("konsolepart")).plugin;
+        if (!factory) {
+            return;
+        }
+
+        m_part = factory->create<KParts::ReadOnlyPart>(this);
+
+        if (!m_part) {
+            return;
+        }
+
+        if (auto konsoleTabWidget = qobject_cast<QTabWidget *>(m_part->widget())) {
+            konsoleTabWidget->setTabBarAutoHide(true);
+            konsoleTabWidget->installEventFilter(this);
+        }
+        layout()->addWidget(m_part->widget());
+
+        // start the terminal
+        qobject_cast<TerminalInterface *>(m_part)->showShellInDir(QString());
+
+        //   KGlobal::locale()->insertCatalog("konsole"); // FIXME KF5: insert catalog
+
+        setFocusProxy(m_part->widget());
+
+        connect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);
+        // clang-format off
+        connect(m_part, SIGNAL(overrideShortcut(QKeyEvent*,bool&)), this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
+        // clang-format on
+    } else {
+        m_terminal = new KateTerminalWidget(this);
+        layout()->addWidget(m_terminal);
+        setFocusProxy(m_terminal);
+        m_terminal->showShellInDir(QString());
+        m_terminal->installEventFilter(this);
+
+        connect(m_terminal, &QObject::destroyed, this, &KateConsole::slotDestroyed);
+        connect(m_terminal, &KateTerminalWidget::overrideShortcutCheck, this, &KateConsole::overrideShortcut);
     }
 
-    m_part = factory->create<KParts::ReadOnlyPart>(this);
-
-    if (!m_part) {
-        return;
-    }
-
-    if (auto konsoleTabWidget = qobject_cast<QTabWidget *>(m_part->widget())) {
-        konsoleTabWidget->setTabBarAutoHide(true);
-        konsoleTabWidget->installEventFilter(this);
-    }
-    layout()->addWidget(m_part->widget());
-
-    // start the terminal
-    qobject_cast<TerminalInterface *>(m_part)->showShellInDir(QString());
-
-    //   KGlobal::locale()->insertCatalog("konsole"); // FIXME KF5: insert catalog
-
-    setFocusProxy(m_part->widget());
-
-    connect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);
-    // clang-format off
-    connect(m_part, SIGNAL(overrideShortcut(QKeyEvent*,bool&)), this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
-    // clang-format on
     slotSync();
 }
 
@@ -235,7 +250,7 @@ static bool isCtrlShiftT(QKeyEvent *ke)
 
 bool KateConsole::eventFilter(QObject *w, QEvent *e)
 {
-    if (!m_part) {
+    if (!m_part && !m_terminal) {
         return QWidget::eventFilter(w, e);
     }
 
@@ -243,7 +258,13 @@ bool KateConsole::eventFilter(QObject *w, QEvent *e)
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
         if (isCtrlShiftT(keyEvent)) {
             e->accept();
-            QMetaObject::invokeMethod(m_part, "newTab");
+            if (m_part) {
+                QMetaObject::invokeMethod(m_part, "newTab");
+            } else if (m_terminal) {
+                const auto profile = QString{};
+                const auto workingDir = m_terminal->currentWorkingDirectory();
+                m_terminal->createSession({}, workingDir);
+            }
             return true;
         }
     }
@@ -273,7 +294,7 @@ void KateConsole::overrideShortcut(QKeyEvent *, bool &override)
 
 void KateConsole::showEvent(QShowEvent *)
 {
-    if (m_part) {
+    if (m_part || m_terminal) {
         return;
     }
 
@@ -286,26 +307,31 @@ void KateConsole::cd(const QString &path)
         return;
     }
 
-    if (!m_part) {
+    if (!m_part && !m_terminal) {
         return;
     }
 
     m_currentPath = path;
     QString command = QLatin1String(" cd ") + KShell::quoteArg(m_currentPath) + QLatin1Char('\n');
 
-    // special handling for some interpreters
-    TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part);
-    if (t) {
-        // ghci doesn't allow \space dir names, does allow spaces in dir names
-        // irb can take spaces or \space but doesn't allow " 'path' "
-        if (t->foregroundProcessName() == QLatin1String("irb")) {
-            command = QLatin1String("Dir.chdir(\"") + path + QLatin1String("\") \n");
-        } else if (t->foregroundProcessName() == QLatin1String("ghc")) {
-            command = QLatin1String(":cd ") + path + QLatin1Char('\n');
-        } else if (!t->foregroundProcessName().isEmpty()) {
-            // If something is running, dont try to cd anywhere
-            return;
+    if (m_part) {
+        // special handling for some interpreters
+        TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part);
+        if (t) {
+            // ghci doesn't allow \space dir names, does allow spaces in dir names
+            // irb can take spaces or \space but doesn't allow " 'path' "
+            if (t->foregroundProcessName() == QLatin1String("irb")) {
+                command = QLatin1String("Dir.chdir(\"") + path + QLatin1String("\") \n");
+            } else if (t->foregroundProcessName() == QLatin1String("ghc")) {
+                command = QLatin1String(":cd ") + path + QLatin1Char('\n');
+            } else if (!t->foregroundProcessName().isEmpty()) {
+                // If something is running, dont try to cd anywhere
+                return;
+            }
         }
+    } else {
+        // m_terminal
+        // Our own termnial doesn't support foregroundProcessName
     }
 
     // Send prior Ctrl-E, Ctrl-U to ensure the line is empty
@@ -317,17 +343,25 @@ void KateConsole::sendInput(const QString &text)
 {
     loadConsoleIfNeeded();
 
-    if (!m_part) {
+    if (!m_part && !m_terminal) {
         return;
     }
 
-    TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part);
-
-    if (!t) {
-        return;
+    if (m_part) {
+        if (TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part)) {
+            t->sendInput(text);
+        }
+    } else if (m_terminal) {
+        m_terminal->sendInput(text);
     }
+}
 
-    t->sendInput(text);
+KPluginFactory *KateConsole::pluginFactory()
+{
+    if (s_pluginFactory) {
+        return s_pluginFactory;
+    }
+    return s_pluginFactory = KPluginFactory::loadFactory(QStringLiteral("konsolepart")).plugin;
 }
 
 void KateConsole::slotPipeToConsole()
@@ -384,8 +418,15 @@ void KateConsole::slotManualSync()
 {
     m_currentPath.clear();
     slotSync();
-    if (!m_part || !m_part->widget()->isVisible()) {
-        m_mw->showToolView(parentWidget());
+
+    if (hasKonsole() && !forceOwnTerm()) {
+        if (!m_part || !m_part->widget()->isVisible()) {
+            m_mw->showToolView(parentWidget());
+        }
+    } else {
+        if (!m_terminal || !m_terminal->isVisible()) {
+            m_mw->showToolView(parentWidget());
+        }
     }
 }
 
@@ -453,7 +494,7 @@ void KateConsole::slotRun()
 void KateConsole::slotToggleVisibility()
 {
     QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_visibility"));
-    if (!m_part || !m_part->widget()->isVisible()) {
+    if ((!m_part || !m_part->widget()->isVisible()) && (!m_terminal || !m_terminal->isVisible())) {
         m_mw->showToolView(parentWidget());
         action->setText(i18nc("@action", "&Hide Terminal Panel"));
     } else {
@@ -474,7 +515,7 @@ void KateConsole::focusChanged(QWidget *, QWidget *now)
 
 void KateConsole::slotToggleFocus()
 {
-    if (!m_part) {
+    if (!m_part && !m_terminal) {
         m_mw->showToolView(parentWidget());
         return; // this shows and focuses the konsole
     }
@@ -523,9 +564,14 @@ void KateConsole::handleEsc(QEvent *e)
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
-        const auto app = qobject_cast<TerminalInterface *>(m_part)->foregroundProcessName();
-        if (m_toolView && m_toolView->isVisible() && !exceptList.contains(app)) {
+        // our own term doesn't know about fg process
+        if (m_terminal && m_terminal->isVisible()) {
             m_mw->hideToolView(m_toolView);
+        } else {
+            const auto app = qobject_cast<TerminalInterface *>(m_part)->foregroundProcessName();
+            if (m_toolView && m_toolView->isVisible() && !exceptList.contains(app)) {
+                m_mw->hideToolView(m_toolView);
+            }
         }
     }
 }

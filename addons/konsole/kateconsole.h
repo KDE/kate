@@ -13,6 +13,8 @@
 #include <ktexteditor/configpage.h>
 #include <ktexteditor/mainwindow.h>
 
+#include "KateTerminalWidget.h"
+
 #include <QKeyEvent>
 #include <QList>
 
@@ -27,6 +29,7 @@ class ReadOnlyPart;
 
 class KateConsole;
 class KateKonsolePluginView;
+class KPluginFactory;
 
 class KateKonsolePlugin : public KTextEditor::Plugin
 {
@@ -123,6 +126,21 @@ public:
 
     bool eventFilter(QObject *w, QEvent *e) override;
 
+    static KPluginFactory *pluginFactory();
+
+    bool hasKonsole() const
+    {
+        return pluginFactory() != nullptr;
+    }
+
+    bool forceOwnTerm() const
+    {
+#ifdef Q_OS_WIN
+        return true;
+#endif
+        return false; // Change to use on linux
+    }
+
 public Q_SLOTS:
     /**
      * pipe current document to console
@@ -195,9 +213,20 @@ protected:
 
 private:
     /**
+     * plugin factory for the terminal
+     */
+    static inline KPluginFactory *s_pluginFactory = nullptr;
+
+    /**
      * console part
      */
     KParts::ReadOnlyPart *m_part;
+
+    /**
+     * Our own terminal widget that is used on windows
+     * or when Konsole is not found
+     */
+    KateTerminalWidget *m_terminal = nullptr;
 
     /**
      * main window of this console

@@ -164,10 +164,8 @@ bool KeyboardTranslatorManager::saveTranslator(const KeyboardTranslator *transla
 KeyboardTranslator *KeyboardTranslatorManager::loadTranslator(const QString &name)
 {
     const QString &path = findTranslatorPath(name);
-    qDebug() << "load trans" << name << path;
 
     QFile source(path);
-    qDebug() << source.exists();
     if (name.isEmpty() || !source.open(QIODevice::ReadOnly | QIODevice::Text))
         return nullptr;
 

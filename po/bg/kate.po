@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-10 01:01+0000\n"
-"PO-Revision-Date: 2023-02-03 15:22+0100\n"
+"PO-Revision-Date: 2023-02-13 12:13+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -514,6 +514,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> не е намерен. Git е необходим за различаване на документите. Ако "
+"git вече е инсталиран, уверете се, че е в променливата PATH. Вижте https://"
+"git-scm.com/Изтегляния"
 
 #: lib/diff/diffwidget.cpp:509 lib/diff/diffwidget.cpp:1097
 #: lib/kateconfigdialog.cpp:549

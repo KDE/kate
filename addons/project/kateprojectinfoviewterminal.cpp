@@ -276,7 +276,9 @@ void KateProjectInfoViewTerminal::runCommand(const QString &workingDir, const QS
         if (!m_termWidget) {
             loadTerminal();
         }
+#ifndef Q_OS_WIN // Doesnt work with PS or cmd.exe
         m_termWidget->sendInput(QStringLiteral("\x05\x15"));
+#endif
         const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
         m_termWidget->sendInput(changeDirCmd);
         m_termWidget->sendInput(cmd.trimmed() + QStringLiteral("\n"));

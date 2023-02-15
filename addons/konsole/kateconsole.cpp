@@ -334,8 +334,10 @@ void KateConsole::cd(const QString &path)
         // Our own termnial doesn't support foregroundProcessName
     }
 
+#ifndef Q_OS_WIN // Doesnt work with PS or cmd.exe on windows
     // Send prior Ctrl-E, Ctrl-U to ensure the line is empty
     sendInput(QStringLiteral("\x05\x15"));
+#endif
     sendInput(command);
 }
 

@@ -1314,6 +1314,35 @@
 <term
 ><cmdsynopsis
 ><command
+>alignon</command
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Dieser Befehl richtet Zeilen in der Textauswahl oder dem gesamten Dokument an einer Spalte aus, welche durch einen regulären Ausdruck als Argument angegeben wird.</para>
+<para
+>Wenn Sie ein leeres Muster angeben, wird standardmäßig am ersten nicht-leeren Zeichen ausgerichtet.</para>
+<para
+>Wenn das Muster einen Treffer hat, wird an dessen Übereinstimmung ausgerichtet.</para>
+<para
+><emphasis
+>Beispiele:</emphasis
+></para>
+<para
+><userinput
+>alignon -</userinput
+> fügt Leerzeichen vor dem ersten „-“ in jeder Zeile ein, um diese an derselben Spalte auszurichten.</para>
+<para
+><userinput
+>alignon :\\s+(.)</userinput
+> fügt Leerzeichen vor dem ersten nicht leeren Zeichen ein, das auf einen Doppelpunkt folgt, um die Zeilen an dessen Spalte auszurichten.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
 >unwrap</command
 ></cmdsynopsis
 ></term>

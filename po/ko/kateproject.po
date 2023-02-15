@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-07 01:02+0000\n"
+"POT-Creation-Date: 2023-02-15 01:02+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -517,7 +517,7 @@ msgstr "추적하지 않는 변경 사항을 삭제하시겠습니까?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "'%1'의 잘못된 JSON 파일: %2"
 
-#: kateproject.cpp:528
+#: kateproject.cpp:529
 #, kde-format
 msgid "<untracked>"
 msgstr "<추적 안 됨>"

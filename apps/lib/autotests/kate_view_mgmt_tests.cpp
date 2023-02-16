@@ -454,3 +454,30 @@ void KateViewManagementTests::testTabBarHidesShows()
     QVERIFY(vs->m_tabBar->isHidden());
     QVERIFY(secondVS->m_tabBar->isHidden());
 }
+
+void KateViewManagementTests::testNewWindowHasSameGlobalOptions()
+{
+    /**
+     * - One mainwindow open with tabbar visible
+     * - User hides tabbar
+     * - Then creates a new window
+     * => TEST: new window should have the tabbar hidden
+     */
+    app->sessionManager()->sessionNew();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    mw->openUrl(QUrl());
+    mw->openUrl(QUrl());
+    QAction *act = mw->action("settings_show_tab_bar");
+    QVERIFY(act && act->isCheckable());
+    const bool state = act->isChecked();
+    qDebug() << "v" << mw->viewManager()->activeViewSpace()->m_tabBar->isVisible() << act->isChecked();
+    act->setChecked(!state);
+    QVERIFY(mw->viewManager()->activeViewSpace()->m_tabBar->isVisible() == act->isChecked());
+    qDebug() << "v" << mw->viewManager()->activeViewSpace()->m_tabBar->isVisible() << act->isChecked();
+
+    // create new window
+    std::unique_ptr<KateMainWindow> w2(app->newMainWindow(KateApp::self()->sessionManager()->activeSession()->config()));
+    w2->openUrl(QUrl());
+    w2->openUrl(QUrl());
+    QCOMPARE(w2->viewManager()->activeViewSpace()->m_tabBar->isVisible(), mw->viewManager()->activeViewSpace()->m_tabBar->isVisible());
+}

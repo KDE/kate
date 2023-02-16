@@ -733,6 +733,10 @@ void KateMainWindow::readOptions()
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
     m_paShowUrlNavBar->setChecked(generalGroup.readEntry("Show Url Nav Bar", KateApp::isKate()));
 
+    for (auto a : {m_paShowMenuBar, m_paShowTabBar, m_paShowPath, m_paShowUrlNavBar, m_paShowStatusBar}) {
+        connect(a, &QAction::toggled, this, &KateMainWindow::saveOptions);
+    }
+
     m_mouseButtonBackAction = (MouseBackButtonAction)generalGroup.readEntry("Mouse back button action", 0);
     m_mouseButtonForwardAction = (MouseForwardButtonAction)generalGroup.readEntry("Mouse forward button action", 0);
 

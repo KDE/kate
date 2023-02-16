@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-10 01:01+0000\n"
-"PO-Revision-Date: 2023-02-07 11:01\n"
+"PO-Revision-Date: 2023-02-15 11:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -494,7 +494,7 @@ msgstr "跳转到上一个块"
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr ""
+msgstr "重新加载差异"
 
 #: lib/diff/diffwidget.cpp:506
 #, kde-format
@@ -503,6 +503,8 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> 无法找到。检测文档差异需要使用 Git。如果 git 已经安装到本机，请确"
+"保它已添加到您的 PATH 变量。详情请见 https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:509 lib/diff/diffwidget.cpp:1097
 #: lib/kateconfigdialog.cpp:549
@@ -523,7 +525,7 @@ msgstr "已删除文件 %1"
 #: lib/diff/diffwidget.cpp:1080 lib/diff/diffwidget.cpp:1081
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "未发现差异"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -540,13 +542,13 @@ msgstr "无法获取文件历史：%1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "复制提交哈希值"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "显示完整提交"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format
@@ -2523,13 +2525,13 @@ msgstr "有未保存的变更的文件"
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr "如果禁用，为新窗口显示无标题文档。"
+msgstr "如果禁用此项，新窗口将显示一个无标题文档。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
 #, kde-format
 msgid "Show welcome view for new windows"
-msgstr "为新窗口显示欢迎界面"
+msgstr "新窗口显示欢迎界面"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2729,4 +2731,4 @@ msgstr "管理会话..."
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
-msgstr "为新窗口显示该界面"
+msgstr "新窗口显示此欢迎画面"

@@ -7,6 +7,7 @@
 #include "kateexternaltoolsview.h"
 #include "externaltoolsplugin.h"
 #include "kateexternaltool.h"
+#include "ktexteditor_utils.h"
 #include "ui_toolview.h"
 
 #include <KTextEditor/Application>
@@ -68,7 +69,8 @@ void KateExternalToolsMenuAction::reload()
 
     // first add categorized actions, such that the submenus appear at the top
     for (auto tool : m_plugin->tools()) {
-        if (tool->hasexec) {
+        // !tool->hasexec => tool exe has an expandable variable and thus cannot be checked reliably, consider it true
+        if (tool->canExecute()) {
             auto a = new QAction(tool->translatedName().replace(QLatin1Char('&'), QLatin1String("&&")), this);
             a->setIcon(QIcon::fromTheme(tool->icon));
             a->setData(QVariant::fromValue(tool));

@@ -151,7 +151,7 @@ void KateExternalTool::load(const KConfigGroup &cg)
     outputMode = toOutputMode(cg.readEntry("output", "Ignore"));
     trigger = toTrigger(cg.readEntry("trigger", "None"));
 
-    hasexec = checkExec();
+    hasexec = executable.contains(QLatin1Char('$')) ? std::nullopt : std::optional<bool>(checkExec());
 }
 
 template<class Value>

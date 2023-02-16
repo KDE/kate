@@ -11,6 +11,8 @@
 #include <QStringList>
 #include <QUrl>
 
+#include <optional>
+
 class KConfigGroup;
 
 /**
@@ -87,7 +89,18 @@ public:
 
 public:
     /// This is set when loading the Tool from disk.
-    bool hasexec = false;
+    /// If the tool has an expandable variable, this will nullopt
+    std::optional<bool> hasexec = false;
+
+    /**
+     * @return true if the executable has a valid executable.
+     * Will also return true, if the execuable contains an
+     * expandable variable
+     */
+    bool canExecute() const
+    {
+        return !hasexec || (hasexec.has_value() && hasexec.value() == true);
+    }
 
     /**
      * @return true if the @p mimetype matches.

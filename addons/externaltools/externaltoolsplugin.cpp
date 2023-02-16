@@ -128,7 +128,7 @@ void KateExternalToolsPlugin::clearTools()
 void KateExternalToolsPlugin::addNewTool(KateExternalTool *tool)
 {
     m_tools.push_back(tool);
-    if (tool->hasexec && !tool->cmdname.isEmpty()) {
+    if (tool->canExecute() && !tool->cmdname.isEmpty()) {
         m_commands.push_back(tool->cmdname);
     }
     if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
@@ -206,7 +206,7 @@ void KateExternalToolsPlugin::reload()
 
     // FIXME test for a command name first!
     for (auto *tool : qAsConst(m_tools)) {
-        if (tool->hasexec && (!tool->cmdname.isEmpty())) {
+        if (tool->canExecute() && !tool->cmdname.isEmpty()) {
             m_commands.push_back(tool->cmdname);
         }
     }
@@ -281,6 +281,16 @@ KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &t
     editor->expandText(copy->workingDir, view, copy->workingDir);
     editor->expandText(copy->input, view, copy->input);
 
+    if (!copy->checkExec()) {
+        Utils::showMessage(
+            i18n("Failed to find executable '%1'. Please make sure the executable file exists and that variable names, if used, are correct", tool.executable),
+            QIcon::fromTheme(QStringLiteral("system-run")),
+            i18n("External Tools"),
+            MessageType::Error,
+            pluginView->mainWindow());
+        return nullptr;
+    }
+
     const QString messageText = copy->input.isEmpty() ? i18n("Running %1: %2 %3", copy->name, copy->executable, copy->arguments)
                                                       : i18n("Running %1: %2 %3 with input %4", copy->name, copy->executable, copy->arguments, tool.input);
 
@@ -295,6 +305,9 @@ KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &t
 void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger)
 {
     auto runner = runnerForTool(tool, view, executingSaveTrigger);
+    if (!runner) {
+        return;
+    }
     // use QueuedConnection, since handleToolFinished deletes the runner
     connect(runner, &KateToolRunner::toolFinished, this, &KateExternalToolsPlugin::handleToolFinished, Qt::QueuedConnection);
     runner->run();
@@ -303,6 +316,9 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor:
 void KateExternalToolsPlugin::blockingRunTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger)
 {
     auto runner = runnerForTool(tool, view, executingSaveTrigger);
+    if (!runner) {
+        return;
+    }
     connect(runner, &KateToolRunner::toolFinished, this, &KateExternalToolsPlugin::handleToolFinished);
     runner->run();
     runner->waitForFinished();

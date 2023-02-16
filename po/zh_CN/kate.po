@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2023-02-07 11:06\n"
+"PO-Revision-Date: 2023-02-15 11:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -2326,13 +2326,13 @@ msgstr "有未保存的变更的文件"
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr "如果禁用，为新窗口显示无标题文档。"
+msgstr "如果禁用此项，新窗口将显示一个无标题文档。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
 #, kde-format
 msgid "Show welcome view for new windows"
-msgstr "为新窗口显示欢迎界面"
+msgstr "新窗口显示欢迎界面"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2532,4 +2532,4 @@ msgstr "管理会话..."
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
-msgstr "为新窗口显示该界面"
+msgstr "新窗口显示此欢迎画面"

@@ -63,12 +63,10 @@ void KatePluginManager::setupPluginList()
         {QStringLiteral("tabswitcherplugin"), -100},
         {QStringLiteral("textfilterplugin"), -100},
         {QStringLiteral("externaltoolsplugin"), -100},
-        {QStringLiteral("lspclientplugin"), -100}
+        {QStringLiteral("lspclientplugin"), -100},
+        {QStringLiteral("katekonsoleplugin"), -100},
 #ifndef WIN32
-        ,
         {QStringLiteral("katefilebrowserplugin"), -100} // currently works badly on Windows
-        ,
-        {QStringLiteral("katekonsoleplugin"), -100} // currently does not work on Windows at all
 #endif
     };
 

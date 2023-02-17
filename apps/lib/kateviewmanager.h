@@ -216,8 +216,10 @@ public Q_SLOTS:
     /**
      * activate view for given document
      * @param doc document to activate view for
+     * @param vs the target viewspace in which the doc should be activated. If it is
+     * null, activeViewSpace will be used instead
      */
-    KTextEditor::View *activateView(DocOrWidget docOrWidget);
+    KTextEditor::View *activateView(DocOrWidget docOrWidget, KateViewSpace *vs = nullptr);
 
     /** Splits the active viewspace horizontally */
     void slotSplitViewSpaceHoriz()

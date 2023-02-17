@@ -23,6 +23,16 @@ static bool viewspaceContainsView(KateViewSpace *vs, KTextEditor::View *v)
     return vs->hasDocument(v->document());
 }
 
+static int tabIdxForDoc(QTabBar *t, KTextEditor::Document *d)
+{
+    Q_ASSERT(t);
+    for (int i = 0; i < t->count(); ++i) {
+        if (t->tabData(i).value<DocOrWidget>().doc() == d)
+            return i;
+    }
+    return -1;
+}
+
 KateViewManagementTests::KateViewManagementTests(QObject *)
 {
     // ensure ui file can be found and the translation domain is set to avoid warnings
@@ -524,4 +534,48 @@ void KateViewManagementTests::testBug465807()
 
     QCOMPARE(vm->activeViewSpace(), vs1);
     QCOMPARE(vm->activeView(), v2);
+}
+
+void KateViewManagementTests::testBug465808()
+{
+    app->sessionManager()->sessionNew();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    auto v1 = vm->createView(nullptr);
+    auto v2 = vm->createView(nullptr);
+
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+
+    auto vs1 = *vm->m_viewSpaceList.begin();
+    auto vs2 = *(vm->m_viewSpaceList.begin() + 1);
+
+    // on creation there is already a view copied from first viewspace
+    QCOMPARE(vs1->m_docToView.size(), 2);
+    QCOMPARE(vs2->m_docToView.size(), 1);
+    QCOMPARE(vs2->m_docToView.begin()->second->document(), v2->document());
+
+    // Switch back to v1
+    vm->setActiveSpace(vs1);
+    vm->activateView(v1);
+
+    // Switch to second viewspace and create a view there
+    vm->setActiveSpace(vs2);
+    auto v3 = vm->createView();
+    QCOMPARE(vs2->currentView(), v3);
+
+    // Now vs1 has v1 active and vs2 has v3 active,
+    // v2 with same doc exists in both viewspaces
+
+    // switch to first viewspace
+    vm->setActiveSpace(vs1);
+    QCOMPARE(vs1->currentView(), v1);
+
+    // while vs1 is active, close v3 of vs2
+    int idx = tabIdxForDoc(vs2->m_tabBar, v3->document());
+    QVERIFY(idx != -1);
+    vs2->closeTabRequest(idx);
+
+    // Closing the tab should not change the view in vs1
+    QCOMPARE(vs1->currentView(), v1);
 }

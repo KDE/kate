@@ -357,6 +357,7 @@ void KateViewManagementTests::testBug460613()
     auto vs1 = *vm->m_viewSpaceList.begin();
     auto vs2 = *(vm->m_viewSpaceList.begin() + 1);
 
+    vm->setActiveSpace(vs1);
     vs1->createNewDocument();
     QCOMPARE(vm->activeView(), vs1->currentView());
 
@@ -480,4 +481,45 @@ void KateViewManagementTests::testNewWindowHasSameGlobalOptions()
     w2->openUrl(QUrl());
     w2->openUrl(QUrl());
     QCOMPARE(w2->viewManager()->activeViewSpace()->m_tabBar->isVisible(), mw->viewManager()->activeViewSpace()->m_tabBar->isVisible());
+}
+
+void KateViewManagementTests::testBug465811()
+{
+    app->sessionManager()->sessionNew();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    auto v1 = vm->createView(nullptr);
+    auto v2 = vm->createView(nullptr);
+
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+
+    auto vs1 = *vm->m_viewSpaceList.begin();
+    auto vs2 = *(vm->m_viewSpaceList.begin() + 1);
+
+    // on creation there is already a view copied from first viewspace
+    QCOMPARE(vs1->m_docToView.size(), 2);
+    QCOMPARE(vs2->m_docToView.size(), 1);
+    QCOMPARE(vs2->m_docToView.begin()->second->document(), v2->document());
+
+    // Add an unactivated doc to the second viewspace meaning
+    // there is a doc but no view for it yet
+    KTextEditor::Document *doc = v1->document();
+    QVERIFY(doc != v2->document());
+    vs2->registerDocument(doc);
+
+    // Activate first viewspace
+    vm->setActiveSpace(vs1);
+
+    // Precondition checks
+    QCOMPARE(vm->activeViewSpace(), vs1);
+    QCOMPARE(vs1->m_docToView.size(), 2);
+    QCOMPARE(vs2->m_docToView.size(), 1); // 1 view
+    QCOMPARE(vs2->m_registeredDocuments.size(), 2); // 2 docs available
+
+    // Close the active tab of second viewspace(which is inactive)
+    vs2->closeTabRequest(0);
+    // The second document's view should be created, instead of it being created in the
+    // active viewspace
+    QCOMPARE(vs2->m_docToView.size(), 1);
 }

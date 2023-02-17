@@ -220,7 +220,7 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
     if (button && !isActiveSpace() && event->type() == QEvent::MouseButtonPress) {
         m_viewManager->setActiveSpace(this);
         if (currentView()) {
-            m_viewManager->activateView(currentView()->document());
+            m_viewManager->activateView(currentView()->document(), this);
         }
     }
     return false;
@@ -371,7 +371,7 @@ void KateViewSpace::removeView(KTextEditor::View *v)
     // (last element could well be v->document() being removed here)
     for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {
         if (auto doc = rit->doc()) {
-            m_viewManager->activateView(doc);
+            m_viewManager->activateView(doc, this);
             break;
         } else if (auto wid = rit->widget()) {
             activateWidget(wid);
@@ -459,7 +459,7 @@ void KateViewSpace::changeView(int idx)
     const auto docOrWidget = m_tabBar->tabDocument(idx);
 
     // tell the view manager to show the view
-    m_viewManager->activateView(docOrWidget);
+    m_viewManager->activateView(docOrWidget, this);
 }
 
 KTextEditor::View *KateViewSpace::currentView()
@@ -484,7 +484,7 @@ void KateViewSpace::makeActive(bool focusCurrentView)
     if (!isActiveSpace()) {
         m_viewManager->setActiveSpace(this);
         if (focusCurrentView && currentView()) {
-            m_viewManager->activateView(currentView()->document());
+            m_viewManager->activateView(currentView()->document(), this);
         }
     }
     Q_ASSERT(isActiveSpace());
@@ -609,7 +609,7 @@ void KateViewSpace::dropEvent(QDropEvent *e)
     auto droppedData = TabMimeData::data(e->mimeData());
     if (droppedData.has_value()) {
         auto doc = KateApp::self()->documentManager()->openUrl(droppedData.value().url);
-        auto view = m_viewManager->activateView(doc);
+        auto view = m_viewManager->activateView(doc, this);
         if (view) {
             view->setCursorPosition({droppedData.value().line, droppedData.value().col});
             m_dropIndicator.reset();
@@ -768,7 +768,7 @@ void KateViewSpace::removeWidget(QWidget *w)
             // switch to most recently used doc
             for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {
                 if (auto doc = rit->doc()) {
-                    m_viewManager->activateView(doc);
+                    m_viewManager->activateView(doc, this);
                     break;
                 } else if (auto wid = rit->widget()) {
                     activateWidget(wid);
@@ -795,7 +795,7 @@ void KateViewSpace::createNewDocument()
     KTextEditor::Document *doc = KateApp::self()->documentManager()->createDoc();
 
     // tell the view manager to show the document
-    m_viewManager->activateView(doc);
+    m_viewManager->activateView(doc, this);
 }
 
 void KateViewSpace::focusPrevTab()

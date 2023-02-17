@@ -846,11 +846,15 @@ void KateViewManager::activateView(KTextEditor::View *view)
 KTextEditor::View *KateViewManager::activateView(DocOrWidget docOrWidget, KateViewSpace *vs)
 {
     // activate existing view if possible
-    auto activeSpace = vs ? vs : activeViewSpace();
-    if (activeSpace->showView(docOrWidget)) {
-        // This will be null if currentView is not a KTE::View
-        activateView(activeSpace->currentView());
-        return activeView();
+    auto viewspace = vs ? vs : activeViewSpace();
+    if (viewspace->showView(docOrWidget)) {
+        // Only activateView if viewspace is active
+        if (viewspace == activeViewSpace()) {
+            // This will be null if currentView is not a KTE::View
+            activateView(viewspace->currentView());
+            return activeView();
+        }
+        return viewspace->currentView();
     }
 
     // create new view otherwise

@@ -52,6 +52,15 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     }
 #endif
 
+    /**
+     * enable dark mode for title bar on Windows
+     */
+#if defined(Q_OS_WIN)
+    if (!qEnvironmentVariableIsSet("QT_QPA_PLATFORM")) {
+        qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
+    }
+#endif
+
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     /**
      * enable high dpi support

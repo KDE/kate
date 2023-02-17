@@ -57,6 +57,11 @@
             "url": "https://github.com/hansec/fortran-language-server",
             "highlightingModeRegex": "^Fortran.*$"
         },
+        "fsharp": {
+            "command": ["fsautocomplete", "--adaptive-lsp-server-enabled"],
+            "url": "https://github.com/fsharp/FsAutoComplete",
+            "highlightingModeRegex": "^FSharp$"
+        },
         "go": {
             "command": ["gopls"],
             "commandDebug": ["gopls", "serve", "-rpc.trace"],

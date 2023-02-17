@@ -506,11 +506,9 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
     if (!projectPluginView) {
         // try to find and enable the Projects plugin
         KatePluginList &pluginList = KateApp::self()->pluginManager()->pluginList();
-        KatePluginList::iterator i = std::find_if(pluginList.begin(),
-                                                  pluginList.end(),
-                                                  [](const KatePluginInfo &pluginInfo) {
-                                                      return pluginInfo.metaData.pluginId() == projectPluginId;
-                                                  });
+        KatePluginList::iterator i = std::find_if(pluginList.begin(), pluginList.end(), [](const KatePluginInfo &pluginInfo) {
+            return pluginInfo.metaData.pluginId() == projectPluginId;
+        });
 
         QString text;
         if (i == pluginList.end()) {
@@ -520,8 +518,7 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
         }
 
         KatePluginInfo &projectPluginInfo = *i;
-        text = i18n("In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?",
-                    projectPluginInfo.metaData.name());
+        text = i18n("In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?", projectPluginInfo.metaData.name());
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         if (KMessageBox::questionTwoActions(
 #else
@@ -557,10 +554,11 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
 KTextEditor::View *KateViewManager::openViewForDoc(KTextEditor::Document *doc)
 {
     // forward to currently active view space
-    activeViewSpace()->registerDocument(doc);
+    auto viewspace = activeViewSpace();
+    viewspace->registerDocument(doc);
     connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
 
-    return activateView(doc);
+    return activateView(doc, viewspace);
 }
 
 void KateViewManager::addPositionToHistory(const QUrl &url, KTextEditor::Cursor pos)
@@ -601,9 +599,15 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
      * ensure we don't end up with empty tabs in some view spaces
      * we did block view creation, re-trigger it
      */
+    auto viewspace = activeViewSpace();
     for (auto vs : m_viewSpaceList) {
-        vs->ensureViewForCurrentTab();
+        if (vs != viewspace) {
+            vs->ensureViewForCurrentTab();
+        }
     }
+    setActiveSpace(viewspace);
+    // Do it last for active view space so it remains active
+    activeViewSpace()->ensureViewForCurrentTab();
 
     /**
      * reactivate will ensure we really merge up the GUI again
@@ -871,19 +875,27 @@ void KateViewManager::activateView(KTextEditor::View *view)
     }
 }
 
-KTextEditor::View *KateViewManager::activateView(DocOrWidget docOrWidget)
+KTextEditor::View *KateViewManager::activateView(DocOrWidget docOrWidget, KateViewSpace *vs)
 {
     // activate existing view if possible
-    auto activeSpace = activeViewSpace();
-    if (activeSpace->showView(docOrWidget)) {
-        // This will be null if currentView is not a KTE::View
-        activateView(activeSpace->currentView());
-        return activeView();
+    auto viewspace = vs ? vs : activeViewSpace();
+    if (viewspace->showView(docOrWidget)) {
+        // Only activateView if viewspace is active
+        if (viewspace == activeViewSpace()) {
+            // This will be null if currentView is not a KTE::View
+            activateView(viewspace->currentView());
+            return activeView();
+        }
+        return viewspace->currentView();
     }
 
     // create new view otherwise
-    Q_ASSERT(docOrWidget.doc()); // TODO waqar: check
-    createView(docOrWidget.doc());
+    Q_ASSERT(docOrWidget.doc());
+    auto v = createView(docOrWidget.doc(), vs);
+    // If the requesting viewspace is the activeViewSpace, we activate the view
+    if (vs == activeViewSpace()) {
+        activateView(v);
+    }
     return activeView();
 }
 
@@ -1059,9 +1071,9 @@ void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *sr
     setActiveSpace(dest);
     auto kteView = qobject_cast<KTextEditor::View *>(view);
     if (kteView) {
-        activateView(kteView->document());
+        activateView(kteView->document(), dest);
     } else {
-        activateView(view);
+        activateView(view, dest);
     }
 }
 

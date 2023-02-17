@@ -523,3 +523,32 @@ void KateViewManagementTests::testBug465811()
     // active viewspace
     QCOMPARE(vs2->m_docToView.size(), 1);
 }
+
+void KateViewManagementTests::testBug465807()
+{
+    app->sessionManager()->sessionNew();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    auto v1 = vm->createView(nullptr);
+    auto v2 = vm->createView(nullptr);
+
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+
+    auto vs1 = *vm->m_viewSpaceList.begin();
+    auto vs2 = *(vm->m_viewSpaceList.begin() + 1);
+
+    // on creation there is already a view copied from first viewspace
+    QCOMPARE(vs1->m_docToView.size(), 2);
+    QCOMPARE(vs2->m_docToView.size(), 1);
+    QCOMPARE(vs2->m_docToView.begin()->second->document(), v2->document());
+
+    vm->setActiveSpace(vs1);
+    vm->activateView(v1);
+
+    QCOMPARE(vs1->m_tabBar->tabData(0).value<DocOrWidget>().doc(), v1->document());
+    vs1->closeTabRequest(0);
+
+    QCOMPARE(vm->activeViewSpace(), vs1);
+    QCOMPARE(vm->activeView(), v2);
+}

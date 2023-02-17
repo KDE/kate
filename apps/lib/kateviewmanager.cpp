@@ -567,9 +567,15 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
      * ensure we don't end up with empty tabs in some view spaces
      * we did block view creation, re-trigger it
      */
+    auto viewspace = activeViewSpace();
     for (auto vs : m_viewSpaceList) {
-        vs->ensureViewForCurrentTab();
+        if (vs != viewspace) {
+            vs->ensureViewForCurrentTab();
+        }
     }
+    setActiveSpace(viewspace);
+    // Do it last for active view space so it remains active
+    activeViewSpace()->ensureViewForCurrentTab();
 
     /**
      * reactivate will ensure we really merge up the GUI again

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-10 01:01+0000\n"
-"PO-Revision-Date: 2023-02-13 12:13+0100\n"
+"PO-Revision-Date: 2023-02-16 10:00+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -555,13 +555,13 @@ msgstr "Неуспешно получаване на историята на ф�
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Копиране на хеша на commit"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "Показване на целия commit"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format

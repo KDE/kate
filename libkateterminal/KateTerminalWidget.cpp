@@ -19,18 +19,21 @@
 #include <KStandardAction>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
+
+#include <KColorScheme>
+#include <QComboBox>
 #include <QDesktopServices>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QTimer>
+#include <QVBoxLayout>
 
-enum Modifier {
-#ifdef Q_OS_MACOS
-    // Use plain Command key for shortcuts
-    ACCEL = Qt::CTRL,
-#else
-    // Use Ctrl+Shift for shortcuts
-    ACCEL = Qt::CTRL | Qt::SHIFT,
-#endif
-};
-
+// BEGIN code to fetch shells on windows
 QString checkFile(const QStringList &dirList, const QString &filePath)
 {
     for (const QString &root : dirList) {
@@ -66,17 +69,174 @@ QString GetWindowGitBash()
     dirList << env.value(QStringLiteral("ProgramFiles"), QStringLiteral("C:\\Program Files"));
     return checkFile(dirList, QStringLiteral("Git\\bin\\bash.exe"));
 }
+// END
+
+class ChangeShellDialog : public QDialog
+{
+    enum { Custom = 0, Default };
+
+public:
+    ChangeShellDialog(QWidget *parent)
+        : QDialog(parent)
+    {
+        setWindowTitle(i18n("Select Shell..."));
+
+        QVBoxLayout *l = new QVBoxLayout(this);
+
+        auto label = new QLabel(i18n("Select shell:"));
+        l->addWidget(label);
+
+        QStringList shells{i18n("Default"), i18n("Custom - Choose a shell yourself by clicking 'Browse' button")};
+        shells.append(getAvailableShells());
+        m_cmb = new QComboBox(this);
+        m_cmb->addItems(shells);
+        m_cmb->setItemData(0, Default);
+        m_cmb->setItemData(1, Custom);
+        connect(m_cmb, &QComboBox::currentTextChanged, this, &ChangeShellDialog::onCurrentIndexChanged);
+        l->addWidget(m_cmb);
+
+        label = new QLabel(i18n("Shell command:"));
+        l->addWidget(label);
+
+        QHBoxLayout *hl = new QHBoxLayout();
+        l->addLayout(hl);
+        m_le = new QLineEdit;
+        m_le->setReadOnly(true);
+        m_le->setPlaceholderText(i18n("Absolute path to shell and arguments e.g., /usr/bin/bash"));
+        hl->addWidget(m_le);
+        m_browse = new QPushButton(i18n("Browse..."));
+        m_browse->setEnabled(false);
+        connect(m_browse, &QPushButton::clicked, this, &ChangeShellDialog::browseClicked);
+        hl->addWidget(m_browse);
+
+        m_errorLabel = new QLabel();
+        m_errorLabel->setVisible(false);
+        auto p = m_errorLabel->palette();
+        p.setBrush(QPalette::WindowText, KColorScheme().foreground(KColorScheme::NegativeText));
+        m_errorLabel->setPalette(p);
+        l->addWidget(m_errorLabel);
+
+        m_btnBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+        l->addStretch();
+        l->addWidget(m_btnBox);
+        connect(m_btnBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+        connect(m_btnBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+        QTimer *changeTimer = new QTimer(this);
+        changeTimer->callOnTimeout(this, &ChangeShellDialog::onLineEditTextChange);
+        changeTimer->setInterval(500);
+        changeTimer->setSingleShot(true);
+
+        connect(m_le, &QLineEdit::textChanged, changeTimer, [changeTimer] {
+            changeTimer->start();
+        });
+
+        resize(600, 200);
+    }
+
+    QString shell() const
+    {
+        return m_le->text();
+    }
+
+private:
+    static QStringList getAvailableShells()
+    {
+        QStringList shells;
+#ifdef Q_OS_UNIX
+        QFile f(QStringLiteral("/etc/shells"));
+        if (f.open(QFile::ReadOnly)) {
+            const QByteArrayList lines = f.readAll().split('\n');
+            for (const auto &line : lines) {
+                const auto trimmed = line.trimmed();
+                if (trimmed.startsWith("#") || trimmed.isEmpty()) {
+                    continue;
+                }
+                shells << QString::fromUtf8(trimmed);
+            }
+        }
+#endif
+#ifdef Q_OS_WIN
+        shells = QStringList{GetWindowPowerShell(), GetWindowGitBash(), GetWindowsShell()};
+#endif
+        return shells;
+    }
+
+    void browseClicked()
+    {
+        const QString n = QFileDialog::getOpenFileName(this, i18n("Select Shell Program"));
+        m_le->setText(n);
+    }
+
+    void onCurrentIndexChanged()
+    {
+        if (m_cmb->currentData().isValid() && m_cmb->currentData().toInt() == Default) {
+            m_le->clear();
+            m_browse->setEnabled(false);
+        } else if (m_cmb->currentData().isValid() && m_cmb->currentData().toInt() == Custom) {
+            m_browse->setEnabled(true);
+            m_le->clear();
+        } else {
+            m_browse->setEnabled(false);
+            m_le->setText(m_cmb->currentText());
+        }
+    }
+
+    void onLineEditTextChange()
+    {
+        const auto splitted = m_le->text().split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        if (splitted.isEmpty()) {
+            m_btnBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+            return;
+        }
+        const auto n = splitted.first();
+        QFileInfo fi(m_le->text());
+        if (fi.exists() && !fi.isFile()) {
+            m_btnBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+            m_errorLabel->setVisible(false);
+        } else if (!fi.exists()) {
+            m_errorLabel->setText(i18n("The specified path doesn't exist. Please recheck"));
+            m_errorLabel->setVisible(true);
+            m_btnBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+        } else if (!fi.isExecutable()) {
+            m_errorLabel->setText(i18n("The specified command '%1' doesn't seem to be an executable", n));
+            m_errorLabel->setVisible(true);
+            m_btnBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+        } else {
+            m_errorLabel->setText({});
+            m_errorLabel->setVisible(false);
+            m_btnBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+        }
+    }
+
+    QDialogButtonBox *m_btnBox;
+    QPushButton *m_browse;
+    QLabel *m_errorLabel;
+    QComboBox *m_cmb;
+    QLineEdit *m_le;
+};
+
+enum Modifier {
+#ifdef Q_OS_MACOS
+    // Use plain Command key for shortcuts
+    ACCEL = Qt::CTRL,
+#else
+    // Use Ctrl+Shift for shortcuts
+    ACCEL = Qt::CTRL | Qt::SHIFT,
+#endif
+};
 
 struct TerminalConfig {
     QFont font;
     QString colorScheme;
+    QString shell;
 };
 
 class TerminalWidget : public QTermWidget
 {
 public:
     TerminalWidget(const QString &dir, const TerminalConfig &config, QWidget *parent = nullptr)
-        : QTermWidget(parent)
+        : QTermWidget(0, parent)
     {
         setContentsMargins({});
         setBidiEnabled(false);
@@ -86,13 +246,17 @@ public:
             setColorScheme(m_colorScheme = config.colorScheme);
         }
 
+        QString shell = config.shell;
+
 #ifdef Q_OS_WIN
         {
-            auto shell = GetWindowPowerShell();
             if (shell.isEmpty()) {
-                shell = GetWindowGitBash();
+                shell = GetWindowPowerShell();
                 if (shell.isEmpty()) {
-                    shell = GetWindowsShell();
+                    shell = GetWindowGitBash();
+                    if (shell.isEmpty()) {
+                        shell = GetWindowsShell();
+                    }
                 }
             }
             if (!shell.isEmpty()) {
@@ -105,6 +269,10 @@ public:
             }
         }
 #else
+        if (!shell.isEmpty()) {
+            setShellProgram(shell);
+        }
+
         setWorkingDirectory(dir);
         startShellProgram();
 #endif
@@ -177,6 +345,10 @@ public:
         }
         m.addMenu(schemeMenu);
 
+        m.addAction(i18nc("@menu:item clicking the item shows a dialog allowing the user to change the shell program", "Change shell..."),
+                    this,
+                    &TerminalWidget::changeShell);
+
         m.exec(mapToGlobal(pos));
     }
 
@@ -186,6 +358,21 @@ public:
             KConfigGroup cg(KSharedConfig::openConfig(), "KateTerminal");
             cg.writeEntry("Colorscheme", scheme);
             setColorScheme(scheme);
+        }
+    }
+
+    void saveShell(const QString &shell)
+    {
+        KConfigGroup cg(KSharedConfig::openConfig(), "KateTerminal");
+        cg.writeEntry("ShellProgram", shell);
+    }
+
+    void changeShell()
+    {
+        ChangeShellDialog d(this);
+        int r = d.exec();
+        if (r == QDialog::Accepted) {
+            saveShell(d.shell());
         }
     }
 
@@ -203,6 +390,7 @@ static TerminalConfig getDefaultTerminalConfig(QWidget *)
     KConfigGroup cg(KSharedConfig::openConfig(), "KateTerminal");
     c.colorScheme = cg.readEntry("Colorscheme", (QStringLiteral("WhiteOnBlack")));
     c.font = KTextEditor::Editor::instance()->font();
+    c.shell = cg.readEntry("ShellProgram", QString());
     return c;
 }
 

@@ -27,6 +27,7 @@
 #include <QDBusReply>
 #include <QDir>
 #include <QInputDialog>
+#include <QTimer>
 #include <QUrl>
 
 #ifndef Q_OS_WIN
@@ -50,6 +51,8 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
     // initial creation of the session list from disk files
     updateSessionList();
 }
+
+KateSessionManager::~KateSessionManager() = default;
 
 void KateSessionManager::updateSessionList()
 {
@@ -98,6 +101,9 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
     if (activeSession() == session) {
         return true;
     }
+
+    // delete the timer
+    m_sessionSaveTimer.reset();
 
     if (!session->isAnonymous()) {
         // check if the requested session is already open in another instance
@@ -155,6 +161,9 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
     }
 
     Q_EMIT sessionChanged();
+
+    // Initialize the session save timer
+    initTimer();
     return true;
 }
 
@@ -675,6 +684,29 @@ bool KateSessionManager::isViewLessDocumentViewSpaceGroup(const QString &group)
         }
     }
     return false;
+}
+
+void KateSessionManager::initTimer()
+{
+    if (m_sessionSaveTimer) {
+        qWarning() << "Session save timer is already initalized! should not happen";
+        return;
+    }
+    m_sessionSaveTimer = std::make_unique<QTimer>();
+    m_sessionSaveTimer->setInterval(5000);
+    m_sessionSaveTimer->setSingleShot(true);
+    auto *t = m_sessionSaveTimer.get();
+    auto dm = KateApp::self()->documentManager();
+    auto startTimer = [t] {
+        if (!t->isActive()) {
+            t->start();
+        }
+    };
+    connect(dm, &KateDocManager::documentCreated, t, startTimer);
+    connect(dm, &KateDocManager::documentDeleted, t, startTimer);
+    m_sessionSaveTimer->callOnTimeout(this, [this] {
+        saveActiveSession(true);
+    });
 }
 
 // END KateSessionManager

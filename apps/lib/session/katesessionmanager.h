@@ -22,6 +22,7 @@ class KATE_PRIVATE_EXPORT KateSessionManager : public QObject
 
 public:
     KateSessionManager(QObject *parent, const QString &sessionsDir);
+    ~KateSessionManager() override;
 
     /**
      * allow access to the session list
@@ -228,6 +229,8 @@ private:
      */
     static bool isViewLessDocumentViewSpaceGroup(const QString &group);
 
+    void initTimer();
+
 private:
     /**
      * absolute path to dir in home dir where to store the sessions
@@ -249,4 +252,6 @@ private:
      * allows to monitor outside changes
      */
     QFileSystemWatcher m_dirWatch;
+
+    std::unique_ptr<class QTimer> m_sessionSaveTimer;
 };

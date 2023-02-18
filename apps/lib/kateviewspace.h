@@ -114,6 +114,11 @@ public:
      */
     bool hasDocument(DocOrWidget doc) const;
 
+    bool hasViewForDocument(KTextEditor::Document *doc) const
+    {
+        return m_docToView.find(doc) != m_docToView.end();
+    }
+
     /**
      * Removes @p doc from this space and returns the associated
      * view or a widget

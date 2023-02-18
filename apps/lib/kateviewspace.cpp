@@ -327,6 +327,21 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
         }
     }
 
+    {
+        // If this doc already has a view then the cursor position
+        // might be different from what is in config, try to
+        // restore position from one of the views
+        const auto views = doc->views();
+        if (views.size() > 1) {
+            for (auto view : views) {
+                if (view != v) {
+                    v->setCursorPosition(view->cursorPosition());
+                    break;
+                }
+            }
+        }
+    }
+
     connect(v, &KTextEditor::View::cursorPositionChanged, this, [this](KTextEditor::View *view, const KTextEditor::Cursor &newPosition) {
         if (view && view->document())
             addPositionToHistory(view->document()->url(), newPosition);

@@ -606,3 +606,37 @@ void KateViewManagementTests::testBug465808()
     // Closing the tab should not change the view in vs1
     QCOMPARE(vs1->currentView(), v1);
 }
+
+void KateViewManagementTests::testNewViewCreatedIfViewNotinViewspace()
+{
+    app->sessionManager()->sessionNew();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    vm->createView(nullptr);
+
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+
+    auto vs1 = *vm->m_viewSpaceList.begin();
+    auto vs2 = *(vm->m_viewSpaceList.begin() + 1);
+
+    QVERIFY(vs2->isActiveSpace());
+
+    auto v2 = vm->createView();
+    QCOMPARE(vs2->m_docToView.size(), 2);
+
+    v2->insertText(QStringLiteral("Line1\nLine2\nLine3"));
+    v2->setCursorPosition({2, 2});
+
+    // activate first space
+    vm->setActiveSpace(vs1);
+    // Try to activate the doc for which there is no view
+    // in first space
+    vm->activateView(v2->document());
+    // first space should now have 2 views i.e., a view
+    // should be created for v2->document()
+    QCOMPARE(vs1->m_docToView.size(), 2);
+    QCOMPARE(vs1->m_registeredDocuments, vs2->m_registeredDocuments);
+    // Cursor position is maintained in the new view
+    QCOMPARE(vs1->m_docToView[v2->document()]->cursorPosition(), v2->cursorPosition());
+}

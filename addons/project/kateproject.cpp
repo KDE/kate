@@ -340,7 +340,7 @@ void KateProject::loadProjectDone(const KateProjectSharedQStandardItem &topLevel
 {
     m_model.clear();
     m_model.invisibleRootItem()->appendColumn(topLevel->takeColumn(0));
-
+    m_untrackedDocumentsRoot = nullptr;
     m_file2Item = std::move(file2Item);
 
     /**

@@ -1153,7 +1153,9 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     vsNew->setActive(true);
     vsNew->show();
 
-    createView(v->document());
+    if (auto newView = createView(v->document())) {
+        newView->setCursorPosition(v->cursorPosition());
+    }
 
     if (moveDocument) {
         vs->closeDocument(v->document());

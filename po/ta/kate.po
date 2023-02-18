@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-10 01:01+0000\n"
+"POT-Creation-Date: 2023-02-18 01:02+0000\n"
 "PO-Revision-Date: 2023-02-02 19:33+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -54,37 +54,37 @@ msgstr ""
 "பதிலாக, கேட்டை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் உரிமை தேவைப்பட்டால், "
 "அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
 
-#: kate/main.cpp:131
+#: kate/main.cpp:141
 #, kde-format
 msgid "Kate"
 msgstr "கேட்"
 
-#: kate/main.cpp:133
+#: kate/main.cpp:143
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "கேட் - மேம்பட்ட உரைத்திருத்தி"
 
-#: kate/main.cpp:135 kwrite/main.cpp:98
+#: kate/main.cpp:145 kwrite/main.cpp:107
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 கேட் நிரலாளர்கள்"
 
-#: kate/main.cpp:181
+#: kate/main.cpp:191
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "குறிப்பிட்ட அமர்வுடன் கேட்டை துவக்கு."
 
-#: kate/main.cpp:182
+#: kate/main.cpp:192
 #, kde-format
 msgid "session"
 msgstr "அமர்வு"
 
-#: kate/main.cpp:187
+#: kate/main.cpp:197
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "பெயரில்லா புதிய அமர்வுடன் கேட்டை துவக்கும். '-n' என்பதும் இதனுள் அடங்கும்."
 
-#: kate/main.cpp:192
+#: kate/main.cpp:202
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -92,7 +92,7 @@ msgid ""
 "and no URLs are given at all."
 msgstr ""
 
-#: kate/main.cpp:198
+#: kate/main.cpp:208
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -101,64 +101,64 @@ msgstr ""
 "ஏற்கனவே ஓடிக்கொண்டிருக்கும் கேட் சாளரத்தில் முகவரிகளை திறக்கும் பட்சத்தில், அச்சாளரம் "
 "மூடப்படும் வரை வெளியேறாதே."
 
-#: kate/main.cpp:204
+#: kate/main.cpp:214
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
 
-#: kate/main.cpp:205
+#: kate/main.cpp:215
 #, kde-format
 msgid "pid"
 msgstr "பணியெண்"
 
-#: kate/main.cpp:210 kwrite/main.cpp:149
+#: kate/main.cpp:220 kwrite/main.cpp:158
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "திறக்க வேண்டிய கோப்பின் குறியாக்கத்தை அமைக்கும்."
 
-#: kate/main.cpp:211 kwrite/main.cpp:150
+#: kate/main.cpp:221 kwrite/main.cpp:159
 #, kde-format
 msgid "encoding"
 msgstr "குறியாக்கம்"
 
-#: kate/main.cpp:215 kwrite/main.cpp:154
+#: kate/main.cpp:225 kwrite/main.cpp:163
 #, kde-format
 msgid "Navigate to this line."
 msgstr "இந்த வரிக்கு செல்"
 
-#: kate/main.cpp:215 kwrite/main.cpp:154
+#: kate/main.cpp:225 kwrite/main.cpp:163
 #, kde-format
 msgid "line"
 msgstr "வரி"
 
-#: kate/main.cpp:220 kwrite/main.cpp:158
+#: kate/main.cpp:230 kwrite/main.cpp:167
 #, kde-format
 msgid "Navigate to this column."
 msgstr "இந்த நெடுவரிசைக்கு செல்"
 
-#: kate/main.cpp:221 kwrite/main.cpp:158
+#: kate/main.cpp:231 kwrite/main.cpp:167
 #, kde-format
 msgid "column"
 msgstr "நெடுவரிசை"
 
-#: kate/main.cpp:225 kwrite/main.cpp:162
+#: kate/main.cpp:235 kwrite/main.cpp:171
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "stdin-இன் உள்ளடக்கத்தை படிக்கும்"
 
-#: kate/main.cpp:230 kwrite/main.cpp:166
+#: kate/main.cpp:240 kwrite/main.cpp:175
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "செயலியால் திறக்கப்படும் கோப்புகள்/முகவரிகள், பயன்படுத்தப்படும்பின் நீக்கப்படும்"
 
-#: kate/main.cpp:234 kwrite/main.cpp:170
+#: kate/main.cpp:244 kwrite/main.cpp:179
 #, kde-format
 msgid "Documents to open."
 msgstr "திறக்க வேண்டிய ஆவணங்கள்"
 
-#: kate/main.cpp:234 kwrite/main.cpp:170
+#: kate/main.cpp:244 kwrite/main.cpp:179
 #, kde-format
 msgid "[urls...]"
 msgstr "[முகவரிகள்...]"
@@ -183,12 +183,12 @@ msgstr ""
 "பதிலாக, கேரைட்டை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் உரிமை தேவைப்பட்டால், "
 "அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
 
-#: kwrite/main.cpp:94
+#: kwrite/main.cpp:103
 #, kde-format
 msgid "KWrite"
 msgstr "கேரைட்"
 
-#: kwrite/main.cpp:96
+#: kwrite/main.cpp:105
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "கேரைட் -  உரைதொகுப்பாளர் உறுப்பு"
@@ -1638,7 +1638,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "நடப்பு ஆவணத்தை தவிர மற்ற எல்லா ஆவணங்களையும் மூடு"
 
-#: lib/katemainwindow.cpp:784
+#: lib/katemainwindow.cpp:788
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1646,12 +1646,12 @@ msgstr ""
 "இது பட்டிப் பட்டையை முழுதாக மறைத்துவிடும். %1 என்பதை தட்டி நீங்கள் மறுபடியும் அதை "
 "காட்டலாம்."
 
-#: lib/katemainwindow.cpp:787
+#: lib/katemainwindow.cpp:791
 #, kde-format
 msgid "Hide menu bar"
 msgstr "பட்டிப் பட்டையை மறை"
 
-#: lib/katemainwindow.cpp:891
+#: lib/katemainwindow.cpp:895
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1660,19 +1660,19 @@ msgstr ""
 "%1 என்ற அடைவை நீங்கள் கேட்டிற்குள் இழுத்து போட்டுள்ளீர்கள். அதிலுள்ள அனைத்து கோப்புகளையும் "
 "திறக்க வேண்டுமா?"
 
-#: lib/katemainwindow.cpp:894
+#: lib/katemainwindow.cpp:898
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "அடைவுகளுக்குள் உள்ள கோப்புகளை திறக்கலாமா?"
 
-#: lib/katemainwindow.cpp:895
+#: lib/katemainwindow.cpp:899
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "அனைத்து கோப்புகளையும் திற"
 
-#: lib/katemainwindow.cpp:1142
+#: lib/katemainwindow.cpp:1146
 #, kde-format
 msgid " [read only]"
 msgstr " [படித்தல் மட்டும்]"
@@ -2223,35 +2223,35 @@ msgstr "பெரிய கோப்பு திறக்கப்படுக�
 msgid "%1 cannot open folders"
 msgstr "%1-ஆல் அடைவுகளை திறக்க முடியாது"
 
-#: lib/kateviewmanager.cpp:517
+#: lib/kateviewmanager.cpp:515
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "அடைவுகளை திறப்பதற்கான செருகுநிரலை காணவில்லை"
 
-#: lib/kateviewmanager.cpp:523
+#: lib/kateviewmanager.cpp:521
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr "அடைவுகளைத் திறக்க, <b>%1</b> செருகுநிரலை இயக்க வேண்டும். அதை இயக்கலாமா?"
 
-#: lib/kateviewmanager.cpp:532
+#: lib/kateviewmanager.cpp:529
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "அடைவைத் திறப்பது"
 
-#: lib/kateviewmanager.cpp:533
+#: lib/kateviewmanager.cpp:530
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "இயக்கு"
 
-#: lib/kateviewmanager.cpp:544
+#: lib/kateviewmanager.cpp:541
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> செருகுநிரலை இயக்க முடியவில்லை"
 
-#: lib/kateviewmanager.cpp:1266
+#: lib/kateviewmanager.cpp:1278
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "இக்காட்சிப்பகுதியில் சேமிக்கப்படாதவை இருக்கலாம். உறுதியாக இதை மூட வேண்டுமா?"

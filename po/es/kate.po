@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-10 01:01+0000\n"
+"POT-Creation-Date: 2023-02-18 01:02+0000\n"
 "PO-Revision-Date: 2023-02-01 12:46+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -71,37 +71,37 @@ msgstr ""
 "le solicitarán privilegios elevados al guardar documentos cuando sea "
 "necesario."
 
-#: kate/main.cpp:131
+#: kate/main.cpp:141
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:133
+#: kate/main.cpp:143
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Editor de texto avanzado"
 
-#: kate/main.cpp:135 kwrite/main.cpp:98
+#: kate/main.cpp:145 kwrite/main.cpp:107
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "© 2000-2022 Los autores de Kate"
 
-#: kate/main.cpp:181
+#: kate/main.cpp:191
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Iniciar Kate con una determinada sesión."
 
-#: kate/main.cpp:182
+#: kate/main.cpp:192
 #, kde-format
 msgid "session"
 msgstr "sesión"
 
-#: kate/main.cpp:187
+#: kate/main.cpp:197
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Iniciar Kate con una nueva sesión anónima, implica «-n»."
 
-#: kate/main.cpp:192
+#: kate/main.cpp:202
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -112,7 +112,7 @@ msgstr ""
 "otra instancia de Kate ya tiene abierta la sesión dada) se efectúa si no se "
 "proporciona ningún parámetro ni URL"
 
-#: kate/main.cpp:198
+#: kate/main.cpp:208
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -121,7 +121,7 @@ msgstr ""
 "Si ya se está ejecutando una instancia de Kate y se ha solicitado abrir "
 "alguna URL, bloquear hasta que finalice dicha instancia"
 
-#: kate/main.cpp:204
+#: kate/main.cpp:214
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -130,59 +130,59 @@ msgstr ""
 "Intentar reutilizar solo la instancia de Kate con este PID (se ignora si se "
 "usa «Iniciar» y otra instancia ya tiene abierta dicha sesión)."
 
-#: kate/main.cpp:205
+#: kate/main.cpp:215
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:210 kwrite/main.cpp:149
+#: kate/main.cpp:220 kwrite/main.cpp:158
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Establecer codificación para el archivo a abrir."
 
-#: kate/main.cpp:211 kwrite/main.cpp:150
+#: kate/main.cpp:221 kwrite/main.cpp:159
 #, kde-format
 msgid "encoding"
 msgstr "codificación"
 
-#: kate/main.cpp:215 kwrite/main.cpp:154
+#: kate/main.cpp:225 kwrite/main.cpp:163
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Navegar hasta esta línea."
 
-#: kate/main.cpp:215 kwrite/main.cpp:154
+#: kate/main.cpp:225 kwrite/main.cpp:163
 #, kde-format
 msgid "line"
 msgstr "línea"
 
-#: kate/main.cpp:220 kwrite/main.cpp:158
+#: kate/main.cpp:230 kwrite/main.cpp:167
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Navegar hasta esta columna."
 
-#: kate/main.cpp:221 kwrite/main.cpp:158
+#: kate/main.cpp:231 kwrite/main.cpp:167
 #, kde-format
 msgid "column"
 msgstr "columna"
 
-#: kate/main.cpp:225 kwrite/main.cpp:162
+#: kate/main.cpp:235 kwrite/main.cpp:171
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Leer el contenido de «stdin»."
 
-#: kate/main.cpp:230 kwrite/main.cpp:166
+#: kate/main.cpp:240 kwrite/main.cpp:175
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Los archivos o URL abiertos por la aplicación se borrarán después de "
 "utilizarlos"
 
-#: kate/main.cpp:234 kwrite/main.cpp:170
+#: kate/main.cpp:244 kwrite/main.cpp:179
 #, kde-format
 msgid "Documents to open."
 msgstr "Documentos a abrir."
 
-#: kate/main.cpp:234 kwrite/main.cpp:170
+#: kate/main.cpp:244 kwrite/main.cpp:179
 #, kde-format
 msgid "[urls...]"
 msgstr "[url...]"
@@ -209,12 +209,12 @@ msgstr ""
 "le solicitarán privilegios elevados al guardar documentos cuando sea "
 "necesario."
 
-#: kwrite/main.cpp:94
+#: kwrite/main.cpp:103
 #, kde-format
 msgid "KWrite"
 msgstr "KWrite"
 
-#: kwrite/main.cpp:96
+#: kwrite/main.cpp:105
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - Editor de texto"
@@ -1684,7 +1684,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "Cerrar todos los documentos junto con el documento actual"
 
-#: lib/katemainwindow.cpp:784
+#: lib/katemainwindow.cpp:788
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1692,12 +1692,12 @@ msgstr ""
 "Esto ocultará la barra de menú completamente. Puede volver a mostrarla "
 "tecleando %1."
 
-#: lib/katemainwindow.cpp:787
+#: lib/katemainwindow.cpp:791
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Ocultar la barra de menú"
 
-#: lib/katemainwindow.cpp:891
+#: lib/katemainwindow.cpp:895
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1706,19 +1706,19 @@ msgstr ""
 "Ha soltado el directorio %1 en Kate. ¿Desea abrir todos los archivos que "
 "contiene?"
 
-#: lib/katemainwindow.cpp:894
+#: lib/katemainwindow.cpp:898
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Abrir archivos recursivamente"
 
-#: lib/katemainwindow.cpp:895
+#: lib/katemainwindow.cpp:899
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Abrir todos los archivos"
 
-#: lib/katemainwindow.cpp:1142
+#: lib/katemainwindow.cpp:1146
 #, kde-format
 msgid " [read only]"
 msgstr " [solo lectura]"
@@ -2281,12 +2281,12 @@ msgstr "Abrir archivo grande"
 msgid "%1 cannot open folders"
 msgstr "%1 no puede abrir carpetas"
 
-#: lib/kateviewmanager.cpp:517
+#: lib/kateviewmanager.cpp:515
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "El complemento necesario para abrir carpetas no se ha encontrado"
 
-#: lib/kateviewmanager.cpp:523
+#: lib/kateviewmanager.cpp:521
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2294,24 +2294,24 @@ msgstr ""
 "Para poder abrir carpetas debe estar activado el complemento <b>%1</b>. "
 "¿Desea activarlo?"
 
-#: lib/kateviewmanager.cpp:532
+#: lib/kateviewmanager.cpp:529
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Abrir carpeta"
 
-#: lib/kateviewmanager.cpp:533
+#: lib/kateviewmanager.cpp:530
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Activar"
 
-#: lib/kateviewmanager.cpp:544
+#: lib/kateviewmanager.cpp:541
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "No se ha podido activar el complemento <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1266
+#: lib/kateviewmanager.cpp:1278
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

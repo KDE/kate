@@ -11,6 +11,8 @@
 #include <QIcon>
 #include <QString>
 
+#include <doc_or_widget.h>
+
 namespace KTextEditor
 {
 class Document;
@@ -24,9 +26,9 @@ namespace detail
 class FilenameListItem
 {
 public:
-    FilenameListItem(KTextEditor::Document *doc);
+    FilenameListItem(DocOrWidget doc);
 
-    KTextEditor::Document *document;
+    DocOrWidget document;
     QIcon icon() const;
     QString documentName() const;
     QString fullPath() const;
@@ -45,8 +47,8 @@ class TabswitcherFilesModel : public QAbstractTableModel
 public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
     ~TabswitcherFilesModel() override = default;
-    bool insertDocument(int row, KTextEditor::Document *document);
-    bool removeDocument(KTextEditor::Document *document);
+    bool insertDocument(int row, DocOrWidget document);
+    bool removeDocument(DocOrWidget document);
 
     /**
      * Clears all data from the model
@@ -56,12 +58,12 @@ public:
     /**
      * NOTE: The returned pointer will become invalid as soon as the underlying vector changes.
      */
-    KTextEditor::Document *item(int row) const;
+    DocOrWidget item(int row) const;
 
     /**
      * Move the document to row 0.
      */
-    void raiseDocument(KTextEditor::Document *document);
+    void raiseDocument(DocOrWidget document);
 
     /*
      * Use this method to update all items.

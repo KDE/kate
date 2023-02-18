@@ -18,24 +18,29 @@
 
 namespace detail
 {
-FilenameListItem::FilenameListItem(KTextEditor::Document *doc)
+FilenameListItem::FilenameListItem(DocOrWidget doc)
     : document(doc)
 {
 }
 
 QIcon FilenameListItem::icon() const
 {
-    return QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(document->url()).iconName());
+    if (auto document = this->document.doc()) {
+        return QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(document->url()).iconName());
+    } else if (auto widget = this->document.widget()) {
+        return widget->windowIcon();
+    }
+    return {};
 }
 
 QString FilenameListItem::documentName() const
 {
-    return document->documentName();
+    return document.doc() ? document.doc()->documentName() : document.widget()->windowTitle();
 }
 
 QString FilenameListItem::fullPath() const
 {
-    return document->url().toLocalFile();
+    return document.doc() ? document.doc()->url().toLocalFile() : QString();
 }
 
 /**
@@ -109,7 +114,7 @@ detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent)
 {
 }
 
-bool detail::TabswitcherFilesModel::insertDocument(int row, KTextEditor::Document *document)
+bool detail::TabswitcherFilesModel::insertDocument(int row, DocOrWidget document)
 {
     beginInsertRows(QModelIndex(), row, row);
     data_.insert(data_.begin() + row, FilenameListItem(document));
@@ -121,7 +126,7 @@ bool detail::TabswitcherFilesModel::insertDocument(int row, KTextEditor::Documen
     return true;
 }
 
-bool detail::TabswitcherFilesModel::removeDocument(KTextEditor::Document *document)
+bool detail::TabswitcherFilesModel::removeDocument(DocOrWidget document)
 {
     auto it = std::find_if(data_.begin(), data_.end(), [document](FilenameListItem &item) {
         return item.document == document;
@@ -163,7 +168,7 @@ void detail::TabswitcherFilesModel::clear()
     }
 }
 
-void detail::TabswitcherFilesModel::raiseDocument(KTextEditor::Document *document)
+void detail::TabswitcherFilesModel::raiseDocument(DocOrWidget document)
 {
     // skip row 0, since row 0 is already correct
     for (int row = 1; row < rowCount(); ++row) {
@@ -176,7 +181,7 @@ void detail::TabswitcherFilesModel::raiseDocument(KTextEditor::Document *documen
     }
 }
 
-KTextEditor::Document *detail::TabswitcherFilesModel::item(int row) const
+DocOrWidget detail::TabswitcherFilesModel::item(int row) const
 {
     return data_[row].document;
 }

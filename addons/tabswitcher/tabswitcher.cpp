@@ -66,6 +66,12 @@ TabSwitcherPluginView::TabSwitcherPluginView(TabSwitcherPlugin *plugin, KTextEdi
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &TabSwitcherPluginView::registerDocument);
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, this, &TabSwitcherPluginView::unregisterDocument);
 
+    auto mw = mainWindow->window();
+    // clang-format off
+    connect(mw, SIGNAL(widgetAdded(QWidget*)), this, SLOT(onWidgetCreated(QWidget*)));
+    connect(mw, SIGNAL(widgetRemoved(QWidget*)), this, SLOT(onWidgetRemoved(QWidget*)));
+    // clang-format on
+
     // track lru activation of views to raise the respective documents in the model
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &TabSwitcherPluginView::raiseView);
 }
@@ -123,36 +129,54 @@ void TabSwitcherPluginView::setupModel()
     }
 }
 
-void TabSwitcherPluginView::registerDocument(KTextEditor::Document *document)
+void TabSwitcherPluginView::registerItem(DocOrWidget docOrWidget)
 {
     // insert into hash
-    m_documents.insert(document);
+    m_documents.insert(docOrWidget);
 
     // add to model
-    m_model->insertDocument(0, document);
+    m_model->insertDocument(0, docOrWidget);
+}
 
-    // track document name changes
+void TabSwitcherPluginView::unregisterItem(DocOrWidget docOrWidget)
+{
+    // remove from hash
+    auto it = m_documents.find(docOrWidget);
+    if (it == m_documents.end()) {
+        return;
+    }
+    m_documents.erase(it);
+
+    // remove from model
+    m_model->removeDocument(docOrWidget);
+}
+
+void TabSwitcherPluginView::onWidgetCreated(QWidget *widget)
+{
+    registerItem(widget);
+}
+
+void TabSwitcherPluginView::onWidgetRemoved(QWidget *widget)
+{
+    unregisterItem(widget);
+}
+
+void TabSwitcherPluginView::registerDocument(KTextEditor::Document *document)
+{
+    registerItem(document);
     connect(document, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
 }
 
 void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document *document)
 {
-    // remove from hash
-    if (!m_documents.contains(document)) {
-        return;
-    }
-    m_documents.remove(document);
-
-    // remove from model
-    m_model->removeDocument(document);
-
+    unregisterItem(document);
     // disconnect documentNameChanged() signal
     disconnect(document, nullptr, this, nullptr);
 }
 
 void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document *document)
 {
-    if (!m_documents.contains(document)) {
+    if (m_documents.find(document) == m_documents.end()) {
         return;
     }
 
@@ -163,7 +187,7 @@ void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document *document)
 
 void TabSwitcherPluginView::raiseView(KTextEditor::View *view)
 {
-    if (!view || !m_documents.contains(view->document())) {
+    if (!view || m_documents.find(view->document()) == m_documents.end()) {
         return;
     }
 
@@ -256,7 +280,12 @@ void TabSwitcherPluginView::activateView(const QModelIndex &index)
     const int row = m_treeView->selectionModel()->selectedRows().first().row();
 
     auto doc = m_model->item(row);
-    m_mainWindow->activateView(doc);
+    if (doc.doc()) {
+        m_mainWindow->activateView(doc.doc());
+    } else if (doc.widget()) {
+        auto mw = m_mainWindow->window();
+        QMetaObject::invokeMethod(mw, "activateWidget", Q_ARG(QWidget *, doc.widget()));
+    }
 
     m_treeView->hide();
 }
@@ -268,9 +297,12 @@ void TabSwitcherPluginView::closeView()
     }
 
     const int row = m_treeView->selectionModel()->selectedRows().first().row();
-    KTextEditor::Document *doc = m_model->item(row);
-    if (doc) {
-        KTextEditor::Editor::instance()->application()->closeDocument(doc);
+    auto doc = m_model->item(row);
+    if (doc.doc()) {
+        KTextEditor::Editor::instance()->application()->closeDocument(doc.doc());
+    } else if (doc.widget()) {
+        auto mw = m_mainWindow->window();
+        QMetaObject::invokeMethod(mw, "removeWidget", Q_ARG(QWidget *, doc.widget()));
     }
 }
 

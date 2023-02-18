@@ -10,11 +10,13 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 
+#include <doc_or_widget.h>
+
 #include <QList>
-#include <QSet>
 #include <QVariant>
 
 #include <KXMLGUIClient>
+#include <unordered_set>
 
 class TabSwitcherPluginView;
 class TabSwitcherTreeView;
@@ -72,6 +74,17 @@ public:
     void setupModel();
 
 public Q_SLOTS:
+
+    /**
+     * Adds @p widget to the model.
+     */
+    void onWidgetCreated(QWidget *widget);
+
+    /**
+     * Removes @p widget from the model.
+     */
+    void onWidgetRemoved(QWidget *widget);
+
     /**
      * Adds @p document to the model.
      */
@@ -129,9 +142,12 @@ protected:
     void updateViewGeometry();
 
 private:
+    void registerItem(DocOrWidget docOrWidget);
+    void unregisterItem(DocOrWidget docOrWidget);
+
     TabSwitcherPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     detail::TabswitcherFilesModel *m_model;
-    QSet<KTextEditor::Document *> m_documents;
+    std::unordered_set<DocOrWidget> m_documents;
     TabSwitcherTreeView *m_treeView;
 };

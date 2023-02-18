@@ -8,6 +8,7 @@ target_link_libraries(
   tabswitcher_test 
   PRIVATE
     KF${KF_MAJOR_VERSION}::TextEditor
+    kateprivate
     Qt::Test
 )
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk-kf 5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-02-19 01:01+0000\n"
 "PO-Revision-Date: 2014-11-05 18:01+0200\n"
 "Last-Translator: liudas@aksioma.lt <liudas@aksioma.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -25,37 +25,37 @@ msgstr ""
 msgid "Document Switcher"
 msgstr "Dokumentų perjungimas"
 
-#: tabswitcher.cpp:88
+#: tabswitcher.cpp:94
 #, kde-format
 msgid "Last Used Views"
 msgstr "Paskiausiai naudoti rodmenys"
 
-#: tabswitcher.cpp:91
+#: tabswitcher.cpp:97
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr "Atveria sąrašą leidžianti eiti per paskiausiai naudotų rodmenų sąrašą."
 
-#: tabswitcher.cpp:92 tabswitcher.cpp:100
+#: tabswitcher.cpp:98 tabswitcher.cpp:106
 #, kde-format
 msgid "Walk through the list of last used views"
 msgstr "Pereinamas paskiausiai naudotų rodmenų sąrašas"
 
-#: tabswitcher.cpp:96
+#: tabswitcher.cpp:102
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr "Paskiausiai naudoti rodmenys (Atvirkščiai)"
 
-#: tabswitcher.cpp:99
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr "Pereinamas paskiausiai naudotų rodmenų sąrašas iš kitos pusės."
 
-#: tabswitcher.cpp:104
+#: tabswitcher.cpp:110
 #, kde-format
 msgid "Close View"
 msgstr ""
 
-#: tabswitcher.cpp:107 tabswitcher.cpp:108
+#: tabswitcher.cpp:113 tabswitcher.cpp:114
 #, fuzzy, kde-format
 #| msgid "Opens a list to walk through the list of last used views."
 msgid "Closes the selected view in the list of last used views."

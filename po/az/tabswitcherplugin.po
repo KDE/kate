@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-02-19 01:01+0000\n"
 "PO-Revision-Date: 2022-05-05 20:10+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -22,38 +22,38 @@ msgstr ""
 msgid "Document Switcher"
 msgstr "Sənəd dəyişdricisi"
 
-#: tabswitcher.cpp:88
+#: tabswitcher.cpp:94
 #, kde-format
 msgid "Last Used Views"
 msgstr "Son istifadə olunan görüntülər"
 
-#: tabswitcher.cpp:91
+#: tabswitcher.cpp:97
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr "Son istifadə olunanan görüntülərə baxmaq üçün siyahını açın"
 
-#: tabswitcher.cpp:92 tabswitcher.cpp:100
+#: tabswitcher.cpp:98 tabswitcher.cpp:106
 #, kde-format
 msgid "Walk through the list of last used views"
 msgstr "Son istifadə olunan görüntülərin siyahısına baxmaq"
 
-#: tabswitcher.cpp:96
+#: tabswitcher.cpp:102
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr "Son istifadə olunan görüntülər (əks tərəfə)"
 
-#: tabswitcher.cpp:99
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr ""
 "Son istifadə olunanan görüntülər siyahısına əksinə baxmaq üçün siyahını açın."
 
-#: tabswitcher.cpp:104
+#: tabswitcher.cpp:110
 #, kde-format
 msgid "Close View"
 msgstr "Görüntünü bağlayın"
 
-#: tabswitcher.cpp:107 tabswitcher.cpp:108
+#: tabswitcher.cpp:113 tabswitcher.cpp:114
 #, kde-format
 msgid "Closes the selected view in the list of last used views."
 msgstr ""

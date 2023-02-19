@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-18 01:02+0000\n"
+"POT-Creation-Date: 2023-02-19 01:01+0000\n"
 "PO-Revision-Date: 2007-03-09 14:17+0530\n"
 "Last-Translator: pavithran <pavithran.s@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -2269,59 +2269,59 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: lib/kateviewspace.cpp:996
+#: lib/kateviewspace.cpp:1011
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close Tab"
 msgstr "(&l) అన్ని మూయండి"
 
-#: lib/kateviewspace.cpp:1014
+#: lib/kateviewspace.cpp:1029
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "&Close Document"
 msgstr "అన్నీ తెరిచిన పత్రాలని మూయండి"
 
-#: lib/kateviewspace.cpp:1015
+#: lib/kateviewspace.cpp:1030
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close Other &Documents"
 msgstr "అన్నీ తెరిచిన పత్రాలని మూయండి"
 
-#: lib/kateviewspace.cpp:1016
+#: lib/kateviewspace.cpp:1031
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close &All Documents"
 msgstr "అన్నీ తెరిచిన పత్రాలని మూయండి"
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1033
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "(&D) పత్రం"
 
-#: lib/kateviewspace.cpp:1019
+#: lib/kateviewspace.cpp:1034
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1028
+#: lib/kateviewspace.cpp:1043
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "ఉన్న పత్రాన్ని ని మూయండి"
 
-#: lib/kateviewspace.cpp:1034
+#: lib/kateviewspace.cpp:1049
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "ఉన్న పత్రాన్ని ని మూయండి"
 
-#: lib/kateviewspace.cpp:1101
+#: lib/kateviewspace.cpp:1116
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1102
+#: lib/kateviewspace.cpp:1117
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2443,66 +2443,66 @@ msgstr ""
 msgid "Delete"
 msgstr "తీసివేసిన"
 
-#: lib/session/katesessionmanager.cpp:106
+#: lib/session/katesessionmanager.cpp:112
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:117
+#: lib/session/katesessionmanager.cpp:123
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:119
+#: lib/session/katesessionmanager.cpp:125
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:120
+#: lib/session/katesessionmanager.cpp:126
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:312
+#: lib/session/katesessionmanager.cpp:321
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:313
+#: lib/session/katesessionmanager.cpp:322
 #, fuzzy, kde-format
 #| msgid "Session name:"
 msgid "Session Renaming"
 msgstr "సెషన్ పేరు:"
 
-#: lib/session/katesessionmanager.cpp:463
+#: lib/session/katesessionmanager.cpp:472
 #, kde-format
 msgid "Session name:"
 msgstr "సెషన్ పేరు:"
 
-#: lib/session/katesessionmanager.cpp:465
+#: lib/session/katesessionmanager.cpp:474
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
 "Please choose a different one."
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:467
+#: lib/session/katesessionmanager.cpp:476
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:503
 #, fuzzy, kde-format
 #| msgid "Default Session"
 msgid "Specify a name for this session"
 msgstr "అప్రమేయ సెషన్"
 
-#: lib/session/katesessionmanager.cpp:496
+#: lib/session/katesessionmanager.cpp:505
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr ""

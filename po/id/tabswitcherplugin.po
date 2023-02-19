@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-02-19 01:01+0000\n"
 "PO-Revision-Date: 2015-01-12 05:35+0000\n"
 "Last-Translator: Rendiyono Wahyu Saputro <rendi.7936@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/kde/kf5-messages/"
@@ -24,41 +24,41 @@ msgstr ""
 msgid "Document Switcher"
 msgstr "Pengganti Dokumen"
 
-#: tabswitcher.cpp:88
+#: tabswitcher.cpp:94
 #, kde-format
 msgid "Last Used Views"
 msgstr "Tampilan Terakhir yang digunakan"
 
-#: tabswitcher.cpp:91
+#: tabswitcher.cpp:97
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr ""
 "Membuka daftar untuk berjalan melalui daftar dari tampilan terakhir yang "
 "digunakan."
 
-#: tabswitcher.cpp:92 tabswitcher.cpp:100
+#: tabswitcher.cpp:98 tabswitcher.cpp:106
 #, kde-format
 msgid "Walk through the list of last used views"
 msgstr "Jalan melalui daftar dari tampilan terakhir yang digunakan"
 
-#: tabswitcher.cpp:96
+#: tabswitcher.cpp:102
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr "Tampilan Terakhir yang digunakan (Terbalik)"
 
-#: tabswitcher.cpp:99
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr ""
 "Membuka daftar untuk berjalan melalui daftar dari tampilan terakhir yang "
 "digunakan secara terbalik."
 
-#: tabswitcher.cpp:104
+#: tabswitcher.cpp:110
 #, kde-format
 msgid "Close View"
 msgstr ""
 
-#: tabswitcher.cpp:107 tabswitcher.cpp:108
+#: tabswitcher.cpp:113 tabswitcher.cpp:114
 #, fuzzy, kde-format
 #| msgid "Opens a list to walk through the list of last used views."
 msgid "Closes the selected view in the list of last used views."

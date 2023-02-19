@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tabswitcherplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-02-19 01:01+0000\n"
 "PO-Revision-Date: 2023-01-02 21:19+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -23,38 +23,38 @@ msgstr ""
 msgid "Document Switcher"
 msgstr "Πρόγραμμα εναλλαγής εγγράφων"
 
-#: tabswitcher.cpp:88
+#: tabswitcher.cpp:94
 #, kde-format
 msgid "Last Used Views"
 msgstr "Πρόσφατες προβολές"
 
-#: tabswitcher.cpp:91
+#: tabswitcher.cpp:97
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr "Ανοίγει μια λίστα διάσχισης των πρόσφατων προβολών."
 
-#: tabswitcher.cpp:92 tabswitcher.cpp:100
+#: tabswitcher.cpp:98 tabswitcher.cpp:106
 #, kde-format
 msgid "Walk through the list of last used views"
 msgstr "Διάσχιση της λίστας των πρόσφατων προβολών"
 
-#: tabswitcher.cpp:96
+#: tabswitcher.cpp:102
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr "Πρόσφατες προβολές (Αντίστροφα)"
 
-#: tabswitcher.cpp:99
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr ""
 "Ανοίγει μια λίστα διάσχισης των πρόσφατων προβολών σε αντίστροφη σειρά."
 
-#: tabswitcher.cpp:104
+#: tabswitcher.cpp:110
 #, kde-format
 msgid "Close View"
 msgstr "Κλείσιμο προβολής"
 
-#: tabswitcher.cpp:107 tabswitcher.cpp:108
+#: tabswitcher.cpp:113 tabswitcher.cpp:114
 #, kde-format
 msgid "Closes the selected view in the list of last used views."
 msgstr "Κλείνει την επιλεγμένη προωολή στη λίστα των πρόσφατων προβολών."

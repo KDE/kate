@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-18 01:02+0000\n"
+"POT-Creation-Date: 2023-02-19 01:01+0000\n"
 "PO-Revision-Date: 2023-02-09 01:01+0100\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2322,53 +2322,53 @@ msgstr[1] ""
 "Zurzeit sind %1 weitere Dokumente geöffnet. Um alle geöffneten Dokumente zu "
 "sehen, wechseln Sie zur Schnellöffner-Ansicht, indem Sie hier klicken."
 
-#: lib/kateviewspace.cpp:996
+#: lib/kateviewspace.cpp:1011
 #, kde-format
 msgid "Close Tab"
 msgstr "Unterfenster schließen"
 
-#: lib/kateviewspace.cpp:1014
+#: lib/kateviewspace.cpp:1029
 #, kde-format
 msgid "&Close Document"
 msgstr "Dokument s&chließen"
 
-#: lib/kateviewspace.cpp:1015
+#: lib/kateviewspace.cpp:1030
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Andere &Dokumente schließen"
 
-#: lib/kateviewspace.cpp:1016
+#: lib/kateviewspace.cpp:1031
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&Alle Dokumente schließen"
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1033
 #, kde-format
 msgid "D&etach Document"
 msgstr "Dokument ab&koppeln"
 
-#: lib/kateviewspace.cpp:1019
+#: lib/kateviewspace.cpp:1034
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Das Dokument in einem neuen Fenster öffnen und im aktuellen Fenster schließen"
 
-#: lib/kateviewspace.cpp:1028
+#: lib/kateviewspace.cpp:1043
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Mit aktivem Dokument vergleichen"
 
-#: lib/kateviewspace.cpp:1034
+#: lib/kateviewspace.cpp:1049
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Mit aktivem Dokument vergleichen mittels"
 
-#: lib/kateviewspace.cpp:1101
+#: lib/kateviewspace.cpp:1116
 #, kde-format
 msgid "Could not start program"
 msgstr "Programm kann nicht gestartet werden"
 
-#: lib/kateviewspace.cpp:1102
+#: lib/kateviewspace.cpp:1117
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2488,7 +2488,7 @@ msgstr "&Umbenennen ..."
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/session/katesessionmanager.cpp:106
+#: lib/session/katesessionmanager.cpp:112
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
@@ -2496,7 +2496,7 @@ msgstr ""
 "Interner Fehler: Es ist mehr als eine Instanz für eine bestimmte Sitzung "
 "geöffnet."
 
-#: lib/session/katesessionmanager.cpp:117
+#: lib/session/katesessionmanager.cpp:123
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2505,36 +2505,36 @@ msgstr ""
 "Die Sitzung „%1“ ist bereits in einer anderen Kate-Instanz geöffnet. Möchten "
 "Sie dorthin wechseln oder in dieser Instanz erneut öffnen?"
 
-#: lib/session/katesessionmanager.cpp:119
+#: lib/session/katesessionmanager.cpp:125
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Zur Instanz wechseln"
 
-#: lib/session/katesessionmanager.cpp:120
+#: lib/session/katesessionmanager.cpp:126
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Neu öffnen"
 
-#: lib/session/katesessionmanager.cpp:312
+#: lib/session/katesessionmanager.cpp:321
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Die Sitzung kann nicht in „%1“ umbenannt werden. Fehler beim Schreiben in "
 "„%2“"
 
-#: lib/session/katesessionmanager.cpp:313
+#: lib/session/katesessionmanager.cpp:322
 #, kde-format
 msgid "Session Renaming"
 msgstr "Sitzungsnamen ändern"
 
-#: lib/session/katesessionmanager.cpp:463
+#: lib/session/katesessionmanager.cpp:472
 #, kde-format
 msgid "Session name:"
 msgstr "Sitzungsname:"
 
-#: lib/session/katesessionmanager.cpp:465
+#: lib/session/katesessionmanager.cpp:474
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2543,17 +2543,17 @@ msgstr ""
 "Es besteht bereits eine Sitzung mit dem von Ihnen gewählten Namen: %1\n"
 "Bitte wählen Sie einen anderen Namen."
 
-#: lib/session/katesessionmanager.cpp:467
+#: lib/session/katesessionmanager.cpp:476
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Zum Speichern einer Sitzung müssen Sie einen Namen eingeben."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:503
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Geben Sie einen Namen für diese Sitzung ein"
 
-#: lib/session/katesessionmanager.cpp:496
+#: lib/session/katesessionmanager.cpp:505
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Geben Sie einen Namen für diese Sitzung ein: %1"

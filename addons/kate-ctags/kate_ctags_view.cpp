@@ -546,7 +546,7 @@ void KateCTagsView::updateSessionDB()
         return;
     }
 
-    QString commandLine = QStringLiteral("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text(), m_ctagsUi.tagsFile->text(), targets);
+    QString commandLine = QStringLiteral("\"%1\" -f \"%2\" %3").arg(m_ctagsUi.cmdEdit->text(), m_ctagsUi.tagsFile->text(), targets);
     QStringList arguments = m_proc.splitCommand(commandLine);
     QString command = arguments.takeFirst();
     m_proc.start(command, arguments);

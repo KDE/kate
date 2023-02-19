@@ -32,6 +32,13 @@
         "Description[zh_CN]": "管理您的代码片段或下载新代码片段",
         "Icon": "document-new",
         "Name": "Snippets",
+        "Name[ca]": "Retalls",
+        "Name[es]": "Fragmentos",
+        "Name[ka]": "ფრაგმენტები",
+        "Name[nl]": "Fragmenten",
+        "Name[tr]": "Kod Parçacıkları",
+        "Name[uk]": "Фрагменти",
+        "Name[x-test]": "xxSnippetsxx",
         "ServiceTypes": [
             "KTextEditor/Plugin",
             "KDevelop/Plugin"

@@ -980,10 +980,17 @@ void KateBuildView::slotSelectTarget()
     });
 
     m_targetsUi->targetsView->expandAll();
+    if (!selected.isValid()) {
+        // We do not have a selected item. Select the first target of the first target-set
+        QModelIndex root = m_targetsUi->targetsView->model()->index(0, 0, QModelIndex());
+        if (root.isValid()) {
+            selected = root.model()->index(0, 0, root);
+        }
+    }
     if (selected.isValid()) {
         m_targetsUi->targetsView->setCurrentIndex(selected);
+        m_targetsUi->targetsView->scrollTo(selected);
     }
-    m_targetsUi->targetsView->scrollTo(selected);
 }
 
 /******************************************************************/

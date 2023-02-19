@@ -33,9 +33,11 @@
 #include <QMenu>
 
 #include <KLocalizedString>
-#include <KMessageBox>
 #include <KStringHandler>
+#include <QDialogButtonBox>
 #include <QStandardPaths>
+
+#include <ktexteditor_utils.h>
 
 /******************************************************************/
 KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin)
@@ -130,7 +132,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateCTagsView::updateDone);
     connect(&m_proc, &QProcess::readyReadStandardError, this, [this]() {
         QString error = QString::fromLocal8Bit(m_proc.readAllStandardError());
-        KMessageBox::error(nullptr, error);
+        Utils::showMessage(error, QIcon(), i18n("CTags"), MessageType::Error);
     });
 
     m_gotoSymbWidget.reset(new GotoSymbolWidget(mainWin, this));
@@ -542,7 +544,7 @@ void KateCTagsView::updateSessionDB()
     }
 
     if (targets.isEmpty()) {
-        KMessageBox::error(nullptr, i18n("No folders or files to index"));
+        Utils::showMessage(i18n("No folders or files to index"), QIcon(), i18n("CTags"), MessageType::Error);
         QFile::remove(m_ctagsUi.tagsFile->text());
         return;
     }
@@ -553,7 +555,10 @@ void KateCTagsView::updateSessionDB()
     m_proc.start(command, arguments);
 
     if (!m_proc.waitForStarted(500)) {
-        KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", commandLine, m_proc.exitStatus()));
+        Utils::showMessage(i18n("Failed to run. Error: %1, exit code: %2", m_proc.errorString(), m_proc.exitCode()),
+                           QIcon(),
+                           i18n("CTags"),
+                           MessageType::Error);
         return;
     }
     QApplication::setOverrideCursor(QCursor(Qt::BusyCursor));
@@ -565,9 +570,12 @@ void KateCTagsView::updateSessionDB()
 void KateCTagsView::updateDone(int exitCode, QProcess::ExitStatus status)
 {
     if (status == QProcess::CrashExit) {
-        KMessageBox::error(m_toolView, i18n("The CTags executable crashed."));
+        Utils::showMessage(i18n("The CTags executable crashed", m_proc.errorString(), m_proc.exitCode()), QIcon(), i18n("CTags"), MessageType::Error);
     } else if (exitCode != 0) {
-        KMessageBox::error(m_toolView, i18n("The CTags program exited with code %1: %2", exitCode, QString::fromLocal8Bit(m_proc.readAllStandardError())));
+        Utils::showMessage(i18n("The CTags program exited with code %2: %1", QString::fromLocal8Bit(m_proc.readAllStandardError()), exitCode),
+                           QIcon(),
+                           i18n("CTags"),
+                           MessageType::Error);
     }
 
     m_ctagsUi.updateButton->setDisabled(false);

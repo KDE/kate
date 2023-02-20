@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-02-19 01:01+0000\n"
 "PO-Revision-Date: 2020-12-16 20:20+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -24,38 +24,38 @@ msgstr ""
 msgid "Document Switcher"
 msgstr "Dokumentbytar"
 
-#: tabswitcher.cpp:88
+#: tabswitcher.cpp:94
 #, kde-format
 msgid "Last Used Views"
 msgstr "Sist brukte visingar"
 
-#: tabswitcher.cpp:91
+#: tabswitcher.cpp:97
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr "Opnar ei liste for å bla gjennom lista over sist brukte visingar."
 
-#: tabswitcher.cpp:92 tabswitcher.cpp:100
+#: tabswitcher.cpp:98 tabswitcher.cpp:106
 #, kde-format
 msgid "Walk through the list of last used views"
 msgstr "Bla gjennom lista over sist brukte visingar"
 
-#: tabswitcher.cpp:96
+#: tabswitcher.cpp:102
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr "Sist brukte visingar (baklengs)"
 
-#: tabswitcher.cpp:99
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr ""
 "Opnar ei liste for å bla baklengs gjennom lista over sist brukte visingar."
 
-#: tabswitcher.cpp:104
+#: tabswitcher.cpp:110
 #, kde-format
 msgid "Close View"
 msgstr "Lukk visinga"
 
-#: tabswitcher.cpp:107 tabswitcher.cpp:108
+#: tabswitcher.cpp:113 tabswitcher.cpp:114
 #, kde-format
 msgid "Closes the selected view in the list of last used views."
 msgstr "Lukkar den visinga valt i oversikta over sist brukte visingar."

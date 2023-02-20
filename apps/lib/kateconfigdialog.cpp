@@ -47,18 +47,6 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
-static void ignoreSizePolicyForStackedWidget(QObject *p)
-{
-    const auto widgets = p->findChildren<QWidget *>();
-    for (auto w : widgets) {
-        if (w && qstrcmp(w->metaObject()->className(), "KPageStackedWidget") == 0) {
-            w->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-            return;
-        }
-    }
-    qWarning() << "Failed to ignoreSizePolicy, there might be some sizing issues in config";
-}
-
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     : KPageDialog(parent)
     , m_mainWindow(parent)
@@ -130,13 +118,6 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     connect(this, &KateConfigDialog::accepted, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
-
-    button(QDialogButtonBox::Ok)->hide();
-    button(QDialogButtonBox::Cancel)->setText(i18n("Close"));
-    button(QDialogButtonBox::Apply)->setText(i18n("Save"));
-
-    // Ignore size policy so that it doesn't try to grow bigger than main window
-    ignoreSizePolicyForStackedWidget(this);
 
     // set focus on next iteration of event loop, doesn't work directly for some reason
     QMetaObject::invokeMethod(
@@ -340,14 +321,16 @@ void KateConfigDialog::onSearchTextChanged()
     }
 }
 
-KateConfigDialog *KateConfigDialog::widget(KateMainWindow *mw)
+QSize KateConfigDialog::sizeHint() const
 {
-    static QPointer<KateConfigDialog> dlg = nullptr;
-    if (!dlg) {
-        dlg = new KateConfigDialog(mw);
-        return dlg;
-    }
-    return dlg;
+    // start with a bit enlarged default size hint to minimize changes of useless scrollbars
+    QSize size = KPageDialog::sizeHint() * 1.3;
+
+    // enlarge it to half of the main window size, if that is larger
+    size = size.expandedTo(m_mainWindow->size() * 0.5);
+
+    // return bounded size to available real screen space
+    return size.boundedTo(screen()->availableSize() * 0.9);
 }
 
 void KateConfigDialog::addBehaviorPage()
@@ -878,8 +861,6 @@ void KateConfigDialog::slotApply()
 
     m_dataChanged = false;
     buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);
-
-    Q_EMIT saved();
 }
 
 void KateConfigDialog::slotChanged()

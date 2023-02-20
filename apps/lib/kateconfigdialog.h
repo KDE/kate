@@ -40,30 +40,21 @@ class KateConfigDialog : public KPageDialog
 {
     Q_OBJECT
 
-private:
-    // No manual construction. We will always have one
-    // dialog around
+public:
+    // create new dialog
     KateConfigDialog(KateMainWindow *parent);
 
-public: // static
     /**
      * Reads the value from the given open config. If not present in config yet then
      * the default value 10 is used.
      */
     static int recentFilesMaxCount();
 
-    // Returns the dialog
-    static KateConfigDialog *widget(KateMainWindow *mw);
-
-    KateMainWindow *mainwWindow()
-    {
-        return m_mainWindow;
-    }
-
-    Q_INVOKABLE bool shouldClose()
-    {
-        return true;
-    }
+    /**
+     * Overwrite size hint for better default window sizes
+     * @return size hint
+     */
+    QSize sizeHint() const override;
 
 public:
     void addPluginPage(KTextEditor::Plugin *plugin);
@@ -135,7 +126,4 @@ private:
 #endif
 
     class KateConfigPluginPage *m_configPluginPage = nullptr;
-
-Q_SIGNALS:
-    void saved();
 };

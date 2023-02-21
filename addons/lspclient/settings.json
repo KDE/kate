@@ -88,6 +88,11 @@
             "highlightingModeRegex": "^JavaScript.*$",
             "documentLanguageId": false
         },
+        "json": {
+            "command": ["vscode-json-languageserver", "--stdio"],
+            "url": "https://github.com/microsoft/vscode/tree/main/extensions/json-language-features/server",
+            "highlightingModeRegex": "^JSON$"
+        },
         "kotlin": {
             "command": ["kotlin-language-server"],
             "root": ".",

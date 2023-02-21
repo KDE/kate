@@ -4,13 +4,13 @@
 # Nguyễn Hưng Vũ <Vu.Hung@techviet.com>, 2002.
 # Phan Vĩnh Thịnh <teppi82@gmail.com>, 2006.
 # Lê Hoàng Phương <herophuong93@gmail.com>, 2011, 2012, 2014.
-# Phu Hung Nguyen <phu.nguyen@kdemail.net>, 2021, 2022.
+# Phu Hung Nguyen <phu.nguyen@kdemail.net>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2022-11-14 14:41+0100\n"
+"PO-Revision-Date: 2023-02-20 11:35+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
 "Language: vi\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1632,7 +1632,7 @@ msgstr "Bị xoá"
 #: lib/katemwmodonhddialog.cpp:104
 #, kde-format
 msgid "&View Difference"
-msgstr "&Xem sự khác nhau"
+msgstr "&Xem phần chênh"
 
 #: lib/katemwmodonhddialog.cpp:106
 #, kde-format
@@ -1641,8 +1641,8 @@ msgid ""
 "the selected document, and shows the difference with the default "
 "application. Requires diff(1)."
 msgstr ""
-"Tính toán sự khác nhau giữa nội dung đang biên tập và tệp trên đĩa của tài "
-"liệu đã chọn, và hiển thị sự khác nhau bằng ứng dụng mặc định. Cần chương "
+"Tính toán phần chênh giữa nội dung đang biên tập và tệp trên đĩa của tài "
+"liệu đã chọn, và hiển thị phần chênh bằng ứng dụng mặc định. Cần chương "
 "trình diff(1)."
 
 #: lib/katemwmodonhddialog.cpp:117

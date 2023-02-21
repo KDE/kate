@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2009, 2010, 2011, 2013, 2014, 2015, 2018, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2009, 2010, 2011, 2013, 2014, 2015, 2018, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-20 01:01+0000\n"
-"PO-Revision-Date: 2022-01-25 09:10+0200\n"
+"PO-Revision-Date: 2023-02-20 09:18+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -458,22 +458,19 @@ msgid "No folders or files to index"
 msgstr "Немає тек або файлів для індексування"
 
 #: kate_ctags_view.cpp:558
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "Не вдалося запустити «%1». exitStatus = %2"
+msgstr "Не вдалося запустити. Помилка: %1, код виходу: %2"
 
 #: kate_ctags_view.cpp:573
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "Виконання програми CTags завершилося аварією."
+msgstr "Виконання програми CTags завершилося аварією"
 
 #: kate_ctags_view.cpp:575
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "Виконання програми CTags завершилося повідомленням з кодом %1: %2"
+msgstr "Виконання програми CTags завершилося повідомленням з кодом %2: %1"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

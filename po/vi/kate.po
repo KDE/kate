@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-19 01:01+0000\n"
-"PO-Revision-Date: 2023-01-08 08:58+0100\n"
+"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"PO-Revision-Date: 2023-02-20 11:35+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
 "Language: vi\n"
@@ -199,7 +199,7 @@ msgstr "KWrite - Trình biên tập văn bản"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
-#: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
+#: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Đóng"
@@ -322,108 +322,102 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Lỗi trong biểu thức chính quy: %1\n"
+"vị trí %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "Mở nh&anh"
+msgstr "Sửa nhanh"
 
 #: lib/diagnostics/diagnosticview.cpp:290
 #, kde-format
 msgid "Filter..."
 msgstr "Lọc..."
 
-#: lib/diagnostics/diagnosticview.cpp:835 lib/kateconfigdialog.cpp:391
+#: lib/diagnostics/diagnosticview.cpp:835 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Lỗi"
 
-#: lib/diagnostics/diagnosticview.cpp:839 lib/kateconfigdialog.cpp:391
-#: lib/kateconfigdialog.cpp:937
+#: lib/diagnostics/diagnosticview.cpp:839 lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:918
 #, kde-format
 msgid "Warning"
 msgstr "Cảnh báo"
 
 #: lib/diagnostics/diagnosticview.cpp:843
-#, fuzzy, kde-format
-#| msgid "Meta-Information"
+#, kde-format
 msgid "Information"
-msgstr "Siêu thông tin"
+msgstr "Thông tin"
 
 #: lib/diagnostics/diagnosticview.cpp:976
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [bị loại trừ: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1090
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "&Mở rộng thẻ"
+msgstr "Mở rộng tất cả"
 
 #: lib/diagnostics/diagnosticview.cpp:1091
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "Đón&g hết"
+msgstr "Thu gọn tất cả"
 
 #: lib/diagnostics/diagnosticview.cpp:1100
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Chép toàn bộ văn bản vào bảng nháp"
+msgstr "Chép vào bảng nháp"
 
 #: lib/diagnostics/diagnosticview.cpp:1123
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Xoá phần loại trừ toàn cục"
 
 #: lib/diagnostics/diagnosticview.cpp:1125
-#, fuzzy, kde-format
-#| msgid "&All Sessions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "&Tất cả các phiên"
+msgstr "Thêm phần loại trừ toàn cục"
 
 #: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Xoá phần loại trừ cục bộ"
 
 #: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Thêm phần loại trừ cục bộ"
 
 #: lib/diagnostics/diagnosticview.cpp:1144
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Lọc phiên"
+msgstr "Tắt loại trừ"
 
 #: lib/diagnostics/diagnosticview.cpp:1146
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Quản lí phiên"
+msgstr "Bật loại trừ"
 
 #: lib/diff/diffeditor.cpp:182
 #, kde-format
 msgid "Change Style"
 msgstr "Đổi kiểu cách"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:555
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Side By Side"
 msgstr "Cạnh nhau"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:556
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:539
 #, kde-format
 msgid "Unified"
 msgstr "Hợp nhất"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:557
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:540
 #, kde-format
 msgid "Raw"
 msgstr "Thô"
@@ -502,11 +496,10 @@ msgid "Jump to Previous Hunk"
 msgstr "Nhảy đến khúc trước"
 
 #: lib/diff/diffwidget.cpp:133
-#, fuzzy, kde-format
-#| msgid "&Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "&Tải lại"
+msgstr "Tải lại phần chênh"
 
 #: lib/diff/diffwidget.cpp:506
 #, kde-format
@@ -515,9 +508,12 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"Không tìm thấy <b>git</b>. Cần có Git để xác định được phần chênh của các "
+"tài liệu. Nếu git đã được cài đặt rồi, hãy đảm bảo là nó ở trong biến PATH. "
+"Xem https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:509 lib/diff/diffwidget.cpp:1097
-#: lib/kateconfigdialog.cpp:549
+#: lib/kateconfigdialog.cpp:532
 #, kde-format
 msgid "Diff"
 msgstr "Phần chênh"
@@ -535,7 +531,7 @@ msgstr "Tệp đã xoá %1"
 #: lib/diff/diffwidget.cpp:1080 lib/diff/diffwidget.cpp:1081
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Không tìm thấy gì chênh"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -551,13 +547,13 @@ msgstr "Lấy lịch sử tệp thất bại: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Chép giá trị băm của bản chuyển giao"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "Hiện bản chuyển giao đầy đủ"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format
@@ -893,42 +889,37 @@ msgid ""
 msgstr ""
 "Không mở được tệp '%1': không phải là tệp thông thường, mà là một thư mục."
 
-#: lib/kateconfigdialog.cpp:68
+#: lib/kateconfigdialog.cpp:56
 #, kde-format
 msgid "Configure"
 msgstr "Cấu hình"
 
-#: lib/kateconfigdialog.cpp:72 lib/kateoutputview.cpp:151
+#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
 msgstr "Tìm kiếm..."
 
-#: lib/kateconfigdialog.cpp:136
-#, kde-format
-msgid "Save"
-msgstr "Lưu"
-
-#: lib/kateconfigdialog.cpp:359
+#: lib/kateconfigdialog.cpp:342
 #, kde-format
 msgid "Behavior"
 msgstr "Ứng xử"
 
-#: lib/kateconfigdialog.cpp:361
+#: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Behavior Options"
 msgstr "Lựa chọn ứng xử"
 
-#: lib/kateconfigdialog.cpp:368
+#: lib/kateconfigdialog.cpp:351
 #, kde-format
 msgid "&Behavior"
 msgstr "Ứng &xử"
 
-#: lib/kateconfigdialog.cpp:373
+#: lib/kateconfigdialog.cpp:356
 #, kde-format
 msgid "Open each document in its own window"
 msgstr "Mở mỗi tài liệu trong một cửa sổ riêng"
 
-#: lib/kateconfigdialog.cpp:376
+#: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
@@ -937,42 +928,42 @@ msgstr ""
 "Nếu bật, mỗi tài liệu sẽ được mở trong một cửa sổ riêng. Nếu tắt, mỗi tài "
 "liệu sẽ được mở trong một thẻ mới trong cửa sổ hiện tại."
 
-#: lib/kateconfigdialog.cpp:386
+#: lib/kateconfigdialog.cpp:369
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "Chuyển &sang khung xem \"đầu ra\" khi có thông điệp thuộc loại:"
 
-#: lib/kateconfigdialog.cpp:391
+#: lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Never"
 msgstr "Không bao giờ"
 
-#: lib/kateconfigdialog.cpp:391
+#: lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Info"
 msgstr "Thông tin"
 
-#: lib/kateconfigdialog.cpp:391
+#: lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Log"
 msgstr "Nhật kí"
 
-#: lib/kateconfigdialog.cpp:397
+#: lib/kateconfigdialog.cpp:380
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&Giới hạn lịch sử khung xem \"Đầu ra\":"
 
-#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:467
+#: lib/kateconfigdialog.cpp:386 lib/kateconfigdialog.cpp:450
 #, kde-format
 msgid "Unlimited"
 msgstr "Không giới hạn"
 
-#: lib/kateconfigdialog.cpp:410
+#: lib/kateconfigdialog.cpp:393
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr "Dùng một hộp th&oại riêng để xử lí các tệp bị chỉnh sửa ở bên ngoài"
 
-#: lib/kateconfigdialog.cpp:413
+#: lib/kateconfigdialog.cpp:396
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -983,17 +974,17 @@ msgstr ""
 "chỉnh sửa. Nếu không bật, bạn sẽ được hỏi muốn làm gì với từng tệp bị chỉnh "
 "sửa chỉ khi khung xem tệp đó đang được nhắm vào."
 
-#: lib/kateconfigdialog.cpp:422
+#: lib/kateconfigdialog.cpp:405
 #, kde-format
 msgid "&Sidebars"
 msgstr "Thanh &bên"
 
-#: lib/kateconfigdialog.cpp:425
+#: lib/kateconfigdialog.cpp:408
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Đồng bộ hoá kích thước khu vực với các vị trí thẻ"
 
-#: lib/kateconfigdialog.cpp:428
+#: lib/kateconfigdialog.cpp:411
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -1003,27 +994,27 @@ msgstr ""
 "Khi bật, kích thước khu vực sẽ được xác định theo vị trí của các thẻ.\n"
 "Lựa chọn này không ảnh hưởng đến thanh bên dưới."
 
-#: lib/kateconfigdialog.cpp:433
+#: lib/kateconfigdialog.cpp:416
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Hiện chữ cho các nút ở thanh bên trái và phải"
 
-#: lib/kateconfigdialog.cpp:438
+#: lib/kateconfigdialog.cpp:421
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr "Cỡ biểu tượng cho các nút ở thanh bên trái và phải"
 
-#: lib/kateconfigdialog.cpp:457
+#: lib/kateconfigdialog.cpp:440
 #, kde-format
 msgid "&Tabs"
 msgstr "&Thẻ"
 
-#: lib/kateconfigdialog.cpp:461
+#: lib/kateconfigdialog.cpp:444
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "&Giới hạn số lượng thẻ:"
 
-#: lib/kateconfigdialog.cpp:472
+#: lib/kateconfigdialog.cpp:455
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1033,62 +1024,62 @@ msgstr ""
 "'Cho phép cuộn trên thẻ' để ngăn chặn việc đó. Thanh thẻ với số lượng không "
 "giới hạn thì luôn luôn cuộn được."
 
-#: lib/kateconfigdialog.cpp:476
+#: lib/kateconfigdialog.cpp:459
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "&Tự động ẩn các thẻ"
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:461
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr "Khi được chọn, các thẻ sẽ bị ẩn nếu chỉ có một tài liệu mở."
 
-#: lib/kateconfigdialog.cpp:482
+#: lib/kateconfigdialog.cpp:465
 #, kde-format
 msgid "&Show close button"
 msgstr "&Hiện nút đóng"
 
-#: lib/kateconfigdialog.cpp:484
+#: lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Khi được chọn, mỗi thẻ sẽ hiện một nút đóng."
 
-#: lib/kateconfigdialog.cpp:488
+#: lib/kateconfigdialog.cpp:471
 #, kde-format
 msgid "&Expand tabs"
 msgstr "&Mở rộng thẻ"
 
-#: lib/kateconfigdialog.cpp:490
+#: lib/kateconfigdialog.cpp:473
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "Khi được chọn, thẻ chiếm nhiều chỗ nhất có thể."
 
-#: lib/kateconfigdialog.cpp:494
+#: lib/kateconfigdialog.cpp:477
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&Bấm đúp để mở một tài liệu mới"
 
-#: lib/kateconfigdialog.cpp:496
+#: lib/kateconfigdialog.cpp:479
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Khi được chọn, bấm đúp sẽ mở một tài liệu mới."
 
-#: lib/kateconfigdialog.cpp:500
+#: lib/kateconfigdialog.cpp:483
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "Bấm giữ&a để đóng tài liệu"
 
-#: lib/kateconfigdialog.cpp:502
+#: lib/kateconfigdialog.cpp:485
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Khi được chọn, bấm giữa sẽ đóng tài liệu."
 
-#: lib/kateconfigdialog.cpp:506
+#: lib/kateconfigdialog.cpp:489
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Cho phép cuộn trên thẻ"
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:491
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -1097,90 +1088,90 @@ msgstr ""
 "Khi được chọn, lựa chọn này cho phép cuộn trên thanh thẻ khi số lượng thẻ "
 "lớn."
 
-#: lib/kateconfigdialog.cpp:512
+#: lib/kateconfigdialog.cpp:495
 #, kde-format
 msgid "Elide tab text"
 msgstr "Lược bớt tiêu đề thẻ"
 
-#: lib/kateconfigdialog.cpp:514
+#: lib/kateconfigdialog.cpp:497
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr "Khi được chọn, tiêu đề thẻ có thể bị lược bớt nếu quá dài."
 
-#: lib/kateconfigdialog.cpp:520
+#: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "&Mouse"
 msgstr "Ch&uột"
 
-#: lib/kateconfigdialog.cpp:525
+#: lib/kateconfigdialog.cpp:508
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "Nút \"&Lùi\" được ấn:"
 
-#: lib/kateconfigdialog.cpp:530
+#: lib/kateconfigdialog.cpp:513
 #, kde-format
 msgid "Previous tab"
 msgstr "Thẻ trước"
 
-#: lib/kateconfigdialog.cpp:530
+#: lib/kateconfigdialog.cpp:513
 #, kde-format
 msgid "History back"
 msgstr "Lùi theo lịch sử"
 
-#: lib/kateconfigdialog.cpp:536
+#: lib/kateconfigdialog.cpp:519
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Nút \"T&iến\" được ấn:"
 
-#: lib/kateconfigdialog.cpp:541
+#: lib/kateconfigdialog.cpp:524
 #, kde-format
 msgid "Next tab"
 msgstr "Thẻ sau"
 
-#: lib/kateconfigdialog.cpp:541
+#: lib/kateconfigdialog.cpp:524
 #, kde-format
 msgid "History forward"
 msgstr "Tiến theo lịch sử"
 
-#: lib/kateconfigdialog.cpp:558
+#: lib/kateconfigdialog.cpp:541
 #, kde-format
 msgid "Diff Style:"
 msgstr "Kiểu cách phần chênh:"
 
-#: lib/kateconfigdialog.cpp:563
+#: lib/kateconfigdialog.cpp:546
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Thanh điều hướng"
 
-#: lib/kateconfigdialog.cpp:568
+#: lib/kateconfigdialog.cpp:551
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Hiện kí hiệu hiện tại trong thanh điều hướng"
 
-#: lib/kateconfigdialog.cpp:582
+#: lib/kateconfigdialog.cpp:565
 #, kde-format
 msgid "Session"
 msgstr "Phiên"
 
-#: lib/kateconfigdialog.cpp:584
+#: lib/kateconfigdialog.cpp:567
 #, kde-format
 msgid "Session Management"
 msgstr "Quản lí phiên"
 
-#: lib/kateconfigdialog.cpp:595
+#: lib/kateconfigdialog.cpp:578
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(không bao giờ)"
 
-#: lib/kateconfigdialog.cpp:596
+#: lib/kateconfigdialog.cpp:579
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
 msgid_plural " days"
 msgstr[0] " ngày"
 
-#: lib/kateconfigdialog.cpp:629
+#: lib/kateconfigdialog.cpp:612
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1189,22 +1180,22 @@ msgstr ""
 "Khi một cửa sổ đóng lại, các tài liệu mà chỉ đang mở trong cửa sổ đó cũng sẽ "
 "bị đóng."
 
-#: lib/kateconfigdialog.cpp:664
+#: lib/kateconfigdialog.cpp:647
 #, kde-format
 msgid "Plugins"
 msgstr "Phần cài cắm"
 
-#: lib/kateconfigdialog.cpp:666
+#: lib/kateconfigdialog.cpp:649
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Trình quản lí phần cài cắm"
 
-#: lib/kateconfigdialog.cpp:684 lib/kateconfigdialog.cpp:686
+#: lib/kateconfigdialog.cpp:667 lib/kateconfigdialog.cpp:669
 #, kde-format
 msgid "User Feedback"
 msgstr "Phản hồi của người dùng"
 
-#: lib/kateconfigdialog.cpp:936
+#: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1377,7 +1368,7 @@ msgstr "Đầu ra"
 #: lib/katemainwindow.cpp:310
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Chẩn đoán"
 
 #: lib/katemainwindow.cpp:321
 #, kde-format
@@ -1673,7 +1664,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Mở tất cả các tệp"
 
-#: lib/katemainwindow.cpp:1146
+#: lib/katemainwindow.cpp:1135
 #, kde-format
 msgid " [read only]"
 msgstr " [chỉ đọc]"
@@ -1841,7 +1832,7 @@ msgstr "Bị xoá"
 #: lib/katemwmodonhddialog.cpp:104
 #, kde-format
 msgid "&View Difference"
-msgstr "&Xem sự khác nhau"
+msgstr "&Xem phần chênh"
 
 #: lib/katemwmodonhddialog.cpp:106
 #, kde-format
@@ -1850,8 +1841,8 @@ msgid ""
 "the selected document, and shows the difference with the default "
 "application. Requires diff(1)."
 msgstr ""
-"Tính toán sự khác nhau giữa nội dung đang biên tập và tệp trên đĩa của tài "
-"liệu đã chọn, và hiển thị sự khác nhau bằng ứng dụng mặc định. Cần chương "
+"Tính toán phần chênh giữa nội dung đang biên tập và tệp trên đĩa của tài "
+"liệu đã chọn, và hiển thị phần chênh bằng ứng dụng mặc định. Cần chương "
 "trình diff(1)."
 
 #: lib/katemwmodonhddialog.cpp:117
@@ -2781,6 +2772,9 @@ msgstr "Quản lí phiên..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Hiện cho cửa sổ mới"
+
+#~ msgid "Save"
+#~ msgstr "Lưu"
 
 #~ msgid "&Other..."
 #~ msgstr "&Khác..."

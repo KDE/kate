@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Ignacio Poggi <ignaciop.3@gmail.com>, 2008.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2009, 2010, 2011, 2014, 2018, 2020, 2021, 2022.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2009, 2010, 2011, 2014, 2018, 2020, 2021, 2022, 2023.
 # Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>, 2011.
 # Rocio Gallego <traducciones@rociogallego.com>, 2014, 2015.
 msgid ""
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-20 01:01+0000\n"
-"PO-Revision-Date: 2022-01-25 17:05+0100\n"
+"PO-Revision-Date: 2023-02-20 11:36+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "com>\n"
-"X-Generator: Lokalize 21.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -459,22 +459,19 @@ msgid "No folders or files to index"
 msgstr "No hay carpetas ni archivos a indexar"
 
 #: kate_ctags_view.cpp:558
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "No se ha podido ejecutar «%1». Estado de la salida = %2"
+msgstr "No se ha podido ejecutar. Error: %1. Código de salida: %2"
 
 #: kate_ctags_view.cpp:573
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "El ejecutable de CTags ha fallado."
+msgstr "El ejecutable de CTags ha fallado"
 
 #: kate_ctags_view.cpp:575
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "El programa CTags ha terminado con el código %1: %2"
+msgstr "El programa CTags ha terminado con el código %2: %1"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

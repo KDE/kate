@@ -6,13 +6,13 @@
 # obsoleteman <tulliana@gmail.com>, 2008-2009,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014, 2017, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-20 01:01+0000\n"
-"PO-Revision-Date: 2022-03-12 22:20+0300\n"
+"PO-Revision-Date: 2023-02-20 16:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
@@ -255,12 +255,12 @@ msgstr "ayarla"
 #: gotosymbolmodel.cpp:67
 #, kde-format
 msgid "CTags executable not found."
-msgstr "CTags çalıştırılabilir dosyası bulunamadı."
+msgstr "CTags yürütülebiliri bulunamadı."
 
 #: gotosymbolmodel.cpp:80
 #, kde-format
 msgid "CTags executable failed to execute."
-msgstr "CTags çalıştırılabilir dosyası çalıştırılamadı."
+msgstr "CTags yürütülebiliri çalıştırılamadı."
 
 #: gotosymbolmodel.cpp:148
 #, kde-format
@@ -376,7 +376,7 @@ msgstr "\"%1\" çalıştırılamadı. exitStatus = %2"
 #: kate_ctags_plugin.cpp:243
 #, kde-format
 msgid "The CTags executable crashed."
-msgstr "CTags çalıştırılabilir dosyası çöktü."
+msgstr "CTags yürütülebiliri çöktü."
 
 #: kate_ctags_plugin.cpp:245
 #, kde-format
@@ -460,22 +460,19 @@ msgid "No folders or files to index"
 msgstr "İndekslenecek klasör veya dosya yok"
 
 #: kate_ctags_view.cpp:558
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "\"%1\" çalıştırılamadı. exitStatus = %2"
+msgstr "Çalıştırılamadı. Hata: %1, çıkış kodu: %2"
 
 #: kate_ctags_view.cpp:573
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "CTags çalıştırılabilir dosyası çöktü."
+msgstr "CTags yürütülebiliri çöktü"
 
 #: kate_ctags_view.cpp:575
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "CTags uygulamasından %1 kodu ile çıkıldı: %2"
+msgstr "CTags uygulamasından %2 kodu ile çıkıldı: %1"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

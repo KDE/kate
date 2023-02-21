@@ -35,14 +35,14 @@ void PushPullDialog::openDialog(PushPullDialog::Mode m)
 
     QStringList lastExecCmds = m_lastExecutedCommands;
 
-    if (!lastExecCmds.contains(builtString)) {
-        lastExecCmds.push_front(builtString);
-    }
-
     // if found, bring it up
     if (!lastCmd.isEmpty()) {
         lastExecCmds.removeAll(lastCmd);
         lastExecCmds.push_front(lastCmd);
+    }
+
+    if (!lastExecCmds.contains(builtString)) {
+        lastExecCmds.push_front(builtString);
     }
 
     setStringList(lastExecCmds);

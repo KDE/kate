@@ -29,7 +29,7 @@ PushPullDialog::PushPullDialog(KTextEditor::MainWindow *mainWindow, const QStrin
 void PushPullDialog::openDialog(PushPullDialog::Mode m)
 {
     // build the string
-    QString builtString = m == Push ? buildPushString() : buildPullString();
+    const QStringList builtStrings = buildCmdStrings(m);
     // find if we have a last executed push/pull command
     QString lastCmd = getLastPushPullCmd(m);
 
@@ -41,8 +41,9 @@ void PushPullDialog::openDialog(PushPullDialog::Mode m)
         lastExecCmds.push_front(lastCmd);
     }
 
-    if (!lastExecCmds.contains(builtString)) {
-        lastExecCmds.push_front(builtString);
+    for (const auto &s : builtStrings) {
+        lastExecCmds.removeAll(s);
+        lastExecCmds.push_front(s);
     }
 
     setStringList(lastExecCmds);
@@ -117,40 +118,55 @@ static QStringList remotesList(const QString &repo)
     startHostProcess(git, QIODevice::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
-            return QString::fromUtf8(git.readAllStandardOutput()).split(QLatin1Char('\n'));
+            return QString::fromUtf8(git.readAllStandardOutput()).split(QLatin1Char('\n'), Qt::SkipEmptyParts);
         }
     }
     return {};
 }
 
-QString PushPullDialog::buildPushString()
+static QString getRemoteForCurrentBranch(const QString &repo, const QString &branch)
 {
-    auto br = currentBranchName(m_repo);
-    if (br.isEmpty()) {
-        return QStringLiteral("git push");
+    QProcess git;
+    const QStringList args{QStringLiteral("config"), QStringLiteral("branch.%1.remote").arg(branch)};
+    if (!setupGitProcess(git, repo, args)) {
+        return {};
     }
 
-    auto remotes = remotesList(m_repo);
-    if (!remotes.contains(QStringLiteral("origin"))) {
-        return QStringLiteral("git push");
+    startHostProcess(git, QIODevice::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
+            return QString::fromUtf8(git.readAllStandardOutput().trimmed());
+        }
     }
-
-    return QStringLiteral("git push %1 %2").arg(QStringLiteral("origin")).arg(br);
+    return {};
 }
 
-QString PushPullDialog::buildPullString()
+QStringList PushPullDialog::buildCmdStrings(Mode m)
 {
-    auto br = currentBranchName(m_repo);
+    const QString arg = m == Push ? QLatin1String("push") : QLatin1String("pull");
+    const auto br = currentBranchName(m_repo);
     if (br.isEmpty()) {
-        return QStringLiteral("git pull");
+        return {QStringLiteral("git %1").arg(arg)};
     }
 
-    auto remotes = remotesList(m_repo);
-    if (!remotes.contains(QStringLiteral("origin"))) {
-        return QStringLiteral("git pull");
+    auto remoteForBranch = getRemoteForCurrentBranch(m_repo, br);
+    if (remoteForBranch.isEmpty()) {
+        const auto remotes = remotesList(m_repo);
+        if (remotes.isEmpty()) {
+            return {QStringLiteral("git %1").arg(arg)};
+        }
+        QStringList cmds;
+        // reverse traversal as later, these commands will be pushed in front of the
+        // list displayed to user, so we invert the order here and it will appear in
+        // the same order that git shows
+        for (auto ri = remotes.crbegin(); ri != remotes.crend(); ++ri) {
+            cmds << QStringLiteral("git %1 %2 %3").arg(arg, *ri, br);
+        }
+        return cmds;
+    } else {
+        // if we found a remote, only offer that
+        return {QStringLiteral("git %1 %2 %3").arg(arg, remoteForBranch, br)};
     }
-
-    return QStringLiteral("git pull %1 %2").arg(QStringLiteral("origin")).arg(br);
 }
 
 void PushPullDialog::slotReturnPressed(const QModelIndex &)

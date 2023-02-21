@@ -19,8 +19,7 @@ public:
     Q_SIGNAL void runGitCommand(const QStringList &args);
 
 private:
-    QString buildPushString();
-    QString buildPullString();
+    QStringList buildCmdStrings(Mode m);
     void loadLastExecutedCommands();
     void saveCommand(const QString &command);
 

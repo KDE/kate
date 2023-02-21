@@ -5,7 +5,9 @@
 */
 #include "pushpulldialog.h"
 
+#include <QFile>
 #include <QProcess>
+#include <QSettings>
 
 #include <KConfigGroup>
 #include <KSharedConfig>
@@ -24,12 +26,18 @@ PushPullDialog::PushPullDialog(KTextEditor::MainWindow *mainWindow, const QStrin
     m_treeView.setFont(Utils::editorFont());
     setFilteringEnabled(false);
     loadLastExecutedCommands();
+    detectGerrit();
 }
 
 void PushPullDialog::openDialog(PushPullDialog::Mode m)
 {
     // build the string
-    const QStringList builtStrings = buildCmdStrings(m);
+    QStringList builtStrings;
+    if (m == Push && m_isGerrit) {
+        builtStrings << QStringLiteral("git push origin HEAD:refs/for/%1").arg(m_gerritBranch);
+    } else {
+        builtStrings = buildCmdStrings(m);
+    }
     // find if we have a last executed push/pull command
     QString lastCmd = getLastPushPullCmd(m);
 
@@ -181,4 +189,13 @@ void PushPullDialog::slotReturnPressed(const QModelIndex &)
     }
 
     hide();
+}
+
+void PushPullDialog::detectGerrit()
+{
+    if (QFile::exists(m_repo + QLatin1String(".gitreview"))) {
+        m_isGerrit = true;
+        QSettings s(m_repo + QLatin1String("/.gitreview"), QSettings::IniFormat);
+        m_gerritBranch = s.value(QStringLiteral("gerrit/defaultbranch")).toString();
+    }
 }

@@ -19,6 +19,7 @@ public:
     Q_SIGNAL void runGitCommand(const QStringList &args);
 
 private:
+    void detectGerrit();
     QStringList buildCmdStrings(Mode m);
     void loadLastExecutedCommands();
     void saveCommand(const QString &command);
@@ -30,4 +31,8 @@ private:
 
 protected Q_SLOTS:
     void slotReturnPressed(const QModelIndex &index) override;
+
+private:
+    bool m_isGerrit = false;
+    QString m_gerritBranch;
 };

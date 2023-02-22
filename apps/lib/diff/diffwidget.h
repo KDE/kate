@@ -74,6 +74,7 @@ private:
     void applyDiff(const QString &diff, ApplyFlags flags);
     void runGitDiff();
     static QStringList diffDocsGitArgs(KTextEditor::Document *l, KTextEditor::Document *r);
+    void showWithFullContext();
 
     void jumpToNextFile();
     void jumpToPrevFile();

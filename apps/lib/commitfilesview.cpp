@@ -494,6 +494,7 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
     DiffParams d;
     d.srcFile = file;
     d.flags.setFlag(DiffParams::ShowCommitInfo);
+    d.workingDir = m_gitDir;
     if (m_tree.model()->rowCount(idx) > 1) {
         d.flags.setFlag(DiffParams::ShowFileName);
     }

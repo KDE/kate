@@ -450,3 +450,24 @@ void DiffEditor::toggleFoldHunk(int blockNumber)
     viewport()->update();
     m_lineNumArea->update();
 }
+
+int DiffEditor::firstVisibleLineNumber() const
+{
+    const int block = firstVisibleBlockNumber();
+    const int last = document()->blockCount();
+    for (int i = block; i < last; ++i) {
+        int lineNo = m_lineNumArea->lineNumForBlock(i);
+        if (lineNo != -1) {
+            return lineNo;
+        }
+    }
+    return -1;
+}
+
+void DiffEditor::scrollToLineNumber(int lineNo)
+{
+    const int block = m_lineNumArea->blockForLineNum(lineNo);
+    if (block != -1) {
+        scrollToBlock(block);
+    }
+}

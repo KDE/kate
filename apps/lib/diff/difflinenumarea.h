@@ -21,6 +21,16 @@ public:
         maxLineNum = n;
     }
 
+    int lineNumForBlock(int block)
+    {
+        return m_lineToNumA.value(block);
+    }
+
+    int blockForLineNum(int lineNo)
+    {
+        return m_lineToNumA.indexOf(lineNo);
+    }
+
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *e) override;

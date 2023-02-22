@@ -94,6 +94,10 @@ public:
 
     void scrollToBlock(int block, bool flashBlock = false);
 
+    // Returns the line number that user sees
+    int firstVisibleLineNumber() const;
+    void scrollToLineNumber(int lineNo);
+
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent *e) override;

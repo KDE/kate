@@ -19,6 +19,7 @@
 #include <QScrollBar>
 #include <QSyntaxHighlighter>
 #include <QTemporaryFile>
+#include <QTimer>
 #include <QToolBar>
 #include <QToolButton>
 
@@ -132,6 +133,10 @@ public:
         m_reload = addAction(QIcon::fromTheme(QStringLiteral("view-refresh")), QString());
         m_reload->setToolTip(i18nc("Tooltip for a button, clicking the button reloads the diff", "Reload Diff"));
         connect(m_reload, &QAction::triggered, this, &Toolbar::reload);
+
+        m_fullContext = addAction(QIcon::fromTheme(QStringLiteral("view-fullscreen")), QString());
+        m_fullContext->setToolTip(i18nc("Tooltip for a button", "Show diff with full context, not just the changed lines"));
+        connect(m_fullContext, &QAction::triggered, this, &Toolbar::showWithFullContext);
     }
 
     void setShowCommitActionVisible(bool vis)
@@ -146,6 +151,11 @@ public:
         return m_showCommitInfoAction->isChecked();
     }
 
+    void hideShowFullContext()
+    {
+        m_fullContext->setVisible(false);
+    }
+
 private:
     QAction *m_showCommitInfoAction;
     QAction *m_showNextFile;
@@ -153,6 +163,7 @@ private:
     QAction *m_showNextHunk;
     QAction *m_showPrevHunk;
     QAction *m_reload;
+    QAction *m_fullContext;
 
 Q_SIGNALS:
     void showCommitInfoChanged(bool);
@@ -161,6 +172,7 @@ Q_SIGNALS:
     void jumpToNextHunk();
     void jumpToPrevHunk();
     void reload();
+    void showWithFullContext();
 };
 
 static void syncScroll(QPlainTextEdit *src, QPlainTextEdit *tgt)
@@ -240,6 +252,7 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     connect(m_toolbar, &Toolbar::jumpToNextHunk, this, &DiffWidget::jumpToNextHunk);
     connect(m_toolbar, &Toolbar::jumpToPrevHunk, this, &DiffWidget::jumpToPrevHunk);
     connect(m_toolbar, &Toolbar::reload, this, &DiffWidget::runGitDiff);
+    connect(m_toolbar, &Toolbar::showWithFullContext, this, &DiffWidget::showWithFullContext);
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
@@ -485,6 +498,38 @@ QStringList DiffWidget::diffDocsGitArgs(KTextEditor::Document *l, KTextEditor::D
     const QString left = l->url().toLocalFile();
     const QString right = r->url().toLocalFile();
     return {QStringLiteral("diff"), QStringLiteral("--no-color"), QStringLiteral("--no-index"), left, right};
+}
+
+void DiffWidget::showWithFullContext()
+{
+    if (m_params.arguments.size() < 1) {
+        return;
+    }
+
+    const int lineNo = m_left->firstVisibleLineNumber();
+
+    int idx = m_params.arguments.indexOf(QLatin1String("--"));
+    if (idx != -1) {
+        m_params.arguments.insert(idx, QLatin1String("-U5000"));
+    } else if (m_params.arguments.size() == 1) {
+        m_params.arguments << QLatin1String("-U5000");
+    } else {
+        m_params.arguments.insert(2, QLatin1String("-U5000"));
+    }
+    runGitDiff();
+
+    // After the diff runs and we show the result, try to take the user back to where he was
+    QPointer<QTimer> delayedSlotTrigger = new QTimer(this);
+    delayedSlotTrigger->setSingleShot(true);
+    delayedSlotTrigger->setInterval(10);
+    delayedSlotTrigger->callOnTimeout(this, [this, lineNo, delayedSlotTrigger] {
+        if (delayedSlotTrigger) {
+            m_left->scrollToLineNumber(lineNo);
+            m_toolbar->hideShowFullContext();
+            delete delayedSlotTrigger;
+        }
+    });
+    connect(m_left, &QPlainTextEdit::textChanged, delayedSlotTrigger, qOverload<>(&QTimer::start));
 }
 
 void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)

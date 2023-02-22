@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2019, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kateexternaltoolsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-21 01:02+0000\n"
-"PO-Revision-Date: 2022-01-27 08:47+0200\n"
+"PO-Revision-Date: 2023-02-21 07:55+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -186,6 +186,9 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"Не вдалося знайти виконуваний файл «%1». Будь ласка, переконайтеся, що "
+"виконуваний файл існує, і що назви змінних, якщо їх використано, вказано "
+"правильно"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
 #: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264

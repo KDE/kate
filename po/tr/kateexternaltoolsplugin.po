@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # Volkan Gezer <volkangezer@gmail.com>, 2022.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-21 01:02+0000\n"
-"PO-Revision-Date: 2022-11-21 22:25+0300\n"
+"PO-Revision-Date: 2023-02-21 22:52+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -183,6 +183,8 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"'%1' yürütülebiliri bulunamadı. Yürütülebilir dosyanın var olduğundan ve "
+"kullanılmışsa değişken adlarının doğru olduğundan emin olun"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
 #: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264
@@ -240,7 +242,7 @@ msgstr "Dış Araç"
 #: kateexternaltoolsconfigwidget.cpp:190
 #, kde-format
 msgid "You must specify at least a name and an executable"
-msgstr "En azından bir ad ve çalıştırılabilir belirtmelisiniz"
+msgstr "En azından bir ad ve yürütülebilir belirtmelisiniz"
 
 #: kateexternaltoolsconfigwidget.cpp:196
 #, kde-format
@@ -326,7 +328,7 @@ msgstr "Aracın kısa adı"
 #: tooldialog.ui:47
 #, kde-format
 msgid "Executable:"
-msgstr "Çalıştırılabilir:"
+msgstr "Yürütülebilir:"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, edtExecutable)
 #: tooldialog.ui:57
@@ -459,7 +461,7 @@ msgstr "Kaydetme Sonrası"
 #: tooldialog.ui:208
 #, kde-format
 msgid "Reload current document after execution"
-msgstr "Çalıştırdıktan sonra geçerli belgeyi yeniden yükle"
+msgstr "Yürütme sonrası geçerli belgeyi yeniden yükle"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: tooldialog.ui:215

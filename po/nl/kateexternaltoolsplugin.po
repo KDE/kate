@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2019, 2020, 2021, 2022.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-21 01:02+0000\n"
-"PO-Revision-Date: 2022-01-27 10:49+0100\n"
+"PO-Revision-Date: 2023-02-21 16:59+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -183,6 +183,8 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"Uitvoerbaar programma '%1' is niet gevonden. Ga na dat het uitvoerbare "
+"bestand bestaat en dat name van variabelen, indien gebruikt, juist zijn"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
 #: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264

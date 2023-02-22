@@ -421,7 +421,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     connect(m_ui.searchCombo, &QComboBox::editTextChanged, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
     connect(m_ui.matchCase, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
-    connect(m_ui.matchCase, &QToolButton::toggled, this, [=] {
+    connect(m_ui.matchCase, &QToolButton::toggled, this, [this] {
         Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
         if (res) {
             res->matchCase = m_ui.matchCase->isChecked();
@@ -531,7 +531,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     });
 
     connect(m_ui.useRegExp, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
-    auto onRegexToggleChanged = [=] {
+    auto onRegexToggleChanged = [this, searchComboActionForInsertRegexButton, replaceComboActionForInsertRegexButton] {
         Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
         if (res) {
             bool useRegExp = m_ui.useRegExp->isChecked();

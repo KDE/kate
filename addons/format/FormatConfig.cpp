@@ -38,7 +38,7 @@ FormatConfigPage::FormatConfigPage(class FormatPlugin *plugin, QWidget *parent)
     mainLayout->addWidget(gb);
     {
         auto layout = new QVBoxLayout(gb);
-        auto addRow = [=](auto label, auto combo) {
+        auto addRow = [layout, this](auto label, auto combo) {
             auto hlayout = new QHBoxLayout;
             connect(combo, &QComboBox::currentIndexChanged, this, &KTextEditor::ConfigPage::changed);
             layout->addLayout(hlayout);

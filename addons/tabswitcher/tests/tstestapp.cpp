@@ -72,19 +72,19 @@ TsTestApp::TsTestApp(QWidget *parent)
     l->addLayout(hl);
 
     auto buttonInsert1 = new QPushButton(QStringLiteral("Ins 1 item"), this);
-    connect(buttonInsert1, &QPushButton::clicked, this, [=] {
+    connect(buttonInsert1, &QPushButton::clicked, this, [this] {
         impl_->insert_1_item();
     });
     hl->addWidget(buttonInsert1);
 
     auto buttonRemove1 = new QPushButton(QStringLiteral("Del 1 item"), this);
-    connect(buttonRemove1, &QPushButton::clicked, this, [=] {
+    connect(buttonRemove1, &QPushButton::clicked, this, [this] {
         impl_->remove_1_item();
     });
     hl->addWidget(buttonRemove1);
 
     auto buttonSetTestSet1 = new QPushButton(QStringLiteral("set_items_cutoff_bug"), this);
-    connect(buttonSetTestSet1, &QPushButton::clicked, this, [=] {
+    connect(buttonSetTestSet1, &QPushButton::clicked, this, [this] {
         impl_->set_items_cutoff_bug();
     });
     hl->addWidget(buttonSetTestSet1);

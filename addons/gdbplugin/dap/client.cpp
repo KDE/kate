@@ -769,7 +769,7 @@ std::optional<Client::HeaderInfo> Client::readHeader()
     int start = 0;
     int end = -1;
 
-    auto discardExploredBuffer = [=]() mutable {
+    auto discardExploredBuffer = [this, length, start, end]() mutable {
         m_buffer.remove(0, end);
         length = end = -1;
         start = 0;

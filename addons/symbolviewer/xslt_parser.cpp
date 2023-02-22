@@ -53,7 +53,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         m_symbols->setRootIsDecorated(0);
     }
 
-    bool is_comment, is_template = false;
+    bool is_comment = false, is_template = false;
     for (int i = 0; i < kv->lines(); i++) {
         QString cl = kv->line(i);
         cl = cl.trimmed();

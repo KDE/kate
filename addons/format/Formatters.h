@@ -142,12 +142,19 @@ public:
         return QStringLiteral("jq");
     }
 
-    QStringList args(KTextEditor::Document *) const override
+    QStringList args(KTextEditor::Document *doc) const override
     {
+        auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(doc);
+        // Reuse doc's indent
+        bool ok = false;
+        int width = ciface->configValue(QStringLiteral("indent-width")).toInt(&ok);
+        if (!ok) {
+            width = 4;
+        }
         return {
             QStringLiteral("."),
             QStringLiteral("--indent"),
-            QStringLiteral("4"),
+            QString::number(width),
             QStringLiteral("-M"), // no color
         };
     }

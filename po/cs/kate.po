@@ -2726,6 +2726,3 @@ msgstr "Spravovat sezení..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Zobrazit pro nové okno"
-
-#~ msgid "Save"
-#~ msgstr "Uložit"

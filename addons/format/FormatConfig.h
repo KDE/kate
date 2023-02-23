@@ -38,7 +38,8 @@ public:
 
 private:
     class FormatPlugin *const m_plugin;
-    class QCheckBox *const m_cbFormatOnSave;
-
-    class QComboBox *m_cmbJson;
+    class QTabWidget *const m_tabWidget;
+    class GeneralTab *m_genTab;
+    class QPlainTextEdit *m_defaultConfigEdit;
+    class UserConfigEdit *m_userConfigEdit;
 };

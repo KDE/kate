@@ -8,6 +8,7 @@
 #include "FormatConfig.h"
 #include "FormatterFactory.h"
 #include "Formatters.h"
+#include <json_utils.h>
 
 #include <KActionCollection>
 #include <KConfigGroup>
@@ -18,12 +19,25 @@
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
 
+#include <QDir>
 #include <QPointer>
 
 K_PLUGIN_FACTORY_WITH_JSON(FormatPluginFactory, "FormatPlugin.json", registerPlugin<FormatPlugin>();)
 
+static QJsonDocument readDefaultConfig()
+{
+    QFile defaultConfigFile(QStringLiteral(":/formatting/FormatterSettings.json"));
+    defaultConfigFile.open(QIODevice::ReadOnly);
+    Q_ASSERT(defaultConfigFile.isOpen());
+    QJsonParseError err;
+    auto doc = QJsonDocument::fromJson(defaultConfigFile.readAll(), &err);
+    Q_ASSERT(err.error == QJsonParseError::NoError);
+    return doc;
+}
+
 FormatPlugin::FormatPlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
+    , m_defaultConfig(readDefaultConfig())
 {
     readConfig();
 }
@@ -47,6 +61,50 @@ void FormatPlugin::readConfig()
     formatOnSave = cg.readEntry("FormatOnSave", false);
 
     formatterForJson = (Formatters)cg.readEntry("FormatterForJson", (int)Formatters::Prettier);
+
+    QString settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/formatting"));
+    QDir().mkpath(settingsPath);
+    readFormatterConfig();
+}
+
+void FormatPlugin::readFormatterConfig()
+{
+    QJsonDocument userConfig;
+    const QString path = userConfigPath();
+    if (QFile::exists(path)) {
+        QFile f(path);
+        if (f.open(QFile::ReadOnly)) {
+            QJsonParseError err;
+            const QByteArray text = f.readAll();
+            if (!text.isEmpty()) {
+                userConfig = QJsonDocument::fromJson(text, &err);
+                if (err.error != QJsonParseError::NoError) {
+                    QMetaObject::invokeMethod(
+                        this,
+                        [err] {
+                            Utils::showMessage(i18n("Failed to read settings.json. Error: %1", err.errorString()), QIcon(), i18n("Format"), MessageType::Error);
+                        },
+                        Qt::QueuedConnection);
+                }
+            }
+        }
+    }
+
+    if (!userConfig.isEmpty()) {
+        m_formatterConfig = json::merge(m_defaultConfig.object(), userConfig.object());
+    } else {
+        m_formatterConfig = m_defaultConfig.object();
+    }
+}
+
+QString FormatPlugin::userConfigPath() const
+{
+    return QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/formatting/settings.json");
+}
+
+QJsonObject FormatPlugin::formatterConfig() const
+{
+    return m_formatterConfig;
 }
 
 FormatPluginView::FormatPluginView(FormatPlugin *plugin, KTextEditor::MainWindow *mainWin)
@@ -94,16 +152,14 @@ FormatPluginView::~FormatPluginView()
 
 void FormatPluginView::onConfigChanged()
 {
-    // maybe remove this? Normally this function is emitted when config page is open
-    // which means activeView == null. When the user goes back to the document
-    // onActiveViewChanged will be called and config will be re-read
+    m_lastChecksum = {};
 }
 
 void FormatPluginView::onActiveViewChanged(KTextEditor::View *v)
 {
     if (!v || !v->document()) {
         if (m_activeDoc) {
-            disconnect(m_activeDoc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::format);
+            disconnect(m_activeDoc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::runFormatOnSave);
         }
         m_activeDoc = nullptr;
         return;
@@ -114,15 +170,22 @@ void FormatPluginView::onActiveViewChanged(KTextEditor::View *v)
     }
 
     if (m_activeDoc) {
-        disconnect(m_activeDoc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::format);
+        disconnect(m_activeDoc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::runFormatOnSave);
     }
 
     m_activeDoc = v->document();
     m_lastChecksum = {};
 
     if (formatOnSave()) {
-        connect(m_activeDoc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::format, Qt::QueuedConnection);
+        connect(m_activeDoc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::runFormatOnSave, Qt::QueuedConnection);
     }
+}
+
+void FormatPluginView::runFormatOnSave()
+{
+    m_triggeredOnSave = true;
+    format();
+    m_triggeredOnSave = false;
 }
 
 void FormatPluginView::format()
@@ -142,6 +205,11 @@ void FormatPluginView::format()
 
     auto formatter = formatterForDoc(m_activeDoc, m_plugin);
     if (!formatter) {
+        return;
+    }
+
+    if (m_triggeredOnSave && !formatter->formatOnSaveEnabled(formatOnSave())) {
+        delete formatter;
         return;
     }
 
@@ -245,13 +313,13 @@ void FormatPluginView::saveDocument(KTextEditor::Document *doc)
 {
     if (doc->url().isValid() && doc->isModified()) {
         if (formatOnSave() && doc == m_activeDoc) {
-            disconnect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::format);
+            disconnect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::runFormatOnSave);
         }
 
         doc->documentSave();
 
         if (formatOnSave() && doc == m_activeDoc) {
-            connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::format, Qt::QueuedConnection);
+            connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::runFormatOnSave, Qt::QueuedConnection);
         }
     }
 }

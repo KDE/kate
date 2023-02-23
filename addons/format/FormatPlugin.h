@@ -11,6 +11,8 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 #include <KXMLGUIClient>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QVariant>
 
 #include <QPointer>
@@ -32,12 +34,20 @@ public:
 
     KTextEditor::ConfigPage *configPage(int number, QWidget *parent) override;
     void readConfig();
+    void readFormatterConfig();
+
+    QJsonObject formatterConfig() const;
+    QString userConfigPath() const;
 
     bool formatOnSave = false;
 
     Formatters formatterForJson = Formatters::Prettier;
 
     Q_SIGNAL void configChanged();
+
+private:
+    const QJsonDocument m_defaultConfig;
+    QJsonObject m_formatterConfig;
 };
 
 class FormatPluginView final : public QObject, public KXMLGUIClient
@@ -50,6 +60,7 @@ public:
 
 private:
     void format();
+    void runFormatOnSave();
     void onActiveViewChanged(KTextEditor::View *);
     void onFormattedTextReceived(class AbstractFormatter *, KTextEditor::Document *doc, const QByteArray &, int offset);
     void onFormattedPatchReceived(KTextEditor::Document *doc, const std::vector<PatchLine> &, bool setCursor = false);
@@ -64,4 +75,5 @@ private:
     QByteArray m_lastChecksum;
     FormatPlugin *const m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
+    bool m_triggeredOnSave = false;
 };

@@ -1,6 +1,8 @@
+<?xml version="1.0"?>
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/formatting">
         <file>prettier_script.js</file>
+        <file>FormatterSettings.json</file>
     </qresource>
 </RCC>

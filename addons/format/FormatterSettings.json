@@ -1,0 +1,28 @@
+{
+    "clang-format": {
+        "path": "clang-format",
+        "fallbackStyle": "WebKit",
+        "formatOnSave": true
+    },
+    "dart": {
+        "path": "dart"
+    },
+    "jq": {
+        "path": "jq"
+    },
+    "prettier": {
+        "path": "node"
+    },
+    "rustfmt": {
+        "path": "rustfmt"
+    },
+    "xmllint": {
+        "path": "xmllint"
+    },
+    "gofmt": {
+        "path": "gofmt"
+    },
+    "zig": {
+        "path": "zig"
+    }
+}

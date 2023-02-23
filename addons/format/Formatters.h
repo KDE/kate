@@ -4,6 +4,7 @@
 */
 #pragma once
 
+#include <QJsonObject>
 #include <QPointer>
 #include <QProcess>
 
@@ -20,10 +21,11 @@ class AbstractFormatter : public QObject
 {
     Q_OBJECT
 public:
-    AbstractFormatter(KTextEditor::Document *parent)
+    AbstractFormatter(const QJsonObject &obj, KTextEditor::Document *parent)
         : QObject(parent)
         , originalText(parent->text())
         , m_doc(parent)
+        , m_globalConfig(obj)
     {
     }
 
@@ -41,6 +43,11 @@ public:
     void setCursorPosition(KTextEditor::Cursor c)
     {
         m_pos = c;
+    }
+
+    bool formatOnSaveEnabled(bool defaultValue) const
+    {
+        return m_globalConfig.value(name()).toObject().value(QLatin1String("formatOnSave")).toBool(defaultValue);
     }
 
     const QString originalText;
@@ -72,6 +79,7 @@ protected:
     }
 
     QPointer<KTextEditor::Document> m_doc;
+    QJsonObject m_config;
     QPointer<QProcess> m_procHandle;
     KTextEditor::Cursor m_pos;
 
@@ -80,6 +88,8 @@ private:
     {
         return originalText.toUtf8();
     }
+
+    const QJsonObject m_globalConfig;
 
 Q_SIGNALS:
     void textFormatted(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &text, int offset = -1);

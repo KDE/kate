@@ -60,8 +60,10 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
 {
     // QElapsedTimer t;
     // t.start();
+    m_config = m_globalConfig.value(name()).toObject();
     const auto args = this->args(doc);
-    const auto name = safeExecutableName(this->name());
+    const QString path = m_config.value(QLatin1String("path")).toString();
+    const auto name = safeExecutableName(!path.isEmpty() ? path : this->name());
     if (name.isEmpty()) {
         Q_EMIT error(i18n("%1 is not installed, please install it to be able to format this document!", this->name()));
         return;
@@ -124,6 +126,11 @@ QStringList ClangFormat::args(KTextEditor::Document *doc) const
     if (file.isEmpty()) {
         args << QStringLiteral("--assume-filename=%1").arg(filenameFromMode(doc));
         return args;
+    }
+
+    const QString fallback = m_config.value(QStringLiteral("fallbackStyle")).toString();
+    if (!fallback.isEmpty()) {
+        args << QStringLiteral("--fallback-style=%1").arg(fallback);
     }
 
     const auto lines = getModifiedLines(file);
@@ -248,7 +255,8 @@ void PrettierFormat::setupNode()
         return;
     }
 
-    const auto node = safeExecutableName(QStringLiteral("node"));
+    const QString path = m_config.value(QLatin1String("path")).toString();
+    const auto node = safeExecutableName(!path.isEmpty() ? path : QStringLiteral("node"));
     if (node.isEmpty()) {
         Q_EMIT error(i18n("Please install node and prettier"));
         return;

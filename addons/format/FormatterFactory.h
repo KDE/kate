@@ -22,31 +22,31 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, FormatPlug
     };
 
     if (is_or_contains("c++") || is("c") || is("objective-c") || is("objective-c++") || is("protobuf")) {
-        return new ClangFormat(doc);
+        return new ClangFormat(plugin->formatterConfig(), doc);
     } else if (is("dart")) {
-        return new DartFormat(doc);
+        return new DartFormat(plugin->formatterConfig(), doc);
     } else if (is("html")) {
-        return new PrettierFormat(doc);
+        return new PrettierFormat(plugin->formatterConfig(), doc);
     } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css")) {
-        return new PrettierFormat(doc);
+        return new PrettierFormat(plugin->formatterConfig(), doc);
     } else if (is("json")) {
         if (plugin->formatterForJson == Formatters::Prettier) {
-            return new PrettierFormat(doc);
+            return new PrettierFormat(plugin->formatterConfig(), doc);
         } else if (plugin->formatterForJson == Formatters::ClangFormat) {
-            return new ClangFormat(doc);
+            return new ClangFormat(plugin->formatterConfig(), doc);
         } else if (plugin->formatterForJson == Formatters::Jq) {
-            return new JsonJqFormat(doc);
+            return new JsonJqFormat(plugin->formatterConfig(), doc);
         }
         qWarning() << "Unexpected formatterForJson value: " << (int)plugin->formatterForJson;
-        return new JsonJqFormat(doc);
+        return new JsonJqFormat(plugin->formatterConfig(), doc);
     } else if (is("rust")) {
-        return new RustFormat(doc);
+        return new RustFormat(plugin->formatterConfig(), doc);
     } else if (is("xml")) {
-        return new XmlLintFormat(doc);
+        return new XmlLintFormat(plugin->formatterConfig(), doc);
     } else if (is("go")) {
-        return new GoFormat(doc);
+        return new GoFormat(plugin->formatterConfig(), doc);
     } else if (is("zig")) {
-        return new ZigFormat(doc);
+        return new ZigFormat(plugin->formatterConfig(), doc);
     }
 
     Utils::showMessage(i18n("Failed to run formatter. Unsupporter language %1", mode), {}, i18n("Format"), MessageType::Info);

@@ -13,7 +13,7 @@ namespace KTextEditor
 {
 class MainWindow;
 class View;
-};
+}
 
 /**
  * @brief a pushbutton that shows the active git branch of the "active view"

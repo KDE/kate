@@ -5,20 +5,20 @@
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2012, 2018, 2019, 2021, 2022.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2012, 2018, 2019, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-20 01:01+0000\n"
-"PO-Revision-Date: 2022-08-19 19:54+0200\n"
+"PO-Revision-Date: 2023-02-23 20:36+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 22.12.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -459,22 +459,19 @@ msgid "No folders or files to index"
 msgstr "Indexatu beharreko karpetarik edo fitxategirik ez"
 
 #: kate_ctags_view.cpp:558
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "\"%1\" exekutatzeak huts egin du. Irteeraren egoera = %2"
+msgstr "Exekutatzea huts egin du. Errorea: %1, irteera kodea: %2"
 
 #: kate_ctags_view.cpp:573
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "CTags-en exekutagarria kraskatu egin da."
+msgstr "«CTags»en exekutagarria kraskatu egin da."
 
 #: kate_ctags_view.cpp:575
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "CTags programa %1 kodearekin amaitu da: %2"
+msgstr "«CTags» programa %2 kodearekin amaitu da: %1"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

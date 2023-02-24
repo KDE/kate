@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-24 01:02+0000\n"
 "PO-Revision-Date: 2023-02-01 02:22+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -191,23 +191,23 @@ msgstr "ფაილის გახსნა"
 msgid "Copy Location"
 msgstr "მდებარეობის კოპირება"
 
-#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:513
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:513
 #, kde-format
 msgid "Invalid hash"
 msgstr "არასწორი ჰეში"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 Git-ის რეპოში არ არსებობს."
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:534
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -434,53 +434,59 @@ msgstr[1] "ხაზის შუალედური ცვლილებე�
 msgid "Unstage Hunk"
 msgstr "ბლოკის შუალედური შენახვის გაუქმება"
 
-#: lib/diff/diffwidget.cpp:59
+#: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Diff %1"
 msgstr "ცვლილება %1"
 
-#: lib/diff/diffwidget.cpp:61
+#: lib/diff/diffwidget.cpp:62
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "ცვლილება %1..%2"
 
-#: lib/diff/diffwidget.cpp:82
+#: lib/diff/diffwidget.cpp:83
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "ცვლილება %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:112
+#: lib/diff/diffwidget.cpp:113
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "გადაცემის ინფორმაციის ჩვენება/დამალვა"
 
-#: lib/diff/diffwidget.cpp:117
+#: lib/diff/diffwidget.cpp:118
 #, kde-format
 msgid "Jump to Next File"
 msgstr "შემდეგ ფაილზე გადასვლა"
 
-#: lib/diff/diffwidget.cpp:121
+#: lib/diff/diffwidget.cpp:122
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "წინა ფაილზე გადასვლა"
 
-#: lib/diff/diffwidget.cpp:125
+#: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "შემდეგ ბლოკზე გადასვლა"
 
-#: lib/diff/diffwidget.cpp:129
+#: lib/diff/diffwidget.cpp:130
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "წინა ნაფლეთზე გადასვლა"
 
-#: lib/diff/diffwidget.cpp:133
+#: lib/diff/diffwidget.cpp:134
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Diff-ის თავიდან ჩატვირთვა"
 
-#: lib/diff/diffwidget.cpp:506
+#: lib/diff/diffwidget.cpp:138
+#, kde-format
+msgctxt "Tooltip for a button"
+msgid "Show diff with full context, not just the changed lines"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:551
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -488,23 +494,23 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:509 lib/diff/diffwidget.cpp:1097
+#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1142
 #: lib/kateconfigdialog.cpp:532
 #, kde-format
 msgid "Diff"
 msgstr "სხვაობა"
 
-#: lib/diff/diffwidget.cpp:712 lib/diff/diffwidget.cpp:912
+#: lib/diff/diffwidget.cpp:757 lib/diff/diffwidget.cpp:957
 #, kde-format
 msgid "New file %1"
 msgstr "ახალი ფაილი %1"
 
-#: lib/diff/diffwidget.cpp:714 lib/diff/diffwidget.cpp:914
+#: lib/diff/diffwidget.cpp:759 lib/diff/diffwidget.cpp:959
 #, kde-format
 msgid "Deleted file %1"
 msgstr "წაშლილია ფაილი %1"
 
-#: lib/diff/diffwidget.cpp:1080 lib/diff/diffwidget.cpp:1081
+#: lib/diff/diffwidget.cpp:1125 lib/diff/diffwidget.cpp:1126
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -531,7 +537,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:373
+#: lib/filehistorywidget.cpp:374
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ./messages/kdebase/kate.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-24 01:02+0000\n"
 "PO-Revision-Date: 2004-09-22 16:07+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -196,24 +196,24 @@ msgstr "Digeriñ ur Restr"
 msgid "Copy Location"
 msgstr "Dibab lec'hiadur"
 
-#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:513
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:513
 #, fuzzy, kde-format
 #| msgid "Invalid Folder"
 msgid "Invalid hash"
 msgstr "Renkell sac'het"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:534
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
@@ -454,56 +454,62 @@ msgstr[1] "Linenn"
 msgid "Unstage Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:59
+#: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:61
+#: lib/diff/diffwidget.cpp:62
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:82
+#: lib/diff/diffwidget.cpp:83
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:112
+#: lib/diff/diffwidget.cpp:113
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:117
+#: lib/diff/diffwidget.cpp:118
 #, kde-format
 msgid "Jump to Next File"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:121
+#: lib/diff/diffwidget.cpp:122
 #, fuzzy, kde-format
 #| msgid "Custom location:"
 msgid "Jump to Previous File"
 msgstr "Lec'hiadur diouzoc'h :"
 
-#: lib/diff/diffwidget.cpp:125
+#: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:129
+#: lib/diff/diffwidget.cpp:130
 #, fuzzy, kde-format
 #| msgid "Custom location:"
 msgid "Jump to Previous Hunk"
 msgstr "Lec'hiadur diouzoc'h :"
 
-#: lib/diff/diffwidget.cpp:133
+#: lib/diff/diffwidget.cpp:134
 #, fuzzy, kde-format
 #| msgid "&Reload"
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "&Adkargañ"
 
-#: lib/diff/diffwidget.cpp:506
+#: lib/diff/diffwidget.cpp:138
+#, kde-format
+msgctxt "Tooltip for a button"
+msgid "Show diff with full context, not just the changed lines"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:551
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -511,25 +517,25 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:509 lib/diff/diffwidget.cpp:1097
+#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1142
 #: lib/kateconfigdialog.cpp:532
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:712 lib/diff/diffwidget.cpp:912
+#: lib/diff/diffwidget.cpp:757 lib/diff/diffwidget.cpp:957
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Anv ar restr"
 
-#: lib/diff/diffwidget.cpp:714 lib/diff/diffwidget.cpp:914
+#: lib/diff/diffwidget.cpp:759 lib/diff/diffwidget.cpp:959
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
 msgstr "Distruj Restr ?"
 
-#: lib/diff/diffwidget.cpp:1080 lib/diff/diffwidget.cpp:1081
+#: lib/diff/diffwidget.cpp:1125 lib/diff/diffwidget.cpp:1126
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -557,7 +563,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Dis&kouez an hent"
 
-#: lib/filehistorywidget.cpp:373
+#: lib/filehistorywidget.cpp:374
 #, fuzzy, kde-format
 #| msgid "File Exists"
 msgctxt "@title:tab"

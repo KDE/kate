@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-24 01:02+0000\n"
 "PO-Revision-Date: 2022-12-21 12:08+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -222,23 +222,23 @@ msgstr "Открыть файл"
 msgid "Copy Location"
 msgstr "Копировать расположение"
 
-#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:513
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:513
 #, kde-format
 msgid "Invalid hash"
 msgstr "Недопустимый хеш"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "«%1» не существует в репозитории git."
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:534
 #, fuzzy, kde-format
 #| msgid "Commit"
 msgctxt "@title:tab"
@@ -479,54 +479,60 @@ msgstr[3] "Отменить промежуточное состояние стр
 msgid "Unstage Hunk"
 msgstr "Отменить промежуточное сохранение блока"
 
-#: lib/diff/diffwidget.cpp:59
+#: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Diff %1"
 msgstr "Различия %1"
 
-#: lib/diff/diffwidget.cpp:61
+#: lib/diff/diffwidget.cpp:62
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Различия между %1 и %2"
 
-#: lib/diff/diffwidget.cpp:82
+#: lib/diff/diffwidget.cpp:83
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Различия между «%1» и «%2»"
 
-#: lib/diff/diffwidget.cpp:112
+#: lib/diff/diffwidget.cpp:113
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Показать или скрыть сведения о фиксации"
 
-#: lib/diff/diffwidget.cpp:117
+#: lib/diff/diffwidget.cpp:118
 #, kde-format
 msgid "Jump to Next File"
 msgstr "Перейти к следующему файлу"
 
-#: lib/diff/diffwidget.cpp:121
+#: lib/diff/diffwidget.cpp:122
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "Вернуться к предыдущему файлу"
 
-#: lib/diff/diffwidget.cpp:125
+#: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "Перейти к следующему блоку"
 
-#: lib/diff/diffwidget.cpp:129
+#: lib/diff/diffwidget.cpp:130
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "Вернуться к предыдущему блоку"
 
-#: lib/diff/diffwidget.cpp:133
+#: lib/diff/diffwidget.cpp:134
 #, fuzzy, kde-format
 #| msgid "Reload"
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Перезагрузить"
 
-#: lib/diff/diffwidget.cpp:506
+#: lib/diff/diffwidget.cpp:138
+#, kde-format
+msgctxt "Tooltip for a button"
+msgid "Show diff with full context, not just the changed lines"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:551
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -534,25 +540,25 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:509 lib/diff/diffwidget.cpp:1097
+#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1142
 #: lib/kateconfigdialog.cpp:532
 #, kde-format
 msgid "Diff"
 msgstr "Различия"
 
-#: lib/diff/diffwidget.cpp:712 lib/diff/diffwidget.cpp:912
+#: lib/diff/diffwidget.cpp:757 lib/diff/diffwidget.cpp:957
 #, fuzzy, kde-format
 #| msgid "New file name"
 msgid "New file %1"
 msgstr "Введите новое имя файла"
 
-#: lib/diff/diffwidget.cpp:714 lib/diff/diffwidget.cpp:914
+#: lib/diff/diffwidget.cpp:759 lib/diff/diffwidget.cpp:959
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
 msgstr "Удалить файл"
 
-#: lib/diff/diffwidget.cpp:1080 lib/diff/diffwidget.cpp:1081
+#: lib/diff/diffwidget.cpp:1125 lib/diff/diffwidget.cpp:1126
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -582,7 +588,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "П&оказывать полный путь"
 
-#: lib/filehistorywidget.cpp:373
+#: lib/filehistorywidget.cpp:374
 #, fuzzy, kde-format
 #| msgid "File History"
 msgctxt "@title:tab"

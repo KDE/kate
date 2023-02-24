@@ -333,13 +333,6 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    // Tooltip
-    if (role == Qt::ToolTipRole) {
-        if (index.column() == 0 && index.parent().isValid()) {
-            return i18n("Check the check-box to make the command the default for the target-set.");
-        }
-    }
-
     if (role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::ToolTipRole) {
         return QVariant();
     }

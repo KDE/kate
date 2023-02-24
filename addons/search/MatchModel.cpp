@@ -603,18 +603,29 @@ QString MatchModel::infoHtmlString() const
     return QString();
 }
 
+QString MatchModel::matchPath(const MatchFile &matchFile) const
+{
+    QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
+    // make sure only to remove the leading part and not subsequent occurrences
+    // also, if the basedir is root /, then do not strip that, as that would be more confusing
+    auto &baseDir = m_resultBaseDir;
+    if (baseDir.length() > 1 && path.startsWith(baseDir)) {
+        path = path.mid(baseDir.length());
+    }
+    if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
+        path += QLatin1Char('/');
+    }
+    return path;
+}
+
 QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
 {
     if (matchFile.fileUrl.isEmpty() && matchFile.doc) {
         return matchFile.doc->documentName();
     }
 
-    QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
-    if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
-        path += QLatin1Char('/');
-    }
+    QString path = matchPath(matchFile);
     path = path.toHtmlEscaped();
-    path.remove(m_resultBaseDir);
     // dim the path color slightly
     const auto fgColor = QColor(m_foregroundColor);
     QString fg;
@@ -744,11 +755,7 @@ QString MatchModel::infoToPlainText() const
 
 QString MatchModel::fileToPlainText(const MatchFile &matchFile) const
 {
-    QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
-    path.remove(m_resultBaseDir);
-    if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
-        path += QLatin1Char('/');
-    }
+    QString path = matchPath(matchFile);
 
     QString tmpStr = QStringLiteral("%1%2: %3").arg(path, matchFile.fileUrl.fileName()).arg(matchFile.matches.size());
 

@@ -201,6 +201,7 @@ private Q_SLOTS:
 private:
     bool replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
 
+    QString matchPath(const MatchFile &matchFile) const;
     QString infoHtmlString() const;
     QString fileToHtmlString(const MatchFile &matchFile) const;
     QString matchToHtmlString(const Match &match) const;

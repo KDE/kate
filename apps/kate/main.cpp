@@ -59,8 +59,21 @@
 #endif
 #endif
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 int main(int argc, char **argv)
 {
+#if 0 // Enable on windows to see output in console
+    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+        if (fileno(stdout) < 0)
+            freopen("CON", "w", stdout);
+        if (fileno(stderr) < 0)
+            freopen("CON", "w", stderr);
+    }
+#endif
+
 #if !defined(Q_OS_WIN) && !defined(Q_OS_HAIKU)
     // Prohibit using sudo or kdesu (but allow using the root user directly)
     if (getuid() == 0) {

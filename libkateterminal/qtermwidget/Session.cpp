@@ -112,7 +112,15 @@ Session::Session(QObject *parent)
     connect(_emulation, SIGNAL(lockPtyRequest(bool)), _shellProcess, SLOT(lockPty(bool)));
     connect(_emulation, SIGNAL(useUtf8Request(bool)), _shellProcess, SLOT(setUtf8Mode(bool)));
 
-    connect(_shellProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(done(int)));
+#ifndef Q_OS_WIN
+    connect(_shellProcess, qOverload<int, QProcess::ExitStatus>(&Pty::finished), this, [this](int ec, QProcess::ExitStatus es) {
+        done(ec, (int)es);
+    });
+#else
+    connect(_shellProcess, &Pty::finished, this, [this] {
+        done(_shellProcess->exitCode(), QProcess::NormalExit);
+    });
+#endif
     // not in kprocess anymore connect( _shellProcess,SIGNAL(done(int)), this,
     // SLOT(done(int)) );
 
@@ -611,7 +619,7 @@ QString Session::profileKey() const
     return _profileKey;
 }
 
-void Session::done(int exitStatus)
+void Session::done(int /*exitCode*/, int exitStatus)
 {
     if (!_autoClose) {
         _userTitle = QString::fromLatin1("This session is done. Finished");
@@ -636,6 +644,8 @@ void Session::done(int exitStatus)
         message = tr("Session '%1' exited unexpectedly.").arg(_nameTitle);
     else
         Q_EMIT finished();
+#else
+    Q_EMIT finished();
 #endif
 }
 

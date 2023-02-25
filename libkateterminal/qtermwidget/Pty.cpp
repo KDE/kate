@@ -375,6 +375,7 @@ int Pty::start(const QString &program, const QStringList &arguments, const QStri
     } else {
         auto n = m_proc->notifier();
         connect(n, &QIODevice::readyRead, this, &Pty::dataReceived);
+        connect(n, &QIODevice::aboutToClose, this, &Pty::finished);
     }
     return 0;
 }

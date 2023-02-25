@@ -179,6 +179,17 @@ public:
         }
         return false;
     }
+
+    Q_SIGNAL void finished();
+
+    int exitCode() const
+    {
+        if (m_proc) {
+            return m_proc->exitCode();
+        }
+        return -1;
+    }
+
 #else
     bool isRunning() const
     {

@@ -493,7 +493,7 @@ Q_SIGNALS:
     void activity();
 
 private Q_SLOTS:
-    void done(int);
+    void done(int exitCode, int exitStatus);
 
     //  void fireZModemDetected();
 

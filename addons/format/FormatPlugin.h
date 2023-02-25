@@ -34,7 +34,6 @@ public:
 
     KTextEditor::ConfigPage *configPage(int number, QWidget *parent) override;
     void readConfig();
-    void readFormatterConfig();
 
     QJsonObject formatterConfig() const;
     QString userConfigPath() const;
@@ -46,6 +45,7 @@ public:
     Q_SIGNAL void configChanged();
 
 private:
+    void readJsonConfig();
     const QJsonDocument m_defaultConfig;
     QJsonObject m_formatterConfig;
 };

@@ -58,16 +58,17 @@ KTextEditor::ConfigPage *FormatPlugin::configPage(int number, QWidget *parent)
 void FormatPlugin::readConfig()
 {
     KConfigGroup cg(KSharedConfig::openConfig(), "Formatting");
-    formatOnSave = cg.readEntry("FormatOnSave", false);
-
     formatterForJson = (Formatters)cg.readEntry("FormatterForJson", (int)Formatters::Prettier);
 
     QString settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/formatting"));
     QDir().mkpath(settingsPath);
-    readFormatterConfig();
+    readJsonConfig();
+
+    formatOnSave = m_formatterConfig.value(QStringLiteral("formatOnSave")).toBool(true);
+    formatterForJson = formatterForName(m_formatterConfig.value(QStringLiteral("formatterForJson")).toString());
 }
 
-void FormatPlugin::readFormatterConfig()
+void FormatPlugin::readJsonConfig()
 {
     QJsonDocument userConfig;
     const QString path = userConfigPath();
@@ -153,6 +154,8 @@ FormatPluginView::~FormatPluginView()
 void FormatPluginView::onConfigChanged()
 {
     m_lastChecksum = {};
+    onActiveViewChanged(nullptr);
+    onActiveViewChanged(m_mainWindow->activeView());
 }
 
 void FormatPluginView::onActiveViewChanged(KTextEditor::View *v)

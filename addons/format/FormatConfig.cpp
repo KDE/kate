@@ -10,6 +10,7 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDebug>
+#include <QFile>
 #include <QGroupBox>
 #include <QLabel>
 #include <QPlainTextEdit>
@@ -23,97 +24,6 @@
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
 #include <KTextEditor/Editor>
-
-static void setCurrentIndexForCombo(QComboBox *cmb, int formatter)
-{
-    for (int i = 0; i < cmb->count(); ++i) {
-        if (cmb->itemData(i).value<int>() == formatter) {
-            cmb->setCurrentIndex(i);
-            return;
-        }
-    }
-    qWarning() << "Invalid formatter for combo" << formatter;
-}
-
-class GeneralTab : public QWidget
-{
-    Q_OBJECT
-public:
-    GeneralTab(FormatPlugin *plugin, QWidget *parent)
-        : QWidget(parent)
-        , m_plugin(plugin)
-        , m_cbFormatOnSave(new QCheckBox(this))
-    {
-        auto mainLayout = new QVBoxLayout(this);
-        mainLayout->setContentsMargins({});
-
-        auto gb = new QGroupBox(i18n("General"), this);
-        mainLayout->addWidget(gb);
-        { // General
-            auto layout = new QVBoxLayout(gb);
-            m_cbFormatOnSave->setText(i18n("Format on save"));
-            connect(m_cbFormatOnSave, &QCheckBox::stateChanged, this, &GeneralTab::changed);
-            layout->addWidget(m_cbFormatOnSave);
-        }
-
-        gb = new QGroupBox(i18n("Formatter Preference"), this);
-        mainLayout->addWidget(gb);
-        {
-            auto layout = new QVBoxLayout(gb);
-            auto addRow = [layout, this](auto label, auto combo) {
-                auto hlayout = new QHBoxLayout;
-                connect(combo, &QComboBox::currentIndexChanged, this, &GeneralTab::changed);
-                layout->addLayout(hlayout);
-                hlayout->setContentsMargins({});
-                hlayout->addWidget(label);
-                hlayout->addWidget(combo);
-                hlayout->addStretch();
-            };
-
-            auto lbl = new QLabel(i18n("Formatter for Json"), this);
-            m_cmbJson = new QComboBox(this);
-            addRow(lbl, m_cmbJson);
-            m_cmbJson->addItem(i18n("Clang Format"), (int)Formatters::ClangFormat);
-            m_cmbJson->addItem(i18n("Prettier"), (int)Formatters::Prettier);
-            m_cmbJson->addItem(i18n("Jq"), (int)Formatters::Jq);
-        }
-
-        mainLayout->addStretch();
-    }
-
-    bool apply()
-    {
-        bool changed = false;
-
-        KConfigGroup cg(KSharedConfig::openConfig(), "Formatting");
-        if (m_plugin->formatOnSave != m_cbFormatOnSave->isChecked()) {
-            m_plugin->formatOnSave = m_cbFormatOnSave->isChecked();
-            cg.writeEntry("FormatOnSave", m_plugin->formatOnSave);
-            changed = true;
-        }
-
-        if ((int)m_plugin->formatterForJson != m_cmbJson->currentData().value<int>()) {
-            m_plugin->formatterForJson = (Formatters)m_cmbJson->currentData().value<int>();
-            cg.writeEntry("FormatterForJson", (int)m_plugin->formatterForJson);
-            changed = true;
-        }
-
-        return changed;
-    }
-
-    void reset()
-    {
-        m_cbFormatOnSave->setChecked(m_plugin->formatOnSave);
-        setCurrentIndexForCombo(m_cmbJson, (int)m_plugin->formatterForJson);
-    }
-
-    Q_SIGNAL void changed();
-
-private:
-    FormatPlugin *const m_plugin;
-    QCheckBox *const m_cbFormatOnSave;
-    QComboBox *m_cmbJson;
-};
 
 static void initTextEdit(QPlainTextEdit *edit)
 {
@@ -178,16 +88,14 @@ public:
         }
     }
 
-    bool apply()
+    void apply()
     {
         QFile f(m_plugin->userConfigPath());
         if (f.open(QFile::WriteOnly)) {
             f.write(m_edit.toPlainText().toUtf8());
             f.flush();
-            m_plugin->readFormatterConfig();
-            return true;
+            m_plugin->readConfig();
         }
-        return false;
     }
 
     Q_SIGNAL void changed();
@@ -209,10 +117,6 @@ FormatConfigPage::FormatConfigPage(class FormatPlugin *plugin, QWidget *parent)
     m_tabWidget->setContentsMargins({});
     layout->addWidget(m_tabWidget);
 
-    m_genTab = new GeneralTab(m_plugin, this);
-    connect(m_genTab, &GeneralTab::changed, this, &KTextEditor::ConfigPage::changed);
-    m_tabWidget->addTab(m_genTab, i18n("General"));
-
     m_userConfigEdit = new UserConfigEdit(m_plugin, this);
     connect(m_userConfigEdit, &UserConfigEdit::changed, this, &KTextEditor::ConfigPage::changed);
     m_tabWidget->addTab(m_userConfigEdit, i18n("User Settings"));
@@ -225,22 +129,19 @@ FormatConfigPage::FormatConfigPage(class FormatPlugin *plugin, QWidget *parent)
     m_defaultConfigEdit->setPlainText(QString::fromUtf8(defaultConfigFile.readAll()));
     m_tabWidget->addTab(m_defaultConfigEdit, i18n("Default Settings"));
 
-    m_tabWidget->setCurrentWidget(m_genTab);
+    m_tabWidget->setCurrentWidget(m_userConfigEdit);
 
     reset();
 }
 
 void FormatConfigPage::apply()
 {
-    bool changed = m_genTab->apply() || m_userConfigEdit->apply();
-    if (changed) {
-        m_plugin->configChanged();
-    }
+    m_userConfigEdit->apply();
+    m_plugin->configChanged();
 }
 
 void FormatConfigPage::reset()
 {
-    m_genTab->reset();
     m_userConfigEdit->reset();
 }
 

@@ -1,4 +1,6 @@
 {
+    "formatOnSave": true,
+    "formatterForJson": "jq",
     "clang-format": {
         "path": "clang-format",
         "fallbackStyle": "WebKit",

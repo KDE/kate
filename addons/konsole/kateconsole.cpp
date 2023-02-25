@@ -275,6 +275,7 @@ bool KateConsole::eventFilter(QObject *w, QEvent *e)
 void KateConsole::slotDestroyed()
 {
     m_part = nullptr;
+    m_terminal = nullptr;
     m_currentPath.clear();
     setFocusProxy(nullptr);
 

@@ -243,7 +243,7 @@ private:
     bool _utf8;
 
 #ifdef Q_OS_WIN
-    IPtyProcess *m_proc = nullptr;
+    std::unique_ptr<IPtyProcess> m_proc;
 #endif
 };
 

@@ -354,10 +354,9 @@ using namespace Konsole;
 Pty::Pty(QObject *parent)
     : QObject(parent)
 {
-    m_proc = new ConPtyProcess();
+    m_proc = std::make_unique<ConPtyProcess>();
     if (!m_proc->isAvailable()) {
-        delete m_proc;
-        m_proc = nullptr;
+        m_proc.reset();
     }
 }
 

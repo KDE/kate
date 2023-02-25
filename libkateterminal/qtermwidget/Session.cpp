@@ -100,17 +100,17 @@ Session::Session(QObject *parent)
     connect(_emulation, SIGNAL(changeTabTextColorRequest(int)), this, SIGNAL(changeTabTextColorRequest(int)));
     connect(_emulation, SIGNAL(profileChangeCommandReceived(const QString &)), this, SIGNAL(profileChangeCommandReceived(const QString &)));
 
-    connect(_emulation, SIGNAL(imageResizeRequest(QSize)), this, SLOT(onEmulationSizeChange(QSize)));
-    connect(_emulation, SIGNAL(imageSizeChanged(int, int)), this, SLOT(onViewSizeChange(int, int)));
+    connect(_emulation, &Vt102Emulation::imageResizeRequest, this, &Session::onEmulationSizeChange);
+    connect(_emulation, &Vt102Emulation::imageSizeChanged, this, &Session::onViewSizeChange);
     connect(_emulation, &Vt102Emulation::cursorChanged, this, &Session::cursorChanged);
 
     // connect teletype to emulation backend
     _shellProcess->setUtf8Mode(_emulation->utf8());
 
-    connect(_shellProcess, SIGNAL(receivedData(const char *, int)), this, SLOT(onReceiveBlock(const char *, int)));
-    connect(_emulation, SIGNAL(sendData(const char *, int)), _shellProcess, SLOT(sendData(const char *, int)));
-    connect(_emulation, SIGNAL(lockPtyRequest(bool)), _shellProcess, SLOT(lockPty(bool)));
-    connect(_emulation, SIGNAL(useUtf8Request(bool)), _shellProcess, SLOT(setUtf8Mode(bool)));
+    connect(_shellProcess, &Pty::receivedData, this, &Session::onReceiveBlock);
+    connect(_emulation, &Emulation::sendData, _shellProcess, &Pty::sendData);
+    connect(_emulation, &Emulation::lockPtyRequest, _shellProcess, &Pty::lockPty);
+    connect(_emulation, &Emulation::useUtf8Request, _shellProcess, &Pty::setUtf8Mode);
 
 #ifndef Q_OS_WIN
     connect(_shellProcess, qOverload<int, QProcess::ExitStatus>(&Pty::finished), this, [this](int ec, QProcess::ExitStatus es) {
@@ -189,16 +189,18 @@ void Session::addView(TerminalDisplay *widget)
     if (_emulation != nullptr) {
         // connect emulation - view signals and slots
         connect(widget, &TerminalDisplay::keyPressedSignal, _emulation, &Emulation::sendKeyEvent);
-        connect(widget, SIGNAL(mouseSignal(int, int, int, int)), _emulation, SLOT(sendMouseEvent(int, int, int, int)));
-        connect(widget, SIGNAL(sendStringToEmu(const char *)), _emulation, SLOT(sendString(const char *)));
+        connect(widget, &TerminalDisplay::mouseSignal, _emulation, &Emulation::sendMouseEvent);
+        connect(widget, &TerminalDisplay::sendStringToEmu, _emulation, [this](const char *s) {
+            _emulation->sendString(s);
+        });
 
         // allow emulation to notify view when the foreground process
         // indicates whether or not it is interested in mouse signals
-        connect(_emulation, SIGNAL(programUsesMouseChanged(bool)), widget, SLOT(setUsesMouse(bool)));
+        connect(_emulation, &Emulation::programUsesMouseChanged, widget, &TerminalDisplay::setUsesMouse);
 
         widget->setUsesMouse(_emulation->programUsesMouse());
 
-        connect(_emulation, SIGNAL(programBracketedPasteModeChanged(bool)), widget, SLOT(setBracketedPasteMode(bool)));
+        connect(_emulation, &Emulation::programBracketedPasteModeChanged, widget, &TerminalDisplay::setBracketedPasteMode);
 
         widget->setBracketedPasteMode(_emulation->programBracketedPasteMode());
 
@@ -206,11 +208,10 @@ void Session::addView(TerminalDisplay *widget)
     }
 
     // connect view signals and slots
-    QObject::connect(widget, SIGNAL(changedContentSizeSignal(int, int)), this, SLOT(onViewSizeChange(int, int)));
-
-    QObject::connect(widget, SIGNAL(destroyed(QObject *)), this, SLOT(viewDestroyed(QObject *)));
+    connect(widget, &TerminalDisplay::changedContentSizeSignal, this, &Session::onViewSizeChange);
+    connect(widget, &TerminalDisplay::destroyed, this, &Session::viewDestroyed);
     // slot for close
-    QObject::connect(this, SIGNAL(finished()), widget, SLOT(close()));
+    connect(this, &Session::finished, widget, &TerminalDisplay::close);
 }
 
 void Session::viewDestroyed(QObject *view)

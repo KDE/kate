@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-21 00:50+0000\n"
+"POT-Creation-Date: 2023-02-25 01:03+0000\n"
 "PO-Revision-Date: 2023-01-01 11:21+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -279,7 +279,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:505
+#: search.ui:192 SearchPlugin.cpp:510
 #, kde-format
 msgid "Replace"
 msgstr "Remplacer"
@@ -544,27 +544,27 @@ msgstr "Chercher et remplacer"
 msgid "Find in Files"
 msgstr "Trouver dans les fichiers"
 
-#: SearchPlugin.cpp:341
+#: SearchPlugin.cpp:342
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Rechercher dans les fichiers (Dans un nouvel onglet)"
 
-#: SearchPlugin.cpp:347
+#: SearchPlugin.cpp:348
 #, kde-format
 msgid "Go to Next Match"
 msgstr "Aller à la correspondance suivante"
 
-#: SearchPlugin.cpp:352
+#: SearchPlugin.cpp:354
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "Aller à la correspondance précédente"
 
-#: SearchPlugin.cpp:357
+#: SearchPlugin.cpp:360
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "Couper les lignes avec correspondance"
 
-#: SearchPlugin.cpp:359
+#: SearchPlugin.cpp:362
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
@@ -573,12 +573,12 @@ msgstr ""
 "Cela coupera toutes les lignes de recherche en surbrillance du document "
 "actuel vers le presse-papier."
 
-#: SearchPlugin.cpp:363
+#: SearchPlugin.cpp:367
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "Copier les lignes avec correspondance"
 
-#: SearchPlugin.cpp:365
+#: SearchPlugin.cpp:369
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -587,7 +587,7 @@ msgstr ""
 "Cela copiera toutes les lignes correspondantes de recherche en surbrillance "
 "du document actuel vers le presse-papier."
 
-#: SearchPlugin.cpp:392
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
@@ -595,7 +595,7 @@ msgstr ""
 "Liste séparée par des virgules, des types de fichiers dans lesquels "
 "effectuer une recherche. Exemple : « *.cpp,*.h »\n"
 
-#: SearchPlugin.cpp:393
+#: SearchPlugin.cpp:398
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
@@ -604,98 +604,98 @@ msgstr ""
 "Liste séparée par des virgules, des fichiers et des dossiers à exclure de la "
 "recherche. Exemple : « build* »"
 
-#: SearchPlugin.cpp:395
+#: SearchPlugin.cpp:400
 #, kde-format
 msgid "Click to filter through results"
 msgstr "Cliquez pour filtrer les résultats"
 
-#: SearchPlugin.cpp:485
+#: SearchPlugin.cpp:490
 #, kde-format
 msgid "Find"
 msgstr "Chercher"
 
-#: SearchPlugin.cpp:1311
+#: SearchPlugin.cpp:1324
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "La recherche instantanée a été interrompue. Elle aurait pris trop de temps."
 
-#: SearchPlugin.cpp:1653
+#: SearchPlugin.cpp:1666
 #, kde-format
 msgid "Search Match"
 msgstr "Rechercher une correspondance"
 
-#: SearchPlugin.cpp:1837 SearchPlugin.cpp:1914
+#: SearchPlugin.cpp:1850 SearchPlugin.cpp:1927
 #, kde-format
 msgid "Next from cursor"
 msgstr "Suivant à partir du curseur"
 
-#: SearchPlugin.cpp:1854
+#: SearchPlugin.cpp:1867
 #, kde-format
 msgid "Starting from first match"
 msgstr "Continuer à partir de la première correspondance"
 
-#: SearchPlugin.cpp:1874
+#: SearchPlugin.cpp:1887
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Continuer depuis la première correspondance"
 
-#: SearchPlugin.cpp:1931
+#: SearchPlugin.cpp:1944
 #, kde-format
 msgid "Starting from last match"
 msgstr "Démarrage à partir de la première correspondance"
 
-#: SearchPlugin.cpp:1951
+#: SearchPlugin.cpp:1964
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Continuer depuis la dernière correspondance"
 
-#: SearchPlugin.cpp:2110
+#: SearchPlugin.cpp:2123
 #, kde-format
 msgid "Search: %1"
 msgstr "Rechercher : %1"
 
-#: SearchPlugin.cpp:2241
+#: SearchPlugin.cpp:2254
 #, kde-format
 msgid "Copy all"
 msgstr "Tout copier"
 
-#: SearchPlugin.cpp:2246
+#: SearchPlugin.cpp:2259
 #, kde-format
 msgid "Copy expanded"
 msgstr "Copier de façon élargie"
 
-#: SearchPlugin.cpp:2249
+#: SearchPlugin.cpp:2262
 #, kde-format
 msgid "Export matches"
 msgstr "Exporter les correspondances"
 
-#: SearchPlugin.cpp:2255
+#: SearchPlugin.cpp:2268
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Ouvrir comme un onglet d'éditeur"
 
-#: SearchPlugin.cpp:2262
+#: SearchPlugin.cpp:2275
 #, kde-format
 msgid "Clear"
 msgstr "Effacer"
 
-#: SearchPlugin.cpp:2370 SearchPlugin.cpp:2404
+#: SearchPlugin.cpp:2383 SearchPlugin.cpp:2417
 #, kde-format
 msgid "Add..."
 msgstr "Ajouter..."
 
-#: SearchPlugin.cpp:2382
+#: SearchPlugin.cpp:2395
 #, kde-format
 msgid "Search As You Type"
 msgstr "Rechercher pendant votre saisie"
 
-#: SearchPlugin.cpp:2453
+#: SearchPlugin.cpp:2466
 #, kde-format
 msgid "In Current Project"
 msgstr "Dans le projet en cours"
 
-#: SearchPlugin.cpp:2455
+#: SearchPlugin.cpp:2468
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Dans tous les projets ouverts"

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-15 01:02+0000\n"
-"PO-Revision-Date: 2023-02-15 11:04\n"
+"PO-Revision-Date: 2023-02-24 12:43\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -102,19 +102,19 @@ msgstr "返回"
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr ""
+msgstr "HEAD 指向提交 %1"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD 指向标签 %1"
 
 #: currentgitbranchbutton.cpp:127
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "活动分支：%1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -704,7 +704,7 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:200
 #, kde-format
 msgid "CodeAnalysis"
-msgstr ""
+msgstr "代码分析"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
 #, kde-format
@@ -714,12 +714,12 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] ""
+msgstr[0] "[%1] 分析文件 %2 结束"
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr ""
+msgstr "分析失败，退出码：%1，错误：%2"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format

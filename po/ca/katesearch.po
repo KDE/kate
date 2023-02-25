@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-21 00:50+0000\n"
+"POT-Creation-Date: 2023-02-25 01:03+0000\n"
 "PO-Revision-Date: 2022-12-21 13:39+0100\n"
 "Last-Translator: Antoni Bella <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -268,7 +268,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:505
+#: search.ui:192 SearchPlugin.cpp:510
 #, kde-format
 msgid "Replace"
 msgstr "Substitueix"
@@ -533,27 +533,27 @@ msgstr "Cerca i substitució"
 msgid "Find in Files"
 msgstr "Cerca en fitxers"
 
-#: SearchPlugin.cpp:341
+#: SearchPlugin.cpp:342
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Cerca en els fitxers (en una pestanya nova)"
 
-#: SearchPlugin.cpp:347
+#: SearchPlugin.cpp:348
 #, kde-format
 msgid "Go to Next Match"
 msgstr "Ves a la coincidència següent"
 
-#: SearchPlugin.cpp:352
+#: SearchPlugin.cpp:354
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "Ves a la coincidència anterior"
 
-#: SearchPlugin.cpp:357
+#: SearchPlugin.cpp:360
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "Retalla les línies coincidents"
 
-#: SearchPlugin.cpp:359
+#: SearchPlugin.cpp:362
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
@@ -562,12 +562,12 @@ msgstr ""
 "Això retallarà totes les línies coincidents ressaltades de la cerca des del "
 "document actual al porta-retalls"
 
-#: SearchPlugin.cpp:363
+#: SearchPlugin.cpp:367
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "Copia les línies coincidents"
 
-#: SearchPlugin.cpp:365
+#: SearchPlugin.cpp:369
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -576,7 +576,7 @@ msgstr ""
 "Això copiarà totes les línies coincidents ressaltades de la cerca en el "
 "document actual al porta-retalls"
 
-#: SearchPlugin.cpp:392
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
@@ -584,7 +584,7 @@ msgstr ""
 "Llista dels tipus de fitxer a cercar, separats per comes. Exemple: «*.cpp,*."
 "h»\n"
 
-#: SearchPlugin.cpp:393
+#: SearchPlugin.cpp:398
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
@@ -593,97 +593,97 @@ msgstr ""
 "Llista de fitxers i directoris a excloure de la cerca, separats per comes. "
 "Exemple: «build*»"
 
-#: SearchPlugin.cpp:395
+#: SearchPlugin.cpp:400
 #, kde-format
 msgid "Click to filter through results"
 msgstr "Feu clic per a filtrar els resultats"
 
-#: SearchPlugin.cpp:485
+#: SearchPlugin.cpp:490
 #, kde-format
 msgid "Find"
 msgstr "Cerca"
 
-#: SearchPlugin.cpp:1311
+#: SearchPlugin.cpp:1324
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "S'ha interromput la cerca mentre es tecleja. Podria trigar massa."
 
-#: SearchPlugin.cpp:1653
+#: SearchPlugin.cpp:1666
 #, kde-format
 msgid "Search Match"
 msgstr "Cerca coincident"
 
-#: SearchPlugin.cpp:1837 SearchPlugin.cpp:1914
+#: SearchPlugin.cpp:1850 SearchPlugin.cpp:1927
 #, kde-format
 msgid "Next from cursor"
 msgstr "Següent des del cursor"
 
-#: SearchPlugin.cpp:1854
+#: SearchPlugin.cpp:1867
 #, kde-format
 msgid "Starting from first match"
 msgstr "Comença des de la primera coincidència"
 
-#: SearchPlugin.cpp:1874
+#: SearchPlugin.cpp:1887
 #, kde-format
 msgid "Continuing from first match"
 msgstr "S'està continuant des de la primera coincidència"
 
-#: SearchPlugin.cpp:1931
+#: SearchPlugin.cpp:1944
 #, kde-format
 msgid "Starting from last match"
 msgstr "Comença des de la darrera coincidència"
 
-#: SearchPlugin.cpp:1951
+#: SearchPlugin.cpp:1964
 #, kde-format
 msgid "Continuing from last match"
 msgstr "S'està continuant des de la darrera coincidència"
 
-#: SearchPlugin.cpp:2110
+#: SearchPlugin.cpp:2123
 #, kde-format
 msgid "Search: %1"
 msgstr "Cerca: %1"
 
-#: SearchPlugin.cpp:2241
+#: SearchPlugin.cpp:2254
 #, kde-format
 msgid "Copy all"
 msgstr "Copia-ho tot"
 
-#: SearchPlugin.cpp:2246
+#: SearchPlugin.cpp:2259
 #, kde-format
 msgid "Copy expanded"
 msgstr "Copia ampliada"
 
-#: SearchPlugin.cpp:2249
+#: SearchPlugin.cpp:2262
 #, kde-format
 msgid "Export matches"
 msgstr "Exporta les coincidències"
 
-#: SearchPlugin.cpp:2255
+#: SearchPlugin.cpp:2268
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Obre com a pestanya de l'editor"
 
-#: SearchPlugin.cpp:2262
+#: SearchPlugin.cpp:2275
 #, kde-format
 msgid "Clear"
 msgstr "Neteja"
 
-#: SearchPlugin.cpp:2370 SearchPlugin.cpp:2404
+#: SearchPlugin.cpp:2383 SearchPlugin.cpp:2417
 #, kde-format
 msgid "Add..."
 msgstr "Afegeix..."
 
-#: SearchPlugin.cpp:2382
+#: SearchPlugin.cpp:2395
 #, kde-format
 msgid "Search As You Type"
 msgstr "Cerca a mesura que s'escriu"
 
-#: SearchPlugin.cpp:2453
+#: SearchPlugin.cpp:2466
 #, kde-format
 msgid "In Current Project"
 msgstr "Al projecte actual"
 
-#: SearchPlugin.cpp:2455
+#: SearchPlugin.cpp:2468
 #, kde-format
 msgid "In All Open Projects"
 msgstr "A tots els projectes oberts"

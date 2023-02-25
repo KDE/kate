@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-24 01:02+0000\n"
+"POT-Creation-Date: 2023-02-25 01:03+0000\n"
 "PO-Revision-Date: 2023-02-02 19:33+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -200,8 +200,8 @@ msgstr "கேரைட் -  உரைதொகுப்பாளர் உற�
 msgid "Close"
 msgstr "மூடு"
 
-#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:317
-#: lib/kateviewmanager.cpp:319
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:319
+#: lib/kateviewmanager.cpp:321
 #, kde-format
 msgid "Open File"
 msgstr "கோப்பை திறத்தல்"
@@ -1995,32 +1995,32 @@ msgstr ""
 "நீங்கள் சேமிக்க விரும்பியவற்றை எழுத முடியவில்லை. எப்படி தொடர வேண்டும் என்பதை "
 "தேர்ந்தெடுக்கவும்."
 
-#: lib/kateviewmanager.cpp:112
+#: lib/kateviewmanager.cpp:114
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "&நெடுக்காக பிரி"
 
-#: lib/kateviewmanager.cpp:116
+#: lib/kateviewmanager.cpp:118
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "தற்பொதைய காட்சிப்பகுதியை நெடுக்காக இரண்டு காட்சிப்பகுதிகளாக பிரிக்கும்."
 
-#: lib/kateviewmanager.cpp:120
+#: lib/kateviewmanager.cpp:122
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "&கிடைமட்டமாக பிரி"
 
-#: lib/kateviewmanager.cpp:124
+#: lib/kateviewmanager.cpp:126
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "தற்பொதைய காட்சிப்பகுதியை கிடைமட்டமாக இரண்டு காட்சிப்பகுதிகளாக பிரிக்கும்."
 
-#: lib/kateviewmanager.cpp:128
+#: lib/kateviewmanager.cpp:130
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "ஆவணத்தை புதிய நெடுக்கான துண்டாக்கப்பட்ட காட்சிப்பகுதிக்கு நகர்த்து"
 
-#: lib/kateviewmanager.cpp:132
+#: lib/kateviewmanager.cpp:134
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -2029,12 +2029,12 @@ msgstr ""
 "தற்பொதைய காட்சிப்பகுதியை நெடுக்காக இரண்டு காட்சிப்பகுதிகளாக பிரித்து தற்போதைய ஆவணத்தை "
 "வலது காட்சிப்பகுதிக்கு நகர்த்தும்."
 
-#: lib/kateviewmanager.cpp:137
+#: lib/kateviewmanager.cpp:139
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "ஆவணத்தை புதிய கிடைமட்டமாக துண்டாக்கப்பட்ட காட்சிப்பகுதிக்கு நகர்த்து"
 
-#: lib/kateviewmanager.cpp:141
+#: lib/kateviewmanager.cpp:143
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -2043,167 +2043,167 @@ msgstr ""
 "தற்பொதைய காட்சிப்பகுதியை கிடைமட்டமாக இரண்டு காட்சிப்பகுதிகளாக பிரித்து தற்போதைய "
 "ஆவணத்தை காட்சிப்பகுதிக்கு நகர்த்தும்"
 
-#: lib/kateviewmanager.cpp:146
+#: lib/kateviewmanager.cpp:148
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "&தற்போதைய காட்சிப்பகுதியை மூடு"
 
-#: lib/kateviewmanager.cpp:150
+#: lib/kateviewmanager.cpp:152
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "தற்போது செயலில் உள்ள பிரிக்கப்பட்ட காட்சிப்பகுதியை மூடும்"
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:156
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "செயலிலில்லாத காட்சிப்பகுதிகளை மூடு"
 
-#: lib/kateviewmanager.cpp:157
+#: lib/kateviewmanager.cpp:159
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "செயலிலுள்ள காட்சிப்பகுதியை தவிர அனைத்து காட்சிப்பகுதிகளை மூடும்."
 
-#: lib/kateviewmanager.cpp:161
+#: lib/kateviewmanager.cpp:163
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "செயலிலில்லாத காட்சிப்பகுதிகளை மறை"
 
-#: lib/kateviewmanager.cpp:165
+#: lib/kateviewmanager.cpp:167
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "செயலிலுள்ள காட்சிப்பகுதியை தவிர அனைத்து காட்சிப்பகுதிகளை மறைக்கும்."
 
-#: lib/kateviewmanager.cpp:168
+#: lib/kateviewmanager.cpp:170
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "நோக்குநிலையை மாற்று"
 
-#: lib/kateviewmanager.cpp:171
+#: lib/kateviewmanager.cpp:173
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "தற்போதைய காட்சிப்பகுதியின் நோக்குநிலையை மாற்றும்"
 
-#: lib/kateviewmanager.cpp:174
+#: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Next Split View"
 msgstr "அடுத்த பிரிக்கப்பட்ட காட்சிப்பகுதி"
 
-#: lib/kateviewmanager.cpp:179
+#: lib/kateviewmanager.cpp:181
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "அடுத்த பிரிக்கப்பட்ட காட்சிப்பகுதியை செயலுள்ளதாக்கும்."
 
-#: lib/kateviewmanager.cpp:182
+#: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Previous Split View"
 msgstr "முந்தைய பிரிக்கப்பட்ட காட்சிப்பகுதி"
 
-#: lib/kateviewmanager.cpp:187
+#: lib/kateviewmanager.cpp:189
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "முந்தைய பிரிக்கப்பட்ட காட்சிப்பகுதியை செயலுள்ளதாக்கும்."
 
-#: lib/kateviewmanager.cpp:190
+#: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Left Split View"
 msgstr "இடதிலுள்ள பிரிக்கப்பட்ட காட்சிப்பகுதி"
 
-#: lib/kateviewmanager.cpp:195
+#: lib/kateviewmanager.cpp:197
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "தற்போதையதுக்கு இடதிலுள்ள காட்சிப்பகுதியை செயலிலுள்ளதாக்கும்."
 
-#: lib/kateviewmanager.cpp:198
+#: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Right Split View"
 msgstr "வலதிலுள்ள பிரிக்கப்பட்ட காட்சிப்பகுதி"
 
-#: lib/kateviewmanager.cpp:203
+#: lib/kateviewmanager.cpp:205
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "தற்போதையதுக்கு வலதிலுள்ள காட்சிப்பகுதியை செயலிலுள்ளதாக்கும்."
 
-#: lib/kateviewmanager.cpp:206
+#: lib/kateviewmanager.cpp:208
 #, kde-format
 msgid "Upward Split View"
 msgstr "மேலுள்ள பிரிக்கப்பட்ட காட்சிப்பகுதி"
 
-#: lib/kateviewmanager.cpp:211
+#: lib/kateviewmanager.cpp:213
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "தற்போதையதுக்கு மேலேயுள்ள காட்சிப்பகுதியை செயலிலுள்ளதாக்கும்."
 
-#: lib/kateviewmanager.cpp:214
+#: lib/kateviewmanager.cpp:216
 #, kde-format
 msgid "Downward Split View"
 msgstr "கீழுள்ள பிரிக்கப்பட்ட காட்சிப்பகுதி"
 
-#: lib/kateviewmanager.cpp:219
+#: lib/kateviewmanager.cpp:221
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "தற்போதையதுக்கு கீழுள்ள காட்சிப்பகுதியை செயலிலுள்ளதாக்கும்."
 
-#: lib/kateviewmanager.cpp:222
+#: lib/kateviewmanager.cpp:224
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "பிரிப்பானை வலதுபக்கமாக நகர்த்து"
 
-#: lib/kateviewmanager.cpp:225
+#: lib/kateviewmanager.cpp:227
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "தற்போதைய காட்சிப்பகுதியின் பிரிப்பானை வலதுபக்கமாக நகர்த்தும்."
 
-#: lib/kateviewmanager.cpp:228
+#: lib/kateviewmanager.cpp:230
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "பிரிப்பானை இடதுபக்கமாக நகர்த்து"
 
-#: lib/kateviewmanager.cpp:231
+#: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "தற்போதைய காட்சிப்பகுதியின் பிரிப்பானை இடதுபக்கமாக நகர்த்தும்."
 
-#: lib/kateviewmanager.cpp:234
+#: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "பிரிப்பானை மேலே நகர்த்து"
 
-#: lib/kateviewmanager.cpp:237
+#: lib/kateviewmanager.cpp:239
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "தற்போதைய காட்சிப்பகுதியின் பிரிப்பானை மேலே நகர்த்தும்."
 
-#: lib/kateviewmanager.cpp:240
+#: lib/kateviewmanager.cpp:242
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "பிரிப்பானை கீழே நகர்த்து"
 
-#: lib/kateviewmanager.cpp:243
+#: lib/kateviewmanager.cpp:245
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "தற்போதைய காட்சிப்பகுதியின் பிரிப்பானை கீழே நகர்த்தும்."
 
-#: lib/kateviewmanager.cpp:246
+#: lib/kateviewmanager.cpp:248
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "உலாவல் பட்டையை குவியப்படுத்து"
 
-#: lib/kateviewmanager.cpp:247
+#: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "உலாவல் பட்டையை குவியப்படுத்தும்"
 
-#: lib/kateviewmanager.cpp:254
+#: lib/kateviewmanager.cpp:256
 #, kde-format
 msgid "Welcome Page"
 msgstr "வரவேற்புப் பக்கம்"
 
-#: lib/kateviewmanager.cpp:269
+#: lib/kateviewmanager.cpp:271
 #, kde-format
 msgid "Show the welcome page"
 msgstr "வரவேற்புப் பக்கத்தைக் காட்டு"
 
-#: lib/kateviewmanager.cpp:338
+#: lib/kateviewmanager.cpp:340
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2214,45 +2214,45 @@ msgstr ""
 "தொடர வேண்டுமா?</p><p><strong>மிகப்பெரிய கோப்புகளை திறக்கும்போது கேட் சிறிது நேரம் "
 "உங்கள் செயல்களுக்கு பதிலளிக்காமல் இருக்கலாம் என்பதை நினைவில் கொள்ளுங்கள்.</strong></p>"
 
-#: lib/kateviewmanager.cpp:347
+#: lib/kateviewmanager.cpp:349
 #, kde-format
 msgid "Opening Large File"
 msgstr "பெரிய கோப்பு திறக்கப்படுகிறது"
 
-#: lib/kateviewmanager.cpp:498
+#: lib/kateviewmanager.cpp:500
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1-ஆல் அடைவுகளை திறக்க முடியாது"
 
-#: lib/kateviewmanager.cpp:515
+#: lib/kateviewmanager.cpp:517
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "அடைவுகளை திறப்பதற்கான செருகுநிரலை காணவில்லை"
 
-#: lib/kateviewmanager.cpp:521
+#: lib/kateviewmanager.cpp:523
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr "அடைவுகளைத் திறக்க, <b>%1</b> செருகுநிரலை இயக்க வேண்டும். அதை இயக்கலாமா?"
 
-#: lib/kateviewmanager.cpp:529
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "அடைவைத் திறப்பது"
 
-#: lib/kateviewmanager.cpp:530
+#: lib/kateviewmanager.cpp:532
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "இயக்கு"
 
-#: lib/kateviewmanager.cpp:541
+#: lib/kateviewmanager.cpp:543
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> செருகுநிரலை இயக்க முடியவில்லை"
 
-#: lib/kateviewmanager.cpp:1278
+#: lib/kateviewmanager.cpp:1280
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "இக்காட்சிப்பகுதியில் சேமிக்கப்படாதவை இருக்கலாம். உறுதியாக இதை மூட வேண்டுமா?"

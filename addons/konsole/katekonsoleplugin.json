@@ -44,6 +44,7 @@
         "Name[uk]": "Термінал",
         "Name[vi]": "Dòng lệnh",
         "Name[x-test]": "xxTerminalxx",
+        "Name[zh_CN]": "终端",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -11,7 +11,7 @@ process.stdin.setEncoding("utf8");
 
 var text = "";
 
-process.stdin.on("data", (data) => {
+process.stdin.on("data", async (data) => {
   try {
     text += data;
     // read till we find a null char
@@ -24,7 +24,7 @@ process.stdin.on("data", (data) => {
     text = "";
 
     if (!prettier) {
-      const formatted = prettify(filePath, cursorOffset);
+      const formatted = await prettify(filePath, cursorOffset);
       if (formatted) {
         log(formatted);
         return;
@@ -111,28 +111,44 @@ function getPrettier(filePath) {
   }
 }
 
-function prettify(filePath, cursorOffset) {
+async function prettify(code, filePath, cursorOffset) {
   try {
-    const { stdout, stderr, status } = childProcess.spawnSync(
-      "prettier",
-      ["--cursor-offset", cursorOffset, filePath],
-      {
-        encoding: "utf8",
-      }
+    const prettier = childProcess.spawn("prettier", [
+      "--cursor-offset",
+      cursorOffset,
+      "--stdin-filepath",
+      filePath,
+    ]);
+
+    await new Promise((resolve, reject) =>
+      prettier.stdin.end(code, (err) => (err ? reject(err) : resolve()))
     );
 
-    if (status !== 0) {
-        process.stderr.write(stderr);
-        return null;
-    }
+    return await new Promise((resolve, reject) => {
+      let formatted = "";
+      let error = "";
 
-    const resultCursorOffset = parseInt(stderr);
-    return {
-      formatted: stdout,
-      cursorOffset: isNaN(resultCursorOffset)
-        ? cursorOffset
-        : resultCursorOffset,
-    };
+      prettier.on("close", (status) => {
+        if (status !== 0) {
+          reject(error);
+        }
+        const resultCursorOffset = parseInt(error);
+
+        resolve({
+          formatted,
+          cursorOffset: isNaN(resultCursorOffset)
+            ? cursorOffset
+            : resultCursorOffset,
+        });
+      });
+
+      prettier.stdout.on(
+        "data",
+        (chunk) => (formatted += chunk.toString("utf-8"))
+      );
+
+      prettier.stderr.on("data", (chunk) => (error += chunk.toString("utf-8")));
+    });
   } catch (e) {
     console.error(e);
     return null;

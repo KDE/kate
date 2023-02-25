@@ -33,25 +33,37 @@ static QString cursorToOffset(KTextEditor::Document *doc, KTextEditor::Cursor c)
 // Makes up a fake file name for doc mode
 static QString filenameFromMode(KTextEditor::Document *doc)
 {
-    const QString m = doc->highlightingMode().toLower();
+    const QString m = doc->highlightingMode();
     auto is = [m](const char *s) {
-        return m == QLatin1String(s);
+        return m.compare(QLatin1String(s), Qt::CaseInsensitive) == 0;
     };
     auto is_or_contains = [m](const char *s) {
         return m == QLatin1String(s) || m.contains(QLatin1String(s));
     };
     if (is_or_contains("c++")) {
-        return QLatin1String("a.cpp");
+        return QStringLiteral("a.cpp");
     } else if (is("c")) {
-        return QLatin1String("a.c");
+        return QStringLiteral("a.c");
     } else if (is("json")) {
-        return QLatin1String("a.json");
+        return QStringLiteral("a.json");
     } else if (is("objective-c")) {
-        return QLatin1String("a.m");
+        return QStringLiteral("a.m");
     } else if (is("objective-c++")) {
-        return QLatin1String("a.mm");
+        return QStringLiteral("a.mm");
     } else if (is("protobuf")) {
-        return QLatin1String("a.proto");
+        return QStringLiteral("a.proto");
+    } else if (is("javascript")) {
+        return QStringLiteral("a.js");
+    } else if (is("typescript")) {
+        return QStringLiteral("a.ts");
+    } else if (is("javascript react (jsx)")) {
+        return QStringLiteral("a.jsx");
+    } else if (is("typescript react (tsx)")) {
+        return QStringLiteral("a.tsx");
+    } else if (is("css")) {
+        return QStringLiteral("a.css");
+    } else if (is("html")) {
+        return QStringLiteral("a.html");
     }
     return {};
 }
@@ -322,12 +334,11 @@ void PrettierFormat::run(KTextEditor::Document *doc)
         return;
     }
 
-    const auto path = doc->url().toLocalFile();
     connect(s_nodeProcess, &QProcess::readyReadStandardOutput, this, &PrettierFormat::onReadyReadOut);
     connect(s_nodeProcess, &QProcess::readyReadStandardError, this, &PrettierFormat::onReadyReadErr);
 
     QJsonObject o;
-    o[QStringLiteral("filePath")] = path;
+    o[QStringLiteral("filePath")] = filenameFromMode(doc);
     o[QStringLiteral("source")] = originalText;
     o[QStringLiteral("cursorOffset")] = cursorToOffset(doc, m_pos);
     s_nodeProcess->write(QJsonDocument(o).toJson(QJsonDocument::Compact) + '\0');

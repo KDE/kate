@@ -32,6 +32,7 @@
 #include <QApplication>
 #include <QDir>
 #include <QFile>
+#include <QProcess>
 #include <QRegularExpression>
 #include <QStringList>
 #include <QtDebug>

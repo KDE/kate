@@ -166,12 +166,18 @@ public:
 
     int pid()
     {
-        return m_proc->pid();
+        if (m_proc) {
+            return m_proc->pid();
+        }
+        return 0;
     }
 
     bool isRunning() const
     {
-        return m_proc->pid() > 0;
+        if (m_proc) {
+            return m_proc->pid() > 0;
+        }
+        return false;
     }
 #else
     bool isRunning() const

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-06 00:50+0000\n"
-"PO-Revision-Date: 2023-02-15 11:08\n"
+"PO-Revision-Date: 2023-02-24 12:59\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -101,7 +101,7 @@ msgstr "自定义初始化命令"
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
-msgstr ""
+msgstr "有一个调试会话正在运行。请重新运行或停止当前会话。"
 
 #: configview.cpp:85
 #, kde-format
@@ -131,7 +131,7 @@ msgstr "工作目录："
 #: configview.cpp:126
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "进程 ID："
 
 #: configview.cpp:131
 #, kde-format
@@ -178,7 +178,7 @@ msgstr "目标 %1"
 #: debugview.cpp:29
 #, kde-format
 msgid "Locals"
-msgstr ""
+msgstr "局部变量"
 
 #: debugview.cpp:172
 #, kde-format
@@ -193,127 +193,127 @@ msgstr "*** gdb 正常退出 ***"
 #: debugview_dap.cpp:167
 #, kde-format
 msgid "DAP backend failed"
-msgstr ""
+msgstr "DAP 后端失败"
 
 #: debugview_dap.cpp:209
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "程序终止"
 
 #: debugview_dap.cpp:221
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "请求断开连接"
 
 #: debugview_dap.cpp:235
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "请求关闭"
 
 #: debugview_dap.cpp:259
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "DAP 后端：%1"
 
 #: debugview_dap.cpp:268
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "停止 (%1)"
 
 #: debugview_dap.cpp:276
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "活动线程：%1 (所有线程已停止)"
 
 #: debugview_dap.cpp:278
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "活动线程：%1"
 
 #: debugview_dap.cpp:283
 #, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr ""
+msgstr "到达断点："
 
 #: debugview_dap.cpp:305
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(继续执行) 线程 %1"
 
 #: debugview_dap.cpp:307
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "所有线程继续运行"
 
 #: debugview_dap.cpp:314
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(运行中)"
 
 #: debugview_dap.cpp:402
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** 与服务器的连接已关闭 ***"
 
 #: debugview_dap.cpp:409
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "程序已退出，退出码：%1"
 
 #: debugview_dap.cpp:423
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** 等待用户操作 ***"
 
 #: debugview_dap.cpp:428
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "响应出错：%1"
 
 #: debugview_dap.cpp:443
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "重要"
 
 #: debugview_dap.cpp:446
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "监视"
 
 #: debugview_dap.cpp:465
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "调试进程：[%1] %2"
 
 #: debugview_dap.cpp:467
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "调试进程：%1"
 
 #: debugview_dap.cpp:470
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "启动方式：%1"
 
 #: debugview_dap.cpp:477
 #, kde-format
 msgid "thread %1"
-msgstr ""
+msgstr "线程 %1"
 
 #: debugview_dap.cpp:631
 #, kde-format
 msgid "breakpoint set"
-msgstr ""
+msgstr "断点集合"
 
 #: debugview_dap.cpp:640
 #, kde-format
 msgid "breakpoint cleared"
-msgstr ""
+msgstr "断点已清除"
 
 #: debugview_dap.cpp:700
 #, kde-format
 msgid "(%1) breakpoint"
-msgstr ""
+msgstr "(%1) 断点"
 
 #: debugview_dap.cpp:717
 #, kde-format
@@ -323,119 +323,119 @@ msgstr ""
 #: debugview_dap.cpp:739
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "服务器功能"
 
 #: debugview_dap.cpp:742
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "支持"
 
 #: debugview_dap.cpp:742
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "不支持"
 
 #: debugview_dap.cpp:745
 #, kde-format
 msgid "conditional breakpoints"
-msgstr ""
+msgstr "条件断点"
 
 #: debugview_dap.cpp:746
 #, kde-format
 msgid "function breakpoints"
-msgstr ""
+msgstr "函数断点"
 
 #: debugview_dap.cpp:747
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "命中条件断点"
 
 #: debugview_dap.cpp:748
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "日志点"
 
 #: debugview_dap.cpp:748
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "模块请求"
 
 #: debugview_dap.cpp:749
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "转到目标请求"
 
 #: debugview_dap.cpp:750
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "终止请求"
 
 #: debugview_dap.cpp:751
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "终止调试"
 
 #: debugview_dap.cpp:920
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "语法错误：找不到表达式"
 
 #: debugview_dap.cpp:938 debugview_dap.cpp:973 debugview_dap.cpp:1011
 #: debugview_dap.cpp:1045 debugview_dap.cpp:1081 debugview_dap.cpp:1117
 #: debugview_dap.cpp:1153 debugview_dap.cpp:1253 debugview_dap.cpp:1310
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "语法错误：%1"
 
 #: debugview_dap.cpp:946 debugview_dap.cpp:981 debugview_dap.cpp:1260
 #: debugview_dap.cpp:1318
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "无效的行：%1"
 
 #: debugview_dap.cpp:953 debugview_dap.cpp:958 debugview_dap.cpp:988
 #: debugview_dap.cpp:993 debugview_dap.cpp:1284 debugview_dap.cpp:1289
 #: debugview_dap.cpp:1325 debugview_dap.cpp:1330
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "文件未指定：%1"
 
 #: debugview_dap.cpp:1023 debugview_dap.cpp:1057 debugview_dap.cpp:1093
 #: debugview_dap.cpp:1129 debugview_dap.cpp:1165
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "无效的线程 ID: %1"
 
 #: debugview_dap.cpp:1029 debugview_dap.cpp:1063 debugview_dap.cpp:1099
 #: debugview_dap.cpp:1135 debugview_dap.cpp:1171
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "线程 ID 未指定：%1"
 
 #: debugview_dap.cpp:1182
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "可用的命令："
 
 #: debugview_dap.cpp:1270
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "服务器不支持条件断点"
 
 #: debugview_dap.cpp:1278
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "服务器不支持命中条件断点"
 
 #: debugview_dap.cpp:1339
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
-msgstr ""
+msgstr "找不到断点 (%1:%2)"
 
 #: debugview_dap.cpp:1348
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "当前线程："
 
 #: debugview_dap.cpp:1353 debugview_dap.cpp:1360 debugview_dap.cpp:1384
 #, kde-format
@@ -455,22 +455,22 @@ msgstr ""
 #: debugview_dap.cpp:1366
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "正在初始化"
 
 #: debugview_dap.cpp:1369
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "正在运行"
 
 #: debugview_dap.cpp:1372
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "已停止"
 
 #: debugview_dap.cpp:1375
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "已终止"
 
 #: debugview_dap.cpp:1378
 #, kde-format
@@ -485,12 +485,12 @@ msgstr ""
 #: debugview_dap.cpp:1437
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "找不到命令"
 
 #: debugview_dap.cpp:1458
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "缺少线程 ID"
 
 #: debugview_dap.cpp:1566
 #, kde-format

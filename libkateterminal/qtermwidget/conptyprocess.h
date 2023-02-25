@@ -168,6 +168,11 @@ private:
     QThread *m_readThread;
     QMutex m_bufferMutex;
     PtyBuffer m_buffer;
+
+    bool m_aboutToDestruct{false};
+    PROCESS_INFORMATION m_shellProcessInformation{};
+    HANDLE m_shellCloseWaitHandle{INVALID_HANDLE_VALUE};
+    STARTUPINFOEX m_shellStartupInfo{};
 };
 
 #endif // CONPTYPROCESS_H

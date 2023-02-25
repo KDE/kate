@@ -57,6 +57,10 @@ public:
         m_trace = !m_trace;
         return m_trace;
     }
+    int exitCode() const
+    {
+        return m_exitCode;
+    }
 Q_SIGNALS:
     void started();
     void exited();
@@ -67,6 +71,7 @@ protected:
     qint64 m_pid;
     QPair<qint16, qint16> m_size; // cols / rows
     bool m_trace;
+    int m_exitCode = -1;
 };
 
 #endif // IPTYPROCESS_H

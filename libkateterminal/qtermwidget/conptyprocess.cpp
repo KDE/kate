@@ -43,14 +43,18 @@ HRESULT ConPtyProcess::initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOE
     if (pStartupInfo) {
         SIZE_T attrListSize{};
 
+        pStartupInfo->StartupInfo.hStdInput = m_hPipeIn;
+        pStartupInfo->StartupInfo.hStdError = m_hPipeOut;
+        pStartupInfo->StartupInfo.hStdOutput = m_hPipeOut;
+        pStartupInfo->StartupInfo.dwFlags |= STARTF_USESTDHANDLES;
+
         pStartupInfo->StartupInfo.cb = sizeof(STARTUPINFOEX);
-        pStartupInfo->StartupInfo.dwFlags = STARTF_USESTDHANDLES;
 
         // Get the size of the thread attribute list.
         InitializeProcThreadAttributeList(NULL, 1, 0, &attrListSize);
 
         // Allocate a thread attribute list of the correct size
-        pStartupInfo->lpAttributeList = reinterpret_cast<LPPROC_THREAD_ATTRIBUTE_LIST>(malloc(attrListSize));
+        pStartupInfo->lpAttributeList = reinterpret_cast<LPPROC_THREAD_ATTRIBUTE_LIST>(HeapAlloc(GetProcessHeap(), 0, attrListSize));
 
         // Initialize thread attribute list
         if (pStartupInfo->lpAttributeList && InitializeProcThreadAttributeList(pStartupInfo->lpAttributeList, 1, 0, &attrListSize)) {
@@ -79,15 +83,9 @@ ConPtyProcess::~ConPtyProcess()
     kill();
 }
 
-VOID NTAPI waitForExit(PVOID p, BOOLEAN b)
-{
-    ConPtyProcess *pThis = (ConPtyProcess *)(p);
-    Q_EMIT pThis->exited();
-}
-
 bool ConPtyProcess::startProcess(const QString &shellPath,
                                  const QStringList &arguments,
-                                 const QString &workingDirectory,
+                                 const QString &workingDir,
                                  QStringList environment,
                                  qint16 cols,
                                  qint16 rows)
@@ -121,6 +119,8 @@ bool ConPtyProcess::startProcess(const QString &shellPath,
     auto envV = vectorFromString(env);
     LPWSTR envArg = envV.empty() ? nullptr : envV.data();
 
+    auto cmdArg = m_shellPath.toStdWString();
+
     HRESULT hr{E_UNEXPECTED};
 
     //  Create the Pseudo Console and pipes to it
@@ -132,25 +132,22 @@ bool ConPtyProcess::startProcess(const QString &shellPath,
     }
 
     // Initialize the necessary startup info struct
-    STARTUPINFOEX startupInfo{};
-    if (S_OK != initializeStartupInfoAttachedToPseudoConsole(&startupInfo, m_ptyHandler)) {
+    if (S_OK != initializeStartupInfoAttachedToPseudoConsole(&m_shellStartupInfo, m_ptyHandler)) {
         m_lastError = QStringLiteral("ConPty Error: InitializeStartupInfoAttachedToPseudoConsole fail");
         return false;
     }
 
     // Launch ping to Q_EMIT some text back via the pipe
-    PROCESS_INFORMATION piClient{};
     hr = CreateProcess(NULL, // No module name - use Command Line
-                       (LPWSTR)m_shellPath.toStdWString().c_str(), // Command Line
+                       cmdArg.data(), // Command Line
                        NULL, // Process handle not inheritable
                        NULL, // Thread handle not inheritable
                        FALSE, // Inherit handles
                        EXTENDED_STARTUPINFO_PRESENT | CREATE_UNICODE_ENVIRONMENT, // Creation flags
-                       envArg, // NULL,                           // Use parent's
-                               // environment block
-                       (LPCWSTR)(workingDirectory.toStdWString().c_str()), // Use parent's starting directory
-                       &startupInfo.StartupInfo, // Pointer to STARTUPINFO
-                       &piClient) // Pointer to PROCESS_INFORMATION
+                       envArg, // Environment block
+                       workingDir.toStdWString().data(), // Use parent's starting directory
+                       &m_shellStartupInfo.StartupInfo, // Pointer to STARTUPINFO
+                       &m_shellProcessInformation) // Pointer to PROCESS_INFORMATION
         ? S_OK
         : GetLastError();
 
@@ -158,53 +155,49 @@ bool ConPtyProcess::startProcess(const QString &shellPath,
         m_lastError = QStringLiteral("ConPty Error: Cannot create process -> %1").arg(hr);
         return false;
     }
-    m_pid = piClient.dwProcessId;
+    m_pid = m_shellProcessInformation.dwProcessId;
 
-    HANDLE hWait = NULL;
-    RegisterWaitForSingleObject(&hWait, piClient.hThread, waitForExit, this, INFINITE, WT_EXECUTEONLYONCE);
-
-    //    QThread::create([this,&piClient,&startupInfo]()
-    //    {
-    //        qDebug() << "wait";
-    //         WaitForSingleObject(piClient.hProcess, INFINITE);
-    //         qDebug() << "end wait";
-    ////         CloseHandle(piClient.hThread);
-    ////         CloseHandle(piClient.hProcess);
-    ////         Q_EMIT exited();
-    //    })->start();
+    // Notify when the shell process has been terminated
+    RegisterWaitForSingleObject(
+        &m_shellCloseWaitHandle,
+        m_shellProcessInformation.hProcess,
+        [](PVOID data, BOOLEAN) {
+            auto self = static_cast<ConPtyProcess *>(data);
+            DWORD exitCode = 0;
+            GetExitCodeProcess(self->m_shellProcessInformation.hProcess, &exitCode);
+            self->m_exitCode = exitCode;
+            // Do not respawn if the object is about to be destructed
+            if (!self->m_aboutToDestruct)
+                Q_EMIT self->notifier()->aboutToClose();
+            Q_EMIT self->exited();
+        },
+        this,
+        INFINITE,
+        WT_EXECUTEONLYONCE);
 
     // this code runned in separate thread
-    m_readThread = QThread::create([this, &piClient, &startupInfo]() {
-        while (true) {
-            // buffers
-            const DWORD BUFF_SIZE{512};
-            char szBuffer[BUFF_SIZE]{};
+    m_readThread = QThread::create([this]() {
+        // buffers
+        const DWORD BUFF_SIZE{1024};
+        char szBuffer[BUFF_SIZE]{};
 
-            // DWORD dwBytesWritten{};
+        while (true) {
             DWORD dwBytesRead{};
-            BOOL fRead{FALSE};
 
             // Read from the pipe
-            fRead = ReadFile(m_hPipeIn, szBuffer, BUFF_SIZE, &dwBytesRead, NULL);
-            {
+            BOOL result = ReadFile(m_hPipeIn, szBuffer, BUFF_SIZE, &dwBytesRead, NULL);
+
+            const bool needMoreData = !result && GetLastError() == ERROR_MORE_DATA;
+            if (result || needMoreData) {
                 QMutexLocker locker(&m_bufferMutex);
                 m_buffer.m_readBuffer.append(szBuffer, dwBytesRead);
                 m_buffer.emitReadyRead();
             }
 
-            if (QThread::currentThread()->isInterruptionRequested())
+            const bool brokenPipe = !result && GetLastError() == ERROR_BROKEN_PIPE;
+            if (QThread::currentThread()->isInterruptionRequested() || brokenPipe)
                 break;
-
-            QCoreApplication::processEvents();
         }
-
-        // Now safe to clean-up client app's process-info & thread
-        CloseHandle(piClient.hThread);
-        CloseHandle(piClient.hProcess);
-
-        // Cleanup attribute list
-        DeleteProcThreadAttributeList(startupInfo.lpAttributeList);
-        // free(startupInfo.lpAttributeList);
     });
 
     // start read thread
@@ -226,8 +219,6 @@ bool ConPtyProcess::resize(qint16 cols, qint16 rows)
     }
 
     return res;
-
-    return true;
 }
 
 bool ConPtyProcess::kill()
@@ -235,11 +226,7 @@ bool ConPtyProcess::kill()
     bool exitCode = false;
 
     if (m_ptyHandler != INVALID_HANDLE_VALUE) {
-        m_readThread->requestInterruption();
-        QThread::msleep(200);
-        m_readThread->quit();
-        m_readThread->deleteLater();
-        m_readThread = nullptr;
+        m_aboutToDestruct = true;
 
         // Close ConPTY - this will terminate client process if running
         m_winContext.closePseudoConsole(m_ptyHandler);
@@ -249,10 +236,27 @@ bool ConPtyProcess::kill()
             CloseHandle(m_hPipeOut);
         if (INVALID_HANDLE_VALUE != m_hPipeIn)
             CloseHandle(m_hPipeIn);
+
+        m_readThread->requestInterruption();
+        if (!m_readThread->wait(1000))
+            m_readThread->terminate();
+        m_readThread->deleteLater();
+        m_readThread = nullptr;
+
         m_pid = 0;
         m_ptyHandler = INVALID_HANDLE_VALUE;
         m_hPipeIn = INVALID_HANDLE_VALUE;
         m_hPipeOut = INVALID_HANDLE_VALUE;
+
+        CloseHandle(m_shellProcessInformation.hThread);
+        CloseHandle(m_shellProcessInformation.hProcess);
+        UnregisterWait(m_shellCloseWaitHandle);
+
+        // Cleanup attribute list
+        if (m_shellStartupInfo.lpAttributeList) {
+            DeleteProcThreadAttributeList(m_shellStartupInfo.lpAttributeList);
+            HeapFree(GetProcessHeap(), 0, m_shellStartupInfo.lpAttributeList);
+        }
 
         exitCode = true;
     }
@@ -281,8 +285,12 @@ QIODevice *ConPtyProcess::notifier()
 
 QByteArray ConPtyProcess::readAll()
 {
-    QMutexLocker locker(&m_bufferMutex);
-    return m_buffer.m_readBuffer;
+    QByteArray result;
+    {
+        QMutexLocker locker(&m_bufferMutex);
+        result.swap(m_buffer.m_readBuffer);
+    }
+    return result;
 }
 
 qint64 ConPtyProcess::write(const char *data, int size)

@@ -395,15 +395,16 @@ int main(int argc, char **argv)
         bool foundRunningService = false;
         if ((!force_new) && (serviceName.isEmpty())) {
             int desktopnumber = 0;
-#if KWINDOWSYSTEM_VERSION > QT_VERSION_CHECK(5, 101, 0)
 #if HAVE_X11
+#if KWINDOWSYSTEM_VERSION > QT_VERSION_CHECK(5, 101, 0)
             if (KWindowSystem::isPlatformX11()) {
                 desktopnumber = KX11Extras::currentDesktop();
             }
-#endif
 #else
             desktopnumber = KWindowSystem::currentDesktop();
 #endif
+#endif
+
             for (int s = 0; s < kateServices.count(); s++) {
                 serviceName = kateServices[s];
 

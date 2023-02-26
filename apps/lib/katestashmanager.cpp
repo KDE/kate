@@ -71,17 +71,17 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
 
 bool KateStashManager::willStashDoc(KTextEditor::Document *doc) const
 {
-    const auto activeSession = KateApp::self()->sessionManager()->activeSession();
-    if (!activeSession || activeSession->isAnonymous() || activeSession->name().isEmpty()) {
-        return false;
-    }
-    if (doc->text().isEmpty()) {
+    Q_ASSERT(KateApp::self()->sessionManager()->activeSession());
+    Q_ASSERT(!KateApp::self()->sessionManager()->activeSession()->name().isEmpty());
+    Q_ASSERT(!KateApp::self()->sessionManager()->activeSession()->isAnonymous());
+
+    if (doc->isEmpty()) {
         return false;
     }
     if (doc->url().isEmpty()) {
         return m_stashNewUnsavedFiles;
     }
-    if (doc->url().isLocalFile()) {
+    if (doc->isModified() && doc->url().isLocalFile()) {
         const QString path = doc->url().toLocalFile();
         if (path.startsWith(QDir::tempPath())) {
             return false; // inside tmp resource, do not stash

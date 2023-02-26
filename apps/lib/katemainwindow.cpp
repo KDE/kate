@@ -605,12 +605,15 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc, KateMainWin
     std::vector<KTextEditor::Document *> modifiedDocuments = KateApp::self()->documentManager()->modifiedDocumentList();
 
     // filter out what the stashManager will itself stash
-    modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
-                                           modifiedDocuments.end(),
-                                           [](auto doc) {
-                                               return KateApp::self()->stashManager()->willStashDoc(doc);
-                                           }),
-                            modifiedDocuments.end());
+    const auto activeSession = KateApp::self()->sessionManager()->activeSession();
+    if (activeSession && !activeSession->isAnonymous() && !activeSession->name().isEmpty()) {
+        modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
+                                               modifiedDocuments.end(),
+                                               [](auto doc) {
+                                                   return KateApp::self()->stashManager()->willStashDoc(doc);
+                                               }),
+                                modifiedDocuments.end());
+    }
 
     // do we want to ignore some document?
     if (doc) {

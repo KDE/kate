@@ -581,10 +581,31 @@ void Session::close()
 #ifndef Q_OS_WIN
     _autoClose = true;
     _wantedClose = true;
-    if (!_shellProcess->isRunning() || !sendSignal(SIGHUP)) {
-        // Forced close.
-        QTimer::singleShot(1, this, SIGNAL(finished()));
+    // not running
+    if (!_shellProcess->isRunning()) {
+        Q_EMIT finished();
     }
+
+    // try SIGHUP
+    if (sendSignal(SIGHUP)) {
+        QTimer::singleShot(1, this, SIGNAL(finished()));
+        return;
+    }
+
+    if (_shellProcess && _shellProcess->pty()) {
+        _shellProcess->pty()->close();
+        if (_shellProcess->waitForFinished(1000)) {
+            Q_EMIT finished();
+            return;
+        }
+    }
+
+    if (sendSignal(SIGKILL)) {
+        Q_EMIT finished();
+        return;
+    }
+
+    qWarning() << "Failed to close " << processId();
 #else
     _shellProcess->kill();
 #endif
@@ -602,6 +623,10 @@ void Session::sendKeyEvent(QKeyEvent *e) const
 
 Session::~Session()
 {
+    if (_shellProcess->isRunning()) {
+        close();
+    }
+
     delete _emulation;
     delete _shellProcess;
     //  delete _zmodemProc;

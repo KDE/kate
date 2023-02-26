@@ -18,7 +18,12 @@
 #include <KMessageBox>
 #include <KNetworkMounts>
 #include <KSharedConfig>
+
+// X11 startup handling
+#if __has_include(<KStartupInfo>)
 #include <KStartupInfo>
+#endif
+
 #include <KWindowInfo>
 
 #ifdef WITH_KUSERFEEDBACK
@@ -267,8 +272,11 @@ bool KateApp::startupKate()
         } else if (!m_args.isSet(QStringLiteral("stdin")) && (m_args.positionalArguments().count() == 0)) { // only start session if no files specified
             // let the user choose session if possible
             if (!sessionManager()->chooseSession()) {
+#if __has_include(<KStartupInfo>)
                 // we will exit kate now, notify the rest of the world we are done
                 KStartupInfo::appStarted();
+#endif
+
                 return false;
             }
         } else {

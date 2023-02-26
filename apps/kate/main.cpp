@@ -14,7 +14,12 @@
 #include <KDBusService>
 #include <KLazyLocalizedString>
 #include <KLocalizedString>
+
+// X11 startup handling
+#if __has_include(<KStartupInfo>)
 #include <KStartupInfo>
+#endif
+
 #include <KWindowSystem>
 #include <algorithm>
 
@@ -577,8 +582,10 @@ int main(int argc, char **argv)
             KDBusService dbusService(KDBusService::Multiple);
             dbusService.unregister();
 
+#if __has_include(<KStartupInfo>)
             // make the world happy, we are started, kind of...
             KStartupInfo::appStarted();
+#endif
 
             // We don't want the session manager to restart us on next login
             // if we block

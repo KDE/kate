@@ -561,7 +561,7 @@ void KateConsole::handleEsc(QEvent *e)
 
     QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
 
-    if (!m_mw || !m_part || !m_toolView || !e) {
+    if (!m_mw || !m_toolView || !e) {
         return;
     }
 
@@ -570,7 +570,7 @@ void KateConsole::handleEsc(QEvent *e)
         // our own term doesn't know about fg process
         if (m_terminal && m_terminal->isVisible()) {
             m_mw->hideToolView(m_toolView);
-        } else {
+        } else if (m_part) {
             const auto app = qobject_cast<TerminalInterface *>(m_part)->foregroundProcessName();
             if (m_toolView && m_toolView->isVisible() && !exceptList.contains(app)) {
                 m_mw->hideToolView(m_toolView);

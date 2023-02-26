@@ -40,9 +40,7 @@ void KateStashManager::clearStashForSession(const KateSession::Ptr session)
 
 void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::Document *> &documents) const
 {
-    const auto activeSession = KateApp::self()->sessionManager()->activeSession();
-    if (!activeSession || activeSession->isAnonymous() || activeSession->name().isEmpty()) {
-        qDebug(LOG_KATE) << "Could not stash files without a session";
+    if (!canStash()) {
         return;
     }
 
@@ -52,7 +50,7 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
     dir.mkdir(QStringLiteral("stash"));
     dir.cd(QStringLiteral("stash"));
 
-    const QString sessionName = activeSession->name();
+    const QString sessionName = KateApp::self()->sessionManager()->activeSession()->name();
     dir.mkdir(sessionName);
     dir.cd(sessionName);
 
@@ -71,9 +69,7 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
 
 bool KateStashManager::willStashDoc(KTextEditor::Document *doc) const
 {
-    Q_ASSERT(KateApp::self()->sessionManager()->activeSession());
-    Q_ASSERT(!KateApp::self()->sessionManager()->activeSession()->name().isEmpty());
-    Q_ASSERT(!KateApp::self()->sessionManager()->activeSession()->isAnonymous());
+    Q_ASSERT(canStash());
 
     if (doc->isEmpty()) {
         return false;
@@ -115,6 +111,12 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     kconfig.sync();
 }
 
+bool KateStashManager::canStash() const
+{
+    const auto activeSession = KateApp::self()->sessionManager()->activeSession();
+    return activeSession && !activeSession->isAnonymous() && !activeSession->name().isEmpty();
+}
+
 void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig)
 {
     if (!(kconfig.hasKey("stashedFile"))) {
@@ -123,8 +125,8 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
     qCDebug(LOG_KATE) << "popping stashed document" << doc->url();
 
     // read metadata
-    auto stashedFile = kconfig.readEntry("stashedFile");
-    auto url = QUrl(kconfig.readEntry("URL"));
+    const auto stashedFile = kconfig.readEntry("stashedFile");
+    const auto url = QUrl(kconfig.readEntry("URL"));
 
     bool checksumOk = true;
     if (url.isValid()) {

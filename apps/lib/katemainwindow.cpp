@@ -192,9 +192,13 @@ KateMainWindow::~KateMainWindow()
     // close all documents not visible in other windows, we did ask for permission in queryClose
     if (winClosesDocuments()) {
         auto docs = KateApp::self()->documentManager()->documentList();
+        const bool canStash = KateApp::self()->stashManager()->canStash();
         docs.erase(std::remove_if(docs.begin(),
                                   docs.end(),
-                                  [this](auto doc) {
+                                  [this, canStash](auto doc) {
+                                      if (canStash && (doc->isModified() || doc->url().isEmpty())) {
+                                          return true;
+                                      }
                                       return KateApp::self()->documentVisibleInOtherWindows(doc, this);
                                   }),
                    docs.end());
@@ -605,8 +609,8 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc, KateMainWin
     std::vector<KTextEditor::Document *> modifiedDocuments = KateApp::self()->documentManager()->modifiedDocumentList();
 
     // filter out what the stashManager will itself stash
-    const auto activeSession = KateApp::self()->sessionManager()->activeSession();
-    if (activeSession && !activeSession->isAnonymous() && !activeSession->name().isEmpty()) {
+    const bool canStash = KateApp::self()->stashManager()->canStash();
+    if (canStash) {
         modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
                                                modifiedDocuments.end(),
                                                [](auto doc) {
@@ -624,7 +628,10 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc, KateMainWin
     if (win) {
         modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
                                                modifiedDocuments.end(),
-                                               [win](auto doc) {
+                                               [win, canStash](auto doc) {
+                                                   if (canStash && (doc->isModified() || doc->url().isEmpty())) {
+                                                       return true;
+                                                   }
                                                    return KateApp::self()->documentVisibleInOtherWindows(doc, win);
                                                }),
                                 modifiedDocuments.end());

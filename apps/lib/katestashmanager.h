@@ -42,6 +42,8 @@ public:
         m_stashNewUnsavedFiles = stashNewUnsavedFiles;
     }
 
+    bool canStash() const;
+
     void stashDocuments(KConfig *cfg, const QList<KTextEditor::Document *> &documents) const;
 
     bool willStashDoc(KTextEditor::Document *doc) const;

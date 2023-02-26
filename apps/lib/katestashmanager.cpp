@@ -40,17 +40,17 @@ void KateStashManager::clearStashForSession(const KateSession::Ptr session)
 
 void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::Document *> &documents)
 {
-    // prepare stash directory
-    const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QDir dir(appDataPath);
-    dir.mkdir(QStringLiteral("stash"));
-    dir.cd(QStringLiteral("stash"));
-
     const auto activeSession = KateApp::self()->sessionManager()->activeSession();
     if (!activeSession || activeSession->isAnonymous() || activeSession->name().isEmpty()) {
         qDebug(LOG_KATE) << "Could not stash files without a session";
         return;
     }
+
+    // prepare stash directory
+    const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir dir(appDataPath);
+    dir.mkdir(QStringLiteral("stash"));
+    dir.cd(QStringLiteral("stash"));
 
     const QString sessionName = activeSession->name();
     dir.mkdir(sessionName);

@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-25 01:03+0000\n"
-"PO-Revision-Date: 2023-02-02 07:08+0100\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
+"PO-Revision-Date: 2023-02-25 08:56+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.2.2\n"
 
@@ -97,7 +97,7 @@ msgstr[1] "<b><i>%1 najdeni ujemanji, iskanje: %2</i></b>"
 msgstr[2] "<b><i>%1 najdena ujemanja, iskanje: %2</i></b>"
 msgstr[3] "<b><i>%1 najdenih ujemanj, iskanje: %2</i></b>"
 
-#: MatchModel.cpp:570 MatchModel.cpp:713
+#: MatchModel.cpp:570 MatchModel.cpp:724
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
@@ -161,12 +161,12 @@ msgstr[3] ""
 "<b><i>%1 ujemanj (%3) najdenih v vseh odprtih projektih (s skupnim "
 "nadrejenim: %2)</i></b>"
 
-#: MatchModel.cpp:697 MatchModel.cpp:699
+#: MatchModel.cpp:708 MatchModel.cpp:710
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Generiranje seznama datotek: ...%1"
 
-#: MatchModel.cpp:707
+#: MatchModel.cpp:718
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
@@ -175,7 +175,7 @@ msgstr[1] "%1 zadetka najdena, iščem: ...%2"
 msgstr[2] "%1 zadetki najdeni, iščem: ...%2"
 msgstr[3] "%1 zadetkov najdenih, iščem: ...%2"
 
-#: MatchModel.cpp:709
+#: MatchModel.cpp:720
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
@@ -184,7 +184,7 @@ msgstr[1] "%1 zadetka najdena, iščem: %2"
 msgstr[2] "%1 zadetki najdeni, iščem: %2"
 msgstr[3] "%1 zadetkov najdenih, iščem: %2"
 
-#: MatchModel.cpp:717
+#: MatchModel.cpp:728
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
@@ -193,7 +193,7 @@ msgstr[1] "%1 ujemanja (%2) najdena v trenutni v datoteki"
 msgstr[2] "%1 ujemanja (%2) najdena v trenutni v datoteki"
 msgstr[3] "%1 ujemanj (%2) najdeno v trenutni v datoteki"
 
-#: MatchModel.cpp:719
+#: MatchModel.cpp:730
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
@@ -202,7 +202,7 @@ msgstr[1] "%1 ujemanji (%2) najdeni v odprtih datotekah"
 msgstr[2] "%1 ujemanja (%2) najdeno v odprtih datotekah"
 msgstr[3] "%1 ujemanj (%2) najdenih v odprtih datotekah"
 
-#: MatchModel.cpp:722
+#: MatchModel.cpp:733
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
@@ -211,7 +211,7 @@ msgstr[1] "%1 ujemanji (%3) najdeni v mapi %2"
 msgstr[2] "%1 ujemanja (%3) najdena v mapi %2"
 msgstr[3] "%1 ujemanj (%3) najdenih v mapi %2"
 
-#: MatchModel.cpp:725
+#: MatchModel.cpp:736
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
@@ -220,7 +220,7 @@ msgstr[1] "%1 ujemanji (%4) najdena v projektu %2 (%3)"
 msgstr[2] "%1 ujemanja (%4) najdeno v projektu %2 (%3)"
 msgstr[3] "%1 ujemanj (%4) najdeno v projektu %2 (%3)"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:745
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"

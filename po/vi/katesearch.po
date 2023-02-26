@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-25 01:03+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-01-08 09:07+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -87,7 +87,7 @@ msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>Tìm thấy %1 đoạn khớp, đang tìm: %2</i></b>"
 
-#: MatchModel.cpp:570 MatchModel.cpp:713
+#: MatchModel.cpp:570 MatchModel.cpp:724
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
@@ -127,48 +127,48 @@ msgstr[0] ""
 "<b><i>%1 đoạn khớp (%3) được tìm thấy trong tất cả các dự án đang mở (cha "
 "chung: %2)</i></b>"
 
-#: MatchModel.cpp:697 MatchModel.cpp:699
+#: MatchModel.cpp:708 MatchModel.cpp:710
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Đang tạo danh sách tệp: ...%1"
 
-#: MatchModel.cpp:707
+#: MatchModel.cpp:718
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] "Tìm thấy %1 đoạn khớp, đang tìm: ...%2"
 
-#: MatchModel.cpp:709
+#: MatchModel.cpp:720
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "Tìm thấy %1 đoạn khớp, đang tìm: %2"
 
-#: MatchModel.cpp:717
+#: MatchModel.cpp:728
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "%1 đoạn khớp (%2) được tìm thấy trong tệp hiện tại"
 
-#: MatchModel.cpp:719
+#: MatchModel.cpp:730
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "%1 đoạn khớp (%2) được tìm thấy trong các tệp đang mở"
 
-#: MatchModel.cpp:722
+#: MatchModel.cpp:733
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "%1 đoạn khớp (%3) được tìm thấy trong thư mục %2"
 
-#: MatchModel.cpp:725
+#: MatchModel.cpp:736
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "%1 đoạn khớp (%4) được tìm thấy trong dự án %2 (%3)"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:745
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: ٢٠١٦-٠٩-٠٣ ١١:١٤+0300\n"
 "Last-Translator: Safa Alfulaij <safa1996alfulaij@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -375,22 +375,17 @@ msgstr ""
 "‏\"‎%d\" لدليل الملفّ الحاليّ\n"
 "‏\"‎%n\" للملفّ الحاليّ بدون لاحقته"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr "أشّر على مربّع التّأشير لجعل الأمر افتراضيًّا لمجموعة الأهداف."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "اسم الأمر/مجموعة الأهداف"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "دليل العمل / الأمر"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr ""
@@ -459,6 +454,10 @@ msgstr "أدرج مسارًا"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "اختر الدّليل لإدراجه"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr "أشّر على مربّع التّأشير لجعل الأمر افتراضيًّا لمجموعة الأهداف."
 
 #~ msgid "Select active target set"
 #~ msgstr "اختر مجموعة الأهداف النّشطة"

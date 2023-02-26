@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-01-31 09:19+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -370,24 +370,17 @@ msgstr ""
 "\"%d\" per la cartella del file attuale\n"
 "\"%n\" per il nome del file attuale senza suffisso"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-"Marca la casella di selezione per rendere il comando predefinito per "
-"l'insieme degli obiettivi."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nome comando/insieme di obiettivi"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Cartella di lavoro / Comando"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Esegui comando"
@@ -454,6 +447,12 @@ msgstr "Inserisci percorso"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleziona la cartella da inserire"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr ""
+#~ "Marca la casella di selezione per rendere il comando predefinito per "
+#~ "l'insieme degli obiettivi."
 
 #~ msgid "Select active target set"
 #~ msgstr "Seleziona l'insieme di obiettivi attivo"

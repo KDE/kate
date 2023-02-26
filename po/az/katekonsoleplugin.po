@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-16 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2021-05-04 10:23+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -23,7 +23,7 @@ msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr ""
 "Örtüyə və terminal emulyatoruna girmək üçün kifayət qədər imtiyaznız yoxdur"
 
-#: kateconsole.cpp:102 kateconsole.cpp:132 kateconsole.cpp:656
+#: kateconsole.cpp:102 kateconsole.cpp:132 kateconsole.cpp:657
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
@@ -46,7 +46,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Cari sənədi işə salın"
 
-#: kateconsole.cpp:154 kateconsole.cpp:504
+#: kateconsole.cpp:154 kateconsole.cpp:505
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -58,7 +58,7 @@ msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "Terminal panelini &fokuslamaq"
 
-#: kateconsole.cpp:373
+#: kateconsole.cpp:374
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -67,27 +67,27 @@ msgstr ""
 "Doğrudan mətni konsola göndərmək istəyirsiniz? Bu tərkibindəki hər hansı "
 "əmri sizin istifadəçi imtiyazınızla icra edəcək."
 
-#: kateconsole.cpp:374
+#: kateconsole.cpp:375
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Terminala yönəldilsin?"
 
-#: kateconsole.cpp:375
+#: kateconsole.cpp:376
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Terminala yönəltmək"
 
-#: kateconsole.cpp:403
+#: kateconsole.cpp:404
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
 msgstr "Təəssüf, \"%1\" açmaq mümkün olmadı"
 
-#: kateconsole.cpp:445
+#: kateconsole.cpp:446
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "%1, yerli fayl deyil"
 
-#: kateconsole.cpp:478
+#: kateconsole.cpp:479
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -100,60 +100,60 @@ msgstr ""
 "imtiyazlarınızla terminalda icra edəcək:\n"
 "\"%1\""
 
-#: kateconsole.cpp:485
+#: kateconsole.cpp:486
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Terminalda başladılsın?"
 
-#: kateconsole.cpp:486
+#: kateconsole.cpp:487
 #, kde-format
 msgid "Run"
 msgstr "Başladın"
 
-#: kateconsole.cpp:501
+#: kateconsole.cpp:502
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "Terminalı panelini &gizlədin"
 
-#: kateconsole.cpp:512
+#: kateconsole.cpp:513
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Terminal panelini qeyri-aktiv etmək"
 
-#: kateconsole.cpp:513 kateconsole.cpp:514
+#: kateconsole.cpp:514 kateconsole.cpp:515
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Terminal panelini aktivləşdirin"
 
-#: kateconsole.cpp:589
+#: kateconsole.cpp:590
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
 msgstr "Mümkün olduqda terminalı cari sənəd ilə &avtomatik eyniləşdirmək"
 
-#: kateconsole.cpp:593 kateconsole.cpp:614
+#: kateconsole.cpp:594 kateconsole.cpp:615
 #, kde-format
 msgid "Run in terminal"
 msgstr "Terminalda başladın"
 
-#: kateconsole.cpp:595
+#: kateconsole.cpp:596
 #, kde-format
 msgid "&Remove extension"
 msgstr "Qoşmanı &silin"
 
-#: kateconsole.cpp:600
+#: kateconsole.cpp:601
 #, kde-format
 msgid "Prefix:"
 msgstr "Sözönü:"
 
-#: kateconsole.cpp:608
+#: kateconsole.cpp:609
 #, kde-format
 msgid "&Show warning next time"
 msgstr "Xəbərdarlıq növbəti dəfə gö&stərilsin"
 
-#: kateconsole.cpp:610
+#: kateconsole.cpp:611
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -162,12 +162,12 @@ msgstr ""
 "\"%1\" növbəti dəfə icra olunduqda terminalın başladılması üçün nəzərdə "
 "tutlmuş əmrlər siyahısından ibarət xəbərdarlıq pəncərəsini göstərmək."
 
-#: kateconsole.cpp:621
+#: kateconsole.cpp:622
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "&EDITOR mühit dəyişənini \"kate -b\" olaraq təyin edin"
 
-#: kateconsole.cpp:624
+#: kateconsole.cpp:625
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -175,12 +175,12 @@ msgid ""
 msgstr ""
 "Vacibdir: Konsol tətbiqinin davam etməsi üçün sənədin bağlanması lazımdır"
 
-#: kateconsole.cpp:627
+#: kateconsole.cpp:628
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "\"Esc\" düyməs ilə Konsole gizlədilsin"
 
-#: kateconsole.cpp:630
+#: kateconsole.cpp:631
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -190,7 +190,7 @@ msgstr ""
 "yaranmasına səbəb ola bilər. Bu tətbiqləri aşağıdakı girişə əlavə edin "
 "(vergüllə ayrılmış siyahı)"
 
-#: kateconsole.cpp:661
+#: kateconsole.cpp:662
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminal ayarları"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-02-07 18:21+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -370,22 +370,17 @@ msgstr ""
 "\"%d\" pre adresár aktuálneho súboru\n"
 "\"%n\" pre aktuálny názov súboru bez prípony"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr "Označte checkbox, aby sa príkaz stal predvoleným pre cieľovú sadu."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Názov príkazu/cieľovej sady"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Pracovný adresár / príkaz"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Spustiť príkaz"
@@ -452,6 +447,10 @@ msgstr "Vložiť cestu"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vybrať adresár na vloženie"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr "Označte checkbox, aby sa príkaz stal predvoleným pre cieľovú sadu."
 
 #~ msgid "Select active target set"
 #~ msgstr "Vybrať aktívnu cieľovú sadu"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-25 01:03+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2022-02-06 19:51+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -32,52 +32,52 @@ msgid "Your emails"
 msgstr ""
 "claudiuc@kde.org,taipanromania@xnet.ro,sergiu@cip.md,cfrussen@yahoo.co.uk"
 
-#: kate/main.cpp:71
+#: kate/main.cpp:84
 msgid ""
 "Running Kate with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
 
-#: kate/main.cpp:78
+#: kate/main.cpp:91
 msgid ""
 "Running Kate with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
 
-#: kate/main.cpp:141
+#: kate/main.cpp:154
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:156
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Un editor de text avansat"
 
-#: kate/main.cpp:145 kwrite/main.cpp:107
+#: kate/main.cpp:158 kwrite/main.cpp:107
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2019 The Kate Authors"
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2019 Autorii Kate"
 
-#: kate/main.cpp:191
+#: kate/main.cpp:204
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Pornește Kate cu o sesiune dată."
 
-#: kate/main.cpp:192
+#: kate/main.cpp:205
 #, kde-format
 msgid "session"
 msgstr "sesiune"
 
-#: kate/main.cpp:197
+#: kate/main.cpp:210
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Pornește Kate cu o nouă sesiune anonimă, implică „-n”."
 
-#: kate/main.cpp:202
+#: kate/main.cpp:215
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -88,7 +88,7 @@ msgstr ""
 "și altă instanță Kate are deja deschisă sesiunea dată), forțată dacă nu se "
 "specifică niciun parametru sau adresă URL."
 
-#: kate/main.cpp:208
+#: kate/main.cpp:221
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -97,7 +97,7 @@ msgstr ""
 "Dacă folosiți o instanță Kate ce rulează deja, se blochează până la "
 "terminare dacă s-au indicat adrese URL pentru deschidere."
 
-#: kate/main.cpp:214
+#: kate/main.cpp:227
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -106,57 +106,57 @@ msgstr ""
 "Încearcă doar refolosirea instanței Kate cu acest PID (se ignoră dacă e "
 "folosit „start” și altă instanță Kate are deja deschisă sesiunea dată)."
 
-#: kate/main.cpp:215
+#: kate/main.cpp:228
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:220 kwrite/main.cpp:158
+#: kate/main.cpp:233 kwrite/main.cpp:158
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Stabilește codarea pentru fișierul de deschis."
 
-#: kate/main.cpp:221 kwrite/main.cpp:159
+#: kate/main.cpp:234 kwrite/main.cpp:159
 #, kde-format
 msgid "encoding"
 msgstr "codare"
 
-#: kate/main.cpp:225 kwrite/main.cpp:163
+#: kate/main.cpp:238 kwrite/main.cpp:163
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Navighează la această linie."
 
-#: kate/main.cpp:225 kwrite/main.cpp:163
+#: kate/main.cpp:238 kwrite/main.cpp:163
 #, kde-format
 msgid "line"
 msgstr "linie"
 
-#: kate/main.cpp:230 kwrite/main.cpp:167
+#: kate/main.cpp:243 kwrite/main.cpp:167
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Navighează la această coloană."
 
-#: kate/main.cpp:231 kwrite/main.cpp:167
+#: kate/main.cpp:244 kwrite/main.cpp:167
 #, kde-format
 msgid "column"
 msgstr "coloană"
 
-#: kate/main.cpp:235 kwrite/main.cpp:171
+#: kate/main.cpp:248 kwrite/main.cpp:171
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Citește conținutul STDIN."
 
-#: kate/main.cpp:240 kwrite/main.cpp:175
+#: kate/main.cpp:253 kwrite/main.cpp:175
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "Fișierele/URL-urile deschise de aplicație vor fi șterse după utilizare"
 
-#: kate/main.cpp:244 kwrite/main.cpp:179
+#: kate/main.cpp:257 kwrite/main.cpp:179
 #, kde-format
 msgid "Documents to open."
 msgstr "Documente de deschis."
 
-#: kate/main.cpp:244 kwrite/main.cpp:179
+#: kate/main.cpp:257 kwrite/main.cpp:179
 #, kde-format
 msgid "[urls...]"
 msgstr "[url-uri...]"
@@ -2312,7 +2312,7 @@ msgstr "Activat"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1280
+#: lib/kateviewmanager.cpp:1285
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

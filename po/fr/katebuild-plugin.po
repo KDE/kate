@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-01-29 20:55+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -380,24 +380,17 @@ msgstr ""
 "« %d » pour le dossier du fichier actuel\n"
 "« %n » pour le nom du fichier actuel sans suffixe"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-"Cochez la case pour en faire la commande par défaut pour l'ensemble de "
-"cibles."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nom de la commande / Ensemble de cibles"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Dossier de travail / Commande"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Exécuter une commande"
@@ -464,6 +457,12 @@ msgstr "Insérer l'emplacement"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Sélectionnez le dossier à insérer"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr ""
+#~ "Cochez la case pour en faire la commande par défaut pour l'ensemble de "
+#~ "cibles."
 
 #~ msgid "Select active target set"
 #~ msgstr "Sélectionnez l'ensemble de cibles actif"

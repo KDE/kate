@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2022-04-22 18:05+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -368,22 +368,17 @@ msgstr ""
 "\"%d\" cari faylın qovluğu üçün\n"
 "\"%n\" cari faylın şəkilçisiz adı üçün"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr "Hədəf dəsti standart əmrləri yaratmaq üçün bu xananı işarələyin."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Əmr/Hədəf dəsti adı"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "İş qovluğu / Əmr"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr ""
@@ -451,6 +446,10 @@ msgstr "Yol daxil edin"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Daxil etmək üçün qovluq seçin"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr "Hədəf dəsti standart əmrləri yaratmaq üçün bu xananı işarələyin."
 
 #~ msgid "Select active target set"
 #~ msgstr "Aktiv hədəf dəstini seçin"

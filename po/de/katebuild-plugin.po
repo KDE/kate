@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2022-11-18 15:54+0100\n"
 "Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -370,24 +370,17 @@ msgstr ""
 "„%d“ für den Ordner der aktuellen Datei\n"
 "\"%n\" für den aktuellen Dateinamen ohne Erweiterung"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-"Aktivieren Sie diese Einstellung, um den Befehl als Standard für die "
-"Zielgruppe festzulegen."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Name von Befehl/Zielgruppe"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Arbeitsordner / Befehl"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Befehl ausführen"
@@ -452,6 +445,12 @@ msgstr "Pfad einfügen"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Ordner zum Einfügen wählen"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr ""
+#~ "Aktivieren Sie diese Einstellung, um den Befehl als Standard für die "
+#~ "Zielgruppe festzulegen."
 
 #~ msgid "Select active target set"
 #~ msgstr "Aktive Zielgruppe auswählen"

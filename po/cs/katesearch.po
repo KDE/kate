@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-25 01:03+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-01-17 15:21+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -94,7 +94,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: MatchModel.cpp:570 MatchModel.cpp:713
+#: MatchModel.cpp:570 MatchModel.cpp:724
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
@@ -150,12 +150,12 @@ msgstr[2] ""
 "<b><i>V otevřených projektech nalezeno %1 shod (%3) (společný rodič: %2)</"
 "i></b>"
 
-#: MatchModel.cpp:697 MatchModel.cpp:699
+#: MatchModel.cpp:708 MatchModel.cpp:710
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Generuji seznam souborů: ...%1"
 
-#: MatchModel.cpp:707
+#: MatchModel.cpp:718
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
@@ -163,7 +163,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: MatchModel.cpp:709
+#: MatchModel.cpp:720
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
@@ -171,7 +171,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: MatchModel.cpp:717
+#: MatchModel.cpp:728
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
@@ -179,7 +179,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: MatchModel.cpp:719
+#: MatchModel.cpp:730
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
@@ -187,7 +187,7 @@ msgstr[0] "V otevřených souborech nalezena jedna shoda (%2)"
 msgstr[1] "V otevřených souborech nalezeny %1 shody (%2)"
 msgstr[2] "V otevřených souborech nalezeno %1 shod (%2)"
 
-#: MatchModel.cpp:722
+#: MatchModel.cpp:733
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
@@ -195,7 +195,7 @@ msgstr[0] "Ve složce %2 nalezena jedna shoda (%3)"
 msgstr[1] "Ve složce %2 nalezeny %1 shody (%3)"
 msgstr[2] "Ve složce %2 nalezeno %1 shod (%3)"
 
-#: MatchModel.cpp:725
+#: MatchModel.cpp:736
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
@@ -203,7 +203,7 @@ msgstr[0] "V projektu %2 (%3) nalezena jedna shoda (%4)"
 msgstr[1] "V projektu %2 (%3) nalezeny %1 shody (%4)"
 msgstr[2] "V projektu %2 (%3) nalezeno %1 shod (%4)"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:745
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"

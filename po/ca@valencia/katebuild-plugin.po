@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-01-25 09:24+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -372,24 +372,17 @@ msgstr ""
 "«%d» pel directori del fitxer actual\n"
 "«%n» pel nom de fitxer actual sense sufix"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-"Activeu la casella de selecció per fer l'ordre predeterminada pel conjunt "
-"d'objectius."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nom d'ordre/conjunt d'objectius"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Directori de treball / ordre"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Executa una ordre"
@@ -456,3 +449,9 @@ msgstr "Inserix camí"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccioneu el directori que s'ha d'inserir"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr ""
+#~ "Activeu la casella de selecció per fer l'ordre predeterminada pel conjunt "
+#~ "d'objectius."

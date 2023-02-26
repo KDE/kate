@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2017-03-22 17:11+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -367,23 +367,17 @@ msgstr ""
 "\"%d\" for mappen med den aktuelle fil \"%n\" for aktuelt filnavn uden "
 "endelse"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-"Markér afkrydsningsfeltet for at gøre kommandoen til standard for mål-sættet."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Navn på kommando/mål-sæt"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Arbejdsmappe / kommando"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
@@ -453,6 +447,12 @@ msgstr "Indsæt sti"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vælg mappe der skal indsættes"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr ""
+#~ "Markér afkrydsningsfeltet for at gøre kommandoen til standard for mål-"
+#~ "sættet."
 
 #~ msgid "Select active target set"
 #~ msgstr "Vælg aktivt mål-sæt"

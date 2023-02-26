@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-01-25 09:11+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -373,22 +373,17 @@ msgstr ""
 "«%d» для позначення каталогу, де зберігається поточний файл,\n"
 "«%n» для позначення назви поточного файла без суфікса."
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr "Позначте пункт, щоб зробити команду типовою для набору цілей."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Назва команди або набору цілей"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Робочий каталог або команда"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Виконати команду"
@@ -455,6 +450,10 @@ msgstr "Шлях вставки"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Виберіть каталог для вставляння"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr "Позначте пункт, щоб зробити команду типовою для набору цілей."
 
 #~ msgid "Select active target set"
 #~ msgstr "Виберіть активний набір цілей"

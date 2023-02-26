@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2022-05-03 13:44-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -372,23 +372,17 @@ msgstr ""
 "\"%d\" para a pasta do arquivo atual\n"
 "\"%n\" para o nome do arquivo atual sem sufixo"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-"Assinale a opção para tornar o comando padrão para o conjunto de alvos."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nome do comando/conjunto de alvos"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Pasta de trabalho / Comando"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr ""
@@ -456,6 +450,11 @@ msgstr "Inserir caminho"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Selecione a pasta a inserir"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr ""
+#~ "Assinale a opção para tornar o comando padrão para o conjunto de alvos."
 
 #~ msgid "Select active target set"
 #~ msgstr "Selecionar o conjunto de alvos ativo"

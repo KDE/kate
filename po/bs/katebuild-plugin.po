@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2014-02-08 10:06+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -387,23 +387,18 @@ msgstr ""
 "\"%d\" za direktorij trenutne datoteke\"%n\" za trenutno ime datoteke bez "
 "sufiksa"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, fuzzy, kde-format
 #| msgid "Working directory"
 msgid "Working Directory / Command"
 msgstr "Radni direktorij"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"

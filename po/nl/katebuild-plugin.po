@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-01-25 11:28+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -369,24 +369,17 @@ msgstr ""
 "\"%d\" voor map van huidig bestand\n"
 "\"%n\" voor huidig bestand zonder achtervoegsel"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-"Activeer het keuzevakje om het commando de standaard voor de set met doelen "
-"te maken."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Naam van set commando/doel"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Werkmap / commando"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Commando uitvoeren"
@@ -453,6 +446,12 @@ msgstr "Pad invoegen"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "In te voegen map selecteren"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr ""
+#~ "Activeer het keuzevakje om het commando de standaard voor de set met "
+#~ "doelen te maken."
 
 #~ msgid "Select active target set"
 #~ msgstr "Actieve set met doel selecteren"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2015-12-29 21:20+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -387,23 +387,18 @@ msgstr ""
 "„%d“ katalogui dabartinio failo\n"
 "„%n“ dabartiniam failui be priešdėlio"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, fuzzy, kde-format
 #| msgid "Working directory"
 msgid "Working Directory / Command"
 msgstr "Darbinis katalogas"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr ""

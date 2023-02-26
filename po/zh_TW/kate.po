@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-25 01:03+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-02-09 02:25+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -36,51 +36,51 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "franklin@goodhorse.idv.tw, s8321414@gmail.com"
 
-#: kate/main.cpp:71
+#: kate/main.cpp:84
 msgid ""
 "Running Kate with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
 
-#: kate/main.cpp:78
+#: kate/main.cpp:91
 msgid ""
 "Running Kate with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
 
-#: kate/main.cpp:141
+#: kate/main.cpp:154
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:156
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - 進階的文字編輯器"
 
-#: kate/main.cpp:145 kwrite/main.cpp:107
+#: kate/main.cpp:158 kwrite/main.cpp:107
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 Kate 作者群"
 
-#: kate/main.cpp:191
+#: kate/main.cpp:204
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "以指定的作業階段啟動 Kate。"
 
-#: kate/main.cpp:192
+#: kate/main.cpp:205
 #, kde-format
 msgid "session"
 msgstr "工作階段"
 
-#: kate/main.cpp:197
+#: kate/main.cpp:210
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "以新的匿名作業階段啟動 Kate，也就是 '-n'。"
 
-#: kate/main.cpp:202
+#: kate/main.cpp:215
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -90,14 +90,14 @@ msgstr ""
 "強制啟動新的 kate 實體（若是指定 start，而且另一個 kate 實體已開啟指定的作業"
 "階段，則此指令會被忽略），即使沒有指定任何參數與網址。"
 
-#: kate/main.cpp:208
+#: kate/main.cpp:221
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr "若已經有 kate 實體正在運作，則等待到此實體離開。"
 
-#: kate/main.cpp:214
+#: kate/main.cpp:227
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -106,57 +106,57 @@ msgstr ""
 "只試著重複使用 pid 為此值的 kate 實體（若是使用 start，並且另一個 kate 實體已"
 "開啟相同的作業階段，則此指令會被忽略）。"
 
-#: kate/main.cpp:215
+#: kate/main.cpp:228
 #, kde-format
 msgid "pid"
 msgstr "行程代碼"
 
-#: kate/main.cpp:220 kwrite/main.cpp:158
+#: kate/main.cpp:233 kwrite/main.cpp:158
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "設定要開啟檔案的編碼。"
 
-#: kate/main.cpp:221 kwrite/main.cpp:159
+#: kate/main.cpp:234 kwrite/main.cpp:159
 #, kde-format
 msgid "encoding"
 msgstr "編碼"
 
-#: kate/main.cpp:225 kwrite/main.cpp:163
+#: kate/main.cpp:238 kwrite/main.cpp:163
 #, kde-format
 msgid "Navigate to this line."
 msgstr "導覽至這一行。"
 
-#: kate/main.cpp:225 kwrite/main.cpp:163
+#: kate/main.cpp:238 kwrite/main.cpp:163
 #, kde-format
 msgid "line"
 msgstr "行"
 
-#: kate/main.cpp:230 kwrite/main.cpp:167
+#: kate/main.cpp:243 kwrite/main.cpp:167
 #, kde-format
 msgid "Navigate to this column."
 msgstr "導覽至這一欄。"
 
-#: kate/main.cpp:231 kwrite/main.cpp:167
+#: kate/main.cpp:244 kwrite/main.cpp:167
 #, kde-format
 msgid "column"
 msgstr "欄"
 
-#: kate/main.cpp:235 kwrite/main.cpp:171
+#: kate/main.cpp:248 kwrite/main.cpp:171
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "讀取 stdin 的內容。"
 
-#: kate/main.cpp:240 kwrite/main.cpp:175
+#: kate/main.cpp:253 kwrite/main.cpp:175
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "應用程式開啟的檔案/URL在使用後會被刪除"
 
-#: kate/main.cpp:244 kwrite/main.cpp:179
+#: kate/main.cpp:257 kwrite/main.cpp:179
 #, kde-format
 msgid "Documents to open."
 msgstr "要開啟的文件"
 
-#: kate/main.cpp:244 kwrite/main.cpp:179
+#: kate/main.cpp:257 kwrite/main.cpp:179
 #, kde-format
 msgid "[urls...]"
 msgstr "[網址...]"
@@ -2254,7 +2254,7 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1280
+#: lib/kateviewmanager.cpp:1285
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "此檢視可能有未儲存的工作。您真的想要關閉它嗎？"

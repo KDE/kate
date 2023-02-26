@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-02-02 07:09+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -375,22 +375,17 @@ msgstr ""
 "»%d« za mapo trenutne datoteke\n"
 "»%n« za ime trenutne datoteke brez pripone"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr "Označite označno polje, da bo ukaz privzet za ta nabor ciljev."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Ime ukaza/nabora ciljev"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Delovna mapa/ukaz"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Zaženi ukaz"
@@ -456,6 +451,10 @@ msgstr "Vstavi pot"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Izberite mapo za vstavitev"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr "Označite označno polje, da bo ukaz privzet za ta nabor ciljev."
 
 #~ msgid "Select active target set"
 #~ msgstr "Izberite dejaven nabor ciljev"

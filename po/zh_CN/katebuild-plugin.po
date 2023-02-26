@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-02-24 12:43\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -363,22 +363,17 @@ msgstr ""
 "\"%d\" 为当前文件的目录\n"
 "\"%n\" 为不包括后缀的当前文件名"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr "选中会设置命令为目标的默认命令."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "命令/目标集名称"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "工作目录 / 命令"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "运行命令"
@@ -443,3 +438,7 @@ msgstr "插入路径"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "选择要插入的目录"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr "选中会设置命令为目标的默认命令."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2019-08-24 17:09+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -375,24 +375,17 @@ msgstr ""
 "«%d» para o directorio do ficheiro actual\n"
 "«%n» para o nome do ficheiro actual sen sufixo"
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-"Marque esta caixa para que a orde sexa a predeterminada do grupo de "
-"obxectivos."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nome da orde ou grupo de obxectivos"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Directorio de traballo ou orde"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
@@ -462,6 +455,12 @@ msgstr "Inserir a ruta"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccione un directorio para inserir"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr ""
+#~ "Marque esta caixa para que a orde sexa a predeterminada do grupo de "
+#~ "obxectivos."
 
 #~ msgid "Select active target set"
 #~ msgstr "Seleccionar o grupo de obxectivos activo"

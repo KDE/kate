@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2014-06-17 15:34+0430\n"
 "Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <kde-i18n-fa@kde.org>\n"
@@ -360,23 +360,18 @@ msgid ""
 "\"%n\" for current file name without suffix"
 msgstr ""
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, fuzzy, kde-format
 #| msgid "Working directory"
 msgid "Working Directory / Command"
 msgstr "شاخه‌ی کاری"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"

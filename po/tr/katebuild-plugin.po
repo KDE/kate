@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-21 01:02+0000\n"
+"POT-Creation-Date: 2023-02-26 01:01+0000\n"
 "PO-Revision-Date: 2023-01-25 19:13+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -371,23 +371,17 @@ msgstr ""
 "geçerli dosyanın bulunduğu dizin için \"%d\"\n"
 "soneki olmadan geçerli dosya adı için \"%n\""
 
-#: TargetModel.cpp:339
-#, kde-format
-msgid "Check the check-box to make the command the default for the target-set."
-msgstr ""
-"Komutu hedef kümesi için öntanımlı yapmak için bu onay kutusunu işaretleyin."
-
-#: TargetModel.cpp:395
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Komut/Hedef kümesi adı"
 
-#: TargetModel.cpp:398
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Çalışma Dizini / Komut"
 
-#: TargetModel.cpp:401
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Komutu Çalıştır"
@@ -453,6 +447,12 @@ msgstr "Yol ekle"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Eklenecek dizini seçin"
+
+#~ msgid ""
+#~ "Check the check-box to make the command the default for the target-set."
+#~ msgstr ""
+#~ "Komutu hedef kümesi için öntanımlı yapmak için bu onay kutusunu "
+#~ "işaretleyin."
 
 #~ msgid "Select active target set"
 #~ msgstr "Etkin hedef kümesini seçin"

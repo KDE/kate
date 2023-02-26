@@ -115,10 +115,10 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     kconfig.sync();
 }
 
-bool KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig)
+void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig)
 {
     if (!(kconfig.hasKey("stashedFile"))) {
-        return false;
+        return;
     }
     qCDebug(LOG_KATE) << "popping stashed document" << doc->url();
 
@@ -149,9 +149,5 @@ bool KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
         if (!input.remove()) {
             qCWarning(LOG_KATE) << "Could not remove stash file" << stashedFile;
         }
-
-        return true;
-    } else {
-        return false;
     }
 }

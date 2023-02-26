@@ -19,7 +19,7 @@ macro(kate_executable_tests)
 endmacro()
 
 # some test ATM timeout with Qt 6 in the CI
-if (QT_MAJOR_VERSION STREQUAL "6")
+if (WIN32 AND QT_MAJOR_VERSION STREQUAL "6")
 kate_executable_tests(
   session_test
 #  session_manager_test

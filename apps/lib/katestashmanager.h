@@ -22,7 +22,7 @@ class KateStashManager : QObject
 public:
     KateStashManager(QObject *parent = nullptr);
 
-    bool stashUnsavedChanges()
+    bool stashUnsavedChanges() const
     {
         return m_stashUnsavedChanges;
     }
@@ -32,7 +32,7 @@ public:
         m_stashUnsavedChanges = stashUnsavedChanges;
     }
 
-    bool stashNewUnsavedFiles()
+    bool stashNewUnsavedFiles() const
     {
         return m_stashNewUnsavedFiles;
     }
@@ -42,11 +42,11 @@ public:
         m_stashNewUnsavedFiles = stashNewUnsavedFiles;
     }
 
-    void stashDocuments(KConfig *cfg, const QList<KTextEditor::Document *> &documents);
+    void stashDocuments(KConfig *cfg, const QList<KTextEditor::Document *> &documents) const;
 
     bool willStashDoc(KTextEditor::Document *doc) const;
 
-    void stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path);
+    void stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path) const;
     static bool popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig);
 
     static void clearStashForSession(const KateSession::Ptr session);

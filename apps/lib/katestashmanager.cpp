@@ -38,7 +38,7 @@ void KateStashManager::clearStashForSession(const KateSession::Ptr session)
     }
 }
 
-void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::Document *> &documents)
+void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::Document *> &documents) const
 {
     const auto activeSession = KateApp::self()->sessionManager()->activeSession();
     if (!activeSession || activeSession->isAnonymous() || activeSession->name().isEmpty()) {
@@ -91,7 +91,7 @@ bool KateStashManager::willStashDoc(KTextEditor::Document *doc) const
     return false;
 }
 
-void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path)
+void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path) const
 {
     if (!willStashDoc(doc)) {
         return;

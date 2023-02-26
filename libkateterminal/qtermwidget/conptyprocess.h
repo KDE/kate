@@ -2,6 +2,7 @@
 #define CONPTYPROCESS_H
 
 #include "iptyprocess.h"
+#include <QIODevice>
 #include <QLibrary>
 #include <QMutex>
 #include <QThread>
@@ -102,24 +103,24 @@ public:
     }
 
     // just empty realization, we need only 'readyRead' signal of this class
-    qint64 readData(char *data, qint64 maxlen) override
+    qint64 readData(char *, qint64) override
     {
         return 0;
     }
-    qint64 writeData(const char *data, qint64 len) override
+    qint64 writeData(const char *, qint64) override
     {
         return 0;
     }
 
-    bool isSequential()
+    bool isSequential() const override
     {
         return true;
     }
-    qint64 bytesAvailable()
+    qint64 bytesAvailable() const override
     {
         return m_readBuffer.size();
     }
-    qint64 size()
+    qint64 size() const override
     {
         return m_readBuffer.size();
     }
@@ -152,7 +153,6 @@ public:
     virtual QByteArray readAll();
     virtual qint64 write(const char *data, int size);
     bool isAvailable();
-    void moveToThread(QThread *targetThread);
     virtual int processList() const;
 
 private:

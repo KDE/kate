@@ -2,6 +2,7 @@
 #define IPTYPROCESS_H
 
 #include <QDebug>
+#include <QObject>
 #include <QString>
 #include <QStringList>
 
@@ -38,17 +39,16 @@ public:
     virtual QByteArray readAll() = 0;
     virtual qint64 write(const char *data, int size) = 0;
     virtual bool isAvailable() = 0;
-    virtual void moveToThread(QThread *targetThread) = 0;
     virtual int processList() const = 0; // 0 - unsupport, 1 - no process , 2 - run process
-    qint64 pid()
+    qint64 pid() const
     {
         return m_pid;
     }
-    QPair<qint16, qint16> size()
+    QPair<qint16, qint16> size() const
     {
         return m_size;
     }
-    const QString lastError()
+    const QString lastError() const
     {
         return m_lastError;
     }

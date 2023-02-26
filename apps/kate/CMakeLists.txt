@@ -35,11 +35,6 @@ if (QT_MAJOR_VERSION STREQUAL "6")
 	target_link_libraries(kate-bin PRIVATE Qt::Core5Compat)
 endif()
 
-if (NOT WIN32 AND NOT HAIKU)
-    target_include_directories(kate-bin PRIVATE ${Intl_INCLUDE_DIRS})
-    target_link_libraries(kate-bin PRIVATE ${Intl_LIBRARIES})
-endif()
-
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kate-bin PRIVATE TRANSLATION_DOMAIN="kate")
 

@@ -70,6 +70,12 @@ if(KF5Activities_FOUND)
   target_compile_definitions(kateprivate PUBLIC -DKF5Activities_FOUND)
 endif()
 
+if (NOT WIN32 AND NOT HAIKU)
+    target_compile_definitions(kateprivate PRIVATE -DKDE_INSTALL_FULL_LOCALEDIR=\"${KDE_INSTALL_FULL_LOCALEDIR}\")
+    target_include_directories(kateprivate PRIVATE ${Intl_INCLUDE_DIRS})
+    target_link_libraries(kateprivate PRIVATE ${Intl_LIBRARIES})
+endif()
+
 # optional KUserFeedback integration
 find_package(KUserFeedback)
 if (TARGET KUserFeedbackWidgets)

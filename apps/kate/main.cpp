@@ -12,7 +12,6 @@
 
 #include <KAboutData>
 #include <KDBusService>
-#include <KLazyLocalizedString>
 #include <KLocalizedString>
 
 // X11 startup handling
@@ -39,15 +38,6 @@
 
 #include "SingleApplication/SingleApplication"
 
-#ifndef Q_OS_WIN
-#include <unistd.h>
-#ifndef Q_OS_HAIKU
-#include <libintl.h>
-#endif
-#endif
-
-#include <iostream>
-
 #include "config-kate.h"
 
 #if HAVE_X11
@@ -64,80 +54,12 @@
 #endif
 #endif
 
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
-
 int main(int argc, char **argv)
 {
-#if 0 // Enable on windows to see output in console
-    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
-        if (fileno(stdout) < 0)
-            freopen("CON", "w", stdout);
-        if (fileno(stderr) < 0)
-            freopen("CON", "w", stderr);
-    }
-#endif
-
-#if !defined(Q_OS_WIN) && !defined(Q_OS_HAIKU)
-    // Prohibit using sudo or kdesu (but allow using the root user directly)
-    if (getuid() == 0) {
-        setlocale(LC_ALL, "");
-        bindtextdomain("kate", KDE_INSTALL_FULL_LOCALEDIR);
-        if (!qEnvironmentVariableIsEmpty("SUDO_USER")) {
-            auto message = kli18n(
-                "Running Kate with sudo can cause bugs and expose you to security vulnerabilities. "
-                "Instead use Kate normally and you will be prompted for elevated privileges when "
-                "saving documents if needed.");
-            std::cout << dgettext("kate", message.untranslatedText()) << std::endl;
-            return EXIT_FAILURE;
-        } else if (!qEnvironmentVariableIsEmpty("KDESU_USER")) {
-            auto message = kli18n(
-                "Running Kate with kdesu can cause bugs and expose you to security vulnerabilities. "
-                "Instead use Kate normally and you will be prompted for elevated privileges when "
-                "saving documents if needed.");
-            std::cout << dgettext("kate", message.untranslatedText()) << std::endl;
-            return EXIT_FAILURE;
-        }
-    }
-#endif
-
     /**
-     * enable dark mode for title bar on Windows
+     * Do all needed pre-application init steps, shared between Kate and KWrite
      */
-#if defined(Q_OS_WIN)
-    if (!qEnvironmentVariableIsSet("QT_QPA_PLATFORM")) {
-        qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
-    }
-#endif
-
-    /**
-     * init resources from our static lib
-     */
-    Q_INIT_RESOURCE(kate);
-
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-    /**
-     * enable high dpi support
-     */
-    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
-#endif
-
-    /**
-     * allow fractional scaling
-     * we only activate this on Windows, it seems to creates problems on unices
-     * (and there the fractional scaling with the QT_... env vars as set by KScreen works)
-     * see bug 416078
-     *
-     * we switched to Qt::HighDpiScaleFactorRoundingPolicy::RoundPreferFloor because of font rendering issues
-     * we follow what Krita does here, see https://invent.kde.org/graphics/krita/-/blob/master/krita/main.cc
-     * we raise the Qt requirement to  5.15 as it seems some patches went in after 5.14 that are needed
-     * see Krita comments, too
-     */
-#if defined(Q_OS_WIN)
-    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::RoundPreferFloor);
-#endif
+    KateApp::initPreApplicationCreation();
 
     /**
      * Create application first

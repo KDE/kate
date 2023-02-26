@@ -46,6 +46,11 @@ class KATE_PRIVATE_EXPORT KateApp : public QObject
      */
 public:
     /**
+     * Do the needed setup steps before we create our QApplication.
+     */
+    static void initPreApplicationCreation();
+
+    /**
      *  Are we full featured Kate or the simplified KWrite?
      */
     enum ApplicationMode { ApplicationKate, ApplicationKWrite };

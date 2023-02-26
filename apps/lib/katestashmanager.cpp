@@ -58,11 +58,10 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
 
     int i = 0;
     for (KTextEditor::Document *doc : documents) {
-        const QString entryName = QStringLiteral("Document %1").arg(i);
-        KConfigGroup cg(config, entryName);
-
         // stash the file content
         if (doc->isModified()) {
+            const QString entryName = QStringLiteral("Document %1").arg(i);
+            KConfigGroup cg(config, entryName);
             stashDocument(doc, entryName, cg, dir.path());
         }
 

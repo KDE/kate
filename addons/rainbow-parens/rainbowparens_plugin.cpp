@@ -45,16 +45,17 @@ void RainbowParenPlugin::readConfig()
             attr = new KTextEditor::Attribute;
         }
     }
+
     KConfigGroup config(KSharedConfig::openConfig(), "ColoredBrackets");
-    QColor br = config.readEntry("color1", QStringLiteral("#FFFF00"));
+    QColor br = config.readEntry("color1", QStringLiteral("#1275ef"));
     attrs[0]->setForeground(br);
-    br = config.readEntry("color2", QStringLiteral("#FF4797"));
+    br = config.readEntry("color2", QStringLiteral("#f83c1f"));
     attrs[1]->setForeground(br);
-    br = config.readEntry("color3", QStringLiteral("#67F058"));
+    br = config.readEntry("color3", QStringLiteral("#9dba1e"));
     attrs[2]->setForeground(br);
-    br = config.readEntry("color4", QStringLiteral("#FC834A"));
+    br = config.readEntry("color4", QStringLiteral("#e219e2"));
     attrs[3]->setForeground(br);
-    br = config.readEntry("color5", QStringLiteral("#3A86FF"));
+    br = config.readEntry("color5", QStringLiteral("#37d21c"));
     attrs[4]->setForeground(br);
 }
 

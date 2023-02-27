@@ -254,6 +254,7 @@ public:
     {
         if (m_view && m_view->focusProxy()) {
             m_view->focusProxy()->removeEventFilter(this);
+            m_view.clear();
         }
         close();
         setText(QString());

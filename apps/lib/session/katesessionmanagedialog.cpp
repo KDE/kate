@@ -321,14 +321,20 @@ void KateSessionManageDialog::updateSessionList()
     m_sessionList->clear();
 
     KateSessionList slist = KateApp::self()->sessionManager()->sessionList();
-    // SortAlphabetical:
-    // std::sort(slist.begin(), slist.end(), KateSession::compareByName);
-    // SortChronological:
-    // std::sort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
 
     KateSessionChooserItem *preferredItem = nullptr;
     KateSessionChooserItem *currSessionItem = nullptr;
     KateSessionChooserItem *activeSessionItem = nullptr;
+
+    KConfigGroup generalConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
+    int col = generalConfig.readEntry("Session Manager Sort Column", 0);
+    int order = generalConfig.readEntry("Session Manager Sort Order", (int)Qt::AscendingOrder);
+    if (size_t(col) > 2) {
+        col = 0;
+    }
+    if (order != Qt::AscendingOrder && order != Qt::DescendingOrder) {
+        order = Qt::AscendingOrder;
+    }
 
     for (const KateSession::Ptr &session : qAsConst(slist)) {
         if (!m_filterBox->text().isEmpty()) {
@@ -352,11 +358,17 @@ void KateSessionManageDialog::updateSessionList()
         }
     }
 
+    connect(m_sessionList->header(), &QHeaderView::sortIndicatorChanged, this, [](int logIdx, Qt::SortOrder order) {
+        KConfigGroup generalConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
+        generalConfig.writeEntry("Session Manager Sort Column", logIdx);
+        generalConfig.writeEntry("Session Manager Sort Order", (int)order);
+    });
+
     m_sessionList->header()->setStretchLastSection(false);
     m_sessionList->header()->setSectionResizeMode(0, QHeaderView::Stretch); // stretch "Session Name" column
     m_sessionList->resizeColumnToContents(1); // Fit "Files" column
     m_sessionList->resizeColumnToContents(2); // Fit "Last update" column
-    m_sessionList->sortByColumn(0, Qt::AscendingOrder); // sort by "Session Name" column.. don't worry, it only sorts when the model data changes.
+    m_sessionList->sortByColumn(col, Qt::SortOrder(order)); // sort by "Session Name" column.. don't worry, it only sorts when the model data changes.
 
     if (!preferredItem) {
         preferredItem = currSessionItem ? currSessionItem : activeSessionItem;

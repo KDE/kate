@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 03:15+0000\n"
+"POT-Creation-Date: 2023-02-27 03:20+0000\n"
 "PO-Revision-Date: 2020-01-12 13:14+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -1449,7 +1449,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "Pechar todos os documentos salvo o actual"
 
-#: lib/katemainwindow.cpp:774
+#: lib/katemainwindow.cpp:778
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1457,12 +1457,12 @@ msgstr ""
 "Isto agocha completamente a barra do menú. Pódese mostrar de novo escribindo "
 "%1."
 
-#: lib/katemainwindow.cpp:777
+#: lib/katemainwindow.cpp:781
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Agochar a barra de menú"
 
-#: lib/katemainwindow.cpp:881
+#: lib/katemainwindow.cpp:885
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1473,36 +1473,36 @@ msgid ""
 msgstr ""
 "Soltou o directorio %1 sobre Kate. Quere cargar todos os seus ficheiros?"
 
-#: lib/katemainwindow.cpp:884
+#: lib/katemainwindow.cpp:888
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Cargar os ficheiros de maneira recursiva?"
 
-#: lib/katemainwindow.cpp:885
+#: lib/katemainwindow.cpp:889
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Abrir o ficheiro"
 
-#: lib/katemainwindow.cpp:1025
+#: lib/katemainwindow.cpp:1029
 #, kde-format
 msgid "&Other..."
 msgstr "&Outro…"
 
-#: lib/katemainwindow.cpp:1150
+#: lib/katemainwindow.cpp:1154
 #, kde-format
 msgid " [read only]"
 msgstr " [só lectura]"
 
-#: lib/katemainwindow.cpp:1407
+#: lib/katemainwindow.cpp:1411
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1409
+#: lib/katemainwindow.cpp:1413
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -2066,37 +2066,37 @@ msgstr "Estase a abrir un ficheiro grande"
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:485
+#: lib/kateviewmanager.cpp:483
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:491
+#: lib/kateviewmanager.cpp:489
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:500
+#: lib/kateviewmanager.cpp:497
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Abrir o ficheiro"
 
-#: lib/kateviewmanager.cpp:501
+#: lib/kateviewmanager.cpp:498
 #, fuzzy, kde-format
 #| msgid "Enabled"
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Activado"
 
-#: lib/kateviewmanager.cpp:512
+#: lib/kateviewmanager.cpp:509
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1234
+#: lib/kateviewmanager.cpp:1236
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2132,62 +2132,62 @@ msgstr[1] ""
 "Hai outros %1 documentos abertos. Prema aquí para cambiar á vista de "
 "apertura rápida e ver todos os documentos abertos."
 
-#: lib/kateviewspace.cpp:980
+#: lib/kateviewspace.cpp:977
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "Pechar"
 
-#: lib/kateviewspace.cpp:998
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "&Close Document"
 msgstr "&Pechar o documento"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:996
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Pechar os outros &documentos"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:997
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Pechar todos os documentos"
 
-#: lib/kateviewspace.cpp:1002
+#: lib/kateviewspace.cpp:999
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Seguinte documento"
 
-#: lib/kateviewspace.cpp:1003
+#: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1012
+#: lib/kateviewspace.cpp:1009
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "Comparar co documento activo"
 
-#: lib/kateviewspace.cpp:1016
+#: lib/kateviewspace.cpp:1013
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1018
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "Comparar co documento activo"
 
-#: lib/kateviewspace.cpp:1088
+#: lib/kateviewspace.cpp:1085
 #, kde-format
 msgid "Could not start program"
 msgstr "Non se puido iniciar o programa"
 
-#: lib/kateviewspace.cpp:1089
+#: lib/kateviewspace.cpp:1086
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2308,13 +2308,13 @@ msgstr "&Renomear…"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: lib/session/katesessionmanager.cpp:106
+#: lib/session/katesessionmanager.cpp:112
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr "Erro interno: hai aberta máis dunha instancia dunha sesión dada."
 
-#: lib/session/katesessionmanager.cpp:117
+#: lib/session/katesessionmanager.cpp:123
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2326,35 +2326,35 @@ msgstr ""
 "A sesión «%1» xa está aberta noutra instancia de kate, desexa cambiar a ela "
 "no canto de abrir de novo?"
 
-#: lib/session/katesessionmanager.cpp:119
+#: lib/session/katesessionmanager.cpp:125
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:120
+#: lib/session/katesessionmanager.cpp:126
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:312
+#: lib/session/katesessionmanager.cpp:321
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Non se puido renomear a sesión como «%1». Non se puido escribir en «%2»."
 
-#: lib/session/katesessionmanager.cpp:313
+#: lib/session/katesessionmanager.cpp:322
 #, kde-format
 msgid "Session Renaming"
 msgstr "Renomeamento de sesión"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:471
 #, kde-format
 msgid "Session name:"
 msgstr "Nome da sesión:"
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:473
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2363,17 +2363,17 @@ msgstr ""
 "Xa existe unha sesión co nome que escolleu: %1\n"
 "Escolla un nome distinto."
 
-#: lib/session/katesessionmanager.cpp:466
+#: lib/session/katesessionmanager.cpp:475
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Para gardar unha sesión, precisa especificar un nome."
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:502
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Indicar un nome para a sesión"
 
-#: lib/session/katesessionmanager.cpp:495
+#: lib/session/katesessionmanager.cpp:504
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Indicar un novo nome para a sesión: %1"

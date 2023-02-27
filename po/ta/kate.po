@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 03:15+0000\n"
+"POT-Creation-Date: 2023-02-27 03:20+0000\n"
 "PO-Revision-Date: 2023-01-31 19:48+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1412,7 +1412,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "நடப்பு ஆவணத்தை தவிர மற்ற எல்லா ஆவணங்களையும் மூடு"
 
-#: lib/katemainwindow.cpp:774
+#: lib/katemainwindow.cpp:778
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1420,12 +1420,12 @@ msgstr ""
 "இது பட்டிப் பட்டையை முழுதாக மறைத்துவிடும். %1 என்பதை தட்டி நீங்கள் மறுபடியும் அதை "
 "காட்டலாம்."
 
-#: lib/katemainwindow.cpp:777
+#: lib/katemainwindow.cpp:781
 #, kde-format
 msgid "Hide menu bar"
 msgstr "பட்டிப் பட்டையை மறை"
 
-#: lib/katemainwindow.cpp:881
+#: lib/katemainwindow.cpp:885
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1434,34 +1434,34 @@ msgstr ""
 "%1 என்ற அடைவை நீங்கள் கேட்டிற்குள் இழுத்து போட்டுள்ளீர்கள். அதிலுள்ள அனைத்து கோப்புகளையும் "
 "திறக்க வேண்டுமா?"
 
-#: lib/katemainwindow.cpp:884
+#: lib/katemainwindow.cpp:888
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "அடைவுகளுக்குள் உள்ள கோப்புகளை திறக்கலாமா?"
 
-#: lib/katemainwindow.cpp:885
+#: lib/katemainwindow.cpp:889
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "அனைத்து கோப்புகளையும் திற"
 
-#: lib/katemainwindow.cpp:1025
+#: lib/katemainwindow.cpp:1029
 #, kde-format
 msgid "&Other..."
 msgstr "&மற்றவை..."
 
-#: lib/katemainwindow.cpp:1150
+#: lib/katemainwindow.cpp:1154
 #, kde-format
 msgid " [read only]"
 msgstr " [படித்தல் மட்டும்]"
 
-#: lib/katemainwindow.cpp:1407
+#: lib/katemainwindow.cpp:1411
 #, kde-format
 msgid "Diff %1"
 msgstr "%1-இல் வித்தியாசங்காண்"
 
-#: lib/katemainwindow.cpp:1409
+#: lib/katemainwindow.cpp:1413
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "%1..%2 இடையே வித்தியாசங்காண்"
@@ -2009,35 +2009,35 @@ msgstr "பெரிய கோப்பு திறக்கப்படுக�
 msgid "%1 cannot open folders"
 msgstr "%1-ஆல் அடைவுகளை திறக்க முடியாது"
 
-#: lib/kateviewmanager.cpp:485
+#: lib/kateviewmanager.cpp:483
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "அடைவுகளை திறப்பதற்கான செருகுநிரலை காணவில்லை"
 
-#: lib/kateviewmanager.cpp:491
+#: lib/kateviewmanager.cpp:489
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr "அடைவுகளைத் திறக்க, <b>%1</b> செருகுநிரலை இயக்க வேண்டும். அதை இயக்கலாமா?"
 
-#: lib/kateviewmanager.cpp:500
+#: lib/kateviewmanager.cpp:497
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "அடைவைத் திறப்பது"
 
-#: lib/kateviewmanager.cpp:501
+#: lib/kateviewmanager.cpp:498
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "இயக்கு"
 
-#: lib/kateviewmanager.cpp:512
+#: lib/kateviewmanager.cpp:509
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> செருகுநிரலை இயக்க முடியவில்லை"
 
-#: lib/kateviewmanager.cpp:1234
+#: lib/kateviewmanager.cpp:1236
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "இக்காட்சிப்பகுதியில் சேமிக்கப்படாதவை இருக்கலாம். உறுதியாக இதை மூட வேண்டுமா?"
@@ -2073,57 +2073,57 @@ msgstr[1] ""
 "இன்னும் %1 ஆவணங்கள் தற்போது திறக்கப்பட்டுள்ளன. திறக்கப்பட்டுள்ள அனைத்து ஆவணங்களை பார்க்க, "
 "இங்கே அழுத்தி விரைவாக திறக்கும் படிவத்திற்கு தாவுங்கள்."
 
-#: lib/kateviewspace.cpp:980
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "Close Tab"
 msgstr "கீற்றை மூடு"
 
-#: lib/kateviewspace.cpp:998
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "&Close Document"
 msgstr "&ஆவணத்தை மூடு"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:996
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "&மற்ற ஆவணங்களை மூடு"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:997
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&அனைத்து ஆவணங்களையும் மூடு"
 
-#: lib/kateviewspace.cpp:1002
+#: lib/kateviewspace.cpp:999
 #, kde-format
 msgid "D&etach Document"
 msgstr "ஆவணத்தை &பிரித்தெடு"
 
-#: lib/kateviewspace.cpp:1003
+#: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ஆவணத்தைப் இச்சாளரத்தில் மூடி, புதிய சாளரத்தில் திறக்கும்"
 
-#: lib/kateviewspace.cpp:1012
+#: lib/kateviewspace.cpp:1009
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "செயலிலுள்ள ஆவணத்துடன் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1016
+#: lib/kateviewspace.cpp:1013
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "%1 .. %2 இடையே வித்தியாசங்காண்"
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1018
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "செயலிலுள்ள ஆவணத்துடன் வேறு நிரலால் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1088
+#: lib/kateviewspace.cpp:1085
 #, kde-format
 msgid "Could not start program"
 msgstr "செயலியை துவக்க முடியவில்லை"
 
-#: lib/kateviewspace.cpp:1089
+#: lib/kateviewspace.cpp:1086
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2243,13 +2243,13 @@ msgstr "&மறுபெயரிடு..."
 msgid "Delete"
 msgstr "நீக்கு"
 
-#: lib/session/katesessionmanager.cpp:106
+#: lib/session/katesessionmanager.cpp:112
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr "உள்ளக சிக்கல்: ஒரே அமர்வு ஒரே நேரத்தில் பலமுறை திறக்கப்பட்டுள்ளது."
 
-#: lib/session/katesessionmanager.cpp:117
+#: lib/session/katesessionmanager.cpp:123
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2258,35 +2258,35 @@ msgstr ""
 "'%1' என்ற அமர்வு இன்னொரு கேட் சாளரத்தில் ஏற்கனவே திறக்கப்பட்டுள்ளது. மீண்டும் திறப்பதற்கு "
 "பதிலாக அங்கே தாவலாமா?"
 
-#: lib/session/katesessionmanager.cpp:119
+#: lib/session/katesessionmanager.cpp:125
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "அச்சாளரத்திற்கு தாவு"
 
-#: lib/session/katesessionmanager.cpp:120
+#: lib/session/katesessionmanager.cpp:126
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "மீண்டும் திற"
 
-#: lib/session/katesessionmanager.cpp:312
+#: lib/session/katesessionmanager.cpp:321
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "\"%1\" என்று அமர்வின் பெயரை மாற்ற முடியவில்லை. \"%2\" என்பதற்கு எழுத முடியவில்லை."
 
-#: lib/session/katesessionmanager.cpp:313
+#: lib/session/katesessionmanager.cpp:322
 #, kde-format
 msgid "Session Renaming"
 msgstr "அமர்வின் பெயரை மாற்றல்"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:471
 #, kde-format
 msgid "Session name:"
 msgstr "அமர்வின் பெயர்:"
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:473
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2295,17 +2295,17 @@ msgstr ""
 "இப்பெயரில் ஏற்கனவே ஒரு அமர்வு உள்ளது: %1\n"
 "வேறு பெயரை தேர்ந்தெடுங்கள்."
 
-#: lib/session/katesessionmanager.cpp:466
+#: lib/session/katesessionmanager.cpp:475
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ஒரு அமர்வை சேமிக்க, நீங்கள் அதற்குரிய பெயரை குறிப்பிடவேண்டும்."
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:502
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "இந்த அமர்வுக்கான பெயரைக் குறிப்பிடவும்"
 
-#: lib/session/katesessionmanager.cpp:495
+#: lib/session/katesessionmanager.cpp:504
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "பின்வரும் அமர்வுக்கான பெயரைக் குறிப்பிடவும்: %1"

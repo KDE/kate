@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 03:15+0000\n"
+"POT-Creation-Date: 2023-02-27 03:20+0000\n"
 "PO-Revision-Date: 2022-12-21 12:08+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1445,7 +1445,7 @@ msgstr "Будут закрыты все открытые документы к�
 msgid "Close all documents beside current one"
 msgstr "Закрытие всех документов кроме текущего"
 
-#: lib/katemainwindow.cpp:774
+#: lib/katemainwindow.cpp:778
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1453,46 +1453,46 @@ msgstr ""
 "Это действие полностью скроет меню. Для того чтобы снова вывести его, "
 "нажмите %1."
 
-#: lib/katemainwindow.cpp:777
+#: lib/katemainwindow.cpp:781
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Скрытие строки меню"
 
-#: lib/katemainwindow.cpp:881
+#: lib/katemainwindow.cpp:885
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr "Открыть все файлы из каталога «%1»?"
 
-#: lib/katemainwindow.cpp:884
+#: lib/katemainwindow.cpp:888
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Рекурсивное открытие файлов"
 
-#: lib/katemainwindow.cpp:885
+#: lib/katemainwindow.cpp:889
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Открыть все файлы"
 
-#: lib/katemainwindow.cpp:1025
+#: lib/katemainwindow.cpp:1029
 #, kde-format
 msgid "&Other..."
 msgstr "&Другое приложение..."
 
-#: lib/katemainwindow.cpp:1150
+#: lib/katemainwindow.cpp:1154
 #, kde-format
 msgid " [read only]"
 msgstr " [только для чтения]"
 
-#: lib/katemainwindow.cpp:1407
+#: lib/katemainwindow.cpp:1411
 #, kde-format
 msgid "Diff %1"
 msgstr "Различия %1"
 
-#: lib/katemainwindow.cpp:1409
+#: lib/katemainwindow.cpp:1413
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Различия между %1 и %2"
@@ -2039,12 +2039,12 @@ msgstr "Открывается большой файл"
 msgid "%1 cannot open folders"
 msgstr "Папки не могут быть открыты в приложении «%1»"
 
-#: lib/kateviewmanager.cpp:485
+#: lib/kateviewmanager.cpp:483
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Не найден подключаемый модуль для открытия папок"
 
-#: lib/kateviewmanager.cpp:491
+#: lib/kateviewmanager.cpp:489
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2052,24 +2052,24 @@ msgstr ""
 "Для открытия папок необходимо включить подключаемый модуль<b>%1</b>. "
 "Включить его?"
 
-#: lib/kateviewmanager.cpp:500
+#: lib/kateviewmanager.cpp:497
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Открытие папки"
 
-#: lib/kateviewmanager.cpp:501
+#: lib/kateviewmanager.cpp:498
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Включить"
 
-#: lib/kateviewmanager.cpp:512
+#: lib/kateviewmanager.cpp:509
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Не удалось включить подключаемый модуль <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1234
+#: lib/kateviewmanager.cpp:1236
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2112,57 +2112,57 @@ msgstr[3] ""
 "Открыт ещё один документ. Нажмите здесь для просмотра списка всех открытых "
 "документов в режиме быстрого перехода."
 
-#: lib/kateviewspace.cpp:980
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "Close Tab"
 msgstr "Закрыть вкладку"
 
-#: lib/kateviewspace.cpp:998
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "&Close Document"
 msgstr "&Закрыть документ"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:996
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Закрыть др&угие документы"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:997
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Закрыть &все документы"
 
-#: lib/kateviewspace.cpp:1002
+#: lib/kateviewspace.cpp:999
 #, kde-format
 msgid "D&etach Document"
 msgstr "Открыть в новом окне"
 
-#: lib/kateviewspace.cpp:1003
+#: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Переместить документ в новое окно"
 
-#: lib/kateviewspace.cpp:1012
+#: lib/kateviewspace.cpp:1009
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Сравнить с активным документом"
 
-#: lib/kateviewspace.cpp:1016
+#: lib/kateviewspace.cpp:1013
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Различия между «%1» и «%2»"
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1018
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Сравнить с активным документом с помощью"
 
-#: lib/kateviewspace.cpp:1088
+#: lib/kateviewspace.cpp:1085
 #, kde-format
 msgid "Could not start program"
 msgstr "Невозможно запустить программу"
 
-#: lib/kateviewspace.cpp:1089
+#: lib/kateviewspace.cpp:1086
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Не удалось запустить выбранную программу, возможно она не установлена."
@@ -2280,7 +2280,7 @@ msgstr "&Переименовать..."
 msgid "Delete"
 msgstr "Удалить"
 
-#: lib/session/katesessionmanager.cpp:106
+#: lib/session/katesessionmanager.cpp:112
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
@@ -2288,7 +2288,7 @@ msgstr ""
 "Внутренняя ошибка: один сеанс открыт в нескольких запущенных экземплярах "
 "Kate."
 
-#: lib/session/katesessionmanager.cpp:117
+#: lib/session/katesessionmanager.cpp:123
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2297,34 +2297,34 @@ msgstr ""
 "Сеанс «%1» уже открыт в другом экземпляре Kate. Переключиться на него или "
 "открыть сеанс заново в этом экземпляре?"
 
-#: lib/session/katesessionmanager.cpp:119
+#: lib/session/katesessionmanager.cpp:125
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Переключиться на экземпляр"
 
-#: lib/session/katesessionmanager.cpp:120
+#: lib/session/katesessionmanager.cpp:126
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Открыть заново"
 
-#: lib/session/katesessionmanager.cpp:312
+#: lib/session/katesessionmanager.cpp:321
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Не удалось переименовать сеанс в «%1»: ошибка записи в «%2»."
 
-#: lib/session/katesessionmanager.cpp:313
+#: lib/session/katesessionmanager.cpp:322
 #, kde-format
 msgid "Session Renaming"
 msgstr "Переименовании сеанса"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:471
 #, kde-format
 msgid "Session name:"
 msgstr "Имя сеанса:"
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:473
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2333,17 +2333,17 @@ msgstr ""
 "Сеанс с именем «%1» уже существует.\n"
 "Выберите другое имя."
 
-#: lib/session/katesessionmanager.cpp:466
+#: lib/session/katesessionmanager.cpp:475
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Для сохранения сеанса вы должны указать имя сеанса."
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:502
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Новое имя этого сеанса"
 
-#: lib/session/katesessionmanager.cpp:495
+#: lib/session/katesessionmanager.cpp:504
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Новое имя для сеанса: %1"

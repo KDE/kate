@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Nicola Ruggero <nicola@nxnt.org>, 2009, 2011, 2012.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2014.
-# Paolo Zamponi <zapaolo@email.it>, 2016, 2018, 2021, 2022.
+# Paolo Zamponi <zapaolo@email.it>, 2016, 2018, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9

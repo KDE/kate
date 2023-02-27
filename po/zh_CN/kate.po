@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-26 01:01+0000\n"
+"POT-Creation-Date: 2023-02-27 01:04+0000\n"
 "PO-Revision-Date: 2023-02-24 12:43\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -35,55 +35,37 @@ msgstr ""
 "sarahs@redhat.com, tysontan@tysontan.com, wengxt@gmail.com, jxiong@offtopic."
 "org"
 
-#: kate/main.cpp:84
-msgid ""
-"Running Kate with sudo can cause bugs and expose you to security "
-"vulnerabilities. Instead use Kate normally and you will be prompted for "
-"elevated privileges when saving documents if needed."
-msgstr ""
-"用 sudo 运行 Kate 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式运"
-"行 Kate，如果在保存文档时需要提升权限，Kate 将提示您进行身份验证。"
-
-#: kate/main.cpp:91
-msgid ""
-"Running Kate with kdesu can cause bugs and expose you to security "
-"vulnerabilities. Instead use Kate normally and you will be prompted for "
-"elevated privileges when saving documents if needed."
-msgstr ""
-"用 kdesu 运行 Kate 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式运"
-"行 Kate，如果在保存文档时需要提升权限，Kate 将提示您进行身份验证。"
-
-#: kate/main.cpp:154
+#: kate/main.cpp:81
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:156
+#: kate/main.cpp:83
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - 高级文本编辑器"
 
-#: kate/main.cpp:158 kwrite/main.cpp:107
+#: kate/main.cpp:85 kwrite/main.cpp:46
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 The Kate Authors"
 
-#: kate/main.cpp:204
+#: kate/main.cpp:131
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "以给定会话启动 Kate."
 
-#: kate/main.cpp:205
+#: kate/main.cpp:132
 #, kde-format
 msgid "session"
 msgstr "会话"
 
-#: kate/main.cpp:210
+#: kate/main.cpp:137
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "以新的匿名会话启动 Kate，隐含了“-n”选项"
 
-#: kate/main.cpp:215
+#: kate/main.cpp:142
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -93,7 +75,7 @@ msgstr ""
 "强制启动一个新的 kate 实例(如果有另一个实例已经打开了相应会话则忽略)，如果没"
 "有给定任何参数和 URL，将强制启用。"
 
-#: kate/main.cpp:221
+#: kate/main.cpp:148
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -101,7 +83,7 @@ msgid ""
 msgstr ""
 "如果使用一个运行的 kate 实例，且指定要打开的 URL，将阻塞程序直到其退出。"
 
-#: kate/main.cpp:227
+#: kate/main.cpp:154
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -109,85 +91,67 @@ msgid ""
 msgstr ""
 "只尝试重用此进程号的 kate 实例(如果有另一个实例已经打开了相应会话则忽略)"
 
-#: kate/main.cpp:228
+#: kate/main.cpp:155
 #, kde-format
 msgid "pid"
 msgstr "进程号"
 
-#: kate/main.cpp:233 kwrite/main.cpp:158
+#: kate/main.cpp:160 kwrite/main.cpp:97
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "设定要打开文件的编码。"
 
-#: kate/main.cpp:234 kwrite/main.cpp:159
+#: kate/main.cpp:161 kwrite/main.cpp:98
 #, kde-format
 msgid "encoding"
 msgstr "编码"
 
-#: kate/main.cpp:238 kwrite/main.cpp:163
+#: kate/main.cpp:165 kwrite/main.cpp:102
 #, kde-format
 msgid "Navigate to this line."
 msgstr "导航至此行。"
 
-#: kate/main.cpp:238 kwrite/main.cpp:163
+#: kate/main.cpp:165 kwrite/main.cpp:102
 #, kde-format
 msgid "line"
 msgstr "行"
 
-#: kate/main.cpp:243 kwrite/main.cpp:167
+#: kate/main.cpp:170 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this column."
 msgstr "导航至此列。"
 
-#: kate/main.cpp:244 kwrite/main.cpp:167
+#: kate/main.cpp:171 kwrite/main.cpp:106
 #, kde-format
 msgid "column"
 msgstr "列"
 
-#: kate/main.cpp:248 kwrite/main.cpp:171
+#: kate/main.cpp:175 kwrite/main.cpp:110
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "读取标准输入的内容."
 
-#: kate/main.cpp:253 kwrite/main.cpp:175
+#: kate/main.cpp:180 kwrite/main.cpp:114
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "应用程序所打开的文件/URL 即将在使用后删除"
 
-#: kate/main.cpp:257 kwrite/main.cpp:179
+#: kate/main.cpp:184 kwrite/main.cpp:118
 #, kde-format
 msgid "Documents to open."
 msgstr "要打开的文档."
 
-#: kate/main.cpp:257 kwrite/main.cpp:179
+#: kate/main.cpp:184 kwrite/main.cpp:118
 #, kde-format
 msgid "[urls...]"
 msgstr "[URL...]"
 
-#: kwrite/main.cpp:39
-msgid ""
-"Running KWrite with sudo can cause bugs and expose you to security "
-"vulnerabilities. Instead use KWrite normally and you will be prompted for "
-"elevated privileges when saving documents if needed."
-msgstr ""
-"用 sudo 运行 KWrite 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式"
-"运行 KWrite，如果在保存文档时需要提升权限，KWrite 将提示您进行身份验证。"
-
-#: kwrite/main.cpp:46
-msgid ""
-"Running KWrite with kdesu can cause bugs and expose you to security "
-"vulnerabilities. Instead use KWrite normally and you will be prompted for "
-"elevated privileges when saving documents if needed."
-msgstr ""
-"用 kdesu 运行 KWrite 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式"
-"运行 KWrite，如果在保存文档时需要提升权限，KWrite 将提示您进行身份验证。"
-
-#: kwrite/main.cpp:103
+#: kwrite/main.cpp:42
 #, kde-format
 msgid "KWrite"
 msgstr "KWrite"
 
-#: kwrite/main.cpp:105
+#: kwrite/main.cpp:44
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - 文本编辑器"
@@ -205,7 +169,7 @@ msgstr "关闭"
 msgid "Open File"
 msgstr "打开文件"
 
-#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:350
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:354
 #, kde-format
 msgid "Copy Location"
 msgstr "复制位置"
@@ -562,328 +526,356 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "文件历史 - %1"
 
-#: lib/kateapp.cpp:146
+#: lib/kateapp.cpp:94
+#, fuzzy
+#| msgid ""
+#| "Running Kate with sudo can cause bugs and expose you to security "
+#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
+#| "elevated privileges when saving documents if needed."
+msgid ""
+"Running this editor with sudo can cause bugs and expose you to security "
+"vulnerabilities. Instead use this editor normally and you will be prompted "
+"for elevated privileges when saving documents if needed."
+msgstr ""
+"用 sudo 运行 Kate 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式运"
+"行 Kate，如果在保存文档时需要提升权限，Kate 将提示您进行身份验证。"
+
+#: lib/kateapp.cpp:101
+#, fuzzy
+#| msgid ""
+#| "Running Kate with kdesu can cause bugs and expose you to security "
+#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
+#| "elevated privileges when saving documents if needed."
+msgid ""
+"Running this editor with kdesu can cause bugs and expose you to security "
+"vulnerabilities. Instead use this editor normally and you will be prompted "
+"for elevated privileges when saving documents if needed."
+msgstr ""
+"用 kdesu 运行 Kate 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式运"
+"行 Kate，如果在保存文档时需要提升权限，Kate 将提示您进行身份验证。"
+
+#: lib/kateapp.cpp:233
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "Christoph Cullmann"
 
-#: lib/kateapp.cpp:146
+#: lib/kateapp.cpp:233
 #, kde-format
 msgid "Maintainer"
 msgstr "维护者"
 
-#: lib/kateapp.cpp:147
+#: lib/kateapp.cpp:234
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "Dominik Haumann"
 
-#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:151
-#: lib/kateapp.cpp:153 lib/kateapp.cpp:156 lib/kateapp.cpp:162
+#: lib/kateapp.cpp:234 lib/kateapp.cpp:237 lib/kateapp.cpp:238
+#: lib/kateapp.cpp:240 lib/kateapp.cpp:243 lib/kateapp.cpp:249
 #, kde-format
 msgid "Core Developer"
 msgstr "核心开发者"
 
-#: lib/kateapp.cpp:148
+#: lib/kateapp.cpp:235
 #, kde-format
 msgid "Sven Brauch"
 msgstr "Sven Brauch"
 
-#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:157
+#: lib/kateapp.cpp:235 lib/kateapp.cpp:236 lib/kateapp.cpp:244
 #, kde-format
 msgid "Developer"
 msgstr "开发者"
 
-#: lib/kateapp.cpp:149
+#: lib/kateapp.cpp:236
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kåre Särs"
 
-#: lib/kateapp.cpp:150
+#: lib/kateapp.cpp:237
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr "Waqar Ahmed"
 
-#: lib/kateapp.cpp:151
+#: lib/kateapp.cpp:238
 #, kde-format
 msgid "Anders Lund"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:152
+#: lib/kateapp.cpp:239
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Joseph Wenninger"
 
-#: lib/kateapp.cpp:156
+#: lib/kateapp.cpp:243
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "Hamish Rodda"
 
-#: lib/kateapp.cpp:157
+#: lib/kateapp.cpp:244
 #, kde-format
 msgid "Alexander Neundorf"
 msgstr "Alexander Neundorf"
 
-#: lib/kateapp.cpp:158
+#: lib/kateapp.cpp:245
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "Waldo Bastian"
 
-#: lib/kateapp.cpp:158
+#: lib/kateapp.cpp:245
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "极好的缓冲系统"
 
-#: lib/kateapp.cpp:159
+#: lib/kateapp.cpp:246
 #, kde-format
 msgid "Charles Samuels"
 msgstr "Charles Samuels"
 
-#: lib/kateapp.cpp:159
+#: lib/kateapp.cpp:246
 #, kde-format
 msgid "The Editing Commands"
 msgstr "编辑命令"
 
-#: lib/kateapp.cpp:160
+#: lib/kateapp.cpp:247
 #, kde-format
 msgid "Matt Newell"
 msgstr "Matt Newell"
 
-#: lib/kateapp.cpp:160
+#: lib/kateapp.cpp:247
 #, kde-format
 msgid "Testing, ..."
 msgstr "协助测试等..."
 
-#: lib/kateapp.cpp:161
+#: lib/kateapp.cpp:248
 #, kde-format
 msgid "Michael Bartl"
 msgstr "Michael Bartl"
 
-#: lib/kateapp.cpp:161
+#: lib/kateapp.cpp:248
 #, kde-format
 msgid "Former Core Developer"
 msgstr "前核心开发者"
 
-#: lib/kateapp.cpp:162
+#: lib/kateapp.cpp:249
 #, kde-format
 msgid "Michael McCallum"
 msgstr "Michael McCallum"
 
-#: lib/kateapp.cpp:163
+#: lib/kateapp.cpp:250
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr "Jochen Wilhemly"
 
-#: lib/kateapp.cpp:163
+#: lib/kateapp.cpp:250
 #, kde-format
 msgid "KWrite Author"
 msgstr "KWrite 作者"
 
-#: lib/kateapp.cpp:164
+#: lib/kateapp.cpp:251
 #, kde-format
 msgid "Michael Koch"
 msgstr "Michael Koch"
 
-#: lib/kateapp.cpp:164
+#: lib/kateapp.cpp:251
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "KWrite 移植到 KParts"
 
-#: lib/kateapp.cpp:165
+#: lib/kateapp.cpp:252
 #, kde-format
 msgid "Christian Gebauer"
 msgstr "Christian Gebauer"
 
-#: lib/kateapp.cpp:166
+#: lib/kateapp.cpp:253
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "Simon Hausmann"
 
-#: lib/kateapp.cpp:167
+#: lib/kateapp.cpp:254
 #, kde-format
 msgid "Glen Parker"
 msgstr "Glen Parker"
 
-#: lib/kateapp.cpp:167
+#: lib/kateapp.cpp:254
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "KWrite 撤销历史，Kspell 集成"
 
-#: lib/kateapp.cpp:168
+#: lib/kateapp.cpp:255
 #, kde-format
 msgid "Scott Manson"
 msgstr "Scott Manson"
 
-#: lib/kateapp.cpp:168
+#: lib/kateapp.cpp:255
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "KWrite XML 语法高亮支持"
 
-#: lib/kateapp.cpp:169
+#: lib/kateapp.cpp:256
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: lib/kateapp.cpp:169
+#: lib/kateapp.cpp:256
 #, kde-format
 msgid "Patches and more"
 msgstr "补丁及其他"
 
-#: lib/kateapp.cpp:170
+#: lib/kateapp.cpp:257
 #, kde-format
 msgid "Pablo Martín"
 msgstr "Pablo Martín"
 
-#: lib/kateapp.cpp:171
+#: lib/kateapp.cpp:258
 #, kde-format
 msgid "Python Plugin Developer"
 msgstr "Python 插件开发者"
 
-#: lib/kateapp.cpp:174
+#: lib/kateapp.cpp:261
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr "Gerald Senarclens de Grancy"
 
-#: lib/kateapp.cpp:175
+#: lib/kateapp.cpp:262
 #, kde-format
 msgid "QA and Scripting"
 msgstr "QA 和脚本"
 
-#: lib/kateapp.cpp:179
+#: lib/kateapp.cpp:266
 #, kde-format
 msgid "Tyson Tan"
 msgstr "Tyson Tan (谭代山/钛山)"
 
-#: lib/kateapp.cpp:180
+#: lib/kateapp.cpp:267
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr "Kate 的吉祥物“电子啄木鸟 Kate”的设计者"
 
-#: lib/kateapp.cpp:183
+#: lib/kateapp.cpp:270
 #, kde-format
 msgid "Matteo Merli"
 msgstr "Matteo Merli"
 
-#: lib/kateapp.cpp:183
+#: lib/kateapp.cpp:270
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "RPM Spec 文件、Perl、Diff 和其他类型的语法高亮"
 
-#: lib/kateapp.cpp:184
+#: lib/kateapp.cpp:271
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "Rocky Scaletta"
 
-#: lib/kateapp.cpp:184
+#: lib/kateapp.cpp:271
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "VHDL 语法高亮"
 
-#: lib/kateapp.cpp:185
+#: lib/kateapp.cpp:272
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "Yury Lebedev"
 
-#: lib/kateapp.cpp:185
+#: lib/kateapp.cpp:272
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "SQL 语法高亮"
 
-#: lib/kateapp.cpp:186
+#: lib/kateapp.cpp:273
 #, kde-format
 msgid "Chris Ross"
 msgstr "Chris Ross"
 
-#: lib/kateapp.cpp:186
+#: lib/kateapp.cpp:273
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "Ferite 语法高亮"
 
-#: lib/kateapp.cpp:187
+#: lib/kateapp.cpp:274
 #, kde-format
 msgid "Nick Roux"
 msgstr "Nick Roux"
 
-#: lib/kateapp.cpp:187
+#: lib/kateapp.cpp:274
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "ILERPG 语法高亮"
 
-#: lib/kateapp.cpp:188
+#: lib/kateapp.cpp:275
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "Carsten Niehaus"
 
-#: lib/kateapp.cpp:188
+#: lib/kateapp.cpp:275
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "LaTeX 语法高亮"
 
-#: lib/kateapp.cpp:189
+#: lib/kateapp.cpp:276
 #, kde-format
 msgid "Per Wigren"
 msgstr "Per Wigren"
 
-#: lib/kateapp.cpp:189
+#: lib/kateapp.cpp:276
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "Makefiles、Python 语法高亮"
 
-#: lib/kateapp.cpp:190
+#: lib/kateapp.cpp:277
 #, kde-format
 msgid "Jan Fritz"
 msgstr "Jan Fritz"
 
-#: lib/kateapp.cpp:190
+#: lib/kateapp.cpp:277
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "Python 语法高亮"
 
-#: lib/kateapp.cpp:191
+#: lib/kateapp.cpp:278
 #, kde-format
 msgid "Daniel Naber"
 msgstr "Daniel Naber"
 
-#: lib/kateapp.cpp:192
+#: lib/kateapp.cpp:279
 #, kde-format
 msgid "Roland Pabel"
 msgstr "Roland Pabel"
 
-#: lib/kateapp.cpp:192
+#: lib/kateapp.cpp:279
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "Scheme 语法高亮"
 
-#: lib/kateapp.cpp:193
+#: lib/kateapp.cpp:280
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "Cristi Dumitrescu"
 
-#: lib/kateapp.cpp:193
+#: lib/kateapp.cpp:280
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "PHP 关键字/数据类型列表"
 
-#: lib/kateapp.cpp:194
+#: lib/kateapp.cpp:281
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: lib/kateapp.cpp:194
+#: lib/kateapp.cpp:281
 #, kde-format
 msgid "Very nice help"
 msgstr "很好的帮助"
 
-#: lib/kateapp.cpp:195
+#: lib/kateapp.cpp:282
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "所有做出贡献而我却没能提到的人员"
 
-#: lib/kateapp.cpp:310
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "只有启用项目插件时才能打开文件夹"
 
-#: lib/kateapp.cpp:413
+#: lib/kateapp.cpp:503
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1233,12 +1225,12 @@ msgstr "关闭文档"
 msgid "Save As"
 msgstr "另存为"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:636
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:646
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "试图关闭 Kate 时打开了新文件，关闭被中止。"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:636
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:646
 #, kde-format
 msgid "Closing Aborted"
 msgstr "关闭被中止"
@@ -1288,228 +1280,228 @@ msgstr "无法删除文件“%1”。"
 msgid "&Other Application..."
 msgstr "其他应用程序(&O)..."
 
-#: lib/katemainwindow.cpp:228
+#: lib/katemainwindow.cpp:232
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr "使用此命令来显示或隐藏视图的状态栏"
 
-#: lib/katemainwindow.cpp:231
+#: lib/katemainwindow.cpp:235
 #, kde-format
 msgid "Show &Tabs"
 msgstr "显示标签页(&T)"
 
-#: lib/katemainwindow.cpp:234
+#: lib/katemainwindow.cpp:238
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr "使用此命令来显示或隐藏视图的标签栏"
 
-#: lib/katemainwindow.cpp:236
+#: lib/katemainwindow.cpp:240
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "在标题栏显示路径(&W)"
 
-#: lib/katemainwindow.cpp:239
+#: lib/katemainwindow.cpp:243
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "在窗口标题中显示完整路径"
 
-#: lib/katemainwindow.cpp:241
+#: lib/katemainwindow.cpp:245
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr "显示导航栏"
 
-#: lib/katemainwindow.cpp:251
+#: lib/katemainwindow.cpp:255
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "窗口配色方案(&W)"
 
-#: lib/katemainwindow.cpp:255
+#: lib/katemainwindow.cpp:259
 #, kde-format
 msgid "&Previous Tab"
 msgstr "上一个标签页(&P)"
 
-#: lib/katemainwindow.cpp:256
+#: lib/katemainwindow.cpp:260
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "聚焦于上一个标签页。"
 
-#: lib/katemainwindow.cpp:261
+#: lib/katemainwindow.cpp:265
 #, kde-format
 msgid "&Next Tab"
 msgstr "下一个标签页(&N)"
 
-#: lib/katemainwindow.cpp:262
+#: lib/katemainwindow.cpp:266
 #, kde-format
 msgid "Focus the next tab."
 msgstr "聚焦于下一个标签页。"
 
-#: lib/katemainwindow.cpp:269
+#: lib/katemainwindow.cpp:273
 #, kde-format
 msgid "&Quick Open"
 msgstr "快速打开(&Q)"
 
-#: lib/katemainwindow.cpp:272
+#: lib/katemainwindow.cpp:276
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "打开一个窗口以快速打开文档。"
 
-#: lib/katemainwindow.cpp:303
+#: lib/katemainwindow.cpp:307
 #, kde-format
 msgid "Output"
 msgstr "输出"
 
-#: lib/katemainwindow.cpp:310
+#: lib/katemainwindow.cpp:314
 #, kde-format
 msgid "Diagnostics"
 msgstr "诊断"
 
-#: lib/katemainwindow.cpp:321
+#: lib/katemainwindow.cpp:325
 #, kde-format
 msgid "Create a new document"
 msgstr "创建新文档"
 
-#: lib/katemainwindow.cpp:324
+#: lib/katemainwindow.cpp:328
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "打开已有文档进行编辑"
 
-#: lib/katemainwindow.cpp:334
+#: lib/katemainwindow.cpp:338
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
 "open them again."
 msgstr "这会列举您最近打开的文件，并能让您轻松地再打开它们。"
 
-#: lib/katemainwindow.cpp:338
+#: lib/katemainwindow.cpp:342
 #, kde-format
 msgid "Save A&ll"
 msgstr "全部保存(&L)"
 
-#: lib/katemainwindow.cpp:341
+#: lib/katemainwindow.cpp:345
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "把所有打开、修改过的文档保存到磁盘上。"
 
-#: lib/katemainwindow.cpp:344
+#: lib/katemainwindow.cpp:348
 #, kde-format
 msgid "&Reload All"
 msgstr "全部重新加载(&R)"
 
-#: lib/katemainwindow.cpp:346
+#: lib/katemainwindow.cpp:350
 #, kde-format
 msgid "Reload all open documents."
 msgstr "重新加载所有打开的文档。"
 
-#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
+#: lib/katemainwindow.cpp:359 lib/katemainwindow.cpp:368
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "复制当前文件的路径到剪贴板。"
 
-#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:363 lib/welcomeview/welcomeview.cpp:241
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "打开所在文件夹(&O)"
 
-#: lib/katemainwindow.cpp:368
+#: lib/katemainwindow.cpp:372
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "重命名..."
 
-#: lib/katemainwindow.cpp:373
+#: lib/katemainwindow.cpp:377
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "重命名属于当前文档的文件。"
 
-#: lib/katemainwindow.cpp:377
+#: lib/katemainwindow.cpp:381
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "删除"
 
-#: lib/katemainwindow.cpp:382 lib/katemainwindow.cpp:391
+#: lib/katemainwindow.cpp:386 lib/katemainwindow.cpp:395
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "删除属于当前文档的文件。"
 
-#: lib/katemainwindow.cpp:386
+#: lib/katemainwindow.cpp:390
 #, kde-format
 msgid "Properties"
 msgstr "属性"
 
-#: lib/katemainwindow.cpp:394 lib/katemainwindow.cpp:396
+#: lib/katemainwindow.cpp:398 lib/katemainwindow.cpp:400
 #, kde-format
 msgid "Compare"
 msgstr "比较"
 
-#: lib/katemainwindow.cpp:396
+#: lib/katemainwindow.cpp:400
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "使用标签页栏右键菜单比较两个文档"
 
-#: lib/katemainwindow.cpp:398
+#: lib/katemainwindow.cpp:402
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "显示如何比较文档的提示。"
 
-#: lib/katemainwindow.cpp:401
+#: lib/katemainwindow.cpp:405
 #, kde-format
 msgid "Close Orphaned"
 msgstr "关闭孤立文档"
 
-#: lib/katemainwindow.cpp:403
+#: lib/katemainwindow.cpp:407
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
 "they are not accessible anymore."
 msgstr "关闭文件列表中所有不能重新打开的文档，因为它们已无法访问。"
 
-#: lib/katemainwindow.cpp:407
+#: lib/katemainwindow.cpp:411
 #, kde-format
 msgid "Close the current document."
 msgstr "关闭当前文档。"
 
-#: lib/katemainwindow.cpp:410
+#: lib/katemainwindow.cpp:414
 #, kde-format
 msgid "Close Other"
 msgstr "关闭其他文档"
 
-#: lib/katemainwindow.cpp:412
+#: lib/katemainwindow.cpp:416
 #, kde-format
 msgid "Close other open documents."
 msgstr "关闭其他打开的文档。"
 
-#: lib/katemainwindow.cpp:415
+#: lib/katemainwindow.cpp:419
 #, kde-format
 msgid "Clos&e All"
 msgstr "全部关闭(&E)"
 
-#: lib/katemainwindow.cpp:417
+#: lib/katemainwindow.cpp:421
 #, kde-format
 msgid "Close all open documents."
 msgstr "关闭所有打开的文档。"
 
-#: lib/katemainwindow.cpp:422
+#: lib/katemainwindow.cpp:426
 #, kde-format
 msgid "Close this window"
 msgstr "关闭该窗口"
 
-#: lib/katemainwindow.cpp:426
+#: lib/katemainwindow.cpp:430
 #, kde-format
 msgid "&New Window"
 msgstr "&新建窗口"
 
-#: lib/katemainwindow.cpp:429
+#: lib/katemainwindow.cpp:433
 #, kde-format
 msgid "Create a new window."
 msgstr "创建新窗口"
 
-#: lib/katemainwindow.cpp:436
+#: lib/katemainwindow.cpp:440
 #, kde-format
 msgid "Open W&ith"
 msgstr "打开方式(&I)"
 
-#: lib/katemainwindow.cpp:438
+#: lib/katemainwindow.cpp:442
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1517,136 +1509,136 @@ msgid ""
 msgstr ""
 "使用另一个注册用于该文件类型的应用程序或您自己选择的应用程序来打开当前文档。"
 
-#: lib/katemainwindow.cpp:446
+#: lib/katemainwindow.cpp:450
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "配置应用程序的键盘快捷键指派。"
 
-#: lib/katemainwindow.cpp:449
+#: lib/katemainwindow.cpp:453
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "配置要在工具栏上出现的项目。"
 
-#: lib/katemainwindow.cpp:452
+#: lib/katemainwindow.cpp:456
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "从多个方面配置本应用程序和编辑组件"
 
-#: lib/katemainwindow.cpp:456
+#: lib/katemainwindow.cpp:460
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "插件手册(&P)"
 
-#: lib/katemainwindow.cpp:458
+#: lib/katemainwindow.cpp:462
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "这会显示各类可用插件的帮助文件。"
 
-#: lib/katemainwindow.cpp:475
+#: lib/katemainwindow.cpp:479
 #, kde-format
 msgid "Sess&ions"
 msgstr "会话(&I)"
 
-#: lib/katemainwindow.cpp:481
+#: lib/katemainwindow.cpp:485
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "新建会话(&N)"
 
-#: lib/katemainwindow.cpp:486
+#: lib/katemainwindow.cpp:490
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "最近会话(&R)"
 
-#: lib/katemainwindow.cpp:491
+#: lib/katemainwindow.cpp:495
 #, kde-format
 msgid "&All Sessions"
 msgstr "所有会话(&A)"
 
-#: lib/katemainwindow.cpp:498
+#: lib/katemainwindow.cpp:502
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "管理会话(&M)..."
 
-#: lib/katemainwindow.cpp:507
+#: lib/katemainwindow.cpp:511
 #, kde-format
 msgid "&Save Session"
 msgstr "保存会话(&S)"
 
-#: lib/katemainwindow.cpp:513
+#: lib/katemainwindow.cpp:517
 #, kde-format
 msgid "Save Session &As..."
 msgstr "会话另存为(&A)..."
 
-#: lib/katemainwindow.cpp:520 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:524 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "跳转到上一个位置"
 
-#: lib/katemainwindow.cpp:529 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:533 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
 msgstr "跳转到下一个位置"
 
-#: lib/katemainwindow.cpp:537
+#: lib/katemainwindow.cpp:541
 #, kde-format
 msgid "Show File Git History"
 msgstr "显示文件Git历史"
 
-#: lib/katemainwindow.cpp:552
+#: lib/katemainwindow.cpp:556
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "这样将关闭所有打开的文档。您确定要继续吗？"
 
-#: lib/katemainwindow.cpp:553
+#: lib/katemainwindow.cpp:557
 #, kde-format
 msgid "Close all documents"
 msgstr "关闭所有文档"
 
-#: lib/katemainwindow.cpp:568
+#: lib/katemainwindow.cpp:572
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr "这样将关闭除当前文档外所有打开的文档。您确定要继续吗？"
 
-#: lib/katemainwindow.cpp:569
+#: lib/katemainwindow.cpp:573
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "关闭除当前文档外所有文档"
 
-#: lib/katemainwindow.cpp:788
+#: lib/katemainwindow.cpp:798
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "这将完全隐藏菜单栏。按下 %1 可以重新显示。"
 
-#: lib/katemainwindow.cpp:791
+#: lib/katemainwindow.cpp:801
 #, kde-format
 msgid "Hide menu bar"
 msgstr "隐藏菜单栏"
 
-#: lib/katemainwindow.cpp:895
+#: lib/katemainwindow.cpp:905
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr "您将目录“%1”拖拽到了 Kate 中。您想要打开该目录中的所有文件吗？"
 
-#: lib/katemainwindow.cpp:898
+#: lib/katemainwindow.cpp:908
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "打开文件 - 递归式"
 
-#: lib/katemainwindow.cpp:899
+#: lib/katemainwindow.cpp:909
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "打开所有文件"
 
-#: lib/katemainwindow.cpp:1135
+#: lib/katemainwindow.cpp:1145
 #, kde-format
 msgid " [read only]"
 msgstr " [只读]"
@@ -2733,3 +2725,20 @@ msgstr "管理会话..."
 #, kde-format
 msgid "Show for new window"
 msgstr "新窗口显示此欢迎画面"
+
+#~ msgid ""
+#~ "Running KWrite with sudo can cause bugs and expose you to security "
+#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
+#~ "elevated privileges when saving documents if needed."
+#~ msgstr ""
+#~ "用 sudo 运行 KWrite 可能会导致程序错误，并使你暴露在安全风险中。请以正常方"
+#~ "式运行 KWrite，如果在保存文档时需要提升权限，KWrite 将提示您进行身份验证。"
+
+#~ msgid ""
+#~ "Running KWrite with kdesu can cause bugs and expose you to security "
+#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
+#~ "elevated privileges when saving documents if needed."
+#~ msgstr ""
+#~ "用 kdesu 运行 KWrite 可能会导致程序错误，并使你暴露在安全风险中。请以正常"
+#~ "方式运行 KWrite，如果在保存文档时需要提升权限，KWrite 将提示您进行身份验"
+#~ "证。"

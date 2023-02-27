@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-26 01:01+0000\n"
+"POT-Creation-Date: 2023-02-27 01:04+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -36,57 +36,37 @@ msgstr ""
 "visnovsky@kde.org,wizzardsk@gmail.com,prescott66@gmail.com,galko."
 "ferdinand@gmail.com"
 
-#: kate/main.cpp:84
-msgid ""
-"Running Kate with sudo can cause bugs and expose you to security "
-"vulnerabilities. Instead use Kate normally and you will be prompted for "
-"elevated privileges when saving documents if needed."
-msgstr ""
-"Spustenie Kate so sudo môže spôsobiť chyby a vystaviť vás bezpečnostným "
-"zraniteľnostiam. Namiesto toho používajte Kate normálne a v prípade potreby "
-"budete pri ukladaní dokumentov vyzvaní na zadanie vyšších oprávnení."
-
-#: kate/main.cpp:91
-msgid ""
-"Running Kate with kdesu can cause bugs and expose you to security "
-"vulnerabilities. Instead use Kate normally and you will be prompted for "
-"elevated privileges when saving documents if needed."
-msgstr ""
-"Spustenie Kate so kdesu môže spôsobiť chyby a vystaviť vás bezpečnostným "
-"zraniteľnostiam. Namiesto toho používajte Kate normálne a v prípade potreby "
-"budete pri ukladaní dokumentov vyzvaní na zadanie vyšších oprávnení."
-
-#: kate/main.cpp:154
+#: kate/main.cpp:81
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:156
+#: kate/main.cpp:83
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - pokročilý textový editor"
 
-#: kate/main.cpp:158 kwrite/main.cpp:107
+#: kate/main.cpp:85 kwrite/main.cpp:46
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 Autori Kate"
 
-#: kate/main.cpp:204
+#: kate/main.cpp:131
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Spustiť Kate v danom sedení."
 
-#: kate/main.cpp:205
+#: kate/main.cpp:132
 #, kde-format
 msgid "session"
 msgstr "sedenie"
 
-#: kate/main.cpp:210
+#: kate/main.cpp:137
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Spustiť Kate s novým anonymným sedením, vyžaduje '-n'."
 
-#: kate/main.cpp:215
+#: kate/main.cpp:142
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -97,7 +77,7 @@ msgstr ""
 "iná Kate inštancia už má dané sedenie otvorené), vynútené ak nie sú zadané "
 "žiadne parametre a žiadne URL."
 
-#: kate/main.cpp:221
+#: kate/main.cpp:148
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -106,7 +86,7 @@ msgstr ""
 "Ak sa používa už bežiaca Kate inštancia, blokovať kým existuje, ak sú dané "
 "URL na otvorenie."
 
-#: kate/main.cpp:227
+#: kate/main.cpp:154
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -115,87 +95,67 @@ msgstr ""
 "Pokúsiť sa znovu použiť iba Kate inštanciu s týmto pid (ignorované, ak sa "
 "použije štart a iná kate inštancia už má dané sedenie otvorené)."
 
-#: kate/main.cpp:228
+#: kate/main.cpp:155
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:233 kwrite/main.cpp:158
+#: kate/main.cpp:160 kwrite/main.cpp:97
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Nastaviť kódovanie otváraného súboru."
 
-#: kate/main.cpp:234 kwrite/main.cpp:159
+#: kate/main.cpp:161 kwrite/main.cpp:98
 #, kde-format
 msgid "encoding"
 msgstr "kódovanie"
 
-#: kate/main.cpp:238 kwrite/main.cpp:163
+#: kate/main.cpp:165 kwrite/main.cpp:102
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Prejsť na tento riadok."
 
-#: kate/main.cpp:238 kwrite/main.cpp:163
+#: kate/main.cpp:165 kwrite/main.cpp:102
 #, kde-format
 msgid "line"
 msgstr "riadok"
 
-#: kate/main.cpp:243 kwrite/main.cpp:167
+#: kate/main.cpp:170 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Prejsť na tento stĺpec."
 
-#: kate/main.cpp:244 kwrite/main.cpp:167
+#: kate/main.cpp:171 kwrite/main.cpp:106
 #, kde-format
 msgid "column"
 msgstr "stĺpec"
 
-#: kate/main.cpp:248 kwrite/main.cpp:171
+#: kate/main.cpp:175 kwrite/main.cpp:110
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Načítať obsah zo štandardného vstupu."
 
-#: kate/main.cpp:253 kwrite/main.cpp:175
+#: kate/main.cpp:180 kwrite/main.cpp:114
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "Súbory/URL otvorené aplikáciou budú odstránené po použití"
 
-#: kate/main.cpp:257 kwrite/main.cpp:179
+#: kate/main.cpp:184 kwrite/main.cpp:118
 #, kde-format
 msgid "Documents to open."
 msgstr "Dokument na otvorenie."
 
-#: kate/main.cpp:257 kwrite/main.cpp:179
+#: kate/main.cpp:184 kwrite/main.cpp:118
 #, kde-format
 msgid "[urls...]"
 msgstr "[url...]"
 
-#: kwrite/main.cpp:39
-msgid ""
-"Running KWrite with sudo can cause bugs and expose you to security "
-"vulnerabilities. Instead use KWrite normally and you will be prompted for "
-"elevated privileges when saving documents if needed."
-msgstr ""
-"Spustenie KWrite so sudo môže spôsobiť chyby a vystaviť vás bezpečnostným "
-"zraniteľnostiam. Namiesto toho používajte KWrite normálne a v prípade "
-"potreby budete pri ukladaní dokumentov vyzvaní na zadanie vyšších oprávnení."
-
-#: kwrite/main.cpp:46
-msgid ""
-"Running KWrite with kdesu can cause bugs and expose you to security "
-"vulnerabilities. Instead use KWrite normally and you will be prompted for "
-"elevated privileges when saving documents if needed."
-msgstr ""
-"Spustenie KWrite so kdesu môže spôsobiť chyby a vystaviť vás bezpečnostným "
-"zraniteľnostiam. Namiesto toho používajte KWrite normálne a v prípade "
-"potreby budete pri ukladaní dokumentov vyzvaní na zadanie vyšších oprávnení."
-
-#: kwrite/main.cpp:103
+#: kwrite/main.cpp:42
 #, kde-format
 msgid "KWrite"
 msgstr "KWrite"
 
-#: kwrite/main.cpp:105
+#: kwrite/main.cpp:44
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "Kate - pokročilý textový editor"
@@ -213,7 +173,7 @@ msgstr "Zatvoriť"
 msgid "Open File"
 msgstr "Otvoriť súbor"
 
-#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:350
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:354
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopírovať umiestnenie"
@@ -578,328 +538,358 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "História súborov - %1"
 
-#: lib/kateapp.cpp:146
+#: lib/kateapp.cpp:94
+#, fuzzy
+#| msgid ""
+#| "Running Kate with sudo can cause bugs and expose you to security "
+#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
+#| "elevated privileges when saving documents if needed."
+msgid ""
+"Running this editor with sudo can cause bugs and expose you to security "
+"vulnerabilities. Instead use this editor normally and you will be prompted "
+"for elevated privileges when saving documents if needed."
+msgstr ""
+"Spustenie Kate so sudo môže spôsobiť chyby a vystaviť vás bezpečnostným "
+"zraniteľnostiam. Namiesto toho používajte Kate normálne a v prípade potreby "
+"budete pri ukladaní dokumentov vyzvaní na zadanie vyšších oprávnení."
+
+#: lib/kateapp.cpp:101
+#, fuzzy
+#| msgid ""
+#| "Running Kate with kdesu can cause bugs and expose you to security "
+#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
+#| "elevated privileges when saving documents if needed."
+msgid ""
+"Running this editor with kdesu can cause bugs and expose you to security "
+"vulnerabilities. Instead use this editor normally and you will be prompted "
+"for elevated privileges when saving documents if needed."
+msgstr ""
+"Spustenie Kate so kdesu môže spôsobiť chyby a vystaviť vás bezpečnostným "
+"zraniteľnostiam. Namiesto toho používajte Kate normálne a v prípade potreby "
+"budete pri ukladaní dokumentov vyzvaní na zadanie vyšších oprávnení."
+
+#: lib/kateapp.cpp:233
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "Christoph Cullmann"
 
-#: lib/kateapp.cpp:146
+#: lib/kateapp.cpp:233
 #, kde-format
 msgid "Maintainer"
 msgstr "Správca"
 
-#: lib/kateapp.cpp:147
+#: lib/kateapp.cpp:234
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "Dominik Haumann"
 
-#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:151
-#: lib/kateapp.cpp:153 lib/kateapp.cpp:156 lib/kateapp.cpp:162
+#: lib/kateapp.cpp:234 lib/kateapp.cpp:237 lib/kateapp.cpp:238
+#: lib/kateapp.cpp:240 lib/kateapp.cpp:243 lib/kateapp.cpp:249
 #, kde-format
 msgid "Core Developer"
 msgstr "Jeden z hlavných programátorov"
 
-#: lib/kateapp.cpp:148
+#: lib/kateapp.cpp:235
 #, kde-format
 msgid "Sven Brauch"
 msgstr "Sven Brauch"
 
-#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:157
+#: lib/kateapp.cpp:235 lib/kateapp.cpp:236 lib/kateapp.cpp:244
 #, kde-format
 msgid "Developer"
 msgstr "Vývojár"
 
-#: lib/kateapp.cpp:149
+#: lib/kateapp.cpp:236
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kåre Särs"
 
-#: lib/kateapp.cpp:150
+#: lib/kateapp.cpp:237
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr "Waqar Ahmed"
 
-#: lib/kateapp.cpp:151
+#: lib/kateapp.cpp:238
 #, kde-format
 msgid "Anders Lund"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:152
+#: lib/kateapp.cpp:239
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Joseph Wenninger"
 
-#: lib/kateapp.cpp:156
+#: lib/kateapp.cpp:243
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "Hamish Rodda"
 
-#: lib/kateapp.cpp:157
+#: lib/kateapp.cpp:244
 #, kde-format
 msgid "Alexander Neundorf"
 msgstr "Alexander Neundorf"
 
-#: lib/kateapp.cpp:158
+#: lib/kateapp.cpp:245
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "Waldo Bastian"
 
-#: lib/kateapp.cpp:158
+#: lib/kateapp.cpp:245
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "Perfektný buffer systém"
 
-#: lib/kateapp.cpp:159
+#: lib/kateapp.cpp:246
 #, kde-format
 msgid "Charles Samuels"
 msgstr "Charles Samuels"
 
-#: lib/kateapp.cpp:159
+#: lib/kateapp.cpp:246
 #, kde-format
 msgid "The Editing Commands"
 msgstr "Editovacie príkazy"
 
-#: lib/kateapp.cpp:160
+#: lib/kateapp.cpp:247
 #, kde-format
 msgid "Matt Newell"
 msgstr "Matt Newell"
 
-#: lib/kateapp.cpp:160
+#: lib/kateapp.cpp:247
 #, kde-format
 msgid "Testing, ..."
 msgstr "Testovanie, ..."
 
-#: lib/kateapp.cpp:161
+#: lib/kateapp.cpp:248
 #, kde-format
 msgid "Michael Bartl"
 msgstr "Michael Bartl"
 
-#: lib/kateapp.cpp:161
+#: lib/kateapp.cpp:248
 #, kde-format
 msgid "Former Core Developer"
 msgstr "Prvý hlavný programátor"
 
-#: lib/kateapp.cpp:162
+#: lib/kateapp.cpp:249
 #, kde-format
 msgid "Michael McCallum"
 msgstr "Michael McCallum"
 
-#: lib/kateapp.cpp:163
+#: lib/kateapp.cpp:250
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr "Jochen Wilhemly"
 
-#: lib/kateapp.cpp:163
+#: lib/kateapp.cpp:250
 #, kde-format
 msgid "KWrite Author"
 msgstr "Autor KWrite"
 
-#: lib/kateapp.cpp:164
+#: lib/kateapp.cpp:251
 #, kde-format
 msgid "Michael Koch"
 msgstr "Michael Koch"
 
-#: lib/kateapp.cpp:164
+#: lib/kateapp.cpp:251
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "Port KWrite do KParts"
 
-#: lib/kateapp.cpp:165
+#: lib/kateapp.cpp:252
 #, kde-format
 msgid "Christian Gebauer"
 msgstr "Christian Gebauer"
 
-#: lib/kateapp.cpp:166
+#: lib/kateapp.cpp:253
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "Simon Hausmann"
 
-#: lib/kateapp.cpp:167
+#: lib/kateapp.cpp:254
 #, kde-format
 msgid "Glen Parker"
 msgstr "Glen Parker"
 
-#: lib/kateapp.cpp:167
+#: lib/kateapp.cpp:254
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "KWrite história krokov späť, integrácia KSpell"
 
-#: lib/kateapp.cpp:168
+#: lib/kateapp.cpp:255
 #, kde-format
 msgid "Scott Manson"
 msgstr "Scott Manson"
 
-#: lib/kateapp.cpp:168
+#: lib/kateapp.cpp:255
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "KWrite podpora zvýrazňovania syntaxu XML"
 
-#: lib/kateapp.cpp:169
+#: lib/kateapp.cpp:256
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: lib/kateapp.cpp:169
+#: lib/kateapp.cpp:256
 #, kde-format
 msgid "Patches and more"
 msgstr "Záplaty a iné"
 
-#: lib/kateapp.cpp:170
+#: lib/kateapp.cpp:257
 #, kde-format
 msgid "Pablo Martín"
 msgstr "Pablo Martín"
 
-#: lib/kateapp.cpp:171
+#: lib/kateapp.cpp:258
 #, kde-format
 msgid "Python Plugin Developer"
 msgstr "Vývojár pluginov Python"
 
-#: lib/kateapp.cpp:174
+#: lib/kateapp.cpp:261
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr "Gerald Senarclens de Grancy"
 
-#: lib/kateapp.cpp:175
+#: lib/kateapp.cpp:262
 #, kde-format
 msgid "QA and Scripting"
 msgstr "QA a skriptovanie"
 
-#: lib/kateapp.cpp:179
+#: lib/kateapp.cpp:266
 #, kde-format
 msgid "Tyson Tan"
 msgstr "Tyson Tan"
 
-#: lib/kateapp.cpp:180
+#: lib/kateapp.cpp:267
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr "Dizajnér maskota Kate „Kate Cyber Woodpecker“"
 
-#: lib/kateapp.cpp:183
+#: lib/kateapp.cpp:270
 #, kde-format
 msgid "Matteo Merli"
 msgstr "Matteo Merli"
 
-#: lib/kateapp.cpp:183
+#: lib/kateapp.cpp:270
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "Zvýrazňovanie pre Spec súbory RPM, Perl, Diff a iné"
 
-#: lib/kateapp.cpp:184
+#: lib/kateapp.cpp:271
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "Rocky Scaletta"
 
-#: lib/kateapp.cpp:184
+#: lib/kateapp.cpp:271
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "Zvýrazňovanie pre VHDL"
 
-#: lib/kateapp.cpp:185
+#: lib/kateapp.cpp:272
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "Yury Lebedev"
 
-#: lib/kateapp.cpp:185
+#: lib/kateapp.cpp:272
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "Zvýrazňovanie pre SQL"
 
-#: lib/kateapp.cpp:186
+#: lib/kateapp.cpp:273
 #, kde-format
 msgid "Chris Ross"
 msgstr "Chris Ross"
 
-#: lib/kateapp.cpp:186
+#: lib/kateapp.cpp:273
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "Zvýrazňovanie pre Ferite"
 
-#: lib/kateapp.cpp:187
+#: lib/kateapp.cpp:274
 #, kde-format
 msgid "Nick Roux"
 msgstr "Nick Roux"
 
-#: lib/kateapp.cpp:187
+#: lib/kateapp.cpp:274
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "Zvýrazňovanie pre ILERPG"
 
-#: lib/kateapp.cpp:188
+#: lib/kateapp.cpp:275
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "Carsten Niehaus"
 
-#: lib/kateapp.cpp:188
+#: lib/kateapp.cpp:275
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "Zvýrazňovanie pre LaTeX"
 
-#: lib/kateapp.cpp:189
+#: lib/kateapp.cpp:276
 #, kde-format
 msgid "Per Wigren"
 msgstr "Per Wigren"
 
-#: lib/kateapp.cpp:189
+#: lib/kateapp.cpp:276
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "Zvýrazňovanie pre Makefile, Python"
 
-#: lib/kateapp.cpp:190
+#: lib/kateapp.cpp:277
 #, kde-format
 msgid "Jan Fritz"
 msgstr "Jan Fritz"
 
-#: lib/kateapp.cpp:190
+#: lib/kateapp.cpp:277
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "Zvýrazňovanie pre Python"
 
-#: lib/kateapp.cpp:191
+#: lib/kateapp.cpp:278
 #, kde-format
 msgid "Daniel Naber"
 msgstr "Daniel Naber"
 
-#: lib/kateapp.cpp:192
+#: lib/kateapp.cpp:279
 #, kde-format
 msgid "Roland Pabel"
 msgstr "Roland Pabel"
 
-#: lib/kateapp.cpp:192
+#: lib/kateapp.cpp:279
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "Zvýrazňovanie pre Scheme"
 
-#: lib/kateapp.cpp:193
+#: lib/kateapp.cpp:280
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "Cristi Dumitrescu"
 
-#: lib/kateapp.cpp:193
+#: lib/kateapp.cpp:280
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "Kľúčové slová PHP/zoznam datatype"
 
-#: lib/kateapp.cpp:194
+#: lib/kateapp.cpp:281
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: lib/kateapp.cpp:194
+#: lib/kateapp.cpp:281
 #, kde-format
 msgid "Very nice help"
 msgstr "Veľmi pekný pomocník"
 
-#: lib/kateapp.cpp:195
+#: lib/kateapp.cpp:282
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Všetci ostatní, ktorí prispeli a zabudol som sa o nich zmieniť"
 
-#: lib/kateapp.cpp:310
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Priečinky je možné otvoriť, iba ak je povolený doplnok projekty"
 
-#: lib/kateapp.cpp:413
+#: lib/kateapp.cpp:503
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1261,12 +1251,12 @@ msgstr "Zavrieť dokument"
 msgid "Save As"
 msgstr "Uložiť &ako"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:636
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:646
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Nový súbor bol otvorený počas zatvárania Kate, zatvorenie zrušené."
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:636
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:646
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Zatvorenie zrušené"
@@ -1316,92 +1306,92 @@ msgstr "Súbor \"%1\" sa nepoarilo vymazať."
 msgid "&Other Application..."
 msgstr "Iná aplikácia..."
 
-#: lib/katemainwindow.cpp:228
+#: lib/katemainwindow.cpp:232
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr "Tento príkaz zobrazí alebo skryje stavový riadok pohľadu"
 
-#: lib/katemainwindow.cpp:231
+#: lib/katemainwindow.cpp:235
 #, kde-format
 msgid "Show &Tabs"
 msgstr "Zobraziť karty"
 
-#: lib/katemainwindow.cpp:234
+#: lib/katemainwindow.cpp:238
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr "Tento príkaz zobrazí alebo skryje karty pre pohľady"
 
-#: lib/katemainwindow.cpp:236
+#: lib/katemainwindow.cpp:240
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "Ukázať &cestu v titulkovom pruhu"
 
-#: lib/katemainwindow.cpp:239
+#: lib/katemainwindow.cpp:243
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Zobrazí celú cestu k dokumentu v titulku okna"
 
-#: lib/katemainwindow.cpp:241
+#: lib/katemainwindow.cpp:245
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr "Zobraziť navigačný panel"
 
-#: lib/katemainwindow.cpp:251
+#: lib/katemainwindow.cpp:255
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "Farebná schéma"
 
-#: lib/katemainwindow.cpp:255
+#: lib/katemainwindow.cpp:259
 #, kde-format
 msgid "&Previous Tab"
 msgstr "&Predchádzajúca karta"
 
-#: lib/katemainwindow.cpp:256
+#: lib/katemainwindow.cpp:260
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "Aktivovať predošlú kartu."
 
-#: lib/katemainwindow.cpp:261
+#: lib/katemainwindow.cpp:265
 #, kde-format
 msgid "&Next Tab"
 msgstr "&Nasledujúca karta"
 
-#: lib/katemainwindow.cpp:262
+#: lib/katemainwindow.cpp:266
 #, kde-format
 msgid "Focus the next tab."
 msgstr "Aktivovať ďalšiu kartu."
 
-#: lib/katemainwindow.cpp:269
+#: lib/katemainwindow.cpp:273
 #, kde-format
 msgid "&Quick Open"
 msgstr "Rýchlo otvoriť"
 
-#: lib/katemainwindow.cpp:272
+#: lib/katemainwindow.cpp:276
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Otvoriť formulár na rýchle otvorenie dokumentov."
 
-#: lib/katemainwindow.cpp:303
+#: lib/katemainwindow.cpp:307
 #, kde-format
 msgid "Output"
 msgstr "Výstup"
 
-#: lib/katemainwindow.cpp:310
+#: lib/katemainwindow.cpp:314
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostika"
 
-#: lib/katemainwindow.cpp:321
+#: lib/katemainwindow.cpp:325
 #, kde-format
 msgid "Create a new document"
 msgstr "Vytvoriť nový dokument"
 
-#: lib/katemainwindow.cpp:324
+#: lib/katemainwindow.cpp:328
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Otvoriť už existujúci dokument pre úpravu"
 
-#: lib/katemainwindow.cpp:334
+#: lib/katemainwindow.cpp:338
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1410,84 +1400,84 @@ msgstr ""
 "Toto je zoznam súborov, ktoré boli naposledy otvorené. Podporuje ich "
 "jednoduché znovuotvorenie."
 
-#: lib/katemainwindow.cpp:338
+#: lib/katemainwindow.cpp:342
 #, kde-format
 msgid "Save A&ll"
 msgstr "Uložiť &všetko"
 
-#: lib/katemainwindow.cpp:341
+#: lib/katemainwindow.cpp:345
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Uložiť všetky otvorené a zmenené dokumenty na disk."
 
-#: lib/katemainwindow.cpp:344
+#: lib/katemainwindow.cpp:348
 #, kde-format
 msgid "&Reload All"
 msgstr "Obnoviť všetko"
 
-#: lib/katemainwindow.cpp:346
+#: lib/katemainwindow.cpp:350
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Obnoviť všetky otvorené dokumenty."
 
-#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
+#: lib/katemainwindow.cpp:359 lib/katemainwindow.cpp:368
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Skopíruje cestu k aktuálnemu dokumentu do schránky"
 
-#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:363 lib/welcomeview/welcomeview.cpp:241
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Otvoriť priečinok s obsahom"
 
-#: lib/katemainwindow.cpp:368
+#: lib/katemainwindow.cpp:372
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Premenovať..."
 
-#: lib/katemainwindow.cpp:373
+#: lib/katemainwindow.cpp:377
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "Premenuje súbor patriaci k aktuálnemu dokumentu."
 
-#: lib/katemainwindow.cpp:377
+#: lib/katemainwindow.cpp:381
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Vymazať"
 
-#: lib/katemainwindow.cpp:382 lib/katemainwindow.cpp:391
+#: lib/katemainwindow.cpp:386 lib/katemainwindow.cpp:395
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "Vymaže súbor patriaci k aktuálnemu dokumentu."
 
-#: lib/katemainwindow.cpp:386
+#: lib/katemainwindow.cpp:390
 #, kde-format
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: lib/katemainwindow.cpp:394 lib/katemainwindow.cpp:396
+#: lib/katemainwindow.cpp:398 lib/katemainwindow.cpp:400
 #, kde-format
 msgid "Compare"
 msgstr "Porovnať"
 
-#: lib/katemainwindow.cpp:396
+#: lib/katemainwindow.cpp:400
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "Použiť ponuku záložkového panelu na porovnanie dvoch dokumentov"
 
-#: lib/katemainwindow.cpp:398
+#: lib/katemainwindow.cpp:402
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Zobrazí nápovedu, ako porovnávať dokumenty."
 
-#: lib/katemainwindow.cpp:401
+#: lib/katemainwindow.cpp:405
 #, kde-format
 msgid "Close Orphaned"
 msgstr "Zatvoriť osirotené"
 
-#: lib/katemainwindow.cpp:403
+#: lib/katemainwindow.cpp:407
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1496,52 +1486,52 @@ msgstr ""
 "Zatvoriť všetky dokumenty v zozname súborov, ktoré nie je možné znova "
 "otvoriť, pretože už nie sú prístupné."
 
-#: lib/katemainwindow.cpp:407
+#: lib/katemainwindow.cpp:411
 #, kde-format
 msgid "Close the current document."
 msgstr "Zavrieť aktuálny dokument."
 
-#: lib/katemainwindow.cpp:410
+#: lib/katemainwindow.cpp:414
 #, kde-format
 msgid "Close Other"
 msgstr "Zatvoriť ostatné"
 
-#: lib/katemainwindow.cpp:412
+#: lib/katemainwindow.cpp:416
 #, kde-format
 msgid "Close other open documents."
 msgstr "Zavtvoriť všetky otvorené dokumenty."
 
-#: lib/katemainwindow.cpp:415
+#: lib/katemainwindow.cpp:419
 #, kde-format
 msgid "Clos&e All"
 msgstr "Zav&rieť všetko"
 
-#: lib/katemainwindow.cpp:417
+#: lib/katemainwindow.cpp:421
 #, kde-format
 msgid "Close all open documents."
 msgstr "Zavrieť všetky otvorené dokumenty."
 
-#: lib/katemainwindow.cpp:422
+#: lib/katemainwindow.cpp:426
 #, kde-format
 msgid "Close this window"
 msgstr "Zavrieť toto okno"
 
-#: lib/katemainwindow.cpp:426
+#: lib/katemainwindow.cpp:430
 #, kde-format
 msgid "&New Window"
 msgstr "&Nové okno"
 
-#: lib/katemainwindow.cpp:429
+#: lib/katemainwindow.cpp:433
 #, kde-format
 msgid "Create a new window."
 msgstr "Vytvoriť nové okno."
 
-#: lib/katemainwindow.cpp:436
+#: lib/katemainwindow.cpp:440
 #, kde-format
 msgid "Open W&ith"
 msgstr "Otvoriť po&mocou"
 
-#: lib/katemainwindow.cpp:438
+#: lib/katemainwindow.cpp:442
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1550,94 +1540,94 @@ msgstr ""
 "Otvoriť aktuálny dokument pomocou inej aplikácie registrovanej pre tento "
 "typ, alebo aplikácie podľa vášho výberu."
 
-#: lib/katemainwindow.cpp:446
+#: lib/katemainwindow.cpp:450
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Nastaví  klávesové skratky aplikácie"
 
-#: lib/katemainwindow.cpp:449
+#: lib/katemainwindow.cpp:453
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Nastaví položky, ktoré sa majú zobraziť v paneloch nástrojov."
 
-#: lib/katemainwindow.cpp:452
+#: lib/katemainwindow.cpp:456
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Nastaví rôzne možnosti aplikácie a komponentu pre editovanie textu."
 
-#: lib/katemainwindow.cpp:456
+#: lib/katemainwindow.cpp:460
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "&Príručka modulov"
 
-#: lib/katemainwindow.cpp:458
+#: lib/katemainwindow.cpp:462
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Toto zobrazí pomocníka pre jednotlivé moduly."
 
-#: lib/katemainwindow.cpp:475
+#: lib/katemainwindow.cpp:479
 #, kde-format
 msgid "Sess&ions"
 msgstr "Seden&ia"
 
-#: lib/katemainwindow.cpp:481
+#: lib/katemainwindow.cpp:485
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Nové sedenie"
 
-#: lib/katemainwindow.cpp:486
+#: lib/katemainwindow.cpp:490
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "Nedávne sedenia"
 
-#: lib/katemainwindow.cpp:491
+#: lib/katemainwindow.cpp:495
 #, kde-format
 msgid "&All Sessions"
 msgstr "Všetky sedeni&a"
 
-#: lib/katemainwindow.cpp:498
+#: lib/katemainwindow.cpp:502
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "Spravovať sedenia..."
 
-#: lib/katemainwindow.cpp:507
+#: lib/katemainwindow.cpp:511
 #, kde-format
 msgid "&Save Session"
 msgstr "Uložiť sedenie"
 
-#: lib/katemainwindow.cpp:513
+#: lib/katemainwindow.cpp:517
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Uložiť sedene ako..."
 
-#: lib/katemainwindow.cpp:520 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:524 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Prejsť na predchádzajúce umiestnenie"
 
-#: lib/katemainwindow.cpp:529 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:533 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Prejsť na nasledujúce umiestnenie"
 
-#: lib/katemainwindow.cpp:537
+#: lib/katemainwindow.cpp:541
 #, kde-format
 msgid "Show File Git History"
 msgstr "Zobraziť históriu súborov git"
 
-#: lib/katemainwindow.cpp:552
+#: lib/katemainwindow.cpp:556
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Toto zatvorí všetky otvorené dokumenty. Určite chcete pokračovať?"
 
-#: lib/katemainwindow.cpp:553
+#: lib/katemainwindow.cpp:557
 #, kde-format
 msgid "Close all documents"
 msgstr "Zatvoriť všetky dokumenty"
 
-#: lib/katemainwindow.cpp:568
+#: lib/katemainwindow.cpp:572
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1646,23 +1636,23 @@ msgstr ""
 "Toto zatvorí všetky otvorené dokumenty vedľa aktuálneho. Určite chcete "
 "pokračovať?"
 
-#: lib/katemainwindow.cpp:569
+#: lib/katemainwindow.cpp:573
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Zatvoriť všetky dokumenty vedľa aktuálneho"
 
-#: lib/katemainwindow.cpp:788
+#: lib/katemainwindow.cpp:798
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "Toto skryje ponuku možností. Môžete ju znovu zviditeľniť stlačením %1."
 
-#: lib/katemainwindow.cpp:791
+#: lib/katemainwindow.cpp:801
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Skryť panel ponuky"
 
-#: lib/katemainwindow.cpp:895
+#: lib/katemainwindow.cpp:905
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1670,19 +1660,19 @@ msgid ""
 msgstr ""
 "Vložili ste adresár %1 do Kate. Chcete otvoriť všetky súbory, ktoré obsahuje?"
 
-#: lib/katemainwindow.cpp:898
+#: lib/katemainwindow.cpp:908
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Otvoriť súbory rekurzívne"
 
-#: lib/katemainwindow.cpp:899
+#: lib/katemainwindow.cpp:909
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otvoriť súbor"
 
-#: lib/katemainwindow.cpp:1135
+#: lib/katemainwindow.cpp:1145
 #, kde-format
 msgid " [read only]"
 msgstr " [iba na čítanie]"
@@ -2793,6 +2783,26 @@ msgstr "Spravovať sedenia..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Zobraziť pre nové okno"
+
+#~ msgid ""
+#~ "Running KWrite with sudo can cause bugs and expose you to security "
+#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
+#~ "elevated privileges when saving documents if needed."
+#~ msgstr ""
+#~ "Spustenie KWrite so sudo môže spôsobiť chyby a vystaviť vás bezpečnostným "
+#~ "zraniteľnostiam. Namiesto toho používajte KWrite normálne a v prípade "
+#~ "potreby budete pri ukladaní dokumentov vyzvaní na zadanie vyšších "
+#~ "oprávnení."
+
+#~ msgid ""
+#~ "Running KWrite with kdesu can cause bugs and expose you to security "
+#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
+#~ "elevated privileges when saving documents if needed."
+#~ msgstr ""
+#~ "Spustenie KWrite so kdesu môže spôsobiť chyby a vystaviť vás "
+#~ "bezpečnostným zraniteľnostiam. Namiesto toho používajte KWrite normálne a "
+#~ "v prípade potreby budete pri ukladaní dokumentov vyzvaní na zadanie "
+#~ "vyšších oprávnení."
 
 #~ msgid "Save"
 #~ msgstr "Uložiť"

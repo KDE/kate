@@ -143,6 +143,17 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
             }
         }
 
+        // Remove all open widgets
+        const auto mainWindows = KateApp::self()->mainWindowsCount();
+        for (int i = 0; i < mainWindows; ++i) {
+            if (KateMainWindow *win = KateApp::self()->mainWindow(i)) {
+                const auto widgets = win->widgets();
+                for (auto w : widgets) {
+                    win->removeWidget(w);
+                }
+            }
+        }
+
         // save last session or not?
         saveActiveSession();
 

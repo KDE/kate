@@ -43,6 +43,7 @@ private Q_SLOTS:
     void testBug465807();
     void testBug465808();
     void testNewViewCreatedIfViewNotinViewspace();
+    void testNewSessionClearsWindowWidgets();
 
 private:
     class QTemporaryDir *m_tempdir;

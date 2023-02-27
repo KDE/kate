@@ -33,6 +33,17 @@ static int tabIdxForDoc(QTabBar *t, KTextEditor::Document *d)
     return -1;
 }
 
+static void clearAllDocs(KateMainWindow *mw)
+{
+    auto vm = mw->viewManager();
+    vm->slotCloseOtherViews();
+    auto vs = vm->activeViewSpace();
+    // close everything
+    for (int i = 0; i < vs->numberOfRegisteredDocuments(); ++i) {
+        vm->slotDocumentClose();
+    }
+}
+
 KateViewManagementTests::KateViewManagementTests(QObject *)
 {
     // ensure ui file can be found and the translation domain is set to avoid warnings
@@ -412,13 +423,9 @@ void KateViewManagementTests::testTabBarHidesShows()
 {
     app->sessionManager()->sessionNew();
     KateMainWindow *mw = app->activeKateMainWindow();
+    clearAllDocs(mw);
     auto vm = mw->viewManager();
-    vm->slotCloseOtherViews();
     auto vs = vm->activeViewSpace();
-    // close everything
-    for (int i = 0; i < vs->numberOfRegisteredDocuments(); ++i) {
-        vm->slotDocumentClose();
-    }
     QTabBar *tabs = vs->m_tabBar;
     vs->m_autoHideTabBar = true;
     vs->tabBarToggled();
@@ -639,4 +646,31 @@ void KateViewManagementTests::testNewViewCreatedIfViewNotinViewspace()
     QCOMPARE(vs1->m_registeredDocuments, vs2->m_registeredDocuments);
     // Cursor position is maintained in the new view
     QCOMPARE(vs1->m_docToView[v2->document()]->cursorPosition(), v2->cursorPosition());
+
+    v2->document()->clear();
+    v2->document()->setModified(false);
+}
+
+void KateViewManagementTests::testNewSessionClearsWindowWidgets()
+{
+    // BUG: 466526
+    app->sessionManager()->sessionNew();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    clearAllDocs(mw);
+
+    QPointer<QWidget> w1 = new QWidget;
+    QPointer<QWidget> w2 = new QWidget;
+    Utils::addWidget(w1, app->activeMainWindow());
+    Utils::addWidget(w2, app->activeMainWindow());
+
+    QCOMPARE(mw->viewManager()->activeViewSpace()->m_registeredDocuments.size(), 2);
+
+    app->sessionManager()->sessionNew();
+
+    qApp->processEvents();
+
+    // Widgets are gone now
+    QCOMPARE(mw->viewManager()->activeViewSpace()->m_registeredDocuments.size(), 1);
+    QVERIFY(!w1);
+    QVERIFY(!w2);
 }

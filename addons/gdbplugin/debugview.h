@@ -56,6 +56,14 @@ struct GdbCommand {
     static GdbCommand parse(const QString &request);
 };
 
+struct BreakPoint {
+    int number;
+    QUrl file;
+    int line;
+
+    static BreakPoint parse(const QJsonObject &);
+};
+
 class DebugView : public DebugViewInterface
 {
     Q_OBJECT
@@ -109,12 +117,6 @@ private:
     enum State { none, ready, executingCmd };
 
     enum GdbState { Disconnected, Connected, Running, Stopped };
-
-    struct BreakPoint {
-        int number;
-        QUrl file;
-        int line;
-    };
 
 private:
     QUrl resolveFileName(const QString &fileName, bool silent = false);

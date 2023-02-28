@@ -581,15 +581,22 @@ static QString stoppedThreadsToString(const QJsonValue &value)
 
 static QString getFilename(const QJsonObject &item)
 {
-    QString fileField = QLatin1String("fullname");
-    if (!item.contains(fileField)) {
-        fileField = QLatin1String("filename");
+    QString file = item[QLatin1String("fullname")].toString();
 
-        if (!item.contains(fileField)) {
-            fileField = QLatin1String("file");
-        }
+    // lldb returns "??" and "??/???" when it is not resolved
+    if (file.isEmpty() || file.startsWith(QLatin1Char('?'))) {
+        file = item[QLatin1String("filename")].toString();
     }
-    return item[fileField].toString();
+
+    if (file.isEmpty() || file.startsWith(QLatin1Char('?'))) {
+        file = item[QLatin1String("file")].toString();
+    }
+
+    if (file.startsWith(QLatin1Char('?'))) {
+        file.clear();
+    }
+
+    return file;
 }
 
 dap::StackFrame DebugView::parseFrame(const QJsonObject &object)
@@ -1040,48 +1047,82 @@ bool DebugView::responseMIListFeatures(const gdbmi::Record &record)
     return true;
 }
 
-DebugView::BreakPoint DebugView::parseBreakpoint(const QJsonObject &item)
+BreakPoint BreakPoint::parse(const QJsonObject &item)
 {
-    // XXX in a breakpoint with multiple locations, only the first one is considered
+    const QString f_line = QLatin1String("line");
 
     BreakPoint breakPoint;
     breakPoint.number = item[QLatin1String("number")].toString(QLatin1String("1")).toInt();
-    breakPoint.line = -1;
+    breakPoint.line = item[f_line].toString(QLatin1String("-1")).toInt();
 
-    QString filename;
-    const auto f_pending = QLatin1String("pending");
-    if (item.contains(f_pending)) {
-        QString pending;
-        // file and line are not resolved yet
-        const auto &v_pending = item[f_pending];
-        if (v_pending.isArray()) {
-            const auto values = v_pending.toArray();
-            if (!values.isEmpty()) {
-                pending = values.first().toString();
+    // file
+    auto file = getFilename(item);
+
+    if ((breakPoint.line < 0) || file.isEmpty()) {
+        // try original-location
+        QString pending = item[QLatin1String("original-location")].toString();
+
+        // try pending
+        const auto f_pending = QLatin1String("pending");
+        if (pending.isEmpty()) {
+            const auto &v_pending = item[f_pending];
+            if (v_pending.isArray()) {
+                const auto values = v_pending.toArray();
+                if (!values.isEmpty()) {
+                    pending = values.first().toString();
+                }
+            } else {
+                pending = v_pending.toString();
             }
-        } else {
-            pending = v_pending.toString();
         }
         int sep = pending.lastIndexOf(QLatin1Char(':'));
         if (sep > 0) {
-            filename = pending.left(sep);
-            breakPoint.line = pending.mid(sep + 1).toInt();
-        }
-    } else {
-        const auto f_locations = QLatin1String("locations");
-        if (item.contains(f_locations)) {
-            const auto locations = item[f_locations].toArray();
-            if (!locations.isEmpty()) {
-                const auto location = locations.first().toObject();
-                filename = getFilename(location);
-                breakPoint.line = location[QLatin1String("line")].toString(QLatin1String("-1")).toInt();
+            if (breakPoint.line < 0) {
+                breakPoint.line = pending.mid(sep + 1).toInt();
             }
-        } else {
-            filename = getFilename(item);
-            breakPoint.line = item[QLatin1String("line")].toString(QLatin1String("-1")).toInt();
+            if (file.isEmpty()) {
+                file = pending.left(sep);
+                if (file.startsWith(QLatin1Char('?'))) {
+                    file.clear();
+                }
+            }
         }
     }
-    breakPoint.file = resolveFileName(filename);
+
+    if ((breakPoint.line < 0) || file.isEmpty()) {
+        // try locations
+        const auto f_locations = QLatin1String("locations");
+        if (item.contains(f_locations)) {
+            for (const auto item_loc : item[f_locations].toArray()) {
+                const auto loc = item_loc.toObject();
+                if (breakPoint.line < 0) {
+                    breakPoint.line = loc[f_line].toString(QLatin1String("-1")).toInt();
+                }
+                if (file.isEmpty()) {
+                    file = getFilename(loc);
+                    if (file.startsWith(QLatin1Char('?'))) {
+                        file.clear();
+                    }
+                }
+                if ((breakPoint.line > -1) && !file.isEmpty()) {
+                    break;
+                }
+            }
+        }
+    }
+
+    if (!file.isEmpty()) {
+        breakPoint.file = QUrl::fromLocalFile(file);
+    }
+
+    return breakPoint;
+}
+
+BreakPoint DebugView::parseBreakpoint(const QJsonObject &item)
+{
+    // XXX in a breakpoint with multiple locations, only the first one is considered
+    BreakPoint breakPoint = BreakPoint::parse(item);
+    breakPoint.file = resolveFileName(breakPoint.file.toLocalFile());
 
     return breakPoint;
 }

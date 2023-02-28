@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 01:04+0000\n"
+"POT-Creation-Date: 2023-02-28 01:02+0000\n"
 "PO-Revision-Date: 2023-01-02 07:25+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -2525,24 +2525,24 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Sesi tidak dapat diubah nama menjadi \"%1\". Gagal menulis ke \"%2\""
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "Pengubahan Nama Sesi"
 
-#: lib/session/katesessionmanager.cpp:472
+#: lib/session/katesessionmanager.cpp:483
 #, kde-format
 msgid "Session name:"
 msgstr "Nama sesi:"
 
-#: lib/session/katesessionmanager.cpp:474
+#: lib/session/katesessionmanager.cpp:485
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2551,17 +2551,17 @@ msgstr ""
 "Sudah ada sesi yang memakai nama yang sama dengan nama yang kamu pilih: %1\n"
 "Mohon pilih nama yang berbeda."
 
-#: lib/session/katesessionmanager.cpp:476
+#: lib/session/katesessionmanager.cpp:487
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Untuk menyimpan sesi, Anda harus memberinya sebuah nama."
 
-#: lib/session/katesessionmanager.cpp:503
+#: lib/session/katesessionmanager.cpp:514
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Tentukan sebuah nama untuk sesi ini"
 
-#: lib/session/katesessionmanager.cpp:505
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Tentukan sebuah nama untuk sesi: %1"

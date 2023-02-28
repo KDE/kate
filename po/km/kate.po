@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 01:04+0000\n"
+"POT-Creation-Date: 2023-02-28 01:02+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -2535,7 +2535,7 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2543,17 +2543,17 @@ msgstr ""
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "មិនអាច​ប្ដូរ​ឈ្មោះ​សម័យ​ទៅ \"%1\" បានទេ ព្រោះ​មាន​សម័យ​ផ្សេងមាន​ឈ្មោះ​នេះ​រួចហើយ"
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "ការ​ប្ដូរ​ឈ្មោះ​សម័យ"
 
-#: lib/session/katesessionmanager.cpp:472
+#: lib/session/katesessionmanager.cpp:483
 #, kde-format
 msgid "Session name:"
 msgstr "ឈ្មោះ​សម័យ ៖"
 
-#: lib/session/katesessionmanager.cpp:474
+#: lib/session/katesessionmanager.cpp:485
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2567,18 +2567,18 @@ msgstr ""
 "សូម​ជ្រើស​ឈ្មោះ​សម័យ\n"
 "ផ្សេង ៖"
 
-#: lib/session/katesessionmanager.cpp:476
+#: lib/session/katesessionmanager.cpp:487
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ដើម្បី​រក្សាទុកសម័យ​មួយ អ្នក​ត្រូវ​តែ​បញ្ជាក់​ឈ្មោះ​មួយ​ ។"
 
-#: lib/session/katesessionmanager.cpp:503
+#: lib/session/katesessionmanager.cpp:514
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "បញ្ជាក់​ឈ្មោះ​ថ្មី​សម្រាប់​សម័យ"
 
-#: lib/session/katesessionmanager.cpp:505
+#: lib/session/katesessionmanager.cpp:516
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 01:04+0000\n"
-"PO-Revision-Date: 2023-02-24 08:50+0200\n"
+"POT-Creation-Date: 2023-02-28 01:02+0000\n"
+"PO-Revision-Date: 2023-02-27 08:53+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -541,36 +541,26 @@ msgid "File History - %1"
 msgstr "Журнал файла – %1"
 
 #: lib/kateapp.cpp:94
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Запуск Kate з використанням sudo може призвести до проблем і зашкодити "
-"захисту системи. Замість цього, запустіть Kate у звичайному режимі, а коли "
-"знадобляться розширені права доступу для збереження документів, програма "
-"сама попросить вас їх надати."
+"Запуск цього редактора з використанням sudo може призвести до проблем і "
+"зашкодити захисту системи. Замість цього, запустіть цей редактор у "
+"звичайному режимі, а коли знадобляться розширені права доступу для "
+"збереження документів, програма сама попросить вас їх надати."
 
 #: lib/kateapp.cpp:101
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Запуск Kate з використанням kdesu може призвести до проблем і зашкодити "
-"захисту системи. Замість цього, запустіть Kate у звичайному режимі, а коли "
-"знадобляться розширені права доступу для збереження документів, програма "
-"сама попросить вас їх надати."
+"Запуск цього редактора з використанням kdesu може призвести до проблем і "
+"зашкодити захисту системи. Замість цього, запустіть цей редактор у "
+"звичайному режимі, а коли знадобляться розширені права доступу для "
+"збереження документів, програма сама попросить вас їх надати."
 
 #: lib/kateapp.cpp:233
 #, kde-format
@@ -2516,23 +2506,23 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Повторно відкрити"
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Сеанс не можна перейменовувати на «%1». Не вдалося виконати запис до «%2»."
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "Перейменування сеансу"
 
-#: lib/session/katesessionmanager.cpp:472
+#: lib/session/katesessionmanager.cpp:483
 #, kde-format
 msgid "Session name:"
 msgstr "Назва сеансу:"
 
-#: lib/session/katesessionmanager.cpp:474
+#: lib/session/katesessionmanager.cpp:485
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2541,17 +2531,17 @@ msgstr ""
 "Вже існує сеанс з такою назвою: %1.\n"
 "Будь ласка, виберіть іншу назву."
 
-#: lib/session/katesessionmanager.cpp:476
+#: lib/session/katesessionmanager.cpp:487
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Щоб зберегти сеанс, потрібно вказати назву."
 
-#: lib/session/katesessionmanager.cpp:503
+#: lib/session/katesessionmanager.cpp:514
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Вкажіть назву цього сеансу"
 
-#: lib/session/katesessionmanager.cpp:505
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Вкажіть нову назву сеансу: %1"

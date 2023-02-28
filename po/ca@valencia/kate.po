@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 01:04+0000\n"
-"PO-Revision-Date: 2023-02-01 10:35+0100\n"
+"POT-Creation-Date: 2023-02-28 01:02+0000\n"
+"PO-Revision-Date: 2023-02-27 09:19+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -472,6 +472,7 @@ msgstr "Actualitza «diff»"
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
+"Mostra les diferències amb el context complet, no només les línies canviades"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -536,34 +537,24 @@ msgid "File History - %1"
 msgstr "Historial de fitxer - %1"
 
 #: lib/kateapp.cpp:94
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Executar Kate amb «sudo» pot provocar errors i exposar-vos a vulnerabilitats "
-"de seguretat. En lloc d'açò, utilitzeu Kate normalment i se vos demanaran "
-"privilegis elevats en guardar documents si cal."
+"Executar este editor amb «sudo» pot provocar errors i exposar-vos a "
+"vulnerabilitats de seguretat. En lloc d'açò, utilitzeu este editor "
+"normalment i se vos demanaran privilegis elevats en guardar documents si cal."
 
 #: lib/kateapp.cpp:101
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Executar Kate amb «kdesu» pot provocar errors i exposar-vos a "
-"vulnerabilitats de seguretat. En lloc d'açò, utilitzeu Kate normalment i se "
-"vos demanaran privilegis elevats en guardar documents si cal."
+"Executar este editor amb «kdesu» pot provocar errors i exposar-vos a "
+"vulnerabilitats de seguretat. En lloc d'açò, utilitzeu este editor "
+"normalment i se vos demanaran privilegis elevats en guardar documents si cal."
 
 #: lib/kateapp.cpp:233
 #, kde-format
@@ -2499,23 +2490,23 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Torne a obrir"
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "La sessió no es pot canviar de nom a «%1». No s'ha pogut escriure a «%2»"
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "Canviant de nom una sessió"
 
-#: lib/session/katesessionmanager.cpp:472
+#: lib/session/katesessionmanager.cpp:483
 #, kde-format
 msgid "Session name:"
 msgstr "Nom de la sessió:"
 
-#: lib/session/katesessionmanager.cpp:474
+#: lib/session/katesessionmanager.cpp:485
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2524,17 +2515,17 @@ msgstr ""
 "Ja hi ha una sessió existent amb el nom triat: %1\n"
 "Seleccioneu-ne un de diferent."
 
-#: lib/session/katesessionmanager.cpp:476
+#: lib/session/katesessionmanager.cpp:487
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Per a guardar una sessió, heu d'especificar un nom."
 
-#: lib/session/katesessionmanager.cpp:503
+#: lib/session/katesessionmanager.cpp:514
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Especifiqueu un nom per a esta sessió"
 
-#: lib/session/katesessionmanager.cpp:505
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Especifiqueu un nom nou per a la sessió: %1"
@@ -2805,24 +2796,3 @@ msgstr "Gestiona les sessions..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Mostra per a una finestra nova"
-
-#~ msgid ""
-#~ "Running KWrite with sudo can cause bugs and expose you to security "
-#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
-#~ "elevated privileges when saving documents if needed."
-#~ msgstr ""
-#~ "Executar KWrite amb «sudo» pot provocar errors i exposar-vos a "
-#~ "vulnerabilitats de seguretat. En lloc d'açò, utilitzeu KWrite normalment "
-#~ "i se vos demanaran privilegis elevats en guardar documents si cal."
-
-#~ msgid ""
-#~ "Running KWrite with kdesu can cause bugs and expose you to security "
-#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
-#~ "elevated privileges when saving documents if needed."
-#~ msgstr ""
-#~ "Executar KWrite amb «kdesu» pot provocar errors i exposar-vos a "
-#~ "vulnerabilitats de seguretat. En lloc d'açò, utilitzeu KWrite normalment "
-#~ "i se vos demanaran privilegis elevats en guardar documents si cal."
-
-#~ msgid "Save"
-#~ msgstr "Guarda"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 01:04+0000\n"
+"POT-Creation-Date: 2023-02-28 01:02+0000\n"
 "PO-Revision-Date: 2021-05-01 23:42-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -2474,24 +2474,24 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "ਸ਼ੈਸ਼ਨ \"%1\" ਦਾ ਨਾਂ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ। \"%2\" ਲਿਖਣ ਲਈ ਅਸਫ਼ਲ ਹੈ"
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "ਸ਼ੈਸ਼ਨ ਨਾਂ ਬਦਲਣਾ"
 
-#: lib/session/katesessionmanager.cpp:472
+#: lib/session/katesessionmanager.cpp:483
 #, kde-format
 msgid "Session name:"
 msgstr "ਸ਼ੈਸ਼ਨ ਨਾਂ:"
 
-#: lib/session/katesessionmanager.cpp:474
+#: lib/session/katesessionmanager.cpp:485
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2500,17 +2500,17 @@ msgstr ""
 "ਤੁਹਾਡੇ ਵਲੋਂ ਚੁਣੇ ਨਾਂ ਨਾਲ ਪਹਿਲਾਂ ਹੀ ਸ਼ੈਸ਼ਨ ਮੌਜੂਦ ਹੈ: %1\n"
 "ਵੱਖਰ ਨਾਂ ਚੁਣੋ ਜੀ।"
 
-#: lib/session/katesessionmanager.cpp:476
+#: lib/session/katesessionmanager.cpp:487
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ਇੱਕ ਸ਼ੈਸ਼ਨ ਨੂੰ ਸੰਭਾਲਣ ਲਈ, ਤੁਹਾਨੂੰ ਨਾਂ ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: lib/session/katesessionmanager.cpp:503
+#: lib/session/katesessionmanager.cpp:514
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "ਇਸ ਸ਼ੈਸ਼ਨ ਲਈ ਨਾਂ ਦਿਓ"
 
-#: lib/session/katesessionmanager.cpp:505
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "ਸ਼ੈਸ਼ਨ ਲਈ ਨਵਾਂ ਨਾਂ ਦਿਓ: %1"

@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Andrew Coles <andrew_coles@yahoo.co.uk>, 2009, 2010, 2011.
-# Steve Allewell <steve.allewell@gmail.com>, 2014, 2015, 2019, 2020, 2021, 2022.
+# Steve Allewell <steve.allewell@gmail.com>, 2014, 2015, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-26 01:01+0000\n"
-"PO-Revision-Date: 2022-12-31 17:34+0000\n"
+"PO-Revision-Date: 2023-02-27 20:56+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
-"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language-Team: English <kde-l10n-en_gb@kde.org>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,13 +119,13 @@ msgstr "Show Marks"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Focus Next Tab to the Left"
 
 #: plugin_katebuild.cpp:203
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Focus Next Tab to the Right"
 
 #: plugin_katebuild.cpp:227
 #, kde-format

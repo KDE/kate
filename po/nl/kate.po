@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 01:04+0000\n"
-"PO-Revision-Date: 2023-02-24 11:23+0100\n"
+"POT-Creation-Date: 2023-02-28 01:02+0000\n"
+"PO-Revision-Date: 2023-02-27 10:53+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -545,36 +545,26 @@ msgid "File History - %1"
 msgstr "Geschiedenis van bestand - %1"
 
 #: lib/kateapp.cpp:94
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Kate uitvoeren met sudo kan bugs veroorzaken en u blootstellen aan "
-"kwetsbaarheden bij beveiliging. Gebruik Kate normaal en u zult gevraagd "
-"worden naar verhoogde toegangsrechten, indien nodig, bij opslaan van "
-"documenten."
+"Deze bewerker uitvoeren met sudo kan bugs veroorzaken en u blootstellen aan "
+"kwetsbaarheden bij beveiliging. Gebruik deze bewerker normaal en u zult "
+"gevraagd worden naar verhoogde toegangsrechten, indien nodig, bij opslaan "
+"van documenten."
 
 #: lib/kateapp.cpp:101
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Kate uitvoeren met kdesu kan bugs veroorzaken en u blootstellen aan "
-"kwetsbaarheden bij beveiliging. Gebruik Kate normaal en u zult gevraagd "
-"worden naar verhoogde toegangsrechten, indien nodig, bij opslaan van "
-"documenten."
+"Deze bewerker uitvoeren met kdesu kan bugs veroorzaken en u blootstellen aan "
+"kwetsbaarheden bij beveiliging. Gebruik deze bewerker normaal en u zult "
+"gevraagd worden naar verhoogde toegangsrechten, indien nodig, bij opslaan "
+"van documenten."
 
 #: lib/kateapp.cpp:233
 #, kde-format
@@ -2512,24 +2502,24 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Heropenen"
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "De sessie kon niet worden hernoemd naar \"%1\". Schrijven naar \"%2\" is "
 "mislukt"
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "Sessie hernoemen"
 
-#: lib/session/katesessionmanager.cpp:472
+#: lib/session/katesessionmanager.cpp:483
 #, kde-format
 msgid "Session name:"
 msgstr "Sessienaam:"
 
-#: lib/session/katesessionmanager.cpp:474
+#: lib/session/katesessionmanager.cpp:485
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2538,17 +2528,17 @@ msgstr ""
 "Er bestaat al een sessie met de door u gekozen naam: %1\n"
 "Kies een andere."
 
-#: lib/session/katesessionmanager.cpp:476
+#: lib/session/katesessionmanager.cpp:487
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Geef een naam op om de nieuwe sessie te kunnen opslaan."
 
-#: lib/session/katesessionmanager.cpp:503
+#: lib/session/katesessionmanager.cpp:514
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Een nieuwe naam voor deze sessie specificeren"
 
-#: lib/session/katesessionmanager.cpp:505
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Een nieuwe naam specificeren voor sessie: %1"

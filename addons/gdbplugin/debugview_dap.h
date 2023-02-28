@@ -9,7 +9,6 @@
 #include <QObject>
 
 #include "configview.h"
-#include "dap/bus.h"
 #include "dap/client.h"
 #include "dap/entities.h"
 #include "dap/settings.h"
@@ -123,11 +122,13 @@ private:
     std::optional<QString> resolveFilename(const QString &filename, bool fallback = true) const;
     dap::settings::ClientSettings &target2dap(const DAPTargetConf &target);
     std::optional<int> findBreakpoint(const QString &path, int line) const;
+    std::optional<int> findBreakpointIntent(const QString &path, int line) const;
 
     void insertBreakpoint(const QString &path, int line);
-    void removeBreakpoint(const QString &path, int index);
+    // return false if nothing found
+    bool removeBreakpoint(const QString &path, int line);
     void informBreakpointAdded(const QString &path, const dap::Breakpoint &bpoint);
-    void informBreakpointRemoved(const QString &path, const std::optional<dap::Breakpoint> &bpoint);
+    void informBreakpointRemoved(const QString &path, int line);
     void clearBreakpoints();
     void informStackFrame();
 

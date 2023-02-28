@@ -10,7 +10,6 @@
 #include <pthread.h>
 #include <qregularexpression.h>
 
-#include "dap/bus_selector.h"
 #include "debugview_dap.h"
 #include "json_placeholders.h"
 
@@ -635,13 +634,11 @@ void DapDebugView::informBreakpointAdded(const QString &path, const dap::Breakpo
     }
 }
 
-void DapDebugView::informBreakpointRemoved(const QString &path, const std::optional<dap::Breakpoint> &bpoint)
+void DapDebugView::informBreakpointRemoved(const QString &path, int line)
 {
-    if (bpoint && bpoint->line) {
-        Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint cleared")).arg(path).arg(bpoint->line.value()));
-        // zero based line expected
-        Q_EMIT breakPointCleared(QUrl::fromLocalFile(path), bpoint->line.value() - 1);
-    }
+    Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint cleared")).arg(path).arg(line));
+    // zero based line expected
+    Q_EMIT breakPointCleared(QUrl::fromLocalFile(path), line - 1);
 }
 
 void DapDebugView::onSourceBreakpoints(const QString &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints)
@@ -820,6 +817,23 @@ std::optional<int> DapDebugView::findBreakpoint(const QString &path, int line) c
     return std::nullopt;
 }
 
+std::optional<int> DapDebugView::findBreakpointIntent(const QString &path, int line) const
+{
+    if (!m_wantedBreakpoints.contains(path)) {
+        return std::nullopt;
+    }
+
+    const auto &bpoints = m_wantedBreakpoints[path];
+    int index = 0;
+    for (const auto &bp : bpoints) {
+        if (bp.line == line) {
+            return index;
+        }
+        ++index;
+    }
+    return std::nullopt;
+}
+
 bool DapDebugView::hasBreakpoint(QUrl const &url, int line) const
 {
     return findBreakpoint(*resolveFilename(url.path()), line).has_value();
@@ -828,25 +842,46 @@ bool DapDebugView::hasBreakpoint(QUrl const &url, int line) const
 void DapDebugView::toggleBreakpoint(QUrl const &url, int line)
 {
     const auto path = resolveOrWarn(url.path());
-    const auto index = findBreakpoint(path, line);
 
-    if (index) {
-        // remove
-        removeBreakpoint(path, *index);
-    } else {
-        // insert
+    if (!removeBreakpoint(path, line)) {
         insertBreakpoint(path, line);
     }
 }
 
-void DapDebugView::removeBreakpoint(const QString &path, int index)
+bool DapDebugView::removeBreakpoint(const QString &path, int line)
 {
-    m_wantedBreakpoints[path].removeAt(index);
-    informBreakpointRemoved(path, m_breakpoints[path][index]);
-    m_breakpoints[path].removeAt(index);
+    bool informed = false;
+    // clear all breakpoints in the same line (there can be more than one)
+    auto index = findBreakpoint(path, line);
+    while (index) {
+        m_wantedBreakpoints[path].removeAt(*index);
+        m_breakpoints[path].removeAt(*index);
+        if (!informed) {
+            informBreakpointRemoved(path, line);
+            informed = true;
+        }
+        index = findBreakpoint(path, line);
+    }
+    // clear all breakpoint intents in the same line
+    index = findBreakpointIntent(path, line);
+    while (index) {
+        m_wantedBreakpoints[path].removeAt(*index);
+        if (!informed) {
+            informBreakpointRemoved(path, line);
+            informed = true;
+        }
+        index = findBreakpointIntent(path, line);
+    }
 
+    if (!informed) {
+        return false;
+    }
+
+    // update breakpoint table for this file
     pushRequest();
     m_client->requestSetBreakpoints(path, m_wantedBreakpoints[path], true);
+
+    return true;
 }
 
 void DapDebugView::insertBreakpoint(const QString &path, int line)
@@ -1295,6 +1330,11 @@ void DapDebugView::cmdBreakpointOn(const QString &cmd)
         path = resolveOrWarn(path);
     }
 
+    if (findBreakpoint(path, bp.line) || findBreakpointIntent(path, bp.line)) {
+        Q_EMIT outputError(newLine(i18n("line %1 already has a breakpoint", txtLine)));
+        return;
+    }
+
     m_wantedBreakpoints[path] << std::move(bp);
     m_breakpoints[path] << std::nullopt;
 
@@ -1335,13 +1375,9 @@ void DapDebugView::cmdBreakpointOff(const QString &cmd)
     }
     path = resolveOrWarn(path);
 
-    const auto index = findBreakpoint(path, line);
-    if (!index) {
+    if (!removeBreakpoint(path, line)) {
         Q_EMIT outputError(newLine(i18n("breakpoint not found (%1:%2)", path, line)));
-        return;
     }
-
-    removeBreakpoint(path, *index);
 }
 
 void DapDebugView::cmdWhereami(const QString &)

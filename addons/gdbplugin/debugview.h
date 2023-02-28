@@ -127,7 +127,8 @@ private:
     void updateInspectable(bool inspectable);
 
     BreakPoint parseBreakpoint(const QJsonObject &item);
-    int findBreakpoint(const QUrl &url, int line) const;
+    int findFirstBreakpoint(const QUrl &url, int line) const;
+    QStringList findAllBreakpoints(const QUrl &url, int line) const;
     void deleteBreakpoint(const int bpNumber);
     void insertBreakpoint(const QJsonObject &item);
     QString makeCmdBreakInsert(const QUrl &url, int line, bool pending = false, bool temporal = false) const;

@@ -319,7 +319,7 @@ bool DebugView::debuggerBusy() const
     return (m_state == executingCmd) || !m_nextCommands.isEmpty();
 }
 
-int DebugView::findBreakpoint(const QUrl &url, int line) const
+int DebugView::findFirstBreakpoint(const QUrl &url, int line) const
 {
     for (auto it = m_breakpointTable.constBegin(); it != m_breakpointTable.constEnd(); ++it) {
         if ((url == it.value().file) && (line == it.value().line)) {
@@ -329,9 +329,20 @@ int DebugView::findBreakpoint(const QUrl &url, int line) const
     return -1;
 }
 
+QStringList DebugView::findAllBreakpoints(const QUrl &url, int line) const
+{
+    QStringList out;
+    for (auto it = m_breakpointTable.constBegin(); it != m_breakpointTable.constEnd(); ++it) {
+        if ((url == it.value().file) && (line == it.value().line)) {
+            out << QString::number(it.key());
+        }
+    }
+    return out;
+}
+
 bool DebugView::hasBreakpoint(const QUrl &url, int line) const
 {
-    return findBreakpoint(url, line) >= 0;
+    return findFirstBreakpoint(url, line) >= 0;
 }
 
 QString DebugView::makeCmdBreakInsert(const QUrl &url, int line, bool pending, bool temporal) const
@@ -346,16 +357,19 @@ QString DebugView::makeCmdBreakInsert(const QUrl &url, int line, bool pending, b
 
 void DebugView::toggleBreakpoint(QUrl const &url, int line)
 {
-    if (m_state == ready) {
-        QString cmd;
-        int bpNumber = findBreakpoint(url, line);
-        if (bpNumber >= 0) {
-            cmd = QStringLiteral("-break-delete %1").arg(bpNumber);
-        } else {
-            cmd = makeCmdBreakInsert(url, line, true);
-        }
-        issueCommand(cmd);
+    if (m_state != ready) {
+        return;
     }
+
+    QString cmd;
+    const auto bpNumbers = findAllBreakpoints(url, line);
+    if (bpNumbers.empty()) {
+        cmd = makeCmdBreakInsert(url, line, true);
+    } else {
+        // delete all bpoints in that line
+        cmd = QStringLiteral("-break-delete %1").arg(bpNumbers.join(QLatin1Char(' ')));
+    }
+    issueCommand(cmd);
 }
 
 void DebugView::slotError()
@@ -1130,7 +1144,10 @@ void DebugView::notifyMIBreakpointModified(const gdbmi::Record &record)
     const auto &oldBp = m_breakpointTable[newBp.number];
 
     if ((oldBp.line != newBp.line) || (oldBp.file != newBp.file)) {
-        Q_EMIT breakPointCleared(oldBp.file, oldBp.line - 1);
+        if (findFirstBreakpoint(oldBp.file, oldBp.line) < 0) {
+            // this is the last bpoint in this line
+            Q_EMIT breakPointCleared(oldBp.file, oldBp.line - 1);
+        }
         m_breakpointTable[newBp.number] = newBp;
         Q_EMIT breakPointSet(newBp.file, newBp.line - 1);
     }
@@ -1142,7 +1159,10 @@ void DebugView::deleteBreakpoint(const int bpNumber)
         return;
     }
     const auto bp = m_breakpointTable.take(bpNumber);
-    Q_EMIT breakPointCleared(bp.file, bp.line - 1);
+    if (findFirstBreakpoint(bp.file, bp.line) < 0) {
+        // this is the last bpoint in this line
+        Q_EMIT breakPointCleared(bp.file, bp.line - 1);
+    }
 }
 
 void DebugView::notifyMIBreakpointDeleted(const gdbmi::Record &record)

@@ -54,6 +54,12 @@
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
 
+static QString ksshaskpass()
+{
+    static const QString res = safeExecutableName(QStringLiteral("ksshaskpass"));
+    return res;
+}
+
 class NumStatStyle final : public QStyledItemDelegate
 {
     static const int RightMargin = 2;
@@ -375,6 +381,7 @@ GitWidget::~GitWidget()
 {
     if (m_cancelHandle) {
         m_cancelHandle->kill();
+        m_cancelHandle->waitForFinished();
     }
 
     // if there are any living processes, disconnect them now before gitwidget get destroyed
@@ -547,6 +554,20 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
 void GitWidget::runPushPullCmd(const QStringList &args)
 {
     auto git = gitp(args);
+    // Honor the user's SSH_ASKPASS env if set
+    QString pass = QString::fromUtf8(qgetenv("SSH_ASKPASS"));
+    // otherwise try to use ksshaskpass
+    if (pass.isEmpty()) {
+        pass = ksshaskpass();
+    }
+
+    if (!pass.isEmpty()) {
+        QStringList env = QProcess::systemEnvironment();
+        env.append(QStringLiteral("SSH_ASKPASS=%1").arg(pass));
+        // put this fu**ing env var in so the above one is actually honored
+        env.append(QStringLiteral("SSH_ASKPASS_REQUIRE=force"));
+        git->setEnvironment(env);
+    }
     git->setProcessChannelMode(QProcess::MergedChannels);
 
     connect(git, &QProcess::finished, this, [this, args, git](int exitCode, QProcess::ExitStatus es) {

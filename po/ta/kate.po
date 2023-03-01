@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 03:20+0000\n"
+"POT-Creation-Date: 2023-03-01 00:52+0000\n"
 "PO-Revision-Date: 2023-01-31 19:48+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -2037,7 +2037,7 @@ msgstr "இயக்கு"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> செருகுநிரலை இயக்க முடியவில்லை"
 
-#: lib/kateviewmanager.cpp:1236
+#: lib/kateviewmanager.cpp:1246
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "இக்காட்சிப்பகுதியில் சேமிக்கப்படாதவை இருக்கலாம். உறுதியாக இதை மூட வேண்டுமா?"
@@ -2073,57 +2073,57 @@ msgstr[1] ""
 "இன்னும் %1 ஆவணங்கள் தற்போது திறக்கப்பட்டுள்ளன. திறக்கப்பட்டுள்ள அனைத்து ஆவணங்களை பார்க்க, "
 "இங்கே அழுத்தி விரைவாக திறக்கும் படிவத்திற்கு தாவுங்கள்."
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:992
 #, kde-format
 msgid "Close Tab"
 msgstr "கீற்றை மூடு"
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1010
 #, kde-format
 msgid "&Close Document"
 msgstr "&ஆவணத்தை மூடு"
 
-#: lib/kateviewspace.cpp:996
+#: lib/kateviewspace.cpp:1011
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "&மற்ற ஆவணங்களை மூடு"
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:1012
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&அனைத்து ஆவணங்களையும் மூடு"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:1014
 #, kde-format
 msgid "D&etach Document"
 msgstr "ஆவணத்தை &பிரித்தெடு"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1015
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ஆவணத்தைப் இச்சாளரத்தில் மூடி, புதிய சாளரத்தில் திறக்கும்"
 
-#: lib/kateviewspace.cpp:1009
+#: lib/kateviewspace.cpp:1024
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "செயலிலுள்ள ஆவணத்துடன் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1013
+#: lib/kateviewspace.cpp:1028
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "%1 .. %2 இடையே வித்தியாசங்காண்"
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1033
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "செயலிலுள்ள ஆவணத்துடன் வேறு நிரலால் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Could not start program"
 msgstr "செயலியை துவக்க முடியவில்லை"
 
-#: lib/kateviewspace.cpp:1086
+#: lib/kateviewspace.cpp:1101
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2270,23 +2270,23 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "மீண்டும் திற"
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "\"%1\" என்று அமர்வின் பெயரை மாற்ற முடியவில்லை. \"%2\" என்பதற்கு எழுத முடியவில்லை."
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "அமர்வின் பெயரை மாற்றல்"
 
-#: lib/session/katesessionmanager.cpp:471
+#: lib/session/katesessionmanager.cpp:482
 #, kde-format
 msgid "Session name:"
 msgstr "அமர்வின் பெயர்:"
 
-#: lib/session/katesessionmanager.cpp:473
+#: lib/session/katesessionmanager.cpp:484
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2295,17 +2295,17 @@ msgstr ""
 "இப்பெயரில் ஏற்கனவே ஒரு அமர்வு உள்ளது: %1\n"
 "வேறு பெயரை தேர்ந்தெடுங்கள்."
 
-#: lib/session/katesessionmanager.cpp:475
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ஒரு அமர்வை சேமிக்க, நீங்கள் அதற்குரிய பெயரை குறிப்பிடவேண்டும்."
 
-#: lib/session/katesessionmanager.cpp:502
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "இந்த அமர்வுக்கான பெயரைக் குறிப்பிடவும்"
 
-#: lib/session/katesessionmanager.cpp:504
+#: lib/session/katesessionmanager.cpp:515
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "பின்வரும் அமர்வுக்கான பெயரைக் குறிப்பிடவும்: %1"

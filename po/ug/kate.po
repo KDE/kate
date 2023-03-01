@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 03:20+0000\n"
+"POT-Creation-Date: 2023-03-01 00:52+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -2068,7 +2068,7 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1236
+#: lib/kateviewmanager.cpp:1246
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2099,64 +2099,64 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:992
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "ياپ"
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1010
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "پۈتۈك ياپ"
 
-#: lib/kateviewspace.cpp:996
+#: lib/kateviewspace.cpp:1011
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "پۈتۈك ياپ"
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:1012
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "بارلىق پۈتۈكلەرنى ياپ"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:1014
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "كېيىنكى پۈتۈك"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1015
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1009
+#: lib/kateviewspace.cpp:1024
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "نۆۋەتتىكى پۈتۈكنى ياپ."
 
-#: lib/kateviewspace.cpp:1013
+#: lib/kateviewspace.cpp:1028
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "نۆۋەتتىكى پۈتۈكنى ياپ."
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1086
+#: lib/kateviewspace.cpp:1101
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2303,7 +2303,7 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2313,17 +2313,17 @@ msgstr ""
 "ئەڭگىمە ئاتىنى «%1» غا ئۆزگەرتكىلى بولمىدى. ئوخشاش ئاتتىكى باشقا بىر ئەڭگىمە "
 "مەۋجۇت"
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "ئەڭگىمە ئاتىنى ئۆزگەرتىش"
 
-#: lib/session/katesessionmanager.cpp:471
+#: lib/session/katesessionmanager.cpp:482
 #, kde-format
 msgid "Session name:"
 msgstr "ئەڭگىمە ئاتى:"
 
-#: lib/session/katesessionmanager.cpp:473
+#: lib/session/katesessionmanager.cpp:484
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2337,18 +2337,18 @@ msgstr ""
 "باشقا بىر ئات تاللاڭ\n"
 "ئەڭگىمە ئاتى:"
 
-#: lib/session/katesessionmanager.cpp:475
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ئەڭگىمەنى ساقلاش ئۈچۈن چوقۇم ئاتىنى بەلگىلەپ بېرىشىڭىز كېرەك."
 
-#: lib/session/katesessionmanager.cpp:502
+#: lib/session/katesessionmanager.cpp:513
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "ئەڭگىمەنىڭ يېڭى ئاتىنى بەلگىلەڭ"
 
-#: lib/session/katesessionmanager.cpp:504
+#: lib/session/katesessionmanager.cpp:515
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

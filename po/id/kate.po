@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 03:20+0000\n"
+"POT-Creation-Date: 2023-03-01 00:52+0000\n"
 "PO-Revision-Date: 2023-01-02 07:25+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -2094,7 +2094,7 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1236
+#: lib/kateviewmanager.cpp:1246
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2130,62 +2130,62 @@ msgstr[1] ""
 "Saat ini, ada %1 lagi dokumen yang terbuka. Untuk melihat semua dokumen yang "
 "terbuka, ganti ke tampilan Buka Cepat dengan klik di sini."
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:992
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "Tutup"
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1010
 #, kde-format
 msgid "&Close Document"
 msgstr "&Tutup Dokumen"
 
-#: lib/kateviewspace.cpp:996
+#: lib/kateviewspace.cpp:1011
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Tutup &Dokumen Lainnya"
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:1012
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Tutup semua dokumen"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:1014
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Dokumen Selanjutnya"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1015
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1009
+#: lib/kateviewspace.cpp:1024
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1013
+#: lib/kateviewspace.cpp:1028
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Could not start program"
 msgstr "Tidak bisa memulai program"
 
-#: lib/kateviewspace.cpp:1086
+#: lib/kateviewspace.cpp:1101
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Program yang dipilih tidak bisa dimulai. Mungkin ia belum diinstal."
@@ -2335,24 +2335,24 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Sesi tidak dapat diubah nama menjadi \"%1\". Gagal menulis ke \"%2\""
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "Pengubahan Nama Sesi"
 
-#: lib/session/katesessionmanager.cpp:471
+#: lib/session/katesessionmanager.cpp:482
 #, kde-format
 msgid "Session name:"
 msgstr "Nama sesi:"
 
-#: lib/session/katesessionmanager.cpp:473
+#: lib/session/katesessionmanager.cpp:484
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2361,17 +2361,17 @@ msgstr ""
 "Sudah ada sesi yang memakai nama yang sama dengan nama yang kamu pilih: %1\n"
 "Mohon pilih nama yang berbeda."
 
-#: lib/session/katesessionmanager.cpp:475
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Untuk menyimpan sesi, Anda harus memberinya sebuah nama."
 
-#: lib/session/katesessionmanager.cpp:502
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Tentukan sebuah nama untuk sesi ini"
 
-#: lib/session/katesessionmanager.cpp:504
+#: lib/session/katesessionmanager.cpp:515
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Tentukan sebuah nama untuk sesi: %1"

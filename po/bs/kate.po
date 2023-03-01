@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 03:20+0000\n"
+"POT-Creation-Date: 2023-03-01 00:52+0000\n"
 "PO-Revision-Date: 2014-01-31 19:52+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -2125,7 +2125,7 @@ msgstr "Uključeno"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1236
+#: lib/kateviewmanager.cpp:1246
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2158,64 +2158,64 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:992
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "Zatvori"
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1010
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "Zatvori dokument"
 
-#: lib/kateviewspace.cpp:996
+#: lib/kateviewspace.cpp:1011
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "Zatvori dokument"
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:1012
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Zatvori sve dokumente"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:1014
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Naredni dokument"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1015
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1009
+#: lib/kateviewspace.cpp:1024
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "Zatvori tekući dokument."
 
-#: lib/kateviewspace.cpp:1013
+#: lib/kateviewspace.cpp:1028
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "Zatvori tekući dokument."
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1086
+#: lib/kateviewspace.cpp:1101
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2366,7 +2366,7 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2374,17 +2374,17 @@ msgstr ""
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Sesija se ne može preimenovati u „%1“, jer istoimena već postoji."
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "Preimenovanje sesije"
 
-#: lib/session/katesessionmanager.cpp:471
+#: lib/session/katesessionmanager.cpp:482
 #, kde-format
 msgid "Session name:"
 msgstr "Ime sesije:"
 
-#: lib/session/katesessionmanager.cpp:473
+#: lib/session/katesessionmanager.cpp:484
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2398,18 +2398,18 @@ msgstr ""
 "Izaberite neko drugo.\n"
 "Ime sesije:"
 
-#: lib/session/katesessionmanager.cpp:475
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Morate navesti ime da biste sačuvali sesiju."
 
-#: lib/session/katesessionmanager.cpp:502
+#: lib/session/katesessionmanager.cpp:513
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Navedite novo ime za sesiju"
 
-#: lib/session/katesessionmanager.cpp:504
+#: lib/session/katesessionmanager.cpp:515
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

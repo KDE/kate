@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 03:20+0000\n"
+"POT-Creation-Date: 2023-03-01 00:52+0000\n"
 "PO-Revision-Date: 2022-11-18 09:50+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -2068,7 +2068,7 @@ msgstr "Omogoči"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Omogočenje vtičnika <b>%1</b> ni uspelo"
 
-#: lib/kateviewmanager.cpp:1236
+#: lib/kateviewmanager.cpp:1246
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "Ta pogled ima morda neshranjeno delo. Ali ga zares želite zapreti?"
@@ -2110,57 +2110,57 @@ msgstr[3] ""
 "Trenutno je odprtih še %1 dokumentov. Kliknite sem, da preklopite na pogled "
 "hitrega odpiranja in vidite vse odprte dokumente."
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:992
 #, kde-format
 msgid "Close Tab"
 msgstr "Zapri zavihek"
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1010
 #, kde-format
 msgid "&Close Document"
 msgstr "Zapri dokument"
 
-#: lib/kateviewspace.cpp:996
+#: lib/kateviewspace.cpp:1011
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Zapri druge &dokumente"
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:1012
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Zapri vse dokumente"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:1014
 #, kde-format
 msgid "D&etach Document"
 msgstr "Odpni dokument"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1015
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Odpre dokument v novem oknu in ga zapre v trenutnem oknu"
 
-#: lib/kateviewspace.cpp:1009
+#: lib/kateviewspace.cpp:1024
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Primerjaj z aktivnim dokumentom"
 
-#: lib/kateviewspace.cpp:1013
+#: lib/kateviewspace.cpp:1028
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Razlika %1 .. %2"
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1033
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Primerjaj z aktivnim dokumentom z uporabo"
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Could not start program"
 msgstr "Programa ni bilo moč zagnati"
 
-#: lib/kateviewspace.cpp:1086
+#: lib/kateviewspace.cpp:1101
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Izbranega programa ni bilo moč zagnati. Morda sploh ni nameščen."
@@ -2305,23 +2305,23 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Ponovno odpri"
 
-#: lib/session/katesessionmanager.cpp:321
+#: lib/session/katesessionmanager.cpp:332
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Seje ni bilo mogoče preimenovati v \"%1\". Ni bilo mogoče pisati v \"%2\""
 
-#: lib/session/katesessionmanager.cpp:322
+#: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
 msgstr "Preimenovanje seje"
 
-#: lib/session/katesessionmanager.cpp:471
+#: lib/session/katesessionmanager.cpp:482
 #, kde-format
 msgid "Session name:"
 msgstr "Ime seje:"
 
-#: lib/session/katesessionmanager.cpp:473
+#: lib/session/katesessionmanager.cpp:484
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2330,17 +2330,17 @@ msgstr ""
 "Seja z izbranim imenom že obstaja: %1\n"
 "Prosim, izberite drugačno ime."
 
-#: lib/session/katesessionmanager.cpp:475
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Za shranitev seje morate navesti njeno ime."
 
-#: lib/session/katesessionmanager.cpp:502
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Navedite ime za to sejo"
 
-#: lib/session/katesessionmanager.cpp:504
+#: lib/session/katesessionmanager.cpp:515
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Navedite novo ime za sejo: %1"

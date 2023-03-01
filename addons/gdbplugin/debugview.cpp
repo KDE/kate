@@ -1185,11 +1185,13 @@ void DebugView::notifyMIBreakpointModified(const gdbmi::Record &record)
     const auto &oldBp = m_breakpointTable[newBp.number];
 
     if ((oldBp.line != newBp.line) || (oldBp.file != newBp.file)) {
-        if (findFirstBreakpoint(oldBp.file, oldBp.line) < 0) {
-            // this is the last bpoint in this line
-            Q_EMIT breakPointCleared(oldBp.file, oldBp.line - 1);
-        }
+        const QUrl oldFile = oldBp.file;
+        const int oldLine = oldBp.line;
         m_breakpointTable[newBp.number] = newBp;
+        if (findFirstBreakpoint(oldFile, oldLine) < 0) {
+            // this is the last bpoint in this line
+            Q_EMIT breakPointCleared(oldFile, oldLine - 1);
+        }
         Q_EMIT breakPointSet(newBp.file, newBp.line - 1);
     }
 }

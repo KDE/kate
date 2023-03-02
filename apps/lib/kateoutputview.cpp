@@ -377,7 +377,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         indicatorLoopCount = 1;
     }
 
-    if (!m_fadingIndicator && indicatorLoopCount >= 0) {
+    if (!m_fadingIndicator && indicatorLoopCount >= 0 && tabButton) {
         m_fadingIndicator = new NewMsgIndicator(tabButton);
         m_fadingIndicator->run(indicatorLoopCount, color);
         connect(tabButton, SIGNAL(clicked()), m_fadingIndicator, SLOT(stop()));

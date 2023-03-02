@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-15 01:02+0000\n"
+"POT-Creation-Date: 2023-03-02 00:58+0000\n"
 "PO-Revision-Date: 2023-01-23 02:37+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -93,7 +93,7 @@ msgstr[1] "¿Seguro que desea borrar las ramas seleccionadas?"
 msgid "Select Branch..."
 msgstr "Seleccionar rama..."
 
-#: branchesdialog.cpp:128 gitwidget.cpp:483 kateprojectpluginview.cpp:68
+#: branchesdialog.cpp:128 gitwidget.cpp:490 kateprojectpluginview.cpp:68
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -126,7 +126,7 @@ msgstr "Rama activa: %1"
 msgid "Commit Changes"
 msgstr "Confirmar cambios"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:245
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:251
 #, kde-format
 msgid "Commit"
 msgstr "Confirmar"
@@ -156,7 +156,7 @@ msgstr "Firmar"
 msgid "Amend"
 msgstr "Rectificar"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:940
+#: gitcommitdialog.cpp:112 gitwidget.cpp:961
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Rectificar el último envío"
@@ -198,310 +198,310 @@ msgstr "Conflicto"
 msgid "Modified"
 msgstr "Modificado"
 
-#: gitwidget.cpp:253
+#: gitwidget.cpp:259
 #, kde-format
 msgid "Git Push"
 msgstr "Envío de git"
 
-#: gitwidget.cpp:266
+#: gitwidget.cpp:272
 #, kde-format
 msgid "Git Pull"
 msgstr "Descarga de git"
 
-#: gitwidget.cpp:279
+#: gitwidget.cpp:285
 #, kde-format
 msgid "Cancel Operation"
 msgstr "Cancelar operación"
 
-#: gitwidget.cpp:287
+#: gitwidget.cpp:293
 #, kde-format
 msgid " canceled."
 msgstr " cancelada."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:59
+#: gitwidget.cpp:314 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
 msgstr "Filtro..."
 
-#: gitwidget.cpp:394
+#: gitwidget.cpp:401
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
 "No se ha podido encontrar el directorio .git para «%1». Es posible que algo "
 "no funcione correctamente."
 
-#: gitwidget.cpp:554
+#: gitwidget.cpp:575
 #, kde-format
 msgid " error: %1"
 msgstr " error: %1"
 
-#: gitwidget.cpp:560
+#: gitwidget.cpp:581
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "«%1» se ha ejecutado correctamente: %2"
 
-#: gitwidget.cpp:580
+#: gitwidget.cpp:601
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "No se ha podido añadir el archivo. Error:"
 
-#: gitwidget.cpp:593
+#: gitwidget.cpp:614
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "No se ha podido quitar el archivo. Error:"
 
-#: gitwidget.cpp:604
+#: gitwidget.cpp:625
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "No se han podido descartar los cambios. Error:"
 
-#: gitwidget.cpp:615
+#: gitwidget.cpp:636
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "No se ha podido eliminar. Error:"
 
-#: gitwidget.cpp:631
+#: gitwidget.cpp:652
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "No se ha podido abrir el archivo en HEAD: %1"
 
-#: gitwidget.cpp:663
+#: gitwidget.cpp:684
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "No se han podido obtener las diferencias del archivo: %1"
 
-#: gitwidget.cpp:730
+#: gitwidget.cpp:751
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "No se ha podido confirmar: %1"
 
-#: gitwidget.cpp:734
+#: gitwidget.cpp:755
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Cambios confirmados correctamente."
 
-#: gitwidget.cpp:744
+#: gitwidget.cpp:765
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "No hay nada a confirmar. Añada los cambios primero."
 
-#: gitwidget.cpp:757
+#: gitwidget.cpp:778
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "El mensaje de confirmación no puede estar vacío."
 
-#: gitwidget.cpp:872
+#: gitwidget.cpp:893
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "No hay diferencias para %1...%2"
 
-#: gitwidget.cpp:878
+#: gitwidget.cpp:899
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "No se ha podido comparar %1...%2"
 
-#: gitwidget.cpp:893
+#: gitwidget.cpp:914
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "No se ha podido obtener «numstat» al buscar las diferencias %1...%2"
 
-#: gitwidget.cpp:932
+#: gitwidget.cpp:953
 #, kde-format
 msgid "Refresh"
 msgstr "Refrescar"
 
-#: gitwidget.cpp:948
+#: gitwidget.cpp:969
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Cambiar a rama"
 
-#: gitwidget.cpp:960
+#: gitwidget.cpp:981
 #, kde-format
 msgid "Delete Branch"
 msgstr "Borrar rama"
 
-#: gitwidget.cpp:972
+#: gitwidget.cpp:993
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Comparar rama con..."
 
-#: gitwidget.cpp:976
+#: gitwidget.cpp:997
 #, kde-format
 msgid "Show Commit"
 msgstr "Mostrar confirmación"
 
-#: gitwidget.cpp:976
+#: gitwidget.cpp:997
 #, kde-format
 msgid "Commit hash"
 msgstr "Hash de la confirmación"
 
-#: gitwidget.cpp:981
+#: gitwidget.cpp:1002
 #, kde-format
 msgid "Open Commit..."
 msgstr "Abrir confirmación..."
 
-#: gitwidget.cpp:984 gitwidget.cpp:1023
+#: gitwidget.cpp:1005 gitwidget.cpp:1044
 #, kde-format
 msgid "Stash"
 msgstr "Reservar"
 
-#: gitwidget.cpp:994
+#: gitwidget.cpp:1015
 #, kde-format
 msgid "Diff - stash"
 msgstr "Diferencias - reserva"
 
-#: gitwidget.cpp:1027
+#: gitwidget.cpp:1048
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Recuperar última reserva"
 
-#: gitwidget.cpp:1031
+#: gitwidget.cpp:1052
 #, kde-format
 msgid "Pop Stash"
 msgstr "Recuperar reserva"
 
-#: gitwidget.cpp:1035
+#: gitwidget.cpp:1056
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Aplicar la última reserva"
 
-#: gitwidget.cpp:1037
+#: gitwidget.cpp:1058
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Reservar (mantener añadidos)"
 
-#: gitwidget.cpp:1041
+#: gitwidget.cpp:1062
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Reservar (incluir no seguidos)"
 
-#: gitwidget.cpp:1045
+#: gitwidget.cpp:1066
 #, kde-format
 msgid "Apply Stash"
 msgstr "Aplicar reserva"
 
-#: gitwidget.cpp:1046
+#: gitwidget.cpp:1067
 #, kde-format
 msgid "Drop Stash"
 msgstr "Descartar reserva"
 
-#: gitwidget.cpp:1047
+#: gitwidget.cpp:1068
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Mostrar el contenido de la reserva"
 
-#: gitwidget.cpp:1087
+#: gitwidget.cpp:1108
 #, kde-format
 msgid "Stage All"
 msgstr "Añadir todo"
 
-#: gitwidget.cpp:1089
+#: gitwidget.cpp:1110
 #, kde-format
 msgid "Remove All"
 msgstr "Eliminar todo"
 
-#: gitwidget.cpp:1089
+#: gitwidget.cpp:1110
 #, kde-format
 msgid "Discard All"
 msgstr "Descartar todo"
 
-#: gitwidget.cpp:1092
+#: gitwidget.cpp:1113
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Abrir .gitignore"
 
-#: gitwidget.cpp:1093 gitwidget.cpp:1148 gitwidget.cpp:1198
+#: gitwidget.cpp:1114 gitwidget.cpp:1169 gitwidget.cpp:1219
 #: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Mostrar diferencias"
 
-#: gitwidget.cpp:1110
+#: gitwidget.cpp:1131
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "¿Seguro que desea eliminar estos archivos?"
 
-#: gitwidget.cpp:1119
+#: gitwidget.cpp:1140
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "¿Seguro que desea descartar todos los cambios?"
 
-#: gitwidget.cpp:1147
+#: gitwidget.cpp:1168
 #, kde-format
 msgid "Open File"
 msgstr "Abrir archivo"
 
-#: gitwidget.cpp:1149
+#: gitwidget.cpp:1170
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Mostrar en herramienta de diferencias git externa"
 
-#: gitwidget.cpp:1150
+#: gitwidget.cpp:1171
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Abrir en HEAD"
 
-#: gitwidget.cpp:1151
+#: gitwidget.cpp:1172
 #, kde-format
 msgid "Unstage File"
 msgstr "Quitar archivo"
 
-#: gitwidget.cpp:1151
+#: gitwidget.cpp:1172
 #, kde-format
 msgid "Stage File"
 msgstr "Añadir archivo"
 
-#: gitwidget.cpp:1152
+#: gitwidget.cpp:1173
 #, kde-format
 msgid "Remove"
 msgstr "Eliminar"
 
-#: gitwidget.cpp:1152
+#: gitwidget.cpp:1173
 #, kde-format
 msgid "Discard"
 msgstr "Descartar"
 
-#: gitwidget.cpp:1169
+#: gitwidget.cpp:1190
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "¿Seguro que desea descartar todos los cambios de este archivo?"
 
-#: gitwidget.cpp:1182
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "¿Seguro que desea eliminar este archivo?"
 
-#: gitwidget.cpp:1197
+#: gitwidget.cpp:1218
 #, kde-format
 msgid "Unstage All"
 msgstr "Quitar todo"
 
-#: gitwidget.cpp:1264
+#: gitwidget.cpp:1285
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Quitar los archivos seleccionados"
 
-#: gitwidget.cpp:1264
+#: gitwidget.cpp:1285
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Añadir los archivos seleccionados"
 
-#: gitwidget.cpp:1265
+#: gitwidget.cpp:1286
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Descartar los archivos seleccionados"
 
-#: gitwidget.cpp:1269
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Eliminar los archivos seleccionados"
 
-#: gitwidget.cpp:1282
+#: gitwidget.cpp:1303
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "¿Seguro que desea descartar los cambios?"
 
-#: gitwidget.cpp:1291
+#: gitwidget.cpp:1312
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "¿Seguro que desea eliminar estos cambios no seguidos?"

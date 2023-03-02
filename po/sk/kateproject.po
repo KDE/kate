@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-15 01:02+0000\n"
+"POT-Creation-Date: 2023-03-02 00:58+0000\n"
 "PO-Revision-Date: 2023-01-31 18:13+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -93,7 +93,7 @@ msgstr[2] "Naozaj chcete vymazať vybrané vetvy?"
 msgid "Select Branch..."
 msgstr "Vybrať vetvu..."
 
-#: branchesdialog.cpp:128 gitwidget.cpp:483 kateprojectpluginview.cpp:68
+#: branchesdialog.cpp:128 gitwidget.cpp:490 kateprojectpluginview.cpp:68
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -126,7 +126,7 @@ msgstr "Aktívna vetva: %1"
 msgid "Commit Changes"
 msgstr "Začleniť zmeny"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:245
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:251
 #, kde-format
 msgid "Commit"
 msgstr "Začleniť"
@@ -156,7 +156,7 @@ msgstr "Odhlásiť sa"
 msgid "Amend"
 msgstr "Doplniť"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:940
+#: gitcommitdialog.cpp:112 gitwidget.cpp:961
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Doplniť posledné začlenenie"
@@ -198,309 +198,309 @@ msgstr "Konflikt"
 msgid "Modified"
 msgstr "Zmenené"
 
-#: gitwidget.cpp:253
+#: gitwidget.cpp:259
 #, kde-format
 msgid "Git Push"
 msgstr "Git Push"
 
-#: gitwidget.cpp:266
+#: gitwidget.cpp:272
 #, kde-format
 msgid "Git Pull"
 msgstr "Git Pull"
 
-#: gitwidget.cpp:279
+#: gitwidget.cpp:285
 #, kde-format
 msgid "Cancel Operation"
 msgstr "Zrušiť operáciu"
 
-#: gitwidget.cpp:287
+#: gitwidget.cpp:293
 #, kde-format
 msgid " canceled."
 msgstr " zrušené."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:59
+#: gitwidget.cpp:314 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrovať..."
 
-#: gitwidget.cpp:394
+#: gitwidget.cpp:401
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
 "Nepodarilo sa nájsť adresár .git pre '%1', veci nemusia fungovať správne"
 
-#: gitwidget.cpp:554
+#: gitwidget.cpp:575
 #, kde-format
 msgid " error: %1"
 msgstr " chyba: %1"
 
-#: gitwidget.cpp:560
+#: gitwidget.cpp:581
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "\"%1\" úspešne vykonané: %2"
 
-#: gitwidget.cpp:580
+#: gitwidget.cpp:601
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Nepodarilo sa označiť súbor. Chyba:"
 
-#: gitwidget.cpp:593
+#: gitwidget.cpp:614
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Nepodarilo sa zrušiť označenie súboru. Chyba:"
 
-#: gitwidget.cpp:604
+#: gitwidget.cpp:625
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Nepodarilo sa zahodiť zmeny. Chyba:"
 
-#: gitwidget.cpp:615
+#: gitwidget.cpp:636
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Nepodarilo sa odstrániť. Chyba:"
 
-#: gitwidget.cpp:631
+#: gitwidget.cpp:652
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Nepodarilo sa otvoriť súbor na HEAD: %1"
 
-#: gitwidget.cpp:663
+#: gitwidget.cpp:684
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Nepodarilo sa získať Diff súboru: %1"
 
-#: gitwidget.cpp:730
+#: gitwidget.cpp:751
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Nepodarilo sa začleniť: %1"
 
-#: gitwidget.cpp:734
+#: gitwidget.cpp:755
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Zmeny boli úspešne začlenené."
 
-#: gitwidget.cpp:744
+#: gitwidget.cpp:765
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Nič na začlenenie. Prosím, najskôr označte svoje zmeny."
 
-#: gitwidget.cpp:757
+#: gitwidget.cpp:778
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Správa začlenenia nemôže byť prázdna."
 
-#: gitwidget.cpp:872
+#: gitwidget.cpp:893
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Žiadny rozdiel pre %1...%2"
 
-#: gitwidget.cpp:878
+#: gitwidget.cpp:899
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Nepodarilo sa porovnať %1...%2"
 
-#: gitwidget.cpp:893
+#: gitwidget.cpp:914
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Nepodarilo sa získať numstat pri porovnávaní %1...%2"
 
-#: gitwidget.cpp:932
+#: gitwidget.cpp:953
 #, kde-format
 msgid "Refresh"
 msgstr "Obnoviť"
 
-#: gitwidget.cpp:948
+#: gitwidget.cpp:969
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Získať vetvu"
 
-#: gitwidget.cpp:960
+#: gitwidget.cpp:981
 #, kde-format
 msgid "Delete Branch"
 msgstr "Vybrať vetvu"
 
-#: gitwidget.cpp:972
+#: gitwidget.cpp:993
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Porovnať vetvu s..."
 
-#: gitwidget.cpp:976
+#: gitwidget.cpp:997
 #, kde-format
 msgid "Show Commit"
 msgstr "Zobraziť začlenenie"
 
-#: gitwidget.cpp:976
+#: gitwidget.cpp:997
 #, kde-format
 msgid "Commit hash"
 msgstr "Hash začlenenie"
 
-#: gitwidget.cpp:981
+#: gitwidget.cpp:1002
 #, kde-format
 msgid "Open Commit..."
 msgstr "Otvoriť začlenenie..."
 
-#: gitwidget.cpp:984 gitwidget.cpp:1023
+#: gitwidget.cpp:1005 gitwidget.cpp:1044
 #, kde-format
 msgid "Stash"
 msgstr "Úschovňa"
 
-#: gitwidget.cpp:994
+#: gitwidget.cpp:1015
 #, kde-format
 msgid "Diff - stash"
 msgstr "Rozdiel - úschovňa"
 
-#: gitwidget.cpp:1027
+#: gitwidget.cpp:1048
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Aplikovať a vymazať poslednú úschovňu"
 
-#: gitwidget.cpp:1031
+#: gitwidget.cpp:1052
 #, kde-format
 msgid "Pop Stash"
 msgstr "Aplikovať a vymazať úschovňu"
 
-#: gitwidget.cpp:1035
+#: gitwidget.cpp:1056
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Aplikovať poslednú úschovňu"
 
-#: gitwidget.cpp:1037
+#: gitwidget.cpp:1058
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Úschovňa (Ponechať označené)"
 
-#: gitwidget.cpp:1041
+#: gitwidget.cpp:1062
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Úschovňa (vrátane nesledovaných)"
 
-#: gitwidget.cpp:1045
+#: gitwidget.cpp:1066
 #, kde-format
 msgid "Apply Stash"
 msgstr "Aplikovať úschovňu"
 
-#: gitwidget.cpp:1046
+#: gitwidget.cpp:1067
 #, kde-format
 msgid "Drop Stash"
 msgstr "Vymazať úschovňu"
 
-#: gitwidget.cpp:1047
+#: gitwidget.cpp:1068
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Zobraziť obsah úschovne"
 
-#: gitwidget.cpp:1087
+#: gitwidget.cpp:1108
 #, kde-format
 msgid "Stage All"
 msgstr "Označiť všetko"
 
-#: gitwidget.cpp:1089
+#: gitwidget.cpp:1110
 #, kde-format
 msgid "Remove All"
 msgstr "Odobrať všetko"
 
-#: gitwidget.cpp:1089
+#: gitwidget.cpp:1110
 #, kde-format
 msgid "Discard All"
 msgstr "Zahodiť všetko"
 
-#: gitwidget.cpp:1092
+#: gitwidget.cpp:1113
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Otvoriť .gitignore"
 
-#: gitwidget.cpp:1093 gitwidget.cpp:1148 gitwidget.cpp:1198
+#: gitwidget.cpp:1114 gitwidget.cpp:1169 gitwidget.cpp:1219
 #: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Zobraziť rozdiel"
 
-#: gitwidget.cpp:1110
+#: gitwidget.cpp:1131
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Ste si istí, že chcete tieto súbory odstrániť?"
 
-#: gitwidget.cpp:1119
+#: gitwidget.cpp:1140
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Naozaj chcete zahodiť všetky zmeny?"
 
-#: gitwidget.cpp:1147
+#: gitwidget.cpp:1168
 #, kde-format
 msgid "Open File"
 msgstr "Otvoriť súbor"
 
-#: gitwidget.cpp:1149
+#: gitwidget.cpp:1170
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Zobraziť v externom nástroji rozdielov git"
 
-#: gitwidget.cpp:1150
+#: gitwidget.cpp:1171
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Otvoriť na HEAD"
 
-#: gitwidget.cpp:1151
+#: gitwidget.cpp:1172
 #, kde-format
 msgid "Unstage File"
 msgstr "Zrušiť označenie súboru"
 
-#: gitwidget.cpp:1151
+#: gitwidget.cpp:1172
 #, kde-format
 msgid "Stage File"
 msgstr "Označiť súbor"
 
-#: gitwidget.cpp:1152
+#: gitwidget.cpp:1173
 #, kde-format
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: gitwidget.cpp:1152
+#: gitwidget.cpp:1173
 #, kde-format
 msgid "Discard"
 msgstr "Zahodiť"
 
-#: gitwidget.cpp:1169
+#: gitwidget.cpp:1190
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Naozaj chcete zahodiť zmeny v tomto súbore?"
 
-#: gitwidget.cpp:1182
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Naozaj chcete odstrániť tento súbor?"
 
-#: gitwidget.cpp:1197
+#: gitwidget.cpp:1218
 #, kde-format
 msgid "Unstage All"
 msgstr "Zrušiť označenie všetkého"
 
-#: gitwidget.cpp:1264
+#: gitwidget.cpp:1285
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Zrušiť označenie vybraných súborov"
 
-#: gitwidget.cpp:1264
+#: gitwidget.cpp:1285
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Označiť vybrané súbory"
 
-#: gitwidget.cpp:1265
+#: gitwidget.cpp:1286
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Zahodiť vybraté súbory"
 
-#: gitwidget.cpp:1269
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Odstrániť vybraté súbory"
 
-#: gitwidget.cpp:1282
+#: gitwidget.cpp:1303
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Naozaj chcete zahodiť zmeny?"
 
-#: gitwidget.cpp:1291
+#: gitwidget.cpp:1312
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Naozaj chcete odstrániť tieto nesledované zmeny?"

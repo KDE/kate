@@ -1307,7 +1307,7 @@ msgstr "탐색 표시줄 표시"
 #: lib/katemainwindow.cpp:255
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr "창 색 배열(&W)"
+msgstr "창 색 구성표(&W)"
 
 #: lib/katemainwindow.cpp:259
 #, kde-format

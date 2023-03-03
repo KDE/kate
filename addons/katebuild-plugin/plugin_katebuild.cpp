@@ -1568,30 +1568,58 @@ void KateBuildView::addProjectTarget()
 /******************************************************************/
 bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::KeyPress) {
+    switch (event->type()) {
+    case QEvent::KeyPress: {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
             m_win->hideToolView(m_toolView);
             event->accept();
             return true;
         }
+        break;
     }
-    if ((event->type() == QEvent::Resize) && (obj == m_buildWidget)) {
-        if (m_buildUi.u_tabWidget->currentIndex() == 1) {
-            if ((m_outputWidgetWidth == 0) && m_buildUi.buildAgainButton->isVisible()) {
-                QSize msh = m_buildWidget->minimumSizeHint();
-                m_outputWidgetWidth = msh.width();
-            }
+    case QEvent::ShortcutOverride: {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        if (ke->matches(QKeySequence::Copy)) {
+            m_buildUi.plainTextEdit->copy();
+            event->accept();
+            return true;
+        } else if (ke->matches(QKeySequence::SelectAll)) {
+            m_buildUi.plainTextEdit->selectAll();
+            event->accept();
+            return true;
         }
-        bool useVertLayout = (m_buildWidget->width() < m_outputWidgetWidth);
-        m_buildUi.buildAgainButton->setVisible(!useVertLayout);
-        m_buildUi.cancelBuildButton->setVisible(!useVertLayout);
-        m_buildUi.buildStatusLabel->setVisible(!useVertLayout);
-        m_buildUi.buildAgainButton2->setVisible(useVertLayout);
-        m_buildUi.cancelBuildButton2->setVisible(useVertLayout);
-        m_buildUi.buildStatusLabel2->setVisible(useVertLayout);
+        break;
     }
-
+    case QEvent::KeyRelease: {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        if (ke->matches(QKeySequence::Copy) || ke->matches(QKeySequence::SelectAll)) {
+            event->accept();
+            return true;
+        }
+        break;
+    }
+    case QEvent::Resize: {
+        if (obj == m_buildWidget) {
+            if (m_buildUi.u_tabWidget->currentIndex() == 1) {
+                if ((m_outputWidgetWidth == 0) && m_buildUi.buildAgainButton->isVisible()) {
+                    QSize msh = m_buildWidget->minimumSizeHint();
+                    m_outputWidgetWidth = msh.width();
+                }
+            }
+            bool useVertLayout = (m_buildWidget->width() < m_outputWidgetWidth);
+            m_buildUi.buildAgainButton->setVisible(!useVertLayout);
+            m_buildUi.cancelBuildButton->setVisible(!useVertLayout);
+            m_buildUi.buildStatusLabel->setVisible(!useVertLayout);
+            m_buildUi.buildAgainButton2->setVisible(useVertLayout);
+            m_buildUi.cancelBuildButton2->setVisible(useVertLayout);
+            m_buildUi.buildStatusLabel2->setVisible(useVertLayout);
+        }
+        break;
+    }
+    default: {
+    }
+    }
     return QObject::eventFilter(obj, event);
 }
 

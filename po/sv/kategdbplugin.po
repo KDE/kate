@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-28 01:01+0000\n"
+"POT-Creation-Date: 2023-03-03 00:50+0000\n"
 "PO-Revision-Date: 2022-06-12 10:41+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -96,7 +96,7 @@ msgstr "Sökväg för so-bibliotek"
 msgid "Custom Init Commands"
 msgstr "Egna initieringskommandon"
 
-#: backend.cpp:23 backend.cpp:48 debugview_dap.cpp:154
+#: backend.cpp:23 backend.cpp:48 debugview_dap.cpp:153
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -188,361 +188,366 @@ msgstr "Lokala objekt"
 msgid "CPU registers"
 msgstr ""
 
-#: debugview.cpp:363
+#: debugview.cpp:377
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Kunde inte starta avlusningsprocess"
 
-#: debugview.cpp:421
+#: debugview.cpp:435
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb avslutades normalt ***"
 
-#: debugview.cpp:620
+#: debugview.cpp:641
 #, fuzzy, kde-format
 #| msgid "all threads continued"
 msgid "all threads running"
 msgstr "alla trådar fortsatte"
 
-#: debugview.cpp:622
+#: debugview.cpp:643
 #, fuzzy, kde-format
 #| msgid "thread %1"
 msgid "thread(s) running: %1"
 msgstr "tråd %1"
 
-#: debugview.cpp:627 debugview_dap.cpp:269
+#: debugview.cpp:648 debugview_dap.cpp:268
 #, kde-format
 msgid "stopped (%1)."
 msgstr "stoppad (%1)."
 
-#: debugview.cpp:631 debugview_dap.cpp:277
+#: debugview.cpp:652 debugview_dap.cpp:276
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Aktiv tråd: %1 (all trådar stoppade)."
 
-#: debugview.cpp:633 debugview_dap.cpp:279
+#: debugview.cpp:654 debugview_dap.cpp:278
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Aktiv tråd: %1."
 
-#: debugview.cpp:652
+#: debugview.cpp:673
 #, fuzzy, kde-format
 #| msgid "Current frame: "
 msgid "Current frame: %1:%2"
 msgstr "Aktuell aktiveringspost: "
 
-#: debugview.cpp:679
+#: debugview.cpp:700
 #, fuzzy, kde-format
 #| msgid "Target %1"
 msgid "Host: %1. Target: %1"
 msgstr "Mål %1"
 
-#: debugview.cpp:1307
+#: debugview.cpp:1370
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
 
-#: debugview.cpp:1309
+#: debugview.cpp:1372
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr ""
 
-#: debugview_dap.cpp:168
+#: debugview_dap.cpp:167
 #, kde-format
 msgid "DAP backend failed"
 msgstr "DAP-gränssnitt misslyckades"
 
-#: debugview_dap.cpp:210
+#: debugview_dap.cpp:209
 #, kde-format
 msgid "program terminated"
 msgstr "program avslutat"
 
-#: debugview_dap.cpp:222
+#: debugview_dap.cpp:221
 #, kde-format
 msgid "requesting disconnection"
 msgstr "begär bortkoppling"
 
-#: debugview_dap.cpp:236
+#: debugview_dap.cpp:235
 #, kde-format
 msgid "requesting shutdown"
 msgstr "begär nedstängning"
 
-#: debugview_dap.cpp:260
+#: debugview_dap.cpp:259
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "DAP-gränssnitt: %1"
 
-#: debugview_dap.cpp:284
+#: debugview_dap.cpp:283
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "Brytpunkt(er) nådd(a):"
 
-#: debugview_dap.cpp:306
+#: debugview_dap.cpp:305
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(fortsatte) tråd %1"
 
-#: debugview_dap.cpp:308
+#: debugview_dap.cpp:307
 #, kde-format
 msgid "all threads continued"
 msgstr "alla trådar fortsatte"
 
-#: debugview_dap.cpp:315
+#: debugview_dap.cpp:314
 #, kde-format
 msgid "(running)"
 msgstr "(kör)"
 
-#: debugview_dap.cpp:403
+#: debugview_dap.cpp:402
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** anslutningen med servern stängd ***"
 
-#: debugview_dap.cpp:410
+#: debugview_dap.cpp:409
 #, kde-format
 msgid "program exited with code %1"
 msgstr "program avslutades med kod %1"
 
-#: debugview_dap.cpp:424
+#: debugview_dap.cpp:423
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** väntar på användaråtgärder ***"
 
-#: debugview_dap.cpp:429
+#: debugview_dap.cpp:428
 #, kde-format
 msgid "error on response: %1"
 msgstr "fel vid svar: %1"
 
-#: debugview_dap.cpp:444
+#: debugview_dap.cpp:443
 #, kde-format
 msgid "important"
 msgstr "viktig"
 
-#: debugview_dap.cpp:447
+#: debugview_dap.cpp:446
 #, kde-format
 msgid "telemetry"
 msgstr "telemetri"
 
-#: debugview_dap.cpp:466
+#: debugview_dap.cpp:465
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "avlusningsprocess [%1] %2"
 
-#: debugview_dap.cpp:468
+#: debugview_dap.cpp:467
 #, kde-format
 msgid "debugging process %1"
 msgstr "avlusningsprocess [%1] "
 
-#: debugview_dap.cpp:471
+#: debugview_dap.cpp:470
 #, kde-format
 msgid "Start method: %1"
 msgstr "Startmetod: %1"
 
-#: debugview_dap.cpp:478
+#: debugview_dap.cpp:477
 #, kde-format
 msgid "thread %1"
 msgstr "tråd %1"
 
-#: debugview_dap.cpp:632
+#: debugview_dap.cpp:631
 #, kde-format
 msgid "breakpoint set"
 msgstr "brytpunkt angiven"
 
-#: debugview_dap.cpp:641
+#: debugview_dap.cpp:639
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "brytpunkt borttagen"
 
-#: debugview_dap.cpp:701
+#: debugview_dap.cpp:698
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) brytpunkt"
 
-#: debugview_dap.cpp:718
+#: debugview_dap.cpp:715
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<inte utvärderad>"
 
-#: debugview_dap.cpp:740
+#: debugview_dap.cpp:737
 #, kde-format
 msgid "server capabilities"
 msgstr "serverkapacitet"
 
-#: debugview_dap.cpp:743
+#: debugview_dap.cpp:740
 #, kde-format
 msgid "supported"
 msgstr "stöds"
 
-#: debugview_dap.cpp:743
+#: debugview_dap.cpp:740
 #, kde-format
 msgid "unsupported"
 msgstr "stöds ej"
 
-#: debugview_dap.cpp:746
+#: debugview_dap.cpp:743
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "villkorliga brytpunkter"
 
-#: debugview_dap.cpp:747
+#: debugview_dap.cpp:744
 #, kde-format
 msgid "function breakpoints"
 msgstr "funktionsbrytpunkter"
 
-#: debugview_dap.cpp:748
+#: debugview_dap.cpp:745
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "villkorliga träffbrytpunkter"
 
-#: debugview_dap.cpp:749
+#: debugview_dap.cpp:746
 #, kde-format
 msgid "log points"
 msgstr "loggpunkter"
 
-#: debugview_dap.cpp:749
+#: debugview_dap.cpp:746
 #, kde-format
 msgid "modules request"
 msgstr "begäran om moduler"
 
-#: debugview_dap.cpp:750
+#: debugview_dap.cpp:747
 #, kde-format
 msgid "goto targets request"
 msgstr "begäran om att gå till mål"
 
-#: debugview_dap.cpp:751
+#: debugview_dap.cpp:748
 #, kde-format
 msgid "terminate request"
 msgstr "begäran om avslutning"
 
-#: debugview_dap.cpp:752
+#: debugview_dap.cpp:749
 #, kde-format
 msgid "terminate debuggee"
 msgstr "avsluta avlusat objekt"
 
-#: debugview_dap.cpp:921
+#: debugview_dap.cpp:956
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "syntaxfel: uttryck hittades inte"
 
-#: debugview_dap.cpp:939 debugview_dap.cpp:974 debugview_dap.cpp:1012
-#: debugview_dap.cpp:1046 debugview_dap.cpp:1082 debugview_dap.cpp:1118
-#: debugview_dap.cpp:1154 debugview_dap.cpp:1254 debugview_dap.cpp:1311
+#: debugview_dap.cpp:974 debugview_dap.cpp:1009 debugview_dap.cpp:1047
+#: debugview_dap.cpp:1081 debugview_dap.cpp:1117 debugview_dap.cpp:1153
+#: debugview_dap.cpp:1189 debugview_dap.cpp:1289 debugview_dap.cpp:1351
 #, kde-format
 msgid "syntax error: %1"
 msgstr "syntaxfel: %1"
 
-#: debugview_dap.cpp:947 debugview_dap.cpp:982 debugview_dap.cpp:1261
-#: debugview_dap.cpp:1319
+#: debugview_dap.cpp:982 debugview_dap.cpp:1017 debugview_dap.cpp:1296
+#: debugview_dap.cpp:1359
 #, kde-format
 msgid "invalid line: %1"
 msgstr "ogiltig rad: %1"
 
-#: debugview_dap.cpp:954 debugview_dap.cpp:959 debugview_dap.cpp:989
-#: debugview_dap.cpp:994 debugview_dap.cpp:1285 debugview_dap.cpp:1290
-#: debugview_dap.cpp:1326 debugview_dap.cpp:1331
+#: debugview_dap.cpp:989 debugview_dap.cpp:994 debugview_dap.cpp:1024
+#: debugview_dap.cpp:1029 debugview_dap.cpp:1320 debugview_dap.cpp:1325
+#: debugview_dap.cpp:1366 debugview_dap.cpp:1371
 #, kde-format
 msgid "file not specified: %1"
 msgstr "fil ej angiven: %1"
 
-#: debugview_dap.cpp:1024 debugview_dap.cpp:1058 debugview_dap.cpp:1094
-#: debugview_dap.cpp:1130 debugview_dap.cpp:1166
+#: debugview_dap.cpp:1059 debugview_dap.cpp:1093 debugview_dap.cpp:1129
+#: debugview_dap.cpp:1165 debugview_dap.cpp:1201
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "ogiltig trådidentifierare: %1"
 
-#: debugview_dap.cpp:1030 debugview_dap.cpp:1064 debugview_dap.cpp:1100
-#: debugview_dap.cpp:1136 debugview_dap.cpp:1172
+#: debugview_dap.cpp:1065 debugview_dap.cpp:1099 debugview_dap.cpp:1135
+#: debugview_dap.cpp:1171 debugview_dap.cpp:1207
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "trådidentifierare ej angiven: %1"
 
-#: debugview_dap.cpp:1183
+#: debugview_dap.cpp:1218
 #, kde-format
 msgid "Available commands:"
 msgstr "Tillgängliga kommandon:"
 
-#: debugview_dap.cpp:1271
+#: debugview_dap.cpp:1306
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "villkorliga brytpunkter stöds inte av servern"
 
-#: debugview_dap.cpp:1279
+#: debugview_dap.cpp:1314
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr "villkorliga träffbrytpunkter stöds inte av servern"
 
-#: debugview_dap.cpp:1340
+#: debugview_dap.cpp:1334
+#, kde-format
+msgid "line %1 already has a breakpoint"
+msgstr ""
+
+#: debugview_dap.cpp:1379
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "brytpunkt hittades inte (%1:%2)"
 
-#: debugview_dap.cpp:1349
+#: debugview_dap.cpp:1385
 #, kde-format
 msgid "Current thread: "
 msgstr "Aktuell tråd:"
 
-#: debugview_dap.cpp:1354 debugview_dap.cpp:1361 debugview_dap.cpp:1385
+#: debugview_dap.cpp:1390 debugview_dap.cpp:1397 debugview_dap.cpp:1421
 #, kde-format
 msgid "none"
 msgstr "ingen"
 
-#: debugview_dap.cpp:1357
+#: debugview_dap.cpp:1393
 #, kde-format
 msgid "Current frame: "
 msgstr "Aktuell aktiveringspost: "
 
-#: debugview_dap.cpp:1364
+#: debugview_dap.cpp:1400
 #, kde-format
 msgid "Session state: "
 msgstr "Sessionstillstånd: "
 
-#: debugview_dap.cpp:1367
+#: debugview_dap.cpp:1403
 #, kde-format
 msgid "initializing"
 msgstr "Initierar"
 
-#: debugview_dap.cpp:1370
+#: debugview_dap.cpp:1406
 #, kde-format
 msgid "running"
 msgstr "kör"
 
-#: debugview_dap.cpp:1373
+#: debugview_dap.cpp:1409
 #, kde-format
 msgid "stopped"
 msgstr "stoppad"
 
-#: debugview_dap.cpp:1376
+#: debugview_dap.cpp:1412
 #, kde-format
 msgid "terminated"
 msgstr "avslutad"
 
-#: debugview_dap.cpp:1379
+#: debugview_dap.cpp:1415
 #, kde-format
 msgid "disconnected"
 msgstr "nerkopplad"
 
-#: debugview_dap.cpp:1382
+#: debugview_dap.cpp:1418
 #, kde-format
 msgid "post mortem"
 msgstr "post mortem"
 
-#: debugview_dap.cpp:1438
+#: debugview_dap.cpp:1474
 #, kde-format
 msgid "command not found"
 msgstr "kommando hittades inte"
 
-#: debugview_dap.cpp:1459
+#: debugview_dap.cpp:1495
 #, fuzzy, kde-format
 #| msgid "invalid thread id: %1"
 msgid "missing thread id"
 msgstr "ogiltig trådidentifierare: %1"
 
-#: debugview_dap.cpp:1567
+#: debugview_dap.cpp:1603
 #, kde-format
 msgid "killing backend"
 msgstr "dödar bakgrundsprogram"
 
-#: debugview_dap.cpp:1625
+#: debugview_dap.cpp:1661
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Aktuell aktiveringspost [%3]: %1:%2 (%4)"

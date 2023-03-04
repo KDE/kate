@@ -11,7 +11,7 @@
 # Diniz Bortolotto <diniz.bortolotto@gmail.com>, 2007.
 # Marcus Gama <marcus.gama@gmail.com>, 2007, 2008, 2009, 2010.
 # Fernando Boaglio <boaglio@kde.org>, 2008.
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2008, 2009, 2010, 2012, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2008, 2009, 2010, 2012, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020.
 # Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>, 2010, 2011, 2012.
 # Aracele Torres <araceletorres@gmail.com>, 2010, 2017.
@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-01 00:52+0000\n"
-"PO-Revision-Date: 2022-07-14 10:01-0300\n"
+"PO-Revision-Date: 2023-03-03 10:05-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -247,23 +247,22 @@ msgstr "Itens da barra de &estado"
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "Mudar estilo"
 
 #: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:548
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "Lado a lado"
 
 #: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:549
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "Unified"
-msgstr "Modificado"
+msgstr "Unificado"
 
 #: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:550
 #, kde-format
 msgid "Raw"
-msgstr ""
+msgstr "Bruto"
 
 #: lib/diff/diffeditor.cpp:215
 #, kde-format
@@ -275,19 +274,19 @@ msgstr[1] ""
 #: lib/diff/diffeditor.cpp:220
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "Stage hunk"
 
 #: lib/diff/diffeditor.cpp:227
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Descartar linha"
+msgstr[1] "Descartar linhas"
 
 #: lib/diff/diffeditor.cpp:232
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Descartar hunk"
 
 #: lib/diff/diffeditor.cpp:239
 #, kde-format
@@ -358,7 +357,7 @@ msgstr ""
 #: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: lib/filehistorywidget.cpp:350
 #, kde-format
@@ -404,7 +403,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:151
 #, kde-format
@@ -703,7 +702,7 @@ msgstr "Configurar"
 #: lib/kateconfigdialog.cpp:74 lib/kateoutputview.cpp:143
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Pesquisar..."
 
 #: lib/kateconfigdialog.cpp:136
 #, fuzzy, kde-format
@@ -780,10 +779,9 @@ msgstr ""
 "do arquivo receber foco."
 
 #: lib/kateconfigdialog.cpp:414
-#, fuzzy, kde-format
-#| msgid "Top Sidebar"
+#, kde-format
 msgid "&Sidebars"
-msgstr "Barra superior"
+msgstr "&Barras laterais"
 
 #: lib/kateconfigdialog.cpp:417
 #, kde-format
@@ -1132,10 +1130,9 @@ msgid "Show Navigation Bar"
 msgstr "Mostrar barra de navegação"
 
 #: lib/katemainwindow.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Color Scheme"
+#, kde-format
 msgid "&Window Color Scheme"
-msgstr "&Esquema de cores"
+msgstr "Esquema de cores da &janela"
 
 #: lib/katemainwindow.cpp:262
 #, kde-format
@@ -1313,16 +1310,14 @@ msgid "Close this window"
 msgstr "Fechar esta janela"
 
 #: lib/katemainwindow.cpp:420
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "&New Window"
 msgstr "&Nova janela"
 
 #: lib/katemainwindow.cpp:423
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Create a new window."
-msgstr "Cria um novo documento"
+msgstr "Cria uma nova janela"
 
 #: lib/katemainwindow.cpp:430
 #, kde-format
@@ -1413,7 +1408,7 @@ msgstr "Ir para a próxima localização"
 #: lib/katemainwindow.cpp:531
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Exibir histórico do arquivo no git"
 
 #: lib/katemainwindow.cpp:546
 #, kde-format
@@ -1455,15 +1450,12 @@ msgid "Hide menu bar"
 msgstr "Ocultar barra de menus"
 
 #: lib/katemainwindow.cpp:885
-#, fuzzy, kde-format
-#| msgid ""
-#| "You dropped the directory %1 into Kate. Do you want to load all files "
-#| "contained in it ?"
+#, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
-"Você soltou a pasta %1 no Kate. Deseja carregar todos os arquivos que ela "
+"Você soltou a pasta %1 no Kate. Deseja abrir todos os arquivos que ela "
 "contém?"
 
 #: lib/katemainwindow.cpp:888

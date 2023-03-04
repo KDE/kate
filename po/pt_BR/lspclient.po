@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2019, 2020.
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2019, 2020, 2021, 2022.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 04:16+0000\n"
-"PO-Revision-Date: 2022-08-19 16:06-0300\n"
+"PO-Revision-Date: 2023-03-03 10:00-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -209,8 +209,7 @@ msgid "Highlight goto location"
 msgstr "Realçar localização do ir para"
 
 #: lspclientpluginview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
+#, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Exibir notificações de diagnóstico"
 
@@ -239,20 +238,17 @@ msgid "Switch to Diagnostics Tab"
 msgstr "Mudar para a aba de diagnóstico"
 
 #: lspclientpluginview.cpp:723
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
 msgstr "Exibir mensagens"
 
 #: lspclientpluginview.cpp:728
-#, fuzzy, kde-format
-#| msgid "Server memory usage"
+#, kde-format
 msgid "Server Memory Usage"
 msgstr "Uso de memória do servidor"
 
 #: lspclientpluginview.cpp:732
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Fechar todas as abas de referência dinâmicas"
 
@@ -269,7 +265,7 @@ msgstr "Reiniciar todos os servidores LSP"
 #: lspclientpluginview.cpp:747
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Ir para"
 
 #: lspclientpluginview.cpp:775
 #, kde-format

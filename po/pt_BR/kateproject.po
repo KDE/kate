@@ -4,14 +4,14 @@
 #
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2012, 2013, 2014, 2015, 2016, 2018, 2019.
 # Marcus Gama <marcus.gama@gmail.com>, 2012.
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023.
 # Camila de Azevedo Moura <camilaraw@gmail.com>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-02 00:58+0000\n"
-"PO-Revision-Date: 2022-08-19 16:03-0300\n"
+"PO-Revision-Date: 2023-03-03 10:01-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -202,14 +202,12 @@ msgid "Modified"
 msgstr "Modificado"
 
 #: gitwidget.cpp:259
-#, fuzzy, kde-format
-#| msgid "Git push"
+#, kde-format
 msgid "Git Push"
 msgstr "Git push"
 
 #: gitwidget.cpp:272
-#, fuzzy, kde-format
-#| msgid "Git pull"
+#, kde-format
 msgid "Git Pull"
 msgstr "Git pull"
 
@@ -326,16 +324,14 @@ msgid "Delete Branch"
 msgstr "Deletar branch"
 
 #: gitwidget.cpp:993
-#, fuzzy, kde-format
-#| msgid "Compare Branch with ..."
+#, kde-format
 msgid "Compare Branch with..."
 msgstr "Comparar branch com..."
 
 #: gitwidget.cpp:997
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "Commit"
+msgstr "Mostrar commit"
 
 #: gitwidget.cpp:997
 #, fuzzy, kde-format
@@ -436,14 +432,12 @@ msgid "Are you sure you want to discard all changes?"
 msgstr "Você tem certeza que deseja descartar todas as mudanças?"
 
 #: gitwidget.cpp:1168
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "Open File"
 msgstr "Abrir arquivo"
 
 #: gitwidget.cpp:1170
-#, fuzzy, kde-format
-#| msgid "Show in external git diff tool"
+#, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Mostrar em ferramenta git diff externa"
 
@@ -453,14 +447,12 @@ msgid "Open at HEAD"
 msgstr "Abrir no HEAD"
 
 #: gitwidget.cpp:1172
-#, fuzzy, kde-format
-#| msgid "Unstage file"
+#, kde-format
 msgid "Unstage File"
 msgstr "Retirar arquivo do estado de stage"
 
 #: gitwidget.cpp:1172
-#, fuzzy, kde-format
-#| msgid "Stage file"
+#, kde-format
 msgid "Stage File"
 msgstr "Colocar arquivo em estado de stage"
 
@@ -838,20 +830,17 @@ msgid "Project Manager"
 msgstr "Gerenciador de projetos"
 
 #: kateprojectpluginview.cpp:79
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Restaurar projetos abertos"
+msgstr "Abrir lista de projetos"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Reload project"
-msgstr "Fechar projeto"
+msgstr "Recarregar projeto"
 
 #: kateprojectpluginview.cpp:87
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Fechar projeto"
 

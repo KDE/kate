@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2019, 2020.
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2019, 2020, 2021, 2022.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-05 01:01+0000\n"
-"PO-Revision-Date: 2022-08-19 16:06-0300\n"
+"PO-Revision-Date: 2023-03-03 10:00-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -209,26 +209,22 @@ msgid "Show Inlay Hints"
 msgstr ""
 
 #: lspclientpluginview.cpp:606
-#, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
+#, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Exibir notificações de diagnóstico"
 
 #: lspclientpluginview.cpp:611
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
 msgstr "Exibir mensagens"
 
 #: lspclientpluginview.cpp:616
-#, fuzzy, kde-format
-#| msgid "Server memory usage"
+#, kde-format
 msgid "Server Memory Usage"
 msgstr "Uso de memória do servidor"
 
 #: lspclientpluginview.cpp:620
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Fechar todas as abas de referência dinâmicas"
 
@@ -245,7 +241,7 @@ msgstr "Reiniciar todos os servidores LSP"
 #: lspclientpluginview.cpp:635
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Ir para"
 
 #: lspclientpluginview.cpp:662
 #, kde-format
@@ -469,10 +465,9 @@ msgstr "Configuração do cliente"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Formatação na digitação"
+msgstr "Formatação ao salvar"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -484,7 +479,7 @@ msgstr "Ativar o realce semântico"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Habilitar dicas embutidas"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75

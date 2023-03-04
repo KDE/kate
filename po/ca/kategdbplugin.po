@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-03 00:50+0000\n"
-"PO-Revision-Date: 2023-01-28 10:06+0100\n"
+"PO-Revision-Date: 2023-03-03 13:48+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -479,7 +479,7 @@ msgstr ""
 #: debugview_dap.cpp:1334
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "la línia %1 ja té un punt d'interrupció"
 
 #: debugview_dap.cpp:1379
 #, kde-format

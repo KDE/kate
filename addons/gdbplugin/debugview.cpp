@@ -157,6 +157,8 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
 {
     // TODO correct remote flow (connected, interrupt, etc.)
     if (conf.executable.isEmpty()) {
+        const QString msg = i18n("Please set the executable in the 'Settings' tab in the 'Debug' panel.");
+        Q_EMIT backendError(msg, KTextEditor::Message::Error);
         return;
     }
 
@@ -164,12 +166,17 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
 
     // no chance if no debugger configured
     if (m_targetConf.gdbCmd.isEmpty()) {
+        const QString msg = i18n("No debugger selected. Please select one in the 'Settings' tab in the 'Debug' panel.");
+        Q_EMIT backendError(msg, KTextEditor::Message::Error);
         return;
     }
 
     // only run debugger from PATH or the absolute executable path we specified
     const auto fullExecutable = QFileInfo(m_targetConf.gdbCmd).isAbsolute() ? m_targetConf.gdbCmd : safeExecutableName(m_targetConf.gdbCmd);
     if (fullExecutable.isEmpty()) {
+        const QString msg =
+            i18n("Debugger not found. Please make sure you have it installed in your system. The selected debugger is '%1'", m_targetConf.gdbCmd);
+        Q_EMIT backendError(msg, KTextEditor::Message::Error);
         return;
     }
 

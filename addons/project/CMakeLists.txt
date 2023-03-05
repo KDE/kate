@@ -25,9 +25,14 @@ target_link_libraries(
         Qt::Concurrent
         KF${KF_MAJOR_VERSION}::GuiAddons
         KF${KF_MAJOR_VERSION}::I18n
-        KF${KF_MAJOR_VERSION}::NewStuff
         KF${KF_MAJOR_VERSION}::TextEditor
 )
+
+if(KF_MAJOR_VERSION STREQUAL "5")
+    target_link_libraries(kateprojectplugin PRIVATE KF5::NewStuff)
+else()
+    target_link_libraries(kateprojectplugin PRIVATE KF6::MoreTools)
+endif()
 
 include(CheckFunctionExists)
 check_function_exists(ctermid HAVE_CTERMID)

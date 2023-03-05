@@ -12,6 +12,7 @@ Dependencies:
     'frameworks/ktexteditor': '@latest-kf6'
     'frameworks/ktextwidgets': '@latest-kf6'
     'libraries/kuserfeedback': '@latest-kf6'
+    'libraries/kmoretools': '@latest-kf6'
 
 - 'on': ['Linux/Qt5', 'FreeBSD/Qt5', 'Windows/Qt5', 'macOS/Qt5']
   'require':

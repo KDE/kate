@@ -94,4 +94,5 @@ public:
 private:
     std::array<KColorButton, 5> m_btns;
     RainbowParenPlugin *const m_plugin;
+    QIcon m_icon;
 };

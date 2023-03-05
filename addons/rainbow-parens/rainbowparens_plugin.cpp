@@ -5,8 +5,10 @@
 */
 #include "rainbowparens_plugin.h"
 
+#include <QGradient>
 #include <QIcon>
 #include <QLabel>
+#include <QPainter>
 #include <QScopeGuard>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -425,9 +427,38 @@ QString RainbowParenConfigPage::fullName() const
     return i18n("Colored Brackets Settings");
 }
 
+static QIcon ColoredBracketsIcon(const QWidget *_this)
+{
+    const auto icon = QIcon::fromTheme(QStringLiteral("code-context"));
+    auto p = icon.pixmap(QSize(16, 16));
+    if (p.isNull()) {
+        QRect r(QPoint(0, 0), _this->devicePixelRatioF() * QSize(16, 16));
+        QPixmap pix(r.size());
+        pix.fill(Qt::transparent);
+        QPainter paint(&pix);
+        if (paint.fontMetrics().height() > r.height()) {
+            auto f = paint.font();
+            f.setPixelSize(14);
+            paint.setFont(f);
+        }
+        paint.drawText(r, Qt::AlignCenter, QStringLiteral("{.}"));
+        paint.end();
+        p = pix;
+    }
+
+    QPainter paint(&p);
+    paint.setCompositionMode(QPainter::CompositionMode_SourceIn);
+    paint.fillRect(p.rect(), QBrush(QGradient(QGradient::Preset::FruitBlend)));
+    paint.end();
+    return p;
+}
+
 QIcon RainbowParenConfigPage::icon() const
 {
-    return {};
+    if (m_icon.isNull()) {
+        const_cast<RainbowParenConfigPage *>(this)->m_icon = ColoredBracketsIcon(this);
+    }
+    return m_icon;
 }
 
 void RainbowParenConfigPage::apply()

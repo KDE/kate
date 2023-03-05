@@ -223,7 +223,8 @@ void FormatPluginView::format()
     connect(formatter, &AbstractFormatter::textFormatted, this, &FormatPluginView::onFormattedTextReceived);
     connect(formatter, &AbstractFormatter::error, this, [formatter](const QString &error) {
         formatter->deleteLater();
-        Utils::showMessage(error, {}, i18n("Format"), MessageType::Error);
+        const QString msg = formatter->cmdline() + QStringLiteral("\n") + error;
+        Utils::showMessage(msg, {}, i18n("Format"), MessageType::Error);
     });
     connect(formatter, &AbstractFormatter::textFormattedPatch, this, [this, formatter](KTextEditor::Document *doc, const std::vector<PatchLine> &patch) {
         formatter->deleteLater();

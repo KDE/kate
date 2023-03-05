@@ -11,6 +11,7 @@
 #include <QElapsedTimer>
 #include <QFile>
 #include <QFileInfo>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 
@@ -28,6 +29,17 @@ static QString cursorToOffset(KTextEditor::Document *doc, KTextEditor::Cursor c)
         return QString::number(o);
     }
     return {};
+}
+
+static QStringList readArgsFromJson(const QJsonObject &o)
+{
+    const auto arr = o.value(QStringLiteral("args")).toArray();
+    QStringList args;
+    args.reserve(arr.size());
+    for (const auto &v : arr) {
+        args.push_back(v.toString());
+    }
+    return args;
 }
 
 // Makes up a fake file name for doc mode
@@ -73,7 +85,8 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
     // QElapsedTimer t;
     // t.start();
     m_config = m_globalConfig.value(name()).toObject();
-    const auto args = this->args(doc);
+    // Arguments supplied by the user are prepended
+    const auto args = readArgsFromJson(m_config) + this->args(doc);
     const QString path = m_config.value(QLatin1String("path")).toString();
     const auto name = safeExecutableName(!path.isEmpty() ? path : this->name());
     if (name.isEmpty()) {
@@ -138,11 +151,6 @@ QStringList ClangFormat::args(KTextEditor::Document *doc) const
     if (file.isEmpty()) {
         args << QStringLiteral("--assume-filename=%1").arg(filenameFromMode(doc));
         return args;
-    }
-
-    const QString fallback = m_config.value(QStringLiteral("fallbackStyle")).toString();
-    if (!fallback.isEmpty()) {
-        args << QStringLiteral("--fallback-style=%1").arg(fallback);
     }
 
     const auto lines = getModifiedLines(file);

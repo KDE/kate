@@ -50,6 +50,14 @@ public:
         return m_globalConfig.value(name()).toObject().value(QLatin1String("formatOnSave")).toBool(defaultValue);
     }
 
+    QString cmdline() const
+    {
+        if (m_procHandle) {
+            return m_procHandle->program() + QLatin1String(" ") + m_procHandle->arguments().join(QLatin1String(" "));
+        }
+        return {};
+    }
+
     const QString originalText;
 
 protected:

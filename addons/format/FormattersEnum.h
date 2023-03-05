@@ -7,7 +7,6 @@
 #include <QString>
 
 enum class Formatters {
-    Invalid = -1,
     ClangFormat = 0,
     DartFmt,
     Prettier,
@@ -18,7 +17,7 @@ enum class Formatters {
     ZigFmt,
 };
 
-inline Formatters formatterForName(const QString &name)
+inline Formatters formatterForName(const QString &name, Formatters defaultValue)
 {
     auto eq = [&](const char *s) {
         return name.compare(QLatin1String(s), Qt::CaseInsensitive) == 0;
@@ -47,5 +46,5 @@ inline Formatters formatterForName(const QString &name)
     if (eq("zig") || eq("zigfmt")) {
         return Formatters::ZigFmt;
     }
-    return Formatters::Invalid;
+    return defaultValue;
 }

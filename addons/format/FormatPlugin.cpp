@@ -57,15 +57,11 @@ KTextEditor::ConfigPage *FormatPlugin::configPage(int number, QWidget *parent)
 
 void FormatPlugin::readConfig()
 {
-    KConfigGroup cg(KSharedConfig::openConfig(), "Formatting");
-    formatterForJson = (Formatters)cg.readEntry("FormatterForJson", (int)Formatters::Prettier);
-
     QString settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/formatting"));
     QDir().mkpath(settingsPath);
     readJsonConfig();
 
     formatOnSave = m_formatterConfig.value(QStringLiteral("formatOnSave")).toBool(true);
-    formatterForJson = formatterForName(m_formatterConfig.value(QStringLiteral("formatterForJson")).toString());
 }
 
 void FormatPlugin::readJsonConfig()
@@ -206,7 +202,19 @@ void FormatPluginView::format()
         return;
     }
 
-    auto formatter = formatterForDoc(m_activeDoc, m_plugin);
+    const QVariant projectConfig = Utils::projectMapForDocument(m_activeDoc).value(QStringLiteral("formatting"));
+    QJsonObject config = m_plugin->formatterConfig();
+    if (projectConfig != m_lastProjectConfig) {
+        m_lastProjectConfig = projectConfig;
+        if (projectConfig.isValid()) {
+            auto formattingConfig = QJsonDocument::fromVariant(projectConfig).object();
+            if (!formattingConfig.isEmpty()) {
+                config = json::merge(config, formattingConfig);
+            }
+        }
+    }
+
+    auto formatter = formatterForDoc(m_activeDoc, config);
     if (!formatter) {
         return;
     }

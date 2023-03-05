@@ -4,10 +4,12 @@
 */
 #pragma once
 
-#include "FormatPlugin.h"
 #include "Formatters.h"
+#include "FormattersEnum.h"
 
-static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, FormatPlugin *plugin)
+#include <QJsonObject>
+
+static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &config)
 {
     if (!doc) {
         qWarning() << "Unexpected null doc";
@@ -22,31 +24,32 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, FormatPlug
     };
 
     if (is_or_contains("c++") || is("c") || is("objective-c") || is("objective-c++") || is("protobuf")) {
-        return new ClangFormat(plugin->formatterConfig(), doc);
+        return new ClangFormat(config, doc);
     } else if (is("dart")) {
-        return new DartFormat(plugin->formatterConfig(), doc);
+        return new DartFormat(config, doc);
     } else if (is("html")) {
-        return new PrettierFormat(plugin->formatterConfig(), doc);
+        return new PrettierFormat(config, doc);
     } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css")) {
-        return new PrettierFormat(plugin->formatterConfig(), doc);
+        return new PrettierFormat(config, doc);
     } else if (is("json")) {
-        if (plugin->formatterForJson == Formatters::Prettier) {
-            return new PrettierFormat(plugin->formatterConfig(), doc);
-        } else if (plugin->formatterForJson == Formatters::ClangFormat) {
-            return new ClangFormat(plugin->formatterConfig(), doc);
-        } else if (plugin->formatterForJson == Formatters::Jq) {
-            return new JsonJqFormat(plugin->formatterConfig(), doc);
+        Formatters f = formatterForName(config.value(QStringLiteral("formatterForJson")).toString(), Formatters::Prettier);
+        if (f == Formatters::Prettier) {
+            return new PrettierFormat(config, doc);
+        } else if (f == Formatters::ClangFormat) {
+            return new ClangFormat(config, doc);
+        } else if (f == Formatters::Jq) {
+            return new JsonJqFormat(config, doc);
         }
-        qWarning() << "Unexpected formatterForJson value: " << (int)plugin->formatterForJson;
-        return new JsonJqFormat(plugin->formatterConfig(), doc);
+        qWarning() << "Unexpected formatterForJson value: " << (int)f;
+        return new JsonJqFormat(config, doc);
     } else if (is("rust")) {
-        return new RustFormat(plugin->formatterConfig(), doc);
+        return new RustFormat(config, doc);
     } else if (is("xml")) {
-        return new XmlLintFormat(plugin->formatterConfig(), doc);
+        return new XmlLintFormat(config, doc);
     } else if (is("go")) {
-        return new GoFormat(plugin->formatterConfig(), doc);
+        return new GoFormat(config, doc);
     } else if (is("zig")) {
-        return new ZigFormat(plugin->formatterConfig(), doc);
+        return new ZigFormat(config, doc);
     }
 
     Utils::showMessage(i18n("Failed to run formatter. Unsupporter language %1", mode), {}, i18n("Format"), MessageType::Info);

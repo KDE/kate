@@ -40,8 +40,6 @@ public:
 
     bool formatOnSave = false;
 
-    Formatters formatterForJson = Formatters::Prettier;
-
     Q_SIGNAL void configChanged();
 
 private:
@@ -76,4 +74,5 @@ private:
     FormatPlugin *const m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     bool m_triggeredOnSave = false;
+    QVariant m_lastProjectConfig;
 };

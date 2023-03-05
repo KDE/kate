@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-03 00:50+0000\n"
+"POT-Creation-Date: 2023-03-05 00:58+0000\n"
 "PO-Revision-Date: 2023-03-03 02:45+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -191,52 +191,71 @@ msgstr "Locales"
 msgid "CPU registers"
 msgstr "Registros de la CPU"
 
-#: debugview.cpp:377
+#: debugview.cpp:160
+#, kde-format
+msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+msgstr ""
+
+#: debugview.cpp:169
+#, kde-format
+msgid ""
+"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
+"panel."
+msgstr ""
+
+#: debugview.cpp:178
+#, kde-format
+msgid ""
+"Debugger not found. Please make sure you have it installed in your system. "
+"The selected debugger is '%1'"
+msgstr ""
+
+#: debugview.cpp:384
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "No se puede iniciar el proceso del depurador"
 
-#: debugview.cpp:435
+#: debugview.cpp:442
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb ha terminado normalmente ***"
 
-#: debugview.cpp:641
+#: debugview.cpp:648
 #, kde-format
 msgid "all threads running"
 msgstr "todos los hilos en ejecución"
 
-#: debugview.cpp:643
+#: debugview.cpp:650
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "hilo(s) en ejecución: %1"
 
-#: debugview.cpp:648 debugview_dap.cpp:268
+#: debugview.cpp:655 debugview_dap.cpp:268
 #, kde-format
 msgid "stopped (%1)."
 msgstr "detenido (%1)."
 
-#: debugview.cpp:652 debugview_dap.cpp:276
+#: debugview.cpp:659 debugview_dap.cpp:276
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Hilo activo: %1 (todos los hilos se han detenido)."
 
-#: debugview.cpp:654 debugview_dap.cpp:278
+#: debugview.cpp:661 debugview_dap.cpp:278
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Hilo activo: %1."
 
-#: debugview.cpp:673
+#: debugview.cpp:680
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "Marco actual: %1:%2"
 
-#: debugview.cpp:700
+#: debugview.cpp:707
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "Máquina: %1. Objetivo: %1"
 
-#: debugview.cpp:1370
+#: debugview.cpp:1377
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
@@ -245,7 +264,7 @@ msgstr ""
 "gdb-mi: No se ha podido analizar la última respuesta: %1. Demasiados errores "
 "consecutivos. Apagando..."
 
-#: debugview.cpp:1372
+#: debugview.cpp:1379
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: No se ha podido analizar la última respuesta: %1"

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-03 00:50+0000\n"
-"PO-Revision-Date: 2023-02-27 20:56+0000\n"
+"POT-Creation-Date: 2023-03-05 00:58+0000\n"
+"PO-Revision-Date: 2023-03-04 16:31+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
-"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language-Team: British English\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.03.70\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -188,52 +188,71 @@ msgstr "Locals"
 msgid "CPU registers"
 msgstr "CPU registers"
 
-#: debugview.cpp:377
+#: debugview.cpp:160
+#, kde-format
+msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+msgstr ""
+
+#: debugview.cpp:169
+#, kde-format
+msgid ""
+"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
+"panel."
+msgstr ""
+
+#: debugview.cpp:178
+#, kde-format
+msgid ""
+"Debugger not found. Please make sure you have it installed in your system. "
+"The selected debugger is '%1'"
+msgstr ""
+
+#: debugview.cpp:384
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Could not start debugger process"
 
-#: debugview.cpp:435
+#: debugview.cpp:442
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb exited normally ***"
 
-#: debugview.cpp:641
+#: debugview.cpp:648
 #, kde-format
 msgid "all threads running"
 msgstr "all threads running"
 
-#: debugview.cpp:643
+#: debugview.cpp:650
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "thread(s) running: %1"
 
-#: debugview.cpp:648 debugview_dap.cpp:268
+#: debugview.cpp:655 debugview_dap.cpp:268
 #, kde-format
 msgid "stopped (%1)."
 msgstr "stopped (%1)."
 
-#: debugview.cpp:652 debugview_dap.cpp:276
+#: debugview.cpp:659 debugview_dap.cpp:276
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Active thread: %1 (all threads stopped)."
 
-#: debugview.cpp:654 debugview_dap.cpp:278
+#: debugview.cpp:661 debugview_dap.cpp:278
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Active thread: %1."
 
-#: debugview.cpp:673
+#: debugview.cpp:680
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "Current frame: %1:%2"
 
-#: debugview.cpp:700
+#: debugview.cpp:707
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "Host: %1. Target: %1"
 
-#: debugview.cpp:1370
+#: debugview.cpp:1377
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
@@ -242,7 +261,7 @@ msgstr ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 
-#: debugview.cpp:1372
+#: debugview.cpp:1379
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Could not parse last response: %1"
@@ -472,7 +491,7 @@ msgstr "hit conditional breakpoints are not supported by the server"
 #: debugview_dap.cpp:1334
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "line %1 already has a break point"
 
 #: debugview_dap.cpp:1379
 #, kde-format

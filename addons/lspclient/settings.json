@@ -23,6 +23,7 @@
         "c-sharp": {
             "command": ["omnisharp", "-lsp"],
             "commandDebug": ["omnisharp", "--debug", "--verbose"],
+            "rootIndicationFilePatterns": ["*.sln", "*.csproj"],
             "url": "https://github.com/OmniSharp/omnisharp-roslyn",
             "highlightingModeRegex": "^C#$"
         },

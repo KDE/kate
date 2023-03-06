@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-28 01:02+0000\n"
-"PO-Revision-Date: 2023-02-02 19:33+0530\n"
+"PO-Revision-Date: 2023-03-05 10:40+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -469,7 +469,7 @@ msgstr "மாற்றக்காட்சியை மீளேற்று"
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "மாற்றப்பட்ட வரிகளை சுற்றியுள்ளவற்றையும் காட்டும்"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -533,34 +533,24 @@ msgid "File History - %1"
 msgstr "கோப்பின் வரலாறு - %1"
 
 #: lib/kateapp.cpp:94
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"கேட்டை sudo மூலம் இயக்குவது, பிழைகளையும் பாதுகாப்பு குறைபாடுகளையும் காரணிக்கலாம். "
-"பதிலாக, கேட்டை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் உரிமை தேவைப்பட்டால், "
-"அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
+"இத்திருத்தியை sudo மூலம் இயக்குவது, பிழைகளையும் பாதுகாப்பு குறைபாடுகளையும் "
+"காரணிக்கலாம். பதிலாக, இத்திருத்தியை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் "
+"உரிமை தேவைப்பட்டால், அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
 
 #: lib/kateapp.cpp:101
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"கேட்டை kdesu மூலம் இயக்குவது, பிழைகளையும் பாதுகாப்பு குறைபாடுகளையும் காரணிக்கலாம். "
-"பதிலாக, கேட்டை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் உரிமை தேவைப்பட்டால், "
-"அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
+"இத்திருத்தியை kdesu மூலம் இயக்குவது, பிழைகளையும் பாதுகாப்பு குறைபாடுகளையும் "
+"காரணிக்கலாம். பதிலாக, இத்திருத்தியை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் "
+"உரிமை தேவைப்பட்டால், அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
 
 #: lib/kateapp.cpp:233
 #, kde-format

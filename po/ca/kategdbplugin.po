@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2023-03-03 13:48+0100\n"
+"PO-Revision-Date: 2023-03-05 10:51+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -170,7 +170,7 @@ msgstr "Redirigeix la E/S dels programes depurats a una pestanya separada"
 #: configview.cpp:140
 #, kde-format
 msgid "Advanced Settings"
-msgstr "Arranjament avançat"
+msgstr "Configuració avançada"
 
 #: configview.cpp:225
 #, kde-format
@@ -196,6 +196,7 @@ msgstr "Registres de la CPU"
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
+"Establiu l'executable a la pestanya «Configuració» del plafó «Depuració»."
 
 #: debugview.cpp:169
 #, kde-format
@@ -203,6 +204,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"No ha hi cap depurador seleccionat. Establiu l'executable a la pestanya "
+"«Configuració» del plafó «Depuració»."
 
 #: debugview.cpp:178
 #, kde-format
@@ -210,6 +213,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"No s'ha trobat cap depurador. Assegureu-vos que està instal·lat en el "
+"sistema. El depurador seleccionat és «%1»"
 
 #: debugview.cpp:384
 #, kde-format
@@ -642,7 +647,7 @@ msgstr "Sortida del GDB"
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
-msgstr "Arranjament"
+msgstr "Configuració"
 
 #: plugin_kategdb.cpp:195
 #, kde-kuit-format
@@ -652,8 +657,8 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 "<title>No s'ha pogut obrir el fitxer:</title><nl/>%1<br/>Intenteu-ho afegint "
-"un camí de cerca a Arranjament avançat -> Camins de cerca de fitxers de codi "
-"font"
+"un camí de cerca a Configuració avançada -> Camins de cerca de fitxers de "
+"codi font"
 
 #: plugin_kategdb.cpp:220
 #, kde-format

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2023-03-04 14:03+0300\n"
+"PO-Revision-Date: 2023-03-05 13:21+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -198,6 +198,7 @@ msgstr "CPU yazmaçları"
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
+"'Hata Ayıkla' panelindeki 'Ayarlar' sekmesinden yürütülebiliri ayarlayın."
 
 #: debugview.cpp:169
 #, kde-format
@@ -205,6 +206,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Bir hata ayıklayıcı seçili değil. 'Hata Ayıkla' panelindeki 'Ayarlar' "
+"sekmesinden bir tane seçin."
 
 #: debugview.cpp:178
 #, kde-format
@@ -212,6 +215,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Hata ayıklayıcı bulunamadı. Sisteminizde bir tane kurulu olduğundan lütfen "
+"emin olun. Seçili hata ayıklayıcı '%1'"
 
 #: debugview.cpp:384
 #, kde-format

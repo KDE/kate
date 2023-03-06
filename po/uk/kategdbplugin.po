@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2023-03-03 07:19+0200\n"
+"PO-Revision-Date: 2023-03-05 08:32+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -194,6 +194,8 @@ msgstr "Регістри процесора"
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
+"Будь ласка, вкажіть виконуваний файл на вкладці «Параметри», панель "
+"«Діагностика»."
 
 #: debugview.cpp:169
 #, kde-format
@@ -201,6 +203,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Не вибрано засобу діагностики. Будь ласка, виберіть його на вкладці "
+"«Параметри», панель «Діагностика»."
 
 #: debugview.cpp:178
 #, kde-format
@@ -208,6 +212,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Не знайдено засобу діагностики. Будь ласка, переконайтеся, що його "
+"встановлено у вашій системі. Вибраним засобом діагностики є «%1»"
 
 #: debugview.cpp:384
 #, kde-format

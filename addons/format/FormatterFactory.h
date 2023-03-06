@@ -52,6 +52,8 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         return new ZigFormat(config, doc);
     } else if (is("cmake")) {
         return new CMakeFormat(config, doc);
+    } else if (is("python")) {
+        return new AutoPep8Format(config, doc);
     }
 
     Utils::showMessage(i18n("Failed to run formatter. Unsupporter language %1", mode), {}, i18n("Format"), MessageType::Info);

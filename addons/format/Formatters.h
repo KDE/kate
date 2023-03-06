@@ -341,3 +341,19 @@ public:
         return {m_doc->url().toLocalFile()};
     }
 };
+
+class AutoPep8Format : public AbstractFormatter
+{
+    Q_OBJECT
+public:
+    using AbstractFormatter::AbstractFormatter;
+    QString name() const override
+    {
+        return QStringLiteral("autopep8");
+    }
+
+    QStringList args(KTextEditor::Document *) const override
+    {
+        return {m_doc->url().toLocalFile()};
+    }
+};

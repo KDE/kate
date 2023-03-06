@@ -29,5 +29,8 @@
     },
     "cmake-format": {
         "command": ["cmake-format"]
+    },
+    "autopep8": {
+        "command": ["autopep8"]
     }
 }

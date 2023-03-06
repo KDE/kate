@@ -16,6 +16,7 @@ enum class Formatters {
     GoFmt,
     ZigFmt,
     CMakeFormat,
+    Autopep8
 };
 
 inline Formatters formatterForName(const QString &name, Formatters defaultValue)
@@ -49,6 +50,9 @@ inline Formatters formatterForName(const QString &name, Formatters defaultValue)
     }
     if (eq("cmake-format") || eq("cmakeformat")) {
         return Formatters::CMakeFormat;
+    }
+    if (eq("autopep8")) {
+        return Formatters::Autopep8;
     }
     return defaultValue;
 }

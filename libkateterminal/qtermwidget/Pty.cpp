@@ -297,7 +297,7 @@ void Pty::sendData(const char *data, int length)
 void Pty::dataReceived()
 {
     QByteArray data = pty()->readAll();
-    Q_EMIT receivedData(data.constData(), data.count());
+    Q_EMIT receivedData(data.constData(), data.size());
 }
 
 void Pty::lockPty(bool lock)

@@ -1656,7 +1656,7 @@ void Vt102Emulation::sendKeyEvent(QKeyEvent *event, bool fromPaste)
                "into characters to send to the terminal "
                "is missing.");
         reset();
-        receiveData(translatorError.toUtf8().constData(), translatorError.count());
+        receiveData(translatorError.toUtf8().constData(), translatorError.size());
     }
 }
 
@@ -1902,7 +1902,7 @@ bool Vt102Emulation::getMode(int m)
 char Vt102Emulation::eraseChar() const
 {
     KeyboardTranslator::Entry entry = _keyTranslator->findEntry(Qt::Key_Backspace, Qt::NoModifier, KeyboardTranslator::NoState);
-    if (entry.text().count() > 0)
+    if (entry.text().size() > 0)
         return entry.text().at(0);
     else
         return '\b';

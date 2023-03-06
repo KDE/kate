@@ -37,10 +37,10 @@ ShellCommand::ShellCommand(const QString &fullCommand)
 
     QString builder;
 
-    for (int i = 0; i < fullCommand.count(); i++) {
+    for (int i = 0; i < fullCommand.size(); i++) {
         QChar ch = fullCommand[i];
 
-        const bool isLastChar = (i == fullCommand.count() - 1);
+        const bool isLastChar = (i == fullCommand.size() - 1);
         const bool isQuote = (ch == QLatin1Char('\'') || ch == QLatin1Char('\"'));
 
         if (!isLastChar && isQuote) {
@@ -50,7 +50,7 @@ ShellCommand::ShellCommand(const QString &fullCommand)
                 builder.append(ch);
             }
 
-            if ((ch.isSpace() && !inQuotes) || (i == fullCommand.count() - 1)) {
+            if ((ch.isSpace() && !inQuotes) || (i == fullCommand.size() - 1)) {
                 _arguments << builder;
                 builder.clear();
             }

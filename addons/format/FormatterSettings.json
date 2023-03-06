@@ -2,31 +2,28 @@
     "formatOnSave": true,
     "formatterForJson": "jq",
     "clang-format": {
-        "path": "clang-format",
-        "args": [
-            "--fallback-style=Webkit"
-        ],
+        "command": ["clang-format", "--fallback-style=Webkit"],
         "formatOnSave": true
     },
     "dart": {
-        "path": "dart"
+        "command": ["dart"]
     },
     "jq": {
-        "path": "jq"
+        "command": ["jq"]
     },
     "prettier": {
-        "path": "node"
+        "command": ["node"]
     },
     "rustfmt": {
-        "path": "rustfmt"
+        "command": ["rustfmt"]
     },
     "xmllint": {
-        "path": "xmllint"
+        "command": ["xmllint"]
     },
     "gofmt": {
-        "path": "gofmt"
+        "command": ["gofmt"]
     },
     "zig": {
-        "path": "zig"
+        "command": ["zig"]
     }
 }

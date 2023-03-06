@@ -31,9 +31,9 @@ static QString cursorToOffset(KTextEditor::Document *doc, KTextEditor::Cursor c)
     return {};
 }
 
-static QStringList readArgsFromJson(const QJsonObject &o)
+static QStringList readCommandFromJson(const QJsonObject &o)
 {
-    const auto arr = o.value(QStringLiteral("args")).toArray();
+    const auto arr = o.value(QStringLiteral("command")).toArray();
     QStringList args;
     args.reserve(arr.size());
     for (const auto &v : arr) {
@@ -86,8 +86,13 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
     // t.start();
     m_config = m_globalConfig.value(name()).toObject();
     // Arguments supplied by the user are prepended
-    const auto args = readArgsFromJson(m_config) + this->args(doc);
-    const QString path = m_config.value(QLatin1String("path")).toString();
+    auto command = readCommandFromJson(m_config);
+    if (command.isEmpty()) {
+        Q_EMIT error(i18n("%1: Unexpected empty command!", this->name()));
+        return;
+    }
+    QString path = command.takeFirst();
+    const auto args = command + this->args(doc);
     const auto name = safeExecutableName(!path.isEmpty() ? path : this->name());
     if (name.isEmpty()) {
         Q_EMIT error(i18n("%1 is not installed, please install it to be able to format this document!", this->name()));

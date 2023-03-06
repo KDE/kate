@@ -3,6 +3,7 @@
     "formatterForJson": "jq",
     "clang-format": {
         "command": ["clang-format", "--fallback-style=Webkit"],
+        "formatModifiedLinesOnly": true,
         "formatOnSave": true
     },
     "dart": {

@@ -158,6 +158,10 @@ QStringList ClangFormat::args(KTextEditor::Document *doc) const
         return args;
     }
 
+    if (!m_config.value(QStringLiteral("formatModifiedLinesOnly")).toBool()) {
+        return args << file;
+    }
+
     const auto lines = getModifiedLines(file);
     if (lines.has_value()) {
         for (auto ll : *lines) {

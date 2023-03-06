@@ -325,3 +325,19 @@ private:
         return true;
     }
 };
+
+class CMakeFormat : public AbstractFormatter
+{
+    Q_OBJECT
+public:
+    using AbstractFormatter::AbstractFormatter;
+    QString name() const override
+    {
+        return QStringLiteral("cmake-format");
+    }
+
+    QStringList args(KTextEditor::Document *) const override
+    {
+        return {m_doc->url().toLocalFile()};
+    }
+};

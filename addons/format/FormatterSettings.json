@@ -26,5 +26,8 @@
     },
     "zig": {
         "command": ["zig"]
+    },
+    "cmake-format": {
+        "command": ["cmake-format"]
     }
 }

@@ -15,6 +15,7 @@ enum class Formatters {
     XmlLint,
     GoFmt,
     ZigFmt,
+    CMakeFormat,
 };
 
 inline Formatters formatterForName(const QString &name, Formatters defaultValue)
@@ -45,6 +46,9 @@ inline Formatters formatterForName(const QString &name, Formatters defaultValue)
     }
     if (eq("zig") || eq("zigfmt")) {
         return Formatters::ZigFmt;
+    }
+    if (eq("cmake-format") || eq("cmakeformat")) {
+        return Formatters::CMakeFormat;
     }
     return defaultValue;
 }

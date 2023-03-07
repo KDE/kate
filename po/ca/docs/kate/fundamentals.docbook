@@ -298,7 +298,7 @@
 ><para
 >Si s'està usant una instància del &kate; en execució, la bloqueja fins que sortiu, si se li han proporcionat els URL a obrir.</para>
 <para
->Podeu utilitzar aquesta opció amb el &kate; com a editor per a escriure missatges de confirmació per als sistemes de control de versions com &git; o <application
+>Podeu utilitzar aquesta opció amb el &kate; com a editor per a escriure missatges de comissió per als sistemes de control de versions com &git; o <application
 >Subversion</application
 >. Aquests sistemes esperen bloquejar l'editor fins que heu introduït el missatge, atès que a continuació obren el fitxer temporal, el qual resta buit si el &kate; torna immediatament a la crida. </para>
 <para

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-01 00:52+0000\n"
-"PO-Revision-Date: 2023-01-31 10:04+0100\n"
+"PO-Revision-Date: 2023-03-06 15:43+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -296,7 +296,7 @@ msgstr "Desmarca el bloc"
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr "Mostra/oculta la informació de la publicació"
+msgstr "Mostra/oculta la informació de la comissió"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format

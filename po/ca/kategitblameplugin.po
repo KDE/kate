@@ -1,16 +1,16 @@
 # Translation of kategitblameplugin.po to Catalan
-# Copyright (C) 2021-2022 This_file_is_part_of_KDE
+# Copyright (C) 2021-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2021.
-# Josep M. Ferrer <txemaq@gmail.com>, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-30 00:48+0000\n"
-"PO-Revision-Date: 2022-05-04 17:58+0200\n"
+"PO-Revision-Date: 2023-03-06 16:38+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -60,17 +60,17 @@ msgstr "Git"
 #: kategitblameplugin.cpp:458
 #, kde-format
 msgid "Git blame, show commit failed."
-msgstr "Ha fallat el «git blame», en mostrar la publicació."
+msgstr "Ha fallat el «git blame», en mostrar la comissió."
 
 #: kategitblameplugin.cpp:545
 #, kde-format
 msgid "Not Committed Yet"
-msgstr "Encara no s'ha entregat"
+msgstr "Encara no s'ha comès"
 
 #: kategitblameplugin.cpp:576
 #, kde-format
 msgid "Commit"
-msgstr "Publica"
+msgstr "Comet"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

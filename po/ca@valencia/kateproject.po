@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 04:16+0000\n"
-"PO-Revision-Date: 2023-01-22 10:43+0100\n"
+"PO-Revision-Date: 2023-03-06 16:37+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -74,7 +74,7 @@ msgstr "Branca"
 #: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Last Commit"
-msgstr "Última publicació"
+msgstr "Última comissió"
 
 #: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:85
 #, kde-format
@@ -126,7 +126,7 @@ msgstr "Escriviu el missatge de comissió..."
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr "Descripció estesa de la comissió..."
+msgstr "Descripció ampliada de la comissió..."
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -141,12 +141,12 @@ msgstr "Esmena"
 #: gitcommitdialog.cpp:112 gitwidget.cpp:927
 #, kde-format
 msgid "Amend Last Commit"
-msgstr "Esmena de l'última publicació"
+msgstr "Esmena de l'última comissió"
 
 #: gitcommitdialog.cpp:119
 #, kde-format
 msgid "Amending Commit"
-msgstr "Esmena la publicació"
+msgstr "Esmena la comissió"
 
 #: gitcommitdialog.cpp:203
 #, kde-format
@@ -265,7 +265,8 @@ msgstr "Els canvis s'han comés correctament."
 #: gitwidget.cpp:731
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr "No hi ha res a cometre. Primer, marqueu els vostres canvis."
+msgstr ""
+"No hi ha res que s'haja de cometre. Primer, marqueu els vostres canvis."
 
 #: gitwidget.cpp:744
 #, kde-format

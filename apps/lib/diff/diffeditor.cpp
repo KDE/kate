@@ -179,7 +179,7 @@ void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
         before = menu->actions().constFirst();
 
     {
-        auto a = new QAction(i18n("Change Style"));
+        auto a = new QAction(i18n("Change Style"), this);
         auto styleMenu = new QMenu(this);
         styleMenu->addAction(i18n("Side By Side"), this, [this] {
             Q_EMIT switchStyle(SideBySide);
@@ -216,36 +216,36 @@ void DiffEditor::addStageUnstageDiscardActions(QMenu *menu)
         before = menu->actions().constFirst();
 
     if (m_flags.testFlag(DiffParams::Flag::ShowStage)) {
-        auto a = new QAction(i18np("Stage Line", "Stage Lines", lineCount));
+        auto a = new QAction(i18np("Stage Line", "Stage Lines", lineCount), this);
         connect(a, &QAction::triggered, this, [=] {
             Q_EMIT actionTriggered(this, startLine, endLine, (int)Line, DiffParams::Flag::ShowStage);
         });
         menu->insertAction(before, a);
-        a = new QAction(i18n("Stage Hunk"));
+        a = new QAction(i18n("Stage Hunk"), this);
         connect(a, &QAction::triggered, this, [=] {
             Q_EMIT actionTriggered(this, startLine, endLine, (int)Hunk, DiffParams::Flag::ShowStage);
         });
         menu->insertAction(before, a);
     }
     if (m_flags.testFlag(DiffParams::Flag::ShowDiscard)) {
-        auto a = new QAction(i18np("Discard Line", "Discard Lines", lineCount));
+        auto a = new QAction(i18np("Discard Line", "Discard Lines", lineCount), this);
         connect(a, &QAction::triggered, this, [=] {
             Q_EMIT actionTriggered(this, startLine, endLine, (int)Line, DiffParams::Flag::ShowDiscard);
         });
         menu->insertAction(before, a);
-        a = new QAction(i18n("Discard Hunk"));
+        a = new QAction(i18n("Discard Hunk"), this);
         connect(a, &QAction::triggered, this, [=] {
             Q_EMIT actionTriggered(this, startLine, endLine, (int)Hunk, DiffParams::Flag::ShowDiscard);
         });
         menu->insertAction(before, a);
     }
     if (m_flags.testFlag(DiffParams::Flag::ShowUnstage)) {
-        auto a = new QAction(i18np("Unstage Line", "Unstage Lines", lineCount));
+        auto a = new QAction(i18np("Unstage Line", "Unstage Lines", lineCount), this);
         connect(a, &QAction::triggered, this, [=] {
             Q_EMIT actionTriggered(this, startLine, endLine, (int)Line, DiffParams::Flag::ShowUnstage);
         });
         menu->insertAction(before, a);
-        a = new QAction(i18n("Unstage Hunk"));
+        a = new QAction(i18n("Unstage Hunk"), this);
         connect(a, &QAction::triggered, this, [=] {
             Q_EMIT actionTriggered(this, startLine, endLine, (int)Hunk, DiffParams::Flag::ShowUnstage);
         });

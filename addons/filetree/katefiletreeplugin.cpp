@@ -156,7 +156,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     connect(m_fileTree, &KateFileTree::viewModeChanged, this, &KateFileTreePluginView::viewModeChanged);
     connect(m_fileTree, &KateFileTree::sortRoleChanged, this, &KateFileTreePluginView::sortRoleChanged);
 
-    m_documentModel = new KateFileTreeModel(this);
+    m_documentModel = new KateFileTreeModel(m_mainWindow, this);
     m_proxyModel = new KateFileTreeProxyModel(this);
     m_proxyModel->setSourceModel(m_documentModel);
     m_proxyModel->setDynamicSortFilter(true);

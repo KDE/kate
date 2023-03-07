@@ -16,6 +16,7 @@
 namespace KTextEditor
 {
 class Document;
+class MainWindow;
 }
 
 class ProxyItem;
@@ -37,7 +38,7 @@ public:
         WidgetRole,
     };
 
-    KateFileTreeModel(QObject *p);
+    KateFileTreeModel(KTextEditor::MainWindow *mainWindow, QObject *p);
     ~KateFileTreeModel() override;
 
     /* QAbstractItemModel implementations */
@@ -116,6 +117,7 @@ private:
     ProxyItem *itemForIndex(const QModelIndex &index) const;
 
 private:
+    class KTextEditor::MainWindow *const m_mainWindow = nullptr;
     ProxyItemDir *m_root;
     ProxyItem *m_widgetsRoot = nullptr;
     QHash<const KTextEditor::Document *, ProxyItem *> m_docmap;

@@ -103,6 +103,11 @@ public:
     bool hasLocalPrefs() const;
     void setHasLocalPrefs(bool);
 
+    KTextEditor::MainWindow *mainWindow() const
+    {
+        return m_mainWindow;
+    }
+
 protected:
     void setupActions();
 

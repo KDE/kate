@@ -415,8 +415,9 @@ void ProxyItem::updateDocumentName()
 
 // END ProxyItem
 
-KateFileTreeModel::KateFileTreeModel(QObject *p)
+KateFileTreeModel::KateFileTreeModel(KTextEditor::MainWindow *mainWindow, QObject *p)
     : QAbstractItemModel(p)
+    , m_mainWindow(mainWindow)
     , m_root(new ProxyItemDir(QStringLiteral("m_root"), nullptr))
 {
     // setup default settings
@@ -504,11 +505,12 @@ void KateFileTreeModel::initModel()
         documentOpened(doc);
     }
 
-    auto mw = KTextEditor::Editor::instance()->application()->activeMainWindow();
-    QWidgetList widgets;
-    QMetaObject::invokeMethod(mw->window(), "widgets", Q_RETURN_ARG(QWidgetList, widgets));
-    for (auto *w : std::as_const(widgets)) {
-        addWidget(w);
+    if (m_mainWindow) {
+        QWidgetList widgets;
+        QMetaObject::invokeMethod(m_mainWindow->window(), "widgets", Q_RETURN_ARG(QWidgetList, widgets));
+        for (auto *w : std::as_const(widgets)) {
+            addWidget(w);
+        }
     }
 }
 

@@ -548,7 +548,7 @@
 
 <varlistentry>
 <term
->El git-cola és un client gràfic de Git que permet organitzar i confirmar amb facilitat els canvis. Si està instal·lat, també estarà disponible a través de la línia d'ordres escrivint <userinput
+>El git-cola és un client gràfic de Git que permet organitzar i cometre amb facilitat els canvis. Si està instal·lat, també estarà disponible a través de la línia d'ordres escrivint <userinput
 >git-cola</userinput
 ></term>
 <listitem>

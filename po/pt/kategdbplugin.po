@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2023-02-15 15:22+0000\n"
+"PO-Revision-Date: 2023-03-06 16:05+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -191,6 +191,8 @@ msgstr "Registos do CPU"
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
+"Configure por favor o executável na página de 'Configuração' do painel de "
+"'Depuração'."
 
 #: debugview.cpp:169
 #, kde-format
@@ -198,6 +200,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Não está seleccionado nenhum depurador. Seleccione um por favor na página de "
+"'Configuração' do painel de 'Depuração'."
 
 #: debugview.cpp:178
 #, kde-format
@@ -205,6 +209,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"O depurador não foi encontrado. Certifique-se por favor que o tem instalado "
+"no seu sistema. O depurador seleccionado é o '%1'"
 
 #: debugview.cpp:384
 #, kde-format
@@ -491,7 +497,7 @@ msgstr ""
 #: debugview_dap.cpp:1334
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "a linha %1 já tem um ponto de paragem"
 
 #: debugview_dap.cpp:1379
 #, kde-format

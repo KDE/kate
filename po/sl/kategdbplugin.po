@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2023-03-04 09:23+0100\n"
+"PO-Revision-Date: 2023-03-06 08:15+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -194,6 +194,8 @@ msgstr "Registri CPE"
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
+"Nastavite izvajalni program v zavihku 'Nastavitve' na plošči "
+"'Razhroščevanje'."
 
 #: debugview.cpp:169
 #, kde-format
@@ -201,6 +203,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Ni izbranega razhroščevalnika. Izberite enega v zavihku 'Nastavitve' na "
+"plošči 'Razhročevanje'."
 
 #: debugview.cpp:178
 #, kde-format
@@ -208,6 +212,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Razhroščevalnika ni bilo mogoče najti. Preverite, če ste ga namestili v vaš "
+"sistem. Izbran razhroščevalnik je '%1'"
 
 #: debugview.cpp:384
 #, kde-format

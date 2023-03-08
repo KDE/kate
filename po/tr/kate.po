@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-01 00:52+0000\n"
-"PO-Revision-Date: 2023-03-04 19:05+0300\n"
+"PO-Revision-Date: 2023-03-07 20:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -89,7 +89,7 @@ msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr ""
-"Eğer zaten çalışan bir Kate örneği kullanılıyorsa ve açılmak üzere adresler "
+"Eğer zaten çalışan bir Kate örneği kullanılıyorsa ve açılmak üzere URL'ler "
 "verilmişse o örnekten çıkılana karar engelle."
 
 #: kate/main.cpp:179
@@ -145,7 +145,7 @@ msgstr "stdin'in içeriğini oku."
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
-"Uygulama tarafından açılan dosya veya adresler kullanımdan sonra silinecektir"
+"Uygulama tarafından açılan dosya veya URL'ler kullanımdan sonra silinecektir"
 
 #: kate/main.cpp:209 kwrite/main.cpp:161
 #, kde-format

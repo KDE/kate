@@ -203,18 +203,24 @@ void FormatPluginView::format()
     }
 
     const QVariant projectConfig = Utils::projectMapForDocument(m_activeDoc).value(QStringLiteral("formatting"));
-    QJsonObject config = m_plugin->formatterConfig();
     if (projectConfig != m_lastProjectConfig) {
         m_lastProjectConfig = projectConfig;
         if (projectConfig.isValid()) {
-            auto formattingConfig = QJsonDocument::fromVariant(projectConfig).object();
+            const auto formattingConfig = QJsonDocument::fromVariant(projectConfig).object();
             if (!formattingConfig.isEmpty()) {
-                config = json::merge(config, formattingConfig);
+                m_lastMergedConfig = json::merge(m_plugin->formatterConfig(), formattingConfig);
             }
+        } else {
+            // clear otherwise
+            m_lastMergedConfig = QJsonObject();
         }
     }
 
-    auto formatter = formatterForDoc(m_activeDoc, config);
+    if (m_lastMergedConfig.isEmpty()) {
+        m_lastMergedConfig = m_plugin->formatterConfig();
+    }
+
+    auto formatter = formatterForDoc(m_activeDoc, m_lastMergedConfig);
     if (!formatter) {
         return;
     }

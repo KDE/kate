@@ -13,9 +13,8 @@
 #include <KXMLGUIClient>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QVariant>
-
 #include <QPointer>
+#include <QVariant>
 
 struct PatchLine;
 
@@ -75,4 +74,5 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     bool m_triggeredOnSave = false;
     QVariant m_lastProjectConfig;
+    QJsonObject m_lastMergedConfig;
 };

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-23 01:00+0000\n"
+"POT-Creation-Date: 2023-03-08 00:49+0000\n"
 "PO-Revision-Date: 2021-04-18 01:28+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -349,7 +349,7 @@ msgstr "Dokumen"
 msgid "Configure Documents"
 msgstr "Konfigurasikan Dokumen"
 
-#: katefiletreemodel.cpp:493
+#: katefiletreemodel.cpp:494
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open With"
@@ -358,7 +358,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Buka Dengan"
 
-#: katefiletreemodel.cpp:647
+#: katefiletreemodel.cpp:649
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

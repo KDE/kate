@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-23 01:00+0000\n"
+"POT-Creation-Date: 2023-03-08 00:49+0000\n"
 "PO-Revision-Date: 2022-11-24 00:13+0100\n"
 "Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -348,7 +348,7 @@ msgstr "Dokumente"
 msgid "Configure Documents"
 msgstr "Dokumente einrichten"
 
-#: katefiletreemodel.cpp:493
+#: katefiletreemodel.cpp:494
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open With"
@@ -357,7 +357,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Öffnen mit"
 
-#: katefiletreemodel.cpp:647
+#: katefiletreemodel.cpp:649
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

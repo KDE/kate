@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-23 01:00+0000\n"
+"POT-Creation-Date: 2023-03-08 00:49+0000\n"
 "PO-Revision-Date: 2022-09-24 10:41+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -347,7 +347,7 @@ msgstr "Dokument"
 msgid "Configure Documents"
 msgstr "Anpassa dokument"
 
-#: katefiletreemodel.cpp:493
+#: katefiletreemodel.cpp:494
 #, fuzzy, kde-format
 #| msgid "Open Widgets"
 msgctxt ""
@@ -355,7 +355,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Öppna grafiska komponenter"
 
-#: katefiletreemodel.cpp:647
+#: katefiletreemodel.cpp:649
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

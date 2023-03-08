@@ -77,9 +77,17 @@ if (NOT WIN32 AND NOT HAIKU)
 endif()
 
 # optional KUserFeedback integration
-find_package(KUserFeedback)
-if (TARGET KUserFeedbackWidgets)
-    target_link_libraries(kateprivate PRIVATE KUserFeedbackWidgets)
+set(KUSERFEEDBACK_SUFFIX)
+if (QT_MAJOR_VERSION STREQUAL "6")
+    set(KUSERFEEDBACK_SUFFIX "Qt6")
+    find_package(KUserFeedback${KUSERFEEDBACK_SUFFIX} 1.2.1 CONFIG)
+    add_definitions(-DUSE_KUSERFEEDBACK_QT6)
+else()
+    find_package(KUserFeedback${KUSERFEEDBACK_SUFFIX} 1.2.0 CONFIG)
+endif()
+
+if (TARGET KUserFeedbackWidgets${KUSERFEEDBACK_SUFFIX})
+    target_link_libraries(kateprivate PRIVATE KUserFeedbackWidgets${KUSERFEEDBACK_SUFFIX})
     target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 

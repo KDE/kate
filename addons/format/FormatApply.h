@@ -30,9 +30,9 @@ static QString diff(KTextEditor::Document *doc, const QByteArray &formatted)
     args << doc->url().toString(QUrl::PreferLocalFile);
     args << f.fileName();
     setupGitProcess(p, QFileInfo(doc->url().toString(QUrl::PreferLocalFile)).absolutePath(), args);
-    p.start();
+    startHostProcess(p);
     if (!p.waitForStarted() || !p.waitForFinished()) {
-        Utils::showMessage(i18n("Failed to run git diff"), {}, i18n("Format"), MessageType::Warning);
+        Utils::showMessage(i18n("Failed to run git diff: %1", p.errorString()), {}, i18n("Format"), MessageType::Warning);
         return {};
     }
 

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-02 00:58+0000\n"
-"PO-Revision-Date: 2023-03-06 17:10+0100\n"
+"PO-Revision-Date: 2023-03-09 13:07+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "Seleccioneu la branca a baixar. Premeu «Esc» per a cancel·lar."
+msgstr "Seleccioneu la branca a extreure. Premeu «Esc» per a cancel·lar."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -39,12 +39,12 @@ msgstr "Crea una branca nova des de..."
 #: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr "S'ha baixat la branca %1"
+msgstr "S'ha extret la branca %1"
 
 #: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr "Ha fallat en agafar la branca %1, error: %2"
+msgstr "Ha fallat en extreure la branca %1, error: %2"
 
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
@@ -54,12 +54,12 @@ msgstr "Introduïu el nom de la nova branca. Premeu «Esc» per a cancel·lar."
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr "Seleccioneu la branca a agafar. Premeu «Esc» per a cancel·lar."
+msgstr "Seleccioneu la branca a extreure. Premeu «Esc» per a cancel·lar."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr "Baixant a la branca nova: %1"
+msgstr "Extracció a la branca nova: %1"
 
 #: branchcheckoutdialog.cpp:123
 #, kde-format
@@ -313,7 +313,7 @@ msgstr "Actualitza"
 #: gitwidget.cpp:969
 #, kde-format
 msgid "Checkout Branch"
-msgstr "Agafa la branca"
+msgstr "Extreu la branca"
 
 #: gitwidget.cpp:981
 #, kde-format
@@ -881,7 +881,7 @@ msgstr "Tanca els projectes orfes"
 #: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr "Agafa la branca del Git"
+msgstr "Extreu la branca del Git"
 
 #: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:803
 #, kde-format

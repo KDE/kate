@@ -1,43 +1,44 @@
-# Copyright (C) YEAR This file is copyright:
+# Translation of lspclient.pot into esperanto.
+# Copyright (C) 2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the kate package.
-# Vit Pelcak <vit@pelcak.org>, 2019, 2020, 2021, 2022, 2023.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: kate\n"
+"Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-05 01:01+0000\n"
-"PO-Revision-Date: 2023-02-01 10:22+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
-"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
-"Language: cs\n"
+"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
 msgid "Filter..."
-msgstr "Filtr..."
+msgstr ""
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: lspclientconfigpage.cpp:98 lspclientconfigpage.cpp:103
 #: lspclientpluginview.cpp:490 lspclientpluginview.cpp:646 ui.rc:6
 #, kde-format
 msgid "LSP Client"
-msgstr "Klient LSP"
+msgstr ""
 
 #: lspclientconfigpage.cpp:213
 #, kde-format
 msgid "No JSON data to validate."
-msgstr "Žádná data JSON k ověření."
+msgstr ""
 
 #: lspclientconfigpage.cpp:222
 #, kde-format
 msgid "JSON data is valid."
-msgstr "Data JSON jsou platná."
+msgstr ""
 
 #: lspclientconfigpage.cpp:224
 #, kde-format
@@ -47,17 +48,17 @@ msgstr ""
 #: lspclientconfigpage.cpp:227
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr "Data JSON jsou neplatná: %1"
+msgstr ""
 
 #: lspclientconfigpage.cpp:275
 #, kde-format
 msgid "Delete selected entries"
-msgstr "Smazat označené záznamy"
+msgstr ""
 
 #: lspclientconfigpage.cpp:280
 #, kde-format
 msgid "Delete all entries"
-msgstr "Smazat všechny záznamy"
+msgstr ""
 
 #: lspclientplugin.cpp:223
 #, kde-format
@@ -82,12 +83,12 @@ msgstr ""
 #: lspclientpluginview.cpp:518
 #, kde-format
 msgid "Go to Definition"
-msgstr "Přejít na definici"
+msgstr ""
 
 #: lspclientpluginview.cpp:520
 #, kde-format
 msgid "Go to Declaration"
-msgstr "Přejít na deklaraci"
+msgstr ""
 
 #: lspclientpluginview.cpp:522
 #, kde-format
@@ -107,37 +108,37 @@ msgstr ""
 #: lspclientpluginview.cpp:529
 #, kde-format
 msgid "Highlight"
-msgstr "Zvýraznění"
+msgstr ""
 
 #: lspclientpluginview.cpp:531
 #, kde-format
 msgid "Symbol Info"
-msgstr "Informace o symbolu"
+msgstr ""
 
 #: lspclientpluginview.cpp:533
 #, kde-format
 msgid "Search and Go to Symbol"
-msgstr "Hledat a přejít na symbol"
+msgstr ""
 
 #: lspclientpluginview.cpp:538
 #, kde-format
 msgid "Format"
-msgstr "Formátovat"
+msgstr ""
 
 #: lspclientpluginview.cpp:541
 #, kde-format
 msgid "Rename"
-msgstr "Přejmenovat"
+msgstr ""
 
 #: lspclientpluginview.cpp:545
 #, kde-format
 msgid "Expand Selection"
-msgstr "Rozbalit výběr"
+msgstr ""
 
 #: lspclientpluginview.cpp:548
 #, kde-format
 msgid "Shrink Selection"
-msgstr "Zmenšit výběr"
+msgstr ""
 
 #: lspclientpluginview.cpp:552
 #, kde-format
@@ -147,7 +148,7 @@ msgstr ""
 #: lspclientpluginview.cpp:555
 #, kde-format
 msgid "Expand Macro"
-msgstr "Rozbalit makro"
+msgstr ""
 
 #: lspclientpluginview.cpp:557
 #, kde-format
@@ -178,7 +179,7 @@ msgstr ""
 #: lspclientpluginview.cpp:584
 #, kde-format
 msgid "Show hover information"
-msgstr "Zobrazovat informace při přejetí"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
 #: lspclientpluginview.cpp:587 lspconfigwidget.ui:47
@@ -209,7 +210,7 @@ msgstr ""
 #: lspclientpluginview.cpp:611
 #, kde-format
 msgid "Show Messages"
-msgstr "Zobrazit zprávy"
+msgstr ""
 
 #: lspclientpluginview.cpp:616
 #, kde-format
@@ -224,7 +225,7 @@ msgstr ""
 #: lspclientpluginview.cpp:622
 #, kde-format
 msgid "Restart LSP Server"
-msgstr "Restartovat server LSP"
+msgstr ""
 
 #: lspclientpluginview.cpp:624
 #, kde-format
@@ -234,27 +235,27 @@ msgstr ""
 #: lspclientpluginview.cpp:635
 #, kde-format
 msgid "Go To"
-msgstr "Přejít na"
+msgstr ""
 
 #: lspclientpluginview.cpp:662
 #, kde-format
 msgid "More options"
-msgstr "Více možností"
+msgstr ""
 
 #: lspclientpluginview.cpp:710
 #, kde-format
 msgid "LSP"
-msgstr "LSP"
+msgstr ""
 
 #: lspclientpluginview.cpp:875 lspclientsymbolview.cpp:285
 #, kde-format
 msgid "Expand All"
-msgstr "Rozvinout vše"
+msgstr ""
 
 #: lspclientpluginview.cpp:876 lspclientsymbolview.cpp:286
 #, kde-format
 msgid "Collapse All"
-msgstr "Svinout vše"
+msgstr ""
 
 #: lspclientpluginview.cpp:1083
 #, kde-format
@@ -264,25 +265,25 @@ msgstr ""
 #: lspclientpluginview.cpp:1407
 #, kde-format
 msgid "Line: %1: "
-msgstr "Řádek: %1: "
+msgstr ""
 
 #: lspclientpluginview.cpp:1559 lspclientpluginview.cpp:1911
 #: lspclientpluginview.cpp:2032
 #, kde-format
 msgid "No results"
-msgstr "Žádné výsledky"
+msgstr ""
 
 #: lspclientpluginview.cpp:1618
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
-msgstr "Definice: %1"
+msgstr ""
 
 #: lspclientpluginview.cpp:1624
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
-msgstr "Deklarace: %1"
+msgstr ""
 
 #: lspclientpluginview.cpp:1630
 #, kde-format
@@ -294,30 +295,30 @@ msgstr ""
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
-msgstr "Odkazy: %1"
+msgstr ""
 
 #: lspclientpluginview.cpp:1648
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
-msgstr "Implementace: %1"
+msgstr ""
 
 #: lspclientpluginview.cpp:1661
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
-msgstr "Zvýraznění: %1"
+msgstr ""
 
 #: lspclientpluginview.cpp:1685 lspclientpluginview.cpp:1697
 #: lspclientpluginview.cpp:1710
 #, kde-format
 msgid "No Actions"
-msgstr "Žádné činnosti"
+msgstr ""
 
 #: lspclientpluginview.cpp:1701
 #, kde-format
 msgid "Loading..."
-msgstr "Probíhá načítání..."
+msgstr ""
 
 #: lspclientpluginview.cpp:1793
 #, kde-format
@@ -328,7 +329,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
-msgstr "Přejmenovat"
+msgstr ""
 
 #: lspclientpluginview.cpp:1870
 #, kde-format
@@ -339,7 +340,7 @@ msgstr ""
 #: lspclientpluginview.cpp:1917
 #, kde-format
 msgid "Not enough results"
-msgstr "Nedostatek výsledků"
+msgstr ""
 
 #: lspclientpluginview.cpp:1987
 #, kde-format
@@ -350,25 +351,23 @@ msgstr ""
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
-msgstr "Server LSP"
+msgstr ""
 
 #: lspclientpluginview.cpp:2246
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
-msgstr "Klient LSP"
+msgstr ""
 
-# window title for kernel loading (see txt_load_kernel)
 #: lspclientservermanager.cpp:607
 #, kde-format
 msgid "Restarting"
-msgstr "Restartuji"
+msgstr ""
 
-# window title for kernel loading (see txt_load_kernel)
 #: lspclientservermanager.cpp:607
 #, kde-format
 msgid "NOT Restarting"
-msgstr "NErestartuji"
+msgstr ""
 
 #: lspclientservermanager.cpp:608
 #, kde-format
@@ -398,7 +397,7 @@ msgstr ""
 #: lspclientservermanager.cpp:854
 #, kde-format
 msgid "Started server %2: %1"
-msgstr "Spuštěn server %2: %1"
+msgstr ""
 
 #: lspclientservermanager.cpp:888
 #, kde-format
@@ -423,7 +422,7 @@ msgstr ""
 #: lspclientsymbolview.cpp:276
 #, kde-format
 msgid "Tree Mode"
-msgstr "Stromový pohled"
+msgstr ""
 
 #: lspclientsymbolview.cpp:278
 #, kde-format
@@ -433,17 +432,17 @@ msgstr ""
 #: lspclientsymbolview.cpp:280
 #, kde-format
 msgid "Sort Alphabetically"
-msgstr "Seřadit podle abecedy"
+msgstr ""
 
 #: lspclientsymbolview.cpp:282
 #, kde-format
 msgid "Show Details"
-msgstr "Zobrazit podrobnosti"
+msgstr ""
 
 #: lspclientsymbolview.cpp:437
 #, kde-format
 msgid "Symbols"
-msgstr "Symboly"
+msgstr ""
 
 #: lspclientsymbolview.cpp:568
 #, kde-format
@@ -454,7 +453,7 @@ msgstr ""
 #: lspconfigwidget.ui:33
 #, kde-format
 msgid "Client Settings"
-msgstr "Nastavení klienta"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
@@ -466,7 +465,7 @@ msgstr ""
 #: lspconfigwidget.ui:61
 #, kde-format
 msgid "Enable semantic highlighting"
-msgstr "Povolit zvýrazňování sémantiky"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkInlayHint)
 #: lspconfigwidget.ui:68
@@ -502,7 +501,7 @@ msgstr ""
 #: lspconfigwidget.ui:110
 #, kde-format
 msgid "Navigation:"
-msgstr "Ovládání:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
 #: lspconfigwidget.ui:117
@@ -526,7 +525,7 @@ msgstr ""
 #: lspconfigwidget.ui:138
 #, kde-format
 msgid "Server:"
-msgstr "Server:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
 #: lspconfigwidget.ui:145
@@ -586,22 +585,22 @@ msgstr ""
 #: lspconfigwidget.ui:237
 #, kde-format
 msgid "User Server Settings"
-msgstr "Uživatelské nastavení serveru"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lspconfigwidget.ui:245
 #, kde-format
 msgid "Settings File:"
-msgstr "Soubor nastavení:"
+msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: lspconfigwidget.ui:272
 #, kde-format
 msgid "Default Server Settings"
-msgstr "Výchozí nastavení serveru"
+msgstr ""
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31
 #, kde-format
 msgid "More Options"
-msgstr "Více možností"
+msgstr ""

@@ -1,22 +1,22 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
-# Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012.
-# Vit Pelcak <vit@pelcak.org>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2023.
+# Translation of kateproject.pot into esperanto.
+# Copyright (C) 2012 Free Software Foundation, Inc.
+# This file is distributed under the same license as the kate package.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: json files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-02 00:58+0000\n"
-"PO-Revision-Date: 2023-02-01 10:32+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
-"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
-"Language: cs\n"
+"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -26,12 +26,12 @@ msgstr ""
 #: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
-msgstr "Vytvořit novou větev"
+msgstr ""
 
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr "Vytvořit novou větev z..."
+msgstr ""
 
 #: branchcheckoutdialog.cpp:53
 #, kde-format
@@ -66,25 +66,24 @@ msgstr ""
 #: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Branch"
-msgstr "Větev"
+msgstr ""
 
 #: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Last Commit"
-msgstr "Poslední commit"
+msgstr ""
 
 #: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
 msgid "Delete"
-msgstr "Smazat"
+msgstr ""
 
 #: branchdeletedialog.cpp:140
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] "Opravdu si přejete odstranit vybranou větev?"
-msgstr[1] "Opravdu si přejete odstranit vybrané větve?"
-msgstr[2] "Opravdu si přejete odstranit vybrané větve?"
+msgstr[0] ""
+msgstr[1] ""
 
 #: branchesdialog.cpp:102
 #, kde-format
@@ -94,12 +93,12 @@ msgstr ""
 #: branchesdialog.cpp:128 gitwidget.cpp:490 kateprojectpluginview.cpp:68
 #, kde-format
 msgid "Git"
-msgstr "Git"
+msgstr ""
 
 #: comparebranchesview.cpp:143
 #, kde-format
 msgid "Back"
-msgstr "Zpět"
+msgstr ""
 
 #: currentgitbranchbutton.cpp:123
 #, kde-format
@@ -117,7 +116,7 @@ msgstr ""
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "Aktivní větev: %1"
+msgstr ""
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -127,12 +126,12 @@ msgstr ""
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:251
 #, kde-format
 msgid "Commit"
-msgstr "Commit"
+msgstr ""
 
 #: gitcommitdialog.cpp:74
 #, kde-format
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr ""
 
 #: gitcommitdialog.cpp:76
 #, kde-format
@@ -147,7 +146,7 @@ msgstr ""
 #: gitcommitdialog.cpp:107
 #, kde-format
 msgid "Sign off"
-msgstr "Podepsat"
+msgstr ""
 
 #: gitcommitdialog.cpp:111 gitcommitdialog.cpp:120
 #, kde-format
@@ -157,7 +156,7 @@ msgstr ""
 #: gitcommitdialog.cpp:112 gitwidget.cpp:961
 #, kde-format
 msgid "Amend Last Commit"
-msgstr "Doplnit poslední commit"
+msgstr ""
 
 #: gitcommitdialog.cpp:119
 #, kde-format
@@ -168,58 +167,58 @@ msgstr ""
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr "%1 / 52"
+msgstr ""
 
 #: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr "<span style=\"color:%1;\">%2</span> / 52"
+msgstr ""
 
 #: gitstatusmodel.cpp:85
 #, kde-format
 msgid "Staged"
-msgstr "Staged"
+msgstr ""
 
 #: gitstatusmodel.cpp:87
 #, kde-format
 msgid "Untracked"
-msgstr "Untracked"
+msgstr ""
 
 #: gitstatusmodel.cpp:89
 #, kde-format
 msgid "Conflict"
-msgstr "Konflikt"
+msgstr ""
 
 #: gitstatusmodel.cpp:91
 #, kde-format
 msgid "Modified"
-msgstr "Změněno"
+msgstr ""
 
 #: gitwidget.cpp:259
 #, kde-format
 msgid "Git Push"
-msgstr "Git Push"
+msgstr ""
 
 #: gitwidget.cpp:272
 #, kde-format
 msgid "Git Pull"
-msgstr "Git Pull"
+msgstr ""
 
 #: gitwidget.cpp:285
 #, kde-format
 msgid "Cancel Operation"
-msgstr "Zrušit operaci"
+msgstr ""
 
 #: gitwidget.cpp:293
 #, kde-format
 msgid " canceled."
-msgstr "zrušeno."
+msgstr ""
 
 #: gitwidget.cpp:314 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
-msgstr "Filtr..."
+msgstr ""
 
 #: gitwidget.cpp:401
 #, kde-format
@@ -229,7 +228,7 @@ msgstr ""
 #: gitwidget.cpp:575
 #, kde-format
 msgid " error: %1"
-msgstr " chyba: %1"
+msgstr ""
 
 #: gitwidget.cpp:581
 #, kde-format
@@ -304,7 +303,7 @@ msgstr ""
 #: gitwidget.cpp:953
 #, kde-format
 msgid "Refresh"
-msgstr "Obnovit"
+msgstr ""
 
 #: gitwidget.cpp:969
 #, kde-format
@@ -314,17 +313,17 @@ msgstr ""
 #: gitwidget.cpp:981
 #, kde-format
 msgid "Delete Branch"
-msgstr "Smazat větev"
+msgstr ""
 
 #: gitwidget.cpp:993
 #, kde-format
 msgid "Compare Branch with..."
-msgstr "Porovnat větev s..."
+msgstr ""
 
 #: gitwidget.cpp:997
 #, kde-format
 msgid "Show Commit"
-msgstr "Zobrazit Commit"
+msgstr ""
 
 #: gitwidget.cpp:997
 #, kde-format
@@ -334,12 +333,12 @@ msgstr ""
 #: gitwidget.cpp:1002
 #, kde-format
 msgid "Open Commit..."
-msgstr "Otevřít Commit..."
+msgstr ""
 
 #: gitwidget.cpp:1005 gitwidget.cpp:1044
 #, kde-format
 msgid "Stash"
-msgstr "Uschovat"
+msgstr ""
 
 #: gitwidget.cpp:1015
 #, kde-format
@@ -394,12 +393,12 @@ msgstr ""
 #: gitwidget.cpp:1110
 #, kde-format
 msgid "Remove All"
-msgstr "Odstranit vše"
+msgstr ""
 
 #: gitwidget.cpp:1110
 #, kde-format
 msgid "Discard All"
-msgstr "Zahodit vše"
+msgstr ""
 
 #: gitwidget.cpp:1113
 #, kde-format
@@ -410,22 +409,22 @@ msgstr ""
 #: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
-msgstr "Zobrazit změny"
+msgstr ""
 
 #: gitwidget.cpp:1131
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr "Jste si jistí, že si přejete odstranit tyto soubory?"
+msgstr ""
 
 #: gitwidget.cpp:1140
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr "Opravdu si přejete zahodit všechny změny?"
+msgstr ""
 
 #: gitwidget.cpp:1168
 #, kde-format
 msgid "Open File"
-msgstr "Otevřít soubor"
+msgstr ""
 
 #: gitwidget.cpp:1170
 #, kde-format
@@ -450,12 +449,12 @@ msgstr ""
 #: gitwidget.cpp:1173
 #, kde-format
 msgid "Remove"
-msgstr "Odstranit"
+msgstr ""
 
 #: gitwidget.cpp:1173
 #, kde-format
 msgid "Discard"
-msgstr "Zahodit"
+msgstr ""
 
 #: gitwidget.cpp:1190
 #, kde-format
@@ -465,7 +464,7 @@ msgstr ""
 #: gitwidget.cpp:1203
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr "Opravdu si přejete odstranit tento soubor?"
+msgstr ""
 
 #: gitwidget.cpp:1218
 #, kde-format
@@ -490,7 +489,7 @@ msgstr ""
 #: gitwidget.cpp:1290
 #, kde-format
 msgid "Remove Selected Files"
-msgstr "Odstranit vybrané soubory"
+msgstr ""
 
 #: gitwidget.cpp:1303
 #, kde-format
@@ -510,18 +509,18 @@ msgstr ""
 #: kateproject.cpp:529
 #, kde-format
 msgid "<untracked>"
-msgstr "<nesledováno>"
+msgstr ""
 
 #: kateprojectcompletion.cpp:43
 #, kde-format
 msgid "Project Completion"
-msgstr "Doplňování projektu"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:25
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories"
-msgstr "Automaticky načítat repozitáře"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:27
 #, kde-format
@@ -529,23 +528,21 @@ msgid ""
 "Project plugin is able to autoload repository working copies when there is "
 "no .kateproject file defined yet."
 msgstr ""
-"Modul projektu je schopen automaticky načíst repozitář pracovních kopií "
-"pokud ještě není určen soubor .kateproject."
 
 #: kateprojectconfigpage.cpp:30
 #, kde-format
 msgid "&Git"
-msgstr "&Git"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:33
 #, kde-format
 msgid "&Subversion"
-msgstr "&Subversion"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:35
 #, kde-format
 msgid "&Mercurial"
-msgstr "&Mercurial"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:37
 #, kde-format
@@ -556,23 +553,23 @@ msgstr ""
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr "Chování sezení"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgid "Session settings for projects"
-msgstr "Nastavení sezení pro projekty"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Restore Open Projects"
-msgstr "Obnovit otevřené projekty"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:55
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
-msgstr "Index projektu"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:56
 #, kde-format
@@ -582,12 +579,12 @@ msgstr ""
 #: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Enable indexing"
-msgstr "Povolit indexování"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:60
 #, kde-format
 msgid "Directory for index files"
-msgstr "Adresář pro soubory indexu"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:64
 #, kde-format
@@ -600,7 +597,7 @@ msgstr ""
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
-msgstr "Funkčnost napříč projekty"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:72
 #, kde-format
@@ -622,7 +619,7 @@ msgstr ""
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
-msgstr "Git"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
@@ -637,12 +634,12 @@ msgstr ""
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "No Action"
-msgstr "Žádná činnost"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Open file"
-msgstr "Otevřít soubor"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:93 kateprojectconfigpage.cpp:104
 #, kde-format
@@ -657,43 +654,43 @@ msgstr ""
 #: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Projects"
-msgstr "Projekty"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:140
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
-msgstr "Vlastnosti projektu"
+msgstr ""
 
 #: kateprojectinfoview.cpp:35
 #, kde-format
 msgid "Terminal (.kateproject)"
-msgstr "Terminál (.kateproject)"
+msgstr ""
 
 #: kateprojectinfoview.cpp:43
 #, kde-format
 msgid "Terminal (Base)"
-msgstr "Terminál (Základ)"
+msgstr ""
 
 #: kateprojectinfoview.cpp:50
 #, kde-format
 msgid "Code Index"
-msgstr "Index kódu"
+msgstr ""
 
 #: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Code Analysis"
-msgstr "Analýza kódu"
+msgstr ""
 
 #: kateprojectinfoview.cpp:60
 #, kde-format
 msgid "Notes"
-msgstr "Poznámky"
+msgstr ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
-msgstr "Spustit analýzu..."
+msgstr ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:98
 #, kde-format
@@ -707,7 +704,7 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:200
 #, kde-format
 msgid "CodeAnalysis"
-msgstr "Analýza kódu"
+msgstr ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
 #, kde-format
@@ -717,59 +714,58 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "[%1] Analýza %2 souboru byla dokončena."
-msgstr[1] "[%1] Analýza %2 souborů byla dokončena."
-msgstr[2] "[%1] Analýza %2 souborů byla dokončena."
+msgstr[0] ""
+msgstr[1] ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Analýza selhala s kódem %1. Chyba: %2."
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
 msgid "Name"
-msgstr "Název"
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
 msgid "Kind"
-msgstr "Typ"
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
 msgid "File"
-msgstr "Soubor"
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
 msgid "Line"
-msgstr "Řádek"
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Search"
-msgstr "Hledat"
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:195
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
-msgstr "Nelze vytvořit index. Prosím, nainstalujte 'ctags'."
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Indexing is not enabled"
-msgstr "Indexování není povoleno"
+msgstr ""
 
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "Error"
-msgstr "Chyba"
+msgstr ""
 
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "File name already exists"
-msgstr "Název souboru již existuje."
+msgstr ""
 
 #: kateprojectplugin.cpp:223
 #, kde-format
@@ -798,72 +794,72 @@ msgstr ""
 #: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Project"
-msgstr "Projekt"
+msgstr ""
 
 #: kateprojectpluginview.cpp:57
 #, kde-format
 msgid "Project Manager"
-msgstr "Správce projektu"
+msgstr ""
 
 #: kateprojectpluginview.cpp:79
 #, kde-format
 msgid "Open projects list"
-msgstr "Otevřít seznam projektů"
+msgstr ""
 
 #: kateprojectpluginview.cpp:84
 #, kde-format
 msgid "Reload project"
-msgstr "Znovu načíst projekt"
+msgstr ""
 
 #: kateprojectpluginview.cpp:87
 #, kde-format
 msgid "Close project"
-msgstr "Zavřít projekt"
+msgstr ""
 
 #: kateprojectpluginview.cpp:102
 #, kde-format
 msgid "Refresh git status"
-msgstr "Obnovit stav gitu"
+msgstr ""
 
 #: kateprojectpluginview.cpp:180
 #, kde-format
 msgid "Open Folder..."
-msgstr "Otevřít složku..."
+msgstr ""
 
 #: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Project TODOs"
-msgstr "Úlohy projektu"
+msgstr ""
 
 #: kateprojectpluginview.cpp:189
 #, kde-format
 msgid "Activate Previous Project"
-msgstr "Aktivovat předchozí projekt"
+msgstr ""
 
 #: kateprojectpluginview.cpp:194
 #, kde-format
 msgid "Activate Next Project"
-msgstr "Aktivovat další projekt"
+msgstr ""
 
 #: kateprojectpluginview.cpp:199
 #, kde-format
 msgid "Lookup"
-msgstr "Vyhledat"
+msgstr ""
 
 #: kateprojectpluginview.cpp:203
 #, kde-format
 msgid "Close Project"
-msgstr "Zavřít projekt"
+msgstr ""
 
 #: kateprojectpluginview.cpp:207
 #, kde-format
 msgid "Close All Projects"
-msgstr "Zavřít všechny projekty"
+msgstr ""
 
 #: kateprojectpluginview.cpp:212
 #, kde-format
 msgid "Close Orphaned Projects"
-msgstr "Zavřít osiřelé projekty"
+msgstr ""
 
 #: kateprojectpluginview.cpp:222
 #, kde-format
@@ -873,62 +869,62 @@ msgstr ""
 #: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:803
 #, kde-format
 msgid "Lookup: %1"
-msgstr "Vyhledat: %1"
+msgstr ""
 
 #: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:804
 #, kde-format
 msgid "Goto: %1"
-msgstr "Přejít na: %1"
+msgstr ""
 
 #: kateprojectpluginview.cpp:308
 #, kde-format
 msgid "Projects Index"
-msgstr "Index projektu"
+msgstr ""
 
 #: kateprojectpluginview.cpp:848
 #, kde-format
 msgid "Choose a directory"
-msgstr "Vyberte adresář"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:42
 #, kde-format
 msgid "Enter name:"
-msgstr "Zadejte název:"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Add"
-msgstr "Přidat"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Copy Location"
-msgstr "Kopírovat umístění"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:69
 #, kde-format
 msgid "Add File"
-msgstr "Přidat soubor"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:70
 #, kde-format
 msgid "Add Folder"
-msgstr "Přidat složku"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:77
 #, kde-format
 msgid "&Rename"
-msgstr "&Přejmenovat"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:84
 #, kde-format
 msgid "Properties"
-msgstr "Vlastnosti"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:88
 #, kde-format
 msgid "Open With"
-msgstr "Otevřít pomocí"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:96
 #, kde-format
@@ -943,17 +939,17 @@ msgstr ""
 #: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr "&Otevřít odpovídající složku"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:120
 #, kde-format
 msgid "Show Git History"
-msgstr "Zobrazit historii Gitu"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:130
 #, kde-format
 msgid "Delete File"
-msgstr "Smazat soubor"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
@@ -963,12 +959,12 @@ msgstr ""
 #: kateprojectviewtree.cpp:135
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr "Nelze vytvořit soubor: %1, Chyba: %2"
+msgstr ""
 
 #: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr "Nelze vytvořit adresář: %1"
+msgstr ""
 
 #: stashdialog.cpp:37
 #, kde-format
@@ -1034,4 +1030,4 @@ msgstr ""
 #: ui.rc:9
 #, kde-format
 msgid "&Projects"
-msgstr "&Projekty"
+msgstr ""

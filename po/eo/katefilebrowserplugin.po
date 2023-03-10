@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-19 00:49+0000\n"
-"PO-Revision-Date: 2023-01-04 22:00+0100\n"
+"PO-Revision-Date: 2023-03-09 22:47+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
 "Language: eo\n"
@@ -44,14 +44,14 @@ msgstr "&Alia..."
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vi estas provanta malfermi 1 dosieron, ĉu vi certas?"
+msgstr[1] "Vi estas provanta malfermi %1 dosierojn, ĉu vi certas?"
 
 #: katefilebrowser.cpp:359
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr ""
+msgstr "Malfermi Ĉiujn Dosierojn"
 
 #: katefilebrowser.cpp:426
 #, kde-format
@@ -76,7 +76,7 @@ msgstr "Aŭtomate sinkronigi kun aktuala dokumento"
 #: katefilebrowser.cpp:470
 #, kde-format
 msgid "Highlight current file"
-msgstr ""
+msgstr "Reliefigi aktualan dosieron"
 
 #: katefilebrowserconfig.cpp:63
 #, kde-format
@@ -86,7 +86,7 @@ msgstr "Ilobreto"
 #: katefilebrowserconfig.cpp:65
 #, kde-format
 msgid "A&vailable actions:"
-msgstr "&Disponeblaj agoj:"
+msgstr "Agoj ha&veblaj:"
 
 #: katefilebrowserconfig.cpp:66
 #, kde-format

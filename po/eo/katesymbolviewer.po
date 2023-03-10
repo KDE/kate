@@ -1,5 +1,6 @@
 # Translation of katesymbolviewer into esperanto.
 # Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the kate package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
 # Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
@@ -8,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2023-01-04 22:00+0100\n"
+"PO-Revision-Date: 2023-03-09 22:47+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -155,7 +156,7 @@ msgstr "Pozicio"
 #: plugin_katesymbolviewer.cpp:359
 #, kde-format
 msgid "Sorry, not supported yet!"
-msgstr ""
+msgstr "Pardonu, ankoraŭ ne subtenata!"
 
 #: plugin_katesymbolviewer.cpp:363
 #, kde-format
@@ -165,37 +166,37 @@ msgstr "Dosiertipo: %1"
 #: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Display functions parameters"
-msgstr ""
+msgstr "Montri funkcioparametrojn"
 
 #: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
-msgstr ""
+msgstr "Aŭtomate vastigi nodojn en arboreĝimo"
 
 #: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always display symbols in tree mode"
-msgstr ""
+msgstr "Ĉiam montri simbolojn en arboreĝimo"
 
 #: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always sort symbols"
-msgstr ""
+msgstr "Ĉiam ordigi simbolojn"
 
 #: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Parser Options"
-msgstr ""
+msgstr "Opcioj de Analizilo"
 
 #: plugin_katesymbolviewer.cpp:509
 #, kde-format
 msgid "Symbol Viewer"
-msgstr ""
+msgstr "Simbolvidigilo"
 
 #: plugin_katesymbolviewer.cpp:514
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
-msgstr ""
+msgstr "Agordopaĝo de Simbolvidigilo"
 
 #: python_parser.cpp:22 ruby_parser.cpp:22
 #, kde-format

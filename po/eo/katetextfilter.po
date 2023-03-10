@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2023-01-07 01:00+0100\n"
+"PO-Revision-Date: 2023-03-09 22:47+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
 "Language: eo\n"
@@ -27,6 +27,8 @@ msgid ""
 "<title>Result of:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 msgstr ""
+"<title>Rezulto de:</title><nl /><pre><code>$ %1\n"
+"<nl />%2</code></pre>"
 
 #: plugin_katetextfilter.cpp:152
 #, kde-format
@@ -104,12 +106,15 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
+"Se markita, eligo de STDOUT kaj STDERR estos kunfandataj kaj neniuj eraroj "
+"estos raportataj.\n"
+"Alikaze, STDERR estos montrata kiel pasiva mesaĝo."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60
 #, kde-format
 msgid "Merge STDOUT and STDERR"
-msgstr ""
+msgstr "Kunfandi STDOUT kaj STDERR"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

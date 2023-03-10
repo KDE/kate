@@ -1,5 +1,6 @@
 # Translation of katexmltools into esperanto.
 # Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the kate package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
 # Michael Moroni <michael.moroni@mailoo.org>, 2012.
 # Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
@@ -9,8 +10,8 @@ msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2012-05-23 11:58+0200\n"
-"Last-Translator: Michael Moroni <michael.moroni@mailoo.org>\n"
+"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"

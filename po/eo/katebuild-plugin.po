@@ -1,13 +1,16 @@
 # Translation of katebuild-plugin into esperanto.
+# Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the kate package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-26 01:01+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +22,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Axel Rousseau,Oliver Kellogg"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "axel@esperanto-jeunes.org,okellogg@users.sourceforge.net"
 
 #. i18n: ectx: attribute (title), widget (QWidget, errs)
 #: build.ui:36
@@ -36,111 +39,106 @@ msgstr "Eligo"
 #: build.ui:56
 #, kde-format
 msgid "Show:"
-msgstr ""
+msgstr "Montri:"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton2)
 #: build.ui:121 build.ui:146
-#, fuzzy, kde-format
-#| msgid "&Build"
+#, kde-format
 msgid "Build again"
-msgstr "&Konstrui"
+msgstr "Konstrui denove"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton2)
 #: build.ui:128 build.ui:153
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Nuligi"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
 #: build.ui:184
 #, kde-format
 msgctxt "Header for the file name column"
 msgid "File"
-msgstr ""
+msgstr "Dosiero"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
 #: build.ui:189
 #, kde-format
 msgctxt "Header for the line number column"
 msgid "Line"
-msgstr ""
+msgstr "Linio"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
 #: build.ui:194
 #, kde-format
 msgctxt "Header for the error message column"
 msgid "Message"
-msgstr ""
+msgstr "Mesaĝo"
 
 #: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1381
-#, fuzzy, kde-format
-#| msgid "&Build"
+#, kde-format
 msgid "Build"
-msgstr "&Konstrui"
+msgstr "Konstriu"
 
 #: plugin_katebuild.cpp:146
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Select Target..."
-msgstr "Agordo"
+msgstr "Elekti Celon..."
 
 #: plugin_katebuild.cpp:151
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Build Selected Target"
-msgstr "Agordo"
+msgstr "Konstrui Elektitan Celon"
 
 #: plugin_katebuild.cpp:156
 #, kde-format
 msgid "Build and Run Selected Target"
-msgstr ""
+msgstr "Konstrui kaj Kuru Elektitan Celon"
 
 #: plugin_katebuild.cpp:161
 #, kde-format
 msgid "Stop"
-msgstr ""
+msgstr "Halti"
 
 #: plugin_katebuild.cpp:166
 #, kde-format
 msgid "Next Error"
-msgstr ""
+msgstr "Sekva Eraro"
 
 #: plugin_katebuild.cpp:172
 #, kde-format
 msgid "Previous Error"
-msgstr ""
+msgstr "Antaŭa Eraro"
 
 #: plugin_katebuild.cpp:178
 #, kde-format
 msgid "Show Marks"
-msgstr ""
+msgstr "Montri Markojn"
 
 #: plugin_katebuild.cpp:183
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Fokusi Sekvan Langeton maldekstren"
 
 #: plugin_katebuild.cpp:203
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Fokusi Sekvan Langeton dekstren"
 
 #: plugin_katebuild.cpp:227
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
-msgstr "Agordo"
+msgstr "Celaj Agordoj"
 
 #: plugin_katebuild.cpp:393 plugin_katebuild.cpp:1483 plugin_katebuild.cpp:1494
 #: plugin_katebuild.cpp:1515 plugin_katebuild.cpp:1525
 #, kde-format
 msgid "Project Plugin Targets"
-msgstr ""
+msgstr "Projektaj Kromaĵo-Celoj"
 
 #: plugin_katebuild.cpp:546
 #, kde-kuit-format
@@ -149,45 +147,49 @@ msgid ""
 "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
 "the working directory in the Target Settings"
 msgstr ""
+"<title>Ne eblis malfermi dosieron:</title><nl/>%1<br/>Provu aldoni serĉvojon "
+"al la labordosierujo en la Celaj Agordoj"
 
 #: plugin_katebuild.cpp:567
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
-msgstr ""
+msgstr "eraro"
 
 #: plugin_katebuild.cpp:571
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
-msgstr ""
+msgstr "nedifinita referenco"
 
 #: plugin_katebuild.cpp:579
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
-msgstr ""
+msgstr "averto"
 
 #: plugin_katebuild.cpp:667
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "Eraro"
 
 #: plugin_katebuild.cpp:672
 #, kde-format
 msgid "Warning"
-msgstr ""
+msgstr "Averto"
 
 #: plugin_katebuild.cpp:803
 #, kde-format
 msgid "There is no file or directory specified for building."
-msgstr ""
+msgstr "Ne estas dosiero aŭ dosierujo specifita por konstruado."
 
 #: plugin_katebuild.cpp:807
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
+"La dosiero \"%1\" ne estas loka dosiero. Ne-lokaj dosieroj ne povas esti "
+"kompilitaj."
 
 #: plugin_katebuild.cpp:854
 #, kde-format
@@ -195,157 +197,155 @@ msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
+"Ne povas ruli komandon: %1\n"
+"La laborvojo ne ekzistas: %2"
 
 #: plugin_katebuild.cpp:877
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr ""
+msgstr "Malsukcesis ruli \"%1\". exitStatus = %2"
 
 #: plugin_katebuild.cpp:896
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
-msgstr ""
+msgstr "Konstruado de <b>%1</b> nuligita"
 
 #: plugin_katebuild.cpp:1004
 #, kde-format
 msgid "No target available for building."
-msgstr ""
+msgstr "Neniu celo disponebla por konstruado."
 
 #: plugin_katebuild.cpp:1018
 #, kde-format
 msgid "There is no local file or directory specified for building."
-msgstr ""
+msgstr "Ne estas loka dosiero aŭ dosierujo specifita por konstruado."
 
 #: plugin_katebuild.cpp:1024
 #, kde-format
 msgid "Already building..."
-msgstr ""
+msgstr "Jam konstruas..."
 
 #: plugin_katebuild.cpp:1051
 #, kde-format
 msgid "Building target <b>%1</b> ..."
-msgstr ""
+msgstr "Konstruanta celon <b>%1</b>..."
 
 #: plugin_katebuild.cpp:1066
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Fari Rezultojn:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1103
 #, kde-format
 msgid "Building <b>%1</b> completed."
-msgstr ""
+msgstr "Konstruaĵo <b>%1</b> finiĝis."
 
 #: plugin_katebuild.cpp:1122
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Trovis unu eraron."
+msgstr[1] "Trovis %1 erarojn."
 
 #: plugin_katebuild.cpp:1123
 #, kde-format
 msgid "Building <b>%1</b> had errors."
-msgstr ""
+msgstr "Konstruado de <b>%1</b> havis erarojn."
 
 #: plugin_katebuild.cpp:1125
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Trovis unu averton."
+msgstr[1] "Trovis %1 avertojn."
 
 #: plugin_katebuild.cpp:1126
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
-msgstr ""
+msgstr "Konstruado de <b>%1</b> havis avertojn."
 
 #: plugin_katebuild.cpp:1132
 #, kde-format
 msgid "Build failed."
-msgstr ""
+msgstr "Konstruo malsukcesis."
 
 #: plugin_katebuild.cpp:1134
 #, kde-format
 msgid "Build completed without problems."
-msgstr ""
+msgstr "Konstruo plenumita sen problemoj."
 
 #: plugin_katebuild.cpp:1165
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "Ne povas plenumi: %1 Neniu labordosierujo metita."
 
 #: plugin_katebuild.cpp:1380
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Target Set"
-msgstr "Agordo"
+msgstr "Celaro"
 
 #: plugin_katebuild.cpp:1382
 #, kde-format
 msgid "Clean"
-msgstr ""
+msgstr "Purigi"
 
 #: plugin_katebuild.cpp:1383
 #, kde-format
 msgid "Config"
-msgstr ""
+msgstr "Agordo"
 
 #: plugin_katebuild.cpp:1384
 #, kde-format
 msgid "ConfigClean"
-msgstr ""
+msgstr "ConfigClean"
 
 #: plugin_katebuild.cpp:1427
 #, kde-format
 msgid "Only Errors"
-msgstr ""
+msgstr "Nur Eraroj"
 
 #: plugin_katebuild.cpp:1430
 #, kde-format
 msgid "Errors and Warnings"
-msgstr ""
+msgstr "Eraroj kaj Avertoj"
 
 #: plugin_katebuild.cpp:1433
-#, fuzzy, kde-format
-#| msgid "Output"
+#, kde-format
 msgid "Parsed Output"
-msgstr "Eligo"
+msgstr "Analizita Eligo"
 
 #: plugin_katebuild.cpp:1436
-#, fuzzy, kde-format
-#| msgid "Output"
+#, kde-format
 msgid "Full Output"
-msgstr "Eligo"
+msgstr "Plena Eligo"
 
 #: plugin_katebuild.cpp:1553
-#, fuzzy, kde-format
-#| msgid "&Build"
+#, kde-format
 msgid "build"
-msgstr "&Konstrui"
+msgstr "konstrui"
 
 #: plugin_katebuild.cpp:1556
 #, kde-format
 msgid "clean"
-msgstr ""
+msgstr "purigi"
 
 #: plugin_katebuild.cpp:1559
 #, kde-format
 msgid "quick"
-msgstr ""
+msgstr "rapida"
 
 #: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
-msgstr ""
+msgstr "<B>T:</B> %1"
 
 #: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
-msgstr ""
+msgstr "<B>Dir.:</B> %1"
 
 #: TargetHtmlDelegate.cpp:98
 #, kde-format
@@ -353,6 +353,8 @@ msgid ""
 "Leave empty to use the directory of the current document.\n"
 "Add search directories by adding paths separated by ';'"
 msgstr ""
+"Lasu malplena por uzi la dosierujon de la nuna dokumento.\n"
+"Aldonu serĉajn dosierujojn aldonante vojojn apartigitajn per ';'"
 
 #: TargetHtmlDelegate.cpp:102
 #, kde-format
@@ -362,66 +364,70 @@ msgid ""
 "\"%d\" for directory of current file\n"
 "\"%n\" for current file name without suffix"
 msgstr ""
+"Uzu:\n"
+"\"%f\" por nuna dosiero\n"
+"\"%d\" por dosierujo de nuna dosiero\n"
+"\"%n\" por nuna dosiernomo sen sufikso"
 
 #: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
-msgstr ""
+msgstr "Komando/Cel-ara Nomo"
 
 #: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
-msgstr ""
+msgstr "Labora Dosierujo/Komando"
 
 #: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
-msgstr ""
+msgstr "Lanĉi Komandon"
 
 #: targets.cpp:23
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
-msgstr ""
+msgstr "Filtri celojn, uzi sagoklavojn por elekti, Enigu por lanĉi"
 
 #: targets.cpp:27
 #, kde-format
 msgid "Create new set of targets"
-msgstr ""
+msgstr "Krei novan aron de celoj"
 
 #: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
-msgstr ""
+msgstr "Kopii komandon aŭ cel-aron"
 
 #: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
-msgstr ""
+msgstr "Forigi nunan celon aŭ nunan aron de celoj"
 
 #: targets.cpp:40
 #, kde-format
 msgid "Add new target"
-msgstr ""
+msgstr "Aldoni novan celon"
 
 #: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
-msgstr ""
+msgstr "Konstrui elektitan celon"
 
 #: targets.cpp:48
 #, kde-format
 msgid "Build and run selected target"
-msgstr ""
+msgstr "Konstrui kaj ruli elektitan celon"
 
 #: targets.cpp:52
 #, kde-format
 msgid "Move selected target up"
-msgstr ""
+msgstr "Movi elektitan celon supren"
 
 #: targets.cpp:56
 #, kde-format
 msgid "Move selected target down"
-msgstr ""
+msgstr "Movi elektitan celon malsupren"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -432,34 +438,9 @@ msgstr "&Konstrui"
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
-msgstr ""
+msgstr "Enmeti vojon"
 
 #: UrlInserter.cpp:51
 #, kde-format
 msgid "Select directory to insert"
-msgstr ""
-
-#, fuzzy
-#~| msgid "&Build"
-#~ msgid "Kate Build Plugin"
-#~ msgstr "&Konstrui"
-
-#, fuzzy
-#~| msgid "Settings"
-#~ msgid "Target Set %1"
-#~ msgstr "Agordo"
-
-#, fuzzy
-#~| msgid "Settings"
-#~ msgid "Target"
-#~ msgstr "Agordo"
-
-#, fuzzy
-#~| msgid "Settings"
-#~ msgid "Target:"
-#~ msgstr "Agordo"
-
-#, fuzzy
-#~| msgid "Breakpoint"
-#~ msgid "Break"
-#~ msgstr "Haltpunkto"
+msgstr "Elekti dosierujon enmetendan"

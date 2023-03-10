@@ -8,8 +8,6 @@
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectpluginview.h"
 
-#include "KateTerminalWidget.h"
-
 #include <KActionCollection>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -29,7 +27,6 @@ KPluginFactory *KateProjectInfoViewTerminal::s_pluginFactory = nullptr;
 KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *pluginView, const QString &directory)
     : m_pluginView(pluginView)
     , m_directory(directory)
-    , m_konsolePart(nullptr)
 {
     /**
      * layout widget
@@ -49,10 +46,6 @@ KateProjectInfoViewTerminal::~KateProjectInfoViewTerminal()
     if (m_konsolePart) {
         disconnect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
     }
-
-    if (m_termWidget) {
-        disconnect(m_termWidget, &QObject::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
-    }
 }
 
 KPluginFactory *KateProjectInfoViewTerminal::pluginFactory()
@@ -68,14 +61,14 @@ void KateProjectInfoViewTerminal::showEvent(QShowEvent *)
     /**
      * we delay the terminal construction until we have some part to have a usable WINDOWID, see bug 411965
      */
-    if (!m_konsolePart && !m_termWidget) {
+    if (!m_konsolePart) {
         loadTerminal();
     }
 }
 
 void KateProjectInfoViewTerminal::loadTerminal()
 {
-    if (hasKonsole() && !forceOwnTerm()) {
+    if (hasKonsole()) {
         /**
          * null in any case, if loadTerminal fails below and we are in the destroyed event
          */
@@ -123,15 +116,6 @@ void KateProjectInfoViewTerminal::loadTerminal()
         // clang-format off
         connect(m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent*,bool&)), this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
         // clang-format on
-    } else {
-        m_termWidget = new KateTerminalWidget(this);
-        m_layout->addWidget(m_termWidget);
-        setFocusProxy(m_termWidget);
-        m_termWidget->showShellInDir(m_directory);
-        m_termWidget->installEventFilter(this);
-
-        connect(m_termWidget, &QObject::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
-        connect(m_termWidget, &KateTerminalWidget::overrideShortcutCheck, this, &KateProjectInfoViewTerminal::overrideShortcut);
     }
 }
 
@@ -158,22 +142,18 @@ static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral
 
 bool KateProjectInfoViewTerminal::ignoreEsc() const
 {
-    if (hasKonsole() && !forceOwnTerm()) {
-        if (!m_konsolePart || !KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyBehaviour", true)) {
-            return false;
-        }
-
-        const QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
-        const auto app = qobject_cast<TerminalInterface *>(m_konsolePart)->foregroundProcessName();
-        return exceptList.contains(app);
+    if (!m_konsolePart || !KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyBehaviour", true)) {
+        return false;
     }
-    // KateTerminalWidget doesn't have foregroundProcessName
-    return false;
+
+    const QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
+    const auto app = qobject_cast<TerminalInterface *>(m_konsolePart)->foregroundProcessName();
+    return exceptList.contains(app);
 }
 
 bool KateProjectInfoViewTerminal::isLoadable()
 {
-    return KateTerminalWidget::isAvailable() || (pluginFactory() != nullptr);
+    return (pluginFactory() != nullptr);
 }
 
 void KateProjectInfoViewTerminal::respawn(const QString &directory)
@@ -182,19 +162,11 @@ void KateProjectInfoViewTerminal::respawn(const QString &directory)
         return;
     }
 
-    if (hasKonsole() && !forceOwnTerm()) {
-        m_directory = directory;
-        disconnect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
+    m_directory = directory;
 
-        if (m_konsolePart != nullptr) {
-            delete m_konsolePart;
-        }
-    } else {
-        if (m_termWidget) {
-            disconnect(m_termWidget, &QObject::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
-        }
-        delete m_termWidget;
-        m_termWidget = nullptr;
+    if (m_konsolePart) {
+        disconnect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
+        delete m_konsolePart;
     }
 
     loadTerminal();
@@ -207,7 +179,7 @@ static bool isCtrlShiftT(QKeyEvent *ke)
 
 bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
 {
-    if (!m_konsolePart && !m_termWidget) {
+    if (!m_konsolePart) {
         return QWidget::eventFilter(w, e);
     }
 
@@ -215,17 +187,11 @@ bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
         if (isCtrlShiftT(keyEvent)) {
             e->accept();
-            if (m_konsolePart) {
-                auto tiface = qobject_cast<TerminalInterface *>(m_konsolePart);
-                const auto profile = QString{};
-                const auto workingDir = tiface->currentWorkingDirectory();
-                QMetaObject::invokeMethod(m_konsolePart, "createSession", Q_ARG(QString, profile), Q_ARG(QString, workingDir));
-                return true;
-            } else if (m_termWidget) {
-                const auto profile = QString{};
-                const auto workingDir = m_termWidget->currentWorkingDirectory();
-                m_termWidget->createSession({}, workingDir);
-            }
+            auto tiface = qobject_cast<TerminalInterface *>(m_konsolePart);
+            const auto profile = QString{};
+            const auto workingDir = tiface->currentWorkingDirectory();
+            QMetaObject::invokeMethod(m_konsolePart, "createSession", Q_ARG(QString, profile), Q_ARG(QString, workingDir));
+            return true;
         }
     }
 
@@ -234,24 +200,12 @@ bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
 
 void KateProjectInfoViewTerminal::runCommand(const QString &workingDir, const QString &cmd)
 {
-    if (hasKonsole() && !forceOwnTerm()) {
-        auto terminal = qobject_cast<TerminalInterface *>(m_konsolePart);
-        if (!terminal) {
-            loadTerminal();
-        }
-        terminal->sendInput(QStringLiteral("\x05\x15"));
-        const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
-        terminal->sendInput(changeDirCmd);
-        terminal->sendInput(cmd.trimmed() + QStringLiteral("\n"));
-    } else if (isLoadable()) {
-        if (!m_termWidget) {
-            loadTerminal();
-        }
-#ifndef Q_OS_WIN // Doesnt work with PS or cmd.exe
-        m_termWidget->sendInput(QStringLiteral("\x05\x15"));
-#endif
-        const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
-        m_termWidget->sendInput(changeDirCmd);
-        m_termWidget->sendInput(cmd.trimmed() + QStringLiteral("\n"));
+    if (!m_konsolePart) {
+        loadTerminal();
     }
+    auto terminal = qobject_cast<TerminalInterface *>(m_konsolePart);
+    terminal->sendInput(QStringLiteral("\x05\x15"));
+    const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
+    terminal->sendInput(changeDirCmd);
+    terminal->sendInput(cmd.trimmed() + QStringLiteral("\n"));
 }

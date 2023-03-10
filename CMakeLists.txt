@@ -84,8 +84,6 @@ if (NOT WIN32 AND NOT HAIKU)
     )
 endif()
 
-ecm_optional_add_subdirectory(libkateterminal)
-
 # addons for Kate
 ecm_optional_add_subdirectory(addons)
 

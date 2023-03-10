@@ -13,8 +13,6 @@
 #include <ktexteditor/configpage.h>
 #include <ktexteditor/mainwindow.h>
 
-#include "KateTerminalWidget.h"
-
 #include <QKeyEvent>
 #include <QList>
 
@@ -133,14 +131,6 @@ public:
         return pluginFactory() != nullptr;
     }
 
-    bool forceOwnTerm() const
-    {
-#ifdef Q_OS_WIN
-        return true;
-#endif
-        return false; // Change to use on linux
-    }
-
 public Q_SLOTS:
     /**
      * pipe current document to console
@@ -221,12 +211,6 @@ private:
      * console part
      */
     KParts::ReadOnlyPart *m_part;
-
-    /**
-     * Our own terminal widget that is used on windows
-     * or when Konsole is not found
-     */
-    KateTerminalWidget *m_terminal = nullptr;
 
     /**
      * main window of this console

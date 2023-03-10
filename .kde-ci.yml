@@ -28,12 +28,10 @@ Dependencies:
 - 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
   'require':
     'frameworks/kactivities': '@stable'
-    'frameworks/kpty': '@stable'
 
 - 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
   'require':
     'frameworks/kactivities': '@latest-kf6'
-    'frameworks/kpty': '@latest-kf6'
 
 Options:
   require-passing-tests-on: [ 'Linux', 'FreeBSD', 'Windows' ]

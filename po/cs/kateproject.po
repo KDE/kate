@@ -387,7 +387,7 @@ msgstr "Jste si jistí, že si přejete odstranit tyto soubory?"
 #: gitwidget.cpp:1095
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "Opravdu si přejete zahodit všechny změny?"
 
 #: gitwidget.cpp:1123
 #, kde-format

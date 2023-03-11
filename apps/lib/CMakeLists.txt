@@ -91,6 +91,14 @@ if (TARGET KUserFeedbackWidgets${KUSERFEEDBACK_SUFFIX})
     target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 
+# terminal detection
+include(CheckFunctionExists)
+check_function_exists(ctermid HAVE_CTERMID)
+if(HAVE_CTERMID)
+  target_compile_definitions(kateprivate PRIVATE HAVE_CTERMID)
+endif()
+
+
 ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui welcomeview/welcomeview.ui session/katesessionmanagedialog.ui)
 
 target_sources(

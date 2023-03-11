@@ -55,6 +55,11 @@ public:
     static void initPreApplicationCreation();
 
     /**
+     * Was the application started inside a terminal?
+     */
+    static bool isInsideTerminal();
+
+    /**
      *  Are we full featured Kate or the simplified KWrite?
      */
     enum ApplicationMode { ApplicationKate, ApplicationKWrite };

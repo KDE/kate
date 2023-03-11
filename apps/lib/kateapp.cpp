@@ -74,6 +74,17 @@
 #include <windows.h>
 #endif
 
+#ifdef HAVE_CTERMID
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <termios.h>
+#include <unistd.h>
+#endif
+
+// remember if we were started inside a terminal
+static bool insideTerminal = false;
+
 /**
  * singleton instance pointer
  */
@@ -146,6 +157,18 @@ void KateApp::initPreApplicationCreation()
      */
 #if defined(Q_OS_WIN)
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::RoundPreferFloor);
+#endif
+
+#ifdef HAVE_CTERMID
+    /**
+     * https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
+     */
+    char tty[L_ctermid + 1] = {0};
+    ctermid(tty);
+    if (int fd = ::open(tty, O_RDONLY); fd >= 0) {
+        insideTerminal = true;
+        ::close(fd);
+    }
 #endif
 }
 
@@ -760,4 +783,9 @@ bool KateApp::documentVisibleInOtherWindows(KTextEditor::Document *doc, KateMain
         }
     }
     return false;
+}
+
+bool KateApp::isInsideTerminal()
+{
+    return insideTerminal;
 }

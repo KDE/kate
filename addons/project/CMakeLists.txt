@@ -33,13 +33,6 @@ else()
     target_link_libraries(kateprojectplugin PRIVATE KF6::MoreTools)
 endif()
 
-include(CheckFunctionExists)
-check_function_exists(ctermid HAVE_CTERMID)
-
-if(HAVE_CTERMID)
-  target_compile_definitions(kateprojectplugin PRIVATE HAVE_CTERMID)
-endif()
-
 target_sources(
   kateprojectplugin
   PRIVATE

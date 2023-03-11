@@ -61,6 +61,11 @@
 int main(int argc, char **argv)
 {
     /**
+     * Do all needed pre-application init steps, shared between Kate and KWrite
+     */
+    KateApp::initPreApplicationCreation();
+
+    /**
      * fork into the background if we don't need to be blocking
      * we need to do that early
      */
@@ -78,11 +83,6 @@ int main(int argc, char **argv)
         (void)ret;
     }
 #endif
-
-    /**
-     * Do all needed pre-application init steps, shared between Kate and KWrite
-     */
-    KateApp::initPreApplicationCreation();
 
     /**
      * Create application first

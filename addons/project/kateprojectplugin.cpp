@@ -12,6 +12,8 @@
 #include "kateprojectpluginview.h"
 #include "ktexteditor_utils.h"
 
+#include <kateapp.h>
+
 #include <kcoreaddons_version.h>
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
@@ -31,14 +33,6 @@
 #include <QTimer>
 
 #include <vector>
-
-#ifdef HAVE_CTERMID
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <termios.h>
-#include <unistd.h>
-#endif
 
 namespace
 {
@@ -660,20 +654,12 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
         }
     }
 
-#ifdef HAVE_CTERMID
     /**
      * open project for our current working directory, if this kate has a terminal
-     * https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
      */
-    if (!projectToActivate) {
-        char tty[L_ctermid + 1] = {0};
-        ctermid(tty);
-        if (int fd = ::open(tty, O_RDONLY); fd >= 0) {
-            projectToActivate = projectForDir(QDir::current());
-            ::close(fd);
-        }
+    if (!projectToActivate && KateApp::isInsideTerminal()) {
+        projectToActivate = projectForDir(QDir::current());
     }
-#endif
 
     // if we have some project opened, ensure it is the active one, this happens after session restore
     if (projectToActivate) {

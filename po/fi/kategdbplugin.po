@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the kdebase package.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011-2012.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014, 2015, 2016.
-# Tommi Nieminen <translator@legisign.org>, 2020, 2022.
+# Tommi Nieminen <translator@legisign.org>, 2020, 2022, 2023.
 #
 # KDE Finnish translation sprint participants:
 # Author: Lliehu
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2022-08-05 11:51+0300\n"
+"PO-Revision-Date: 2023-03-07 21:40+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:21:57+0000\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -194,7 +194,7 @@ msgstr "Paikalliset"
 #: debugview.cpp:37
 #, kde-format
 msgid "CPU registers"
-msgstr ""
+msgstr "Suoritinrekisterit"
 
 #: debugview.cpp:160
 #, kde-format
@@ -226,16 +226,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb päättyi normaalisti ***"
 
 #: debugview.cpp:648
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "jatkettiin kaikkia säikeitä"
+msgstr "kaikki säikeet käynnissä"
 
 #: debugview.cpp:650
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "säie %1"
+msgstr "säikeitä käynnissä: %1"
 
 #: debugview.cpp:655 debugview_dap.cpp:268
 #, kde-format
@@ -253,16 +251,14 @@ msgid "Active thread: %1."
 msgstr "Aktiivinen säie: %1."
 
 #: debugview.cpp:680
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Nykyinen kehys:"
+msgstr "Nykyinen kehys: %1:%2"
 
 #: debugview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Kohde %1"
+msgstr "Kone: %1. Kohde: %1"
 
 #: debugview.cpp:1377
 #, kde-format
@@ -270,11 +266,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: Ei voitu jäsentää viimeisintä vastausta: %1. Liian monta peräkkäistä "
+"virhettä. Lopetetaan."
 
 #: debugview.cpp:1379
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: Ei voitu jäsentää viimeisintä vastausta: %1"
 
 #: debugview_dap.cpp:167
 #, kde-format
@@ -434,7 +432,7 @@ msgstr "moduulipyyntö"
 #: debugview_dap.cpp:747
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "goto-määränpääpyyntö"
 
 #: debugview_dap.cpp:748
 #, kde-format
@@ -564,10 +562,9 @@ msgid "command not found"
 msgstr "komentoa ei löydy"
 
 #: debugview_dap.cpp:1495
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgid "missing thread id"
-msgstr "virheellinen säikeen tunniste: %1"
+msgstr "puuttuva säietunniste"
 
 #: debugview_dap.cpp:1603
 #, kde-format

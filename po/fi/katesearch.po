@@ -1,7 +1,7 @@
 # Copyright © 2011, 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kde-baseapps package.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2013, 2014, 2015, 2016, 2017, 2022.
-# Tommi Nieminen <translator@legisign.org>, 2012, 2017, 2018, 2019, 2020, 2021, 2022.
+# Tommi Nieminen <translator@legisign.org>, 2012, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
 #
 # KDE Finnish translation sprint participants:
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-26 01:01+0000\n"
-"PO-Revision-Date: 2022-07-09 14:09+0300\n"
-"Last-Translator: Lasse Liehu <lasse.liehu@iki.fi>\n"
+"PO-Revision-Date: 2023-03-07 21:37+0200\n"
+"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:21:59+0000\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -522,8 +522,7 @@ msgid "Lower-cased capture 0-999"
 msgstr "Pienaakkoskaappaus 0–999"
 
 #: SearchPlugin.cpp:295
-#, fuzzy, kde-format
-#| msgid "Search and Replace"
+#, kde-format
 msgid "Search & Replace"
 msgstr "Etsi ja korvaa"
 
@@ -533,8 +532,7 @@ msgid "Find in Files"
 msgstr "Etsi tiedostoista"
 
 #: SearchPlugin.cpp:342
-#, fuzzy, kde-format
-#| msgid "Find in Files (in new tab)"
+#, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Etsi tiedostoista (uudessa välilehdessä)"
 
@@ -551,7 +549,7 @@ msgstr "Siirry edelliseen osumaan"
 #: SearchPlugin.cpp:360
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Leikkaa täsmäävät rivit"
 
 #: SearchPlugin.cpp:362
 #, kde-format
@@ -559,11 +557,12 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Leikkaa kaikki korostetut hakutulosrivit nykyisestä tiedostosta leikepöydälle"
 
 #: SearchPlugin.cpp:367
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Kopioi täsmäävät rivit"
 
 #: SearchPlugin.cpp:369
 #, kde-format
@@ -571,6 +570,7 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Kopioi kaikki korostetut hakutulosrivit nykyisestä tiedostosta leikepöydälle"
 
 #: SearchPlugin.cpp:397
 #, kde-format
@@ -638,10 +638,9 @@ msgid "Continuing from last match"
 msgstr "Jatketaan viimeisestä osumasta"
 
 #: SearchPlugin.cpp:2123
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Etsi"
+msgstr "Etsi: %1"
 
 #: SearchPlugin.cpp:2254
 #, kde-format
@@ -662,7 +661,7 @@ msgstr "Vie tulokset"
 #: SearchPlugin.cpp:2268
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Avaa muokkainvälilehtenä"
 
 #: SearchPlugin.cpp:2275
 #, kde-format

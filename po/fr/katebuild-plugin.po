@@ -430,7 +430,7 @@ msgstr "Construire la cible sélectionnée"
 #: targets.cpp:48
 #, kde-format
 msgid "Build and run selected target"
-msgstr "Compiler & exécuter la cible sélectionnée"
+msgstr "Compiler et exécuter la cible sélectionnée"
 
 #: targets.cpp:52
 #, kde-format

@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Tommi Nieminen <translator@legisign.org>, 2019, 2020, 2021, 2022.
+# Tommi Nieminen <translator@legisign.org>, 2019, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-05 01:01+0000\n"
-"PO-Revision-Date: 2022-07-13 18:01+0300\n"
+"PO-Revision-Date: 2023-01-18 12:34+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -206,26 +206,22 @@ msgid "Show Inlay Hints"
 msgstr ""
 
 #: lspclientpluginview.cpp:606
-#, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
+#, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Näytä diagnostiikkailmoitukset"
 
 #: lspclientpluginview.cpp:611
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
 msgstr "Näytä viestit"
 
 #: lspclientpluginview.cpp:616
-#, fuzzy, kde-format
-#| msgid "Server memory usage"
+#, kde-format
 msgid "Server Memory Usage"
 msgstr "Palvelimen muistinkäyttö"
 
 #: lspclientpluginview.cpp:620
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Sulje kaikki dynaamiset viitevälilehdet"
 

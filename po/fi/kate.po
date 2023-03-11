@@ -7,7 +7,7 @@
 # Teemu Rytilahti <tpr@d5k.net>, 2003, 2005.
 # Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006.
 # Tommi Nieminen <translator@legisign.org>, 2009.
-# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2017, 2018, 2019, 2020, 2021, 2022.
+# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2022.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011, 2012.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-09 00:49+0000\n"
-"PO-Revision-Date: 2022-10-16 23:56+0300\n"
-"Last-Translator: Lasse Liehu <lasse.liehu@iki.fi>\n"
+"PO-Revision-Date: 2023-03-07 21:46+0200\n"
+"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2013-01-13 20:43:20+0000\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -199,25 +199,23 @@ msgstr "Kopioi sijainti"
 #: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: lib/commitfilesview.cpp:513
-#, fuzzy, kde-format
-#| msgid "Invalid Folder"
+#, kde-format
 msgid "Invalid hash"
-msgstr "Kelvoton kansio"
+msgstr "Virheellinen tiiviste"
 
 #: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 puuttuu Git-lähteestä."
 
 #: lib/commitfilesview.cpp:534
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Kommentti"
+msgstr "Toimita %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -289,7 +287,7 @@ msgstr "Päätyökalurivi"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Valikkopainikkeen työkalurivi"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -304,12 +302,13 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Virhe säännöllisessä lausekkeessa: %1\n"
+"sijainti %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "&Pika-avaus"
+msgstr "Pikakorjaa"
 
 #: lib/diagnostics/diagnosticview.cpp:290
 #, kde-format
@@ -328,183 +327,168 @@ msgid "Warning"
 msgstr "Varoitus"
 
 #: lib/diagnostics/diagnosticview.cpp:843
-#, fuzzy, kde-format
-#| msgid "Meta-Information"
+#, kde-format
 msgid "Information"
-msgstr "Metatiedot"
+msgstr "Tietoa"
 
 #: lib/diagnostics/diagnosticview.cpp:976
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [estetty: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1090
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "&Lavenna sarkaimet"
+msgstr "Laajenna kaikki"
 
 #: lib/diagnostics/diagnosticview.cpp:1091
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "S&ulje kaikki"
+msgstr "Supista kaikki"
 
 #: lib/diagnostics/diagnosticview.cpp:1100
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopioi leikepöydälle"
 
 #: lib/diagnostics/diagnosticview.cpp:1123
-#, fuzzy, kde-format
-#| msgid "Regular expression"
+#, kde-format
 msgid "Remove Global Suppression"
-msgstr "Säännöllinen lauseke"
+msgstr "Poista yleinen esto"
 
 #: lib/diagnostics/diagnosticview.cpp:1125
-#, fuzzy, kde-format
-#| msgid "&All Sessions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "K&aikki istunnot"
+msgstr "Lisää yleinen esto"
 
 #: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Poista paikallinen esto"
 
 #: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Lisää paikallinen esto"
 
 #: lib/diagnostics/diagnosticview.cpp:1144
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Istuntojen suodatus"
+msgstr "Poista esto käytöstä"
 
 #: lib/diagnostics/diagnosticview.cpp:1146
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Hallitse istuntoja"
+msgstr "Ota esto käyttöön"
 
 #: lib/diff/diffeditor.cpp:182
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "Vaihda tyyliä"
 
 #: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "Rinnakkain"
 
 #: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:539
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "Unified"
-msgstr "Muutettu"
+msgstr "Yhtenäinen"
 
 #: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:540
 #, kde-format
 msgid "Raw"
-msgstr ""
+msgstr "Raaka"
 
 #: lib/diff/diffeditor.cpp:219
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] "&Uusi ikkuna"
-msgstr[1] "&Uusi ikkuna"
+msgstr[0] "Vaiheista rivi"
+msgstr[1] "Vaiheista rivit"
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "Vaiheista lohko"
 
 #: lib/diff/diffeditor.cpp:231
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hylkää rivi"
+msgstr[1] "Hylkää rivit"
 
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Hylkää lohko"
 
 #: lib/diff/diffeditor.cpp:243
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] "&Uusi ikkuna"
-msgstr[1] "&Uusi ikkuna"
+msgstr[0] "Poista rivin vaiheistus"
+msgstr[1] "Poista rivien vaiheistus"
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "Poista lohkon vaiheistus"
 
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "Diff %1"
 
 #: lib/diff/diffwidget.cpp:62
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "Diff %1..%2"
 
 #: lib/diff/diffwidget.cpp:83
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "Diff %1..%2"
 
 #: lib/diff/diffwidget.cpp:113
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Näytä tai piilota toimitustiedot"
 
 #: lib/diff/diffwidget.cpp:118
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Hyppää seuraavaan tiedostoon"
 
 #: lib/diff/diffwidget.cpp:122
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous File"
-msgstr "Siirry edelliseen sijaintiin"
+msgstr "Hyppää edelliseen tiedostoon"
 
 #: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Hyppää seuraavaan lohkoon"
 
 #: lib/diff/diffwidget.cpp:130
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous Hunk"
-msgstr "Siirry edelliseen sijaintiin"
+msgstr "Hyppää edelliseen lohkoon"
 
 #: lib/diff/diffwidget.cpp:134
-#, fuzzy, kde-format
-#| msgid "Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "Lataa uudelleen"
+msgstr "Lataa diff uudelleen"
 
 #: lib/diff/diffwidget.cpp:138
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "Näytä täyden kontekstin diff, ei vain muuttuneita rivejä"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -513,59 +497,59 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b>-ohjelmaa ei löytynyt. Sitä vaaditaan tiedoston erojen "
+"selvittämiseen. Jos git on asennettu, varmista, että se on PATH-hakupolussa. "
+"Ks. https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1142
 #: lib/kateconfigdialog.cpp:532
 #, kde-format
 msgid "Diff"
-msgstr ""
+msgstr "Diff"
 
 #: lib/diff/diffwidget.cpp:757 lib/diff/diffwidget.cpp:957
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Uusi tiedostonimi"
+msgstr "Uusi tiedosto %1"
 
+# *** TARKISTA: Tai ”poistettiin” tiedosto – vaikea arvata
 #: lib/diff/diffwidget.cpp:759 lib/diff/diffwidget.cpp:959
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Poista tiedosto"
+msgstr "Poistettu tiedosto %1"
 
 #: lib/diff/diffwidget.cpp:1125 lib/diff/diffwidget.cpp:1126
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Eroja ei löytynyt"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
-msgstr ""
+msgstr "Tiedostohistoriaa ei saatu: git-ohjelmatiedostoa ei löydy hakupolusta"
 
 #: lib/filehistorywidget.cpp:296
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "Tiedostohistoriaa ei saatu: %1"
 
 #: lib/filehistorywidget.cpp:307
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Kopioi toimitustiiviste"
 
 #: lib/filehistorywidget.cpp:315
-#, fuzzy, kde-format
-#| msgid "&Show Full Path"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "Näytä koko &polku"
+msgstr "Näytä täysi toimitus"
 
 #: lib/filehistorywidget.cpp:374
-#, fuzzy, kde-format
-#| msgid "File Selector"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Tiedostovalitsin"
+msgstr "Tiedostohistoria – %1"
 
 #: lib/kateapp.cpp:103
 msgid ""
@@ -573,6 +557,9 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"Muokkaimen suorittaminen sudolla voi aiheuttaa virheitä ja "
+"tietoturvariskejä. Käynnistä muokkain mieluummin ilman, jolloin "
+"lisäkäyttöoikeuksia pyydetään, kun niitä tarvitaan tiedoston tallentamiseen."
 
 #: lib/kateapp.cpp:110
 msgid ""
@@ -580,6 +567,9 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"Muokkaimen suorittaminen kdesulla voi aiheuttaa virheitä ja "
+"tietoturvariskejä. Käynnistä muokkain mieluummin ilman, jolloin "
+"lisäkäyttöoikeuksia pyydetään, kun niitä tarvitaan tiedoston tallentamiseen."
 
 #: lib/kateapp.cpp:242
 #, kde-format
@@ -620,7 +610,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:246
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:247
 #, kde-format
@@ -917,7 +907,7 @@ msgstr "Asetukset"
 #: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Etsi…"
 
 #: lib/kateconfigdialog.cpp:342
 #, kde-format
@@ -937,7 +927,7 @@ msgstr "&Toiminta"
 #: lib/kateconfigdialog.cpp:356
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "Avaa kukin tiedosto omaan ikkunaansa"
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
@@ -945,6 +935,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"Jos on valittu, kukin tiedosto avataan omaan ikkunaansa; muuten kukin "
+"tiedosto avataan nykyisen ikkunan uuteen välilehteen."
 
 #: lib/kateconfigdialog.cpp:369
 #, kde-format
@@ -994,15 +986,14 @@ msgstr ""
 
 # Jatketta viestille ”Move To”.
 #: lib/kateconfigdialog.cpp:405
-#, fuzzy, kde-format
-#| msgid "Top Sidebar"
+#, kde-format
 msgid "&Sidebars"
-msgstr "Yläsivupalkkiin"
+msgstr "Si&vupalkit"
 
 #: lib/kateconfigdialog.cpp:408
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "Synkronoi osion koko ja sarkainkohdat"
 
 #: lib/kateconfigdialog.cpp:411
 #, kde-format
@@ -1011,6 +1002,8 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"Jos käytössä, osion koon määrittää välilehtien sijainti.\n"
+"Asetuksella ei ole vaikutusta alapaneeliin."
 
 #: lib/kateconfigdialog.cpp:416
 #, kde-format
@@ -1154,19 +1147,17 @@ msgstr "Historiassa eteenpäin"
 #: lib/kateconfigdialog.cpp:541
 #, kde-format
 msgid "Diff Style:"
-msgstr ""
+msgstr "Diff-tyyli:"
 
 #: lib/kateconfigdialog.cpp:546
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Näytä navigointirivi"
+msgstr "Navigointirivi"
 
 #: lib/kateconfigdialog.cpp:551
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Kohdista navigointiriville"
+msgstr "Näytä navigointirivillä nykyinen merkki"
 
 #: lib/kateconfigdialog.cpp:565
 #, kde-format
@@ -1198,6 +1189,7 @@ msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"Ikkunan sulkeutuessa vain tähän ikkunaan avatut tiedostot suljetaan myös."
 
 #: lib/kateconfigdialog.cpp:647
 #, kde-format
@@ -1311,10 +1303,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "Tiedostoa ”%1” ei voitu poistaa."
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "Sovellus"
+msgstr "&Muu sovellus…"
 
 #: lib/katemainwindow.cpp:232
 #, kde-format
@@ -1389,7 +1380,7 @@ msgstr "Tuloste"
 #: lib/katemainwindow.cpp:314
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnostiikka"
 
 #: lib/katemainwindow.cpp:325
 #, kde-format
@@ -1532,10 +1523,9 @@ msgid "&New Window"
 msgstr "&Uusi ikkuna"
 
 #: lib/katemainwindow.cpp:433
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Create a new window."
-msgstr "Luo uusi tiedosto"
+msgstr "Luo uusi ikkuna."
 
 #: lib/katemainwindow.cpp:440
 #, kde-format
@@ -1626,7 +1616,7 @@ msgstr "Siirry seuraavaan sijaintiin"
 #: lib/katemainwindow.cpp:541
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Näytä tiedoston git-historia"
 
 #: lib/katemainwindow.cpp:556
 #, kde-format
@@ -1691,10 +1681,9 @@ msgid " [read only]"
 msgstr " [vain luku]"
 
 #: lib/katemdi.cpp:85
-#, fuzzy, kde-format
-#| msgid "Plugin Manager"
+#, kde-format
 msgid "Toolview Manager"
-msgstr "Liitännäisten hallinta"
+msgstr "Työkalunäkymien hallinta"
 
 #: lib/katemdi.cpp:103
 #, kde-format
@@ -1704,7 +1693,7 @@ msgstr "Sivupaneelin painikkeet"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Kohdista työkalunäkymään"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1734,7 +1723,7 @@ msgstr "Näytä %1-painike"
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Kohdista: %1"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
@@ -1753,30 +1742,29 @@ msgid "Move To"
 msgstr "Siirrä"
 
 #: lib/katemdi.cpp:1017
-#, fuzzy, kde-format
-#| msgid "Open Session"
+#, kde-format
 msgid "Own Section"
-msgstr "Avaa istunto"
+msgstr "Oma osio"
 
 #: lib/katemdi.cpp:1023 lib/katemdi.cpp:1031
 #, kde-format
 msgid "One Down"
-msgstr ""
+msgstr "Yksi alas"
 
 #: lib/katemdi.cpp:1025 lib/katemdi.cpp:1036
 #, kde-format
 msgid "One Right"
-msgstr ""
+msgstr "Yksi oikealle"
 
 #: lib/katemdi.cpp:1029
 #, kde-format
 msgid "One Up"
-msgstr ""
+msgstr "Yksi ylös"
 
 #: lib/katemdi.cpp:1034
 #, kde-format
 msgid "One Left"
-msgstr ""
+msgstr "Yksi vasempaan"
 
 #: lib/katemdi.cpp:1043
 #, kde-format
@@ -1929,11 +1917,9 @@ msgid "Diff Output"
 msgstr "Diff-tulos"
 
 #: lib/kateoutputview.cpp:166
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Kopioi leikepöydälle"
+msgstr "Kopioi kaikki teksti leikepöydälle"
 
 #: lib/kateoutputview.cpp:171
 #, kde-format
@@ -1975,16 +1961,11 @@ msgid "Save Documents"
 msgstr "Tallenna tiedostot"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
-msgstr ""
-"<p>Tiedostoa ”%1” on muutettu muttei tallennettu.</p><p>Haluatko säilyttää "
-"vai hylätä muutokset?</p>"
+msgstr "Tiedosto ”%1” on muuttunut. Haluatko tallentaa vai hylätä muutokset?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -2126,52 +2107,44 @@ msgid "Make the previous split view the active one."
 msgstr "Aktivoi edellinen osanäkymä."
 
 #: lib/kateviewmanager.cpp:192
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Left Split View"
-msgstr "Seuraava osanäkymä"
+msgstr "Vasen jakonäkymä"
 
 #: lib/kateviewmanager.cpp:197
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "Aktivoi seuraava osanäkymä."
+msgstr "Aseta osanäkymä intuitiivisesti aktiivisesta vasemmalle."
 
 #: lib/kateviewmanager.cpp:200
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Right Split View"
-msgstr "Seuraava osanäkymä"
+msgstr "Oikea jakonäkymä"
 
 #: lib/kateviewmanager.cpp:205
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "Aktivoi seuraava osanäkymä."
+msgstr "Aseta osanäkymä intuitiivisesti aktiivisesta oikealle."
 
 #: lib/kateviewmanager.cpp:208
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Upward Split View"
-msgstr "Jaa näkymä"
+msgstr "Ylempi jakonäkymä"
 
 #: lib/kateviewmanager.cpp:213
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "Aktivoi seuraava osanäkymä."
+msgstr "Aseta osanäkymä intuitiivisesti aktiivisen ylle."
 
 #: lib/kateviewmanager.cpp:216
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Downward Split View"
-msgstr "Jaa näkymä"
+msgstr "Alempi jakonäkymä"
 
 #: lib/kateviewmanager.cpp:221
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "Aktivoi seuraava osanäkymä."
+msgstr "Tee jakonäkymä intuitiivisesti alaspäin aktiivisesta."
 
 #: lib/kateviewmanager.cpp:224
 #, kde-format
@@ -2226,12 +2199,12 @@ msgstr "Kohdista navigointiriville"
 #: lib/kateviewmanager.cpp:256
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "Tervetulosivu"
 
 #: lib/kateviewmanager.cpp:271
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "Näytä tervetulosivu"
 
 #: lib/kateviewmanager.cpp:340
 #, kde-format
@@ -2252,37 +2225,37 @@ msgstr "Avaamassa suurta tiedostoa"
 #: lib/kateviewmanager.cpp:500
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 ei voi avata kansioita"
 
 #: lib/kateviewmanager.cpp:517
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Kansioiden avaamiseen vaadittua liitännäistä ei löydy"
 
 #: lib/kateviewmanager.cpp:523
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Kansioiden avaamiseen vaaditaan <b>%1</b>-liitännäinen. Otetaanko se "
+"käyttöön?"
 
 #: lib/kateviewmanager.cpp:531
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Avaa tiedosto"
+msgstr "Avaa kansio"
 
 #: lib/kateviewmanager.cpp:532
-#, fuzzy, kde-format
-#| msgid "Enabled"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr "Käytössä"
+msgstr "Ota käyttöön"
 
 #: lib/kateviewmanager.cpp:543
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "<b>%1</b> -liitännäisen käyttöönotto epäonnistui"
 
 #: lib/kateviewmanager.cpp:1285
 #, kde-format
@@ -2337,33 +2310,29 @@ msgid "Close Other &Documents"
 msgstr "Sulje &muut tiedostot"
 
 #: lib/kateviewspace.cpp:1031
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close &All Documents"
-msgstr "Sulje kaikki tiedostot"
+msgstr "Sulje &kaikki tiedostot"
 
 #: lib/kateviewspace.cpp:1033
-#, fuzzy, kde-format
-#| msgid "Next Document"
+#, kde-format
 msgid "D&etach Document"
-msgstr "Seuraava tiedosto"
+msgstr "&Irrota tiedosto"
 
 #: lib/kateviewspace.cpp:1034
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
-msgstr ""
+msgstr "Avaa tiedoston uuteen ikkunaan ja sulkee sen nykyisessä"
 
 #: lib/kateviewspace.cpp:1043
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document"
 msgstr "Vertaa aktiiviseen tiedostoon"
 
 #: lib/kateviewspace.cpp:1049
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document Using"
-msgstr "Vertaa aktiiviseen tiedostoon"
+msgstr "Vertaa aktiiviseen tiedostoon ohjelmalla"
 
 #: lib/kateviewspace.cpp:1116
 #, kde-format
@@ -2393,13 +2362,12 @@ msgstr "Nykyinen projekti"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Sumea suodatus"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
-#, fuzzy, kde-format
-#| msgid "Clear filter"
+#, kde-format
 msgid "Wildcard Filtering"
-msgstr "Puhdista suodin"
+msgstr "Jokerimerkkisuodatus"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2583,10 +2551,9 @@ msgstr "&Valitse istunto käsin"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47
-#, fuzzy, kde-format
-#| msgid "Application Shutdown Behavior"
+#, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "Sovelluksen lopetusasetukset"
+msgstr "Sovelluksen käynnistys- ja lopetustoiminta"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
@@ -2608,21 +2575,16 @@ msgstr "Tiedostot, joissa on muutoksia tallentamatta"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this option is checked, the full document path will be shown in the "
-#| "window caption."
+#, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
-"Jos tämä kohta on valittuna, tiedoston koko polku näytetään ikkunan "
-"otsikkorivillä."
+"Jos poistetaan käytöstä, uusille ikkunoille näytetään nimetön tiedosto."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Luo uusi tiedosto"
+msgstr "Näytä uusille ikkunoille tervetulonäkymä"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2644,7 +2606,7 @@ msgstr "Sulje koko sovellus viimeisen tiedoston sulkeuduttua"
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Sulje tiedostot ikkunoidensa myötä"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -2713,139 +2675,120 @@ msgstr "Poista käyttämättömät metatiedot ajassa:"
 #: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
-msgstr ""
+msgstr "%1 – tervetuloa"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "Avoimia tiedostoja"
+msgstr "Viimeaikaiset tiedostot ja projektit"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents"
-msgstr "Avoimia tiedostoja"
+msgstr "Viimeaikaiset tiedostot"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "Avoimia tiedostoja"
+msgstr "Ei viimeaikaisia tiedostoja tai projekteja"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "Avoimia tiedostoja"
+msgstr "Ei viimeaikaisia tiedostoja"
 
 #: lib/welcomeview/welcomeview.cpp:112
-#, fuzzy, kde-format
-#| msgid "&Do not save session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "&älä tallenna istuntoa"
+msgstr "Ei tallennettuja istuntoja"
 
 #: lib/welcomeview/welcomeview.cpp:234
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "Kopioi sijainti"
+msgstr "Kopioi &sijainti"
 
 #: lib/welcomeview/welcomeview.cpp:249
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "&Poista"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr ""
+msgstr "Tervetuloa"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Avaa tiedosto"
+msgstr "Uusi tiedosto"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Folder..."
-msgstr "Avaa tiedosto"
+msgstr "Avaa kansio…"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Delete File"
+#, kde-format
 msgid "Recent Files"
-msgstr "Poista tiedosto"
+msgstr "Viimeisimmät tiedostot"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Avaa tiedosto"
+msgstr "Avaa tiedosto…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Tyhjennä viimeaikaiset tiedostot"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "O&hje"
+msgstr "Ohje"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Käy kotisivulla"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Osallistu"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Lue käsikirjaa"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "&Tallenna istunto"
+msgstr "Tallennetut istunnot"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "Istuntojen &hallinta…"
+msgstr "Istuntojen hallinta…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show for new window"
-msgstr "Luo uusi tiedosto"
+msgstr "Näytä uudelle ikkunalle"
 
 #, fuzzy
 #~| msgid "&Save"

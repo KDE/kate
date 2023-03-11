@@ -7,7 +7,7 @@
 # Teemu Rytilahti <tpr@d5k.net>, 2003, 2005.
 # Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006.
 # Tommi Nieminen <translator@legisign.org>, 2009.
-# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2016, 2019, 2021, 2022.
+# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2016, 2019, 2021, 2022, 2023.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011, 2012.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-08 00:49+0000\n"
-"PO-Revision-Date: 2022-08-05 11:52+0300\n"
+"PO-Revision-Date: 2023-01-18 12:34+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -54,9 +54,7 @@ msgid "Close the current document."
 msgstr "Sulje nykyinen tiedosto."
 
 #: katefiletree.cpp:128
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Expand recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Laajenna rekursiivisesti"
@@ -67,12 +65,10 @@ msgid "Expand the file list sub tree recursively."
 msgstr "Laajenna tiedostoluettelon alipuu rekursiivisesti."
 
 #: katefiletree.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Collapse recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
-msgstr "Sulje rekursiivisesti"
+msgstr "Supista rekursiivisesti"
 
 #: katefiletree.cpp:134
 #, kde-format
@@ -224,7 +220,7 @@ msgstr "Avaa ohjelmalla"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Näytä tiedoston git-historia"
 
 #: katefiletree.cpp:441
 #, kde-format
@@ -393,15 +389,14 @@ msgid "Next Document"
 msgstr "Seuraava tiedosto"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "&Osoita aktiivinen"
+msgstr "&Näytä aktiivinen tiedosto"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Tallenna"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -411,13 +406,12 @@ msgstr "Tallenna nykyinen tiedosto"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Tallenna nimellä"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
-msgstr "Tallenna tiedosto uudella nimellä"
+msgstr "Tallenna nykyinen tiedosto uudelle nimelle"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7

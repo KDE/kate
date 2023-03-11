@@ -14,3 +14,7 @@ target_sources(
 if(BUILD_TESTING)
   add_subdirectory(autotests)
 endif()
+
+if (BUILD_PCH)
+    target_precompile_headers(formatplugin REUSE_FROM katepch)
+endif()

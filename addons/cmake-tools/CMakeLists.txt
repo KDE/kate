@@ -12,3 +12,7 @@ target_sources(
 # ensure we are able to load plugins pre-install, too, directories must match!
 set_target_properties(cmaketoolsplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS cmaketoolsplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
+
+if (BUILD_PCH)
+    target_precompile_headers(cmaketoolsplugin REUSE_FROM katepch)
+endif()

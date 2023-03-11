@@ -15,7 +15,6 @@ target_sources(
     plugin.qrc
 )
 
-
 install(
   FILES 
     html4-loose.dtd.xml 

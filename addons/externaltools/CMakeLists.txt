@@ -37,6 +37,10 @@ target_sources(
     plugin.qrc
 )
 
+if (BUILD_PCH)
+    target_precompile_headers(externaltoolsplugin REUSE_FROM katepch)
+endif()
+
 if (BUILD_TESTING)
     add_subdirectory(autotests)
 endif()

@@ -22,3 +22,6 @@ target_sources(
     plugin.qrc
 )
 
+if (BUILD_PCH)
+    target_precompile_headers(katereplicodeplugin REUSE_FROM katepch)
+endif()

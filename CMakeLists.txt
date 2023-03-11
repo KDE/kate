@@ -84,6 +84,11 @@ if (NOT WIN32 AND NOT HAIKU)
     )
 endif()
 
+option(BUILD_PCH "Enable PCH support" ON)
+if (BUILD_PCH)
+    add_subdirectory(pch)
+endif()
+
 # addons for Kate
 ecm_optional_add_subdirectory(addons)
 

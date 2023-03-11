@@ -42,6 +42,10 @@ if (TARGET Qt6::Core5Compat)
     target_link_libraries(lspclientplugin PRIVATE Qt6::Core5Compat) # QTextCodec
 endif()
 
+if (BUILD_PCH)
+    target_precompile_headers(lspclientplugin REUSE_FROM katepch)
+endif()
+
 if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()

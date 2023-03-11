@@ -9,3 +9,7 @@ target_sources(
     gitblametooltip.cpp
     plugin.qrc
 )
+
+if (BUILD_PCH)
+    target_precompile_headers(kategitblameplugin REUSE_FROM katepch)
+endif()

@@ -7,4 +7,3 @@ target_sources(
   PRIVATE
     rainbowparens_plugin.cpp
 )
-

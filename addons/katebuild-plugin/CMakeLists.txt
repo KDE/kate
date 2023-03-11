@@ -16,3 +16,7 @@ target_sources(
     AppOutput.cpp
     plugin.qrc
 )
+
+if (BUILD_PCH)
+    target_precompile_headers(katebuildplugin REUSE_FROM katepch)
+endif()

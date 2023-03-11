@@ -164,6 +164,10 @@ target_sources(
     welcomeview/savedsessionsmodel.cpp
 )
 
+if (BUILD_PCH)
+    target_precompile_headers(kateprivate REUSE_FROM katepch)
+endif()
+
 if(BUILD_TESTING)
   add_subdirectory(autotests)
 endif()

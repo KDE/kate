@@ -10,3 +10,7 @@ target_sources(
     keyboardmacrosplugincommands.cpp
     plugin.qrc
 )
+
+if (BUILD_PCH)
+    target_precompile_headers(keyboardmacrosplugin REUSE_FROM katepch)
+endif()

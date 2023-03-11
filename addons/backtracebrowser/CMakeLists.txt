@@ -12,6 +12,9 @@ target_sources(
     btdatabase.cpp
 )
 
+if (BUILD_PCH)
+    target_precompile_headers(katebacktracebrowserplugin REUSE_FROM katepch)
+endif()
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

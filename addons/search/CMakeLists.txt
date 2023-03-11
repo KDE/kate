@@ -38,3 +38,6 @@ target_sources(
     ResultsTreeView.cpp
 )
 
+if (BUILD_PCH)
+    target_precompile_headers(katesearchplugin REUSE_FROM katepch)
+endif()

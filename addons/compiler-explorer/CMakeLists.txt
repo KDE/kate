@@ -12,3 +12,7 @@ target_sources(
     AsmViewModel.cpp
     compiledbreader.cpp
 )
+
+if (BUILD_PCH)
+    target_precompile_headers(compilerexplorer REUSE_FROM katepch)
+endif()

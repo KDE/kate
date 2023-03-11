@@ -8,3 +8,6 @@ target_sources(
     EslintPlugin.cpp
 )
 
+if (BUILD_PCH)
+    target_precompile_headers(eslintplugin REUSE_FROM katepch)
+endif()

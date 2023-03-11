@@ -19,3 +19,7 @@ target_sources(
     previewwidget.cpp
     kpartview.cpp
 )
+
+if (BUILD_PCH)
+    target_precompile_headers(ktexteditorpreviewplugin REUSE_FROM katepch)
+endif()

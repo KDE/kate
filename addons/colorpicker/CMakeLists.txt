@@ -9,3 +9,6 @@ target_sources(
     colorpickerconfigpage.cpp
 )
 
+if (BUILD_PCH)
+    target_precompile_headers(katecolorpickerplugin REUSE_FROM katepch)
+endif()

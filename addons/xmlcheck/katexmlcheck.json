@@ -23,7 +23,6 @@
         "Description[pl]": "Sprawdza poprawność składni XML za pomocą xmllint",
         "Description[pt]": "Valida os ficheiros XML com o 'xmllint'",
         "Description[ru]": "Проверка правильности файлов XML с помощью xmllint",
-        "Description[sk]": "Overuje súbory XML pomocou xmllint",
         "Description[sl]": "Preveri datoteke XML z uporabo orodja xmllint",
         "Description[sv]": "Validerar XML-filer med XMLlint",
         "Description[tr]": "XML dosyalarını xmllint kullanarak doğrular",

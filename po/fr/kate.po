@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-09 00:49+0000\n"
-"PO-Revision-Date: 2023-02-25 15:29+0100\n"
+"PO-Revision-Date: 2023-03-10 12:13+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -401,42 +401,40 @@ msgid "Raw"
 msgstr "Brut"
 
 #: lib/diff/diffeditor.cpp:219
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] "N&ouvelle fenêtre"
-msgstr[1] "N&ouvelle fenêtre"
+msgstr[0] "Référencer une ligne"
+msgstr[1] "Référencer des lignes"
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "Référencer un morceau"
 
 #: lib/diff/diffeditor.cpp:231
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Annuler une ligne"
+msgstr[1] "Dé-référencer des lignes"
 
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Annuler un morceau"
 
 #: lib/diff/diffeditor.cpp:243
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] "N&ouvelle fenêtre"
-msgstr[1] "N&ouvelle fenêtre"
+msgstr[0] "Dé-référencer une ligne"
+msgstr[1] "Dé-référencer des lignes"
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "Dé-référencer un morceau"
 
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
@@ -558,37 +556,27 @@ msgid "File History - %1"
 msgstr "Historique des fichiers - %1"
 
 #: lib/kateapp.cpp:103
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Lancer l'exécution de Kate avec les privilèges administrateur (sudo) peut "
-"provoquer des bogues et vous exposer à des vulnérabilités de sécurité. "
-"Veuillez utiliser Kate en mode normal (utilisateur). Pour la sauvegarde de "
-"documents, au besoin, une demande vous sera faite pour passer à un niveau de "
+"Lancer l'exécution de cet éditeur avec les privilèges administrateur (sudo) "
+"peut provoquer des bogues et vous exposer à des vulnérabilités de sécurité. "
+"Veuillez l'utiliser en mode normal (utilisateur). Lors d'un enregistrement "
+"de documents, une demande vous sera faite pour passer à un niveau de "
 "privilèges plus élevés, si nécessaire."
 
 #: lib/kateapp.cpp:110
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Lancer l'exécution de Kate avec les privilèges administrateur (kdesu) peut "
-"provoquer des bogues et vous exposer à des vulnérabilités de sécurité. "
-"Veuillez utiliser Kate en mode normal (utilisateur). Pour la sauvegarde de "
-"documents, au besoin, une demande vous sera faite pour passer à un niveau de "
+"Lancer l'exécution de cet éditeur avec les privilèges administrateur (kdesu) "
+"peut provoquer des bogues et vous exposer à des vulnérabilités de sécurité. "
+"Veuillez l'utiliser en mode normal (utilisateur). Lors d'un enregistrement "
+"de documents, une demande vous sera faite pour passer à un niveau de "
 "privilèges plus élevés, si nécessaire."
 
 #: lib/kateapp.cpp:242
@@ -934,7 +922,7 @@ msgstr "Configurer"
 #: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
-msgstr "Rhercher…"
+msgstr "Rechercher…"
 
 #: lib/kateconfigdialog.cpp:342
 #, kde-format

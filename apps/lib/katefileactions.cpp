@@ -141,6 +141,10 @@ void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document 
         return;
     }
 
+    // If the document is modified, user will be asked if he wants to save it.
+    // This confirmation is useless when deleting, so we mark the document as unmodified.
+    doc->setModified(false);
+
     if (!KTextEditor::Editor::instance()->application()->closeDocument(doc)) {
         return; // no extra message, the internals of ktexteditor should take care of that.
     }

@@ -696,7 +696,12 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
         if (!textEdit.empty()) {
             // Not a proper implementation of textEdit, but a workaround for KDE bug #445085
             auto newText = textEdit.value(QStringLiteral("newText")).toString();
-            insertText = newText;
+            // Only override insertText with newText if insertText is empty. This avoids issues with
+            // servers such typescript-language-server which will provide a different value in newText
+            // which makes sense only if its used in combination with range. E.g.,
+            // string.length is expected
+            // but user gets => string..length because newText contains ".length"
+            insertText = insertText.isEmpty() ? newText : insertText;
             lspTextEdit.newText = newText;
             lspTextEdit.range = parseRange(textEdit.value(QStringLiteral("range")).toObject());
         }

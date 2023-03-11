@@ -54,8 +54,31 @@
 #endif
 #endif
 
+#if __has_include(<unistd.h>)
+#include <unistd.h>
+#endif
+
 int main(int argc, char **argv)
 {
+    /**
+     * fork into the background if we don't need to be blocking
+     * we need to do that early
+     */
+#if __has_include(<unistd.h>)
+    bool foundBlockingArgumentEarly = false;
+    for (int i = 1; i < argc; ++i) {
+        if (!strcmp(argv[i], "-b") || !strcmp(argv[i], "--block")) {
+            foundBlockingArgumentEarly = true;
+            break;
+        }
+    }
+    if (!foundBlockingArgumentEarly) {
+        // just try it, if it doesn't work we just continue in the foreground
+        const int ret = daemon(1, 1);
+        (void)ret;
+    }
+#endif
+
     /**
      * Do all needed pre-application init steps, shared between Kate and KWrite
      */

@@ -21,7 +21,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     /**
      * Do all needed pre-application init steps, shared between Kate and KWrite
      */
-    KateApp::initPreApplicationCreation();
+    KateApp::initPreApplicationCreation(false /* never detach */);
 
     /**
      * Create application first

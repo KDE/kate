@@ -51,8 +51,9 @@ class KATE_PRIVATE_EXPORT KateApp : public QObject
 public:
     /**
      * Do the needed setup steps before we create our QApplication.
+     * @param detach shall we detach from the terminal?
      */
-    static void initPreApplicationCreation();
+    static void initPreApplicationCreation(bool detach);
 
     /**
      * Was the application started inside a terminal?

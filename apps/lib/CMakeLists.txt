@@ -98,6 +98,11 @@ if(HAVE_CTERMID)
   target_compile_definitions(kateprivate PRIVATE HAVE_CTERMID)
 endif()
 
+# detaching from terminal
+check_function_exists(daemon HAVE_DAEMON)
+if(HAVE_DAEMON)
+  target_compile_definitions(kateprivate PRIVATE HAVE_DAEMON)
+endif()
 
 ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui welcomeview/welcomeview.ui session/katesessionmanagedialog.ui)
 

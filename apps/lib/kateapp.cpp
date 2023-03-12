@@ -82,6 +82,10 @@
 #include <unistd.h>
 #endif
 
+#if HAVE_DAEMON
+#include <unistd.h>
+#endif
+
 // remember if we were started inside a terminal
 static bool insideTerminal = false;
 
@@ -92,18 +96,8 @@ static KateApp *appSelf = Q_NULLPTR;
 
 Q_LOGGING_CATEGORY(LOG_KATE, "kate", QtWarningMsg)
 
-void KateApp::initPreApplicationCreation()
+void KateApp::initPreApplicationCreation(bool detach)
 {
-#ifdef Q_OS_WIN
-    // Enable on windows to see output in console
-    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
-        if (fileno(stdout) < 0)
-            freopen("CON", "w", stdout);
-        if (fileno(stderr) < 0)
-            freopen("CON", "w", stderr);
-    }
-#endif
-
 #if !defined(Q_OS_WIN) && !defined(Q_OS_HAIKU)
     // Prohibit using sudo or kdesu (but allow using the root user directly)
     if (getuid() == 0) {
@@ -159,6 +153,22 @@ void KateApp::initPreApplicationCreation()
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::RoundPreferFloor);
 #endif
 
+#ifdef Q_OS_WIN
+    // Enable on windows to see output in console
+    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+        // we are inside a terminal
+        insideTerminal = true;
+
+        // don't enable output if we shall detach, to avoid terminal pollution
+        if (!detach) {
+            if (fileno(stdout) < 0)
+                freopen("CON", "w", stdout);
+            if (fileno(stderr) < 0)
+                freopen("CON", "w", stderr);
+        }
+    }
+#endif
+
 #ifdef HAVE_CTERMID
     /**
      * https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
@@ -168,6 +178,14 @@ void KateApp::initPreApplicationCreation()
     if (int fd = ::open(tty, O_RDONLY); fd >= 0) {
         insideTerminal = true;
         ::close(fd);
+    }
+#endif
+
+#ifdef HAVE_DAEMON
+    if (detach) {
+        // just try it, if it doesn't work we just continue in the foreground
+        const int ret = daemon(1, 0 /* close in and outputs to avoid pollution of shell */);
+        (void)ret;
     }
 #endif
 }

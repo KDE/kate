@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-08 00:49+0000\n"
-"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"PO-Revision-Date: 2023-03-12 01:57+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -22,275 +22,277 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
-msgstr ""
+msgstr "Reloa&d"
 
 #: katefiletree.cpp:122
 #, kde-format
 msgid "Reload selected document(s) from disk."
-msgstr ""
+msgstr "Reŝargi elektita(j)n dokumento(j)n el disko."
 
 #: katefiletree.cpp:124
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
-msgstr ""
+msgstr "Fermi"
 
 #: katefiletree.cpp:126
 #, kde-format
 msgid "Close the current document."
-msgstr ""
+msgstr "Fermi la nunan dokumenton."
 
 #: katefiletree.cpp:128
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
-msgstr ""
+msgstr "Vastigi Rekursie"
 
 #: katefiletree.cpp:130
 #, kde-format
 msgid "Expand the file list sub tree recursively."
-msgstr ""
+msgstr "Vastigi la subarbon de dosierlisto rekursie."
 
 #: katefiletree.cpp:132
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
-msgstr ""
+msgstr "Malvastigi Rekursie"
 
 #: katefiletree.cpp:134
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
-msgstr ""
+msgstr "Malvastigi la subarbon de dosierlisto rekursie."
 
 #: katefiletree.cpp:136
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
-msgstr ""
+msgstr "Fermi Aliajn"
 
 #: katefiletree.cpp:138
 #, kde-format
 msgid "Close other documents in this folder."
-msgstr ""
+msgstr "Fermi aliajn dokumentojn en ĉi tiu dosierujo."
 
 #: katefiletree.cpp:141
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
-msgstr ""
+msgstr "Malfermi Enhavan Dosierujon"
 
 #: katefiletree.cpp:143
 #, kde-format
 msgid "Open the folder this file is located in."
-msgstr ""
+msgstr "Malfermi la dosierujon en kiu troviĝas ĉi tiu dosiero."
 
 #: katefiletree.cpp:145
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopii Lokon"
 
 #: katefiletree.cpp:147
 #, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr ""
+msgstr "Kopii vojon kaj dosiernomon al la tondujo."
 
 #: katefiletree.cpp:149
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr ""
+msgstr "Alinomi..."
 
 #: katefiletree.cpp:151
 #, kde-format
 msgid "Rename the selected file."
-msgstr ""
+msgstr "Alinomi la elektitan dosieron."
 
 #: katefiletree.cpp:154
 #, kde-format
 msgid "Print selected document."
-msgstr ""
+msgstr "Presi elektitan dokumenton."
 
 #: katefiletree.cpp:157
 #, kde-format
 msgid "Show print preview of current document"
-msgstr ""
+msgstr "Montri presan antaŭrigardon de aktuala dokumento"
 
 #: katefiletree.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
-msgstr ""
+msgstr "Forigi"
 
 #: katefiletree.cpp:161
 #, kde-format
 msgid "Close and delete selected file from storage."
-msgstr ""
+msgstr "Fermi kaj forigi elektitan dosieron el konservejo."
 
 #: katefiletree.cpp:165
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
-msgstr ""
+msgstr "Malplenigi Historion"
 
 #: katefiletree.cpp:167
 #, kde-format
 msgid "Clear edit/view history."
-msgstr ""
+msgstr "Malplenigi redaktan/rigardan historio."
 
 #: katefiletree.cpp:230
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
-msgstr ""
+msgstr "Arba Reĝimo"
 
 #: katefiletree.cpp:231
 #, kde-format
 msgid "Set view style to Tree Mode"
-msgstr ""
+msgstr "Agordi perspektivostilon al Arba Reĝimo"
 
 #: katefiletree.cpp:237
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
-msgstr ""
+msgstr "Listo-Reĝimo"
 
 #: katefiletree.cpp:238
 #, kde-format
 msgid "Set view style to List Mode"
-msgstr ""
+msgstr "Agordu perspektivostilon al Listo-Reĝimo"
 
 #: katefiletree.cpp:245
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
-msgstr ""
+msgstr "Dokumenta Nomo"
 
 #: katefiletree.cpp:246
 #, kde-format
 msgid "Sort by Document Name"
-msgstr ""
+msgstr "Ordigi laŭ Dokumenta Nomo"
 
 #: katefiletree.cpp:251
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
-msgstr ""
+msgstr "Dokumenta Vojo"
 
 #: katefiletree.cpp:251
 #, kde-format
 msgid "Sort by Document Path"
-msgstr ""
+msgstr "Ordigi laŭ Dokumenta Vojo"
 
 #: katefiletree.cpp:255
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
-msgstr ""
+msgstr "Malferma Ordo"
 
 #: katefiletree.cpp:256
 #, kde-format
 msgid "Sort by Opening Order"
-msgstr ""
+msgstr "Ordigi laŭ Malferma Ordo"
 
 #: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
 #, kde-format
 msgid "Custom Sorting"
-msgstr ""
+msgstr "Propra Ordigo"
 
 #: katefiletree.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
-msgstr ""
+msgstr "Malfermi Per"
 
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Montri Dosieran Git-Historion"
 
 #: katefiletree.cpp:441
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
-msgstr ""
+msgstr "Vida Reĝimo"
 
 #: katefiletree.cpp:445
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
-msgstr ""
+msgstr "Ordigi laŭ"
 
 #: katefiletreeconfigpage.cpp:45
 #, kde-format
 msgid "Background Shading"
-msgstr ""
+msgstr "Fona Ombrigo"
 
 #: katefiletreeconfigpage.cpp:52
 #, kde-format
 msgid "&Viewed documents' shade:"
-msgstr ""
+msgstr "Ombro de &Viditaj dokumentoj:"
 
 #: katefiletreeconfigpage.cpp:58
 #, kde-format
 msgid "&Modified documents' shade:"
-msgstr ""
+msgstr "Ombro de &Modifitaj dokumentoj:"
 
 #: katefiletreeconfigpage.cpp:66
 #, kde-format
 msgid "&Sort by:"
-msgstr ""
+msgstr "&Ordigi laŭ:"
 
 #: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Opening Order"
-msgstr ""
+msgstr "Malferma Ordo"
 
 #: katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Document Name"
-msgstr ""
+msgstr "Dokumenta Nomo"
 
 #: katefiletreeconfigpage.cpp:73
 #, kde-format
 msgid "Url"
-msgstr ""
+msgstr "Url"
 
 #: katefiletreeconfigpage.cpp:79
 #, kde-format
 msgid "&View Mode:"
-msgstr ""
+msgstr "&Vida reĝimo:"
 
 #: katefiletreeconfigpage.cpp:84
 #, kde-format
 msgid "Tree View"
-msgstr ""
+msgstr "Arba Perspektivo"
 
 #: katefiletreeconfigpage.cpp:85
 #, kde-format
 msgid "List View"
-msgstr ""
+msgstr "Lista Perspektivo"
 
 #: katefiletreeconfigpage.cpp:90
 #, kde-format
 msgid "&Show Full Path"
-msgstr ""
+msgstr "&Montri Plenan Vojon"
 
 #: katefiletreeconfigpage.cpp:95
 #, kde-format
 msgid "Show &Toolbar"
-msgstr ""
+msgstr "Montri &Ilobreton"
 
 #: katefiletreeconfigpage.cpp:98
 #, kde-format
 msgid "Show Close Button"
-msgstr ""
+msgstr "Montri Fermbutonon"
 
 #: katefiletreeconfigpage.cpp:100
 #, kde-format
 msgid ""
 "When enabled, this will show a close button for opened documents on hover."
 msgstr ""
+"Kiam ĝi estas ebligita, ĉi tio montros fermbutonon por malfermitaj "
+"dokumentoj dum ŝvebado."
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -299,11 +301,14 @@ msgid ""
 "edited within the current session will have a shaded background. The most "
 "recent documents have the strongest shade."
 msgstr ""
+"Kiam fona ombrado estas ebligita, dokumentoj kiuj estis rigarditaj aŭ "
+"redaktitaj ene de la nuna sesio havos ombritan fonon. La plej freŝaj "
+"dokumentoj havas la plej fortan ombron."
 
 #: katefiletreeconfigpage.cpp:108
 #, kde-format
 msgid "Set the color for shading viewed documents."
-msgstr ""
+msgstr "Agordu la koloron por ombrigi rigarditajn dokumentojn."
 
 #: katefiletreeconfigpage.cpp:110
 #, kde-format
@@ -311,6 +316,9 @@ msgid ""
 "Set the color for modified documents. This color is blended into the color "
 "for viewed files. The most recently edited documents get most of this color."
 msgstr ""
+"Agordu la koloron por modifitaj dokumentoj. Ĉi tiu koloro estas miksita en "
+"la koloron por rigarditaj dosieroj. La plej lastatempe redaktitaj dokumentoj "
+"ricevas la plej grandan parton de ĉi tiu koloro."
 
 #: katefiletreeconfigpage.cpp:115
 #, kde-format
@@ -318,6 +326,8 @@ msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
 "path rather than just the last folder name."
 msgstr ""
+"Kiam ĝi estas ebligita, en arba reĝimo, altnivelaj dosierujoj aperos kun sia "
+"plena vojo prefere ol nur la lasta dosierujo nomo."
 
 #: katefiletreeconfigpage.cpp:118
 #, kde-format
@@ -325,69 +335,71 @@ msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
+"Kiam ĝi estas ebligita, ilobreto kun agoj kiel \"Konservi\" estas montrata "
+"super la listo de dokumentoj."
 
 #: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:129
 #: katefiletreeplugin.cpp:136
 #, kde-format
 msgid "Documents"
-msgstr ""
+msgstr "Dokumentoj"
 
 #: katefiletreeconfigpage.cpp:142
 #, kde-format
 msgid "Configure Documents"
-msgstr ""
+msgstr "Agordi Dokumentojn"
 
 #: katefiletreemodel.cpp:494
 #, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr ""
+msgstr "Malfermi Fenestraĵojn"
 
 #: katefiletreemodel.cpp:649
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
-msgstr ""
+msgstr "<p><b>%1</b></p><p>La dokumento estis modifita de alia aplikaĵo.</p>"
 
 #: katefiletreeplugin.cpp:246
 #, kde-format
 msgid "Previous Document"
-msgstr ""
+msgstr "Antaŭa Dokumento"
 
 #: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Next Document"
-msgstr ""
+msgstr "Sekva Dokumento"
 
 #: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "&Show Active Document"
-msgstr ""
+msgstr "&Montri Aktivan Dokumenton"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Konservi"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save the current document"
-msgstr ""
+msgstr "Konservi la nunan dokumenton"
 
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Konservi kiel"
 
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save the current document under a new name"
-msgstr ""
+msgstr "Konservi la nunan dokumenton sub nova nomo"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "&Iri"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-02 00:58+0000\n"
+"POT-Creation-Date: 2023-03-12 00:49+0000\n"
 "PO-Revision-Date: 2022-12-08 23:08+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -780,22 +780,22 @@ msgstr "Грешка"
 msgid "File name already exists"
 msgstr "Файловото име вече съществува"
 
-#: kateprojectplugin.cpp:223
+#: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Потвърждение за затваряне на проект: %1"
 
-#: kateprojectplugin.cpp:224
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 
-#: kateprojectplugin.cpp:576
+#: kateprojectplugin.cpp:570
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Пълен път към текущия проект с изключение на името на файла."
 
-#: kateprojectplugin.cpp:593
+#: kateprojectplugin.cpp:587
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -804,7 +804,7 @@ msgstr ""
 "Пълен път до текущия проект, с изключение на името на файла, с роден "
 "разделител на пътя (наклонена черта в Windows)."
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:73
+#: kateprojectplugin.cpp:699 kateprojectpluginview.cpp:73
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
 #: kateprojectviewtree.cpp:156
 #, kde-format

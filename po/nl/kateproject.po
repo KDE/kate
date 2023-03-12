@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-02 00:58+0000\n"
+"POT-Creation-Date: 2023-03-12 00:49+0000\n"
 "PO-Revision-Date: 2023-01-22 14:10+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -778,23 +778,23 @@ msgstr "Fout"
 msgid "File name already exists"
 msgstr "Bestandsnaam bestaat al"
 
-#: kateprojectplugin.cpp:223
+#: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Sluiten van project bevestigen: %1"
 
-#: kateprojectplugin.cpp:224
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "Wilt u het project %1 en de gerelateerde %2 geopende documenten sluiten?"
 
-#: kateprojectplugin.cpp:576
+#: kateprojectplugin.cpp:570
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Volledige pad naar huidige project exclusief de bestandsnaam."
 
-#: kateprojectplugin.cpp:593
+#: kateprojectplugin.cpp:587
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -803,7 +803,7 @@ msgstr ""
 "Volledige pad naar huidig project exclusief bestandsnaam, met inheems "
 "scheidingsteken van pad (backslash op Windows)."
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:73
+#: kateprojectplugin.cpp:699 kateprojectpluginview.cpp:73
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
 #: kateprojectviewtree.cpp:156
 #, kde-format

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-09 00:49+0000\n"
-"PO-Revision-Date: 2023-02-24 12:43\n"
+"PO-Revision-Date: 2023-03-11 04:55\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf5-trunk/messages/kate/kate.pot\n"
-"X-Crowdin-File-ID: 5259\n"
+"X-Crowdin-File: /kf5-stable/messages/kate/kate.pot\n"
+"X-Crowdin-File-ID: 4075\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -183,7 +183,7 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:513
 #, kde-format
 msgid "Invalid hash"
-msgstr "哈希无效"
+msgstr ""
 
 #: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
@@ -194,7 +194,7 @@ msgstr "%1 不存在于 git 仓库中。"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "提交 %1"
+msgstr ""
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -281,18 +281,18 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
-"正则表达式错误：%1\n"
-"偏移 %2：%3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Quick Open"
 msgid "Quick Fix"
-msgstr "快速修复"
+msgstr "快速打开(&Q)"
 
 #: lib/diagnostics/diagnosticview.cpp:290
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Other..."
 msgid "Filter..."
-msgstr "筛选..."
+msgstr "其他(&O)..."
 
 #: lib/diagnostics/diagnosticview.cpp:835 lib/kateconfigdialog.cpp:374
 #, kde-format
@@ -306,60 +306,67 @@ msgid "Warning"
 msgstr "警告"
 
 #: lib/diagnostics/diagnosticview.cpp:843
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Location"
 msgid "Information"
-msgstr "信息"
+msgstr "位置"
 
 #: lib/diagnostics/diagnosticview.cpp:976
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr "%1 [已抑制：%2]"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1090
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Expand tabs"
 msgid "Expand All"
-msgstr "全部展开"
+msgstr "扩展标签(&E)"
 
 #: lib/diagnostics/diagnosticview.cpp:1091
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
 msgid "Collapse All"
-msgstr "全部折叠"
+msgstr "全部关闭(&E)"
 
 #: lib/diagnostics/diagnosticview.cpp:1100
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Copy all text to clipboard"
 msgid "Copy to Clipboard"
-msgstr "复制到剪贴板"
+msgstr "复制所有文本到剪贴板"
 
 #: lib/diagnostics/diagnosticview.cpp:1123
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr "删除全局抑制项"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1125
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&All Sessions"
 msgid "Add Global Suppression"
-msgstr "添加全局抑制项"
+msgstr "所有会话(&A)"
 
 #: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr "移除本地抑制项"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Local Suppression"
-msgstr "添加本地抑制项"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1144
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Filter Sessions"
 msgid "Disable Suppression"
-msgstr "禁用抑制"
+msgstr "筛选会话"
 
 #: lib/diagnostics/diagnosticview.cpp:1146
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Manage Sessions"
 msgid "Enable Suppression"
-msgstr "启用抑制"
+msgstr "管理会话"
 
 #: lib/diff/diffeditor.cpp:182
 #, kde-format
@@ -455,10 +462,11 @@ msgid "Jump to Previous Hunk"
 msgstr "跳转到上一个块"
 
 #: lib/diff/diffwidget.cpp:134
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Reload"
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "重新加载差异"
+msgstr "重新加载(&R)"
 
 #: lib/diff/diffwidget.cpp:138
 #, kde-format
@@ -473,8 +481,6 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
-"<b>git</b> 无法找到。检测文档差异需要使用 Git。如果 git 已经安装到本机，请确"
-"保它已添加到您的 PATH 变量。详情请见 https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1142
 #: lib/kateconfigdialog.cpp:532
@@ -483,19 +489,21 @@ msgid "Diff"
 msgstr "比较"
 
 #: lib/diff/diffwidget.cpp:757 lib/diff/diffwidget.cpp:957
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "New file name"
 msgid "New file %1"
-msgstr "新文件 %1"
+msgstr "新文件名"
 
 #: lib/diff/diffwidget.cpp:759 lib/diff/diffwidget.cpp:959
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Delete file"
 msgid "Deleted file %1"
-msgstr "已删除文件 %1"
+msgstr "删除文件"
 
 #: lib/diff/diffwidget.cpp:1125 lib/diff/diffwidget.cpp:1126
 #, kde-format
 msgid "No differences found"
-msgstr "未发现差异"
+msgstr ""
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -512,47 +520,34 @@ msgstr "无法获取文件历史：%1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr "复制提交哈希值"
+msgstr ""
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "显示完整提交"
+msgstr ""
 
 #: lib/filehistorywidget.cpp:374
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "File History"
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "文件历史 - %1"
+msgstr "文件历史"
 
 #: lib/kateapp.cpp:103
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"用 sudo 运行 Kate 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式运"
-"行 Kate，如果在保存文档时需要提升权限，Kate 将提示您进行身份验证。"
 
 #: lib/kateapp.cpp:110
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"用 kdesu 运行 Kate 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式运"
-"行 Kate，如果在保存文档时需要提升权限，Kate 将提示您进行身份验证。"
 
 #: lib/kateapp.cpp:242
 #, kde-format
@@ -909,7 +904,7 @@ msgstr "行为(&B)"
 #: lib/kateconfigdialog.cpp:356
 #, kde-format
 msgid "Open each document in its own window"
-msgstr "在单独的窗口中打开每个文件夹"
+msgstr ""
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
@@ -917,8 +912,6 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
-"如果启用，每个文档将在自己单独的窗口中打开。如果不启用，每个文档将在当前窗口"
-"的新标签页中打开。"
 
 #: lib/kateconfigdialog.cpp:369
 #, kde-format
@@ -1276,9 +1269,10 @@ msgid "File \"%1\" could not be deleted."
 msgstr "无法删除文件“%1”。"
 
 #: lib/katefileactions.cpp:202
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Other..."
 msgid "&Other Application..."
-msgstr "其他应用程序(&O)..."
+msgstr "其他(&O)..."
 
 #: lib/katemainwindow.cpp:232
 #, kde-format
@@ -1353,7 +1347,7 @@ msgstr "输出"
 #: lib/katemainwindow.cpp:314
 #, kde-format
 msgid "Diagnostics"
-msgstr "诊断"
+msgstr ""
 
 #: lib/katemainwindow.cpp:325
 #, kde-format
@@ -1916,13 +1910,16 @@ msgid "Save Documents"
 msgstr "保存文档"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
+#| "to save your changes or discard them?</p>"
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"文档“%1”已被修改。\n"
-"您想要保存更改，还是丢弃更改？"
+"<p>文档“%1”已经被修改，但尚未保存。</p><p>您是否想要保存更改还是丢弃更改？</"
+"p>"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -2386,7 +2383,7 @@ msgstr "不再询问"
 #: lib/session/katesessionmanagedialog.ui:135
 #, kde-format
 msgid "Duplicate..."
-msgstr "重制..."
+msgstr "创建副本..."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
 #: lib/session/katesessionmanagedialog.ui:142
@@ -2726,19 +2723,5 @@ msgstr "管理会话..."
 msgid "Show for new window"
 msgstr "新窗口显示此欢迎画面"
 
-#~ msgid ""
-#~ "Running KWrite with sudo can cause bugs and expose you to security "
-#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
-#~ "elevated privileges when saving documents if needed."
-#~ msgstr ""
-#~ "用 sudo 运行 KWrite 可能会导致程序错误，并使你暴露在安全风险中。请以正常方"
-#~ "式运行 KWrite，如果在保存文档时需要提升权限，KWrite 将提示您进行身份验证。"
-
-#~ msgid ""
-#~ "Running KWrite with kdesu can cause bugs and expose you to security "
-#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
-#~ "elevated privileges when saving documents if needed."
-#~ msgstr ""
-#~ "用 kdesu 运行 KWrite 可能会导致程序错误，并使你暴露在安全风险中。请以正常"
-#~ "方式运行 KWrite，如果在保存文档时需要提升权限，KWrite 将提示您进行身份验"
-#~ "证。"
+#~ msgid "Save"
+#~ msgstr "保存"

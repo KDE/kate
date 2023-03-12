@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2023-01-29 20:54+0100\n"
+"PO-Revision-Date: 2023-03-10 12:07+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -199,6 +199,8 @@ msgstr "Registres du processeur"
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
+"Veuillez sélectionner un programme exécutable dans l'ongle « Configuration » "
+"du panneau « Débogage »."
 
 #: debugview.cpp:169
 #, kde-format
@@ -206,6 +208,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Aucun programme de débogage sélectionné. Veuillez en sélectionner un dans "
+"l'ongle « Configuration » du panneau « Débogage »."
 
 #: debugview.cpp:178
 #, kde-format
@@ -213,6 +217,9 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Impossible de trouver un programme de débogage. Veuillez vérifier que vous "
+"en avez un d'installer sur votre système. Le programme de débogage "
+"sélectionné est « %1 »."
 
 #: debugview.cpp:384
 #, kde-format
@@ -501,7 +508,7 @@ msgstr ""
 #: debugview_dap.cpp:1334
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "La ligne %1 est toujours marquée par un point d'arrêt."
 
 #: debugview_dap.cpp:1379
 #, kde-format

@@ -9,6 +9,7 @@
         "Description[de]": "Zeigt geöffnete Dokumente als Dateibaum an",
         "Description[el]": "Εμφανίζει τα ανοικτά έγγραφα σε ένα δένδρο αρχείων",
         "Description[en_GB]": "Displays the open documents in a file tree",
+        "Description[eo]": "Montras la malfermitajn dokumentojn en dosierarbo",
         "Description[es]": "Muestra los documentos abiertos en un árbol de archivos",
         "Description[eu]": "Irekitako dokumentuak fitxategi-zuhaitz batean azaltzen ditu",
         "Description[fi]": "Näyttää avoimet tiedostot tiedostopuuna",
@@ -36,6 +37,7 @@
         "Name[ca]": "Arbre de documents",
         "Name[cs]": "Strom dokumentů",
         "Name[en_GB]": "Documents Tree",
+        "Name[eo]": "Arbo de Dokumentoj",
         "Name[es]": "Árbol de documentos",
         "Name[fi]": "Tiedostopuu",
         "Name[fr]": "Arborescence des documents",
@@ -48,6 +50,7 @@
         "Name[tr]": "Belgeler Ağacı",
         "Name[uk]": "Ієрархія документів",
         "Name[x-test]": "xxDocuments Treexx",
+        "Name[zh_CN]": "文档树",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

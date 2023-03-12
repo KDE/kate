@@ -78,17 +78,17 @@ bool GdbCommand::check(const QString &part1, const QString &part2) const
 
 void DebugView::enqueue(const QString &command)
 {
-    m_nextCommands << PendingCommand{command, std::nullopt};
+    m_nextCommands << PendingCommand{command, std::nullopt, Default};
 }
 
-void DebugView::enqueue(const QString &command, const QJsonValue &data)
+void DebugView::enqueue(const QString &command, const QJsonValue &data, uint8_t captureMode)
 {
-    m_nextCommands << PendingCommand{command, data};
+    m_nextCommands << PendingCommand{command, data, captureMode};
 }
 
 void DebugView::prepend(const QString &command)
 {
-    m_nextCommands.prepend({command, std::nullopt});
+    m_nextCommands.prepend({command, std::nullopt, Default});
 }
 
 DebugView::DebugView(QObject *parent)
@@ -239,7 +239,7 @@ void DebugView::enqueueProtocolHandshake()
     m_capabilities.execJump.reset();
     // "version" only exists in lldb
     // data added to recognise this request from anything entered by the user
-    enqueue(QStringLiteral("version"), QJsonValue(true));
+    enqueue(QStringLiteral("version"), QJsonValue(true), CaptureConsole | MuteLog);
     enqueue(QStringLiteral("-list-features"));
     enqueue(QStringLiteral("-info-gdb-mi-command thread-info"));
     enqueue(QStringLiteral("-info-gdb-mi-command break-list"));
@@ -255,7 +255,7 @@ void DebugView::enqueue(const QStringList &commands, bool prepend)
     }
     if (prepend) {
         for (int n = commands.size() - 1; n >= 0; --n) {
-            m_nextCommands.prepend({commands[n], std::nullopt});
+            m_nextCommands.prepend({commands[n], std::nullopt, Default});
         }
     } else {
         for (const auto &cmd : commands) {
@@ -558,9 +558,9 @@ void DebugView::processMIPrompt()
     if ((m_state != ready) && (m_state != none)) {
         return;
     }
-    if (m_captureOutput) {
+    if (m_captureOutput != Default) {
         // the last response has completely been processed at this point
-        m_captureOutput = false;
+        m_captureOutput = Default;
         m_capturedOutput.clear();
     }
     // we get here after initialization
@@ -728,7 +728,7 @@ void DebugView::processMIResult(const gdbmi::Record &record)
         args = command.arguments;
         commandData = command.data;
     }
-    if (isMI && (record.resultClass == QLatin1String("error"))) {
+    if (isMI && (record.resultClass == QLatin1String("error")) && !(m_captureOutput & MuteLog)) {
         Q_EMIT outputError(m_lastCommand + QLatin1String("\n"));
         Q_EMIT outputError(formatRecordMessage(record));
     }
@@ -1267,7 +1267,7 @@ void DebugView::enqueueScopes()
     if (!m_currentFrame || !m_currentThread) {
         return;
     }
-    enqueue(QLatin1String("-data-evaluate-expression %1 \"this\"").arg(makeFrameFlags()), QJsonValue(DATA_EVAL_THIS_CHECK));
+    enqueue(QLatin1String("-data-evaluate-expression %1 \"this\"").arg(makeFrameFlags()), QJsonValue(DATA_EVAL_THIS_CHECK), MuteLog);
 }
 
 void DebugView::enqueueScopeVariables()
@@ -1431,7 +1431,7 @@ void DebugView::cmdKateTryRun(const GdbCommand &command, const QJsonValue &data)
     issueNextCommandLater(std::nullopt);
 }
 
-void DebugView::issueCommand(const QString &cmd, const std::optional<QJsonValue> &data)
+void DebugView::issueCommand(const QString &cmd, const std::optional<QJsonValue> &data, uint8_t captureMode)
 {
     auto command = GdbCommand::parse(cmd);
     // macro command
@@ -1451,6 +1451,7 @@ void DebugView::issueCommand(const QString &cmd, const std::optional<QJsonValue>
         if (data) {
             command.data = data;
         }
+        m_captureOutput = captureMode;
         QString newCmd;
 
         const bool isMI = command.isMachineInterface();
@@ -1499,7 +1500,6 @@ void DebugView::issueCommand(const QString &cmd, const std::optional<QJsonValue>
             command.type = GdbCommand::Kill;
         } else if (command.check(QLatin1String("version")) && data) {
             command.type = GdbCommand::LldbVersion;
-            m_captureOutput = true;
         }
 
         // register the response parsing type
@@ -1508,7 +1508,7 @@ void DebugView::issueCommand(const QString &cmd, const std::optional<QJsonValue>
 
         m_lastCommand = cmd;
 
-        if (!isMI) {
+        if (!isMI && !(m_captureOutput & MuteLog)) {
             Q_EMIT outputText(QStringLiteral("(gdb) %1\n").arg(cmd));
         }
 #ifdef DEBUG_GDBMI
@@ -1550,7 +1550,7 @@ void DebugView::issueNextCommand()
     if (m_state == ready) {
         if (!m_nextCommands.empty()) {
             const auto cmd = m_nextCommands.takeFirst();
-            issueCommand(cmd.command, cmd.data);
+            issueCommand(cmd.command, cmd.data, cmd.captureMode);
         } else {
             if (m_debugLocationChanged) {
                 m_debugLocationChanged = false;
@@ -1608,13 +1608,15 @@ void DebugView::processMIStreamOutput(const gdbmi::StreamOutput &output)
 {
     switch (output.channel) {
     case gdbmi::StreamOutput::Console:
-        if (m_captureOutput) {
+        if (m_captureOutput & CaptureConsole) {
             m_capturedOutput << output.message;
         }
         Q_EMIT outputText(output.message);
         break;
     case gdbmi::StreamOutput::Log:
-        Q_EMIT outputError(output.message);
+        if (!(m_captureOutput & ~MuteLog)) {
+            Q_EMIT outputError(output.message);
+        }
         break;
     case gdbmi::StreamOutput::Output:
         Q_EMIT debuggeeOutput(dap::Output(output.message, dap::Output::Category::Stdout));

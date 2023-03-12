@@ -17,6 +17,7 @@
 #include <QUrl>
 #include <QVector>
 #include <optional>
+#include <sys/types.h>
 
 #include "configview.h"
 #include "dap/entities.h"
@@ -173,10 +174,10 @@ private:
     void enqueueThreadInfo();
     QStringList makeRunSequence(bool stop);
     void enqueue(const QString &command);
-    void enqueue(const QString &command, const QJsonValue &data);
+    void enqueue(const QString &command, const QJsonValue &data, uint8_t captureMode = CaptureMode::Default);
     void enqueue(const QStringList &commands, bool prepend = false);
     void prepend(const QString &command);
-    void issueCommand(const QString &cmd, const std::optional<QJsonValue> &data);
+    void issueCommand(const QString &cmd, const std::optional<QJsonValue> &data, uint8_t captureMode = CaptureMode::Default);
     void issueNextCommandLater(const std::optional<State> &state);
     void updateInputReady(bool newState, bool force = false);
     void clearDebugLocation();
@@ -194,6 +195,7 @@ private:
     struct PendingCommand {
         QString command;
         std::optional<QJsonValue> data;
+        uint8_t captureMode;
     };
     QList<PendingCommand> m_nextCommands;
     QString m_lastCommand;
@@ -215,7 +217,8 @@ private:
     bool m_lastInputReady = false;
     bool m_pointerThis = false;
 
-    bool m_captureOutput = false;
+    enum CaptureMode { Default = 0x0, CaptureConsole = 0x1, MuteLog = 0x2 };
+    uint8_t m_captureOutput = Default;
     QStringList m_capturedOutput;
     bool m_inspectable = false;
     std::optional<int> m_currentThread;

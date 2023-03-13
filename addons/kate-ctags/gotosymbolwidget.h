@@ -11,7 +11,7 @@
 class GotoSymbolTreeView;
 class GotoSymbolModel;
 class QLineEdit;
-class QuickOpenFilterProxyModel;
+class CtagsGotoSymbolProxyModel;
 class QTreeView;
 class GotoGlobalSymbolModel;
 class KateCTagsView;
@@ -50,7 +50,7 @@ private:
     GotoStyleDelegate *m_styleDelegate;
     KTextEditor::MainWindow *m_mainWindow;
     GotoSymbolTreeView *m_treeView;
-    QuickOpenFilterProxyModel *m_proxyModel;
+    CtagsGotoSymbolProxyModel *m_proxyModel;
     GotoSymbolModel *m_symbolsModel;
     GotoGlobalSymbolModel *m_globalSymbolsModel;
     QLineEdit *m_lineEdit;

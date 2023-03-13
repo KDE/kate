@@ -21,10 +21,11 @@
 #include <KColorScheme>
 #include <KLocalizedString>
 
-class DiffStyleDelegate : public QStyledItemDelegate
+// TODO: this is duplicated in libkateprivate as DiffStyleDelegate
+class CompareBranchesDiffStyleDelegate : public QStyledItemDelegate
 {
 public:
-    DiffStyleDelegate(QObject *parent)
+    CompareBranchesDiffStyleDelegate(QObject *parent)
         : QStyledItemDelegate(parent)
     {
     }
@@ -150,7 +151,7 @@ CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath
 
     m_tree.setHeaderHidden(true);
     m_tree.setEditTriggers(QTreeView::NoEditTriggers);
-    m_tree.setItemDelegate(new DiffStyleDelegate(this));
+    m_tree.setItemDelegate(new CompareBranchesDiffStyleDelegate(this));
     m_tree.expandAll();
 
     connect(&m_tree, &QTreeView::clicked, this, &CompareBranchesView::showDiff);

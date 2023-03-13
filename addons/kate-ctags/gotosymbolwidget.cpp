@@ -25,10 +25,10 @@
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
 
-class QuickOpenFilterProxyModel : public QSortFilterProxyModel
+class CtagsGotoSymbolProxyModel : public QSortFilterProxyModel
 {
 public:
-    QuickOpenFilterProxyModel(QObject *parent = nullptr)
+    CtagsGotoSymbolProxyModel(QObject *parent = nullptr)
         : QSortFilterProxyModel(parent)
     {
     }
@@ -147,7 +147,7 @@ GotoSymbolWidget::GotoSymbolWidget(KTextEditor::MainWindow *mainWindow, KateCTag
 
     setFocusProxy(m_lineEdit);
 
-    m_proxyModel = new QuickOpenFilterProxyModel(this);
+    m_proxyModel = new CtagsGotoSymbolProxyModel(this);
     m_proxyModel->setSortRole(Qt::DisplayRole);
     m_proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
     m_proxyModel->setFilterRole(Qt::DisplayRole);
@@ -160,7 +160,7 @@ GotoSymbolWidget::GotoSymbolWidget(KTextEditor::MainWindow *mainWindow, KateCTag
     m_proxyModel->setSourceModel(m_symbolsModel);
     m_treeView->setModel(m_proxyModel);
 
-    connect(m_lineEdit, &QLineEdit::textChanged, m_proxyModel, &QuickOpenFilterProxyModel::setFilterText);
+    connect(m_lineEdit, &QLineEdit::textChanged, m_proxyModel, &CtagsGotoSymbolProxyModel::setFilterText);
     connect(m_lineEdit, &QLineEdit::textChanged, m_styleDelegate, &GotoStyleDelegate::setFilterStrings);
     connect(m_lineEdit, &QLineEdit::textChanged, this, [this]() {
         m_treeView->viewport()->update();

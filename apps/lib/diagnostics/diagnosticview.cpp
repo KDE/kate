@@ -102,10 +102,10 @@ struct DiagModelIndex {
 };
 Q_DECLARE_METATYPE(DiagModelIndex)
 
-class LocationTreeDelegate : public QStyledItemDelegate
+class DiagnosticsLocationTreeDelegate : public QStyledItemDelegate
 {
 public:
-    LocationTreeDelegate(QObject *parent)
+    DiagnosticsLocationTreeDelegate(QObject *parent)
         : QStyledItemDelegate(parent)
         , m_monoFont(Utils::editorFont())
     {
@@ -242,7 +242,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     m_diagnosticsTree->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_diagnosticsTree->setUniformRowHeights(true);
     m_diagnosticsTree->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_diagnosticsTree->setItemDelegate(new LocationTreeDelegate(this));
+    m_diagnosticsTree->setItemDelegate(new DiagnosticsLocationTreeDelegate(this));
 
     m_proxy->setSourceModel(&m_model);
     m_proxy->setFilterKeyColumn(0);

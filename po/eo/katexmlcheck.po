@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"PO-Revision-Date: 2023-03-12 21:39+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -21,40 +21,40 @@ msgstr ""
 #: plugin_katexmlcheck.cpp:94
 #, kde-format
 msgid "XML Check"
-msgstr ""
+msgstr "XML Kontrolo"
 
 #: plugin_katexmlcheck.cpp:99
 #, kde-format
 msgid "Validate XML"
-msgstr ""
+msgstr "Validigi XML"
 
 #: plugin_katexmlcheck.cpp:132
 #, kde-format
 msgid "Validate process crashed"
-msgstr ""
+msgstr "Validiga procezo paneis"
 
 #: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
 #: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
 #: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
 #, kde-format
 msgid "XMLCheck"
-msgstr ""
+msgstr "XMLCheck"
 
 #: plugin_katexmlcheck.cpp:146
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
-msgstr ""
+msgstr "Neniu DOCTYPE trovita, nur kontrolos bonformitecon."
 
 #: plugin_katexmlcheck.cpp:148
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
-msgstr ""
+msgstr "'%1' ne trovita, nur kontrolos bonformitecon."
 
 #: plugin_katexmlcheck.cpp:234
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
-msgstr ""
+msgstr "<b>Eraro:</b> Ne eblis krei provizoran dosieron '%1'."
 
 #: plugin_katexmlcheck.cpp:253
 #, kde-format
@@ -62,6 +62,8 @@ msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
+"<b>Eraro:</b> Malsukcesis trovi xmllint. Bonvolu certigi, ke xmllint estas "
+"instalita. Ĝi estas parto de libxml2."
 
 #: plugin_katexmlcheck.cpp:341
 #, kde-format
@@ -69,9 +71,11 @@ msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
+"<b>Eraro:</b> Malsukcesis ruli xmllint. Bonvolu certigi, ke xmlint estas "
+"instalita. Ĝi estas parto de libxml2."
 
 #. i18n: ectx: Menu (xml)
 #: ui.rc:6
 #, kde-format
 msgid "&XML"
-msgstr ""
+msgstr "&XML"

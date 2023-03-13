@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: json files\n"
+"Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-12 00:49+0000\n"
-"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"PO-Revision-Date: 2023-03-12 13:59+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -21,506 +21,507 @@ msgstr ""
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
+msgstr "Elektu branĉon por elpreni. Premu 'Esc' por nuligi."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
-msgstr ""
+msgstr "Krei Novan Branĉon"
 
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr ""
+msgstr "Krei novan branĉon el..."
 
 #: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "Branĉo %1 elprenita"
 
 #: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "Malsukcesis elpreno al branĉo %1, Eraro: %2"
 
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "Enigu nomon de nova branĉo. Premu 'Esc' por nuligi."
 
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
+msgstr "Elektu branĉon elprenendan. Premu 'Esc' por nuligi."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "Elprenita al nova branĉo: %1"
 
 #: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "Malsukcesis krei novan branĉon. Eraro \"%1\""
 
 #: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Branch"
-msgstr ""
+msgstr "Branĉo"
 
 #: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Last Commit"
-msgstr ""
+msgstr "Lasta Enmeto"
 
 #: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Forigi"
 
 #: branchdeletedialog.cpp:140
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ĉu vi certas ke vi volas forigi la elektitan branĉon?"
+msgstr[1] "Ĉu vi certas ke vi volas forigi la elektitajn branĉojn?"
 
 #: branchesdialog.cpp:102
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "Elekti branĉon..."
 
 #: branchesdialog.cpp:128 gitwidget.cpp:490 kateprojectpluginview.cpp:68
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: comparebranchesview.cpp:143
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "Reen"
 
 #: currentgitbranchbutton.cpp:123
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr ""
+msgstr "HEAD ĉe enmeto %1"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD estas ĉe tiu etikedo %1"
 
 #: currentgitbranchbutton.cpp:127
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "Aktiva branĉo: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "Enmeti Ŝanĝojn"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:251
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "Enmeti"
 
 #: gitcommitdialog.cpp:74
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Nuligi"
 
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "Skribi enmetan mesaĝon..."
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "Etendita enmetopriskribo..."
 
 #: gitcommitdialog.cpp:107
 #, kde-format
 msgid "Sign off"
-msgstr ""
+msgstr "Elsaluti"
 
 #: gitcommitdialog.cpp:111 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "Amendi"
 
 #: gitcommitdialog.cpp:112 gitwidget.cpp:961
 #, kde-format
 msgid "Amend Last Commit"
-msgstr ""
+msgstr "Amendi Lastan Enmeton"
 
 #: gitcommitdialog.cpp:119
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "Amendanta Enmeton"
 
 #: gitcommitdialog.cpp:203
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 / 52"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr ""
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
 #: gitstatusmodel.cpp:85
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "Enscenigita"
 
 #: gitstatusmodel.cpp:87
 #, kde-format
 msgid "Untracked"
-msgstr ""
+msgstr "Nespurita"
 
 #: gitstatusmodel.cpp:89
 #, kde-format
 msgid "Conflict"
-msgstr ""
+msgstr "Konflikto"
 
 #: gitstatusmodel.cpp:91
 #, kde-format
 msgid "Modified"
-msgstr ""
+msgstr "Modifita"
 
 #: gitwidget.cpp:259
 #, kde-format
 msgid "Git Push"
-msgstr ""
+msgstr "Git Push"
 
 #: gitwidget.cpp:272
 #, kde-format
 msgid "Git Pull"
-msgstr ""
+msgstr "Git Pull"
 
 #: gitwidget.cpp:285
 #, kde-format
 msgid "Cancel Operation"
-msgstr ""
+msgstr "Nuligi Operacion"
 
 #: gitwidget.cpp:293
 #, kde-format
 msgid " canceled."
-msgstr ""
+msgstr " nuligita."
 
 #: gitwidget.cpp:314 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "Filtrilo..."
 
 #: gitwidget.cpp:401
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
+"Malsukcesis trovi .git-dosierujon por '%1', aferoj eble ne funkcias ĝuste"
 
 #: gitwidget.cpp:575
 #, kde-format
 msgid " error: %1"
-msgstr ""
+msgstr " eraro: %1"
 
 #: gitwidget.cpp:581
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "\"%1\" rulis sukcese: %2"
 
 #: gitwidget.cpp:601
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "Malsukcesis enscenigi dosieron. Eraro:"
 
 #: gitwidget.cpp:614
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "Malsukcesis malscenigi dosieron. Eraro:"
 
 #: gitwidget.cpp:625
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "Malsukcesis forĵeti ŝanĝojn. Eraro:"
 
 #: gitwidget.cpp:636
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "Malsukcesis forigi. Eraro:"
 
 #: gitwidget.cpp:652
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr ""
+msgstr "Malsukcesis malfermi dosieron ĉe HEAD: %1"
 
 #: gitwidget.cpp:684
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr ""
+msgstr "Malsukcesis akiri Diff de dosiero: %1"
 
 #: gitwidget.cpp:751
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "Malsukcesis enmeti: %1"
 
 #: gitwidget.cpp:755
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "Ŝanĝoj enmetiĝis sukcese."
 
 #: gitwidget.cpp:765
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "Nenion fari. Bonvolu enscenigi viajn ŝanĝojn unue."
 
 #: gitwidget.cpp:778
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "Enmeta mesaĝo ne povas esti malplena."
 
 #: gitwidget.cpp:893
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr ""
+msgstr "Neniu diferenco por %1...%2"
 
 #: gitwidget.cpp:899
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "Malsukcesis kompari %1...%2"
 
 #: gitwidget.cpp:914
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr ""
+msgstr "Malsukcesis ricevi numstat dum diferenco %1...%2"
 
 #: gitwidget.cpp:953
 #, kde-format
 msgid "Refresh"
-msgstr ""
+msgstr "Refreŝigi"
 
 #: gitwidget.cpp:969
 #, kde-format
 msgid "Checkout Branch"
-msgstr ""
+msgstr "Elpreni Branĉon"
 
 #: gitwidget.cpp:981
 #, kde-format
 msgid "Delete Branch"
-msgstr ""
+msgstr "Forigi Branĉon"
 
 #: gitwidget.cpp:993
 #, kde-format
 msgid "Compare Branch with..."
-msgstr ""
+msgstr "Kompari Branĉon kun..."
 
 #: gitwidget.cpp:997
 #, kde-format
 msgid "Show Commit"
-msgstr ""
+msgstr "Montri Enmeton"
 
 #: gitwidget.cpp:997
 #, kde-format
 msgid "Commit hash"
-msgstr ""
+msgstr "Enmeta haketkodo"
 
 #: gitwidget.cpp:1002
 #, kde-format
 msgid "Open Commit..."
-msgstr ""
+msgstr "Malfermi Enmeton..."
 
 #: gitwidget.cpp:1005 gitwidget.cpp:1044
 #, kde-format
 msgid "Stash"
-msgstr ""
+msgstr "Stash"
 
 #: gitwidget.cpp:1015
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Diff - stash"
 
 #: gitwidget.cpp:1048
 #, kde-format
 msgid "Pop Last Stash"
-msgstr ""
+msgstr "Pop Last Stash"
 
 #: gitwidget.cpp:1052
 #, kde-format
 msgid "Pop Stash"
-msgstr ""
+msgstr "Pop Stash"
 
 #: gitwidget.cpp:1056
 #, kde-format
 msgid "Apply Last Stash"
-msgstr ""
+msgstr "Apliki Last Stash"
 
 #: gitwidget.cpp:1058
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "Stash (Konservi Enscenigitan)"
 
 #: gitwidget.cpp:1062
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr ""
+msgstr "Stash (Inkluzivi Nespuritan)"
 
 #: gitwidget.cpp:1066
 #, kde-format
 msgid "Apply Stash"
-msgstr ""
+msgstr "Apliki Stash"
 
 #: gitwidget.cpp:1067
 #, kde-format
 msgid "Drop Stash"
-msgstr ""
+msgstr "Perdi Stash"
 
 #: gitwidget.cpp:1068
 #, kde-format
 msgid "Show Stash Content"
-msgstr ""
+msgstr "Montri Stash-Enhavon"
 
 #: gitwidget.cpp:1108
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "Enscenigi Ĉion"
 
 #: gitwidget.cpp:1110
 #, kde-format
 msgid "Remove All"
-msgstr ""
+msgstr "Forigi Ĉion"
 
 #: gitwidget.cpp:1110
 #, kde-format
 msgid "Discard All"
-msgstr ""
+msgstr "Forĵeti Ĉion"
 
 #: gitwidget.cpp:1113
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr "Malfermi .gitignore"
 
 #: gitwidget.cpp:1114 gitwidget.cpp:1169 gitwidget.cpp:1219
 #: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
-msgstr ""
+msgstr "Montri Diff"
 
 #: gitwidget.cpp:1131
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi volas forigi ĉi tiujn dosierojn?"
 
 #: gitwidget.cpp:1140
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi volas forĵeti ĉiujn ŝanĝojn?"
 
 #: gitwidget.cpp:1168
 #, kde-format
 msgid "Open File"
-msgstr ""
+msgstr "Malfermi Dosieron"
 
 #: gitwidget.cpp:1170
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr ""
+msgstr "Montri en Ekstera Git Diff Tool"
 
 #: gitwidget.cpp:1171
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "Malfermi ĉe HEAD"
 
 #: gitwidget.cpp:1172
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "Malscenigi Dosiero"
 
 #: gitwidget.cpp:1172
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "Etapa Dosiero"
 
 #: gitwidget.cpp:1173
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "Forigi"
 
 #: gitwidget.cpp:1173
 #, kde-format
 msgid "Discard"
-msgstr ""
+msgstr "Forĵeti"
 
 #: gitwidget.cpp:1190
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi volas forĵeti la ŝanĝojn en ĉi tiu dosiero?"
 
 #: gitwidget.cpp:1203
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi volas forigi ĉi tiun dosieron?"
 
 #: gitwidget.cpp:1218
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "Malscenigi Ĉion"
 
 #: gitwidget.cpp:1285
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "Malscenigi Elektitajn Dosieron"
 
 #: gitwidget.cpp:1285
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "Stage Elektitajn Dosierojn"
 
 #: gitwidget.cpp:1286
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "Forĵeti Elektitajn dosierojn"
 
 #: gitwidget.cpp:1290
 #, kde-format
 msgid "Remove Selected Files"
-msgstr ""
+msgstr "Forigi Elektitajn Dosieroj"
 
 #: gitwidget.cpp:1303
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi volas forĵeti la ŝanĝojn?"
 
 #: gitwidget.cpp:1312
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi volas forigi ĉi tiujn nespuritajn ŝanĝojn?"
 
 #: kateproject.cpp:217
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "Misformita JSON-dosiero '%1': %2"
 
 #: kateproject.cpp:529
 #, kde-format
 msgid "<untracked>"
-msgstr ""
+msgstr "<nespurita>"
 
 #: kateprojectcompletion.cpp:43
 #, kde-format
 msgid "Project Completion"
-msgstr ""
+msgstr "Projekto Fino"
 
 #: kateprojectconfigpage.cpp:25
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories"
-msgstr ""
+msgstr "Aŭtomate ŝargi Deponejojn"
 
 #: kateprojectconfigpage.cpp:27
 #, kde-format
@@ -528,63 +529,65 @@ msgid ""
 "Project plugin is able to autoload repository working copies when there is "
 "no .kateproject file defined yet."
 msgstr ""
+"Projekta kromaĵo kapablas aŭtomate ŝargi deponejajn laborkopiojn kiam "
+"ankoraŭ ne estas .kateproject-dosiero difinita."
 
 #: kateprojectconfigpage.cpp:30
 #, kde-format
 msgid "&Git"
-msgstr ""
+msgstr "&Git"
 
 #: kateprojectconfigpage.cpp:33
 #, kde-format
 msgid "&Subversion"
-msgstr ""
+msgstr "&Subversion"
 
 #: kateprojectconfigpage.cpp:35
 #, kde-format
 msgid "&Mercurial"
-msgstr ""
+msgstr "&Mercurial"
 
 #: kateprojectconfigpage.cpp:37
 #, kde-format
 msgid "&Fossil"
-msgstr ""
+msgstr "&Fossil"
 
 #: kateprojectconfigpage.cpp:46
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr ""
+msgstr "Seanca Konduto"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgid "Session settings for projects"
-msgstr ""
+msgstr "Seancaj agordoj por projektoj"
 
 #: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Restore Open Projects"
-msgstr ""
+msgstr "Restarigi Malfermitajn Projektojn"
 
 #: kateprojectconfigpage.cpp:55
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
-msgstr ""
+msgstr "Projekta Indekso"
 
 #: kateprojectconfigpage.cpp:56
 #, kde-format
 msgid "Project ctags index settings"
-msgstr ""
+msgstr "Projektaj ctags-indeksagordoj"
 
 #: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Enable indexing"
-msgstr ""
+msgstr "Ebligi indeksadon"
 
 #: kateprojectconfigpage.cpp:60
 #, kde-format
 msgid "Directory for index files"
-msgstr ""
+msgstr "Dosierujo por indeksaj dosieroj"
 
 #: kateprojectconfigpage.cpp:64
 #, kde-format
@@ -592,105 +595,107 @@ msgid ""
 "The system temporary directory is used if not specified, which may overflow "
 "for very large repositories"
 msgstr ""
+"La sistema provizora dosierujo estas uzata se ne specifita, kio povas "
+"superflui por tre grandaj deponejoj"
 
 #: kateprojectconfigpage.cpp:71
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
-msgstr ""
+msgstr "Trans-Projekta Funkcio"
 
 #: kateprojectconfigpage.cpp:72
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
-msgstr ""
+msgstr "Projekta kromaĵo kapablas fari iujn operaciojn tra pluraj projektoj"
 
 #: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid "Cross-Project Completion"
-msgstr ""
+msgstr "Trans-Projekta Kompletigo"
 
 #: kateprojectconfigpage.cpp:75
 #, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr ""
+msgstr "Trans-Projekto Goto Simbolo"
 
 #: kateprojectconfigpage.cpp:83
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
 msgid "Show number of changed lines in git status"
-msgstr ""
+msgstr "Montri nombron da ŝanĝitaj linioj en git-stato"
 
 #: kateprojectconfigpage.cpp:88
 #, kde-format
 msgid "Single click action in the git status view"
-msgstr ""
+msgstr "Unuklaka ago en la git-statusa vido"
 
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "No Action"
-msgstr ""
+msgstr "Neniu agado"
 
 #: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Open file"
-msgstr ""
+msgstr "Malfermu dosieron"
 
 #: kateprojectconfigpage.cpp:93 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "Scenejo / Malscenigi"
 
 #: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
-msgstr ""
+msgstr "Duobloklaka ago en la git-statusa vido"
 
 #: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Projects"
-msgstr ""
+msgstr "Projektoj"
 
 #: kateprojectconfigpage.cpp:140
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
-msgstr ""
+msgstr "Projektoj Propraĵoj"
 
 #: kateprojectinfoview.cpp:35
 #, kde-format
 msgid "Terminal (.kateproject)"
-msgstr ""
+msgstr "Terminalo (.kateproject)"
 
 #: kateprojectinfoview.cpp:43
 #, kde-format
 msgid "Terminal (Base)"
-msgstr ""
+msgstr "Terminalo (Bazo)"
 
 #: kateprojectinfoview.cpp:50
 #, kde-format
 msgid "Code Index"
-msgstr ""
+msgstr "Koda Indekso"
 
 #: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Code Analysis"
-msgstr ""
+msgstr "Koda Analizo"
 
 #: kateprojectinfoview.cpp:60
 #, kde-format
 msgid "Notes"
-msgstr ""
+msgstr "Notoj"
 
 #: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
-msgstr ""
+msgstr "Komenci Analizon..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:98
 #, kde-format
@@ -698,13 +703,15 @@ msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
 "of file extensions:<br/><br/><b>%2</b>"
 msgstr ""
+"%1<br/><br/>La ilo ruliĝos en ĉiuj projektdosieroj kiuj kongruas kun ĉi tiu "
+"listo de dosier-estendoj:<br/><br/><b>%2</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:136
 #: kateprojectinfoviewcodeanalysis.cpp:196
 #: kateprojectinfoviewcodeanalysis.cpp:200
 #, kde-format
 msgid "CodeAnalysis"
-msgstr ""
+msgstr "Kodanalizo"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
 #, kde-format
@@ -714,73 +721,75 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "[%1]Analizo de %2 dosiero finiĝis."
+msgstr[1] "[%1]Analizo de %2 dosieroj finiĝis."
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr ""
+msgstr "Analizo malsukcesis kun elirkodo %1, Eraro: %2"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "Nomo"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
 msgid "Kind"
-msgstr ""
+msgstr "Afabla"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
 msgid "File"
-msgstr ""
+msgstr "Dosiero"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
 msgid "Line"
-msgstr ""
+msgstr "Linio"
 
 #: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Search"
-msgstr ""
+msgstr "Serĉu"
 
 #: kateprojectinfoviewindex.cpp:195
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
-msgstr ""
+msgstr "La indekso ne povis esti kreita. Bonvolu instali 'ctags'."
 
 #: kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Indexing is not enabled"
-msgstr ""
+msgstr "Indeksado ne estas ebligita"
 
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "Eraro"
 
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "File name already exists"
-msgstr ""
+msgstr "Dosiernomo jam ekzistas"
 
 #: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr ""
+msgstr "Konfirmu projektofermon: %1"
 
 #: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
+"Ĉu vi volas fermi la projekton %1 kaj la rilatajn %2 malfermitajn "
+"dokumentojn?"
 
 #: kateprojectplugin.cpp:570
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr ""
+msgstr "Plena vojo al nuna projekto ekskludante la dosiernomon."
 
 #: kateprojectplugin.cpp:587
 #, kde-format
@@ -788,246 +797,248 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
+"Plena vojo al aktuala projekto ekskludante la dosiernomon, kun denaska "
+"padodisigilo (malantaŭa oblikvo en Vindozo)."
 
 #: kateprojectplugin.cpp:699 kateprojectpluginview.cpp:73
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
 #: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Projekto"
 
 #: kateprojectpluginview.cpp:57
 #, kde-format
 msgid "Project Manager"
-msgstr ""
+msgstr "Projektadministrilo"
 
 #: kateprojectpluginview.cpp:79
 #, kde-format
 msgid "Open projects list"
-msgstr ""
+msgstr "Malfermi liston de projektoj"
 
 #: kateprojectpluginview.cpp:84
 #, kde-format
 msgid "Reload project"
-msgstr ""
+msgstr "Reŝargi projekton"
 
 #: kateprojectpluginview.cpp:87
 #, kde-format
 msgid "Close project"
-msgstr ""
+msgstr "Fermi projekton"
 
 #: kateprojectpluginview.cpp:102
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Refreŝigi git-statuson"
 
 #: kateprojectpluginview.cpp:180
 #, kde-format
 msgid "Open Folder..."
-msgstr ""
+msgstr "Malfermi dosierujon..."
 
 #: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Project TODOs"
-msgstr ""
+msgstr "Projekto TODOs"
 
 #: kateprojectpluginview.cpp:189
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "Aktivigi Antaŭan Projekton"
 
 #: kateprojectpluginview.cpp:194
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "Aktivigu Sekvan Projekton"
 
 #: kateprojectpluginview.cpp:199
 #, kde-format
 msgid "Lookup"
-msgstr ""
+msgstr "Serĉi"
 
 #: kateprojectpluginview.cpp:203
 #, kde-format
 msgid "Close Project"
-msgstr ""
+msgstr "Fermi Projekton"
 
 #: kateprojectpluginview.cpp:207
 #, kde-format
 msgid "Close All Projects"
-msgstr ""
+msgstr "Fermi Ĉiujn Projektojn"
 
 #: kateprojectpluginview.cpp:212
 #, kde-format
 msgid "Close Orphaned Projects"
-msgstr ""
+msgstr "Fermi Orfigitajn Projektojn"
 
 #: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "Elpreni Git-Branĉon"
 
 #: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:803
 #, kde-format
 msgid "Lookup: %1"
-msgstr ""
+msgstr "Serĉo: %1"
 
 #: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:804
 #, kde-format
 msgid "Goto: %1"
-msgstr ""
+msgstr "Iri al: %1"
 
 #: kateprojectpluginview.cpp:308
 #, kde-format
 msgid "Projects Index"
-msgstr ""
+msgstr "Indekso de Projektoj"
 
 #: kateprojectpluginview.cpp:848
 #, kde-format
 msgid "Choose a directory"
-msgstr ""
+msgstr "Elekti dosierujon"
 
 #: kateprojecttreeviewcontextmenu.cpp:42
 #, kde-format
 msgid "Enter name:"
-msgstr ""
+msgstr "Enigu nomon:"
 
 #: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "Aldoni"
 
 #: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopii Lokon"
 
 #: kateprojecttreeviewcontextmenu.cpp:69
 #, kde-format
 msgid "Add File"
-msgstr ""
+msgstr "Aldoni Dosieron"
 
 #: kateprojecttreeviewcontextmenu.cpp:70
 #, kde-format
 msgid "Add Folder"
-msgstr ""
+msgstr "Aldoni Dosierujon"
 
 #: kateprojecttreeviewcontextmenu.cpp:77
 #, kde-format
 msgid "&Rename"
-msgstr ""
+msgstr "&Renomi"
 
 #: kateprojecttreeviewcontextmenu.cpp:84
 #, kde-format
 msgid "Properties"
-msgstr ""
+msgstr "Propraĵoj"
 
 #: kateprojecttreeviewcontextmenu.cpp:88
 #, kde-format
 msgid "Open With"
-msgstr ""
+msgstr "Malfermi Per"
 
 #: kateprojecttreeviewcontextmenu.cpp:96
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "Malfermi Internan Terminalon Ĉi tie"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "Malfermi Eksteran Terminalon Ĉi tie"
 
 #: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr ""
+msgstr "Malfermi Enhavan D&osierujon"
 
 #: kateprojecttreeviewcontextmenu.cpp:120
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "Montri Git-Historion"
 
 #: kateprojecttreeviewcontextmenu.cpp:130
 #, kde-format
 msgid "Delete File"
-msgstr ""
+msgstr "Forigi Dosieron"
 
 #: kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
-msgstr ""
+msgstr "Ĉu vi volas forigi la dosieron '%1'?"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr ""
+msgstr "Malsukcesis krei dosieron: %1, Eraro: %2"
 
 #: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr ""
+msgstr "Malsukcesis krei dir: %1"
 
 #: stashdialog.cpp:37
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
-msgstr ""
+msgstr "Stash-mesaĝo (laŭvola). Enigu por konfirmi, Esc por foriri."
 
 #: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
-msgstr ""
+msgstr "Tajpu por filtri, Enigu al pop stash, Esc por foriri."
 
 #: stashdialog.cpp:143
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr ""
+msgstr "Malsukcesis stash-konservi ŝanĝojn %1"
 
 #: stashdialog.cpp:145
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr ""
+msgstr "Ŝanĝoj konservitaj sukcese en stash."
 
 #: stashdialog.cpp:164
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr ""
+msgstr "Malsukcesis akiri stash-liston. Eraro:"
 
 #: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr ""
+msgstr "Malsukcesis apliki stash. Eraro:"
 
 #: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr ""
+msgstr "Malsukcesis faligi stash. Eraro:"
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr ""
+msgstr "Malsukcesis preni el stash. Eraro:"
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Stash applied successfully."
-msgstr ""
+msgstr "Stash aplikita sukcese."
 
 #: stashdialog.cpp:190
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr ""
+msgstr "Stash falis sukcese."
 
 #: stashdialog.cpp:192
 #, kde-format
 msgid "Stash popped successfully."
-msgstr ""
+msgstr "Prenado el stash sukcesa."
 
 #: stashdialog.cpp:221
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr ""
+msgstr "Montri stash malsukcesis. Eraro:"
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9
 #, kde-format
 msgid "&Projects"
-msgstr ""
+msgstr "&Projektoj"

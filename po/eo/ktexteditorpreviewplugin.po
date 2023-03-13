@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"PO-Revision-Date: 2023-03-12 21:39+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -21,70 +21,72 @@ msgstr ""
 #: ktexteditorpreviewview.cpp:31
 #, kde-format
 msgid "Preview"
-msgstr ""
+msgstr "Antaŭrigardo"
 
 #: previewwidget.cpp:45
 #, kde-format
 msgid "Lock Current Document"
-msgstr ""
+msgstr "Ŝlosi Nunan Dokumenton"
 
 #: previewwidget.cpp:46
 #, kde-format
 msgid "Lock preview to current document"
-msgstr ""
+msgstr "Ŝlosi antaŭrigardon al aktuala dokumento"
 
 #: previewwidget.cpp:47
 #, kde-format
 msgid "Unlock Current View"
-msgstr ""
+msgstr "Malŝlosi Nunan Vidon"
 
 #: previewwidget.cpp:47
 #, kde-format
 msgid "Unlock current view"
-msgstr ""
+msgstr "Malŝlosi nunan vidon"
 
 #: previewwidget.cpp:54
 #, kde-format
 msgid "Automatically Update Preview"
-msgstr ""
+msgstr "Aŭtomate Ĝisdatigi Antaŭrigardon"
 
 #: previewwidget.cpp:55
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr ""
+"Ebligi aŭtomatajn ĝisdatigojn de la antaŭrigardo al la aktuala dokumentenhavo"
 
 #: previewwidget.cpp:56
 #, kde-format
 msgid "Manually Update Preview"
-msgstr ""
+msgstr "Mane Ĝisdatigi Antaŭrigardon"
 
 #: previewwidget.cpp:58
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
 msgstr ""
+"Malebligi aŭtomatajn ĝisdatigojn de la antaŭrigardo al la nuna dokumentenhavo"
 
 #: previewwidget.cpp:63
 #, kde-format
 msgid "Update Preview"
-msgstr ""
+msgstr "Ĝisdatigi Antaŭrigardon"
 
 #: previewwidget.cpp:64
 #, kde-format
 msgid "Update the preview to the current document content"
-msgstr ""
+msgstr "Ĝisdatigi la antaŭrigardon al la aktuala dokumentenhavo"
 
 #: previewwidget.cpp:72
 #, kde-format
 msgid "View"
-msgstr ""
+msgstr "Vido"
 
 #: previewwidget.cpp:97
 #, kde-format
 msgid "No preview available."
-msgstr ""
+msgstr "Neniu antaŭrigardo disponebla."
 
 #: previewwidget.cpp:228
 #, kde-format
 msgid "About %1"
-msgstr ""
+msgstr "Pri %1"

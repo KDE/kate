@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 01:01+0000\n"
-"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"PO-Revision-Date: 2023-03-12 21:39+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -31,75 +31,75 @@ msgstr "okellogg@users.sourceforge.net"
 #: editrepository.cpp:81 editrepository.cpp:126
 #, kde-format
 msgid "Edit Snippet Repository %1"
-msgstr ""
+msgstr "Redakti fragmentan deponejon %1"
 
 #: editrepository.cpp:83
 #, kde-format
 msgid "Create New Snippet Repository"
-msgstr ""
+msgstr "Krei Novan Fragment-Deponejon"
 
 #: editrepository.cpp:142
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr ""
+msgstr "<i>lasu malplenaj por ĝeneraluzeblaj fragmentoj</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
 #: editrepository.ui:29 editsnippet.ui:35
 #, kde-format
 msgid "Name:"
-msgstr ""
+msgstr "Nomo:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNamespaceLabel)
 #: editrepository.ui:36
 #, kde-format
 msgid "Namespace:"
-msgstr ""
+msgstr "Nomspaco:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoLicenseLabel)
 #: editrepository.ui:43
 #, kde-format
 msgid "&License:"
-msgstr ""
+msgstr "Permesi&lo:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoAuthorsLabel)
 #: editrepository.ui:56
 #, kde-format
 msgid "&Authors:"
-msgstr ""
+msgstr "&Aŭtoroj:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoFileTypesLabel)
 #: editrepository.ui:69
 #, kde-format
 msgid "&File types:"
-msgstr ""
+msgstr "&Dosiertipoj:"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNameEdit)
 #: editrepository.ui:96
 #, kde-format
 msgid "A short name for the repository"
-msgstr ""
+msgstr "Mallonga nomo por la deponejo"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNamespaceEdit)
 #: editrepository.ui:103
 #, kde-format
 msgid "Prefix to show in code completion"
-msgstr ""
+msgstr "Prefikso por montri en kodkompletigo"
 
 #: editsnippet.cpp:97 editsnippet.cpp:177
 #, kde-format
 msgid "Edit Snippet %1 in %2"
-msgstr ""
+msgstr "Redakti fragmenton %1 en %2"
 
 #: editsnippet.cpp:107
 #, kde-format
 msgid "Create New Snippet in Repository %1"
-msgstr ""
+msgstr "Krei Novan Fragmenton en Deponejo %1"
 
 #: editsnippet.cpp:145
 #, kde-format
 msgid "Snippet name cannot contain spaces"
-msgstr ""
+msgstr "Fragmentnomo ne povas enhavi spacojn"
 
 #: editsnippet.cpp:189
 #, kde-format
@@ -107,23 +107,25 @@ msgid ""
 "The snippet contains unsaved changes. Do you want to continue and lose all "
 "changes?"
 msgstr ""
+"La fragmento enhavas nekonservitajn ŝanĝojn. Ĉu vi volas daŭrigi kaj perdi "
+"ĉiujn ŝanĝojn?"
 
 #: editsnippet.cpp:190
 #, kde-format
 msgid "Warning - Unsaved Changes"
-msgstr ""
+msgstr "Averto - Nekonservitaj Ŝanĝoj"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
 #, kde-format
 msgid "will be shown in the completion list"
-msgstr ""
+msgstr "estos montrita en la kompletigolisto"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:62
 #, kde-format
 msgid "&Snippet"
-msgstr ""
+msgstr "&Fragmento"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetLabel)
 #: editsnippet.ui:68
@@ -143,12 +145,25 @@ msgid ""
 "information.<br><tt>${cursor}</tt> can be used to mark the end position of "
 "the cursor after everything else was filled in.\">More...</a>"
 msgstr ""
+"La tekston, kiun via fragmento enigos en la dokumenton. <a href=\"Fragmento "
+"povas enhavi redakteblajn kampojn. Oni povas cikli tra ili premante Tab. La "
+"jenaj esprimoj povas esti uzataj en la ŝablona teksto por krei kampojn: "
+"<br><tt>${field_name}</tt> kreas simplan, redakteblan kampon. Ĉiuj postaj "
+"okazoj de la sama kampo_nomo kreas kampojn kiuj spegulas la enhavon de la "
+"unua dum redaktado.<br><tt>${field_name=default}</tt> povas esti uzata por "
+"specifi defaŭltan valoron por la kampo. <tt>default</tt> povas esti ajna "
+"JavaScript-esprimo.<br>Uzu <tt>${field_name=text}</tt> por specifi fiksan "
+"ĉenon kiel defaŭltan valoron.<br><tt>$ {func(alia_kampo1, alia_kampo2, ...)}"
+"</tt> povas esti uzata por krei kampon kiu taksas JavaScript-funkcion ĉe ĉiu "
+"redakto kaj enhavas ĝian enhavon. Vidu la langeton Skriptoj por pliaj "
+"informoj.<br><tt> ${cursor}</tt> povas esti uzata por marki la finpozicion "
+"de la kursoro post kiam ĉio alia estis plenigita.\">Pli...</a>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:82
 #, kde-format
 msgid "S&cripts"
-msgstr ""
+msgstr "S&kriptoj"
 
 #. i18n: ectx: property (text), widget (QLabel, scriptLabel)
 #: editsnippet.ui:88
@@ -168,44 +183,56 @@ msgid ""
 "tt> objects. Refer to the scripting API documentation for more information."
 "\">More...</a>"
 msgstr ""
+"Skribu JavaScript-helpajn funkciojn por uzi en viaj fragmentoj ĉi tie. <a "
+"href=\"Ĉiuj JavaScript-funkcioj devas resendi la enhavon, kiun vi volas meti "
+"en ŝablonkampon kiel ĉenon.<br>Funkcioj estas nomitaj en medio kiu enhavas "
+"la enhavon de ĉiuj redakteblaj ŝablonkampoj kiel lokaj variabloj. Ekzemple "
+"en fragmento enhavanta <tt>${field}</tt>, variablo nomata <tt>kampo</tt> "
+"ĉeestos kiu enhavas la ĝisdatigitan enhavon de la ŝablono kampo.Tiuj "
+"variabloj povas esti uzataj en la funkcio statike aŭ pasita kiel argumentoj, "
+"uzante la sintakson <tt>${func(field)}</tt> aŭ <tt>${field2=func(field)}</"
+"tt> en la fragmentĉeno.<br >Vi povas uzi la kate scripting API por akiri la "
+"elektitan tekston, plenan tekston, dosiernomon kaj pli uzante la taŭgajn "
+"metodojn de la objektoj <tt>dokumento</tt> kaj <tt>vido</tt>. scripting API-"
+"dokumentado por pliaj informoj.\">Pli...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:105
 #, kde-format
 msgid "Test this snippet"
-msgstr ""
+msgstr "Testi ĉi tiun fragmenton"
 
 #: katesnippetglobal.cpp:103
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
-msgstr ""
+msgstr "%1 fragmentoj"
 
 #: katesnippets.cpp:46 katesnippets.cpp:54 snippetcompletionmodel.cpp:43
 #: snippetview.cpp:76 snippetview.cpp:202
 #, kde-format
 msgid "Snippets"
-msgstr ""
+msgstr "Fragmentoj"
 
 #: katesnippets.cpp:65
 #, kde-format
 msgid "Create Snippet"
-msgstr ""
+msgstr "Krei Fragmenton"
 
 #: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
-msgstr ""
+msgstr "<malplena fragmento>"
 
 #: snippet.cpp:61
 #, kde-format
 msgid "insert snippet %1"
-msgstr ""
+msgstr "enmeti fragmenton %1"
 
 #: snippetrepository.cpp:45
 #, kde-format
 msgid "<empty repository>"
-msgstr ""
+msgstr "<malplena deponejo>"
 
 #: snippetrepository.cpp:232
 #, kde-format
@@ -214,27 +241,31 @@ msgid ""
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
+"Vi redaktis fragmentan deponejon dosieron ne troviĝantan en via persona "
+"dosierujo; kiel tia, kopio de la originala dosiero estis kreita ene de via "
+"persona datuma dosierujo."
 
 #: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
-msgstr ""
+msgstr "Eligaĵdosiero '%1' ne povis esti malfermita por skribado"
 
 #: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
-msgstr ""
+msgstr "Ne povas malfermi fragmentan deponejon %1."
 
 #: snippetrepository.cpp:286
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
+"<qt>La eraro <b>%4</b><br /> estis detektita en la dosiero %1 ĉe %2/%3</qt>"
 
 #: snippetrepository.cpp:293
 #, kde-format
 msgid "Invalid XML snippet file: %1"
-msgstr ""
+msgstr "Nevalida XML-fragmento dosiero: %1"
 
 #: snippetrepository.cpp:355
 #, kde-format
@@ -242,87 +273,89 @@ msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr ""
+"Deponejo estas malŝaltita, la enhavitaj fragmentoj ne estos montritaj dum "
+"kodkompletigo."
 
 #: snippetrepository.cpp:358
 #, kde-format
 msgid "Applies to all filetypes"
-msgstr ""
+msgstr "Validas por ĉiuj dosiertipoj"
 
 #: snippetrepository.cpp:360
 #, kde-format
 msgid "Applies to the following filetypes: %1"
-msgstr ""
+msgstr "Aplikas al la sekvaj dosiertipoj: %1"
 
 #: snippetview.cpp:93
 #, kde-format
 msgid "Add Repository"
-msgstr ""
+msgstr "Aldonu Deponejon"
 
 #: snippetview.cpp:96
 #, kde-format
 msgid "Edit Repository"
-msgstr ""
+msgstr "Redakti Deponejon"
 
 #: snippetview.cpp:99
 #, kde-format
 msgid "Remove Repository"
-msgstr ""
+msgstr "Forigi Deponejon"
 
 #: snippetview.cpp:109
 #, kde-format
 msgid "Add Snippet"
-msgstr ""
+msgstr "Aldoni Fragmenton"
 
 #: snippetview.cpp:112
 #, kde-format
 msgid "Edit Snippet"
-msgstr ""
+msgstr "Redaktu Fragmenton"
 
 #: snippetview.cpp:115
 #, kde-format
 msgid "Remove Snippet"
-msgstr ""
+msgstr "Forigi Fragmenton"
 
 #: snippetview.cpp:121
 #, kde-format
 msgid "Get New Snippets"
-msgstr ""
+msgstr "Akiri Novajn Fragmentojn"
 
 #: snippetview.cpp:210
 #, kde-format
 msgid "Snippet: %1"
-msgstr ""
+msgstr "Fragmento: %1"
 
 #: snippetview.cpp:218
 #, kde-format
 msgid "Repository: %1"
-msgstr ""
+msgstr "Deponejo: %1"
 
 #: snippetview.cpp:282
 #, kde-format
 msgid "Do you really want to delete the snippet \"%1\"?"
-msgstr ""
+msgstr "Ĉu vi vere volas forigi la fragmenton \"%1\"?"
 
 #: snippetview.cpp:324
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"
-msgstr ""
+msgstr "Ĉu vi vere volas forigi la deponejon \"%1\" kun ĉiuj ĝiaj fragmentoj?"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
 #: snippetview.ui:35
 #, kde-format
 msgid "Define filter here"
-msgstr ""
+msgstr "Difinu filtrilon ĉi tie"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, filterText)
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "Filtrilo..."
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
 #, kde-format
 msgid "&Tools"
-msgstr ""
+msgstr "&Iloj"

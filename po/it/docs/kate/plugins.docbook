@@ -6226,6 +6226,21 @@ VALUES ("<replaceable
 </listitem>
 </varlistentry>
 
+<varlistentry id="tools-run-current-document">
+<term
+><menuchoice
+><guimenu
+>Strumenti</guimenu
+><guimenuitem
+>Esegui il documento attuale</guimenuitem
+></menuchoice
+></term>
+<listitem>
+<para
+>Esegui il documento attuale in &konsole;. Possono essere eseguiti solo i documenti locali. &kate; mostrerà un avviso prima di eseguire i documenti, perché questa azione può essere una seria minaccia alla sicurezza.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="tools-focus-terminal">
 <term
 ><menuchoice

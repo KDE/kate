@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-24 01:02+0000\n"
-"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"PO-Revision-Date: 2023-03-12 21:39+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: colorpickerconfigpage.cpp:34
 #, kde-format
 msgid "Show preview for known color names"
-msgstr ""
+msgstr "Montri antaŭrigardon por konataj kolornomoj"
 
 #: colorpickerconfigpage.cpp:36
 #, kde-format
@@ -30,58 +30,61 @@ msgid ""
 "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
 "colors."
 msgstr ""
+"Montru ankaŭ la kolor-elektilon por konataj kolornomoj (ekz. ĉielblua).\n"
+"Vidu https://www.w3.org/TR/SVG11/types.html#ColorKeywords por la listo de "
+"koloroj."
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format
 msgid "Place preview after text color"
-msgstr ""
+msgstr "Meti antaŭrigardon post tekstokoloro"
 
 #: colorpickerconfigpage.cpp:45
 #, kde-format
 msgid "Hex color matching"
-msgstr ""
+msgstr "Deksesuma kolorkongruo"
 
 #: colorpickerconfigpage.cpp:48
 #, kde-format
 msgid "12 digits (#RRRRGGGGBBBB)"
-msgstr ""
+msgstr "12 ciferoj (#RRRRGGGGBBBB)"
 
 #: colorpickerconfigpage.cpp:49
 #, kde-format
 msgid "9 digits (#RRRGGGBBB)"
-msgstr ""
+msgstr "9 ciferoj (#RRRGGGGBBB)"
 
 #: colorpickerconfigpage.cpp:50
 #, kde-format
 msgid "8 digits (#AARRGGBB)"
-msgstr ""
+msgstr "8 ciferoj (#AARRGGBB)"
 
 #: colorpickerconfigpage.cpp:51
 #, kde-format
 msgid "6 digits (#RRGGBB)"
-msgstr ""
+msgstr "6 ciferoj (#RRGGBB)"
 
 #: colorpickerconfigpage.cpp:52
 #, kde-format
 msgid "3 digits (#RGB)"
-msgstr ""
+msgstr "3 ciferoj (#RGB)"
 
 #: colorpickerconfigpage.cpp:72
 #, kde-format
 msgid "Color Picker"
-msgstr ""
+msgstr "Kolorelektilo"
 
 #: colorpickerconfigpage.cpp:77
 #, kde-format
 msgid "Color Picker Settings"
-msgstr ""
+msgstr "Agordoj de Kolora Elektilo"
 
 #: katecolorpickerplugin.cpp:247
 #, kde-format
 msgid "Select Color (Hex output)"
-msgstr ""
+msgstr "Elekti Koloron (16uma eligo)"
 
 #: katecolorpickerplugin.cpp:250
 #, kde-format
 msgid "View Color [Read only]"
-msgstr ""
+msgstr "Rigardi Koloron [Nur Legu]"

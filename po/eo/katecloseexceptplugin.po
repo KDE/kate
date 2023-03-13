@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"PO-Revision-Date: 2023-03-12 21:39+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -21,93 +21,93 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Oliver Kellogg"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "okellogg@users.sourceforge.net"
 
 #: close_confirm_dialog.cpp:66
 #, kde-format
 msgctxt "@title:window"
 msgid "Close files confirmation"
-msgstr ""
+msgstr "Konfirmo pri fermi dosierojn"
 
 #: close_confirm_dialog.cpp:72
 #, kde-format
 msgctxt "@label:listbox"
 msgid "You are about to close the following documents:"
-msgstr ""
+msgstr "Vi estas fermonta la jenajn dokumentojn:"
 
 #: close_confirm_dialog.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Document"
-msgstr ""
+msgstr "Dokumento"
 
 #: close_confirm_dialog.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Location"
-msgstr ""
+msgstr "Loko"
 
 #: close_confirm_dialog.cpp:87
 #, kde-format
 msgctxt "option:check"
 msgid "Do not ask again"
-msgstr ""
+msgstr "Ne demandi denove"
 
 #: close_except_plugin.cpp:74
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
-msgstr ""
+msgstr "Montri Konfirmon"
 
 #: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
-msgstr ""
+msgstr "Fermi Krom"
 
 #: close_except_plugin.cpp:76
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
-msgstr ""
+msgstr "Fermi Kiel"
 
 #: close_except_plugin.cpp:79
 #, kde-format
 msgid "Close Except/Like Plugin"
-msgstr ""
+msgstr "Kromprogramo por Fermi Krom/Kiel"
 
 #: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
-msgstr ""
+msgstr "Eraro"
 
 #: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
-msgstr ""
+msgstr "Neniuj dosieroj por fermi..."
 
 #: close_except_plugin.cpp:260
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
-msgstr ""
+msgstr "Farita"
 
 #: close_except_plugin.cpp:260
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "fermis %1 dosieron"
+msgstr[1] "fermis %1 dosierojn"
 
 #: close_except_plugin.cpp:273
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"
-msgstr ""
+msgstr "<title>%1</title><nl/>%2"

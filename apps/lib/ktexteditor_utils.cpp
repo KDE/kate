@@ -30,7 +30,7 @@ namespace Utils
 class KateScrollBarRestorerPrivate
 {
 public:
-    KateScrollBarRestorerPrivate(KTextEditor::View *view)
+    explicit KateScrollBarRestorerPrivate(KTextEditor::View *view)
     {
         // Find KateScrollBar
         const auto scrollBars = view->findChildren<QScrollBar *>();

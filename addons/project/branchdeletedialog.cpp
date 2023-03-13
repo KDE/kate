@@ -20,7 +20,7 @@ class CheckableHeaderView : public QHeaderView
 {
     Q_OBJECT
 public:
-    CheckableHeaderView(Qt::Orientation orientation, QWidget *parent = nullptr)
+    explicit CheckableHeaderView(Qt::Orientation orientation, QWidget *parent = nullptr)
         : QHeaderView(orientation, parent)
     {
     }

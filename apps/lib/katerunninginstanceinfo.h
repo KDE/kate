@@ -16,7 +16,7 @@ class KateRunningInstanceInfo
 public:
     KateRunningInstanceInfo() = default;
 
-    KateRunningInstanceInfo(const QString &serviceName_)
+    explicit KateRunningInstanceInfo(const QString &serviceName_)
         : valid(false)
         , serviceName(serviceName_)
         , dbus_if(new QDBusInterface(serviceName_,

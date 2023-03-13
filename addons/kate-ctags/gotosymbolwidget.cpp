@@ -28,7 +28,7 @@
 class CtagsGotoSymbolProxyModel : public QSortFilterProxyModel
 {
 public:
-    CtagsGotoSymbolProxyModel(QObject *parent = nullptr)
+    explicit CtagsGotoSymbolProxyModel(QObject *parent = nullptr)
         : QSortFilterProxyModel(parent)
     {
     }
@@ -64,7 +64,7 @@ private:
 class GotoStyleDelegate : public QStyledItemDelegate
 {
 public:
-    GotoStyleDelegate(QObject *parent = nullptr)
+    explicit GotoStyleDelegate(QObject *parent = nullptr)
         : QStyledItemDelegate(parent)
     {
     }

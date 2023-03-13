@@ -14,8 +14,8 @@ class KateSplitter : public QSplitter
     Q_OBJECT
 
 public:
-    KateSplitter(Qt::Orientation orientation, QWidget *parent = nullptr);
-    KateSplitter(QWidget *parent = nullptr);
+    explicit KateSplitter(Qt::Orientation orientation, QWidget *parent = nullptr);
+    explicit KateSplitter(QWidget *parent = nullptr);
 
 protected:
     virtual QSplitterHandle *createHandle() override;

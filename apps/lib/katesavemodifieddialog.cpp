@@ -65,7 +65,7 @@ private:
 class KateSaveModifiedDocumentCheckListItem : public AbstractKateSaveModifiedDialogCheckListItem
 {
 public:
-    KateSaveModifiedDocumentCheckListItem(KTextEditor::Document *document)
+    explicit KateSaveModifiedDocumentCheckListItem(KTextEditor::Document *document)
         : AbstractKateSaveModifiedDialogCheckListItem(document->documentName(), document->url().toString())
     {
         m_document = document;

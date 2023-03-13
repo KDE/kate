@@ -28,7 +28,7 @@ public:
      * Construct project completion.
      * @param plugin our plugin
      */
-    KateProjectCompletion(class KateProjectPlugin *plugin);
+    explicit KateProjectCompletion(class KateProjectPlugin *plugin);
 
     /**
      * Deconstruct project completion.

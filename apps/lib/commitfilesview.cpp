@@ -119,7 +119,7 @@ private:
 class DiffStyleDelegate : public QStyledItemDelegate
 {
 public:
-    DiffStyleDelegate(QObject *parent)
+    explicit DiffStyleDelegate(QObject *parent)
         : QStyledItemDelegate(parent)
     {
     }

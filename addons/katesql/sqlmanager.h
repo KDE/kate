@@ -20,7 +20,7 @@ class SQLManager : public QObject
     Q_OBJECT
 
 public:
-    SQLManager(QObject *parent = nullptr);
+    explicit SQLManager(QObject *parent = nullptr);
     ~SQLManager() override;
 
     ConnectionModel *connectionModel();

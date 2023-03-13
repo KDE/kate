@@ -141,7 +141,7 @@ public:
     static const uint64_t ModifierMask =
         Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier | Qt::KeypadModifier | Qt::GroupSwitchModifier;
 
-    Private(KateGitBlamePluginView *pluginView)
+    explicit Private(KateGitBlamePluginView *pluginView)
         : QTextBrowser(nullptr)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);

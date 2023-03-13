@@ -21,7 +21,7 @@ class IOView : public QWidget
 {
     Q_OBJECT
 public:
-    IOView(QWidget *parent = nullptr);
+    explicit IOView(QWidget *parent = nullptr);
     ~IOView() override;
 
     const QString stdinFifo();

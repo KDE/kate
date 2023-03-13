@@ -14,7 +14,7 @@
 class TargetFilterProxyModel : public QSortFilterProxyModel
 {
 public:
-    TargetFilterProxyModel(QObject *parent = nullptr);
+    explicit TargetFilterProxyModel(QObject *parent = nullptr);
 
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
     void setFilter(const QString &filter);

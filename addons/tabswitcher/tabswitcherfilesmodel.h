@@ -26,7 +26,7 @@ namespace detail
 class FilenameListItem
 {
 public:
-    FilenameListItem(DocOrWidget doc);
+    explicit FilenameListItem(DocOrWidget doc);
 
     DocOrWidget document;
     QIcon icon() const;

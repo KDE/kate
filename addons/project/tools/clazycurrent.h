@@ -11,7 +11,7 @@
 class KateProjectCodeAnalysisToolClazyCurrent : public KateProjectCodeAnalysisToolClazy
 {
 public:
-    KateProjectCodeAnalysisToolClazyCurrent(QObject *parent);
+    explicit KateProjectCodeAnalysisToolClazyCurrent(QObject *parent);
 
     QString name() const override;
     QString description() const override;

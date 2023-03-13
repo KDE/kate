@@ -21,7 +21,7 @@
 #include <kde_terminal_interface.h>
 
 struct AppOutput::Private {
-    Private(AppOutput *pub)
+    explicit Private(AppOutput *pub)
         : q(pub)
     {
     }

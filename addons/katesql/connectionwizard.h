@@ -42,7 +42,7 @@ private:
 class ConnectionDriverPage : public QWizardPage
 {
 public:
-    ConnectionDriverPage(QWidget *parent = nullptr);
+    explicit ConnectionDriverPage(QWidget *parent = nullptr);
     void initializePage() override;
     int nextId() const override;
 
@@ -53,7 +53,7 @@ private:
 class ConnectionStandardServerPage : public QWizardPage
 {
 public:
-    ConnectionStandardServerPage(QWidget *parent = nullptr);
+    explicit ConnectionStandardServerPage(QWidget *parent = nullptr);
     ~ConnectionStandardServerPage() override;
     void initializePage() override;
     bool validatePage() override;
@@ -71,7 +71,7 @@ private:
 class ConnectionSQLiteServerPage : public QWizardPage
 {
 public:
-    ConnectionSQLiteServerPage(QWidget *parent = nullptr);
+    explicit ConnectionSQLiteServerPage(QWidget *parent = nullptr);
     void initializePage() override;
     bool validatePage() override;
     int nextId() const override;
@@ -86,7 +86,7 @@ private:
 class ConnectionSavePage : public QWizardPage
 {
 public:
-    ConnectionSavePage(QWidget *parent = nullptr);
+    explicit ConnectionSavePage(QWidget *parent = nullptr);
     void initializePage() override;
     bool validatePage() override;
     int nextId() const override;

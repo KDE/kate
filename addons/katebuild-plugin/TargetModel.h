@@ -26,7 +26,7 @@ public:
         QList<Command> commands;
     };
 
-    TargetModel(QObject *parent = nullptr);
+    explicit TargetModel(QObject *parent = nullptr);
     ~TargetModel() override;
 
 public Q_SLOTS:

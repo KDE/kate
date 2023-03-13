@@ -100,7 +100,7 @@ class CloseExceptPlugin : public KTextEditor::Plugin, public KTextEditor::Sessio
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 public:
     /// Default constructor
-    CloseExceptPlugin(QObject * = nullptr, const QList<QVariant> & = QList<QVariant>());
+    explicit CloseExceptPlugin(QObject * = nullptr, const QList<QVariant> & = QList<QVariant>());
     /// Destructor
     ~CloseExceptPlugin() override
     {

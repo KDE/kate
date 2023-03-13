@@ -16,7 +16,7 @@ class DataOutputModel : public CachedSqlQueryModel
     Q_OBJECT
 
 public:
-    DataOutputModel(QObject *parent = nullptr);
+    explicit DataOutputModel(QObject *parent = nullptr);
     ~DataOutputModel() override;
 
     bool useSystemLocale() const;

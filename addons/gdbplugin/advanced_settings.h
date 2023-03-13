@@ -17,7 +17,7 @@ class AdvancedGDBSettings : public QDialog, public Ui::AdvancedGDBSettings
 public:
     enum CustomStringOrder { GDBIndex = 0, LocalRemoteIndex, RemoteBaudIndex, SoAbsoluteIndex, SoRelativeIndex, SrcPathsIndex, CustomStartIndex };
 
-    AdvancedGDBSettings(QWidget *parent = nullptr);
+    explicit AdvancedGDBSettings(QWidget *parent = nullptr);
     ~AdvancedGDBSettings() override;
 
     static QJsonObject upgradeConfigV4_5(const QStringList &cfgs);

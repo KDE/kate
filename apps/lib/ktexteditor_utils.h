@@ -41,7 +41,7 @@ namespace Utils
 
 // A helper class that maintains scroll position
 struct KATE_PRIVATE_EXPORT KateScrollBarRestorer {
-    KateScrollBarRestorer(KTextEditor::View *view);
+    explicit KateScrollBarRestorer(KTextEditor::View *view);
     ~KateScrollBarRestorer();
 
     void restore();

@@ -24,7 +24,7 @@ class LatexCompletionModel : public KTextEditor::CodeCompletionModel, public KTe
     Q_OBJECT
     Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 public:
-    LatexCompletionModel(QObject *parent);
+    explicit LatexCompletionModel(QObject *parent);
     KTextEditor::Range completionRange(KTextEditor::View *view, const KTextEditor::Cursor &position) override;
     bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override;
     bool shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion) override;

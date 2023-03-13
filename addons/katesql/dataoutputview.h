@@ -13,7 +13,7 @@ class DataOutputView : public QTableView
     Q_OBJECT
 
 public:
-    DataOutputView(QWidget *parent = nullptr);
+    explicit DataOutputView(QWidget *parent = nullptr);
 
 private Q_SLOTS:
     void slotCustomContextMenuRequested(const QPoint &pos);

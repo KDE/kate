@@ -46,7 +46,7 @@ class KateContainerStackedLayout : public QStackedLayout
 {
     Q_OBJECT
 public:
-    KateContainerStackedLayout(QWidget *parent);
+    explicit KateContainerStackedLayout(QWidget *parent);
     QSize sizeHint() const override;
     QSize minimumSize() const override;
 };
@@ -637,7 +637,7 @@ private:
     {
     public:
         BarState() = default;
-        BarState(QWidget *bar)
+        explicit BarState(QWidget *bar)
             : m_bar(bar)
             , m_state(false)
         {

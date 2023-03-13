@@ -16,7 +16,7 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
     Q_CLASSINFO("D-Bus Interface", "org.kde.Kate.Application")
     Q_PROPERTY(QString activeSession READ activeSession)
 public:
-    KateAppAdaptor(KateApp *app);
+    explicit KateAppAdaptor(KateApp *app);
 
     /**
      * emit the exiting signal

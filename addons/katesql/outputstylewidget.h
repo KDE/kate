@@ -13,7 +13,7 @@ class OutputStyleWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    OutputStyleWidget(QWidget *parent = nullptr);
+    explicit OutputStyleWidget(QWidget *parent = nullptr);
     ~OutputStyleWidget() override;
 
     QTreeWidgetItem *addContext(const QString &key, const QString &name);

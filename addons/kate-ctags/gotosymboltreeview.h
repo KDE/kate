@@ -16,7 +16,7 @@ class GotoSymbolTreeView : public QTreeView
     Q_OBJECT
 
 public:
-    GotoSymbolTreeView(KTextEditor::MainWindow *mainWindow, QWidget *parent = nullptr);
+    explicit GotoSymbolTreeView(KTextEditor::MainWindow *mainWindow, QWidget *parent = nullptr);
     int sizeHintWidth() const;
     void setGlobalMode(bool value)
     {

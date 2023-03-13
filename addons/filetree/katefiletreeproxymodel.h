@@ -20,7 +20,7 @@ class KateFileTreeProxyModel : public QSortFilterProxyModel
     Q_OBJECT
 
 public:
-    KateFileTreeProxyModel(QObject *p = nullptr);
+    explicit KateFileTreeProxyModel(QObject *p = nullptr);
     QModelIndex docIndex(const KTextEditor::Document *) const;
     QModelIndex widgetIndex(QWidget *) const;
     bool isDir(const QModelIndex &i) const;

@@ -24,7 +24,7 @@ public:
     /**
      * The normal ctor for manage mode
      */
-    KateSessionManageDialog(QWidget *parent);
+    explicit KateSessionManageDialog(QWidget *parent);
 
     /**
      * The special ctor for chooser mode

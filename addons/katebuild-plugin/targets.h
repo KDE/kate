@@ -23,7 +23,7 @@ class TargetsUi : public QWidget
     Q_OBJECT
 
 public:
-    TargetsUi(QObject *view, QWidget *parent = nullptr);
+    explicit TargetsUi(QObject *view, QWidget *parent = nullptr);
 
     QLabel *targetLabel = nullptr;
     QComboBox *targetCombo = nullptr;

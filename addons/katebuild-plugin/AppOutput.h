@@ -15,7 +15,7 @@ class AppOutput : public QWidget
     Q_OBJECT
 
 public:
-    AppOutput(QWidget *parent = nullptr);
+    explicit AppOutput(QWidget *parent = nullptr);
     ~AppOutput(); // This one is needed for the std::unique_ptr
 
     void setWorkingDir(const QString &path);

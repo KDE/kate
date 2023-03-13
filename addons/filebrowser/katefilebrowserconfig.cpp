@@ -34,7 +34,7 @@
 class ActionLBItem : public QListWidgetItem
 {
 public:
-    ActionLBItem(QListWidget *lb = nullptr, const QIcon &pm = QIcon(), const QString &text = QString(), const QString &str = QString())
+    explicit ActionLBItem(QListWidget *lb = nullptr, const QIcon &pm = QIcon(), const QString &text = QString(), const QString &str = QString())
         : QListWidgetItem(pm, text, lb, 0)
         , _str(str)
     {

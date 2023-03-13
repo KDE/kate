@@ -40,7 +40,7 @@ public:
      *
      * @param file Location of the snippet's repository file.
      */
-    SnippetRepository(const QString &file);
+    explicit SnippetRepository(const QString &file);
     ~SnippetRepository() override;
 
     /**

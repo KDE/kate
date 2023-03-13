@@ -32,7 +32,7 @@ enum {
 struct DiagnosticItem : public QStandardItem {
     Diagnostic m_diagnostic;
 
-    DiagnosticItem(const Diagnostic &d)
+    explicit DiagnosticItem(const Diagnostic &d)
         : m_diagnostic(d)
     {
     }

@@ -13,7 +13,7 @@ class TargetHtmlDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    TargetHtmlDelegate(QObject *parent);
+    explicit TargetHtmlDelegate(QObject *parent);
     ~TargetHtmlDelegate() override;
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;

@@ -25,7 +25,7 @@ struct Command {
     void start(QProcess &process) const;
 
     Command() = default;
-    Command(const QJsonObject &configuration);
+    explicit Command(const QJsonObject &configuration);
 };
 
 struct Connection {
@@ -34,7 +34,7 @@ struct Connection {
 
     bool isValid() const;
     Connection();
-    Connection(const QJsonObject &configuration);
+    explicit Connection(const QJsonObject &configuration);
 };
 
 struct BusSettings {
@@ -46,7 +46,7 @@ struct BusSettings {
     bool hasConnection() const;
 
     BusSettings() = default;
-    BusSettings(const QJsonObject &configuration);
+    explicit BusSettings(const QJsonObject &configuration);
 };
 
 struct ProtocolSettings {
@@ -60,7 +60,7 @@ struct ProtocolSettings {
     QString locale;
 
     ProtocolSettings();
-    ProtocolSettings(const QJsonObject &configuration);
+    explicit ProtocolSettings(const QJsonObject &configuration);
 };
 
 struct ClientSettings {
@@ -68,7 +68,7 @@ struct ClientSettings {
     ProtocolSettings protocolSettings;
 
     ClientSettings() = default;
-    ClientSettings(const QJsonObject &configuration);
+    explicit ClientSettings(const QJsonObject &configuration);
     static std::optional<ClientSettings> extractFromAdapter(const QJsonObject &adapterSettings, const QString &configurationKey);
 };
 

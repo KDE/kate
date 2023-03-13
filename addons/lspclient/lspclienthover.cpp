@@ -26,7 +26,7 @@ class LSPClientHoverImpl : public LSPClientHover
     LSPClientServer::RequestHandle m_handle;
 
 public:
-    LSPClientHoverImpl(std::shared_ptr<LSPClientServerManager> manager)
+    explicit LSPClientHoverImpl(std::shared_ptr<LSPClientServerManager> manager)
         : m_manager(std::move(manager))
         , m_server(nullptr)
     {

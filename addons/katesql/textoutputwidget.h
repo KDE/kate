@@ -17,7 +17,7 @@ class TextOutputWidget : public QWidget
     Q_OBJECT
 
 public:
-    TextOutputWidget(QWidget *parent = nullptr);
+    explicit TextOutputWidget(QWidget *parent = nullptr);
     ~TextOutputWidget() override;
 
 public Q_SLOTS:

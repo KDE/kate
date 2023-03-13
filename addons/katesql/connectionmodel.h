@@ -18,7 +18,7 @@ class ConnectionModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    ConnectionModel(QObject *parent = nullptr);
+    explicit ConnectionModel(QObject *parent = nullptr);
     ~ConnectionModel() override;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;

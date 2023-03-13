@@ -28,7 +28,7 @@
 class SnippetFilterModel : public QSortFilterProxyModel
 {
 public:
-    SnippetFilterModel(QObject *parent = nullptr)
+    explicit SnippetFilterModel(QObject *parent = nullptr)
         : QSortFilterProxyModel(parent){};
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {

@@ -34,7 +34,7 @@ Q_SIGNALS:
     void asmResult(const QByteArray &data);
 
 private:
-    CompilerExplorerSvc(QObject *parent = nullptr);
+    explicit CompilerExplorerSvc(QObject *parent = nullptr);
     QNetworkAccessManager *mgr;
     QString url;
 };

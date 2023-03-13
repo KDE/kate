@@ -20,7 +20,7 @@ class View;
 class GitBlameTooltip
 {
 public:
-    GitBlameTooltip(KateGitBlamePluginView *pv);
+    explicit GitBlameTooltip(KateGitBlamePluginView *pv);
     ~GitBlameTooltip();
 
     void show(const QString &text, KTextEditor::View *view);

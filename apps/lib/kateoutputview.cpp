@@ -32,7 +32,7 @@
 class BlockData : public QTextBlockUserData
 {
 public:
-    BlockData(const QString &t)
+    explicit BlockData(const QString &t)
         : token(t)
     {
     }
@@ -43,7 +43,7 @@ class NewMsgIndicator : public QWidget
 {
     Q_OBJECT
 public:
-    NewMsgIndicator(QWidget *parent)
+    explicit NewMsgIndicator(QWidget *parent)
         : QWidget(parent)
         , m_timeline(1000, this)
     {
@@ -99,7 +99,7 @@ class KateOutputEdit : public QTextBrowser
 {
     Q_OBJECT
 public:
-    KateOutputEdit(QWidget *parent)
+    explicit KateOutputEdit(QWidget *parent)
         : QTextBrowser(parent)
     {
         setOpenExternalLinks(true);

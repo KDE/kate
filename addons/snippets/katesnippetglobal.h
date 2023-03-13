@@ -27,7 +27,7 @@ class KateSnippetGlobal : public QObject
     Q_OBJECT
 
 public:
-    KateSnippetGlobal(QObject *parent, const QVariantList &args = QVariantList());
+    explicit KateSnippetGlobal(QObject *parent, const QVariantList &args = QVariantList());
     ~KateSnippetGlobal() override;
 
     /**

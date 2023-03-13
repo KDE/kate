@@ -16,7 +16,7 @@ class BtFileIndexer : public QThread
 {
     Q_OBJECT
 public:
-    BtFileIndexer(KateBtDatabase *db);
+    explicit BtFileIndexer(KateBtDatabase *db);
     ~BtFileIndexer() override;
     void setSearchPaths(const QStringList &urls);
 

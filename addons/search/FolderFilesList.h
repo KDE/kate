@@ -16,7 +16,7 @@ class FolderFilesList : public QThread
     Q_OBJECT
 
 public:
-    FolderFilesList(QObject *parent = nullptr);
+    explicit FolderFilesList(QObject *parent = nullptr);
     ~FolderFilesList() override;
 
     void run() override;

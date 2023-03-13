@@ -46,7 +46,7 @@ class KateConfigDialog : public KPageDialog
 
 public:
     // create new dialog
-    KateConfigDialog(KateMainWindow *parent);
+    explicit KateConfigDialog(KateMainWindow *parent);
 
     /**
      * Reads the value from the given open config. If not present in config yet then

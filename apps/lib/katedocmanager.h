@@ -43,7 +43,7 @@ class KateDocManager : public QObject
     Q_OBJECT
 
 public:
-    KateDocManager(QObject *parent);
+    explicit KateDocManager(QObject *parent);
     ~KateDocManager() override;
 
     KTextEditor::Document *createDoc(const KateDocumentInfo &docInfo = KateDocumentInfo());

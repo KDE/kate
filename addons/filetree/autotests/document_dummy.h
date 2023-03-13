@@ -290,7 +290,7 @@ class DummyDocument : public KTextEditor::Document
     Q_OBJECT
 
 public:
-    DummyDocument(const QString &url = QString())
+    explicit DummyDocument(const QString &url = QString())
         : KTextEditor::Document(nullptr, nullptr)
         , m_name(QStringLiteral("foo"))
         , m_encoding()
@@ -299,7 +299,7 @@ public:
         setUrl(url);
         m_name = url.section(QLatin1Char('/'), -1); // some nice default to mimic the KateDocument
     }
-    DummyDocument(const char *url)
+    explicit DummyDocument(const char *url)
         : DummyDocument(QString::fromLatin1(url))
     {
     }

@@ -48,7 +48,7 @@ class InlayHintsManager : public QObject
 {
     Q_OBJECT
 public:
-    InlayHintsManager(const std::shared_ptr<LSPClientServerManager> &manager, QObject *parent = nullptr);
+    explicit InlayHintsManager(const std::shared_ptr<LSPClientServerManager> &manager, QObject *parent = nullptr);
     ~InlayHintsManager();
 
     void setActiveView(KTextEditor::View *v);

@@ -39,7 +39,7 @@ class KatePluginManager : public QObject
     Q_OBJECT
 
 public:
-    KatePluginManager(QObject *parent);
+    explicit KatePluginManager(QObject *parent);
     ~KatePluginManager() override;
 
     void unloadAllPlugins();

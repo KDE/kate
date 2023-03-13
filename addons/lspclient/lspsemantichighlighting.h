@@ -30,7 +30,7 @@ class SemanticHighlighter : public QObject
 {
     Q_OBJECT
 public:
-    SemanticHighlighter(std::shared_ptr<LSPClientServerManager> serverManager, QObject *parent = nullptr);
+    explicit SemanticHighlighter(std::shared_ptr<LSPClientServerManager> serverManager, QObject *parent = nullptr);
 
     void doSemanticHighlighting(KTextEditor::View *v, bool textChanged);
 

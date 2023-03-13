@@ -62,7 +62,7 @@ class GUIClient : public QObject, public KXMLGUIClient
     Q_OBJECT
 
 public:
-    GUIClient(class MainWindow *mw);
+    explicit GUIClient(class MainWindow *mw);
 
     void registerToolView(ToolView *tv);
     void unregisterToolView(ToolView *tv);
@@ -426,7 +426,7 @@ public:
     /**
      * Constructor
      */
-    MainWindow(QWidget *parentWidget = nullptr);
+    explicit MainWindow(QWidget *parentWidget = nullptr);
 
     /**
      * Destructor

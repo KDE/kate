@@ -20,7 +20,7 @@
 class LineNumberDelegate : public QStyledItemDelegate
 {
 public:
-    LineNumberDelegate(QObject *parent)
+    explicit LineNumberDelegate(QObject *parent)
         : QStyledItemDelegate(parent)
     {
         auto updateColors = [this] {
@@ -82,7 +82,7 @@ private:
 class CodeDelegate : public QStyledItemDelegate
 {
 public:
-    CodeDelegate(QObject *parent)
+    explicit CodeDelegate(QObject *parent)
         : QStyledItemDelegate(parent)
     {
         auto updateColors = [this] {

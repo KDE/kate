@@ -20,7 +20,7 @@ class KateStashManager : QObject
 {
     Q_OBJECT
 public:
-    KateStashManager(QObject *parent = nullptr);
+    explicit KateStashManager(QObject *parent = nullptr);
 
     bool stashUnsavedChanges() const
     {

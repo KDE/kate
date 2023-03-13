@@ -260,7 +260,7 @@ enum class LSPCompletionItemKind {
 struct LSPCompletionItem {
     QString label;
     QString originalLabel; // needed for completionItem/resolve
-    LSPCompletionItemKind kind;
+    LSPCompletionItemKind kind = LSPCompletionItemKind::Text;
     QString detail;
     LSPMarkupContent documentation;
     QString sortText;

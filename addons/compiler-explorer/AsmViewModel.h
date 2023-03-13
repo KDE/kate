@@ -8,8 +8,8 @@
  */
 struct SourcePos {
     QString file;
-    int line;
-    int col;
+    int line = 0;
+    int col = 0;
 };
 inline uint qHash(const SourcePos &key, uint seed = 0)
 {

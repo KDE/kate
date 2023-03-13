@@ -15,6 +15,7 @@
   <name xml:lang="de">Kate</name>
   <name xml:lang="el">Kate</name>
   <name xml:lang="en-GB">Kate</name>
+  <name xml:lang="eo">Kate</name>
   <name xml:lang="es">Kate</name>
   <name xml:lang="et">Kate</name>
   <name xml:lang="eu">Kate</name>
@@ -64,6 +65,7 @@
   <summary xml:lang="de">Erweiterter Texteditor</summary>
   <summary xml:lang="el">Προηγμένος επεξεργαστής κειμένου</summary>
   <summary xml:lang="en-GB">Advanced Text Editor</summary>
+  <summary xml:lang="eo">Altnivela Tekstredaktilo</summary>
   <summary xml:lang="es">Editor de texto avanzado</summary>
   <summary xml:lang="et">Täiustatud tekstiredaktor</summary>
   <summary xml:lang="eu">Testu editore aurreratua</summary>
@@ -116,6 +118,7 @@
     <p xml:lang="de">Kate ist ein KDE-Editor für mehrere Dokumente und Ansichten. Funktionen wie Quelltextausblendung, Syntaxhervorhebung, dynamischer Zeilenumbruch, eine eingebettete Konsole und eine umfangreiche Schnittstelle für Module sowie vorläufige Unterstützung für Skripte sind enthalten.</p>
     <p xml:lang="el">Το Kate είναι ένας πολλών εγγράφων, πολλών προβολών επεξεργαστής κειμένου από το KDE. Περιέχει λειτουργίες όπως απόκρυψη κώδικα, επισήμανση σύνταξης, δυναμική αναδίπλωση λέξεων, ενσωματωμένη κονσόλα, εκτεταμένο περιβάλλον χρήσης προσθέτων και κάποια βασική υποστήριξη συγγραφής σεναρίων.</p>
     <p xml:lang="en-GB">Kate is a multi-document, multi-view text editor by KDE. It features stuff like code folding, syntax highlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.</p>
+    <p xml:lang="eo">Kate estas multdokumenta, plurvida tekstredaktilo de KDE. Ĝi prezentas aĵojn kiel kodfaldado, sintaksaltigado, dinamika vortvolvaĵo, enigita konzolo, ampleksa aldonaĵinterfaco kaj iom da prepara skripta subteno.</p>
     <p xml:lang="es">Kate es un editor de texto creado por KDE que puede abrir varios documentos a la vez y que cuenta con varios modos de vista. Entre otras funcionalidades dispone de plegado de código, resaltado de sintaxis, justificado de línea dinámico, consola integrada, una amplia interfaz para complementos y admite scripts de manera preliminar.</p>
     <p xml:lang="et">Kate on KDE mitut dokumenti redigeerida võimaldav mitme vaatega tekstiredaktor. See suudab koodi voltida, süntaksit esile tõsta, dünaamiliselt ridu murda, pakub põimitud konsooli, ulatuslikult pluginaid ja mõningat skriptimise toetust.</p>
     <p xml:lang="eu">Kate KDEk eginiko testu-editore dokumentu-anitza, ikuspegi-anitza da. Kode-tolestea, sintaxi-nabarmentzea, itzulbiratze-dinamikoa, kapsulatutako kontsola, osagarri interfaze zabal bat eta hastapenetan dagoen script bidez hedatzeko euskarria gisako eginbideak eskaintzen ditu.</p>
@@ -159,6 +162,7 @@
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="el">Χαρακτηριστικά:</p>
     <p xml:lang="en-GB">Features:</p>
+    <p xml:lang="eo">Trajtoj:</p>
     <p xml:lang="es">Funcionalidades:</p>
     <p xml:lang="et">Omadused:</p>
     <p xml:lang="eu">Eginbideak:</p>
@@ -209,6 +213,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">MDI (Multiple Document Interface = Benutzeroberfläche mit mehreren gleichzeitig geöffneten Dokumenten), geteilte Fenster, Unterfenster</li>
       <li xml:lang="el">MDI, διαίρεση παραθύρων, παραθυρικές καρτέλες</li>
       <li xml:lang="en-GB">MDI, window splitting, window tabbing</li>
+      <li xml:lang="eo">MDI, fenestra disigo, fenestra klapeto</li>
       <li xml:lang="es">MDI, división de ventana, pestañas de ventana</li>
       <li xml:lang="et">MDI, akende poolitamine, akende esitamine kaartidena</li>
       <li xml:lang="eu">MDI, leiho-zatitzea, leihoak fitxa gisa antolatzea</li>
@@ -255,6 +260,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Rechtschreibprüfung</li>
       <li xml:lang="el">Ορθογραφία</li>
       <li xml:lang="en-GB">Spell checking</li>
+      <li xml:lang="eo">Literuma kontrolo</li>
       <li xml:lang="es">Revisión de la ortografía</li>
       <li xml:lang="et">Õigekirja kontroll</li>
       <li xml:lang="eu">Ortografia-egiaztatzea</li>
@@ -303,6 +309,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Unterstützung für CR, CRLF, LF am Zeilenende</li>
       <li xml:lang="el">CR, CRLF, LF για υποστήριξη αλλαγής γραμμής</li>
       <li xml:lang="en-GB">CR, CRLF, LF newline support</li>
+      <li xml:lang="eo">Subteno de nova linio CR, CRLF, LF</li>
       <li xml:lang="es">Admite fin de línea CR, CRLF, LF</li>
       <li xml:lang="et">CR, CRLF, LF reavahetuse toetus</li>
       <li xml:lang="eu">CR, CRLF, LF lerro-amaierak onartzen ditu</li>
@@ -350,6 +357,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Unterstützung für Kodierungen (utf-8, utf-16, ascii usw.)</li>
       <li xml:lang="el">Υποστήριξη κωδικοποίησης (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="en-GB">Encoding support (utf-8, utf-16, ascii etc.)</li>
+      <li xml:lang="eo">Kodiga subteno (utf-8, utf-16, ascii ktp.)</li>
       <li xml:lang="es">Admite codificación ( (utf-8, utf-16, ascii, etc.)</li>
       <li xml:lang="et">Kodeeringute toetus (utf-8, utf-16, ascii jne.)</li>
       <li xml:lang="eu">Kodeketa euskarria (utf-8, utf-16, ascii etab.)</li>
@@ -397,6 +405,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Umwandlung von Kodierungen</li>
       <li xml:lang="el">Μετατροπή κωδικοποίησης</li>
       <li xml:lang="en-GB">Encoding conversion</li>
+      <li xml:lang="eo">Konvertiĝo de kodado</li>
       <li xml:lang="es">Conversión de codificación</li>
       <li xml:lang="et">Kodeeringute teisendamine</li>
       <li xml:lang="eu">Kodeketa arteko bihurketa</li>
@@ -445,6 +454,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Reguläre Ausdrücke für Suchen und Ersetzen</li>
       <li xml:lang="el">Κανονικές εκφράσεις σε find &amp; replace</li>
       <li xml:lang="en-GB">Regular expression based find &amp; replace</li>
+      <li xml:lang="eo">Trovi &amp; Anstataŭigi bazita sur regula esprimo</li>
       <li xml:lang="es">Función de buscar y sustituir basada en expresiones regulares</li>
       <li xml:lang="et">Regulaaravaldiste põhine otsimine ja asendamine</li>
       <li xml:lang="eu">Adierazpen erregularretan oinarritutako aurkitu eta ordeztea</li>
@@ -490,6 +500,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Leistungsfähige Syntaxhervorhebung und Übereinstimmung von Klammern</li>
       <li xml:lang="el">Ισχυρό εργαλείο επισήμανσης σύνταξης και ταιριάσματος αγκυλών</li>
       <li xml:lang="en-GB">Powerful syntax highlighting and bracket matching</li>
+      <li xml:lang="eo">Potenca sintaksa reliefigo kaj kongruo de krampoj</li>
       <li xml:lang="es">Potente resaltado de sintaxis y de emparejado de paréntesis</li>
       <li xml:lang="et">Võimas süntaksi esiletõstmine ja sulgude sobitamine</li>
       <li xml:lang="eu">Sintaxi nabarmentze eta parentesien bat-etortze ahaltsua</li>
@@ -534,6 +545,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Quelltext- und Textausblendung</li>
       <li xml:lang="el">Απόκρυψη κώδικα και κειμένου</li>
       <li xml:lang="en-GB">Code and text folding</li>
+      <li xml:lang="eo">Faldado de kodo kaj teksto</li>
       <li xml:lang="es">Plegado de código y de texto</li>
       <li xml:lang="et">Koodi ja teksti voltimine</li>
       <li xml:lang="eu">Kode- eta testu-tolestea</li>
@@ -582,6 +594,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Unterstützung für unbegrenztes Zurücknehmen und Wiederherstellen</li>
       <li xml:lang="el">Υποστήριξη για απεριόριστη αναίρεση/επαναφορά</li>
       <li xml:lang="en-GB">Infinite undo/redo support</li>
+      <li xml:lang="eo">Senfina malfari/refari subteno</li>
       <li xml:lang="es">Función hacer y deshacer infinita</li>
       <li xml:lang="et">Piiranguteta tagasivõtmiste ja uuestitegemiste toetus</li>
       <li xml:lang="eu">Desegin/berregin mugagabea onartzen du</li>
@@ -630,6 +643,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Blockauswahlmodus</li>
       <li xml:lang="el">Λειτουργία επιλογής μπλοκ</li>
       <li xml:lang="en-GB">Block selection mode</li>
+      <li xml:lang="eo">Blokelekta reĝimo</li>
       <li xml:lang="es">Modo de selección de bloque</li>
       <li xml:lang="et">Plokivaliku režiim</li>
       <li xml:lang="eu">Bloke-hautapen modua</li>
@@ -678,6 +692,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Automatisches einrücken</li>
       <li xml:lang="el">Αυτόματη χρήση εσοχών</li>
       <li xml:lang="en-GB">Auto indentation</li>
+      <li xml:lang="eo">Aŭtomata deŝovado</li>
       <li xml:lang="es">Sangrado automático</li>
       <li xml:lang="et">Automaatne taandus</li>
       <li xml:lang="eu">Koskatze automatikoa</li>
@@ -725,6 +740,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Unterstützung für Autovervollständigung</li>
       <li xml:lang="el">Υποστήριξη αυτόματης συμπλήρωσης</li>
       <li xml:lang="en-GB">Auto completion support</li>
+      <li xml:lang="eo">Subteno por aŭtomata kompletigo</li>
       <li xml:lang="es">Uso de completación automática</li>
       <li xml:lang="et">Automaatse lõpetamise toetus</li>
       <li xml:lang="eu">Osatze automatikoa onartzen du</li>
@@ -772,6 +788,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Einbindung einer Shell</li>
       <li xml:lang="el">Ενοποίηση κελύφους</li>
       <li xml:lang="en-GB">Shell integration</li>
+      <li xml:lang="eo">Ŝelo-integriĝo</li>
       <li xml:lang="es">Integración con la línea de órdenes</li>
       <li xml:lang="et">Shelliga lõimimine</li>
       <li xml:lang="eu">Shell-arekin bateratzea</li>
@@ -817,6 +834,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Unterstützung für viele Protokolle (http, ftp, ssh, webdav usw.)</li>
       <li xml:lang="el">Ευρεία υποστήριξη σε πρωτόκολλα (http, ftp, ssh, webdav κτλ.)</li>
       <li xml:lang="en-GB">Wide protocol support (http, ftp, ssh, webdav etc.)</li>
+      <li xml:lang="eo">Vasta protokola subteno (http, ftp, ssh, webdav ktp.)</li>
       <li xml:lang="es">Admite numerosos protocolos (http, ftp, ssh, webdav, etc.) </li>
       <li xml:lang="eu">Protokolo-euskarri zabala (http, ftp, ssh, webdav etab.)</li>
       <li xml:lang="fi">Laaja yhteyskäytäntötuki (HTTP, FTP, SSH, WebDAV jne.)</li>
@@ -849,6 +867,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Modul-Architektur für das Programm und die Editorkomponente</li>
       <li xml:lang="el">Αρχιτεκτονική προσθέτων για το συστατικό της εφαρμογής και του επεξεργαστή</li>
       <li xml:lang="en-GB">Plugin architecture for the application and editor component</li>
+      <li xml:lang="eo">Kromaĵarkitekturo por la aplikaĵo kaj redaktilo-komponento</li>
       <li xml:lang="es">Arquitectura de complementos para el componente de aplicación y de editor.</li>
       <li xml:lang="et">Pluginapõhine ülesehitus nii rakenduses kui ka redaktorikomponendis</li>
       <li xml:lang="eu">Osagarrien arkitektura aplikazioarentzako eta editore osagaiarentzako</li>
@@ -895,6 +914,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Benutzerdefinierte Kurzbefehle</li>
       <li xml:lang="el">Προσαρμόσιμες συντομεύσεις</li>
       <li xml:lang="en-GB">Customisable shortcuts</li>
+      <li xml:lang="eo">Agordigeblaj ŝparvojoj</li>
       <li xml:lang="es">Accesos rápidos personalizables</li>
       <li xml:lang="et">Kohandatavad kiirklahvid</li>
       <li xml:lang="eu">Norbere erara egoki ditzakeen lasterbide</li>
@@ -942,6 +962,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Integrierte Befehlszeile</li>
       <li xml:lang="el">Ενοποιημένη γραμμή εντολών</li>
       <li xml:lang="en-GB">Integrated command line</li>
+      <li xml:lang="eo">Integrita komandlinio</li>
       <li xml:lang="es">Línea de órdenes integrada</li>
       <li xml:lang="et">Lõimitud käsurida</li>
       <li xml:lang="eu">Bateratutako komando-lerroa</li>
@@ -989,6 +1010,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="de">Skriptfähig über JavaScript</li>
       <li xml:lang="el">Συγγραφή σεναρίων με JavaScript</li>
       <li xml:lang="en-GB">Scriptable using JavaScript</li>
+      <li xml:lang="eo">Skriptebla uzante JavaScript</li>
       <li xml:lang="es">Uso de scripts de JavaScript</li>
       <li xml:lang="et">Skriptimine JavaScriptiga</li>
       <li xml:lang="eu">Javascript erabiliz hedagarria</li>
@@ -1042,6 +1064,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="de">Bearbeitung von Quelltext mit Kate</caption>
       <caption xml:lang="el">Επεξεργασία κώδικα με το Kate</caption>
       <caption xml:lang="en-GB">Editing code with Kate</caption>
+      <caption xml:lang="eo">Redakti kodon kun Kate</caption>
       <caption xml:lang="es">Edición de código con Kate</caption>
       <caption xml:lang="et">Koodi muutmine Kates</caption>
       <caption xml:lang="eu">Kate-rekin kodea editatzea</caption>

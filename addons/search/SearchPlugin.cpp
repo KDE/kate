@@ -2286,7 +2286,9 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
         showExportMatchesDialog();
     });
     connect(clear, &QAction::triggered, this, [this] {
-        m_curResults->matchModel.clear();
+        if (Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
+            res->matchModel.clear();
+        }
         clearMarksAndRanges();
     });
 }

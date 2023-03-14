@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-26 01:01+0000\n"
+"POT-Creation-Date: 2023-03-14 00:49+0000\n"
 "PO-Revision-Date: 2022-10-21 06:01+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -641,22 +641,22 @@ msgstr "გახსნა, როგორც რედაქტორის �
 msgid "Clear"
 msgstr "სუფთა ცა"
 
-#: SearchPlugin.cpp:2383 SearchPlugin.cpp:2417
+#: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
 #, kde-format
 msgid "Add..."
 msgstr "დამატება..."
 
-#: SearchPlugin.cpp:2395
+#: SearchPlugin.cpp:2397
 #, kde-format
 msgid "Search As You Type"
 msgstr "ძებნა აკრეფის მიმდინარეობისას"
 
-#: SearchPlugin.cpp:2466
+#: SearchPlugin.cpp:2468
 #, kde-format
 msgid "In Current Project"
 msgstr "მიმდინარე პროექტში"
 
-#: SearchPlugin.cpp:2468
+#: SearchPlugin.cpp:2470
 #, kde-format
 msgid "In All Open Projects"
 msgstr "ყველა ღია პროექტში"

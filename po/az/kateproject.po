@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-12 00:49+0000\n"
+"POT-Creation-Date: 2023-03-14 00:49+0000\n"
 "PO-Revision-Date: 2022-07-25 17:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -94,7 +94,7 @@ msgstr "Şöbəni seçin..."
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:143
+#: comparebranchesview.cpp:144
 #, kde-format
 msgid "Back"
 msgstr "Geriyə"

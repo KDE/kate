@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-12 00:49+0000\n"
+"POT-Creation-Date: 2023-03-14 00:49+0000\n"
 "PO-Revision-Date: 2019-10-26 13:59+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Git"
 msgstr "&Git"
 
-#: comparebranchesview.cpp:143
+#: comparebranchesview.cpp:144
 #, kde-format
 msgid "Back"
 msgstr ""

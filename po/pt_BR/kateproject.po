@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-12 00:49+0000\n"
+"POT-Creation-Date: 2023-03-14 00:49+0000\n"
 "PO-Revision-Date: 2023-03-03 10:01-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -99,7 +99,7 @@ msgstr "Selecionar branch..."
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:143
+#: comparebranchesview.cpp:144
 #, kde-format
 msgid "Back"
 msgstr "Voltar"

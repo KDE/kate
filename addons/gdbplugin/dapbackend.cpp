@@ -821,15 +821,20 @@ std::optional<int> DapBackend::findBreakpoint(const QString &path, int line) con
 
 std::optional<int> DapBackend::findBreakpointIntent(const QString &path, int line) const
 {
-    if (m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) {
+    if ((m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) || (m_breakpoints.find(path) == m_breakpoints.end())) {
         return std::nullopt;
     }
 
-    const auto &bpoints = m_wantedBreakpoints.at(path);
+    const auto &bintents = m_wantedBreakpoints.at(path);
+    const auto &bpoints = m_breakpoints.at(path);
     int index = 0;
-    for (const auto &bp : bpoints) {
-        if (bp.line == line) {
-            return index;
+    for (const auto &bi : bintents) {
+        if ((bi.line == line)) {
+            const auto &bp = bpoints[index];
+            // If the breakpoint is resolved to another line, ignore
+            if (!bp || (bp->line.value_or(line) == line)) {
+                return index;
+            }
         }
         ++index;
     }
@@ -843,6 +848,10 @@ bool DapBackend::hasBreakpoint(QUrl const &url, int line) const
 
 void DapBackend::toggleBreakpoint(QUrl const &url, int line)
 {
+    if (m_task != Idle) {
+        return;
+    }
+
     const auto path = resolveOrWarn(url.path());
 
     if (!removeBreakpoint(path, line)) {
@@ -868,6 +877,7 @@ bool DapBackend::removeBreakpoint(const QString &path, int line)
     index = findBreakpointIntent(path, line);
     while (index) {
         m_wantedBreakpoints[path].removeAt(*index);
+        m_breakpoints[path].removeAt(*index);
         if (!informed) {
             informBreakpointRemoved(path, line);
             informed = true;

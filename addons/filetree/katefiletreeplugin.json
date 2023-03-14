@@ -33,6 +33,7 @@
         "Description[x-test]": "xxDisplays the open documents in a file treexx",
         "Description[zh_CN]": "在文件树中显示打开的文档",
         "Name": "Documents Tree",
+        "Name[bg]": "Йерархичен изглед на документи",
         "Name[ca@valencia]": "Arbre de documents",
         "Name[ca]": "Arbre de documents",
         "Name[cs]": "Strom dokumentů",

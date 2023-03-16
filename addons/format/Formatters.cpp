@@ -50,8 +50,9 @@ static QString filenameFromMode(KTextEditor::Document *doc)
         return m.compare(QLatin1String(s), Qt::CaseInsensitive) == 0;
     };
     auto is_or_contains = [m](const char *s) {
-        return m == QLatin1String(s) || m.contains(QLatin1String(s));
+        return m.compare(QLatin1String(s), Qt::CaseInsensitive) == 0 || m.contains(QLatin1String(s));
     };
+
     if (is_or_contains("c++")) {
         return QStringLiteral("a.cpp");
     } else if (is("c")) {
@@ -152,9 +153,9 @@ QStringList ClangFormat::args(KTextEditor::Document *doc) const
         args << QStringLiteral("--cursor=%1").arg(offset);
     }
 
-    // If its a non-local or unsaved file
+    args << QStringLiteral("--assume-filename=%1").arg(filenameFromMode(doc));
+
     if (file.isEmpty()) {
-        args << QStringLiteral("--assume-filename=%1").arg(filenameFromMode(doc));
         return args;
     }
 
@@ -167,11 +168,8 @@ QStringList ClangFormat::args(KTextEditor::Document *doc) const
         for (auto ll : *lines) {
             args.push_back(QStringLiteral("--lines=%1:%2").arg(ll.startLine).arg(ll.endline));
         }
-        args.push_back(file);
-        return args;
-    } else {
-        return args << file;
     }
+    return args;
 }
 
 void ClangFormat::onResultReady(const RunOutput &o)

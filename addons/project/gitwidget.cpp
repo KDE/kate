@@ -520,7 +520,7 @@ void GitWidget::slotUpdateStatus()
         return; // No need to update
     }
 
-    const auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z"), QStringLiteral("-u"), QStringLiteral("--ignore-submodules")};
+    const auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z"), QStringLiteral("-u")};
 
     auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {

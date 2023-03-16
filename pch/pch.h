@@ -8,6 +8,8 @@
 #include <utility>
 #include <vector>
 
+#include <QCborValue>
+#include <QDebug>
 #include <QList>
 #include <QMetaObject>
 #include <QMetaType>

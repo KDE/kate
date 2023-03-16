@@ -200,7 +200,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                 } else {
                     node->setText(0, matchClass.captured(3));
                 }
-            } else if(matchInterface.hasMatch()) {
+            } else if (matchInterface.hasMatch()) {
                 if (m_typesOn->isChecked()) {
                     nameWithTypes = matchInterface.captured(1) + QLatin1String(" [interface]");
                     node->setText(0, nameWithTypes);

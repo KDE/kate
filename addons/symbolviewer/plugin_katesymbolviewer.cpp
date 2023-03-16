@@ -525,4 +525,18 @@ void KatePluginSymbolViewerConfigPage::apply()
 }
 // END KatePluginSymbolViewerConfigPage
 
+// BEGIN parsers
+#include "bash_parser.cpp"
+#include "cpp_parser.cpp"
+#include "ecma_parser.cpp"
+#include "fortran_parser.cpp"
+#include "perl_parser.cpp"
+#include "php_parser.cpp"
+#include "python_parser.cpp"
+#include "ruby_parser.cpp"
+#include "tcl_parser.cpp"
+#include "xml_parser.cpp"
+#include "xslt_parser.cpp"
+// END parsers
+
 #include "plugin_katesymbolviewer.moc"

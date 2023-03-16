@@ -29,3 +29,7 @@ CMakeLists.txt.user*
 /.cache/
 /compile_commands.json
 /cmake-build*
+.vscode/
+.flatpak/
+.flatpak-builder/
+/_build/

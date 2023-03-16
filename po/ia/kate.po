@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-12 17:21+0000\n"
-"PO-Revision-Date: 2023-02-01 17:52+0100\n"
+"PO-Revision-Date: 2023-03-15 22:55+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -464,7 +464,7 @@ msgstr "Recarga Diff"
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "Monstra diff con plen contento, non solmente le lineas cambiate"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -473,6 +473,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> non trovate. Gif es necessari pro facer diff sur le documentos. "
+"Si git es jam installate, tu assecura te que illo es in tu variabile PATH. "
+"Tu vide https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1142
 #: lib/kateconfigdialog.cpp:532
@@ -510,7 +513,7 @@ msgstr "Falleva a obtener chronologia de flie: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Copia Hash de Commit"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
@@ -525,34 +528,26 @@ msgid "File History - %1"
 msgstr "Chronologia de file - %1"
 
 #: lib/kateapp.cpp:108
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Executar Kate con sudo pote causar faltas  e te expone a vulnerabilitate de "
-"securitate. In loco usa Kate normalmente e tu essera demandate per "
-"privilegios elevate, quando salveguardar documentos es necessari. "
+"Executar iste editor con sudo pote causar faltas  e te expone a "
+"vulnerabilitate de securitate. In loco usa iste editor normalmente e tu "
+"essera demandate per privilegios elevate, quando salveguardar documentos si "
+"necessitate."
 
 #: lib/kateapp.cpp:115
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Executar Kate con kdesu pote causar faltas  e te expone a vulnerabilitate de "
-"securitate. In loco usa Kate normalmente e tu essera demandate per "
-"privilegios elevate, quando salveguardar documentos es necessari. "
+"Executar iste editor con kdesu pote causar faltas  e te expone a "
+"vulnerabilitate de securitate. In loco usa iste editor normalmente e tu "
+"essera demandate per privilegios elevate, quando salveguardar documentos si "
+"necessitate."
 
 #: lib/kateapp.cpp:283
 #, kde-format

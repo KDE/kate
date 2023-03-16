@@ -9,7 +9,6 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QVariant>
-#include <iostream>
 #include <memory>
 
 class KateRunningInstanceInfo
@@ -26,7 +25,7 @@ public:
                                      QDBusConnection::sessionBus()))
     {
         if (!dbus_if->isValid()) {
-            std::cerr << qPrintable(QDBusConnection::sessionBus().lastError().message()) << std::endl;
+            fprintf(stderr, "%s\n", qPrintable(QDBusConnection::sessionBus().lastError().message()));
         }
         QVariant a_s = dbus_if->property("activeSession");
         /*      std::cerr<<a_s.isValid()<<std::endl;

@@ -7,7 +7,6 @@
 #include "bytearraysplitter.h"
 
 #include <QTest>
-#include <iostream>
 
 QTEST_MAIN(ByteArraySplitterTests)
 

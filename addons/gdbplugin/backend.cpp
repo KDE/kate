@@ -9,6 +9,7 @@
 #include "backend.h"
 #include "debugview.h"
 #include "debugview_dap.h"
+#include <KLocalizedString>
 #include <KMessageBox>
 
 Backend::Backend(QObject *parent)

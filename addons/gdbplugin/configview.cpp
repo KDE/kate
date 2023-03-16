@@ -11,6 +11,7 @@
 
 #include "configview.h"
 
+#include <QCheckBox>
 #include <QCompleter>
 #include <QFileDialog>
 #include <QFileSystemModel>
@@ -18,13 +19,18 @@
 #include <QJsonDocument>
 #include <QLayout>
 #include <QPushButton>
+#include <QSpinBox>
 #include <QStandardPaths>
 
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
+#include <KActionCollection>
+#include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSelectAction>
 
+#include "advanced_settings.h"
 #include "dap/settings.h"
 #include "json_placeholders.h"
 

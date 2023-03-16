@@ -11,27 +11,26 @@
 
 #pragma once
 
-#include "advanced_settings.h"
-
-#include <QBoxLayout>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QHash>
-#include <QJsonObject>
-#include <QLabel>
-#include <QLineEdit>
-#include <QResizeEvent>
-#include <QSpinBox>
-#include <QToolButton>
-#include <QVariantHash>
-#include <QWidget>
-#include <optional>
-#include <utility>
-
-#include <KActionCollection>
-#include <KConfigGroup>
-#include <KSelectAction>
 #include <KTextEditor/MainWindow>
+#include <QJsonObject>
+#include <QWidget>
+
+#include <optional>
+
+class AdvancedGDBSettings;
+class QPushButton;
+class QComboBox;
+class QFrame;
+class QSpinBox;
+class QResizeEvent;
+class QBoxLayout;
+class QCheckBox;
+class QLineEdit;
+class QLabel;
+class KSelectAction;
+class QToolButton;
+class KActionCollection;
+class KConfigGroup;
 
 struct GDBTargetConf {
     QString targetName;

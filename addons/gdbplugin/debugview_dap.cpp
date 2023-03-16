@@ -10,6 +10,8 @@
 #include <pthread.h>
 #include <qregularexpression.h>
 
+#include <KLocalizedString>
+
 #include "debugview_dap.h"
 #include "json_placeholders.h"
 

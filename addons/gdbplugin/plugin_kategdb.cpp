@@ -9,6 +9,7 @@
 
 #include "plugin_kategdb.h"
 
+#include <QBoxLayout>
 #include <QFile>
 #include <QFontDatabase>
 #include <QKeyEvent>

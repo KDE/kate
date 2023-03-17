@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-05 00:58+0000\n"
+"POT-Creation-Date: 2023-03-17 01:00+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -96,81 +96,81 @@ msgstr ""
 msgid "Custom Init Commands"
 msgstr ""
 
-#: backend.cpp:23 backend.cpp:48 debugview_dap.cpp:153
+#: backend.cpp:24 backend.cpp:49 debugview_dap.cpp:155
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
 
-#: configview.cpp:85
+#: configview.cpp:91
 #, kde-format
 msgid "Add new target"
 msgstr ""
 
-#: configview.cpp:89
+#: configview.cpp:95
 #, kde-format
 msgid "Copy target"
 msgstr ""
 
-#: configview.cpp:93
+#: configview.cpp:99
 #, kde-format
 msgid "Delete target"
 msgstr ""
 
-#: configview.cpp:98
+#: configview.cpp:104
 #, kde-format
 msgid "Executable:"
 msgstr "ئىجرا قىلغىلى بولىدۇ:"
 
-#: configview.cpp:118
+#: configview.cpp:124
 #, kde-format
 msgid "Working Directory:"
 msgstr "خىزمەت مۇندەرىجىسى:"
 
-#: configview.cpp:126
+#: configview.cpp:132
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:131
+#: configview.cpp:137
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "ئەركىن ئۆزگەرگۈچى:"
 
-#: configview.cpp:134
+#: configview.cpp:140
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "فوكۇسنى ساقلاپ قال"
 
-#: configview.cpp:135
+#: configview.cpp:141
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "بۇيرۇق قۇرىدىكى فوكۇسنى ساقلاپ قال"
 
-#: configview.cpp:137
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect IO"
 msgstr "قايتا نىشانلانغان IO"
 
-#: configview.cpp:138
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "سازلانغان پروگرامما IO نى ئايرىغۇچ بەلگىسى بىلەن قايتا نىشانلايدۇ"
 
-#: configview.cpp:140
+#: configview.cpp:146
 #, kde-format
 msgid "Advanced Settings"
 msgstr "ئالىي تەڭشەك"
 
-#: configview.cpp:225
+#: configview.cpp:231
 #, kde-format
 msgid "Targets"
 msgstr "نىشانلار"
 
-#: configview.cpp:518 configview.cpp:531
+#: configview.cpp:524 configview.cpp:537
 #, kde-format
 msgid "Target %1"
 msgstr "نىشان %1"
@@ -224,17 +224,17 @@ msgstr ""
 msgid "thread(s) running: %1"
 msgstr ""
 
-#: debugview.cpp:655 debugview_dap.cpp:268
+#: debugview.cpp:655 debugview_dap.cpp:270
 #, kde-format
 msgid "stopped (%1)."
 msgstr ""
 
-#: debugview.cpp:659 debugview_dap.cpp:276
+#: debugview.cpp:659 debugview_dap.cpp:278
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr ""
 
-#: debugview.cpp:661 debugview_dap.cpp:278
+#: debugview.cpp:661 debugview_dap.cpp:280
 #, kde-format
 msgid "Active thread: %1."
 msgstr ""
@@ -262,310 +262,310 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr ""
 
-#: debugview_dap.cpp:167
+#: debugview_dap.cpp:169
 #, kde-format
 msgid "DAP backend failed"
 msgstr ""
 
-#: debugview_dap.cpp:209
+#: debugview_dap.cpp:211
 #, kde-format
 msgid "program terminated"
 msgstr ""
 
-#: debugview_dap.cpp:221
+#: debugview_dap.cpp:223
 #, kde-format
 msgid "requesting disconnection"
 msgstr ""
 
-#: debugview_dap.cpp:235
+#: debugview_dap.cpp:237
 #, kde-format
 msgid "requesting shutdown"
 msgstr ""
 
-#: debugview_dap.cpp:259
+#: debugview_dap.cpp:261
 #, kde-format
 msgid "DAP backend: %1"
 msgstr ""
 
-#: debugview_dap.cpp:283
+#: debugview_dap.cpp:285
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Breakpoint(s) reached:"
 msgstr "توختاش نۇقتىسى"
 
-#: debugview_dap.cpp:305
+#: debugview_dap.cpp:307
 #, kde-format
 msgid "(continued) thread %1"
 msgstr ""
 
-#: debugview_dap.cpp:307
+#: debugview_dap.cpp:309
 #, kde-format
 msgid "all threads continued"
 msgstr ""
 
-#: debugview_dap.cpp:314
+#: debugview_dap.cpp:316
 #, kde-format
 msgid "(running)"
 msgstr ""
 
-#: debugview_dap.cpp:402
+#: debugview_dap.cpp:404
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr ""
 
-#: debugview_dap.cpp:409
+#: debugview_dap.cpp:411
 #, kde-format
 msgid "program exited with code %1"
 msgstr ""
 
-#: debugview_dap.cpp:423
+#: debugview_dap.cpp:425
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr ""
 
-#: debugview_dap.cpp:428
+#: debugview_dap.cpp:430
 #, kde-format
 msgid "error on response: %1"
 msgstr ""
 
-#: debugview_dap.cpp:443
+#: debugview_dap.cpp:445
 #, kde-format
 msgid "important"
 msgstr ""
 
-#: debugview_dap.cpp:446
+#: debugview_dap.cpp:448
 #, kde-format
 msgid "telemetry"
 msgstr ""
 
-#: debugview_dap.cpp:465
+#: debugview_dap.cpp:467
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr ""
 
-#: debugview_dap.cpp:467
+#: debugview_dap.cpp:469
 #, kde-format
 msgid "debugging process %1"
 msgstr ""
 
-#: debugview_dap.cpp:470
+#: debugview_dap.cpp:472
 #, kde-format
 msgid "Start method: %1"
 msgstr ""
 
-#: debugview_dap.cpp:477
+#: debugview_dap.cpp:479
 #, kde-format
 msgid "thread %1"
 msgstr ""
 
-#: debugview_dap.cpp:631
+#: debugview_dap.cpp:633
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "breakpoint set"
 msgstr "توختاش نۇقتىسى"
 
-#: debugview_dap.cpp:639
+#: debugview_dap.cpp:641
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "breakpoint cleared"
 msgstr "توختاش نۇقتىسى"
 
-#: debugview_dap.cpp:698
+#: debugview_dap.cpp:700
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "(%1) breakpoint"
 msgstr "توختاش نۇقتىسى"
 
-#: debugview_dap.cpp:715
+#: debugview_dap.cpp:717
 #, kde-format
 msgid "<not evaluated>"
 msgstr ""
 
-#: debugview_dap.cpp:737
+#: debugview_dap.cpp:739
 #, kde-format
 msgid "server capabilities"
 msgstr ""
 
-#: debugview_dap.cpp:740
+#: debugview_dap.cpp:742
 #, kde-format
 msgid "supported"
 msgstr ""
 
-#: debugview_dap.cpp:740
+#: debugview_dap.cpp:742
 #, kde-format
 msgid "unsupported"
 msgstr ""
 
-#: debugview_dap.cpp:743
+#: debugview_dap.cpp:745
 #, fuzzy, kde-format
 #| msgid "Insert breakpoint"
 msgid "conditional breakpoints"
 msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
 
-#: debugview_dap.cpp:744
+#: debugview_dap.cpp:746
 #, fuzzy, kde-format
 #| msgid "Insert breakpoint"
 msgid "function breakpoints"
 msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
 
-#: debugview_dap.cpp:745
+#: debugview_dap.cpp:747
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr ""
 
-#: debugview_dap.cpp:746
+#: debugview_dap.cpp:748
 #, kde-format
 msgid "log points"
 msgstr ""
 
-#: debugview_dap.cpp:746
+#: debugview_dap.cpp:748
 #, kde-format
 msgid "modules request"
 msgstr ""
 
-#: debugview_dap.cpp:747
+#: debugview_dap.cpp:749
 #, kde-format
 msgid "goto targets request"
 msgstr ""
 
-#: debugview_dap.cpp:748
+#: debugview_dap.cpp:750
 #, kde-format
 msgid "terminate request"
 msgstr ""
 
-#: debugview_dap.cpp:749
+#: debugview_dap.cpp:751
 #, kde-format
 msgid "terminate debuggee"
 msgstr ""
 
-#: debugview_dap.cpp:956
+#: debugview_dap.cpp:958
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr ""
 
-#: debugview_dap.cpp:974 debugview_dap.cpp:1009 debugview_dap.cpp:1047
-#: debugview_dap.cpp:1081 debugview_dap.cpp:1117 debugview_dap.cpp:1153
-#: debugview_dap.cpp:1189 debugview_dap.cpp:1289 debugview_dap.cpp:1351
+#: debugview_dap.cpp:976 debugview_dap.cpp:1011 debugview_dap.cpp:1049
+#: debugview_dap.cpp:1083 debugview_dap.cpp:1119 debugview_dap.cpp:1155
+#: debugview_dap.cpp:1191 debugview_dap.cpp:1291 debugview_dap.cpp:1353
 #, kde-format
 msgid "syntax error: %1"
 msgstr ""
 
-#: debugview_dap.cpp:982 debugview_dap.cpp:1017 debugview_dap.cpp:1296
-#: debugview_dap.cpp:1359
+#: debugview_dap.cpp:984 debugview_dap.cpp:1019 debugview_dap.cpp:1298
+#: debugview_dap.cpp:1361
 #, kde-format
 msgid "invalid line: %1"
 msgstr ""
 
-#: debugview_dap.cpp:989 debugview_dap.cpp:994 debugview_dap.cpp:1024
-#: debugview_dap.cpp:1029 debugview_dap.cpp:1320 debugview_dap.cpp:1325
-#: debugview_dap.cpp:1366 debugview_dap.cpp:1371
+#: debugview_dap.cpp:991 debugview_dap.cpp:996 debugview_dap.cpp:1026
+#: debugview_dap.cpp:1031 debugview_dap.cpp:1322 debugview_dap.cpp:1327
+#: debugview_dap.cpp:1368 debugview_dap.cpp:1373
 #, kde-format
 msgid "file not specified: %1"
 msgstr ""
 
-#: debugview_dap.cpp:1059 debugview_dap.cpp:1093 debugview_dap.cpp:1129
-#: debugview_dap.cpp:1165 debugview_dap.cpp:1201
+#: debugview_dap.cpp:1061 debugview_dap.cpp:1095 debugview_dap.cpp:1131
+#: debugview_dap.cpp:1167 debugview_dap.cpp:1203
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr ""
 
-#: debugview_dap.cpp:1065 debugview_dap.cpp:1099 debugview_dap.cpp:1135
-#: debugview_dap.cpp:1171 debugview_dap.cpp:1207
+#: debugview_dap.cpp:1067 debugview_dap.cpp:1101 debugview_dap.cpp:1137
+#: debugview_dap.cpp:1173 debugview_dap.cpp:1209
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr ""
 
-#: debugview_dap.cpp:1218
+#: debugview_dap.cpp:1220
 #, kde-format
 msgid "Available commands:"
 msgstr ""
 
-#: debugview_dap.cpp:1306
+#: debugview_dap.cpp:1308
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr ""
 
-#: debugview_dap.cpp:1314
+#: debugview_dap.cpp:1316
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr ""
 
-#: debugview_dap.cpp:1334
+#: debugview_dap.cpp:1336
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr ""
 
-#: debugview_dap.cpp:1379
+#: debugview_dap.cpp:1381
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr ""
 
-#: debugview_dap.cpp:1385
+#: debugview_dap.cpp:1387
 #, kde-format
 msgid "Current thread: "
 msgstr ""
 
-#: debugview_dap.cpp:1390 debugview_dap.cpp:1397 debugview_dap.cpp:1421
+#: debugview_dap.cpp:1392 debugview_dap.cpp:1399 debugview_dap.cpp:1423
 #, kde-format
 msgid "none"
 msgstr ""
 
-#: debugview_dap.cpp:1393
+#: debugview_dap.cpp:1395
 #, kde-format
 msgid "Current frame: "
 msgstr ""
 
-#: debugview_dap.cpp:1400
+#: debugview_dap.cpp:1402
 #, kde-format
 msgid "Session state: "
 msgstr ""
 
-#: debugview_dap.cpp:1403
+#: debugview_dap.cpp:1405
 #, kde-format
 msgid "initializing"
 msgstr ""
 
-#: debugview_dap.cpp:1406
+#: debugview_dap.cpp:1408
 #, kde-format
 msgid "running"
 msgstr ""
 
-#: debugview_dap.cpp:1409
+#: debugview_dap.cpp:1411
 #, kde-format
 msgid "stopped"
 msgstr ""
 
-#: debugview_dap.cpp:1412
+#: debugview_dap.cpp:1414
 #, kde-format
 msgid "terminated"
 msgstr ""
 
-#: debugview_dap.cpp:1415
+#: debugview_dap.cpp:1417
 #, kde-format
 msgid "disconnected"
 msgstr ""
 
-#: debugview_dap.cpp:1418
+#: debugview_dap.cpp:1420
 #, kde-format
 msgid "post mortem"
 msgstr ""
 
-#: debugview_dap.cpp:1474
+#: debugview_dap.cpp:1476
 #, kde-format
 msgid "command not found"
 msgstr ""
 
-#: debugview_dap.cpp:1495
+#: debugview_dap.cpp:1497
 #, kde-format
 msgid "missing thread id"
 msgstr ""
 
-#: debugview_dap.cpp:1603
+#: debugview_dap.cpp:1605
 #, kde-format
 msgid "killing backend"
 msgstr ""
 
-#: debugview_dap.cpp:1661
+#: debugview_dap.cpp:1663
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr ""
@@ -595,51 +595,51 @@ msgstr ""
 msgid "named items"
 msgstr ""
 
-#: plugin_kategdb.cpp:65
+#: plugin_kategdb.cpp:66
 #, kde-format
 msgid "Kate GDB"
 msgstr ""
 
-#: plugin_kategdb.cpp:69
+#: plugin_kategdb.cpp:70
 #, kde-format
 msgid "Debug View"
 msgstr "سازلاش كۆرۈنۈشى"
 
-#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:285
 #, kde-format
 msgid "Debug"
 msgstr "سازلا"
 
-#: plugin_kategdb.cpp:72 plugin_kategdb.cpp:75
+#: plugin_kategdb.cpp:73 plugin_kategdb.cpp:76
 #, kde-format
 msgid "Locals and Stack"
 msgstr ""
 
-#: plugin_kategdb.cpp:120
+#: plugin_kategdb.cpp:121
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "نومۇرى"
 
-#: plugin_kategdb.cpp:120
+#: plugin_kategdb.cpp:121
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "كاندۇك"
 
-#: plugin_kategdb.cpp:152
+#: plugin_kategdb.cpp:153
 #, kde-format
 msgctxt "Tab label"
 msgid "GDB Output"
 msgstr "GDB چىقىرىش"
 
-#: plugin_kategdb.cpp:153
+#: plugin_kategdb.cpp:154
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "تەڭشەكلەر"
 
-#: plugin_kategdb.cpp:195
+#: plugin_kategdb.cpp:196
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -647,98 +647,98 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:220
+#: plugin_kategdb.cpp:221
 #, kde-format
 msgid "Start Debugging"
 msgstr "سازلاشنى باشلا"
 
-#: plugin_kategdb.cpp:226
+#: plugin_kategdb.cpp:227
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "سازلاشنى ئۆلتۈر/توختات"
 
-#: plugin_kategdb.cpp:232
+#: plugin_kategdb.cpp:233
 #, kde-format
 msgid "Restart Debugging"
 msgstr "سازلاشنى قايتا قوزغات"
 
-#: plugin_kategdb.cpp:238
+#: plugin_kategdb.cpp:239
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "توختاش نۇقتىسى/توختاشنى ئالماشتۇر"
 
-#: plugin_kategdb.cpp:244
+#: plugin_kategdb.cpp:245
 #, kde-format
 msgid "Step In"
 msgstr "قەدەملەپ كىر"
 
-#: plugin_kategdb.cpp:250
+#: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Step Over"
 msgstr "ئاتلاپ توختا"
 
-#: plugin_kategdb.cpp:256
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Step Out"
 msgstr "چىقىپ توختا"
 
-#: plugin_kategdb.cpp:262 plugin_kategdb.cpp:293
+#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:294
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "PC يۆتكە"
 
-#: plugin_kategdb.cpp:267 plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:268 plugin_kategdb.cpp:292
 #, kde-format
 msgid "Run To Cursor"
 msgstr "نۇربەلگىسىگىچە ئىجرا قىل"
 
-#: plugin_kategdb.cpp:273
+#: plugin_kategdb.cpp:274
 #, kde-format
 msgid "Continue"
 msgstr "داۋاملاشتۇر"
 
-#: plugin_kategdb.cpp:279
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Print Value"
 msgstr "قىممەتنى باس"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:290
+#: plugin_kategdb.cpp:291
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:372 plugin_kategdb.cpp:388
+#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:389
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
 
-#: plugin_kategdb.cpp:386
+#: plugin_kategdb.cpp:387
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "ئۈزۈلۈش نۇقتىسىنى چىقىرىۋەت"
 
-#: plugin_kategdb.cpp:518
+#: plugin_kategdb.cpp:519
 #, kde-format
 msgid "Execution point"
 msgstr "ئىجرا نۇقتىسى"
 
-#: plugin_kategdb.cpp:661
+#: plugin_kategdb.cpp:662
 #, kde-format
 msgid "Thread %1"
 msgstr ""
 
-#: plugin_kategdb.cpp:761
+#: plugin_kategdb.cpp:762
 #, kde-format
 msgid "IO"
 msgstr "كىرگۈزۈش چىقىرىش"
 
-#: plugin_kategdb.cpp:847
+#: plugin_kategdb.cpp:848
 #, kde-format
 msgid "Breakpoint"
 msgstr "توختاش نۇقتىسى"

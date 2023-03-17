@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-05 00:58+0000\n"
+"POT-Creation-Date: 2023-03-17 01:00+0000\n"
 "PO-Revision-Date: 2023-03-07 21:40+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -103,7 +103,7 @@ msgstr "solib-search-path"
 msgid "Custom Init Commands"
 msgstr "Mukautetut alustuskomennot"
 
-#: backend.cpp:23 backend.cpp:48 debugview_dap.cpp:153
+#: backend.cpp:24 backend.cpp:49 debugview_dap.cpp:155
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -112,76 +112,76 @@ msgstr ""
 "Virheenpaikannusistunto on käynnissä. Suorita uudelleen tai pysäytä nykyinen "
 "istunto."
 
-#: configview.cpp:85
+#: configview.cpp:91
 #, kde-format
 msgid "Add new target"
 msgstr "Lisää uusi kohde"
 
-#: configview.cpp:89
+#: configview.cpp:95
 #, kde-format
 msgid "Copy target"
 msgstr "Kopioi kohde"
 
-#: configview.cpp:93
+#: configview.cpp:99
 #, kde-format
 msgid "Delete target"
 msgstr "Poista kohde"
 
-#: configview.cpp:98
+#: configview.cpp:104
 #, kde-format
 msgid "Executable:"
 msgstr "Ohjelmatiedosto:"
 
-#: configview.cpp:118
+#: configview.cpp:124
 #, kde-format
 msgid "Working Directory:"
 msgstr "Työhakemisto:"
 
-#: configview.cpp:126
+#: configview.cpp:132
 #, kde-format
 msgid "Process Id:"
 msgstr "Prosessitunniste:"
 
-#: configview.cpp:131
+#: configview.cpp:137
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumentit:"
 
-#: configview.cpp:134
+#: configview.cpp:140
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Pidä kohdistus"
 
-#: configview.cpp:135
+#: configview.cpp:141
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Pidä kohdistus komentorivillä"
 
-#: configview.cpp:137
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect IO"
 msgstr "Uudelleen ohjattu siirräntä"
 
-#: configview.cpp:138
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Ohjaa virheenpaikannuksessa olevien ohjelmien siirräntä uudelleen erilliseen "
 "välilehteen"
 
-#: configview.cpp:140
+#: configview.cpp:146
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Lisäasetukset"
 
-#: configview.cpp:225
+#: configview.cpp:231
 #, kde-format
 msgid "Targets"
 msgstr "Kohteet"
 
-#: configview.cpp:518 configview.cpp:531
+#: configview.cpp:524 configview.cpp:537
 #, kde-format
 msgid "Target %1"
 msgstr "Kohde %1"
@@ -235,17 +235,17 @@ msgstr "kaikki säikeet käynnissä"
 msgid "thread(s) running: %1"
 msgstr "säikeitä käynnissä: %1"
 
-#: debugview.cpp:655 debugview_dap.cpp:268
+#: debugview.cpp:655 debugview_dap.cpp:270
 #, kde-format
 msgid "stopped (%1)."
 msgstr "pysäytetty (%1)."
 
-#: debugview.cpp:659 debugview_dap.cpp:276
+#: debugview.cpp:659 debugview_dap.cpp:278
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Aktiivinen säie: %1 (kaikki säikeet pysäytetty)."
 
-#: debugview.cpp:661 debugview_dap.cpp:278
+#: debugview.cpp:661 debugview_dap.cpp:280
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Aktiivinen säie: %1."
@@ -274,304 +274,304 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Ei voitu jäsentää viimeisintä vastausta: %1"
 
-#: debugview_dap.cpp:167
+#: debugview_dap.cpp:169
 #, kde-format
 msgid "DAP backend failed"
 msgstr "DAP-taustajärjestelmä epäonnistui"
 
-#: debugview_dap.cpp:209
+#: debugview_dap.cpp:211
 #, kde-format
 msgid "program terminated"
 msgstr "ohjelma päätettiin"
 
-#: debugview_dap.cpp:221
+#: debugview_dap.cpp:223
 #, kde-format
 msgid "requesting disconnection"
 msgstr "pyydetään yhteyden katkaisua"
 
-#: debugview_dap.cpp:235
+#: debugview_dap.cpp:237
 #, kde-format
 msgid "requesting shutdown"
 msgstr "pyydetään sammutusta"
 
-#: debugview_dap.cpp:259
+#: debugview_dap.cpp:261
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "DAP-taustajärjestelmä: %1"
 
-#: debugview_dap.cpp:283
+#: debugview_dap.cpp:285
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "Keskeytyskohdat saavutettu:"
 
-#: debugview_dap.cpp:305
+#: debugview_dap.cpp:307
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(jatkettiin) säie %1"
 
-#: debugview_dap.cpp:307
+#: debugview_dap.cpp:309
 #, kde-format
 msgid "all threads continued"
 msgstr "jatkettiin kaikkia säikeitä"
 
-#: debugview_dap.cpp:314
+#: debugview_dap.cpp:316
 #, kde-format
 msgid "(running)"
 msgstr "(käynnissä)"
 
-#: debugview_dap.cpp:402
+#: debugview_dap.cpp:404
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** palvelinyhteys sulkeutui ***"
 
-#: debugview_dap.cpp:409
+#: debugview_dap.cpp:411
 #, kde-format
 msgid "program exited with code %1"
 msgstr "ohjelma päättyi koodilla %1"
 
-#: debugview_dap.cpp:423
+#: debugview_dap.cpp:425
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** odotetaan käyttäjän toimia ***"
 
-#: debugview_dap.cpp:428
+#: debugview_dap.cpp:430
 #, kde-format
 msgid "error on response: %1"
 msgstr "virhe vastauksessa: %1"
 
-#: debugview_dap.cpp:443
+#: debugview_dap.cpp:445
 #, kde-format
 msgid "important"
 msgstr "tärkeä"
 
-#: debugview_dap.cpp:446
+#: debugview_dap.cpp:448
 #, kde-format
 msgid "telemetry"
 msgstr "telemetria"
 
-#: debugview_dap.cpp:465
+#: debugview_dap.cpp:467
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "virheenpaikannusprosessi [%1] %2"
 
-#: debugview_dap.cpp:467
+#: debugview_dap.cpp:469
 #, kde-format
 msgid "debugging process %1"
 msgstr "virheenpaikannusprosessi %1"
 
-#: debugview_dap.cpp:470
+#: debugview_dap.cpp:472
 #, kde-format
 msgid "Start method: %1"
 msgstr "Aloitustapa: %1"
 
-#: debugview_dap.cpp:477
+#: debugview_dap.cpp:479
 #, kde-format
 msgid "thread %1"
 msgstr "säie %1"
 
-#: debugview_dap.cpp:631
+#: debugview_dap.cpp:633
 #, kde-format
 msgid "breakpoint set"
 msgstr "keskeytyskohta asetettu"
 
-#: debugview_dap.cpp:639
+#: debugview_dap.cpp:641
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "keskeytyskohta poistettu"
 
-#: debugview_dap.cpp:698
+#: debugview_dap.cpp:700
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) keskeytyskohta"
 
-#: debugview_dap.cpp:715
+#: debugview_dap.cpp:717
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<ei suoritettu>"
 
-#: debugview_dap.cpp:737
+#: debugview_dap.cpp:739
 #, kde-format
 msgid "server capabilities"
 msgstr "palvelimen ominaisuudet"
 
-#: debugview_dap.cpp:740
+#: debugview_dap.cpp:742
 #, kde-format
 msgid "supported"
 msgstr "tuettu"
 
-#: debugview_dap.cpp:740
+#: debugview_dap.cpp:742
 #, kde-format
 msgid "unsupported"
 msgstr "ei tuettu"
 
-#: debugview_dap.cpp:743
+#: debugview_dap.cpp:745
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "ehdolliset keskeytyskohdat"
 
-#: debugview_dap.cpp:744
+#: debugview_dap.cpp:746
 #, kde-format
 msgid "function breakpoints"
 msgstr "funktion keskeytyskohdat"
 
-#: debugview_dap.cpp:745
+#: debugview_dap.cpp:747
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr ""
 
-#: debugview_dap.cpp:746
+#: debugview_dap.cpp:748
 #, kde-format
 msgid "log points"
 msgstr "lokipisteet"
 
-#: debugview_dap.cpp:746
+#: debugview_dap.cpp:748
 #, kde-format
 msgid "modules request"
 msgstr "moduulipyyntö"
 
-#: debugview_dap.cpp:747
+#: debugview_dap.cpp:749
 #, kde-format
 msgid "goto targets request"
 msgstr "goto-määränpääpyyntö"
 
-#: debugview_dap.cpp:748
+#: debugview_dap.cpp:750
 #, kde-format
 msgid "terminate request"
 msgstr "lopeta pyyntö"
 
-#: debugview_dap.cpp:749
+#: debugview_dap.cpp:751
 #, kde-format
 msgid "terminate debuggee"
 msgstr "lopeta jäljitettävä"
 
-#: debugview_dap.cpp:956
+#: debugview_dap.cpp:958
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "syntaksivirhe: lauseketta ei löytynyt"
 
-#: debugview_dap.cpp:974 debugview_dap.cpp:1009 debugview_dap.cpp:1047
-#: debugview_dap.cpp:1081 debugview_dap.cpp:1117 debugview_dap.cpp:1153
-#: debugview_dap.cpp:1189 debugview_dap.cpp:1289 debugview_dap.cpp:1351
+#: debugview_dap.cpp:976 debugview_dap.cpp:1011 debugview_dap.cpp:1049
+#: debugview_dap.cpp:1083 debugview_dap.cpp:1119 debugview_dap.cpp:1155
+#: debugview_dap.cpp:1191 debugview_dap.cpp:1291 debugview_dap.cpp:1353
 #, kde-format
 msgid "syntax error: %1"
 msgstr "syntaksivirhe: %1"
 
-#: debugview_dap.cpp:982 debugview_dap.cpp:1017 debugview_dap.cpp:1296
-#: debugview_dap.cpp:1359
+#: debugview_dap.cpp:984 debugview_dap.cpp:1019 debugview_dap.cpp:1298
+#: debugview_dap.cpp:1361
 #, kde-format
 msgid "invalid line: %1"
 msgstr "virheellinen rivi: %1"
 
-#: debugview_dap.cpp:989 debugview_dap.cpp:994 debugview_dap.cpp:1024
-#: debugview_dap.cpp:1029 debugview_dap.cpp:1320 debugview_dap.cpp:1325
-#: debugview_dap.cpp:1366 debugview_dap.cpp:1371
+#: debugview_dap.cpp:991 debugview_dap.cpp:996 debugview_dap.cpp:1026
+#: debugview_dap.cpp:1031 debugview_dap.cpp:1322 debugview_dap.cpp:1327
+#: debugview_dap.cpp:1368 debugview_dap.cpp:1373
 #, kde-format
 msgid "file not specified: %1"
 msgstr "tiedostoa ei määritetty: %1"
 
-#: debugview_dap.cpp:1059 debugview_dap.cpp:1093 debugview_dap.cpp:1129
-#: debugview_dap.cpp:1165 debugview_dap.cpp:1201
+#: debugview_dap.cpp:1061 debugview_dap.cpp:1095 debugview_dap.cpp:1131
+#: debugview_dap.cpp:1167 debugview_dap.cpp:1203
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "virheellinen säikeen tunniste: %1"
 
-#: debugview_dap.cpp:1065 debugview_dap.cpp:1099 debugview_dap.cpp:1135
-#: debugview_dap.cpp:1171 debugview_dap.cpp:1207
+#: debugview_dap.cpp:1067 debugview_dap.cpp:1101 debugview_dap.cpp:1137
+#: debugview_dap.cpp:1173 debugview_dap.cpp:1209
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "säikeen tunnistetta ei annettu: %1"
 
-#: debugview_dap.cpp:1218
+#: debugview_dap.cpp:1220
 #, kde-format
 msgid "Available commands:"
 msgstr "Käytettävissä olevat komennot:"
 
-#: debugview_dap.cpp:1306
+#: debugview_dap.cpp:1308
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "palvelin ei tue ehdollisia keskeytyskohtia"
 
-#: debugview_dap.cpp:1314
+#: debugview_dap.cpp:1316
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr ""
 
-#: debugview_dap.cpp:1334
+#: debugview_dap.cpp:1336
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr ""
 
-#: debugview_dap.cpp:1379
+#: debugview_dap.cpp:1381
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "keskeytyskohtaa ei löydy (%1:%2)"
 
-#: debugview_dap.cpp:1385
+#: debugview_dap.cpp:1387
 #, kde-format
 msgid "Current thread: "
 msgstr "Nykyinen säie:"
 
-#: debugview_dap.cpp:1390 debugview_dap.cpp:1397 debugview_dap.cpp:1421
+#: debugview_dap.cpp:1392 debugview_dap.cpp:1399 debugview_dap.cpp:1423
 #, kde-format
 msgid "none"
 msgstr "ei mitään"
 
-#: debugview_dap.cpp:1393
+#: debugview_dap.cpp:1395
 #, kde-format
 msgid "Current frame: "
 msgstr "Nykyinen kehys:"
 
-#: debugview_dap.cpp:1400
+#: debugview_dap.cpp:1402
 #, kde-format
 msgid "Session state: "
 msgstr "Istunnon tila:"
 
-#: debugview_dap.cpp:1403
+#: debugview_dap.cpp:1405
 #, kde-format
 msgid "initializing"
 msgstr "Alustetaan"
 
-#: debugview_dap.cpp:1406
+#: debugview_dap.cpp:1408
 #, kde-format
 msgid "running"
 msgstr "käynnissä"
 
-#: debugview_dap.cpp:1409
+#: debugview_dap.cpp:1411
 #, kde-format
 msgid "stopped"
 msgstr "pysäytetty"
 
-#: debugview_dap.cpp:1412
+#: debugview_dap.cpp:1414
 #, kde-format
 msgid "terminated"
 msgstr "päätetty"
 
-#: debugview_dap.cpp:1415
+#: debugview_dap.cpp:1417
 #, kde-format
 msgid "disconnected"
 msgstr "yhteys katkaistu"
 
-#: debugview_dap.cpp:1418
+#: debugview_dap.cpp:1420
 #, kde-format
 msgid "post mortem"
 msgstr "ruumiinavaus"
 
-#: debugview_dap.cpp:1474
+#: debugview_dap.cpp:1476
 #, kde-format
 msgid "command not found"
 msgstr "komentoa ei löydy"
 
-#: debugview_dap.cpp:1495
+#: debugview_dap.cpp:1497
 #, kde-format
 msgid "missing thread id"
 msgstr "puuttuva säietunniste"
 
-#: debugview_dap.cpp:1603
+#: debugview_dap.cpp:1605
 #, kde-format
 msgid "killing backend"
 msgstr "tapetaan taustajärjestelmää"
 
-#: debugview_dap.cpp:1661
+#: debugview_dap.cpp:1663
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Nykyinen kehys [%3]: %1:%2 (%4)"
@@ -601,51 +601,51 @@ msgstr "indeksoidut kohteet"
 msgid "named items"
 msgstr "nimetyt kohteet"
 
-#: plugin_kategdb.cpp:65
+#: plugin_kategdb.cpp:66
 #, kde-format
 msgid "Kate GDB"
 msgstr "Kate GDB"
 
-#: plugin_kategdb.cpp:69
+#: plugin_kategdb.cpp:70
 #, kde-format
 msgid "Debug View"
 msgstr "Virheenpaikannusnäkymä"
 
-#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:285
 #, kde-format
 msgid "Debug"
 msgstr "Virheenpaikannus"
 
-#: plugin_kategdb.cpp:72 plugin_kategdb.cpp:75
+#: plugin_kategdb.cpp:73 plugin_kategdb.cpp:76
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Paikalliset muuttujat ja pino"
 
-#: plugin_kategdb.cpp:120
+#: plugin_kategdb.cpp:121
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nro"
 
-#: plugin_kategdb.cpp:120
+#: plugin_kategdb.cpp:121
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Kehys"
 
-#: plugin_kategdb.cpp:152
+#: plugin_kategdb.cpp:153
 #, kde-format
 msgctxt "Tab label"
 msgid "GDB Output"
 msgstr "GDB-tuloste"
 
-#: plugin_kategdb.cpp:153
+#: plugin_kategdb.cpp:154
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Asetukset"
 
-#: plugin_kategdb.cpp:195
+#: plugin_kategdb.cpp:196
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -655,98 +655,98 @@ msgstr ""
 "<title>Tiedostoa ei voitu avata:</title><nl/>%1<br/>Kokeile lisätä hakupolku "
 "kohdassa Lisäasetukset → Lähdetiedostojen hakupolut"
 
-#: plugin_kategdb.cpp:220
+#: plugin_kategdb.cpp:221
 #, kde-format
 msgid "Start Debugging"
 msgstr "Aloita virheenpaikannus"
 
-#: plugin_kategdb.cpp:226
+#: plugin_kategdb.cpp:227
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Tapa / pysäytä virheenpaikannus"
 
-#: plugin_kategdb.cpp:232
+#: plugin_kategdb.cpp:233
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Käynnistä virheenpaikannus uudelleen"
 
-#: plugin_kategdb.cpp:238
+#: plugin_kategdb.cpp:239
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Vaihda keskeytyskohtaa / keskeytystä"
 
-#: plugin_kategdb.cpp:244
+#: plugin_kategdb.cpp:245
 #, kde-format
 msgid "Step In"
 msgstr "Astu sisään"
 
-#: plugin_kategdb.cpp:250
+#: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Step Over"
 msgstr "Astu yli"
 
-#: plugin_kategdb.cpp:256
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Step Out"
 msgstr "Astu ulos"
 
-#: plugin_kategdb.cpp:262 plugin_kategdb.cpp:293
+#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:294
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Siirrä ohjelmalaskuri"
 
-#: plugin_kategdb.cpp:267 plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:268 plugin_kategdb.cpp:292
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Suorita kohdistimeen"
 
-#: plugin_kategdb.cpp:273
+#: plugin_kategdb.cpp:274
 #, kde-format
 msgid "Continue"
 msgstr "Jatka"
 
-#: plugin_kategdb.cpp:279
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Print Value"
 msgstr "Tulosta arvo"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:290
+#: plugin_kategdb.cpp:291
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:372 plugin_kategdb.cpp:388
+#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:389
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Lisää keskeytyskohta"
 
-#: plugin_kategdb.cpp:386
+#: plugin_kategdb.cpp:387
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Poista keskeytyskohta"
 
-#: plugin_kategdb.cpp:518
+#: plugin_kategdb.cpp:519
 #, kde-format
 msgid "Execution point"
 msgstr "Suorituspiste"
 
-#: plugin_kategdb.cpp:661
+#: plugin_kategdb.cpp:662
 #, kde-format
 msgid "Thread %1"
 msgstr "Säie %1"
 
-#: plugin_kategdb.cpp:761
+#: plugin_kategdb.cpp:762
 #, kde-format
 msgid "IO"
 msgstr "Siirräntä"
 
-#: plugin_kategdb.cpp:847
+#: plugin_kategdb.cpp:848
 #, kde-format
 msgid "Breakpoint"
 msgstr "Keskeytyskohta"

@@ -746,7 +746,7 @@ msgstr "بابلو مارتين"
 #: lib/kateapp.cpp:308
 #, kde-format
 msgid "Python Plugin Developer"
-msgstr "مطوّر إضافة پيثون"
+msgstr "مطوّر إضافة بيثون"
 
 #: lib/kateapp.cpp:311
 #, kde-format
@@ -776,7 +776,7 @@ msgstr "ماتيو ميرلي"
 #: lib/kateapp.cpp:320
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
-msgstr "إبراز ملفّات المواصفات ل‍RPM، وپيرل، وملفّات الفرق وغيرها"
+msgstr "إبراز ملفّات المواصفات ل‍RPM، وبيرل، وملفّات الفرق وغيرها"
 
 #: lib/kateapp.cpp:321
 #, kde-format
@@ -836,7 +836,7 @@ msgstr "بير ويغرين"
 #: lib/kateapp.cpp:326
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
-msgstr "إبراز Makefile وپيثون"
+msgstr "إبراز Makefile وبيثون"
 
 #: lib/kateapp.cpp:327
 #, kde-format
@@ -846,7 +846,7 @@ msgstr "جان فريتز"
 #: lib/kateapp.cpp:327
 #, kde-format
 msgid "Highlighting for Python"
-msgstr "إبراز پيثون"
+msgstr "إبراز بيثون"
 
 #: lib/kateapp.cpp:328
 #, kde-format

@@ -285,32 +285,32 @@ msgstr ""
 #: replicodeconfigpage.cpp:24
 #, kde-format
 msgid "Path to replicode executor:"
-msgstr "مسار تنفيذيّ ريپلكود:"
+msgstr "مسار تنفيذيّ ريبلكود:"
 
 #: replicodeconfigpage.cpp:39 replicodeview.cpp:51
 #, kde-format
 msgid "Replicode"
-msgstr "ريپلكود"
+msgstr "ريبلكود"
 
 #: replicodeconfigpage.cpp:44
 #, kde-format
 msgid "Replicode configuration"
-msgstr "ضبط ريپلكود"
+msgstr "ضبط ريبلكود"
 
 #: replicodeview.cpp:38
 #, kde-format
 msgid "Run replicode"
-msgstr "شغّل ريپلكود"
+msgstr "شغّل ريبلكود"
 
 #: replicodeview.cpp:42
 #, kde-format
 msgid "Stop replicode"
-msgstr "أوقف ريپلكود"
+msgstr "أوقف ريبلكود"
 
 #: replicodeview.cpp:61
 #, kde-format
 msgid "Replicode Config"
-msgstr "ضبط ريپلكود"
+msgstr "ضبط ريبلكود"
 
 #: replicodeview.cpp:64
 #, kde-format
@@ -361,7 +361,7 @@ msgstr "تعذّر فتح الملفّ المصدر للقراءة."
 #, kde-format
 msgctxt "@title:window"
 msgid "Replicode Executable Not Found"
-msgstr "لم يوجد تنفيذيّ ريپلكود"
+msgstr "لم يوجد تنفيذيّ ريبلكود"
 
 #: replicodeview.cpp:128
 #, kde-format
@@ -369,8 +369,8 @@ msgid ""
 "Unable to find replicode executor.\n"
 "Please go to settings and set the path to the Replicode executable."
 msgstr ""
-"تعذّر إيجاد تنفيذيّ ريپلكود.\n"
-"فضلًا انتقل إلى الإعدادات واضبط مسار تنفيذيّ ريپلكود."
+"تعذّر إيجاد تنفيذيّ ريبلكود.\n"
+"فضلًا انتقل إلى الإعدادات واضبط مسار تنفيذيّ ريبلكود."
 
 #: replicodeview.cpp:135
 #, fuzzy, kde-format
@@ -388,12 +388,12 @@ msgstr ""
 #: replicodeview.cpp:201
 #, kde-format
 msgid "Replicode execution failed: %1"
-msgstr "فشل تنفيذ ريپلكود: %1"
+msgstr "فشل تنفيذ ريبلكود: %1"
 
 #: replicodeview.cpp:211
 #, kde-format
 msgid "Replicode execution finished."
-msgstr "انتهى تنفيذ ريپلكود."
+msgstr "انتهى تنفيذ ريبلكود."
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"
@@ -404,4 +404,4 @@ msgstr "انتهى تنفيذ ريپلكود."
 #~ msgstr "safa1996alfulaij@gmail.com"
 
 #~ msgid "Replicode Output"
-#~ msgstr "خرج ريپلكود"
+#~ msgstr "خرج ريبلكود"

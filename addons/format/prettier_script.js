@@ -19,12 +19,14 @@ process.stdin.on("data", async (data) => {
       return;
     }
 
-    const { filePath, source, cursorOffset } = JSON.parse(text.slice(0, -1));
+    const { filePath, stdinFilePath, source, cursorOffset } = JSON.parse(
+      text.slice(0, -1)
+    );
     const prettier = getPrettier(filePath);
     text = "";
 
     if (!prettier) {
-      const formatted = await prettify(filePath, cursorOffset);
+      const formatted = await prettify(source, stdinFilePath, cursorOffset);
       if (formatted) {
         log(formatted);
         return;
@@ -46,7 +48,7 @@ process.stdin.on("data", async (data) => {
     log(
       prettier.formatWithCursor(source, {
         cursorOffset: parseInt(cursorOffset),
-        filepath: filePath,
+        filepath: stdinFilePath,
         ...options,
       })
     );
@@ -111,13 +113,13 @@ function getPrettier(filePath) {
   }
 }
 
-async function prettify(code, filePath, cursorOffset) {
+async function prettify(code, stdinFilePath, cursorOffset) {
   try {
     const prettier = childProcess.spawn("prettier", [
       "--cursor-offset",
       cursorOffset,
       "--stdin-filepath",
-      filePath,
+      stdinFilePath,
     ]);
 
     await new Promise((resolve, reject) =>

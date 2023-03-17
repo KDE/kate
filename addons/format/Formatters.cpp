@@ -53,30 +53,62 @@ static QString filenameFromMode(KTextEditor::Document *doc)
         return m.compare(QLatin1String(s), Qt::CaseInsensitive) == 0 || m.contains(QLatin1String(s));
     };
 
+    QString path = doc->url().toLocalFile();
+    bool needsStdinFileName;
+    if (path.isEmpty()) {
+        needsStdinFileName = true;
+    }
+    QFileInfo fi(path);
+    const auto suffix = fi.suffix();
+    const auto base = fi.baseName();
+    // If the basename or suffix is missing, try to create a filename
+    needsStdinFileName = fi.suffix().isEmpty() || fi.baseName().isEmpty();
+
+    if (!needsStdinFileName) {
+        return path;
+    }
+
+    QString prefix;
+    if (!path.isEmpty()) {
+        const auto fi = QFileInfo(path);
+        prefix = fi.absolutePath();
+        if (!prefix.isEmpty() && !prefix.endsWith(QLatin1Char('/'))) {
+            prefix += QLatin1String("/");
+        }
+        const auto base = fi.baseName();
+        if (!base.isEmpty()) {
+            prefix += base + QStringLiteral("/");
+        } else {
+            prefix += QLatin1String("a");
+        }
+    } else {
+        prefix = QStringLiteral("a");
+    }
+
     if (is_or_contains("c++")) {
-        return QStringLiteral("a.cpp");
+        return prefix.append(QLatin1String(".cpp"));
     } else if (is("c")) {
-        return QStringLiteral("a.c");
+        return prefix.append(QLatin1String(".c"));
     } else if (is("json")) {
-        return QStringLiteral("a.json");
+        return prefix.append(QLatin1String(".json"));
     } else if (is("objective-c")) {
-        return QStringLiteral("a.m");
+        return prefix.append(QLatin1String(".m"));
     } else if (is("objective-c++")) {
-        return QStringLiteral("a.mm");
+        return prefix.append(QLatin1String(".mm"));
     } else if (is("protobuf")) {
-        return QStringLiteral("a.proto");
+        return prefix.append(QLatin1String(".proto"));
     } else if (is("javascript")) {
-        return QStringLiteral("a.js");
+        return prefix.append(QLatin1String(".js"));
     } else if (is("typescript")) {
-        return QStringLiteral("a.ts");
+        return prefix.append(QLatin1String(".ts"));
     } else if (is("javascript react (jsx)")) {
-        return QStringLiteral("a.jsx");
+        return prefix.append(QLatin1String(".jsx"));
     } else if (is("typescript react (tsx)")) {
-        return QStringLiteral("a.tsx");
+        return prefix.append(QLatin1String(".tsx"));
     } else if (is("css")) {
-        return QStringLiteral("a.css");
+        return prefix.append(QLatin1String(".css"));
     } else if (is("html")) {
-        return QStringLiteral("a.html");
+        return prefix.append(QLatin1String(".html"));
     }
     return {};
 }
@@ -145,7 +177,7 @@ void AbstractFormatter::onResultReady(const RunOutput &o)
 
 QStringList ClangFormat::args(KTextEditor::Document *doc) const
 {
-    const auto file = doc->url().toLocalFile();
+    QString file = doc->url().toLocalFile();
     const QString offset = cursorToOffset(m_doc, m_pos);
     QStringList args;
     if (!offset.isEmpty()) {
@@ -160,7 +192,7 @@ QStringList ClangFormat::args(KTextEditor::Document *doc) const
     }
 
     if (!m_config.value(QStringLiteral("formatModifiedLinesOnly")).toBool()) {
-        return args << file;
+        return args;
     }
 
     const auto lines = getModifiedLines(file);
@@ -349,11 +381,13 @@ void PrettierFormat::run(KTextEditor::Document *doc)
         return;
     }
 
+    const auto path = doc->url().toLocalFile();
     connect(s_nodeProcess, &QProcess::readyReadStandardOutput, this, &PrettierFormat::onReadyReadOut);
     connect(s_nodeProcess, &QProcess::readyReadStandardError, this, &PrettierFormat::onReadyReadErr);
 
     QJsonObject o;
-    o[QStringLiteral("filePath")] = filenameFromMode(doc);
+    o[QStringLiteral("filePath")] = path;
+    o[QStringLiteral("stdinFilePath")] = filenameFromMode(doc);
     o[QStringLiteral("source")] = originalText;
     o[QStringLiteral("cursorOffset")] = cursorToOffset(doc, m_pos);
     s_nodeProcess->write(QJsonDocument(o).toJson(QJsonDocument::Compact) + '\0');

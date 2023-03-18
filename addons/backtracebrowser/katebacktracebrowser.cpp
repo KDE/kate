@@ -14,7 +14,9 @@
 #include <KLocalizedString> // i18n
 #include <KPluginFactory>
 #include <KSharedConfig>
-#include <ktexteditor/view.h>
+
+#include <KTextEditor/Cursor>
+#include <KTextEditor/View>
 
 #include <QClipboard>
 #include <QDialogButtonBox>

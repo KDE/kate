@@ -444,9 +444,9 @@ public:
     {
         return false;
     }
-    KTextEditor::DefaultStyle defaultStyleAt(KTextEditor::Cursor) const override
+    KSyntaxHighlighting::Theme::TextStyle defaultStyleAt(KTextEditor::Cursor) const override
     {
-        return KTextEditor::dsNormal;
+        return KSyntaxHighlighting::Theme::TextStyle::Normal;
     }
     QString mode() const override
     {

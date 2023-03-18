@@ -50,6 +50,7 @@
 
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/cursor.h>
+#include <ktexteditor/document.h>
 
 #include <QGroupBox>
 #include <QVBoxLayout>

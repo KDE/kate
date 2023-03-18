@@ -1,5 +1,6 @@
 #pragma once
 
+#include <KTextEditor/Document>
 #include <KTextEditor/View>
 #include <QPointer>
 

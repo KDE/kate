@@ -1617,7 +1617,11 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
     int move = 4 * repeats;
     // try to use font height in pixel to move splitter
     {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
         KTextEditor::Attribute::Ptr attrib(vs->currentView()->defaultStyleAttribute(KTextEditor::dsNormal));
+#else
+        KTextEditor::Attribute::Ptr attrib(vs->currentView()->defaultStyleAttribute(KSyntaxHighlighting::Theme::TextStyle::Normal));
+#endif
         QFontMetrics fm(attrib->font());
         move = fm.height() * repeats;
     }

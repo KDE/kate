@@ -21,6 +21,7 @@
 #include <QTextDocument>
 #include <QVBoxLayout>
 
+#include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/View>

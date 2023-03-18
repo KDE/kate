@@ -12,6 +12,7 @@
 
 #include <QIcon>
 
+#include <KTextEditor/Document>
 #include <KTextEditor/View>
 
 bool startsWith(const Completion &comp, const std::u16string &prefix)

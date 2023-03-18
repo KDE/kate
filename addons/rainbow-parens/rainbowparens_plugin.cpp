@@ -160,6 +160,8 @@ void RainbowParenPluginView::clearSavedRangesForDoc(KTextEditor::Document *doc)
     }
 }
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+
 static bool isComment(KTextEditor::Document *doc, int line, int col)
 {
     return doc->defaultStyleAt({line, col}) == KTextEditor::DefaultStyle::dsComment;
@@ -170,6 +172,21 @@ static bool isString(KTextEditor::Document *doc, int line, int col)
     const auto defStyle = doc->defaultStyleAt({line, col});
     return defStyle == KTextEditor::DefaultStyle::dsChar || defStyle == KTextEditor::DefaultStyle::dsString;
 }
+
+#else
+
+static bool isComment(KTextEditor::Document *doc, int line, int col)
+{
+    return doc->defaultStyleAt({line, col}) == KSyntaxHighlighting::Theme::TextStyle::Comment;
+}
+
+static bool isString(KTextEditor::Document *doc, int line, int col)
+{
+    const auto defStyle = doc->defaultStyleAt({line, col});
+    return defStyle == KSyntaxHighlighting::Theme::TextStyle::Char || defStyle == KSyntaxHighlighting::Theme::TextStyle::String;
+}
+
+#endif
 
 using ColoredBracket = std::unique_ptr<KTextEditor::MovingRange>;
 using ColoredBracketPair = std::pair<std::unique_ptr<KTextEditor::MovingRange>, std::unique_ptr<KTextEditor::MovingRange>>;

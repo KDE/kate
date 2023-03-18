@@ -7,6 +7,8 @@
 #include "clazycurrent.h"
 
 #include <KLocalizedString>
+
+#include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 

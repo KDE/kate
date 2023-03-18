@@ -8,7 +8,9 @@
 #include <KPluginFactory>
 #include <KTextEditor/MainWindow>
 #include <KXMLGUIFactory>
+
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/document.h>
 
 #include <QDebug>
 

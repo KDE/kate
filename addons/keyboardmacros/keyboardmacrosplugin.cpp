@@ -25,6 +25,7 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 
+#include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 
 Q_LOGGING_CATEGORY(KM_DBG, "kate.plugin.keyboardmacros", QtWarningMsg)

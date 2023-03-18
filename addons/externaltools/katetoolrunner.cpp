@@ -12,6 +12,7 @@
 
 #include <KLocalizedString>
 #include <KShell>
+#include <KTextEditor/Document>
 #include <KTextEditor/View>
 #include <QFileInfo>
 #include <QRegularExpression>

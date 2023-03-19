@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-20 01:01+0000\n"
+"POT-Creation-Date: 2023-03-19 00:50+0000\n"
 "PO-Revision-Date: 2023-02-25 15:27+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -272,7 +272,7 @@ msgstr "Impossible de lancer l'exécutable « CTags »."
 msgid "CTags was unable to parse this file."
 msgstr "Il a été impossible à « CTags » d'analyser ce fichier."
 
-#: gotosymbolwidget.cpp:245
+#: gotosymbolwidget.cpp:246
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
@@ -280,7 +280,7 @@ msgstr ""
 "Impossible de trouver le fichier d'étiquettes. Veuillez en générer un "
 "manuellement ou utiliser le module externe « CTags »."
 
-#: gotosymbolwidget.cpp:314
+#: gotosymbolwidget.cpp:315
 #, kde-format
 msgid "File for '%1' not found."
 msgstr "Impossible de trouver un fichier pour %1."

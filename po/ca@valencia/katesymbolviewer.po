@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-03-19 00:50+0000\n"
 "PO-Revision-Date: 2022-09-07 19:43+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
-#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
+#: plugin_katesymbolviewer.cpp:89 python_parser.cpp:21 ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
 msgstr "Mostra les funcions"
@@ -34,12 +34,12 @@ msgstr "Mostra les funcions"
 msgid "Functions"
 msgstr "Funcions"
 
-#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
+#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:85
 #, kde-format
 msgid "Show Macros"
 msgstr "Mostra les macros"
 
-#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
+#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:87
 #, kde-format
 msgid "Show Structures"
 msgstr "Mostra les estructures"
@@ -109,94 +109,94 @@ msgstr "Definicions"
 msgid "Classes"
 msgstr "Classes"
 
-#: plugin_katesymbolviewer.cpp:68
+#: plugin_katesymbolviewer.cpp:69
 #, kde-format
 msgid "SymbolViewer"
 msgstr "Visor de símbols"
 
-#: plugin_katesymbolviewer.cpp:77
+#: plugin_katesymbolviewer.cpp:78
 #, kde-format
 msgid "Tree Mode"
 msgstr "Mode en arbre"
 
-#: plugin_katesymbolviewer.cpp:79
+#: plugin_katesymbolviewer.cpp:80
 #, kde-format
 msgid "Expand Tree"
 msgstr "Expandix l'arbre"
 
-#: plugin_katesymbolviewer.cpp:81
+#: plugin_katesymbolviewer.cpp:82
 #, kde-format
 msgid "Show Sorted"
 msgstr "Mostra ordenat"
 
-#: plugin_katesymbolviewer.cpp:90
+#: plugin_katesymbolviewer.cpp:91
 #, kde-format
 msgid "Show Parameters"
 msgstr "Mostra els paràmetres"
 
-#: plugin_katesymbolviewer.cpp:116
+#: plugin_katesymbolviewer.cpp:117
 #, kde-format
 msgid "Symbol List"
 msgstr "Llista de símbols"
 
-#: plugin_katesymbolviewer.cpp:134
+#: plugin_katesymbolviewer.cpp:135
 #, kde-format
 msgid "Filter..."
 msgstr "Filtre..."
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "Símbols"
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "Posició"
 
-#: plugin_katesymbolviewer.cpp:359
+#: plugin_katesymbolviewer.cpp:360
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr "Encara no està implementat!"
 
-#: plugin_katesymbolviewer.cpp:363
+#: plugin_katesymbolviewer.cpp:364
 #, kde-format
 msgid "File type: %1"
 msgstr "Tipus de fitxer: %1"
 
-#: plugin_katesymbolviewer.cpp:476
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Mostra els paràmetres de les funcions"
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Expandix automàticament els nodes en el mode en arbre"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Mostra sempre els símbols en el mode en arbre"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Ordena sempre els símbols"
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Parser Options"
 msgstr "Opcions de l'analitzador"
 
-#: plugin_katesymbolviewer.cpp:509
+#: plugin_katesymbolviewer.cpp:510
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Visor de símbols"
 
-#: plugin_katesymbolviewer.cpp:514
+#: plugin_katesymbolviewer.cpp:515
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Pàgina de configuració del visor de símbols"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecppsymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-03-19 00:50+0000\n"
 "PO-Revision-Date: 2013-09-12 03:41+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
-#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
+#: plugin_katesymbolviewer.cpp:89 python_parser.cpp:21 ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
 msgstr "Функцияларды көрсету"
@@ -30,12 +30,12 @@ msgstr "Функцияларды көрсету"
 msgid "Functions"
 msgstr "Функциялар"
 
-#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
+#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:85
 #, kde-format
 msgid "Show Macros"
 msgstr "Макростарды көрсету"
 
-#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
+#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:87
 #, kde-format
 msgid "Show Structures"
 msgstr "Құрлымдарды көрсету"
@@ -105,98 +105,98 @@ msgstr "Анықтамалар"
 msgid "Classes"
 msgstr "Кластар"
 
-#: plugin_katesymbolviewer.cpp:68
+#: plugin_katesymbolviewer.cpp:69
 #, kde-format
 msgid "SymbolViewer"
 msgstr "Символдарды қарау құралы"
 
-#: plugin_katesymbolviewer.cpp:77
+#: plugin_katesymbolviewer.cpp:78
 #, fuzzy, kde-format
 #| msgid "List/Tree Mode"
 msgid "Tree Mode"
 msgstr "Тізім/Бұтақ күйі"
 
-#: plugin_katesymbolviewer.cpp:79
+#: plugin_katesymbolviewer.cpp:80
 #, kde-format
 msgid "Expand Tree"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:81
+#: plugin_katesymbolviewer.cpp:82
 #, fuzzy, kde-format
 #| msgid "Show Structures"
 msgid "Show Sorted"
 msgstr "Құрлымдарды көрсету"
 
-#: plugin_katesymbolviewer.cpp:90
+#: plugin_katesymbolviewer.cpp:91
 #, fuzzy, kde-format
 #| msgid "Show Params"
 msgid "Show Parameters"
 msgstr "Аргументтерді көрсету"
 
-#: plugin_katesymbolviewer.cpp:116
+#: plugin_katesymbolviewer.cpp:117
 #, kde-format
 msgid "Symbol List"
 msgstr "Символдар тізімі"
 
-#: plugin_katesymbolviewer.cpp:134
+#: plugin_katesymbolviewer.cpp:135
 #, kde-format
 msgid "Filter..."
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "Символдары"
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "Орыны"
 
-#: plugin_katesymbolviewer.cpp:359
+#: plugin_katesymbolviewer.cpp:360
 #, fuzzy, kde-format
 #| msgid "Sorry. Language not supported yet"
 msgid "Sorry, not supported yet!"
 msgstr "Ғафу етіңіз. Бұл тілдің әлі қолдауы жоқ"
 
-#: plugin_katesymbolviewer.cpp:363
+#: plugin_katesymbolviewer.cpp:364
 #, kde-format
 msgid "File type: %1"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:476
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Функциялардың параметрлері көрсетілсін"
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Бұтақ күйінде бұтақтары автоматты тарқатылсын"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Символдары әрқашан бұтақ күйінде көрсетілсін"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Символдары әрқашан реттелсін"
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Parser Options"
 msgstr "Талдауыш параметрлері"
 
-#: plugin_katesymbolviewer.cpp:509
+#: plugin_katesymbolviewer.cpp:510
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Символдарды қарау құралы"
 
-#: plugin_katesymbolviewer.cpp:514
+#: plugin_katesymbolviewer.cpp:515
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Символдарды көрсетуді баптау беті"

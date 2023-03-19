@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-03-19 00:50+0000\n"
 "PO-Revision-Date: 2022-11-18 16:11+0100\n"
 "Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -19,64 +19,64 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 22.08.3\n"
 
-#: keyboardmacrosplugin.cpp:65 keyboardmacrosplugin.cpp:101
+#: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
 msgid "Could not open file '%1'."
 msgstr "Die Datei „%1“ kann nicht geöffnet werden."
 
-#: keyboardmacrosplugin.cpp:71
+#: keyboardmacrosplugin.cpp:72
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Ungültige JSON-Datei „%1“: %2"
 
-#: keyboardmacrosplugin.cpp:79
+#: keyboardmacrosplugin.cpp:80
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
 msgstr "„%1“ kann nicht geladen werden: ungültiges Makro; wird gelöscht."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
-#: keyboardmacrosplugin.cpp:119 keyboardmacrospluginview.cpp:30
+#: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
 #: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Tastaturmakros"
 
-#: keyboardmacrosplugin.cpp:128
+#: keyboardmacrosplugin.cpp:129
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Tastaturmakros:</b> %1"
 
-#: keyboardmacrosplugin.cpp:227
+#: keyboardmacrosplugin.cpp:228
 #, kde-format
 msgid "Recording…"
 msgstr "Aufnahme ..."
 
-#: keyboardmacrosplugin.cpp:263
+#: keyboardmacrosplugin.cpp:264
 #, kde-format
 msgid "ended"
 msgstr "beendet"
 
-#: keyboardmacrosplugin.cpp:263
+#: keyboardmacrosplugin.cpp:264
 #, kde-format
 msgid "canceled"
 msgstr "abgebrochen"
 
-#: keyboardmacrosplugin.cpp:263
+#: keyboardmacrosplugin.cpp:264
 #, kde-format
 msgid "Recording %1"
 msgstr "%1 wird aufgenommen"
 
-#: keyboardmacrosplugin.cpp:306
+#: keyboardmacrosplugin.cpp:307
 #, kde-format
 msgid "Saved '%1'"
 msgstr "„%1“ gespeichert"
 
-#: keyboardmacrosplugin.cpp:325
+#: keyboardmacrosplugin.cpp:326
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "„%1“ geladen"
 
-#: keyboardmacrosplugin.cpp:342
+#: keyboardmacrosplugin.cpp:343
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "„%1“ gelöscht"

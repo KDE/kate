@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-03-19 00:50+0000\n"
 "PO-Revision-Date: 2022-08-16 10:07+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -18,64 +18,64 @@ msgstr ""
 "%100==4 ? 3 : 0);\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: keyboardmacrosplugin.cpp:65 keyboardmacrosplugin.cpp:101
+#: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
 msgid "Could not open file '%1'."
 msgstr "Ni bilo mogoče odpreti datoteke '%1'."
 
-#: keyboardmacrosplugin.cpp:71
+#: keyboardmacrosplugin.cpp:72
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Pokvarjena datoteka JSON '%1': %2"
 
-#: keyboardmacrosplugin.cpp:79
+#: keyboardmacrosplugin.cpp:80
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
 msgstr "Ni bilo mogoče naložiti '%1': pokvarjen makro; ga brišem."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
-#: keyboardmacrosplugin.cpp:119 keyboardmacrospluginview.cpp:30
+#: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
 #: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Makroji na tipkovnici"
 
-#: keyboardmacrosplugin.cpp:128
+#: keyboardmacrosplugin.cpp:129
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Makroji na tipkovnici:</b> %1"
 
-#: keyboardmacrosplugin.cpp:227
+#: keyboardmacrosplugin.cpp:228
 #, kde-format
 msgid "Recording…"
 msgstr "Snemanje…"
 
-#: keyboardmacrosplugin.cpp:263
+#: keyboardmacrosplugin.cpp:264
 #, kde-format
 msgid "ended"
 msgstr "končano"
 
-#: keyboardmacrosplugin.cpp:263
+#: keyboardmacrosplugin.cpp:264
 #, kde-format
 msgid "canceled"
 msgstr "prekinjeno"
 
-#: keyboardmacrosplugin.cpp:263
+#: keyboardmacrosplugin.cpp:264
 #, kde-format
 msgid "Recording %1"
 msgstr "Snemanje %1"
 
-#: keyboardmacrosplugin.cpp:306
+#: keyboardmacrosplugin.cpp:307
 #, kde-format
 msgid "Saved '%1'"
 msgstr "Shranjevanje '%1'"
 
-#: keyboardmacrosplugin.cpp:325
+#: keyboardmacrosplugin.cpp:326
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Nalaganje '%1'"
 
-#: keyboardmacrosplugin.cpp:342
+#: keyboardmacrosplugin.cpp:343
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Brisanje '%1'"

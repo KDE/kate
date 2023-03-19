@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-03-19 00:50+0000\n"
 "PO-Revision-Date: 2022-12-21 10:30+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -18,65 +18,65 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 21.08.3\n"
 
-#: keyboardmacrosplugin.cpp:65 keyboardmacrosplugin.cpp:101
+#: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
 msgid "Could not open file '%1'."
 msgstr "Не удалось открыть файл «%1»."
 
-#: keyboardmacrosplugin.cpp:71
+#: keyboardmacrosplugin.cpp:72
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Некорректный файл в формате JSON «%1»: %2"
 
-#: keyboardmacrosplugin.cpp:79
+#: keyboardmacrosplugin.cpp:80
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
 msgstr ""
 "Не удалось загрузить «%1»: макрос имеет некорректный формат и будет удалён."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
-#: keyboardmacrosplugin.cpp:119 keyboardmacrospluginview.cpp:30
+#: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
 #: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Клавиатурные макросы"
 
-#: keyboardmacrosplugin.cpp:128
+#: keyboardmacrosplugin.cpp:129
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Клавиатурные макросы:</b> %1"
 
-#: keyboardmacrosplugin.cpp:227
+#: keyboardmacrosplugin.cpp:228
 #, kde-format
 msgid "Recording…"
 msgstr "Выполняется запись…"
 
-#: keyboardmacrosplugin.cpp:263
+#: keyboardmacrosplugin.cpp:264
 #, kde-format
 msgid "ended"
 msgstr "завершена"
 
-#: keyboardmacrosplugin.cpp:263
+#: keyboardmacrosplugin.cpp:264
 #, kde-format
 msgid "canceled"
 msgstr "отменена"
 
-#: keyboardmacrosplugin.cpp:263
+#: keyboardmacrosplugin.cpp:264
 #, kde-format
 msgid "Recording %1"
 msgstr "Запись макроса «%1»"
 
-#: keyboardmacrosplugin.cpp:306
+#: keyboardmacrosplugin.cpp:307
 #, kde-format
 msgid "Saved '%1'"
 msgstr "Клавиатурный макрос «%1» сохранён"
 
-#: keyboardmacrosplugin.cpp:325
+#: keyboardmacrosplugin.cpp:326
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Клавиатурный макрос «%1» загружен"
 
-#: keyboardmacrosplugin.cpp:342
+#: keyboardmacrosplugin.cpp:343
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Клавиатурный макрос «%1» удалён"

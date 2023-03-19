@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-26 01:01+0000\n"
+"POT-Creation-Date: 2023-03-19 02:44+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -644,24 +644,24 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: SearchPlugin.cpp:2383 SearchPlugin.cpp:2417
+#: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
 #, kde-format
 msgid "Add..."
 msgstr "قوش…"
 
-#: SearchPlugin.cpp:2395
+#: SearchPlugin.cpp:2397
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search As You Type"
 msgstr "ئىزدە"
 
-#: SearchPlugin.cpp:2466
+#: SearchPlugin.cpp:2468
 #, fuzzy, kde-format
 #| msgid "in Open files"
 msgid "In Current Project"
 msgstr "ئوچۇق ھۆججەتلەر ئىچىدە"
 
-#: SearchPlugin.cpp:2468
+#: SearchPlugin.cpp:2470
 #, kde-format
 msgid "In All Open Projects"
 msgstr ""

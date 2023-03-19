@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-26 01:01+0000\n"
+"POT-Creation-Date: 2023-03-19 02:44+0000\n"
 "PO-Revision-Date: 2023-01-02 16:55+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -662,22 +662,22 @@ msgstr "Άνοιγμα ως καρτέλα του κειμενογράφου"
 msgid "Clear"
 msgstr "Καθαρισμός"
 
-#: SearchPlugin.cpp:2383 SearchPlugin.cpp:2417
+#: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
 #, kde-format
 msgid "Add..."
 msgstr "Προσθήκη..."
 
-#: SearchPlugin.cpp:2395
+#: SearchPlugin.cpp:2397
 #, kde-format
 msgid "Search As You Type"
 msgstr "Αναζήτηση κατά την πληκτρολόγηση"
 
-#: SearchPlugin.cpp:2466
+#: SearchPlugin.cpp:2468
 #, kde-format
 msgid "In Current Project"
 msgstr "Στο τρέχον έργο"
 
-#: SearchPlugin.cpp:2468
+#: SearchPlugin.cpp:2470
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Σε όλα τα ανοικτά έργα"

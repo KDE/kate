@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-26 01:01+0000\n"
+"POT-Creation-Date: 2023-03-19 02:44+0000\n"
 "PO-Revision-Date: 2022-07-06 09:40+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -656,22 +656,22 @@ msgstr ""
 msgid "Clear"
 msgstr "Təmizləmək"
 
-#: SearchPlugin.cpp:2383 SearchPlugin.cpp:2417
+#: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
 #, kde-format
 msgid "Add..."
 msgstr "Əlavə edin..."
 
-#: SearchPlugin.cpp:2395
+#: SearchPlugin.cpp:2397
 #, kde-format
 msgid "Search As You Type"
 msgstr "Yazıldığı kimi axtarmaq"
 
-#: SearchPlugin.cpp:2466
+#: SearchPlugin.cpp:2468
 #, kde-format
 msgid "In Current Project"
 msgstr "Cari layihədə"
 
-#: SearchPlugin.cpp:2468
+#: SearchPlugin.cpp:2470
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Bütün açıq layihələrdə"

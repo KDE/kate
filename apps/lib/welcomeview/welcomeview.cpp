@@ -22,6 +22,7 @@
 
 #include <QClipboard>
 #include <QDesktopServices>
+#include <QFileInfo>
 #include <QGraphicsOpacityEffect>
 #include <QLabel>
 #include <QMenu>
@@ -47,6 +48,8 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     , m_viewManager(viewManager)
 {
     setupUi(this);
+
+    listViewRecentItems->setSelectionMode(QAbstractItemView::MultiSelection);
 
     const KAboutData aboutData = KAboutData::applicationData();
     labelTitle->setText(i18n("Welcome to %1", aboutData.displayName()));
@@ -230,6 +233,27 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
     Q_ASSERT(url.isValid());
 
     QMenu contextMenu(listViewRecentItems);
+
+    const auto selectedIndexes = listViewRecentItems->selectionModel()->selectedIndexes();
+    auto allSelectedAreFiles = [this, selectedIndexes] {
+        return std::all_of(selectedIndexes.begin(), selectedIndexes.end(), [model = m_recentItemsModel](const QModelIndex &index) {
+            const QUrl url = model->url(index);
+            return !url.isLocalFile() || QFileInfo(url.toLocalFile()).isFile();
+        });
+    };
+    if (selectedIndexes.size() > 1 && allSelectedAreFiles()) {
+        QAction *action = new QAction(i18n("Open Selected Files..."), this);
+        action->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
+        connect(action, &QAction::triggered, this, [this, selectedIndexes]() {
+            for (const auto &index : selectedIndexes) {
+                const auto url = m_recentItemsModel->url(index);
+                if (url.isValid()) {
+                    m_viewManager->openUrl(url);
+                }
+            }
+        });
+        contextMenu.addAction(action);
+    }
 
     QAction *action = new QAction(i18n("Copy &Location"), this);
     action->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));

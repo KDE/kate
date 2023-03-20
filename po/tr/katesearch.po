@@ -240,7 +240,7 @@ msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
 "by using the buttons in the search and replace text fields.</p></body></html>"
 msgstr ""
-"<html><head><body><p>Düzenli ifadeleri etkinleştir. Düzenli ifade sözdizimi "
+"<html><head/><body><p>Düzenli ifadeleri etkinleştir. Düzenli ifade sözdizimi "
 "için yardımı bul ve değiştir metin alanlarındaki düğmeleri kullanarak "
 "bulabilirsiniz.</p></body></html>"
 
@@ -682,7 +682,7 @@ msgstr "Tüm Açık Projelerde"
 #: ui.rc:6
 #, kde-format
 msgid "&Edit"
-msgstr "Dü&zenle"
+msgstr "Dü&zen"
 
 #. i18n: ectx: Menu (search_more)
 #: ui.rc:9

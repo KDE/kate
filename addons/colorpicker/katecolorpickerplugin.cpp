@@ -8,9 +8,6 @@
 */
 
 #include "katecolorpickerplugin.h"
-#include "colorpickerconfigpage.h"
-
-#include <algorithm>
 
 #include <KConfigGroup>
 #include <KLocalizedString>

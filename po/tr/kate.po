@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-13 00:52+0000\n"
-"PO-Revision-Date: 2023-03-07 20:15+0300\n"
+"PO-Revision-Date: 2023-03-21 21:20+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -160,12 +160,12 @@ msgstr "[url'ler...]"
 #: kwrite/main.cpp:42
 #, kde-format
 msgid "KWrite"
-msgstr "KWrite"
+msgstr "K Yaz"
 
 #: kwrite/main.cpp:44
 #, kde-format
 msgid "KWrite - Text Editor"
-msgstr "KWrite - Metin Düzenleyici"
+msgstr "K Yaz - Metin Düzenleyici"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
@@ -676,7 +676,7 @@ msgstr "Jochen Wilhemly"
 #: lib/kateapp.cpp:300
 #, kde-format
 msgid "KWrite Author"
-msgstr "KWrite yazarı"
+msgstr "K Yaz yazarı"
 
 #: lib/kateapp.cpp:301
 #, kde-format
@@ -686,7 +686,7 @@ msgstr "Michael Koch"
 #: lib/kateapp.cpp:301
 #, kde-format
 msgid "KWrite port to KParts"
-msgstr "KWrite'ın KParts'a aktarımı"
+msgstr "K Yaz'ın KParts'a aktarımı"
 
 #: lib/kateapp.cpp:302
 #, kde-format
@@ -706,7 +706,7 @@ msgstr "Glen Parker"
 #: lib/kateapp.cpp:304
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
-msgstr "KWrite geri al geçmişi, Kspell tümleştirmesi"
+msgstr "K Yaz geri al geçmişi, Kspell tümleştirmesi"
 
 #: lib/kateapp.cpp:305
 #, kde-format
@@ -716,7 +716,7 @@ msgstr "Scott Manson"
 #: lib/kateapp.cpp:305
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
-msgstr "KWrite XML sözdizim vurgulama desteği"
+msgstr "K Yaz XML sözdizim vurgulama desteği"
 
 #: lib/kateapp.cpp:306
 #, kde-format

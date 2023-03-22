@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-17 01:00+0000\n"
-"PO-Revision-Date: 2023-02-20 11:22+0100\n"
+"PO-Revision-Date: 2023-03-21 18:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
 "Language: vi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -190,7 +190,7 @@ msgstr "Thanh ghi CPU"
 #: debugview.cpp:160
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
+msgstr "Vui lòng đặt tệp thực thi ở thẻ 'Thiết lập' trong bảng 'Gỡ lỗi'"
 
 #: debugview.cpp:169
 #, kde-format
@@ -198,6 +198,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Chưa chọn trình gỡ lỗi nào. Vui lòng chọn trong thẻ 'Thiết lập' trong bảng "
+"'Gỡ lỗi'"
 
 #: debugview.cpp:178
 #, kde-format
@@ -205,6 +207,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Không tìm thấy trình gỡ lỗi. Vui lòng kiểm tra rằng nó đã được cài đặt trong "
+"hệ thống của bạn. Trình gỡ lỗi được chọn là '%1'"
 
 #: debugview.cpp:384
 #, kde-format
@@ -490,7 +494,7 @@ msgstr "hit conditional breakpoints are not supported by the server"
 #: debugview_dap.cpp:1336
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "dòng %1 đã có một điểm ngắt rồi"
 
 #: debugview_dap.cpp:1381
 #, kde-format

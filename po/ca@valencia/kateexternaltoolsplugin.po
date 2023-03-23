@@ -140,13 +140,13 @@ msgstr "Format «Fmt» en tot el fitxer"
 #, kde-format
 msgctxt "External tool name"
 msgid "Search KDE API"
-msgstr "Busca en la API de KDE"
+msgstr "Busca en l'API de KDE"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search Qt API"
-msgstr "Busca en la API de les Qt"
+msgstr "Busca en l'API de les Qt"
 
 #. i18n: file: 8
 #, kde-format

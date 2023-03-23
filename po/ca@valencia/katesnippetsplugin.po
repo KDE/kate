@@ -196,11 +196,11 @@ msgstr ""
 "<tt>camp</tt> que contindrà el contingut actualitzat del camp de plantilla. "
 "Estes variables es poden utilitzar estàticament en la funció o es poden "
 "passar com arguments, utilitzant la sintaxi <tt>${func(camp)}</tt> o <tt>"
-"${camp2=func(camp)}</tt> en la cadena del fragment.<br>Podeu utilitzar la "
-"API per a crear scripts de Kate per a obtindre el text seleccionat, tot el "
-"text, el nom del fitxer i més utilitzant els mètodes adequats dels objectes "
+"${camp2=func(camp)}</tt> en la cadena del fragment.<br>Podeu utilitzar l'API "
+"per a crear scripts de Kate per a obtindre el text seleccionat, tot el text, "
+"el nom del fitxer i més utilitzant els mètodes adequats dels objectes "
 "<tt>document</tt> i <tt>view</tt>. Per a més informació, consulteu la "
-"documentació de la API per a crear scripts.\">Més...</a>"
+"documentació de l'API per a crear scripts.\">Més...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:105

@@ -48,6 +48,7 @@
         "Name[sl]": "Drevo dokumenta",
         "Name[tr]": "Belgeler Ağacı",
         "Name[uk]": "Ієрархія документів",
+        "Name[vi]": "Cây tài liệu",
         "Name[x-test]": "xxDocuments Treexx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

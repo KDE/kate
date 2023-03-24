@@ -9,8 +9,8 @@
 #include "ktexteditor_utils.h"
 
 #include <QApplication>
+#include <QFileInfo>
 #include <QHBoxLayout>
-#include <QMimeDatabase>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPointer>
@@ -674,15 +674,18 @@ markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChang
     hunkChangedLinesB.clear();
 }
 
-static QVector<KSyntaxHighlighting::Definition> defsForMimeTypes(const QSet<QString> &mimeTypes)
+static QVector<KSyntaxHighlighting::Definition> defsForFileExtensions(const QSet<QString> &fileExtensions)
 {
-    if (mimeTypes.size() == 1) {
-        return {KTextEditor::Editor::instance()->repository().definitionForMimeType(*mimeTypes.begin())};
+    const auto &repo = KTextEditor::Editor::instance()->repository();
+    if (fileExtensions.size() == 1) {
+        const QString name = QStringLiteral("a.") + *fileExtensions.begin();
+        return {repo.definitionForFileName(name)};
     }
 
     QVector<KSyntaxHighlighting::Definition> defs;
-    for (const auto &mt : mimeTypes) {
-        defs.push_back(KTextEditor::Editor::instance()->repository().definitionForMimeType(mt));
+    for (const auto &ext : fileExtensions) {
+        const QString name = QStringLiteral("a.") + ext;
+        defs.push_back(repo.definitionForFileName(name));
     }
     QSet<QString> seenDefs;
     QVector<KSyntaxHighlighting::Definition> uniqueDefs;
@@ -695,7 +698,7 @@ static QVector<KSyntaxHighlighting::Definition> defsForMimeTypes(const QSet<QStr
     if (uniqueDefs.size() == 1) {
         return uniqueDefs;
     } else {
-        return {KTextEditor::Editor::instance()->repository().definitionForMimeType(QStringLiteral("None"))};
+        return {repo.definitionForName(QStringLiteral("None"))};
     }
 }
 
@@ -724,7 +727,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     HunkChangedLines hunkChangedLinesA;
     HunkChangedLines hunkChangedLinesB;
 
-    QSet<QString> mimeTypes;
+    QSet<QString> fileExtensions;
     QString srcFile;
     QString tgtFile;
 
@@ -742,12 +745,16 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
         auto match = DIFF_FILENAME_RE.match(line);
         if ((match.hasMatch() || line == QStringLiteral("--- /dev/null")) && i + 1 < text.size()) {
             srcFile = match.hasMatch() ? match.captured(1) : QString();
-            mimeTypes.insert(QMimeDatabase().mimeTypeForFile(match.captured(1), QMimeDatabase::MatchExtension).name());
+            if (!srcFile.isEmpty()) {
+                fileExtensions.insert(QFileInfo(srcFile).suffix());
+            }
             auto match = DIFF_FILENAME_RE.match(text.at(i + 1));
 
             if (match.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
                 tgtFile = match.hasMatch() ? match.captured(1) : QString();
-                mimeTypes.insert(QMimeDatabase().mimeTypeForFile(match.captured(1), QMimeDatabase::MatchExtension).name());
+                if (!tgtFile.isEmpty()) {
+                    fileExtensions.insert(QFileInfo(tgtFile).suffix());
+                }
             }
             i++;
 
@@ -897,7 +904,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     m_lineToDiffHunkLine += linesWithHunkHeading;
     m_linesWithFileName += linesWithFileName;
 
-    const auto defs = defsForMimeTypes(mimeTypes);
+    const auto defs = defsForFileExtensions(fileExtensions);
     leftHl->setDefinition(defs.constFirst());
     rightHl->setDefinition(defs.constFirst());
 }
@@ -931,7 +938,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     // Lines containing filename
     QVector<int> linesWithFileName;
 
-    QSet<QString> mimeTypes;
+    QSet<QString> fileExtensions;
     QString srcFile;
     QString tgtFile;
 
@@ -943,12 +950,16 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
         auto match = DIFF_FILENAME_RE.match(line);
         if ((match.hasMatch() || line == QStringLiteral("--- /dev/null")) && i + 1 < text.size()) {
             srcFile = match.hasMatch() ? match.captured(1) : QString();
-            mimeTypes.insert(QMimeDatabase().mimeTypeForFile(match.captured(1), QMimeDatabase::MatchExtension).name());
+            if (!srcFile.isEmpty()) {
+                fileExtensions.insert(QFileInfo(srcFile).suffix());
+            }
             auto match = DIFF_FILENAME_RE.match(text.at(i + 1));
 
             if (match.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
                 tgtFile = match.hasMatch() ? match.captured(1) : QString();
-                mimeTypes.insert(QMimeDatabase().mimeTypeForFile(match.captured(1), QMimeDatabase::MatchExtension).name());
+                if (!tgtFile.isEmpty()) {
+                    fileExtensions.insert(QFileInfo(tgtFile).suffix());
+                }
             }
             i++;
 
@@ -1069,7 +1080,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     m_lineToRawDiffLine += lineToRawDiffLine;
     m_linesWithFileName += linesWithFileName;
 
-    const auto defs = defsForMimeTypes(mimeTypes);
+    const auto defs = defsForFileExtensions(fileExtensions);
     leftHl->setDefinition(defs.constFirst());
 }
 

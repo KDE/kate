@@ -14,9 +14,9 @@
 #include <KSharedConfig>
 #include <KTextEditor/Editor>
 
+#include <QApplication>
 #include <QClipboard>
 #include <QDateTime>
-#include <QGuiApplication>
 #include <QMenu>
 #include <QPainter>
 #include <QScrollBar>
@@ -139,6 +139,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWid
     , tabButton(tabButton)
 {
     Q_ASSERT(tabButton);
+    setFocusPolicy(Qt::NoFocus);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -443,7 +444,11 @@ void KateOutputView::slotMessage(const QVariantMap &message)
      * if message requires it => show the tool view if hidden
      */
     if (shouldShowOutputToolView) {
+        QPointer<QWidget> focusWidget = qApp->focusWidget();
         m_mainWindow->showToolView(parentWidget());
+        if (focusWidget) {
+            focusWidget->setFocus();
+        }
     }
 }
 

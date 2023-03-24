@@ -6,8 +6,6 @@
 
 #pragma once
 
-#include <ktexteditor/document.h>
-
 #include <QDialog>
 #include <QVector>
 
@@ -16,7 +14,10 @@ class QTemporaryFile;
 class QTreeWidget;
 class QTreeWidgetItem;
 
-typedef QVector<KTextEditor::Document *> DocVector;
+namespace KTextEditor
+{
+class Document;
+}
 
 /**
  * A dialog for handling multiple documents modified on disk
@@ -26,7 +27,7 @@ class KateMwModOnHdDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit KateMwModOnHdDialog(DocVector docs, QWidget *parent = nullptr, const char *name = nullptr);
+    explicit KateMwModOnHdDialog(const QVector<KTextEditor::Document *> &docs, QWidget *parent = nullptr, const char *name = nullptr);
     ~KateMwModOnHdDialog() override;
     void addDocument(KTextEditor::Document *doc);
 
@@ -58,7 +59,7 @@ public Q_SLOTS:
 private:
     enum Action { Ignore, Overwrite, Reload };
     void handleSelected(int action);
-    class QTreeWidget *twDocuments;
+    class QTreeWidget *docsTreeWidget;
     class QDialogButtonBox *dlgButtons;
     class QPushButton *btnDiff;
     QString m_fullDiffPath;

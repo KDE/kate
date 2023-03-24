@@ -15,6 +15,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
+#include <KTextEditor/Document>
 
 #include <QHeaderView>
 #include <QLabel>
@@ -29,7 +30,7 @@
 class KateDocItem : public QTreeWidgetItem
 {
 public:
-    KateDocItem(KTextEditor::Document *doc, const QString &status, QTreeWidget *tw, KateMwModOnHdDialog *dialog)
+    KateDocItem(KTextEditor::Document *doc, const QString &status, QTreeWidget *tw)
         : QTreeWidgetItem(tw)
         , document(doc)
     {
@@ -40,15 +41,11 @@ public:
         } else {
             setCheckState(0, Qt::Unchecked);
         }
-
-        // ensure proper cleanups to avoid dangling pointers, we can arrive here multiple times, use unique connection
-        QObject::connect(doc, &KTextEditor::Document::destroyed, dialog, &KateMwModOnHdDialog::removeDocument, Qt::UniqueConnection);
     }
-
-    KTextEditor::Document *document;
+    QPointer<KTextEditor::Document> document;
 };
 
-KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const char *name)
+KateMwModOnHdDialog::KateMwModOnHdDialog(const QVector<KTextEditor::Document *> &docs, QWidget *parent, const char *name)
     : QDialog(parent)
     , m_fullDiffPath(safeExecutableName(QStringLiteral("diff")))
     , m_proc(nullptr)
@@ -78,24 +75,32 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     hb->setStretchFactor(t, 1000);
 
     // Document list
-    twDocuments = new QTreeWidget(this);
-    mainLayout->addWidget(twDocuments);
+    docsTreeWidget = new QTreeWidget(this);
+    mainLayout->addWidget(docsTreeWidget);
     QStringList header;
     header << i18n("Filename") << i18n("Status on Disk");
-    twDocuments->setHeaderLabels(header);
-    twDocuments->setSelectionMode(QAbstractItemView::SingleSelection);
-    twDocuments->setRootIsDecorated(false);
+    docsTreeWidget->setHeaderLabels(header);
+    docsTreeWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    docsTreeWidget->setRootIsDecorated(false);
 
     m_stateTexts << QString() << i18n("Modified") << i18n("Created") << i18n("Deleted");
-    for (auto &doc : qAsConst(docs)) {
-        new KateDocItem(doc, m_stateTexts[static_cast<uint>(KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason)], twDocuments, this);
-    }
-    twDocuments->header()->setStretchLastSection(false);
-    twDocuments->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-    twDocuments->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    for (auto &doc : docs) {
+        const auto docInfo = KateApp::self()->documentManager()->documentInfo(doc);
+        if (!docInfo) {
+            qWarning() << "Unexpected null doc info";
+            continue;
+        }
+        new KateDocItem(doc, m_stateTexts[static_cast<uint>(docInfo->modifiedOnDiscReason)], docsTreeWidget);
 
-    connect(twDocuments, &QTreeWidget::currentItemChanged, this, &KateMwModOnHdDialog::slotSelectionChanged);
-    connect(twDocuments, &QTreeWidget::itemChanged, this, &KateMwModOnHdDialog::slotCheckedFilesChanged);
+        // ensure proper cleanups to avoid dangling pointers, we can arrive here multiple times, use unique connection
+        connect(doc, &KTextEditor::Document::destroyed, this, &KateMwModOnHdDialog::removeDocument, Qt::UniqueConnection);
+    }
+    docsTreeWidget->header()->setStretchLastSection(false);
+    docsTreeWidget->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    docsTreeWidget->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+    connect(docsTreeWidget, &QTreeWidget::currentItemChanged, this, &KateMwModOnHdDialog::slotSelectionChanged);
+    connect(docsTreeWidget, &QTreeWidget::itemChanged, this, &KateMwModOnHdDialog::slotCheckedFilesChanged);
 
     // Diff line
     hb = new QHBoxLayout;
@@ -181,11 +186,16 @@ void KateMwModOnHdDialog::handleSelected(int action)
 
     // collect all items we can remove
     QList<QTreeWidgetItem *> itemsToDelete;
-    for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
+    for (QTreeWidgetItemIterator it(docsTreeWidget); *it; ++it) {
         KateDocItem *item = static_cast<KateDocItem *>(*it);
+        auto docInfo = KateApp::self()->documentManager()->documentInfo(item->document);
+        if (!item->document || !docInfo) {
+            itemsToDelete.append(item);
+            continue;
+        }
+
         if (item->checkState(0) == Qt::Checked) {
-            KTextEditor::ModificationInterface::ModifiedOnDiskReason reason =
-                KateApp::self()->documentManager()->documentInfo(item->document)->modifiedOnDiscReason;
+            KTextEditor::ModificationInterface::ModifiedOnDiskReason reason = docInfo->modifiedOnDiscReason;
             bool success = true;
 
             if (KTextEditor::ModificationInterface *iface = qobject_cast<KTextEditor::ModificationInterface *>(item->document)) {
@@ -224,7 +234,7 @@ void KateMwModOnHdDialog::handleSelected(int action)
     }
 
     // any documents left unhandled?
-    if (!twDocuments->topLevelItemCount()) {
+    if (!docsTreeWidget->topLevelItemCount()) {
         accept();
     }
 
@@ -238,10 +248,11 @@ void KateMwModOnHdDialog::handleSelected(int action)
 void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
     KateDocItem *currentDocItem = static_cast<KateDocItem *>(current);
-    // set the diff button enabled
-    btnDiff->setEnabled(currentDocItem
-                        && KateApp::self()->documentManager()->documentInfo(currentDocItem->document)->modifiedOnDiscReason
-                            != KTextEditor::ModificationInterface::OnDiskDeleted);
+    if (currentDocItem && currentDocItem->document) {
+        auto *docInfo = KateApp::self()->documentManager()->documentInfo(currentDocItem->document);
+        // set the diff button enabled
+        btnDiff->setEnabled(docInfo && docInfo->modifiedOnDiscReason != KTextEditor::ModificationInterface::OnDiskDeleted);
+    }
 }
 
 void KateMwModOnHdDialog::slotCheckedFilesChanged(QTreeWidgetItem *, int column)
@@ -251,7 +262,7 @@ void KateMwModOnHdDialog::slotCheckedFilesChanged(QTreeWidgetItem *, int column)
         return;
     }
 
-    for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
+    for (QTreeWidgetItemIterator it(docsTreeWidget); *it; ++it) {
         KateDocItem *item = static_cast<KateDocItem *>(*it);
         if (item->checkState(0) == Qt::Checked) {
             // at least 1 item is checked so we enable the buttons
@@ -272,14 +283,18 @@ void KateMwModOnHdDialog::slotDiff()
         return;
     }
 
-    if (!twDocuments->currentItem()) {
+    if (!docsTreeWidget->currentItem()) {
         return;
     }
 
-    KTextEditor::Document *doc = (static_cast<KateDocItem *>(twDocuments->currentItem()))->document;
+    KTextEditor::Document *doc = (static_cast<KateDocItem *>(docsTreeWidget->currentItem()))->document;
+    auto docInfo = KateApp::self()->documentManager()->documentInfo(doc);
+    if (!doc || !docInfo) {
+        return;
+    }
 
     // don't try to diff a deleted file
-    if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason == KTextEditor::ModificationInterface::OnDiskDeleted) {
+    if (docInfo->modifiedOnDiscReason == KTextEditor::ModificationInterface::OnDiskDeleted) {
         return;
     }
 
@@ -321,7 +336,7 @@ void KateMwModOnHdDialog::slotDataAvailable()
 void KateMwModOnHdDialog::slotPDone()
 {
     setCursor(Qt::ArrowCursor);
-    slotSelectionChanged(twDocuments->currentItem(), nullptr);
+    slotSelectionChanged(docsTreeWidget->currentItem(), nullptr);
 
     const QProcess::ExitStatus es = m_proc->exitStatus();
     delete m_proc;
@@ -355,7 +370,7 @@ void KateMwModOnHdDialog::slotPDone()
 void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
 {
     // guard this e.g. during handleSelected
-    if (m_blockAddDocument) {
+    if (m_blockAddDocument || !KateApp::self()->documentManager()->documentInfo(doc)) {
         return;
     }
 
@@ -364,19 +379,21 @@ void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
 
     uint reason = static_cast<uint>(KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason);
     if (reason) {
-        new KateDocItem(doc, m_stateTexts[reason], twDocuments, this);
+        new KateDocItem(doc, m_stateTexts[reason], docsTreeWidget);
+        connect(doc, &KTextEditor::Document::destroyed, this, &KateMwModOnHdDialog::removeDocument, Qt::UniqueConnection);
     }
 
-    if (!twDocuments->topLevelItemCount()) {
+    if (!docsTreeWidget->topLevelItemCount()) {
         accept();
     }
 }
 
 void KateMwModOnHdDialog::removeDocument(QObject *doc)
 {
-    for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
+    for (QTreeWidgetItemIterator it(docsTreeWidget); *it; ++it) {
         KateDocItem *item = static_cast<KateDocItem *>(*it);
         if (item->document == static_cast<KTextEditor::Document *>(doc)) {
+            disconnect(item->document, nullptr, this, nullptr);
             delete item;
             break;
         }
@@ -396,7 +413,7 @@ void KateMwModOnHdDialog::keyPressEvent(QKeyEvent *event)
 
 void KateMwModOnHdDialog::closeEvent(QCloseEvent *e)
 {
-    if (!twDocuments->topLevelItemCount()) {
+    if (!docsTreeWidget->topLevelItemCount()) {
         QDialog::closeEvent(e);
     } else {
         e->ignore();

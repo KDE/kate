@@ -167,6 +167,8 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
 
     connect(this, &KateMDI::MainWindow::sigShowPluginConfigPage, this, &KateMainWindow::showPluginConfigPage);
 
+    connect(qApp, &QApplication::applicationStateChanged, this, &KateMainWindow::onApplicationStateChanged);
+
     // prior to this there was (possibly) no view, therefore not context menu.
     // Hence, we have to take care of the menu bar here
     toggleShowMenuBar(false);
@@ -1307,7 +1309,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
         // but Kate isn't the active app. Delay the dialog exec
         // otherwise it will bring us front interrupting user's
         // work.
-        if (!qApp->activeWindow() || !hasFocus()) {
+        if (qApp->applicationState() != Qt::ApplicationActive) {
             m_modignore = false;
             s_modOnHdDialog->setShowOnWindowActivation(true);
             // hopefully this shows an alert to the user in task bar
@@ -1337,20 +1339,6 @@ bool KateMainWindow::event(QEvent *e)
             if (!m_toolViewDiags->isHidden()) {
                 hideToolView(m_toolViewDiags);
             }
-        }
-    }
-
-    if (e->type() == QEvent::ActivationChange) {
-        // After queueModifiedOnDisc, the app wasn't active but now it got
-        // active. Show the dialog.
-        if (s_modOnHdDialog && s_modOnHdDialog->showOnWindowActivation()) {
-            // Must set this to false, we want only one exec to happen.
-            s_modOnHdDialog->setShowOnWindowActivation(false);
-            // do it on next event loop iteration to avoid blocking here
-            QTimer::singleShot(1, this, [] {
-                s_modOnHdDialog->exec();
-                delete s_modOnHdDialog;
-            });
         }
     }
 
@@ -1541,4 +1529,19 @@ void KateMainWindow::addRecentOpenedFile(const QUrl &url)
      renable when it is 0/ms again*/
     // to the global "Recent Document Menu", see bug 420504
     // KRecentDocument::add(url);
+}
+
+void KateMainWindow::onApplicationStateChanged(Qt::ApplicationState)
+{
+    // After queueModifiedOnDisc, the app wasn't active but now it got
+    // active. Show the dialog.
+    if (s_modOnHdDialog && s_modOnHdDialog->showOnWindowActivation() && qApp->applicationState() == Qt::ApplicationActive) {
+        // Must set this to false, we want only one exec to happen.
+        s_modOnHdDialog->setShowOnWindowActivation(false);
+        // do it on next event loop iteration to avoid blocking here
+        QTimer::singleShot(1, this, [] {
+            s_modOnHdDialog->exec();
+            delete s_modOnHdDialog;
+        });
+    }
 }

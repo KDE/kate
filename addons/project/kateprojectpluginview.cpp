@@ -255,11 +255,6 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      */
     connect(this, &KateProjectPluginView::projectMapChanged, this, &KateProjectPluginView::updateActions);
     updateActions();
-
-    /**
-     * ensure we react on requests to active a project from the plugin
-     */
-    connect(m_plugin, &KateProjectPlugin::activateProject, this, &KateProjectPluginView::slotActivateProject);
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -857,18 +852,23 @@ void KateProjectPluginView::openDirectoryOrProject(const QDir &dir)
 {
     // switch to this project if there
     if (auto project = m_plugin->projectForDir(dir, true)) {
-        // just activate the right plugin in the toolview
-        slotActivateProject(project);
+        openProject(project);
+    }
+}
 
-        // this is a user action, ensure the toolview is visible
-        mainWindow()->showToolView(m_toolView);
+void KateProjectPluginView::openProject(KateProject *project)
+{
+    // just activate the right plugin in the toolview
+    slotActivateProject(project);
 
-        // add the project to the recently opened items list
-        if (auto *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window())) {
-            if (auto *openRecentAction = parentClient->action(KStandardAction::name(KStandardAction::StandardAction::OpenRecent))) {
-                if (auto *recentFilesAction = qobject_cast<KRecentFilesAction *>(openRecentAction)) {
-                    recentFilesAction->addUrl(QUrl::fromLocalFile(dir.path()));
-                }
+    // this is a user action, ensure the toolview is visible
+    mainWindow()->showToolView(m_toolView);
+
+    // add the project to the recently opened items list
+    if (auto *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window())) {
+        if (auto *openRecentAction = parentClient->action(KStandardAction::name(KStandardAction::StandardAction::OpenRecent))) {
+            if (auto *recentFilesAction = qobject_cast<KRecentFilesAction *>(openRecentAction)) {
+                recentFilesAction->addUrl(QUrl::fromLocalFile(project->baseDir()));
             }
         }
     }

@@ -199,13 +199,6 @@ Q_SIGNALS:
      */
     void configUpdated();
 
-    /**
-     * Signal emitted to tell the views to activate some project.
-     * Used for loading projects from the command line.
-     * @param project project to activate in the views
-     */
-    void activateProject(KateProject *project);
-
 public Q_SLOTS:
     /**
      * New document got created, we need to update our connections

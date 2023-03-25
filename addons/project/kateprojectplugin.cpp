@@ -663,7 +663,12 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 
     // if we have some project opened, ensure it is the active one, this happens after session restore
     if (projectToActivate) {
-        Q_EMIT activateProject(projectToActivate);
+        // delay this to ensure main windows are already there
+        QTimer::singleShot(0, projectToActivate, [projectToActivate]() {
+            if (auto pluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("kateprojectplugin"))) {
+                static_cast<KateProjectPluginView *>(pluginView)->openProject(projectToActivate);
+            }
+        });
     }
 }
 

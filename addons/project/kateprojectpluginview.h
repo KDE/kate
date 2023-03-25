@@ -116,6 +116,16 @@ public:
      */
     void openTerminal(const QString &dirPath, KateProject *project);
 
+    /**
+     * Open a folder / project
+     */
+    void openDirectoryOrProject(const QDir &dir);
+
+    /**
+     * Open a project
+     */
+    void openProject(KateProject *project);
+
 public Q_SLOTS:
     /**
      * Create views for given project.
@@ -294,11 +304,6 @@ private Q_SLOTS:
      * Open a folder / project
      */
     void openDirectoryOrProject();
-
-    /**
-     * Open a folder / project
-     */
-    void openDirectoryOrProject(const QDir &dir);
 
     /**
      * Show projects To-Dos and Fix-mes

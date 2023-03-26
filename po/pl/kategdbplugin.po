@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2023-02-12 09:41+0100\n"
+"PO-Revision-Date: 2023-03-25 09:56+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -191,7 +191,7 @@ msgstr "Rejestry CPU"
 #: debugview.cpp:160
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
+msgstr "Ustaw plik wykonywalny na karcie 'Ustawienia' na pasku 'Diagnostyka'."
 
 #: debugview.cpp:169
 #, kde-format
@@ -199,6 +199,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Nie wybrano debuggera. Wybierz go na karcie 'Ustawienia' na pasku "
+"'Diagnostyka'."
 
 #: debugview.cpp:178
 #, kde-format
@@ -206,6 +208,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Nie znaleziono debuggera. Upewnij się, że masz go na swoim systemie. Wybrany "
+"debugger to '%1'"
 
 #: debugview.cpp:384
 #, kde-format
@@ -492,7 +496,7 @@ msgstr ""
 #: debugview_dap.cpp:1334
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "wierz %1 ma już pułapkę"
 
 #: debugview_dap.cpp:1379
 #, kde-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-14 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2023-03-12 13:59+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -800,7 +800,7 @@ msgstr ""
 "Plena vojo al aktuala projekto ekskludante la dosiernomon, kun denaska "
 "padodisigilo (malantaŭa oblikvo en Vindozo)."
 
-#: kateprojectplugin.cpp:699 kateprojectpluginview.cpp:73
+#: kateprojectplugin.cpp:704 kateprojectpluginview.cpp:73
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
 #: kateprojectviewtree.cpp:156
 #, kde-format
@@ -877,22 +877,22 @@ msgstr "Fermi Orfigitajn Projektojn"
 msgid "Checkout Git Branch"
 msgstr "Elpreni Git-Branĉon"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:803
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:798
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Serĉo: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:804
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:799
 #, kde-format
 msgid "Goto: %1"
 msgstr "Iri al: %1"
 
-#: kateprojectpluginview.cpp:308
+#: kateprojectpluginview.cpp:303
 #, kde-format
 msgid "Projects Index"
 msgstr "Indekso de Projektoj"
 
-#: kateprojectpluginview.cpp:848
+#: kateprojectpluginview.cpp:843
 #, kde-format
 msgid "Choose a directory"
 msgstr "Elekti dosierujon"

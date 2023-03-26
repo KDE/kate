@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -1431,7 +1431,7 @@ msgstr "Ritcherdjî tos les documints di drovous."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Clôre li documint do moumint."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, fuzzy, kde-format
 #| msgid "Opening Order"
 msgid "&Open Containing Folder"
@@ -2719,52 +2719,58 @@ msgstr "Wårder l' &meta-informåcion des sessions di passêyes"
 msgid "Delete unused meta-information after:"
 msgstr "D&isfacer les meta-informåcion nén eployeyes après:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "Drovi documints"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "Drovi documints"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents or projects"
 msgstr "Drovi documints"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents"
 msgstr "Drovi documints"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Do not save session"
 msgid "No saved sessions"
 msgstr "&Ni nén schaper l' session"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open Selected Files..."
+msgstr "Drovi fitchî"
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy &Location"
 msgstr "Eplaeçmint"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, fuzzy, kde-format
 #| msgid "&Remove"
 msgid "&Remove"

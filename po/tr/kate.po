@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2023-03-21 21:20+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -1419,7 +1419,7 @@ msgstr "Tüm açık belgeleri yeniden yükle."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Geçerli dosyanın dosya yolunu panoya kopyalar."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "İçeren K&lasörü Aç"
@@ -2669,42 +2669,48 @@ msgstr "Geçmiş oturumlardaki &üstbilgiyi sakla"
 msgid "Delete unused meta-information after:"
 msgstr "Kullanılmayan üstbilgiyi sil:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr "%1 uygulamasına hoş geldiniz"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Son Kullanılan Belgeler ve Projeler"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "Recent Documents"
 msgstr "Son Kullanılan Belgeler"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "Son kullanılan belge veya proje yok"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, kde-format
 msgid "No recent documents"
 msgstr "Son kullanılan belge yok"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, kde-format
 msgid "No saved sessions"
 msgstr "Kayıtlı oturum yok"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File..."
+msgid "Open Selected Files..."
+msgstr "Dosya Aç..."
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, kde-format
 msgid "Copy &Location"
 msgstr "Konu&mu Kopyala"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr "&Kaldır"

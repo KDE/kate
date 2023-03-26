@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -1451,7 +1451,7 @@ msgstr "सबै खुला कागजात बन्द गर्नु�
 msgid "Copies the file path of the current file to clipboard."
 msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, fuzzy, kde-format
 #| msgid "&opening order"
 msgid "&Open Containing Folder"
@@ -2773,52 +2773,58 @@ msgstr "बिगतका सत्रहरूको मेटा सूचन
 msgid "Delete unused meta-information after:"
 msgstr "यस पछाडि प्रयोग नगरिएका मेटा सूचना मेट्नुहोस्:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "खुला कागजात"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "खुला कागजात"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents or projects"
 msgstr "खुला कागजात"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents"
 msgstr "खुला कागजात"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Do not save session"
 msgid "No saved sessions"
 msgstr "सत्र बचत नगर्नुहोस्"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open Selected Files..."
+msgstr "फाइल खोल्नुहोस्"
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, fuzzy, kde-format
 #| msgid "Choose Location"
 msgid "Copy &Location"
 msgstr "स्थान रोज्नुहोस्"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr "हटाउनुहोस्"

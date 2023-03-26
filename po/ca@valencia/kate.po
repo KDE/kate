@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2023-03-06 15:43+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -1425,7 +1425,7 @@ msgstr "Actualitza tots els documents oberts."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Copia el camí del fitxer del fitxer actual al porta-retalls."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "O&bri la carpeta contenidora"
@@ -2679,42 +2679,48 @@ msgstr "Conserva la &meta-informació de les sessions antigues"
 msgid "Delete unused meta-information after:"
 msgstr "Suprimix la meta-informació sense utilitzar després de:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr "Us donem la benvinguda a %1"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Documents i projectes recents"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "Recent Documents"
 msgstr "Documents recents"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "No hi ha documents ni projectes recents"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, kde-format
 msgid "No recent documents"
 msgstr "No hi ha cap document recent"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, kde-format
 msgid "No saved sessions"
 msgstr "No hi ha cap sessió guardada"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File..."
+msgid "Open Selected Files..."
+msgstr "Obri un fitxer..."
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, kde-format
 msgid "Copy &Location"
 msgstr "Copia la &ubicació"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr "&Elimina"

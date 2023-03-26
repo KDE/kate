@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2006-10-20 20:16+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -1437,7 +1437,7 @@ msgstr "Tutup semua dokumen yang dibuka."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Jadikan paparan cerai berikutnya aktif."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, fuzzy, kde-format
 msgid "&Open Containing Folder"
 msgstr "Tertib Buka"
@@ -2727,43 +2727,49 @@ msgstr "Pastikan maklumat &meta melepasi sesi"
 msgid "Delete unused meta-information after:"
 msgstr "&Hapuskan maklumat meta data yang tak diguna selepas:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Buka Dokumen"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 msgid "Recent Documents"
 msgstr "Buka Dokumen"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 msgid "No recent documents or projects"
 msgstr "Buka Dokumen"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 msgid "No recent documents"
 msgstr "Buka Dokumen"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Do not save session"
 msgid "No saved sessions"
 msgstr "&Jangan simpan sesi"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open Selected Files..."
+msgstr "Buka Fail"
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, fuzzy, kde-format
 msgid "Copy &Location"
 msgstr "Lokasi"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr ""

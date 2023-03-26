@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2022-07-13 14:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1392,7 +1392,7 @@ msgstr "모든 열린 문서를 다시 불러옵니다."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "클립보드에 현재 파일 경로를 복사합니다."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "포함하는 폴더 열기(&O)"
@@ -2641,52 +2641,58 @@ msgstr "이전 세션의 메타 정보 보존하기(&M)"
 msgid "Delete unused meta-information after:"
 msgstr "사용하지 않은 메타 정보를 지울 시간:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents or projects"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "세션 저장(&S)"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open Selected Files..."
+msgstr "파일 열기"
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgid "Copy &Location"
 msgstr "위치 복사"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr ""

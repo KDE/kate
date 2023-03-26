@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-14 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2023-03-11 04:52\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -790,7 +790,7 @@ msgstr ""
 "当前工程的完整路径，不包含文件名，使用原生路径分隔符 (在 Windows 中是反斜"
 "线)。"
 
-#: kateprojectplugin.cpp:699 kateprojectpluginview.cpp:73
+#: kateprojectplugin.cpp:704 kateprojectpluginview.cpp:73
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
 #: kateprojectviewtree.cpp:156
 #, kde-format
@@ -867,22 +867,22 @@ msgstr "关闭孤立项目"
 msgid "Checkout Git Branch"
 msgstr "检出 Git 分支"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:803
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:798
 #, kde-format
 msgid "Lookup: %1"
 msgstr "查询：%1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:804
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:799
 #, kde-format
 msgid "Goto: %1"
 msgstr "转到：%1"
 
-#: kateprojectpluginview.cpp:308
+#: kateprojectpluginview.cpp:303
 #, kde-format
 msgid "Projects Index"
 msgstr "项目索引"
 
-#: kateprojectpluginview.cpp:848
+#: kateprojectpluginview.cpp:843
 #, kde-format
 msgid "Choose a directory"
 msgstr "选择一个目录"

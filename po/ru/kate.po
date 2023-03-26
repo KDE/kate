@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2022-12-21 12:08+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1436,7 +1436,7 @@ msgstr "Обновить все открытые документы."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Скопировать в буфер обмена путь к текущему файлу."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Открыть содержащую папку"
@@ -2685,42 +2685,48 @@ msgstr "Сохранять &метаинформацию сеанса"
 msgid "Delete unused meta-information after:"
 msgstr "Удалять неиспользуемые данные через:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr "Добро пожаловать в %1"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Последние документы и проекты"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "Recent Documents"
 msgstr "Последние документы"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "Нет ни одного последнего документа или проекта"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, kde-format
 msgid "No recent documents"
 msgstr "Нет ни одного последнего документа"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, kde-format
 msgid "No saved sessions"
 msgstr "Нет ни одного сохранённого сеанса"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File..."
+msgid "Open Selected Files..."
+msgstr "Открыть файл…"
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, kde-format
 msgid "Copy &Location"
 msgstr "Копировать &расположение"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr "&Удалить из списка"

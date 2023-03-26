@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-14 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2023-03-03 10:01-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -817,7 +817,7 @@ msgstr ""
 "Caminho completo do projeto atual sem o nome do arquivo e com o separador de "
 "pastas nativo (barra invertida no Windows)."
 
-#: kateprojectplugin.cpp:699 kateprojectpluginview.cpp:73
+#: kateprojectplugin.cpp:704 kateprojectpluginview.cpp:73
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
 #: kateprojectviewtree.cpp:156
 #, kde-format
@@ -894,22 +894,22 @@ msgstr "Fechar projetos órfãos"
 msgid "Checkout Git Branch"
 msgstr "Checkout git branch"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:803
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:798
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Procurar: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:804
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:799
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ir para: %1"
 
-#: kateprojectpluginview.cpp:308
+#: kateprojectpluginview.cpp:303
 #, kde-format
 msgid "Projects Index"
 msgstr "Índice dos projetos"
 
-#: kateprojectpluginview.cpp:848
+#: kateprojectpluginview.cpp:843
 #, kde-format
 msgid "Choose a directory"
 msgstr "Escolha uma pasta"

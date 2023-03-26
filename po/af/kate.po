@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -1439,7 +1439,7 @@ msgstr "Maak toe alle open dokumente."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Maak die volgende skei besigtig die aktief een."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, fuzzy, kde-format
 msgid "&Open Containing Folder"
 msgstr "Oopmaak volgorde"
@@ -2746,43 +2746,49 @@ msgstr "Hou meta-informasie na sessies"
 msgid "Delete unused meta-information after:"
 msgstr "Vee ongebruikte meta-inligting uit na:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Maak dokumente oop"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 msgid "Recent Documents"
 msgstr "Maak dokumente oop"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 msgid "No recent documents or projects"
 msgstr "Maak dokumente oop"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 msgid "No recent documents"
 msgstr "Maak dokumente oop"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Do not save session"
 msgid "No saved sessions"
 msgstr "Moet nie die sessie stoor nie"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open Selected Files..."
+msgstr "Open Lêer"
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, fuzzy, kde-format
 msgid "Copy &Location"
 msgstr "Ligging"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr ""

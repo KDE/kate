@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2022-07-14 10:21+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1410,7 +1410,7 @@ msgstr "bütün açılmış sənədləri yenidən yükləmək."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Cari faylın fayl yolunu mübadilə yaddaşına kopyalayır."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Fayldan ibarət qovluğu açmaq"
@@ -2682,48 +2682,54 @@ msgstr "Sonuncu sesiyanın &meta məlumatlarını saxlayın"
 msgid "Delete unused meta-information after:"
 msgstr "İstifadə olunmamış meta məlumatlarını silin"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgid "Reload all open documents."
 msgid "Recent Documents and Projects"
 msgstr "bütün açılmış sənədləri yenidən yükləmək."
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgid "Reload all open documents."
 msgid "Recent Documents"
 msgstr "bütün açılmış sənədləri yenidən yükləmək."
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgid "Reload all open documents."
 msgid "No recent documents or projects"
 msgstr "bütün açılmış sənədləri yenidən yükləmək."
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgid "Reload all open documents."
 msgid "No recent documents"
 msgstr "bütün açılmış sənədləri yenidən yükləmək."
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "&Sesiyanı saxlamaq"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open Selected Files..."
+msgstr "Faylı Açmaq"
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgid "Copy &Location"
 msgstr "Ünvanı kopyalayın"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr ""

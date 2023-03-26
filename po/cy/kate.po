@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:49+0000\n"
+"POT-Creation-Date: 2023-03-26 00:51+0000\n"
 "PO-Revision-Date: 2004-06-30 15:15+0100\n"
 "Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -1421,7 +1421,7 @@ msgstr "Cau bob dogfen agored."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr ""
@@ -2684,42 +2684,48 @@ msgstr "Cadw m&eta-wybodaeth tu hwnt i'r sesiwn"
 msgid "Delete unused meta-information after:"
 msgstr "&Dileu meta-wybodaeth nas defnyddwyd ar ôl:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Dogfennau"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 msgid "Recent Documents"
 msgstr "Dogfennau"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 msgid "No recent documents or projects"
 msgstr "Dogfennau"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 msgid "No recent documents"
 msgstr "Dogfennau"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 msgid "No saved sessions"
 msgstr "Sesiwn"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open Selected Files..."
+msgstr "Agor Ffeil"
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, fuzzy, kde-format
 msgid "Copy &Location"
 msgstr "Lleoliad"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr ""

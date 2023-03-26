@@ -5,12 +5,12 @@
 */
 #pragma once
 
+#include <KColorButton>
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/MovingRange>
 #include <KTextEditor/Plugin>
-#include <KWidgetsAddons/KColorButton>
 #include <KXMLGUIClient>
 
 #include <QPointer>

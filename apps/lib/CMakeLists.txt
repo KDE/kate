@@ -87,7 +87,7 @@ else()
 endif()
 
 if (TARGET KUserFeedbackWidgets${KUSERFEEDBACK_SUFFIX})
-    target_link_libraries(kateprivate PRIVATE KUserFeedbackWidgets${KUSERFEEDBACK_SUFFIX})
+    target_link_libraries(kateprivate PUBLIC KUserFeedbackWidgets${KUSERFEEDBACK_SUFFIX})
     target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 

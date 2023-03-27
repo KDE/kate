@@ -107,7 +107,6 @@ Q_SIGNALS:
 
 class ClangFormat : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
     QString name() const override
@@ -129,7 +128,6 @@ private:
 
 class DartFormat : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
     QString name() const override
@@ -152,7 +150,6 @@ private:
 
 class JsonJqFormat : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
     QString name() const override
@@ -186,7 +183,6 @@ private:
 
 class PrettierFormat : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
 
@@ -219,7 +215,6 @@ private:
 
 class RustFormat : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
     QString name() const override
@@ -243,7 +238,6 @@ private:
 
 class XmlLintFormat : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
     QString name() const override
@@ -282,7 +276,6 @@ public:
 
 class GoFormat : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
     QString name() const override
@@ -306,7 +299,6 @@ private:
 
 class ZigFormat : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
     QString name() const override
@@ -328,7 +320,6 @@ private:
 
 class CMakeFormat : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
     QString name() const override
@@ -344,7 +335,6 @@ public:
 
 class AutoPep8Format : public AbstractFormatter
 {
-    Q_OBJECT
 public:
     using AbstractFormatter::AbstractFormatter;
     QString name() const override

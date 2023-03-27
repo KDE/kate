@@ -837,6 +837,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="uk">Широка підтримка протоколів (http, ftp, ssh, webdav тощо)</li>
       <li xml:lang="vi">Hỗ trợ nhiều giao thức (http, ftp, ssh, webdav, v.v.)</li>
       <li xml:lang="x-test">xxWide protocol support (http, ftp, ssh, webdav etc.)xx</li>
+      <li xml:lang="zh-CN">支持广泛的协议 (HTTP、FTP、SSH、WebDAV 等)</li>
       <li>Plugin architecture for the application and editor component</li>
       <li xml:lang="ar">بنية ملحقات للتّطبيق ومكوّن المحرّر</li>
       <li xml:lang="az">Tətbiq və redaktor komponentləri üçün qoşma arxitekturası</li>

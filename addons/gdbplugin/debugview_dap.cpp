@@ -7,8 +7,8 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QJsonDocument>
+#include <QRegularExpression>
 #include <pthread.h>
-#include <qregularexpression.h>
 
 #include <KLocalizedString>
 

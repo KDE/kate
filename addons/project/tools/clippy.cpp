@@ -9,7 +9,7 @@
 
 #include <QDir>
 #include <QRegularExpression>
-#include <qstringliteral.h>
+#include <QStringLiteral>
 
 Clippy::Clippy(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)

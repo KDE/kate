@@ -45,6 +45,15 @@ public:
 
     void showDiagnosticsView();
 
+    /**
+     * Whether diagnostics of this provider should be automatically cleared
+     * when a document is closed
+     */
+    void setPersistentDiagnostics(bool p)
+    {
+        m_persistentDiagnostics = p;
+    }
+
 Q_SIGNALS:
     /// emitted by provider when diags are available
     void diagnosticsAdded(const FileDiagnostics &);
@@ -68,6 +77,7 @@ Q_SIGNALS:
 private:
     friend class DiagnosticsView;
     class DiagnosticsView *diagnosticView;
+    bool m_persistentDiagnostics = false;
 };
 
 class DiagnosticsView : public QWidget

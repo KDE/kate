@@ -44,12 +44,14 @@
         "Name[it]": "Albero dei documenti",
         "Name[ka]": "დოკუმენტის ხე",
         "Name[nl]": "Documentboomstructuur",
+        "Name[pl]": "Drzewo dokumentów",
         "Name[pt]": "Árvore de Documentos",
         "Name[sl]": "Drevo dokumenta",
         "Name[tr]": "Belgeler Ağacı",
         "Name[uk]": "Ієрархія документів",
         "Name[vi]": "Cây tài liệu",
         "Name[x-test]": "xxDocuments Treexx",
+        "Name[zh_CN]": "文档树",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

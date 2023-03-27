@@ -22,6 +22,7 @@
         "Description[uk]": "Запустити ESLint для поточного файла",
         "Description[vi]": "Chạy ESLint cho tệp hiện tại",
         "Description[x-test]": "xxRuns ESLint on current filexx",
+        "Description[zh_CN]": "在当前文件运行 ESLint",
         "Name": "ESLint",
         "Name[bg]": "ESLint",
         "Name[ca@valencia]": "ESLint",
@@ -44,6 +45,7 @@
         "Name[uk]": "ESLint",
         "Name[vi]": "ESLint",
         "Name[x-test]": "xxESLintxx",
+        "Name[zh_CN]": "ESLint",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

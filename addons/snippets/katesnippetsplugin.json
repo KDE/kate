@@ -46,12 +46,14 @@
         "Name[it]": "Frammenti",
         "Name[ka]": "ფრაგმენტები",
         "Name[nl]": "Fragmenten",
+        "Name[pl]": "Wstawki",
         "Name[pt]": "Excertos",
         "Name[sl]": "Delčki besedil",
         "Name[tr]": "Kod Parçacıkları",
         "Name[uk]": "Фрагменти",
         "Name[vi]": "Mảnh mã",
         "Name[x-test]": "xxSnippetsxx",
+        "Name[zh_CN]": "代码片段",
         "ServiceTypes": [
             "KTextEditor/Plugin",
             "KDevelop/Plugin"

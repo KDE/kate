@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-26 00:51+0000\n"
-"PO-Revision-Date: 2023-03-05 10:40+0530\n"
+"PO-Revision-Date: 2023-03-26 12:21+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.03.80\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2676,10 +2676,9 @@ msgid "No saved sessions"
 msgstr "எந்த அமர்வும் சேமிக்கப்படவில்லை"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "கோப்பை திற..."
+msgstr "தேர்ந்தெடுத்த கோப்புகளை திற..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

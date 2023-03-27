@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-26 00:51+0000\n"
-"PO-Revision-Date: 2023-02-27 08:53+0200\n"
+"PO-Revision-Date: 2023-03-26 08:41+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -2724,10 +2724,9 @@ msgid "No saved sessions"
 msgstr "Немає збережених сеансів"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Відкрити файл…"
+msgstr "Відкрити позначені файли…"
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

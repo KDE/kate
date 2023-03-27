@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-26 00:51+0000\n"
-"PO-Revision-Date: 2023-02-27 05:11+0100\n"
+"PO-Revision-Date: 2023-03-26 19:31+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -32,7 +32,7 @@ msgstr ""
 "the.blue.valkyrie@gmail.com>\n"
 "com>\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.03.80\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -2743,10 +2743,9 @@ msgid "No saved sessions"
 msgstr "No hay sesiones guardadas"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Abrir archivo..."
+msgstr "Abrir archivos seleccionados..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-17 01:00+0000\n"
-"PO-Revision-Date: 2023-03-11 04:52\n"
+"PO-Revision-Date: 2023-03-26 02:18\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -188,21 +188,21 @@ msgstr "CPU 寄存器"
 #: debugview.cpp:160
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
+msgstr "请在“调试”面板的“设置”选项卡中设置可执行文件。"
 
 #: debugview.cpp:169
 #, kde-format
 msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
-msgstr ""
+msgstr "没有选择调试器。请在“调试”面板“设置”选项卡中选择一个。"
 
 #: debugview.cpp:178
 #, kde-format
 msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
-msgstr ""
+msgstr "调试器未找到。请确保您的系统中已经安装了它。所选调试器是‘%1’"
 
 #: debugview.cpp:384
 #, kde-format
@@ -374,7 +374,7 @@ msgstr "(%1) 断点"
 #: debugview_dap.cpp:717
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<not evaluated>"
 
 #: debugview_dap.cpp:739
 #, kde-format
@@ -486,7 +486,7 @@ msgstr "服务器不支持命中条件断点"
 #: debugview_dap.cpp:1336
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "行 %1 已经有一个断点"
 
 #: debugview_dap.cpp:1381
 #, kde-format
@@ -501,7 +501,7 @@ msgstr "当前线程："
 #: debugview_dap.cpp:1392 debugview_dap.cpp:1399 debugview_dap.cpp:1423
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "无"
 
 #: debugview_dap.cpp:1395
 #, kde-format
@@ -536,12 +536,12 @@ msgstr "已终止"
 #: debugview_dap.cpp:1417
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "已断开"
 
 #: debugview_dap.cpp:1420
 #, kde-format
 msgid "post mortem"
-msgstr ""
+msgstr "事后剖析"
 
 #: debugview_dap.cpp:1476
 #, kde-format
@@ -556,12 +556,12 @@ msgstr "缺少线程 ID"
 #: debugview_dap.cpp:1605
 #, kde-format
 msgid "killing backend"
-msgstr ""
+msgstr "杀死后端"
 
 #: debugview_dap.cpp:1663
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "当前帧 [%3]：%1：%2 (%4)"
 
 #: localsview.cpp:17
 #, kde-format
@@ -576,17 +576,17 @@ msgstr "值"
 #: localsview.cpp:41
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "类型"
 
 #: localsview.cpp:50
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "索引项"
 
 #: localsview.cpp:53
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "已命名项目"
 
 #: plugin_kategdb.cpp:66
 #, kde-format

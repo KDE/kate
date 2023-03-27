@@ -668,12 +668,17 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
 {
     // If provider == null, all diags get cleared
     auto all_diags_from_provider = [provider](QStandardItem *file) {
-        if (file->rowCount() == 0 || !provider) {
+        if (file->rowCount() == 0) {
             return true;
         }
         for (int i = 0; i < file->rowCount(); ++i) {
             auto diagItem = file->child(i);
             auto p = getProvider(diagItem);
+            // provider == null => means a doc was closed
+            // dont clear diagnostics if the provider has persistent diagnostics
+            if (!provider) {
+                return !p->m_persistentDiagnostics;
+            }
             if (provider != p) {
                 return false;
             }

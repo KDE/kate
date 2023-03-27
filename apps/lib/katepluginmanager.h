@@ -34,13 +34,11 @@ public:
 
 typedef QList<KatePluginInfo> KatePluginList;
 
-class KatePluginManager : public QObject
+class KatePluginManager
 {
-    Q_OBJECT
-
 public:
-    explicit KatePluginManager(QObject *parent);
-    ~KatePluginManager() override;
+    explicit KatePluginManager();
+    ~KatePluginManager();
 
     void unloadAllPlugins();
 

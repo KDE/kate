@@ -196,7 +196,6 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
     , m_wrapper(appSelf = this)
     , m_adaptor(this)
     , m_docManager(this)
-    , m_pluginManager(this)
     , m_sessionManager(this, sessionsDir)
     , m_stashManager(this)
 {

@@ -36,8 +36,7 @@ bool KatePluginInfo::operator<(const KatePluginInfo &other) const
     return saveName() < other.saveName();
 }
 
-KatePluginManager::KatePluginManager(QObject *parent)
-    : QObject(parent)
+KatePluginManager::KatePluginManager()
 {
     setupPluginList();
 }
@@ -184,7 +183,7 @@ bool KatePluginManager::loadPlugin(KatePluginInfo *item)
     /**
      * try to load the plugin
      */
-    item->plugin = KPluginFactory::instantiatePlugin<KTextEditor::Plugin>(item->metaData, this, QVariantList() << item->saveName()).plugin;
+    item->plugin = KPluginFactory::instantiatePlugin<KTextEditor::Plugin>(item->metaData, KateApp::self(), QVariantList() << item->saveName()).plugin;
     item->load = item->plugin != nullptr;
 
     /**
@@ -224,11 +223,11 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
 
             // ensure location tracking is connected for view
             if (createdView->metaObject()->indexOfSignal("addPositionToHistory(QUrl,KTextEditor::Cursor)") != -1) {
-                connect(createdView,
-                        SIGNAL(addPositionToHistory(QUrl, KTextEditor::Cursor)),
-                        win->viewManager(),
-                        SLOT(addPositionToHistory(QUrl, KTextEditor::Cursor)),
-                        Qt::UniqueConnection);
+                QObject::connect(createdView,
+                                 SIGNAL(addPositionToHistory(QUrl, KTextEditor::Cursor)),
+                                 win->viewManager(),
+                                 SLOT(addPositionToHistory(QUrl, KTextEditor::Cursor)),
+                                 Qt::UniqueConnection);
             }
         }
     }

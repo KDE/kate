@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-05 01:01+0000\n"
-"PO-Revision-Date: 2023-03-11 04:55\n"
+"PO-Revision-Date: 2023-03-26 02:20\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -203,7 +203,7 @@ msgstr "突出显示转到位置"
 #: lspclientpluginview.cpp:602
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "显示行内提示"
 
 #: lspclientpluginview.cpp:606
 #, kde-format
@@ -460,10 +460,9 @@ msgstr "客户端设置"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "输入时格式化"
+msgstr "保存时格式化"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -475,7 +474,7 @@ msgstr "启用语义高亮"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "启用行内提示"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75
@@ -608,79 +607,3 @@ msgstr "默认服务器设置"
 #, kde-format
 msgid "More Options"
 msgstr "更多选项"
-
-#~ msgid "Quick Fix"
-#~ msgstr "快速修复"
-
-#~ msgid "Show Diagnostics Highlights"
-#~ msgstr "显示诊断重点"
-
-#~ msgid "Show Diagnostics Marks"
-#~ msgstr "显示诊断标记"
-
-#~ msgid "Show Diagnostics on Hover"
-#~ msgstr "鼠标悬停时显示诊断信息"
-
-#~ msgid "Switch to Diagnostics Tab"
-#~ msgstr "切换到诊断标签页"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Diagnostics"
-#~ msgstr "诊断"
-
-#~ msgid "Error"
-#~ msgstr "错误"
-
-#~ msgid "Warning"
-#~ msgstr "警告"
-
-#~ msgid "Information"
-#~ msgstr "信息"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "Error in regular expression: %1\n"
-#~ "offset %2: %3"
-#~ msgstr ""
-#~ "正则表达式错误：%1\n"
-#~ "偏移 %2：%3"
-
-#~ msgid "Copy to Clipboard"
-#~ msgstr "复制到剪贴板"
-
-#~ msgid "Remove Global Suppression"
-#~ msgstr "删除全局抑制项"
-
-#~ msgid "Add Global Suppression"
-#~ msgstr "添加全局抑制项"
-
-#~ msgid "Remove Local Suppression"
-#~ msgstr "移除本地抑制项"
-
-#~ msgid "Add Local Suppression"
-#~ msgstr "添加本地抑制项"
-
-#~ msgid "Disable Suppression"
-#~ msgstr "禁用抑制"
-
-#~ msgid "Enable Suppression"
-#~ msgstr "启用抑制"
-
-#~ msgctxt "@info"
-#~ msgid "%1 [suppressed: %2]"
-#~ msgstr "%1 [已抑制：%2]"
-
-#~ msgid "Diagnostics:"
-#~ msgstr "诊断信息："
-
-#~ msgid "Highlight lines with diagnostics"
-#~ msgstr "高亮包含诊断信息的行"
-
-#~ msgid "Show markers in the margins for lines with diagnostics"
-#~ msgstr "显示包含诊断信息的行的标记到页边距"
-
-#~ msgid "Show diagnostics on hover"
-#~ msgstr "鼠标悬停时显示诊断信息"
-
-#~ msgid "max diagnostics tooltip size"
-#~ msgstr "最大诊断工具提示大小"

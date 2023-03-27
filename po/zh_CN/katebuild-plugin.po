@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-26 01:01+0000\n"
-"PO-Revision-Date: 2023-03-11 04:55\n"
+"PO-Revision-Date: 2023-03-26 02:20\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -118,13 +118,13 @@ msgstr "显示标记"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "焦点移动到左侧的下一个标签页"
 
 #: plugin_katebuild.cpp:203
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "焦点移动到右侧的下一个标签页"
 
 #: plugin_katebuild.cpp:227
 #, kde-format
@@ -438,7 +438,3 @@ msgstr "插入路径"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "选择要插入的目录"
-
-#~ msgid ""
-#~ "Check the check-box to make the command the default for the target-set."
-#~ msgstr "选中会设置命令为目标的默认命令."

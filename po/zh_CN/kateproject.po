@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-19 02:44+0000\n"
-"PO-Revision-Date: 2023-03-11 04:55\n"
+"PO-Revision-Date: 2023-03-26 02:20\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -99,24 +99,22 @@ msgid "Back"
 msgstr "返回"
 
 #: currentgitbranchbutton.cpp:123
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "提交失败：%1"
+msgstr "HEAD 指向提交 %1"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD 指向标签 %1"
 
 #: currentgitbranchbutton.cpp:127
-#, fuzzy, kde-format
-#| msgid "Checked out to new branch: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "已检出到新分支：%1"
+msgstr "活动分支：%1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -321,22 +319,19 @@ msgid "Compare Branch with..."
 msgstr "比较分支与..."
 
 #: gitwidget.cpp:997
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "提交"
+msgstr "显示提交"
 
 #: gitwidget.cpp:997
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "提交变更"
+msgstr "提交哈希值"
 
 #: gitwidget.cpp:1002
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "打开文件夹..."
+msgstr "打开提交..."
 
 #: gitwidget.cpp:1005 gitwidget.cpp:1044
 #, kde-format
@@ -707,29 +702,24 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:136
 #: kateprojectinfoviewcodeanalysis.cpp:196
 #: kateprojectinfoviewcodeanalysis.cpp:200
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "代码分析"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "完成对 %1 个文件的分析。"
+msgstr[0] "[%1] 分析文件 %2 结束"
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "对 %1 个文件的分析失败，退出代码 %2。"
+msgstr "分析失败，退出码：%1，错误：%2"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -813,10 +803,9 @@ msgid "Project Manager"
 msgstr "项目管理器"
 
 #: kateprojectpluginview.cpp:79
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "还原打开的项目"
+msgstr "打开项目列表"
 
 #: kateprojectpluginview.cpp:84
 #, kde-format
@@ -824,8 +813,7 @@ msgid "Reload project"
 msgstr "重新加载项目"
 
 #: kateprojectpluginview.cpp:87
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "关闭项目"
 
@@ -1044,12 +1032,3 @@ msgstr "显示储藏失败。错误："
 #, kde-format
 msgid "&Projects"
 msgstr "工程(&P)"
-
-#~ msgid "Severity"
-#~ msgstr "严重性"
-
-#~ msgid "Message"
-#~ msgstr "消息"
-
-#~ msgid "Checkout branch"
-#~ msgstr "检出分支"

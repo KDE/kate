@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-20 01:01+0000\n"
-"PO-Revision-Date: 2023-03-11 04:55\n"
+"PO-Revision-Date: 2023-03-26 02:20\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -453,19 +453,16 @@ msgid "No folders or files to index"
 msgstr "没有要索引的文件或文件夹"
 
 #: kate_ctags_view.cpp:558
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "运行“%1”失败。退出状态 = %2"
+msgstr "运行失败。错误：%1，退出代码：%2"
 
 #: kate_ctags_view.cpp:573
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
 msgstr "CTags 可执行程序已崩溃。"
 
 #: kate_ctags_view.cpp:575
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "CTags 程序以代码 %1 退出：%2"
+msgstr "CTags 程序以代码 %2 退出：%1"

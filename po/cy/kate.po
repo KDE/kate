@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-26 00:51+0000\n"
+"POT-Creation-Date: 2023-03-28 00:50+0000\n"
 "PO-Revision-Date: 2004-06-30 15:15+0100\n"
 "Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -553,330 +553,330 @@ msgid ""
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:283
+#: lib/kateapp.cpp:282
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr ""
 
-#: lib/kateapp.cpp:283
+#: lib/kateapp.cpp:282
 #, kde-format
 msgid "Maintainer"
 msgstr "Cynhaliwr"
 
-#: lib/kateapp.cpp:284
+#: lib/kateapp.cpp:283
 #, kde-format
 msgid "Dominik Haumann"
 msgstr ""
 
-#: lib/kateapp.cpp:284 lib/kateapp.cpp:287 lib/kateapp.cpp:288
-#: lib/kateapp.cpp:290 lib/kateapp.cpp:293 lib/kateapp.cpp:299
+#: lib/kateapp.cpp:283 lib/kateapp.cpp:286 lib/kateapp.cpp:287
+#: lib/kateapp.cpp:289 lib/kateapp.cpp:292 lib/kateapp.cpp:298
 #, kde-format
 msgid "Core Developer"
 msgstr "Datblygwr Craidd"
 
-#: lib/kateapp.cpp:285
+#: lib/kateapp.cpp:284
 #, kde-format
 msgid "Sven Brauch"
 msgstr ""
 
-#: lib/kateapp.cpp:285 lib/kateapp.cpp:286 lib/kateapp.cpp:294
+#: lib/kateapp.cpp:284 lib/kateapp.cpp:285 lib/kateapp.cpp:293
 #, fuzzy, kde-format
 #| msgid "Core Developer"
 msgid "Developer"
 msgstr "Datblygwr Craidd"
 
-#: lib/kateapp.cpp:286
+#: lib/kateapp.cpp:285
 #, kde-format
 msgid "Kåre Särs"
 msgstr ""
 
-#: lib/kateapp.cpp:287
+#: lib/kateapp.cpp:286
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr ""
 
-#: lib/kateapp.cpp:288
+#: lib/kateapp.cpp:287
 #, kde-format
 msgid "Anders Lund"
 msgstr ""
 
-#: lib/kateapp.cpp:289
+#: lib/kateapp.cpp:288
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr ""
 
-#: lib/kateapp.cpp:293
+#: lib/kateapp.cpp:292
 #, kde-format
 msgid "Hamish Rodda"
 msgstr ""
 
-#: lib/kateapp.cpp:294
+#: lib/kateapp.cpp:293
 #, kde-format
 msgid "Alexander Neundorf"
 msgstr ""
 
-#: lib/kateapp.cpp:295
+#: lib/kateapp.cpp:294
 #, kde-format
 msgid "Waldo Bastian"
 msgstr ""
 
-#: lib/kateapp.cpp:295
+#: lib/kateapp.cpp:294
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "Y gyfundrefn byfferi cŵl"
 
-#: lib/kateapp.cpp:296
+#: lib/kateapp.cpp:295
 #, kde-format
 msgid "Charles Samuels"
 msgstr ""
 
-#: lib/kateapp.cpp:296
+#: lib/kateapp.cpp:295
 #, kde-format
 msgid "The Editing Commands"
 msgstr "Y Gorchmynion Golygu"
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:296
 #, kde-format
 msgid "Matt Newell"
 msgstr ""
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:296
 #, kde-format
 msgid "Testing, ..."
 msgstr "Profi,..."
 
-#: lib/kateapp.cpp:298
+#: lib/kateapp.cpp:297
 #, kde-format
 msgid "Michael Bartl"
 msgstr ""
 
-#: lib/kateapp.cpp:298
+#: lib/kateapp.cpp:297
 #, kde-format
 msgid "Former Core Developer"
 msgstr "Cyn-ddatblygwr Craidd"
 
-#: lib/kateapp.cpp:299
+#: lib/kateapp.cpp:298
 #, kde-format
 msgid "Michael McCallum"
 msgstr ""
 
-#: lib/kateapp.cpp:300
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr ""
 
-#: lib/kateapp.cpp:300
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "KWrite Author"
 msgstr "Awdur KWrite"
 
-#: lib/kateapp.cpp:301
+#: lib/kateapp.cpp:300
 #, kde-format
 msgid "Michael Koch"
 msgstr ""
 
-#: lib/kateapp.cpp:301
+#: lib/kateapp.cpp:300
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "Porthiad KWrite i KParts"
 
-#: lib/kateapp.cpp:302
+#: lib/kateapp.cpp:301
 #, kde-format
 msgid "Christian Gebauer"
 msgstr ""
 
-#: lib/kateapp.cpp:303
+#: lib/kateapp.cpp:302
 #, kde-format
 msgid "Simon Hausmann"
 msgstr ""
 
-#: lib/kateapp.cpp:304
+#: lib/kateapp.cpp:303
 #, kde-format
 msgid "Glen Parker"
 msgstr ""
 
-#: lib/kateapp.cpp:304
+#: lib/kateapp.cpp:303
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "Hanes Datwneud KWrite, cyfuno Kspell"
 
-#: lib/kateapp.cpp:305
+#: lib/kateapp.cpp:304
 #, kde-format
 msgid "Scott Manson"
 msgstr ""
 
-#: lib/kateapp.cpp:305
+#: lib/kateapp.cpp:304
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "Cynhaliaeth amlygu cystrawen XML KWrite"
 
-#: lib/kateapp.cpp:306
+#: lib/kateapp.cpp:305
 #, kde-format
 msgid "John Firebaugh"
 msgstr ""
 
-#: lib/kateapp.cpp:306
+#: lib/kateapp.cpp:305
 #, kde-format
 msgid "Patches and more"
 msgstr "Clytiau a mwy"
 
-#: lib/kateapp.cpp:307
+#: lib/kateapp.cpp:306
 #, kde-format
 msgid "Pablo Martín"
 msgstr ""
 
-#: lib/kateapp.cpp:308
+#: lib/kateapp.cpp:307
 #, fuzzy, kde-format
 #| msgid "Plugins"
 msgid "Python Plugin Developer"
 msgstr "Ategion"
 
-#: lib/kateapp.cpp:311
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr ""
 
-#: lib/kateapp.cpp:312
+#: lib/kateapp.cpp:311
 #, kde-format
 msgid "QA and Scripting"
 msgstr ""
 
-#: lib/kateapp.cpp:316
+#: lib/kateapp.cpp:315
 #, kde-format
 msgid "Tyson Tan"
 msgstr ""
 
-#: lib/kateapp.cpp:317
+#: lib/kateapp.cpp:316
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr ""
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:319
 #, kde-format
 msgid "Matteo Merli"
 msgstr ""
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:319
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "Amlygu ffeiliau manyleb RPM, Perl, Diff a mwy"
 
-#: lib/kateapp.cpp:321
+#: lib/kateapp.cpp:320
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr ""
 
-#: lib/kateapp.cpp:321
+#: lib/kateapp.cpp:320
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "Amlygu ar gyfer VHDL"
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:321
 #, kde-format
 msgid "Yury Lebedev"
 msgstr ""
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:321
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "Amlygu ar gyfer SQL"
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:322
 #, kde-format
 msgid "Chris Ross"
 msgstr ""
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:322
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "Amlygu ar gyfer Ferite"
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:323
 #, kde-format
 msgid "Nick Roux"
 msgstr ""
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:323
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "Amlygu ar gyfer ILERPG"
 
-#: lib/kateapp.cpp:325
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr ""
 
-#: lib/kateapp.cpp:325
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "Amlygu ar gyfer LaTeX"
 
-#: lib/kateapp.cpp:326
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Per Wigren"
 msgstr ""
 
-#: lib/kateapp.cpp:326
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "Amlygu ar gyfer ffeiliau gwneud, Python"
 
-#: lib/kateapp.cpp:327
+#: lib/kateapp.cpp:326
 #, kde-format
 msgid "Jan Fritz"
 msgstr ""
 
-#: lib/kateapp.cpp:327
+#: lib/kateapp.cpp:326
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "Amlygu ar gyfer Python"
 
-#: lib/kateapp.cpp:328
+#: lib/kateapp.cpp:327
 #, kde-format
 msgid "Daniel Naber"
 msgstr ""
 
-#: lib/kateapp.cpp:329
+#: lib/kateapp.cpp:328
 #, kde-format
 msgid "Roland Pabel"
 msgstr ""
 
-#: lib/kateapp.cpp:329
+#: lib/kateapp.cpp:328
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "Amlygu ar gyfer Scheme"
 
-#: lib/kateapp.cpp:330
+#: lib/kateapp.cpp:329
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr ""
 
-#: lib/kateapp.cpp:330
+#: lib/kateapp.cpp:329
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "Rhestr Allweddair/Math data PHP"
 
-#: lib/kateapp.cpp:331
+#: lib/kateapp.cpp:330
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr ""
 
-#: lib/kateapp.cpp:331
+#: lib/kateapp.cpp:330
 #, kde-format
 msgid "Very nice help"
 msgstr "Cymorth hyfryd iawn"
 
-#: lib/kateapp.cpp:332
+#: lib/kateapp.cpp:331
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Pawb sydd wedi cyfrannu a rwy wedi anghofio eu crybwyll"
 
-#: lib/kateapp.cpp:450
+#: lib/kateapp.cpp:449
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:553
+#: lib/kateapp.cpp:552
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

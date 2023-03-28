@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-12 17:21+0000\n"
-"PO-Revision-Date: 2023-03-15 22:55+0100\n"
+"PO-Revision-Date: 2023-03-27 15:27+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2226,7 +2226,7 @@ msgstr "%1 non pote aperir dossieres"
 #: lib/kateviewmanager.cpp:517
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr "Le pliugin requirite per aperir dossieres non esseva trovate"
+msgstr "Le plugin requirite per aperir dossieres non esseva trovate"
 
 #: lib/kateviewmanager.cpp:523
 #, kde-format

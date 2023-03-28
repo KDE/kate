@@ -138,6 +138,11 @@
             "url": "https://github.com/python-lsp/python-lsp-server",
             "highlightingModeRegex": "^Python$"
         },
+        "qml": {
+            "command": ["qmlls6"],
+            "url": "https://code.qt.io/cgit/qt/qtdeclarative.git/tree/src/qmlls",
+            "highlightingModeRegex": "^Qml$"
+        },
         "r": {
             "command": ["R", "--slave", "-e", "languageserver::run()"],
             "url": "https://github.com/REditorSupport/languageserver",

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-26 00:51+0000\n"
+"POT-Creation-Date: 2023-03-29 00:50+0000\n"
 "PO-Revision-Date: 2023-03-27 11:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -691,7 +691,7 @@ msgstr "备注"
 msgid "Start Analysis..."
 msgstr "开始分析..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:98
+#: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -699,14 +699,14 @@ msgid ""
 msgstr ""
 "%1<br/><br/>此工具会运行于所有匹配此文件扩展的工程文件：<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:136
-#: kateprojectinfoviewcodeanalysis.cpp:196
-#: kateprojectinfoviewcodeanalysis.cpp:200
+#: kateprojectinfoviewcodeanalysis.cpp:138
+#: kateprojectinfoviewcodeanalysis.cpp:198
+#: kateprojectinfoviewcodeanalysis.cpp:202
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "代码分析"
 
-#: kateprojectinfoviewcodeanalysis.cpp:191
+#: kateprojectinfoviewcodeanalysis.cpp:193
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -716,7 +716,7 @@ msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "[%1] 分析文件 %2 结束"
 
-#: kateprojectinfoviewcodeanalysis.cpp:199
+#: kateprojectinfoviewcodeanalysis.cpp:201
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "分析失败，退出码：%1，错误：%2"

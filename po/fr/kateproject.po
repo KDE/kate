@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-26 00:51+0000\n"
+"POT-Creation-Date: 2023-03-29 00:50+0000\n"
 "PO-Revision-Date: 2023-01-23 16:43+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -717,7 +717,7 @@ msgstr "Remarques"
 msgid "Start Analysis..."
 msgstr "Démarrer une analyse..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:98
+#: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -726,14 +726,14 @@ msgstr ""
 "%1<br/><br/>Cet outil sera lancé sur tous les fichiers du projet qui "
 "correspondent à la liste d'extensions ci-dessous :<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:136
-#: kateprojectinfoviewcodeanalysis.cpp:196
-#: kateprojectinfoviewcodeanalysis.cpp:200
+#: kateprojectinfoviewcodeanalysis.cpp:138
+#: kateprojectinfoviewcodeanalysis.cpp:198
+#: kateprojectinfoviewcodeanalysis.cpp:202
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "Analyse du code"
 
-#: kateprojectinfoviewcodeanalysis.cpp:191
+#: kateprojectinfoviewcodeanalysis.cpp:193
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -744,7 +744,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "[%1] Analyse terminée sur le fichier %2."
 msgstr[1] "[%1] Analyse terminée sur les %2 fichiers."
 
-#: kateprojectinfoviewcodeanalysis.cpp:199
+#: kateprojectinfoviewcodeanalysis.cpp:201
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Échec de l'analyse avec le code de sortie %1, erreur : %2."

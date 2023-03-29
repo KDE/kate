@@ -1,22 +1,22 @@
 /*
     SPDX-License-Identifier: LGPL-2.0-only
-
-    ---
     SPDX-FileCopyrightText: 2004 Anders Lund <anders@alweb.dk>
+    SPDX-FileCopyrightText: 2023 Waqar Ahmed <waqar.17a@gmail.com>
 */
 
 #include "katemwmodonhddialog.h"
 
-#include "hostprocess.h"
+#include "gitprocess.h"
 #include "kateapp.h"
 #include "katedocmanager.h"
 #include "katemainwindow.h"
+#include "ktexteditor_utils.h"
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KProcess>
 #include <KTextEditor/Document>
 
+#include <QDir>
 #include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>
@@ -47,9 +47,6 @@ public:
 
 KateMwModOnHdDialog::KateMwModOnHdDialog(const QVector<KTextEditor::Document *> &docs, QWidget *parent, const char *name)
     : QDialog(parent)
-    , m_fullDiffPath(safeExecutableName(QStringLiteral("diff")))
-    , m_proc(nullptr)
-    , m_diffFile(nullptr)
     , m_blockAddDocument(false)
 {
     setWindowTitle(i18n("Documents Modified on Disk"));
@@ -107,12 +104,8 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(const QVector<KTextEditor::Document *> 
     mainLayout->addLayout(hb);
 
     btnDiff = new QPushButton(QIcon::fromTheme(QStringLiteral("document-preview")), i18n("&View Difference"), this);
-    btnDiff->setWhatsThis(
-        i18n("Calculates the difference between the editor contents and the disk "
-             "file for the selected document, and shows the difference with the "
-             "default application. Requires diff(1)."));
+    btnDiff->setWhatsThis(i18n("Calculates the difference between the editor contents and the disk file for the selected document."));
     hb->addWidget(btnDiff);
-    btnDiff->setEnabled(!m_fullDiffPath.isEmpty());
     connect(btnDiff, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotDiff);
 
     // Dialog buttons
@@ -150,17 +143,10 @@ KateMwModOnHdDialog::~KateMwModOnHdDialog()
 
     KateMainWindow::unsetModifiedOnDiscDialogIfIf(this);
 
-    if (m_proc) {
-        m_proc->kill();
-        m_proc->waitForFinished();
-        delete m_proc;
-        m_proc = Q_NULLPTR;
-    }
-
-    if (m_diffFile) {
-        m_diffFile->setAutoRemove(true);
-        delete m_diffFile;
-        m_diffFile = Q_NULLPTR;
+    // if there are any living processes, disconnect them now before we get destroyed
+    const auto children = findChildren<QProcess *>();
+    for (QProcess *child : children) {
+        disconnect(child, nullptr, nullptr, nullptr);
     }
 }
 
@@ -287,7 +273,7 @@ void KateMwModOnHdDialog::slotDiff()
         return;
     }
 
-    KTextEditor::Document *doc = (static_cast<KateDocItem *>(docsTreeWidget->currentItem()))->document;
+    QPointer<KTextEditor::Document> doc = (static_cast<KateDocItem *>(docsTreeWidget->currentItem()))->document;
     auto docInfo = KateApp::self()->documentManager()->documentInfo(doc);
     if (!doc || !docInfo) {
         return;
@@ -298,73 +284,52 @@ void KateMwModOnHdDialog::slotDiff()
         return;
     }
 
-    if (m_diffFile) {
-        return;
-    }
+    auto f = new QTemporaryFile(this);
+    f->open();
+    f->write(doc->text().toUtf8().constData());
+    f->flush();
 
-    m_diffFile = new QTemporaryFile();
-    m_diffFile->open();
+    QProcess *p = new QProcess(this);
+    QStringList args = {QStringLiteral("diff"), QStringLiteral("--no-color"), QStringLiteral("--no-index")};
+    args << f->fileName();
+    args << doc->url().toLocalFile();
+    setupGitProcess(*p, QDir::currentPath(), args);
 
-    // Start a KProcess that creates a diff
-    // We use the full path to don't launch some random "diff" in current working directory
-    m_proc = new KProcess(this);
-    m_proc->setOutputChannelMode(KProcess::MergedChannels);
-    *m_proc << m_fullDiffPath << QStringLiteral("-ub") << QStringLiteral("-") << doc->url().toLocalFile();
-    connect(m_proc, &KProcess::readyRead, this, &KateMwModOnHdDialog::slotDataAvailable);
-    connect(m_proc, static_cast<void (KProcess::*)(int, QProcess::ExitStatus)>(&KProcess::finished), this, &KateMwModOnHdDialog::slotPDone);
-
+    connect(p, &QProcess::finished, this, [p, f, this, doc](int, QProcess::ExitStatus) {
+        f->deleteLater();
+        p->deleteLater();
+        slotGitDiffDone(p, doc);
+    });
     setCursor(Qt::WaitCursor);
     btnDiff->setEnabled(false);
-
-    startHostProcess(*m_proc);
-
-    QTextStream ts(m_proc);
-    int lastln = doc->lines() - 1;
-    for (int l = 0; l < lastln; ++l) {
-        ts << doc->line(l) << QLatin1Char('\n');
-    }
-    ts << doc->line(lastln);
-    ts.flush();
-    m_proc->closeWriteChannel();
+    startHostProcess(*p);
 }
 
-void KateMwModOnHdDialog::slotDataAvailable()
-{
-    m_diffFile->write(m_proc->readAll());
-}
-
-void KateMwModOnHdDialog::slotPDone()
+void KateMwModOnHdDialog::slotGitDiffDone(QProcess *p, KTextEditor::Document *doc)
 {
     setCursor(Qt::ArrowCursor);
     slotSelectionChanged(docsTreeWidget->currentItem(), nullptr);
 
-    const QProcess::ExitStatus es = m_proc->exitStatus();
-    delete m_proc;
-    m_proc = nullptr;
+    const QProcess::ExitStatus es = p->exitStatus();
 
     if (es != QProcess::NormalExit) {
         KMessageBox::error(this,
                            i18n("The diff command failed. Please make sure that "
-                                "diff(1) is installed and in your PATH."),
+                                "git is installed and in your PATH."),
                            i18n("Error Creating Diff"));
-        delete m_diffFile;
-        m_diffFile = nullptr;
         return;
     }
 
-    if (m_diffFile->size() == 0) {
-        KMessageBox::information(this, i18n("Ignoring amount of white space changed, the files are identical."), i18n("Diff Output"));
-        delete m_diffFile;
-        m_diffFile = nullptr;
-        return;
+    const QByteArray out = p->readAllStandardOutput();
+    if (!out.isEmpty()) {
+        DiffParams params;
+        QString s = QFileInfo(doc->url().toLocalFile()).fileName() + i18n("[OLD]");
+        QString t = QFileInfo(doc->url().toLocalFile()).fileName() + i18n("[NEW]");
+        params.tabTitle = s + QStringLiteral("..") + t;
+        params.workingDir = p->workingDirectory();
+        auto mw = static_cast<KateMainWindow *>(parentWidget());
+        mw->showDiff(out, params);
     }
-
-    m_diffFile->setAutoRemove(false);
-    const QUrl url = QUrl::fromLocalFile(m_diffFile->fileName());
-    delete m_diffFile;
-    m_diffFile = nullptr;
-
-    Q_EMIT requestOpenDiffDocument(url);
 }
 
 void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)

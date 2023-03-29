@@ -50,8 +50,7 @@ private Q_SLOTS:
     void slotDiff();
     void slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *);
     void slotCheckedFilesChanged(QTreeWidgetItem *, int column);
-    void slotDataAvailable();
-    void slotPDone();
+    void slotGitDiffDone(class QProcess *p, KTextEditor::Document *doc);
 
 public Q_SLOTS:
     void removeDocument(QObject *doc);
@@ -62,9 +61,6 @@ private:
     class QTreeWidget *docsTreeWidget;
     class QDialogButtonBox *dlgButtons;
     class QPushButton *btnDiff;
-    QString m_fullDiffPath;
-    KProcess *m_proc;
-    QTemporaryFile *m_diffFile;
     QStringList m_stateTexts;
     bool m_blockAddDocument;
     bool m_showOnWindowActivation = false;

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-12 17:21+0000\n"
+"POT-Creation-Date: 2023-03-30 02:45+0000\n"
 "PO-Revision-Date: 2022-07-13 14:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -166,7 +166,7 @@ msgstr "닫기"
 msgid "Open File"
 msgstr "파일 열기"
 
-#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:354
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:356
 #, kde-format
 msgid "Copy Location"
 msgstr "위치 복사"
@@ -290,76 +290,76 @@ msgstr "바로 열기(&Q)"
 msgid "Filter..."
 msgstr "필터..."
 
-#: lib/diagnostics/diagnosticview.cpp:835 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:840 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "오류"
 
-#: lib/diagnostics/diagnosticview.cpp:839 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:918
 #, kde-format
 msgid "Warning"
 msgstr "경고"
 
-#: lib/diagnostics/diagnosticview.cpp:843
+#: lib/diagnostics/diagnosticview.cpp:848
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "메타 정보"
 
-#: lib/diagnostics/diagnosticview.cpp:976
+#: lib/diagnostics/diagnosticview.cpp:981
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1090
+#: lib/diagnostics/diagnosticview.cpp:1095
 #, fuzzy, kde-format
 #| msgid "&Expand tabs"
 msgid "Expand All"
 msgstr "탭 확장(&E)"
 
-#: lib/diagnostics/diagnosticview.cpp:1091
+#: lib/diagnostics/diagnosticview.cpp:1096
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "모두 닫기(&E)"
 
-#: lib/diagnostics/diagnosticview.cpp:1100
+#: lib/diagnostics/diagnosticview.cpp:1105
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy to Clipboard"
 msgstr "클립보드에 복사"
 
-#: lib/diagnostics/diagnosticview.cpp:1123
+#: lib/diagnostics/diagnosticview.cpp:1128
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1125
+#: lib/diagnostics/diagnosticview.cpp:1130
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "모든 세션(&A)"
 
-#: lib/diagnostics/diagnosticview.cpp:1129
+#: lib/diagnostics/diagnosticview.cpp:1134
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1131
+#: lib/diagnostics/diagnosticview.cpp:1136
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1144
+#: lib/diagnostics/diagnosticview.cpp:1149
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "세션 필터"
 
-#: lib/diagnostics/diagnosticview.cpp:1146
+#: lib/diagnostics/diagnosticview.cpp:1151
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -482,25 +482,25 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1142
+#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
 #: lib/kateconfigdialog.cpp:532
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:757 lib/diff/diffwidget.cpp:957
+#: lib/diff/diffwidget.cpp:764 lib/diff/diffwidget.cpp:968
 #, fuzzy, kde-format
 #| msgid "New file name"
 msgid "New file %1"
 msgstr "새 파일 이름"
 
-#: lib/diff/diffwidget.cpp:759 lib/diff/diffwidget.cpp:959
+#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
 msgstr "파일 삭제"
 
-#: lib/diff/diffwidget.cpp:1125 lib/diff/diffwidget.cpp:1126
+#: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -879,7 +879,7 @@ msgstr "파일 '%1'을(를) 열 수 없습니다: 일반적인 파일이 아닌 
 msgid "Configure"
 msgstr "설정"
 
-#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:151
+#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:152
 #, kde-format
 msgid "Search..."
 msgstr ""
@@ -1218,12 +1218,12 @@ msgstr "문서 닫기"
 msgid "Save As"
 msgstr "다른 이름으로 저장"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:646
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:648
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate를 닫으려고 할 때 새 파일이 열려서 종료가 중단되었습니다."
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:646
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:648
 #, kde-format
 msgid "Closing Aborted"
 msgstr "종료 중단됨"
@@ -1274,92 +1274,92 @@ msgstr "파일 \"%1\"을(를) 삭제할 수 없습니다."
 msgid "&Other Application..."
 msgstr "프로그램"
 
-#: lib/katemainwindow.cpp:232
+#: lib/katemainwindow.cpp:234
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr "보기의 상태 표시줄을 숨기거나 보입니다"
 
-#: lib/katemainwindow.cpp:235
+#: lib/katemainwindow.cpp:237
 #, kde-format
 msgid "Show &Tabs"
 msgstr "탭 표시(&T)"
 
-#: lib/katemainwindow.cpp:238
+#: lib/katemainwindow.cpp:240
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr "화면 상 탭을 표시하거나 삭제하려면 이 명령을 사용하십시오"
 
-#: lib/katemainwindow.cpp:240
+#: lib/katemainwindow.cpp:242
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "제목 표시줄에 전체 경로 표시(&W)"
 
-#: lib/katemainwindow.cpp:243
+#: lib/katemainwindow.cpp:245
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "창 제목 표시줄에 문서 전체 경로를 표시합니다"
 
-#: lib/katemainwindow.cpp:245
+#: lib/katemainwindow.cpp:247
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr "탐색 표시줄 표시"
 
-#: lib/katemainwindow.cpp:255
+#: lib/katemainwindow.cpp:257
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "창 색 구성표(&W)"
 
-#: lib/katemainwindow.cpp:259
+#: lib/katemainwindow.cpp:261
 #, kde-format
 msgid "&Previous Tab"
 msgstr "이전 탭(&P)"
 
-#: lib/katemainwindow.cpp:260
+#: lib/katemainwindow.cpp:262
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "이전 탭에 초점을 맞춥니다."
 
-#: lib/katemainwindow.cpp:265
+#: lib/katemainwindow.cpp:267
 #, kde-format
 msgid "&Next Tab"
 msgstr "다음 탭(&N)"
 
-#: lib/katemainwindow.cpp:266
+#: lib/katemainwindow.cpp:268
 #, kde-format
 msgid "Focus the next tab."
 msgstr "다음 탭에 초점을 맞춥니다."
 
-#: lib/katemainwindow.cpp:273
+#: lib/katemainwindow.cpp:275
 #, kde-format
 msgid "&Quick Open"
 msgstr "바로 열기(&Q)"
 
-#: lib/katemainwindow.cpp:276
+#: lib/katemainwindow.cpp:278
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "문서를 빨리 여는 대화 상자를 표시합니다."
 
-#: lib/katemainwindow.cpp:307
+#: lib/katemainwindow.cpp:309
 #, kde-format
 msgid "Output"
 msgstr "출력"
 
-#: lib/katemainwindow.cpp:314
+#: lib/katemainwindow.cpp:316
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/katemainwindow.cpp:325
+#: lib/katemainwindow.cpp:327
 #, kde-format
 msgid "Create a new document"
 msgstr "새 문서 만들기"
 
-#: lib/katemainwindow.cpp:328
+#: lib/katemainwindow.cpp:330
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "기존 문서를 편집할 수 있도록 엽니다"
 
-#: lib/katemainwindow.cpp:338
+#: lib/katemainwindow.cpp:340
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1367,84 +1367,84 @@ msgid ""
 msgstr ""
 "이 목록은 최근에 열었던 파일 목록이며, 다시 쉽게 열 수 있도록 도와 줍니다."
 
-#: lib/katemainwindow.cpp:342
+#: lib/katemainwindow.cpp:344
 #, kde-format
 msgid "Save A&ll"
 msgstr "모두 저장(&L)"
 
-#: lib/katemainwindow.cpp:345
+#: lib/katemainwindow.cpp:347
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "열려 있고 수정된 모든 문서를 저장합니다."
 
-#: lib/katemainwindow.cpp:348
+#: lib/katemainwindow.cpp:350
 #, kde-format
 msgid "&Reload All"
 msgstr "모두 다시 불러오기(&R)"
 
-#: lib/katemainwindow.cpp:350
+#: lib/katemainwindow.cpp:352
 #, kde-format
 msgid "Reload all open documents."
 msgstr "모든 열린 문서를 다시 불러옵니다."
 
-#: lib/katemainwindow.cpp:359 lib/katemainwindow.cpp:368
+#: lib/katemainwindow.cpp:361 lib/katemainwindow.cpp:370
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "클립보드에 현재 파일 경로를 복사합니다."
 
-#: lib/katemainwindow.cpp:363 lib/welcomeview/welcomeview.cpp:241
+#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "포함하는 폴더 열기(&O)"
 
-#: lib/katemainwindow.cpp:372
+#: lib/katemainwindow.cpp:374
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "이름 바꾸기..."
 
-#: lib/katemainwindow.cpp:377
+#: lib/katemainwindow.cpp:379
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "현재 문서에 해당하는 파일의 이름을 바꿉니다."
 
-#: lib/katemainwindow.cpp:381
+#: lib/katemainwindow.cpp:383
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "삭제"
 
-#: lib/katemainwindow.cpp:386 lib/katemainwindow.cpp:395
+#: lib/katemainwindow.cpp:388 lib/katemainwindow.cpp:397
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "현재 문서에 해당하는 파일을 삭제합니다."
 
-#: lib/katemainwindow.cpp:390
+#: lib/katemainwindow.cpp:392
 #, kde-format
 msgid "Properties"
 msgstr "속성"
 
-#: lib/katemainwindow.cpp:398 lib/katemainwindow.cpp:400
+#: lib/katemainwindow.cpp:400 lib/katemainwindow.cpp:402
 #, kde-format
 msgid "Compare"
 msgstr "비교"
 
-#: lib/katemainwindow.cpp:400
+#: lib/katemainwindow.cpp:402
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "두 문서를 비교하려면 탭 표시줄 콘텍스트 메뉴를 사용하십시오"
 
-#: lib/katemainwindow.cpp:402
+#: lib/katemainwindow.cpp:404
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "문서를 비교하는 방법 정보를 표시합니다."
 
-#: lib/katemainwindow.cpp:405
+#: lib/katemainwindow.cpp:407
 #, kde-format
 msgid "Close Orphaned"
 msgstr "접근 불가능한 문서 닫기"
 
-#: lib/katemainwindow.cpp:407
+#: lib/katemainwindow.cpp:409
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1452,53 +1452,53 @@ msgid ""
 msgstr ""
 "목록에 있는 문서 중 접근할 수 없기 때문에 다시 열 수 없는 문서를 닫습니다."
 
-#: lib/katemainwindow.cpp:411
+#: lib/katemainwindow.cpp:413
 #, kde-format
 msgid "Close the current document."
 msgstr "현재 문서를 닫습니다."
 
-#: lib/katemainwindow.cpp:414
+#: lib/katemainwindow.cpp:416
 #, kde-format
 msgid "Close Other"
 msgstr "다른 문서 닫기"
 
-#: lib/katemainwindow.cpp:416
+#: lib/katemainwindow.cpp:418
 #, kde-format
 msgid "Close other open documents."
 msgstr "열린 다른 문서를 모두 닫습니다."
 
-#: lib/katemainwindow.cpp:419
+#: lib/katemainwindow.cpp:421
 #, kde-format
 msgid "Clos&e All"
 msgstr "모두 닫기(&E)"
 
-#: lib/katemainwindow.cpp:421
+#: lib/katemainwindow.cpp:423
 #, kde-format
 msgid "Close all open documents."
 msgstr "모든 열린 문서를 닫습니다."
 
-#: lib/katemainwindow.cpp:426
+#: lib/katemainwindow.cpp:428
 #, kde-format
 msgid "Close this window"
 msgstr "이 창 닫기"
 
-#: lib/katemainwindow.cpp:430
+#: lib/katemainwindow.cpp:432
 #, kde-format
 msgid "&New Window"
 msgstr "새 창(&N)"
 
-#: lib/katemainwindow.cpp:433
+#: lib/katemainwindow.cpp:435
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Create a new window."
 msgstr "새 문서 만들기"
 
-#: lib/katemainwindow.cpp:440
+#: lib/katemainwindow.cpp:442
 #, kde-format
 msgid "Open W&ith"
 msgstr "다음으로 열기(&I)"
 
-#: lib/katemainwindow.cpp:442
+#: lib/katemainwindow.cpp:444
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1507,94 +1507,94 @@ msgstr ""
 "현재 문서를 파일 형식에 따른 다른 프로그램이나 사용자 정의 프로그램으로 엽니"
 "다."
 
-#: lib/katemainwindow.cpp:450
+#: lib/katemainwindow.cpp:452
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "프로그램의 단축키를 설정합니다."
 
-#: lib/katemainwindow.cpp:453
+#: lib/katemainwindow.cpp:455
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "도구 모음에 표시할 항목을 설정합니다."
 
-#: lib/katemainwindow.cpp:456
+#: lib/katemainwindow.cpp:458
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "편집기 구성 요소와 프로그램의 다양한 부분을 설정합니다."
 
-#: lib/katemainwindow.cpp:460
+#: lib/katemainwindow.cpp:462
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "플러그인 도움말(&P)"
 
-#: lib/katemainwindow.cpp:462
+#: lib/katemainwindow.cpp:464
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "사용 가능한 다양한 플러그인의 도움말을 표시합니다."
 
-#: lib/katemainwindow.cpp:479
+#: lib/katemainwindow.cpp:481
 #, kde-format
 msgid "Sess&ions"
 msgstr "세션(&I)"
 
-#: lib/katemainwindow.cpp:485
+#: lib/katemainwindow.cpp:487
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "새 세션(&N)"
 
-#: lib/katemainwindow.cpp:490
+#: lib/katemainwindow.cpp:492
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "최근 세션(&R)"
 
-#: lib/katemainwindow.cpp:495
+#: lib/katemainwindow.cpp:497
 #, kde-format
 msgid "&All Sessions"
 msgstr "모든 세션(&A)"
 
-#: lib/katemainwindow.cpp:502
+#: lib/katemainwindow.cpp:504
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "세션 관리(&M)..."
 
-#: lib/katemainwindow.cpp:511
+#: lib/katemainwindow.cpp:513
 #, kde-format
 msgid "&Save Session"
 msgstr "세션 저장(&S)"
 
-#: lib/katemainwindow.cpp:517
+#: lib/katemainwindow.cpp:519
 #, kde-format
 msgid "Save Session &As..."
 msgstr "다른 이름으로 세션 저장(&A)..."
 
-#: lib/katemainwindow.cpp:524 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:526 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "이전 위치로 이동"
 
-#: lib/katemainwindow.cpp:533 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:535 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
 msgstr "다음 위치로 이동"
 
-#: lib/katemainwindow.cpp:541
+#: lib/katemainwindow.cpp:543
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:556
+#: lib/katemainwindow.cpp:558
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "열려 있는 모든 문서를 닫습니다. 계속 진행하시겠습니까?"
 
-#: lib/katemainwindow.cpp:557
+#: lib/katemainwindow.cpp:559
 #, kde-format
 msgid "Close all documents"
 msgstr "모든 문서 닫기"
 
-#: lib/katemainwindow.cpp:572
+#: lib/katemainwindow.cpp:574
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1602,23 +1602,23 @@ msgid ""
 msgstr ""
 "현재 문서를 제외한 열려 있는 모든 문서를 닫습니다. 계속 진행하시겠습니까?"
 
-#: lib/katemainwindow.cpp:573
+#: lib/katemainwindow.cpp:575
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "현재 문서를 제외한 모든 문서 닫기"
 
-#: lib/katemainwindow.cpp:798
+#: lib/katemainwindow.cpp:800
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "메뉴 표시줄을 완전히 숨깁니다. %1 키를 눌러서 다시 볼 수 있습니다."
 
-#: lib/katemainwindow.cpp:801
+#: lib/katemainwindow.cpp:803
 #, kde-format
 msgid "Hide menu bar"
 msgstr "메뉴 표시줄 숨기기"
 
-#: lib/katemainwindow.cpp:905
+#: lib/katemainwindow.cpp:907
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1627,19 +1627,19 @@ msgstr ""
 "Kate에 %1 디렉터리를 끌어다 놓았습니다. 디렉터리에 있는 모든 파일을 여시겠습"
 "니까?"
 
-#: lib/katemainwindow.cpp:908
+#: lib/katemainwindow.cpp:910
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "재귀적으로 파일 불러오기"
 
-#: lib/katemainwindow.cpp:909
+#: lib/katemainwindow.cpp:911
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "모든 파일 열기"
 
-#: lib/katemainwindow.cpp:1145
+#: lib/katemainwindow.cpp:1147
 #, kde-format
 msgid " [read only]"
 msgstr " [읽기 전용]"
@@ -1765,12 +1765,12 @@ msgstr ""
 "표시</b>를 선택하면 다시 사이드바를 볼 수 있습니다. 또한 도구 보기에 할당된 "
 "단축키를 통하여 보이거나 숨길 수도 있습니다.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:58
+#: lib/katemwmodonhddialog.cpp:55
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "디스크에서 수정된 문서"
 
-#: lib/katemwmodonhddialog.cpp:74
+#: lib/katemwmodonhddialog.cpp:71
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1779,37 +1779,37 @@ msgstr ""
 "<qt>아래에 있는 문서가 디스크에서 변경되었습니다.<p>목록이 빌 때까지 하나 이"
 "상의 문서를 선택한 후 동작 단추를 눌러 주십시오.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:81
 #, kde-format
 msgid "Filename"
 msgstr "파일 이름"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:81
 #, kde-format
 msgid "Status on Disk"
 msgstr "디스크의 상태"
 
-#: lib/katemwmodonhddialog.cpp:89
+#: lib/katemwmodonhddialog.cpp:86
 #, kde-format
 msgid "Modified"
 msgstr "수정됨"
 
-#: lib/katemwmodonhddialog.cpp:89
+#: lib/katemwmodonhddialog.cpp:86
 #, kde-format
 msgid "Created"
 msgstr "생성됨"
 
-#: lib/katemwmodonhddialog.cpp:89
+#: lib/katemwmodonhddialog.cpp:86
 #, kde-format
 msgid "Deleted"
 msgstr "삭제됨"
 
-#: lib/katemwmodonhddialog.cpp:104
+#: lib/katemwmodonhddialog.cpp:109
 #, kde-format
 msgid "&View Difference"
 msgstr "차이 보기(&V)"
 
-#: lib/katemwmodonhddialog.cpp:106
+#: lib/katemwmodonhddialog.cpp:111
 #, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
@@ -1819,32 +1819,32 @@ msgstr ""
 "편집기 내용과 디스크의 파일 사이의 차이점을 계산하여 보여 줍니다. diff(1)가 "
 "필요합니다."
 
-#: lib/katemwmodonhddialog.cpp:117
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "변경 사항 무시(&I)"
 
-#: lib/katemwmodonhddialog.cpp:118
+#: lib/katemwmodonhddialog.cpp:123
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "선택한 문서에서 수정 플래그 삭제"
 
-#: lib/katemwmodonhddialog.cpp:124
+#: lib/katemwmodonhddialog.cpp:129
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "디스크 변경 사항과 관계 없이 선택한 문서를 덮어씁니다"
 
-#: lib/katemwmodonhddialog.cpp:128
+#: lib/katemwmodonhddialog.cpp:133
 #, kde-format
 msgid "&Reload"
 msgstr "새로 고침(&R)"
 
-#: lib/katemwmodonhddialog.cpp:130
+#: lib/katemwmodonhddialog.cpp:135
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "선택한 문서를 디스크에서 다시 불러옵니다"
 
-#: lib/katemwmodonhddialog.cpp:199
+#: lib/katemwmodonhddialog.cpp:209
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1853,7 +1853,7 @@ msgstr ""
 "'%1'\n"
 "문서를 저장할 수 없습니다"
 
-#: lib/katemwmodonhddialog.cpp:332
+#: lib/katemwmodonhddialog.cpp:347
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that diff(1) is installed and in "
@@ -1862,52 +1862,52 @@ msgstr ""
 "diff 명령이 실패했습니다. diff(1)가 설치되어 있고 PATH에 포함되어 있는지 확인"
 "하십시오."
 
-#: lib/katemwmodonhddialog.cpp:334
+#: lib/katemwmodonhddialog.cpp:349
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Diff를 만드는 중 오류 발생"
 
-#: lib/katemwmodonhddialog.cpp:341
+#: lib/katemwmodonhddialog.cpp:356
 #, kde-format
 msgid "Ignoring amount of white space changed, the files are identical."
 msgstr "공백 변경을 제외한 모든 부분이 같습니다."
 
-#: lib/katemwmodonhddialog.cpp:341
+#: lib/katemwmodonhddialog.cpp:356
 #, kde-format
 msgid "Diff Output"
 msgstr "Diff 출력"
 
-#: lib/kateoutputview.cpp:166
+#: lib/kateoutputview.cpp:167
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy all text to clipboard"
 msgstr "클립보드에 복사"
 
-#: lib/kateoutputview.cpp:171
+#: lib/kateoutputview.cpp:172
 #, kde-format
 msgid "Clear all messages"
 msgstr "모든 메시지 비우기"
 
-#: lib/kateoutputview.cpp:356
+#: lib/kateoutputview.cpp:357
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "오류"
 
-#: lib/kateoutputview.cpp:360
+#: lib/kateoutputview.cpp:361
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "경고"
 
-#: lib/kateoutputview.cpp:364
+#: lib/kateoutputview.cpp:365
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "정보"
 
-#: lib/kateoutputview.cpp:369
+#: lib/kateoutputview.cpp:370
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2641,52 +2641,58 @@ msgstr "이전 세션의 메타 정보 보존하기(&M)"
 msgid "Delete unused meta-information after:"
 msgstr "사용하지 않은 메타 정보를 지울 시간:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents or projects"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:112
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "세션 저장(&S)"
 
-#: lib/welcomeview/welcomeview.cpp:234
+#: lib/welcomeview/welcomeview.cpp:245
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open Selected Files..."
+msgstr "파일 열기"
+
+#: lib/welcomeview/welcomeview.cpp:258
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgid "Copy &Location"
 msgstr "위치 복사"
 
-#: lib/welcomeview/welcomeview.cpp:249
+#: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
 msgstr ""

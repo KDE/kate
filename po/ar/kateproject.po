@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 02:44+0000\n"
+"POT-Creation-Date: 2023-03-30 02:45+0000\n"
 "PO-Revision-Date: 2022-10-04 21:12+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -707,22 +707,22 @@ msgstr "الملاحظات"
 msgid "Start Analysis..."
 msgstr "ابدأ التّحليل..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:98
+#: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
 "of file extensions:<br/><br/><b>%2</b>"
 msgstr ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:136
-#: kateprojectinfoviewcodeanalysis.cpp:196
-#: kateprojectinfoviewcodeanalysis.cpp:200
+#: kateprojectinfoviewcodeanalysis.cpp:138
+#: kateprojectinfoviewcodeanalysis.cpp:198
+#: kateprojectinfoviewcodeanalysis.cpp:202
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "تحليل الكود"
 
-#: kateprojectinfoviewcodeanalysis.cpp:191
+#: kateprojectinfoviewcodeanalysis.cpp:193
 #, fuzzy, kde-format
 #| msgid "Analysis finished."
 msgctxt ""
@@ -738,7 +738,7 @@ msgstr[3] "انتهى التّحليل."
 msgstr[4] "انتهى التّحليل."
 msgstr[5] "انتهى التّحليل."
 
-#: kateprojectinfoviewcodeanalysis.cpp:199
+#: kateprojectinfoviewcodeanalysis.cpp:201
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr ""

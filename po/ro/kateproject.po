@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 02:44+0000\n"
+"POT-Creation-Date: 2023-03-30 02:45+0000\n"
 "PO-Revision-Date: 2021-05-15 17:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -706,7 +706,7 @@ msgstr "Note"
 msgid "Start Analysis..."
 msgstr "Începe analiza..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:98
+#: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -715,15 +715,15 @@ msgstr ""
 "%1<br/><br/>Unealta va fi rulată pe toate fișierele proiectului ce se "
 "potrivesc cu această listă de extensii de fișier:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:136
-#: kateprojectinfoviewcodeanalysis.cpp:196
-#: kateprojectinfoviewcodeanalysis.cpp:200
+#: kateprojectinfoviewcodeanalysis.cpp:138
+#: kateprojectinfoviewcodeanalysis.cpp:198
+#: kateprojectinfoviewcodeanalysis.cpp:202
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Analiză cod"
 
-#: kateprojectinfoviewcodeanalysis.cpp:191
+#: kateprojectinfoviewcodeanalysis.cpp:193
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -737,7 +737,7 @@ msgstr[0] "Analiza pe %1 fișier s-a încheiat."
 msgstr[1] "Analiza pe %1 fișiere s-a încheiat."
 msgstr[2] "Analiza pe %1 de fișiere s-a încheiat."
 
-#: kateprojectinfoviewcodeanalysis.cpp:199
+#: kateprojectinfoviewcodeanalysis.cpp:201
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."

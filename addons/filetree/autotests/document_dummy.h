@@ -291,7 +291,7 @@ class DummyDocument : public KTextEditor::Document
 
 public:
     explicit DummyDocument(const QString &url = QString())
-        : KTextEditor::Document(nullptr, nullptr)
+        : KTextEditor::Document(nullptr, KPluginMetaData(), nullptr)
         , m_name(QStringLiteral("foo"))
         , m_encoding()
         , m_views()

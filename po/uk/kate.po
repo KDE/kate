@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-30 02:45+0000\n"
-"PO-Revision-Date: 2023-02-27 08:53+0200\n"
+"POT-Creation-Date: 2023-03-31 02:52+0000\n"
+"PO-Revision-Date: 2023-03-30 07:39+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -303,7 +303,7 @@ msgid "Error"
 msgstr "Помилка"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Попередження"
@@ -1203,7 +1203,7 @@ msgstr "Керування додатками"
 msgid "User Feedback"
 msgstr "Відгуки користувача"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -2724,10 +2724,9 @@ msgid "No saved sessions"
 msgstr "Немає збережених сеансів"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Відкрити файл…"
+msgstr "Відкрити позначені файли…"
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

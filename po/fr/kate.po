@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-30 02:45+0000\n"
-"PO-Revision-Date: 2023-03-10 12:13+0100\n"
+"POT-Creation-Date: 2023-03-31 02:52+0000\n"
+"PO-Revision-Date: 2023-03-28 15:16+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -319,7 +319,7 @@ msgid "Error"
 msgstr "Erreur"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Avertissement"
@@ -1233,7 +1233,7 @@ msgstr "Gestionnaire de modules externes"
 msgid "User Feedback"
 msgstr "Retours des utilisateurs"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -2770,10 +2770,9 @@ msgid "No saved sessions"
 msgstr "Aucune session enregistrée"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Ouvrir un fichier..."
+msgstr "Ouvrir les fichiers sélectionnés..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

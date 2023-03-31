@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-30 02:45+0000\n"
-"PO-Revision-Date: 2023-02-16 12:42+0400\n"
+"POT-Creation-Date: 2023-03-31 02:52+0000\n"
+"PO-Revision-Date: 2023-03-30 09:01+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -306,7 +306,7 @@ msgid "Error"
 msgstr "خطأ"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "التّحذيرات"
@@ -485,7 +485,7 @@ msgstr "أعد التحميل الفرق"
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "أظهر الفرق بسياق كامل، ليس مجرد السطور المغيرة"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -494,6 +494,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>غت</b> غير متوفر. يستخدم غت في إظهار الفروقات بين المستندات. إذا كان غت "
+"مثبت؛ فتأكد  من مسار PATH المتغيرات في بيئتك. انظر https://git-scm.com/"
+"downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
 #: lib/kateconfigdialog.cpp:532
@@ -514,7 +517,7 @@ msgstr "ملف محذوف %1"
 #: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "لم يعثر على فروقات"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -530,7 +533,7 @@ msgstr "أخفق في الحصول على ملف التاريخ: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "انسخ تلبيدة الإيداع"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
@@ -545,32 +548,24 @@ msgid "File History - %1"
 msgstr "تاريخ الملف - %1"
 
 #: lib/kateapp.cpp:108
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"يمكن أن يسبب تشغيل كيت مع sudo الأخطاء ويعرضك على ثغرات الأمن. بدلاً من ذلك، "
-"استخدم كيت بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا لزم الأمر."
+"يمكن أن يسبب تشغيل المحرر مع sudo الأخطاء ويعرضك على ثغرات الأمن. بدلاً من "
+"ذلك، استخدم المحرر بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا "
+"لزم الأمر."
 
 #: lib/kateapp.cpp:115
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"يمكن أن يسبب تشغيل كيت مع kdesu الأخطاء ويعرضك على ثغرات الأمن. بدلاً من ذلك، "
-"استخدم كيت بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا لزم الأمر."
+"يمكن أن يسبب تشغيل المحرر مع kdesu الأخطاء ويعرضك على ثغرات الأمن. بدلاً من "
+"ذلك، استخدم المحرر بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا "
+"لزم الأمر."
 
 #: lib/kateapp.cpp:283
 #, kde-format
@@ -1206,7 +1201,7 @@ msgstr "إدارة الملحقات"
 msgid "User Feedback"
 msgstr "مشاركة بياناتك"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -2683,10 +2678,9 @@ msgid "No saved sessions"
 msgstr "لا يوجد جلسات محفوظة"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "افتح ملفًّا..."
+msgstr "افتح الملفات المحددة..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

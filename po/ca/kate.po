@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-30 02:45+0000\n"
-"PO-Revision-Date: 2023-03-06 15:43+0100\n"
+"POT-Creation-Date: 2023-03-31 02:52+0000\n"
+"PO-Revision-Date: 2023-03-30 11:54+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -303,7 +303,7 @@ msgid "Error"
 msgstr "Error"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Avís"
@@ -1200,7 +1200,7 @@ msgstr "Gestor dels connectors"
 msgid "User Feedback"
 msgstr "Comentaris de l'usuari"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -2704,10 +2704,9 @@ msgid "No saved sessions"
 msgstr "No hi ha cap sessió desada"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Obre un fitxer..."
+msgstr "Obre els fitxers seleccionats..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format
@@ -2765,7 +2764,7 @@ msgstr "Ajuda"
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr "Visita la pàgina web"
+msgstr "Visiteu la pàgina web"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
@@ -2795,4 +2794,4 @@ msgstr "Gestiona les sessions..."
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
-msgstr "Mostra per a una finestra nova"
+msgstr "Mostra a les finestres noves"

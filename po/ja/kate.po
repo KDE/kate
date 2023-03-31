@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
 "PO-Revision-Date: 2013-05-10 23:29-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -314,7 +314,7 @@ msgid "Error"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr ""
@@ -1205,7 +1205,7 @@ msgstr "プラグインマネージャ"
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -1834,12 +1834,12 @@ msgstr ""
 "でください。割り当てられているショートカットを使ってツールビューの表示/非表示"
 "を切り替えることもできます。</para></qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "ディスク上で変更された文書"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1849,59 +1849,62 @@ msgstr ""
 "文書を一つまたは複数選択して、適用するアクションのボタンを押してください。</"
 "p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "ファイル名"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "ディスク上の状態"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "変更されました"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "作成されました"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "削除されました"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "差分を表示(&V)"
 
-#: lib/katemwmodonhddialog.cpp:111
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:107
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the editor contents and the disk file "
+#| "for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "<qt>選択された文書について、エディタの内容とディスク上のファイルの差分を計算"
 "し、標準のアプリケーションを使って表示します。<tt>diff(1)</tt> が必要です。</"
 "qt>"
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Ignore"
 msgid "&Ignore Changes"
 msgstr "無視(&I)"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, fuzzy, kde-format
 #| msgid ""
 #| "Overwrite selected documents, discarding the disk changes and closes the "
@@ -1911,18 +1914,18 @@ msgstr ""
 "選択した文書を上書きし、ディスク上の変更を破棄します。未処理の文書がなくなる"
 "と、ダイアログを閉じます。"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "再読み込み(&R)"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, fuzzy, kde-format
 #| msgid "All documents written to disk"
 msgid "Reload selected documents from disk"
 msgstr "ディスクに書き出されたすべての文書"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1931,30 +1934,32 @@ msgstr ""
 "文書を保存できませんでした\n"
 "“%1”"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "diff コマンドの起動に失敗しました。diff(1) がインストールされていて、あなた"
 "の PATH に存在することを確認してください。"
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "差分計算中にエラー"
 
-#: lib/katemwmodonhddialog.cpp:356
-#, fuzzy, kde-format
-#| msgid "Besides white space changes, the files are identical."
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "空白の違いを除けばファイルは同一です。"
-
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Diff Output"
-msgstr "diff 出力"
+msgid "[OLD]"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:327
+#, kde-format
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2879,6 +2884,14 @@ msgstr "セッション管理(&M)..."
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "新しい文書を作成します"
+
+#, fuzzy
+#~| msgid "Besides white space changes, the files are identical."
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "空白の違いを除けばファイルは同一です。"
+
+#~ msgid "Diff Output"
+#~ msgstr "diff 出力"
 
 #, fuzzy
 #~| msgid "Save As"

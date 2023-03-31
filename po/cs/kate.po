@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
-"PO-Revision-Date: 2023-02-10 11:05+0100\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
+"PO-Revision-Date: 2023-03-29 16:09+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -299,7 +299,7 @@ msgid "Error"
 msgstr "Chyba"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Varování"
@@ -1163,7 +1163,7 @@ msgstr "Správce modulů"
 msgid "User Feedback"
 msgstr "Zpětná vazba uživatele"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1752,12 +1752,12 @@ msgstr ""
 "&gt; Zobrazovat postranní panely</b>. Možnost zobrazovat/skrývat postranní "
 "panely pomocí klávesových zkratek není dotčena.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "Dokument změněn na disku"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1767,72 +1767,75 @@ msgstr ""
 "položek ze seznamu a stiskněte tlačítko pro činnost, dokud nebude seznam "
 "prázdný.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "Název souboru"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "Stav na disku"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "Změněno"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "Vytvořeno"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "Smazáno"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "Zobrazit roz&díl"
 
-#: lib/katemwmodonhddialog.cpp:111
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:107
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the editor contents and the disk file "
+#| "for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "Zjistí rozdíl mezi obsahem editoru a souborem na disku a zobrazí jej pomocí "
 "výchozí aplikace. Vyžaduje diff(1)."
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "&Ignorovat změny"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "Odstranit ze zvolených dokumentů značku úpravy"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "Přepsat zvolené soubory, zahodit změny na disku"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "Znovu načíst"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "Znovu načíst zvolený dokument z disku"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1841,29 +1844,32 @@ msgstr ""
 "Nelze uložit dokument\n"
 "'%1'"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "Spuštění příkazu 'diff' selhalo. Ujistěte se, že je nainstalován a v "
 "proměnné PATH."
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Chyba v rozdílu"
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "Kromě změn v mezerách jsou soubory totožné."
+msgid "[OLD]"
+msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:327
 #, kde-format
-msgid "Diff Output"
-msgstr "Výstup diffu"
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2632,10 +2638,9 @@ msgid "No saved sessions"
 msgstr "Žádné uložené sezení"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Otevřít soubor..."
+msgstr "Otevřít vybrané soubory..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format
@@ -2724,3 +2729,9 @@ msgstr "Spravovat sezení..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Zobrazit pro nové okno"
+
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "Kromě změn v mezerách jsou soubory totožné."
+
+#~ msgid "Diff Output"
+#~ msgstr "Výstup diffu"

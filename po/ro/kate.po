@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
 "PO-Revision-Date: 2022-02-06 19:51+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -307,7 +307,7 @@ msgid "Error"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Avertisment"
@@ -1205,7 +1205,7 @@ msgstr "Gestionar de extensii"
 msgid "User Feedback"
 msgstr "Reacții utilizator"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1824,12 +1824,12 @@ msgstr ""
 "&gt; Afișează barele laterale</b> din meniu. Vederile uneltelor se mai pot "
 "afișa/ascunde și cu tastele rapide desemnate.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "Documente modificate pe disc"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1839,73 +1839,76 @@ msgstr ""
 "sau mai multe deodată și apăsați un buton de acțiune până când lista va "
 "deveni goală.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "Denumire fișier"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "Stare pe disc"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "Modificat"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "Creat"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "Șters"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "&Vizualizează diferența"
 
-#: lib/katemwmodonhddialog.cpp:111
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:107
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the editor contents and the disk file "
+#| "for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "Pentru documentul selectat calculează diferența între conținutul editorului "
 "și fișierul de pe disc și afișează diferențele cu aplicația implicită "
 "asociată. Este nevoie de utilitarul diff(1)."
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "&Ignoră modificările"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "Elimină fanionul de modificare de pe documentele alese"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "Suprascrie documentele alese, eliminând modificările existente pe disc"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "&Reîncarcă"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "Reîncarcă de pe disc documentele alese"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1914,29 +1917,32 @@ msgstr ""
 "Nu s-a putut salva documentul \n"
 "„%1”"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "Comanda „diff” eșuat. Asigurați-vă că diff(1) este instalat și este "
 "accesibil prin intermediul variabilei de mediu PATH."
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Eroare la crearea diferențelor"
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "Ignorând modificările de spațiu alb, fișierele sunt identice."
+msgid "[OLD]"
+msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:327
 #, kde-format
-msgid "Diff Output"
-msgstr "Ieșire Diff"
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2877,6 +2883,12 @@ msgstr "&Gestionare sesiuni..."
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "Creează un document nou"
+
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "Ignorând modificările de spațiu alb, fișierele sunt identice."
+
+#~ msgid "Diff Output"
+#~ msgstr "Ieșire Diff"
 
 #, fuzzy
 #~| msgid "Save As"

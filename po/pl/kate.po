@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1648287 $
+# Version: $Revision: 1648429 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
 "PO-Revision-Date: 2023-03-25 09:55+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -312,7 +312,7 @@ msgid "Error"
 msgstr "Błąd"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Ostrzeżenie"
@@ -1205,7 +1205,7 @@ msgstr "Zarządzanie wtyczkami"
 msgid "User Feedback"
 msgstr "Informacja zwrotna"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1797,12 +1797,12 @@ msgstr ""
 "menu. Cały czas jest możliwe pokazywanie/ukrywanie widoków narzędzi poprzez "
 "wybrane skróty klawiszowe.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "Dokumenty zmienione na dysku"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1812,73 +1812,76 @@ msgstr ""
 "lub więcej dokumentów z listy i naciskaj przycisk odpowiedniej akcji aż "
 "lista będzie pusta.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "Nazwa pliku"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "Stan na dysku"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "Zmieniony"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "Utworzony"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "Usunięty"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "Zobacz &różnice"
 
-#: lib/katemwmodonhddialog.cpp:111
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:107
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the editor contents and the disk file "
+#| "for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "Oblicza różnice między zawartością edytora i plikiem na dysku dla wybranego "
 "dokumentu, a następnie pokazuje je w domyślnym programie służącym do tego "
 "celu. Wymaga polecenia diff(1)."
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "&Ignoruj zmiany"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "Usuń flagę zmieniony dla wybranych dokumentów"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "Zastąp wybrane dokumenty, porzucając zmiany na dysku"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "Wczytaj &ponownie"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "Wczytaj ponownie wybrane dokumenty z dysku"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1887,30 +1890,33 @@ msgstr ""
 "Nie można zapisać dokumentu \n"
 "\"%1\""
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "Uruchomienie polecenia diff się nie powiodło. Proszę upewnić się, że "
 "polecenie diff(1) jest zainstalowane i że znajduje się na ścieżce określonej "
 "zmienną PATH."
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Błąd obliczania różnic"
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "Pomijając białe znaki, pliki są identyczne."
+msgid "[OLD]"
+msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:327
 #, kde-format
-msgid "Diff Output"
-msgstr "Wynik diff"
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2799,6 +2805,12 @@ msgstr "Zarządzanie posiedzeniami..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Pokaż dla nowego okna"
+
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "Pomijając białe znaki, pliki są identyczne."
+
+#~ msgid "Diff Output"
+#~ msgstr "Wynik diff"
 
 #~ msgid ""
 #~ "Running KWrite with sudo can cause bugs and expose you to security "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
 "PO-Revision-Date: 2022-01-14 10:53+0100\n"
 "Last-Translator: Kristóf Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -305,7 +305,7 @@ msgid "Error"
 msgstr "Hiba"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Figyelmeztetés"
@@ -1198,7 +1198,7 @@ msgstr "Bővítménykezelő"
 msgid "User Feedback"
 msgstr "Felhasználói visszajelzés"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1811,12 +1811,12 @@ msgstr ""
 "menüpontot. Az eszköznézetek megjelenítését vagy elrejtését továbbra is meg "
 "lehet tenni a megfelelő billentyűparancsokkal.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "A lemezen megváltozott dokumentumok"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1826,74 +1826,77 @@ msgstr ""
 "majd nyomja meg a kívánt művelet gombját. A műveletet addig kell ismételni, "
 "amíg a lista ki nem ürül.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "Állapot a lemezen"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "Módosítva"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "Létrehozva"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "Törölve"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "Különbségek &megtekintése"
 
-#: lib/katemwmodonhddialog.cpp:111
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:107
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the editor contents and the disk file "
+#| "for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "Meghatározza a kijelölt dokumentum szerkesztőben levő és lemezen található "
 "példánya közötti eltéréseket, majd az eltéréseket leíró diff-fájlt megnyitja "
 "az alapértelmezett alkalmazással. A diff(1) parancs szükséges a művelethez."
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "&Módosítások mellőzése"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "Módosított jelző eltávolítása a kijelölt dokumentumokról"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr ""
 "A kijelölt dokumentumok felülírása, a lemezen történt módosítások elvetése"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "Új&ratöltés"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "A kijelölt dokumentumok újratöltése a lemezről"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1902,29 +1905,32 @@ msgstr ""
 "Nem sikerült elmenteni ezt a dokumentumot: \n"
 "„%1”"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "A diff parancsot nem sikerült végrehajtani. A diff(1) parancsnak telepítve "
 "kell lennie és szerepelnie kell a PATH-ban."
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Hiba történt a diff-fájl létrehozásakor"
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "Az üres karakterek mellőzésével a fájlok megegyeznek."
+msgid "[OLD]"
+msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:327
 #, kde-format
-msgid "Diff Output"
-msgstr "Eltérések"
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, fuzzy, kde-format
@@ -2857,6 +2863,12 @@ msgstr "&Munkamenetkezelő…"
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "Új dokumentum létrehozása"
+
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "Az üres karakterek mellőzésével a fájlok megegyeznek."
+
+#~ msgid "Diff Output"
+#~ msgstr "Eltérések"
 
 #, fuzzy
 #~| msgid "&Save"

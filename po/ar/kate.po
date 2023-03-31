@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
-"PO-Revision-Date: 2023-02-16 12:42+0400\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
+"PO-Revision-Date: 2023-03-30 09:01+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -306,7 +306,7 @@ msgid "Error"
 msgstr "خطأ"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "التّحذيرات"
@@ -485,7 +485,7 @@ msgstr "أعد التحميل الفرق"
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "أظهر الفرق بسياق كامل، ليس مجرد السطور المغيرة"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -494,6 +494,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>غت</b> غير متوفر. يستخدم غت في إظهار الفروقات بين المستندات. إذا كان غت "
+"مثبت؛ فتأكد  من مسار PATH المتغيرات في بيئتك. انظر https://git-scm.com/"
+"downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
 #: lib/kateconfigdialog.cpp:532
@@ -514,7 +517,7 @@ msgstr "ملف محذوف %1"
 #: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "لم يعثر على فروقات"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -530,7 +533,7 @@ msgstr "أخفق في الحصول على ملف التاريخ: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "انسخ تلبيدة الإيداع"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
@@ -545,32 +548,24 @@ msgid "File History - %1"
 msgstr "تاريخ الملف - %1"
 
 #: lib/kateapp.cpp:108
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"يمكن أن يسبب تشغيل كيت مع sudo الأخطاء ويعرضك على ثغرات الأمن. بدلاً من ذلك، "
-"استخدم كيت بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا لزم الأمر."
+"يمكن أن يسبب تشغيل المحرر مع sudo الأخطاء ويعرضك على ثغرات الأمن. بدلاً من "
+"ذلك، استخدم المحرر بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا "
+"لزم الأمر."
 
 #: lib/kateapp.cpp:115
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"يمكن أن يسبب تشغيل كيت مع kdesu الأخطاء ويعرضك على ثغرات الأمن. بدلاً من ذلك، "
-"استخدم كيت بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا لزم الأمر."
+"يمكن أن يسبب تشغيل المحرر مع kdesu الأخطاء ويعرضك على ثغرات الأمن. بدلاً من "
+"ذلك، استخدم المحرر بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا "
+"لزم الأمر."
 
 #: lib/kateapp.cpp:282
 #, kde-format
@@ -1206,7 +1201,7 @@ msgstr "إدارة الملحقات"
 msgid "User Feedback"
 msgstr "مشاركة بياناتك"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1787,12 +1782,12 @@ msgstr ""
 "الأشرطة الجانبيّة</b> من  القائمة. ما زال بإمكانك إظهار/إخفاء مناظير الأدوات "
 "بالاختصارات المُسندة.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "تعدّلت مستندات على القرص"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1801,72 +1796,75 @@ msgstr ""
 "<qt>المستندات أدناه تعدّلت على القرص.<p>اختر واحدًا أو أكثر وانقر زرّ إجراء حتّى "
 "تفرغ القائمة.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "اسم الملفّ"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "الحالة على القرص"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "معدّل"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "أُنشئ"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "حُذف"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "ا&عرض الفرق"
 
-#: lib/katemwmodonhddialog.cpp:111
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:107
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the editor contents and the disk file "
+#| "for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "يحسب الفرق بين محتويات المحرّر وملفّ القرص للمستند المحدّد، ويُظهر الفرق "
 "بالتّطبيق الافتراضيّ. يحتاج diff(1)‎."
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "ت&جاهل التّغييرات"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "أزل راية \"معدّل\" من المستندات المحدّدة"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "اكتب على المستندات المحدّدة متجاهلًا تغيّرها على القرص"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "أ&عد التحميل"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "أعد تحميل المستندات المحدّدة من القرص"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1875,27 +1873,30 @@ msgstr ""
 "تعذّر حفظ المستند \n"
 "'%1'"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr "فشل أمر الفرق. فضلًا تحقّق بأنّ diff(1)‎ مثبّت وفي مسارك PATH."
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "خطأ في إنشاء الفرق"
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "بتجاهل عدد المسافات البيضاء الذي تغيّر، الملفّات متطابقة."
+msgid "[OLD]"
+msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:327
 #, kde-format
-msgid "Diff Output"
-msgstr "خرج الفرق"
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2683,10 +2684,9 @@ msgid "No saved sessions"
 msgstr "لا يوجد جلسات محفوظة"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "افتح ملفًّا..."
+msgstr "افتح الملفات المحددة..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format
@@ -2775,6 +2775,12 @@ msgstr "أدر الجلسات..."
 #, kde-format
 msgid "Show for new window"
 msgstr "اعرض في نافذة جديدة…"
+
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "بتجاهل عدد المسافات البيضاء الذي تغيّر، الملفّات متطابقة."
+
+#~ msgid "Diff Output"
+#~ msgstr "خرج الفرق"
 
 #~ msgid ""
 #~ "Running KWrite with sudo can cause bugs and expose you to security "

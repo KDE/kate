@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
 "PO-Revision-Date: 2021-05-01 23:42-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -301,7 +301,7 @@ msgid "Error"
 msgstr "ਗਲਤੀ"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "ਸਾਵਾਧਾਨ"
@@ -1186,7 +1186,7 @@ msgstr "ਪਲੱਗਇਨ ਮੈਨੇਜਰ"
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1782,12 +1782,12 @@ msgid ""
 "with the assigned shortcuts.</qt>"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "ਡਿਸਕ ਉੱਤੇ ਡੌਕੂਮੈਂਟ ਸੋਧੇ ਗਏ"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1796,70 +1796,69 @@ msgstr ""
 "<qt>ਅੱਗੇ ਦਿੱਤੇ ਡੌਕੂਮੈਂਟ ਡਿਸਕ ਉੱਤੇ ਬਦਲੇ ਗਏ ਹਨ।<p>ਇੱਕ ਜਾਂ ਵੱਧ ਦੀ ਚੋਣ ਕਰੋ ਅਤੇ ਕਾਰਵਾਈ ਦੀ ਚੋਣ ਬਟਨ "
 "ਰਾਹੀਂ ਤਦ ਤੱਕ ਕਰਦੇ ਰਹੋ, ਜਦੋਂ ਤੱਕ ਲਿਸਟ ਖਾਲੀ ਨਹੀਂ ਜਾ ਜਾਂਦੀ।</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "ਫਾਇਲ ਨਾਂ"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "ਡਿਸਕ ਉੱਤੇ ਹਾਲਤ"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "ਸੋਧ"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "ਬਣਾਏ"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "ਹਟਾਏ"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "ਅੰਤਰ ਵੇਖੋ(&V)"
 
-#: lib/katemwmodonhddialog.cpp:111
+#: lib/katemwmodonhddialog.cpp:107
 #, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "ਬਦਲਾਅ ਅਣਡਿੱਠੇ(&I)"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "ਚੁਣੇ ਡੌਕੂਮੈਂਟ ਉੱਤੇ (ਓਵਰਰਾਈਟ ਕਰੋ) ਲਿਖੋ, ਡਿਸਕ ਉੱਤੇ ਹੋਏ ਬਦਲਾਅ ਅਣਡਿੱਠੇ ਕਰੋ"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "ਮੁੜ-ਲੋਡ(&R)"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "ਚੁਣੇ ਡੌਕੂਮੈਂਟ ਡਿਸਕ ਤੋਂ ਮੁੜ-ਲੋਡ ਕਰੋ"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1868,29 +1867,32 @@ msgstr ""
 "'%1'\n"
 "ਡੌਕੂਮੈਂਟ ਨੂੰ ਸੰਭਾਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ|"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "ਅੰਤਰ (diff) ਕਮਾਂਡ ਅਸਫ਼ਲ ਰਹੀ ਹੈ। ਇਹ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਹਾਡੇ ਸਿਸਟਮ ਉੱਤੇ diff(1) ਇੰਸਟਾਲ ਹੈ ਅਤੇ "
 "ਇਹ ਤੁਹਾਡੇ ਮਾਰਗ (PATH) 'ਚ ਹੈ।"
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "ਅੰਤਰ (diff) ਬਣਾਉਣ ਵਿੱਚ ਗਲਤੀ"
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "ਖਾਲੀ ਥਾਵਾਂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਛੱਡ ਕੇ, ਫਾਇਲਾਂ ਇੱਕੋ ਜੇਹੀਆਂ ਹੀ ਹਨ।"
+msgid "[OLD]"
+msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:327
 #, kde-format
-msgid "Diff Output"
-msgstr "Diff ਆਉਟਪੁੱਟ"
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, fuzzy, kde-format
@@ -2805,6 +2807,12 @@ msgstr "...ਸ਼ੈਸ਼ਨ ਪਰਬੰਧ(&M)"
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "ਨਵਾਂ ਡੌਕੂਮੈਂਟ ਬਣਾਓ"
+
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "ਖਾਲੀ ਥਾਵਾਂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਛੱਡ ਕੇ, ਫਾਇਲਾਂ ਇੱਕੋ ਜੇਹੀਆਂ ਹੀ ਹਨ।"
+
+#~ msgid "Diff Output"
+#~ msgstr "Diff ਆਉਟਪੁੱਟ"
 
 #, fuzzy
 #~| msgid "&Save"

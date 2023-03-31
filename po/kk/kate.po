@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
 "PO-Revision-Date: 2013-08-28 04:47+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -325,7 +325,7 @@ msgid "Error"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr ""
@@ -1214,7 +1214,7 @@ msgstr "Плагин менеджері"
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -1833,12 +1833,12 @@ msgstr ""
 "панельдер</b> дегенді таңдаңыз. Құралдарды арнаулы перне тіркесімі арқылы да "
 "көрсету/жасыру болады.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "Дискідегі құжаттар өзгертілді"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1847,73 +1847,76 @@ msgstr ""
 "<qt>Төменде тізімделген құжаттар дискіде өзгертілген.<p>Бір-бірлеп не "
 "бірнешеуден таңдап, тізім босағанша амалдың батырмасын басыңыз.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "Файлдың атауы"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "Дискіегі күйі"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "Өзгертілген"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "Құрылған"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "Өшірілген"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "Айырмашылығын &көру"
 
-#: lib/katemwmodonhddialog.cpp:111
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:107
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the editor contents and the disk file "
+#| "for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "Назардағы құжаттың редактордағы мен дискідегі нұсқалардың айырмашылығын "
 "шығарып, осыған арналған қолданбамен көрсету. Бұған diff(1) бағдарламасы "
 "қажетті."
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "Өзгерістерді &елемеу"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "Таңдалған құжаттардан өзгертілген жалаушасын өшіру"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "Таңдалған құжаттарды қайта жазып, дискідегі өзгерістерді ысырып тастау"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "Қ&айта жүктеп алу"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "Таңдалған құжаттарды дискіден қайта жүктеп алу"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1922,30 +1925,32 @@ msgstr ""
 "Келесі құжат сақталынбады \n"
 "'%1'"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "diff командасы орындалмады. diff(1) бағдарламасы орнатылған және PATH "
 "көрсететін жолдарда бар екенін тексеріңіз."
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Diff орындалғанда қате пайда болды"
 
-#: lib/katemwmodonhddialog.cpp:356
-#, fuzzy, kde-format
-#| msgid "Besides white space changes, the files are identical."
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "Бос орындарын санамаса, файлдар бірдей."
-
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Diff Output"
-msgstr "Diff шығысы"
+msgid "[OLD]"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:327
+#, kde-format
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2874,6 +2879,14 @@ msgstr "Сеанстарды ба&сқару"
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "Жаңа құжатты бастау"
+
+#, fuzzy
+#~| msgid "Besides white space changes, the files are identical."
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "Бос орындарын санамаса, файлдар бірдей."
+
+#~ msgid "Diff Output"
+#~ msgstr "Diff шығысы"
 
 #, fuzzy
 #~ msgid "Save"

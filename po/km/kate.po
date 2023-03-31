@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -321,7 +321,7 @@ msgid "Error"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr ""
@@ -1209,7 +1209,7 @@ msgstr "កម្មវិធី​គ្រប់គ្រង​កកម្ម
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -1830,12 +1830,12 @@ msgstr ""
 "<b>មើល &gt; ទិដ្ឋភាព​ឧបករណ៍ &gt; បង្ហាញ​របារ​ចំហៀង</b> នៅ​ក្នុង​ម៉ឺនុយ ។ អ្នក​នៅតែ​អាច បង្ហាញ/"
 "លាក់ ទិដ្ឋភាព​ឧបករណ៍ ដោយ​ប្រើ​ផ្លូវកាត់​ដែល​បាន​កំណត់ ។</qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "ឯកសារ​បាន​កែប្រែ​លើ​ថាស"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1844,58 +1844,61 @@ msgstr ""
 "<qt>ឯកសារ​ដែលបាន​រាយ​ខាងក្រោម បានផ្លាស់ប្ដូរ​នៅ​លើ​ថាស ។<p>ជ្រើស​ឯកសារ​មួយ ឬ​ច្រើន ហើយ​ចុច​ប៊ូតុង​អំពើ​"
 "មួយ រហូត​ទាល់តែ​បញ្ជី​នៅ​ទទេ ។</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "ឈ្មោះ​ឯកសារ"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "ស្ថានភាព​នៅ​លើ​ថាស"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "បាន​កែប្រែ"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "បាន​បង្កើត"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "បាន​លុប"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "មើល​ភាព​ខុស​គ្នា"
 
-#: lib/katemwmodonhddialog.cpp:111
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:107
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the editor contents and the disk file "
+#| "for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "គណនា​ភាព​ខុស​គ្នា​រវាង​មាតិកា​កម្មវិធី​និពន្ធ និង​ឯកសារ​ក្នុង​ថាស សម្រាប់​ឯកសារ​ដែល​បាន​ជ្រើស ហើយ​បង្ហាញ​ភាព​"
 "ខុស​គ្នា​ដោយ​ប្រើ​កម្មវិធី​លំនាំដើម ។ ត្រូវការ diff(1) ។"
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Ignore"
 msgid "&Ignore Changes"
 msgstr "មិន​អើពើ"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, fuzzy, kde-format
 #| msgid ""
 #| "Overwrite selected documents, discarding the disk changes and closes the "
@@ -1905,18 +1908,18 @@ msgstr ""
 "សរសេរ​ជាន់​លើ​ឯកសារ​ដែល​បាន​ជ្រើស, បោះចោល​ការ​ផ្លាស់ប្ដូរ​ថាស ហើយ​បិទ​ប្រអប់ បើ​មិន​នៅ​មាន​ឯកសារ​ដែល​មិន​"
 "ប្រើ ។"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "ផ្ទុក​ឡើងវិញ"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, fuzzy, kde-format
 #| msgid "All documents written to disk"
 msgid "Reload selected documents from disk"
 msgstr "បាន​សរសេរ​ឯកសារ​ទាំងអស់​ទៅ​ថាស"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1925,30 +1928,32 @@ msgstr ""
 "មិន​អាច​រក្សាទុក​ឯកសារ\n"
 "'%1'"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "ពាក្យ​បញ្ជា diff បាន​បរាជ័យ ។ សូម​ធ្វើ​ឲ្យ​ប្រាកដ​ថា diff(1) ត្រូវ​បាន​ដំឡើង ហើយ​ស្ថិត​ក្នុង​ផ្លូវ​របស់​"
 "អ្នក ។"
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "កំហុស​ក្នុង​ការ​បង្កើត Diff"
 
-#: lib/katemwmodonhddialog.cpp:356
-#, fuzzy, kde-format
-#| msgid "Besides white space changes, the files are identical."
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "ក្រៅ​ពី​ដកឃ្លា ឯកសារ​គឺ​ចូល​បន្ទាត់ ។"
-
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Diff Output"
-msgstr "លទ្ធផល Diff"
+msgid "[OLD]"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:327
+#, kde-format
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2872,6 +2877,14 @@ msgstr "គ្រប់គ្រង​សម័យ..."
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "បង្កើត​ឯកសារ​ថ្មី​មួយ"
+
+#, fuzzy
+#~| msgid "Besides white space changes, the files are identical."
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "ក្រៅ​ពី​ដកឃ្លា ឯកសារ​គឺ​ចូល​បន្ទាត់ ។"
+
+#~ msgid "Diff Output"
+#~ msgstr "លទ្ធផល Diff"
 
 #, fuzzy
 #~| msgid "Save As"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate 0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
 "PO-Revision-Date: 2010-03-15 15:31+0100\n"
 "Last-Translator: Andrej Dundovic <adundovi@gmail.com>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -306,7 +306,7 @@ msgid "Error"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr ""
@@ -1204,7 +1204,7 @@ msgstr "Upravljanje dodacima"
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
@@ -1838,12 +1838,12 @@ msgstr ""
 "bočne trake</b>. Prikaze alata moguće je i dalje dobiti putem dodijeljenih "
 "prečaca.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "Izmijenjeni dokumenti na disku"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>The documents listed below has changed on disk.<p>Select one or more "
@@ -1855,37 +1855,37 @@ msgstr ""
 "<qt>Dolje ispisani dokumenti izmijenjeni su na disku.<p>Odaberi jedan ili "
 "više njih i pritiskajte gumb aktivnost dok se popis ne isprazni</qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "Naziv"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "Stanje na disku"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "Izmijenjeno"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "Izrađeno"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "Izbrisano"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "&Prikaz razlika"
 
-#: lib/katemwmodonhddialog.cpp:111
+#: lib/katemwmodonhddialog.cpp:107
 #, fuzzy, kde-format
 #| msgid ""
 #| "Calculates the difference between the the editor contents and the disk "
@@ -1893,24 +1893,23 @@ msgstr "&Prikaz razlika"
 #| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "Izračunava razliku između sadržaja uređivača i datoteke na disku, te "
 "prikazuje razliku putem zadane aplikacije. Zahtijeva diff(1)."
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Ignore"
 msgid "&Ignore Changes"
 msgstr "&Ignoriraj"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, fuzzy, kde-format
 #| msgid ""
 #| "Overwrite selected documents, discarding the disk changes and closes the "
@@ -1920,17 +1919,17 @@ msgstr ""
 "Prepisuje preko odabranih dokumenata, odbacuje izmjene na disku, te ako nema "
 "dokumenata kojima se ne rukuje zatvara dijalog."
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, fuzzy, kde-format
 msgid "Reload selected documents from disk"
 msgstr "Zatvaranje svih otvorenih dokumenata."
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1939,28 +1938,31 @@ msgstr ""
 "Spremanje datoteka nije bilo moguće\n"
 "'%1'"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "Naredba diff nije uspjela. Provjerite je li diff(1) instaliran, te da se "
 "nalazi u vašoj putanji PATH."
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Pogreška pri izradi razlike"
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Ignoring amount of white space changed, the files are identical."
+msgid "[OLD]"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:327
 #, kde-format
-msgid "Diff Output"
+msgid "[NEW]"
 msgstr ""
 
 #: lib/kateoutputview.cpp:167

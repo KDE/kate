@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-03-31 00:49+0000\n"
 "PO-Revision-Date: 2023-03-26 12:21+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -298,7 +298,7 @@ msgid "Error"
 msgstr "சிக்கல்"
 
 #: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:918
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "எச்சரிக்கை"
@@ -1186,7 +1186,7 @@ msgstr "செருகுநிரல் மேலாளர்"
 msgid "User Feedback"
 msgstr "பயனர் பின்னூட்டம்"
 
-#: lib/kateconfigdialog.cpp:917
+#: lib/kateconfigdialog.cpp:905
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1778,12 +1778,12 @@ msgstr ""
 "செய்யுங்கள். விசை சுருக்குவழிகள் மூலமும் நீங்கள் கருவி காட்சிப்பகுதிகளை காட்டலாம்/"
 "மறைக்கலாம்.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:55
+#: lib/katemwmodonhddialog.cpp:52
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "வட்டில் ஆவணங்கள் மாற்றப்பட்டுள்ளன"
 
-#: lib/katemwmodonhddialog.cpp:71
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1793,73 +1793,76 @@ msgstr ""
 "தேர்ந்தெடுத்து, ஏதாவதொரு செயல் பட்டனை அழுத்தவும். பட்டியல் காலியாகும்வரை இவ்வாறு நீங்கள் "
 "செய்ய வேண்டும்.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "கோப்புப் பெயர்"
 
-#: lib/katemwmodonhddialog.cpp:81
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "வட்டில் நிலை"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "மாற்றப்பட்டது"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "உருவாக்கப்பட்டது"
 
-#: lib/katemwmodonhddialog.cpp:86
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "நீக்கப்பட்டது"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "&வித்தியாசங்களை காட்டு"
 
-#: lib/katemwmodonhddialog.cpp:111
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:107
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the editor contents and the disk file "
+#| "for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
-"the selected document, and shows the difference with the default "
-"application. Requires diff(1)."
+"the selected document."
 msgstr ""
 "திருத்தியிலுள்ள தேர்ந்தெடுக்கப்பட்ட ஆவணத்தின் பதிவிற்கும், வட்டிலுள்ள அதன் பதிவிற்கும் "
 "இடையேயான வித்தியாசங்களை கண்டுபிடித்து, இயல்பிருப்பு செயலியில் காட்டும். diff(1) என்ற "
 "நிரல் இதற்கு தேவை."
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "மா&ற்றங்களை பொருட்படுத்தாதே"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "தேர்ந்தெடுக்கப்பட்ட ஆவணங்கள் மாற்றப்பட்டன என்ற குறிப்பை நீக்கு"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "வட்டிலுள்ள மாற்றங்களை கைவிட்டு தேர்ந்தெடுக்கப்பட்ட ஆவணங்களை மேலெழுதும்"
 
-#: lib/katemwmodonhddialog.cpp:133
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "&மீளேற்று"
 
-#: lib/katemwmodonhddialog.cpp:135
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "வட்டிலிருந்து தேர்ந்தெடுக்கப்பட்ட ஆவணங்களை மீளேற்று"
 
-#: lib/katemwmodonhddialog.cpp:209
+#: lib/katemwmodonhddialog.cpp:195
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1868,29 +1871,32 @@ msgstr ""
 "'%1'\n"
 "என்ற ஆவணத்தை சேமிக்க முடியவில்லை"
 
-#: lib/katemwmodonhddialog.cpp:347
-#, kde-format
+#: lib/katemwmodonhddialog.cpp:317
+#, fuzzy, kde-format
+#| msgid ""
+#| "The diff command failed. Please make sure that diff(1) is installed and "
+#| "in your PATH."
 msgid ""
-"The diff command failed. Please make sure that diff(1) is installed and in "
-"your PATH."
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
 msgstr ""
 "diff கட்டளை தோல்வியடைந்தது. diff(1) நிறுவப்பட்டுள்ளதென்றும், உங்கள் PATH-இல் உள்ளதென்றும் "
 "உறுதி செய்யுங்கள்."
 
-#: lib/katemwmodonhddialog.cpp:349
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "வித்தியாசங்களை கண்டுபிடிப்பதில் சிக்கல்"
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:326
 #, kde-format
-msgid "Ignoring amount of white space changed, the files are identical."
-msgstr "இடைவெளிகளை பொருட்படுத்தாத பட்சத்தில் இரண்டு கோப்புகளும் ஒன்றாக உள்ளன."
+msgid "[OLD]"
+msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:356
+#: lib/katemwmodonhddialog.cpp:327
 #, kde-format
-msgid "Diff Output"
-msgstr "வித்தியாசங்கள்"
+msgid "[NEW]"
+msgstr ""
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2767,6 +2773,12 @@ msgstr "அமர்வுகளை நிர்வகி..."
 #, kde-format
 msgid "Show for new window"
 msgstr "புதிய சாளரத்திற்கு காட்டு"
+
+#~ msgid "Ignoring amount of white space changed, the files are identical."
+#~ msgstr "இடைவெளிகளை பொருட்படுத்தாத பட்சத்தில் இரண்டு கோப்புகளும் ஒன்றாக உள்ளன."
+
+#~ msgid "Diff Output"
+#~ msgstr "வித்தியாசங்கள்"
 
 #~ msgid ""
 #~ "Running KWrite with sudo can cause bugs and expose you to security "

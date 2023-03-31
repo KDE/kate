@@ -587,10 +587,11 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
             row = currentIndex.row();
         }
 
-        // Remove diagnostics of this provider
+        // Remove old diagnostics of this provider
         for (int i = 0; i < topItem->rowCount(); ++i) {
             auto item = topItem->child(i);
-            if (item && item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>() == provider) {
+            auto itemProvider = item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
+            if (item && itemProvider == provider && !itemProvider->m_persistentDiagnostics) {
                 topItem->removeRow(i);
                 i--;
             }

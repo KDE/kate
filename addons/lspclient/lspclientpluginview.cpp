@@ -14,7 +14,7 @@
 #include "lspclientservermanager.h"
 #include "lspclientsymbolview.h"
 #include "lspclientutils.h"
-#include "lsptooltip.h"
+#include "texthint/KateTextHintManager.h"
 
 #include "lspclient_debug.h"
 
@@ -233,7 +233,7 @@ class CtrlHoverFeedback : public QObject
 public:
     void highlight(KTextEditor::View *activeView)
     {
-        // sanity checks
+        // sanity checksQString
         if (!activeView) {
             return;
         }
@@ -337,8 +337,8 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     KTextEditor::MainWindow *m_mainWindow;
     std::shared_ptr<LSPClientServerManager> m_serverManager;
     std::unique_ptr<LSPClientCompletion> m_completion;
+    KateTextHintProvider m_textHintprovider;
     std::unique_ptr<LSPClientHover> m_hover;
-    std::unique_ptr<KTextEditor::TextHintProvider> m_forwardHover;
     std::unique_ptr<LSPClientSymbolView> m_symbolView;
 
     QPointer<QAction> m_findDef;
@@ -399,9 +399,6 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
 
-    // views on which hovers have been registered
-    QSet<KTextEditor::View *> m_hoverViews;
-
     // outstanding request
     LSPClientServer::RequestHandle m_handle;
     // timeout on request
@@ -417,25 +414,6 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QVector<std::pair<QString, LSPWorkDoneProgressParams>> m_workDoneProgress;
 
     CtrlHoverFeedback m_ctrlHoverFeedback = {};
-
-    // inner class that forwards directly to method for convenience
-    class ForwardingTextHintProvider : public KTextEditor::TextHintProvider
-    {
-        typedef LSPClientPluginViewImpl parent_type;
-        parent_type *m_parent;
-
-    public:
-        ForwardingTextHintProvider(parent_type *parent)
-            : m_parent(parent)
-        {
-            Q_ASSERT(m_parent);
-        }
-
-        virtual QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
-        {
-            return m_parent->onTextHint(view, position);
-        }
-    };
 
     SemanticHighlighter m_semHighlightingManager;
     InlayHintsManager m_inlayHintsHandler;
@@ -480,8 +458,8 @@ public:
         , m_mainWindow(mainWin)
         , m_serverManager(std::move(serverManager))
         , m_completion(LSPClientCompletion::new_(m_serverManager))
-        , m_hover(LSPClientHover::new_(m_serverManager))
-        , m_forwardHover(new ForwardingTextHintProvider(this))
+        , m_textHintprovider(m_mainWindow, this)
+        , m_hover(LSPClientHover::new_(m_serverManager, &m_textHintprovider))
         , m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
         , m_semHighlightingManager(m_serverManager)
         , m_inlayHintsHandler(m_serverManager, this)
@@ -686,6 +664,7 @@ public:
         m_diagnosticProvider.setObjectName(QStringLiteral("LSPDiagnosticProvider"));
         Utils::registerDiagnosticsProvider(&m_diagnosticProvider, m_mainWindow);
         connect(&m_diagnosticProvider, &DiagnosticsProvider::requestFixes, this, &self_type::fixDiagnostic);
+        connect(&m_textHintprovider, &KateTextHintProvider::textHintRequested, this, &self_type::onTextHint);
 
         connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &self_type::onViewCreated);
 
@@ -848,11 +827,6 @@ public:
         // unregister all code-completion providers, else we might crash
         for (auto view : qAsConst(m_completionViews)) {
             qobject_cast<KTextEditor::CodeCompletionInterface *>(view)->unregisterCompletionModel(m_completion.get());
-        }
-
-        // unregister all text-hint providers, else we might crash
-        for (auto view : qAsConst(m_hoverViews)) {
-            qobject_cast<KTextEditor::TextHintInterface *>(view)->unregisterTextHintProvider(m_forwardHover.get());
         }
 
         clearAllLocationMarks();
@@ -2027,7 +2001,7 @@ public:
         QPointer<KTextEditor::View> v(activeView);
         auto h = [this, v, position](const LSPExpandedMacro &reply) {
             if (v && !reply.expansion.isEmpty()) {
-                LspTooltip::show(reply.expansion, LSPMarkupKind::PlainText, v->mapToGlobal(v->cursorToCoordinate(position)), v, true);
+                m_textHintprovider.showTextHint(reply.expansion, TextHintMarkupKind::PlainText, position);
             } else {
                 showMessage(i18n("No results"), KTextEditor::Message::Information);
             }
@@ -2114,16 +2088,14 @@ public:
         updateState();
     }
 
-    QString onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position)
+    void onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position)
     {
-        bool autoHover = m_autoHover && m_autoHover->isChecked();
         // only trigger generic hover if no diagnostic to show;
         // avoids interference by generic hover info
         // (which is likely not so useful in this case/position anyway)
-        if (autoHover && !m_diagnosticProvider.hasTooltipForPos(view, position)) {
-            return m_hover->textHint(view, position);
+        if (m_autoHover && m_autoHover->isChecked()) {
+            m_hover->showTextHint(view, position, false);
         }
-        return {};
     }
 
     KTextEditor::View *viewForUrl(const QUrl &url) const
@@ -2405,9 +2377,6 @@ public:
 
         // update hover with relevant server
         m_hover->setServer(server && server->capabilities().hoverProvider ? server : nullptr);
-        // need hover either for generic documentHover or for diagnostics
-        // so register anyway if server available and will sort out what to do/show later
-        updateHover(activeView, server.get());
 
         updateMarks(doc);
 
@@ -2478,7 +2447,6 @@ public:
     void viewDestroyed(QObject *view)
     {
         m_completionViews.remove(static_cast<KTextEditor::View *>(view));
-        m_hoverViews.remove(static_cast<KTextEditor::View *>(view));
     }
 
     void updateCompletion(KTextEditor::View *view, LSPClientServer *server)
@@ -2502,30 +2470,6 @@ public:
             qCInfo(LSPCLIENT) << "unregistering cci";
             cci->unregisterCompletionModel(m_completion.get());
             m_completionViews.remove(view);
-        }
-    }
-
-    void updateHover(KTextEditor::View *view, LSPClientServer *server)
-    {
-        if (!view) {
-            return;
-        }
-
-        bool registered = m_hoverViews.contains(view);
-
-        KTextEditor::TextHintInterface *cci = qobject_cast<KTextEditor::TextHintInterface *>(view);
-        Q_ASSERT(cci);
-
-        if (!registered && server) {
-            qCInfo(LSPCLIENT) << "registering thi";
-            cci->registerTextHintProvider(m_forwardHover.get());
-            m_hoverViews.insert(view);
-        }
-
-        if (registered && !server) {
-            qCInfo(LSPCLIENT) << "unregistering thi";
-            cci->unregisterTextHintProvider(m_forwardHover.get());
-            m_hoverViews.remove(view);
         }
     }
 

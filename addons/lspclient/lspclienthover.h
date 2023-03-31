@@ -11,19 +11,23 @@ class LSPClientServerManager;
 class LSPClientServer;
 
 #include <QObject>
+#include <memory>
 
-#include <KTextEditor/TextHintInterface>
+namespace KTextEditor
+{
+class View;
+class Cursor;
+}
 
-class LSPClientHover : public QObject, public KTextEditor::TextHintProvider
+class LSPClientHover : public QObject
 {
     Q_OBJECT
 
 public:
     // implementation factory method
-    static LSPClientHover *new_(std::shared_ptr<LSPClientServerManager> manager);
+    static LSPClientHover *new_(std::shared_ptr<LSPClientServerManager> manager, class KateTextHintProvider *provider);
 
     LSPClientHover()
-        : KTextEditor::TextHintProvider()
     {
     }
 

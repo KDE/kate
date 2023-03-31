@@ -40,6 +40,7 @@ class KRecentFilesAction;
 class KateOutputView;
 class KateViewManager;
 class KateMwModOnHdDialog;
+class KateTextHintManager;
 
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
@@ -596,6 +597,11 @@ private Q_SLOTS:
 
 private:
     /**
+     * Wrapper of main window for KTextEditor
+     */
+    KTextEditor::MainWindow *m_wrapper;
+
+    /**
      * Notify about file modifications from other processes?
      */
     bool m_modNotification = false;
@@ -618,7 +624,7 @@ private:
 
     KToggleAction *m_showFullScreenAction = nullptr;
 
-    bool m_modignore;
+    bool m_modignore = false;
 
     // all plugin views for this mainwindow, used by the pluginmanager
     QHash<KTextEditor::Plugin *, QObject *> m_pluginViews;
@@ -700,10 +706,17 @@ private:
     QWidget *m_toolViewDiags = nullptr;
     class DiagnosticsView *m_diagView = nullptr;
 
+    KateTextHintManager *m_textHintManager = nullptr;
+
 public:
     class DiagnosticsView *diagnosticsView()
     {
         return m_diagView;
+    }
+
+    KateTextHintManager *textHintManager()
+    {
+        return m_textHintManager;
     }
 
 public:
@@ -745,11 +758,6 @@ public:
 
 private:
     static KateMwModOnHdDialog *s_modOnHdDialog;
-
-    /**
-     * Wrapper of main window for KTextEditor
-     */
-    KTextEditor::MainWindow *m_wrapper;
 
 public Q_SLOTS:
     void slotWindowActivated();

@@ -31,7 +31,6 @@ target_sources(
     lspclientutils.cpp
     lspsemantichighlighting.cpp
     semantic_tokens_legend.cpp
-    lsptooltip.cpp
     gotosymboldialog.cpp
     inlayhints.cpp
 

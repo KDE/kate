@@ -1,9 +1,8 @@
 /*
     SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
-
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#include "lsptooltip.h"
+#include "tooltip.h"
 
 #include <QApplication>
 #include <QEvent>
@@ -19,24 +18,26 @@
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
+#include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 #include <KWindowSystem>
 
-#include <ktexteditor_utils.h>
+// #include <ktexteditor_utils.h>
 
-class Tooltip : public QTextBrowser
+class TooltipPrivate : public QTextBrowser
 {
     Q_OBJECT
 
 public:
-    void setTooltipText(const QString &text, LSPMarkupKind kind)
+    void setTooltipText(const QString &text, TextHintMarkupKind kind)
     {
         if (text.isEmpty())
             return;
 
+        m_kind = kind;
         // we have to do this to handle soft line
-        if (kind == LSPMarkupKind::PlainText) {
+        if (kind == TextHintMarkupKind::PlainText) {
             setPlainText(text);
         } else {
             QString htext = text;
@@ -44,6 +45,36 @@ public:
             setMarkdown(htext);
         }
         resizeTip(text);
+    }
+
+    void appendMarkdown(const QString &text)
+    {
+        auto md = toMarkdown();
+        // hbreak
+        md += QStringLiteral("\n----\n");
+        md += text;
+        setMarkdown(md);
+    }
+
+    void appendTooltipText(const QString &text, TextHintMarkupKind kind)
+    {
+        auto cursor = textCursor();
+        cursor.movePosition(QTextCursor::End);
+        if (m_kind == TextHintMarkupKind::PlainText && kind == TextHintMarkupKind::PlainText) {
+            cursor.insertText(QStringLiteral("\n"));
+            cursor.insertText(text);
+        } else if (m_kind == TextHintMarkupKind::MarkDown && kind == TextHintMarkupKind::MarkDown) {
+            appendMarkdown(text);
+        } else if (m_kind == TextHintMarkupKind::PlainText && kind == TextHintMarkupKind::MarkDown) {
+            appendMarkdown(text);
+        } else if (m_kind == TextHintMarkupKind::MarkDown && kind == TextHintMarkupKind::PlainText) {
+            appendMarkdown(text);
+        }
+
+        // resize if too small
+        if (height() < 300) {
+            resize(width(), height() + 200);
+        }
     }
 
     void setView(KTextEditor::View *view)
@@ -66,7 +97,7 @@ public:
         }
     }
 
-    Tooltip(QWidget *parent, bool manual)
+    TooltipPrivate(QWidget *parent, bool manual)
         : QTextBrowser(parent)
         , hl(document())
         , m_manual(manual)
@@ -75,7 +106,7 @@ public:
         setAttribute(Qt::WA_DeleteOnClose, true);
         document()->setDocumentMargin(5);
         setFrameStyle(QFrame::Box | QFrame::Raised);
-        connect(&m_hideTimer, &QTimer::timeout, this, &Tooltip::hideTooltip);
+        connect(&m_hideTimer, &QTimer::timeout, this, &TooltipPrivate::hideTooltip);
 
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -94,7 +125,7 @@ public:
             pal.setColor(QPalette::Text, normal);
             setPalette(pal);
 
-            setFont(Utils::editorFont());
+            setFont(KTextEditor::Editor::instance()->font());
         };
         updateColors(KTextEditor::Editor::instance());
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
@@ -240,9 +271,10 @@ private:
     QTimer m_hideTimer;
     KSyntaxHighlighting::SyntaxHighlighter hl;
     bool m_manual;
+    TextHintMarkupKind m_kind = TextHintMarkupKind::PlainText;
 };
 
-void LspTooltip::show(const QString &text, LSPMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual)
+void KateTooltip::show(const QString &text, TextHintMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual)
 {
     if (text.isEmpty())
         return;
@@ -251,14 +283,18 @@ void LspTooltip::show(const QString &text, LSPMarkupKind kind, QPoint pos, KText
         return;
     }
 
-    static QPointer<Tooltip> tooltip = nullptr;
+    static QPointer<TooltipPrivate> tooltip = nullptr;
+    if (tooltip && tooltip->isVisible()) {
+        tooltip->appendTooltipText(text, kind);
+        return;
+    }
     delete tooltip;
 
-    tooltip = new Tooltip(v, manual);
+    tooltip = new TooltipPrivate(v, manual);
     tooltip->setView(v);
     tooltip->setTooltipText(text, kind);
     tooltip->place(pos);
     tooltip->show();
 }
 
-#include "lsptooltip.moc"
+#include "tooltip.moc"

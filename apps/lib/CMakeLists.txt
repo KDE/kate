@@ -140,6 +140,8 @@ target_sources(
     kateoutputview.cpp
     katestashmanager.cpp
     diagnostics/diagnosticview.cpp
+    texthint/KateTextHintManager.cpp
+    texthint/tooltip.cpp
 
     kateurlbar.cpp
 

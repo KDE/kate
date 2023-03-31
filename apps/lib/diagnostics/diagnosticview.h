@@ -22,6 +22,7 @@ class KConfigGroup;
 class SessionDiagnosticSuppressions;
 class KateMainWindow;
 class QSortFilterProxyModel;
+class KateTextHintProvider;
 
 class KATE_PRIVATE_EXPORT DiagnosticsProvider : public QObject
 {
@@ -40,8 +41,6 @@ public:
     {
         return {};
     }
-
-    bool hasTooltipForPos(KTextEditor::View *v, KTextEditor::Cursor pos) const;
 
     void showDiagnosticsView();
 
@@ -95,7 +94,7 @@ public:
     void readSessionConfig(const KConfigGroup &config);
     void writeSessionConfig(KConfigGroup &config);
 
-    QString onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position) const;
+    void onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position) const;
 
     void showToolview();
 
@@ -150,11 +149,10 @@ private:
     // applied marks
     QSet<KTextEditor::Document *> m_diagnosticsMarks;
 
-    std::unique_ptr<class ForwardingTextHintProvider> m_textHintProvider;
-
     class DiagTabOverlay *const m_tabButtonOverlay;
 
     QMetaObject::Connection posChangedConnection;
     QTimer *const m_posChangedTimer;
     QTimer *const m_filterChangedTimer;
+    std::unique_ptr<KateTextHintProvider> m_textHintProvider;
 };

@@ -29,6 +29,7 @@
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
 #include "ktexteditor_utils.h"
+#include "texthint/KateTextHintManager.h"
 
 #include <KActionCollection>
 #include <KActionMenu>
@@ -107,8 +108,8 @@ QSize KateContainerStackedLayout::minimumSize() const
 
 KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool userTriggered)
     : KateMDI::MainWindow(nullptr)
-    , m_modignore(false)
     , m_wrapper(new KTextEditor::MainWindow(this))
+    , m_textHintManager(new KateTextHintManager(m_wrapper))
 {
     /**
      * we don't want any flicker here
@@ -298,6 +299,7 @@ void KateMainWindow::setupMainWindow(KConfig *sconfig)
         return;
     }
 
+    m_textHintManager = new KateTextHintManager(m_wrapper);
     /**
      * create generic output tool view
      * is used to display output of e.g. plugins

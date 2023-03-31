@@ -10,6 +10,7 @@
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
 #include "session_diagnostic_suppression.h"
+#include "texthint/KateTextHintManager.h"
 
 #include <KActionCollection>
 #include <KTextEditor/Application>
@@ -74,13 +75,6 @@ private:
     bool m_active = false;
     QWidget *m_tabButton = nullptr;
 };
-
-bool DiagnosticsProvider::hasTooltipForPos(KTextEditor::View *v, KTextEditor::Cursor pos) const
-{
-    if (!diagnosticView->onTextHint(v, pos).isEmpty())
-        return true;
-    return false;
-}
 
 void DiagnosticsProvider::showDiagnosticsView()
 {
@@ -149,45 +143,6 @@ private:
     QFont m_monoFont;
 };
 
-class ForwardingTextHintProvider : public KTextEditor::TextHintProvider
-{
-    DiagnosticsView *m_parent;
-    QPointer<KTextEditor::View> m_view;
-
-public:
-    ForwardingTextHintProvider(DiagnosticsView *parent)
-        : m_parent(parent)
-    {
-        Q_ASSERT(m_parent);
-    }
-
-    ~ForwardingTextHintProvider()
-    {
-        if (m_view) {
-            auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
-            iface->unregisterTextHintProvider(this);
-        }
-    }
-
-    void setView(KTextEditor::View *v)
-    {
-        if (m_view) {
-            auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
-            iface->unregisterTextHintProvider(this);
-        }
-        if (v) {
-            m_view = v;
-            auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
-            iface->registerTextHintProvider(this);
-        }
-    }
-
-    virtual QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
-    {
-        return m_parent->onTextHint(view, position);
-    }
-};
-
 static QIcon diagnosticsIcon(DiagnosticSeverity severity)
 {
     switch (severity) {
@@ -218,10 +173,10 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     , m_filterLineEdit(new QLineEdit(this))
     , m_proxy(new QSortFilterProxyModel(this))
     , m_sessionDiagnosticSuppressions(std::make_unique<SessionDiagnosticSuppressions>())
-    , m_textHintProvider(new ForwardingTextHintProvider(this))
     , m_tabButtonOverlay(new DiagTabOverlay(tabButton))
     , m_posChangedTimer(new QTimer(this))
     , m_filterChangedTimer(new QTimer(this))
+    , m_textHintProvider(new KateTextHintProvider(mainWindow->wrapper(), this))
 {
     auto l = new QVBoxLayout(this);
     l->setContentsMargins({});
@@ -274,12 +229,11 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
             }
         }
     });
+
+    connect(m_textHintProvider.get(), &KateTextHintProvider::textHintRequested, this, &DiagnosticsView::onTextHint);
 }
 
-DiagnosticsView::~DiagnosticsView()
-{
-    m_textHintProvider->setView(nullptr);
-}
+DiagnosticsView::~DiagnosticsView() = default;
 
 void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
 {
@@ -306,8 +260,6 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
 
 void DiagnosticsView::onViewChanged(KTextEditor::View *v)
 {
-    m_textHintProvider->setView(v);
-
     disconnect(posChangedConnection);
     m_posChangedTimer->stop();
     if (v) {
@@ -1155,12 +1107,10 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
     menu->popup(m_diagnosticsTree->viewport()->mapToGlobal(pos));
 }
 
-QString DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position) const
+void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position) const
 {
     QString result;
     auto document = view->document();
-
-    // bool diagHover = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsHover && m_diagnosticsHover->isChecked();
 
     QStandardItem *topItem = getItem(m_model, document->url());
     QStandardItem *targetItem = getItem(topItem, position, false);
@@ -1170,7 +1120,7 @@ QString DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::
         int count = targetItem->rowCount();
         for (int i = 0; i < count; ++i) {
             auto item = targetItem->child(i);
-            result += QStringLiteral("\n<br>");
+            result += QStringLiteral("  \n"); // markdown 2 spaces = newline
             result += item->text();
         }
         // but let's not get carried away too far
@@ -1180,7 +1130,8 @@ QString DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::
             result.append(QStringLiteral("..."));
         }
     }
-    return result;
+
+    m_textHintProvider->textHintAvailable(result.toHtmlEscaped(), TextHintMarkupKind::MarkDown, position);
 }
 
 void DiagnosticsView::onDocumentUrlChanged()

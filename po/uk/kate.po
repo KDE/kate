@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-31 00:49+0000\n"
-"PO-Revision-Date: 2023-03-26 08:41+0300\n"
+"POT-Creation-Date: 2023-04-01 00:53+0000\n"
+"PO-Revision-Date: 2023-03-31 14:13+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -297,69 +297,69 @@ msgstr "Швидке виправлення"
 msgid "Filter..."
 msgstr "Фільтрувати…"
 
-#: lib/diagnostics/diagnosticview.cpp:840 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:841 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Помилка"
 
-#: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:845 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Попередження"
 
-#: lib/diagnostics/diagnosticview.cpp:848
+#: lib/diagnostics/diagnosticview.cpp:849
 #, kde-format
 msgid "Information"
 msgstr "Відомості"
 
-#: lib/diagnostics/diagnosticview.cpp:981
+#: lib/diagnostics/diagnosticview.cpp:982
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [придушено: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1095
+#: lib/diagnostics/diagnosticview.cpp:1096
 #, kde-format
 msgid "Expand All"
 msgstr "Розгорнути все"
 
-#: lib/diagnostics/diagnosticview.cpp:1096
+#: lib/diagnostics/diagnosticview.cpp:1097
 #, kde-format
 msgid "Collapse All"
 msgstr "Згорнути все"
 
-#: lib/diagnostics/diagnosticview.cpp:1105
+#: lib/diagnostics/diagnosticview.cpp:1106
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Скопіювати до буфера"
 
-#: lib/diagnostics/diagnosticview.cpp:1128
+#: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Вилучити загальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1130
+#: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Додати загальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1134
+#: lib/diagnostics/diagnosticview.cpp:1135
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Вилучити локальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1136
+#: lib/diagnostics/diagnosticview.cpp:1137
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Додати локальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1149
+#: lib/diagnostics/diagnosticview.cpp:1150
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Вимкнути придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1151
+#: lib/diagnostics/diagnosticview.cpp:1152
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Увімкнути придушення"
@@ -1852,18 +1852,13 @@ msgid "&View Difference"
 msgstr "&Переглянути відмінності"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "Підраховує для вибраного документа різницю між вмістом редактора та вмістом "
-"файла на диску для вибраного документа і показує відмінності у типовій "
-"програмі. Потрібна програма diff(1)."
+"файла на диску для вибраного документа."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1900,16 +1895,13 @@ msgstr ""
 "«%1»"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Команда diff зазнала невдачі. Перевірте чи встановлено diff(1) і чи вона "
-"знаходиться у вашій PATH."
+"Не вдалося виконати команду diff. Перевірте, чи встановлено git і чи "
+"зберігається програма в одному з каталогів зі змінної PATH."
 
 #: lib/katemwmodonhddialog.cpp:319
 #, kde-format
@@ -1919,12 +1911,12 @@ msgstr "Помилка створення списку відмінностей"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[СТАРИЙ]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[НОВИЙ]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format

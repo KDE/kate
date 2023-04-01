@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-31 00:49+0000\n"
-"PO-Revision-Date: 2023-03-12 13:59+0100\n"
+"POT-Creation-Date: 2023-04-01 00:53+0000\n"
+"PO-Revision-Date: 2023-03-31 07:40+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -292,69 +292,69 @@ msgstr "Rapida Riparo"
 msgid "Filter..."
 msgstr "Filtrilo..."
 
-#: lib/diagnostics/diagnosticview.cpp:840 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:841 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Eraro"
 
-#: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:845 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Averto"
 
-#: lib/diagnostics/diagnosticview.cpp:848
+#: lib/diagnostics/diagnosticview.cpp:849
 #, kde-format
 msgid "Information"
 msgstr "Informoj"
 
-#: lib/diagnostics/diagnosticview.cpp:981
+#: lib/diagnostics/diagnosticview.cpp:982
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [forigita: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1095
+#: lib/diagnostics/diagnosticview.cpp:1096
 #, kde-format
 msgid "Expand All"
 msgstr "Vastigi Ĉion"
 
-#: lib/diagnostics/diagnosticview.cpp:1096
+#: lib/diagnostics/diagnosticview.cpp:1097
 #, kde-format
 msgid "Collapse All"
 msgstr "Malvastigi Ĉion"
 
-#: lib/diagnostics/diagnosticview.cpp:1105
+#: lib/diagnostics/diagnosticview.cpp:1106
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopii al tondujo"
 
-#: lib/diagnostics/diagnosticview.cpp:1128
+#: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Forigi Ĉiean Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1130
+#: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Aldoni Ĉiean Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1134
+#: lib/diagnostics/diagnosticview.cpp:1135
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Forigi Lokan Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1136
+#: lib/diagnostics/diagnosticview.cpp:1137
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Aldoni Lokan Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1149
+#: lib/diagnostics/diagnosticview.cpp:1150
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Malebligi Forigon"
 
-#: lib/diagnostics/diagnosticview.cpp:1151
+#: lib/diagnostics/diagnosticview.cpp:1152
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Ebligi Forigon"
@@ -1830,18 +1830,13 @@ msgid "&View Difference"
 msgstr "&Vidigi malsamojn"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "Kalkulas la diferencon inter la enhavo de la redaktilo kaj la diskdosiero "
-"por la elektita dokumento, kaj montras la diferencon kun la defaŭlta "
-"aplikaĵo. Postulas dif(1)."
+"por la elektita dokumento."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1878,16 +1873,12 @@ msgstr ""
 "'%1'"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"La diff komando malsukcesis. Certiĝu ke diff(1) estas instalita kaj en via "
-"PATH."
+"La diff komando malsukcesis. Certiĝu ke git estas instalita kaj en via PATH."
 
 #: lib/katemwmodonhddialog.cpp:319
 #, kde-format
@@ -2693,10 +2684,9 @@ msgid "No saved sessions"
 msgstr "Neniuj konservitaj seancoj"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Malfermi Dosieron..."
+msgstr "Malfermi Elektitan Dosieron..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

@@ -14,18 +14,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-31 00:49+0000\n"
-"PO-Revision-Date: 2023-03-29 08:08+0200\n"
+"POT-Creation-Date: 2023-04-01 00:53+0000\n"
+"PO-Revision-Date: 2023-03-31 09:06+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -304,69 +304,69 @@ msgstr "Hitro popravljanje"
 msgid "Filter..."
 msgstr "Filter..."
 
-#: lib/diagnostics/diagnosticview.cpp:840 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:841 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Napaka"
 
-#: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:845 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Opozorilo"
 
-#: lib/diagnostics/diagnosticview.cpp:848
+#: lib/diagnostics/diagnosticview.cpp:849
 #, kde-format
 msgid "Information"
 msgstr "Informacije"
 
-#: lib/diagnostics/diagnosticview.cpp:981
+#: lib/diagnostics/diagnosticview.cpp:982
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [zatrto %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1095
+#: lib/diagnostics/diagnosticview.cpp:1096
 #, kde-format
 msgid "Expand All"
 msgstr "Razširi vse"
 
-#: lib/diagnostics/diagnosticview.cpp:1096
+#: lib/diagnostics/diagnosticview.cpp:1097
 #, kde-format
 msgid "Collapse All"
 msgstr "Strni vse"
 
-#: lib/diagnostics/diagnosticview.cpp:1105
+#: lib/diagnostics/diagnosticview.cpp:1106
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopiraj na odložišče"
 
-#: lib/diagnostics/diagnosticview.cpp:1128
+#: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Odstrani globalno zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1130
+#: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Dodaj globalno zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1134
+#: lib/diagnostics/diagnosticview.cpp:1135
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Odstrani lokalno zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1136
+#: lib/diagnostics/diagnosticview.cpp:1137
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Dodaj lokalno zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1149
+#: lib/diagnostics/diagnosticview.cpp:1150
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Onemogoči zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1151
+#: lib/diagnostics/diagnosticview.cpp:1152
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Omogoči zatrtje"
@@ -1849,17 +1849,13 @@ msgid "&View Difference"
 msgstr "Poglej razlike"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "Izračuna razliko med vsebino urejevalnika in datoteko na disku za izbran "
-"dokument in prikaže razliko s privzetim programom. Potrebuje diff(1)."
+"dokument."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1896,16 +1892,13 @@ msgstr ""
 "»%1«"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Ukaz diff ni uspel. Preverite, če je diff(1) nameščen in če je v vaši "
-"spremenljivki PATH."
+"Ukaz diff ni uspel. Preverite, da je nameščen git in je v vaši spremenljivki "
+"PATH."
 
 #: lib/katemwmodonhddialog.cpp:319
 #, kde-format

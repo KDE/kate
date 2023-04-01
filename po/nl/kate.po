@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-31 00:49+0000\n"
-"PO-Revision-Date: 2023-03-26 16:49+0200\n"
+"POT-Creation-Date: 2023-04-01 00:53+0000\n"
+"PO-Revision-Date: 2023-03-31 11:38+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -307,69 +307,69 @@ msgstr "Snelle reparatie"
 msgid "Filter..."
 msgstr "Filteren..."
 
-#: lib/diagnostics/diagnosticview.cpp:840 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:841 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Fout"
 
-#: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:845 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: lib/diagnostics/diagnosticview.cpp:848
+#: lib/diagnostics/diagnosticview.cpp:849
 #, kde-format
 msgid "Information"
 msgstr "Informatie"
 
-#: lib/diagnostics/diagnosticview.cpp:981
+#: lib/diagnostics/diagnosticview.cpp:982
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [onderdrukt: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1095
+#: lib/diagnostics/diagnosticview.cpp:1096
 #, kde-format
 msgid "Expand All"
 msgstr "Alles uitvouwen"
 
-#: lib/diagnostics/diagnosticview.cpp:1096
+#: lib/diagnostics/diagnosticview.cpp:1097
 #, kde-format
 msgid "Collapse All"
 msgstr "Alles invouwen"
 
-#: lib/diagnostics/diagnosticview.cpp:1105
+#: lib/diagnostics/diagnosticview.cpp:1106
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Naar klembord kopiëren"
 
-#: lib/diagnostics/diagnosticview.cpp:1128
+#: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Globale onderdrukking verwijderen"
 
-#: lib/diagnostics/diagnosticview.cpp:1130
+#: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Globale onderdrukking toevoegen"
 
-#: lib/diagnostics/diagnosticview.cpp:1134
+#: lib/diagnostics/diagnosticview.cpp:1135
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Lokale onderdrukking verwijderen"
 
-#: lib/diagnostics/diagnosticview.cpp:1136
+#: lib/diagnostics/diagnosticview.cpp:1137
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Lokale onderdrukking toevoegen"
 
-#: lib/diagnostics/diagnosticview.cpp:1149
+#: lib/diagnostics/diagnosticview.cpp:1150
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Onderdrukken uitschakelen"
 
-#: lib/diagnostics/diagnosticview.cpp:1151
+#: lib/diagnostics/diagnosticview.cpp:1152
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Onderdrukken inschakelen"
@@ -1856,17 +1856,13 @@ msgid "&View Difference"
 msgstr "&Verschil tonen"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "Berekent het verschil tussen de inhoud in de editor en het bestand op de "
-"schijf en toont dit verschil in het standaardprogramma. Benodigd diff(1)."
+"schijf voor het geselecteerde document."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1906,16 +1902,13 @@ msgstr ""
 "kon niet worden opgeslagen"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Het commando 'diff' is mislukt. Controleer of diff(1) is geïnstalleerd en "
-"zich in uw zoekpad ($PATH) bevindt."
+"Het commando 'diff' is mislukt. Controleer of git is geïnstalleerd en zich "
+"in uw zoekpad ($PATH) bevindt."
 
 #: lib/katemwmodonhddialog.cpp:319
 #, kde-format
@@ -1925,12 +1918,12 @@ msgstr "Fout bij het berekenen van de verschillen"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[OUD]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[NIEUW]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format

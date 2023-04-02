@@ -237,7 +237,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 
     a = actionCollection()->addAction(QStringLiteral("toggle_breakpoint"));
     a->setText(i18n("Toggle Breakpoint / Break"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("breakpoint")));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("media-record")));
     actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::SHIFT | Qt::Key_F11)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotToggleBreakpoint);
 
@@ -846,7 +846,7 @@ void KatePluginGDBView::enableBreakpointMarks(KTextEditor::Document *document)
     if (iface) {
         iface->setEditableMarks(iface->editableMarks() | KTextEditor::MarkInterface::BreakpointActive);
         iface->setMarkDescription(KTextEditor::MarkInterface::BreakpointActive, i18n("Breakpoint"));
-        iface->setMarkIcon(KTextEditor::MarkInterface::BreakpointActive, QIcon::fromTheme(QStringLiteral("breakpoint")));
+        iface->setMarkIcon(KTextEditor::MarkInterface::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-record")));
     }
 }
 

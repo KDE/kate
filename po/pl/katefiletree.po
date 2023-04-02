@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-08 00:49+0000\n"
-"PO-Revision-Date: 2023-01-02 20:37+0100\n"
+"PO-Revision-Date: 2023-04-01 09:12+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -361,8 +361,7 @@ msgstr "Otwórz elementy interfejsu"
 msgctxt "%1 is the full path"
 msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
-msgstr ""
-"<p><b>%1</b></p><p>Dokument został zmodyfikowany przez inny program.</p>"
+msgstr "<p><b>%1</b></p><p>Dokument został zmieniony przez inny program.</p>"
 
 #: katefiletreeplugin.cpp:246
 #, kde-format

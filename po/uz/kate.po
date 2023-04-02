@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-01 00:53+0000\n"
+"POT-Creation-Date: 2023-04-02 00:50+0000\n"
 "PO-Revision-Date: 2006-12-17 12:02+0000\n"
 "Last-Translator: Mashrab Kuvatov <kmashrab@uni-bremen.de>\n"
 "Language-Team: Uzbek <floss-uz-l10n@googlegroups.com>\n"
@@ -166,7 +166,7 @@ msgstr "Hammasini yo&pish"
 msgid "Open File"
 msgstr "Faylni ochish"
 
-#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:356
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:358
 #, fuzzy, kde-format
 msgid "Copy Location"
 msgstr "Manzil"
@@ -284,85 +284,85 @@ msgid ""
 "offset %2: %3"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:264
+#: lib/diagnostics/diagnosticview.cpp:219
 #, fuzzy, kde-format
 #| msgid "&Quick Open"
 msgid "Quick Fix"
 msgstr "&Tez ochish"
 
-#: lib/diagnostics/diagnosticview.cpp:290
+#: lib/diagnostics/diagnosticview.cpp:244
 #, fuzzy, kde-format
 msgid "Filter..."
 msgstr "Fayllar:"
 
-#: lib/diagnostics/diagnosticview.cpp:841 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:793 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:845 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:797 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:849
+#: lib/diagnostics/diagnosticview.cpp:801
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "Meta-maʼlumot"
 
-#: lib/diagnostics/diagnosticview.cpp:982
+#: lib/diagnostics/diagnosticview.cpp:934
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1096
+#: lib/diagnostics/diagnosticview.cpp:1048
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1097
+#: lib/diagnostics/diagnosticview.cpp:1049
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Hammasini yo&pish"
 
-#: lib/diagnostics/diagnosticview.cpp:1106
+#: lib/diagnostics/diagnosticview.cpp:1058
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1129
+#: lib/diagnostics/diagnosticview.cpp:1081
 #, fuzzy, kde-format
 #| msgid "Regular expression"
 msgid "Remove Global Suppression"
 msgstr "Doimiy ifoda"
 
-#: lib/diagnostics/diagnosticview.cpp:1131
+#: lib/diagnostics/diagnosticview.cpp:1083
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "&Seanslar"
 
-#: lib/diagnostics/diagnosticview.cpp:1135
+#: lib/diagnostics/diagnosticview.cpp:1087
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1137
+#: lib/diagnostics/diagnosticview.cpp:1089
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1150
+#: lib/diagnostics/diagnosticview.cpp:1102
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "Seanslar"
 
-#: lib/diagnostics/diagnosticview.cpp:1152
+#: lib/diagnostics/diagnosticview.cpp:1104
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -1232,12 +1232,12 @@ msgstr "Hujjatni yopish"
 msgid "Save As"
 msgstr "...sifatida s&aqlash"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:648
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:648
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Yopish toʻxtatildi"
@@ -1289,20 +1289,20 @@ msgstr ""
 msgid "&Other Application..."
 msgstr "Dastur"
 
-#: lib/katemainwindow.cpp:234
+#: lib/katemainwindow.cpp:235
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr ""
 "Koʻrinishning holat panelini koʻrsatish yoki bekitish uchun shu buyruqdan "
 "foydalaning"
 
-#: lib/katemainwindow.cpp:237
+#: lib/katemainwindow.cpp:238
 #, fuzzy, kde-format
 #| msgid "Show Side&bars"
 msgid "Show &Tabs"
 msgstr "Yon &panellarni koʻrsatish"
 
-#: lib/katemainwindow.cpp:240
+#: lib/katemainwindow.cpp:241
 #, fuzzy, kde-format
 #| msgid "Use this command to show or hide the view's statusbar"
 msgid "Use this command to show or hide the tabs for the views"
@@ -1310,82 +1310,82 @@ msgstr ""
 "Koʻrinishning holat panelini koʻrsatish yoki bekitish uchun shu buyruqdan "
 "foydalaning"
 
-#: lib/katemainwindow.cpp:242
+#: lib/katemainwindow.cpp:243
 #, fuzzy, kde-format
 #| msgid "&Show full path in title"
 msgid "Sho&w Path in Titlebar"
 msgstr "&Sarlavhada toʻliq yoʻlni koʻrsatish"
 
-#: lib/katemainwindow.cpp:245
+#: lib/katemainwindow.cpp:246
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Hujjatning toʻliq yoʻlini oynaning sarlavhasida koʻrsatish"
 
-#: lib/katemainwindow.cpp:247
+#: lib/katemainwindow.cpp:248
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:257
+#: lib/katemainwindow.cpp:258
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: lib/katemainwindow.cpp:261
+#: lib/katemainwindow.cpp:262
 #, fuzzy, kde-format
 #| msgid "Activate Previous Tab"
 msgid "&Previous Tab"
 msgstr "Oldingi tabni aktivlash"
 
-#: lib/katemainwindow.cpp:262
+#: lib/katemainwindow.cpp:263
 #, fuzzy, kde-format
 #| msgid "Activate Previous Tab"
 msgid "Focus the previous tab."
 msgstr "Oldingi tabni aktivlash"
 
-#: lib/katemainwindow.cpp:267
+#: lib/katemainwindow.cpp:268
 #, fuzzy, kde-format
 #| msgid "New Tab"
 msgid "&Next Tab"
 msgstr "Yangi tab"
 
-#: lib/katemainwindow.cpp:268
+#: lib/katemainwindow.cpp:269
 #, fuzzy, kde-format
 #| msgid "Close the current tab"
 msgid "Focus the next tab."
 msgstr "Joriy tabni yopish"
 
-#: lib/katemainwindow.cpp:275
+#: lib/katemainwindow.cpp:276
 #, kde-format
 msgid "&Quick Open"
 msgstr "&Tez ochish"
 
-#: lib/katemainwindow.cpp:278
+#: lib/katemainwindow.cpp:279
 #, fuzzy, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Hamma ochiq hujjatlarni yopish."
 
-#: lib/katemainwindow.cpp:309
+#: lib/katemainwindow.cpp:311
 #, kde-format
 msgid "Output"
 msgstr ""
 
-#: lib/katemainwindow.cpp:316
+#: lib/katemainwindow.cpp:318
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/katemainwindow.cpp:327
+#: lib/katemainwindow.cpp:329
 #, kde-format
 msgid "Create a new document"
 msgstr "Yangi hujjatni yaratish"
 
-#: lib/katemainwindow.cpp:330
+#: lib/katemainwindow.cpp:332
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Tahrirlash uchun mavjud hujjatni ochish"
 
-#: lib/katemainwindow.cpp:340
+#: lib/katemainwindow.cpp:342
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1394,145 +1394,145 @@ msgstr ""
 "Yaqinda ochilgan fayllarning roʻyxatini koʻrsatadi va ularni osongina ochish "
 "uchun imkoniyat yaratadi."
 
-#: lib/katemainwindow.cpp:344
+#: lib/katemainwindow.cpp:346
 #, kde-format
 msgid "Save A&ll"
 msgstr "Ha&mmasini saqlash"
 
-#: lib/katemainwindow.cpp:347
+#: lib/katemainwindow.cpp:349
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Hamma ochiq, oʻzgartirilgan hujjatlarni saqlash."
 
-#: lib/katemainwindow.cpp:350
+#: lib/katemainwindow.cpp:352
 #, kde-format
 msgid "&Reload All"
 msgstr ""
 
-#: lib/katemainwindow.cpp:352
+#: lib/katemainwindow.cpp:354
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Reload all open documents."
 msgstr "Hamma ochiq hujjatlarni yopish."
 
-#: lib/katemainwindow.cpp:361 lib/katemainwindow.cpp:370
+#: lib/katemainwindow.cpp:363 lib/katemainwindow.cpp:372
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Keyingi boʻlingan koʻrinishni aktiv qilish."
 
-#: lib/katemainwindow.cpp:365 lib/welcomeview/welcomeview.cpp:265
+#: lib/katemainwindow.cpp:367 lib/welcomeview/welcomeview.cpp:265
 #, fuzzy, kde-format
 msgid "&Open Containing Folder"
 msgstr "Ochish tartibi"
 
-#: lib/katemainwindow.cpp:374
+#: lib/katemainwindow.cpp:376
 #, fuzzy, kde-format
 #| msgid "&Rename..."
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "No&mini oʻzgartirish"
 
-#: lib/katemainwindow.cpp:379
+#: lib/katemainwindow.cpp:381
 #, fuzzy, kde-format
 #| msgid "Create another view containing the current document"
 msgid "Renames the file belonging to the current document."
 msgstr "Joriy hujjatdan iborat boshqa koʻrinishni yaratish"
 
-#: lib/katemainwindow.cpp:383
+#: lib/katemainwindow.cpp:385
 #, fuzzy, kde-format
 #| msgid "Deleted"
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Oʻchirilgan"
 
-#: lib/katemainwindow.cpp:388 lib/katemainwindow.cpp:397
+#: lib/katemainwindow.cpp:390 lib/katemainwindow.cpp:399
 #, fuzzy, kde-format
 #| msgid "Create another view containing the current document"
 msgid "Deletes the file belonging to the current document."
 msgstr "Joriy hujjatdan iborat boshqa koʻrinishni yaratish"
 
-#: lib/katemainwindow.cpp:392
+#: lib/katemainwindow.cpp:394
 #, kde-format
 msgid "Properties"
 msgstr ""
 
-#: lib/katemainwindow.cpp:400 lib/katemainwindow.cpp:402
+#: lib/katemainwindow.cpp:402 lib/katemainwindow.cpp:404
 #, kde-format
 msgid "Compare"
 msgstr ""
 
-#: lib/katemainwindow.cpp:402
+#: lib/katemainwindow.cpp:404
 #, fuzzy, kde-format
 #| msgid "Use this command to create a new document"
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "Yangi hujjatni yaratish uchun shu buyruqdan foydalaning"
 
-#: lib/katemainwindow.cpp:404
+#: lib/katemainwindow.cpp:406
 #, fuzzy, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Hamma ochiq hujjatlarni yopish."
 
-#: lib/katemainwindow.cpp:407
+#: lib/katemainwindow.cpp:409
 #, fuzzy, kde-format
 msgid "Close Orphaned"
 msgstr "Joriy tabni yopish"
 
-#: lib/katemainwindow.cpp:409
+#: lib/katemainwindow.cpp:411
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
 "they are not accessible anymore."
 msgstr ""
 
-#: lib/katemainwindow.cpp:413
+#: lib/katemainwindow.cpp:415
 #, kde-format
 msgid "Close the current document."
 msgstr "Joriy hujjatni yopish."
 
-#: lib/katemainwindow.cpp:416
+#: lib/katemainwindow.cpp:418
 #, fuzzy, kde-format
 msgid "Close Other"
 msgstr "Joriy tabni yopish"
 
-#: lib/katemainwindow.cpp:418
+#: lib/katemainwindow.cpp:420
 #, fuzzy, kde-format
 msgid "Close other open documents."
 msgstr "Hamma ochiq hujjatlarni yopish."
 
-#: lib/katemainwindow.cpp:421
+#: lib/katemainwindow.cpp:423
 #, kde-format
 msgid "Clos&e All"
 msgstr "Hammasini yo&pish"
 
-#: lib/katemainwindow.cpp:423
+#: lib/katemainwindow.cpp:425
 #, kde-format
 msgid "Close all open documents."
 msgstr "Hamma ochiq hujjatlarni yopish."
 
-#: lib/katemainwindow.cpp:428
+#: lib/katemainwindow.cpp:430
 #, kde-format
 msgid "Close this window"
 msgstr "Shu oynani yopish"
 
-#: lib/katemainwindow.cpp:432
+#: lib/katemainwindow.cpp:434
 #, fuzzy, kde-format
 #| msgid "&Window"
 msgid "&New Window"
 msgstr "&Oyna"
 
-#: lib/katemainwindow.cpp:435
+#: lib/katemainwindow.cpp:437
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Create a new window."
 msgstr "Yangi hujjatni yaratish"
 
-#: lib/katemainwindow.cpp:442
+#: lib/katemainwindow.cpp:444
 #, kde-format
 msgid "Open W&ith"
 msgstr "...bilan &ochish"
 
-#: lib/katemainwindow.cpp:444
+#: lib/katemainwindow.cpp:446
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1541,147 +1541,147 @@ msgstr ""
 "Joriy hujjatni ushbu fayl turi uchun qayd qilingan boshqa dastur yoki siz "
 "istagan dastur bilan ochish."
 
-#: lib/katemainwindow.cpp:452
+#: lib/katemainwindow.cpp:454
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Dasturning tugmalar birikmasini moslash."
 
-#: lib/katemainwindow.cpp:455
+#: lib/katemainwindow.cpp:457
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Asboblar panel(lar)ida qaysi element koʻrinishini moslash."
 
-#: lib/katemainwindow.cpp:458
+#: lib/katemainwindow.cpp:460
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Dasturning xar hil parametrlarini va tahrirlash komponentini moslash."
 
-#: lib/katemainwindow.cpp:462
+#: lib/katemainwindow.cpp:464
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr ""
 
-#: lib/katemainwindow.cpp:464
+#: lib/katemainwindow.cpp:466
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Mavjud boʻlgan plaginlar uchun yordam fayllarini koʻrsatish."
 
-#: lib/katemainwindow.cpp:481
+#: lib/katemainwindow.cpp:483
 #, kde-format
 msgid "Sess&ions"
 msgstr "&Seanslar"
 
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:489
 #, fuzzy, kde-format
 #| msgid "New Session"
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Yangi seans"
 
-#: lib/katemainwindow.cpp:492
+#: lib/katemainwindow.cpp:494
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "&Recent Sessions"
 msgstr "Seansni ochish"
 
-#: lib/katemainwindow.cpp:497
+#: lib/katemainwindow.cpp:499
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "&All Sessions"
 msgstr "&Seanslar"
 
-#: lib/katemainwindow.cpp:504
+#: lib/katemainwindow.cpp:506
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "&Manage Sessions..."
 msgstr "Seanslarni boshqarish"
 
-#: lib/katemainwindow.cpp:513
+#: lib/katemainwindow.cpp:515
 #, fuzzy, kde-format
 #| msgid "&Save session"
 msgid "&Save Session"
 msgstr "Sea&nsni saqlash"
 
-#: lib/katemainwindow.cpp:519
+#: lib/katemainwindow.cpp:521
 #, fuzzy, kde-format
 #| msgid "Save Session?"
 msgid "Save Session &As..."
 msgstr "Seansni saqlashni istaysizmi?"
 
-#: lib/katemainwindow.cpp:526 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:528 lib/kateviewspace.cpp:58
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Go to Previous Location"
 msgstr "Manzillarni &tiklash"
 
-#: lib/katemainwindow.cpp:535 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:537 lib/kateviewspace.cpp:71
 #, fuzzy, kde-format
 msgid "Go to Next Location"
 msgstr "Manzillarni &tiklash"
 
-#: lib/katemainwindow.cpp:543
+#: lib/katemainwindow.cpp:545
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:558
+#: lib/katemainwindow.cpp:560
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:559
+#: lib/katemainwindow.cpp:561
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close all documents"
 msgstr "Hamma ochiq hujjatlarni yopish."
 
-#: lib/katemainwindow.cpp:574
+#: lib/katemainwindow.cpp:576
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:575
+#: lib/katemainwindow.cpp:577
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close all documents beside current one"
 msgstr "Hamma ochiq hujjatlarni yopish."
 
-#: lib/katemainwindow.cpp:800
+#: lib/katemainwindow.cpp:802
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 
-#: lib/katemainwindow.cpp:803
+#: lib/katemainwindow.cpp:805
 #, fuzzy, kde-format
 #| msgid "Hide Side&bars"
 msgid "Hide menu bar"
 msgstr "Yon panellarni &bekitish"
 
-#: lib/katemainwindow.cpp:907
+#: lib/katemainwindow.cpp:909
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:910
+#: lib/katemainwindow.cpp:912
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:911
+#: lib/katemainwindow.cpp:913
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Faylni ochish"
 
-#: lib/katemainwindow.cpp:1147
+#: lib/katemainwindow.cpp:1149
 #, kde-format
 msgid " [read only]"
 msgstr ""

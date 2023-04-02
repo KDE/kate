@@ -38,6 +38,8 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     , m_diagnosticProvider(new DiagnosticsProvider(this))
 {
     m_diagnosticProvider->setObjectName(QStringLiteral("CodeAnalysisDiagnosticProvider"));
+    m_diagnosticProvider->name = i18n("Code Analysis");
+
     // We don't want the diagnostics to be cleared automatically if a file closes
     m_diagnosticProvider->setPersistentDiagnostics(true);
     Utils::registerDiagnosticsProvider(m_diagnosticProvider, m_pluginView->mainWindow());

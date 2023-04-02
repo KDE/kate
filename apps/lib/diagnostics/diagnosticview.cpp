@@ -21,6 +21,7 @@
 
 #include <KColorScheme>
 #include <QClipboard>
+#include <QComboBox>
 #include <QDebug>
 #include <QFileInfo>
 #include <QGuiApplication>
@@ -34,6 +35,79 @@
 #include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>
+
+class ProviderListModel final : public QAbstractListModel
+{
+public:
+    explicit ProviderListModel(DiagnosticsView *parent)
+        : QAbstractListModel(parent)
+        , m_diagView(parent)
+    {
+    }
+
+    int rowCount(const QModelIndex &) const override
+    {
+        return m_providers.size();
+    }
+
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
+    {
+        if (index.row() >= m_providers.size()) {
+            return {};
+        }
+        if (role == Qt::DisplayRole) {
+            if (index.row() == 0) {
+                return i18n("All");
+            }
+            return m_providers.at(index.row())->name;
+        }
+        if (role == Qt::UserRole) {
+            return QVariant::fromValue(m_providers.at(index.row()));
+        }
+        return {};
+    }
+
+    void update(const QVector<DiagnosticsProvider *> &providerList)
+    {
+        beginResetModel();
+        m_providers.clear();
+        m_providers.push_back(nullptr);
+        m_providers.append(providerList);
+        endResetModel();
+    }
+
+    DiagnosticsView *m_diagView;
+    QVector<DiagnosticsProvider *> m_providers;
+};
+
+class DiagnosticsProxyModel final : public QSortFilterProxyModel
+{
+public:
+    explicit DiagnosticsProxyModel(QObject *parent)
+        : QSortFilterProxyModel(parent)
+    {
+    }
+
+    void setActiveProvider(DiagnosticsProvider *provider)
+    {
+        activeProvider = provider;
+        invalidateFilter();
+    }
+
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+    {
+        if (activeProvider) {
+            auto index = sourceModel()->index(sourceRow, 0, sourceParent);
+            if (index.isValid()) {
+                return index.data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>() == activeProvider;
+            }
+        }
+        return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
+    }
+
+private:
+    DiagnosticsProvider *activeProvider = nullptr;
+};
 
 class DiagTabOverlay : public QWidget
 {
@@ -171,7 +245,8 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     , m_diagnosticsTree(new QTreeView(this))
     , m_clearButton(new QToolButton(this))
     , m_filterLineEdit(new QLineEdit(this))
-    , m_proxy(new QSortFilterProxyModel(this))
+    , m_providerCombo(new QComboBox(this))
+    , m_proxy(new DiagnosticsProxyModel(this))
     , m_sessionDiagnosticSuppressions(std::make_unique<SessionDiagnosticSuppressions>())
     , m_tabButtonOverlay(new DiagTabOverlay(tabButton))
     , m_posChangedTimer(new QTimer(this))
@@ -247,6 +322,16 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
         m_filterChangedTimer->start();
     });
 
+    l->addWidget(m_providerCombo);
+    m_providerModel = new ProviderListModel(this);
+    m_providerCombo->setModel(m_providerModel);
+    m_providerCombo->setCurrentIndex(0);
+    connect(m_providerCombo, &QComboBox::currentIndexChanged, this, [this] {
+        auto proxy = static_cast<DiagnosticsProxyModel *>(m_proxy);
+        proxy->setActiveProvider(m_providerCombo->currentData().value<DiagnosticsProvider *>());
+        m_diagnosticsTree->expandAll();
+    });
+
     m_clearButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
     connect(m_clearButton, &QToolButton::clicked, this, [this] {
         std::vector<KTextEditor::Document *> docs(m_diagnosticsMarks.begin(), m_diagnosticsMarks.end());
@@ -287,6 +372,8 @@ void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
     connect(provider, &DiagnosticsProvider::requestClearDiagnostics, this, &DiagnosticsView::clearDiagnosticsFromProvider);
     connect(provider, &DiagnosticsProvider::requestClearSuppressions, this, &DiagnosticsView::clearSuppressionsFromProvider);
     m_providers.push_back(provider);
+
+    m_providerModel->update(m_providers);
 }
 
 void DiagnosticsView::unregisterDiagnosticsProvider(DiagnosticsProvider *provider)
@@ -300,6 +387,8 @@ void DiagnosticsView::unregisterDiagnosticsProvider(DiagnosticsProvider *provide
     disconnect(provider, &DiagnosticsProvider::requestClearDiagnostics, this, &DiagnosticsView::clearDiagnosticsFromProvider);
     disconnect(provider, &DiagnosticsProvider::requestClearSuppressions, this, &DiagnosticsView::clearSuppressionsFromProvider);
     m_providers.removeOne(provider);
+
+    m_providerModel->update(m_providers);
 }
 
 void DiagnosticsView::readSessionConfig(const KConfigGroup &config)

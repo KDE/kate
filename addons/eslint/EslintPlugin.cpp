@@ -39,6 +39,7 @@ ESLintPluginView::ESLintPluginView(ESLintPlugin *plugin, KTextEditor::MainWindow
     , m_mainWindow(mainWin)
 {
     m_provider.setObjectName(QStringLiteral("ESLintDiagnosticProvider"));
+    m_provider.name = i18n("ESLint");
     Utils::registerDiagnosticsProvider(&m_provider, m_mainWindow);
 
     connect(mainWin, &KTextEditor::MainWindow::viewChanged, this, &ESLintPluginView::onActiveViewChanged);

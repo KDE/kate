@@ -424,6 +424,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
         LSPDiagnosticProvider(LSPClientPluginViewImpl *lsp)
             : m_lsp(lsp)
         {
+            name = i18n("LSP");
         }
 
         QJsonObject suppressions(KTextEditor::Document *doc) const override

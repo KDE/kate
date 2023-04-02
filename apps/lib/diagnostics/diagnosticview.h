@@ -53,6 +53,8 @@ public:
         m_persistentDiagnostics = p;
     }
 
+    QString name;
+
 Q_SIGNALS:
     /// emitted by provider when diags are available
     void diagnosticsAdded(const FileDiagnostics &);
@@ -139,6 +141,9 @@ private:
     class QTreeView *const m_diagnosticsTree;
     class QToolButton *const m_clearButton;
     class QLineEdit *const m_filterLineEdit;
+    class QComboBox *const m_providerCombo;
+
+    class ProviderListModel *m_providerModel;
 
     QStandardItemModel m_model;
     QSortFilterProxyModel *const m_proxy;

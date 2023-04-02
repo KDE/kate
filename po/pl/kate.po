@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1648438 $
+# Version: $Revision: 1648592 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-31 02:52+0000\n"
-"PO-Revision-Date: 2023-03-25 09:55+0100\n"
+"PO-Revision-Date: 2023-04-01 09:03+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -2707,10 +2707,9 @@ msgid "No saved sessions"
 msgstr "Nie ma żadnych zapisanych posiedzeń"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Otwórz plik..."
+msgstr "Otwórz zaznaczony plik..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

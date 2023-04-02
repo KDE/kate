@@ -1,8 +1,6 @@
 find_package(Qt${QT_MAJOR_VERSION}Concurrent ${QT_MIN_VERSION} QUIET)
-find_package(KF${KF_MAJOR_VERSION}ItemViews ${KF5_DEP_VERSION} QUIET)
-set_package_properties(KF${KF_MAJOR_VERSION}ItemViews PROPERTIES PURPOSE "Required to build the search addon")
 
-if(NOT KF${KF_MAJOR_VERSION}ItemViews_FOUND OR NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
+if(NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
   return()
 endif()
 
@@ -14,7 +12,6 @@ target_link_libraries(
   PRIVATE
     Qt::Concurrent
     KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::ItemViews
     KF${KF_MAJOR_VERSION}::TextEditor
     kateprivate
 )

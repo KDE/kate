@@ -21,6 +21,7 @@ namespace KTextEditor
 {
 class MovingRange;
 }
+class KateTextHintProvider;
 using MovingRangeList = std::vector<std::unique_ptr<KTextEditor::MovingRange>>;
 
 class OpenLinkPlugin final : public KTextEditor::Plugin
@@ -55,4 +56,6 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     std::unique_ptr<class GotoLinkHover> m_ctrlHoverFeedback;
     std::unordered_map<KTextEditor::Document *, MovingRangeList> m_docHighligtedLinkRanges;
+    class OpenLinkTextHint *m_textHintProvider;
+    friend class OpenLinkTextHint;
 };

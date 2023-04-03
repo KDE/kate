@@ -7,6 +7,7 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
+#include <KTextEditor/TextHintInterface>
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
 
@@ -14,7 +15,57 @@
 #include <QEvent>
 #include <QFileInfo>
 #include <QMouseEvent>
+#include <QToolTip>
 #include <QUrl>
+
+class OpenLinkTextHint : public KTextEditor::TextHintProvider
+{
+    OpenLinkPluginView *m_pview;
+    QPointer<KTextEditor::View> m_view;
+
+public:
+    OpenLinkTextHint(OpenLinkPluginView *pview)
+        : m_pview(pview)
+    {
+    }
+
+    ~OpenLinkTextHint() override
+    {
+        if (m_view) {
+            auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
+            iface->unregisterTextHintProvider(this);
+        }
+    }
+
+    void setView(KTextEditor::View *v)
+    {
+        if (m_view) {
+            auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
+            iface->unregisterTextHintProvider(this);
+        }
+        if (v) {
+            m_view = v;
+            auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
+            iface->registerTextHintProvider(this);
+        }
+    }
+
+    QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
+    {
+        auto doc = view->document();
+        auto it = m_pview->m_docHighligtedLinkRanges.find(doc);
+        if (it != m_pview->m_docHighligtedLinkRanges.end()) {
+            const auto &ranges = it->second;
+            for (const auto &range : ranges) {
+                if (range && range->contains(position)) {
+                    const QString hint = QStringLiteral("<p>") + i18n("Ctrl+Click to open link") + QStringLiteral("</p>");
+                    return hint;
+                }
+            }
+        }
+        return {};
+    }
+};
 
 // TODO: Support file urls
 // TODO: Allow the user to specify url matching re
@@ -99,6 +150,7 @@ OpenLinkPluginView::OpenLinkPluginView(OpenLinkPlugin *plugin, KTextEditor::Main
     : QObject(plugin)
     , m_mainWindow(mainWin)
     , m_ctrlHoverFeedback(new GotoLinkHover())
+    , m_textHintProvider(new OpenLinkTextHint(this))
 {
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &OpenLinkPluginView::onActiveViewChanged);
     onActiveViewChanged(m_mainWindow->activeView());
@@ -107,6 +159,8 @@ OpenLinkPluginView::OpenLinkPluginView(OpenLinkPlugin *plugin, KTextEditor::Main
 
 OpenLinkPluginView::~OpenLinkPluginView()
 {
+    m_textHintProvider->setView(nullptr);
+    delete m_textHintProvider;
     disconnect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &OpenLinkPluginView::onActiveViewChanged);
     onActiveViewChanged(nullptr);
     m_mainWindow->guiFactory()->removeClient(this);
@@ -119,6 +173,7 @@ void OpenLinkPluginView::onActiveViewChanged(KTextEditor::View *view)
         return;
     }
     m_activeView = view;
+    m_textHintProvider->setView(view);
 
     if (view && view->focusProxy()) {
         view->focusProxy()->installEventFilter(this);

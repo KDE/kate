@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-02 00:50+0000\n"
-"PO-Revision-Date: 2023-03-26 12:21+0530\n"
+"PO-Revision-Date: 2023-04-02 16:54+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.03.80\n"
+"X-Generator: Lokalize 23.03.90\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1824,18 +1824,13 @@ msgid "&View Difference"
 msgstr "&வித்தியாசங்களை காட்டு"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "திருத்தியிலுள்ள தேர்ந்தெடுக்கப்பட்ட ஆவணத்தின் பதிவிற்கும், வட்டிலுள்ள அதன் பதிவிற்கும் "
-"இடையேயான வித்தியாசங்களை கண்டுபிடித்து, இயல்பிருப்பு செயலியில் காட்டும். diff(1) என்ற "
-"நிரல் இதற்கு தேவை."
+"இடையேயான வித்தியாசங்களை கண்டுபிடித்து காட்டும்."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1872,15 +1867,12 @@ msgstr ""
 "என்ற ஆவணத்தை சேமிக்க முடியவில்லை"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"diff கட்டளை தோல்வியடைந்தது. diff(1) நிறுவப்பட்டுள்ளதென்றும், உங்கள் PATH-இல் உள்ளதென்றும் "
+"diff கட்டளை தோல்வியடைந்தது. git நிறுவப்பட்டுள்ளதென்றும், உங்கள் PATH-இல் உள்ளதென்றும் "
 "உறுதி செய்யுங்கள்."
 
 #: lib/katemwmodonhddialog.cpp:319
@@ -1891,12 +1883,12 @@ msgstr "வித்தியாசங்களை கண்டுபிடி�
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[பழையது]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[புதியது]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format

@@ -10,11 +10,14 @@
     ],
     "desktop-file-name-suffix": " (Nightly)",
     "finish-args": [
+        "--device=dri",
+        "--filesystem=host",
         "--share=ipc",
         "--socket=cups",
-        "--socket=x11",
+        "--socket=fallback-x11",
         "--socket=wayland",
-        "--filesystem=host"
+        "--system-talk-name=org.freedesktop.UDisks2",
+        "--talk-name=org.freedesktop.Flatpak"
     ],
     "separate-locales": false,
     "modules": [
@@ -31,10 +34,23 @@
         {
             "name": "kate",
             "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "post-install": [
+                "mv /app/bin/kate /app/bin/kate-bin",
+                "install -Dm755 ../kate-wrapper /app/bin/kate"
+            ],
             "sources": [
                 {
                     "type": "dir",
                     "path": "."
+                },
+                {
+                    "type": "script",
+                    "dest-filename": "kate-wrapper",
+                    "commands": [
+                        "export TMPDIR=\"$XDG_RUNTIME_DIR/app/$FLATPAK_ID\"",
+                        "exec /app/bin/kate-bin \"$@\""
+                    ]
                 }
             ]
         }

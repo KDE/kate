@@ -94,6 +94,12 @@ public:
         invalidateFilter();
     }
 
+    void setActiveSeverity(DiagnosticSeverity s)
+    {
+        severity = s;
+        invalidateFilter();
+    }
+
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
         if (activeProvider) {
@@ -102,11 +108,39 @@ public:
                 return index.data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>() == activeProvider;
             }
         }
+
+        if (severity != DiagnosticSeverity::Unknown) {
+            auto index = sourceModel()->index(sourceRow, 0, sourceParent);
+            auto model = static_cast<QStandardItemModel *>(sourceModel());
+            const auto item = model->itemFromIndex(index);
+            if (item && item->type() == DiagnosticItem_Diag) {
+                auto castedItem = static_cast<DiagnosticItem *>(item);
+                return castedItem->m_diagnostic.severity == severity;
+            } else if (item && item->type() == DiagnosticItem_File) {
+                // Hide parent if all childs hidden
+                int rc = item->rowCount();
+                int count = 0;
+                for (int i = 0; i < rc; ++i) {
+                    auto child = item->child(i);
+                    if (child && child->type() == DiagnosticItem_Diag) {
+                        count += static_cast<DiagnosticItem *>(child)->m_diagnostic.severity == severity;
+                    }
+                }
+                return count > 0;
+            } else if (item && item->type() == DiagnosticItem_Fix) {
+                if (item->parent() && item->parent()->type() == DiagnosticItem_Diag) {
+                    auto castedItem = static_cast<DiagnosticItem *>(item);
+                    return castedItem->m_diagnostic.severity == severity;
+                }
+            }
+        }
+
         return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
     }
 
 private:
     DiagnosticsProvider *activeProvider = nullptr;
+    DiagnosticSeverity severity = DiagnosticSeverity::Unknown;
 };
 
 class DiagTabOverlay : public QWidget
@@ -246,6 +280,8 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     , m_clearButton(new QToolButton(this))
     , m_filterLineEdit(new QLineEdit(this))
     , m_providerCombo(new QComboBox(this))
+    , m_errFilterBtn(new QToolButton(this))
+    , m_warnFilterBtn(new QToolButton(this))
     , m_proxy(new DiagnosticsProxyModel(this))
     , m_sessionDiagnosticSuppressions(std::make_unique<SessionDiagnosticSuppressions>())
     , m_tabButtonOverlay(new DiagTabOverlay(tabButton))
@@ -315,12 +351,6 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
     mainLayout->setSpacing(2);
     auto l = new QHBoxLayout();
     mainLayout->addLayout(l);
-    l->addWidget(m_filterLineEdit);
-    m_filterLineEdit->setPlaceholderText(i18n("Filter..."));
-    m_filterLineEdit->setClearButtonEnabled(true);
-    connect(m_filterLineEdit, &QLineEdit::textChanged, m_filterChangedTimer, [this] {
-        m_filterChangedTimer->start();
-    });
 
     l->addWidget(m_providerCombo);
     m_providerModel = new ProviderListModel(this);
@@ -330,6 +360,39 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
         auto proxy = static_cast<DiagnosticsProxyModel *>(m_proxy);
         proxy->setActiveProvider(m_providerCombo->currentData().value<DiagnosticsProvider *>());
         m_diagnosticsTree->expandAll();
+    });
+
+    m_errFilterBtn->setIcon(QIcon::fromTheme(QStringLiteral("data-error")));
+    m_errFilterBtn->setCheckable(true);
+    l->addWidget(m_errFilterBtn);
+    connect(m_errFilterBtn, &QToolButton::clicked, this, [this](bool c) {
+        if (m_warnFilterBtn->isChecked()) {
+            const QSignalBlocker b(m_warnFilterBtn);
+            m_warnFilterBtn->setChecked(false);
+        }
+        auto proxy = static_cast<DiagnosticsProxyModel *>(m_proxy);
+        proxy->setActiveSeverity(c ? DiagnosticSeverity::Error : DiagnosticSeverity::Unknown);
+        QTimer::singleShot(200, m_diagnosticsTree, &QTreeView::expandAll);
+    });
+
+    m_warnFilterBtn->setIcon(QIcon::fromTheme(QStringLiteral("data-warning")));
+    m_warnFilterBtn->setCheckable(true);
+    l->addWidget(m_warnFilterBtn);
+    connect(m_warnFilterBtn, &QToolButton::clicked, this, [this](bool c) {
+        if (m_errFilterBtn->isChecked()) {
+            const QSignalBlocker b(m_errFilterBtn);
+            m_errFilterBtn->setChecked(false);
+        }
+        auto proxy = static_cast<DiagnosticsProxyModel *>(m_proxy);
+        proxy->setActiveSeverity(c ? DiagnosticSeverity::Warning : DiagnosticSeverity::Unknown);
+        QTimer::singleShot(200, m_diagnosticsTree, &QTreeView::expandAll);
+    });
+
+    l->addWidget(m_filterLineEdit);
+    m_filterLineEdit->setPlaceholderText(i18n("Filter..."));
+    m_filterLineEdit->setClearButtonEnabled(true);
+    connect(m_filterLineEdit, &QLineEdit::textChanged, m_filterChangedTimer, [this] {
+        m_filterChangedTimer->start();
     });
 
     m_clearButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));

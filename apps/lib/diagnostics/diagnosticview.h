@@ -142,6 +142,8 @@ private:
     class QToolButton *const m_clearButton;
     class QLineEdit *const m_filterLineEdit;
     class QComboBox *const m_providerCombo;
+    class QToolButton *const m_errFilterBtn;
+    class QToolButton *const m_warnFilterBtn;
 
     class ProviderListModel *m_providerModel;
 

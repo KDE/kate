@@ -30,6 +30,7 @@
 #include <QIcon>
 #include <QLabel>
 #include <QLineEdit>
+#include <QPainter>
 #include <QPushButton>
 #include <QShowEvent>
 #include <QStyle>
@@ -37,6 +38,7 @@
 #include <QVBoxLayout>
 
 #include <KAuthorized>
+#include <KColorScheme>
 #include <KConfigGroup>
 #include <KPluginFactory>
 #include <KSharedConfig>
@@ -281,6 +283,23 @@ void KateConsole::showEvent(QShowEvent *)
     }
 
     loadConsoleIfNeeded();
+}
+
+void KateConsole::paintEvent(QPaintEvent *e)
+{
+    if (hasKonsole()) {
+        QWidget::paintEvent(e);
+        return;
+    }
+    QPainter p(this);
+    p.setPen(QPen(KColorScheme().foreground(KColorScheme::NegativeText), 1));
+    p.setBrush(Qt::NoBrush);
+    p.drawRect(rect().adjusted(1, 1, -1, -1));
+    auto font = p.font();
+    font.setPixelSize(20);
+    p.setFont(font);
+    const QString text = i18n("Konsole not installed. Please install konsole to be able to use the terminal.");
+    p.drawText(rect(), Qt::AlignCenter | Qt::TextWordWrap, text);
 }
 
 void KateConsole::cd(const QString &path)

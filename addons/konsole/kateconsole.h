@@ -201,6 +201,8 @@ protected:
      */
     void showEvent(QShowEvent *ev) override;
 
+    void paintEvent(QPaintEvent *e) override;
+
 private:
     /**
      * plugin factory for the terminal

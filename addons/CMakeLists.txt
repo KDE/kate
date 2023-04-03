@@ -46,6 +46,7 @@ ecm_optional_add_subdirectory(cmake-tools)
 ecm_optional_add_subdirectory(keyboardmacros)
 ecm_optional_add_subdirectory(format)
 ecm_optional_add_subdirectory(eslint)
+ecm_optional_add_subdirectory(openlink)
 
 # TODO KF6 remove the migration leftovers
 if(QT_MAJOR_VERSION STREQUAL "5")

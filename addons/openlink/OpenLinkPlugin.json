@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "Highlight and open links",
+        "Name": "Open Link",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

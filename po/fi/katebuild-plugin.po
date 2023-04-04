@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-26 01:01+0000\n"
-"PO-Revision-Date: 2023-01-18 12:36+0200\n"
+"PO-Revision-Date: 2023-03-12 18:06+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:21:56+0000\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -123,13 +123,13 @@ msgstr "Näytä merkit"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Kohdista seuraavaan välilehteen vasemmalla"
 
 #: plugin_katebuild.cpp:203
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Kohdista seuraavaan välilehteen oikealla"
 
 #: plugin_katebuild.cpp:227
 #, kde-format
@@ -388,7 +388,7 @@ msgstr "Suorita komento"
 #: targets.cpp:23
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
-msgstr ""
+msgstr "Suodata kohteita, valitse nuolinäppäimin, suorita Enterillä"
 
 #: targets.cpp:27
 #, kde-format

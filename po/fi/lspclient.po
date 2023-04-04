@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-02 00:50+0000\n"
-"PO-Revision-Date: 2023-01-18 12:34+0200\n"
+"PO-Revision-Date: 2023-03-30 12:00+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:252
 #, kde-format
@@ -203,7 +203,7 @@ msgstr "Korosta siirtymisen kohde"
 #: lspclientpluginview.cpp:580
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Näytä vihjeet"
 
 #: lspclientpluginview.cpp:584
 #, kde-format
@@ -238,7 +238,7 @@ msgstr "Käynnistä kaikki LSP-palvelimet uudelleen"
 #: lspclientpluginview.cpp:613
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Siirry"
 
 #: lspclientpluginview.cpp:640
 #, kde-format
@@ -460,10 +460,9 @@ msgstr "Asiakasasetukset"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Muotoile kirjoitettaessa"
+msgstr "Muotoile tallennettaessa"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -475,7 +474,7 @@ msgstr "Käytä semanttista korostusta"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Käytä vihjeitä"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75

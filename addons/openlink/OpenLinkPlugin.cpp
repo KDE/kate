@@ -216,6 +216,19 @@ static const QRegularExpression &linkRE()
     return re;
 }
 
+static void adjustMDLink(const QString &line, int capturedStart, int &capturedEnd)
+{
+    if (capturedStart > 1) { // at least two chars before
+        int i = capturedStart - 1;
+        // for markdown [asd](google.com) style urls, make sure to strip last `)`
+        bool isMD = line.at(i - 1) == QLatin1Char(']') && line.at(i) == QLatin1Char('(');
+        if (isMD) {
+            int f = line.lastIndexOf(QLatin1Char(')'), capturedEnd >= line.size() ? line.size() - 1 : capturedEnd);
+            capturedEnd = f != -1 ? f : capturedEnd;
+        }
+    }
+}
+
 void OpenLinkPluginView::highlightIfLink(KTextEditor::Cursor c, QWidget *viewInternal)
 {
     if (!m_activeView || !m_activeView->document() || !c.isValid()) {
@@ -228,22 +241,15 @@ void OpenLinkPluginView::highlightIfLink(KTextEditor::Cursor c, QWidget *viewInt
         return;
     }
 
-    int spaceBefore = line.lastIndexOf(QLatin1Char(' '), c.column());
-    const int spaceAfter = line.indexOf(QLatin1Char(' '), c.column());
-    if (spaceBefore == spaceAfter)
-        return;
-    spaceBefore++; // Skip the space
+    auto match = linkRE().match(line);
+    const int capturedStart = match.capturedStart();
+    int capturedEnd = match.capturedEnd();
 
-    const QString word = line.mid(spaceBefore, spaceAfter == -1 ? spaceAfter : spaceAfter - spaceBefore);
-    if (word.isEmpty()) {
-        return;
-    }
-    const int sc = spaceBefore;
-    KTextEditor::Range range(c.line(), sc, c.line(), spaceAfter == -1 ? line.size() : spaceAfter);
-
-    if (linkRE().match(word).hasMatch()) {
-        m_ctrlHoverFeedback->currentWord = word;
+    if (match.hasMatch() && capturedStart <= c.column() && c.column() <= capturedEnd) {
+        adjustMDLink(line, capturedStart, capturedEnd);
+        m_ctrlHoverFeedback->currentWord = line.mid(capturedStart, capturedEnd - capturedStart);
         m_ctrlHoverFeedback->viewInternal = viewInternal;
+        KTextEditor::Range range(c.line(), capturedStart, c.line(), capturedEnd);
         m_ctrlHoverFeedback->highlight(m_activeView, range);
     }
 }
@@ -288,7 +294,9 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Cursor pos)
         while (it.hasNext()) {
             auto match = it.next();
             if (match.hasMatch()) {
-                KTextEditor::Range range(i, match.capturedStart(), i, match.capturedEnd());
+                int capturedEnd = match.capturedEnd();
+                adjustMDLink(line, match.capturedStart(), capturedEnd);
+                KTextEditor::Range range(i, match.capturedStart(), i, capturedEnd);
                 KTextEditor::MovingRange *r = iface->newMovingRange(range);
                 static const KTextEditor::Attribute::Ptr attr([] {
                     auto attr = new KTextEditor::Attribute;

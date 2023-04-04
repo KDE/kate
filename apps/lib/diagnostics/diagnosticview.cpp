@@ -363,7 +363,9 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
     });
 
     m_errFilterBtn->setIcon(QIcon::fromTheme(QStringLiteral("data-error")));
+    m_errFilterBtn->setText(i18n("Errors"));
     m_errFilterBtn->setCheckable(true);
+    m_errFilterBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     l->addWidget(m_errFilterBtn);
     connect(m_errFilterBtn, &QToolButton::clicked, this, [this](bool c) {
         if (m_warnFilterBtn->isChecked()) {
@@ -377,6 +379,8 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
 
     m_warnFilterBtn->setIcon(QIcon::fromTheme(QStringLiteral("data-warning")));
     m_warnFilterBtn->setCheckable(true);
+    m_warnFilterBtn->setText(i18n("Warnings"));
+    m_warnFilterBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     l->addWidget(m_warnFilterBtn);
     connect(m_warnFilterBtn, &QToolButton::clicked, this, [this](bool c) {
         if (m_errFilterBtn->isChecked()) {

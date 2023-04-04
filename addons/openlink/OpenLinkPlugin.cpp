@@ -134,7 +134,7 @@ public:
 private:
     Q_SLOT void clear(KTextEditor::Document *doc)
     {
-        if (m_movingRange->document() == doc) {
+        if (m_movingRange && m_movingRange->document() == doc) {
             m_movingRange.reset();
         }
     }

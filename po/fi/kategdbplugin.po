@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2023-03-07 21:40+0200\n"
+"PO-Revision-Date: 2023-03-30 12:00+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -83,19 +83,19 @@ msgstr "Portti"
 #: advanced_settings.ui:183
 #, kde-format
 msgid "Baud"
-msgstr "Baud"
+msgstr "Baudi"
 
 #. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
 #: advanced_settings.ui:231
 #, kde-format
 msgid "solib-absolute-prefix"
-msgstr "solib-absolute-prefix"
+msgstr "solib-absoluuttinen-etuliite"
 
 #. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
 #: advanced_settings.ui:248
 #, kde-format
 msgid "solib-search-path"
-msgstr "solib-search-path"
+msgstr "solib-hakupolku"
 
 #. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
 #: advanced_settings.ui:317
@@ -200,6 +200,7 @@ msgstr "Suoritinrekisterit"
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
+"Aseta ohjelmatiedosto Virheenpaikannus-paneelin Asetukset-välilehdellä."
 
 #: debugview.cpp:169
 #, kde-format
@@ -207,6 +208,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Virheenjäljitintä ei ole valittu. Valitse se Virheenpaikannus-paneelin "
+"Asetukset-välilehdeltä."
 
 #: debugview.cpp:178
 #, kde-format
@@ -214,6 +217,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Virheenjäljitintä ei löydy. Varmista, että se on järjestelmään asennettu. "
+"Valittu vianjäljitin on ”%1”"
 
 #: debugview.cpp:384
 #, kde-format
@@ -499,7 +504,7 @@ msgstr ""
 #: debugview_dap.cpp:1334
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "rivillä %1 on jo keskeytyskohta"
 
 #: debugview_dap.cpp:1379
 #, kde-format

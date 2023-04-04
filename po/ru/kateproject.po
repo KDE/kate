@@ -4,14 +4,14 @@
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013.
 # Alexander Potashev <aspotashev@gmail.com>, 2015, 2016.
-# Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020, 2022.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020, 2022, 2023.
 # Olesya Gerasimenko <translation-team@basealt.ru>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-30 02:45+0000\n"
-"PO-Revision-Date: 2022-12-21 11:56+0300\n"
+"PO-Revision-Date: 2023-04-03 16:37+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -33,12 +33,12 @@ msgstr "Выберите ветвь для извлечения. Нажмите 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
-msgstr "Создать новую ветвь"
+msgstr "Создать ветвь"
 
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr "Создать новую ветвь из..."
+msgstr "Создать ветвь из…"
 
 #: branchcheckoutdialog.cpp:53
 #, kde-format
@@ -53,14 +53,14 @@ msgstr "Не удалось извлечь в ветвь %1. Ошибка: %2"
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr "Введите имя новой ветви. Нажмите клавишу «Esc» для отмены."
+msgstr "Введите имя новой ветви. Для отмены нажмите клавишу «Esc»."
 
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
-"Выберите ветвь, из которой следует выполнить извлечение. Нажмите клавишу "
-"«Esc» для отмены."
+"Выберите ветвь, из которой следует выполнить извлечение. Для отмены нажмите "
+"клавишу «Esc»."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
@@ -70,7 +70,7 @@ msgstr "Извлечено в новую ветвь: %1"
 #: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr "Не удалось создать новую ветвь. Ошибка «%1»"
+msgstr "Не удалось создать ветвь. Ошибка «%1»"
 
 #: branchdeletedialog.cpp:122
 #, kde-format
@@ -91,15 +91,15 @@ msgstr "Удалить"
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] "Действительно удалить выбранные ветви?"
-msgstr[1] "Действительно удалить выбранные ветви?"
-msgstr[2] "Действительно удалить выбранные ветви?"
-msgstr[3] "Действительно удалить выбранную ветвь?"
+msgstr[0] "Удалить выбранные ветви?"
+msgstr[1] "Удалить выбранные ветви?"
+msgstr[2] "Удалить выбранные ветви?"
+msgstr[3] "Удалить выбранную ветвь?"
 
 #: branchesdialog.cpp:102
 #, kde-format
 msgid "Select Branch..."
-msgstr "Выбрать ветвь..."
+msgstr "Выберите ветвь…"
 
 #: branchesdialog.cpp:128 gitwidget.cpp:490 kateprojectpluginview.cpp:68
 #, kde-format
@@ -112,24 +112,22 @@ msgid "Back"
 msgstr "Назад"
 
 #: currentgitbranchbutton.cpp:123
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "Не удалось выполнить фиксацию: %1"
+msgstr "HEAD на фиксации %1"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD на метке %1"
 
 #: currentgitbranchbutton.cpp:127
-#, fuzzy, kde-format
-#| msgid "Checked out to new branch: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "Извлечено в новую ветвь: %1"
+msgstr "Активная ветвь: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -149,7 +147,7 @@ msgstr "Отмена"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "Написать сообщение фиксации..."
+msgstr "Написать сообщение фиксации…"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
@@ -647,7 +645,7 @@ msgstr "Git"
 #: kateprojectconfigpage.cpp:84
 #, kde-format
 msgid "Show number of changed lines in git status"
-msgstr "Показать количество изменённых строк в представлении состояния git"
+msgstr "Показывать количество изменённых строк в представлении состояния git"
 
 #: kateprojectconfigpage.cpp:88
 #, kde-format
@@ -727,32 +725,29 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:138
 #: kateprojectinfoviewcodeanalysis.cpp:198
 #: kateprojectinfoviewcodeanalysis.cpp:202
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "Анализ кода"
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "Анализ %1 файла завершён."
-msgstr[1] "Анализ %1 файлов завершён."
-msgstr[2] "Анализ %1 файлов завершён."
-msgstr[3] "Анализ файла завершён."
+msgstr[0] "[%1] Анализ %2 файла завершён."
+msgstr[1] "[%1] Анализ %2 файлов завершён."
+msgstr[2] "[%1] Анализ %2 файлов завершён."
+msgstr[3] "[%1] Анализ %2 файла завершён."
 
 #: kateprojectinfoviewcodeanalysis.cpp:201
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Ошибка при выполнении анализа %1 файла. Код ошибки: %2."
+msgstr ""
+"Ошибка при выполнении анализа файла, код завершения: %1, сообщение об "
+"ошибке: %2."
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -787,7 +782,7 @@ msgstr "Не удалось создать индекс, установите «
 #: kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Indexing is not enabled"
-msgstr "Индексирование не включено"
+msgstr "Индексирование отключено"
 
 #: kateprojectitem.cpp:166
 #, kde-format
@@ -797,17 +792,17 @@ msgstr "Ошибка"
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "File name already exists"
-msgstr "Файл уже существует"
+msgstr "Файл с таким именем уже существует"
 
 #: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr "Подтвердить закрытие проекта: %1"
+msgstr "Подтвердите закрытие проекта: %1"
 
 #: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
-msgstr "Закрыть проект %1 и связанные с ним открытые документы (%2)?"
+msgstr "Закрыть проект «%1» и связанные с ним открытые документы (%2)?"
 
 #: kateprojectplugin.cpp:570
 #, kde-format
@@ -836,10 +831,9 @@ msgid "Project Manager"
 msgstr "Управление проектами"
 
 #: kateprojectpluginview.cpp:79
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Восстанавливать открытые проекты"
+msgstr "Открыть список проектов"
 
 #: kateprojectpluginview.cpp:84
 #, kde-format
@@ -847,8 +841,7 @@ msgid "Reload project"
 msgstr "Перечитать проект"
 
 #: kateprojectpluginview.cpp:87
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Закрыть проект"
 
@@ -920,7 +913,7 @@ msgstr "Индекс проекта"
 #: kateprojectpluginview.cpp:848
 #, kde-format
 msgid "Choose a directory"
-msgstr "Выберите каталог"
+msgstr "Выбор каталога"
 
 #: kateprojecttreeviewcontextmenu.cpp:42
 #, kde-format
@@ -965,12 +958,12 @@ msgstr "Открыть с помощью..."
 #: kateprojecttreeviewcontextmenu.cpp:96
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr "Открыть встроенный терминал"
+msgstr "Открыть встроенный терминал в этой папке"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr "Открыть внешний терминал"
+msgstr "Открыть внешний терминал в этой папке"
 
 #: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format

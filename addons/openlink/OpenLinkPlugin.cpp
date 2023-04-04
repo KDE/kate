@@ -53,11 +53,13 @@ public:
     QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
     {
         auto doc = view->document();
+        // If the cursor is inside the link area, show a hint to the user
+        auto currentPos = view->cursorPosition();
         auto it = m_pview->m_docHighligtedLinkRanges.find(doc);
         if (it != m_pview->m_docHighligtedLinkRanges.end()) {
             const auto &ranges = it->second;
             for (const auto &range : ranges) {
-                if (range && range->contains(position)) {
+                if (range && range->contains(position) && range->contains(currentPos)) {
                     const QString hint = QStringLiteral("<p>") + i18n("Ctrl+Click to open link") + QStringLiteral("</p>");
                     return hint;
                 }

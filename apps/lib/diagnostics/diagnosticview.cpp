@@ -438,6 +438,9 @@ void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
     connect(provider, &DiagnosticsProvider::fixesAvailable, this, &DiagnosticsView::onFixesAvailable);
     connect(provider, &DiagnosticsProvider::requestClearDiagnostics, this, &DiagnosticsView::clearDiagnosticsFromProvider);
     connect(provider, &DiagnosticsProvider::requestClearSuppressions, this, &DiagnosticsView::clearSuppressionsFromProvider);
+    connect(provider, &QObject::destroyed, this, [this](QObject *o) {
+        unregisterDiagnosticsProvider(static_cast<DiagnosticsProvider *>(o));
+    });
     m_providers.push_back(provider);
 
     m_providerModel->update(m_providers);
@@ -446,7 +449,6 @@ void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
 void DiagnosticsView::unregisterDiagnosticsProvider(DiagnosticsProvider *provider)
 {
     if (!m_providers.contains(provider)) {
-        qWarning() << provider << "not registred but trying to unregister!";
         return;
     }
     disconnect(provider, &DiagnosticsProvider::diagnosticsAdded, this, &DiagnosticsView::onDiagnosticsAdded);

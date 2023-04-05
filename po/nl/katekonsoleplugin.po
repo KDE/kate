@@ -4,20 +4,20 @@
 #
 # Rinse de Vries <rinsedevries@kde.nl>, 2007.
 # Kristof Bal <kristof.bal@gmail.com>, 2009.
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2013, 2014, 2017, 2019, 2021.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2013, 2014, 2017, 2019, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-04 00:50+0000\n"
-"PO-Revision-Date: 2021-05-01 12:13+0200\n"
+"PO-Revision-Date: 2023-04-04 10:54+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
-"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
+"Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.04.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: kateconsole.cpp:56
@@ -65,6 +65,8 @@ msgstr "&Focus op terminalpaneel"
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Konsole niet geïnstalleerd. Installeer konsole om de terminal te kunnen "
+"gebruiken."
 
 #: kateconsole.cpp:365
 #, kde-format

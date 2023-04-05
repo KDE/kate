@@ -2,14 +2,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Eloy Cuadra <ecuadra@eloihr.net>, 2007, 2008, 2009, 2013, 2017, 2019, 2021.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2007, 2008, 2009, 2013, 2017, 2019, 2021, 2023.
 # Rocio Gallego <traducciones@rociogallego.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-04 00:50+0000\n"
-"PO-Revision-Date: 2021-05-01 14:53+0200\n"
+"PO-Revision-Date: 2023-04-04 05:25+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "com>\n"
-"X-Generator: Lokalize 21.04.0\n"
+"X-Generator: Lokalize 23.03.80\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: kateconsole.cpp:56
@@ -67,6 +67,7 @@ msgstr "En&focar panel del terminal"
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Konsole no está instalado. Instale Konsole para poder usar la terminal."
 
 #: kateconsole.cpp:365
 #, kde-format

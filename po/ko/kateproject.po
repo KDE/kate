@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-04-05 00:50+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -693,7 +693,7 @@ msgstr "터미널 (기본)"
 msgid "Code Index"
 msgstr "코드 색인"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
 #, kde-format
 msgid "Code Analysis"
 msgstr "코드 분석"
@@ -708,7 +708,7 @@ msgstr "메모"
 msgid "Start Analysis..."
 msgstr "분석 시작..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -717,15 +717,15 @@ msgstr ""
 "%1<br/><br/>다음 목록에 있는 파일 확장자와 일치하는 모든 프로젝트 파일에 대해"
 "서 도구를 실행합니다:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:138
-#: kateprojectinfoviewcodeanalysis.cpp:198
-#: kateprojectinfoviewcodeanalysis.cpp:202
+#: kateprojectinfoviewcodeanalysis.cpp:140
+#: kateprojectinfoviewcodeanalysis.cpp:200
+#: kateprojectinfoviewcodeanalysis.cpp:204
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "코드 분석"
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:195
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -737,7 +737,7 @@ msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "파일 %1개 분석이 완료되었습니다."
 
-#: kateprojectinfoviewcodeanalysis.cpp:201
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."

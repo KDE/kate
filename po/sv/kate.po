@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-02 00:50+0000\n"
+"POT-Creation-Date: 2023-04-05 00:50+0000\n"
 "PO-Revision-Date: 2022-10-02 16:47+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -286,87 +286,104 @@ msgid ""
 "offset %2: %3"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:219
+#: lib/diagnostics/diagnosticview.cpp:60
+#, kde-format
+msgid "All"
+msgstr ""
+
+#: lib/diagnostics/diagnosticview.cpp:330
 #, fuzzy, kde-format
 #| msgid "&Quick Open"
 msgid "Quick Fix"
 msgstr "&Snabböppna"
 
-#: lib/diagnostics/diagnosticview.cpp:244
+#: lib/diagnostics/diagnosticview.cpp:366
+#, fuzzy, kde-format
+#| msgid "Error"
+msgid "Errors"
+msgstr "Fel"
+
+#: lib/diagnostics/diagnosticview.cpp:382
+#, fuzzy, kde-format
+#| msgid "Warning"
+msgid "Warnings"
+msgstr "Varning"
+
+#: lib/diagnostics/diagnosticview.cpp:396
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrera..."
 
-#: lib/diagnostics/diagnosticview.cpp:793 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:949 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Fel"
 
-#: lib/diagnostics/diagnosticview.cpp:797 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:953 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Varning"
 
-#: lib/diagnostics/diagnosticview.cpp:801
+#: lib/diagnostics/diagnosticview.cpp:957
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "Metainformation"
 
-#: lib/diagnostics/diagnosticview.cpp:934
+#: lib/diagnostics/diagnosticview.cpp:1090
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1048
+#: lib/diagnostics/diagnosticview.cpp:1204
 #, fuzzy, kde-format
 #| msgid "&Expand tabs"
 msgid "Expand All"
 msgstr "&Expandera flikar"
 
-#: lib/diagnostics/diagnosticview.cpp:1049
+#: lib/diagnostics/diagnosticview.cpp:1205
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "St&äng alla"
 
-#: lib/diagnostics/diagnosticview.cpp:1058
+#: lib/diagnostics/diagnosticview.cpp:1214
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy to Clipboard"
 msgstr "Kopiera till klippbordet"
 
-#: lib/diagnostics/diagnosticview.cpp:1081
+#: lib/diagnostics/diagnosticview.cpp:1237
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1083
+#: lib/diagnostics/diagnosticview.cpp:1239
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "&Alla sessioner"
 
-#: lib/diagnostics/diagnosticview.cpp:1087
+#: lib/diagnostics/diagnosticview.cpp:1243
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1089
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1102
+#: lib/diagnostics/diagnosticview.cpp:1258
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "Filtrera sessioner"
 
-#: lib/diagnostics/diagnosticview.cpp:1104
+#: lib/diagnostics/diagnosticview.cpp:1260
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-04-05 00:50+0000\n"
 "PO-Revision-Date: 2023-01-02 16:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -688,7 +688,7 @@ msgstr "Τερματικό (Βάση)"
 msgid "Code Index"
 msgstr "Ευρετήριο κώδικα"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
 #, kde-format
 msgid "Code Analysis"
 msgstr "Ανάλυση κώδικα"
@@ -703,7 +703,7 @@ msgstr "Σημειώσεις"
 msgid "Start Analysis..."
 msgstr "Έναρξη ανάλυσης..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -712,15 +712,15 @@ msgstr ""
 "%1<br/><br/>Το εργαλείο θα εκτελεστεί σε όλα τα αρχεία έργων που ταιριάζουν "
 "με αυτήν τη λίστα κατάληξης αρχείων:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:138
-#: kateprojectinfoviewcodeanalysis.cpp:198
-#: kateprojectinfoviewcodeanalysis.cpp:202
+#: kateprojectinfoviewcodeanalysis.cpp:140
+#: kateprojectinfoviewcodeanalysis.cpp:200
+#: kateprojectinfoviewcodeanalysis.cpp:204
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Ανάλυση κώδικα"
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:195
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -733,7 +733,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "Η ανάλυση σε %1 αρχείο ολοκληρώθηκε."
 msgstr[1] "Η ανάλυση σε %1 αρχεία ολοκληρώθηκε."
 
-#: kateprojectinfoviewcodeanalysis.cpp:201
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."

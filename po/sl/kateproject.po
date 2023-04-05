@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-04-05 00:50+0000\n"
 "PO-Revision-Date: 2023-03-31 09:04+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -692,7 +692,7 @@ msgstr "Terminal (osnova)"
 msgid "Code Index"
 msgstr "Kazalo kode"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
 #, kde-format
 msgid "Code Analysis"
 msgstr "Preučevanje kode"
@@ -707,7 +707,7 @@ msgstr "Opombe"
 msgid "Start Analysis..."
 msgstr "Začni z analizo..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -716,14 +716,14 @@ msgstr ""
 "%1<br/><br/>Orodje bo obdelalo vse datoteke projektov, ki ustrezajo seznamu "
 "naslednjih podaljškov datotek:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:138
-#: kateprojectinfoviewcodeanalysis.cpp:198
-#: kateprojectinfoviewcodeanalysis.cpp:202
+#: kateprojectinfoviewcodeanalysis.cpp:140
+#: kateprojectinfoviewcodeanalysis.cpp:200
+#: kateprojectinfoviewcodeanalysis.cpp:204
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "Preučevanje kode"
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:195
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -736,7 +736,7 @@ msgstr[1] "[%1]Analiza na %2 datotekah končana."
 msgstr[2] "[%1]Analiza na %2 datotekah končana."
 msgstr[3] "[%1]Analiza na %2 datotekah končana."
 
-#: kateprojectinfoviewcodeanalysis.cpp:201
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Analiza je izpadla s kodo %1, Napaka: %2"

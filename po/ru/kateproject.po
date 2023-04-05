@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-04-05 00:50+0000\n"
 "PO-Revision-Date: 2022-12-21 11:56+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -700,7 +700,7 @@ msgstr "Терминал (Основной)"
 msgid "Code Index"
 msgstr "Индекс кода"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
 #, kde-format
 msgid "Code Analysis"
 msgstr "Анализ кода"
@@ -715,7 +715,7 @@ msgstr "Примечания"
 msgid "Start Analysis..."
 msgstr "Начать анализ…"
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -724,15 +724,15 @@ msgstr ""
 "%1<br/><br/>Инструмент будет применён ко всем файлам проекта, расширения "
 "которых присутствуют в списке:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:138
-#: kateprojectinfoviewcodeanalysis.cpp:198
-#: kateprojectinfoviewcodeanalysis.cpp:202
+#: kateprojectinfoviewcodeanalysis.cpp:140
+#: kateprojectinfoviewcodeanalysis.cpp:200
+#: kateprojectinfoviewcodeanalysis.cpp:204
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Анализ кода"
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:195
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -747,7 +747,7 @@ msgstr[1] "Анализ %1 файлов завершён."
 msgstr[2] "Анализ %1 файлов завершён."
 msgstr[3] "Анализ файла завершён."
 
-#: kateprojectinfoviewcodeanalysis.cpp:201
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."

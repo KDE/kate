@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:50+0000\n"
+"POT-Creation-Date: 2023-04-05 00:50+0000\n"
 "PO-Revision-Date: 2023-03-12 13:59+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -682,7 +682,7 @@ msgstr "Terminalo (Bazo)"
 msgid "Code Index"
 msgstr "Koda Indekso"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
 #, kde-format
 msgid "Code Analysis"
 msgstr "Koda Analizo"
@@ -697,7 +697,7 @@ msgstr "Notoj"
 msgid "Start Analysis..."
 msgstr "Komenci Analizon..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -706,14 +706,14 @@ msgstr ""
 "%1<br/><br/>La ilo ruliĝos en ĉiuj projektdosieroj kiuj kongruas kun ĉi tiu "
 "listo de dosier-estendoj:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:138
-#: kateprojectinfoviewcodeanalysis.cpp:198
-#: kateprojectinfoviewcodeanalysis.cpp:202
+#: kateprojectinfoviewcodeanalysis.cpp:140
+#: kateprojectinfoviewcodeanalysis.cpp:200
+#: kateprojectinfoviewcodeanalysis.cpp:204
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "Kodanalizo"
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:195
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -724,7 +724,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "[%1]Analizo de %2 dosiero finiĝis."
 msgstr[1] "[%1]Analizo de %2 dosieroj finiĝis."
 
-#: kateprojectinfoviewcodeanalysis.cpp:201
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Analizo malsukcesis kun elirkodo %1, Eraro: %2"

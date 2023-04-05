@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-02 00:50+0000\n"
-"PO-Revision-Date: 2023-03-29 16:09+0200\n"
+"POT-Creation-Date: 2023-04-05 00:50+0000\n"
+"PO-Revision-Date: 2023-03-31 15:04+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -283,79 +283,96 @@ msgstr ""
 "Chyba v regulárním výrazu: %1\n"
 "posun %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:219
+#: lib/diagnostics/diagnosticview.cpp:60
+#, kde-format
+msgid "All"
+msgstr ""
+
+#: lib/diagnostics/diagnosticview.cpp:330
 #, kde-format
 msgid "Quick Fix"
 msgstr "Rychlá oprava"
 
-#: lib/diagnostics/diagnosticview.cpp:244
+#: lib/diagnostics/diagnosticview.cpp:366
+#, fuzzy, kde-format
+#| msgid "Error"
+msgid "Errors"
+msgstr "Chyba"
+
+#: lib/diagnostics/diagnosticview.cpp:382
+#, fuzzy, kde-format
+#| msgid "Warning"
+msgid "Warnings"
+msgstr "Varování"
+
+#: lib/diagnostics/diagnosticview.cpp:396
 #, kde-format
 msgid "Filter..."
 msgstr "Filtr..."
 
-#: lib/diagnostics/diagnosticview.cpp:793 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:949 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Chyba"
 
-#: lib/diagnostics/diagnosticview.cpp:797 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:953 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Varování"
 
-#: lib/diagnostics/diagnosticview.cpp:801
+#: lib/diagnostics/diagnosticview.cpp:957
 #, kde-format
 msgid "Information"
 msgstr "Informace"
 
-#: lib/diagnostics/diagnosticview.cpp:934
+#: lib/diagnostics/diagnosticview.cpp:1090
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [potlačeno: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1048
+#: lib/diagnostics/diagnosticview.cpp:1204
 #, kde-format
 msgid "Expand All"
 msgstr "Rozbalit vše"
 
-#: lib/diagnostics/diagnosticview.cpp:1049
+#: lib/diagnostics/diagnosticview.cpp:1205
 #, kde-format
 msgid "Collapse All"
 msgstr "Svinout vše"
 
-#: lib/diagnostics/diagnosticview.cpp:1058
+#: lib/diagnostics/diagnosticview.cpp:1214
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Zkopírovat do schránky"
 
-#: lib/diagnostics/diagnosticview.cpp:1081
+#: lib/diagnostics/diagnosticview.cpp:1237
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Odstranit globální potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1083
+#: lib/diagnostics/diagnosticview.cpp:1239
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Přidat globální potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1087
+#: lib/diagnostics/diagnosticview.cpp:1243
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Odstranit místní potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1089
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Přidat místní potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1102
+#: lib/diagnostics/diagnosticview.cpp:1258
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Zakázat potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1104
+#: lib/diagnostics/diagnosticview.cpp:1260
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Povolit potlačení"
@@ -1798,17 +1815,12 @@ msgid "&View Difference"
 msgstr "Zobrazit roz&díl"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
-"Zjistí rozdíl mezi obsahem editoru a souborem na disku a zobrazí jej pomocí "
-"výchozí aplikace. Vyžaduje diff(1)."
+"Zjistí rozdíl mezi obsahem editoru a souborem na disku pro vybraný dokument."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1845,15 +1857,12 @@ msgstr ""
 "'%1'"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Spuštění příkazu 'diff' selhalo. Ujistěte se, že je nainstalován a v "
+"Spuštění příkazu 'diff' selhalo. Ujistěte se, že git je nainstalován a v "
 "proměnné PATH."
 
 #: lib/katemwmodonhddialog.cpp:319
@@ -2729,9 +2738,3 @@ msgstr "Spravovat sezení..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Zobrazit pro nové okno"
-
-#~ msgid "Ignoring amount of white space changed, the files are identical."
-#~ msgstr "Kromě změn v mezerách jsou soubory totožné."
-
-#~ msgid "Diff Output"
-#~ msgstr "Výstup diffu"

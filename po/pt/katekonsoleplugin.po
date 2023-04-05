@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-04 00:50+0000\n"
-"PO-Revision-Date: 2021-05-08 18:14+0100\n"
+"PO-Revision-Date: 2023-04-04 09:11+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -59,6 +59,8 @@ msgstr "&Focar o Painel do Terminal"
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"O Konsole não está instalado. Por favor, instale o Konsole para poder usar o "
+"terminal."
 
 #: kateconsole.cpp:365
 #, kde-format
@@ -205,17 +207,3 @@ msgstr "Configuração do Terminal"
 #, kde-format
 msgid "&Tools"
 msgstr "Ferramen&tas"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "José Nuno Pires"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "zepires@gmail.com"
-
-#~ msgid "Kate Terminal"
-#~ msgstr "Terminal do Kate"
-
-#~ msgid "Terminal Panel"
-#~ msgstr "Painel do Terminal"

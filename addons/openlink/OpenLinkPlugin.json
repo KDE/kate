@@ -1,7 +1,19 @@
 {
     "KPlugin": {
         "Description": "Highlight and open links",
+        "Description[ca]": "Ressalta i obre els enllaços",
+        "Description[es]": "Resaltar todos los enlaces abiertos",
+        "Description[nl]": "Accentueer en open koppelingen",
+        "Description[tr]": "Bağlantıları vurgula ve aç",
+        "Description[uk]": "Підсвічування і відкриття посилань",
+        "Description[x-test]": "xxHighlight and open linksxx",
         "Name": "Open Link",
+        "Name[ca]": "Obre l'enllaç",
+        "Name[es]": "Enlace abierto",
+        "Name[nl]": "Koppeling openen",
+        "Name[tr]": "Bağlantı Aç",
+        "Name[uk]": "Відкрити посилання",
+        "Name[x-test]": "xxOpen Linkxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

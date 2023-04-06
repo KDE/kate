@@ -251,9 +251,9 @@ public:
         return QStringLiteral("xmllint");
     }
 
-    QStringList args(KTextEditor::Document *doc) const override
+    QStringList args(KTextEditor::Document *) const override
     {
-        return {QStringLiteral("--format"), doc->url().toDisplayString(QUrl::PreferLocalFile)};
+        return {QStringLiteral("--format"), QStringLiteral("-")};
     }
 
     QProcessEnvironment env() override
@@ -277,6 +277,11 @@ public:
 
         environment.insert(QStringLiteral("XMLLINT_INDENT"), indent);
         return environment;
+    }
+
+    bool supportsStdin() const override
+    {
+        return true;
     }
 };
 

@@ -6,11 +6,14 @@
  */
 
 #include "kateproject.h"
+#include "kateprojectitem.h"
 #include "kateprojectplugin.h"
 #include "kateprojectworker.h"
 
+#include <KIO/CopyJob>
+#include <KJobWidgets>
 #include <KLocalizedString>
-
+#include <QTextDocument>
 #include <ktexteditor/document.h>
 
 #include <json_utils.h>
@@ -26,9 +29,6 @@
 #include <QMimeData>
 #include <QPlainTextDocumentLayout>
 #include <utility>
-
-#include <KIO/CopyJob>
-#include <KJobWidgets>
 
 bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {

@@ -6,6 +6,7 @@
  */
 
 #include "kateprojectworker.h"
+#include "kateprojectindex.h"
 #include "kateprojectitem.h"
 
 #include <bytearraysplitter.h>

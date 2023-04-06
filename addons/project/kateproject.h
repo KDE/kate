@@ -7,15 +7,16 @@
 
 #pragma once
 
-#include "kateprojectindex.h"
-#include "kateprojectitem.h"
-
 #include <KTextEditor/ModificationInterface>
 
 #include <QHash>
 #include <QPointer>
-#include <QTextDocument>
+#include <QStandardItemModel>
 #include <memory>
+
+class QTextDocument;
+class KateProjectItem;
+class KateProjectIndex;
 
 class KateProjectModel : public QStandardItemModel
 {

@@ -8,6 +8,7 @@
 
 #include "kateprojectcompletion.h"
 #include "kateproject.h"
+#include "kateprojectindex.h"
 #include "kateprojectplugin.h"
 
 #include <KLocalizedString>

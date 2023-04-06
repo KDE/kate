@@ -8,6 +8,7 @@
 #include "kateprojectviewtree.h"
 #include "kateproject.h"
 #include "kateprojectfiltermodel.h"
+#include "kateprojectitem.h"
 #include "kateprojectpluginview.h"
 #include "kateprojecttreeviewcontextmenu.h"
 #include "ktexteditor_utils.h"

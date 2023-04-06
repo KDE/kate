@@ -6,6 +6,7 @@
 
 #include "comparebranchesview.h"
 #include "diffparams.h"
+#include "kateprojectitem.h"
 #include "kateprojectpluginview.h"
 #include "kateprojectworker.h"
 #include "ktexteditor_utils.h"

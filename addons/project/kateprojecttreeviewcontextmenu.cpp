@@ -11,6 +11,7 @@
 #include "katefileactions.h"
 #include "kateproject.h"
 #include "kateprojectinfoviewterminal.h"
+#include "kateprojectitem.h"
 #include "kateprojectviewtree.h"
 
 #include <KIO/OpenFileManagerWindowJob>
@@ -19,6 +20,7 @@
 #include <KMoreToolsMenuFactory>
 #include <KPropertiesDialog>
 #include <KTerminalLauncherJob>
+#include <KTextEditor/Document>
 
 #include <QAction>
 #include <QApplication>

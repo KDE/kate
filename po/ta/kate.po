@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-05 00:50+0000\n"
+"POT-Creation-Date: 2023-04-06 00:50+0000\n"
 "PO-Revision-Date: 2023-04-02 16:54+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -309,72 +309,72 @@ msgstr "எச்சரிக்கை"
 msgid "Filter..."
 msgstr "வடிகட்டு..."
 
-#: lib/diagnostics/diagnosticview.cpp:949 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:951 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "சிக்கல்"
 
-#: lib/diagnostics/diagnosticview.cpp:953 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:955 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "எச்சரிக்கை"
 
-#: lib/diagnostics/diagnosticview.cpp:957
+#: lib/diagnostics/diagnosticview.cpp:959
 #, kde-format
 msgid "Information"
 msgstr "தகவல்"
 
-#: lib/diagnostics/diagnosticview.cpp:1090
+#: lib/diagnostics/diagnosticview.cpp:1092
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [மறைத்துள்ளவை: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1204
+#: lib/diagnostics/diagnosticview.cpp:1206
 #, kde-format
 msgid "Expand All"
 msgstr "அனைத்தையும் விரிவாக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1205
+#: lib/diagnostics/diagnosticview.cpp:1207
 #, kde-format
 msgid "Collapse All"
 msgstr "அனைத்தையும் சுருக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1214
+#: lib/diagnostics/diagnosticview.cpp:1216
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "பிடிப்புப்பலகைக்கு நகலெடு"
 
-#: lib/diagnostics/diagnosticview.cpp:1237
+#: lib/diagnostics/diagnosticview.cpp:1239
 #, fuzzy, kde-format
 #| msgid "Regular expression"
 msgid "Remove Global Suppression"
 msgstr "முறையான தொடர்"
 
-#: lib/diagnostics/diagnosticview.cpp:1239
+#: lib/diagnostics/diagnosticview.cpp:1241
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "அ&னைத்து அமர்வுகள்"
 
-#: lib/diagnostics/diagnosticview.cpp:1243
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1245
+#: lib/diagnostics/diagnosticview.cpp:1247
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1258
+#: lib/diagnostics/diagnosticview.cpp:1260
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "அமர்வுகளை வடிகட்டு"
 
-#: lib/diagnostics/diagnosticview.cpp:1260
+#: lib/diagnostics/diagnosticview.cpp:1262
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"

@@ -184,10 +184,10 @@ private:
     QWidget *m_tabButton = nullptr;
 };
 
-void DiagnosticsProvider::showDiagnosticsView()
+void DiagnosticsProvider::showDiagnosticsView(DiagnosticsProvider *filterTo)
 {
     if (diagnosticView && !diagnosticView->isVisible()) {
-        diagnosticView->showToolview();
+        diagnosticView->showToolview(filterTo);
     }
 }
 
@@ -1151,9 +1151,15 @@ void DiagnosticsView::onMarkClicked(KTextEditor::Document *document, KTextEditor
     }
 }
 
-void DiagnosticsView::showToolview()
+void DiagnosticsView::showToolview(DiagnosticsProvider *filterTo)
 {
     m_mainWindow->showToolView(parentWidget());
+    if (filterTo) {
+        auto index = m_providerCombo->findData(QVariant::fromValue(filterTo));
+        if (index != -1) {
+            m_providerCombo->setCurrentIndex(index);
+        }
+    }
 }
 
 bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow)

@@ -22,6 +22,16 @@
     "separate-locales": false,
     "modules": [
         {
+            "name": "markdownpart",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/utilities/markdownpart.git"
+                }
+            ]
+        },
+        {
             "name": "konsole",
             "buildsystem": "cmake-ninja",
             "sources": [

@@ -186,6 +186,11 @@
             "url": "https://scalameta.org/metals/",
             "highlightingModeRegex": "^Scala$"
         },
+        "terraform": {
+            "command": ["terraform-ls", "serve"],
+            "url": "https://github.com/hashicorp/terraform-ls",
+            "highlightingModeRegex": "^Terraform$"
+        },
         "typescript": {
             "use": "javascript",
             "highlightingModeRegex": "^TypeScript.*$",

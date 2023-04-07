@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-05 00:50+0000\n"
+"POT-Creation-Date: 2023-04-07 00:49+0000\n"
 "PO-Revision-Date: 2021-05-15 17:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Last Commit"
 msgstr "Comite"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr ""
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:144
+#: comparebranchesview.cpp:145
 #, kde-format
 msgid "Back"
 msgstr "Înapoi"
@@ -518,7 +518,7 @@ msgstr ""
 msgid "<untracked>"
 msgstr "<neurmărite>"
 
-#: kateprojectcompletion.cpp:43
+#: kateprojectcompletion.cpp:44
 #, kde-format
 msgid "Project Completion"
 msgstr "Finalizare proiect"
@@ -586,7 +586,7 @@ msgstr "Index proiect"
 msgid "Project ctags index settings"
 msgstr "Configurări de index Ctags ale proiectului"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Enable indexing"
 msgstr "Activează indexarea"
@@ -691,7 +691,7 @@ msgstr "Terminal (Bază)"
 msgid "Code Index"
 msgstr "Index cod"
 
-#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
+#: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Code Analysis"
 msgstr "Analiză cod"
@@ -705,6 +705,13 @@ msgstr "Note"
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Începe analiza..."
+
+#: kateprojectinfoviewcodeanalysis.cpp:41
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
+msgid "Code Analysis - %1"
+msgstr "Analiză cod"
 
 #: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
@@ -744,37 +751,37 @@ msgstr[2] "Analiza pe %1 de fișiere s-a încheiat."
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Analiza pe %1 fișier a eșuat cu cod de ieșire %2."
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Name"
 msgstr "Denumire"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Kind"
 msgstr "Gen"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "File"
 msgstr "Fișier"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Line"
 msgstr "Linie"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Search"
 msgstr "Căutare"
 
-#: kateprojectinfoviewindex.cpp:195
+#: kateprojectinfoviewindex.cpp:196
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Indexul nu a putut fi creat. Instalați „ctags”."
 
-#: kateprojectinfoviewindex.cpp:205
+#: kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr ""
@@ -814,8 +821,8 @@ msgstr ""
 "separator de cale nativ (bară oblică inversă în Windows)."
 
 #: kateprojectplugin.cpp:704 kateprojectpluginview.cpp:73
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
-#: kateprojectviewtree.cpp:156
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:136
+#: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
 msgstr "Proiect"
@@ -918,84 +925,84 @@ msgstr "Index proiecte"
 msgid "Choose a directory"
 msgstr "Alegeți un dosar"
 
-#: kateprojecttreeviewcontextmenu.cpp:42
+#: kateprojecttreeviewcontextmenu.cpp:44
 #, kde-format
 msgid "Enter name:"
 msgstr "Introduceți denumirea:"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
+#: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Add"
 msgstr "Adaugă"
 
-#: kateprojecttreeviewcontextmenu.cpp:64
+#: kateprojecttreeviewcontextmenu.cpp:66
 #, fuzzy, kde-format
 #| msgid "No Action"
 msgid "Copy Location"
 msgstr "Nicio acțiune"
 
-#: kateprojecttreeviewcontextmenu.cpp:69
+#: kateprojecttreeviewcontextmenu.cpp:71
 #, kde-format
 msgid "Add File"
 msgstr "Adăugă fișier"
 
-#: kateprojecttreeviewcontextmenu.cpp:70
+#: kateprojecttreeviewcontextmenu.cpp:72
 #, kde-format
 msgid "Add Folder"
 msgstr "Adaugă dosar"
 
-#: kateprojecttreeviewcontextmenu.cpp:77
+#: kateprojecttreeviewcontextmenu.cpp:79
 #, kde-format
 msgid "&Rename"
 msgstr "&Redenumește"
 
-#: kateprojecttreeviewcontextmenu.cpp:84
+#: kateprojecttreeviewcontextmenu.cpp:86
 #, kde-format
 msgid "Properties"
 msgstr "Proprietăți"
 
-#: kateprojecttreeviewcontextmenu.cpp:88
+#: kateprojecttreeviewcontextmenu.cpp:90
 #, kde-format
 msgid "Open With"
 msgstr "Deschide cu"
 
-#: kateprojecttreeviewcontextmenu.cpp:96
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:105
+#: kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:110
+#: kateprojecttreeviewcontextmenu.cpp:112
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Deschide d&osarul conținător"
 
-#: kateprojecttreeviewcontextmenu.cpp:120
+#: kateprojecttreeviewcontextmenu.cpp:122
 #, fuzzy, kde-format
 #| msgid "Show File History"
 msgid "Show Git History"
 msgstr "Arată istoricul fișierului"
 
-#: kateprojecttreeviewcontextmenu.cpp:130
+#: kateprojecttreeviewcontextmenu.cpp:132
 #, kde-format
 msgid "Delete File"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:131
+#: kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr ""
 
-#: kateprojectviewtree.cpp:135
+#: kateprojectviewtree.cpp:136
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr ""
 
-#: kateprojectviewtree.cpp:156
+#: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-06 00:50+0000\n"
+"POT-Creation-Date: 2023-04-07 00:49+0000\n"
 "PO-Revision-Date: 2023-03-27 15:34+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -330,47 +330,47 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [supprimite: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1206
+#: lib/diagnostics/diagnosticview.cpp:1212
 #, kde-format
 msgid "Expand All"
 msgstr "Expande omne"
 
-#: lib/diagnostics/diagnosticview.cpp:1207
+#: lib/diagnostics/diagnosticview.cpp:1213
 #, kde-format
 msgid "Collapse All"
 msgstr "Plica omne"
 
-#: lib/diagnostics/diagnosticview.cpp:1216
+#: lib/diagnostics/diagnosticview.cpp:1222
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copia in area de transferentia"
 
-#: lib/diagnostics/diagnosticview.cpp:1239
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Remove Suppression Global"
 
-#: lib/diagnostics/diagnosticview.cpp:1241
+#: lib/diagnostics/diagnosticview.cpp:1247
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Adde Suppression Global"
 
-#: lib/diagnostics/diagnosticview.cpp:1245
+#: lib/diagnostics/diagnosticview.cpp:1251
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Remove Suppression Local"
 
-#: lib/diagnostics/diagnosticview.cpp:1247
+#: lib/diagnostics/diagnosticview.cpp:1253
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Adde Suppression Local"
 
-#: lib/diagnostics/diagnosticview.cpp:1260
+#: lib/diagnostics/diagnosticview.cpp:1266
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Dishabilita Suppression"
 
-#: lib/diagnostics/diagnosticview.cpp:1262
+#: lib/diagnostics/diagnosticview.cpp:1268
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Habilita Suppression"
@@ -1256,13 +1256,13 @@ msgstr "Claude documento"
 msgid "Save As"
 msgstr "Salveguarda como"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:659
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Nove file aperite durante que on tentava de clauder Kate, Clausura abortate."
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:659
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Clausura abortate"
@@ -1650,7 +1650,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "Claude omne documentos in ultra a lo currente"
 
-#: lib/katemainwindow.cpp:802
+#: lib/katemainwindow.cpp:811
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1658,12 +1658,12 @@ msgstr ""
 "Isto celara completemente le barra de menu. Tu pote monstrar lo novemente "
 "per typar %1."
 
-#: lib/katemainwindow.cpp:805
+#: lib/katemainwindow.cpp:814
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Cela barra de menu"
 
-#: lib/katemainwindow.cpp:909
+#: lib/katemainwindow.cpp:918
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1672,19 +1672,19 @@ msgstr ""
 "Tu poneva le directorio %1 in Kate. Tu vole aperir omne files continite in "
 "illo?"
 
-#: lib/katemainwindow.cpp:912
+#: lib/katemainwindow.cpp:921
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "IAperi files recursivemente"
 
-#: lib/katemainwindow.cpp:913
+#: lib/katemainwindow.cpp:922
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Aperi omne files"
 
-#: lib/katemainwindow.cpp:1149
+#: lib/katemainwindow.cpp:1158
 #, kde-format
 msgid " [read only]"
 msgstr " [Solmente de lectura]"

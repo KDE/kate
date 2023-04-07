@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-05 00:50+0000\n"
+"POT-Creation-Date: 2023-04-07 00:49+0000\n"
 "PO-Revision-Date: 2023-03-03 10:01-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -77,7 +77,7 @@ msgstr "Branch"
 msgid "Last Commit"
 msgstr "Último commit"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Excluir"
@@ -99,7 +99,7 @@ msgstr "Selecionar branch..."
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:144
+#: comparebranchesview.cpp:145
 #, kde-format
 msgid "Back"
 msgstr "Voltar"
@@ -524,7 +524,7 @@ msgstr "Arquivo JSON mal formado '%1': %2"
 msgid "<untracked>"
 msgstr "<não seguido>"
 
-#: kateprojectcompletion.cpp:43
+#: kateprojectcompletion.cpp:44
 #, kde-format
 msgid "Project Completion"
 msgstr "Complementação do projeto"
@@ -592,7 +592,7 @@ msgstr "Índice do projeto"
 msgid "Project ctags index settings"
 msgstr "Configurações do índice do CTags do projeto"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Enable indexing"
 msgstr "Ativar indexação"
@@ -696,7 +696,7 @@ msgstr "Terminal (base)"
 msgid "Code Index"
 msgstr "Índice do código"
 
-#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
+#: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Code Analysis"
 msgstr "Análise de código"
@@ -710,6 +710,13 @@ msgstr "Notas"
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Iniciar análise..."
+
+#: kateprojectinfoviewcodeanalysis.cpp:41
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
+msgid "Code Analysis - %1"
+msgstr "Análise de código"
 
 #: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
@@ -748,37 +755,37 @@ msgstr[1] "Análise em %1 arquivos concluída."
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "A análise em %1 arquivo falhou com o código de saída %2."
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Name"
 msgstr "Nome"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Kind"
 msgstr "Tipo"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "File"
 msgstr "Arquivo"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Line"
 msgstr "Linha"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Search"
 msgstr "Procurar"
 
-#: kateprojectinfoviewindex.cpp:195
+#: kateprojectinfoviewindex.cpp:196
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "O índice não pôde ser criado. Por favor, instale o 'ctags'."
 
-#: kateprojectinfoviewindex.cpp:205
+#: kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "A indexação não está habilitada"
@@ -818,8 +825,8 @@ msgstr ""
 "pastas nativo (barra invertida no Windows)."
 
 #: kateprojectplugin.cpp:704 kateprojectpluginview.cpp:73
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
-#: kateprojectviewtree.cpp:156
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:136
+#: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
 msgstr "Projeto"
@@ -914,82 +921,82 @@ msgstr "Índice dos projetos"
 msgid "Choose a directory"
 msgstr "Escolha uma pasta"
 
-#: kateprojecttreeviewcontextmenu.cpp:42
+#: kateprojecttreeviewcontextmenu.cpp:44
 #, kde-format
 msgid "Enter name:"
 msgstr "Insira o nome:"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
+#: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Add"
 msgstr "Adicionar"
 
-#: kateprojecttreeviewcontextmenu.cpp:64
+#: kateprojecttreeviewcontextmenu.cpp:66
 #, kde-format
 msgid "Copy Location"
 msgstr "Copiar localização"
 
-#: kateprojecttreeviewcontextmenu.cpp:69
+#: kateprojecttreeviewcontextmenu.cpp:71
 #, kde-format
 msgid "Add File"
 msgstr "Adicionar arquivo"
 
-#: kateprojecttreeviewcontextmenu.cpp:70
+#: kateprojecttreeviewcontextmenu.cpp:72
 #, kde-format
 msgid "Add Folder"
 msgstr "Adicionar pasta"
 
-#: kateprojecttreeviewcontextmenu.cpp:77
+#: kateprojecttreeviewcontextmenu.cpp:79
 #, kde-format
 msgid "&Rename"
 msgstr "&Renomear"
 
-#: kateprojecttreeviewcontextmenu.cpp:84
+#: kateprojecttreeviewcontextmenu.cpp:86
 #, kde-format
 msgid "Properties"
 msgstr "Propriedades"
 
-#: kateprojecttreeviewcontextmenu.cpp:88
+#: kateprojecttreeviewcontextmenu.cpp:90
 #, kde-format
 msgid "Open With"
 msgstr "Abrir com"
 
-#: kateprojecttreeviewcontextmenu.cpp:96
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Abrir terminal interno aqui"
 
-#: kateprojecttreeviewcontextmenu.cpp:105
+#: kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Abrir terminal externo aqui"
 
-#: kateprojecttreeviewcontextmenu.cpp:110
+#: kateprojecttreeviewcontextmenu.cpp:112
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Abrir pasta que co&ntém"
 
-#: kateprojecttreeviewcontextmenu.cpp:120
+#: kateprojecttreeviewcontextmenu.cpp:122
 #, kde-format
 msgid "Show Git History"
 msgstr "Mostrar histórico do GIT"
 
-#: kateprojecttreeviewcontextmenu.cpp:130
+#: kateprojecttreeviewcontextmenu.cpp:132
 #, kde-format
 msgid "Delete File"
 msgstr "Excluir arquivo"
 
-#: kateprojecttreeviewcontextmenu.cpp:131
+#: kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "Deseja excluir o arquivo '%1'?"
 
-#: kateprojectviewtree.cpp:135
+#: kateprojectviewtree.cpp:136
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Falha ao criar o arquivo: %1, Erro: %2"
 
-#: kateprojectviewtree.cpp:156
+#: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Falha ao criar a pasta: %1"

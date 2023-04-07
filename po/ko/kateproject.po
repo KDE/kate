@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-05 00:50+0000\n"
+"POT-Creation-Date: 2023-04-07 00:49+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -72,7 +72,7 @@ msgstr "브랜치"
 msgid "Last Commit"
 msgstr "마지막 커밋"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "삭제"
@@ -93,7 +93,7 @@ msgstr "브랜치 선택..."
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:144
+#: comparebranchesview.cpp:145
 #, kde-format
 msgid "Back"
 msgstr "뒤로"
@@ -522,7 +522,7 @@ msgstr "'%1'의 잘못된 JSON 파일: %2"
 msgid "<untracked>"
 msgstr "<추적 안 됨>"
 
-#: kateprojectcompletion.cpp:43
+#: kateprojectcompletion.cpp:44
 #, kde-format
 msgid "Project Completion"
 msgstr "프로젝트 완성"
@@ -589,7 +589,7 @@ msgstr "프로젝트 색인"
 msgid "Project ctags index settings"
 msgstr "프로젝트 ctags 색인 설정"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Enable indexing"
 msgstr "색인 사용"
@@ -693,7 +693,7 @@ msgstr "터미널 (기본)"
 msgid "Code Index"
 msgstr "코드 색인"
 
-#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
+#: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Code Analysis"
 msgstr "코드 분석"
@@ -707,6 +707,13 @@ msgstr "메모"
 #, kde-format
 msgid "Start Analysis..."
 msgstr "분석 시작..."
+
+#: kateprojectinfoviewcodeanalysis.cpp:41
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
+msgid "Code Analysis - %1"
+msgstr "코드 분석"
 
 #: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
@@ -744,37 +751,37 @@ msgstr[0] "파일 %1개 분석이 완료되었습니다."
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "파일 %1개 분석이 실패했으며, 오류 코드는 %2입니다."
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Name"
 msgstr "이름"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Kind"
 msgstr "종류"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "File"
 msgstr "파일"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Line"
 msgstr "줄"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Search"
 msgstr "찾기"
 
-#: kateprojectinfoviewindex.cpp:195
+#: kateprojectinfoviewindex.cpp:196
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "색인을 만들 수 없습니다. 'ctags'를 설치하십시오."
 
-#: kateprojectinfoviewindex.cpp:205
+#: kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "색인 생성이 비활성화됨"
@@ -814,8 +821,8 @@ msgstr ""
 "입니다(Windows의 경우 백슬래시)."
 
 #: kateprojectplugin.cpp:704 kateprojectpluginview.cpp:73
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
-#: kateprojectviewtree.cpp:156
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:136
+#: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
 msgstr "프로젝트"
@@ -914,82 +921,82 @@ msgstr "프로젝트 색인"
 msgid "Choose a directory"
 msgstr "디렉터리 선택"
 
-#: kateprojecttreeviewcontextmenu.cpp:42
+#: kateprojecttreeviewcontextmenu.cpp:44
 #, kde-format
 msgid "Enter name:"
 msgstr "이름 입력:"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
+#: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Add"
 msgstr "추가"
 
-#: kateprojecttreeviewcontextmenu.cpp:64
+#: kateprojecttreeviewcontextmenu.cpp:66
 #, kde-format
 msgid "Copy Location"
 msgstr "위치 복사"
 
-#: kateprojecttreeviewcontextmenu.cpp:69
+#: kateprojecttreeviewcontextmenu.cpp:71
 #, kde-format
 msgid "Add File"
 msgstr "파일 추가"
 
-#: kateprojecttreeviewcontextmenu.cpp:70
+#: kateprojecttreeviewcontextmenu.cpp:72
 #, kde-format
 msgid "Add Folder"
 msgstr "폴더 추가"
 
-#: kateprojecttreeviewcontextmenu.cpp:77
+#: kateprojecttreeviewcontextmenu.cpp:79
 #, kde-format
 msgid "&Rename"
 msgstr "이름 바꾸기(&R)"
 
-#: kateprojecttreeviewcontextmenu.cpp:84
+#: kateprojecttreeviewcontextmenu.cpp:86
 #, kde-format
 msgid "Properties"
 msgstr "속성"
 
-#: kateprojecttreeviewcontextmenu.cpp:88
+#: kateprojecttreeviewcontextmenu.cpp:90
 #, kde-format
 msgid "Open With"
 msgstr "다음으로 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:96
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "여기에서 내부 터미널 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:105
+#: kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "여기에서 외부 터미널 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:110
+#: kateprojecttreeviewcontextmenu.cpp:112
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "포함하는 폴더 열기(&O)"
 
-#: kateprojecttreeviewcontextmenu.cpp:120
+#: kateprojecttreeviewcontextmenu.cpp:122
 #, kde-format
 msgid "Show Git History"
 msgstr "Git 기록 표시"
 
-#: kateprojecttreeviewcontextmenu.cpp:130
+#: kateprojecttreeviewcontextmenu.cpp:132
 #, kde-format
 msgid "Delete File"
 msgstr "파일 삭제"
 
-#: kateprojecttreeviewcontextmenu.cpp:131
+#: kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "파일 '%1'을(를) 삭제하시겠습니까?"
 
-#: kateprojectviewtree.cpp:135
+#: kateprojectviewtree.cpp:136
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "파일을 만들 수 없음: %1, 오류: %2"
 
-#: kateprojectviewtree.cpp:156
+#: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "디렉터리를 만들 수 없음: %1"

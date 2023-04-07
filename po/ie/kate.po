@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-06 00:50+0000\n"
+"POT-Creation-Date: 2023-04-07 00:49+0000\n"
 "PO-Revision-Date: 2022-10-28 19:12+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -321,51 +321,51 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1206
+#: lib/diagnostics/diagnosticview.cpp:1212
 #, fuzzy, kde-format
 msgid "Expand All"
 msgstr "Tabulatores a spacies"
 
-#: lib/diagnostics/diagnosticview.cpp:1207
+#: lib/diagnostics/diagnosticview.cpp:1213
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Clud&er omni"
 
-#: lib/diagnostics/diagnosticview.cpp:1216
+#: lib/diagnostics/diagnosticview.cpp:1222
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy to Clipboard"
 msgstr "Copiar al Paperiere"
 
-#: lib/diagnostics/diagnosticview.cpp:1239
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1241
+#: lib/diagnostics/diagnosticview.cpp:1247
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "&Omni sessiones"
 
-#: lib/diagnostics/diagnosticview.cpp:1245
+#: lib/diagnostics/diagnosticview.cpp:1251
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1247
+#: lib/diagnostics/diagnosticview.cpp:1253
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1260
+#: lib/diagnostics/diagnosticview.cpp:1266
 #, fuzzy, kde-format
 msgid "Disable Suppression"
 msgstr "Sessiones"
 
-#: lib/diagnostics/diagnosticview.cpp:1262
+#: lib/diagnostics/diagnosticview.cpp:1268
 #, fuzzy, kde-format
 msgid "Enable Suppression"
 msgstr "Sessiones"
@@ -1214,12 +1214,12 @@ msgstr "Cluder li document"
 msgid "Save As"
 msgstr "Gardar quam"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:659
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:659
 #, fuzzy, kde-format
 msgid "Closing Aborted"
 msgstr "Interruptet."
@@ -1603,37 +1603,37 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr ""
 
-#: lib/katemainwindow.cpp:802
+#: lib/katemainwindow.cpp:811
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 
-#: lib/katemainwindow.cpp:805
+#: lib/katemainwindow.cpp:814
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Celar li barra de menú"
 
-#: lib/katemainwindow.cpp:909
+#: lib/katemainwindow.cpp:918
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:912
+#: lib/katemainwindow.cpp:921
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Adjunter files recursivmen"
 
-#: lib/katemainwindow.cpp:913
+#: lib/katemainwindow.cpp:922
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Aperter omni files"
 
-#: lib/katemainwindow.cpp:1149
+#: lib/katemainwindow.cpp:1158
 #, kde-format
 msgid " [read only]"
 msgstr " [solmen letion]"

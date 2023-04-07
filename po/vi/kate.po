@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-06 00:50+0000\n"
+"POT-Creation-Date: 2023-04-07 00:49+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -334,47 +334,47 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [bị loại trừ: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1206
+#: lib/diagnostics/diagnosticview.cpp:1212
 #, kde-format
 msgid "Expand All"
 msgstr "Mở rộng tất cả"
 
-#: lib/diagnostics/diagnosticview.cpp:1207
+#: lib/diagnostics/diagnosticview.cpp:1213
 #, kde-format
 msgid "Collapse All"
 msgstr "Thu gọn tất cả"
 
-#: lib/diagnostics/diagnosticview.cpp:1216
+#: lib/diagnostics/diagnosticview.cpp:1222
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Chép vào bảng nháp"
 
-#: lib/diagnostics/diagnosticview.cpp:1239
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Xoá phần loại trừ toàn cục"
 
-#: lib/diagnostics/diagnosticview.cpp:1241
+#: lib/diagnostics/diagnosticview.cpp:1247
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Thêm phần loại trừ toàn cục"
 
-#: lib/diagnostics/diagnosticview.cpp:1245
+#: lib/diagnostics/diagnosticview.cpp:1251
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Xoá phần loại trừ cục bộ"
 
-#: lib/diagnostics/diagnosticview.cpp:1247
+#: lib/diagnostics/diagnosticview.cpp:1253
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Thêm phần loại trừ cục bộ"
 
-#: lib/diagnostics/diagnosticview.cpp:1260
+#: lib/diagnostics/diagnosticview.cpp:1266
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Tắt loại trừ"
 
-#: lib/diagnostics/diagnosticview.cpp:1262
+#: lib/diagnostics/diagnosticview.cpp:1268
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Bật loại trừ"
@@ -1244,12 +1244,12 @@ msgstr "Đóng tài liệu"
 msgid "Save As"
 msgstr "Lưu thành"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:659
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Một tệp mới được mở khi đang đóng Kate, đã huỷ việc đóng."
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:659
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Đã huỷ việc đóng"
@@ -1635,7 +1635,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "Đóng tất cả các tài liệu trừ cái này"
 
-#: lib/katemainwindow.cpp:802
+#: lib/katemainwindow.cpp:811
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1643,12 +1643,12 @@ msgstr ""
 "Việc này sẽ ẩn hoàn toàn thanh trình đơn. Bạn có thể hiện nó lại bằng cách "
 "gõ %1."
 
-#: lib/katemainwindow.cpp:805
+#: lib/katemainwindow.cpp:814
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Ẩn thanh trình đơn"
 
-#: lib/katemainwindow.cpp:909
+#: lib/katemainwindow.cpp:918
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1656,19 +1656,19 @@ msgid ""
 msgstr ""
 "Bạn đã thả thư mục %1 vào Kate. Bạn có muốn mở tất cả các tệp ở bên trong nó?"
 
-#: lib/katemainwindow.cpp:912
+#: lib/katemainwindow.cpp:921
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Mở tệp đệ quy"
 
-#: lib/katemainwindow.cpp:913
+#: lib/katemainwindow.cpp:922
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Mở tất cả các tệp"
 
-#: lib/katemainwindow.cpp:1149
+#: lib/katemainwindow.cpp:1158
 #, kde-format
 msgid " [read only]"
 msgstr " [chỉ đọc]"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-05 00:50+0000\n"
+"POT-Creation-Date: 2023-04-07 00:49+0000\n"
 "PO-Revision-Date: 2023-02-20 11:25+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -72,7 +72,7 @@ msgstr "Nhánh"
 msgid "Last Commit"
 msgstr "Bản chuyển giao cuối"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Xoá"
@@ -93,7 +93,7 @@ msgstr "Chọn nhánh..."
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:144
+#: comparebranchesview.cpp:145
 #, kde-format
 msgid "Back"
 msgstr "Lùi"
@@ -511,7 +511,7 @@ msgstr "Tệp JSON '%1' sai dạng: %2"
 msgid "<untracked>"
 msgstr "<chưa theo dõi>"
 
-#: kateprojectcompletion.cpp:43
+#: kateprojectcompletion.cpp:44
 #, kde-format
 msgid "Project Completion"
 msgstr "Hoàn tất dự án"
@@ -578,7 +578,7 @@ msgstr "Chỉ mục dự án"
 msgid "Project ctags index settings"
 msgstr "Thiết lập chỉ mục ctags của dự án"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Enable indexing"
 msgstr "Bật chức năng lập chỉ mục"
@@ -681,7 +681,7 @@ msgstr "Dòng lệnh (cơ sở)"
 msgid "Code Index"
 msgstr "Chỉ mục mã"
 
-#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
+#: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Code Analysis"
 msgstr "Phân tích mã"
@@ -695,6 +695,13 @@ msgstr "Ghi chú"
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Bắt đầu phân tích..."
+
+#: kateprojectinfoviewcodeanalysis.cpp:41
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
+msgid "Code Analysis - %1"
+msgstr "Phân tích mã"
 
 #: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
@@ -727,37 +734,37 @@ msgstr[0] "[%1]Phân tích %2 tệp đã xong."
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Phân tích thất bại với mã trả về %1, lỗi: %2."
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Name"
 msgstr "Tên"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Kind"
 msgstr "Loại"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "File"
 msgstr "Tệp"
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Line"
 msgstr "Dòng"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: kateprojectinfoviewindex.cpp:195
+#: kateprojectinfoviewindex.cpp:196
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Không tạo được chỉ mục. Vui lòng cài đặt 'ctags'."
 
-#: kateprojectinfoviewindex.cpp:205
+#: kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Việc lập chỉ mục không được bật"
@@ -797,8 +804,8 @@ msgstr ""
 "cách đường dẫn bản địa (dấu gạch chéo ngược trên Windows)."
 
 #: kateprojectplugin.cpp:704 kateprojectpluginview.cpp:73
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
-#: kateprojectviewtree.cpp:156
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:136
+#: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
 msgstr "Dự án"
@@ -893,82 +900,82 @@ msgstr "Chỉ mục dự án"
 msgid "Choose a directory"
 msgstr "Chọn một thư mục"
 
-#: kateprojecttreeviewcontextmenu.cpp:42
+#: kateprojecttreeviewcontextmenu.cpp:44
 #, kde-format
 msgid "Enter name:"
 msgstr "Nhập tên:"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
+#: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Add"
 msgstr "Thêm"
 
-#: kateprojecttreeviewcontextmenu.cpp:64
+#: kateprojecttreeviewcontextmenu.cpp:66
 #, kde-format
 msgid "Copy Location"
 msgstr "Chép địa điểm"
 
-#: kateprojecttreeviewcontextmenu.cpp:69
+#: kateprojecttreeviewcontextmenu.cpp:71
 #, kde-format
 msgid "Add File"
 msgstr "Thêm tệp"
 
-#: kateprojecttreeviewcontextmenu.cpp:70
+#: kateprojecttreeviewcontextmenu.cpp:72
 #, kde-format
 msgid "Add Folder"
 msgstr "Thêm thư mục"
 
-#: kateprojecttreeviewcontextmenu.cpp:77
+#: kateprojecttreeviewcontextmenu.cpp:79
 #, kde-format
 msgid "&Rename"
 msgstr "Đổi tê&n"
 
-#: kateprojecttreeviewcontextmenu.cpp:84
+#: kateprojecttreeviewcontextmenu.cpp:86
 #, kde-format
 msgid "Properties"
 msgstr "Thuộc tính"
 
-#: kateprojecttreeviewcontextmenu.cpp:88
+#: kateprojecttreeviewcontextmenu.cpp:90
 #, kde-format
 msgid "Open With"
 msgstr "Mở bằng"
 
-#: kateprojecttreeviewcontextmenu.cpp:96
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Mở dòng lệnh nội bộ tại đây"
 
-#: kateprojecttreeviewcontextmenu.cpp:105
+#: kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Mở dòng lệnh bên ngoài tại đây"
 
-#: kateprojecttreeviewcontextmenu.cpp:110
+#: kateprojecttreeviewcontextmenu.cpp:112
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Mở thư mục chứa"
 
-#: kateprojecttreeviewcontextmenu.cpp:120
+#: kateprojecttreeviewcontextmenu.cpp:122
 #, kde-format
 msgid "Show Git History"
 msgstr "Hiện lịch sử Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:130
+#: kateprojecttreeviewcontextmenu.cpp:132
 #, kde-format
 msgid "Delete File"
 msgstr "Xoá tệp"
 
-#: kateprojecttreeviewcontextmenu.cpp:131
+#: kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "Bạn có muốn xoá tệp '%1' không?"
 
-#: kateprojectviewtree.cpp:135
+#: kateprojectviewtree.cpp:136
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Tạo tệp %1 thất bại, lỗi: %2"
 
-#: kateprojectviewtree.cpp:156
+#: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Tạo thư mục %1 thất bại"

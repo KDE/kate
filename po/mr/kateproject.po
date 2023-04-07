@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-05 00:50+0000\n"
+"POT-Creation-Date: 2023-04-07 00:49+0000\n"
 "PO-Revision-Date: 2013-02-26 11:54+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -72,7 +72,7 @@ msgstr ""
 msgid "Last Commit"
 msgstr ""
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr ""
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Git"
 msgstr ""
 
-#: comparebranchesview.cpp:144
+#: comparebranchesview.cpp:145
 #, kde-format
 msgid "Back"
 msgstr ""
@@ -512,7 +512,7 @@ msgstr ""
 msgid "<untracked>"
 msgstr ""
 
-#: kateprojectcompletion.cpp:43
+#: kateprojectcompletion.cpp:44
 #, kde-format
 msgid "Project Completion"
 msgstr "परियोजना पूर्णत्व"
@@ -579,7 +579,7 @@ msgstr "परियोजना"
 msgid "Project ctags index settings"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Enable indexing"
 msgstr ""
@@ -684,7 +684,7 @@ msgstr "टर्मिनल"
 msgid "Code Index"
 msgstr "कोड अनुक्रमणिका"
 
-#: kateprojectinfoview.cpp:55 kateprojectinfoviewcodeanalysis.cpp:41
+#: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Code Analysis"
 msgstr "कोड विश्लेषण"
@@ -698,6 +698,13 @@ msgstr "नोंदी"
 #, kde-format
 msgid "Start Analysis..."
 msgstr "विश्लेषण सुरु करा..."
+
+#: kateprojectinfoviewcodeanalysis.cpp:41
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
+msgid "Code Analysis - %1"
+msgstr "कोड विश्लेषण"
 
 #: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format
@@ -730,37 +737,37 @@ msgstr[1] ""
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr ""
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Name"
 msgstr ""
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Kind"
 msgstr ""
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "File"
 msgstr ""
 
-#: kateprojectinfoviewindex.cpp:33
+#: kateprojectinfoviewindex.cpp:34
 #, kde-format
 msgid "Line"
 msgstr ""
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Search"
 msgstr ""
 
-#: kateprojectinfoviewindex.cpp:195
+#: kateprojectinfoviewindex.cpp:196
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "अनुक्रमणिका तयार करू शकत नाही. कृपया 'ctags' प्रतिष्ठापीत करा."
 
-#: kateprojectinfoviewindex.cpp:205
+#: kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr ""
@@ -798,8 +805,8 @@ msgid ""
 msgstr ""
 
 #: kateprojectplugin.cpp:704 kateprojectpluginview.cpp:73
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
-#: kateprojectviewtree.cpp:156
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:136
+#: kateprojectviewtree.cpp:157
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Project"
@@ -905,83 +912,83 @@ msgstr "परियोजना"
 msgid "Choose a directory"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:42
+#: kateprojecttreeviewcontextmenu.cpp:44
 #, kde-format
 msgid "Enter name:"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:43
+#: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Add"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:64
+#: kateprojecttreeviewcontextmenu.cpp:66
 #, kde-format
 msgid "Copy Location"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:69
+#: kateprojecttreeviewcontextmenu.cpp:71
 #, kde-format
 msgid "Add File"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:70
+#: kateprojecttreeviewcontextmenu.cpp:72
 #, kde-format
 msgid "Add Folder"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:77
+#: kateprojecttreeviewcontextmenu.cpp:79
 #, kde-format
 msgid "&Rename"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:84
+#: kateprojecttreeviewcontextmenu.cpp:86
 #, fuzzy, kde-format
 #| msgid "Project Completion"
 msgid "Properties"
 msgstr "परियोजना पूर्णत्व"
 
-#: kateprojecttreeviewcontextmenu.cpp:88
+#: kateprojecttreeviewcontextmenu.cpp:90
 #, kde-format
 msgid "Open With"
 msgstr "यामध्ये उघडा"
 
-#: kateprojecttreeviewcontextmenu.cpp:96
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:105
+#: kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:110
+#: kateprojecttreeviewcontextmenu.cpp:112
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:120
+#: kateprojecttreeviewcontextmenu.cpp:122
 #, kde-format
 msgid "Show Git History"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:130
+#: kateprojecttreeviewcontextmenu.cpp:132
 #, kde-format
 msgid "Delete File"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:131
+#: kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr ""
 
-#: kateprojectviewtree.cpp:135
+#: kateprojectviewtree.cpp:136
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr ""
 
-#: kateprojectviewtree.cpp:156
+#: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr ""

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-06 00:50+0000\n"
-"PO-Revision-Date: 2023-03-27 06:40+0200\n"
+"POT-Creation-Date: 2023-04-07 00:49+0000\n"
+"PO-Revision-Date: 2023-04-06 05:57+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -276,7 +276,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:60
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "ყველა"
 
 #: lib/diagnostics/diagnosticview.cpp:330
 #, kde-format
@@ -290,10 +290,9 @@ msgid "Errors"
 msgstr "შეცდომა"
 
 #: lib/diagnostics/diagnosticview.cpp:382
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "შეტყობინება"
+msgstr "გაფრთხილებები"
 
 #: lib/diagnostics/diagnosticview.cpp:396
 #, kde-format
@@ -309,7 +308,7 @@ msgstr "შეცდომა"
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
-msgstr "შეტყობინება"
+msgstr "გაფრთხილება"
 
 #: lib/diagnostics/diagnosticview.cpp:959
 #, kde-format
@@ -322,47 +321,47 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [ჩახშობილია: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1206
+#: lib/diagnostics/diagnosticview.cpp:1212
 #, kde-format
 msgid "Expand All"
 msgstr "ყველას ამოკეცვა"
 
-#: lib/diagnostics/diagnosticview.cpp:1207
+#: lib/diagnostics/diagnosticview.cpp:1213
 #, kde-format
 msgid "Collapse All"
 msgstr "ყველას ჩაკეცვა"
 
-#: lib/diagnostics/diagnosticview.cpp:1216
+#: lib/diagnostics/diagnosticview.cpp:1222
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "ბუფერში კოპირება"
 
-#: lib/diagnostics/diagnosticview.cpp:1239
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "გლობალური ჩახშობის წაშლა"
 
-#: lib/diagnostics/diagnosticview.cpp:1241
+#: lib/diagnostics/diagnosticview.cpp:1247
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "გლობალური ჩახშობის დამატება"
 
-#: lib/diagnostics/diagnosticview.cpp:1245
+#: lib/diagnostics/diagnosticview.cpp:1251
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "ლოკალური ჩახშობის წაშლა"
 
-#: lib/diagnostics/diagnosticview.cpp:1247
+#: lib/diagnostics/diagnosticview.cpp:1253
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "ლოკალური ჩახშობის დამატება"
 
-#: lib/diagnostics/diagnosticview.cpp:1260
+#: lib/diagnostics/diagnosticview.cpp:1266
 #, kde-format
 msgid "Disable Suppression"
 msgstr "ჩახშობის გათიშვა"
 
-#: lib/diagnostics/diagnosticview.cpp:1262
+#: lib/diagnostics/diagnosticview.cpp:1268
 #, kde-format
 msgid "Enable Suppression"
 msgstr "ჩახშობის ჩართვა"
@@ -1206,12 +1205,12 @@ msgstr "დოკუმენტის დახურვა"
 msgid "Save As"
 msgstr "შენახვა როგორც"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:659
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:650
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:659
 #, kde-format
 msgid "Closing Aborted"
 msgstr "დახურვა გაუქმდა"
@@ -1588,37 +1587,37 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "მიმდინარეს გარდა ყველა დოკუმენტის დახურვა"
 
-#: lib/katemainwindow.cpp:802
+#: lib/katemainwindow.cpp:811
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "ეს მენიუს ზოლს სრულად დამალავს. მისი ჩვენება %1-ზე დაწოლით შეგიძლიათ."
 
-#: lib/katemainwindow.cpp:805
+#: lib/katemainwindow.cpp:814
 #, kde-format
 msgid "Hide menu bar"
 msgstr "მენიუს ზოლის დამალვა"
 
-#: lib/katemainwindow.cpp:909
+#: lib/katemainwindow.cpp:918
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:912
+#: lib/katemainwindow.cpp:921
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "ფაილების რეკურსიულად გახსნა"
 
-#: lib/katemainwindow.cpp:913
+#: lib/katemainwindow.cpp:922
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "ყველა ფაილის გახსნა"
 
-#: lib/katemainwindow.cpp:1149
+#: lib/katemainwindow.cpp:1158
 #, kde-format
 msgid " [read only]"
 msgstr " (მხოლოდ-კითხვადი)"
@@ -1836,12 +1835,12 @@ msgstr "სხვაობის შექმნის შეცდომა"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[ძველი]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[ახალი]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -1863,7 +1862,7 @@ msgstr "შეცდომა"
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
-msgstr "შეტყობინება"
+msgstr "გაფრთხილება"
 
 #: lib/kateoutputview.cpp:365
 #, kde-format

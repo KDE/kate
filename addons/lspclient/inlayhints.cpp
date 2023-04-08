@@ -1,3 +1,7 @@
+/*
+    SPDX-FileCopyrightText: 2023 Waqar Ahmed <waqar.17a@gmail.com>
+    SPDX-License-Identifier: GPL-2.0-or-later
+*/
 #include "inlayhints.h"
 
 #include "lspclientservermanager.h"

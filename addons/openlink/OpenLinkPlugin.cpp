@@ -193,8 +193,8 @@ void OpenLinkPluginView::onActiveViewChanged(KTextEditor::View *view)
 
     if (oldView && oldView->focusProxy()) {
         oldView->focusProxy()->removeEventFilter(this);
-        disconnect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &OpenLinkPluginView::onViewScrolled);
-        disconnect(view, &KTextEditor::View::textInserted, this, &OpenLinkPluginView::onTextInserted);
+        disconnect(oldView, &KTextEditor::View::verticalScrollPositionChanged, this, &OpenLinkPluginView::onViewScrolled);
+        disconnect(oldView, &KTextEditor::View::textInserted, this, &OpenLinkPluginView::onTextInserted);
     }
 }
 

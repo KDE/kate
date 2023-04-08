@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-07 00:49+0000\n"
-"PO-Revision-Date: 2023-03-12 13:59+0100\n"
+"PO-Revision-Date: 2023-04-07 14:29+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -698,11 +698,10 @@ msgid "Start Analysis..."
 msgstr "Komenci Analizon..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:41
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "Koda Analizo"
+msgstr "Koda Analizo - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:102
 #, kde-format

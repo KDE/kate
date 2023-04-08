@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-19 00:50+0000\n"
-"PO-Revision-Date: 2023-03-12 21:39+0100\n"
+"PO-Revision-Date: 2023-04-07 10:09+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -102,8 +102,8 @@ msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
 "macro as <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
-"<qt><p>Uzo: <code>kmsave <name></code></p><p>Konservi la aktualan "
-"klavarmakroon kiel <code><name></code>.</p>%1</p> qt>"
+"<qt><p>Uzo: <code>kmsave &lt;name&gt;</code></p><p>Konservi la aktualan "
+"klavarmakroon kiel <code>&lt;name&gt;</code>.</p>%1</p> qt>"
 
 #: keyboardmacrosplugincommands.cpp:80
 #, kde-format
@@ -111,8 +111,8 @@ msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
 "macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>"
 msgstr ""
-"<qt><p>Uzo: <code>kmload <name></code></p><p> Ŝargi konservitan klavaran "
-"makroon <code><name></code> kiel nunan makroon.</p>%1 </ qt >"
+"<qt><p>Uzo: <code>kmload &lt;name&gt;</code></p><p>Ŝargi konservitan "
+"klavaran makroon <code>&lt;name&gt;</code> kiel nunan makroon.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:84
 #, kde-format
@@ -120,8 +120,8 @@ msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 msgstr ""
-"<qt><p>Uzo: <code>kmplay <name></code></p><p>Ruli konservitan klavaran "
-"makroon <code><name></code> sen ŝargi ĝin.</p>%1 </ qt >"
+"<qt><p>Uzo: <code>kmplay &lt;name&gt;</code></p><p>Ruli konservitan klavaran "
+"makroon <code>&lt;name&gt;</code> sen ŝargi ĝin.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:88
 #, kde-format
@@ -129,8 +129,8 @@ msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
 "macro <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
-"<qt><p>Uzo: <code>kmwipe <name></code></p><p>Forviŝi konservitan klavaran "
-"makroon <code><name></code>.</p>%1</qt >"
+"<qt><p>Uzo: <code>kmwipe &lt;name&gt;</code></p><p>Forviŝi konservitan "
+"klavaran makroon <code>&lt;name&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrospluginview.cpp:33
 #, kde-format

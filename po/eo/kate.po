@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-07 00:49+0000\n"
-"PO-Revision-Date: 2023-03-31 07:40+0100\n"
+"PO-Revision-Date: 2023-04-07 14:29+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -293,16 +293,14 @@ msgid "Quick Fix"
 msgstr "Rapida Riparo"
 
 #: lib/diagnostics/diagnosticview.cpp:366
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Eraro"
+msgstr "Eraroj"
 
 #: lib/diagnostics/diagnosticview.cpp:382
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Averto"
+msgstr "Avertoj"
 
 #: lib/diagnostics/diagnosticview.cpp:396
 #, kde-format
@@ -2792,10 +2790,3 @@ msgstr "Administri Seancojn..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Montri por nova fenestro"
-
-#~ msgid "Ignoring amount of white space changed, the files are identical."
-#~ msgstr ""
-#~ "Ignorante kvanton de blanka spaco ŝanĝita, la dosieroj estas identaj."
-
-#~ msgid "Diff Output"
-#~ msgstr "Eligo de diff"

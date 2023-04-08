@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-07 00:49+0000\n"
-"PO-Revision-Date: 2023-04-06 05:57+0200\n"
+"PO-Revision-Date: 2023-04-07 04:59+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -284,10 +284,9 @@ msgid "Quick Fix"
 msgstr "სწრაფი გასწორება"
 
 #: lib/diagnostics/diagnosticview.cpp:366
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "შეცდომა"
+msgstr "შედომები"
 
 #: lib/diagnostics/diagnosticview.cpp:382
 #, kde-format

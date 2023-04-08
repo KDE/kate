@@ -61,6 +61,7 @@ struct GitParsedStatus {
     QVector<StatusItem> unmerge;
     QVector<StatusItem> staged;
     QVector<StatusItem> changed;
+    QSet<QString> nonUniqueFileNames;
 };
 
 GitParsedStatus parseStatus(const QByteArray &raw, bool withNumStat, const QString &workingDir);

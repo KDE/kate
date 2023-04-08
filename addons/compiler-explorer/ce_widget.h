@@ -35,12 +35,8 @@ private:
     void sendMessage(const QString &plainText, bool warn);
 
     void removeViewAsActiveXMLGuiClient();
-    void setViewAsActiveXMLGuiClient();
 
     CEPluginView *m_pluginView = nullptr;
-
-    /// old xml gui client that we replaced in the main window
-    QPointer<KTextEditor::View> oldClient = nullptr;
 
     /// The document that we are working with
     QPointer<KTextEditor::Document> doc = nullptr;

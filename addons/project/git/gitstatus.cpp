@@ -11,6 +11,7 @@
 #include <KLocalizedString>
 #include <QByteArray>
 #include <QProcess>
+#include <QSet>
 
 #include <charconv>
 #include <optional>
@@ -32,6 +33,12 @@ static void numStatForStatus(QVector<GitUtils::StatusItem> &list, const QString 
     }
 
     GitUtils::parseDiffNumStat(list, git.readAllStandardOutput());
+}
+
+QByteArray fileNameFromPath(const QByteArray &path)
+{
+    int lastSlash = path.lastIndexOf('/');
+    return lastSlash == -1 ? path : path.mid(lastSlash + 1);
 }
 
 GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, bool withNumStat, const QString &workingDir)
@@ -116,12 +123,29 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, bool with
         }
     }
 
+    QSet<QString> nonUniqueFileNames;
+    QSet<QByteArray> seen;
+    auto getNonUniqueFileNamesFor = [&nonUniqueFileNames, &seen](const QVector<GitUtils::StatusItem> &items) {
+        for (const auto &c : items) {
+            const auto file = fileNameFromPath(c.file);
+            if (seen.contains(file)) {
+                nonUniqueFileNames.insert(QString::fromUtf8(file));
+            } else {
+                seen.insert(file);
+            }
+        }
+    };
+    getNonUniqueFileNamesFor(changed);
+    getNonUniqueFileNamesFor(staged);
+    getNonUniqueFileNamesFor(unmerge);
+    // Nothing for untracked as untracked items can be in thousands
+
     if (withNumStat) {
         numStatForStatus(changed, workingDir, true);
         numStatForStatus(staged, workingDir, false);
     }
 
-    return {untracked, unmerge, staged, changed};
+    return {untracked, unmerge, staged, changed, nonUniqueFileNames};
 }
 
 QString GitUtils::statusString(GitUtils::GitStatus s)

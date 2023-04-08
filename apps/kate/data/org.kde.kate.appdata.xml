@@ -730,7 +730,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Osatze automatikoa onartzen du</li>
       <li xml:lang="fi">Automaattitäydennyksen tuki</li>
       <li xml:lang="fr">Prise en charge du complètement automatique</li>
-      <li xml:lang="gl">Funcionalidade de completación automática.</li>
+      <li xml:lang="gl">Funcionalidade de completar automaticamente.</li>
       <li xml:lang="hu">Automatikus kiegészítés</li>
       <li xml:lang="ia">Supporto de auto completion</li>
       <li xml:lang="id">Dukungan penyelesaian otomatis</li>
@@ -821,6 +821,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Protokolo-euskarri zabala (http, ftp, ssh, webdav etab.)</li>
       <li xml:lang="fi">Laaja yhteyskäytäntötuki (HTTP, FTP, SSH, WebDAV jne.)</li>
       <li xml:lang="fr">Prise en charge de protocoles variés (http, ftp, ssh, webdav, etc.)</li>
+      <li xml:lang="gl">Compatibilidade con numerosos protocolos (HTTP, FTP, SSH, WebDAV, etc.)</li>
       <li xml:lang="ia">Supporto de protocollo large (http, ftp, ssh, webdav etc.)</li>
       <li xml:lang="id">Dukungan protokol yang luas (http, ftp, ssh, webdav dll.)</li>
       <li xml:lang="it">Ampio supporto di protocolli (http, ftp, ssh, webdav, ecc.)</li>

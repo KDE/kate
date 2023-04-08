@@ -144,29 +144,6 @@ void CEWidget::removeViewAsActiveXMLGuiClient()
     if (m_textEditor) {
         m_mainWindow->guiFactory()->removeClient(m_textEditor);
     }
-
-    if (oldClient) {
-        m_mainWindow->guiFactory()->addClient(oldClient);
-    }
-}
-
-void CEWidget::setViewAsActiveXMLGuiClient()
-{
-    if (!m_textEditor) {
-        return;
-    }
-
-    // remove current active "KTE::View" client from mainWindow
-    const auto clients = m_mainWindow->guiFactory()->clients();
-    for (KXMLGUIClient *c : clients) {
-        if (c->componentName() == QStringLiteral("katepart") && c != m_textEditor) {
-            oldClient = static_cast<KTextEditor::View *>(c);
-            m_mainWindow->guiFactory()->removeClient(c);
-            break;
-        }
-    }
-    // Make us the client
-    m_mainWindow->guiFactory()->addClient(m_textEditor);
 }
 
 bool CEWidget::eventFilter(QObject *o, QEvent *e)
@@ -174,7 +151,9 @@ bool CEWidget::eventFilter(QObject *o, QEvent *e)
     // We live in a stacked widget in kateviewspace
     // use hide/show to figure out when we are not active
     if (e->type() == QEvent::Show) {
-        setViewAsActiveXMLGuiClient();
+        if (m_textEditor) {
+            m_mainWindow->guiFactory()->addClient(m_textEditor);
+        }
         return QWidget::eventFilter(o, e);
     } else if (e->type() == QEvent::Hide) {
         removeViewAsActiveXMLGuiClient();
@@ -364,8 +343,6 @@ void CEWidget::createMainViews(QVBoxLayout *mainLayout)
     QSplitter *splitter = new QSplitter(this);
 
     m_textEditor = doc->createView(this, m_mainWindow);
-
-    setViewAsActiveXMLGuiClient();
 
     m_asmView->setModel(m_model);
 

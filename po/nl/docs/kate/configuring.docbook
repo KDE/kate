@@ -118,18 +118,6 @@
 
 <varlistentry>
 <term
-><anchor id="config-dialog-general-open-each-document"/>
-<guilabel
->Elk document in zijn eigen venster openen</guilabel
-></term>
-<listitem
-><para
->Indien ingeschakeld zal elk document geopend worden in zijn eigen venster. Zo niet, elk document zal geopend worden in een nieuw tabblad in het huidige venster.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term
 ><anchor id="config-dialog-general-switch-to-output"/>
 <guilabel
 >Naar uitvoerweergave omschalen op type bericht</guilabel

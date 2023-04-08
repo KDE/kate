@@ -14,14 +14,14 @@
 # Yury G. Kudryashov <urkud.urkud@gmail.com>, 2012.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013, 2014.
-# Alexander Yavorsky <kekcuha@gmail.com>, 2018, 2019, 2020, 2021, 2022.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2018, 2019, 2020, 2021, 2022, 2023.
 # Olesya Gerasimenko <translation-team@basealt.ru>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-31 02:52+0000\n"
-"PO-Revision-Date: 2022-12-21 12:08+0300\n"
+"PO-Revision-Date: 2023-04-03 16:22+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -350,10 +350,9 @@ msgid "Collapse All"
 msgstr "Закрыть вс&е"
 
 #: lib/diagnostics/diagnosticview.cpp:1105
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Скопировать весь текст в буфер обмена"
+msgstr "Копировать в буфер обмена"
 
 #: lib/diagnostics/diagnosticview.cpp:1128
 #, fuzzy, kde-format

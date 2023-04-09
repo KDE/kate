@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-07 00:49+0000\n"
-"PO-Revision-Date: 2023-04-07 08:11+0200\n"
+"POT-Creation-Date: 2023-04-09 00:49+0000\n"
+"PO-Revision-Date: 2023-04-08 07:56+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -21,69 +21,69 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
 "%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Poedit 3.2.2\n"
 
-#: branchcheckoutdialog.cpp:29
+#: branchcheckoutdialog.cpp:28
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "Izberite vejo za izdajo. Pritisnite ubežnico ('Esc') za preklic."
 
-#: branchcheckoutdialog.cpp:36
+#: branchcheckoutdialog.cpp:35
 #, kde-format
 msgid "Create New Branch"
 msgstr "Ustvari novo vejo"
 
-#: branchcheckoutdialog.cpp:38
+#: branchcheckoutdialog.cpp:37
 #, kde-format
 msgid "Create New Branch From..."
 msgstr "Ustvari novo vejo iz ..."
 
-#: branchcheckoutdialog.cpp:53
+#: branchcheckoutdialog.cpp:52
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Veja %1 je izdana"
 
-#: branchcheckoutdialog.cpp:56
+#: branchcheckoutdialog.cpp:55
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Izdaja na vejo %1 ni uspela, napaka: %2"
 
-#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#: branchcheckoutdialog.cpp:82 branchcheckoutdialog.cpp:94
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Vnesite ime nove veje. ritisnite ubežnico (»Esc«) za preklic."
 
-#: branchcheckoutdialog.cpp:100
+#: branchcheckoutdialog.cpp:99
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Izberite vejo za izdajo. Pritisnite ubežnico (»Esc«) za preklic."
 
-#: branchcheckoutdialog.cpp:121
+#: branchcheckoutdialog.cpp:120
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Izdano v novo vejo: %1"
 
-#: branchcheckoutdialog.cpp:123
+#: branchcheckoutdialog.cpp:122
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Ustvarjanje nove veje ni uspelo. Napaka \"%1\""
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
 msgstr "Veja"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
 msgstr "Zadnja potrditev"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Zbriši"
 
-#: branchdeletedialog.cpp:140
+#: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

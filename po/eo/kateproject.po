@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-07 00:49+0000\n"
+"POT-Creation-Date: 2023-04-09 00:49+0000\n"
 "PO-Revision-Date: 2023-04-07 14:29+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -18,67 +18,67 @@ msgstr ""
 "X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: branchcheckoutdialog.cpp:29
+#: branchcheckoutdialog.cpp:28
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "Elektu branĉon por elpreni. Premu 'Esc' por nuligi."
 
-#: branchcheckoutdialog.cpp:36
+#: branchcheckoutdialog.cpp:35
 #, kde-format
 msgid "Create New Branch"
 msgstr "Krei Novan Branĉon"
 
-#: branchcheckoutdialog.cpp:38
+#: branchcheckoutdialog.cpp:37
 #, kde-format
 msgid "Create New Branch From..."
 msgstr "Krei novan branĉon el..."
 
-#: branchcheckoutdialog.cpp:53
+#: branchcheckoutdialog.cpp:52
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Branĉo %1 elprenita"
 
-#: branchcheckoutdialog.cpp:56
+#: branchcheckoutdialog.cpp:55
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Malsukcesis elpreno al branĉo %1, Eraro: %2"
 
-#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#: branchcheckoutdialog.cpp:82 branchcheckoutdialog.cpp:94
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Enigu nomon de nova branĉo. Premu 'Esc' por nuligi."
 
-#: branchcheckoutdialog.cpp:100
+#: branchcheckoutdialog.cpp:99
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Elektu branĉon elprenendan. Premu 'Esc' por nuligi."
 
-#: branchcheckoutdialog.cpp:121
+#: branchcheckoutdialog.cpp:120
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Elprenita al nova branĉo: %1"
 
-#: branchcheckoutdialog.cpp:123
+#: branchcheckoutdialog.cpp:122
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Malsukcesis krei novan branĉon. Eraro \"%1\""
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
 msgstr "Branĉo"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
 msgstr "Lasta Enmeto"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Forigi"
 
-#: branchdeletedialog.cpp:140
+#: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-07 00:49+0000\n"
+"POT-Creation-Date: 2023-04-09 00:49+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -17,67 +17,67 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 21.12.3\n"
 
-#: branchcheckoutdialog.cpp:29
+#: branchcheckoutdialog.cpp:28
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "체크아웃할 브랜치를 선택하십시오. 'Esc' 키를 누르면 취소합니다."
 
-#: branchcheckoutdialog.cpp:36
+#: branchcheckoutdialog.cpp:35
 #, kde-format
 msgid "Create New Branch"
 msgstr "새 브랜치 만들기"
 
-#: branchcheckoutdialog.cpp:38
+#: branchcheckoutdialog.cpp:37
 #, kde-format
 msgid "Create New Branch From..."
 msgstr "다음에서 새 브랜치 만들기..."
 
-#: branchcheckoutdialog.cpp:53
+#: branchcheckoutdialog.cpp:52
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "브랜치 %1 체크아웃함"
 
-#: branchcheckoutdialog.cpp:56
+#: branchcheckoutdialog.cpp:55
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "브랜치 %1을(를) 체크아웃할 수 없음, 오류: %2"
 
-#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#: branchcheckoutdialog.cpp:82 branchcheckoutdialog.cpp:94
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "새 브랜치 이름을 입력하십시오. 'Esc' 키를 누르면 취소합니다."
 
-#: branchcheckoutdialog.cpp:100
+#: branchcheckoutdialog.cpp:99
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "체크아웃할 브랜치를 선택하십시오. 'Esc' 키를 누르면 취소합니다."
 
-#: branchcheckoutdialog.cpp:121
+#: branchcheckoutdialog.cpp:120
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "새 브랜치 체크아웃함: %1"
 
-#: branchcheckoutdialog.cpp:123
+#: branchcheckoutdialog.cpp:122
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "새 브랜치를 만들 수 없습니다. 오류: \"%1\""
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
 msgstr "브랜치"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
 msgstr "마지막 커밋"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "삭제"
 
-#: branchdeletedialog.cpp:140
+#: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

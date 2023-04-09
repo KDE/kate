@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-07 00:49+0000\n"
+"POT-Creation-Date: 2023-04-09 00:49+0000\n"
 "PO-Revision-Date: 2023-01-23 16:43+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -27,72 +27,72 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: branchcheckoutdialog.cpp:29
+#: branchcheckoutdialog.cpp:28
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr ""
 "Sélectionnez la branche à extraire. Veuillez appuyer sur « Échap » pour "
 "annuler."
 
-#: branchcheckoutdialog.cpp:36
+#: branchcheckoutdialog.cpp:35
 #, kde-format
 msgid "Create New Branch"
 msgstr "Créer une nouvelle branche"
 
-#: branchcheckoutdialog.cpp:38
+#: branchcheckoutdialog.cpp:37
 #, kde-format
 msgid "Create New Branch From..."
 msgstr "Créer une nouvelle branche à partir de..."
 
-#: branchcheckoutdialog.cpp:53
+#: branchcheckoutdialog.cpp:52
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Branche %1 extraite"
 
-#: branchcheckoutdialog.cpp:56
+#: branchcheckoutdialog.cpp:55
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Impossible d'extraire la branche %1. Erreur : %2"
 
-#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#: branchcheckoutdialog.cpp:82 branchcheckoutdialog.cpp:94
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr ""
 "Saisissez le nom d'une nouvelle branche. Appuyez sur « Échap » pour annuler."
 
-#: branchcheckoutdialog.cpp:100
+#: branchcheckoutdialog.cpp:99
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
 "Sélectionnez la branche à partir de laquelle faire l'extraction. Veuillez "
 "appuyer sur « Échap » pour annuler."
 
-#: branchcheckoutdialog.cpp:121
+#: branchcheckoutdialog.cpp:120
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Extrait d'une nouvelle branche : %1"
 
-#: branchcheckoutdialog.cpp:123
+#: branchcheckoutdialog.cpp:122
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Impossible de créer une nouvelle branche. Erreur « %1 »."
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
 msgstr "Branche"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
 msgstr "Dernière validation"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Supprimer"
 
-#: branchdeletedialog.cpp:140
+#: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

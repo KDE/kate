@@ -1115,6 +1115,9 @@ void DiagnosticsView::goToItemLocation(QModelIndex index)
     index = getPrimaryModelIndex(index);
     auto url = index.data(DiagnosticModelRole::FileUrlRole).toUrl();
     auto start = index.data(DiagnosticModelRole::RangeRole).value<KTextEditor::Range>();
+    if (url.isEmpty()) {
+        return;
+    }
 
     int line = start.start().line();
     int column = start.start().column();

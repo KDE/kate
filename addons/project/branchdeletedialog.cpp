@@ -1,7 +1,3 @@
-/*
-    SPDX-FileCopyrightText: 2023 Waqar Ahmed <waqar.17a@gmail.com>
-    SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "branchdeletedialog.h"
 
 #include "git/gitutils.h"

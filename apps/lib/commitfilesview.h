@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
-    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2021 Christoph Cullmann <cullmann@kde.org>
+    SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
 #pragma once

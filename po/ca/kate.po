@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-31 02:52+0000\n"
+"POT-Creation-Date: 2023-04-09 02:44+0000\n"
 "PO-Revision-Date: 2023-03-30 11:54+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -297,69 +297,69 @@ msgstr "Esmena ràpida"
 msgid "Filter..."
 msgstr "Filtre..."
 
-#: lib/diagnostics/diagnosticview.cpp:840 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:842 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Error"
 
-#: lib/diagnostics/diagnosticview.cpp:844 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:846 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Avís"
 
-#: lib/diagnostics/diagnosticview.cpp:848
+#: lib/diagnostics/diagnosticview.cpp:850
 #, kde-format
 msgid "Information"
 msgstr "Informació"
 
-#: lib/diagnostics/diagnosticview.cpp:981
+#: lib/diagnostics/diagnosticview.cpp:983
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [suppressed: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1095
+#: lib/diagnostics/diagnosticview.cpp:1097
 #, kde-format
 msgid "Expand All"
 msgstr "Expandeix-ho tot"
 
-#: lib/diagnostics/diagnosticview.cpp:1096
+#: lib/diagnostics/diagnosticview.cpp:1098
 #, kde-format
 msgid "Collapse All"
 msgstr "Redueix-ho tot"
 
-#: lib/diagnostics/diagnosticview.cpp:1105
+#: lib/diagnostics/diagnosticview.cpp:1107
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copia al porta-retalls"
 
-#: lib/diagnostics/diagnosticview.cpp:1128
+#: lib/diagnostics/diagnosticview.cpp:1130
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Elimina la supressió global"
 
-#: lib/diagnostics/diagnosticview.cpp:1130
+#: lib/diagnostics/diagnosticview.cpp:1132
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Afegeix una supressió global"
 
-#: lib/diagnostics/diagnosticview.cpp:1134
+#: lib/diagnostics/diagnosticview.cpp:1136
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Elimina la supressió local"
 
-#: lib/diagnostics/diagnosticview.cpp:1136
+#: lib/diagnostics/diagnosticview.cpp:1138
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Afegeix una supressió local"
 
-#: lib/diagnostics/diagnosticview.cpp:1149
+#: lib/diagnostics/diagnosticview.cpp:1151
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Desactiva la supressió"
 
-#: lib/diagnostics/diagnosticview.cpp:1151
+#: lib/diagnostics/diagnosticview.cpp:1153
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Activa la supressió"
@@ -1245,14 +1245,14 @@ msgstr "Tanca el document"
 msgid "Save As"
 msgstr "Desa com a"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:648
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:657
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "S'ha obert un fitxer nou mentre s'intentava tancar el Kate, s'interromp el "
 "tancament."
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:648
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:657
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Tancament interromput"
@@ -1640,7 +1640,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "Tanca tots els documents excepte l'actual"
 
-#: lib/katemainwindow.cpp:800
+#: lib/katemainwindow.cpp:809
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1648,12 +1648,12 @@ msgstr ""
 "Això ocultarà completament la barra de menús. La podeu tornar a mostrar "
 "prement %1."
 
-#: lib/katemainwindow.cpp:803
+#: lib/katemainwindow.cpp:812
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Oculta la barra de menús"
 
-#: lib/katemainwindow.cpp:907
+#: lib/katemainwindow.cpp:916
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1662,19 +1662,19 @@ msgstr ""
 "S'ha deixat anar el directori %1 en el Kate. Voleu obrir tots els fitxers "
 "continguts?"
 
-#: lib/katemainwindow.cpp:910
+#: lib/katemainwindow.cpp:919
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Obre recursivament els fitxers"
 
-#: lib/katemainwindow.cpp:911
+#: lib/katemainwindow.cpp:920
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Obre tots els fitxers"
 
-#: lib/katemainwindow.cpp:1147
+#: lib/katemainwindow.cpp:1156
 #, kde-format
 msgid " [read only]"
 msgstr " [només de lectura]"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-04-09 02:44+0000\n"
 "PO-Revision-Date: 2017-10-10 02:36+0300\n"
 "Last-Translator: Alexander Potashev <aspotashev@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -89,7 +89,7 @@ msgstr "Вид"
 msgid "No preview available."
 msgstr "Предварительный просмотр недоступен."
 
-#: previewwidget.cpp:228
+#: previewwidget.cpp:233
 #, kde-format
 msgid "About %1"
 msgstr "О %1"

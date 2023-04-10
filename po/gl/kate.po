@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:49+0000\n"
+"POT-Creation-Date: 2023-04-10 00:49+0000\n"
 "PO-Revision-Date: 2023-04-06 22:28+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -34,37 +34,37 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xabigf@gmx.net, mvillarino@users.sourceforge.net, adrian@chaves.io"
 
-#: kate/main.cpp:93
+#: kate/main.cpp:94
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:95
+#: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate, o editor avanzado de textos"
 
-#: kate/main.cpp:97 kwrite/main.cpp:46
+#: kate/main.cpp:98 kwrite/main.cpp:46
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "© 2000-2022 Persoas autoras de Kate"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Iniciar Kate cunha sesión dada."
 
-#: kate/main.cpp:144
+#: kate/main.cpp:145
 #, kde-format
 msgid "session"
 msgstr "sesión"
 
-#: kate/main.cpp:149
+#: kate/main.cpp:150
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Iniciar Kate cunha sesión anónima nova, implica «-n»."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -75,7 +75,7 @@ msgstr ""
 "haber xa outra instancia de kate coa sesión data aberta), forzando de non "
 "indicarse ningún parámetro nin URL."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -84,7 +84,7 @@ msgstr ""
 "Se está a usar unha instancia de Kate en execución bloquéaa ata que sae, no "
 "caso de indicarse URL para abrir."
 
-#: kate/main.cpp:166
+#: kate/main.cpp:167
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -93,59 +93,59 @@ msgstr ""
 "Só se intentará reutilizar a instancia de kate con este pid (ignórase de "
 "empregar o inicio e haber xa outra sesión de kate coa sesión dada aberta)."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:168
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:172 kwrite/main.cpp:97
+#: kate/main.cpp:173 kwrite/main.cpp:97
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Estabelecer a codificación do ficheiro para abrir."
 
-#: kate/main.cpp:173 kwrite/main.cpp:98
+#: kate/main.cpp:174 kwrite/main.cpp:98
 #, kde-format
 msgid "encoding"
 msgstr "codificación"
 
-#: kate/main.cpp:177 kwrite/main.cpp:102
+#: kate/main.cpp:178 kwrite/main.cpp:102
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Ir ata esta liña."
 
-#: kate/main.cpp:177 kwrite/main.cpp:102
+#: kate/main.cpp:178 kwrite/main.cpp:102
 #, kde-format
 msgid "line"
 msgstr "liña"
 
-#: kate/main.cpp:182 kwrite/main.cpp:106
+#: kate/main.cpp:183 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Ir ata esta columna."
 
-#: kate/main.cpp:183 kwrite/main.cpp:106
+#: kate/main.cpp:184 kwrite/main.cpp:106
 #, kde-format
 msgid "column"
 msgstr "columna"
 
-#: kate/main.cpp:187 kwrite/main.cpp:110
+#: kate/main.cpp:188 kwrite/main.cpp:110
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Ler o contido da saída estándar."
 
-#: kate/main.cpp:192 kwrite/main.cpp:114
+#: kate/main.cpp:193 kwrite/main.cpp:114
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Os ficheiros ou enderezos URL que a aplicación abriu eliminaranse despois de "
 "usalos."
 
-#: kate/main.cpp:196 kwrite/main.cpp:118
+#: kate/main.cpp:197 kwrite/main.cpp:118
 #, kde-format
 msgid "Documents to open."
 msgstr "Documento para abrir."
 
-#: kate/main.cpp:196 kwrite/main.cpp:118
+#: kate/main.cpp:197 kwrite/main.cpp:118
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls…]"
@@ -161,40 +161,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite, o editor de textos"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:248
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Pechar"
 
-#: lib/commitfilesview.cpp:390 lib/kateviewmanager.cpp:319
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:319
 #: lib/kateviewmanager.cpp:321
 #, kde-format
 msgid "Open File"
 msgstr "Abrir o ficheiro"
 
-#: lib/commitfilesview.cpp:396 lib/katemainwindow.cpp:358
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:358
 #, kde-format
 msgid "Copy Location"
 msgstr "Copiar a localización"
 
-#: lib/commitfilesview.cpp:418 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:365
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:513
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:513
 #, kde-format
 msgid "Invalid hash"
 msgstr "Código de resumo incorrecto"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:365
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 non existe nun repositorio de Git."
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:534
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -335,47 +335,47 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 (silenciado: %2)"
 
-#: lib/diagnostics/diagnosticview.cpp:1212
+#: lib/diagnostics/diagnosticview.cpp:1215
 #, kde-format
 msgid "Expand All"
 msgstr "Expandilo todo"
 
-#: lib/diagnostics/diagnosticview.cpp:1213
+#: lib/diagnostics/diagnosticview.cpp:1216
 #, kde-format
 msgid "Collapse All"
 msgstr "Pregalo todo"
 
-#: lib/diagnostics/diagnosticview.cpp:1222
+#: lib/diagnostics/diagnosticview.cpp:1225
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copiar no portapapeis"
 
-#: lib/diagnostics/diagnosticview.cpp:1245
+#: lib/diagnostics/diagnosticview.cpp:1248
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Retirar unha supresión global"
 
-#: lib/diagnostics/diagnosticview.cpp:1247
+#: lib/diagnostics/diagnosticview.cpp:1250
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Engadir unha supresión global"
 
-#: lib/diagnostics/diagnosticview.cpp:1251
+#: lib/diagnostics/diagnosticview.cpp:1254
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Retirar unha supresión local"
 
-#: lib/diagnostics/diagnosticview.cpp:1253
+#: lib/diagnostics/diagnosticview.cpp:1256
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Engadir unha supresión local"
 
-#: lib/diagnostics/diagnosticview.cpp:1266
+#: lib/diagnostics/diagnosticview.cpp:1269
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Desactivar as supresións"
 
-#: lib/diagnostics/diagnosticview.cpp:1268
+#: lib/diagnostics/diagnosticview.cpp:1271
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Activar as supresións"

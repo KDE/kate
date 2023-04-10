@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:49+0000\n"
+"POT-Creation-Date: 2023-04-10 00:49+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -39,38 +39,38 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sng@hellug.gr, manolis@koppermind.homelinux.org, pvidalis@gmail.com"
 
-#: kate/main.cpp:93
+#: kate/main.cpp:94
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:95
+#: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Προηγμένος επεξεργαστής κειμένου"
 
-#: kate/main.cpp:97 kwrite/main.cpp:46
+#: kate/main.cpp:98 kwrite/main.cpp:46
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 Οι συγγραφείς του Kate"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Εκκίνηση του Kate με μία δοσμένη συνεδρία."
 
-#: kate/main.cpp:144
+#: kate/main.cpp:145
 #, kde-format
 msgid "session"
 msgstr "συνεδρία"
 
-#: kate/main.cpp:149
+#: kate/main.cpp:150
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr ""
 "Εκκίνηση του Kate με μία νέα ανώνυμη συνεδρία, εννοείται η επιλογή '-n'."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -82,7 +82,7 @@ msgstr ""
 "τη δοθείσα συνεδρία), εξαναγκάζεται αν δεν παρέχονται παράμετροι και URL "
 "καθόλου."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -91,7 +91,7 @@ msgstr ""
 "Αν χρησιμοποιείτε ήδη μια διεργασία του Kate, να φραγεί μέχρι να γίνει "
 "έξοδος, αν δίνονται URL για άνοιγμα."
 
-#: kate/main.cpp:166
+#: kate/main.cpp:167
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -101,58 +101,58 @@ msgstr ""
 "(αγνοείται, αν χρησιμοποιείται η εκκίνηση και μια άλλη διεργασία του Kate "
 "έχει ήδη ανοίξει τη δοθείσα συνεδρία)."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:168
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:172 kwrite/main.cpp:97
+#: kate/main.cpp:173 kwrite/main.cpp:97
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Ορισμός κωδικοποίησης για το αρχείο που θα ανοιχθεί."
 
-#: kate/main.cpp:173 kwrite/main.cpp:98
+#: kate/main.cpp:174 kwrite/main.cpp:98
 #, kde-format
 msgid "encoding"
 msgstr "κωδικοποίηση"
 
-#: kate/main.cpp:177 kwrite/main.cpp:102
+#: kate/main.cpp:178 kwrite/main.cpp:102
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Πλοήγηση σε αυτήν τη γραμμή."
 
-#: kate/main.cpp:177 kwrite/main.cpp:102
+#: kate/main.cpp:178 kwrite/main.cpp:102
 #, kde-format
 msgid "line"
 msgstr "γραμμή"
 
-#: kate/main.cpp:182 kwrite/main.cpp:106
+#: kate/main.cpp:183 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Πλοήγηση σε αυτήν τη στήλη."
 
-#: kate/main.cpp:183 kwrite/main.cpp:106
+#: kate/main.cpp:184 kwrite/main.cpp:106
 #, kde-format
 msgid "column"
 msgstr "στήλη"
 
-#: kate/main.cpp:187 kwrite/main.cpp:110
+#: kate/main.cpp:188 kwrite/main.cpp:110
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Διάβασε τα περιεχόμενα του stdin."
 
-#: kate/main.cpp:192 kwrite/main.cpp:114
+#: kate/main.cpp:193 kwrite/main.cpp:114
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Τα αρχεία/URL που ανοίγουν από αυτή την εφαρμογή θα διαγραφούν μετά τη χρήση"
 
-#: kate/main.cpp:196 kwrite/main.cpp:118
+#: kate/main.cpp:197 kwrite/main.cpp:118
 #, kde-format
 msgid "Documents to open."
 msgstr "Έγγραφο για άνοιγμα."
 
-#: kate/main.cpp:196 kwrite/main.cpp:118
+#: kate/main.cpp:197 kwrite/main.cpp:118
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
@@ -168,40 +168,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Επεξεργαστής κειμένου"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:248
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: lib/commitfilesview.cpp:390 lib/kateviewmanager.cpp:319
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:319
 #: lib/kateviewmanager.cpp:321
 #, kde-format
 msgid "Open File"
 msgstr "Άνοιγμα αρχείου"
 
-#: lib/commitfilesview.cpp:396 lib/katemainwindow.cpp:358
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:358
 #, kde-format
 msgid "Copy Location"
 msgstr "Αντιγραφή τοποθεσίας"
 
-#: lib/commitfilesview.cpp:418 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:365
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:513
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:513
 #, kde-format
 msgid "Invalid hash"
 msgstr "Μη έγκυρος κατακερματισμός"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:365
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "Το %1 δεν υπάρχει σε αποθετήριο git."
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:534
 #, fuzzy, kde-format
 #| msgid "Commit"
 msgctxt "@title:tab"
@@ -346,52 +346,52 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1212
+#: lib/diagnostics/diagnosticview.cpp:1215
 #, fuzzy, kde-format
 #| msgid "&Expand tabs"
 msgid "Expand All"
 msgstr "&Επέκταση καρτελών"
 
-#: lib/diagnostics/diagnosticview.cpp:1213
+#: lib/diagnostics/diagnosticview.cpp:1216
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Κλεί&σιμο όλων"
 
-#: lib/diagnostics/diagnosticview.cpp:1222
+#: lib/diagnostics/diagnosticview.cpp:1225
 #, fuzzy, kde-format
 #| msgid "Copy all text to clipboard"
 msgid "Copy to Clipboard"
 msgstr "Αντιγραφή όλου του κειμένου στο πρόχειρο"
 
-#: lib/diagnostics/diagnosticview.cpp:1245
+#: lib/diagnostics/diagnosticview.cpp:1248
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1247
+#: lib/diagnostics/diagnosticview.cpp:1250
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "Ό&λες οι συνεδρίες"
 
-#: lib/diagnostics/diagnosticview.cpp:1251
+#: lib/diagnostics/diagnosticview.cpp:1254
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1253
+#: lib/diagnostics/diagnosticview.cpp:1256
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1266
+#: lib/diagnostics/diagnosticview.cpp:1269
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "Φιλτράρισμα συνεδριών"
 
-#: lib/diagnostics/diagnosticview.cpp:1268
+#: lib/diagnostics/diagnosticview.cpp:1271
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"

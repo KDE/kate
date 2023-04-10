@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:49+0000\n"
+"POT-Creation-Date: 2023-04-10 00:49+0000\n"
 "PO-Revision-Date: 2006-05-07 10:37+0200\n"
 "Last-Translator: Rinse de Vries <RinseDeVries@home.nl>\n"
 "Language-Team:  <nl@li.org>\n"
@@ -27,41 +27,41 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "berendy@bigfoot.com,rinsedevries@kde.nl,an3s_annema@planet.nl"
 
-#: kate/main.cpp:93
+#: kate/main.cpp:94
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:95
+#: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Avansearre tekstbewurker"
 
-#: kate/main.cpp:97 kwrite/main.cpp:46
+#: kate/main.cpp:98 kwrite/main.cpp:46
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2005 The Kate Authors"
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2005 De Auteurs Fan Kate"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "Kate starte mei in opjûne sesje"
 
-#: kate/main.cpp:144
+#: kate/main.cpp:145
 #, fuzzy, kde-format
 #| msgid "Session"
 msgid "session"
 msgstr "Sesje"
 
-#: kate/main.cpp:149
+#: kate/main.cpp:150
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Kate starte mei in opjûne sesje"
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -69,76 +69,76 @@ msgid ""
 "and no URLs are given at all."
 msgstr ""
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr ""
 
-#: kate/main.cpp:166
+#: kate/main.cpp:167
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
 
-#: kate/main.cpp:167
+#: kate/main.cpp:168
 #, kde-format
 msgid "pid"
 msgstr ""
 
-#: kate/main.cpp:172 kwrite/main.cpp:97
+#: kate/main.cpp:173 kwrite/main.cpp:97
 #, fuzzy, kde-format
 #| msgid "Set encoding for the file to open"
 msgid "Set encoding for the file to open."
 msgstr "Stel de kodearring yn foar de te iepenjen triem"
 
-#: kate/main.cpp:173 kwrite/main.cpp:98
+#: kate/main.cpp:174 kwrite/main.cpp:98
 #, kde-format
 msgid "encoding"
 msgstr ""
 
-#: kate/main.cpp:177 kwrite/main.cpp:102
+#: kate/main.cpp:178 kwrite/main.cpp:102
 #, fuzzy, kde-format
 #| msgid "Navigate to this line"
 msgid "Navigate to this line."
 msgstr "Gean nei dizze rigel"
 
-#: kate/main.cpp:177 kwrite/main.cpp:102
+#: kate/main.cpp:178 kwrite/main.cpp:102
 #, kde-format
 msgid "line"
 msgstr ""
 
-#: kate/main.cpp:182 kwrite/main.cpp:106
+#: kate/main.cpp:183 kwrite/main.cpp:106
 #, fuzzy, kde-format
 #| msgid "Navigate to this column"
 msgid "Navigate to this column."
 msgstr "Gean nei dizze kolom"
 
-#: kate/main.cpp:183 kwrite/main.cpp:106
+#: kate/main.cpp:184 kwrite/main.cpp:106
 #, fuzzy, kde-format
 msgid "column"
 msgstr "Taljochting"
 
-#: kate/main.cpp:187 kwrite/main.cpp:110
+#: kate/main.cpp:188 kwrite/main.cpp:110
 #, fuzzy, kde-format
 #| msgid "Read the contents of stdin"
 msgid "Read the contents of stdin."
 msgstr "Lês de ynhâld fan stdin"
 
-#: kate/main.cpp:192 kwrite/main.cpp:114
+#: kate/main.cpp:193 kwrite/main.cpp:114
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 
-#: kate/main.cpp:196 kwrite/main.cpp:118
+#: kate/main.cpp:197 kwrite/main.cpp:118
 #, fuzzy, kde-format
 #| msgid "Document to open"
 msgid "Documents to open."
 msgstr "Dokumint om te iepenjen"
 
-#: kate/main.cpp:196 kwrite/main.cpp:118
+#: kate/main.cpp:197 kwrite/main.cpp:118
 #, kde-format
 msgid "[urls...]"
 msgstr ""
@@ -154,42 +154,42 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - tekstbewurker"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:248
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/session/katesessionmanagedialog.ui:184
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close"
 msgstr "Alles slút&e"
 
-#: lib/commitfilesview.cpp:390 lib/kateviewmanager.cpp:319
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:319
 #: lib/kateviewmanager.cpp:321
 #, kde-format
 msgid "Open File"
 msgstr "Triem iepenje"
 
-#: lib/commitfilesview.cpp:396 lib/katemainwindow.cpp:358
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:358
 #, fuzzy, kde-format
 msgid "Copy Location"
 msgstr "Lokaasje"
 
-#: lib/commitfilesview.cpp:418 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:365
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:513
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:513
 #, fuzzy, kde-format
 #| msgid "Invalid Folder"
 msgid "Invalid hash"
 msgstr "Unjildige Map"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:365
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:534
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
@@ -334,51 +334,51 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1212
+#: lib/diagnostics/diagnosticview.cpp:1215
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1213
+#: lib/diagnostics/diagnosticview.cpp:1216
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Alles slút&e"
 
-#: lib/diagnostics/diagnosticview.cpp:1222
+#: lib/diagnostics/diagnosticview.cpp:1225
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1245
+#: lib/diagnostics/diagnosticview.cpp:1248
 #, fuzzy, kde-format
 #| msgid "Regular expression"
 msgid "Remove Global Suppression"
 msgstr "Algemiene útdrukking"
 
-#: lib/diagnostics/diagnosticview.cpp:1247
+#: lib/diagnostics/diagnosticview.cpp:1250
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "Ses&jes"
 
-#: lib/diagnostics/diagnosticview.cpp:1251
+#: lib/diagnostics/diagnosticview.cpp:1254
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1253
+#: lib/diagnostics/diagnosticview.cpp:1256
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1266
+#: lib/diagnostics/diagnosticview.cpp:1269
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "Sesjes"
 
-#: lib/diagnostics/diagnosticview.cpp:1268
+#: lib/diagnostics/diagnosticview.cpp:1271
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"

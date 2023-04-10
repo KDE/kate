@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:49+0000\n"
+"POT-Creation-Date: 2023-04-10 00:49+0000\n"
 "PO-Revision-Date: 2023-02-20 11:25+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -17,67 +17,67 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 22.12.0\n"
 
-#: branchcheckoutdialog.cpp:28
+#: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "Chọn nhánh để lấy ra. Nhấn 'Esc' để huỷ."
 
-#: branchcheckoutdialog.cpp:35
+#: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
 msgstr "Tạo nhánh mới"
 
-#: branchcheckoutdialog.cpp:37
+#: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
 msgstr "Tạo nhánh mới từ..."
 
-#: branchcheckoutdialog.cpp:52
+#: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Đã lấy ra nhánh %1"
 
-#: branchcheckoutdialog.cpp:55
+#: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Lấy ra nhánh %1 thất bại, lỗi: %2"
 
-#: branchcheckoutdialog.cpp:82 branchcheckoutdialog.cpp:94
+#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Nhập tên nhánh mới. Nhấn 'Esc' để huỷ."
 
-#: branchcheckoutdialog.cpp:99
+#: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Chọn nhánh để lấy ra từ đó. Nhấn 'Esc' để huỷ."
 
-#: branchcheckoutdialog.cpp:120
+#: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Đã lấy ra ở nhánh mới: %1"
 
-#: branchcheckoutdialog.cpp:122
+#: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Tạo nhánh mới thất bại. Lỗi \"%1\""
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Branch"
 msgstr "Nhánh"
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Last Commit"
 msgstr "Bản chuyển giao cuối"
 
-#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Xoá"
 
-#: branchdeletedialog.cpp:144
+#: branchdeletedialog.cpp:140
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

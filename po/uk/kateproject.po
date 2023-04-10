@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:49+0000\n"
+"POT-Creation-Date: 2023-04-10 00:49+0000\n"
 "PO-Revision-Date: 2023-04-07 09:00+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -20,70 +20,70 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 20.12.0\n"
 
-#: branchcheckoutdialog.cpp:28
+#: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr ""
 "Виберіть гілку для отримання даних. Натисніть Esc, щоб скасувати вибір."
 
-#: branchcheckoutdialog.cpp:35
+#: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
 msgstr "Створити гілку"
 
-#: branchcheckoutdialog.cpp:37
+#: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
 msgstr "Створити гілку з…"
 
-#: branchcheckoutdialog.cpp:52
+#: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Отримано дані з гілки %1"
 
-#: branchcheckoutdialog.cpp:55
+#: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Не вдалося перейти на гілку %1. Помилка: %2"
 
-#: branchcheckoutdialog.cpp:82 branchcheckoutdialog.cpp:94
+#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr ""
 "Введіть назву нової гілки. Натисніть Esc, щоб скасувати введення назви."
 
-#: branchcheckoutdialog.cpp:99
+#: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
 "Виберіть гілку для отримання даних з неї. Натисніть Esc, щоб скасувати вибір."
 
-#: branchcheckoutdialog.cpp:120
+#: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Перейшли на нову гілку: %1"
 
-#: branchcheckoutdialog.cpp:122
+#: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Не вдалося створити гілку. Помилка «%1»"
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Branch"
 msgstr "Гілка"
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Last Commit"
 msgstr "Останній внесок"
 
-#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Вилучити"
 
-#: branchdeletedialog.cpp:144
+#: branchdeletedialog.cpp:140
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

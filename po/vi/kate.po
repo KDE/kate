@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:49+0000\n"
+"POT-Creation-Date: 2023-04-10 00:49+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -33,37 +33,37 @@ msgstr ""
 "phu.nguyen@kdemail.net,dinhdangkhoi.fs@gmail.com,herophuong93@gmail.com,"
 "teppi82@gmail.com,Vu.Hung@techviet.com"
 
-#: kate/main.cpp:93
+#: kate/main.cpp:94
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:95
+#: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Trình biên tập văn bản nâng cao"
 
-#: kate/main.cpp:97 kwrite/main.cpp:46
+#: kate/main.cpp:98 kwrite/main.cpp:46
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 Các tác giả Kate"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Khởi động Kate với một phiên chỉ định."
 
-#: kate/main.cpp:144
+#: kate/main.cpp:145
 #, kde-format
 msgid "session"
 msgstr "phiên"
 
-#: kate/main.cpp:149
+#: kate/main.cpp:150
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Khởi động Kate với một phiên vô danh mới, ngầm định '-n'."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -74,7 +74,7 @@ msgstr ""
 "hiện thể Kate khác đã mở phiên được chỉ định), ép nếu không có tham số và "
 "URL nào được cung cấp."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -83,7 +83,7 @@ msgstr ""
 "Nếu dùng một hiện thể Kate đang chạy sẵn, ngưng cho đến khi nó thoát, nếu "
 "URL được cho để mở."
 
-#: kate/main.cpp:166
+#: kate/main.cpp:167
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -92,57 +92,57 @@ msgstr ""
 "Chỉ thử dùng lại hiện thể Kate với pid này (sẽ bị bỏ qua nếu start được dùng "
 "và một hiện thể Kate khác đã mở phiên được chỉ định)."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:168
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:172 kwrite/main.cpp:97
+#: kate/main.cpp:173 kwrite/main.cpp:97
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Đặt cách mã hoá cho tệp sẽ mở."
 
-#: kate/main.cpp:173 kwrite/main.cpp:98
+#: kate/main.cpp:174 kwrite/main.cpp:98
 #, kde-format
 msgid "encoding"
 msgstr "cách mã hoá"
 
-#: kate/main.cpp:177 kwrite/main.cpp:102
+#: kate/main.cpp:178 kwrite/main.cpp:102
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Chuyển đến dòng này."
 
-#: kate/main.cpp:177 kwrite/main.cpp:102
+#: kate/main.cpp:178 kwrite/main.cpp:102
 #, kde-format
 msgid "line"
 msgstr "dòng"
 
-#: kate/main.cpp:182 kwrite/main.cpp:106
+#: kate/main.cpp:183 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Chuyển đến cột này."
 
-#: kate/main.cpp:183 kwrite/main.cpp:106
+#: kate/main.cpp:184 kwrite/main.cpp:106
 #, kde-format
 msgid "column"
 msgstr "cột"
 
-#: kate/main.cpp:187 kwrite/main.cpp:110
+#: kate/main.cpp:188 kwrite/main.cpp:110
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Đọc nội dung của stdin."
 
-#: kate/main.cpp:192 kwrite/main.cpp:114
+#: kate/main.cpp:193 kwrite/main.cpp:114
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "Các tệp/URL do ứng dụng này mở sẽ bị xoá sau khi dùng"
 
-#: kate/main.cpp:196 kwrite/main.cpp:118
+#: kate/main.cpp:197 kwrite/main.cpp:118
 #, kde-format
 msgid "Documents to open."
 msgstr "Tài liệu sẽ mở."
 
-#: kate/main.cpp:196 kwrite/main.cpp:118
+#: kate/main.cpp:197 kwrite/main.cpp:118
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
@@ -158,40 +158,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Trình biên tập văn bản"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:248
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Đóng"
 
-#: lib/commitfilesview.cpp:390 lib/kateviewmanager.cpp:319
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:319
 #: lib/kateviewmanager.cpp:321
 #, kde-format
 msgid "Open File"
 msgstr "Mở tệp"
 
-#: lib/commitfilesview.cpp:396 lib/katemainwindow.cpp:358
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:358
 #, kde-format
 msgid "Copy Location"
 msgstr "Chép địa điểm"
 
-#: lib/commitfilesview.cpp:418 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:365
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:513
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:513
 #, kde-format
 msgid "Invalid hash"
 msgstr "Giá trị băm không hợp lệ"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:365
+#: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 không tồn tại trong một kho git."
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:534
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -334,47 +334,47 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [bị loại trừ: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1212
+#: lib/diagnostics/diagnosticview.cpp:1215
 #, kde-format
 msgid "Expand All"
 msgstr "Mở rộng tất cả"
 
-#: lib/diagnostics/diagnosticview.cpp:1213
+#: lib/diagnostics/diagnosticview.cpp:1216
 #, kde-format
 msgid "Collapse All"
 msgstr "Thu gọn tất cả"
 
-#: lib/diagnostics/diagnosticview.cpp:1222
+#: lib/diagnostics/diagnosticview.cpp:1225
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Chép vào bảng nháp"
 
-#: lib/diagnostics/diagnosticview.cpp:1245
+#: lib/diagnostics/diagnosticview.cpp:1248
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Xoá phần loại trừ toàn cục"
 
-#: lib/diagnostics/diagnosticview.cpp:1247
+#: lib/diagnostics/diagnosticview.cpp:1250
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Thêm phần loại trừ toàn cục"
 
-#: lib/diagnostics/diagnosticview.cpp:1251
+#: lib/diagnostics/diagnosticview.cpp:1254
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Xoá phần loại trừ cục bộ"
 
-#: lib/diagnostics/diagnosticview.cpp:1253
+#: lib/diagnostics/diagnosticview.cpp:1256
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Thêm phần loại trừ cục bộ"
 
-#: lib/diagnostics/diagnosticview.cpp:1266
+#: lib/diagnostics/diagnosticview.cpp:1269
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Tắt loại trừ"
 
-#: lib/diagnostics/diagnosticview.cpp:1268
+#: lib/diagnostics/diagnosticview.cpp:1271
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Bật loại trừ"

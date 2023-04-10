@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:49+0000\n"
+"POT-Creation-Date: 2023-04-10 00:49+0000\n"
 "PO-Revision-Date: 2021-04-18 01:36+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -19,69 +19,69 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 21.12.3\n"
 
-#: branchcheckoutdialog.cpp:28
+#: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "Pilih cabang untuk checkout. Tekan 'Esc' untuk membatalkan."
 
-#: branchcheckoutdialog.cpp:35
+#: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
 msgstr "Buat Cabang Baru"
 
-#: branchcheckoutdialog.cpp:37
+#: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
 msgstr "Buat Cabang Baru Dari..."
 
-#: branchcheckoutdialog.cpp:52
+#: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Cabang %1 dicheckout"
 
-#: branchcheckoutdialog.cpp:55
+#: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Gagal mencheckout untuk cabang %1, Galat: %2"
 
-#: branchcheckoutdialog.cpp:82 branchcheckoutdialog.cpp:94
+#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Masukkan nama cabang baru. Tekan 'Esc' untuk membatalkan."
 
-#: branchcheckoutdialog.cpp:99
+#: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Pilih cabang untuk mencheckout dari. Tekan 'Esc' untuk membatalkan."
 
-#: branchcheckoutdialog.cpp:120
+#: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Mencheckout ke cabang baru: %1"
 
-#: branchcheckoutdialog.cpp:122
+#: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Gagal membuat cabang baru. Galat \"%1\""
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:122
 #, fuzzy, kde-format
 #| msgid "Select Branch..."
 msgid "Branch"
 msgstr "Pilih Cabang..."
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:122
 #, fuzzy, kde-format
 #| msgid "Commit"
 msgid "Last Commit"
 msgstr "Commit"
 
-#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr ""
 
-#: branchdeletedialog.cpp:144
+#: branchdeletedialog.cpp:140
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to remove these files?"
 msgid "Are you sure you want to delete the selected branch?"

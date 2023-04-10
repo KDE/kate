@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:49+0000\n"
+"POT-Creation-Date: 2023-04-10 00:49+0000\n"
 "PO-Revision-Date: 2023-04-07 11:30+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -20,67 +20,67 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 22.12.3\n"
 
-#: branchcheckoutdialog.cpp:28
+#: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "Çıkış yapılacak dalı seçin. İptal için 'Esc'ye basın."
 
-#: branchcheckoutdialog.cpp:35
+#: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
 msgstr "Yeni Dal Oluştur"
 
-#: branchcheckoutdialog.cpp:37
+#: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
 msgstr "Şuradan Yeni Dal Oluştur..."
 
-#: branchcheckoutdialog.cpp:52
+#: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "%1 dalı çıkış yapıldı"
 
-#: branchcheckoutdialog.cpp:55
+#: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "%1 dalı çıkış yapılamadı, Hata: %2"
 
-#: branchcheckoutdialog.cpp:82 branchcheckoutdialog.cpp:94
+#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Yeni dal adı girin. İptal için 'Esc'ye basın."
 
-#: branchcheckoutdialog.cpp:99
+#: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Çıkış yapılacak dalı seçin. İptal için 'Esc'ye basın."
 
-#: branchcheckoutdialog.cpp:120
+#: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Yeni dala çıkış yapıldı: %1"
 
-#: branchcheckoutdialog.cpp:122
+#: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Yeni dal oluşturulamadı. Hata \"%1\""
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Branch"
 msgstr "Dal"
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Last Commit"
 msgstr "Son İşleme"
 
-#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Sil"
 
-#: branchdeletedialog.cpp:144
+#: branchdeletedialog.cpp:140
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

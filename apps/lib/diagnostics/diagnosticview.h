@@ -111,6 +111,9 @@ private:
     void onFixesAvailable(const QVector<DiagnosticFix> &fixes, const QVariant &data);
     void showFixesInMenu(const QVector<DiagnosticFix> &fixes);
     void quickFix();
+    void moveDiagnosticsSelection(bool forward);
+    void nextItem();
+    void previousItem();
     void onDiagnosticsAdded(const FileDiagnostics &diagnostics);
     void clearDiagnosticsFromProvider(DiagnosticsProvider *provider)
     {

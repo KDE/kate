@@ -330,6 +330,14 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     a->setText(i18n("Quick Fix"));
     ac->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_Period)));
 
+    a = ac->addAction(QStringLiteral("goto_next_diagnostic"), this, &DiagnosticsView::nextItem);
+    a->setText(i18n("Next Item"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
+
+    a = ac->addAction(QStringLiteral("goto_prev_diagnostic"), this, &DiagnosticsView::previousItem);
+    a->setText(i18n("Previous Item"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
+
     m_posChangedTimer->setInterval(500);
     m_posChangedTimer->setSingleShot(true);
     m_posChangedTimer->callOnTimeout(this, [this] {
@@ -1313,4 +1321,66 @@ void DiagnosticsView::onDocumentUrlChanged()
         }
     }
     clearDiagnosticsForStaleDocs({fpaths.begin(), fpaths.end()}, nullptr);
+}
+
+void DiagnosticsView::moveDiagnosticsSelection(bool forward)
+{
+    // If there's no items we just return
+    if (m_diagnosticsTree->model()->rowCount() == 0) {
+        return;
+    }
+
+    auto model = m_diagnosticsTree->model();
+    auto index = m_diagnosticsTree->currentIndex();
+
+    // Nothing is selected, select first visible item
+    if (!index.isValid()) {
+        index = model->index(0, 0);
+    }
+
+    auto isDiagItem = [](const QModelIndex &index) {
+        // If parent is valid and parent of parent is invalid,
+        // we are a level 2 item which means we are diagnostic item
+        return index.parent().isValid() && !index.parent().parent().isValid();
+    };
+
+    auto getRow = [forward](const QModelIndex &index) {
+        return forward ? 0 : index.model()->rowCount(index) - 1;
+    };
+
+    if (isDiagItem(index)) {
+        auto next = forward ? m_diagnosticsTree->indexBelow(index) : m_diagnosticsTree->indexAbove(index);
+        if (next.isValid() && isDiagItem(next)) {
+            goToItemLocation(next);
+        } else {
+            // Next is not a diagnostic, are we at the end of current file's diagnostics?
+            // If so, then jump to the next file
+            auto parent = index.parent();
+            auto nextFile = parent.siblingAtRow(parent.row() + (forward ? 1 : -1));
+            if (nextFile.isValid()) {
+                // Iterate and find valid first child and jump to that
+                goToItemLocation(model->index(getRow(nextFile), 0, nextFile));
+            }
+            // If file is not valid, we are in the end of the list
+        }
+    } else {
+        // Current is not a diagnostic item
+        if (!index.parent().isValid()) {
+            // Current is a file item, select it's first child
+            goToItemLocation(model->index(0, 0, index));
+        } else {
+            // We are likely in third subitem, so we need to go back up
+            goToItemLocation(model->index(getRow(index.parent()), 0, index));
+        }
+    }
+}
+
+void DiagnosticsView::nextItem()
+{
+    moveDiagnosticsSelection(true);
+}
+
+void DiagnosticsView::previousItem()
+{
+    moveDiagnosticsSelection(false);
 }

@@ -46,6 +46,7 @@
 #include <KMessageBox>
 #include <kwidgetsaddons_version.h>
 
+#include <KColorUtils>
 #include <KFuzzyMatcher>
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Repository>
@@ -58,6 +59,17 @@ static QString ksshaskpass()
 {
     static const QString res = safeExecutableName(QStringLiteral("ksshaskpass"));
     return res;
+}
+
+static void adjustColorContrast(QColor &bg, QColor &fg)
+{
+    if (KColorUtils::contrastRatio(bg, fg) < 3.0) {
+        if (KColorUtils::luma(fg) > KColorUtils::luma(bg)) {
+            fg = KColorUtils::lighten(fg);
+        } else {
+            fg = KColorUtils::darken(fg);
+        }
+    }
 }
 
 class NumStatStyle final : public QStyledItemDelegate
@@ -102,8 +114,13 @@ public:
         r.setX(r.x() + mw);
 
         KColorScheme c;
-        const auto red = c.shade(c.foreground(KColorScheme::NegativeText).color(), KColorScheme::MidlightShade, 1);
-        const auto green = c.shade(c.foreground(KColorScheme::PositiveText).color(), KColorScheme::MidlightShade, 1);
+        auto red = c.foreground(KColorScheme::NegativeText).color();
+        auto green = c.foreground(KColorScheme::PositiveText).color();
+        if (options.state.testFlag(QStyle::State_Selected) && options.state.testFlag(QStyle::State_Active)) {
+            auto bg = options.palette.highlight().color();
+            adjustColorContrast(bg, red);
+            adjustColorContrast(bg, green);
+        }
 
         painter->setPen(green);
         painter->drawText(r, Qt::AlignVCenter, add);

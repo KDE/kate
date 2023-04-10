@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kishore G <kishore96@gmail.com>, 2022.
+# Kishore G <kishore96@gmail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-12 05:00+0000\n"
-"PO-Revision-Date: 2022-08-23 21:31+0530\n"
+"PO-Revision-Date: 2023-04-09 12:31+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,12 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.07.90\n"
+"X-Generator: Lokalize 23.03.90\n"
 
 #: kateconsole.cpp:54
 #, kde-format
 msgid "You do not have enough karma to access a shell or terminal emulation"
-msgstr ""
+msgstr "முனையத்தை அணுகும் அனுமதி உங்களிடம் இல்லை"
 
 #: kateconsole.cpp:102 kateconsole.cpp:132 kateconsole.cpp:622
 #, kde-format

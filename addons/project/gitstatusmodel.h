@@ -32,7 +32,7 @@ public:
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
-    void setStatusItems(GitUtils::GitParsedStatus status, bool numStat);
+    void setStatusItems(GitUtils::GitParsedStatus status);
 
     const QVector<GitUtils::StatusItem> &untrackedFiles() const
     {
@@ -59,5 +59,4 @@ public:
 private:
     QVector<GitUtils::StatusItem> m_nodes[4];
     QSet<QString> m_nonUniqueFileNames;
-    bool m_showNumStat = false;
 };

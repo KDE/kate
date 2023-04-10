@@ -64,7 +64,7 @@ struct GitParsedStatus {
     QSet<QString> nonUniqueFileNames;
 };
 
-GitParsedStatus parseStatus(const QByteArray &raw, bool withNumStat, const QString &workingDir);
+GitParsedStatus parseStatus(const QByteArray &raw, const QString &workingDir);
 
 void parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByteArray &raw);
 

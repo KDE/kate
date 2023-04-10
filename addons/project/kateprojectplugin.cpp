@@ -443,17 +443,6 @@ bool KateProjectPlugin::multiProjectGoto() const
     return m_multiProjectGoto;
 }
 
-void KateProjectPlugin::setGitStatusShowNumStat(bool show)
-{
-    m_gitNumStat = show;
-    writeConfig();
-}
-
-bool KateProjectPlugin::showGitStatusWithNumStat() const
-{
-    return m_gitNumStat;
-}
-
 void KateProjectPlugin::setSingleClickAction(ClickAction cb)
 {
     m_singleClickAction = cb;
@@ -510,7 +499,6 @@ void KateProjectPlugin::readConfig()
     m_multiProjectCompletion = config.readEntry("multiProjectCompletion", false);
     m_multiProjectGoto = config.readEntry("multiProjectCompletion", false);
 
-    m_gitNumStat = config.readEntry("gitStatusNumStat", true);
     m_singleClickAction = (ClickAction)config.readEntry("gitStatusSingleClick", (int)ClickAction::NoAction);
     m_doubleClickAction = (ClickAction)config.readEntry("gitStatusDoubleClick", (int)ClickAction::StageUnstage);
 
@@ -548,7 +536,6 @@ void KateProjectPlugin::writeConfig()
     config.writeEntry("multiProjectCompletion", m_multiProjectCompletion);
     config.writeEntry("multiProjectGoto", m_multiProjectGoto);
 
-    config.writeEntry("gitStatusNumStat", m_gitNumStat);
     config.writeEntry("gitStatusSingleClick", (int)m_singleClickAction);
     config.writeEntry("gitStatusDoubleClick", (int)m_doubleClickAction);
 

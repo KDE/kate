@@ -77,18 +77,13 @@ class NumStatStyle final : public QStyledItemDelegate
     static const int RightMargin = 2;
 
 public:
-    NumStatStyle(QObject *parent, KateProjectPlugin *p)
+    explicit NumStatStyle(QObject *parent)
         : QStyledItemDelegate(parent)
-        , m_plugin(p)
     {
     }
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
     {
-        if (!m_plugin->showGitStatusWithNumStat()) {
-            return QStyledItemDelegate::paint(painter, option, index);
-        }
-
         const auto strs = index.data().toString().split(QLatin1Char(' '));
         if (strs.count() < 3) {
             return QStyledItemDelegate::paint(painter, option, index);
@@ -143,9 +138,6 @@ public:
         sh.setWidth(option.fontMetrics.horizontalAdvance(str) + RightMargin);
         return sh;
     }
-
-private:
-    KateProjectPlugin *m_plugin;
 };
 
 class StatusProxyModel : public QSortFilterProxyModel
@@ -356,7 +348,7 @@ void GitWidget::init()
     m_treeView->header()->setStretchLastSection(false);
     m_treeView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
 
-    m_treeView->setItemDelegateForColumn(1, new NumStatStyle(this, m_pluginView->plugin()));
+    m_treeView->setItemDelegateForColumn(1, new NumStatStyle(this));
 
     // our main view - status view + btns
     m_mainView->setLayout(layout);
@@ -579,8 +571,7 @@ void GitWidget::slotUpdateStatus()
             // no error on status failure
             // sendMessage(QString::fromUtf8(git->readAllStandardError()), true);
         } else {
-            const bool withNumStat = m_pluginView->plugin()->showGitStatusWithNumStat();
-            auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput(), withNumStat, m_activeGitDirPath);
+            auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput(), m_activeGitDirPath);
             m_gitStatusWatcher.setFuture(future);
         }
         git->deleteLater();
@@ -895,8 +886,7 @@ void GitWidget::parseStatusReady()
     }
 
     // Set new data
-    GitUtils::GitParsedStatus s = m_gitStatusWatcher.result();
-    m_model->setStatusItems(std::move(s), m_pluginView->plugin()->showGitStatusWithNumStat());
+    m_model->setStatusItems(m_gitStatusWatcher.result());
 
     // Restore collapse/expand state
     for (int i = 0; i < model->rowCount(); ++i) {

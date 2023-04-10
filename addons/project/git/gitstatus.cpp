@@ -41,7 +41,7 @@ QByteArray fileNameFromPath(const QByteArray &path)
     return lastSlash == -1 ? path : path.mid(lastSlash + 1);
 }
 
-GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, bool withNumStat, const QString &workingDir)
+GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, const QString &workingDir)
 {
     QVector<GitUtils::StatusItem> untracked;
     QVector<GitUtils::StatusItem> unmerge;
@@ -140,10 +140,8 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, bool with
     getNonUniqueFileNamesFor(unmerge);
     // Nothing for untracked as untracked items can be in thousands
 
-    if (withNumStat) {
-        numStatForStatus(changed, workingDir, true);
-        numStatForStatus(staged, workingDir, false);
-    }
+    numStatForStatus(changed, workingDir, true);
+    numStatForStatus(staged, workingDir, false);
 
     return {untracked, unmerge, staged, changed, nonUniqueFileNames};
 }

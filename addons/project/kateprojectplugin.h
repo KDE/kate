@@ -133,9 +133,6 @@ public:
     bool multiProjectCompletion() const;
     bool multiProjectGoto() const;
 
-    void setGitStatusShowNumStat(bool show);
-    bool showGitStatusWithNumStat() const;
-
     void setSingleClickAction(ClickAction cb);
     ClickAction singleClickAcion();
 
@@ -278,7 +275,6 @@ private:
     bool m_multiProjectGoto = false;
 
     // git features
-    bool m_gitNumStat = true;
     ClickAction m_singleClickAction = ClickAction::ShowDiff;
     ClickAction m_doubleClickAction = ClickAction::StageUnstage;
 

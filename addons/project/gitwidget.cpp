@@ -241,6 +241,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
 void GitWidget::showEvent(QShowEvent *e)
 {
     init();
+    selectActiveFileInStatus();
     QWidget::showEvent(e);
 }
 
@@ -392,6 +393,7 @@ void GitWidget::init()
     slotUpdateStatus();
 
     connect(m_mainWin, &KTextEditor::MainWindow::viewChanged, this, &GitWidget::setActiveGitDir);
+    connect(m_mainWin, &KTextEditor::MainWindow::viewChanged, this, &GitWidget::selectActiveFileInStatus);
 }
 
 GitWidget::~GitWidget()
@@ -461,6 +463,38 @@ void GitWidget::setSubmodulesPaths()
         }
         git->deleteLater();
     });
+}
+
+void GitWidget::selectActiveFileInStatus()
+{
+    auto av = m_mainWin->activeView();
+    if (!isVisible() || !av || !av->document() || !av->document()->url().isValid()) {
+        return;
+    }
+
+    const QString path = av->document()->url().toLocalFile();
+    if (path.isEmpty()) {
+        return;
+    }
+
+    const auto currIdxPath = m_treeView->currentIndex().data(GitStatusModel::FileNameRole).toString();
+    if (!currIdxPath.isEmpty() && path.endsWith(currIdxPath)) {
+        return;
+    }
+
+    const auto index = m_model->indexForFilename(path);
+    auto proxy = qobject_cast<QSortFilterProxyModel *>(m_treeView->model());
+    auto viewIdx = proxy->mapFromSource(index);
+    if (viewIdx.isValid()) {
+        auto oldValue = m_treeView->blockSignals(true);
+        m_treeView->setCurrentIndex(viewIdx);
+        m_treeView->blockSignals(oldValue);
+        auto par = proxy->index(viewIdx.parent().row(), 0);
+        if (!m_treeView->isExpanded(par)) {
+            m_treeView->expand(par);
+        }
+        m_treeView->scrollTo(viewIdx);
+    }
 }
 
 void GitWidget::setActiveGitDir()
@@ -880,6 +914,8 @@ void GitWidget::parseStatusReady()
 
     m_treeView->resizeColumnToContents(0);
     m_treeView->resizeColumnToContents(1);
+
+    selectActiveFileInStatus();
 }
 
 void GitWidget::branchCompareFiles(const QString &from, const QString &to)

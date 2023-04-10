@@ -117,6 +117,7 @@ private:
     void setDotGitPath();
     void setSubmodulesPaths();
     void setActiveGitDir();
+    void selectActiveFileInStatus();
 
     QProcess *gitp(const QStringList &arguments);
 

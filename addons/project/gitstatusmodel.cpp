@@ -171,6 +171,25 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
 
     return {};
 }
+
+QModelIndex GitStatusModel::indexForFilename(const QString &file)
+{
+    const auto ba = file.toUtf8();
+    bool checkUntracked = m_nodes[Untrack].size() < 500;
+    for (int i = 0; i < Untrack + int(checkUntracked); ++i) {
+        const auto &items = m_nodes[i];
+        int r = 0;
+        for (const auto &item : items) {
+            if (ba.endsWith(item.file)) {
+                // match
+                return index(r, 0, getModelIndex(static_cast<ItemType>(i)));
+            }
+            r++;
+        }
+    }
+    return {};
+}
+
 void GitStatusModel::setStatusItems(GitUtils::GitParsedStatus status, bool numStat)
 {
     beginResetModel();

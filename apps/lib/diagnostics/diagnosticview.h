@@ -28,7 +28,7 @@ class KATE_PRIVATE_EXPORT DiagnosticsProvider : public QObject
 {
     Q_OBJECT
 public:
-    using QObject::QObject;
+    explicit DiagnosticsProvider(KTextEditor::MainWindow *mainWindow, QObject *parent = nullptr);
 
     // Get suppressions
     // e.g json object

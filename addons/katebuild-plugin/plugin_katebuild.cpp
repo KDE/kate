@@ -111,6 +111,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     // e.g. from clang: ""main.cpp(14,8): fatal error: 'boost/scoped_array.hpp' file not found"
     , m_filenameDetector(QStringLiteral("((?:[a-np-zA-Z]:[\\\\/])?[^\\s:(]+)[:\\(](\\d+)[,:]?(\\d+)?[\\):]* (.*)"))
     , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ '(.*)'"))
+    , m_diagnosticsProvider(mw, this)
 {
     KXMLGUIClient::setComponentName(QStringLiteral("katebuild"), i18n("Build"));
     setXMLFile(QStringLiteral("ui.rc"));
@@ -268,7 +269,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     m_diagnosticsProvider.name = i18n("Build Information");
     m_diagnosticsProvider.setPersistentDiagnostics(true);
-    Utils::registerDiagnosticsProvider(&m_diagnosticsProvider, mw);
 }
 
 /******************************************************************/
@@ -279,7 +279,6 @@ KateBuildView::~KateBuildView()
         m_proc.waitForFinished();
     }
     clearDiagnostics();
-    Utils::unregisterDiagnosticsProvider(&m_diagnosticsProvider, m_win);
     m_win->guiFactory()->removeClient(this);
     delete m_toolView;
 }

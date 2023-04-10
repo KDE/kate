@@ -421,8 +421,9 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     class LSPDiagnosticProvider : public DiagnosticsProvider
     {
     public:
-        LSPDiagnosticProvider(LSPClientPluginViewImpl *lsp)
-            : m_lsp(lsp)
+        LSPDiagnosticProvider(KTextEditor::MainWindow *mainWin, LSPClientPluginViewImpl *lsp)
+            : DiagnosticsProvider(mainWin, lsp)
+            , m_lsp(lsp)
         {
             name = i18n("LSP");
         }
@@ -464,7 +465,7 @@ public:
         , m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
         , m_semHighlightingManager(m_serverManager)
         , m_inlayHintsHandler(m_serverManager, this)
-        , m_diagnosticProvider(this)
+        , m_diagnosticProvider(mainWin, this)
     {
         KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
         setXMLFile(QStringLiteral("ui.rc"));
@@ -663,7 +664,6 @@ public:
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
 
         m_diagnosticProvider.setObjectName(QStringLiteral("LSPDiagnosticProvider"));
-        Utils::registerDiagnosticsProvider(&m_diagnosticProvider, m_mainWindow);
         connect(&m_diagnosticProvider, &DiagnosticsProvider::requestFixes, this, &self_type::fixDiagnostic);
         connect(&m_textHintprovider, &KateTextHintProvider::textHintRequested, this, &self_type::onTextHint);
 

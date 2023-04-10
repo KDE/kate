@@ -35,14 +35,13 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     , m_analyzer(nullptr)
     , m_analysisTool(nullptr)
     , m_toolSelector(new QComboBox())
-    , m_diagnosticProvider(new DiagnosticsProvider(this))
+    , m_diagnosticProvider(new DiagnosticsProvider(pluginView->mainWindow(), this))
 {
     m_diagnosticProvider->setObjectName(QStringLiteral("CodeAnalysisDiagnosticProvider"));
     m_diagnosticProvider->name = i18nc("'%1' refers to project name, e.g,. Code Analysis - MyProject", "Code Analysis - %1", project->name());
 
     // We don't want the diagnostics to be cleared automatically if a file closes
     m_diagnosticProvider->setPersistentDiagnostics(true);
-    Utils::registerDiagnosticsProvider(m_diagnosticProvider, m_pluginView->mainWindow());
 
     /**
      * Connect selection change callback
@@ -86,7 +85,6 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
 
 KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis()
 {
-    Utils::unregisterDiagnosticsProvider(m_diagnosticProvider, m_pluginView->mainWindow());
     if (m_analyzer && m_analyzer->state() != QProcess::NotRunning) {
         m_analyzer->kill();
         m_analyzer->blockSignals(true);

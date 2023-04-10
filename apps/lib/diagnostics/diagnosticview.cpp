@@ -184,6 +184,15 @@ private:
     QWidget *m_tabButton = nullptr;
 };
 
+DiagnosticsProvider::DiagnosticsProvider(KTextEditor::MainWindow *mainWindow, QObject *parent)
+    : QObject(parent)
+{
+    Q_ASSERT(mainWindow);
+    if (auto kateMainWindow = qobject_cast<KateMainWindow *>(mainWindow->window())) {
+        kateMainWindow->diagnosticsView()->registerDiagnosticsProvider(this);
+    }
+}
+
 void DiagnosticsProvider::showDiagnosticsView(DiagnosticsProvider *filterTo)
 {
     if (diagnosticView && !diagnosticView->isVisible()) {
@@ -354,7 +363,17 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     connect(m_textHintProvider.get(), &KateTextHintProvider::textHintRequested, this, &DiagnosticsView::onTextHint);
 }
 
-DiagnosticsView::~DiagnosticsView() = default;
+DiagnosticsView::~DiagnosticsView()
+{
+    // clear the model first so that destruction is faster
+    m_model.clear();
+    onViewChanged(nullptr);
+    const auto providers = m_providers;
+    for (auto *p : providers) {
+        unregisterDiagnosticsProvider(p);
+    }
+    Q_ASSERT(m_providers.empty());
+}
 
 void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
 {
@@ -468,6 +487,9 @@ void DiagnosticsView::unregisterDiagnosticsProvider(DiagnosticsProvider *provide
     m_providers.removeOne(provider);
 
     m_providerModel->update(m_providers);
+
+    // clear diagnostics
+    clearDiagnosticsFromProvider(provider);
 }
 
 void DiagnosticsView::readSessionConfig(const KConfigGroup &config)

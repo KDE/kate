@@ -225,19 +225,6 @@ QVariantMap projectMapForDocument(KTextEditor::Document *doc)
     return projectMap;
 }
 
-void registerDiagnosticsProvider(DiagnosticsProvider *p, KTextEditor::MainWindow *mainWindow)
-{
-    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
-        kmw->diagnosticsView()->registerDiagnosticsProvider(p);
-    }
-}
-void unregisterDiagnosticsProvider(DiagnosticsProvider *p, KTextEditor::MainWindow *mainWindow)
-{
-    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
-        kmw->diagnosticsView()->unregisterDiagnosticsProvider(p);
-    }
-}
-
 KTextEditor::Cursor cursorFromOffset(KTextEditor::Document *doc, int offset)
 {
     if (doc && offset >= 0) {

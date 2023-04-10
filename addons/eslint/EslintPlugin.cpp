@@ -37,10 +37,10 @@ ESLintPluginView::ESLintPluginView(ESLintPlugin *plugin, KTextEditor::MainWindow
     : QObject(plugin)
     , m_plugin(plugin)
     , m_mainWindow(mainWin)
+    , m_provider(mainWin, this)
 {
     m_provider.setObjectName(QStringLiteral("ESLintDiagnosticProvider"));
     m_provider.name = i18n("ESLint");
-    Utils::registerDiagnosticsProvider(&m_provider, m_mainWindow);
 
     connect(mainWin, &KTextEditor::MainWindow::viewChanged, this, &ESLintPluginView::onActiveViewChanged);
     connect(&m_eslintProcess, &QProcess::readyReadStandardOutput, this, &ESLintPluginView::onReadyRead);
@@ -58,7 +58,6 @@ ESLintPluginView::~ESLintPluginView()
         m_eslintProcess.kill();
         m_eslintProcess.waitForFinished();
     }
-    Utils::unregisterDiagnosticsProvider(&m_provider, m_mainWindow);
     disconnect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &ESLintPluginView::onActiveViewChanged);
     m_mainWindow->guiFactory()->removeClient(this);
 }

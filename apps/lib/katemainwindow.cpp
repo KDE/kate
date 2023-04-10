@@ -208,6 +208,12 @@ KateMainWindow::~KateMainWindow()
         KateApp::self()->documentManager()->closeDocuments(docs, false);
     }
 
+    // Delete diagnostics view earlier so that destruction is faster
+    // If we delay it then each provider will get unregisted one by one
+    // and slow down the destruction as we will be clearing diagnostics
+    // for each provider individually
+    m_diagView.reset();
+
     // unregister mainwindow in app
     KateApp::self()->removeMainWindow(this);
 
@@ -316,7 +322,7 @@ void KateMainWindow::setupMainWindow(KConfig *sconfig)
                                      KTextEditor::MainWindow::Bottom,
                                      QIcon::fromTheme(QStringLiteral("dialog-warning-symbolic")),
                                      i18n("Diagnostics"));
-    m_diagView = new DiagnosticsView(m_toolViewDiags, this, toolviewToggleButton(static_cast<KateMDI::ToolView *>(m_toolViewDiags)));
+    m_diagView = std::make_unique<DiagnosticsView>(m_toolViewDiags, this, toolviewToggleButton(static_cast<KateMDI::ToolView *>(m_toolViewDiags)));
     m_diagView->readSessionConfig(KConfigGroup(sconfig, "Kate Diagnostics"));
 }
 

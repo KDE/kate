@@ -108,9 +108,6 @@ KATE_PRIVATE_EXPORT QString projectBaseDirForDocument(KTextEditor::Document *doc
  */
 KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc);
 
-KATE_PRIVATE_EXPORT void registerDiagnosticsProvider(DiagnosticsProvider *, KTextEditor::MainWindow *mainWindow);
-KATE_PRIVATE_EXPORT void unregisterDiagnosticsProvider(DiagnosticsProvider *, KTextEditor::MainWindow *mainWindow);
-
 /**
  * Translates offset to line, col aka KTextEditor::Cursor
  */

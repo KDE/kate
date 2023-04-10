@@ -704,14 +704,14 @@ private:
      * Diagnostics view at the bottom
      */
     QWidget *m_toolViewDiags = nullptr;
-    class DiagnosticsView *m_diagView = nullptr;
+    std::unique_ptr<class DiagnosticsView> m_diagView;
 
     KateTextHintManager *m_textHintManager = nullptr;
 
 public:
     class DiagnosticsView *diagnosticsView()
     {
-        return m_diagView;
+        return m_diagView.get();
     }
 
     KateTextHintManager *textHintManager()

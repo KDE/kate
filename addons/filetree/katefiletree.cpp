@@ -58,7 +58,7 @@ bool closeDocs(const QList<KTextEditor::Document *> &docs)
 class CloseIconStyleDelegate : public QStyledItemDelegate
 {
 public:
-    CloseIconStyleDelegate(QObject *parent = nullptr)
+    explicit CloseIconStyleDelegate(QObject *parent = nullptr)
         : QStyledItemDelegate(parent)
     {
     }

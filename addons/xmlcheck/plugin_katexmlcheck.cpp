@@ -90,6 +90,7 @@ QObject *PluginKateXMLCheck::createView(KTextEditor::MainWindow *mainWindow)
 PluginKateXMLCheckView::PluginKateXMLCheckView(KTextEditor::Plugin *, KTextEditor::MainWindow *mainwin)
     : QObject(mainwin)
     , m_mainWindow(mainwin)
+    , m_provider(mainwin, this)
 {
     KXMLGUIClient::setComponentName(QStringLiteral("katexmlcheck"), i18n("XML Check")); // where i18n resources?
     setXMLFile(QStringLiteral("ui.rc"));
@@ -107,14 +108,11 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(KTextEditor::Plugin *, KTextEdito
     m_proc.setProcessChannelMode(QProcess::SeparateChannels);
     // m_proc.setProcessChannelMode(QProcess::ForwardedChannels); // For Debugging. Do not use this.
 
-    Utils::registerDiagnosticsProvider(&m_provider, mainwin);
-
     mainwin->guiFactory()->addClient(this);
 }
 
 PluginKateXMLCheckView::~PluginKateXMLCheckView()
 {
-    Utils::unregisterDiagnosticsProvider(&m_provider, m_mainWindow);
     m_mainWindow->guiFactory()->removeClient(this);
     delete m_tmp_file;
 }

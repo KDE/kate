@@ -30,7 +30,6 @@
 
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
-#include <KTextEditor/MarkInterface>
 #include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
@@ -39,6 +38,7 @@
 #include <KConfigGroup>
 #include <KXMLGUIClient>
 
+#include "diagnostics/diagnosticview.h"
 #include "targets.h"
 #include "ui_build.h"
 
@@ -82,11 +82,6 @@ private Q_SLOTS:
     void slotReadReadyStdOut();
     void slotRunAfterBuild();
 
-    // Selecting warnings/errors
-    void slotNext();
-    void slotPrev();
-    void slotErrorSelected(QTreeWidgetItem *item);
-
     // Settings
     void targetSetNew();
     void targetOrSetCopy();
@@ -94,14 +89,8 @@ private Q_SLOTS:
 
     void slotAddTargetClicked();
 
-    void slotDisplayMode(int mode);
-
     void handleEsc(QEvent *e);
 
-    void slotViewChanged();
-    void slotDisplayOption();
-    void slotMarkClicked(KTextEditor::Document *doc, KTextEditor::Mark mark, bool &handled);
-    void slotInvalidateMoving(KTextEditor::Document *doc);
     /**
      * keep track if the project plugin is alive and if the project map did change
      */
@@ -118,15 +107,14 @@ private:
 #endif
     void processLine(QStringView line);
     void addError(const QString &filename, const QString &line, const QString &column, const QString &message);
+    void updateDiagnostics(Diagnostic diagnostic, const QUrl uri);
+    void clearDiagnostics();
     bool startProcess(const QString &dir, const QString &command);
     bool checkLocal(const QUrl &dir);
     void clearBuildResults();
 
     void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
-
-    void clearMarks();
-    void addMarks(KTextEditor::Document *doc, bool mark);
 
     void addProjectTarget();
 
@@ -153,15 +141,15 @@ private:
     unsigned int m_numWarnings = 0;
     QPersistentModelIndex m_previousIndex;
     QPointer<KTextEditor::Message> m_infoMessage;
-    QPointer<QAction> m_showMarks;
-    QHash<KTextEditor::Document *, QPointer<KTextEditor::Document>> m_markedDocs;
     int m_projectTargetsetRow = 0;
     bool m_firstBuild = true;
-
+    DiagnosticsProvider m_diagnosticsProvider;
     /**
      * current project plugin view, if any
      */
     QObject *m_projectPluginView = nullptr;
+
+    static Diagnostic createDiagnostic(int line, int column, const QString &message, const DiagnosticSeverity &severity);
 };
 
 typedef QList<QVariant> VariantList;

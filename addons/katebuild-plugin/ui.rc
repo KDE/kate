@@ -14,8 +14,6 @@
       <Separator/>
       <Action name="focus_build_tab_left"/>
       <Action name="focus_build_tab_right"/>
-      <Separator/>
-      <Action name="show_marks"/>
     </Menu>
   </MenuBar>
 </gui>

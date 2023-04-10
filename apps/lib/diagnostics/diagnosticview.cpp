@@ -333,10 +333,12 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     a = ac->addAction(QStringLiteral("goto_next_diagnostic"), this, &DiagnosticsView::nextItem);
     a->setText(i18n("Next Item"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
+    ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Right);
 
     a = ac->addAction(QStringLiteral("goto_prev_diagnostic"), this, &DiagnosticsView::previousItem);
     a->setText(i18n("Previous Item"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
+    ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Left);
 
     m_posChangedTimer->setInterval(500);
     m_posChangedTimer->setSingleShot(true);
@@ -825,7 +827,8 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
                 bulk_remove(&m_model, start, count, i);
                 for (int r = 0; r < fileItem->rowCount(); ++r) {
                     auto item = fileItem->child(r);
-                    if (item && getProvider(item) == provider) {
+                    auto item_provider = getProvider(item);
+                    if (item && item_provider == provider) {
                         fileItem->removeRow(r);
                         r--;
                     }

@@ -48,7 +48,6 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
-#include <KTextEditor/MarkInterface>
 #include <KTextEditor/MovingInterface>
 
 #include <KAboutData>
@@ -72,27 +71,7 @@ static const QString DefTargetName = QStringLiteral("build");
 static const QString DefBuildCmd = QStringLiteral("make");
 static const QString DefCleanCmd = QStringLiteral("make clean");
 static const QString NinjaPrefix = QStringLiteral("[ninja-detection]");
-
-static QIcon messageIcon(KateBuildView::ErrorCategory severity)
-{
-    // clang-format off
-#define RETURN_CACHED_ICON(name, fallbackname) \
-    { \
-        static QIcon icon(QIcon::fromTheme(QStringLiteral(name), \
-                                           QIcon::fromTheme(QStringLiteral(fallbackname)))); \
-        return icon; \
-    }
-    // clang-format on
-    switch (severity) {
-    case KateBuildView::CategoryError:
-        RETURN_CACHED_ICON("data-error", "dialog-error")
-    case KateBuildView::CategoryWarning:
-        RETURN_CACHED_ICON("data-warning", "dialog-warning")
-    default:
-        break;
-    }
-    return QIcon();
-}
+static const QString DiagnosticsPrefix = QStringLiteral("katebuild");
 
 struct ItemData {
     // ensure destruction, but not inadvertently so by a variant value copy
@@ -161,23 +140,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     a->setText(i18n("Stop"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     connect(a, &QAction::triggered, this, &KateBuildView::slotStop);
-
-    a = actionCollection()->addAction(QStringLiteral("goto_next"));
-    a->setText(i18n("Next Error"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
-    actionCollection()->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Right);
-    connect(a, &QAction::triggered, this, &KateBuildView::slotNext);
-
-    a = actionCollection()->addAction(QStringLiteral("goto_prev"));
-    a->setText(i18n("Previous Error"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
-    actionCollection()->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Left);
-    connect(a, &QAction::triggered, this, &KateBuildView::slotPrev);
-
-    m_showMarks = a = actionCollection()->addAction(QStringLiteral("show_marks"));
-    a->setText(i18n("Show Marks"));
-    a->setCheckable(true);
-    connect(a, &QAction::triggered, this, &KateBuildView::slotDisplayOption);
 
     a = actionCollection()->addAction(QStringLiteral("focus_build_tab_left"));
     a->setText(i18nc("Left is also left in RTL mode", "Focus Next Tab to the Left"));
@@ -252,11 +214,8 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_buildUi.cancelBuildButton->setEnabled(false);
     m_buildUi.cancelBuildButton2->setEnabled(false);
 
-    connect(m_buildUi.errTreeWidget, &QTreeWidget::itemClicked, this, &KateBuildView::slotErrorSelected);
-
     m_buildUi.plainTextEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     m_buildUi.plainTextEdit->setReadOnly(true);
-    slotDisplayMode(FullOutput);
 
     auto updateEditorColors = [this](KTextEditor::Editor *e) {
         if (!e)
@@ -273,8 +232,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         m_buildUi.plainTextEdit->setPalette(pal);
     };
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateEditorColors);
-
-    connect(m_buildUi.displayModeSlider, &QSlider::valueChanged, this, &KateBuildView::slotDisplayMode);
 
     connect(m_buildUi.buildAgainButton, &QPushButton::clicked, this, &KateBuildView::slotBuildPreviousTarget);
     connect(m_buildUi.cancelBuildButton, &QPushButton::clicked, this, &KateBuildView::slotStop);
@@ -296,7 +253,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(&m_proc, &KProcess::readyReadStandardOutput, this, &KateBuildView::slotReadReadyStdOut);
 
     connect(m_win, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateBuildView::handleEsc);
-    connect(m_win, &KTextEditor::MainWindow::viewChanged, this, &KateBuildView::slotViewChanged);
 
     m_toolView->installEventFilter(this);
 
@@ -309,6 +265,10 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     // Connect signals from project plugin to our slots
     m_projectPluginView = m_win->pluginView(QStringLiteral("kateprojectplugin"));
     slotPluginViewCreated(QStringLiteral("kateprojectplugin"), m_projectPluginView);
+
+    m_diagnosticsProvider.name = i18n("Build Information");
+    m_diagnosticsProvider.setPersistentDiagnostics(true);
+    Utils::registerDiagnosticsProvider(&m_diagnosticsProvider, mw);
 }
 
 /******************************************************************/
@@ -318,6 +278,8 @@ KateBuildView::~KateBuildView()
         m_proc.terminate();
         m_proc.waitForFinished();
     }
+    clearDiagnostics();
+    Utils::unregisterDiagnosticsProvider(&m_diagnosticsProvider, m_win);
     m_win->guiFactory()->removeClient(this);
     delete m_toolView;
 }
@@ -349,9 +311,6 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
             m_targetsUi->targetsModel.addCommand(index, targetName, buildCmd, runCmd);
         }
     }
-
-    auto showMarks = cg.readEntry(QStringLiteral("Show Marks"), false);
-    m_showMarks->setChecked(showMarks);
 
     // Add project targets, if any
     addProjectTarget();
@@ -415,61 +374,6 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         }
         cg.writeEntry(QStringLiteral("%1 Target Names").arg(i), cmdNames);
     }
-    cg.writeEntry(QStringLiteral("Show Marks"), m_showMarks->isChecked());
-}
-
-/******************************************************************/
-void KateBuildView::slotNext()
-{
-    const int itemCount = m_buildUi.errTreeWidget->topLevelItemCount();
-    if (itemCount == 0) {
-        return;
-    }
-
-    QTreeWidgetItem *item = m_buildUi.errTreeWidget->currentItem();
-    if (item && item->isHidden()) {
-        item = nullptr;
-    }
-
-    int i = (item == nullptr) ? -1 : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
-
-    while (++i < itemCount) {
-        item = m_buildUi.errTreeWidget->topLevelItem(i);
-        // Search item which fit view settings and has desired data
-        if (!item->text(1).isEmpty() && !item->isHidden() && item->data(1, Qt::UserRole).toInt()) {
-            m_buildUi.errTreeWidget->setCurrentItem(item);
-            m_buildUi.errTreeWidget->scrollToItem(item);
-            slotErrorSelected(item);
-            return;
-        }
-    }
-}
-
-/******************************************************************/
-void KateBuildView::slotPrev()
-{
-    const int itemCount = m_buildUi.errTreeWidget->topLevelItemCount();
-    if (itemCount == 0) {
-        return;
-    }
-
-    QTreeWidgetItem *item = m_buildUi.errTreeWidget->currentItem();
-    if (item && item->isHidden()) {
-        item = nullptr;
-    }
-
-    int i = (item == nullptr) ? itemCount : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
-
-    while (--i >= 0) {
-        item = m_buildUi.errTreeWidget->topLevelItem(i);
-        // Search item which fit view settings and has desired data
-        if (!item->text(1).isEmpty() && !item->isHidden() && item->data(1, Qt::UserRole).toInt()) {
-            m_buildUi.errTreeWidget->setCurrentItem(item);
-            m_buildUi.errTreeWidget->scrollToItem(item);
-            slotErrorSelected(item);
-            return;
-        }
-    }
 }
 
 #ifdef Q_OS_WIN
@@ -503,282 +407,52 @@ QString KateBuildView::caseFixed(const QString &path)
 }
 #endif
 
-void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
-{
-    // any view active?
-    if (!m_win->activeView()) {
-        return;
-    }
-
-    // Avoid garish highlighting of the selected line
-    m_win->activeView()->setFocus();
-
-    // Search the item where the data we need is stored
-    while (!item->data(1, Qt::UserRole).toInt()) {
-        item = m_buildUi.errTreeWidget->itemAbove(item);
-        if (!item) {
-            return;
-        }
-    }
-
-    // get stuff
-    QString filename = item->data(0, Qt::UserRole).toString();
-    if (filename.isEmpty()) {
-        return;
-    }
-
-    int line = item->data(1, Qt::UserRole).toInt();
-    int column = item->data(2, Qt::UserRole).toInt();
-    // check with moving cursor
-    auto data = item->data(0, DataRole).value<ItemData>();
-    if (data.cursor) {
-        line = data.cursor->line();
-        column = data.cursor->column();
-    }
-
-#ifdef Q_OS_WIN
-    filename = caseFixed(filename);
-#endif
-
-    // Check if the file exists
-    if (!QFileInfo::exists(filename)) {
-        displayMessage(xi18nc("@info",
-                              "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to the working directory in the Target Settings",
-                              filename),
-                       KTextEditor::Message::Error);
-        return;
-    }
-
-    // open file (if needed, otherwise, this will activate only the right view...)
-    m_win->openUrl(QUrl::fromLocalFile(filename));
-
-    // do it ;)
-    m_win->activeView()->setCursorPosition(KTextEditor::Cursor(line - 1, column - 1));
-}
-
 /******************************************************************/
 void KateBuildView::addError(const QString &filename, const QString &line, const QString &column, const QString &message)
 {
-    KColorScheme schemeView(QPalette::Active, KColorScheme::View);
-    ErrorCategory errorCategory = CategoryInfo;
-    QTreeWidgetItem *item = new QTreeWidgetItem(m_buildUi.errTreeWidget);
-    item->setBackground(1, schemeView.background(KColorScheme::AlternateBackground).color());
+    // Get filediagnostic by filename or create new if there is none
     static QRegularExpression errorRegExp(QStringLiteral("error:"), QRegularExpression::CaseInsensitiveOption);
-    static QRegularExpression errorRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'make' uses to mark an error.", "error")),
+    static QRegularExpression errorRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'make' uses to  an error.", "error")),
                                             QRegularExpression::CaseInsensitiveOption);
-    // The strings are twice in case kate is translated but not make.
-    if (message.contains(errorRegExp) || message.contains(errorRegExpTr) || message.contains(QLatin1String("undefined reference"))
-        || message.contains(i18nc("The same word as 'ld' uses to mark an ...", "undefined reference"))) {
-        errorCategory = CategoryError;
-        item->setForeground(1, schemeView.foreground(KColorScheme::NegativeText).color());
-        item->setBackground(1, schemeView.background(KColorScheme::NegativeBackground).color());
-        m_numErrors++;
-        item->setHidden(false);
-    }
-    static QRegularExpression warningRegExp(QStringLiteral("warning:"), QRegularExpression::CaseInsensitiveOption);
-    static QRegularExpression warningRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'make' uses to mark a warning.", "warning")),
-                                              QRegularExpression::CaseInsensitiveOption);
-    if (message.contains(warningRegExp) || message.contains(warningRegExpTr)) {
-        errorCategory = CategoryWarning;
-        item->setForeground(1, schemeView.foreground(KColorScheme::NeutralText).color());
-        item->setBackground(1, schemeView.background(KColorScheme::NeutralBackground).color());
-        m_numWarnings++;
-        item->setHidden(m_buildUi.displayModeSlider->value() > 2);
-    }
-    item->setTextAlignment(1, Qt::AlignRight);
-
-    // visible text
-    // remove path from visible file name
-    QFileInfo file(filename);
-
-    item->setText(0, file.fileName());
-    item->setText(1, line);
-    item->setText(2, message);
-
-    // used to read from when activating an item
-    item->setData(0, Qt::UserRole, filename);
-    item->setData(1, Qt::UserRole, line);
-    item->setData(2, Qt::UserRole, column);
-
-    if (errorCategory == CategoryInfo) {
-        item->setHidden(m_buildUi.displayModeSlider->value() > 1);
-    }
-
-    item->setData(0, ErrorRole, errorCategory);
-
-    // add tooltips in all columns
-    // The enclosing <qt>...</qt> enables word-wrap for long error messages
-    item->setData(0, Qt::ToolTipRole, filename);
-    item->setData(1, Qt::ToolTipRole, QStringLiteral("<qt>%1</qt>").arg(message));
-    item->setData(2, Qt::ToolTipRole, QStringLiteral("<qt>%1</qt>").arg(message));
-}
-
-void KateBuildView::clearMarks()
-{
-    for (auto &doc : m_markedDocs) {
-        if (!doc) {
-            continue;
+    auto uri = QUrl::fromLocalFile(filename);
+    if (uri.isValid()) {
+        // The strings are twice in case kate is translated but not make.
+        if (message.contains(errorRegExp) || message.contains(errorRegExpTr) || message.contains(QLatin1String("undefined reference"))
+            || message.contains(i18nc("The same word as 'ld' uses to mark an ...", "undefined reference"))) {
+            m_numErrors++;
+            updateDiagnostics(KateBuildView::createDiagnostic(line.toInt(), column.toInt(), message, DiagnosticSeverity::Error), uri);
         }
-
-        KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
-        if (iface) {
-            const QHash<int, KTextEditor::Mark *> marks = iface->marks();
-            QHashIterator<int, KTextEditor::Mark *> i(marks);
-            while (i.hasNext()) {
-                i.next();
-                auto markType = KTextEditor::MarkInterface::Error | KTextEditor::MarkInterface::Warning;
-                if (i.value()->type & markType) {
-                    iface->removeMark(i.value()->line, markType);
-                }
-            }
-        }
-    }
-
-    m_markedDocs.clear();
-}
-
-void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
-{
-    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
-    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-    if (!iface || m_markedDocs.contains(doc)) {
-        return;
-    }
-
-    QTreeWidgetItemIterator it(m_buildUi.errTreeWidget, QTreeWidgetItemIterator::All);
-    while (*it) {
-        QTreeWidgetItem *item = *it;
-        ++it;
-
-        auto filename = item->data(0, Qt::UserRole).toString();
-        auto url = QUrl::fromLocalFile(filename);
-        if (url != doc->url()) {
-            continue;
-        }
-
-        auto line = item->data(1, Qt::UserRole).toInt();
-        if (mark) {
-            ErrorCategory category = static_cast<ErrorCategory>(item->data(0, ErrorRole).toInt());
-            KTextEditor::MarkInterface::MarkTypes markType{};
-
-            switch (category) {
-            case CategoryError: {
-                markType = KTextEditor::MarkInterface::Error;
-                iface->setMarkDescription(markType, i18n("Error"));
-                break;
-            }
-            case CategoryWarning: {
-                markType = KTextEditor::MarkInterface::Warning;
-                iface->setMarkDescription(markType, i18n("Warning"));
-                break;
-            }
-            default:
-                break;
-            }
-
-            if (markType) {
-                iface->setMarkIcon(markType, messageIcon(category));
-                iface->addMark(line - 1, markType);
-            }
-            m_markedDocs.insert(doc, doc);
-        }
-
-        // add moving cursor so link between message and location
-        // is not broken by document changes
-        if (miface) {
-            auto data = item->data(0, DataRole).value<ItemData>();
-            if (!data.cursor) {
-                auto column = item->data(2, Qt::UserRole).toInt();
-                data.cursor.reset(miface->newMovingCursor({line, column}));
-                QVariant var;
-                var.setValue(data);
-                item->setData(0, DataRole, var);
-            }
-        }
-    }
-
-    // ensure cleanup
-    // clang-format off
-    if (miface) {
-        auto conn = connect(doc,
-                            SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
-                            this,
-                            SLOT(slotInvalidateMoving(KTextEditor::Document*)),
-                            Qt::UniqueConnection);
-        conn = connect(doc,
-                       SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
-                       this,
-                       SLOT(slotInvalidateMoving(KTextEditor::Document*)),
-                       Qt::UniqueConnection);
-    }
-
-    connect(doc,
-            SIGNAL(markClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
-            this,
-            SLOT(slotMarkClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
-            Qt::UniqueConnection);
-    // clang-format on
-}
-
-void KateBuildView::slotInvalidateMoving(KTextEditor::Document *doc)
-{
-    QTreeWidgetItemIterator it(m_buildUi.errTreeWidget, QTreeWidgetItemIterator::All);
-    while (*it) {
-        QTreeWidgetItem *item = *it;
-        ++it;
-
-        auto data = item->data(0, DataRole).value<ItemData>();
-        if (data.cursor && data.cursor->document() == doc) {
-            item->setData(0, DataRole, 0);
+        static QRegularExpression warningRegExp(QStringLiteral("warning:"), QRegularExpression::CaseInsensitiveOption);
+        static QRegularExpression warningRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'make' uses to mark a warning.", "warning")),
+                                                  QRegularExpression::CaseInsensitiveOption);
+        if (message.contains(warningRegExp) || message.contains(warningRegExpTr)) {
+            m_numWarnings++;
+            updateDiagnostics(KateBuildView::createDiagnostic(line.toInt(), column.toInt(), message, DiagnosticSeverity::Warning), uri);
         }
     }
 }
 
-void KateBuildView::slotMarkClicked(KTextEditor::Document *doc, KTextEditor::Mark mark, bool &handled)
+void KateBuildView::updateDiagnostics(Diagnostic diagnostic, const QUrl uri)
 {
-    auto tree = m_buildUi.errTreeWidget;
-    QTreeWidgetItemIterator it(tree, QTreeWidgetItemIterator::All);
-    while (*it) {
-        QTreeWidgetItem *item = *it;
-        ++it;
-
-        auto filename = item->data(0, Qt::UserRole).toString();
-        auto line = item->data(1, Qt::UserRole).toInt();
-        // prefer moving cursor's opinion if so available
-        auto data = item->data(0, DataRole).value<ItemData>();
-        if (data.cursor) {
-            line = data.cursor->line();
-        }
-        if (line - 1 == mark.line && QUrl::fromLocalFile(filename) == doc->url()) {
-            tree->blockSignals(true);
-            tree->setCurrentItem(item);
-            tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
-            tree->blockSignals(false);
-            handled = true;
-            break;
-        }
-    }
+    FileDiagnostics fd;
+    fd.uri = uri;
+    fd.diagnostics.append(diagnostic);
+    Q_EMIT m_diagnosticsProvider.diagnosticsAdded(fd);
 }
 
-void KateBuildView::slotViewChanged()
+void KateBuildView::clearDiagnostics()
 {
-    KTextEditor::View *activeView = m_win->activeView();
-    auto doc = activeView ? activeView->document() : nullptr;
-
-    if (doc) {
-        addMarks(doc, m_showMarks->isChecked());
-    }
+    Q_EMIT m_diagnosticsProvider.requestClearDiagnostics(&m_diagnosticsProvider);
 }
 
-void KateBuildView::slotDisplayOption()
+Diagnostic KateBuildView::createDiagnostic(int line, int column, const QString &message, const DiagnosticSeverity &severity)
 {
-    if (m_showMarks) {
-        if (!m_showMarks->isChecked()) {
-            clearMarks();
-        } else {
-            slotViewChanged();
-        }
-    }
+    Diagnostic d;
+    d.message = message;
+    d.source = DiagnosticsPrefix;
+    d.severity = severity;
+    d.range = KTextEditor::Range(KTextEditor::Cursor(line - 1, column - 1), 0);
+    return d;
 }
 
 /******************************************************************/
@@ -815,14 +489,13 @@ bool KateBuildView::checkLocal(const QUrl &dir)
 /******************************************************************/
 void KateBuildView::clearBuildResults()
 {
-    clearMarks();
     m_buildUi.plainTextEdit->clear();
-    m_buildUi.errTreeWidget->clear();
     m_stdOut.clear();
     m_stdErr.clear();
     m_numErrors = 0;
     m_numWarnings = 0;
     m_make_dir_stack.clear();
+    clearDiagnostics();
 }
 
 /******************************************************************/
@@ -838,12 +511,9 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     // activate the output tab
     m_buildUi.u_tabWidget->setCurrentIndex(1);
     m_buildUi.u_tabWidget->setTabIcon(1, QIcon::fromTheme(QStringLiteral("system-run")));
-    m_displayModeBeforeBuild = m_buildUi.displayModeSlider->value();
-    m_buildUi.displayModeSlider->setValue(0);
     m_win->showToolView(m_toolView);
 
     QFont font = Utils::editorFont();
-    m_buildUi.errTreeWidget->setFont(font);
     m_buildUi.plainTextEdit->setFont(font);
 
     // set working directory
@@ -1102,17 +772,9 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 
     QString buildStatus = i18n("Building <b>%1</b> completed.", m_currentlyBuildingTarget);
 
-    // did we get any errors?
-    if (m_numErrors || m_numWarnings || (exitCode != 0)) {
-        m_buildUi.u_tabWidget->setCurrentIndex(1);
-        if (m_buildUi.displayModeSlider->value() == 0) {
-            m_buildUi.displayModeSlider->setValue(m_displayModeBeforeBuild > 0 ? m_displayModeBeforeBuild : 1);
-        }
-        m_buildUi.errTreeWidget->resizeColumnToContents(0);
-        m_buildUi.errTreeWidget->resizeColumnToContents(1);
-        m_buildUi.errTreeWidget->resizeColumnToContents(2);
-        m_buildUi.errTreeWidget->horizontalScrollBar()->setValue(0);
-        m_win->showToolView(m_toolView);
+    // Show diagnostics view if there are errors or warnings
+    if (m_numErrors || m_numWarnings) {
+        m_diagnosticsProvider.showDiagnosticsView(&m_diagnosticsProvider);
     }
 
     bool buildSuccess = true;
@@ -1138,8 +800,6 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         m_buildUi.buildStatusLabel->setText(buildStatus);
         m_buildUi.buildStatusLabel2->setText(buildStatus);
         m_buildCancelled = false;
-        // add marks
-        slotViewChanged();
     }
 
     if (buildSuccess && m_runAfterBuild) {
@@ -1411,55 +1071,6 @@ void KateBuildView::targetDelete()
 
     if (m_targetsUi->targetsModel.rowCount() == 0) {
         targetSetNew();
-    }
-}
-
-/******************************************************************/
-void KateBuildView::slotDisplayMode(int mode)
-{
-    QTreeWidget *tree = m_buildUi.errTreeWidget;
-    tree->setVisible(mode != 0);
-    m_buildUi.plainTextEdit->setVisible(mode == 0);
-
-    QString modeText;
-    switch (mode) {
-    case OnlyErrors:
-        modeText = i18n("Only Errors");
-        break;
-    case ErrorsAndWarnings:
-        modeText = i18n("Errors and Warnings");
-        break;
-    case ParsedOutput:
-        modeText = i18n("Parsed Output");
-        break;
-    case FullOutput:
-        modeText = i18n("Full Output");
-        break;
-    }
-    m_buildUi.displayModeLabel->setText(modeText);
-
-    if (mode < 1) {
-        return;
-    }
-
-    const int itemCount = tree->topLevelItemCount();
-
-    for (int i = 0; i < itemCount; i++) {
-        QTreeWidgetItem *item = tree->topLevelItem(i);
-
-        const ErrorCategory errorCategory = static_cast<ErrorCategory>(item->data(0, ErrorRole).toInt());
-
-        switch (errorCategory) {
-        case CategoryInfo:
-            item->setHidden(mode > 1);
-            break;
-        case CategoryWarning:
-            item->setHidden(mode > 2);
-            break;
-        case CategoryError:
-            item->setHidden(false);
-            break;
-        }
     }
 }
 

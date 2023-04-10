@@ -51,45 +51,21 @@
        <item>
         <layout class="QHBoxLayout" name="u_outpTopLayout">
          <item>
-          <widget class="QLabel" name="showLabel">
+          <widget class="QPushButton" name="buildAgainButton">
            <property name="text">
-            <string>Show:</string>
+            <string>Build again</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="displayModeSlider">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximum">
-            <number>3</number>
-           </property>
-           <property name="pageStep">
-            <number>1</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="tickPosition">
-            <enum>QSlider::TicksAbove</enum>
-           </property>
-           <property name="tickInterval">
-            <number>1</number>
+          <widget class="QPushButton" name="cancelBuildButton">
+           <property name="text">
+            <string>Cancel</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="displayModeLabel">
+          <widget class="QLabel" name="buildStatusLabel">
            <property name="text">
             <string/>
            </property>
@@ -108,38 +84,10 @@
            </property>
           </spacer>
          </item>
-         <item>
-          <widget class="QLabel" name="buildStatusLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="buildAgainButton">
-           <property name="text">
-            <string>Build again</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="cancelBuildButton">
-           <property name="text">
-            <string>Cancel</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="extraLineLayout">
-         <item>
-          <widget class="QLabel" name="buildStatusLabel2">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
          <item>
           <widget class="QPushButton" name="buildAgainButton2">
            <property name="text">
@@ -154,47 +102,14 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QLabel" name="buildStatusLabel2">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QTreeWidget" name="errTreeWidget">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>1</horstretch>
-           <verstretch>1</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="autoScroll">
-          <bool>false</bool>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <property name="rootIsDecorated">
-          <bool>false</bool>
-         </property>
-         <property name="allColumnsShowFocus">
-          <bool>true</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string comment="Header for the file name column">File</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string comment="Header for the line number column">Line</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string comment="Header for the error message column">Message</string>
-          </property>
-         </column>
-        </widget>
        </item>
        <item>
         <widget class="QPlainTextEdit" name="plainTextEdit">

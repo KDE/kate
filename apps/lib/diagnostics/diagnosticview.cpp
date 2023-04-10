@@ -350,6 +350,8 @@ void DiagnosticsView::unregisterDiagnosticsProvider(DiagnosticsProvider *provide
     disconnect(provider, &DiagnosticsProvider::requestClearDiagnostics, this, &DiagnosticsView::clearDiagnosticsFromProvider);
     disconnect(provider, &DiagnosticsProvider::requestClearSuppressions, this, &DiagnosticsView::clearSuppressionsFromProvider);
     m_providers.removeOne(provider);
+
+    clearDiagnosticsFromProvider(provider);
 }
 
 void DiagnosticsView::readSessionConfig(const KConfigGroup &config)

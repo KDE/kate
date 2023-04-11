@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020.
-# Olesya Gerasimenko <translation-team@basealt.ru>, 2021, 2022.
+# Olesya Gerasimenko <translation-team@basealt.ru>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-21 01:02+0000\n"
-"PO-Revision-Date: 2022-02-08 15:52+0300\n"
+"PO-Revision-Date: 2023-04-10 10:31+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -185,6 +185,8 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"Не удалось найти исполняемый файл «%1». Убедитесь, что он существует и "
+"используются корректные имена переменных (если таковые имеются)"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
 #: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264

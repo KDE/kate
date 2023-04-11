@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-05 00:50+0000\n"
+"POT-Creation-Date: 2023-04-11 00:50+0000\n"
 "PO-Revision-Date: 2022-11-24 07:18+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -27,7 +27,7 @@ msgstr "Filter..."
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: lspclientconfigpage.cpp:98 lspclientconfigpage.cpp:103
-#: lspclientpluginview.cpp:469 lspclientpluginview.cpp:625 ui.rc:6
+#: lspclientpluginview.cpp:470 lspclientpluginview.cpp:626 ui.rc:6
 #, kde-format
 msgid "LSP Client"
 msgstr "Odjemalec LSP"
@@ -86,169 +86,169 @@ msgstr ""
 "Uporabnik je za stalno blokiral zagon: '%1'.\n"
 "Uporabite konfiguracijsko stran vtičnika za preklic te blokade."
 
-#: lspclientpluginview.cpp:427 lspclientpluginview.cpp:690
+#: lspclientpluginview.cpp:428 lspclientpluginview.cpp:690
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:497
+#: lspclientpluginview.cpp:498
 #, kde-format
 msgid "Go to Definition"
 msgstr "Pojdi na Definicijo"
 
-#: lspclientpluginview.cpp:499
+#: lspclientpluginview.cpp:500
 #, kde-format
 msgid "Go to Declaration"
 msgstr "Pojdi na Deklaracijo"
 
-#: lspclientpluginview.cpp:501
+#: lspclientpluginview.cpp:502
 #, kde-format
 msgid "Go to Type Definition"
 msgstr "Pojdi na Definicijo vrste"
 
-#: lspclientpluginview.cpp:503
+#: lspclientpluginview.cpp:504
 #, kde-format
 msgid "Find References"
 msgstr "Poišči reference"
 
-#: lspclientpluginview.cpp:506
+#: lspclientpluginview.cpp:507
 #, kde-format
 msgid "Find Implementations"
 msgstr "Najdi implementacije"
 
-#: lspclientpluginview.cpp:508
+#: lspclientpluginview.cpp:509
 #, kde-format
 msgid "Highlight"
 msgstr "Osvetli"
 
-#: lspclientpluginview.cpp:510
+#: lspclientpluginview.cpp:511
 #, kde-format
 msgid "Symbol Info"
 msgstr "Informacija o simbolu"
 
-#: lspclientpluginview.cpp:512
+#: lspclientpluginview.cpp:513
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr "Išči in pojdi na simbol"
 
-#: lspclientpluginview.cpp:517
+#: lspclientpluginview.cpp:518
 #, kde-format
 msgid "Format"
 msgstr "Oblika"
 
-#: lspclientpluginview.cpp:520
+#: lspclientpluginview.cpp:521
 #, kde-format
 msgid "Rename"
 msgstr "Preimenuj"
 
-#: lspclientpluginview.cpp:524
+#: lspclientpluginview.cpp:525
 #, kde-format
 msgid "Expand Selection"
 msgstr "Razširi izbiro"
 
-#: lspclientpluginview.cpp:527
+#: lspclientpluginview.cpp:528
 #, kde-format
 msgid "Shrink Selection"
 msgstr "Skrči izbiro"
 
-#: lspclientpluginview.cpp:531
+#: lspclientpluginview.cpp:532
 #, kde-format
 msgid "Switch Source Header"
 msgstr "Preklopi glavo vira"
 
-#: lspclientpluginview.cpp:534
+#: lspclientpluginview.cpp:535
 #, kde-format
 msgid "Expand Macro"
 msgstr "Razširi makro"
 
-#: lspclientpluginview.cpp:536
+#: lspclientpluginview.cpp:537
 #, kde-format
 msgid "Code Action"
 msgstr "Koda aktivnosti"
 
-#: lspclientpluginview.cpp:551
+#: lspclientpluginview.cpp:552
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr "Pokaži izbrano dokumentacijo za dokončanje"
 
-#: lspclientpluginview.cpp:554
+#: lspclientpluginview.cpp:555
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr "Omogoči pomoč pri podpisu s samodejnim zaključevanjem"
 
-#: lspclientpluginview.cpp:557
+#: lspclientpluginview.cpp:558
 #, kde-format
 msgid "Include declaration in references"
 msgstr "Vključi deklaracijo v reference"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:560 lspconfigwidget.ui:96
+#: lspclientpluginview.cpp:561 lspconfigwidget.ui:96
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "Dodaj oklepaje po zaključku funkcije"
 
-#: lspclientpluginview.cpp:563
+#: lspclientpluginview.cpp:564
 #, kde-format
 msgid "Show hover information"
 msgstr "Ob prehodu prikaži informacijo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:566 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:567 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
 msgstr "Oblikuj pri tipkanju"
 
-#: lspclientpluginview.cpp:569
+#: lspclientpluginview.cpp:570
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr "Postopna sinhronizacija dokumentov"
 
-#: lspclientpluginview.cpp:572
+#: lspclientpluginview.cpp:573
 #, kde-format
 msgid "Highlight goto location"
 msgstr "Osvetli lokacijo Pojdi na"
 
-#: lspclientpluginview.cpp:581
+#: lspclientpluginview.cpp:582
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr "Prikaži namige"
 
-#: lspclientpluginview.cpp:585
+#: lspclientpluginview.cpp:586
 #, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Prikaži diagnostična obvestila"
 
-#: lspclientpluginview.cpp:590
+#: lspclientpluginview.cpp:591
 #, kde-format
 msgid "Show Messages"
 msgstr "Prikaži sporočila"
 
-#: lspclientpluginview.cpp:595
+#: lspclientpluginview.cpp:596
 #, kde-format
 msgid "Server Memory Usage"
 msgstr "Uporaba pomnilnika strežnika"
 
-#: lspclientpluginview.cpp:599
+#: lspclientpluginview.cpp:600
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Zapri vse dinamične referenčne zavihke"
 
-#: lspclientpluginview.cpp:601
+#: lspclientpluginview.cpp:602
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "Ponovno zaženi strežnik LSP"
 
-#: lspclientpluginview.cpp:603
+#: lspclientpluginview.cpp:604
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "Ponovno zaženi vse strežnike LSP"
 
-#: lspclientpluginview.cpp:614
+#: lspclientpluginview.cpp:615
 #, kde-format
 msgid "Go To"
 msgstr "Pojdi na"
 
-#: lspclientpluginview.cpp:641
+#: lspclientpluginview.cpp:642
 #, kde-format
 msgid "More options"
 msgstr "Več možnosti"

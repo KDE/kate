@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-04-11 00:50+0000\n"
 "PO-Revision-Date: 2019-11-05 18:42+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -16,47 +16,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: plugin_katexmlcheck.cpp:94
+#: plugin_katexmlcheck.cpp:95
 #, fuzzy, kde-format
 #| msgid "XML Checker Output"
 msgid "XML Check"
 msgstr "Output Pemeriksa XML"
 
-#: plugin_katexmlcheck.cpp:99
+#: plugin_katexmlcheck.cpp:100
 #, kde-format
 msgid "Validate XML"
 msgstr "Absahkan XML"
 
-#: plugin_katexmlcheck.cpp:132
+#: plugin_katexmlcheck.cpp:130
 #, kde-format
 msgid "Validate process crashed"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
-#: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
-#: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
+#: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
+#: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
+#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:341
 #, fuzzy, kde-format
 #| msgid "XML Checker Output"
 msgid "XMLCheck"
 msgstr "Output Pemeriksa XML"
 
-#: plugin_katexmlcheck.cpp:146
+#: plugin_katexmlcheck.cpp:144
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:148
+#: plugin_katexmlcheck.cpp:146
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:234
+#: plugin_katexmlcheck.cpp:232
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Error:</b> Tidak bisa menciptakan file temporer '%1'."
 
-#: plugin_katexmlcheck.cpp:253
+#: plugin_katexmlcheck.cpp:251
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
@@ -68,7 +68,7 @@ msgstr ""
 "<b>Error:</b> Gagal mengeksekusi xmllint. Mohon pastikan bahwa xmllint sudah "
 "terinstal. Ini adalah bagian dari libxml2."
 
-#: plugin_katexmlcheck.cpp:341
+#: plugin_katexmlcheck.cpp:339
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

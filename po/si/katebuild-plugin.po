@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-26 01:01+0000\n"
+"POT-Creation-Date: 2023-04-11 00:50+0000\n"
 "PO-Revision-Date: 2011-08-09 05:54+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <info@hanthana.org>\n"
@@ -33,15 +33,9 @@ msgstr "danishka@gmail.com"
 msgid "Output"
 msgstr "ප්‍රථිදානය"
 
-#. i18n: ectx: property (text), widget (QLabel, showLabel)
-#: build.ui:56
-#, kde-format
-msgid "Show:"
-msgstr ""
-
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton2)
-#: build.ui:121 build.ui:146
+#: build.ui:56 build.ui:94
 #, fuzzy, kde-format
 #| msgid "Build Plugin"
 msgid "Build again"
@@ -49,300 +43,225 @@ msgstr "Build ප්ලගිනය"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton2)
-#: build.ui:128 build.ui:153
+#: build.ui:63 build.ui:101
 #, kde-format
 msgid "Cancel"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
-#: build.ui:184
-#, kde-format
-msgctxt "Header for the file name column"
-msgid "File"
-msgstr "ගොනුව"
-
-#. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
-#: build.ui:189
-#, kde-format
-msgctxt "Header for the line number column"
-msgid "Line"
-msgstr "රේඛාව"
-
-#. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
-#: build.ui:194
-#, kde-format
-msgctxt "Header for the error message column"
-msgid "Message"
-msgstr "පණිවුඩය"
-
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1381
+#: plugin_katebuild.cpp:116 plugin_katebuild.cpp:123 plugin_katebuild.cpp:1040
 #, kde-format
 msgid "Build"
 msgstr "Build"
 
-#: plugin_katebuild.cpp:146
+#: plugin_katebuild.cpp:126
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Select Target..."
 msgstr "ගොඩනැගීම අසාර්ථකයි."
 
-#: plugin_katebuild.cpp:151
+#: plugin_katebuild.cpp:131
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build Selected Target"
 msgstr "ගොඩනැගීම අසාර්ථකයි."
 
-#: plugin_katebuild.cpp:156
+#: plugin_katebuild.cpp:136
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build and Run Selected Target"
 msgstr "ගොඩනැගීම අසාර්ථකයි."
 
-#: plugin_katebuild.cpp:161
+#: plugin_katebuild.cpp:141
 #, kde-format
 msgid "Stop"
 msgstr "නවතන්න"
 
-#: plugin_katebuild.cpp:166
-#, kde-format
-msgid "Next Error"
-msgstr "ඊළඟ දෝශය"
-
-#: plugin_katebuild.cpp:172
-#, kde-format
-msgid "Previous Error"
-msgstr "පෙර දෝශය"
-
-#: plugin_katebuild.cpp:178
-#, kde-format
-msgid "Show Marks"
-msgstr ""
-
-#: plugin_katebuild.cpp:183
+#: plugin_katebuild.cpp:146
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
 msgstr ""
 
-#: plugin_katebuild.cpp:203
+#: plugin_katebuild.cpp:166
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
 msgstr ""
 
-#: plugin_katebuild.cpp:227
+#: plugin_katebuild.cpp:190
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "ඉලක්ක සැකසුම්"
 
-#: plugin_katebuild.cpp:393 plugin_katebuild.cpp:1483 plugin_katebuild.cpp:1494
-#: plugin_katebuild.cpp:1515 plugin_katebuild.cpp:1525
+#: plugin_katebuild.cpp:270
+#, fuzzy, kde-format
+#| msgid "Build Plugin"
+msgid "Build Information"
+msgstr "Build ප්ලගිනය"
+
+#: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1093 plugin_katebuild.cpp:1104
+#: plugin_katebuild.cpp:1125 plugin_katebuild.cpp:1135
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr ""
 
-#: plugin_katebuild.cpp:546
-#, kde-kuit-format
-msgctxt "@info"
-msgid ""
-"<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
-"the working directory in the Target Settings"
-msgstr ""
-
-#: plugin_katebuild.cpp:567
-#, kde-format
-msgctxt "The same word as 'make' uses to mark an error."
+#: plugin_katebuild.cpp:414
+#, fuzzy, kde-format
+#| msgctxt "The same word as 'make' uses to mark an error."
+#| msgid "error"
+msgctxt "The same word as 'make' uses to  an error."
 msgid "error"
 msgstr "දෝෂය"
 
-#: plugin_katebuild.cpp:571
+#: plugin_katebuild.cpp:420
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "නොදෙන ලද යොමුව"
 
-#: plugin_katebuild.cpp:579
+#: plugin_katebuild.cpp:425
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "අවවාදය"
 
-#: plugin_katebuild.cpp:667
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
-msgid "Error"
-msgstr "දෝෂය"
-
-#: plugin_katebuild.cpp:672
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
-msgid "Warning"
-msgstr "අවවාදය"
-
-#: plugin_katebuild.cpp:803
+#: plugin_katebuild.cpp:476
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "තැනීම ගොඩනැගීම"
 
-#: plugin_katebuild.cpp:807
+#: plugin_katebuild.cpp:480
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "\"%1\" ගොනුව දේශීය ගොනුවක් නොවේ. දේශීය-නොවන ගොනුව සම්පාදනය කල නොහැක."
 
-#: plugin_katebuild.cpp:854
+#: plugin_katebuild.cpp:523
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:877
+#: plugin_katebuild.cpp:546
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" ධාවනය අසාර්ථක විය. පිටවීම්තත්වය = %2"
 
-#: plugin_katebuild.cpp:896
+#: plugin_katebuild.cpp:565
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr ""
 
-#: plugin_katebuild.cpp:1004
+#: plugin_katebuild.cpp:673
 #, kde-format
 msgid "No target available for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:1018
+#: plugin_katebuild.cpp:687
 #, fuzzy, kde-format
 #| msgid "There is no file or directory specified for building."
 msgid "There is no local file or directory specified for building."
 msgstr "තැනීම ගොඩනැගීම"
 
-#: plugin_katebuild.cpp:1024
+#: plugin_katebuild.cpp:693
 #, kde-format
 msgid "Already building..."
 msgstr ""
 
-#: plugin_katebuild.cpp:1051
+#: plugin_katebuild.cpp:720
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building target <b>%1</b> ..."
 msgstr "ගොඩනැගීම අසාර්ථකයි."
 
-#: plugin_katebuild.cpp:1066
+#: plugin_katebuild.cpp:735
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:1103
+#: plugin_katebuild.cpp:772
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr ""
 
-#: plugin_katebuild.cpp:1122
+#: plugin_katebuild.cpp:783
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "එක් දෝශයක් හමුවිය"
 msgstr[1] "දෝශ %1 හමුවිය"
 
-#: plugin_katebuild.cpp:1123
+#: plugin_katebuild.cpp:784
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr ""
 
-#: plugin_katebuild.cpp:1125
+#: plugin_katebuild.cpp:786
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "එක් අවවාදයක් හමුවිය"
 msgstr[1] "අවවාද %1ක් හමුවිය"
 
-#: plugin_katebuild.cpp:1126
+#: plugin_katebuild.cpp:787
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building <b>%1</b> had warnings."
 msgstr "ගොඩනැගීම අසාර්ථකයි."
 
-#: plugin_katebuild.cpp:1132
+#: plugin_katebuild.cpp:793
 #, kde-format
 msgid "Build failed."
 msgstr "ගොඩනැගීම අසාර්ථකයි."
 
-#: plugin_katebuild.cpp:1134
+#: plugin_katebuild.cpp:795
 #, kde-format
 msgid "Build completed without problems."
 msgstr "දෝශයකින් තොරව ගොඩනැගීම සම්පූර්ණ විය."
 
-#: plugin_katebuild.cpp:1165
+#: plugin_katebuild.cpp:824
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1380
+#: plugin_katebuild.cpp:1039
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "ඉලක්ක"
 
-#: plugin_katebuild.cpp:1382
+#: plugin_katebuild.cpp:1041
 #, kde-format
 msgid "Clean"
 msgstr "පිරිසිදු කරන්න"
 
-#: plugin_katebuild.cpp:1383
+#: plugin_katebuild.cpp:1042
 #, kde-format
 msgid "Config"
 msgstr "සකසන්න"
 
-#: plugin_katebuild.cpp:1384
+#: plugin_katebuild.cpp:1043
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"
 msgstr "සකසන්න"
 
-#: plugin_katebuild.cpp:1427
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
-msgid "Only Errors"
-msgstr "දෝෂය"
-
-#: plugin_katebuild.cpp:1430
-#, fuzzy, kde-format
-#| msgid "Errors && Warnings"
-msgid "Errors and Warnings"
-msgstr "දෝශ සහ අවවාද"
-
-#: plugin_katebuild.cpp:1433
-#, fuzzy, kde-format
-#| msgid "Build Output"
-msgid "Parsed Output"
-msgstr "Build ප්‍රතිදානය"
-
-#: plugin_katebuild.cpp:1436
-#, fuzzy, kde-format
-#| msgid "Build Output"
-msgid "Full Output"
-msgstr "Build ප්‍රතිදානය"
-
-#: plugin_katebuild.cpp:1553
+#: plugin_katebuild.cpp:1163
 #, fuzzy, kde-format
 #| msgid "Build"
 msgid "build"
 msgstr "Build"
 
-#: plugin_katebuild.cpp:1556
+#: plugin_katebuild.cpp:1166
 #, fuzzy, kde-format
 #| msgid "Clean"
 msgid "clean"
 msgstr "පිරිසිදු කරන්න"
 
-#: plugin_katebuild.cpp:1559
+#: plugin_katebuild.cpp:1169
 #, kde-format
 msgid "quick"
 msgstr ""
@@ -461,6 +380,57 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
+
+#~ msgctxt "Header for the file name column"
+#~ msgid "File"
+#~ msgstr "ගොනුව"
+
+#~ msgctxt "Header for the line number column"
+#~ msgid "Line"
+#~ msgstr "රේඛාව"
+
+#~ msgctxt "Header for the error message column"
+#~ msgid "Message"
+#~ msgstr "පණිවුඩය"
+
+#~ msgid "Next Error"
+#~ msgstr "ඊළඟ දෝශය"
+
+#~ msgid "Previous Error"
+#~ msgstr "පෙර දෝශය"
+
+#, fuzzy
+#~| msgctxt "The same word as 'make' uses to mark an error."
+#~| msgid "error"
+#~ msgid "Error"
+#~ msgstr "දෝෂය"
+
+#, fuzzy
+#~| msgctxt "The same word as 'make' uses to mark a warning."
+#~| msgid "warning"
+#~ msgid "Warning"
+#~ msgstr "අවවාදය"
+
+#, fuzzy
+#~| msgctxt "The same word as 'make' uses to mark an error."
+#~| msgid "error"
+#~ msgid "Only Errors"
+#~ msgstr "දෝෂය"
+
+#, fuzzy
+#~| msgid "Errors && Warnings"
+#~ msgid "Errors and Warnings"
+#~ msgstr "දෝශ සහ අවවාද"
+
+#, fuzzy
+#~| msgid "Build Output"
+#~ msgid "Parsed Output"
+#~ msgstr "Build ප්‍රතිදානය"
+
+#, fuzzy
+#~| msgid "Build Output"
+#~ msgid "Full Output"
+#~ msgstr "Build ප්‍රතිදානය"
 
 #, fuzzy
 #~| msgid "Build failed."

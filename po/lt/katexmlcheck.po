@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-04-11 00:50+0000\n"
 "PO-Revision-Date: 2018-08-16 08:58+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: lt\n"
@@ -18,52 +18,52 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
 
-#: plugin_katexmlcheck.cpp:94
+#: plugin_katexmlcheck.cpp:95
 #, kde-format
 msgid "XML Check"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:99
+#: plugin_katexmlcheck.cpp:100
 #, kde-format
 msgid "Validate XML"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:132
+#: plugin_katexmlcheck.cpp:130
 #, kde-format
 msgid "Validate process crashed"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
-#: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
-#: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
+#: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
+#: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
+#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:341
 #, kde-format
 msgid "XMLCheck"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:146
+#: plugin_katexmlcheck.cpp:144
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:148
+#: plugin_katexmlcheck.cpp:146
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:234
+#: plugin_katexmlcheck.cpp:232
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:253
+#: plugin_katexmlcheck.cpp:251
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:341
+#: plugin_katexmlcheck.cpp:339
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

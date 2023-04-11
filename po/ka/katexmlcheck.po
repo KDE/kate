@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-04-11 00:50+0000\n"
 "PO-Revision-Date: 2023-01-16 06:00+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -18,47 +18,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: plugin_katexmlcheck.cpp:94
+#: plugin_katexmlcheck.cpp:95
 #, kde-format
 msgid "XML Check"
 msgstr "XML-ის შემოწმება"
 
-#: plugin_katexmlcheck.cpp:99
+#: plugin_katexmlcheck.cpp:100
 #, kde-format
 msgid "Validate XML"
 msgstr "XML-ის დადასტურება"
 
-#: plugin_katexmlcheck.cpp:132
+#: plugin_katexmlcheck.cpp:130
 #, kde-format
 msgid "Validate process crashed"
 msgstr "გადამოწმების პროცესი ავარიულად დასრულდა"
 
-#: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
-#: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
-#: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
+#: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
+#: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
+#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:341
 #, kde-format
 msgid "XMLCheck"
 msgstr "XMLCheck"
 
-#: plugin_katexmlcheck.cpp:146
+#: plugin_katexmlcheck.cpp:144
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
 "DOCTYPE აღმოჩენილი არაა. მოხდება მხოლოდ ფაილის ნორმალურად ფორმირების "
 "შემოწმება."
 
-#: plugin_katexmlcheck.cpp:148
+#: plugin_katexmlcheck.cpp:146
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr "'%1' ვერ ვიპოვე. შემოწმდება მხოლოდ ფაილის ნორმალურად ფორმირების ფაქტი."
 
-#: plugin_katexmlcheck.cpp:234
+#: plugin_katexmlcheck.cpp:232
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>შეცდომა:</b> დროებითი ფაილის შექმნა შეუძლებელია: '%1'."
 
-#: plugin_katexmlcheck.cpp:253
+#: plugin_katexmlcheck.cpp:251
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
@@ -67,7 +67,7 @@ msgstr ""
 "<b>შეცდომა:</b> xmllnt-ის მოძებნა შეუძლებელია. დარწმუნდით, რომ ის "
 "დაყენებულია. xmmlint-ი libxml2-ის ნაწილია."
 
-#: plugin_katexmlcheck.cpp:341
+#: plugin_katexmlcheck.cpp:339
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

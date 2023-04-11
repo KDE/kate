@@ -13,6 +13,7 @@
         "Description[tr]": "Bağlantıları vurgula ve aç",
         "Description[uk]": "Підсвічування і відкриття посилань",
         "Description[x-test]": "xxHighlight and open linksxx",
+        "Description[zh_CN]": "高亮并打开链接",
         "Name": "Open Link",
         "Name[ca@valencia]": "Obri l'enllaç",
         "Name[ca]": "Obre l'enllaç",
@@ -26,6 +27,7 @@
         "Name[tr]": "Bağlantı Aç",
         "Name[uk]": "Відкрити посилання",
         "Name[x-test]": "xxOpen Linkxx",
+        "Name[zh_CN]": "打开链接",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

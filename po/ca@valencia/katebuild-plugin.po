@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-01-25 09:24+0100\n"
+"PO-Revision-Date: 2023-04-11 11:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -96,10 +96,9 @@ msgid "Target Settings"
 msgstr "Configureu l'objectiu"
 
 #: plugin_katebuild.cpp:270
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "Torna a construir"
+msgstr "Informació de construcció"
 
 #: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1093 plugin_katebuild.cpp:1104
 #: plugin_katebuild.cpp:1125 plugin_katebuild.cpp:1135
@@ -108,9 +107,7 @@ msgid "Project Plugin Targets"
 msgstr "Objectius del connector de projectes"
 
 #: plugin_katebuild.cpp:414
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'make' uses to  an error."
 msgid "error"
 msgstr "error"
@@ -375,59 +372,3 @@ msgstr "Inserix camí"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccioneu el directori que s'ha d'inserir"
-
-#~ msgid "Show:"
-#~ msgstr "Mostra:"
-
-#~ msgctxt "Header for the file name column"
-#~ msgid "File"
-#~ msgstr "Fitxer"
-
-#~ msgctxt "Header for the line number column"
-#~ msgid "Line"
-#~ msgstr "Línia"
-
-#~ msgctxt "Header for the error message column"
-#~ msgid "Message"
-#~ msgstr "Missatge"
-
-#~ msgid "Next Error"
-#~ msgstr "Error següent"
-
-#~ msgid "Previous Error"
-#~ msgstr "Error anterior"
-
-#~ msgid "Show Marks"
-#~ msgstr "Mostra les marques"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#~ "to the working directory in the Target Settings"
-#~ msgstr ""
-#~ "<title>No s'ha pogut obrir el fitxer:</title><nl/>%1<br/>Intenteu afegir "
-#~ "un camí de busca en el directori de treball a Configureu l'objectiu"
-
-#~ msgid "Error"
-#~ msgstr "S'ha produït un error"
-
-#~ msgid "Warning"
-#~ msgstr "Avís"
-
-#~ msgid "Only Errors"
-#~ msgstr "Només els errors"
-
-#~ msgid "Errors and Warnings"
-#~ msgstr "Errors i avisos"
-
-#~ msgid "Parsed Output"
-#~ msgstr "Eixida analitzada"
-
-#~ msgid "Full Output"
-#~ msgstr "Eixida completa"
-
-#~ msgid ""
-#~ "Check the check-box to make the command the default for the target-set."
-#~ msgstr ""
-#~ "Activeu la casella de selecció per fer l'ordre predeterminada pel conjunt "
-#~ "d'objectius."

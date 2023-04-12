@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-04-05 09:13+0100\n"
+"PO-Revision-Date: 2023-04-11 11:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -298,16 +298,14 @@ msgid "Quick Fix"
 msgstr "Esmena ràpida"
 
 #: lib/diagnostics/diagnosticview.cpp:343
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Pestanya següent"
+msgstr "Element següent"
 
 #: lib/diagnostics/diagnosticview.cpp:348
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Pestanya anterior"
+msgstr "Element anterior"
 
 #: lib/diagnostics/diagnosticview.cpp:395
 #, kde-format

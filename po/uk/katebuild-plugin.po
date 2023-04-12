@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-01-25 09:11+0200\n"
+"PO-Revision-Date: 2023-04-11 09:21+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -94,10 +94,9 @@ msgid "Target Settings"
 msgstr "Параметри цілі"
 
 #: plugin_katebuild.cpp:270
-#, fuzzy, kde-format
-#| msgid "Build command:"
+#, kde-format
 msgid "Build Information"
-msgstr "Команда збирання:"
+msgstr "Інформація про випуск"
 
 #: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1093 plugin_katebuild.cpp:1104
 #: plugin_katebuild.cpp:1125 plugin_katebuild.cpp:1135
@@ -106,9 +105,7 @@ msgid "Project Plugin Targets"
 msgstr "Цілі додатка проєкту"
 
 #: plugin_katebuild.cpp:414
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'make' uses to  an error."
 msgid "error"
 msgstr "помилка"

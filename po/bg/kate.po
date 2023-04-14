@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-03-26 17:49+0200\n"
+"PO-Revision-Date: 2023-04-13 17:43+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -287,7 +287,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:60
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Всички"
 
 #: lib/diagnostics/diagnosticview.cpp:339
 #, kde-format
@@ -295,26 +295,22 @@ msgid "Quick Fix"
 msgstr "Бърза корекция"
 
 #: lib/diagnostics/diagnosticview.cpp:343
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Следващ раздел"
+msgstr "Следващ елемент"
 
 #: lib/diagnostics/diagnosticview.cpp:348
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Предишен раздел"
+msgstr "Предишен елемент"
 
 #: lib/diagnostics/diagnosticview.cpp:395
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Грешка"
+msgstr "Грешки"
 
 #: lib/diagnostics/diagnosticview.cpp:411
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
 msgstr "Предупреждение"
 
@@ -1871,18 +1867,13 @@ msgid "&View Difference"
 msgstr "&Разлики"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "Преглед на разликите между съдържанието на файла на диска и в паметта на "
-"редактора. Разликите ще бъдат показани в стандартната програма за преглед на "
-"разлики. Изисква diff(1)."
+"редактора за избрания документ."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1919,15 +1910,12 @@ msgstr ""
 "%1"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Командата diff не върна резултат. Моля, убедете се, че пакетът thatdiff(1) е "
+"Командата diff не върна резултат. Моля, убедете се, че пакетът git е "
 "инсталиран и програмата е включена в пътя за изпълними файлове PATH."
 
 #: lib/katemwmodonhddialog.cpp:319
@@ -1938,12 +1926,12 @@ msgstr "Грешка при изчисляване на разликите"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[Стар]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[Нов]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format

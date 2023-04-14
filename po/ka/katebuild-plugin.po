@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-02-03 15:58+0100\n"
+"PO-Revision-Date: 2023-04-13 05:53+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -92,10 +92,9 @@ msgid "Target Settings"
 msgstr "სამიზნის მორგება"
 
 #: plugin_katebuild.cpp:270
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "თავიდან აგება"
+msgstr "აგების ინფორმაცია"
 
 #: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1093 plugin_katebuild.cpp:1104
 #: plugin_katebuild.cpp:1125 plugin_katebuild.cpp:1135
@@ -104,9 +103,7 @@ msgid "Project Plugin Targets"
 msgstr "პროექტის დამატების სამიზნეები"
 
 #: plugin_katebuild.cpp:414
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'make' uses to  an error."
 msgid "error"
 msgstr "შეცდომა"
@@ -126,13 +123,14 @@ msgstr "გაფრთხილება"
 #: plugin_katebuild.cpp:476
 #, kde-format
 msgid "There is no file or directory specified for building."
-msgstr ""
+msgstr "აგებისთვის ფაილი ან საქაღალდე მითითებული არაა."
 
 #: plugin_katebuild.cpp:480
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
+"ფაილი \"%1\" ლოკალური ფაილი არაა. არალოკალური ფაილების აგება შეუძლებელია."
 
 #: plugin_katebuild.cpp:523
 #, kde-format
@@ -140,6 +138,8 @@ msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
+"ბრძანების გაშვება შეუძლებელია: %1\n"
+"სამუშაო ბილიკი არ არსებობს: %2"
 
 #: plugin_katebuild.cpp:546
 #, kde-format
@@ -274,6 +274,8 @@ msgid ""
 "Leave empty to use the directory of the current document.\n"
 "Add search directories by adding paths separated by ';'"
 msgstr ""
+"მიმდინარე დოკუმენტის საქაღალდის გამოსაყენებლად ცარიელი დატოვეთ.\n"
+"მოსაძებნი საქაღალდეების დამატება \";\"-ით გამოტოვებით შეგიძლიათ"
 
 #: TargetHtmlDelegate.cpp:102
 #, kde-format
@@ -283,11 +285,15 @@ msgid ""
 "\"%d\" for directory of current file\n"
 "\"%n\" for current file name without suffix"
 msgstr ""
+"გამოყენება:\n"
+"\"%f\" მიმდინარე ფაილისთვის\n"
+"\"%d\" მიმდინარე ფაილის საქაღალდისთვის\n"
+"\"%n\" მიმდინარე ფაილის სახელი სუფიქსის გარეშე"
 
 #: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
-msgstr ""
+msgstr "ბრძანება/სამიზნის სახელი"
 
 #: TargetModel.cpp:391
 #, kde-format
@@ -303,6 +309,8 @@ msgstr "ბრძანების გაშვება"
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
+"გაფილტრეთ სამიზნეები, ასარჩევად გამოიყენეთ ისრის ღილაკები, გასაშვებად კი "
+"Enter"
 
 #: targets.cpp:27
 #, kde-format
@@ -312,12 +320,12 @@ msgstr "სამიზნეების ახალი ნაკრები�
 #: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
-msgstr ""
+msgstr "ბრძანების ან სამიზნეების სეტის კოპირება"
 
 #: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
-msgstr ""
+msgstr "მიმდინარე სამიზნის ან სამიზნეების სეტის წაშლა"
 
 #: targets.cpp:40
 #, kde-format

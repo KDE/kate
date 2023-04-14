@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-04-12 06:19+0200\n"
+"PO-Revision-Date: 2023-04-13 05:55+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1809,6 +1809,7 @@ msgstr ""
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr ""
+"მონიშნული დოკუმენტების თავზე გადაწერა, რითიც დისკზე ცვლილებებზე მოაცილებთ"
 
 #: lib/katemwmodonhddialog.cpp:126
 #, kde-format
@@ -1818,7 +1819,7 @@ msgstr "თავიდან ჩატვირთვა"
 #: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
-msgstr ""
+msgstr "მონიშნული დოკუმენტების დისკიდან თავიდან ჩატვირთვა"
 
 #: lib/katemwmodonhddialog.cpp:195
 #, kde-format
@@ -2179,7 +2180,7 @@ msgstr "ჩართვა"
 #: lib/kateviewmanager.cpp:543
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "<b>%1</b> დამატების ჩართვის შეცდომა"
 
 #: lib/kateviewmanager.cpp:1285
 #, kde-format

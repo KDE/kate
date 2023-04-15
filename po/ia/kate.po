@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-03-27 15:34+0200\n"
+"PO-Revision-Date: 2023-04-14 23:04+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.03.90\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -284,7 +284,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:60
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Omne"
 
 #: lib/diagnostics/diagnosticview.cpp:339
 #, kde-format
@@ -292,28 +292,24 @@ msgid "Quick Fix"
 msgstr "Correction Rapide"
 
 #: lib/diagnostics/diagnosticview.cpp:343
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Proxime scheda"
+msgstr "Proxime elemento"
 
 #: lib/diagnostics/diagnosticview.cpp:348
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Previe scheda"
+msgstr "Previe elemento"
 
 #: lib/diagnostics/diagnosticview.cpp:395
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Error"
+msgstr "Errores"
 
 #: lib/diagnostics/diagnosticview.cpp:411
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Aviso"
+msgstr "Avisos"
 
 #: lib/diagnostics/diagnosticview.cpp:425
 #, kde-format
@@ -1868,18 +1864,13 @@ msgid "&View Difference"
 msgstr "&Vide differentia"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "Computa le differentias inter le contentos de editor e le file de disco pro "
-"le seligite documento, e monstra le differentia con le application "
-"predefinite. Il require diff(1)."
+"le documento seligite."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1917,15 +1908,12 @@ msgstr ""
 "'%1'"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Le commando diff falleva. Pro favor, tu controla que diff(1) es installate e "
+"Le commando diff falleva. Pro favor, tu  assecura te que git es installate e "
 "que illo es in tu PATH."
 
 #: lib/katemwmodonhddialog.cpp:319
@@ -1936,12 +1924,12 @@ msgstr "Error durante que on creava Diff"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[VETERE]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[NOVE]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-02-01 10:33+0100\n"
+"PO-Revision-Date: 2023-04-14 21:54+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -93,10 +93,9 @@ msgid "Target Settings"
 msgstr "Nastavení cíle"
 
 #: plugin_katebuild.cpp:270
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "Znovu sestavit"
+msgstr "Informace o sestavení"
 
 #: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1093 plugin_katebuild.cpp:1104
 #: plugin_katebuild.cpp:1125 plugin_katebuild.cpp:1135
@@ -105,9 +104,7 @@ msgid "Project Plugin Targets"
 msgstr ""
 
 #: plugin_katebuild.cpp:414
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'make' uses to  an error."
 msgid "error"
 msgstr "chyba"
@@ -369,45 +366,3 @@ msgstr "Vložit cestu"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vyberte adresář pro vložení"
-
-#~ msgid "Show:"
-#~ msgstr "Zobrazit:"
-
-#~ msgctxt "Header for the file name column"
-#~ msgid "File"
-#~ msgstr "Soubor"
-
-#~ msgctxt "Header for the line number column"
-#~ msgid "Line"
-#~ msgstr "Řádek"
-
-#~ msgctxt "Header for the error message column"
-#~ msgid "Message"
-#~ msgstr "Zpráva"
-
-#~ msgid "Next Error"
-#~ msgstr "Následující chyba"
-
-#~ msgid "Previous Error"
-#~ msgstr "Předchozí chyba"
-
-#~ msgid "Show Marks"
-#~ msgstr "Zobrazit značky"
-
-#~ msgid "Error"
-#~ msgstr "Chyba"
-
-#~ msgid "Warning"
-#~ msgstr "Varování"
-
-#~ msgid "Only Errors"
-#~ msgstr "Pouze chyby"
-
-#~ msgid "Errors and Warnings"
-#~ msgstr "Chyby a varování"
-
-#~ msgid "Parsed Output"
-#~ msgstr "Zpracovaný výstup"
-
-#~ msgid "Full Output"
-#~ msgstr "Plný výstup"

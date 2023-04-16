@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-01-31 09:19+0100\n"
+"PO-Revision-Date: 2023-04-13 07:40+0200\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -95,10 +95,9 @@ msgid "Target Settings"
 msgstr "Impostazioni obiettivo"
 
 #: plugin_katebuild.cpp:270
-#, fuzzy, kde-format
-#| msgid "Build command:"
+#, kde-format
 msgid "Build Information"
-msgstr "Comando di compilazione:"
+msgstr "Informazioni di compilazione"
 
 #: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1093 plugin_katebuild.cpp:1104
 #: plugin_katebuild.cpp:1125 plugin_katebuild.cpp:1135
@@ -107,9 +106,7 @@ msgid "Project Plugin Targets"
 msgstr "Obiettivi dell'estensione di progetto"
 
 #: plugin_katebuild.cpp:414
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'make' uses to  an error."
 msgid "error"
 msgstr "errore"

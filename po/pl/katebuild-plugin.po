@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-02-12 09:41+0100\n"
+"PO-Revision-Date: 2023-04-15 11:32+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -94,10 +94,9 @@ msgid "Target Settings"
 msgstr "Ustawienia celu"
 
 #: plugin_katebuild.cpp:270
-#, fuzzy, kde-format
-#| msgid "Build command:"
+#, kde-format
 msgid "Build Information"
-msgstr "Polecenie kompilacji:"
+msgstr "Informacja z budowy"
 
 #: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1093 plugin_katebuild.cpp:1104
 #: plugin_katebuild.cpp:1125 plugin_katebuild.cpp:1135
@@ -106,9 +105,7 @@ msgid "Project Plugin Targets"
 msgstr "Cele wtyczki projektu"
 
 #: plugin_katebuild.cpp:414
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'make' uses to  an error."
 msgid "error"
 msgstr "błąd"

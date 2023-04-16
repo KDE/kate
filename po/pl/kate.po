@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1649195 $
+# Version: $Revision: 1649504 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-04-01 09:03+0200\n"
+"PO-Revision-Date: 2023-04-15 11:32+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -299,7 +299,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:60
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Wszystkie"
 
 #: lib/diagnostics/diagnosticview.cpp:339
 #, kde-format
@@ -307,28 +307,24 @@ msgid "Quick Fix"
 msgstr "Szybka poprawka"
 
 #: lib/diagnostics/diagnosticview.cpp:343
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Następna karta"
+msgstr "Następna rzecz"
 
 #: lib/diagnostics/diagnosticview.cpp:348
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Poprzednia karta"
+msgstr "Poprzedni rzecz"
 
 #: lib/diagnostics/diagnosticview.cpp:395
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Błąd"
+msgstr "Błędy"
 
 #: lib/diagnostics/diagnosticview.cpp:411
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Ostrzeżenie"
+msgstr "Ostrzeżenia"
 
 #: lib/diagnostics/diagnosticview.cpp:425
 #, kde-format
@@ -1872,18 +1868,13 @@ msgid "&View Difference"
 msgstr "Zobacz &różnice"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "Oblicza różnice między zawartością edytora i plikiem na dysku dla wybranego "
-"dokumentu, a następnie pokazuje je w domyślnym programie służącym do tego "
-"celu. Wymaga polecenia diff(1)."
+"dokumentu."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1920,17 +1911,14 @@ msgstr ""
 "\"%1\""
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
 "Uruchomienie polecenia diff się nie powiodło. Proszę upewnić się, że "
-"polecenie diff(1) jest zainstalowane i że znajduje się na ścieżce określonej "
-"zmienną PATH."
+"polecenie git jest wgrane i że znajduje się na ścieżce określonej zmienną "
+"PATH."
 
 #: lib/katemwmodonhddialog.cpp:319
 #, kde-format
@@ -1940,12 +1928,12 @@ msgstr "Błąd obliczania różnic"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[STARY]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[NOWY]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format

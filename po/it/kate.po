@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-03-05 16:06+0100\n"
+"PO-Revision-Date: 2023-04-13 07:40+0200\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -291,7 +291,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:60
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Tutto"
 
 #: lib/diagnostics/diagnosticview.cpp:339
 #, kde-format
@@ -299,28 +299,24 @@ msgid "Quick Fix"
 msgstr "Soluzione rapida"
 
 #: lib/diagnostics/diagnosticview.cpp:343
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Scheda successiva"
+msgstr "Elemento successivo"
 
 #: lib/diagnostics/diagnosticview.cpp:348
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Scheda precedente"
+msgstr "Elemento precedente"
 
 #: lib/diagnostics/diagnosticview.cpp:395
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Errore"
+msgstr "Errori"
 
 #: lib/diagnostics/diagnosticview.cpp:411
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Avviso"
+msgstr "Avvisi"
 
 #: lib/diagnostics/diagnosticview.cpp:425
 #, kde-format
@@ -1871,18 +1867,13 @@ msgid "&View Difference"
 msgstr "&Mostra le differenze"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "Calcola le differenze tra il contenuto dell'editor e quello del file sul "
-"disco per il documento selezionato, e le mostrale con l'applicazione "
-"predefinita. Richiede diff(1)."
+"disco per il documento selezionato."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1919,16 +1910,13 @@ msgstr ""
 "«%1»"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Il comando diff non ha funzionato. Assicurati che diff(1) sia installato, e "
-"che sia nel tuo PATH."
+"Il comando diff non ha funzionato. Assicurati che git sia installato, e che "
+"sia nel tuo PATH."
 
 #: lib/katemwmodonhddialog.cpp:319
 #, kde-format
@@ -1938,12 +1926,12 @@ msgstr "Errore nella creazione delle differenze"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[VECCHIO]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[NUOVO]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2740,10 +2728,9 @@ msgid "No saved sessions"
 msgstr "Nessuna sessione salvata"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Apri file..."
+msgstr "Apri i file selezionati..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

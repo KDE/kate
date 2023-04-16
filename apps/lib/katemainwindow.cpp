@@ -174,11 +174,6 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
     // Hence, we have to take care of the menu bar here
     toggleShowMenuBar(false);
 
-    // kwrite doesn't want sidebars, we have no plugins
-    if (KateApp::isKWrite()) {
-        setSidebarsVisibleInternal(false, true);
-    }
-
     // trigger proper focus restore
     m_viewManager->triggerActiveViewFocus();
 }

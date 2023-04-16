@@ -542,6 +542,9 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, QSplitter *sp, MainWind
 
     m_ownSplit->setChildrenCollapsible(false);
 
+    // ensure proper sidebar state, see resizing issues in bug 460160
+    m_ownSplit->hide();
+
     connect(this, &QSplitter::splitterMoved, this, &Sidebar::barSplitMoved);
     connect(m_ownSplit, &QSplitter::splitterMoved, this, &Sidebar::ownSplitMoved);
     connect(m_splitter, &QSplitter::splitterMoved, this, &Sidebar::handleCollapse);
@@ -1544,6 +1547,8 @@ void MainWindow::startRestore(KConfigBase *config, const QString &group)
     m_restoreGroup = group;
 
     if (!m_restoreConfig || !m_restoreConfig->hasGroup(m_restoreGroup)) {
+        m_restoreConfig = nullptr;
+        m_restoreGroup.clear();
         return;
     }
 

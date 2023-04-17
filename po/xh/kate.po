@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:50+0000\n"
+"POT-Creation-Date: 2023-04-17 00:51+0000\n"
 "PO-Revision-Date: 2002-11-15 12:44+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -168,7 +168,7 @@ msgstr "&Vala Konke"
 msgid "Open File"
 msgstr "Vula Ifayile"
 
-#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:364
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:359
 #, fuzzy, kde-format
 msgid "Copy Location"
 msgstr "Isicelo"
@@ -1236,12 +1236,12 @@ msgstr "&Uxwebhu"
 msgid "Save As"
 msgstr "&Gcina Konke"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:665
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:660
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:665
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:660
 #, kde-format
 msgid "Closing Aborted"
 msgstr ""
@@ -1292,93 +1292,93 @@ msgstr ""
 msgid "&Other Application..."
 msgstr "Isicelo"
 
-#: lib/katemainwindow.cpp:241
+#: lib/katemainwindow.cpp:236
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr "Sebenzisa umyalelo ukubonisa okanye ukufihla iwonga le bar yemboniselo"
 
-#: lib/katemainwindow.cpp:244
+#: lib/katemainwindow.cpp:239
 #, fuzzy, kde-format
 msgid "Show &Tabs"
 msgstr "Bonisa &Amanani Elayini"
 
-#: lib/katemainwindow.cpp:247
+#: lib/katemainwindow.cpp:242
 #, fuzzy, kde-format
 #| msgid "Use this command to show or hide the view's statusbar"
 msgid "Use this command to show or hide the tabs for the views"
 msgstr "Sebenzisa umyalelo ukubonisa okanye ukufihla iwonga le bar yemboniselo"
 
-#: lib/katemainwindow.cpp:249
+#: lib/katemainwindow.cpp:244
 #, fuzzy, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "&Bonisa umendo opheleleyo kwisihloko"
 
-#: lib/katemainwindow.cpp:252
+#: lib/katemainwindow.cpp:247
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Bonisa umendo opheleleyo woxwebhu kumzobo we window"
 
-#: lib/katemainwindow.cpp:254
+#: lib/katemainwindow.cpp:249
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:264
+#: lib/katemainwindow.cpp:259
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: lib/katemainwindow.cpp:268
+#: lib/katemainwindow.cpp:263
 #, fuzzy, kde-format
 msgid "&Previous Tab"
 msgstr "Imboniselo Edlulileyo"
 
-#: lib/katemainwindow.cpp:269
+#: lib/katemainwindow.cpp:264
 #, kde-format
 msgid "Focus the previous tab."
 msgstr ""
 
-#: lib/katemainwindow.cpp:274
+#: lib/katemainwindow.cpp:269
 #, fuzzy, kde-format
 msgid "&Next Tab"
 msgstr "&Vala Okwangoku"
 
-#: lib/katemainwindow.cpp:275
+#: lib/katemainwindow.cpp:270
 #, fuzzy, kde-format
 msgid "Focus the next tab."
 msgstr "Vala uxwebhu lwangoku."
 
-#: lib/katemainwindow.cpp:282
+#: lib/katemainwindow.cpp:277
 #, fuzzy, kde-format
 msgid "&Quick Open"
 msgstr "Intlanganiso"
 
-#: lib/katemainwindow.cpp:285
+#: lib/katemainwindow.cpp:280
 #, fuzzy, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Vala onke amaxwebhu avuliweyo."
 
-#: lib/katemainwindow.cpp:317
+#: lib/katemainwindow.cpp:312
 #, kde-format
 msgid "Output"
 msgstr ""
 
-#: lib/katemainwindow.cpp:324
+#: lib/katemainwindow.cpp:319
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/katemainwindow.cpp:335
+#: lib/katemainwindow.cpp:330
 #, kde-format
 msgid "Create a new document"
 msgstr "Yenza uxwebhu olutsha"
 
-#: lib/katemainwindow.cpp:338
+#: lib/katemainwindow.cpp:333
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Vula uxwebhu olukhoyo xa uhlela"
 
-#: lib/katemainwindow.cpp:348
+#: lib/katemainwindow.cpp:343
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1387,142 +1387,142 @@ msgstr ""
 "Udweliso leefayile osandukulivula, likuvumela ukuba uzivulu lula kwixesha "
 "elizayo."
 
-#: lib/katemainwindow.cpp:352
+#: lib/katemainwindow.cpp:347
 #, kde-format
 msgid "Save A&ll"
 msgstr "&Gcina Konke"
 
-#: lib/katemainwindow.cpp:355
+#: lib/katemainwindow.cpp:350
 #, fuzzy, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Gcina onke amaxwebhu avulekileyo, naguqulwe kancincane kwi diski."
 
-#: lib/katemainwindow.cpp:358
+#: lib/katemainwindow.cpp:353
 #, kde-format
 msgid "&Reload All"
 msgstr ""
 
-#: lib/katemainwindow.cpp:360
+#: lib/katemainwindow.cpp:355
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Reload all open documents."
 msgstr "Vala onke amaxwebhu avuliweyo."
 
-#: lib/katemainwindow.cpp:369 lib/katemainwindow.cpp:378
+#: lib/katemainwindow.cpp:364 lib/katemainwindow.cpp:373
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
 
-#: lib/katemainwindow.cpp:373 lib/welcomeview/welcomeview.cpp:265
+#: lib/katemainwindow.cpp:368 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr ""
 
-#: lib/katemainwindow.cpp:382
+#: lib/katemainwindow.cpp:377
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "&Iposi..."
 
-#: lib/katemainwindow.cpp:387
+#: lib/katemainwindow.cpp:382
 #, fuzzy, kde-format
 #| msgid "Create another view containing the current document"
 msgid "Renames the file belonging to the current document."
 msgstr "Yenza enye imboniselo equlathe uxwebhu lwangoku"
 
-#: lib/katemainwindow.cpp:391
+#: lib/katemainwindow.cpp:386
 #, fuzzy, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "&Template:"
 
-#: lib/katemainwindow.cpp:396 lib/katemainwindow.cpp:405
+#: lib/katemainwindow.cpp:391 lib/katemainwindow.cpp:400
 #, fuzzy, kde-format
 #| msgid "Create another view containing the current document"
 msgid "Deletes the file belonging to the current document."
 msgstr "Yenza enye imboniselo equlathe uxwebhu lwangoku"
 
-#: lib/katemainwindow.cpp:400
+#: lib/katemainwindow.cpp:395
 #, kde-format
 msgid "Properties"
 msgstr ""
 
-#: lib/katemainwindow.cpp:408 lib/katemainwindow.cpp:410
+#: lib/katemainwindow.cpp:403 lib/katemainwindow.cpp:405
 #, kde-format
 msgid "Compare"
 msgstr ""
 
-#: lib/katemainwindow.cpp:410
+#: lib/katemainwindow.cpp:405
 #, fuzzy, kde-format
 #| msgid "Use this command to create a new document"
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "Sebenzisa lomyalelo ukwenza uxwebhu olutsha"
 
-#: lib/katemainwindow.cpp:412
+#: lib/katemainwindow.cpp:407
 #, fuzzy, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Vala onke amaxwebhu avuliweyo."
 
-#: lib/katemainwindow.cpp:415
+#: lib/katemainwindow.cpp:410
 #, fuzzy, kde-format
 msgid "Close Orphaned"
 msgstr "Vala uxwebhu lwangoku."
 
-#: lib/katemainwindow.cpp:417
+#: lib/katemainwindow.cpp:412
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
 "they are not accessible anymore."
 msgstr ""
 
-#: lib/katemainwindow.cpp:421
+#: lib/katemainwindow.cpp:416
 #, kde-format
 msgid "Close the current document."
 msgstr "Vala uxwebhu lwangoku."
 
-#: lib/katemainwindow.cpp:424
+#: lib/katemainwindow.cpp:419
 #, fuzzy, kde-format
 msgid "Close Other"
 msgstr "Vala uxwebhu lwangoku."
 
-#: lib/katemainwindow.cpp:426
+#: lib/katemainwindow.cpp:421
 #, fuzzy, kde-format
 msgid "Close other open documents."
 msgstr "Vala onke amaxwebhu avuliweyo."
 
-#: lib/katemainwindow.cpp:429
+#: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Clos&e All"
 msgstr "&Vala Konke"
 
-#: lib/katemainwindow.cpp:431
+#: lib/katemainwindow.cpp:426
 #, kde-format
 msgid "Close all open documents."
 msgstr "Vala onke amaxwebhu avuliweyo."
 
-#: lib/katemainwindow.cpp:436
+#: lib/katemainwindow.cpp:431
 #, kde-format
 msgid "Close this window"
 msgstr "Vala le window"
 
-#: lib/katemainwindow.cpp:440
+#: lib/katemainwindow.cpp:435
 #, fuzzy, kde-format
 msgid "&New Window"
 msgstr "Intlanganiso"
 
-#: lib/katemainwindow.cpp:443
+#: lib/katemainwindow.cpp:438
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Create a new window."
 msgstr "Yenza uxwebhu olutsha"
 
-#: lib/katemainwindow.cpp:450
+#: lib/katemainwindow.cpp:445
 #, kde-format
 msgid "Open W&ith"
 msgstr "&Vula Nge"
 
-#: lib/katemainwindow.cpp:452
+#: lib/katemainwindow.cpp:447
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1531,141 +1531,141 @@ msgstr ""
 "Vula uxwebhu lwangoku usebenzise esinye isicelo esibhalisiweyo koludidi lwe "
 "fayile, okanye isicelo sakho osithandayo."
 
-#: lib/katemainwindow.cpp:460
+#: lib/katemainwindow.cpp:455
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Qwalasela uyalelo lwendlela ezimfutshane zebhodi yesitshixo yesicelo."
 
-#: lib/katemainwindow.cpp:463
+#: lib/katemainwindow.cpp:458
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Qwalaselo owuphi umba ozakubonakala kwisixhobo se bar(ii)."
 
-#: lib/katemainwindow.cpp:466
+#: lib/katemainwindow.cpp:461
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Qwalsela indawo ezithile zesicelo uhlele ingxenye."
 
-#: lib/katemainwindow.cpp:470
+#: lib/katemainwindow.cpp:465
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr ""
 
-#: lib/katemainwindow.cpp:472
+#: lib/katemainwindow.cpp:467
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr ""
 "Oku kubonisa iifayile zoncedo kwi plagi zangaphakathi eziliqela ezikhona."
 
-#: lib/katemainwindow.cpp:489
+#: lib/katemainwindow.cpp:484
 #, fuzzy, kde-format
 msgid "Sess&ions"
 msgstr "Intlanganiso"
 
-#: lib/katemainwindow.cpp:495
+#: lib/katemainwindow.cpp:490
 #, fuzzy, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Intlanganiso"
 
-#: lib/katemainwindow.cpp:500
+#: lib/katemainwindow.cpp:495
 #, fuzzy, kde-format
 msgid "&Recent Sessions"
 msgstr "Intlanganiso"
 
-#: lib/katemainwindow.cpp:505
+#: lib/katemainwindow.cpp:500
 #, fuzzy, kde-format
 msgid "&All Sessions"
 msgstr "Intlanganiso"
 
-#: lib/katemainwindow.cpp:512
+#: lib/katemainwindow.cpp:507
 #, fuzzy, kde-format
 msgid "&Manage Sessions..."
 msgstr "Intlanganiso"
 
-#: lib/katemainwindow.cpp:521
+#: lib/katemainwindow.cpp:516
 #, fuzzy, kde-format
 msgid "&Save Session"
 msgstr "Intlanganiso"
 
-#: lib/katemainwindow.cpp:527
+#: lib/katemainwindow.cpp:522
 #, fuzzy, kde-format
 msgid "Save Session &As..."
 msgstr "Intlanganiso"
 
-#: lib/katemainwindow.cpp:534 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:529 lib/kateviewspace.cpp:58
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Go to Previous Location"
 msgstr "Buyisela kwakhona indawo eku&yo"
 
-#: lib/katemainwindow.cpp:543 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:538 lib/kateviewspace.cpp:71
 #, fuzzy, kde-format
 msgid "Go to Next Location"
 msgstr "Buyisela kwakhona indawo eku&yo"
 
-#: lib/katemainwindow.cpp:551
+#: lib/katemainwindow.cpp:546
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:566
+#: lib/katemainwindow.cpp:561
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:567
+#: lib/katemainwindow.cpp:562
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close all documents"
 msgstr "Vala onke amaxwebhu avuliweyo."
 
-#: lib/katemainwindow.cpp:582
+#: lib/katemainwindow.cpp:577
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:583
+#: lib/katemainwindow.cpp:578
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close all documents beside current one"
 msgstr "Vala onke amaxwebhu avuliweyo."
 
-#: lib/katemainwindow.cpp:817
+#: lib/katemainwindow.cpp:812
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 
-#: lib/katemainwindow.cpp:820
+#: lib/katemainwindow.cpp:815
 #, kde-format
 msgid "Hide menu bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:924
+#: lib/katemainwindow.cpp:919
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:927
+#: lib/katemainwindow.cpp:922
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:928
+#: lib/katemainwindow.cpp:923
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Vula Ifayile"
 
-#: lib/katemainwindow.cpp:1164
+#: lib/katemainwindow.cpp:1159
 #, kde-format
 msgid " [read only]"
 msgstr ""
@@ -1717,67 +1717,67 @@ msgstr "Bonisa %1"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1006
+#: lib/katemdi.cpp:1009
 #, fuzzy, kde-format
 msgid "Configure..."
 msgstr "Imboniselo Edlulileyo"
 
-#: lib/katemdi.cpp:1010
+#: lib/katemdi.cpp:1013
 #, kde-format
 msgid "Hide Button"
 msgstr ""
 
-#: lib/katemdi.cpp:1012
+#: lib/katemdi.cpp:1015
 #, fuzzy, kde-format
 msgid "Move To"
 msgstr "Khetha Umhleli..."
 
-#: lib/katemdi.cpp:1017
+#: lib/katemdi.cpp:1020
 #, fuzzy, kde-format
 msgid "Own Section"
 msgstr "Intlanganiso"
 
-#: lib/katemdi.cpp:1023 lib/katemdi.cpp:1031
+#: lib/katemdi.cpp:1026 lib/katemdi.cpp:1034
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1025 lib/katemdi.cpp:1036
+#: lib/katemdi.cpp:1028 lib/katemdi.cpp:1039
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1029
+#: lib/katemdi.cpp:1032
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1037
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1043
+#: lib/katemdi.cpp:1046
 #, fuzzy, kde-format
 msgid "Left Sidebar"
 msgstr "Bonisa &Amanani Elayini"
 
-#: lib/katemdi.cpp:1047
+#: lib/katemdi.cpp:1050
 #, fuzzy, kde-format
 msgid "Right Sidebar"
 msgstr "Bonisa &Amanani Elayini"
 
-#: lib/katemdi.cpp:1051
+#: lib/katemdi.cpp:1054
 #, fuzzy, kde-format
 msgid "Top Sidebar"
 msgstr "Bonisa &Amanani Elayini"
 
-#: lib/katemdi.cpp:1055
+#: lib/katemdi.cpp:1058
 #, fuzzy, kde-format
 msgid "Bottom Sidebar"
 msgstr "Bonisa &Amanani Elayini"
 
-#: lib/katemdi.cpp:1447
+#: lib/katemdi.cpp:1450
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

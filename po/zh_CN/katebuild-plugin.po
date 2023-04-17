@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-04-10 14:10\n"
+"PO-Revision-Date: 2023-04-16 12:31\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -91,10 +91,9 @@ msgid "Target Settings"
 msgstr "目标设置"
 
 #: plugin_katebuild.cpp:270
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "再次构建"
+msgstr "构建信息"
 
 #: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1093 plugin_katebuild.cpp:1104
 #: plugin_katebuild.cpp:1125 plugin_katebuild.cpp:1135
@@ -103,9 +102,7 @@ msgid "Project Plugin Targets"
 msgstr "工程插件目标"
 
 #: plugin_katebuild.cpp:414
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'make' uses to  an error."
 msgid "error"
 msgstr "错误"
@@ -364,53 +361,3 @@ msgstr "插入路径"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "选择要插入的目录"
-
-#~ msgid "Show:"
-#~ msgstr "显示："
-
-#~ msgctxt "Header for the file name column"
-#~ msgid "File"
-#~ msgstr "文件"
-
-#~ msgctxt "Header for the line number column"
-#~ msgid "Line"
-#~ msgstr "行数"
-
-#~ msgctxt "Header for the error message column"
-#~ msgid "Message"
-#~ msgstr "消息"
-
-#~ msgid "Next Error"
-#~ msgstr "下个错误"
-
-#~ msgid "Previous Error"
-#~ msgstr "上个错误"
-
-#~ msgid "Show Marks"
-#~ msgstr "显示标记"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#~ "to the working directory in the Target Settings"
-#~ msgstr ""
-#~ "<title>无法打开文件：</title><nl/>%1<br/>请尝试在“目标设置”中为工作目录添"
-#~ "加搜索路径"
-
-#~ msgid "Error"
-#~ msgstr "错误"
-
-#~ msgid "Warning"
-#~ msgstr "警告"
-
-#~ msgid "Only Errors"
-#~ msgstr "只有错误"
-
-#~ msgid "Errors and Warnings"
-#~ msgstr "错误和警告"
-
-#~ msgid "Parsed Output"
-#~ msgstr "已解析输出"
-
-#~ msgid "Full Output"
-#~ msgstr "完整输出"

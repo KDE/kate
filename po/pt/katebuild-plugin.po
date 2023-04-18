@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-02-15 15:22+0000\n"
+"PO-Revision-Date: 2023-04-17 16:12+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -14,6 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-POFile-IgnoreConsistency: Clean\n"
 "X-POFile-IgnoreConsistency: config\n"
+"X-POFile-SpellExtra: warning\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -89,10 +90,9 @@ msgid "Target Settings"
 msgstr "Configuração do Alvo"
 
 #: plugin_katebuild.cpp:270
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "Compilar de novo"
+msgstr "Dados da Compilação"
 
 #: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1093 plugin_katebuild.cpp:1104
 #: plugin_katebuild.cpp:1125 plugin_katebuild.cpp:1135
@@ -101,9 +101,7 @@ msgid "Project Plugin Targets"
 msgstr "Configuração do 'Plugin' do Projecto"
 
 #: plugin_katebuild.cpp:414
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'make' uses to  an error."
 msgid "error"
 msgstr "error"
@@ -118,7 +116,7 @@ msgstr "undefined reference"
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
-msgstr "aviso"
+msgstr "warning"
 
 #: plugin_katebuild.cpp:476
 #, kde-format
@@ -368,60 +366,3 @@ msgstr "Inserir um local"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccione a pasta a inserir"
-
-#~ msgid "Show:"
-#~ msgstr "Mostrar:"
-
-#~ msgctxt "Header for the file name column"
-#~ msgid "File"
-#~ msgstr "Ficheiro"
-
-#~ msgctxt "Header for the line number column"
-#~ msgid "Line"
-#~ msgstr "Linha"
-
-#~ msgctxt "Header for the error message column"
-#~ msgid "Message"
-#~ msgstr "Mensagem"
-
-#~ msgid "Next Error"
-#~ msgstr "Erro Seguinte"
-
-#~ msgid "Previous Error"
-#~ msgstr "Erro Anterior"
-
-#~ msgid "Show Marks"
-#~ msgstr "Mostrar as Marcações"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#~ "to the working directory in the Target Settings"
-#~ msgstr ""
-#~ "<title>Não foi possível aceder ao ficheiro:</title><nl/>%1<br/>Tente "
-#~ "adicionar um local de pesquisa para a pasta de trabalho na Configuração "
-#~ "do Alvo"
-
-#~ msgid "Error"
-#~ msgstr "Erro"
-
-#~ msgid "Warning"
-#~ msgstr "Aviso"
-
-#~ msgid "Only Errors"
-#~ msgstr "Apenas os Erros"
-
-#~ msgid "Errors and Warnings"
-#~ msgstr "Erros e Avisos"
-
-#~ msgid "Parsed Output"
-#~ msgstr "Resultado Processado"
-
-#~ msgid "Full Output"
-#~ msgstr "Resultado Completo"
-
-#~ msgid ""
-#~ "Check the check-box to make the command the default for the target-set."
-#~ msgstr ""
-#~ "Assinale a opção para tornar o comando predefinido para o conjunto de "
-#~ "alvos."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-17 00:51+0000\n"
-"PO-Revision-Date: 2023-04-01 12:02+0100\n"
+"PO-Revision-Date: 2023-04-17 16:12+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
 "Language: pt\n"
@@ -313,16 +313,14 @@ msgid "Quick Fix"
 msgstr "Correcção Rápida"
 
 #: lib/diagnostics/diagnosticview.cpp:343
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Página seguinte"
+msgstr "Item Seguinte"
 
 #: lib/diagnostics/diagnosticview.cpp:348
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Página anterior"
+msgstr "Item Anterior"
 
 #: lib/diagnostics/diagnosticview.cpp:395
 #, kde-format

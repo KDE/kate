@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-17 00:51+0000\n"
-"PO-Revision-Date: 2023-04-06 22:28+0200\n"
+"PO-Revision-Date: 2023-04-17 06:05+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -299,16 +299,14 @@ msgid "Quick Fix"
 msgstr "Amaño rápido"
 
 #: lib/diagnostics/diagnosticview.cpp:343
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Seguinte separador"
+msgstr "Seguinte elemento"
 
 #: lib/diagnostics/diagnosticview.cpp:348
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Separador anterior"
+msgstr "Elemento anterior"
 
 #: lib/diagnostics/diagnosticview.cpp:395
 #, kde-format

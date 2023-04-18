@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2023-01-22 22:35+0000\n"
+"PO-Revision-Date: 2023-04-17 16:12+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -696,11 +696,10 @@ msgid "Start Analysis..."
 msgstr "Iniciar a Análise..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:41
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "Análise de Código"
+msgstr "Análise de Código - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
@@ -1046,6 +1045,3 @@ msgstr "Não foi possível mostrar os ficheiros preparados. Erro: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectos"
-
-#~ msgid "Show number of changed lines in git status"
-#~ msgstr "Mostrar o número de linhas alteradas no estado do Git"

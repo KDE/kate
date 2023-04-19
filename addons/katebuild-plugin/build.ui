@@ -87,32 +87,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="extraLineLayout">
-         <item>
-          <widget class="QPushButton" name="buildAgainButton2">
-           <property name="text">
-            <string>Build again</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="cancelBuildButton2">
-           <property name="text">
-            <string>Cancel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="buildStatusLabel2">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPlainTextEdit" name="plainTextEdit">
+        <widget class="QTextBrowser" name="textBrowser">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -124,9 +99,6 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>errTreeWidget</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>

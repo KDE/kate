@@ -27,6 +27,7 @@
 #include <QRegularExpression>
 #include <QStack>
 #include <QString>
+#include <QTimer>
 
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
@@ -54,7 +55,7 @@ public:
 
     enum TreeWidgetRoles { ErrorRole = Qt::UserRole + 1, DataRole };
 
-    enum ErrorCategory { CategoryInfo, CategoryWarning, CategoryError };
+    enum class Category { Normal, Info, Warning, Error };
 
     KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
     ~KateBuildView() override;
@@ -81,6 +82,7 @@ private Q_SLOTS:
     void slotReadReadyStdErr();
     void slotReadReadyStdOut();
     void slotRunAfterBuild();
+    void updateTextBrowser();
 
     // Settings
     void targetSetNew();
@@ -102,11 +104,22 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
+    struct OutputLine {
+        Category category = Category::Normal;
+        QString lineStr;
+        QString message;
+        QString file;
+        int lineNr;
+        int column;
+    };
+
 #ifdef Q_OS_WIN
     QString caseFixed(const QString &path);
 #endif
-    void processLine(QStringView line);
-    void addError(const QString &filename, const QString &line, const QString &column, const QString &message);
+
+    OutputLine processOutputLine(QString line);
+    QString toOutputHtml(const KateBuildView::OutputLine &out);
+    void addError(const OutputLine &err);
     void updateDiagnostics(Diagnostic diagnostic, const QUrl uri);
     void clearDiagnostics();
     bool startProcess(const QString &dir, const QString &command);
@@ -127,18 +140,22 @@ private:
     KProcess m_proc;
     QString m_stdOut;
     QString m_stdErr;
+    QString m_htmlOutput;
+    int m_scrollStopPos = -1;
+    int m_numOutputLines = 0;
+    QTimer m_outputTimer;
     QString m_currentlyBuildingTarget;
     bool m_buildCancelled;
     bool m_runAfterBuild = false;
     int m_displayModeBeforeBuild;
-    QString m_make_dir;
-    QStack<QString> m_make_dir_stack;
+    QString m_makeDir;
+    QStack<QString> m_makeDirStack;
     QStringList m_searchPaths;
     QRegularExpression m_filenameDetector;
-    bool m_ninjaBuildDetected = false;
     QRegularExpression m_newDirDetector;
     unsigned int m_numErrors = 0;
     unsigned int m_numWarnings = 0;
+    unsigned int m_numNotes = 0;
     QPersistentModelIndex m_previousIndex;
     QPointer<KTextEditor::Message> m_infoMessage;
     int m_projectTargetsetRow = 0;

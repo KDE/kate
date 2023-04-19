@@ -200,6 +200,13 @@ void DiagnosticsProvider::showDiagnosticsView(DiagnosticsProvider *filterTo)
     }
 }
 
+void DiagnosticsProvider::filterDiagnosticsViewTo(DiagnosticsProvider *filterTo)
+{
+    if (diagnosticView) {
+        diagnosticView->filterViewTo(filterTo);
+    }
+}
+
 static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagError = KTextEditor::MarkInterface::Error;
 static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagWarning = KTextEditor::MarkInterface::Warning;
 static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagOther = KTextEditor::MarkInterface::markType30;
@@ -1190,8 +1197,13 @@ void DiagnosticsView::onMarkClicked(KTextEditor::Document *document, KTextEditor
 void DiagnosticsView::showToolview(DiagnosticsProvider *filterTo)
 {
     m_mainWindow->showToolView(parentWidget());
-    if (filterTo) {
-        auto index = m_providerCombo->findData(QVariant::fromValue(filterTo));
+    filterViewTo(filterTo);
+}
+
+void DiagnosticsView::filterViewTo(DiagnosticsProvider *provider)
+{
+    if (provider) {
+        auto index = m_providerCombo->findData(QVariant::fromValue(provider));
         if (index != -1) {
             m_providerCombo->setCurrentIndex(index);
         }

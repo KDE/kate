@@ -49,6 +49,12 @@ public:
     void showDiagnosticsView(DiagnosticsProvider *filterTo = nullptr);
 
     /**
+     * If @p filterTo is a valid provider, then DiagnosticView will
+     * filter out all diagnostics that are not from @p filterTo.
+     */
+    void filterDiagnosticsViewTo(DiagnosticsProvider *filterTo);
+
+    /**
      * Whether diagnostics of this provider should be automatically cleared
      * when a document is closed
      */
@@ -103,6 +109,7 @@ public:
     void onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position) const;
 
     void showToolview(DiagnosticsProvider *filterTo = nullptr);
+    void filterViewTo(DiagnosticsProvider *provider);
 
 protected:
     void showEvent(QShowEvent *e) override;

@@ -35,6 +35,7 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QFontDatabase>
 #include <QIcon>
 #include <QKeyEvent>
 #include <QRegularExpressionMatch>
@@ -70,7 +71,6 @@ static const QString DefConfClean;
 static const QString DefTargetName = QStringLiteral("build");
 static const QString DefBuildCmd = QStringLiteral("make");
 static const QString DefCleanCmd = QStringLiteral("make clean");
-static const QString NinjaPrefix = QStringLiteral("[ninja-detection]");
 static const QString DiagnosticsPrefix = QStringLiteral("katebuild");
 
 struct ItemData {
@@ -84,7 +84,6 @@ Q_DECLARE_METATYPE(ItemData)
 KateBuildPlugin::KateBuildPlugin(QObject *parent, const VariantList &)
     : KTextEditor::Plugin(parent)
 {
-    // KF5 FIXME KGlobal::locale()->insertCatalog("katebuild-plugin");
 }
 
 /******************************************************************/
@@ -184,8 +183,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     m_buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(m_buildWidget);
-    int leftMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin);
-    m_buildUi.u_outpTopLayout->setContentsMargins(leftMargin, 0, 0, 0);
     m_targetsUi = new TargetsUi(this, m_buildUi.u_tabWidget);
     m_buildUi.u_tabWidget->insertTab(0, m_targetsUi, i18nc("Tab label", "Target Settings"));
     m_buildUi.u_tabWidget->setCurrentWidget(m_targetsUi);
@@ -208,15 +205,36 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_buildUi.buildAgainButton->setVisible(true);
     m_buildUi.cancelBuildButton->setVisible(true);
     m_buildUi.buildStatusLabel->setVisible(true);
-    m_buildUi.buildAgainButton2->setVisible(false);
-    m_buildUi.cancelBuildButton2->setVisible(false);
-    m_buildUi.buildStatusLabel2->setVisible(false);
-    m_buildUi.extraLineLayout->setAlignment(Qt::AlignRight);
     m_buildUi.cancelBuildButton->setEnabled(false);
-    m_buildUi.cancelBuildButton2->setEnabled(false);
 
-    m_buildUi.plainTextEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-    m_buildUi.plainTextEdit->setReadOnly(true);
+    m_buildUi.textBrowser->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    m_buildUi.textBrowser->setWordWrapMode(QTextOption::NoWrap);
+    m_buildUi.textBrowser->setReadOnly(true);
+    m_buildUi.textBrowser->setOpenLinks(false);
+    connect(m_buildUi.textBrowser, &QTextBrowser::anchorClicked, this, [this](const QUrl &url) {
+        static QRegularExpression fileRegExp(QStringLiteral("(.*):(\\d+):(\\d+)"));
+        const auto match = fileRegExp.match(url.toString(QUrl::None));
+        if (!match.hasMatch() || !m_win) {
+            return;
+        };
+
+        if (!QFile::exists(match.captured(1))) {
+            return;
+        }
+
+        QUrl fileUrl = QUrl::fromLocalFile(match.captured(1));
+        m_win->openUrl(fileUrl);
+        if (!m_win->activeView()) {
+            return;
+        }
+        int lineNr = match.captured(2).toInt();
+        int column = match.captured(3).toInt();
+        m_win->activeView()->setCursorPosition(KTextEditor::Cursor(lineNr - 1, column - 1));
+        m_win->activeView()->setFocus();
+    });
+    m_outputTimer.setSingleShot(true);
+    m_outputTimer.setInterval(100);
+    connect(&m_outputTimer, &QTimer::timeout, this, &KateBuildView::updateTextBrowser);
 
     auto updateEditorColors = [this](KTextEditor::Editor *e) {
         if (!e)
@@ -225,19 +243,33 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
         auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal));
         auto sel = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TextSelection));
-        auto pal = m_buildUi.plainTextEdit->palette();
+        auto errBg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::MarkError));
+        auto warnBg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::MarkWarning));
+        auto noteBg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::MarkBookmark));
+        errBg.setAlpha(30);
+        warnBg.setAlpha(30);
+        noteBg.setAlpha(30);
+        auto pal = m_buildUi.textBrowser->palette();
         pal.setColor(QPalette::Base, bg);
         pal.setColor(QPalette::Text, fg);
         pal.setColor(QPalette::Highlight, sel);
         pal.setColor(QPalette::HighlightedText, fg);
-        m_buildUi.plainTextEdit->setPalette(pal);
+        m_buildUi.textBrowser->setPalette(pal);
+        m_buildUi.textBrowser->document()->setDefaultStyleSheet(QStringLiteral("a{text-decoration:none;}"
+                                                                               "a:link{color:%1;}\n"
+                                                                               ".err-text {color:%1; background-color: %2;}"
+                                                                               ".warn-text {color:%1; background-color: %3;}"
+                                                                               ".note-text {color:%1; background-color: %4;}")
+                                                                    .arg(fg.name(QColor::HexArgb))
+                                                                    .arg(errBg.name(QColor::HexArgb))
+                                                                    .arg(warnBg.name(QColor::HexArgb))
+                                                                    .arg(noteBg.name(QColor::HexArgb)));
+        updateTextBrowser();
     };
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateEditorColors);
 
     connect(m_buildUi.buildAgainButton, &QPushButton::clicked, this, &KateBuildView::slotBuildPreviousTarget);
     connect(m_buildUi.cancelBuildButton, &QPushButton::clicked, this, &KateBuildView::slotStop);
-    connect(m_buildUi.buildAgainButton2, &QPushButton::clicked, this, &KateBuildView::slotBuildPreviousTarget);
-    connect(m_buildUi.cancelBuildButton2, &QPushButton::clicked, this, &KateBuildView::slotStop);
 
     connect(m_targetsUi->newTarget, &QToolButton::clicked, this, &KateBuildView::targetSetNew);
     connect(m_targetsUi->copyTarget, &QToolButton::clicked, this, &KateBuildView::targetOrSetCopy);
@@ -407,28 +439,31 @@ QString KateBuildView::caseFixed(const QString &path)
 #endif
 
 /******************************************************************/
-void KateBuildView::addError(const QString &filename, const QString &line, const QString &column, const QString &message)
+void KateBuildView::addError(const KateBuildView::OutputLine &err)
 {
     // Get filediagnostic by filename or create new if there is none
-    static QRegularExpression errorRegExp(QStringLiteral("error:"), QRegularExpression::CaseInsensitiveOption);
-    static QRegularExpression errorRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'make' uses to  an error.", "error")),
-                                            QRegularExpression::CaseInsensitiveOption);
-    auto uri = QUrl::fromLocalFile(filename);
-    if (uri.isValid()) {
-        // The strings are twice in case kate is translated but not make.
-        if (message.contains(errorRegExp) || message.contains(errorRegExpTr) || message.contains(QLatin1String("undefined reference"))
-            || message.contains(i18nc("The same word as 'ld' uses to mark an ...", "undefined reference"))) {
-            m_numErrors++;
-            updateDiagnostics(KateBuildView::createDiagnostic(line.toInt(), column.toInt(), message, DiagnosticSeverity::Error), uri);
-        }
-        static QRegularExpression warningRegExp(QStringLiteral("warning:"), QRegularExpression::CaseInsensitiveOption);
-        static QRegularExpression warningRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'make' uses to mark a warning.", "warning")),
-                                                  QRegularExpression::CaseInsensitiveOption);
-        if (message.contains(warningRegExp) || message.contains(warningRegExpTr)) {
-            m_numWarnings++;
-            updateDiagnostics(KateBuildView::createDiagnostic(line.toInt(), column.toInt(), message, DiagnosticSeverity::Warning), uri);
-        }
+    auto uri = QUrl::fromLocalFile(err.file);
+    if (!uri.isValid()) {
+        return;
     }
+    DiagnosticSeverity severity = DiagnosticSeverity::Unknown;
+    if (err.category == Category::Error) {
+        m_numErrors++;
+        severity = DiagnosticSeverity::Error;
+    } else if (err.category == Category::Warning) {
+        m_numWarnings++;
+        severity = DiagnosticSeverity::Warning;
+    } else if (err.category == Category::Info) {
+        m_numNotes++;
+        severity = DiagnosticSeverity::Information;
+    }
+
+    // NOTE: Limit the number of items in the diagnostics view to 200 items.
+    // Adding more items risks making the build slow. (standard item models are slow)
+    if ((m_numErrors + m_numWarnings + m_numNotes) > 200) {
+        return;
+    }
+    updateDiagnostics(KateBuildView::createDiagnostic(err.lineNr, err.column, err.message, severity), uri);
 }
 
 void KateBuildView::updateDiagnostics(Diagnostic diagnostic, const QUrl uri)
@@ -488,12 +523,16 @@ bool KateBuildView::checkLocal(const QUrl &dir)
 /******************************************************************/
 void KateBuildView::clearBuildResults()
 {
-    m_buildUi.plainTextEdit->clear();
+    m_buildUi.textBrowser->clear();
     m_stdOut.clear();
     m_stdErr.clear();
+    m_htmlOutput = QStringLiteral("<pre>");
+    m_scrollStopPos = -1;
+    m_numOutputLines = 0;
     m_numErrors = 0;
     m_numWarnings = 0;
-    m_make_dir_stack.clear();
+    m_numNotes = 0;
+    m_makeDirStack.clear();
     clearDiagnostics();
 }
 
@@ -513,32 +552,23 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_win->showToolView(m_toolView);
 
     QFont font = Utils::editorFont();
-    m_buildUi.plainTextEdit->setFont(font);
+    m_buildUi.textBrowser->setFont(font);
 
     // set working directory
-    m_make_dir = dir;
-    m_make_dir_stack.push(m_make_dir);
+    m_makeDir = dir;
+    m_makeDirStack.push(m_makeDir);
 
-    if (!QFile::exists(m_make_dir)) {
-        KMessageBox::error(nullptr, i18n("Cannot run command: %1\nWork path does not exist: %2", command, m_make_dir));
+    if (!QFile::exists(m_makeDir)) {
+        KMessageBox::error(nullptr, i18n("Cannot run command: %1\nWork path does not exist: %2", command, m_makeDir));
         return false;
     }
 
-    // ninja build tool sends all output to stdout,
-    // so follow https://github.com/ninja-build/ninja/issues/1537 to separate ninja and compiler output
-    auto env = QProcessEnvironment::systemEnvironment();
-    const auto nstatus = QStringLiteral("NINJA_STATUS");
-    auto curr = env.value(nstatus, QStringLiteral("[%f/%t] "));
-    // add marker to search on later on
-    env.insert(nstatus, NinjaPrefix + curr);
-    m_ninjaBuildDetected = false;
-
     // chdir used by QProcess will resolve symbolic links.
     // Define PWD so that shell scripts can get a path with symbolic links intact
-    env.insert(QStringLiteral("PWD"), QDir(m_make_dir).absolutePath());
-
+    auto env = QProcessEnvironment::systemEnvironment();
+    env.insert(QStringLiteral("PWD"), QDir(m_makeDir).absolutePath());
     m_proc.setProcessEnvironment(env);
-    m_proc.setWorkingDirectory(m_make_dir);
+    m_proc.setWorkingDirectory(m_makeDir);
     m_proc.setShellCommand(command);
     startHostProcess(m_proc);
 
@@ -548,12 +578,8 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     }
 
     m_buildUi.cancelBuildButton->setEnabled(true);
-    m_buildUi.cancelBuildButton2->setEnabled(true);
     m_buildUi.buildAgainButton->setEnabled(false);
-    m_buildUi.buildAgainButton2->setEnabled(false);
-
     m_targetsUi->setCursor(Qt::BusyCursor);
-
     return true;
 }
 
@@ -564,7 +590,6 @@ bool KateBuildView::slotStop()
         m_buildCancelled = true;
         QString msg = i18n("Building <b>%1</b> cancelled", m_currentlyBuildingTarget);
         m_buildUi.buildStatusLabel->setText(msg);
-        m_buildUi.buildStatusLabel2->setText(msg);
         m_proc.terminate();
         return true;
     }
@@ -719,7 +744,6 @@ bool KateBuildView::buildCurrentTarget()
     m_buildCancelled = false;
     QString msg = i18n("Building target <b>%1</b> ...", m_currentlyBuildingTarget);
     m_buildUi.buildStatusLabel->setText(msg);
-    m_buildUi.buildStatusLabel2->setText(msg);
     return startProcess(dir, buildCmd);
 }
 
@@ -765,41 +789,42 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     m_targetsUi->unsetCursor();
     m_buildUi.u_tabWidget->setTabIcon(1, QIcon::fromTheme(QStringLiteral("format-justify-left")));
     m_buildUi.cancelBuildButton->setEnabled(false);
-    m_buildUi.cancelBuildButton2->setEnabled(false);
     m_buildUi.buildAgainButton->setEnabled(true);
-    m_buildUi.buildAgainButton2->setEnabled(true);
 
-    QString buildStatus = i18n("Building <b>%1</b> completed.", m_currentlyBuildingTarget);
-
-    // Show diagnostics view if there are errors or warnings
-    if (m_numErrors || m_numWarnings) {
-        m_diagnosticsProvider.showDiagnosticsView(&m_diagnosticsProvider);
+    // Filter the diagnostics output to make the next/previous error handle only the build items
+    if ((m_numErrors + m_numWarnings + m_numNotes) > 0) {
+        m_diagnosticsProvider.filterDiagnosticsViewTo(&m_diagnosticsProvider);
     }
+
+    QString buildStatus =
+        i18n("Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)", m_currentlyBuildingTarget, m_numErrors, m_numWarnings, m_numNotes);
 
     bool buildSuccess = true;
     if (m_numErrors || m_numWarnings) {
         QStringList msgs;
         if (m_numErrors) {
             msgs << i18np("Found one error.", "Found %1 errors.", m_numErrors);
-            buildStatus = i18n("Building <b>%1</b> had errors.", m_currentlyBuildingTarget);
-        } else if (m_numWarnings) {
+            buildSuccess = false;
+        }
+        if (m_numWarnings) {
             msgs << i18np("Found one warning.", "Found %1 warnings.", m_numWarnings);
-            buildStatus = i18n("Building <b>%1</b> had warnings.", m_currentlyBuildingTarget);
+        }
+        if (m_numNotes) {
+            msgs << i18np("Found one note.", "Found %1 notes.", m_numNotes);
         }
         displayBuildResult(msgs.join(QLatin1Char('\n')), m_numErrors ? KTextEditor::Message::Error : KTextEditor::Message::Warning);
     } else if (exitCode != 0) {
         buildSuccess = false;
-        m_runAfterBuild = false;
         displayBuildResult(i18n("Build failed."), KTextEditor::Message::Warning);
     } else {
         displayBuildResult(i18n("Build completed without problems."), KTextEditor::Message::Positive);
     }
 
-    if (!m_buildCancelled) {
-        m_buildUi.buildStatusLabel->setText(buildStatus);
-        m_buildUi.buildStatusLabel2->setText(buildStatus);
-        m_buildCancelled = false;
+    if (m_buildCancelled) {
+        buildStatus =
+            i18n("Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)", m_currentlyBuildingTarget, m_numErrors, m_numWarnings, m_numNotes);
     }
+    m_buildUi.buildStatusLabel->setText(buildStatus);
 
     if (buildSuccess && m_runAfterBuild) {
         m_runAfterBuild = false;
@@ -873,28 +898,65 @@ void KateBuildView::slotRunAfterBuild()
     }
 }
 
-static void appendPlainTextTo(QPlainTextEdit *edit, const QString &text)
+QString KateBuildView::toOutputHtml(const KateBuildView::OutputLine &out)
 {
-    // NOTE We can't use edit->appendPlainText() as that adds a new paragraph
-    // and we might need to add text that finishes the previous line.
+    QString htmlStr;
+    if (!out.file.isEmpty()) {
+        htmlStr += QStringLiteral("<a href=\"%1:%2:%3\">").arg(out.file).arg(out.lineNr).arg(out.column);
+    }
+    switch (out.category) {
+    case Category::Error:
+        htmlStr += QStringLiteral("<span class=\"err-text\">");
+        break;
+    case Category::Warning:
+        htmlStr += QStringLiteral("<span class=\"warn-text\">");
+        break;
+    case Category::Info:
+        htmlStr += QStringLiteral("<span class=\"note-text\">");
+        break;
+    case Category::Normal:
+        htmlStr += QStringLiteral("<span>");
+        break;
+    }
+    htmlStr += out.lineStr.toHtmlEscaped();
+    htmlStr += QStringLiteral("</span>\n");
+    if (!out.file.isEmpty()) {
+        htmlStr += QStringLiteral("</a>");
+    }
+    return htmlStr;
+}
 
+void KateBuildView::updateTextBrowser()
+{
+    QTextBrowser *edit = m_buildUi.textBrowser;
     // Get the scroll position to restore it if not at the end
     int scrollValue = edit->verticalScrollBar()->value();
     int scrollMax = edit->verticalScrollBar()->maximum();
     // Save the selection and restore it after adding the text
     QTextCursor cursor = edit->textCursor();
 
-    // Insert the new text
-    edit->moveCursor(QTextCursor::End);
-    edit->insertPlainText(text);
+    // set the new document
+    edit->setHtml(m_htmlOutput);
 
     // Restore selection and scroll position
     edit->setTextCursor(cursor);
-    if (scrollValue == scrollMax) {
-        edit->verticalScrollBar()->setValue(edit->verticalScrollBar()->maximum());
-    } else {
+    if (scrollValue != scrollMax) {
+        // We had stopped scrolling already
         edit->verticalScrollBar()->setValue(scrollValue);
+        return;
     }
+
+    // We were at the bottom before adding lines.
+    int newPos = edit->verticalScrollBar()->maximum();
+    if (m_scrollStopPos != -1) {
+        int targetPos = ((newPos + edit->verticalScrollBar()->pageStep()) * m_scrollStopPos) / m_numOutputLines;
+        if (targetPos < newPos) {
+            newPos = targetPos;
+            // if we want to continue scrolling, just scroll to the end and it will continue
+            m_scrollStopPos = -1;
+        }
+    }
+    edit->verticalScrollBar()->setValue(newPos);
 }
 
 /******************************************************************/
@@ -902,52 +964,46 @@ void KateBuildView::slotReadReadyStdOut()
 {
     // read data from procs stdout and add
     // the text to the end of the output
-    // FIXME This works for utf8 but not for all charsets
-    QString l = QString::fromUtf8(m_proc.readAllStandardOutput());
 
+    // FIXME unify the parsing of stdout and stderr
+    QString l = QString::fromUtf8(m_proc.readAllStandardOutput());
     l.remove(QLatin1Char('\r'));
     m_stdOut += l;
 
-    // Remove the Ninja workaround string
-    l.remove(NinjaPrefix);
-    appendPlainTextTo(m_buildUi.plainTextEdit, l);
-
     // handle one line at a time
-    do {
-        const int end = m_stdOut.indexOf(QLatin1Char('\n'));
-        if (end < 0) {
-            break;
-        }
+    int end = -1;
+    while ((end = m_stdOut.indexOf(QLatin1Char('\n'))) >= 0) {
+        const QString line = m_stdOut.mid(0, end);
 
-        QStringView line = QStringView(m_stdOut).mid(0, end);
-        const bool ninjaOutput = line.startsWith(NinjaPrefix);
-        m_ninjaBuildDetected |= ninjaOutput;
-        if (ninjaOutput) {
-            line = line.mid(NinjaPrefix.length());
-        }
-        // qDebug() << line;
-
+        // Check if this is a new directory for Make
         QRegularExpressionMatch match = m_newDirDetector.match(line);
-
         if (match.hasMatch()) {
-            // qDebug() << "Enter/Exit dir found";
             QString newDir = match.captured(1);
-            // qDebug () << "New dir = " << newDir;
-
-            if ((m_make_dir_stack.size() > 1) && (m_make_dir_stack.top() == newDir)) {
-                m_make_dir_stack.pop();
-                newDir = m_make_dir_stack.top();
+            if ((m_makeDirStack.size() > 1) && (m_makeDirStack.top() == newDir)) {
+                m_makeDirStack.pop();
+                newDir = m_makeDirStack.top();
             } else {
-                m_make_dir_stack.push(newDir);
+                m_makeDirStack.push(newDir);
             }
-
-            m_make_dir = newDir;
-        } else if (m_ninjaBuildDetected && !ninjaOutput) {
-            processLine(line);
+            m_makeDir = newDir;
         }
 
+        // Add the new output to the output and possible error/warnings to the diagnostics output
+        KateBuildView::OutputLine out = processOutputLine(line);
+        m_htmlOutput += toOutputHtml(out);
+        m_numOutputLines++;
+        if (out.category != Category::Normal) {
+            addError(out);
+            if (m_scrollStopPos == -1) {
+                // stop the scroll a couple of lines before the top of the view
+                m_scrollStopPos = std::max(m_numOutputLines - 4, 0);
+            }
+        }
         m_stdOut.remove(0, end + 1);
-    } while (1);
+    }
+    if (!m_outputTimer.isActive()) {
+        m_outputTimer.start();
+    }
 }
 
 /******************************************************************/
@@ -956,33 +1012,37 @@ void KateBuildView::slotReadReadyStdErr()
     // FIXME This works for utf8 but not for all charsets
     QString l = QString::fromUtf8(m_proc.readAllStandardError());
     l.remove(QLatin1Char('\r'));
-    appendPlainTextTo(m_buildUi.plainTextEdit, l);
     m_stdErr += l;
 
-    do {
-        const int end = m_stdErr.indexOf(QLatin1Char('\n'));
-        if (end < 0) {
-            break;
-        }
+    int end = -1;
+    while ((end = m_stdErr.indexOf(QLatin1Char('\n'))) >= 0) {
         const QString line = m_stdErr.mid(0, end);
-        processLine(line);
-
+        KateBuildView::OutputLine out = processOutputLine(line);
+        m_htmlOutput += toOutputHtml(out);
+        m_numOutputLines++;
+        if (out.category != Category::Normal) {
+            addError(out);
+            if (m_scrollStopPos == -1) {
+                // stop the scroll a couple of lines before the top of the view
+                // a small improvement could be achieved by storing the number of lines added...
+                m_scrollStopPos = std::max(m_numOutputLines - 4, 0);
+            }
+        }
         m_stdErr.remove(0, end + 1);
-    } while (1);
+    }
+    if (!m_outputTimer.isActive()) {
+        m_outputTimer.start();
+    }
 }
 
 /******************************************************************/
-void KateBuildView::processLine(QStringView line)
+KateBuildView::OutputLine KateBuildView::processOutputLine(QString line)
 {
-    // qDebug() << line ;
-
     // look for a filename
     QRegularExpressionMatch match = m_filenameDetector.match(line);
 
     if (!match.hasMatch()) {
-        addError(QString(), QStringLiteral("0"), QString(), line.toString());
-        // kDebug() << "A filename was not found in the line ";
-        return;
+        return {Category::Normal, line, line, QString(), 0, 0};
     }
 
     QString filename = match.captured(1);
@@ -995,10 +1055,10 @@ void KateBuildView::processLine(QStringView line)
     filename = QFileInfo(filename).filePath();
 #endif
 
-    // qDebug() << "File Name:"<<m_make_dir << filename << " msg:"<< msg;
+    // qDebug() << "File Name:"<<m_makeDir << filename << " msg:"<< msg;
     // add path to file
-    if (QFile::exists(m_make_dir + QLatin1Char('/') + filename)) {
-        filename = m_make_dir + QLatin1Char('/') + filename;
+    if (QFile::exists(m_makeDir + QLatin1Char('/') + filename)) {
+        filename = m_makeDir + QLatin1Char('/') + filename;
     }
 
     // If we still do not have a file name try the extra search paths
@@ -1010,8 +1070,26 @@ void KateBuildView::processLine(QStringView line)
         i++;
     }
 
+    Category category = Category::Normal;
+    static QRegularExpression errorRegExp(QStringLiteral("error:"), QRegularExpression::CaseInsensitiveOption);
+    static QRegularExpression errorRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'gcc' uses for an error.", "error")),
+                                            QRegularExpression::CaseInsensitiveOption);
+    static QRegularExpression warningRegExp(QStringLiteral("warning:"), QRegularExpression::CaseInsensitiveOption);
+    static QRegularExpression warningRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'gcc' uses for a warning.", "warning")),
+                                              QRegularExpression::CaseInsensitiveOption);
+    static QRegularExpression infoRegExp(QStringLiteral("(info|note):"), QRegularExpression::CaseInsensitiveOption);
+    static QRegularExpression infoRegExpTr(QStringLiteral("(%1):").arg(i18nc("The same words as 'gcc' uses for note or info.", "note|info")),
+                                           QRegularExpression::CaseInsensitiveOption);
+    if (msg.contains(errorRegExp) || msg.contains(errorRegExpTr) || msg.contains(QLatin1String("undefined reference"))
+        || msg.contains(i18nc("The same word as 'ld' uses to mark an ...", "undefined reference"))) {
+        category = Category::Error;
+    } else if (msg.contains(warningRegExp) || msg.contains(warningRegExpTr)) {
+        category = Category::Warning;
+    } else if (msg.contains(infoRegExp) || msg.contains(infoRegExpTr)) {
+        category = Category::Info;
+    }
     // Now we have the data we need show the error/warning
-    addError(filename, line_n, col_n, msg);
+    return {category, line, msg, filename, line_n.toInt(), col_n.toInt()};
 }
 
 /******************************************************************/
@@ -1191,11 +1269,11 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
     case QEvent::ShortcutOverride: {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if (ke->matches(QKeySequence::Copy)) {
-            m_buildUi.plainTextEdit->copy();
+            m_buildUi.textBrowser->copy();
             event->accept();
             return true;
         } else if (ke->matches(QKeySequence::SelectAll)) {
-            m_buildUi.plainTextEdit->selectAll();
+            m_buildUi.textBrowser->selectAll();
             event->accept();
             return true;
         }
@@ -1206,24 +1284,6 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
         if (ke->matches(QKeySequence::Copy) || ke->matches(QKeySequence::SelectAll)) {
             event->accept();
             return true;
-        }
-        break;
-    }
-    case QEvent::Resize: {
-        if (obj == m_buildWidget) {
-            if (m_buildUi.u_tabWidget->currentIndex() == 1) {
-                if ((m_outputWidgetWidth == 0) && m_buildUi.buildAgainButton->isVisible()) {
-                    QSize msh = m_buildWidget->minimumSizeHint();
-                    m_outputWidgetWidth = msh.width();
-                }
-            }
-            bool useVertLayout = (m_buildWidget->width() < m_outputWidgetWidth);
-            m_buildUi.buildAgainButton->setVisible(!useVertLayout);
-            m_buildUi.cancelBuildButton->setVisible(!useVertLayout);
-            m_buildUi.buildStatusLabel->setVisible(!useVertLayout);
-            m_buildUi.buildAgainButton2->setVisible(useVertLayout);
-            m_buildUi.cancelBuildButton2->setVisible(useVertLayout);
-            m_buildUi.buildStatusLabel2->setVisible(useVertLayout);
         }
         break;
     }

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-17 00:51+0000\n"
-"PO-Revision-Date: 2023-02-09 01:01+0100\n"
+"PO-Revision-Date: 2023-04-18 22:56+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -292,7 +292,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:60
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: lib/diagnostics/diagnosticview.cpp:339
 #, kde-format
@@ -300,28 +300,24 @@ msgid "Quick Fix"
 msgstr "Schnellkorrektur"
 
 #: lib/diagnostics/diagnosticview.cpp:343
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Nächstes Unterfenster"
+msgstr "Nächstes Element"
 
 #: lib/diagnostics/diagnosticview.cpp:348
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Vorheriges Unterfenster"
+msgstr "Vorheriges Element"
 
 #: lib/diagnostics/diagnosticview.cpp:395
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
 msgstr "Fehler"
 
 #: lib/diagnostics/diagnosticview.cpp:411
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Warnung"
+msgstr "Warnungen"
 
 #: lib/diagnostics/diagnosticview.cpp:425
 #, kde-format
@@ -1933,16 +1929,13 @@ msgstr ""
 "„%1“"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Der Befehl diff ist fehlgeschlagen. Bitte vergewissern Sie sich, dass "
-"diff(1) installiert ist und sich in Ihrem $PATH befindet."
+"Der Befehl diff ist fehlgeschlagen. Bitte vergewissern Sie sich, dass Git "
+"installiert ist und sich in Ihrem PATH befindet."
 
 #: lib/katemwmodonhddialog.cpp:319
 #, kde-format
@@ -1952,12 +1945,12 @@ msgstr "Fehler beim Feststellen der Unterschiede"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[ALT]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[NEU]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format
@@ -2759,10 +2752,9 @@ msgid "No saved sessions"
 msgstr "Keine gespeicherten Sitzungen"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Datei öffnen ..."
+msgstr "Ausgewählte Dateien öffnen ..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-17 00:51+0000\n"
+"POT-Creation-Date: 2023-04-20 00:51+0000\n"
 "PO-Revision-Date: 2023-04-07 14:29+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -287,101 +287,101 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:339
+#: lib/diagnostics/diagnosticview.cpp:346
 #, kde-format
 msgid "Quick Fix"
 msgstr "Rapida Riparo"
 
-#: lib/diagnostics/diagnosticview.cpp:343
+#: lib/diagnostics/diagnosticview.cpp:350
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Item"
 msgstr "Sekva langeto"
 
-#: lib/diagnostics/diagnosticview.cpp:348
+#: lib/diagnostics/diagnosticview.cpp:355
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Item"
 msgstr "Antaŭa langeto"
 
-#: lib/diagnostics/diagnosticview.cpp:395
+#: lib/diagnostics/diagnosticview.cpp:402
 #, kde-format
 msgid "Errors"
 msgstr "Eraroj"
 
-#: lib/diagnostics/diagnosticview.cpp:411
+#: lib/diagnostics/diagnosticview.cpp:418
 #, kde-format
 msgid "Warnings"
 msgstr "Avertoj"
 
-#: lib/diagnostics/diagnosticview.cpp:425
+#: lib/diagnostics/diagnosticview.cpp:432
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrilo..."
 
-#: lib/diagnostics/diagnosticview.cpp:984 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:991 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Eraro"
 
-#: lib/diagnostics/diagnosticview.cpp:988 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:995 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "Averto"
 
-#: lib/diagnostics/diagnosticview.cpp:992
+#: lib/diagnostics/diagnosticview.cpp:999
 #, kde-format
 msgid "Information"
 msgstr "Informoj"
 
-#: lib/diagnostics/diagnosticview.cpp:1125
+#: lib/diagnostics/diagnosticview.cpp:1132
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [forigita: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1248
+#: lib/diagnostics/diagnosticview.cpp:1260
 #, kde-format
 msgid "Expand All"
 msgstr "Vastigi Ĉion"
 
-#: lib/diagnostics/diagnosticview.cpp:1249
+#: lib/diagnostics/diagnosticview.cpp:1261
 #, kde-format
 msgid "Collapse All"
 msgstr "Malvastigi Ĉion"
 
-#: lib/diagnostics/diagnosticview.cpp:1258
+#: lib/diagnostics/diagnosticview.cpp:1270
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopii al tondujo"
 
-#: lib/diagnostics/diagnosticview.cpp:1281
+#: lib/diagnostics/diagnosticview.cpp:1293
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Forigi Ĉiean Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1283
+#: lib/diagnostics/diagnosticview.cpp:1295
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Aldoni Ĉiean Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1287
+#: lib/diagnostics/diagnosticview.cpp:1299
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Forigi Lokan Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1289
+#: lib/diagnostics/diagnosticview.cpp:1301
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Aldoni Lokan Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1302
+#: lib/diagnostics/diagnosticview.cpp:1314
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Malebligi Forigon"
 
-#: lib/diagnostics/diagnosticview.cpp:1304
+#: lib/diagnostics/diagnosticview.cpp:1316
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Ebligi Forigon"

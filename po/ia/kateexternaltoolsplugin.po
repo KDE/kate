@@ -112,7 +112,7 @@ msgstr "File currente de formato Prettier (plus belle)"
 #, kde-format
 msgctxt "External tool name"
 msgid "Qt Quick 2 Preview (qmlscene)"
-msgstr "Vista preliminari de Qt Quick 2  (qmlscene)"
+msgstr "Vista preliminar de Qt Quick 2  (qmlscene)"
 
 #. i18n: file: 4
 #, kde-format

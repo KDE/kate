@@ -113,7 +113,7 @@ msgstr "Imprime ocumento seligite."
 #: katefiletree.cpp:157
 #, kde-format
 msgid "Show print preview of current document"
-msgstr "Monstra vista preliminari de imprimer per le documento currente"
+msgstr "Monstra vista preliminar de imprimer per le documento currente"
 
 #: katefiletree.cpp:159
 #, kde-format

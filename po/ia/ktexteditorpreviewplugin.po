@@ -20,7 +20,7 @@ msgstr ""
 #: ktexteditorpreviewview.cpp:31
 #, kde-format
 msgid "Preview"
-msgstr "Vista preliminari"
+msgstr "Vista preliminar"
 
 #: previewwidget.cpp:45
 #, kde-format
@@ -30,7 +30,7 @@ msgstr "Bloca le documento currente"
 #: previewwidget.cpp:46
 #, kde-format
 msgid "Lock preview to current document"
-msgstr "Bloca le vista preliminari al documento currrente"
+msgstr "Bloca le vista preliminar al documento currrente"
 
 #: previewwidget.cpp:47
 #, kde-format
@@ -45,37 +45,37 @@ msgstr "Disbloca vista currente"
 #: previewwidget.cpp:54
 #, kde-format
 msgid "Automatically Update Preview"
-msgstr "Actualisa automaticamente le vista preliminari"
+msgstr "Actualisa automaticamente le vista preliminar"
 
 #: previewwidget.cpp:55
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr ""
-"Activa actualisationes automatic del vista preliminari al contento de "
+"Activa actualisationes automatic del vista preliminar al contento de "
 "documento currente"
 
 #: previewwidget.cpp:56
 #, kde-format
 msgid "Manually Update Preview"
-msgstr "Actualisa vista preliminari manualmente"
+msgstr "Actualisa vista preliminar manualmente"
 
 #: previewwidget.cpp:58
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
 msgstr ""
-"Deactiva actualisationes automatic del vista preliminari al contento de "
+"Deactiva actualisationes automatic del vista preliminar al contento de "
 "documento currente"
 
 #: previewwidget.cpp:63
 #, kde-format
 msgid "Update Preview"
-msgstr "Actualisa vista preliminari"
+msgstr "Actualisa vista preliminar"
 
 #: previewwidget.cpp:64
 #, kde-format
 msgid "Update the preview to the current document content"
-msgstr "Actualisa le vista preliminari al contento del documento currente"
+msgstr "Actualisa le vista preliminar al contento del documento currente"
 
 #: previewwidget.cpp:72
 #, kde-format
@@ -85,7 +85,7 @@ msgstr "Vista"
 #: previewwidget.cpp:97
 #, kde-format
 msgid "No preview available."
-msgstr "Nulle vista preliminari disponibile."
+msgstr "Nulle vista preliminar disponibile."
 
 #: previewwidget.cpp:233
 #, kde-format

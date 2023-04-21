@@ -104,12 +104,6 @@ void KatePluginManager::setupPluginList()
 
     // sort to ensure some deterministic plugin load order, this is important for tool-view creation order
     std::sort(m_pluginList.begin(), m_pluginList.end());
-
-    // construct fast lookup map, do this after vector has final size, resize will invalidate the pointers!
-    m_name2Plugin.clear();
-    for (auto &pluginInfo : m_pluginList) {
-        m_name2Plugin[pluginInfo.saveName()] = &pluginInfo;
-    }
 }
 
 void KatePluginManager::loadConfig(KConfig *config)
@@ -308,50 +302,8 @@ void KatePluginManager::disablePluginGUI(KatePluginInfo *item)
 
 KTextEditor::Plugin *KatePluginManager::plugin(const QString &name)
 {
-    const auto it = m_name2Plugin.find(name);
-    return (it == m_name2Plugin.end()) ? nullptr : it.value()->plugin;
-}
-
-class KTextEditor::Plugin *KatePluginManager::loadPlugin(const QString &name, bool permanent)
-{
-    /**
-     * name known?
-     */
-    if (!m_name2Plugin.contains(name)) {
-        return nullptr;
-    }
-
-    /**
-     * load, bail out on error
-     */
-    loadPlugin(m_name2Plugin.value(name));
-    if (!m_name2Plugin.value(name)->plugin) {
-        return nullptr;
-    }
-
-    /**
-     * perhaps patch not load again back to "ok, load it once again on next loadConfig"
-     */
-    m_name2Plugin.value(name)->load = permanent;
-    return m_name2Plugin.value(name)->plugin;
-}
-
-void KatePluginManager::unloadPlugin(const QString &name, bool permanent)
-{
-    /**
-     * name known?
-     */
-    if (!m_name2Plugin.contains(name)) {
-        return;
-    }
-
-    /**
-     * unload
-     */
-    unloadPlugin(m_name2Plugin.value(name));
-
-    /**
-     * perhaps patch load again back to "ok, load it once again on next loadConfig"
-     */
-    m_name2Plugin.value(name)->load = !permanent;
+    const auto it = std::find_if(m_pluginList.cbegin(), m_pluginList.cend(), [name](const KatePluginInfo &pi) {
+        return pi.saveName() == name;
+    });
+    return (it == m_pluginList.cend()) ? nullptr : it->plugin;
 }

@@ -64,9 +64,6 @@ public:
 
     KTextEditor::Plugin *plugin(const QString &name);
 
-    KTextEditor::Plugin *loadPlugin(const QString &name, bool permanent = true);
-    void unloadPlugin(const QString &name, bool permanent = true);
-
 private:
     void setupPluginList();
 
@@ -74,10 +71,4 @@ private:
      * all known plugins
      */
     KatePluginList m_pluginList;
-
-    /**
-     * fast access map from name => plugin info
-     * uses the info stored in the plugin list
-     */
-    QMap<QString, KatePluginInfo *> m_name2Plugin;
 };

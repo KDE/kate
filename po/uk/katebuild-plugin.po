@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-20 00:51+0000\n"
-"PO-Revision-Date: 2023-04-11 09:21+0300\n"
+"PO-Revision-Date: 2023-04-20 08:52+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -161,7 +161,7 @@ msgstr "<title>Результати збирання:</title><nl/>%1"
 #: plugin_katebuild.cpp:800
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "Збирання <b>%1</b> завершено. %2 помилок, %3 попереджень, %4 зауважень"
 
 #: plugin_katebuild.cpp:806
 #, kde-format
@@ -182,15 +182,13 @@ msgstr[2] "Виявлено %1 попереджень."
 msgstr[3] "Виявлено одне попередження."
 
 #: plugin_katebuild.cpp:813
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "Виявлено %1 помилку."
-msgstr[1] "Виявлено %1 помилки."
-msgstr[2] "Виявлено %1 помилок."
-msgstr[3] "Виявлено одну помилку."
+msgstr[0] "Виявлено %1 зауваження."
+msgstr[1] "Виявлено %1 зауважень."
+msgstr[2] "Виявлено %1 зауважеь."
+msgstr[3] "Виявлено одне зауваження."
 
 #: plugin_katebuild.cpp:818
 #, kde-format
@@ -205,7 +203,7 @@ msgstr "Збирання виконано без проблем."
 #: plugin_katebuild.cpp:825
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "Збирання <b>%1 скасовано</b>. %2 помилок, %3 попереджень, %4 зауважень"
 
 #: plugin_katebuild.cpp:849
 #, kde-format
@@ -213,26 +211,22 @@ msgid "Cannot execute: %1 No working directory set."
 msgstr "Не вдалося виконати %1. Не встановлено робочого каталогу."
 
 #: plugin_katebuild.cpp:1075
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to  an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
-msgstr "помилка"
+msgstr "error|помилка"
 
 #: plugin_katebuild.cpp:1078
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
-msgstr "попередження"
+msgstr "warning|попередження"
 
 #: plugin_katebuild.cpp:1081
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "note|info|нотатка|примітка|зауваження"
 
 #: plugin_katebuild.cpp:1084
 #, kde-format

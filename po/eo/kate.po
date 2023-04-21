@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-20 00:51+0000\n"
-"PO-Revision-Date: 2023-04-07 14:29+0100\n"
+"PO-Revision-Date: 2023-04-20 23:30+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -293,16 +293,14 @@ msgid "Quick Fix"
 msgstr "Rapida Riparo"
 
 #: lib/diagnostics/diagnosticview.cpp:350
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Sekva langeto"
+msgstr "Sekva ero"
 
 #: lib/diagnostics/diagnosticview.cpp:355
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Antaŭa langeto"
+msgstr "Antaŭa ero"
 
 #: lib/diagnostics/diagnosticview.cpp:402
 #, kde-format
@@ -1019,7 +1017,7 @@ msgstr "Montri tekston por maldekstraj kaj dekstraj flankbretbutonoj"
 #: lib/kateconfigdialog.cpp:421
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
-msgstr "Ikono grandeco por maldekstra kaj dekstra flanka kolumno butonoj"
+msgstr "Piktogramgrandeco por maldekstra kaj dekstra flanka kolumno butonoj"
 
 #: lib/kateconfigdialog.cpp:440
 #, kde-format

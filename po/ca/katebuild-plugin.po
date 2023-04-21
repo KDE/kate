@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-20 00:51+0000\n"
-"PO-Revision-Date: 2023-04-11 11:05+0200\n"
+"PO-Revision-Date: 2023-04-20 09:47+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -166,6 +166,8 @@ msgstr "<title>Resultat del «make»:</title><nl/>%1"
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
+"S'ha completat la construcció de <b>%1</b>. %2 error/s, %3 aviso/s, %4 nota/"
+"es"
 
 #: plugin_katebuild.cpp:806
 #, kde-format
@@ -182,13 +184,11 @@ msgstr[0] "S'ha detectat un avís."
 msgstr[1] "S'han detectat %1 avisos."
 
 #: plugin_katebuild.cpp:813
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "S'ha detectat un error."
-msgstr[1] "S'han detectat %1 errors."
+msgstr[0] "S'ha detectat una nota."
+msgstr[1] "S'han detectat %1 notes."
 
 #: plugin_katebuild.cpp:818
 #, kde-format
@@ -204,6 +204,8 @@ msgstr "S'ha completat la construcció sense problemes."
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
+"S'ha cancel·lat la construcció de <b>%1</b>. %2 error/s, %3 aviso/s, %4 nota/"
+"es"
 
 #: plugin_katebuild.cpp:849
 #, kde-format
@@ -211,17 +213,13 @@ msgid "Cannot execute: %1 No working directory set."
 msgstr "No s'ha pogut executar: %1 No s'ha establert cap directori de treball."
 
 #: plugin_katebuild.cpp:1075
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to  an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "error"
 
 #: plugin_katebuild.cpp:1078
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "avís"
@@ -230,7 +228,7 @@ msgstr "avís"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "nota/informació"
 
 #: plugin_katebuild.cpp:1084
 #, kde-format
@@ -384,12 +382,3 @@ msgstr "Insereix camí"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccioneu el directori a inserir"
-
-#~ msgid "Building <b>%1</b> completed."
-#~ msgstr "S'ha completat la construcció de <b>%1</b>."
-
-#~ msgid "Building <b>%1</b> had errors."
-#~ msgstr "La construcció de <b>%1</b> té errors."
-
-#~ msgid "Building <b>%1</b> had warnings."
-#~ msgstr "La construcció de <b>%1</b> té avisos."

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-20 00:51+0000\n"
-"PO-Revision-Date: 2023-03-09 22:47+0100\n"
+"PO-Revision-Date: 2023-04-20 23:30+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -91,10 +91,9 @@ msgid "Target Settings"
 msgstr "Celaj Agordoj"
 
 #: plugin_katebuild.cpp:302
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "Konstrui denove"
+msgstr "Konstruinformo"
 
 #: plugin_katebuild.cpp:383 plugin_katebuild.cpp:1171 plugin_katebuild.cpp:1182
 #: plugin_katebuild.cpp:1203 plugin_katebuild.cpp:1213
@@ -180,13 +179,11 @@ msgstr[0] "Trovis unu averton."
 msgstr[1] "Trovis %1 avertojn."
 
 #: plugin_katebuild.cpp:813
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "Trovis unu eraron."
-msgstr[1] "Trovis %1 erarojn."
+msgstr[0] "Trovis unu noton."
+msgstr[1] "Trovis %1 notojn."
 
 #: plugin_katebuild.cpp:818
 #, kde-format
@@ -209,17 +206,13 @@ msgid "Cannot execute: %1 No working directory set."
 msgstr "Ne povas plenumi: %1 Neniu labordosierujo metita."
 
 #: plugin_katebuild.cpp:1075
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "eraro"
 
 #: plugin_katebuild.cpp:1078
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "averto"
@@ -380,62 +373,3 @@ msgstr "Enmeti vojon"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Elekti dosierujon enmetendan"
-
-#~ msgid "Building <b>%1</b> completed."
-#~ msgstr "Konstruaĵo <b>%1</b> finiĝis."
-
-#~ msgid "Building <b>%1</b> had errors."
-#~ msgstr "Konstruado de <b>%1</b> havis erarojn."
-
-#~ msgid "Building <b>%1</b> had warnings."
-#~ msgstr "Konstruado de <b>%1</b> havis avertojn."
-
-#~ msgid "Show:"
-#~ msgstr "Montri:"
-
-#~ msgctxt "Header for the file name column"
-#~ msgid "File"
-#~ msgstr "Dosiero"
-
-#~ msgctxt "Header for the line number column"
-#~ msgid "Line"
-#~ msgstr "Linio"
-
-#~ msgctxt "Header for the error message column"
-#~ msgid "Message"
-#~ msgstr "Mesaĝo"
-
-#~ msgid "Next Error"
-#~ msgstr "Sekva Eraro"
-
-#~ msgid "Previous Error"
-#~ msgstr "Antaŭa Eraro"
-
-#~ msgid "Show Marks"
-#~ msgstr "Montri Markojn"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#~ "to the working directory in the Target Settings"
-#~ msgstr ""
-#~ "<title>Ne eblis malfermi dosieron:</title><nl/>%1<br/>Provu aldoni "
-#~ "serĉvojon al la labordosierujo en la Celaj Agordoj"
-
-#~ msgid "Error"
-#~ msgstr "Eraro"
-
-#~ msgid "Warning"
-#~ msgstr "Averto"
-
-#~ msgid "Only Errors"
-#~ msgstr "Nur Eraroj"
-
-#~ msgid "Errors and Warnings"
-#~ msgstr "Eraroj kaj Avertoj"
-
-#~ msgid "Parsed Output"
-#~ msgstr "Analizita Eligo"
-
-#~ msgid "Full Output"
-#~ msgstr "Plena Eligo"

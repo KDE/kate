@@ -9,19 +9,16 @@
 #include "katepluginmanager.h"
 
 #include "kateapp.h"
-#include "katedebug.h"
 #include "katemainwindow.h"
-#include "kateoutputview.h"
 
 #include <KConfig>
+#include <KConfigBase>
 #include <KConfigGroup>
 #include <KPluginFactory>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/SessionConfigInterface>
 
-#include <QFile>
 #include <QFileInfo>
-
-#include <ktexteditor/sessionconfiginterface.h>
-
 #include <array>
 
 QString KatePluginInfo::saveName() const

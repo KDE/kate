@@ -8,17 +8,15 @@
 
 #pragma once
 
-#include <KTextEditor/Plugin>
-
-#include <KConfigBase>
 #include <KPluginMetaData>
-
-#include <QList>
-#include <QMap>
-#include <QObject>
 
 class KConfig;
 class KateMainWindow;
+class KConfigBase;
+namespace KTextEditor
+{
+class Plugin;
+}
 
 class KatePluginInfo
 {

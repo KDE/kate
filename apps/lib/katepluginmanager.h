@@ -32,7 +32,7 @@ public:
     bool operator<(const KatePluginInfo &other) const;
 };
 
-typedef QList<KatePluginInfo> KatePluginList;
+typedef std::vector<KatePluginInfo> KatePluginList;
 
 class KatePluginManager
 {

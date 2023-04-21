@@ -52,7 +52,7 @@ void KatePluginManager::setupPluginList()
 {
     // no plugins for KWrite mode
     if (KateApp::isKWrite()) {
-        Q_ASSERT(m_pluginList.isEmpty());
+        Q_ASSERT(m_pluginList.empty());
         return;
     }
 

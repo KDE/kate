@@ -22,6 +22,8 @@
 
 #include <ktexteditor/sessionconfiginterface.h>
 
+#include <array>
+
 QString KatePluginInfo::saveName() const
 {
     return QFileInfo(metaData.fileName()).baseName();
@@ -55,14 +57,21 @@ void KatePluginManager::setupPluginList()
     }
 
     // activate a hand-picked list of plugins per default, give them a hand-picked sort order for loading
-    const QMap<QString, int> defaultPlugins{{QStringLiteral("katefiletreeplugin"), -1000},
-                                            {QStringLiteral("katesearchplugin"), -900},
-                                            {QStringLiteral("kateprojectplugin"), -800},
-                                            {QStringLiteral("tabswitcherplugin"), -100},
-                                            {QStringLiteral("textfilterplugin"), -100},
-                                            {QStringLiteral("externaltoolsplugin"), -100},
-                                            {QStringLiteral("lspclientplugin"), -100},
-                                            {QStringLiteral("katekonsoleplugin"), -100}};
+    struct PluginNameAndSortOrder {
+        const char *name;
+        int sortOrder;
+    };
+
+    const std::array<PluginNameAndSortOrder, 8> defaultPlugins = {
+        {{"katefiletreeplugin", -1000},
+         {"katesearchplugin", -900},
+         {"kateprojectplugin", -800},
+         {"tabswitcherplugin", -100},
+         {"textfilterplugin", -100},
+         {"externaltoolsplugin", -100},
+         {"lspclientplugin", -100},
+         {"katekonsoleplugin", -100}},
+    };
 
     // handle all install KTextEditor plugins
     m_pluginList.clear();
@@ -72,18 +81,25 @@ void KatePluginManager::setupPluginList()
     for (const auto &pluginMetaData : plugins) {
         KatePluginInfo info;
         info.metaData = pluginMetaData;
+        const QString saveName = info.saveName();
 
-        // only load plugins once, even if found multiple times!
-        if (unique.contains(info.saveName())) {
+        // only load plugins once, even if found multiple times!unique
+        if (unique.contains(saveName)) {
             continue;
         }
 
-        info.defaultLoad = defaultPlugins.contains(info.saveName());
-        info.sortOrder = defaultPlugins.value(info.saveName());
+        for (auto dp : defaultPlugins) {
+            if (QLatin1String(dp.name) == saveName) {
+                info.defaultLoad = true;
+                info.sortOrder = dp.sortOrder;
+                break;
+            }
+        }
+
         info.load = info.defaultLoad; // keep this in load, too, to avoid new sessions kill that info on writeConfig
         info.plugin = nullptr;
         m_pluginList.push_back(info);
-        unique.insert(info.saveName());
+        unique.insert(saveName);
     }
 
     // sort to ensure some deterministic plugin load order, this is important for tool-view creation order

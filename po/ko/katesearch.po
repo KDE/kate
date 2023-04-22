@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Shinjo Park <kde@peremen.name>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-19 02:44+0000\n"
-"PO-Revision-Date: 2022-05-06 00:23+0200\n"
+"PO-Revision-Date: 2023-04-22 00:03+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -491,8 +491,7 @@ msgid "Lower-cased capture 0-999"
 msgstr "소문자 캡처 0-999"
 
 #: SearchPlugin.cpp:295
-#, fuzzy, kde-format
-#| msgid "Search and Replace"
+#, kde-format
 msgid "Search & Replace"
 msgstr "찾아 바꾸기"
 
@@ -502,8 +501,7 @@ msgid "Find in Files"
 msgstr "파일에서 찾기"
 
 #: SearchPlugin.cpp:342
-#, fuzzy, kde-format
-#| msgid "Find in Files (in new tab)"
+#, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "파일에서 찾기(새 탭으로)"
 
@@ -520,7 +518,7 @@ msgstr "이전 일치로 가기"
 #: SearchPlugin.cpp:360
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "일치하는 줄 잘라내기"
 
 #: SearchPlugin.cpp:362
 #, kde-format
@@ -528,11 +526,12 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"모든 강조된 검색 항목과 일치하는 줄을 현재 문서에서 클립보드로 잘라냅니다"
 
 #: SearchPlugin.cpp:367
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "일치하는 줄 복사"
 
 #: SearchPlugin.cpp:369
 #, kde-format
@@ -540,6 +539,7 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"모든 강조된 검색 항목과 일치하는 줄을 현재 문서에서 클립보드로 복사합니다"
 
 #: SearchPlugin.cpp:397
 #, kde-format
@@ -602,10 +602,9 @@ msgid "Continuing from last match"
 msgstr "마지막 일치부터 계속 진행"
 
 #: SearchPlugin.cpp:2123
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "찾기"
+msgstr "찾기: %1"
 
 #: SearchPlugin.cpp:2254
 #, kde-format
@@ -625,7 +624,7 @@ msgstr "일치 내보내기"
 #: SearchPlugin.cpp:2268
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "편집기 탭으로 열기"
 
 #: SearchPlugin.cpp:2275
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-20 00:51+0000\n"
-"PO-Revision-Date: 2023-04-13 05:53+0200\n"
+"PO-Revision-Date: 2023-04-21 07:21+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -160,7 +160,7 @@ msgstr "<title>აგების შედეგები:</title><nl/>%1"
 #: plugin_katebuild.cpp:800
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr " <b>%1</b>-ის აგება დასრულდა. %2 შეცდომა, %3 გაფრთხილება, %4 შენიშვნა"
 
 #: plugin_katebuild.cpp:806
 #, kde-format
@@ -177,13 +177,11 @@ msgstr[0] "ნაპოვნია ერთი გაფრთხილებ�
 msgstr[1] "ნაპოვნია %1 გაფრთხილება."
 
 #: plugin_katebuild.cpp:813
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "ნაპოვნია ერთი შეცდომა."
-msgstr[1] "ნაპოვნია %1 შეცდომა."
+msgstr[0] "ნაპოვნია ერთი შენიშვნა."
+msgstr[1] "ნაპოვნია %1 შენიშვნა."
 
 #: plugin_katebuild.cpp:818
 #, kde-format
@@ -198,7 +196,7 @@ msgstr "აგება პრობლემების გარეშე შ
 #: plugin_katebuild.cpp:825
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "<b>%1-ის აგება გაუქმდა</b>. %2 შეცდომა, %3 გაფრთხილება, %4 შენიშვნა"
 
 #: plugin_katebuild.cpp:849
 #, kde-format
@@ -206,17 +204,13 @@ msgid "Cannot execute: %1 No working directory set."
 msgstr "შესრულებ შეუძლებელია: %1 სამუშაო საქაღალდე დაყენებული არაა."
 
 #: plugin_katebuild.cpp:1075
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to  an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "შეცდომა"
 
 #: plugin_katebuild.cpp:1078
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "გაფრთხილება"
@@ -225,7 +219,7 @@ msgstr "გაფრთხილება"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "შენიშვნა|ინფორმაცია"
 
 #: plugin_katebuild.cpp:1084
 #, kde-format

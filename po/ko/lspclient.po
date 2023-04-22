@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Shinjo Park <kde@peremen.name>, 2019, 2020, 2021, 2022.
+# Shinjo Park <kde@peremen.name>, 2019, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2022-07-13 14:20+0200\n"
+"PO-Revision-Date: 2023-04-22 00:01+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:252
 #, kde-format
@@ -208,29 +208,25 @@ msgstr "이동할 위치 강조 표시"
 #: lspclientpluginview.cpp:582
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "인레이 힌트 표시"
 
 #: lspclientpluginview.cpp:586
-#, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
+#, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "진단 알림 표시"
 
 #: lspclientpluginview.cpp:591
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
-msgstr "메시지 보기"
+msgstr "메시지 표시"
 
 #: lspclientpluginview.cpp:596
-#, fuzzy, kde-format
-#| msgid "Server memory usage"
+#, kde-format
 msgid "Server Memory Usage"
 msgstr "서버 메모리 사용량"
 
 #: lspclientpluginview.cpp:600
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "모든 동적 참조 탭 닫기"
 
@@ -247,7 +243,7 @@ msgstr "모든 LSP 서버 다시 시작"
 #: lspclientpluginview.cpp:615
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "이동"
 
 #: lspclientpluginview.cpp:642
 #, kde-format
@@ -464,10 +460,9 @@ msgstr "클라이언트 설정"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "입력할 때 형식 지정"
+msgstr "저장할 때 형식 지정"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -479,7 +474,7 @@ msgstr "시맨틱 강조 활성화"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "인레이 힌트 활성화"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75

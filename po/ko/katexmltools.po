@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2008, 2009, 2014, 2020, 2022.
+# Shinjo Park <kde@peremen.name>, 2008, 2009, 2014, 2020, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-05-07 02:02+0200\n"
+"PO-Revision-Date: 2023-04-22 00:01+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,13 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: plugin_katexmltools.cpp:117
-#, fuzzy, kde-format
-#| msgid "Kate XML Tools"
+#, kde-format
 msgid "XML Tools"
-msgstr "Kate XML 도구"
+msgstr "XML 도구"
 
 #: plugin_katexmltools.cpp:120
 #, kde-format

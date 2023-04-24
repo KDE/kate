@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Nicola Ruggero <nicola@nxnt.org>, 2013.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2013.
-# Paolo Zamponi <zapaolo@email.it>, 2016.
+# Paolo Zamponi <feus73@gmail.com>, 2016.
 #
 msgid ""
 msgstr ""

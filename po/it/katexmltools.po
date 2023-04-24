@@ -3,7 +3,7 @@
 # Daniele Medri <madrid@linuxmeeting.net>, 2003.
 # Marco L. Spolaore <mspolaore@e-tree.com>, 2004.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2007.
-# Paolo Zamponi <zapaolo@email.it>, 2016, 2022.
+# Paolo Zamponi <feus73@gmail.com>, 2016, 2022.
 #
 msgid ""
 msgstr ""

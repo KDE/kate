@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the kate package.
 # Nicola Ruggero <nicola@nxnt.org>, 2013.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2014.
-# Paolo Zamponi <zapaolo@email.it>, 2016, 2020.
+# Paolo Zamponi <feus73@gmail.com>, 2016, 2020.
 #
 msgid ""
 msgstr ""

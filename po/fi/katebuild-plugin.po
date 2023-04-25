@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-20 00:51+0000\n"
-"PO-Revision-Date: 2023-03-12 18:06+0200\n"
+"PO-Revision-Date: 2023-04-20 17:33+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -94,10 +94,9 @@ msgid "Target Settings"
 msgstr "Kohdeasetukset"
 
 #: plugin_katebuild.cpp:302
-#, fuzzy, kde-format
-#| msgid "Build command:"
+#, kde-format
 msgid "Build Information"
-msgstr "Koostamiskomento:"
+msgstr "Koostamistiedot"
 
 #: plugin_katebuild.cpp:383 plugin_katebuild.cpp:1171 plugin_katebuild.cpp:1182
 #: plugin_katebuild.cpp:1203 plugin_katebuild.cpp:1213

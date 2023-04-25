@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-20 00:51+0000\n"
-"PO-Revision-Date: 2023-03-29 23:07+0300\n"
+"PO-Revision-Date: 2023-04-20 17:34+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2013-01-13 20:43:20+0000\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -316,28 +316,24 @@ msgid "Quick Fix"
 msgstr "Pikakorjaa"
 
 #: lib/diagnostics/diagnosticview.cpp:350
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Seuraava välilehti"
+msgstr "Seuraava kohta"
 
 #: lib/diagnostics/diagnosticview.cpp:355
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Edellinen välilehti"
+msgstr "Edellinen kohta"
 
 #: lib/diagnostics/diagnosticview.cpp:402
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Virhe"
+msgstr "Virheet"
 
 #: lib/diagnostics/diagnosticview.cpp:418
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Varoitus"
+msgstr "Varoitukset"
 
 #: lib/diagnostics/diagnosticview.cpp:432
 #, kde-format
@@ -1878,17 +1874,12 @@ msgid "&View Difference"
 msgstr "&Näytä erot"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
-"Määrittää muokkaimen sisällön ja levyllä olevan tiedoston väliset erot ja "
-"näyttää ne oletussovelluksella. Vaatii ohjelman diff(1)."
+"Määrittää muokkaimen sisällön ja levyllä olevan tiedoston väliset erot."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1925,16 +1916,13 @@ msgstr ""
 "”%1”"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"diff-komento epäonnistui. Varmista, että diff(1) on asennettu ja löytyy "
-"hakupolusta (PATH-ympäristömuuttujasta)."
+"diff-komento epäonnistui. Varmista, että git on asennettu ja löytyy PATH-"
+"hakupolusta."
 
 #: lib/katemwmodonhddialog.cpp:319
 #, kde-format
@@ -1944,12 +1932,12 @@ msgstr "Virhe luotaessa eroja"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[VANHA]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[UUSI]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format

@@ -1,11 +1,11 @@
-# Frederik Schwarzer <schwarzer@kde.org>, 2012, 2013, 2016, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2012, 2013, 2016, 2022, 2023.
 # Burkhard Lück <lueck@hube-lueck.de>, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-30 02:45+0000\n"
-"PO-Revision-Date: 2022-03-13 10:35+0100\n"
+"PO-Revision-Date: 2023-04-26 21:07+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
 "Language: de\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.07.70\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -76,12 +76,12 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: branchdeletedialog.cpp:140
-#, fuzzy, kde-format
-#| msgid "Are you sure you want to remove these files?"
+#, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] "Möchten Sie diese Dateien wirklich entfernen?"
-msgstr[1] "Möchten Sie diese Dateien wirklich entfernen?"
+msgstr[0] "Sind Sie sicher, dass Sie den ausgewählten Branch löschen möchten?"
+msgstr[1] ""
+"Sind Sie sicher, dass Sie die ausgewählten Branches löschen möchten?"
 
 #: branchesdialog.cpp:102
 #, kde-format

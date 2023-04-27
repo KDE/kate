@@ -1,12 +1,12 @@
 # Panagiotis Papadopoulos <pano_90@gmx.net>, 2010.
-# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011, 2012, 2020, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011, 2012, 2020, 2022, 2023.
 # Burkhard Lück <lueck@hube-lueck.de>, 2011, 2013, 2014, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2022-07-23 22:52+0200\n"
+"PO-Revision-Date: 2023-04-26 21:08+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -177,14 +177,14 @@ msgid "Target %1"
 msgstr "Ziel %1"
 
 #: debugview.cpp:35
-#, fuzzy, kde-format
+#, kde-format
 msgid "Locals"
 msgstr "Lokale Variablen"
 
 #: debugview.cpp:37
 #, kde-format
 msgid "CPU registers"
-msgstr ""
+msgstr "CPU-Register"
 
 #: debugview.cpp:160
 #, kde-format

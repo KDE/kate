@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Frederik Schwarzer <schwarzer@kde.org>, 2019, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2019, 2022, 2023.
 # Burkhard Lück <lueck@hube-lueck.de>, 2019, 2020, 2021.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-05 01:01+0000\n"
-"PO-Revision-Date: 2022-07-23 22:50+0200\n"
+"PO-Revision-Date: 2023-04-26 21:06+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
 "Language: de\n"
@@ -63,7 +63,7 @@ msgstr "All Einträge löschen"
 #: lspclientplugin.cpp:223
 #, kde-format
 msgid "LSP server start requested"
-msgstr ""
+msgstr "Start des LSP-Servers erfragt"
 
 #: lspclientplugin.cpp:226
 #, kde-format
@@ -209,20 +209,17 @@ msgid "Show Diagnostics Notifications"
 msgstr "Benachrichtigungen zur Fehlerdiagnose anzeigen"
 
 #: lspclientpluginview.cpp:611
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
 msgstr "Nachrichten anzeigen"
 
 #: lspclientpluginview.cpp:616
-#, fuzzy, kde-format
-#| msgid "Server memory usage"
+#, kde-format
 msgid "Server Memory Usage"
 msgstr "Speicherbelegung des Servers"
 
 #: lspclientpluginview.cpp:620
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Alle Unterfenster mit dynamischen Referenzen schließen"
 
@@ -239,7 +236,7 @@ msgstr "Alle LSP-Server neu starten"
 #: lspclientpluginview.cpp:635
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Gehe zu"
 
 #: lspclientpluginview.cpp:662
 #, kde-format
@@ -423,10 +420,9 @@ msgid "Failed to read server configuration: %1"
 msgstr "Die Einstellung für den Server kann nicht gelesen werden: %1"
 
 #: lspclientsymbolview.cpp:238
-#, fuzzy, kde-format
-#| msgid "Symbol Outline Options"
+#, kde-format
 msgid "Symbol Outline"
-msgstr "Einstellungen zu Funktions-Kurzinfos von Symbolen"
+msgstr "Funktions-Kurzinfos von Symbolen"
 
 #: lspclientsymbolview.cpp:276
 #, kde-format
@@ -466,10 +462,9 @@ msgstr "Client-Einstellungen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Formatieren bei der Eingabe"
+msgstr "Formatieren beim Speichern"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61

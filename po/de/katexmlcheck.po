@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Frederik Schwarzer <schwarzer@kde.org>, 2016, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2016, 2022, 2023.
 # Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
 #
 msgid ""
@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:50+0000\n"
-"PO-Revision-Date: 2022-11-24 00:14+0100\n"
-"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
+"PO-Revision-Date: 2023-04-26 21:06+0200\n"
+"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.07.70\n"
 
 #: plugin_katexmlcheck.cpp:95
 #, kde-format
@@ -36,10 +36,9 @@ msgstr ""
 #: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
 #: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
 #: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:341
-#, fuzzy, kde-format
-#| msgid "XML Check"
+#, kde-format
 msgid "XMLCheck"
-msgstr "XML-Überprüfung"
+msgstr "XMLCheck"
 
 #: plugin_katexmlcheck.cpp:144
 #, kde-format

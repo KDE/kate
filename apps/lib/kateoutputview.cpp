@@ -398,7 +398,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         auto block = doc->lastBlock();
         bool found = false;
         while (block.isValid()) {
-            auto data = dynamic_cast<BlockData *>(block.userData());
+            auto data = static_cast<BlockData *>(block.userData());
             if (data && data->token == token) {
                 found = true;
                 break;

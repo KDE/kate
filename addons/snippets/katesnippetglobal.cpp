@@ -69,7 +69,7 @@ void KateSnippetGlobal::insertSnippet(Snippet *snippet)
 
 void KateSnippetGlobal::insertSnippetFromActionData()
 {
-    QAction *action = dynamic_cast<QAction *>(sender());
+    QAction *action = qobject_cast<QAction *>(sender());
     Q_ASSERT(action);
     Snippet *snippet = action->data().value<Snippet *>();
     Q_ASSERT(snippet);
@@ -92,7 +92,7 @@ void KateSnippetGlobal::createSnippet(KTextEditor::View *view)
     // try to look for a fitting repo
     SnippetRepository *match = nullptr;
     for (int i = 0; i < SnippetStore::self()->rowCount(); ++i) {
-        SnippetRepository *repo = dynamic_cast<SnippetRepository *>(SnippetStore::self()->item(i));
+        SnippetRepository *repo = SnippetRepository::fromItem(SnippetStore::self()->item(i));
         if (repo && repo->fileTypes().count() == 1 && repo->fileTypes().first() == mode) {
             match = repo;
             break;

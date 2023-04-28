@@ -1033,13 +1033,11 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
 
 void DiagnosticsView::addMarksRec(KTextEditor::Document *doc, QStandardItem *item)
 {
+    Q_ASSERT(item);
     // We only care about @p doc items
-    auto docItem = dynamic_cast<DocumentDiagnosticItem *>(item);
-    if (docItem && QUrl::fromLocalFile(docItem->data(Qt::UserRole).toString()) != doc->url()) {
+    if (item->type() == DiagnosticItem_File && QUrl::fromLocalFile(item->data(Qt::UserRole).toString()) != doc->url()) {
         return;
     }
-
-    Q_ASSERT(item);
     addMarks(doc, item);
     for (int i = 0; i < item->rowCount(); ++i) {
         addMarksRec(doc, item->child(i));
@@ -1263,9 +1261,7 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
 
     QModelIndex index = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
     auto item = m_model.itemFromIndex(index);
-    auto diagItem = dynamic_cast<DiagnosticItem *>(item);
-    auto docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(item);
-    if (diagItem) {
+    if (item->type() == DiagnosticItem_Diag) {
         auto diagText = index.data().toString();
         menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy to Clipboard"), [diagText]() {
             QClipboard *clipboard = QGuiApplication::clipboard();
@@ -1273,7 +1269,7 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
         });
         menu->addSeparator();
         auto parent = index.parent();
-        docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(m_model.itemFromIndex(parent));
+        auto docDiagItem = static_cast<DocumentDiagnosticItem *>(m_model.itemFromIndex(parent));
         // track validity of raw pointer
         QPersistentModelIndex pindex(parent);
         auto h = [this, pindex, diagText, docDiagItem](bool add, const QString &file, const QString &diagnostic) {
@@ -1300,9 +1296,10 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
         } else {
             menu->addAction(i18n("Add Local Suppression"), this, std::bind(h, true, file, diagText));
         }
-    } else if (docDiagItem) {
+    } else if (item->type() == DiagnosticItem_File) {
         // track validity of raw pointer
         QPersistentModelIndex pindex(index);
+        auto docDiagItem = static_cast<DocumentDiagnosticItem *>(item);
         auto h = [this, docDiagItem, pindex](bool enabled) {
             if (pindex.isValid()) {
                 docDiagItem->enabled = enabled;

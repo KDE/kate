@@ -37,7 +37,7 @@ public:
         if (!item) {
             return false;
         }
-        auto snippet = dynamic_cast<Snippet *>(item);
+        auto snippet = Snippet::fromItem(item);
         if (!snippet) {
             return true;
         }
@@ -51,13 +51,13 @@ void SnippetView::setupActionsForWindow(QWidget *widget)
     for (int i = 0; i < model->rowCount(); i++) {
         auto index = model->index(i, 0, QModelIndex());
         auto item = model->itemFromIndex(index);
-        auto repo = dynamic_cast<SnippetRepository *>(item);
+        auto repo = SnippetRepository::fromItem(item);
         if (!repo) {
             continue;
         }
         for (int j = 0; j < model->rowCount(index); j++) {
             auto item = model->itemFromIndex(model->index(j, 0, index));
-            auto snippet = dynamic_cast<Snippet *>(item);
+            auto snippet = Snippet::fromItem(item);
             if (!snippet) {
                 continue;
             }
@@ -155,8 +155,8 @@ void SnippetView::validateActions()
 {
     QStandardItem *item = currentItem();
 
-    Snippet *selectedSnippet = dynamic_cast<Snippet *>(item);
-    SnippetRepository *selectedRepo = dynamic_cast<SnippetRepository *>(item);
+    Snippet *selectedSnippet = Snippet::fromItem(item);
+    SnippetRepository *selectedRepo = SnippetRepository::fromItem(item);
 
     m_addRepoAction->setEnabled(true);
     m_editRepoAction->setEnabled(selectedRepo);
@@ -182,7 +182,7 @@ void SnippetView::slotSnippetClicked(const QModelIndex &index)
         return;
     }
 
-    Snippet *snippet = dynamic_cast<Snippet *>(item);
+    Snippet *snippet = Snippet::fromItem(item);
     if (!snippet) {
         return;
     }
@@ -205,7 +205,7 @@ void SnippetView::contextMenu(const QPoint &pos)
         menu.addAction(m_getNewStuffAction);
 
         menu.exec(snippetTree->mapToGlobal(pos));
-    } else if (Snippet *snippet = dynamic_cast<Snippet *>(item)) {
+    } else if (Snippet *snippet = Snippet::fromItem(item)) {
         QMenu menu(this);
         menu.addSection(i18n("Snippet: %1", snippet->text()));
 
@@ -213,7 +213,7 @@ void SnippetView::contextMenu(const QPoint &pos)
         menu.addAction(m_removeSnippetAction);
 
         menu.exec(snippetTree->mapToGlobal(pos));
-    } else if (SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item)) {
+    } else if (SnippetRepository *repo = SnippetRepository::fromItem(item)) {
         QMenu menu(this);
         menu.addSection(i18n("Repository: %1", repo->text()));
 
@@ -234,12 +234,12 @@ void SnippetView::slotEditSnippet()
         return;
     }
 
-    Snippet *snippet = dynamic_cast<Snippet *>(item);
+    Snippet *snippet = Snippet::fromItem(item);
     if (!snippet) {
         return;
     }
 
-    SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item->parent());
+    SnippetRepository *repo = SnippetRepository::fromItem(item->parent());
     if (!repo) {
         return;
     }
@@ -255,9 +255,9 @@ void SnippetView::slotAddSnippet()
         return;
     }
 
-    SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item);
+    SnippetRepository *repo = SnippetRepository::fromItem(item);
     if (!repo) {
-        repo = dynamic_cast<SnippetRepository *>(item->parent());
+        repo = SnippetRepository::fromItem(item->parent());
         if (!repo) {
             return;
         }
@@ -274,7 +274,7 @@ void SnippetView::slotRemoveSnippet()
         return;
     }
 
-    SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item->parent());
+    SnippetRepository *repo = SnippetRepository::fromItem(item->parent());
     if (!repo) {
         return;
     }
@@ -299,7 +299,7 @@ void SnippetView::slotEditRepo()
         return;
     }
 
-    SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item);
+    SnippetRepository *repo = SnippetRepository::fromItem(item);
     if (!repo) {
         return;
     }
@@ -315,7 +315,7 @@ void SnippetView::slotRemoveRepo()
         return;
     }
 
-    SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item);
+    SnippetRepository *repo = SnippetRepository::fromItem(item);
     if (!repo) {
         return;
     }
@@ -334,7 +334,7 @@ bool SnippetView::eventFilter(QObject *obj, QEvent *e)
     if (obj == snippetTree->viewport()) {
         const bool singleClick = style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, nullptr, this);
         if ((!singleClick && e->type() == QEvent::MouseButtonDblClick) || (singleClick && e->type() == QEvent::MouseButtonRelease)) {
-            QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent *>(e);
+            QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(e);
             Q_ASSERT(mouseEvent);
             QModelIndex clickedIndex = snippetTree->indexAt(mouseEvent->pos());
             if (clickedIndex.isValid() && clickedIndex.parent().isValid()) {

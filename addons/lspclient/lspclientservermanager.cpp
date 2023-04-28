@@ -1095,7 +1095,7 @@ private:
     void onMessage(bool isLog, const LSPLogMessageParams &params)
     {
         // determine server description
-        auto server = dynamic_cast<LSPClientServer *>(sender());
+        auto server = qobject_cast<LSPClientServer *>(sender());
         if (isLog) {
             Q_EMIT serverLogMessage(server, params);
         } else {
@@ -1106,7 +1106,7 @@ private:
     void onWorkDoneProgress(const LSPWorkDoneProgressParams &params)
     {
         // determine server description
-        auto server = dynamic_cast<LSPClientServer *>(sender());
+        auto server = qobject_cast<LSPClientServer *>(sender());
         Q_EMIT serverWorkDoneProgress(server, params);
     }
 

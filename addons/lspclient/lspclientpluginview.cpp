@@ -763,7 +763,11 @@ public:
             return QObject::eventFilter(obj, event);
         }
 
-        auto mouseEvent = dynamic_cast<QMouseEvent *>(event);
+        if (event->type() != QEvent::MouseButtonPress && event->type() != QEvent::MouseMove) {
+            return QObject::eventFilter(obj, event);
+        }
+
+        auto mouseEvent = static_cast<QMouseEvent *>(event);
         // we are only concerned with mouse events for now :)
         if (!mouseEvent) {
             return false;

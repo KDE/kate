@@ -48,6 +48,21 @@ public:
      */
     static SnippetRepository *createRepoFromName(const QString &name);
 
+    static constexpr inline int RepoItemType = QStandardItem::UserType + 1;
+
+    int type() const override
+    {
+        return RepoItemType;
+    }
+
+    static SnippetRepository *fromItem(QStandardItem *item)
+    {
+        if (item && item->type() == RepoItemType) {
+            return static_cast<SnippetRepository *>(item);
+        }
+        return nullptr;
+    }
+
     /**
      * The license for the snippets contained in this repository.
      */

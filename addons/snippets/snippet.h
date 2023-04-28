@@ -33,6 +33,21 @@ public:
     Snippet();
     ~Snippet() override;
 
+    static constexpr inline int SnippetItemType = QStandardItem::UserType + 1;
+
+    int type() const override
+    {
+        return SnippetItemType;
+    }
+
+    static Snippet *fromItem(QStandardItem *item)
+    {
+        if (item && item->type() == SnippetItemType) {
+            return static_cast<Snippet *>(item);
+        }
+        return nullptr;
+    }
+
     /**
      * Returns the actual contents of this snippet.
      */

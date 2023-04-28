@@ -207,7 +207,7 @@ void SnippetRepository::save()
     addAndCreateElement(doc, root, QStringLiteral("script"), m_script);
 
     for (int i = 0; i < rowCount(); ++i) {
-        Snippet *snippet = dynamic_cast<Snippet *>(child(i));
+        Snippet *snippet = Snippet::fromItem(child(i));
         if (!snippet) {
             continue;
         }
@@ -245,7 +245,7 @@ void SnippetRepository::save()
     // save shortcuts
     KConfigGroup config = SnippetStore::self()->getConfig().group(QLatin1String("repository ") + m_file);
     for (int i = 0; i < rowCount(); ++i) {
-        Snippet *snippet = dynamic_cast<Snippet *>(child(i));
+        Snippet *snippet = Snippet::fromItem(child(i));
         if (!snippet) {
             continue;
         }

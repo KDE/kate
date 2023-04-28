@@ -87,14 +87,14 @@ void SnippetCompletionModel::initData(KTextEditor::View *view)
         if (store->item(i, 0)->checkState() != Qt::Checked) {
             continue;
         }
-        SnippetRepository *repo = dynamic_cast<SnippetRepository *>(store->item(i, 0));
+        SnippetRepository *repo = SnippetRepository::fromItem(store->item(i, 0));
         if (!repo) {
             continue;
         }
         const QStringList fileTypes = repo->fileTypes();
         if (fileTypes.isEmpty() || fileTypes.contains(docMode) || fileTypes.contains(posMode)) {
             for (int j = 0; j < repo->rowCount(); ++j) {
-                if (Snippet *snippet = dynamic_cast<Snippet *>(repo->child(j))) {
+                if (Snippet *snippet = Snippet::fromItem(repo->child(j))) {
                     m_snippets << new SnippetCompletionItem(snippet, repo);
                 }
             }

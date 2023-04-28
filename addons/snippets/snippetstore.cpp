@@ -103,7 +103,7 @@ bool SnippetStore::setData(const QModelIndex &index, const QVariant &value, int 
         repoItem = itemFromIndex(index);
     }
 
-    SnippetRepository *repo = dynamic_cast<SnippetRepository *>(repoItem);
+    SnippetRepository *repo = SnippetRepository::fromItem(repoItem);
     if (repo) {
         repo->save();
     }
@@ -113,7 +113,7 @@ bool SnippetStore::setData(const QModelIndex &index, const QVariant &value, int 
 SnippetRepository *SnippetStore::repositoryForFile(const QString &file)
 {
     for (int i = 0; i < rowCount(); ++i) {
-        if (SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item(i))) {
+        if (auto *repo = SnippetRepository::fromItem(item(i))) {
             if (repo->file() == file) {
                 return repo;
             }

@@ -33,7 +33,7 @@ void Backend::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
         m_mode = GDB;
         bind();
     } else {
-        gdb = dynamic_cast<DebugView *>(m_debugger);
+        gdb = qobject_cast<DebugView *>(m_debugger);
     }
 
     gdb->runDebugger(conf, ioFifos);

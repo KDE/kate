@@ -9,7 +9,7 @@
 void MatchProxyModel::setFilterText(const QString &text)
 {
     beginResetModel();
-    auto *matchModel = dynamic_cast<MatchModel *>(sourceModel());
+    auto *matchModel = static_cast<MatchModel *>(sourceModel());
     matchModel->setFilterText(text);
     endResetModel();
 }
@@ -27,7 +27,7 @@ bool MatchProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &parent)
     }
 
     // match text;
-    auto *matchModel = dynamic_cast<MatchModel *>(sourceModel());
+    auto *matchModel = static_cast<MatchModel *>(sourceModel());
     bool matches = matchModel->matchesFilter(index);
 
     return matches;

@@ -261,7 +261,10 @@ void KateExternalToolsPluginView::deleteToolView()
 
 void KateExternalToolsPluginView::handleEsc(QEvent *event)
 {
-    auto keyEvent = dynamic_cast<QKeyEvent *>(event);
+    if (event->type() != QEvent::ShortcutOverride)
+        return;
+
+    auto keyEvent = static_cast<QKeyEvent *>(event);
     if (keyEvent && keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
         deleteToolView();
     }

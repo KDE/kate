@@ -991,7 +991,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 {
     if (ev->type() == QEvent::ContextMenu) {
         QContextMenuEvent *e = static_cast<QContextMenuEvent *>(ev);
-        KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab *>(obj);
+        KMultiTabBarTab *bt = qobject_cast<KMultiTabBarTab *>(obj);
         if (bt) {
             // qCDebug(LOG_KATE) << "Request for popup";
 

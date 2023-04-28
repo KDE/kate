@@ -491,9 +491,8 @@ QString RainbowParenConfigPage::fullName() const
 
 static QIcon ColoredBracketsIcon(const QWidget *_this)
 {
-    const auto icon = QIcon::fromTheme(QStringLiteral("code-context"));
-    auto p = icon.pixmap(QSize(16, 16));
-    if (p.isNull()) {
+    QPixmap p;
+    {
         QRect r(QPoint(0, 0), _this->devicePixelRatioF() * QSize(16, 16));
         QPixmap pix(r.size());
         pix.fill(Qt::transparent);

@@ -77,6 +77,13 @@ RainbowParenPluginView::RainbowParenPluginView(RainbowParenPlugin *plugin, KText
             rehighlight(view);
         }
     });
+    m_rehighlightTimer.setInterval(200);
+    m_rehighlightTimer.setSingleShot(true);
+    m_rehighlightTimer.callOnTimeout(this, [this] {
+        if (m_activeView) {
+            rehighlight(m_activeView);
+        }
+    });
 }
 
 static void getSavedRangesForDoc(std::vector<RainbowParenPluginView::SavedRanges> &ranges,
@@ -100,12 +107,13 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
 
     // disconnect and clear previous doc stuff
     if (m_activeView) {
-        disconnect(m_activeView, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::rehighlight);
-        disconnect(m_activeView, &KTextEditor::View::textInserted, this, &RainbowParenPluginView::rehighlight);
+        disconnect(m_activeView, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::requestRehighlight);
 
         auto doc = m_activeView->document();
         disconnect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRanges(KTextEditor::Document *)));
         disconnect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRanges(KTextEditor::Document *)));
+        disconnect(doc, &KTextEditor::Document::textInserted, this, &RainbowParenPluginView::onTextInserted);
+        disconnect(doc, &KTextEditor::Document::textRemoved, this, &RainbowParenPluginView::onTextRemoved);
 
         // Remove if we already have this view's ranges saved
         clearSavedRangesForDoc(doc);
@@ -131,8 +139,7 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
     // get any existing ranges for this view
     getSavedRangesForDoc(savedRanges, ranges, m_activeView->document());
 
-    connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::rehighlight, Qt::UniqueConnection);
-    connect(view, &KTextEditor::View::textInserted, this, &RainbowParenPluginView::rehighlight, Qt::UniqueConnection);
+    connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::requestRehighlight, Qt::UniqueConnection);
 
     auto doc = m_activeView->document();
     connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRanges(KTextEditor::Document *)), Qt::UniqueConnection);
@@ -141,8 +148,46 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
             this,
             SLOT(clearRanges(KTextEditor::Document *)),
             Qt::UniqueConnection);
+    connect(doc, &KTextEditor::Document::textInserted, this, &RainbowParenPluginView::onTextInserted, Qt::UniqueConnection);
+    connect(doc, &KTextEditor::Document::textRemoved, this, &RainbowParenPluginView::onTextRemoved, Qt::UniqueConnection);
 
     rehighlight(m_activeView);
+}
+
+static void onTextChanged(RainbowParenPluginView *p, const QString &text)
+{
+    auto isBracket = [](QChar c) {
+        return c == QLatin1Char('{') || c == QLatin1Char('(') || c == QLatin1Char(')') || c == QLatin1Char('}') || c == QLatin1Char('[')
+            || c == QLatin1Char(']');
+    };
+    if (text.size() > 100) {
+        p->requestRehighlight();
+        return;
+    }
+
+    for (auto c : text) {
+        if (isBracket(c)) {
+            p->requestRehighlight();
+            break;
+        }
+    }
+}
+
+void RainbowParenPluginView::onTextInserted(KTextEditor::Document *, KTextEditor::Cursor, const QString &text)
+{
+    onTextChanged(this, text);
+}
+
+void RainbowParenPluginView::onTextRemoved(KTextEditor::Document *, KTextEditor::Range, const QString &text)
+{
+    onTextChanged(this, text);
+}
+
+void RainbowParenPluginView::requestRehighlight()
+{
+    if (!m_rehighlightTimer.isActive()) {
+        m_rehighlightTimer.start();
+    }
 }
 
 void RainbowParenPluginView::clearRanges(KTextEditor::Document *)
@@ -192,7 +237,7 @@ using ColoredBracket = std::unique_ptr<KTextEditor::MovingRange>;
 using ColoredBracketPair = std::pair<std::unique_ptr<KTextEditor::MovingRange>, std::unique_ptr<KTextEditor::MovingRange>>;
 
 /**
- * Helper function to find if we have @p r already in oldRanges so we
+ * Helper function to find if we have @p open and @p close already in oldRanges so we
  * can reuse it
  */
 static ColoredBracketPair existingColoredBracketForPos(std::vector<ColoredBracket> &oldRanges, KTextEditor::Cursor open, KTextEditor::Cursor close)

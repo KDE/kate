@@ -14,6 +14,7 @@
 #include <KXMLGUIClient>
 
 #include <QPointer>
+#include <QTimer>
 
 #include <array>
 
@@ -53,6 +54,9 @@ class RainbowParenPluginView final : public QObject, public KXMLGUIClient
 public:
     explicit RainbowParenPluginView(RainbowParenPlugin *plugin, KTextEditor::MainWindow *mainwindow);
 
+    void onTextInserted(KTextEditor::Document *doc, KTextEditor::Cursor pos, const QString &text);
+    void onTextRemoved(KTextEditor::Document *doc, KTextEditor::Range range, const QString &text);
+    void requestRehighlight();
     void rehighlight(KTextEditor::View *view);
     void viewChanged(KTextEditor::View *view);
 
@@ -70,6 +74,7 @@ private:
     std::vector<std::unique_ptr<KTextEditor::MovingRange>> ranges;
     QPointer<KTextEditor::View> m_activeView;
     KTextEditor::MainWindow *m_mainWindow;
+    QTimer m_rehighlightTimer;
     /**
      * Helper to ensure we always use m_lastUserColor + 1
      * for the next brackets we highlight

@@ -32,7 +32,7 @@ public:
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
-    const std::vector<KTextEditor::Attribute::Ptr> colorsList() const
+    const std::vector<KTextEditor::Attribute::Ptr> &colorsList() const
     {
         return attrs;
     }

@@ -1110,7 +1110,15 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
   </custom>
   <content_rating type="oars-1.1"/>
   <releases>
-    <release version="23.04.0" date="2023-04-20"/>
+    <release version="23.04.0" date="2023-04-20">
+      <artifacts>
+        <artifact type="binary" platform="x86_64-windows-msvc">
+          <location>https://download.kde.org/stable/release-service/23.04.0/windows/kate-23.04.0-2015-windows-cl-msvc2019-x86_64.exe</location>
+          <checksum type="sha256">573c6e52749a4009b7d6f787c6a6c7f1cc09b0d57aa6a99c2d0cef6987b0e4a5</checksum>
+          <size type="download">71709560</size>
+        </artifact>
+      </artifacts>
+    </release>
     <release version="22.12.3" date="2023-03-02"/>
     <release version="22.12.2" date="2023-02-02"/>
     <release version="22.12.1" date="2023-01-05"/>

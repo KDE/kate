@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-20 00:51+0000\n"
-"PO-Revision-Date: 2023-03-30 09:01+0400\n"
+"PO-Revision-Date: 2023-04-27 12:08+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -293,7 +293,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:60
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "الكل"
 
 #: lib/diagnostics/diagnosticview.cpp:346
 #, kde-format
@@ -301,26 +301,22 @@ msgid "Quick Fix"
 msgstr "إصلاح سريع"
 
 #: lib/diagnostics/diagnosticview.cpp:350
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "اللسان التّالي"
+msgstr "العنصر التالي"
 
 #: lib/diagnostics/diagnosticview.cpp:355
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "اللسان السّابق"
+msgstr "العنصر السّابق"
 
 #: lib/diagnostics/diagnosticview.cpp:402
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "خطأ"
+msgstr "الأخطاء"
 
 #: lib/diagnostics/diagnosticview.cpp:418
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
 msgstr "التّحذيرات"
 
@@ -1856,17 +1852,11 @@ msgid "&View Difference"
 msgstr "ا&عرض الفرق"
 
 #: lib/katemwmodonhddialog.cpp:107
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
-msgstr ""
-"يحسب الفرق بين محتويات المحرّر وملفّ القرص للمستند المحدّد، ويُظهر الفرق "
-"بالتّطبيق الافتراضيّ. يحتاج diff(1)‎."
+msgstr "يحسب الفرق بين محتويات المحرّر وملفّ القرص للمستند المحدّد."
 
 #: lib/katemwmodonhddialog.cpp:115
 #, kde-format
@@ -1903,14 +1893,11 @@ msgstr ""
 "'%1'"
 
 #: lib/katemwmodonhddialog.cpp:317
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
-msgstr "فشل أمر الفرق. فضلًا تحقّق بأنّ diff(1)‎ مثبّت وفي مسارك PATH."
+msgstr "فشل أمر الفرق. فضلًا تحقّق بأنّ git‎ مثبّت وفي مسارك PATH."
 
 #: lib/katemwmodonhddialog.cpp:319
 #, kde-format
@@ -1920,12 +1907,12 @@ msgstr "خطأ في إنشاء الفرق"
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[القديم]"
 
 #: lib/katemwmodonhddialog.cpp:327
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[الجديد]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format

@@ -26,7 +26,7 @@
     <Action name="popup_gdb"/>
   </Menu>
   <ToolBar name="gdbplugin">
-    <text>GDB Plugin</text>
+    <text>Debug Plugin</text>
     <Action name="toggle_breakpoint"/>
     <Action name="step_in"/>
     <Action name="step_over"/>

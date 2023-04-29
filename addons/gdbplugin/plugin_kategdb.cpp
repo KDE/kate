@@ -63,7 +63,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     m_focusOnInput = true;
     m_activeThread = -1;
 
-    KXMLGUIClient::setComponentName(QStringLiteral("kategdb"), i18n("Kate GDB"));
+    KXMLGUIClient::setComponentName(QStringLiteral("kategdb"), i18n("Kate Debug"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     m_toolView.reset(
@@ -150,7 +150,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     m_ioView = std::make_unique<IOView>();
     connect(m_configView, &ConfigView::showIO, this, &KatePluginGDBView::showIO);
 
-    m_tabWidget->addTab(m_gdbPage, i18nc("Tab label", "GDB Output"));
+    m_tabWidget->addTab(m_gdbPage, i18nc("Tab label", "Debug Output"));
     m_tabWidget->addTab(m_configView, i18nc("Tab label", "Settings"));
 
     m_debugView = new Backend(this);

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-20 00:51+0000\n"
+"POT-Creation-Date: 2023-04-29 00:53+0000\n"
 "PO-Revision-Date: 2023-04-20 23:30+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -333,53 +333,53 @@ msgstr "Averto"
 msgid "Information"
 msgstr "Informoj"
 
-#: lib/diagnostics/diagnosticview.cpp:1132
+#: lib/diagnostics/diagnosticview.cpp:1130
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [forigita: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1260
+#: lib/diagnostics/diagnosticview.cpp:1258
 #, kde-format
 msgid "Expand All"
 msgstr "Vastigi Ĉion"
 
-#: lib/diagnostics/diagnosticview.cpp:1261
+#: lib/diagnostics/diagnosticview.cpp:1259
 #, kde-format
 msgid "Collapse All"
 msgstr "Malvastigi Ĉion"
 
-#: lib/diagnostics/diagnosticview.cpp:1270
+#: lib/diagnostics/diagnosticview.cpp:1266
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopii al tondujo"
 
-#: lib/diagnostics/diagnosticview.cpp:1293
+#: lib/diagnostics/diagnosticview.cpp:1289
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Forigi Ĉiean Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1295
+#: lib/diagnostics/diagnosticview.cpp:1291
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Aldoni Ĉiean Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1299
+#: lib/diagnostics/diagnosticview.cpp:1295
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Forigi Lokan Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1301
+#: lib/diagnostics/diagnosticview.cpp:1297
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Aldoni Lokan Subpremon"
 
-#: lib/diagnostics/diagnosticview.cpp:1314
+#: lib/diagnostics/diagnosticview.cpp:1311
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Malebligi Forigon"
 
-#: lib/diagnostics/diagnosticview.cpp:1316
+#: lib/diagnostics/diagnosticview.cpp:1313
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Ebligi Forigon"

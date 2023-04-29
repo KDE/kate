@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-20 00:51+0000\n"
+"POT-Creation-Date: 2023-04-29 00:53+0000\n"
 "PO-Revision-Date: 2023-04-13 05:55+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -324,53 +324,53 @@ msgstr "გაფრთხილება"
 msgid "Information"
 msgstr "ინფორმაცია"
 
-#: lib/diagnostics/diagnosticview.cpp:1132
+#: lib/diagnostics/diagnosticview.cpp:1130
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [ჩახშობილია: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1260
+#: lib/diagnostics/diagnosticview.cpp:1258
 #, kde-format
 msgid "Expand All"
 msgstr "ყველას ამოკეცვა"
 
-#: lib/diagnostics/diagnosticview.cpp:1261
+#: lib/diagnostics/diagnosticview.cpp:1259
 #, kde-format
 msgid "Collapse All"
 msgstr "ყველას ჩაკეცვა"
 
-#: lib/diagnostics/diagnosticview.cpp:1270
+#: lib/diagnostics/diagnosticview.cpp:1266
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "ბუფერში კოპირება"
 
-#: lib/diagnostics/diagnosticview.cpp:1293
+#: lib/diagnostics/diagnosticview.cpp:1289
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "გლობალური ჩახშობის წაშლა"
 
-#: lib/diagnostics/diagnosticview.cpp:1295
+#: lib/diagnostics/diagnosticview.cpp:1291
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "გლობალური ჩახშობის დამატება"
 
-#: lib/diagnostics/diagnosticview.cpp:1299
+#: lib/diagnostics/diagnosticview.cpp:1295
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "ლოკალური ჩახშობის წაშლა"
 
-#: lib/diagnostics/diagnosticview.cpp:1301
+#: lib/diagnostics/diagnosticview.cpp:1297
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "ლოკალური ჩახშობის დამატება"
 
-#: lib/diagnostics/diagnosticview.cpp:1314
+#: lib/diagnostics/diagnosticview.cpp:1311
 #, kde-format
 msgid "Disable Suppression"
 msgstr "ჩახშობის გათიშვა"
 
-#: lib/diagnostics/diagnosticview.cpp:1316
+#: lib/diagnostics/diagnosticview.cpp:1313
 #, kde-format
 msgid "Enable Suppression"
 msgstr "ჩახშობის ჩართვა"

@@ -37,11 +37,11 @@ IOView::IOView(QWidget *parent)
     // fixed wide font, like konsole
     m_output->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     // alternate color scheme, like konsole
-    KColorScheme schemeView(QPalette::Active, KColorScheme::View);
-    m_output->setTextBackgroundColor(schemeView.foreground().color());
-    m_output->setTextColor(schemeView.background().color());
+    KColorScheme schemeView(QPalette::Active, KColorScheme::Complementary);
+    m_output->setTextBackgroundColor(schemeView.background().color());
+    m_output->setTextColor(schemeView.foreground().color());
     QPalette p = m_output->palette();
-    p.setColor(QPalette::Base, schemeView.foreground().color());
+    p.setColor(QPalette::Base, schemeView.background().color());
     m_output->setPalette(p);
 
     m_input = new QLineEdit();

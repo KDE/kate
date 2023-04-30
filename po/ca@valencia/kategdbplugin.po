@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 01:00+0000\n"
+"POT-Creation-Date: 2023-04-30 00:51+0000\n"
 "PO-Revision-Date: 2023-03-05 10:51+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -24,8 +24,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
+#, fuzzy, kde-format
+#| msgid "GDB command"
+msgid "Debug command"
 msgstr "Ordre de GDB"
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
@@ -606,8 +607,9 @@ msgid "named items"
 msgstr "elements amb nom"
 
 #: plugin_kategdb.cpp:66
-#, kde-format
-msgid "Kate GDB"
+#, fuzzy, kde-format
+#| msgid "Kate GDB"
+msgid "Kate Debug"
 msgstr "GDB de Kate"
 
 #: plugin_kategdb.cpp:70
@@ -638,9 +640,11 @@ msgid "Frame"
 msgstr "Marc"
 
 #: plugin_kategdb.cpp:153
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "GDB Output"
 msgctxt "Tab label"
-msgid "GDB Output"
+msgid "Debug Output"
 msgstr "Eixida de GDB"
 
 #: plugin_kategdb.cpp:154
@@ -765,6 +769,7 @@ msgstr "&Depura"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, kde-format
-msgid "GDB Plugin"
+#, fuzzy, kde-format
+#| msgid "GDB Plugin"
+msgid "Debug Plugin"
 msgstr "Connector GDB"

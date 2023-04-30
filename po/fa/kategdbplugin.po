@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 01:00+0000\n"
+"POT-Creation-Date: 2023-04-30 00:51+0000\n"
 "PO-Revision-Date: 2014-06-17 15:38+0430\n"
 "Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <kde-i18n-fa@kde.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
 #, kde-format
-msgid "GDB command"
+msgid "Debug command"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
@@ -590,9 +590,10 @@ msgid "named items"
 msgstr ""
 
 #: plugin_kategdb.cpp:66
-#, kde-format
-msgid "Kate GDB"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Debug"
+msgid "Kate Debug"
+msgstr "اشکال‌زدایی"
 
 #: plugin_kategdb.cpp:70
 #, kde-format
@@ -624,7 +625,7 @@ msgstr "چارچوب"
 #: plugin_kategdb.cpp:153
 #, kde-format
 msgctxt "Tab label"
-msgid "GDB Output"
+msgid "Debug Output"
 msgstr ""
 
 #: plugin_kategdb.cpp:154
@@ -746,7 +747,7 @@ msgstr "&اشکال‌زدایی"
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
 #, kde-format
-msgid "GDB Plugin"
+msgid "Debug Plugin"
 msgstr ""
 
 #~ msgctxt "NAME OF TRANSLATORS"

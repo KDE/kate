@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 01:00+0000\n"
+"POT-Creation-Date: 2023-04-30 00:51+0000\n"
 "PO-Revision-Date: 2023-01-29 19:50+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -23,8 +23,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
+#, fuzzy, kde-format
+#| msgid "GDB command"
+msgid "Debug command"
 msgstr "GDB komandoa"
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
@@ -598,8 +599,9 @@ msgid "named items"
 msgstr "izendatutako elementuak"
 
 #: plugin_kategdb.cpp:66
-#, kde-format
-msgid "Kate GDB"
+#, fuzzy, kde-format
+#| msgid "Kate GDB"
+msgid "Kate Debug"
 msgstr "Kate GDB"
 
 #: plugin_kategdb.cpp:70
@@ -630,9 +632,11 @@ msgid "Frame"
 msgstr "Markoa"
 
 #: plugin_kategdb.cpp:153
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "GDB Output"
 msgctxt "Tab label"
-msgid "GDB Output"
+msgid "Debug Output"
 msgstr "GDB irteera"
 
 #: plugin_kategdb.cpp:154
@@ -756,8 +760,9 @@ msgstr "&Araztu"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, kde-format
-msgid "GDB Plugin"
+#, fuzzy, kde-format
+#| msgid "GDB Plugin"
+msgid "Debug Plugin"
 msgstr "GDB plugina"
 
 #~ msgctxt "NAME OF TRANSLATORS"

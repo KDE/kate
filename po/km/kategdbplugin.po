@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 01:00+0000\n"
+"POT-Creation-Date: 2023-04-30 00:51+0000\n"
 "PO-Revision-Date: 2012-06-08 10:04+0700\n"
 "Last-Translator: sutha <sutha@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros>\n"
@@ -22,8 +22,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
+#, fuzzy, kde-format
+#| msgid "GDB command"
+msgid "Debug command"
 msgstr "ពាក្យ​បញ្ជា GDB"
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
@@ -602,9 +603,10 @@ msgid "named items"
 msgstr ""
 
 #: plugin_kategdb.cpp:66
-#, kde-format
-msgid "Kate GDB"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Debug"
+msgid "Kate Debug"
+msgstr "បំបាត់​កំហុស​"
 
 #: plugin_kategdb.cpp:70
 #, kde-format
@@ -635,9 +637,11 @@ msgid "Frame"
 msgstr "ស៊ុម​"
 
 #: plugin_kategdb.cpp:153
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "GDB Output"
 msgctxt "Tab label"
-msgid "GDB Output"
+msgid "Debug Output"
 msgstr "ទិន្នផល​របស់​ GDB "
 
 #: plugin_kategdb.cpp:154
@@ -758,8 +762,9 @@ msgstr "បំបាត់​កំហុស​"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, kde-format
-msgid "GDB Plugin"
+#, fuzzy, kde-format
+#| msgid "GDB Plugin"
+msgid "Debug Plugin"
 msgstr "កម្មវិធី​ជំនួយ GDB"
 
 #~ msgctxt "NAME OF TRANSLATORS"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 01:00+0000\n"
+"POT-Creation-Date: 2023-04-30 00:51+0000\n"
 "PO-Revision-Date: 2023-01-02 10:17+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -21,8 +21,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
+#, fuzzy, kde-format
+#| msgid "GDB command"
+msgid "Debug command"
 msgstr "Εντολή GDB"
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
@@ -597,8 +598,9 @@ msgid "named items"
 msgstr "αντικείμενα με όνομα"
 
 #: plugin_kategdb.cpp:66
-#, kde-format
-msgid "Kate GDB"
+#, fuzzy, kde-format
+#| msgid "Kate GDB"
+msgid "Kate Debug"
 msgstr "Kate GDB"
 
 #: plugin_kategdb.cpp:70
@@ -629,9 +631,11 @@ msgid "Frame"
 msgstr "Πλαίσιο"
 
 #: plugin_kategdb.cpp:153
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "GDB Output"
 msgctxt "Tab label"
-msgid "GDB Output"
+msgid "Debug Output"
 msgstr "Έξοδος GDB"
 
 #: plugin_kategdb.cpp:154
@@ -755,8 +759,9 @@ msgstr "&Διόρθωση"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, kde-format
-msgid "GDB Plugin"
+#, fuzzy, kde-format
+#| msgid "GDB Plugin"
+msgid "Debug Plugin"
 msgstr "Πρόσθετο GDB"
 
 #~ msgctxt "NAME OF TRANSLATORS"

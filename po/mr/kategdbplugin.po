@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 01:00+0000\n"
+"POT-Creation-Date: 2023-04-30 00:51+0000\n"
 "PO-Revision-Date: 2013-04-06 12:26+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
 #, kde-format
-msgid "GDB command"
+msgid "Debug command"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
@@ -595,9 +595,10 @@ msgid "named items"
 msgstr ""
 
 #: plugin_kategdb.cpp:66
-#, kde-format
-msgid "Kate GDB"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Debug"
+msgid "Kate Debug"
+msgstr "डिबग"
 
 #: plugin_kategdb.cpp:70
 #, kde-format
@@ -629,7 +630,7 @@ msgstr "फ्रेम"
 #: plugin_kategdb.cpp:153
 #, kde-format
 msgctxt "Tab label"
-msgid "GDB Output"
+msgid "Debug Output"
 msgstr ""
 
 #: plugin_kategdb.cpp:154
@@ -750,9 +751,10 @@ msgstr "डिबग (&D)"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, kde-format
-msgid "GDB Plugin"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Debug View"
+msgid "Debug Plugin"
+msgstr "डिबग दृश्य"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

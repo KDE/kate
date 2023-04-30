@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 01:00+0000\n"
-"PO-Revision-Date: 2023-04-16 12:31\n"
+"POT-Creation-Date: 2023-04-30 00:51+0000\n"
+"PO-Revision-Date: 2023-04-29 08:33\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -19,8 +19,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
+#, fuzzy, kde-format
+#| msgid "GDB command"
+msgid "Debug command"
 msgstr "GDB 命令"
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
@@ -589,8 +590,9 @@ msgid "named items"
 msgstr "已命名项目"
 
 #: plugin_kategdb.cpp:66
-#, kde-format
-msgid "Kate GDB"
+#, fuzzy, kde-format
+#| msgid "Kate GDB"
+msgid "Kate Debug"
 msgstr "Kate GDB"
 
 #: plugin_kategdb.cpp:70
@@ -621,9 +623,11 @@ msgid "Frame"
 msgstr "框架"
 
 #: plugin_kategdb.cpp:153
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "GDB Output"
 msgctxt "Tab label"
-msgid "GDB Output"
+msgid "Debug Output"
 msgstr "GDB 输出"
 
 #: plugin_kategdb.cpp:154
@@ -746,6 +750,7 @@ msgstr "调试(&D)"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, kde-format
-msgid "GDB Plugin"
+#, fuzzy, kde-format
+#| msgid "GDB Plugin"
+msgid "Debug Plugin"
 msgstr "GDB 插件"

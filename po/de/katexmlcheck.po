@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2023-04-26 21:06+0200\n"
+"PO-Revision-Date: 2023-04-29 12:23+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -31,7 +31,7 @@ msgstr "XML überprüfen"
 #: plugin_katexmlcheck.cpp:132
 #, kde-format
 msgid "Validate process crashed"
-msgstr ""
+msgstr "Validierungsprozess abgestürzt"
 
 #: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
 #: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235

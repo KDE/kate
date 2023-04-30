@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-17 04:03+0000\n"
-"PO-Revision-Date: 2023-04-16 12:34\n"
+"PO-Revision-Date: 2023-04-29 08:36\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -236,7 +236,7 @@ msgstr "视图(&V)"
 #: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
 #, kde-format
 msgid "Split View"
-msgstr "分割视图"
+msgstr "拆分视图"
 
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:109
@@ -1946,46 +1946,46 @@ msgstr "您请求保存的数据无法写入。请选择您想要如何继续。
 #: lib/kateviewmanager.cpp:114
 #, kde-format
 msgid "Split Ve&rtical"
-msgstr "垂直分割(&R)"
+msgstr "垂直拆分(&R)"
 
 #: lib/kateviewmanager.cpp:118
 #, kde-format
 msgid "Split the currently active view vertically into two views."
-msgstr "把当前的活动视图垂直分割成两个视图。"
+msgstr "把当前的活动视图垂直拆分成两个视图。"
 
 #: lib/kateviewmanager.cpp:122
 #, kde-format
 msgid "Split &Horizontal"
-msgstr "水平分割(&H)"
+msgstr "水平拆分(&H)"
 
 #: lib/kateviewmanager.cpp:126
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
-msgstr "把当前的活动视图水平分割成两个视图。"
+msgstr "把当前的活动视图水平拆分成两个视图。"
 
 #: lib/kateviewmanager.cpp:130
 #, kde-format
 msgid "Move Document to New Vertical Split"
-msgstr "将文档移动到新的垂直拆分"
+msgstr "移动文档到新的垂直拆分视图"
 
 #: lib/kateviewmanager.cpp:134
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
-msgstr "将当前活动视图垂直分割成两个视图，并将当前活动文档移动到右边视图。"
+msgstr "将当前活动视图垂直拆分成两个视图，并将当前活动文档移动到右边视图。"
 
 #: lib/kateviewmanager.cpp:139
 #, kde-format
 msgid "Move Document to New Horizontal Split"
-msgstr "将文档移动到新的水平拆分"
+msgstr "移动文档到新的水平拆分视图"
 
 #: lib/kateviewmanager.cpp:143
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
-msgstr "将当前活动视图水平分割成两个视图，并将当前活动文档移动到下方视图。"
+msgstr "将当前活动视图水平拆分成两个视图，并将当前活动文档移动到下方视图。"
 
 #: lib/kateviewmanager.cpp:148
 #, kde-format
@@ -1995,7 +1995,7 @@ msgstr "关闭当前视图(&O)"
 #: lib/kateviewmanager.cpp:152
 #, kde-format
 msgid "Close the currently active split view"
-msgstr "关闭当前活动的分割视图"
+msgstr "关闭当前活动的拆分视图"
 
 #: lib/kateviewmanager.cpp:156
 #, kde-format
@@ -2025,107 +2025,107 @@ msgstr "切换方向"
 #: lib/kateviewmanager.cpp:173
 #, kde-format
 msgid "Toggles the orientation of the current split view"
-msgstr "切换当前视图的分割方向"
+msgstr "切换当前视图的拆分方向"
 
 #: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Next Split View"
-msgstr "下一个分割视图"
+msgstr "下一个拆分视图"
 
 #: lib/kateviewmanager.cpp:181
 #, kde-format
 msgid "Make the next split view the active one."
-msgstr "使下一个分割视图成为活动视图。"
+msgstr "使下一个拆分视图成为活动视图。"
 
 #: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Previous Split View"
-msgstr "上一个分割视图"
+msgstr "上一个拆分视图"
 
 #: lib/kateviewmanager.cpp:189
 #, kde-format
 msgid "Make the previous split view the active one."
-msgstr "使上一个分割视图成为活动视图。"
+msgstr "使上一个拆分视图成为活动视图。"
 
 #: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Left Split View"
-msgstr "向左拆分视图"
+msgstr "左侧拆分视图"
 
 #: lib/kateviewmanager.cpp:197
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "向左侧分割当前标签页。"
+msgstr "将位于左侧的拆分视图设为活动视图。"
 
 #: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Right Split View"
-msgstr "向左拆分视图"
+msgstr "右侧拆分视图"
 
 #: lib/kateviewmanager.cpp:205
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "使右侧的标签成为活动标签。"
+msgstr "将位于右侧的拆分视图设为活动视图。"
 
 #: lib/kateviewmanager.cpp:208
 #, kde-format
 msgid "Upward Split View"
-msgstr "向上分割视图"
+msgstr "上方拆分视图"
 
 #: lib/kateviewmanager.cpp:213
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "向上分割当前标签页。"
+msgstr "将位于上方的拆分视图设为活动视图。"
 
 #: lib/kateviewmanager.cpp:216
 #, kde-format
 msgid "Downward Split View"
-msgstr "向下分割"
+msgstr "下方拆分视图"
 
 #: lib/kateviewmanager.cpp:221
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "向下分割当前标签页。"
+msgstr "将位于下方的拆分视图设为活动视图。"
 
 #: lib/kateviewmanager.cpp:224
 #, kde-format
 msgid "Move Splitter Right"
-msgstr "右移分割"
+msgstr "右移拆分线"
 
 #: lib/kateviewmanager.cpp:227
 #, kde-format
 msgid "Move the splitter of the current view to the right"
-msgstr "将当前活动的分割视图右移"
+msgstr "将当前活动视图的拆分线右移"
 
 #: lib/kateviewmanager.cpp:230
 #, kde-format
 msgid "Move Splitter Left"
-msgstr "左移分割"
+msgstr "左移拆分线"
 
 #: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Move the splitter of the current view to the left"
-msgstr "将当前活动的分割视图左移"
+msgstr "将当前活动视图的拆分线左移"
 
 #: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Move Splitter Up"
-msgstr "上移分割"
+msgstr "上移拆分线"
 
 #: lib/kateviewmanager.cpp:239
 #, kde-format
 msgid "Move the splitter of the current view up"
-msgstr "将当前活动的分割视图上移"
+msgstr "将当前活动视图的拆分线上移"
 
 #: lib/kateviewmanager.cpp:242
 #, kde-format
 msgid "Move Splitter Down"
-msgstr "下移分割"
+msgstr "下移拆分线"
 
 #: lib/kateviewmanager.cpp:245
 #, kde-format
 msgid "Move the splitter of the current view down"
-msgstr "将当前活动的分割视图下移"
+msgstr "将当前活动视图的拆分线下移"
 
 #: lib/kateviewmanager.cpp:248
 #, kde-format
@@ -2214,7 +2214,7 @@ msgstr "点击这里切换到快速打开视图。"
 #: lib/kateviewspace.cpp:119
 #, kde-format
 msgid "Control view space splitting"
-msgstr "控制视图空间分割"
+msgstr "控制视图空间拆分"
 
 #: lib/kateviewspace.cpp:211
 #, kde-format

@@ -1,7 +1,25 @@
 {
     "KPlugin": {
         "Description": "Provides debugger integration",
+        "Description[ca]": "Proporciona la integració del depurador",
+        "Description[es]": "Proporciona integración con el depurador",
+        "Description[eu]": "Araztailearen integrazioa ematen du",
+        "Description[ia]": "Forni integration de cribrator",
+        "Description[nl]": "Biedt integratie van debugger",
+        "Description[sl]": "Zagotavlja integracijo razhroščevalnika",
+        "Description[tr]": "Hata ayıklayıcı tümleştirmesi sağlar",
+        "Description[uk]": "Надає інтеграцію із засобом діагностики",
+        "Description[x-test]": "xxProvides debugger integrationxx",
         "Name": "Kate Debugger",
+        "Name[ca]": "Depurador del Kate",
+        "Name[es]": "Depurador de Kate",
+        "Name[eu]": "Kate araztailea",
+        "Name[ia]": "Cribrator (Debugger) de Kate",
+        "Name[nl]": "Kate-debugger",
+        "Name[sl]": "Kate razhroščevalnik",
+        "Name[tr]": "Kate Hata Ayıklayıcısı",
+        "Name[uk]": "Зневадник Kate",
+        "Name[x-test]": "xxKate Debuggerxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

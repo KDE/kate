@@ -109,7 +109,6 @@ QSize KateContainerStackedLayout::minimumSize() const
 KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool userTriggered)
     : KateMDI::MainWindow(nullptr)
     , m_wrapper(new KTextEditor::MainWindow(this))
-    , m_textHintManager(new KateTextHintManager(m_wrapper))
 {
     /**
      * we don't want any flicker here
@@ -300,7 +299,6 @@ void KateMainWindow::setupMainWindow(KConfig *sconfig)
         return;
     }
 
-    m_textHintManager = new KateTextHintManager(m_wrapper);
     /**
      * create generic output tool view
      * is used to display output of e.g. plugins

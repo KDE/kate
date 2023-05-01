@@ -15,7 +15,11 @@ KateTextHintProvider::KateTextHintProvider(KTextEditor::MainWindow *mainWindow, 
     : QObject(parent)
 {
     Q_ASSERT(mainWindow);
-    auto mgr = static_cast<KateMainWindow *>(mainWindow->window())->textHintManager();
+    auto mgr = static_cast<KateTextHintManager *>(mainWindow->property("textHintManager").value<QObject*>());
+    if (!mgr) {
+        mgr = new KateTextHintManager(mainWindow);
+        mainWindow->setProperty("textHintManager", QVariant::fromValue(mgr));
+    }
     mgr->registerProvider(this);
 }
 

@@ -40,7 +40,6 @@ class KRecentFilesAction;
 class KateOutputView;
 class KateViewManager;
 class KateMwModOnHdDialog;
-class KateTextHintManager;
 
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
@@ -706,17 +705,10 @@ private:
     QWidget *m_toolViewDiags = nullptr;
     std::unique_ptr<class DiagnosticsView> m_diagView;
 
-    KateTextHintManager *m_textHintManager = nullptr;
-
 public:
     class DiagnosticsView *diagnosticsView()
     {
         return m_diagView.get();
-    }
-
-    KateTextHintManager *textHintManager()
-    {
-        return m_textHintManager;
     }
 
 public:

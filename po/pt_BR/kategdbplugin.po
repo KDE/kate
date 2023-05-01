@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-30 00:51+0000\n"
+"POT-Creation-Date: 2023-05-01 00:56+0000\n"
 "PO-Revision-Date: 2020-10-07 13:40-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: advanced_settings.ui:17
 #, fuzzy, kde-format
 #| msgid "GDB command"
-msgid "Debug command"
+msgid "GDB command"
 msgstr "Comando GDB"
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)

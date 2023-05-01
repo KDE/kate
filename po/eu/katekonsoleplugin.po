@@ -1,25 +1,24 @@
 # Translation for katekonsoleplugin.po to Euskara/Basque (eu)
-# Copyright (C) 2011-2018, Free Software Foundation.
-# Copyright (C) 2019-2022 This file is copyright:
+# Copyright (C) 2011-2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2022.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2022, 2023.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-04 00:50+0000\n"
-"PO-Revision-Date: 2022-08-20 16:19+0200\n"
+"PO-Revision-Date: 2023-04-30 09:26+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 23.04.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: kateconsole.cpp:56
@@ -67,6 +66,8 @@ msgstr "&Fokuratu terminal-panela"
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"«Konsole» ez dago instalatuta. Mesedez, instalatu ezazu terminala erabili "
+"ahal izateko."
 
 #: kateconsole.cpp:365
 #, kde-format

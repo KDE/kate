@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-30 00:51+0000\n"
+"POT-Creation-Date: 2023-05-01 00:56+0000\n"
 "PO-Revision-Date: 2011-10-21 07:41+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
 #, kde-format
-msgid "Debug command"
+msgid "GDB command"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)

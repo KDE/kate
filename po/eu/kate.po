@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-17 04:03+0000\n"
-"PO-Revision-Date: 2023-02-25 23:55+0100\n"
+"PO-Revision-Date: 2023-04-30 08:39+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -540,35 +540,25 @@ msgid "File History - %1"
 msgstr "Fitxategiaren historia - %1"
 
 #: lib/kateapp.cpp:108
-#, fuzzy
-#| msgid ""
-#| "Running Kate with sudo can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Kate «sudo» erabiliz ibiltzeak akatsak eragin ditzake eta segurtasun "
-"ahulezien aurrean zaurgarri utz zaitzake. Horren ordez erabili Kate era "
+"Editore hau «sudo» bidez ibiltzeak akatsak sortu eta segurtasun ahulezien "
+"aurrean zaurgarri utz zaitzake. Horren ordez, erabili editore hau era "
 "arruntean eta dokumentuak gordetzeko beharrezkoak badira, pribilegio "
-"garaiagoak eskatuko zaizkizu."
+"altuagoak eskatu zaizkizu."
 
 #: lib/kateapp.cpp:115
-#, fuzzy
-#| msgid ""
-#| "Running Kate with kdesu can cause bugs and expose you to security "
-#| "vulnerabilities. Instead use Kate normally and you will be prompted for "
-#| "elevated privileges when saving documents if needed."
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"Kate «kdesu» erabiliz ibiltzeak akatsak eragin ditzake eta segurtasun "
-"ahulezien aurrean zaurgarri utz zaitzake. Horren ordez erabili Kate era "
-"arruntean eta dokumentuak gordetzeko beharrezkoak badira, pribilegio "
+"Editore hau «kdesu» bidez ibiltzeak akatsak eragin ditzake eta segurtasun "
+"ahulezien aurrean zaurgarri utz zaitzake. Horren ordez erabili editore hau "
+"era arruntean eta dokumentuak gordetzeko beharrezkoak badira, pribilegio "
 "garaiagoak eskatuko zaizkizu."
 
 #: lib/kateapp.cpp:283
@@ -2714,10 +2704,9 @@ msgid "No saved sessions"
 msgstr "Ez dago gordetako saiorik"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Ireki fitxategia..."
+msgstr "Ireki hautatutako fitxategiak..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

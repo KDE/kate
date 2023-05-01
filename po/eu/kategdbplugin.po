@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-05 00:58+0000\n"
-"PO-Revision-Date: 2023-01-29 19:50+0100\n"
+"PO-Revision-Date: 2023-04-30 08:50+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 23.04.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -194,7 +194,7 @@ msgstr "PUZeko erregistroak"
 #: debugview.cpp:160
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
+msgstr "Mesedez, ezarri exekutagarria 'Araztu' paneleko 'Ezarpenak\" fitxan."
 
 #: debugview.cpp:169
 #, kde-format
@@ -202,6 +202,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Ez da araztailerik hautatu. Mesedez, hautatu bat  'Araztu' paneleko "
+"'Ezarpenak\" fitxan."
 
 #: debugview.cpp:178
 #, kde-format
@@ -209,6 +211,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Araztailea ez da aurkitu. Mesedez. Ziurtatu zure sistema instalatuta duzula. "
+"Hautatutako araztailea '%1' da"
 
 #: debugview.cpp:384
 #, kde-format
@@ -495,7 +499,7 @@ msgstr "zerbitzariak ez ditu onartzen iritsi baldintzazko eten-puntuak"
 #: debugview_dap.cpp:1334
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "%1. lerroak badu jada eten-puntu bat"
 
 #: debugview_dap.cpp:1379
 #, kde-format

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-30 02:45+0000\n"
-"PO-Revision-Date: 2023-01-23 07:59+0100\n"
+"PO-Revision-Date: 2023-04-30 09:24+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -691,7 +691,7 @@ msgstr "Kodearen indizea"
 #: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Code Analysis"
-msgstr "Kodearen azterketa"
+msgstr "Kodearen analisia"
 
 #: kateprojectinfoview.cpp:60
 #, kde-format
@@ -701,7 +701,7 @@ msgstr "Oharrak"
 #: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
-msgstr "Hasi azterketa..."
+msgstr "Hasi analisiarekin..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
@@ -717,7 +717,7 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:202
 #, kde-format
 msgid "CodeAnalysis"
-msgstr "Kodearen azterketa"
+msgstr "Kodearen analisia"
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
 #, kde-format
@@ -727,13 +727,13 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "[%1]Fitxategi %2en gaineko azterketa amaitu da."
-msgstr[1] "[%1]%2 fitxategi gaineko azterketa amaitu da."
+msgstr[0] "[%1]Fitxategi %2en gaineko analisia amaitu da."
+msgstr[1] "[%1]%2 fitxategi gaineko analisia amaitu da."
 
 #: kateprojectinfoviewcodeanalysis.cpp:201
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Azterketak huts egin du irteerako %1 kodearekin, errorea: %2"
+msgstr "Analisiak huts egin du irteerako %1 kodearekin, errorea: %2"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format

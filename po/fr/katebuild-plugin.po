@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-20 00:51+0000\n"
-"PO-Revision-Date: 2023-04-13 20:11+0200\n"
+"PO-Revision-Date: 2023-04-29 09:57+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -171,7 +171,7 @@ msgstr "<title>Résultats de Make :</title><nl/>%1"
 #: plugin_katebuild.cpp:800
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "Compilation <b>%1</b> terminée. %2 erreur(s), %3 alarme(s), %4 note(s)"
 
 #: plugin_katebuild.cpp:806
 #, kde-format
@@ -188,13 +188,11 @@ msgstr[0] "%1 avertissement a été trouvé."
 msgstr[1] "%1 avertissements ont été trouvés."
 
 #: plugin_katebuild.cpp:813
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "%1 erreur a été trouvée."
-msgstr[1] "%1 erreurs ont été trouvées."
+msgstr[0] "Une note a été trouvée."
+msgstr[1] "%1 notes ont été trouvées."
 
 #: plugin_katebuild.cpp:818
 #, kde-format
@@ -209,7 +207,7 @@ msgstr "Compilation réalisée sans problème."
 #: plugin_katebuild.cpp:825
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "Compilation <b>%1 annulée</b>. %2 erreur(s), %3 alarme(s), %4 note(s)"
 
 #: plugin_katebuild.cpp:849
 #, kde-format
@@ -217,17 +215,13 @@ msgid "Cannot execute: %1 No working directory set."
 msgstr "Impossible d'exécuter %1 : aucun dossier de travail défini."
 
 #: plugin_katebuild.cpp:1075
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to  an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "erreur"
 
 #: plugin_katebuild.cpp:1078
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "avertissement"
@@ -236,7 +230,7 @@ msgstr "avertissement"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "note | info"
 
 #: plugin_katebuild.cpp:1084
 #, kde-format

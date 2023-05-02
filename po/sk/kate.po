@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-29 00:53+0000\n"
+"POT-Creation-Date: 2023-05-02 00:51+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -173,7 +173,7 @@ msgstr "Zatvoriť"
 msgid "Open File"
 msgstr "Otvoriť súbor"
 
-#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:359
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:357
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopírovať umiestnenie"
@@ -1280,12 +1280,12 @@ msgstr "Zavrieť dokument"
 msgid "Save As"
 msgstr "Uložiť &ako"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:660
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:658
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Nový súbor bol otvorený počas zatvárania Kate, zatvorenie zrušené."
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:660
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:658
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Zatvorenie zrušené"
@@ -1335,92 +1335,92 @@ msgstr "Súbor \"%1\" sa nepoarilo vymazať."
 msgid "&Other Application..."
 msgstr "Iná aplikácia..."
 
-#: lib/katemainwindow.cpp:236
+#: lib/katemainwindow.cpp:235
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr "Tento príkaz zobrazí alebo skryje stavový riadok pohľadu"
 
-#: lib/katemainwindow.cpp:239
+#: lib/katemainwindow.cpp:238
 #, kde-format
 msgid "Show &Tabs"
 msgstr "Zobraziť karty"
 
-#: lib/katemainwindow.cpp:242
+#: lib/katemainwindow.cpp:241
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr "Tento príkaz zobrazí alebo skryje karty pre pohľady"
 
-#: lib/katemainwindow.cpp:244
+#: lib/katemainwindow.cpp:243
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "Ukázať &cestu v titulkovom pruhu"
 
-#: lib/katemainwindow.cpp:247
+#: lib/katemainwindow.cpp:246
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Zobrazí celú cestu k dokumentu v titulku okna"
 
-#: lib/katemainwindow.cpp:249
+#: lib/katemainwindow.cpp:248
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr "Zobraziť navigačný panel"
 
-#: lib/katemainwindow.cpp:259
+#: lib/katemainwindow.cpp:258
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "Farebná schéma"
 
-#: lib/katemainwindow.cpp:263
+#: lib/katemainwindow.cpp:262
 #, kde-format
 msgid "&Previous Tab"
 msgstr "&Predchádzajúca karta"
 
-#: lib/katemainwindow.cpp:264
+#: lib/katemainwindow.cpp:263
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "Aktivovať predošlú kartu."
 
-#: lib/katemainwindow.cpp:269
+#: lib/katemainwindow.cpp:268
 #, kde-format
 msgid "&Next Tab"
 msgstr "&Nasledujúca karta"
 
-#: lib/katemainwindow.cpp:270
+#: lib/katemainwindow.cpp:269
 #, kde-format
 msgid "Focus the next tab."
 msgstr "Aktivovať ďalšiu kartu."
 
-#: lib/katemainwindow.cpp:277
+#: lib/katemainwindow.cpp:276
 #, kde-format
 msgid "&Quick Open"
 msgstr "Rýchlo otvoriť"
 
-#: lib/katemainwindow.cpp:280
+#: lib/katemainwindow.cpp:279
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Otvoriť formulár na rýchle otvorenie dokumentov."
 
-#: lib/katemainwindow.cpp:312
+#: lib/katemainwindow.cpp:310
 #, kde-format
 msgid "Output"
 msgstr "Výstup"
 
-#: lib/katemainwindow.cpp:319
+#: lib/katemainwindow.cpp:317
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostika"
 
-#: lib/katemainwindow.cpp:330
+#: lib/katemainwindow.cpp:328
 #, kde-format
 msgid "Create a new document"
 msgstr "Vytvoriť nový dokument"
 
-#: lib/katemainwindow.cpp:333
+#: lib/katemainwindow.cpp:331
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Otvoriť už existujúci dokument pre úpravu"
 
-#: lib/katemainwindow.cpp:343
+#: lib/katemainwindow.cpp:341
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1429,84 +1429,84 @@ msgstr ""
 "Toto je zoznam súborov, ktoré boli naposledy otvorené. Podporuje ich "
 "jednoduché znovuotvorenie."
 
-#: lib/katemainwindow.cpp:347
+#: lib/katemainwindow.cpp:345
 #, kde-format
 msgid "Save A&ll"
 msgstr "Uložiť &všetko"
 
-#: lib/katemainwindow.cpp:350
+#: lib/katemainwindow.cpp:348
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Uložiť všetky otvorené a zmenené dokumenty na disk."
 
-#: lib/katemainwindow.cpp:353
+#: lib/katemainwindow.cpp:351
 #, kde-format
 msgid "&Reload All"
 msgstr "Obnoviť všetko"
 
-#: lib/katemainwindow.cpp:355
+#: lib/katemainwindow.cpp:353
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Obnoviť všetky otvorené dokumenty."
 
-#: lib/katemainwindow.cpp:364 lib/katemainwindow.cpp:373
+#: lib/katemainwindow.cpp:362 lib/katemainwindow.cpp:371
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Skopíruje cestu k aktuálnemu dokumentu do schránky"
 
-#: lib/katemainwindow.cpp:368 lib/welcomeview/welcomeview.cpp:265
+#: lib/katemainwindow.cpp:366 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Otvoriť priečinok s obsahom"
 
-#: lib/katemainwindow.cpp:377
+#: lib/katemainwindow.cpp:375
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Premenovať..."
 
-#: lib/katemainwindow.cpp:382
+#: lib/katemainwindow.cpp:380
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "Premenuje súbor patriaci k aktuálnemu dokumentu."
 
-#: lib/katemainwindow.cpp:386
+#: lib/katemainwindow.cpp:384
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Vymazať"
 
-#: lib/katemainwindow.cpp:391 lib/katemainwindow.cpp:400
+#: lib/katemainwindow.cpp:389 lib/katemainwindow.cpp:398
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "Vymaže súbor patriaci k aktuálnemu dokumentu."
 
-#: lib/katemainwindow.cpp:395
+#: lib/katemainwindow.cpp:393
 #, kde-format
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: lib/katemainwindow.cpp:403 lib/katemainwindow.cpp:405
+#: lib/katemainwindow.cpp:401 lib/katemainwindow.cpp:403
 #, kde-format
 msgid "Compare"
 msgstr "Porovnať"
 
-#: lib/katemainwindow.cpp:405
+#: lib/katemainwindow.cpp:403
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "Použiť ponuku záložkového panelu na porovnanie dvoch dokumentov"
 
-#: lib/katemainwindow.cpp:407
+#: lib/katemainwindow.cpp:405
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Zobrazí nápovedu, ako porovnávať dokumenty."
 
-#: lib/katemainwindow.cpp:410
+#: lib/katemainwindow.cpp:408
 #, kde-format
 msgid "Close Orphaned"
 msgstr "Zatvoriť osirotené"
 
-#: lib/katemainwindow.cpp:412
+#: lib/katemainwindow.cpp:410
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1515,52 +1515,52 @@ msgstr ""
 "Zatvoriť všetky dokumenty v zozname súborov, ktoré nie je možné znova "
 "otvoriť, pretože už nie sú prístupné."
 
-#: lib/katemainwindow.cpp:416
+#: lib/katemainwindow.cpp:414
 #, kde-format
 msgid "Close the current document."
 msgstr "Zavrieť aktuálny dokument."
 
-#: lib/katemainwindow.cpp:419
+#: lib/katemainwindow.cpp:417
 #, kde-format
 msgid "Close Other"
 msgstr "Zatvoriť ostatné"
 
-#: lib/katemainwindow.cpp:421
+#: lib/katemainwindow.cpp:419
 #, kde-format
 msgid "Close other open documents."
 msgstr "Zavtvoriť všetky otvorené dokumenty."
 
-#: lib/katemainwindow.cpp:424
+#: lib/katemainwindow.cpp:422
 #, kde-format
 msgid "Clos&e All"
 msgstr "Zav&rieť všetko"
 
-#: lib/katemainwindow.cpp:426
+#: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Close all open documents."
 msgstr "Zavrieť všetky otvorené dokumenty."
 
-#: lib/katemainwindow.cpp:431
+#: lib/katemainwindow.cpp:429
 #, kde-format
 msgid "Close this window"
 msgstr "Zavrieť toto okno"
 
-#: lib/katemainwindow.cpp:435
+#: lib/katemainwindow.cpp:433
 #, kde-format
 msgid "&New Window"
 msgstr "&Nové okno"
 
-#: lib/katemainwindow.cpp:438
+#: lib/katemainwindow.cpp:436
 #, kde-format
 msgid "Create a new window."
 msgstr "Vytvoriť nové okno."
 
-#: lib/katemainwindow.cpp:445
+#: lib/katemainwindow.cpp:443
 #, kde-format
 msgid "Open W&ith"
 msgstr "Otvoriť po&mocou"
 
-#: lib/katemainwindow.cpp:447
+#: lib/katemainwindow.cpp:445
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1569,94 +1569,94 @@ msgstr ""
 "Otvoriť aktuálny dokument pomocou inej aplikácie registrovanej pre tento "
 "typ, alebo aplikácie podľa vášho výberu."
 
-#: lib/katemainwindow.cpp:455
+#: lib/katemainwindow.cpp:453
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Nastaví  klávesové skratky aplikácie"
 
-#: lib/katemainwindow.cpp:458
+#: lib/katemainwindow.cpp:456
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Nastaví položky, ktoré sa majú zobraziť v paneloch nástrojov."
 
-#: lib/katemainwindow.cpp:461
+#: lib/katemainwindow.cpp:459
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Nastaví rôzne možnosti aplikácie a komponentu pre editovanie textu."
 
-#: lib/katemainwindow.cpp:465
+#: lib/katemainwindow.cpp:463
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "&Príručka modulov"
 
-#: lib/katemainwindow.cpp:467
+#: lib/katemainwindow.cpp:465
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Toto zobrazí pomocníka pre jednotlivé moduly."
 
-#: lib/katemainwindow.cpp:484
+#: lib/katemainwindow.cpp:482
 #, kde-format
 msgid "Sess&ions"
 msgstr "Seden&ia"
 
-#: lib/katemainwindow.cpp:490
+#: lib/katemainwindow.cpp:488
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Nové sedenie"
 
-#: lib/katemainwindow.cpp:495
+#: lib/katemainwindow.cpp:493
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "Nedávne sedenia"
 
-#: lib/katemainwindow.cpp:500
+#: lib/katemainwindow.cpp:498
 #, kde-format
 msgid "&All Sessions"
 msgstr "Všetky sedeni&a"
 
-#: lib/katemainwindow.cpp:507
+#: lib/katemainwindow.cpp:505
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "Spravovať sedenia..."
 
-#: lib/katemainwindow.cpp:516
+#: lib/katemainwindow.cpp:514
 #, kde-format
 msgid "&Save Session"
 msgstr "Uložiť sedenie"
 
-#: lib/katemainwindow.cpp:522
+#: lib/katemainwindow.cpp:520
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Uložiť sedene ako..."
 
-#: lib/katemainwindow.cpp:529 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:527 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Prejsť na predchádzajúce umiestnenie"
 
-#: lib/katemainwindow.cpp:538 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:536 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Prejsť na nasledujúce umiestnenie"
 
-#: lib/katemainwindow.cpp:546
+#: lib/katemainwindow.cpp:544
 #, kde-format
 msgid "Show File Git History"
 msgstr "Zobraziť históriu súborov git"
 
-#: lib/katemainwindow.cpp:561
+#: lib/katemainwindow.cpp:559
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Toto zatvorí všetky otvorené dokumenty. Určite chcete pokračovať?"
 
-#: lib/katemainwindow.cpp:562
+#: lib/katemainwindow.cpp:560
 #, kde-format
 msgid "Close all documents"
 msgstr "Zatvoriť všetky dokumenty"
 
-#: lib/katemainwindow.cpp:577
+#: lib/katemainwindow.cpp:575
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1665,23 +1665,23 @@ msgstr ""
 "Toto zatvorí všetky otvorené dokumenty vedľa aktuálneho. Určite chcete "
 "pokračovať?"
 
-#: lib/katemainwindow.cpp:578
+#: lib/katemainwindow.cpp:576
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Zatvoriť všetky dokumenty vedľa aktuálneho"
 
-#: lib/katemainwindow.cpp:812
+#: lib/katemainwindow.cpp:810
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "Toto skryje ponuku možností. Môžete ju znovu zviditeľniť stlačením %1."
 
-#: lib/katemainwindow.cpp:815
+#: lib/katemainwindow.cpp:813
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Skryť panel ponuky"
 
-#: lib/katemainwindow.cpp:919
+#: lib/katemainwindow.cpp:917
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1689,19 +1689,19 @@ msgid ""
 msgstr ""
 "Vložili ste adresár %1 do Kate. Chcete otvoriť všetky súbory, ktoré obsahuje?"
 
-#: lib/katemainwindow.cpp:922
+#: lib/katemainwindow.cpp:920
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Otvoriť súbory rekurzívne"
 
-#: lib/katemainwindow.cpp:923
+#: lib/katemainwindow.cpp:921
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otvoriť súbor"
 
-#: lib/katemainwindow.cpp:1159
+#: lib/katemainwindow.cpp:1157
 #, kde-format
 msgid " [read only]"
 msgstr " [iba na čítanie]"

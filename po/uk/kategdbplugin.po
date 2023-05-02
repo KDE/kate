@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:56+0000\n"
-"PO-Revision-Date: 2023-04-30 09:57+0300\n"
+"PO-Revision-Date: 2023-05-01 09:44+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -22,10 +22,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "Debug command"
+#, kde-format
 msgid "GDB command"
-msgstr "Команда діагностики"
+msgstr "Команда GDB"
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
 #. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)

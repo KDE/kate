@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:56+0000\n"
-"PO-Revision-Date: 2023-04-30 13:23+0300\n"
+"PO-Revision-Date: 2023-05-01 12:06+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -24,10 +24,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "Debug command"
+#, kde-format
 msgid "GDB command"
-msgstr "Hata ayıklama komutu"
+msgstr "GDB komutu"
 
 #. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
 #. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)

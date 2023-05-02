@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:56+0000\n"
-"PO-Revision-Date: 2023-03-11 03:39+0100\n"
+"PO-Revision-Date: 2023-05-01 05:19+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -20,8 +20,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "GDB-komando"
 
@@ -601,10 +600,9 @@ msgid "named items"
 msgstr "nomitaj eroj"
 
 #: plugin_kategdb.cpp:66
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr "Kate sencimigo"
 
 #: plugin_kategdb.cpp:70
 #, kde-format
@@ -634,12 +632,10 @@ msgid "Frame"
 msgstr "Kadro"
 
 #: plugin_kategdb.cpp:153
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB Eligo"
+msgstr "Sencimiga eligo"
 
 #: plugin_kategdb.cpp:154
 #, kde-format
@@ -761,7 +757,6 @@ msgstr "&Sencimigi"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "GDB-Kromprogramo"
+msgstr "Sencimiga kromprogramo"

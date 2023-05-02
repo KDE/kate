@@ -98,6 +98,7 @@ private:
     QString currentWord();
 
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
+    QToolButton *createDebugButton(QAction *action);
 
     KTextEditor::Application *m_kateApplication;
     KTextEditor::MainWindow *m_mainWin;
@@ -123,4 +124,8 @@ private:
     int m_lastExecFrame;
     bool m_focusOnInput;
     QPointer<KTextEditor::Message> m_infoMessage;
+
+    //Debug buttons
+    QWidget *m_buttonWidget;
+    QToolButton *m_continueButton;
 };

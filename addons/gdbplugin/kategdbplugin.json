@@ -1,9 +1,11 @@
 {
     "KPlugin": {
         "Description": "Provides debugger integration",
+        "Description[ca@valencia]": "Proporciona la integració del depurador",
         "Description[ca]": "Proporciona la integració del depurador",
         "Description[es]": "Proporciona integración con el depurador",
         "Description[eu]": "Araztailearen integrazioa ematen du",
+        "Description[gl]": "Fornece información de depuración",
         "Description[ia]": "Forni integration de cribrator",
         "Description[nl]": "Biedt integratie van debugger",
         "Description[sl]": "Zagotavlja integracijo razhroščevalnika",
@@ -11,9 +13,11 @@
         "Description[uk]": "Надає інтеграцію із засобом діагностики",
         "Description[x-test]": "xxProvides debugger integrationxx",
         "Name": "Kate Debugger",
+        "Name[ca@valencia]": "Depurador de Kate",
         "Name[ca]": "Depurador del Kate",
         "Name[es]": "Depurador de Kate",
         "Name[eu]": "Kate araztailea",
+        "Name[gl]": "Depurador de Kate",
         "Name[ia]": "Cribrator (Debugger) de Kate",
         "Name[nl]": "Kate-debugger",
         "Name[sl]": "Kate razhroščevalnik",

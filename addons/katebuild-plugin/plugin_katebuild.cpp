@@ -73,6 +73,42 @@ static const QString DefBuildCmd = QStringLiteral("make");
 static const QString DefCleanCmd = QStringLiteral("make clean");
 static const QString DiagnosticsPrefix = QStringLiteral("katebuild");
 
+#ifdef Q_OS_WIN
+/******************************************************************/
+static QString caseFixed(const QString &path)
+{
+    QStringList paths = path.split(QLatin1Char('/'));
+    if (paths.isEmpty()) {
+        return path;
+    }
+
+    QString result = paths[0].toUpper() + QLatin1Char('/');
+    for (int i = 1; i < paths.count(); ++i) {
+        QDir curDir(result);
+        const QStringList items = curDir.entryList();
+        int j;
+        for (j = 0; j < items.size(); ++j) {
+            if (items[j].compare(paths[i], Qt::CaseInsensitive) == 0) {
+                result += items[j];
+                if (i < paths.count() - 1) {
+                    result += QLatin1Char('/');
+                }
+                break;
+            }
+        }
+        if (j == items.size()) {
+            return path;
+        }
+    }
+    return result;
+}
+#else
+static QString caseFixed(const QString &path)
+{
+    return path;
+}
+#endif
+
 struct ItemData {
     // ensure destruction, but not inadvertently so by a variant value copy
     std::shared_ptr<KTextEditor::MovingCursor> cursor;
@@ -218,11 +254,15 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
             return;
         };
 
-        if (!QFile::exists(match.captured(1))) {
-            return;
+        QString filePath = match.captured(1);
+        if (!QFile::exists(filePath)) {
+            filePath = caseFixed(filePath);
+            if (!QFile::exists(filePath)) {
+                return;
+            }
         }
 
-        QUrl fileUrl = QUrl::fromLocalFile(match.captured(1));
+        QUrl fileUrl = QUrl::fromLocalFile(filePath);
         m_win->openUrl(fileUrl);
         if (!m_win->activeView()) {
             return;
@@ -406,37 +446,6 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         cg.writeEntry(QStringLiteral("%1 Target Names").arg(i), cmdNames);
     }
 }
-
-#ifdef Q_OS_WIN
-/******************************************************************/
-QString KateBuildView::caseFixed(const QString &path)
-{
-    QStringList paths = path.split(QLatin1Char('/'));
-    if (paths.isEmpty()) {
-        return path;
-    }
-
-    QString result = paths[0].toUpper() + QLatin1Char('/');
-    for (int i = 1; i < paths.count(); ++i) {
-        QDir curDir(result);
-        const QStringList items = curDir.entryList();
-        int j;
-        for (j = 0; j < items.size(); ++j) {
-            if (items[j].compare(paths[i], Qt::CaseInsensitive) == 0) {
-                result += items[j];
-                if (i < paths.count() - 1) {
-                    result += QLatin1Char('/');
-                }
-                break;
-            }
-        }
-        if (j == items.size()) {
-            return path;
-        }
-    }
-    return result;
-}
-#endif
 
 /******************************************************************/
 void KateBuildView::addError(const KateBuildView::OutputLine &err)

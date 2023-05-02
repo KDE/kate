@@ -113,10 +113,6 @@ private:
         int column;
     };
 
-#ifdef Q_OS_WIN
-    QString caseFixed(const QString &path);
-#endif
-
     OutputLine processOutputLine(QString line);
     QString toOutputHtml(const KateBuildView::OutputLine &out);
     void addError(const OutputLine &err);

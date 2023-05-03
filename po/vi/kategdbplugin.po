@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-01 00:56+0000\n"
+"POT-Creation-Date: 2023-05-03 00:51+0000\n"
 "PO-Revision-Date: 2023-03-21 18:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -608,7 +608,7 @@ msgstr "GDB trong Kate"
 msgid "Debug View"
 msgstr "Khung xem gỡ lỗi"
 
-#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:303
 #, kde-format
 msgid "Debug"
 msgstr "Gỡ lỗi"
@@ -618,19 +618,19 @@ msgstr "Gỡ lỗi"
 msgid "Locals and Stack"
 msgstr "Biến cục bộ và ngăn xếp"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Số"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Khung"
 
-#: plugin_kategdb.cpp:153
+#: plugin_kategdb.cpp:160
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -638,13 +638,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Đầu ra GDB"
 
-#: plugin_kategdb.cpp:154
+#: plugin_kategdb.cpp:161
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Thiết lập"
 
-#: plugin_kategdb.cpp:196
+#: plugin_kategdb.cpp:203
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -654,98 +654,98 @@ msgstr ""
 "<title>Không mở được tệp:</title><nl/>%1<br/>Hãy thử thêm một đường dẫn tìm "
 "kiếm vào Thiết lập nâng cao -> Đường dẫn tìm kiếm tệp nguồn"
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:228
 #, kde-format
 msgid "Start Debugging"
 msgstr "Bắt đầu gỡ lỗi"
 
-#: plugin_kategdb.cpp:227
+#: plugin_kategdb.cpp:238
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Diệt/dừng gỡ lỗi"
 
-#: plugin_kategdb.cpp:233
+#: plugin_kategdb.cpp:245
 #, kde-format
-msgid "Restart Debugging"
-msgstr "Khởi động lại việc gỡ lỗi"
+msgid "Continue"
+msgstr "Tiếp tục"
 
-#: plugin_kategdb.cpp:239
+#: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Bật/tắt điểm ngắt / ngắt"
 
-#: plugin_kategdb.cpp:245
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Step In"
 msgstr "Bước vào"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Step Over"
 msgstr "Bước qua"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Step Out"
 msgstr "Bước ra"
 
-#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:278 plugin_kategdb.cpp:310
+#, kde-format
+msgid "Run To Cursor"
+msgstr "Chạy đến con trỏ"
+
+#: plugin_kategdb.cpp:285
+#, kde-format
+msgid "Restart Debugging"
+msgstr "Khởi động lại việc gỡ lỗi"
+
+#: plugin_kategdb.cpp:293 plugin_kategdb.cpp:312
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Di chuyển con trỏ lệnh"
 
-#: plugin_kategdb.cpp:268 plugin_kategdb.cpp:292
-#, kde-format
-msgid "Run To Cursor"
-msgstr "Chạy đến con trỏ"
-
-#: plugin_kategdb.cpp:274
-#, kde-format
-msgid "Continue"
-msgstr "Tiếp tục"
-
-#: plugin_kategdb.cpp:280
+#: plugin_kategdb.cpp:298
 #, kde-format
 msgid "Print Value"
 msgstr "In giá trị"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:307
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:309
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:391 plugin_kategdb.cpp:407
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Chèn điểm ngắt"
 
-#: plugin_kategdb.cpp:387
+#: plugin_kategdb.cpp:405
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Xoá điểm ngắt"
 
-#: plugin_kategdb.cpp:519
+#: plugin_kategdb.cpp:542
 #, kde-format
 msgid "Execution point"
 msgstr "Điểm thực thi"
 
-#: plugin_kategdb.cpp:662
+#: plugin_kategdb.cpp:685
 #, kde-format
 msgid "Thread %1"
 msgstr "Luồng %1"
 
-#: plugin_kategdb.cpp:762
+#: plugin_kategdb.cpp:785
 #, kde-format
 msgid "IO"
 msgstr "Vào/ra"
 
-#: plugin_kategdb.cpp:848
+#: plugin_kategdb.cpp:871
 #, kde-format
 msgid "Breakpoint"
 msgstr "Điểm ngắt"

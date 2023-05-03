@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-01 00:56+0000\n"
-"PO-Revision-Date: 2023-03-06 16:05+0000\n"
+"POT-Creation-Date: 2023-05-03 00:51+0000\n"
+"PO-Revision-Date: 2023-05-02 11:01+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -19,8 +19,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "Comando GDB"
 
@@ -601,17 +600,16 @@ msgid "named items"
 msgstr "itens com nome"
 
 #: plugin_kategdb.cpp:66
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "GDB do Kate"
+msgstr "Depuração do Kate"
 
 #: plugin_kategdb.cpp:70
 #, kde-format
 msgid "Debug View"
 msgstr "Área de Depuração"
 
-#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:303
 #, kde-format
 msgid "Debug"
 msgstr "Depurar"
@@ -621,33 +619,31 @@ msgstr "Depurar"
 msgid "Locals and Stack"
 msgstr "Locais e Pilha"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "No"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Nível de Chamadas"
 
-#: plugin_kategdb.cpp:153
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#: plugin_kategdb.cpp:160
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "Resultado do GDB"
+msgstr "Resultado da Depuração"
 
-#: plugin_kategdb.cpp:154
+#: plugin_kategdb.cpp:161
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Configuração"
 
-#: plugin_kategdb.cpp:196
+#: plugin_kategdb.cpp:203
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -658,98 +654,98 @@ msgstr ""
 "adicionar um local de pesquisa à Configuração Avançada -> Locais de pesquisa "
 "do código-fonte"
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:228
 #, kde-format
 msgid "Start Debugging"
 msgstr "Iniciar a Depuração"
 
-#: plugin_kategdb.cpp:227
+#: plugin_kategdb.cpp:238
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Interromper a Depuração"
 
-#: plugin_kategdb.cpp:233
+#: plugin_kategdb.cpp:245
 #, kde-format
-msgid "Restart Debugging"
-msgstr "Reiniciar a Depuração"
+msgid "Continue"
+msgstr "Continuar"
 
-#: plugin_kategdb.cpp:239
+#: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Comutar o Ponto de Paragem"
 
-#: plugin_kategdb.cpp:245
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Step In"
 msgstr "Avançar Para"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Step Over"
 msgstr "Avançar Sobre"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Step Out"
 msgstr "Sair"
 
-#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:278 plugin_kategdb.cpp:310
+#, kde-format
+msgid "Run To Cursor"
+msgstr "Executar até ao Cursor"
+
+#: plugin_kategdb.cpp:285
+#, kde-format
+msgid "Restart Debugging"
+msgstr "Reiniciar a Depuração"
+
+#: plugin_kategdb.cpp:293 plugin_kategdb.cpp:312
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Mover o PC"
 
-#: plugin_kategdb.cpp:268 plugin_kategdb.cpp:292
-#, kde-format
-msgid "Run To Cursor"
-msgstr "Executar até ao Cursor"
-
-#: plugin_kategdb.cpp:274
-#, kde-format
-msgid "Continue"
-msgstr "Continuar"
-
-#: plugin_kategdb.cpp:280
+#: plugin_kategdb.cpp:298
 #, kde-format
 msgid "Print Value"
 msgstr "Imprimir o Valor"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:307
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:309
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:391 plugin_kategdb.cpp:407
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Inserir um ponto de paragem"
 
-#: plugin_kategdb.cpp:387
+#: plugin_kategdb.cpp:405
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Remover o ponto de paragem"
 
-#: plugin_kategdb.cpp:519
+#: plugin_kategdb.cpp:542
 #, kde-format
 msgid "Execution point"
 msgstr "Ponto de execução"
 
-#: plugin_kategdb.cpp:662
+#: plugin_kategdb.cpp:685
 #, kde-format
 msgid "Thread %1"
 msgstr "Tarefa %1"
 
-#: plugin_kategdb.cpp:762
+#: plugin_kategdb.cpp:785
 #, kde-format
 msgid "IO"
 msgstr "E/S"
 
-#: plugin_kategdb.cpp:848
+#: plugin_kategdb.cpp:871
 #, kde-format
 msgid "Breakpoint"
 msgstr "Ponto de paragem"
@@ -762,7 +758,6 @@ msgstr "&Depurar"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "'Plugin' do GDB"
+msgstr "'Plugin' de Depuração"

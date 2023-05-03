@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-01 00:56+0000\n"
+"POT-Creation-Date: 2023-05-03 00:51+0000\n"
 "PO-Revision-Date: 2020-10-23 11:56+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -610,7 +610,7 @@ msgstr "Kate GDB"
 msgid "Debug View"
 msgstr "Silumisvaade"
 
-#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:303
 #, kde-format
 msgid "Debug"
 msgstr "Silu"
@@ -620,19 +620,19 @@ msgstr "Silu"
 msgid "Locals and Stack"
 msgstr "Lokaalid ja pinu"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Kaader"
 
-#: plugin_kategdb.cpp:153
+#: plugin_kategdb.cpp:160
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -640,13 +640,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "GDB väljund"
 
-#: plugin_kategdb.cpp:154
+#: plugin_kategdb.cpp:161
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Seadistused"
 
-#: plugin_kategdb.cpp:196
+#: plugin_kategdb.cpp:203
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -656,98 +656,98 @@ msgstr ""
 "<title>Faili avamine nurjus:</title><nl/>%1<br/>Proovi seadistuses vajalik "
 "otsingutee lisada (Muud seadistused -> Lähtefailide asukohad)"
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:228
 #, kde-format
 msgid "Start Debugging"
 msgstr "Käivita silumine"
 
-#: plugin_kategdb.cpp:227
+#: plugin_kategdb.cpp:238
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Tapa / peata silumine"
 
-#: plugin_kategdb.cpp:233
+#: plugin_kategdb.cpp:245
 #, kde-format
-msgid "Restart Debugging"
-msgstr "Taaskäivita silumine"
+msgid "Continue"
+msgstr "Jätka"
 
-#: plugin_kategdb.cpp:239
+#: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Lülita katkestuspunkti"
 
-#: plugin_kategdb.cpp:245
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Step In"
 msgstr "Astu sisse"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Step Over"
 msgstr "Astu üle"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Step Out"
 msgstr "Astu välja"
 
-#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:278 plugin_kategdb.cpp:310
+#, kde-format
+msgid "Run To Cursor"
+msgstr "Täida kursorini"
+
+#: plugin_kategdb.cpp:285
+#, kde-format
+msgid "Restart Debugging"
+msgstr "Taaskäivita silumine"
+
+#: plugin_kategdb.cpp:293 plugin_kategdb.cpp:312
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Liiguta käsuloendurit"
 
-#: plugin_kategdb.cpp:268 plugin_kategdb.cpp:292
-#, kde-format
-msgid "Run To Cursor"
-msgstr "Täida kursorini"
-
-#: plugin_kategdb.cpp:274
-#, kde-format
-msgid "Continue"
-msgstr "Jätka"
-
-#: plugin_kategdb.cpp:280
+#: plugin_kategdb.cpp:298
 #, kde-format
 msgid "Print Value"
 msgstr "Näita väärtust"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:307
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:309
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:391 plugin_kategdb.cpp:407
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Lisa katkestuspunkt"
 
-#: plugin_kategdb.cpp:387
+#: plugin_kategdb.cpp:405
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Eemalda katkestuspunkt"
 
-#: plugin_kategdb.cpp:519
+#: plugin_kategdb.cpp:542
 #, kde-format
 msgid "Execution point"
 msgstr "Täitmispunkt"
 
-#: plugin_kategdb.cpp:662
+#: plugin_kategdb.cpp:685
 #, kde-format
 msgid "Thread %1"
 msgstr "Lõim %1"
 
-#: plugin_kategdb.cpp:762
+#: plugin_kategdb.cpp:785
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:848
+#: plugin_kategdb.cpp:871
 #, kde-format
 msgid "Breakpoint"
 msgstr "Katkestuspunkt"

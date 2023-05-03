@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-01 00:56+0000\n"
-"PO-Revision-Date: 2023-01-28 10:01+0100\n"
+"POT-Creation-Date: 2023-05-03 00:51+0000\n"
+"PO-Revision-Date: 2023-05-02 06:34+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -20,8 +20,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "GDB ბრძანება"
 
@@ -104,6 +103,8 @@ msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
+"მიმდინარეობს გამართვის სესია. გამოიყენეთ თავიდან გაშვება ან გააჩერეთ "
+"მიმდინარე სესია."
 
 #: configview.cpp:91
 #, kde-format
@@ -150,7 +151,7 @@ msgstr "ფოკუსის დატოვება"
 #: configview.cpp:141
 #, kde-format
 msgid "Keep the focus on the command line"
-msgstr ""
+msgstr "ფოკუსის შენრჩუნება ბრძანების სტრიქონზე"
 
 #: configview.cpp:143
 #, kde-format
@@ -160,7 +161,7 @@ msgstr "IO-ის გადამისამართება"
 #: configview.cpp:144
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
-msgstr ""
+msgstr "გამართვადი პროგრამების შეტანა/გამოტანის ცალკე ჩანართში გადამისამართება"
 
 #: configview.cpp:146
 #, kde-format
@@ -190,7 +191,7 @@ msgstr "CPU-ის რეგისტრები"
 #: debugview.cpp:160
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
+msgstr "დააყენეთ გამშვები ფაილი 'გამართვის' პანელის 'მორგების' ჩანართში."
 
 #: debugview.cpp:169
 #, kde-format
@@ -198,6 +199,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"გამმართველი მითითებული არაა. აირჩიეთ ერთ-ერთი 'გამართვის' პანელის 'მორგების "
+"ჩანართზე'."
 
 #: debugview.cpp:178
 #, kde-format
@@ -205,6 +208,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"გამმართველი აღმოჩენილი არაა. დარწმუნდით, რომ გიყენიათ ის. არჩეულია "
+"გამმართველია '%1'"
 
 #: debugview.cpp:384
 #, kde-format
@@ -257,11 +262,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: ბოლო პასუხის დამუშავების შეცდომა: %1. ძალიან ბევრი ერთდროული "
+"შეცდომა. გაითიშება."
 
 #: debugview.cpp:1379
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: ბოლო პასუხის დამუშავების შეცდომა: %1"
 
 #: debugview_dap.cpp:169
 #, kde-format
@@ -376,7 +383,7 @@ msgstr "(%1) გამართვის წერტილი"
 #: debugview_dap.cpp:717
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<not evaluated>"
 
 #: debugview_dap.cpp:739
 #, kde-format
@@ -478,22 +485,22 @@ msgstr "ხელმისაწვდომი ბრძანებები:"
 #: debugview_dap.cpp:1308
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "პირობითი გამართვის წერტილები სერვერის მიერ მხარდაჭერილი არაა"
 
 #: debugview_dap.cpp:1316
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "პირობით გამართვის წერტილებამდე მიღწევა სერვერის მიერ მხარდაჭერილი არაა"
 
 #: debugview_dap.cpp:1336
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "ხაზს %1 გამართვის წერტილი უკვე გააჩნია"
 
 #: debugview_dap.cpp:1381
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
-msgstr ""
+msgstr "გამართვის წერტილი ვერ ვიპოვე (%1:%2)"
 
 #: debugview_dap.cpp:1387
 #, kde-format
@@ -591,17 +598,16 @@ msgid "named items"
 msgstr "სახელიანი ელემენტები"
 
 #: plugin_kategdb.cpp:66
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr "Kate-ის გამართვა"
 
 #: plugin_kategdb.cpp:70
 #, kde-format
 msgid "Debug View"
 msgstr "გამართვის ხედი"
 
-#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:303
 #, kde-format
 msgid "Debug"
 msgstr "პროგრამის შეცდომის პოვნა"
@@ -611,132 +617,132 @@ msgstr "პროგრამის შეცდომის პოვნა"
 msgid "Locals and Stack"
 msgstr "ლოკალურები და სტეკი"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "კადრი"
 
-#: plugin_kategdb.cpp:153
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#: plugin_kategdb.cpp:160
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB გამოტანა"
+msgstr "გამართვის გამოტანა"
 
-#: plugin_kategdb.cpp:154
+#: plugin_kategdb.cpp:161
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "მორგება"
 
-#: plugin_kategdb.cpp:196
+#: plugin_kategdb.cpp:203
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
 "Advanced Settings -> Source file search paths"
 msgstr ""
+"<title>ფაილის გახსნის შეცდომა:</title><nl/>%1<br/>სცადეთ დამაატოთ საძებნი "
+"ბილიკი დამატებით პარამეტრებში -> კოდის ფაილების ძებნის ბილიკები"
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:228
 #, kde-format
 msgid "Start Debugging"
 msgstr "გამარტვის დაწყება"
 
-#: plugin_kategdb.cpp:227
+#: plugin_kategdb.cpp:238
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "გამართვის მოკვლა / გაჩერება"
 
-#: plugin_kategdb.cpp:233
+#: plugin_kategdb.cpp:245
 #, kde-format
-msgid "Restart Debugging"
-msgstr "გამართვის თავიდან გაშვება"
+msgid "Continue"
+msgstr "გაგრძელება"
 
-#: plugin_kategdb.cpp:239
+#: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "გამართვის წერტილის გადართვა / გაჩერება"
 
-#: plugin_kategdb.cpp:245
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Step In"
 msgstr "შებიჯება"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Step Over"
 msgstr "გადაბიჯება"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Step Out"
 msgstr "გამობიჯება"
 
-#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:278 plugin_kategdb.cpp:310
+#, kde-format
+msgid "Run To Cursor"
+msgstr "კურსორამდე გაშვება"
+
+#: plugin_kategdb.cpp:285
+#, kde-format
+msgid "Restart Debugging"
+msgstr "გამართვის თავიდან გაშვება"
+
+#: plugin_kategdb.cpp:293 plugin_kategdb.cpp:312
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "PC-ის გადატანა"
 
-#: plugin_kategdb.cpp:268 plugin_kategdb.cpp:292
-#, kde-format
-msgid "Run To Cursor"
-msgstr "კურსორამდე გაშვება"
-
-#: plugin_kategdb.cpp:274
-#, kde-format
-msgid "Continue"
-msgstr "გაგრძელება"
-
-#: plugin_kategdb.cpp:280
+#: plugin_kategdb.cpp:298
 #, kde-format
 msgid "Print Value"
 msgstr "მნიშვნელობის დაბეჭდვა"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:307
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:309
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:391 plugin_kategdb.cpp:407
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "გამართვის წერტილის ჩასმა"
 
-#: plugin_kategdb.cpp:387
+#: plugin_kategdb.cpp:405
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "გამართვის წერტილის წაშლა"
 
-#: plugin_kategdb.cpp:519
+#: plugin_kategdb.cpp:542
 #, kde-format
 msgid "Execution point"
 msgstr "გაშვების წერტილი"
 
-#: plugin_kategdb.cpp:662
+#: plugin_kategdb.cpp:685
 #, kde-format
 msgid "Thread %1"
 msgstr "ნაკადი %1"
 
-#: plugin_kategdb.cpp:762
+#: plugin_kategdb.cpp:785
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:848
+#: plugin_kategdb.cpp:871
 #, kde-format
 msgid "Breakpoint"
 msgstr "გამართვის წერტილი"
@@ -749,10 +755,9 @@ msgstr "&გამართვა"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "GDB -ის გაფართოება"
+msgstr "გამართვის მოდული"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

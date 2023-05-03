@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-01 00:56+0000\n"
+"POT-Creation-Date: 2023-05-03 00:51+0000\n"
 "PO-Revision-Date: 2011-06-23 22:47+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -604,7 +604,7 @@ msgstr "Nyahpepijat"
 msgid "Debug View"
 msgstr "Nyahpepijat Paparkan"
 
-#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:303
 #, fuzzy, kde-format
 msgid "Debug"
 msgstr "Nyahpepijat"
@@ -614,31 +614,31 @@ msgstr "Nyahpepijat"
 msgid "Locals and Stack"
 msgstr "Panggil Tindan"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, fuzzy, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, fuzzy, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Bingkai"
 
-#: plugin_kategdb.cpp:153
+#: plugin_kategdb.cpp:160
 #, fuzzy, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Output"
 
-#: plugin_kategdb.cpp:154
+#: plugin_kategdb.cpp:161
 #, fuzzy, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Seting"
 
-#: plugin_kategdb.cpp:196
+#: plugin_kategdb.cpp:203
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -646,98 +646,98 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:228
 #, fuzzy, kde-format
 msgid "Start Debugging"
 msgstr "Mula Nyahpepijat"
 
-#: plugin_kategdb.cpp:227
+#: plugin_kategdb.cpp:238
 #, fuzzy, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Henti Nyahpepijat"
 
-#: plugin_kategdb.cpp:233
+#: plugin_kategdb.cpp:245
 #, fuzzy, kde-format
-msgid "Restart Debugging"
-msgstr "Ulangmula Nyahpepijat"
+msgid "Continue"
+msgstr "Teruskan"
 
-#: plugin_kategdb.cpp:239
+#: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr ""
 
-#: plugin_kategdb.cpp:245
+#: plugin_kategdb.cpp:257
 #, fuzzy, kde-format
 msgid "Step In"
 msgstr "Langkah"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:264
 #, fuzzy, kde-format
 msgid "Step Over"
 msgstr "Langkah Langkau"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:271
 #, fuzzy, kde-format
 msgid "Step Out"
 msgstr "Langkah Keluar"
 
-#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:278 plugin_kategdb.cpp:310
+#, fuzzy, kde-format
+msgid "Run To Cursor"
+msgstr "Laksana Kepada"
+
+#: plugin_kategdb.cpp:285
+#, fuzzy, kde-format
+msgid "Restart Debugging"
+msgstr "Ulangmula Nyahpepijat"
+
+#: plugin_kategdb.cpp:293 plugin_kategdb.cpp:312
 #, fuzzy, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Pindah PC"
 
-#: plugin_kategdb.cpp:268 plugin_kategdb.cpp:292
-#, fuzzy, kde-format
-msgid "Run To Cursor"
-msgstr "Laksana Kepada"
-
-#: plugin_kategdb.cpp:274
-#, fuzzy, kde-format
-msgid "Continue"
-msgstr "Teruskan"
-
-#: plugin_kategdb.cpp:280
+#: plugin_kategdb.cpp:298
 #, fuzzy, kde-format
 msgid "Print Value"
 msgstr "Cetak Nilai"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:307
 #, kde-format
 msgid "popup_breakpoint"
 msgstr ""
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:309
 #, fuzzy, kde-format
 msgid "popup_run_to_cursor"
 msgstr "ke "
 
-#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:391 plugin_kategdb.cpp:407
 #, fuzzy, kde-format
 msgid "Insert breakpoint"
 msgstr "Selit"
 
-#: plugin_kategdb.cpp:387
+#: plugin_kategdb.cpp:405
 #, fuzzy, kde-format
 msgid "Remove breakpoint"
 msgstr "Buang"
 
-#: plugin_kategdb.cpp:519
+#: plugin_kategdb.cpp:542
 #, fuzzy, kde-format
 msgid "Execution point"
 msgstr "Pelaksanaan"
 
-#: plugin_kategdb.cpp:662
+#: plugin_kategdb.cpp:685
 #, kde-format
 msgid "Thread %1"
 msgstr ""
 
-#: plugin_kategdb.cpp:762
+#: plugin_kategdb.cpp:785
 #, kde-format
 msgid "IO"
 msgstr ""
 
-#: plugin_kategdb.cpp:848
+#: plugin_kategdb.cpp:871
 #, kde-format
 msgid "Breakpoint"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 01:00+0000\n"
+"POT-Creation-Date: 2023-05-03 00:51+0000\n"
 "PO-Revision-Date: 2015-05-18 09:33+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -593,15 +593,15 @@ msgstr ""
 
 #: plugin_kategdb.cpp:66
 #, kde-format
-msgid "Kate GDB"
-msgstr "Kate GDB"
+msgid "Kate Debug"
+msgstr ""
 
 #: plugin_kategdb.cpp:70
 #, kde-format
 msgid "Debug View"
 msgstr "Feilsøkingsvisning"
 
-#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:303
 #, kde-format
 msgid "Debug"
 msgstr "Feilsøk"
@@ -611,31 +611,31 @@ msgstr "Feilsøk"
 msgid "Locals and Stack"
 msgstr "Lokale og kallstabel"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: plugin_kategdb.cpp:121
+#: plugin_kategdb.cpp:128
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Ramme"
 
-#: plugin_kategdb.cpp:153
+#: plugin_kategdb.cpp:160
 #, kde-format
 msgctxt "Tab label"
-msgid "GDB Output"
-msgstr "Utdata fra GDB"
+msgid "Debug Output"
+msgstr ""
 
-#: plugin_kategdb.cpp:154
+#: plugin_kategdb.cpp:161
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Innstillinger"
 
-#: plugin_kategdb.cpp:196
+#: plugin_kategdb.cpp:203
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -643,98 +643,98 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:228
 #, kde-format
 msgid "Start Debugging"
 msgstr "Start feilsøking"
 
-#: plugin_kategdb.cpp:227
+#: plugin_kategdb.cpp:238
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Drep / stopp feilsøking"
 
-#: plugin_kategdb.cpp:233
+#: plugin_kategdb.cpp:245
 #, kde-format
-msgid "Restart Debugging"
-msgstr "Start feilsøking på nytt"
+msgid "Continue"
+msgstr "Fortsett"
 
-#: plugin_kategdb.cpp:239
+#: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Slå av/på bruddpunkt/brudd"
 
-#: plugin_kategdb.cpp:245
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Step In"
 msgstr "Steg inn"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Step Over"
 msgstr "Steg over"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Step Out"
 msgstr "Steg ut"
 
-#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:278 plugin_kategdb.cpp:310
+#, kde-format
+msgid "Run To Cursor"
+msgstr "Kjør til markør"
+
+#: plugin_kategdb.cpp:285
+#, kde-format
+msgid "Restart Debugging"
+msgstr "Start feilsøking på nytt"
+
+#: plugin_kategdb.cpp:293 plugin_kategdb.cpp:312
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Flytt PC"
 
-#: plugin_kategdb.cpp:268 plugin_kategdb.cpp:292
-#, kde-format
-msgid "Run To Cursor"
-msgstr "Kjør til markør"
-
-#: plugin_kategdb.cpp:274
-#, kde-format
-msgid "Continue"
-msgstr "Fortsett"
-
-#: plugin_kategdb.cpp:280
+#: plugin_kategdb.cpp:298
 #, kde-format
 msgid "Print Value"
 msgstr "Skriv ut verdi"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:307
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "oppsprett_bruddpunkt"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:309
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "oppsprett_kjør_til_markør"
 
-#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:391 plugin_kategdb.cpp:407
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Sett inn bruddpunkt"
 
-#: plugin_kategdb.cpp:387
+#: plugin_kategdb.cpp:405
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Fjern bruddpunkt"
 
-#: plugin_kategdb.cpp:519
+#: plugin_kategdb.cpp:542
 #, kde-format
 msgid "Execution point"
 msgstr "Kjøringspunkt"
 
-#: plugin_kategdb.cpp:662
+#: plugin_kategdb.cpp:685
 #, kde-format
 msgid "Thread %1"
 msgstr "Tråd %1"
 
-#: plugin_kategdb.cpp:762
+#: plugin_kategdb.cpp:785
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:848
+#: plugin_kategdb.cpp:871
 #, kde-format
 msgid "Breakpoint"
 msgstr "Bruddpunkt"
@@ -748,5 +748,5 @@ msgstr "&Feilsøk"
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
 #, kde-format
-msgid "GDB Plugin"
-msgstr "GDB programtillegg"
+msgid "Debug Plugin"
+msgstr ""

@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include "kateprivate_export.h"
+
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QVariant>
@@ -55,4 +57,4 @@ private:
 
 typedef std::map<QString, KateRunningInstanceInfo> KateRunningInstanceMap;
 
-Q_DECL_EXPORT bool fillinRunningKateAppInstances(KateRunningInstanceMap *map);
+KATE_PRIVATE_EXPORT bool fillinRunningKateAppInstances(KateRunningInstanceMap *map);

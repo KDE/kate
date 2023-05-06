@@ -22,5 +22,5 @@ target_sources(
     document_dummy.cpp
 )
 
-add_test(NAME kateapp-filetree_model_test COMMAND filetree_model_test)
+add_test(NAME kateapp-filetree_model_test COMMAND filetree_model_test -platform offscreen)
 ecm_mark_as_test(filetree_model_test)

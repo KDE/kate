@@ -20,7 +20,7 @@ target_sources(
     ${CMAKE_CURRENT_SOURCE_DIR}/../gdbmi/parser.cpp
 )
 
-add_test(NAME plugin-gdb_test_gdbmi COMMAND gdbplugin_test_gdbmi)
+add_test(NAME plugin-gdb_test_gdbmi COMMAND gdbplugin_test_gdbmi -platform offscreen)
 ecm_mark_as_test(gdbplugin_test_gdbmi)
 
 
@@ -51,5 +51,5 @@ target_sources(
     ${CMAKE_CURRENT_SOURCE_DIR}/../gdbmi/parser.cpp
 )
 
-add_test(NAME plugin-gdb_test_gdbbackend COMMAND gdbplugin_test_gdbbackend)
+add_test(NAME plugin-gdb_test_gdbbackend COMMAND gdbplugin_test_gdbbackend -platform offscreen)
 ecm_mark_as_test(gdbplugin_test_gdbbackend)

@@ -19,5 +19,5 @@ target_sources(
     ../tabswitcherfilesmodel.cpp
 )
 
-add_test(NAME plugin-tabswitcher_test COMMAND tabswitcher_test)
+add_test(NAME plugin-tabswitcher_test COMMAND tabswitcher_test -platform offscreen)
 ecm_mark_as_test(tabswitcher_test)

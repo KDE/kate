@@ -2,20 +2,16 @@ include(ECMMarkAsTest)
 
 find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
+# add given tests to run in offscreen rendering
 macro(kate_executable_tests)
-  foreach(_testname ${ARGN})
-    add_executable(${_testname} ${_testname}.cpp tests.qrc)
-
-    target_link_libraries(
-      ${_testname}
-      PRIVATE
-        kateprivate
-        Qt::Test
-    )
-
-    add_test(NAME kateapp-${_testname} COMMAND ${_testname})
-    ecm_mark_as_test(${_testname})
-  endforeach()
+    foreach(_testname ${ARGN})
+        add_executable(${_testname} ${_testname}.cpp tests.qrc)
+        target_link_libraries(${_testname}
+            PRIVATE
+                kateprivate Qt::Test)
+        add_test(NAME kateapp-${_testname} COMMAND ${_testname} -platform offscreen)
+        ecm_mark_as_test(${_testname})
+    endforeach()
 endmacro()
 
 # some test ATM timeout with Qt 6 in the CI

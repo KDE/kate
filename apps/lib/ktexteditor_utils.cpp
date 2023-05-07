@@ -152,11 +152,13 @@ QAction *toolviewShowAction(KTextEditor::MainWindow *mainWindow, const QString &
 
 QWidget *toolviewForName(KTextEditor::MainWindow *mainWindow, const QString &toolviewName)
 {
-    auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window());
-    if (!kmw) {
-        return nullptr;
-    }
-    return kmw->toolView(toolviewName);
+    QWidget* toolView = nullptr;
+    QMetaObject::invokeMethod(mainWindow->parent(),
+                              "toolViewForName",
+                              Qt::DirectConnection,
+                              Q_RETURN_ARG(QWidget*, toolView),
+                              Q_ARG(QString, toolviewName));
+    return toolView;
 }
 
 void showMessage(const QString &message, const QIcon &icon, const QString &category, MessageType type, KTextEditor::MainWindow *mainWindow)
@@ -181,9 +183,10 @@ void showMessage(const QVariantMap &map, KTextEditor::MainWindow *mainWindow)
     if (!mainWindow) {
         mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
     }
-    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
-        kmw->showMessage(map);
-    }
+    QMetaObject::invokeMethod(mainWindow->parent(),
+                              "showMessage",
+                              Qt::DirectConnection,
+                              Q_ARG(QVariantMap, map));
 }
 
 void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow)
@@ -195,16 +198,18 @@ void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::Mai
 
 void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
 {
-    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
-        kmw->addWidget(widget);
-    }
+    QMetaObject::invokeMethod(mainWindow->parent(),
+                              "addWidget",
+                              Qt::DirectConnection,
+                              Q_ARG(QWidget*, widget));
 }
 
 void insertWidgetInStatusbar(QWidget *widget, KTextEditor::MainWindow *mainWindow)
 {
-    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
-        kmw->insertWidgetInStatusBar(widget);
-    }
+    QMetaObject::invokeMethod(mainWindow->parent(),
+                              "insertWidgetInStatusbar",
+                              Qt::DirectConnection,
+                              Q_ARG(QWidget*, widget));
 }
 
 QString projectBaseDirForDocument(KTextEditor::Document *doc)

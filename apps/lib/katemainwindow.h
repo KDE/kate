@@ -500,6 +500,15 @@ public Q_SLOTS:
                             const QString &text);
 
     /**
+     * Find the toolview with the given \p identifier
+     * \param identifier identifier as specified in createToolView()
+     * \return pointer to the toolview, if found, otherwise NULL
+     */
+    QWidget *toolviewForName(const QString &identifier) {
+        return toolView(identifier);
+    }
+
+    /**
      * Move the toolview \p widget to position \p pos.
      * \param widget the toolview to move, where the widget was constructed
      *        by createToolView().

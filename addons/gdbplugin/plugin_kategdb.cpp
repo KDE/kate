@@ -90,7 +90,7 @@ QObject *KatePluginGDB::createView(KTextEditor::MainWindow *mainWindow)
     return new KatePluginGDBView(this, mainWindow);
 }
 
-KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin)
+KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWindow *mainWin)
     : QObject(mainWin)
     , m_mainWin(mainWin)
 {
@@ -190,7 +190,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     locStackSplitter->setOrientation(Qt::Vertical);
 
     // config page
-    m_configView = new ConfigView(nullptr, mainWin);
+    m_configView = new ConfigView(nullptr, mainWin, plugin);
 
     m_ioView = std::make_unique<IOView>();
     connect(m_configView, &ConfigView::showIO, this, &KatePluginGDBView::showIO);

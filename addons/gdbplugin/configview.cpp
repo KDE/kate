@@ -33,7 +33,7 @@
 #include "advanced_settings.h"
 #include "dap/settings.h"
 #include "json_placeholders.h"
-
+#include "plugin_kategdb.h"
 #include <json_utils.h>
 
 constexpr int CONFIG_VERSION = 5;
@@ -69,7 +69,7 @@ std::optional<QJsonDocument> loadJSON(const QString &path)
     return json;
 }
 
-ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
+ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePluginGDB *plugin)
     : QWidget(parent)
     , m_mainWindow(mainWin)
 {
@@ -77,6 +77,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     m_clientCombo->setEditable(false);
     m_clientCombo->addItem(QStringLiteral("GDB"));
     m_clientCombo->insertSeparator(1);
+    m_dapConfigPath = plugin->configPath();
     readDAPSettings();
 
     m_targetCombo = new QComboBox(this);
@@ -173,15 +174,14 @@ ConfigView::~ConfigView()
 void ConfigView::readDAPSettings()
 {
     // read servers file
-    const auto json = loadJSON(QStringLiteral(":/dapclient/servers.json"));
+    const auto json = loadJSON(QStringLiteral(":/debugger/dap.json"));
     if (!json)
         return;
 
     auto baseObject = json->object();
 
     {
-        const QString settingsPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QDir::separator() + QStringLiteral("gdbplugin")
-            + QDir::separator() + QStringLiteral("dap.json");
+        const QString settingsPath = m_dapConfigPath.toLocalFile();
 
         const auto userJson = loadJSON(settingsPath);
         if (userJson) {

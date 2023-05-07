@@ -64,7 +64,7 @@ class KatePluginGDBView : public QObject, public KXMLGUIClient, public KTextEdit
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
-    KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
+    KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWindow *mainWin);
     ~KatePluginGDBView() override;
 
     // reimplemented: read and write session config

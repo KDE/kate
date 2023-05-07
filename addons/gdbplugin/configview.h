@@ -31,6 +31,7 @@ class KSelectAction;
 class QToolButton;
 class KActionCollection;
 class KConfigGroup;
+class KatePluginGDB;
 
 struct GDBTargetConf {
     QString targetName;
@@ -62,7 +63,7 @@ class ConfigView : public QWidget
 public:
     enum TargetStringOrder { NameIndex = 0, ExecIndex, WorkDirIndex, ArgsIndex, GDBIndex, CustomStartIndex };
 
-    ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin);
+    ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePluginGDB *plugin);
     ~ConfigView() override;
 
 public:
@@ -76,6 +77,7 @@ public:
     bool takeFocusAlways() const;
     bool showIOTab() const;
     bool debuggerIsGDB() const;
+    QUrl dapConfigPath;
 
 Q_SIGNALS:
     void showIO(bool show);
@@ -144,4 +146,5 @@ private:
     QHash<QString, QHash<QString, DAPAdapterSettings>> m_dapAdapterSettings;
 
     AdvancedGDBSettings *m_advanced;
+    QUrl m_dapConfigPath;
 };

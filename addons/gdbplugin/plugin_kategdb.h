@@ -41,6 +41,21 @@ public:
     ~KatePluginGDB() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+    int configPages() const override;
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
+    void readConfig();
+    void writeConfig() const;
+
+    const QString m_settingsPath;
+    const QUrl m_defaultConfigPath;
+    QUrl m_configPath;
+    QUrl configPath() const
+    {
+        return m_configPath.isEmpty() ? m_defaultConfigPath : m_configPath;
+    }
+Q_SIGNALS:
+    // Update for config
+    void update() const;
 };
 
 class KatePluginGDBView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface

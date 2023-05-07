@@ -16,6 +16,7 @@ ecm_qt_declare_logging_category(
 )
 
 ki18n_wrap_ui(kategdbplugin advanced_settings.ui)
+ki18n_wrap_ui(kategdbplugin debugconfig.ui)
 
 set(DAP_SOURCES
     dap/bus.cpp
@@ -45,6 +46,7 @@ target_sources(
     ioview.cpp
     localsview.cpp
     advanced_settings.cpp
+    debugconfigpage.cpp
 
     ${DAP_SOURCES}
     ${GDBMI_SOURCES}

@@ -30,6 +30,8 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 
+#include "debugconfigpage.h"
+#include <QDir>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/markinterface.h>
@@ -37,14 +39,50 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
 
+static const QString CONFIG_DEBUGPLUGIN{QStringLiteral("debugplugin")};
+static const QString CONFIG_DAP_CONFIG{QStringLiteral("DAPConfiguration")};
+
 KatePluginGDB::KatePluginGDB(QObject *parent, const VariantList &)
     : KTextEditor::Plugin(parent)
+    , m_settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/debugger"))
+    , m_defaultConfigPath(QUrl::fromLocalFile(m_settingsPath + QStringLiteral("/dap.json")))
 {
     // FIXME KF5 KGlobal::locale()->insertCatalog("kategdbplugin");
+    QDir().mkpath(m_settingsPath);
+    readConfig();
+}
+
+int KatePluginGDB::configPages() const
+{
+    return 1;
+}
+KTextEditor::ConfigPage *KatePluginGDB::configPage(int number, QWidget *parent)
+{
+    if (number != 0) {
+        return nullptr;
+    }
+
+    return new DebugConfigPage(parent, this);
 }
 
 KatePluginGDB::~KatePluginGDB()
 {
+}
+
+void KatePluginGDB::readConfig()
+{
+    KConfigGroup config(KSharedConfig::openConfig(), CONFIG_DEBUGPLUGIN);
+    m_configPath = config.readEntry(CONFIG_DAP_CONFIG, QUrl());
+
+    Q_EMIT update();
+}
+
+void KatePluginGDB::writeConfig() const
+{
+    KConfigGroup config(KSharedConfig::openConfig(), CONFIG_DEBUGPLUGIN);
+    config.writeEntry(CONFIG_DAP_CONFIG, m_configPath);
+
+    Q_EMIT update();
 }
 
 QObject *KatePluginGDB::createView(KTextEditor::MainWindow *mainWindow)

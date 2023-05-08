@@ -465,7 +465,7 @@ void KateConsole::slotRun()
     }
 
     // then filename
-    QFileInfo fileInfo(url.path());
+    QFileInfo fileInfo(url.toLocalFile());
     const bool removeExt = cg.readEntry("RemoveExtension", true);
     // append filename without extension (i.e. keep only the basename)
     const QString path = fileInfo.absolutePath() + QLatin1Char('/') + (removeExt ? fileInfo.baseName() : fileInfo.fileName());

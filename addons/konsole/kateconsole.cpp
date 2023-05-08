@@ -302,6 +302,17 @@ void KateConsole::paintEvent(QPaintEvent *e)
     p.drawText(rect(), Qt::AlignCenter | Qt::TextWordWrap, text);
 }
 
+static constexpr QChar eolChar()
+{
+    // On windows, if the shell is powershell
+    // '\r' needs to be sent to trigger enter
+#ifdef Q_OS_WIN
+    return QLatin1Char('\r');
+#else
+    return QLatin1Char('\n');
+#endif
+}
+
 void KateConsole::cd(const QString &path)
 {
     if (m_currentPath == path) {
@@ -313,7 +324,7 @@ void KateConsole::cd(const QString &path)
     }
 
     m_currentPath = path;
-    QString command = QLatin1String(" cd ") + KShell::quoteArg(m_currentPath) + QLatin1Char('\n');
+    QString command = QLatin1String(" cd ") + KShell::quoteArg(m_currentPath) + eolChar();
 
     // special handling for some interpreters
     TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part);
@@ -476,7 +487,7 @@ void KateConsole::slotRun()
         return;
     }
     // echo to terminal
-    sendInput(output_str + QLatin1Char('\n'));
+    sendInput(output_str + eolChar());
 }
 
 void KateConsole::slotToggleVisibility()

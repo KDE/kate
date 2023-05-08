@@ -9,6 +9,10 @@
 
 // BEGIN Includes
 #include "katemainwindow.h"
+#include "kconfigwidgets_version.h"
+#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(5, 107, 0)
+#include <KColorSchemeMenu>
+#endif
 
 #include "diagnostics/diagnosticview.h"
 #include "filehistorywidget.h"
@@ -252,9 +256,13 @@ void KateMainWindow::setupImportantActions()
     });
 
     // Load themes
-    const QString colorScheme = KConfigGroup(KSharedConfig::openConfig(), "UiSettings").readEntry("ColorScheme", QString());
     KColorSchemeManager *manager = new KColorSchemeManager(this);
+#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 107, 0)
+    const QString colorScheme = KConfigGroup(KSharedConfig::openConfig(), "UiSettings").readEntry("ColorScheme", QString());
     auto *colorSelectionMenu = manager->createSchemeSelectionMenu(colorScheme, this);
+#else
+    auto *colorSelectionMenu = KColorSchemeMenu::createMenu(manager, this);
+#endif
     colorSelectionMenu->menu()->setTitle(i18n("&Window Color Scheme"));
     actionCollection()->addAction(QStringLiteral("colorscheme_menu"), colorSelectionMenu);
 

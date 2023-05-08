@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-03 00:51+0000\n"
+"POT-Creation-Date: 2023-05-08 00:49+0000\n"
 "PO-Revision-Date: 2012-01-21 12:41+0200\n"
 "Last-Translator: Cristian Oneț <onet.cristian@gmail.com>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -106,69 +106,69 @@ msgid ""
 "session."
 msgstr ""
 
-#: configview.cpp:91
+#: configview.cpp:92
 #, fuzzy, kde-format
 #| msgid "Add executable target"
 msgid "Add new target"
 msgstr "Adaugă țintă pentru executabil"
 
-#: configview.cpp:95
+#: configview.cpp:96
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy target"
 msgstr "Elimină ținta"
 
-#: configview.cpp:99
+#: configview.cpp:100
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Delete target"
 msgstr "Elimină ținta"
 
-#: configview.cpp:104
+#: configview.cpp:105
 #, kde-format
 msgid "Executable:"
 msgstr ""
 
-#: configview.cpp:124
+#: configview.cpp:125
 #, fuzzy, kde-format
 #| msgid "&Working Directory:"
 msgid "Working Directory:"
 msgstr "&Dosar de lucru:"
 
-#: configview.cpp:132
+#: configview.cpp:133
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:137
+#: configview.cpp:138
 #, fuzzy, kde-format
 #| msgid "Add Argument List"
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Adaugă listă de argumenți"
 
-#: configview.cpp:140
+#: configview.cpp:141
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Păstrează focalizarea"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Păstrează focalizarea pe linia de comandă"
 
-#: configview.cpp:143
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect IO"
 msgstr "Redirectează IO"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Redirectează IO-ul programelor depanate către o filă separată"
 
-#: configview.cpp:146
+#: configview.cpp:147
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "Settings"
@@ -185,6 +185,52 @@ msgstr "Ținte"
 #| msgid "Targets"
 msgid "Target %1"
 msgstr "Ținte"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
+#: debugconfig.ui:33
+#, kde-format
+msgid "User Debug Adapter Settings"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: debugconfig.ui:41
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "Settings"
+msgid "Settings File:"
+msgstr "Configurări"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: debugconfig.ui:68
+#, kde-format
+msgid "Default Debug Adapter Settings"
+msgstr ""
+
+#: debugconfigpage.cpp:72 debugconfigpage.cpp:77
+#, fuzzy, kde-format
+#| msgid "Debug"
+msgid "Debugger"
+msgstr "Depanează"
+
+#: debugconfigpage.cpp:128
+#, kde-format
+msgid "No JSON data to validate."
+msgstr ""
+
+#: debugconfigpage.cpp:136
+#, kde-format
+msgid "JSON data is valid."
+msgstr ""
+
+#: debugconfigpage.cpp:138
+#, kde-format
+msgid "JSON data is invalid: no JSON object"
+msgstr ""
+
+#: debugconfigpage.cpp:141
+#, kde-format
+msgid "JSON data is invalid: %1"
+msgstr ""
 
 #: debugview.cpp:35
 #, fuzzy, kde-format
@@ -608,41 +654,41 @@ msgstr ""
 msgid "named items"
 msgstr ""
 
-#: plugin_kategdb.cpp:66
+#: plugin_kategdb.cpp:104
 #, fuzzy, kde-format
 #| msgid "Debug"
 msgid "Kate Debug"
 msgstr "Depanează"
 
-#: plugin_kategdb.cpp:70
+#: plugin_kategdb.cpp:108
 #, kde-format
 msgid "Debug View"
 msgstr "Vizualizare depanare"
 
-#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:341
 #, kde-format
 msgid "Debug"
 msgstr "Depanează"
 
-#: plugin_kategdb.cpp:73 plugin_kategdb.cpp:76
+#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
 #, fuzzy, kde-format
 #| msgid "Call Stack"
 msgid "Locals and Stack"
 msgstr "Stiva de apeluri"
 
-#: plugin_kategdb.cpp:128
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: plugin_kategdb.cpp:128
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Cadru"
 
-#: plugin_kategdb.cpp:160
+#: plugin_kategdb.cpp:198
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -650,13 +696,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Ieșire GDB"
 
-#: plugin_kategdb.cpp:161
+#: plugin_kategdb.cpp:199
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Configurări"
 
-#: plugin_kategdb.cpp:203
+#: plugin_kategdb.cpp:241
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -664,98 +710,98 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:228
+#: plugin_kategdb.cpp:266
 #, kde-format
 msgid "Start Debugging"
 msgstr "Începe depanarea"
 
-#: plugin_kategdb.cpp:238
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Omoară / Oprește depanarea"
 
-#: plugin_kategdb.cpp:245
+#: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Continue"
 msgstr "Continuă"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Comută între Punct de oprire / Oprire"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:295
 #, kde-format
 msgid "Step In"
 msgstr "Pășește în"
 
-#: plugin_kategdb.cpp:264
+#: plugin_kategdb.cpp:302
 #, kde-format
 msgid "Step Over"
 msgstr "Pășește peste"
 
-#: plugin_kategdb.cpp:271
+#: plugin_kategdb.cpp:309
 #, kde-format
 msgid "Step Out"
 msgstr "Pășește în afară"
 
-#: plugin_kategdb.cpp:278 plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:316 plugin_kategdb.cpp:348
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Rulează până la cursor"
 
-#: plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:323
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Repornește depanarea"
 
-#: plugin_kategdb.cpp:293 plugin_kategdb.cpp:312
+#: plugin_kategdb.cpp:331 plugin_kategdb.cpp:350
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Mută PC"
 
-#: plugin_kategdb.cpp:298
+#: plugin_kategdb.cpp:336
 #, kde-format
 msgid "Print Value"
 msgstr "Tipărește valoarea"
 
-#: plugin_kategdb.cpp:307
+#: plugin_kategdb.cpp:345
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:309
+#: plugin_kategdb.cpp:347
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:391 plugin_kategdb.cpp:407
+#: plugin_kategdb.cpp:429 plugin_kategdb.cpp:445
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Inserează punct de oprire"
 
-#: plugin_kategdb.cpp:405
+#: plugin_kategdb.cpp:443
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Elimină punct de oprire"
 
-#: plugin_kategdb.cpp:542
+#: plugin_kategdb.cpp:580
 #, kde-format
 msgid "Execution point"
 msgstr "Punct de execuție"
 
-#: plugin_kategdb.cpp:685
+#: plugin_kategdb.cpp:723
 #, kde-format
 msgid "Thread %1"
 msgstr "Fir de execuție %1"
 
-#: plugin_kategdb.cpp:785
+#: plugin_kategdb.cpp:823
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:871
+#: plugin_kategdb.cpp:909
 #, kde-format
 msgid "Breakpoint"
 msgstr "Punct de oprire"

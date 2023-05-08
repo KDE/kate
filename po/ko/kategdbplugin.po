@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-03 00:51+0000\n"
+"POT-Creation-Date: 2023-05-08 00:49+0000\n"
 "PO-Revision-Date: 2022-07-13 15:25+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -104,64 +104,64 @@ msgid ""
 "session."
 msgstr "디버깅 세션이 진행 중입니다. 현재 세션을 다시 시작하거나 정지하십시오."
 
-#: configview.cpp:91
+#: configview.cpp:92
 #, kde-format
 msgid "Add new target"
 msgstr "새 대상 추가"
 
-#: configview.cpp:95
+#: configview.cpp:96
 #, kde-format
 msgid "Copy target"
 msgstr "대상 복사"
 
-#: configview.cpp:99
+#: configview.cpp:100
 #, kde-format
 msgid "Delete target"
 msgstr "대상 삭제"
 
-#: configview.cpp:104
+#: configview.cpp:105
 #, kde-format
 msgid "Executable:"
 msgstr "실행 파일:"
 
-#: configview.cpp:124
+#: configview.cpp:125
 #, kde-format
 msgid "Working Directory:"
 msgstr "작업 디렉터리:"
 
-#: configview.cpp:132
+#: configview.cpp:133
 #, kde-format
 msgid "Process Id:"
 msgstr "프로세스 ID:"
 
-#: configview.cpp:137
+#: configview.cpp:138
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "인자:"
 
-#: configview.cpp:140
+#: configview.cpp:141
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "초점 유지"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "명령행에 초점 유지"
 
-#: configview.cpp:143
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect IO"
 msgstr "입출력 방향 전환"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "디버깅 중인 프로그램의 입출력을 별도의 탭으로 전환"
 
-#: configview.cpp:146
+#: configview.cpp:147
 #, kde-format
 msgid "Advanced Settings"
 msgstr "고급 설정"
@@ -175,6 +175,52 @@ msgstr "대상"
 #, kde-format
 msgid "Target %1"
 msgstr "대상 %1"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
+#: debugconfig.ui:33
+#, kde-format
+msgid "User Debug Adapter Settings"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: debugconfig.ui:41
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "Settings"
+msgid "Settings File:"
+msgstr "설정"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: debugconfig.ui:68
+#, kde-format
+msgid "Default Debug Adapter Settings"
+msgstr ""
+
+#: debugconfigpage.cpp:72 debugconfigpage.cpp:77
+#, fuzzy, kde-format
+#| msgid "Debug"
+msgid "Debugger"
+msgstr "디버그"
+
+#: debugconfigpage.cpp:128
+#, kde-format
+msgid "No JSON data to validate."
+msgstr ""
+
+#: debugconfigpage.cpp:136
+#, kde-format
+msgid "JSON data is valid."
+msgstr ""
+
+#: debugconfigpage.cpp:138
+#, kde-format
+msgid "JSON data is invalid: no JSON object"
+msgstr ""
+
+#: debugconfigpage.cpp:141
+#, kde-format
+msgid "JSON data is invalid: %1"
+msgstr ""
 
 #: debugview.cpp:35
 #, kde-format
@@ -594,40 +640,40 @@ msgstr "색인된 항목"
 msgid "named items"
 msgstr "이름이 있는 항목"
 
-#: plugin_kategdb.cpp:66
+#: plugin_kategdb.cpp:104
 #, fuzzy, kde-format
 #| msgid "Kate GDB"
 msgid "Kate Debug"
 msgstr "Kate GDB"
 
-#: plugin_kategdb.cpp:70
+#: plugin_kategdb.cpp:108
 #, kde-format
 msgid "Debug View"
 msgstr "디버그 보기"
 
-#: plugin_kategdb.cpp:70 plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:341
 #, kde-format
 msgid "Debug"
 msgstr "디버그"
 
-#: plugin_kategdb.cpp:73 plugin_kategdb.cpp:76
+#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
 #, kde-format
 msgid "Locals and Stack"
 msgstr "지역 변수와 호출 스택"
 
-#: plugin_kategdb.cpp:128
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "번호"
 
-#: plugin_kategdb.cpp:128
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "프레임"
 
-#: plugin_kategdb.cpp:160
+#: plugin_kategdb.cpp:198
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -635,13 +681,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "GDB 출력"
 
-#: plugin_kategdb.cpp:161
+#: plugin_kategdb.cpp:199
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "설정"
 
-#: plugin_kategdb.cpp:203
+#: plugin_kategdb.cpp:241
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -651,98 +697,98 @@ msgstr ""
 "<title>파일을 열 수 없음:</title><nl/>%1<br/>고급 설정 -> 소스 파일 검색 경로"
 "에서 검색 경로를 추가하십시오"
 
-#: plugin_kategdb.cpp:228
+#: plugin_kategdb.cpp:266
 #, kde-format
 msgid "Start Debugging"
 msgstr "디버깅 시작"
 
-#: plugin_kategdb.cpp:238
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "디버깅 중단/종료"
 
-#: plugin_kategdb.cpp:245
+#: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Continue"
 msgstr "계속"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "중단점 설정/해제"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:295
 #, kde-format
 msgid "Step In"
 msgstr "한 단계 안으로"
 
-#: plugin_kategdb.cpp:264
+#: plugin_kategdb.cpp:302
 #, kde-format
 msgid "Step Over"
 msgstr "한 단계 건너뜀"
 
-#: plugin_kategdb.cpp:271
+#: plugin_kategdb.cpp:309
 #, kde-format
 msgid "Step Out"
 msgstr "한 단계 밖으로"
 
-#: plugin_kategdb.cpp:278 plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:316 plugin_kategdb.cpp:348
 #, kde-format
 msgid "Run To Cursor"
 msgstr "커서까지 실행"
 
-#: plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:323
 #, kde-format
 msgid "Restart Debugging"
 msgstr "디버깅 다시 시작"
 
-#: plugin_kategdb.cpp:293 plugin_kategdb.cpp:312
+#: plugin_kategdb.cpp:331 plugin_kategdb.cpp:350
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "프로그램 카운터 이동"
 
-#: plugin_kategdb.cpp:298
+#: plugin_kategdb.cpp:336
 #, kde-format
 msgid "Print Value"
 msgstr "값 출력"
 
-#: plugin_kategdb.cpp:307
+#: plugin_kategdb.cpp:345
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:309
+#: plugin_kategdb.cpp:347
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:391 plugin_kategdb.cpp:407
+#: plugin_kategdb.cpp:429 plugin_kategdb.cpp:445
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "중단점 삽입"
 
-#: plugin_kategdb.cpp:405
+#: plugin_kategdb.cpp:443
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "중단점 삭제"
 
-#: plugin_kategdb.cpp:542
+#: plugin_kategdb.cpp:580
 #, kde-format
 msgid "Execution point"
 msgstr "실행 지점"
 
-#: plugin_kategdb.cpp:685
+#: plugin_kategdb.cpp:723
 #, kde-format
 msgid "Thread %1"
 msgstr "스레드 %1"
 
-#: plugin_kategdb.cpp:785
+#: plugin_kategdb.cpp:823
 #, kde-format
 msgid "IO"
 msgstr "입출력"
 
-#: plugin_kategdb.cpp:871
+#: plugin_kategdb.cpp:909
 #, kde-format
 msgid "Breakpoint"
 msgstr "중단점"

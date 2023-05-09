@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-02 00:51+0000\n"
+"POT-Creation-Date: 2023-05-09 00:51+0000\n"
 "PO-Revision-Date: 2022-10-02 16:47+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -172,7 +172,7 @@ msgstr "Stäng"
 msgid "Open File"
 msgstr "Öppna fil"
 
-#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:357
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:365
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopiera plats"
@@ -1265,12 +1265,12 @@ msgstr "Stäng dokument"
 msgid "Save As"
 msgstr "Spara som"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:658
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:666
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Ny fil öppnad medan Kate försöker avslutas. Avbryter avslutning."
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:658
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:666
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Avbryter avslutning"
@@ -1321,92 +1321,92 @@ msgstr "Filen \"%1\" kunde inte tas bort."
 msgid "&Other Application..."
 msgstr "Program"
 
-#: lib/katemainwindow.cpp:235
+#: lib/katemainwindow.cpp:239
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr "Använd det här kommandot för att visa eller dölja fönstrets statusrad"
 
-#: lib/katemainwindow.cpp:238
+#: lib/katemainwindow.cpp:242
 #, kde-format
 msgid "Show &Tabs"
 msgstr "Visa &flikar"
 
-#: lib/katemainwindow.cpp:241
+#: lib/katemainwindow.cpp:245
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr "Använd det här kommandot för att visa eller dölja flikar i vyerna"
 
-#: lib/katemainwindow.cpp:243
+#: lib/katemainwindow.cpp:247
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "Visa sök&väg i namnlist"
 
-#: lib/katemainwindow.cpp:246
+#: lib/katemainwindow.cpp:250
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Visa den fullständiga sökvägen till dokumentet i fönstrets namnlist"
 
-#: lib/katemainwindow.cpp:248
+#: lib/katemainwindow.cpp:252
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr "Visa navigeringsrad"
 
-#: lib/katemainwindow.cpp:258
+#: lib/katemainwindow.cpp:266
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "&Fönsterfärgschema"
 
-#: lib/katemainwindow.cpp:262
+#: lib/katemainwindow.cpp:270
 #, kde-format
 msgid "&Previous Tab"
 msgstr "&Föregående flik"
 
-#: lib/katemainwindow.cpp:263
+#: lib/katemainwindow.cpp:271
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "Fokusera på föregående flik"
 
-#: lib/katemainwindow.cpp:268
+#: lib/katemainwindow.cpp:276
 #, kde-format
 msgid "&Next Tab"
 msgstr "&Nästa flik"
 
-#: lib/katemainwindow.cpp:269
+#: lib/katemainwindow.cpp:277
 #, kde-format
 msgid "Focus the next tab."
 msgstr "Fokusera på nästa flik."
 
-#: lib/katemainwindow.cpp:276
+#: lib/katemainwindow.cpp:284
 #, kde-format
 msgid "&Quick Open"
 msgstr "&Snabböppna"
 
-#: lib/katemainwindow.cpp:279
+#: lib/katemainwindow.cpp:287
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Visa ett formulär för att snabböppna dokument."
 
-#: lib/katemainwindow.cpp:310
+#: lib/katemainwindow.cpp:318
 #, kde-format
 msgid "Output"
 msgstr "Utmatning"
 
-#: lib/katemainwindow.cpp:317
+#: lib/katemainwindow.cpp:325
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/katemainwindow.cpp:328
+#: lib/katemainwindow.cpp:336
 #, kde-format
 msgid "Create a new document"
 msgstr "Skapa ett nytt dokument"
 
-#: lib/katemainwindow.cpp:331
+#: lib/katemainwindow.cpp:339
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Öppnar ett befintligt dokument för redigering"
 
-#: lib/katemainwindow.cpp:341
+#: lib/katemainwindow.cpp:349
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1415,85 +1415,85 @@ msgstr ""
 "Det här visar filer som du nyligen öppnat, och låter dig enkelt öppna dem "
 "igen."
 
-#: lib/katemainwindow.cpp:345
+#: lib/katemainwindow.cpp:353
 #, kde-format
 msgid "Save A&ll"
 msgstr "Spara a&lla"
 
-#: lib/katemainwindow.cpp:348
+#: lib/katemainwindow.cpp:356
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Spara alla öppna, ändrade dokument till disk."
 
-#: lib/katemainwindow.cpp:351
+#: lib/katemainwindow.cpp:359
 #, kde-format
 msgid "&Reload All"
 msgstr "Upp&datera alla"
 
-#: lib/katemainwindow.cpp:353
+#: lib/katemainwindow.cpp:361
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Ladda om alla öppna dokument."
 
-#: lib/katemainwindow.cpp:362 lib/katemainwindow.cpp:371
+#: lib/katemainwindow.cpp:370 lib/katemainwindow.cpp:379
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Kopierar filsökväg för aktuell fil till klippbordet."
 
-#: lib/katemainwindow.cpp:366 lib/welcomeview/welcomeview.cpp:265
+#: lib/katemainwindow.cpp:374 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Ö&ppna katalog med innehåll"
 
-#: lib/katemainwindow.cpp:375
+#: lib/katemainwindow.cpp:383
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Byt namn..."
 
-#: lib/katemainwindow.cpp:380
+#: lib/katemainwindow.cpp:388
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "Byter namn på filen som hör ihop med aktuellt dokument."
 
-#: lib/katemainwindow.cpp:384
+#: lib/katemainwindow.cpp:392
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Ta bort"
 
-#: lib/katemainwindow.cpp:389 lib/katemainwindow.cpp:398
+#: lib/katemainwindow.cpp:397 lib/katemainwindow.cpp:406
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "Tar bort filen som hör ihop med aktuellt dokument."
 
-#: lib/katemainwindow.cpp:393
+#: lib/katemainwindow.cpp:401
 #, kde-format
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: lib/katemainwindow.cpp:401 lib/katemainwindow.cpp:403
+#: lib/katemainwindow.cpp:409 lib/katemainwindow.cpp:411
 #, kde-format
 msgid "Compare"
 msgstr "Jämför"
 
-#: lib/katemainwindow.cpp:403
+#: lib/katemainwindow.cpp:411
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
 "Använd sammanhangsberoende meny i flikraden för att jämföra två dokument"
 
-#: lib/katemainwindow.cpp:405
+#: lib/katemainwindow.cpp:413
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Visar ett tips om hur man jämför dokument."
 
-#: lib/katemainwindow.cpp:408
+#: lib/katemainwindow.cpp:416
 #, kde-format
 msgid "Close Orphaned"
 msgstr "Stäng övergivna"
 
-#: lib/katemainwindow.cpp:410
+#: lib/katemainwindow.cpp:418
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1502,52 +1502,52 @@ msgstr ""
 "Stäng alla dokument i fillistan som inte kunde öppnas igen, på grund av att "
 "de inte längre är tillgängliga."
 
-#: lib/katemainwindow.cpp:414
+#: lib/katemainwindow.cpp:422
 #, kde-format
 msgid "Close the current document."
 msgstr "Stäng aktuellt dokument."
 
-#: lib/katemainwindow.cpp:417
+#: lib/katemainwindow.cpp:425
 #, kde-format
 msgid "Close Other"
 msgstr "Stäng övriga"
 
-#: lib/katemainwindow.cpp:419
+#: lib/katemainwindow.cpp:427
 #, kde-format
 msgid "Close other open documents."
 msgstr "Stäng övriga öppna dokument"
 
-#: lib/katemainwindow.cpp:422
+#: lib/katemainwindow.cpp:430
 #, kde-format
 msgid "Clos&e All"
 msgstr "St&äng alla"
 
-#: lib/katemainwindow.cpp:424
+#: lib/katemainwindow.cpp:432
 #, kde-format
 msgid "Close all open documents."
 msgstr "Stäng alla öppna dokument."
 
-#: lib/katemainwindow.cpp:429
+#: lib/katemainwindow.cpp:437
 #, kde-format
 msgid "Close this window"
 msgstr "Stänger det här fönstret"
 
-#: lib/katemainwindow.cpp:433
+#: lib/katemainwindow.cpp:441
 #, kde-format
 msgid "&New Window"
 msgstr "&Nytt fönster"
 
-#: lib/katemainwindow.cpp:436
+#: lib/katemainwindow.cpp:444
 #, kde-format
 msgid "Create a new window."
 msgstr "Skapa ett nytt fönster."
 
-#: lib/katemainwindow.cpp:443
+#: lib/katemainwindow.cpp:451
 #, kde-format
 msgid "Open W&ith"
 msgstr "Öppna &med"
 
-#: lib/katemainwindow.cpp:445
+#: lib/katemainwindow.cpp:453
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1556,95 +1556,95 @@ msgstr ""
 "Öppna aktuellt dokument med ett annat program som är registrerat med "
 "filtypen, eller med ett program du väljer."
 
-#: lib/katemainwindow.cpp:453
+#: lib/katemainwindow.cpp:461
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Anpassa programmets tilldelning av snabbtangenter."
 
-#: lib/katemainwindow.cpp:456
+#: lib/katemainwindow.cpp:464
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Anpassa vilka objekt som ska visas i verktygsrader."
 
-#: lib/katemainwindow.cpp:459
+#: lib/katemainwindow.cpp:467
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Anpassa olika delar av programmet och redigeringskomponenten."
 
-#: lib/katemainwindow.cpp:463
+#: lib/katemainwindow.cpp:471
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "&Handbok insticksprogram"
 
-#: lib/katemainwindow.cpp:465
+#: lib/katemainwindow.cpp:473
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Det här visar hjälpfiler för olika tillgängliga insticksprogram."
 
-#: lib/katemainwindow.cpp:482
+#: lib/katemainwindow.cpp:490
 #, kde-format
 msgid "Sess&ions"
 msgstr "Sess&ioner"
 
-#: lib/katemainwindow.cpp:488
+#: lib/katemainwindow.cpp:496
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "&Ny session"
 
-#: lib/katemainwindow.cpp:493
+#: lib/katemainwindow.cpp:501
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "Senaste sessione&r"
 
-#: lib/katemainwindow.cpp:498
+#: lib/katemainwindow.cpp:506
 #, kde-format
 msgid "&All Sessions"
 msgstr "&Alla sessioner"
 
-#: lib/katemainwindow.cpp:505
+#: lib/katemainwindow.cpp:513
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Hantera sessioner..."
 
-#: lib/katemainwindow.cpp:514
+#: lib/katemainwindow.cpp:522
 #, kde-format
 msgid "&Save Session"
 msgstr "&Spara session"
 
-#: lib/katemainwindow.cpp:520
+#: lib/katemainwindow.cpp:528
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Spara session s&om..."
 
-#: lib/katemainwindow.cpp:527 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:535 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Gå till föregående position"
 
-#: lib/katemainwindow.cpp:536 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:544 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Gå till nästa position"
 
-#: lib/katemainwindow.cpp:544
+#: lib/katemainwindow.cpp:552
 #, kde-format
 msgid "Show File Git History"
 msgstr "Visa filens Git-historik"
 
-#: lib/katemainwindow.cpp:559
+#: lib/katemainwindow.cpp:567
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Det här stänger alla öppna dokument. Är du säker på att du vill fortsätta?"
 
-#: lib/katemainwindow.cpp:560
+#: lib/katemainwindow.cpp:568
 #, kde-format
 msgid "Close all documents"
 msgstr "Stäng alla dokument."
 
-#: lib/katemainwindow.cpp:575
+#: lib/katemainwindow.cpp:583
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1653,12 +1653,12 @@ msgstr ""
 "Det här stänger alla öppna dokument utom det nuvarande. Är du säker på att "
 "du vill fortsätta?"
 
-#: lib/katemainwindow.cpp:576
+#: lib/katemainwindow.cpp:584
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Stäng alla dokument utom nuvarande"
 
-#: lib/katemainwindow.cpp:810
+#: lib/katemainwindow.cpp:818
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1666,12 +1666,12 @@ msgstr ""
 "Det här döljer menyraden fullständigt. Du kan visa den igen genom att skriva "
 "%1."
 
-#: lib/katemainwindow.cpp:813
+#: lib/katemainwindow.cpp:821
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Dölj menyrad"
 
-#: lib/katemainwindow.cpp:917
+#: lib/katemainwindow.cpp:925
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1679,19 +1679,19 @@ msgid ""
 msgstr ""
 "Katalogen %1 släpptes i Kate. Vill du öppna alla filer som den innehåller?"
 
-#: lib/katemainwindow.cpp:920
+#: lib/katemainwindow.cpp:928
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Öppna filer rekursivt"
 
-#: lib/katemainwindow.cpp:921
+#: lib/katemainwindow.cpp:929
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Öppna alla filer"
 
-#: lib/katemainwindow.cpp:1157
+#: lib/katemainwindow.cpp:1165
 #, kde-format
 msgid " [read only]"
 msgstr " [skrivskyddad]"

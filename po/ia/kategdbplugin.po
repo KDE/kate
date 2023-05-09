@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-08 00:49+0000\n"
-"PO-Revision-Date: 2023-05-01 16:42+0200\n"
+"PO-Revision-Date: 2023-05-08 12:51+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -181,47 +181,44 @@ msgstr "Objectivo %1"
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "Preferentia de adaptator de cribrar de usator"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "Preferentias"
+msgstr "File de preferentias:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "Preferentia de adaptator de cribrar de usator"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Cribra (debug)"
+msgstr "Cribrator (Debugger)"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Necun datos JSON de validar"
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "Datos JSON es valide."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Datos JSON invalide: necun objecto JSON"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "Datos JSON es invalide: %1"
 
 #: debugview.cpp:35
 #, kde-format

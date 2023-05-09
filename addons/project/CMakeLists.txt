@@ -1,14 +1,17 @@
 find_package(Qt${QT_MAJOR_VERSION}Concurrent ${QT_MIN_VERSION} QUIET)
-find_package(
-  KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION}
-  QUIET
-  COMPONENTS
-    GuiAddons
-    NewStuff
-)
+find_package(KF${KF_MAJOR_VERSION}GuiAddons ${KF5_DEP_VERSION} QUIET)
 
 set_package_properties(KF${KF_MAJOR_VERSION}GuiAddons PROPERTIES PURPOSE "Required to build the project addon")
-set_package_properties(KF${KF_MAJOR_VERSION}NewStuff PROPERTIES PURPOSE "Required to build the project addon")
+
+# In KF5 KMoreTools is part of KNewSuff
+# in KF6 it's standalone
+if(KF_MAJOR_VERSION STREQUAL "5")
+    find_package(KF5NewStuff QUIET)
+    set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the project addon")
+else()
+    find_package(KF6MoreTools QUIET)
+    set_package_properties(KF6MoreTools PROPERTIES PURPOSE "Required to build the project addon")
+endif()
 
 if(NOT KF${KF_MAJOR_VERSION}_FOUND OR NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
   return()

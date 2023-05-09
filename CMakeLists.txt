@@ -67,15 +67,6 @@ find_package(KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION}
         DocTools
 )
 
-# In KF5 KMoreTools is part of KNewSuff
-# in KF6 it's standalone
-if(KF_MAJOR_VERSION STREQUAL "5")
-    find_package(KF5NewStuff REQUIRED)
-else()
-    find_package(KF6MoreTools REQUIRED)
-endif()
-
-
 if (NOT WIN32 AND NOT HAIKU)
     find_package(Intl)
     set_package_properties(Intl PROPERTIES TYPE REQUIRED

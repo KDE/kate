@@ -72,7 +72,7 @@
             "highlightingModeRegex": "^Go$"
         },
         "godot": {
-            "command": ["nc", "127.0.0.1", "6008"],
+            "command": ["nc", "127.0.0.1", "6005"],
             "url": "https://godotengine.org/",
             "highlightingModeRegex": "^Godot$"
         },

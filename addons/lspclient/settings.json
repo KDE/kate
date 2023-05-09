@@ -71,6 +71,11 @@
             "url": "golang.org/x/tools/gopls",
             "highlightingModeRegex": "^Go$"
         },
+        "godot": {
+            "command": ["nc", "127.0.0.1", "6008"],
+            "url": "https://godotengine.org/",
+            "highlightingModeRegex": "^Godot$"
+        },
         "haskell": {
             "command": ["haskell-language-server-wrapper", "--lsp"],
             "rootIndicationFileNames": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml"],
@@ -166,7 +171,7 @@
             "url": "https://github.com/swyddfa/esbonio",
             "rootIndicationFileNames": ["conf.py"],
             "highlightingModeRegex": "^reStructuredText$"
-        },        
+        },
         "ruby": {
             "command": ["solargraph", "stdio"],
             "rootIndicationFileNames": ["Gemfile", "Gemfile.lock", "gems.rb", "gems.lock", "Rakefile"],

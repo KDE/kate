@@ -7,6 +7,7 @@
 #include <KTextEditor/Range>
 #include <QString>
 #include <QUrl>
+#include <qmetatype.h>
 
 enum class DiagnosticSeverity {
     Unknown = 0,

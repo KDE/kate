@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-09 00:51+0000\n"
-"PO-Revision-Date: 2023-02-10 08:48+0100\n"
+"PO-Revision-Date: 2023-05-09 10:22+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: kateconsole.cpp:56
 #, kde-format
 msgid "You do not have enough karma to access a shell or terminal emulation"
-msgstr ""
+msgstr "გარსთან ან ტერმინალის ემულატორთან წვდომისთვის საკმარისი კარმა არ გაქვთ"
 
 #: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:652
 #, kde-format
@@ -32,13 +32,13 @@ msgstr "ტერმინალი"
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
-msgstr ""
+msgstr "&ტერმინალში გადამისამართება"
 
 #: kateconsole.cpp:147
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
-msgstr ""
+msgstr "&ტერმინალის სინქრონიზაცია მიმდინარე დოკუმენტთნ"
 
 #: kateconsole.cpp:151
 #, kde-format
@@ -50,19 +50,21 @@ msgstr "მიმდინარე დოკუმენტის გაშვ�
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
-msgstr ""
+msgstr "&ტერმინალის პანელის ჩვენება"
 
 #: kateconsole.cpp:162
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
-msgstr ""
+msgstr "&ტერმინალის პანელის ფოკუსი"
 
 #: kateconsole.cpp:301
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Konsole დაყენებული არაა. ტერმინალის ფუნქციის გამოსაყენებლად დააყენეთ "
+"პროგრამა konsole."
 
 #: kateconsole.cpp:376
 #, kde-format
@@ -74,17 +76,17 @@ msgstr ""
 #: kateconsole.cpp:377
 #, kde-format
 msgid "Pipe to Terminal?"
-msgstr ""
+msgstr "გადავამისამართო ტერმინალში?"
 
 #: kateconsole.cpp:378
 #, kde-format
 msgid "Pipe to Terminal"
-msgstr ""
+msgstr "ტერმინალში გადამისამართება"
 
 #: kateconsole.cpp:406
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
-msgstr ""
+msgstr "'%1'-ში cd-ის შეცდომა"
 
 #: kateconsole.cpp:442
 #, kde-format
@@ -163,7 +165,7 @@ msgstr ""
 #: kateconsole.cpp:617
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
-msgstr ""
+msgstr "დააყენეთ გარემოს ცვლადი 'EDITOR' მნიშვნელობაზე 'kate -b'"
 
 #: kateconsole.cpp:620
 #, kde-format
@@ -175,7 +177,7 @@ msgstr ""
 #: kateconsole.cpp:623
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
-msgstr ""
+msgstr "Konsole-ის დამალვა 'Esc'-ის დაჭერისას"
 
 #: kateconsole.cpp:626
 #, kde-format

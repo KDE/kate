@@ -476,7 +476,7 @@ public Q_SLOTS:
         hideBottomViewBarForView(view);
     }
 
-    void insertWidgetInStatusBar(QWidget *w)
+    void insertWidgetInStatusbar(QWidget *w)
     {
         insertWidgetBeforeStatusbar(w);
     }

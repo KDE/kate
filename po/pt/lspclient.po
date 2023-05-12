@@ -29,22 +29,22 @@ msgstr "Cliente de LSP"
 #: lspclientconfigpage.cpp:213
 #, kde-format
 msgid "No JSON data to validate."
-msgstr "Não existem dados JSON para validar."
+msgstr "Não há dados em JSON para validar."
 
 #: lspclientconfigpage.cpp:222
 #, kde-format
 msgid "JSON data is valid."
-msgstr "Os dados de JSON são válidos."
+msgstr "Os dados em JSON são válidos."
 
 #: lspclientconfigpage.cpp:224
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr "Os dados de JSON são inválidos: não existe um objecto de JSON"
+msgstr "Os dados em JSON são inválidos: não foi detectado nenhum objecto JSON"
 
 #: lspclientconfigpage.cpp:227
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr "Os dados de JSON são inválidos: %1"
+msgstr "Os dados em JSON são inválidos: %1"
 
 #: lspclientconfigpage.cpp:275
 #, kde-format

@@ -102,20 +102,21 @@ public:
 
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
+        bool ret = true;
         if (activeProvider) {
             auto index = sourceModel()->index(sourceRow, 0, sourceParent);
             if (index.isValid()) {
-                return index.data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>() == activeProvider;
+                ret = index.data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>() == activeProvider;
             }
         }
 
-        if (severity != DiagnosticSeverity::Unknown) {
+        if (ret && severity != DiagnosticSeverity::Unknown) {
             auto index = sourceModel()->index(sourceRow, 0, sourceParent);
             auto model = static_cast<QStandardItemModel *>(sourceModel());
             const auto item = model->itemFromIndex(index);
             if (item && item->type() == DiagnosticItem_Diag) {
                 auto castedItem = static_cast<DiagnosticItem *>(item);
-                return castedItem->m_diagnostic.severity == severity;
+                ret = castedItem->m_diagnostic.severity == severity;
             } else if (item && item->type() == DiagnosticItem_File) {
                 // Hide parent if all childs hidden
                 int rc = item->rowCount();
@@ -126,16 +127,19 @@ public:
                         count += static_cast<DiagnosticItem *>(child)->m_diagnostic.severity == severity;
                     }
                 }
-                return count > 0;
+                ret = count > 0;
             } else if (item && item->type() == DiagnosticItem_Fix) {
                 if (item->parent() && item->parent()->type() == DiagnosticItem_Diag) {
                     auto castedItem = static_cast<DiagnosticItem *>(item);
-                    return castedItem->m_diagnostic.severity == severity;
+                    ret = castedItem->m_diagnostic.severity == severity;
                 }
             }
         }
 
-        return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
+        if (ret) {
+            ret = QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
+        }
+        return ret;
     }
 
 private:

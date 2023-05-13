@@ -310,7 +310,7 @@ void RustFormat::onResultReady(const RunOutput &out)
 
 void PrettierFormat::setupNode()
 {
-    if (s_nodeProcess) {
+    if (s_nodeProcess && s_nodeProcess->state() == QProcess::Running) {
         return;
     }
 

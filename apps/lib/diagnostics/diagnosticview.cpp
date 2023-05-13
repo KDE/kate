@@ -373,6 +373,12 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
     ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Left);
 
+    a = ac->addAction(QStringLiteral("diagnostics_clear_filter"), this, [this]() {
+        DiagnosticsView::filterViewTo(nullptr);
+    });
+    a->setText(i18n("Clear Diagnostics Filter"));
+    ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_C);
+
     m_posChangedTimer->setInterval(500);
     m_posChangedTimer->setSingleShot(true);
     m_posChangedTimer->callOnTimeout(this, [this] {
@@ -1285,6 +1291,8 @@ void DiagnosticsView::filterViewTo(DiagnosticsProvider *provider)
         if (index != -1) {
             m_providerCombo->setCurrentIndex(index);
         }
+    } else {
+        m_providerCombo->setCurrentIndex(0);
     }
 }
 

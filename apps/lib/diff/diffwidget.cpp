@@ -31,9 +31,9 @@
 #include <KSyntaxHighlighting/Repository>
 #include <KTextEditor/Editor>
 
-DiffWidget *DiffWidgetManager::existingDiffWidgetForParams(KateMainWindow *mw, const DiffParams &p)
+DiffWidget *DiffWidgetManager::existingDiffWidgetForParams(KTextEditor::MainWindow *mw, const DiffParams &p)
 {
-    const auto widgets = mw->widgets();
+    const auto widgets = Utils::widgets(mw);
     for (auto widget : widgets) {
         auto diffWidget = qobject_cast<DiffWidget *>(widget);
         if (!diffWidget) {
@@ -48,11 +48,11 @@ DiffWidget *DiffWidgetManager::existingDiffWidgetForParams(KateMainWindow *mw, c
     return nullptr;
 }
 
-void DiffWidgetManager::openDiff(const QByteArray &diff, DiffParams p, class KateMainWindow *mw)
+void DiffWidgetManager::openDiff(const QByteArray &diff, DiffParams p, class KTextEditor::MainWindow *mw)
 {
     DiffWidget *existing = existingDiffWidgetForParams(mw, p);
     if (!existing) {
-        existing = new DiffWidget(p, mw);
+        existing = new DiffWidget(p);
         if (!p.tabTitle.isEmpty()) {
             existing->setWindowTitle(p.tabTitle);
         } else {
@@ -63,31 +63,31 @@ void DiffWidgetManager::openDiff(const QByteArray &diff, DiffParams p, class Kat
         }
         existing->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
         existing->openDiff(diff);
-        mw->addWidget(existing);
+        Utils::addWidget(existing, mw);
     } else {
         existing->clearData();
         existing->m_params = p;
         existing->openDiff(diff);
-        mw->activateWidget(existing);
+        Utils::activateWidget(existing, mw);
     }
 }
 
-void DiffWidgetManager::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r, class KateMainWindow *mw)
+void DiffWidgetManager::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r, class KTextEditor::MainWindow *mw)
 {
     DiffParams p;
     p.arguments = DiffWidget::diffDocsGitArgs(l, r);
     DiffWidget *existing = existingDiffWidgetForParams(mw, p);
     if (!existing) {
-        existing = new DiffWidget(p, mw);
+        existing = new DiffWidget(p);
         existing->diffDocs(l, r);
         existing->setWindowTitle(i18n("Diff %1 .. %2", l->documentName(), r->documentName()));
         existing->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
-        mw->addWidget(existing);
+        Utils::addWidget(existing, mw);
     } else {
         existing->clearData();
         existing->m_params = p;
         existing->diffDocs(l, r);
-        mw->activateWidget(existing);
+        Utils::activateWidget(existing, mw);
     }
 }
 

@@ -1043,7 +1043,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     QAction *compare = menu.addAction(i18n("Compare with Active Document"));
     compare->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     connect(compare, &QAction::triggered, this, [this, activeDocument, doc] {
-        DiffWidgetManager::diffDocs(activeDocument, doc, m_viewManager->mainWindow());
+        DiffWidgetManager::diffDocs(activeDocument, doc, m_viewManager->mainWindow()->wrapper());
     });
 
     QMenu *compareUsing = new QMenu(i18n("Compare with Active Document Using"), &menu);

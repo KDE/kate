@@ -1408,11 +1408,6 @@ void KateMainWindow::activateWidget(QWidget *widget)
     }
 }
 
-void KateMainWindow::showDiff(const QByteArray &diff, const DiffParams &params)
-{
-    DiffWidgetManager::openDiff(diff, params, this);
-}
-
 void KateMainWindow::showMessage(const QVariantMap &map)
 {
     if (!m_outputView) {

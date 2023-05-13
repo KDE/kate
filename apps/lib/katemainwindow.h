@@ -587,8 +587,6 @@ public Q_SLOTS:
      */
     void activateWidget(QWidget *widget);
 
-    void showDiff(const QByteArray &wordDiff, const DiffParams &params);
-
     /**
      * @brief show a message in the output view. See KTextEditor::MainWindow::showMessage for details
      */

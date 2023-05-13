@@ -7,6 +7,7 @@
 #include "ktexteditor_utils.h"
 #include "diagnostics/diagnosticview.h"
 #include "katemainwindow.h"
+#include "diffwidget.h"
 
 #include <QFontDatabase>
 #include <QIcon>
@@ -191,9 +192,7 @@ void showMessage(const QVariantMap &map, KTextEditor::MainWindow *mainWindow)
 
 void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow)
 {
-    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
-        kmw->showDiff(diff, params);
-    }
+    DiffWidgetManager::openDiff(diff, params, mainWindow);
 }
 
 void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
@@ -202,6 +201,24 @@ void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
                               "addWidget",
                               Qt::DirectConnection,
                               Q_ARG(QWidget*, widget));
+}
+
+void activateWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
+{
+    QMetaObject::invokeMethod(mainWindow->parent(),
+                              "activateWidget",
+                              Qt::DirectConnection,
+                              Q_ARG(QWidget*, widget));
+}
+
+QWidgetList widgets(KTextEditor::MainWindow *mainWindow)
+{
+    QWidgetList ret;
+    QMetaObject::invokeMethod(mainWindow->parent(),
+                              "widgets",
+                              Qt::DirectConnection,
+                              Q_RETURN_ARG(QWidgetList, ret));
+    return ret;
 }
 
 void insertWidgetInStatusbar(QWidget *widget, KTextEditor::MainWindow *mainWindow)

@@ -11,6 +11,7 @@
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 #include "ktexteditor_utils.h"
+#include "diffwidget.h"
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -328,7 +329,7 @@ void KateMwModOnHdDialog::slotGitDiffDone(QProcess *p, KTextEditor::Document *do
         params.tabTitle = s + QStringLiteral("..") + t;
         params.workingDir = p->workingDirectory();
         auto mw = static_cast<KateMainWindow *>(parentWidget());
-        mw->showDiff(out, params);
+        DiffWidgetManager::openDiff(out, params, mw->wrapper());
     }
 }
 

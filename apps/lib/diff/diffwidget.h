@@ -23,11 +23,11 @@ class SyntaxHighlighter;
 class DiffWidgetManager
 {
 public:
-    static void openDiff(const QByteArray &diff, DiffParams p, class KateMainWindow *mw);
-    static void diffDocs(KTextEditor::Document *l, KTextEditor::Document *r, class KateMainWindow *mw);
+    static void openDiff(const QByteArray &diff, DiffParams p, class KTextEditor::MainWindow *mw);
+    static void diffDocs(KTextEditor::Document *l, KTextEditor::Document *r, class KTextEditor::MainWindow *mw);
 
 private:
-    static DiffWidget *existingDiffWidgetForParams(KateMainWindow *mw, const DiffParams &p);
+    static DiffWidget *existingDiffWidgetForParams(KTextEditor::MainWindow *mw, const DiffParams &p);
 };
 
 class KATE_PRIVATE_EXPORT DiffWidget : public QWidget

@@ -94,6 +94,12 @@ KATE_PRIVATE_EXPORT void showMessage(const QVariantMap &map, KTextEditor::MainWi
 KATE_PRIVATE_EXPORT void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow);
 
 KATE_PRIVATE_EXPORT void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow);
+KATE_PRIVATE_EXPORT void activateWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow);
+/// @returns list of document area widgets that are not KTextEditor::Views (added by addWidget()
+/// TODO: Maybe it would be more versatile to return *all* widgets, including KTextEditor::Views, here, or perhaps
+///       controlled by a flag to filter which widgets to return. Think e.g. about the document switching plugin.
+///       activeWidget() (not yet "public") uses those semantics, already.
+KATE_PRIVATE_EXPORT QWidgetList widgets(KTextEditor::MainWindow *mainWindow);
 
 KATE_PRIVATE_EXPORT void insertWidgetInStatusbar(QWidget *widget, KTextEditor::MainWindow *mainWindow);
 /*** END KTextEditor::MainWindow extensions **/

@@ -14,7 +14,6 @@
 #include <QTextEdit>
 #include <ktexteditor/document.h>
 
-#include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/view.h>
 

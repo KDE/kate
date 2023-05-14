@@ -8,7 +8,7 @@
 # Ossama M. Khayat <okhayat@yahoo.com>, 2004.
 # محمد سعد  Mohamed SAAD <metehyi@free.fr>, 2006.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
-# Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, ٢٠١٦, 2017.
+# Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, 2016, 2017.
 # Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""

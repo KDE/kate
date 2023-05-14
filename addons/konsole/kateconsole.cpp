@@ -302,14 +302,14 @@ void KateConsole::paintEvent(QPaintEvent *e)
     p.drawText(rect(), Qt::AlignCenter | Qt::TextWordWrap, text);
 }
 
-static constexpr QChar eolChar()
+static constexpr QLatin1String eolChar()
 {
     // On windows, if the shell is powershell
     // '\r' needs to be sent to trigger enter
 #ifdef Q_OS_WIN
-    return QLatin1Char('\r');
+    return QLatin1String("\r\n");
 #else
-    return QLatin1Char('\n');
+    return QLatin1String("\n");
 #endif
 }
 

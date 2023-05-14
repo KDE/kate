@@ -7,6 +7,7 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
+#include <KTextEditor/Document>
 #include <KTextEditor/TextHintInterface>
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
@@ -32,21 +33,33 @@ public:
     ~OpenLinkTextHint() override
     {
         if (m_view) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_view->unregisterTextHintProvider(this);
+#else
             auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
             iface->unregisterTextHintProvider(this);
+#endif
         }
     }
 
     void setView(KTextEditor::View *v)
     {
         if (m_view) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_view->unregisterTextHintProvider(this);
+#else
             auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
             iface->unregisterTextHintProvider(this);
+#endif
         }
         if (v) {
             m_view = v;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_view->registerTextHintProvider(this);
+#else
             auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
             iface->registerTextHintProvider(this);
+#endif
         }
     }
 
@@ -90,18 +103,25 @@ public:
         // underline the hovered word
         auto doc = activeView->document();
         if (!m_movingRange || doc != m_movingRange->document()) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_movingRange.reset(doc->newMovingRange(range));
+            // clang-format off
+            connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &GotoLinkHover::clearMovingRange, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &GotoLinkHover::clearMovingRange, Qt::UniqueConnection);
+#else
             m_movingRange.reset(qobject_cast<KTextEditor::MovingInterface *>(doc)->newMovingRange(range));
             // clang-format off
             connect(doc,
                     SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
                     this,
-                    SLOT(clear(KTextEditor::Document*)),
+                    SLOT(clearMovingRange(KTextEditor::Document*)),
                     Qt::UniqueConnection);
             connect(doc,
                     SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
                     this,
-                    SLOT(clear(KTextEditor::Document*)),
+                    SLOT(clearMovingRange(KTextEditor::Document*)),
                     Qt::UniqueConnection);
+#endif
             // clang-format on
         } else {
             m_movingRange->setRange(range);
@@ -132,7 +152,7 @@ public:
     QPointer<QWidget> viewInternal;
 
 private:
-    Q_SLOT void clear(KTextEditor::Document *doc)
+    Q_SLOT void clearMovingRange(KTextEditor::Document *doc)
     {
         if (m_movingRange && m_movingRange->document() == doc) {
             m_movingRange.reset();
@@ -278,7 +298,9 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Cursor pos)
     const int endLine = pos.isValid() ? pos.line() : m_activeView->lastDisplayedLine();
     auto doc = m_activeView->document();
     auto &ranges = m_docHighligtedLinkRanges[doc];
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     auto iface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+#endif
     if (pos.isValid()) {
         ranges.erase(std::remove_if(ranges.begin(),
                                     ranges.end(),
@@ -299,7 +321,11 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Cursor pos)
                 int capturedEnd = match.capturedEnd();
                 adjustMDLink(line, match.capturedStart(), capturedEnd);
                 KTextEditor::Range range(i, match.capturedStart(), i, capturedEnd);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                KTextEditor::MovingRange *r = doc->newMovingRange(range);
+#else
                 KTextEditor::MovingRange *r = iface->newMovingRange(range);
+#endif
                 static const KTextEditor::Attribute::Ptr attr([] {
                     auto attr = new KTextEditor::Attribute;
                     attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);

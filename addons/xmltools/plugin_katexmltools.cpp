@@ -508,6 +508,10 @@ void PluginKateXMLToolsCompletionModel::assignDTD(PseudoDTD *dtd, KTextEditor::V
     m_docDtds.insert(view->document(), dtd);
 
     // TODO:perhaps for all views()?
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    view->registerCompletionModel(this);
+    view->setAutomaticInvocationEnabled(true);
+#else
     KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
 
     if (cci) {
@@ -517,6 +521,7 @@ void PluginKateXMLToolsCompletionModel::assignDTD(PseudoDTD *dtd, KTextEditor::V
     } else {
         qWarning() << "PluginKateXMLToolsView: completion interface unavailable";
     }
+#endif
 }
 
 /**

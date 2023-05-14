@@ -9,7 +9,9 @@
 #pragma once
 
 #include <ktexteditor/document.h>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <ktexteditor/modificationinterface.h>
+#endif
 #include <ktexteditor/view.h>
 
 #include "doc_or_widget.h"

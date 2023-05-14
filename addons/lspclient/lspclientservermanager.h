@@ -85,5 +85,9 @@ class LSPClientRevisionSnapshot : public QObject
 
 public:
     // find a locked revision for url in snapshot
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    virtual void find(const QUrl &url, KTextEditor::Document *&doc, qint64 &revision) const = 0;
+#else
     virtual void find(const QUrl &url, KTextEditor::MovingInterface *&miface, qint64 &revision) const = 0;
+#endif
 };

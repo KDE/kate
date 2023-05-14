@@ -19,7 +19,9 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/MovingInterface>
+#endif
 #include <KTextEditor/View>
 
 #include <QDir>
@@ -121,16 +123,25 @@ static LSPClientServer::TriggerCharactersOverride parseTriggerOverride(const QJs
 // helper guard to handle revision (un)lock
 struct RevisionGuard {
     QPointer<KTextEditor::Document> m_doc;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     KTextEditor::MovingInterface *m_movingInterface = nullptr;
+#endif
     qint64 m_revision = -1;
 
     RevisionGuard(KTextEditor::Document *doc = nullptr)
         : m_doc(doc)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         , m_movingInterface(qobject_cast<KTextEditor::MovingInterface *>(doc))
+#endif
     {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        m_revision = doc->revision();
+        doc->lockRevision(m_revision);
+#else
         Q_ASSERT(m_movingInterface);
         m_revision = m_movingInterface->revision();
         m_movingInterface->lockRevision(m_revision);
+#endif
     }
 
     // really only need/allow this one (out of 5)
@@ -138,22 +149,33 @@ struct RevisionGuard {
         : RevisionGuard(nullptr)
     {
         std::swap(m_doc, other.m_doc);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         std::swap(m_movingInterface, other.m_movingInterface);
+#endif
         std::swap(m_revision, other.m_revision);
     }
 
     void release()
     {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         m_movingInterface = nullptr;
+#endif
         m_revision = -1;
     }
 
     ~RevisionGuard()
     {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        // NOTE: hopefully the revision is still valid at this time
+        if (m_doc && m_revision >= 0) {
+            m_doc->unlockRevision(m_revision);
+        }
+#else
         // NOTE: hopefully the revision is still valid at this time
         if (m_doc && m_movingInterface && m_revision >= 0) {
             m_movingInterface->unlockRevision(m_revision);
         }
+#endif
     }
 };
 
@@ -183,23 +205,42 @@ public:
 
         // make sure revision is cleared when needed and no longer used (to unlock or otherwise)
         // see e.g. implementation in katetexthistory.cpp and assert's in place there
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        // clang-format off
+        connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &self_type::clearRevisions);
+        connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &self_type::clearRevisions);
+        // clang-format on
+#else
         // clang-format off
         auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)), this, SLOT(clearRevisions(KTextEditor::Document*)));
         Q_ASSERT(conn);
         conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)), this, SLOT(clearRevisions(KTextEditor::Document*)));
         Q_ASSERT(conn);
         // clang-format on
+#endif
         m_guards.emplace(doc->url(), doc);
     }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    void find(const QUrl &url, KTextEditor::Document *&doc, qint64 &revision) const override
+#else
     void find(const QUrl &url, KTextEditor::MovingInterface *&miface, qint64 &revision) const override
+#endif
     {
         auto it = m_guards.find(url);
         if (it != m_guards.end()) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            doc = it->second.m_doc;
+#else
             miface = it->second.m_movingInterface;
+#endif
             revision = it->second.m_revision;
         } else {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            doc = nullptr;
+#else
             miface = nullptr;
+#endif
             revision = -1;
         }
     }
@@ -230,7 +271,11 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
         std::shared_ptr<LSPClientServer> server;
         // merged server config as obtain from various sources
         QJsonObject config;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        KTextEditor::Document *doc;
+#else
         KTextEditor::MovingInterface *movingInterface;
+#endif
         QUrl url;
         qint64 version;
         bool open : 1;
@@ -926,8 +971,13 @@ private:
     {
         auto it = m_docs.find(doc);
         if (it == m_docs.end()) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            // TODO: Further simplify once we are Qt6
+            it = m_docs.insert(doc, {server, serverConfig, doc, doc->url(), 0, false, false, {}});
+#else
             KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
             it = m_docs.insert(doc, {server, serverConfig, miface, doc->url(), 0, false, false, {}});
+#endif
             // track document
             connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack, Qt::UniqueConnection);
@@ -984,7 +1034,11 @@ private:
     {
         auto doc = it.key();
         if (it != m_docs.end() && it->server) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            it->version = it->doc->revision();
+#else
             it->version = it->movingInterface->revision();
+#endif
 
             if (!m_incrementalSync) {
                 it->changes.clear();

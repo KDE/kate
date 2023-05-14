@@ -53,7 +53,11 @@ void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc)
     emitDataChanged();
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+void KateProjectItem::slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::Document::ModifiedOnDiskReason reason)
+#else
 void KateProjectItem::slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
+#endif
 {
     Q_UNUSED(document)
     Q_UNUSED(isModified)
@@ -65,9 +69,15 @@ void KateProjectItem::slotModifiedOnDisk(KTextEditor::Document *document, bool i
 
     m_emblem.clear();
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    if (reason != KTextEditor::Document::OnDiskUnmodified) {
+        m_emblem = QStringLiteral("emblem-important");
+    }
+#else
     if (reason != KTextEditor::ModificationInterface::OnDiskUnmodified) {
         m_emblem = QStringLiteral("emblem-important");
     }
+#endif
     emitDataChanged();
 }
 

@@ -120,7 +120,11 @@ private Q_SLOTS:
 
     void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr);
+#else
     void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr, KTextEditor::MovingInterface *miface);
+#endif
 
     void searchDone();
     void searchWhileTypingDone();

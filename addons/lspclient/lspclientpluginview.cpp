@@ -26,19 +26,20 @@
 #include <KStandardAction>
 #include <KXMLGUIFactory>
 
-#include <KTextEditor/CodeCompletionInterface>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#include <KTextEditor/CodeCompletionInterface>
 #include <KTextEditor/MovingInterface>
+#include <ktexteditor/configinterface.h>
+#include <ktexteditor/markinterface.h>
+#endif
 #include <KTextEditor/SessionConfigInterface>
 #include <KTextEditor/View>
 #include <KXMLGUIClient>
 
-#include <ktexteditor/configinterface.h>
 #include <ktexteditor/editor.h>
-#include <ktexteditor/markinterface.h>
-#include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor_version.h>
 
@@ -112,7 +113,11 @@ private:
     _kind m_value;
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+static constexpr KTextEditor::Document::MarkTypes markType = KTextEditor::Document::markType31;
+#else
 static constexpr KTextEditor::MarkInterface::MarkTypes markType = KTextEditor::MarkInterface::markType31;
+#endif
 }
 
 KTextEditor::Document *findDocument(KTextEditor::MainWindow *mainWindow, const QUrl &url)
@@ -254,6 +259,21 @@ public:
         if (mr) {
             mr->setRange(range);
         } else {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            mr.reset(doc->newMovingRange(range));
+            connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &CtrlHoverFeedback::clearMovingRange, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &CtrlHoverFeedback::clearMovingRange, Qt::UniqueConnection);
+            connect(doc,
+                    SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                    this,
+                    SLOT(clear(KTextEditor::Document *)),
+                    Qt::UniqueConnection);
+            connect(doc,
+                    SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                    this,
+                    SLOT(clear(KTextEditor::Document *)),
+                    Qt::UniqueConnection);
+#else
             auto miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
             if (!miface) {
                 return;
@@ -263,14 +283,15 @@ public:
             connect(doc,
                     SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
                     this,
-                    SLOT(clear(KTextEditor::Document*)),
+                    SLOT(clearMovingRange(KTextEditor::Document*)),
                     Qt::UniqueConnection);
             connect(doc,
                     SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
                     this,
-                    SLOT(clear(KTextEditor::Document*)),
+                    SLOT(clearMovingRange(KTextEditor::Document*)),
                     Qt::UniqueConnection);
             // clang-format on
+#endif
         }
 
         static KTextEditor::Attribute::Ptr attr;
@@ -311,7 +332,7 @@ public:
     }
 
 private:
-    Q_SLOT void clear(KTextEditor::Document *doc)
+    Q_SLOT void clearMovingRange(KTextEditor::Document *doc)
     {
         if (doc) {
             auto it = docs.find(doc);
@@ -831,7 +852,11 @@ public:
 
         // unregister all code-completion providers, else we might crash
         for (auto view : qAsConst(m_completionViews)) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            view->unregisterCompletionModel(m_completion.get());
+#else
             qobject_cast<KTextEditor::CodeCompletionInterface *>(view)->unregisterCompletionModel(m_completion.get());
+#endif
         }
 
         clearAllLocationMarks();
@@ -931,6 +956,19 @@ public:
 
     static void clearMarks(KTextEditor::Document *doc, RangeCollection &ranges, DocumentCollection &docs, uint markType)
     {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        if (docs.contains(doc)) {
+            const QHash<int, KTextEditor::Mark *> marks = doc->marks();
+            QHashIterator<int, KTextEditor::Mark *> i(marks);
+            while (i.hasNext()) {
+                i.next();
+                if (i.value()->type & markType) {
+                    doc->removeMark(i.value()->line, markType);
+                }
+            }
+            docs.remove(doc);
+        }
+#else
         KTextEditor::MarkInterface *iface = docs.contains(doc) ? qobject_cast<KTextEditor::MarkInterface *>(doc) : nullptr;
         if (iface) {
             const QHash<int, KTextEditor::Mark *> marks = iface->marks();
@@ -943,6 +981,7 @@ public:
             }
             docs.remove(doc);
         }
+#endif
 
         for (auto it = ranges.find(doc); it != ranges.end() && it.key() == doc;) {
             delete it.value();
@@ -996,7 +1035,6 @@ public:
         KTextEditor::Attribute::Ptr attr;
 
         bool enabled = false;
-        KTextEditor::MarkInterface::MarkTypes markType = RangeData::markType;
         switch (kind) {
         case RangeData::KindEnum::Text: {
             // well, it's a bit like searching for something, so re-use that color
@@ -1045,17 +1083,27 @@ public:
 
         // highlight the range
         if (enabled && ranges && attr) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            KTextEditor::MovingRange *mr = doc->newMovingRange(range);
+#else
             KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
             Q_ASSERT(miface);
             KTextEditor::MovingRange *mr = miface->newMovingRange(range);
+#endif
             mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
             mr->setAttribute(attr);
             mr->setAttributeOnlyForViews(true);
             ranges->insert(doc, mr);
         }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        auto *iface = doc;
+        KTextEditor::Document::MarkTypes markType = RangeData::markType;
+#else
         KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
         Q_ASSERT(iface);
+        KTextEditor::MarkInterface::MarkTypes markType = RangeData::markType;
+#endif
         // add match mark for range
         switch (markType) {
         case RangeData::markType:
@@ -1072,6 +1120,10 @@ public:
             docs->insert(doc);
         }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &self_type::clearAllMarks, Qt::UniqueConnection);
+        connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &self_type::clearAllMarks, Qt::UniqueConnection);
+#else
         // ensure runtime match
         // clang-format off
         connect(doc,
@@ -1084,9 +1136,11 @@ public:
                 this,
                 SLOT(clearAllMarks(KTextEditor::Document*)),
                 Qt::UniqueConnection);
+        // clang-format on
+#endif
+
         // reload might save/restore marks before/after above signals, so let's clear before that
         connect(doc, &KTextEditor::Document::aboutToReload, this, &self_type::clearAllMarks, Qt::UniqueConnection);
-        // clang-format on
     }
 
     void addMarksRec(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)
@@ -1152,11 +1206,15 @@ public:
         if (!doc) {
             return;
         }
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        auto mr = doc->newMovingRange(location);
+#else
         auto miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
         if (!miface) {
             return;
         }
         auto mr = miface->newMovingRange(location);
+#endif
         KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute);
         attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
         mr->setView(view);
@@ -1791,10 +1849,15 @@ public:
 
         int tabSize = 4;
         bool insertSpaces = true;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        tabSize = document->configValue(QStringLiteral("tab-width")).toInt();
+        insertSpaces = document->configValue(QStringLiteral("replace-tabs")).toBool();
+#else
         auto cfgiface = qobject_cast<KTextEditor::ConfigInterface *>(document);
         Q_ASSERT(cfgiface);
         tabSize = cfgiface->configValue(QStringLiteral("tab-width")).toInt();
         insertSpaces = cfgiface->configValue(QStringLiteral("replace-tabs")).toBool();
+#endif
 
         // sigh, no move initialization capture ...
         // (again) assuming reply ranges wrt revisions submitted at this time
@@ -2462,18 +2525,28 @@ public:
 
         bool registered = m_completionViews.contains(view);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
         Q_ASSERT(cci);
+#endif
 
         if (!registered && server && server->capabilities().completionProvider.provider) {
             qCInfo(LSPCLIENT) << "registering cci";
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            view->registerCompletionModel(m_completion.get());
+#else
             cci->registerCompletionModel(m_completion.get());
+#endif
             m_completionViews.insert(view);
         }
 
         if (registered && !server) {
             qCInfo(LSPCLIENT) << "unregistering cci";
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            view->unregisterCompletionModel(m_completion.get());
+#else
             cci->unregisterCompletionModel(m_completion.get());
+#endif
             m_completionViews.remove(view);
         }
     }

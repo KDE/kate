@@ -14,15 +14,26 @@
 #include <QUrl>
 #include <QWidget>
 
+#include <KTextEditor/Document>
+#include <KTextEditor/Range>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/MarkInterface>
 #include <KTextEditor/MovingRange>
-#include <KTextEditor/Range>
+#endif
 
 class KConfigGroup;
 class SessionDiagnosticSuppressions;
 class KateMainWindow;
 class QSortFilterProxyModel;
 class KateTextHintProvider;
+
+namespace KTextEditor
+{
+class MainWindow;
+class Mark;
+class View;
+class MovingRange;
+}
 
 class KATE_PRIVATE_EXPORT DiagnosticsProvider : public QObject
 {

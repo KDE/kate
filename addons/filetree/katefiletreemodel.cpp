@@ -539,12 +539,16 @@ void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    connect(doc, &KTextEditor::Document::modifiedOnDisk, this, &KateFileTreeModel::documentModifiedOnDisc);
+#else
     // clang-format off
     connect(doc,
             SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
             this,
             SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
     // clang-format on
+#endif
 }
 
 QModelIndex KateFileTreeModel::docIndex(const KTextEditor::Document *doc) const
@@ -923,7 +927,11 @@ void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
     Q_EMIT dataChanged(idx, idx);
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool modified, KTextEditor::Document::ModifiedOnDiskReason reason)
+#else
 void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool modified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
+#endif
 {
     Q_UNUSED(modified);
     auto it = m_docmap.find(doc);
@@ -939,6 +947,17 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
         item->clearFlag(ProxyItem::ModifiedExternally);
         item->clearFlag(ProxyItem::DeletedExternally);
     } else {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        if (reason == KTextEditor::Document::OnDiskDeleted) {
+            item->setFlag(ProxyItem::DeletedExternally);
+        } else if (reason == KTextEditor::Document::OnDiskModified) {
+            item->setFlag(ProxyItem::ModifiedExternally);
+        } else if (reason == KTextEditor::Document::OnDiskCreated) {
+            // with out this, on "reload" we don't get the icons removed :(
+            item->clearFlag(ProxyItem::ModifiedExternally);
+            item->clearFlag(ProxyItem::DeletedExternally);
+        }
+#else
         if (reason == KTextEditor::ModificationInterface::OnDiskDeleted) {
             item->setFlag(ProxyItem::DeletedExternally);
         } else if (reason == KTextEditor::ModificationInterface::OnDiskModified) {
@@ -948,6 +967,7 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
             item->clearFlag(ProxyItem::ModifiedExternally);
             item->clearFlag(ProxyItem::DeletedExternally);
         }
+#endif
     }
 
     setupIcon(item);
@@ -1104,12 +1124,16 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
     disconnect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
     disconnect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
     disconnect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    disconnect(doc, &KTextEditor::Document::modifiedOnDisk, this, &KateFileTreeModel::documentModifiedOnDisc);
+#else
     // clang-format off
     disconnect(doc,
                 SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
                 this,
                 SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
     // clang-format on
+#endif
 
     auto it = m_docmap.find(doc);
     if (it == m_docmap.end()) {

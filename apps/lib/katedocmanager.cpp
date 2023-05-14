@@ -100,21 +100,29 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
     // turn off the editorpart's own modification dialog, we have our own one, too!
     const KConfigGroup generalGroup(KSharedConfig::openConfig(), "General");
     bool ownModNotification = generalGroup.readEntry("Modified Notification", false);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    doc->setModifiedOnDiskWarning(!ownModNotification);
+#else
     if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
         qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!ownModNotification);
     }
+#endif
 
     m_docList.push_back(doc);
     m_docInfos.emplace(doc, docInfo);
 
     // connect internal signals...
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateDocManager::slotModChanged1);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    connect(doc, &KTextEditor::Document::modifiedOnDisk, this, &KateDocManager::slotModifiedOnDisc);
+#else
     // clang-format off
     connect(doc,
             SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
             this,
             SLOT(slotModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
     // clang-format on
+#endif
 
     connect(doc, &KParts::ReadOnlyPart::urlChanged, this, &KateDocManager::slotUrlChanged);
 
@@ -419,7 +427,11 @@ void KateDocManager::restoreDocumentList(KConfig *config)
     }
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+void KateDocManager::slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::Document::ModifiedOnDiskReason reason)
+#else
 void KateDocManager::slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
+#endif
 {
     auto it = m_docInfos.find(doc);
     if (it != m_docInfos.end()) {

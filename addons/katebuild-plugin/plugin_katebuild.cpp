@@ -47,9 +47,7 @@
 
 #include <KActionCollection>
 #include <KTextEditor/Application>
-#include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
-#include <KTextEditor/MovingInterface>
 
 #include <KAboutData>
 #include <KColorScheme>

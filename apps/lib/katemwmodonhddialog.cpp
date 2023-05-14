@@ -6,12 +6,12 @@
 
 #include "katemwmodonhddialog.h"
 
+#include "diffwidget.h"
 #include "gitprocess.h"
 #include "kateapp.h"
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 #include "ktexteditor_utils.h"
-#include "diffwidget.h"
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -182,12 +182,18 @@ void KateMwModOnHdDialog::handleSelected(int action)
         }
 
         if (item->checkState(0) == Qt::Checked) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            KTextEditor::Document::ModifiedOnDiskReason reason = docInfo->modifiedOnDiscReason;
+            bool success = true;
+            item->document->setModifiedOnDisk(KTextEditor::Document::OnDiskUnmodified);
+#else
             KTextEditor::ModificationInterface::ModifiedOnDiskReason reason = docInfo->modifiedOnDiscReason;
             bool success = true;
 
             if (KTextEditor::ModificationInterface *iface = qobject_cast<KTextEditor::ModificationInterface *>(item->document)) {
                 iface->setModifiedOnDisk(KTextEditor::ModificationInterface::OnDiskUnmodified);
             }
+#endif
 
             switch (action) {
             case Overwrite:
@@ -208,9 +214,13 @@ void KateMwModOnHdDialog::handleSelected(int action)
             if (success) {
                 itemsToDelete.append(item);
             } else {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                item->document->setModifiedOnDisk(reason);
+#else
                 if (KTextEditor::ModificationInterface *iface = qobject_cast<KTextEditor::ModificationInterface *>(item->document)) {
                     iface->setModifiedOnDisk(reason);
                 }
+#endif
             }
         }
     }
@@ -238,7 +248,11 @@ void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWi
     if (currentDocItem && currentDocItem->document) {
         auto *docInfo = KateApp::self()->documentManager()->documentInfo(currentDocItem->document);
         // set the diff button enabled
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        btnDiff->setEnabled(docInfo && docInfo->modifiedOnDiscReason != KTextEditor::Document::OnDiskDeleted);
+#else
         btnDiff->setEnabled(docInfo && docInfo->modifiedOnDiscReason != KTextEditor::ModificationInterface::OnDiskDeleted);
+#endif
     }
 }
 
@@ -281,9 +295,15 @@ void KateMwModOnHdDialog::slotDiff()
     }
 
     // don't try to diff a deleted file
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    if (docInfo->modifiedOnDiscReason == KTextEditor::Document::OnDiskDeleted) {
+        return;
+    }
+#else
     if (docInfo->modifiedOnDiscReason == KTextEditor::ModificationInterface::OnDiskDeleted) {
         return;
     }
+#endif
 
     auto f = new QTemporaryFile(this);
     f->open();

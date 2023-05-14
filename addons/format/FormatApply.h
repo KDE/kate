@@ -7,7 +7,9 @@
 #include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/MovingCursor>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/MovingInterface>
+#endif
 #include <QFileInfo>
 #include <QIcon>
 #include <QRegularExpression>
@@ -61,7 +63,11 @@ static std::pair<uint, uint> parseRange(const QString &range)
     return {range.toInt(), 1};
 }
 
-static std::vector<PatchLine> parseDiff(KTextEditor::MovingInterface *iface, const QString &diff)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+static std::vector<PatchLine> parseDiff(KTextEditor::Document *doc, const QString &diff)
+#else
+static std::vector<PatchLine> parseDiff(KTextEditor::MovingInterface *doc, const QString &diff)
+#endif
 {
     static const QRegularExpression HUNK_HEADER_RE(QStringLiteral("^@@ -([0-9,]+) \\+([0-9,]+) @@(.*)"));
 
@@ -98,7 +104,7 @@ static std::vector<PatchLine> parseDiff(KTextEditor::MovingInterface *iface, con
             } else if (hl.startsWith(QLatin1Char('-'))) {
                 PatchLine p;
                 p.type = PatchLine::Remove;
-                p.pos = iface->newMovingCursor(KTextEditor::Cursor(srcline, 0));
+                p.pos = doc->newMovingCursor(KTextEditor::Cursor(srcline, 0));
                 // qDebug() << "remove line" << srcline << hl.mid(1) << p.pos->line();
                 lines.push_back(p);
                 srcline++;

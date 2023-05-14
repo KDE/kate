@@ -8,7 +8,10 @@
 #include "lspclientservermanager.h"
 #include "semantic_tokens_legend.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/MovingInterface>
+#endif
+#include <KTextEditor/Document>
 #include <KTextEditor/View>
 
 #include <ktexteditor_utils.h>
@@ -56,6 +59,10 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
 
     auto doc = view->document();
     if (m_docResultId.count(doc) == 0) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &SemanticHighlighter::remove, Qt::UniqueConnection);
+        connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &SemanticHighlighter::remove, Qt::UniqueConnection);
+#else
         // clang-format off
         connect(doc,
                 SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
@@ -64,6 +71,7 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
                 Qt::UniqueConnection);
         connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)), this, SLOT(remove(KTextEditor::Document*)), Qt::UniqueConnection);
         // clang-format on
+#endif
     }
 
     if (caps.semanticTokenProvider.range) {
@@ -161,7 +169,9 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
         return;
     }
     auto doc = view->document();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     auto miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+#endif
 
     TokensData &semanticData = m_docSemanticInfo[doc];
     auto &movingRanges = semanticData.movingRanges;
@@ -212,7 +222,11 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
         if (it != oldRanges.end() && (*it) && (*it)->toRange() == r && (*it)->attribute() == attribute.constData()) {
             range = std::move(*it);
         } else {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            range.reset(doc->newMovingRange(r));
+#else
             range.reset(miface->newMovingRange(r));
+#endif
             range->setZDepth(-91000.0);
             range->setRange(r);
             range->setAttribute(std::move(attribute));

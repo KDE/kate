@@ -290,7 +290,11 @@ void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTe
     }
 
     // create applyable edits
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    const std::vector<PatchLine> edits = parseDiff(doc, patch);
+#else
     const std::vector<PatchLine> edits = parseDiff(qobject_cast<KTextEditor::MovingInterface *>(doc), patch);
+#endif
 
     // If the edits are too many, just do "setText" as it can be very slow
     if ((int)edits.size() >= (doc->lines() / 2) && doc->lines() > 1000) {

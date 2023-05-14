@@ -20,7 +20,9 @@
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/InlineNoteInterface>
+#endif
 #include <KTextEditor/View>
 
 #include <QFileInfo>
@@ -45,10 +47,16 @@ GitBlameInlineNoteProvider::GitBlameInlineNoteProvider(KateGitBlamePluginView *p
 
 GitBlameInlineNoteProvider::~GitBlameInlineNoteProvider()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    if (m_pluginView->activeView()) {
+        m_pluginView->activeView()->unregisterInlineNoteProvider(this);
+    }
+#else
     QPointer<KTextEditor::View> view = m_pluginView->activeView();
     if (view) {
         qobject_cast<KTextEditor::InlineNoteInterface *>(view)->unregisterInlineNoteProvider(this);
     }
+#endif
 }
 
 QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
@@ -228,7 +236,11 @@ QPointer<KTextEditor::Document> KateGitBlamePluginView::activeDocument() const
 void KateGitBlamePluginView::startGitBlameForActiveView()
 {
     if (m_lastView) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        m_lastView->unregisterInlineNoteProvider(&m_inlineNoteProvider);
+#else
         qobject_cast<KTextEditor::InlineNoteInterface *>(m_lastView)->unregisterInlineNoteProvider(&m_inlineNoteProvider);
+#endif
     }
 
     auto *view = m_mainWindow->activeView();
@@ -244,7 +256,11 @@ void KateGitBlamePluginView::startGitBlameForActiveView()
         return;
     }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    view->registerInlineNoteProvider(&m_inlineNoteProvider);
+#else
     qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(&m_inlineNoteProvider);
+#endif
 
     startBlameProcess(url);
 }

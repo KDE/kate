@@ -8,7 +8,11 @@
 #pragma once
 
 #include <KTextEditor/Document>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/ModificationInterface>
+#endif
+#include <QPixmap>
+#include <qicon.h>
 
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 
@@ -514,9 +518,121 @@ public:
         return false;
     }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    KTextEditor::MovingCursor *newMovingCursor(KTextEditor::Cursor, KTextEditor::MovingCursor::InsertBehavior) override
+    {
+        return nullptr;
+    }
+    KTextEditor::MovingRange *newMovingRange(KTextEditor::Range, KTextEditor::MovingRange::InsertBehaviors, KTextEditor::MovingRange::EmptyBehavior) override
+    {
+        return nullptr;
+    }
+    qint64 revision() const override
+    {
+        return 0;
+    };
+    qint64 lastSavedRevision() const override
+    {
+        return 0;
+    };
+    void lockRevision(qint64) override
+    {
+    }
+    void unlockRevision(qint64) override
+    {
+    }
+    void transformCursor(KTextEditor::Cursor &, KTextEditor::MovingCursor::InsertBehavior, qint64, qint64 = -1) override
+    {
+    }
+    void transformCursor(int &, int &, KTextEditor::MovingCursor::InsertBehavior, qint64, qint64 = -1) override
+    {
+    }
+    void transformRange(KTextEditor::Range &, KTextEditor::MovingRange::InsertBehaviors, KTextEditor::MovingRange::EmptyBehavior, qint64, qint64 = -1) override
+    {
+    }
+    QStringList configKeys() const override
+    {
+        return {};
+    }
+    QVariant configValue(const QString &) override
+    {
+        return {};
+    }
+    void setConfigValue(const QString &, const QVariant &) override
+    {
+    }
+    void setModifiedOnDisk(ModifiedOnDiskReason) override
+    {
+    }
+    void setModifiedOnDiskWarning(bool) override
+    {
+    }
+    uint mark(int) override
+    {
+        return 0;
+    }
+    void setMark(int, uint) override
+    {
+    }
+    void clearMark(int) override
+    {
+    }
+    void addMark(int, uint) override
+    {
+    }
+    void removeMark(int, uint) override
+    {
+    }
+    const QHash<int, KTextEditor::Mark *> &marks() override
+    {
+        static const QHash<int, KTextEditor::Mark *> s;
+        return s;
+    }
+    void clearMarks() override
+    {
+    }
+    void setMarkPixmap(MarkTypes, const QPixmap &) override
+    {
+    }
+    QPixmap markPixmap(MarkTypes) const override
+    {
+        return {};
+    }
+    void setMarkDescription(MarkTypes, const QString &) override
+    {
+    }
+    QString markDescription(MarkTypes) const override
+    {
+        return {};
+    }
+    void setEditableMarks(uint) override
+    {
+    }
+    uint editableMarks() const override
+    {
+        return 0;
+    }
+    void setMarkIcon(MarkTypes, const QIcon &) override
+    {
+    }
+    QIcon markIcon(MarkTypes) const override
+    {
+        return {};
+    }
+    void setAnnotationModel(KTextEditor::AnnotationModel *) override
+    {
+    }
+    KTextEditor::AnnotationModel *annotationModel() const override
+    {
+        return nullptr;
+    }
+#endif
+
     // make QObject happy
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 Q_SIGNALS:
     void modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
+#endif
 
 public:
     void setUrl(const QString &url)

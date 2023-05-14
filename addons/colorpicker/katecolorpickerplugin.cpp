@@ -14,7 +14,9 @@
 #include <KPluginFactory>
 #include <KSharedConfig>
 #include <KTextEditor/Document>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/InlineNoteInterface>
+#endif
 #include <KTextEditor/View>
 
 #include <QColor>
@@ -33,11 +35,19 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
 
     const auto views = m_doc->views();
     for (auto view : views) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        view->registerInlineNoteProvider(this);
+#else
         qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
+#endif
     }
 
     connect(m_doc, &KTextEditor::Document::viewCreated, this, [this](KTextEditor::Document *, KTextEditor::View *view) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        view->registerInlineNoteProvider(this);
+#else
         qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
+#endif
     });
 
     auto lineChanged = [this](const int line) {
@@ -93,9 +103,13 @@ ColorPickerInlineNoteProvider::~ColorPickerInlineNoteProvider()
     if (doc) {
         const auto views = m_doc->views();
         for (auto view : views) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            view->unregisterInlineNoteProvider(this);
+#else
             if (auto ini = qobject_cast<KTextEditor::InlineNoteInterface *>(view)) {
                 ini->unregisterInlineNoteProvider(this);
             }
+#endif
         }
     }
 }

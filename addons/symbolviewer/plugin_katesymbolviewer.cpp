@@ -48,7 +48,6 @@
 #include <QAction>
 #include <QKeyEvent>
 
-#include <ktexteditor/configinterface.h>
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/document.h>
 

@@ -7,7 +7,9 @@
 #include "completionmodel.h"
 
 #include <KPluginFactory>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/CodeCompletionInterface>
+#endif
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
@@ -34,9 +36,13 @@ public:
 private Q_SLOTS:
     void viewCreated(KTextEditor::View *view)
     {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        view->registerCompletionModel(m_model);
+#else
         auto iface = qobject_cast<KTextEditor::CodeCompletionInterfaceV2 *>(view);
         if (iface != nullptr)
             iface->registerCompletionModel(m_model);
+#endif
     }
 
 private:

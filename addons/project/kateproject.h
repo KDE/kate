@@ -7,7 +7,10 @@
 
 #pragma once
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/ModificationInterface>
+#endif
+#include <KTextEditor/Document>
 
 #include <QHash>
 #include <QPointer>
@@ -270,7 +273,11 @@ private Q_SLOTS:
 
     void slotModifiedChanged(KTextEditor::Document *);
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    void slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::Document::ModifiedOnDiskReason reason);
+#else
     void slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+#endif
 
     /**
      * did some project file change?

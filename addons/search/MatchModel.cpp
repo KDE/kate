@@ -12,7 +12,10 @@
 #include <QFileInfo>
 #include <algorithm> // std::count_if
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <ktexteditor/movinginterface.h>
+#endif
+#include <KTextEditor/Document>
 #include <ktexteditor/movingrange.h>
 
 static const quintptr InfoItemId = 0xFFFFFFFF;
@@ -350,8 +353,9 @@ bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelInde
 
     // Create a vector of moving ranges for updating the tree-view after replace
     QVector<KTextEditor::MovingRange *> matchRanges;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-
+#endif
     // Only add items after "matchIndex"
     int fileRow = matchIndex.internalId();
     int matchRow = matchIndex.row();
@@ -359,7 +363,11 @@ bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelInde
     QVector<Match> &matches = m_matchFiles[fileRow].matches;
 
     for (int i = matchRow + 1; i < matches.size(); ++i) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        KTextEditor::MovingRange *mr = doc->newMovingRange(matches[i].range);
+#else
         KTextEditor::MovingRange *mr = miface->newMovingRange(matches[i].range);
+#endif
         matchRanges.append(mr);
     }
 
@@ -434,10 +442,16 @@ void MatchModel::doReplaceNextMatch()
     // Create a vector of moving ranges for updating the matches after replace
     QVector<KTextEditor::MovingRange *> matchRanges;
     matchRanges.reserve(matches.size());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    for (const auto &match : qAsConst(matches)) {
+        matchRanges.append(doc->newMovingRange(match.range));
+    }
+#else
     KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
     for (const auto &match : qAsConst(matches)) {
         matchRanges.append(miface->newMovingRange(match.range));
     }
+#endif
 
     // Make one transaction for the whole replace to speed up things
     // and get all replacements in one "undo"

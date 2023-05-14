@@ -78,8 +78,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
 #else
         setFaceType(KPageDialog::List);
 #endif
-    }
-    else {
+    } else {
         setFaceType(KPageDialog::List);
     }
 
@@ -822,9 +821,13 @@ void KateConfigDialog::slotApply()
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
         for (KTextEditor::Document *doc : docs) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            doc->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
+#else
             if (auto modIface = qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
                 modIface->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
             }
+#endif
         }
 
         m_mainWindow->saveOptions();

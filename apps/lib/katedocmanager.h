@@ -8,7 +8,9 @@
 #pragma once
 
 #include <ktexteditor/document.h>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <ktexteditor/modificationinterface.h>
+#endif
 
 #include <QList>
 #include <QObject>
@@ -28,7 +30,11 @@ public:
     KateDocumentInfo() = default;
 
     bool modifiedOnDisc = false;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    KTextEditor::Document::ModifiedOnDiskReason modifiedOnDiscReason = KTextEditor::Document::OnDiskUnmodified;
+#else
     KTextEditor::ModificationInterface::ModifiedOnDiskReason modifiedOnDiscReason = KTextEditor::ModificationInterface::OnDiskUnmodified;
+#endif
 
     bool openedByUser = false;
     bool openSuccess = true;
@@ -156,7 +162,11 @@ Q_SIGNALS:
     void documentsDeleted(const QList<KTextEditor::Document *> &documents);
 
 private Q_SLOTS:
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    void slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::Document::ModifiedOnDiskReason reason);
+#else
     void slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+#endif
     void slotModChanged(KTextEditor::Document *doc);
     void slotModChanged1(KTextEditor::Document *doc);
     void slotUrlChanged(const QUrl &newUrl);

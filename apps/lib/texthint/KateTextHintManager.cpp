@@ -15,7 +15,7 @@ KateTextHintProvider::KateTextHintProvider(KTextEditor::MainWindow *mainWindow, 
     : QObject(parent)
 {
     Q_ASSERT(mainWindow);
-    auto mgr = static_cast<KateTextHintManager *>(mainWindow->property("textHintManager").value<QObject*>());
+    auto mgr = static_cast<KateTextHintManager *>(mainWindow->property("textHintManager").value<QObject *>());
     if (!mgr) {
         mgr = new KateTextHintManager(mainWindow);
         mainWindow->setProperty("textHintManager", QVariant::fromValue(mgr));
@@ -38,21 +38,33 @@ public:
     ~KTETextHintProvider()
     {
         if (m_view) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_view->unregisterTextHintProvider(this);
+#else
             auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
             iface->unregisterTextHintProvider(this);
+#endif
         }
     }
 
     void setView(KTextEditor::View *v)
     {
         if (m_view) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_view->unregisterTextHintProvider(this);
+#else
             auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
             iface->unregisterTextHintProvider(this);
+#endif
         }
         if (v) {
             m_view = v;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_view->registerTextHintProvider(this);
+#else
             auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
             iface->registerTextHintProvider(this);
+#endif
         }
     }
 

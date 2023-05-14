@@ -12,7 +12,11 @@
 #include <QBrush>
 #include <QColor>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <ktexteditor/modificationinterface.h>
+#endif
+#include <KTextEditor/Document>
+
 namespace KTextEditor
 {
 class Document;
@@ -90,7 +94,9 @@ public Q_SLOTS:
     void documentClosed(KTextEditor::Document *);
     void documentNameChanged(KTextEditor::Document *);
     void documentModifiedChanged(KTextEditor::Document *);
-    void documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    void documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::Document::ModifiedOnDiskReason);
+#endif
 
     void addWidget(QWidget *w);
     void removeWidget(QWidget *w);

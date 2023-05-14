@@ -6,8 +6,8 @@
 
 #include "ktexteditor_utils.h"
 #include "diagnostics/diagnosticview.h"
-#include "katemainwindow.h"
 #include "diffwidget.h"
+#include "katemainwindow.h"
 
 #include <QFontDatabase>
 #include <QIcon>
@@ -19,7 +19,6 @@
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KTextEditor/Application>
-#include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
@@ -96,14 +95,6 @@ QFont editorFont()
     return QFontDatabase::systemFont(QFontDatabase::FixedFont);
 }
 
-QFont viewFont(KTextEditor::View *view)
-{
-    if (const auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(view)) {
-        return ciface->configValue(QStringLiteral("font")).value<QFont>();
-    }
-    return editorFont();
-}
-
 KATE_PRIVATE_EXPORT KTextEditor::Range getVisibleRange(KTextEditor::View *view)
 {
     Q_ASSERT(view);
@@ -153,12 +144,8 @@ QAction *toolviewShowAction(KTextEditor::MainWindow *mainWindow, const QString &
 
 QWidget *toolviewForName(KTextEditor::MainWindow *mainWindow, const QString &toolviewName)
 {
-    QWidget* toolView = nullptr;
-    QMetaObject::invokeMethod(mainWindow->parent(),
-                              "toolViewForName",
-                              Qt::DirectConnection,
-                              Q_RETURN_ARG(QWidget*, toolView),
-                              Q_ARG(QString, toolviewName));
+    QWidget *toolView = nullptr;
+    QMetaObject::invokeMethod(mainWindow->parent(), "toolViewForName", Qt::DirectConnection, Q_RETURN_ARG(QWidget *, toolView), Q_ARG(QString, toolviewName));
     return toolView;
 }
 
@@ -184,10 +171,7 @@ void showMessage(const QVariantMap &map, KTextEditor::MainWindow *mainWindow)
     if (!mainWindow) {
         mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
     }
-    QMetaObject::invokeMethod(mainWindow->parent(),
-                              "showMessage",
-                              Qt::DirectConnection,
-                              Q_ARG(QVariantMap, map));
+    QMetaObject::invokeMethod(mainWindow->parent(), "showMessage", Qt::DirectConnection, Q_ARG(QVariantMap, map));
 }
 
 void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow)
@@ -197,36 +181,24 @@ void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::Mai
 
 void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
 {
-    QMetaObject::invokeMethod(mainWindow->parent(),
-                              "addWidget",
-                              Qt::DirectConnection,
-                              Q_ARG(QWidget*, widget));
+    QMetaObject::invokeMethod(mainWindow->parent(), "addWidget", Qt::DirectConnection, Q_ARG(QWidget *, widget));
 }
 
 void activateWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
 {
-    QMetaObject::invokeMethod(mainWindow->parent(),
-                              "activateWidget",
-                              Qt::DirectConnection,
-                              Q_ARG(QWidget*, widget));
+    QMetaObject::invokeMethod(mainWindow->parent(), "activateWidget", Qt::DirectConnection, Q_ARG(QWidget *, widget));
 }
 
 QWidgetList widgets(KTextEditor::MainWindow *mainWindow)
 {
     QWidgetList ret;
-    QMetaObject::invokeMethod(mainWindow->parent(),
-                              "widgets",
-                              Qt::DirectConnection,
-                              Q_RETURN_ARG(QWidgetList, ret));
+    QMetaObject::invokeMethod(mainWindow->parent(), "widgets", Qt::DirectConnection, Q_RETURN_ARG(QWidgetList, ret));
     return ret;
 }
 
 void insertWidgetInStatusbar(QWidget *widget, KTextEditor::MainWindow *mainWindow)
 {
-    QMetaObject::invokeMethod(mainWindow->parent(),
-                              "insertWidgetInStatusbar",
-                              Qt::DirectConnection,
-                              Q_ARG(QWidget*, widget));
+    QMetaObject::invokeMethod(mainWindow->parent(), "insertWidgetInStatusbar", Qt::DirectConnection, Q_ARG(QWidget *, widget));
 }
 
 QString projectBaseDirForDocument(KTextEditor::Document *doc)

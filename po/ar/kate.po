@@ -8,13 +8,13 @@
 # Ossama M. Khayat <okhayat@yahoo.com>, 2004.
 # محمد سعد  Mohamed SAAD <metehyi@free.fr>, 2006.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
-# Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, ٢٠١٦, 2017.
+# Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, 2016, 2017.
 # Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-09 00:51+0000\n"
+"POT-Creation-Date: 2023-05-14 00:51+0000\n"
 "PO-Revision-Date: 2023-04-27 12:08+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -295,99 +295,99 @@ msgstr ""
 msgid "All"
 msgstr "الكل"
 
-#: lib/diagnostics/diagnosticview.cpp:346
+#: lib/diagnostics/diagnosticview.cpp:350
 #, kde-format
 msgid "Quick Fix"
 msgstr "إصلاح سريع"
 
-#: lib/diagnostics/diagnosticview.cpp:350
+#: lib/diagnostics/diagnosticview.cpp:354
 #, kde-format
 msgid "Next Item"
 msgstr "العنصر التالي"
 
-#: lib/diagnostics/diagnosticview.cpp:355
+#: lib/diagnostics/diagnosticview.cpp:359
 #, kde-format
 msgid "Previous Item"
 msgstr "العنصر السّابق"
 
-#: lib/diagnostics/diagnosticview.cpp:402
+#: lib/diagnostics/diagnosticview.cpp:406
 #, kde-format
 msgid "Errors"
 msgstr "الأخطاء"
 
-#: lib/diagnostics/diagnosticview.cpp:418
+#: lib/diagnostics/diagnosticview.cpp:422
 #, kde-format
 msgid "Warnings"
 msgstr "التّحذيرات"
 
-#: lib/diagnostics/diagnosticview.cpp:432
+#: lib/diagnostics/diagnosticview.cpp:436
 #, kde-format
 msgid "Filter..."
 msgstr "رشّح..."
 
-#: lib/diagnostics/diagnosticview.cpp:991 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:995 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "خطأ"
 
-#: lib/diagnostics/diagnosticview.cpp:995 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:999 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid "Warning"
 msgstr "التّحذيرات"
 
-#: lib/diagnostics/diagnosticview.cpp:999
+#: lib/diagnostics/diagnosticview.cpp:1003
 #, kde-format
 msgid "Information"
 msgstr "المعلومات"
 
-#: lib/diagnostics/diagnosticview.cpp:1130
+#: lib/diagnostics/diagnosticview.cpp:1134
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [مقيد: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1258
+#: lib/diagnostics/diagnosticview.cpp:1262
 #, kde-format
 msgid "Expand All"
 msgstr "وسّع الكل"
 
-#: lib/diagnostics/diagnosticview.cpp:1259
+#: lib/diagnostics/diagnosticview.cpp:1263
 #, kde-format
 msgid "Collapse All"
 msgstr "اطوِ الكل"
 
-#: lib/diagnostics/diagnosticview.cpp:1266
+#: lib/diagnostics/diagnosticview.cpp:1270
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "انسخ إلى الحافظة"
 
-#: lib/diagnostics/diagnosticview.cpp:1289
+#: lib/diagnostics/diagnosticview.cpp:1293
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "أزل التقييد العام"
 
-#: lib/diagnostics/diagnosticview.cpp:1291
+#: lib/diagnostics/diagnosticview.cpp:1295
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "أضف تقييد العام"
 
-#: lib/diagnostics/diagnosticview.cpp:1295
+#: lib/diagnostics/diagnosticview.cpp:1299
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "أزل التقييد المحلي"
 
-#: lib/diagnostics/diagnosticview.cpp:1297
+#: lib/diagnostics/diagnosticview.cpp:1301
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "أضف تقييد محلي"
 
-#: lib/diagnostics/diagnosticview.cpp:1311
+#: lib/diagnostics/diagnosticview.cpp:1315
 #, kde-format
 msgid "Disable Suppression"
 msgstr "عطل التقييد"
 
-#: lib/diagnostics/diagnosticview.cpp:1313
+#: lib/diagnostics/diagnosticview.cpp:1317
 #, kde-format
 msgid "Enable Suppression"
 msgstr "مكن التقييد"

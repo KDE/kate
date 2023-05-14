@@ -17,7 +17,7 @@
 #include <gitprocess.h>
 #include <ktexteditor_utils.h>
 
-static QString diff(KTextEditor::Document *doc, const QByteArray &formatted)
+[[maybe_unused]] static QString diff(KTextEditor::Document *doc, const QByteArray &formatted)
 {
     QTemporaryFile f;
     if (!f.open()) {
@@ -50,7 +50,7 @@ struct PatchLine {
 Q_DECLARE_METATYPE(PatchLine)
 Q_DECLARE_METATYPE(std::vector<PatchLine>)
 
-static std::pair<uint, uint> parseRange(const QString &range)
+[[maybe_unused]] static std::pair<uint, uint> parseRange(const QString &range)
 {
     int commaPos = range.indexOf(QLatin1Char(','));
     if (commaPos > -1) {
@@ -64,9 +64,9 @@ static std::pair<uint, uint> parseRange(const QString &range)
 }
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-static std::vector<PatchLine> parseDiff(KTextEditor::Document *doc, const QString &diff)
+[[maybe_unused]] static std::vector<PatchLine> parseDiff(KTextEditor::Document *doc, const QString &diff)
 #else
-static std::vector<PatchLine> parseDiff(KTextEditor::MovingInterface *doc, const QString &diff)
+[[maybe_unused]] static std::vector<PatchLine> parseDiff(KTextEditor::MovingInterface *doc, const QString &diff)
 #endif
 {
     static const QRegularExpression HUNK_HEADER_RE(QStringLiteral("^@@ -([0-9,]+) \\+([0-9,]+) @@(.*)"));

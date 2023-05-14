@@ -1055,7 +1055,7 @@ void KateFileTreeModel::updateBackgrounds(bool force)
 
     const int hc = m_viewHistory.size();
     const int ec = m_editHistory.size();
-    const QColor &base = QPalette().color(QPalette::Base);
+    const QColor base = QPalette().color(QPalette::Base);
 
     for (const auto &[item, editViewCount] : helper) {
         QColor shade(m_viewShade);

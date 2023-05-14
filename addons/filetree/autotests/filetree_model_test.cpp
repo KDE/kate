@@ -19,6 +19,7 @@ class ResultNode
 public:
     ResultNode() = default; // root node
     ResultNode(const ResultNode &other) = default;
+    ResultNode &operator=(const ResultNode &other) = default;
     ResultNode(const char *_name, const bool _dir = false)
         : ResultNode(QString::fromLatin1(_name), _dir)
     {

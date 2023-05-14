@@ -96,6 +96,8 @@ public Q_SLOTS:
     void documentModifiedChanged(KTextEditor::Document *);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     void documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::Document::ModifiedOnDiskReason);
+#else
+    void documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
 #endif
 
     void addWidget(QWidget *w);

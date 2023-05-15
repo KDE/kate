@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-19 02:44+0000\n"
-"PO-Revision-Date: 2023-01-19 19:58+0530\n"
+"PO-Revision-Date: 2023-05-14 15:29+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -287,7 +287,7 @@ msgstr "அடைவில்"
 #: search.ui:233
 #, kde-format
 msgid "Use the current document's path."
-msgstr "தற்போதை ஆவணத்தின் அடைவைப் பயன்படுத்தும்."
+msgstr "தற்போதைய ஆவணத்தின் அடைவைப் பயன்படுத்தும்."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:243

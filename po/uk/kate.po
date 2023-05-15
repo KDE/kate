@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-14 00:51+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2023-04-11 09:21+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -287,104 +287,104 @@ msgstr ""
 "Помилка у формальному виразі: %1\n"
 "відступ %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:60
+#: lib/diagnostics/diagnosticview.cpp:62
 #, kde-format
 msgid "All"
 msgstr "Усе"
 
-#: lib/diagnostics/diagnosticview.cpp:350
+#: lib/diagnostics/diagnosticview.cpp:360
 #, kde-format
 msgid "Quick Fix"
 msgstr "Швидке виправлення"
 
-#: lib/diagnostics/diagnosticview.cpp:354
+#: lib/diagnostics/diagnosticview.cpp:364
 #, kde-format
 msgid "Next Item"
 msgstr "Наступний запис"
 
-#: lib/diagnostics/diagnosticview.cpp:359
+#: lib/diagnostics/diagnosticview.cpp:369
 #, kde-format
 msgid "Previous Item"
 msgstr "Попередній запис"
 
-#: lib/diagnostics/diagnosticview.cpp:406
+#: lib/diagnostics/diagnosticview.cpp:416
 #, kde-format
 msgid "Errors"
 msgstr "Помилки"
 
-#: lib/diagnostics/diagnosticview.cpp:422
+#: lib/diagnostics/diagnosticview.cpp:432
 #, kde-format
 msgid "Warnings"
 msgstr "Попередження"
 
-#: lib/diagnostics/diagnosticview.cpp:436
+#: lib/diagnostics/diagnosticview.cpp:446
 #, kde-format
 msgid "Filter..."
 msgstr "Фільтрувати…"
 
-#: lib/diagnostics/diagnosticview.cpp:995 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1017 lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Error"
 msgstr "Помилка"
 
-#: lib/diagnostics/diagnosticview.cpp:999 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:906
+#: lib/diagnostics/diagnosticview.cpp:1021 lib/kateconfigdialog.cpp:373
+#: lib/kateconfigdialog.cpp:909
 #, kde-format
 msgid "Warning"
 msgstr "Попередження"
 
-#: lib/diagnostics/diagnosticview.cpp:1003
+#: lib/diagnostics/diagnosticview.cpp:1025
 #, kde-format
 msgid "Information"
 msgstr "Відомості"
 
-#: lib/diagnostics/diagnosticview.cpp:1134
+#: lib/diagnostics/diagnosticview.cpp:1177
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [придушено: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1262
+#: lib/diagnostics/diagnosticview.cpp:1305
 #, kde-format
 msgid "Expand All"
 msgstr "Розгорнути все"
 
-#: lib/diagnostics/diagnosticview.cpp:1263
+#: lib/diagnostics/diagnosticview.cpp:1306
 #, kde-format
 msgid "Collapse All"
 msgstr "Згорнути все"
 
-#: lib/diagnostics/diagnosticview.cpp:1270
+#: lib/diagnostics/diagnosticview.cpp:1313
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Скопіювати до буфера"
 
-#: lib/diagnostics/diagnosticview.cpp:1293
+#: lib/diagnostics/diagnosticview.cpp:1336
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Вилучити загальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1295
+#: lib/diagnostics/diagnosticview.cpp:1338
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Додати загальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1299
+#: lib/diagnostics/diagnosticview.cpp:1342
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Вилучити локальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1301
+#: lib/diagnostics/diagnosticview.cpp:1344
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Додати локальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1315
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Вимкнути придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1317
+#: lib/diagnostics/diagnosticview.cpp:1360
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Увімкнути придушення"
@@ -394,17 +394,17 @@ msgstr "Увімкнути придушення"
 msgid "Change Style"
 msgstr "Змінити стиль"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:538
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:537
 #, kde-format
 msgid "Side By Side"
 msgstr "Обабіч"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:539
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Unified"
 msgstr "Уніфікований"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:540
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:539
 #, kde-format
 msgid "Raw"
 msgstr "Без обробки"
@@ -515,7 +515,7 @@ msgstr ""
 "вказано у змінній PATH. Див. https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:531
 #, kde-format
 msgid "Diff"
 msgstr "Різниця"
@@ -924,27 +924,27 @@ msgstr "Налаштувати"
 msgid "Search..."
 msgstr "Шукати…"
 
-#: lib/kateconfigdialog.cpp:342
+#: lib/kateconfigdialog.cpp:341
 #, kde-format
 msgid "Behavior"
 msgstr "Поведінка"
 
-#: lib/kateconfigdialog.cpp:344
+#: lib/kateconfigdialog.cpp:343
 #, kde-format
 msgid "Behavior Options"
 msgstr "Параметри поведінки"
 
-#: lib/kateconfigdialog.cpp:351
+#: lib/kateconfigdialog.cpp:350
 #, kde-format
 msgid "&Behavior"
 msgstr "&Поведінка"
 
-#: lib/kateconfigdialog.cpp:356
+#: lib/kateconfigdialog.cpp:355
 #, kde-format
 msgid "Open each document in its own window"
 msgstr "Відкривати кожен документ у власному вікні"
 
-#: lib/kateconfigdialog.cpp:359
+#: lib/kateconfigdialog.cpp:358
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
@@ -953,42 +953,42 @@ msgstr ""
 "Якщо позначено, кожне документ буде відкрито у власному вікні. Якщо не "
 "позначено, кожен документ буде відкрито у новій вкладці поточного вікна."
 
-#: lib/kateconfigdialog.cpp:369
+#: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "П&еремикання на панель виведення, якщо маємо повідомлення типу:"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Never"
 msgstr "Ніколи"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Info"
 msgstr "Інформація"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Log"
 msgstr "Журнал"
 
-#: lib/kateconfigdialog.cpp:380
+#: lib/kateconfigdialog.cpp:379
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&Обмеження журналу виведення:"
 
-#: lib/kateconfigdialog.cpp:386 lib/kateconfigdialog.cpp:450
+#: lib/kateconfigdialog.cpp:385 lib/kateconfigdialog.cpp:449
 #, kde-format
 msgid "Unlimited"
 msgstr "Без обмежень"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:392
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr "Окреме ві&кно для обробки файлів, які змінено сторонніми програмами"
 
-#: lib/kateconfigdialog.cpp:396
+#: lib/kateconfigdialog.cpp:395
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -1000,17 +1000,17 @@ msgstr ""
 "вас про подальші дії щодо кожного зміненого файла окремо і лише тоді, коли "
 "панель перегляду файла отримуватиме фокусування."
 
-#: lib/kateconfigdialog.cpp:405
+#: lib/kateconfigdialog.cpp:404
 #, kde-format
 msgid "&Sidebars"
 msgstr "&Бічні панелі"
 
-#: lib/kateconfigdialog.cpp:408
+#: lib/kateconfigdialog.cpp:407
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Синхронізувати розмір розділу із позиціями табуляції"
 
-#: lib/kateconfigdialog.cpp:411
+#: lib/kateconfigdialog.cpp:410
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -1020,27 +1020,27 @@ msgstr ""
 "Якщо позначено, розмір розділу буде визначено за позицією табуляцій.\n"
 "Цей параметр не впливає на розміри нижньої бічної панелі."
 
-#: lib/kateconfigdialog.cpp:416
+#: lib/kateconfigdialog.cpp:415
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Показувати текст для кнопок на лівій і правій бічних панелях"
 
-#: lib/kateconfigdialog.cpp:421
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr "Розмір піктограми для кнопок на лівій і правій бічних панелях"
 
-#: lib/kateconfigdialog.cpp:440
+#: lib/kateconfigdialog.cpp:439
 #, kde-format
 msgid "&Tabs"
 msgstr "В&кладки"
 
-#: lib/kateconfigdialog.cpp:444
+#: lib/kateconfigdialog.cpp:443
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "&Обмеження кількості вкладок:"
 
-#: lib/kateconfigdialog.cpp:455
+#: lib/kateconfigdialog.cpp:454
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1050,64 +1050,64 @@ msgstr ""
 "позначте пункт «Дозволити гортання вкладок», щоб уникнути цього. Якщо "
 "кількість вкладок не обмежено, гортання буде увімкнено автоматично."
 
-#: lib/kateconfigdialog.cpp:459
+#: lib/kateconfigdialog.cpp:458
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "&Автоприховування вкладок"
 
-#: lib/kateconfigdialog.cpp:461
+#: lib/kateconfigdialog.cpp:460
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 "Якщо позначено, панель вкладок буде автоматично приховано, якщо відкрито "
 "лише один документ."
 
-#: lib/kateconfigdialog.cpp:465
+#: lib/kateconfigdialog.cpp:464
 #, kde-format
 msgid "&Show close button"
 msgstr "&Показувати кнопку закривання"
 
-#: lib/kateconfigdialog.cpp:467
+#: lib/kateconfigdialog.cpp:466
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Якщо позначено, на кожній вкладці буде показано кнопку закриття."
 
-#: lib/kateconfigdialog.cpp:471
+#: lib/kateconfigdialog.cpp:470
 #, kde-format
 msgid "&Expand tabs"
 msgstr "&Розширювати вкладки"
 
-#: lib/kateconfigdialog.cpp:473
+#: lib/kateconfigdialog.cpp:472
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "Якщо позначено, вкладки займатимуть максимум доступного місця."
 
-#: lib/kateconfigdialog.cpp:477
+#: lib/kateconfigdialog.cpp:476
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "П&одвійне клацання відкриває новий документ"
 
-#: lib/kateconfigdialog.cpp:479
+#: lib/kateconfigdialog.cpp:478
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Якщо позначено, подвійне клацання відкриває документ."
 
-#: lib/kateconfigdialog.cpp:483
+#: lib/kateconfigdialog.cpp:482
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "Клацання с&ередньою закриває документ"
 
-#: lib/kateconfigdialog.cpp:485
+#: lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Якщо позначено, клацання середньою закриває документ."
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:488
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Дозволити гортання вкладок"
 
-#: lib/kateconfigdialog.cpp:491
+#: lib/kateconfigdialog.cpp:490
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -1116,85 +1116,85 @@ msgstr ""
 "Якщо позначено, уможливлює гортання на смужці вкладок, якщо кількість "
 "вкладок стає великою."
 
-#: lib/kateconfigdialog.cpp:495
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "Elide tab text"
 msgstr "Обривати текст вкладок трьома крапками"
 
-#: lib/kateconfigdialog.cpp:497
+#: lib/kateconfigdialog.cpp:496
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 "Якщо позначено, текст заголовка вкладки може бути обірвано трьома крапками, "
 "якщо він є надто довгим."
 
-#: lib/kateconfigdialog.cpp:503
+#: lib/kateconfigdialog.cpp:502
 #, kde-format
 msgid "&Mouse"
 msgstr "&Миша"
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:507
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "Натиснуто кнопку &назад:"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:512
 #, kde-format
 msgid "Previous tab"
 msgstr "Попередня вкладка"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:512
 #, kde-format
 msgid "History back"
 msgstr "Назад у журналі"
 
-#: lib/kateconfigdialog.cpp:519
+#: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Натиснуто кнопку &вперед:"
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:523
 #, kde-format
 msgid "Next tab"
 msgstr "Наступна вкладка"
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:523
 #, kde-format
 msgid "History forward"
 msgstr "Вперед у журналі"
 
-#: lib/kateconfigdialog.cpp:541
+#: lib/kateconfigdialog.cpp:540
 #, kde-format
 msgid "Diff Style:"
 msgstr "Стиль різниці:"
 
-#: lib/kateconfigdialog.cpp:546
+#: lib/kateconfigdialog.cpp:545
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Панель навігації"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:550
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Показувати поточний символ на панелі навігації"
 
-#: lib/kateconfigdialog.cpp:565
+#: lib/kateconfigdialog.cpp:564
 #, kde-format
 msgid "Session"
 msgstr "Сеанс"
 
-#: lib/kateconfigdialog.cpp:567
+#: lib/kateconfigdialog.cpp:566
 #, kde-format
 msgid "Session Management"
 msgstr "Керування сеансами"
 
-#: lib/kateconfigdialog.cpp:578
+#: lib/kateconfigdialog.cpp:577
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(ніколи)"
 
-#: lib/kateconfigdialog.cpp:579
+#: lib/kateconfigdialog.cpp:578
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1204,7 +1204,7 @@ msgstr[1] " дні"
 msgstr[2] " днів"
 msgstr[3] " день"
 
-#: lib/kateconfigdialog.cpp:612
+#: lib/kateconfigdialog.cpp:611
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1213,22 +1213,22 @@ msgstr ""
 "Якщо закрити вікно, документи, які відкрито лише у цьому вікні, буде також "
 "закрито."
 
-#: lib/kateconfigdialog.cpp:647
+#: lib/kateconfigdialog.cpp:646
 #, kde-format
 msgid "Plugins"
 msgstr "Додатки"
 
-#: lib/kateconfigdialog.cpp:649
+#: lib/kateconfigdialog.cpp:648
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Керування додатками"
 
-#: lib/kateconfigdialog.cpp:667 lib/kateconfigdialog.cpp:669
+#: lib/kateconfigdialog.cpp:666 lib/kateconfigdialog.cpp:668
 #, kde-format
 msgid "User Feedback"
 msgstr "Відгуки користувача"
 
-#: lib/kateconfigdialog.cpp:905
+#: lib/kateconfigdialog.cpp:908
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1254,7 +1254,7 @@ msgstr ""
 "Тут ви можете побачити всі наявні додатки до Kate. Ті, що позначені, є "
 "завантаженими, і їх буде завантажено знову при наступному запуску Kate."
 
-#: lib/katedocmanager.cpp:289
+#: lib/katedocmanager.cpp:297
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1263,32 +1263,32 @@ msgstr ""
 "<p>Документ «%1» було змінено, але не було збережено.</p><p>Чи бажаєте "
 "зберегти зміни чи відкинути їх?</p>"
 
-#: lib/katedocmanager.cpp:292 lib/katesavemodifieddialog.cpp:131
+#: lib/katedocmanager.cpp:300 lib/katesavemodifieddialog.cpp:131
 #, kde-format
 msgid "Close Document"
 msgstr "Закрити документ"
 
-#: lib/katedocmanager.cpp:305
+#: lib/katedocmanager.cpp:313
 #, kde-format
 msgid "Save As"
 msgstr "Зберегти як"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:666
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:666
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "При спробі закриття Kate, був відкритий новий файл. Вихід перервано."
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:666
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:666
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Вихід перервано"
 
-#: lib/katedocmanager.cpp:401
+#: lib/katedocmanager.cpp:409
 #, kde-format
 msgid "Starting Up"
 msgstr "Запуск"
 
-#: lib/katedocmanager.cpp:402
+#: lib/katedocmanager.cpp:410
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Відкриття файлів останнього сеансу…"
@@ -1832,12 +1832,12 @@ msgstr ""
 "Показати бічні панелі</b>. Зокрема, можна команду показати/сховати вікна "
 "інструментів викликати за допомогою призначеного для неї скорочення.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:52
+#: lib/katemwmodonhddialog.cpp:53
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "Документи змінено на диску"
 
-#: lib/katemwmodonhddialog.cpp:68
+#: lib/katemwmodonhddialog.cpp:69
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1846,37 +1846,37 @@ msgstr ""
 "<qt>Перелічені нижче документи було змінено на диску.<p>Виберіть один або "
 "декілька на раз й натискайте кнопку дії, поки не очиститься список.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:78
+#: lib/katemwmodonhddialog.cpp:79
 #, kde-format
 msgid "Filename"
 msgstr "Назва файла"
 
-#: lib/katemwmodonhddialog.cpp:78
+#: lib/katemwmodonhddialog.cpp:79
 #, kde-format
 msgid "Status on Disk"
 msgstr "Стан на диску"
 
-#: lib/katemwmodonhddialog.cpp:83
+#: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Modified"
 msgstr "Змінено"
 
-#: lib/katemwmodonhddialog.cpp:83
+#: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Created"
 msgstr "Створено"
 
-#: lib/katemwmodonhddialog.cpp:83
+#: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Deleted"
 msgstr "Вилучено"
 
-#: lib/katemwmodonhddialog.cpp:106
+#: lib/katemwmodonhddialog.cpp:107
 #, kde-format
 msgid "&View Difference"
 msgstr "&Переглянути відмінності"
 
-#: lib/katemwmodonhddialog.cpp:107
+#: lib/katemwmodonhddialog.cpp:108
 #, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
@@ -1885,32 +1885,32 @@ msgstr ""
 "Підраховує для вибраного документа різницю між вмістом редактора та вмістом "
 "файла на диску для вибраного документа."
 
-#: lib/katemwmodonhddialog.cpp:115
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "&Ігнорувати зміни"
 
-#: lib/katemwmodonhddialog.cpp:116
+#: lib/katemwmodonhddialog.cpp:117
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "Скинути прапорець внесення змін для позначених документів"
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:123
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "Перезаписати позначені документи, відкинувши зміни на диску"
 
-#: lib/katemwmodonhddialog.cpp:126
+#: lib/katemwmodonhddialog.cpp:127
 #, kde-format
 msgid "&Reload"
 msgstr "&Перезавантажити"
 
-#: lib/katemwmodonhddialog.cpp:128
+#: lib/katemwmodonhddialog.cpp:129
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "Перезавантажити позначені документи з диска"
 
-#: lib/katemwmodonhddialog.cpp:195
+#: lib/katemwmodonhddialog.cpp:202
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1919,7 +1919,7 @@ msgstr ""
 "Не вдалось зберегти документ \n"
 "«%1»"
 
-#: lib/katemwmodonhddialog.cpp:317
+#: lib/katemwmodonhddialog.cpp:338
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -1928,17 +1928,17 @@ msgstr ""
 "Не вдалося виконати команду diff. Перевірте, чи встановлено git і чи "
 "зберігається програма в одному з каталогів зі змінної PATH."
 
-#: lib/katemwmodonhddialog.cpp:319
+#: lib/katemwmodonhddialog.cpp:340
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Помилка створення списку відмінностей"
 
-#: lib/katemwmodonhddialog.cpp:326
+#: lib/katemwmodonhddialog.cpp:347
 #, kde-format
 msgid "[OLD]"
 msgstr "[СТАРИЙ]"
 
-#: lib/katemwmodonhddialog.cpp:327
+#: lib/katemwmodonhddialog.cpp:348
 #, kde-format
 msgid "[NEW]"
 msgstr "[НОВИЙ]"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-14 00:49+0000\n"
-"PO-Revision-Date: 2023-01-19 19:58+0530\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"PO-Revision-Date: 2023-05-14 15:29+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -71,19 +71,19 @@ msgstr "உருவாக்கு"
 msgid "Result"
 msgstr "முடிவு"
 
-#: MatchModel.cpp:548 MatchModel.cpp:550
+#: MatchModel.cpp:562 MatchModel.cpp:564
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>கோப்புப்பட்டியல் உருவாக்கப்படுகிறது: ...%1</i></b>"
 
-#: MatchModel.cpp:558
+#: MatchModel.cpp:572
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>ஒரு பொருத்தம் உள்ளது, தேடல் தொடர்கிறது: ...%2</i></b>"
 msgstr[1] "<b><i>%1 பொருத்தங்கள் உள்ளன, தேடல் தொடர்கிறது: ...%2</i></b>"
 
-#: MatchModel.cpp:563
+#: MatchModel.cpp:577
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
@@ -91,21 +91,21 @@ msgstr[0] "<b><i>ஒரு பொருத்தம் உள்ளது, த�
 msgstr[1] "<b><i>%1 பொருத்தங்கள் உள்ளன, தேடல் தொடர்கிறது: %2</i></b>"
 
 # 'check' here is a synonym for 'tick mark'
-#: MatchModel.cpp:570 MatchModel.cpp:724
+#: MatchModel.cpp:584 MatchModel.cpp:738
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
 msgstr[0] "ஒன்று குறிக்கப்பட்டுள்ளது"
 msgstr[1] "%1 குறிக்கப்பட்டுள்ளன"
 
-#: MatchModel.cpp:574
+#: MatchModel.cpp:588
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
 msgstr[0] "<b><i>கோப்பில் ஒரு பொருத்தம் (%2) கண்டுபிடிக்கப்பட்டுள்ளது</i></b>"
 msgstr[1] "<b><i>கோப்பில் %1 பொருத்தங்கள் (%2) கண்டுபிடிக்கப்பட்டுள்ளன</i></b>"
 
-#: MatchModel.cpp:576
+#: MatchModel.cpp:590
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
@@ -114,14 +114,14 @@ msgstr[0] ""
 msgstr[1] ""
 "<b><i>திறந்துள்ள கோப்புகளில் %1 பொருத்தங்கள் (%2) கண்டுபிடிக்கப்பட்டுள்ளன</i></b>"
 
-#: MatchModel.cpp:579
+#: MatchModel.cpp:593
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
 msgstr[0] "<b><i>%2 அடைவில் ஒரு பொருத்தம் (%3) கண்டுபிடிக்கப்பட்டுள்ளது</i></b>"
 msgstr[1] "<b><i>%2 அடைவில் %1 பொருத்தங்கள் (%3) கண்டுபிடிக்கப்பட்டுள்ளன</i></b>"
 
-#: MatchModel.cpp:586
+#: MatchModel.cpp:600
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
@@ -130,7 +130,7 @@ msgstr[0] ""
 msgstr[1] ""
 "<b><i>%2 திட்டப்பணியில் (%3) %1 பொருத்தங்கள் (%4) கண்டுபிடிக்கப்பட்டுள்ளன</i></b>"
 
-#: MatchModel.cpp:595
+#: MatchModel.cpp:609
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -143,54 +143,54 @@ msgstr[1] ""
 "<b><i>திறந்துள்ள திட்டப்பணிகளில் (பொதுவான தாய்: %2) %1 பொருத்தங்கள் (%3) "
 "கண்டுபிடிக்கப்பட்டுள்ளன</i></b>"
 
-#: MatchModel.cpp:708 MatchModel.cpp:710
+#: MatchModel.cpp:722 MatchModel.cpp:724
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "கோப்புப்பட்டியல் உருவாக்கப்படுகிறது: ...%1"
 
-#: MatchModel.cpp:718
+#: MatchModel.cpp:732
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] "ஒரு பொருத்தம் உள்ளது, தேடல் தொடர்கிறது: ...%2"
 msgstr[1] "%1 பொருத்தங்கள் உள்ளன, தேடல் தொடர்கிறது: ...%2"
 
-#: MatchModel.cpp:720
+#: MatchModel.cpp:734
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "ஒரு பொருத்தம் உள்ளது, தேடல் தொடர்கிறது: %2"
 msgstr[1] "%1 பொருத்தங்கள் உள்ளன, தேடல் தொடர்கிறது: %2"
 
-#: MatchModel.cpp:728
+#: MatchModel.cpp:742
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "கோப்பில் ஒரு பொருத்தம் (%2) கண்டுபிடிக்கப்பட்டுள்ளது"
 msgstr[1] "கோப்பில் %1 பொருத்தங்கள் (%2) கண்டுபிடிக்கப்பட்டுள்ளன"
 
-#: MatchModel.cpp:730
+#: MatchModel.cpp:744
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "திறந்துள்ள கோப்புகளில் ஒரு பொருத்தம் (%2) கண்டுபிடிக்கப்பட்டுள்ளது"
 msgstr[1] "திறந்துள்ள கோப்புகளில் %1 பொருத்தங்கள் (%2) கண்டுபிடிக்கப்பட்டுள்ளன"
 
-#: MatchModel.cpp:733
+#: MatchModel.cpp:747
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "%2 அடைவில் ஒரு பொருத்தம் (%3) கண்டுபிடிக்கப்பட்டுள்ளது"
 msgstr[1] "%2 அடைவில் %1 பொருத்தங்கள் (%3) கண்டுபிடிக்கப்பட்டுள்ளன"
 
-#: MatchModel.cpp:736
+#: MatchModel.cpp:750
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "%2 திட்டப்பணியில் (%3) ஒரு பொருத்தம் (%4) கண்டுபிடிக்கப்பட்டுள்ளது"
 msgstr[1] "%2 திட்டப்பணியில் (%3) %1 பொருத்தங்கள் (%4) கண்டுபிடிக்கப்பட்டுள்ளன"
 
-#: MatchModel.cpp:745
+#: MatchModel.cpp:759
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
@@ -206,7 +206,7 @@ msgstr "வடிகட்டு..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:34 search.ui:37 SearchPlugin.cpp:302
+#: search.ui:34 search.ui:37 SearchPlugin.cpp:303
 #, kde-format
 msgid "Search"
 msgstr "தேடு"
@@ -260,7 +260,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:510
+#: search.ui:192 SearchPlugin.cpp:511
 #, kde-format
 msgid "Replace"
 msgstr "மாற்று"
@@ -287,7 +287,7 @@ msgstr "அடைவில்"
 #: search.ui:233
 #, kde-format
 msgid "Use the current document's path."
-msgstr "தற்போதை ஆவணத்தின் அடைவைப் பயன்படுத்தும்."
+msgstr "தற்போதைய ஆவணத்தின் அடைவைப் பயன்படுத்தும்."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:243
@@ -355,197 +355,197 @@ msgstr "குறியிணைப்புகளைத் தொடர்"
 msgid "Include binary files"
 msgstr "இருமக் கோப்புகளை உட்படுத்து"
 
-#: SearchPlugin.cpp:84 SearchPlugin.cpp:117
+#: SearchPlugin.cpp:85 SearchPlugin.cpp:118
 #, kde-format
 msgid "Line break"
 msgstr "வரி முடிவு"
 
-#: SearchPlugin.cpp:85 SearchPlugin.cpp:118
+#: SearchPlugin.cpp:86 SearchPlugin.cpp:119
 #, kde-format
 msgid "Tab"
 msgstr "தத்தல்"
 
-#: SearchPlugin.cpp:96
+#: SearchPlugin.cpp:97
 #, kde-format
 msgid "Beginning of line"
 msgstr "வரியின் துவக்கம்"
 
-#: SearchPlugin.cpp:97
+#: SearchPlugin.cpp:98
 #, kde-format
 msgid "End of line"
 msgstr "வரியின் முடிவு"
 
-#: SearchPlugin.cpp:99
+#: SearchPlugin.cpp:100
 #, kde-format
 msgid "Any single character (excluding line breaks)"
 msgstr "வரிமுடிவுகளைத் தவிர ஏதேனும் ஒரு எழுத்து"
 
-#: SearchPlugin.cpp:100
+#: SearchPlugin.cpp:101
 #, kde-format
 msgid "Literal dot"
 msgstr "புள்ளி"
 
-#: SearchPlugin.cpp:102
+#: SearchPlugin.cpp:103
 #, kde-format
 msgid "One or more occurrences"
 msgstr "ஒரு அல்லது மேற்பட்ட நிகழ்வுகள்"
 
-#: SearchPlugin.cpp:103
+#: SearchPlugin.cpp:104
 #, kde-format
 msgid "Zero or more occurrences"
 msgstr "சுழிய அல்லது மேற்பட்ட நிகழ்வுகள்"
 
-#: SearchPlugin.cpp:104
+#: SearchPlugin.cpp:105
 #, kde-format
 msgid "Zero or one occurrences"
 msgstr "சுழிய அல்லது ஒரு நிகழ்வுகள்"
 
-#: SearchPlugin.cpp:106
+#: SearchPlugin.cpp:107
 #, kde-format
 msgid "<a> through <b> occurrences"
 msgstr "<a>-இலிருந்து <b> உட்பட நிகழ்வுகள்"
 
-#: SearchPlugin.cpp:108
+#: SearchPlugin.cpp:109
 #, kde-format
 msgid "Group, capturing"
 msgstr ""
 
-#: SearchPlugin.cpp:109
+#: SearchPlugin.cpp:110
 #, kde-format
 msgid "Or"
 msgstr "அல்லது"
 
-#: SearchPlugin.cpp:110
+#: SearchPlugin.cpp:111
 #, kde-format
 msgid "Set of characters"
 msgstr ""
 
-#: SearchPlugin.cpp:111
+#: SearchPlugin.cpp:112
 #, kde-format
 msgid "Negative set of characters"
 msgstr ""
 
-#: SearchPlugin.cpp:112
+#: SearchPlugin.cpp:113
 #, kde-format
 msgid "Group, non-capturing"
 msgstr ""
 
-#: SearchPlugin.cpp:113
+#: SearchPlugin.cpp:114
 #, kde-format
 msgid "Lookahead"
 msgstr ""
 
-#: SearchPlugin.cpp:114
+#: SearchPlugin.cpp:115
 #, kde-format
 msgid "Negative lookahead"
 msgstr ""
 
-#: SearchPlugin.cpp:119
+#: SearchPlugin.cpp:120
 #, kde-format
 msgid "Word boundary"
 msgstr ""
 
-#: SearchPlugin.cpp:120
+#: SearchPlugin.cpp:121
 #, kde-format
 msgid "Not word boundary"
 msgstr ""
 
-#: SearchPlugin.cpp:121
+#: SearchPlugin.cpp:122
 #, kde-format
 msgid "Digit"
 msgstr "இலக்கம்"
 
-#: SearchPlugin.cpp:122
+#: SearchPlugin.cpp:123
 #, kde-format
 msgid "Non-digit"
 msgstr "இலக்கமில்லாத‍து"
 
-#: SearchPlugin.cpp:123
+#: SearchPlugin.cpp:124
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
 msgstr "இடைவெளி (வரிமுடிவுகளைத் தவிர)"
 
-#: SearchPlugin.cpp:124
+#: SearchPlugin.cpp:125
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
 msgstr "இடைவெளியில்லாத‍து (வரிமுடிவுகளைத் தவிர)"
 
-#: SearchPlugin.cpp:125
+#: SearchPlugin.cpp:126
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
 msgstr ""
 
-#: SearchPlugin.cpp:126
+#: SearchPlugin.cpp:127
 #, kde-format
 msgid "Non-word character"
 msgstr ""
 
-#: SearchPlugin.cpp:138
+#: SearchPlugin.cpp:139
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
 msgstr ""
 
-#: SearchPlugin.cpp:139
+#: SearchPlugin.cpp:140
 #, kde-format
 msgid "Regular expression capture 1-9"
 msgstr ""
 
-#: SearchPlugin.cpp:140
+#: SearchPlugin.cpp:141
 #, kde-format
 msgid "Regular expression capture 0-999"
 msgstr ""
 
-#: SearchPlugin.cpp:142
+#: SearchPlugin.cpp:143
 #, kde-format
 msgid "Upper-cased capture 0-9"
 msgstr ""
 
-#: SearchPlugin.cpp:143
+#: SearchPlugin.cpp:144
 #, kde-format
 msgid "Upper-cased capture 0-999"
 msgstr ""
 
-#: SearchPlugin.cpp:144
+#: SearchPlugin.cpp:145
 #, kde-format
 msgid "Lower-cased capture 0-9"
 msgstr ""
 
-#: SearchPlugin.cpp:145
+#: SearchPlugin.cpp:146
 #, kde-format
 msgid "Lower-cased capture 0-999"
 msgstr ""
 
-#: SearchPlugin.cpp:295
+#: SearchPlugin.cpp:296
 #, kde-format
 msgid "Search & Replace"
 msgstr "தேடு & மாற்று"
 
-#: SearchPlugin.cpp:336
+#: SearchPlugin.cpp:337
 #, kde-format
 msgid "Find in Files"
 msgstr "கோப்புகளில் கண்டுபிடி"
 
-#: SearchPlugin.cpp:342
+#: SearchPlugin.cpp:343
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "கோப்புகளில் கண்டுபிடி (புதிய கீற்றில்)"
 
-#: SearchPlugin.cpp:348
+#: SearchPlugin.cpp:349
 #, kde-format
 msgid "Go to Next Match"
 msgstr "அடுத்த பொருத்த‍த்துக்குச் செல்"
 
-#: SearchPlugin.cpp:354
+#: SearchPlugin.cpp:355
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "முந்தைய பொருத்த‍த்திற்குச் செல்"
 
-#: SearchPlugin.cpp:360
+#: SearchPlugin.cpp:361
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "பொருந்தும் வரிகளை வெட்டு"
 
-#: SearchPlugin.cpp:362
+#: SearchPlugin.cpp:363
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
@@ -553,12 +553,12 @@ msgid ""
 msgstr ""
 "தற்போதைய ஆவணத்தில் தேடலுக்கு பொருந்தும் அனைத்து வரிகளையும் வெட்டி பிடிப்புப்பலகையில் இடும்"
 
-#: SearchPlugin.cpp:367
+#: SearchPlugin.cpp:368
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "பொருந்தும் வரிகளை நகலெடு"
 
-#: SearchPlugin.cpp:369
+#: SearchPlugin.cpp:370
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -567,7 +567,7 @@ msgstr ""
 "தற்போதைய ஆவணத்தில் தேடலுக்கு பொருந்தும் அனைத்து வரிகளையும்  பிடிப்புப்பலகைக்கு "
 "நகலெடுக்கும்"
 
-#: SearchPlugin.cpp:397
+#: SearchPlugin.cpp:398
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
@@ -575,7 +575,7 @@ msgstr ""
 "தேடவேண்டிய கோப்புவகைகளின் காற்புள்ளிகளால் பிரிக்கப்பட்டுள்ள பட்டியல். எ.கா.: \"*.cpp,*.h"
 "\"\n"
 
-#: SearchPlugin.cpp:398
+#: SearchPlugin.cpp:399
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
@@ -584,97 +584,97 @@ msgstr ""
 "தேடலில் உட்படுத்தக்கூடாத கோப்புகளின் மற்றும் அடைவுகளின் காற்புள்ளியால் பிரிக்கப்பட்டுள்ள "
 "பட்டியல். எ.கா.: \"build*\""
 
-#: SearchPlugin.cpp:400
+#: SearchPlugin.cpp:401
 #, kde-format
 msgid "Click to filter through results"
 msgstr "முடிவுகளை வடிகட்ட கிளிக் செய்யுங்கள்"
 
-#: SearchPlugin.cpp:490
+#: SearchPlugin.cpp:491
 #, kde-format
 msgid "Find"
 msgstr "தேடு"
 
-#: SearchPlugin.cpp:1324
+#: SearchPlugin.cpp:1330
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "தட்டச்சிடும்போது தேடுவது கைவிடப்பட்டது. அதற்கு நிறைய நேரம் ஆகியிருக்கும்."
 
-#: SearchPlugin.cpp:1666
+#: SearchPlugin.cpp:1690 SearchPlugin.cpp:1700
 #, kde-format
 msgid "Search Match"
 msgstr "பொருத்த‍த்தைத் தேடு"
 
-#: SearchPlugin.cpp:1850 SearchPlugin.cpp:1927
+#: SearchPlugin.cpp:1895 SearchPlugin.cpp:1972
 #, kde-format
 msgid "Next from cursor"
 msgstr "இடஞ்சுட்டியிலிருந்து அடுத்த‍து"
 
-#: SearchPlugin.cpp:1867
+#: SearchPlugin.cpp:1912
 #, kde-format
 msgid "Starting from first match"
 msgstr "முதல் பொருத்த‍த்திலிருந்து துவங்குகிறோம்"
 
-#: SearchPlugin.cpp:1887
+#: SearchPlugin.cpp:1932
 #, kde-format
 msgid "Continuing from first match"
 msgstr "முதல் பொருத்த‍த்திலிருந்து தொடர்கிறோம்"
 
-#: SearchPlugin.cpp:1944
+#: SearchPlugin.cpp:1989
 #, kde-format
 msgid "Starting from last match"
 msgstr "கடைசி பொருத்த‍த்திலிருந்து துவங்குகிறோம்"
 
-#: SearchPlugin.cpp:1964
+#: SearchPlugin.cpp:2009
 #, kde-format
 msgid "Continuing from last match"
 msgstr "கடைசிப் பொருத்த‍த்திலிருந்து தொடர்கிறோம்"
 
-#: SearchPlugin.cpp:2123
+#: SearchPlugin.cpp:2168
 #, kde-format
 msgid "Search: %1"
 msgstr "தேடு: %1"
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2299
 #, kde-format
 msgid "Copy all"
 msgstr "அனைத்தையும் நகலெடு"
 
-#: SearchPlugin.cpp:2259
+#: SearchPlugin.cpp:2304
 #, kde-format
 msgid "Copy expanded"
 msgstr "விரிவாக்கியுள்ளவற்றை நகலெடு"
 
-#: SearchPlugin.cpp:2262
+#: SearchPlugin.cpp:2307
 #, kde-format
 msgid "Export matches"
 msgstr "பொருத்தங்களை ஏற்றுமதி செய்"
 
-#: SearchPlugin.cpp:2268
+#: SearchPlugin.cpp:2313
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "உரைத்திருத்தி கீற்றில் திற"
 
-#: SearchPlugin.cpp:2275
+#: SearchPlugin.cpp:2320
 #, kde-format
 msgid "Clear"
 msgstr "காலியாக்கு"
 
-#: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
+#: SearchPlugin.cpp:2430 SearchPlugin.cpp:2464
 #, kde-format
 msgid "Add..."
 msgstr "சேர்..."
 
-#: SearchPlugin.cpp:2397
+#: SearchPlugin.cpp:2442
 #, kde-format
 msgid "Search As You Type"
 msgstr "தட்டச்சிடும்போது தேடு"
 
-#: SearchPlugin.cpp:2468
+#: SearchPlugin.cpp:2513
 #, kde-format
 msgid "In Current Project"
 msgstr "நடப்பு திட்டப்பணியில்"
 
-#: SearchPlugin.cpp:2470
+#: SearchPlugin.cpp:2515
 #, kde-format
 msgid "In All Open Projects"
 msgstr "திறந்துள்ள திட்டப்பணிகளில்"

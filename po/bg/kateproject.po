@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:50+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2022-12-08 23:08+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -91,7 +91,7 @@ msgstr[1] "Наистина ли искате да изтриете избран
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:68
+#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:70
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -507,7 +507,7 @@ msgstr "Наистина ли искате да премахнете тези н
 msgid "Malformed JSON file '%1': %2"
 msgstr "Неправилен JSON файл '%1': %2"
 
-#: kateproject.cpp:529
+#: kateproject.cpp:541
 #, kde-format
 msgid "<untracked>"
 msgstr "<непроследен>"
@@ -652,7 +652,7 @@ msgstr ""
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:67
+#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:69
 #, kde-format
 msgid "Projects"
 msgstr "Проекти"
@@ -772,12 +772,12 @@ msgstr "Индексът не можа да бъде създаден. Моля 
 msgid "Indexing is not enabled"
 msgstr "Индексирането не е активирано"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:176
 #, kde-format
 msgid "Error"
 msgstr "Грешка"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:176
 #, kde-format
 msgid "File name already exists"
 msgstr "Файловото име вече съществува"
@@ -806,101 +806,101 @@ msgstr ""
 "Пълен път до текущия проект, с изключение на името на файла, с роден "
 "разделител на пътя (наклонена черта в Windows)."
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:73
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:136
+#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:75
+#: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
 msgstr "Проект"
 
-#: kateprojectpluginview.cpp:57
+#: kateprojectpluginview.cpp:59
 #, kde-format
 msgid "Project Manager"
 msgstr "Мениджър на проекти"
 
-#: kateprojectpluginview.cpp:79
+#: kateprojectpluginview.cpp:81
 #, fuzzy, kde-format
 #| msgid "Restore Open Projects"
 msgid "Open projects list"
 msgstr "Възстановяване на отворен проект"
 
-#: kateprojectpluginview.cpp:84
+#: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Reload project"
 msgstr "Повторно зареждане на проект"
 
-#: kateprojectpluginview.cpp:87
+#: kateprojectpluginview.cpp:89
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Close project"
 msgstr "Затваряне на проект"
 
-#: kateprojectpluginview.cpp:102
+#: kateprojectpluginview.cpp:104
 #, kde-format
 msgid "Refresh git status"
 msgstr ""
 
-#: kateprojectpluginview.cpp:180
+#: kateprojectpluginview.cpp:182
 #, kde-format
 msgid "Open Folder..."
 msgstr "Отваряне на папка..."
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:187
 #, kde-format
 msgid "Project TODOs"
 msgstr "Задачи на проекта"
 
-#: kateprojectpluginview.cpp:189
+#: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Активиране на предишния проект"
 
-#: kateprojectpluginview.cpp:194
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Активиране на следващия проект"
 
-#: kateprojectpluginview.cpp:199
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Lookup"
 msgstr "Търсене"
 
-#: kateprojectpluginview.cpp:203
+#: kateprojectpluginview.cpp:205
 #, kde-format
 msgid "Close Project"
 msgstr "Затваряне на проект"
 
-#: kateprojectpluginview.cpp:207
+#: kateprojectpluginview.cpp:209
 #, kde-format
 msgid "Close All Projects"
 msgstr "Затваряне на всички проекти"
 
-#: kateprojectpluginview.cpp:212
+#: kateprojectpluginview.cpp:214
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Затваряне на осиротелите проекти"
 
-#: kateprojectpluginview.cpp:222
+#: kateprojectpluginview.cpp:224
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:798
+#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Търсене: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:799
+#: kateprojectpluginview.cpp:231 kateprojectpluginview.cpp:812
 #, kde-format
 msgid "Goto: %1"
 msgstr "Отиване до: %1"
 
-#: kateprojectpluginview.cpp:303
+#: kateprojectpluginview.cpp:312
 #, kde-format
 msgid "Projects Index"
 msgstr "Индекс на проект"
 
-#: kateprojectpluginview.cpp:843
+#: kateprojectpluginview.cpp:856
 #, kde-format
 msgid "Choose a directory"
 msgstr "Избиране на директория"

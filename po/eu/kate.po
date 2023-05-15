@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-14 00:51+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2023-04-30 08:39+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -292,104 +292,104 @@ msgstr ""
 "Errorea adierazpen erregularrean: %1\n"
 "jatorri-aldaketa %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:60
+#: lib/diagnostics/diagnosticview.cpp:62
 #, kde-format
 msgid "All"
 msgstr "Dena"
 
-#: lib/diagnostics/diagnosticview.cpp:350
+#: lib/diagnostics/diagnosticview.cpp:360
 #, kde-format
 msgid "Quick Fix"
 msgstr "Konponketa azkarra"
 
-#: lib/diagnostics/diagnosticview.cpp:354
+#: lib/diagnostics/diagnosticview.cpp:364
 #, kde-format
 msgid "Next Item"
 msgstr "Hurrengo elementua"
 
-#: lib/diagnostics/diagnosticview.cpp:359
+#: lib/diagnostics/diagnosticview.cpp:369
 #, kde-format
 msgid "Previous Item"
 msgstr "Aurreko elementua"
 
-#: lib/diagnostics/diagnosticview.cpp:406
+#: lib/diagnostics/diagnosticview.cpp:416
 #, kde-format
 msgid "Errors"
 msgstr "Erroreak"
 
-#: lib/diagnostics/diagnosticview.cpp:422
+#: lib/diagnostics/diagnosticview.cpp:432
 #, kde-format
 msgid "Warnings"
 msgstr "Abisuak"
 
-#: lib/diagnostics/diagnosticview.cpp:436
+#: lib/diagnostics/diagnosticview.cpp:446
 #, kde-format
 msgid "Filter..."
 msgstr "Iragazkia..."
 
-#: lib/diagnostics/diagnosticview.cpp:995 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1017 lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Error"
 msgstr "Errorea"
 
-#: lib/diagnostics/diagnosticview.cpp:999 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:906
+#: lib/diagnostics/diagnosticview.cpp:1021 lib/kateconfigdialog.cpp:373
+#: lib/kateconfigdialog.cpp:909
 #, kde-format
 msgid "Warning"
 msgstr "Abisua"
 
-#: lib/diagnostics/diagnosticview.cpp:1003
+#: lib/diagnostics/diagnosticview.cpp:1025
 #, kde-format
 msgid "Information"
 msgstr "Informazioa"
 
-#: lib/diagnostics/diagnosticview.cpp:1134
+#: lib/diagnostics/diagnosticview.cpp:1177
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [ezabatuta: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1262
+#: lib/diagnostics/diagnosticview.cpp:1305
 #, kde-format
 msgid "Expand All"
 msgstr "Zabaldu guztia"
 
-#: lib/diagnostics/diagnosticview.cpp:1263
+#: lib/diagnostics/diagnosticview.cpp:1306
 #, kde-format
 msgid "Collapse All"
 msgstr "Tolestu guztia"
 
-#: lib/diagnostics/diagnosticview.cpp:1270
+#: lib/diagnostics/diagnosticview.cpp:1313
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopiatu arbelera"
 
-#: lib/diagnostics/diagnosticview.cpp:1293
+#: lib/diagnostics/diagnosticview.cpp:1336
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Kendu ezabatze orokorra"
 
-#: lib/diagnostics/diagnosticview.cpp:1295
+#: lib/diagnostics/diagnosticview.cpp:1338
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Gehitu ezabatze orokorra"
 
-#: lib/diagnostics/diagnosticview.cpp:1299
+#: lib/diagnostics/diagnosticview.cpp:1342
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Kendu ezabatze lokala"
 
-#: lib/diagnostics/diagnosticview.cpp:1301
+#: lib/diagnostics/diagnosticview.cpp:1344
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Gehitu ezabatze lokala"
 
-#: lib/diagnostics/diagnosticview.cpp:1315
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Ezgaitu ezabatzea"
 
-#: lib/diagnostics/diagnosticview.cpp:1317
+#: lib/diagnostics/diagnosticview.cpp:1360
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Gaitu ezabatzea"
@@ -399,17 +399,17 @@ msgstr "Gaitu ezabatzea"
 msgid "Change Style"
 msgstr "Aldatu estiloa"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:538
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:537
 #, kde-format
 msgid "Side By Side"
 msgstr "Alboz albo"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:539
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Unified"
 msgstr "Bateratua"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:540
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:539
 #, kde-format
 msgid "Raw"
 msgstr "Gordina"
@@ -514,7 +514,7 @@ msgstr ""
 "Begiratu https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:531
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
@@ -924,27 +924,27 @@ msgstr "Konfiguratu"
 msgid "Search..."
 msgstr "Bilatu..."
 
-#: lib/kateconfigdialog.cpp:342
+#: lib/kateconfigdialog.cpp:341
 #, kde-format
 msgid "Behavior"
 msgstr "Jokabidea"
 
-#: lib/kateconfigdialog.cpp:344
+#: lib/kateconfigdialog.cpp:343
 #, kde-format
 msgid "Behavior Options"
 msgstr "Jokabide-aukerak"
 
-#: lib/kateconfigdialog.cpp:351
+#: lib/kateconfigdialog.cpp:350
 #, kde-format
 msgid "&Behavior"
 msgstr "&Jokabidea"
 
-#: lib/kateconfigdialog.cpp:356
+#: lib/kateconfigdialog.cpp:355
 #, kde-format
 msgid "Open each document in its own window"
 msgstr "Ireki dokumentu bakoitza bere leiho propioan"
 
-#: lib/kateconfigdialog.cpp:359
+#: lib/kateconfigdialog.cpp:358
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
@@ -953,44 +953,44 @@ msgstr ""
 "Gaituz gero, dokumentu bakoitza bere leiho propioan irekiko da. Gaitzen ez "
 "bada, dokumentu bakoitza uneko leihoko fitxa berri batean irekiko da."
 
-#: lib/kateconfigdialog.cpp:369
+#: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "&Aldatu irteerako ikuspegira mezu-motarekin:"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Never"
 msgstr "Inoiz ez"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Info"
 msgstr "Informazioa"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Log"
 msgstr "Egunkaria"
 
-#: lib/kateconfigdialog.cpp:380
+#: lib/kateconfigdialog.cpp:379
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&Mugatu irteera ikuspegiko historia:"
 
-#: lib/kateconfigdialog.cpp:386 lib/kateconfigdialog.cpp:450
+#: lib/kateconfigdialog.cpp:385 lib/kateconfigdialog.cpp:449
 #, kde-format
 msgid "Unlimited"
 msgstr "Mugagabea"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:392
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 "Erabili el&karrizketa-koadro bereizi bat kanpotik aldatutako fitxategiak "
 "maneiatzeko"
 
-#: lib/kateconfigdialog.cpp:396
+#: lib/kateconfigdialog.cpp:395
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -1002,17 +1002,17 @@ msgstr ""
 "aldatutako fitxategi bakoitzarekin zer egin, fitxategi horren ikuspegiak "
 "arreta jasotzen duenean bakarrik."
 
-#: lib/kateconfigdialog.cpp:405
+#: lib/kateconfigdialog.cpp:404
 #, kde-format
 msgid "&Sidebars"
 msgstr "&Alboko barrak"
 
-#: lib/kateconfigdialog.cpp:408
+#: lib/kateconfigdialog.cpp:407
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Sinkronizatu atalaren neurria fitxen kokalekuarekin"
 
-#: lib/kateconfigdialog.cpp:411
+#: lib/kateconfigdialog.cpp:410
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -1023,27 +1023,27 @@ msgstr ""
 "da.\n"
 "Aukera honek ez diot beheko alboko-barrari eragiten."
 
-#: lib/kateconfigdialog.cpp:416
+#: lib/kateconfigdialog.cpp:415
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Erakutsi testua ezker eta eskuin alboko-barrako botoietan"
 
-#: lib/kateconfigdialog.cpp:421
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr "Ezker eta eskuin alboko-barrako botoietako ikonoen neurria"
 
-#: lib/kateconfigdialog.cpp:440
+#: lib/kateconfigdialog.cpp:439
 #, kde-format
 msgid "&Tabs"
 msgstr "Fi&txak"
 
-#: lib/kateconfigdialog.cpp:444
+#: lib/kateconfigdialog.cpp:443
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "Fitxa kopuru &muga:"
 
-#: lib/kateconfigdialog.cpp:455
+#: lib/kateconfigdialog.cpp:454
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1053,64 +1053,64 @@ msgstr ""
 "«Baimendu fitxak kiribiltzea» hori saihesteko. Fitxa mugagabeak beti dira "
 "kiribilgarri."
 
-#: lib/kateconfigdialog.cpp:459
+#: lib/kateconfigdialog.cpp:458
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "Fitxak &Automatikoki ezkutatu"
 
-#: lib/kateconfigdialog.cpp:461
+#: lib/kateconfigdialog.cpp:460
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 "Markatuta dagoenean fitxak ezkutuan egongo dira dokumentu bakarra irekita "
 "badago."
 
-#: lib/kateconfigdialog.cpp:465
+#: lib/kateconfigdialog.cpp:464
 #, kde-format
 msgid "&Show close button"
 msgstr "Erakut&si ixteko botoia"
 
-#: lib/kateconfigdialog.cpp:467
+#: lib/kateconfigdialog.cpp:466
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Markatuta dagoenean fitxa guztiek azalduko dute ixteko botoi bat."
 
-#: lib/kateconfigdialog.cpp:471
+#: lib/kateconfigdialog.cpp:470
 #, kde-format
 msgid "&Expand tabs"
 msgstr "H&edatu fitxak"
 
-#: lib/kateconfigdialog.cpp:473
+#: lib/kateconfigdialog.cpp:472
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "Markatuta dagoenean fitxek ahal duten zabalera handiena hartzen dute."
 
-#: lib/kateconfigdialog.cpp:477
+#: lib/kateconfigdialog.cpp:476
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "Klik &bikoitzak dokumentu berri bat irekitzen du"
 
-#: lib/kateconfigdialog.cpp:479
+#: lib/kateconfigdialog.cpp:478
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Markatuta dagoenean klik bikoitzak dokumentu berri bat irekitzen du"
 
-#: lib/kateconfigdialog.cpp:483
+#: lib/kateconfigdialog.cpp:482
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "Er&diko klikak dokumentu bat ixten du"
 
-#: lib/kateconfigdialog.cpp:485
+#: lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Markatuta dagoenean erdiko klikak dokumentu bat ixten du."
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:488
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Baimendu fitxak kiribiltzea"
 
-#: lib/kateconfigdialog.cpp:491
+#: lib/kateconfigdialog.cpp:490
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -1120,83 +1120,83 @@ msgstr ""
 "kopurua handia denean."
 
 # xalba 2022-08-19or: Ulertzen dut fitxa ugari egonda fitxen testuaren zati bat bakarrik erakustea adierazten duela. Fitxekin maiz egiten den gisan, fitxaren zabalera txikiagatik testu osoa erakutsi ez daitekeenean, moztu eta ... erakusten da.
-#: lib/kateconfigdialog.cpp:495
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "Elide tab text"
 msgstr "Elisioa fitxako testuari"
 
-#: lib/kateconfigdialog.cpp:497
+#: lib/kateconfigdialog.cpp:496
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr "Markatuta dagoenean fitxako testua luzeegia bada elisioa jasan dezake."
 
-#: lib/kateconfigdialog.cpp:503
+#: lib/kateconfigdialog.cpp:502
 #, kde-format
 msgid "&Mouse"
 msgstr "&Sagua"
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:507
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "At&zeranzko botoia sakatu da:"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:512
 #, kde-format
 msgid "Previous tab"
 msgstr "Aurreko fitxa"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:512
 #, kde-format
 msgid "History back"
 msgstr "Historian atzera"
 
-#: lib/kateconfigdialog.cpp:519
+#: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "&Aurreranzko botoia sakatu da:"
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:523
 #, kde-format
 msgid "Next tab"
 msgstr "Hurrengo fitxa"
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:523
 #, kde-format
 msgid "History forward"
 msgstr "Historian aurrera"
 
-#: lib/kateconfigdialog.cpp:541
+#: lib/kateconfigdialog.cpp:540
 #, kde-format
 msgid "Diff Style:"
 msgstr "Diff estiloa:"
 
-#: lib/kateconfigdialog.cpp:546
+#: lib/kateconfigdialog.cpp:545
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Nabigatzeko barra"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:550
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Erakutsi uneko ikurra nabigatzeko barran"
 
-#: lib/kateconfigdialog.cpp:565
+#: lib/kateconfigdialog.cpp:564
 #, kde-format
 msgid "Session"
 msgstr "Saioa"
 
-#: lib/kateconfigdialog.cpp:567
+#: lib/kateconfigdialog.cpp:566
 #, kde-format
 msgid "Session Management"
 msgstr "Saio-kudeaketa"
 
-#: lib/kateconfigdialog.cpp:578
+#: lib/kateconfigdialog.cpp:577
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(inoiz ez)"
 
-#: lib/kateconfigdialog.cpp:579
+#: lib/kateconfigdialog.cpp:578
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1204,7 +1204,7 @@ msgid_plural " days"
 msgstr[0] " egun"
 msgstr[1] " egun"
 
-#: lib/kateconfigdialog.cpp:612
+#: lib/kateconfigdialog.cpp:611
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1213,22 +1213,22 @@ msgstr ""
 "Leiho bat ixten denean leiho horretan bakarrik irekita dauden dokumentuak "
 "ixten dira."
 
-#: lib/kateconfigdialog.cpp:647
+#: lib/kateconfigdialog.cpp:646
 #, kde-format
 msgid "Plugins"
 msgstr "Pluginak"
 
-#: lib/kateconfigdialog.cpp:649
+#: lib/kateconfigdialog.cpp:648
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Plugin kudeatzailea"
 
-#: lib/kateconfigdialog.cpp:667 lib/kateconfigdialog.cpp:669
+#: lib/kateconfigdialog.cpp:666 lib/kateconfigdialog.cpp:668
 #, kde-format
 msgid "User Feedback"
 msgstr "Erabiltzaileen erreakzioa"
 
-#: lib/kateconfigdialog.cpp:905
+#: lib/kateconfigdialog.cpp:908
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1254,7 +1254,7 @@ msgstr ""
 "Hemen Kate-ren plugin erabilgarri guztiak ikus ditzakezu. Marka dutenak "
 "zamatuak daude, eta berriz zamatuko dira Kate hasten den hurrengoan."
 
-#: lib/katedocmanager.cpp:289
+#: lib/katedocmanager.cpp:297
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1263,32 +1263,32 @@ msgstr ""
 "<p>'%1' dokumentua aldatu egin da, baina ez da gorde.</p><p>Zure aldaketak "
 "gorde edo baztertu nahi dituzu?</p>"
 
-#: lib/katedocmanager.cpp:292 lib/katesavemodifieddialog.cpp:131
+#: lib/katedocmanager.cpp:300 lib/katesavemodifieddialog.cpp:131
 #, kde-format
 msgid "Close Document"
 msgstr "Itxi dokumentua"
 
-#: lib/katedocmanager.cpp:305
+#: lib/katedocmanager.cpp:313
 #, kde-format
 msgid "Save As"
 msgstr "Gorde honela"
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:666
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:666
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Fitxategi berria ireki da Kate ixten saiatzean, ixtea galarazi da."
 
-#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:666
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:666
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Ixtea galarazi da"
 
-#: lib/katedocmanager.cpp:401
+#: lib/katedocmanager.cpp:409
 #, kde-format
 msgid "Starting Up"
 msgstr "Abiarazten"
 
-#: lib/katedocmanager.cpp:402
+#: lib/katedocmanager.cpp:410
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Azken saioko fitxategiak berrirekitzen..."
@@ -1824,12 +1824,12 @@ msgstr ""
 "Erakutsi alboko-barrak</b>. Tresna ikuspegiak erakutsi/ezkutatu daitezke "
 "esleitutako lasterbideak erabiliz.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:52
+#: lib/katemwmodonhddialog.cpp:53
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "Dokumentuak diskoan aldatu dira"
 
-#: lib/katemwmodonhddialog.cpp:68
+#: lib/katemwmodonhddialog.cpp:69
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1838,37 +1838,37 @@ msgstr ""
 "<qt>Behean zerrendatutako dokumentuak diskoan aldatu dira.<p>Hautatu bat edo "
 "gehiago batera, eta sakatu ekintza botoi bat zerrenda hustu arte.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:78
+#: lib/katemwmodonhddialog.cpp:79
 #, kde-format
 msgid "Filename"
 msgstr "Fitxategi-izena"
 
-#: lib/katemwmodonhddialog.cpp:78
+#: lib/katemwmodonhddialog.cpp:79
 #, kde-format
 msgid "Status on Disk"
 msgstr "Egoera diskoan"
 
-#: lib/katemwmodonhddialog.cpp:83
+#: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Modified"
 msgstr "Aldatua"
 
-#: lib/katemwmodonhddialog.cpp:83
+#: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Created"
 msgstr "Sortua"
 
-#: lib/katemwmodonhddialog.cpp:83
+#: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Deleted"
 msgstr "Ezabatua"
 
-#: lib/katemwmodonhddialog.cpp:106
+#: lib/katemwmodonhddialog.cpp:107
 #, kde-format
 msgid "&View Difference"
 msgstr "&Ikusi ezberdintasuna"
 
-#: lib/katemwmodonhddialog.cpp:107
+#: lib/katemwmodonhddialog.cpp:108
 #, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
@@ -1877,32 +1877,32 @@ msgstr ""
 "Hautatutako dokumentuaren editoreko edukiaren eta diskoko fitxategian "
 "dagonaren arteko ezberdintasuna kalkulatzen du."
 
-#: lib/katemwmodonhddialog.cpp:115
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "Ez-&ikusi aldaketak"
 
-#: lib/katemwmodonhddialog.cpp:116
+#: lib/katemwmodonhddialog.cpp:117
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "Kendu «aldatua» bandera hautatutako dokumentuetatik"
 
-#: lib/katemwmodonhddialog.cpp:122
+#: lib/katemwmodonhddialog.cpp:123
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "Gainidatzi hautatutako dokumentuak, diskoko aldaketak baztertuz"
 
-#: lib/katemwmodonhddialog.cpp:126
+#: lib/katemwmodonhddialog.cpp:127
 #, kde-format
 msgid "&Reload"
 msgstr "&Birzamatu"
 
-#: lib/katemwmodonhddialog.cpp:128
+#: lib/katemwmodonhddialog.cpp:129
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "Birzamatu hautatutako dokumentuak diskotik"
 
-#: lib/katemwmodonhddialog.cpp:195
+#: lib/katemwmodonhddialog.cpp:202
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1911,7 +1911,7 @@ msgstr ""
 "Ezin izan da dokumentua gorde\n"
 "'%1'"
 
-#: lib/katemwmodonhddialog.cpp:317
+#: lib/katemwmodonhddialog.cpp:338
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -1920,17 +1920,17 @@ msgstr ""
 "«diff» komandoak huts egin du. Ziurtatu git instalatuta eta zure «PATH»ean "
 "dagoela."
 
-#: lib/katemwmodonhddialog.cpp:319
+#: lib/katemwmodonhddialog.cpp:340
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Errorea ezberdintasuna sortzean"
 
-#: lib/katemwmodonhddialog.cpp:326
+#: lib/katemwmodonhddialog.cpp:347
 #, kde-format
 msgid "[OLD]"
 msgstr "[ZAHARRA]"
 
-#: lib/katemwmodonhddialog.cpp:327
+#: lib/katemwmodonhddialog.cpp:348
 #, kde-format
 msgid "[NEW]"
 msgstr "[BERRIA]"

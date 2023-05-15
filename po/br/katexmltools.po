@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages/kdeaddons/katexmltools.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2004-09-20 15:44+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -61,32 +61,32 @@ msgstr ""
 msgid "XML Plugin Error"
 msgstr "Fazi al lugent XML"
 
-#: plugin_katexmltools.cpp:991
+#: plugin_katexmltools.cpp:996
 #, kde-format
 msgid "XML entities"
 msgstr ""
 
-#: plugin_katexmltools.cpp:993
+#: plugin_katexmltools.cpp:998
 #, kde-format
 msgid "XML attribute values"
 msgstr ""
 
-#: plugin_katexmltools.cpp:995
+#: plugin_katexmltools.cpp:1000
 #, kde-format
 msgid "XML attributes"
 msgstr ""
 
-#: plugin_katexmltools.cpp:998
+#: plugin_katexmltools.cpp:1003
 #, kde-format
 msgid "XML elements"
 msgstr ""
 
-#: plugin_katexmltools.cpp:1038
+#: plugin_katexmltools.cpp:1043
 #, kde-format
 msgid "Insert XML Element"
 msgstr ""
 
-#: plugin_katexmltools.cpp:1043
+#: plugin_katexmltools.cpp:1048
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

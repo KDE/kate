@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-08 00:49+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2019-10-29 20:19+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -356,7 +356,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Ava rakendusega"
 
-#: katefiletreemodel.cpp:649
+#: katefiletreemodel.cpp:653
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

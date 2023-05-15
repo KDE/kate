@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2020-09-17 15:01+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
-#: plugin_katesymbolviewer.cpp:89 python_parser.cpp:21 ruby_parser.cpp:21
+#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
 msgstr "顯示函式"
@@ -34,12 +34,12 @@ msgstr "顯示函式"
 msgid "Functions"
 msgstr "函式"
 
-#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:85
+#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Macros"
 msgstr "顯示巨集"
 
-#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:87
+#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
 #, kde-format
 msgid "Show Structures"
 msgstr "顯示結構"
@@ -109,94 +109,94 @@ msgstr "定義"
 msgid "Classes"
 msgstr "類別"
 
-#: plugin_katesymbolviewer.cpp:69
+#: plugin_katesymbolviewer.cpp:68
 #, kde-format
 msgid "SymbolViewer"
 msgstr "符號檢視器"
 
-#: plugin_katesymbolviewer.cpp:78
+#: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Tree Mode"
 msgstr "樹狀模式"
 
-#: plugin_katesymbolviewer.cpp:80
+#: plugin_katesymbolviewer.cpp:79
 #, kde-format
 msgid "Expand Tree"
 msgstr "展開樹狀目錄"
 
-#: plugin_katesymbolviewer.cpp:82
+#: plugin_katesymbolviewer.cpp:81
 #, kde-format
 msgid "Show Sorted"
 msgstr "顯示排序"
 
-#: plugin_katesymbolviewer.cpp:91
+#: plugin_katesymbolviewer.cpp:90
 #, kde-format
 msgid "Show Parameters"
 msgstr "顯示參數"
 
-#: plugin_katesymbolviewer.cpp:117
+#: plugin_katesymbolviewer.cpp:116
 #, kde-format
 msgid "Symbol List"
 msgstr "符號清單"
 
-#: plugin_katesymbolviewer.cpp:135
+#: plugin_katesymbolviewer.cpp:134
 #, kde-format
 msgid "Filter..."
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:143
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "符號"
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:143
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "位置"
 
-#: plugin_katesymbolviewer.cpp:360
+#: plugin_katesymbolviewer.cpp:359
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr "抱歉，還不支援！"
 
-#: plugin_katesymbolviewer.cpp:364
+#: plugin_katesymbolviewer.cpp:363
 #, kde-format
 msgid "File type: %1"
 msgstr "檔案類型：%1"
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Display functions parameters"
 msgstr "顯示函式的參數"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "在樹狀模式下自動展開節點"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "樹狀模式下總是顯示符號"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always sort symbols"
 msgstr "總是將符號排序"
 
-#: plugin_katesymbolviewer.cpp:482
+#: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Parser Options"
 msgstr "剖析器選項"
 
-#: plugin_katesymbolviewer.cpp:510
+#: plugin_katesymbolviewer.cpp:509
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "符號檢視器"
 
-#: plugin_katesymbolviewer.cpp:515
+#: plugin_katesymbolviewer.cpp:514
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "符號檢視器設定頁面"

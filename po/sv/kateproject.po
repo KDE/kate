@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:50+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2022-09-24 10:43+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -89,7 +89,7 @@ msgstr[1] "Är du säker på att du vill ta bort de markerade grenarna?"
 msgid "Select Branch..."
 msgstr "Välj gren..."
 
-#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:68
+#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:70
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -512,7 +512,7 @@ msgstr "Är du säker på att du vill ta bort de här ospårade ändringarna?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Felaktig JSON-fil '%1': %2"
 
-#: kateproject.cpp:529
+#: kateproject.cpp:541
 #, kde-format
 msgid "<untracked>"
 msgstr "<ospårad>"
@@ -658,7 +658,7 @@ msgstr "Förbered eller avlägsna"
 msgid "Double click action in the git status view"
 msgstr "Åtgärd vid dubbelklick i Git statusvy"
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:67
+#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:69
 #, kde-format
 msgid "Projects"
 msgstr "Projekt"
@@ -778,12 +778,12 @@ msgstr "Indexet kunde inte skapas. Installera 'ctags'."
 msgid "Indexing is not enabled"
 msgstr "Indexering är inte aktiverad"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:176
 #, kde-format
 msgid "Error"
 msgstr "Fel"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:176
 #, kde-format
 msgid "File name already exists"
 msgstr "Filnamnet finns redan"
@@ -812,101 +812,101 @@ msgstr ""
 "Fullständig sökväg med undantag för filnamnet, med sökvägens egna separator "
 "(bakstreck på Windows)."
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:73
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:136
+#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:75
+#: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
 msgstr "Projekt"
 
-#: kateprojectpluginview.cpp:57
+#: kateprojectpluginview.cpp:59
 #, kde-format
 msgid "Project Manager"
 msgstr "Projekthantering"
 
-#: kateprojectpluginview.cpp:79
+#: kateprojectpluginview.cpp:81
 #, fuzzy, kde-format
 #| msgid "Restore Open Projects"
 msgid "Open projects list"
 msgstr "Återställ öppna projekt"
 
-#: kateprojectpluginview.cpp:84
+#: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Reload project"
 msgstr "Läs in projekt igen"
 
-#: kateprojectpluginview.cpp:87
+#: kateprojectpluginview.cpp:89
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Close project"
 msgstr "Stäng projekt"
 
-#: kateprojectpluginview.cpp:102
+#: kateprojectpluginview.cpp:104
 #, kde-format
 msgid "Refresh git status"
 msgstr "Uppdatera Git-status"
 
-#: kateprojectpluginview.cpp:180
+#: kateprojectpluginview.cpp:182
 #, kde-format
 msgid "Open Folder..."
 msgstr "Öppna katalog..."
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:187
 #, kde-format
 msgid "Project TODOs"
 msgstr "Projekt ATT GÖRA"
 
-#: kateprojectpluginview.cpp:189
+#: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Aktivera föregående projekt"
 
-#: kateprojectpluginview.cpp:194
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Aktivera nästa projekt"
 
-#: kateprojectpluginview.cpp:199
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Lookup"
 msgstr "Slå upp"
 
-#: kateprojectpluginview.cpp:203
+#: kateprojectpluginview.cpp:205
 #, kde-format
 msgid "Close Project"
 msgstr "Stäng projekt"
 
-#: kateprojectpluginview.cpp:207
+#: kateprojectpluginview.cpp:209
 #, kde-format
 msgid "Close All Projects"
 msgstr "Stäng alla projekt"
 
-#: kateprojectpluginview.cpp:212
+#: kateprojectpluginview.cpp:214
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Stäng övergivna projekt"
 
-#: kateprojectpluginview.cpp:222
+#: kateprojectpluginview.cpp:224
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Checka ut Git-gren"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:798
+#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Slå upp: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:799
+#: kateprojectpluginview.cpp:231 kateprojectpluginview.cpp:812
 #, kde-format
 msgid "Goto: %1"
 msgstr "Gå till: %1"
 
-#: kateprojectpluginview.cpp:303
+#: kateprojectpluginview.cpp:312
 #, kde-format
 msgid "Projects Index"
 msgstr "Projektindex"
 
-#: kateprojectpluginview.cpp:843
+#: kateprojectpluginview.cpp:856
 #, kde-format
 msgid "Choose a directory"
 msgstr "Välj en katalog"

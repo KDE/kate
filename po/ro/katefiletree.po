@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-08 00:49+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2020-09-16 00:25+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -359,7 +359,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Deschide cu"
 
-#: katefiletreemodel.cpp:649
+#: katefiletreemodel.cpp:653
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

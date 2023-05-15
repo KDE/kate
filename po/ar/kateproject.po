@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:50+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2022-10-04 21:12+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -96,7 +96,7 @@ msgstr[5] ""
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:68
+#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:70
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -515,7 +515,7 @@ msgstr ""
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:529
+#: kateproject.cpp:541
 #, kde-format
 msgid "<untracked>"
 msgstr "<غير المتعقّب>"
@@ -660,7 +660,7 @@ msgstr "مُعد / غير مُعد"
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:67
+#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:69
 #, kde-format
 msgid "Projects"
 msgstr "المشاريع"
@@ -780,12 +780,12 @@ msgstr "لا يمكن إنشاء الفهرس. فضلًا ثبّت 'ctags'."
 msgid "Indexing is not enabled"
 msgstr ""
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:176
 #, kde-format
 msgid "Error"
 msgstr "خطأ"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:176
 #, kde-format
 msgid "File name already exists"
 msgstr ""
@@ -812,104 +812,104 @@ msgid ""
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:73
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:136
+#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:75
+#: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
 msgstr "مشروع"
 
-#: kateprojectpluginview.cpp:57
+#: kateprojectpluginview.cpp:59
 #, fuzzy, kde-format
 #| msgid "Kate Project Manager"
 msgid "Project Manager"
 msgstr "مدير كيت للمشاريع"
 
-#: kateprojectpluginview.cpp:79
+#: kateprojectpluginview.cpp:81
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Open projects list"
 msgstr "المشروع الحاليّ"
 
-#: kateprojectpluginview.cpp:84
+#: kateprojectpluginview.cpp:86
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Reload project"
 msgstr "أغلق المشروع"
 
-#: kateprojectpluginview.cpp:87
+#: kateprojectpluginview.cpp:89
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Close project"
 msgstr "أغلق المشروع"
 
-#: kateprojectpluginview.cpp:102
+#: kateprojectpluginview.cpp:104
 #, kde-format
 msgid "Refresh git status"
 msgstr ""
 
-#: kateprojectpluginview.cpp:180
+#: kateprojectpluginview.cpp:182
 #, kde-format
 msgid "Open Folder..."
 msgstr "افتح مجلّد..."
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:187
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Project TODOs"
 msgstr "المشاريع"
 
-#: kateprojectpluginview.cpp:189
+#: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Activate Previous Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:194
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Activate Next Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:199
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Lookup"
 msgstr "البحث"
 
-#: kateprojectpluginview.cpp:203
+#: kateprojectpluginview.cpp:205
 #, kde-format
 msgid "Close Project"
 msgstr "أغلق المشروع"
 
-#: kateprojectpluginview.cpp:207
+#: kateprojectpluginview.cpp:209
 #, kde-format
 msgid "Close All Projects"
 msgstr "أغلق كل المشاريع"
 
-#: kateprojectpluginview.cpp:212
+#: kateprojectpluginview.cpp:214
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "أغلق المشاريع اليتيمة"
 
-#: kateprojectpluginview.cpp:222
+#: kateprojectpluginview.cpp:224
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:798
+#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Lookup: %1"
 msgstr "ابحث عن: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:799
+#: kateprojectpluginview.cpp:231 kateprojectpluginview.cpp:812
 #, kde-format
 msgid "Goto: %1"
 msgstr "اذهب إلى: %1"
 
-#: kateprojectpluginview.cpp:303
+#: kateprojectpluginview.cpp:312
 #, kde-format
 msgid "Projects Index"
 msgstr "فهرس مشروع"
 
-#: kateprojectpluginview.cpp:843
+#: kateprojectpluginview.cpp:856
 #, kde-format
 msgid "Choose a directory"
 msgstr "اختر مجلدًا"

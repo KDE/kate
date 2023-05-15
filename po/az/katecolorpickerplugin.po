@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-21 00:50+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2021-03-04 16:15+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -79,12 +79,12 @@ msgstr "Rəng seçici"
 msgid "Color Picker Settings"
 msgstr "Rəng seçici ayarları"
 
-#: katecolorpickerplugin.cpp:244
+#: katecolorpickerplugin.cpp:258
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "Rəng seçin (hex çıxışı)"
 
-#: katecolorpickerplugin.cpp:247
+#: katecolorpickerplugin.cpp:261
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "Rəng görünüşü [Yalnız oxu]"

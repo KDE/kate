@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-21 00:50+0000\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2021-01-20 09:37+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -75,12 +75,12 @@ msgstr "Obter uma Cor"
 msgid "Color Picker Settings"
 msgstr "Configuração da Extracção de Cores"
 
-#: katecolorpickerplugin.cpp:244
+#: katecolorpickerplugin.cpp:258
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "Seleccionar a Cor (Resultado em hex)"
 
-#: katecolorpickerplugin.cpp:247
+#: katecolorpickerplugin.cpp:261
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "Ver a Cor [Apenas leitura]"

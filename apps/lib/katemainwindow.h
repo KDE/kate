@@ -504,7 +504,8 @@ public Q_SLOTS:
      * \param identifier identifier as specified in createToolView()
      * \return pointer to the toolview, if found, otherwise NULL
      */
-    QWidget *toolviewForName(const QString &identifier) {
+    QWidget *toolviewForName(const QString &identifier)
+    {
         return toolView(identifier);
     }
 

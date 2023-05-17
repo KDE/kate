@@ -145,7 +145,7 @@ QAction *toolviewShowAction(KTextEditor::MainWindow *mainWindow, const QString &
 QWidget *toolviewForName(KTextEditor::MainWindow *mainWindow, const QString &toolviewName)
 {
     QWidget *toolView = nullptr;
-    QMetaObject::invokeMethod(mainWindow->parent(), "toolViewForName", Qt::DirectConnection, Q_RETURN_ARG(QWidget *, toolView), Q_ARG(QString, toolviewName));
+    QMetaObject::invokeMethod(mainWindow->parent(), "toolviewForName", Qt::DirectConnection, Q_RETURN_ARG(QWidget *, toolView), Q_ARG(QString, toolviewName));
     return toolView;
 }
 

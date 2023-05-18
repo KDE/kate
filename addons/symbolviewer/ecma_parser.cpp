@@ -27,8 +27,6 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
     bool in_comment = false;
     // indices into the string
     int c, function_start = 0;
-    // the current depth of curly brace encapsulation
-    int brace_depth = 0;
     // a list of inserted nodes with the index being the brace depth at insertion
     QList<QTreeWidgetItem *> nodes;
 
@@ -271,7 +269,6 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
 
             // keep track of brace depth
             if (current == QLatin1Char('{')) {
-                brace_depth++;
                 // if a node has been added at this level or above,
                 //  use it to extend the stack
                 if (node != nullptr) {
@@ -281,7 +278,6 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                     nodes.append(nodes.last());
                 }
             } else if (current == QLatin1Char('}')) {
-                brace_depth--;
                 // pop the last node off the stack
                 node = nullptr;
                 if (!nodes.isEmpty()) {

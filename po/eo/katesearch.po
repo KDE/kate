@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-03-11 03:39+0100\n"
+"PO-Revision-Date: 2023-05-17 11:58+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -132,7 +132,11 @@ msgid ""
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
 msgstr[0] ""
+"<b><i>Trovis unu kongruon (%3) en ĉiuj malfermitaj projektoj (komuna "
+"gepatro: %2)</i></b>"
 msgstr[1] ""
+"<b><i>Trovis %1 kongruojn (%3) en ĉiuj malfermitaj projektoj (komuna "
+"gepatro: %2)</i></b>"
 
 #: MatchModel.cpp:722 MatchModel.cpp:724
 #, kde-format
@@ -186,7 +190,9 @@ msgstr[1] "Trovis %1 kongruojn (%4) en projekto %2 (%3)"
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
+"Trovis unu kongruon (%3) en ĉiuj malfermitaj projektoj (komuna gepatro: %2)"
 msgstr[1] ""
+"Trovis %1 kongruojn (%3) en ĉiuj malfermitaj projektoj (komuna gepatro: %2)"
 
 #: Results.cpp:31
 #, kde-format

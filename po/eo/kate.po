@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-04-20 23:30+0100\n"
+"PO-Revision-Date: 2023-05-17 11:58+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1894,7 +1894,7 @@ msgid ""
 "Could not save the document \n"
 "'%1'"
 msgstr ""
-"Ne eblas konservi la dokumenton \n"
+"Ne eblis konservi la dokumenton \n"
 "'%1'"
 
 #: lib/katemwmodonhddialog.cpp:338
@@ -2296,7 +2296,11 @@ msgid_plural ""
 "Currently, there are %1 more documents open. To see all open documents, "
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
+"Aktuale estas unu plia dokumento malfermata. Por vidi ĉiujn malfermajn "
+"dokumentojn, ŝanĝu al la Rapid-Malferma vido klakante ĉi tie."
 msgstr[1] ""
+"Aktuale estas %1 pliaj dokumentoj malfermataj. Por vidi ĉiujn malfermajn "
+"dokumentojn, ŝanĝu al la Rapid-Malferma vido klakante ĉi tie."
 
 #: lib/kateviewspace.cpp:1011
 #, kde-format
@@ -2455,7 +2459,7 @@ msgstr "Duobligi..."
 #: lib/session/katesessionmanagedialog.ui:142
 #, kde-format
 msgid "&Rename..."
-msgstr "&Alinomi..."
+msgstr "&Renomi..."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
 #: lib/session/katesessionmanagedialog.ui:162
@@ -2630,7 +2634,7 @@ msgid ""
 msgstr ""
 "La seanco enhavas la liston de malfermitaj dokumentoj, lastatempe "
 "malfermitaj dosieroj listo, legosignoj, kursoro pozicio ktp. Kiam la seanco "
-"estas ŝarĝita ĉiuj elementoj estas restarigitaj."
+"estas ŝargita, ĉiuj elementoj estas restarigitaj."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/ui/sessionconfigwidget.ui:136

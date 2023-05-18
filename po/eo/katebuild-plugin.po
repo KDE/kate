@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-04-20 23:30+0100\n"
+"PO-Revision-Date: 2023-05-17 11:58+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -162,7 +162,7 @@ msgstr "<title>Fari Rezultojn:</title><nl/>%1"
 #: plugin_katebuild.cpp:807
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "Konstruo <b>%1</b> finruliĝis. %2 eraro(j), %3 avorto(j), %4 noto(j)"
 
 #: plugin_katebuild.cpp:813
 #, kde-format
@@ -198,7 +198,7 @@ msgstr "Konstruo plenumita sen problemoj."
 #: plugin_katebuild.cpp:832
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "Konstruo <b>%1 nuligita</b>. %2 eraro(j), %3 avorto(j), %4 noto(j)"
 
 #: plugin_katebuild.cpp:856
 #, kde-format
@@ -221,7 +221,7 @@ msgstr "averto"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "noto|informo"
 
 #: plugin_katebuild.cpp:1091
 #, kde-format

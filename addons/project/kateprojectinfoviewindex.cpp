@@ -10,6 +10,7 @@
 #include "kateprojectindex.h"
 #include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"
+#include "ktexteditor_utils.h"
 
 #include <KLocalizedString>
 #include <KMessageWidget>
@@ -147,7 +148,7 @@ void KateProjectInfoViewIndex::slotClicked(const QModelIndex &index)
     }
 
     /** save current position in location history */
-    Q_EMIT m_pluginView->addPositionToHistory(url, pos);
+    Utils::addPositionToHistory(url, pos, m_pluginView->mainWindow());
 
     /**
      * set cursor, if possible
@@ -157,7 +158,7 @@ void KateProjectInfoViewIndex::slotClicked(const QModelIndex &index)
         view->setCursorPosition(KTextEditor::Cursor(line - 1, 0));
 
         /** save the jump position in location history */
-        Q_EMIT m_pluginView->addPositionToHistory(view->document()->url(), {line - 1, 0});
+        Utils::addPositionToHistory(view->document()->url(), {line - 1, 0}, m_pluginView->mainWindow());
     }
 }
 

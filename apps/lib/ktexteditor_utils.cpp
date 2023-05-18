@@ -201,6 +201,17 @@ void insertWidgetInStatusbar(QWidget *widget, KTextEditor::MainWindow *mainWindo
     QMetaObject::invokeMethod(mainWindow->parent(), "insertWidgetInStatusbar", Qt::DirectConnection, Q_ARG(QWidget *, widget));
 }
 
+void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c, KTextEditor::MainWindow *mainWindow)
+{
+    QMetaObject::invokeMethod(mainWindow->parent(), "addPositionToHistory", Qt::DirectConnection, Q_ARG(QUrl, url), Q_ARG(KTextEditor::Cursor, c));
+}
+
+QWidget *tabForToolView(QWidget *view, KTextEditor::MainWindow *mainWindow) {
+    QWidget *tab = nullptr;
+    QMetaObject::invokeMethod(mainWindow->parent(), "tabForToolView", Qt::DirectConnection, Q_RETURN_ARG(QWidget *, tab), Q_ARG(QWidget *, view));
+    return tab;
+}
+
 QString projectBaseDirForDocument(KTextEditor::Document *doc)
 {
     QString baseDir;

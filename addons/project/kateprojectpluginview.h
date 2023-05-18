@@ -255,14 +255,6 @@ Q_SIGNALS:
      */
     void gotoSymbol(const QString &word, int &results);
 
-    /**
-     * Signal for location changed. Location gets saved in history
-     * of the current KateViewSpace
-     * @param document url
-     * @param c pos in document
-     */
-    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
-
 private Q_SLOTS:
     /**
      * This slot is called whenever the active view changes in our main window.

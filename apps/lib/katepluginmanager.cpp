@@ -227,15 +227,6 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
         createdView = item->plugin->createView(win->wrapper());
         if (createdView) {
             win->pluginViews().insert(item->plugin, createdView);
-
-            // ensure location tracking is connected for view
-            if (createdView->metaObject()->indexOfSignal("addPositionToHistory(QUrl,KTextEditor::Cursor)") != -1) {
-                QObject::connect(createdView,
-                                 SIGNAL(addPositionToHistory(QUrl, KTextEditor::Cursor)),
-                                 win->viewManager(),
-                                 SLOT(addPositionToHistory(QUrl, KTextEditor::Cursor)),
-                                 Qt::UniqueConnection);
-            }
         }
     }
 

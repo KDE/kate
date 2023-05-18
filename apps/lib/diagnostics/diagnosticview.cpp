@@ -22,6 +22,7 @@
 #endif
 
 #include <KColorScheme>
+#include <KXMLGUIFactory>
 #include <QClipboard>
 #include <QComboBox>
 #include <QDebug>
@@ -156,6 +157,10 @@ public:
         : QWidget(parent)
         , m_tabButton(parent)
     {
+        if (!parent) {
+            hide();
+            return;
+        }
         setAttribute(Qt::WA_TransparentForMouseEvents, true);
         setGeometry(parent->geometry());
         show();
@@ -164,7 +169,7 @@ public:
 
     void setActive(bool a)
     {
-        if (m_active != a) {
+        if (m_tabButton && (m_active != a)) {
             m_active = a;
             if (m_tabButton->size() != size()) {
                 resize(m_tabButton->size());
@@ -194,9 +199,7 @@ DiagnosticsProvider::DiagnosticsProvider(KTextEditor::MainWindow *mainWindow, QO
     : QObject(parent)
 {
     Q_ASSERT(mainWindow);
-    if (auto kateMainWindow = qobject_cast<KateMainWindow *>(mainWindow->window())) {
-        kateMainWindow->diagnosticsView()->registerDiagnosticsProvider(this);
-    }
+    DiagnosticsView::instance(mainWindow)->registerDiagnosticsProvider(this);
 }
 
 void DiagnosticsProvider::showDiagnosticsView(DiagnosticsProvider *filterTo)
@@ -303,8 +306,8 @@ static QIcon diagnosticsIcon(DiagnosticSeverity severity)
     return QIcon();
 }
 
-DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QWidget *tabButton)
-    : QWidget(parent)
+DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainWindow, QWidget *tabButton)
+    : QWidget(parent), KXMLGUIClient()
     , m_mainWindow(mainWindow)
     , m_diagnosticsTree(new QTreeView(this))
     , m_clearButton(new QToolButton(this))
@@ -317,7 +320,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     , m_tabButtonOverlay(new DiagTabOverlay(tabButton))
     , m_posChangedTimer(new QTimer(this))
     , m_filterChangedTimer(new QTimer(this))
-    , m_textHintProvider(new KateTextHintProvider(mainWindow->wrapper(), this))
+    , m_textHintProvider(new KateTextHintProvider(mainWindow, this))
 {
     auto l = new QVBoxLayout(this);
     l->setContentsMargins({});
@@ -347,7 +350,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
 
     m_diagnosticsTree->setModel(m_proxy);
 
-    connect(m_mainWindow->wrapper(), &KTextEditor::MainWindow::viewChanged, this, &DiagnosticsView::onViewChanged);
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &DiagnosticsView::onViewChanged);
 
     connect(m_diagnosticsTree, &QTreeView::customContextMenuRequested, this, &DiagnosticsView::onContextMenuRequested);
     connect(m_diagnosticsTree, &QTreeView::clicked, this, &DiagnosticsView::goToItemLocation);
@@ -355,7 +358,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
         onDoubleClicked(m_proxy->mapToSource(index));
     });
 
-    auto *ac = m_mainWindow->actionCollection();
+    auto *ac = actionCollection();
     auto *a = ac->addAction(QStringLiteral("kate_quick_fix"), this, &DiagnosticsView::quickFix);
     a->setText(i18n("Quick Fix"));
     ac->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_Period)));
@@ -382,6 +385,24 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     });
 
     connect(m_textHintProvider.get(), &KateTextHintProvider::textHintRequested, this, &DiagnosticsView::onTextHint);
+    connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &DiagnosticsView::handleEsc);
+    mainWindow->guiFactory()->addClient(this);
+}
+
+DiagnosticsView * DiagnosticsView::instance(KTextEditor::MainWindow *mainWindow)
+{
+    Q_ASSERT(mainWindow);
+    auto dv = static_cast<DiagnosticsView *>(mainWindow->property("diagnosticsView").value<QObject *>());
+    if (!dv) {
+        auto tv = mainWindow->createToolView(nullptr /* toolview has no plugin it belongs to */,
+                                     QStringLiteral("diagnostics"),
+                                     KTextEditor::MainWindow::Bottom,
+                                     QIcon::fromTheme(QStringLiteral("dialog-warning-symbolic")),
+                                     i18n("Diagnostics"));
+        dv = new DiagnosticsView(tv, mainWindow, Utils::tabForToolView(tv, mainWindow));
+        mainWindow->setProperty("diagnosticsView", QVariant::fromValue(dv));
+    }
+    return dv;
 }
 
 DiagnosticsView::~DiagnosticsView()
@@ -527,6 +548,18 @@ void DiagnosticsView::showEvent(QShowEvent *e)
 {
     m_tabButtonOverlay->setActive(false);
     QWidget::showEvent(e);
+}
+
+void DiagnosticsView::handleEsc(QEvent *event)
+{
+    if (event->type() != QEvent::ShortcutOverride)
+        return;
+
+    auto keyEvent = static_cast<QKeyEvent *>(event);
+    if (keyEvent && keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
+        m_mainWindow->hideToolView(parentWidget());
+        event->accept();
+    }
 }
 
 static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)
@@ -1223,10 +1256,10 @@ void DiagnosticsView::goToItemLocation(QModelIndex index)
     if (targetView) {
         // save current position for location history
         if (activeView) {
-            m_mainWindow->viewManager()->addPositionToHistory(activeView->document()->url(), activeView->cursorPosition());
+            Utils::addPositionToHistory(activeView->document()->url(), activeView->cursorPosition(), m_mainWindow);
         }
         // save the position to which we are jumping in location history
-        m_mainWindow->viewManager()->addPositionToHistory(targetView->document()->url(), cdef);
+        Utils::addPositionToHistory(targetView->document()->url(), cdef, m_mainWindow);
         targetView->setCursorPosition(cdef);
     }
 }

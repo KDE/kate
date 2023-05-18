@@ -210,7 +210,7 @@ KateMainWindow::~KateMainWindow()
     // If we delay it then each provider will get unregisted one by one
     // and slow down the destruction as we will be clearing diagnostics
     // for each provider individually
-    m_diagView.reset();
+    delete m_diagView;
 
     // unregister mainwindow in app
     KateApp::self()->removeMainWindow(this);
@@ -318,12 +318,7 @@ void KateMainWindow::setupMainWindow(KConfig *sconfig)
                                       i18n("Output"));
     m_outputView = new KateOutputView(this, m_toolViewOutput, toolviewToggleButton(static_cast<KateMDI::ToolView *>(m_toolViewOutput)));
 
-    m_toolViewDiags = createToolView(nullptr /* toolview has no plugin it belongs to */,
-                                     QStringLiteral("diagnostics"),
-                                     KTextEditor::MainWindow::Bottom,
-                                     QIcon::fromTheme(QStringLiteral("dialog-warning-symbolic")),
-                                     i18n("Diagnostics"));
-    m_diagView = std::make_unique<DiagnosticsView>(m_toolViewDiags, this, toolviewToggleButton(static_cast<KateMDI::ToolView *>(m_toolViewDiags)));
+    m_diagView = DiagnosticsView::instance(wrapper());
     m_diagView->readSessionConfig(KConfigGroup(sconfig, "Kate Diagnostics"));
 }
 
@@ -1354,9 +1349,6 @@ bool KateMainWindow::event(QEvent *e)
             if (!m_toolViewOutput->isHidden()) {
                 hideToolView(m_toolViewOutput);
             }
-            if (!m_toolViewDiags->isHidden()) {
-                hideToolView(m_toolViewDiags);
-            }
         }
     }
 
@@ -1414,6 +1406,11 @@ void KateMainWindow::showMessage(const QVariantMap &map)
         return;
     }
     m_outputView->slotMessage(map);
+}
+
+void KateMainWindow::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c)
+{
+    m_viewManager->addPositionToHistory(url, c);
 }
 
 QWidgetList KateMainWindow::widgets() const
@@ -1522,6 +1519,15 @@ bool KateMainWindow::hideToolView(QWidget *widget)
     }
 
     return KateMDI::MainWindow::hideToolView(qobject_cast<KateMDI::ToolView *>(widget));
+}
+
+QWidget *KateMainWindow::tabForToolView(QWidget *widget)
+{
+   if (!qobject_cast<KateMDI::ToolView *>(widget)) {
+        return nullptr;
+    }
+
+    return KateMDI::MainWindow::toolviewToggleButton(static_cast<KateMDI::ToolView *>(widget));
 }
 
 void KateMainWindow::addRecentOpenedFile(const QUrl &url)

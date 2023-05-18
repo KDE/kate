@@ -465,15 +465,6 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 
     LSPDiagnosticProvider m_diagnosticProvider;
 
-Q_SIGNALS:
-
-    /**
-     * Signal for location changed.
-     * @param document url
-     * @param c pos in document
-     */
-    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
-
 public:
     LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, std::shared_ptr<LSPClientServerManager> serverManager)
         : QObject(mainWin)
@@ -1186,9 +1177,9 @@ public:
         }
         if (targetView) {
             // save current position for location history
-            Q_EMIT addPositionToHistory(activeView->document()->url(), activeView->cursorPosition());
+            Utils::addPositionToHistory(activeView->document()->url(), activeView->cursorPosition(), m_mainWindow);
             // save the position to which we are jumping in location history
-            Q_EMIT addPositionToHistory(targetView->document()->url(), cdef);
+            Utils::addPositionToHistory(targetView->document()->url(), cdef, m_mainWindow);
             targetView->setCursorPosition(cdef);
             highlightLandingLocation(targetView, location);
         }

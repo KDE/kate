@@ -14,6 +14,8 @@
 #include <QUrl>
 #include <QWidget>
 
+#include <KXMLGUIClient>
+
 #include <KTextEditor/Document>
 #include <KTextEditor/Range>
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -102,13 +104,15 @@ private:
     bool m_persistentDiagnostics = false;
 };
 
-class DiagnosticsView : public QWidget
+class DiagnosticsView : public QWidget, public KXMLGUIClient
 {
     Q_OBJECT
     friend class ForwardingTextHintProvider;
 
+protected:
+    explicit DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainWindow, QWidget *tabButton);
 public:
-    explicit DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QWidget *tabButton);
+    static DiagnosticsView *instance(KTextEditor::MainWindow *mainWindow);
     ~DiagnosticsView();
 
     void registerDiagnosticsProvider(DiagnosticsProvider *provider);
@@ -124,6 +128,7 @@ public:
 
 protected:
     void showEvent(QShowEvent *e) override;
+    void handleEsc(QEvent *e);
 
 private:
     void onFixesAvailable(const QVector<DiagnosticFix> &fixes, const QVariant &data);
@@ -162,7 +167,7 @@ private:
 
     void setupDiagnosticViewToolbar(class QVBoxLayout *mainLayout);
 
-    KateMainWindow *const m_mainWindow;
+    KTextEditor::MainWindow *const m_mainWindow;
     class QTreeView *const m_diagnosticsTree;
     class QToolButton *const m_clearButton;
     class QLineEdit *const m_filterLineEdit;

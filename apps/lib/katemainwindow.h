@@ -593,7 +593,16 @@ public Q_SLOTS:
      */
     void showMessage(const QVariantMap &map);
 
-private Q_SLOTS:
+    void addPositionToHistory(const QUrl& url, KTextEditor::Cursor c);
+
+    /**
+     * \brief return tab associated with this tool view (if any)
+     *
+     * A tool view might request access to it's own tab, in order to add an activity indicator.
+     *
+     * \param view tool view
+     * \return associate tab widget (might be nullptr). */
+    QWidget *tabForToolView(QWidget *view);private Q_SLOTS:
     void slotUpdateBottomViewBar();
 
 private Q_SLOTS:
@@ -710,15 +719,7 @@ private:
     /**
      * Diagnostics view at the bottom
      */
-    QWidget *m_toolViewDiags = nullptr;
-    std::unique_ptr<class DiagnosticsView> m_diagView;
-
-public:
-    class DiagnosticsView *diagnosticsView()
-    {
-        return m_diagView.get();
-    }
-
+    class DiagnosticsView *m_diagView = nullptr;
 public:
     /**
      * The available actions for the mouse back button, used as indexing

@@ -63,6 +63,12 @@
             "url": "https://github.com/fsharp/FsAutoComplete",
             "highlightingModeRegex": "^FSharp$"
         },
+        "glsl": {
+            "command": ["glslls", "--stdin"],
+            "root": "",
+            "url": "https://github.com/svenstaro/glsl-language-server",
+            "highlightingModeRegex": "^GLSL$"
+        },
         "go": {
             "command": ["gopls"],
             "commandDebug": ["gopls", "serve", "-rpc.trace"],

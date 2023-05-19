@@ -150,6 +150,7 @@ private:
     void parsePhpSymbols(void);
     void parseBashSymbols(void);
     void parseEcmaSymbols(void);
+    void parseJuliaSymbols(void);
 };
 
 class KatePluginSymbolViewer : public KTextEditor::Plugin

@@ -354,6 +354,8 @@ void KatePluginSymbolViewerView::parseSymbols()
         parseBashSymbols();
     } else if (hlModeName == QLatin1String("ActionScript 2.0") || hlModeName == QLatin1String("JavaScript") || hlModeName == QLatin1String("QML")) {
         parseEcmaSymbols();
+    } else if (hlModeName == QLatin1String("Julia")) {
+        parseJuliaSymbols();
     } else {
         QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);
         node->setText(0, i18n("Sorry, not supported yet!"));
@@ -530,6 +532,7 @@ void KatePluginSymbolViewerConfigPage::apply()
 #include "cpp_parser.cpp"
 #include "ecma_parser.cpp"
 #include "fortran_parser.cpp"
+#include "julia_parser.cpp"
 #include "perl_parser.cpp"
 #include "php_parser.cpp"
 #include "python_parser.cpp"

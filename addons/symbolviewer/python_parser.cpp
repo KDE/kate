@@ -4,7 +4,7 @@
     begin                : Apr 2 2003
     author               : 2003 Massimo Callegari
     email                : massimocallegari@yahoo.it
-    
+
     modified             : 2023-05-20 16:25:28
     author               : 2023 Cezar M. Tigaret
     email                : cezar.tigaret@gmail.com
@@ -70,25 +70,22 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     static const QRegularExpression sl_docstring_regexp(QLatin1String("\"\"\"(.*)?\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
 
     // captures:                                                       1=class name   2=class def params
-    static const QRegularExpression class_regexp(QLatin1String("^class ([a-zA-Z0-9_]+)(\\((.*)\\))?( *):"),
-                                                 QRegularExpression::UseUnicodePropertiesOption);
-    
+    static const QRegularExpression class_regexp(QLatin1String("^class ([a-zA-Z0-9_]+)(\\((.*)\\))?( *):"), QRegularExpression::UseUnicodePropertiesOption);
+
     static const QRegularExpression function_regexp(
         // captures:    1       2=name          3   4=params+annots                5=return annot
         // QLatin1String("^( *)def ([\\w:\\{\\}!]+)( *)(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)?( -> [\\w.,\\s\\[\\]]+)?( *):$"),
-        // captures:    1       2=name          3   4=params+annots                          5=return annot         6   7        
+        // captures:    1       2=name          3   4=params+annots                          5=return annot         6   7
         QLatin1String("^( *)def ([\\w:\\{\\}!]+)( *)(\\(.*[,;:\\/\\{\\[\\]\\}\\s]*\\)?\\s*)?( -> [\\w.,\\s\\[\\]]+)?( *)(:)+$"),
         QRegularExpression::UseUnicodePropertiesOption);
-    
-    static const QRegularExpression function_regexp2(
-        QLatin1String("^( *)def ([\\w:\\{\\}!]+)( *)(\\(.*[,;:\\/\\{\\[\\]\\}\\s]*\\s*)$"),
-        QRegularExpression::UseUnicodePropertiesOption
-    );
 
-    // captures:                                                            2=func name    3   4=params   5=return annot          6       
+    static const QRegularExpression function_regexp2(QLatin1String("^( *)def ([\\w:\\{\\}!]+)( *)(\\(.*[,;:\\/\\{\\[\\]\\}\\s]*\\s*)$"),
+                                                     QRegularExpression::UseUnicodePropertiesOption);
+
+    // captures:                                                            2=func name    3   4=params   5=return annot          6
     // static const QRegularExpression function_regexp(QLatin1String("^( *)def ([a-zA-Z_0-9]+)( *)(\\(.*\\))?( -> [\\w.,\\s\\[\\]]+)?( *):$"),
     //                                                 QRegularExpression::UseUnicodePropertiesOption);
-    // 
+    //
     QRegularExpressionMatch match;
 
     for (int i = 0; i < kv->lines(); i++) {
@@ -114,7 +111,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
 
         // BEGIN skip doc strings """ ... """ or """
         match = ml_docsctring_regexp.match(cl_sp); // match """ anywhere
-        
+
         if (match.hasMatch()) {
             match = sl_docstring_regexp.match(cl_sp);
             if (match.hasMatch()) {
@@ -139,13 +136,13 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
             continue;
         }
         // END skip doc strings (""" ... """)
-        
+
         // BEGIN determine the symbol type: class or function
-        
+
         match = class_regexp.match(cl_sp); // check for class definition first
         if (match.hasMatch()) {
             type = Symbol::Class; // ⇒ this is a class
-            
+
         } else {
             match = function_regexp.match(cl_sp); // check for function definition
             if (match.hasMatch()) {
@@ -157,7 +154,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                     type = Symbol::Method;
                 }
             } else {
-                match = function_regexp2.match(cl_sp); 
+                match = function_regexp2.match(cl_sp);
                 if (match.hasMatch()) {
                     if (match.captured(1).isEmpty() || current_class_name.isEmpty()) // case where function is declared inside a block
                     {
@@ -167,7 +164,6 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                         type = Symbol::Method;
                     }
                 }
-                
             }
         }
         // END determine the symbol type: class or function
@@ -178,7 +174,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 name = match.captured(1);
                 params = match.captured(2);
                 current_class_name = name;
-                
+
             } else {
                 name = match.captured(2);
                 params = match.captured(4);
@@ -187,12 +183,11 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                     params += returnAnnot;
                 }
                 endcolon = match.captured(7);
-                
+
                 paramscontinue = endcolon.isEmpty();
-                
-                if(paramscontinue) {
+
+                if (paramscontinue) {
                     params += contStr;
-                    
                 }
             }
             if (m_typesOn->isChecked()) {

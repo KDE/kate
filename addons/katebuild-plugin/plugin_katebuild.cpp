@@ -100,11 +100,58 @@ static QString caseFixed(const QString &path)
     }
     return result;
 }
+
+#include <windows.h>
+#include <Tlhelp32.h>
+
+static void KillProcessTree(DWORD myprocID)
+{
+    if (myprocID == 0) {
+        return;
+    }
+    PROCESSENTRY32 procEntry;
+    memset(&procEntry, 0, sizeof(PROCESSENTRY32));
+    procEntry.dwSize = sizeof(PROCESSENTRY32);
+
+    HANDLE hSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+
+    if (::Process32First(hSnap, &procEntry))
+    {
+        do
+        {
+            if (procEntry.th32ParentProcessID == myprocID) {
+                KillProcessTree(procEntry.th32ProcessID);
+            }
+        } while (::Process32Next(hSnap, &procEntry));
+    }
+
+    // kill the main process
+    HANDLE hProc = ::OpenProcess(PROCESS_ALL_ACCESS, FALSE, myprocID);
+
+    if (hProc)
+    {
+        ::TerminateProcess(hProc, 1);
+        ::CloseHandle(hProc);
+    }
+}
+
+static void terminateProcess(KProcess& proc)
+{
+    KillProcessTree(proc.processId());
+    proc.terminate();
+}
+
 #else
 static QString caseFixed(const QString &path)
 {
     return path;
 }
+
+static void terminateProcess(KProcess& proc)
+{
+    proc->terminate();
+}
+
 #endif
 
 struct ItemData {
@@ -345,7 +392,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 KateBuildView::~KateBuildView()
 {
     if (m_proc.state() != QProcess::NotRunning) {
-        m_proc.terminate();
+        terminateProcess(m_proc);
         m_proc.waitForFinished();
     }
     clearDiagnostics();
@@ -597,7 +644,7 @@ bool KateBuildView::slotStop()
         m_buildCancelled = true;
         QString msg = i18n("Building <b>%1</b> cancelled", m_currentlyBuildingTarget);
         m_buildUi.buildStatusLabel->setText(msg);
-        m_proc.terminate();
+        terminateProcess(m_proc);
         return true;
     }
     return false;

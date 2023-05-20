@@ -1,6 +1,8 @@
 #!/bin/env python3
+import typing
 
 def foo1():
+    """function w/o params"""
     pass
 
 if toto == True:
@@ -17,6 +19,17 @@ def foo3(param):
     pass
 
 def foo4(param1, param2="default"):
+    pass
+    
+def foo5 (a, /, param1 : int , param2 : typing.Optional[typing.Union[typing.Sequence[typing.Any], typing.Mapping]]=None) -> typing:Mapping[str, typing.Sequence[int]]:
+    """function with params annotations and return annotations"""
+    pass
+
+def foo6 (a, /, param1:int , 
+          param2:typing.Optional[typing.Union[typing.Sequence[typing.Any], typing.Mapping]]=None) -> typing:Mapping[str, typing.Sequence[int]]:
+    """function with params annotations and return annotations
+        params on multiple lines WITHOUT line continuation character
+    """
     pass
 
 class class2(class1):

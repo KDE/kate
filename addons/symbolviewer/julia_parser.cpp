@@ -27,6 +27,11 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
 
     bool commentLine = false;
     bool terseFunctionExpresion = false;
+    // bool inTry = false;
+    // bool inIf = false;
+    // bool inWhile = false;
+    // bool inFor = false;
+    // bool inBegin = false;
     // bool inFunctionBlock = false;
     // bool inMacroBlock = false;
 
@@ -75,22 +80,38 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
     static const QChar ret[1] = {0x21b5};
     static const QString contStr(ret, 1);
 
-    static const QRegularExpression comment_regexp(QLatin1String("^[#]"), QRegularExpression::UseUnicodePropertiesOption);
+    static const QRegularExpression comment_regexp(QLatin1String("[#]"), QRegularExpression::UseUnicodePropertiesOption);
     static const QRegularExpression ml_docsctring_regexp(QLatin1String("\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
     static const QRegularExpression sl_docstring_regexp(QLatin1String("\"\"\"(.*)?\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
 
-    static const QRegularExpression class_regexp(QLatin1String("^(@[a-zA-Z0-9_\\s]+)?(mutable|) struct ([\\w:\\{\\}!]+)"),
+    static const QRegularExpression class_regexp(QLatin1String("(@[a-zA-Z0-9_\\s]+)?(?:struct|mutable\\s+struct)\\s+([\\w!a-zA-Z0-9_.]+)"),
                                                  QRegularExpression::UseUnicodePropertiesOption);
+    
+    // static const QRegularExpression try_expr(QLatin1String("try"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression if_expr(QLatin1String("if"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression while_expr(QLatin1String("while"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression for_expr(QLatin1String("for"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression begin_expr(QLatin1String("begin"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression eol_end_expr(QLatin1String("end$"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression end_expr(QLatin1String("end"), QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression function_regexp(
-        QLatin1String("^(@[a-zA-Z0-9_\\s]+)?function ([\\w:\\{\\}!]+)(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)$( where [\\w:<>=.]*\\s?$)?"),
+        // captures:    1=@qualif                      2=name               3=params+annots                  4=whereStmt
+        QLatin1String("(@[a-zA-Z0-9_\\s]+)?function\\s+([\\w:!.]+)\\s*(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)?$( where [\\w:<>=.\\{\\}]*\\s?$)?"),
         QRegularExpression::UseUnicodePropertiesOption);
     // static const QRegularExpression function_regexp(QLatin1String("^(@[a-zA-Z0-9_\\s]+)?function ([\\w:\\{\\}!]+)(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)$( where
     // [\\w:<>=\\s\\(\\)\\{\\}]\\s?$)?"), QRegularExpression::UseUnicodePropertiesOption);
 
+    // static const QRegularExpression terse_function_regexp(
+    //     // captures:   1=@qualif                 2=name                          3=params+annots               4=whereStmt                      5=statement
+    //     QLatin1String("^(@[a-zA-Z0-9_\\s]+)?\\s+([\\w:!.a-zA-Z0-9_]+)\\s*(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)( where [\\w:<>.\\{\\}]*\\s?)?\\s*=\\s*(.*)?"),
+    //     QRegularExpression::UseUnicodePropertiesOption);
+
     static const QRegularExpression terse_function_regexp(
+        // captures:   1=@qualif             2         3               4     5                    6     7                       8     9     10    11
         QLatin1String("(@[a-zA-Z0-9_\\s]+ )?([\\w:.]+)?([\\w:\\{\\}!]+)(\\s?)(\\(.*[\\),;\\s]*\\))(\\s?)(where [\\w:<>=.]*\\s?)?(\\s?)(=){1}(\\s*)(\\(.*\\))?"),
         QRegularExpression::UseUnicodePropertiesOption);
+
     // static const QRegularExpression terse_function_regexp(QLatin1String("(@[a-zA-Z0-9_\\s]+
     // )?([\\w:.]+)?([\\w:\\{\\}!]+)(\\s?)(\\(.*[\\),;\\s]*\\))(\\s?)(where [\\w:<>=\\s\\(\\)\\{\\}]\\s?)?(\\s?)(=){1}(\\s*)(\\(.*\\))?"),
     // QRegularExpression::UseUnicodePropertiesOption);
@@ -107,6 +128,8 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
         QString cl_sp = cl.simplified();
         // QString cl_tr = cl.trimmed();
 
+        // qDebug() << "line " << line+1 << cl << Qt::endl;
+        
         // concatenate continued lines and remove continuation marker (from python_parser.cpp)
         if (cl.isEmpty()) {
             continue;
@@ -177,6 +200,7 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
 
         if (match.hasMatch()) { // try and  match struct first
             type = Type::Structure;
+            
         } else {
             match = macro_regexp.match(cl_sp); // finally , try to match a macro definition NOTE/TODO: terse macro definitions?
             if (match.hasMatch()) {
@@ -201,15 +225,22 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
         }
 
         if (match.hasMatch()) {
+            // either Structure, Macro, or Function egexp have matched
             if (type == Type::Structure) {
-                name = match.captured(3);
+                name = match.captured(2);
                 // name=match.captured(5);
                 current_class_name = name;
                 params.clear();
             } else {
                 if (type == Type::Function) {
                     if (terseFunctionExpresion) {
+                        // name = match.captured(2);
+                        // params = match.captured(3);
+                        // whereStmt = match.captured(4);
+                        
+                        
                         terseFuncAssignment = match.captured(9);
+                        // qDebug() << "line " << line+1 << " terseFuncAssignment " << terseFuncAssignment << Qt::endl;
                         whereStmt = match.captured(7);
                         if (!terseFuncAssignment.isEmpty()) {
                             module_name = match.captured(2); // useful when overloading a function from other module (in Julia that's typically 'adding' a
@@ -219,13 +250,14 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                                 name = module_name + name;
                             }
                             params = match.captured(5);
-
+                        
                             if (!whereStmt.isEmpty()) {
                                 params += QLatin1String(" ");
                                 params += whereStmt;
                             }
-
+                        
                         } else {
+                            // qDebug() << "line " << line+1 << " empty terseFuncAssignment " << cl << Qt::endl;
                             continue;
                         }
 
@@ -234,6 +266,7 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                         params = match.captured(3);
                         whereStmt = match.captured(4);
                     }
+                    // qDebug() << "line " << line+1 << " name " << name << " params "<< params << " whereStmt " << whereStmt << Qt::endl;
 
                 } else if (type == Type::Macro) {
                     name = match.captured(1);
@@ -242,12 +275,17 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                     continue;
                 }
 
-                if (!params.endsWith(QLatin1String(")"))) {
+                if (!params.isEmpty() & !params.endsWith(QLatin1String(")"))) {
                     // qDebug() << "line " << line+1 << " params = "<< params << " whereStmt = " << whereStmt << Qt::endl;
                     if (!terseFunctionExpresion) {
+                        // if (!whereStmt.isEmpty() | params.contains(QLatin1String("where"))) {
+                        //     params += QLatin1String(" ");
+                        //     params += whereStmt;
+                        //     whereStmt.clear();
+                        // }
                         if (whereStmt.isEmpty() & !params.contains(QLatin1String("where"))) {
                             params += contStr;
-
+                        
                         } else {
                             params += QLatin1String(" ");
                             params += whereStmt;

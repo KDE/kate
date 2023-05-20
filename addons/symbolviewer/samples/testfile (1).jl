@@ -15,13 +15,9 @@ abstract type AbstractParameters end
 mutable struct TestMe
 end
 
-struct TestMe2
+struct TestMe2 
 end
 
-"""Nernst (reversal) potential for ion X given [X]ᵢ, [X]ₒ, temperature t and ion's valence zₓ
-$(TYPEDSIGNATURES)
-"""
-Nernst(Xᵢ::Concentration{T}, Xₒ::Concentration{U}, zₓ::Int64, t::Unitful.Temperature{V}) where {T<:Real, U<:Real, V<:Real}  = Unitful.R * uconvert(u"K", t) * log(Xₒ/Xᵢ) / (zₓ * 𝑭)
 
 @with_kw struct ModelParameters <: AbstractParameters
     #BEGIN Morphology parameters
@@ -188,6 +184,128 @@ Nernst(Xᵢ::Concentration{T}, Xₒ::Concentration{U}, zₓ::Int64, t::Unitful.T
     
 end
 
+# function makeParamatersType(name::Symbol, fields::AbstractDict{Symbol, Any})
+#     fielddefs = quote end
+#     ret = quote @with_kw struct $name <: AbstractParameters end
+#     
+#     ret = Expr(:struct, $name <: AbstractParameters)
+# end
+
+#BEGIN NOTE: 2022-09-01 23:25:02 
+# below, the *HH functions follow the Hodgkin-Huxley (HH) model (Steratt & Willshaw)
+@inline alphaₕHH(v::Union{Int64, Float64}) = 0.07  * exp(-(v + 65)/20) 
+@inline alphaₕMJ(v::Union{Int64, Float64}) = 0.03  * (v + 45) / (1 - exp(-(v+45)/1.5))   # => CAUTION: NaN when v = -45
+@inline alphaᵢMJ(v::Union{Int64, Float64}) = exp(0.45 * (v + 60))
+@inline alphaₘHH(v::Union{Int64, Float64}) = 0.1   * (v + 40) / (1 - exp(-(v + 40)/10))  # => CAUTION: NaN when v = -40 !!!
+@inline alphaₘMJ(v::Union{Int64, Float64}) = 0.4   * (v + 30) / (1 - exp(-(v + 30)/7.2)) # => CAUTION: NaN when v = -30
+
+
+
+  Base.display(x::AbstractParameters) = disp(x)
+
+
+"""Naᵥ 'm' gating particle (activation) - Migliore et al 1999"""
+@inline function Base.Naᵥ_m_gate (v::Union{Int64, Float64}; useHH::Bool=false) 
+    
+    # NOTE: 2023-02-24 13:59:20
+    # Example code to plot these (this is also valid for the functions in KV.jl):
+    #
+    # Vₘ = Vector(range(-100., 50., 300)) # membrane potential from -100 mV to +50 mV in 0.5 mV steps
+    #
+    # Naαₘ = <enter your function here>. (Vₘ) # NOTE the dot notation to vectorize the function call in Julia !
+    #
+    #       (i.e. choose from alphaₘHH, alphaₘMJ or any other )
+    #
+    # then plot:
+    #
+    # plot(Vₘ, Naαₘ; show=true) # or plot(Vₘ, Naαₘ); gui()
+    #
+    # and similarly for βₘ, τₘ and for αₕ and βₕ etc. below
+    #
+    # When using vectors, vectorize with dot notation.
+    #
+    # To plot `m` itself - this is the steady-state ! - calculate then plot
+    # m∞; in the ODE system functions, ∂m is approximated as (m∞ - m) / τₘ
+    #
+    #
+    #
+    # The approach is the same for ano other channels in the model.
+    #
+    # To apply the entire function to a vector, e.g. to call something like
+    #       Naᵥ_m_gate.(Vₘ)
+    #
+    # • remeber that this function returns four scalars x∞, α, β, τ for one 
+    #   scalar argument `v`; 
+    #
+    # • ⇒ when vectorizing it [ i.e., Naᵥ_m_gate.(Vₘ) ], the result will be a 
+    #   vector of 4-tuples (one tuple of x∞, α, β, τ per sample in the Vₘ vector)
+    #
+    #   … these need collecting in a matrix:
+    #
+    #
+    #   res_ = Naᵥ_m_gate.(Vₘ)
+    #
+    #   result = transpose(hcat(collect.(res_)...))
+    #   
+    #   what this does is to: (a) convert each tuple into a 4-element vector (`collect.(res_)`)
+    #   such that res_ becomes a vector fo vectors; then (b) concatenate the vectors (`hcat(...)`)
+    #   into a matrix (NOTE the splatting of the outer vector , or vector of vector)
+    #
+    #   You'll just have to remember what each matrix column represents.
+    #
+    # To save the results to disc use something like:
+    # using JLD2
+    # jldsave("KvDR_n_gate_" * replace(string(now()), ":"=>"_")*".jld2";KᵥDRₙ=KᵥDRₙ)
+    
+    
+#     α = ifelse(useHH, alphaₘHH(v), alphaₘMJ(v))
+#     β = ifelse(useHH, betaₘHH(v), betaₘMJ(v))
+    
+    if useHH
+        α = alphaₘHH(v)
+        β = betaₘHH(v)
+    else
+        α = alphaₘMJ(v)
+        β = betaₘMJ(v)
+    end
+    # τ = 1 / (α + β)  # time constant of gating variable m
+    # x∞ = α * τ # with τ as above
+    # alternatively to incorporate temperature dependency, see hh.mod:
+    # τ = 1/(qNa10 * (α + β)) 
+    τ  = max(0.5 / (α + β), 0.02)  # time constant of gating variable m
+    x∞ = α / (α + β)
+#     ∂x = (x∞ - x) / τ
+    
+    # ∂m = αₘ * ( 1 - m) - βₘ * m
+    # requires defining q10Na
+    # m∞ = αₘ  * τₘ
+    
+    return x∞, α, β, τ
+end
+
+"""Returns pairs of key/values from a parameters struct"""
+Base.pairs(x::AbstractParameters; strip::Bool=false) = ifelse(strip, 
+                                                           map((f) -> f => stripUnits(getproperty(x, f)), fieldnames(typeof(x))),
+                                                           map((f) -> f => getproperty(x, f), fieldnames(typeof(x))),
+                                                          )
+
+@inline betaₕHH (v::Union{Int64, Float64})  = 1.0   / (exp(-(v + 35)/10) + 1)
+betaₕMJ(v::Union{Int64, Float64})  = 0.01  * (v + 45) / (exp((v+45)/1.5) - 1)    # => CAUTION: NaN when v = -45
+@inline betaᵢMJ(v::Union{Int64, Float64}) = exp(0.09 * (v + 60))
+@inline betaₘHH(v::Union{Int64, Float64})  = 4.0   * exp(-(v + 65)/18)
+@inline betaₘMJ(v::Union{Int64, Float64})  = 0.124 * (v + 30) / (exp((v+30)/7.2) - 1)    # => CAUTION: NaN when v = -30
+
+
+#END NOTE: 2022-09-01 23:25:02 
+"""Reverse of params2dict"""
+function dict2params(d::AbstractDict{Symbol, Any}, name::Symbol)
+    println("not implemented")
+end
+
+function dict2params_
+end
+
+dict2params__ () = 4
 
 """A (better ?) display for parameters structs.
 Pushed onto the Base module as `display` method for AbstractParameters"""
@@ -202,66 +320,151 @@ function disp(x::AbstractParameters)
     print(str)
 end
 
-Base.display(x::AbstractParameters) = disp(x)
-
-"""Returns pairs of key/values from a parameters struct"""
-Base.pairs(x::AbstractParameters; strip::Bool=false) = ifelse(strip, 
-                                                           map((f) -> f => stripUnits(getproperty(x, f)), fieldnames(typeof(x))),
-                                                           map((f) -> f => getproperty(x, f), fieldnames(typeof(x))),
-                                                          )
-"""Creates an OrderedDict from a parameters struct"""
-params2dict(x::AbstractParameters) = OrderedDict(sort(collect(type2dict(x)), by=(y)->y[1]))
-
-# function makeParamatersType(name::Symbol, fields::AbstractDict{Symbol, Any})
-#     fielddefs = quote end
-#     ret = quote @with_kw struct $name <: AbstractParameters end
-#     
-#     ret = Expr(:struct, $name <: AbstractParameters)
-# end
-
-"""Reverse of params2dict"""
-function dict2params(d::AbstractDict{Symbol, Any}, name::Symbol)
-    println("not implemented")
-end
-
-"""Returns a string representation of a subtype of AbstractParameters, or of 
-an instance of AbstractParameters subtype.
-"""
-function stringify(p::Union{AbstractParameters, DataType})
-    ff = if p isa AbstractParameters 
-        # BUG:2023-02-15 10:10:29 FIXME/TODO
-        # currently I cannot get the parser to properly resolve the typespec string
-        # so Unitful.Quantity fields will revert to Any in the merged struct
-        # calls stringify in utils.jl -> only for units! (that definition should be moved to units.jl?)
-        return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*" = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
-#         return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*stringifyQuantityType(getproperty(p,x))*" = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
-#         return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*"::Unitful.Quantity = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
-    elseif supertype(p) == AbstractParameters # p is a Type so we instantiate it here
-        pp = p()
-        return collect(map((x) -> String(x)*"::Unitful.Quantity = "*stringify(getproperty(pp, x)), fieldnames(p))) # collect default values
-    else
-        @error "Expecting an AbstractParameters subtype or an instance of it"
+function dvpassive!(xdot, x, p, t; 
+                    mollify::Bool = true,
+#                     useCurrentDensity::Bool=true,
+                    useMonitor=false)
+    # TODO: DONE 2023-02-23 09:04:59
+    # decide wether to simplify by just using ρX and γXᵤ for channel X 
+    # and calculate the derived vars here (γX and γXₘ) - although this brings 
+    # more function calls here
+    # OR: keep as is and use the parameters structure (@with_kw struct ...) to
+    # calculate the derived vars (γX, γXₘ) from ρX and γXᵤ
+    # 
+    # if you want to play around with various values for the ρX you have to generate
+    # a new parameters struct anyway (via reconstruct or from scratch using 
+    # their c'tor) so probably better to stick with the latter approach
+    # (currently used) - it would also save us from passing too many Units objects
+    # around via 'p'
+    
+    # NOTE: 2023-02-23 09:06:05
+    # for a typical passive Vm evolution you need γ𝓁ᵤ if at least 1 pS !
+    
+#     global t_vec,  Iinj_vec
+#     global v_vec,  ∂v_vec
+#     global I𝓁_vec, I𝓁ₘ_vec
+#     global Iₑ_vec, Iₑₘ_vec
+#     global Iₜ_vec, Iₜₘ_vec
+#     global sampletimes
+    
+    C, γ𝓁, E𝓁, t₀, t₁, Iinj, uᵥ, uₜ, uᵢ = p;
+    
+    """Membrane voltage at this time point.
+    
+        This is either: 
         
-    end
-end
+        * the INITIAL CONDITION (i.e., the Eₘ in the parameters vector 'p') at
+            the start of the differential equation solving process
+            
+        * the membrane voltage calculated by the previous iteration of the solver
+    
+    **NOTE:** the integrator (and solver) do not seem to cope well with Unitful 
+    Quantities especially when comparing time variables in each step;
+    
+    So, best is to feed them Float64 values i.e. stripped from Units, but we do 
+    bring those units back into the calculation of currents etc so that we 
+    circumvent dimensional scaling business...
+    """
+    v = x[1]
+    vv = v * uᵥ  
+    
+    """
+    Unitful membrane voltage scaled to mV & stripped, 
+    NOTE: THIS is what we feed to the differential eqns here.
+    see NOTE: 2022-08-30 16:29:24
+    """
+    v_  = stripUnits(vv, u"mV")
+    
+    """Unitful time
+    """
+    tₜ = t * uₜ
+    
+#     uₐ = unit(Aₘ) # pass it through p, saves a function call
+    
+    # this is OK with Iinj as a Quantity
+    """Unitful injected (electrode) current
+    
+    If `mollify`is `true` i_inj is created by a "mollfied" step - smooth 
+    approximation to two Heaviside functions (OFF → ON then ON → OFF)
+    Otherwise, it is just two Heaviside functions (OFF → ON then ON → OFF)
+    
+    """
+    Iₑ = ifelse(mollify, somaticCurrentInjection(tₜ, t₀, t₁, Iinj), tₜ ≥ t₀ && tₜ < t₁ ? Iinj : zero(Iinj))
+    
+    """membrane 'leak' curent driven by E𝓁 - v given γ𝓁"""
+    I𝓁  = γ𝓁  * (E𝓁 - vv) # A, see DIMENSIONAL ANALYSIS above; should be ZERO at initial condition when v == Eₘ !!!
+    #I𝓁  = γ𝓁  * (vv -E𝓁) # WARNING -> MESSY
+    """total current = membrane 'leak' current + injected current"""
+    Iₜ  = I𝓁 + Iₑ       # A; should be ZERO at initial condition (v == Eₘ AND no current injection) 
+    """rate of change in membrane potential - using currents
+    NOTE: 2022-08-30 16:14:58
+    using current densities or just currents in the calculation of ∂v, below,
+    should yield the same result (with the same quantity dimensions)
+    
+    
+    DON'T MIX THEM UP:
+    in the first case divide current density by SPECIFIC mb capacitance
+    IXₘ / Cₘ so we have A/m² / F/m² => A/F = V/s
+    the second case is even more trivial: divide current by mb capacitance 
+    IX/C
+    
+    Must scale to given voltage & time units, then strip to Float64"""
+    ∂v = stripUnits(Iₜ/C, uᵥ/uₜ) # dimensionless
 
-"""In progress - tying to fix BUG:2023-02-15 10:10:29 """
-function stringify2(p::Union{AbstractParameters, DataType})
-    ff = if p isa AbstractParameters 
-        # BUG:2023-02-15 10:10:29 FIXME/TODO
-        # currently I cannot get the parser to properly resolve the typespec string
-        # so Unitful.Quantity fields will revert to Any in the merged struct
-        # calls stringify in utils.jl -> only for units! (that definition should be moved to units.jl?)
-        return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*" = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
-#         return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*stringifyQuantityType(getproperty(p,x))*" = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
-#         return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*"::Unitful.Quantity = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
-    elseif supertype(p) == AbstractParameters # p is a Type so we instantiate it here
-        pp = p()
-        return collect(map((x) -> String(x)*"::Unitful.Quantity = "*stringify(getproperty(pp, x)), fieldnames(p))) # collect default values
-    else
-        @error "Expecting an AbstractParameters subtype or an instance of it"
-        
-    end
+#     if useCurrentDensity
+#         """injected current density: i_inj/Aₘ"""
+#         Iₑₘ = i_inj/Aₘ # A/m²; injected current density ("electrode" current)
+#         """membrane 'leak' curent density driven by E𝓁 - v given γ𝓁ₘ → ALWAYS present!"""
+#         I𝓁ₘ = γ𝓁ₘ * (E𝓁 - vv) # A/m², see DIMENSIONAL ANALYSIS above; should be ZERO at initial condition when v == Eₘ !!!
+#         """total current density = membrane 'leak' current density + injected current density"""
+#         Iₜₘ  = I𝓁ₘ + Iₑₘ       # A/m²; should be ZERO at initial condition (v == Eₘ AND no current injection) 
+#         """rate of change in membrane potential - using current DENSITIES
+#         Must scale to given voltage & time units, then strip to Float64"""
+#         ∂v = stripUnits(Iₜₘ/Cₘ, uᵥ/uₜ)
+#     else
+#         """injected current: i_inj"""
+#         Iₑ  = i_inj # A; injected current ("electrode" current)
+#         """membrane 'leak' curent driven by E𝓁 - v given γ𝓁"""
+#         I𝓁  = γ𝓁  * (E𝓁 - vv) # A, see DIMENSIONAL ANALYSIS above; should be ZERO at initial condition when v == Eₘ !!!
+#         """total current = membrane 'leak' current + injected current"""
+#         Iₜ  = I𝓁 + Iₑ       # A; should be ZERO at initial condition (v == Eₘ AND no current injection) 
+#         """rate of change in membrane potential - using currents
+#         NOTE: 2022-08-30 16:14:58
+#         using current densities or just currents in the calculation of ∂v, below,
+#         should yield the same result (with the same quantity dimensions)
+#         
+#         
+#         DON'T MIX THEM UP:
+#         in the first case divide current density by SPECIFIC mb capacitance
+#         IXₘ / Cₘ so we have A/m² / F/m² => A/F = V/s
+#         the second case is even more trivial: divide current by mb capacitance 
+#         IX/C
+#         
+#         Must scale to given voltage & time units, then strip to Float64"""
+#         ∂v = stripUnits(Iₜ/C, uᵥ/uₜ) # dimensionless
+#     end
+    
+    "store in xdot"
+    xdot[1] = ∂v # dimensionless
+    
+#     # CAUTION HERE: somehow the UnitfulRecipes don't work when constructing a
+#     # DataFrame with series of Vector{Quantity{Float64}}
+#     # therefore we store them as stripped floats after scaling to correct units
+#     # them re-attach the units in the runModel(...) caller AFTER we've collected
+#     # them in a DataFrame
+#     if t in sampletimes
+#         push!(t_vec,    t)
+#         push!(Iinj_vec, stripUnits(Iinj, uᵢ))
+#         push!(∂v_vec,   ∂v)
+#         push!(Iₑ_vec,   stripUnits(Iₑ,   uᵢ)) # current density!
+#         push!(Iₑₘ_vec,  stripUnits(Iₑₘ,  uᵢ/uₐ)) # current density!
+#         push!(I𝓁_vec,   stripUnits(I𝓁,   uᵢ))
+#         push!(I𝓁ₘ_vec,  stripUnits(I𝓁ₘ,  uᵢ/uₐ))
+#         push!(Iₜ_vec,   stripUnits(Iₜ,   uᵢ))
+#         push!(Iₜₘ_vec,  stripUnits(Iₜₘ,  uᵢ/uₐ))
+#         push!(v_vec,    x[1])
+#     end
+    
 end
 
 """Dynamic creation of new AbstractParameters subtype containing fields from 
@@ -450,6 +653,183 @@ function mergeParameters(typename::Symbol, paramStructs...)
     
 end
 
+"""Naᵥ 'h' gating particle (inactivation) - Migliore et al 1999"""
+function Naᵥ_h_gate(v::Union{Int64, Float64}; useHH::Bool=false)
+    if useHH
+        α  = alphaₕHH(v)
+        β  = betaₕHH(v)
+    else
+        α  = alphaₕMJ(v)
+        β  = betaₕMJ(v)
+    end
+    # τ = 1 / (α + β)
+    #  x∞ = α * τ
+    τ  = max(0.5 / (α + β), 0.5) # time constant of gating variable h
+    x∞ = 1/(1 + exp((v+50)/4))
+    
+    # ∂h = αₕ * (1 - h) - βₕ * h
+    # alternatively, for temperature dependency: 
+    # τₕ = 1 / (qNa10 * (αₕ + βₕ))
+    # τₕ = 1 / (αₕ + βₕ) # time constant of gating variable h
+    # h∞ = αₕ * τₕ
+    
+    return x∞, α, β, τ
+end
+
+"""Naᵥ 'i' gating particle ('slow' inactivation) - Migliore et al 1999"""
+function Naᵥ_i_gate(v::Union{Int64, Float64}, bᵢ::Union{Int64, Float64}=1; useHH::Bool=false)
+    α = alphaᵢMJ(v)
+    β = betaᵢMJ(v)
+    τ = max(3e4 * β / (1 + α), 10)
+    eterm = exp(v + 58)/2.0
+    x∞ = (1 + bᵢ * eterm) / (1 + eterm)
+    return x∞, α, β, τ
+end
+
+"""Naᵥ 'i' gating particle ('slow' inactivation) - Migliore et al 1999"""
+function Naᵥ_i_gate(v::Float64, bᵢ::Int64=1; useHH::Bool=false)
+    α = alphaᵢMJ(v)
+    β = betaᵢMJ(v)
+    τ = max(3e4 * β / (1 + α), 10)
+    eterm = exp(v + 58)/2.0
+    x∞ = (1 + bᵢ * eterm) / (1 + eterm)
+    return x∞, α, β, τ
+end
+
+
+
+"""Nernst (reversal) potential for ion X given [X]ᵢ, [X]ₒ, temperature t and ion's valence zₓ
+$(TYPEDSIGNATURES)
+"""
+@inline Nernst(Xᵢ::Concentration{T}, Xₒ::Concentration{U}, zₓ::Int64, t::Unitful.Temperature{V}) where {T<:Real, U<:Real, V<:Real} = Unitful.R * uconvert(u"K", t) * log(Xₒ/Xᵢ) / (zₓ * 𝑭)
+
+Nernst() = Unitful.R
+
+"""Creates an OrderedDict from a parameters struct"""
+params2dict(x::AbstractParameters) = OrderedDict(sort(collect(type2dict(x)), by=(y)->y[1]))
+
+function R!(rates, xc, xd, p, t)
+end
+
+function runPDMP(params::ModelParameters, tspan::Union{NTuple{2,Union{Float64, Unitful.Time{Float64}}},Nothing}=nothing; 
+                 mollify::Bool=true,
+                 useRV::Bool = true,
+                 useCurrentDensity::Bool=true, # this, just to verify dv! works
+                 asDataFrame::Bool=true, 
+                 useMonitor::Bool=false,
+                 kwargs...)
+
+    @unpack_ModelParameters params
+    
+    #BEGIN Calculated (derived) parameters
+    
+    """Surface area"""
+    Aₘ::Unitful.Area{Float64} = π * D^2 
+
+    """Membrane electrical capacitance"""
+    C::Unitful.Capacitance{Float64} = Cₘ * Aₘ
+
+    """'Leak' channel electrical conductance density"""
+    γ𝓁ₘ::ElectricalConductanceDensity{Float64} = γ𝓁ᵤ * 𝒏𝓁
+    
+    """'Leak' channel electrical conductance"""
+    γ𝓁::Unitful.ElectricalConductance{Float64} = γ𝓁ₘ * Aₘ
+
+    """Maximal Naᵥ conductance density;
+    i.e. when all Naᵥ are fully open"""
+    γNaₘ::ElectricalConductanceDensity{Float64} = γNaᵤ * 𝒏Na
+    
+    """Maximal Naᵥ conductance"""
+    γNa::Unitful.ElectricalConductance{Float64} = γNaₘ * Aₘ
+
+    """Maximal Kᵥ conductance density;
+    i.e. when all Kᵥ are fully open"""
+    γKₘ::ElectricalConductanceDensity{Float64} = γKᵤ * 𝒏K
+    
+    """Maximal Kᵥ conductance"""
+    γK::Unitful.ElectricalConductance{Float64} = γKₘ * Aₘ
+    
+    #END Calculated (derived) parameters
+
+    uₗ = unit(D)
+    uₐ = unit(Aₘ)
+    uᵥ = unit(E𝓁)
+    uᵪ = unit(C)
+    uᵧ = unit(γ𝓁)
+    uₙ = unit(𝒏𝓁) # 1/uₐ
+    uᵢ = unit(Iinj)
+    
+    uₜ₀ = unit(t₀) # save for later
+    uₜ = unit(1u"ms")
+    
+    # see NOTE: 2022-09-01 12:33:47
+    t₀ = uconvert(uₜ, t₀)
+    t₁ = uconvert(uₜ, t₁)
+
+    if tspan == nothing
+        tspan = timespan # provided by ModelParameters params
+    end
+
+    # solver doesn't do well with time Quantities ?
+    tspan = map((x) -> stripUnits(x, uₜ), tspan) 
+
+    xc₀ = [stripUnits(Eₘ, uᵥ), 0., 1., 0.] 
+    
+    problem = PDMP.PDMPProblem( F!, R!, nu, xc₀, xd₀, p, tspan)
+    
+    sol = solve(problem, CHV(:lsoda); kwargs...)
+    
+end
+
+"""Returns a string representation of a subtype of AbstractParameters, or of 
+an instance of AbstractParameters subtype.
+"""
+function stringify(p::Union{AbstractParameters, DataType})
+    ff = if p isa AbstractParameters 
+        # BUG:2023-02-15 10:10:29 FIXME/TODO
+        # currently I cannot get the parser to properly resolve the typespec string
+        # so Unitful.Quantity fields will revert to Any in the merged struct
+        # calls stringify in utils.jl -> only for units! (that definition should be moved to units.jl?)
+        return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*" = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
+#         return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*stringifyQuantityType(getproperty(p,x))*" = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
+#         return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*"::Unitful.Quantity = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
+    elseif supertype (p) == AbstractParameters # p is a Type so we instantiate it here
+        pp = p()
+        return collect(map((x) -> String(x)*"::Unitful.Quantity = "*stringify(getproperty(pp, x)), fieldnames(p))) # collect default values
+    else
+        @error "Expecting an AbstractParameters subtype or an instance of it"
+        
+    end
+end
+
+"""In progress - tying to fix BUG:2023-02-15 10:10:29 """
+ function stringify2(p::Union{AbstractParameters, DataType})
+    ff = if p isa AbstractParameters 
+        # BUG:2023-02-15 10:10:29 FIXME/TODO
+        # currently I cannot get the parser to properly resolve the typespec string
+        # so Unitful.Quantity fields will revert to Any in the merged struct
+        # calls stringify in utils.jl -> only for units! (that definition should be moved to units.jl?)
+        return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*" = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
+#         return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*stringifyQuantityType(getproperty(p,x))*" = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
+#         return collect(map((x) -> isa(getproperty(p,x), Quantity) ? String(x)*"::Unitful.Quantity = "*stringify(getproperty(p, x)) : String(x)*" = "*stringify(getproperty(p,x)), fieldnames(typeof(p))))
+    elseif supertype(p) == AbstractParameters # p is a Type so we instantiate it here
+        pp = p()
+        return collect(map((x) -> String(x)*"::Unitful.Quantity = "*stringify(getproperty(pp, x)), fieldnames(p))) # collect default values
+    else
+        @error "Expecting an AbstractParameters subtype or an instance of it"
+        
+    end
+end
+
+@inline function test_inline(a,b,c)
+end
+
+function test_where (a::T) where T<:AbstractParameters
+end
+
+@inline function test_where (a::T) where T<:AbstractParameters
+end
+
 # """A generalized unpacking of structs.
 # 
 # $(TYPEDSIGNATURES)
@@ -545,7 +925,7 @@ macro unpackParameters(pstruct)
 end
     
 
-macro unpackParameters2(pstruct)
+ macro unpackParameters2(pstruct)
     # field symbols -> this, eval'ed at REPL, resolves to the list of symbols in :pstruct
     # the symbols and obkjects bound to them become available in the caller
     # namespace
@@ -597,138 +977,12 @@ Results are dimensionless
 NOTE: 2023-02-11 16:02:58 
 The unitful versions are experimental - do NOT use!
 """
-#BEGIN NOTE: 2022-09-01 23:25:02 classical H&H model
-# below, the *HH functions follow the Hodgkin-Huxley (HH) model (Steratt & Willshaw)
-@inline alphaₘHH(v::Union{Int64, Float64}) = 0.1   * (v + 40) / (1 - exp(-(v + 40)/10))  # => CAUTION: NaN when v = -40 !!!
-@inline betaₘHH(v::Union{Int64, Float64})  = 4.0   * exp(-(v + 65)/18)
 
-@inline alphaₕHH(v::Union{Int64, Float64}) = 0.07  * exp(-(v + 65)/20) 
-@inline betaₕHH(v::Union{Int64, Float64})  = 1.0   / (exp(-(v + 35)/10) + 1)
+#BEGIN NOTE: 2022-09-01 23:25:36 
 
-#END NOTE: 2022-09-01 23:25:02 classical H&H model
 
-#BEGIN NOTE: 2022-09-01 23:25:36 RV (Migliore … Johnston 1999 - MMJ) model
-@inline alphaₘMJ(v::Union{Int64, Float64}) = 0.4   * (v + 30) / (1 - exp(-(v + 30)/7.2)) # => CAUTION: NaN when v = -30
-@inline betaₘMJ(v::Union{Int64, Float64})  = 0.124 * (v + 30) / (exp((v+30)/7.2) - 1)    # => CAUTION: NaN when v = -30
+#END NOTE: 2022-09-01 23:25:36
 
-@inline alphaₕMJ(v::Union{Int64, Float64}) = 0.03  * (v + 45) / (1 - exp(-(v+45)/1.5))   # => CAUTION: NaN when v = -45
-@inline betaₕMJ(v::Union{Int64, Float64})  = 0.01  * (v + 45) / (exp((v+45)/1.5) - 1)    # => CAUTION: NaN when v = -45
-
-@inline alphaᵢMJ(v::Union{Int64, Float64}) = exp(0.45 * (v + 60))
-@inline betaᵢMJ(v::Union{Int64, Float64}) = exp(0.09 * (v + 60))
-#END NOTE: 2022-09-01 23:25:36 RV (Migliore-Johnston - MMJ) model
-
-"""Naᵥ 'm' gating particle (activation) - Migliore et al 1999"""
-function Naᵥ_m_gate(v::Union{Int64, Float64}; useHH::Bool=false)
-    
-    # NOTE: 2023-02-24 13:59:20
-    # Example code to plot these (this is also valid for the functions in KV.jl):
-    #
-    # Vₘ = Vector(range(-100., 50., 300)) # membrane potential from -100 mV to +50 mV in 0.5 mV steps
-    #
-    # Naαₘ = <enter your function here>. (Vₘ) # NOTE the dot notation to vectorize the function call in Julia !
-    #
-    #       (i.e. choose from alphaₘHH, alphaₘMJ or any other )
-    #
-    # then plot:
-    #
-    # plot(Vₘ, Naαₘ; show=true) # or plot(Vₘ, Naαₘ); gui()
-    #
-    # and similarly for βₘ, τₘ and for αₕ and βₕ etc. below
-    #
-    # When using vectors, vectorize with dot notation.
-    #
-    # To plot `m` itself - this is the steady-state ! - calculate then plot
-    # m∞; in the ODE system functions, ∂m is approximated as (m∞ - m) / τₘ
-    #
-    #
-    #
-    # The approach is the same for ano other channels in the model.
-    #
-    # To apply the entire function to a vector, e.g. to call something like
-    #       Naᵥ_m_gate.(Vₘ)
-    #
-    # • remeber that this function returns four scalars x∞, α, β, τ for one 
-    #   scalar argument `v`; 
-    #
-    # • ⇒ when vectorizing it [ i.e., Naᵥ_m_gate.(Vₘ) ], the result will be a 
-    #   vector of 4-tuples (one tuple of x∞, α, β, τ per sample in the Vₘ vector)
-    #
-    #   … these need collecting in a matrix:
-    #
-    #
-    #   res_ = Naᵥ_m_gate.(Vₘ)
-    #
-    #   result = transpose(hcat(collect.(res_)...))
-    #   
-    #   what this does is to: (a) convert each tuple into a 4-element vector (`collect.(res_)`)
-    #   such that res_ becomes a vector fo vectors; then (b) concatenate the vectors (`hcat(...)`)
-    #   into a matrix (NOTE the splatting of the outer vector , or vector of vector)
-    #
-    #   You'll just have to remember what each matrix column represents.
-    #
-    # To save the results to disc use something like:
-    # using JLD2
-    # jldsave("KvDR_n_gate_" * replace(string(now()), ":"=>"_")*".jld2";KᵥDRₙ=KᵥDRₙ)
-    
-    
-#     α = ifelse(useHH, alphaₘHH(v), alphaₘMJ(v))
-#     β = ifelse(useHH, betaₘHH(v), betaₘMJ(v))
-    
-    if useHH
-        α = alphaₘHH(v)
-        β = betaₘHH(v)
-    else
-        α = alphaₘMJ(v)
-        β = betaₘMJ(v)
-    end
-    # τ = 1 / (α + β)  # time constant of gating variable m
-    # x∞ = α * τ # with τ as above
-    # alternatively to incorporate temperature dependency, see hh.mod:
-    # τ = 1/(qNa10 * (α + β)) 
-    τ  = max(0.5 / (α + β), 0.02)  # time constant of gating variable m
-    x∞ = α / (α + β)
-#     ∂x = (x∞ - x) / τ
-    
-    # ∂m = αₘ * ( 1 - m) - βₘ * m
-    # requires defining q10Na
-    # m∞ = αₘ  * τₘ
-    
-    return x∞, α, β, τ
-end
-
-"""Naᵥ 'h' gating particle (inactivation) - Migliore et al 1999"""
-function Naᵥ_h_gate(v::Union{Int64, Float64}; useHH::Bool=false)
-    if useHH
-        α  = alphaₕHH(v)
-        β  = betaₕHH(v)
-    else
-        α  = alphaₕMJ(v)
-        β  = betaₕMJ(v)
-    end
-    # τ = 1 / (α + β)
-    #  x∞ = α * τ
-    τ  = max(0.5 / (α + β), 0.5) # time constant of gating variable h
-    x∞ = 1/(1 + exp((v+50)/4))
-    
-    # ∂h = αₕ * (1 - h) - βₕ * h
-    # alternatively, for temperature dependency: 
-    # τₕ = 1 / (qNa10 * (αₕ + βₕ))
-    # τₕ = 1 / (αₕ + βₕ) # time constant of gating variable h
-    # h∞ = αₕ * τₕ
-    
-    return x∞, α, β, τ
-end
-
-"""Naᵥ 'i' gating particle ('slow' inactivation) - Migliore et al 1999"""
-function Naᵥ_i_gate(v::Union{Int64, Float64}, bᵢ::Union{Int64, Float64}=1; useHH::Bool=false)
-    α = alphaᵢMJ(v)
-    β = betaᵢMJ(v)
-    τ = max(3e4 * β / (1 + α), 10)
-    eterm = exp(v + 58)/2.0
-    x∞ = (1 + bᵢ * eterm) / (1 + eterm)
-    return x∞, α, β, τ
-end
 
 
 
@@ -745,225 +999,6 @@ end
 
 
     
-function dvpassive!(xdot, x, p, t; 
-                    mollify::Bool = true,
-#                     useCurrentDensity::Bool=true,
-                    useMonitor=false)
-    # TODO: DONE 2023-02-23 09:04:59
-    # decide wether to simplify by just using ρX and γXᵤ for channel X 
-    # and calculate the derived vars here (γX and γXₘ) - although this brings 
-    # more function calls here
-    # OR: keep as is and use the parameters structure (@with_kw struct ...) to
-    # calculate the derived vars (γX, γXₘ) from ρX and γXᵤ
-    # 
-    # if you want to play around with various values for the ρX you have to generate
-    # a new parameters struct anyway (via reconstruct or from scratch using 
-    # their c'tor) so probably better to stick with the latter approach
-    # (currently used) - it would also save us from passing too many Units objects
-    # around via 'p'
-    
-    # NOTE: 2023-02-23 09:06:05
-    # for a typical passive Vm evolution you need γ𝓁ᵤ if at least 1 pS !
-    
-#     global t_vec,  Iinj_vec
-#     global v_vec,  ∂v_vec
-#     global I𝓁_vec, I𝓁ₘ_vec
-#     global Iₑ_vec, Iₑₘ_vec
-#     global Iₜ_vec, Iₜₘ_vec
-#     global sampletimes
-    
-    C, γ𝓁, E𝓁, t₀, t₁, Iinj, uᵥ, uₜ, uᵢ = p;
-    
-    """Membrane voltage at this time point.
-    
-        This is either: 
-        
-        * the INITIAL CONDITION (i.e., the Eₘ in the parameters vector 'p') at
-            the start of the differential equation solving process
-            
-        * the membrane voltage calculated by the previous iteration of the solver
-    
-    **NOTE:** the integrator (and solver) do not seem to cope well with Unitful 
-    Quantities especially when comparing time variables in each step;
-    
-    So, best is to feed them Float64 values i.e. stripped from Units, but we do 
-    bring those units back into the calculation of currents etc so that we 
-    circumvent dimensional scaling business...
-    """
-    v = x[1]
-    vv = v * uᵥ  
-    
-    """
-    Unitful membrane voltage scaled to mV & stripped, 
-    NOTE: THIS is what we feed to the differential eqns here.
-    see NOTE: 2022-08-30 16:29:24
-    """
-    v_  = stripUnits(vv, u"mV")
-    
-    """Unitful time
-    """
-    tₜ = t * uₜ
-    
-#     uₐ = unit(Aₘ) # pass it through p, saves a function call
-    
-    # this is OK with Iinj as a Quantity
-    """Unitful injected (electrode) current
-    
-    If `mollify`is `true` i_inj is created by a "mollfied" step - smooth 
-    approximation to two Heaviside functions (OFF → ON then ON → OFF)
-    Otherwise, it is just two Heaviside functions (OFF → ON then ON → OFF)
-    
-    """
-    Iₑ = ifelse(mollify, somaticCurrentInjection(tₜ, t₀, t₁, Iinj), tₜ ≥ t₀ && tₜ < t₁ ? Iinj : zero(Iinj))
-    
-    """membrane 'leak' curent driven by E𝓁 - v given γ𝓁"""
-    I𝓁  = γ𝓁  * (E𝓁 - vv) # A, see DIMENSIONAL ANALYSIS above; should be ZERO at initial condition when v == Eₘ !!!
-    #I𝓁  = γ𝓁  * (vv -E𝓁) # WARNING -> MESSY
-    """total current = membrane 'leak' current + injected current"""
-    Iₜ  = I𝓁 + Iₑ       # A; should be ZERO at initial condition (v == Eₘ AND no current injection) 
-    """rate of change in membrane potential - using currents
-    NOTE: 2022-08-30 16:14:58
-    using current densities or just currents in the calculation of ∂v, below,
-    should yield the same result (with the same quantity dimensions)
-    
-    
-    DON'T MIX THEM UP:
-    in the first case divide current density by SPECIFIC mb capacitance
-    IXₘ / Cₘ so we have A/m² / F/m² => A/F = V/s
-    the second case is even more trivial: divide current by mb capacitance 
-    IX/C
-    
-    Must scale to given voltage & time units, then strip to Float64"""
-    ∂v = stripUnits(Iₜ/C, uᵥ/uₜ) # dimensionless
 
-#     if useCurrentDensity
-#         """injected current density: i_inj/Aₘ"""
-#         Iₑₘ = i_inj/Aₘ # A/m²; injected current density ("electrode" current)
-#         """membrane 'leak' curent density driven by E𝓁 - v given γ𝓁ₘ → ALWAYS present!"""
-#         I𝓁ₘ = γ𝓁ₘ * (E𝓁 - vv) # A/m², see DIMENSIONAL ANALYSIS above; should be ZERO at initial condition when v == Eₘ !!!
-#         """total current density = membrane 'leak' current density + injected current density"""
-#         Iₜₘ  = I𝓁ₘ + Iₑₘ       # A/m²; should be ZERO at initial condition (v == Eₘ AND no current injection) 
-#         """rate of change in membrane potential - using current DENSITIES
-#         Must scale to given voltage & time units, then strip to Float64"""
-#         ∂v = stripUnits(Iₜₘ/Cₘ, uᵥ/uₜ)
-#     else
-#         """injected current: i_inj"""
-#         Iₑ  = i_inj # A; injected current ("electrode" current)
-#         """membrane 'leak' curent driven by E𝓁 - v given γ𝓁"""
-#         I𝓁  = γ𝓁  * (E𝓁 - vv) # A, see DIMENSIONAL ANALYSIS above; should be ZERO at initial condition when v == Eₘ !!!
-#         """total current = membrane 'leak' current + injected current"""
-#         Iₜ  = I𝓁 + Iₑ       # A; should be ZERO at initial condition (v == Eₘ AND no current injection) 
-#         """rate of change in membrane potential - using currents
-#         NOTE: 2022-08-30 16:14:58
-#         using current densities or just currents in the calculation of ∂v, below,
-#         should yield the same result (with the same quantity dimensions)
-#         
-#         
-#         DON'T MIX THEM UP:
-#         in the first case divide current density by SPECIFIC mb capacitance
-#         IXₘ / Cₘ so we have A/m² / F/m² => A/F = V/s
-#         the second case is even more trivial: divide current by mb capacitance 
-#         IX/C
-#         
-#         Must scale to given voltage & time units, then strip to Float64"""
-#         ∂v = stripUnits(Iₜ/C, uᵥ/uₜ) # dimensionless
-#     end
-    
-    "store in xdot"
-    xdot[1] = ∂v # dimensionless
-    
-#     # CAUTION HERE: somehow the UnitfulRecipes don't work when constructing a
-#     # DataFrame with series of Vector{Quantity{Float64}}
-#     # therefore we store them as stripped floats after scaling to correct units
-#     # them re-attach the units in the runModel(...) caller AFTER we've collected
-#     # them in a DataFrame
-#     if t in sampletimes
-#         push!(t_vec,    t)
-#         push!(Iinj_vec, stripUnits(Iinj, uᵢ))
-#         push!(∂v_vec,   ∂v)
-#         push!(Iₑ_vec,   stripUnits(Iₑ,   uᵢ)) # current density!
-#         push!(Iₑₘ_vec,  stripUnits(Iₑₘ,  uᵢ/uₐ)) # current density!
-#         push!(I𝓁_vec,   stripUnits(I𝓁,   uᵢ))
-#         push!(I𝓁ₘ_vec,  stripUnits(I𝓁ₘ,  uᵢ/uₐ))
-#         push!(Iₜ_vec,   stripUnits(Iₜ,   uᵢ))
-#         push!(Iₜₘ_vec,  stripUnits(Iₜₘ,  uᵢ/uₐ))
-#         push!(v_vec,    x[1])
-#     end
-    
-end
 
-function R!(rates, xc, xd, p, t)
-end
-
-function runPDMP(params::ModelParameters, tspan::Union{NTuple{2,Union{Float64, Unitful.Time{Float64}}},Nothing}=nothing; 
-                 mollify::Bool=true,
-                 useRV::Bool = true,
-                 useCurrentDensity::Bool=true, # this, just to verify dv! works
-                 asDataFrame::Bool=true, 
-                 useMonitor::Bool=false,
-                 kwargs...)
-
-    @unpack_ModelParameters params
-    
-    #BEGIN Calculated (derived) parameters
-    
-    """Surface area"""
-    Aₘ::Unitful.Area{Float64} = π * D^2 
-
-    """Membrane electrical capacitance"""
-    C::Unitful.Capacitance{Float64} = Cₘ * Aₘ
-
-    """'Leak' channel electrical conductance density"""
-    γ𝓁ₘ::ElectricalConductanceDensity{Float64} = γ𝓁ᵤ * 𝒏𝓁
-    
-    """'Leak' channel electrical conductance"""
-    γ𝓁::Unitful.ElectricalConductance{Float64} = γ𝓁ₘ * Aₘ
-
-    """Maximal Naᵥ conductance density;
-    i.e. when all Naᵥ are fully open"""
-    γNaₘ::ElectricalConductanceDensity{Float64} = γNaᵤ * 𝒏Na
-    
-    """Maximal Naᵥ conductance"""
-    γNa::Unitful.ElectricalConductance{Float64} = γNaₘ * Aₘ
-
-    """Maximal Kᵥ conductance density;
-    i.e. when all Kᵥ are fully open"""
-    γKₘ::ElectricalConductanceDensity{Float64} = γKᵤ * 𝒏K
-    
-    """Maximal Kᵥ conductance"""
-    γK::Unitful.ElectricalConductance{Float64} = γKₘ * Aₘ
-    
-    #END Calculated (derived) parameters
-
-    uₗ = unit(D)
-    uₐ = unit(Aₘ)
-    uᵥ = unit(E𝓁)
-    uᵪ = unit(C)
-    uᵧ = unit(γ𝓁)
-    uₙ = unit(𝒏𝓁) # 1/uₐ
-    uᵢ = unit(Iinj)
-    
-    uₜ₀ = unit(t₀) # save for later
-    uₜ = unit(1u"ms")
-    
-    # see NOTE: 2022-09-01 12:33:47
-    t₀ = uconvert(uₜ, t₀)
-    t₁ = uconvert(uₜ, t₁)
-
-    if tspan == nothing
-        tspan = timespan # provided by ModelParameters params
-    end
-
-    # solver doesn't do well with time Quantities ?
-    tspan = map((x) -> stripUnits(x, uₜ), tspan) 
-
-    xc₀ = [stripUnits(Eₘ, uᵥ), 0., 1., 0.] 
-    
-    problem = PDMP.PDMPProblem( F!, R!, nu, xc₀, xd₀, p, tspan)
-    
-    sol = solve(problem, CHV(:lsoda); kwargs...)
-    
-end
-
-@inline function test_inline(a,b,c)
-end
+a = b

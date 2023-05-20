@@ -4,6 +4,10 @@
     begin                : Apr 2 2003
     author               : 2003 Massimo Callegari
     email                : massimocallegari@yahoo.it
+    
+    modified             : 2023-05-20 16:25:28
+    author               : 2023 Cezar M. Tigaret
+    email                : cezar.tigaret@gmail.com
  ***************************************************************************/
 /***************************************************************************
  *                                                                         *
@@ -22,9 +26,14 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     m_struct->setText(i18n("Show Methods"));
     m_func->setText(i18n("Show Classes"));
 
+    bool commentLine = false;
+    bool paramscontinue = false;
+
     Symbol type;
     QString name;
     QString params;
+    QString returnAnnot;
+    QString endcolon;
     QString current_class_name;
 
     QTreeWidgetItem *node = nullptr;
@@ -53,53 +62,138 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         m_symbols->setRootIsDecorated(0);
     }
 
-    static const QRegularExpression class_regexp(QLatin1String("^class ([a-zA-Z0-9_]+)(\\((.*)\\))?:"));
-    static const QRegularExpression function_regexp(QLatin1String("^( *)def ([a-zA-Z_0-9]+)(\\(.*\\))?:"));
+    static const QChar ret[1] = {0x21b5};
+    static const QString contStr(ret, 1);
+
+    static const QRegularExpression comment_regexp(QLatin1String("^[#]"), QRegularExpression::UseUnicodePropertiesOption);
+    static const QRegularExpression ml_docsctring_regexp(QLatin1String("\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
+    static const QRegularExpression sl_docstring_regexp(QLatin1String("\"\"\"(.*)?\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
+
+    // captures:                                                       1=class name   2=class def params
+    static const QRegularExpression class_regexp(QLatin1String("^class ([a-zA-Z0-9_]+)(\\((.*)\\))?( *):"),
+                                                 QRegularExpression::UseUnicodePropertiesOption);
+    
+    static const QRegularExpression function_regexp(
+        // captures:    1       2=name          3   4=params+annots                5=return annot
+        // QLatin1String("^( *)def ([\\w:\\{\\}!]+)( *)(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)?( -> [\\w.,\\s\\[\\]]+)?( *):$"),
+        // captures:    1       2=name          3   4=params+annots                          5=return annot         6   7        
+        QLatin1String("^( *)def ([\\w:\\{\\}!]+)( *)(\\(.*[,;:\\/\\{\\[\\]\\}\\s]*\\)?\\s*)?( -> [\\w.,\\s\\[\\]]+)?( *)(:)+$"),
+        QRegularExpression::UseUnicodePropertiesOption);
+    
+    static const QRegularExpression function_regexp2(
+        QLatin1String("^( *)def ([\\w:\\{\\}!]+)( *)(\\(.*[,;:\\/\\{\\[\\]\\}\\s]*\\s*)$"),
+        QRegularExpression::UseUnicodePropertiesOption
+    );
+
+    // captures:                                                            2=func name    3   4=params   5=return annot          6       
+    // static const QRegularExpression function_regexp(QLatin1String("^( *)def ([a-zA-Z_0-9]+)( *)(\\(.*\\))?( -> [\\w.,\\s\\[\\]]+)?( *):$"),
+    //                                                 QRegularExpression::UseUnicodePropertiesOption);
+    // 
     QRegularExpressionMatch match;
+
     for (int i = 0; i < kv->lines(); i++) {
         int line = i;
         QString cl = kv->line(i);
+        QString cl_sp = cl.simplified();
         // concatenate continued lines and remove continuation marker
         if (cl.isEmpty()) {
             continue;
         }
-        while (cl[cl.length() - 1] == QLatin1Char('\\')) {
-            cl = cl.left(cl.length() - 1);
-            i++;
-            if (i < kv->lines()) {
-                cl += kv->line(i);
+        // while (cl[cl.length() - 1] == QLatin1Char('\\')) {
+        //     cl = cl.left(cl.length() - 1);
+        //     i++;
+        //     if (i < kv->lines()) {
+        //         cl += kv->line(i);
+        //     } else {
+        //         break;
+        //     }
+        //     if (cl.isEmpty()) {
+        //         break;
+        //     }
+        // }
+
+        // BEGIN skip doc strings """ ... """ or """
+        match = ml_docsctring_regexp.match(cl_sp); // match """ anywhere
+        
+        if (match.hasMatch()) {
+            match = sl_docstring_regexp.match(cl_sp);
+            if (match.hasMatch()) {
+                // qDebug() << "line " << line+1 << " sl match " << cl << Qt::endl;
+                commentLine = false;
+                continue;
+
             } else {
-                break;
+                // qDebug() << "line " << line+1 << " ml match " << "commentLine " << commentLine << " -> " << !commentLine << " " << cl << Qt::endl;
+                commentLine = !commentLine;
+                continue;
             }
-            if (cl.isEmpty()) {
-                break;
+        } else {
+            match = sl_docstring_regexp.match(cl_sp);
+            if (match.hasMatch()) {
+                commentLine = false;
+                continue;
             }
         }
 
-        match = class_regexp.match(cl);
+        if (commentLine) {
+            continue;
+        }
+        // END skip doc strings (""" ... """)
+        
+        // BEGIN determine the symbol type: class or function
+        
+        match = class_regexp.match(cl_sp); // check for class definition first
         if (match.hasMatch()) {
-            type = Symbol::Class;
+            type = Symbol::Class; // ⇒ this is a class
+            
         } else {
-            match = function_regexp.match(cl);
+            match = function_regexp.match(cl_sp); // check for function definition
             if (match.hasMatch()) {
-                if (match.captured(1).isEmpty() || current_class_name.isEmpty() // case where function is declared inside a block
-                ) {
+                if (match.captured(1).isEmpty() || current_class_name.isEmpty()) // case where function is declared inside a block
+                {
                     type = Symbol::Function;
                     current_class_name.clear();
                 } else {
                     type = Symbol::Method;
                 }
+            } else {
+                match = function_regexp2.match(cl_sp); 
+                if (match.hasMatch()) {
+                    if (match.captured(1).isEmpty() || current_class_name.isEmpty()) // case where function is declared inside a block
+                    {
+                        type = Symbol::Function;
+                        current_class_name.clear();
+                    } else {
+                        type = Symbol::Method;
+                    }
+                }
+                
             }
         }
+        // END determine the symbol type: class or function
 
         if (match.hasMatch()) {
+            // if either class or function definition found
             if (type == Symbol::Class) {
                 name = match.captured(1);
                 params = match.captured(2);
                 current_class_name = name;
+                
             } else {
                 name = match.captured(2);
-                params = match.captured(3);
+                params = match.captured(4);
+                returnAnnot = match.captured(5);
+                if (!returnAnnot.isEmpty()) {
+                    params += returnAnnot;
+                }
+                endcolon = match.captured(7);
+                
+                paramscontinue = endcolon.isEmpty();
+                
+                if(paramscontinue) {
+                    params += contStr;
+                    
+                }
             }
             if (m_typesOn->isChecked()) {
                 name += params;

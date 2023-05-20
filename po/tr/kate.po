@@ -1248,8 +1248,8 @@ msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
 "loaded, and will be loaded again the next time Kate is started."
 msgstr ""
-"Burada bütün mevcut Kate eklentilerini görebilirsiniz. İşaretlenmiş olanlar "
-"şu anda yüklüdür ve Kate yeniden başlatıldığında da yüklenecektir."
+"Burada bütün kullanılabilir Kate eklentilerini görebilirsiniz. İşaretlenmiş "
+"olanlar şu anda yüklüdür ve Kate yeniden başlatıldığında da yüklenecektir."
 
 #: lib/katedocmanager.cpp:297
 #, kde-format
@@ -1408,7 +1408,7 @@ msgstr "Yeni bir belge oluştur"
 #: lib/katemainwindow.cpp:339
 #, kde-format
 msgid "Open an existing document for editing"
-msgstr "Mevcut dosyayı düzenlemek için aç"
+msgstr "Var olan bir dosyayı düzenlemek için aç"
 
 #: lib/katemainwindow.cpp:349
 #, kde-format
@@ -1583,7 +1583,7 @@ msgstr "Eklentile&r El Kitabı"
 #: lib/katemainwindow.cpp:473
 #, kde-format
 msgid "This shows help files for various available plugins."
-msgstr "Mevcut eklentiler için yardım dosyalarını gösterir."
+msgstr "Çeşitli kullanılabilir eklentiler için yardım dosyalarını gösterir."
 
 #: lib/katemainwindow.cpp:490
 #, kde-format
@@ -1659,7 +1659,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:584
 #, kde-format
 msgid "Close all documents beside current one"
-msgstr "Mevcut belge dışındaki tüm belgeleri kapat"
+msgstr "Geçerli belge dışındaki tüm belgeleri kapat"
 
 #: lib/katemainwindow.cpp:818
 #, kde-format
@@ -2432,7 +2432,7 @@ msgstr "Dosyalar"
 #: lib/session/katesessionmanagedialog.ui:68
 #, kde-format
 msgid "Last opened"
-msgstr "Son açılma"
+msgstr "Son Açılma"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_openButton)
 #: lib/session/katesessionmanagedialog.ui:87
@@ -2457,7 +2457,7 @@ msgstr "Şablon Olarak Aç"
 #: lib/session/katesessionmanagedialog.ui:115
 #, kde-format
 msgid "Don't ask again"
-msgstr "Tekrar sorma"
+msgstr "Bir daha sorma"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
 #: lib/session/katesessionmanagedialog.ui:135
@@ -2481,7 +2481,7 @@ msgstr "Sil"
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
-msgstr "İç hata: Verilen bir oturum için açık birden fazla örnek mevcut."
+msgstr "İç hata: Verilen bir oturum için açık birden fazla örnek var."
 
 #: lib/session/katesessionmanager.cpp:123
 #, kde-format
@@ -2814,32 +2814,3 @@ msgstr "Oturumları Yönet..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Yeni pencerelerde göster"
-
-#~ msgid "Ignoring amount of white space changed, the files are identical."
-#~ msgstr "Değiştirilen boşluk değişiklikleri yok sayılıyor, dosyalar aynı."
-
-#~ msgid "Diff Output"
-#~ msgstr "Diff Çıktısı"
-
-#~ msgid ""
-#~ "Running KWrite with sudo can cause bugs and expose you to security "
-#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
-#~ "elevated privileges when saving documents if needed."
-#~ msgstr ""
-#~ "KWrite'ı sudo ile çalıştırmak hatalara neden olabilir ve sizi güvenlik "
-#~ "açıklarına maruz bırakabilir. Bunun yerine, KWrite'ı normal bir biçimde "
-#~ "kullanın ve eğer dosya kaydederken yükseltilmiş ayrıcalıklara gereksinim "
-#~ "duyarsanız bunun için bir istek alacaksınız."
-
-#~ msgid ""
-#~ "Running KWrite with kdesu can cause bugs and expose you to security "
-#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
-#~ "elevated privileges when saving documents if needed."
-#~ msgstr ""
-#~ "KWrite'ı kdesu ile çalıştırmak hatalara neden olabilir ve sizi güvenlik "
-#~ "açıklarına maruz bırakabilir. Bunun yerine, KWrite'ı normal bir biçimde "
-#~ "kullanın ve eğer dosya kaydederken yükseltilmiş ayrıcalıklara gereksinim "
-#~ "duyarsanız bunun için bir istek alacaksınız."
-
-#~ msgid "Save"
-#~ msgstr "Kaydet"

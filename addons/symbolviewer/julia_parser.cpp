@@ -27,14 +27,6 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
 
     bool commentLine = false;
     bool terseFunctionExpresion = false;
-    // bool inTryBlock = false;
-    // bool inIfBlock = false;
-    // bool inWhileBlock = false;
-    // bool inForBlock = false;
-    // bool inBeginBlock = false;
-    // bool inFunctionBlock = false;
-    // bool inMacroBlock = false;
-    // bool inStructBlock = false;
 
     Type type;
     QString name;
@@ -90,42 +82,19 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                                                  QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression function_regexp(
-        // captures:    1=@qualif                      2=name               3=params+annots                  4=whereStmt
         QLatin1String("(@[a-zA-Z0-9_\\s]+)?function\\s+([\\w:!.]+)\\s*(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)?$( where [\\w:<>=.\\{\\}]*\\s?$)?"),
         QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression function_regexp(QLatin1String("^(@[a-zA-Z0-9_\\s]+)?function ([\\w:\\{\\}!]+)(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)$( where
-    // [\\w:<>=\\s\\(\\)\\{\\}]\\s?$)?"), QRegularExpression::UseUnicodePropertiesOption);
-
-    // static const QRegularExpression terse_function_regexp(
-    //     // captures:   1=@qualif                 2=name                          3=params+annots               4=whereStmt                      5=statement
-    //     QLatin1String("^(@[a-zA-Z0-9_\\s]+)?\\s+([\\w:!.a-zA-Z0-9_]+)\\s*(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)( where [\\w:<>.\\{\\}]*\\s?)?\\s*=\\s*(.*)?"),
-    //     QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression terse_function_regexp(
-        // captures:   1=@qualif             2         3               4     5                    6     7                                          8     9 10
         QLatin1String(
             "^(@[a-zA-Z0-9_\\s]+ )?([\\w:.]+)?([\\w:\\{\\}!]+)(\\s?)(\\(.*[\\),;\\s]*\\))(\\s?)(where [\\w:<>.,\\s\\{\\}a-zA-Z0-9]*\\s?)?(\\s?)\\s*=\\s*(.*)$"),
-        // QLatin1String("(@[a-zA-Z0-9_\\s]+ )?([\\w:.]+)?([\\w:\\{\\}!]+)(\\s?)(\\(.*[\\),;\\s]*\\))(\\s?)(where
-        // [\\w:<>=.,\\{\\}]*\\s?)?(\\s?)(=){1}(\\s*)(\\(.*\\))?"),
         QRegularExpression::UseUnicodePropertiesOption);
-
-    // static const QRegularExpression terse_function_regexp(QLatin1String("(@[a-zA-Z0-9_\\s]+
-    // )?([\\w:.]+)?([\\w:\\{\\}!]+)(\\s?)(\\(.*[\\),;\\s]*\\))(\\s?)(where [\\w:<>=\\s\\(\\)\\{\\}]\\s?)?(\\s?)(=){1}(\\s*)(\\(.*\\))?"),
-    // QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression macro_regexp(QLatin1String("^macro ([\\w:\\{\\}!]+)(\\s*)(\\(.*\\))?"), QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression assert_regexp(QLatin1String("@assert"));
 
-    // static const QRegularExpression try_expr(QLatin1String("try"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression if_expr(QLatin1String("if"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression while_expr(QLatin1String("while"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression for_expr(QLatin1String("for"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression begin_expr(QLatin1String("begin"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression eol_end_expr(QLatin1String("end$"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression end_expr(QLatin1String("end"), QRegularExpression::UseUnicodePropertiesOption);
-
-    QRegularExpressionMatch match; //, match1;
+    QRegularExpressionMatch match;
 
     for (int i = 0; i < kv->lines(); i++) {
         int line = i;
@@ -134,10 +103,6 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
         if (cl.isEmpty()) {
             continue;
         }
-
-        // QString cl_tr = cl.trimmed();
-
-        // qDebug() << "line " << line+1 << cl << Qt::endl;
 
         // concatenate continued lines and remove continuation marker (from python_parser.cpp)
         while (cl[cl.length() - 1] == QLatin1Char('\\')) {
@@ -169,65 +134,6 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
             continue;
         }
 
-        //         match = end_expr.match(cl_sp);
-        //
-        //         if (match.hasMatch()) {
-        //             if ((lastControl == QLatin1String("if")) & inIfBlock) {
-        //                 inIfBlock = false;
-        //             } else if ((lastControl == QLatin1String("for")) & inForBlock) {
-        //                 inForBlock = false;
-        //             } else if ((lastControl == QLatin1String("try")) & inTryBlock) {
-        //                 inTryBlock = false;
-        //             } else if ((lastControl == QLatin1String("while")) & inWhileBlock) {
-        //                 inWhileBlock = false;
-        //             } else if ((lastControl == QLatin1String("begin")) & inBeginBlock) {
-        //                 inBeginBlock = false;
-        //             } else if ((lastControl == QLatin1String("function")) & inFunctionBlock) {
-        //                 inFunctionBlock = false;
-        //             } else if ((lastControl == QLatin1String("macro")) & inMacroBlock) {
-        //                 inMacroBlock = false;
-        //             } else if ((lastControl == QLatin1String("struct")) & inStructBlock) {
-        //                 inStructBlock = false;
-        //             }
-        //         }
-        //
-        //         match = if_expr.match(cl_sp);
-        //
-        //         if (match.hasMatch()) {
-        //             lastControl = QLatin1String("if");
-        //             inIfBlock = true;
-        //             match1 = end_expr.match(cl_sp);
-        //
-        //             if (match1.hasMatch()) {
-        //                 inIfBlock = false;
-        //                 if (inTryBlock) {
-        //                     lastControl = QLatin1String("try");
-        //                 } else if (inWhileBlock) {
-        //                     lastControl = QLatin1String("while");
-        //                 } else if (inForBlock) {
-        //                     lastControl = QLatin1String("for");
-        //                 } else if (inBeginBlock) {
-        //                     lastControl = QLatin1String("begin");
-        //                 } else if (inFunctionBlock) {
-        //                     lastControl = QLatin1String("function");
-        //                 } else if (inStructBlock) {
-        //                     lastControl = QLatin1String("struct");
-        //                 } else if (inMacroBlock) {
-        //                     lastControl = QLatin1String("macro");
-        //                 } else {
-        //                     lastControl.clear();
-        //                 }
-        //             } else {
-        //                 continue;
-        //             }
-        //         }
-        //
-        //         match = try_expr.match(cl_sp);
-        //
-        //         if (match.hasMatch()) {
-        //             lastControl = QLatin1String("try");
-        //         }
-
         // skip # comments
         match = comment_regexp.match(cl_sp);
 
@@ -239,17 +145,14 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
         // """
         //
         match = ml_docsctring_regexp.match(cl_sp); // match """ anywhere
-        // match1 = sl_docstring_regexp.match(cl.simplified()); // also match """ <stuff> """ triplet
 
         if (match.hasMatch()) {
             match = sl_docstring_regexp.match(cl_sp);
             if (match.hasMatch()) {
-                // qDebug() << "line " << line+1 << " sl match " << cl << Qt::endl;
                 commentLine = false;
                 continue;
 
             } else {
-                // qDebug() << "line " << line+1 << " ml match " << "commentLine " << commentLine << " -> " << !commentLine << " " << cl << Qt::endl;
                 commentLine = !commentLine;
                 continue;
             }
@@ -274,40 +177,20 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
 
         if (match.hasMatch()) { // try and  match struct first
             type = Type::Structure;
-            // lastControl = QLatin1String("struct");
-            // inStructBlock = true; // wait for 'end' to show up
 
         } else {
             match = macro_regexp.match(cl_sp); // finally , try to match a macro definition NOTE/TODO: terse macro definitions?
             if (match.hasMatch()) {
                 type = Type::Macro;
-                // lastControl = QLatin1String("macro");
-                // inMacroBlock = true; // wait for 'end' to show up
             } else {
-                // continue;
                 match = function_regexp.match(cl_sp); // the try and match verbose function definition
                 if (match.hasMatch()) {
                     type = Type::Function;
-                    // lastControl = QLatin1String("function");
-
-                    // inFunctionBlock = true;
-
                 } else {
-                    // continue;
                     match = terse_function_regexp.match(cl_sp); // try to match a terse function definition
                     if (match.hasMatch()) {
                         type = Type::Function;
                         terseFunctionExpresion = true;
-
-                        // lastControl.clear();
-                        // inMacroBlock = false;
-                        // inStructBlock = false;
-                        // inFunctionBlock = false;
-                        // inTryBlock = false;
-                        // inIfBlock = false;
-                        // inWhileBlock = false;
-                        // inForBlock = false;
-                        // inBeginBlock = false;
                     } else {
                         continue;
                     }
@@ -319,18 +202,12 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
             // either Structure, Macro, or Function egexp have matched
             if (type == Type::Structure) {
                 name = match.captured(2);
-                // name=match.captured(5);
                 current_class_name = name;
                 params.clear();
             } else {
                 if (type == Type::Function) {
                     if (terseFunctionExpresion) {
-                        // name = match.captured(2);
-                        // params = match.captured(3);
-                        // whereStmt = match.captured(4);
-
                         terseFuncAssignment = match.captured(9);
-                        // qDebug() << "line " << line+1 << " terseFuncAssignment " << terseFuncAssignment << Qt::endl;
                         whereStmt = match.captured(7);
                         if (!terseFuncAssignment.isEmpty()) {
                             module_name = match.captured(2); // useful when overloading a function from other module (in Julia that's typically 'adding' a
@@ -347,7 +224,6 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                             }
 
                         } else {
-                            // qDebug() << "line " << line+1 << " empty terseFuncAssignment " << cl << Qt::endl;
                             continue;
                         }
 
@@ -356,7 +232,6 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                         params = match.captured(3);
                         whereStmt = match.captured(4);
                     }
-                    // qDebug() << "line " << line+1 << " name " << name << " params "<< params << " whereStmt " << whereStmt << Qt::endl;
 
                 } else if (type == Type::Macro) {
                     name = match.captured(1);
@@ -366,13 +241,7 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                 }
 
                 if (!params.isEmpty() & !params.endsWith(QLatin1String(")"))) {
-                    // qDebug() << "line " << line+1 << " params = "<< params << " whereStmt = " << whereStmt << Qt::endl;
                     if (!terseFunctionExpresion) {
-                        // if (!whereStmt.isEmpty() | params.contains(QLatin1String("where"))) {
-                        //     params += QLatin1String(" ");
-                        //     params += whereStmt;
-                        //     whereStmt.clear();
-                        // }
                         if (whereStmt.isEmpty() & !params.contains(QLatin1String("where"))) {
                             params += contStr;
 

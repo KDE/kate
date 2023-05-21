@@ -12,184 +12,7 @@ using Parameters, Catalyst, Documenter, DocStringExtensions
 """
 abstract type AbstractParameters end
 
-mutable struct TestMe
-end
 
-struct TestMe2 
-end
-
-
-@with_kw struct ModelParameters <: AbstractParameters
-    #BEGIN Morphology parameters
-    """Diameter of a spherical cell model."""
-    D::Unitful.Length{Float64} = 30.0u"μm"
-    # D::Unitful.Length{Union{Int64,Float64}} = 30.0u"μm"
-    #D::Unitful.Length{T} where T = 30.0u"μm"
-    #END Morphology parameters
-    
-    #BEGIN -> Passive membrane parameters
-    """*Specific* membrane capacitance."""
-    Cₘ::SpecificMembraneCapacitance{Float64} = 1.54e-2u"pF/μm^2" # 1.54 μF/cm² = 0.0154 pF/μm² = 0.0154 F/m²
-#     Cₘ::CapacitanceDensity{Float64} = 1.54e-2u"pF/μm^2" # 1.54 μF/cm² = 0.0154 pF/μm² = 0.0154 F/m²
-    #Cₘ::CapacitanceDensity{T} where T = 1.54e-2u"pF/μm^2" # 1.54 μF/cm² = 0.0154 pF/μm² = 0.0154 F/m²
-    """Initial (resting) membrane potential
-    """
-    Eₘ::Unitful.Voltage{Float64} = -70.0u"mV"
-    #Eₘ::Unitful.Voltage{T} where T = -70.0u"mV"
-    #END -> Passive membrane parameters
-    
-    #BEGIN Leak parameters
-    """Generic 'leak' channel density
-    """
-    𝒏𝓁::SurfaceDensity{Float64} = 1.0u"μm^(-2)" # 1/μm²
-    #𝒏𝓁::SurfaceDensity{T} where T = 1u"μm^(-2)" # 1/μm²
-    
-    """Unitary (a.k.a single channel) conductance - generic 'leak' channels (pS)
-    """
-    γ𝓁ᵤ::Unitful.ElectricalConductance{Float64} = 0.1u"pS"
-    #γ𝓁ᵤ::Unitful.ElectricalConductance{T} where T = 0.1u"pS"
-
-    """Resting membrane potential"""
-    E𝓁::Unitful.Voltage{Float64} = -70.0u"mV"
-    #E𝓁::Unitful.Voltage{T} where T = -70.0u"mV"
-    
-    #END LeakParameters
-    
-    #BEGIN Na Ion Parameters
-    zNa::Int64 = 1
-    Naᵢ::Concentration{Float64} = 20.0u"mM" # Na₂-Phosphocreatine 10 mM, Na-GTP 0.3 mM
-    Naₒ::Concentration{Float64} = 119.0u"mM"
-    #Naᵢ::Concentration{T} where T = 20.0u"mM" # Na₂-Phosphocreatine 10 mM, Na-GTP 0.3 mM
-    #Naₒ::Concentration{T} where T = 119.0u"mM"
-    #END Na Ion Parameters
-    
-    #BEGIN NaV parameters
-    # NOTE: 2023-02-12 23:56:41
-    # for a D of 30 μm, 18 Na⁺ channels / μm² with unitary slope conductance of
-    # γ 17 pS (see e.g., Alzheimer et al, 1993, Baker & Bostock, 1998, Fernandes et al, 2001)
-    # this gives a total maximum (peak) Na⁺ conductance of 320 pS/μm² (Migliore et al, 1999)
-    # in neurons; (but see ~30 pS in neuroblastoma cells, Aldrich & Stevens, 1987)
-    """Naᵥ channel density"""
-    𝒏Na::SurfaceDensity{Float64} = 18.0u"μm^(-2)"
-
-    """Unitary (a.k.a single channel) conductance, Naᵥ"""
-    γNaᵤ::Unitful.ElectricalConductance{Float64} = 17.0u"pS"
-
-    """Na⁺ equilibrium potential."""
-    ENa::Unitful.Voltage{Float64} = 50.0u"mV" 
-    
-    bᵢ::Float64 = 0.8 # See Migliore et al 1999; 0.5 in apical dendrites, 0.8 in soma, 1 elsewhere
-    #bᵢ::T where T = 0.8 # See Migliore et al 1999; 0.5 in apical dendrites, 0.8 in soma, 1 elsewhere
-    
-    #END NaV parameters
-    
-    #BEGIN K Ion parameters
-    zK::Int64 = 1
-    Kᵢ::Concentration{Float64} = 134.2u"mM"
-    Kₒ::Concentration{Float64} = 2.5u"mM"
-    #END K Ion parameters
-
-    #BEGIN KV parameters 
-    """Kᵥ channel density - delayed rectifier (which one ?!?)
-    """
-    𝒏KDR::SurfaceDensity{Float64} = 10.0u"μm^(-2)" # to vary - references?
-    #𝒏KDR::SurfaceDensity{T} where T = 10u"μm^(-2)" # to vary - references?
-    
-    """Unitary (a.k.a single channel) conductance, DR-type Kᵥ (delayed rectifier)"""
-    γKDRᵤ::Unitful.ElectricalConductance{Float64} = 10.0u"pS" # Migliore et al, 1999
-    #γKDRᵤ::Unitful.ElectricalConductance{T} where T = 10.0u"pS" # Migliore et al, 1999
-    
-    
-    """Unitary conductance for A-type Kᵥ 
-    Default value here is for soma.
-    For dendrites, according to Migliore et al 1999 this would be:
-    
-    • 48 pS * (1+d/100) for d ≤ 100 μm from soma
-    • 0  pS otherwise
-    
-    i.e., they are prominent at soma then increase linearly with distance from 
-    soma along the proximal dendrites up to 100 μm where it doubles; finally, it
-    vanishes beyond 100 μm from soma
-    
-    -- not that's funny: is the unitary conductance that changes or the number 
-    of channels ?
-    
-    """
-    𝒏KA::SurfaceDensity{Float64} = 64.0u"μm^(-2)"
-    #𝒏KA::SurfaceDensity{T} where T = 64u"μm^(-2)"
-    γKAᵤ::Unitful.ElectricalConductance{Float64} = 7.5u"pS" # at 0 μm from soma -- Migliore et al 1999
-    #γKAᵤ::Unitful.ElectricalConductance{T} where T = 7.5u"pS" # at 0 μm from soma -- Migliore et al 1999
-
-    """K⁺ equilibium potential."""
-    EK::Unitful.Voltage{Float64} = -90.0u"mV" 
-    #EK::Unitful.Voltage{T} where T = -90.0u"mV" 
-    #END KV parameters
-    
-    #BEGIN Ca Ion parameters
-    zCa::Int64 = 2
-    Caᵢ::Concentration{Float64} = 100.0u"μM"
-    Caₒ::Concentration{Float64} = 2.5u"mM"
-    #Caᵢ::Concentration{T} where T = 100.0u"μM"
-    #Caₒ::Concentration{T} where T = 2.5u"mM"
-    #END Ca Ion parameters
-    
-    #BEGIN CaV parameters
-    """T-type channels: CaV3.x"""
-    𝒏CaT::SurfaceDensity{Float64} = 5.0u"μm^(-2)"
-    γCaTᵤ::Unitful.ElectricalConductance{Float64} = 10.0u"pS" # Table 1 in Magee & Johnston 1995 Characterization...
-    """R-type channels: CaV2.3"""
-    𝒏CaR::SurfaceDensity{Float64} = 3.0u"μm^(-2)"
-    γCaRᵤ::Unitful.ElectricalConductance{Float64} = 17.0u"pS" # Table 1 in Magee & Johnston 1995 Characterization...
-    """L-type channels: CaV1.x"""
-    𝒏CaL::SurfaceDensity{Float64} = 3.0u"μm^(-2)"
-    γCaLᵤ::Unitful.ElectricalConductance{Float64} = 27.0u"pS" # Table 1 in Magee & Johnston 1995 Characterization...
-    #END CaV parameters
-    
-    #BEGIN Experiment parameters
-    """Injected current. The sign indicates if injected current is inward 
-    (hyperpolarizing, < 0) or 
-    outward (depolarizing, > 0).
-    """
-    Iinj::Unitful.Current{Float64} = 1.0e3u"pA"
-
-    """Time of current injection start."""
-    t₀::Unitful.Time{Float64} = 50.0u"ms"
-    
-    """Time of current injection end."""
-    t₁::Unitful.Time{Float64} = 250.0u"ms"
-    @assert t₁ > t₀
-    
-    """Temperature in °C.
-    To convert to °K use:
-    `uconvert(u"K", t)` where t is , say, 35u"°C"
-    
-    CAUTION: this returns a rational number, which Julia should handle.
-    
-    If in doubts, use
-    
-    `float(uconvert(u"K", t))` --> floating point number (in °K),e.g.:
-    
-    ```julia
-    float(uconvert(u"K", 35u"°C"))
-    
-    308.15 K
-    ```
-    """
-    temperature::Unitful.Temperature{Float64} = 35.0u"°C"
-    #END Experiment parameters
-    
-    #BEGIN Simulation parameters
-    timespan::NTuple{2, Unitful.Time{Float64}} = (0.0u"ms", 500.0u"ms")
-    #END Simulation parameters
-    
-end
-
-# function makeParamatersType(name::Symbol, fields::AbstractDict{Symbol, Any})
-#     fielddefs = quote end
-#     ret = quote @with_kw struct $name <: AbstractParameters end
-#     
-#     ret = Expr(:struct, $name <: AbstractParameters)
-# end
 
 #BEGIN NOTE: 2022-09-01 23:25:02 
 # below, the *HH functions follow the Hodgkin-Huxley (HH) model (Steratt & Willshaw)
@@ -290,22 +113,93 @@ Base.pairs(x::AbstractParameters; strip::Bool=false) = ifelse(strip,
                                                           )
 
 @inline betaₕHH (v::Union{Int64, Float64})  = 1.0   / (exp(-(v + 35)/10) + 1)
-betaₕMJ(v::Union{Int64, Float64})  = 0.01  * (v + 45) / (exp((v+45)/1.5) - 1)    # => CAUTION: NaN when v = -45
+betaₕMJ(v::Union{Int64, Float64}) = 0.01  * (v + 45) / (exp((v+45)/1.5) - 1)    # => CAUTION: NaN when v = -45
 @inline betaᵢMJ(v::Union{Int64, Float64}) = exp(0.09 * (v + 60))
 @inline betaₘHH(v::Union{Int64, Float64})  = 4.0   * exp(-(v + 65)/18)
 @inline betaₘMJ(v::Union{Int64, Float64})  = 0.124 * (v + 30) / (exp((v+30)/7.2) - 1)    # => CAUTION: NaN when v = -30
 
+"""Boltzmann formulae for voltage-dependent acivation and inactivation of a voltage-dependent ion channel
+$(TYPEDSIGNATURES)
+These are, effectively, logistic functions (particular case of sigmoid functions
+
+See also Boltzmann_inact
+
+# Arguments
+
+• v:  Membrane voltage
+
+• V½: Voltage at half-maximal activation or inactivation
+
+• 𝒌:  'slope' factor
+
+# Description
+
+More correctly, these are Maxwell-Boltzmann equations for two possible states in the system:
+
+p₁/(p₁+p₂) = exp(-E₁/(𝒌T)) / (exp(-E₁/(𝒌T)) + exp(-E₂/(𝒌T))) where
+
+Eⱼ = ½mv² + Uⱼ
+
+m  = particle mass
+
+v  = particle velocity
+
+Uⱼ = potential energy for state 𝒋
+
+𝒌  = 'slope factor'
+
+They model the steady-state activation (or inactivation) e.g. m∞ and h∞, 
+and their respective time contants (τₘ, τₕ, ...), which relate to the
+forward and backward reaction rates 
+
+αₘ → forward (e.g. C → O)
+
+
+=> p₁ = 1/(1+exp(-(E₂-E₁)/(𝒌T)))
+
+For cell membranes E is free energy expressed in voltage:
+
+p₁ = 1/(1+exp(-(V₂-V₁)/(𝒌T)))
+
+**NOTE:** that for Nernst formula the slope factor is parameterized as 
+
+𝒌 = 𝑹T / (𝒛𝑭) with 𝑹 the gas constant, 𝑭 Faraday's constant, and 𝒛 ionic valence.
+
+
+
+# Examples:
+
+```julia
+v = collect(-100.0:1.0:100.0); # membrane voltage from -100 to +100 mV in 1 mV increment
+
+# using fitted parameters in Magee & Johnston 1995
+act = CTModels.Boltzmann_act.(v, -30, 7.2);
+
+inact = CTModels.Boltzmann_inact.(v, -62, 6.9);
+
+# NOTE: Below, we use 'mm' from Plots.PlotMeasures as fully qualified;
+# less comfortable for typing, but avoids clashes with Catalyst.mm() 
+# Michaelis-Menten rate function and Unitful.DefaultSymbols.mm
+plot(v, inact, lc=:blue, label="inact", legend_position=:bottomright, right_margin=15.0Plots.PlotMeasures.mm, ylabel="Normalized current", xlabel="Membrane potential (mV)", xlim=(-100.0, 0.0))
+
+plot!(twinx(), v, act, lc=:red, label="activation", legend_position=:topright, ylabel="Normalized conductance", xlim=(-100.0, 0.0))
+```
+
+"""
+Boltzmann_act(v, V½, 𝒌) = 1/(1+exp((V½-v)/𝒌))
 
 #END NOTE: 2022-09-01 23:25:02 
-"""Reverse of params2dict"""
-function dict2params(d::AbstractDict{Symbol, Any}, name::Symbol)
-    println("not implemented")
-end
 
 function dict2params_
 end
 
 dict2params__ () = 4
+
+"""Reverse of params2dict"""
+function dict2params(d::AbstractDict{Symbol, Any}, name::Symbol)
+    println("not implemented")
+end
+
 
 """A (better ?) display for parameters structs.
 Pushed onto the Base module as `display` method for AbstractParameters"""
@@ -465,6 +359,13 @@ function dvpassive!(xdot, x, p, t;
 #         push!(v_vec,    x[1])
 #     end
     
+end
+
+function makeParamatersType(name::Symbol, fields::AbstractDict{Symbol, Any})
+    fielddefs = quote end
+    ret = quote @with_kw struct $name <: AbstractParameters end
+    
+    ret = Expr(:struct, $name <: AbstractParameters)
 end
 
 """Dynamic creation of new AbstractParameters subtype containing fields from 
@@ -628,7 +529,7 @@ function mergeParameters(typename::Symbol, paramStructs...)
         return nothing
     end
     p0 = paramStructs[1]
-    if !isa(p0, AbstractParameters)
+    if ! isa(p0, AbstractParameters)
         @error "Expecting an instance of an AbstractParameters subtype"
     end
     f0 = stringify(p0)
@@ -698,12 +599,12 @@ end
 
 
 
+
 """Nernst (reversal) potential for ion X given [X]ᵢ, [X]ₒ, temperature t and ion's valence zₓ
 $(TYPEDSIGNATURES)
 """
-@inline Nernst(Xᵢ::Concentration{T}, Xₒ::Concentration{U}, zₓ::Int64, t::Unitful.Temperature{V}) where {T<:Real, U<:Real, V<:Real} = Unitful.R * uconvert(u"K", t) * log(Xₒ/Xᵢ) / (zₓ * 𝑭)
-
-Nernst() = Unitful.R
+Nernst(Xᵢ::Concentration{T}, Xₒ::Concentration{U}, zₓ::Int64, t::Unitful.Temperature{V}) where {T<:Real, U<:Real, V<:Real} = Unitful.R * uconvert(u"K", t) * 
+                                                                                                                                    log(Xₒ/Xᵢ) / (zₓ * 𝑭)
 
 """Creates an OrderedDict from a parameters struct"""
 params2dict(x::AbstractParameters) = OrderedDict(sort(collect(type2dict(x)), by=(y)->y[1]))
@@ -984,6 +885,171 @@ The unitful versions are experimental - do NOT use!
 #END NOTE: 2022-09-01 23:25:36
 
 
+@with_kw struct ModelParameters <: AbstractParameters
+    #BEGIN Morphology parameters
+    """Diameter of a spherical cell model."""
+    D::Unitful.Length{Float64} = 30.0u"μm"
+    # D::Unitful.Length{Union{Int64,Float64}} = 30.0u"μm"
+    #D::Unitful.Length{T} where T = 30.0u"μm"
+    #END Morphology parameters
+    
+    #BEGIN -> Passive membrane parameters
+    """*Specific* membrane capacitance."""
+    Cₘ::SpecificMembraneCapacitance{Float64} = 1.54e-2u"pF/μm^2" # 1.54 μF/cm² = 0.0154 pF/μm² = 0.0154 F/m²
+#     Cₘ::CapacitanceDensity{Float64} = 1.54e-2u"pF/μm^2" # 1.54 μF/cm² = 0.0154 pF/μm² = 0.0154 F/m²
+    #Cₘ::CapacitanceDensity{T} where T = 1.54e-2u"pF/μm^2" # 1.54 μF/cm² = 0.0154 pF/μm² = 0.0154 F/m²
+    """Initial (resting) membrane potential
+    """
+    Eₘ::Unitful.Voltage{Float64} = -70.0u"mV"
+    #Eₘ::Unitful.Voltage{T} where T = -70.0u"mV"
+    #END -> Passive membrane parameters
+    
+    #BEGIN Leak parameters
+    """Generic 'leak' channel density
+    """
+    𝒏𝓁::SurfaceDensity{Float64} = 1.0u"μm^(-2)" # 1/μm²
+    #𝒏𝓁::SurfaceDensity{T} where T = 1u"μm^(-2)" # 1/μm²
+    
+    """Unitary (a.k.a single channel) conductance - generic 'leak' channels (pS)
+    """
+    γ𝓁ᵤ::Unitful.ElectricalConductance{Float64} = 0.1u"pS"
+    #γ𝓁ᵤ::Unitful.ElectricalConductance{T} where T = 0.1u"pS"
+
+    """Resting membrane potential"""
+    E𝓁::Unitful.Voltage{Float64} = -70.0u"mV"
+    #E𝓁::Unitful.Voltage{T} where T = -70.0u"mV"
+    
+    #END LeakParameters
+    
+    #BEGIN Na Ion Parameters
+    zNa::Int64 = 1
+    Naᵢ::Concentration{Float64} = 20.0u"mM" # Na₂-Phosphocreatine 10 mM, Na-GTP 0.3 mM
+    Naₒ::Concentration{Float64} = 119.0u"mM"
+    #Naᵢ::Concentration{T} where T = 20.0u"mM" # Na₂-Phosphocreatine 10 mM, Na-GTP 0.3 mM
+    #Naₒ::Concentration{T} where T = 119.0u"mM"
+    #END Na Ion Parameters
+    
+    #BEGIN NaV parameters
+    # NOTE: 2023-02-12 23:56:41
+    # for a D of 30 μm, 18 Na⁺ channels / μm² with unitary slope conductance of
+    # γ 17 pS (see e.g., Alzheimer et al, 1993, Baker & Bostock, 1998, Fernandes et al, 2001)
+    # this gives a total maximum (peak) Na⁺ conductance of 320 pS/μm² (Migliore et al, 1999)
+    # in neurons; (but see ~30 pS in neuroblastoma cells, Aldrich & Stevens, 1987)
+    """Naᵥ channel density"""
+    𝒏Na::SurfaceDensity{Float64} = 18.0u"μm^(-2)"
+
+    """Unitary (a.k.a single channel) conductance, Naᵥ"""
+    γNaᵤ::Unitful.ElectricalConductance{Float64} = 17.0u"pS"
+
+    """Na⁺ equilibrium potential."""
+    ENa::Unitful.Voltage{Float64} = 50.0u"mV" 
+    
+    bᵢ::Float64 = 0.8 # See Migliore et al 1999; 0.5 in apical dendrites, 0.8 in soma, 1 elsewhere
+    #bᵢ::T where T = 0.8 # See Migliore et al 1999; 0.5 in apical dendrites, 0.8 in soma, 1 elsewhere
+    
+    #END NaV parameters
+    
+    #BEGIN K Ion parameters
+    zK::Int64 = 1
+    Kᵢ::Concentration{Float64} = 134.2u"mM"
+    Kₒ::Concentration{Float64} = 2.5u"mM"
+    #END K Ion parameters
+
+    #BEGIN KV parameters 
+    """Kᵥ channel density - delayed rectifier (which one ?!?)
+    """
+    𝒏KDR::SurfaceDensity{Float64} = 10.0u"μm^(-2)" # to vary - references?
+    #𝒏KDR::SurfaceDensity{T} where T = 10u"μm^(-2)" # to vary - references?
+    
+    """Unitary (a.k.a single channel) conductance, DR-type Kᵥ (delayed rectifier)"""
+    γKDRᵤ::Unitful.ElectricalConductance{Float64} = 10.0u"pS" # Migliore et al, 1999
+    #γKDRᵤ::Unitful.ElectricalConductance{T} where T = 10.0u"pS" # Migliore et al, 1999
+    
+    
+    """Unitary conductance for A-type Kᵥ 
+    Default value here is for soma.
+    For dendrites, according to Migliore et al 1999 this would be:
+    
+    • 48 pS * (1+d/100) for d ≤ 100 μm from soma
+    • 0  pS otherwise
+    
+    i.e., they are prominent at soma then increase linearly with distance from 
+    soma along the proximal dendrites up to 100 μm where it doubles; finally, it
+    vanishes beyond 100 μm from soma
+    
+    -- not that's funny: is the unitary conductance that changes or the number 
+    of channels ?
+    
+    """
+    𝒏KA::SurfaceDensity{Float64} = 64.0u"μm^(-2)"
+    #𝒏KA::SurfaceDensity{T} where T = 64u"μm^(-2)"
+    γKAᵤ::Unitful.ElectricalConductance{Float64} = 7.5u"pS" # at 0 μm from soma -- Migliore et al 1999
+    #γKAᵤ::Unitful.ElectricalConductance{T} where T = 7.5u"pS" # at 0 μm from soma -- Migliore et al 1999
+
+    """K⁺ equilibium potential."""
+    EK::Unitful.Voltage{Float64} = -90.0u"mV" 
+    #EK::Unitful.Voltage{T} where T = -90.0u"mV" 
+    #END KV parameters
+    
+    #BEGIN Ca Ion parameters
+    zCa::Int64 = 2
+    Caᵢ::Concentration{Float64} = 100.0u"μM"
+    Caₒ::Concentration{Float64} = 2.5u"mM"
+    #Caᵢ::Concentration{T} where T = 100.0u"μM"
+    #Caₒ::Concentration{T} where T = 2.5u"mM"
+    #END Ca Ion parameters
+    
+    #BEGIN CaV parameters
+    """T-type channels: CaV3.x"""
+    𝒏CaT::SurfaceDensity{Float64} = 5.0u"μm^(-2)"
+    γCaTᵤ::Unitful.ElectricalConductance{Float64} = 10.0u"pS" # Table 1 in Magee & Johnston 1995 Characterization...
+    """R-type channels: CaV2.3"""
+    𝒏CaR::SurfaceDensity{Float64} = 3.0u"μm^(-2)"
+    γCaRᵤ::Unitful.ElectricalConductance{Float64} = 17.0u"pS" # Table 1 in Magee & Johnston 1995 Characterization...
+    """L-type channels: CaV1.x"""
+    𝒏CaL::SurfaceDensity{Float64} = 3.0u"μm^(-2)"
+    γCaLᵤ::Unitful.ElectricalConductance{Float64} = 27.0u"pS" # Table 1 in Magee & Johnston 1995 Characterization...
+    #END CaV parameters
+    
+    #BEGIN Experiment parameters
+    """Injected current. The sign indicates if injected current is inward 
+    (hyperpolarizing, < 0) or 
+    outward (depolarizing, > 0).
+    """
+    Iinj::Unitful.Current{Float64} = 1.0e3u"pA"
+
+    """Time of current injection start."""
+    t₀::Unitful.Time{Float64} = 50.0u"ms"
+    
+    """Time of current injection end."""
+    t₁::Unitful.Time{Float64} = 250.0u"ms"
+    @assert t₁ > t₀
+    
+    """Temperature in °C.
+    To convert to °K use:
+    `uconvert(u"K", t)` where t is , say, 35u"°C"
+    
+    CAUTION: this returns a rational number, which Julia should handle.
+    
+    If in doubts, use
+    
+    `float(uconvert(u"K", t))` --> floating point number (in °K),e.g.:
+    
+    ```julia
+    float(uconvert(u"K", 35u"°C"))
+    
+    308.15 K
+    ```
+    """
+    temperature::Unitful.Temperature{Float64} = 35.0u"°C"
+    #END Experiment parameters
+    
+    #BEGIN Simulation parameters
+    timespan::NTuple{2, Unitful.Time{Float64}} = (0.0u"ms", 500.0u"ms")
+    #END Simulation parameters
+    
+end
+
 
 
 @with_kw mutable struct NaVParameters <: AbstractParameters
@@ -995,6 +1061,12 @@ The unitful versions are experimental - do NOT use!
 
     bᵢ::Union{Int64,Float64} = 0.8 # See Migliore et al 1999; 0.5 in apical dendrites, 0.8 in soma, 1 elsewhere
     
+end
+
+mutable struct TestMe
+end
+
+struct TestMe2 
 end
 
 

@@ -27,13 +27,14 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
 
     bool commentLine = false;
     bool terseFunctionExpresion = false;
-    // bool inTry = false;
-    // bool inIf = false;
-    // bool inWhile = false;
-    // bool inFor = false;
-    // bool inBegin = false;
+    // bool inTryBlock = false;
+    // bool inIfBlock = false;
+    // bool inWhileBlock = false;
+    // bool inForBlock = false;
+    // bool inBeginBlock = false;
     // bool inFunctionBlock = false;
     // bool inMacroBlock = false;
+    // bool inStructBlock = false;
 
     Type type;
     QString name;
@@ -44,6 +45,7 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
     QString whereStmt;
     QString current_class_name;
     QString mutable_kw;
+    QString lastControl;
 
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *functionNode = nullptr, *mtdNode = nullptr, *clsNode = nullptr;
@@ -87,14 +89,6 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
     static const QRegularExpression class_regexp(QLatin1String("(@[a-zA-Z0-9_\\s]+)?(?:struct|mutable\\s+struct)\\s+([\\w!a-zA-Z0-9_.]+)"),
                                                  QRegularExpression::UseUnicodePropertiesOption);
 
-    // static const QRegularExpression try_expr(QLatin1String("try"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression if_expr(QLatin1String("if"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression while_expr(QLatin1String("while"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression for_expr(QLatin1String("for"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression begin_expr(QLatin1String("begin"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression eol_end_expr(QLatin1String("end$"), QRegularExpression::UseUnicodePropertiesOption);
-    // static const QRegularExpression end_expr(QLatin1String("end"), QRegularExpression::UseUnicodePropertiesOption);
-
     static const QRegularExpression function_regexp(
         // captures:    1=@qualif                      2=name               3=params+annots                  4=whereStmt
         QLatin1String("(@[a-zA-Z0-9_\\s]+)?function\\s+([\\w:!.]+)\\s*(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)?$( where [\\w:<>=.\\{\\}]*\\s?$)?"),
@@ -108,8 +102,11 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
     //     QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression terse_function_regexp(
-        // captures:   1=@qualif             2         3               4     5                    6     7                       8     9     10    11
-        QLatin1String("(@[a-zA-Z0-9_\\s]+ )?([\\w:.]+)?([\\w:\\{\\}!]+)(\\s?)(\\(.*[\\),;\\s]*\\))(\\s?)(where [\\w:<>=.]*\\s?)?(\\s?)(=){1}(\\s*)(\\(.*\\))?"),
+        // captures:   1=@qualif             2         3               4     5                    6     7                                          8     9 10
+        QLatin1String(
+            "^(@[a-zA-Z0-9_\\s]+ )?([\\w:.]+)?([\\w:\\{\\}!]+)(\\s?)(\\(.*[\\),;\\s]*\\))(\\s?)(where [\\w:<>.,\\s\\{\\}a-zA-Z0-9]*\\s?)?(\\s?)\\s*=\\s*(.*)$"),
+        // QLatin1String("(@[a-zA-Z0-9_\\s]+ )?([\\w:.]+)?([\\w:\\{\\}!]+)(\\s?)(\\(.*[\\),;\\s]*\\))(\\s?)(where
+        // [\\w:<>=.,\\{\\}]*\\s?)?(\\s?)(=){1}(\\s*)(\\(.*\\))?"),
         QRegularExpression::UseUnicodePropertiesOption);
 
     // static const QRegularExpression terse_function_regexp(QLatin1String("(@[a-zA-Z0-9_\\s]+
@@ -120,20 +117,29 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
 
     static const QRegularExpression assert_regexp(QLatin1String("@assert"));
 
+    // static const QRegularExpression try_expr(QLatin1String("try"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression if_expr(QLatin1String("if"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression while_expr(QLatin1String("while"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression for_expr(QLatin1String("for"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression begin_expr(QLatin1String("begin"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression eol_end_expr(QLatin1String("end$"), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression end_expr(QLatin1String("end"), QRegularExpression::UseUnicodePropertiesOption);
+
     QRegularExpressionMatch match; //, match1;
 
     for (int i = 0; i < kv->lines(); i++) {
         int line = i;
+        int indexOfHash = -1;
         QString cl = kv->line(i);
-        QString cl_sp = cl.simplified();
+        if (cl.isEmpty()) {
+            continue;
+        }
+
         // QString cl_tr = cl.trimmed();
 
         // qDebug() << "line " << line+1 << cl << Qt::endl;
 
         // concatenate continued lines and remove continuation marker (from python_parser.cpp)
-        if (cl.isEmpty()) {
-            continue;
-        }
         while (cl[cl.length() - 1] == QLatin1Char('\\')) {
             cl = cl.left(cl.length() - 1);
             i++;
@@ -147,12 +153,80 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
             }
         }
 
+        QString cl_sp = cl.simplified();
+
+        // strip away comments
+        indexOfHash = cl_sp.indexOf(QLatin1Char('#'));
+        if (indexOfHash > 0) {
+            cl_sp = cl_sp.left(indexOfHash - 1);
+        } else if (indexOfHash == 0) {
+            continue;
+        }
         // skip asserts
         match = assert_regexp.match(cl_sp);
 
         if (match.hasMatch()) {
             continue;
         }
+
+        //         match = end_expr.match(cl_sp);
+        //
+        //         if (match.hasMatch()) {
+        //             if ((lastControl == QLatin1String("if")) & inIfBlock) {
+        //                 inIfBlock = false;
+        //             } else if ((lastControl == QLatin1String("for")) & inForBlock) {
+        //                 inForBlock = false;
+        //             } else if ((lastControl == QLatin1String("try")) & inTryBlock) {
+        //                 inTryBlock = false;
+        //             } else if ((lastControl == QLatin1String("while")) & inWhileBlock) {
+        //                 inWhileBlock = false;
+        //             } else if ((lastControl == QLatin1String("begin")) & inBeginBlock) {
+        //                 inBeginBlock = false;
+        //             } else if ((lastControl == QLatin1String("function")) & inFunctionBlock) {
+        //                 inFunctionBlock = false;
+        //             } else if ((lastControl == QLatin1String("macro")) & inMacroBlock) {
+        //                 inMacroBlock = false;
+        //             } else if ((lastControl == QLatin1String("struct")) & inStructBlock) {
+        //                 inStructBlock = false;
+        //             }
+        //         }
+        //
+        //         match = if_expr.match(cl_sp);
+        //
+        //         if (match.hasMatch()) {
+        //             lastControl = QLatin1String("if");
+        //             inIfBlock = true;
+        //             match1 = end_expr.match(cl_sp);
+        //
+        //             if (match1.hasMatch()) {
+        //                 inIfBlock = false;
+        //                 if (inTryBlock) {
+        //                     lastControl = QLatin1String("try");
+        //                 } else if (inWhileBlock) {
+        //                     lastControl = QLatin1String("while");
+        //                 } else if (inForBlock) {
+        //                     lastControl = QLatin1String("for");
+        //                 } else if (inBeginBlock) {
+        //                     lastControl = QLatin1String("begin");
+        //                 } else if (inFunctionBlock) {
+        //                     lastControl = QLatin1String("function");
+        //                 } else if (inStructBlock) {
+        //                     lastControl = QLatin1String("struct");
+        //                 } else if (inMacroBlock) {
+        //                     lastControl = QLatin1String("macro");
+        //                 } else {
+        //                     lastControl.clear();
+        //                 }
+        //             } else {
+        //                 continue;
+        //             }
+        //         }
+        //
+        //         match = try_expr.match(cl_sp);
+        //
+        //         if (match.hasMatch()) {
+        //             lastControl = QLatin1String("try");
+        //         }
 
         // skip # comments
         match = comment_regexp.match(cl_sp);
@@ -200,16 +274,23 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
 
         if (match.hasMatch()) { // try and  match struct first
             type = Type::Structure;
+            // lastControl = QLatin1String("struct");
+            // inStructBlock = true; // wait for 'end' to show up
 
         } else {
             match = macro_regexp.match(cl_sp); // finally , try to match a macro definition NOTE/TODO: terse macro definitions?
             if (match.hasMatch()) {
                 type = Type::Macro;
+                // lastControl = QLatin1String("macro");
+                // inMacroBlock = true; // wait for 'end' to show up
             } else {
                 // continue;
                 match = function_regexp.match(cl_sp); // the try and match verbose function definition
                 if (match.hasMatch()) {
                     type = Type::Function;
+                    // lastControl = QLatin1String("function");
+
+                    // inFunctionBlock = true;
 
                 } else {
                     // continue;
@@ -217,6 +298,16 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                     if (match.hasMatch()) {
                         type = Type::Function;
                         terseFunctionExpresion = true;
+
+                        // lastControl.clear();
+                        // inMacroBlock = false;
+                        // inStructBlock = false;
+                        // inFunctionBlock = false;
+                        // inTryBlock = false;
+                        // inIfBlock = false;
+                        // inWhileBlock = false;
+                        // inForBlock = false;
+                        // inBeginBlock = false;
                     } else {
                         continue;
                     }

@@ -19,6 +19,7 @@ end
 end
 
 mutable struct Concentration{T} where T
+    x::T
 end
 
 struct TestMe2 

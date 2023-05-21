@@ -176,19 +176,19 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
 
         match = class_regexp.match(cl_sp);
 
-        if (match.hasMatch()) { // try and  match struct first
+        if (match.hasMatch()) {
             type = Type::Structure;
 
         } else {
-            match = macro_regexp.match(cl_sp); // finally , try to match a macro definition NOTE/TODO: terse macro definitions?
+            match = macro_regexp.match(cl_sp);
             if (match.hasMatch()) {
                 type = Type::Macro;
             } else {
-                match = function_regexp.match(cl_sp); // the try and match verbose function definition
+                match = function_regexp.match(cl_sp);
                 if (match.hasMatch()) {
                     type = Type::Function;
                 } else {
-                    match = terse_function_regexp.match(cl_sp); // try to match a terse function definition
+                    match = terse_function_regexp.match(cl_sp);
                     if (match.hasMatch()) {
                         type = Type::Function;
                         terseFunctionExpresion = true;
@@ -244,6 +244,7 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                 if (!params.isEmpty() & !params.endsWith(QLatin1String(")"))) {
                     if (!terseFunctionExpresion) {
                         if (whereStmt.isEmpty() & !params.contains(QLatin1String("where"))) {
+                            params += QLatin1Char(' ');
                             params += contStr;
 
                         } else {

@@ -89,6 +89,8 @@ end
 
 
 @inline function inline_function(a,b,c)
+    if length(a)
+    end
 end
 
 @noinline function noinline_function(a,b,c)

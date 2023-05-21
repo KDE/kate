@@ -60,8 +60,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         m_symbols->setRootIsDecorated(0);
     }
 
-    static const QChar ret[1] = {0x21b5};
-    static const QString contStr(ret, 1);
+    static const QString contStr(0x21b5);
 
     static const QRegularExpression comment_regexp(QLatin1String("^[#]"), QRegularExpression::UseUnicodePropertiesOption);
     static const QRegularExpression ml_docsctring_regexp(QLatin1String("\"\"\""), QRegularExpression::UseUnicodePropertiesOption);

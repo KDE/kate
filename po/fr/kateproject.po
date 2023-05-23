@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-05-23 00:49+0000\n"
 "PO-Revision-Date: 2023-04-08 10:31+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -597,7 +597,7 @@ msgstr "Index des projets"
 msgid "Project ctags index settings"
 msgstr "Réglages de l'index des « Ctag » de projet"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
 msgstr "Activer l'indexation"
@@ -750,37 +750,37 @@ msgstr[1] "[%1] Analyse terminée sur les %2 fichiers."
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Échec de l'analyse avec le code de sortie %1, erreur : %2."
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Name"
 msgstr "Nom"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Kind"
 msgstr "Type"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "File"
 msgstr "Fichier"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Line"
 msgstr "Ligne"
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Search"
 msgstr "Rechercher"
 
-#: kateprojectinfoviewindex.cpp:196
+#: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Impossible de créer l'index. Veuillez installer « ctags »."
 
-#: kateprojectinfoviewindex.cpp:206
+#: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "L'indexation n'est pas activée."

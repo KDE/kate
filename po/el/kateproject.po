@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-05-23 00:49+0000\n"
 "PO-Revision-Date: 2023-01-02 16:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -584,7 +584,7 @@ msgstr "Ευρετήριο έργου"
 msgid "Project ctags index settings"
 msgstr "Ρυθμίσεις δείκτη ctags έργου"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
 msgstr "Ενεργοποίηση δεικτοδότησης"
@@ -742,37 +742,37 @@ msgstr[1] "Η ανάλυση σε %1 αρχεία ολοκληρώθηκε."
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Αποτυχία ανάλυσης σε %1 αρχείο με κωδικό εξόδου %2."
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Name"
 msgstr "Όνομα"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Kind"
 msgstr "Είδος"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "File"
 msgstr "Αρχείο"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Line"
 msgstr "Γραμμή"
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: kateprojectinfoviewindex.cpp:196
+#: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Αδυναμία δημιουργίας του ευρετηρίου. Εγκαταστήστε το 'ctags'."
 
-#: kateprojectinfoviewindex.cpp:206
+#: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Η δεικτοδότηση δεν είναι ενεργή"

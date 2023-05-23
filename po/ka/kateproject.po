@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-05-23 00:49+0000\n"
 "PO-Revision-Date: 2023-04-07 04:59+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -576,7 +576,7 @@ msgstr "პროექტის ინდექსი"
 msgid "Project ctags index settings"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
 msgstr "ინდექსრების ჩართვა"
@@ -723,37 +723,37 @@ msgstr[1] "[%1] ანალიზი ფაილზე %2 დასრულ�
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "ფაილის (%1) შექმნის შეცდომა: %2"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Name"
 msgstr "სახელი"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Kind"
 msgstr "ტიპი"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "File"
 msgstr "ფაილი"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Line"
 msgstr "ხაზი"
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Search"
 msgstr "ძებნა"
 
-#: kateprojectinfoviewindex.cpp:196
+#: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "ინდექსის შექმნა შეუძლებელია. დააყენეთ პროგრამა 'ctags'."
 
-#: kateprojectinfoviewindex.cpp:206
+#: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "ინდექსირება ჩართული არაა"

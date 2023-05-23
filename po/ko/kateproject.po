@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-05-23 00:49+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -589,7 +589,7 @@ msgstr "프로젝트 색인"
 msgid "Project ctags index settings"
 msgstr "프로젝트 ctags 색인 설정"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
 msgstr "색인 사용"
@@ -746,37 +746,37 @@ msgstr[0] "파일 %1개 분석이 완료되었습니다."
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "파일 %1개 분석이 실패했으며, 오류 코드는 %2입니다."
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Name"
 msgstr "이름"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Kind"
 msgstr "종류"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "File"
 msgstr "파일"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Line"
 msgstr "줄"
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Search"
 msgstr "찾기"
 
-#: kateprojectinfoviewindex.cpp:196
+#: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "색인을 만들 수 없습니다. 'ctags'를 설치하십시오."
 
-#: kateprojectinfoviewindex.cpp:206
+#: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "색인 생성이 비활성화됨"

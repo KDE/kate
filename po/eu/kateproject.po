@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-05-23 00:49+0000\n"
 "PO-Revision-Date: 2023-04-30 09:24+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -584,7 +584,7 @@ msgstr "Proiektuaren indizea"
 msgid "Project ctags index settings"
 msgstr "Proiektuaren «ctags» indizeen ezarpenak"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
 msgstr "Gaitu indexatzea"
@@ -736,37 +736,37 @@ msgstr[1] "[%1]%2 fitxategi gaineko analisia amaitu da."
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Analisiak huts egin du irteerako %1 kodearekin, errorea: %2"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Name"
 msgstr "Izena"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Kind"
 msgstr "Mota"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "File"
 msgstr "Fitxategia"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Line"
 msgstr "Lerroa"
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Search"
 msgstr "Bilatu"
 
-#: kateprojectinfoviewindex.cpp:196
+#: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Indizea ezin izan da sortu. Instalatu «ctags»."
 
-#: kateprojectinfoviewindex.cpp:206
+#: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Indexatzea ez dago gaitua"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-05-23 00:49+0000\n"
 "PO-Revision-Date: 2021-09-15 03:16+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -590,7 +590,7 @@ msgstr "ပရောဂျက်အညွှန်း"
 msgid "Project ctags index settings"
 msgstr "စီတပ် ဆက်တင်"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:207
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
 msgstr "အညွှန်းပြခြင်း အသုံးပြုမည်"
@@ -740,12 +740,12 @@ msgstr[0] "ဖိုင်လ် %1ခု ကို စိစစ်မှု ပ
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr ""
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Name"
 msgstr "အမည်"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, fuzzy, kde-format
 msgid "Kind"
 msgstr ""
@@ -761,27 +761,27 @@ msgstr ""
 "ခလုတ်ကို နှိပ်ပါ။ ၎င်း မကိုင်တွယ်နိုင်သော အမ်အိုင်အမ်အီးတိုက်များ စာရင်းတွင်ပါပါက ထုတ်ပစ်ရန် <b>ဖယ်မည်</b> "
 "ခလုတ်ကိုနှိပ်ပါ။</p></qt>"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "File"
 msgstr "ဖိုင်လ်"
 
-#: kateprojectinfoviewindex.cpp:34
+#: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Line"
 msgstr "စာကြောင်း"
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Search"
 msgstr "ရှာမည်"
 
-#: kateprojectinfoviewindex.cpp:196
+#: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr ""
 
-#: kateprojectinfoviewindex.cpp:206
+#: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr ""

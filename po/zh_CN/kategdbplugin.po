@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-04-29 08:33\n"
+"PO-Revision-Date: 2023-05-22 14:00\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -19,8 +19,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "GDB 命令"
 
@@ -184,11 +183,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "设置"
+msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
@@ -197,10 +194,9 @@ msgid "Default Debug Adapter Settings"
 msgstr ""
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "调试"
+msgstr ""
 
 #: debugconfigpage.cpp:128
 #, kde-format
@@ -636,10 +632,9 @@ msgid "named items"
 msgstr "已命名项目"
 
 #: plugin_kategdb.cpp:106
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr ""
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -669,12 +664,10 @@ msgid "Frame"
 msgstr "框架"
 
 #: plugin_kategdb.cpp:200
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB 输出"
+msgstr ""
 
 #: plugin_kategdb.cpp:201
 #, kde-format
@@ -796,7 +789,6 @@ msgstr "调试(&D)"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "GDB 插件"
+msgstr ""

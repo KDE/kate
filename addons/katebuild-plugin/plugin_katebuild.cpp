@@ -148,7 +148,7 @@ static QString caseFixed(const QString &path)
 
 static void terminateProcess(KProcess& proc)
 {
-    proc->kill();
+    proc.kill();
 }
 #endif
 

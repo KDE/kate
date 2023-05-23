@@ -138,7 +138,6 @@ static void KillProcessTree(DWORD myprocID)
 static void terminateProcess(KProcess& proc)
 {
     KillProcessTree(proc.processId());
-    proc.terminate();
 }
 
 #else
@@ -149,9 +148,8 @@ static QString caseFixed(const QString &path)
 
 static void terminateProcess(KProcess& proc)
 {
-    proc->terminate();
+    proc->kill();
 }
-
 #endif
 
 struct ItemData {

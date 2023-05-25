@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-03-10 12:07+0100\n"
+"PO-Revision-Date: 2023-05-23 19:18+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -189,47 +189,44 @@ msgstr "Cible %1"
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "Configuration de l'adaptateur de débogage utilisateur"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "Configuration"
+msgstr "Fichier de configuration :"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "Configuration de l'adaptateur de débogage par défaut"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Déboguer"
+msgstr "Débogueur"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Aucune donnée « JSON » disponible."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "Les données « JSON » sont valables. "
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Configuration de l'adaptateur de débogage utilisateur"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "Les données « JSON » ne sont pas valables. : %1"
 
 #: debugview.cpp:35
 #, kde-format
@@ -657,10 +654,9 @@ msgid "named items"
 msgstr "éléments nommés"
 
 #: plugin_kategdb.cpp:106
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "GDB pour Kate"
+msgstr "Débogueur de Kate"
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -690,12 +686,10 @@ msgid "Frame"
 msgstr "Cadre"
 
 #: plugin_kategdb.cpp:200
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "Sortie de GDB"
+msgstr "Sortie du débogueur"
 
 #: plugin_kategdb.cpp:201
 #, kde-format
@@ -818,10 +812,9 @@ msgstr "&Déboguer"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "Module externe GDB"
+msgstr "Module externe de débogage"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

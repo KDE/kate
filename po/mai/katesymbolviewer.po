@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-05-25 00:49+0000\n"
 "PO-Revision-Date: 2010-09-24 20:25+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -20,33 +20,35 @@ msgstr ""
 "\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
-#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
+#: julia_parser.cpp:27 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
+#: ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
 msgstr ""
 
-#: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40 php_parser.cpp:34
-#: python_parser.cpp:39 ruby_parser.cpp:33 tcl_parser.cpp:35
+#: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40
+#: julia_parser.cpp:53 php_parser.cpp:34 python_parser.cpp:46
+#: ruby_parser.cpp:33 tcl_parser.cpp:35
 #, kde-format
 msgid "Functions"
 msgstr "प्रकार्यसभ"
 
-#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
+#: cpp_parser.cpp:29 julia_parser.cpp:25 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Macros"
 msgstr ""
 
-#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
+#: cpp_parser.cpp:30 julia_parser.cpp:26 plugin_katesymbolviewer.cpp:86
 #, kde-format
 msgid "Show Structures"
 msgstr ""
 
-#: cpp_parser.cpp:41
+#: cpp_parser.cpp:41 julia_parser.cpp:54
 #, kde-format
 msgid "Macros"
 msgstr "मेक्रोज़"
 
-#: cpp_parser.cpp:42
+#: cpp_parser.cpp:42 julia_parser.cpp:52
 #, kde-format
 msgid "Structures"
 msgstr ""
@@ -101,7 +103,7 @@ msgstr "नेम-स्पेसेज़"
 msgid "Defines"
 msgstr ""
 
-#: php_parser.cpp:33 python_parser.cpp:38 ruby_parser.cpp:32
+#: php_parser.cpp:33 python_parser.cpp:45 ruby_parser.cpp:32
 #, kde-format
 msgid "Classes"
 msgstr "वर्ग"
@@ -153,57 +155,57 @@ msgctxt "@title:column"
 msgid "Position"
 msgstr "स्थिति"
 
-#: plugin_katesymbolviewer.cpp:359
+#: plugin_katesymbolviewer.cpp:361
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:363
+#: plugin_katesymbolviewer.cpp:365
 #, kde-format
 msgid "File type: %1"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:476
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Display functions parameters"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Always sort symbols"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:483
 #, kde-format
 msgid "Parser Options"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:509
+#: plugin_katesymbolviewer.cpp:511
 #, kde-format
 msgid "Symbol Viewer"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:514
+#: plugin_katesymbolviewer.cpp:516
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr ""
 
-#: python_parser.cpp:22 ruby_parser.cpp:22
+#: python_parser.cpp:26 ruby_parser.cpp:22
 #, kde-format
 msgid "Show Methods"
 msgstr ""
 
-#: python_parser.cpp:23 ruby_parser.cpp:23
+#: python_parser.cpp:27 ruby_parser.cpp:23
 #, kde-format
 msgid "Show Classes"
 msgstr ""

@@ -1,20 +1,20 @@
 # Translation of katekonsoleplugin to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2007, 2008, 2009, 2010, 2015, 2018, 2020, 2021.
+# Karl Ove Hufthammer <karl@huftis.org>, 2007, 2008, 2009, 2010, 2015, 2018, 2020, 2021, 2023.
 # Eirik U. Birkeland <eirbir@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-09 00:51+0000\n"
-"PO-Revision-Date: 2021-10-10 11:12+0200\n"
+"PO-Revision-Date: 2023-05-27 14:34+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.1\n"
+"X-Generator: Lokalize 23.04.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -67,6 +67,7 @@ msgstr "&Fokus på terminalruta"
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Konsole er ikkje installert. Installer Konsole viss du vil bruka terminalen."
 
 #: kateconsole.cpp:376
 #, kde-format

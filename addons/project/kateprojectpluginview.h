@@ -117,11 +117,6 @@ public:
     void openTerminal(const QString &dirPath, KateProject *project);
 
     /**
-     * Open a folder / project
-     */
-    void openDirectoryOrProject(const QDir &dir);
-
-    /**
      * Open a project
      */
     void openProject(KateProject *project);
@@ -296,6 +291,7 @@ private Q_SLOTS:
      * Open a folder / project
      */
     void openDirectoryOrProject();
+    void openDirectoryOrProject(const QDir &dir);
 
     /**
      * Show projects To-Dos and Fix-mes

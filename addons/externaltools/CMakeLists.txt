@@ -20,6 +20,10 @@ target_link_libraries(externaltoolsplugin PRIVATE
     kateprivate
 )
 
+if (QT_MAJOR_VERSION STREQUAL "6")
+    target_link_libraries(externaltoolsplugin PRIVATE KF6::IconWidgets)
+endif()
+
 ki18n_wrap_ui(externaltoolsplugin configwidget.ui
     tooldialog.ui
     toolview.ui

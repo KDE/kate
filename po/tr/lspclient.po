@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-05 01:01+0000\n"
-"PO-Revision-Date: 2023-02-08 12:12+0300\n"
+"PO-Revision-Date: 2023-05-29 12:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -194,7 +194,7 @@ msgstr "Yazarken Biçimlendir"
 #: lspclientpluginview.cpp:590
 #, kde-format
 msgid "Incremental document synchronization"
-msgstr "Artan Belge Eşzamanlaması"
+msgstr "Artımlı Belge Eşzamanlaması"
 
 #: lspclientpluginview.cpp:593
 #, kde-format
@@ -421,7 +421,7 @@ msgstr "Sunucu yapılandırması okunamadı: %1"
 #: lspclientsymbolview.cpp:238
 #, kde-format
 msgid "Symbol Outline"
-msgstr "Sembol Ana Hatı"
+msgstr "Sembol Ana Hattı"
 
 #: lspclientsymbolview.cpp:276
 #, kde-format
@@ -553,7 +553,7 @@ msgstr "Belgeleri LSP sunucusuyla artan biçimde eşzamanla"
 #: lspconfigwidget.ui:166
 #, kde-format
 msgid "Document outline:"
-msgstr "Belge ana hatı:"
+msgstr "Belge ana hattı:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
 #: lspconfigwidget.ui:173

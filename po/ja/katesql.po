@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -515,7 +515,6 @@ msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
 msgstr[0] ""
-msgstr[1] ""
 
 #: sqlmanager.cpp:356
 #, kde-format
@@ -523,7 +522,6 @@ msgctxt "@info"
 msgid "%1 row affected"
 msgid_plural "%1 rows affected"
 msgstr[0] ""
-msgstr[1] ""
 
 #. i18n: ectx: Menu (SQL)
 #: ui.rc:6

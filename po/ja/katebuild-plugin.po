@@ -13,7 +13,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -171,15 +171,13 @@ msgstr ""
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
-msgstr[0] "1 件のエラーが見つかりました。"
-msgstr[1] "%1 件のエラーが見つかりました。"
+msgstr[0] "%1 件のエラーが見つかりました。"
 
 #: plugin_katebuild.cpp:862
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
-msgstr[0] "1 件の警告が見つかりました。"
-msgstr[1] "%1 件の警告が見つかりました。"
+msgstr[0] "%1 件の警告が見つかりました。"
 
 #: plugin_katebuild.cpp:865
 #, fuzzy, kde-format
@@ -187,8 +185,7 @@ msgstr[1] "%1 件の警告が見つかりました。"
 #| msgid_plural "Found %1 errors."
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "1 件のエラーが見つかりました。"
-msgstr[1] "%1 件のエラーが見つかりました。"
+msgstr[0] "%1 件のエラーが見つかりました。"
 
 #: plugin_katebuild.cpp:870
 #, kde-format

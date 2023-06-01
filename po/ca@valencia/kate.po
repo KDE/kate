@@ -730,7 +730,7 @@ msgstr "Pablo Martín"
 #: lib/kateapp.cpp:308
 #, kde-format
 msgid "Python Plugin Developer"
-msgstr "Desenvolupador del connector Python"
+msgstr "Desenvolupador del connector en Python"
 
 #: lib/kateapp.cpp:311
 #, kde-format

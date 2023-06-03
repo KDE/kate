@@ -74,7 +74,12 @@ AppOutput::AppOutput(QWidget *parent)
     : QWidget(parent)
     , d(std::make_unique<AppOutput::Private>(this))
 {
-    KPluginFactory *factory = KPluginFactory::loadFactory(QStringLiteral("konsolepart")).plugin;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    const QString konsolePart = QStringLiteral("konsolepart");
+#else
+    const QString konsolePart = QStringLiteral("kf6/parts/konsolepart");
+#endif
+    KPluginFactory *factory = KPluginFactory::loadFactory(konsolePart).plugin;
     if (!factory) {
         qDebug() << "could not load the konsolepart factory";
     } else {

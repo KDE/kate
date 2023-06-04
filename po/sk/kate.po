@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-23 00:49+0000\n"
+"POT-Creation-Date: 2023-06-04 00:50+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -310,91 +310,97 @@ msgstr "&Nasledujúca karta"
 msgid "Previous Item"
 msgstr "Predchádzajúca karta"
 
-#: lib/diagnostics/diagnosticview.cpp:401
+#: lib/diagnostics/diagnosticview.cpp:379
+#, fuzzy, kde-format
+#| msgid "Diagnostics"
+msgid "Clear Diagnostics Filter"
+msgstr "Diagnostika"
+
+#: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostika"
 
-#: lib/diagnostics/diagnosticview.cpp:437
+#: lib/diagnostics/diagnosticview.cpp:443
 #, fuzzy, kde-format
 #| msgid "Error"
 msgid "Errors"
 msgstr "Chyba"
 
-#: lib/diagnostics/diagnosticview.cpp:453
+#: lib/diagnostics/diagnosticview.cpp:459
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgid "Warnings"
 msgstr "Upozornenie"
 
-#: lib/diagnostics/diagnosticview.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:473
 #, kde-format
 msgid "Filter..."
 msgstr "&Iné..."
 
-#: lib/diagnostics/diagnosticview.cpp:1050 lib/kateconfigdialog.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Error"
 msgstr "Chyba"
 
-#: lib/diagnostics/diagnosticview.cpp:1054 lib/kateconfigdialog.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:1060 lib/kateconfigdialog.cpp:373
 #: lib/kateconfigdialog.cpp:909
 #, kde-format
 msgid "Warning"
 msgstr "Upozornenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1058
+#: lib/diagnostics/diagnosticview.cpp:1064
 #, kde-format
 msgid "Information"
 msgstr "Informácia"
 
-#: lib/diagnostics/diagnosticview.cpp:1210
+#: lib/diagnostics/diagnosticview.cpp:1216
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [potlačené: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1338
+#: lib/diagnostics/diagnosticview.cpp:1346
 #, kde-format
 msgid "Expand All"
 msgstr "Rozbaliť všetko"
 
-#: lib/diagnostics/diagnosticview.cpp:1339
+#: lib/diagnostics/diagnosticview.cpp:1347
 #, kde-format
 msgid "Collapse All"
 msgstr "Zbaliť všetko"
 
-#: lib/diagnostics/diagnosticview.cpp:1346
+#: lib/diagnostics/diagnosticview.cpp:1354
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Skopírovať do schránky"
 
-#: lib/diagnostics/diagnosticview.cpp:1369
+#: lib/diagnostics/diagnosticview.cpp:1377
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Odstrániť globálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1371
+#: lib/diagnostics/diagnosticview.cpp:1379
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Pridať globálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1375
+#: lib/diagnostics/diagnosticview.cpp:1383
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Odstrániť lokálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1377
+#: lib/diagnostics/diagnosticview.cpp:1385
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Pridať lokálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1391
+#: lib/diagnostics/diagnosticview.cpp:1399
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Zakázať lokálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1393
+#: lib/diagnostics/diagnosticview.cpp:1401
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Povoliť lokálne potlačenie"

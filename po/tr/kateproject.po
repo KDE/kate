@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-23 00:49+0000\n"
-"PO-Revision-Date: 2023-04-07 11:30+0300\n"
+"PO-Revision-Date: 2023-06-04 01:40+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -982,12 +982,12 @@ msgstr "Dizin oluşturulamadı: %1"
 #: stashdialog.cpp:37
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
-msgstr "İletiyi zulala (isteğe bağlı). Onay için Enter, çıkmak için Esc."
+msgstr "İletiyi zulala (isteğe bağlı). Onay için Giriş, çıkmak için Esc."
 
 #: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
-msgstr "Süzmek için yazın, zulayı patlatmak için Enter, çıkmak için Esc."
+msgstr "Süzmek için yazın, zulayı patlatmak için Giriş, çıkmak için Esc."
 
 #: stashdialog.cpp:143
 #, kde-format

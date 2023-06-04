@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-23 00:49+0000\n"
+"POT-Creation-Date: 2023-06-04 00:50+0000\n"
 "PO-Revision-Date: 2004-06-30 15:15+0100\n"
 "Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -308,93 +308,98 @@ msgstr "Tab Newydd"
 msgid "Previous Item"
 msgstr "Gweithredu'r Tab Cynt"
 
-#: lib/diagnostics/diagnosticview.cpp:401
+#: lib/diagnostics/diagnosticview.cpp:379
+#, kde-format
+msgid "Clear Diagnostics Filter"
+msgstr ""
+
+#: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:437
+#: lib/diagnostics/diagnosticview.cpp:443
 #, kde-format
 msgid "Errors"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:453
+#: lib/diagnostics/diagnosticview.cpp:459
 #, kde-format
 msgid "Warnings"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:473
 #, fuzzy, kde-format
 msgid "Filter..."
 msgstr "Ffeiliau:"
 
-#: lib/diagnostics/diagnosticview.cpp:1050 lib/kateconfigdialog.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1054 lib/kateconfigdialog.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:1060 lib/kateconfigdialog.cpp:373
 #: lib/kateconfigdialog.cpp:909
 #, kde-format
 msgid "Warning"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1058
+#: lib/diagnostics/diagnosticview.cpp:1064
 #, fuzzy, kde-format
 msgid "Information"
 msgstr "Meta-wybodaeth"
 
-#: lib/diagnostics/diagnosticview.cpp:1210
+#: lib/diagnostics/diagnosticview.cpp:1216
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1338
+#: lib/diagnostics/diagnosticview.cpp:1346
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1339
+#: lib/diagnostics/diagnosticview.cpp:1347
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Cau pop&eth"
 
-#: lib/diagnostics/diagnosticview.cpp:1346
+#: lib/diagnostics/diagnosticview.cpp:1354
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1369
+#: lib/diagnostics/diagnosticview.cpp:1377
 #, fuzzy, kde-format
 #| msgid "Regular expression"
 msgid "Remove Global Suppression"
 msgstr "Mynegiad rheolaidd"
 
-#: lib/diagnostics/diagnosticview.cpp:1371
+#: lib/diagnostics/diagnosticview.cpp:1379
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "Ses&iynau"
 
-#: lib/diagnostics/diagnosticview.cpp:1375
+#: lib/diagnostics/diagnosticview.cpp:1383
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1377
+#: lib/diagnostics/diagnosticview.cpp:1385
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1391
+#: lib/diagnostics/diagnosticview.cpp:1399
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "Sesiynau"
 
-#: lib/diagnostics/diagnosticview.cpp:1393
+#: lib/diagnostics/diagnosticview.cpp:1401
 #, fuzzy, kde-format
 msgid "Enable Suppression"
 msgstr "Sesiwn"

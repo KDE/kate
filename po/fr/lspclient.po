@@ -79,7 +79,7 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
-"L’utilisateur a bloqué de façon permanente, le début de : « %1 ». \n"
+"L'utilisateur a bloqué de façon permanente, le début de : « %1 ». \n"
 "Utilisez la page de configuration du module externe pour annuler ce blocage."
 
 #: lspclientpluginview.cpp:518
@@ -202,7 +202,7 @@ msgstr "Mettre en valeur l'emplacement de destination"
 #: lspclientpluginview.cpp:602
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr "Afficher les conseils d’incrustation"
+msgstr "Afficher les conseils d'incrustation"
 
 #: lspclientpluginview.cpp:606
 #, kde-format
@@ -478,7 +478,7 @@ msgstr "Activer le surlignement sémantique"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr "Activer les conseils d’incrustation"
+msgstr "Activer les conseils d'incrustation"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75
@@ -498,7 +498,7 @@ msgstr ""
 #, kde-format
 msgid "Show function signature when typing a function call"
 msgstr ""
-"Afficher la signature de la fonction lors de la saisie d’un appel de fonction"
+"Afficher la signature de la fonction lors de la saisie d'un appel de fonction"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
 #: lspconfigwidget.ui:103
@@ -579,7 +579,7 @@ msgstr "Afficher des détails supplémentaires pour les symboles"
 #: lspconfigwidget.ui:187
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
-msgstr "Présenter les symboles dans une hiérarchie au lieu d’une liste à plat"
+msgstr "Présenter les symboles dans une hiérarchie au lieu d'une liste à plat"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
 #: lspconfigwidget.ui:202

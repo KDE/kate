@@ -843,11 +843,6 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     m_buildUi.cancelBuildButton->setEnabled(false);
     m_buildUi.buildAgainButton->setEnabled(true);
 
-    // Filter the diagnostics output to make the next/previous error handle only the build items
-    if ((m_numErrors + m_numWarnings + m_numNotes) > 0) {
-        m_diagnosticsProvider.filterDiagnosticsViewTo(&m_diagnosticsProvider);
-    }
-
     QString buildStatus =
         i18n("Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)", m_currentlyBuildingTarget, m_numErrors, m_numWarnings, m_numNotes);
 

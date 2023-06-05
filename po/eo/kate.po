@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 00:50+0000\n"
-"PO-Revision-Date: 2023-05-17 11:58+0100\n"
+"PO-Revision-Date: 2023-06-04 13:23+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -285,7 +285,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Ĉio"
 
 #: lib/diagnostics/diagnosticview.cpp:363
 #, kde-format
@@ -303,10 +303,9 @@ msgid "Previous Item"
 msgstr "Antaŭa ero"
 
 #: lib/diagnostics/diagnosticview.cpp:379
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "Diagnozo"
+msgstr "Vakigi Diagnozan Filtrilon"
 
 #: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
@@ -1919,12 +1918,12 @@ msgstr "Eraro kreante Diff"
 #: lib/katemwmodonhddialog.cpp:347
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[MALNOVA]"
 
 #: lib/katemwmodonhddialog.cpp:348
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[NOVA]"
 
 #: lib/kateoutputview.cpp:167
 #, kde-format

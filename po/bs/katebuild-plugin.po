@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-24 00:49+0000\n"
+"POT-Creation-Date: 2023-06-05 00:49+0000\n"
 "PO-Revision-Date: 2014-02-08 10:06+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -51,7 +51,7 @@ msgstr "Izgradi priključak"
 msgid "Cancel"
 msgstr ""
 
-#: plugin_katebuild.cpp:194 plugin_katebuild.cpp:201 plugin_katebuild.cpp:1170
+#: plugin_katebuild.cpp:194 plugin_katebuild.cpp:201 plugin_katebuild.cpp:1165
 #, kde-format
 msgid "Build"
 msgstr "Izgradi"
@@ -103,8 +103,8 @@ msgstr "Postavke odredišta"
 msgid "Build Information"
 msgstr "Izgradi priključak"
 
-#: plugin_katebuild.cpp:466 plugin_katebuild.cpp:1223 plugin_katebuild.cpp:1234
-#: plugin_katebuild.cpp:1255 plugin_katebuild.cpp:1265
+#: plugin_katebuild.cpp:466 plugin_katebuild.cpp:1218 plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1250 plugin_katebuild.cpp:1260
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Odredište dodatka projekta"
@@ -167,12 +167,12 @@ msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:852
+#: plugin_katebuild.cpp:847
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:858
+#: plugin_katebuild.cpp:853
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -180,7 +180,7 @@ msgstr[0] "Nađena %1 greška"
 msgstr[1] "Nađene %1 greške"
 msgstr[2] "Nađeno %1 grešaka"
 
-#: plugin_katebuild.cpp:862
+#: plugin_katebuild.cpp:857
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -188,7 +188,7 @@ msgstr[0] "Nađeno %1 upozorenje"
 msgstr[1] "Nađena %1 upozorenja"
 msgstr[2] "Nađeno %1 upozorenja"
 
-#: plugin_katebuild.cpp:865
+#: plugin_katebuild.cpp:860
 #, fuzzy, kde-format
 #| msgid "Found one error."
 #| msgid_plural "Found %1 errors."
@@ -198,27 +198,27 @@ msgstr[0] "Nađena %1 greška"
 msgstr[1] "Nađene %1 greške"
 msgstr[2] "Nađeno %1 grešaka"
 
-#: plugin_katebuild.cpp:870
+#: plugin_katebuild.cpp:865
 #, kde-format
 msgid "Build failed."
 msgstr "Gradnja neuspjela."
 
-#: plugin_katebuild.cpp:872
+#: plugin_katebuild.cpp:867
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Gradnja završena bez problema."
 
-#: plugin_katebuild.cpp:877
+#: plugin_katebuild.cpp:872
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:901
+#: plugin_katebuild.cpp:896
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1127
+#: plugin_katebuild.cpp:1122
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -226,7 +226,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "greška"
 
-#: plugin_katebuild.cpp:1130
+#: plugin_katebuild.cpp:1125
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -234,53 +234,53 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "upozorenje"
 
-#: plugin_katebuild.cpp:1133
+#: plugin_katebuild.cpp:1128
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1136
+#: plugin_katebuild.cpp:1131
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "nedefinisana referenca"
 
-#: plugin_katebuild.cpp:1169
+#: plugin_katebuild.cpp:1164
 #, fuzzy, kde-format
 #| msgid "Target set"
 msgid "Target Set"
 msgstr "Skup odredišta"
 
-#: plugin_katebuild.cpp:1171
+#: plugin_katebuild.cpp:1166
 #, kde-format
 msgid "Clean"
 msgstr "Očisti"
 
-#: plugin_katebuild.cpp:1172
+#: plugin_katebuild.cpp:1167
 #, kde-format
 msgid "Config"
 msgstr "Konfiguracija"
 
-#: plugin_katebuild.cpp:1173
+#: plugin_katebuild.cpp:1168
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"
 msgstr "Konfiguracija"
 
-#: plugin_katebuild.cpp:1293
+#: plugin_katebuild.cpp:1288
 #, fuzzy, kde-format
 #| msgid "Build"
 msgid "build"
 msgstr "Izgradi"
 
-#: plugin_katebuild.cpp:1296
+#: plugin_katebuild.cpp:1291
 #, fuzzy, kde-format
 #| msgid "Clean"
 msgid "clean"
 msgstr "Očisti"
 
-#: plugin_katebuild.cpp:1299
+#: plugin_katebuild.cpp:1294
 #, kde-format
 msgid "quick"
 msgstr ""

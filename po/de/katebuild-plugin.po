@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-24 00:49+0000\n"
+"POT-Creation-Date: 2023-06-05 00:49+0000\n"
 "PO-Revision-Date: 2023-04-20 19:51+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -45,7 +45,7 @@ msgstr "Erneut erstellen"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: plugin_katebuild.cpp:194 plugin_katebuild.cpp:201 plugin_katebuild.cpp:1170
+#: plugin_katebuild.cpp:194 plugin_katebuild.cpp:201 plugin_katebuild.cpp:1165
 #, kde-format
 msgid "Build"
 msgstr "Erstellen"
@@ -93,8 +93,8 @@ msgstr "Ziel-Einstellungen"
 msgid "Build Information"
 msgstr "Kompilierungs-Informationen"
 
-#: plugin_katebuild.cpp:466 plugin_katebuild.cpp:1223 plugin_katebuild.cpp:1234
-#: plugin_katebuild.cpp:1255 plugin_katebuild.cpp:1265
+#: plugin_katebuild.cpp:466 plugin_katebuild.cpp:1218 plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1250 plugin_katebuild.cpp:1260
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Ziele des Projektmoduls"
@@ -158,107 +158,107 @@ msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make-Ergebnis:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:852
+#: plugin_katebuild.cpp:847
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:858
+#: plugin_katebuild.cpp:853
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Ein Fehler gefunden."
 msgstr[1] "%1 Fehler gefunden."
 
-#: plugin_katebuild.cpp:862
+#: plugin_katebuild.cpp:857
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Eine Warnung gefunden."
 msgstr[1] "%1 Warnungen gefunden."
 
-#: plugin_katebuild.cpp:865
+#: plugin_katebuild.cpp:860
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Ein Hinweis gefunden."
 msgstr[1] "%1 Hinweise gefunden."
 
-#: plugin_katebuild.cpp:870
+#: plugin_katebuild.cpp:865
 #, kde-format
 msgid "Build failed."
 msgstr "Erstellen fehlgeschlagen."
 
-#: plugin_katebuild.cpp:872
+#: plugin_katebuild.cpp:867
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Erstellen ohne Probleme abgeschlossen."
 
-#: plugin_katebuild.cpp:877
+#: plugin_katebuild.cpp:872
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:901
+#: plugin_katebuild.cpp:896
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Kann nicht ausgeführt werden: %1 Kein Arbeitsordner gesetzt."
 
-#: plugin_katebuild.cpp:1127
+#: plugin_katebuild.cpp:1122
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "Fehler"
 
-#: plugin_katebuild.cpp:1130
+#: plugin_katebuild.cpp:1125
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "Warnung"
 
-#: plugin_katebuild.cpp:1133
+#: plugin_katebuild.cpp:1128
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "Hinweis"
 
-#: plugin_katebuild.cpp:1136
+#: plugin_katebuild.cpp:1131
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "Undefinierter Verweis"
 
-#: plugin_katebuild.cpp:1169
+#: plugin_katebuild.cpp:1164
 #, kde-format
 msgid "Target Set"
 msgstr "Zielgruppe"
 
-#: plugin_katebuild.cpp:1171
+#: plugin_katebuild.cpp:1166
 #, kde-format
 msgid "Clean"
 msgstr "Aufräumen"
 
-#: plugin_katebuild.cpp:1172
+#: plugin_katebuild.cpp:1167
 #, kde-format
 msgid "Config"
 msgstr "Einstellungen"
 
-#: plugin_katebuild.cpp:1173
+#: plugin_katebuild.cpp:1168
 #, kde-format
 msgid "ConfigClean"
 msgstr "Konfiguration aufräumen"
 
-#: plugin_katebuild.cpp:1293
+#: plugin_katebuild.cpp:1288
 #, kde-format
 msgid "build"
 msgstr "Erstellen"
 
-#: plugin_katebuild.cpp:1296
+#: plugin_katebuild.cpp:1291
 #, kde-format
 msgid "clean"
 msgstr "Aufräumen"
 
-#: plugin_katebuild.cpp:1299
+#: plugin_katebuild.cpp:1294
 #, kde-format
 msgid "quick"
 msgstr "Schnell"

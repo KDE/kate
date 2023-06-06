@@ -14,6 +14,8 @@
  ***************************************************************************/
 #include "plugin_katesymbolviewer.h"
 
+#include <KTextEditor/Document>
+
 enum class Type { Function, Structure, Macro, Method };
 
 void KatePluginSymbolViewerView::parseJuliaSymbols(void)
@@ -241,9 +243,9 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
                     continue;
                 }
 
-                if (!params.isEmpty() & !params.endsWith(QLatin1String(")"))) {
+                if (!params.isEmpty() && !params.endsWith(QLatin1String(")"))) {
                     if (!terseFunctionExpresion) {
-                        if (whereStmt.isEmpty() & !params.contains(QLatin1String("where"))) {
+                        if (whereStmt.isEmpty() && !params.contains(QLatin1String("where"))) {
                             params += QLatin1Char(' ');
                             params += contStr;
 

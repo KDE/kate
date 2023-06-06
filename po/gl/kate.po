@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 00:50+0000\n"
-"PO-Revision-Date: 2023-04-17 06:05+0200\n"
+"PO-Revision-Date: 2023-06-05 13:58+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -309,10 +309,9 @@ msgid "Previous Item"
 msgstr "Elemento anterior"
 
 #: lib/diagnostics/diagnosticview.cpp:379
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "Diagnóstico"
+msgstr "Baleirar o filtro de diagnóstico"
 
 #: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
@@ -2073,7 +2072,7 @@ msgstr "Pechar a vista a&ctiva"
 #: lib/kateviewmanager.cpp:152
 #, kde-format
 msgid "Close the currently active split view"
-msgstr "Pecha a vista dividida actualmente activa."
+msgstr "Pecha a vista dividida activa."
 
 #: lib/kateviewmanager.cpp:156
 #, kde-format

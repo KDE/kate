@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-05 00:49+0000\n"
-"PO-Revision-Date: 2023-04-14 21:54+0200\n"
+"PO-Revision-Date: 2023-04-26 09:44+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -178,14 +178,12 @@ msgstr[1] "Nalezena %1 varování."
 msgstr[2] "Nalezeno %1 varování."
 
 #: plugin_katebuild.cpp:860
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "Nalezena jedna chyba."
-msgstr[1] "Nalezena %1 chyby."
-msgstr[2] "Nalezeno %1 chyb."
+msgstr[0] "Nalezena jedna poznámka."
+msgstr[1] "Nalezeny %1 poznámky."
+msgstr[2] "Nalezeno %1 poznámek."
 
 #: plugin_katebuild.cpp:865
 #, kde-format
@@ -208,17 +206,13 @@ msgid "Cannot execute: %1 No working directory set."
 msgstr "Nelze spustit: %1 Nebyl nastaven pracovní adresář."
 
 #: plugin_katebuild.cpp:1122
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to  an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "chyba"
 
 #: plugin_katebuild.cpp:1125
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "varování"
@@ -379,12 +373,3 @@ msgstr "Vložit cestu"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vyberte adresář pro vložení"
-
-#~ msgid "Building <b>%1</b> completed."
-#~ msgstr "Sestavení <b>%1</b> dokončeno."
-
-#~ msgid "Building <b>%1</b> had errors."
-#~ msgstr "Při sestavování <b>%1</b> došlo k chybám."
-
-#~ msgid "Building <b>%1</b> had warnings."
-#~ msgstr "Při sestavování <b>%1</b> se vyskytla varování."

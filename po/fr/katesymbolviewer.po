@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-25 00:49+0000\n"
+"POT-Creation-Date: 2023-06-07 00:51+0000\n"
 "PO-Revision-Date: 2022-06-20 20:55+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -24,35 +24,35 @@ msgstr ""
 "X-Text-Markup: kde4\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
-#: julia_parser.cpp:27 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
+#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
 #: ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
 msgstr "Afficher les fonctions"
 
 #: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40
-#: julia_parser.cpp:53 php_parser.cpp:34 python_parser.cpp:46
+#: julia_parser.cpp:55 php_parser.cpp:34 python_parser.cpp:46
 #: ruby_parser.cpp:33 tcl_parser.cpp:35
 #, kde-format
 msgid "Functions"
 msgstr "Fonctions"
 
-#: cpp_parser.cpp:29 julia_parser.cpp:25 plugin_katesymbolviewer.cpp:84
+#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Macros"
 msgstr "Afficher les macros"
 
-#: cpp_parser.cpp:30 julia_parser.cpp:26 plugin_katesymbolviewer.cpp:86
+#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:86
 #, kde-format
 msgid "Show Structures"
 msgstr "Afficher les structures"
 
-#: cpp_parser.cpp:41 julia_parser.cpp:54
+#: cpp_parser.cpp:41 julia_parser.cpp:56
 #, kde-format
 msgid "Macros"
 msgstr "Macros"
 
-#: cpp_parser.cpp:42 julia_parser.cpp:52
+#: cpp_parser.cpp:42 julia_parser.cpp:54
 #, kde-format
 msgid "Structures"
 msgstr "Structures"

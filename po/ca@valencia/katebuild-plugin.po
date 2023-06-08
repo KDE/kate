@@ -427,12 +427,12 @@ msgstr "Construïx i executa l'objectiu seleccionat"
 #: targets.cpp:52
 #, kde-format
 msgid "Move selected target up"
-msgstr "Mou amunt l'objectiu seleccionat"
+msgstr "Mou cap amunt l'objectiu seleccionat"
 
 #: targets.cpp:56
 #, kde-format
 msgid "Move selected target down"
-msgstr "Mou avall l'objectiu seleccionat"
+msgstr "Mou cap avall l'objectiu seleccionat"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -449,9 +449,3 @@ msgstr "Inserix camí"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccioneu el directori que s'ha d'inserir"
-
-#~ msgid ""
-#~ "Check the check-box to make the command the default for the target-set."
-#~ msgstr ""
-#~ "Activeu la casella de selecció per fer l'ordre predeterminada pel conjunt "
-#~ "d'objectius."

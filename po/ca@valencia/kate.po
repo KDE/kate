@@ -2206,7 +2206,7 @@ msgstr "Mou el divisor amunt"
 #: lib/kateviewmanager.cpp:239
 #, kde-format
 msgid "Move the splitter of the current view up"
-msgstr "Mou amunt el divisor de la vista actual"
+msgstr "Mou cap amunt el divisor de la vista actual"
 
 #: lib/kateviewmanager.cpp:242
 #, kde-format
@@ -2216,7 +2216,7 @@ msgstr "Mou el divisor avall"
 #: lib/kateviewmanager.cpp:245
 #, kde-format
 msgid "Move the splitter of the current view down"
-msgstr "Mou avall el divisor de la vista actual"
+msgstr "Mou cap avall el divisor de la vista actual"
 
 #: lib/kateviewmanager.cpp:248
 #, kde-format

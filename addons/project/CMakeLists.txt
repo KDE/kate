@@ -17,6 +17,10 @@ if(NOT KF${KF_MAJOR_VERSION}_FOUND OR NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
   return()
 endif()
 
+if(NOT KF5NewStuff_FOUND AND NOT KF6MoreTools_FOUND)
+  return()
+endif()
+
 kate_add_plugin(kateprojectplugin)
 target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="kateproject")
 

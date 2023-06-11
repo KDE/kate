@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 00:50+0000\n"
-"PO-Revision-Date: 2023-04-13 07:40+0200\n"
+"PO-Revision-Date: 2023-06-05 19:29+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -309,10 +309,9 @@ msgid "Previous Item"
 msgstr "Elemento precedente"
 
 #: lib/diagnostics/diagnosticview.cpp:379
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "Diagnostica"
+msgstr "Pulisci filtro diagnostica"
 
 #: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format

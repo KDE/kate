@@ -56,7 +56,8 @@ public:
 
     void onTextInserted(KTextEditor::Document *doc, KTextEditor::Cursor pos, const QString &text);
     void onTextRemoved(KTextEditor::Document *doc, KTextEditor::Range range, const QString &text);
-    void requestRehighlight();
+    void onScrollChanged();
+    void requestRehighlight(int delay = 200);
     void rehighlight(KTextEditor::View *view);
     void viewChanged(KTextEditor::View *view);
 

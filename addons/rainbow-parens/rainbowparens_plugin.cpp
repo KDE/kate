@@ -109,7 +109,7 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
 
     // disconnect and clear previous doc stuff
     if (m_activeView) {
-        disconnect(m_activeView, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::requestRehighlight);
+        disconnect(m_activeView, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::onScrollChanged);
 
         auto doc = m_activeView->document();
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -155,7 +155,7 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
     // get any existing ranges for this view
     getSavedRangesForDoc(savedRanges, ranges, m_activeView->document());
 
-    connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::requestRehighlight, Qt::UniqueConnection);
+    connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::onScrollChanged, Qt::UniqueConnection);
 
     auto doc = m_activeView->document();
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -204,10 +204,15 @@ void RainbowParenPluginView::onTextRemoved(KTextEditor::Document *, KTextEditor:
     onTextChanged(this, text);
 }
 
-void RainbowParenPluginView::requestRehighlight()
+void RainbowParenPluginView::onScrollChanged()
+{
+    requestRehighlight(50);
+}
+
+void RainbowParenPluginView::requestRehighlight(int delay)
 {
     if (!m_rehighlightTimer.isActive()) {
-        m_rehighlightTimer.start();
+        m_rehighlightTimer.start(delay);
     }
 }
 

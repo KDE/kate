@@ -37,9 +37,9 @@ QString KateBtDatabase::value(const QString &key)
 {
     // key is either of the form "foo/bar.txt" or only "bar.txt"
     QString file = key;
-    QStringList sl = key.split(QLatin1Char('/'));
-    if (sl.size() > 1) {
-        file = sl[1];
+    const QStringList split_key = key.split(QLatin1Char('/'));
+    if (split_key.size() > 1) {
+        file = split_key[1];
     }
 
     QMutexLocker locker(&mutex);

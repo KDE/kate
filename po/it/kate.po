@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 00:50+0000\n"
-"PO-Revision-Date: 2023-06-05 19:29+0200\n"
+"PO-Revision-Date: 2023-06-13 19:49+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -556,7 +556,7 @@ msgstr "Impossibile ottenere la cronologia del file: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Copia l'hash del deposito"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format

@@ -68,12 +68,12 @@ QString ESLint::notInstalledMessage() const
 FileDiagnostics ESLint::parseLine(const QString &line) const
 {
     QJsonParseError e;
-    QJsonDocument d = QJsonDocument::fromJson(line.toUtf8(), &e);
+    QJsonDocument doc = QJsonDocument::fromJson(line.toUtf8(), &e);
     if (e.error != QJsonParseError::NoError) {
         return {};
     }
 
-    const auto arr = d.array();
+    const auto arr = doc.array();
     if (arr.empty()) {
         return {};
     }
@@ -98,24 +98,24 @@ FileDiagnostics ESLint::parseLine(const QString &line) const
         const int startColumn = msg.value(QStringLiteral("column")).toInt() - 1;
         const int endLine = msg.value(QStringLiteral("endLine")).toInt() - 1;
         const int endColumn = msg.value(QStringLiteral("endColumn")).toInt() - 1;
-        Diagnostic d;
-        d.range = {startLine, startColumn, endLine, endColumn};
-        if (!d.range.isValid()) {
+        Diagnostic diag;
+        diag.range = {startLine, startColumn, endLine, endColumn};
+        if (!diag.range.isValid()) {
             continue;
         }
-        d.code = msg.value(QStringLiteral("ruleId")).toString();
-        d.message = msg.value(QStringLiteral("message")).toString();
-        d.source = QStringLiteral("eslint");
+        diag.code = msg.value(QStringLiteral("ruleId")).toString();
+        diag.message = msg.value(QStringLiteral("message")).toString();
+        diag.source = QStringLiteral("eslint");
         const int severity = msg.value(QStringLiteral("severity")).toInt();
         if (severity == 1) {
-            d.severity = DiagnosticSeverity::Warning;
+            diag.severity = DiagnosticSeverity::Warning;
         } else if (severity == 2) {
-            d.severity = DiagnosticSeverity::Error;
+            diag.severity = DiagnosticSeverity::Error;
         } else {
             // fallback, even though there is no other severity
-            d.severity = DiagnosticSeverity::Information;
+            diag.severity = DiagnosticSeverity::Information;
         }
-        diags << d;
+        diags << diag;
     }
     return {uri, diags};
 }

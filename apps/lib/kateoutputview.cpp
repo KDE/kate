@@ -150,6 +150,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWid
 
     // filter line edit
     m_filterLine.setPlaceholderText(i18n("Search..."));
+    m_filterLine.setClearButtonEnabled(true);
     connect(&m_filterLine, &QLineEdit::textChanged, this, [this]() {
         m_searchTimer.start();
     });

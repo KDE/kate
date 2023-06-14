@@ -256,17 +256,7 @@ void KateViewManager::setupActions()
     a->setText(i18n("Welcome Page"));
     a->setIcon(qApp->windowIcon());
     connect(a, &QAction::triggered, this, [this]() {
-        if (activeViewSpace()) {
-            const auto widgets = activeViewSpace()->widgets();
-            for (const auto &widget : widgets) {
-                // check if there is already a welcome view
-                if (qobject_cast<WelcomeView *>(widget)) {
-                    return;
-                }
-            }
-
-            showWelcomeView();
-        }
+        showWelcomeView();
     });
     a->setWhatsThis(i18n("Show the welcome page"));
 }
@@ -371,11 +361,20 @@ void KateViewManager::slotDocumentOpen()
 
 void KateViewManager::slotDocumentClose(KTextEditor::Document *document)
 {
-    bool shutdownKate = m_mainWindow->modCloseAfterLast() && KateApp::self()->documentManager()->documentList().size() == 1;
+    // Close document
+    if (KateApp::self()->documentManager()->closeDocument(document) && KateApp::self()->documentManager()->documentList().size() == 0) {
+        // Close window if specified
+        if (m_mainWindow->modCloseAfterLast()) {
+            KateApp::self()->shutdownKate(m_mainWindow);
+        }
 
-    // close document
-    if (KateApp::self()->documentManager()->closeDocument(document) && shutdownKate) {
-        KateApp::self()->shutdownKate(m_mainWindow);
+        KSharedConfig::Ptr config = KSharedConfig::openConfig();
+        KConfigGroup cgGeneral = KConfigGroup(config, "General");
+
+        // Otherwise, show the welcome view
+        if (cgGeneral.readEntry("Show welcome view for new window", true)) {
+            showWelcomeView();
+        }
     }
 }
 
@@ -1711,6 +1710,17 @@ void KateViewManager::showWelcomeViewOrNewDocumentIfNeeded()
 
 void KateViewManager::showWelcomeView()
 {
+    // Find and activate existing welcome view
+    if (activeViewSpace()) {
+        const auto widgets = activeViewSpace()->widgets();
+        for (const auto &widget : widgets) {
+            if (qobject_cast<WelcomeView *>(widget)) {
+                activateWidget(widget);
+                return;
+            }
+        }
+    }
+
     auto welcomeView = new WelcomeView(this);
     mainWindow()->addWidget(welcomeView);
     m_welcomeViewAlreadyShown = true;

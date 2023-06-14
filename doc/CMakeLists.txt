@@ -1,6 +1,6 @@
 find_package(KF${KF_MAJOR_VERSION}DocTools ${KF5_DEP_VERSION} QUIET)
 
-if(NOT KF5DocTools_FOUND)
+if(NOT KF5DocTools_FOUND AND NOT KF6DocTools_FOUND)
   return()
 endif()
 

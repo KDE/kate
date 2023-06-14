@@ -65,9 +65,9 @@ if (TARGET Qt6::Core5Compat)
     target_link_libraries(kateprivate PRIVATE Qt6::Core5Compat) # QTextCodec
 endif()
 
-if(KF5Activities_FOUND)
-  target_link_libraries(kateprivate PUBLIC KF5::Activities)
-  target_compile_definitions(kateprivate PUBLIC -DKF5Activities_FOUND)
+if(KF${KF_MAJOR_VERSION}Activities_FOUND)
+  target_link_libraries(kateprivate PUBLIC KF${KF_MAJOR_VERSION}::Activities)
+  target_compile_definitions(kateprivate PUBLIC -DKF${KF_MAJOR_VERSION}Activities_FOUND)
 endif()
 
 if (NOT WIN32 AND NOT HAIKU)

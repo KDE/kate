@@ -3326,14 +3326,24 @@ kate /pad/naar/map/
         "CMakeLists.txt",
         "Find*.cmake"
       ],
-      "recursive": 1
+      "recursive": 1,
+      "hidden": 1
     }
+  ],
+  "exclude_patterns" : [
+    "^build/.*"
   ]
 }
 </screen>
 
 <para
->Here, subfolders and filters define what’s part of the project. You can also mix version control and files based on filters. </para>
+>Submappen en filters definiëren hier wat onderdeel is van het project. U kunt ook controle op versie en bestanden gebaseerd op filters mengen. Verborgen bestanden zullen niet opgehaald worden als de optie <code
+>"hidden"</code
+> 0 is. <code
+>"exclude_patterns"</code
+> is een lijst met regex patronen die gebruikt kunnen worden om mappen en bestanden uit te sluiten van de projectboom. In dit voorbeeld zullen alle bestanden en mappen in een map <filename
+>build</filename
+> in de hoofdmap uitgesloten worden. </para>
 
 <para id="projects-build-support"
 >Als u ondersteuning voor bouwen wilt toevoegen, dan kunt u een <filename
@@ -4116,7 +4126,7 @@ Projects Replicode run / stop-->
 >De "highlightingModeRegex" wordt gebruikt om de modus accentuering overeen te laten komen zoals gebruikt door &kate; naar de taal-id van de server. Als geen reguliere expressie is gegeven, wordt de taal-id zelf gebruikt. Als een "documentLanguageId" item is gezet op false, dan wordt geen taal-id aan de server geleverd bij openen van het document. Dit kan betere resultaten geven voor sommige servers die meer precies zijn in bepalen van het type document dan dat te doen op basis van een kate-modus. </para>
 
 <para
->From the above example, the gist is presumably clear. In addition, each server entry object may also have an "initializationOptions" entry, which is passed along to the server as part of the 'initialize' method. If present, a "settings" entry is passed to the server by means of the 'workspace/didChangeConfiguration' notification. </para>
+>Uit het bovenstaande is de boodschap waarschijnlijk helder. Bovendien kan elk item-object van de server ook een "initializationOptions" item hebben, die gezamenlijk wordt doorgegeven aan de server als onderdeel van de 'initialisatie' methode. Indien aanwezig wordt een item "instellingen" doorgegeven aan de server doormiddel van de melding 'workspace/didChangeConfiguration'. Of "completionTriggerCharacters" of "signatureTriggerCharacters" mag gespecificeerd worden als een JSON-object met leden avn de tekenreeks  "exclude" en/of "include". Deze zullen gebruikt worden om respectievelijk enige teken uit te sluiten of toe te voegen aan de respectievelijk gezette trigger zoals geleverd door de server. </para>
 
 <para
 >Verschillende stadia van overschrijven/mengen worden toegepast; <itemizedlist>
@@ -4155,7 +4165,7 @@ Projects Replicode run / stop-->
         {
                 "python":
                 {
-                        "command": ["pylsp_in_env"], ["%{Project:NativePath}"],
+                        "command": ["pylsp_in_env", "%{Project:NativePath}"],
                         "root": "."
                 }
         }
@@ -4223,6 +4233,15 @@ exec myserver
 >Helaas is de LSP-serverconfiguratie/aanpassing vaak niet zo goed gedocumenteerd, op manieren die alleen bekijken van de broncode de benaderingen toont en de beschikbare set van configuratieopties. Het bovenstaande voorbeeld van een server ondersteunt zeer veel meer opties in "instellingen". Zie <ulink url="https://github.com/neoclide/coc.nvim/wiki/Language-servers"
 > documentation van een andere LSP-client</ulink
 > voor verschillende andere voorbeelden van een taalserver and overeenkomende instellingen, die gemakkelijk en eenvoudig getransformeerd kunnen worden naar de &JSON;-configuratie die hier is gebruikt en bovenstaand besproken. </para>
+
+</sect3>
+
+<sect3 id="lspclient-format-on-save">
+<title
+>LSP-serverformaat bij opslaan</title>
+
+<para
+>U kunt "formaat bij opslaan" uit LSP-instellingen in configuratiedialooginschakelen. </para>
 
 </sect3>
 
@@ -6152,6 +6171,21 @@ VALUES ("<replaceable
 
 <para
 >Als alternatief kunt u &kate; zo instellen dat het altijd de terminal gesynchroniseerd houdt met het huidige document. Zie <xref linkend="konsole-config"/> voor meer informatie.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-run-current-document">
+<term
+><menuchoice
+><guimenu
+>Hulpmiddelen</guimenu
+> <guimenuitem
+>Huidig document uitvoeren</guimenuitem
+></menuchoice
+></term>
+<listitem>
+<para
+>Het huidige document in &konsole; uitvoeren. Alleen de lokale documenten kunnen uitgevoerd worden. &kate; zal een waarschuwing tonen alvorens het document uit te voeren omdat deze actie een serieuze beveiligingsdreiging kan zijn.</para>
 </listitem>
 </varlistentry>
 

@@ -24,6 +24,7 @@
 #include <QTimeLine>
 #include <QToolButton>
 #include <QVBoxLayout>
+#include <QWindow>
 
 #include <ktexteditor_utils.h>
 
@@ -56,6 +57,13 @@ public:
         auto update = QOverload<>::of(&QWidget::update);
         connect(&m_timeline, &QTimeLine::valueChanged, this, update);
         connect(&m_timeline, &QTimeLine::finished, this, &QObject::deleteLater);
+        connect(window()->windowHandle(), &QWindow::activeChanged, this, [this]() {
+            if (window()->windowHandle()->isActive() && m_timeline.state() == QTimeLine::Paused) {
+                m_timeline.setPaused(false);
+            } else if (!window()->windowHandle()->isActive()) {
+                m_timeline.setPaused(true);
+            }
+        });
     }
 
     void run(int loopCount, QColor c)
@@ -69,6 +77,9 @@ public:
         raise();
         m_timeline.setLoopCount(loopCount);
         m_timeline.start();
+        if (!isVisible() || !window()->windowHandle()->isActive()) {
+            m_timeline.setPaused(true);
+        }
     }
 
     Q_SLOT void stop()
@@ -87,6 +98,18 @@ protected:
             p.setBrush(m_flashColor);
             p.setPen(Qt::NoPen);
             p.drawRoundedRect(rect(), 15, 15);
+        }
+    }
+
+    void hideEvent(QHideEvent *) override
+    {
+        m_timeline.setPaused(true);
+    }
+
+    void showEvent(QShowEvent *) override
+    {
+        if (m_timeline.state() == QTimeLine::Paused) {
+            m_timeline.setPaused(false);
         }
     }
 

@@ -130,6 +130,38 @@
                     }
                 }
             }
+        },
+        "dart": {
+            "url": "https://github.com/dart-lang/sdk/blob/main/pkg/dds/tool/dap/README.md",
+            "run": {
+                "command": ["dart", "debug_adapter"]
+            },
+            "configurations": {
+                "launch (debug)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "debug",
+                        "program": "${file}",
+                        "args": "${args|list}"
+                    }
+                }
+            }
+        },
+        "flutter": {
+            "url": "https://github.com/flutter/flutter/pull/91802",
+            "run": {
+                "command": ["flutter", "debug_adapter"]
+            },
+            "configurations": {
+                "launch (debug)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "debug",
+                        "program": "${file}",
+                        "args": "${args|list}"
+                    }
+                }
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-15 00:49+0000\n"
+"POT-Creation-Date: 2023-06-17 00:51+0000\n"
 "PO-Revision-Date: 2023-06-04 08:31+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -173,8 +173,8 @@ msgstr "KWrite - Urejevalnik besedil"
 msgid "Close"
 msgstr "Zapri"
 
-#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:319
-#: lib/kateviewmanager.cpp:321
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:309
+#: lib/kateviewmanager.cpp:311
 #, kde-format
 msgid "Open File"
 msgstr "Odpri datoteko"
@@ -937,7 +937,7 @@ msgstr ""
 msgid "Configure"
 msgstr "Nastavi"
 
-#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:152
+#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:175
 #, kde-format
 msgid "Search..."
 msgstr "Išči..."
@@ -1945,35 +1945,35 @@ msgstr "[STARO]"
 msgid "[NEW]"
 msgstr "[NOVO]"
 
-#: lib/kateoutputview.cpp:168
+#: lib/kateoutputview.cpp:191
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "Kopiraj vse besedilo na odložišče"
 
-#: lib/kateoutputview.cpp:173
+#: lib/kateoutputview.cpp:196
 #, kde-format
 msgid "Clear all messages"
 msgstr "Očisti vsa sporočila"
 
-#: lib/kateoutputview.cpp:358
+#: lib/kateoutputview.cpp:381
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Napaka"
 
-#: lib/kateoutputview.cpp:362
+#: lib/kateoutputview.cpp:385
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Opozorilo"
 
-#: lib/kateoutputview.cpp:366
+#: lib/kateoutputview.cpp:389
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Informacije"
 
-#: lib/kateoutputview.cpp:371
+#: lib/kateoutputview.cpp:394
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2234,12 +2234,12 @@ msgstr "Usmeri pozornost na vrstico krmarjenja"
 msgid "Welcome Page"
 msgstr "Stran dobrodošlice"
 
-#: lib/kateviewmanager.cpp:271
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Prikazuj stran dobrodošlice"
 
-#: lib/kateviewmanager.cpp:340
+#: lib/kateviewmanager.cpp:330
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2250,46 +2250,46 @@ msgstr ""
 "želite nadaljevati?</p><p><strong>Imejte v mislih, da se bo med odpiranjem "
 "velikih datotek Kate mogoče za nekaj časa prenehal odzivati.</strong></p>"
 
-#: lib/kateviewmanager.cpp:349
+#: lib/kateviewmanager.cpp:339
 #, kde-format
 msgid "Opening Large File"
 msgstr "Odiranje velike datoteke"
 
-#: lib/kateviewmanager.cpp:500
+#: lib/kateviewmanager.cpp:499
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 ni mogoče odpreti map"
 
-#: lib/kateviewmanager.cpp:517
+#: lib/kateviewmanager.cpp:516
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Zahtevanega vtičnika za odpiranje map ni bilo mogoče najti"
 
-#: lib/kateviewmanager.cpp:523
+#: lib/kateviewmanager.cpp:522
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 "Da bi odpirali mape, mora biti vtičnik <b>%1</b> omogočen. Naj ga omogočim?"
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:530
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Odpri mapo"
 
-#: lib/kateviewmanager.cpp:532
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Omogoči"
 
-#: lib/kateviewmanager.cpp:543
+#: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Omogočenje vtičnika <b>%1</b> ni uspelo"
 
-#: lib/kateviewmanager.cpp:1285
+#: lib/kateviewmanager.cpp:1284
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "Ta pogled ima morda neshranjeno delo. Ali ga zares želite zapreti?"

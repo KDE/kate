@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-15 00:49+0000\n"
+"POT-Creation-Date: 2023-06-17 00:51+0000\n"
 "PO-Revision-Date: 2023-06-04 13:23+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -161,8 +161,8 @@ msgstr "KWrite - Tekstredaktilo"
 msgid "Close"
 msgstr "Fermi"
 
-#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:319
-#: lib/kateviewmanager.cpp:321
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:309
+#: lib/kateviewmanager.cpp:311
 #, kde-format
 msgid "Open File"
 msgstr "Malfermi dosieron"
@@ -917,7 +917,7 @@ msgstr ""
 msgid "Configure"
 msgstr "Agordi"
 
-#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:152
+#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:175
 #, kde-format
 msgid "Search..."
 msgstr "Serĉi..."
@@ -1925,35 +1925,35 @@ msgstr "[MALNOVA]"
 msgid "[NEW]"
 msgstr "[NOVA]"
 
-#: lib/kateoutputview.cpp:168
+#: lib/kateoutputview.cpp:191
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "Kopii la tutan tekston al tondujo"
 
-#: lib/kateoutputview.cpp:173
+#: lib/kateoutputview.cpp:196
 #, kde-format
 msgid "Clear all messages"
 msgstr "Forigi ĉiujn mesaĝojn"
 
-#: lib/kateoutputview.cpp:358
+#: lib/kateoutputview.cpp:381
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Eraro"
 
-#: lib/kateoutputview.cpp:362
+#: lib/kateoutputview.cpp:385
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Averto"
 
-#: lib/kateoutputview.cpp:366
+#: lib/kateoutputview.cpp:389
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Info"
 
-#: lib/kateoutputview.cpp:371
+#: lib/kateoutputview.cpp:394
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2214,12 +2214,12 @@ msgstr "Fokusi la navigadstangon"
 msgid "Welcome Page"
 msgstr "Bonvena Paĝo"
 
-#: lib/kateviewmanager.cpp:271
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Montri la bonvenan paĝon"
 
-#: lib/kateviewmanager.cpp:340
+#: lib/kateviewmanager.cpp:330
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2230,22 +2230,22 @@ msgstr ""
 "vi volas daŭrigi?</p><p><strong>Atentu, ke kate povas ĉesu respondi dum "
 "kelka tempo malfermante grandajn dosierojn.</strong></p>"
 
-#: lib/kateviewmanager.cpp:349
+#: lib/kateviewmanager.cpp:339
 #, kde-format
 msgid "Opening Large File"
 msgstr "Malfermante Grandan Dosieron"
 
-#: lib/kateviewmanager.cpp:500
+#: lib/kateviewmanager.cpp:499
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 ne povas malfermi dosierujojn"
 
-#: lib/kateviewmanager.cpp:517
+#: lib/kateviewmanager.cpp:516
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "La kromaĵo necesa por malfermi dosierujojn ne estis trovita"
 
-#: lib/kateviewmanager.cpp:523
+#: lib/kateviewmanager.cpp:522
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2253,24 +2253,24 @@ msgstr ""
 "Por malfermi dosierujojn, la kromprogramo <b>%1</b> devas esti ebligita. Ĉu "
 "ebligi ĝin?"
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:530
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Malfermi Dosierujon"
 
-#: lib/kateviewmanager.cpp:532
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Ebligi"
 
-#: lib/kateviewmanager.cpp:543
+#: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Malsukcesis aktivigi aldonaĵon <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1285
+#: lib/kateviewmanager.cpp:1284
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

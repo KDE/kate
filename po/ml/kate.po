@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-15 00:49+0000\n"
+"POT-Creation-Date: 2023-06-17 00:51+0000\n"
 "PO-Revision-Date: 2020-03-17 11:50+0000\n"
 "Last-Translator: amrithandh m <amrithanadhm@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -154,8 +154,8 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:319
-#: lib/kateviewmanager.cpp:321
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:309
+#: lib/kateviewmanager.cpp:311
 #, kde-format
 msgid "Open File"
 msgstr ""
@@ -905,7 +905,7 @@ msgstr "ഫയൽ '%1' തുറക്കാൻ കഴിഞ്ഞില്ല: 
 msgid "Configure"
 msgstr "ക്രമീകരിക്കുക"
 
-#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:152
+#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:175
 #, kde-format
 msgid "Search..."
 msgstr ""
@@ -1889,36 +1889,36 @@ msgstr ""
 msgid "[NEW]"
 msgstr ""
 
-#: lib/kateoutputview.cpp:168
+#: lib/kateoutputview.cpp:191
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr ""
 
-#: lib/kateoutputview.cpp:173
+#: lib/kateoutputview.cpp:196
 #, kde-format
 msgid "Clear all messages"
 msgstr ""
 
-#: lib/kateoutputview.cpp:358
+#: lib/kateoutputview.cpp:381
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr ""
 
-#: lib/kateoutputview.cpp:362
+#: lib/kateoutputview.cpp:385
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgctxt "@info"
 msgid "Warning"
 msgstr "മുന്നറിയിപ്പ്"
 
-#: lib/kateoutputview.cpp:366
+#: lib/kateoutputview.cpp:389
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr ""
 
-#: lib/kateoutputview.cpp:371
+#: lib/kateoutputview.cpp:394
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2178,12 +2178,12 @@ msgstr ""
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:271
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:340
+#: lib/kateviewmanager.cpp:330
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2191,46 +2191,46 @@ msgid ""
 "some time when opening large files.</strong></p>"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:349
+#: lib/kateviewmanager.cpp:339
 #, kde-format
 msgid "Opening Large File"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:500
+#: lib/kateviewmanager.cpp:499
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:517
+#: lib/kateviewmanager.cpp:516
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:523
+#: lib/kateviewmanager.cpp:522
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:530
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/kateviewmanager.cpp:532
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:543
+#: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1285
+#: lib/kateviewmanager.cpp:1284
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

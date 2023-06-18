@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-17 04:03+0000\n"
-"PO-Revision-Date: 2023-06-05 13:58+0200\n"
+"PO-Revision-Date: 2023-06-17 13:41+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -968,8 +968,8 @@ msgid ""
 msgstr ""
 "Se se activa, usarase un diálogo modal para mostrar todos os ficheiros "
 "modificados. Se non se activa, preguntaráselle de maneira individual por "
-"cada ficheiro modificado a medida que cambie o foco a cada un deses "
-"ficheiros."
+"cada ficheiro modificado a medida que a súa vista de cada ficheiro reciba o "
+"foco."
 
 #: lib/kateconfigdialog.cpp:405
 #, kde-format
@@ -1785,7 +1785,7 @@ msgid ""
 msgstr ""
 "<qt>Está a piques de agochar as barras laterais. Coas barras laterais "
 "agochadas non é posíbel acceder directamente ás vistas de ferramentas co "
-"rato, así que se precisa acceder ás barras laterais de novo vaia a <b>Xanela "
+"rato, así que se precisa acceder ás barras laterais de novo vaia a <b>Vista "
 "&gt; Vista das ferramentas &gt; Mostrar as barras laterais de ferramentas</"
 "b> no menú. Sería aínda posíbel mostrar/agochar as Vistas das ferramentas "
 "cos atallos de teclado asignados a tal efecto.</qt>"
@@ -2542,7 +2542,7 @@ msgstr "Escoller &manualmente unha sesión"
 #: lib/ui/sessionconfigwidget.ui:47
 #, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "Comportamento do inicio e peche da aplicación"
+msgstr "Comportamento do inicio e saída da aplicación"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55

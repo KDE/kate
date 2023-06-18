@@ -1790,6 +1790,11 @@ public:
             // for now; also no need to extract supplied token
             auto h = prepareResponse(msgid);
             h(QJsonValue());
+        } else if (method == QLatin1String("workspace/semanticTokens/refresh")) {
+            // void reply to accept, we don't handle this at the moment, but some servers send it and require some valid reply
+            // e.g. typst-lsp, see https://invent.kde.org/utilities/kate/-/issues/108
+            auto h = prepareResponse(msgid);
+            h(QJsonValue());
         } else {
             write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, nullptr, &msgid);
             qCWarning(LSPCLIENT) << "discarding request" << method;

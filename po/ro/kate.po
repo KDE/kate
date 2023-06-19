@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Claudiu Costin <claudiuc@kde.org>, 2002,2003, 2004, 2005.
-# Sergiu Bivol <sergiu@cip.md>, 2008, 2009, 2011, 2012, 2013, 2014, 2020, 2022.
+# Sergiu Bivol <sergiu@cip.md>, 2008, 2009, 2011, 2012, 2013, 2014, 2020, 2022, 2023.
 # Florin Cătălin RUSSEN <cfrussen@yahoo.co.uk>, 2011.
 # Cristian Oneț <onet.cristian@gmail.com>, 2011.
 #
@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-17 04:03+0000\n"
-"PO-Revision-Date: 2022-02-06 19:51+0000\n"
+"PO-Revision-Date: 2023-06-18 19:22+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
-"Language-Team: Romanian\n"
+"Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1737,26 +1737,24 @@ msgid "Show %1"
 msgstr "Arată „%1”"
 
 #: lib/katemdi.cpp:179
-#, fuzzy, kde-format
-#| msgid "Show %1"
+#, kde-format
 msgid "Show %1 Button"
-msgstr "Arată „%1”"
+msgstr "Arată butonul „%1”"
 
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Focalizează %1"
 
 #: lib/katemdi.cpp:1009
-#, fuzzy, kde-format
-#| msgid "Configure ..."
+#, kde-format
 msgid "Configure..."
-msgstr "Configurare..."
+msgstr "Configurează…"
 
 #: lib/katemdi.cpp:1013
 #, kde-format
 msgid "Hide Button"
-msgstr ""
+msgstr "Ascunde butonul"
 
 #: lib/katemdi.cpp:1015
 #, kde-format
@@ -1764,30 +1762,29 @@ msgid "Move To"
 msgstr "Mută la"
 
 #: lib/katemdi.cpp:1020
-#, fuzzy, kde-format
-#| msgid "Open Session"
+#, kde-format
 msgid "Own Section"
-msgstr "Deschide sesiunea"
+msgstr "Secțiune proprie"
 
 #: lib/katemdi.cpp:1026 lib/katemdi.cpp:1034
 #, kde-format
 msgid "One Down"
-msgstr ""
+msgstr "Una mai jos"
 
 #: lib/katemdi.cpp:1028 lib/katemdi.cpp:1039
 #, kde-format
 msgid "One Right"
-msgstr ""
+msgstr "Una la dreapta"
 
 #: lib/katemdi.cpp:1032
 #, kde-format
 msgid "One Up"
-msgstr ""
+msgstr "Una mai sus"
 
 #: lib/katemdi.cpp:1037
 #, kde-format
 msgid "One Left"
-msgstr ""
+msgstr "Una la stânga"
 
 #: lib/katemdi.cpp:1046
 #, kde-format
@@ -1941,22 +1938,21 @@ msgstr "Ieșire Diff"
 #: lib/kateoutputview.cpp:167
 #, kde-format
 msgid "Copy all text to clipboard"
-msgstr ""
+msgstr "Copiază tot textul în clipboard"
 
 #: lib/kateoutputview.cpp:172
 #, kde-format
 msgid "Clear all messages"
-msgstr ""
+msgstr "Curăță toate mesajele"
 
 #: lib/kateoutputview.cpp:357
 #, kde-format
 msgctxt "@info"
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: lib/kateoutputview.cpp:361
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Avertisment"
@@ -1965,13 +1961,13 @@ msgstr "Avertisment"
 #, kde-format
 msgctxt "@info"
 msgid "Info"
-msgstr ""
+msgstr "Informații"
 
 #: lib/kateoutputview.cpp:370
 #, kde-format
 msgctxt "@info"
 msgid "Log"
-msgstr ""
+msgstr "Jurnal"
 
 #: lib/katesavemodifieddialog.cpp:79
 #, kde-format
@@ -2229,23 +2225,22 @@ msgstr "Mută separatorul vizualizării curente în jos"
 #: lib/kateviewmanager.cpp:248
 #, kde-format
 msgid "Focus Navigation Bar"
-msgstr ""
+msgstr "Focalizează bara de navigare"
 
 #: lib/kateviewmanager.cpp:249
-#, fuzzy, kde-format
-#| msgid "Focus the next tab."
+#, kde-format
 msgid "Focus the navigation bar"
-msgstr "Focalizează fila următoare."
+msgstr "Focalizează bara de navigare"
 
 #: lib/kateviewmanager.cpp:256
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "Pagina de întâmpinare"
 
 #: lib/kateviewmanager.cpp:271
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "Arată pagina de întâmpinare"
 
 #: lib/kateviewmanager.cpp:340
 #, kde-format
@@ -2266,7 +2261,7 @@ msgstr "Deschiderea unui fișier mare"
 #: lib/kateviewmanager.cpp:500
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 nu poate deschide dosare"
 
 #: lib/kateviewmanager.cpp:517
 #, kde-format
@@ -2280,18 +2275,16 @@ msgid ""
 msgstr ""
 
 #: lib/kateviewmanager.cpp:531
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Deschide fișier"
+msgstr "Deschide dosarul"
 
 #: lib/kateviewmanager.cpp:532
-#, fuzzy, kde-format
-#| msgid "Enabled"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr "Activat"
+msgstr "Activează"
 
 #: lib/kateviewmanager.cpp:543
 #, kde-format
@@ -2339,10 +2332,9 @@ msgstr[2] ""
 "aici."
 
 #: lib/kateviewspace.cpp:1011
-#, fuzzy, kde-format
-#| msgid "Close"
+#, kde-format
 msgid "Close Tab"
-msgstr "Închide"
+msgstr "Închide fila"
 
 #: lib/kateviewspace.cpp:1029
 #, kde-format
@@ -2355,33 +2347,30 @@ msgid "Close Other &Documents"
 msgstr "Închide celelalte &documente"
 
 #: lib/kateviewspace.cpp:1031
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close &All Documents"
-msgstr "Închide toate documentele"
+msgstr "Închide to&ate documentele"
 
 #: lib/kateviewspace.cpp:1033
-#, fuzzy, kde-format
-#| msgid "Next Document"
+#, kde-format
 msgid "D&etach Document"
-msgstr "Documentul următor"
+msgstr "D&etașează documentul"
 
 #: lib/kateviewspace.cpp:1034
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
+"Deschide documentul într-o fereastră nouă și-l închide în fereastra actuală"
 
 #: lib/kateviewspace.cpp:1043
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document"
 msgstr "Compară cu documentul activ"
 
 #: lib/kateviewspace.cpp:1049
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document Using"
-msgstr "Compară cu documentul activ"
+msgstr "Compară cu documentul activ folosind"
 
 #: lib/kateviewspace.cpp:1116
 #, kde-format
@@ -2399,26 +2388,24 @@ msgid "Quick Open Search (configure via context menu)"
 msgstr ""
 
 #: lib/quickopen/katequickopenlineedit.cpp:61
-#, fuzzy, kde-format
-#| msgid "All Projects Files"
+#, kde-format
 msgid "All Projects"
-msgstr "Fișierele tuturor proiectelor"
+msgstr "Toate proiectele"
 
 #: lib/quickopen/katequickopenlineedit.cpp:73
-#, fuzzy, kde-format
-#| msgid "Current Project Files"
+#, kde-format
 msgid "Current Project"
-msgstr "Fișierele proiectului actual"
+msgstr "Proiectul actual"
 
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Filtrare aproximativă"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "Filtrare metacaractere"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2531,13 +2518,13 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
-msgstr ""
+msgstr "Schimbă la instanță"
 
 #: lib/session/katesessionmanager.cpp:126
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
-msgstr ""
+msgstr "Redeschide"
 
 #: lib/session/katesessionmanager.cpp:332
 #, kde-format
@@ -2552,7 +2539,7 @@ msgstr "Redenumire sesiune"
 #: lib/session/katesessionmanager.cpp:483
 #, kde-format
 msgid "Session name:"
-msgstr "Numele sesiunii:"
+msgstr "Denumirea sesiunii:"
 
 #: lib/session/katesessionmanager.cpp:485
 #, kde-format

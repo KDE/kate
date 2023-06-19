@@ -1,22 +1,23 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Marce Villarino <mvillarino@kde-espana.es>, 2012.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2018.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2018, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2018-01-19 20:32+0100\n"
+"PO-Revision-Date: 2023-06-18 20:14+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
-"Language-Team: Galician <kde-i18n-doc@kde.org>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -264,31 +265,31 @@ msgstr "Cabeceiras"
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
-msgstr "Exportar os nomes das columnas"
+msgstr "Exportar os nomes das columnas."
 
 #: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
-msgstr "Exportar os números de liña"
+msgstr "Exportar os números de liña."
 
 #: exportwizard.cpp:112
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
-msgstr "Aspas"
+msgstr "Comiñas"
 
 #: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
-msgstr "Pór entre aspas os textos"
+msgstr "Pór os textos entre comiñas."
 
 #: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
-msgstr "Pór entre aspas os números"
+msgstr "Pór os números entre comiñas."
 
 #: exportwizard.cpp:124 exportwizard.cpp:127
 #, kde-format
@@ -312,7 +313,7 @@ msgstr "Delimitador de campo:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
-msgstr "Gardar e restaurar as conexións na sesión de Kate"
+msgstr "Gardar e restaurar as conexións na sesión de Kate."
 
 #: katesqlconfigpage.cpp:25
 #, kde-format
@@ -333,48 +334,36 @@ msgid "SQL ConfigPage Settings"
 msgstr "Configuración de ConfigPage de SQL"
 
 #: katesqlview.cpp:45
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:52
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Schema Browser"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr "Navegador do esquema SQL"
+msgstr "Esquema de SQL"
 
 #: katesqlview.cpp:106
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Engadir unha conexión…"
 
 #: katesqlview.cpp:111
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Retirar a conexión"
 
 #: katesqlview.cpp:116
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Editar a conexión…"
@@ -392,12 +381,10 @@ msgid "Connection"
 msgstr "Conexión"
 
 #: katesqlview.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr "Executar a consulta"
+msgstr "Executar unha consulta"
 
 #: outputstylewidget.cpp:29
 #, kde-format
@@ -493,7 +480,7 @@ msgstr "Táboas do sistema"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "Seleccionar os datos"
 
 #: schemawidget.cpp:273
 #, kde-format

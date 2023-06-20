@@ -322,8 +322,6 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     , m_filterChangedTimer(new QTimer(this))
     , m_textHintProvider(new KateTextHintProvider(mainWindow, this))
 {
-    setXMLFile(QStringLiteral("kateui.rc"));
-
     auto l = new QVBoxLayout(this);
     l->setContentsMargins({});
     setupDiagnosticViewToolbar(l);

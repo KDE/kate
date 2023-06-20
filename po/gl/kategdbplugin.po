@@ -755,7 +755,7 @@ msgstr "Mover a PC"
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Print Value"
-msgstr "Mostrar o valor"
+msgstr "Amosar o valor"
 
 #: plugin_kategdb.cpp:347
 #, kde-format

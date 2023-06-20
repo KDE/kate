@@ -118,7 +118,7 @@ msgstr "Imprimir o documento seleccionado."
 #: katefiletree.cpp:157
 #, kde-format
 msgid "Show print preview of current document"
-msgstr "Mostrar unha vista previa de impresión do documento seleccionado"
+msgstr "Amosar unha vista previa de impresión do documento seleccionado"
 
 #: katefiletree.cpp:159
 #, kde-format
@@ -278,7 +278,7 @@ msgstr "Vista de lista"
 #: katefiletreeconfigpage.cpp:90
 #, kde-format
 msgid "&Show Full Path"
-msgstr "&Mostrar a ruta completa"
+msgstr "&Amosar a ruta completa"
 
 #: katefiletreeconfigpage.cpp:95
 #, kde-format
@@ -329,7 +329,7 @@ msgid ""
 "path rather than just the last folder name."
 msgstr ""
 "Active esta opción para que, no modo de árbore, os cartafoles de maior nivel "
-"mostren a súa ruta completa en vez de mostrar unicamente o nome do cartafol."
+"amosen a súa ruta completa en vez de amosar unicamente o nome do cartafol."
 
 #: katefiletreeconfigpage.cpp:118
 #, kde-format

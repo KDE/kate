@@ -53,7 +53,7 @@ msgstr "Configurar as rutas…"
 #: btbrowserwidget.ui:79
 #, kde-format
 msgid "Use Clipboard"
-msgstr "Empregar o portapapeis"
+msgstr "Usar o portapapeis"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnBacktrace)
 #: btbrowserwidget.ui:86

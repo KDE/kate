@@ -167,7 +167,7 @@ msgstr "Opcións xerais"
 #: lspclientpluginview.cpp:564
 #, kde-format
 msgid "Show selected completion documentation"
-msgstr "Mostrar a documentación do completado seleccionado"
+msgstr "Amosar a documentación do completado seleccionado"
 
 #: lspclientpluginview.cpp:567
 #, kde-format
@@ -188,7 +188,7 @@ msgstr ""
 #: lspclientpluginview.cpp:576
 #, kde-format
 msgid "Show hover information"
-msgstr "Mostrar información ao cubrir"
+msgstr "Amosar información ao cubrir"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
 #: lspclientpluginview.cpp:579 lspconfigwidget.ui:47
@@ -458,7 +458,7 @@ msgstr "Ordenar alfabeticamente"
 #: lspclientsymbolview.cpp:284
 #, kde-format
 msgid "Show Details"
-msgstr "Mostrar os detalles"
+msgstr "Amosar os detalles"
 
 #: lspclientsymbolview.cpp:445
 #, kde-format

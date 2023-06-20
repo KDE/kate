@@ -498,6 +498,12 @@ void KateConfigDialog::addBehaviorPage()
     connect(m_tabsElided, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_tabsElided);
 
+    m_openNewTabInFrontOfCurrent = new QCheckBox(i18n("Open new tab to the right of current tab."), this);
+    m_openNewTabInFrontOfCurrent->setChecked(cgGeneral.readEntry("Open New Tab To The Right Of Current", false));
+    m_openNewTabInFrontOfCurrent->setToolTip(i18n("If unchecked the new tab will open at the end."));
+    connect(m_openNewTabInFrontOfCurrent, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_openNewTabInFrontOfCurrent);
+
     layout->addWidget(buttonGroup);
 
     buttonGroup = new QGroupBox(i18n("&Mouse"), generalFrame);
@@ -814,6 +820,7 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Allow Tab Scrolling", m_tabsScrollable->isChecked());
         cg.writeEntry("Elide Tab Text", m_tabsElided->isChecked());
+        cg.writeEntry("Open New Tab To The Right Of Current", m_openNewTabInFrontOfCurrent->isChecked());
 
         cg.writeEntry("Diff Show Style", m_diffStyle->currentIndex());
 

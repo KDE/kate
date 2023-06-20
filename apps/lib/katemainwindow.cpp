@@ -1523,7 +1523,7 @@ bool KateMainWindow::hideToolView(QWidget *widget)
 
 QWidget *KateMainWindow::tabForToolView(QWidget *widget)
 {
-   if (!qobject_cast<KateMDI::ToolView *>(widget)) {
+    if (!qobject_cast<KateMDI::ToolView *>(widget)) {
         return nullptr;
     }
 

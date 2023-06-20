@@ -108,6 +108,7 @@ void KateTabBar::readConfig()
     // get mouse click rules
     m_doubleClickNewDocument = cgGeneral.readEntry("Tab Double Click New Document", true);
     m_middleClickCloseDocument = cgGeneral.readEntry("Tab Middle Click Close Document", true);
+    m_openNewTabInFrontOfCurrent = cgGeneral.readEntry("Open New Tab To The Right Of Current", false);
 }
 
 void KateTabBar::setActive(bool active)
@@ -359,7 +360,8 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
     // => create new tab and be done
     if ((m_tabCountLimit == 0) || (count() < m_tabCountLimit)) {
         m_beingAdded = docOrWidget;
-        insertTab(-1, docOrWidget.doc() ? docOrWidget.doc()->documentName() : docOrWidget.widget()->windowTitle());
+        int index = m_openNewTabInFrontOfCurrent && currentIndex() != -1 ? currentIndex() + 1 : -1;
+        insertTab(index, docOrWidget.doc() ? docOrWidget.doc()->documentName() : docOrWidget.widget()->windowTitle());
         return;
     }
 
@@ -384,9 +386,16 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
     // mark the replace doc as "has no tab"
     m_docToLruCounterAndHasTab[docToReplace].second = false;
 
+    const auto oldCurrentIdx = currentIndex();
+
     // replace it's data + set it as active
     setTabDocument(indexToReplace, docOrWidget);
     setCurrentIndex(indexToReplace);
+
+    const auto newCurrentIdx = currentIndex();
+    if (m_openNewTabInFrontOfCurrent && oldCurrentIdx != -1 && newCurrentIdx != oldCurrentIdx + 1) {
+        moveTab(newCurrentIdx, oldCurrentIdx + 1);
+    }
 }
 
 void KateTabBar::removeDocument(DocOrWidget doc)

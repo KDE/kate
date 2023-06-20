@@ -150,6 +150,11 @@ private:
     bool m_middleClickCloseDocument = false;
 
     /**
+     * Should the new tab open in front of current tab
+     */
+    bool m_openNewTabInFrontOfCurrent = false;
+
+    /**
      * LRU counter storage, to determine which document has which age
      * simple 64-bit counter, worst thing that can happen on 64-bit wraparound
      * is a bit strange tab replacement a few times

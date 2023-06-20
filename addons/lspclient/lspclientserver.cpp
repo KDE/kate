@@ -6,8 +6,8 @@
 
 #include "lspclientserver.h"
 
-#include "lspclient_debug.h"
 #include "hostprocess.h"
+#include "lspclient_debug.h"
 
 #include <QCoreApplication>
 #include <QFileInfo>
@@ -688,9 +688,6 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
             sortText = label;
         }
         auto insertText = item.value(QStringLiteral("insertText")).toString();
-        if (insertText.isEmpty()) {
-            insertText = label;
-        }
         LSPTextEdit lspTextEdit;
         const auto &textEdit = item.value(QStringLiteral("textEdit")).toObject();
         if (!textEdit.empty()) {
@@ -704,6 +701,10 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
             insertText = insertText.isEmpty() ? newText : insertText;
             lspTextEdit.newText = newText;
             lspTextEdit.range = parseRange(textEdit.value(QStringLiteral("range")).toObject());
+        }
+        if (insertText.isEmpty()) {
+            // if this happens, the server is broken but lets try the label anyways
+            insertText = label;
         }
         auto kind = static_cast<LSPCompletionItemKind>(item.value(MEMBER_KIND).toInt());
         const auto additionalTextEdits = parseTextEdit(item.value(QStringLiteral("additionalTextEdits")));

@@ -84,7 +84,7 @@ msgstr "Un nome curto para o repositorio."
 #: editrepository.ui:103
 #, kde-format
 msgid "Prefix to show in code completion"
-msgstr "O prefixo para mostrar no completado de código."
+msgstr "O prefixo para amosar no completado de código."
 
 #: editsnippet.cpp:97 editsnippet.cpp:177
 #, kde-format
@@ -119,7 +119,7 @@ msgstr "Aviso: hai cambios non gardados"
 #: editsnippet.ui:42
 #, kde-format
 msgid "will be shown in the completion list"
-msgstr "mostrarase na lista de completado"
+msgstr "amosarase na lista de completado"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:62

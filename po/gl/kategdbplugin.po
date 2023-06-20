@@ -706,7 +706,7 @@ msgstr "Continuar"
 #: plugin_kategdb.cpp:279
 #, kde-format
 msgid "Print Value"
-msgstr "Mostrar o valor"
+msgstr "Amosar o valor"
 
 #: plugin_kategdb.cpp:288
 #, kde-format

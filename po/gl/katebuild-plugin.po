@@ -45,7 +45,7 @@ msgstr "Saída"
 #: build.ui:56
 #, kde-format
 msgid "Show:"
-msgstr "Mostrar:"
+msgstr "Amosar:"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton2)
@@ -122,7 +122,7 @@ msgstr "Erro anterior"
 #: plugin_katebuild.cpp:178
 #, kde-format
 msgid "Show Marks"
-msgstr "Mostrar as marcas"
+msgstr "Amosar as marcas"
 
 #: plugin_katebuild.cpp:183
 #, kde-format
@@ -370,7 +370,7 @@ msgid ""
 "\"%d\" for directory of current file\n"
 "\"%n\" for current file name without suffix"
 msgstr ""
-"Empregue:\n"
+"Use:\n"
 "«%f» para o ficheiro actual\n"
 "«%d» para o directorio do ficheiro actual\n"
 "«%n» para o nome do ficheiro actual sen sufixo"

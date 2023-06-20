@@ -62,7 +62,7 @@ msgstr "Non preguntar de novo"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
-msgstr "Mostrar un diálogo de confirmación"
+msgstr "Amosar un diálogo de confirmación"
 
 #: close_except_plugin.cpp:75
 #, kde-format

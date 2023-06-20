@@ -166,7 +166,7 @@ msgstr "Prefixo:"
 #: kateconsole.cpp:585
 #, kde-format
 msgid "&Show warning next time"
-msgstr "&Mostrar o aviso a próxima vez."
+msgstr "&Amosar o aviso a próxima vez."
 
 #: kateconsole.cpp:587
 #, kde-format
@@ -175,7 +175,7 @@ msgid ""
 "displaying the command to be sent to terminal, for review."
 msgstr ""
 "A próxima vez que se execute «%1», asegurarse de que aparece unha xanela de "
-"aviso, mostrando a orde que se vai enviar ao terminal, para revisala."
+"aviso, amosando a orde que se vai enviar ao terminal, para revisala."
 
 #: kateconsole.cpp:598
 #, kde-format

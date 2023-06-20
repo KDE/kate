@@ -71,7 +71,7 @@ msgid ""
 "kate instance already has the given session opened), forced if no parameters "
 "and no URLs are given at all."
 msgstr ""
-"Forza o inicio dunha nova instancia de Kate (ignórase de empregar o inicio e "
+"Forza o inicio dunha nova instancia de Kate (ignórase de usar o inicio e "
 "haber xa outra instancia de kate coa sesión data aberta), forzando de non "
 "indicarse ningún parámetro nin URL."
 
@@ -91,7 +91,7 @@ msgid ""
 "and another kate instance already has the given session opened)."
 msgstr ""
 "Só se intentará reutilizar a instancia de kate con este pid (ignórase de "
-"empregar o inicio e haber xa outra sesión de kate coa sesión dada aberta)."
+"usar o inicio e haber xa outra sesión de kate coa sesión dada aberta)."
 
 #: kate/main.cpp:168
 #, kde-format
@@ -101,7 +101,7 @@ msgstr "pid"
 #: kate/main.cpp:173 kwrite/main.cpp:97
 #, kde-format
 msgid "Set encoding for the file to open."
-msgstr "Estabelecer a codificación do ficheiro para abrir."
+msgstr "Definir a codificación do ficheiro para abrir."
 
 #: kate/main.cpp:174 kwrite/main.cpp:98
 #, kde-format
@@ -527,7 +527,7 @@ msgstr "Copiar o código de resumo da remisión"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "Mostrar a remisión completa"
+msgstr "Amosar a remisión completa"
 
 #: lib/filehistorywidget.cpp:374
 #, kde-format
@@ -966,7 +966,7 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
-"Se se activa, usarase un diálogo modal para mostrar todos os ficheiros "
+"Se se activa, usarase un diálogo modal para amosar todos os ficheiros "
 "modificados. Se non se activa, preguntaráselle de maneira individual por "
 "cada ficheiro modificado a medida que a súa vista de cada ficheiro reciba o "
 "foco."
@@ -995,7 +995,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:416
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr "Mostrar texto nos botóns das barras laterais esquerda e dereita"
+msgstr "Amosar texto nos botóns das barras laterais esquerda e dereita"
 
 #: lib/kateconfigdialog.cpp:421
 #, kde-format
@@ -1040,7 +1040,7 @@ msgstr "Mo&strar o botón de pechar"
 #: lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid "When checked each tab will display a close button."
-msgstr "Se se marca, cada separador mostrará un botón de pechar."
+msgstr "Se se marca, cada separador amosará un botón de pechar."
 
 #: lib/kateconfigdialog.cpp:471
 #, kde-format
@@ -1145,7 +1145,7 @@ msgstr "Narra de navegación"
 #: lib/kateconfigdialog.cpp:551
 #, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Mostrar o símbolo actual na barra de navegación"
+msgstr "Amosar o símbolo actual na barra de navegación"
 
 #: lib/kateconfigdialog.cpp:565
 #, kde-format
@@ -1297,17 +1297,17 @@ msgstr "&Outra aplicación…"
 #: lib/katemainwindow.cpp:229
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
-msgstr "Empregue esta orde para mostrar ou agochar a barra de estado de vista"
+msgstr "Use esta orde para amosar ou agochar a barra de estado de vista"
 
 #: lib/katemainwindow.cpp:232
 #, kde-format
 msgid "Show &Tabs"
-msgstr "Mostrar os &separadores"
+msgstr "Amosar os &separadores"
 
 #: lib/katemainwindow.cpp:235
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
-msgstr "Use esta orde para mostrar ou agochar os separadores das vistas"
+msgstr "Use esta orde para amosar ou agochar os separadores das vistas"
 
 #: lib/katemainwindow.cpp:237
 #, kde-format
@@ -1322,7 +1322,7 @@ msgstr "Mostra a ruta completa ao documento no título da xanela"
 #: lib/katemainwindow.cpp:242
 #, kde-format
 msgid "Show Navigation Bar"
-msgstr "Mostrar a barra de navegación"
+msgstr "Amosar a barra de navegación"
 
 #: lib/katemainwindow.cpp:252
 #, kde-format
@@ -1526,8 +1526,8 @@ msgid ""
 "Open the current document using another application registered for its file "
 "type, or an application of your choice."
 msgstr ""
-"Abre o documento actual empregando outra aplicación rexistrada para este "
-"tipo de ficheiro, ou unha aplicación da súa escolla."
+"Abre o documento actual usando outra aplicación rexistrada para este tipo de "
+"ficheiro, ou unha aplicación da súa escolla."
 
 #: lib/katemainwindow.cpp:447
 #, kde-format
@@ -1605,7 +1605,7 @@ msgstr "Ir á seguinte localización"
 #: lib/katemainwindow.cpp:538
 #, kde-format
 msgid "Show File Git History"
-msgstr "Mostrar o historial de Git do ficheiro"
+msgstr "Amosar o historial de Git do ficheiro"
 
 #: lib/katemainwindow.cpp:553
 #, kde-format
@@ -1636,7 +1636,7 @@ msgstr "Pechar todos os documentos salvo o actual"
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
-"Isto agocha completamente a barra do menú. Pódese mostrar de novo escribindo "
+"Isto agocha completamente a barra do menú. Pódese amosar de novo escribindo "
 "%1."
 
 #: lib/katemainwindow.cpp:807
@@ -1692,7 +1692,7 @@ msgstr "Vistas das &ferramentas"
 #: lib/katemdi.cpp:111
 #, kde-format
 msgid "Show Side&bars"
-msgstr "Mostrar as &barras laterais"
+msgstr "Amosar as &barras laterais"
 
 #: lib/katemdi.cpp:119
 #, kde-format
@@ -1702,12 +1702,12 @@ msgstr "Agochar todas as vistas de ferramentas"
 #: lib/katemdi.cpp:168
 #, kde-format
 msgid "Show %1"
-msgstr "Mostrar %1"
+msgstr "Amosar %1"
 
 #: lib/katemdi.cpp:179
 #, kde-format
 msgid "Show %1 Button"
-msgstr "Mostrar o botón %1"
+msgstr "Amosar o botón %1"
 
 #: lib/katemdi.cpp:195
 #, kde-format
@@ -1786,9 +1786,9 @@ msgstr ""
 "<qt>Está a piques de agochar as barras laterais. Coas barras laterais "
 "agochadas non é posíbel acceder directamente ás vistas de ferramentas co "
 "rato, así que se precisa acceder ás barras laterais de novo vaia a <b>Vista "
-"&gt; Vista das ferramentas &gt; Mostrar as barras laterais de ferramentas</"
-"b> no menú. Sería aínda posíbel mostrar/agochar as Vistas das ferramentas "
-"cos atallos de teclado asignados a tal efecto.</qt>"
+"&gt; Vista das ferramentas &gt; Amosar as barras laterais de ferramentas</b> "
+"no menú. Sería aínda posíbel amosar/agochar as Vistas das ferramentas cos "
+"atallos de teclado asignados a tal efecto.</qt>"
 
 #: lib/katemwmodonhddialog.cpp:55
 #, kde-format
@@ -2194,7 +2194,7 @@ msgstr "Páxina de benvida"
 #: lib/kateviewmanager.cpp:271
 #, kde-format
 msgid "Show the welcome page"
-msgstr "Mostrar a páxina de benvida"
+msgstr "Amosar a páxina de benvida"
 
 #: lib/kateviewmanager.cpp:340
 #, kde-format
@@ -2566,13 +2566,13 @@ msgstr "Os ficheiros con cambios sen gardar"
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr "Se se desactiva, nas xanelas novas mostrarase un documento sen título."
+msgstr "Se se desactiva, nas xanelas novas amosarase un documento sen título."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
 #, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Mostrar a vista de benvida nas xanelas novas"
+msgstr "Amosar a vista de benvida nas xanelas novas"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2782,7 +2782,7 @@ msgstr "Xestionar as sesións…"
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
-msgstr "Mostrar para unha xanela nova"
+msgstr "Amosar para unha xanela nova"
 
 #, fuzzy
 #~| msgid "Save As"

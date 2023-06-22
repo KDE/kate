@@ -1718,8 +1718,7 @@ public:
         auto server = m_serverManager->findServer(activeView);
         auto range = activeView->selectionRange();
         if (!range.isValid()) {
-            auto currentLine = activeView->cursorPosition().line();
-            range = KTextEditor::Range(currentLine, 0, currentLine + 1, 0);
+            range = activeView->document()->wordRangeAt(activeView->cursorPosition());
         }
         if (!server || !document || !range.isValid()) {
             m_requestCodeAction->menu()->addAction(i18n("No Actions"))->setEnabled(false);

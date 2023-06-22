@@ -1,27 +1,28 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Marce Villarino <mvillarino@kde-espana.es>, 2012.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 01:01+0000\n"
-"PO-Revision-Date: 2018-02-01 20:16+0100\n"
+"PO-Revision-Date: 2023-06-21 08:52+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
-"Language-Team: Galician <kde-i18n-doc@kde.org>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Marce Villarino, Adrián Chaves Fernández"
+msgstr "Marce Villarino, Adrian Chaves (Gallaecio)"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -158,13 +159,13 @@ msgstr ""
 "usarse para crear un campo que avalía unha función de JavaScript en cada "
 "edición e ten o seu contido. Consulte a lapela «Scripts» para máis "
 "información.<br> <tt>${cursor}</tt> pode usarse para marcar a posición final "
-"do cursor unha vez se completase todo o demáis.\"> Máis…</a>"
+"do cursor unha vez se completase todo o demais.\"> Máis…</a>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:82
 #, kde-format
 msgid "S&cripts"
-msgstr "S&cripts"
+msgstr "&Guións"
 
 #. i18n: ectx: property (text), widget (QLabel, scriptLabel)
 #: editsnippet.ui:88
@@ -237,19 +238,15 @@ msgid "<empty repository>"
 msgstr "<repositorio baleiro>"
 
 #: snippetrepository.cpp:232
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have edited a data file not located in your personal data directory; "
-#| "as such, a renamed clone of the original data file has been created "
-#| "within your personal data directory."
+#, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
-"Editou un ficheiro de datos que non estaba situado no seu directorio persoal "
-"de datos; como tal, creouse un clon renomeado do ficheiro de datos orixinal "
-"dentro do seu directorio persoal de datos."
+"Editou un ficheiro dun repositorio de fragmentos que non está no seu "
+"cartafol persoal; como tal, creouse unha copia do ficheiro orixinal no seu "
+"cartafol persoal."
 
 #: snippetrepository.cpp:238
 #, kde-format

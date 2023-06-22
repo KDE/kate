@@ -350,8 +350,15 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
     m_projectsComboGit->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
     connect(project, &KateProject::projectMapChanged, this, [this] {
         auto widget = m_stackedProjectViews->currentWidget();
-        if (widget && static_cast<KateProjectView *>(widget)->project() == sender()) {
+        auto project = static_cast<KateProjectView *>(widget)->project();
+        if (widget && project == sender()) {
             Q_EMIT projectMapChanged();
+
+            int index = m_projectsCombo->findData(project->fileName());
+            Q_ASSERT(index == m_projectsCombo->currentIndex());
+            if (index != -1) {
+                m_projectsCombo->setItemText(index, project->name());
+            }
         }
     });
 

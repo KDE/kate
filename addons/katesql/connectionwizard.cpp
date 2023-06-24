@@ -13,6 +13,7 @@
 #include <KMessageBox>
 #include <KPasswordLineEdit>
 #include <KUrlRequester>
+#include <kio_version.h>
 
 #include <QFormLayout>
 #include <QSpinBox>
@@ -174,8 +175,11 @@ ConnectionSQLiteServerPage::ConnectionSQLiteServerPage(QWidget *parent)
     optionsLineEdit = new KLineEdit();
 
     pathUrlRequester->setMode(KFile::File);
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 108, 0)
+    pathUrlRequester->setNameFilters({i18n("Database files") + QLatin1String(" (*.db *.sqlite)"), i18n("All files") + QLatin1String(" (*)")});
+#else
     pathUrlRequester->setFilter(QLatin1String("*.db *.sqlite|") + i18n("Database files") + QLatin1String("\n*|") + i18n("All files"));
-
+#endif
     layout->addRow(i18nc("@label:textbox", "Path:"), pathUrlRequester);
     layout->addRow(i18nc("@label:textbox", "Connection options:"), optionsLineEdit);
 

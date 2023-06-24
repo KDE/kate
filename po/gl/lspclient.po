@@ -129,7 +129,7 @@ msgstr "Formatar"
 #: lspclientpluginview.cpp:541
 #, kde-format
 msgid "Rename"
-msgstr "Cambiar de nome"
+msgstr "Renomear"
 
 #: lspclientpluginview.cpp:545
 #, fuzzy, kde-format
@@ -341,7 +341,7 @@ msgstr "Non hai edicións"
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
-msgstr "Cambiar de nome"
+msgstr "Renomear"
 
 #: lspclientpluginview.cpp:1870
 #, kde-format

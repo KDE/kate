@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-17 04:03+0000\n"
-"PO-Revision-Date: 2023-06-17 13:41+0200\n"
+"PO-Revision-Date: 2023-06-23 22:25+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -471,7 +471,7 @@ msgstr "Cargar de novo as diferenzas"
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr "Mostras as diferenzas con contexto total, non só as liñas cambiadas"
+msgstr "Amosar as diferenzas con contexto total, non só as liñas cambiadas."
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -739,7 +739,7 @@ msgstr "Gerald Senarclens de Grancy"
 #: lib/kateapp.cpp:312
 #, kde-format
 msgid "QA and Scripting"
-msgstr "Calidade e scripts"
+msgstr "Calidade e guionización"
 
 #: lib/kateapp.cpp:316
 #, kde-format
@@ -1035,7 +1035,7 @@ msgstr "Se se marca, os separadores agocharanse se só hai un documento aberto."
 #: lib/kateconfigdialog.cpp:465
 #, kde-format
 msgid "&Show close button"
-msgstr "Mo&strar o botón de pechar"
+msgstr "Amo&sar o botón de pechar"
 
 #: lib/kateconfigdialog.cpp:467
 #, kde-format
@@ -1262,7 +1262,7 @@ msgstr "Estanse a abrir de novo os ficheiros da última sesión…"
 #: lib/katefileactions.cpp:78
 #, kde-format
 msgid "Rename file"
-msgstr "Cambiar o nome do ficheiro"
+msgstr "Renomear o ficheiro"
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1312,12 +1312,12 @@ msgstr "Use esta orde para amosar ou agochar os separadores das vistas"
 #: lib/katemainwindow.cpp:237
 #, kde-format
 msgid "Sho&w Path in Titlebar"
-msgstr "M&ostrar a ruta na barra de título"
+msgstr "Amosar a &ruta na barra de título"
 
 #: lib/katemainwindow.cpp:240
 #, kde-format
 msgid "Show the complete document path in the window caption"
-msgstr "Mostra a ruta completa ao documento no título da xanela"
+msgstr "Amosar a ruta completa ao documento no título da xanela"
 
 #: lib/katemainwindow.cpp:242
 #, kde-format
@@ -1422,12 +1422,12 @@ msgstr "Abrir o cartafol c&ontedor…"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Cambiar de nome…"
+msgstr "Renomear…"
 
 #: lib/katemainwindow.cpp:374
 #, kde-format
 msgid "Renames the file belonging to the current document."
-msgstr "Cambia o nome do ficheiro correspondente ao documento actual."
+msgstr "Renomea o ficheiro correspondente ao documento actual."
 
 #: lib/katemainwindow.cpp:378
 #, kde-format
@@ -1454,12 +1454,12 @@ msgstr "Comparar"
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
-"Usar o menú de contexto da barra de lapelas para comparar dous documentos"
+"Usar o menú de contexto da barra de separadores para comparar dous documentos"
 
 #: lib/katemainwindow.cpp:399
 #, kde-format
 msgid "Shows a hint how to compare documents."
-msgstr "Mostra un consello sobre como comparar documentos."
+msgstr "Amosa un consello sobre como comparar documentos."
 
 #: lib/katemainwindow.cpp:402
 #, kde-format
@@ -1554,7 +1554,7 @@ msgstr "Manual dos &complementos"
 #: lib/katemainwindow.cpp:459
 #, kde-format
 msgid "This shows help files for various available plugins."
-msgstr "Isto mostra ficheiros de axuda para varios complementos dispoñíbeis."
+msgstr "Isto amosa ficheiros de axuda para varios complementos dispoñíbeis."
 
 #: lib/katemainwindow.cpp:476
 #, kde-format
@@ -1649,8 +1649,7 @@ msgstr "Agochar a barra de menú"
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
-msgstr ""
-"Soltou o directorio %1 sobre Kate. Quere abrir todos os seus ficheiros?"
+msgstr "Soltou o cartafol %1 sobre Kate. Quere abrir todos os seus ficheiros?"
 
 #: lib/katemainwindow.cpp:914
 #, kde-format
@@ -1843,7 +1842,7 @@ msgid ""
 "application. Requires diff(1)."
 msgstr ""
 "Calcula as diferenzas entre o contido do editor e o ficheiro de disco para o "
-"documento escollido, e mostra as diferenzas coa aplicación predeterminada. "
+"documento escollido, e amosa as diferenzas coa aplicación predeterminada. "
 "Require diff(1)."
 
 #: lib/katemwmodonhddialog.cpp:122
@@ -2069,12 +2068,12 @@ msgstr "Agochar todas as vistas menos a activa."
 #: lib/kateviewmanager.cpp:170
 #, kde-format
 msgid "Toggle Orientation"
-msgstr "Cambiar a orientación"
+msgstr "Conmutar a orientación"
 
 #: lib/kateviewmanager.cpp:173
 #, kde-format
 msgid "Toggles the orientation of the current split view"
-msgstr "Cambia a orientación da vista dividida actual."
+msgstr "Conmuta a orientación da vista dividida actual."
 
 #: lib/kateviewmanager.cpp:176
 #, kde-format
@@ -2483,7 +2482,7 @@ msgstr ""
 #: lib/session/katesessionmanager.cpp:333
 #, kde-format
 msgid "Session Renaming"
-msgstr "Cambio de nome de sesión"
+msgstr "Renomeamento de sesións"
 
 #: lib/session/katesessionmanager.cpp:483
 #, kde-format
@@ -2502,7 +2501,7 @@ msgstr ""
 #: lib/session/katesessionmanager.cpp:487
 #, kde-format
 msgid "To save a session, you must specify a name."
-msgstr "Para gardar unha sesión, precisa especificar un nome."
+msgstr "Para gardar unha sesión, debe indicar un nome."
 
 #: lib/session/katesessionmanager.cpp:514
 #, kde-format

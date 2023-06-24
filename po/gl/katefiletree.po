@@ -103,7 +103,7 @@ msgstr "Copiar a ruta e o nome de ficheiro no portapapeis."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Cambiar de nome…"
+msgstr "Renomear…"
 
 #: katefiletree.cpp:151
 #, kde-format

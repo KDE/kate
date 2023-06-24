@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-23 00:49+0000\n"
+"POT-Creation-Date: 2023-06-24 00:53+0000\n"
 "PO-Revision-Date: 2021-09-19 13:41+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -268,8 +268,8 @@ msgstr ""
 msgid "Line: %1: "
 msgstr "စာကြောင်း"
 
-#: lspclientpluginview.cpp:1587 lspclientpluginview.cpp:1944
-#: lspclientpluginview.cpp:2065
+#: lspclientpluginview.cpp:1587 lspclientpluginview.cpp:1943
+#: lspclientpluginview.cpp:2064
 #, fuzzy, kde-format
 msgid "No results"
 msgstr "အက်စ်ကျူအယ် ရလဒ်များ"
@@ -310,45 +310,45 @@ msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "မီးမောင်းထိုးပြရန်"
 
-#: lspclientpluginview.cpp:1713 lspclientpluginview.cpp:1725
-#: lspclientpluginview.cpp:1738
+#: lspclientpluginview.cpp:1713 lspclientpluginview.cpp:1724
+#: lspclientpluginview.cpp:1737
 #, fuzzy, kde-format
 msgid "No Actions"
 msgstr "&Aလုပ်ဆောင်ချက်များ"
 
-#: lspclientpluginview.cpp:1729
+#: lspclientpluginview.cpp:1728
 #, fuzzy, kde-format
 msgid "Loading..."
 msgstr "တွန်းတင်နေသည်..."
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1820
 #, kde-format
 msgid "No edits"
 msgstr ""
 
-#: lspclientpluginview.cpp:1902
+#: lspclientpluginview.cpp:1901
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "အမည်ပြောင်းရန်"
 
-#: lspclientpluginview.cpp:1903
+#: lspclientpluginview.cpp:1902
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr ""
 
-#: lspclientpluginview.cpp:1950
+#: lspclientpluginview.cpp:1949
 #, fuzzy, kde-format
 msgid "Not enough results"
 msgstr "အက်စ်ကျူအယ် ရလဒ်များ"
 
-#: lspclientpluginview.cpp:2020
+#: lspclientpluginview.cpp:2019
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr ""
 
-#: lspclientpluginview.cpp:2217 lspclientpluginview.cpp:2254
+#: lspclientpluginview.cpp:2216 lspclientpluginview.cpp:2253
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid "LSP Server"
@@ -356,7 +356,7 @@ msgstr ""
 "ဆာဗာစနစ်အတွင်းပိုင်းအမှား\n"
 "%1"
 
-#: lspclientpluginview.cpp:2277
+#: lspclientpluginview.cpp:2276
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"

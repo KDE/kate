@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-23 00:49+0000\n"
+"POT-Creation-Date: 2023-06-24 00:53+0000\n"
 "PO-Revision-Date: 2020-01-12 12:53+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -134,7 +134,7 @@ msgstr "Formatar"
 #: lspclientpluginview.cpp:533
 #, kde-format
 msgid "Rename"
-msgstr "Cambiar de nome"
+msgstr "Renomear"
 
 #: lspclientpluginview.cpp:537
 #, fuzzy, kde-format
@@ -274,8 +274,8 @@ msgstr "Realce de intervalo"
 msgid "Line: %1: "
 msgstr "Liña: %1: "
 
-#: lspclientpluginview.cpp:1587 lspclientpluginview.cpp:1944
-#: lspclientpluginview.cpp:2065
+#: lspclientpluginview.cpp:1587 lspclientpluginview.cpp:1943
+#: lspclientpluginview.cpp:2064
 #, kde-format
 msgid "No results"
 msgstr "Non hai resultados"
@@ -320,54 +320,54 @@ msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Realzar: %1"
 
-#: lspclientpluginview.cpp:1713 lspclientpluginview.cpp:1725
-#: lspclientpluginview.cpp:1738
+#: lspclientpluginview.cpp:1713 lspclientpluginview.cpp:1724
+#: lspclientpluginview.cpp:1737
 #, fuzzy, kde-format
 #| msgid "General Options"
 msgid "No Actions"
 msgstr "Opcións xerais"
 
-#: lspclientpluginview.cpp:1729
+#: lspclientpluginview.cpp:1728
 #, kde-format
 msgid "Loading..."
 msgstr ""
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1820
 #, kde-format
 msgid "No edits"
 msgstr "Non hai edicións"
 
-#: lspclientpluginview.cpp:1902
+#: lspclientpluginview.cpp:1901
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
-msgstr "Cambiar de nome"
+msgstr "Renomear"
 
-#: lspclientpluginview.cpp:1903
+#: lspclientpluginview.cpp:1902
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Novo nome (ollo: poden non substituírse todas as referencias)"
 
-#: lspclientpluginview.cpp:1950
+#: lspclientpluginview.cpp:1949
 #, fuzzy, kde-format
 #| msgid "No results"
 msgid "Not enough results"
 msgstr "Non hai resultados"
 
-#: lspclientpluginview.cpp:2020
+#: lspclientpluginview.cpp:2019
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr ""
 
-#: lspclientpluginview.cpp:2217 lspclientpluginview.cpp:2254
+#: lspclientpluginview.cpp:2216 lspclientpluginview.cpp:2253
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Reiniciar o servidor de LSP"
 
-#: lspclientpluginview.cpp:2277
+#: lspclientpluginview.cpp:2276
 #, fuzzy, kde-format
 #| msgid "LSP Client"
 msgctxt "@info"

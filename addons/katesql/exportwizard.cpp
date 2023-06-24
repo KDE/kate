@@ -51,7 +51,7 @@ ExportOutputPage::ExportOutputPage(QWidget *parent)
 
     fileUrl = new KUrlRequester(this);
     fileUrl->setMode(KFile::File);
-    fileUrl->setFilter(i18n("*.csv|Comma Separated Values\n*|All files"));
+    fileUrl->setFilter(QLatin1String("*.csv|") + i18n("Comma Separated Values") + QLatin1String("\n*|") + i18n("All files"));
 
     fileLayout->addWidget(fileUrl);
 

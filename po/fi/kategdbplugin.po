@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-04-20 17:33+0300\n"
+"PO-Revision-Date: 2023-05-29 21:11+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:21:57+0000\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -190,47 +190,44 @@ msgstr "Kohde %1"
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "Virheenpaikannussovittimen käyttäjäasetukset"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "Asetukset"
+msgstr "Asetustiedosto:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "Virheenpaikannussovittimen oletusasetukset"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Virheenpaikannus"
+msgstr "Virheenpaikannin"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Ei validoitavaa JSON-dataa."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON-data on kelvollista."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON-data on kelvotonta: ei JSON-oliota"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON-data on kelvotonta: %1"
 
 #: debugview.cpp:35
 #, kde-format
@@ -653,10 +650,9 @@ msgid "named items"
 msgstr "nimetyt kohteet"
 
 #: plugin_kategdb.cpp:106
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr "Kate-virheenpaikannin"
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -686,12 +682,10 @@ msgid "Frame"
 msgstr "Kehys"
 
 #: plugin_kategdb.cpp:200
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB-tuloste"
+msgstr "Virheenpaikannustuloste"
 
 #: plugin_kategdb.cpp:201
 #, kde-format
@@ -813,10 +807,9 @@ msgstr "&Virheenpaikannus"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "GDB-liitännäinen"
+msgstr "Virheenpaikannusliitännäinen"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

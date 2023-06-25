@@ -128,7 +128,7 @@ msgstr "Executábel:"
 #: configview.cpp:118
 #, kde-format
 msgid "Working Directory:"
-msgstr "Directorio de traballo:"
+msgstr "Cartafol de traballo:"
 
 #: configview.cpp:126
 #, kde-format

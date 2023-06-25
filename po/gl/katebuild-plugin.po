@@ -383,7 +383,7 @@ msgstr "Nome da orde ou grupo de obxectivos"
 #: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
-msgstr "Directorio de traballo ou orde"
+msgstr "Cartafol de traballo ou orde"
 
 #: TargetModel.cpp:394
 #, fuzzy, kde-format

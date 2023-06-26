@@ -573,7 +573,7 @@ void DiagnosticsView::handleEsc(QEvent *event)
 static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)
 {
     // local file in custom role, Qt::DisplayRole might have additional elements
-    auto l = model.match(model.index(0, 0, QModelIndex()), Qt::UserRole, url.toLocalFile(), 1, Qt::MatchExactly);
+    auto l = model.match(model.index(0, 0, QModelIndex()), Qt::UserRole, url.toString(QUrl::PreferLocalFile | QUrl::RemovePassword), 1, Qt::MatchExactly);
     if (l.length()) {
         return model.itemFromIndex(l.at(0));
     }
@@ -781,8 +781,9 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         }
         topItem = new DocumentDiagnosticItem();
         model->appendRow(topItem);
-        topItem->setText(diagnostics.uri.toLocalFile());
-        topItem->setData(diagnostics.uri.toLocalFile(), Qt::UserRole);
+        QString prettyUri = diagnostics.uri.toString(QUrl::PreferLocalFile | QUrl::RemovePassword);
+        topItem->setText(prettyUri);
+        topItem->setData(prettyUri, Qt::UserRole);
         topItem->setData(QVariant::fromValue(provider), DiagnosticModelRole::ProviderRole);
     } else {
         // try to retain current position

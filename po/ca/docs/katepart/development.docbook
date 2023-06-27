@@ -161,7 +161,7 @@
 >Una definició de la sintaxi pot contenir tants estils com siguin requerits per a cobrir tots els conceptes del format per què s'utilitza.</para>
 
 <para
->En molts formats hi ha llistes de paraules que representen un concepte específic. Per exemple, en els llenguatges de programació, les sentències de control són un concepte, els noms de tipus de dades un altre, i les funcions incloses en el llenguatge són un tercer. El sistema de ressaltat de la sintaxi de la &kappname; pot utilitzar aquestes llistes per a detectar i marcar paraules en el text per a emfatitzar conceptes dels formats del text.</para>
+>En molts formats hi ha llistes de paraules que representen un concepte específic. Per exemple, en els llenguatges de programació, les sentències de control són un concepte, els noms de tipus de dades un altre, i les funcions integrades en el llenguatge són un tercer. El sistema de ressaltat de la sintaxi de la &kappname; pot utilitzar aquestes llistes per a detectar i marcar paraules en el text per a emfatitzar conceptes dels formats del text.</para>
 
 </sect3>
 
@@ -928,7 +928,7 @@
 <para
 ><userinput
 >dsKeyword</userinput
->, paraules clau incloses.</para>
+>, paraules clau integrades.</para>
 <para
 ><userinput
 >dsFunction</userinput
@@ -948,7 +948,7 @@
 <para
 ><userinput
 >dsBuiltIn</userinput
->, funcions, classes i objectes inclosos.</para>
+>, funcions, classes i objectes integrats.</para>
 <para
 ><userinput
 >dsExtension</userinput
@@ -1002,7 +1002,7 @@
 <para
 ><userinput
 >dsDataType</userinput
->, tipus de dades incloses com «int», «void», «u64».</para>
+>, tipus de dades integrats com «int», «void», «u64».</para>
 <para
 ><userinput
 >dsDecVal</userinput
@@ -1018,7 +1018,7 @@
 <para
 ><userinput
 >dsConstant</userinput
->, definicions incloses i definides per l'usuari com PI.</para>
+>, definicions integrades i definides per l'usuari com PI.</para>
 </listitem>
 </varlistentry>
 
@@ -3451,7 +3451,7 @@
 ><userinput
 >BuiltIn</userinput
 > (<guilabel
->Incorporat</guilabel
+>Integrat</guilabel
 >): Estil de text per a classes de llenguatges, funcions i objectes integrats.</para>
 
 <para
@@ -4078,7 +4078,7 @@
 <para
 >El KSyntaxHighlighting inclou <ulink url="https://kate-editor.org/syntax/"
 >més de 300 definicions de ressaltat de la sintaxi</ulink
->, de manera que és ideal assegurar-vos que el nou tema es vegi bé en totes les definicions de ressaltat de la sintaxi. Els temes de color incorporats tenen les següents similituds que es recomana (però no és obligatori) seguir per a aconseguir una visualització correcta de totes les definicions de ressaltat de la sintaxi:</para>
+>, de manera que és ideal assegurar-vos que el nou tema es vegi bé en totes les definicions de ressaltat de la sintaxi. Els temes de color integrats tenen les següents similituds que es recomana (però no és obligatori) seguir per a aconseguir una visualització correcta de totes les definicions de ressaltat de la sintaxi:</para>
 
 <itemizedlist>
 <listitem
@@ -4406,7 +4406,7 @@ function indent(line, indentWidth, ch)
 
 <para
 >Com és difícil satisfer les necessitats de tothom, la &kappname; suporta unes quantes eines d'ajuda per a la manipulació ràpida de text a través de la <link linkend="advanced-editing-tools-commandline"
->línia d'ordres inclosa</link
+>línia d'ordres integrada</link
 >. Per exemple, l'ordre <command
 >sort</command
 > s'implementa com un script. En aquesta secció s'explica com crear fitxers <filename

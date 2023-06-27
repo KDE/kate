@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-21 00:50+0000\n"
+"POT-Creation-Date: 2023-06-27 00:51+0000\n"
 "PO-Revision-Date: 2023-02-09 02:25+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -345,7 +345,7 @@ msgid "Error"
 msgstr "錯誤"
 
 #: lib/diagnostics/diagnosticview.cpp:1062 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:910
+#: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "警告"
@@ -419,18 +419,18 @@ msgstr "管理作業階段"
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:538
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:544
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:539
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:545
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "Unified"
 msgstr "已修改"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:540
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:546
 #, kde-format
 msgid "Raw"
 msgstr ""
@@ -532,7 +532,7 @@ msgid ""
 msgstr ""
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Diff"
 msgstr ""
@@ -1129,108 +1129,118 @@ msgstr "省略分頁文字"
 msgid "When checked tab text might be elided if its too long."
 msgstr "若勾選，分頁文字可能會在過長時被省略。"
 
+#: lib/kateconfigdialog.cpp:501
+#, kde-format
+msgid "Open new tab to the right of current tab."
+msgstr ""
+
 #: lib/kateconfigdialog.cpp:503
+#, kde-format
+msgid "If unchecked the new tab will open at the end."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:509
 #, kde-format
 msgid "&Mouse"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:514
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:519
 #, fuzzy, kde-format
 #| msgid "&Previous Tab"
 msgid "Previous tab"
 msgstr "前一個分頁(&P)"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:519
 #, fuzzy, kde-format
 #| msgid "Go back"
 msgid "History back"
 msgstr "向後"
 
-#: lib/kateconfigdialog.cpp:519
+#: lib/kateconfigdialog.cpp:525
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:530
 #, fuzzy, kde-format
 #| msgid "&Next Tab"
 msgid "Next tab"
 msgstr "下一個分頁(&N)"
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:530
 #, fuzzy, kde-format
 #| msgid "Go forward"
 msgid "History forward"
 msgstr "向前"
 
-#: lib/kateconfigdialog.cpp:541
+#: lib/kateconfigdialog.cpp:547
 #, kde-format
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:546
+#: lib/kateconfigdialog.cpp:552
 #, fuzzy, kde-format
 #| msgid "Show Navigation Bar"
 msgid "Navigation Bar"
 msgstr "顯示導覽列"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:557
 #, fuzzy, kde-format
 #| msgid "Focus the navigation bar"
 msgid "Show current symbol in navigation bar"
 msgstr "將焦點置於導覽列"
 
-#: lib/kateconfigdialog.cpp:565
+#: lib/kateconfigdialog.cpp:571
 #, kde-format
 msgid "Session"
 msgstr "工作階段"
 
-#: lib/kateconfigdialog.cpp:567
+#: lib/kateconfigdialog.cpp:573
 #, kde-format
 msgid "Session Management"
 msgstr "作業階段管理程式"
 
-#: lib/kateconfigdialog.cpp:578
+#: lib/kateconfigdialog.cpp:584
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(永不)"
 
-#: lib/kateconfigdialog.cpp:579
+#: lib/kateconfigdialog.cpp:585
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
 msgid_plural " days"
 msgstr[0] " 天"
 
-#: lib/kateconfigdialog.cpp:612
+#: lib/kateconfigdialog.cpp:618
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:647
+#: lib/kateconfigdialog.cpp:653
 #, kde-format
 msgid "Plugins"
 msgstr "外掛"
 
-#: lib/kateconfigdialog.cpp:649
+#: lib/kateconfigdialog.cpp:655
 #, kde-format
 msgid "Plugin Manager"
 msgstr "外掛程式管理器"
 
-#: lib/kateconfigdialog.cpp:667 lib/kateconfigdialog.cpp:669
+#: lib/kateconfigdialog.cpp:673 lib/kateconfigdialog.cpp:675
 #, kde-format
 msgid "User Feedback"
 msgstr "使用者意見回應"
 
-#: lib/kateconfigdialog.cpp:909
+#: lib/kateconfigdialog.cpp:916
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

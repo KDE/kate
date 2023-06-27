@@ -319,7 +319,7 @@
 >Ordre de l'editor</userinput
 > opcional que es pot utilitzar per a invocar l'eina externa a través de la <ulink url="help:/katepart/advanced.html#advanced-editing-tools-commandline"
 >línia d'ordres</ulink
-> incorporada.</para>
+> integrada.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -6096,7 +6096,7 @@ VALUES ("<replaceable
 ><primary
 >Emulador de terminal</primary
 ></indexterm
-> L'emulador de terminal incrustat és una còpia de l'aplicació de terminal &konsole; del &kde;, per a la vostra comoditat. Està disponible des de l'element de menú <menuchoice
+> L'emulador de terminal integrat és una còpia de l'aplicació de terminal &konsole; del &kde;, per a la vostra comoditat. Està disponible des de l'element de menú <menuchoice
 ><guimenu
 >Visualitza</guimenu
 ><guisubmenu
@@ -6117,7 +6117,7 @@ VALUES ("<replaceable
 >.</para>
 
 <para
->L'emulador de terminal incrustat és proporcionat pel connector Vista d'eina del terminal.</para>
+>L'emulador de terminal integrat és proporcionat pel connector Vista d'eina del terminal.</para>
 
 <sect2 id="konsole-menus">
 <title
@@ -6138,7 +6138,7 @@ VALUES ("<replaceable
 ></term>
 <listitem>
 <para
->Mostra o oculta la presència de l'emulador de terminal incrustat.</para>
+>Mostra o oculta la presència de l'emulador de terminal integrat.</para>
 <para
 >Quan s'activa la primera vegada, es crearà el terminal.</para>
 <para
@@ -6163,7 +6163,7 @@ VALUES ("<replaceable
 ></term>
 <listitem
 ><para
->Envia el text seleccionat cap a l'emulador de terminal incrustat. No s'afegirà una línia nova després del text.</para
+>Envia el text seleccionat cap a l'emulador de terminal integrat. No s'afegirà una línia nova després del text.</para
 ></listitem>
 </varlistentry>
 
@@ -6178,7 +6178,7 @@ VALUES ("<replaceable
 ></term>
 <listitem>
 <para
->Això farà que el terminal encastat faci <command
+>Això farà que el terminal integrat faci <command
 >cd</command
 > al directori del document actiu.</para>
 
@@ -6242,7 +6242,7 @@ VALUES ("<replaceable
 ></term>
 <listitem
 ><para
->Això causarà que el terminal incrustat canviï al directori del document actiu en iniciar-se i que quan se seleccioni un document nou doni el focus a aquest directori. Si no està activada, haureu de navegar pel vostre compte en el terminal. </para
+>Això causarà que el terminal integrat canviï al directori del document actiu en iniciar-se i que quan se seleccioni un document nou doni el focus a aquest directori. Si no està activada, haureu de navegar pel vostre compte en el terminal. </para
 ></listitem>
 </varlistentry>
 
@@ -6255,7 +6255,7 @@ VALUES ("<replaceable
 ><para
 >Estableix la variable d'entorn <envar
 >EDITOR</envar
-> de manera que els programes que s'executin en el terminal incrustat, obrin automàticament un fitxer a l'editor, obrint-lo en el &kate; en lloc de l'editor predeterminat configurat en el vostre intèrpret d'ordres. No podreu seguir utilitzant el terminal fins que tanqueu el fitxer al &kate;, de manera que el programa cridat reconeix que l'heu acabat d'editar.</para
+> de manera que els programes que s'executin en el terminal integrat, obrin automàticament un fitxer a l'editor, obrint-lo en el &kate; en lloc de l'editor predeterminat configurat en el vostre intèrpret d'ordres. No podreu seguir utilitzant el terminal fins que tanqueu el fitxer al &kate;, de manera que el programa cridat reconeix que l'heu acabat d'editar.</para
 ></listitem>
 </varlistentry>
 
@@ -6266,7 +6266,7 @@ VALUES ("<replaceable
 ></term>
 <listitem
 ><para
->Permet tancar el terminal incrustat prement la tecla &Esc;. Pot causar problemes amb les aplicacions de terminal que fan servir la tecla &Esc;, &pex;, el <application
+>Permet tancar el terminal integrat prement la tecla &Esc;. Pot causar problemes amb les aplicacions de terminal que fan servir la tecla &Esc;, &pex;, el <application
 >vim</application
 >. Afegiu aquestes aplicacions en el quadre d'entrada de text que hi ha a continuació. Els elements de la llista s'hauran de separar amb comes.</para
 ></listitem>

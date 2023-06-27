@@ -885,7 +885,7 @@ action="simul"
 >PID</acronym
 > de la instància actual s'exporta a la variable d'entorn <envar
 >KATE_PID</envar
->. Quan obri fitxers des d'una terminal inclosa, el Kate seleccionarà automàticament la instància actual si no s'indica una altra cosa a la línia d'ordres.</para>
+>. Quan obri fitxers des d'una terminal integrada, el Kate seleccionarà automàticament la instància actual si no s'indica una altra cosa a la línia d'ordres.</para>
 
 </sect1>
 
@@ -1037,7 +1037,7 @@ action="simul"
 
 <para
 >El &kate; no proveeix (encara!) cap mitjà per a llegir documents relacionats amb la documentació. Depenent del fitxer que esteu editant, podreu trobar ajuda en l'<link linkend="kate-application-plugin-konsole"
->Emulador de terminal inclòs</link
+>Emulador de terminal integrat</link
 >, a on podreu veure les pàgines del manual d'&UNIX; o de la documentació info relacionades o per a aquesta fi també podeu emprar el &konqueror;.</para>
 
 </sect2>

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-21 00:50+0000\n"
+"POT-Creation-Date: 2023-06-27 00:51+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -344,7 +344,7 @@ msgid "Error"
 msgstr "Chyba"
 
 #: lib/diagnostics/diagnosticview.cpp:1062 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:910
+#: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Upozornenie"
@@ -410,17 +410,17 @@ msgstr "Povoliť lokálne potlačenie"
 msgid "Change Style"
 msgstr "Zmeniť štýl"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:538
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:544
 #, kde-format
 msgid "Side By Side"
 msgstr "Vedľa seba"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:539
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:545
 #, kde-format
 msgid "Unified"
 msgstr "Zjednotený"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:540
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:546
 #, kde-format
 msgid "Raw"
 msgstr "Nespracované"
@@ -528,7 +528,7 @@ msgstr ""
 "https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Diff"
 msgstr "Rozdiely"
@@ -1150,73 +1150,83 @@ msgstr "Skrátiť text karty"
 msgid "When checked tab text might be elided if its too long."
 msgstr "Keď začiarknuté karty majú čo najväčšiu veľkosť."
 
+#: lib/kateconfigdialog.cpp:501
+#, kde-format
+msgid "Open new tab to the right of current tab."
+msgstr ""
+
 #: lib/kateconfigdialog.cpp:503
+#, kde-format
+msgid "If unchecked the new tab will open at the end."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:509
 #, kde-format
 msgid "&Mouse"
 msgstr "&Myš"
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:514
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "Stlačené tlačidlo späť:"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:519
 #, kde-format
 msgid "Previous tab"
 msgstr "Predchádzajúca karta"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:519
 #, kde-format
 msgid "History back"
 msgstr "História späť"
 
-#: lib/kateconfigdialog.cpp:519
+#: lib/kateconfigdialog.cpp:525
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Stlačené tlačidlo vpred:"
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:530
 #, kde-format
 msgid "Next tab"
 msgstr "&Nasledujúca karta"
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:530
 #, kde-format
 msgid "History forward"
 msgstr "História dopredu"
 
-#: lib/kateconfigdialog.cpp:541
+#: lib/kateconfigdialog.cpp:547
 #, kde-format
 msgid "Diff Style:"
 msgstr "Štýl rozdielov:"
 
-#: lib/kateconfigdialog.cpp:546
+#: lib/kateconfigdialog.cpp:552
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Navigačný panel"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:557
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Zobraziť aktuálny symbol v navigačnom paneli"
 
-#: lib/kateconfigdialog.cpp:565
+#: lib/kateconfigdialog.cpp:571
 #, kde-format
 msgid "Session"
 msgstr "Sedenie"
 
-#: lib/kateconfigdialog.cpp:567
+#: lib/kateconfigdialog.cpp:573
 #, kde-format
 msgid "Session Management"
 msgstr "Správca sedení"
 
-#: lib/kateconfigdialog.cpp:578
+#: lib/kateconfigdialog.cpp:584
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(nikdy)"
 
-#: lib/kateconfigdialog.cpp:579
+#: lib/kateconfigdialog.cpp:585
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1225,29 +1235,29 @@ msgstr[0] " deň"
 msgstr[1] " dni"
 msgstr[2] " dni"
 
-#: lib/kateconfigdialog.cpp:612
+#: lib/kateconfigdialog.cpp:618
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr "Po zatvorení okna sa zatvoria aj dokumenty otvorené len v tomto okne."
 
-#: lib/kateconfigdialog.cpp:647
+#: lib/kateconfigdialog.cpp:653
 #, kde-format
 msgid "Plugins"
 msgstr "Moduly"
 
-#: lib/kateconfigdialog.cpp:649
+#: lib/kateconfigdialog.cpp:655
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Správca modulov"
 
-#: lib/kateconfigdialog.cpp:667 lib/kateconfigdialog.cpp:669
+#: lib/kateconfigdialog.cpp:673 lib/kateconfigdialog.cpp:675
 #, kde-format
 msgid "User Feedback"
 msgstr "Používateľská odozva"
 
-#: lib/kateconfigdialog.cpp:909
+#: lib/kateconfigdialog.cpp:916
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

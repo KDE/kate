@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1654274 $
+# Version: $Revision: 1654755 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-21 00:50+0000\n"
+"POT-Creation-Date: 2023-06-27 00:51+0000\n"
 "PO-Revision-Date: 2023-04-15 11:32+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -348,7 +348,7 @@ msgid "Error"
 msgstr "Błąd"
 
 #: lib/diagnostics/diagnosticview.cpp:1062 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:910
+#: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Ostrzeżenie"
@@ -414,17 +414,17 @@ msgstr "Włącz wygaszenie"
 msgid "Change Style"
 msgstr "Zmień styl"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:538
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:544
 #, kde-format
 msgid "Side By Side"
 msgstr "Obok siebie"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:539
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:545
 #, kde-format
 msgid "Unified"
 msgstr "Połączony"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:540
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:546
 #, kde-format
 msgid "Raw"
 msgstr "Nieprzetworzony"
@@ -533,7 +533,7 @@ msgstr ""
 "pobierania na https://git-scm.com/"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Diff"
 msgstr "Różnica"
@@ -1142,73 +1142,83 @@ msgstr "Pomiń tekst kart"
 msgid "When checked tab text might be elided if its too long."
 msgstr "Po zaznaczeniu, tekst kart może zostać pominięty, jeśli jest za długi."
 
+#: lib/kateconfigdialog.cpp:501
+#, kde-format
+msgid "Open new tab to the right of current tab."
+msgstr ""
+
 #: lib/kateconfigdialog.cpp:503
+#, kde-format
+msgid "If unchecked the new tab will open at the end."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:509
 #, kde-format
 msgid "&Mouse"
 msgstr "&Mysz"
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:514
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "Po &naciśnięciu przycisku wstecz:"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:519
 #, kde-format
 msgid "Previous tab"
 msgstr "Poprzednia karta"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:519
 #, kde-format
 msgid "History back"
 msgstr "Historia wstecz"
 
-#: lib/kateconfigdialog.cpp:519
+#: lib/kateconfigdialog.cpp:525
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Po naciśnięciu &przycisku wprzód:"
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:530
 #, kde-format
 msgid "Next tab"
 msgstr "Następna karta"
 
-#: lib/kateconfigdialog.cpp:524
+#: lib/kateconfigdialog.cpp:530
 #, kde-format
 msgid "History forward"
 msgstr "Historia wprzód"
 
-#: lib/kateconfigdialog.cpp:541
+#: lib/kateconfigdialog.cpp:547
 #, kde-format
 msgid "Diff Style:"
 msgstr "Wygląd różnicy:"
 
-#: lib/kateconfigdialog.cpp:546
+#: lib/kateconfigdialog.cpp:552
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Pasek poruszania się"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:557
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Pokaż bieżący symbol na pasku poruszania się"
 
-#: lib/kateconfigdialog.cpp:565
+#: lib/kateconfigdialog.cpp:571
 #, kde-format
 msgid "Session"
 msgstr "Posiedzenie"
 
-#: lib/kateconfigdialog.cpp:567
+#: lib/kateconfigdialog.cpp:573
 #, kde-format
 msgid "Session Management"
 msgstr "Zarządzanie posiedzeniami"
 
-#: lib/kateconfigdialog.cpp:578
+#: lib/kateconfigdialog.cpp:584
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(nigdy)"
 
-#: lib/kateconfigdialog.cpp:579
+#: lib/kateconfigdialog.cpp:585
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1217,7 +1227,7 @@ msgstr[0] " dniu"
 msgstr[1] " dniach"
 msgstr[2] " dniach"
 
-#: lib/kateconfigdialog.cpp:612
+#: lib/kateconfigdialog.cpp:618
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1226,22 +1236,22 @@ msgstr ""
 "Przy zamykaniu okna, dokumenty otwarte tylko w tym oknie także zostaną "
 "zamknięte."
 
-#: lib/kateconfigdialog.cpp:647
+#: lib/kateconfigdialog.cpp:653
 #, kde-format
 msgid "Plugins"
 msgstr "Wtyczki"
 
-#: lib/kateconfigdialog.cpp:649
+#: lib/kateconfigdialog.cpp:655
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Zarządzanie wtyczkami"
 
-#: lib/kateconfigdialog.cpp:667 lib/kateconfigdialog.cpp:669
+#: lib/kateconfigdialog.cpp:673 lib/kateconfigdialog.cpp:675
 #, kde-format
 msgid "User Feedback"
 msgstr "Informacja zwrotna"
 
-#: lib/kateconfigdialog.cpp:909
+#: lib/kateconfigdialog.cpp:916
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

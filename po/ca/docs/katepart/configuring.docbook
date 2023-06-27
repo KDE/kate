@@ -1156,7 +1156,7 @@
 ></term>
 <listitem>
 <para
->Quan està seleccionada, les ordres del vi substitueixen les ordres incloses de la &kappname;. Per exemple: <keycombo action="simul"
+>Quan està seleccionada, les ordres del vi substitueixen les ordres integrades de la &kappname;. Per exemple: <keycombo action="simul"
 >&Ctrl;<keycap
 >R</keycap
 ></keycombo

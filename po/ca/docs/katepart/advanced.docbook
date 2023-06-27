@@ -98,7 +98,7 @@
 > altra vegada.</para>
 
 <para
->La línia d'ordres té un sistema d'ajuda inclòs, escriviu l'ordre <command
+>La línia d'ordres té un sistema d'ajuda integrat, escriviu l'ordre <command
 >help</command
 > per a iniciar-la. Per a veure una llista de totes les ordres disponibles escriviu <command
 >help list</command

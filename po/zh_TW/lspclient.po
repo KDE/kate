@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-05 01:01+0000\n"
+"POT-Creation-Date: 2023-06-27 02:48+0000\n"
 "PO-Revision-Date: 2020-09-17 15:02+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -278,8 +278,8 @@ msgstr "RangeHighLight (範圍突顯)"
 msgid "Line: %1: "
 msgstr "行：%1: "
 
-#: lspclientpluginview.cpp:1559 lspclientpluginview.cpp:1911
-#: lspclientpluginview.cpp:2032
+#: lspclientpluginview.cpp:1559 lspclientpluginview.cpp:1910
+#: lspclientpluginview.cpp:2031
 #, kde-format
 msgid "No results"
 msgstr "沒有結果"
@@ -324,53 +324,53 @@ msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "突顯：%1"
 
-#: lspclientpluginview.cpp:1685 lspclientpluginview.cpp:1697
-#: lspclientpluginview.cpp:1710
+#: lspclientpluginview.cpp:1685 lspclientpluginview.cpp:1696
+#: lspclientpluginview.cpp:1709
 #, fuzzy, kde-format
 #| msgid "General Options"
 msgid "No Actions"
 msgstr "一般選項"
 
-#: lspclientpluginview.cpp:1701
+#: lspclientpluginview.cpp:1700
 #, kde-format
 msgid "Loading..."
 msgstr ""
 
-#: lspclientpluginview.cpp:1793
+#: lspclientpluginview.cpp:1792
 #, kde-format
 msgid "No edits"
 msgstr "沒有編輯記錄"
 
-#: lspclientpluginview.cpp:1869
+#: lspclientpluginview.cpp:1868
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "重新命名"
 
-#: lspclientpluginview.cpp:1870
+#: lspclientpluginview.cpp:1869
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "新名稱（警告：不是所有參考都會被取代）"
 
-#: lspclientpluginview.cpp:1917
+#: lspclientpluginview.cpp:1916
 #, fuzzy, kde-format
 #| msgid "No results"
 msgid "Not enough results"
 msgstr "沒有結果"
 
-#: lspclientpluginview.cpp:1987
+#: lspclientpluginview.cpp:1986
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr ""
 
-#: lspclientpluginview.cpp:2186 lspclientpluginview.cpp:2223
+#: lspclientpluginview.cpp:2185 lspclientpluginview.cpp:2222
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP 伺服器"
 
-#: lspclientpluginview.cpp:2246
+#: lspclientpluginview.cpp:2245
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"

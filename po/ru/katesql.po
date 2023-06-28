@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2023-06-28 00:50+0000\n"
 "PO-Revision-Date: 2022-12-21 11:35+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -24,90 +24,90 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: connectionwizard.cpp:27
+#: connectionwizard.cpp:28
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
 msgstr "Мастер подключения к базе данных"
 
-#: connectionwizard.cpp:42
+#: connectionwizard.cpp:43
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
 msgstr "Драйвер базы данных"
 
-#: connectionwizard.cpp:43
+#: connectionwizard.cpp:44
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
 msgstr "Выберите драйвер базы данных"
 
-#: connectionwizard.cpp:50
+#: connectionwizard.cpp:51
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "Драйвер базы данных:"
 
-#: connectionwizard.cpp:79 connectionwizard.cpp:167
+#: connectionwizard.cpp:80 connectionwizard.cpp:168
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
 msgstr "Параметры подключения"
 
-#: connectionwizard.cpp:80
+#: connectionwizard.cpp:81
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
 msgstr "Введите параметры подключения"
 
-#: connectionwizard.cpp:92
+#: connectionwizard.cpp:93
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
 msgstr "По умолчанию"
 
-#: connectionwizard.cpp:95
+#: connectionwizard.cpp:96
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
 msgstr "Сервер:"
 
-#: connectionwizard.cpp:96
+#: connectionwizard.cpp:97
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
 msgstr "Имя пользователя:"
 
-#: connectionwizard.cpp:97
+#: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
 msgstr "Пароль:"
 
-#: connectionwizard.cpp:98
+#: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
 msgstr "Порт:"
 
-#: connectionwizard.cpp:99
+#: connectionwizard.cpp:100
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Название базы данных:"
 
-#: connectionwizard.cpp:100 connectionwizard.cpp:180
+#: connectionwizard.cpp:101 connectionwizard.cpp:184
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "Параметры подключения"
 
-#: connectionwizard.cpp:152
+#: connectionwizard.cpp:153
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "Не удалось подключиться к базе данных."
 
-#: connectionwizard.cpp:169
+#: connectionwizard.cpp:170
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -117,41 +117,42 @@ msgstr ""
 "Введите путь к файлу базы данных SQLite.\n"
 "Если файл ещё не существует, будет создана новая база данных."
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181
 #, kde-format
 msgid "Database files"
 msgstr "Файлы баз данных"
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181 exportwizard.cpp:56
+#: exportwizard.cpp:58
 #, kde-format
 msgid "All files"
 msgstr "Все файлы"
 
-#: connectionwizard.cpp:179
+#: connectionwizard.cpp:183
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Путь:"
 
-#: connectionwizard.cpp:212
+#: connectionwizard.cpp:216
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "Не удалось подключиться к базе данных.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:227
+#: connectionwizard.cpp:231
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "Название подключения"
 
-#: connectionwizard.cpp:228
+#: connectionwizard.cpp:232
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Введите уникальное название подключения"
 
-#: connectionwizard.cpp:234
+#: connectionwizard.cpp:238
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -199,58 +200,59 @@ msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Не удалось открыть файл <filename>%1</filename>"
 
-#: exportwizard.cpp:25
+#: exportwizard.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "Мастер экспорта"
 
-#: exportwizard.cpp:40
+#: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "Место для сохранения результатов"
 
-#: exportwizard.cpp:41
+#: exportwizard.cpp:42
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "Выберите, куда нужно записать данные."
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "Текущий документ"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "Буфер обмена"
 
-#: exportwizard.cpp:47
+#: exportwizard.cpp:48
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Файл:"
 
-#: exportwizard.cpp:54
-#, kde-format
-msgid ""
-"*.csv|Comma Separated Values\n"
-"*|All files"
+#: exportwizard.cpp:56 exportwizard.cpp:58
+#, fuzzy, kde-format
+#| msgid ""
+#| "*.csv|Comma Separated Values\n"
+#| "*|All files"
+msgid "Comma Separated Values"
 msgstr ""
 "*.csv|Файлы CSV (с разделителями-запятыми)\n"
 "*|Все файлы"
 
-#: exportwizard.cpp:96
+#: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Формат полей"
 
-#: exportwizard.cpp:97
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -260,55 +262,55 @@ msgstr ""
 "Настройте формат полей таблицы.\n"
 "Нажмите «Готово» для экспорта данных."
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:106
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Заголовки"
 
-#: exportwizard.cpp:104
+#: exportwizard.cpp:109
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Экспортировать названия столбцов"
 
-#: exportwizard.cpp:105
+#: exportwizard.cpp:110
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Экспортировать номера строк"
 
-#: exportwizard.cpp:112
+#: exportwizard.cpp:117
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Кавычки"
 
-#: exportwizard.cpp:115
+#: exportwizard.cpp:120
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Заключать строки в кавычки"
 
-#: exportwizard.cpp:116
+#: exportwizard.cpp:121
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Заключать числа в кавычки"
 
-#: exportwizard.cpp:124 exportwizard.cpp:127
+#: exportwizard.cpp:129 exportwizard.cpp:132
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Символ:"
 
-#: exportwizard.cpp:133
+#: exportwizard.cpp:138
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Разделители"
 
-#: exportwizard.cpp:139
+#: exportwizard.cpp:144
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

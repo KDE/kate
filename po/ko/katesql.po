@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2023-06-28 00:50+0000\n"
 "PO-Revision-Date: 2023-04-22 00:02+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -17,90 +17,90 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 22.12.3\n"
 
-#: connectionwizard.cpp:27
+#: connectionwizard.cpp:28
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
 msgstr "연결 마법사"
 
-#: connectionwizard.cpp:42
+#: connectionwizard.cpp:43
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
 msgstr "데이터베이스 드라이버"
 
-#: connectionwizard.cpp:43
+#: connectionwizard.cpp:44
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
 msgstr "데이터베이스 드라이버를 선택하십시오"
 
-#: connectionwizard.cpp:50
+#: connectionwizard.cpp:51
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "데이터베이스 드라이버:"
 
-#: connectionwizard.cpp:79 connectionwizard.cpp:167
+#: connectionwizard.cpp:80 connectionwizard.cpp:168
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
 msgstr "연결 인자"
 
-#: connectionwizard.cpp:80
+#: connectionwizard.cpp:81
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
 msgstr "연결 인자를 입력하십시오"
 
-#: connectionwizard.cpp:92
+#: connectionwizard.cpp:93
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
 msgstr "기본값"
 
-#: connectionwizard.cpp:95
+#: connectionwizard.cpp:96
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
 msgstr "호스트 이름:"
 
-#: connectionwizard.cpp:96
+#: connectionwizard.cpp:97
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
 msgstr "사용자 이름:"
 
-#: connectionwizard.cpp:97
+#: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
 msgstr "암호:"
 
-#: connectionwizard.cpp:98
+#: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
 msgstr "포트:"
 
-#: connectionwizard.cpp:99
+#: connectionwizard.cpp:100
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "데이터베이스 이름:"
 
-#: connectionwizard.cpp:100 connectionwizard.cpp:180
+#: connectionwizard.cpp:101 connectionwizard.cpp:184
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "연결 옵션:"
 
-#: connectionwizard.cpp:152
+#: connectionwizard.cpp:153
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "데이터베이스에 연결할 수 없습니다."
 
-#: connectionwizard.cpp:169
+#: connectionwizard.cpp:170
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -110,41 +110,42 @@ msgstr ""
 "SQLite 데이터베이스 파일 경로를 입력하십시오.\n"
 "파일이 없으면 새 데이터베이스를 만듭니다."
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181
 #, kde-format
 msgid "Database files"
 msgstr "데이터베이스 파일"
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181 exportwizard.cpp:56
+#: exportwizard.cpp:58
 #, kde-format
 msgid "All files"
 msgstr "모든 파일"
 
-#: connectionwizard.cpp:179
+#: connectionwizard.cpp:183
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "경로:"
 
-#: connectionwizard.cpp:212
+#: connectionwizard.cpp:216
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "데이터베이스에 연결할 수 없습니다.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:227
+#: connectionwizard.cpp:231
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "연결 이름"
 
-#: connectionwizard.cpp:228
+#: connectionwizard.cpp:232
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "유일한 연결 이름을 입력하십시오"
 
-#: connectionwizard.cpp:234
+#: connectionwizard.cpp:238
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -192,58 +193,59 @@ msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "파일 <filename>%1</filename>을(를) 열 수 없음"
 
-#: exportwizard.cpp:25
+#: exportwizard.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "내보내기 마법사"
 
-#: exportwizard.cpp:40
+#: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "내보낼 대상"
 
-#: exportwizard.cpp:41
+#: exportwizard.cpp:42
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "내보낼 대상을 선택하십시오."
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "현재 문서"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "클립보드"
 
-#: exportwizard.cpp:47
+#: exportwizard.cpp:48
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "파일"
 
-#: exportwizard.cpp:54
-#, kde-format
-msgid ""
-"*.csv|Comma Separated Values\n"
-"*|All files"
+#: exportwizard.cpp:56 exportwizard.cpp:58
+#, fuzzy, kde-format
+#| msgid ""
+#| "*.csv|Comma Separated Values\n"
+#| "*|All files"
+msgid "Comma Separated Values"
 msgstr ""
 "*.csv|쉼표로 구분된 값\n"
 "*|모든 파일"
 
-#: exportwizard.cpp:96
+#: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "필드 형식"
 
-#: exportwizard.cpp:97
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -253,55 +255,55 @@ msgstr ""
 "필드 형식을 선택하십시오.\n"
 "\"완료\" 단추를 클릭하면 데이터를 내보냅니다."
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:106
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "헤더"
 
-#: exportwizard.cpp:104
+#: exportwizard.cpp:109
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "열 이름 내보내기"
 
-#: exportwizard.cpp:105
+#: exportwizard.cpp:110
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "줄 번호 내보내기"
 
-#: exportwizard.cpp:112
+#: exportwizard.cpp:117
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "인용문"
 
-#: exportwizard.cpp:115
+#: exportwizard.cpp:120
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "문자열에 인용 부호 추가"
 
-#: exportwizard.cpp:116
+#: exportwizard.cpp:121
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "숫자에 인용 부호 추가"
 
-#: exportwizard.cpp:124 exportwizard.cpp:127
+#: exportwizard.cpp:129 exportwizard.cpp:132
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "글자:"
 
-#: exportwizard.cpp:133
+#: exportwizard.cpp:138
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "구분자"
 
-#: exportwizard.cpp:139
+#: exportwizard.cpp:144
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-27 00:51+0000\n"
+"POT-Creation-Date: 2023-06-28 00:50+0000\n"
 "PO-Revision-Date: 2007-03-09 14:17+0530\n"
 "Last-Translator: pavithran <pavithran.s@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -328,73 +328,73 @@ msgstr ""
 msgid "Filter..."
 msgstr "(&N) కొత్త..."
 
-#: lib/diagnostics/diagnosticview.cpp:1058 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1059 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1062 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1063 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1066
+#: lib/diagnostics/diagnosticview.cpp:1067
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "మెటా-సమాచరం"
 
-#: lib/diagnostics/diagnosticview.cpp:1218
+#: lib/diagnostics/diagnosticview.cpp:1219
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1348
+#: lib/diagnostics/diagnosticview.cpp:1349
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1349
+#: lib/diagnostics/diagnosticview.cpp:1350
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "(&l) అన్ని మూయండి"
 
-#: lib/diagnostics/diagnosticview.cpp:1356
+#: lib/diagnostics/diagnosticview.cpp:1357
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1379
+#: lib/diagnostics/diagnosticview.cpp:1380
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1381
+#: lib/diagnostics/diagnosticview.cpp:1382
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "(&i) సెషన్లు"
 
-#: lib/diagnostics/diagnosticview.cpp:1385
+#: lib/diagnostics/diagnosticview.cpp:1386
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1387
+#: lib/diagnostics/diagnosticview.cpp:1388
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1401
+#: lib/diagnostics/diagnosticview.cpp:1402
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "సెషన్లు"
 
-#: lib/diagnostics/diagnosticview.cpp:1403
+#: lib/diagnostics/diagnosticview.cpp:1404
 #, fuzzy, kde-format
 #| msgid "&Save session"
 msgid "Enable Suppression"

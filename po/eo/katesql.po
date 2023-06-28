@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2023-06-28 00:50+0000\n"
 "PO-Revision-Date: 2023-03-12 01:57+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -18,90 +18,90 @@ msgstr ""
 "X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: connectionwizard.cpp:27
+#: connectionwizard.cpp:28
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
 msgstr "Sorĉisto de Konekto"
 
-#: connectionwizard.cpp:42
+#: connectionwizard.cpp:43
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
 msgstr "Database Driver"
 
-#: connectionwizard.cpp:43
+#: connectionwizard.cpp:44
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
 msgstr "Elektu la datumbazan pelilon"
 
-#: connectionwizard.cpp:50
+#: connectionwizard.cpp:51
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "Datumbaza pelilo:"
 
-#: connectionwizard.cpp:79 connectionwizard.cpp:167
+#: connectionwizard.cpp:80 connectionwizard.cpp:168
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
 msgstr "Konekto-Parametroj"
 
-#: connectionwizard.cpp:80
+#: connectionwizard.cpp:81
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
 msgstr "Bonvolu enigi konektajn parametrojn"
 
-#: connectionwizard.cpp:92
+#: connectionwizard.cpp:93
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
 msgstr "Defaŭlto"
 
-#: connectionwizard.cpp:95
+#: connectionwizard.cpp:96
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
 msgstr "Gastigantnomo:"
 
-#: connectionwizard.cpp:96
+#: connectionwizard.cpp:97
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
 msgstr "Uzantnomo:"
 
-#: connectionwizard.cpp:97
+#: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
 msgstr "Pasvorto:"
 
-#: connectionwizard.cpp:98
+#: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
 msgstr "Konektilo:"
 
-#: connectionwizard.cpp:99
+#: connectionwizard.cpp:100
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Datumbaza nomo:"
 
-#: connectionwizard.cpp:100 connectionwizard.cpp:180
+#: connectionwizard.cpp:101 connectionwizard.cpp:184
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "Opcioj de konekto:"
 
-#: connectionwizard.cpp:152
+#: connectionwizard.cpp:153
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "Ne eblas konektiĝi al datumbazo."
 
-#: connectionwizard.cpp:169
+#: connectionwizard.cpp:170
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -111,41 +111,42 @@ msgstr ""
 "Bonvolu enigi la SQLite-datumbazan dosiervojon.\n"
 "Se la dosiero ne ekzistas, nova datumbazo estos kreita."
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181
 #, kde-format
 msgid "Database files"
 msgstr "Datumbazaj dosieroj"
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181 exportwizard.cpp:56
+#: exportwizard.cpp:58
 #, kde-format
 msgid "All files"
 msgstr "Ĉiuj dosieroj"
 
-#: connectionwizard.cpp:179
+#: connectionwizard.cpp:183
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Vojo:"
 
-#: connectionwizard.cpp:212
+#: connectionwizard.cpp:216
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "Ne eblas konektiĝi al datumbazo.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:227
+#: connectionwizard.cpp:231
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "Konekta Nomo"
 
-#: connectionwizard.cpp:228
+#: connectionwizard.cpp:232
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Enigu unikan konektan nomon"
 
-#: connectionwizard.cpp:234
+#: connectionwizard.cpp:238
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -193,58 +194,59 @@ msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Ne eblas malfermi dosieron <filename>%1</filename>"
 
-#: exportwizard.cpp:25
+#: exportwizard.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "Eksporta Sorĉisto"
 
-#: exportwizard.cpp:40
+#: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "Eligocelo"
 
-#: exportwizard.cpp:41
+#: exportwizard.cpp:42
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "Elektu la eligcelon."
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "Aktuala dokumento"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "Tondujo"
 
-#: exportwizard.cpp:47
+#: exportwizard.cpp:48
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Dosiero"
 
-#: exportwizard.cpp:54
-#, kde-format
-msgid ""
-"*.csv|Comma Separated Values\n"
-"*|All files"
+#: exportwizard.cpp:56 exportwizard.cpp:58
+#, fuzzy, kde-format
+#| msgid ""
+#| "*.csv|Comma Separated Values\n"
+#| "*|All files"
+msgid "Comma Separated Values"
 msgstr ""
 "*.csv|Komo Apartigitaj Valoroj\n"
 "*|Ĉiuj dosieroj"
 
-#: exportwizard.cpp:96
+#: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Formato de Kampoj"
 
-#: exportwizard.cpp:97
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -254,55 +256,55 @@ msgstr ""
 "Elektu kampoformaton.\n"
 "Alklaku la butonon \"Fini\" por eksporti datumojn."
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:106
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Kapoj"
 
-#: exportwizard.cpp:104
+#: exportwizard.cpp:109
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Eksporti kolonnomojn"
 
-#: exportwizard.cpp:105
+#: exportwizard.cpp:110
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Eksporti linionombrojn"
 
-#: exportwizard.cpp:112
+#: exportwizard.cpp:117
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Citiloj"
 
-#: exportwizard.cpp:115
+#: exportwizard.cpp:120
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Encitiligi ĉenojn"
 
-#: exportwizard.cpp:116
+#: exportwizard.cpp:121
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Encitiligi nombrojn"
 
-#: exportwizard.cpp:124 exportwizard.cpp:127
+#: exportwizard.cpp:129 exportwizard.cpp:132
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Signo:"
 
-#: exportwizard.cpp:133
+#: exportwizard.cpp:138
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Limigiloj"
 
-#: exportwizard.cpp:139
+#: exportwizard.cpp:144
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

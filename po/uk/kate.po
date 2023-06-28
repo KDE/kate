@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-27 00:51+0000\n"
-"PO-Revision-Date: 2023-06-04 09:54+0300\n"
+"POT-Creation-Date: 2023-06-28 00:50+0000\n"
+"PO-Revision-Date: 2023-06-27 20:34+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -332,69 +332,69 @@ msgstr "Попередження"
 msgid "Filter..."
 msgstr "Фільтрувати…"
 
-#: lib/diagnostics/diagnosticview.cpp:1058 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1059 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Помилка"
 
-#: lib/diagnostics/diagnosticview.cpp:1062 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1063 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Попередження"
 
-#: lib/diagnostics/diagnosticview.cpp:1066
+#: lib/diagnostics/diagnosticview.cpp:1067
 #, kde-format
 msgid "Information"
 msgstr "Відомості"
 
-#: lib/diagnostics/diagnosticview.cpp:1218
+#: lib/diagnostics/diagnosticview.cpp:1219
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [придушено: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1348
+#: lib/diagnostics/diagnosticview.cpp:1349
 #, kde-format
 msgid "Expand All"
 msgstr "Розгорнути все"
 
-#: lib/diagnostics/diagnosticview.cpp:1349
+#: lib/diagnostics/diagnosticview.cpp:1350
 #, kde-format
 msgid "Collapse All"
 msgstr "Згорнути все"
 
-#: lib/diagnostics/diagnosticview.cpp:1356
+#: lib/diagnostics/diagnosticview.cpp:1357
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Скопіювати до буфера"
 
-#: lib/diagnostics/diagnosticview.cpp:1379
+#: lib/diagnostics/diagnosticview.cpp:1380
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Вилучити загальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1381
+#: lib/diagnostics/diagnosticview.cpp:1382
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Додати загальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1385
+#: lib/diagnostics/diagnosticview.cpp:1386
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Вилучити локальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1387
+#: lib/diagnostics/diagnosticview.cpp:1388
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Додати локальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1401
+#: lib/diagnostics/diagnosticview.cpp:1402
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Вимкнути придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1403
+#: lib/diagnostics/diagnosticview.cpp:1404
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Увімкнути придушення"
@@ -1141,12 +1141,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:501
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr ""
+msgstr "Відкривати нову вкладку праворуч від поточної вкладки."
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr ""
+"Якщо не позначено, нову вкладку буде відкрито наприкінці списку вкладок."
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format

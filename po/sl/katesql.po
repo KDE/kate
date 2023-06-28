@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2023-06-28 00:50+0000\n"
 "PO-Revision-Date: 2023-03-02 08:54+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -21,90 +21,90 @@ msgstr ""
 "%100==4 ? 3 : 0);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: connectionwizard.cpp:27
+#: connectionwizard.cpp:28
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
 msgstr "Čarovnik za povezavo"
 
-#: connectionwizard.cpp:42
+#: connectionwizard.cpp:43
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
 msgstr "Gonilnik podatkovne zbirke"
 
-#: connectionwizard.cpp:43
+#: connectionwizard.cpp:44
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
 msgstr "Izberite gonilnik podatkovne zbirke"
 
-#: connectionwizard.cpp:50
+#: connectionwizard.cpp:51
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "Gonilnik podatkovne zbirke:"
 
-#: connectionwizard.cpp:79 connectionwizard.cpp:167
+#: connectionwizard.cpp:80 connectionwizard.cpp:168
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
 msgstr "Parametri povezave"
 
-#: connectionwizard.cpp:80
+#: connectionwizard.cpp:81
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
 msgstr "Vnesite parametre povezave"
 
-#: connectionwizard.cpp:92
+#: connectionwizard.cpp:93
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
 msgstr "Privzeto"
 
-#: connectionwizard.cpp:95
+#: connectionwizard.cpp:96
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
 msgstr "Ime gostitelja:"
 
-#: connectionwizard.cpp:96
+#: connectionwizard.cpp:97
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
 msgstr "Uporabniško ime:"
 
-#: connectionwizard.cpp:97
+#: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
 msgstr "Geslo:"
 
-#: connectionwizard.cpp:98
+#: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
 msgstr "Vrata:"
 
-#: connectionwizard.cpp:99
+#: connectionwizard.cpp:100
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Ime podatkovne zbirke:"
 
-#: connectionwizard.cpp:100 connectionwizard.cpp:180
+#: connectionwizard.cpp:101 connectionwizard.cpp:184
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "Možnosti povezave:"
 
-#: connectionwizard.cpp:152
+#: connectionwizard.cpp:153
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "Povezava s podatkovno zbirko ni uspela."
 
-#: connectionwizard.cpp:169
+#: connectionwizard.cpp:170
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -114,42 +114,43 @@ msgstr ""
 "Vnesite pot do datoteke podatkovne zbirke SQLite.\n"
 "Če datoteka ne obstaja, bo ustvarjena nova podatkovna zbirka."
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181
 #, kde-format
 msgid "Database files"
 msgstr "Datoteke podatkovnih zbirk"
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181 exportwizard.cpp:56
+#: exportwizard.cpp:58
 #, kde-format
 msgid "All files"
 msgstr "Vse datoteke"
 
-#: connectionwizard.cpp:179
+#: connectionwizard.cpp:183
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Pot:"
 
-#: connectionwizard.cpp:212
+#: connectionwizard.cpp:216
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr ""
 "Ni se bilo mogoče povezati s podatkovno zbirko.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:227
+#: connectionwizard.cpp:231
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "Ime povezave"
 
-#: connectionwizard.cpp:228
+#: connectionwizard.cpp:232
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Vnesite edinstveno ime povezave"
 
-#: connectionwizard.cpp:234
+#: connectionwizard.cpp:238
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -197,58 +198,59 @@ msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Ni bilo mogoče odpreti datoteke <filename>%1</filename>"
 
-#: exportwizard.cpp:25
+#: exportwizard.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "Čarovnik za izvoz"
 
-#: exportwizard.cpp:40
+#: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "Cilj izhoda"
 
-#: exportwizard.cpp:41
+#: exportwizard.cpp:42
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "Izberite cilj izhoda."
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "Trenutni dokument"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "Odložišče"
 
-#: exportwizard.cpp:47
+#: exportwizard.cpp:48
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Datoteka"
 
-#: exportwizard.cpp:54
-#, kde-format
-msgid ""
-"*.csv|Comma Separated Values\n"
-"*|All files"
+#: exportwizard.cpp:56 exportwizard.cpp:58
+#, fuzzy, kde-format
+#| msgid ""
+#| "*.csv|Comma Separated Values\n"
+#| "*|All files"
+msgid "Comma Separated Values"
 msgstr ""
 "*.csv|Z vejicami ločene vrednosti\n"
 "*|Vse datoteke"
 
-#: exportwizard.cpp:96
+#: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Oblika polj"
 
-#: exportwizard.cpp:97
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -258,55 +260,55 @@ msgstr ""
 "Izberite obliko polj.\n"
 "Za izvoz podatkov kliknite gumb »Zaključi«."
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:106
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Glave"
 
-#: exportwizard.cpp:104
+#: exportwizard.cpp:109
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Izvozi imena stolpcev"
 
-#: exportwizard.cpp:105
+#: exportwizard.cpp:110
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Izvozi številke vrstic"
 
-#: exportwizard.cpp:112
+#: exportwizard.cpp:117
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Navednice"
 
-#: exportwizard.cpp:115
+#: exportwizard.cpp:120
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Nize obdaj z navednicami"
 
-#: exportwizard.cpp:116
+#: exportwizard.cpp:121
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Številke obdaj z navednicami"
 
-#: exportwizard.cpp:124 exportwizard.cpp:127
+#: exportwizard.cpp:129 exportwizard.cpp:132
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Znak:"
 
-#: exportwizard.cpp:133
+#: exportwizard.cpp:138
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Razmejilniki"
 
-#: exportwizard.cpp:139
+#: exportwizard.cpp:144
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

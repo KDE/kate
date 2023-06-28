@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2023-06-28 00:50+0000\n"
 "PO-Revision-Date: 2012-06-30 15:07+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -19,90 +19,90 @@ msgstr ""
 "2);\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: connectionwizard.cpp:27
+#: connectionwizard.cpp:28
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
 msgstr "Savienojuma vednis"
 
-#: connectionwizard.cpp:42
+#: connectionwizard.cpp:43
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
 msgstr "Datubāzes draiveris"
 
-#: connectionwizard.cpp:43
+#: connectionwizard.cpp:44
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
 msgstr "Izvēlieties datubāzes draiveri"
 
-#: connectionwizard.cpp:50
+#: connectionwizard.cpp:51
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "Datubāzes draiveris:"
 
-#: connectionwizard.cpp:79 connectionwizard.cpp:167
+#: connectionwizard.cpp:80 connectionwizard.cpp:168
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
 msgstr "Savienojuma parametri"
 
-#: connectionwizard.cpp:80
+#: connectionwizard.cpp:81
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
 msgstr "Lūdzu, ievadiet savienojuma parametrus"
 
-#: connectionwizard.cpp:92
+#: connectionwizard.cpp:93
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
 msgstr "Noklusējuma"
 
-#: connectionwizard.cpp:95
+#: connectionwizard.cpp:96
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
 msgstr "Resursdators:"
 
-#: connectionwizard.cpp:96
+#: connectionwizard.cpp:97
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
 msgstr "Lietotājvārds:"
 
-#: connectionwizard.cpp:97
+#: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
 msgstr "Parole:"
 
-#: connectionwizard.cpp:98
+#: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
 msgstr "Ports:"
 
-#: connectionwizard.cpp:99
+#: connectionwizard.cpp:100
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Datubāzes nosaukums:"
 
-#: connectionwizard.cpp:100 connectionwizard.cpp:180
+#: connectionwizard.cpp:101 connectionwizard.cpp:184
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "Savienojuma opcijas:"
 
-#: connectionwizard.cpp:152
+#: connectionwizard.cpp:153
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "Neizdevās savienoties ar datubāzei."
 
-#: connectionwizard.cpp:169
+#: connectionwizard.cpp:170
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -112,41 +112,42 @@ msgstr ""
 "Lūdzu, ievadiet SQLite datubāzes datnes ceļu.\n"
 "Ja datne neeksistē, tiks izveidota jauna datubāze."
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181
 #, kde-format
 msgid "Database files"
 msgstr "Datubāzes datnes"
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:179 connectionwizard.cpp:181 exportwizard.cpp:56
+#: exportwizard.cpp:58
 #, kde-format
 msgid "All files"
 msgstr "Visas datnes"
 
-#: connectionwizard.cpp:179
+#: connectionwizard.cpp:183
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Ceļš:"
 
-#: connectionwizard.cpp:212
+#: connectionwizard.cpp:216
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "Neizdevās pieslēgties datubāzei.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:227
+#: connectionwizard.cpp:231
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "Savienojuma nosaukums"
 
-#: connectionwizard.cpp:228
+#: connectionwizard.cpp:232
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Ievadiet unikālu savienojuma nosaukumu"
 
-#: connectionwizard.cpp:234
+#: connectionwizard.cpp:238
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -194,56 +195,54 @@ msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Neizdevās atvērt datni <filename>%1></filename>"
 
-#: exportwizard.cpp:25
+#: exportwizard.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "Eksportēšanas vednis"
 
-#: exportwizard.cpp:40
+#: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "Izvades mērķis"
 
-#: exportwizard.cpp:41
+#: exportwizard.cpp:42
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "Izvēlieties izvades mērķi."
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "Pašreizējais dokuments"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "Starpliktuve"
 
-#: exportwizard.cpp:47
+#: exportwizard.cpp:48
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Datne"
 
-#: exportwizard.cpp:54
+#: exportwizard.cpp:56 exportwizard.cpp:58
 #, kde-format
-msgid ""
-"*.csv|Comma Separated Values\n"
-"*|All files"
+msgid "Comma Separated Values"
 msgstr ""
 
-#: exportwizard.cpp:96
+#: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Lauku formāts"
 
-#: exportwizard.cpp:97
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -253,55 +252,55 @@ msgstr ""
 "Izvēlieties lauku formātu.\n"
 "Nospiediet “Pabeigt”, lai eksportētu datus."
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:106
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Galvenes"
 
-#: exportwizard.cpp:104
+#: exportwizard.cpp:109
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Eksportēt kolonnu nosaukumus"
 
-#: exportwizard.cpp:105
+#: exportwizard.cpp:110
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Eksportēt rindu numurus"
 
-#: exportwizard.cpp:112
+#: exportwizard.cpp:117
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Citāti"
 
-#: exportwizard.cpp:115
+#: exportwizard.cpp:120
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Citātu virknes"
 
-#: exportwizard.cpp:116
+#: exportwizard.cpp:121
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Citātu numuri"
 
-#: exportwizard.cpp:124 exportwizard.cpp:127
+#: exportwizard.cpp:129 exportwizard.cpp:132
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Rakstzīme:"
 
-#: exportwizard.cpp:133
+#: exportwizard.cpp:138
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Atdalītāji"
 
-#: exportwizard.cpp:139
+#: exportwizard.cpp:144
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

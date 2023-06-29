@@ -232,14 +232,9 @@ msgid "File"
 msgstr "Soubor"
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|Hodnoty oddělené čárkou\n"
-"*|Všechny soubory"
+msgstr "Čárkou oddělené hodnoty"
 
 #: exportwizard.cpp:101
 #, kde-format

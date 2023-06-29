@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2023-06-23 22:25+0200\n"
+"PO-Revision-Date: 2023-06-28 07:50+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -363,7 +363,7 @@ msgstr "Expandilo todo"
 #: lib/diagnostics/diagnosticview.cpp:1350
 #, kde-format
 msgid "Collapse All"
-msgstr "Pregalo todo"
+msgstr "Recollelo todo"
 
 #: lib/diagnostics/diagnosticview.cpp:1357
 #, kde-format
@@ -500,7 +500,7 @@ msgstr "Saltar ao fragmento anterior"
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "Cargar de novo as diferenzas"
+msgstr "Cargar de novo as diferenzas."
 
 #: lib/diff/diffwidget.cpp:138
 #, kde-format
@@ -598,7 +598,7 @@ msgstr "Christoph Cullmann"
 #: lib/kateapp.cpp:282
 #, kde-format
 msgid "Maintainer"
-msgstr "Mantedor"
+msgstr "Mantemento."
 
 #: lib/kateapp.cpp:283
 #, kde-format
@@ -609,7 +609,7 @@ msgstr "Dominik Haumann"
 #: lib/kateapp.cpp:289 lib/kateapp.cpp:292 lib/kateapp.cpp:298
 #, kde-format
 msgid "Core Developer"
-msgstr "Desenvolvedor principal"
+msgstr "Desenvolvemento principal."
 
 #: lib/kateapp.cpp:284
 #, kde-format
@@ -619,7 +619,7 @@ msgstr "Sven Brauch"
 #: lib/kateapp.cpp:284 lib/kateapp.cpp:285 lib/kateapp.cpp:293
 #, kde-format
 msgid "Developer"
-msgstr "Desenvolvedor"
+msgstr "Desenvolvemento."
 
 #: lib/kateapp.cpp:285
 #, kde-format
@@ -689,7 +689,7 @@ msgstr "Michael Bartl"
 #: lib/kateapp.cpp:297
 #, kde-format
 msgid "Former Core Developer"
-msgstr "Antigo desenvolvedor principal"
+msgstr "Desenvolvemento principal anteriormente."
 
 #: lib/kateapp.cpp:298
 #, kde-format
@@ -704,7 +704,7 @@ msgstr "Jochen Wilhemly"
 #: lib/kateapp.cpp:299
 #, kde-format
 msgid "KWrite Author"
-msgstr "Autor de KWrite"
+msgstr "Autoría de KWrite."
 
 #: lib/kateapp.cpp:300
 #, kde-format
@@ -764,7 +764,7 @@ msgstr "Pablo Martín"
 #: lib/kateapp.cpp:307
 #, kde-format
 msgid "Python Plugin Developer"
-msgstr "Desenvolvedor do complemento de Python"
+msgstr "Desenvolvemento do complemento de Python."
 
 #: lib/kateapp.cpp:310
 #, kde-format
@@ -1135,12 +1135,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:501
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr ""
+msgstr "Abrir un novo separador á dereita do actual."
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "Se se desmarca, o novo separador abrirase ao final."
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format
@@ -2022,8 +2022,8 @@ msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
 msgstr ""
-"Non se puideron escribir os datos que pediu gardar. Por favor escolla como "
-"quere proceder."
+"Non se puideron escribir os datos que pediu gardar. Escolla como quere "
+"proceder."
 
 #: lib/kateviewmanager.cpp:114
 #, kde-format
@@ -2464,7 +2464,7 @@ msgstr "Abrir como modelo"
 #: lib/session/katesessionmanagedialog.ui:115
 #, kde-format
 msgid "Don't ask again"
-msgstr "Non preguntar de novo"
+msgstr "Non preguntar de novo."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
 #: lib/session/katesessionmanagedialog.ui:135
@@ -2591,13 +2591,13 @@ msgstr "Gardar e restaurar automaticamente:"
 #: lib/ui/sessionconfigwidget.ui:67
 #, kde-format
 msgid "Newly-created unsaved files"
-msgstr "Os ficheiros novos sen gardar"
+msgstr "Os ficheiros novos sen gardar."
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
 #: lib/ui/sessionconfigwidget.ui:77
 #, kde-format
 msgid "Files with unsaved changes"
-msgstr "Os ficheiros con cambios sen gardar"
+msgstr "Os ficheiros con cambios sen gardar."
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:88
@@ -2609,7 +2609,7 @@ msgstr "Se se desactiva, nas xanelas novas amosarase un documento sen título."
 #: lib/ui/sessionconfigwidget.ui:91
 #, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Amosar a vista de benvida nas xanelas novas"
+msgstr "Amosar a vista de benvida nas xanelas novas."
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2626,13 +2626,13 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:101
 #, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr "Pechar a aplicación por completo tras pechar o último ficheiro"
+msgstr "Pechar a aplicación por completo tras pechar o último ficheiro."
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr "Pechar os documentos coa xanela á que pertencen"
+msgstr "Pechar os documentos coa xanela á que pertencen."
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -2672,7 +2672,7 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:167
 #, kde-format
 msgid "Include &window configuration"
-msgstr "Incluír a configuración da &xanela"
+msgstr "Incluír a configuración da &xanela."
 
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:177
@@ -2777,7 +2777,7 @@ msgstr "Abrir un ficheiro…"
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr "Borrar a lista de ficheiros recentes"
+msgstr "Borrar a lista de ficheiros recentes."
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
@@ -2819,7 +2819,7 @@ msgstr "Xestionar as sesións…"
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
-msgstr "Amosar para unha xanela nova"
+msgstr "Amosar para unha xanela nova."
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr ""

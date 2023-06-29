@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Eloy Cuadra <ecuadra@eloihr.net>, 2010, 2020, 2021, 2022.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2010, 2020, 2021, 2022, 2023.
 # Ricardo Varas Santana <ricardoivaras@gmail.com>, 2010.
 # Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>, 2011, 2012.
 # arklad, 2011.
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2022-08-28 17:05+0200\n"
+"PO-Revision-Date: 2023-06-29 01:26+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -21,7 +21,7 @@ msgstr ""
 "com>\n"
 "com>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: connectionwizard.cpp:28
 #, kde-format
@@ -236,14 +236,9 @@ msgid "File"
 msgstr "Archivo"
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|Valores separados por comas\n"
-"*|Todos los archivos"
+msgstr "Valores separados por comas"
 
 #: exportwizard.cpp:101
 #, kde-format

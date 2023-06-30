@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2023-06-18 20:14+0200\n"
+"PO-Revision-Date: 2023-06-29 08:19+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -71,7 +71,7 @@ msgstr "Servidor:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
-msgstr "Nome de usuario:"
+msgstr "Nome de persoa usuaria:"
 
 #: connectionwizard.cpp:97
 #, kde-format
@@ -216,19 +216,19 @@ msgstr "Selección do destino da saída."
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
-msgstr "Documento actual"
+msgstr "Documento actual."
 
 #: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
-msgstr "Portapapeis"
+msgstr "Portapapeis."
 
 #: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
-msgstr "Ficheiro"
+msgstr "Ficheiro."
 
 #: exportwizard.cpp:54
 #, kde-format

@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Yasen Pramatarov <yasen@lindeas.com>, 2011.
-# Mincho Kondarev <mkondarev@yahoo.de>, 2022.
+# Mincho Kondarev <mkondarev@yahoo.de>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2022-08-28 22:45+0200\n"
+"PO-Revision-Date: 2023-06-29 15:40+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: connectionwizard.cpp:28
 #, kde-format
@@ -231,14 +231,9 @@ msgid "File"
 msgstr "Файл"
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|Comma Separated Values\n"
-"*|Всички файлове"
+msgstr "Данни, разделени със запетайка"
 
 #: exportwizard.cpp:101
 #, kde-format

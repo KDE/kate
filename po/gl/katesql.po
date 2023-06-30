@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2023-06-18 20:14+0200\n"
+"PO-Revision-Date: 2023-06-29 08:19+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -71,7 +71,7 @@ msgstr "Servidor:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
-msgstr "Nome de usuario:"
+msgstr "Nome de persoa usuaria:"
 
 #: connectionwizard.cpp:98
 #, kde-format
@@ -217,29 +217,24 @@ msgstr "Selección do destino da saída."
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
-msgstr "Documento actual"
+msgstr "Documento actual."
 
 #: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
-msgstr "Portapapeis"
+msgstr "Portapapeis."
 
 #: exportwizard.cpp:48
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
-msgstr "Ficheiro"
+msgstr "Ficheiro."
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|Valores separados por comas\n"
-"*|Todos os ficheiros"
+msgstr "Valores separados por comas (CSV)"
 
 #: exportwizard.cpp:101
 #, kde-format

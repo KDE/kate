@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2023-03-12 01:57+0100\n"
+"PO-Revision-Date: 2023-06-29 07:50+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -231,14 +231,9 @@ msgid "File"
 msgstr "Dosiero"
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|Komo Apartigitaj Valoroj\n"
-"*|Ĉiuj dosieroj"
+msgstr "Komo-Apartigitaj Valoroj"
 
 #: exportwizard.cpp:101
 #, kde-format

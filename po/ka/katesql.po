@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2022-09-12 11:10+0200\n"
+"PO-Revision-Date: 2023-06-29 07:57+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: connectionwizard.cpp:28
 #, kde-format
@@ -108,6 +108,8 @@ msgid ""
 "Please enter the SQLite database file path.\n"
 "If the file does not exist, a new database will be created."
 msgstr ""
+"შეიყვანეთ SQLite-ის ბაზის ფაილი ბილიკი.\n"
+"თუ ფაილი რ არსებობს, ახალი შეიქმნება."
 
 #: connectionwizard.cpp:179 connectionwizard.cpp:181
 #, kde-format
@@ -154,13 +156,13 @@ msgstr "შეერთების სახელი:"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
-msgstr ""
+msgstr "სვეტების ზომის მათ შემცველობამდე შეცვლა"
 
 #: dataoutputwidget.cpp:66
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
-msgstr ""
+msgstr "მწკრივების ზომის მათ შემცველობამდე შეცვლა"
 
 #: dataoutputwidget.cpp:70
 #, kde-format
@@ -190,7 +192,7 @@ msgstr "სისტემური ენის გამოყენება"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
-msgstr ""
+msgstr "ფაილის გახსნის შეცდომა <filename>%1</filename>"
 
 #: exportwizard.cpp:26
 #, kde-format
@@ -229,14 +231,9 @@ msgid "File"
 msgstr "ფაილი"
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|მძიმით გამოყოფილი მნიშვნელობები\n"
-"*|ყველა ფაილი"
+msgstr "მძიმით გამოყოფილი მნიშვნელობები"
 
 #: exportwizard.cpp:101
 #, kde-format
@@ -251,6 +248,8 @@ msgid ""
 "Select fields format.\n"
 "Click on \"Finish\" button to export data."
 msgstr ""
+"აირჩიეთ ველების ფორმატი. მონაცემების გასატანად \"დასრულების\" ღილაკს "
+"დააწექით."
 
 #: exportwizard.cpp:106
 #, kde-format
@@ -328,7 +327,7 @@ msgstr "SQL"
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
-msgstr ""
+msgstr "SQL ConfigPage პარამეტრები"
 
 #: katesqlview.cpp:45
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2022-10-21 06:01+0200\n"
+"PO-Revision-Date: 2023-06-29 07:58+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -51,7 +51,7 @@ msgstr "გამოყენება: preg [მიმდინარე პრ
 #: MatchExportDialog.cpp:20
 #, kde-format
 msgid "Export Search Result Matches"
-msgstr ""
+msgstr "ძებნის შედეგების დამთხვევის გატანა"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
 #: MatchExportDialog.ui:31
@@ -397,7 +397,7 @@ msgstr ""
 #: SearchPlugin.cpp:109
 #, kde-format
 msgid "Group, capturing"
-msgstr ""
+msgstr "ჯგუფი, ჩაჭერა"
 
 #: SearchPlugin.cpp:110
 #, kde-format
@@ -407,17 +407,17 @@ msgstr "ან"
 #: SearchPlugin.cpp:111
 #, kde-format
 msgid "Set of characters"
-msgstr ""
+msgstr "სიმბოლოების ნაკრები"
 
 #: SearchPlugin.cpp:112
 #, kde-format
 msgid "Negative set of characters"
-msgstr ""
+msgstr "სიმბოლოების უარყოფითი ნაკრები"
 
 #: SearchPlugin.cpp:113
 #, kde-format
 msgid "Group, non-capturing"
-msgstr ""
+msgstr "ჯგუფი, ჩაჭერის გარეშე"
 
 #: SearchPlugin.cpp:114
 #, kde-format
@@ -427,12 +427,12 @@ msgstr ""
 #: SearchPlugin.cpp:115
 #, kde-format
 msgid "Negative lookahead"
-msgstr ""
+msgstr "უარყოფითი წინმჭვრეტელი"
 
 #: SearchPlugin.cpp:120
 #, kde-format
 msgid "Word boundary"
-msgstr ""
+msgstr "სიტყვის საზღვარი"
 
 #: SearchPlugin.cpp:121
 #, kde-format
@@ -462,12 +462,12 @@ msgstr ""
 #: SearchPlugin.cpp:126
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
-msgstr ""
+msgstr "სიტყვის სიმბოლო (ალფარიცხვითი პლუს '_'"
 
 #: SearchPlugin.cpp:127
 #, kde-format
 msgid "Non-word character"
-msgstr ""
+msgstr "არა-სიტყვის სიმბოლო"
 
 #: SearchPlugin.cpp:139
 #, kde-format

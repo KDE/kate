@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Runs ESLint on current file",
+        "Description[az]": "Cari faylda ESLint-i işə salır",
         "Description[bg]": "Изпълнява ESLint в текущия файл",
         "Description[ca@valencia]": "Executa ESLint sobre el fitxer actual",
         "Description[ca]": "Executa l'ESLint en el fitxer actual",
@@ -28,6 +29,7 @@
         "Description[x-test]": "xxRuns ESLint on current filexx",
         "Description[zh_CN]": "在当前文件运行 ESLint",
         "Name": "ESLint",
+        "Name[az]": "ESLint",
         "Name[bg]": "ESLint",
         "Name[ca@valencia]": "ESLint",
         "Name[ca]": "ESLint",

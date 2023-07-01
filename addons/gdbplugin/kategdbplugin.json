@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Provides debugger integration",
+        "Description[az]": "Sazlayıcının inteqrasiya olunmasını təmin edir",
         "Description[bg]": "Интеграция на програма за трасиране",
         "Description[ca@valencia]": "Proporciona la integració del depurador",
         "Description[ca]": "Proporciona la integració del depurador",
@@ -22,6 +23,7 @@
         "Description[x-test]": "xxProvides debugger integrationxx",
         "Description[zh_CN]": "提供调试器集成",
         "Name": "Kate Debugger",
+        "Name[az]": "Kate sazlayıcısı",
         "Name[bg]": "Програма за трасиране на Kate",
         "Name[ca@valencia]": "Depurador de Kate",
         "Name[ca]": "Depurador del Kate",

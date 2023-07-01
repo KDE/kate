@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Highlight and open links",
+        "Description[az]": "Keçidləri vurğulayın və açın",
         "Description[bg]": "Осветяване и използване на външни връзки",
         "Description[ca@valencia]": "Ressalta i obri els enllaços",
         "Description[ca]": "Ressalta i obre els enllaços",
@@ -24,6 +25,7 @@
         "Description[x-test]": "xxHighlight and open linksxx",
         "Description[zh_CN]": "高亮并打开链接",
         "Name": "Open Link",
+        "Name[az]": "Keçidi açın",
         "Name[bg]": "Отваряне на връзка",
         "Name[ca@valencia]": "Obri l'enllaç",
         "Name[ca]": "Obre l'enllaç",

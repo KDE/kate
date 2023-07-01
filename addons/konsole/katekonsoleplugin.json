@@ -33,6 +33,7 @@
         "Description[x-test]": "xxHave a terminal at the ready, using KDE's Konsole widgetxx",
         "Description[zh_CN]": "随处均可调用的命令行终端，基于 KDE 的 Konsole 部件构建。",
         "Name": "Terminal",
+        "Name[az]": "Terminal",
         "Name[bg]": "Терминал",
         "Name[ca@valencia]": "Terminal",
         "Name[ca]": "Terminal",

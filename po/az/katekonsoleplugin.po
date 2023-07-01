@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2021.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-09 00:51+0000\n"
-"PO-Revision-Date: 2021-05-04 10:23+0400\n"
+"PO-Revision-Date: 2023-06-30 13:45+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.04.0\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: kateconsole.cpp:56
 #, kde-format
@@ -63,6 +63,8 @@ msgstr "Terminal panelini &fokuslamaq"
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Konsole quraşdırılmayıb. Terminaldan istifadə etmək üçün lütfən konsole "
+"quraşdırın."
 
 #: kateconsole.cpp:388
 #, kde-format

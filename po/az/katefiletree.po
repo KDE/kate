@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2022-07-22 12:09+0400\n"
+"PO-Revision-Date: 2023-06-30 15:57+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -40,12 +40,10 @@ msgid "Close the current document."
 msgstr "Cari sənədi bağlayın"
 
 #: katefiletree.cpp:128
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Expand recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
-msgstr "Rekursiv olaraq açın"
+msgstr "Rekursiv olaraq genişləndirin"
 
 #: katefiletree.cpp:130
 #, kde-format
@@ -53,9 +51,7 @@ msgid "Expand the file list sub tree recursively."
 msgstr "Fayl siyahısının alt budağını rekursiv olaraq açın."
 
 #: katefiletree.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Collapse recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Rekursiv olaraq yığın"
@@ -210,7 +206,7 @@ msgstr "Bununla açın"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Faylın git tarixçəsini göstərmək"
 
 #: katefiletree.cpp:441
 #, kde-format
@@ -352,13 +348,11 @@ msgid "Configure Documents"
 msgstr "Sənədlərin tənzimlənməsi"
 
 #: katefiletreemodel.cpp:494
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "Bununla açın"
+msgstr "Vidjetləri açın"
 
 #: katefiletreemodel.cpp:653
 #, kde-format
@@ -378,15 +372,14 @@ msgid "Next Document"
 msgstr "Növbəti sənəd"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "Aktiv olanı gö&stərmək"
+msgstr "Aktiv sənədi gö&stərmək"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Saxlayın"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -396,11 +389,10 @@ msgstr "Cari sənədi saxlayın"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Belə saxlayın"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "Cari sənədi yeni adla saxlayın"
 

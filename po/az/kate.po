@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2022-07-14 10:21+0400\n"
+"PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -181,18 +181,18 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:513
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "Səhv heş"
 
 #: lib/commitfilesview.cpp:519 lib/filehistorywidget.cpp:365
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "Git anbarında %1 mövcud deyil."
 
 #: lib/commitfilesview.cpp:534
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr ""
+msgstr "Göndərin: %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -252,7 +252,7 @@ msgstr "&Ayarlar"
 #: lib/data/kateui.rc:134
 #, kde-format
 msgid "&Help"
-msgstr ""
+msgstr "&Kömək"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: lib/data/kateui.rc:139
@@ -264,7 +264,7 @@ msgstr "Əsas Alətlər Paneli"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Qat-qat menyu alətlər paneli"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -279,51 +279,48 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Müntəzəm ifadədə xəta var: %1\n"
+"sürüşmə %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Hamısı"
 
 #: lib/diagnostics/diagnosticview.cpp:363
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "&Tez açılış"
+msgstr "Cəld düzəliş"
 
 #: lib/diagnostics/diagnosticview.cpp:367
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Növbəti vərəq"
+msgstr "Növbəti element"
 
 #: lib/diagnostics/diagnosticview.cpp:372
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Əvvəlki vərəq"
+msgstr "Əvvəlki elemnt"
 
 #: lib/diagnostics/diagnosticview.cpp:379
 #, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr ""
+msgstr "Diaqnostika süzgəcini təmizləyin"
 
 #: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diaqnostikalar"
 
 #: lib/diagnostics/diagnosticview.cpp:445
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Xəta"
+msgstr "Xətalar"
 
 #: lib/diagnostics/diagnosticview.cpp:461
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Xəbərdarlıq"
+msgstr "Xəbərdarlıqlar"
 
 #: lib/diagnostics/diagnosticview.cpp:475
 #, kde-format
@@ -342,180 +339,168 @@ msgid "Warning"
 msgstr "Xəbərdarlıq"
 
 #: lib/diagnostics/diagnosticview.cpp:1067
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Information"
-msgstr "Məkan"
+msgstr "Məlumat"
 
 #: lib/diagnostics/diagnosticview.cpp:1219
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [əngəlləndi :%2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1349
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "Vərəqləri g&enişləndirmək"
+msgstr "Hamsını açın"
 
 #: lib/diagnostics/diagnosticview.cpp:1350
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "&Hamısını bağlamaq"
+msgstr "Hamısını yığın"
 
 #: lib/diagnostics/diagnosticview.cpp:1357
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Mübadilə buferinə kopyalamaq"
+msgstr "Mübadilə yaddaşına kopyalayın"
 
 #: lib/diagnostics/diagnosticview.cpp:1380
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Ümumi əngəllənməni aradan qaldırın"
 
 #: lib/diagnostics/diagnosticview.cpp:1382
-#, fuzzy, kde-format
-#| msgid "&All Sessions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "Bütün sessiy&alar"
+msgstr "Ümumi əngəlləmə əlavə edin"
 
 #: lib/diagnostics/diagnosticview.cpp:1386
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Yerli əngəlləməni silin"
 
 #: lib/diagnostics/diagnosticview.cpp:1388
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Yerli əngəlləmə əlavə edin"
 
 #: lib/diagnostics/diagnosticview.cpp:1402
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Sesiyaları axtarmaq"
+msgstr "Əngəlləməni söndürün"
 
 #: lib/diagnostics/diagnosticview.cpp:1404
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Sesiyaları idarə etmək"
+msgstr "Əngəlləməni işə salın"
 
 #: lib/diff/diffeditor.cpp:182
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "Üslubu dəyişin"
 
 #: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:544
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "Yan-yana"
 
 #: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:545
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "Unified"
-msgstr "Dəyişdirilib"
+msgstr "Birləşdirilmiş"
 
 #: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:546
 #, kde-format
 msgid "Raw"
-msgstr ""
+msgstr "İşlənməmiş"
 
 #: lib/diff/diffeditor.cpp:219
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Mərhələ sətiri"
+msgstr[1] "Mərhələ sətirləri"
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "Blokn saxlanması üçün mərhələ"
 
 #: lib/diff/diffeditor.cpp:231
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sətiri ləğv edin"
+msgstr[1] "Sətirləri ləğv edin"
 
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Bloku ləğv edin"
 
 #: lib/diff/diffeditor.cpp:243
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sətirin aralıq mərhələsini ləğv edin"
+msgstr[1] "Sətirlərin aralıq mərhələsini ləğv edin"
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "Blokların aralıq mərhələsini ləğv edin"
 
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "Fərq %1"
 
 #: lib/diff/diffwidget.cpp:62
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "Fərq %1..%2"
 
 #: lib/diff/diffwidget.cpp:83
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "Fərq %1 .. %2"
 
 #: lib/diff/diffwidget.cpp:113
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Göndəriş məlumatını göstərmək/gizlətmək"
 
 #: lib/diff/diffwidget.cpp:118
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Sonrakı fayla keçin"
 
 #: lib/diff/diffwidget.cpp:122
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous File"
-msgstr "Əvvəlki yerə keçin"
+msgstr "Əvvəlki fayla keçin"
 
 #: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Sonrakı bloka keçin"
 
 #: lib/diff/diffwidget.cpp:130
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous Hunk"
-msgstr "Əvvəlki yerə keçin"
+msgstr "Əvvəlki bloka keçin"
 
 #: lib/diff/diffwidget.cpp:134
-#, fuzzy, kde-format
-#| msgid "&Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "&Yenidən yükləmək"
+msgstr "Fərqi yenidən yükləyin"
 
 #: lib/diff/diffwidget.cpp:138
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "Fərqi tam məzmunda göstərmək, yalnız dəyişdirilmiş sətirləri deyil"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -524,57 +509,60 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> tapılmadı. Sənədlərdəki fərqi görmək üçün Git lazımdır. Əgər Git "
+"artıq quraşdırılmışsa, onun PATH dəyişənindəolduğuna əmin olun. Bax: https://"
+"git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
 #: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Diff"
-msgstr ""
+msgstr "Fərq"
 
 #: lib/diff/diffwidget.cpp:764 lib/diff/diffwidget.cpp:968
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Yeni fayl adı"
+msgstr "Yeni fayl %1"
 
 #: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Fayl silinsin"
+msgstr "Silinmiş fayl %1"
 
 #: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Fərq tapılmadı"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
+"Fayl tarixçəsini almaq mümkün olmadı: PATH dəyişənində git icra faylı "
+"tapılmadı"
 
 #: lib/filehistorywidget.cpp:296
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "Fayl tarixçəsini almaq mümkün olmadı: %1"
 
 #: lib/filehistorywidget.cpp:307
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Göndıriş heş-ini kopyalamaq"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "Göndərişi tam göstərmək"
 
 #: lib/filehistorywidget.cpp:374
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr ""
+msgstr "Fayl tarixçəsi: - %1"
 
 #: lib/kateapp.cpp:108
 msgid ""
@@ -582,6 +570,10 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"Bu redaktoru kök istifadəçi imtiyazları ilə başlatmaq təhlükəsizliyi "
+"zəiflədə bilər. Bu redaktoru adi qaydada istifadə edin və lazım gəldikdə "
+"proqram sənədi saxlamaq üçün kök imtiyazlarından istifadə etməyi təklif "
+"edəcək."
 
 #: lib/kateapp.cpp:115
 msgid ""
@@ -589,6 +581,9 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"Bu redaktorun kdesu imtiyazları ilə başlaılması təhlükəsizliyi zəiflədə "
+"bilər. Bu redaktoru adi qaydada istifadə edin və lazım gəldikdə proqram "
+"sənədi saxlamaq üçün kök imtiyazlarından istifadə etməyi təklif edəcək."
 
 #: lib/kateapp.cpp:282
 #, kde-format
@@ -629,7 +624,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:286
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:287
 #, kde-format
@@ -925,7 +920,7 @@ msgstr "Tənzimləmək"
 #: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:175
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Axtarış..."
 
 #: lib/kateconfigdialog.cpp:342
 #, kde-format
@@ -945,7 +940,7 @@ msgstr "&Davranış"
 #: lib/kateconfigdialog.cpp:356
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "Hər sənədi onun öz pəncərəsində açın"
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
@@ -953,6 +948,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"Əgər aktiv edilərsə, hər sənəd onun öz pəncərəsində açılacaq. Əgər aktiv "
+"edilməzsə hər sənəd cari pəncərənin yeni vərəqində açılacaq."
 
 #: lib/kateconfigdialog.cpp:369
 #, kde-format
@@ -1005,15 +1002,14 @@ msgstr ""
 "diqqət mərkəzində olduğu halda."
 
 #: lib/kateconfigdialog.cpp:405
-#, fuzzy, kde-format
-#| msgid "Top Sidebar"
+#, kde-format
 msgid "&Sidebars"
-msgstr "Üst yan panel"
+msgstr "&Yan panelllər"
 
 #: lib/kateconfigdialog.cpp:408
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "Bölmənin ölçüsünü vərəqin mövqeləri ilə eyniləşdirin"
 
 #: lib/kateconfigdialog.cpp:411
 #, kde-format
@@ -1022,6 +1018,9 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"Aktiv ediliyində bölmənin ölçüsü vərəqlərin mövqeyinə görə müəyyən "
+"ediləcək.\n"
+"Bu parametr aşağıdakı yan panelə təsir etməyəcək."
 
 #: lib/kateconfigdialog.cpp:416
 #, kde-format
@@ -1129,12 +1128,12 @@ msgstr "İşarələndikdə vərəq mətni uzun olduqda, o qasaldılacaqdır."
 #: lib/kateconfigdialog.cpp:501
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr ""
+msgstr "Yeni vərəqi cari vərəqin sağında açmaq"
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "İşarələndiyində yeni vərəq sonda açılacaq."
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format
@@ -1174,19 +1173,17 @@ msgstr "İrəli tarixçəyə"
 #: lib/kateconfigdialog.cpp:547
 #, kde-format
 msgid "Diff Style:"
-msgstr ""
+msgstr "Fərqlınmə üslubu:"
 
 #: lib/kateconfigdialog.cpp:552
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Naviqasiya panelini göstərmək"
+msgstr "Naviqasiya zolağı"
 
 #: lib/kateconfigdialog.cpp:557
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Naviqasiya panelinə diqqət"
+msgstr "Cari simvolları naviqasiya zolağında göstərmək"
 
 #: lib/kateconfigdialog.cpp:571
 #, kde-format
@@ -1218,6 +1215,8 @@ msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"Pəncərənin biri bağlandıqda, yalnız bu pəncərədə açlılmış sənədlər də "
+"bağlanacaqdır."
 
 #: lib/kateconfigdialog.cpp:653
 #, kde-format
@@ -1332,10 +1331,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "\"%1\" faylı silinə bilmədi."
 
 #: lib/katefileactions.cpp:206
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "&Other Application..."
-msgstr "&Digər..."
+msgstr "&Digər tətbiq..."
 
 #: lib/katemainwindow.cpp:239
 #, kde-format
@@ -1546,16 +1544,14 @@ msgid "Close this window"
 msgstr "Bu pəncərəni bağlamaq"
 
 #: lib/katemainwindow.cpp:436
-#, fuzzy, kde-format
-#| msgid "&New Synchronized Window"
+#, kde-format
 msgid "&New Window"
-msgstr "Ye&ni eyniləşdirilmiş -pəncərə"
+msgstr "&Yeni pəncərə"
 
 #: lib/katemainwindow.cpp:439
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Create a new window."
-msgstr "Yeni sənəd yaradın"
+msgstr "Yeni pəncərə yaradın."
 
 #: lib/katemainwindow.cpp:446
 #, kde-format
@@ -1647,7 +1643,7 @@ msgstr "Sonrakı yerə keçin"
 #: lib/katemainwindow.cpp:547
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Faylın Git tarixçəsini göstərmək"
 
 #: lib/katemainwindow.cpp:562
 #, kde-format
@@ -1714,10 +1710,9 @@ msgid " [read only]"
 msgstr " [yalnız oxumaq]"
 
 #: lib/katemdi.cpp:85
-#, fuzzy, kde-format
-#| msgid "Plugin Manager"
+#, kde-format
 msgid "Toolview Manager"
-msgstr "Qoşmaların idarə edilməsi"
+msgstr "Alətlər panelinin idarə olunması"
 
 #: lib/katemdi.cpp:103
 #, kde-format
@@ -1727,7 +1722,7 @@ msgstr "Yan panel düymələri"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Alətlər panelinə keçid"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1757,7 +1752,7 @@ msgstr "%1 düyməsi göstərilsin"
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Keçin: %1"
 
 #: lib/katemdi.cpp:1009
 #, kde-format
@@ -1775,30 +1770,29 @@ msgid "Move To"
 msgstr "Bura köçürmək"
 
 #: lib/katemdi.cpp:1020
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Own Section"
-msgstr "&Seçim"
+msgstr "Öz bölməsi"
 
 #: lib/katemdi.cpp:1026 lib/katemdi.cpp:1034
 #, kde-format
 msgid "One Down"
-msgstr ""
+msgstr "Bir aşağı"
 
 #: lib/katemdi.cpp:1028 lib/katemdi.cpp:1039
 #, kde-format
 msgid "One Right"
-msgstr ""
+msgstr "Bir sağa"
 
 #: lib/katemdi.cpp:1032
 #, kde-format
 msgid "One Up"
-msgstr ""
+msgstr "Bir yuxarı"
 
 #: lib/katemdi.cpp:1037
 #, kde-format
 msgid "One Left"
-msgstr ""
+msgstr "Bir sola"
 
 #: lib/katemdi.cpp:1046
 #, kde-format
@@ -1882,18 +1876,13 @@ msgid "&View Difference"
 msgstr "&Fərqləri göstərmək"
 
 #: lib/katemwmodonhddialog.cpp:108
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
-"Seçilmiş sənəd üçün diskdəki fayl və redaktordakı tərkibləri arasındakı "
-"fərqləri hesablayır və standart tətbiq vasitəsi ilə fərqləri göstəririr. "
-"diff (1) tələb olunur."
+"Seçilmiş sənəd üçün redaktor məzmunları və disk faylı arasındakı fərqi "
+"hesablayır."
 
 #: lib/katemwmodonhddialog.cpp:116
 #, kde-format
@@ -1930,16 +1919,13 @@ msgstr ""
 "\"%1\""
 
 #: lib/katemwmodonhddialog.cpp:338
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"\"diff\" əmri uğursuz oldu. diff(1) proqramının sisteminizdə "
-"quraşdırıldığına  və PATH -ın təyin etdiyi yerdə olmasına əmin olun."
+"diff əmrini icra etmək mümkün olmadı. Git-in quraşdırıldığına və PATH "
+"dəyişənində olduğuna əmin olun."
 
 #: lib/katemwmodonhddialog.cpp:340
 #, kde-format
@@ -1949,19 +1935,17 @@ msgstr "Müqayisə zamanı xəta"
 #: lib/katemwmodonhddialog.cpp:347
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[KÖHNƏ]"
 
 #: lib/katemwmodonhddialog.cpp:348
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[YENİ]"
 
 #: lib/kateoutputview.cpp:191
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Mübadilə buferinə kopyalamaq"
+msgstr "Bütün mətni mübadilə yaddaşına kopyalayın"
 
 #: lib/kateoutputview.cpp:196
 #, kde-format
@@ -2003,16 +1987,13 @@ msgid "Save Documents"
 msgstr "Sənədləri saxlamaq"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>\"%1\" sənədi dəyişdirildi, lakin saxlanılmadı.</p><p>Dəyişikliklərinizi "
-"saxlamaq yoxsa onları ləğv etmək istəyirsiniz?</p>"
+"\"%1\" sənədi dəyişdirilib. Dəyişiklikləri saxlamaq yoxsa ləğv etmək "
+"istəyirsiniz?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -2156,52 +2137,44 @@ msgid "Make the previous split view the active one."
 msgstr "Az əvvəl bölümüş sahəni aktiv etmək"
 
 #: lib/kateviewmanager.cpp:192
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Left Split View"
-msgstr "Növbəti bölünmüş görünüş"
+msgstr "Sola bölün"
 
 #: lib/kateviewmanager.cpp:197
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "Bir sonrakı bölünmüş sahəni aktiv etmək"
+msgstr "Baxış sahəsini aktiv pəncərədən solda bölün."
 
 #: lib/kateviewmanager.cpp:200
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Right Split View"
-msgstr "Növbəti bölünmüş görünüş"
+msgstr "Sağa bölün"
 
 #: lib/kateviewmanager.cpp:205
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "Bir sonrakı bölünmüş sahəni aktiv etmək"
+msgstr "Baxış sahəsini aktiv pəncərədən sağda bölün."
 
 #: lib/kateviewmanager.cpp:208
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Upward Split View"
-msgstr "Pəncərəni bölmək"
+msgstr "Yuxarıda bölün"
 
 #: lib/kateviewmanager.cpp:213
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "Bir sonrakı bölünmüş sahəni aktiv etmək"
+msgstr "Baxış sahəsini aktiv pəncərədən yuxarıda bölün."
 
 #: lib/kateviewmanager.cpp:216
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Downward Split View"
-msgstr "Pəncərəni bölmək"
+msgstr "Aşağıda bölün"
 
 #: lib/kateviewmanager.cpp:221
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "Bir sonrakı bölünmüş sahəni aktiv etmək"
+msgstr "Baxış sahəsini aktiv pəncərədən aşağıda bölün."
 
 #: lib/kateviewmanager.cpp:224
 #, kde-format
@@ -2256,12 +2229,12 @@ msgstr "Naviqasiya panelinə diqqət"
 #: lib/kateviewmanager.cpp:256
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "Slamalama səhifəsi"
 
 #: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "Salamlama səhifəsini göstərmək"
 
 #: lib/kateviewmanager.cpp:330
 #, kde-format
@@ -2283,36 +2256,36 @@ msgstr "Böyük fayl açılır"
 #: lib/kateviewmanager.cpp:499
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 qovluqları aça bilmir"
 
 #: lib/kateviewmanager.cpp:516
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Qovluqları açmaq üçün tələb olunan qoşma tapılmadı"
 
 #: lib/kateviewmanager.cpp:522
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Qovluqları aça bilmək üçün <b>%1</b> qoşması aktiv edilməlidir. Aktiv edək?"
 
 #: lib/kateviewmanager.cpp:530
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Faylı Açmaq"
+msgstr "Qovluğu açın"
 
 #: lib/kateviewmanager.cpp:531
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Aktiv edin"
 
 #: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "<b>%1</b> qoşmasını aktiv etmək mümkün olmadı"
 
 #: lib/kateviewmanager.cpp:1284
 #, kde-format
@@ -2367,33 +2340,29 @@ msgid "Close Other &Documents"
 msgstr "Başqa sənə&dləri bağlamaq"
 
 #: lib/kateviewspace.cpp:1031
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close &All Documents"
-msgstr "BÜtün sənədləri bağlamaq"
+msgstr "&Bütün sənədləri bağlayın"
 
 #: lib/kateviewspace.cpp:1033
-#, fuzzy, kde-format
-#| msgid "Close Document"
+#, kde-format
 msgid "D&etach Document"
-msgstr "Sənədi bağlamaq"
+msgstr "Sə&nədi ayırın"
 
 #: lib/kateviewspace.cpp:1034
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
-msgstr ""
+msgstr "Sənədi yeni bir pəncərədə açır və onu cari pəncərədə bağlayır"
 
 #: lib/kateviewspace.cpp:1043
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document"
-msgstr "Aktiv sənəd ilə müqayisə etmək"
+msgstr "Aktiv sənəd ilə müqayisə edin"
 
 #: lib/kateviewspace.cpp:1049
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document Using"
-msgstr "Aktiv sənəd ilə müqayisə etmək"
+msgstr "Aktiv sənəd ilə bunu istifadə edərək müqayisə edin"
 
 #: lib/kateviewspace.cpp:1116
 #, kde-format
@@ -2423,12 +2392,12 @@ msgstr "Cari layihə"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Dəqiq olmayan süzgəcləmə"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "Şablonlar ilə süzgəcləmə"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2611,10 +2580,9 @@ msgstr "Sesiyanı əl ilə seç&mək"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47
-#, fuzzy, kde-format
-#| msgid "Application Shutdown Behavior"
+#, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "Tətbiqi söndürərkən davranışlar"
+msgstr "Tətbiqin başladılma/söndürmə davranışlar"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
@@ -2638,14 +2606,13 @@ msgstr "Saxlanılmamış dəyişiklikləri olan fayllar"
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr ""
+msgstr "Söndürülərsə yeni pəncərələr üçün adsız sənəd göstəriləcək."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Yeni sənəd yaradın"
+msgstr "Yeni pəncərə üçün salamlamanı göstərmək"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2667,7 +2634,7 @@ msgstr "Bütün açıq fayllar bağlandıqdan sonra tətbiqi bağlansın"
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Buna aido olan pəncərələr ilə sənədləri bağlamaq:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -2735,139 +2702,125 @@ msgstr "İstifadə olunmamış meta məlumatlarını silin"
 #: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Welcome to %1"
-msgstr ""
+msgstr "%1 sizi salamlayır"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "bütün açılmış sənədləri yenidən yükləmək."
+msgstr "Sonuncu sənədlər və layihələr"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "Recent Documents"
-msgstr "bütün açılmış sənədləri yenidən yükləmək."
+msgstr "Sonucu sənədlər"
 
 #: lib/welcomeview/welcomeview.cpp:62
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "bütün açılmış sənədləri yenidən yükləmək."
+msgstr "Heç bir sonuncu sənəd və ya layihə tapılmadı"
 
 #: lib/welcomeview/welcomeview.cpp:62
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "No recent documents"
-msgstr "bütün açılmış sənədləri yenidən yükləmək."
+msgstr "Heç bir sonuncu sənəd yoxdur"
 
 #: lib/welcomeview/welcomeview.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "&Sesiyanı saxlamaq"
+msgstr "Saxlanılmış sesiyalar yoxdur"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Faylı Açmaq"
+msgstr "Seçilmiş faylları açın..."
 
 #: lib/welcomeview/welcomeview.cpp:258
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "Ünvanı kopyalayın"
+msgstr "&Yerini kopyalamaq"
 
 #: lib/welcomeview/welcomeview.cpp:273
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "&Silin"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr ""
+msgstr "Xoş Gəldiniz"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Faylı Açmaq"
+msgstr "Yeni fayl"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Folder..."
-msgstr "Faylı Açmaq"
+msgstr "Qovluğu açın..."
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Recent Files"
-msgstr "Faylı Açmaq"
+msgstr "Sonuncu fayllar"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Faylı Açmaq"
+msgstr "Faylı açın..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Sonuncu faylları təmizləyin"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
 #, kde-format
 msgid "Help"
-msgstr ""
+msgstr "Kömək"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Ev səhifəsinə baxın"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Iştirak edin"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Sorğu kitabını oxuyun"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "&Sesiyanı saxlamaq"
+msgstr "Saxlanılmış sesiyalar"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "Sesiyaları idarə et&mək..."
+msgstr "Sesiyaları idarə etmək..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show for new window"
-msgstr "Yeni sənəd yaradın"
+msgstr "Yeni pəncərə üçün göstərmək"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr ""

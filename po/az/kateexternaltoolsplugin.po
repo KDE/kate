@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-21 01:02+0000\n"
-"PO-Revision-Date: 2022-01-27 18:47+0400\n"
-"Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
+"PO-Revision-Date: 2023-06-30 13:44+0400\n"
+"Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.1\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -183,6 +183,9 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"\"%1\" icra faylını tapmaq mümkün olmadı. İcra faylının mövcud olmasına və "
+"düzgün dəyişən mühit adından (əgər belə bir ad varsa) istifadə etdiyinə əmin "
+"olun"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
 #: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264

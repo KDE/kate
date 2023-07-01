@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2022-06-16 00:57+0400\n"
+"PO-Revision-Date: 2023-06-30 16:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,12 +15,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "GDB əmri"
 
@@ -184,47 +183,44 @@ msgstr "Hədəf %1"
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "İstifadəçi sazlama uzlaşdırıcı ayarları"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "Ayarlar"
+msgstr "Ayarlarfaylı:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "Standart sazlama uzlaşdırıcı ayarları"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Xəta Sazlama"
+msgstr "Xəta sazlayıcı"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Etibarlı JSON verilənləri yoxdur."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON verilənləri doğrudur."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON verilənləri doğrudur: JSON obyekti yoxdur"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON verilənləri səhvdir: %1"
 
 #: debugview.cpp:35
 #, kde-format
@@ -234,12 +230,14 @@ msgstr "Yerli dəyişənlər"
 #: debugview.cpp:37
 #, kde-format
 msgid "CPU registers"
-msgstr ""
+msgstr "Prosessor registri"
 
 #: debugview.cpp:160
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
+"Lütfən, icra faylını \"Sazlama\" panelindəki \"Ayarlar\" vərəqində təyin "
+"edin."
 
 #: debugview.cpp:169
 #, kde-format
@@ -247,6 +245,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Sazlayıcı seçilməyib. Lütfən onlardan birini \"Sazlama\" panelindəki "
+"\"Ayarlar\" vərəqindən seçin."
 
 #: debugview.cpp:178
 #, kde-format
@@ -254,6 +254,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Sazlayıcı tapılmadı. Əmin olun ki, o sisteminizə quraşdırılıb. Seçilmiş "
+"sazlayıcı: \"%1\""
 
 #: debugview.cpp:384
 #, kde-format
@@ -266,16 +268,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb normal bağlandı ***"
 
 #: debugview.cpp:648
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "bütün axınlar davam edir"
+msgstr "bütün axınlar icra olunur"
 
 #: debugview.cpp:650
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "axın %1"
+msgstr "axın(lar) icra olunur: %1"
 
 #: debugview.cpp:655 debugview_dap.cpp:270
 #, kde-format
@@ -293,16 +293,14 @@ msgid "Active thread: %1."
 msgstr "Aktiv axın: %1."
 
 #: debugview.cpp:680
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Cari kadr: "
+msgstr "Cari kadr: %1: %2"
 
 #: debugview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Hədəf %1"
+msgstr "Host: %1. Hədəf: %1"
 
 #: debugview.cpp:1377
 #, kde-format
@@ -310,11 +308,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: Sonuncu cavabı həll edə bilmədi: %1. Həddindən çox ardıcıl xətalar "
+"var. Söndürülür."
 
 #: debugview.cpp:1379
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: Sonuncu cavab həll olunmadı: %1"
 
 #: debugview_dap.cpp:169
 #, kde-format
@@ -541,7 +541,7 @@ msgstr "qırılma nöqtələrinin təyinatı server tərəfindən dəstəklənmi
 #: debugview_dap.cpp:1336
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "%1 sətrində artıq dayanma nöqtəsi var"
 
 #: debugview_dap.cpp:1381
 #, kde-format
@@ -604,10 +604,9 @@ msgid "command not found"
 msgstr "əmr tapılmadı"
 
 #: debugview_dap.cpp:1497
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgid "missing thread id"
-msgstr "səhv axın İD-si: %1"
+msgstr "axın İD-si çatışmır"
 
 #: debugview_dap.cpp:1605
 #, kde-format
@@ -645,10 +644,9 @@ msgid "named items"
 msgstr "adlandırılmış elementlər"
 
 #: plugin_kategdb.cpp:106
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr "Kate sazlayıcısı"
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -678,12 +676,10 @@ msgid "Frame"
 msgstr "Çərçivə"
 
 #: plugin_kategdb.cpp:200
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB çıxışı"
+msgstr "Sazlayıcının çıxışı"
 
 #: plugin_kategdb.cpp:201
 #, kde-format
@@ -805,10 +801,9 @@ msgstr "&Sazlama"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "GDB qoşması"
+msgstr "Sazlayıcı plaqini"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2022-07-06 09:40+0400\n"
+"PO-Revision-Date: 2023-06-30 13:54+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -514,8 +514,7 @@ msgid "Lower-cased capture 0-999"
 msgstr "Kiçik hərfi tutmaq 0-999"
 
 #: SearchPlugin.cpp:296
-#, fuzzy, kde-format
-#| msgid "Search and Replace"
+#, kde-format
 msgid "Search & Replace"
 msgstr "Axtarmaq və Əvəzləmək"
 
@@ -525,10 +524,9 @@ msgid "Find in Files"
 msgstr "Fayllarda tapın"
 
 #: SearchPlugin.cpp:343
-#, fuzzy, kde-format
-#| msgid "Find in Files (in new tab)"
+#, kde-format
 msgid "Find in Files (in a New Tab)"
-msgstr "Fayllarda tapın (yeni vərəqdə)"
+msgstr "Fayllarda axtarın (Yeni vərəqdə)"
 
 #: SearchPlugin.cpp:349
 #, kde-format
@@ -543,7 +541,7 @@ msgstr "Əvvəlki tapılana keçid"
 #: SearchPlugin.cpp:361
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Uyğun sətirləri kəsin"
 
 #: SearchPlugin.cpp:363
 #, kde-format
@@ -551,11 +549,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Bu, bütün vurğulanmış uyğun axtarış sətirlərini cari sənəddən kəsərək "
+"mübadilə yaddaşına əlavə edəcək"
 
 #: SearchPlugin.cpp:368
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Uyğun sətirləri kopyalayın"
 
 #: SearchPlugin.cpp:370
 #, kde-format
@@ -563,6 +563,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Bu, bütün vurğulanmış uyğun axtarış sətirlərini cari sənəddən mübadilə "
+"yaddaşına kopyalayacaq"
 
 #: SearchPlugin.cpp:398
 #, kde-format
@@ -626,10 +628,9 @@ msgid "Continuing from last match"
 msgstr "Sonuncu uyğun gələndən davam edir"
 
 #: SearchPlugin.cpp:2168
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Axtarış"
+msgstr "Axtarış: %1"
 
 #: SearchPlugin.cpp:2299
 #, kde-format
@@ -649,7 +650,7 @@ msgstr "Oxşar gələnləri ixrac edin"
 #: SearchPlugin.cpp:2313
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Redaktor vərəqi kimi açmaq"
 
 #: SearchPlugin.cpp:2320
 #, kde-format

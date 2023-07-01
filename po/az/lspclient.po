@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-24 00:53+0000\n"
-"PO-Revision-Date: 2022-06-16 01:05+0400\n"
+"PO-Revision-Date: 2023-06-30 14:00+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:252
 #, kde-format
@@ -208,31 +208,27 @@ msgstr "Keçid yerini vurğulamaq"
 #: lspclientpluginview.cpp:594
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Sətirdaxili məsləhətlər"
 
 #: lspclientpluginview.cpp:598
-#, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
+#, kde-format
 msgid "Show Diagnostics Notifications"
-msgstr "Diaqnostika bildirişləri göstərilsin"
+msgstr "Diaqnostika bildirişlərini göstərmək"
 
 #: lspclientpluginview.cpp:603
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
-msgstr "İsmarıclar göstərilsin"
+msgstr "İsmarıcları göstərmək"
 
 #: lspclientpluginview.cpp:608
-#, fuzzy, kde-format
-#| msgid "Server memory usage"
+#, kde-format
 msgid "Server Memory Usage"
-msgstr "Server yaddaşı istifadəsi"
+msgstr "Server yaddaşının istifadəsi"
 
 #: lspclientpluginview.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
-msgstr "Bütün dinamik keçid vərəqləri bağlansın"
+msgstr "Bütün dinamik istinad vərəqlərini bağlamaq"
 
 #: lspclientpluginview.cpp:614
 #, kde-format
@@ -247,7 +243,7 @@ msgstr "Bütün LSP serverlərini yenidən başladın"
 #: lspclientpluginview.cpp:627
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Keçin"
 
 #: lspclientpluginview.cpp:654
 #, kde-format
@@ -464,10 +460,9 @@ msgstr "Müştəri ayarları"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Mətn daxil etmə formatı"
+msgstr "Saxlanılacaq format"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -479,7 +474,7 @@ msgstr "Semantik vurğulamanı aktiv edin"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Sətirdaxili məsləhətləri aktiv edin"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75

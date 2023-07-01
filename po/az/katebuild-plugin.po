@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-05 00:49+0000\n"
-"PO-Revision-Date: 2022-04-22 18:05+0400\n"
-"Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
+"PO-Revision-Date: 2023-06-30 16:24+0400\n"
+"Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -56,16 +56,14 @@ msgid "Select Target..."
 msgstr "Hədəfi seçin..."
 
 #: plugin_katebuild.cpp:209
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build Selected Target"
-msgstr "Seçilmiş hədəfi yığmaq"
+msgstr "Seçilmiş hədəfi qurun"
 
 #: plugin_katebuild.cpp:214
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and Run Selected Target"
-msgstr "Seçilmiş hədəfi yığmaq"
+msgstr "Seçilmiş hədəfi qurun və başladın"
 
 #: plugin_katebuild.cpp:219
 #, kde-format
@@ -76,13 +74,13 @@ msgstr "Dayandırın"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Diqqəti soldakı növbəti vərəqi verin"
 
 #: plugin_katebuild.cpp:244
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Diqqəti sağdakı növbəti vərəqi verin"
 
 #: plugin_katebuild.cpp:266
 #, kde-format
@@ -91,10 +89,9 @@ msgid "Target Settings"
 msgstr "Hədəf ayarları"
 
 #: plugin_katebuild.cpp:385
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "Yenidən qurmaq"
+msgstr "Qurulma haqqında məlumat"
 
 #: plugin_katebuild.cpp:466 plugin_katebuild.cpp:1218 plugin_katebuild.cpp:1229
 #: plugin_katebuild.cpp:1250 plugin_katebuild.cpp:1260
@@ -161,7 +158,7 @@ msgstr "<title>Nəticələr:</title><nl/>%1"
 #: plugin_katebuild.cpp:847
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "<b>%1</b> qurulması başa çatdı. %2 xəta, %3 xəbərdarlıq, %4 qeyd"
 
 #: plugin_katebuild.cpp:853
 #, kde-format
@@ -178,13 +175,11 @@ msgstr[0] "bir xəbərdarlıq tapıldı."
 msgstr[1] "%1 xəbərdarlıq tapıldı."
 
 #: plugin_katebuild.cpp:860
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "Bir xəta tapıldı."
-msgstr[1] "%1 xəta tapıldı."
+msgstr[0] "Bir qeyd tapıldı."
+msgstr[1] "%1 qeyd tapıldı."
 
 #: plugin_katebuild.cpp:865
 #, kde-format
@@ -199,25 +194,21 @@ msgstr "Yığılma problemlərsiz başa çatdı."
 #: plugin_katebuild.cpp:872
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "<b>%1 qurulması ləğv edildi</b>. %2 xəta, %3 xəbərdarlıq, %4 qeyd"
 
 #: plugin_katebuild.cpp:896
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "İcra etmək mümkün olmadı: %1 İşlək kataloq təyin edilməyib."
 
 #: plugin_katebuild.cpp:1122
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "xəta"
 
 #: plugin_katebuild.cpp:1125
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "xəbərdarlıq"
@@ -226,7 +217,7 @@ msgstr "xəbərdarlıq"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "qeyd|məlumat"
 
 #: plugin_katebuild.cpp:1131
 #, kde-format
@@ -317,12 +308,14 @@ msgstr "İş qovluğu / Əmr"
 #: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
-msgstr ""
+msgstr "Əmri başladın"
 
 #: targets.cpp:23
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
+"Hədəflərin süzgəclənməsi, seçmək üçün oxlardan, icra etmək üçün Enter "
+"istifadə edin"
 
 #: targets.cpp:27
 #, kde-format
@@ -350,22 +343,19 @@ msgid "Build selected target"
 msgstr "Seçilmiş hədəfi yığmaq"
 
 #: targets.cpp:48
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and run selected target"
-msgstr "Seçilmiş hədəfi yığmaq"
+msgstr "Seçilmiş hədəfi qurun və başladın"
 
 #: targets.cpp:52
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target up"
-msgstr "Seçilmiş hədəfi yığmaq"
+msgstr "Seçilmiş hədəfi yuxarı köçürün"
 
 #: targets.cpp:56
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target down"
-msgstr "Seçilmiş hədəfi yığmaq"
+msgstr "Seçilmiş hədəfi aşağı köçürün"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

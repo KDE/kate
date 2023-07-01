@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-23 00:50+0000\n"
-"PO-Revision-Date: 2022-07-25 17:09+0400\n"
+"PO-Revision-Date: 2023-06-30 15:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,12 +15,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "Məlumat almaq üçün şöbə seçin. Seçimi ləğv etmək üçün \"Esc\" vurun."
+msgstr ""
+"Verilənləri almaq üçün şöbəni seçin. Seçimi ləğv etmək üçün \"Esc\" vurun."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -100,24 +101,22 @@ msgid "Back"
 msgstr "Geriyə"
 
 #: currentgitbranchbutton.cpp:123
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "Dəyişiklik uğurla qeyd edildi: %1"
+msgstr "%1 göndərişindəki HEAD"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD %1 etiketindədir"
 
 #: currentgitbranchbutton.cpp:127
-#, fuzzy, kde-format
-#| msgid "Checked out to branch: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "Şöbə üçün yoxlanıldı: %1"
+msgstr "Arxiv şöbəsi: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -197,16 +196,14 @@ msgid "Modified"
 msgstr "Dəyişdirildi"
 
 #: gitwidget.cpp:269
-#, fuzzy, kde-format
-#| msgid "Git push"
+#, kde-format
 msgid "Git Push"
-msgstr "Git yerləşdirilməsi"
+msgstr "Git-ə yerləşdirmək"
 
 #: gitwidget.cpp:282
-#, fuzzy, kde-format
-#| msgid "Git pull"
+#, kde-format
 msgid "Git Pull"
-msgstr "Git çatdırılması"
+msgstr "Git-dən almaq"
 
 #: gitwidget.cpp:295
 #, kde-format
@@ -319,28 +316,24 @@ msgid "Delete Branch"
 msgstr "Şöbəni silin"
 
 #: gitwidget.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Compare Branch with ..."
+#, kde-format
 msgid "Compare Branch with..."
 msgstr "Şöbəni bununla müqayisə edin ..."
 
 #: gitwidget.cpp:1040
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "Göndərmək"
+msgstr "Göndərişi göstərmək"
 
 #: gitwidget.cpp:1040
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "Dəyişiklik etmək"
+msgstr "Göndəriş heş-i"
 
 #: gitwidget.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Qovluğu açın..."
+msgstr "Göndərişi açın..."
 
 #: gitwidget.cpp:1048 gitwidget.cpp:1087
 #, kde-format
@@ -350,7 +343,7 @@ msgstr "Toplamaq"
 #: gitwidget.cpp:1058
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Fərq - ehtiyyat"
 
 #: gitwidget.cpp:1091
 #, kde-format
@@ -429,16 +422,14 @@ msgid "Are you sure you want to discard all changes?"
 msgstr "Bütün dəyişiklikləri ləğv etmək istədiyinizə əminsiniz?"
 
 #: gitwidget.cpp:1211
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "Open File"
-msgstr "Fayl açmaq"
+msgstr "Fayl açın"
 
 #: gitwidget.cpp:1213
-#, fuzzy, kde-format
-#| msgid "Show in external git diff tool"
+#, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr "Git fərqlərini göstərmək üçün xarici proqraı göstərin"
+msgstr "Xarici Git fərlənməsi alətində göstərmək"
 
 #: gitwidget.cpp:1214
 #, kde-format
@@ -446,16 +437,14 @@ msgid "Open at HEAD"
 msgstr "HEAD-da açın"
 
 #: gitwidget.cpp:1215
-#, fuzzy, kde-format
-#| msgid "Unstage file"
+#, kde-format
 msgid "Unstage File"
-msgstr "Qeydə alınmamış fayl"
+msgstr "Faylın aralıq mərhələsini ləğv edin"
 
 #: gitwidget.cpp:1215
-#, fuzzy, kde-format
-#| msgid "Stage file"
+#, kde-format
 msgid "Stage File"
-msgstr "Faylı qeydə alın"
+msgstr "Faylın saxlanması üçün aralıq mərhələ təyin edin"
 
 #: gitwidget.cpp:1216
 #, kde-format
@@ -704,11 +693,10 @@ msgid "Start Analysis..."
 msgstr "Analizə başlayın..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:41
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "Kod analizi"
+msgstr "Kod analizi: - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
@@ -722,30 +710,25 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:138
 #: kateprojectinfoviewcodeanalysis.cpp:198
 #: kateprojectinfoviewcodeanalysis.cpp:202
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "Kod analizi"
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "%1 faylda analiz başa çatdı"
-msgstr[1] "%1 faylda analiz başa çatdı"
+msgstr[0] "%2 faylda [%1]analiz başa çatdı"
+msgstr[1] "%2 faylda [%1]analiz başa çatdı"
 
 #: kateprojectinfoviewcodeanalysis.cpp:201
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "%1 faylda analiz %2 çıxış kodu ilə alınmadı"
+msgstr "Analiz %1 çıxış kodu ilə alınmadı, Xəta: %2"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
@@ -825,33 +808,29 @@ msgid "Project"
 msgstr "Layihə"
 
 #: kateprojectpluginview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Kate Project Manager"
+#, kde-format
 msgid "Project Manager"
-msgstr "Kate layihə meneceri"
+msgstr "Layihə meneceri"
 
 #: kateprojectpluginview.cpp:81
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Açıq layihələri bərpa edin"
+msgstr "Layihələr siyaısını açın"
 
 #: kateprojectpluginview.cpp:86
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Reload project"
-msgstr "Layihəni bağlayın"
+msgstr "Layihəni yenidən yükləyin"
 
 #: kateprojectpluginview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Layihəni bağlayın"
 
 #: kateprojectpluginview.cpp:104
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Git statusunu təzələyin"
 
 #: kateprojectpluginview.cpp:182
 #, kde-format

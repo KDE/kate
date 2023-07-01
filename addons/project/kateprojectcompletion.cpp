@@ -15,6 +15,26 @@
 
 #include <QIcon>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#include <KTextEditor/ConfigInterface>
+#endif
+
+// get KTextEditor config if feasible
+static int minimalCompletionLength(KTextEditor::View *view)
+{
+    bool valueFound = false;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    const int length = view->configValue(QStringLiteral("word-completion-minimal-word-length")).toInt(&valueFound);
+#else
+    auto cfgiface = qobject_cast<KTextEditor::ConfigInterface *>(view);
+    Q_ASSERT(cfgiface);
+    const int length = cfgiface->configValue(QStringLiteral("word-completion-minimal-word-length")).toInt(&valueFound);
+#endif
+
+    // handle bogus values or old versions that don't export that setting
+    return valueFound ? length : 3;
+}
+
 KateProjectCompletion::KateProjectCompletion(KateProjectPlugin *plugin)
     : KTextEditor::CodeCompletionModel(nullptr)
     , m_plugin(plugin)
@@ -110,8 +130,7 @@ bool KateProjectCompletion::shouldStartCompletion(KTextEditor::View *view, const
 
     QString text = view->document()->line(position.line()).left(position.column());
 
-    uint check = 3; // v->config()->wordCompletionMinimalWordLength();
-
+    const int check = minimalCompletionLength(view);
     if (check <= 0) {
         return true;
     }
@@ -133,7 +152,7 @@ bool KateProjectCompletion::shouldStartCompletion(KTextEditor::View *view, const
 bool KateProjectCompletion::shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion)
 {
     if (m_automatic) {
-        if (currentCompletion.length() < 3 /*v->config()->wordCompletionMinimalWordLength()*/) {
+        if (currentCompletion.length() < minimalCompletionLength(view)) {
             return true;
         }
     }
@@ -150,7 +169,7 @@ void KateProjectCompletion::completionInvoked(KTextEditor::View *view, const KTe
     if (it == AutomaticInvocation) {
         m_automatic = true;
 
-        if (range.columnWidth() >= 3 /*v->config()->wordCompletionMinimalWordLength()*/) {
+        if (range.columnWidth() >= minimalCompletionLength(view)) {
             saveMatches(view, range);
         } else {
             m_matches.clear();

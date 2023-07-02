@@ -1,5 +1,5 @@
 # Panagiotis Papadopoulos <pano_90@gmx.net>, 2010.
-# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011, 2022, 2023.
 # Johannes Obermayr <johannesobermayr@gmx.de>, 2010.
 # Burkhard Lück <lueck@hube-lueck.de>, 2012, 2014, 2021.
 # Jonas Schürmann <jonasschuermann@aol.de>, 2012.
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #: connectionwizard.cpp:27
 #, kde-format

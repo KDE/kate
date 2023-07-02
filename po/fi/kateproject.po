@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-23 00:50+0000\n"
+"POT-Creation-Date: 2023-07-02 00:50+0000\n"
 "PO-Revision-Date: 2023-04-20 17:33+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -514,7 +514,7 @@ msgstr "Virheellinen JSON-tiedosto ”%1”: %2"
 msgid "<untracked>"
 msgstr "<ei jäljitetty>"
 
-#: kateprojectcompletion.cpp:44
+#: kateprojectcompletion.cpp:64
 #, kde-format
 msgid "Project Completion"
 msgstr "Projektikohtainen täydennys"

@@ -227,14 +227,9 @@ msgid "File"
 msgstr "Ficheiro"
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|Valores Separados por Vírgulas\n"
-"*|Todos os ficheiros"
+msgstr "Valores Separados por Vírgulas"
 
 #: exportwizard.cpp:101
 #, kde-format

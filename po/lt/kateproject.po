@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: l 10n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-23 00:50+0000\n"
+"POT-Creation-Date: 2023-07-02 00:50+0000\n"
 "PO-Revision-Date: 2014-03-15 01:53+0200\n"
 "Last-Translator: Liudas Ališauskas <liudas@aksioma.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -519,7 +519,7 @@ msgstr ""
 msgid "<untracked>"
 msgstr "<nesekamas>"
 
-#: kateprojectcompletion.cpp:44
+#: kateprojectcompletion.cpp:64
 #, kde-format
 msgid "Project Completion"
 msgstr "Projekto užbaigimas"

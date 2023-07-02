@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-23 00:50+0000\n"
+"POT-Creation-Date: 2023-07-02 00:50+0000\n"
 "PO-Revision-Date: 2013-08-12 05:47+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -512,7 +512,7 @@ msgstr ""
 msgid "<untracked>"
 msgstr "<қадағалау жоқ>"
 
-#: kateprojectcompletion.cpp:44
+#: kateprojectcompletion.cpp:64
 #, kde-format
 msgid "Project Completion"
 msgstr "Жобаны бітіру"

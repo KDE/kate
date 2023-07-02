@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-23 00:50+0000\n"
+"POT-Creation-Date: 2023-07-02 00:50+0000\n"
 "PO-Revision-Date: 2023-04-08 10:31+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -529,7 +529,7 @@ msgstr "Fichier « JSON » mal formaté « %1 » : %2"
 msgid "<untracked>"
 msgstr "<non suivi>"
 
-#: kateprojectcompletion.cpp:44
+#: kateprojectcompletion.cpp:64
 #, kde-format
 msgid "Project Completion"
 msgstr "Achèvement du projet"

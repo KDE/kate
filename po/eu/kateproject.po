@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-23 00:50+0000\n"
+"POT-Creation-Date: 2023-07-02 00:50+0000\n"
 "PO-Revision-Date: 2023-04-30 09:24+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -517,7 +517,7 @@ msgstr "Gaizki osatutako JSON fitxategia '%1': %2"
 msgid "<untracked>"
 msgstr "<aztarna jarraitzeke>"
 
-#: kateprojectcompletion.cpp:44
+#: kateprojectcompletion.cpp:64
 #, kde-format
 msgid "Project Completion"
 msgstr "Proiektuaren osatze maila"

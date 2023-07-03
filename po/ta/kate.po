@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2023-06-11 16:51+0530\n"
+"PO-Revision-Date: 2023-07-02 15:14+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -1122,12 +1122,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:501
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr ""
+msgstr "புதிய கீற்றை தற்போதையதன் வலதில் திற"
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr ""
+"இது குறிக்கப்படவில்லையெனில், புதிய கீற்றுகள் கீற்றுப்பட்டையின் கடைசியில் திறக்கப்படும்."
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format

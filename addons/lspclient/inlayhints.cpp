@@ -280,10 +280,23 @@ void InlayHintsManager::sendRequest(KTextEditor::Range rangeToRequest)
     auto v = m_currentView;
     auto server = m_serverManager->findServer(v, false);
     if (server) {
-        server->documentInlayHint(url, rangeToRequest, this, [v = QPointer(m_currentView), rangeToRequest, this](const QVector<LSPInlayHint> &hints) {
+        server->documentInlayHint(url, rangeToRequest, this, [v = QPointer(m_currentView), rangeToRequest, this](QVector<LSPInlayHint> hints) {
             if (!v || m_currentView != v) {
                 return;
             }
+
+            // Some server e.g., dart-analyzer will just ignore the range we sent in the request
+            // and send over inlay hints for the full document anyways. To avoid issues, we
+            // remove all the inlay hints that fall outside the range we requested hints for.
+            if (rangeToRequest.isValid()) {
+                hints.erase(std::remove_if(hints.begin(),
+                                           hints.end(),
+                                           [rangeToRequest](const LSPInlayHint &h) {
+                                               return !rangeToRequest.contains(h.position);
+                                           }),
+                            hints.end());
+            }
+
             const auto result = insertHintsForDoc(v->document(), rangeToRequest, hints);
             m_noteProvider.setHints(result.addedHints);
             if (result.newDoc) {

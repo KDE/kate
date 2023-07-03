@@ -106,7 +106,7 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
 {
     auto it = binaryFind(m_hints, note.position());
     if (it == m_hints.end()) {
-        qWarning() << Q_FUNC_INFO << "failed to find note in m_hints";
+        qWarning() << Q_FUNC_INFO << note.view()->document()->documentName() << "failed to find note in m_hints, Note.position:" << note.position();
         return {};
     }
 
@@ -193,8 +193,11 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
             if (it != m_hintDataByDoc.end()) {
                 m_hintDataByDoc.erase(it);
             }
+            // clear hints from the inline note provider and reset it
+            m_noteProvider.setHints({});
+            m_noteProvider.inlineNotesReset();
             // Send delayed request for inlay hints
-            sendRequestDelayed(v->document()->documentRange(), 100);
+            sendRequestDelayed(v->document()->documentRange(), 1);
         }
     }
 

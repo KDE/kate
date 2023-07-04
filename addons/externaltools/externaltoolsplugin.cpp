@@ -276,10 +276,17 @@ KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &t
 
     // expand macros
     auto editor = KTextEditor::Editor::instance();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    copy->executable = editor->expandText(copy->executable, view);
+    copy->arguments = editor->expandText(copy->arguments, view);
+    copy->workingDir = editor->expandText(copy->workingDir, view);
+    copy->input = editor->expandText(copy->input, view);
+#else
     editor->expandText(copy->executable, view, copy->executable);
     editor->expandText(copy->arguments, view, copy->arguments);
     editor->expandText(copy->workingDir, view, copy->workingDir);
     editor->expandText(copy->input, view, copy->input);
+#endif
 
     if (!copy->checkExec()) {
         Utils::showMessage(

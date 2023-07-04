@@ -146,3 +146,4 @@ void FormatConfigPage::reset()
 }
 
 #include "FormatConfig.moc"
+#include "moc_FormatConfig.cpp"

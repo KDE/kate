@@ -59,3 +59,5 @@ void SavedSessionsModel::refresh(const KateSessionList &sessionList)
     m_sessions = std::move(sessions);
     endResetModel();
 }
+
+#include "moc_savedsessionsmodel.cpp"

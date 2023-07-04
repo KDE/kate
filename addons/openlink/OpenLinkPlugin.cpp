@@ -381,3 +381,4 @@ bool OpenLinkPluginView::eventFilter(QObject *obj, QEvent *event)
 }
 
 #include "OpenLinkPlugin.moc"
+#include "moc_OpenLinkPlugin.cpp"

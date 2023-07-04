@@ -189,3 +189,5 @@ void FolderFilesList::checkNextItem(DirectoryWithResults &handleOnFolder) const
         }
     }
 }
+
+#include "moc_FolderFilesList.cpp"

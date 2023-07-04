@@ -712,3 +712,4 @@ LSPClientSymbolView *LSPClientSymbolView::new_(LSPClientPlugin *plugin, KTextEdi
 LSPClientSymbolView::~LSPClientSymbolView() = default;
 
 #include "lspclientsymbolview.moc"
+#include "moc_lspclientsymbolview.cpp"

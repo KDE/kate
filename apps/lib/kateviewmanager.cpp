@@ -1746,3 +1746,5 @@ void KateViewManager::triggerActiveViewFocus()
         }
     });
 }
+
+#include "moc_kateviewmanager.cpp"

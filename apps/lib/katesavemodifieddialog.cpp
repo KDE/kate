@@ -270,3 +270,5 @@ bool KateSaveModifiedDialog::queryClose(QWidget *parent, const std::vector<KText
     KateSaveModifiedDialog d(parent, documents);
     return (d.exec() != QDialog::Rejected);
 }
+
+#include "moc_katesavemodifieddialog.cpp"

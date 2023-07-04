@@ -48,3 +48,4 @@ KTextEditor::ConfigPage *KateSQLPlugin::configPage(int number, QWidget *parent)
 // END KateSQLPlugin
 
 #include "katesqlplugin.moc"
+#include "moc_katesqlplugin.cpp"

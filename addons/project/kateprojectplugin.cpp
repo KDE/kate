@@ -710,3 +710,5 @@ QVariantMap KateProjectPlugin::projectMapForDocument(KTextEditor::Document *doc)
     }
     return project ? project->projectMap() : QVariantMap();
 }
+
+#include "moc_kateprojectplugin.cpp"

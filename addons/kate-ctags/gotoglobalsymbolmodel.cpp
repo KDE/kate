@@ -66,3 +66,5 @@ QVariant GotoGlobalSymbolModel::data(const QModelIndex &index, int role) const
 
     return QVariant();
 }
+
+#include "moc_gotoglobalsymbolmodel.cpp"

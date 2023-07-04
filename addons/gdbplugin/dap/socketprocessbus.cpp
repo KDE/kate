@@ -162,3 +162,5 @@ void SocketProcessBus::readOutput()
 }
 
 }
+
+#include "moc_socketprocessbus.cpp"

@@ -105,3 +105,5 @@ void TestGdbBackend::parseBreakpoint_data()
                                                   {QStringLiteral("original-location"), QStringLiteral("/tests/solib.cpp:129")}}
                                    << 1 << 130 << QStringLiteral("/tests/solib.cpp");
 }
+
+#include "moc_tst_gdb_backend.cpp"

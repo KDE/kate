@@ -964,3 +964,4 @@ void KateProjectPluginView::updateGitBranchButton(KateProject *project)
 }
 
 #include "kateprojectpluginview.moc"
+#include "moc_kateprojectpluginview.cpp"

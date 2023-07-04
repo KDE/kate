@@ -216,3 +216,4 @@ void BranchDeleteDialog::onCheckAllClicked(bool checked)
 }
 
 #include "branchdeletedialog.moc"
+#include "moc_branchdeletedialog.cpp"

@@ -58,3 +58,5 @@ void UrlInfoTest::urlWithColonAtStart()
     QDir::setCurrent(oldCurrent);
 #endif
 }
+
+#include "moc_urlinfo_test.cpp"

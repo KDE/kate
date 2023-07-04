@@ -283,5 +283,6 @@ void CloseExceptPluginView::displayMessage(const QString &title, const QString &
 } // namespace kate
 
 #include "close_except_plugin.moc"
+#include "moc_close_except_plugin.cpp"
 
 // kate: hl C++11/Qt4;

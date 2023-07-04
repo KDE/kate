@@ -88,3 +88,5 @@ void KateSQLConfigPage::defaults()
     config.revertToDefault("SaveConnections");
     config.revertToDefault("OutputCustomization");
 }
+
+#include "moc_katesqlconfigpage.cpp"

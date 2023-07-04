@@ -193,3 +193,5 @@ QVector<KateSearchMatch> SearchDiskFiles::searchMultiLineRegExp(QFile &file)
     }
     return matches;
 }
+
+#include "moc_SearchDiskFiles.cpp"

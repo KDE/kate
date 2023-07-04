@@ -562,3 +562,5 @@ void KateDocManager::documentOpened()
         }
     }
 }
+
+#include "moc_katedocmanager.cpp"

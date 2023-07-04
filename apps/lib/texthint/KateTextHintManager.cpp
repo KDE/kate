@@ -144,3 +144,5 @@ void KateTextHintManager::onShowTextHint(const QString &hint, TextHintMarkupKind
 {
     showTextHint(hint, kind, pos, true);
 }
+
+#include "moc_KateTextHintManager.cpp"

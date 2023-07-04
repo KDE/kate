@@ -118,3 +118,5 @@ void CloseConfirmDialog::updateDocsList()
 }
 
 } // namespace kate
+
+#include "moc_close_confirm_dialog.cpp"

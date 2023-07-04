@@ -64,3 +64,5 @@ void SocketBus::onStateChanged(QAbstractSocket::SocketState socketState)
 }
 
 }
+
+#include "moc_socketbus.cpp"

@@ -152,3 +152,5 @@ QJsonDocument CompilerExplorerSvc::getCompilationOptions(const QString &source,
     QJsonDocument doc{main};
     return doc;
 }
+
+#include "moc_ce_service.cpp"

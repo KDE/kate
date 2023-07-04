@@ -218,3 +218,5 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
 
     return resultLine;
 }
+
+#include "moc_SearchOpenFiles.cpp"

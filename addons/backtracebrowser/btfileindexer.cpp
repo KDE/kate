@@ -77,4 +77,6 @@ void BtFileIndexer::indexFiles(const QString &url)
     }
 }
 
+#include "moc_btfileindexer.cpp"
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

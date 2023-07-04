@@ -1355,6 +1355,7 @@ void KateBuildView::handleEsc(QEvent *e)
     }
 }
 
+#include "moc_plugin_katebuild.cpp"
 #include "plugin_katebuild.moc"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

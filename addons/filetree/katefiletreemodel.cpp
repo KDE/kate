@@ -1543,3 +1543,4 @@ void KateFileTreeModel::removeWidget(QWidget *w)
 }
 
 #include "katefiletreemodel.moc"
+#include "moc_katefiletreemodel.cpp"

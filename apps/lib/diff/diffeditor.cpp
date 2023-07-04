@@ -471,3 +471,5 @@ void DiffEditor::scrollToLineNumber(int lineNo)
         scrollToBlock(block);
     }
 }
+
+#include "moc_diffeditor.cpp"

@@ -247,3 +247,4 @@ void LSPClientPlugin::askForCommandLinePermission(const QString &fullCommandLine
 }
 
 #include "lspclientplugin.moc"
+#include "moc_lspclientplugin.cpp"

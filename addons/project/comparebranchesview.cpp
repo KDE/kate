@@ -179,3 +179,5 @@ void CompareBranchesView::showDiff(const QModelIndex &idx)
     d.arguments = git.arguments();
     Utils::showDiff(git.readAllStandardOutput(), d, m_pluginView->mainWindow());
 }
+
+#include "moc_comparebranchesview.cpp"

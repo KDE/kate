@@ -174,3 +174,5 @@ QString AppOutput::runningProcess()
     QString program = d->process.program().isEmpty() ? QString() : d->process.program().first();
     return d->process.state() == QProcess::NotRunning ? QString() : program;
 }
+
+#include "moc_AppOutput.cpp"

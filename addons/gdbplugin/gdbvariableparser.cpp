@@ -309,3 +309,5 @@ void GDBVariableParser::addStruct(int parentId, const QString &vString)
         }
     }
 }
+
+#include "moc_gdbvariableparser.cpp"

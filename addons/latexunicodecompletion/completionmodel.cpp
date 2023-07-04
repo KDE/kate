@@ -111,3 +111,5 @@ QVariant LatexCompletionModel::data(const QModelIndex &index, int role) const
     }
     return QVariant();
 }
+
+#include "moc_completionmodel.cpp"

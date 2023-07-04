@@ -402,3 +402,5 @@ void SchemaWidget::generateDeleteIntoView()
 {
     generateAndPasteStatement(QSqlDriver::DeleteStatement);
 }
+
+#include "moc_schemawidget.cpp"

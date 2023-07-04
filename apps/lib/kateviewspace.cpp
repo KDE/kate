@@ -1305,3 +1305,5 @@ void KateViewSpace::goForward()
 }
 
 // END KateViewSpace
+
+#include "moc_kateviewspace.cpp"

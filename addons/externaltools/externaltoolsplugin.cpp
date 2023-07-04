@@ -467,5 +467,6 @@ KateExternalToolsPluginView *KateExternalToolsPlugin::viewForMainWindow(KTextEdi
 }
 
 #include "externaltoolsplugin.moc"
+#include "moc_externaltoolsplugin.cpp"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

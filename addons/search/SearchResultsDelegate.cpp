@@ -205,3 +205,5 @@ QSize SearchResultsDelegate::sizeHint(const QStyleOptionViewItem &opt, const QMo
     s = s.grownBy({0, 2, 0, 2});
     return s;
 }
+
+#include "moc_SearchResultsDelegate.cpp"

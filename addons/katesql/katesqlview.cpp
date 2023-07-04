@@ -352,3 +352,5 @@ void KateSQLView::slotConnectionCreated(const QString &name)
 }
 
 // END KateSQLView
+
+#include "moc_katesqlview.cpp"

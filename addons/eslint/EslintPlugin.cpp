@@ -262,3 +262,4 @@ void ESLintPluginView::fixDiagnostic(const QUrl &url, const DiagnosticWithFix::F
 }
 
 #include "EslintPlugin.moc"
+#include "moc_EslintPlugin.cpp"

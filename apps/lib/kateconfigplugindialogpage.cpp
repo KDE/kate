@@ -126,3 +126,5 @@ void KateConfigPluginPage::unloadPlugin(KatePluginListItem *item)
 
     item->setCheckState(0, Qt::Unchecked);
 }
+
+#include "moc_kateconfigplugindialogpage.cpp"

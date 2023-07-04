@@ -132,3 +132,5 @@ void ConnectionModel::setPassword(const QString &name, const QString &password)
 
     Q_EMIT dataChanged(index(i), index(i));
 }
+
+#include "moc_connectionmodel.cpp"

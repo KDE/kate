@@ -405,3 +405,5 @@ void KateMwModOnHdDialog::closeEvent(QCloseEvent *e)
         e->ignore();
     }
 }
+
+#include "moc_katemwmodonhddialog.cpp"

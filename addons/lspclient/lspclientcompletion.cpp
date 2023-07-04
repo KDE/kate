@@ -551,3 +551,4 @@ LSPClientCompletion *LSPClientCompletion::new_(std::shared_ptr<LSPClientServerMa
 }
 
 #include "lspclientcompletion.moc"
+#include "moc_lspclientcompletion.cpp"

@@ -114,4 +114,6 @@ QString KateToolRunner::errorData() const
     return textFromLocal(m_stderr);
 }
 
+#include "moc_katetoolrunner.cpp"
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

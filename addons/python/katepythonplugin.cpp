@@ -25,3 +25,4 @@ QObject *KatePythonPlugin::createView(KTextEditor::MainWindow *)
 }
 
 #include "katepythonplugin.moc"
+#include "moc_katepythonplugin.cpp"

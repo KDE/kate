@@ -728,3 +728,5 @@ QVector<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive,
     }
     return files;
 }
+
+#include "moc_kateprojectworker.cpp"

@@ -413,3 +413,5 @@ void GoFormat::onResultReady(const RunOutput &out)
         Q_EMIT error(QString::fromUtf8(out.err));
     }
 }
+
+#include "moc_Formatters.cpp"

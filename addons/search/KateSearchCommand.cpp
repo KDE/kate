@@ -101,4 +101,6 @@ bool KateSearchCommand::help(KTextEditor::View * /*view*/, const QString &cmd, Q
     return true;
 }
 
+#include "moc_KateSearchCommand.cpp"
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

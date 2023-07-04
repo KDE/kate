@@ -51,3 +51,5 @@ void KTextEditorPreviewView::writeSessionConfig(KConfigGroup &config)
 {
     m_previewView->writeSessionConfig(config);
 }
+
+#include "moc_ktexteditorpreviewview.cpp"

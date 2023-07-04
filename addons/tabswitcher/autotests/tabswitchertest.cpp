@@ -75,3 +75,5 @@ void KateTabSwitcherTest::testLongestCommonPrefix_data()
     strs.push_back(QStringLiteral("/home/a"));
     QTest::newRow("list with one item") << strs << QString();
 }
+
+#include "moc_tabswitchertest.cpp"

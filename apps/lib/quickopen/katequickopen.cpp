@@ -469,3 +469,5 @@ void KateQuickOpen::updateViewGeometry()
 
     setFixedSize(viewMaxSize);
 }
+
+#include "moc_katequickopen.cpp"

@@ -1254,3 +1254,4 @@ void DiffWidget::jumpToPrevHunk()
 }
 
 #include "diffwidget.moc"
+#include "moc_diffwidget.cpp"

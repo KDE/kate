@@ -132,3 +132,5 @@ bool Results::replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &
     const auto sourceIndex = model()->mapToSource(matchIndex);
     return matchModel.replaceSingleMatch(doc, sourceIndex, regExp, replaceString);
 }
+
+#include "moc_Results.cpp"

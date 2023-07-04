@@ -204,3 +204,5 @@ bool TargetsUi::eventFilter(QObject *obj, QEvent *event)
     }
     return QWidget::eventFilter(obj, event);
 }
+
+#include "moc_targets.cpp"

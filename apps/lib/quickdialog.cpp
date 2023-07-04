@@ -290,3 +290,5 @@ void HUDDialog::setFilteringEnabled(bool enabled)
         });
     }
 }
+
+#include "moc_quickdialog.cpp"

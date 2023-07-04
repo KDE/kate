@@ -110,4 +110,6 @@ void ExternalToolTest::testRunTac()
     QCOMPARE(runner.outputData(), QStringLiteral("c\nb\na\n"));
 }
 
+#include "moc_externaltooltest.cpp"
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

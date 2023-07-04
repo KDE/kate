@@ -1564,3 +1564,5 @@ void KateMainWindow::onApplicationStateChanged(Qt::ApplicationState)
         });
     }
 }
+
+#include "moc_katemainwindow.cpp"

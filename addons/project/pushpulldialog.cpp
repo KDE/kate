@@ -199,3 +199,5 @@ void PushPullDialog::detectGerrit()
         m_gerritBranch = s.value(QStringLiteral("gerrit/defaultbranch")).toString();
     }
 }
+
+#include "moc_pushpulldialog.cpp"

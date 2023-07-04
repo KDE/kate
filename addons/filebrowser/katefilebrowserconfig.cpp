@@ -184,3 +184,5 @@ void KateFileBrowserConfigPage::slotMyChanged()
     Q_EMIT changed();
 }
 // END KateFileBrowserConfigPage
+
+#include "moc_katefilebrowserconfig.cpp"

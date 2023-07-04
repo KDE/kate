@@ -69,3 +69,5 @@ QSplitterHandle *KateSplitter::createHandle()
 {
     return new SplitterHandle(orientation(), this);
 }
+
+#include "moc_katesplitter.cpp"

@@ -2540,5 +2540,6 @@ void KatePluginSearchView::slotProjectFileNameChanged()
 }
 
 #include "SearchPlugin.moc"
+#include "moc_SearchPlugin.cpp"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

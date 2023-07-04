@@ -12,3 +12,5 @@ DebugViewInterface::DebugViewInterface(QObject *parent)
     : QObject(parent)
 {
 }
+
+#include "moc_debugview_iface.cpp"

@@ -142,3 +142,5 @@ void KateSessionsActionTest::limit()
     QList<QAction *> actions = m_ac->sessionsGroup->actions();
     QCOMPARE(actions.size(), 10);
 }
+
+#include "moc_sessions_action_test.cpp"

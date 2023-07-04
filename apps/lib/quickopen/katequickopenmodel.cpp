@@ -157,3 +157,5 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     m_modelEntries = std::move(allDocuments);
     endResetModel();
 }
+
+#include "moc_katequickopenmodel.cpp"

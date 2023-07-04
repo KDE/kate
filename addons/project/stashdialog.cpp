@@ -228,3 +228,5 @@ void StashDialog::showStash(const QString &index)
 
     startHostProcess(*git, QProcess::ReadOnly);
 }
+
+#include "moc_stashdialog.cpp"

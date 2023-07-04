@@ -20,3 +20,5 @@ KateFileBrowserOpenWithMenu::~KateFileBrowserOpenWithMenu()
 }
 
 // END Constructor/Destructor
+
+#include "moc_katefilebrowseropenwithmenu.cpp"

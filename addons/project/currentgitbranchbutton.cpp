@@ -131,3 +131,5 @@ void CurrentGitBranchButton::onBranchFetched()
         setVisible(true);
     }
 }
+
+#include "moc_currentgitbranchbutton.cpp"

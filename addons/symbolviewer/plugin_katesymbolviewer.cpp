@@ -542,4 +542,5 @@ void KatePluginSymbolViewerConfigPage::apply()
 #include "xslt_parser.cpp"
 // END parsers
 
+#include "moc_plugin_katesymbolviewer.cpp"
 #include "plugin_katesymbolviewer.moc"

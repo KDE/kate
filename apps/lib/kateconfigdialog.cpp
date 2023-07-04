@@ -961,3 +961,5 @@ KPageWidgetItem *KateConfigDialog::addScrollablePage(QWidget *page, const QStrin
     boxLayout->addWidget(scroll);
     return addPage(frame, itemName);
 }
+
+#include "moc_kateconfigdialog.cpp"

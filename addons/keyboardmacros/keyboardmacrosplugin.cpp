@@ -348,3 +348,5 @@ bool KeyboardMacrosPlugin::wipe(const QString &name)
 
 // required for KeyboardMacrosPluginFactory vtable
 #include "keyboardmacrosplugin.moc"
+
+#include "moc_keyboardmacrosplugin.cpp"

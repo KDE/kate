@@ -554,4 +554,6 @@ void KateExternalToolsConfigWidget::slotItemChanged(QStandardItem *item)
 
 // END KateExternalToolsConfigWidget
 
+#include "moc_kateexternaltoolsconfigwidget.cpp"
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

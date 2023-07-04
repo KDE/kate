@@ -572,3 +572,5 @@ void CEWidget::warnIfBadArgs(const QStringList &args)
     QString msg = i18n("'%1' compiler flags were found. Output may not be useful.", found.join(QLatin1String(", ")));
     sendMessage(msg, true);
 }
+
+#include "moc_ce_widget.cpp"

@@ -100,4 +100,6 @@ void JsonUtilsTest::testMerge()
     QCOMPARE(result, expected.object());
 }
 
+#include "moc_json_utils_test.cpp"
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

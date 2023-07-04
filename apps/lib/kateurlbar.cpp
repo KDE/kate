@@ -1263,3 +1263,4 @@ void KateUrlBar::updateForDocument(KTextEditor::Document *doc)
 }
 
 #include "kateurlbar.moc"
+#include "moc_kateurlbar.cpp"

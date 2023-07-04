@@ -44,3 +44,5 @@ void DiffWidgetTests::test_scrollbarAtTopOnOpen()
 
     QCOMPARE(dw.m_left->verticalScrollBar()->value(), 0);
 }
+
+#include "moc_diffwidget_tests.cpp"

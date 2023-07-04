@@ -784,3 +784,5 @@ void KateFileTree::slotDocumentDelete()
 }
 
 // END KateFileTree
+
+#include "moc_katefiletree.cpp"

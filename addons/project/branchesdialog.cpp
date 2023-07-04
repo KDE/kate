@@ -127,3 +127,5 @@ void BranchesDialog::sendMessage(const QString &plainText, bool warn)
 {
     Utils::showMessage(plainText, gitIcon(), i18n("Git"), warn ? MessageType::Error : MessageType::Info);
 }
+
+#include "moc_branchesdialog.cpp"

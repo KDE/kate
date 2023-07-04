@@ -495,3 +495,5 @@ QVector<DocOrWidget> KateTabBar::documentList() const
     }
     return result;
 }
+
+#include "moc_katetabbar.cpp"

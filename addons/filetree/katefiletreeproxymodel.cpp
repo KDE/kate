@@ -105,3 +105,5 @@ bool KateFileTreeProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
     }
     return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
 }
+
+#include "moc_katefiletreeproxymodel.cpp"

@@ -765,3 +765,5 @@ void TestGdbmiItems::compare(const QJsonObject &ref, const QJsonObject &result)
         compare(it.value(), result[it.key()]);
     }
 }
+
+#include "moc_tst_gdbmiitems.cpp"

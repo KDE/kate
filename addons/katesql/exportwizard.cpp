@@ -191,3 +191,5 @@ bool ExportFormatPage::validatePage()
     return true;
 }
 // END ExportFormatPage
+
+#include "moc_exportwizard.cpp"

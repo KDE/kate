@@ -105,3 +105,5 @@ void ResultsTreeView::leaveEvent(QEvent *e)
     m_detachButton->hide();
     QTreeView::leaveEvent(e);
 }
+
+#include "moc_ResultsTreeView.cpp"

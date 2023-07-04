@@ -1509,3 +1509,5 @@ void DiagnosticsView::previousItem()
 {
     moveDiagnosticsSelection(false);
 }
+
+#include "moc_diagnosticview.cpp"

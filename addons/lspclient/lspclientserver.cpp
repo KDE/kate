@@ -2084,3 +2084,5 @@ void LSPClientServer::workspaceSymbol(const QString &symbol, const QObject *cont
 {
     return d->workspaceSymbol(symbol, make_handler(h, context, parseWorkspaceSymbols));
 }
+
+#include "moc_lspclientserver.cpp"

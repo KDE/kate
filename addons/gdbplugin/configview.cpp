@@ -885,3 +885,5 @@ int ConfigView::loadFromIndex(int index)
         return m_dapAdapterSettings[debuggerKey][debuggerProfile].index;
     }
 }
+
+#include "moc_configview.cpp"

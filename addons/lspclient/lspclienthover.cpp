@@ -107,3 +107,4 @@ LSPClientHover *LSPClientHover::new_(std::shared_ptr<LSPClientServerManager> man
 }
 
 #include "lspclienthover.moc"
+#include "moc_lspclienthover.cpp"

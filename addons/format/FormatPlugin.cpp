@@ -347,3 +347,4 @@ void FormatPluginView::saveDocument(KTextEditor::Document *doc)
 }
 
 #include "FormatPlugin.moc"
+#include "moc_FormatPlugin.cpp"

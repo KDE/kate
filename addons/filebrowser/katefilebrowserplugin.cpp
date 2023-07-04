@@ -101,3 +101,4 @@ bool KateFileBrowserPluginView::eventFilter(QObject *obj, QEvent *event)
 // ENDKateFileBrowserPluginView
 
 #include "katefilebrowserplugin.moc"
+#include "moc_katefilebrowserplugin.cpp"

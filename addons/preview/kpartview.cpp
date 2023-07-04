@@ -266,3 +266,5 @@ bool KPartView::eventFilter(QObject *object, QEvent *event)
 
     return QObject::eventFilter(object, event);
 }
+
+#include "moc_kpartview.cpp"

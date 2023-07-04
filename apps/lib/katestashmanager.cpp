@@ -153,3 +153,5 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
         }
     }
 }
+
+#include "moc_katestashmanager.cpp"

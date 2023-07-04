@@ -542,3 +542,5 @@ InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Ra
 
     return {false, {affectedLines.begin(), affectedLines.end()}, existing};
 }
+
+#include "moc_inlayhints.cpp"

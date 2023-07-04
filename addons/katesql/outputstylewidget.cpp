@@ -194,3 +194,5 @@ void OutputStyleWidget::slotChanged()
 
     Q_EMIT changed();
 }
+
+#include "moc_outputstylewidget.cpp"

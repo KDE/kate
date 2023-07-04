@@ -520,3 +520,5 @@ QList<GotoTarget> GotoTarget::parseList(const QJsonArray &variables)
 }
 
 }
+
+#include "moc_entities.cpp"

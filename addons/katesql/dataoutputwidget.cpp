@@ -373,3 +373,5 @@ void DataOutputWidget::exportData(QTextStream &stream,
 
     qDebug() << "Export in" << t.elapsed() << "msecs";
 }
+
+#include "moc_dataoutputwidget.cpp"

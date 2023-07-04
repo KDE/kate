@@ -79,4 +79,6 @@ void KateBtBrowserTest::testParser()
     QVERIFY(info.empty());
 }
 
+#include "moc_btbrowsertest.cpp"
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

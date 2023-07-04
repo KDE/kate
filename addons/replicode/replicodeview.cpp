@@ -257,3 +257,5 @@ void ReplicodeView::gotStdout()
     }
     m_replicodeOutput->scrollToBottom();
 }
+
+#include "moc_replicodeview.cpp"

@@ -144,3 +144,5 @@ void KateAppAdaptor::emitDocumentClosed(const QString &token)
 {
     documentClosed(token);
 }
+
+#include "moc_kateappadaptor.cpp"

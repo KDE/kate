@@ -322,3 +322,5 @@ void KeyboardMacrosPluginView::slotWipeNamed(const QString &name)
 }
 
 // END
+
+#include "moc_keyboardmacrospluginview.cpp"

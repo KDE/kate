@@ -32,3 +32,5 @@ void KateWaiter::serviceOwnerChanged(const QString &, const QString &, const QSt
 {
     QCoreApplication::instance()->quit();
 }
+
+#include "moc_katewaiter.cpp"

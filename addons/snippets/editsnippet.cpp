@@ -199,3 +199,5 @@ void EditSnippet::topBoxModified()
 {
     m_topBoxModified = true;
 }
+
+#include "moc_editsnippet.cpp"

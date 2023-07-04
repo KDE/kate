@@ -149,3 +149,5 @@ void GotoSymbolModel::refresh(const QString &filePath)
     }
     endResetModel();
 }
+
+#include "moc_gotosymbolmodel.cpp"

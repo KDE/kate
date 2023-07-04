@@ -721,3 +721,5 @@ void KateSessionManager::initTimer()
 }
 
 // END KateSessionManager
+
+#include "moc_katesessionmanager.cpp"

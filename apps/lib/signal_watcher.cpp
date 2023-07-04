@@ -98,4 +98,6 @@ void SignalWatcher::handleSigTerm()
     m_sigTermSocketNotifier->setEnabled(true);
 }
 
+#include "moc_signal_watcher.cpp"
+
 #endif

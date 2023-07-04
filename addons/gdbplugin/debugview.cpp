@@ -1792,3 +1792,5 @@ void DebugView::changeScope(int scopeId)
         issueNextCommandLater(std::nullopt);
     }
 }
+
+#include "moc_debugview.cpp"

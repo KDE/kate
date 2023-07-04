@@ -68,3 +68,5 @@ void KateBookmarkHandler::openBookmark(const KBookmark &bm, Qt::MouseButtons, Qt
 {
     Q_EMIT openUrl(bm.url().url());
 }
+
+#include "moc_katebookmarkhandler.cpp"

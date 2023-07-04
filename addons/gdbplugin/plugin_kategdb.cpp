@@ -992,4 +992,5 @@ QToolButton *KatePluginGDBView::createDebugButton(QAction *action)
     return button;
 }
 
+#include "moc_plugin_kategdb.cpp"
 #include "plugin_kategdb.moc"

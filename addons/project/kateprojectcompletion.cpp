@@ -234,3 +234,5 @@ KTextEditor::Range KateProjectCompletion::completionRange(KTextEditor::View *vie
 
     return KTextEditor::Range(KTextEditor::Cursor(line, col), position);
 }
+
+#include "moc_kateprojectcompletion.cpp"

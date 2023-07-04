@@ -532,3 +532,5 @@ QModelIndex TargetModel::parent(const QModelIndex &child) const
     }
     return createIndex(pRow, 0, InvalidIndex);
 }
+
+#include "moc_TargetModel.cpp"

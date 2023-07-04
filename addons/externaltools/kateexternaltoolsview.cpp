@@ -329,4 +329,6 @@ void KateExternalToolsPluginView::onDocumentAboutToSave(KTextEditor::Document *d
 
 // END KateExternalToolsPluginView
 
+#include "moc_kateexternaltoolsview.cpp"
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

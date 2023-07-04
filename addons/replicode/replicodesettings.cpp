@@ -194,3 +194,5 @@ void ReplicodeSettings::setDefaults()
     modelsPath = QString();
     testModels = false;
 }
+
+#include "moc_replicodesettings.cpp"

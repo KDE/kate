@@ -130,3 +130,4 @@ void KateSnippetsPluginView::createSnippet()
 }
 
 #include "katesnippets.moc"
+#include "moc_katesnippets.cpp"

@@ -44,3 +44,5 @@ void GotoSymbolTreeView::currentChanged(const QModelIndex &current, const QModel
 
     return QTreeView::currentChanged(current, previous);
 }
+
+#include "moc_gotosymboltreeview.cpp"

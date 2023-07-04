@@ -112,3 +112,5 @@ void KateSessionManagerTest::renameSession()
     QVERIFY(m_manager->deleteSession(s));
     QCOMPARE(m_manager->sessionList().size(), 0);
 }
+
+#include "moc_session_manager_test.cpp"

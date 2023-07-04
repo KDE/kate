@@ -92,3 +92,5 @@ void TextOutputWidget::writeMessage(const QString &msg)
 
     raise();
 }
+
+#include "moc_textoutputwidget.cpp"

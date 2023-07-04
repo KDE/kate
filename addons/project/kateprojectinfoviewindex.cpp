@@ -213,3 +213,5 @@ void KateProjectInfoViewIndex::enableWidgets(bool valid)
         m_messageWidget->addAction(enableIndexing);
     }
 }
+
+#include "moc_kateprojectinfoviewindex.cpp"

@@ -370,3 +370,5 @@ void PreviewWidget::clearMenu()
     m_kPartMenuAction->setEnabled(false);
     m_aboutKPartAction->setEnabled(false);
 }
+
+#include "moc_previewwidget.cpp"

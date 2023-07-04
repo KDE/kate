@@ -1653,3 +1653,5 @@ void MainWindow::saveSession(KConfigGroup &config)
 // END MAIN WINDOW
 
 } // namespace KateMDI
+
+#include "moc_katemdi.cpp"

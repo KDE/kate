@@ -231,3 +231,5 @@ void IOView::clearOutput()
 {
     m_output->clear();
 }
+
+#include "moc_ioview.cpp"

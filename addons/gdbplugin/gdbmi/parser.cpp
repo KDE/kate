@@ -172,3 +172,5 @@ int GdbmiParser::splitLines(const QByteArray &buffer, bool lastIndex)
 }
 
 } // namespace gdbmi
+
+#include "moc_parser.cpp"

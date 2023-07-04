@@ -6,3 +6,5 @@
 */
 
 #include "document_dummy.h"
+
+#include "moc_document_dummy.cpp"

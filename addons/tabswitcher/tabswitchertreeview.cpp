@@ -60,3 +60,5 @@ void TabSwitcherTreeView::showEvent(QShowEvent *event)
     resizeColumnsToContents();
     QTreeView::showEvent(event);
 }
+
+#include "moc_tabswitchertreeview.cpp"

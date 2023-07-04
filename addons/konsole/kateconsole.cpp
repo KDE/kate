@@ -699,5 +699,6 @@ void KateKonsoleConfigPage::reset()
 }
 
 #include "kateconsole.moc"
+#include "moc_kateconsole.cpp"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

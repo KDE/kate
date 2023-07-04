@@ -1263,3 +1263,5 @@ QModelIndex MatchModel::parent(const QModelIndex &child) const
 
     return createIndex(child.internalId(), 0, FileItemId);
 }
+
+#include "moc_MatchModel.cpp"

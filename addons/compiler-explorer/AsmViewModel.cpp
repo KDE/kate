@@ -60,3 +60,5 @@ void AsmViewModel::highlightLinkedAsm(int line)
 {
     m_hoveredLine = line;
 }
+
+#include "moc_AsmViewModel.cpp"

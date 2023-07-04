@@ -544,3 +544,5 @@ QStringList SingleApplicationPrivate::appData() const
 {
     return appDataList;
 }
+
+#include "moc_singleapplication_p.cpp"

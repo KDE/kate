@@ -222,3 +222,5 @@ void KateProjectInfoViewTerminal::runCommand(const QString &workingDir, const QS
     terminal->sendInput(changeDirCmd);
     terminal->sendInput(cmd.trimmed() + QStringLiteral("\n"));
 }
+
+#include "moc_kateprojectinfoviewterminal.cpp"

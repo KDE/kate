@@ -117,3 +117,5 @@ void ProcessBus::readError()
 }
 
 }
+
+#include "moc_processbus.cpp"

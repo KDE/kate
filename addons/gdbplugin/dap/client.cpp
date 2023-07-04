@@ -839,3 +839,5 @@ void Client::start()
 }
 
 }
+
+#include "moc_client.cpp"

@@ -203,3 +203,5 @@ void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatu
     }
     m_errOutput = {};
 }
+
+#include "moc_kateprojectinfoviewcodeanalysis.cpp"

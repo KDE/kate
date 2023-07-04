@@ -674,3 +674,5 @@ void KateViewManagementTests::testNewSessionClearsWindowWidgets()
     QVERIFY(!w1);
     QVERIFY(!w2);
 }
+
+#include "moc_kate_view_mgmt_tests.cpp"

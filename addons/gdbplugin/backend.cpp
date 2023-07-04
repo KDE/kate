@@ -253,3 +253,5 @@ void Backend::changeScope(int scopeId)
     if (m_debugger)
         m_debugger->changeScope(scopeId);
 }
+
+#include "moc_backend.cpp"

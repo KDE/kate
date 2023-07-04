@@ -65,3 +65,5 @@ void CEPluginView::openANewTab()
 
 // required for TextFilterPluginFactory vtable
 #include "ce_plugin.moc"
+
+#include "moc_ce_plugin.cpp"

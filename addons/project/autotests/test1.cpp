@@ -40,4 +40,6 @@ void Test1::testShellCheckParsing()
     QVERIFY(outList.uri.isValid());
 }
 
+#include "moc_test1.cpp"
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

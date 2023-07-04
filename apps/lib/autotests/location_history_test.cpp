@@ -334,3 +334,5 @@ void LocationHistoryTest::test_signalEmission()
         QCOMPARE(args.at(0).toBool(), true);
     }
 }
+
+#include "moc_location_history_test.cpp"

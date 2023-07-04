@@ -1733,3 +1733,5 @@ QString DapDebugView::resolveOrWarn(const QString &filename)
 
     return filename;
 }
+
+#include "moc_debugview_dap.cpp"

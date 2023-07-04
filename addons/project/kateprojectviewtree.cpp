@@ -251,3 +251,5 @@ void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)
 
     event->accept();
 }
+
+#include "moc_kateprojectviewtree.cpp"

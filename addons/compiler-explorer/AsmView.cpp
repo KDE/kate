@@ -359,3 +359,5 @@ void AsmView::contextMenuEvent(QContextMenuEvent *e)
 
     menu.exec(mapToGlobal(p));
 }
+
+#include "moc_AsmView.cpp"

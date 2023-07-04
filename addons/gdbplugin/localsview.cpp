@@ -118,3 +118,5 @@ void LocalsView::addVariableLevel(int parentId, const dap::Variable &variable)
         m_variables[variable.variablesReference] = item;
     }
 }
+
+#include "moc_localsview.cpp"

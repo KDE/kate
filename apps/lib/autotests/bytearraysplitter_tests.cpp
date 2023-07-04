@@ -33,3 +33,5 @@ void ByteArraySplitterTests::test()
     }
     QCOMPARE(data.split(splitOn), actual);
 }
+
+#include "moc_bytearraysplitter_tests.cpp"

@@ -669,3 +669,5 @@ void KateCTagsView::showGlobalSymbols()
     m_gotoSymbWidget->show();
     m_gotoSymbWidget->setFocus();
 }
+
+#include "moc_kate_ctags_view.cpp"

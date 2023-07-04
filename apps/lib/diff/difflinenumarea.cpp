@@ -211,3 +211,5 @@ void LineNumArea::mousePressEvent(QMouseEvent *e)
         textEdit->toggleFoldHunk(block);
     }
 }
+
+#include "moc_difflinenumarea.cpp"

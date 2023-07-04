@@ -52,3 +52,5 @@ std::optional<TabMimeData::DroppedData> TabMimeData::data(const QMimeData *md)
     }
     return d;
 }
+
+#include "moc_tabmimedata.cpp"

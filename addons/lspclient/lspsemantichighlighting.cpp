@@ -234,3 +234,5 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
         movingRanges.push_back(std::move(range));
     }
 }
+
+#include "moc_lspsemantichighlighting.cpp"

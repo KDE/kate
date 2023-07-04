@@ -624,3 +624,5 @@ void KateProject::slotFileChanged(const QString &file)
         reload();
     }
 }
+
+#include "moc_kateproject.cpp"

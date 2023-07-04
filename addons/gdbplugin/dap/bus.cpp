@@ -38,3 +38,5 @@ void Bus::setState(State state)
 }
 
 }
+
+#include "moc_bus.cpp"

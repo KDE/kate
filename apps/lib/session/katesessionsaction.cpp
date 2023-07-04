@@ -71,3 +71,5 @@ void KateSessionsAction::slotSessionChanged()
 {
     setDisabled(m_manager->sessionList().empty());
 }
+
+#include "moc_katesessionsaction.cpp"

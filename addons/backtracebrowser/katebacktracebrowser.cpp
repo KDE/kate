@@ -378,5 +378,6 @@ KateBtConfigDialog::~KateBtConfigDialog()
 }
 
 #include "katebacktracebrowser.moc"
+#include "moc_katebacktracebrowser.cpp"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

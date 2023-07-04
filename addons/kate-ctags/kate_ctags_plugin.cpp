@@ -250,3 +250,4 @@ void KateCTagsConfigPage::updateDone(int exitCode, QProcess::ExitStatus status)
 }
 
 #include "kate_ctags_plugin.moc"
+#include "moc_kate_ctags_plugin.cpp"

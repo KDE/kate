@@ -166,3 +166,5 @@ bool TargetHtmlDelegate::isEditing() const
 {
     return m_isEditing;
 }
+
+#include "moc_TargetHtmlDelegate.cpp"

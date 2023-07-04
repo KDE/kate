@@ -107,3 +107,5 @@ void QuickOpenLineEdit::setupMenu()
     act->setChecked(m_filterMode == Wildcard);
     actGp->addAction(act);
 }
+
+#include "moc_katequickopenlineedit.cpp"

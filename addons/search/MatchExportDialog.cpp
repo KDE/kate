@@ -58,3 +58,5 @@ void MatchExportDialog::generateMatchExport()
     }
     this->exportResultText->setPlainText(exportResult);
 }
+
+#include "moc_MatchExportDialog.cpp"

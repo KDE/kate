@@ -93,3 +93,5 @@ void KateProjectInfoView::runCmdInTerminal(const QString &workingDir, const QStr
         terminal->runCommand(workingDir, cmd);
     }
 }
+
+#include "moc_kateprojectinfoview.cpp"

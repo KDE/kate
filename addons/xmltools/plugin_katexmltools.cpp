@@ -1088,6 +1088,7 @@ QString InsertElement::text() const
 }
 // END InsertElement dialog
 
+#include "moc_plugin_katexmltools.cpp"
 #include "plugin_katexmltools.moc"
 
 // kate: space-indent on; indent-width 4; replace-tabs on; mixed-indent off;

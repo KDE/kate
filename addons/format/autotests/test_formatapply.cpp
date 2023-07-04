@@ -55,3 +55,5 @@ int main()
 })");
     QCOMPARE(doc->text(), formatted);
 }
+
+#include "moc_test_formatapply.cpp"

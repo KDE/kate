@@ -607,3 +607,5 @@ void FileTreeModelTest::rename()
     QCOMPARE(root, nodes);
     qDeleteAll(documents);
 }
+
+#include "moc_filetree_model_test.cpp"

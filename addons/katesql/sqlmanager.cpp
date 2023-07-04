@@ -359,3 +359,5 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
     Q_EMIT success(message);
     Q_EMIT queryActivated(query, connection);
 }
+
+#include "moc_sqlmanager.cpp"

@@ -806,3 +806,5 @@ bool KateApp::isInsideTerminal()
 {
     return insideTerminal;
 }
+
+#include "moc_kateapp.cpp"

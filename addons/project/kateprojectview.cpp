@@ -133,3 +133,5 @@ void KateProjectView::checkAndRefreshGit()
     }
     m_pluginView->updateGitBranchButton(m_project);
 }
+
+#include "moc_kateprojectview.cpp"

@@ -1266,3 +1266,4 @@ std::shared_ptr<LSPClientServerManager> LSPClientServerManager::new_(LSPClientPl
 }
 
 #include "lspclientservermanager.moc"
+#include "moc_lspclientservermanager.cpp"

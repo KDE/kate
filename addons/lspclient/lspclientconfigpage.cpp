@@ -284,3 +284,5 @@ void LSPClientConfigPage::showContextMenuAllowedBlocked(const QPoint &pos)
 
     myMenu.exec(ui->allowedAndBlockedServers->mapToGlobal(pos));
 }
+
+#include "moc_lspclientconfigpage.cpp"

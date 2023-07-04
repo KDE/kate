@@ -11,7 +11,7 @@ class BranchCheckoutDialog : public BranchesDialog
 {
     Q_OBJECT
 public:
-    BranchCheckoutDialog(QWidget *mainWindow, KateProjectPluginView *pluginView, QString projectPath);
+    BranchCheckoutDialog(QWidget *mainWindow, QString projectPath);
     ~BranchCheckoutDialog() override;
     void openDialog();
 

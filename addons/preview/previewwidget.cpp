@@ -35,10 +35,9 @@
 
 using namespace KTextEditorPreview;
 
-PreviewWidget::PreviewWidget(KTextEditorPreviewPlugin *core, KTextEditor::MainWindow *mainWindow, QWidget *parent)
+PreviewWidget::PreviewWidget(KTextEditor::MainWindow *mainWindow, QWidget *parent)
     : QStackedWidget(parent)
     , KXMLGUIBuilder(this)
-    , m_core(core)
     , m_mainWindow(mainWindow)
     , m_xmlGuiFactory(new KXMLGUIFactory(this, this))
 {

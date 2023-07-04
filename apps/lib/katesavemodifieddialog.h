@@ -31,7 +31,6 @@ protected Q_SLOTS:
     void slotDoNotSave();
 
 private:
-    QTreeWidgetItem *m_documentRoot = nullptr;
     QTreeWidget *m_list;
     QPushButton *m_saveButton;
 };

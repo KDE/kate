@@ -1006,7 +1006,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("vcs_branch_checkout"), this, [this] {
-        BranchCheckoutDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
+        BranchCheckoutDialog bd(m_mainWin->window(), m_project->baseDir());
         bd.openDialog();
     });
     a->setText(i18n("Checkout Branch"));
@@ -1026,7 +1026,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("vcs_branch_diff"), this, [this] {
-        BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
+        BranchesDialog bd(m_mainWin->window(), m_project->baseDir());
         using GitUtils::RefType;
         bd.openDialog(static_cast<GitUtils::RefType>(RefType::Head | RefType::Remote));
         QString branch = bd.branch();

@@ -107,7 +107,6 @@ KTextEditor::ConfigPage *KateBtBrowserPlugin::configPage(int number, QWidget *pa
 
 KateBtBrowserPluginView::KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KTextEditor::MainWindow *mainWindow)
     : QObject(mainWindow)
-    , m_plugin(plugin)
 {
     // init console
     QWidget *toolview = mainWindow->createToolView(plugin,

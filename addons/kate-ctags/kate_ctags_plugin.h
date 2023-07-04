@@ -59,7 +59,7 @@ class KateCTagsConfigPage : public KTextEditor::ConfigPage
 {
     Q_OBJECT
 public:
-    explicit KateCTagsConfigPage(QWidget *parent = nullptr, KateCTagsPlugin *plugin = nullptr);
+    explicit KateCTagsConfigPage(QWidget *parent = nullptr);
     ~KateCTagsConfigPage() override
     {
     }
@@ -84,6 +84,5 @@ private:
     bool listContains(const QString &target);
 
     QProcess m_proc;
-    KateCTagsPlugin *m_plugin;
     Ui_CTagsGlobalConfig m_confUi{};
 };

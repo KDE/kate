@@ -26,7 +26,7 @@ public:
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectInfoViewNotes(KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectInfoViewNotes(KateProject *project);
 
     /**
      * our project.
@@ -38,11 +38,6 @@ public:
     }
 
 private:
-    /**
-     * our plugin view
-     */
-    KateProjectPluginView *m_pluginView;
-
     /**
      * our project
      */

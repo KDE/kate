@@ -201,8 +201,6 @@ private:
 
     QTimer m_diskSearchDoneTimer;
     QTimer m_updateCheckedStateTimer;
-    QAction *m_matchCase = nullptr;
-    QAction *m_useRegExp = nullptr;
     Results *m_curResults = nullptr;
     QTabBar *m_tabBar = nullptr;
     bool m_searchJustOpened = false;

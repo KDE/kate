@@ -18,8 +18,7 @@
 #include <QFileInfo>
 
 KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, KateProject *project)
-    : m_pluginView(pluginView)
-    , m_project(project)
+    : m_project(project)
     , m_terminal(nullptr)
 {
     /**
@@ -57,7 +56,7 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
     /**
      * notes
      */
-    addTab(new KateProjectInfoViewNotes(pluginView, project), i18n("Notes"));
+    addTab(new KateProjectInfoViewNotes(project), i18n("Notes"));
 }
 
 KateProjectInfoView::~KateProjectInfoView()

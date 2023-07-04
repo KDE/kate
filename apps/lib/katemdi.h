@@ -176,11 +176,6 @@ private:
      */
     bool isTabButtonVisible = true;
 
-    /**
-     * is this view persistent?
-     */
-    bool persistent;
-
     QIcon icon;
     QString text;
 };

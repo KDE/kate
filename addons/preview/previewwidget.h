@@ -58,7 +58,7 @@ public:
      * @param mainWindow the main window with all the texteditor views
      * @param parent widget object taking the ownership
      */
-    PreviewWidget(KTextEditorPreviewPlugin *core, KTextEditor::MainWindow *mainWindow, QWidget *parent);
+    PreviewWidget(KTextEditor::MainWindow *mainWindow, QWidget *parent);
     ~PreviewWidget() override;
 
     void readSessionConfig(const KConfigGroup &configGroup);
@@ -104,7 +104,6 @@ private:
     QMenu *m_kPartMenu;
     QAction *m_aboutKPartAction;
 
-    KTextEditorPreviewPlugin *const m_core;
     KTextEditor::MainWindow *const m_mainWindow;
 
     KTextEditor::Document *m_previewedTextEditorDocument = nullptr;

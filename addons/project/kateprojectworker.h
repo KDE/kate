@@ -70,11 +70,6 @@ private:
 
 private:
     /**
-     * our project, only as QObject, we only send messages back and forth!
-     */
-    QObject *m_project = nullptr;
-
-    /**
      * project base directory name
      */
     const QString m_baseDir;

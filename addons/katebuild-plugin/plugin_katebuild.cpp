@@ -101,8 +101,10 @@ static QString caseFixed(const QString &path)
     return result;
 }
 
+// clang-format off
 #include <windows.h>
 #include <Tlhelp32.h>
+// clang-format on
 
 static void KillProcessTree(DWORD myprocID)
 {
@@ -115,10 +117,8 @@ static void KillProcessTree(DWORD myprocID)
 
     HANDLE hSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
-    if (::Process32First(hSnap, &procEntry))
-    {
-        do
-        {
+    if (::Process32First(hSnap, &procEntry)) {
+        do {
             if (procEntry.th32ParentProcessID == myprocID) {
                 KillProcessTree(procEntry.th32ProcessID);
             }
@@ -128,14 +128,13 @@ static void KillProcessTree(DWORD myprocID)
     // kill the main process
     HANDLE hProc = ::OpenProcess(PROCESS_ALL_ACCESS, FALSE, myprocID);
 
-    if (hProc)
-    {
+    if (hProc) {
         ::TerminateProcess(hProc, 1);
         ::CloseHandle(hProc);
     }
 }
 
-static void terminateProcess(KProcess& proc)
+static void terminateProcess(KProcess &proc)
 {
     KillProcessTree(proc.processId());
 }
@@ -146,7 +145,7 @@ static QString caseFixed(const QString &path)
     return path;
 }
 
-static void terminateProcess(KProcess& proc)
+static void terminateProcess(KProcess &proc)
 {
     proc.terminate();
 }
@@ -176,12 +175,10 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     : QObject(mw)
     , m_win(mw)
     , m_buildWidget(nullptr)
-    , m_outputWidgetWidth(0)
     , m_proc(this)
     , m_stdOut()
     , m_stdErr()
     , m_buildCancelled(false)
-    , m_displayModeBeforeBuild(1)
     // NOTE this will not allow spaces in file names.
     // e.g. from gcc: "main.cpp:14: error: cannot convert ‘std::string’ to ‘int’ in return"
     // e.g. from gcc: "main.cpp:14:8: error: cannot convert ‘std::string’ to ‘int’ in return"

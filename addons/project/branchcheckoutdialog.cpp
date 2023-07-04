@@ -9,8 +9,8 @@
 #include <KLocalizedString>
 #include <QtConcurrentRun>
 
-BranchCheckoutDialog::BranchCheckoutDialog(QWidget *mainWindow, KateProjectPluginView *pluginView, QString projectPath)
-    : BranchesDialog(mainWindow, pluginView, projectPath)
+BranchCheckoutDialog::BranchCheckoutDialog(QWidget *mainWindow, QString projectPath)
+    : BranchesDialog(mainWindow, projectPath)
 {
     connect(&m_checkoutWatcher, &QFutureWatcher<GitUtils::CheckoutResult>::finished, this, &BranchCheckoutDialog::onCheckoutDone);
 }

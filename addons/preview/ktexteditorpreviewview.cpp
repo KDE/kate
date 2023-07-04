@@ -31,7 +31,7 @@ KTextEditorPreviewView::KTextEditorPreviewView(KTextEditorPreviewPlugin *plugin,
                                             i18n("Preview"));
 
     // add preview widget
-    m_previewView = new PreviewWidget(plugin, mainWindow, m_toolView.data());
+    m_previewView = new PreviewWidget(mainWindow, m_toolView.data());
     m_toolView->layout()->setContentsMargins(0, 0, 0, 0);
     m_toolView->layout()->addWidget(m_previewView);
     m_toolView->addActions(m_previewView->actions());

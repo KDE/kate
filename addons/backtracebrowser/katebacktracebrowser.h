@@ -68,7 +68,6 @@ public:
     ~KateBtBrowserPluginView() override;
 
 private:
-    KateBtBrowserPlugin *m_plugin;
     KateBtBrowserWidget *m_widget;
 };
 

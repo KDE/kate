@@ -35,7 +35,7 @@ KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
 {
     s_self = this;
 
-    SnippetStore::init(this);
+    SnippetStore::init();
 }
 
 KateSnippetGlobal::~KateSnippetGlobal()

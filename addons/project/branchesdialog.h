@@ -27,7 +27,7 @@ class BranchesDialog : public HUDDialog
 {
     Q_OBJECT
 public:
-    BranchesDialog(QWidget *window, KateProjectPluginView *pluginView, QString projectPath);
+    BranchesDialog(QWidget *window, QString projectPath);
     void openDialog(GitUtils::RefType r);
     void sendMessage(const QString &message, bool warn);
     QString branch() const
@@ -46,6 +46,5 @@ protected:
     QString m_projectPath;
 
 private:
-    KateProjectPluginView *m_pluginView;
     QString m_branch;
 };

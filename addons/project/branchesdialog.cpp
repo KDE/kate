@@ -6,7 +6,6 @@
 #include "branchesdialog.h"
 #include "branchesdialogmodel.h"
 #include "gitprocess.h"
-#include "kateprojectpluginview.h"
 #include "ktexteditor_utils.h"
 
 #include <QPainter>
@@ -87,11 +86,10 @@ public:
     }
 };
 
-BranchesDialog::BranchesDialog(QWidget *window, KateProjectPluginView *pluginView, QString projectPath)
+BranchesDialog::BranchesDialog(QWidget *window, QString projectPath)
     : HUDDialog(nullptr, window)
     , m_model(new BranchesDialogModel(this))
     , m_projectPath(projectPath)
-    , m_pluginView(pluginView)
 {
     setModel(m_model, FilterType::ScoredFuzzy, 0, Qt::DisplayRole, BranchesDialogModel::FuzzyScore);
     setDelegate(new StyleDelegate(this));

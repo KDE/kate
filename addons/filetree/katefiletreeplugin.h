@@ -57,7 +57,6 @@ public Q_SLOTS:
 
 private:
     QList<KateFileTreePluginView *> m_views;
-    KateFileTreeConfigPage *m_confPage = nullptr;
     KateFileTreePluginSettings m_settings;
 };
 

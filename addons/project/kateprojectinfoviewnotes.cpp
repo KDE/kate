@@ -11,9 +11,8 @@
 
 #include <QVBoxLayout>
 
-KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProjectPluginView *pluginView, KateProject *project)
-    : m_pluginView(pluginView)
-    , m_project(project)
+KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProject *project)
+    : m_project(project)
     , m_edit(new QPlainTextEdit())
 {
     /*

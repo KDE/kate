@@ -58,7 +58,7 @@ KTextEditor::ConfigPage *KateCTagsPlugin::configPage(int number, QWidget *parent
     if (number != 0) {
         return nullptr;
     }
-    return new KateCTagsConfigPage(parent, this);
+    return new KateCTagsConfigPage(parent);
 }
 
 /******************************************************************/
@@ -67,9 +67,8 @@ void KateCTagsPlugin::readConfig()
 }
 
 /******************************************************************/
-KateCTagsConfigPage::KateCTagsConfigPage(QWidget *parent, KateCTagsPlugin *plugin)
+KateCTagsConfigPage::KateCTagsConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)
-    , m_plugin(plugin)
 {
     m_confUi.setupUi(this);
     m_confUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);

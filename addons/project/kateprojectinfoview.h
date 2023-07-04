@@ -58,11 +58,6 @@ public:
 
 private:
     /**
-     * our plugin view
-     */
-    KateProjectPluginView *m_pluginView;
-
-    /**
      * our project
      */
     KateProject *m_project;

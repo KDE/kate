@@ -24,8 +24,7 @@ Q_DECLARE_METATYPE(KSharedConfig::Ptr)
 
 SnippetStore *SnippetStore::m_self = nullptr;
 
-SnippetStore::SnippetStore(KateSnippetGlobal *plugin)
-    : m_plugin(plugin)
+SnippetStore::SnippetStore()
 {
     m_self = this;
 
@@ -54,10 +53,10 @@ SnippetStore::~SnippetStore()
     m_self = nullptr;
 }
 
-void SnippetStore::init(KateSnippetGlobal *plugin)
+void SnippetStore::init()
 {
     Q_ASSERT(!SnippetStore::self());
-    new SnippetStore(plugin);
+    new SnippetStore();
 }
 
 SnippetStore *SnippetStore::self()

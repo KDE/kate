@@ -34,7 +34,7 @@ public:
     /**
      * Initialize the SnippetStore.
      */
-    static void init(KateSnippetGlobal *plugin);
+    static void init();
     /**
      * Returns the SnippetStore. Call init() to set it up first.
      */
@@ -49,10 +49,9 @@ public:
     SnippetRepository *repositoryForFile(const QString &file);
 
 private:
-    SnippetStore(KateSnippetGlobal *plugin);
+    SnippetStore();
 
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
     static SnippetStore *m_self;
-    KateSnippetGlobal *m_plugin;
 };

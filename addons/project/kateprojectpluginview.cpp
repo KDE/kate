@@ -217,7 +217,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"), this, SLOT(slotGotoSymbol()));
 
     auto chckbrAct = actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [this] {
-        BranchCheckoutDialog bd(mainWindow()->window(), this, projectBaseDir());
+        BranchCheckoutDialog bd(mainWindow()->window(), projectBaseDir());
         bd.openDialog();
     });
     chckbrAct->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));

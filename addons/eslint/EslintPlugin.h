@@ -38,7 +38,7 @@ class ESLintPluginView final : public QObject, public KXMLGUIClient
     Q_OBJECT
 
 public:
-    explicit ESLintPluginView(ESLintPlugin *plugin, KTextEditor::MainWindow *mainwindow);
+    explicit ESLintPluginView(KTextEditor::MainWindow *mainwindow);
     ~ESLintPluginView();
 
 private:
@@ -50,7 +50,6 @@ private:
     void fixDiagnostic(const QUrl &url, const DiagnosticWithFix::Fix &fix);
 
     QPointer<KTextEditor::Document> m_activeDoc;
-    ESLintPlugin *const m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     DiagnosticsProvider m_provider;
     QProcess m_eslintProcess;

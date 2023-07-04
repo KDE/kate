@@ -30,12 +30,11 @@ ESLintPlugin::ESLintPlugin(QObject *parent, const QVariantList &)
 
 QObject *ESLintPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    return new ESLintPluginView(this, mainWindow);
+    return new ESLintPluginView(mainWindow);
 }
 
-ESLintPluginView::ESLintPluginView(ESLintPlugin *plugin, KTextEditor::MainWindow *mainWin)
-    : QObject(plugin)
-    , m_plugin(plugin)
+ESLintPluginView::ESLintPluginView(KTextEditor::MainWindow *mainWin)
+    : QObject(mainWin)
     , m_mainWindow(mainWin)
     , m_provider(mainWin, this)
 {

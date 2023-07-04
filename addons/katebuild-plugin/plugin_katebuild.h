@@ -131,7 +131,6 @@ private:
     QWidget *m_toolView;
     Ui::build m_buildUi{};
     QWidget *m_buildWidget;
-    int m_outputWidgetWidth;
     TargetsUi *m_targetsUi;
     KProcess m_proc;
     QString m_stdOut;
@@ -143,7 +142,6 @@ private:
     QString m_currentlyBuildingTarget;
     bool m_buildCancelled;
     bool m_runAfterBuild = false;
-    int m_displayModeBeforeBuild;
     QString m_makeDir;
     QStack<QString> m_makeDirStack;
     QStringList m_searchPaths;

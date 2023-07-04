@@ -711,7 +711,11 @@ private:
         const auto rootv = serverConfig.value(QStringLiteral("root"));
         if (rootv.isString()) {
             auto sroot = rootv.toString();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            sroot = editor->expandText(sroot, view);
+#else
             editor->expandText(sroot, view, sroot);
+#endif
             if (QDir::isAbsolutePath(sroot)) {
                 rootpath = sroot;
             } else if (!projectBase.isEmpty()) {
@@ -808,7 +812,11 @@ private:
             // some more expansion and substitution
             // unlikely to be used here, but anyway
             for (auto &e : cmdline) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                e = editor->expandText(e, view);
+#else
                 editor->expandText(e, view, e);
+#endif
             }
         }
 
@@ -832,7 +840,11 @@ private:
                 QStringList path;
                 for (const auto &e : vpath) {
                     auto p = e.toString();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                    p = editor->expandText(p, view);
+#else
                     editor->expandText(p, view, p);
+#endif
                     path.push_back(p);
                 }
                 cmd = safeExecutableName(cmdline[0], path);

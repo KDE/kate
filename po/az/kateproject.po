@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:50+0000\n"
+"POT-Creation-Date: 2023-07-05 01:04+0000\n"
 "PO-Revision-Date: 2023-06-30 15:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -63,22 +63,22 @@ msgstr "Yeni şöbəyə köçürüldü: %1"
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Yeni şöbənin yaradıla bilmədi. Xəta \"%1\""
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
 msgstr "Şöbə"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
 msgstr "Sonuncu göndəriş"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Silmək"
 
-#: branchdeletedialog.cpp:140
+#: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

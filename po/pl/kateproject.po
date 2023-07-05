@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:50+0000\n"
+"POT-Creation-Date: 2023-07-05 01:04+0000\n"
 "PO-Revision-Date: 2023-04-15 11:32+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -68,22 +68,22 @@ msgstr "Pobrano wersję wyjściową do nowej gałęzi: %1"
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Nie udało się utworzyć nowej gałęzi. Błąd \"%1\""
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
 msgstr "Gałąź"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
 msgstr "Ostatnie wdrożenie"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Usuń"
 
-#: branchdeletedialog.cpp:140
+#: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

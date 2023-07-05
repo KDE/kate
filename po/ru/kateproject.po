@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:50+0000\n"
+"POT-Creation-Date: 2023-07-05 01:04+0000\n"
 "PO-Revision-Date: 2023-04-03 16:37+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -72,22 +72,22 @@ msgstr "Извлечено в новую ветвь: %1"
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Не удалось создать ветвь. Ошибка «%1»"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
 msgstr "Ветвь"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
 msgstr "Последняя фиксация"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Удалить"
 
-#: branchdeletedialog.cpp:140
+#: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

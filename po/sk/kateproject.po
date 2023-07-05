@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:50+0000\n"
+"POT-Creation-Date: 2023-07-05 01:04+0000\n"
 "PO-Revision-Date: 2023-01-31 18:13+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -65,22 +65,22 @@ msgstr "Prešlo sa na novú vetvu: %1"
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Nepodarilo sa vytvoriť novú vetvu. Chyba \"%1\""
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
 msgstr "Vetva"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
 msgstr "Posledné začlenenie"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "Vymazať"
 
-#: branchdeletedialog.cpp:140
+#: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

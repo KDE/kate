@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:50+0000\n"
+"POT-Creation-Date: 2023-07-05 01:04+0000\n"
 "PO-Revision-Date: 2023-07-03 11:38\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -62,22 +62,22 @@ msgstr "已检出到新分支：%1"
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "创建新分支失败。错误“%1”"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
 msgstr "分支"
 
-#: branchdeletedialog.cpp:122
+#: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
 msgstr "最新提交"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "删除"
 
-#: branchdeletedialog.cpp:140
+#: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"

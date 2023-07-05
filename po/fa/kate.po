@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -435,6 +435,7 @@ msgstr ""
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "خط"
+msgstr[1] ""
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
@@ -446,6 +447,7 @@ msgstr ""
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] ""
+msgstr[1] ""
 
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
@@ -458,6 +460,7 @@ msgstr ""
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "خط"
+msgstr[1] ""
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
@@ -1221,6 +1224,7 @@ msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
 msgid_plural " days"
 msgstr[0] " روز"
+msgstr[1] ""
 
 #: lib/kateconfigdialog.cpp:618
 #, kde-format
@@ -2388,6 +2392,7 @@ msgid_plural ""
 "Currently, there are %1 more documents open. To see all open documents, "
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
+msgstr[1] ""
 
 #: lib/kateviewspace.cpp:1011
 #, fuzzy, kde-format

@@ -15,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 2.0\n"
 
 #: katefilebrowser.cpp:104
@@ -42,10 +42,11 @@ msgid "&Other..."
 msgstr ""
 
 #: katefilebrowser.cpp:357
-#, kde-format
+#, fuzzy, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "دارید سعی میکنید %1 پرونده را باز کنید، آیا مطمئن هستید؟"
+msgstr[1] ""
 
 #: katefilebrowser.cpp:359
 #, kde-format

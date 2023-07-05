@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-24 00:53+0000\n"
+"POT-Creation-Date: 2023-07-05 01:04+0000\n"
 "PO-Revision-Date: 2023-05-29 12:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -378,42 +378,42 @@ msgstr "Yeniden BAŞLATILMIYOR"
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Sunucu beklenmedik bir biçimde sonlandı ... %1 [%2] [ana sayfa: %3] "
 
-#: lspclientservermanager.cpp:849
+#: lspclientservermanager.cpp:861
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Sunucu ikilisi bulunamadı: %1"
 
-#: lspclientservermanager.cpp:852 lspclientservermanager.cpp:894
+#: lspclientservermanager.cpp:864 lspclientservermanager.cpp:906
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "İkili PATH'ini denetleyin"
 
-#: lspclientservermanager.cpp:853 lspclientservermanager.cpp:895
+#: lspclientservermanager.cpp:865 lspclientservermanager.cpp:907
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Kurulum veya ayrıntılar için ayrıca %1 adresine bakın"
 
-#: lspclientservermanager.cpp:891
+#: lspclientservermanager.cpp:903
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Sunucu başlatılamadı: %1"
 
-#: lspclientservermanager.cpp:899
+#: lspclientservermanager.cpp:911
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "%2 sunucusu başlatıldı: %1"
 
-#: lspclientservermanager.cpp:933
+#: lspclientservermanager.cpp:945
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Sunucu yapılandırması '%1' bulunamadı: JSON nesnesi yok"
 
-#: lspclientservermanager.cpp:936
+#: lspclientservermanager.cpp:948
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Sunucu yapılandırması '%1' ayrıştırılamadı: %2"
 
-#: lspclientservermanager.cpp:940
+#: lspclientservermanager.cpp:952
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Sunucu yapılandırması okunamadı: %1"

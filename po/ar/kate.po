@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2023-04-27 12:08+0400\n"
+"PO-Revision-Date: 2023-07-06 10:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 "X-Project-Style: kde\n"
 
 #, kde-format
@@ -311,10 +311,9 @@ msgid "Previous Item"
 msgstr "العنصر السّابق"
 
 #: lib/diagnostics/diagnosticview.cpp:379
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "التشخيص"
+msgstr "امسح مرشح التشخيص"
 
 #: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
@@ -1140,12 +1139,12 @@ msgstr "عندما تحدد سيقلص طول نص اللسان إذا كان ط
 #: lib/kateconfigdialog.cpp:501
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr ""
+msgstr "افتح لسان جديد على يمين اللسان الحالي."
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "لم يؤشر سيفتح اللسان الجديد في النهاية"
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format

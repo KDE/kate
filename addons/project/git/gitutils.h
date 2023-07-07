@@ -27,14 +27,14 @@ struct Branch {
     /** remote name, will be empty for local branches */
     QString remote;
     /** Ref type @see RefType */
-    RefType type;
+    RefType type = All;
     /** last commit on this branch, may be empty **/
     QString lastCommit;
 };
 
 struct Result {
     QString error;
-    int returnCode;
+    int returnCode = 0;
 };
 
 struct CheckoutResult : public Result {

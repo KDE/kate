@@ -28,7 +28,6 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
 
     bool commentLine = false;
 
-    Symbol type;
     QString name;
     QString params;
     QString returnAnnot;
@@ -120,10 +119,10 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
             continue;
         }
 
+        Symbol type;
         match = class_regexp.match(cl);
         if (match.hasMatch()) {
             type = Symbol::Class;
-
         } else {
             match = function_regexp.match(cl);
             if (match.hasMatch()) {
@@ -134,88 +133,89 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 } else {
                     type = Symbol::Method;
                 }
-            }
-        }
-
-        if (match.hasMatch()) {
-            // if either class or function definition found
-            if (type == Symbol::Class) {
-                name = match.captured(1);
-                params = match.captured(2);
-                endcolon = match.captured(3);
-                current_class_name = name;
-
-                if (endcolon.isEmpty()) {
-                    params += QLatin1Char(' ');
-                    params += contStr;
-                }
-
             } else {
-                name = match.captured(2);
-                params = match.captured(3);
-                returnAnnot = match.captured(4);
-                endcolon = match.captured(5);
-
-                if (!returnAnnot.isEmpty()) {
-                    params += QLatin1Char(' ');
-                    params += returnAnnot;
-                }
-
-                if (endcolon.isEmpty()) {
-                    params += QLatin1Char(' ');
-                    params += contStr;
-                }
+                // nothing to do in this iteration
+                continue;
             }
-            if (m_typesOn->isChecked()) {
-                name += params;
-            }
-
-            if (m_func->isChecked() && type == Symbol::Class) {
-                if (m_treeOn->isChecked()) {
-                    node = new QTreeWidgetItem(clsNode, lastClsNode);
-                    if (m_expandOn->isChecked()) {
-                        m_symbols->expandItem(node);
-                    }
-                    lastClsNode = node;
-                    mtdNode = lastClsNode;
-                    lastMtdNode = lastClsNode;
-                } else {
-                    node = new QTreeWidgetItem(m_symbols);
-                }
-
-                node->setText(0, name);
-                node->setIcon(0, m_icon_class);
-                node->setText(1, QString::number(line, 10));
-            }
-
-            if (m_struct->isChecked() && type == Symbol::Method) {
-                if (m_treeOn->isChecked()) {
-                    node = new QTreeWidgetItem(mtdNode, lastMtdNode);
-                    lastMtdNode = node;
-                } else {
-                    node = new QTreeWidgetItem(m_symbols);
-                }
-
-                node->setText(0, name);
-                node->setIcon(0, m_icon_function);
-                node->setText(1, QString::number(line, 10));
-            }
-
-            if (m_macro->isChecked() && type == Symbol::Function) {
-                if (m_treeOn->isChecked()) {
-                    node = new QTreeWidgetItem(functionNode, lastMcrNode);
-                    lastMcrNode = node;
-                } else {
-                    node = new QTreeWidgetItem(m_symbols);
-                }
-
-                node->setText(0, name);
-                node->setIcon(0, m_icon_function);
-                node->setText(1, QString::number(line, 10));
-            }
-
-            name.clear();
-            params.clear();
         }
+
+        // if either class or function definition found
+        if (type == Symbol::Class) {
+            name = match.captured(1);
+            params = match.captured(2);
+            endcolon = match.captured(3);
+            current_class_name = name;
+
+            if (endcolon.isEmpty()) {
+                params += QLatin1Char(' ');
+                params += contStr;
+            }
+
+        } else {
+            name = match.captured(2);
+            params = match.captured(3);
+            returnAnnot = match.captured(4);
+            endcolon = match.captured(5);
+
+            if (!returnAnnot.isEmpty()) {
+                params += QLatin1Char(' ');
+                params += returnAnnot;
+            }
+
+            if (endcolon.isEmpty()) {
+                params += QLatin1Char(' ');
+                params += contStr;
+            }
+        }
+        if (m_typesOn->isChecked()) {
+            name += params;
+        }
+
+        if (m_func->isChecked() && type == Symbol::Class) {
+            if (m_treeOn->isChecked()) {
+                node = new QTreeWidgetItem(clsNode, lastClsNode);
+                if (m_expandOn->isChecked()) {
+                    m_symbols->expandItem(node);
+                }
+                lastClsNode = node;
+                mtdNode = lastClsNode;
+                lastMtdNode = lastClsNode;
+            } else {
+                node = new QTreeWidgetItem(m_symbols);
+            }
+
+            node->setText(0, name);
+            node->setIcon(0, m_icon_class);
+            node->setText(1, QString::number(line, 10));
+        }
+
+        if (m_struct->isChecked() && type == Symbol::Method) {
+            if (m_treeOn->isChecked()) {
+                node = new QTreeWidgetItem(mtdNode, lastMtdNode);
+                lastMtdNode = node;
+            } else {
+                node = new QTreeWidgetItem(m_symbols);
+            }
+
+            node->setText(0, name);
+            node->setIcon(0, m_icon_function);
+            node->setText(1, QString::number(line, 10));
+        }
+
+        if (m_macro->isChecked() && type == Symbol::Function) {
+            if (m_treeOn->isChecked()) {
+                node = new QTreeWidgetItem(functionNode, lastMcrNode);
+                lastMcrNode = node;
+            } else {
+                node = new QTreeWidgetItem(m_symbols);
+            }
+
+            node->setText(0, name);
+            node->setIcon(0, m_icon_function);
+            node->setText(1, QString::number(line, 10));
+        }
+
+        name.clear();
+        params.clear();
     }
 }

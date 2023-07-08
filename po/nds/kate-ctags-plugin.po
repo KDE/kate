@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2014-08-14 16:05+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -339,44 +339,44 @@ msgstr ""
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:110
+#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:110
 #, kde-format
 msgid "Add a directory to index."
 msgstr "Den Index en Orner tofögen"
 
-#: kate_ctags_plugin.cpp:81 kate_ctags_view.cpp:113
+#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:113
 #, kde-format
 msgid "Remove a directory."
 msgstr "En Orner wegmaken"
 
-#: kate_ctags_plugin.cpp:84
+#: kate_ctags_plugin.cpp:83
 #, kde-format
 msgid "(Re-)generate the common CTags database."
 msgstr "De allmeen CTags-Datenbank (nieg) opstellen"
 
-#: kate_ctags_plugin.cpp:102 kate_ctags_view.cpp:47 kate_ctags_view.cpp:54
+#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:47 kate_ctags_view.cpp:54
 #: kate_ctags_view.cpp:97 kate_ctags_view.cpp:135 kate_ctags_view.cpp:547
 #: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
 
-#: kate_ctags_plugin.cpp:108
+#: kate_ctags_plugin.cpp:107
 #, kde-format
 msgid "CTags Settings"
 msgstr "CTags instellen"
 
-#: kate_ctags_plugin.cpp:232
+#: kate_ctags_plugin.cpp:231
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" lett sik nich utföhren. Utstiegstatus: %2"
 
-#: kate_ctags_plugin.cpp:243
+#: kate_ctags_plugin.cpp:242
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "Dat CTags-Programm is afstört."
 
-#: kate_ctags_plugin.cpp:245
+#: kate_ctags_plugin.cpp:244
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "De CTags-Befehl is mit Kode \"%1\" utstegen."

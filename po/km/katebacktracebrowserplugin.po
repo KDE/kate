@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2009-06-08 10:20+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -160,49 +160,49 @@ msgstr "បញ្ជី​ផ្នែកបន្ថែម​ឯកសារ �
 msgid "Indexing files..."
 msgstr "កំពុង​ដាក់​លិបិក្រម​ឯកសារ..."
 
-#: katebacktracebrowser.cpp:117 katebacktracebrowser.cpp:280
+#: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
 #, fuzzy, kde-format
 #| msgid "Load Backtrace"
 msgid "Backtrace"
 msgstr "ផ្ទុក Backtrace"
 
-#: katebacktracebrowser.cpp:151
+#: katebacktracebrowser.cpp:150
 #, kde-format
 msgid "Load Backtrace"
 msgstr "ផ្ទុក Backtrace"
 
-#: katebacktracebrowser.cpp:193
+#: katebacktracebrowser.cpp:192
 #, kde-format
 msgid "Loading backtrace succeeded"
 msgstr "បាន​បន្ត​ការ​​ផ្ទុក backtrace"
 
-#: katebacktracebrowser.cpp:195
+#: katebacktracebrowser.cpp:194
 #, kde-format
 msgid "Loading backtrace failed"
 msgstr "បាន​បរាជ័យ​ក្នុងកា​រផ្ទុក backtrace"
 
-#: katebacktracebrowser.cpp:229
+#: katebacktracebrowser.cpp:228
 #, kde-format
 msgid "File not found: %1"
 msgstr "រក​មិនឃើញ​ឯកសារ ៖ %1"
 
-#: katebacktracebrowser.cpp:240
+#: katebacktracebrowser.cpp:239
 #, kde-format
 msgid "Opened file: %1"
 msgstr "ឯកសារ​ដែលបានបើក ៖ %1"
 
-#: katebacktracebrowser.cpp:243
+#: katebacktracebrowser.cpp:242
 #, kde-format
 msgid "No debugging information available"
 msgstr "មិនមាន​ព័ត៌មានបំបាត់​កំហុស​ទេ"
 
-#: katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:284
 #, fuzzy, kde-format
 #| msgid "Backtrace Browser Settings"
 msgid "Backtrace Settings"
 msgstr "កា​រកំណត់​កម្មវិធីរុករក Backtrace"
 
-#: katebacktracebrowser.cpp:359
+#: katebacktracebrowser.cpp:358
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "កា​រកំណត់​កម្មវិធីរុករក Backtrace"

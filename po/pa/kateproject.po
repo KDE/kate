@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2012-12-12 08:54+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -84,12 +84,12 @@ msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: branchesdialog.cpp:102
+#: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:70
+#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:70
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -663,29 +663,29 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "ਪਰੋਜੈਕਟ ਪੂਰਨਤਾ"
 
-#: kateprojectinfoview.cpp:35
+#: kateprojectinfoview.cpp:34
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr ""
 
-#: kateprojectinfoview.cpp:43
+#: kateprojectinfoview.cpp:42
 #, fuzzy, kde-format
 #| msgid "Terminal"
 msgid "Terminal (Base)"
 msgstr "ਟਰਮੀਨਲ"
 
-#: kateprojectinfoview.cpp:50
+#: kateprojectinfoview.cpp:49
 #, fuzzy, kde-format
 #| msgid "Index"
 msgid "Code Index"
 msgstr "ਇੰਡੈਕਸ"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:54
 #, kde-format
 msgid "Code Analysis"
 msgstr ""
 
-#: kateprojectinfoview.cpp:60
+#: kateprojectinfoview.cpp:59
 #, kde-format
 msgid "Notes"
 msgstr "ਨੋਟਿਸ"
@@ -798,7 +798,7 @@ msgid ""
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:75
+#: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
 #: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, fuzzy, kde-format

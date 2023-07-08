@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:49+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2020-09-16 00:58+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -23,44 +23,44 @@ msgstr ""
 msgid "Preview"
 msgstr "Previzualizează"
 
-#: previewwidget.cpp:45
+#: previewwidget.cpp:44
 #, kde-format
 msgid "Lock Current Document"
 msgstr "Blochează documentul actual"
 
-#: previewwidget.cpp:46
+#: previewwidget.cpp:45
 #, kde-format
 msgid "Lock preview to current document"
 msgstr "Blochează previzualizarea la documentul actual"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock Current View"
 msgstr "Deblochează vizualizarea actuală"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock current view"
 msgstr "Deblochează vizualizarea actuală"
 
-#: previewwidget.cpp:54
+#: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
 msgstr "Actualizează previzualizarea automat"
 
-#: previewwidget.cpp:55
+#: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr ""
 "Activează actualizările automate ale previzualizării la conținutul "
 "documentului actual"
 
-#: previewwidget.cpp:56
+#: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
 msgstr "Actualizează previzualizarea manual"
 
-#: previewwidget.cpp:58
+#: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
@@ -68,27 +68,27 @@ msgstr ""
 "Dezactivează actualizările automate ale previzualizării la conținutul "
 "documentului actual"
 
-#: previewwidget.cpp:63
+#: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
 msgstr "Actualizează previzualizarea"
 
-#: previewwidget.cpp:64
+#: previewwidget.cpp:63
 #, kde-format
 msgid "Update the preview to the current document content"
 msgstr "Actualizează previzualizarea la conținutul documentului actual"
 
-#: previewwidget.cpp:72
+#: previewwidget.cpp:71
 #, kde-format
 msgid "View"
 msgstr "Vizualizare"
 
-#: previewwidget.cpp:97
+#: previewwidget.cpp:96
 #, kde-format
 msgid "No preview available."
 msgstr "Previzualizare indisponibilă."
 
-#: previewwidget.cpp:233
+#: previewwidget.cpp:232
 #, kde-format
 msgid "About %1"
 msgstr "Despre %1"

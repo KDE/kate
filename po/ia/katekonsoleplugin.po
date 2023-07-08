@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-09 00:51+0000\n"
-"PO-Revision-Date: 2023-04-14 23:06+0200\n"
+"PO-Revision-Date: 2023-07-07 12:13+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.03.90\n"
+"X-Generator: Lokalize 21.12.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: kateconsole.cpp:56
@@ -190,7 +190,7 @@ msgstr ""
 #: kateconsole.cpp:635
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
-msgstr "Cela Konsole qundo on pressa 'Esc'"
+msgstr "Cela Konsole quando on pressa 'Esc'"
 
 #: kateconsole.cpp:638
 #, kde-format

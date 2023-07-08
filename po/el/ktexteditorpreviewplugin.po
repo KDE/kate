@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:49+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2017-11-07 15:40+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -22,44 +22,44 @@ msgstr ""
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: previewwidget.cpp:45
+#: previewwidget.cpp:44
 #, kde-format
 msgid "Lock Current Document"
 msgstr "Κλείδωμα τρέχοντος εγγράφου"
 
-#: previewwidget.cpp:46
+#: previewwidget.cpp:45
 #, kde-format
 msgid "Lock preview to current document"
 msgstr "Κλείδωμα προεπισκόπησης στο τρέχον έγγραφο"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock Current View"
 msgstr "Ξεκλείδωμα τρέχουσας προβολής"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock current view"
 msgstr "Ξεκλείδωμα τρέχουσας προβολής"
 
-#: previewwidget.cpp:54
+#: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
 msgstr "Αυτόματη ενημέρωση προεπισκόπησης"
 
-#: previewwidget.cpp:55
+#: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr ""
 "Ενεργοποίηση αυτόματων ενημερώσεων της προεπισκόπησης στο τρέχον περιεχόμενο "
 "του εγγράφου"
 
-#: previewwidget.cpp:56
+#: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
 msgstr "Χειροκίνητη ενημέρωση εγγράφου"
 
-#: previewwidget.cpp:58
+#: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
@@ -67,27 +67,27 @@ msgstr ""
 "Απενεργοποίηση αυτόματων ενημερώσεων της προεπισκόπησης στο τρέχον "
 "περιεχόμενο του εγγράφου"
 
-#: previewwidget.cpp:63
+#: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
 msgstr "Ενημέρωση προεπισκόπησης"
 
-#: previewwidget.cpp:64
+#: previewwidget.cpp:63
 #, kde-format
 msgid "Update the preview to the current document content"
 msgstr "Ενημέρωση της προεπισκόπησης στο τρέχον περιεχόμενο του εγγράφου"
 
-#: previewwidget.cpp:72
+#: previewwidget.cpp:71
 #, kde-format
 msgid "View"
 msgstr "Προβολή"
 
-#: previewwidget.cpp:97
+#: previewwidget.cpp:96
 #, kde-format
 msgid "No preview available."
 msgstr "Χωρίς διαθέσιμη προεπισκόπηση."
 
-#: previewwidget.cpp:233
+#: previewwidget.cpp:232
 #, kde-format
 msgid "About %1"
 msgstr "Σχετικά με το %1"

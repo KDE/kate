@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2023-01-31 18:13+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -88,12 +88,12 @@ msgstr[0] "Naozaj chcete vymazať vybranú vetvu?"
 msgstr[1] "Naozaj chcete vymazať vybrané vetvy?"
 msgstr[2] "Naozaj chcete vymazať vybrané vetvy?"
 
-#: branchesdialog.cpp:102
+#: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
 msgstr "Vybrať vetvu..."
 
-#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:70
+#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:70
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -667,27 +667,27 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Vlastnosti projektu"
 
-#: kateprojectinfoview.cpp:35
+#: kateprojectinfoview.cpp:34
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Terminál (.kateproject)"
 
-#: kateprojectinfoview.cpp:43
+#: kateprojectinfoview.cpp:42
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Terminál (Základný)"
 
-#: kateprojectinfoview.cpp:50
+#: kateprojectinfoview.cpp:49
 #, kde-format
 msgid "Code Index"
 msgstr "Index kódu"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:54
 #, kde-format
 msgid "Code Analysis"
 msgstr "Analýza kódu"
 
-#: kateprojectinfoview.cpp:60
+#: kateprojectinfoview.cpp:59
 #, kde-format
 msgid "Notes"
 msgstr "Poznámky"
@@ -806,7 +806,7 @@ msgstr ""
 "Úplná cesta k aktuálnemu projektu s výnimkou názvu súboru, s natívnym "
 "oddeľovačom (spätné lomítko vo Windows)."
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:75
+#: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
 #: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format

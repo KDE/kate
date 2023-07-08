@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kde 49i410\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2013-01-28 12:56+0000\n"
 "Last-Translator: Vedran Ljubovic <vljubovic@smartnet.ba>\n"
 "Language-Team: Bosnian\n"
@@ -88,12 +88,12 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: branchesdialog.cpp:102
+#: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:70
+#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:70
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -668,28 +668,28 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Završetak projekta"
 
-#: kateprojectinfoview.cpp:35
+#: kateprojectinfoview.cpp:34
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr ""
 
-#: kateprojectinfoview.cpp:43
+#: kateprojectinfoview.cpp:42
 #, fuzzy, kde-format
 #| msgid "Terminal"
 msgid "Terminal (Base)"
 msgstr "Terminal"
 
-#: kateprojectinfoview.cpp:50
+#: kateprojectinfoview.cpp:49
 #, kde-format
 msgid "Code Index"
 msgstr "Kodni Indeks"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:54
 #, kde-format
 msgid "Code Analysis"
 msgstr "Analiza koda"
 
-#: kateprojectinfoview.cpp:60
+#: kateprojectinfoview.cpp:59
 #, kde-format
 msgid "Notes"
 msgstr "Bilješke"
@@ -805,7 +805,7 @@ msgid ""
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:75
+#: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
 #: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, fuzzy, kde-format

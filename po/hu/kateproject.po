@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -88,12 +88,12 @@ msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] "Biztosan törölni szeretné a kijelölt ágat?"
 msgstr[1] "Biztosan törölni szeretné törölni a kijelölt ágakat?"
 
-#: branchesdialog.cpp:102
+#: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
 msgstr "Ág kiválasztása…"
 
-#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:70
+#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:70
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -681,27 +681,27 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Projektbeállítások"
 
-#: kateprojectinfoview.cpp:35
+#: kateprojectinfoview.cpp:34
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Terminál (.kateproject)"
 
-#: kateprojectinfoview.cpp:43
+#: kateprojectinfoview.cpp:42
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Terminál (alap)"
 
-#: kateprojectinfoview.cpp:50
+#: kateprojectinfoview.cpp:49
 #, kde-format
 msgid "Code Index"
 msgstr "Kódindex"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:54
 #, kde-format
 msgid "Code Analysis"
 msgstr "Kódelemzés"
 
-#: kateprojectinfoview.cpp:60
+#: kateprojectinfoview.cpp:59
 #, kde-format
 msgid "Notes"
 msgstr "Megjegyzések"
@@ -826,7 +826,7 @@ msgstr ""
 "Az aktuális projekt teljes elérési útja a fájlnév nélkül, natív elválasztó "
 "karakterekkel (Windowson fordított perjel)."
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:75
+#: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
 #: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format

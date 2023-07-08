@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktexteditorpreviewplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:49+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2018-09-04 17:24+0100\n"
 "Last-Translator: Mthw <jari_45@hotmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -21,70 +21,70 @@ msgstr ""
 msgid "Preview"
 msgstr "Náhľad"
 
-#: previewwidget.cpp:45
+#: previewwidget.cpp:44
 #, kde-format
 msgid "Lock Current Document"
 msgstr "Zamknúť aktuálny dokument"
 
-#: previewwidget.cpp:46
+#: previewwidget.cpp:45
 #, kde-format
 msgid "Lock preview to current document"
 msgstr "Zamknúť náhľad na aktuálnom dokumente"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock Current View"
 msgstr "Odomkúť aktuálny pohľad"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock current view"
 msgstr "Odomknúť aktuálny pohľad"
 
-#: previewwidget.cpp:54
+#: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
 msgstr "Automaticky aktualizovať náhľad"
 
-#: previewwidget.cpp:55
+#: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr ""
 "Zapnúť automatické aktualizácie náhľadu pre aktuálne otvorený obsah dokumentu"
 
-#: previewwidget.cpp:56
+#: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
 msgstr "Ručne aktualizovať náhľad"
 
-#: previewwidget.cpp:58
+#: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
 msgstr ""
 "Vypnúť automatické aktualizácie náhľadu pre aktuálne otvorený obsah dokumentu"
 
-#: previewwidget.cpp:63
+#: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
 msgstr "Obnoviť náhľad"
 
-#: previewwidget.cpp:64
+#: previewwidget.cpp:63
 #, kde-format
 msgid "Update the preview to the current document content"
 msgstr "Aktualizovať náhľad pre aktuálne otvorený obsah dokumentu"
 
-#: previewwidget.cpp:72
+#: previewwidget.cpp:71
 #, kde-format
 msgid "View"
 msgstr "Zobraziť"
 
-#: previewwidget.cpp:97
+#: previewwidget.cpp:96
 #, kde-format
 msgid "No preview available."
 msgstr "Náhľad nie je k dispozícii"
 
-#: previewwidget.cpp:233
+#: previewwidget.cpp:232
 #, kde-format
 msgid "About %1"
 msgstr "Informácie o %1"

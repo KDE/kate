@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2023-04-03 16:37+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -96,12 +96,12 @@ msgstr[1] "Удалить выбранные ветви?"
 msgstr[2] "Удалить выбранные ветви?"
 msgstr[3] "Удалить выбранную ветвь?"
 
-#: branchesdialog.cpp:102
+#: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
 msgstr "Выберите ветвь…"
 
-#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:70
+#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:70
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -678,27 +678,27 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Управление проектами"
 
-#: kateprojectinfoview.cpp:35
+#: kateprojectinfoview.cpp:34
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Терминал (.kateproject)"
 
-#: kateprojectinfoview.cpp:43
+#: kateprojectinfoview.cpp:42
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Терминал (Основной)"
 
-#: kateprojectinfoview.cpp:50
+#: kateprojectinfoview.cpp:49
 #, kde-format
 msgid "Code Index"
 msgstr "Индекс кода"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:54
 #, kde-format
 msgid "Code Analysis"
 msgstr "Анализ кода"
 
-#: kateprojectinfoview.cpp:60
+#: kateprojectinfoview.cpp:59
 #, kde-format
 msgid "Notes"
 msgstr "Примечания"
@@ -819,7 +819,7 @@ msgstr ""
 "Полный путь к текущему проекту, исключая имя файла, со стандартными для ОС "
 "разделителями (обратная косая черта в Windows)."
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:75
+#: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
 #: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format

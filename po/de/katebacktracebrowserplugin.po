@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2017-06-12 07:04+0100\n"
 "Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -140,47 +140,47 @@ msgstr "Liste der Dateierweiterungen. Beispiel: *.cpp, *.h, *.c usw."
 msgid "Indexing files..."
 msgstr "Dateien werden indiziert ..."
 
-#: katebacktracebrowser.cpp:117 katebacktracebrowser.cpp:280
+#: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
 #, kde-format
 msgid "Backtrace"
 msgstr "Backtrace"
 
-#: katebacktracebrowser.cpp:151
+#: katebacktracebrowser.cpp:150
 #, kde-format
 msgid "Load Backtrace"
 msgstr "Backtrace laden"
 
-#: katebacktracebrowser.cpp:193
+#: katebacktracebrowser.cpp:192
 #, kde-format
 msgid "Loading backtrace succeeded"
 msgstr "Backtrace erfolgreich geladen"
 
-#: katebacktracebrowser.cpp:195
+#: katebacktracebrowser.cpp:194
 #, kde-format
 msgid "Loading backtrace failed"
 msgstr "Backtrace kann nicht geladen werden"
 
-#: katebacktracebrowser.cpp:229
+#: katebacktracebrowser.cpp:228
 #, kde-format
 msgid "File not found: %1"
 msgstr "Datei nicht gefunden: %1"
 
-#: katebacktracebrowser.cpp:240
+#: katebacktracebrowser.cpp:239
 #, kde-format
 msgid "Opened file: %1"
 msgstr "Geöffnete Datei: %1"
 
-#: katebacktracebrowser.cpp:243
+#: katebacktracebrowser.cpp:242
 #, kde-format
 msgid "No debugging information available"
 msgstr "Keine Debugging-Informationen verfügbar"
 
-#: katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:284
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Einstellungen für Backtrace"
 
-#: katebacktracebrowser.cpp:359
+#: katebacktracebrowser.cpp:358
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Einstellungen für Backtrace-Browser"

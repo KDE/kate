@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2023-06-04 01:40+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -87,12 +87,12 @@ msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] "Seçili dalı silmek istediğinize emin misiniz?"
 msgstr[1] "Seçili dalları silmek istediğinize emin misiniz?"
 
-#: branchesdialog.cpp:102
+#: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
 msgstr "Dal Seç..."
 
-#: branchesdialog.cpp:128 gitwidget.cpp:533 kateprojectpluginview.cpp:70
+#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:70
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -665,27 +665,27 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Projelerin Özellikleri"
 
-#: kateprojectinfoview.cpp:35
+#: kateprojectinfoview.cpp:34
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Uçbirim (.kateproject)"
 
-#: kateprojectinfoview.cpp:43
+#: kateprojectinfoview.cpp:42
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Uçbirim (Base)"
 
-#: kateprojectinfoview.cpp:50
+#: kateprojectinfoview.cpp:49
 #, kde-format
 msgid "Code Index"
 msgstr "Kod İndeksi"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:54
 #, kde-format
 msgid "Code Analysis"
 msgstr "Kod Çözümlemesi"
 
-#: kateprojectinfoview.cpp:60
+#: kateprojectinfoview.cpp:59
 #, kde-format
 msgid "Notes"
 msgstr "Notlar"
@@ -802,7 +802,7 @@ msgstr ""
 "Dosya adı hariç, yerel yol ayırıcılı (Windows'ta ters eğik çizgi) geçerli "
 "projenin tam yolu."
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:75
+#: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
 #: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:49+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2017-09-26 19:16+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -25,44 +25,44 @@ msgstr ""
 msgid "Preview"
 msgstr "Vista prèvia"
 
-#: previewwidget.cpp:45
+#: previewwidget.cpp:44
 #, kde-format
 msgid "Lock Current Document"
 msgstr "Bloca el document actual"
 
-#: previewwidget.cpp:46
+#: previewwidget.cpp:45
 #, kde-format
 msgid "Lock preview to current document"
 msgstr "Bloca la vista prèvia al document actual"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock Current View"
 msgstr "Desbloqueja la vista actual"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock current view"
 msgstr "Desbloqueja la vista actual"
 
-#: previewwidget.cpp:54
+#: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
 msgstr "Actualitza automàticament la vista prèvia"
 
-#: previewwidget.cpp:55
+#: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr ""
 "Activa les actualitzacions automàtiques de la vista prèvia al contingut del "
 "document actual"
 
-#: previewwidget.cpp:56
+#: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
 msgstr "Actualitza manualment la vista prèvia"
 
-#: previewwidget.cpp:58
+#: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
@@ -70,27 +70,27 @@ msgstr ""
 "Desactiva les actualitzacions automàtiques de la vista prèvia al contingut "
 "del document actual"
 
-#: previewwidget.cpp:63
+#: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
 msgstr "Actualitza la vista prèvia"
 
-#: previewwidget.cpp:64
+#: previewwidget.cpp:63
 #, kde-format
 msgid "Update the preview to the current document content"
 msgstr "Actualitza la vista prèvia del contingut del document actual"
 
-#: previewwidget.cpp:72
+#: previewwidget.cpp:71
 #, kde-format
 msgid "View"
 msgstr "Vista"
 
-#: previewwidget.cpp:97
+#: previewwidget.cpp:96
 #, kde-format
 msgid "No preview available."
 msgstr "No hi ha disponible la vista prèvia."
 
-#: previewwidget.cpp:233
+#: previewwidget.cpp:232
 #, kde-format
 msgid "About %1"
 msgstr "Quant a %1"

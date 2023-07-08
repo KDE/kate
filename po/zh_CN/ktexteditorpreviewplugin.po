@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:49+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2023-07-03 11:38\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -22,68 +22,68 @@ msgstr ""
 msgid "Preview"
 msgstr "预览"
 
-#: previewwidget.cpp:45
+#: previewwidget.cpp:44
 #, kde-format
 msgid "Lock Current Document"
 msgstr "锁定当前文档"
 
-#: previewwidget.cpp:46
+#: previewwidget.cpp:45
 #, kde-format
 msgid "Lock preview to current document"
 msgstr "将预览锁定到当前文档"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock Current View"
 msgstr "解锁当前视图"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock current view"
 msgstr "解锁当前视图"
 
-#: previewwidget.cpp:54
+#: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
 msgstr "自动更新预览"
 
-#: previewwidget.cpp:55
+#: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr "启用对当前文档内容的预览的自动更新"
 
-#: previewwidget.cpp:56
+#: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
 msgstr "手动更新预览"
 
-#: previewwidget.cpp:58
+#: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
 msgstr "禁用对当前文档内容的预览的自动更新"
 
-#: previewwidget.cpp:63
+#: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
 msgstr "更新预览"
 
-#: previewwidget.cpp:64
+#: previewwidget.cpp:63
 #, kde-format
 msgid "Update the preview to the current document content"
 msgstr "更新预览到当前文档内容"
 
-#: previewwidget.cpp:72
+#: previewwidget.cpp:71
 #, kde-format
 msgid "View"
 msgstr "视图"
 
-#: previewwidget.cpp:97
+#: previewwidget.cpp:96
 #, kde-format
 msgid "No preview available."
 msgstr "没有可用的预览。"
 
-#: previewwidget.cpp:233
+#: previewwidget.cpp:232
 #, kde-format
 msgid "About %1"
 msgstr "关于 %1"

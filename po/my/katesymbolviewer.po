@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-07 00:51+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2021-09-15 05:08+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -26,7 +26,7 @@ msgid "Show Functions"
 msgstr "Functionများ ပြမည်"
 
 #: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40
-#: julia_parser.cpp:55 php_parser.cpp:34 python_parser.cpp:46
+#: julia_parser.cpp:55 php_parser.cpp:34 python_parser.cpp:45
 #: ruby_parser.cpp:33 tcl_parser.cpp:35
 #, kde-format
 msgid "Functions"
@@ -102,7 +102,7 @@ msgstr "Namespaces"
 msgid "Defines"
 msgstr "Defines"
 
-#: php_parser.cpp:33 python_parser.cpp:45 ruby_parser.cpp:32
+#: php_parser.cpp:33 python_parser.cpp:44 ruby_parser.cpp:32
 #, kde-format
 msgid "Classes"
 msgstr "Classes"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2023-02-25 14:23+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -339,44 +339,44 @@ msgstr "Ripristina i comandi predefiniti"
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:110
+#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:110
 #, kde-format
 msgid "Add a directory to index."
 msgstr "Aggiungi una cartella da indicizzare."
 
-#: kate_ctags_plugin.cpp:81 kate_ctags_view.cpp:113
+#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:113
 #, kde-format
 msgid "Remove a directory."
 msgstr "Rimuovi una cartella."
 
-#: kate_ctags_plugin.cpp:84
+#: kate_ctags_plugin.cpp:83
 #, kde-format
 msgid "(Re-)generate the common CTags database."
 msgstr "Rigenera la banca dati comune di CTags."
 
-#: kate_ctags_plugin.cpp:102 kate_ctags_view.cpp:47 kate_ctags_view.cpp:54
+#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:47 kate_ctags_view.cpp:54
 #: kate_ctags_view.cpp:97 kate_ctags_view.cpp:135 kate_ctags_view.cpp:547
 #: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
 
-#: kate_ctags_plugin.cpp:108
+#: kate_ctags_plugin.cpp:107
 #, kde-format
 msgid "CTags Settings"
 msgstr "Impostazioni CTags"
 
-#: kate_ctags_plugin.cpp:232
+#: kate_ctags_plugin.cpp:231
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Impossibile eseguire «%1». Stato di uscita = %2"
 
-#: kate_ctags_plugin.cpp:243
+#: kate_ctags_plugin.cpp:242
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "L'eseguibile di CTags è andato in crash."
 
-#: kate_ctags_plugin.cpp:245
+#: kate_ctags_plugin.cpp:244
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "Il comando CTags è terminato con codice %1"

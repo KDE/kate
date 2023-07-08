@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:49+0000\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2021-09-15 05:38+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -23,68 +23,68 @@ msgstr ""
 msgid "Preview"
 msgstr "အကြိုမြင်ကွင်း"
 
-#: previewwidget.cpp:45
+#: previewwidget.cpp:44
 #, kde-format
 msgid "Lock Current Document"
 msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ သော့ခတ်မည်"
 
-#: previewwidget.cpp:46
+#: previewwidget.cpp:45
 #, kde-format
 msgid "Lock preview to current document"
 msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ၏ ပုံနှိပ်အကြိုမြင်ကွင်း သော့ခတ်မည်"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock Current View"
 msgstr "လက်ရှိမြင်ကွင်းကို သော့ဖွင့်မည်"
 
-#: previewwidget.cpp:47
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock current view"
 msgstr "လက်ရှိမြင်ကွင်းကို သော့ဖွင့်မည်"
 
-#: previewwidget.cpp:54
+#: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
 msgstr "အကြိုမြင်ကွင်း အလိုအလျောက် အပ်ဒိတ်တင်မည်"
 
-#: previewwidget.cpp:55
+#: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ၏ အကြိုမြင်ကွင်း အလိုအလျောက်အပ်ဒိတ်တင်မှု ဖွင့်ထားမည်"
 
-#: previewwidget.cpp:56
+#: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
 msgstr "အကြိုမြင်ကွင်း ကိုယ်တိုင် အပ်ဒိတ်တင်မည်"
 
-#: previewwidget.cpp:58
+#: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
 msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ၏ အကြိုမြင်ကွင်း အလိုအလျောက်အပ်ဒိတ်တင်မှု ပိတ်ထားမည်"
 
-#: previewwidget.cpp:63
+#: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
 msgstr "အကြိုမြင်ကွင်း အပ်ဒိတ်တင်မည်"
 
-#: previewwidget.cpp:64
+#: previewwidget.cpp:63
 #, kde-format
 msgid "Update the preview to the current document content"
 msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ၏ အကြိုမြင်ကွင်း အပ်ဒိတ်တင်မည်"
 
-#: previewwidget.cpp:72
+#: previewwidget.cpp:71
 #, kde-format
 msgid "View"
 msgstr "မြင်ကွင်း"
 
-#: previewwidget.cpp:97
+#: previewwidget.cpp:96
 #, kde-format
 msgid "No preview available."
 msgstr "အကြိုမြင်ကွင်း မရရှိနိုင်သေးပါ။"
 
-#: previewwidget.cpp:233
+#: previewwidget.cpp:232
 #, kde-format
 msgid "About %1"
 msgstr "%1 အကြောင်း"

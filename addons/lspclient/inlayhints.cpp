@@ -354,9 +354,11 @@ void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::R
     }
     auto &list = it->m_hints;
     auto bit = binaryFind(list, range.start().line());
+    auto lineStartIt = bit;
     auto removeBegin = bit;
     auto removeEnd = list.end();
     bool changed = false;
+    bool resort = false;
     for (; bit != list.end(); ++bit) {
         if (bit->position.line() > range.start().line()) {
             removeEnd = bit;
@@ -370,10 +372,17 @@ void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::R
             // in front? => adjust position
             bit->position.setColumn(bit->position.column() - t.size());
             changed = true;
+            resort = true;
         }
     }
     if (changed) {
         removeInvalidRanges(list, removeBegin, removeEnd);
+        if (resort) {
+            // resort the hints on this line
+            std::sort(lineStartIt, removeEnd, [](const LSPInlayHint &l, const LSPInlayHint &r) {
+                return l.position < r.position;
+            });
+        }
         m_noteProvider.setHints(list);
     }
 

@@ -482,16 +482,26 @@ public:
             matching.chop(1);
         }
 
+        // If the server sent a CompletionItem.textEdit.range and that range's start
+        // is different than what we have, perfer the server. This leads to better
+        // completion because the server might be supplying items for a bigger range than
+        // just the current word under cursor.
+        const auto textEditRange = item.textEdit.range;
+        auto rangeToReplace = word;
+        if (textEditRange.isValid() && textEditRange.start() < word.start() && word.end() == textEditRange.end()) {
+            rangeToReplace = textEditRange;
+        }
+
         // NOTE: view->setCursorPosition() will invalidate the matches, so we save the
         // additionalTextEdits before setting cursor-possition
         const auto additionalTextEdits = m_matches.at(index.row()).additionalTextEdits;
         if (m_complParens) {
             const auto [col, textToInsert] = stripSnippetMarkers(matching);
             qCInfo(LSPCLIENT) << "original text: " << matching << ", snippet markers removed; " << textToInsert;
-            view->document()->replaceText(word, textToInsert);
+            view->document()->replaceText(rangeToReplace, textToInsert);
             // if the text is same, don't do any work
             if (col >= 0 && textToInsert != matching) {
-                KTextEditor::Cursor p{word.start()};
+                KTextEditor::Cursor p{rangeToReplace.start()};
                 int column = p.column();
                 int count = 0;
                 // can be multiline text
@@ -513,7 +523,7 @@ public:
                 view->setCursorPosition(p);
             }
         } else {
-            view->document()->replaceText(word, matching);
+            view->document()->replaceText(rangeToReplace, matching);
         }
 
         if (m_autoImport) {

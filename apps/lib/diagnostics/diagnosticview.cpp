@@ -565,8 +565,10 @@ void DiagnosticsView::handleEsc(QEvent *event)
 
     auto keyEvent = static_cast<QKeyEvent *>(event);
     if (keyEvent && keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
-        m_mainWindow->hideToolView(parentWidget());
-        event->accept();
+        if (parentWidget() && parentWidget()->isVisible()) {
+            m_mainWindow->hideToolView(parentWidget());
+            event->accept();
+        }
     }
 }
 

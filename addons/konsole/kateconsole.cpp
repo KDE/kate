@@ -580,7 +580,7 @@ void KateConsole::handleEsc(QEvent *e)
             if (m_toolView && m_toolView->isVisible() && !exceptList.contains(app)) {
                 m_mw->hideToolView(m_toolView);
             }
-        } else {
+        } else if (m_toolView && m_toolView->isVisible()) {
             m_mw->hideToolView(m_toolView);
         }
     }

@@ -591,13 +591,6 @@ public:
     void clearMarks() override
     {
     }
-    void setMarkPixmap(MarkTypes, const QPixmap &) override
-    {
-    }
-    QPixmap markPixmap(MarkTypes) const override
-    {
-        return {};
-    }
     void setMarkDescription(MarkTypes, const QString &) override
     {
     }

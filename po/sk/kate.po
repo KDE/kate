@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-28 00:50+0000\n"
+"POT-Creation-Date: 2023-07-13 00:51+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -338,69 +338,69 @@ msgstr "Upozornenie"
 msgid "Filter..."
 msgstr "&Iné..."
 
-#: lib/diagnostics/diagnosticview.cpp:1059 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1061 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Chyba"
 
-#: lib/diagnostics/diagnosticview.cpp:1063 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1065 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Upozornenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1067
+#: lib/diagnostics/diagnosticview.cpp:1069
 #, kde-format
 msgid "Information"
 msgstr "Informácia"
 
-#: lib/diagnostics/diagnosticview.cpp:1219
+#: lib/diagnostics/diagnosticview.cpp:1221
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [potlačené: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1349
+#: lib/diagnostics/diagnosticview.cpp:1351
 #, kde-format
 msgid "Expand All"
 msgstr "Rozbaliť všetko"
 
-#: lib/diagnostics/diagnosticview.cpp:1350
+#: lib/diagnostics/diagnosticview.cpp:1352
 #, kde-format
 msgid "Collapse All"
 msgstr "Zbaliť všetko"
 
-#: lib/diagnostics/diagnosticview.cpp:1357
+#: lib/diagnostics/diagnosticview.cpp:1359
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Skopírovať do schránky"
 
-#: lib/diagnostics/diagnosticview.cpp:1380
+#: lib/diagnostics/diagnosticview.cpp:1382
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Odstrániť globálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1382
+#: lib/diagnostics/diagnosticview.cpp:1384
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Pridať globálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1386
+#: lib/diagnostics/diagnosticview.cpp:1388
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Odstrániť lokálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1388
+#: lib/diagnostics/diagnosticview.cpp:1390
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Pridať lokálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1402
+#: lib/diagnostics/diagnosticview.cpp:1404
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Zakázať lokálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1404
+#: lib/diagnostics/diagnosticview.cpp:1406
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Povoliť lokálne potlačenie"

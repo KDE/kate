@@ -187,11 +187,20 @@ void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document *document)
 
 void TabSwitcherPluginView::raiseView(KTextEditor::View *view)
 {
-    if (!view || m_documents.find(view->document()) == m_documents.end()) {
+    auto activeWidget = [this, view]() -> DocOrWidget {
+        if (view && view->document()) {
+            return view->document();
+        }
+        QWidget *active = nullptr;
+        QMetaObject::invokeMethod(m_mainWindow->window(), "activeWidget", Q_RETURN_ARG(QWidget *, active));
+        return active;
+    }();
+
+    if (activeWidget.isNull() || m_documents.find(activeWidget) == m_documents.end()) {
         return;
     }
 
-    m_model->raiseDocument(view->document());
+    m_model->raiseDocument(activeWidget);
 }
 
 void TabSwitcherPluginView::walk(const int from, const int to)

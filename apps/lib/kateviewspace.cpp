@@ -1030,7 +1030,9 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     QAction *aCloseOthers = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-other")), i18n("Close Other &Documents"));
     QAction *aCloseAll = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-all")), i18n("Close &All Documents"));
     menu.addSeparator();
+    menu.addAction(KStandardAction::open(m_viewManager, &KateViewManager::slotDocumentOpen, this));
     QAction *aDetachTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-detach")), i18n("D&etach Document"));
+    menu.addSeparator();
     aDetachTab->setWhatsThis(i18n("Opens the document in a new window and closes it in the current window"));
     menu.addSeparator();
     QAction *aCopyPath = addActionFromCollection(&menu, "file_copy_filepath");

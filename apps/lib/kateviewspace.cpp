@@ -24,18 +24,18 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
+#include <KTextEditor/Editor>
 
 #include <QHelpEvent>
 #include <QMenu>
 #include <QMessageBox>
 #include <QRubberBand>
+#include <QScopedValueRollback>
 #include <QStackedWidget>
 #include <QTimer>
 #include <QToolButton>
 #include <QToolTip>
 #include <QWhatsThis>
-
-#include <KTextEditor/Editor>
 
 // BEGIN KateViewSpace
 KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, const char *name)
@@ -342,7 +342,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     }
 
     connect(v, &KTextEditor::View::cursorPositionChanged, this, [this](KTextEditor::View *view, const KTextEditor::Cursor &newPosition) {
-        if (view && view->document())
+        if (!m_blockAddHistory && view && view->document())
             addPositionToHistory(view->document()->url(), newPosition);
     });
 
@@ -1237,7 +1237,7 @@ void KateViewSpace::goBack()
 
     if (auto v = m_viewManager->activeView()) {
         if (v->document()->url() == location.url) {
-            const QSignalBlocker blocker(v);
+            QScopedValueRollback blocker(m_blockAddHistory, true);
             v->setCursorPosition(location.cursor);
             // enable forward
             m_historyForward->setEnabled(true);
@@ -1247,7 +1247,7 @@ void KateViewSpace::goBack()
     }
 
     auto v = m_viewManager->openUrlWithView(location.url, QString());
-    const QSignalBlocker blocker(v);
+    QScopedValueRollback blocker(m_blockAddHistory, true);
     v->setCursorPosition(location.cursor);
     // enable forward in viewspace + mainwindow
     m_historyForward->setEnabled(true);
@@ -1293,14 +1293,14 @@ void KateViewSpace::goForward()
 
     if (auto v = m_viewManager->activeView()) {
         if (v->document()->url() == location.url) {
-            const QSignalBlocker blocker(v);
+            QScopedValueRollback blocker(m_blockAddHistory, true);
             v->setCursorPosition(location.cursor);
             return;
         }
     }
 
     auto v = m_viewManager->openUrlWithView(location.url, QString());
-    const QSignalBlocker blocker(v);
+    QScopedValueRollback blocker(m_blockAddHistory, true);
     v->setCursorPosition(location.cursor);
 }
 

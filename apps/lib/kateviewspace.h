@@ -359,4 +359,7 @@ private:
 
     // should the tab bar be auto hidden if just one document is open?
     bool m_autoHideTabBar = false;
+
+    // Block adding position to history if this is true
+    bool m_blockAddHistory = false;
 };

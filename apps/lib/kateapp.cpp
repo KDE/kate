@@ -181,7 +181,9 @@ void KateApp::initPreApplicationCreation(bool detach)
     }
 #endif
 
-#ifdef HAVE_DAEMON
+    // blacklist macOS, crashes on start with this
+    // TODO: investigate why
+#if !defined(Q_OS_MACOS) && defined(HAVE_DAEMON)
     if (detach) {
         // just try it, if it doesn't work we just continue in the foreground
         const int ret = daemon(1, 0 /* close in and outputs to avoid pollution of shell */);

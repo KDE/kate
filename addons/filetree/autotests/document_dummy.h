@@ -660,6 +660,15 @@ public:
     {
     }
 
+    virtual qsizetype cursorToOffset(KTextEditor::Cursor) const override
+    {
+        return 0;
+    }
+    virtual KTextEditor::Cursor offsetToCursor(qsizetype) const override
+    {
+        return {};
+    }
+
 private:
     QString m_name, m_encoding;
     QList<KTextEditor::View *> m_views;

@@ -1273,7 +1273,7 @@ public:
 
         auto range = activeView->selectionRange();
         if (!range.isValid()) {
-            range = document->documentRange();
+            range = {activeView->cursorPosition(), activeView->cursorPosition()};
         }
         server->documentCodeAction(url, range, {}, {diagnostic}, this, h);
     }

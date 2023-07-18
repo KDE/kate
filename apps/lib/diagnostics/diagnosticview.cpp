@@ -307,7 +307,8 @@ static QIcon diagnosticsIcon(DiagnosticSeverity severity)
 }
 
 DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainWindow, QWidget *tabButton)
-    : QWidget(parent), KXMLGUIClient()
+    : QWidget(parent)
+    , KXMLGUIClient()
     , m_mainWindow(mainWindow)
     , m_diagnosticsTree(new QTreeView(this))
     , m_clearButton(new QToolButton(this))
@@ -395,16 +396,16 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     mainWindow->guiFactory()->addClient(this);
 }
 
-DiagnosticsView * DiagnosticsView::instance(KTextEditor::MainWindow *mainWindow)
+DiagnosticsView *DiagnosticsView::instance(KTextEditor::MainWindow *mainWindow)
 {
     Q_ASSERT(mainWindow);
     auto dv = static_cast<DiagnosticsView *>(mainWindow->property("diagnosticsView").value<QObject *>());
     if (!dv) {
         auto tv = mainWindow->createToolView(nullptr /* toolview has no plugin it belongs to */,
-                                     QStringLiteral("diagnostics"),
-                                     KTextEditor::MainWindow::Bottom,
-                                     QIcon::fromTheme(QStringLiteral("dialog-warning-symbolic")),
-                                     i18n("Diagnostics"));
+                                             QStringLiteral("diagnostics"),
+                                             KTextEditor::MainWindow::Bottom,
+                                             QIcon::fromTheme(QStringLiteral("dialog-warning-symbolic")),
+                                             i18n("Diagnostics"));
         dv = new DiagnosticsView(tv, mainWindow, Utils::tabForToolView(tv, mainWindow));
         mainWindow->setProperty("diagnosticsView", QVariant::fromValue(dv));
     }
@@ -795,13 +796,28 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         }
 
         // Remove old diagnostics of this provider
+        // TODO: Move removing to DocumentDiagnosticItem
+        int start = -1;
+        int count = 0;
         for (int i = 0; i < topItem->rowCount(); ++i) {
             auto item = topItem->child(i);
             auto itemProvider = item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
             if (item && itemProvider == provider && !itemProvider->m_persistentDiagnostics) {
-                topItem->removeRow(i);
-                i--;
+                if (start == -1) {
+                    start = i;
+                }
+                count++;
+            } else {
+                if (start > -1 && count != 0) {
+                    topItem->removeRows(start, count);
+                    i = start - 1;
+                    start = -1;
+                    count = 0;
+                }
             }
+        }
+        if (start > -1 && count != 0) {
+            topItem->removeRows(start, count);
         }
     }
 

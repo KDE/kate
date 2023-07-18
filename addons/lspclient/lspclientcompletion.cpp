@@ -488,8 +488,11 @@ public:
         // just the current word under cursor.
         const auto textEditRange = item.textEdit.range;
         auto rangeToReplace = word;
-        if (textEditRange.isValid() && textEditRange.start() < word.start() && word.end() == textEditRange.end()) {
-            rangeToReplace = textEditRange;
+        if (textEditRange.isValid()
+            && textEditRange.start() < word.start()
+            // only do this if the text to insert is the same as TextEdit.newText
+            && m_matches.at(index.row()).insertText == m_matches.at(index.row()).textEdit.newText) {
+            rangeToReplace.setStart(textEditRange.start());
         }
 
         // NOTE: view->setCursorPosition() will invalidate the matches, so we save the

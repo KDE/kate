@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2023-02-20 16:59+0300\n"
+"PO-Revision-Date: 2023-07-17 15:21+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
@@ -432,12 +432,12 @@ msgstr "Ara: %1"
 #: kate_ctags_view.cpp:116 kate_ctags_view.cpp:119
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
-msgstr "Oturuma özel CTags veritabanı dosyasını yeniden oluştur."
+msgstr "Oturuma özel CTags veritabanı dosyasını yeniden oluşturun."
 
 #: kate_ctags_view.cpp:124
 #, kde-format
 msgid "Select new or existing database file."
-msgstr "Varolan bir veritabanını veya yeni bir veritabanı seçin."
+msgstr "Yeni veya var olan bir veritabanı dosyasını seçin."
 
 #: kate_ctags_view.cpp:140
 #, kde-format

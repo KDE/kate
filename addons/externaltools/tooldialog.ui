@@ -137,8 +137,7 @@
         <string>Opens a dialog that helps in creating a list of mimetypes.</string>
        </property>
        <property name="icon">
-        <iconset theme="tools-wizard">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="tools-wizard"/>
        </property>
       </widget>
      </item>

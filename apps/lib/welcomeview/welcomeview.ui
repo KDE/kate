@@ -242,8 +242,7 @@
                <string>Clear Recent Files</string>
               </property>
               <property name="icon">
-               <iconset theme="edit-clear-all">
-                <normaloff>.</normaloff>.</iconset>
+               <iconset theme="edit-clear-all"/>
               </property>
              </widget>
             </item>

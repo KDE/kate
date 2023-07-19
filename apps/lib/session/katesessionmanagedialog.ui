@@ -87,8 +87,7 @@
             <string>&amp;Open</string>
            </property>
            <property name="icon">
-            <iconset theme="document-open">
-             <normaloff>.</normaloff>.</iconset>
+            <iconset theme="document-open"/>
            </property>
           </widget>
          </item>

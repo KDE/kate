@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-07-03 11:38\n"
+"PO-Revision-Date: 2023-07-18 11:10\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -179,44 +179,44 @@ msgstr "目标 %1"
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "用户调试适配器设置"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
 #, kde-format
 msgid "Settings File:"
-msgstr ""
+msgstr "设置文件："
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "默认调试适配器设置"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
 #, kde-format
 msgid "Debugger"
-msgstr ""
+msgstr "调试器"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "没有用于验证的 JSON 数据。"
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON数据有效。"
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON 数据无效：没有 JSON 对象"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON 数据无效：%1"
 
 #: debugview.cpp:35
 #, kde-format
@@ -634,7 +634,7 @@ msgstr "已命名项目"
 #: plugin_kategdb.cpp:106
 #, kde-format
 msgid "Kate Debug"
-msgstr ""
+msgstr "Kate 调试"
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -667,7 +667,7 @@ msgstr "框架"
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr ""
+msgstr "调试输出"
 
 #: plugin_kategdb.cpp:201
 #, kde-format
@@ -791,4 +791,4 @@ msgstr "调试(&D)"
 #: ui.rc:29
 #, kde-format
 msgid "Debug Plugin"
-msgstr ""
+msgstr "调试插件"

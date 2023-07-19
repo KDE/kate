@@ -123,6 +123,3 @@ msgstr "Fusiona STDOUT i STDERR"
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
-
-#~ msgid "Filter Te&xt..."
-#~ msgstr "Filtre de te&xt..."

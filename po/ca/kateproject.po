@@ -1053,6 +1053,3 @@ msgstr "Ha fallat en mostrar la modificació temporal. Error: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectes"
-
-#~ msgid "Show number of changed lines in git status"
-#~ msgstr "Mostra el nombre de línies canviades en el «git status»"

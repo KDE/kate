@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2023-07-03 11:38\n"
+"PO-Revision-Date: 2023-07-18 11:15\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf5-trunk/messages/kate/katebuild-plugin.pot\n"
-"X-Crowdin-File-ID: 5308\n"
+"X-Crowdin-File: /kf5-stable/messages/kate/katebuild-plugin.pot\n"
+"X-Crowdin-File-ID: 4129\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -158,7 +158,7 @@ msgstr "<title>Make 的结果：</title><nl/>%1"
 #: plugin_katebuild.cpp:844
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "<b>%1</b> 的构建已完成。返回 %2 条错误，%3 条警告，%4 条提醒"
 
 #: plugin_katebuild.cpp:850
 #, kde-format
@@ -176,7 +176,7 @@ msgstr[0] "发现 %1 个警告。"
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] ""
+msgstr[0] "发现 %1 条提醒。"
 
 #: plugin_katebuild.cpp:862
 #, kde-format
@@ -191,7 +191,7 @@ msgstr "构建完成，没有出现问题。"
 #: plugin_katebuild.cpp:869
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "<b>%1</b> 的构建已取消。返回 %2 条错误，%3 条警告，%4 条提醒"
 
 #: plugin_katebuild.cpp:893
 #, kde-format
@@ -214,7 +214,7 @@ msgstr "警告"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "提醒|信息"
 
 #: plugin_katebuild.cpp:1128
 #, kde-format

@@ -195,14 +195,3 @@ msgstr "Arranjament de les traces inverses"
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Configuració del navegador de les traces inverses"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Manuel Tortosa Moreno"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "manutortosa@gmail.com"
-
-#~ msgid "Backtrace Browser"
-#~ msgstr "Navegador de traça inversa"

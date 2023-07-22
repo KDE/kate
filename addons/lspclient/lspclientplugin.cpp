@@ -16,6 +16,7 @@
 #include <KPluginFactory>
 #include <KSharedConfig>
 
+#include <QApplication>
 #include <QDir>
 #include <QMessageBox>
 #include <QStandardPaths>
@@ -219,7 +220,7 @@ void LSPClientPlugin::askForCommandLinePermission(const QString &fullCommandLine
     }
 
     // ask user if the start should be allowed
-    QPointer<QMessageBox> msgBox(new QMessageBox());
+    QPointer<QMessageBox> msgBox(new QMessageBox(QApplication::activeWindow()));
     msgBox->setWindowTitle(i18n("LSP server start requested"));
     msgBox->setTextFormat(Qt::RichText);
     msgBox->setText(

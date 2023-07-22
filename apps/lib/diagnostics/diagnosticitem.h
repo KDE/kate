@@ -7,6 +7,7 @@
 
 #include "diagnostic_suppression.h"
 #include "diagnostic_types.h"
+#include "diagnosticview.h"
 
 #include <QStandardItem>
 
@@ -58,11 +59,111 @@ struct DiagnosticItem : public QStandardItem {
 
 // likewise; a custom item for document level model item
 struct DocumentDiagnosticItem : public QStandardItem {
+private:
+    QVector<DiagnosticsProvider *> m_providers;
+
+public:
     bool enabled = true;
     std::unique_ptr<DiagnosticSuppression> diagnosticSuppression;
     int type() const override
     {
         return DiagnosticItem_File;
+    }
+
+    const QVector<DiagnosticsProvider *> &providers() const
+    {
+        return m_providers;
+    }
+    void addProvider(DiagnosticsProvider *p)
+    {
+        if (!m_providers.contains(p)) {
+            m_providers.push_back(p);
+        }
+    }
+
+    /**
+     * Remove items for given provider. If p == null, remove all items of the file
+     * except the items whose provider has m_persistentDiagnostics.
+     */
+    void removeItemsForProvider(DiagnosticsProvider *p)
+    {
+        if (m_providers.size() == 1) {
+            if (p == nullptr && m_providers.back()->persistentDiagnostics()) {
+                // If there is only 1 provider and it's diagnostics are persistent, we have nothing to do here
+                return;
+            } else if (m_providers.contains(p)) {
+                m_providers.clear();
+                setRowCount(0);
+                return;
+            } else {
+                // if we don't have any diagnostics from this provider, we have nothing to do
+                return;
+            }
+        }
+
+        QVarLengthArray<DiagnosticsProvider *, 3> removedProviders;
+        auto removeProvider = [&removedProviders](DiagnosticsProvider *p) {
+            if (!removedProviders.contains(p)) {
+                removedProviders.append(p);
+            }
+        };
+        // We have more than one diagnostic provider for this file
+        if (p == nullptr) {
+            // Remove all diagnostics where provider->persistentDiagnostics() == false
+            int start = -1;
+            int count = 0;
+            for (int i = 0; i < rowCount(); ++i) {
+                auto item = child(i);
+                auto itemProvider = item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
+                if (!itemProvider->persistentDiagnostics()) {
+                    if (start == -1) {
+                        start = i;
+                    }
+                    count++;
+                    removeProvider(itemProvider);
+                } else {
+                    if (start > -1 && count != 0) {
+                        removeRows(start, count);
+                        i = start - 1;
+                        start = -1;
+                        count = 0;
+                    }
+                }
+            }
+            if (start > -1 && count != 0) {
+                removeRows(start, count);
+            }
+        } else {
+            // remove all diagnostics from the given provider
+            int start = -1;
+            int count = 0;
+            for (int i = 0; i < rowCount(); ++i) {
+                auto item = child(i);
+                auto itemProvider = item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
+                if (itemProvider == p) {
+                    if (start == -1) {
+                        start = i;
+                    }
+                    removeProvider(itemProvider);
+                    count++;
+                } else {
+                    if (start > -1 && count != 0) {
+                        removeRows(start, count);
+                        i = start - 1;
+                        start = -1;
+                        count = 0;
+                    }
+                }
+            }
+            if (start > -1 && count != 0) {
+                removeRows(start, count);
+            }
+        }
+
+        // remove the providers for which we don't have diagnostics
+        for (auto p : removedProviders) {
+            m_providers.removeOne(p);
+        }
     }
 };
 

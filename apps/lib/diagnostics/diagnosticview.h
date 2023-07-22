@@ -76,6 +76,11 @@ public:
         m_persistentDiagnostics = p;
     }
 
+    bool persistentDiagnostics() const
+    {
+        return m_persistentDiagnostics;
+    }
+
     QString name;
 
 Q_SIGNALS:
@@ -111,6 +116,7 @@ class DiagnosticsView : public QWidget, public KXMLGUIClient
 
 protected:
     explicit DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainWindow, QWidget *tabButton);
+
 public:
     static DiagnosticsView *instance(KTextEditor::MainWindow *mainWindow);
     ~DiagnosticsView();
@@ -145,7 +151,7 @@ private:
     void clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider);
     void clearSuppressionsFromProvider(DiagnosticsProvider *provider);
     void onDocumentUrlChanged();
-    void updateDiagnosticsState(QStandardItem *&topItem);
+    void updateDiagnosticsState(struct DocumentDiagnosticItem *&topItem);
     void updateMarks(const QList<QUrl> &urls = {});
     void goToItemLocation(QModelIndex index);
 
@@ -161,7 +167,7 @@ private:
     Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled);
 
     bool syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow);
-    void updateDiagnosticsSuppression(QStandardItem *topItem, KTextEditor::Document *doc, bool force = false);
+    void updateDiagnosticsSuppression(struct DocumentDiagnosticItem *topItem, KTextEditor::Document *doc, bool force = false);
 
     void onContextMenuRequested(const QPoint &pos);
 

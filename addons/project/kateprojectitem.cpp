@@ -8,7 +8,7 @@
 #include "kateprojectitem.h"
 #include "kateproject.h"
 
-#include <QCoreApplication>
+#include <QApplication>
 #include <QFile>
 #include <QIcon>
 #include <QMessageBox>
@@ -173,7 +173,7 @@ void KateProjectItem::setData(const QVariant &value, int role)
         }
 
         if (!QFile::rename(oldName, newName)) {
-            QMessageBox::critical(nullptr, i18n("Error"), i18n("File name already exists"));
+            QMessageBox::critical(QApplication::activeWindow(), i18n("Error"), i18n("File name already exists"));
             return;
         }
 

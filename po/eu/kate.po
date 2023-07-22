@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-19 00:53+0000\n"
+"POT-Creation-Date: 2023-07-22 00:53+0000\n"
 "PO-Revision-Date: 2023-04-30 08:39+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -166,7 +166,7 @@ msgstr "KWrite - Testu-editorea"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
-#: lib/session/katesessionmanagedialog.ui:184
+#: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "Itxi"
@@ -338,69 +338,69 @@ msgstr "Abisuak"
 msgid "Filter..."
 msgstr "Iragazkia..."
 
-#: lib/diagnostics/diagnosticview.cpp:1077 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1078 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Errorea"
 
-#: lib/diagnostics/diagnosticview.cpp:1081 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1082 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Abisua"
 
-#: lib/diagnostics/diagnosticview.cpp:1085
+#: lib/diagnostics/diagnosticview.cpp:1086
 #, kde-format
 msgid "Information"
 msgstr "Informazioa"
 
-#: lib/diagnostics/diagnosticview.cpp:1237
+#: lib/diagnostics/diagnosticview.cpp:1238
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [ezabatuta: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1367
+#: lib/diagnostics/diagnosticview.cpp:1368
 #, kde-format
 msgid "Expand All"
 msgstr "Zabaldu guztia"
 
-#: lib/diagnostics/diagnosticview.cpp:1368
+#: lib/diagnostics/diagnosticview.cpp:1369
 #, kde-format
 msgid "Collapse All"
 msgstr "Tolestu guztia"
 
-#: lib/diagnostics/diagnosticview.cpp:1375
+#: lib/diagnostics/diagnosticview.cpp:1376
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopiatu arbelera"
 
-#: lib/diagnostics/diagnosticview.cpp:1398
+#: lib/diagnostics/diagnosticview.cpp:1399
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Kendu ezabatze orokorra"
 
-#: lib/diagnostics/diagnosticview.cpp:1400
+#: lib/diagnostics/diagnosticview.cpp:1401
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Gehitu ezabatze orokorra"
 
-#: lib/diagnostics/diagnosticview.cpp:1404
+#: lib/diagnostics/diagnosticview.cpp:1405
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Kendu ezabatze lokala"
 
-#: lib/diagnostics/diagnosticview.cpp:1406
+#: lib/diagnostics/diagnosticview.cpp:1407
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Gehitu ezabatze lokala"
 
-#: lib/diagnostics/diagnosticview.cpp:1420
+#: lib/diagnostics/diagnosticview.cpp:1421
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Ezgaitu ezabatzea"
 
-#: lib/diagnostics/diagnosticview.cpp:1422
+#: lib/diagnostics/diagnosticview.cpp:1423
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Gaitu ezabatzea"
@@ -2460,37 +2460,37 @@ msgstr "&Ireki"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:364
+#: lib/session/katesessionmanagedialog.ui:97 lib/welcomeview/welcomeview.ui:363
 #, kde-format
 msgid "New Session"
 msgstr "Saio berria"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
-#: lib/session/katesessionmanagedialog.ui:108
+#: lib/session/katesessionmanagedialog.ui:107
 #, kde-format
 msgid "Open as Template"
 msgstr "Ireki txantiloi gisa"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
-#: lib/session/katesessionmanagedialog.ui:115
+#: lib/session/katesessionmanagedialog.ui:114
 #, kde-format
 msgid "Don't ask again"
 msgstr "Ez galdetu berriz"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
-#: lib/session/katesessionmanagedialog.ui:135
+#: lib/session/katesessionmanagedialog.ui:134
 #, kde-format
 msgid "Duplicate..."
 msgstr "Bikoiztu..."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
-#: lib/session/katesessionmanagedialog.ui:142
+#: lib/session/katesessionmanagedialog.ui:141
 #, kde-format
 msgid "&Rename..."
 msgstr "Be&rrizendatu..."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
-#: lib/session/katesessionmanagedialog.ui:162
+#: lib/session/katesessionmanagedialog.ui:161
 #, kde-format
 msgid "Delete"
 msgstr "Ezabatua"
@@ -2794,43 +2794,43 @@ msgid "Clear Recent Files"
 msgstr "Garbitu azken aldiko fitxategiak"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
-#: lib/welcomeview/welcomeview.ui:271
+#: lib/welcomeview/welcomeview.ui:270
 #, kde-format
 msgid "Help"
 msgstr "Laguntza"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
-#: lib/welcomeview/welcomeview.ui:281
+#: lib/welcomeview/welcomeview.ui:280
 #, kde-format
 msgid "Visit homepage"
 msgstr "Bisitatu atariko orria"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
-#: lib/welcomeview/welcomeview.ui:294
+#: lib/welcomeview/welcomeview.ui:293
 #, kde-format
 msgid "Get involved"
 msgstr "Engaia zaitez"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
-#: lib/welcomeview/welcomeview.ui:307
+#: lib/welcomeview/welcomeview.ui:306
 #, kde-format
 msgid "Read handbook"
 msgstr "Irakurri eskuliburua"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:354
+#: lib/welcomeview/welcomeview.ui:353
 #, kde-format
 msgid "Saved Sessions"
 msgstr "Gordetako saioak"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:390
+#: lib/welcomeview/welcomeview.ui:389
 #, kde-format
 msgid "Manage Sessions..."
 msgstr "Kudeatu saioak..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:443
+#: lib/welcomeview/welcomeview.ui:442
 #, kde-format
 msgid "Show for new window"
 msgstr "Erakutsi leiho berrirako"

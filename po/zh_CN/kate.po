@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-16 00:53+0000\n"
+"POT-Creation-Date: 2023-07-22 02:41+0000\n"
 "PO-Revision-Date: 2023-07-18 11:15\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -289,109 +289,109 @@ msgstr ""
 msgid "All"
 msgstr "全部"
 
-#: lib/diagnostics/diagnosticview.cpp:363
+#: lib/diagnostics/diagnosticview.cpp:364
 #, kde-format
 msgid "Quick Fix"
 msgstr "快速修复"
 
-#: lib/diagnostics/diagnosticview.cpp:367
+#: lib/diagnostics/diagnosticview.cpp:368
 #, kde-format
 msgid "Next Item"
 msgstr "下一项"
 
-#: lib/diagnostics/diagnosticview.cpp:372
+#: lib/diagnostics/diagnosticview.cpp:373
 #, kde-format
 msgid "Previous Item"
 msgstr "上一项"
 
-#: lib/diagnostics/diagnosticview.cpp:379
+#: lib/diagnostics/diagnosticview.cpp:380
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "清除诊断信息过滤器"
 
-#: lib/diagnostics/diagnosticview.cpp:407
+#: lib/diagnostics/diagnosticview.cpp:408
 #, kde-format
 msgid "Diagnostics"
 msgstr "诊断"
 
-#: lib/diagnostics/diagnosticview.cpp:445
+#: lib/diagnostics/diagnosticview.cpp:446
 #, kde-format
 msgid "Errors"
 msgstr "错误"
 
-#: lib/diagnostics/diagnosticview.cpp:461
+#: lib/diagnostics/diagnosticview.cpp:462
 #, kde-format
 msgid "Warnings"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:475
+#: lib/diagnostics/diagnosticview.cpp:476
 #, kde-format
 msgid "Filter..."
 msgstr "筛选..."
 
-#: lib/diagnostics/diagnosticview.cpp:1061 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1078 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "错误"
 
-#: lib/diagnostics/diagnosticview.cpp:1065 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1082 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:1069
+#: lib/diagnostics/diagnosticview.cpp:1086
 #, kde-format
 msgid "Information"
 msgstr "信息"
 
-#: lib/diagnostics/diagnosticview.cpp:1221
+#: lib/diagnostics/diagnosticview.cpp:1238
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [已抑制：%2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1368
 #, kde-format
 msgid "Expand All"
 msgstr "全部展开"
 
-#: lib/diagnostics/diagnosticview.cpp:1352
+#: lib/diagnostics/diagnosticview.cpp:1369
 #, kde-format
 msgid "Collapse All"
 msgstr "全部折叠"
 
-#: lib/diagnostics/diagnosticview.cpp:1359
+#: lib/diagnostics/diagnosticview.cpp:1376
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "复制到剪贴板"
 
-#: lib/diagnostics/diagnosticview.cpp:1382
+#: lib/diagnostics/diagnosticview.cpp:1399
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "删除全局抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1384
+#: lib/diagnostics/diagnosticview.cpp:1401
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "添加全局抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1388
+#: lib/diagnostics/diagnosticview.cpp:1405
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "移除本地抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1390
+#: lib/diagnostics/diagnosticview.cpp:1407
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "添加本地抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1404
+#: lib/diagnostics/diagnosticview.cpp:1421
 #, kde-format
 msgid "Disable Suppression"
 msgstr "禁用抑制"
 
-#: lib/diagnostics/diagnosticview.cpp:1406
+#: lib/diagnostics/diagnosticview.cpp:1423
 #, kde-format
 msgid "Enable Suppression"
 msgstr "启用抑制"

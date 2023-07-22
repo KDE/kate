@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-16 00:53+0000\n"
+"POT-Creation-Date: 2023-07-22 02:41+0000\n"
 "PO-Revision-Date: 2023-03-03 10:05-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -297,115 +297,115 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:363
+#: lib/diagnostics/diagnosticview.cpp:364
 #, fuzzy, kde-format
 #| msgid "&Quick Open"
 msgid "Quick Fix"
 msgstr "Abertura &rápida"
 
-#: lib/diagnostics/diagnosticview.cpp:367
+#: lib/diagnostics/diagnosticview.cpp:368
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Item"
 msgstr "Próxima aba"
 
-#: lib/diagnostics/diagnosticview.cpp:372
+#: lib/diagnostics/diagnosticview.cpp:373
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Item"
 msgstr "Aba anterior"
 
-#: lib/diagnostics/diagnosticview.cpp:379
+#: lib/diagnostics/diagnosticview.cpp:380
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
 msgid "Clear Diagnostics Filter"
 msgstr "Diagnósticos"
 
-#: lib/diagnostics/diagnosticview.cpp:407
+#: lib/diagnostics/diagnosticview.cpp:408
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnósticos"
 
-#: lib/diagnostics/diagnosticview.cpp:445
+#: lib/diagnostics/diagnosticview.cpp:446
 #, fuzzy, kde-format
 #| msgid "Error"
 msgid "Errors"
 msgstr "Erro"
 
-#: lib/diagnostics/diagnosticview.cpp:461
+#: lib/diagnostics/diagnosticview.cpp:462
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgid "Warnings"
 msgstr "Aviso"
 
-#: lib/diagnostics/diagnosticview.cpp:475
+#: lib/diagnostics/diagnosticview.cpp:476
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrar..."
 
-#: lib/diagnostics/diagnosticview.cpp:1061 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1078 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Erro"
 
-#: lib/diagnostics/diagnosticview.cpp:1065 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1082 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Aviso"
 
-#: lib/diagnostics/diagnosticview.cpp:1069
+#: lib/diagnostics/diagnosticview.cpp:1086
 #, kde-format
 msgid "Information"
 msgstr "Informação"
 
-#: lib/diagnostics/diagnosticview.cpp:1221
+#: lib/diagnostics/diagnosticview.cpp:1238
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [suprimido: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1368
 #, kde-format
 msgid "Expand All"
 msgstr "Expandir tudo"
 
-#: lib/diagnostics/diagnosticview.cpp:1352
+#: lib/diagnostics/diagnosticview.cpp:1369
 #, kde-format
 msgid "Collapse All"
 msgstr "Recolher tudo"
 
-#: lib/diagnostics/diagnosticview.cpp:1359
+#: lib/diagnostics/diagnosticview.cpp:1376
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copiar para a área de transferência"
 
-#: lib/diagnostics/diagnosticview.cpp:1382
+#: lib/diagnostics/diagnosticview.cpp:1399
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Remover supressão global"
 
-#: lib/diagnostics/diagnosticview.cpp:1384
+#: lib/diagnostics/diagnosticview.cpp:1401
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Adicionar supressão global"
 
-#: lib/diagnostics/diagnosticview.cpp:1388
+#: lib/diagnostics/diagnosticview.cpp:1405
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Remover supressão local"
 
-#: lib/diagnostics/diagnosticview.cpp:1390
+#: lib/diagnostics/diagnosticview.cpp:1407
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Adicionar supressão local"
 
-#: lib/diagnostics/diagnosticview.cpp:1404
+#: lib/diagnostics/diagnosticview.cpp:1421
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Desabilitar supressão"
 
-#: lib/diagnostics/diagnosticview.cpp:1406
+#: lib/diagnostics/diagnosticview.cpp:1423
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Habilitar supressão"

@@ -106,16 +106,21 @@ public:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
         bool ret = true;
+        auto model = static_cast<QStandardItemModel *>(sourceModel());
         if (activeProvider) {
             auto index = sourceModel()->index(sourceRow, 0, sourceParent);
             if (index.isValid()) {
-                ret = index.data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>() == activeProvider;
+                const auto item = model->itemFromIndex(index);
+                if (item->type() == DiagnosticItem_File) {
+                    ret = static_cast<DocumentDiagnosticItem *>(item)->providers().contains(activeProvider);
+                } else {
+                    ret = index.data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>() == activeProvider;
+                }
             }
         }
 
         if (ret && severity != DiagnosticSeverity::Unknown) {
             auto index = sourceModel()->index(sourceRow, 0, sourceParent);
-            auto model = static_cast<QStandardItemModel *>(sourceModel());
             const auto item = model->itemFromIndex(index);
             if (item && item->type() == DiagnosticItem_Diag) {
                 auto castedItem = static_cast<DiagnosticItem *>(item);
@@ -573,12 +578,12 @@ void DiagnosticsView::handleEsc(QEvent *event)
     }
 }
 
-static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)
+static DocumentDiagnosticItem *getItem(const QStandardItemModel &model, const QUrl &url)
 {
     // local file in custom role, Qt::DisplayRole might have additional elements
     auto l = model.match(model.index(0, 0, QModelIndex()), Qt::UserRole, url.toString(QUrl::PreferLocalFile | QUrl::RemovePassword), 1, Qt::MatchExactly);
     if (l.length()) {
-        return model.itemFromIndex(l.at(0));
+        return static_cast<DocumentDiagnosticItem *>(model.itemFromIndex(l.at(0)));
     }
     return nullptr;
 }
@@ -769,7 +774,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
     Q_ASSERT(provider);
 
     QStandardItemModel *model = &m_model;
-    QStandardItem *topItem = getItem(m_model, diagnostics.uri);
+    DocumentDiagnosticItem *topItem = getItem(m_model, diagnostics.uri);
 
     auto toProxyIndex = [this](const QModelIndex &index) {
         return m_proxy->mapFromSource(index);
@@ -796,30 +801,11 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         }
 
         // Remove old diagnostics of this provider
-        // TODO: Move removing to DocumentDiagnosticItem
-        int start = -1;
-        int count = 0;
-        for (int i = 0; i < topItem->rowCount(); ++i) {
-            auto item = topItem->child(i);
-            auto itemProvider = item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
-            if (item && itemProvider == provider && !itemProvider->m_persistentDiagnostics) {
-                if (start == -1) {
-                    start = i;
-                }
-                count++;
-            } else {
-                if (start > -1 && count != 0) {
-                    topItem->removeRows(start, count);
-                    i = start - 1;
-                    start = -1;
-                    count = 0;
-                }
-            }
-        }
-        if (start > -1 && count != 0) {
-            topItem->removeRows(start, count);
+        if (!provider->m_persistentDiagnostics) {
+            topItem->removeItemsForProvider(provider);
         }
     }
+    topItem->addProvider(provider);
 
     for (const auto &diag : diagnostics.diagnostics) {
         auto item = new DiagnosticItem(diag);
@@ -891,24 +877,20 @@ static auto getProvider(QStandardItem *item)
 
 void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider)
 {
-    // If provider == null, all diags get cleared
-    auto all_diags_from_provider = [provider](QStandardItem *file) {
+    auto all_diags_from_provider = [provider](DocumentDiagnosticItem *file) {
         if (file->rowCount() == 0) {
             return true;
         }
-        for (int i = 0; i < file->rowCount(); ++i) {
-            auto diagItem = file->child(i);
-            auto p = getProvider(diagItem);
-            // provider == null => means a doc was closed
-            // dont clear diagnostics if the provider has persistent diagnostics
-            if (!provider) {
-                return !p->m_persistentDiagnostics;
-            }
-            if (provider != p) {
-                return false;
-            }
+        if (provider && file->providers().size() == 1 && file->providers().contains(provider)) {
+            return true;
         }
-        return true;
+        if (!provider) {
+            const QVector<DiagnosticsProvider *> &providers = file->providers();
+            return std::all_of(providers.begin(), providers.end(), [](DiagnosticsProvider *p) {
+                return !p->persistentDiagnostics();
+            });
+        }
+        return false;
     };
 
     auto bulk_remove = [](QStandardItemModel *model, int &start, int &count, int &i) {
@@ -923,20 +905,13 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
     int start = -1, count = 0;
 
     for (int i = 0; i < m_model.rowCount(); ++i) {
-        auto fileItem = m_model.item(i);
+        auto fileItem = static_cast<DocumentDiagnosticItem *>(m_model.item(i));
         if (!filesToKeep.contains(fileItem->data(Qt::UserRole).toString())) {
             if (!all_diags_from_provider(fileItem)) {
                 // If the diagnostics of this file item are from multiple providers
                 // delete the ones from @p provider
                 bulk_remove(&m_model, start, count, i);
-                for (int r = 0; r < fileItem->rowCount(); ++r) {
-                    auto item = fileItem->child(r);
-                    auto item_provider = getProvider(item);
-                    if (item && item_provider == provider) {
-                        fileItem->removeRow(r);
-                        r--;
-                    }
-                }
+                fileItem->removeItemsForProvider(provider);
             } else {
                 if (start == -1) {
                     start = i;
@@ -1206,7 +1181,7 @@ void DiagnosticsView::updateMarks(const QList<QUrl> &urls)
     }
 }
 
-void DiagnosticsView::updateDiagnosticsState(QStandardItem *&topItem)
+void DiagnosticsView::updateDiagnosticsState(DocumentDiagnosticItem *&topItem)
 {
     if (!topItem) {
         return;
@@ -1321,7 +1296,7 @@ void DiagnosticsView::filterViewTo(DiagnosticsProvider *provider)
 bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow)
 {
     auto hint = QAbstractItemView::PositionAtTop;
-    QStandardItem *topItem = getItem(m_model, document->url());
+    DocumentDiagnosticItem *topItem = getItem(m_model, document->url());
     updateDiagnosticsSuppression(topItem, document);
     QStandardItem *targetItem = getItem(topItem, {line, 0}, true);
     if (targetItem) {
@@ -1343,20 +1318,19 @@ bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, int line,
     return targetItem != nullptr;
 }
 
-void DiagnosticsView::updateDiagnosticsSuppression(QStandardItem *topItem, KTextEditor::Document *doc, bool force)
+void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagTopItem, KTextEditor::Document *doc, bool force)
 {
-    if (!topItem || !doc) {
+    if (!diagTopItem || !doc) {
         return;
     }
 
-    auto diagTopItem = static_cast<DocumentDiagnosticItem *>(topItem);
     auto &suppressions = diagTopItem->diagnosticSuppression;
     if (!suppressions || force) {
         auto provider = diagTopItem->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
         const auto sessionSuppressions = m_sessionDiagnosticSuppressions->getSuppressions(doc->url().toLocalFile());
         auto supp = new DiagnosticSuppression(doc, provider->suppressions(doc), sessionSuppressions);
         suppressions.reset(supp);
-        updateDiagnosticsState(topItem);
+        updateDiagnosticsState(diagTopItem);
     }
 }
 
@@ -1370,7 +1344,7 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
     menu->addSeparator();
 
     QModelIndex index = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
-    auto item = m_model.itemFromIndex(index);
+    QStandardItem *item = m_model.itemFromIndex(index);
     if (item->type() == DiagnosticItem_Diag) {
         auto diagText = index.data().toString();
         menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy to Clipboard"), [diagText]() {
@@ -1410,12 +1384,11 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
         // track validity of raw pointer
         QPersistentModelIndex pindex(index);
         auto docDiagItem = static_cast<DocumentDiagnosticItem *>(item);
-        auto h = [this, docDiagItem, pindex](bool enabled) {
+        auto h = [this, &docDiagItem, pindex](bool enabled) {
             if (pindex.isValid()) {
                 docDiagItem->enabled = enabled;
             }
-            auto si = static_cast<QStandardItem *>(docDiagItem);
-            updateDiagnosticsState(si);
+            updateDiagnosticsState(docDiagItem);
         };
         if (docDiagItem->enabled) {
             menu->addAction(i18n("Disable Suppression"), this, std::bind(h, false));

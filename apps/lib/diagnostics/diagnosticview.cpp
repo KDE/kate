@@ -792,7 +792,6 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         QString prettyUri = diagnostics.uri.toString(QUrl::PreferLocalFile | QUrl::RemovePassword);
         topItem->setText(prettyUri);
         topItem->setData(prettyUri, Qt::UserRole);
-        topItem->setData(QVariant::fromValue(provider), DiagnosticModelRole::ProviderRole);
     } else {
         // try to retain current position
         auto currentIndex = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
@@ -1326,11 +1325,20 @@ void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagT
 
     auto &suppressions = diagTopItem->diagnosticSuppression;
     if (!suppressions || force) {
-        auto provider = diagTopItem->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
+        QVector<QJsonObject> providerSupressions;
+        const QVector<DiagnosticsProvider *> &providers = diagTopItem->providers();
+        for (auto p : providers) {
+            auto suppressions = p->suppressions(doc);
+            if (!suppressions.isEmpty()) {
+                providerSupressions.push_back(suppressions);
+            }
+        }
         const auto sessionSuppressions = m_sessionDiagnosticSuppressions->getSuppressions(doc->url().toLocalFile());
-        auto supp = new DiagnosticSuppression(doc, provider->suppressions(doc), sessionSuppressions);
-        suppressions.reset(supp);
-        updateDiagnosticsState(diagTopItem);
+        if (!providerSupressions.isEmpty() || !sessionSuppressions.isEmpty()) {
+            auto supp = new DiagnosticSuppression(doc, providerSupressions, sessionSuppressions);
+            suppressions.reset(supp);
+            updateDiagnosticsState(diagTopItem);
+        }
     }
 }
 

@@ -27,7 +27,7 @@ class DiagnosticSuppression
 
 public:
     // construct from configuration
-    DiagnosticSuppression(KTextEditor::Document *doc, const QJsonObject &serverConfig, const QVector<QString> &sessionSuppressions)
+    DiagnosticSuppression(KTextEditor::Document *doc, const QVector<QJsonObject> &serverConfigs, const QVector<QString> &sessionSuppressions)
         : m_document(doc)
     {
         // check regexp and report
@@ -44,21 +44,23 @@ public:
 
         Q_ASSERT(doc);
         const auto localPath = doc->url().toLocalFile();
-        const auto supps = serverConfig.value(QStringLiteral("suppressions")).toObject();
-        for (const auto &entry : supps) {
-            // should be (array) tuple (last element optional)
-            // [url regexp, message regexp, code regexp]
-            const auto patterns = entry.toArray();
-            if (patterns.size() >= 2) {
-                const auto urlRegExp = QRegularExpression(patterns.at(0).toString());
-                if (urlRegExp.isValid() && urlRegExp.match(localPath).hasMatch()) {
-                    QRegularExpression diagRegExp, codeRegExp;
-                    diagRegExp = QRegularExpression(patterns.at(1).toString());
-                    if (patterns.size() >= 3) {
-                        codeRegExp = QRegularExpression(patterns.at(2).toString());
-                    }
-                    if (checkRegExp(diagRegExp) && checkRegExp(codeRegExp)) {
-                        m_suppressions.push_back({diagRegExp, codeRegExp});
+        for (const auto &serverConfig : serverConfigs) {
+            const auto supps = serverConfig.value(QStringLiteral("suppressions")).toObject();
+            for (const auto &entry : supps) {
+                // should be (array) tuple (last element optional)
+                // [url regexp, message regexp, code regexp]
+                const auto patterns = entry.toArray();
+                if (patterns.size() >= 2) {
+                    const auto urlRegExp = QRegularExpression(patterns.at(0).toString());
+                    if (urlRegExp.isValid() && urlRegExp.match(localPath).hasMatch()) {
+                        QRegularExpression diagRegExp, codeRegExp;
+                        diagRegExp = QRegularExpression(patterns.at(1).toString());
+                        if (patterns.size() >= 3) {
+                            codeRegExp = QRegularExpression(patterns.at(2).toString());
+                        }
+                        if (checkRegExp(diagRegExp) && checkRegExp(codeRegExp)) {
+                            m_suppressions.push_back({diagRegExp, codeRegExp});
+                        }
                     }
                 }
             }

@@ -59,7 +59,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_historyBack->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     m_historyBack->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_historyBack);
-    m_historyBack->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_historyBack);
     connect(m_historyBack, &QToolButton::clicked, this, [this] {
         goBack();
@@ -71,7 +70,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_historyForward->setToolTip(i18n("Go to Next Location"));
     m_historyForward->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_historyForward);
-    m_historyForward->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_historyForward);
     connect(m_historyForward, &QToolButton::clicked, this, [this] {
         goForward();
@@ -91,7 +89,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_quickOpen = new QToolButton(this);
     m_quickOpen->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_quickOpen);
-    m_quickOpen->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_quickOpen);
 
     // forward tab bar quick open action to global quick open action
@@ -117,10 +114,15 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_hide_others")));
     m_split->setToolTip(i18n("Split View"));
     m_split->setWhatsThis(i18n("Control view space splitting"));
-    m_split->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_split);
 
     layout->addLayout(hLayout);
+
+    // on click, active this view space, register this late, we need m_quickOpen and Co. inside the filter
+    m_historyBack->installEventFilter(this);
+    m_historyForward->installEventFilter(this);
+    m_quickOpen->installEventFilter(this);
+    m_split->installEventFilter(this);
     // END tab bar
 
     m_urlBar = new KateUrlBar(this);

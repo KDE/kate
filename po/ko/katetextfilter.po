@@ -32,7 +32,7 @@ msgstr ""
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
 "to be able to do this, contact your system administrator."
-msgstr "임의의 외부 바이너리 프로그램을 실행할 수 없습니다. 만약 이 동작을  하고 싶다면 시스템 관리자에게 문의하십시오."
+msgstr "임의의 외부 바이너리 앱을 실행할 수 없습니다. 만약 이 동작을  하고 싶다면 시스템 관리자에게 문의하십시오."
 
 #: plugin_katetextfilter.cpp:154
 #, kde-format

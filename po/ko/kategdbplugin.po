@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2011, 2012, 2013, 2014, 2015, 2020, 2022.
+# Shinjo Park <kde@peremen.name>, 2011, 2012, 2013, 2014, 2015, 2020, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2022-07-13 15:25+0200\n"
+"PO-Revision-Date: 2023-07-23 20:32+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,12 +15,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "GDB 명령"
 
@@ -46,7 +45,7 @@ msgstr "소스 파일 검색 경로"
 #: advanced_settings.ui:92
 #, kde-format
 msgid "Local application"
-msgstr "로컬 프로그램"
+msgstr "로컬 앱"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
 #: advanced_settings.ui:97
@@ -144,12 +143,12 @@ msgstr "인자:"
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
-msgstr "초점 유지"
+msgstr "포커스 유지"
 
 #: configview.cpp:142
 #, kde-format
 msgid "Keep the focus on the command line"
-msgstr "명령행에 초점 유지"
+msgstr "명령행에 포커스 유지"
 
 #: configview.cpp:144
 #, kde-format
@@ -180,47 +179,44 @@ msgstr "대상 %1"
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "사용자 디버그 어댑터 설정"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "설정"
+msgstr "설정 파일:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "기본 디버그 어댑터 설정"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "디버그"
+msgstr "디버거"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "검증할 JSON 데이터가 없습니다."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON 데이터가 올바릅니다."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON 데이터가 잘못됨: JSON 객체가 없음"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON 데이터가 잘못됨: %1"
 
 #: debugview.cpp:35
 #, kde-format
@@ -230,12 +226,12 @@ msgstr "지역 변수"
 #: debugview.cpp:37
 #, kde-format
 msgid "CPU registers"
-msgstr ""
+msgstr "CPU 레지스터"
 
 #: debugview.cpp:160
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
+msgstr "'디버그' 패널의 '설정' 탭에서 실행 파일을 설정하십시오."
 
 #: debugview.cpp:169
 #, kde-format
@@ -243,6 +239,7 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"디버거를 선택하지 않았습니다. '디버그' 패널의 '설정' 탭에서 선택하십시오."
 
 #: debugview.cpp:178
 #, kde-format
@@ -250,6 +247,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"디버거를 찾을 수 없습니다. 시스템에 설치되어 있는지 확인하십시오. 선택한 디버"
+"거는 '%1'입니다"
 
 #: debugview.cpp:384
 #, kde-format
@@ -262,16 +261,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb가 정상적으로 종료됨 ***"
 
 #: debugview.cpp:648
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "모든 스레드 다시 시작됨"
+msgstr "모든 스레드 실행 중"
 
 #: debugview.cpp:650
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "스레드 %1"
+msgstr "실행 중인 스레드: %1"
 
 #: debugview.cpp:655 debugview_dap.cpp:270
 #, kde-format
@@ -289,16 +286,14 @@ msgid "Active thread: %1."
 msgstr "활성 스레드: %1."
 
 #: debugview.cpp:680
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "현재 프레임: "
+msgstr "현재 프레임: %1:%2"
 
 #: debugview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "대상 %1"
+msgstr "호스트: %1. 대상: %1"
 
 #: debugview.cpp:1377
 #, kde-format
@@ -306,11 +301,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: 마지막 응답을 해석할 수 없음: %1. 너무 많은 오류가 발생했습니다. 종료"
+"합니다."
 
 #: debugview.cpp:1379
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: 마지막 응답을 해석할 수 없음: %1"
 
 #: debugview_dap.cpp:169
 #, kde-format
@@ -537,7 +534,7 @@ msgstr "서버에서 조건부 중단점 도달을 지원하지 않음"
 #: debugview_dap.cpp:1336
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "%1번째 줄에 중단점이 이미 설정되어 있음"
 
 #: debugview_dap.cpp:1381
 #, kde-format
@@ -600,10 +597,9 @@ msgid "command not found"
 msgstr "명령을 찾을 수 없음"
 
 #: debugview_dap.cpp:1497
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgid "missing thread id"
-msgstr "잘못된 스레드 ID: %1"
+msgstr "스레드 ID 없음"
 
 #: debugview_dap.cpp:1605
 #, kde-format
@@ -641,10 +637,9 @@ msgid "named items"
 msgstr "이름이 있는 항목"
 
 #: plugin_kategdb.cpp:106
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr "Kate 디버그"
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -674,12 +669,10 @@ msgid "Frame"
 msgstr "프레임"
 
 #: plugin_kategdb.cpp:200
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB 출력"
+msgstr "디버그 출력"
 
 #: plugin_kategdb.cpp:201
 #, kde-format
@@ -801,10 +794,9 @@ msgstr "디버그(&D)"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "GDB 플러그인"
+msgstr "디버그 플러그인"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

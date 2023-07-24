@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-09 00:51+0000\n"
-"PO-Revision-Date: 2023-04-22 00:03+0200\n"
+"PO-Revision-Date: 2023-07-23 20:32+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -56,7 +56,7 @@ msgstr "터미널 패널 표시(&H)"
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
-msgstr "터미널 패널에 초점 맞추기(&F)"
+msgstr "터미널 패널에 포커스 맞추기(&F)"
 
 #: kateconsole.cpp:307
 #, kde-format
@@ -125,12 +125,12 @@ msgstr "터미널 패널 숨기기(&H)"
 #: kateconsole.cpp:521
 #, kde-format
 msgid "Defocus Terminal Panel"
-msgstr "터미널에 초점 맞추지 않기"
+msgstr "터미널에 포커스 맞추지 않기"
 
 #: kateconsole.cpp:522 kateconsole.cpp:523
 #, kde-format
 msgid "Focus Terminal Panel"
-msgstr "터미널에 초점 맞추기"
+msgstr "터미널에 포커스 맞추기"
 
 #: kateconsole.cpp:597
 #, kde-format
@@ -178,7 +178,7 @@ msgstr "EDITOR 환경 변수를 'kate -b'로 설정(&E)"
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
-msgstr "주의: 콘솔 프로그램이 계속 진행하려면 문서를 닫아야 합니다"
+msgstr "주의: 콘솔 앱이 계속 진행하려면 문서를 닫아야 합니다"
 
 #: kateconsole.cpp:635
 #, kde-format
@@ -191,8 +191,8 @@ msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
-"vim과 같이 Esc 키를 사용하는 프로그램에서 문제가 발생할 수도 있습니다. 아래"
-"에 해당 앱을 입력하십시오(쉼표로 구분)"
+"vim과 같이 Esc 키를 사용하는 앱에서 문제가 발생할 수도 있습니다. 아래에 해당 "
+"앱을 입력하십시오(쉼표로 구분)"
 
 #: kateconsole.cpp:669
 #, kde-format

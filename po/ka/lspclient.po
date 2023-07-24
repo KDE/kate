@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-24 07:38+0000\n"
 "PO-Revision-Date: 2023-01-13 06:20+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -60,12 +60,12 @@ msgstr "მონიშნული ჩანაწერების წაშ�
 msgid "Delete all entries"
 msgstr "ყველა ჩანაწერის წაშლა"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:224
 #, kde-format
 msgid "LSP server start requested"
 msgstr "მოთხოვნილია LSP სერვერის გაშვება"
 
-#: lspclientplugin.cpp:226
+#: lspclientplugin.cpp:227
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -76,7 +76,7 @@ msgstr ""
 "b><br><br> არჩევანი შეიძლება კონფიგურაციის ან დამატების მორგების გვერდიდან "
 "შეიცვალოს."
 
-#: lspclientplugin.cpp:239
+#: lspclientplugin.cpp:240
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

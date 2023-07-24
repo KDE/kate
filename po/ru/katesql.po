@@ -4,13 +4,13 @@
 # Alexander Potashev <aspotashev@gmail.com>, 2010, 2011, 2015.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Olesya Gerasimenko <translation-team@basealt.ru>, 2022.
-# Alexander Yavorsky <kekcuha@gmail.com>, 2022.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2022-12-21 11:35+0300\n"
+"PO-Revision-Date: 2023-07-22 14:35+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -237,14 +237,9 @@ msgid "File"
 msgstr "Файл:"
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|Файлы CSV (с разделителями-запятыми)\n"
-"*|Все файлы"
+msgstr "Значения, разделённые запятыми"
 
 #: exportwizard.cpp:101
 #, kde-format

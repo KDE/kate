@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-24 07:38+0000\n"
 "PO-Revision-Date: 2022-09-25 10:02+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -59,12 +59,12 @@ msgstr "Ta bort valda poster"
 msgid "Delete all entries"
 msgstr "Ta bort all poster"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:224
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Start av LSP-server begärd"
 
-#: lspclientplugin.cpp:226
+#: lspclientplugin.cpp:227
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -74,7 +74,7 @@ msgstr ""
 "Vill du att LSP-servern ska startas?<br><br>Hela kommandoraden är:<br><br><b>"
 "%1</b><br><br>Valet kan ändras via insticksprogrammets inställningssida."
 
-#: lspclientplugin.cpp:239
+#: lspclientplugin.cpp:240
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

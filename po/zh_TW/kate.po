@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-22 00:53+0000\n"
+"POT-Creation-Date: 2023-07-24 07:38+0000\n"
 "PO-Revision-Date: 2023-02-09 02:25+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -239,7 +239,7 @@ msgid "&View"
 msgstr "檢視(&V)"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:115
 #, kde-format
 msgid "Split View"
 msgstr "分割檢視"
@@ -1636,7 +1636,7 @@ msgstr "另存作業階段(&A)..."
 msgid "Go to Previous Location"
 msgstr "前往上一個編輯的位置"
 
-#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:70
 #, fuzzy, kde-format
 #| msgid "Go to next edit location"
 msgid "Go to Next Location"
@@ -2295,23 +2295,23 @@ msgstr ""
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "此檢視可能有未儲存的工作。您真的想要關閉它嗎？"
 
-#: lib/kateviewspace.cpp:98
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:210
+#: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:212
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "點擊此處以切換到快速開啟檢視。"
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:116
 #, kde-format
 msgid "Control view space splitting"
 msgstr "控制檢視空間分割"
 
-#: lib/kateviewspace.cpp:211
+#: lib/kateviewspace.cpp:213
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2323,56 +2323,56 @@ msgstr[0] ""
 "目前還有 %1 份文件待開啟。要查看所有開啟的文件，請點擊此出來切換到快速開啟檢"
 "視。"
 
-#: lib/kateviewspace.cpp:1011
+#: lib/kateviewspace.cpp:1013
 #, kde-format
 msgid "Close Tab"
 msgstr "關閉分頁"
 
-#: lib/kateviewspace.cpp:1029
+#: lib/kateviewspace.cpp:1031
 #, kde-format
 msgid "&Close Document"
 msgstr "關閉文件(&C)"
 
-#: lib/kateviewspace.cpp:1030
+#: lib/kateviewspace.cpp:1032
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "關閉其他的文件(&D)"
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "關閉所有的文件"
 
-#: lib/kateviewspace.cpp:1034
+#: lib/kateviewspace.cpp:1036
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "關閉文件"
 
-#: lib/kateviewspace.cpp:1036
+#: lib/kateviewspace.cpp:1038
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1045
+#: lib/kateviewspace.cpp:1047
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "比較開啟的文件"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1053
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "比較開啟的文件"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1120
 #, kde-format
 msgid "Could not start program"
 msgstr "無法開啟程式"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1121
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "無法啟動選擇的程式，也許還沒安裝該程式。"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-22 00:53+0000\n"
+"POT-Creation-Date: 2023-07-24 07:38+0000\n"
 "PO-Revision-Date: 2023-07-02 15:14+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -230,7 +230,7 @@ msgid "&View"
 msgstr "&பார்வை"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:115
 #, kde-format
 msgid "Split View"
 msgstr "பிரிந்த காட்சிமுறை"
@@ -1620,7 +1620,7 @@ msgstr "அமர்வை &இவ்வாறு சேமி..."
 msgid "Go to Previous Location"
 msgstr "முந்தைய இடத்திற்கு செல்"
 
-#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Next Location"
 msgstr "அடுத்த இடத்திற்கு செல்"
@@ -2270,23 +2270,23 @@ msgstr "<b>%1</b> செருகுநிரலை இயக்க முடி
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "இக்காட்சிப்பகுதியில் சேமிக்கப்படாதவை இருக்கலாம். உறுதியாக இதை மூட வேண்டுமா?"
 
-#: lib/kateviewspace.cpp:98
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:210
+#: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:212
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "விரைவு திறத்தல் பயன்முறைக்கு மாற இங்கு க்ளிக் செய்யவும்."
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:116
 #, kde-format
 msgid "Control view space splitting"
 msgstr "காட்சிப்பகுதி பிரிக்கப்படுவதை கட்டுப்படுத்து"
 
-#: lib/kateviewspace.cpp:211
+#: lib/kateviewspace.cpp:213
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2301,52 +2301,52 @@ msgstr[1] ""
 "இன்னும் %1 ஆவணங்கள் தற்போது திறக்கப்பட்டுள்ளன. திறக்கப்பட்டுள்ள அனைத்து ஆவணங்களை பார்க்க, "
 "இங்கே அழுத்தி விரைவாக திறக்கும் படிவத்திற்கு தாவுங்கள்."
 
-#: lib/kateviewspace.cpp:1011
+#: lib/kateviewspace.cpp:1013
 #, kde-format
 msgid "Close Tab"
 msgstr "கீற்றை மூடு"
 
-#: lib/kateviewspace.cpp:1029
+#: lib/kateviewspace.cpp:1031
 #, kde-format
 msgid "&Close Document"
 msgstr "&ஆவணத்தை மூடு"
 
-#: lib/kateviewspace.cpp:1030
+#: lib/kateviewspace.cpp:1032
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "&மற்ற ஆவணங்களை மூடு"
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1033
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&அனைத்து ஆவணங்களையும் மூடு"
 
-#: lib/kateviewspace.cpp:1034
+#: lib/kateviewspace.cpp:1036
 #, kde-format
 msgid "D&etach Document"
 msgstr "ஆவணத்தை &பிரித்தெடு"
 
-#: lib/kateviewspace.cpp:1036
+#: lib/kateviewspace.cpp:1038
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ஆவணத்தைப் இச்சாளரத்தில் மூடி, புதிய சாளரத்தில் திறக்கும்"
 
-#: lib/kateviewspace.cpp:1045
+#: lib/kateviewspace.cpp:1047
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "செயலிலுள்ள ஆவணத்துடன் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1053
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "செயலிலுள்ள ஆவணத்துடன் வேறு நிரலால் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1120
 #, kde-format
 msgid "Could not start program"
 msgstr "செயலியை துவக்க முடியவில்லை"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1121
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

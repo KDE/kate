@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-22 00:53+0000\n"
+"POT-Creation-Date: 2023-07-24 07:38+0000\n"
 "PO-Revision-Date: 2023-06-25 16:57+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -238,7 +238,7 @@ msgid "&View"
 msgstr "&Ansicht"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:115
 #, kde-format
 msgid "Split View"
 msgstr "Geteilte Ansicht"
@@ -1652,7 +1652,7 @@ msgstr "Sitzung speichern &als ..."
 msgid "Go to Previous Location"
 msgstr "Zur vorherigen Position gehen"
 
-#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Zur nächsten Position gehen"
@@ -2319,23 +2319,23 @@ msgstr ""
 "Diese Ansicht hat ungespeicherte Bearbeitungen. Möchten Sie sie wirklich "
 "schließen?"
 
-#: lib/kateviewspace.cpp:98
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:210
+#: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:212
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klicken Sie hier, um zur Schnellöffner-Ansicht zu wechseln."
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:116
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Die Teilung der Ansicht steuern"
 
-#: lib/kateviewspace.cpp:211
+#: lib/kateviewspace.cpp:213
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2350,53 +2350,53 @@ msgstr[1] ""
 "Zurzeit sind %1 weitere Dokumente geöffnet. Um alle geöffneten Dokumente zu "
 "sehen, wechseln Sie zur Schnellöffner-Ansicht, indem Sie hier klicken."
 
-#: lib/kateviewspace.cpp:1011
+#: lib/kateviewspace.cpp:1013
 #, kde-format
 msgid "Close Tab"
 msgstr "Unterfenster schließen"
 
-#: lib/kateviewspace.cpp:1029
+#: lib/kateviewspace.cpp:1031
 #, kde-format
 msgid "&Close Document"
 msgstr "Dokument s&chließen"
 
-#: lib/kateviewspace.cpp:1030
+#: lib/kateviewspace.cpp:1032
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Andere &Dokumente schließen"
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1033
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&Alle Dokumente schließen"
 
-#: lib/kateviewspace.cpp:1034
+#: lib/kateviewspace.cpp:1036
 #, kde-format
 msgid "D&etach Document"
 msgstr "Dokument ab&koppeln"
 
-#: lib/kateviewspace.cpp:1036
+#: lib/kateviewspace.cpp:1038
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Das Dokument in einem neuen Fenster öffnen und im aktuellen Fenster schließen"
 
-#: lib/kateviewspace.cpp:1045
+#: lib/kateviewspace.cpp:1047
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Mit aktivem Dokument vergleichen"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1053
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Mit aktivem Dokument vergleichen mittels"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1120
 #, kde-format
 msgid "Could not start program"
 msgstr "Programm kann nicht gestartet werden"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1121
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

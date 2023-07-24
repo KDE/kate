@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-24 07:38+0000\n"
 "PO-Revision-Date: 2023-07-02 18:59+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -59,12 +59,12 @@ msgstr "Elimina le voci selezionate"
 msgid "Delete all entries"
 msgstr "Elimina tutte le voci"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:224
 #, kde-format
 msgid "LSP server start requested"
 msgstr "È richiesto l'avvio del server LSP"
 
-#: lspclientplugin.cpp:226
+#: lspclientplugin.cpp:227
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -75,7 +75,7 @@ msgstr ""
 "%1</b><br><br>La scelta può essere modificata dalla pagina di configurazione "
 "dell'estensione."
 
-#: lspclientplugin.cpp:239
+#: lspclientplugin.cpp:240
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

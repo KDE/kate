@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-22 00:53+0000\n"
-"PO-Revision-Date: 2023-04-22 00:00+0200\n"
+"PO-Revision-Date: 2023-07-23 23:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -296,7 +296,7 @@ msgstr "설정..."
 #: kateexternaltoolsview.cpp:165
 #, kde-format
 msgid "Launch external helper applications"
-msgstr "외부 도우피 프로그램 실행"
+msgstr "외부 도우미 앱 실행"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ToolDialog)
 #: tooldialog.ui:14
@@ -332,7 +332,7 @@ msgstr "실행 파일:"
 #: tooldialog.ui:57
 #, kde-format
 msgid "Application or interpreter"
-msgstr "프로그램 또는 인터프리터"
+msgstr "앱 또는 인터프리터"
 
 #. i18n: ectx: property (text), widget (QLabel, lblArgs)
 #: tooldialog.ui:64
@@ -413,7 +413,7 @@ msgid ""
 "for example, an FTP client."
 msgstr ""
 "명령을 실행하기 전에 현재 문서나 모든 수정된 문서를 저장합니다(선택 사항). "
-"FTP 클라이언트와 같은 프로그램에 URL을 전달할 때 유용합니다."
+"FTP 클라이언트와 같은 앱에 URL을 전달할 때 유용합니다."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)

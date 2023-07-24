@@ -20,15 +20,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-22 00:53+0000\n"
-"PO-Revision-Date: 2023-04-10 12:36+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
-"Language-Team: Basealt Translation Team\n"
+"POT-Creation-Date: 2023-07-24 07:38+0000\n"
+"PO-Revision-Date: 2023-07-22 14:32+0300\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 21.08.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -253,7 +253,7 @@ msgid "&View"
 msgstr "&Вид"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:115
 #, kde-format
 msgid "Split View"
 msgstr "Разделить окно"
@@ -307,7 +307,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Все"
 
 #: lib/diagnostics/diagnosticview.cpp:364
 #, kde-format
@@ -315,22 +315,19 @@ msgid "Quick Fix"
 msgstr "Быстрое исправление"
 
 #: lib/diagnostics/diagnosticview.cpp:368
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Перейти на следующую вкладку"
+msgstr "Следующее вхождение"
 
 #: lib/diagnostics/diagnosticview.cpp:373
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Перейти на предыдущую вкладку"
+msgstr "Предыдущее вхождение"
 
 #: lib/diagnostics/diagnosticview.cpp:380
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "Диагностика"
+msgstr "Очистить фильтр диагностики"
 
 #: lib/diagnostics/diagnosticview.cpp:408
 #, kde-format
@@ -338,14 +335,14 @@ msgid "Diagnostics"
 msgstr "Диагностика"
 
 #: lib/diagnostics/diagnosticview.cpp:446
-#, fuzzy, kde-format
+#, kde-format
 msgid "Errors"
-msgstr "Ошибка"
+msgstr "Ошибки"
 
 #: lib/diagnostics/diagnosticview.cpp:462
-#, fuzzy, kde-format
+#, kde-format
 msgid "Warnings"
-msgstr "Предупреждение"
+msgstr "Предупреждения"
 
 #: lib/diagnostics/diagnosticview.cpp:476
 #, kde-format
@@ -1160,12 +1157,13 @@ msgstr "Текст вкладок может быть сокращён, если
 #: lib/kateconfigdialog.cpp:501
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr ""
+msgstr "Открывать новые вкладки справа от текущей."
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr ""
+"Если параметр отключён, новые вкладки будут открыты в конце блока вкладок."
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format
@@ -1660,7 +1658,7 @@ msgstr "Сохранить сеанс &как..."
 msgid "Go to Previous Location"
 msgstr "Вернуться к предыдущему расположению"
 
-#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Перейти к следующему расположению"
@@ -1895,14 +1893,13 @@ msgid "&View Difference"
 msgstr "&Просмотреть различие"
 
 #: lib/katemwmodonhddialog.cpp:108
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
 "Вычисляет различие между содержимым редактора и файлом на диске для "
-"выбранного документа и показывает различие в приложении по умолчанию. "
-"Требуется утилита diff(1)."
+"выбранного документа."
 
 #: lib/katemwmodonhddialog.cpp:116
 #, kde-format
@@ -1939,12 +1936,12 @@ msgstr ""
 "«%1»"
 
 #: lib/katemwmodonhddialog.cpp:338
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Сбой команды diff. Убедитесь, что программа diff(1) установлена и доступна в "
+"Сбой команды diff. Убедитесь, что программа git установлена и доступна в "
 "пути, определённом переменной PATH."
 
 #: lib/katemwmodonhddialog.cpp:340
@@ -1955,12 +1952,12 @@ msgstr "Ошибка поиска различий"
 #: lib/katemwmodonhddialog.cpp:347
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[СТАРЫЙ]"
 
 #: lib/katemwmodonhddialog.cpp:348
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[НОВЫЙ]"
 
 #: lib/kateoutputview.cpp:191
 #, kde-format
@@ -2308,23 +2305,23 @@ msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
 "В этой сессии есть несохранённые изменения. Закрыть, не сохранив изменения?"
 
-#: lib/kateviewspace.cpp:98
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:210
+#: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:212
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Нажмите для переключения в режим быстрого перехода."
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:116
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Управление разделением окна на створки"
 
-#: lib/kateviewspace.cpp:211
+#: lib/kateviewspace.cpp:213
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2345,52 +2342,52 @@ msgstr[3] ""
 "Открыт ещё один документ. Нажмите здесь для просмотра списка всех открытых "
 "документов в режиме быстрого перехода."
 
-#: lib/kateviewspace.cpp:1011
+#: lib/kateviewspace.cpp:1013
 #, kde-format
 msgid "Close Tab"
 msgstr "Закрыть вкладку"
 
-#: lib/kateviewspace.cpp:1029
+#: lib/kateviewspace.cpp:1031
 #, kde-format
 msgid "&Close Document"
 msgstr "&Закрыть документ"
 
-#: lib/kateviewspace.cpp:1030
+#: lib/kateviewspace.cpp:1032
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Закрыть др&угие документы"
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1033
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Закрыть &все документы"
 
-#: lib/kateviewspace.cpp:1034
+#: lib/kateviewspace.cpp:1036
 #, kde-format
 msgid "D&etach Document"
 msgstr "Открыть в новом окне"
 
-#: lib/kateviewspace.cpp:1036
+#: lib/kateviewspace.cpp:1038
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Переместить документ в новое окно"
 
-#: lib/kateviewspace.cpp:1045
+#: lib/kateviewspace.cpp:1047
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Сравнить с активным документом"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1053
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Сравнить с активным документом с помощью"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1120
 #, kde-format
 msgid "Could not start program"
 msgstr "Невозможно запустить программу"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1121
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Не удалось запустить выбранную программу, возможно она не установлена."

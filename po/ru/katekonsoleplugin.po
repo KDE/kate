@@ -4,13 +4,13 @@
 # Nick Shaforostoff <shaforostoff@kde.ru>, 2009, 2011.
 # Alexander Potashev <aspotashev@gmail.com>, 2010, 2011, 2015.
 # Alexander Lakhin <exclusion@gmail.com>, 2014.
-# Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020, 2021.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-09 00:51+0000\n"
-"PO-Revision-Date: 2021-12-07 21:22+0300\n"
+"PO-Revision-Date: 2023-07-22 14:34+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -69,6 +69,7 @@ msgstr "&Активировать терминал"
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Для использования терминала необходимо сначала установить приложение Konsole."
 
 #: kateconsole.cpp:388
 #, kde-format

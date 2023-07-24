@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-22 00:53+0000\n"
+"POT-Creation-Date: 2023-07-24 07:38+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -237,7 +237,7 @@ msgid "&View"
 msgstr "&Amharc"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:115
 #, kde-format
 msgid "Split View"
 msgstr "Amharc Roinnte"
@@ -1672,7 +1672,7 @@ msgstr "Sábháil an Seisiún M&ar..."
 msgid "Go to Previous Location"
 msgstr "Athchóirigh &suíomh"
 
-#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:539 lib/kateviewspace.cpp:70
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Go to Next Location"
@@ -2325,24 +2325,24 @@ msgstr ""
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
 
-#: lib/kateviewspace.cpp:98
+#: lib/kateviewspace.cpp:95
 #, fuzzy, kde-format
 #| msgid "%1"
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "%1"
 
-#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:210
+#: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:212
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:116
 #, kde-format
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:211
+#: lib/kateviewspace.cpp:213
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2356,59 +2356,59 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: lib/kateviewspace.cpp:1011
+#: lib/kateviewspace.cpp:1013
 #, fuzzy, kde-format
 #| msgid "Close &All Tabs"
 msgid "Close Tab"
 msgstr "Dún &Gach Cluaisín"
 
-#: lib/kateviewspace.cpp:1029
+#: lib/kateviewspace.cpp:1031
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "Dún an Cháipéis"
 
-#: lib/kateviewspace.cpp:1030
+#: lib/kateviewspace.cpp:1032
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "Dún an Cháipéis"
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Dún gach cáipéis"
 
-#: lib/kateviewspace.cpp:1034
+#: lib/kateviewspace.cpp:1036
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "Dún an Cháipéis"
 
-#: lib/kateviewspace.cpp:1036
+#: lib/kateviewspace.cpp:1038
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1045
+#: lib/kateviewspace.cpp:1047
 #, fuzzy, kde-format
 #| msgid "Start with an &empty document"
 msgid "Compare with Active Document"
 msgstr "Tosaigh le cáipéis &fholamh"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1053
 #, fuzzy, kde-format
 #| msgid "Start with an &empty document"
 msgid "Compare with Active Document Using"
 msgstr "Tosaigh le cáipéis &fholamh"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1120
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1121
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

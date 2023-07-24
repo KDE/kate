@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-24 07:38+0000\n"
 "PO-Revision-Date: 2022-11-23 07:12+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -62,12 +62,12 @@ msgstr "Вилучити позначені записи"
 msgid "Delete all entries"
 msgstr "Вилучити усі записи"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:224
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Надіслано запит на запуск сервера LSP"
 
-#: lspclientplugin.cpp:226
+#: lspclientplugin.cpp:227
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -77,7 +77,7 @@ msgstr ""
 "Хочете запустити сервер LSP?<br><br>Повний рядок команди є таким:<br><br><b>"
 "%1</b><br><br>Вибір можна змінити за допомогою сторінки налаштувань додатка."
 
-#: lspclientplugin.cpp:239
+#: lspclientplugin.cpp:240
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

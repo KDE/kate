@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2023-04-22 00:02+0200\n"
+"PO-Revision-Date: 2023-07-24 23:27+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -230,14 +230,9 @@ msgid "File"
 msgstr "파일"
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|쉼표로 구분된 값\n"
-"*|모든 파일"
+msgstr "쉼표로 구분된 값"
 
 #: exportwizard.cpp:101
 #, kde-format

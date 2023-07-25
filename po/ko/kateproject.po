@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2022.
+# Shinjo Park <kde@peremen.name>, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2022-08-09 13:37+0200\n"
+"PO-Revision-Date: 2023-07-24 23:30+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -99,24 +99,22 @@ msgid "Back"
 msgstr "뒤로"
 
 #: currentgitbranchbutton.cpp:123
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "커밋할 수 없음: %1"
+msgstr "HEAD 위치는 커밋 %1임"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD 위치는 %1 태그임"
 
 #: currentgitbranchbutton.cpp:127
-#, fuzzy, kde-format
-#| msgid "Checked out to new branch: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "새 브랜치 체크아웃함: %1"
+msgstr "활성 브랜치: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -196,14 +194,12 @@ msgid "Modified"
 msgstr "수정됨"
 
 #: gitwidget.cpp:269
-#, fuzzy, kde-format
-#| msgid "Git push"
+#, kde-format
 msgid "Git Push"
 msgstr "Git 푸시"
 
 #: gitwidget.cpp:282
-#, fuzzy, kde-format
-#| msgid "Git pull"
+#, kde-format
 msgid "Git Pull"
 msgstr "Git 풀"
 
@@ -319,43 +315,39 @@ msgid "Delete Branch"
 msgstr "브랜치 삭제"
 
 #: gitwidget.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Compare Branch with ..."
+#, kde-format
 msgid "Compare Branch with..."
 msgstr "다음과 브랜치 비교..."
 
 #: gitwidget.cpp:1040
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "커밋"
+msgstr "커밋 표시"
 
 #: gitwidget.cpp:1040
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "변경 사항 커밋"
+msgstr "커밋 해시"
 
 #: gitwidget.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "폴더 열기..."
+msgstr "커밋 열기..."
 
 #: gitwidget.cpp:1048 gitwidget.cpp:1087
 #, kde-format
 msgid "Stash"
-msgstr "임시 저장"
+msgstr "스태시"
 
 #: gitwidget.cpp:1058
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Diff - 스태시"
 
 #: gitwidget.cpp:1091
 #, kde-format
 msgid "Pop Last Stash"
-msgstr "마지막 임시 저장 팝"
+msgstr "마지막 스태시 팝"
 
 #: gitwidget.cpp:1095
 #, kde-format
@@ -429,14 +421,12 @@ msgid "Are you sure you want to discard all changes?"
 msgstr "모든 변경 사항을 삭제하시겠습니까?"
 
 #: gitwidget.cpp:1211
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "Open File"
 msgstr "파일 열기"
 
 #: gitwidget.cpp:1213
-#, fuzzy, kde-format
-#| msgid "Show in external git diff tool"
+#, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "외부 git diff 도구에 표시"
 
@@ -446,14 +436,12 @@ msgid "Open at HEAD"
 msgstr "HEAD 기준으로 열기"
 
 #: gitwidget.cpp:1215
-#, fuzzy, kde-format
-#| msgid "Unstage file"
+#, kde-format
 msgid "Unstage File"
 msgstr "파일 스테이지 해제"
 
 #: gitwidget.cpp:1215
-#, fuzzy, kde-format
-#| msgid "Stage file"
+#, kde-format
 msgid "Stage File"
 msgstr "파일 스테이지"
 
@@ -515,7 +503,7 @@ msgstr "추적하지 않는 변경 사항을 삭제하시겠습니까?"
 #: kateproject.cpp:217
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr "'%1'의 잘못된 JSON 파일: %2"
+msgstr "잘못된 JSON 파일 '%1': %2"
 
 #: kateproject.cpp:541
 #, kde-format
@@ -704,11 +692,10 @@ msgid "Start Analysis..."
 msgstr "분석 시작..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:41
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "코드 분석"
+msgstr "코드 분석 - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
@@ -722,29 +709,24 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:138
 #: kateprojectinfoviewcodeanalysis.cpp:198
 #: kateprojectinfoviewcodeanalysis.cpp:202
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "코드 분석"
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "파일 %1개 분석이 완료되었습니다."
+msgstr[0] "[%1]파일 %2개 분석이 완료되었습니다."
 
 #: kateprojectinfoviewcodeanalysis.cpp:201
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "파일 %1개 분석이 실패했으며, 오류 코드는 %2입니다."
+msgstr "파일 분석이 실패했으며, 종료 코드는 %1입니다. 오류: %2"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
@@ -823,33 +805,29 @@ msgid "Project"
 msgstr "프로젝트"
 
 #: kateprojectpluginview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Kate Project Manager"
+#, kde-format
 msgid "Project Manager"
-msgstr "Kate 프로젝트 관리자"
+msgstr "프로젝트 관리자"
 
 #: kateprojectpluginview.cpp:81
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "열린 프로젝트 복원"
+msgstr "열린 프로젝트 목록"
 
 #: kateprojectpluginview.cpp:86
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Reload project"
-msgstr "프로젝트 닫기"
+msgstr "프로젝트 새로 고침"
 
 #: kateprojectpluginview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "프로젝트 닫기"
 
 #: kateprojectpluginview.cpp:104
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Git 상태 새로 고침"
 
 #: kateprojectpluginview.cpp:182
 #, kde-format
@@ -1000,65 +978,65 @@ msgstr "디렉터리를 만들 수 없음: %1"
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
-"임시 저장 메시지입니다(선택 사항). Enter 키를 누르면 확인, Esc 키를 누르면 종"
-"료합니다."
+"스태시 메시지입니다(선택 사항). Enter 키를 누르면 확인, Esc 키를 누르면 종료"
+"합니다."
 
 #: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
-"필터하려면 입력하십시오. Enter 키를 누르면 임시 저장을 팝하며, Esc 키를 누르"
-"면 종료합니다."
+"필터하려면 입력하십시오. Enter 키를 누르면 스태시를 팝하며, Esc 키를 누르면 "
+"종료합니다."
 
 #: stashdialog.cpp:143
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr "변경 사항 %1을(를) 임시로 저장할 수 없음"
+msgstr "변경 사항 %1을(를) 스태시할 수 없음"
 
 #: stashdialog.cpp:145
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr "변경 사항을 임시 저장했습니다."
+msgstr "변경 사항을 스태시했습니다."
 
 #: stashdialog.cpp:164
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr "임시 저장 목록을 가져올 수 없습니다. 오류:"
+msgstr "스태시 목록을 가져올 수 없습니다. 오류:"
 
 #: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr "임시 저장 항목을 적용할 수 없습니다. 오류:"
+msgstr "스태시를 적용할 수 없습니다. 오류:"
 
 #: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr "임시 저장 항목을 삭제할 수 없습니다. 오류:"
+msgstr "스태시를 삭제할 수 없습니다. 오류:"
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr "임시 저장 항목을 팝할 수 없습니다. 오류:"
+msgstr "스태시를 팝할 수 없습니다. 오류:"
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Stash applied successfully."
-msgstr "임시 저장 항목을 적용했습니다."
+msgstr "스태시를 적용했습니다."
 
 #: stashdialog.cpp:190
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr "임시 저장 항목을 삭제했습니다."
+msgstr "스태시를 삭제했습니다."
 
 #: stashdialog.cpp:192
 #, kde-format
 msgid "Stash popped successfully."
-msgstr "임시 저장 항목을 팝했습니다."
+msgstr "스태시를 팝했습니다."
 
 #: stashdialog.cpp:221
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr "임시 저장 항목을 표시할 수 없습니다. 오류: "
+msgstr "스태시를 표시할 수 없습니다. 오류: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

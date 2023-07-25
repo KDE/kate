@@ -104,6 +104,22 @@ void KateViewManager::readConfig()
     m_sdiMode = cgGeneral.readEntry("SDI Mode", false);
 }
 
+void KateViewManager::slotScrollSynchedViews(KTextEditor::View *view)
+{
+    //  Match current view
+    QHash<KTextEditor::View *, ScrollSynchronisation::ScrollBarInfo>::const_iterator currentViewInfo = m_scrollSynchronisation.viewScrollInfo.constFind(view);
+    //  Delta scroll in reference scroll value
+    m_scrollSynchronisation.referenceScrollValue = currentViewInfo.value().scrollBar->value() - currentViewInfo.value().initScrollValue;
+    //  Delta scroll in all other views
+    for (auto otherViewInfo = m_scrollSynchronisation.viewScrollInfo.constBegin(), end = m_scrollSynchronisation.viewScrollInfo.constEnd();
+         otherViewInfo != end;
+         ++otherViewInfo) {
+        if (otherViewInfo != currentViewInfo) {
+            otherViewInfo.value().scrollBar->setValue(m_scrollSynchronisation.referenceScrollValue + otherViewInfo.value().initScrollValue);
+        }
+    }
+}
+
 void KateViewManager::setupActions()
 {
     /**
@@ -1166,6 +1182,92 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     }
 
     updateViewSpaceActions();
+}
+
+void KateViewManager::slotSynchroniseScrolling(bool checked)
+{
+    KTextEditor::View *userSelectedView = activeViewSpace()->currentView();
+    auto newSynchedViewInfo = m_scrollSynchronisation.viewScrollInfo.constFind(userSelectedView);
+    // If already added to sync, then desync
+    if (newSynchedViewInfo != m_scrollSynchronisation.viewScrollInfo.constEnd()) {
+        Q_ASSERT(!checked);
+        disconnect(userSelectedView, &KTextEditor::View::verticalScrollPositionChanged, this, &KateViewManager::slotScrollSynchedViews);
+        m_scrollSynchronisation.viewScrollInfo.remove(newSynchedViewInfo.key());
+        m_scrollSynchronisation.synchedViewSpaces.remove(activeViewSpace());
+        if (m_scrollSynchronisation.synchedViewSpaces.isEmpty()) {
+            disconnect(this, &KateViewManager::viewChanged, this, &KateViewManager::slotChangeSynchedView);
+        }
+        return;
+    }
+    // If invalid, do nothing
+    if (!userSelectedView) {
+        return;
+    }
+    // If not already added to sync, then add to sync
+    Q_ASSERT(checked);
+    ScrollSynchronisation::ScrollBarInfo scrollBarInfo = m_scrollSynchronisation.getViewScrollBarInfo(userSelectedView);
+    if (!scrollBarInfo.scrollBar) {
+        // This case should normally not occur
+        // but if it is being used, implement:
+        // Uncheck m_toggleSynchronisedScrolling
+        return;
+    }
+    // Connect scrolling to slotSynchedView
+    connect(userSelectedView, &KTextEditor::View::verticalScrollPositionChanged, this, &KateViewManager::slotScrollSynchedViews, Qt::UniqueConnection);
+    m_scrollSynchronisation.viewScrollInfo.insert(userSelectedView, scrollBarInfo);
+    // Remove from group of views, when view is deleted
+    connect(userSelectedView, &KTextEditor::View::destroyed, this, [this](QObject *obj) {
+        m_scrollSynchronisation.viewScrollInfo.remove(static_cast<KTextEditor::View *>(obj));
+    });
+    // To cater for multiple views per viewspace
+    Q_ASSERT_X(!m_scrollSynchronisation.synchedViewSpaces.contains(activeViewSpace()),
+               "void KateViewManager::slotSynchroniseScrolling()",
+               "Somehow m_synchedViewSpaces already contains the viewspace currently selected");
+    m_scrollSynchronisation.synchedViewSpaces.insert(activeViewSpace(), activeViewSpace()->currentView());
+    // Change stored view whenever user changes tab
+    connect(this, &KateViewManager::viewChanged, this, &KateViewManager::slotChangeSynchedView, Qt::UniqueConnection);
+    // Remove from group of viewSpaces when the viewSpace is deleted
+    connect(
+        activeViewSpace(),
+        &KateViewSpace::destroyed,
+        this,
+        [this](QObject *obj) {
+            if (m_scrollSynchronisation.synchedViewSpaces.contains(static_cast<KateViewSpace *>(obj))) {
+                m_scrollSynchronisation.synchedViewSpaces.remove(static_cast<KateViewSpace *>(obj));
+            }
+        },
+        Qt::QueuedConnection);
+}
+
+void KateViewManager::slotChangeSynchedView(KTextEditor::View *currentView)
+{
+    if (m_scrollSynchronisation.synchedViewSpaces.constFind(activeViewSpace()) == m_scrollSynchronisation.synchedViewSpaces.constEnd()) {
+        // If currently selected view is not a part of scroll-synched viewspace do nothing
+        return;
+    }
+    // Remove previous view from scroll-sync
+    KTextEditor::View *previousView = m_scrollSynchronisation.synchedViewSpaces.constFind(activeViewSpace()).value();
+    if (previousView == currentView) {
+        // If this function has been called just because the activeViewSpace was changed then don't
+        // waste time
+        return;
+    }
+    disconnect(previousView, &KTextEditor::View::verticalScrollPositionChanged, this, &KateViewManager::slotScrollSynchedViews);
+    m_scrollSynchronisation.viewScrollInfo.remove(previousView);
+    // Add the currentView to scroll-sync
+    ScrollSynchronisation::ScrollBarInfo scrollBarInfo = m_scrollSynchronisation.getViewScrollBarInfo(currentView);
+    if (!scrollBarInfo.scrollBar) {
+        return;
+    }
+    // Connect scrolling to slotSynchedView
+    connect(currentView, &KTextEditor::View::verticalScrollPositionChanged, this, &KateViewManager::slotScrollSynchedViews, Qt::UniqueConnection);
+    m_scrollSynchronisation.viewScrollInfo.insert(currentView, scrollBarInfo);
+    // Remove from group of views, when view is deleted
+    connect(currentView, &KTextEditor::View::destroyed, this, [this](QObject *obj) {
+        m_scrollSynchronisation.viewScrollInfo.remove(static_cast<KTextEditor::View *>(obj));
+    });
+    // Add the new view alongside the viewspace already in list
+    m_scrollSynchronisation.synchedViewSpaces[activeViewSpace()] = currentView;
 }
 
 void KateViewManager::closeViewSpace(KTextEditor::View *view)

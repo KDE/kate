@@ -16,6 +16,7 @@
 
 #include <QList>
 #include <QPointer>
+#include <QScrollBar>
 
 #include <unordered_map>
 
@@ -188,6 +189,12 @@ private Q_SLOTS:
      */
     void readConfig();
 
+    /**
+     * Scroll all synched views according to the delta scroll of the given view
+     * @param view  Other synchronised views will be scrolled according to this
+     */
+    void slotScrollSynchedViews(KTextEditor::View *view);
+
 public Q_SLOTS:
     /**
      * Splits a KateViewSpace into two in the following steps:
@@ -201,6 +208,18 @@ public Q_SLOTS:
      * Note: horizontal splitter means vertically aligned views.
      */
     void splitViewSpace(KateViewSpace *vs = nullptr, Qt::Orientation o = Qt::Horizontal, bool moveDocument = false);
+
+    /**
+     * Set the synchronisation of scrolling of multiple views according to user input
+     */
+    void slotSynchroniseScrolling(bool checked);
+
+    /**
+     * Sets the currentView as the scroll-synched view
+     * and removes synchronisation for the previous view in the same viewSpace
+     * @param synched scroll for the activeViewSpace() will be set to scrollbar found in this view
+     */
+    void slotChangeSynchedView(KTextEditor::View *currentView);
 
     /**
      * Close the view space that contains the given view. If no view was
@@ -382,6 +401,60 @@ private:
      * maps the view to meta data
      */
     std::unordered_map<KTextEditor::View *, ViewData> m_views;
+
+    struct ScrollSynchronisation {
+        /**
+         * stores a reference scroll value according to which,
+         * all others will be set
+         */
+        int referenceScrollValue = 0;
+        /**
+         * Keeps track of all viewspace having a scroll-synched view
+         * to help with finding the required view when user changes the tab
+         */
+        QHash<KateViewSpace *, KTextEditor::View *> synchedViewSpaces;
+
+        /**
+         * @struct ScrollBarInfo
+         * @param scrollBar stores the pointer to the vertical scroll bar of the view
+         * @param initScrollValue stores the offset position of the scroll bar to the reference scroll value using which the sync will occur
+         */
+        struct ScrollBarInfo {
+            QScrollBar *scrollBar;
+            int initScrollValue;
+        };
+
+        /**
+         * stores the information required for synchronisation of scrolling between multiple split views
+         * Key - KTextEditor::View* stores the pointer to the corresp view
+         * Value - ScrollBarInfo stores relevant information regarding the scrollbar of the synched view
+         */
+        QHash<KTextEditor::View *, ScrollBarInfo> viewScrollInfo;
+
+        ScrollBarInfo getViewScrollBarInfo(KTextEditor::View *view)
+        {
+            const QList<QScrollBar *> scrollBars = view->findChildren<QScrollBar *>();
+            // Cannot use std::find_if because QList<>::last() is inclusive
+            ScrollSynchronisation::ScrollBarInfo scrollBarInfo;
+            scrollBarInfo.scrollBar = [scrollBars] {
+                for (auto scrollBar : scrollBars) {
+                    if (qstrcmp(scrollBar->metaObject()->className(), "KateScrollBar") == 0) {
+                        return scrollBar;
+                    }
+                }
+                Q_ASSERT_X(false,
+                           "void "
+                           "KateViewManager::ScrollSynchronisation::getViewScrollBarInfo("
+                           "KTextEditor::View *currentView)",
+                           "No QScrollBar* named \"KateScrollBar\" found in the selected View");
+                return static_cast<QScrollBar *>(nullptr);
+            }();
+            if (scrollBarInfo.scrollBar) {
+                scrollBarInfo.initScrollValue = scrollBarInfo.scrollBar->value() - this->referenceScrollValue;
+            }
+            return scrollBarInfo;
+        }
+    } m_scrollSynchronisation;
 
     /**
      * current minimal age

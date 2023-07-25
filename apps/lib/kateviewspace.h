@@ -25,6 +25,7 @@ class KateViewManager;
 class QStackedWidget;
 class QToolButton;
 class LocationHistoryTest;
+class KToggleAction;
 
 class KATE_PRIVATE_EXPORT KateViewSpace : public QWidget
 {
@@ -362,4 +363,8 @@ private:
 
     // Block adding position to history if this is true
     bool m_blockAddHistory = false;
+
+    // Option in Split Views toolButton menu to
+    // Synchronise (vertical) scrollbars of the active view
+    KToggleAction *m_toggleSynchronisedScrolling;
 };

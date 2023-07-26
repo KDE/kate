@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-24 07:38+0000\n"
+"POT-Creation-Date: 2023-07-26 00:49+0000\n"
 "PO-Revision-Date: 2023-02-09 02:25+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -166,8 +166,8 @@ msgstr "Kate - 進階的文字編輯器"
 msgid "Close"
 msgstr "關閉"
 
-#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:309
-#: lib/kateviewmanager.cpp:311
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:325
+#: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "開啟舊檔"
@@ -293,122 +293,122 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:364
+#: lib/diagnostics/diagnosticview.cpp:369
 #, fuzzy, kde-format
 #| msgid "&Quick Open"
 msgid "Quick Fix"
 msgstr "快速開啟(&Q)"
 
-#: lib/diagnostics/diagnosticview.cpp:368
+#: lib/diagnostics/diagnosticview.cpp:373
 #, fuzzy, kde-format
 #| msgid "&Next Tab"
 msgid "Next Item"
 msgstr "下一個分頁(&N)"
 
-#: lib/diagnostics/diagnosticview.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:378
 #, fuzzy, kde-format
 #| msgid "&Previous Tab"
 msgid "Previous Item"
 msgstr "前一個分頁(&P)"
 
-#: lib/diagnostics/diagnosticview.cpp:380
+#: lib/diagnostics/diagnosticview.cpp:385
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:408
+#: lib/diagnostics/diagnosticview.cpp:413
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:446
+#: lib/diagnostics/diagnosticview.cpp:451
 #, fuzzy, kde-format
 #| msgid "Error"
 msgid "Errors"
 msgstr "錯誤"
 
-#: lib/diagnostics/diagnosticview.cpp:462
+#: lib/diagnostics/diagnosticview.cpp:467
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgid "Warnings"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:476
+#: lib/diagnostics/diagnosticview.cpp:481
 #, fuzzy, kde-format
 #| msgid "&Other..."
 msgid "Filter..."
 msgstr "其他(&O)..."
 
-#: lib/diagnostics/diagnosticview.cpp:1078 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1052 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "錯誤"
 
-#: lib/diagnostics/diagnosticview.cpp:1082 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:1086
+#: lib/diagnostics/diagnosticview.cpp:1060
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "中繼資訊"
 
-#: lib/diagnostics/diagnosticview.cpp:1238
+#: lib/diagnostics/diagnosticview.cpp:1212
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1368
+#: lib/diagnostics/diagnosticview.cpp:1350
 #, fuzzy, kde-format
 #| msgid "&Expand tabs"
 msgid "Expand All"
 msgstr "展開分頁(&E)"
 
-#: lib/diagnostics/diagnosticview.cpp:1369
+#: lib/diagnostics/diagnosticview.cpp:1351
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "全部關閉(&C)"
 
-#: lib/diagnostics/diagnosticview.cpp:1376
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy to Clipboard"
 msgstr "複製到剪貼簿"
 
-#: lib/diagnostics/diagnosticview.cpp:1399
+#: lib/diagnostics/diagnosticview.cpp:1381
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1401
+#: lib/diagnostics/diagnosticview.cpp:1383
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "作業階段(&I)"
 
-#: lib/diagnostics/diagnosticview.cpp:1405
+#: lib/diagnostics/diagnosticview.cpp:1387
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1407
+#: lib/diagnostics/diagnosticview.cpp:1389
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1421
+#: lib/diagnostics/diagnosticview.cpp:1402
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "篩選作業階段"
 
-#: lib/diagnostics/diagnosticview.cpp:1423
+#: lib/diagnostics/diagnosticview.cpp:1404
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -2034,32 +2034,32 @@ msgid ""
 "want to proceed."
 msgstr "無法寫入要求儲存的資料。請選擇您要如何繼續。"
 
-#: lib/kateviewmanager.cpp:114
+#: lib/kateviewmanager.cpp:130
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "垂直分割(&R)"
 
-#: lib/kateviewmanager.cpp:118
+#: lib/kateviewmanager.cpp:134
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "將目前作用中的檢視垂直分割為兩個檢視。"
 
-#: lib/kateviewmanager.cpp:122
+#: lib/kateviewmanager.cpp:138
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "水平分割視窗(&H)"
 
-#: lib/kateviewmanager.cpp:126
+#: lib/kateviewmanager.cpp:142
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "將目前作用中的檢視水平分割為兩個檢視。"
 
-#: lib/kateviewmanager.cpp:130
+#: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:134
+#: lib/kateviewmanager.cpp:150
 #, fuzzy, kde-format
 #| msgid "Split the currently active view vertically into two views."
 msgid ""
@@ -2067,12 +2067,12 @@ msgid ""
 "currently active document to right view."
 msgstr "將目前作用中的檢視垂直分割為兩個檢視。"
 
-#: lib/kateviewmanager.cpp:139
+#: lib/kateviewmanager.cpp:155
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:143
+#: lib/kateviewmanager.cpp:159
 #, fuzzy, kde-format
 #| msgid "Split the currently active view horizontally into two views."
 msgid ""
@@ -2080,167 +2080,167 @@ msgid ""
 "currently active document to view below."
 msgstr "將目前作用中的檢視水平分割為兩個檢視。"
 
-#: lib/kateviewmanager.cpp:148
+#: lib/kateviewmanager.cpp:164
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "關閉目前檢視(&O)"
 
-#: lib/kateviewmanager.cpp:152
+#: lib/kateviewmanager.cpp:168
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "關閉目前的分割檢視"
 
-#: lib/kateviewmanager.cpp:156
+#: lib/kateviewmanager.cpp:172
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "關閉未作用中的檢視"
 
-#: lib/kateviewmanager.cpp:159
+#: lib/kateviewmanager.cpp:175
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "關閉除了作用中外的所有其他檢視"
 
-#: lib/kateviewmanager.cpp:163
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "隱藏未作用中的檢視"
 
-#: lib/kateviewmanager.cpp:167
+#: lib/kateviewmanager.cpp:183
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "隱藏除了作用中外的所有其他檢視"
 
-#: lib/kateviewmanager.cpp:170
+#: lib/kateviewmanager.cpp:186
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "切換方向"
 
-#: lib/kateviewmanager.cpp:173
+#: lib/kateviewmanager.cpp:189
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "切換目前分割檢視的分向"
 
-#: lib/kateviewmanager.cpp:176
+#: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Next Split View"
 msgstr "下個分割檢視"
 
-#: lib/kateviewmanager.cpp:181
+#: lib/kateviewmanager.cpp:197
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "讓下個分割檢視成為作用中。"
 
-#: lib/kateviewmanager.cpp:184
+#: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Previous Split View"
 msgstr "前個分割檢視"
 
-#: lib/kateviewmanager.cpp:189
+#: lib/kateviewmanager.cpp:205
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "讓上個分割檢視成為作用中。"
 
-#: lib/kateviewmanager.cpp:192
+#: lib/kateviewmanager.cpp:208
 #, kde-format
 msgid "Left Split View"
 msgstr "左方分割檢視"
 
-#: lib/kateviewmanager.cpp:197
+#: lib/kateviewmanager.cpp:213
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "讓直覺感覺在左邊的分割檢視成為作用中。"
 
-#: lib/kateviewmanager.cpp:200
+#: lib/kateviewmanager.cpp:216
 #, kde-format
 msgid "Right Split View"
 msgstr "右方分割檢視"
 
-#: lib/kateviewmanager.cpp:205
+#: lib/kateviewmanager.cpp:221
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "讓直覺感覺在右邊的分割檢視成為作用中。"
 
-#: lib/kateviewmanager.cpp:208
+#: lib/kateviewmanager.cpp:224
 #, kde-format
 msgid "Upward Split View"
 msgstr "上方分割檢視"
 
-#: lib/kateviewmanager.cpp:213
+#: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "讓直覺感覺在上面的分割檢視成為作用中。"
 
-#: lib/kateviewmanager.cpp:216
+#: lib/kateviewmanager.cpp:232
 #, kde-format
 msgid "Downward Split View"
 msgstr "下方分割檢視"
 
-#: lib/kateviewmanager.cpp:221
+#: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "讓直覺感覺在下面的分割檢視成為作用中。"
 
-#: lib/kateviewmanager.cpp:224
+#: lib/kateviewmanager.cpp:240
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "將分割器右移"
 
-#: lib/kateviewmanager.cpp:227
+#: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "將分割器移到目前檢視的右方"
 
-#: lib/kateviewmanager.cpp:230
+#: lib/kateviewmanager.cpp:246
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "將分割器左移"
 
-#: lib/kateviewmanager.cpp:233
+#: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "將分割器移到目前檢視的左方"
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "將分割器上移"
 
-#: lib/kateviewmanager.cpp:239
+#: lib/kateviewmanager.cpp:255
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "將分割器移到目前檢視的上方"
 
-#: lib/kateviewmanager.cpp:242
+#: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "將分割器下移"
 
-#: lib/kateviewmanager.cpp:245
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "將分割器移到目前檢視的下方"
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:264
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "將焦點置於導覽列"
 
-#: lib/kateviewmanager.cpp:249
+#: lib/kateviewmanager.cpp:265
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "將焦點置於導覽列"
 
-#: lib/kateviewmanager.cpp:256
+#: lib/kateviewmanager.cpp:272
 #, kde-format
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:261
+#: lib/kateviewmanager.cpp:277
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:330
+#: lib/kateviewmanager.cpp:346
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2251,46 +2251,46 @@ msgstr ""
 "p><p><strong>請注意，kate 在開啟大檔案的時候可能會有一段時間停止回應。</"
 "strong></p>"
 
-#: lib/kateviewmanager.cpp:339
+#: lib/kateviewmanager.cpp:355
 #, kde-format
 msgid "Opening Large File"
 msgstr "開啟大檔案"
 
-#: lib/kateviewmanager.cpp:499
+#: lib/kateviewmanager.cpp:515
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:516
+#: lib/kateviewmanager.cpp:532
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:522
+#: lib/kateviewmanager.cpp:538
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:530
+#: lib/kateviewmanager.cpp:546
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "開啟舊檔"
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:547
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:542
+#: lib/kateviewmanager.cpp:558
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1284
+#: lib/kateviewmanager.cpp:1386
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "此檢視可能有未儲存的工作。您真的想要關閉它嗎？"
@@ -2301,7 +2301,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:212
+#: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:221
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "點擊此處以切換到快速開啟檢視。"
@@ -2311,7 +2311,18 @@ msgstr "點擊此處以切換到快速開啟檢視。"
 msgid "Control view space splitting"
 msgstr "控制檢視空間分割"
 
-#: lib/kateviewspace.cpp:213
+#: lib/kateviewspace.cpp:119
+#, kde-format
+msgid "S&ynchronise Scrolling"
+msgstr ""
+
+#: lib/kateviewspace.cpp:121
+#, kde-format
+msgid ""
+"Synchronise Scrolling of this split-view with other synchronised split-views"
+msgstr ""
+
+#: lib/kateviewspace.cpp:222
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2323,56 +2334,56 @@ msgstr[0] ""
 "目前還有 %1 份文件待開啟。要查看所有開啟的文件，請點擊此出來切換到快速開啟檢"
 "視。"
 
-#: lib/kateviewspace.cpp:1013
+#: lib/kateviewspace.cpp:1022
 #, kde-format
 msgid "Close Tab"
 msgstr "關閉分頁"
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1040
 #, kde-format
 msgid "&Close Document"
 msgstr "關閉文件(&C)"
 
-#: lib/kateviewspace.cpp:1032
+#: lib/kateviewspace.cpp:1041
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "關閉其他的文件(&D)"
 
-#: lib/kateviewspace.cpp:1033
+#: lib/kateviewspace.cpp:1042
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "關閉所有的文件"
 
-#: lib/kateviewspace.cpp:1036
+#: lib/kateviewspace.cpp:1045
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "關閉文件"
 
-#: lib/kateviewspace.cpp:1038
+#: lib/kateviewspace.cpp:1047
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1047
+#: lib/kateviewspace.cpp:1056
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "比較開啟的文件"
 
-#: lib/kateviewspace.cpp:1053
+#: lib/kateviewspace.cpp:1062
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "比較開啟的文件"
 
-#: lib/kateviewspace.cpp:1120
+#: lib/kateviewspace.cpp:1129
 #, kde-format
 msgid "Could not start program"
 msgstr "無法開啟程式"
 
-#: lib/kateviewspace.cpp:1121
+#: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "無法啟動選擇的程式，也許還沒安裝該程式。"

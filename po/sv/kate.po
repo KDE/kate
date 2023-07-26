@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-24 07:38+0000\n"
+"POT-Creation-Date: 2023-07-26 00:49+0000\n"
 "PO-Revision-Date: 2022-10-02 16:47+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -166,8 +166,8 @@ msgstr "Kwrite - Texteditor"
 msgid "Close"
 msgstr "Stäng"
 
-#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:309
-#: lib/kateviewmanager.cpp:311
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:325
+#: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "Öppna fil"
@@ -291,121 +291,121 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:364
+#: lib/diagnostics/diagnosticview.cpp:369
 #, fuzzy, kde-format
 #| msgid "&Quick Open"
 msgid "Quick Fix"
 msgstr "&Snabböppna"
 
-#: lib/diagnostics/diagnosticview.cpp:368
+#: lib/diagnostics/diagnosticview.cpp:373
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Item"
 msgstr "Nästa flik"
 
-#: lib/diagnostics/diagnosticview.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:378
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Item"
 msgstr "Föregående flik"
 
-#: lib/diagnostics/diagnosticview.cpp:380
+#: lib/diagnostics/diagnosticview.cpp:385
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:408
+#: lib/diagnostics/diagnosticview.cpp:413
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:446
+#: lib/diagnostics/diagnosticview.cpp:451
 #, fuzzy, kde-format
 #| msgid "Error"
 msgid "Errors"
 msgstr "Fel"
 
-#: lib/diagnostics/diagnosticview.cpp:462
+#: lib/diagnostics/diagnosticview.cpp:467
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgid "Warnings"
 msgstr "Varning"
 
-#: lib/diagnostics/diagnosticview.cpp:476
+#: lib/diagnostics/diagnosticview.cpp:481
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrera..."
 
-#: lib/diagnostics/diagnosticview.cpp:1078 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1052 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Fel"
 
-#: lib/diagnostics/diagnosticview.cpp:1082 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Varning"
 
-#: lib/diagnostics/diagnosticview.cpp:1086
+#: lib/diagnostics/diagnosticview.cpp:1060
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "Metainformation"
 
-#: lib/diagnostics/diagnosticview.cpp:1238
+#: lib/diagnostics/diagnosticview.cpp:1212
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1368
+#: lib/diagnostics/diagnosticview.cpp:1350
 #, fuzzy, kde-format
 #| msgid "&Expand tabs"
 msgid "Expand All"
 msgstr "&Expandera flikar"
 
-#: lib/diagnostics/diagnosticview.cpp:1369
+#: lib/diagnostics/diagnosticview.cpp:1351
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "St&äng alla"
 
-#: lib/diagnostics/diagnosticview.cpp:1376
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy to Clipboard"
 msgstr "Kopiera till klippbordet"
 
-#: lib/diagnostics/diagnosticview.cpp:1399
+#: lib/diagnostics/diagnosticview.cpp:1381
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1401
+#: lib/diagnostics/diagnosticview.cpp:1383
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "&Alla sessioner"
 
-#: lib/diagnostics/diagnosticview.cpp:1405
+#: lib/diagnostics/diagnosticview.cpp:1387
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1407
+#: lib/diagnostics/diagnosticview.cpp:1389
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1421
+#: lib/diagnostics/diagnosticview.cpp:1402
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "Filtrera sessioner"
 
-#: lib/diagnostics/diagnosticview.cpp:1423
+#: lib/diagnostics/diagnosticview.cpp:1404
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -2038,32 +2038,32 @@ msgid ""
 msgstr ""
 "Data du begärde skulle sparas kunde inte skrivas. Välj hur du vill fortsätta."
 
-#: lib/kateviewmanager.cpp:114
+#: lib/kateviewmanager.cpp:130
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Dela &vertikalt"
 
-#: lib/kateviewmanager.cpp:118
+#: lib/kateviewmanager.cpp:134
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Dela vyn som för närvarande är aktiv vertikalt i två vyer."
 
-#: lib/kateviewmanager.cpp:122
+#: lib/kateviewmanager.cpp:138
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Dela &horisontellt"
 
-#: lib/kateviewmanager.cpp:126
+#: lib/kateviewmanager.cpp:142
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Dela vyn som för närvarande är aktiv horisontellt i två vyer."
 
-#: lib/kateviewmanager.cpp:130
+#: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "Flytta dokument till ny vertikal delning"
 
-#: lib/kateviewmanager.cpp:134
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -2072,12 +2072,12 @@ msgstr ""
 "Dela vyn som för närvarande är aktiv vertikalt i två vyer och flytta "
 "dokumentet som för närvarande är aktivt till den högra vyn."
 
-#: lib/kateviewmanager.cpp:139
+#: lib/kateviewmanager.cpp:155
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "Flytta dokument till ny horisontell delning"
 
-#: lib/kateviewmanager.cpp:143
+#: lib/kateviewmanager.cpp:159
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -2086,167 +2086,167 @@ msgstr ""
 "Dela vyn som för närvarande är aktiv horisontellt i två vyer och flytta "
 "dokumentet som för närvarande är aktivt till den undre vyn."
 
-#: lib/kateviewmanager.cpp:148
+#: lib/kateviewmanager.cpp:164
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "St&äng aktuell vy"
 
-#: lib/kateviewmanager.cpp:152
+#: lib/kateviewmanager.cpp:168
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Stäng den delade vyn som för närvarande är aktiv"
 
-#: lib/kateviewmanager.cpp:156
+#: lib/kateviewmanager.cpp:172
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Stäng inaktiva vyer"
 
-#: lib/kateviewmanager.cpp:159
+#: lib/kateviewmanager.cpp:175
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Stäng alla vyer utom den aktiva"
 
-#: lib/kateviewmanager.cpp:163
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "Dölj inaktiva vyer"
 
-#: lib/kateviewmanager.cpp:167
+#: lib/kateviewmanager.cpp:183
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "Dölj alla vyer utom den aktiva"
 
-#: lib/kateviewmanager.cpp:170
+#: lib/kateviewmanager.cpp:186
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "Ändra orientering"
 
-#: lib/kateviewmanager.cpp:173
+#: lib/kateviewmanager.cpp:189
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "Ändrar orientering av den nuvarande delade vyn"
 
-#: lib/kateviewmanager.cpp:176
+#: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Next Split View"
 msgstr "Nästa delade vy"
 
-#: lib/kateviewmanager.cpp:181
+#: lib/kateviewmanager.cpp:197
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Gör den nästa delade vyn den aktiva."
 
-#: lib/kateviewmanager.cpp:184
+#: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Previous Split View"
 msgstr "Föregående delade vy"
 
-#: lib/kateviewmanager.cpp:189
+#: lib/kateviewmanager.cpp:205
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Gör den föregående delade vyn den aktiva."
 
-#: lib/kateviewmanager.cpp:192
+#: lib/kateviewmanager.cpp:208
 #, kde-format
 msgid "Left Split View"
 msgstr "Dela vy åt vänster"
 
-#: lib/kateviewmanager.cpp:197
+#: lib/kateviewmanager.cpp:213
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Skapa den delade vyn intuitivt till vänster om den aktiva."
 
-#: lib/kateviewmanager.cpp:200
+#: lib/kateviewmanager.cpp:216
 #, kde-format
 msgid "Right Split View"
 msgstr "Dela vy åt höger"
 
-#: lib/kateviewmanager.cpp:205
+#: lib/kateviewmanager.cpp:221
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Skapa den delade vyn intuitivt till höger om den aktiva."
 
-#: lib/kateviewmanager.cpp:208
+#: lib/kateviewmanager.cpp:224
 #, kde-format
 msgid "Upward Split View"
 msgstr "Dela vy uppåt"
 
-#: lib/kateviewmanager.cpp:213
+#: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "Skapa den delade vyn intuitivt ovanför den aktiva."
 
-#: lib/kateviewmanager.cpp:216
+#: lib/kateviewmanager.cpp:232
 #, kde-format
 msgid "Downward Split View"
 msgstr "Dela vy neråt"
 
-#: lib/kateviewmanager.cpp:221
+#: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "Skapa den delade vyn intuitivt nedanför den aktiva."
 
-#: lib/kateviewmanager.cpp:224
+#: lib/kateviewmanager.cpp:240
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Flytta delning åt höger"
 
-#: lib/kateviewmanager.cpp:227
+#: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Flytta delningen av den nuvarande vyn åt höger"
 
-#: lib/kateviewmanager.cpp:230
+#: lib/kateviewmanager.cpp:246
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Flytta delning åt vänster"
 
-#: lib/kateviewmanager.cpp:233
+#: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Flytta delningen av den nuvarande vyn åt vänster"
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Flytta delning uppåt"
 
-#: lib/kateviewmanager.cpp:239
+#: lib/kateviewmanager.cpp:255
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Flytta delningen av den nuvarande vyn uppåt"
 
-#: lib/kateviewmanager.cpp:242
+#: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Flytta delning neråt"
 
-#: lib/kateviewmanager.cpp:245
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Flytta delningen av den nuvarande vyn neråt"
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:264
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "Fokusera navigeringsrad"
 
-#: lib/kateviewmanager.cpp:249
+#: lib/kateviewmanager.cpp:265
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "Fokusera på navigeringsraden"
 
-#: lib/kateviewmanager.cpp:256
+#: lib/kateviewmanager.cpp:272
 #, kde-format
 msgid "Welcome Page"
 msgstr "Välkomstsida"
 
-#: lib/kateviewmanager.cpp:261
+#: lib/kateviewmanager.cpp:277
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Visa välkomstsidan"
 
-#: lib/kateviewmanager.cpp:330
+#: lib/kateviewmanager.cpp:346
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2257,28 +2257,28 @@ msgstr ""
 "fortsätta?</p><p><strong>Var medveten om att Kate kan sluta svara under en "
 "viss tid när stora filer öppnas.</strong></p>"
 
-#: lib/kateviewmanager.cpp:339
+#: lib/kateviewmanager.cpp:355
 #, kde-format
 msgid "Opening Large File"
 msgstr "Öppnar stor fil"
 
-#: lib/kateviewmanager.cpp:499
+#: lib/kateviewmanager.cpp:515
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:516
+#: lib/kateviewmanager.cpp:532
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:522
+#: lib/kateviewmanager.cpp:538
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:530
+#: lib/kateviewmanager.cpp:546
 #, fuzzy, kde-format
 #| msgctxt "on welcome screen"
 #| msgid "Open Folder..."
@@ -2286,19 +2286,19 @@ msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Öppna katalog..."
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:547
 #, fuzzy, kde-format
 #| msgid "Enabled"
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Aktiverad"
 
-#: lib/kateviewmanager.cpp:542
+#: lib/kateviewmanager.cpp:558
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1284
+#: lib/kateviewmanager.cpp:1386
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "Vyn kan ha osparat arbete. Vill du verkligen stänga den?"
@@ -2309,7 +2309,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:212
+#: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:221
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klicka här för att byta till snabböppningsvyn."
@@ -2319,7 +2319,18 @@ msgstr "Klicka här för att byta till snabböppningsvyn."
 msgid "Control view space splitting"
 msgstr "Kontrollera delning av vy-utrymmet"
 
-#: lib/kateviewspace.cpp:213
+#: lib/kateviewspace.cpp:119
+#, kde-format
+msgid "S&ynchronise Scrolling"
+msgstr ""
+
+#: lib/kateviewspace.cpp:121
+#, kde-format
+msgid ""
+"Synchronise Scrolling of this split-view with other synchronised split-views"
+msgstr ""
+
+#: lib/kateviewspace.cpp:222
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2334,53 +2345,53 @@ msgstr[1] ""
 "För närvarande finns det %1 öppna dokument till. Byt till snabböppningsvyn "
 "genom att klicka här, för att se alla öppna dokument."
 
-#: lib/kateviewspace.cpp:1013
+#: lib/kateviewspace.cpp:1022
 #, kde-format
 msgid "Close Tab"
 msgstr "Stäng flik"
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1040
 #, kde-format
 msgid "&Close Document"
 msgstr "Stän&g dokument"
 
-#: lib/kateviewspace.cpp:1032
+#: lib/kateviewspace.cpp:1041
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Stäng övriga &dokument"
 
-#: lib/kateviewspace.cpp:1033
+#: lib/kateviewspace.cpp:1042
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Stäng &alla dokument."
 
-#: lib/kateviewspace.cpp:1036
+#: lib/kateviewspace.cpp:1045
 #, kde-format
 msgid "D&etach Document"
 msgstr "Koppla loss dokum&ent"
 
-#: lib/kateviewspace.cpp:1038
+#: lib/kateviewspace.cpp:1047
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Öppnar dokumentet i ett nytt fönster och stänger det i det aktuella fönstret"
 
-#: lib/kateviewspace.cpp:1047
+#: lib/kateviewspace.cpp:1056
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Jämför med aktivt dokument"
 
-#: lib/kateviewspace.cpp:1053
+#: lib/kateviewspace.cpp:1062
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Jämför med aktivt dokument med användning av"
 
-#: lib/kateviewspace.cpp:1120
+#: lib/kateviewspace.cpp:1129
 #, kde-format
 msgid "Could not start program"
 msgstr "Kunde inte starta programmet"
 
-#: lib/kateviewspace.cpp:1121
+#: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

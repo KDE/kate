@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-26 00:49+0000\n"
-"PO-Revision-Date: 2023-06-27 11:17+0200\n"
+"PO-Revision-Date: 2023-07-26 07:51+0300\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2323,13 +2323,15 @@ msgstr "Control de la divisió de l'espai de la vista"
 #: lib/kateviewspace.cpp:119
 #, kde-format
 msgid "S&ynchronise Scrolling"
-msgstr ""
+msgstr "S&incronitza el desplaçament"
 
 #: lib/kateviewspace.cpp:121
 #, kde-format
 msgid ""
 "Synchronise Scrolling of this split-view with other synchronised split-views"
 msgstr ""
+"Sincronitza el desplaçament d'esta vista dividida amb les altres vistes "
+"dividides sincronitzades"
 
 #: lib/kateviewspace.cpp:222
 #, kde-format

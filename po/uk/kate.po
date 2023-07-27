@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-26 00:49+0000\n"
-"PO-Revision-Date: 2023-06-27 20:34+0300\n"
+"PO-Revision-Date: 2023-07-26 08:40+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -2331,13 +2331,15 @@ msgstr "Керування поділом простору перегляду"
 #: lib/kateviewspace.cpp:119
 #, kde-format
 msgid "S&ynchronise Scrolling"
-msgstr ""
+msgstr "С&инхронізувати гортання"
 
 #: lib/kateviewspace.cpp:121
 #, kde-format
 msgid ""
 "Synchronise Scrolling of this split-view with other synchronised split-views"
 msgstr ""
+"Синхронізувати гортання у цьому розділеному перегляді із іншими "
+"синхронізованими розділеними переглядами"
 
 #: lib/kateviewspace.cpp:222
 #, kde-format

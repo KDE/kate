@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-26 00:49+0000\n"
-"PO-Revision-Date: 2023-04-20 17:34+0300\n"
+"PO-Revision-Date: 2023-07-25 19:54+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -308,7 +308,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Kaikki"
 
 #: lib/diagnostics/diagnosticview.cpp:369
 #, kde-format
@@ -326,10 +326,9 @@ msgid "Previous Item"
 msgstr "Edellinen kohta"
 
 #: lib/diagnostics/diagnosticview.cpp:385
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "Diagnostiikka"
+msgstr "Tyhjennä diagnostiikkasuodatin"
 
 #: lib/diagnostics/diagnosticview.cpp:413
 #, kde-format
@@ -1148,12 +1147,12 @@ msgstr "Jos valittu, pitkää välilehden tekstiä lyhennetään."
 #: lib/kateconfigdialog.cpp:501
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr ""
+msgstr "Avaa uusi välilehti nykyisen oikealle puolen."
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "Ellei valittu, uusi välilehti avataan loppuun."
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format

@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-26 00:49+0000\n"
-"PO-Revision-Date: 2023-06-27 11:51+0300\n"
+"PO-Revision-Date: 2023-07-26 12:40+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2317,13 +2317,15 @@ msgstr "Görünüm boşluk ayırmayı denetle"
 #: lib/kateviewspace.cpp:119
 #, kde-format
 msgid "S&ynchronise Scrolling"
-msgstr ""
+msgstr "Sarmayı &Eşzamanla"
 
 #: lib/kateviewspace.cpp:121
 #, kde-format
 msgid ""
 "Synchronise Scrolling of this split-view with other synchronised split-views"
 msgstr ""
+"Bu bölünmüş görünümün sarmasını diğer eşzamanlı bölünmüş görünümlerle "
+"eşzamanla"
 
 #: lib/kateviewspace.cpp:222
 #, kde-format

@@ -26,6 +26,15 @@ public:
         QList<Command> commands;
     };
 
+    enum TargetRoles {
+        CommandRole = Qt::UserRole,
+        CommandNameRole,
+        WorkDirRole,
+        SearchPathsRole,
+        TargetSetNameRole,
+    };
+    Q_ENUM(TargetRoles)
+
     explicit TargetModel(QObject *parent = nullptr);
     ~TargetModel() override;
 
@@ -62,13 +71,6 @@ public Q_SLOTS:
     {
         return m_targets;
     }
-
-    /** Static functions that could be in a different file */
-    static const QString command(const QModelIndex &itemIndex);
-    static const QString cmdName(const QModelIndex &itemIndex);
-    static const QString workDir(const QModelIndex &itemIndex);
-    static const QStringList searchPaths(const QModelIndex &itemIndex);
-    static const QString targetName(const QModelIndex &itemIndex);
 
 Q_SIGNALS:
 

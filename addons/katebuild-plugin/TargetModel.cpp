@@ -240,7 +240,7 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
     }
 }
 
-const QString TargetModel::command(const QModelIndex &itemIndex)
+static const QString command(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
         return QString();
@@ -267,7 +267,7 @@ const QString TargetModel::command(const QModelIndex &itemIndex)
     return cmdIndex.data().toString();
 }
 
-const QString TargetModel::cmdName(const QModelIndex &itemIndex)
+static QString cmdName(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
         return QString();
@@ -294,13 +294,7 @@ const QString TargetModel::cmdName(const QModelIndex &itemIndex)
     return nameIndex.data().toString();
 }
 
-const QString TargetModel::workDir(const QModelIndex &itemIndex)
-{
-    QStringList paths = searchPaths(itemIndex);
-    return paths.isEmpty() ? QString() : paths.first();
-}
-
-const QStringList TargetModel::searchPaths(const QModelIndex &itemIndex)
+static const QStringList searchPaths(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
         return QStringList();
@@ -314,7 +308,13 @@ const QStringList TargetModel::searchPaths(const QModelIndex &itemIndex)
     return workDirIndex.data().toString().split(QLatin1Char(';'));
 }
 
-const QString TargetModel::targetName(const QModelIndex &itemIndex)
+static QString workDir(const QModelIndex &itemIndex)
+{
+    QStringList paths = searchPaths(itemIndex);
+    return paths.isEmpty() ? QString() : paths.first();
+}
+
+static const QString targetSetName(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
         return QString();
@@ -333,22 +333,35 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::ToolTipRole) {
-        return QVariant();
-    }
-
     int row = index.row();
 
     if (index.internalId() == InvalidIndex) {
+        // This is a root node
         if (row < 0 || row >= m_targets.size()) {
             return QVariant();
         }
 
-        switch (index.column()) {
-        case 0:
-            return m_targets[row].name;
-        case 1:
-            return m_targets[row].workDir;
+        switch (role) {
+        case Qt::DisplayRole:
+        case Qt::EditRole:
+        case Qt::ToolTipRole:
+            switch (index.column()) {
+            case 0:
+                return m_targets[row].name;
+            case 1:
+                return m_targets[row].workDir;
+            }
+            break;
+        case CommandRole:
+            return command(index);
+        case CommandNameRole:
+            return cmdName(index);
+        case WorkDirRole:
+            return workDir(index);
+        case SearchPathsRole:
+            return searchPaths(index);
+        case TargetSetNameRole:
+            return targetSetName(index);
         }
     } else {
         int rootIndex = index.internalId();
@@ -359,7 +372,10 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
 
-        if (role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::ToolTipRole) {
+        switch (role) {
+        case Qt::DisplayRole:
+        case Qt::EditRole:
+        case Qt::ToolTipRole:
             switch (index.column()) {
             case 0:
                 return m_targets[rootIndex].commands[row].name;
@@ -368,6 +384,17 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             case 2:
                 return m_targets[rootIndex].commands[row].runCmd;
             }
+            break;
+        case CommandRole:
+            return command(index);
+        case CommandNameRole:
+            return cmdName(index);
+        case WorkDirRole:
+            return workDir(index);
+        case SearchPathsRole:
+            return searchPaths(index);
+        case TargetSetNameRole:
+            return targetSetName(index);
         }
     }
 

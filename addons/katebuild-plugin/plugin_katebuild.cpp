@@ -786,11 +786,11 @@ bool KateBuildView::buildCurrentTarget()
         return false;
     }
 
-    QString buildCmd = TargetModel::command(ind);
-    QString cmdName = TargetModel::cmdName(ind);
-    m_searchPaths = TargetModel::searchPaths(ind);
-    QString workDir = TargetModel::workDir(ind);
-    QString targetSet = TargetModel::targetName(ind);
+    QString buildCmd = ind.data(TargetModel::CommandRole).toString();
+    QString cmdName = ind.data(TargetModel::CommandNameRole).toString();
+    m_searchPaths = ind.data(TargetModel::SearchPathsRole).toStringList();
+    QString workDir = ind.data(TargetModel::WorkDirRole).toString();
+    QString targetSet = ind.data(TargetModel::TargetSetNameRole).toString();
 
     QString dir = workDir;
     if (workDir.isEmpty()) {
@@ -926,7 +926,7 @@ void KateBuildView::slotRunAfterBuild()
         // Nothing to run, and not a problem
         return;
     }
-    const QString workDir = TargetModel::workDir(idx);
+    const QString workDir = idx.data(TargetModel::WorkDirRole).toString();
     if (workDir.isEmpty()) {
         displayBuildResult(i18n("Cannot execute: %1 No working directory set.", runCmd), KTextEditor::Message::Warning);
         return;

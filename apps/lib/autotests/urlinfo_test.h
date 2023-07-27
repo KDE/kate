@@ -18,4 +18,5 @@ private Q_SLOTS:
     void someUrls();
     void someCursors();
     void urlWithColonAtStart();
+    void nonExistingRelativePath();
 };

@@ -88,7 +88,7 @@ public:
          * - file: urls, file:///path/to/some/file
          * - remote urls, e.g. sftp://1.2.3.4:22/path/to/some/file
          */
-        url = QUrl::fromUserInput(path, QString(), QUrl::AssumeLocalFile);
+        url = QUrl::fromUserInput(path, currentDirPath, QUrl::AssumeLocalFile);
 
         /**
          * Set cursor position if we can extract from URL query string

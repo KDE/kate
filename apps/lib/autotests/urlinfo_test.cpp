@@ -59,4 +59,19 @@ void UrlInfoTest::urlWithColonAtStart()
 #endif
 }
 
+void UrlInfoTest::nonExistingRelativePath()
+{
+    QTemporaryDir dir;
+    const auto oldCurrent = QDir::currentPath();
+    QDir::setCurrent(dir.path());
+
+    const QString fileName = QStringLiteral("doesnotexist.txt");
+    const UrlInfo info(fileName);
+
+    QVERIFY(info.url.isLocalFile());
+    QCOMPARE(info.url.toLocalFile(), dir.filePath(fileName));
+
+    QDir::setCurrent(oldCurrent);
+}
+
 #include "moc_urlinfo_test.cpp"

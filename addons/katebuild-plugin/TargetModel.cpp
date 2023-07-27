@@ -21,6 +21,7 @@ TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir)
 // row is the m_targets.commands list index or m_targets index if it is a root element
 // column 0 is command name or target-set name if it is a root element
 // column 1 is the command or working directory if it is a root element
+// column 2 is the run command for non-root elements
 
 TargetModel::TargetModel(QObject *parent)
     : QAbstractItemModel(parent)

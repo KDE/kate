@@ -31,9 +31,7 @@ bool TargetFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &
     }
 
     for (int row = 0; row < sourceModel()->rowCount(srcIndex); ++row) {
-        const QModelIndex childIndex = srcIndex.model()->index(row, 0, srcIndex);
-        name = childIndex.data().toString();
-        if (name.contains(m_filter, Qt::CaseInsensitive)) {
+        if (filterAcceptsRow(row, srcIndex)) {
             return true;
         }
     }

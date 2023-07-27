@@ -62,7 +62,7 @@ public Q_SLOTS:
     void deleteItem(const QModelIndex &index);
 
     /** This function deletes the target-set with the same name */
-    void deleteTargetSet(const QString &targetSet);
+    void deleteProjectTargerts();
 
     void moveRowUp(const QModelIndex &index);
     void moveRowDown(const QModelIndex &index);

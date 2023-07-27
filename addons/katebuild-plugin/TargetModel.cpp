@@ -174,10 +174,10 @@ void TargetModel::deleteItem(const QModelIndex &index)
     }
 }
 
-void TargetModel::deleteTargetSet(const QString &targetSet)
+void TargetModel::deleteProjectTargerts()
 {
     for (int i = 0; i < m_targets.count(); i++) {
-        if (m_targets[i].name == targetSet) {
+        if (m_targets[i].name == i18n("Project Plugin Targets")) {
             beginRemoveRows(QModelIndex(), i, i);
             m_targets.removeAt(i);
             endRemoveRows();

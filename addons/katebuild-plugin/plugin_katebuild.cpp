@@ -1250,7 +1250,7 @@ void KateBuildView::slotPluginViewDeleted(const QString &name, QObject *)
     // remove view
     if (name == QLatin1String("kateprojectplugin")) {
         m_projectPluginView = nullptr;
-        m_targetsUi->targetsModel.deleteTargetSet(i18n("Project Plugin Targets"));
+        m_targetsUi->targetsModel.deleteProjectTargerts();
     }
 }
 
@@ -1261,7 +1261,7 @@ void KateBuildView::slotProjectMapChanged()
     if (!m_projectPluginView) {
         return;
     }
-    m_targetsUi->targetsModel.deleteTargetSet(i18n("Project Plugin Targets"));
+    m_targetsUi->targetsModel.deleteProjectTargerts();
     addProjectTarget();
 }
 
@@ -1282,7 +1282,7 @@ void KateBuildView::addProjectTarget()
     }
 
     // Delete any old project plugin targets
-    m_targetsUi->targetsModel.deleteTargetSet(i18n("Project Plugin Targets"));
+    m_targetsUi->targetsModel.deleteProjectTargerts();
 
     // handle build directory as relative to project file, if possible, see bug 413306
     QString projectsBuildDir = buildMap.value(QStringLiteral("directory")).toString();

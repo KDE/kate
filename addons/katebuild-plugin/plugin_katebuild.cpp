@@ -25,7 +25,7 @@
 #include "plugin_katebuild.h"
 
 #include "AppOutput.h"
-
+#include "buildconfig.h"
 #include "hostprocess.h"
 
 #include <cassert>
@@ -168,6 +168,24 @@ KateBuildPlugin::KateBuildPlugin(QObject *parent, const VariantList &)
 QObject *KateBuildPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     return new KateBuildView(this, mainWindow);
+}
+
+/******************************************************************/
+int KateBuildPlugin::configPages() const
+{
+    return 1;
+}
+
+/******************************************************************/
+KTextEditor::ConfigPage *KateBuildPlugin::configPage(int number, QWidget *parent)
+{
+    if (number != 0) {
+        return nullptr;
+    }
+
+    KateBuildConfigPage *configPage = new KateBuildConfigPage(parent);
+    connect(configPage, &KateBuildConfigPage::configChanged, this, &KateBuildPlugin::configChanged);
+    return configPage;
 }
 
 /******************************************************************/
@@ -381,6 +399,12 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     m_diagnosticsProvider.name = i18n("Build Information");
     m_diagnosticsProvider.setPersistentDiagnostics(true);
+
+    KateBuildPlugin *bPlugin = qobject_cast<KateBuildPlugin *>(plugin);
+    if (bPlugin) {
+        connect(bPlugin, &KateBuildPlugin::configChanged, this, &KateBuildView::readConfig);
+    }
+    readConfig();
 }
 
 /******************************************************************/
@@ -488,6 +512,24 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
 }
 
 /******************************************************************/
+void KateBuildView::readConfig()
+{
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
+    m_addDiagnostics = config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true);
+}
+
+/******************************************************************/
+static Diagnostic createDiagnostic(int line, int column, const QString &message, const DiagnosticSeverity &severity)
+{
+    Diagnostic d;
+    d.message = message;
+    d.source = DiagnosticsPrefix;
+    d.severity = severity;
+    d.range = KTextEditor::Range(KTextEditor::Cursor(line - 1, column - 1), 0);
+    return d;
+}
+
+/******************************************************************/
 void KateBuildView::addError(const KateBuildView::OutputLine &err)
 {
     // Get filediagnostic by filename or create new if there is none
@@ -507,14 +549,19 @@ void KateBuildView::addError(const KateBuildView::OutputLine &err)
         severity = DiagnosticSeverity::Information;
     }
 
+    if (!m_addDiagnostics) {
+        return;
+    }
+
     // NOTE: Limit the number of items in the diagnostics view to 200 items.
     // Adding more items risks making the build slow. (standard item models are slow)
     if ((m_numErrors + m_numWarnings + m_numNotes) > 200) {
         return;
     }
-    updateDiagnostics(KateBuildView::createDiagnostic(err.lineNr, err.column, err.message, severity), uri);
+    updateDiagnostics(createDiagnostic(err.lineNr, err.column, err.message, severity), uri);
 }
 
+/******************************************************************/
 void KateBuildView::updateDiagnostics(Diagnostic diagnostic, const QUrl uri)
 {
     FileDiagnostics fd;
@@ -523,19 +570,10 @@ void KateBuildView::updateDiagnostics(Diagnostic diagnostic, const QUrl uri)
     Q_EMIT m_diagnosticsProvider.diagnosticsAdded(fd);
 }
 
+/******************************************************************/
 void KateBuildView::clearDiagnostics()
 {
     Q_EMIT m_diagnosticsProvider.requestClearDiagnostics(&m_diagnosticsProvider);
-}
-
-Diagnostic KateBuildView::createDiagnostic(int line, int column, const QString &message, const DiagnosticSeverity &severity)
-{
-    Diagnostic d;
-    d.message = message;
-    d.source = DiagnosticsPrefix;
-    d.severity = severity;
-    d.range = KTextEditor::Range(KTextEditor::Cursor(line - 1, column - 1), 0);
-    return d;
 }
 
 /******************************************************************/

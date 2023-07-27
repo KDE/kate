@@ -29,6 +29,7 @@
 #include <QString>
 #include <QTimer>
 
+#include <KTextEditor/ConfigPage>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
@@ -60,7 +61,6 @@ public:
     KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
     ~KateBuildView() override;
 
-    // reimplemented: read and write session config
     void readSessionConfig(const KConfigGroup &config) override;
     void writeSessionConfig(KConfigGroup &config) override;
 
@@ -99,6 +99,11 @@ private Q_SLOTS:
     void slotPluginViewCreated(const QString &name, QObject *pluginView);
     void slotPluginViewDeleted(const QString &name, QObject *pluginView);
     void slotProjectMapChanged();
+
+    /**
+     * Read the non-session configurations
+     */
+    void readConfig();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
@@ -155,12 +160,12 @@ private:
     int m_projectTargetsetRow = 0;
     bool m_firstBuild = true;
     DiagnosticsProvider m_diagnosticsProvider;
+    bool m_addDiagnostics = true;
+
     /**
      * current project plugin view, if any
      */
     QObject *m_projectPluginView = nullptr;
-
-    static Diagnostic createDiagnostic(int line, int column, const QString &message, const DiagnosticSeverity &severity);
 };
 
 typedef QList<QVariant> VariantList;
@@ -177,4 +182,9 @@ public:
     }
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+    int configPages() const override;
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
+
+Q_SIGNALS:
+    void configChanged();
 };

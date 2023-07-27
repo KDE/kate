@@ -14,6 +14,7 @@ target_sources(
     UrlInserter.cpp
     TargetFilterProxyModel.cpp
     AppOutput.cpp
+    buildconfig.cpp
     plugin.qrc
 )
 

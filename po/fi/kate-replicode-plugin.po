@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2015.
-# Tommi Nieminen <translator@legisign.org>, 2016.
+# Tommi Nieminen <translator@legisign.org>, 2016, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2016-10-26 22:24+0300\n"
+"PO-Revision-Date: 2023-07-25 19:57+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
@@ -46,7 +46,7 @@ msgstr ""
 #: config.ui:71
 #, kde-format
 msgid "User classes file:"
-msgstr ""
+msgstr "Käyttäjä luokkatiedosto:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: config.ui:84
@@ -124,7 +124,7 @@ msgstr ""
 #: config.ui:281
 #, kde-format
 msgid "Float tolerance:"
-msgstr ""
+msgstr "Liukusieto:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: config.ui:298
@@ -148,13 +148,13 @@ msgstr "Toissijainen aikahorisontti:"
 #: config.ui:352
 #, kde-format
 msgid "Notification marker resilience:"
-msgstr ""
+msgstr "Ilmoitusmerkin jousto:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_19)
 #: config.ui:369
 #, kde-format
 msgid "Goal prediction success resilience:"
-msgstr ""
+msgstr "Tavoite-ennusteen onnistumisen jousto:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, debugtab)
 #: config.ui:387
@@ -376,7 +376,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "User Operator Library Not Found"
-msgstr ""
+msgstr "Käyttäjän operaattorikirjasto ei löytynyt"
 
 #: replicodeview.cpp:136
 #, kde-format
@@ -384,6 +384,8 @@ msgid ""
 "Unable to find user operator library.\n"
 "Please go to settings and set the path to the library."
 msgstr ""
+"Käyttäjän operaattorikirjastoa ei löydetty.\n"
+"Siirry asetuksiin ja aseta kirjaston sijainti."
 
 #: replicodeview.cpp:201
 #, kde-format

@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2013, 2014, 2020, 2022.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2013, 2014, 2020, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2022-06-12 10:41+0200\n"
+"PO-Revision-Date: 2023-07-26 13:43+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -19,8 +19,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "GDB-kommando"
 
@@ -183,47 +182,44 @@ msgstr "Mål %1"
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "Användarinställningar av avlusningsadapter"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "Inställningar"
+msgstr "Inställningsfil:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "Standardinställningar av avlusningsadapter"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Avlusa"
+msgstr "Avlusare"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Ingen JSON-data att validera."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON-data är giltig."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON-data är ogiltig: inget JSON-objekt"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON-data är ogiltig: %1"
 
 #: debugview.cpp:35
 #, kde-format
@@ -233,12 +229,12 @@ msgstr "Lokala objekt"
 #: debugview.cpp:37
 #, kde-format
 msgid "CPU registers"
-msgstr ""
+msgstr "Processorregister"
 
 #: debugview.cpp:160
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
+msgstr "Ange körbart program under inställningsfliken i panelen 'Avlusning'."
 
 #: debugview.cpp:169
 #, kde-format
@@ -246,6 +242,7 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Ingen avlusare vald. Välj en under inställningsfliken i panelen 'Avlusning'."
 
 #: debugview.cpp:178
 #, kde-format
@@ -253,6 +250,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Avlusare hittades inte. Säkerställ att den är installerad på systemet. Den "
+"valda avlusaren är '%1'."
 
 #: debugview.cpp:384
 #, kde-format
@@ -265,16 +264,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb avslutades normalt ***"
 
 #: debugview.cpp:648
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "alla trådar fortsatte"
+msgstr "alla trådar kör"
 
 #: debugview.cpp:650
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "tråd %1"
+msgstr "tråd(ar) som kör: %1"
 
 #: debugview.cpp:655 debugview_dap.cpp:270
 #, kde-format
@@ -292,16 +289,14 @@ msgid "Active thread: %1."
 msgstr "Aktiv tråd: %1."
 
 #: debugview.cpp:680
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Aktuell aktiveringspost: "
+msgstr "Aktuell aktiveringspost: %1:%2"
 
 #: debugview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Mål %1"
+msgstr "Värd: %1. Mål: %1"
 
 #: debugview.cpp:1377
 #, kde-format
@@ -309,11 +304,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: Kunde inte tolka senaste svar: %1. För många fel en följd. Stänger "
+"av."
 
 #: debugview.cpp:1379
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: Kunde inte tolka senaste svar: %1"
 
 #: debugview_dap.cpp:169
 #, kde-format
@@ -540,7 +537,7 @@ msgstr "villkorliga träffbrytpunkter stöds inte av servern"
 #: debugview_dap.cpp:1336
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "rad %1 har redan en brytpunkt"
 
 #: debugview_dap.cpp:1381
 #, kde-format
@@ -603,10 +600,9 @@ msgid "command not found"
 msgstr "kommando hittades inte"
 
 #: debugview_dap.cpp:1497
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgid "missing thread id"
-msgstr "ogiltig trådidentifierare: %1"
+msgstr "saknar trådidentifierare"
 
 #: debugview_dap.cpp:1605
 #, kde-format
@@ -644,10 +640,9 @@ msgid "named items"
 msgstr "namngivna objekt"
 
 #: plugin_kategdb.cpp:106
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr "Kate avlusning"
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -677,12 +672,10 @@ msgid "Frame"
 msgstr "Aktiveringspost"
 
 #: plugin_kategdb.cpp:200
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "Utmatning från GDB"
+msgstr "Avlusarutmatning"
 
 #: plugin_kategdb.cpp:201
 #, kde-format
@@ -804,10 +797,9 @@ msgstr "&Avlusa"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "Insticksprogram för GDB"
+msgstr "Avlusningsinsticksprogram"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

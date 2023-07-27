@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Stefan Asserhäll <stefan.asserhall@bredband.net>, 2008, 2009, 2010.
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
 # Arve Eriksson <031299870@telia.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2022-04-03 11:48+0200\n"
+"PO-Revision-Date: 2023-07-26 13:37+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -59,16 +59,14 @@ msgid "Select Target..."
 msgstr "Välj mål..."
 
 #: plugin_katebuild.cpp:206
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build Selected Target"
 msgstr "Bygg markerat mål"
 
 #: plugin_katebuild.cpp:211
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and Run Selected Target"
-msgstr "Bygg markerat mål"
+msgstr "Bygg och kör markerat mål"
 
 #: plugin_katebuild.cpp:216
 #, kde-format
@@ -79,13 +77,13 @@ msgstr "Stoppa"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Fokusera på nästa flik till vänster"
 
 #: plugin_katebuild.cpp:241
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Fokusera på nästa flik till höger"
 
 #: plugin_katebuild.cpp:263
 #, kde-format
@@ -94,10 +92,9 @@ msgid "Target Settings"
 msgstr "Målinställningar"
 
 #: plugin_katebuild.cpp:382
-#, fuzzy, kde-format
-#| msgid "Build command:"
+#, kde-format
 msgid "Build Information"
-msgstr "Byggkommando:"
+msgstr "Bygginformation"
 
 #: plugin_katebuild.cpp:463 plugin_katebuild.cpp:1215 plugin_katebuild.cpp:1226
 #: plugin_katebuild.cpp:1247 plugin_katebuild.cpp:1257
@@ -165,7 +162,7 @@ msgstr "<title>Byggresultat:</title><nl/>%1"
 #: plugin_katebuild.cpp:844
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "Byggning <b>%1</b> klar. %2 fel, %3 varning(ar), %4 anmärkning(ar)"
 
 #: plugin_katebuild.cpp:850
 #, kde-format
@@ -182,13 +179,11 @@ msgstr[0] "Hittade en varning."
 msgstr[1] "Hittade %1 varningar."
 
 #: plugin_katebuild.cpp:857
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "Hittade ett fel."
-msgstr[1] "Hittade %1 fel."
+msgstr[0] "Hittade ett anmärkning."
+msgstr[1] "Hittade %1 anmärkningar."
 
 #: plugin_katebuild.cpp:862
 #, kde-format
@@ -203,25 +198,21 @@ msgstr "Byggning avslutades utan problem."
 #: plugin_katebuild.cpp:869
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "Byggning <b>%1 avbruten</b>. %2 fel, %3 varning(ar), %4 anmärkning(ar)"
 
 #: plugin_katebuild.cpp:893
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "Kan inte köra: %1 Ingen arbetskatalog inställd."
 
 #: plugin_katebuild.cpp:1119
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "fel"
 
 #: plugin_katebuild.cpp:1122
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "varning"
@@ -230,7 +221,7 @@ msgstr "varning"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "anmärkning|information"
 
 #: plugin_katebuild.cpp:1128
 #, kde-format
@@ -318,15 +309,15 @@ msgid "Working Directory / Command"
 msgstr "Arbetskatalog/Kommando"
 
 #: TargetModel.cpp:394
-#, fuzzy, kde-format
-#| msgid "Command:"
+#, kde-format
 msgid "Run Command"
-msgstr "Kommando:"
+msgstr "Kör kommando"
 
 #: targets.cpp:23
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
+"Filtrera mål, använd piltangenter för att markera, returtangent för att köra"
 
 #: targets.cpp:27
 #, kde-format
@@ -354,22 +345,19 @@ msgid "Build selected target"
 msgstr "Bygg markerat mål"
 
 #: targets.cpp:48
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and run selected target"
-msgstr "Bygg markerat mål"
+msgstr "Bygg och kör markerat mål"
 
 #: targets.cpp:52
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target up"
-msgstr "Bygg markerat mål"
+msgstr "Flytta markerat mål uppåt"
 
 #: targets.cpp:56
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target down"
-msgstr "Bygg markerat mål"
+msgstr "Flytta markerat mål neråt"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

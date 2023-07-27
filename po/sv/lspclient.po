@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2019, 2020, 2021, 2022.
+# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-05 01:04+0000\n"
-"PO-Revision-Date: 2022-09-25 10:02+0200\n"
+"PO-Revision-Date: 2023-07-26 12:43+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -208,7 +208,7 @@ msgstr "Markera plats att gå till"
 #: lspclientpluginview.cpp:594
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Visa inlagda tips"
 
 #: lspclientpluginview.cpp:598
 #, kde-format
@@ -243,7 +243,7 @@ msgstr "Starta om alla LSP-servrar"
 #: lspclientpluginview.cpp:627
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Gå till"
 
 #: lspclientpluginview.cpp:654
 #, kde-format
@@ -460,10 +460,9 @@ msgstr "Klientinställningar"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Formatera vid inskrivning"
+msgstr "Formatera vid spara"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -475,7 +474,7 @@ msgstr "Aktivera semantisk färgläggning"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Aktivera inlagda tips"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75

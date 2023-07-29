@@ -3,21 +3,7 @@ find_package(KF${KF_MAJOR_VERSION}GuiAddons ${KF5_DEP_VERSION} QUIET)
 
 set_package_properties(KF${KF_MAJOR_VERSION}GuiAddons PROPERTIES PURPOSE "Required to build the project addon")
 
-# In KF5 KMoreTools is part of KNewSuff
-# in KF6 it's standalone
-if(KF_MAJOR_VERSION STREQUAL "5")
-    find_package(KF5NewStuff QUIET)
-    set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the project addon")
-else()
-    find_package(KF6MoreTools QUIET)
-    set_package_properties(KF6MoreTools PROPERTIES PURPOSE "Required to build the project addon")
-endif()
-
 if(NOT KF${KF_MAJOR_VERSION}_FOUND OR NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
-  return()
-endif()
-
-if(NOT KF5NewStuff_FOUND AND NOT KF6MoreTools_FOUND)
   return()
 endif()
 
@@ -33,12 +19,6 @@ target_link_libraries(
         KF${KF_MAJOR_VERSION}::I18n
         KF${KF_MAJOR_VERSION}::TextEditor
 )
-
-if(KF_MAJOR_VERSION STREQUAL "5")
-    target_link_libraries(kateprojectplugin PRIVATE KF5::NewStuff)
-else()
-    target_link_libraries(kateprojectplugin PRIVATE KF6::MoreTools)
-endif()
 
 target_sources(
   kateprojectplugin

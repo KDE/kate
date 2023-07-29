@@ -16,8 +16,6 @@
 
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
-#include <KMoreTools>
-#include <KMoreToolsMenuFactory>
 #include <KPropertiesDialog>
 #include <KTerminalLauncherJob>
 #include <KTextEditor/Document>
@@ -112,19 +110,13 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     auto openContaingFolderAction = menu.addAction(QIcon::fromTheme(QStringLiteral("document-open-folder")), i18n("&Open Containing Folder"));
 
     /**
-     * Git menu
+     * Git history
      */
     QAction *fileHistory = nullptr;
-    KMoreToolsMenuFactory menuFactory(QStringLiteral("kate/addons/project/git-tools"));
     QMenu gitMenu; // must live as long as the maybe filled menu items should live
     if (GitUtils::isGitRepo(QFileInfo(filename).absolutePath())) {
         menu.addSeparator();
         fileHistory = menu.addAction(i18n("Show Git History"));
-        menuFactory.fillMenuFromGroupingNames(&gitMenu, {QLatin1String("git-clients-and-actions")}, url);
-        const auto gitActions = gitMenu.actions();
-        for (auto action : gitActions) {
-            menu.addAction(action);
-        }
     }
 
     auto handleDeleteFile = [parent, index](const QString &path) {

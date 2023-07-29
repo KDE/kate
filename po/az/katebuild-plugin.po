@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2023-07-29 00:48+0000\n"
 "PO-Revision-Date: 2023-06-30 16:24+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -45,72 +45,89 @@ msgstr "Yenidən qurmaq"
 msgid "Cancel"
 msgstr "İmtina"
 
-#: plugin_katebuild.cpp:191 plugin_katebuild.cpp:198 plugin_katebuild.cpp:1162
+#: buildconfig.cpp:26
+#, kde-format
+msgid "Add errors and warnings to Diagnostics"
+msgstr ""
+
+#: buildconfig.cpp:37
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build & Run"
+msgstr "Yenidən qurmaq"
+
+#: buildconfig.cpp:43
+#, fuzzy, kde-format
+#| msgid "Build and Run Selected Target"
+msgid "Build & Run Settings"
+msgstr "Seçilmiş hədəfi qurun və başladın"
+
+#: plugin_katebuild.cpp:209 plugin_katebuild.cpp:216 plugin_katebuild.cpp:1200
 #, kde-format
 msgid "Build"
 msgstr "Yığmaq"
 
-#: plugin_katebuild.cpp:201
+#: plugin_katebuild.cpp:219
 #, kde-format
 msgid "Select Target..."
 msgstr "Hədəfi seçin..."
 
-#: plugin_katebuild.cpp:206
+#: plugin_katebuild.cpp:224
 #, kde-format
 msgid "Build Selected Target"
 msgstr "Seçilmiş hədəfi qurun"
 
-#: plugin_katebuild.cpp:211
+#: plugin_katebuild.cpp:229
 #, kde-format
 msgid "Build and Run Selected Target"
 msgstr "Seçilmiş hədəfi qurun və başladın"
 
-#: plugin_katebuild.cpp:216
+#: plugin_katebuild.cpp:234
 #, kde-format
 msgid "Stop"
 msgstr "Dayandırın"
 
-#: plugin_katebuild.cpp:221
+#: plugin_katebuild.cpp:239
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
 msgstr "Diqqəti soldakı növbəti vərəqi verin"
 
-#: plugin_katebuild.cpp:241
+#: plugin_katebuild.cpp:259
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
 msgstr "Diqqəti sağdakı növbəti vərəqi verin"
 
-#: plugin_katebuild.cpp:263
+#: plugin_katebuild.cpp:281
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Hədəf ayarları"
 
-#: plugin_katebuild.cpp:382
+#: plugin_katebuild.cpp:400
 #, kde-format
 msgid "Build Information"
 msgstr "Qurulma haqqında məlumat"
 
-#: plugin_katebuild.cpp:463 plugin_katebuild.cpp:1215 plugin_katebuild.cpp:1226
-#: plugin_katebuild.cpp:1247 plugin_katebuild.cpp:1257
+#: plugin_katebuild.cpp:487 plugin_katebuild.cpp:1253 plugin_katebuild.cpp:1264
+#: plugin_katebuild.cpp:1285 plugin_katebuild.cpp:1295
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Qoşma hədəfləri layihəsi"
 
-#: plugin_katebuild.cpp:560
+#: plugin_katebuild.cpp:598
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Qurmaq üçün fayl və ya qovluq göstərilməyib."
 
-#: plugin_katebuild.cpp:564
+#: plugin_katebuild.cpp:602
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "\"%1\" faylı yerli fayl deyil. Yerli olmayan fayllar yığıla bilməz."
 
-#: plugin_katebuild.cpp:611
+#: plugin_katebuild.cpp:649
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -119,143 +136,143 @@ msgstr ""
 "Əmr başladıla bilmədi: %1\n"
 "İş yolu mövcud deyil: %2"
 
-#: plugin_katebuild.cpp:625
+#: plugin_katebuild.cpp:663
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" işə salına bilmədi.çıxış kodu = %2"
 
-#: plugin_katebuild.cpp:640
+#: plugin_katebuild.cpp:678
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "<b>%1</b> yığılması ləğv edildi"
 
-#: plugin_katebuild.cpp:747
+#: plugin_katebuild.cpp:785
 #, kde-format
 msgid "No target available for building."
 msgstr "Yığmaq üçün hədəf yoxdur."
 
-#: plugin_katebuild.cpp:761
+#: plugin_katebuild.cpp:799
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Yığmaq üçün fayl və ya qovluq göstərilməyib."
 
-#: plugin_katebuild.cpp:767
+#: plugin_katebuild.cpp:805
 #, kde-format
 msgid "Already building..."
 msgstr "Artıq yığılır..."
 
-#: plugin_katebuild.cpp:794
+#: plugin_katebuild.cpp:832
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "<b>%1</b> hədəfi yığılır ..."
 
-#: plugin_katebuild.cpp:808
+#: plugin_katebuild.cpp:846
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Nəticələr:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:844
+#: plugin_katebuild.cpp:882
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1</b> qurulması başa çatdı. %2 xəta, %3 xəbərdarlıq, %4 qeyd"
 
-#: plugin_katebuild.cpp:850
+#: plugin_katebuild.cpp:888
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Bir xəta tapıldı."
 msgstr[1] "%1 xəta tapıldı."
 
-#: plugin_katebuild.cpp:854
+#: plugin_katebuild.cpp:892
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "bir xəbərdarlıq tapıldı."
 msgstr[1] "%1 xəbərdarlıq tapıldı."
 
-#: plugin_katebuild.cpp:857
+#: plugin_katebuild.cpp:895
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Bir qeyd tapıldı."
 msgstr[1] "%1 qeyd tapıldı."
 
-#: plugin_katebuild.cpp:862
+#: plugin_katebuild.cpp:900
 #, kde-format
 msgid "Build failed."
 msgstr "Yığıla bilmədi."
 
-#: plugin_katebuild.cpp:864
+#: plugin_katebuild.cpp:902
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Yığılma problemlərsiz başa çatdı."
 
-#: plugin_katebuild.cpp:869
+#: plugin_katebuild.cpp:907
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1 qurulması ləğv edildi</b>. %2 xəta, %3 xəbərdarlıq, %4 qeyd"
 
-#: plugin_katebuild.cpp:893
+#: plugin_katebuild.cpp:931
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "İcra etmək mümkün olmadı: %1 İşlək kataloq təyin edilməyib."
 
-#: plugin_katebuild.cpp:1119
+#: plugin_katebuild.cpp:1157
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "xəta"
 
-#: plugin_katebuild.cpp:1122
+#: plugin_katebuild.cpp:1160
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "xəbərdarlıq"
 
-#: plugin_katebuild.cpp:1125
+#: plugin_katebuild.cpp:1163
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "qeyd|məlumat"
 
-#: plugin_katebuild.cpp:1128
+#: plugin_katebuild.cpp:1166
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "müəyyənləşməmiş keçid"
 
-#: plugin_katebuild.cpp:1161
+#: plugin_katebuild.cpp:1199
 #, kde-format
 msgid "Target Set"
 msgstr "Hədəf dəsti"
 
-#: plugin_katebuild.cpp:1163
+#: plugin_katebuild.cpp:1201
 #, kde-format
 msgid "Clean"
 msgstr "Təmizləmək"
 
-#: plugin_katebuild.cpp:1164
+#: plugin_katebuild.cpp:1202
 #, kde-format
 msgid "Config"
 msgstr "Tənzimləmə"
 
-#: plugin_katebuild.cpp:1165
+#: plugin_katebuild.cpp:1203
 #, kde-format
 msgid "ConfigClean"
 msgstr "ConfigClean"
 
-#: plugin_katebuild.cpp:1285
+#: plugin_katebuild.cpp:1323
 #, kde-format
 msgid "build"
 msgstr "qurmaq"
 
-#: plugin_katebuild.cpp:1288
+#: plugin_katebuild.cpp:1326
 #, kde-format
 msgid "clean"
 msgstr "təmizləmək"
 
-#: plugin_katebuild.cpp:1291
+#: plugin_katebuild.cpp:1329
 #, kde-format
 msgid "quick"
 msgstr "cəld"

@@ -35,7 +35,10 @@ public:
      * @param mainWindow parent main window
      * @param parent parent widget (e.g. the tool view in the main window)
      */
-    KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWidget *tabButton);
+    KateOutputView(KateMainWindow *mainWindow, QWidget *parent);
+
+private Q_SLOTS:
+    void tabForToolViewAdded(QWidget *toolView, QWidget *tab);
 
 public Q_SLOTS:
     /**

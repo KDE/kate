@@ -595,17 +595,8 @@ public Q_SLOTS:
 
     void addPositionToHistory(const QUrl& url, KTextEditor::Cursor c);
 
-    /**
-     * \brief return tab associated with this tool view (if any)
-     *
-     * A tool view might request access to it's own tab, in order to add an activity indicator.
-     *
-     * \param view tool view
-     * \return associate tab widget (might be nullptr). */
-    QWidget *tabForToolView(QWidget *view);private Q_SLOTS:
-    void slotUpdateBottomViewBar();
-
 private Q_SLOTS:
+    void slotUpdateBottomViewBar();
     void slotDocumentCloseAll();
     void slotDocumentCloseOther();
     void slotDocumentCloseOther(KTextEditor::Document *document);

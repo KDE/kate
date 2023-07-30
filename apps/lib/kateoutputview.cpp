@@ -155,13 +155,11 @@ private:
     QHash<QString, QPixmap> m_iconCache;
 };
 
-KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWidget *tabButton)
+KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
     , m_textEdit(new KateOutputEdit(this))
-    , tabButton(tabButton)
 {
-    Q_ASSERT(tabButton);
     setFocusPolicy(Qt::NoFocus);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -210,10 +208,20 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWid
     layout->addLayout(hLayout);
     layout->addWidget(m_textEdit);
 
+    // handle tab button creation
+    connect(mainWindow, &KateMainWindow::tabForToolViewAdded, this, &KateOutputView::tabForToolViewAdded);
+
     // handle config changes & apply initial configuration
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateOutputView::readConfig);
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &KateOutputView::readConfig);
     readConfig();
+}
+
+void KateOutputView::tabForToolViewAdded(QWidget *toolView, QWidget *tab)
+{
+    if (parent() == toolView) {
+        tabButton = tab;
+    }
 }
 
 void KateOutputView::search()

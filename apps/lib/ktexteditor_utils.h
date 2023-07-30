@@ -99,16 +99,6 @@ KATE_PRIVATE_EXPORT QWidgetList widgets(KTextEditor::MainWindow *mainWindow);
 KATE_PRIVATE_EXPORT void insertWidgetInStatusbar(QWidget *widget, KTextEditor::MainWindow *mainWindow);
 
 KATE_PRIVATE_EXPORT void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c, KTextEditor::MainWindow *mainWindow);
-
-/// TODO: One obvious extension would be to allow retrieving tab for KTextEditor::Views / Widgets, too.
-/**
-* \brief return tab associated with this tool view (if any)
-*
-* A tool view might request access to it's own tab, in order to add an activity indicator.
-*
-* \param view tool view
-* \return associate tab widget (might be nullptr). */
-KATE_PRIVATE_EXPORT QWidget *tabForToolView(QWidget *view, KTextEditor::MainWindow *mainWindow);
 /*** END KTextEditor::MainWindow extensions **/
 
 /**

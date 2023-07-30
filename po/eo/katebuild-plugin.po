@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-29 00:48+0000\n"
-"PO-Revision-Date: 2023-05-17 11:58+0100\n"
+"PO-Revision-Date: 2023-07-29 07:08+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -50,24 +50,22 @@ msgstr "Nuligi"
 #: buildconfig.cpp:26
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "Aldoni erarojn kaj avertojn al Diagnozo"
 
 #: buildconfig.cpp:37
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "Konstrui denove"
+msgstr "Konstrui & Lanĉi"
 
 #: buildconfig.cpp:43
-#, fuzzy, kde-format
-#| msgid "Build and Run Selected Target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "Konstrui kaj Kuru Elektitan Celon"
+msgstr "Agordoj por Konstrui & Lanĉi"
 
 #: plugin_katebuild.cpp:209 plugin_katebuild.cpp:216 plugin_katebuild.cpp:1200
 #, kde-format
 msgid "Build"
-msgstr "Konstriu"
+msgstr "Konstrui"
 
 #: plugin_katebuild.cpp:219
 #, kde-format
@@ -82,7 +80,7 @@ msgstr "Konstrui Elektitan Celon"
 #: plugin_katebuild.cpp:229
 #, kde-format
 msgid "Build and Run Selected Target"
-msgstr "Konstrui kaj Kuru Elektitan Celon"
+msgstr "Konstrui kaj Lanĉi Elektitan Celon"
 
 #: plugin_katebuild.cpp:234
 #, kde-format
@@ -93,13 +91,13 @@ msgstr "Halti"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr "Fokusi Sekvan Langeton maldekstren"
+msgstr "Fokusi Sekvan Langeton maldekstre"
 
 #: plugin_katebuild.cpp:259
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr "Fokusi Sekvan Langeton dekstren"
+msgstr "Fokusi Sekvan Langeton dekstre"
 
 #: plugin_katebuild.cpp:281
 #, kde-format
@@ -226,25 +224,25 @@ msgstr "Ne povas plenumi: %1 Neniu labordosierujo metita."
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
-msgstr "eraro"
+msgstr "error"
 
 #: plugin_katebuild.cpp:1160
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
-msgstr "averto"
+msgstr "warning"
 
 #: plugin_katebuild.cpp:1163
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr "noto|informo"
+msgstr "note|info"
 
 #: plugin_katebuild.cpp:1166
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
-msgstr "nedifinita referenco"
+msgstr "undefined reference"
 
 #: plugin_katebuild.cpp:1199
 #, kde-format
@@ -323,7 +321,7 @@ msgstr "Komando/Cel-ara Nomo"
 #: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
-msgstr "Labora Dosierujo/Komando"
+msgstr "Labora Dosierujo / Komando"
 
 #: TargetModel.cpp:394
 #, kde-format
@@ -333,7 +331,7 @@ msgstr "Lanĉi Komandon"
 #: targets.cpp:23
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
-msgstr "Filtri celojn, uzi sagoklavojn por elekti, Enigu por lanĉi"
+msgstr "Filtri celojn, uzu sagoklavojn por elekti, Enter por lanĉi"
 
 #: targets.cpp:27
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-29 00:48+0000\n"
-"PO-Revision-Date: 2023-04-20 08:52+0300\n"
+"PO-Revision-Date: 2023-07-29 07:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -51,19 +51,17 @@ msgstr "Скасувати"
 #: buildconfig.cpp:26
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "Додати помилки і попередження до «Діагностики»"
 
 #: buildconfig.cpp:37
-#, fuzzy, kde-format
-#| msgid "Build Blugin"
+#, kde-format
 msgid "Build & Run"
-msgstr "Додаток для збирання"
+msgstr "Зібрати і запустити"
 
 #: buildconfig.cpp:43
-#, fuzzy, kde-format
-#| msgid "Build and Run Selected Target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "Зібрати і запустити позначену ціль"
+msgstr "Параметри збирання і запуску"
 
 #: plugin_katebuild.cpp:209 plugin_katebuild.cpp:216 plugin_katebuild.cpp:1200
 #, kde-format

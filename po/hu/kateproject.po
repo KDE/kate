@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2023-07-30 00:48+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -76,7 +76,7 @@ msgstr "Ág"
 msgid "Last Commit"
 msgstr "Legutolsó véglegesítés"
 
-#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
 msgid "Delete"
 msgstr "Törlés"
@@ -929,73 +929,73 @@ msgstr "Projektindex"
 msgid "Choose a directory"
 msgstr "Válasszon egy mappát"
 
-#: kateprojecttreeviewcontextmenu.cpp:44
+#: kateprojecttreeviewcontextmenu.cpp:42
 #, kde-format
 msgid "Enter name:"
 msgstr "Név:"
 
-#: kateprojecttreeviewcontextmenu.cpp:45
+#: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: kateprojecttreeviewcontextmenu.cpp:66
+#: kateprojecttreeviewcontextmenu.cpp:64
 #, fuzzy, kde-format
 #| msgid "Follow Location"
 msgid "Copy Location"
 msgstr "Hely követése"
 
-#: kateprojecttreeviewcontextmenu.cpp:71
+#: kateprojecttreeviewcontextmenu.cpp:69
 #, kde-format
 msgid "Add File"
 msgstr "Fájl hozzáadása"
 
-#: kateprojecttreeviewcontextmenu.cpp:72
+#: kateprojecttreeviewcontextmenu.cpp:70
 #, kde-format
 msgid "Add Folder"
 msgstr "Mappa hozzáadása"
 
-#: kateprojecttreeviewcontextmenu.cpp:79
+#: kateprojecttreeviewcontextmenu.cpp:77
 #, kde-format
 msgid "&Rename"
 msgstr "Átneve&zés"
 
-#: kateprojecttreeviewcontextmenu.cpp:86
+#: kateprojecttreeviewcontextmenu.cpp:84
 #, kde-format
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: kateprojecttreeviewcontextmenu.cpp:90
+#: kateprojecttreeviewcontextmenu.cpp:88
 #, kde-format
 msgid "Open With"
 msgstr "Megnyitás ezzel"
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:96
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Belső terminál megnyitása itt"
 
-#: kateprojecttreeviewcontextmenu.cpp:107
+#: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Külső terminál megnyitása itt"
 
-#: kateprojecttreeviewcontextmenu.cpp:112
+#: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Tartalmazó mappa megnyitása"
 
-#: kateprojecttreeviewcontextmenu.cpp:122
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "Show Git History"
 msgstr "Git előzmények megjelenítése"
 
-#: kateprojecttreeviewcontextmenu.cpp:132
+#: kateprojecttreeviewcontextmenu.cpp:124
 #, kde-format
 msgid "Delete File"
 msgstr "Fájl törlése"
 
-#: kateprojecttreeviewcontextmenu.cpp:133
+#: kateprojecttreeviewcontextmenu.cpp:125
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "Szeretné törölni a(z) „%1” fájlt?"

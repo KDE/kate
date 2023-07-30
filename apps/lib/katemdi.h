@@ -557,8 +557,6 @@ public:
      */
     bool hideToolView(ToolView *widget);
 
-    QWidget *toolviewToggleButton(ToolView *tv);
-
     /**
      * session saving and restore stuff
      */
@@ -643,6 +641,7 @@ private:
 
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);
+    void tabForToolViewAdded(QWidget *toolView, QWidget *tab);
 };
 
 }

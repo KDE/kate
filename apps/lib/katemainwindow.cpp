@@ -316,7 +316,7 @@ void KateMainWindow::setupMainWindow(KConfig *sconfig)
                                       KTextEditor::MainWindow::Bottom,
                                       QIcon::fromTheme(QStringLiteral("output_win")),
                                       i18n("Output"));
-    m_outputView = new KateOutputView(this, m_toolViewOutput, toolviewToggleButton(static_cast<KateMDI::ToolView *>(m_toolViewOutput)));
+    m_outputView = new KateOutputView(this, m_toolViewOutput);
 
     m_diagView = DiagnosticsView::instance(wrapper());
     m_diagView->readSessionConfig(KConfigGroup(sconfig, "Kate Diagnostics"));
@@ -1519,15 +1519,6 @@ bool KateMainWindow::hideToolView(QWidget *widget)
     }
 
     return KateMDI::MainWindow::hideToolView(qobject_cast<KateMDI::ToolView *>(widget));
-}
-
-QWidget *KateMainWindow::tabForToolView(QWidget *widget)
-{
-    if (!qobject_cast<KateMDI::ToolView *>(widget)) {
-        return nullptr;
-    }
-
-    return KateMDI::MainWindow::toolviewToggleButton(static_cast<KateMDI::ToolView *>(widget));
 }
 
 void KateMainWindow::addRecentOpenedFile(const QUrl &url)

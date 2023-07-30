@@ -10,10 +10,13 @@
 #include "diagnostic_types.h"
 
 #include <QJsonObject>
+#include <QPainter>
+#include <QPointer>
 #include <QStandardItemModel>
 #include <QUrl>
 #include <QWidget>
 
+#include <KColorScheme>
 #include <KXMLGUIClient>
 
 #include <KTextEditor/Document>
@@ -109,13 +112,58 @@ private:
     bool m_persistentDiagnostics = false;
 };
 
+class DiagTabOverlay : public QWidget
+{
+public:
+    DiagTabOverlay(QWidget *parent)
+        : QWidget(parent)
+        , m_tabButton(parent)
+    {
+        if (!parent) {
+            hide();
+            return;
+        }
+        setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        setGeometry(parent->geometry());
+        show();
+        raise();
+    }
+
+    void setActive(bool a)
+    {
+        if (m_tabButton && (m_active != a)) {
+            m_active = a;
+            if (m_tabButton->size() != size()) {
+                resize(m_tabButton->size());
+            }
+            update();
+        }
+    }
+
+protected:
+    void paintEvent(QPaintEvent *) override
+    {
+        if (m_active) {
+            QPainter p(this);
+            p.setOpacity(0.25);
+            p.setBrush(KColorScheme().foreground(KColorScheme::NeutralText));
+            p.setPen(Qt::NoPen);
+            p.drawRect(rect().adjusted(1, 1, -1, -1));
+        }
+    }
+
+private:
+    bool m_active = false;
+    QWidget *m_tabButton = nullptr;
+};
+
 class DiagnosticsView : public QWidget, public KXMLGUIClient
 {
     Q_OBJECT
     friend class ForwardingTextHintProvider;
 
 protected:
-    explicit DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainWindow, QWidget *tabButton);
+    explicit DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainWindow);
 
 public:
     static DiagnosticsView *instance(KTextEditor::MainWindow *mainWindow);
@@ -135,6 +183,9 @@ public:
 protected:
     void showEvent(QShowEvent *e) override;
     void handleEsc(QEvent *e);
+
+private Q_SLOTS:
+    void tabForToolViewAdded(QWidget *toolView, QWidget *tab);
 
 private:
     void onFixesAvailable(const QVector<DiagnosticFix> &fixes, const QVariant &data);
@@ -192,7 +243,7 @@ private:
     // applied marks
     QSet<KTextEditor::Document *> m_diagnosticsMarks;
 
-    class DiagTabOverlay *const m_tabButtonOverlay;
+    QPointer<DiagTabOverlay> m_tabButtonOverlay;
 
     QMetaObject::Connection posChangedConnection;
     QTimer *const m_posChangedTimer;

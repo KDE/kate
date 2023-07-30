@@ -155,51 +155,6 @@ private:
     DiagnosticSeverity severity = DiagnosticSeverity::Unknown;
 };
 
-class DiagTabOverlay : public QWidget
-{
-public:
-    DiagTabOverlay(QWidget *parent)
-        : QWidget(parent)
-        , m_tabButton(parent)
-    {
-        if (!parent) {
-            hide();
-            return;
-        }
-        setAttribute(Qt::WA_TransparentForMouseEvents, true);
-        setGeometry(parent->geometry());
-        show();
-        raise();
-    }
-
-    void setActive(bool a)
-    {
-        if (m_tabButton && (m_active != a)) {
-            m_active = a;
-            if (m_tabButton->size() != size()) {
-                resize(m_tabButton->size());
-            }
-            update();
-        }
-    }
-
-protected:
-    void paintEvent(QPaintEvent *) override
-    {
-        if (m_active) {
-            QPainter p(this);
-            p.setOpacity(0.25);
-            p.setBrush(KColorScheme().foreground(KColorScheme::NeutralText));
-            p.setPen(Qt::NoPen);
-            p.drawRect(rect().adjusted(1, 1, -1, -1));
-        }
-    }
-
-private:
-    bool m_active = false;
-    QWidget *m_tabButton = nullptr;
-};
-
 DiagnosticsProvider::DiagnosticsProvider(KTextEditor::MainWindow *mainWindow, QObject *parent)
     : QObject(parent)
 {
@@ -311,7 +266,7 @@ static QIcon diagnosticsIcon(DiagnosticSeverity severity)
     return QIcon();
 }
 
-DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainWindow, QWidget *tabButton)
+DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainWindow)
     : QWidget(parent)
     , KXMLGUIClient()
     , m_mainWindow(mainWindow)
@@ -323,7 +278,6 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     , m_warnFilterBtn(new QToolButton(this))
     , m_proxy(new DiagnosticsProxyModel(this))
     , m_sessionDiagnosticSuppressions(std::make_unique<SessionDiagnosticSuppressions>())
-    , m_tabButtonOverlay(new DiagTabOverlay(tabButton))
     , m_posChangedTimer(new QTimer(this))
     , m_filterChangedTimer(new QTimer(this))
     , m_textHintProvider(new KateTextHintProvider(mainWindow, this))
@@ -396,6 +350,9 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
         }
     });
 
+    // handle tab button creation
+    connect(mainWindow->window(), SIGNAL(tabForToolViewAdded(QWidget *, QWidget *)), this, SLOT(tabForToolViewAdded(QWidget *, QWidget *)));
+
     connect(m_textHintProvider.get(), &KateTextHintProvider::textHintRequested, this, &DiagnosticsView::onTextHint);
     connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &DiagnosticsView::handleEsc);
     mainWindow->guiFactory()->addClient(this);
@@ -411,7 +368,7 @@ DiagnosticsView *DiagnosticsView::instance(KTextEditor::MainWindow *mainWindow)
                                              KTextEditor::MainWindow::Bottom,
                                              QIcon::fromTheme(QStringLiteral("dialog-warning-symbolic")),
                                              i18n("Diagnostics"));
-        dv = new DiagnosticsView(tv, mainWindow, Utils::tabForToolView(tv, mainWindow));
+        dv = new DiagnosticsView(tv, mainWindow);
         mainWindow->setProperty("diagnosticsView", QVariant::fromValue(dv));
     }
     return dv;
@@ -560,7 +517,9 @@ void DiagnosticsView::writeSessionConfig(KConfigGroup &config)
 
 void DiagnosticsView::showEvent(QShowEvent *e)
 {
-    m_tabButtonOverlay->setActive(false);
+    if (m_tabButtonOverlay) {
+        m_tabButtonOverlay->setActive(false);
+    }
     QWidget::showEvent(e);
 }
 
@@ -575,6 +534,14 @@ void DiagnosticsView::handleEsc(QEvent *event)
             m_mainWindow->hideToolView(parentWidget());
             event->accept();
         }
+    }
+}
+
+void DiagnosticsView::tabForToolViewAdded(QWidget *toolView, QWidget *tab)
+{
+    if (parent() == toolView) {
+        m_tabButtonOverlay = new DiagTabOverlay(tab);
+        m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
     }
 }
 
@@ -866,7 +833,9 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
             }
         }
     }
-    m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
+    if (m_tabButtonOverlay) {
+        m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
+    }
 }
 
 static auto getProvider(QStandardItem *item)
@@ -928,7 +897,9 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
 
     updateMarks();
 
-    m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
+    if (m_tabButtonOverlay) {
+        m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
+    }
 }
 
 void DiagnosticsView::clearSuppressionsFromProvider(DiagnosticsProvider *provider)

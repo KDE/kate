@@ -620,6 +620,9 @@ void Sidebar::appendStyledTab(int id, MultiTabBar *bar, ToolView *widget)
 
     // fixup styling
     updateButtonStyle(newTab);
+
+    // tell that we have a new tab, useful for e.g. overlays
+    Q_EMIT m_mainWin->tabForToolViewAdded(widget, newTab);
 }
 
 void Sidebar::updateButtonStyle(KMultiTabBarTab *button)
@@ -1522,14 +1525,6 @@ bool MainWindow::hideToolView(ToolView *widget)
     const bool ret = widget->sidebar()->hideToolView(widget);
     triggerFocusForCentralWidget();
     return ret;
-}
-
-QWidget *MainWindow::toolviewToggleButton(ToolView *tv)
-{
-    if (tv && tv->sidebar()) {
-        return tv->sidebar()->tabButtonForToolview(tv);
-    }
-    return nullptr;
 }
 
 void MainWindow::hideToolViews()

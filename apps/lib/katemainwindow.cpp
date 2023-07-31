@@ -606,6 +606,9 @@ void KateMainWindow::slotDocumentCloseOther()
 
 bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc, KateMainWindow *win)
 {
+    // we want no auto saving during windows closing, we handle that explicitly
+    KateSessionManager::AutoSaveBlocker blocker(KateApp::self()->sessionManager());
+
     const auto documentCount = KateApp::self()->documentManager()->documentList().size();
 
     if (!showModOnDiskPrompt(PromptEdited)) {
@@ -670,6 +673,9 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc, KateMainWin
  */
 bool KateMainWindow::queryClose()
 {
+    // we want no auto saving during windows closing, we handle that explicitly
+    KateSessionManager::AutoSaveBlocker blocker(KateApp::self()->sessionManager());
+
     // session saving, can we close all views ?
     // just test, not close them actually
     if (qApp->isSavingSession()) {

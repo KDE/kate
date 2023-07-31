@@ -42,7 +42,10 @@ void TargetHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
     QTextDocument doc;
 
     QString str;
-    if (!index.parent().isValid()) {
+    int rowtype = index.data(TargetModel::RowTypeRole).toInt();
+    if (rowtype == TargetModel::RootRow) {
+        str = QStringLiteral("<B>%1</B>").arg(index.data().toString().toHtmlEscaped());
+    } else if (rowtype == TargetModel::TargetSetRow) {
         if (index.column() == 0) {
             str = i18nc("T as in Target set", "<B>T:</B> %1", index.data().toString().toHtmlEscaped());
         } else if (index.column() == 1) {

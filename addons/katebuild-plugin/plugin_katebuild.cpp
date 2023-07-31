@@ -424,14 +424,16 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
 {
     int numTargets = cg.readEntry(QStringLiteral("NumTargets"), 0);
     m_projectTargetsetRow = cg.readEntry("ProjectTargetSetRow", 0);
-    m_targetsUi->targetsModel.clear();
+    m_targetsUi->targetsModel.clear(m_projectTargetsetRow > 0);
+
+    QModelIndex setIndex = m_targetsUi->targetsModel.sessionRootIndex();
 
     for (int i = 0; i < numTargets; i++) {
         QStringList targetNames = cg.readEntry(QStringLiteral("%1 Target Names").arg(i), QStringList());
         QString targetSetName = cg.readEntry(QStringLiteral("%1 Target").arg(i), QString());
         QString buildDir = cg.readEntry(QStringLiteral("%1 BuildPath").arg(i), QString());
 
-        QModelIndex index = m_targetsUi->targetsModel.addTargetSet(targetSetName, buildDir);
+        setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, targetSetName, buildDir);
 
         // Keep a bit of backwards compatibility by ensuring that the "default" target is the first in the list
         QString defCmd = cg.readEntry(QStringLiteral("%1 Target Default").arg(i), QString());
@@ -439,11 +441,12 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
         if (defIndex > 0) {
             targetNames.move(defIndex, 0);
         }
+        QModelIndex cmdIndex = setIndex;
         for (int tn = 0; tn < targetNames.size(); ++tn) {
             const QString &targetName = targetNames.at(tn);
             const QString &buildCmd = cg.readEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(targetName));
             const QString &runCmd = cg.readEntry(QStringLiteral("%1 RunCmd %2").arg(i).arg(targetName));
-            m_targetsUi->targetsModel.addCommand(index, targetName, buildCmd, runCmd);
+            m_targetsUi->targetsModel.addCommandAfter(cmdIndex, targetName, buildCmd, runCmd);
         }
     }
 
@@ -479,18 +482,11 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         }
     }
 
-    QList<TargetModel::TargetSet> targets = m_targetsUi->targetsModel.targetSets();
+    QList<TargetModel::TargetSet> targets = m_targetsUi->targetsModel.sessionTargetSets();
 
     // Don't save project target-set, but save the row index
-    m_projectTargetsetRow = 0;
-    for (int i = 0; i < targets.size(); i++) {
-        if (i18n("Project Plugin Targets") == targets[i].name) {
-            m_projectTargetsetRow = i;
-            targets.removeAt(i);
-            break;
-        }
-    }
-
+    QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
+    m_projectTargetsetRow = projRootIndex.row();
     cg.writeEntry("ProjectTargetSetRow", m_projectTargetsetRow);
     cg.writeEntry("NumTargets", targets.size());
 
@@ -1182,12 +1178,8 @@ void KateBuildView::slotAddTargetClicked()
     QString currCmd;
     QString currRun;
 
-    if (current.parent().isValid()) {
-        // we need the root item
-        current = current.parent();
-    }
     current = m_targetsUi->proxyModel.mapToSource(current);
-    QModelIndex index = m_targetsUi->targetsModel.addCommand(current, currName, currCmd, currRun);
+    QModelIndex index = m_targetsUi->targetsModel.addCommandAfter(current, currName, currCmd, currRun);
     index = m_targetsUi->proxyModel.mapFromSource(index);
     m_targetsUi->targetsView->setCurrentIndex(index);
 }
@@ -1196,11 +1188,12 @@ void KateBuildView::slotAddTargetClicked()
 void KateBuildView::targetSetNew()
 {
     m_targetsUi->targetFilterEdit->setText(QString());
-    QModelIndex index = m_targetsUi->targetsModel.addTargetSet(i18n("Target Set"), QString());
-    QModelIndex buildIndex = m_targetsUi->targetsModel.addCommand(index, i18n("Build"), DefBuildCmd, QString());
-    m_targetsUi->targetsModel.addCommand(index, i18n("Clean"), DefCleanCmd, QString());
-    m_targetsUi->targetsModel.addCommand(index, i18n("Config"), DefConfigCmd, QString());
-    m_targetsUi->targetsModel.addCommand(index, i18n("ConfigClean"), DefConfClean, QString());
+    QModelIndex currentIndex = m_targetsUi->proxyModel.mapToSource(m_targetsUi->targetsView->currentIndex());
+    QModelIndex index = m_targetsUi->targetsModel.insertTargetSetAfter(currentIndex, i18n("Target Set"), QString());
+    QModelIndex buildIndex = m_targetsUi->targetsModel.addCommandAfter(index, i18n("Build"), DefBuildCmd, QString());
+    m_targetsUi->targetsModel.addCommandAfter(index, i18n("Clean"), DefCleanCmd, QString());
+    m_targetsUi->targetsModel.addCommandAfter(index, i18n("Config"), DefConfigCmd, QString());
+    m_targetsUi->targetsModel.addCommandAfter(index, i18n("ConfigClean"), DefConfClean, QString());
     buildIndex = m_targetsUi->proxyModel.mapFromSource(buildIndex);
     m_targetsUi->targetsView->setCurrentIndex(buildIndex);
 }
@@ -1291,8 +1284,9 @@ void KateBuildView::addProjectTarget()
         projectsBuildDir = QDir(projectsBaseDir).absoluteFilePath(projectsBuildDir);
     }
 
+    QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
     m_projectTargetsetRow = std::min(m_projectTargetsetRow, m_targetsUi->targetsModel.rowCount());
-    const QModelIndex set = m_targetsUi->targetsModel.insertTargetSet(m_projectTargetsetRow, i18n("Project Plugin Targets"), projectsBuildDir);
+    const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, i18n("Project Plugin Targets"), projectsBuildDir);
     const QString defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
 
     const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
@@ -1305,13 +1299,13 @@ void KateBuildView::addProjectTarget()
         if (tgtName.isEmpty() || buildCmd.isEmpty()) {
             continue;
         }
-        QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommand(set, tgtName, buildCmd, runCmd);
-        if (tgtName == defaultTarget) {
-            // A bit of backwards compatibility, move the "default" target to the top
-            while (idx.row() > 0) {
-                m_targetsUi->targetsModel.moveRowUp(idx);
-            }
-        }
+        QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommandAfter(set, tgtName, buildCmd, runCmd);
+        // FIXME if (tgtName == defaultTarget) {
+        //    // A bit of backwards compatibility, move the "default" target to the top
+        //    while (idx.row() > 0) {
+        //        m_targetsUi->targetsModel.moveRowUp(idx);
+        //    }
+        //}
     }
 
     if (!set.model()->index(0, 0, set).isValid()) {
@@ -1320,13 +1314,13 @@ void KateBuildView::addProjectTarget()
         QString quickCmd = buildMap.value(QStringLiteral("quick")).toString();
         if (!buildCmd.isEmpty()) {
             // we have loaded an "old" project file (<= 4.12)
-            m_targetsUi->targetsModel.addCommand(set, i18n("build"), buildCmd, QString());
+            m_targetsUi->targetsModel.addCommandAfter(set, i18n("build"), buildCmd, QString());
         }
         if (!cleanCmd.isEmpty()) {
-            m_targetsUi->targetsModel.addCommand(set, i18n("clean"), cleanCmd, QString());
+            m_targetsUi->targetsModel.addCommandAfter(set, i18n("clean"), cleanCmd, QString());
         }
         if (!quickCmd.isEmpty()) {
-            m_targetsUi->targetsModel.addCommand(set, i18n("quick"), quickCmd, QString());
+            m_targetsUi->targetsModel.addCommandAfter(set, i18n("quick"), quickCmd, QString());
         }
     }
     const auto index = m_targetsUi->proxyModel.mapFromSource(set);

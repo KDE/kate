@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-26 00:49+0000\n"
-"PO-Revision-Date: 2023-06-29 01:26+0200\n"
+"POT-Creation-Date: 2023-07-31 00:49+0000\n"
+"PO-Revision-Date: 2023-07-30 19:31+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -32,7 +32,7 @@ msgstr ""
 "the.blue.valkyrie@gmail.com>\n"
 "com>\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 23.04.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -308,109 +308,109 @@ msgstr ""
 msgid "All"
 msgstr "Todo"
 
-#: lib/diagnostics/diagnosticview.cpp:369
+#: lib/diagnostics/diagnosticview.cpp:323
 #, kde-format
 msgid "Quick Fix"
 msgstr "Corrección rápida"
 
-#: lib/diagnostics/diagnosticview.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:327
 #, kde-format
 msgid "Next Item"
 msgstr "Elemento siguiente"
 
-#: lib/diagnostics/diagnosticview.cpp:378
+#: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
 msgid "Previous Item"
 msgstr "Elemento anterior"
 
-#: lib/diagnostics/diagnosticview.cpp:385
+#: lib/diagnostics/diagnosticview.cpp:339
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Borrar filtro de diagnósticos"
 
-#: lib/diagnostics/diagnosticview.cpp:413
+#: lib/diagnostics/diagnosticview.cpp:370
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnósticos"
 
-#: lib/diagnostics/diagnosticview.cpp:451
+#: lib/diagnostics/diagnosticview.cpp:408
 #, kde-format
 msgid "Errors"
 msgstr "Errores"
 
-#: lib/diagnostics/diagnosticview.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:424
 #, kde-format
 msgid "Warnings"
 msgstr "Advertencias"
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:438
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrar..."
 
-#: lib/diagnostics/diagnosticview.cpp:1052 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1023 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Error"
 
-#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1027 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Advertencia"
 
-#: lib/diagnostics/diagnosticview.cpp:1060
+#: lib/diagnostics/diagnosticview.cpp:1031
 #, kde-format
 msgid "Information"
 msgstr "Información"
 
-#: lib/diagnostics/diagnosticview.cpp:1212
+#: lib/diagnostics/diagnosticview.cpp:1183
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [suprimido: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1350
+#: lib/diagnostics/diagnosticview.cpp:1321
 #, kde-format
 msgid "Expand All"
 msgstr "Expandir todo"
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1322
 #, kde-format
 msgid "Collapse All"
 msgstr "Contraer todo"
 
-#: lib/diagnostics/diagnosticview.cpp:1358
+#: lib/diagnostics/diagnosticview.cpp:1329
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copiar en el portapapeles"
 
-#: lib/diagnostics/diagnosticview.cpp:1381
+#: lib/diagnostics/diagnosticview.cpp:1352
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Eliminar supresión global"
 
-#: lib/diagnostics/diagnosticview.cpp:1383
+#: lib/diagnostics/diagnosticview.cpp:1354
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Añadir supresión global"
 
-#: lib/diagnostics/diagnosticview.cpp:1387
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Eliminar supresión local"
 
-#: lib/diagnostics/diagnosticview.cpp:1389
+#: lib/diagnostics/diagnosticview.cpp:1360
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Añadir supresión local"
 
-#: lib/diagnostics/diagnosticview.cpp:1402
+#: lib/diagnostics/diagnosticview.cpp:1373
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Desactivar supresión"
 
-#: lib/diagnostics/diagnosticview.cpp:1404
+#: lib/diagnostics/diagnosticview.cpp:1375
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Activar supresión"
@@ -943,7 +943,7 @@ msgstr ""
 msgid "Configure"
 msgstr "Configurar"
 
-#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:175
+#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:173
 #, kde-format
 msgid "Search..."
 msgstr "Buscar..."
@@ -1788,67 +1788,67 @@ msgstr "Mostrar el botón %1"
 msgid "Focus %1"
 msgstr "Foco en %1"
 
-#: lib/katemdi.cpp:1009
+#: lib/katemdi.cpp:1012
 #, kde-format
 msgid "Configure..."
 msgstr "Configurar..."
 
-#: lib/katemdi.cpp:1013
+#: lib/katemdi.cpp:1016
 #, kde-format
 msgid "Hide Button"
 msgstr "Ocultar botón"
 
-#: lib/katemdi.cpp:1015
+#: lib/katemdi.cpp:1018
 #, kde-format
 msgid "Move To"
 msgstr "Mover a"
 
-#: lib/katemdi.cpp:1020
+#: lib/katemdi.cpp:1023
 #, kde-format
 msgid "Own Section"
 msgstr "Sección propia"
 
-#: lib/katemdi.cpp:1026 lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1029 lib/katemdi.cpp:1037
 #, kde-format
 msgid "One Down"
 msgstr "Una abajo"
 
-#: lib/katemdi.cpp:1028 lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1031 lib/katemdi.cpp:1042
 #, kde-format
 msgid "One Right"
 msgstr "Una a la derecha"
 
-#: lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1035
 #, kde-format
 msgid "One Up"
 msgstr "Una arriba"
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1040
 #, kde-format
 msgid "One Left"
 msgstr "Una a la izquierda"
 
-#: lib/katemdi.cpp:1046
+#: lib/katemdi.cpp:1049
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Panel lateral izquierda"
 
-#: lib/katemdi.cpp:1050
+#: lib/katemdi.cpp:1053
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Panel lateral derecha"
 
-#: lib/katemdi.cpp:1054
+#: lib/katemdi.cpp:1057
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Panel lateral superior"
 
-#: lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1061
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Panel lateral inferior"
 
-#: lib/katemdi.cpp:1450
+#: lib/katemdi.cpp:1453
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1976,35 +1976,35 @@ msgstr "[Archivo]"
 msgid "[NEW]"
 msgstr "[Nuevo]"
 
-#: lib/kateoutputview.cpp:191
+#: lib/kateoutputview.cpp:189
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "Copiar todo el texto en el portapapeles"
 
-#: lib/kateoutputview.cpp:196
+#: lib/kateoutputview.cpp:194
 #, kde-format
 msgid "Clear all messages"
 msgstr "Borrar todos los mensajes"
 
-#: lib/kateoutputview.cpp:381
+#: lib/kateoutputview.cpp:389
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Error"
 
-#: lib/kateoutputview.cpp:385
+#: lib/kateoutputview.cpp:393
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Advertencia"
 
-#: lib/kateoutputview.cpp:389
+#: lib/kateoutputview.cpp:397
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Información"
 
-#: lib/kateoutputview.cpp:394
+#: lib/kateoutputview.cpp:402
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2351,13 +2351,15 @@ msgstr "Dividir el espacio de la vista de control"
 #: lib/kateviewspace.cpp:119
 #, kde-format
 msgid "S&ynchronise Scrolling"
-msgstr ""
+msgstr "S&incronizar desplazamiento"
 
 #: lib/kateviewspace.cpp:121
 #, kde-format
 msgid ""
 "Synchronise Scrolling of this split-view with other synchronised split-views"
 msgstr ""
+"Sincronizar el desplazamiento de esta vista dividida con otras vistas "
+"divididas sincronizadas"
 
 #: lib/kateviewspace.cpp:222
 #, kde-format

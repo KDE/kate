@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-29 00:48+0000\n"
-"PO-Revision-Date: 2023-07-23 12:28\n"
+"PO-Revision-Date: 2023-07-30 07:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -48,19 +48,17 @@ msgstr "取消"
 #: buildconfig.cpp:26
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "添加错误和警告到诊断消息"
 
 #: buildconfig.cpp:37
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "再次构建"
+msgstr "构建并运行"
 
 #: buildconfig.cpp:43
-#, fuzzy, kde-format
-#| msgid "Build and Run Selected Target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "构建并运行选中的目标"
+msgstr "构建并运行设置"
 
 #: plugin_katebuild.cpp:209 plugin_katebuild.cpp:216 plugin_katebuild.cpp:1200
 #, kde-format

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-26 00:49+0000\n"
+"POT-Creation-Date: 2023-07-31 00:49+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -290,114 +290,114 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:369
+#: lib/diagnostics/diagnosticview.cpp:323
 #, kde-format
 msgid "Quick Fix"
 msgstr "Sửa nhanh"
 
-#: lib/diagnostics/diagnosticview.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:327
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Item"
 msgstr "Thẻ sau"
 
-#: lib/diagnostics/diagnosticview.cpp:378
+#: lib/diagnostics/diagnosticview.cpp:332
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Item"
 msgstr "Thẻ trước"
 
-#: lib/diagnostics/diagnosticview.cpp:385
+#: lib/diagnostics/diagnosticview.cpp:339
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
 msgid "Clear Diagnostics Filter"
 msgstr "Chẩn đoán"
 
-#: lib/diagnostics/diagnosticview.cpp:413
+#: lib/diagnostics/diagnosticview.cpp:370
 #, kde-format
 msgid "Diagnostics"
 msgstr "Chẩn đoán"
 
-#: lib/diagnostics/diagnosticview.cpp:451
+#: lib/diagnostics/diagnosticview.cpp:408
 #, fuzzy, kde-format
 #| msgid "Error"
 msgid "Errors"
 msgstr "Lỗi"
 
-#: lib/diagnostics/diagnosticview.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:424
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgid "Warnings"
 msgstr "Cảnh báo"
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:438
 #, kde-format
 msgid "Filter..."
 msgstr "Lọc..."
 
-#: lib/diagnostics/diagnosticview.cpp:1052 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1023 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Lỗi"
 
-#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1027 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Cảnh báo"
 
-#: lib/diagnostics/diagnosticview.cpp:1060
+#: lib/diagnostics/diagnosticview.cpp:1031
 #, kde-format
 msgid "Information"
 msgstr "Thông tin"
 
-#: lib/diagnostics/diagnosticview.cpp:1212
+#: lib/diagnostics/diagnosticview.cpp:1183
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [bị loại trừ: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1350
+#: lib/diagnostics/diagnosticview.cpp:1321
 #, kde-format
 msgid "Expand All"
 msgstr "Mở rộng tất cả"
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1322
 #, kde-format
 msgid "Collapse All"
 msgstr "Thu gọn tất cả"
 
-#: lib/diagnostics/diagnosticview.cpp:1358
+#: lib/diagnostics/diagnosticview.cpp:1329
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Chép vào bảng nháp"
 
-#: lib/diagnostics/diagnosticview.cpp:1381
+#: lib/diagnostics/diagnosticview.cpp:1352
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Xoá phần loại trừ toàn cục"
 
-#: lib/diagnostics/diagnosticview.cpp:1383
+#: lib/diagnostics/diagnosticview.cpp:1354
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Thêm phần loại trừ toàn cục"
 
-#: lib/diagnostics/diagnosticview.cpp:1387
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Xoá phần loại trừ cục bộ"
 
-#: lib/diagnostics/diagnosticview.cpp:1389
+#: lib/diagnostics/diagnosticview.cpp:1360
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Thêm phần loại trừ cục bộ"
 
-#: lib/diagnostics/diagnosticview.cpp:1402
+#: lib/diagnostics/diagnosticview.cpp:1373
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Tắt loại trừ"
 
-#: lib/diagnostics/diagnosticview.cpp:1404
+#: lib/diagnostics/diagnosticview.cpp:1375
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Bật loại trừ"
@@ -921,7 +921,7 @@ msgstr ""
 msgid "Configure"
 msgstr "Cấu hình"
 
-#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:175
+#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:173
 #, kde-format
 msgid "Search..."
 msgstr "Tìm kiếm..."
@@ -1746,67 +1746,67 @@ msgstr "Hiện nút %1"
 msgid "Focus %1"
 msgstr "Nhắm vào %1"
 
-#: lib/katemdi.cpp:1009
+#: lib/katemdi.cpp:1012
 #, kde-format
 msgid "Configure..."
 msgstr "Cấu hình..."
 
-#: lib/katemdi.cpp:1013
+#: lib/katemdi.cpp:1016
 #, kde-format
 msgid "Hide Button"
 msgstr "Ẩn nút"
 
-#: lib/katemdi.cpp:1015
+#: lib/katemdi.cpp:1018
 #, kde-format
 msgid "Move To"
 msgstr "Chuyển đến"
 
-#: lib/katemdi.cpp:1020
+#: lib/katemdi.cpp:1023
 #, kde-format
 msgid "Own Section"
 msgstr "Khu vực riêng"
 
-#: lib/katemdi.cpp:1026 lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1029 lib/katemdi.cpp:1037
 #, kde-format
 msgid "One Down"
 msgstr "Xuống một"
 
-#: lib/katemdi.cpp:1028 lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1031 lib/katemdi.cpp:1042
 #, kde-format
 msgid "One Right"
 msgstr "Sang phải một"
 
-#: lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1035
 #, kde-format
 msgid "One Up"
 msgstr "Lên một"
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1040
 #, kde-format
 msgid "One Left"
 msgstr "Sang trái một"
 
-#: lib/katemdi.cpp:1046
+#: lib/katemdi.cpp:1049
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Thanh bên trái"
 
-#: lib/katemdi.cpp:1050
+#: lib/katemdi.cpp:1053
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Thanh bên phải"
 
-#: lib/katemdi.cpp:1054
+#: lib/katemdi.cpp:1057
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Thanh bên trên"
 
-#: lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1061
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Thanh bên dưới"
 
-#: lib/katemdi.cpp:1450
+#: lib/katemdi.cpp:1453
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1941,35 +1941,35 @@ msgstr ""
 msgid "[NEW]"
 msgstr ""
 
-#: lib/kateoutputview.cpp:191
+#: lib/kateoutputview.cpp:189
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "Chép toàn bộ văn bản vào bảng nháp"
 
-#: lib/kateoutputview.cpp:196
+#: lib/kateoutputview.cpp:194
 #, kde-format
 msgid "Clear all messages"
 msgstr "Xoá hết các thông điệp"
 
-#: lib/kateoutputview.cpp:381
+#: lib/kateoutputview.cpp:389
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Lỗi"
 
-#: lib/kateoutputview.cpp:385
+#: lib/kateoutputview.cpp:393
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Cảnh báo"
 
-#: lib/kateoutputview.cpp:389
+#: lib/kateoutputview.cpp:397
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Thông tin"
 
-#: lib/kateoutputview.cpp:394
+#: lib/kateoutputview.cpp:402
 #, kde-format
 msgctxt "@info"
 msgid "Log"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-26 00:49+0000\n"
+"POT-Creation-Date: 2023-07-31 00:49+0000\n"
 "PO-Revision-Date: 2023-07-24 22:13+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -286,109 +286,109 @@ msgstr ""
 msgid "All"
 msgstr "모두"
 
-#: lib/diagnostics/diagnosticview.cpp:369
+#: lib/diagnostics/diagnosticview.cpp:323
 #, kde-format
 msgid "Quick Fix"
 msgstr "빠른 수정"
 
-#: lib/diagnostics/diagnosticview.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:327
 #, kde-format
 msgid "Next Item"
 msgstr "다음 항목"
 
-#: lib/diagnostics/diagnosticview.cpp:378
+#: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
 msgid "Previous Item"
 msgstr "이전 항목"
 
-#: lib/diagnostics/diagnosticview.cpp:385
+#: lib/diagnostics/diagnosticview.cpp:339
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "진단 필터 지우기"
 
-#: lib/diagnostics/diagnosticview.cpp:413
+#: lib/diagnostics/diagnosticview.cpp:370
 #, kde-format
 msgid "Diagnostics"
 msgstr "진단"
 
-#: lib/diagnostics/diagnosticview.cpp:451
+#: lib/diagnostics/diagnosticview.cpp:408
 #, kde-format
 msgid "Errors"
 msgstr "오류"
 
-#: lib/diagnostics/diagnosticview.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:424
 #, kde-format
 msgid "Warnings"
 msgstr "경고"
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:438
 #, kde-format
 msgid "Filter..."
 msgstr "필터..."
 
-#: lib/diagnostics/diagnosticview.cpp:1052 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1023 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "오류"
 
-#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1027 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "경고"
 
-#: lib/diagnostics/diagnosticview.cpp:1060
+#: lib/diagnostics/diagnosticview.cpp:1031
 #, kde-format
 msgid "Information"
 msgstr "정보"
 
-#: lib/diagnostics/diagnosticview.cpp:1212
+#: lib/diagnostics/diagnosticview.cpp:1183
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [억제됨: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1350
+#: lib/diagnostics/diagnosticview.cpp:1321
 #, kde-format
 msgid "Expand All"
 msgstr "모두 펴기"
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1322
 #, kde-format
 msgid "Collapse All"
 msgstr "모두 접기"
 
-#: lib/diagnostics/diagnosticview.cpp:1358
+#: lib/diagnostics/diagnosticview.cpp:1329
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "클립보드에 복사"
 
-#: lib/diagnostics/diagnosticview.cpp:1381
+#: lib/diagnostics/diagnosticview.cpp:1352
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "전역 억제 삭제"
 
-#: lib/diagnostics/diagnosticview.cpp:1383
+#: lib/diagnostics/diagnosticview.cpp:1354
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "전역 억제 추가"
 
-#: lib/diagnostics/diagnosticview.cpp:1387
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "로컬 억제 삭제"
 
-#: lib/diagnostics/diagnosticview.cpp:1389
+#: lib/diagnostics/diagnosticview.cpp:1360
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "로컬 억제 추가"
 
-#: lib/diagnostics/diagnosticview.cpp:1402
+#: lib/diagnostics/diagnosticview.cpp:1373
 #, kde-format
 msgid "Disable Suppression"
 msgstr "억제 비활성화"
 
-#: lib/diagnostics/diagnosticview.cpp:1404
+#: lib/diagnostics/diagnosticview.cpp:1375
 #, kde-format
 msgid "Enable Suppression"
 msgstr "억제 활성화"
@@ -910,7 +910,7 @@ msgstr "파일 '%1'을(를) 열 수 없습니다: 일반적인 파일이 아닌 
 msgid "Configure"
 msgstr "설정"
 
-#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:175
+#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:173
 #, kde-format
 msgid "Search..."
 msgstr "검색..."
@@ -1722,67 +1722,67 @@ msgstr "%1 단추 표시"
 msgid "Focus %1"
 msgstr "%1 포커스"
 
-#: lib/katemdi.cpp:1009
+#: lib/katemdi.cpp:1012
 #, kde-format
 msgid "Configure..."
 msgstr "설정..."
 
-#: lib/katemdi.cpp:1013
+#: lib/katemdi.cpp:1016
 #, kde-format
 msgid "Hide Button"
 msgstr "단추 숨기기"
 
-#: lib/katemdi.cpp:1015
+#: lib/katemdi.cpp:1018
 #, kde-format
 msgid "Move To"
 msgstr "다음으로 이동"
 
-#: lib/katemdi.cpp:1020
+#: lib/katemdi.cpp:1023
 #, kde-format
 msgid "Own Section"
 msgstr "개별 구역으로"
 
-#: lib/katemdi.cpp:1026 lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1029 lib/katemdi.cpp:1037
 #, kde-format
 msgid "One Down"
 msgstr "하나 아래로"
 
-#: lib/katemdi.cpp:1028 lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1031 lib/katemdi.cpp:1042
 #, kde-format
 msgid "One Right"
 msgstr "하나 오른쪽으로"
 
-#: lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1035
 #, kde-format
 msgid "One Up"
 msgstr "하나 위로"
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1040
 #, kde-format
 msgid "One Left"
 msgstr "하나 왼쪽으로"
 
-#: lib/katemdi.cpp:1046
+#: lib/katemdi.cpp:1049
 #, kde-format
 msgid "Left Sidebar"
 msgstr "왼쪽 사이드바"
 
-#: lib/katemdi.cpp:1050
+#: lib/katemdi.cpp:1053
 #, kde-format
 msgid "Right Sidebar"
 msgstr "오른쪽 사이드바"
 
-#: lib/katemdi.cpp:1054
+#: lib/katemdi.cpp:1057
 #, kde-format
 msgid "Top Sidebar"
 msgstr "위쪽 사이드바"
 
-#: lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1061
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "아래쪽 사이드바"
 
-#: lib/katemdi.cpp:1450
+#: lib/katemdi.cpp:1453
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1907,35 +1907,35 @@ msgstr "[이전]"
 msgid "[NEW]"
 msgstr "[신규]"
 
-#: lib/kateoutputview.cpp:191
+#: lib/kateoutputview.cpp:189
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "모든 문자열을 클립보드에 복사"
 
-#: lib/kateoutputview.cpp:196
+#: lib/kateoutputview.cpp:194
 #, kde-format
 msgid "Clear all messages"
 msgstr "모든 메시지 비우기"
 
-#: lib/kateoutputview.cpp:381
+#: lib/kateoutputview.cpp:389
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "오류"
 
-#: lib/kateoutputview.cpp:385
+#: lib/kateoutputview.cpp:393
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "경고"
 
-#: lib/kateoutputview.cpp:389
+#: lib/kateoutputview.cpp:397
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "정보"
 
-#: lib/kateoutputview.cpp:394
+#: lib/kateoutputview.cpp:402
 #, kde-format
 msgctxt "@info"
 msgid "Log"

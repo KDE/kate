@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-26 00:49+0000\n"
+"POT-Creation-Date: 2023-07-31 00:49+0000\n"
 "PO-Revision-Date: 2006-12-17 12:02+0000\n"
 "Last-Translator: Mashrab Kuvatov <kmashrab@uni-bremen.de>\n"
 "Language-Team: Uzbek <floss-uz-l10n@googlegroups.com>\n"
@@ -289,117 +289,117 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:369
+#: lib/diagnostics/diagnosticview.cpp:323
 #, fuzzy, kde-format
 #| msgid "&Quick Open"
 msgid "Quick Fix"
 msgstr "&Тез очиш"
 
-#: lib/diagnostics/diagnosticview.cpp:373
+#: lib/diagnostics/diagnosticview.cpp:327
 #, fuzzy, kde-format
 #| msgid "New Tab"
 msgid "Next Item"
 msgstr "Янги таб"
 
-#: lib/diagnostics/diagnosticview.cpp:378
+#: lib/diagnostics/diagnosticview.cpp:332
 #, fuzzy, kde-format
 #| msgid "Activate Previous Tab"
 msgid "Previous Item"
 msgstr "Олдинги табни активлаш"
 
-#: lib/diagnostics/diagnosticview.cpp:385
+#: lib/diagnostics/diagnosticview.cpp:339
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:413
+#: lib/diagnostics/diagnosticview.cpp:370
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:451
+#: lib/diagnostics/diagnosticview.cpp:408
 #, kde-format
 msgid "Errors"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:424
 #, kde-format
 msgid "Warnings"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:438
 #, fuzzy, kde-format
 msgid "Filter..."
 msgstr "Файллар:"
 
-#: lib/diagnostics/diagnosticview.cpp:1052 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1023 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1027 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1060
+#: lib/diagnostics/diagnosticview.cpp:1031
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "Мета-маълумот"
 
-#: lib/diagnostics/diagnosticview.cpp:1212
+#: lib/diagnostics/diagnosticview.cpp:1183
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1350
+#: lib/diagnostics/diagnosticview.cpp:1321
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1322
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Ҳаммасини ё&пиш"
 
-#: lib/diagnostics/diagnosticview.cpp:1358
+#: lib/diagnostics/diagnosticview.cpp:1329
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1381
+#: lib/diagnostics/diagnosticview.cpp:1352
 #, fuzzy, kde-format
 #| msgid "Regular expression"
 msgid "Remove Global Suppression"
 msgstr "Доимий ифода"
 
-#: lib/diagnostics/diagnosticview.cpp:1383
+#: lib/diagnostics/diagnosticview.cpp:1354
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "&Сеанслар"
 
-#: lib/diagnostics/diagnosticview.cpp:1387
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1389
+#: lib/diagnostics/diagnosticview.cpp:1360
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1402
+#: lib/diagnostics/diagnosticview.cpp:1373
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "Сеанслар"
 
-#: lib/diagnostics/diagnosticview.cpp:1404
+#: lib/diagnostics/diagnosticview.cpp:1375
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -922,7 +922,7 @@ msgstr "'%1' файлини очиб бўлмади. У оддий файл эм
 msgid "Configure"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:175
+#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:173
 #, kde-format
 msgid "Search..."
 msgstr ""
@@ -1772,69 +1772,69 @@ msgstr ""
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1009
+#: lib/katemdi.cpp:1012
 #, fuzzy, kde-format
 msgid "Configure..."
 msgstr "Олдинги кўриниш"
 
-#: lib/katemdi.cpp:1013
+#: lib/katemdi.cpp:1016
 #, fuzzy, kde-format
 #| msgid "Hide Path"
 msgid "Hide Button"
 msgstr "Йўлни бекитиш"
 
-#: lib/katemdi.cpp:1015
+#: lib/katemdi.cpp:1018
 #, kde-format
 msgid "Move To"
 msgstr "Кўчириш"
 
-#: lib/katemdi.cpp:1020
+#: lib/katemdi.cpp:1023
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "Сеансни очиш"
 
-#: lib/katemdi.cpp:1026 lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1029 lib/katemdi.cpp:1037
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1028 lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1031 lib/katemdi.cpp:1042
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1035
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1040
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1046
+#: lib/katemdi.cpp:1049
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Чап ён панели"
 
-#: lib/katemdi.cpp:1050
+#: lib/katemdi.cpp:1053
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Ўнг ён панели"
 
-#: lib/katemdi.cpp:1054
+#: lib/katemdi.cpp:1057
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Юқори ён панели"
 
-#: lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1061
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Паст ён панели"
 
-#: lib/katemdi.cpp:1450
+#: lib/katemdi.cpp:1453
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1960,35 +1960,35 @@ msgstr ""
 msgid "[NEW]"
 msgstr ""
 
-#: lib/kateoutputview.cpp:191
+#: lib/kateoutputview.cpp:189
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr ""
 
-#: lib/kateoutputview.cpp:196
+#: lib/kateoutputview.cpp:194
 #, kde-format
 msgid "Clear all messages"
-msgstr ""
-
-#: lib/kateoutputview.cpp:381
-#, kde-format
-msgctxt "@info"
-msgid "Error"
-msgstr ""
-
-#: lib/kateoutputview.cpp:385
-#, kde-format
-msgctxt "@info"
-msgid "Warning"
 msgstr ""
 
 #: lib/kateoutputview.cpp:389
 #, kde-format
 msgctxt "@info"
+msgid "Error"
+msgstr ""
+
+#: lib/kateoutputview.cpp:393
+#, kde-format
+msgctxt "@info"
+msgid "Warning"
+msgstr ""
+
+#: lib/kateoutputview.cpp:397
+#, kde-format
+msgctxt "@info"
 msgid "Info"
 msgstr ""
 
-#: lib/kateoutputview.cpp:394
+#: lib/kateoutputview.cpp:402
 #, kde-format
 msgctxt "@info"
 msgid "Log"

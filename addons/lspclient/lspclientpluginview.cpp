@@ -263,16 +263,6 @@ public:
             mr.reset(doc->newMovingRange(range));
             connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &CtrlHoverFeedback::clearMovingRange, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &CtrlHoverFeedback::clearMovingRange, Qt::UniqueConnection);
-            connect(doc,
-                    SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
-                    this,
-                    SLOT(clear(KTextEditor::Document *)),
-                    Qt::UniqueConnection);
-            connect(doc,
-                    SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
-                    this,
-                    SLOT(clear(KTextEditor::Document *)),
-                    Qt::UniqueConnection);
 #else
             auto miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
             if (!miface) {

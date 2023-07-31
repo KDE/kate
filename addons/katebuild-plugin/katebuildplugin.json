@@ -1,20 +1,30 @@
 {
     "KPlugin": {
         "Description": "Build, parse output and run applications",
+        "Description[ca@valencia]": "Construïx, analitza l'eixida i executa aplicacions",
         "Description[ca]": "Construeix, analitza la sortida i executa aplicacions",
+        "Description[es]": "Compilar, analizar la salida y ejecutar aplicaciones",
+        "Description[eu]": "Eraikitzea, irteera aztertzea eta aplikazioak exekutatzea",
+        "Description[ka]": "ააგეთ, დაამუშავეთ მიღებული ინფორმაცია და გაუშვით აპლიკაციები",
         "Description[nl]": "Bouwen, uitvoer ontleden en toepassingen uitvoeren",
         "Description[sl]": "Izgradi, razčleni izhod in poženi aplikacije",
         "Description[tr]": "Uygulamaları yap, çıktıyı ayrıştır ve uygulamaları çalıştır",
         "Description[uk]": "Збирає, обробляє виведені дані і запускає програми",
         "Description[x-test]": "xxBuild, parse output and run applicationsxx",
+        "Description[zh_CN]": "构建，解析输出并运行应用程序",
         "Name": "Build & Run",
+        "Name[ca@valencia]": "Construïx i executa",
         "Name[ca]": "Construeix i executa",
         "Name[eo]": "Konstrui & Lanĉi",
+        "Name[es]": "Compilar y ejecutar",
+        "Name[eu]": "Eraiki eta exekutatu",
+        "Name[ka]": "აგება და გაშვება",
         "Name[nl]": "Bouwen & uitvoeren",
         "Name[sl]": "Izgradi in poženi",
         "Name[tr]": "Yap ve Çalıştır",
         "Name[uk]": "Зібрати і запустити",
         "Name[x-test]": "xxBuild & Runxx",
+        "Name[zh_CN]": "构建并运行",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

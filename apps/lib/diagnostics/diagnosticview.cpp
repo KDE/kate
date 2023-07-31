@@ -770,12 +770,21 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         if (!provider->m_persistentDiagnostics) {
             topItem->removeItemsForProvider(provider);
         }
+        if (diagnostics.diagnostics.isEmpty()) {
+            model->removeRow(topItem->row());
+            if (m_tabButtonOverlay) {
+                m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
+            }
+            return;
+        }
     }
     topItem->addProvider(provider);
 
+    QList<QStandardItem *> diagItems;
+    diagItems.reserve(diagnostics.diagnostics.size());
     for (const auto &diag : diagnostics.diagnostics) {
         auto item = new DiagnosticItem(diag);
-        topItem->appendRow(item);
+        diagItems.push_back(item);
         QString source;
         if (diag.source.length()) {
             source = QStringLiteral("[%1] ").arg(diag.source);
@@ -814,12 +823,12 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
             relatedItemMessage->setData(diagnosticsIcon(DiagnosticSeverity::Information), Qt::DecorationRole);
             item->appendRow(relatedItemMessage);
         }
-        m_diagnosticsTree->setExpanded(toProxyIndex(item->index()), true);
     }
+    topItem->appendRows(diagItems);
 
     // TODO perhaps add some custom delegate that only shows 1 line
     // and only the whole text when item selected ??
-    m_diagnosticsTree->setExpanded(toProxyIndex(topItem->index()), true);
+    m_diagnosticsTree->expandRecursively(toProxyIndex(topItem->index()), 1);
 
     // topItem might be removed after this
     updateDiagnosticsState(topItem);
@@ -1171,9 +1180,13 @@ void DiagnosticsView::updateDiagnosticsState(DocumentDiagnosticItem *&topItem)
         const auto ENABLED = Qt::ItemFlag::ItemIsEnabled;
         if ((flags & ENABLED) != !hide) {
             flags = hide ? (flags & ~ENABLED) : (flags | ENABLED);
-            item->setFlags(flags);
+            if (item->flags() != flags) {
+                item->setFlags(flags);
+            }
             const auto proxyIdx = m_proxy->mapFromSource(item->index());
-            m_diagnosticsTree->setRowHidden(proxyIdx.row(), proxyIdx.parent(), hide);
+            if (m_diagnosticsTree->isRowHidden(proxyIdx.row(), proxyIdx.parent()) != hide) {
+                m_diagnosticsTree->setRowHidden(proxyIdx.row(), proxyIdx.parent(), hide);
+            }
         }
         count += hide ? 0 : 1;
     }

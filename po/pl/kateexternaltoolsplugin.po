@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-05 01:04+0000\n"
+"POT-Creation-Date: 2023-07-31 03:15+0000\n"
 "PO-Revision-Date: 2023-03-25 09:57+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -400,13 +400,13 @@ msgid "Opens a dialog that helps in creating a list of mimetypes."
 msgstr "Otwiera okno dialogowe, które pomaga w tworzeniu listy rodzajów mime."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSave)
-#: tooldialog.ui:150
+#: tooldialog.ui:149
 #, kde-format
 msgid "Save:"
 msgstr "Zapisz:"
 
 #. i18n: ectx: property (whatsThis), widget (QComboBox, cmbSave)
-#: tooldialog.ui:160
+#: tooldialog.ui:159
 #, kde-format
 msgid ""
 "Optionally save the current or all modified documents prior to running the "
@@ -419,109 +419,109 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
-#: tooldialog.ui:164 tooldialog.ui:190
+#: tooldialog.ui:163 tooldialog.ui:189
 #, kde-format
 msgid "None"
 msgstr "Brak"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
-#: tooldialog.ui:169
+#: tooldialog.ui:168
 #, kde-format
 msgid "Current Document"
 msgstr "Bieżący dokument"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
-#: tooldialog.ui:174
+#: tooldialog.ui:173
 #, kde-format
 msgid "All Documents"
 msgstr "Wszystkie dokumenty"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: tooldialog.ui:182
+#: tooldialog.ui:181
 #, kde-format
 msgid "Trigger"
 msgstr "Wyzwalacz"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
-#: tooldialog.ui:195
+#: tooldialog.ui:194
 #, kde-format
 msgid "Before Save"
 msgstr "Przed zapisaniem"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
-#: tooldialog.ui:200
+#: tooldialog.ui:199
 #, kde-format
 msgid "After Save"
 msgstr "Po zapisaniu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkReload)
-#: tooldialog.ui:208
+#: tooldialog.ui:207
 #, kde-format
 msgid "Reload current document after execution"
 msgstr "Wczytaj bieżący dokument ponownie po wykonaniu"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: tooldialog.ui:215
+#: tooldialog.ui:214
 #, kde-format
 msgid "O&utput:"
 msgstr "&Wyjście:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
-#: tooldialog.ui:226
+#: tooldialog.ui:225
 #, kde-format
 msgid "Ignore"
 msgstr "Pomiń"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
-#: tooldialog.ui:231
+#: tooldialog.ui:230
 #, kde-format
 msgid "Insert at Cursor Position"
 msgstr "Wstaw w miejscu kursora"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
-#: tooldialog.ui:236
+#: tooldialog.ui:235
 #, kde-format
 msgid "Replace Selected Text"
 msgstr "Zastąp zaznaczony tekst"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
-#: tooldialog.ui:241
+#: tooldialog.ui:240
 #, kde-format
 msgid "Replace Current Document"
 msgstr "Zastąp bieżący dokument"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
-#: tooldialog.ui:246
+#: tooldialog.ui:245
 #, kde-format
 msgid "Append to Current Document"
 msgstr "Dołącz do bieżącego dokumentu"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
-#: tooldialog.ui:251
+#: tooldialog.ui:250
 #, kde-format
 msgid "Insert in New Document"
 msgstr "Wstaw w nowym dokumencie"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
-#: tooldialog.ui:256
+#: tooldialog.ui:255
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Skopiuj do schowka"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
-#: tooldialog.ui:261
+#: tooldialog.ui:260
 #, kde-format
 msgid "Display in Pane"
 msgstr "Wyświetl na panelu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: tooldialog.ui:269
+#: tooldialog.ui:268
 #, kde-format
 msgid "Editor command:"
 msgstr "Polecenia edytora:"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edtCommand)
-#: tooldialog.ui:279
+#: tooldialog.ui:278
 #, kde-format
 msgid ""
 "If you specify a name here, you can invoke the command from the view command "
@@ -533,7 +533,7 @@ msgstr ""
 "ani tabulatorów."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
-#: tooldialog.ui:282
+#: tooldialog.ui:281
 #, kde-format
 msgid "Optional view command line name"
 msgstr "Nazwa wiersza poleceń opcjonalnego widoku"

@@ -471,6 +471,9 @@ bool KateApp::startupKate()
 
 void KateApp::shutdownKate(KateMainWindow *win)
 {
+    // we want no auto saving during application closing, we handle that explicitly
+    KateSessionManager::AutoSaveBlocker blocker(sessionManager());
+
     if (!win->queryClose_internal()) {
         return;
     }

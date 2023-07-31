@@ -11,6 +11,7 @@
 #include <QFileSystemWatcher>
 #include <QHash>
 #include <QObject>
+#include <QTimer>
 
 typedef QList<KateSession::Ptr> KateSessionList;
 
@@ -21,6 +22,35 @@ class KATE_PRIVATE_EXPORT KateSessionManager : public QObject
     friend class KateSessionManageDialog;
 
 public:
+    /**
+     * Helper to block session auto save
+     */
+    class AutoSaveBlocker
+    {
+    public:
+        /**
+         * Block auto saving.
+         */
+        AutoSaveBlocker(KateSessionManager *manager)
+            : m_manager(manager)
+        {
+            // block new invocations of the timer and ensure it is not already running
+            ++m_manager->m_sessionSaveTimerBlocked;
+            m_manager->m_sessionSaveTimer.stop();
+        }
+
+        /**
+         * Unblock auto saving.
+         */
+        ~AutoSaveBlocker()
+        {
+            --m_manager->m_sessionSaveTimerBlocked;
+        }
+
+    private:
+        KateSessionManager *const m_manager;
+    };
+
     KateSessionManager(QObject *parent, const QString &sessionsDir);
     ~KateSessionManager() override;
 
@@ -229,8 +259,6 @@ private:
      */
     static bool isViewLessDocumentViewSpaceGroup(const QString &group);
 
-    void initTimer();
-
 private:
     /**
      * absolute path to dir in home dir where to store the sessions
@@ -253,5 +281,14 @@ private:
      */
     QFileSystemWatcher m_dirWatch;
 
-    std::unique_ptr<class QTimer> m_sessionSaveTimer;
+    /**
+     * timer for session auto saving
+     */
+    QTimer m_sessionSaveTimer;
+
+    /**
+     * is auto saving disabled at the moment?
+     * needed e.g. during some session manipulation and window/application closing
+     */
+    unsigned int m_sessionSaveTimerBlocked = 0;
 };

@@ -25,7 +25,7 @@ public:
     /**
      * Helper to block session auto save
      */
-    class AutoSaveBlocker
+    class AutoSaveBlocker final
     {
     public:
         /**

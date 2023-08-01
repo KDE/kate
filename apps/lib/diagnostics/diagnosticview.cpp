@@ -770,13 +770,6 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         if (!provider->m_persistentDiagnostics) {
             topItem->removeItemsForProvider(provider);
         }
-        if (diagnostics.diagnostics.isEmpty()) {
-            model->removeRow(topItem->row());
-            if (m_tabButtonOverlay) {
-                m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
-            }
-            return;
-        }
     }
     topItem->addProvider(provider);
 

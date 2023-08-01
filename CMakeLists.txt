@@ -90,7 +90,7 @@ ecm_optional_add_subdirectory(apps)
 ecm_optional_add_subdirectory(doc)
 
 ki18n_install(po)
-if(KF{KF_MAJOR_VERSION}DocTools_FOUND)
+if(KF${KF_MAJOR_VERSION}DocTools_FOUND)
     kdoctools_install(po)
 endif()
 

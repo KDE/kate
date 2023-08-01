@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2022-09-24 10:44+0200\n"
+"PO-Revision-Date: 2023-07-26 12:40+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -542,7 +542,7 @@ msgstr "Gå till föregående träff"
 #: SearchPlugin.cpp:361
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Klipp ut matchande rader"
 
 #: SearchPlugin.cpp:363
 #, kde-format
@@ -550,11 +550,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Klipper ut alla markerade matchande sökrader i det aktuella dokumentet till "
+"klippbordet"
 
 #: SearchPlugin.cpp:368
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Kopiera matchande rader"
 
 #: SearchPlugin.cpp:370
 #, kde-format
@@ -562,6 +564,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Kopierar alla markerade matchande sökrader i det aktuella dokumentet till "
+"klippbordet"
 
 #: SearchPlugin.cpp:398
 #, kde-format
@@ -625,10 +629,9 @@ msgid "Continuing from last match"
 msgstr "Fortsätter från sista träff"
 
 #: SearchPlugin.cpp:2168
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Sök"
+msgstr "Sök: %1"
 
 #: SearchPlugin.cpp:2299
 #, kde-format
@@ -648,7 +651,7 @@ msgstr "Exportera träffar"
 #: SearchPlugin.cpp:2313
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Öppna som editorflik"
 
 #: SearchPlugin.cpp:2320
 #, kde-format

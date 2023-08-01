@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2019, 2020, 2021, 2022.
+# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-22 00:53+0000\n"
-"PO-Revision-Date: 2022-01-28 23:10+0100\n"
+"PO-Revision-Date: 2023-07-25 16:06+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -181,6 +181,8 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"Misslyckades hitta den körbara filen '%1'. Säkerställ att den körbara filen "
+"finns och att variabelnamnen, om några används, är riktiga."
 
 #: externaltoolsplugin.cpp:295 externaltoolsplugin.cpp:305
 #: externaltoolsplugin.cpp:422 kateexternaltoolsconfigwidget.cpp:264

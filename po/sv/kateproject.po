@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2021, 2022.
+# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-30 00:48+0000\n"
-"PO-Revision-Date: 2022-09-24 10:43+0200\n"
+"PO-Revision-Date: 2023-07-26 13:46+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -100,24 +100,22 @@ msgid "Back"
 msgstr "Tillbaka"
 
 #: currentgitbranchbutton.cpp:123
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "Misslyckades arkivera: %1"
+msgstr "HEAD att arkivera %1"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD är på taggen %1"
 
 #: currentgitbranchbutton.cpp:127
-#, fuzzy, kde-format
-#| msgid "Checked out to branch: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "Checkade ut till gren: %1"
+msgstr "Aktiv gren: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -324,22 +322,19 @@ msgid "Compare Branch with..."
 msgstr "Jämför gren med..."
 
 #: gitwidget.cpp:1040
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "Arkivera"
+msgstr "Visa arkiveringar"
 
 #: gitwidget.cpp:1040
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "Arkivera ändringar"
+msgstr "Arkiveringskondensat"
 
 #: gitwidget.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Öppna katalog..."
+msgstr "Öppna arkivering..."
 
 #: gitwidget.cpp:1048 gitwidget.cpp:1087
 #, kde-format
@@ -700,11 +695,10 @@ msgid "Start Analysis..."
 msgstr "Starta analys..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:41
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "Kodanalys"
+msgstr "Kodanalys - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
@@ -718,30 +712,25 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:138
 #: kateprojectinfoviewcodeanalysis.cpp:198
 #: kateprojectinfoviewcodeanalysis.cpp:202
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "Kodanalys"
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "Analys av %1 fil klar."
-msgstr[1] "Analys av %1 filer klar."
+msgstr[0] "[%1] Analys av %2 fil klar."
+msgstr[1] "[%1] Analys av %2 filer klar."
 
 #: kateprojectinfoviewcodeanalysis.cpp:201
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Analys av %1 fil misslyckades med avslutningskod %2."
+msgstr "Analys misslyckades med slutkod %1. Fel: %2"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
@@ -825,10 +814,9 @@ msgid "Project Manager"
 msgstr "Projekthantering"
 
 #: kateprojectpluginview.cpp:81
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Återställ öppna projekt"
+msgstr "Öppna projektlista"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -836,8 +824,7 @@ msgid "Reload project"
 msgstr "Läs in projekt igen"
 
 #: kateprojectpluginview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Stäng projekt"
 

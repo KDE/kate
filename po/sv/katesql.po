@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Stefan Asserhäll <stefan.asserhall@bredband.net>, 2010.
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2011, 2012, 2014, 2021, 2022.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2011, 2012, 2014, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:50+0000\n"
-"PO-Revision-Date: 2022-09-24 10:44+0200\n"
+"PO-Revision-Date: 2023-07-25 16:07+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -231,14 +231,9 @@ msgid "File"
 msgstr "Fil"
 
 #: exportwizard.cpp:56 exportwizard.cpp:58
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|Komma-separerade värden\n"
-"*|Alla filer"
+msgstr "Komma-separerade värden"
 
 #: exportwizard.cpp:101
 #, kde-format

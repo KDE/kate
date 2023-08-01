@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-29 00:48+0000\n"
-"PO-Revision-Date: 2023-06-06 06:33+0200\n"
+"PO-Revision-Date: 2023-07-31 06:26+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -49,19 +49,17 @@ msgstr "გაუქმება"
 #: buildconfig.cpp:26
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "შეცდომებისა და გაფრთხილებების დამატება დიაგნოსტიკისთვის"
 
 #: buildconfig.cpp:37
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "თავიდან აგება"
+msgstr "აგება და გაშვება"
 
 #: buildconfig.cpp:43
-#, fuzzy, kde-format
-#| msgid "Build and Run Selected Target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "მონიშნული სამიზნის აგება და გაშვება"
+msgstr "აგებისა და გაშვების მორგება"
 
 #: plugin_katebuild.cpp:209 plugin_katebuild.cpp:216 plugin_katebuild.cpp:1200
 #, kde-format

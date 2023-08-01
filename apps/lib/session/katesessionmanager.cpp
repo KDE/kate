@@ -55,7 +55,7 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
     m_sessionSaveTimer.setInterval(5000);
     m_sessionSaveTimer.setSingleShot(true);
     auto startTimer = [this] {
-        if (!m_sessionSaveTimerBlocked && !m_sessionSaveTimer.isActive()) {
+        if (m_sessionSaveTimerBlocked == 0 && !m_sessionSaveTimer.isActive()) {
             m_sessionSaveTimer.start();
         }
     };
@@ -63,7 +63,7 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
     connect(dm, &KateDocManager::documentCreated, &m_sessionSaveTimer, startTimer);
     connect(dm, &KateDocManager::documentDeleted, &m_sessionSaveTimer, startTimer);
     m_sessionSaveTimer.callOnTimeout(this, [this] {
-        if (!m_sessionSaveTimerBlocked) {
+        if (m_sessionSaveTimerBlocked == 0) {
             saveActiveSession(true);
         }
     });

@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-01 00:49+0000\n"
+"POT-Creation-Date: 2023-08-02 00:50+0000\n"
 "PO-Revision-Date: 2023-04-13 20:10+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -349,69 +349,69 @@ msgstr "Avertissements"
 msgid "Filter..."
 msgstr "Filtrer..."
 
-#: lib/diagnostics/diagnosticview.cpp:1032 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1025 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Erreur"
 
-#: lib/diagnostics/diagnosticview.cpp:1036 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1029 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Avertissement"
 
-#: lib/diagnostics/diagnosticview.cpp:1040
+#: lib/diagnostics/diagnosticview.cpp:1033
 #, kde-format
 msgid "Information"
 msgstr "Informations"
 
-#: lib/diagnostics/diagnosticview.cpp:1196
+#: lib/diagnostics/diagnosticview.cpp:1189
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [supprimé : %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1334
+#: lib/diagnostics/diagnosticview.cpp:1327
 #, kde-format
 msgid "Expand All"
 msgstr "Tout développer"
 
-#: lib/diagnostics/diagnosticview.cpp:1335
+#: lib/diagnostics/diagnosticview.cpp:1328
 #, kde-format
 msgid "Collapse All"
 msgstr "Tout réduire"
 
-#: lib/diagnostics/diagnosticview.cpp:1342
+#: lib/diagnostics/diagnosticview.cpp:1335
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copier dans le presse-papier"
 
-#: lib/diagnostics/diagnosticview.cpp:1365
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Supprimer la suppression globale"
 
-#: lib/diagnostics/diagnosticview.cpp:1367
+#: lib/diagnostics/diagnosticview.cpp:1360
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Ajouter à la suppression globale"
 
-#: lib/diagnostics/diagnosticview.cpp:1371
+#: lib/diagnostics/diagnosticview.cpp:1364
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Supprimer la suppression locale"
 
-#: lib/diagnostics/diagnosticview.cpp:1373
+#: lib/diagnostics/diagnosticview.cpp:1366
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Ajouter une suppression locale"
 
-#: lib/diagnostics/diagnosticview.cpp:1386
+#: lib/diagnostics/diagnosticview.cpp:1379
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Désactiver une suppression"
 
-#: lib/diagnostics/diagnosticview.cpp:1388
+#: lib/diagnostics/diagnosticview.cpp:1381
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Activer une suppression"
@@ -942,7 +942,7 @@ msgstr ""
 "Les dossiers ne peuvent être ouverts que lorsque le module externe des "
 "projets est activé."
 
-#: lib/kateapp.cpp:554
+#: lib/kateapp.cpp:557
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1326,14 +1326,14 @@ msgstr "Fermer le document"
 msgid "Save As"
 msgstr "Enregistrer sous"
 
-#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:661
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:664
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Nouveau fichier ouvert pendant une tentative de fermeture de Kate, "
 "interruption de la fermeture."
 
-#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:661
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:664
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Fermeture abandonnée"
@@ -1725,7 +1725,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "Fermer tous les documents sauf le document actuel"
 
-#: lib/katemainwindow.cpp:813
+#: lib/katemainwindow.cpp:819
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1733,12 +1733,12 @@ msgstr ""
 "Ceci cachera entièrement la barre de menu. Il est possible de l'afficher de "
 "nouveau en saisissant %1."
 
-#: lib/katemainwindow.cpp:816
+#: lib/katemainwindow.cpp:822
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Cacher la barre de menu"
 
-#: lib/katemainwindow.cpp:920
+#: lib/katemainwindow.cpp:926
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1747,19 +1747,19 @@ msgstr ""
 "Vous avez déposé le dossier %1 dans Kate. Voulez-vous ouvrir tous les "
 "fichiers qu'il contient ?"
 
-#: lib/katemainwindow.cpp:923
+#: lib/katemainwindow.cpp:929
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Ouvrir tous les fichiers de façon récursive"
 
-#: lib/katemainwindow.cpp:924
+#: lib/katemainwindow.cpp:930
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Ouvrir tous les fichiers"
 
-#: lib/katemainwindow.cpp:1160
+#: lib/katemainwindow.cpp:1166
 #, kde-format
 msgid " [read only]"
 msgstr " [lecture seule]"
@@ -2568,14 +2568,14 @@ msgstr "&Renommer..."
 msgid "Delete"
 msgstr "Supprimer"
 
-#: lib/session/katesessionmanager.cpp:112
+#: lib/session/katesessionmanager.cpp:129
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr ""
 "Erreur interne : il y a plus d'une instance ouverte pour une session donnée."
 
-#: lib/session/katesessionmanager.cpp:123
+#: lib/session/katesessionmanager.cpp:140
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2584,35 +2584,35 @@ msgstr ""
 "La session « %1 » est déjà ouverte dans une autre instance de Kate. Basculer "
 "vers elle ou ré-ouvrir cette instance ?"
 
-#: lib/session/katesessionmanager.cpp:125
+#: lib/session/katesessionmanager.cpp:142
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Basculer vers une instance"
 
-#: lib/session/katesessionmanager.cpp:126
+#: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Ré-ouvrir"
 
-#: lib/session/katesessionmanager.cpp:332
+#: lib/session/katesessionmanager.cpp:346
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Impossible de renommer la session en « %1 ». Impossible d'écrire dans « %2 »."
 
-#: lib/session/katesessionmanager.cpp:333
+#: lib/session/katesessionmanager.cpp:347
 #, kde-format
 msgid "Session Renaming"
 msgstr "Renommage de la session"
 
-#: lib/session/katesessionmanager.cpp:483
+#: lib/session/katesessionmanager.cpp:497
 #, kde-format
 msgid "Session name:"
 msgstr "Nom de la session :"
 
-#: lib/session/katesessionmanager.cpp:485
+#: lib/session/katesessionmanager.cpp:499
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2621,17 +2621,17 @@ msgstr ""
 "Il existe déjà une session portant le nom que vous avez choisi : %1\n"
 "Veuillez en choisir un autre."
 
-#: lib/session/katesessionmanager.cpp:487
+#: lib/session/katesessionmanager.cpp:501
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Vous devez spécifier un nom pour enregistrer la session."
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:528
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Spécifiez un nom pour cette session"
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:530
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Spécifiez un nouveau nom pour la session : %1"

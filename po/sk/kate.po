@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-01 00:49+0000\n"
+"POT-Creation-Date: 2023-08-02 00:50+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -338,69 +338,69 @@ msgstr "Upozornenie"
 msgid "Filter..."
 msgstr "&Iné..."
 
-#: lib/diagnostics/diagnosticview.cpp:1032 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1025 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr "Chyba"
 
-#: lib/diagnostics/diagnosticview.cpp:1036 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1029 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr "Upozornenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1040
+#: lib/diagnostics/diagnosticview.cpp:1033
 #, kde-format
 msgid "Information"
 msgstr "Informácia"
 
-#: lib/diagnostics/diagnosticview.cpp:1196
+#: lib/diagnostics/diagnosticview.cpp:1189
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [potlačené: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1334
+#: lib/diagnostics/diagnosticview.cpp:1327
 #, kde-format
 msgid "Expand All"
 msgstr "Rozbaliť všetko"
 
-#: lib/diagnostics/diagnosticview.cpp:1335
+#: lib/diagnostics/diagnosticview.cpp:1328
 #, kde-format
 msgid "Collapse All"
 msgstr "Zbaliť všetko"
 
-#: lib/diagnostics/diagnosticview.cpp:1342
+#: lib/diagnostics/diagnosticview.cpp:1335
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Skopírovať do schránky"
 
-#: lib/diagnostics/diagnosticview.cpp:1365
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Odstrániť globálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1367
+#: lib/diagnostics/diagnosticview.cpp:1360
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Pridať globálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1371
+#: lib/diagnostics/diagnosticview.cpp:1364
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Odstrániť lokálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1373
+#: lib/diagnostics/diagnosticview.cpp:1366
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Pridať lokálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1386
+#: lib/diagnostics/diagnosticview.cpp:1379
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Zakázať lokálne potlačenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1388
+#: lib/diagnostics/diagnosticview.cpp:1381
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Povoliť lokálne potlačenie"
@@ -929,7 +929,7 @@ msgstr "Všetci ostatní, ktorí prispeli a zabudol som sa o nich zmieniť"
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Priečinky je možné otvoriť, iba ak je povolený doplnok projekty"
 
-#: lib/kateapp.cpp:554
+#: lib/kateapp.cpp:557
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1301,12 +1301,12 @@ msgstr "Zavrieť dokument"
 msgid "Save As"
 msgstr "Uložiť &ako"
 
-#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:661
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:664
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Nový súbor bol otvorený počas zatvárania Kate, zatvorenie zrušené."
 
-#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:661
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:664
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Zatvorenie zrušené"
@@ -1686,18 +1686,18 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "Zatvoriť všetky dokumenty vedľa aktuálneho"
 
-#: lib/katemainwindow.cpp:813
+#: lib/katemainwindow.cpp:819
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "Toto skryje ponuku možností. Môžete ju znovu zviditeľniť stlačením %1."
 
-#: lib/katemainwindow.cpp:816
+#: lib/katemainwindow.cpp:822
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Skryť panel ponuky"
 
-#: lib/katemainwindow.cpp:920
+#: lib/katemainwindow.cpp:926
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1705,19 +1705,19 @@ msgid ""
 msgstr ""
 "Vložili ste adresár %1 do Kate. Chcete otvoriť všetky súbory, ktoré obsahuje?"
 
-#: lib/katemainwindow.cpp:923
+#: lib/katemainwindow.cpp:929
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Otvoriť súbory rekurzívne"
 
-#: lib/katemainwindow.cpp:924
+#: lib/katemainwindow.cpp:930
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otvoriť súbor"
 
-#: lib/katemainwindow.cpp:1160
+#: lib/katemainwindow.cpp:1166
 #, kde-format
 msgid " [read only]"
 msgstr " [iba na čítanie]"
@@ -2517,13 +2517,13 @@ msgstr "&Premenovať..."
 msgid "Delete"
 msgstr "Vymazať"
 
-#: lib/session/katesessionmanager.cpp:112
+#: lib/session/katesessionmanager.cpp:129
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr "Vnútorná chyba: pre dané sedenie je viac ako jedna otvorená inštancia."
 
-#: lib/session/katesessionmanager.cpp:123
+#: lib/session/katesessionmanager.cpp:140
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2532,34 +2532,34 @@ msgstr ""
 "Sedenie '%1' je už otvorené v inej inštancii Kate. Prepnúť na ňu, alebo "
 "znovu otvoriť v tejto inštancii?"
 
-#: lib/session/katesessionmanager.cpp:125
+#: lib/session/katesessionmanager.cpp:142
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Prepnúť na inštanciu"
 
-#: lib/session/katesessionmanager.cpp:126
+#: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Znovu otvoriť"
 
-#: lib/session/katesessionmanager.cpp:332
+#: lib/session/katesessionmanager.cpp:346
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Sedenie nie je možné premenovať na \"%1\". Zlyhal zápis do \"%2\""
 
-#: lib/session/katesessionmanager.cpp:333
+#: lib/session/katesessionmanager.cpp:347
 #, kde-format
 msgid "Session Renaming"
 msgstr "Premenovanie sedenia"
 
-#: lib/session/katesessionmanager.cpp:483
+#: lib/session/katesessionmanager.cpp:497
 #, kde-format
 msgid "Session name:"
 msgstr "Meno sedenia:"
 
-#: lib/session/katesessionmanager.cpp:485
+#: lib/session/katesessionmanager.cpp:499
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2568,17 +2568,17 @@ msgstr ""
 "Už existuje sedenie s vami vybraným názvom: %1\n"
 "Prosím zvoľte iný názov."
 
-#: lib/session/katesessionmanager.cpp:487
+#: lib/session/katesessionmanager.cpp:501
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Na uloženie sedenia treba zadať meno."
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:528
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Zadajte meno pre toto sedenie"
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:530
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Zadajte nové meno pre sedenie: %1"

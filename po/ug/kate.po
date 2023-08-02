@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-01 00:49+0000\n"
+"POT-Creation-Date: 2023-08-02 00:50+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -332,73 +332,73 @@ msgstr ""
 msgid "Filter..."
 msgstr "باشقا(&O)..."
 
-#: lib/diagnostics/diagnosticview.cpp:1032 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1025 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1036 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1029 lib/kateconfigdialog.cpp:374
 #: lib/kateconfigdialog.cpp:917
 #, kde-format
 msgid "Warning"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1040
+#: lib/diagnostics/diagnosticview.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "مېتا-ئۇچۇرلار"
 
-#: lib/diagnostics/diagnosticview.cpp:1196
+#: lib/diagnostics/diagnosticview.cpp:1189
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1334
+#: lib/diagnostics/diagnosticview.cpp:1327
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1335
+#: lib/diagnostics/diagnosticview.cpp:1328
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "ھەممىنى ياپ(&E)"
 
-#: lib/diagnostics/diagnosticview.cpp:1342
+#: lib/diagnostics/diagnosticview.cpp:1335
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1365
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1367
+#: lib/diagnostics/diagnosticview.cpp:1360
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "ئەڭگىمەلەر(&I)"
 
-#: lib/diagnostics/diagnosticview.cpp:1371
+#: lib/diagnostics/diagnosticview.cpp:1364
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1373
+#: lib/diagnostics/diagnosticview.cpp:1366
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1386
+#: lib/diagnostics/diagnosticview.cpp:1379
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "ئەڭگىمە"
 
-#: lib/diagnostics/diagnosticview.cpp:1388
+#: lib/diagnostics/diagnosticview.cpp:1381
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -910,7 +910,7 @@ msgstr "مەن ئاتىنى ئاتاشنى ئۇنتۇپ قالغان بارلى�
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:554
+#: lib/kateapp.cpp:557
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1278,12 +1278,12 @@ msgstr "پۈتۈك ياپ"
 msgid "Save As"
 msgstr "باشقا ئاتتا ساقلا"
 
-#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:661
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:664
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate نى يېپىۋاتقاندا يېڭى ھۆججەت ئېچىلدى. Kate نى يېپىش توختىتىلدى."
 
-#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:661
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:664
 #, kde-format
 msgid "Closing Aborted"
 msgstr "يېپىش توختىتىلدى"
@@ -1683,38 +1683,38 @@ msgstr "ھەممە ئېچىلغان پۈتۈكلەرنى ياپىدۇ. داۋا�
 msgid "Close all documents beside current one"
 msgstr "بارلىق پۈتۈكلەرنى ياپ"
 
-#: lib/katemainwindow.cpp:813
+#: lib/katemainwindow.cpp:819
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 
-#: lib/katemainwindow.cpp:816
+#: lib/katemainwindow.cpp:822
 #, kde-format
 msgid "Hide menu bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:920
+#: lib/katemainwindow.cpp:926
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:923
+#: lib/katemainwindow.cpp:929
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:924
+#: lib/katemainwindow.cpp:930
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "ھۆججەت ئاچ"
 
-#: lib/katemainwindow.cpp:1160
+#: lib/katemainwindow.cpp:1166
 #, kde-format
 msgid " [read only]"
 msgstr " [ئوقۇشقىلا]"
@@ -2517,32 +2517,32 @@ msgstr "ئات ئۆزگەرت(&R)…"
 msgid "Delete"
 msgstr "ئۆچۈرۈلدى"
 
-#: lib/session/katesessionmanager.cpp:112
+#: lib/session/katesessionmanager.cpp:129
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr "ئىچكى خاتالىق: بېرىلگەن ئەڭگىمەنىڭ بىردىن ئارتۇق ئۈلگىسى ئوچۇق."
 
-#: lib/session/katesessionmanager.cpp:123
+#: lib/session/katesessionmanager.cpp:140
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:125
+#: lib/session/katesessionmanager.cpp:142
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:126
+#: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:332
+#: lib/session/katesessionmanager.cpp:346
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2552,17 +2552,17 @@ msgstr ""
 "ئەڭگىمە ئاتىنى «%1» غا ئۆزگەرتكىلى بولمىدى. ئوخشاش ئاتتىكى باشقا بىر ئەڭگىمە "
 "مەۋجۇت"
 
-#: lib/session/katesessionmanager.cpp:333
+#: lib/session/katesessionmanager.cpp:347
 #, kde-format
 msgid "Session Renaming"
 msgstr "ئەڭگىمە ئاتىنى ئۆزگەرتىش"
 
-#: lib/session/katesessionmanager.cpp:483
+#: lib/session/katesessionmanager.cpp:497
 #, kde-format
 msgid "Session name:"
 msgstr "ئەڭگىمە ئاتى:"
 
-#: lib/session/katesessionmanager.cpp:485
+#: lib/session/katesessionmanager.cpp:499
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2576,18 +2576,18 @@ msgstr ""
 "باشقا بىر ئات تاللاڭ\n"
 "ئەڭگىمە ئاتى:"
 
-#: lib/session/katesessionmanager.cpp:487
+#: lib/session/katesessionmanager.cpp:501
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ئەڭگىمەنى ساقلاش ئۈچۈن چوقۇم ئاتىنى بەلگىلەپ بېرىشىڭىز كېرەك."
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:528
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "ئەڭگىمەنىڭ يېڭى ئاتىنى بەلگىلەڭ"
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:530
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-31 03:15+0000\n"
-"PO-Revision-Date: 2023-06-27 11:51+0300\n"
+"PO-Revision-Date: 2023-08-02 00:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 23.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -50,7 +50,7 @@ msgstr "Kate"
 #: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
-msgstr "Kate - Gelişmiş Metin Düzenleyici"
+msgstr "Kate - Gelişmiş Metin Düzenleyicisi"
 
 #: kate/main.cpp:98 kwrite/main.cpp:46
 #, kde-format
@@ -165,7 +165,7 @@ msgstr "K Yaz"
 #: kwrite/main.cpp:44
 #, kde-format
 msgid "KWrite - Text Editor"
-msgstr "K Yaz - Metin Düzenleyici"
+msgstr "K Yaz - Metin Düzenleyicisi"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
@@ -2412,7 +2412,7 @@ msgstr "Oturumları Yönet"
 #: lib/session/katesessionmanagedialog.cpp:62
 #, kde-format
 msgid "Session Chooser"
-msgstr "Oturum Seçici"
+msgstr "Oturum Seçicisi"
 
 #: lib/session/katesessionmanagedialog.cpp:146
 #, kde-format

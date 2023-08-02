@@ -247,7 +247,16 @@ void KateFileBrowser::slotFilterChange(const QString &nf)
     if (empty) {
         m_dirOperator->clearFilter();
     } else {
-        m_dirOperator->setNameFilter(f);
+        // unless the user explicitly used wild card terms, turn filter into partial matching one
+        // given user expectations with the narrow-as-you-type style of the UI
+        QStringList filters = f.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        for (QString &filter : filters) {
+            if (filter.contains(QLatin1Char('*')) || filter.contains(QLatin1Char('?')) || filter.contains(QLatin1Char('['))) {
+                continue;
+            }
+            filter = QLatin1Char('*') + filter + QLatin1Char('*');
+        }
+        m_dirOperator->setNameFilter(filters.join(QLatin1Char(' ')));
     }
 
     m_dirOperator->updateDir();

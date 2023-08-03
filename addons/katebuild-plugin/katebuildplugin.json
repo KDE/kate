@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Build, parse output and run applications",
+        "Description[bg]": "Изграждане, анализиране на изходни данни и стартиране на приложения",
         "Description[ca@valencia]": "Construïx, analitza l'eixida i executa aplicacions",
         "Description[ca]": "Construeix, analitza la sortida i executa aplicacions",
         "Description[es]": "Compilar, analizar la salida y ejecutar aplicaciones",
@@ -15,6 +16,7 @@
         "Description[x-test]": "xxBuild, parse output and run applicationsxx",
         "Description[zh_CN]": "构建，解析输出并运行应用程序",
         "Name": "Build & Run",
+        "Name[bg]": "Компилиране и стартиране",
         "Name[ca@valencia]": "Construïx i executa",
         "Name[ca]": "Construeix i executa",
         "Name[eo]": "Konstrui & Lanĉi",

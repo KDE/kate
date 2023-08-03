@@ -391,33 +391,3 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
-
-#~ msgid "Show:"
-#~ msgstr "Показване:"
-
-#~ msgctxt "Header for the file name column"
-#~ msgid "File"
-#~ msgstr "Файл"
-
-#~ msgctxt "Header for the line number column"
-#~ msgid "Line"
-#~ msgstr "Ред"
-
-#~ msgctxt "Header for the error message column"
-#~ msgid "Message"
-#~ msgstr "Съобщение"
-
-#~ msgid "Next Error"
-#~ msgstr "Следваща грешка"
-
-#~ msgid "Previous Error"
-#~ msgstr "Предишна грешка"
-
-#~ msgid "Show Marks"
-#~ msgstr "Показване маркери"
-
-#~ msgid "Error"
-#~ msgstr "Грешка"
-
-#~ msgid "Warning"
-#~ msgstr "Предупреждение"

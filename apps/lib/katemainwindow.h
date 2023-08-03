@@ -603,6 +603,8 @@ private Q_SLOTS:
     void slotDocumentCloseSelected(const QList<KTextEditor::Document *> &);
 
 private:
+    void ensureHamburgerBarSize();
+
     /**
      * Wrapper of main window for KTextEditor
      */

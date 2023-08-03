@@ -177,6 +177,8 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
     // Hence, we have to take care of the menu bar here
     toggleShowMenuBar(false);
 
+    ensureHamburgerBarSize();
+
     // trigger proper focus restore
     m_viewManager->triggerActiveViewFocus();
 }
@@ -553,6 +555,32 @@ void KateMainWindow::setupActions()
             }
         }
     });
+}
+
+void KateMainWindow::ensureHamburgerBarSize()
+{
+    // Ensure the hamburger menu never gets pushed into the toolbar overflow
+    // by setting a minimum size on the bar based on the button's size.
+    if (auto *hamburgerBar = toolBar(QStringLiteral("hamburgerBar"))) {
+        auto *hamburgerMenu = actionCollection()->action(QStringLiteral("hamburger_menu"));
+        if (auto *hamburgerButton = hamburgerBar->widgetForAction(hamburgerMenu)) {
+            int neededButtonWidth = hamburgerButton->minimumSizeHint().width();
+            // Add toolbar margins.
+            const QMargins combinedMargins = hamburgerBar->contentsMargins() + hamburgerBar->layout()->contentsMargins();
+            neededButtonWidth += combinedMargins.left();
+            neededButtonWidth += combinedMargins.right();
+
+            // The dynamic spacer is also an action leading to spacing being added.
+            // Not observable with Breeze but e.g. Fusion style has toolbar button spacing.
+            if (hamburgerBar->actions().count() > 1) {
+                neededButtonWidth += hamburgerBar->layout()->spacing();
+            }
+
+            QSize minimumSize = hamburgerBar->minimumSize();
+            minimumSize.setWidth(std::max(minimumSize.width(), neededButtonWidth));
+            hamburgerBar->setMinimumSize(minimumSize);
+        }
+    }
 }
 
 void KateMainWindow::slotDocumentCloseAll()

@@ -622,7 +622,15 @@ void Sidebar::appendStyledTab(int id, MultiTabBar *bar, ToolView *widget)
     updateButtonStyle(newTab);
 
     // tell that we have a new tab, useful for e.g. overlays
-    Q_EMIT m_mainWin->tabForToolViewAdded(widget, newTab);
+    // do it delayed so that if toolview was constructed before the container widget
+    // and the container wants to react to this signal, it can do so. Otherwise, this
+    // will fire before the container has connected to this signal
+    QMetaObject::invokeMethod(
+        m_mainWin,
+        [w = m_mainWin, widget, newTab] {
+            Q_EMIT w->tabForToolViewAdded(widget, newTab);
+        },
+        Qt::QueuedConnection);
 }
 
 void Sidebar::updateButtonStyle(KMultiTabBarTab *button)

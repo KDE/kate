@@ -125,6 +125,7 @@ public:
         }
         setAttribute(Qt::WA_TransparentForMouseEvents, true);
         setGeometry(parent->geometry());
+        move({0, 0});
         show();
         raise();
     }

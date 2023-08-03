@@ -257,6 +257,9 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
 
 KateApp::~KateApp()
 {
+    // we want no auto saving during application closing, we handle that explicitly
+    KateSessionManager::AutoSaveBlocker blocker(sessionManager());
+
     /**
      * unregister from dbus before we get unusable...
      */
@@ -335,6 +338,9 @@ void KateApp::fillAuthorsAndCredits(KAboutData &aboutData)
 
 bool KateApp::init()
 {
+    // we want no auto saving during application startup, we handle that explicitly
+    KateSessionManager::AutoSaveBlocker blocker(sessionManager());
+
     // set KATE_PID for use in child processes
     if (isKate()) {
         qputenv("KATE_PID", QStringLiteral("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData());
@@ -368,6 +374,9 @@ bool KateApp::init()
 
 void KateApp::restoreKate()
 {
+    // we want no auto saving during application startup, we handle that explicitly
+    KateSessionManager::AutoSaveBlocker blocker(sessionManager());
+
     KConfig *sessionConfig = KConfigGui::sessionConfig();
 
     // activate again correct session!!!
@@ -393,6 +402,9 @@ void KateApp::restoreKate()
 
 bool KateApp::startupKate()
 {
+    // we want no auto saving during application startup, we handle that explicitly
+    KateSessionManager::AutoSaveBlocker blocker(sessionManager());
+
     // KWrite is session less
     if (isKWrite()) {
         sessionManager()->activateAnonymousSession();

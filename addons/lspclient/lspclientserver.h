@@ -66,7 +66,7 @@ using WorkspaceEditReplyHandler = ReplyHandler<LSPWorkspaceEdit>;
 using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
 using WorkspaceFoldersReplyHandler = ReplyHandler<QList<LSPWorkspaceFolder>>;
 using SwitchSourceHeaderHandler = ReplyHandler<QString>;
-using MemoryUsageHandler = ReplyHandler<QJsonValue>;
+using MemoryUsageHandler = ReplyHandler<QString>;
 using ExpandMacroHandler = ReplyHandler<LSPExpandedMacro>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformation>>;
@@ -192,7 +192,7 @@ public:
 
     RequestHandle documentInlayHint(const QUrl &document, const LSPRange &range, const QObject *context, const InlayHintsReplyHandler &h);
 
-    void executeCommand(const QString &command, const QJsonValue &args);
+    void executeCommand(const LSPCommand &command);
 
     // rust-analyzer specific
     RequestHandle rustAnalyzerExpandMacro(const QObject *context, const QUrl &document, const LSPPosition &pos, const ExpandMacroHandler &h);

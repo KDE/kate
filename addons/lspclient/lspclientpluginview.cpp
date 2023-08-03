@@ -51,7 +51,6 @@
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QInputDialog>
-#include <QJsonDocument>
 #include <QJsonObject>
 #include <QKeyEvent>
 #include <QKeySequence>
@@ -1749,7 +1748,7 @@ public:
             QTimer::singleShot(2000, this, [this] {
                 m_accept_edit = false;
             });
-            server->executeCommand(command.command, command.arguments);
+            server->executeCommand(command);
         }
     }
 
@@ -2019,12 +2018,11 @@ public:
         if (!server)
             return;
 
-        auto h = [this](const QJsonValue &reply) {
+        auto h = [this](const QString &reply) {
             auto view = m_mainWindow->openUrl(QUrl());
             if (view) {
-                QJsonDocument json(reply.toObject());
                 auto doc = view->document();
-                doc->setText(QString::fromUtf8(json.toJson()));
+                doc->setText(reply);
                 // position at top
                 view->setCursorPosition({0, 0});
                 // adjust mode

@@ -49,7 +49,7 @@ enum class LSPErrorCode {
 struct LSPResponseError {
     LSPErrorCode code{};
     QString message;
-    QJsonValue data;
+    QByteArray data;
 };
 
 enum class LSPDocumentSyncKind { None = 0, Full = 1, Incremental = 2 };
@@ -270,7 +270,7 @@ struct LSPCompletionItem {
     // with KTE. See: https://invent.kde.org/utilities/kate/-/merge_requests/438
     // We still read it so that it can be used with completionItem/resolve
     LSPTextEdit textEdit;
-    QJsonValue data;
+    QByteArray data;
 };
 
 struct LSPParameterInformation {
@@ -366,7 +366,7 @@ struct LSPCommand {
     QString title;
     QString command;
     // pretty opaque
-    QJsonArray arguments;
+    QByteArray arguments;
 };
 
 struct LSPTextDocumentEdit {

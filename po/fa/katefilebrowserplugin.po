@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:49+0000\n"
+"POT-Creation-Date: 2023-08-04 02:27+0000\n"
 "PO-Revision-Date: ۲۰۱۶-۰۸-۲۰ ۱۶:۴۶+0330\n"
 "Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Persian <kde-i18n-fa@kde.org>\n"
@@ -30,51 +30,51 @@ msgstr ""
 "یک نام پالایه‌ای را برای محدود کردن اینکه چه پرونده‌هایی نمایش داده شوند، وارد "
 "کنید."
 
-#: katefilebrowser.cpp:297
+#: katefilebrowser.cpp:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr ""
 
-#: katefilebrowser.cpp:326
+#: katefilebrowser.cpp:335
 #, kde-format
 msgid "&Other..."
 msgstr ""
 
-#: katefilebrowser.cpp:357
+#: katefilebrowser.cpp:366
 #, fuzzy, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "دارید سعی میکنید %1 پرونده را باز کنید، آیا مطمئن هستید؟"
 msgstr[1] ""
 
-#: katefilebrowser.cpp:359
+#: katefilebrowser.cpp:368
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr ""
 
-#: katefilebrowser.cpp:426
+#: katefilebrowser.cpp:435
 #, kde-format
 msgid "Bookmarks"
 msgstr "چوب الفها"
 
-#: katefilebrowser.cpp:434
+#: katefilebrowser.cpp:443
 #, kde-format
 msgid "Current Document Folder"
 msgstr "پوشه‌ی جاری سند"
 
-#: katefilebrowser.cpp:442
+#: katefilebrowser.cpp:451
 #, kde-format
 msgid "Options"
 msgstr "گزینه‌ها"
 
-#: katefilebrowser.cpp:463
+#: katefilebrowser.cpp:472
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "همگام ساختن خودکار با سند جاری"
 
-#: katefilebrowser.cpp:470
+#: katefilebrowser.cpp:479
 #, kde-format
 msgid "Highlight current file"
 msgstr ""

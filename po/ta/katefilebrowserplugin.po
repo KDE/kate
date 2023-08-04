@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:49+0000\n"
+"POT-Creation-Date: 2023-08-04 00:48+0000\n"
 "PO-Revision-Date: 2022-08-23 21:20+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -27,51 +27,51 @@ msgstr "தேடு"
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "காட்டப்படும் கோப்புகளைத் தீர்மானிக்க ஓர் வடிகட்டு சரத்தை உள்ளிடுங்கள்."
 
-#: katefilebrowser.cpp:297
+#: katefilebrowser.cpp:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "இதனால் திற"
 
-#: katefilebrowser.cpp:326
+#: katefilebrowser.cpp:335
 #, kde-format
 msgid "&Other..."
 msgstr "&மற்றவை..."
 
-#: katefilebrowser.cpp:357
+#: katefilebrowser.cpp:366
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "1 கோப்பை உறுதியாகத் திறக்க வேண்டுமா?"
 msgstr[1] "%1 கோப்புகளை உறுதியாகத் திறக்க வேண்டுமா?"
 
-#: katefilebrowser.cpp:359
+#: katefilebrowser.cpp:368
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "அனைத்து கோப்புகளையும் திற"
 
-#: katefilebrowser.cpp:426
+#: katefilebrowser.cpp:435
 #, kde-format
 msgid "Bookmarks"
 msgstr "நினைவுக்குறிகள்"
 
-#: katefilebrowser.cpp:434
+#: katefilebrowser.cpp:443
 #, kde-format
 msgid "Current Document Folder"
 msgstr "தற்போதைய ஆவணத்தின் அடைவு"
 
-#: katefilebrowser.cpp:442
+#: katefilebrowser.cpp:451
 #, kde-format
 msgid "Options"
 msgstr "விருப்பங்கள்"
 
-#: katefilebrowser.cpp:463
+#: katefilebrowser.cpp:472
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "தற்போதைய அடைவுடன் தானாக ஒத்திசையச்செய்"
 
-#: katefilebrowser.cpp:470
+#: katefilebrowser.cpp:479
 #, kde-format
 msgid "Highlight current file"
 msgstr "தற்போதைய கோப்பை முன்னிலைப்படுத்து"

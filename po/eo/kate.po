@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-04 00:48+0000\n"
-"PO-Revision-Date: 2023-08-03 21:39+0100\n"
+"PO-Revision-Date: 2023-08-04 22:58+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -2303,16 +2303,12 @@ msgid "Control view space splitting"
 msgstr "Stiri vidspacdividon"
 
 #: lib/kateviewspace.cpp:119
-#, fuzzy, kde-format
-#| msgid "S&ynchronise Scrolling"
+#, kde-format
 msgid "S&ynchronize Scrolling"
 msgstr "S&inkronigi Rulumadon"
 
 #: lib/kateviewspace.cpp:121
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronise Scrolling of this split-view with other synchronised split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
 msgstr ""

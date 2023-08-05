@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-04 00:48+0000\n"
-"PO-Revision-Date: 2023-08-01 08:12+0200\n"
+"PO-Revision-Date: 2023-08-04 08:11+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -2298,16 +2298,12 @@ msgid "Control view space splitting"
 msgstr "Kontrollera delning av vy-utrymmet"
 
 #: lib/kateviewspace.cpp:119
-#, fuzzy, kde-format
-#| msgid "S&ynchronise Scrolling"
+#, kde-format
 msgid "S&ynchronize Scrolling"
 msgstr "S&ynkronisera rullning"
 
 #: lib/kateviewspace.cpp:121
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronise Scrolling of this split-view with other synchronised split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
 msgstr ""

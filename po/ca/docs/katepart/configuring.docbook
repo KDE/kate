@@ -306,7 +306,7 @@
 <varlistentry>
 <term
 ><guilabel
->Sagna les línies ajustades: </guilabel
+>Sagna les línies ajustades </guilabel
 ></term>
 <listitem
 ><para
@@ -624,7 +624,7 @@
 <varlistentry>
 <term
 ><guilabel
->Mode d'entrada predeterminat:</guilabel
+>Mode d'entrada predeterminat</guilabel
 ></term
 > <listitem
 ><para
@@ -662,7 +662,7 @@
 <varlistentry>
 <term
 ><guilabel
->Caràcters de tancament:</guilabel
+>Caràcters de tancament</guilabel
 ></term
 > <listitem>
 <para
@@ -675,7 +675,7 @@
 <varlistentry>
 <term
 ><guilabel
->Copiar i enganxar:</guilabel
+>Copiar i enganxar</guilabel
 ></term>
 <listitem>
 <variablelist>
@@ -1400,7 +1400,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Introduïu un fitxer a on desar les còpies de seguretat:</guilabel
+>Introduïu un fitxer a on desar les còpies de seguretat</guilabel
 ></term>
 <listitem
 ><para
@@ -1431,7 +1431,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Prefix dels fitxers de còpia de seguretat:</guilabel
+>Prefix dels fitxers de còpia de seguretat</guilabel
 ></term>
 <listitem>
 <para
@@ -1441,7 +1441,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Sufix dels fitxers de còpia de seguretat:</guilabel
+>Sufix dels fitxers de còpia de seguretat</guilabel
 ></term>
 <listitem>
 <para
@@ -1451,7 +1451,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Mode del fitxer d'intercanvi:</guilabel
+>Mode del fitxer d'intercanvi</guilabel
 ></term>
 <listitem>
 <para
@@ -1471,7 +1471,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Emmagatzema els fitxers d'intercanvi a:</guilabel
+>Emmagatzema els fitxers d'intercanvi a</guilabel
 ></term>
 <listitem
 ><para
@@ -1483,7 +1483,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Desa els fitxers d'intercanvi cada:</guilabel
+>Desa els fitxers d'intercanvi cada</guilabel
 ></term>
 <listitem
 ><para

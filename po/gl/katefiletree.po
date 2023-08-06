@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2019-10-27 08:12+0100\n"
+"PO-Revision-Date: 2023-08-05 13:51+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.11.70\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -41,9 +41,7 @@ msgid "Close the current document."
 msgstr "Pechar o documento actual."
 
 #: katefiletree.cpp:128
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Expand recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Expandir recursivamente"
@@ -54,17 +52,15 @@ msgid "Expand the file list sub tree recursively."
 msgstr "Expandir recursivamente a lista de ficheiros da árbore subordinada."
 
 #: katefiletree.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Collapse recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
-msgstr "Pregar recursivamente"
+msgstr "Recoller recursivamente"
 
 #: katefiletree.cpp:134
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
-msgstr "Pregar recursivamente a lista de ficheiros da árbore subordinada."
+msgstr "Recoller recursivamente a lista de ficheiros da árbore subordinada."
 
 #: katefiletree.cpp:136
 #, kde-format
@@ -92,7 +88,7 @@ msgstr "Abrir o cartafol no que está situado este ficheiro."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "Copiar a localización"
 
 #: katefiletree.cpp:147
 #, kde-format
@@ -200,7 +196,7 @@ msgstr "Ordenar pola orde de apertura"
 #: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
 #, kde-format
 msgid "Custom Sorting"
-msgstr ""
+msgstr "Orde personalizada"
 
 #: katefiletree.cpp:388
 #, kde-format
@@ -211,7 +207,7 @@ msgstr "Abrir con"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Amosar o historial de Git do ficheiro"
 
 #: katefiletree.cpp:441
 #, kde-format
@@ -283,18 +279,19 @@ msgstr "&Amosar a ruta completa"
 #: katefiletreeconfigpage.cpp:95
 #, kde-format
 msgid "Show &Toolbar"
-msgstr ""
+msgstr "Amosar a barra de &ferramentas"
 
 #: katefiletreeconfigpage.cpp:98
 #, kde-format
 msgid "Show Close Button"
-msgstr ""
+msgstr "Amosar o botón de pechar."
 
 #: katefiletreeconfigpage.cpp:100
 #, kde-format
 msgid ""
 "When enabled, this will show a close button for opened documents on hover."
 msgstr ""
+"Se se activa, amosarase un botón de pechar ao cubrir os documentos abertos."
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -337,6 +334,8 @@ msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
+"Se se activa, amósase unha barra de ferramentas con accións como «Gardar» "
+"sobre a lista de documentos."
 
 #: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:129
 #: katefiletreeplugin.cpp:136
@@ -350,13 +349,11 @@ msgid "Configure Documents"
 msgstr "Configurar os documentos"
 
 #: katefiletreemodel.cpp:494
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "Abrir con"
+msgstr "Trebellos abertos"
 
 #: katefiletreemodel.cpp:653
 #, kde-format
@@ -376,15 +373,14 @@ msgid "Next Document"
 msgstr "Seguinte documento"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "&Mostrar os activos"
+msgstr "&Amosar o documento activo"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Gardar"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -394,11 +390,10 @@ msgstr "Gardar o documento actual."
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Gardar como"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "Gardar o documento actual cun novo nome."
 
@@ -406,7 +401,7 @@ msgstr "Gardar o documento actual cun novo nome."
 #: ui.rc:7
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "&Ir"
 
 #~ msgid "&Other..."
 #~ msgstr "&Outro…"

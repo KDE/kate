@@ -4,14 +4,14 @@
 # mvillarino <mvillarino@users.sourceforge.net>, 2007, 2008, 2009.
 # Marce Villarino <mvillarino@gmail.com>, 2009, 2013.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2018, 2019.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2018, 2019, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-09 00:51+0000\n"
-"PO-Revision-Date: 2019-10-27 08:11+0100\n"
+"PO-Revision-Date: 2023-08-05 10:05+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.11.70\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: kateconsole.cpp:56
 #, kde-format
@@ -37,7 +37,7 @@ msgstr "Terminal"
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
-msgstr "&Redirixir á terminal"
+msgstr "&Canalizar ao terminal"
 
 #: kateconsole.cpp:147
 #, kde-format
@@ -52,26 +52,22 @@ msgid "Run Current Document"
 msgstr "Executar o documento actual"
 
 #: kateconsole.cpp:156 kateconsole.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Focus Terminal"
+#, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
-msgstr "&Focalizar a terminal"
+msgstr "Amosar o panel de &terminal"
 
 #: kateconsole.cpp:162
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Focus Terminal"
+#, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
-msgstr "&Focalizar a terminal"
+msgstr "&Enfocar o panel de terminal"
 
 #: kateconsole.cpp:307
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
-msgstr ""
+msgstr "Konsole non está instalado. Instale Konsole para usar un terminal."
 
 #: kateconsole.cpp:388
 #, kde-format
@@ -79,18 +75,18 @@ msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
 "contained commands with your user rights."
 msgstr ""
-"Seguro que quere redirixir o texto á consola? Isto executará calquera orde "
-"que conteña cos seus permisos de usuario."
+"Seguro que quere canalizar o texto á consola? Isto executará calquera orde "
+"que conteña cos seus permisos de persoa usuaria."
 
 #: kateconsole.cpp:389
 #, kde-format
 msgid "Pipe to Terminal?"
-msgstr "Desexa redirixir á terminal?"
+msgstr "Canalizar ao terminal?"
 
 #: kateconsole.cpp:390
 #, kde-format
 msgid "Pipe to Terminal"
-msgstr "Redirixir á terminal"
+msgstr "Canalizar ao terminal"
 
 #: kateconsole.cpp:418
 #, kde-format
@@ -112,7 +108,7 @@ msgid ""
 msgstr ""
 "Seguro que quere executar o documento?\n"
 "Isto executará no terminal a seguinte orde,\n"
-"cos seus permisos de usuario:\n"
+"cos seus permisos de persoa usuaria:\n"
 "«%1»"
 
 #: kateconsole.cpp:494
@@ -126,24 +122,20 @@ msgid "Run"
 msgstr "Executar"
 
 #: kateconsole.cpp:510
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Pipe to Terminal"
+#, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
-msgstr "&Redirixir á terminal"
+msgstr "Agoc&har o panel de terminal"
 
 #: kateconsole.cpp:521
-#, fuzzy, kde-format
-#| msgid "Defocus Terminal"
+#, kde-format
 msgid "Defocus Terminal Panel"
-msgstr "Desfocalizar a terminal"
+msgstr "Desenfocar o panel de terminal"
 
 #: kateconsole.cpp:522 kateconsole.cpp:523
-#, fuzzy, kde-format
-#| msgid "Focus Terminal"
+#, kde-format
 msgid "Focus Terminal Panel"
-msgstr "Focalizar a terminal"
+msgstr "Enfocar o panel de terminal"
 
 #: kateconsole.cpp:597
 #, kde-format
@@ -200,7 +192,7 @@ msgstr ""
 #: kateconsole.cpp:635
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
-msgstr ""
+msgstr "Agochar Konsole ao premer Esc"
 
 #: kateconsole.cpp:638
 #, kde-format
@@ -208,11 +200,13 @@ msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
+"Esto pode causar problemas con aplicacións de terminal que usan a tecla Esc, "
+"p. ex. vim. Liste esas aplicacións a continuación, separada por comas."
 
 #: kateconsole.cpp:669
 #, kde-format
 msgid "Terminal Settings"
-msgstr "Configuración da terminal"
+msgstr "Configuración de terminal"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

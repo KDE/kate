@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-06 00:49+0000\n"
-"PO-Revision-Date: 2023-07-24 22:13+0200\n"
+"PO-Revision-Date: 2023-08-07 00:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -2270,13 +2270,13 @@ msgstr "제어 화면 공간 나누기"
 #: lib/kateviewspace.cpp:119
 #, kde-format
 msgid "S&ynchronize Scrolling"
-msgstr ""
+msgstr "스크롤 동기화(&Y)"
 
 #: lib/kateviewspace.cpp:121
 #, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
-msgstr ""
+msgstr "이 분할 보기의 스크롤을 다른 분할 보기와 동기화"
 
 #: lib/kateviewspace.cpp:222
 #, kde-format

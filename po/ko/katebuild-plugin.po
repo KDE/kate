@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-29 00:48+0000\n"
-"PO-Revision-Date: 2023-07-24 22:15+0200\n"
+"PO-Revision-Date: 2023-08-07 00:19+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -48,19 +48,17 @@ msgstr "취소"
 #: buildconfig.cpp:26
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "진단에 오류와 경고 추가"
 
 #: buildconfig.cpp:37
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "다시 빌드"
+msgstr "빌드하고 실행"
 
 #: buildconfig.cpp:43
-#, fuzzy, kde-format
-#| msgid "Build and Run Selected Target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "선택한 대상 빌드 후 실행"
+msgstr "빌드하고 실행 설정"
 
 #: plugin_katebuild.cpp:209 plugin_katebuild.cpp:216 plugin_katebuild.cpp:1200
 #, kde-format
@@ -239,7 +237,9 @@ msgid "note|info"
 msgstr ""
 
 #: plugin_katebuild.cpp:1166
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "The same word as 'ld' uses to mark an ..."
+#| msgid "undefined reference"
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "정의되지 않은 참조"

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-06 00:49+0000\n"
-"PO-Revision-Date: 2023-07-30 14:13+0530\n"
+"PO-Revision-Date: 2023-08-06 14:00+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -2287,16 +2287,12 @@ msgid "Control view space splitting"
 msgstr "காட்சிப்பகுதி பிரிக்கப்படுவதை கட்டுப்படுத்து"
 
 #: lib/kateviewspace.cpp:119
-#, fuzzy, kde-format
-#| msgid "S&ynchronise Scrolling"
+#, kde-format
 msgid "S&ynchronize Scrolling"
 msgstr "&உருளலை ஒத்திசையசெய்"
 
 #: lib/kateviewspace.cpp:121
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronise Scrolling of this split-view with other synchronised split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
 msgstr "இந்த காட்சிப்பகுதியில் உருள்வதை மற்ற காட்சிப்பகுதிகளுடன் ஒத்திசைசெய்"

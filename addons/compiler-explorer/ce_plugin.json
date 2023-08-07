@@ -14,7 +14,7 @@
         "Description[eu]": "Ikusi C/C++ koderako sortutako ASM",
         "Description[fi]": "Näytä C/C++-koodille luotu assembler",
         "Description[fr]": "Afficher le code assembleur pour le code C / C++",
-        "Description[gl]": "Ver o asm xerado para código C/C++",
+        "Description[gl]": "Ver o asm xerado para código C/C++.",
         "Description[hu]": "C/C++ kódból generált assembly kód megtekintése",
         "Description[ia]": "Vista generava asm per codice C/C++",
         "Description[ie]": "Vider li generat asm por code C/C++",

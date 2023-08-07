@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2023-07-24 22:15+0200\n"
+"PO-Revision-Date: 2023-08-07 00:19+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -222,7 +222,9 @@ msgid "note|info"
 msgstr ""
 
 #: plugin_katebuild.cpp:1128
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "The same word as 'ld' uses to mark an ..."
+#| msgid "undefined reference"
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "정의되지 않은 참조"

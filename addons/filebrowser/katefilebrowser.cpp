@@ -341,6 +341,7 @@ void KateFileBrowser::openWithMenuAction(QAction *a)
     const QString application = a->data().toStringList().first();
     const QString fileName = a->data().toStringList().last();
 
+    a->setData(application);
     KateFileActions::showOpenWithMenu(this, QUrl(fileName), a);
 }
 // END Public Slots

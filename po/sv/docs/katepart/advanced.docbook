@@ -1296,6 +1296,35 @@
 <term
 ><cmdsynopsis
 ><command
+>alignon</command
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Kommandot justerar rader i det markerade blocket eller hela dokumentet på kolumnen angiven av ett reguljärt uttryck som anges som ett argument.</para>
+<para
+>Om du anger ett tomt mönster, justeras den på radens första tecken som inte är ett blanktecken.</para>
+<para
+>Om mönstret har en platsmarkör indenterar det där markören matchar.</para>
+<para
+><emphasis
+>Exempel:</emphasis
+></para>
+<para
+><userinput
+>alignon -</userinput
+> infogas mellanslag innan första '-' på varje rad för att justera alla på samma kolumn.</para>
+<para
+><userinput
+>alignon :\\s+(.)</userinput
+> infogar mellanslag före det första tecknet som inte är ett blanktecken efter ett kolon för att justera alla till samma kolumn.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
 >unwrap</command
 ></cmdsynopsis
 ></term>

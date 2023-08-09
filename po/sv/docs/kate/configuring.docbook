@@ -134,6 +134,18 @@
 
 <varlistentry>
 <term
+><anchor id="config-dialog-general-open-each-document"/>
+<guilabel
+>Öppna varje dokumentet i sitt eget fönster</guilabel
+></term>
+<listitem
+><para
+>Om aktiverad, öppnas varje dokument i sitt eget fönster. Om ej aktiverad, öppnas varje dokument under en ny flik i det aktuella fönstret.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
 ><anchor id="config-dialog-general-switch-to-output"/>
 <guilabel
 >Byt till utmatningsvy vid meddelandetyp</guilabel
@@ -444,7 +456,7 @@
 <term
 ><anchor id="config-dialog-sessions-shutdown-behavior"/>
 <guilabel
->Beteende vid programavstängning</guilabel
+>Beteende vid programstart och avstängning</guilabel
 ></term>
 <listitem>
 <para

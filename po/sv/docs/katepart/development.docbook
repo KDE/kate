@@ -4306,7 +4306,7 @@ function indent(line, indentWidth, ch)
 ><guimenu
 >Verktyg</guimenu
 ><guimenuitem
->Justera</guimenuitem
+>Formatera indentering</guimenuitem
 ></menuchoice>
     // är variabeln ch tom, dvs. ch == ''.
     //
@@ -4341,7 +4341,7 @@ function indent(line, indentWidth, ch)
 ><guimenu
 >Verktyg</guimenu
 ><guimenuitem
->Justera</guimenuitem
+>Formatera indentering</guimenuitem
 ></menuchoice
 >.</para
 ></listitem
@@ -5905,6 +5905,94 @@ void view.setVirtualCursorPosition(<parameter
 ></listitem>
 </varlistentry>
 
+
+<varlistentry>
+<term
+><synopsis
+>void view.setBlockSelection(bool on);
+</synopsis
+></term>
+<listitem
+><para
+>Sätt på eller stäng av blockmarkering. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>bool view.blockSelection();
+</synopsis
+></term>
+<listitem
+><para
+>Returnerar <constant
+>true</constant
+> om blockmarkering är på, annars <constant
+>false</constant
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.align(<parameter
+>Range <replaceable
+>intervall</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Indentera rader på ett riktigt sätt igen inom <replaceable
+>intervall</replaceable
+> enligt aktuella indenteringsinställningar. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void view.alignOn(<parameter
+>Range <replaceable
+>intervall</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>mönster</replaceable
+> = &quot;&quot;</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Justerar rader i <replaceable
+>intervall</replaceable
+> i kolumnen som anges av det reguljära uttrycket <replaceable
+>mönster</replaceable
+>. Med ett tomt <replaceable
+>mönster</replaceable
+> justeras de normalt på den första tecknet som inte är ett blanktecken. Om mönstret har en platsmarkör indenterar det där markören matchar. </para>
+<para
+><emphasis
+>Exempel:</emphasis
+></para>
+<para
+><literal
+>view.alignOn(document.documentRange(), '-');</literal
+> infogar mellanslag innan första <literal
+>-</literal
+> på varje rad för att justera alla på samma kolumn.</para>
+<para
+><literal
+>view.alignOn(document.documentRange(), ':\\s+(.)');</literal
+> infogar mellanslag före det första tecknet som inte är ett blanktecken efter ett kolon för att justera alla till samma kolumn.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry>
 <term
 ><synopsis
@@ -5946,6 +6034,48 @@ void view.setVirtualCursorPosition(<parameter
 > ett felmeddelande. </para>
 <para
 >Sedan: KDE Ramverk 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>Range view.searchText(<parameter
+>Range <replaceable
+>intervall</replaceable
+></parameter
+>,
+                      <parameter
+>String <replaceable
+>mönster</replaceable
+></parameter
+>,
+                      <parameter
+>bool <replaceable
+>bakåt</replaceable
+> = false</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Sök efter den första förekomsten av <replaceable
+>mönster</replaceable
+> i <replaceable
+>intervall</replaceable
+> och returnerar det matchade intervallet. Sökningen utförs bakåt om den valfria booleska parametern <replaceable
+>bakåt</replaceable
+> är inställd till <literal
+>true</literal
+>. </para>
+<para
+>Det returnerade intervallet är ogiltigt (se Range.isValid()) om <replaceable
+>mönster</replaceable
+> inte hittas i <replaceable
+>intervall</replaceable
+>. </para>
+<para
+>Sedan: KDE Ramverk 5.97</para>
 </listitem>
 </varlistentry>
 
@@ -7744,6 +7874,36 @@ bool document.isOthers(<parameter
 >, annars <literal
 >falskt</literal
 >. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void document.indent(<parameter
+>Range <replaceable
+>intervall</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>ändring</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Indentera alla rader i <replaceable
+>intervall</replaceable
+> med <replaceable
+>ändring</replaceable
+> tabulatortecken eller <replaceable
+>ändring</replaceable
+> gånger <literal
+>tabulatorstorlek</literal
+> mellanslag beroende på användarens inställningar. Parametern <replaceable
+>ändring</replaceable
+> kan vara negativ. </para
 ></listitem>
 </varlistentry>
 

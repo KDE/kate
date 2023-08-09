@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-04 00:48+0000\n"
+"POT-Creation-Date: 2023-08-09 00:48+0000\n"
 "PO-Revision-Date: 2022-09-21 17:40+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -42,7 +42,7 @@ msgstr "افتح بواسطة"
 msgid "&Other..."
 msgstr "&غيرها..."
 
-#: katefilebrowser.cpp:366
+#: katefilebrowser.cpp:367
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
@@ -53,33 +53,33 @@ msgstr[3] "أن تحاول فتح %1 ملفّات، أمتأكّد؟"
 msgstr[4] "أن تحاول فتح %1 ملفًّا، أمتأكّد؟"
 msgstr[5] "أن تحاول فتح %1 ملفّ، أمتأكّد؟"
 
-#: katefilebrowser.cpp:368
+#: katefilebrowser.cpp:369
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "افتح كل الملفّات"
 
-#: katefilebrowser.cpp:435
+#: katefilebrowser.cpp:436
 #, kde-format
 msgid "Bookmarks"
 msgstr "العلامات"
 
-#: katefilebrowser.cpp:443
+#: katefilebrowser.cpp:444
 #, kde-format
 msgid "Current Document Folder"
 msgstr "مجلّد المستند الحاليّ"
 
-#: katefilebrowser.cpp:451
+#: katefilebrowser.cpp:452
 #, kde-format
 msgid "Options"
 msgstr "الخيارات"
 
-#: katefilebrowser.cpp:472
+#: katefilebrowser.cpp:473
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "زامن آليًّا مع المستند الحاليّ"
 
-#: katefilebrowser.cpp:479
+#: katefilebrowser.cpp:480
 #, kde-format
 msgid "Highlight current file"
 msgstr "أبرِز الملف الحالي"

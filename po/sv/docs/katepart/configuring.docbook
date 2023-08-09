@@ -1003,7 +1003,7 @@
 <listitem>
 <para
 >Om du vill att Tabulator ska justera nuvarande rad i nuvarande kodblock som i &Emacs;, gör Tabulator till en genväg till åtgärden <guimenuitem
->Justera</guimenuitem
+>Formatera indentering</guimenuitem
 >. </para>
 <variablelist>
 <varlistentry>

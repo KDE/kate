@@ -905,6 +905,76 @@ action="simul"
 
 </sect1>
 
+<sect1 id="fundamentals-quick-open">
+<title
+>Snabböppna</title>
+
+<para
+>För att snabbt kunna öppna eller byta mellan filer, levereras Kate med en inbyggd snabböppningsdialogruta. Du kan öppna den med <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+>. </para>
+
+<para
+>Snabböppna kan visa alla öppna dokument i Kate samt alla filer i öppna projekt. För att kunna se alla projektfiler måste du aktivera <link linkend="kate-application-plugin-projects"
+>Projektinsticksprogram</link
+>. </para>
+
+<sect2>
+<title
+>Använda Snabböppna</title>
+
+<para
+>Det är mycket enkelt att använda snabböppna. När det väl är öppnat, skriv in namnet eller en del av namnet på filen som du vill öppna så filtrerar snabböppna listan baserat på vad du skrev in. Tryck på returtangenten för att öppna den markerade filen, eller &Esc; för att dölja snabböppna. </para>
+<para
+>Normalt matchas bara filnamnet vid filtrering. Om du vill matcha sökvägen, måste "/" ingå i texten. Exempelvis matchar "doc/index" alla filer som innehåller "index" inne i katalogen "doc". </para>
+<para
+>Dokumenten som redan är öppna är markerade med fetstil och listas längst upp när dialogrutan öppnas. Dessutom är det föregående öppnade dokumentet redan markerat, så att du bara kan trycka på returtangenten så kommer du till det dokumentet. </para>
+
+</sect2>
+
+<sect2>
+<title
+>Anpassa Snabböppna</title>
+<screenshot id="screenshot-project-quickopen">
+<screeninfo
+>Snabböppna</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+<para
+>Snabböppna tillhandahåller några inställningsalternativ. Högerklicka på inmatningsraden för att komma åt alternativen. </para>
+<variablelist>
+<varlistentry>
+<term
+>För närvarande tillgängliga alternativ är:</term>
+<listitem>
+<para
+><userinput
+>Aktuellt projekt</userinput
+>: Visa bara filer från det aktuella projektet</para>
+<para
+><userinput
+>Alla projekt</userinput
+>: Visa filer från alla öppna projekt</para>
+<para
+><userinput
+>Inexakt filtrering</userinput
+>: Använd en inexakt matchningsalgoritm för att filtrera filer</para>
+<para
+><userinput
+>Filtrering med jokertecken</userinput
+>: Använd filtrering med jokertecken</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+</sect1>
+
 <sect1 id="fundamentals-getting-help">
 
 <title

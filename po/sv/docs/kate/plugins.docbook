@@ -129,12 +129,6 @@
 >&gdb;</link
 > - Tillhandahåller ett enkelt gränssnitt för &gdb;</para>
 </listitem>
-<!--from workspace/plasma-sdk, why picked up here?
-<listitem>
-<para
->Icon picker - Invokes Cuttlefish icon picker</para>
-</listitem>
--->
 <listitem>
 <para
 ><link linkend="kate-application-plugin-projects"
@@ -162,6 +156,12 @@
 ><link linkend="kate-application-plugin-snippets"
 >Verktygsvy med textsnuttar</link
 >: Verktygsvy som inbäddar hantering av textsnuttar</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-keyboardmacros"
+>Tangentbordsmakron</link
+>: Spela in och återge tangentbordsmakron (dvs. kommandosekvenser med tangentbordet)</para>
 </listitem>
 <listitem>
 <para
@@ -3283,34 +3283,6 @@ folder if possible.</para
 
 </sect2>
 
-<sect2 id="project-quickopen">
-<title
->Snabböppna filer</title>
-
-<para
->Eftersom att klicka på filer i trädvyn inte är det snabbaste sättet att öppna en fil, tillhandahåller &kate; en inbyggd mekanism för snabböppning som kan aktiveras med <keycombo action="simul"
->&Ctrl;&Alt;<keycap
->O</keycap
-></keycombo
->. Vad du då får är en sådan här lista:</para>
-
-<screenshot id="screenshot-project-quickopen">
-<screeninfo
->Snabböppna</screeninfo>
-<mediaobject>
-<imageobject
-><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
-</mediaobject>
-</screenshot>
-
-<para
->Du kan också filtrera genom att skriva in delar av filnamnet som du letar efter, och du kan också navigera med piltangenterna, Page Up och Page Down i listan. Genom att trycka på returtangenten aktiveras den markerade filen, medan Esc döljer snabböppningsvyn igen.</para>
-
-<para
->Dessutom kommer snabböppna ihåg föregående fil. Så när du byter till snabböppningsvyn är den föregående aktiva filen automatiskt markerad och du behöver bara trycka på returtangenten, vilket ibland är mycket bekvämt.</para>
-
-</sect2>
-
 <sect2 id="project-build">
 <title
 >Stöd för att bygga projektet</title>
@@ -3359,8 +3331,12 @@ folder if possible.</para
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ]
 }
 </screen>
 
@@ -3376,35 +3352,98 @@ folder if possible.</para
 >svn</literal
 > och Mercurial via <literal
 >hg</literal
->. Om du inte vill läsa från ett versionskontrollsystem, kan du tala om att filer ska läsas in rekursivt från kataloger enligt följande: </para>
+>. Om du inte vill läsa från ett versionskontrollsystem, kan du bara starta kate från kommandoraden som: <screen>
+kate /sökväg/till/katalogr
+</screen
+> eller tala om att filer ska läsas in rekursivt från kataloger enligt följande: </para>
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "directory": "kate",
+      "filters": [
+        "*.cpp",
+        "*.h",
+        "*.ui",
+        "CMakeLists.txt",
+        "Find*.cmake"
+      ],
+      "recursive": 1,
+      "hidden": 1
+    }
+  ],
+  "exclude_patterns" : [
+    "^build/.*"
+  ]
 }
 </screen>
 
 <para
->Här definierar underkataloger och filter vad som ingår i projektet. Du kan också blanda versionskontroll och filer baserade på filter. </para>
+>Här definierar underkataloger och filter vad som ingår i projektet. Du kan också blanda versionskontroll och filer baserat på filter. Dolda filer hämtas inte om alternativet <code
+>"dolda"</code
+> är 0. <code
+>"exclude_patterns"</code
+> är en lista över reguljära uttrycksmönster som kan användas för att utesluta kataloger och filer från projektträdet. I det här exemplet exkluderas alla filer och kataloger i katalogen <filename
+>build</filename
+> från roten. </para>
 
 <para id="projects-build-support"
->Om du vill lägga till stöd för insticksprogrammet Bygg, kan <filename
+>Om du vill lägga till stöd för att bygg, kan du skriva <filename
 >.kateproject</filename
-> skrivas så här:</para>
+> så här:</para>
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
-, "build": {
-    "directory": "build"
-  , "build": "make all"
-  , "clean": "make clean"
-  , "install": "make install"
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "build": {
+    "directory": "build",
+    "build": "make all",
+    "clean": "make clean",
+    "install": "make install",
+    "targets": [
+      {
+        "name": "all",
+        "build_cmd": "ninja"
+        "run_cmd": "./bin/kate"
+      },
+      {
+        "name": "kate",
+        "build_cmd": "ninja kate-bin"
+      }
+    ]
   }
 }
 </screen>
+
+<para
+>Målen som anges ovan visas sedan i <link linkend="kate-application-plugin-build"
+>bygginsticksprogrammet</link
+> under <emphasis role="bold"
+> "Mål projektinsticksprogram"</emphasis
+>. Om fältet <code
+>"targets"</code
+> är specificerat ignoreras <code
+>"build"</code
+>, <code
+>"clean"</code
+> och <code
+>"install"</code
+> . Varje element i fältet anger ett mål. <code
+>"name"</code
+> är namnet på målet, <code
+>"build_cmd"</code
+> används för att bygga målet, <code
+>"run_cmd"</code
+> används för att köra målet. Viktigast av allt är <code
+>"katalog"</code
+>, det är här kommandona kommer att köras. </para>
 
 <para
 >Ifall du har filen <filename
@@ -4135,7 +4174,7 @@ Projects Replicode run / stop-->
 >Posten "highlightingModeRegex" används för att konvertera färgläggningsläget som det används av &kate; till serverns språkidentifikation. Om inget reguljärt uttryck anges, används själva språkidentifikationen. Om posten "documentLanguageId" är false, tillhandahålls ingen språkidentifikation till servern när dokumentet öppnas. Det kan ge bättre resultat på vissa servrar som är mer noggranna med att avgöra dokumenttypen än att bara göra det baserat på en inställning i Kate. </para>
 
 <para
->Kärnan är förmodligen klar från ovanstående exempel. Dessutom kan varje serverobjekt också ha posten "initializationOptions", som skickas med till servern som en del av metoden 'initialize'. Om den finns, skickas posten "settings" till servern via underrättelsen 'workspace/didChangeConfiguration'. </para>
+>Kärnan är förmodligen klar från ovanstående exempel. Dessutom kan varje serverobjekt också ha posten "initializationOptions", som skickas med till servern som en del av metoden 'initialize'. Om den finns, skickas posten "settings" till servern via underrättelsen 'workspace/didChangeConfiguration'. Var och en av "completionTriggerCharacters" eller "signatureTriggerCharacters" kan anges som ett JSON-objekt med strängmedlemmarna "exclude" och/eller "include". De används för att undanta eller lägga till vissa tecken i respektive utlösaruppsättning som servern tillhandahåller. </para>
 
 <para
 >Diverse steg av överskridning och sammanfogning utförs: <itemizedlist>
@@ -4161,7 +4200,7 @@ Projects Replicode run / stop-->
 >projectBase</quote
 > (som bestämd av <link linkend="kate-application-plugin-projects"
 >projektinsticksprogrammet</link
->), om tillämpligt, eller annars relativt till dokumentets katalog. Om den inte anges och "rootIndicationFileNames" är ett fält av filnamn, väljes en överliggande katalog till den aktuella dokumentet som innehåller en sådan fil. Som en sista reserv, väljes hemkatalogen som "root". För alla dokument bestämmer resulterande "root" sedan om en separat instans behövs eller ej. Om det är fallet, skickas "root" över som rootUri/rootPath. </para>
+>), om tillämpligt, eller annars relativt till dokumentets katalog. Om "root" inte anges och "rootIndicationFileNames" är ett fält av filnamn, väljes en överliggande katalog till den aktuella dokumentet som innehåller en sådan fil. Som en sista reserv, väljes hemkatalogen som "root". För alla dokument bestämmer resulterande "root" sedan om en separat instans behövs eller ej. Om det är fallet, skickas "root" över som rootUri/rootPath. </para>
 
 <para
 >I allmänhet rekommenderas att roten lämnas ospecificerad, eftersom den inte är så viktig för en server (ditt resultat kan dock avvika). Färre serverinstanser är uppenbarligen effektivare, och de har också en 'bredare' vy än många separata instanser. </para>
@@ -4242,6 +4281,15 @@ exec myserver
 >Tyvärr är inställningen och anpassningen av LSP-server ofta inte så bra dokumenterad, på ett sådant sätt att bara granskning av källkoden visar inställningstillvägagångssätten och mängden tillgängliga inställningsalternativ. I synnerhet stöder servern i ovanstående exempel många fler alternativ under "settings". Se <ulink url="https://github.com/neoclide/coc.nvim/wiki/Language-servers"
 >dokumentationen över en annan LSP klient</ulink
 > för diverse andra exempel på språkservrar och motsvarande inställningar, vilka lätt och enkelt kan omvandlas till &JSON;-inställningen som används här och beskrivs ovan. </para>
+
+</sect3>
+
+<sect3 id="lspclient-format-on-save">
+<title
+>LSP-server formatera vid spara</title>
+
+<para
+>Du kan aktivera "formatera vid spara" från LSP-inställningar i inställningsdialogrutan. </para>
 
 </sect3>
 
@@ -5273,6 +5321,280 @@ when finished.</para
 
 </sect1>
 
+<sect1 id="kate-application-plugin-keyboardmacros">
+<sect1info>
+<authorgroup>
+<!--author
+>&Pablo.Rauzy; &Pablo.Rauzy.mail;</author--> <!-- TODO: use that when the version of KDocTools that Kate depends on has it -->
+<author
+><firstname
+>Pablo</firstname
+> <surname
+>Rauzy</surname
+> <email
+>r .at. uzy.me</email
+></author>
+</authorgroup>
+</sect1info>
+<title
+>Insticksprogram för tangentbordsmakron</title>
+
+<sect2 id="keyboardmacros-intro">
+<title
+>Inledning</title>
+<para
+>Spela in och återge tangentbordsmakron (dvs. kommandosekvenser med tangentbordet).</para>
+</sect2>
+
+<sect2 id="keyboardmacros-basicusage">
+<title
+>Grundläggande användning</title>
+
+<sect3 id="keyboardmacros-basicusage-record">
+<title
+>För att börja spela in ett tangentbordsmakro:</title>
+<para
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+><guimenuitem
+>Tangentbordsmakron</guimenuitem
+><guimenuitem
+>Spela in makro...</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Insticksprogrammet spelar in varje tangentnedtryckning till du avslutar inspelningen.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-basicusage-record-end">
+<title
+>För att avsluta inspelning:</title>
+<para
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+><guimenuitem
+>Tangentbordsmakron</guimenuitem
+><guimenuitem
+>Avsluta makroinspelning</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Insticksprogrammet stoppar lagring av tangentnedtryckning och sparar sekvensen som aktuellt makro.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-basicusage-record-cancel">
+<title
+>För att avbryta inspelning:</title>
+<para
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+><guimenuitem
+>Tangentbordsmakron</guimenuitem
+><guimenuitem
+>Avbryt makroinspelning</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Insticksprogrammet stoppar lagring av tangentnedtryckning men det nuvarande makrot ändras inte.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-basicusage-play">
+<title
+>För att återge det nuvarande makrot:</title>
+<para
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+><guimenuitem
+>Tangentbordsmakron</guimenuitem
+><guimenuitem
+>Spela upp makro</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Insticksprogrammet spelar upp det nuvarande makrot.</para>
+<para
+>Nuvarande <userinput
+>kmplay</userinput
+> kommando utan några argument spelar också upp det nuvarande makrot.</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="keyboardmacros-namedmacros">
+<title
+>Namngivna makron</title>
+
+<para
+>Det går att spara tangentbordsmakron genom att ge dem ett namn.</para>
+<para
+>Namngivna makron bevaras mellan Kates sessioner. De sparas i filen <filename
+>keyboardmacros.json</filename
+> i Kates användardatakatalog (oftast <filename
+>~/.local/share/kate/</filename
+>).</para>
+
+<sect3 id="keyboardmacros-namedmacros-save">
+<title
+>För att spara nuvarande makro:</title>
+<para
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+><guimenuitem
+>Tangentbordsmakron</guimenuitem
+><guimenuitem
+>Spara nuvarande makro</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Alt;&Shift;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Insticksprogrammet frågar dig om ett namn och sparar makrot med det.</para>
+<para
+>Kommandot <userinput
+>kmsave <replaceable
+>namn</replaceable
+></userinput
+> sparar nuvarande makro med namnet <userinput
+><replaceable
+>namn</replaceable
+></userinput
+>.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-load">
+<title
+>För att läsa in ett sparat makro som det nuvarande:</title>
+<para
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+><guimenuitem
+>Tangentbordsmakron</guimenuitem
+><guimenuitem
+>Läs in namngivet makro...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Insticksprogramlistan sparar makron som objekt i undermenyn,  och aktiveras ett alternativ läses motsvarande makro in som det aktuella.</para>
+<para
+>Kommandot <userinput
+>kmload <replaceable
+>namn</replaceable
+></userinput
+>  läser in makrot som sparats med namnet <userinput
+><replaceable
+>namn</replaceable
+></userinput
+> som det nuvarande.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-play">
+<title
+>För att spela upp ett namngivet makro utan att läsa in det:</title>
+<para
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+><guimenuitem
+>Tangentbordsmakron</guimenuitem
+><guimenuitem
+>Spela upp namngivet makro...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Insticksprogramlistan sparar makron som objekt i undermenyn,  och aktiveras ett alternativ spelas motsvarande makro upp utan att läsa in det.</para>
+<para
+>Observera att varje sparat makro är en åtgärd som är en del av den aktuella åtgärdssamlingen så att en egen genväg kan tilldelas den med gränssnittet <menuchoice
+><guimenu
+>Inställningar</guimenu
+><guimenuitem
+>Anpassa snabbtangenter...</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Kommandot <userinput
+>kmplay<replaceable
+>namn</replaceable
+></userinput
+> spelar upp makrot sparat med namnet <userinput
+><replaceable
+>namn</replaceable
+></userinput
+> utan att läsa in det.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-wipe">
+<title
+>För att sudda (dvs. ta bort) ett sparat makro:</title>
+<para
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+><guimenuitem
+>Tangentbordsmakron</guimenuitem
+><guimenuitem
+>Sudda namngivet makro...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Insticksprogramlistan sparar makron som objekt i undermenyn,  och aktiveras ett alternativ så suddas motsvarande makro (dvs. tas bort).</para>
+<para
+>Kommandot <userinput
+>kmwipe <replaceable
+>namn</replaceable
+></userinput
+> suddar makrot sparat med namnet <userinput
+><replaceable
+>namn</replaceable
+></userinput
+>.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-command-tips">
+<title
+>Tips om kommandon:</title>
+<para
+>Observera att efter prefixet <userinput
+>km</userinput
+>, använder alla kommandon en annorlunda bokstav så att du snabbt anropa det med tabulatorkomplettering.</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="keyboardmacros-limitations">
+<title
+>Begränsningar</title>
+
+<para
+>För närvarande, misslyckas tangentbordsmakron med att spelas upp om vissa typer komponenter i det grafiska användargränssnitt används, exempelvis QMenu, QuickOpenLineEdit eller TabSwitcherTreeView. Jag är inte säker på varför men min första gissning skulle vara att komponenterna fungerar på ett icke-standardiserat sätt när det gäller tangentbordshändelser.</para>
+
+</sect2>
+
+</sect1>
+
 
 <sect1 id="kate-application-plugin-sql">
 <sect1info>
@@ -5899,6 +6221,21 @@ VALUES ("<replaceable
 
 <para
 >Som ett alternativ kan du ställa in &kate; att alltid hålla terminalen synkroniserad med aktuellt dokument. Se <xref linkend="konsole-config"/> för mer information.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-run-current-document">
+<term
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+> <guimenuitem
+>Kör aktuellt dokument</guimenuitem
+></menuchoice
+></term>
+<listitem>
+<para
+>Kör det nuvarande dokumentet i Terminal. Bara lokala dokument kan köras. &kate; visar en varning innan dokument körs, eftersom åtgärden kan vara ett allvarligt säkerhetshot.</para>
 </listitem>
 </varlistentry>
 

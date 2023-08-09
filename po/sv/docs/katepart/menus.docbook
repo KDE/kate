@@ -29,6 +29,21 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="file-new-window">
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Nytt fönster</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Skapa ett annat fönster som innehåller det aktuella dokumentet. Alla ändringar av dokumentet i ett fönster reflekteras i det andra fönstret och tvärtom.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="file-open">
 <term
 ><menuchoice
@@ -346,6 +361,21 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="edit-copy-as-html">
+<term
+><menuchoice
+><guimenu
+>Redigera</guimenu
+> <guimenuitem
+>Kopiera som HTML</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Kopiera markeringen som &HTML;, formaterad med användning av de nuvarande inställningarna av syntaxfärgläggning och färgschema.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="edit-paste">
 <term
 ><menuchoice
@@ -415,29 +445,14 @@
 <term
 ><menuchoice
 ><guimenu
->Arkiv</guimenu
-> <guisubmenu
->Klippbordshistorik</guisubmenu
-> </menuchoice
-></term>
-<listitem>
-<para
->Undermenyn visar början av de textdelar som senast kopierats till klippbordet. Markera ett objekt i menyn för att klistra in det i filen som för närvarande är öppen.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-copy-as-html">
-<term
-><menuchoice
-><guimenu
 >Redigera</guimenu
-> <guimenuitem
->Kopiera som HTML</guimenuitem
+> <guisubmenu
+>Klistra in klippbordshistorik</guisubmenu
 > </menuchoice
 ></term>
 <listitem>
 <para
->Kopiera markeringen som &HTML;, formaterad med användning av de nuvarande inställningarna av syntaxfärgläggning och färgschema.</para>
+>Öppnar en dialogruta för att välja och klistra in en post från klippbordshistoriken.</para>
 </listitem>
 </varlistentry>
 
@@ -486,6 +501,21 @@
 > eller <guilabel
 >ERSÄTT</guilabel
 >.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-read-only">
+<term
+><menuchoice
+><guimenu
+>Redigera</guimenu
+><guimenuitem
+>Skrivskyddat läge</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Ställer in aktuellt dokument till skrivskyddat läge. Det förhindrar tillägg av all text och alla ändringar av dokumentets formatering.</para>
 </listitem>
 </varlistentry>
 
@@ -700,29 +730,6 @@
 ><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > med den gröna pilikonen till höger på den avancerade sök- och ersättningsraden för att byta till den inkrementella sökraden. </para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-go-to-matching-bracket">
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->6</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Redigera</guimenu
-> <guisubmenu
->Gå till</guisubmenu
-><guimenuitem
->Gå till motsvarande parentes</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Flytta markören till samhörande inledande eller avslutande parentes.</para>
 </listitem>
 </varlistentry>
 
@@ -995,18 +1002,49 @@ depends on the <link linkend="pref-edit-indent"
 </listitem>
 </varlistentry>
 
-<varlistentry id="selection-align">
+<varlistentry id="selection-formatindent">
 <term
 ><menuchoice
 ><guimenu
 >Markering</guimenu
-><guimenuitem
->Justera</guimenuitem
+> <guimenuitem
+>Formatera indentering</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
 >Gör att nuvarande rad eller markerade rader justeras om med indenteringsläget och indenteringsinställningarna i dokumentet.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="selection-alignon">
+<term
+><menuchoice
+><guimenu
+>Markering</guimenu
+><guimenuitem
+>Justera till...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Kommandot justerar rader i det markerade blocket eller hela dokumentet på kolumnen angiven av ett reguljärt uttryck som du blir tillfrågad om.</para>
+<para
+>Om du anger ett tomt mönster, justeras den på radens första tecken som inte är ett blanktecken.</para>
+<para
+>Om mönstret har en platsmarkör indenterar det där markören matchar.</para>
+<para
+><emphasis
+>Exempel:</emphasis
+></para>
+<para
+>Med '<userinput
+>-</userinput
+>' infogas mellanslag innan första - på varje rad för att justera alla på samma kolumn.</para>
+<para
+>Med <userinput
+>:\\s+(.)</userinput
+> infogar det mellanslag före det första tecknet som inte är ett blanktecken efter ett kolon för att justera alla till samma kolumn.</para>
 </listitem>
 </varlistentry>
 
@@ -1033,6 +1071,111 @@ depends on the <link linkend="pref-edit-indent"
 ></listitem>
 </varlistentry>
 
+<varlistentry id="selection-add-caret-above-cursor">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;<keysym
+>Upp</keysym
+></keycombo
+> </shortcut
+> <guimenu
+>Markering</guimenu
+> <guimenuitem
+>Lägg till insättningstecken över markör</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Lägger till ytterligare ett insättningstecken ovanför den aktuella markören. Insättningstecknet placeras på raden direkt ovanför och i samma kolumn som den aktuella markören. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-caret-below-cursor">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;<keysym
+>Ner</keysym
+></keycombo
+> </shortcut
+> <guimenu
+>Markering</guimenu
+> <guimenuitem
+>Lägg till insättningstecken under markör</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Lägger till ytterligare ett insättningstecken nedanför den aktuella markören. Insättningstecknet placeras på raden direkt ovanför och i samma kolumn som den aktuella markören. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-cursors-to-line-ends">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&Shift;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Markering</guimenu
+> <guimenuitem
+>Lägg till markörer vid radslut</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Lägger till en markör på varje rad som för närvarande är markerad. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-next-occurrence">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Markering</guimenu
+> <guimenuitem
+>Sök och markera nästa förekomst</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Söker efter nästa förekomst av ordet för närvarande under markören, markerar det och lägger till en markör. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-all-occurrences">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Markering</guimenu
+> <guimenuitem
+>Sök och markera alla förekomster</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Söker efter alla förekomster av ordet för närvarande under markören, markerar dem och lägger till en markör för vart och ett av dem. </para
+></listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect1>
@@ -1043,46 +1186,6 @@ depends on the <link linkend="pref-edit-indent"
 >Menyn Visa</title>
 
 <variablelist>
-
-<varlistentry id="view-new-window">
-<term
-><menuchoice
-><guimenu
->Visa</guimenu
-><guimenuitem
->Nytt fönster</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Skapa ett annat fönster som innehåller det aktuella dokumentet. Alla ändringar av dokumentet i ett fönster reflekteras i det andra fönstret och tvärtom.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-command-line">
-<term
-><menuchoice
-><shortcut
-> <keycap
->F7</keycap
-> </shortcut
-> <guimenu
->Visa</guimenu
-> <guimenuitem
->Byt till kommandorad</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Visar &katepart;-kommandorad längst ner i fönstret. Skriv <userinput
->help</userinput
-> på kommandoraden för att få hjälp och <userinput
->help list</userinput
-> för att få en lista med kommandon. Se <link linkend="advanced-editing-tools-commandline"
->Editorkomponentens kommandorad</link
-> för mer information om kommandoraden.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry id="view-enlarge-font">
 <term
@@ -1292,12 +1395,12 @@ depends on the <link linkend="pref-edit-indent"
 <varlistentry id="view-show-folding-markers">
 <term
 ><menuchoice
-><shortcut
-> <keycombo action="simul"
-><keycap
->F9</keycap
-></keycombo
-> </shortcut
+><guimenu
+>Visa</guimenu
+> <guisubmenu
+>Kanter</guisubmenu
+> <guisubmenu
+>Kodvikning</guisubmenu
 > <guimenuitem
 >Visa vikmarkörer</guimenuitem
 > </menuchoice
@@ -1310,10 +1413,14 @@ depends on the <link linkend="pref-edit-indent"
 
 <varlistentry id="view-fold-current-node">
 <term
-><menuchoice>
-<guimenuitem
->Fäll ihop aktuell nod</guimenuitem>
-</menuchoice
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guisubmenu
+>Kodvikning</guisubmenu
+> <guimenuitem
+>Fäll ihop aktuell nod</guimenuitem
+> </menuchoice
 ></term>
 <listitem
 ><para
@@ -1323,10 +1430,14 @@ depends on the <link linkend="pref-edit-indent"
 
 <varlistentry id="view-unfold-current-node">
 <term
-><menuchoice>
-<guimenuitem
->Expandera aktuell nod</guimenuitem>
-</menuchoice
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guisubmenu
+>Kodvikning</guisubmenu
+> <guimenuitem
+>Expandera aktuell nod</guimenuitem
+> </menuchoice
 ></term>
 <listitem
 ><para
@@ -1339,12 +1450,16 @@ depends on the <link linkend="pref-edit-indent"
 ><menuchoice
 ><shortcut
 > <keycombo action="simul"
->&Ctrl; &Shift;<keycap
+>&Ctrl;&Shift;<keycap
 >-</keycap
-> </keycombo
-></shortcut
+></keycombo
+> </shortcut
+> <guimenu
+>Visa</guimenu
+><guisubmenu
+>Kodvikning</guisubmenu
 > <guimenuitem
->Fäll ihop toppnivånoder</guimenuitem
+>Fäll ihop topnivånoder</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -1358,10 +1473,14 @@ depends on the <link linkend="pref-edit-indent"
 ><menuchoice
 ><shortcut
 > <keycombo action="simul"
->&Ctrl; &Shift;<keycap
+>&Ctrl;&Shift;<keycap
 >+</keycap
-> </keycombo
-></shortcut
+></keycombo
+> </shortcut
+> <guimenu
+>Visa</guimenu
+><guisubmenu
+>Kodvikning</guisubmenu
 > <guimenuitem
 >Expandera toppnivånoder</guimenuitem
 > </menuchoice
@@ -1493,6 +1612,27 @@ depends on the <link linkend="pref-edit-indent"
 <listitem>
 <para
 >Rader som ändrades efter filen öppnades kallas ändrade rader. Det här alternativet går till nästa ändrade rad. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-go-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Gå</guimenu
+> <guimenuitem
+>Gå till matchande parentes</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Flytta markören till samhörande inledande eller avslutande parentes.</para>
 </listitem>
 </varlistentry>
 
@@ -1635,21 +1775,6 @@ depends on the <link linkend="pref-edit-indent"
 
 <variablelist>
 
-<varlistentry id="tools-read-only">
-<term
-><menuchoice
-><guimenu
->Verktyg</guimenu
-><guimenuitem
->Skrivskyddat läge</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Ställer in aktuellt dokument till skrivskyddat läge. Det förhindrar tillägg av all text och alla ändringar av dokumentets formatering.</para>
-</listitem>
-</varlistentry>
-
 <varlistentry id="tools-filetype">
 <term
 ><menuchoice
@@ -1736,6 +1861,23 @@ depends on the <link linkend="pref-edit-indent"
 </listitem>
 </varlistentry>
 
+<varlistentry id="tools-add-byte-mark-order">
+<term
+><menuchoice
+><guimenu
+>Verktyg</guimenu
+> <guisubmenu
+>Lägg till byte-ordningsmarkering (BOM)</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Genom att markera åtgärden kan du explicit lägga till en byte-ordningsmarkering för dokument kodade med Unicode. Byte-ordningsmarkeringen (BOM) är ett Unicode-tecken som används för att ange byte-ordningen i en textfil eller ström. För mer information se <ulink url="http://en.wikipedia.org/wiki/Byte_Order_Mark"
+>Byte Order Mark</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="tools-end-of-line">
 <term
 ><menuchoice
@@ -1754,23 +1896,6 @@ depends on the <link linkend="pref-edit-indent"
 >Anpassa editor...</guimenuitem
 > </menuchoice
 >, men bara för det aktuella dokumentet.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="tools-add-byte-mark-order">
-<term
-><menuchoice
-><guimenu
->Verktyg</guimenu
-> <guisubmenu
->Lägg till byte-ordningsmarkering (BOM)</guisubmenu
-> </menuchoice
-></term>
-<listitem>
-<para
->Genom att markera åtgärden kan du explicit lägga till en byte-ordningsmarkering för dokument kodade med Unicode. Byte-ordningsmarkeringen (BOM) är ett Unicode-tecken som används för att ange byte-ordningen i en textfil eller ström. För mer information se <ulink url="http://en.wikipedia.org/wiki/Byte_Order_Mark"
->Byte Order Mark</ulink
->.</para>
 </listitem>
 </varlistentry>
 
@@ -2341,6 +2466,31 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 
 </variablelist>
 
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-command-line">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F7</keycap
+> </shortcut
+> <guimenu
+>Verktyg</guimenu
+> <guimenuitem
+>Byt till kommandorad</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Visar &katepart;-kommandorad längst ner i fönstret. Skriv <userinput
+>help</userinput
+> på kommandoraden för att få hjälp och <userinput
+>help list</userinput
+> för att få en lista med kommandon. Se <link linkend="advanced-editing-tools-commandline"
+>Editorkomponentens kommandorad</link
+> för mer information om kommandoraden.</para>
 </listitem>
 </varlistentry>
 

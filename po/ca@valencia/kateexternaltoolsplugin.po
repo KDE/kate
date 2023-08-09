@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-22 00:53+0000\n"
-"PO-Revision-Date: 2023-02-21 09:19+0100\n"
+"PO-Revision-Date: 2023-08-08 16:50+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -189,7 +189,7 @@ msgid ""
 msgstr ""
 "No s'ha pogut trobar l'executable «%1». Comproveu que existisca el fitxer "
 "executable i que els noms de les variables, si es fan servir, siguen "
-"correctes."
+"correctes"
 
 #: externaltoolsplugin.cpp:295 externaltoolsplugin.cpp:305
 #: externaltoolsplugin.cpp:422 kateexternaltoolsconfigwidget.cpp:264

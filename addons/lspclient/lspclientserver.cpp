@@ -415,10 +415,12 @@ static void from_json(LSPSemanticTokensOptions &options, const rapidjson::Value 
     }
 
     auto it = json.FindMember("full");
-    if (it->value.IsObject()) {
-        options.fullDelta = GetBoolValue(it->value, "delta");
-    } else {
-        options.full = it->value.IsTrue();
+    if (it != json.MemberEnd()) {
+        if (it->value.IsObject()) {
+            options.fullDelta = GetBoolValue(it->value, "delta");
+        } else {
+            options.full = it->value.IsTrue();
+        }
     }
 
     options.range = GetBoolValue(json, "range");

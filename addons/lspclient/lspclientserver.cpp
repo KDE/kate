@@ -63,42 +63,49 @@ static constexpr char MEMBER_EDIT[] = "edit";
 
 static QString GetStringValue(const rapidjson::Value &v, std::string_view key)
 {
-    rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
-    auto it = v.FindMember(keyRef);
-    if (it != v.MemberEnd()) {
-        return QString::fromUtf8(it->value.GetString(), it->value.GetStringLength());
+    if (v.IsObject()) {
+        rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
+        auto it = v.FindMember(keyRef);
+        if (it != v.MemberEnd()) {
+            return QString::fromUtf8(it->value.GetString(), it->value.GetStringLength());
+        }
     }
     return {};
 }
 
 static int GetIntValue(const rapidjson::Value &v, std::string_view key, int defaultValue = -1)
 {
-    rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
-    auto it = v.FindMember(keyRef);
-    if (it != v.MemberEnd()) {
-        Q_ASSERT(it->value.IsInt());
-        return it->value.IsInt() ? it->value.GetInt() : defaultValue;
+    if (v.IsObject()) {
+        rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
+        auto it = v.FindMember(keyRef);
+        if (it != v.MemberEnd()) {
+            Q_ASSERT(it->value.IsInt());
+            return it->value.IsInt() ? it->value.GetInt() : defaultValue;
+        }
     }
     return defaultValue;
 }
 
 static bool GetBoolValue(const rapidjson::Value &v, std::string_view key)
 {
-    rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
-    auto it = v.FindMember(keyRef);
-    if (it != v.MemberEnd()) {
-        return it->value.GetBool();
+    if (v.IsObject()) {
+        rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
+        auto it = v.FindMember(keyRef);
+        if (it != v.MemberEnd()) {
+            return it->value.GetBool();
+        }
     }
     return false;
 }
 
 static const rapidjson::Value &GetJsonObjectForKey(const rapidjson::Value &v, std::string_view key)
 {
-    Q_ASSERT(v.IsObject());
-    rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
-    auto it = v.FindMember(keyRef);
-    if (it != v.MemberEnd()) {
-        return it->value;
+    if (v.IsObject()) {
+        rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
+        auto it = v.FindMember(keyRef);
+        if (it != v.MemberEnd()) {
+            return it->value;
+        }
     }
     static const rapidjson::Value dummy = rapidjson::Value(rapidjson::kObjectType);
     return dummy;
@@ -403,7 +410,7 @@ static void from_json(LSPWorkspaceFoldersServerCapabilities &options, const rapi
 
 static void from_json(LSPSemanticTokensOptions &options, const rapidjson::Value &json)
 {
-    if (json.Empty()) {
+    if (!json.IsObject()) {
         return;
     }
 
@@ -663,8 +670,17 @@ static LSPMarkupContent parseHoverContentElement(const rapidjson::Value &content
 static LSPHover parseHover(const rapidjson::Value &hover)
 {
     LSPHover ret;
+    if (!hover.IsObject()) {
+        return ret;
+    }
+
     // normalize content which can be of many forms
-    ret.range = parseRange(GetJsonObjectForKey(hover, MEMBER_RANGE));
+    LSPRange range = parseRange(GetJsonObjectForKey(hover, MEMBER_RANGE));
+    if (!range.isValid()) {
+        return ret;
+    }
+    ret.range = range;
+
     auto it = hover.FindMember("contents");
 
     // support the deprecated MarkedString[] variant, used by e.g. Rust rls
@@ -802,7 +818,7 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const rapidjson::Value &
         auto insertText = GetStringValue(item, "insertText");
         LSPTextEdit lspTextEdit;
         const auto &textEdit = GetJsonObjectForKey(item, "textEdit");
-        if (!textEdit.Empty()) {
+        if (textEdit.IsObject()) {
             // Not a proper implementation of textEdit, but a workaround for KDE bug #445085
             auto newText = GetStringValue(textEdit, "newText");
             // Only override insertText with newText if insertText is empty. This avoids issues with
@@ -937,8 +953,8 @@ static LSPWorkspaceEdit parseWorkSpaceEdit(const rapidjson::Value &result)
 
     const auto &documentChanges = GetJsonArrayForKey(result, "documentChanges");
     // resourceOperations not supported for now
-    for (const auto &edit : documentChanges.GetObject()) {
-        ret.documentChanges.push_back(parseTextDocumentEdit(edit.value));
+    for (const auto &edit : documentChanges.GetArray()) {
+        ret.documentChanges.push_back(parseTextDocumentEdit(edit));
     }
     return ret;
 }

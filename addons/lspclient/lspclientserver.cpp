@@ -1998,12 +1998,11 @@ public:
         auto method = GetStringValue(msg, MEMBER_METHOD);
 
         // could be number or string, let's retain as-is
-        int msgIdInt = GetIntValue(msg, MEMBER_ID, -1);
         QVariant msgId;
         if (msg[MEMBER_ID].IsString()) {
             msgId = GetStringValue(msg, MEMBER_ID);
         } else {
-            msgId = msgIdInt;
+            msgId = GetIntValue(msg, MEMBER_ID, -1);
         }
 
         const auto &params = GetJsonObjectForKey(msg, MEMBER_PARAMS);

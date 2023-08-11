@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-04 00:48+0000\n"
+"POT-Creation-Date: 2023-08-09 00:48+0000\n"
 "PO-Revision-Date: 2020-10-22 20:41+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -41,7 +41,7 @@ msgstr "Opna med"
 msgid "&Other..."
 msgstr "&Anna …"
 
-#: katefilebrowser.cpp:366
+#: katefilebrowser.cpp:367
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
@@ -50,33 +50,33 @@ msgstr[0] ""
 msgstr[1] ""
 "Du er i ferd med å opna %1 filer. Er du sikker på at du vil gjera dette?"
 
-#: katefilebrowser.cpp:368
+#: katefilebrowser.cpp:369
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr ""
 
-#: katefilebrowser.cpp:435
+#: katefilebrowser.cpp:436
 #, kde-format
 msgid "Bookmarks"
 msgstr "Bokmerke"
 
-#: katefilebrowser.cpp:443
+#: katefilebrowser.cpp:444
 #, kde-format
 msgid "Current Document Folder"
 msgstr "Gjeldande dokumentmappe"
 
-#: katefilebrowser.cpp:451
+#: katefilebrowser.cpp:452
 #, kde-format
 msgid "Options"
 msgstr "Val"
 
-#: katefilebrowser.cpp:472
+#: katefilebrowser.cpp:473
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "Synkroniser automatisk med det gjeldande dokumentet"
 
-#: katefilebrowser.cpp:479
+#: katefilebrowser.cpp:480
 #, kde-format
 msgid "Highlight current file"
 msgstr ""

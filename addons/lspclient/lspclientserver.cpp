@@ -947,6 +947,10 @@ static LSPTextDocumentEdit parseTextDocumentEdit(const rapidjson::Value &result)
 static LSPWorkspaceEdit parseWorkSpaceEdit(const rapidjson::Value &result)
 {
     LSPWorkspaceEdit ret;
+    if (!result.IsObject()) {
+        return ret;
+    }
+
     const auto &changes = GetJsonObjectForKey(result, "changes");
     for (const auto &change : changes.GetObject()) {
         auto url = QString::fromUtf8(change.name.GetString());

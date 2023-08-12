@@ -174,7 +174,6 @@ static bool nodeExists(const QList<TargetModel::RootNode> &rootNodes, const Node
 
     const QList<TargetModel::TargetSet> &targets = rootNodes[node.rootRow].targetSets;
     if (node.targetSetRow >= targets.size()) {
-        qWarning() << "TargetSet row out of bounds" << node;
         return false;
     }
 
@@ -235,6 +234,7 @@ QModelIndex TargetModel::projectRootIndex() const
 
 QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex, const QString &setName, const QString &workDir)
 {
+    // qDebug() << "Inserting TargetSet after:" << beforeIndex << setName <<workDir;
     NodeInfo bNode = modelToNodeInfo(beforeIndex);
     if (!nodeExists(m_rootNodes, bNode)) {
         // Add the new target-set to the end of the first root node (creating the root if needed)
@@ -249,7 +249,6 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex, co
 
     if (bNode.isRoot()) {
         bNode.targetSetRow = m_rootNodes[bNode.rootRow].targetSets.size() - 1;
-        ;
     }
 
     QList<TargetSet> &targetSets = m_rootNodes[bNode.rootRow].targetSets;
@@ -273,6 +272,7 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex, co
 
 QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd)
 {
+    // qDebug() << "addCommandAfter" << beforeIndex << cmdName;
     NodeInfo bNode = modelToNodeInfo(beforeIndex);
     if (!nodeExists(m_rootNodes, bNode)) {
         // Add the new command to the end of the first target-set of the first root node (creating the root and target-set if needed)
@@ -395,7 +395,6 @@ void TargetModel::deleteItem(const QModelIndex &itemIndex)
         beginRemoveRows(itemIndex.parent(), itemIndex.row(), itemIndex.row());
         m_rootNodes[node.rootRow].targetSets.removeAt(node.targetSetRow);
         endRemoveRows();
-        return;
     } else {
         beginRemoveRows(itemIndex.parent(), itemIndex.row(), itemIndex.row());
         m_rootNodes[node.rootRow].targetSets[node.targetSetRow].commands.removeAt(node.commandRow);
@@ -406,7 +405,7 @@ void TargetModel::deleteItem(const QModelIndex &itemIndex)
 void TargetModel::deleteProjectTargerts()
 {
     for (int i = 0; i < m_rootNodes.count(); ++i) {
-        if (m_rootNodes[i].isProject) {
+        if (m_rootNodes[i].isProject && m_rootNodes[i].targetSets.count() > 0) {
             beginRemoveRows(index(i, 0), 0, m_rootNodes[i].targetSets.count() - 1);
             m_rootNodes[i].targetSets.clear();
             endRemoveRows();
@@ -433,13 +432,9 @@ void TargetModel::moveRowUp(const QModelIndex &itemIndex)
     QModelIndex parent = itemIndex.parent(); // This parent is valid for all the cases
 
     if (node.isRoot()) {
-        qDebug() << "starting move up" << parent << QModelIndex() << row;
         beginMoveRows(parent, row, row, parent, row - 1);
-        qDebug() << "before move up";
         m_rootNodes.move(row, row - 1);
-        qDebug() << "after move up";
         endMoveRows();
-        qDebug() << "after endMoveRows";
         return;
     }
 
@@ -511,7 +506,7 @@ const QList<TargetModel::TargetSet> TargetModel::sessionTargetSets() const
 QVariant TargetModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        qWarning() << "Invalid index";
+        qWarning() << "Invalid index" << index;
         return QVariant();
     }
 
@@ -706,7 +701,8 @@ int TargetModel::rowCount(const QModelIndex &parent) const
 
     NodeInfo node = modelToNodeInfo(parent);
     if (!nodeExists(m_rootNodes, node)) {
-        qDebug() << "Node does not exist:" << node << parent;
+        // uncomment for debugging
+        // qDebug() << "Node does not exist:" << node << parent;
         return 0;
     }
 

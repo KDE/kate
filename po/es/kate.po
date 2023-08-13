@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-06 00:49+0000\n"
-"PO-Revision-Date: 2023-07-30 19:31+0200\n"
+"PO-Revision-Date: 2023-08-13 00:51+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -2349,16 +2349,12 @@ msgid "Control view space splitting"
 msgstr "Dividir el espacio de la vista de control"
 
 #: lib/kateviewspace.cpp:119
-#, fuzzy, kde-format
-#| msgid "S&ynchronise Scrolling"
+#, kde-format
 msgid "S&ynchronize Scrolling"
 msgstr "S&incronizar desplazamiento"
 
 #: lib/kateviewspace.cpp:121
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronise Scrolling of this split-view with other synchronised split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
 msgstr ""

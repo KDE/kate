@@ -324,7 +324,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
                     QRectF r = sl.naturalTextRect();
                     r.setLeft(sx);
                     r.setRight(ex);
-                    r.moveTop(offset.y() + (sl.height() * sl.lineNumber()));
+                    r.moveTop(offset.y() + (p.fontMetrics().lineSpacing() * sl.lineNumber()));
                     p.fillRect(r, hl->added ? green2 : red2);
                 } else {
                     QPainterPath path;
@@ -337,7 +337,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
                     for (; i <= end; ++i) {
                         auto line = layout->lineAt(i);
                         rect = line.naturalTextRect();
-                        rect.moveTop(offset.y() + (line.height() * line.lineNumber()));
+                        rect.moveTop(offset.y() + (p.fontMetrics().lineSpacing() * line.lineNumber()));
                         if (i == end) {
                             rect.setRight(el.cursorToX(c.pos + c.len));
                         }

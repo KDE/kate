@@ -50,13 +50,16 @@
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     : KPageDialog(parent)
     , m_mainWindow(parent)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     , m_searchLineEdit(new QLineEdit(this))
     , m_searchTimer(new QTimer(this))
+#endif
 {
     setWindowTitle(i18n("Configure"));
     setWindowIcon(QIcon::fromTheme(QStringLiteral("configure")));
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     m_searchLineEdit->setPlaceholderText(i18n("Search..."));
     m_searchLineEdit->setClearButtonEnabled(true);
     setFocusProxy(m_searchLineEdit);
@@ -71,6 +74,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
         m_searchLineEdit->hide();
         qWarning() << Q_FUNC_INFO << "Failed to get layout! Search will be disabled";
     }
+#endif
 
     // we may have a lot of pages on Kate, we want small icons for the list
     if (KateApp::isKate()) {
@@ -119,6 +123,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     connect(buttonBox()->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     // set focus on next iteration of event loop, doesn't work directly for some reason
     QMetaObject::invokeMethod(
         this,
@@ -126,6 +131,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
             m_searchLineEdit->setFocus();
         },
         Qt::QueuedConnection);
+#endif
 }
 
 template<typename WidgetType>
@@ -234,6 +240,7 @@ private:
     int m_tabIdx = -1;
 };
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void KateConfigDialog::onSearchTextChanged()
 {
     if (!m_sideBar) {
@@ -320,6 +327,7 @@ void KateConfigDialog::onSearchTextChanged()
         }
     }
 }
+#endif
 
 QSize KateConfigDialog::sizeHint() const
 {

@@ -1311,9 +1311,10 @@ void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagT
             }
         }
         const auto sessionSuppressions = m_sessionDiagnosticSuppressions->getSuppressions(doc->url().toLocalFile());
-        if (!providerSupressions.isEmpty() || !sessionSuppressions.isEmpty()) {
-            auto supp = new DiagnosticSuppression(doc, providerSupressions, sessionSuppressions);
-            suppressions.reset(supp);
+        auto supp = new DiagnosticSuppression(doc, providerSupressions, sessionSuppressions);
+        const bool hadSuppression = suppressions != nullptr;
+        suppressions.reset(supp);
+        if (!providerSupressions.isEmpty() || !sessionSuppressions.isEmpty() || hadSuppression) {
             updateDiagnosticsState(diagTopItem);
         }
     }
@@ -1369,10 +1370,12 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
         // track validity of raw pointer
         QPersistentModelIndex pindex(index);
         auto docDiagItem = static_cast<DocumentDiagnosticItem *>(item);
-        auto h = [this, &docDiagItem, pindex](bool enabled) {
-            if (pindex.isValid()) {
-                docDiagItem->enabled = enabled;
+        auto h = [this, item, pindex](bool enabled) {
+            if (!pindex.isValid()) {
+                return;
             }
+            auto docDiagItem = static_cast<DocumentDiagnosticItem *>(item);
+            docDiagItem->enabled = enabled;
             updateDiagnosticsState(docDiagItem);
         };
         if (docDiagItem->enabled) {

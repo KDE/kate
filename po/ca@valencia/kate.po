@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-06 00:49+0000\n"
+"POT-Creation-Date: 2023-08-16 00:48+0000\n"
 "PO-Revision-Date: 2023-08-04 09:54+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -332,13 +332,13 @@ msgstr "Avisos"
 msgid "Filter..."
 msgstr "Filtre..."
 
-#: lib/diagnostics/diagnosticview.cpp:1025 lib/kateconfigdialog.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:1025 lib/kateconfigdialog.cpp:382
 #, kde-format
 msgid "Error"
 msgstr "S'ha produït un error"
 
-#: lib/diagnostics/diagnosticview.cpp:1029 lib/kateconfigdialog.cpp:374
-#: lib/kateconfigdialog.cpp:917
+#: lib/diagnostics/diagnosticview.cpp:1029 lib/kateconfigdialog.cpp:382
+#: lib/kateconfigdialog.cpp:925
 #, kde-format
 msgid "Warning"
 msgstr "Avís"
@@ -354,47 +354,47 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [suprimit: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1327
+#: lib/diagnostics/diagnosticview.cpp:1328
 #, kde-format
 msgid "Expand All"
 msgstr "Expandix-ho tot"
 
-#: lib/diagnostics/diagnosticview.cpp:1328
+#: lib/diagnostics/diagnosticview.cpp:1329
 #, kde-format
 msgid "Collapse All"
 msgstr "Reduïx-ho tot"
 
-#: lib/diagnostics/diagnosticview.cpp:1335
+#: lib/diagnostics/diagnosticview.cpp:1336
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copia al porta-retalls"
 
-#: lib/diagnostics/diagnosticview.cpp:1358
+#: lib/diagnostics/diagnosticview.cpp:1359
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Elimina la supressió global"
 
-#: lib/diagnostics/diagnosticview.cpp:1360
+#: lib/diagnostics/diagnosticview.cpp:1361
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Afig una supressió global"
 
-#: lib/diagnostics/diagnosticview.cpp:1364
+#: lib/diagnostics/diagnosticview.cpp:1365
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Elimina la supressió local"
 
-#: lib/diagnostics/diagnosticview.cpp:1366
+#: lib/diagnostics/diagnosticview.cpp:1367
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Afig una supressió local"
 
-#: lib/diagnostics/diagnosticview.cpp:1379
+#: lib/diagnostics/diagnosticview.cpp:1382
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Desactiva la supressió"
 
-#: lib/diagnostics/diagnosticview.cpp:1381
+#: lib/diagnostics/diagnosticview.cpp:1384
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Activa la supressió"
@@ -404,17 +404,17 @@ msgstr "Activa la supressió"
 msgid "Change Style"
 msgstr "Canvia l'estil"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:544
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:552
 #, kde-format
 msgid "Side By Side"
 msgstr "En paral·lel"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:545
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:553
 #, kde-format
 msgid "Unified"
 msgstr "Unificat"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:546
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:554
 #, kde-format
 msgid "Raw"
 msgstr "En brut"
@@ -521,7 +521,7 @@ msgstr ""
 "PATH. Vegeu https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
-#: lib/kateconfigdialog.cpp:538
+#: lib/kateconfigdialog.cpp:546
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
@@ -922,37 +922,37 @@ msgstr ""
 "El fitxer «%1» no s'ha pogut obrir, este no és un fitxer normal, és una "
 "carpeta."
 
-#: lib/kateconfigdialog.cpp:56
+#: lib/kateconfigdialog.cpp:58
 #, kde-format
 msgid "Configure"
 msgstr "Configura"
 
-#: lib/kateconfigdialog.cpp:60 lib/kateoutputview.cpp:173
+#: lib/kateconfigdialog.cpp:63 lib/kateoutputview.cpp:173
 #, kde-format
 msgid "Search..."
 msgstr "Busca..."
 
-#: lib/kateconfigdialog.cpp:342
+#: lib/kateconfigdialog.cpp:350
 #, kde-format
 msgid "Behavior"
 msgstr "Comportament"
 
-#: lib/kateconfigdialog.cpp:344
+#: lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Behavior Options"
 msgstr "Opcions de comportament"
 
-#: lib/kateconfigdialog.cpp:351
+#: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid "&Behavior"
 msgstr "&Comportament"
 
-#: lib/kateconfigdialog.cpp:356
+#: lib/kateconfigdialog.cpp:364
 #, kde-format
 msgid "Open each document in its own window"
 msgstr "Obri cada document en la seua pròpia finestra"
 
-#: lib/kateconfigdialog.cpp:359
+#: lib/kateconfigdialog.cpp:367
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
@@ -962,44 +962,44 @@ msgstr ""
 "està activada, cada document s'obrirà en una pestanya nova de la finestra "
 "actual."
 
-#: lib/kateconfigdialog.cpp:369
+#: lib/kateconfigdialog.cpp:377
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "Canvia a la vista de l'&eixida segons el tipus de missatge:"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:382
 #, kde-format
 msgid "Never"
 msgstr "Mai"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:382
 #, kde-format
 msgid "Info"
 msgstr "Informació"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:382
 #, kde-format
 msgid "Log"
 msgstr "Registre"
 
-#: lib/kateconfigdialog.cpp:380
+#: lib/kateconfigdialog.cpp:388
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&Límit de l'eixida de la vista d'historial:"
 
-#: lib/kateconfigdialog.cpp:386 lib/kateconfigdialog.cpp:450
+#: lib/kateconfigdialog.cpp:394 lib/kateconfigdialog.cpp:458
 #, kde-format
 msgid "Unlimited"
 msgstr "Sense límit"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:401
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 "Utilitza un &diàleg separat per a gestionar els fitxers modificats "
 "externament"
 
-#: lib/kateconfigdialog.cpp:396
+#: lib/kateconfigdialog.cpp:404
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -1011,17 +1011,17 @@ msgstr ""
 "fer per a cada fitxer modificat només quan la vista d'este fitxer reba el "
 "focus."
 
-#: lib/kateconfigdialog.cpp:405
+#: lib/kateconfigdialog.cpp:413
 #, kde-format
 msgid "&Sidebars"
 msgstr "Barre&s laterals"
 
-#: lib/kateconfigdialog.cpp:408
+#: lib/kateconfigdialog.cpp:416
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Sincronitza la mida de la secció amb posicions de tabulació"
 
-#: lib/kateconfigdialog.cpp:411
+#: lib/kateconfigdialog.cpp:419
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -1032,27 +1032,27 @@ msgstr ""
 "les tabulacions.\n"
 "Esta opció no afecta la barra lateral inferior."
 
-#: lib/kateconfigdialog.cpp:416
+#: lib/kateconfigdialog.cpp:424
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Mostra el text dels botons de la barra lateral esquerra i dreta"
 
-#: lib/kateconfigdialog.cpp:421
+#: lib/kateconfigdialog.cpp:429
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr "Mida de les icones dels botons de la barra lateral esquerra i dreta"
 
-#: lib/kateconfigdialog.cpp:440
+#: lib/kateconfigdialog.cpp:448
 #, kde-format
 msgid "&Tabs"
 msgstr "Pes&tanyes"
 
-#: lib/kateconfigdialog.cpp:444
+#: lib/kateconfigdialog.cpp:452
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "&Límit del nombre de pestanyes:"
 
-#: lib/kateconfigdialog.cpp:455
+#: lib/kateconfigdialog.cpp:463
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1062,64 +1062,64 @@ msgstr ""
 "desplaçament de les pestanyes» per a evitar-ho. Les pestanyes sense límit "
 "sempre es poden desplaçar."
 
-#: lib/kateconfigdialog.cpp:459
+#: lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "&Oculta automàticament les pestanyes"
 
-#: lib/kateconfigdialog.cpp:461
+#: lib/kateconfigdialog.cpp:469
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 "Si està activada, les pestanyes s'ocultaran si només hi ha un document obert."
 
-#: lib/kateconfigdialog.cpp:465
+#: lib/kateconfigdialog.cpp:473
 #, kde-format
 msgid "&Show close button"
 msgstr "Mo&stra el botó de tancament"
 
-#: lib/kateconfigdialog.cpp:467
+#: lib/kateconfigdialog.cpp:475
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Si està activada, cada pestanya mostrarà un botó de tancament."
 
-#: lib/kateconfigdialog.cpp:471
+#: lib/kateconfigdialog.cpp:479
 #, kde-format
 msgid "&Expand tabs"
 msgstr "Ex&pandix les pestanyes"
 
-#: lib/kateconfigdialog.cpp:473
+#: lib/kateconfigdialog.cpp:481
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 "Si està activada, les pestanyes prendran tota la mida que siga possible."
 
-#: lib/kateconfigdialog.cpp:477
+#: lib/kateconfigdialog.cpp:485
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "El &doble clic obri un document nou"
 
-#: lib/kateconfigdialog.cpp:479
+#: lib/kateconfigdialog.cpp:487
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Si està activada, el doble clic obrirà un document nou."
 
-#: lib/kateconfigdialog.cpp:483
+#: lib/kateconfigdialog.cpp:491
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "El clic del &mig tanca un document"
 
-#: lib/kateconfigdialog.cpp:485
+#: lib/kateconfigdialog.cpp:493
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Si està activada, el clic del mig tancarà un document."
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:497
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Permet el desplaçament de les pestanyes"
 
-#: lib/kateconfigdialog.cpp:491
+#: lib/kateconfigdialog.cpp:499
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -1128,94 +1128,94 @@ msgstr ""
 "Si està activada, açò permet desplaçar la barra de pestanyes quan el nombre "
 "de pestanyes és gran."
 
-#: lib/kateconfigdialog.cpp:495
+#: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "Elide tab text"
 msgstr "Elidix el text de les pestanyes"
 
-#: lib/kateconfigdialog.cpp:497
+#: lib/kateconfigdialog.cpp:505
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 "Si està activada, el text de les pestanyes es pot elidir si és massa llarg."
 
-#: lib/kateconfigdialog.cpp:501
+#: lib/kateconfigdialog.cpp:509
 #, kde-format
 msgid "Open new tab to the right of current tab."
 msgstr "Obri una pestanya nova a la dreta de l'actual."
 
-#: lib/kateconfigdialog.cpp:503
+#: lib/kateconfigdialog.cpp:511
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr "Si no està activada, la pestanya nova s'obrirà al final."
 
-#: lib/kateconfigdialog.cpp:509
+#: lib/kateconfigdialog.cpp:517
 #, kde-format
 msgid "&Mouse"
 msgstr "&Ratolí"
 
-#: lib/kateconfigdialog.cpp:514
+#: lib/kateconfigdialog.cpp:522
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "&Botó arrere premut:"
 
-#: lib/kateconfigdialog.cpp:519
+#: lib/kateconfigdialog.cpp:527
 #, kde-format
 msgid "Previous tab"
 msgstr "Pestanya anterior"
 
-#: lib/kateconfigdialog.cpp:519
+#: lib/kateconfigdialog.cpp:527
 #, kde-format
 msgid "History back"
 msgstr "Retrocedix en l'historial"
 
-#: lib/kateconfigdialog.cpp:525
+#: lib/kateconfigdialog.cpp:533
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Botó &avant premut:"
 
-#: lib/kateconfigdialog.cpp:530
+#: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Next tab"
 msgstr "Pestanya següent"
 
-#: lib/kateconfigdialog.cpp:530
+#: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "History forward"
 msgstr "Avança en l'historial"
 
-#: lib/kateconfigdialog.cpp:547
+#: lib/kateconfigdialog.cpp:555
 #, kde-format
 msgid "Diff Style:"
 msgstr "Estil del Diff:"
 
-#: lib/kateconfigdialog.cpp:552
+#: lib/kateconfigdialog.cpp:560
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Barra de navegació"
 
-#: lib/kateconfigdialog.cpp:557
+#: lib/kateconfigdialog.cpp:565
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Mostra el símbol actual a la barra de navegació"
 
-#: lib/kateconfigdialog.cpp:571
+#: lib/kateconfigdialog.cpp:579
 #, kde-format
 msgid "Session"
 msgstr "Sessió"
 
-#: lib/kateconfigdialog.cpp:573
+#: lib/kateconfigdialog.cpp:581
 #, kde-format
 msgid "Session Management"
 msgstr "Gestioneu les sessions"
 
-#: lib/kateconfigdialog.cpp:584
+#: lib/kateconfigdialog.cpp:592
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(mai)"
 
-#: lib/kateconfigdialog.cpp:585
+#: lib/kateconfigdialog.cpp:593
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1223,7 +1223,7 @@ msgid_plural " days"
 msgstr[0] " dia"
 msgstr[1] " dies"
 
-#: lib/kateconfigdialog.cpp:618
+#: lib/kateconfigdialog.cpp:626
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1232,22 +1232,22 @@ msgstr ""
 "Quan es tanca una finestra, els documents oberts només en esta finestra "
 "també es tanquen."
 
-#: lib/kateconfigdialog.cpp:653
+#: lib/kateconfigdialog.cpp:661
 #, kde-format
 msgid "Plugins"
 msgstr "Connectors"
 
-#: lib/kateconfigdialog.cpp:655
+#: lib/kateconfigdialog.cpp:663
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Gestor dels connectors"
 
-#: lib/kateconfigdialog.cpp:673 lib/kateconfigdialog.cpp:675
+#: lib/kateconfigdialog.cpp:681 lib/kateconfigdialog.cpp:683
 #, kde-format
 msgid "User Feedback"
 msgstr "Comentaris de l'usuari"
 
-#: lib/kateconfigdialog.cpp:916
+#: lib/kateconfigdialog.cpp:924
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

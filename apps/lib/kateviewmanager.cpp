@@ -1055,7 +1055,7 @@ void KateViewManager::closeView(KTextEditor::View *view)
 void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *src, DocOrWidget docOrWidget)
 {
     // We always have an active view at this point which is what we are moving
-    Q_ASSERT(activeView() || activeViewSpace()->currentWidget());
+    Q_ASSERT(activeView() || src->currentWidget());
 
     // Are we trying to drop into some other mainWindow of current app session?
     // shouldn't happen, but just a safe guard

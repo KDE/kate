@@ -1377,23 +1377,23 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
         return;
     }
 
-    if (viewspace->hasWidgets()) {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-        int ret = KMessageBox::questionTwoActions(this,
-#else
-        int ret = KMessageBox::warningYesNo(this,
-#endif
-                                                  i18n("This view may have unsaved work. Do you really want to close it?"),
-                                                  {},
-                                                  KStandardGuiItem::close(),
-                                                  KStandardGuiItem::cancel());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-        if (ret != KMessageBox::PrimaryAction) {
-#else
-        if (ret != KMessageBox::Yes) {
-#endif
-            return;
+    // check if any widget has "shouldClose" method to block closing
+    // otherwise we don't need to prompt the user
+    auto viewspaceCanClose = [viewspace] {
+        const auto widgets = viewspace->widgets();
+        for (auto w : widgets) {
+            bool shouldClose = true; // by default all widgets are closable
+            QMetaObject::invokeMethod(w, "shouldClose", Q_RETURN_ARG(bool, shouldClose));
+            if (!shouldClose) {
+                return false;
+            }
         }
+        return true;
+    };
+
+    const bool viewspaceHasWidgets = viewspace->hasWidgets();
+    if (viewspaceHasWidgets && !viewspaceCanClose()) {
+        return;
     }
 
     // get current splitter
@@ -1419,6 +1419,14 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     // delete views of the viewspace
     while (viewspace->currentView()) {
         deleteView(viewspace->currentView());
+    }
+
+    if (viewspaceHasWidgets) {
+        // emit widget removed
+        const auto widgets = viewspace->widgets();
+        for (auto w : widgets) {
+            Q_EMIT mainWindow()->widgetRemoved(w);
+        }
     }
 
     // cu viewspace
@@ -1463,9 +1471,9 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
         // TODO: unify handling
         if (doc.doc()) {
             avs->registerDocument(doc.doc());
-        } else if (doc.widget()) {
-            avs->addWidgetAsTab(doc.widget());
         }
+        // We skip widgets because they will be destroyed when viewspace closes
+        // avs->addWidgetAsTab(doc.widget());
     }
 
     // find the view that is now active.

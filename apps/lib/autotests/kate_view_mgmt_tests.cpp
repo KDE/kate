@@ -675,4 +675,35 @@ void KateViewManagementTests::testNewSessionClearsWindowWidgets()
     QVERIFY(!w2);
 }
 
+void KateViewManagementTests::testViewspaceWithWidgetDoesntCrashOnClose()
+{
+    // two viewspaces, one with widget. Closing the space shouldn't crash us
+    app->sessionManager()->sessionNew();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    clearAllDocs(mw);
+
+    auto vm = mw->viewManager();
+    vm->createView();
+    auto vs1 = vm->activeViewSpace();
+    vm->slotSplitViewSpaceVert();
+    QVERIFY(vs1 != vm->activeViewSpace());
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+    QPointer<KateViewSpace> vs2 = vm->activeViewSpace();
+
+    QPointer<QWidget> w1 = new QWidget;
+    Utils::addWidget(w1, app->activeMainWindow());
+    QCOMPARE(vs2->currentWidget(), w1);
+    QVERIFY(vm->activeView() == nullptr);
+
+    QSignalSpy spy(mw, SIGNAL(widgetRemoved(QWidget *)));
+
+    // close the viewspace
+    vm->slotCloseCurrentViewSpace();
+
+    // The widget and viewspace should be gone
+    QVERIFY(!vs2);
+    QVERIFY(!w1);
+    QVERIFY(spy.count() == 1);
+}
+
 #include "moc_kate_view_mgmt_tests.cpp"

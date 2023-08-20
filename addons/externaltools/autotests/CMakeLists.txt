@@ -1,15 +1,5 @@
 include(ECMMarkAsTest)
 
-find_package(KF${KF_MAJOR_VERSION}Config ${KF5_DEP_VERSION} QUIET) # KConfig, KConfigGroup
-if(NOT KF5Config_FOUND)
-  return()
-endif()
-
-find_package(KF${KF_MAJOR_VERSION}CoreAddons ${KF5_DEP_VERSION} QUIET) # KShell
-if(NOT KF5CoreAddons_FOUND)
-  return()
-endif()
-
 # Project Plugin
 add_executable(externaltools_test
     externaltooltest.cpp

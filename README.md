@@ -1,4 +1,10 @@
-# Join Us!
+# Kate
+
+Modern text editor built on the KDE Frameworks and Qt.
+
+![Kate window](https://cdn.kde.org/screenshots/kate/kate.png)
+
+## Join Us!
 
 So you want to participate in developing Kate?
 Great!
@@ -34,13 +40,13 @@ All files shall contain a proper "SPDX-License-Identifier: LGPL-2.0-or-later" or
 */
 ```
 
-# kate.git content
+## kate.git content
 
-## apps
+### apps
 
 The apps folder contains both the Kate and KWrite applications itself and their shared implementation.
 
-### apps/lib
+#### apps/lib
 
 The **apps/lib** directory contains the shared sources of the Kate and KWrite applications.
 
@@ -49,7 +55,7 @@ Close to everything beside the main functions of the two applications is impleme
 This is installed a shared library kateprivate that can be used by addons, too.
 The library isn't BC over releases, no headers to use it are installed to the system.
 
-### apps/kate
+#### apps/kate
 
 The **apps/kate** directory contains the Kate application sources.
 
@@ -57,7 +63,7 @@ Kate is using KUserFeedback for telemetry starting with release 20.04.
 
 For details of the opt-in send information, see https://community.kde.org/Telemetry_Use
 
-### apps/kwrite
+#### apps/kwrite
 
 The **apps/kwrite** directory contains the KWrite application sources.
 
@@ -65,16 +71,16 @@ KWrite is using KUserFeedback for telemetry starting with release 22.08.
 
 For details of the opt-in send information, see https://community.kde.org/Telemetry_Use
 
-## addons
+### addons
 
 The **addons** directory contains in sub-directories the sources of all bundled plugins.
 These plugins are not only used by Kate itself but other KTextEditor compatible applications, like KDevelop.
 
-## doc
+### doc
 
 The **doc** directory contains the Kate, KWrite & KatePart manuals.
 
-## LICENSES
+### LICENSES
 
 The **LICENSES** directory contains the license files as referenced in the individual source files.
 For any used **SPDX-License-Identifier** the matching license should be located there.

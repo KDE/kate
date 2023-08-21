@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 00:48+0000\n"
+"POT-Creation-Date: 2023-08-21 00:48+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -2287,12 +2287,6 @@ msgstr "Aktiv edin"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> qoşmasını aktiv etmək mümkün olmadı"
 
-#: lib/kateviewmanager.cpp:1386
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr ""
-"Burada saxlanılmamış işlər ola bilər. Onu doğrudan bağlamaq istəyirsiniz?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2832,6 +2826,10 @@ msgstr "Sesiyaları idarə etmək..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Yeni pəncərə üçün göstərmək"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "Burada saxlanılmamış işlər ola bilər. Onu doğrudan bağlamaq istəyirsiniz?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr ""

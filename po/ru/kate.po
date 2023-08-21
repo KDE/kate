@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 00:48+0000\n"
+"POT-Creation-Date: 2023-08-21 00:48+0000\n"
 "PO-Revision-Date: 2023-07-22 14:32+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -2299,12 +2299,6 @@ msgstr "Включить"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Не удалось включить подключаемый модуль <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1386
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr ""
-"В этой сессии есть несохранённые изменения. Закрыть, не сохранив изменения?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2856,6 +2850,11 @@ msgstr "Управление сеансами…"
 #, kde-format
 msgid "Show for new window"
 msgstr "Показывать в новых окнах"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "В этой сессии есть несохранённые изменения. Закрыть, не сохранив "
+#~ "изменения?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr "Не считая различий в пробельных символах, файлы не отличаются."

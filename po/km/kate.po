@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 00:48+0000\n"
+"POT-Creation-Date: 2023-08-21 00:48+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -2346,11 +2346,6 @@ msgstr ""
 #: lib/kateviewmanager.cpp:558
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
-
-#: lib/kateviewmanager.cpp:1386
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
 
 #: lib/kateviewspace.cpp:95

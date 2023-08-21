@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 00:48+0000\n"
+"POT-Creation-Date: 2023-08-21 00:48+0000\n"
 "PO-Revision-Date: 2023-06-25 16:57+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2312,13 +2312,6 @@ msgstr "Aktivieren"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Modul <b>%1</b> kann nicht aktiviert werden"
 
-#: lib/kateviewmanager.cpp:1386
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr ""
-"Diese Ansicht hat ungespeicherte Bearbeitungen. Möchten Sie sie wirklich "
-"schließen?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2870,6 +2863,11 @@ msgstr "Sitzungen verwalten ..."
 #, kde-format
 msgid "Show for new window"
 msgstr "In neuen Fenstern anzeigen"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "Diese Ansicht hat ungespeicherte Bearbeitungen. Möchten Sie sie wirklich "
+#~ "schließen?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr ""

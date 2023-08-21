@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 00:48+0000\n"
+"POT-Creation-Date: 2023-08-21 00:48+0000\n"
 "PO-Revision-Date: 2023-08-07 00:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -2245,12 +2245,6 @@ msgstr "활성화"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> 플러그인을 활성화할 수 없음"
 
-#: lib/kateviewmanager.cpp:1386
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr ""
-"이 보기에 저장하지 않은 변경 사항이 있을 수도 있습니다. 닫으시겠습니까?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2783,6 +2777,10 @@ msgstr "세션 관리..."
 #, kde-format
 msgid "Show for new window"
 msgstr "새 창에 표시"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "이 보기에 저장하지 않은 변경 사항이 있을 수도 있습니다. 닫으시겠습니까?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr "공백 변경을 제외한 모든 부분이 같습니다."

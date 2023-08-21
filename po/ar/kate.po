@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 00:48+0000\n"
+"POT-Creation-Date: 2023-08-21 00:48+0000\n"
 "PO-Revision-Date: 2023-07-06 10:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2267,11 +2267,6 @@ msgstr "فعّل"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "فشل تفعيل محلقة <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1386
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr "هذا العرض قد يحوي على عمل غير محفوظ. هل تريد حقاً أن تغلقه؟"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2818,6 +2813,9 @@ msgstr "أدر الجلسات..."
 #, kde-format
 msgid "Show for new window"
 msgstr "اعرض في نافذة جديدة…"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr "هذا العرض قد يحوي على عمل غير محفوظ. هل تريد حقاً أن تغلقه؟"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr "بتجاهل عدد المسافات البيضاء الذي تغيّر، الملفّات متطابقة."

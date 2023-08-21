@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1658249 $
+# Version: $Revision: 1658656 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 00:48+0000\n"
+"POT-Creation-Date: 2023-08-21 00:48+0000\n"
 "PO-Revision-Date: 2023-04-15 11:32+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -2294,11 +2294,6 @@ msgstr "Włącz"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Nie udało się włączyć wtyczki <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1386
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr "Ten widok może zawierać niezapisaną pracę. Czy na pewno go zamknąć?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2848,6 +2843,9 @@ msgstr "Zarządzanie posiedzeniami..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Pokaż dla nowego okna"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr "Ten widok może zawierać niezapisaną pracę. Czy na pewno go zamknąć?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr "Pomijając białe znaki, pliki są identyczne."

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 00:48+0000\n"
+"POT-Creation-Date: 2023-08-21 00:48+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -2303,12 +2303,6 @@ msgstr "Povoliť"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Nepodarilo sa povoliť zásuvný modul <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1386
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr ""
-"Toto zobrazenie môže obsahovať neuloženú prácu. Naozaj ho chcete zatvoriť?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2851,6 +2845,10 @@ msgstr "Spravovať sedenia..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Zobraziť pre nové okno"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "Toto zobrazenie môže obsahovať neuloženú prácu. Naozaj ho chcete zatvoriť?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr "Ignorovanie množstva medzier sa zmenilo, súbory sú identické."

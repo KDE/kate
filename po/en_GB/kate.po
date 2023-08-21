@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 00:48+0000\n"
+"POT-Creation-Date: 2023-08-21 00:48+0000\n"
 "PO-Revision-Date: 2023-06-17 12:08+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -2271,11 +2271,6 @@ msgstr "Enable"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Failed to enable <b>%1</b> plugin"
 
-#: lib/kateviewmanager.cpp:1386
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr "This view may have unsaved work. Do you really want to close it?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2817,6 +2812,9 @@ msgstr "Manage Sessions..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Show for new window"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr "This view may have unsaved work. Do you really want to close it?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr "Ignoring amount of white space changed, the files are identical."

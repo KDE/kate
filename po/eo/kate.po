@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 02:27+0000\n"
+"POT-Creation-Date: 2023-08-21 02:28+0000\n"
 "PO-Revision-Date: 2023-06-27 22:30+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -2280,12 +2280,6 @@ msgstr "Ebligi"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Malsukcesis aktivigi aldonaĵon <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1284
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr ""
-"Ĉi tiu vido eble havas nekonservitan laboron. Ĉu vi vere volas fermi ĝin?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2819,3 +2813,7 @@ msgstr "Administri Seancojn..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Montri por nova fenestro"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "Ĉi tiu vido eble havas nekonservitan laboron. Ĉu vi vere volas fermi ĝin?"

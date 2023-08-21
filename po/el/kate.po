@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 02:27+0000\n"
+"POT-Creation-Date: 2023-08-21 02:28+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -2342,13 +2342,6 @@ msgstr "Ενεργοποίηση"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Αποτυχία ενεργοποίησης του πρόσθετου <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1284
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr ""
-"Αυτή η προβολή ίσως περιέχει μη αποθηκευμένη εργασία. Θέλετε πράγματι να την "
-"κλείσετε;"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2884,6 +2877,11 @@ msgstr "Διαχείριση συνεδριών..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Εμφάνιση για νέο παράθυρο"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "Αυτή η προβολή ίσως περιέχει μη αποθηκευμένη εργασία. Θέλετε πράγματι να "
+#~ "την κλείσετε;"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr ""

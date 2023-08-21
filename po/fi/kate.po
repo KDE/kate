@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 02:27+0000\n"
+"POT-Creation-Date: 2023-08-21 02:28+0000\n"
 "PO-Revision-Date: 2023-07-25 19:54+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -2295,12 +2295,6 @@ msgstr "Ota käyttöön"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> -liitännäisen käyttöönotto epäonnistui"
 
-#: lib/kateviewmanager.cpp:1284
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr ""
-"Näkymässä voi olla tallentamattomia muutoksia. Haluatko varmasti sulkea sen?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2832,6 +2826,11 @@ msgstr "Istuntojen hallinta…"
 #, kde-format
 msgid "Show for new window"
 msgstr "Näytä uudelle ikkunalle"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "Näkymässä voi olla tallentamattomia muutoksia. Haluatko varmasti sulkea "
+#~ "sen?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr ""

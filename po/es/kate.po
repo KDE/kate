@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 02:27+0000\n"
+"POT-Creation-Date: 2023-08-21 02:28+0000\n"
 "PO-Revision-Date: 2023-06-29 01:26+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -2326,12 +2326,6 @@ msgstr "Activar"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "No se ha podido activar el complemento <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1284
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr ""
-"Esta vista puede contener trabajo sin guardar. ¿Realmente desea cerrarla?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2869,6 +2863,10 @@ msgstr "Gestión de sesiones..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Mostrar para nueva ventana"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "Esta vista puede contener trabajo sin guardar. ¿Realmente desea cerrarla?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr ""

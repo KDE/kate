@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-16 02:27+0000\n"
+"POT-Creation-Date: 2023-08-21 02:28+0000\n"
 "PO-Revision-Date: 2023-07-30 19:13+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -2294,11 +2294,6 @@ msgstr "Gaitu"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> plugina gaitzea huts egin du"
 
-#: lib/kateviewmanager.cpp:1284
-#, kde-format
-msgid "This view may have unsaved work. Do you really want to close it?"
-msgstr "Ikuspegi honek gorde gabeko lana izan dezake. Benetan itxi nahi duzu?"
-
 #: lib/kateviewspace.cpp:95
 #, kde-format
 msgctxt "indicator for more documents"
@@ -2833,6 +2828,10 @@ msgstr "Kudeatu saioak..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Erakutsi leiho berrirako"
+
+#~ msgid "This view may have unsaved work. Do you really want to close it?"
+#~ msgstr ""
+#~ "Ikuspegi honek gorde gabeko lana izan dezake. Benetan itxi nahi duzu?"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr ""

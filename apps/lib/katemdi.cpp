@@ -1335,6 +1335,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_sidebars[KMultiTabBar::Right] = std::make_unique<Sidebar>(KMultiTabBar::Right, m_hSplitter, this, hb);
     hlayout->addWidget(m_sidebars[KMultiTabBar::Right].get());
 
+    auto separator = new QFrame(this);
+    separator->setFrameShape(QFrame::HLine);
+    toplevelVBox->addWidget(separator);
+
     // bottom side bar spans full windows, include status bar, too
     m_sidebars[KMultiTabBar::Bottom] = std::make_unique<Sidebar>(KMultiTabBar::Bottom, m_vSplitter, this, vb);
     m_bottomSidebarLayout = new QHBoxLayout;

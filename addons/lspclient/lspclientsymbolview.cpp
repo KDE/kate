@@ -251,6 +251,7 @@ public:
         m_toolview->layout()->addWidget(m_filter);
         m_filter->setPlaceholderText(i18n("Filter..."));
         m_filter->setClearButtonEnabled(true);
+        m_filter->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
         connect(m_filter, &KLineEdit::textChanged, this, &self_type::filterTextChanged);
 
         m_symbols->setContextMenuPolicy(Qt::CustomContextMenu);

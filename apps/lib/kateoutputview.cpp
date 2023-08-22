@@ -164,6 +164,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
 
     m_searchTimer.setInterval(400);
     m_searchTimer.setSingleShot(true);
@@ -172,6 +173,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     // filter line edit
     m_filterLine.setPlaceholderText(i18n("Search..."));
     m_filterLine.setClearButtonEnabled(true);
+    m_filterLine.setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::RightEdge}));
     connect(&m_filterLine, &QLineEdit::textChanged, this, [this]() {
         m_searchTimer.start();
     });
@@ -199,13 +201,21 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     // setup top horizontal layout
     // tried toolbar, has bad spacing
     QHBoxLayout *hLayout = new QHBoxLayout();
+    hLayout->setSpacing(3);
     hLayout->addWidget(&m_filterLine);
     hLayout->addWidget(copy);
     hLayout->addWidget(clear);
     hLayout->setStretch(0, 1);
 
+    // Vertical separator
+    auto separator = new QFrame(this);
+    separator->setFrameShape(QFrame::HLine);
+    separator->setEnabled(false);
+    separator->setFixedHeight(1);
+
     // tree view
     layout->addLayout(hLayout);
+    layout->addWidget(separator);
     layout->addWidget(m_textEdit);
 
     // handle tab button creation

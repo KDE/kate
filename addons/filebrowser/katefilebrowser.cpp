@@ -69,6 +69,11 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     connect(m_urlNavigator, &KUrlNavigator::urlChanged, this, &KateFileBrowser::updateDirOperator);
     mainLayout->addWidget(m_urlNavigator);
 
+    auto separator = new QFrame(this);
+    separator->setFrameShape(QFrame::HLine);
+    separator->setEnabled(false);
+    mainLayout->addWidget(separator);
+
     m_dirOperator = new KDirOperator(QUrl(), this);
     // Default to a view with only one column since columns are auto-sized
     m_dirOperator->setViewMode(KFile::Tree);
@@ -94,6 +99,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     m_filter->setMaxCount(10);
     m_filter->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
     m_filter->lineEdit()->setPlaceholderText(i18n("Search"));
+    m_filter->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     mainLayout->addWidget(m_filter);
 
     connect(m_filter, &KHistoryComboBox::editTextChanged, this, &KateFileBrowser::slotFilterChange);

@@ -149,6 +149,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_fileTree = new KateFileTree(m_mainWindow, m_toolView);
     m_fileTree->setSortingEnabled(true);
     m_fileTree->setShowCloseButton(m_plug->settings().showCloseButton());
+    m_fileTree->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
 
     connect(m_fileTree, &KateFileTree::activateDocument, this, &KateFileTreePluginView::activateDocument);
     connect(m_fileTree, &KateFileTree::viewModeChanged, this, &KateFileTreePluginView::viewModeChanged);
@@ -168,6 +169,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_filter = new QLineEdit(m_toolView);
     m_filter->setPlaceholderText(QStringLiteral("Filter..."));
     m_filter->setClearButtonEnabled(true);
+    m_filter->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     connect(m_filter, &QLineEdit::textChanged, this, [this](const QString &text) {
         m_proxyModel->setFilterRegularExpression(QRegularExpression(text, QRegularExpression::CaseInsensitiveOption));
         if (!text.isEmpty()) {

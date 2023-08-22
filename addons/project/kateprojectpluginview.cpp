@@ -93,6 +93,11 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_toolView->layout()->addItem(layout);
     m_toolView->layout()->setSpacing(0);
 
+    auto separator = new QFrame(m_toolView);
+    separator->setFrameShape(QFrame::HLine);
+    separator->setEnabled(false);
+    m_toolView->layout()->addWidget(separator);
+
     m_projectsComboGit = new QComboBox(m_gitToolView.get());
     m_projectsComboGit->setFrame(false);
     m_gitStatusRefreshButton = new QToolButton(m_gitToolView.get());

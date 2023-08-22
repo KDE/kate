@@ -56,7 +56,7 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         return new AutoPep8Format(config, doc);
     }
 
-    Utils::showMessage(i18n("Failed to run formatter. Unsupporter language %1", mode), {}, i18n("Format"), MessageType::Info);
+    Utils::showMessage(i18n("Failed to run formatter. Unsupported language %1", mode), {}, i18n("Format"), MessageType::Info);
 
     return nullptr;
 }

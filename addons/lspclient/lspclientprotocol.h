@@ -432,3 +432,8 @@ struct LSPInlayHint {
     // kate specific
     int width = 0; ///> Used to cache width
 };
+
+struct LSPMessageRequestAction {
+    QString title;
+    std::function<void()> choose;
+};

@@ -77,6 +77,10 @@ Q_SIGNALS:
     void serverShowMessage(LSPClientServer *server, const LSPShowMessageParams &);
     void serverLogMessage(LSPClientServer *server, const LSPShowMessageParams &);
     void serverWorkDoneProgress(LSPClientServer *server, const LSPWorkDoneProgressParams &);
+    void showMessageRequest(const LSPShowMessageParams &message,
+                            const QVector<LSPMessageRequestAction> &actions,
+                            const std::function<void()> chooseNothing,
+                            bool &handled);
 };
 
 class LSPClientRevisionSnapshot : public QObject

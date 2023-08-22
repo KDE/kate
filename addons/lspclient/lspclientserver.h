@@ -219,6 +219,10 @@ Q_SIGNALS:
     // request = signal
     void applyEdit(const LSPApplyWorkspaceEditParams &req, const ApplyEditReplyHandler &h, bool &handled);
     void workspaceFolders(const WorkspaceFoldersReplyHandler &h, bool &handled);
+    void showMessageRequest(const LSPShowMessageParams &message,
+                            const QVector<LSPMessageRequestAction> &actions,
+                            const std::function<void()> chooseNothing,
+                            bool &handled);
 
 private:
     // pimpl data holder

@@ -60,6 +60,7 @@ static constexpr char MEMBER_TARGET_RANGE[] = "targetRange";
 static constexpr char MEMBER_DOCUMENTATION[] = "documentation";
 static constexpr char MEMBER_TITLE[] = "title";
 static constexpr char MEMBER_EDIT[] = "edit";
+static constexpr char MEMBER_ACTIONS[] = "actions";
 
 static QString GetStringValue(const rapidjson::Value &v, std::string_view key)
 {
@@ -1166,7 +1167,7 @@ static LSPApplyWorkspaceEditParams parseApplyWorkspaceEditParams(const rapidjson
 static LSPShowMessageParams parseMessage(const rapidjson::Value &result)
 {
     LSPShowMessageParams ret;
-    ret.type = static_cast<LSPMessageType>(GetIntValue(result, "type"), LSPMessageType::Log);
+    ret.type = static_cast<LSPMessageType>(GetIntValue(result, "type", static_cast<int>(LSPMessageType::Log)));
     ret.message = GetStringValue(result, MEMBER_MESSAGE);
     return ret;
 }
@@ -1650,7 +1651,12 @@ private:
                                   },
                                   {QStringLiteral("window"),
                                         QJsonObject{
-                                            {QStringLiteral("workDoneProgress"), true}
+                                            {QStringLiteral("workDoneProgress"), true},
+                                            {QStringLiteral("showMessage"), QJsonObject{
+                                                {QStringLiteral("messageActionItem"), QJsonObject{
+                                                    {QStringLiteral("additionalPropertiesSupport"), true}
+                                                }}
+                                            }}
                                         }
                                   }
                                 };
@@ -2032,6 +2038,23 @@ public:
             // e.g. typst-lsp, see https://invent.kde.org/utilities/kate/-/issues/108
             auto h = prepareResponse(msgId);
             h(QJsonValue());
+        } else if (method == QLatin1String("window/showMessageRequest")) {
+            auto actions = GetJsonArrayForKey(params, MEMBER_ACTIONS).GetArray();
+            QVector<LSPMessageRequestAction> v;
+            auto responder = prepareResponse(msgId);
+            for (const auto &action : actions) {
+                QString title = GetStringValue(action, MEMBER_TITLE);
+                v.append(LSPMessageRequestAction{title, [&]() {
+                                                     rapidjson::StringBuffer buffer;
+                                                     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+                                                     action.Accept(writer);
+                                                     responder(QJsonDocument::fromJson(buffer.GetString()).object());
+                                                 }});
+            }
+            auto nullResponse = [responder]() {
+                responder(QJsonObject());
+            };
+            Q_EMIT q->showMessageRequest(parseMessage(params), v, nullResponse, handled);
         } else {
             write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, nullptr, msgId);
             qCWarning(LSPCLIENT) << "discarding request" << method;

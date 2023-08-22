@@ -55,8 +55,10 @@
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QMenu>
+#include <QMessageBox>
 #include <QPainter>
 #include <QPlainTextEdit>
+#include <QPushButton>
 #include <QScopeGuard>
 #include <QSet>
 #include <QStandardItem>
@@ -168,6 +170,16 @@ public:
             }
         }
         return QString();
+    }
+};
+
+class CloseAllowedMessageBox : public QMessageBox
+{
+public:
+    using QMessageBox::QMessageBox;
+
+    void closeEvent(QCloseEvent *) override
+    {
     }
 };
 
@@ -494,6 +506,7 @@ public:
             onMessage(server, params);
         });
         connect(m_serverManager.get(), &LSPClientServerManager::serverWorkDoneProgress, this, &self_type::onWorkDoneProgress);
+        connect(m_serverManager.get(), &LSPClientServerManager::showMessageRequest, this, &self_type::showMessageRequest);
 
         m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
         m_findDef->setText(i18n("Go to Definition"));
@@ -2532,6 +2545,50 @@ public:
     Q_INVOKABLE QAbstractItemModel *documentSymbolsModel()
     {
         return m_symbolView->documentSymbolsModel();
+    }
+
+    void showMessageRequest(const LSPShowMessageParams &message,
+                            const QVector<LSPMessageRequestAction> &actions,
+                            const std::function<void()> chooseNothing,
+                            bool &handled)
+    {
+        if (handled) {
+            return;
+        }
+
+        handled = true;
+
+        CloseAllowedMessageBox box(QApplication::activeWindow());
+        box.setWindowTitle(i18n("Question from LSP server"));
+        box.setText(message.message);
+        switch (message.type) {
+        case (LSPMessageType::Error):
+            box.setIcon(QMessageBox::Critical);
+            break;
+        case (LSPMessageType::Warning):
+            box.setIcon(QMessageBox::Warning);
+            break;
+        case (LSPMessageType::Info):
+            box.setIcon(QMessageBox::Question);
+            break;
+        case (LSPMessageType::Log):
+            box.setIcon(QMessageBox::Question);
+            break;
+        }
+
+        QMap<QAbstractButton *, std::function<void()>> onClick;
+        for (auto &action : actions) {
+            QString escaped = action.title;
+            escaped.replace(QLatin1Char('&'), QLatin1String("&&"));
+            QAbstractButton *button = box.addButton(escaped, QMessageBox::AcceptRole);
+            onClick[button] = action.choose;
+        }
+        box.exec();
+        if (actions.empty() || box.clickedButton() == nullptr) {
+            chooseNothing();
+        } else {
+            onClick[box.clickedButton()]();
+        }
     }
 };
 

@@ -914,6 +914,7 @@ private:
                 server->connect(server.get(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
                 server->connect(server.get(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
                 server->connect(server.get(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
+                server->connect(server.get(), &LSPClientServer::showMessageRequest, this, &self_type::showMessageRequest);
             }
         }
         // set out param value

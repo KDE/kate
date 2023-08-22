@@ -2558,7 +2558,7 @@ public:
 
         handled = true;
 
-        CloseAllowedMessageBox box(QApplication::activeWindow());
+        CloseAllowedMessageBox box(m_mainWindow->window());
         box.setWindowTitle(i18n("Question from LSP server"));
         box.setText(message.message);
         switch (message.type) {

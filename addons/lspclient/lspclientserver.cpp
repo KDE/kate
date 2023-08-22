@@ -2044,11 +2044,9 @@ public:
             auto responder = prepareResponse(msgId);
             for (const auto &action : actions) {
                 QString title = GetStringValue(action, MEMBER_TITLE);
-                v.append(LSPMessageRequestAction{title, [&]() {
-                                                     rapidjson::StringBuffer buffer;
-                                                     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-                                                     action.Accept(writer);
-                                                     responder(QJsonDocument::fromJson(buffer.GetString()).object());
+                QJsonObject actionToSubmit = QJsonDocument::fromJson(rapidJsonStringify(action)).object();
+                v.append(LSPMessageRequestAction{title, [=]() {
+                                                     responder(actionToSubmit);
                                                  }});
             }
             auto nullResponse = [responder]() {

@@ -8,7 +8,7 @@ QTEST_MAIN(DiffWidgetTests)
 
 void DiffWidgetTests::test_scrollbarAtTopOnOpen()
 {
-    QFile f(QStringLiteral(":/kxmlgui5/kate/data/test.diff"));
+    QFile f(QStringLiteral(":/katetest/test.diff"));
     QVERIFY(f.open(QFile::ReadOnly));
     const auto diff = f.readAll();
 

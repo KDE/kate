@@ -732,7 +732,7 @@ bool KateApp::closeDocuments(const QList<KTextEditor::Document *> &documents)
 {
     bool shutdownKate =
         KateApp::self()->activeKateMainWindow()->modCloseAfterLast() && KateApp::self()->documentManager()->documentList().size() == documents.size();
-    bool success = m_docManager.closeDocumentList(documents);
+    bool success = m_docManager.closeDocumentList(documents, KateApp::self()->activeKateMainWindow());
 
     if (success && shutdownKate) {
         QTimer::singleShot(0, this, []() {

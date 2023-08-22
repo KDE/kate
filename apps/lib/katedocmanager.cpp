@@ -231,7 +231,7 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
     return closeDocuments({doc}, closeUrl);
 }
 
-bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *> &documents)
+bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *> &documents, KateMainWindow *window)
 {
     std::vector<KTextEditor::Document *> modifiedDocuments;
     for (KTextEditor::Document *document : documents) {
@@ -240,7 +240,7 @@ bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *> &doc
         }
     }
 
-    if (!modifiedDocuments.empty() && !KateSaveModifiedDialog::queryClose(nullptr, modifiedDocuments)) {
+    if (!modifiedDocuments.empty() && !KateSaveModifiedDialog::queryClose(window, modifiedDocuments)) {
         return false;
     }
 

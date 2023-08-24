@@ -1502,7 +1502,8 @@ private:
                 if (auto it = result.FindMember(MEMBER_ERROR); it != result.MemberEnd() && eh) {
                     eh(it->value);
                 } else {
-                    h(GetJsonObjectForKey(result, MEMBER_RESULT));
+                    // result can be object or array so just extract value
+                    h(GetJsonValueForKey(result, MEMBER_RESULT));
                 }
             } else {
                 // could have been canceled

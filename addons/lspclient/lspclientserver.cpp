@@ -856,7 +856,7 @@ static LSPCompletionItem parseDocumentCompletionResolve(const rapidjson::Value &
         return ret;
     }
     // we only support additionalTextEdits in textDocument/completion/resolve atm
-    ret.additionalTextEdits = parseTextEdit(GetJsonObjectForKey(result, "additionalTextEdits"));
+    ret.additionalTextEdits = parseTextEdit(GetJsonArrayForKey(result, "additionalTextEdits"));
     return ret;
 }
 

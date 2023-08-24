@@ -62,44 +62,15 @@ static constexpr char MEMBER_TITLE[] = "title";
 static constexpr char MEMBER_EDIT[] = "edit";
 static constexpr char MEMBER_ACTIONS[] = "actions";
 
-static QString GetStringValue(const rapidjson::Value &v, std::string_view key)
+static QByteArray rapidJsonStringify(const rapidjson::Value &v)
 {
-    if (v.IsObject()) {
-        rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
-        auto it = v.FindMember(keyRef);
-        if (it != v.MemberEnd()) {
-            return QString::fromUtf8(it->value.GetString(), it->value.GetStringLength());
-        }
-    }
-    return {};
+    rapidjson::StringBuffer buf;
+    rapidjson::Writer w(buf);
+    v.Accept(w);
+    return QByteArray(buf.GetString(), buf.GetSize());
 }
 
-static int GetIntValue(const rapidjson::Value &v, std::string_view key, int defaultValue = -1)
-{
-    if (v.IsObject()) {
-        rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
-        auto it = v.FindMember(keyRef);
-        if (it != v.MemberEnd()) {
-            Q_ASSERT(it->value.IsInt());
-            return it->value.IsInt() ? it->value.GetInt() : defaultValue;
-        }
-    }
-    return defaultValue;
-}
-
-static bool GetBoolValue(const rapidjson::Value &v, std::string_view key)
-{
-    if (v.IsObject()) {
-        rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
-        auto it = v.FindMember(keyRef);
-        if (it != v.MemberEnd()) {
-            return it->value.GetBool();
-        }
-    }
-    return false;
-}
-
-static const rapidjson::Value &GetJsonObjectForKey(const rapidjson::Value &v, std::string_view key)
+static const rapidjson::Value &GetJsonValueForKey(const rapidjson::Value &v, std::string_view key)
 {
     if (v.IsObject()) {
         rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
@@ -108,28 +79,55 @@ static const rapidjson::Value &GetJsonObjectForKey(const rapidjson::Value &v, st
             return it->value;
         }
     }
+    static const rapidjson::Value nullvalue = rapidjson::Value(rapidjson::kNullType);
+    return nullvalue;
+}
+
+static QString GetStringValue(const rapidjson::Value &v, std::string_view key)
+{
+    const auto &value = GetJsonValueForKey(v, key);
+    if (value.IsString()) {
+        return QString::fromUtf8(value.GetString(), value.GetStringLength());
+    }
+    return {};
+}
+
+static int GetIntValue(const rapidjson::Value &v, std::string_view key, int defaultValue = -1)
+{
+    const auto &value = GetJsonValueForKey(v, key);
+    if (value.IsInt()) {
+        return value.GetInt();
+    }
+    return defaultValue;
+}
+
+static bool GetBoolValue(const rapidjson::Value &v, std::string_view key)
+{
+    const auto &value = GetJsonValueForKey(v, key);
+    if (value.IsBool()) {
+        return value.GetBool();
+    }
+    return false;
+}
+
+static const rapidjson::Value &GetJsonObjectForKey(const rapidjson::Value &v, std::string_view key)
+{
+    const auto &value = GetJsonValueForKey(v, key);
+    if (value.IsObject()) {
+        return value;
+    }
     static const rapidjson::Value dummy = rapidjson::Value(rapidjson::kObjectType);
     return dummy;
 }
 
 static const rapidjson::Value &GetJsonArrayForKey(const rapidjson::Value &v, std::string_view key)
 {
-    Q_ASSERT(v.IsObject());
-    rapidjson::Value keyRef(rapidjson::StringRef(key.data(), key.size()));
-    auto it = v.FindMember(keyRef);
-    if (it != v.MemberEnd() && it->value.IsArray()) {
-        return it->value;
+    const auto &value = GetJsonValueForKey(v, key);
+    if (value.IsArray()) {
+        return value;
     }
     static const rapidjson::Value dummy = rapidjson::Value(rapidjson::kArrayType);
     return dummy;
-}
-
-static QByteArray rapidJsonStringify(const rapidjson::Value &v)
-{
-    rapidjson::StringBuffer buf;
-    rapidjson::Writer w(buf);
-    v.Accept(w);
-    return QByteArray(buf.GetString(), buf.GetSize());
 }
 
 static QJsonValue encodeUrl(const QUrl url)

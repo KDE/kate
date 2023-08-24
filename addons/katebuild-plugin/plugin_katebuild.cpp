@@ -37,6 +37,9 @@
 #include <QFileInfo>
 #include <QFontDatabase>
 #include <QIcon>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QKeyEvent>
 #include <QRegularExpressionMatch>
 #include <QScrollBar>
@@ -1261,10 +1264,55 @@ void KateBuildView::slotProjectMapChanged()
 /******************************************************************/
 void KateBuildView::addProjectTarget()
 {
-    // only do stuff with valid project
+    // only do stuff with a valid project
     if (!m_projectPluginView) {
         return;
     }
+
+    const QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
+    const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
+    const QString userOverride = projectsBaseDir + QStringLiteral("/.kateproject.build");
+    if (QFile::exists(userOverride)) {
+        // We have user modified commands
+        QFile file(userOverride);
+        if (file.open(QIODevice::ReadOnly)) {
+            bool targetAdded = false;
+            QJsonParseError error;
+            const QJsonDocument doc = QJsonDocument::fromJson(file.readAll(), &error);
+            file.close();
+            const QJsonObject obj = doc.object();
+            const QJsonArray sets = obj[QStringLiteral("target_sets")].toArray();
+            for (const auto &setVal : sets) {
+                const auto obj = setVal.toObject();
+                const QString setName = obj[QStringLiteral("name")].toString();
+                const QString workDir = obj[QStringLiteral("directory")].toString();
+                const QModelIndex setIdx = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, setName, workDir);
+                for (const auto &targetVals : obj[QStringLiteral("targets")].toArray()) {
+                    const auto tgtObj = targetVals.toObject();
+                    const QString name = tgtObj[QStringLiteral("name")].toString();
+                    const QString buildCmd = tgtObj[QStringLiteral("build_cmd")].toString();
+                    const QString runCmd = tgtObj[QStringLiteral("run_cmd")].toString();
+                    if (name.isEmpty()) {
+                        continue;
+                    }
+                    m_targetsUi->targetsModel.addCommandAfter(setIdx, name, buildCmd, runCmd);
+                    targetAdded = true;
+                }
+                if (targetAdded) {
+                    const auto index = m_targetsUi->proxyModel.mapFromSource(setIdx);
+                    if (index.isValid()) {
+                        m_targetsUi->targetsView->expand(index);
+                    }
+                }
+            }
+            if (targetAdded) {
+                return;
+                // The user file overrides the rest
+                // TODO maybe add heuristics for when to re-read the project data
+            }
+        }
+    }
+
     // query new project map
     QVariantMap projectMap = m_projectPluginView->property("projectMap").toMap();
 
@@ -1279,54 +1327,40 @@ void KateBuildView::addProjectTarget()
 
     // handle build directory as relative to project file, if possible, see bug 413306
     QString projectsBuildDir = buildMap.value(QStringLiteral("directory")).toString();
-    const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
+    QString projectName = m_projectPluginView->property("projectName").toString();
     if (!projectsBaseDir.isEmpty()) {
         projectsBuildDir = QDir(projectsBaseDir).absoluteFilePath(projectsBuildDir);
     }
 
-    QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
     m_projectTargetsetRow = std::min(m_projectTargetsetRow, m_targetsUi->targetsModel.rowCount());
-    const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, i18n("Project Plugin Targets"), projectsBuildDir);
+    const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, projectName, projectsBuildDir);
     const QString defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
 
     const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
     for (const QVariant &targetVariant : targetsets) {
-        QVariantMap targetMap = targetVariant.toMap();
-        QString tgtName = targetMap[QStringLiteral("name")].toString();
-        QString buildCmd = targetMap[QStringLiteral("build_cmd")].toString();
-        QString runCmd = targetMap[QStringLiteral("run_cmd")].toString();
+        const QVariantMap targetMap = targetVariant.toMap();
+        const QString tgtName = targetMap[QStringLiteral("name")].toString();
+        const QString buildCmd = targetMap[QStringLiteral("build_cmd")].toString();
+        const QString runCmd = targetMap[QStringLiteral("run_cmd")].toString();
 
         if (tgtName.isEmpty() || buildCmd.isEmpty()) {
             continue;
         }
         QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommandAfter(set, tgtName, buildCmd, runCmd);
-        // FIXME if (tgtName == defaultTarget) {
-        //    // A bit of backwards compatibility, move the "default" target to the top
-        //    while (idx.row() > 0) {
-        //        m_targetsUi->targetsModel.moveRowUp(idx);
-        //    }
-        //}
+        if (tgtName == defaultTarget) {
+            // A bit of backwards compatibility, move the "default" target to the top
+            while (idx.row() > 0) {
+                m_targetsUi->targetsModel.moveRowUp(idx);
+            }
+        }
     }
 
-    if (!set.model()->index(0, 0, set).isValid()) {
-        QString buildCmd = buildMap.value(QStringLiteral("build")).toString();
-        QString cleanCmd = buildMap.value(QStringLiteral("clean")).toString();
-        QString quickCmd = buildMap.value(QStringLiteral("quick")).toString();
-        if (!buildCmd.isEmpty()) {
-            // we have loaded an "old" project file (<= 4.12)
-            m_targetsUi->targetsModel.addCommandAfter(set, i18n("build"), buildCmd, QString());
-        }
-        if (!cleanCmd.isEmpty()) {
-            m_targetsUi->targetsModel.addCommandAfter(set, i18n("clean"), cleanCmd, QString());
-        }
-        if (!quickCmd.isEmpty()) {
-            m_targetsUi->targetsModel.addCommandAfter(set, i18n("quick"), quickCmd, QString());
-        }
-    }
     const auto index = m_targetsUi->proxyModel.mapFromSource(set);
     if (index.isValid()) {
         m_targetsUi->targetsView->expand(index);
     }
+
+    // FIXME read CMakePresets.json for more build target sets
 }
 
 /******************************************************************/

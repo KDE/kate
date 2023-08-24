@@ -449,7 +449,7 @@ static void from_json(LSPSemanticTokensOptions &options, const rapidjson::Value 
 
 static void from_json(LSPServerCapabilities &caps, const rapidjson::Value &json)
 {
-    const auto &sync = GetJsonObjectForKey(json, "textDocumentSync");
+    const auto &sync = GetJsonValueForKey(json, "textDocumentSync");
     if (sync.IsObject()) {
         caps.textDocumentSync.change = (LSPDocumentSyncKind)GetIntValue(sync, "change", (int)LSPDocumentSyncKind::None);
         auto it = sync.FindMember("save");

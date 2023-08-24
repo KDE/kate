@@ -968,7 +968,7 @@ static LSPCommand parseCommand(const rapidjson::Value &result)
 {
     auto title = GetStringValue(result, MEMBER_TITLE);
     auto command = GetStringValue(result, MEMBER_COMMAND);
-    auto args = rapidJsonStringify(GetJsonObjectForKey(result, MEMBER_ARGUMENTS));
+    auto args = rapidJsonStringify(GetJsonArrayForKey(result, MEMBER_ARGUMENTS));
     return {title, command, args};
 }
 

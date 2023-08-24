@@ -989,7 +989,15 @@ static QVector<LSPDiagnostic> parseDiagnosticsArray(const rapidjson::Value &resu
         }
         auto range = parseRange(it->value);
         auto severity = static_cast<LSPDiagnosticSeverity>(GetIntValue(diag, "severity"));
-        auto code = GetStringValue(diag, "code");
+
+        const auto &codeValue = GetJsonValueForKey(diag, "code");
+        QString code;
+        // code can be string or an integer
+        if (codeValue.IsString()) {
+            code = QString::fromUtf8(codeValue.GetString(), codeValue.GetStringLength());
+        } else if (codeValue.IsInt()) {
+            code = QString::number(codeValue.GetInt());
+        }
         auto source = GetStringValue(diag, "source");
         auto message = GetStringValue(diag, MEMBER_MESSAGE);
 

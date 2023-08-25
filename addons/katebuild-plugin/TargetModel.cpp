@@ -503,6 +503,16 @@ const QList<TargetModel::TargetSet> TargetModel::sessionTargetSets() const
     return QList<TargetModel::TargetSet>();
 }
 
+const QList<TargetModel::TargetSet> TargetModel::projectTargetSets() const
+{
+    for (int i = 0; i < m_rootNodes.size(); ++i) {
+        if (m_rootNodes[i].isProject == true) {
+            return m_rootNodes[i].targetSets;
+        }
+    }
+    return QList<TargetModel::TargetSet>();
+}
+
 QVariant TargetModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
@@ -521,6 +531,8 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return m_rootNodes[node.rootRow].isProject ? i18n("Project") : i18n("Session");
         } else if (role == RowTypeRole) {
             return RowType::RootRow;
+        } else if (role == IsProjectTargetRole) {
+            return m_rootNodes[node.rootRow].isProject;
         }
         return QVariant();
     }
@@ -559,6 +571,8 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return targetSet.name;
         case RowTypeRole:
             return TargetSetRow;
+        case IsProjectTargetRole:
+            return m_rootNodes[node.rootRow].isProject;
         }
     }
 
@@ -589,6 +603,8 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return targetSet.name;
         case RowTypeRole:
             return CommandRow;
+        case IsProjectTargetRole:
+            return m_rootNodes[node.rootRow].isProject;
         }
     }
 
@@ -640,32 +656,40 @@ bool TargetModel::setData(const QModelIndex &itemIndex, const QVariant &value, i
     // This is either a TargetSet or a Command
     TargetSet &targetSet = m_rootNodes[node.rootRow].targetSets[node.targetSetRow];
 
+    bool editDone = false;
     if (node.isTargetSet()) {
         switch (itemIndex.column()) {
         case 0:
             targetSet.name = value.toString();
-            Q_EMIT dataChanged(itemIndex, itemIndex);
-            return true;
+            editDone = true;
+            break;
         case 1:
-            Q_EMIT dataChanged(itemIndex, itemIndex);
             targetSet.workDir = value.toString();
-            return true;
+            editDone = true;
+            break;
         }
     } else {
         switch (itemIndex.column()) {
         case 0:
             targetSet.commands[node.commandRow].name = value.toString();
-            Q_EMIT dataChanged(itemIndex, itemIndex);
-            return true;
+            editDone = true;
+            break;
         case 1:
             targetSet.commands[node.commandRow].buildCmd = value.toString();
-            Q_EMIT dataChanged(itemIndex, itemIndex);
-            return true;
+            editDone = true;
+            break;
         case 2:
             targetSet.commands[node.commandRow].runCmd = value.toString();
-            Q_EMIT dataChanged(itemIndex, itemIndex);
-            return true;
+            editDone = true;
+            break;
         }
+    }
+    if (editDone) {
+        Q_EMIT dataChanged(itemIndex, itemIndex);
+        if (m_rootNodes[node.rootRow].isProject) {
+            Q_EMIT projectTargetChanged();
+        }
+        return true;
     }
     return false;
 }

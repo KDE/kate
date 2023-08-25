@@ -99,21 +99,6 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
         targetsView->expandAll();
     });
 
-    connect(moveTargetUp, &QToolButton::clicked, this, [this] {
-        const QPersistentModelIndex &currentIndex = proxyModel.mapToSource(targetsView->currentIndex());
-        if (currentIndex.isValid()) {
-            targetsModel.moveRowUp(currentIndex);
-        }
-        targetsView->scrollTo(targetsView->currentIndex());
-    });
-    connect(moveTargetDown, &QToolButton::clicked, this, [this] {
-        const QModelIndex &currentIndex = proxyModel.mapToSource(targetsView->currentIndex());
-        if (currentIndex.isValid()) {
-            targetsModel.moveRowDown(currentIndex);
-        }
-        targetsView->scrollTo(targetsView->currentIndex());
-    });
-
     targetsView->installEventFilter(this);
     targetFilterEdit->installEventFilter(this);
 }

@@ -42,6 +42,7 @@ public:
         SearchPathsRole,
         TargetSetNameRole,
         RowTypeRole,
+        IsProjectTargetRole,
     };
     Q_ENUM(TargetRoles)
 
@@ -80,8 +81,10 @@ public Q_SLOTS:
     void moveRowDown(const QModelIndex &index);
 
     const QList<TargetSet> sessionTargetSets() const;
+    const QList<TargetSet> projectTargetSets() const;
 
 Q_SIGNALS:
+    void projectTargetChanged();
 
 public:
     static constexpr quintptr InvalidIndex = std::numeric_limits<quintptr>::max();

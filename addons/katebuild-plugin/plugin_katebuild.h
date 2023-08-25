@@ -105,6 +105,11 @@ private Q_SLOTS:
      */
     void readConfig();
 
+    /**
+     * Save the project build target updates
+     */
+    void saveProjectTargets();
+
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 

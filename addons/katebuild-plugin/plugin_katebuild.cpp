@@ -403,6 +403,28 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_diagnosticsProvider.name = i18n("Build Information");
     m_diagnosticsProvider.setPersistentDiagnostics(true);
 
+    connect(&m_targetsUi->targetsModel, &TargetModel::projectTargetChanged, this, &KateBuildView::saveProjectTargets);
+    connect(m_targetsUi->moveTargetUp, &QToolButton::clicked, this, [this]() {
+        const QPersistentModelIndex &currentIndex = m_targetsUi->proxyModel.mapToSource(m_targetsUi->targetsView->currentIndex());
+        if (currentIndex.isValid()) {
+            m_targetsUi->targetsModel.moveRowUp(currentIndex);
+            if (currentIndex.data(TargetModel::IsProjectTargetRole).toBool()) {
+                saveProjectTargets();
+            }
+        }
+        m_targetsUi->targetsView->scrollTo(m_targetsUi->targetsView->currentIndex());
+    });
+    connect(m_targetsUi->moveTargetDown, &QToolButton::clicked, this, [this]() {
+        const QPersistentModelIndex &currentIndex = m_targetsUi->proxyModel.mapToSource(m_targetsUi->targetsView->currentIndex());
+        if (currentIndex.isValid()) {
+            m_targetsUi->targetsModel.moveRowDown(currentIndex);
+            if (currentIndex.data(TargetModel::IsProjectTargetRole).toBool()) {
+                saveProjectTargets();
+            }
+        }
+        m_targetsUi->targetsView->scrollTo(m_targetsUi->targetsView->currentIndex());
+    });
+
     KateBuildPlugin *bPlugin = qobject_cast<KateBuildPlugin *>(plugin);
     if (bPlugin) {
         connect(bPlugin, &KateBuildPlugin::configChanged, this, &KateBuildView::readConfig);
@@ -485,7 +507,7 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         }
     }
 
-    QList<TargetModel::TargetSet> targets = m_targetsUi->targetsModel.sessionTargetSets();
+    const QList<TargetModel::TargetSet> targets = m_targetsUi->targetsModel.sessionTargetSets();
 
     // Don't save project target-set, but save the row index
     QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
@@ -1185,6 +1207,9 @@ void KateBuildView::slotAddTargetClicked()
     QModelIndex index = m_targetsUi->targetsModel.addCommandAfter(current, currName, currCmd, currRun);
     index = m_targetsUi->proxyModel.mapFromSource(index);
     m_targetsUi->targetsView->setCurrentIndex(index);
+    if (index.data(TargetModel::IsProjectTargetRole).toBool()) {
+        saveProjectTargets();
+    }
 }
 
 /******************************************************************/
@@ -1199,6 +1224,9 @@ void KateBuildView::targetSetNew()
     m_targetsUi->targetsModel.addCommandAfter(index, i18n("ConfigClean"), DefConfClean, QString());
     buildIndex = m_targetsUi->proxyModel.mapFromSource(buildIndex);
     m_targetsUi->targetsView->setCurrentIndex(buildIndex);
+    if (index.data(TargetModel::IsProjectTargetRole).toBool()) {
+        saveProjectTargets();
+    }
 }
 
 /******************************************************************/
@@ -1215,6 +1243,9 @@ void KateBuildView::targetOrSetCopy()
     }
     newIndex = m_targetsUi->proxyModel.mapFromSource(newIndex);
     m_targetsUi->targetsView->setCurrentIndex(newIndex);
+    if (newIndex.data(TargetModel::IsProjectTargetRole).toBool()) {
+        saveProjectTargets();
+    }
 }
 
 /******************************************************************/
@@ -1222,10 +1253,14 @@ void KateBuildView::targetDelete()
 {
     QModelIndex currentIndex = m_targetsUi->targetsView->currentIndex();
     currentIndex = m_targetsUi->proxyModel.mapToSource(currentIndex);
+    bool wasProjectTarget = currentIndex.data(TargetModel::IsProjectTargetRole).toBool();
     m_targetsUi->targetsModel.deleteItem(currentIndex);
 
     if (m_targetsUi->targetsModel.rowCount() == 0) {
         targetSetNew();
+    }
+    if (wasProjectTarget) {
+        saveProjectTargets();
     }
 }
 
@@ -1269,8 +1304,13 @@ void KateBuildView::addProjectTarget()
         return;
     }
 
+    // Delete any old project plugin targets
+    m_targetsUi->targetsModel.deleteProjectTargerts();
+
     const QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
     const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
+
+    // Read the targets from the override if available
     const QString userOverride = projectsBaseDir + QStringLiteral("/.kateproject.build");
     if (QFile::exists(userOverride)) {
         // We have user modified commands
@@ -1322,9 +1362,6 @@ void KateBuildView::addProjectTarget()
         return;
     }
 
-    // Delete any old project plugin targets
-    m_targetsUi->targetsModel.deleteProjectTargerts();
-
     // handle build directory as relative to project file, if possible, see bug 413306
     QString projectsBuildDir = buildMap.value(QStringLiteral("directory")).toString();
     QString projectName = m_projectPluginView->property("projectName").toString();
@@ -1332,7 +1369,6 @@ void KateBuildView::addProjectTarget()
         projectsBuildDir = QDir(projectsBaseDir).absoluteFilePath(projectsBuildDir);
     }
 
-    m_projectTargetsetRow = std::min(m_projectTargetsetRow, m_targetsUi->targetsModel.rowCount());
     const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, projectName, projectsBuildDir);
     const QString defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
 
@@ -1361,6 +1397,51 @@ void KateBuildView::addProjectTarget()
     }
 
     // FIXME read CMakePresets.json for more build target sets
+}
+
+/******************************************************************/
+void KateBuildView::saveProjectTargets()
+{
+    // only do stuff with a valid project
+    if (!m_projectPluginView) {
+        return;
+    }
+
+    const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
+    const QString userOverride = projectsBaseDir + QStringLiteral("/.kateproject.build");
+
+    QFile file(userOverride);
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+        displayMessage(i18n("Cannot save build targets in: %1", userOverride), KTextEditor::Message::Error);
+        return;
+    }
+
+    const QList<TargetModel::TargetSet> targets = m_targetsUi->targetsModel.projectTargetSets();
+
+    QJsonObject root;
+    root[QStringLiteral("Auto_generated")] = QStringLiteral("This file is auto-generated. Any extra tags or formatting will be lost");
+
+    QJsonArray setArray;
+    for (const auto &set : targets) {
+        QJsonObject setObj;
+        setObj[QStringLiteral("name")] = set.name;
+        setObj[QStringLiteral("directory")] = set.workDir;
+        QJsonArray cmdArray;
+        for (const auto &cmd : std::as_const(set.commands)) {
+            QJsonObject cmdObj;
+            cmdObj[QStringLiteral("name")] = cmd.name;
+            cmdObj[QStringLiteral("build_cmd")] = cmd.buildCmd;
+            cmdObj[QStringLiteral("runCmd")] = cmd.runCmd;
+            cmdArray.append(cmdObj);
+        }
+        setObj[QStringLiteral("targets")] = cmdArray;
+        setArray.append(setObj);
+    }
+    root[QStringLiteral("target_sets")] = setArray;
+    QJsonDocument doc(root);
+
+    file.write(doc.toJson());
+    file.close();
 }
 
 /******************************************************************/

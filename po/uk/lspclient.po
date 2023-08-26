@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2019, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-25 00:49+0000\n"
-"PO-Revision-Date: 2022-11-23 07:12+0200\n"
+"PO-Revision-Date: 2023-08-25 09:37+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -366,10 +366,9 @@ msgid "LSP Client"
 msgstr "Клієнт LSP"
 
 #: lspclientpluginview.cpp:2562
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
-msgstr "Перезапустити сервер LSP"
+msgstr "Запитання з сервера LSP"
 
 #: lspclientservermanager.cpp:652
 #, kde-format

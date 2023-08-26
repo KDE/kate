@@ -1,16 +1,16 @@
 # Translation of lspclient.po to Catalan
-# Copyright (C) 2019-2022 This_file_is_part_of_KDE
+# Copyright (C) 2019-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2019, 2020, 2021, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2019, 2020, 2021, 2022, 2023.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2019, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-25 00:49+0000\n"
-"PO-Revision-Date: 2022-11-23 12:02+0100\n"
+"PO-Revision-Date: 2023-08-25 13:07+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:252
 #, kde-format
@@ -368,10 +368,9 @@ msgid "LSP Client"
 msgstr "Client LSP"
 
 #: lspclientpluginview.cpp:2562
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
-msgstr "Reinicia el servidor LSP"
+msgstr "Pregunta del servidor LSP"
 
 #: lspclientservermanager.cpp:652
 #, kde-format
@@ -622,80 +621,3 @@ msgstr "Configuració predeterminada del servidor"
 #, kde-format
 msgid "More Options"
 msgstr "Més opcions"
-
-#~ msgid "Quick Fix"
-#~ msgstr "Esmena ràpida"
-
-#~ msgid "Show Diagnostics Highlights"
-#~ msgstr "Mostra els ressaltats de diagnòstic"
-
-#~ msgid "Show Diagnostics Marks"
-#~ msgstr "Mostra les marques de diagnòstic"
-
-#~ msgid "Show Diagnostics on Hover"
-#~ msgstr "Mostra el diagnòstic en passar-hi per sobre"
-
-#~ msgid "Switch to Diagnostics Tab"
-#~ msgstr "Canvia a la pestanya de diagnòstic"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Diagnostics"
-#~ msgstr "Diagnòstics"
-
-#~ msgid "Error"
-#~ msgstr "Error"
-
-#~ msgid "Warning"
-#~ msgstr "Avís"
-
-#~ msgid "Information"
-#~ msgstr "Informació"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "Error in regular expression: %1\n"
-#~ "offset %2: %3"
-#~ msgstr ""
-#~ "Error en l'expressió regular: %1\n"
-#~ "desplaçament %2: %3"
-
-#~ msgid "Copy to Clipboard"
-#~ msgstr "Copia al porta-retalls"
-
-#~ msgid "Remove Global Suppression"
-#~ msgstr "Elimina la supressió global"
-
-#~ msgid "Add Global Suppression"
-#~ msgstr "Afegeix una supressió global"
-
-#~ msgid "Remove Local Suppression"
-#~ msgstr "Elimina la supressió local"
-
-#~ msgid "Add Local Suppression"
-#~ msgstr "Afegeix una supressió local"
-
-#~ msgid "Disable Suppression"
-#~ msgstr "Desactiva la supressió"
-
-#~ msgid "Enable Suppression"
-#~ msgstr "Activa la supressió"
-
-#~ msgctxt "@info"
-#~ msgid "%1 [suppressed: %2]"
-#~ msgstr "%1 [suprimida: %2]"
-
-#~ msgid "Diagnostics:"
-#~ msgstr "Diagnòstics:"
-
-#~ msgid "Highlight lines with diagnostics"
-#~ msgstr "Ressalta les línies amb el diagnòstic"
-
-#~ msgid "Show markers in the margins for lines with diagnostics"
-#~ msgstr ""
-#~ "Mostra els marcadors en els marges per a les línies amb el diagnòstic"
-
-#~ msgid "Show diagnostics on hover"
-#~ msgstr "Mostra el diagnòstic en passar-hi per sobre"
-
-#~ msgid "max diagnostics tooltip size"
-#~ msgstr "Mida màxima del consell d'eina de diagnòstic"

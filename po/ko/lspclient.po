@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-25 00:49+0000\n"
-"PO-Revision-Date: 2023-04-22 00:01+0200\n"
+"PO-Revision-Date: 2023-08-25 23:43+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -363,10 +363,9 @@ msgid "LSP Client"
 msgstr "LSP 클라이언트"
 
 #: lspclientpluginview.cpp:2562
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
-msgstr "LSP 서버 다시 시작"
+msgstr "LSP 서버로부터의 질문"
 
 #: lspclientservermanager.cpp:652
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-25 00:49+0000\n"
-"PO-Revision-Date: 2023-01-13 06:20+0100\n"
+"PO-Revision-Date: 2023-08-26 05:59+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:252
 #, kde-format
@@ -365,10 +365,9 @@ msgid "LSP Client"
 msgstr "LSP კლიენტი"
 
 #: lspclientpluginview.cpp:2562
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
-msgstr "LSP სერვერის რესტარტი"
+msgstr "კითხვა LSP სერვერიდან"
 
 #: lspclientservermanager.cpp:652
 #, kde-format

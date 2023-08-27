@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-25 00:49+0000\n"
-"PO-Revision-Date: 2023-03-11 03:39+0100\n"
+"PO-Revision-Date: 2023-08-26 04:07+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -365,10 +365,9 @@ msgid "LSP Client"
 msgstr "LSP-Kliento"
 
 #: lspclientpluginview.cpp:2562
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
-msgstr "Rekomenci LSP-Servilon"
+msgstr "Aldemando el LSP-servilo"
 
 #: lspclientservermanager.cpp:652
 #, kde-format

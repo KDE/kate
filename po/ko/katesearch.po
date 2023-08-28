@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-04-22 00:03+0200\n"
+"PO-Revision-Date: 2023-08-28 00:10+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -508,12 +508,12 @@ msgstr "파일에서 찾기(새 탭으로)"
 #: SearchPlugin.cpp:349
 #, kde-format
 msgid "Go to Next Match"
-msgstr "다음 일치로 가기"
+msgstr "다음 일치로 이동"
 
 #: SearchPlugin.cpp:355
 #, kde-format
 msgid "Go to Previous Match"
-msgstr "이전 일치로 가기"
+msgstr "이전 일치로 이동"
 
 #: SearchPlugin.cpp:361
 #, kde-format

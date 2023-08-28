@@ -126,7 +126,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
     setupImportantActions();
 
     // setup the most important widgets
-    setupMainWindow(sconfig);
+    setupMainWindow();
 
     // setup the actions
     setupActions();
@@ -134,6 +134,10 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
     setStandardToolBarMenuEnabled(true);
     setXMLFile(QStringLiteral("kateui.rc"));
     createShellGUI(true);
+
+    // Has to be after the setXMLFile() call above, so that m_diagView's actions are
+    // merged after the Tools menu has been populated with the default actions
+    setupDiagnosticsView(sconfig);
 
     // qCDebug(LOG_KATE) << "****************************************************************************" << sconfig;
 
@@ -294,7 +298,7 @@ void KateMainWindow::setupImportantActions()
     hamburgerMenu->setShowMenuBarAction(m_paShowMenuBar);
 }
 
-void KateMainWindow::setupMainWindow(KConfig *sconfig)
+void KateMainWindow::setupMainWindow()
 {
     m_viewManager = new KateViewManager(centralWidget(), this);
     centralWidget()->layout()->addWidget(m_viewManager);
@@ -319,9 +323,6 @@ void KateMainWindow::setupMainWindow(KConfig *sconfig)
                                       QIcon::fromTheme(QStringLiteral("output_win")),
                                       i18n("Output"));
     m_outputView = new KateOutputView(this, m_toolViewOutput);
-
-    m_diagView = DiagnosticsView::instance(wrapper());
-    m_diagView->readSessionConfig(KConfigGroup(sconfig, "Kate Diagnostics"));
 }
 
 void KateMainWindow::setupActions()
@@ -555,6 +556,14 @@ void KateMainWindow::setupActions()
             }
         }
     });
+}
+
+void KateMainWindow::setupDiagnosticsView(KConfig *sconfig)
+{
+    m_diagView = DiagnosticsView::instance(wrapper());
+    m_diagView->readSessionConfig(KConfigGroup(sconfig, "Kate Diagnostics"));
+    // See comment in DiagnosticsView::DiagnosticsView()
+    m_diagView->actionCollection()->addAssociatedWidget(m_viewManager);
 }
 
 void KateMainWindow::ensureHamburgerBarSize()

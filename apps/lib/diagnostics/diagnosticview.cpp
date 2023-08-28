@@ -13,6 +13,7 @@
 #include "texthint/KateTextHintManager.h"
 
 #include <KActionCollection>
+#include <KActionMenu>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -282,6 +283,9 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     , m_filterChangedTimer(new QTimer(this))
     , m_textHintProvider(new KateTextHintProvider(mainWindow, this))
 {
+    setComponentName(QStringLiteral("kate_diagnosticsview"), i18n("Diagnostics View"));
+    setXMLFile(QStringLiteral("ui.rc"));
+
     auto l = new QVBoxLayout(this);
     l->setContentsMargins({});
     setupDiagnosticViewToolbar(l);
@@ -319,16 +323,24 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     });
 
     auto *ac = actionCollection();
+
+    auto *diagMenu = new KActionMenu(i18nc("@action:inmenu Diagnostics View actions menu", "Diagnostics View"), this);
+    ac->addAction(QStringLiteral("tools_diagnosticsview"), diagMenu);
+
     auto *a = ac->addAction(QStringLiteral("kate_quick_fix"), this, &DiagnosticsView::quickFix);
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Quick Fix"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
     ac->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_Period)));
 
     a = ac->addAction(QStringLiteral("goto_next_diagnostic"), this, &DiagnosticsView::nextItem);
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Next Item"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
     ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Right);
 
     a = ac->addAction(QStringLiteral("goto_prev_diagnostic"), this, &DiagnosticsView::previousItem);
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Previous Item"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
     ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Left);
@@ -336,7 +348,9 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     a = ac->addAction(QStringLiteral("diagnostics_clear_filter"), this, [this]() {
         DiagnosticsView::filterViewTo(nullptr);
     });
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Clear Diagnostics Filter"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
     ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_C);
 
     m_posChangedTimer->setInterval(500);
@@ -355,7 +369,15 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
 
     connect(m_textHintProvider.get(), &KateTextHintProvider::textHintRequested, this, &DiagnosticsView::onTextHint);
     connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &DiagnosticsView::handleEsc);
+
     mainWindow->guiFactory()->addClient(this);
+
+    // We don't want our shortcuts available in the whole mainwindow, as it can conflict
+    // with other KParts' shortcus (e.g. Konsole). The KateViewManager will be added to
+    // the asscioted widgets in KateMainWindow::setupDiagnosticsView(), after the view
+    // manager has been initialized.
+    ac->clearAssociatedWidgets();
+    ac->addAssociatedWidget(this);
 }
 
 DiagnosticsView *DiagnosticsView::instance(KTextEditor::MainWindow *mainWindow)

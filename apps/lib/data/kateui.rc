@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="102" translationDomain="kate">
+<gui name="kate" version="103" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -120,6 +120,9 @@
       <Separator group="tools_git_blame"/>
       <DefineGroup name="tools_spelling"/>
       <DefineGroup name="tools_operations3"/>
+      <Merge name="tools_diagnosticsview">
+        <text>Diagnostics View</text>
+      </Merge>
     </Menu>
     <Action name="sessions"/>
     <Menu name="settings">

@@ -155,9 +155,11 @@ private:
      */
     void setupImportantActions();
 
-    void setupMainWindow(KConfig *sconfig);
+    void setupMainWindow();
     void setupActions();
     bool queryClose() override;
+
+    void setupDiagnosticsView(KConfig *);
 
     /**
      * read some global options from katerc

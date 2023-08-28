@@ -49,6 +49,10 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
 {
     setObjectName(QStringLiteral("KateViewManager"));
 
+    // start in home if we are not started from a terminal
+    m_lastOpenDialogUrl =
+        QUrl::fromLocalFile(KateApp::isInsideTerminal() ? QDir::currentPath() : QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+
     // we don't allow full collapse, see bug 366014
     setChildrenCollapsible(false);
 

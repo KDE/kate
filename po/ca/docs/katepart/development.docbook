@@ -6042,7 +6042,7 @@ void view.setVirtualCursorPosition(<parameter
 ><para
 >Cerca la primera ocurrència de <replaceable
 >patró</replaceable
->a l'<replaceable
+> a l'<replaceable
 >interval</replaceable
 > i retorna l'interval coincident. La cerca es porta a terme cap enrere si el paràmetre booleà opcional <replaceable
 >enrere</replaceable

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-21 02:28+0000\n"
-"PO-Revision-Date: 2023-08-02 12:45\n"
+"PO-Revision-Date: 2023-08-27 03:44\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -1082,12 +1082,12 @@ msgstr "选中时，双击时将打开新文档。"
 #: lib/kateconfigdialog.cpp:483
 #, kde-format
 msgid "&Middle click closes a document"
-msgstr "中间键点击关闭文档(&M)"
+msgstr "中键点击关闭文档(&M)"
 
 #: lib/kateconfigdialog.cpp:485
 #, kde-format
 msgid "When checked middle click closes a document."
-msgstr "选中时，中间键点击时将关闭文档。"
+msgstr "选中时，点击中键将关闭文档。"
 
 #: lib/kateconfigdialog.cpp:489
 #, kde-format
@@ -2752,6 +2752,3 @@ msgstr "管理会话..."
 #, kde-format
 msgid "Show for new window"
 msgstr "新窗口显示此欢迎画面"
-
-#~ msgid "This view may have unsaved work. Do you really want to close it?"
-#~ msgstr "此视图可能有未保存的工作进度。您确定要关闭它吗？"

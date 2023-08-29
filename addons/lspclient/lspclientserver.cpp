@@ -1025,7 +1025,8 @@ static QList<LSPCodeAction> parseCodeAction(const rapidjson::Value &result)
     for (const auto &action : codeActions) {
         // entry could be Command or CodeAction
         auto it = action.FindMember(MEMBER_COMMAND);
-        if (!it->value.IsString()) {
+        const bool isCommand = it != action.MemberEnd() && it->value.IsString();
+        if (!isCommand) {
             // CodeAction
             auto title = GetStringValue(action, MEMBER_TITLE);
             auto kind = GetStringValue(action, MEMBER_KIND);

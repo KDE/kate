@@ -676,11 +676,8 @@ static LSPHover parseHover(const rapidjson::Value &hover)
     }
 
     // normalize content which can be of many forms
-    LSPRange range = parseRange(GetJsonObjectForKey(hover, MEMBER_RANGE));
-    if (!range.isValid()) {
-        return ret;
-    }
-    ret.range = range;
+    // NOTE: might be invalid
+    ret.range = parseRange(GetJsonObjectForKey(hover, MEMBER_RANGE));
 
     auto it = hover.FindMember("contents");
 
@@ -690,7 +687,7 @@ static LSPHover parseHover(const rapidjson::Value &hover)
         for (const auto &c : elements) {
             ret.contents.push_back(parseHoverContentElement(c));
         }
-    } else if (it != hover.MemberEnd() && it->value.IsObject()) {
+    } else if (it != hover.MemberEnd()) { // String | Object
         ret.contents.push_back(parseHoverContentElement(it->value));
     }
     return ret;

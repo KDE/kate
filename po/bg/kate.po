@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-29 00:48+0000\n"
+"POT-Creation-Date: 2023-08-30 00:48+0000\n"
 "PO-Revision-Date: 2023-08-09 12:00+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -169,7 +169,7 @@ msgstr "Затваряне"
 msgid "Open File"
 msgstr "Отваряне на файл"
 
-#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:362
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:363
 #, kde-format
 msgid "Copy Location"
 msgstr "Копиране на местоположението"
@@ -239,37 +239,46 @@ msgid "Split View"
 msgstr "Разделен изглед"
 
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:109
+#: lib/data/kateui.rc:109 lib/diagnostics/ui.rc:6
 #, kde-format
 msgid "&Tools"
 msgstr "&Инструменти"
 
+#. i18n: ectx: Menu (tools_diagnosticsview)
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:286
+#: lib/diagnostics/ui.rc:8
+#, fuzzy, kde-format
+#| msgid "Diagnostics"
+msgid "Diagnostics View"
+msgstr "Диагностика"
+
 #. i18n: ectx: Menu (settings)
-#: lib/data/kateui.rc:126
+#: lib/data/kateui.rc:129
 #, kde-format
 msgid "&Settings"
 msgstr "&Настройки"
 
 #. i18n: ectx: Menu (help)
-#: lib/data/kateui.rc:134
+#: lib/data/kateui.rc:137
 #, kde-format
 msgid "&Help"
 msgstr "&Помощ"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: lib/data/kateui.rc:139
+#: lib/data/kateui.rc:142
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Главна лента с инструменти"
 
 #. i18n: ectx: ToolBar (hamburgerBar)
-#: lib/data/kateui.rc:155
+#: lib/data/kateui.rc:158
 #, kde-format
 msgid "Hamburger Menu Toolbar"
 msgstr "Лента с инструменти на менюто"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
-#: lib/data/kateui.rc:173
+#: lib/data/kateui.rc:176
 #, kde-format
 msgid "&Status Bar Items"
 msgstr "&Елементи на лентата на състояние"
@@ -284,114 +293,121 @@ msgstr ""
 "Грешка в регулярен израз %1\n"
 "изместване %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:63
+#: lib/diagnostics/diagnosticview.cpp:64
 #, kde-format
 msgid "All"
 msgstr "Всички"
 
-#: lib/diagnostics/diagnosticview.cpp:323
+#: lib/diagnostics/diagnosticview.cpp:327
+#, fuzzy, kde-format
+#| msgid "Diagnostics"
+msgctxt "@action:inmenu Diagnostics View actions menu"
+msgid "Diagnostics View"
+msgstr "Диагностика"
+
+#: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
 msgid "Quick Fix"
 msgstr "Бърза корекция"
 
-#: lib/diagnostics/diagnosticview.cpp:327
+#: lib/diagnostics/diagnosticview.cpp:338
 #, kde-format
 msgid "Next Item"
 msgstr "Следващ елемент"
 
-#: lib/diagnostics/diagnosticview.cpp:332
+#: lib/diagnostics/diagnosticview.cpp:344
 #, kde-format
 msgid "Previous Item"
 msgstr "Предишен елемент"
 
-#: lib/diagnostics/diagnosticview.cpp:339
+#: lib/diagnostics/diagnosticview.cpp:352
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Изчистване на диагностичния филтър"
 
-#: lib/diagnostics/diagnosticview.cpp:370
+#: lib/diagnostics/diagnosticview.cpp:392
 #, kde-format
 msgid "Diagnostics"
 msgstr "Диагностика"
 
-#: lib/diagnostics/diagnosticview.cpp:408
+#: lib/diagnostics/diagnosticview.cpp:430
 #, kde-format
 msgid "Errors"
 msgstr "Грешки"
 
-#: lib/diagnostics/diagnosticview.cpp:424
+#: lib/diagnostics/diagnosticview.cpp:446
 #, kde-format
 msgid "Warnings"
 msgstr "Предупреждение"
 
-#: lib/diagnostics/diagnosticview.cpp:438
+#: lib/diagnostics/diagnosticview.cpp:460
 #, kde-format
 msgid "Filter..."
 msgstr "Филтър..."
 
-#: lib/diagnostics/diagnosticview.cpp:1025 lib/kateconfigdialog.cpp:382
+#: lib/diagnostics/diagnosticview.cpp:1047 lib/kateconfigdialog.cpp:382
 #, kde-format
 msgid "Error"
 msgstr "Грешка"
 
-#: lib/diagnostics/diagnosticview.cpp:1029 lib/kateconfigdialog.cpp:382
+#: lib/diagnostics/diagnosticview.cpp:1051 lib/kateconfigdialog.cpp:382
 #: lib/kateconfigdialog.cpp:925
 #, kde-format
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: lib/diagnostics/diagnosticview.cpp:1033
+#: lib/diagnostics/diagnosticview.cpp:1055
 #, kde-format
 msgid "Information"
 msgstr "Информация"
 
-#: lib/diagnostics/diagnosticview.cpp:1189
+#: lib/diagnostics/diagnosticview.cpp:1211
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [супресирани: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1328
+#: lib/diagnostics/diagnosticview.cpp:1350
 #, kde-format
 msgid "Expand All"
 msgstr "Разгъване на всички"
 
-#: lib/diagnostics/diagnosticview.cpp:1329
+#: lib/diagnostics/diagnosticview.cpp:1351
 #, kde-format
 msgid "Collapse All"
 msgstr "Свиване на всички"
 
-#: lib/diagnostics/diagnosticview.cpp:1336
+#: lib/diagnostics/diagnosticview.cpp:1358
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Копиране в клипборда"
 
-#: lib/diagnostics/diagnosticview.cpp:1359
+#: lib/diagnostics/diagnosticview.cpp:1381
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Премахване на локална супресия"
 
-#: lib/diagnostics/diagnosticview.cpp:1361
+#: lib/diagnostics/diagnosticview.cpp:1383
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Добавяне на глобална супресия"
 
-#: lib/diagnostics/diagnosticview.cpp:1365
+#: lib/diagnostics/diagnosticview.cpp:1387
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Премахване на локална супресия"
 
-#: lib/diagnostics/diagnosticview.cpp:1367
+#: lib/diagnostics/diagnosticview.cpp:1389
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Добавяне на локална супресия"
 
-#: lib/diagnostics/diagnosticview.cpp:1382
+#: lib/diagnostics/diagnosticview.cpp:1404
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Деактивиране на супресия"
 
-#: lib/diagnostics/diagnosticview.cpp:1384
+#: lib/diagnostics/diagnosticview.cpp:1406
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Активиране на супресия"
@@ -1288,14 +1304,14 @@ msgstr "Затваряне на документ"
 msgid "Save As"
 msgstr "Запис като"
 
-#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:692
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:701
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Има подадена заявка за отваряне на файл по време на затварянето на "
 "редактора. Прекъсване на затварянето."
 
-#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:692
+#: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:701
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Прекъсване на затварянето"
@@ -1345,175 +1361,175 @@ msgstr "Файлът \"%1\" не можа да бъде изтрит."
 msgid "&Other Application..."
 msgstr "&Друго приложение..."
 
-#: lib/katemainwindow.cpp:241
+#: lib/katemainwindow.cpp:245
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr ""
 "Използва тази команда да показва или скрива прегледа на лентата за състояние"
 
-#: lib/katemainwindow.cpp:244
+#: lib/katemainwindow.cpp:248
 #, kde-format
 msgid "Show &Tabs"
 msgstr "&Показване на разделите"
 
-#: lib/katemainwindow.cpp:247
+#: lib/katemainwindow.cpp:251
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr ""
 "Използвайте тази команда за показване или скриване на лентата на разделите"
 
-#: lib/katemainwindow.cpp:249
+#: lib/katemainwindow.cpp:253
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "Показване на п&ътя в заглавната лента"
 
-#: lib/katemainwindow.cpp:252
+#: lib/katemainwindow.cpp:256
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Показване пълния път на файла в заглавието на прозореца"
 
-#: lib/katemainwindow.cpp:254
+#: lib/katemainwindow.cpp:258
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr "Показване на лентата за навигация"
 
-#: lib/katemainwindow.cpp:268
+#: lib/katemainwindow.cpp:272
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "Цветова схема на &прозорец"
 
-#: lib/katemainwindow.cpp:272
+#: lib/katemainwindow.cpp:276
 #, kde-format
 msgid "&Previous Tab"
 msgstr "&Предишен раздел"
 
-#: lib/katemainwindow.cpp:273
+#: lib/katemainwindow.cpp:277
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "Фокусиране на предишния раздел."
 
-#: lib/katemainwindow.cpp:278
+#: lib/katemainwindow.cpp:282
 #, kde-format
 msgid "&Next Tab"
 msgstr "&Следващ раздел"
 
-#: lib/katemainwindow.cpp:279
+#: lib/katemainwindow.cpp:283
 #, kde-format
 msgid "Focus the next tab."
 msgstr "Фокусиране на следващия раздел."
 
-#: lib/katemainwindow.cpp:286
+#: lib/katemainwindow.cpp:290
 #, kde-format
 msgid "&Quick Open"
 msgstr "&Бързо отваряне"
 
-#: lib/katemainwindow.cpp:289
+#: lib/katemainwindow.cpp:293
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Представя формуляр за бързо отваряне на документи."
 
-#: lib/katemainwindow.cpp:320
+#: lib/katemainwindow.cpp:324
 #, kde-format
 msgid "Output"
 msgstr "Изходни данни"
 
-#: lib/katemainwindow.cpp:333
+#: lib/katemainwindow.cpp:334
 #, kde-format
 msgid "Create a new document"
 msgstr "Създаване на нов документ"
 
-#: lib/katemainwindow.cpp:336
+#: lib/katemainwindow.cpp:337
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Отваряне на съществуващ документ за редактиране"
 
-#: lib/katemainwindow.cpp:346
+#: lib/katemainwindow.cpp:347
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
 "open them again."
 msgstr "Списък с последно използвани документи."
 
-#: lib/katemainwindow.cpp:350
+#: lib/katemainwindow.cpp:351
 #, kde-format
 msgid "Save A&ll"
 msgstr "Запис на вси&чко"
 
-#: lib/katemainwindow.cpp:353
+#: lib/katemainwindow.cpp:354
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Запис на всички отворени и променени документи на диска."
 
-#: lib/katemainwindow.cpp:356
+#: lib/katemainwindow.cpp:357
 #, kde-format
 msgid "&Reload All"
 msgstr "Презареждане на &всички"
 
-#: lib/katemainwindow.cpp:358
+#: lib/katemainwindow.cpp:359
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Презареждане на всички отворени документи."
 
-#: lib/katemainwindow.cpp:367 lib/katemainwindow.cpp:376
+#: lib/katemainwindow.cpp:368 lib/katemainwindow.cpp:377
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Копиране на пътя на файл в клипборда."
 
-#: lib/katemainwindow.cpp:371 lib/welcomeview/welcomeview.cpp:265
+#: lib/katemainwindow.cpp:372 lib/welcomeview/welcomeview.cpp:265
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Отваряне на съдържащата папка"
 
-#: lib/katemainwindow.cpp:380
+#: lib/katemainwindow.cpp:381
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Преименуване ..."
 
-#: lib/katemainwindow.cpp:385
+#: lib/katemainwindow.cpp:386
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "Преименува файла, принадлежащ на текущия документ."
 
-#: lib/katemainwindow.cpp:389
+#: lib/katemainwindow.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Изтриване"
 
-#: lib/katemainwindow.cpp:394 lib/katemainwindow.cpp:403
+#: lib/katemainwindow.cpp:395 lib/katemainwindow.cpp:404
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "Изтриване на файла, принадлежащ на текущия документ."
 
-#: lib/katemainwindow.cpp:398
+#: lib/katemainwindow.cpp:399
 #, kde-format
 msgid "Properties"
 msgstr "Настройки"
 
-#: lib/katemainwindow.cpp:406 lib/katemainwindow.cpp:408
+#: lib/katemainwindow.cpp:407 lib/katemainwindow.cpp:409
 #, kde-format
 msgid "Compare"
 msgstr "Сравняване"
 
-#: lib/katemainwindow.cpp:408
+#: lib/katemainwindow.cpp:409
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
 "Използване на контекстното меню на лентата на раздели  за сравняване на два "
 "документа"
 
-#: lib/katemainwindow.cpp:410
+#: lib/katemainwindow.cpp:411
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Показва подсказки за сравняване на документи."
 
-#: lib/katemainwindow.cpp:413
+#: lib/katemainwindow.cpp:414
 #, kde-format
 msgid "Close Orphaned"
 msgstr "Затваряне на осиротелите"
 
-#: lib/katemainwindow.cpp:415
+#: lib/katemainwindow.cpp:416
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1522,148 +1538,148 @@ msgstr ""
 "Затваряне на всички документи в списъка с файлове, които не могат да бъдат "
 "отворени отново, защото вече не са достъпни."
 
-#: lib/katemainwindow.cpp:419
+#: lib/katemainwindow.cpp:420
 #, kde-format
 msgid "Close the current document."
 msgstr "Затваряне на текущия документ."
 
-#: lib/katemainwindow.cpp:422
+#: lib/katemainwindow.cpp:423
 #, kde-format
 msgid "Close Other"
 msgstr "Затваряне на другите"
 
-#: lib/katemainwindow.cpp:424
+#: lib/katemainwindow.cpp:425
 #, kde-format
 msgid "Close other open documents."
 msgstr "Затваряне на другите отворени документи."
 
-#: lib/katemainwindow.cpp:427
+#: lib/katemainwindow.cpp:428
 #, kde-format
 msgid "Clos&e All"
 msgstr "Зат&варяне на всичко"
 
-#: lib/katemainwindow.cpp:429
+#: lib/katemainwindow.cpp:430
 #, kde-format
 msgid "Close all open documents."
 msgstr "Затваряне на всички отворени документи."
 
-#: lib/katemainwindow.cpp:434
+#: lib/katemainwindow.cpp:435
 #, kde-format
 msgid "Close this window"
 msgstr "Затваряне на текущия прозорец"
 
-#: lib/katemainwindow.cpp:438
+#: lib/katemainwindow.cpp:439
 #, kde-format
 msgid "&New Window"
 msgstr "&Нов прозорец"
 
-#: lib/katemainwindow.cpp:441
+#: lib/katemainwindow.cpp:442
 #, kde-format
 msgid "Create a new window."
 msgstr "Създаване на нов прозорец."
 
-#: lib/katemainwindow.cpp:448
+#: lib/katemainwindow.cpp:449
 #, kde-format
 msgid "Open W&ith"
 msgstr "Отвар&яне с"
 
-#: lib/katemainwindow.cpp:450
+#: lib/katemainwindow.cpp:451
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
 "type, or an application of your choice."
 msgstr "Отваряне на текущия документ с друга програма."
 
-#: lib/katemainwindow.cpp:458
+#: lib/katemainwindow.cpp:459
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Настройване на бързите клавиши."
 
-#: lib/katemainwindow.cpp:461
+#: lib/katemainwindow.cpp:462
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Настройване на инструментите."
 
-#: lib/katemainwindow.cpp:464
+#: lib/katemainwindow.cpp:465
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Настройване поведението на програмата."
 
-#: lib/katemainwindow.cpp:468
+#: lib/katemainwindow.cpp:469
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "Ръководство за &приставките"
 
-#: lib/katemainwindow.cpp:470
+#: lib/katemainwindow.cpp:471
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Помощ за инсталираните приставки."
 
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:488
 #, kde-format
 msgid "Sess&ions"
 msgstr "С&есии"
 
-#: lib/katemainwindow.cpp:493
+#: lib/katemainwindow.cpp:494
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Нова &сесия"
 
-#: lib/katemainwindow.cpp:498
+#: lib/katemainwindow.cpp:499
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "&Скорошни сесии"
 
-#: lib/katemainwindow.cpp:503
+#: lib/katemainwindow.cpp:504
 #, kde-format
 msgid "&All Sessions"
 msgstr "&Всички сесии"
 
-#: lib/katemainwindow.cpp:510
+#: lib/katemainwindow.cpp:511
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Управление на сесиите..."
 
-#: lib/katemainwindow.cpp:519
+#: lib/katemainwindow.cpp:520
 #, kde-format
 msgid "&Save Session"
 msgstr "За&писване на сесията"
 
-#: lib/katemainwindow.cpp:525
+#: lib/katemainwindow.cpp:526
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Запис на сесията &като..."
 
-#: lib/katemainwindow.cpp:532 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:533 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Предишно място"
 
-#: lib/katemainwindow.cpp:541 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:542 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Следващо място"
 
-#: lib/katemainwindow.cpp:549
+#: lib/katemainwindow.cpp:550
 #, kde-format
 msgid "Show File Git History"
 msgstr "Показване на история на файлове на Git"
 
-#: lib/katemainwindow.cpp:590
+#: lib/katemainwindow.cpp:599
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Това ще затвори всички отворени документи. Сигурни ли сте, че искате да "
 "продължите?"
 
-#: lib/katemainwindow.cpp:591
+#: lib/katemainwindow.cpp:600
 #, kde-format
 msgid "Close all documents"
 msgstr "Затваряне на всички документи"
 
-#: lib/katemainwindow.cpp:606
+#: lib/katemainwindow.cpp:615
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1672,12 +1688,12 @@ msgstr ""
 "Това ще затвори всички отворени документи освен текущия. Сигурни ли сте, че "
 "искате да продължите?"
 
-#: lib/katemainwindow.cpp:607
+#: lib/katemainwindow.cpp:616
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Затваряне на всички документи освен на текущия"
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:856
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1685,12 +1701,12 @@ msgstr ""
 "Това ще скрие лентата с менюта напълно. Можете да го покажете отново, като  "
 "натиснете %1."
 
-#: lib/katemainwindow.cpp:850
+#: lib/katemainwindow.cpp:859
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Скриване на меню лентата"
 
-#: lib/katemainwindow.cpp:954
+#: lib/katemainwindow.cpp:963
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1699,19 +1715,19 @@ msgstr ""
 "Вие завлякохте директория %1 в Kate. Искате ли да се отворят всички файлове "
 "в нея?"
 
-#: lib/katemainwindow.cpp:957
+#: lib/katemainwindow.cpp:966
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Зареждане на файловете рекурсивно"
 
-#: lib/katemainwindow.cpp:958
+#: lib/katemainwindow.cpp:967
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Отваряне на всички файлове"
 
-#: lib/katemainwindow.cpp:1194
+#: lib/katemainwindow.cpp:1203
 #, kde-format
 msgid " [read only]"
 msgstr " [само за четене]"

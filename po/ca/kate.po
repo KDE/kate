@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-30 00:48+0000\n"
-"PO-Revision-Date: 2023-08-04 09:54+0200\n"
+"PO-Revision-Date: 2023-08-30 11:06+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -251,10 +251,9 @@ msgstr "&Eines"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:286
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Diagnòstics"
+msgstr "Vista del diagnòstic"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -302,11 +301,10 @@ msgid "All"
 msgstr "Tot"
 
 #: lib/diagnostics/diagnosticview.cpp:327
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "Diagnòstics"
+msgstr "Vista del diagnòstic"
 
 #: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format

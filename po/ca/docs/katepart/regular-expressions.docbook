@@ -248,7 +248,7 @@ regulars de Perl, ni de <command
 >).</para>
 
 <para
->Com les lletres majúscules són caràcters diferents que els seus equivalents en minúscula, per a crear una classe de caràcter que sigui independent del format de les lletres, haureu d'escriure <userinput
+>Com les lletres majúscules són caràcters diferents que els seus equivalents en minúscula, per a crear una classe de caràcter independent de la caixa de les lletres que coincideixi amb «a» o «b», haureu d'escriure <userinput
 >[aAbB]</userinput
 >.</para>
 

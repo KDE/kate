@@ -1952,7 +1952,7 @@ public:
         }
         auto methodParamsIt = msg.FindMember(MEMBER_PARAMS);
         if (methodParamsIt == msg.MemberEnd()) {
-            qWarning() << "Ignore because no MEMBER_PARAMS";
+            qWarning() << "Ignore because no 'params' member in notification" << QByteArray(methodId->value.GetString());
             return;
         }
 
@@ -1960,17 +1960,18 @@ public:
         auto methodLen = methodId->value.GetStringLength();
         std::string_view method(methodString, methodLen);
 
-        auto obj = methodParamsIt->value.GetObject();
-        if (method == "textDocument/publishDiagnostics") {
+        const bool isObj = methodParamsIt->value.IsObject();
+        auto &obj = methodParamsIt->value;
+        if (isObj && method == "textDocument/publishDiagnostics") {
             Q_EMIT q->publishDiagnostics(parseDiagnostics(obj));
-        } else if (method == "window/showMessage") {
+        } else if (isObj && method == "window/showMessage") {
             Q_EMIT q->showMessage(parseMessage(obj));
-        } else if (method == "window/logMessage") {
+        } else if (isObj && method == "window/logMessage") {
             Q_EMIT q->logMessage(parseMessage(obj));
-        } else if (method == "$/progress") {
+        } else if (isObj && method == "$/progress") {
             Q_EMIT q->workDoneProgress(parseWorkDone(obj));
         } else {
-            qCWarning(LSPCLIENT) << "discarding notification" << method.data();
+            qCWarning(LSPCLIENT) << "discarding notification" << method.data() << ", params is object:" << isObj;
         }
     }
 

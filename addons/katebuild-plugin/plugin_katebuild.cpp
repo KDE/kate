@@ -408,7 +408,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         const QPersistentModelIndex &currentIndex = m_targetsUi->proxyModel.mapToSource(m_targetsUi->targetsView->currentIndex());
         if (currentIndex.isValid()) {
             m_targetsUi->targetsModel.moveRowUp(currentIndex);
-            if (currentIndex.data(TargetModel::IsProjectTargetRole).toBool()) {
+            if (currentIndex.data(TargetModel::IsProjectTargetRole).toBool() && currentIndex.data(TargetModel::RowTypeRole).toInt() != TargetModel::RootRow) {
                 saveProjectTargets();
             }
         }
@@ -418,7 +418,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         const QPersistentModelIndex &currentIndex = m_targetsUi->proxyModel.mapToSource(m_targetsUi->targetsView->currentIndex());
         if (currentIndex.isValid()) {
             m_targetsUi->targetsModel.moveRowDown(currentIndex);
-            if (currentIndex.data(TargetModel::IsProjectTargetRole).toBool()) {
+            if (currentIndex.data(TargetModel::IsProjectTargetRole).toBool() && currentIndex.data(TargetModel::RowTypeRole).toInt() != TargetModel::RootRow) {
                 saveProjectTargets();
             }
         }

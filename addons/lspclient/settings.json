@@ -16,6 +16,11 @@
             "url": "https://clang.llvm.org/extra/clangd/",
             "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
         },
+        "css": {
+            "command": ["vscode-css-languageserver", "--stdio"],
+            "url": "https://github.com/Microsoft/vscode/tree/main/extensions/css-language-features/server",
+            "highlightingModeRegex": "^CSS$"
+        },
         "cpp": {
             "use": "c",
             "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"

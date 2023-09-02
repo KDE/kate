@@ -2756,7 +2756,3 @@ msgstr "Spravovat sezení..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Zobrazit pro nové okno"
-
-#~ msgid "This view may have unsaved work. Do you really want to close it?"
-#~ msgstr ""
-#~ "V tomto pohledu jsou neuložené změny. Opravdu si přejete jej zavřít?"

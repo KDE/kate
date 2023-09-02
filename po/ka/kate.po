@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-30 00:48+0000\n"
-"PO-Revision-Date: 2023-07-31 06:25+0200\n"
+"PO-Revision-Date: 2023-09-01 07:22+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -237,10 +237,9 @@ msgstr "&ხელსაწყოები"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:286
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "დიაგნოსტიკა"
+msgstr "დიაგნოსტიკის ხედი"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -288,11 +287,10 @@ msgid "All"
 msgstr "ყველა"
 
 #: lib/diagnostics/diagnosticview.cpp:327
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "დიაგნოსტიკა"
+msgstr "დიაგნოსტიკის ხედი"
 
 #: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
@@ -1107,12 +1105,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:509
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr ""
+msgstr "ახალი ჩანართის გახსნა მიმდინარე ჩანართის მარჯვნივ."
 
 #: lib/kateconfigdialog.cpp:511
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "თუ გამორთულია, ახალი ჩანართი ბოლოში გაიხსნება."
 
 #: lib/kateconfigdialog.cpp:517
 #, kde-format
@@ -1253,7 +1251,7 @@ msgstr "შენახვა როგორც"
 #: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:701
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
-msgstr ""
+msgstr "Kate-ის დახურვისას ახალი ფაილი გაიხსნა. დახურვა გაუქმდა."
 
 #: lib/katedocmanager.cpp:331 lib/katemainwindow.cpp:701
 #, kde-format
@@ -1308,7 +1306,7 @@ msgstr "&სხვა აპლიკაცია..."
 #: lib/katemainwindow.cpp:245
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
-msgstr ""
+msgstr "გამოიყენეთ ეს ბრძანება ხედის სტატუსის ზოლის ჩვენება/დამალვისთვის"
 
 #: lib/katemainwindow.cpp:248
 #, kde-format
@@ -1318,7 +1316,7 @@ msgstr "&ჩანართების ჩვენება"
 #: lib/katemainwindow.cpp:251
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
-msgstr ""
+msgstr "გამოიყენეთ ეს ბრძანება ხედებისთვის ჩანართების ჩვენება/დამალვისთვის"
 
 #: lib/katemainwindow.cpp:253
 #, kde-format
@@ -1328,7 +1326,7 @@ msgstr "სათაურში &ბილიკის ჩვენება"
 #: lib/katemainwindow.cpp:256
 #, kde-format
 msgid "Show the complete document path in the window caption"
-msgstr ""
+msgstr "ფანჯრის სათაურში დოკუმენტის სრული ბილიკის ჩვენება"
 
 #: lib/katemainwindow.cpp:258
 #, kde-format
@@ -1458,6 +1456,7 @@ msgstr "შედარება"
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
+"ორი დოკუმენტის შესადარებლად ჩანართების ზოლის კონტექსტური მენიუ გამოიყენეთ"
 
 #: lib/katemainwindow.cpp:411
 #, kde-format
@@ -1531,7 +1530,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:459
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
-msgstr ""
+msgstr "აპლიკაციის კლავიატურის მალსახმობების მინიჭების მორგება."
 
 #: lib/katemainwindow.cpp:462
 #, kde-format
@@ -2115,7 +2114,7 @@ msgstr "გამყოფის მარჯვენივ გაწევა"
 #: lib/kateviewmanager.cpp:247
 #, kde-format
 msgid "Move the splitter of the current view to the right"
-msgstr ""
+msgstr "მიმდინარე ხედის გამყოფის მარჯვნივ გაწევა"
 
 #: lib/kateviewmanager.cpp:250
 #, kde-format
@@ -2125,7 +2124,7 @@ msgstr "გამყოფის მარცხნივ გაწევა"
 #: lib/kateviewmanager.cpp:253
 #, kde-format
 msgid "Move the splitter of the current view to the left"
-msgstr ""
+msgstr "მიმდინარე ხედის გამყოფის მარცხნივ გაწევა"
 
 #: lib/kateviewmanager.cpp:256
 #, kde-format
@@ -2135,7 +2134,7 @@ msgstr "გამყოფის მაღლა აწევა"
 #: lib/kateviewmanager.cpp:259
 #, kde-format
 msgid "Move the splitter of the current view up"
-msgstr ""
+msgstr "მიმდინარე ხედის გამყოფის აწევა"
 
 #: lib/kateviewmanager.cpp:262
 #, kde-format
@@ -2145,7 +2144,7 @@ msgstr "გამყოფის დაბლა ჩამოწევა"
 #: lib/kateviewmanager.cpp:265
 #, kde-format
 msgid "Move the splitter of the current view down"
-msgstr ""
+msgstr "მიმდინარე ხედის გამყოფის დაწევა"
 
 #: lib/kateviewmanager.cpp:268
 #, kde-format
@@ -2155,7 +2154,7 @@ msgstr "ფოკუსი ნავიგაციის პანელზე"
 #: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Focus the navigation bar"
-msgstr ""
+msgstr "ფოკუსი ნავიგაციის პანელზე"
 
 #: lib/kateviewmanager.cpp:276
 #, kde-format
@@ -2232,7 +2231,7 @@ msgstr ""
 #: lib/kateviewspace.cpp:119
 #, kde-format
 msgid "S&ynchronize Scrolling"
-msgstr ""
+msgstr "აწევა/დაწევის &სინქრონიზაცია"
 
 #: lib/kateviewspace.cpp:121
 #, kde-format

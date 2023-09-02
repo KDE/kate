@@ -247,10 +247,9 @@ msgstr "Nástroje"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:286
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Diagnostika"
+msgstr ""
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -298,11 +297,10 @@ msgid "All"
 msgstr "Vše"
 
 #: lib/diagnostics/diagnosticview.cpp:327
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "Diagnostika"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
@@ -2783,7 +2781,3 @@ msgstr "Spravovat sezení..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Zobrazit pro nové okno"
-
-#~ msgid "This view may have unsaved work. Do you really want to close it?"
-#~ msgstr ""
-#~ "V tomto pohledu jsou neuložené změny. Opravdu si přejete jej zavřít?"

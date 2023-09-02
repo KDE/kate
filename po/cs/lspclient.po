@@ -359,10 +359,9 @@ msgid "LSP Client"
 msgstr "Klient LSP"
 
 #: lspclientpluginview.cpp:2562
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
-msgstr "Restartovat server LSP"
+msgstr ""
 
 # window title for kernel loading (see txt_load_kernel)
 #: lspclientservermanager.cpp:652

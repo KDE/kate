@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-30 00:48+0000\n"
-"PO-Revision-Date: 2023-08-05 08:54+0200\n"
+"PO-Revision-Date: 2023-09-03 13:33+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -252,10 +252,9 @@ msgstr "&Utilidades"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:286
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Diagnóstico"
+msgstr "Vista de diagnóstico"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -303,11 +302,10 @@ msgid "All"
 msgstr "Todo"
 
 #: lib/diagnostics/diagnosticview.cpp:327
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "Diagnóstico"
+msgstr "Vista de diagnóstico"
 
 #: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
@@ -1134,8 +1132,8 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
-"Se se marca, permitirá o desprazamento na barra de separadores cando o "
-"número de separadores sexa grande."
+"Se se marca, permitirá o desprazamento na barra de lapelas cando o número de "
+"lapelas sexa grande."
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
@@ -1510,7 +1508,7 @@ msgstr "Comparar"
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
-"Usar o menú de contexto da barra de separadores para comparar dous documentos"
+"Usar o menú de contexto da barra de lapelas para comparar dous documentos."
 
 #: lib/katemainwindow.cpp:411
 #, kde-format
@@ -1692,7 +1690,7 @@ msgstr "Pechar todos os documentos salvo o actual"
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
-"Isto agocha completamente a barra do menú. Pódese amosar de novo escribindo "
+"Isto agocha completamente a barra de menú. Pódese amosar de novo escribindo "
 "%1."
 
 #: lib/katemainwindow.cpp:859
@@ -1962,6 +1960,7 @@ msgstr "(NOVO)"
 msgid "Copy all text to clipboard"
 msgstr "Copiar todo o texto no portapapeis"
 
+# skip-rule: en-clear
 #: lib/kateoutputview.cpp:194
 #, kde-format
 msgid "Clear all messages"
@@ -2192,42 +2191,42 @@ msgstr "Facer a vista dividida intuitivamente inferior a activa."
 #: lib/kateviewmanager.cpp:244
 #, kde-format
 msgid "Move Splitter Right"
-msgstr "Mover o separador á dereita"
+msgstr "Mover o divisor á dereita"
 
 #: lib/kateviewmanager.cpp:247
 #, kde-format
 msgid "Move the splitter of the current view to the right"
-msgstr "Move á dereita o separador da vista actual"
+msgstr "Move á dereita o divisor da vista"
 
 #: lib/kateviewmanager.cpp:250
 #, kde-format
 msgid "Move Splitter Left"
-msgstr "Mover o separador á esquerda"
+msgstr "Mover o divisor á esquerda"
 
 #: lib/kateviewmanager.cpp:253
 #, kde-format
 msgid "Move the splitter of the current view to the left"
-msgstr "Move á esquerda o separador da vista actual"
+msgstr "Move á esquerda o divisor da vista"
 
 #: lib/kateviewmanager.cpp:256
 #, kde-format
 msgid "Move Splitter Up"
-msgstr "Subir o separador"
+msgstr "Subir o divisor"
 
 #: lib/kateviewmanager.cpp:259
 #, kde-format
 msgid "Move the splitter of the current view up"
-msgstr "Sobe o separador da vista"
+msgstr "Sobe o divisor da vista"
 
 #: lib/kateviewmanager.cpp:262
 #, kde-format
 msgid "Move Splitter Down"
-msgstr "Baixar o separador"
+msgstr "Baixar o divisor"
 
 #: lib/kateviewmanager.cpp:265
 #, kde-format
 msgid "Move the splitter of the current view down"
-msgstr "Baixa o separador da vista"
+msgstr "Baixar o divisor da vista"
 
 #: lib/kateviewmanager.cpp:268
 #, kde-format
@@ -2801,7 +2800,7 @@ msgstr "Abrir un ficheiro…"
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr "Borrar a lista de ficheiros recentes."
+msgstr "Baleirar a lista de ficheiros recentes."
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:270

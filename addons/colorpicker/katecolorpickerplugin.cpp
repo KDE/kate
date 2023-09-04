@@ -208,7 +208,7 @@ QSize ColorPickerInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNot
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const override;
+void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
 #else
 void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const
 #endif

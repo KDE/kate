@@ -121,7 +121,7 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const override;
+void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
 #else
 void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const
 #endif

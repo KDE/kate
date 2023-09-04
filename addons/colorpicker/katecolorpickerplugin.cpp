@@ -207,7 +207,11 @@ QSize ColorPickerInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNot
     return QSize(note.lineHeight() - 1, note.lineHeight() - 1);
 }
 
-void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const override;
+#else
+void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const
+#endif
 {
     const auto line = note.position().line();
     auto colorEnd = note.position().column();

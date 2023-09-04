@@ -120,7 +120,11 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
     return {hint.width, note.lineHeight()};
 }
 
-void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const override;
+#else
+void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const
+#endif
 {
     auto it = binaryFind(m_hints, note.position());
     if (it != m_hints.end()) {

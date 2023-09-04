@@ -751,7 +751,7 @@ void KateMainWindow::slotEditToolbars()
     KConfigGroup cfg(KSharedConfig::openConfig(), "MainWindow");
     saveMainWindowSettings(cfg);
 
-    KEditToolBar dlg(factory());
+    KEditToolBar dlg(factory(), this);
 
     connect(&dlg, &KEditToolBar::newToolBarConfig, this, &KateMainWindow::slotNewToolbarConfig);
     dlg.exec();

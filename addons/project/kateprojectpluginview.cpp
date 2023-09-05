@@ -214,6 +214,10 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     a->setText(i18n("Close Orphaned Projects"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
 
+    m_projectReloadAction = a = actionCollection()->addAction(QStringLiteral("project_reload"), this, SLOT(slotProjectReload()));
+    a->setText(i18n("Reload Project"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+
     m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"), this, SLOT(slotGotoSymbol()));
 
     auto chckbrAct = actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [this] {

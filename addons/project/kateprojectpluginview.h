@@ -415,6 +415,7 @@ private:
     QAction *m_projectCloseAction;
     QAction *m_projectCloseAllAction;
     QAction *m_projectCloseWithoutDocumentsAction;
+    QAction *m_projectReloadAction;
 
     /**
       checkout branch button in the statusbar

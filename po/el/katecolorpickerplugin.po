@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-09-05 00:48+0000\n"
 "PO-Revision-Date: 2021-06-14 09:26+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -79,12 +79,12 @@ msgstr "Επιλογέας χρώματος"
 msgid "Color Picker Settings"
 msgstr "Ρυθμίσεις επιλογέα χρώματος"
 
-#: katecolorpickerplugin.cpp:258
+#: katecolorpickerplugin.cpp:262
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "Επιλογή χρώματος (δεκαεξαδικός κωδικός)"
 
-#: katecolorpickerplugin.cpp:261
+#: katecolorpickerplugin.cpp:265
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "Προβολή χρώματος (ανάγνωση μόνο)"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-09-05 00:48+0000\n"
 "PO-Revision-Date: 2021-09-15 05:34+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -76,12 +76,12 @@ msgstr "အရောင်ရွေးကိရိယာ"
 msgid "Color Picker Settings"
 msgstr "အရောင်ရွေးကိရိယာ ဆက်တင်"
 
-#: katecolorpickerplugin.cpp:258
+#: katecolorpickerplugin.cpp:262
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr ""
 
-#: katecolorpickerplugin.cpp:261
+#: katecolorpickerplugin.cpp:265
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "အရောင်ကြည့်မည် [ဖတ်၍သာရ]"

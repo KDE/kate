@@ -49,11 +49,13 @@ public:
 
     QVector<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     void paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const override;
 #else
     void paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const override;
 #endif
+
     void inlineNoteActivated(const KTextEditor::InlineNote &note, Qt::MouseButtons buttons, const QPoint &globalPos) override;
     void cycleMode();
     void setMode(KateGitBlameMode mode);

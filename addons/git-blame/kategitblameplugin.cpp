@@ -20,6 +20,7 @@
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
+#include <qt6/QtCore/qmath.h>
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/InlineNoteInterface>
 #endif
@@ -90,7 +91,7 @@ QSize GitBlameInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
 #else
-void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const
+void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection dir) const
 #endif
 {
     QFont font = note.font();
@@ -108,6 +109,28 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
         ? i18nc("git-blame information \"author: date \"", " %1: %2 ", info.authorName, date)
         : i18nc("git-blame information \"author: date: commit title \"", " %1: %2: %3 ", info.authorName, date, QString::fromUtf8(info.summary));
     QRect rectangle{0, 0, fm.horizontalAdvance(text), note.lineHeight()};
+    bool isRTL = false;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    isRTL = dir == Qt::RightToLeft;
+#endif
+
+    if (isRTL) {
+        const qreal horizontalTx = painter.worldTransform().m31();
+        // the amount of translation by x is from start of view (0,0) i.e., its the max
+        // amount of space we can use in rtl.
+        const int availableWidth = qFloor(horizontalTx);
+        const auto rectWidth = rectangle.width();
+        // the painter is translated to be at the end of line, move it left so that it is
+        // in front of the RTL line
+        const int moveBy = -(qAbs(rectWidth), qAbs(availableWidth));
+        rectangle.moveLeft(moveBy);
+        if (rectWidth > availableWidth) {
+            // reduce the width to available width
+            rectangle.setWidth(availableWidth);
+            // elide the text in the middle
+            text = painter.fontMetrics().elidedText(text, Qt::ElideMiddle, availableWidth);
+        }
+    }
 
     auto editor = KTextEditor::Editor::instance();
     auto color = QColor::fromRgba(editor->theme().textColor(KSyntaxHighlighting::Theme::Normal));

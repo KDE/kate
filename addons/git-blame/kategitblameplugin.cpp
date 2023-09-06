@@ -20,7 +20,6 @@
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
-#include <qt6/QtCore/qmath.h>
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <KTextEditor/InlineNoteInterface>
 #endif

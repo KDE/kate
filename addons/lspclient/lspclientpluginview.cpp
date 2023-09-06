@@ -1303,10 +1303,12 @@ public:
 
     void closeDynamic()
     {
-        for (int i = 0; i < m_tabWidget->count();) {
-            // if so deemed suitable, tab will be spared and not closed
-            if (!tabCloseRequested(i)) {
-                ++i;
+        if (m_tabWidget) {
+            for (int i = 0; i < m_tabWidget->count();) {
+                // if so deemed suitable, tab will be spared and not closed
+                if (!tabCloseRequested(i)) {
+                    ++i;
+                }
             }
         }
     }

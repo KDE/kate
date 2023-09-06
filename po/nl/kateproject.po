@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-30 00:48+0000\n"
+"POT-Creation-Date: 2023-09-06 00:48+0000\n"
 "PO-Revision-Date: 2023-04-07 09:46+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -805,7 +805,7 @@ msgstr ""
 "scheidingsteken van pad (backslash op Windows)."
 
 #: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
-#: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
+#: kateprojectpluginview.cpp:231 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
@@ -876,27 +876,33 @@ msgstr "Alle projecten sluiten"
 msgid "Close Orphaned Projects"
 msgstr "Verweesde projecten sluiten"
 
-#: kateprojectpluginview.cpp:224
+#: kateprojectpluginview.cpp:218
+#, fuzzy, kde-format
+#| msgid "Reload project"
+msgid "Reload Project"
+msgstr "Project opnieuw laden"
+
+#: kateprojectpluginview.cpp:228
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Uitchecken van git-branch"
 
-#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:818
+#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:822
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Opzoeken: %1"
 
-#: kateprojectpluginview.cpp:231 kateprojectpluginview.cpp:819
+#: kateprojectpluginview.cpp:235 kateprojectpluginview.cpp:823
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ga-naar: %1"
 
-#: kateprojectpluginview.cpp:312
+#: kateprojectpluginview.cpp:316
 #, kde-format
 msgid "Projects Index"
 msgstr "Project-index"
 
-#: kateprojectpluginview.cpp:863
+#: kateprojectpluginview.cpp:867
 #, kde-format
 msgid "Choose a directory"
 msgstr "Een map kiezen"

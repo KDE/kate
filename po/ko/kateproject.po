@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-30 00:48+0000\n"
+"POT-Creation-Date: 2023-09-06 00:48+0000\n"
 "PO-Revision-Date: 2023-07-24 23:30+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -798,7 +798,7 @@ msgstr ""
 "입니다(Windows의 경우 백슬래시)."
 
 #: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
-#: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
+#: kateprojectpluginview.cpp:231 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
@@ -869,27 +869,33 @@ msgstr "모든 프로젝트 닫기"
 msgid "Close Orphaned Projects"
 msgstr "접근 불가능한 프로젝트 닫기"
 
-#: kateprojectpluginview.cpp:224
+#: kateprojectpluginview.cpp:218
+#, fuzzy, kde-format
+#| msgid "Reload project"
+msgid "Reload Project"
+msgstr "프로젝트 새로 고침"
+
+#: kateprojectpluginview.cpp:228
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Git 브랜치 체크아웃"
 
-#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:818
+#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:822
 #, kde-format
 msgid "Lookup: %1"
 msgstr "찾아보기: %1"
 
-#: kateprojectpluginview.cpp:231 kateprojectpluginview.cpp:819
+#: kateprojectpluginview.cpp:235 kateprojectpluginview.cpp:823
 #, kde-format
 msgid "Goto: %1"
 msgstr "이동: %1"
 
-#: kateprojectpluginview.cpp:312
+#: kateprojectpluginview.cpp:316
 #, kde-format
 msgid "Projects Index"
 msgstr "프로젝트 색인"
 
-#: kateprojectpluginview.cpp:863
+#: kateprojectpluginview.cpp:867
 #, kde-format
 msgid "Choose a directory"
 msgstr "디렉터리 선택"

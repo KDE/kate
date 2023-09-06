@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-30 00:48+0000\n"
+"POT-Creation-Date: 2023-09-06 00:48+0000\n"
 "PO-Revision-Date: 2023-04-07 08:34+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -807,7 +807,7 @@ msgstr ""
 "separador de camí natiu (barra inversa al Windows)."
 
 #: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
-#: kateprojectpluginview.cpp:227 kateprojectviewtree.cpp:136
+#: kateprojectpluginview.cpp:231 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
@@ -879,27 +879,33 @@ msgstr "Tanca tots els projectes"
 msgid "Close Orphaned Projects"
 msgstr "Tanca els projectes orfes"
 
-#: kateprojectpluginview.cpp:224
+#: kateprojectpluginview.cpp:218
+#, fuzzy, kde-format
+#| msgid "Reload project"
+msgid "Reload Project"
+msgstr "Torna a carregar el projecte"
+
+#: kateprojectpluginview.cpp:228
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Extreu la branca del Git"
 
-#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:818
+#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:822
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Cerca: %1"
 
-#: kateprojectpluginview.cpp:231 kateprojectpluginview.cpp:819
+#: kateprojectpluginview.cpp:235 kateprojectpluginview.cpp:823
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ves a: %1"
 
-#: kateprojectpluginview.cpp:312
+#: kateprojectpluginview.cpp:316
 #, kde-format
 msgid "Projects Index"
 msgstr "Índex dels projectes"
 
-#: kateprojectpluginview.cpp:863
+#: kateprojectpluginview.cpp:867
 #, kde-format
 msgid "Choose a directory"
 msgstr "Seleccioneu un directori"

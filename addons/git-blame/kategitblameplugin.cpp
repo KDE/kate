@@ -26,13 +26,13 @@
 #include <KTextEditor/View>
 
 #include <QFileInfo>
-#include <QUrl>
-
 #include <QFontMetrics>
 #include <QKeySequence>
 #include <QLayout>
 #include <QPainter>
+#include <QUrl>
 #include <QVariant>
+#include <QtMath>
 
 static bool isUncomittedLine(const QByteArray &hash)
 {

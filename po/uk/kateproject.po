@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-06 00:48+0000\n"
-"PO-Revision-Date: 2023-04-07 09:00+0300\n"
+"PO-Revision-Date: 2023-09-06 17:32+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -885,8 +885,7 @@ msgid "Close Orphaned Projects"
 msgstr "Закрити осиротілі проєкти"
 
 #: kateprojectpluginview.cpp:218
-#, fuzzy, kde-format
-#| msgid "Reload project"
+#, kde-format
 msgid "Reload Project"
 msgstr "Перезавантажити проєкт"
 

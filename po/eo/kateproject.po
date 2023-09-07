@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-06 00:48+0000\n"
-"PO-Revision-Date: 2023-04-07 14:29+0100\n"
+"PO-Revision-Date: 2023-09-06 21:19+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -874,10 +874,9 @@ msgid "Close Orphaned Projects"
 msgstr "Fermi Orfigitajn Projektojn"
 
 #: kateprojectpluginview.cpp:218
-#, fuzzy, kde-format
-#| msgid "Reload project"
+#, kde-format
 msgid "Reload Project"
-msgstr "Reŝargi projekton"
+msgstr "Reŝargi Projekton"
 
 #: kateprojectpluginview.cpp:228
 #, kde-format
@@ -1049,6 +1048,3 @@ msgstr "Montri stash malsukcesis. Eraro:"
 #, kde-format
 msgid "&Projects"
 msgstr "&Projektoj"
-
-#~ msgid "Show number of changed lines in git status"
-#~ msgstr "Montri nombron da ŝanĝitaj linioj en git-stato"

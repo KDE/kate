@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-05 00:48+0000\n"
+"POT-Creation-Date: 2023-09-07 00:48+0000\n"
 "PO-Revision-Date: 2023-03-06 16:38+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -32,32 +32,32 @@ msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr " %1: %2: %3 "
 
-#: kategitblameplugin.cpp:177
+#: kategitblameplugin.cpp:199
 #, kde-format
 msgid "Git Blame"
 msgstr "Git blame"
 
-#: kategitblameplugin.cpp:180
+#: kategitblameplugin.cpp:202
 #, kde-format
 msgid "Show Git Blame Details"
 msgstr "Mostra els detalls de «git blame»"
 
-#: kategitblameplugin.cpp:183
+#: kategitblameplugin.cpp:205
 #, kde-format
 msgid "Toggle Git Blame Details"
 msgstr "Alterna els detalls de «git blame»"
 
-#: kategitblameplugin.cpp:335
+#: kategitblameplugin.cpp:357
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:472
+#: kategitblameplugin.cpp:494
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "No s'ha pogut executar «git blame», en mostrar la comissió."
 
-#: kategitblameplugin.cpp:559
+#: kategitblameplugin.cpp:581
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Encara no s'ha comés"

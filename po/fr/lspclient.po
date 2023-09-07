@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-25 00:49+0000\n"
+"POT-Creation-Date: 2023-09-07 00:48+0000\n"
 "PO-Revision-Date: 2022-12-16 21:38+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -264,76 +264,76 @@ msgstr "Tout réduire"
 msgid "RangeHighLight"
 msgstr "RangeHighLight"
 
-#: lspclientpluginview.cpp:1437
+#: lspclientpluginview.cpp:1439
 #, kde-format
 msgid "Line: %1: "
 msgstr "Ligne : %1 : "
 
-#: lspclientpluginview.cpp:1589 lspclientpluginview.cpp:1945
-#: lspclientpluginview.cpp:2065
+#: lspclientpluginview.cpp:1591 lspclientpluginview.cpp:1947
+#: lspclientpluginview.cpp:2067
 #, kde-format
 msgid "No results"
 msgstr "Aucun résultat"
 
-#: lspclientpluginview.cpp:1648
+#: lspclientpluginview.cpp:1650
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Définition : %1"
 
-#: lspclientpluginview.cpp:1654
+#: lspclientpluginview.cpp:1656
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Déclaration : %1"
 
-#: lspclientpluginview.cpp:1660
+#: lspclientpluginview.cpp:1662
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Définition de type : %1"
 
-#: lspclientpluginview.cpp:1666
+#: lspclientpluginview.cpp:1668
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Références : %1"
 
-#: lspclientpluginview.cpp:1678
+#: lspclientpluginview.cpp:1680
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Implémentation : %1"
 
-#: lspclientpluginview.cpp:1691
+#: lspclientpluginview.cpp:1693
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Surlignement : %1"
 
-#: lspclientpluginview.cpp:1715 lspclientpluginview.cpp:1726
-#: lspclientpluginview.cpp:1739
+#: lspclientpluginview.cpp:1717 lspclientpluginview.cpp:1728
+#: lspclientpluginview.cpp:1741
 #, kde-format
 msgid "No Actions"
 msgstr "Aucune action"
 
-#: lspclientpluginview.cpp:1730
+#: lspclientpluginview.cpp:1732
 #, kde-format
 msgid "Loading..."
 msgstr "Chargement en cours..."
 
-#: lspclientpluginview.cpp:1822
+#: lspclientpluginview.cpp:1824
 #, kde-format
 msgid "No edits"
 msgstr "Aucune modification"
 
-#: lspclientpluginview.cpp:1903
+#: lspclientpluginview.cpp:1905
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Renommer"
 
-#: lspclientpluginview.cpp:1904
+#: lspclientpluginview.cpp:1906
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
@@ -341,29 +341,29 @@ msgstr ""
 "Nouveau nom (attention : toutes les références ne seront pas forcément "
 "remplacées)"
 
-#: lspclientpluginview.cpp:1951
+#: lspclientpluginview.cpp:1953
 #, kde-format
 msgid "Not enough results"
 msgstr "Pas assez les résultats"
 
-#: lspclientpluginview.cpp:2021
+#: lspclientpluginview.cpp:2023
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "Impossible de trouver l'en-tête / source correspondante"
 
-#: lspclientpluginview.cpp:2217 lspclientpluginview.cpp:2254
+#: lspclientpluginview.cpp:2219 lspclientpluginview.cpp:2256
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Serveur LSP"
 
-#: lspclientpluginview.cpp:2277
+#: lspclientpluginview.cpp:2279
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Client LSP"
 
-#: lspclientpluginview.cpp:2562
+#: lspclientpluginview.cpp:2564
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"

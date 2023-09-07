@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-06 00:48+0000\n"
-"PO-Revision-Date: 2023-04-07 08:34+0100\n"
+"PO-Revision-Date: 2023-09-06 11:42+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -880,8 +880,7 @@ msgid "Close Orphaned Projects"
 msgstr "Tanca els projectes orfes"
 
 #: kateprojectpluginview.cpp:218
-#, fuzzy, kde-format
-#| msgid "Reload project"
+#, kde-format
 msgid "Reload Project"
 msgstr "Torna a carregar el projecte"
 

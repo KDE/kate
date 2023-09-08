@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-30 00:48+0000\n"
-"PO-Revision-Date: 2023-08-04 22:58+0100\n"
+"PO-Revision-Date: 2023-09-07 20:53+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -246,10 +246,9 @@ msgstr "&Ilaro"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:286
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Diagnozo"
+msgstr "Diagnoza Perspektivo"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -2841,7 +2840,3 @@ msgstr "Administri Seancojn..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Montri por nova fenestro"
-
-#~ msgid "This view may have unsaved work. Do you really want to close it?"
-#~ msgstr ""
-#~ "Ĉi tiu vido eble havas nekonservitan laboron. Ĉu vi vere volas fermi ĝin?"

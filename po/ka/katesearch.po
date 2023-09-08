@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-06-29 07:58+0200\n"
+"PO-Revision-Date: 2023-09-07 03:39+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -392,7 +392,7 @@ msgstr "ნული ან ერთი გამოვლენა"
 #: SearchPlugin.cpp:107
 #, kde-format
 msgid "<a> through <b> occurrences"
-msgstr ""
+msgstr "<a> ამდენჯერ <b> მეორდება"
 
 #: SearchPlugin.cpp:109
 #, kde-format
@@ -437,7 +437,7 @@ msgstr "სიტყვის საზღვარი"
 #: SearchPlugin.cpp:121
 #, kde-format
 msgid "Not word boundary"
-msgstr ""
+msgstr "სიტყვის საზღვრის გარეშე"
 
 #: SearchPlugin.cpp:122
 #, kde-format
@@ -452,7 +452,7 @@ msgstr "არა-ციფრი"
 #: SearchPlugin.cpp:124
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
-msgstr ""
+msgstr "ჰარეს სიმბოლო"
 
 #: SearchPlugin.cpp:125
 #, kde-format

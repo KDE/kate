@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Eloy Cuadra <ecuadra@eloihr.net>, 2012, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2012, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
 # Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>, 2012.
 # Rocio Gallego <traducciones@rociogallego.com>, 2013, 2014, 2015.
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-06 00:48+0000\n"
-"PO-Revision-Date: 2023-04-07 23:42+0200\n"
+"PO-Revision-Date: 2023-09-07 00:47+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "com>\n"
 "com>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.03.90\n"
+"X-Generator: Lokalize 23.08.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -880,8 +880,7 @@ msgid "Close Orphaned Projects"
 msgstr "Cerrar los proyectos huérfanos"
 
 #: kateprojectpluginview.cpp:218
-#, fuzzy, kde-format
-#| msgid "Reload project"
+#, kde-format
 msgid "Reload Project"
 msgstr "Volver a cargar el proyecto"
 

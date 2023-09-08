@@ -127,7 +127,6 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
     matchFmt.start = match.preMatchStr.size();
     matchFmt.length = match.matchStr.size();
     matchFmt.format.setBackground(m_searchColor);
-    matchFmt.format.setFontItalic(replacing);
     matchFmt.format.setFontStrikeOut(replacing);
     formats << matchFmt;
 

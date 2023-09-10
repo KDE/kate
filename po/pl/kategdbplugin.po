@@ -8,21 +8,20 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-03-25 09:56+0100\n"
+"PO-Revision-Date: 2023-09-09 10:53+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "Polecenie GDB"
 
@@ -183,47 +182,44 @@ msgstr "Cel %1"
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "Ustawienia użytkownika adaptera debugowania"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "Ustawienia"
+msgstr "Plik ustawień:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "Ustawienia domyślne adaptera debugowania"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Diagnozuj"
+msgstr "Debugger"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Brak danych JSON do potwierdzenia."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "Dane JSON są nieprawidłowe."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Dane JSON są nieprawidłowe: brak obiektu JSON"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "Dane JSON są nieprawidłowe: %1"
 
 #: debugview.cpp:35
 #, kde-format
@@ -646,10 +642,9 @@ msgid "named items"
 msgstr "nazwane rzeczy"
 
 #: plugin_kategdb.cpp:106
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr "Kate Debug"
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -679,12 +674,10 @@ msgid "Frame"
 msgstr "Ramka"
 
 #: plugin_kategdb.cpp:200
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "Wyjście GDB"
+msgstr "Wyjście diagnostyczne"
 
 #: plugin_kategdb.cpp:201
 #, kde-format
@@ -807,10 +800,9 @@ msgstr "&Diagnozuj"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "Wtyczka GDB"
+msgstr "Wtyczka diagnostyczna"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

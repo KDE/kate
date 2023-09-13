@@ -14,22 +14,6 @@ Dependencies:
     'frameworks/ktextwidgets': '@latest-kf6'
     'libraries/kuserfeedback': '@latest-kf6'
 
-- 'on': ['Linux/Qt5', 'FreeBSD/Qt5', 'Windows/Qt5', 'macOS/Qt5']
-  'require':
-    'frameworks/breeze-icons': '@stable'
-    'frameworks/extra-cmake-modules': '@stable'
-    'frameworks/kdoctools': '@stable'
-    'frameworks/ki18n': '@stable'
-    'frameworks/kiconthemes': '@stable'
-    'frameworks/knewstuff': '@stable'
-    'frameworks/ktexteditor': '@stable'
-    'frameworks/ktextwidgets': '@stable'
-    'libraries/kuserfeedback': '@stable'
-
-- 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
-  'require':
-    'frameworks/kactivities': '@stable'
-
 - 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
   'require':
     'frameworks/kactivities': '@latest-kf6'

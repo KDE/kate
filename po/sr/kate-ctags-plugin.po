@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2020-05-31 18:18+0200\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2015-10-16 19:04+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -25,13 +25,13 @@ msgid "Session-global index targets"
 msgstr "Индексни циљеви глобални за сесију"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
-#: CTagsGlobalConfig.ui:33 kate_ctags.ui:65
+#: CTagsGlobalConfig.ui:33 kate_ctags.ui:109
 #, kde-format
 msgid "Add"
 msgstr "Додај"
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
-#: CTagsGlobalConfig.ui:40 kate_ctags.ui:72
+#: CTagsGlobalConfig.ui:40 kate_ctags.ui:116
 #, kde-format
 msgid "Remove"
 msgstr "Уклони"
@@ -42,428 +42,444 @@ msgstr "Уклони"
 msgid "Update"
 msgstr "Ажурирај"
 
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #. i18n: ectx: property (text), widget (QLabel, cmdLabel)
-#: CTagsGlobalConfig.ui:66 kate_ctags.ui:119
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: CTagsGlobalConfig.ui:66 kate_ctags.ui:172
 #, kde-format
 msgid "CTags command"
 msgstr "Наредба Ц‑тагса"
 
-#: ctagskinds.cpp:26
-#, kde-format
+#: ctagskinds.cpp:23
 msgctxt "Tag Type"
 msgid "define"
 msgstr "дефиниција"
 
-#: ctagskinds.cpp:26 ctagskinds.cpp:59
-#, kde-format
+#: ctagskinds.cpp:24 ctagskinds.cpp:66
 msgctxt "Tag Type"
 msgid "label"
 msgstr "етикета"
 
-#: ctagskinds.cpp:26 ctagskinds.cpp:35 ctagskinds.cpp:74
-#, kde-format
+#: ctagskinds.cpp:25 ctagskinds.cpp:39 ctagskinds.cpp:85
 msgctxt "Tag Type"
 msgid "macro"
 msgstr "макро"
 
-#: ctagskinds.cpp:28 ctagskinds.cpp:30 ctagskinds.cpp:37 ctagskinds.cpp:56
-#: ctagskinds.cpp:72 ctagskinds.cpp:76 ctagskinds.cpp:80 ctagskinds.cpp:82
-#: ctagskinds.cpp:86 ctagskinds.cpp:88 ctagskinds.cpp:90 ctagskinds.cpp:92
-#: ctagskinds.cpp:96
-#, kde-format
+#: ctagskinds.cpp:28 ctagskinds.cpp:30 ctagskinds.cpp:41 ctagskinds.cpp:63
+#: ctagskinds.cpp:83 ctagskinds.cpp:87 ctagskinds.cpp:91 ctagskinds.cpp:93
+#: ctagskinds.cpp:98 ctagskinds.cpp:102 ctagskinds.cpp:104 ctagskinds.cpp:106
+#: ctagskinds.cpp:110
 msgctxt "Tag Type"
 msgid "function"
 msgstr "функција"
 
-#: ctagskinds.cpp:28 ctagskinds.cpp:64 ctagskinds.cpp:78 ctagskinds.cpp:84
-#, kde-format
+#: ctagskinds.cpp:28 ctagskinds.cpp:71 ctagskinds.cpp:89 ctagskinds.cpp:95
 msgctxt "Tag Type"
 msgid "subroutine"
 msgstr "потпрограм"
 
 #: ctagskinds.cpp:32
-#, kde-format
 msgctxt "Tag Type"
 msgid "fragment definition"
 msgstr "дефиниција фрагмента"
 
-#: ctagskinds.cpp:32
-#, kde-format
+#: ctagskinds.cpp:33
 msgctxt "Tag Type"
 msgid "any pattern"
 msgstr "било који образац"
 
 # well-spelled: слот
 # ? терминологија: slot?
-#: ctagskinds.cpp:32
-#, kde-format
+#: ctagskinds.cpp:34
 msgctxt "Tag Type"
 msgid "slot"
 msgstr "слот"
 
-#: ctagskinds.cpp:32
-#, kde-format
+#: ctagskinds.cpp:35
 msgctxt "Tag Type"
 msgid "pattern"
 msgstr "образац"
 
-#: ctagskinds.cpp:34 ctagskinds.cpp:51 ctagskinds.cpp:70 ctagskinds.cpp:80
-#: ctagskinds.cpp:82 ctagskinds.cpp:86
-#, kde-format
+#: ctagskinds.cpp:38 ctagskinds.cpp:55 ctagskinds.cpp:76 ctagskinds.cpp:91
+#: ctagskinds.cpp:93 ctagskinds.cpp:97
 msgctxt "Tag Type"
 msgid "class"
 msgstr "класа"
 
-#: ctagskinds.cpp:36
-#, kde-format
+#: ctagskinds.cpp:40
 msgctxt "Tag Type"
 msgid "enumerator"
 msgstr "набрајач"
 
-#: ctagskinds.cpp:38
-#, kde-format
+#: ctagskinds.cpp:42
 msgctxt "Tag Type"
 msgid "enumeration"
 msgstr "набрајање"
 
-#: ctagskinds.cpp:39
-#, kde-format
+#: ctagskinds.cpp:43
 msgctxt "Tag Type"
 msgid "member"
 msgstr "члан"
 
-#: ctagskinds.cpp:40 ctagskinds.cpp:92
-#, kde-format
+#: ctagskinds.cpp:44 ctagskinds.cpp:106
 msgctxt "Tag Type"
 msgid "namespace"
 msgstr "именски простор"
 
-#: ctagskinds.cpp:41
-#, kde-format
+#: ctagskinds.cpp:45
 msgctxt "Tag Type"
 msgid "prototype"
 msgstr "прототип"
 
-#: ctagskinds.cpp:42
-#, kde-format
+#: ctagskinds.cpp:46
 msgctxt "Tag Type"
 msgid "struct"
 msgstr "структура"
 
-#: ctagskinds.cpp:43
-#, kde-format
+#: ctagskinds.cpp:47
 msgctxt "Tag Type"
 msgid "typedef"
 msgstr "дефиниција типа"
 
-#: ctagskinds.cpp:44
-#, kde-format
+#: ctagskinds.cpp:48
 msgctxt "Tag Type"
 msgid "union"
 msgstr "унија"
 
-#: ctagskinds.cpp:45 ctagskinds.cpp:66
-#, kde-format
+#: ctagskinds.cpp:49 ctagskinds.cpp:73
 msgctxt "Tag Type"
 msgid "variable"
 msgstr "променљива"
 
-#: ctagskinds.cpp:46
-#, kde-format
+#: ctagskinds.cpp:50
 msgctxt "Tag Type"
 msgid "external variable"
 msgstr "спољашња променљива"
 
-#: ctagskinds.cpp:49
-#, kde-format
+#: ctagskinds.cpp:53
 msgctxt "Tag Type"
 msgid "paragraph"
 msgstr "пасус"
 
-#: ctagskinds.cpp:51
-#, kde-format
+#: ctagskinds.cpp:56
 msgctxt "Tag Type"
 msgid "feature"
 msgstr "могућност"
 
-#: ctagskinds.cpp:51
-#, kde-format
+#: ctagskinds.cpp:57
 msgctxt "Tag Type"
 msgid "local entity"
 msgstr "локални ентитет"
 
-#: ctagskinds.cpp:53
-#, kde-format
+#: ctagskinds.cpp:60
 msgctxt "Tag Type"
 msgid "block"
 msgstr "блок"
 
-#: ctagskinds.cpp:54
-#, kde-format
+#: ctagskinds.cpp:61
 msgctxt "Tag Type"
 msgid "common"
 msgstr "заједнички"
 
-#: ctagskinds.cpp:55
-#, kde-format
+#: ctagskinds.cpp:62
 msgctxt "Tag Type"
 msgid "entry"
 msgstr "унос"
 
-#: ctagskinds.cpp:57 ctagskinds.cpp:70
-#, kde-format
+#: ctagskinds.cpp:64 ctagskinds.cpp:78
 msgctxt "Tag Type"
 msgid "interface"
 msgstr "сучеље"
 
-#: ctagskinds.cpp:58
-#, kde-format
+#: ctagskinds.cpp:65
 msgctxt "Tag Type"
 msgid "type component"
 msgstr "компонента типа"
 
-#: ctagskinds.cpp:60
-#, kde-format
+#: ctagskinds.cpp:67
 msgctxt "Tag Type"
 msgid "local"
 msgstr "локална"
 
-#: ctagskinds.cpp:61
-#, kde-format
+#: ctagskinds.cpp:68
 msgctxt "Tag Type"
 msgid "module"
 msgstr "модул"
 
-#: ctagskinds.cpp:62
-#, kde-format
+#: ctagskinds.cpp:69
 msgctxt "Tag Type"
 msgid "namelist"
 msgstr "списак имена"
 
-#: ctagskinds.cpp:63
-#, kde-format
+#: ctagskinds.cpp:70
 msgctxt "Tag Type"
 msgid "program"
 msgstr "програм"
 
-#: ctagskinds.cpp:65
-#, kde-format
+#: ctagskinds.cpp:72
 msgctxt "Tag Type"
 msgid "type"
 msgstr "тип"
 
-#: ctagskinds.cpp:70
-#, kde-format
+#: ctagskinds.cpp:77
 msgctxt "Tag Type"
 msgid "field"
 msgstr "поље"
 
-#: ctagskinds.cpp:70
-#, kde-format
+#: ctagskinds.cpp:79
 msgctxt "Tag Type"
 msgid "method"
 msgstr "метод"
 
-#: ctagskinds.cpp:70
-#, kde-format
+#: ctagskinds.cpp:80
 msgctxt "Tag Type"
 msgid "package"
 msgstr "пакет"
 
-#: ctagskinds.cpp:76 ctagskinds.cpp:94
-#, kde-format
+#: ctagskinds.cpp:87 ctagskinds.cpp:108
 msgctxt "Tag Type"
 msgid "procedure"
 msgstr "процедура"
 
-#: ctagskinds.cpp:86
-#, kde-format
+#: ctagskinds.cpp:99
 msgctxt "Tag Type"
 msgid "mixin"
 msgstr "умешани"
 
-#: ctagskinds.cpp:88
-#, kde-format
+#: ctagskinds.cpp:102
 msgctxt "Tag Type"
 msgid "set"
 msgstr "скуп"
 
+# rewrite-msgid: /executable/process/
+#: gotosymbolmodel.cpp:67
+#, fuzzy, kde-format
+#| msgid "The CTags executable crashed."
+msgid "CTags executable not found."
+msgstr "Процес Ц‑тагса се срушио."
+
+# rewrite-msgid: /executable/process/
+#: gotosymbolmodel.cpp:80
+#, fuzzy, kde-format
+#| msgid "The CTags executable crashed."
+msgid "CTags executable failed to execute."
+msgstr "Процес Ц‑тагса се срушио."
+
+#: gotosymbolmodel.cpp:148
+#, fuzzy, kde-format
+#| msgid "CTags database file"
+msgid "CTags was unable to parse this file."
+msgstr "Фајл базе података Ц‑тагса"
+
+#: gotosymbolwidget.cpp:246
+#, kde-format
+msgid ""
+"Tags file not found. Please generate one manually or using the CTags plugin"
+msgstr ""
+
+#: gotosymbolwidget.cpp:315
+#, kde-format
+msgid "File for '%1' not found."
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
-#: kate_ctags.ui:13
+#: kate_ctags.ui:33
 #, kde-format
 msgid "Lookup"
 msgstr "Потрага"
 
 #. i18n: ectx: property (text), widget (QPushButton, updateButton)
 #. i18n: ectx: property (text), widget (QPushButton, updateButton2)
-#: kate_ctags.ui:26 kate_ctags.ui:92
+#: kate_ctags.ui:58 kate_ctags.ui:136
 #, kde-format
 msgid "Update Index"
 msgstr "Ажурирај индекс"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
-#: kate_ctags.ui:37
+#: kate_ctags.ui:69
 #, kde-format
 msgid "Tag"
 msgstr "ознака"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
-#: kate_ctags.ui:42
+#: kate_ctags.ui:74
 #, kde-format
 msgid "Type"
 msgstr "тип"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
-#: kate_ctags.ui:47
+#: kate_ctags.ui:79
 #, kde-format
 msgid "File"
 msgstr "фајл"
 
 #. i18n: ectx: attribute (title), widget (QWidget, targets)
-#: kate_ctags.ui:56
+#: kate_ctags.ui:88
 #, kde-format
 msgid "Index Targets"
 msgstr "Индексни циљеви"
 
 #. i18n: ectx: attribute (title), widget (QWidget, database)
-#: kate_ctags.ui:100
+#: kate_ctags.ui:144
 #, kde-format
 msgid "Database"
 msgstr "База података"
 
 #. i18n: ectx: property (text), widget (QLabel, fileLabel)
-#: kate_ctags.ui:109
+#: kate_ctags.ui:162
 #, kde-format
 msgid "CTags database file"
 msgstr "Фајл базе података Ц‑тагса"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, resetCMD)
-#: kate_ctags.ui:152
+#: kate_ctags.ui:205
 #, kde-format
 msgid "Revert to the default command"
 msgstr "Врати на подразумевану наредбу"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
-#: kate_ctags.ui:155
+#: kate_ctags.ui:208
 #, kde-format
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:79 kate_ctags_view.cpp:104
+#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:110
 #, kde-format
 msgid "Add a directory to index."
 msgstr "Додајте фасциклу у индекс."
 
-#: kate_ctags_plugin.cpp:82 kate_ctags_view.cpp:107
+#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:113
 #, kde-format
 msgid "Remove a directory."
 msgstr "Уклоните фасциклу."
 
-#: kate_ctags_plugin.cpp:85
+#: kate_ctags_plugin.cpp:83
 #, kde-format
 msgid "(Re-)generate the common CTags database."
 msgstr "Изградите заједничку базу података Ц‑тагса."
 
-#: kate_ctags_plugin.cpp:103 kate_ctags_view.cpp:48 kate_ctags_view.cpp:91
+#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:47 kate_ctags_view.cpp:54
+#: kate_ctags_view.cpp:97 kate_ctags_view.cpp:135 kate_ctags_view.cpp:547
+#: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
 #, kde-format
 msgid "CTags"
 msgstr "Ц‑тагс"
 
-#: kate_ctags_plugin.cpp:109
+#: kate_ctags_plugin.cpp:107
 #, kde-format
 msgid "CTags Settings"
 msgstr "Поставке Ц‑тагса"
 
-#: kate_ctags_plugin.cpp:235 kate_ctags_view.cpp:531
+#: kate_ctags_plugin.cpp:231
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Неуспело извршавање „%1“. Излазно стање: %2"
 
 # rewrite-msgid: /executable/process/
-#: kate_ctags_plugin.cpp:246 kate_ctags_view.cpp:543
+#: kate_ctags_plugin.cpp:242
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "Процес Ц‑тагса се срушио."
 
-#: kate_ctags_plugin.cpp:248
+#: kate_ctags_plugin.cpp:244
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "Наредба Ц‑тагса завршила је са кодом %1"
 
-# rewrite-msgid: /CTag/CTags/
-#: kate_ctags_view.cpp:45
-#, kde-format
-msgid "Kate CTag"
-msgstr "Кејтин Ц‑тагс"
-
-#: kate_ctags_view.cpp:52
+#: kate_ctags_view.cpp:58
 #, kde-format
 msgid "Jump back one step"
 msgstr "Скочи корак назад"
 
-#: kate_ctags_view.cpp:56
+#: kate_ctags_view.cpp:62
 #, kde-format
 msgid "Go to Declaration"
 msgstr "Иди на декларацију"
 
-#: kate_ctags_view.cpp:60
+#: kate_ctags_view.cpp:66
 #, kde-format
 msgid "Go to Definition"
 msgstr "Иди на дефиницију"
 
-#: kate_ctags_view.cpp:64
+#: kate_ctags_view.cpp:70
 #, kde-format
 msgid "Lookup Current Text"
 msgstr "Потражи текући текст"
 
-#: kate_ctags_view.cpp:68
+#: kate_ctags_view.cpp:74
 #, kde-format
 msgid "Configure ..."
 msgstr ""
 
-#: kate_ctags_view.cpp:83
+#: kate_ctags_view.cpp:89
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
 msgstr ""
 
-#: kate_ctags_view.cpp:94 kate_ctags_view.cpp:172
+#: kate_ctags_view.cpp:100 kate_ctags_view.cpp:189
 #, kde-format
 msgid "Go to Declaration: %1"
 msgstr "Иди на декларацију: %1"
 
-#: kate_ctags_view.cpp:95 kate_ctags_view.cpp:173
+#: kate_ctags_view.cpp:101 kate_ctags_view.cpp:190
 #, kde-format
 msgid "Go to Definition: %1"
 msgstr "Иди на дефиницију: %1"
 
-#: kate_ctags_view.cpp:96 kate_ctags_view.cpp:174
+#: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Потражи: %1"
 
-#: kate_ctags_view.cpp:110 kate_ctags_view.cpp:113
+#: kate_ctags_view.cpp:116 kate_ctags_view.cpp:119
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
 msgstr "Изградите базу података Ц‑тагса посебну по сесији."
 
-#: kate_ctags_view.cpp:118
+#: kate_ctags_view.cpp:124
 #, kde-format
 msgid "Select new or existing database file."
 msgstr "Изаберите нов или постојећи фајл базе података."
 
-#: kate_ctags_view.cpp:296 kate_ctags_view.cpp:328
+#: kate_ctags_view.cpp:140
+#, kde-format
+msgid "Go To Local Symbol"
+msgstr ""
+
+#: kate_ctags_view.cpp:145
+#, kde-format
+msgid "Go To Global Symbol"
+msgstr ""
+
+#: kate_ctags_view.cpp:320 kate_ctags_view.cpp:352
 #, kde-format
 msgid "No hits found"
 msgstr "Нема ниједног поготка"
 
-#: kate_ctags_view.cpp:516
+#: kate_ctags_view.cpp:547
 #, kde-format
 msgid "No folders or files to index"
 msgstr "Нема фасцикли нити фајлова за индексирање"
 
-#: kate_ctags_view.cpp:545
-#, kde-format
-msgid "The CTags program exited with code %1: %2"
+#: kate_ctags_view.cpp:558
+#, fuzzy, kde-format
+#| msgid "Failed to run \"%1\". exitStatus = %2"
+msgid "Failed to run. Error: %1, exit code: %2"
+msgstr "Неуспело извршавање „%1“. Излазно стање: %2"
+
+# rewrite-msgid: /executable/process/
+#: kate_ctags_view.cpp:573
+#, fuzzy, kde-format
+#| msgid "The CTags executable crashed."
+msgid "The CTags executable crashed"
+msgstr "Процес Ц‑тагса се срушио."
+
+#: kate_ctags_view.cpp:575
+#, fuzzy, kde-format
+#| msgid "The CTags program exited with code %1: %2"
+msgid "The CTags program exited with code %2: %1"
 msgstr "Наредба Ц‑тагса изашла је са кодом %1: %2"
+
+# rewrite-msgid: /CTag/CTags/
+#~ msgid "Kate CTag"
+#~ msgstr "Кејтин Ц‑тагс"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2020-05-31 18:18+0200\n"
+"POT-Creation-Date: 2023-05-15 00:49+0000\n"
 "PO-Revision-Date: 2014-12-20 11:52+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -98,237 +98,709 @@ msgstr "solib-search-path"
 msgid "Custom Init Commands"
 msgstr "Posebne pripremne naredbe"
 
-#: configview.cpp:58
+#: backend.cpp:24 backend.cpp:49 debugview_dap.cpp:155
+#, kde-format
+msgid ""
+"A debugging session is on course. Please, use re-run or stop the current "
+"session."
+msgstr ""
+
+#: configview.cpp:92
 #, kde-format
 msgid "Add new target"
 msgstr "Dodaj novi cilj"
 
-#: configview.cpp:62
+#: configview.cpp:96
 #, kde-format
 msgid "Copy target"
 msgstr "Kopiraj cilj"
 
-#: configview.cpp:66
+#: configview.cpp:100
 #, kde-format
 msgid "Delete target"
 msgstr "Obriši cilj"
 
 # >> executable file
-#: configview.cpp:71
+#: configview.cpp:105
 #, kde-format
 msgid "Executable:"
 msgstr "Izvršni:"
 
-#: configview.cpp:91
+#: configview.cpp:125
 #, kde-format
 msgid "Working Directory:"
 msgstr "Radna fascikla:"
 
-#: configview.cpp:98
+#: configview.cpp:133
+#, kde-format
+msgid "Process Id:"
+msgstr ""
+
+#: configview.cpp:138
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumenti:"
 
-#: configview.cpp:101
+#: configview.cpp:141
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Drži fokus"
 
-#: configview.cpp:102
+#: configview.cpp:142
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Drži fokus na komandnoj liniji"
 
-#: configview.cpp:104
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect IO"
 msgstr "Preusmjeri U/I"
 
-#: configview.cpp:105
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Preusmjeri U/I ispravljanog programa u zaseban jezičak"
 
-#: configview.cpp:107
+#: configview.cpp:147
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Napredne postavke"
 
-#: configview.cpp:138
+#: configview.cpp:231
 #, kde-format
 msgid "Targets"
 msgstr "Ciljevi"
 
-#: configview.cpp:318 configview.cpp:334
+#: configview.cpp:524 configview.cpp:537
 #, kde-format
 msgid "Target %1"
 msgstr "Cilj %1"
 
-#: debugview.cpp:135
+#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
+#: debugconfig.ui:33
+#, kde-format
+msgid "User Debug Adapter Settings"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: debugconfig.ui:41
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "Settings"
+msgid "Settings File:"
+msgstr "Postavke"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: debugconfig.ui:68
+#, kde-format
+msgid "Default Debug Adapter Settings"
+msgstr ""
+
+# >> @title:menu
+#: debugconfigpage.cpp:72 debugconfigpage.cpp:77
+#, fuzzy, kde-format
+#| msgid "Debug"
+msgid "Debugger"
+msgstr "Ispravljanje"
+
+#: debugconfigpage.cpp:128
+#, kde-format
+msgid "No JSON data to validate."
+msgstr ""
+
+#: debugconfigpage.cpp:136
+#, kde-format
+msgid "JSON data is valid."
+msgstr ""
+
+#: debugconfigpage.cpp:138
+#, kde-format
+msgid "JSON data is invalid: no JSON object"
+msgstr ""
+
+#: debugconfigpage.cpp:141
+#, kde-format
+msgid "JSON data is invalid: %1"
+msgstr ""
+
+#: debugview.cpp:35
+#, kde-format
+msgid "Locals"
+msgstr ""
+
+#: debugview.cpp:37
+#, kde-format
+msgid "CPU registers"
+msgstr ""
+
+#: debugview.cpp:160
+#, kde-format
+msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+msgstr ""
+
+#: debugview.cpp:169
+#, kde-format
+msgid ""
+"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
+"panel."
+msgstr ""
+
+#: debugview.cpp:178
+#, kde-format
+msgid ""
+"Debugger not found. Please make sure you have it installed in your system. "
+"The selected debugger is '%1'"
+msgstr ""
+
+#: debugview.cpp:384
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Ne mogu da pokrenem proces ispravljača"
 
-#: debugview.cpp:176
+#: debugview.cpp:442
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** GDB završio normalno ***"
 
+#: debugview.cpp:648
+#, kde-format
+msgid "all threads running"
+msgstr ""
+
+#: debugview.cpp:650
+#, kde-format
+msgid "thread(s) running: %1"
+msgstr ""
+
+#: debugview.cpp:655 debugview_dap.cpp:270
+#, kde-format
+msgid "stopped (%1)."
+msgstr ""
+
+#: debugview.cpp:659 debugview_dap.cpp:278
+#, kde-format
+msgid "Active thread: %1 (all threads stopped)."
+msgstr ""
+
+#: debugview.cpp:661 debugview_dap.cpp:280
+#, kde-format
+msgid "Active thread: %1."
+msgstr ""
+
+#: debugview.cpp:680
+#, kde-format
+msgid "Current frame: %1:%2"
+msgstr ""
+
+#: debugview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Target %1"
+msgid "Host: %1. Target: %1"
+msgstr "Cilj %1"
+
+#: debugview.cpp:1377
+#, kde-format
+msgid ""
+"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+"Shutting down."
+msgstr ""
+
+#: debugview.cpp:1379
+#, kde-format
+msgid "gdb-mi: Could not parse last response: %1"
+msgstr ""
+
+#: debugview_dap.cpp:169
+#, kde-format
+msgid "DAP backend failed"
+msgstr ""
+
+#: debugview_dap.cpp:211
+#, kde-format
+msgid "program terminated"
+msgstr ""
+
+#: debugview_dap.cpp:223
+#, kde-format
+msgid "requesting disconnection"
+msgstr ""
+
+#: debugview_dap.cpp:237
+#, kde-format
+msgid "requesting shutdown"
+msgstr ""
+
+#: debugview_dap.cpp:261
+#, kde-format
+msgid "DAP backend: %1"
+msgstr ""
+
+#: debugview_dap.cpp:285
+#, fuzzy, kde-format
+#| msgid "Breakpoint"
+msgid "Breakpoint(s) reached:"
+msgstr "Prelomna tačka"
+
+#: debugview_dap.cpp:307
+#, kde-format
+msgid "(continued) thread %1"
+msgstr ""
+
+#: debugview_dap.cpp:309
+#, kde-format
+msgid "all threads continued"
+msgstr ""
+
+#: debugview_dap.cpp:316
+#, kde-format
+msgid "(running)"
+msgstr ""
+
+#: debugview_dap.cpp:404
+#, kde-format
+msgid "*** connection with server closed ***"
+msgstr ""
+
+#: debugview_dap.cpp:411
+#, kde-format
+msgid "program exited with code %1"
+msgstr ""
+
+#: debugview_dap.cpp:425
+#, kde-format
+msgid "*** waiting for user actions ***"
+msgstr ""
+
+#: debugview_dap.cpp:430
+#, kde-format
+msgid "error on response: %1"
+msgstr ""
+
+#: debugview_dap.cpp:445
+#, kde-format
+msgid "important"
+msgstr ""
+
+#: debugview_dap.cpp:448
+#, kde-format
+msgid "telemetry"
+msgstr ""
+
+#: debugview_dap.cpp:467
+#, kde-format
+msgid "debugging process [%1] %2"
+msgstr ""
+
+#: debugview_dap.cpp:469
+#, kde-format
+msgid "debugging process %1"
+msgstr ""
+
+#: debugview_dap.cpp:472
+#, kde-format
+msgid "Start method: %1"
+msgstr ""
+
+# >> @item:inlistbox
+#: debugview_dap.cpp:479
+#, fuzzy, kde-format
+#| msgid "Thread %1"
+msgid "thread %1"
+msgstr "nit %1"
+
+#: debugview_dap.cpp:633
+#, fuzzy, kde-format
+#| msgid "Breakpoint"
+msgid "breakpoint set"
+msgstr "Prelomna tačka"
+
+#: debugview_dap.cpp:641
+#, fuzzy, kde-format
+#| msgid "Breakpoint"
+msgid "breakpoint cleared"
+msgstr "Prelomna tačka"
+
+#: debugview_dap.cpp:700
+#, fuzzy, kde-format
+#| msgid "Breakpoint"
+msgid "(%1) breakpoint"
+msgstr "Prelomna tačka"
+
+#: debugview_dap.cpp:717
+#, kde-format
+msgid "<not evaluated>"
+msgstr ""
+
+#: debugview_dap.cpp:739
+#, kde-format
+msgid "server capabilities"
+msgstr ""
+
+#: debugview_dap.cpp:742
+#, kde-format
+msgid "supported"
+msgstr ""
+
+#: debugview_dap.cpp:742
+#, kde-format
+msgid "unsupported"
+msgstr ""
+
+#: debugview_dap.cpp:745
+#, fuzzy, kde-format
+#| msgid "Insert breakpoint"
+msgid "conditional breakpoints"
+msgstr "Umetni prelomnu tačku"
+
+#: debugview_dap.cpp:746
+#, fuzzy, kde-format
+#| msgid "Insert breakpoint"
+msgid "function breakpoints"
+msgstr "Umetni prelomnu tačku"
+
+#: debugview_dap.cpp:747
+#, kde-format
+msgid "hit conditional breakpoints"
+msgstr ""
+
+#: debugview_dap.cpp:748
+#, kde-format
+msgid "log points"
+msgstr ""
+
+#: debugview_dap.cpp:748
+#, kde-format
+msgid "modules request"
+msgstr ""
+
+#: debugview_dap.cpp:749
+#, kde-format
+msgid "goto targets request"
+msgstr ""
+
+#: debugview_dap.cpp:750
+#, kde-format
+msgid "terminate request"
+msgstr ""
+
+#: debugview_dap.cpp:751
+#, kde-format
+msgid "terminate debuggee"
+msgstr ""
+
+#: debugview_dap.cpp:958
+#, kde-format
+msgid "syntax error: expression not found"
+msgstr ""
+
+#: debugview_dap.cpp:976 debugview_dap.cpp:1011 debugview_dap.cpp:1049
+#: debugview_dap.cpp:1083 debugview_dap.cpp:1119 debugview_dap.cpp:1155
+#: debugview_dap.cpp:1191 debugview_dap.cpp:1291 debugview_dap.cpp:1353
+#, kde-format
+msgid "syntax error: %1"
+msgstr ""
+
+#: debugview_dap.cpp:984 debugview_dap.cpp:1019 debugview_dap.cpp:1298
+#: debugview_dap.cpp:1361
+#, kde-format
+msgid "invalid line: %1"
+msgstr ""
+
+#: debugview_dap.cpp:991 debugview_dap.cpp:996 debugview_dap.cpp:1026
+#: debugview_dap.cpp:1031 debugview_dap.cpp:1322 debugview_dap.cpp:1327
+#: debugview_dap.cpp:1368 debugview_dap.cpp:1373
+#, kde-format
+msgid "file not specified: %1"
+msgstr ""
+
+#: debugview_dap.cpp:1061 debugview_dap.cpp:1095 debugview_dap.cpp:1131
+#: debugview_dap.cpp:1167 debugview_dap.cpp:1203
+#, kde-format
+msgid "invalid thread id: %1"
+msgstr ""
+
+#: debugview_dap.cpp:1067 debugview_dap.cpp:1101 debugview_dap.cpp:1137
+#: debugview_dap.cpp:1173 debugview_dap.cpp:1209
+#, kde-format
+msgid "thread id not specified: %1"
+msgstr ""
+
+#: debugview_dap.cpp:1220
+#, kde-format
+msgid "Available commands:"
+msgstr ""
+
+#: debugview_dap.cpp:1308
+#, kde-format
+msgid "conditional breakpoints are not supported by the server"
+msgstr ""
+
+#: debugview_dap.cpp:1316
+#, kde-format
+msgid "hit conditional breakpoints are not supported by the server"
+msgstr ""
+
+#: debugview_dap.cpp:1336
+#, kde-format
+msgid "line %1 already has a breakpoint"
+msgstr ""
+
+#: debugview_dap.cpp:1381
+#, kde-format
+msgid "breakpoint not found (%1:%2)"
+msgstr ""
+
+#: debugview_dap.cpp:1387
+#, kde-format
+msgid "Current thread: "
+msgstr ""
+
+#: debugview_dap.cpp:1392 debugview_dap.cpp:1399 debugview_dap.cpp:1423
+#, kde-format
+msgid "none"
+msgstr ""
+
+#: debugview_dap.cpp:1395
+#, kde-format
+msgid "Current frame: "
+msgstr ""
+
+#: debugview_dap.cpp:1402
+#, kde-format
+msgid "Session state: "
+msgstr ""
+
+#: debugview_dap.cpp:1405
+#, kde-format
+msgid "initializing"
+msgstr ""
+
+#: debugview_dap.cpp:1408
+#, kde-format
+msgid "running"
+msgstr ""
+
+#: debugview_dap.cpp:1411
+#, kde-format
+msgid "stopped"
+msgstr ""
+
+#: debugview_dap.cpp:1414
+#, kde-format
+msgid "terminated"
+msgstr ""
+
+#: debugview_dap.cpp:1417
+#, kde-format
+msgid "disconnected"
+msgstr ""
+
+#: debugview_dap.cpp:1420
+#, kde-format
+msgid "post mortem"
+msgstr ""
+
+#: debugview_dap.cpp:1476
+#, kde-format
+msgid "command not found"
+msgstr ""
+
+#: debugview_dap.cpp:1497
+#, kde-format
+msgid "missing thread id"
+msgstr ""
+
+#: debugview_dap.cpp:1605
+#, kde-format
+msgid "killing backend"
+msgstr ""
+
+#: debugview_dap.cpp:1663
+#, kde-format
+msgid "Current frame [%3]: %1:%2 (%4)"
+msgstr ""
+
 # >> @title:column
-#: localsview.cpp:29
+#: localsview.cpp:17
 #, kde-format
 msgid "Symbol"
 msgstr "simbol"
 
 # >> @title:column
-#: localsview.cpp:30
+#: localsview.cpp:18
 #, kde-format
 msgid "Value"
 msgstr "vrijednost"
 
-#: plugin_kategdb.cpp:83
+#: localsview.cpp:41
 #, kde-format
-msgid "Kate GDB"
+msgid "type"
+msgstr ""
+
+#: localsview.cpp:50
+#, kde-format
+msgid "indexed items"
+msgstr ""
+
+#: localsview.cpp:53
+#, kde-format
+msgid "named items"
+msgstr ""
+
+#: plugin_kategdb.cpp:106
+#, fuzzy, kde-format
+#| msgid "Kate GDB"
+msgid "Kate Debug"
 msgstr "Katein GDB"
 
-#: plugin_kategdb.cpp:86
+#: plugin_kategdb.cpp:110
 #, kde-format
 msgid "Debug View"
 msgstr "Ispravljački prikaz"
 
-#: plugin_kategdb.cpp:88
+# >> @title:menu
+#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:343
+#, kde-format
+msgid "Debug"
+msgstr "Ispravljanje"
+
+#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:116
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Lokalne i stek"
 
-#: plugin_kategdb.cpp:133
+#: plugin_kategdb.cpp:168
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "br."
 
-#: plugin_kategdb.cpp:133
+#: plugin_kategdb.cpp:168
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "okvir"
 
-#: plugin_kategdb.cpp:156
-#, kde-format
+#: plugin_kategdb.cpp:200
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "GDB Output"
 msgctxt "Tab label"
-msgid "GDB Output"
+msgid "Debug Output"
 msgstr "Izlaz GDB‑a"
 
-#: plugin_kategdb.cpp:157
+#: plugin_kategdb.cpp:201
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Postavke"
 
-#: plugin_kategdb.cpp:194
+#: plugin_kategdb.cpp:243
+#, kde-kuit-format
+msgctxt "@info"
+msgid ""
+"<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
+"Advanced Settings -> Source file search paths"
+msgstr ""
+
+#: plugin_kategdb.cpp:268
 #, kde-format
 msgid "Start Debugging"
 msgstr "Pokreni ispravljanje"
 
-#: plugin_kategdb.cpp:199
+#: plugin_kategdb.cpp:278
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Ukini/zaustavi ispravljanje"
 
-#: plugin_kategdb.cpp:204
+#: plugin_kategdb.cpp:285
 #, kde-format
-msgid "Restart Debugging"
-msgstr "Ponovo pokreni ispravljanje"
+msgid "Continue"
+msgstr "Nastavi"
 
-#: plugin_kategdb.cpp:209
+#: plugin_kategdb.cpp:291
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Prelomna tačka ili prelom"
 
-#: plugin_kategdb.cpp:214
+#: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Step In"
 msgstr "Ukorači"
 
-#: plugin_kategdb.cpp:219
+#: plugin_kategdb.cpp:304
 #, kde-format
 msgid "Step Over"
 msgstr "Prekorači"
 
-#: plugin_kategdb.cpp:224
+#: plugin_kategdb.cpp:311
 #, kde-format
 msgid "Step Out"
 msgstr "Iskorači"
 
-#: plugin_kategdb.cpp:229 plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:350
+#, kde-format
+msgid "Run To Cursor"
+msgstr "Izvrši do kursora"
+
+#: plugin_kategdb.cpp:325
+#, kde-format
+msgid "Restart Debugging"
+msgstr "Ponovo pokreni ispravljanje"
+
+#: plugin_kategdb.cpp:333 plugin_kategdb.cpp:352
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Pomjeri ⁠PC"
 
-#: plugin_kategdb.cpp:233 plugin_kategdb.cpp:255
-#, kde-format
-msgid "Run To Cursor"
-msgstr "Izvrši do kursora"
-
-#: plugin_kategdb.cpp:238
-#, kde-format
-msgid "Continue"
-msgstr "Nastavi"
-
-#: plugin_kategdb.cpp:243
+#: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Print Value"
 msgstr "Ispiši vrijednost"
 
-# >> @title:menu
-#: plugin_kategdb.cpp:248
-#, kde-format
-msgid "Debug"
-msgstr "Ispravljanje"
-
-#: plugin_kategdb.cpp:252
+#: plugin_kategdb.cpp:347
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:254
+#: plugin_kategdb.cpp:349
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:325 plugin_kategdb.cpp:341
+#: plugin_kategdb.cpp:431 plugin_kategdb.cpp:447
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Umetni prelomnu tačku"
 
-#: plugin_kategdb.cpp:339
+#: plugin_kategdb.cpp:445
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Ukloni prelomnu tačku"
 
-#: plugin_kategdb.cpp:367
-#, kde-format
-msgid "Breakpoint"
-msgstr "Prelomna tačka"
-
-#: plugin_kategdb.cpp:469
+#: plugin_kategdb.cpp:599 plugin_kategdb.cpp:613
 #, kde-format
 msgid "Execution point"
 msgstr "Izvršna tačka"
 
 # >> @item:inlistbox
-#: plugin_kategdb.cpp:587 plugin_kategdb.cpp:589
+#: plugin_kategdb.cpp:771
 #, kde-format
 msgid "Thread %1"
 msgstr "nit %1"
 
-#: plugin_kategdb.cpp:676
+#: plugin_kategdb.cpp:871
 #, kde-format
 msgid "IO"
 msgstr "U/I"
+
+#: plugin_kategdb.cpp:956 plugin_kategdb.cpp:964
+#, kde-format
+msgid "Breakpoint"
+msgstr "Prelomna tačka"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -338,6 +810,7 @@ msgstr "&Ispravljanje"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, kde-format
-msgid "GDB Plugin"
+#, fuzzy, kde-format
+#| msgid "GDB Plugin"
+msgid "Debug Plugin"
 msgstr "Priključak za GDB"

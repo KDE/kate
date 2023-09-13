@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-replicode-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2020-02-02 02:30+0100\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
 "PO-Revision-Date: 2015-10-14 18:13+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -17,16 +17,6 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 "X-Environment: kde\n"
-
-#, kde-format
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Časlav Ilić"
-
-#, kde-format
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "caslav.ilic@gmx.net"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
@@ -293,82 +283,77 @@ msgstr "Popisivanje modela u fajl:"
 msgid "Test models:"
 msgstr "Probni modeli:"
 
-#: replicodeconfigpage.cpp:39
+#: replicodeconfigpage.cpp:24
 #, kde-format
 msgid "Path to replicode executor:"
 msgstr "Putanja izvršavača Replicodea:"
 
-#: replicodeconfigpage.cpp:54
+#: replicodeconfigpage.cpp:39 replicodeview.cpp:51
 #, kde-format
 msgid "Replicode"
 msgstr "Replicode"
 
-#: replicodeconfigpage.cpp:59
+#: replicodeconfigpage.cpp:44
 #, kde-format
 msgid "Replicode configuration"
 msgstr "Postava Replicodea"
 
-#: replicodeview.cpp:54
+#: replicodeview.cpp:38
 #, kde-format
 msgid "Run replicode"
 msgstr "Izvrši Replicode"
 
-#: replicodeview.cpp:58
+#: replicodeview.cpp:42
 #, kde-format
 msgid "Stop replicode"
 msgstr "Zaustavi Replicode"
 
-#: replicodeview.cpp:63
-#, kde-format
-msgid "Replicode Output"
-msgstr "Izlaz Replicodea"
-
-#: replicodeview.cpp:69
+#: replicodeview.cpp:61
 #, kde-format
 msgid "Replicode Config"
 msgstr "Postava Replicodea"
 
-#: replicodeview.cpp:72
+#: replicodeview.cpp:64
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Run (%1)"
 msgstr "Izvrši (%1)"
 
-#: replicodeview.cpp:73
+#: replicodeview.cpp:65
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Stop (%1)"
 msgstr "Zaustavi (%1)"
 
-#: replicodeview.cpp:107
+#: replicodeview.cpp:100
 #, kde-format
 msgctxt "@title:window"
 msgid "Active Document Not Found"
 msgstr "Aktivni dokument nije nađen"
 
-#: replicodeview.cpp:107
+#: replicodeview.cpp:100
 #, kde-format
 msgid "Could not find an active document to run."
 msgstr "Ne mogu da nađem aktivni dokument za izvršavanje."
 
-#: replicodeview.cpp:112
+#: replicodeview.cpp:105
 #, kde-format
 msgctxt "@title:window"
 msgid "Empty Document"
 msgstr "Prazan dokument"
 
-#: replicodeview.cpp:112
+#: replicodeview.cpp:105
 #, kde-format
 msgid "Cannot execute an empty document."
 msgstr "Ne mogu da izvršim prazan dokument."
 
-#: replicodeview.cpp:119
+#: replicodeview.cpp:112
 #, kde-format
 msgctxt "@title:window"
 msgid "File Not Found"
 msgstr "Fajl nije nađen"
 
-#: replicodeview.cpp:119
+#: replicodeview.cpp:112
 #, kde-format
 msgid "Unable to open source file for reading."
 msgstr "Ne mogu da otvorim izvorni fajl za čitanje."
@@ -403,12 +388,23 @@ msgstr ""
 "Ne mogu da nađem biblioteku korisničkih operatora.\n"
 "Idite u postavke i zadajte njenu putanju."
 
-#: replicodeview.cpp:197
+#: replicodeview.cpp:201
 #, kde-format
 msgid "Replicode execution failed: %1"
 msgstr "Izvršavanje Replicodea propalo: %1"
 
-#: replicodeview.cpp:207
+#: replicodeview.cpp:211
 #, kde-format
 msgid "Replicode execution finished."
 msgstr "Izvršavanje Replicodea završeno."
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Časlav Ilić"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "caslav.ilic@gmx.net"
+
+#~ msgid "Replicode Output"
+#~ msgstr "Izlaz Replicodea"

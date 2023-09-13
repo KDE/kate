@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2019-09-17 02:29+0200\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2013-09-08 14:16+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -18,125 +18,132 @@ msgstr ""
 "X-Text-Markup: kde4\n"
 "X-Environment: kde\n"
 
-#: bash_parser.cpp:43 cpp_parser.cpp:38 fortran_parser.cpp:45
-#: plugin_katesymbolviewer.cpp:98
+#: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
+#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
+#: ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
 msgstr "Prikaži funkcije"
 
-#: bash_parser.cpp:46 cpp_parser.cpp:50 fortran_parser.cpp:48 php_parser.cpp:40
-#: tcl_parser.cpp:41
+#: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40
+#: julia_parser.cpp:55 php_parser.cpp:34 python_parser.cpp:45
+#: ruby_parser.cpp:33 tcl_parser.cpp:35
 #, kde-format
 msgid "Functions"
 msgstr "Funkcije"
 
-#: cpp_parser.cpp:36 plugin_katesymbolviewer.cpp:94
+#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Macros"
 msgstr "Prikaži makroe"
 
-#: cpp_parser.cpp:37 plugin_katesymbolviewer.cpp:96
+#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:86
 #, kde-format
 msgid "Show Structures"
 msgstr "Prikaži strukture"
 
-#: cpp_parser.cpp:48
+#: cpp_parser.cpp:41 julia_parser.cpp:56
 #, kde-format
 msgid "Macros"
 msgstr "Makroi"
 
-#: cpp_parser.cpp:49
+#: cpp_parser.cpp:42 julia_parser.cpp:54
 #, kde-format
 msgid "Structures"
 msgstr "Strukture"
 
-#: fortran_parser.cpp:43 perl_parser.cpp:25
+#: fortran_parser.cpp:35 perl_parser.cpp:23
 #, kde-format
 msgid "Show Subroutines"
 msgstr "Prikaži potprograme"
 
-#: fortran_parser.cpp:44
+#: fortran_parser.cpp:36
 #, kde-format
 msgid "Show Modules"
 msgstr "Prikaži module"
 
-#: fortran_parser.cpp:49 perl_parser.cpp:43
+#: fortran_parser.cpp:41 perl_parser.cpp:35
 #, kde-format
 msgid "Subroutines"
 msgstr "Potprogrami"
 
-#: fortran_parser.cpp:50
+#: fortran_parser.cpp:42
 #, kde-format
 msgid "Modules"
 msgstr "Moduli"
 
-#: perl_parser.cpp:23
+#: perl_parser.cpp:21
 #, kde-format
 msgid "Show Uses"
 msgstr "Prikaži upotrebe"
 
-#: perl_parser.cpp:24
+#: perl_parser.cpp:22
 #, kde-format
 msgid "Show Pragmas"
 msgstr "Prikaži pragme"
 
-#: perl_parser.cpp:41
+#: perl_parser.cpp:33
 #, kde-format
 msgid "Uses"
 msgstr "Upotrebe"
 
-#: perl_parser.cpp:42
+#: perl_parser.cpp:34
 #, kde-format
 msgid "Pragmas"
 msgstr "Pragme"
 
-#: php_parser.cpp:37
+#: php_parser.cpp:31
 #, kde-format
 msgid "Namespaces"
 msgstr "Imenski prostori"
 
-#: php_parser.cpp:38
+#: php_parser.cpp:32
 #, kde-format
 msgid "Defines"
 msgstr "Definicije"
 
-#: php_parser.cpp:39 python_parser.cpp:43 ruby_parser.cpp:44
+#: php_parser.cpp:33 python_parser.cpp:44 ruby_parser.cpp:32
 #, kde-format
 msgid "Classes"
 msgstr "Klase"
 
-#: plugin_katesymbolviewer.cpp:78
+#: plugin_katesymbolviewer.cpp:68
 #, kde-format
 msgid "SymbolViewer"
 msgstr "Prikazivač simbola"
 
-#: plugin_katesymbolviewer.cpp:87
+#: plugin_katesymbolviewer.cpp:77
 #, fuzzy, kde-format
 #| msgid "List/Tree Mode"
 msgid "Tree Mode"
 msgstr "Režim spiska/stabla"
 
-#: plugin_katesymbolviewer.cpp:89
+#: plugin_katesymbolviewer.cpp:79
 #, kde-format
 msgid "Expand Tree"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:91
+#: plugin_katesymbolviewer.cpp:81
 #, fuzzy, kde-format
 #| msgid "Show Structures"
 msgid "Show Sorted"
 msgstr "Prikaži strukture"
 
-#: plugin_katesymbolviewer.cpp:100
+#: plugin_katesymbolviewer.cpp:90
 #, fuzzy, kde-format
 #| msgid "Show Params"
 msgid "Show Parameters"
 msgstr "Prikaži parametre"
 
-#: plugin_katesymbolviewer.cpp:124
+#: plugin_katesymbolviewer.cpp:116
 #, kde-format
 msgid "Symbol List"
 msgstr "Spisak simbola|/|$[svojstva aku 'Spisak simbola']"
+
+#: plugin_katesymbolviewer.cpp:134
+#, kde-format
+msgid "Filter..."
+msgstr ""
 
 #: plugin_katesymbolviewer.cpp:143
 #, kde-format
@@ -150,68 +157,63 @@ msgctxt "@title:column"
 msgid "Position"
 msgstr "položaj"
 
-#: plugin_katesymbolviewer.cpp:349
+#: plugin_katesymbolviewer.cpp:361
 #, fuzzy, kde-format
 #| msgid "Sorry. Language not supported yet"
 msgid "Sorry, not supported yet!"
 msgstr "Izvinite, jezik još uvek nije podržan."
 
-#: plugin_katesymbolviewer.cpp:353
+#: plugin_katesymbolviewer.cpp:365
 #, kde-format
 msgid "File type: %1"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:437
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Prikaži parametre funkcije"
 
-#: plugin_katesymbolviewer.cpp:438
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Automatski raširi čvorove u stablu"
 
-#: plugin_katesymbolviewer.cpp:439
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Uvek prikaži simbole u stablu"
 
-#: plugin_katesymbolviewer.cpp:440
+#: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Uvek poređaj simbole"
 
-#: plugin_katesymbolviewer.cpp:442
+#: plugin_katesymbolviewer.cpp:483
 #, kde-format
 msgid "Parser Options"
 msgstr "Opcije raščlanjivača"
 
-#: plugin_katesymbolviewer.cpp:470
+#: plugin_katesymbolviewer.cpp:511
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Prikazivač simbola"
 
-#: plugin_katesymbolviewer.cpp:474
+#: plugin_katesymbolviewer.cpp:516
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Stranica postave prikazivača simbola"
 
-#: python_parser.cpp:23 ruby_parser.cpp:23
-#, kde-format
-msgid "Show Globals"
-msgstr "Prikaži globalne"
-
-#: python_parser.cpp:24 ruby_parser.cpp:24
+#: python_parser.cpp:26 ruby_parser.cpp:22
 #, kde-format
 msgid "Show Methods"
 msgstr "Prikaži metode"
 
-#: python_parser.cpp:25 ruby_parser.cpp:25
+#: python_parser.cpp:27 ruby_parser.cpp:23
 #, kde-format
 msgid "Show Classes"
 msgstr "Prikaži klase"
 
-#: python_parser.cpp:44 tcl_parser.cpp:42
+#: tcl_parser.cpp:36
 #, kde-format
 msgid "Globals"
 msgstr "Globalni"
@@ -222,38 +224,41 @@ msgstr "Globalni"
 msgid "&Settings"
 msgstr "&Podešavanje"
 
-#: xml_parser.cpp:27
+#: xml_parser.cpp:25
 #, fuzzy, kde-format
 #| msgid "Show Pragmas"
 msgid "Show Tags"
 msgstr "Prikaži pragme"
 
-#: xslt_parser.cpp:24
+#: xslt_parser.cpp:22
 #, kde-format
 msgid "Show Params"
 msgstr "Prikaži parametre"
 
-#: xslt_parser.cpp:25
+#: xslt_parser.cpp:23
 #, kde-format
 msgid "Show Variables"
 msgstr "Prikaži promenljive"
 
-#: xslt_parser.cpp:26
+#: xslt_parser.cpp:24
 #, kde-format
 msgid "Show Templates"
 msgstr "Prikaži šablone"
 
-#: xslt_parser.cpp:48
+#: xslt_parser.cpp:34
 #, kde-format
 msgid "Params"
 msgstr "Parametri"
 
-#: xslt_parser.cpp:49
+#: xslt_parser.cpp:35
 #, kde-format
 msgid "Variables"
 msgstr "Promenljive"
 
-#: xslt_parser.cpp:50
+#: xslt_parser.cpp:36
 #, kde-format
 msgid "Templates"
 msgstr "Šabloni"
+
+#~ msgid "Show Globals"
+#~ msgstr "Prikaži globalne"

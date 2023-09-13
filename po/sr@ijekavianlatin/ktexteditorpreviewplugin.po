@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktexteditorpreviewplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2019-09-17 02:29+0200\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2017-09-29 18:09+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -18,86 +18,84 @@ msgstr ""
 "X-Text-Markup: kde4\n"
 "X-Environment: kde\n"
 
-#, kde-format
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Časlav Ilić"
-
-#, kde-format
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "caslav.ilic@gmx.net"
-
-#: ktexteditorpreviewview.cpp:40
+#: ktexteditorpreviewview.cpp:31
 #, kde-format
 msgid "Preview"
 msgstr "Pregled"
 
-#: previewwidget.cpp:61
+#: previewwidget.cpp:44
 #, kde-format
 msgid "Lock Current Document"
 msgstr "Zaključaj trenutni dokument"
 
-#: previewwidget.cpp:62
+#: previewwidget.cpp:45
 #, kde-format
 msgid "Lock preview to current document"
 msgstr "Zaključaj pregled na trenutni dokument"
 
-#: previewwidget.cpp:63
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock Current View"
 msgstr "Otključaj trenutni prikaz"
 
-#: previewwidget.cpp:63
+#: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock current view"
 msgstr "Otključaj trenutni prikaz"
 
-#: previewwidget.cpp:70
+#: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
 msgstr "Automatski ažuriraj pregled"
 
-#: previewwidget.cpp:71
+#: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr ""
 "Uključuje automatsko ažuriranje pregleda na sadržaj trenutnog dokumenta."
 
-#: previewwidget.cpp:72
+#: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
 msgstr "Ručno ažuriraj pregled"
 
-#: previewwidget.cpp:72
+#: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
 msgstr ""
 "Isključuje automatsko ažuriranje pregleda na sadržaj trenutnog dokumenta."
 
-#: previewwidget.cpp:77
+#: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
 msgstr "Ažuriraj pregled"
 
-#: previewwidget.cpp:78
+#: previewwidget.cpp:63
 #, kde-format
 msgid "Update the preview to the current document content"
 msgstr "Ažurira pregled na sadržaj trenutnog dokumenta."
 
 # >> @title:menu
-#: previewwidget.cpp:86
+#: previewwidget.cpp:71
 #, kde-format
 msgid "View"
 msgstr "Prikaz"
 
-#: previewwidget.cpp:111
+#: previewwidget.cpp:96
 #, kde-format
 msgid "No preview available."
 msgstr "Pregled nije dostupan."
 
-#: previewwidget.cpp:234
+#: previewwidget.cpp:232
 #, kde-format
 msgid "About %1"
 msgstr "O %1|/|O $[dat %1]"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Časlav Ilić"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "caslav.ilic@gmx.net"

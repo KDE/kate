@@ -420,7 +420,7 @@ msgid ""
 "for example, an FTP client."
 msgstr ""
 "De manera opcional guarda el document actual o tots els modificats abans "
-"d'executar l'ordre. Açò és útil si voleu passar URL a una aplicació, p. ex. "
+"d'executar l'ordre. Açò és útil si voleu passar URL a una aplicació, p. ex., "
 "a un client FTP."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)

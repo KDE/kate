@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2019-09-17 02:29+0200\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Text-Markup: kde4\n"
 "X-Environment: kde\n"
 
-#: plugin_katetextfilter.cpp:90
+#: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -31,7 +31,7 @@ msgstr ""
 "<title>Rezultat:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 
-#: plugin_katetextfilter.cpp:141
+#: plugin_katetextfilter.cpp:152
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -40,22 +40,22 @@ msgstr ""
 "Nije vam dozvoljeno da izvršavate proizvoljne spoljašnje programe. Ako ipak "
 "to želite, kontaktirajte sistem-administratora."
 
-#: plugin_katetextfilter.cpp:143
+#: plugin_katetextfilter.cpp:154
 #, kde-format
 msgid "Access Restrictions"
 msgstr "Ograničenja pristupa"
 
-#: plugin_katetextfilter.cpp:159 plugin_katetextfilter.cpp:240
+#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
 #, kde-format
 msgid "Text Filter"
 msgstr "Filter teksta"
 
-#: plugin_katetextfilter.cpp:218
+#: plugin_katetextfilter.cpp:238
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Upotreba: textfilter NAREDBA"
 
-#: plugin_katetextfilter.cpp:229
+#: plugin_katetextfilter.cpp:249
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -64,7 +64,7 @@ msgstr ""
 "<qt><p>Upotreba: <tt>textfilter NAREDBA</tt></p><p>Zamenjuje izabrani tekst "
 "izlazom zadate naredbe školjke.</p></qt>"
 
-#: plugin_katetextfilter.cpp:245
+#: plugin_katetextfilter.cpp:265
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr ""
@@ -81,20 +81,26 @@ msgstr "Dijalog"
 msgid "Enter command to &pipe selected text through:"
 msgstr "Unesite naredbu kroz koju treba &provući izabrani tekst:"
 
+#. i18n: ectx: property (text), widget (QCheckBox, newDoc)
+#: textfilterwidget.ui:39
+#, kde-format
+msgid "Open results in a new document"
+msgstr ""
+
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
-#: textfilterwidget.ui:40
+#: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
 msgstr "Kopiraj rezultat u klipbord, bez izmena nad dokumentom"
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
-#: textfilterwidget.ui:43
+#: textfilterwidget.ui:49
 #, kde-format
 msgid "Copy the result instead of pasting it"
 msgstr "Kopiraj rezultat umjesto naljepljivanja"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, mergeOutput)
-#: textfilterwidget.ui:51
+#: textfilterwidget.ui:57
 #, kde-format
 msgid ""
 "If checked, an output from STDOUT and STDERR will be merged and no errors "
@@ -106,7 +112,7 @@ msgstr ""
 "Inače, stdgr se prikazuje kao pasivna poruka."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
-#: textfilterwidget.ui:54
+#: textfilterwidget.ui:60
 #, kde-format
 msgid "Merge STDOUT and STDERR"
 msgstr "Stopi stdiz i stdgr"

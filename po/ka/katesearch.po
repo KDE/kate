@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-06-29 07:58+0200\n"
+"PO-Revision-Date: 2023-09-13 18:21+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -108,22 +108,22 @@ msgstr[1] "<b><i>ფაილში ნაპოვნია %1 (%2) დამ�
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>ღია ფაილებში აღმოჩენილია ერთი დამთხვევა (%2)</i></b>"
+msgstr[1] "<b><i>ღია ფაილებში აღმოჩენილია %1 დამთხვევა (%2)</i></b>"
 
 #: MatchModel.cpp:593
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>საქაღალდეში %2 აღმოჩენილია 1 დამთხვევა (%3)</i></b>"
+msgstr[1] "<b><i>საქაღალდეში %2 აღმოჩენილია %1 დამთხვევა (%3)</i></b>"
 
 #: MatchModel.cpp:600
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>აღმოჩენილია 1 დამთხვევა (%4) პროექტში %2 (%3)</i></b>"
+msgstr[1] "<b><i>აღმოჩენილია %1 დამთხვევა (%4) პროექტში %2 (%3)</i></b>"
 
 #: MatchModel.cpp:609
 #, kde-format
@@ -132,7 +132,11 @@ msgid ""
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
 msgstr[0] ""
+"<b><i>ყველა ღია პროექტში (საერთო მშობელი: %2) აღმოჩენილია 1 დამთხვევა (%3)</"
+"i></b>"
 msgstr[1] ""
+"<b><i>ყველა ღია პროექტში (საერთო მშობელი: %2) აღმოჩენილია %1 დამთხვევა (%3)</"
+"i></b>"
 
 #: MatchModel.cpp:722 MatchModel.cpp:724
 #, kde-format
@@ -178,15 +182,17 @@ msgstr[1] "საქაღალდეში (%2) ნაპოვნია %1 (%
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "აღმოჩენილია 1 დამთხვევა (%4) პროექტში %2 (%3)"
+msgstr[1] "აღმოჩენილია %1 დამთხვევა (%4) პროექტში %2 (%3)"
 
 #: MatchModel.cpp:759
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
+"ყველა ღია პროექტში (საერთო მშობელი: %2) აღმოჩენილია 1 დამთხვევა (%3)"
 msgstr[1] ""
+"ყველა ღია პროექტში (საერთო მშობელი: %2) აღმოჩენილია %1 დამთხვევა (%3)"
 
 #: Results.cpp:31
 #, kde-format
@@ -233,6 +239,9 @@ msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
 "by using the buttons in the search and replace text fields.</p></body></html>"
 msgstr ""
+"<html><head/><body><p>რეგულარული გამოსახულებების ჩართვა. დახმარება "
+"რეგულარული გაოსახულების შესახებ შეგიძლიათ ძებნისა და ჩანაცვლების ტექსტის "
+"ველების ღილაკების გამოყენებით მიიღოთ.</p></body></html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
 #: search.ui:160
@@ -367,7 +376,7 @@ msgstr "სტრიქონის დასასრული"
 #: SearchPlugin.cpp:100
 #, kde-format
 msgid "Any single character (excluding line breaks)"
-msgstr ""
+msgstr "ნებისმიერი ერთი სიმბოლო (ხაზის გადატანის გარდა)"
 
 #: SearchPlugin.cpp:101
 #, kde-format
@@ -392,7 +401,7 @@ msgstr "ნული ან ერთი გამოვლენა"
 #: SearchPlugin.cpp:107
 #, kde-format
 msgid "<a> through <b> occurrences"
-msgstr ""
+msgstr "<a> ამდენჯერ <b> მეორდება"
 
 #: SearchPlugin.cpp:109
 #, kde-format
@@ -422,7 +431,7 @@ msgstr "ჯგუფი, ჩაჭერის გარეშე"
 #: SearchPlugin.cpp:114
 #, kde-format
 msgid "Lookahead"
-msgstr ""
+msgstr "წინმჭვრეტელი"
 
 #: SearchPlugin.cpp:115
 #, kde-format
@@ -437,7 +446,7 @@ msgstr "სიტყვის საზღვარი"
 #: SearchPlugin.cpp:121
 #, kde-format
 msgid "Not word boundary"
-msgstr ""
+msgstr "სიტყვის საზღვრის გარეშე"
 
 #: SearchPlugin.cpp:122
 #, kde-format
@@ -452,12 +461,12 @@ msgstr "არა-ციფრი"
 #: SearchPlugin.cpp:124
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
-msgstr ""
+msgstr "ჰარეს სიმბოლო"
 
 #: SearchPlugin.cpp:125
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
-msgstr ""
+msgstr "არა თეთრი-გამოტოვება (ხაზის გადატანის გარდა)"
 
 #: SearchPlugin.cpp:126
 #, kde-format
@@ -532,7 +541,7 @@ msgstr "წინა დამთხვევაზე გადასვლა"
 #: SearchPlugin.cpp:361
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "შესაბამისი ხაზების ამოჭრა"
 
 #: SearchPlugin.cpp:363
 #, kde-format
@@ -540,11 +549,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"ეს მიმდინარე დოკუმენტში ძებნის პირობის შესაბამის, გამოკვეთილ ყველა ხაზს "
+"ბუფერში ამოჭრის"
 
 #: SearchPlugin.cpp:368
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "შესაბამისი ხაზების კოპირება"
 
 #: SearchPlugin.cpp:370
 #, kde-format
@@ -552,12 +563,16 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"ეს მიმდინარე დოკუმენტში ძებნის პირობის შესაბამის, გამოკვეთილ ყველა ხაზს "
+"ბუფერში დააკოპირებს"
 
 #: SearchPlugin.cpp:398
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr ""
+"მძიმით გამოყოფილი ფაილების სია, რომლებშიც ძებნა განხორციელდება. მაგ: \"*."
+"cpp, *.h\"\n"
 
 #: SearchPlugin.cpp:399
 #, kde-format
@@ -565,11 +580,13 @@ msgid ""
 "Comma separated list of files and directories to exclude from the search. "
 "Example: \"build*\""
 msgstr ""
+"მძიმით გამოყოფილი ფაილებისა და საქაღალდეების სია, რომლებიც ძებნიდან "
+"ამოღებული იქნება. მაგ: \"build*\""
 
 #: SearchPlugin.cpp:401
 #, kde-format
 msgid "Click to filter through results"
-msgstr ""
+msgstr "დააწკაპუნეთ ძებნის შედეგების გასაფილტრად"
 
 #: SearchPlugin.cpp:491
 #, kde-format
@@ -580,6 +597,7 @@ msgstr "მოძებნა"
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
+"ძებნა თქვენი კრეფისას შეწყდა. ალბათ, მას მეტისმეტად ბევრი დრო დასჭირდა."
 
 #: SearchPlugin.cpp:1690 SearchPlugin.cpp:1700
 #, kde-format

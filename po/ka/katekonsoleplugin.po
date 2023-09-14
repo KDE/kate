@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-09 00:51+0000\n"
-"PO-Revision-Date: 2023-05-09 10:22+0200\n"
+"PO-Revision-Date: 2023-09-13 18:20+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: kateconsole.cpp:56
 #, kde-format
@@ -72,6 +72,8 @@ msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
 "contained commands with your user rights."
 msgstr ""
+"მართლა გნებავთ ამ ტექსტის კონსოლში გადაგზავნა? ეს ყველა ბრძანებას, რომელსაც "
+"ის შეიცავს, შეასრულებს თქვენი სახელით."
 
 #: kateconsole.cpp:389
 #, kde-format
@@ -101,6 +103,10 @@ msgid ""
 "with your user rights, in the terminal:\n"
 "'%1'"
 msgstr ""
+"მართლა გნებავთ, დოკუმენტი გაუშვათ?\n"
+"ეს შეასრულებს შემდეგ ბრძანებას,\n"
+"თქვენი მომხმარებლის უფლებებით, ტერმინალში:\n"
+"'%1'"
 
 #: kateconsole.cpp:494
 #, kde-format
@@ -134,6 +140,8 @@ msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
 msgstr ""
+"&ტერმინალის მიმდინარე დოკუმენტთან ავტომატური სინქრონიზაცია, როცა ეს "
+"შესაძლებელია"
 
 #: kateconsole.cpp:601 kateconsole.cpp:622
 #, kde-format
@@ -161,6 +169,8 @@ msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
+"როცა, შემდეგ ჯერზე, '%1' გაეშვება, გამოჩნდება გაფრთხილების მხტუნარა, რომელიც,"
+"გადასახედად, ტერმინალში გაგზავნილ ბრძანებებს გაჩვენებთ."
 
 #: kateconsole.cpp:629
 #, kde-format
@@ -173,6 +183,8 @@ msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr ""
+"მნიშვნელოვანია: კონსოლს აპლიკაციის გასაგრძელებლად, აუცილებელია, დოკუმენტი "
+"დახუროთ"
 
 #: kateconsole.cpp:635
 #, kde-format

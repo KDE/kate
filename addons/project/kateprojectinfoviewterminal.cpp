@@ -53,11 +53,7 @@ KPluginFactory *KateProjectInfoViewTerminal::pluginFactory()
     if (s_pluginFactory) {
         return s_pluginFactory;
     }
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    const QString konsolePart = QStringLiteral("konsolepart");
-#else
     const QString konsolePart = QStringLiteral("kf6/parts/konsolepart");
-#endif
     return s_pluginFactory = KPluginFactory::loadFactory(konsolePart).plugin;
 }
 

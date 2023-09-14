@@ -19,9 +19,6 @@
 #include <KSharedConfig>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/MovingInterface>
-#endif
 
 constexpr int numberOfColors = 5;
 
@@ -112,13 +109,8 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
         disconnect(m_activeView, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::onScrollChanged);
 
         auto doc = m_activeView->document();
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         disconnect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &RainbowParenPluginView::clearRanges);
         disconnect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &RainbowParenPluginView::clearRanges);
-#else
-        disconnect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRanges(KTextEditor::Document *)));
-        disconnect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRanges(KTextEditor::Document *)));
-#endif
         disconnect(doc, &KTextEditor::Document::textInserted, this, &RainbowParenPluginView::onTextInserted);
         disconnect(doc, &KTextEditor::Document::textRemoved, this, &RainbowParenPluginView::onTextRemoved);
 
@@ -136,17 +128,12 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
         }
 
         // clear ranges for this doc if it gets closed
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &RainbowParenPluginView::clearSavedRangesForDoc, Qt::UniqueConnection);
         connect(doc,
                 &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent,
                 this,
                 &RainbowParenPluginView::clearSavedRangesForDoc,
                 Qt::UniqueConnection);
-#else
-        connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearSavedRangesForDoc(KTextEditor::Document *)));
-        connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearSavedRangesForDoc(KTextEditor::Document *)));
-#endif
     }
 
     ranges.clear();
@@ -158,17 +145,8 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
     connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::onScrollChanged, Qt::UniqueConnection);
 
     auto doc = m_activeView->document();
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &RainbowParenPluginView::clearRanges, Qt::UniqueConnection);
     connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &RainbowParenPluginView::clearRanges, Qt::UniqueConnection);
-#else
-    connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRanges(KTextEditor::Document *)), Qt::UniqueConnection);
-    connect(doc,
-            SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
-            this,
-            SLOT(clearRanges(KTextEditor::Document *)),
-            Qt::UniqueConnection);
-#endif
     connect(doc, &KTextEditor::Document::textInserted, this, &RainbowParenPluginView::onTextInserted, Qt::UniqueConnection);
     connect(doc, &KTextEditor::Document::textRemoved, this, &RainbowParenPluginView::onTextRemoved, Qt::UniqueConnection);
 
@@ -231,21 +209,6 @@ void RainbowParenPluginView::clearSavedRangesForDoc(KTextEditor::Document *doc)
     }
 }
 
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-
-static bool isComment(KTextEditor::Document *doc, int line, int col)
-{
-    return doc->defaultStyleAt({line, col}) == KTextEditor::DefaultStyle::dsComment;
-}
-
-static bool isString(KTextEditor::Document *doc, int line, int col)
-{
-    const auto defStyle = doc->defaultStyleAt({line, col});
-    return defStyle == KTextEditor::DefaultStyle::dsChar || defStyle == KTextEditor::DefaultStyle::dsString;
-}
-
-#else
-
 static bool isComment(KTextEditor::Document *doc, int line, int col)
 {
     return doc->defaultStyleAt({line, col}) == KSyntaxHighlighting::Theme::TextStyle::Comment;
@@ -256,8 +219,6 @@ static bool isString(KTextEditor::Document *doc, int line, int col)
     const auto defStyle = doc->defaultStyleAt({line, col});
     return defStyle == KSyntaxHighlighting::Theme::TextStyle::Char || defStyle == KSyntaxHighlighting::Theme::TextStyle::String;
 }
-
-#endif
 
 using ColoredBracket = std::unique_ptr<KTextEditor::MovingRange>;
 using ColoredBracketPair = std::pair<std::unique_ptr<KTextEditor::MovingRange>, std::unique_ptr<KTextEditor::MovingRange>>;
@@ -398,10 +359,6 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
         }
     }
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    auto miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-#endif
-
     // We reuse ranges completely if there was no change but the user
     // was only scrolling. This allows the colors to stay somewhat stable
     // and not change all the time
@@ -464,20 +421,12 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
             continue;
         }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         std::unique_ptr<KTextEditor::MovingRange> r(doc->newMovingRange({p.opener, cur1}));
-#else
-        std::unique_ptr<KTextEditor::MovingRange> r(miface->newMovingRange({p.opener, cur1}));
-#endif
         r->setAttribute(attrs[color % numberOfColors]);
 
         auto cur2 = p.closer;
         cur2.setColumn(cur2.column() + 1);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         std::unique_ptr<KTextEditor::MovingRange> r2(doc->newMovingRange({p.closer, cur2}));
-#else
-        std::unique_ptr<KTextEditor::MovingRange> r2(miface->newMovingRange({p.closer, cur2}));
-#endif
         r2->setAttribute(attrs[color % numberOfColors]);
 
         ranges.push_back(std::move(r));

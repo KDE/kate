@@ -13,10 +13,6 @@
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <ktexteditor/markinterface.h>
-#include <ktexteditor/movinginterface.h>
-#endif
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/view.h>
 
@@ -600,15 +596,8 @@ QVector<int> KatePluginSearchView::getDocumentSearchMarkedLines(KTextEditor::Doc
     if (!currentDocument) {
         return result;
     }
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     QHash<int, KTextEditor::Mark *> documentMarksHash = currentDocument->marks();
     auto searchMarkType = KTextEditor::Document::SearchMatch;
-#else
-    KTextEditor::MarkInterface *markInterface = qobject_cast<KTextEditor::MarkInterface *>(currentDocument);
-    QHash<int, KTextEditor::Mark *> documentMarksHash = markInterface->marks();
-
-    auto searchMarkType = KTextEditor::MarkInterface::SearchMatch;
-#endif
     for (const int markedLineNumber : documentMarksHash.keys()) {
         auto documentMarkTypeMask = documentMarksHash.value(markedLineNumber)->type;
         if ((searchMarkType & documentMarkTypeMask) != searchMarkType)
@@ -1601,7 +1590,6 @@ void KatePluginSearchView::clearDocMarksAndRanges(KTextEditor::Document *doc)
     // Before removing the ranges try to update the ranges in the model in case we have document changes.
     syncModelRanges();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     if (doc) {
         const QHash<int, KTextEditor::Mark *> marks = doc->marks();
         QHashIterator<int, KTextEditor::Mark *> i(marks);
@@ -1612,20 +1600,6 @@ void KatePluginSearchView::clearDocMarksAndRanges(KTextEditor::Document *doc)
             }
         }
     }
-#else
-    KTextEditor::MarkInterface *iface;
-    iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
-    if (iface) {
-        const QHash<int, KTextEditor::Mark *> marks = iface->marks();
-        QHashIterator<int, KTextEditor::Mark *> i(marks);
-        while (i.hasNext()) {
-            i.next();
-            if (i.value()->type & KTextEditor::MarkInterface::markType32) {
-                iface->removeMark(i.value()->line, KTextEditor::MarkInterface::markType32);
-            }
-        }
-    }
-#endif
 
     m_matchRanges.erase(std::remove_if(m_matchRanges.begin(),
                                        m_matchRanges.end(),
@@ -1639,14 +1613,7 @@ void KatePluginSearchView::clearDocMarksAndRanges(KTextEditor::Document *doc)
                         m_matchRanges.end());
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr)
-#else
-void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
-                                           const KateSearchMatch &match,
-                                           KTextEditor::Attribute::Ptr attr,
-                                           KTextEditor::MovingInterface *miface)
-#endif
 {
     if (!doc || !match.checked) {
         return;
@@ -1675,33 +1642,17 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
         attr->setBackground(m_replaceHighlightColor);
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     KTextEditor::MovingRange *mr = doc->newMovingRange(match.range);
-#else
-    KTextEditor::MovingRange *mr = miface->newMovingRange(match.range);
-#endif
     mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
     mr->setAttribute(attr);
     mr->setAttributeOnlyForViews(true);
     m_matchRanges.append(mr);
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     // Add a match mark
     static const auto description = i18n("Search Match");
     doc->setMarkDescription(KTextEditor::Document::markType32, description);
     doc->setMarkIcon(KTextEditor::Document::markType32, QIcon());
     doc->addMark(match.range.start().line(), KTextEditor::Document::markType32);
-#else
-    // Add a match mark
-    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
-    if (!iface) {
-        return;
-    }
-    static const auto description = i18n("Search Match");
-    iface->setMarkDescription(KTextEditor::MarkInterface::markType32, description);
-    iface->setMarkIcon(KTextEditor::MarkInterface::markType32, QIcon());
-    iface->addMark(match.range.start().line(), KTextEditor::MarkInterface::markType32);
-#endif
 }
 
 void KatePluginSearchView::updateCheckState(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
@@ -1742,30 +1693,16 @@ void KatePluginSearchView::updateMatchMarks()
         return;
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &KatePluginSearchView::clearMarksAndRanges, Qt::UniqueConnection);
-#else
-    // clang-format off
-    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)), this, SLOT(clearMarksAndRanges()), Qt::UniqueConnection);
-    // clang-format on
-#endif
     // Re-add the highlighting on document reload
     connect(doc, &KTextEditor::Document::reloaded, this, &KatePluginSearchView::updateMatchMarks, Qt::UniqueConnection);
     // Re-do highlight upon check mark update
     connect(&res->matchModel, &QAbstractItemModel::dataChanged, this, &KatePluginSearchView::updateCheckState, Qt::UniqueConnection);
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-#endif
-
     // Add match marks for all matches in the file
     const QVector<KateSearchMatch> &fileMatches = res->matchModel.fileMatches(doc);
     for (const KateSearchMatch &match : fileMatches) {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         addRangeAndMark(doc, match, m_resultAttr);
-#else
-        addRangeAndMark(doc, match, m_resultAttr, miface);
-#endif
     }
 }
 

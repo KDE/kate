@@ -34,9 +34,6 @@
 #include <QDir>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <ktexteditor/markinterface.h>
-#endif
 #include <ktexteditor/view.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
@@ -463,32 +460,16 @@ void KatePluginGDBView::slotToggleBreakpoint()
 
 void KatePluginGDBView::slotBreakpointSet(const QUrl &file, int line)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     if (auto doc = m_kateApplication->findUrl(file)) {
         doc->addMark(line, KTextEditor::Document::BreakpointActive);
     }
-#else
-    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(m_kateApplication->findUrl(file));
-
-    if (iface) {
-        iface->addMark(line, KTextEditor::MarkInterface::BreakpointActive);
-    }
-#endif
 }
 
 void KatePluginGDBView::slotBreakpointCleared(const QUrl &file, int line)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     if (auto doc = m_kateApplication->findUrl(file)) {
         doc->removeMark(line, KTextEditor::Document::BreakpointActive);
     }
-#else
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_kateApplication->findUrl(file));
-
-    if (iface) {
-        iface->removeMark(line, KTextEditor::MarkInterface::BreakpointActive);
-    }
-#endif
 }
 
 void KatePluginGDBView::slotMovePC()
@@ -516,17 +497,9 @@ void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
     if ((url == m_lastExecUrl) && (lineNum == m_lastExecLine)) {
         return;
     } else {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         if (auto doc = m_kateApplication->findUrl(m_lastExecUrl)) {
             doc->removeMark(m_lastExecLine, KTextEditor::Document::Execution);
         }
-#else
-        KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(m_kateApplication->findUrl(m_lastExecUrl));
-
-        if (iface) {
-            iface->removeMark(m_lastExecLine, KTextEditor::MarkInterface::Execution);
-        }
-#endif
     }
 
     // skip not existing files
@@ -592,7 +565,6 @@ void KatePluginGDBView::enableDebugActions(bool enable)
 
     m_ioView->enableInput(!enable && m_debugView->debuggerRunning());
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     if ((m_lastExecLine > -1)) {
         if (auto doc = m_kateApplication->findUrl(m_lastExecUrl)) {
             if (enable) {
@@ -604,21 +576,6 @@ void KatePluginGDBView::enableDebugActions(bool enable)
             }
         }
     }
-#else
-    if ((m_lastExecLine > -1)) {
-        KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(m_kateApplication->findUrl(m_lastExecUrl));
-
-        if (iface) {
-            if (enable) {
-                iface->setMarkDescription(KTextEditor::MarkInterface::Execution, i18n("Execution point"));
-                iface->setMarkIcon(KTextEditor::MarkInterface::Execution, QIcon::fromTheme(QStringLiteral("arrow-right")));
-                iface->addMark(m_lastExecLine, KTextEditor::MarkInterface::Execution);
-            } else {
-                iface->removeMark(m_lastExecLine, KTextEditor::MarkInterface::Execution);
-            }
-        }
-    }
-#endif
 }
 
 void KatePluginGDBView::programEnded()
@@ -645,7 +602,6 @@ void KatePluginGDBView::gdbEnded()
 
 void KatePluginGDBView::clearMarks()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     const auto documents = m_kateApplication->documents();
     for (KTextEditor::Document *doc : documents) {
         const QHash<int, KTextEditor::Mark *> marks = doc->marks();
@@ -657,23 +613,6 @@ void KatePluginGDBView::clearMarks()
             }
         }
     }
-#else
-    KTextEditor::MarkInterface *iface;
-    const auto documents = m_kateApplication->documents();
-    for (KTextEditor::Document *doc : documents) {
-        iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
-        if (iface) {
-            const QHash<int, KTextEditor::Mark *> marks = iface->marks();
-            QHashIterator<int, KTextEditor::Mark *> i(marks);
-            while (i.hasNext()) {
-                i.next();
-                if ((i.value()->type == KTextEditor::MarkInterface::Execution) || (i.value()->type == KTextEditor::MarkInterface::BreakpointActive)) {
-                    iface->removeMark(i.value()->line, i.value()->type);
-                }
-            }
-        }
-    }
-#endif
 }
 
 void KatePluginGDBView::slotSendCommand()
@@ -950,21 +889,11 @@ void KatePluginGDBView::handleEsc(QEvent *e)
 
 void KatePluginGDBView::enableBreakpointMarks(KTextEditor::Document *document)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     if (document) {
         document->setEditableMarks(document->editableMarks() | KTextEditor::Document::BreakpointActive);
         document->setMarkDescription(KTextEditor::Document::BreakpointActive, i18n("Breakpoint"));
         document->setMarkIcon(KTextEditor::Document::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-record")));
     }
-#else
-    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(document);
-
-    if (iface) {
-        iface->setEditableMarks(iface->editableMarks() | KTextEditor::MarkInterface::BreakpointActive);
-        iface->setMarkDescription(KTextEditor::MarkInterface::BreakpointActive, i18n("Breakpoint"));
-        iface->setMarkIcon(KTextEditor::MarkInterface::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-record")));
-    }
-#endif
 }
 
 void KatePluginGDBView::displayMessage(const QString &msg, KTextEditor::Message::MessageType level)

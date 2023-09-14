@@ -10,9 +10,6 @@
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/Document>
 #include <KTextEditor/InlineNote>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/InlineNoteInterface>
-#endif
 
 #include <QApplication>
 #include <QPainter>
@@ -120,11 +117,7 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
     return {hint.width, note.lineHeight()};
 }
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
-#else
 void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const
-#endif
 {
     auto it = binaryFind(m_hints, note.position());
     if (it != m_hints.end()) {
@@ -172,11 +165,7 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
         // when reloading the view is same
         bool reloaded = m_currentView == v;
         m_currentView = v;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         m_currentView->registerInlineNoteProvider(&m_noteProvider);
-#else
-        qobject_cast<InlineNoteInterface *>(m_currentView)->registerInlineNoteProvider(&m_noteProvider);
-#endif
         m_noteProvider.setView(v);
         auto d = v->document();
 
@@ -213,11 +202,7 @@ void InlayHintsManager::unregisterView(KTextEditor::View *v)
     if (v) {
         v->disconnect(this);
         v->document()->disconnect(this);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         m_currentView->unregisterInlineNoteProvider(&m_noteProvider);
-#else
-        qobject_cast<KTextEditor::InlineNoteInterface *>(m_currentView)->unregisterInlineNoteProvider(&m_noteProvider);
-#endif
         auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc = v->document()](const HintData &hd) {
             return hd.doc == doc;
         });

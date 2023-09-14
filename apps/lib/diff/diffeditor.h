@@ -29,11 +29,7 @@ private:
     class DiffWidget *const m_diffWidget;
 };
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 using IntT = qsizetype;
-#else
-using IntT = int;
-#endif
 
 struct Change {
     IntT pos;

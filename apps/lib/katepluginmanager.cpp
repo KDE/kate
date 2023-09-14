@@ -74,11 +74,7 @@ void KatePluginManager::setupPluginList()
     m_pluginList.clear();
     QSet<QString> unique;
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("ktexteditor"));
-#else
     const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("kf6/ktexteditor"));
-#endif
     for (const auto &pluginMetaData : plugins) {
         KatePluginInfo info;
         info.metaData = pluginMetaData;

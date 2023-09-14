@@ -411,9 +411,6 @@ QTextDocument *KateProject::notesDocument()
     QFile inFile(notesFileName);
     if (inFile.open(QIODevice::ReadOnly)) {
         QTextStream inStream(&inFile);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        inStream.setCodec("UTF-8");
-#endif
         m_notesDocument->setPlainText(inStream.readAll());
     }
 
@@ -457,9 +454,6 @@ void KateProject::saveNotesDocument()
     QFile outFile(projectLocalFileName(QStringLiteral("notes")));
     if (outFile.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         QTextStream outStream(&outFile);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        outStream.setCodec("UTF-8");
-#endif
         outStream << content;
     }
 }
@@ -475,11 +469,7 @@ void KateProject::slotModifiedChanged(KTextEditor::Document *document)
     item->slotModifiedChanged(document);
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 void KateProject::slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::Document::ModifiedOnDiskReason reason)
-#else
-void KateProject::slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
-#endif
 {
     KateProjectItem *item = itemForFile(m_documents.value(document));
 
@@ -504,28 +494,14 @@ void KateProject::registerDocument(KTextEditor::Document *document)
     // clang-format off
     if (item) {
         disconnect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         disconnect(document, &KTextEditor::Document::modifiedOnDisk, this, &KateProject::slotModifiedOnDisk);
-#else
-        disconnect(document,
-                   SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-                   this,
-                   SLOT(slotModifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
-#endif
         item->slotModifiedChanged(document);
 
         /*FIXME    item->slotModifiedOnDisk(document,document->isModified(),qobject_cast<KTextEditor::ModificationInterface*>(document)->modifiedOnDisk());
          * FIXME*/
 
         connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         connect(document, &KTextEditor::Document::modifiedOnDisk, this, &KateProject::slotModifiedOnDisk);
-#else
-        connect(document,
-                SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-                this,
-                SLOT(slotModifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
-#endif
 
         return;
     }
@@ -547,16 +523,7 @@ void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
     KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileInfo.fileName());
     fileItem->slotModifiedChanged(document);
     connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     connect(document, &KTextEditor::Document::modifiedOnDisk, this, &KateProject::slotModifiedOnDisk);
-#else
-    // clang-format off
-    connect(document,
-            SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-            this,
-            SLOT(slotModifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
-    // clang-format on
-#endif
 
     bool inserted = false;
     for (int i = 0; i < m_untrackedDocumentsRoot->rowCount(); ++i) {

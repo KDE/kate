@@ -326,11 +326,7 @@ void GotoSymbolWidget::slotReturnPressed()
         // and put the cursor there
         const QString tag = idx.data().toString();
         const QString textLine = m_mainWindow->activeView()->document()->line(--line);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        int col = textLine.indexOf(tag.midRef(0, 4));
-#else
         int col = textLine.indexOf(QStringView(tag).mid(0, 4));
-#endif
         col = col >= 0 ? col : 0;
         KTextEditor::Cursor c(line, col);
 

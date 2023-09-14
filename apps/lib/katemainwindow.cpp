@@ -10,9 +10,7 @@
 // BEGIN Includes
 #include "katemainwindow.h"
 #include "kconfigwidgets_version.h"
-#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(5, 107, 0)
 #include <KColorSchemeMenu>
-#endif
 
 #include "diagnostics/diagnosticview.h"
 #include "filehistorywidget.h"
@@ -263,12 +261,7 @@ void KateMainWindow::setupImportantActions()
 
     // Load themes
     KColorSchemeManager *manager = new KColorSchemeManager(this);
-#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 107, 0)
-    const QString colorScheme = KConfigGroup(KSharedConfig::openConfig(), "UiSettings").readEntry("ColorScheme", QString());
-    auto *colorSelectionMenu = manager->createSchemeSelectionMenu(colorScheme, this);
-#else
     auto *colorSelectionMenu = KColorSchemeMenu::createMenu(manager, this);
-#endif
     colorSelectionMenu->menu()->setTitle(i18n("&Window Color Scheme"));
     actionCollection()->addAction(QStringLiteral("colorscheme_menu"), colorSelectionMenu);
 
@@ -955,22 +948,14 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
             KFileItem kitem(url);
             kitem.setDelayedMimeTypes(true);
             if (kitem.isDir()) {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
                 if (KMessageBox::questionTwoActions(this,
-#else
-                if (KMessageBox::questionYesNo(this,
-#endif
                                                     i18n("You dropped the directory %1 into Kate. "
                                                          "Do you want to open all files contained in it?",
                                                          url.url()),
                                                     i18nc("@title:window", "Open Files Recursively"),
                                                     KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
                                                     KStandardGuiItem::cancel())
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
                     == KMessageBox::PrimaryAction) {
-#else
-                    == KMessageBox::Yes) {
-#endif
                     KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
                     connect(list_job, &KIO::ListJob::entries, this, &KateMainWindow::slotListRecursiveEntries);
                 }

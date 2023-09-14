@@ -16,10 +16,6 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/CodeCompletionInterface>
-#endif
-
 K_PLUGIN_FACTORY_WITH_JSON(KateSnippetsPluginFactory, "katesnippetsplugin.json", registerPlugin<KateSnippetsPlugin>();)
 
 KateSnippetsPlugin::KateSnippetsPlugin(QObject *parent, const QList<QVariant> &)
@@ -90,12 +86,7 @@ KateSnippetsPluginView::~KateSnippetsPluginView()
         if (!view) {
             continue;
         }
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        auto iface = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
-        iface->unregisterCompletionModel(KateSnippetGlobal::self()->completionModel());
-#else
         view->unregisterCompletionModel(KateSnippetGlobal::self()->completionModel());
-#endif
     }
 
     // unregister if factory around
@@ -114,14 +105,8 @@ void KateSnippetsPluginView::slotViewCreated(KTextEditor::View *view)
 
     // add snippet completion
     auto model = KateSnippetGlobal::self()->completionModel();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    auto iface = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
-    iface->unregisterCompletionModel(model);
-    iface->registerCompletionModel(model);
-#else
     view->unregisterCompletionModel(model);
     view->registerCompletionModel(model);
-#endif
 }
 
 void KateSnippetsPluginView::createSnippet()

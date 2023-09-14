@@ -235,11 +235,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
 
     // For some reason initStyleOption with tabIdx directly
     // wasn't working, so manually set some stuff
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-    QStyleOptionTabV4 opt;
-#else
     QStyleOptionTab opt;
-#endif
     opt.text = tabText(tab);
     opt.icon = tabIcon(tab);
     opt.iconSize = iconSize();

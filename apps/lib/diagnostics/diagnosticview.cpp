@@ -16,11 +16,6 @@
 #include <KActionMenu>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/MarkInterface>
-#include <KTextEditor/MovingInterface>
-#include <KTextEditor/TextHintInterface>
-#endif
 
 #include <KColorScheme>
 #include <KXMLGUIFactory>
@@ -177,19 +172,11 @@ void DiagnosticsProvider::filterDiagnosticsViewTo(DiagnosticsProvider *filterTo)
     }
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 static constexpr KTextEditor::Document::MarkTypes markTypeDiagError = KTextEditor::Document::Error;
 static constexpr KTextEditor::Document::MarkTypes markTypeDiagWarning = KTextEditor::Document::Warning;
 static constexpr KTextEditor::Document::MarkTypes markTypeDiagOther = KTextEditor::Document::markType30;
 static constexpr KTextEditor::Document::MarkTypes markTypeDiagAll =
     KTextEditor::Document::MarkTypes(markTypeDiagError | markTypeDiagWarning | markTypeDiagOther);
-#else
-static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagError = KTextEditor::MarkInterface::Error;
-static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagWarning = KTextEditor::MarkInterface::Warning;
-static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagOther = KTextEditor::MarkInterface::markType30;
-static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagAll =
-    KTextEditor::MarkInterface::MarkTypes(markTypeDiagError | markTypeDiagWarning | markTypeDiagOther);
-#endif
 
 struct DiagModelIndex {
     int row;
@@ -965,11 +952,7 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
     }
 
     KTextEditor::Attribute::Ptr attr;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     KTextEditor::Document::MarkTypes markType = markTypeDiagWarning;
-#else
-    KTextEditor::MarkInterface::MarkTypes markType = markTypeDiagWarning;
-#endif
 
     const auto kind = item->data(DiagnosticModelRole::KindRole).value<DiagnosticSeverity>();
     switch (kind) {
@@ -1022,25 +1005,14 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
 
     // highlight the range
     if (attr && !range.isEmpty()) {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         KTextEditor::MovingRange *mr = doc->newMovingRange(range);
-#else
-        KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-        Q_ASSERT(miface);
-        KTextEditor::MovingRange *mr = miface->newMovingRange(range);
-#endif
         mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
         mr->setAttribute(attr);
         mr->setAttributeOnlyForViews(true);
         m_diagnosticsRanges[doc].push_back(mr);
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     auto iface = doc;
-#else
-    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
-    Q_ASSERT(iface);
-#endif
     // add match mark for range
     switch (markType) {
     case markTypeDiagError:
@@ -1065,35 +1037,12 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
     m_diagnosticsMarks.insert(doc);
 
     // ensure runtime match
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     using Doc = KTextEditor::Document;
     connect(doc, &Doc::aboutToInvalidateMovingInterfaceContent, this, &DiagnosticsView::clearAllMarks, Qt::UniqueConnection);
     connect(doc, &Doc::aboutToDeleteMovingInterfaceContent, this, &DiagnosticsView::clearAllMarks, Qt::UniqueConnection);
     // reload might save/restore marks before/after above signals, so let's clear before that
     connect(doc, &Doc::aboutToReload, this, &DiagnosticsView::clearAllMarks, Qt::UniqueConnection);
     connect(doc, &Doc::markClicked, this, &DiagnosticsView::onMarkClicked, Qt::UniqueConnection);
-#else
-    // clang-format off
-    connect(doc,
-            SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
-            this,
-            SLOT(clearAllMarks(KTextEditor::Document*)),
-            Qt::UniqueConnection);
-    connect(doc,
-            SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
-            this,
-            SLOT(clearAllMarks(KTextEditor::Document*)),
-            Qt::UniqueConnection);
-    // reload might save/restore marks before/after above signals, so let's clear before that
-    connect(doc, &KTextEditor::Document::aboutToReload, this, &DiagnosticsView::clearAllMarks, Qt::UniqueConnection);
-
-    connect(doc,
-            SIGNAL(markClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
-            this,
-            SLOT(onMarkClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
-            Qt::UniqueConnection);
-    // clang-format on
-#endif
 }
 
 void DiagnosticsView::addMarksRec(KTextEditor::Document *doc, QStandardItem *item)
@@ -1120,7 +1069,6 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc)
 
 void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     if (m_diagnosticsMarks.contains(doc)) {
         const QHash<int, KTextEditor::Mark *> marks = doc->marks();
         for (auto mark : marks) {
@@ -1130,18 +1078,6 @@ void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
         }
         m_diagnosticsMarks.remove(doc);
     }
-#else
-    KTextEditor::MarkInterface *iface = m_diagnosticsMarks.contains(doc) ? qobject_cast<KTextEditor::MarkInterface *>(doc) : nullptr;
-    if (iface) {
-        const QHash<int, KTextEditor::Mark *> marks = iface->marks();
-        for (auto mark : marks) {
-            if (mark->type & markTypeDiagAll) {
-                iface->removeMark(mark->line, markTypeDiagAll);
-            }
-        }
-        m_diagnosticsMarks.remove(doc);
-    }
-#endif
 
     auto it = m_diagnosticsRanges.find(doc);
     if (it != m_diagnosticsRanges.end()) {

@@ -1124,11 +1124,7 @@ QAction *GitWidget::stashMenuAction(KActionCollection *ac, const QString &name, 
 
 static KMessageBox::ButtonCode confirm(GitWidget *_this, const QString &text, const KGuiItem &confirmItem)
 {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     return KMessageBox::questionTwoActions(_this, text, {}, confirmItem, KStandardGuiItem::cancel(), {}, KMessageBox::Dangerous);
-#else
-    return KMessageBox::questionYesNo(_this, text, {}, confirmItem, KStandardGuiItem::cancel(), {}, KMessageBox::Dangerous);
-#endif
 }
 
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
@@ -1172,20 +1168,12 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             stage(files, treeItem == GitStatusModel::NodeUntrack);
         } else if (act == discardAct && !untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to remove these files?"), KStandardGuiItem::remove());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             if (ret == KMessageBox::PrimaryAction) {
-#else
-            if (ret == KMessageBox::Yes) {
-#endif
                 discard(files);
             }
         } else if (act == discardAct && untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to discard all changes?"), KStandardGuiItem::discard());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             if (ret == KMessageBox::PrimaryAction) {
-#else
-            if (ret == KMessageBox::Yes) {
-#endif
                 clean(files);
             }
         } else if (untracked && act == ignoreAct) {
@@ -1231,11 +1219,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             return stage({file});
         } else if (act == discardAct && !untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to discard the changes in this file?"), KStandardGuiItem::discard());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             if (ret == KMessageBox::PrimaryAction) {
-#else
-            if (ret == KMessageBox::Yes) {
-#endif
                 discard({file});
             }
         } else if (act == openAtHead && !untracked) {
@@ -1244,11 +1228,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             showDiff(file, staged);
         } else if (act == discardAct && untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to remove this file?"), KStandardGuiItem::remove());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             if (ret == KMessageBox::PrimaryAction) {
-#else
-            if (ret == KMessageBox::Yes) {
-#endif
                 clean({file});
             }
         } else if (act == launchDifftoolAct) {
@@ -1344,20 +1324,12 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
         }
     } else if (selectionHasChangedItems && !selectionHasUntrackedItems && execAct == discardAct) {
         auto ret = confirm(this, i18n("Are you sure you want to discard the changes?"), KStandardGuiItem::discard());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         if (ret == KMessageBox::PrimaryAction) {
-#else
-        if (ret == KMessageBox::Yes) {
-#endif
             discard(files);
         }
     } else if (!selectionHasChangedItems && selectionHasUntrackedItems && execAct == removeAct) {
         auto ret = confirm(this, i18n("Are you sure you want to remove these untracked changes?"), KStandardGuiItem::remove());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         if (ret == KMessageBox::PrimaryAction) {
-#else
-        if (ret == KMessageBox::Yes) {
-#endif
             clean(files);
         }
     }

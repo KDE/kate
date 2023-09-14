@@ -274,9 +274,7 @@ void KateExternalToolsPluginView::slotViewChanged(KTextEditor::View *v)
 {
     if (m_currentView) {
         disconnect(m_currentView->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &KateExternalToolsPluginView::onDocumentSaved);
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 91, 0)
         disconnect(m_currentView->document(), &KTextEditor::Document::aboutToSave, this, &KateExternalToolsPluginView::onDocumentAboutToSave);
-#endif
     }
     m_currentView = v;
 
@@ -285,10 +283,7 @@ void KateExternalToolsPluginView::slotViewChanged(KTextEditor::View *v)
     }
 
     connect(v->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &KateExternalToolsPluginView::onDocumentSaved, Qt::UniqueConnection);
-
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 91, 0)
     connect(v->document(), &KTextEditor::Document::aboutToSave, this, &KateExternalToolsPluginView::onDocumentAboutToSave, Qt::UniqueConnection);
-#endif
 }
 
 void KateExternalToolsPluginView::onDocumentSaved(KTextEditor::Document *doc)
@@ -314,7 +309,6 @@ void KateExternalToolsPluginView::onDocumentAboutToSave(KTextEditor::Document *d
         return;
     }
 
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 91, 0)
     const auto tools = m_plugin->tools();
     for (KateExternalTool *tool : tools) {
         const bool hasSaveTrigger = tool->trigger == KateExternalTool::Trigger::BeforeSave;
@@ -322,9 +316,6 @@ void KateExternalToolsPluginView::onDocumentAboutToSave(KTextEditor::Document *d
             m_plugin->blockingRunTool(*tool, m_currentView, /*exec save trigger=*/true);
         }
     }
-#else
-    Q_UNUSED(doc)
-#endif
 }
 
 // END KateExternalToolsPluginView

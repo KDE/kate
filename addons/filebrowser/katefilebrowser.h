@@ -65,9 +65,7 @@ public:
         return m_actionCollection;
     }
 
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     static KDirOperator::Action actionFromName(const QString &name);
-#endif
 
 public Q_SLOTS:
     void slotFilterChange(const QString &);

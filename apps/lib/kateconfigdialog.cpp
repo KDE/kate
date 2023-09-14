@@ -50,39 +50,14 @@
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     : KPageDialog(parent)
     , m_mainWindow(parent)
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    , m_searchLineEdit(new QLineEdit(this))
-    , m_searchTimer(new QTimer(this))
-#endif
 {
     setWindowTitle(i18n("Configure"));
     setWindowIcon(QIcon::fromTheme(QStringLiteral("configure")));
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    m_searchLineEdit->setPlaceholderText(i18n("Search..."));
-    m_searchLineEdit->setClearButtonEnabled(true);
-    setFocusProxy(m_searchLineEdit);
-    m_searchTimer->setSingleShot(true);
-    m_searchTimer->setInterval(400);
-    m_searchTimer->callOnTimeout(this, &KateConfigDialog::onSearchTextChanged);
-    connect(m_searchLineEdit, &QLineEdit::textChanged, m_searchTimer, qOverload<>(&QTimer::start));
-
-    if (auto layout = qobject_cast<QVBoxLayout *>(this->layout())) {
-        layout->insertWidget(0, m_searchLineEdit);
-    } else {
-        m_searchLineEdit->hide();
-        qWarning() << Q_FUNC_INFO << "Failed to get layout! Search will be disabled";
-    }
-#endif
-
     // we may have a lot of pages on Kate, we want small icons for the list
     if (KateApp::isKate()) {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 94, 0)
         setFaceType(KPageDialog::FlatList);
-#else
-        setFaceType(KPageDialog::List);
-#endif
     } else {
         setFaceType(KPageDialog::List);
     }
@@ -122,16 +97,6 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     connect(this, &KateConfigDialog::accepted, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    // set focus on next iteration of event loop, doesn't work directly for some reason
-    QMetaObject::invokeMethod(
-        this,
-        [this] {
-            m_searchLineEdit->setFocus();
-        },
-        Qt::QueuedConnection);
-#endif
 }
 
 template<typename WidgetType>
@@ -239,95 +204,6 @@ protected:
 private:
     int m_tabIdx = -1;
 };
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-void KateConfigDialog::onSearchTextChanged()
-{
-    if (!m_sideBar) {
-        qWarning() << Q_FUNC_INFO << "No config dialog sidebar, search will not continue";
-        return;
-    }
-
-    const QString text = m_searchLineEdit->text();
-    QSet<QString> pagesToHide;
-    QVector<QWidget *> matchedWidgets;
-    if (!text.isEmpty()) {
-        for (auto item : std::as_const(m_allPages)) {
-            const auto matchingWidgets = FindChildrenHelper<QLabel, QAbstractButton, QComboBox>::hasMatchingTextForTypes(text, item->widget());
-            if (matchingWidgets.isEmpty()) {
-                pagesToHide << item->name();
-            }
-            matchedWidgets << matchingWidgets;
-        }
-    }
-
-    if (auto model = m_sideBar->model()) {
-        QModelIndex current;
-        for (int i = 0; i < model->rowCount(); ++i) {
-            const auto itemName = model->index(i, 0).data().toString();
-            m_sideBar->setRowHidden(i, pagesToHide.contains(itemName) && !itemName.contains(text, Qt::CaseInsensitive));
-            if (!text.isEmpty() && !m_sideBar->isRowHidden(i) && !current.isValid()) {
-                current = model->index(i, 0);
-            }
-        }
-        if (current.isValid()) {
-            m_sideBar->setCurrentIndex(current);
-        }
-    }
-
-    qDeleteAll(m_searchMatchOverlays);
-    m_searchMatchOverlays.clear();
-
-    using TabWidgetAndPage = QPair<QTabWidget *, QWidget *>;
-    auto tabWidgetParent = [](QWidget *w) {
-        // Finds if @p w is in a QTabWidget and returns
-        // The QTabWidget + the widget in the stack where
-        // @p w lives
-        auto parent = w->parentWidget();
-        TabWidgetAndPage p = {nullptr, nullptr};
-        if (auto tw = qobject_cast<QTabWidget *>(parent)) {
-            p.first = tw;
-        }
-        QVarLengthArray<QWidget *, 8> parentChain;
-        while (parent) {
-            if (!p.first) {
-                if (auto tw = qobject_cast<QTabWidget *>(parent)) {
-                    if (parentChain.size() >= 3) {
-                        // last == QTabWidget
-                        // second last == QStackedWidget of QTabWidget
-                        // third last => the widget we want
-                        p.second = parentChain.value((parentChain.size() - 1) - 2);
-                    }
-                    p.first = tw;
-                    break;
-                }
-            }
-            parent = parent->parentWidget();
-            parentChain << parent;
-        }
-        return p;
-    };
-
-    for (auto w : std::as_const(matchedWidgets)) {
-        if (w) {
-            m_searchMatchOverlays << new SearchMatchOverlay(w);
-
-            if (!w->isVisible()) {
-                const auto [tabWidget, page] = tabWidgetParent(w);
-                if (!tabWidget && !page) {
-                    continue;
-                }
-                const int idx = tabWidget->indexOf(page);
-                if (idx < 0) {
-                    //                     qDebug() << page << tabWidget << "not found" << w;
-                    continue;
-                }
-                m_searchMatchOverlays << new SearchMatchOverlay(tabWidget->tabBar(), idx);
-            }
-        }
-    }
-}
-#endif
 
 QSize KateConfigDialog::sizeHint() const
 {
@@ -837,13 +713,7 @@ void KateConfigDialog::slotApply()
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
         for (KTextEditor::Document *doc : docs) {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
             doc->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
-#else
-            if (auto modIface = qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
-                modIface->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
-            }
-#endif
         }
 
         m_mainWindow->saveOptions();
@@ -916,29 +786,17 @@ void KateConfigDialog::closeEvent(QCloseEvent *event)
         return;
     }
 
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const auto response = KMessageBox::warningTwoActionsCancel(this,
-#else
-    const auto response = KMessageBox::warningYesNoCancel(this,
-#endif
                                                                i18n("You have unsaved changes. Do you want to apply the changes or discard them?"),
                                                                i18n("Warning"),
                                                                KStandardGuiItem::save(),
                                                                KStandardGuiItem::discard(),
                                                                KStandardGuiItem::cancel());
     switch (response) {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     case KMessageBox::PrimaryAction:
-#else
-    case KMessageBox::Yes:
-#endif
         slotApply();
         Q_FALLTHROUGH();
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     case KMessageBox::SecondaryAction:
-#else
-    case KMessageBox::No:
-#endif
         event->accept();
         break;
     case KMessageBox::Cancel:

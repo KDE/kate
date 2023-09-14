@@ -6,9 +6,6 @@
 
 #include <KTextEditor/Cursor>
 #include <KTextEditor/MainWindow>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/MovingInterface>
-#endif
 #include <KTextEditor/MovingRange>
 #include <KTextEditor/Plugin>
 #include <KXMLGUIClient>

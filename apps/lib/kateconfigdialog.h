@@ -80,19 +80,10 @@ private:
     // add page variant that ensures the page is wrapped into a QScrollArea
     KPageWidgetItem *addScrollablePage(QWidget *page, const QString &itemName);
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    void onSearchTextChanged();
-#endif
-
 private:
     KateMainWindow *m_mainWindow;
 
     bool m_dataChanged = false;
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QLineEdit *const m_searchLineEdit;
-    QTimer *const m_searchTimer;
-#endif
 
     QComboBox *m_messageTypes = nullptr;
     QSpinBox *m_outputHistoryLimit = nullptr;

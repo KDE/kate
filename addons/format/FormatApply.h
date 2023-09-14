@@ -7,9 +7,6 @@
 #include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/MovingCursor>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/MovingInterface>
-#endif
 #include <QFileInfo>
 #include <QIcon>
 #include <QRegularExpression>
@@ -54,20 +51,12 @@ Q_DECLARE_METATYPE(std::vector<PatchLine>)
 {
     int commaPos = range.indexOf(QLatin1Char(','));
     if (commaPos > -1) {
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-        return {range.midRef(0, commaPos).toInt(), range.midRef(commaPos + 1).toInt()};
-#else
         return {QStringView(range).sliced(0, commaPos).toInt(), QStringView(range).sliced(commaPos + 1).toInt()};
-#endif
     }
     return {range.toInt(), 1};
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 [[maybe_unused]] static std::vector<PatchLine> parseDiff(KTextEditor::Document *doc, const QString &diff)
-#else
-[[maybe_unused]] static std::vector<PatchLine> parseDiff(KTextEditor::MovingInterface *doc, const QString &diff)
-#endif
 {
     static const QRegularExpression HUNK_HEADER_RE(QStringLiteral("^@@ -([0-9,]+) \\+([0-9,]+) @@(.*)"));
 

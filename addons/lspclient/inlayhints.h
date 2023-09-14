@@ -35,11 +35,7 @@ public:
 
     QVector<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    void paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const override;
-#else
     void paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const override;
-#endif
 
 private:
     QColor m_noteColor;

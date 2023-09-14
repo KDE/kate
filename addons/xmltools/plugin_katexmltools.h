@@ -25,9 +25,6 @@
 #include "pseudo_dtd.h"
 
 #include <ktexteditor/application.h>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <ktexteditor/codecompletioninterface.h>
-#endif
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 #include <ktexteditor/document.h>
@@ -127,11 +124,6 @@ protected:
 
     Mode m_mode;
     int m_correctPos;
-
-    // code completion stuff:
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    KTextEditor::CodeCompletionInterface *m_codeInterface = nullptr;
-#endif
 
     /// maps KTE::Document -> DTD
     QHash<KTextEditor::Document *, PseudoDTD *> m_docDtds;

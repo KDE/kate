@@ -251,9 +251,6 @@ void RustFormat::onResultReady(const RunOutput &out)
         return;
     }
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    auto iface = qobject_cast<KTextEditor::MovingInterface *>(m_doc);
-#endif
     std::vector<PatchLine> patch;
     const auto lines = out.out.split('\n');
     for (int i = 0; i < lines.size(); ++i) {
@@ -297,11 +294,8 @@ void RustFormat::onResultReady(const RunOutput &out)
             } else if (hl.startsWith(('-'))) {
                 PatchLine p;
                 p.type = PatchLine::Remove;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
                 p.pos = m_doc->newMovingCursor(KTextEditor::Cursor(srcline, 0));
-#else
-                p.pos = iface->newMovingCursor(KTextEditor::Cursor(srcline, 0));
-#endif
+
                 patch.push_back(p);
                 srcline++;
             } else if (hl.startsWith("Diff in")) {
@@ -402,12 +396,7 @@ void PrettierFormat::run(KTextEditor::Document *doc)
 void GoFormat::onResultReady(const RunOutput &out)
 {
     if (out.exitCode == 0) {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         const auto parsed = parseDiff(m_doc, QString::fromUtf8(out.out));
-#else
-        auto iface = qobject_cast<KTextEditor::MovingInterface *>(m_doc);
-        const auto parsed = parseDiff(iface, QString::fromUtf8(out.out));
-#endif
         Q_EMIT textFormattedPatch(m_doc, parsed);
     } else if (!out.err.isEmpty()) {
         Q_EMIT error(QString::fromUtf8(out.err));

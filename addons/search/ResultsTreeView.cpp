@@ -57,17 +57,6 @@ ResultsTreeView::ResultsTreeView(QWidget *parent)
     updateColors(e);
 }
 
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-QStyleOptionViewItem ResultsTreeView::viewOptions() const
-{
-    auto options = QTreeView::viewOptions();
-    // We set this here so that the "expand triangle" in the treeview
-    // is always colored in a visible color. This is important for
-    // styles like fusion, where it can be dark on dark
-    options.palette.setColor(QPalette::WindowText, m_fg);
-    return options;
-}
-#else
 void ResultsTreeView::initViewItemOption(QStyleOptionViewItem *option) const
 {
     QTreeView::initViewItemOption(option);
@@ -76,7 +65,6 @@ void ResultsTreeView::initViewItemOption(QStyleOptionViewItem *option) const
     // styles like fusion, where it can be dark on dark
     option->palette.setColor(QPalette::WindowText, m_fg);
 }
-#endif
 
 void ResultsTreeView::resizeEvent(QResizeEvent *e)
 {
@@ -84,11 +72,7 @@ void ResultsTreeView::resizeEvent(QResizeEvent *e)
     QTreeView::resizeEvent(e);
 }
 
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-void ResultsTreeView::enterEvent(QEvent *event)
-#else
 void ResultsTreeView::enterEvent(QEnterEvent *event)
-#endif
 {
     auto *res = qobject_cast<Results *>(parent());
     if (!res) {

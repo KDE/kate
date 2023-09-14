@@ -43,15 +43,9 @@
 #if HAVE_X11
 
 #include "kwindowsystem_version.h"
-#if KWINDOWSYSTEM_VERSION > QT_VERSION_CHECK(5, 101, 0)
 #include <KX11Extras>
-#endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <private/qtx11extras_p.h>
-#else
-#include <QX11Info>
-#endif
 #endif
 
 int main(int argc, char **argv)
@@ -331,13 +325,9 @@ int main(int argc, char **argv)
         if ((!force_new) && (serviceName.isEmpty())) {
             int desktopnumber = 0;
 #if HAVE_X11
-#if KWINDOWSYSTEM_VERSION > QT_VERSION_CHECK(5, 101, 0)
             if (KWindowSystem::isPlatformX11()) {
                 desktopnumber = KX11Extras::currentDesktop();
             }
-#else
-            desktopnumber = KWindowSystem::currentDesktop();
-#endif
 #endif
 
             for (int s = 0; s < kateServices.count(); s++) {

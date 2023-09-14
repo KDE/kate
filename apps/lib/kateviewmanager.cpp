@@ -350,20 +350,8 @@ void KateViewManager::slotDocumentOpen()
             "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop "
             "responding for some time when opening large files.</strong></p>",
             fileListWithTooLargeFiles);
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-        const auto ret = KMessageBox::warningTwoActions(this,
-#else
-        const auto ret = KMessageBox::warningYesNo(this,
-#endif
-                                                        text,
-                                                        i18n("Opening Large File"),
-                                                        KStandardGuiItem::cont(),
-                                                        KStandardGuiItem::stop());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        const auto ret = KMessageBox::warningTwoActions(this, text, i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop());
         if (ret == KMessageBox::SecondaryAction) {
-#else
-        if (ret == KMessageBox::No) {
-#endif
             return;
         }
     }
@@ -540,21 +528,12 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
 
         KatePluginInfo &projectPluginInfo = *i;
         text = i18n("In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?", projectPluginInfo.metaData.name());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-        if (KMessageBox::questionTwoActions(
-#else
-        if (KMessageBox::questionYesNo(
-#endif
-                mainWindow(),
-                text,
-                i18nc("@title:window", "Open Folder"),
-                KGuiItem(i18nc("@action:button", "Enable"), QStringLiteral("dialog-ok")),
-                KStandardGuiItem::cancel())
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::questionTwoActions(mainWindow(),
+                                            text,
+                                            i18nc("@title:window", "Open Folder"),
+                                            KGuiItem(i18nc("@action:button", "Enable"), QStringLiteral("dialog-ok")),
+                                            KStandardGuiItem::cancel())
             == KMessageBox::SecondaryAction) {
-#else
-            == KMessageBox::No) {
-#endif
             return;
         }
 
@@ -1730,11 +1709,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
     int move = 4 * repeats;
     // try to use font height in pixel to move splitter
     {
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-        KTextEditor::Attribute::Ptr attrib(vs->currentView()->defaultStyleAttribute(KTextEditor::dsNormal));
-#else
         KTextEditor::Attribute::Ptr attrib(vs->currentView()->defaultStyleAttribute(KSyntaxHighlighting::Theme::TextStyle::Normal));
-#endif
         QFontMetrics fm(attrib->font());
         move = fm.height() * repeats;
     }

@@ -36,13 +36,7 @@ int main(){
 })";
 
     doc->setText(QString::fromUtf8(unformatted));
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     const auto edits = parseDiff(doc, QString::fromUtf8(patch));
-#else
-    auto iface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-    const auto edits = parseDiff(iface, QString::fromUtf8(patch));
-#endif
-
     QVERIFY(!edits.empty());
 
     applyPatch(doc, edits);

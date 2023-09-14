@@ -15,21 +15,11 @@
 
 #include <QIcon>
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/ConfigInterface>
-#endif
-
 // get KTextEditor config if feasible
 static int minimalCompletionLength(KTextEditor::View *view)
 {
     bool valueFound = false;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     const int length = view->configValue(QStringLiteral("word-completion-minimal-word-length")).toInt(&valueFound);
-#else
-    auto cfgiface = qobject_cast<KTextEditor::ConfigInterface *>(view);
-    Q_ASSERT(cfgiface);
-    const int length = cfgiface->configValue(QStringLiteral("word-completion-minimal-word-length")).toInt(&valueFound);
-#endif
 
     // handle bogus values or old versions that don't export that setting
     return valueFound ? length : 3;

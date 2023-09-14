@@ -71,11 +71,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
 
     m_dirOperator = new KDirOperator(QUrl(), this);
     // Default to a view with only one column since columns are auto-sized
-#if KIO_VERSION < QT_VERSION_CHECK(5, 100, 0)
-    m_dirOperator->setView(KFile::Tree);
-#else
     m_dirOperator->setViewMode(KFile::Tree);
-#endif
     m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
     mainLayout->addWidget(m_dirOperator);
@@ -83,11 +79,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     // Mime filter for the KDirOperator
     QStringList filter;
     filter << QStringLiteral("text/html") << QStringLiteral("inode/directory");
-#if KIO_VERSION < QT_VERSION_CHECK(5, 96, 0)
-    filter << QStringLiteral("text/plain");
-#else
     filter << QStringLiteral("application/x-zerosize");
-#endif
     m_dirOperator->setNewFileMenuSupportedMimeTypes(filter);
 
     setFocusProxy(m_dirOperator);
@@ -159,11 +151,7 @@ void KateFileBrowser::setupToolbar()
         if (it == QLatin1String("bookmarks") || it == QLatin1String("sync_dir") || it == QLatin1String("configure")) {
             ac = actionCollection()->action(it);
         } else {
-#if KIO_VERSION < QT_VERSION_CHECK(5, 100, 0)
-            ac = m_dirOperator->actionCollection()->action(it);
-#else
             ac = m_dirOperator->action(actionFromName(it));
-#endif
         }
 
         if (ac) {
@@ -175,11 +163,7 @@ void KateFileBrowser::setupToolbar()
 void KateFileBrowser::readSessionConfig(const KConfigGroup &cg)
 {
     m_dirOperator->readConfig(cg);
-#if KIO_VERSION < QT_VERSION_CHECK(5, 100, 0)
-    m_dirOperator->setView(KFile::Default);
-#else
     m_dirOperator->setViewMode(KFile::Default);
-#endif
 
     m_urlNavigator->setLocationUrl(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));
     setDir(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));
@@ -200,7 +184,6 @@ void KateFileBrowser::writeSessionConfig(KConfigGroup &cg)
     cg.writeEntry("filter history", m_filter->historyItems());
 }
 
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 100, 0)
 KDirOperator::Action KateFileBrowser::actionFromName(const QString &name)
 {
     if (name == QLatin1String("up")) {
@@ -233,7 +216,6 @@ KDirOperator::Action KateFileBrowser::actionFromName(const QString &name)
 
     return {};
 }
-#endif
 
 // END Public Methods
 
@@ -358,21 +340,13 @@ void KateFileBrowser::openSelectedFiles()
     const KFileItemList list = m_dirOperator->selectedItems();
 
     if (list.count() > 20) {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         if (KMessageBox::questionTwoActions(
                 this,
-#else
-        if (KMessageBox::questionYesNo(this,
-#endif
                 i18np("You are trying to open 1 file, are you sure?", "You are trying to open %1 files, are you sure?", list.count()),
                 {},
                 KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
                 KStandardGuiItem::cancel())
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             == KMessageBox::SecondaryAction) {
-#else
-            == KMessageBox::No) {
-#endif
             return;
         }
     }
@@ -451,21 +425,12 @@ void KateFileBrowser::setupActions()
     // section for settings menu
     KActionMenu *optionsMenu = new KActionMenu(QIcon::fromTheme(QStringLiteral("configure")), i18n("Options"), this);
     optionsMenu->setPopupMode(QToolButton::InstantPopup);
-#if KIO_VERSION < QT_VERSION_CHECK(5, 100, 0)
-    optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("short view")));
-    optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("detailed view")));
-    optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("tree view")));
-    optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("detailed tree view")));
-    optionsMenu->addSeparator();
-    optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("show hidden")));
-#else
     optionsMenu->addAction(m_dirOperator->action(KDirOperator::ShortView));
     optionsMenu->addAction(m_dirOperator->action(KDirOperator::DetailedView));
     optionsMenu->addAction(m_dirOperator->action(KDirOperator::TreeView));
     optionsMenu->addAction(m_dirOperator->action(KDirOperator::DetailedTreeView));
     optionsMenu->addSeparator();
     optionsMenu->addAction(m_dirOperator->action(KDirOperator::ShowHiddenFiles));
-#endif
 
     // action for synchronising the dir operator with the current document path...
     m_autoSyncFolder = new QAction(this);
@@ -501,11 +466,7 @@ void KateFileBrowser::setupActions()
     for (QAction *a : actions) {
         a->setShortcut(QKeySequence());
     }
-#if KIO_VERSION < QT_VERSION_CHECK(5, 100, 0)
-    const auto dirActions = m_dirOperator->actionCollection()->actions();
-#else
     const auto dirActions = m_dirOperator->allActions();
-#endif
     for (QAction *a : dirActions) {
         a->setShortcut(QKeySequence());
     }

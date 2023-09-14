@@ -20,9 +20,6 @@
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/InlineNoteInterface>
-#endif
 #include <KTextEditor/View>
 
 #include <QFileInfo>
@@ -47,16 +44,9 @@ GitBlameInlineNoteProvider::GitBlameInlineNoteProvider(KateGitBlamePluginView *p
 
 GitBlameInlineNoteProvider::~GitBlameInlineNoteProvider()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     if (m_pluginView->activeView()) {
         m_pluginView->activeView()->unregisterInlineNoteProvider(this);
     }
-#else
-    QPointer<KTextEditor::View> view = m_pluginView->activeView();
-    if (view) {
-        qobject_cast<KTextEditor::InlineNoteInterface *>(view)->unregisterInlineNoteProvider(this);
-    }
-#endif
 }
 
 QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
@@ -87,11 +77,7 @@ QSize GitBlameInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &
     return QSize(note.lineHeight() * 50, note.lineHeight());
 }
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
-#else
 void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection dir) const
-#endif
 {
     QFont font = note.font();
     painter.setFont(font);
@@ -109,9 +95,7 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
         : i18nc("git-blame information \"author: date: commit title \"", " %1: %2: %3 ", info.authorName, date, QString::fromUtf8(info.summary));
     QRect rectangle{0, 0, fm.horizontalAdvance(text), note.lineHeight()};
     bool isRTL = false;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     isRTL = dir == Qt::RightToLeft;
-#endif
 
     if (isRTL) {
         const qreal horizontalTx = painter.worldTransform().m31();
@@ -262,11 +246,7 @@ QPointer<KTextEditor::Document> KateGitBlamePluginView::activeDocument() const
 void KateGitBlamePluginView::startGitBlameForActiveView()
 {
     if (m_lastView) {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         m_lastView->unregisterInlineNoteProvider(&m_inlineNoteProvider);
-#else
-        qobject_cast<KTextEditor::InlineNoteInterface *>(m_lastView)->unregisterInlineNoteProvider(&m_inlineNoteProvider);
-#endif
     }
 
     auto *view = m_mainWindow->activeView();
@@ -282,12 +262,7 @@ void KateGitBlamePluginView::startGitBlameForActiveView()
         return;
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     view->registerInlineNoteProvider(&m_inlineNoteProvider);
-#else
-    qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(&m_inlineNoteProvider);
-#endif
-
     startBlameProcess(url);
 }
 

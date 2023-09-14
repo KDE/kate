@@ -17,11 +17,7 @@
 #include <KPluginFactory>
 #include <kparts_version.h>
 
-#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 240, 0)
 #include <KParts/NavigationExtension>
-#else
-#include <KParts/BrowserExtension>
-#endif
 
 // Qt
 #include <QDesktopServices>
@@ -66,17 +62,9 @@ KPartView::KPartView(const KPluginMetaData &service, QObject *parent)
         m_updateSquashingTimerSlow.setSingleShot(true);
         m_updateSquashingTimerSlow.setInterval(updateDelaySlow);
         connect(&m_updateSquashingTimerSlow, &QTimer::timeout, this, &KPartView::updatePreview);
-#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 240, 0)
         auto browserExtension = m_part->navigationExtension();
-#else
-        auto browserExtension = m_part->browserExtension();
-#endif
         if (browserExtension) {
-#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 240, 0)
             connect(browserExtension, &KParts::NavigationExtension::openUrlRequestDelayed, this, &KPartView::handleOpenUrlRequest);
-#else
-            connect(browserExtension, &KParts::BrowserExtension::openUrlRequestDelayed, this, &KPartView::handleOpenUrlRequest);
-#endif
         }
         m_part->widget()->installEventFilter(this);
 

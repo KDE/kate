@@ -590,13 +590,8 @@ void KateProjectPlugin::registerVariables()
 void KateProjectPlugin::unregisterVariables()
 {
     auto editor = KTextEditor::Editor::instance();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    editor->unregisterVariableMatch(QStringLiteral("Project:Path"));
-    editor->unregisterVariableMatch(QStringLiteral("Project:NativePath"));
-#else
     editor->unregisterVariable(QStringLiteral("Project:Path"));
     editor->unregisterVariable(QStringLiteral("Project:NativePath"));
-#endif
 }
 
 void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)

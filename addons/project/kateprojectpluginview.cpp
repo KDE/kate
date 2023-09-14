@@ -20,9 +20,6 @@
 
 #include <KTextEditor/Command>
 #include <ktexteditor/application.h>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <ktexteditor/codecompletioninterface.h>
-#endif
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
@@ -269,17 +266,10 @@ KateProjectPluginView::~KateProjectPluginView()
      * cleanup for all views
      */
     for (QObject *view : qAsConst(m_textViews)) {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         KTextEditor::View *v = qobject_cast<KTextEditor::View *>(view);
         if (v) {
             v->unregisterCompletionModel(m_plugin->completion());
         }
-#else
-        KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
-        if (cci) {
-            cci->unregisterCompletionModel(m_plugin->completion());
-        }
-#endif
     }
 
     /**
@@ -639,14 +629,7 @@ void KateProjectPluginView::slotViewCreated(KTextEditor::View *view)
     /**
      * add completion model if possible
      */
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     view->registerCompletionModel(m_plugin->completion());
-#else
-    KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
-    if (cci) {
-        cci->registerCompletionModel(m_plugin->completion());
-    }
-#endif
 
     /**
      * remember for this view we need to cleanup!

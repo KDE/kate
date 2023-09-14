@@ -9,9 +9,6 @@
 #include <QProcess>
 
 #include <KLocalizedString>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/ConfigInterface>
-#endif
 #include <KTextEditor/Document>
 
 #include "FormatApply.h"
@@ -161,16 +158,9 @@ public:
 
     QStringList args(KTextEditor::Document *doc) const override
     {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         // Reuse doc's indent
         bool ok = false;
         int width = doc->configValue(QStringLiteral("indent-width")).toInt(&ok);
-#else
-        auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(doc);
-        // Reuse doc's indent
-        bool ok = false;
-        int width = ciface->configValue(QStringLiteral("indent-width")).toInt(&ok);
-#endif
         if (!ok) {
             width = 4;
         }
@@ -261,11 +251,7 @@ public:
     QProcessEnvironment env() override
     {
         auto environment = AbstractFormatter::env();
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         auto ciface = m_doc;
-#else
-        auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_doc);
-#endif
 
         // Reuse doc's indent
         bool ok = false;

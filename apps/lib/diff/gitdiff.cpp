@@ -147,11 +147,7 @@ std::pair<uint, uint> parseRange(const QString &range)
 {
     int commaPos = range.indexOf(QLatin1Char(','));
     if (commaPos > -1) {
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-        return {range.midRef(0, commaPos).toInt(), range.midRef(commaPos + 1).toInt()};
-#else
         return {QStringView(range).sliced(0, commaPos).toInt(), QStringView(range).sliced(commaPos + 1).toInt()};
-#endif
     }
     return {range.toInt(), 1};
 }

@@ -8,10 +8,6 @@
 #include <KPluginFactory>
 #include <KTextEditor/MainWindow>
 #include <KXMLGUIFactory>
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <ktexteditor/codecompletioninterface.h>
-#endif
 #include <ktexteditor/document.h>
 
 #include <QDebug>
@@ -55,16 +51,7 @@ void CMakeToolsPluginView::onViewCreated(KTextEditor::View *v)
     if (!CMakeCompletion::isCMakeFile(v->document()->url()))
         return;
 
-    qWarning() << "Registering code completion model for view <<" << v << v->document()->url();
-
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     v->registerCompletionModel(&m_completion);
-#else
-    KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(v);
-    if (cci) {
-        cci->registerCompletionModel(&m_completion);
-    }
-#endif
 }
 
 #include "cmaketoolsplugin.moc"

@@ -21,10 +21,6 @@
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Range>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <KTextEditor/MarkInterface>
-#include <KTextEditor/MovingRange>
-#endif
 
 class KConfigGroup;
 class SessionDiagnosticSuppressions;

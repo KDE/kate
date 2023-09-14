@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-08-24 20:35+0200\n"
+"PO-Revision-Date: 2023-09-13 10:05+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgia <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -32,13 +32,13 @@ msgstr "Temuri.doghonadze@gmail.com"
 #, kde-format
 msgctxt "@title:window"
 msgid "Close files confirmation"
-msgstr ""
+msgstr "ფაილის დახურვის დადასტურება"
 
 #: close_confirm_dialog.cpp:72
 #, kde-format
 msgctxt "@label:listbox"
 msgid "You are about to close the following documents:"
-msgstr ""
+msgstr "აპირებთ დახუროთ შემდეგი დოკუმენტები:"
 
 #: close_confirm_dialog.cpp:75
 #, kde-format
@@ -62,24 +62,24 @@ msgstr "აღარ მკითხო"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
-msgstr ""
+msgstr "დადასტურების ჩვენება"
 
 #: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
-msgstr ""
+msgstr "დახურვა, გარდა"
 
 #: close_except_plugin.cpp:76
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
-msgstr ""
+msgstr "მსგავსებით დახურვა"
 
 #: close_except_plugin.cpp:79
 #, kde-format
 msgid "Close Except/Like Plugin"
-msgstr ""
+msgstr "გარდა/ჰგავს დამატების დახურვა"
 
 #: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
@@ -91,7 +91,7 @@ msgstr "შეცდომა"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
-msgstr ""
+msgstr "დასახური ფაილების გარეშე ..."
 
 #: close_except_plugin.cpp:260
 #, kde-format
@@ -103,10 +103,11 @@ msgstr "დასრულდა"
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
-msgstr[0] ""
+msgstr[0] "%1 ფაილი დაიხურა"
+msgstr[1] "%1 ფაილი დაიხურა"
 
 #: close_except_plugin.cpp:273
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"
-msgstr ""
+msgstr "<title>%1</title><nl/>%2"

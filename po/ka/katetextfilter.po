@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-08-24 18:48+0200\n"
+"PO-Revision-Date: 2023-09-13 06:14+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -34,6 +34,8 @@ msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
 "to be able to do this, contact your system administrator."
 msgstr ""
+"ჩვეულებრივი გარე ბრძანებების შესრულების უფლება არ გაგაჩნიათ. თუ გნებავთ, "
+"ამის უფლება გქონდეთ, დაუკავშირდით თქვენს სისტემურ ადმინისტრატორს."
 
 #: plugin_katetextfilter.cpp:154
 #, kde-format
@@ -56,6 +58,8 @@ msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
 "with the output of the specified shell command.</p></qt>"
 msgstr ""
+"<qt><p>გამოყენება: <code>textfilter ბრძანება</code></p><p>მონიშნულის "
+"ჩანაცვლება მითითებული გარსის პროგრამის მიერ გამოტანილი მონაცემებით.</p></qt>"
 
 #: plugin_katetextfilter.cpp:265
 #, kde-format
@@ -73,6 +77,7 @@ msgstr "ფანჯარა"
 #, kde-format
 msgid "Enter command to &pipe selected text through:"
 msgstr ""
+"შეიყვანეთ ბრძანება, რომელზეც მონიშნული ტექსტის &ფაიფით გადაგზავნა მოხდება:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, newDoc)
 #: textfilterwidget.ui:39
@@ -84,7 +89,7 @@ msgstr "შედეგების ახალ დოკუმენტში 
 #: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
-msgstr ""
+msgstr "შედეგის ბუფერში კოპირება მიმდინარე დოკუმენტის შეუცვლელად დატოვებით."
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:49
@@ -100,6 +105,9 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
+"თუ ჩართულია, გამოტანა STDOUT-დან და STDERR-დან შერწყმული იქნება და შეცდომები "
+"თქვენამდე ვერ მოაღწევს.\n"
+"სხვა შემთხვევაში STDERR ნაჩვენები პასიური შეტყობინების სახით იქნება."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60

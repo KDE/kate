@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-30 00:48+0000\n"
-"PO-Revision-Date: 2023-09-01 07:22+0200\n"
+"PO-Revision-Date: 2023-09-13 16:13+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -56,7 +56,7 @@ msgstr "სესია"
 #: kate/main.cpp:150
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
-msgstr ""
+msgstr "Kate-ის ახალი ანონიმური სესიის გაშვება. ივარაუდება '-n'."
 
 #: kate/main.cpp:155
 #, kde-format
@@ -65,6 +65,9 @@ msgid ""
 "kate instance already has the given session opened), forced if no parameters "
 "and no URLs are given at all."
 msgstr ""
+"Kate-ის ახალი გაშვებული ასლის ნაძალადევი (ფაქტი, რომ სხვა Kate-ის გაშვებულ "
+"ასლს მითითებული სესია უკვე ღია აქვს) შექმნა. ნაძალადევია, თუ პარამეტრები და "
+"ბმულები გადაცემული არაა."
 
 #: kate/main.cpp:161
 #, kde-format
@@ -72,6 +75,8 @@ msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr ""
+"Kate-ის უკვე გაშვებული ასლის გამოყენებისას, დაბლოკვა, სანამ ის მუშაობას "
+"დაასრულებს, თუ გასახსნელად ბმულებია მითითებული."
 
 #: kate/main.cpp:167
 #, kde-format
@@ -79,6 +84,9 @@ msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
+"მხოლოდ ამ PID-ის მქონე Kate-ის გაშვებული ასლის გამოყენების "
+"ცდა(დაიგნორებულია, თუ გამოყენებულია გაშვება და სხვა Kate-ის გაშვებულ ასლს "
+"უკვე აქვს მითითებული სესია ღია)."
 
 #: kate/main.cpp:168
 #, kde-format
@@ -505,7 +513,7 @@ msgstr "Diff-ის თავიდან ჩატვირთვა"
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "სხვაობის სრული კონტექსტით და არა მხოლოდ შეცვლილი ხაზებით ჩვენება"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -514,6 +522,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> ვერ ვიპოვე. Git საჭიროა დოკუმენტებს შორის სხვაობის საპოვნელად. თუ "
+"ის უკვე დაყენებულია, დარწმუნდით, რომ ის თქვენს PATH გარემოს ცვლადშია. იხილეთ "
+"https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
 #: lib/kateconfigdialog.cpp:546
@@ -540,6 +551,7 @@ msgstr "სხვაობები აღმოჩენილი არაა"
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
+"ფაილის ისტორიის მიღება ჩავარდა: გამშვები ფაილი git PATH-ში აღმოჩენილი არაა"
 
 #: lib/filehistorywidget.cpp:296
 #, kde-format
@@ -570,6 +582,10 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"ამ რედაქტორის sudo-ით გაშვებამ შეიძლება შეცდომები გამოიწვიოს და უსაფრთხოების "
+"მოწყვლადობებთან მარტო დაგტოვოთ. ამის მაგიერ, გამოიყენეთ ეს რედაქტორი "
+"ნორმალურად და თუ დოკუმენტების შესანახად აუცილებელი გახდება აღმატებული "
+"წვდომები, ამის შესახებ თვითონ გკითხავთ."
 
 #: lib/kateapp.cpp:115
 msgid ""
@@ -577,6 +593,10 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"ამ რედაქტორის kdesu-ით გაშვებამ შეიძლება შეცდომები გამოიწვიოს და "
+"უსაფრთხოების მოწყვლადობებთან მარტო დაგტოვოთ. ამის მაგიერ, გამოიყენეთ ეს "
+"რედაქტორი ნორმალურად და თუ დოკუმენტების შესანახად აუცილებელი გახდება "
+"აღმატებული წვდომები, ამის შესახებ თვითონ გკითხავთ."
 
 #: lib/kateapp.cpp:287
 #, kde-format
@@ -772,7 +792,7 @@ msgstr "Tyson Tan"
 #: lib/kateapp.cpp:321
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
-msgstr ""
+msgstr "Kate-ის თილისმის, 'კიბერკოდალა Kate'-ის დიზაინერი"
 
 #: lib/kateapp.cpp:324
 #, kde-format
@@ -898,12 +918,15 @@ msgstr "ყველა, ვინც მოხალისე იყო და 
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
+"საქაღალდეების გახსნა მხოლოდ მაშინაა შესაძლებელი, როცა პროექტების დამატება "
+"ჩართულია"
 
 #: lib/kateapp.cpp:569
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
 msgstr ""
+"ფაილის ('%1') გახსნა შეუძლებელია. ის ნორმალური ფაილი არაა, ის საქაღალდეა."
 
 #: lib/kateconfigdialog.cpp:58
 #, kde-format
@@ -941,11 +964,13 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"თუ ჩართულია, თითოეული დოკუმენტი გაიხსნება თავისსავე ფანჯარაში. თუ არა, "
+"თითოეული დოკუმენტი გაიხსნება მიმდინარე ფანჯრის ახალ ჩანართში."
 
 #: lib/kateconfigdialog.cpp:377
 #, kde-format
 msgid "&Switch to output view upon message type:"
-msgstr ""
+msgstr "&გამოტანის ხედზე გადართვა როცა შეტყობინების ტიპია:"
 
 #: lib/kateconfigdialog.cpp:382
 #, kde-format
@@ -975,7 +1000,7 @@ msgstr "შეუზღუდავი"
 #: lib/kateconfigdialog.cpp:401
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
-msgstr ""
+msgstr "გარედან შეცვლილი ფაილების დასამუშავებლად ცალკე &ფანჯრის გამოყენება"
 
 #: lib/kateconfigdialog.cpp:404
 #, kde-format
@@ -984,6 +1009,9 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
+"თუ ჩართულია, ყველა შეცვლილი ფაილისთვის მოდალური დიალოგური ფანჯარა იქნება "
+"ნაჩვენები. თუ არაა, ჩართული, თითოეულ შეცვლილ ფაილზე, როცა მისი ხედი ფოკუსს "
+"მიიღებს, ცალ-ცალკე გკითხავთ."
 
 #: lib/kateconfigdialog.cpp:413
 #, kde-format
@@ -1002,6 +1030,8 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"როცა ჩართულია, სექციის ზომა განსაზღვრული იქნება ჩანართების მდებარეობით.\n"
+"ეს პარამეტრი ქვედა გვერდით პანელზე არ მოქმედებს."
 
 #: lib/kateconfigdialog.cpp:424
 #, kde-format
@@ -1029,6 +1059,8 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
+"მაღალ ლიმიტს შეუძლია გაზარდოს ფანჯრის ზომა. თავიდან ასაცილებლად ჩართეთ "
+"'ჩანართების ზოლის გადახვევა'. უსაზღვრო ჩანართები ყოველთვის გადახვევადია."
 
 #: lib/kateconfigdialog.cpp:467
 #, kde-format
@@ -1039,6 +1071,7 @@ msgstr "&ჩანართების ავტომატური დამ
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
+"როცა ჩართულია, როცა ღია მხოლოდ ერთი დოკუმენტია, ჩანართები არ გამოჩნდება."
 
 #: lib/kateconfigdialog.cpp:473
 #, kde-format
@@ -1091,6 +1124,8 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
+"როცა ჩართულია, ეს ჩანართების მენიუს გაწევის საშუალებას მოგცემთ, როცა "
+"ჩანართების რაოდენობა მეტისმეტად დიდი იქნება."
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
@@ -1101,6 +1136,7 @@ msgstr "ჩანართის ტექსტის შემოკლებ�
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
+"როცა ჩართულია, ჩანართის ტექსტის ჩასწორება შესაძლებელია, თუ ის ძალიან გრძელია."
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format
@@ -1192,6 +1228,8 @@ msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"როცა ფანჯარა დაიხურება, დაიხურება მხოლოდ დოკუმენტები, რომლებიც ამ ფანჯარაშია "
+"გახსნილი."
 
 #: lib/kateconfigdialog.cpp:661
 #, kde-format
@@ -1213,6 +1251,8 @@ msgstr "მომხარებლის უკუკავშირი"
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
 msgstr ""
+"გაქვთ შეუნახავი ცვლილებები.გნებავთ ამ ცვლილებების გადატარება, თუ მოვაცილო "
+"ისინი?"
 
 #: lib/kateconfigplugindialogpage.cpp:66
 #, kde-format
@@ -1230,6 +1270,8 @@ msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
 "loaded, and will be loaded again the next time Kate is started."
 msgstr ""
+"აქ Kate-ის ყველა ხელმისაწვდომი დამატების ნახვა შეგიძლიათ. ისინი, რომლებსაც "
+"თოლია უზის, ჩატვირთულია და ჩაიტვირთება მაშინაც, როცა Kate კიდევ გაეშვება."
 
 #: lib/katedocmanager.cpp:297
 #, kde-format
@@ -1237,6 +1279,8 @@ msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
 "save your changes or discard them?</p>"
 msgstr ""
+"<p>დოკუმენტი '%1' შეცვლილია, შენახული კი - არა.</p><p>გნებავთ ცვლილებების "
+"შენახვა თუ მოვაცილო ისინი?</p>"
 
 #: lib/katedocmanager.cpp:300 lib/katesavemodifieddialog.cpp:131
 #, kde-format
@@ -1389,6 +1433,8 @@ msgid ""
 "This lists files which you have opened recently, and allows you to easily "
 "open them again."
 msgstr ""
+"ეს სია შეიცავს ფაილებს, რომლებიც ახლახანს გახსენით და საშუალებას გაძლევთ, "
+"ადვილად მიაგნოთ მათ."
 
 #: lib/katemainwindow.cpp:351
 #, kde-format
@@ -1474,6 +1520,8 @@ msgid ""
 "Close all documents in the file list that could not be reopened, because "
 "they are not accessible anymore."
 msgstr ""
+"ყველა იმ დოკუმენტის დახურვა ამ სიიდან, რომლების თავიდან გახსნაც შეუძლებელია, "
+"რადგან ისინი ხელმისაწვდომი აღარაა."
 
 #: lib/katemainwindow.cpp:420
 #, kde-format
@@ -1526,6 +1574,8 @@ msgid ""
 "Open the current document using another application registered for its file "
 "type, or an application of your choice."
 msgstr ""
+"მიმდინარე დოკუმენტის, სხვა, ამ ტიპზე რეგისტრირებული აპლიკაციით გახსნა, ან "
+"გამხსნელი აპლიკაციის არჩევა."
 
 #: lib/katemainwindow.cpp:459
 #, kde-format
@@ -1535,13 +1585,13 @@ msgstr "აპლიკაციის კლავიატურის მა�
 #: lib/katemainwindow.cpp:462
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
-msgstr ""
+msgstr "მიუთითეთ, რომელი ელემენტები გამოჩნდება ხელსაწყოთა ზოლ(ებ)-ზე."
 
 #: lib/katemainwindow.cpp:465
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
-msgstr ""
+msgstr "მოირგეთ ამ აპლიკაციისა და ჩასწორების კომპონენტის სხვადასხვა ასპექტები."
 
 #: lib/katemainwindow.cpp:469
 #, kde-format
@@ -1620,6 +1670,7 @@ msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr ""
+"ეს მიმდინარეს გარდა ყველა დოკუმენტს დახურავს. მართლა გნებავთ, გააგრძელოთ?"
 
 #: lib/katemainwindow.cpp:616
 #, kde-format
@@ -1643,6 +1694,8 @@ msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
+"თქვენ საქაღალდე %1 შიგ Kate-ში ჩააგდეთ. გნებავთ, მასში არსებული ყველა "
+"დოკუმენტი გახსნათ?"
 
 #: lib/katemainwindow.cpp:966
 #, kde-format
@@ -1664,7 +1717,7 @@ msgstr " (მხოლოდ-კითხვადი)"
 #: lib/katemdi.cpp:85
 #, kde-format
 msgid "Toolview Manager"
-msgstr ""
+msgstr "ხელსაწყოების ხედის მმართველი"
 
 #: lib/katemdi.cpp:103
 #, kde-format
@@ -1674,7 +1727,7 @@ msgstr "გვერდითი პანელის ღილაკები"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "ხელსაწყოების ხედზე გადასვლა"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1775,6 +1828,11 @@ msgid ""
 "Sidebars</b> in the menu. It is still possible to show/hide the tool views "
 "with the assigned shortcuts.</qt>"
 msgstr ""
+"<qt>აპირებთ, გვერდითი პანელები დამალოთ. დამალული გვერდითი პანელებით თაგუნათი "
+"ხელსაწყოს ხედებთან პირდაპირი წვდომა აღარ გექნებათ, ასე რომ, გვერდით "
+"პანელებთან წვდომისთვის შედით მენიუში <b>ხედი &gt; ხელსაწყოს ხედები &gt;"
+"გვერდითი პანელების ჩვენება.</b> ხელსაწყოს ხედების ჩვენება დამალვა ჯერ კიდევ "
+"შესაძლებელია მინიჭებული მალსახმობებით.</qt>"
 
 #: lib/katemwmodonhddialog.cpp:53
 #, kde-format
@@ -1787,6 +1845,9 @@ msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
 "once, and press an action button until the list is empty.</p></qt>"
 msgstr ""
+"<qt>დოკუმენტები, რომლებიც ქვემოთაა ჩამოთვლილი, დისკზე შეიცვალა.<p>აირჩიეთ "
+"ერთი ან მეტი ერთდროულად და დააწექით შესაბამის ქმედებას, სანამ სია არ "
+"დაცარიელდება.</p></qt>"
 
 #: lib/katemwmodonhddialog.cpp:79
 #, kde-format
@@ -1824,6 +1885,8 @@ msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
+"გამოითვლის განსხვავებას რედაქტორის შემცველობასა და დისკის ფაილს შორის "
+"მიმდინარე დოკუმენტისთვის."
 
 #: lib/katemwmodonhddialog.cpp:116
 #, kde-format
@@ -1833,7 +1896,7 @@ msgstr "ცვლილებების &იგნორი"
 #: lib/katemwmodonhddialog.cpp:117
 #, kde-format
 msgid "Remove modified flag from selected documents"
-msgstr ""
+msgstr "მონიშნული დოკუმენტებიდან ცვლილების ალმის მოცილება"
 
 #: lib/katemwmodonhddialog.cpp:123
 #, kde-format
@@ -1866,6 +1929,7 @@ msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
+"ბრძანება diff-ის შეცდომა. დარწმუნდით, რომ git დაყენებულია და თქვენს PATH-შია."
 
 #: lib/katemwmodonhddialog.cpp:340
 #, kde-format
@@ -1931,7 +1995,7 @@ msgstr "დოკუმენტების შენახვა"
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
-msgstr ""
+msgstr "დოკუმენტი %1 შეიცვალა. გნებავთ ცვლილებების შენახვა თუ მოვაცილო ისინი?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -1939,6 +2003,7 @@ msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
 "before closing?</qt>"
 msgstr ""
+"<qt>შემდეგი დოკუმენტები შეიცვალა. გნებავთ მათი შენახვა დახურვამდე?</qt>"
 
 #: lib/katesavemodifieddialog.cpp:168
 #, kde-format
@@ -1961,6 +2026,8 @@ msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
 msgstr ""
+"მონაცემების, რომლების შენახვაც მოითხოვეთ, ჩაწერა შეუძლებელია. აირჩიეთ, რისი "
+"გაკეთება გნებავთ."
 
 #: lib/kateviewmanager.cpp:134
 #, kde-format
@@ -1970,7 +2037,7 @@ msgstr "&ვერტიკალურად გაყოფა"
 #: lib/kateviewmanager.cpp:138
 #, kde-format
 msgid "Split the currently active view vertically into two views."
-msgstr ""
+msgstr "მიმდინარე აქტიური ხედის შვეულად, ორ ხედად გაყოფა."
 
 #: lib/kateviewmanager.cpp:142
 #, kde-format
@@ -1980,12 +2047,12 @@ msgstr "&ჰორიზონტალურად გაყოფა"
 #: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
-msgstr ""
+msgstr "მიმდინარე აქტიური ხედის თარაზულად, ორ ხედად გაყოფა."
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Move Document to New Vertical Split"
-msgstr ""
+msgstr "დოკუმენტის ახალ შვეულ დანაყოფში გადატანა"
 
 #: lib/kateviewmanager.cpp:154
 #, kde-format
@@ -1993,11 +2060,13 @@ msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
 msgstr ""
+"ამჟამად აქტიური ხედის შვეულად, ორ ხედად გაყოფა და ამჟამად აქტიური დოკუმენტის "
+"მარჯვენა ხედში გადატანა."
 
 #: lib/kateviewmanager.cpp:159
 #, kde-format
 msgid "Move Document to New Horizontal Split"
-msgstr ""
+msgstr "დოკუმენტის ახალ თარაზულ დანაყოფში გადატანა"
 
 #: lib/kateviewmanager.cpp:163
 #, kde-format
@@ -2005,6 +2074,8 @@ msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
 msgstr ""
+"ამჟამად აქტიური ხედის თარაზულად, ორ ხედად გაყოფა და ამჟამად აქტიური "
+"დოკუმენტის ქვედა ხედში გადატანა."
 
 #: lib/kateviewmanager.cpp:168
 #, kde-format
@@ -2044,7 +2115,7 @@ msgstr "ორიენტაციის გადართვა"
 #: lib/kateviewmanager.cpp:193
 #, kde-format
 msgid "Toggles the orientation of the current split view"
-msgstr ""
+msgstr "გადართავს მიმდინარე გაყოფილი ხედის ორიენტაციას"
 
 #: lib/kateviewmanager.cpp:196
 #, kde-format
@@ -2054,7 +2125,7 @@ msgstr "შემდეგი გაყოფილი ხედი"
 #: lib/kateviewmanager.cpp:201
 #, kde-format
 msgid "Make the next split view the active one."
-msgstr ""
+msgstr "შემდეგი ხედის დანაყოფის გააქტიურება."
 
 #: lib/kateviewmanager.cpp:204
 #, kde-format
@@ -2064,7 +2135,7 @@ msgstr "წინა გაყოფილი ხედი"
 #: lib/kateviewmanager.cpp:209
 #, kde-format
 msgid "Make the previous split view the active one."
-msgstr ""
+msgstr "წინა ხედის დანაყოფის გააქტიურება."
 
 #: lib/kateviewmanager.cpp:212
 #, kde-format
@@ -2074,7 +2145,7 @@ msgstr "მარცხენა გაყოფილი ხედი"
 #: lib/kateviewmanager.cpp:217
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr ""
+msgstr "აქტიურიდან მარცხენა მხარეს გაყოფილი ხედის ინტუიციურად შექმნა."
 
 #: lib/kateviewmanager.cpp:220
 #, kde-format
@@ -2084,27 +2155,27 @@ msgstr "მარჯვენა გაყოფილი ხედი"
 #: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr ""
+msgstr "აქტიურიდან მარჯვენა მხარეს გაყოფილი ხედის ინტუიციურად შექმნა."
 
 #: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Upward Split View"
-msgstr ""
+msgstr "ხედის გაყოფა ზემო მიმართულებით"
 
 #: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr ""
+msgstr "აქტიურიდან ზედა მხარეს გაყოფილი ხედის ინტუიციურად შექმნა."
 
 #: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Downward Split View"
-msgstr ""
+msgstr "ხედის გაყოფა ქვემო მიმართულებით"
 
 #: lib/kateviewmanager.cpp:241
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr ""
+msgstr "აქტიურიდან ქვედა მხარეს გაყოფილი ხედის ინტუიციურად შექმნა."
 
 #: lib/kateviewmanager.cpp:244
 #, kde-format
@@ -2173,6 +2244,10 @@ msgid ""
 "you want to proceed?</p><p><strong>Beware that kate may stop responding for "
 "some time when opening large files.</strong></p>"
 msgstr ""
+"<p>ცდილობთ, გახსნათ ერთი ან მეტი უზარმაზარი ფაილი:</p><ul>%1</ul><p>გნებავთ, "
+"გააგრძელოთ?</p><p><strong>ფრთხილად იყავით, რადგან დიდი ფაილების გახსნისას "
+"Kate-მა შეიძლება პასუხი საკმაოდ დიდი ხნის განმავლობაში არ დაგიბრუნოთ.</"
+"strong></p>"
 
 #: lib/kateviewmanager.cpp:359
 #, kde-format
@@ -2187,13 +2262,15 @@ msgstr "%1 -ს საქაღალდეების გახსნა ა�
 #: lib/kateviewmanager.cpp:536
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "დამატება, რომელიც საქაღალდეების გასახსნელადაა საჭირო, აღმოჩენილი არაა"
 
 #: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"იმისათვის, რომ საქაღალდეები გასნათ, საჭიროა, ჩართოთ დამატება <b>%1</b>. "
+"ჩავრთო?"
 
 #: lib/kateviewmanager.cpp:550
 #, kde-format
@@ -2221,12 +2298,12 @@ msgstr "+%1"
 #: lib/kateviewspace.cpp:100 lib/kateviewspace.cpp:221
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
-msgstr ""
+msgstr "დააწკაპუნეთ სწრაფ გადასვლაზე გადასართავად."
 
 #: lib/kateviewspace.cpp:116
 #, kde-format
 msgid "Control view space splitting"
-msgstr ""
+msgstr "ხედის დაყოფის მართვა"
 
 #: lib/kateviewspace.cpp:119
 #, kde-format
@@ -2238,6 +2315,8 @@ msgstr "აწევა/დაწევის &სინქრონიზაც
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
 msgstr ""
+"ამ გაყოფილი ხედის გადახვევის სინქრონიზაცია სხვა სინქრონიზებულ გაყოფილ "
+"ხედებთან"
 
 #: lib/kateviewspace.cpp:222
 #, kde-format
@@ -2248,7 +2327,11 @@ msgid_plural ""
 "Currently, there are %1 more documents open. To see all open documents, "
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
+"ამჟამად გაქვთ კიდევ 1 ღია დოკუმენტი. იმისთვის, რომ ნახოთ ყველა ღია "
+"დოკუმენტი, გადაერთეთ სწრაფი გახსნის ხედზე აქ დაწკაპუნებით."
 msgstr[1] ""
+"ამჟამად გაქვთ კიდევ %1 ღია დოკუმენტი. იმისთვის, რომ ნახოთ ყველა ღია "
+"დოკუმენტი, გადაერთეთ სწრაფი გახსნის ხედზე აქ დაწკაპუნებით."
 
 #: lib/kateviewspace.cpp:1022
 #, kde-format
@@ -2278,7 +2361,7 @@ msgstr "&დოკუმენტის მოხსნა"
 #: lib/kateviewspace.cpp:1047
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
-msgstr ""
+msgstr "გახსნის დოკუმენტს ახალ ფანჯარაში და მიმდინარე ფანჯარას დახურავს"
 
 #: lib/kateviewspace.cpp:1056
 #, kde-format
@@ -2298,12 +2381,12 @@ msgstr "პროგრამის გაშვების შეცდომ�
 #: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
+msgstr "არჩეული პროგრამის გაშვება შეუძლებელია. შეიძლება, ის დაყენებული არაა."
 
 #: lib/quickopen/katequickopenlineedit.cpp:22
 #, kde-format
 msgid "Quick Open Search (configure via context menu)"
-msgstr ""
+msgstr "ძებნის სწრაფი გახსნა (მოირგეთ კონტექსტური მენიუდან)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:61
 #, kde-format
@@ -2418,6 +2501,7 @@ msgstr "წაშლა"
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr ""
+"შიდა შეცდომა: მითითებული სესიისთვის ერთზე მეტი გაშვებული ასლი არსებობს."
 
 #: lib/session/katesessionmanager.cpp:140
 #, kde-format
@@ -2425,6 +2509,8 @@ msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
+"სესია '%1' უკვე გახსნილია Kate-ის სხვა გაშვებულ ასლში. გადავრთო იმ გაშვებულ "
+"ასლზე თუ თავიდან გავხსნა ამ გაშვებულ ასლში?"
 
 #: lib/session/katesessionmanager.cpp:142
 #, kde-format
@@ -2441,7 +2527,7 @@ msgstr "ხელახლა გახსნა"
 #: lib/session/katesessionmanager.cpp:346
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
-msgstr ""
+msgstr "სესიის სახელის გადარქმევა '%1'-ზე შეუძლებელია. '%2'-ში ჩაწერა ჩავარდა"
 
 #: lib/session/katesessionmanager.cpp:347
 #, kde-format
@@ -2459,6 +2545,8 @@ msgid ""
 "There is already an existing session with your chosen name: %1\n"
 "Please choose a different one."
 msgstr ""
+"სესია თქვენი არჩეული სახელით უკვე არსებობს: %1\n"
+"აირჩიეთ სხვა სახელი."
 
 #: lib/session/katesessionmanager.cpp:501
 #, kde-format
@@ -2527,7 +2615,7 @@ msgstr "ფაილები შეუნახავი ცვლილებ�
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr ""
+msgstr "თუ გამორთულია, ახალი ფანჯრებისთვის უსახელო დოკუმენტს გაჩვენებთ."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
@@ -2542,12 +2630,14 @@ msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
+"თუ ჩართულია, აპლიკაცია, როცა ბოლო ჩასწორებად ფაილს დახურავთ, დაიხურება. სხვა "
+"შემთხვევაში კი ცარიელ გვერდს გაჩვენებთ, რათა ახალი ფაილი დაიწყოთ."
 
 #. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:101
 #, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr ""
+msgstr "აპლიკაციის დახურვა, როცა ბოლო ფაილი დაიხურება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108
@@ -2569,6 +2659,8 @@ msgid ""
 "bookmarks, cursor position etc. When the session is loaded all elements are "
 "restored."
 msgstr ""
+"სესია ღია დოკუმენტებს, ახლახანს გახსნილი ფაილების სიას, სანიშნებს, კურსორის "
+"მდებარეობებს და ა.შ. შეიცავს. როცა სესია ჩაიტვირთება, ყველა ელემენტი აღდგება."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/ui/sessionconfigwidget.ui:136
@@ -2583,6 +2675,8 @@ msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
 msgstr ""
+"ჩართეთ, თუ გნებავთ, რომ ყოველთვის, როცა აპლიკაციას გახსნით, ყველა თქვენი "
+"ხედიც და ჩარჩოც აღდგეს."
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:167
@@ -2598,6 +2692,9 @@ msgid ""
 "be saved past editor sessions. The configuration will be restored if the "
 "document has not changed when reopened."
 msgstr ""
+"ჩართეთ, თუ გნებავთ დოკუმენტის პარამეტრები, როგორიცაა მაგალითად, სანიშნეები, "
+"რედაქტორის სესიებთან ერთად იყოს შენახული. კონფიგურაცია აღდგება, თუ "
+"დოკუმენტის თავიდან გახსნისას ის შეცვლილი არაა."
 
 #. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:180

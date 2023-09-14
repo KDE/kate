@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-29 00:48+0000\n"
+"POT-Creation-Date: 2023-09-14 01:55+0000\n"
 "PO-Revision-Date: 2023-04-10 10:28+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -73,67 +73,61 @@ msgid "Build & Run Settings"
 msgstr "Собрать и запустить выбранную цель"
 
 # BUGME: split (verb/noun) --aspotashev
-#: plugin_katebuild.cpp:209 plugin_katebuild.cpp:216 plugin_katebuild.cpp:1200
+#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1221
 #, kde-format
 msgid "Build"
 msgstr "Сборка"
 
-#: plugin_katebuild.cpp:219
+#: plugin_katebuild.cpp:222
 #, kde-format
 msgid "Select Target..."
 msgstr "Выбрать цель..."
 
-#: plugin_katebuild.cpp:224
+#: plugin_katebuild.cpp:227
 #, kde-format
 msgid "Build Selected Target"
 msgstr "Собрать выбранную цель"
 
-#: plugin_katebuild.cpp:229
+#: plugin_katebuild.cpp:232
 #, kde-format
 msgid "Build and Run Selected Target"
 msgstr "Собрать и запустить выбранную цель"
 
-#: plugin_katebuild.cpp:234
+#: plugin_katebuild.cpp:237
 #, kde-format
 msgid "Stop"
 msgstr "Завершить"
 
-#: plugin_katebuild.cpp:239
+#: plugin_katebuild.cpp:242
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
 msgstr "Передать фокус следующей вкладке слева"
 
-#: plugin_katebuild.cpp:259
+#: plugin_katebuild.cpp:262
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
 msgstr "Передать фокус следующей вкладке справа"
 
-#: plugin_katebuild.cpp:281
+#: plugin_katebuild.cpp:284
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Параметры цели"
 
-#: plugin_katebuild.cpp:400
+#: plugin_katebuild.cpp:403
 #, fuzzy, kde-format
 #| msgid "Build command:"
 msgid "Build Information"
 msgstr "Команда сборки:"
 
-#: plugin_katebuild.cpp:487 plugin_katebuild.cpp:1253 plugin_katebuild.cpp:1264
-#: plugin_katebuild.cpp:1285 plugin_katebuild.cpp:1295
-#, kde-format
-msgid "Project Plugin Targets"
-msgstr "Цели, созданные модулем"
-
-#: plugin_katebuild.cpp:598
+#: plugin_katebuild.cpp:619
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Не указан файл или каталог для сборки."
 
-#: plugin_katebuild.cpp:602
+#: plugin_katebuild.cpp:623
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -141,7 +135,7 @@ msgstr ""
 "Файл «%1» не является локальным файлом, поэтому он не может быть "
 "скомпилирован."
 
-#: plugin_katebuild.cpp:649
+#: plugin_katebuild.cpp:670
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -150,48 +144,48 @@ msgstr ""
 "Не удалось выполнить команду: %1\n"
 "Рабочий путь не существует: «%2»"
 
-#: plugin_katebuild.cpp:663
+#: plugin_katebuild.cpp:684
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Не удалось выполнить «%1» (код выхода %2)."
 
-#: plugin_katebuild.cpp:678
+#: plugin_katebuild.cpp:699
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Сборка цели <b>%1</b> отменена"
 
-#: plugin_katebuild.cpp:785
+#: plugin_katebuild.cpp:806
 #, kde-format
 msgid "No target available for building."
 msgstr "Отсутствует цель сборки."
 
-#: plugin_katebuild.cpp:799
+#: plugin_katebuild.cpp:820
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Не был указан локальный файл или каталог для сборки."
 
-#: plugin_katebuild.cpp:805
+#: plugin_katebuild.cpp:826
 #, kde-format
 msgid "Already building..."
 msgstr "Сборка уже выполняется..."
 
-#: plugin_katebuild.cpp:832
+#: plugin_katebuild.cpp:853
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Сборка цели <b>%1</b>..."
 
-#: plugin_katebuild.cpp:846
+#: plugin_katebuild.cpp:867
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Результаты сборки:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:882
+#: plugin_katebuild.cpp:903
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:888
+#: plugin_katebuild.cpp:909
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -200,7 +194,7 @@ msgstr[1] "Обнаружены %1 ошибки."
 msgstr[2] "Обнаружено %1 ошибок."
 msgstr[3] "Обнаружена одна ошибка."
 
-#: plugin_katebuild.cpp:892
+#: plugin_katebuild.cpp:913
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -209,7 +203,7 @@ msgstr[1] "Обнаружены %1 предупреждения."
 msgstr[2] "Обнаружено %1 предупреждений."
 msgstr[3] "Обнаружено одно предупреждение."
 
-#: plugin_katebuild.cpp:895
+#: plugin_katebuild.cpp:916
 #, fuzzy, kde-format
 #| msgid "Found one error."
 #| msgid_plural "Found %1 errors."
@@ -220,27 +214,27 @@ msgstr[1] "Обнаружены %1 ошибки."
 msgstr[2] "Обнаружено %1 ошибок."
 msgstr[3] "Обнаружена одна ошибка."
 
-#: plugin_katebuild.cpp:900
+#: plugin_katebuild.cpp:921
 #, kde-format
 msgid "Build failed."
 msgstr "При сборке произошли ошибки."
 
-#: plugin_katebuild.cpp:902
+#: plugin_katebuild.cpp:923
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Сборка завершена без ошибок."
 
-#: plugin_katebuild.cpp:907
+#: plugin_katebuild.cpp:928
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:931
+#: plugin_katebuild.cpp:952
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Не удалось выполнить «%1»: не указан рабочий каталог."
 
-#: plugin_katebuild.cpp:1157
+#: plugin_katebuild.cpp:1178
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -248,7 +242,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "ошибка"
 
-#: plugin_katebuild.cpp:1160
+#: plugin_katebuild.cpp:1181
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -256,69 +250,57 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "предупреждение"
 
-#: plugin_katebuild.cpp:1163
+#: plugin_katebuild.cpp:1184
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1166
+#: plugin_katebuild.cpp:1187
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "неопределённая ссылка"
 
-#: plugin_katebuild.cpp:1199
+#: plugin_katebuild.cpp:1220 TargetModel.cpp:286 TargetModel.cpp:298
 #, kde-format
 msgid "Target Set"
 msgstr "Набор целей"
 
 # BUGME: split (verb/noun) --aspotashev
-#: plugin_katebuild.cpp:1201
+#: plugin_katebuild.cpp:1222
 #, kde-format
 msgid "Clean"
 msgstr "Очистка"
 
-#: plugin_katebuild.cpp:1202
+#: plugin_katebuild.cpp:1223
 #, kde-format
 msgid "Config"
 msgstr "Конфигурация"
 
-#: plugin_katebuild.cpp:1203
+#: plugin_katebuild.cpp:1224
 #, kde-format
 msgid "ConfigClean"
 msgstr "Очистка конфигурации"
 
-# BUGME: split (verb/noun) --aspotashev
-#: plugin_katebuild.cpp:1323
+#: plugin_katebuild.cpp:1415
 #, kde-format
-msgid "build"
-msgstr "сборка"
+msgid "Cannot save build targets in: %1"
+msgstr ""
 
-# BUGME: split (verb/noun) --aspotashev
-#: plugin_katebuild.cpp:1326
-#, kde-format
-msgid "clean"
-msgstr "очистка"
-
-#: plugin_katebuild.cpp:1329
-#, kde-format
-msgid "quick"
-msgstr "быстрая команда"
-
-#: TargetHtmlDelegate.cpp:47
+#: TargetHtmlDelegate.cpp:50
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>НЦ:</B> %1"
 
-#: TargetHtmlDelegate.cpp:49
+#: TargetHtmlDelegate.cpp:52
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Кат.:</B> %1"
 
-#: TargetHtmlDelegate.cpp:98
+#: TargetHtmlDelegate.cpp:101
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -328,7 +310,7 @@ msgstr ""
 "Для добавления каталогов поиска добавьте пути, разделяя их точкой с запятой "
 "(;)"
 
-#: TargetHtmlDelegate.cpp:102
+#: TargetHtmlDelegate.cpp:105
 #, kde-format
 msgid ""
 "Use:\n"
@@ -341,17 +323,27 @@ msgstr ""
 "«%d» для каталога текущего файла.\n"
 "«%n» для названия текущего файла без суффикса."
 
-#: TargetModel.cpp:388
+#: TargetModel.cpp:531
+#, kde-format
+msgid "Project"
+msgstr ""
+
+#: TargetModel.cpp:531
+#, kde-format
+msgid "Session"
+msgstr ""
+
+#: TargetModel.cpp:625
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Наборы целей"
 
-#: TargetModel.cpp:391
+#: TargetModel.cpp:628
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Рабочий каталог / команда"
 
-#: TargetModel.cpp:394
+#: TargetModel.cpp:631
 #, kde-format
 msgid "Run Command"
 msgstr "Выполнить команду"
@@ -418,6 +410,20 @@ msgstr "Вставить путь"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Выбор пути для вставки"
+
+#~ msgid "Project Plugin Targets"
+#~ msgstr "Цели, созданные модулем"
+
+# BUGME: split (verb/noun) --aspotashev
+#~ msgid "build"
+#~ msgstr "сборка"
+
+# BUGME: split (verb/noun) --aspotashev
+#~ msgid "clean"
+#~ msgstr "очистка"
+
+#~ msgid "quick"
+#~ msgstr "быстрая команда"
 
 #~ msgid "Building <b>%1</b> completed."
 #~ msgstr "Сборка <b>%1</b> завершена."

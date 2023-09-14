@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-22 00:53+0000\n"
-"PO-Revision-Date: 2023-01-13 06:38+0100\n"
+"PO-Revision-Date: 2023-09-13 10:04+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -131,7 +131,7 @@ msgstr "გარსის სკრიპტის გაშვება"
 #, kde-format
 msgctxt "External tool name"
 msgid "Rust Fmt Full File"
-msgstr ""
+msgstr "სრული ფაილის Rust Fmt"
 
 #. i18n: file: 10
 #, kde-format
@@ -157,6 +157,8 @@ msgstr "XML ფორმატის სრული ფაილი"
 msgid ""
 "This list shows all the configured tools, represented by their menu text."
 msgstr ""
+"ეს სია შეიცავს ყველა კონფიგურაციის ხელსაწყოს, წარმოდგენილს მათი მენიუს "
+"ტექსტის სახით."
 
 #. i18n: ectx: property (text), widget (QPushButton, btnAdd)
 #: configwidget.ui:29
@@ -182,6 +184,8 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"გამშვები ფაილის '%1' აღმოჩენა ჩავარდა. დარწმუნდით, რომ გამშვები ფაილი "
+"არსებობს და ცვლადის სახელები, თუ იყენებთ, სწორია"
 
 #: externaltoolsplugin.cpp:295 externaltoolsplugin.cpp:305
 #: externaltoolsplugin.cpp:422 kateexternaltoolsconfigwidget.cpp:264
@@ -199,7 +203,7 @@ msgstr "გაშვება %1: %2 %3"
 #: externaltoolsplugin.cpp:302
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
-msgstr ""
+msgstr "%1-ის გაშვება: %2 %3 შეყვანით %4"
 
 #: externaltoolsplugin.cpp:405
 #, kde-format
@@ -219,7 +223,7 @@ msgstr "%1 დასრულდა გამოსვლის კოდით 
 #: kateexternaltoolscommand.cpp:38
 #, kde-format
 msgid "Starts the external tool '%1'"
-msgstr ""
+msgstr "გაუშვებს გარე პროგრამას '%1'"
 
 #: kateexternaltoolsconfigwidget.cpp:132
 #, kde-format
@@ -229,7 +233,7 @@ msgstr "გარე ხელსაწყოს ჩასწორება"
 #: kateexternaltoolsconfigwidget.cpp:165
 #, kde-format
 msgid "Revert tool to default settings"
-msgstr ""
+msgstr "პროგრამის პარამეტრების საწყის მნიშვნელობაზე დაბრუნება"
 
 #: kateexternaltoolsconfigwidget.cpp:190 kateexternaltoolsconfigwidget.cpp:196
 #, kde-format
@@ -239,17 +243,17 @@ msgstr "გარე ხელსაწყო"
 #: kateexternaltoolsconfigwidget.cpp:190
 #, kde-format
 msgid "You must specify at least a name and an executable"
-msgstr ""
+msgstr "სულ ცოტა, სახელს და გამშვები ფაილის მითითება, აუცილებელია"
 
 #: kateexternaltoolsconfigwidget.cpp:196
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
-msgstr ""
+msgstr "თუ 'ტრიგერი' ჩართულია, აუცილებელია, ერთი mimetype მაინც მიუთითოთ."
 
 #: kateexternaltoolsconfigwidget.cpp:205
 #, kde-format
 msgid "Select the MimeTypes for which to enable this tool."
-msgstr ""
+msgstr "აირჩიეთ mimetype-ები, რომლებისთვისაც ეს ხელსაწყო ჩაირთვება."
 
 #: kateexternaltoolsconfigwidget.cpp:207
 #, kde-format
@@ -295,7 +299,7 @@ msgstr "მორგება..."
 #: kateexternaltoolsview.cpp:165
 #, kde-format
 msgid "Launch external helper applications"
-msgstr ""
+msgstr "გარე დამხმარე აპლიკაციების გაშვება"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ToolDialog)
 #: tooldialog.ui:14
@@ -313,7 +317,7 @@ msgstr "&სახელი:"
 #: tooldialog.ui:32
 #, kde-format
 msgid "The name will be displayed in the 'Tools->External Tools' menu."
-msgstr ""
+msgstr "სახელი გამოჩნდება მენიუში 'ხელსაწყოები->გარე ხელსაწყოები'."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtName)
 #: tooldialog.ui:35
@@ -382,18 +386,21 @@ msgid ""
 "A semicolon-separated list of mime types for which this tool should be "
 "available. If empty, the tool is always available."
 msgstr ""
+"წერტილმძიმით გამოყოფილე mimetype-ები, რომლებისთვისაც, ეს ხელსაწყო, "
+"ხელმისაწვდომი იქნება. თუ ცარიელია, ხელსაწყო ყოველთვის ხელმისაწვდომია."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtMimeType)
 #: tooldialog.ui:130
 #, kde-format
 msgid "Show tool only for given mime types"
-msgstr ""
+msgstr "ხელსაწყოს გამოყენება მხოლოდ მითითებული mimetype-ებისთვის"
 
 #. i18n: ectx: property (whatsThis), widget (QToolButton, btnMimeType)
 #: tooldialog.ui:137
 #, kde-format
 msgid "Opens a dialog that helps in creating a list of mimetypes."
 msgstr ""
+"გახსნის დიალოგურ ფანჯარას, რომელიც mimetype-ების სიის შექმნაში დაგეხმარებათ."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSave)
 #: tooldialog.ui:149
@@ -409,6 +416,9 @@ msgid ""
 "command. This is helpful if you want to pass URLs to an application like, "
 "for example, an FTP client."
 msgstr ""
+"არასავალდებულოდ, ბრძანების გაშვებამდე მიმდინარე ან ყველა შეცვლილი დოკუმენტის "
+"შენახვა. ეს დაგეხმარებათ, თუ აპლიკაციას, როგორიცაა მაგალითად, FTP კლიენტი, "
+"URL-ები უნდა გადასცეთ."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
@@ -521,6 +531,9 @@ msgid ""
 "line with the_name_you_specified_here. Please do not use spaces or tabs in "
 "the name."
 msgstr ""
+"თუ აქ სახელს მიუთითებთ, ბრძანება შეგიძლათ ხედის ბრძანების სტრიქონიდან "
+"გაუშვათ იმ_სახელით_რომელსაც_აქ_მიუთებთ. სახელში გამოტოვებებს და ტაბულაციებს, "
+"თქვენი ჭირიმე, ნუ გამოიყენებთ."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
 #: tooldialog.ui:281

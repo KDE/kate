@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2022-08-25 12:32+0200\n"
+"PO-Revision-Date: 2023-09-13 06:08+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: plugin_katexmltools.cpp:117
 #, kde-format
@@ -49,6 +49,8 @@ msgid ""
 "The current file has been identified as a document of type \"%1\". The meta "
 "DTD for this document type will now be loaded."
 msgstr ""
+"მიმდინარე ფაილის ტიპი იდენტიფიცირებულია, როგორც \"%1\". ახლა ამ "
+"დოკუმენტისთვის მეტა DTD ჩაიტვირთება."
 
 #: plugin_katexmltools.cpp:451
 #, kde-format
@@ -58,7 +60,7 @@ msgstr "XML-ის მეტა DTD-ის ჩატვირთვა"
 #: plugin_katexmltools.cpp:483
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
-msgstr ""
+msgstr "ფაილის '%1' გახსნა შეუძლებელია. სერვერმა შეცდომა დააბრუნა."
 
 #: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
@@ -96,6 +98,8 @@ msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "
 "supplied):"
 msgstr ""
+"შეიყვანეთ XML ჭდე და ატრიბუტები (\"<\", \">\" და დამხურავი ჭდე ავტომატურად "
+"ჩაისმება):"
 
 #: pseudo_dtd.cpp:45
 #, kde-format
@@ -103,6 +107,8 @@ msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr ""
+"ფაილის '%1' დამუშავება შეუძლებელია. შეამოწმეთ ფაილი და დარწმუნდით, რომ მისი "
+"XML ფორმატი სწორია."
 
 #: pseudo_dtd.cpp:54
 #, kde-format
@@ -113,11 +119,16 @@ msgid ""
 "You can produce such files with dtdparse. See the Kate Plugin documentation "
 "for more information."
 msgstr ""
+"ფაილი '%1' მოსალოდნელ ფორატში არაა. შეამოწმეთ ფაილის და დარწმუნდით რომ მისი "
+"ტიპია:\n"
+"-//Norman Walsh//DTD DTDParse V2.0//EN\n"
+"ასეთი ფაილების შექმნა dtdparse-ს შეუძლია. მეტი ინფორმაციისთვის მიმართეთ Kate-"
+"ის დამატებების დოკუმენტაციას."
 
 #: pseudo_dtd.cpp:70
 #, kde-format
 msgid "Analyzing meta DTD..."
-msgstr ""
+msgstr "მეტა DTD-ის ანალიზი..."
 
 #: pseudo_dtd.cpp:70
 #, kde-format
@@ -128,4 +139,4 @@ msgstr "შეწყვეტა"
 #: ui.rc:6
 #, kde-format
 msgid "&XML"
-msgstr ""
+msgstr "&XML"

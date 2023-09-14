@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-01-28 10:01+0100\n"
+"PO-Revision-Date: 2023-09-13 06:21+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -41,7 +41,7 @@ msgstr "ახალი ფრაგმენტის რეპოზიტო�
 #: editrepository.cpp:142
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr ""
+msgstr "<i>დატოვეთ ცარიელი ზოგადი დანიშნულების ფრაგმენტებისთვის</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
@@ -99,7 +99,7 @@ msgstr "რეპოზიტორიაში %1 ახალი ფრაგ�
 #: editsnippet.cpp:145
 #, kde-format
 msgid "Snippet name cannot contain spaces"
-msgstr ""
+msgstr "ფრაგმენტის სახელი არ შეიძლება, გამოტოვებებს შეიცავდეს"
 
 #: editsnippet.cpp:189
 #, kde-format
@@ -107,6 +107,8 @@ msgid ""
 "The snippet contains unsaved changes. Do you want to continue and lose all "
 "changes?"
 msgstr ""
+"ფრაგმენტი შეუნახავ ცვლილებებს შეიცავს. გნებავთ, გააგრძელოთ და დაკარგოთ ყველა "
+"თქვენი ცვლილება?"
 
 #: editsnippet.cpp:190
 #, kde-format
@@ -117,7 +119,7 @@ msgstr "გაფრთხილება - შეუნახავი ცვ�
 #: editsnippet.ui:42
 #, kde-format
 msgid "will be shown in the completion list"
-msgstr ""
+msgstr "ნაჩვენები იქნება დასრულების სიაში"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:62
@@ -143,6 +145,19 @@ msgid ""
 "information.<br><tt>${cursor}</tt> can be used to mark the end position of "
 "the cursor after everything else was filled in.\">More...</a>"
 msgstr ""
+"ტექსტი, რომელსაც თქვენი ფრაგმენტი ჩასვამს დოკუმენტში. <a href=\"A snippet "
+"can contain editable fields. They can be cycled by pressing Tab. The "
+"following expressions can be used in the template text to create fields: "
+"<br><tt>${field_name}</tt> creates a simple, editable field. All subsequent "
+"occurrences of the same field_name create fields which mirror the contents "
+"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
+"to specify a default value for the field. <tt>default</tt> can be any "
+"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
+"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
+"tt> can be used to create a field which evaluates a JavaScript function on "
+"each edit and contains its contents. See the Scripts tab for more "
+"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
+"the cursor after everything else was filled in.\">გაიგეთ მეტი...</a>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:82
@@ -168,6 +183,19 @@ msgid ""
 "tt> objects. Refer to the scripting API documentation for more information."
 "\">More...</a>"
 msgstr ""
+"აქ ჩაწერეთ JavaScript-ის დამხმარე ფუნქციები, რომლებიც გნებავთ, თქვენს "
+"ფრაგმენტებში გამოიყენოთ. <a href=\"All JavaScript functions should return "
+"the contents you want to place in a template field as a string.<br>Functions "
+"are called in a scope which contains the contents of all editable template "
+"fields as local variables. For example in a snippet containing <tt>${field}</"
+"tt>, a variable called <tt>field</tt> will be present which contains the up-"
+"to-date contents of the template field. Those variables can either be used "
+"in the function statically or passed as arguments, by using the <tt>"
+"${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the snippet "
+"string.<br>You can use the kate scripting API to get the selected text, full "
+"text, file name and more by using the appropriate methods of the "
+"<tt>document</tt> and <tt>view</tt> objects. Refer to the scripting API "
+"documentation for more information.\">გაიგეთ მეტი...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:105
@@ -214,22 +242,26 @@ msgid ""
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
+"ჩაასწორეთ ფრაგმენტის რეპოზიტორიის ფაილი, რომელიც თქვენს პირად საქაღალდეში "
+"არაა მოთავსებული. ამიტომ, თქვენს პირად მონაცემების საქაღალდეში საწყისი "
+"ფაილის ასლი შეიქმნა."
 
 #: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
-msgstr ""
+msgstr "ფაილის ('%1') ჩასაწერად გახსნა შეუძლებელია"
 
 #: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
-msgstr ""
+msgstr "ფრაგმენტების რეპოზიტორიის %1 გახსნის შეცდომა."
 
 #: snippetrepository.cpp:286
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
+"<qt>ფაილში %1 მისამართზე %2/%3 აღმოჩენილია შეცდომა <b>%4</b><br /></qt>"
 
 #: snippetrepository.cpp:293
 #, kde-format
@@ -242,6 +274,8 @@ msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr ""
+"რეპოზიტორია გათიშულია. ფრაგმენტები, რომლებსაც ის შეიცავს, კოდის დასრულების "
+"დროს ნაჩვენები არ იქნება."
 
 #: snippetrepository.cpp:358
 #, kde-format
@@ -301,13 +335,13 @@ msgstr "რეპოზიტორია: %1"
 #: snippetview.cpp:282
 #, kde-format
 msgid "Do you really want to delete the snippet \"%1\"?"
-msgstr ""
+msgstr "მართლა გნებავთ ფრაგმენტის ('%1') წაშლა?"
 
 #: snippetview.cpp:324
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"
-msgstr ""
+msgstr "მართლა გნებავთ რეპოზიტორიის '%1' წაშლა, მისი ყველა ფრაგმენტით?"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
 #: snippetview.ui:35

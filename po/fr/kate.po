@@ -16,7 +16,7 @@
 # Vincent Pinon <vpinon@kde.org>, 2017.
 # Simon Depiets <sdepiets@gmail.com>, 2018, 2019, 2020.
 # William Oprandi <william.oprandi@gmail.com>, 2019.
-# Xavier Besnard <xavier.besnard@neuf.fr>, 2020, 2021, 2022.
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Xavier Besnard <xavier.besnard@neuf.fr>
 # Xavier BESNARD <xavier.besnard@neuf.fr>, 2023.
 #
 msgid ""
@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-30 00:48+0000\n"
-"PO-Revision-Date: 2023-04-13 20:10+0200\n"
+"PO-Revision-Date: 2023-09-12 13:09+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.0\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -267,10 +267,9 @@ msgstr "Ou&tils"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:286
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Diagnostics"
+msgstr "Vue « Diagnostics »"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -318,11 +317,10 @@ msgid "All"
 msgstr "Tous"
 
 #: lib/diagnostics/diagnosticview.cpp:327
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "Diagnostics"
+msgstr "Vue « Diagnostics »"
 
 #: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
@@ -340,10 +338,9 @@ msgid "Previous Item"
 msgstr "Élément précédent"
 
 #: lib/diagnostics/diagnosticview.cpp:352
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "Diagnostics"
+msgstr "Effacer le filtre de diagnostics"
 
 #: lib/diagnostics/diagnosticview.cpp:392
 #, kde-format
@@ -1190,12 +1187,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:509
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr ""
+msgstr "Ouvrir un nouvel onglet à droite de l’onglet actuel."
 
 #: lib/kateconfigdialog.cpp:511
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr ""
+"Si cette option est non sélectionnée, le nouvel onglet s’ouvrira à la fin."
 
 #: lib/kateconfigdialog.cpp:517
 #, kde-format
@@ -2387,13 +2385,14 @@ msgstr "Fractionnement de la vue de contrôle"
 #: lib/kateviewspace.cpp:119
 #, kde-format
 msgid "S&ynchronize Scrolling"
-msgstr ""
+msgstr "S&ynchroniser le défilement"
 
 #: lib/kateviewspace.cpp:121
 #, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
 msgstr ""
+"Synchroniser le défilement de la vue scindée avec les autres vues scindées."
 
 #: lib/kateviewspace.cpp:222
 #, kde-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2021-12-07 12:49+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -69,32 +69,32 @@ msgstr "A(z) „%1” fájl megnyitása nem sikerült. A kiszolgáló hibát jel
 msgid "XML Plugin Error"
 msgstr "Hiba az XML bővítőmodulban"
 
-#: plugin_katexmltools.cpp:996
+#: plugin_katexmltools.cpp:984
 #, kde-format
 msgid "XML entities"
 msgstr "XML entitások"
 
-#: plugin_katexmltools.cpp:998
+#: plugin_katexmltools.cpp:986
 #, kde-format
 msgid "XML attribute values"
 msgstr "XML attribútum értékek"
 
-#: plugin_katexmltools.cpp:1000
+#: plugin_katexmltools.cpp:988
 #, kde-format
 msgid "XML attributes"
 msgstr "XML attribútumok"
 
-#: plugin_katexmltools.cpp:1003
+#: plugin_katexmltools.cpp:991
 #, kde-format
 msgid "XML elements"
 msgstr "XML elemek"
 
-#: plugin_katexmltools.cpp:1043
+#: plugin_katexmltools.cpp:1031
 #, kde-format
 msgid "Insert XML Element"
 msgstr "XML-elem beszúrása"
 
-#: plugin_katexmltools.cpp:1048
+#: plugin_katexmltools.cpp:1036
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

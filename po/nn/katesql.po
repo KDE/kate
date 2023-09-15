@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-28 00:50+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2020-08-28 18:31+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -91,7 +91,7 @@ msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Databasenamn:"
 
-#: connectionwizard.cpp:101 connectionwizard.cpp:184
+#: connectionwizard.cpp:101 connectionwizard.cpp:180
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
@@ -112,42 +112,41 @@ msgstr ""
 "Skriv inn filadressa til SQLite-databasen.\n"
 "Viss fila ikkje finst, vert det oppretta ein ny database."
 
-#: connectionwizard.cpp:179 connectionwizard.cpp:181
+#: connectionwizard.cpp:178
 #, kde-format
 msgid "Database files"
 msgstr "Databasefiler"
 
-#: connectionwizard.cpp:179 connectionwizard.cpp:181 exportwizard.cpp:56
-#: exportwizard.cpp:58
+#: connectionwizard.cpp:178 exportwizard.cpp:55
 #, kde-format
 msgid "All files"
 msgstr "Alle filer"
 
-#: connectionwizard.cpp:183
+#: connectionwizard.cpp:179
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Filadresse:"
 
-#: connectionwizard.cpp:216
+#: connectionwizard.cpp:212
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "Klarte ikkje kopla til databasen.<nl/> <message>%1</message>"
 
-#: connectionwizard.cpp:231
+#: connectionwizard.cpp:227
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "Tilkoplingsnamn"
 
-#: connectionwizard.cpp:232
+#: connectionwizard.cpp:228
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Skriv inn eit eintydig tilkoplingnamn"
 
-#: connectionwizard.cpp:238
+#: connectionwizard.cpp:234
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -232,18 +231,18 @@ msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Fil"
 
-#: exportwizard.cpp:56 exportwizard.cpp:58
+#: exportwizard.cpp:55
 #, kde-format
 msgid "Comma Separated Values"
 msgstr ""
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:97
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Feltformat"
 
-#: exportwizard.cpp:102
+#: exportwizard.cpp:98
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -253,55 +252,55 @@ msgstr ""
 "Vel format for felt.\n"
 "Trykk «Fullfør»-knappen for å eksportera data."
 
-#: exportwizard.cpp:106
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Overskrifter"
 
-#: exportwizard.cpp:109
+#: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Eksporter kolonnenamn"
 
-#: exportwizard.cpp:110
+#: exportwizard.cpp:106
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Eksporter linjetal"
 
-#: exportwizard.cpp:117
+#: exportwizard.cpp:113
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Hermeteikn"
 
-#: exportwizard.cpp:120
+#: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Sett tekststrengar i hermeteikn"
 
-#: exportwizard.cpp:121
+#: exportwizard.cpp:117
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Set tal i hermeteikn"
 
-#: exportwizard.cpp:129 exportwizard.cpp:132
+#: exportwizard.cpp:125 exportwizard.cpp:128
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Teikn:"
 
-#: exportwizard.cpp:138
+#: exportwizard.cpp:134
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Skiljeteikn"
 
-#: exportwizard.cpp:144
+#: exportwizard.cpp:140
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:50+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2016-07-20 20:58+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
 #: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
-#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:341
+#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:337
 #, kde-format
 msgid "XMLCheck"
 msgstr ""
@@ -64,7 +64,7 @@ msgid ""
 "installed. It is part of libxml2."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:339
+#: plugin_katexmlcheck.cpp:335
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

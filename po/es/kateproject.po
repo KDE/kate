@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-06 00:48+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2023-09-07 00:47+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -93,7 +93,7 @@ msgstr[1] "¿Seguro que desea borrar las ramas seleccionadas?"
 msgid "Select Branch..."
 msgstr "Seleccionar rama..."
 
-#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:70
+#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -390,118 +390,118 @@ msgstr "Descartar reserva"
 msgid "Show Stash Content"
 msgstr "Mostrar el contenido de la reserva"
 
-#: gitwidget.cpp:1151
+#: gitwidget.cpp:1147
 #, kde-format
 msgid "Stage All"
 msgstr "Añadir todo"
 
-#: gitwidget.cpp:1153
+#: gitwidget.cpp:1149
 #, kde-format
 msgid "Remove All"
 msgstr "Eliminar todo"
 
-#: gitwidget.cpp:1153
+#: gitwidget.cpp:1149
 #, kde-format
 msgid "Discard All"
 msgstr "Descartar todo"
 
-#: gitwidget.cpp:1156
+#: gitwidget.cpp:1152
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Abrir .gitignore"
 
-#: gitwidget.cpp:1157 gitwidget.cpp:1212 gitwidget.cpp:1262
+#: gitwidget.cpp:1153 gitwidget.cpp:1200 gitwidget.cpp:1242
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
 msgstr "Mostrar diferencias"
 
-#: gitwidget.cpp:1174
+#: gitwidget.cpp:1170
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "¿Seguro que desea eliminar estos archivos?"
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1175
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "¿Seguro que desea descartar todos los cambios?"
 
-#: gitwidget.cpp:1211
+#: gitwidget.cpp:1199
 #, kde-format
 msgid "Open File"
 msgstr "Abrir archivo"
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1201
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Mostrar en herramienta de diferencias git externa"
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1202
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Abrir en HEAD"
 
-#: gitwidget.cpp:1215
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Unstage File"
 msgstr "Quitar archivo"
 
-#: gitwidget.cpp:1215
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Stage File"
 msgstr "Añadir archivo"
 
-#: gitwidget.cpp:1216
+#: gitwidget.cpp:1204
 #, kde-format
 msgid "Remove"
 msgstr "Eliminar"
 
-#: gitwidget.cpp:1216
+#: gitwidget.cpp:1204
 #, kde-format
 msgid "Discard"
 msgstr "Descartar"
 
-#: gitwidget.cpp:1233
+#: gitwidget.cpp:1221
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "¿Seguro que desea descartar todos los cambios de este archivo?"
 
-#: gitwidget.cpp:1246
+#: gitwidget.cpp:1230
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "¿Seguro que desea eliminar este archivo?"
 
-#: gitwidget.cpp:1261
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Unstage All"
 msgstr "Quitar todo"
 
-#: gitwidget.cpp:1328
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Quitar los archivos seleccionados"
 
-#: gitwidget.cpp:1328
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Añadir los archivos seleccionados"
 
-#: gitwidget.cpp:1329
+#: gitwidget.cpp:1309
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Descartar los archivos seleccionados"
 
-#: gitwidget.cpp:1333
+#: gitwidget.cpp:1313
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Eliminar los archivos seleccionados"
 
-#: gitwidget.cpp:1346
+#: gitwidget.cpp:1326
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "¿Seguro que desea descartar los cambios?"
 
-#: gitwidget.cpp:1355
+#: gitwidget.cpp:1331
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "¿Seguro que desea eliminar estos cambios no seguidos?"
@@ -511,12 +511,12 @@ msgstr "¿Seguro que desea eliminar estos cambios no seguidos?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Archivo JSON mal formado «%1»: %2"
 
-#: kateproject.cpp:541
+#: kateproject.cpp:517
 #, kde-format
 msgid "<untracked>"
 msgstr "<no seguido>"
 
-#: kateprojectcompletion.cpp:64
+#: kateprojectcompletion.cpp:54
 #, kde-format
 msgid "Project Completion"
 msgstr "Completación del proyecto"
@@ -658,7 +658,7 @@ msgstr "Añadir / quitar"
 msgid "Double click action in the git status view"
 msgstr "Acción de doble clic en la vista de estado de git"
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:69
+#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Proyectos"
@@ -772,12 +772,12 @@ msgstr "No se ha podido crear el índice. Por favor, instale «ctags»."
 msgid "Indexing is not enabled"
 msgstr "La indexación no está activada"
 
-#: kateprojectitem.cpp:176
+#: kateprojectitem.cpp:166
 #, kde-format
 msgid "Error"
 msgstr "Error"
 
-#: kateprojectitem.cpp:176
+#: kateprojectitem.cpp:166
 #, kde-format
 msgid "File name already exists"
 msgstr "El nombre del archivo ya existe"
@@ -807,104 +807,104 @@ msgstr ""
 "Ruta completa al proyecto actual, excluyendo el nombre de archivo y con "
 "separadores de ruta nativos (barra inversa en Windows)."
 
-#: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
-#: kateprojectpluginview.cpp:231 kateprojectviewtree.cpp:136
+#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
+#: kateprojectpluginview.cpp:228 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
 msgstr "Proyecto"
 
-#: kateprojectpluginview.cpp:59
+#: kateprojectpluginview.cpp:56
 #, kde-format
 msgid "Project Manager"
 msgstr "Gestor de proyectos"
 
-#: kateprojectpluginview.cpp:81
+#: kateprojectpluginview.cpp:78
 #, kde-format
 msgid "Open projects list"
 msgstr "Lista de proyectos abiertos"
 
-#: kateprojectpluginview.cpp:86
+#: kateprojectpluginview.cpp:83
 #, kde-format
 msgid "Reload project"
 msgstr "Volver a cargar el proyecto"
 
-#: kateprojectpluginview.cpp:89
+#: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Close project"
 msgstr "Cerrar proyecto"
 
-#: kateprojectpluginview.cpp:104
+#: kateprojectpluginview.cpp:101
 #, kde-format
 msgid "Refresh git status"
 msgstr "Actualizad el estado de Git"
 
-#: kateprojectpluginview.cpp:182
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Open Folder..."
 msgstr "Abrir carpeta..."
 
-#: kateprojectpluginview.cpp:187
+#: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Project TODOs"
 msgstr "Archivos TODO del proyecto"
 
-#: kateprojectpluginview.cpp:191
+#: kateprojectpluginview.cpp:188
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Activar el proyecto anterior"
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:193
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Activar el proyecto siguiente"
 
-#: kateprojectpluginview.cpp:201
+#: kateprojectpluginview.cpp:198
 #, kde-format
 msgid "Lookup"
 msgstr "Buscar"
 
-#: kateprojectpluginview.cpp:205
+#: kateprojectpluginview.cpp:202
 #, kde-format
 msgid "Close Project"
 msgstr "Cerrar proyecto"
 
-#: kateprojectpluginview.cpp:209
+#: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close All Projects"
 msgstr "Cerrar todos los proyectos"
 
-#: kateprojectpluginview.cpp:214
+#: kateprojectpluginview.cpp:211
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Cerrar los proyectos huérfanos"
 
-#: kateprojectpluginview.cpp:218
+#: kateprojectpluginview.cpp:215
 #, kde-format
 msgid "Reload Project"
 msgstr "Volver a cargar el proyecto"
 
-#: kateprojectpluginview.cpp:228
+#: kateprojectpluginview.cpp:225
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Cambiar a rama de Git"
 
-#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:822
+#: kateprojectpluginview.cpp:231 kateprojectpluginview.cpp:805
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Buscar: %1"
 
-#: kateprojectpluginview.cpp:235 kateprojectpluginview.cpp:823
+#: kateprojectpluginview.cpp:232 kateprojectpluginview.cpp:806
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ir a: %1"
 
-#: kateprojectpluginview.cpp:316
+#: kateprojectpluginview.cpp:306
 #, kde-format
 msgid "Projects Index"
 msgstr "Índice de proyectos"
 
-#: kateprojectpluginview.cpp:867
+#: kateprojectpluginview.cpp:850
 #, kde-format
 msgid "Choose a directory"
 msgstr "Escoja un directorio"

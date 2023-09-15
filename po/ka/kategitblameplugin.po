@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-07 00:48+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2023-01-16 06:17+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -18,44 +18,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: kategitblameplugin.cpp:108
+#: kategitblameplugin.cpp:94
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
 msgstr " %1: %2 "
 
-#: kategitblameplugin.cpp:109
+#: kategitblameplugin.cpp:95
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr " %1: %2: %3 "
 
-#: kategitblameplugin.cpp:199
+#: kategitblameplugin.cpp:183
 #, kde-format
 msgid "Git Blame"
 msgstr "Git Blame"
 
-#: kategitblameplugin.cpp:202
+#: kategitblameplugin.cpp:186
 #, kde-format
 msgid "Show Git Blame Details"
 msgstr "Git Blame-ის დეტალების ჩვენება"
 
-#: kategitblameplugin.cpp:205
+#: kategitblameplugin.cpp:189
 #, kde-format
 msgid "Toggle Git Blame Details"
 msgstr "Git Blame-ის დეტალების გადართვა"
 
-#: kategitblameplugin.cpp:357
+#: kategitblameplugin.cpp:332
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:494
+#: kategitblameplugin.cpp:469
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git Blame. კომიტის ჩვენების შეცდომა."
 
-#: kategitblameplugin.cpp:581
+#: kategitblameplugin.cpp:556
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "ჯერ დაკომიტებული არაა"

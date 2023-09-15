@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-28 00:50+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2023-06-29 15:40+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -90,7 +90,7 @@ msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Име на базата от данни:"
 
-#: connectionwizard.cpp:101 connectionwizard.cpp:184
+#: connectionwizard.cpp:101 connectionwizard.cpp:180
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
@@ -111,42 +111,41 @@ msgstr ""
 "Въведете името на файла за базата на SQLite.\n"
 "Ако файлът не съществува, ще бъде създадена нова база."
 
-#: connectionwizard.cpp:179 connectionwizard.cpp:181
+#: connectionwizard.cpp:178
 #, kde-format
 msgid "Database files"
 msgstr "Файлове на бази от данни"
 
-#: connectionwizard.cpp:179 connectionwizard.cpp:181 exportwizard.cpp:56
-#: exportwizard.cpp:58
+#: connectionwizard.cpp:178 exportwizard.cpp:55
 #, kde-format
 msgid "All files"
 msgstr "Всички файлове"
 
-#: connectionwizard.cpp:183
+#: connectionwizard.cpp:179
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Път:"
 
-#: connectionwizard.cpp:216
+#: connectionwizard.cpp:212
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "Грешка при свързване с базата от данни.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:231
+#: connectionwizard.cpp:227
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "Име на връзката"
 
-#: connectionwizard.cpp:232
+#: connectionwizard.cpp:228
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Въведете име на връзката"
 
-#: connectionwizard.cpp:238
+#: connectionwizard.cpp:234
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -230,18 +229,18 @@ msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Файл"
 
-#: exportwizard.cpp:56 exportwizard.cpp:58
+#: exportwizard.cpp:55
 #, kde-format
 msgid "Comma Separated Values"
 msgstr "Данни, разделени със запетайка"
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:97
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Формат на полетата"
 
-#: exportwizard.cpp:102
+#: exportwizard.cpp:98
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -251,55 +250,55 @@ msgstr ""
 "Изберете формат на полетата.\n"
 "След приключване данните ще бъдат изнесени."
 
-#: exportwizard.cpp:106
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Заглавки"
 
-#: exportwizard.cpp:109
+#: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Изнасяне имената на колоните"
 
-#: exportwizard.cpp:110
+#: exportwizard.cpp:106
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Изнасяне номерата на редовете"
 
-#: exportwizard.cpp:117
+#: exportwizard.cpp:113
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Кавички"
 
-#: exportwizard.cpp:120
+#: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Поставяне на низ в кавички"
 
-#: exportwizard.cpp:121
+#: exportwizard.cpp:117
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Поставяне на числа в кавички"
 
-#: exportwizard.cpp:129 exportwizard.cpp:132
+#: exportwizard.cpp:125 exportwizard.cpp:128
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Знак:"
 
-#: exportwizard.cpp:138
+#: exportwizard.cpp:134
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Разделители"
 
-#: exportwizard.cpp:144
+#: exportwizard.cpp:140
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

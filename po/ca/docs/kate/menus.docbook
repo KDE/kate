@@ -1555,13 +1555,13 @@
 > </shortcut
 > <guimenu
 >Visualitza</guimenu
-><guimenuitem
->Augmenta el tipus de lletra</guimenuitem
+> <guimenuitem
+>Augmenta la lletra</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Augmenta la mida del tipus de lletra a visualitzar.</para
+>Augmenta la mida de la lletra a visualitzar.</para
 ></listitem>
 </varlistentry>
 
@@ -1576,13 +1576,13 @@
 > </shortcut
 > <guimenu
 >Visualitza</guimenu
-><guimenuitem
->Minva el tipus de lletra</guimenuitem
+> <guimenuitem
+>Minva la lletra</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Minva la mida del tipus de lletra a visualitzar.</para
+>Minva la mida de la lletra a visualitzar.</para
 ></listitem>
 </varlistentry>
 
@@ -1598,7 +1598,7 @@
 <listitem
 ><para
 >Aquest menú llista els esquemes de color disponibles. Aquí el podeu canviar per a la vista actual. Per a canviar l'esquema predeterminat necessitareu utilitzar la pàgina <ulink url="/help:katepart/config-dialog-editor.html#prefcolors"
->Tipus de lletra i colors</ulink
+>Lletra i colors</ulink
 > del diàleg de configuració.</para>
 </listitem>
 </varlistentry>
@@ -1660,7 +1660,7 @@
 ><para
 >Mostra o oculta una línia vertical indicativa de la posició de l'ajust de les paraules tal com s'ha configurat al <ulink url="help:/katepart/config-dialog-editor.html#pref-wrap-words-at"
 >diàleg de configuració</ulink
->. Aquesta característica necessita que utilitzeu un tipus de lletra d'amplada fixa. </para>
+>. Aquesta característica necessita que utilitzeu una lletra d'amplada fixa. </para>
 </listitem>
 </varlistentry>
 

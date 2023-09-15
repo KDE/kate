@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:50+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2023-01-16 06:00+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -35,7 +35,7 @@ msgstr "გადამოწმების პროცესი ავარ�
 
 #: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
 #: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
-#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:341
+#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:337
 #, kde-format
 msgid "XMLCheck"
 msgstr "XMLCheck"
@@ -67,7 +67,7 @@ msgstr ""
 "<b>შეცდომა:</b> xmllnt-ის მოძებნა შეუძლებელია. დარწმუნდით, რომ ის "
 "დაყენებულია. xmmlint-ი libxml2-ის ნაწილია."
 
-#: plugin_katexmlcheck.cpp:339
+#: plugin_katexmlcheck.cpp:335
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

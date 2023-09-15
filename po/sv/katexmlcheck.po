@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:50+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2023-07-26 12:42+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Validera processkrascher"
 
 #: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
 #: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
-#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:341
+#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:337
 #, kde-format
 msgid "XMLCheck"
 msgstr "XML-kontroll"
@@ -64,7 +64,7 @@ msgstr ""
 "<b>Fel:</b> Kunde inte hitta xmllint. Försäkra dig om att xmllint är "
 "installerat. Det är en del av libxml2."
 
-#: plugin_katexmlcheck.cpp:339
+#: plugin_katexmlcheck.cpp:335
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

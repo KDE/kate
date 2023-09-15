@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-07 00:48+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2021-12-27 11:19+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -17,44 +17,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 21.12.0\n"
 
-#: kategitblameplugin.cpp:108
+#: kategitblameplugin.cpp:94
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
 msgstr " %1: %2 "
 
-#: kategitblameplugin.cpp:109
+#: kategitblameplugin.cpp:95
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr " %1: %2: %3 "
 
-#: kategitblameplugin.cpp:199
+#: kategitblameplugin.cpp:183
 #, kde-format
 msgid "Git Blame"
 msgstr "Git gyanúsítás"
 
-#: kategitblameplugin.cpp:202
+#: kategitblameplugin.cpp:186
 #, kde-format
 msgid "Show Git Blame Details"
 msgstr "Git gyanúsítás részleteinek megjelenítése"
 
-#: kategitblameplugin.cpp:205
+#: kategitblameplugin.cpp:189
 #, kde-format
 msgid "Toggle Git Blame Details"
 msgstr "Git gyanúsítás részletei be/ki"
 
-#: kategitblameplugin.cpp:357
+#: kategitblameplugin.cpp:332
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:494
+#: kategitblameplugin.cpp:469
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git gyanúsítás, véglegesítés megjelenítése sikertelen."
 
-#: kategitblameplugin.cpp:581
+#: kategitblameplugin.cpp:556
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Nincs még véglegesítve"

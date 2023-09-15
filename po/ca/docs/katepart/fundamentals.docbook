@@ -1034,7 +1034,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Minva el tipus de lletra.</para
+>Minva la lletra.</para
 ></entry>
 </row>
 <row>
@@ -1052,7 +1052,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Augmenta el tipus de lletra.</para
+>Augmenta la lletra.</para
 ></entry>
 </row>
 <row>

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2022-08-17 05:58+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -71,32 +71,32 @@ msgstr "Datoteke '%1' ni bilo mogoče odpreti. Strežnik je vrnil napako."
 msgid "XML Plugin Error"
 msgstr "Napaka vstavka XML"
 
-#: plugin_katexmltools.cpp:996
+#: plugin_katexmltools.cpp:984
 #, kde-format
 msgid "XML entities"
 msgstr "Entitete XML"
 
-#: plugin_katexmltools.cpp:998
+#: plugin_katexmltools.cpp:986
 #, kde-format
 msgid "XML attribute values"
 msgstr "Vrednosti atributov XML"
 
-#: plugin_katexmltools.cpp:1000
+#: plugin_katexmltools.cpp:988
 #, kde-format
 msgid "XML attributes"
 msgstr "Atributi XML"
 
-#: plugin_katexmltools.cpp:1003
+#: plugin_katexmltools.cpp:991
 #, kde-format
 msgid "XML elements"
 msgstr "Predmeti XML"
 
-#: plugin_katexmltools.cpp:1043
+#: plugin_katexmltools.cpp:1031
 #, kde-format
 msgid "Insert XML Element"
 msgstr "Vstavi predmet XML"
 
-#: plugin_katexmltools.cpp:1048
+#: plugin_katexmltools.cpp:1036
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

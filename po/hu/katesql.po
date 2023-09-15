@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-28 00:50+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2021-12-07 13:07+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -91,7 +91,7 @@ msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Adatbázisnév:"
 
-#: connectionwizard.cpp:101 connectionwizard.cpp:184
+#: connectionwizard.cpp:101 connectionwizard.cpp:180
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
@@ -112,42 +112,41 @@ msgstr ""
 "Adja meg az SQLite adatbázisfájl elérési útját.\n"
 "Ha a fájl nem létezik, új adatbázis lesz létrehozva."
 
-#: connectionwizard.cpp:179 connectionwizard.cpp:181
+#: connectionwizard.cpp:178
 #, kde-format
 msgid "Database files"
 msgstr "Adatbázisfájlok"
 
-#: connectionwizard.cpp:179 connectionwizard.cpp:181 exportwizard.cpp:56
-#: exportwizard.cpp:58
+#: connectionwizard.cpp:178 exportwizard.cpp:55
 #, kde-format
 msgid "All files"
 msgstr "Minden fájl"
 
-#: connectionwizard.cpp:183
+#: connectionwizard.cpp:179
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Elérési út:"
 
-#: connectionwizard.cpp:216
+#: connectionwizard.cpp:212
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "Nem sikerült csatlakozni az adatbázishoz.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:231
+#: connectionwizard.cpp:227
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "A kapcsolat neve"
 
-#: connectionwizard.cpp:232
+#: connectionwizard.cpp:228
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Adjon meg egy egyedi nevet a kapcsolatnak"
 
-#: connectionwizard.cpp:238
+#: connectionwizard.cpp:234
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -231,7 +230,7 @@ msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Fájl"
 
-#: exportwizard.cpp:56 exportwizard.cpp:58
+#: exportwizard.cpp:55
 #, fuzzy, kde-format
 #| msgid ""
 #| "*.csv|Comma Separated Values\n"
@@ -241,13 +240,13 @@ msgstr ""
 "*.csv|Pontosvesszővel elválasztott értékek\n"
 "*|Minden fájl"
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:97
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Mezőformátumok"
 
-#: exportwizard.cpp:102
+#: exportwizard.cpp:98
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -257,55 +256,55 @@ msgstr ""
 "Válassza ki a mezők formátumát.\n"
 "Kattintson a „Befejezés” gombra az adatok exportálásához."
 
-#: exportwizard.cpp:106
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Fejlécek"
 
-#: exportwizard.cpp:109
+#: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Oszlopnevek exportálása"
 
-#: exportwizard.cpp:110
+#: exportwizard.cpp:106
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Sorszámok exportálása"
 
-#: exportwizard.cpp:117
+#: exportwizard.cpp:113
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Idézőjelek"
 
-#: exportwizard.cpp:120
+#: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Sztringek"
 
-#: exportwizard.cpp:121
+#: exportwizard.cpp:117
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Számok"
 
-#: exportwizard.cpp:129 exportwizard.cpp:132
+#: exportwizard.cpp:125 exportwizard.cpp:128
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Karakter:"
 
-#: exportwizard.cpp:138
+#: exportwizard.cpp:134
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Elválasztók"
 
-#: exportwizard.cpp:144
+#: exportwizard.cpp:140
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

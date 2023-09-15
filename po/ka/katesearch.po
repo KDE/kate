@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2023-09-13 07:39+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -71,61 +71,61 @@ msgstr "გენერაცია"
 msgid "Result"
 msgstr "შედეგი"
 
-#: MatchModel.cpp:562 MatchModel.cpp:564
+#: MatchModel.cpp:545 MatchModel.cpp:547
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>ფაილების სიის გენერაცია: ...%1</i></b>"
 
-#: MatchModel.cpp:572
+#: MatchModel.cpp:555
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>ნაპოვნია 1 დამთხვევა. ძებნა: ... %2</i></b>"
 msgstr[1] "<b><i>ნაპოვნია %1 დამთხვევა. ძებნა: ... %2</i></b>"
 
-#: MatchModel.cpp:577
+#: MatchModel.cpp:560
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>ნაპოვნია 1 დამთხვევა. ძებნა: %2</i></b>"
 msgstr[1] "<b><i>ნაპოვნია %1 დამთხვევა. ძებნა: %2</i></b>"
 
-#: MatchModel.cpp:584 MatchModel.cpp:738
+#: MatchModel.cpp:567 MatchModel.cpp:721
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
 msgstr[0] "1 შემოწმდა"
 msgstr[1] "%1 შემოწმდა"
 
-#: MatchModel.cpp:588
+#: MatchModel.cpp:571
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
 msgstr[0] "<b><i>ფაილში ნაპოვნია 1 (%2) დამთხვევა</i></b>"
 msgstr[1] "<b><i>ფაილში ნაპოვნია %1 (%2) დამთხვევა</i></b>"
 
-#: MatchModel.cpp:590
+#: MatchModel.cpp:573
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
 msgstr[0] "<b><i>ღია ფაილებში აღმოჩენილია ერთი დამთხვევა (%2)</i></b>"
 msgstr[1] "<b><i>ღია ფაილებში აღმოჩენილია %1 დამთხვევა (%2)</i></b>"
 
-#: MatchModel.cpp:593
+#: MatchModel.cpp:576
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
 msgstr[0] "<b><i>საქაღალდეში %2 აღმოჩენილია 1 დამთხვევა (%3)</i></b>"
 msgstr[1] "<b><i>საქაღალდეში %2 აღმოჩენილია %1 დამთხვევა (%3)</i></b>"
 
-#: MatchModel.cpp:600
+#: MatchModel.cpp:583
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
 msgstr[0] "<b><i>აღმოჩენილია 1 დამთხვევა (%4) პროექტში %2 (%3)</i></b>"
 msgstr[1] "<b><i>აღმოჩენილია %1 დამთხვევა (%4) პროექტში %2 (%3)</i></b>"
 
-#: MatchModel.cpp:609
+#: MatchModel.cpp:592
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -138,54 +138,54 @@ msgstr[1] ""
 "<b><i>ყველა ღია პროექტში (საერთო მშობელი: %2) აღმოჩენილია %1 დამთხვევა (%3)</"
 "i></b>"
 
-#: MatchModel.cpp:722 MatchModel.cpp:724
+#: MatchModel.cpp:705 MatchModel.cpp:707
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "ფაილების სიის გენერაცია: ...%1"
 
-#: MatchModel.cpp:732
+#: MatchModel.cpp:715
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] "ნაპოვნია 1 დამთხვევა. ძებნა: ... %2"
 msgstr[1] "ნაპოვნია %1 დამთხვევა. ძებნა: ... %2"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:717
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "ნაპოვნია 1 დამთხვევა. ძებნა: %2"
 msgstr[1] "ნაპოვნია %1 დამთხვევა. ძებნა: %2"
 
-#: MatchModel.cpp:742
+#: MatchModel.cpp:725
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "მიმდინარე ფაილში ნაპოვნია 1 (%2) დამთხვევა"
 msgstr[1] "მიმდინარე ფაილში ნაპოვნია %1 (%2) დამთხვევა"
 
-#: MatchModel.cpp:744
+#: MatchModel.cpp:727
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "ღია ფაილებში ნაპოვნია 1 (%2) დამთხვევა"
 msgstr[1] "ღია ფაილებში ნაპოვნია %1 (%2) დამთხვევა"
 
-#: MatchModel.cpp:747
+#: MatchModel.cpp:730
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "საქაღალდეში (%2) ნაპოვნია 1 (%3) დამთხვევა"
 msgstr[1] "საქაღალდეში (%2) ნაპოვნია %1 (%3) დამთხვევა"
 
-#: MatchModel.cpp:750
+#: MatchModel.cpp:733
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "აღმოჩენილია 1 დამთხვევა (%4) პროექტში %2 (%3)"
 msgstr[1] "აღმოჩენილია %1 დამთხვევა (%4) პროექტში %2 (%3)"
 
-#: MatchModel.cpp:759
+#: MatchModel.cpp:742
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
@@ -201,7 +201,7 @@ msgstr "ფილტრი..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:34 search.ui:37 SearchPlugin.cpp:303
+#: search.ui:34 search.ui:37 SearchPlugin.cpp:299
 #, kde-format
 msgid "Search"
 msgstr "ძებნა"
@@ -258,7 +258,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:511
+#: search.ui:192 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "ჩანაცვლება"
@@ -353,197 +353,197 @@ msgstr "სიმბმულების მიყოლა"
 msgid "Include binary files"
 msgstr "ბინარული ფაილების ჩათვლით"
 
-#: SearchPlugin.cpp:85 SearchPlugin.cpp:118
+#: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
 msgid "Line break"
 msgstr "ხაზის დასრულება"
 
-#: SearchPlugin.cpp:86 SearchPlugin.cpp:119
+#: SearchPlugin.cpp:82 SearchPlugin.cpp:115
 #, kde-format
 msgid "Tab"
 msgstr "ჩანართი"
 
-#: SearchPlugin.cpp:97
+#: SearchPlugin.cpp:93
 #, kde-format
 msgid "Beginning of line"
 msgstr "ხაზის დასაწყისი"
 
-#: SearchPlugin.cpp:98
+#: SearchPlugin.cpp:94
 #, kde-format
 msgid "End of line"
 msgstr "სტრიქონის დასასრული"
 
-#: SearchPlugin.cpp:100
+#: SearchPlugin.cpp:96
 #, kde-format
 msgid "Any single character (excluding line breaks)"
 msgstr "ნებისმიერი ერთი სიმბოლო (ხაზის გადატანის გარდა)"
 
-#: SearchPlugin.cpp:101
+#: SearchPlugin.cpp:97
 #, kde-format
 msgid "Literal dot"
 msgstr "წერტილი"
 
-#: SearchPlugin.cpp:103
+#: SearchPlugin.cpp:99
 #, kde-format
 msgid "One or more occurrences"
 msgstr "ერთი ან მეტი გამოვლენა"
 
-#: SearchPlugin.cpp:104
+#: SearchPlugin.cpp:100
 #, kde-format
 msgid "Zero or more occurrences"
 msgstr "ნული ან მეტი გამოვლენა"
 
-#: SearchPlugin.cpp:105
+#: SearchPlugin.cpp:101
 #, kde-format
 msgid "Zero or one occurrences"
 msgstr "ნული ან ერთი გამოვლენა"
 
-#: SearchPlugin.cpp:107
+#: SearchPlugin.cpp:103
 #, kde-format
 msgid "<a> through <b> occurrences"
 msgstr "<a> ამდენჯერ <b> მეორდება"
 
-#: SearchPlugin.cpp:109
+#: SearchPlugin.cpp:105
 #, kde-format
 msgid "Group, capturing"
 msgstr "ჯგუფი, ჩაჭერა"
 
-#: SearchPlugin.cpp:110
+#: SearchPlugin.cpp:106
 #, kde-format
 msgid "Or"
 msgstr "ან"
 
-#: SearchPlugin.cpp:111
+#: SearchPlugin.cpp:107
 #, kde-format
 msgid "Set of characters"
 msgstr "სიმბოლოების ნაკრები"
 
-#: SearchPlugin.cpp:112
+#: SearchPlugin.cpp:108
 #, kde-format
 msgid "Negative set of characters"
 msgstr "სიმბოლოების უარყოფითი ნაკრები"
 
-#: SearchPlugin.cpp:113
+#: SearchPlugin.cpp:109
 #, kde-format
 msgid "Group, non-capturing"
 msgstr "ჯგუფი, ჩაჭერის გარეშე"
 
-#: SearchPlugin.cpp:114
+#: SearchPlugin.cpp:110
 #, kde-format
 msgid "Lookahead"
 msgstr "წინმჭვრეტელი"
 
-#: SearchPlugin.cpp:115
+#: SearchPlugin.cpp:111
 #, kde-format
 msgid "Negative lookahead"
 msgstr "უარყოფითი წინმჭვრეტელი"
 
-#: SearchPlugin.cpp:120
+#: SearchPlugin.cpp:116
 #, kde-format
 msgid "Word boundary"
 msgstr "სიტყვის საზღვარი"
 
-#: SearchPlugin.cpp:121
+#: SearchPlugin.cpp:117
 #, kde-format
 msgid "Not word boundary"
 msgstr "სიტყვის საზღვრის გარეშე"
 
-#: SearchPlugin.cpp:122
+#: SearchPlugin.cpp:118
 #, kde-format
 msgid "Digit"
 msgstr "ციფრი"
 
-#: SearchPlugin.cpp:123
+#: SearchPlugin.cpp:119
 #, kde-format
 msgid "Non-digit"
 msgstr "არა-ციფრი"
 
-#: SearchPlugin.cpp:124
+#: SearchPlugin.cpp:120
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
 msgstr "ჰარეს სიმბოლო"
 
-#: SearchPlugin.cpp:125
+#: SearchPlugin.cpp:121
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
 msgstr "არა თეთრი-გამოტოვება (ხაზის გადატანის გარდა)"
 
-#: SearchPlugin.cpp:126
+#: SearchPlugin.cpp:122
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
 msgstr "სიტყვის სიმბოლო (ალფარიცხვითი პლუს '_'"
 
-#: SearchPlugin.cpp:127
+#: SearchPlugin.cpp:123
 #, kde-format
 msgid "Non-word character"
 msgstr "არა-სიტყვის სიმბოლო"
 
-#: SearchPlugin.cpp:139
+#: SearchPlugin.cpp:135
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
 msgstr "რეგულარული გამოსახულების ჩაჭერა 0 (სრული დამთხვევა)"
 
-#: SearchPlugin.cpp:140
+#: SearchPlugin.cpp:136
 #, kde-format
 msgid "Regular expression capture 1-9"
 msgstr "რეგულარული გამოსახულების ჩაჭერა 1-9"
 
-#: SearchPlugin.cpp:141
+#: SearchPlugin.cpp:137
 #, kde-format
 msgid "Regular expression capture 0-999"
 msgstr "რეგულარული გამოსახულების ჩაჭერა 0-999"
 
-#: SearchPlugin.cpp:143
+#: SearchPlugin.cpp:139
 #, kde-format
 msgid "Upper-cased capture 0-9"
 msgstr "მაღალი რეგისტრით ჩაჭერა 0-9"
 
-#: SearchPlugin.cpp:144
+#: SearchPlugin.cpp:140
 #, kde-format
 msgid "Upper-cased capture 0-999"
 msgstr "მაღალი რეგისტრით ჩაჭერა 0-9999"
 
-#: SearchPlugin.cpp:145
+#: SearchPlugin.cpp:141
 #, kde-format
 msgid "Lower-cased capture 0-9"
 msgstr "დაბალი რეგისტრით ჩაჭერა 0-9"
 
-#: SearchPlugin.cpp:146
+#: SearchPlugin.cpp:142
 #, kde-format
 msgid "Lower-cased capture 0-999"
 msgstr "დაბალი რეგისტრით ჩაჭერა 0-9999"
 
-#: SearchPlugin.cpp:296
+#: SearchPlugin.cpp:292
 #, kde-format
 msgid "Search & Replace"
 msgstr "ძებნა და ჩანაცვლება"
 
-#: SearchPlugin.cpp:337
+#: SearchPlugin.cpp:333
 #, kde-format
 msgid "Find in Files"
 msgstr "ფაილებში ძებნა"
 
-#: SearchPlugin.cpp:343
+#: SearchPlugin.cpp:339
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "ფაილებში ძებნა (ახალ ჩანართში)"
 
-#: SearchPlugin.cpp:349
+#: SearchPlugin.cpp:345
 #, kde-format
 msgid "Go to Next Match"
 msgstr "შემდეგ დამთხვევაზე გადასვლა"
 
-#: SearchPlugin.cpp:355
+#: SearchPlugin.cpp:351
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "წინა დამთხვევაზე გადასვლა"
 
-#: SearchPlugin.cpp:361
+#: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "შესაბამისი ხაზების ამოჭრა"
 
-#: SearchPlugin.cpp:363
+#: SearchPlugin.cpp:359
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
@@ -552,12 +552,12 @@ msgstr ""
 "ეს მიმდინარე დოკუმენტში ძებნის პირობის შესაბამის, გამოკვეთილ ყველა ხაზს "
 "ბუფერში ამოჭრის"
 
-#: SearchPlugin.cpp:368
+#: SearchPlugin.cpp:364
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "შესაბამისი ხაზების კოპირება"
 
-#: SearchPlugin.cpp:370
+#: SearchPlugin.cpp:366
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -566,7 +566,7 @@ msgstr ""
 "ეს მიმდინარე დოკუმენტში ძებნის პირობის შესაბამის, გამოკვეთილ ყველა ხაზს "
 "ბუფერში დააკოპირებს"
 
-#: SearchPlugin.cpp:398
+#: SearchPlugin.cpp:394
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
@@ -574,7 +574,7 @@ msgstr ""
 "მძიმით გამოყოფილი ფაილების სია, რომლებშიც ძებნა განხორციელდება. მაგ: \"*."
 "cpp, *.h\"\n"
 
-#: SearchPlugin.cpp:399
+#: SearchPlugin.cpp:395
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
@@ -583,98 +583,98 @@ msgstr ""
 "მძიმით გამოყოფილი ფაილებისა და საქაღალდეების სია, რომლებიც ძებნიდან "
 "ამოღებული იქნება. მაგ: \"build*\""
 
-#: SearchPlugin.cpp:401
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
 msgstr "დააწკაპუნეთ ძებნის შედეგების გასაფილტრად"
 
-#: SearchPlugin.cpp:491
+#: SearchPlugin.cpp:487
 #, kde-format
 msgid "Find"
 msgstr "მოძებნა"
 
-#: SearchPlugin.cpp:1330
+#: SearchPlugin.cpp:1319
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "ძებნა თქვენი კრეფისას შეწყდა. ალბათ, მას მეტისმეტად ბევრი დრო დასჭირდა."
 
-#: SearchPlugin.cpp:1690 SearchPlugin.cpp:1700
+#: SearchPlugin.cpp:1652
 #, kde-format
 msgid "Search Match"
 msgstr "დამთხვევის ძებნა"
 
-#: SearchPlugin.cpp:1895 SearchPlugin.cpp:1972
+#: SearchPlugin.cpp:1832 SearchPlugin.cpp:1909
 #, kde-format
 msgid "Next from cursor"
 msgstr "კურსორიდან შემდეგი"
 
-#: SearchPlugin.cpp:1912
+#: SearchPlugin.cpp:1849
 #, kde-format
 msgid "Starting from first match"
 msgstr "პირველი დამთხვევიდან დაწყებული"
 
-#: SearchPlugin.cpp:1932
+#: SearchPlugin.cpp:1869
 #, kde-format
 msgid "Continuing from first match"
 msgstr "პირველი დამთხვევიდან გაგრძელება"
 
-#: SearchPlugin.cpp:1989
+#: SearchPlugin.cpp:1926
 #, kde-format
 msgid "Starting from last match"
 msgstr "ბოლო დამთხვევიდან დაწყებული"
 
-#: SearchPlugin.cpp:2009
+#: SearchPlugin.cpp:1946
 #, kde-format
 msgid "Continuing from last match"
 msgstr "ბოლო დამთხვევიდან გაგრძელება"
 
-#: SearchPlugin.cpp:2168
+#: SearchPlugin.cpp:2105
 #, kde-format
 msgid "Search: %1"
 msgstr "ძებნა: %1"
 
-#: SearchPlugin.cpp:2299
+#: SearchPlugin.cpp:2236
 #, kde-format
 msgid "Copy all"
 msgstr "ყველას კოპირება"
 
-#: SearchPlugin.cpp:2304
+#: SearchPlugin.cpp:2241
 #, kde-format
 msgid "Copy expanded"
 msgstr "გაშლილების კოპირება"
 
-#: SearchPlugin.cpp:2307
+#: SearchPlugin.cpp:2244
 #, kde-format
 msgid "Export matches"
 msgstr "დამთხვევების გატანა"
 
-#: SearchPlugin.cpp:2313
+#: SearchPlugin.cpp:2250
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "გახსნა, როგორც რედაქტორის ჩანართის"
 
-#: SearchPlugin.cpp:2320
+#: SearchPlugin.cpp:2257
 #, kde-format
 msgid "Clear"
 msgstr "სუფთა ცა"
 
-#: SearchPlugin.cpp:2430 SearchPlugin.cpp:2464
+#: SearchPlugin.cpp:2367 SearchPlugin.cpp:2401
 #, kde-format
 msgid "Add..."
 msgstr "დამატება..."
 
-#: SearchPlugin.cpp:2442
+#: SearchPlugin.cpp:2379
 #, kde-format
 msgid "Search As You Type"
 msgstr "ძებნა აკრეფის მიმდინარეობისას"
 
-#: SearchPlugin.cpp:2513
+#: SearchPlugin.cpp:2450
 #, kde-format
 msgid "In Current Project"
 msgstr "მიმდინარე პროექტში"
 
-#: SearchPlugin.cpp:2515
+#: SearchPlugin.cpp:2452
 #, kde-format
 msgid "In All Open Projects"
 msgstr "ყველა ღია პროექტში"

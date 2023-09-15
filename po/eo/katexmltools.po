@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2023-03-09 22:47+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
@@ -69,32 +69,32 @@ msgstr "La dosiero '%1' ne malfermeblas. La servilo liveris eraron."
 msgid "XML Plugin Error"
 msgstr "Eraro de XML-kromprogramo"
 
-#: plugin_katexmltools.cpp:996
+#: plugin_katexmltools.cpp:984
 #, kde-format
 msgid "XML entities"
 msgstr "XML entoj"
 
-#: plugin_katexmltools.cpp:998
+#: plugin_katexmltools.cpp:986
 #, kde-format
 msgid "XML attribute values"
 msgstr "XML atributvaloroj"
 
-#: plugin_katexmltools.cpp:1000
+#: plugin_katexmltools.cpp:988
 #, kde-format
 msgid "XML attributes"
 msgstr "XML atributoj"
 
-#: plugin_katexmltools.cpp:1003
+#: plugin_katexmltools.cpp:991
 #, kde-format
 msgid "XML elements"
 msgstr "XML elementoj"
 
-#: plugin_katexmltools.cpp:1043
+#: plugin_katexmltools.cpp:1031
 #, kde-format
 msgid "Insert XML Element"
 msgstr "Enmeti XML-eron"
 
-#: plugin_katexmltools.cpp:1048
+#: plugin_katexmltools.cpp:1036
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

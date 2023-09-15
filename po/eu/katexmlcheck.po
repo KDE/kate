@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:50+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2023-01-16 07:41+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -37,7 +37,7 @@ msgstr "Baliozkotzeko prozesua kraskatu egin da"
 
 #: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
 #: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
-#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:341
+#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:337
 #, kde-format
 msgid "XMLCheck"
 msgstr "XMLCheck"
@@ -68,7 +68,7 @@ msgstr ""
 "<b>Errorea:</b> «xmllint» aurkitzea huts egin du. Mesedez, ziurtatu "
 "«xmllint» instalatuta dagoela. «libxml2»ren zati da."
 
-#: plugin_katexmlcheck.cpp:339
+#: plugin_katexmlcheck.cpp:335
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

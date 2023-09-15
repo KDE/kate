@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2022-12-11 17:38+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque\n"
@@ -358,7 +358,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Ireki trepetak"
 
-#: katefiletreemodel.cpp:653
+#: katefiletreemodel.cpp:644
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

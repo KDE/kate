@@ -1191,12 +1191,12 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Visualitza</guimenu
 > <guimenuitem
->Augmenta el tipus de lletra</guimenuitem
+>Augmenta la lletra</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Augmenta la mida del tipus de lletra a visualitzar.</para
+>Augmenta la mida de la lletra a visualitzar.</para
 ></listitem>
 </varlistentry>
 
@@ -1212,12 +1212,12 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Visualitza</guimenu
 > <guimenuitem
->Minva el tipus de lletra</guimenuitem
+>Minva la lletra</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Minva la mida del tipus de lletra a visualitzar.</para
+>Minva la mida de la lletra a visualitzar.</para
 ></listitem>
 </varlistentry>
 
@@ -1282,7 +1282,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenuitem
 >Configura l'editor...</guimenuitem
 ></menuchoice
-> en la pestanya Edició. Cal tenir present que la marca d'ajust de línia només es dibuixarà si utilitzeu un tipus de lletra amb mida fixa.</para>
+> en la pestanya Edició. Cal tenir present que la marca d'ajust de línia només es dibuixarà si utilitzeu una lletra amb mida fixa.</para>
 </listitem>
 </varlistentry>
 
@@ -2804,7 +2804,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 <listitem
 ><para
 >Aquest menú llista els esquemes de color disponibles. Aquí el podeu canviar per a la vista actual. Per a canviar l'esquema predeterminat necessitareu utilitzar la pàgina <ulink url="/help:katepart/config-dialog-editor.html#prefcolors"
->Tipus de lletra i colors</ulink
+>Lletra i colors</ulink
 > del diàleg de configuració.</para>
 </listitem>
 </varlistentry>

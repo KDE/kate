@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2013-06-03 02:59+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -645,40 +645,40 @@ msgstr ""
 msgid "named items"
 msgstr ""
 
-#: plugin_kategdb.cpp:106
+#: plugin_kategdb.cpp:103
 #, fuzzy, kde-format
 #| msgid "Debug"
 msgid "Kate Debug"
 msgstr "Жөндеу"
 
-#: plugin_kategdb.cpp:110
+#: plugin_kategdb.cpp:107
 #, kde-format
 msgid "Debug View"
 msgstr "Жөндеу панелі"
 
-#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:343
+#: plugin_kategdb.cpp:107 plugin_kategdb.cpp:340
 #, kde-format
 msgid "Debug"
 msgstr "Жөндеу"
 
-#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:116
+#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:113
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Жергіліктілер мен шақыруар стегі"
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:165
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "№"
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:165
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Фрейм"
 
-#: plugin_kategdb.cpp:200
+#: plugin_kategdb.cpp:197
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -686,13 +686,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "GDB шығысы"
 
-#: plugin_kategdb.cpp:201
+#: plugin_kategdb.cpp:198
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Баптау"
 
-#: plugin_kategdb.cpp:243
+#: plugin_kategdb.cpp:240
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -700,98 +700,98 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:268
+#: plugin_kategdb.cpp:265
 #, kde-format
 msgid "Start Debugging"
 msgstr "Жөндеуді бастау"
 
-#: plugin_kategdb.cpp:278
+#: plugin_kategdb.cpp:275
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Жөндеуді доғару / тоқтату"
 
-#: plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:282
 #, kde-format
 msgid "Continue"
 msgstr "Жалғастыру"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:288
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Аялдау нүктесін орнату/кетіру"
 
-#: plugin_kategdb.cpp:297
+#: plugin_kategdb.cpp:294
 #, kde-format
 msgid "Step In"
 msgstr "Аттап келу"
 
-#: plugin_kategdb.cpp:304
+#: plugin_kategdb.cpp:301
 #, kde-format
 msgid "Step Over"
 msgstr "Аттап өту"
 
-#: plugin_kategdb.cpp:311
+#: plugin_kategdb.cpp:308
 #, kde-format
 msgid "Step Out"
 msgstr "Аттап кету"
 
-#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:350
+#: plugin_kategdb.cpp:315 plugin_kategdb.cpp:347
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Меңзерге дейін"
 
-#: plugin_kategdb.cpp:325
+#: plugin_kategdb.cpp:322
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Жөндеуді қайта бастау"
 
-#: plugin_kategdb.cpp:333 plugin_kategdb.cpp:352
+#: plugin_kategdb.cpp:330 plugin_kategdb.cpp:349
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "БЕ-ті жылжыту "
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:335
 #, kde-format
 msgid "Print Value"
 msgstr "Мәнің көрсету"
 
-#: plugin_kategdb.cpp:347
+#: plugin_kategdb.cpp:344
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "аялдау_нуктенің_қалқымалысы"
 
-#: plugin_kategdb.cpp:349
+#: plugin_kategdb.cpp:346
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "меңзерге_дейін_орындау_қалқымалысы"
 
-#: plugin_kategdb.cpp:431 plugin_kategdb.cpp:447
+#: plugin_kategdb.cpp:428 plugin_kategdb.cpp:444
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Аяладу нуктені орнату"
 
-#: plugin_kategdb.cpp:445
+#: plugin_kategdb.cpp:442
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Аялдау нүктесін кетіру"
 
-#: plugin_kategdb.cpp:599 plugin_kategdb.cpp:613
+#: plugin_kategdb.cpp:571
 #, kde-format
 msgid "Execution point"
 msgstr "Орындау нүктесі"
 
-#: plugin_kategdb.cpp:771
+#: plugin_kategdb.cpp:710
 #, kde-format
 msgid "Thread %1"
 msgstr "%1 ағыны"
 
-#: plugin_kategdb.cpp:871
+#: plugin_kategdb.cpp:810
 #, kde-format
 msgid "IO"
 msgstr "ЕШ"
 
-#: plugin_kategdb.cpp:956 plugin_kategdb.cpp:964
+#: plugin_kategdb.cpp:894
 #, kde-format
 msgid "Breakpoint"
 msgstr "Аялдау нүктесі"

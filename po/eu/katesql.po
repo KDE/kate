@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-28 00:50+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2023-07-30 19:07+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -93,7 +93,7 @@ msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Datu-basearen izena:"
 
-#: connectionwizard.cpp:101 connectionwizard.cpp:184
+#: connectionwizard.cpp:101 connectionwizard.cpp:180
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
@@ -114,42 +114,41 @@ msgstr ""
 "Sartu SQLite datu-baseko fitxategiaren bide-izena.\n"
 "Fitxategia ez bada existitzen, datu-base berri bat sortuko da."
 
-#: connectionwizard.cpp:179 connectionwizard.cpp:181
+#: connectionwizard.cpp:178
 #, kde-format
 msgid "Database files"
 msgstr "Datu-basearen fitxategiak"
 
-#: connectionwizard.cpp:179 connectionwizard.cpp:181 exportwizard.cpp:56
-#: exportwizard.cpp:58
+#: connectionwizard.cpp:178 exportwizard.cpp:55
 #, kde-format
 msgid "All files"
 msgstr "Fitxategi guztiak"
 
-#: connectionwizard.cpp:183
+#: connectionwizard.cpp:179
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Bide-izena:"
 
-#: connectionwizard.cpp:216
+#: connectionwizard.cpp:212
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "Ezin da datu-basearekin konektatu.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:231
+#: connectionwizard.cpp:227
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "Konexioaren izena"
 
-#: connectionwizard.cpp:232
+#: connectionwizard.cpp:228
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Sartu konexioaren izen bakarra"
 
-#: connectionwizard.cpp:238
+#: connectionwizard.cpp:234
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -233,18 +232,18 @@ msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Fitxategia"
 
-#: exportwizard.cpp:56 exportwizard.cpp:58
+#: exportwizard.cpp:55
 #, kde-format
 msgid "Comma Separated Values"
 msgstr "Koma bidez bereizitako balioak"
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:97
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Eremuen formatua"
 
-#: exportwizard.cpp:102
+#: exportwizard.cpp:98
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -254,55 +253,55 @@ msgstr ""
 "Hautatu eremuen formatua.\n"
 "Klik egin \"Amaitu\" botoian datuak esportatzeko."
 
-#: exportwizard.cpp:106
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Goiburuak"
 
-#: exportwizard.cpp:109
+#: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Esportatu zutabeen izenak"
 
-#: exportwizard.cpp:110
+#: exportwizard.cpp:106
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Esportatu lerro-zenbakiak"
 
-#: exportwizard.cpp:117
+#: exportwizard.cpp:113
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Aipuak"
 
-#: exportwizard.cpp:120
+#: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Aipu kateak"
 
-#: exportwizard.cpp:121
+#: exportwizard.cpp:117
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Aipu zenbakiak"
 
-#: exportwizard.cpp:129 exportwizard.cpp:132
+#: exportwizard.cpp:125 exportwizard.cpp:128
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Karakterea:"
 
-#: exportwizard.cpp:138
+#: exportwizard.cpp:134
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Mugatzaileak"
 
-#: exportwizard.cpp:144
+#: exportwizard.cpp:140
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

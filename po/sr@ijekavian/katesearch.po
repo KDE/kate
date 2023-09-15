@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-15 00:49+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2017-09-25 19:52+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -73,14 +73,14 @@ msgstr ""
 msgid "Result"
 msgstr ""
 
-#: MatchModel.cpp:562 MatchModel.cpp:564
+#: MatchModel.cpp:545 MatchModel.cpp:547
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found</i></b>"
 #| msgid_plural "<b><i>%1 matches found</i></b>"
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>%1 поклапање</i></b>"
 
-#: MatchModel.cpp:572
+#: MatchModel.cpp:555
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
@@ -91,7 +91,7 @@ msgstr[1] "<b><i>%1 поклапања у фасцикли %2</i></b>"
 msgstr[2] "<b><i>%1 поклапања у фасцикли %2</i></b>"
 msgstr[3] "<b><i>Једно поклапање у фасцикли %2</i></b>"
 
-#: MatchModel.cpp:577
+#: MatchModel.cpp:560
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
@@ -102,7 +102,7 @@ msgstr[1] "<b><i>%1 поклапања у фасцикли %2</i></b>"
 msgstr[2] "<b><i>%1 поклапања у фасцикли %2</i></b>"
 msgstr[3] "<b><i>Једно поклапање у фасцикли %2</i></b>"
 
-#: MatchModel.cpp:584 MatchModel.cpp:738
+#: MatchModel.cpp:567 MatchModel.cpp:721
 #, fuzzy, kde-format
 #| msgid "Replace Checked"
 msgid "One checked"
@@ -112,7 +112,7 @@ msgstr[1] "Замени обележене"
 msgstr[2] "Замени обележене"
 msgstr[3] "Замени обележене"
 
-#: MatchModel.cpp:588
+#: MatchModel.cpp:571
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found</i></b>"
 #| msgid_plural "<b><i>%1 matches found</i></b>"
@@ -123,7 +123,7 @@ msgstr[1] "<b><i>%1 поклапања</i></b>"
 msgstr[2] "<b><i>%1 поклапања</i></b>"
 msgstr[3] "<b><i>Једно поклапање</i></b>"
 
-#: MatchModel.cpp:590
+#: MatchModel.cpp:573
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in open files</i></b>"
 #| msgid_plural "<b><i>%1 matches found in open files</i></b>"
@@ -134,7 +134,7 @@ msgstr[1] "<b><i>%1 поклапања у отвореним фајловима<
 msgstr[2] "<b><i>%1 поклапања у отвореним фајловима</i></b>"
 msgstr[3] "<b><i>Једно поклапање у отвореним фајловима</i></b>"
 
-#: MatchModel.cpp:593
+#: MatchModel.cpp:576
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
@@ -145,7 +145,7 @@ msgstr[1] "<b><i>%1 поклапања у фасцикли %2</i></b>"
 msgstr[2] "<b><i>%1 поклапања у фасцикли %2</i></b>"
 msgstr[3] "<b><i>Једно поклапање у фасцикли %2</i></b>"
 
-#: MatchModel.cpp:600
+#: MatchModel.cpp:583
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in project %2 (%3)</i></b>"
 #| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"
@@ -156,7 +156,7 @@ msgstr[1] "<b><i>%1 поклапања у пројекту %2 (%3)</i></b>"
 msgstr[2] "<b><i>%1 поклапања у пројекту %2 (%3)</i></b>"
 msgstr[3] "<b><i>Једно поклапање у пројекту %2 (%3)</i></b>"
 
-#: MatchModel.cpp:609
+#: MatchModel.cpp:592
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b><i>One match found in all open projects (common parent: %2)</i></b>"
@@ -179,12 +179,12 @@ msgstr[3] ""
 "<b><i>Једно поклапање у свим отвореним пројектима (заједнички родитељ: %2</"
 "i></b>"
 
-#: MatchModel.cpp:722 MatchModel.cpp:724
+#: MatchModel.cpp:705 MatchModel.cpp:707
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr ""
 
-#: MatchModel.cpp:732
+#: MatchModel.cpp:715
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
@@ -193,7 +193,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:717
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
@@ -202,7 +202,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: MatchModel.cpp:742
+#: MatchModel.cpp:725
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found</i></b>"
 #| msgid_plural "<b><i>%1 matches found</i></b>"
@@ -213,7 +213,7 @@ msgstr[1] "<b><i>%1 поклапања</i></b>"
 msgstr[2] "<b><i>%1 поклапања</i></b>"
 msgstr[3] "<b><i>Једно поклапање</i></b>"
 
-#: MatchModel.cpp:744
+#: MatchModel.cpp:727
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in open files</i></b>"
 #| msgid_plural "<b><i>%1 matches found in open files</i></b>"
@@ -224,7 +224,7 @@ msgstr[1] "<b><i>%1 поклапања у отвореним фајловима<
 msgstr[2] "<b><i>%1 поклапања у отвореним фајловима</i></b>"
 msgstr[3] "<b><i>Једно поклапање у отвореним фајловима</i></b>"
 
-#: MatchModel.cpp:747
+#: MatchModel.cpp:730
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
@@ -235,7 +235,7 @@ msgstr[1] "<b><i>%1 поклапања у фасцикли %2</i></b>"
 msgstr[2] "<b><i>%1 поклапања у фасцикли %2</i></b>"
 msgstr[3] "<b><i>Једно поклапање у фасцикли %2</i></b>"
 
-#: MatchModel.cpp:750
+#: MatchModel.cpp:733
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in project %2 (%3)</i></b>"
 #| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"
@@ -246,7 +246,7 @@ msgstr[1] "<b><i>%1 поклапања у пројекту %2 (%3)</i></b>"
 msgstr[2] "<b><i>%1 поклапања у пројекту %2 (%3)</i></b>"
 msgstr[3] "<b><i>Једно поклапање у пројекту %2 (%3)</i></b>"
 
-#: MatchModel.cpp:759
+#: MatchModel.cpp:742
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b><i>One match found in all open projects (common parent: %2)</i></b>"
@@ -275,7 +275,7 @@ msgstr "Филтер:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:34 search.ui:37 SearchPlugin.cpp:303
+#: search.ui:34 search.ui:37 SearchPlugin.cpp:299
 #, kde-format
 msgid "Search"
 msgstr "Тражи"
@@ -329,7 +329,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:511
+#: search.ui:192 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "Замени"
@@ -430,252 +430,252 @@ msgid "Include binary files"
 msgstr "Укључи бинарне фајлове"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:85 SearchPlugin.cpp:118
+#: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
 msgid "Line break"
 msgstr "прелом реда"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:86 SearchPlugin.cpp:119
+#: SearchPlugin.cpp:82 SearchPlugin.cpp:115
 #, kde-format
 msgid "Tab"
 msgstr "табулатор"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:97
+#: SearchPlugin.cpp:93
 #, kde-format
 msgid "Beginning of line"
 msgstr "почетак реда"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:98
+#: SearchPlugin.cpp:94
 #, kde-format
 msgid "End of line"
 msgstr "крај реда"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:100
+#: SearchPlugin.cpp:96
 #, kde-format
 msgid "Any single character (excluding line breaks)"
 msgstr "било који знак (осим прелома реда)"
 
-#: SearchPlugin.cpp:101
+#: SearchPlugin.cpp:97
 #, kde-format
 msgid "Literal dot"
 msgstr ""
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:103
+#: SearchPlugin.cpp:99
 #, kde-format
 msgid "One or more occurrences"
 msgstr "једно или више јављања"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:104
+#: SearchPlugin.cpp:100
 #, kde-format
 msgid "Zero or more occurrences"
 msgstr "нула или више јављања"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:105
+#: SearchPlugin.cpp:101
 #, kde-format
 msgid "Zero or one occurrences"
 msgstr "нула или једно јављање"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:107
+#: SearchPlugin.cpp:103
 #, kde-format
 msgid "<a> through <b> occurrences"
 msgstr "од a до b јављања"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:109
+#: SearchPlugin.cpp:105
 #, kde-format
 msgid "Group, capturing"
 msgstr "група, захватна"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:110
+#: SearchPlugin.cpp:106
 #, kde-format
 msgid "Or"
 msgstr "или"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:111
+#: SearchPlugin.cpp:107
 #, kde-format
 msgid "Set of characters"
 msgstr "скуп знакова"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:112
+#: SearchPlugin.cpp:108
 #, kde-format
 msgid "Negative set of characters"
 msgstr "негативни скуп знакова"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:113
+#: SearchPlugin.cpp:109
 #, kde-format
 msgid "Group, non-capturing"
 msgstr "група, незахватна"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:114
+#: SearchPlugin.cpp:110
 #, kde-format
 msgid "Lookahead"
 msgstr "предувид"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:115
+#: SearchPlugin.cpp:111
 #, kde-format
 msgid "Negative lookahead"
 msgstr "негативни предувид"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:120
+#: SearchPlugin.cpp:116
 #, kde-format
 msgid "Word boundary"
 msgstr "граница речи"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:121
+#: SearchPlugin.cpp:117
 #, kde-format
 msgid "Not word boundary"
 msgstr "није граница речи"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:122
+#: SearchPlugin.cpp:118
 #, kde-format
 msgid "Digit"
 msgstr "цифра"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:123
+#: SearchPlugin.cpp:119
 #, kde-format
 msgid "Non-digit"
 msgstr "није цифра"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:124
+#: SearchPlugin.cpp:120
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
 msgstr "празнина (осим прелома реда)"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:125
+#: SearchPlugin.cpp:121
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
 msgstr "није празнина (осим прелома реда)"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:126
+#: SearchPlugin.cpp:122
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
 msgstr "знак речи (алфанумерички и подвлака)"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:127
+#: SearchPlugin.cpp:123
 #, kde-format
 msgid "Non-word character"
 msgstr "није знак речи"
 
-#: SearchPlugin.cpp:139
+#: SearchPlugin.cpp:135
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
 msgstr ""
 
-#: SearchPlugin.cpp:140
+#: SearchPlugin.cpp:136
 #, fuzzy, kde-format
 #| msgid "Use regular expressions"
 msgid "Regular expression capture 1-9"
 msgstr "Користи регуларне изразе"
 
-#: SearchPlugin.cpp:141
+#: SearchPlugin.cpp:137
 #, fuzzy, kde-format
 #| msgid "Use regular expressions"
 msgid "Regular expression capture 0-999"
 msgstr "Користи регуларне изразе"
 
-#: SearchPlugin.cpp:143
+#: SearchPlugin.cpp:139
 #, kde-format
 msgid "Upper-cased capture 0-9"
 msgstr ""
 
-#: SearchPlugin.cpp:144
+#: SearchPlugin.cpp:140
 #, kde-format
 msgid "Upper-cased capture 0-999"
 msgstr ""
 
-#: SearchPlugin.cpp:145
+#: SearchPlugin.cpp:141
 #, kde-format
 msgid "Lower-cased capture 0-9"
 msgstr ""
 
-#: SearchPlugin.cpp:146
+#: SearchPlugin.cpp:142
 #, kde-format
 msgid "Lower-cased capture 0-999"
 msgstr ""
 
-#: SearchPlugin.cpp:296
+#: SearchPlugin.cpp:292
 #, fuzzy, kde-format
 #| msgid "Search and Replace"
 msgid "Search & Replace"
 msgstr "Претрага и замена"
 
 # >> @item:inlistbox Search in:
-#: SearchPlugin.cpp:337
+#: SearchPlugin.cpp:333
 #, fuzzy, kde-format
 #| msgid "in Open Files"
 msgid "Find in Files"
 msgstr "у отвореним фајловима"
 
-#: SearchPlugin.cpp:343
+#: SearchPlugin.cpp:339
 #, fuzzy, kde-format
 #| msgid "Search in Files (in new tab)"
 msgid "Find in Files (in a New Tab)"
 msgstr "Потражи у фајловима (нови језичак)"
 
-#: SearchPlugin.cpp:349
+#: SearchPlugin.cpp:345
 #, kde-format
 msgid "Go to Next Match"
 msgstr "На следеће поклапање"
 
-#: SearchPlugin.cpp:355
+#: SearchPlugin.cpp:351
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "На претходно поклапање"
 
-#: SearchPlugin.cpp:361
+#: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr ""
 
-#: SearchPlugin.cpp:363
+#: SearchPlugin.cpp:359
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
 
-#: SearchPlugin.cpp:368
+#: SearchPlugin.cpp:364
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr ""
 
-#: SearchPlugin.cpp:370
+#: SearchPlugin.cpp:366
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
 
-#: SearchPlugin.cpp:398
+#: SearchPlugin.cpp:394
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr ""
 "Запетама раздвојен списак типова фајлова за претрагу. Пример: \"*.cpp,*.h\"\n"
 
-#: SearchPlugin.cpp:399
+#: SearchPlugin.cpp:395
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
@@ -684,104 +684,104 @@ msgstr ""
 "Запетама раздвојен списак фајлова и фасцикли које треба искључити из "
 "претраге. Пример: \"build*\""
 
-#: SearchPlugin.cpp:401
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
 msgstr ""
 
-#: SearchPlugin.cpp:491
+#: SearchPlugin.cpp:487
 #, fuzzy, kde-format
 #| msgid "Find:"
 msgid "Find"
 msgstr "Нађи:"
 
-#: SearchPlugin.cpp:1330
+#: SearchPlugin.cpp:1319
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Претрага у току куцања прекинута. Трајала би предуго."
 
-#: SearchPlugin.cpp:1690 SearchPlugin.cpp:1700
+#: SearchPlugin.cpp:1652
 #, fuzzy, kde-format
 #| msgid "Search More"
 msgid "Search Match"
 msgstr "Претрага плус"
 
-#: SearchPlugin.cpp:1895 SearchPlugin.cpp:1972
+#: SearchPlugin.cpp:1832 SearchPlugin.cpp:1909
 #, kde-format
 msgid "Next from cursor"
 msgstr "Следеће од курсора"
 
-#: SearchPlugin.cpp:1912
+#: SearchPlugin.cpp:1849
 #, kde-format
 msgid "Starting from first match"
 msgstr "Почињем од првог поклапања"
 
-#: SearchPlugin.cpp:1932
+#: SearchPlugin.cpp:1869
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Настављам од првог поклапања..."
 
-#: SearchPlugin.cpp:1989
+#: SearchPlugin.cpp:1926
 #, fuzzy, kde-format
 #| msgid "Starting from first match"
 msgid "Starting from last match"
 msgstr "Почињем од првог поклапања"
 
-#: SearchPlugin.cpp:2009
+#: SearchPlugin.cpp:1946
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Настављам од последњег поклапања..."
 
-#: SearchPlugin.cpp:2168
+#: SearchPlugin.cpp:2105
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search: %1"
 msgstr "Тражи"
 
-#: SearchPlugin.cpp:2299
+#: SearchPlugin.cpp:2236
 #, kde-format
 msgid "Copy all"
 msgstr ""
 
-#: SearchPlugin.cpp:2304
+#: SearchPlugin.cpp:2241
 #, kde-format
 msgid "Copy expanded"
 msgstr ""
 
-#: SearchPlugin.cpp:2307
+#: SearchPlugin.cpp:2244
 #, kde-format
 msgid "Export matches"
 msgstr ""
 
-#: SearchPlugin.cpp:2313
+#: SearchPlugin.cpp:2250
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr ""
 
-#: SearchPlugin.cpp:2320
+#: SearchPlugin.cpp:2257
 #, kde-format
 msgid "Clear"
 msgstr ""
 
-#: SearchPlugin.cpp:2430 SearchPlugin.cpp:2464
+#: SearchPlugin.cpp:2367 SearchPlugin.cpp:2401
 #, kde-format
 msgid "Add..."
 msgstr "Додај..."
 
-#: SearchPlugin.cpp:2442
+#: SearchPlugin.cpp:2379
 #, fuzzy, kde-format
 #| msgid "Search More"
 msgid "Search As You Type"
 msgstr "Претрага плус"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:2513
+#: SearchPlugin.cpp:2450
 #, kde-format
 msgid "In Current Project"
 msgstr "у текућем пројекту"
 
 # >> @item:inmenu
-#: SearchPlugin.cpp:2515
+#: SearchPlugin.cpp:2452
 #, kde-format
 msgid "In All Open Projects"
 msgstr "у свим отвореним пројектима"

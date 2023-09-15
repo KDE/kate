@@ -24,14 +24,14 @@
 > el procés. Les categories <guilabel
 >Aparença</guilabel
 >, <guilabel
->Tipus de lletra i colors</guilabel
+>Lletra i colors</guilabel
 >, <guilabel
 >Edició</guilabel
 >, <guilabel
 >Obre/desa</guilabel
 > i <guilabel
 >Extensions</guilabel
-> seran detallades a continuació. </para>
+> es detallen a continuació. </para>
 
 <sect1 id="config-dialog-editor">
 <title
@@ -54,15 +54,15 @@
 <varlistentry>
 <term
 ><guilabel
->Tipus de lletra de l'editor</guilabel
+>Lletra de l'editor</guilabel
 ></term>
 <listitem>
 <para
->Aquí podreu escollir el tipus de lletra de l'editor de text. Podeu escollir qualsevol tipus de lletra disponible en el vostre sistema, i establir la mida predeterminada. Es mostra un text d'exemple a la part inferior del diàleg, de manera que podeu veure l'efecte de la vostra elecció. </para>
+>Aquí podreu escollir la lletra de l'editor de text. Podeu escollir qualsevol lletra disponible en el vostre sistema, i establir la mida predeterminada. Es mostra un text d'exemple a la part inferior del diàleg, de manera que podeu veure l'efecte de la vostra elecció. </para>
 <para
->Per a obtenir més informació sobre com triar un tipus de lletra, vegeu la <ulink url="help:/fundamentals/fonts.html"
+>Per a obtenir més informació sobre com triar una lletra, vegeu la <ulink url="help:/fundamentals/fonts.html"
 >secció <emphasis
->Triar els tipus de lletra</emphasis
+>Triar les lletres</emphasis
 > a la documentació <emphasis
 >Fonaments del &kde;</emphasis
 ></ulink
@@ -603,7 +603,7 @@
 > <guimenuitem
 >Configura l'editor...</guimenuitem
 ></menuchoice
-> a la pestanya Editor. Cal tenir present que la marca d'ajust de la línia només es dibuixarà si utilitzeu un tipus de lletra de mida fix.</para>
+> a la pestanya Editor. Cal tenir present que la marca d'ajust de la línia només es dibuixarà si utilitzeu una lletra de mida fixa.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -2002,7 +2002,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Defineix la mida del punt del tipus de lletra del document.</para
+>Defineix la mida del punt de la lletra del document.</para
 ></listitem>
 </varlistentry>
 
@@ -2017,7 +2017,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Estableix el tipus de lletra del document. El valor haurà de ser un nom de tipus de lletra vàlid, per exemple «<userinput
+>Estableix la lletra del document. El valor haurà de ser un nom vàlid de font, per exemple «<userinput
 >courier</userinput
 >».</para
 ></listitem>

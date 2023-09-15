@@ -463,7 +463,7 @@
 <para
 >La tercera part és l'element <userinput
 >itemDatas</userinput
->. Conté tots els colors i tipus de lletra que necessiten els contexts i les regles. En aquest exemple, s'utilitzen <userinput
+>. Conté tots els colors i estils de lletra que necessiten els contexts i les regles. En aquest exemple, s'utilitzen <userinput
 >itemData</userinput
 > <emphasis
 >text_normal</emphasis
@@ -648,7 +648,7 @@
 >itemData</userinput
 > es troba en el grup <userinput
 >itemDatas</userinput
->. Defineix l'estil i els colors dels tipus de lletra. Per tant és possible definir els vostres propis estils i colors. Encara que recomanem utilitzar els estils predeterminats, atès que així l'usuari veurà colors homogenis per als diferents llenguatges. Si bé, algunes vegades no hi ha altres possibilitats i és necessari canviar el color i els atributs dels tipus de lletra. Els atributs «name» i «defStyleNum» són necessaris, els altres són opcionals. Els atributs disponibles són:</term>
+>. Defineix l'estil i els colors de les lletres. Per tant és possible definir els vostres propis estils i colors. Encara que recomanem utilitzar els estils predeterminats, atès que així l'usuari veurà colors homogenis per als diferents llenguatges. Si bé, algunes vegades no hi ha altres possibilitats i és necessari canviar el color i els atributs de la lletra. Els atributs «name» i «defStyleNum» són necessaris, els altres són opcionals. Els atributs disponibles són:</term>
 
 <listitem>
 <para
@@ -915,7 +915,7 @@
 <para
 >Els estils predeterminats <link linkend="kate-highlight-system-default-styles"
 >ja s'han explicat</link
->, a manera de resum: Els estils predeterminats són tipus de lletra i estils de colors predefinits.</para>
+>, a manera de resum: Els estils predeterminats són la lletra i els estils de colors predefinits.</para>
 <variablelist>
 <varlistentry>
 <term

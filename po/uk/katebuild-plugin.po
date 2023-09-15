@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-14 01:55+0000\n"
-"PO-Revision-Date: 2023-07-29 07:48+0300\n"
+"PO-Revision-Date: 2023-09-14 12:04+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -266,7 +266,7 @@ msgstr "Очистити налаштування"
 #: plugin_katebuild.cpp:1415
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "Не вдалося зберегти цілі збирання у %1"
 
 #: TargetHtmlDelegate.cpp:50
 #, kde-format
@@ -306,12 +306,12 @@ msgstr ""
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Проєкт"
 
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Сеанс"
 
 #: TargetModel.cpp:625
 #, kde-format

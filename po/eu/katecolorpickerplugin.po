@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-05 00:48+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2021-07-18 13:44+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -81,12 +81,12 @@ msgstr "Kolore-hautatzailea"
 msgid "Color Picker Settings"
 msgstr "Kolore-hautatzailearen ezarpenak"
 
-#: katecolorpickerplugin.cpp:262
+#: katecolorpickerplugin.cpp:241
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "Hautatu kolorea (irteerako hamaseitarra)"
 
-#: katecolorpickerplugin.cpp:265
+#: katecolorpickerplugin.cpp:244
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "Ikusi kolorea [Irakurtzeko soilik]"

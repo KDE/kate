@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-09 00:51+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2008-12-31 19:01+0100\n"
 "Last-Translator: Jean Cayron <jean.cayron@gmail.com>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Vos n' avoz pont d' karma assez po pleur awè accès a on shell oudonbén on "
 "terminå"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:664
+#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:654
 #, kde-format
 msgid "Terminal"
 msgstr "Terminå"
@@ -49,7 +49,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr ""
 
-#: kateconsole.cpp:156 kateconsole.cpp:513
+#: kateconsole.cpp:156 kateconsole.cpp:503
 #, fuzzy, kde-format
 #| msgid "&Focus Terminal"
 msgctxt "@action"
@@ -63,13 +63,13 @@ msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "&Focusse sol terminå"
 
-#: kateconsole.cpp:307
+#: kateconsole.cpp:302
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 
-#: kateconsole.cpp:388
+#: kateconsole.cpp:378
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -78,28 +78,28 @@ msgstr ""
 "Voloz vormint puper l' tecse el console? Çoula enondrè telminme kéne comande "
 "avou vos droets d' uzeu."
 
-#: kateconsole.cpp:389
+#: kateconsole.cpp:379
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Puper e terminå ?"
 
-#: kateconsole.cpp:390
+#: kateconsole.cpp:380
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Puper e terminå"
 
-#: kateconsole.cpp:418
+#: kateconsole.cpp:408
 #, fuzzy, kde-format
 #| msgid "Sorry, can not cd into '%1'"
 msgid "Sorry, cannot cd into '%1'"
 msgstr "Dji rgrete, dji n' sai cd dins « %1 »"
 
-#: kateconsole.cpp:454
+#: kateconsole.cpp:444
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr ""
 
-#: kateconsole.cpp:487
+#: kateconsole.cpp:477
 #, fuzzy, kde-format
 #| msgid ""
 #| "Do you really want to pipe the text to the console? This will execute any "
@@ -113,37 +113,37 @@ msgstr ""
 "Voloz vormint puper l' tecse el console? Çoula enondrè telminme kéne comande "
 "avou vos droets d' uzeu."
 
-#: kateconsole.cpp:494
+#: kateconsole.cpp:484
 #, fuzzy, kde-format
 #| msgid "Pipe to Terminal?"
 msgid "Run in Terminal?"
 msgstr "Puper e terminå ?"
 
-#: kateconsole.cpp:495
+#: kateconsole.cpp:485
 #, kde-format
 msgid "Run"
 msgstr ""
 
-#: kateconsole.cpp:510
+#: kateconsole.cpp:500
 #, fuzzy, kde-format
 #| msgid "&Pipe to Terminal"
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Puper e terminå"
 
-#: kateconsole.cpp:521
+#: kateconsole.cpp:511
 #, fuzzy, kde-format
 #| msgid "Defocus Terminal"
 msgid "Defocus Terminal Panel"
 msgstr "Fini focusse sol terminå"
 
-#: kateconsole.cpp:522 kateconsole.cpp:523
+#: kateconsole.cpp:512 kateconsole.cpp:513
 #, fuzzy, kde-format
 #| msgid "Focus Terminal"
 msgid "Focus Terminal Panel"
 msgstr "Focusse sol terminå"
 
-#: kateconsole.cpp:597
+#: kateconsole.cpp:587
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
@@ -152,59 +152,59 @@ msgstr ""
 "Sincronijhî otom&aticmint l' terminå avou l' documint do moumint cwand c' "
 "est possibe"
 
-#: kateconsole.cpp:601 kateconsole.cpp:622
+#: kateconsole.cpp:591 kateconsole.cpp:612
 #, fuzzy, kde-format
 #| msgid "Pipe to Terminal"
 msgid "Run in terminal"
 msgstr "Puper e terminå"
 
-#: kateconsole.cpp:603
+#: kateconsole.cpp:593
 #, kde-format
 msgid "&Remove extension"
 msgstr ""
 
-#: kateconsole.cpp:608
+#: kateconsole.cpp:598
 #, kde-format
 msgid "Prefix:"
 msgstr ""
 
-#: kateconsole.cpp:616
+#: kateconsole.cpp:606
 #, kde-format
 msgid "&Show warning next time"
 msgstr ""
 
-#: kateconsole.cpp:618
+#: kateconsole.cpp:608
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
 
-#: kateconsole.cpp:629
+#: kateconsole.cpp:619
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr ""
 
-#: kateconsole.cpp:632
+#: kateconsole.cpp:622
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr ""
 
-#: kateconsole.cpp:635
+#: kateconsole.cpp:625
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr ""
 
-#: kateconsole.cpp:638
+#: kateconsole.cpp:628
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
 
-#: kateconsole.cpp:669
+#: kateconsole.cpp:659
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Tchuzes do terminå"

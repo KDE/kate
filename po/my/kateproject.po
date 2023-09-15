@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-06 00:48+0000\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
 "PO-Revision-Date: 2021-09-15 03:16+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -92,7 +92,7 @@ msgstr[0] ""
 msgid "Select Branch..."
 msgstr "ကုတ်ကိုင်း ရွေးမည်..."
 
-#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:70
+#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "ဂစ်"
@@ -395,121 +395,121 @@ msgstr "သိုလှောင်နေရာ ပစ်ချမည်"
 msgid "Show Stash Content"
 msgstr "သိုလှောင်နေရာ၏ ပါဝင်ဒေတာများ ပြမည်"
 
-#: gitwidget.cpp:1151
+#: gitwidget.cpp:1147
 #, kde-format
 msgid "Stage All"
 msgstr "အားလုံးကို ပေးပို့မှုတွင် ပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1153
+#: gitwidget.cpp:1149
 #, kde-format
 msgid "Remove All"
 msgstr "အကုန်ဖယ်ရှားမည်"
 
-#: gitwidget.cpp:1153
+#: gitwidget.cpp:1149
 #, kde-format
 msgid "Discard All"
 msgstr "အကုန် ပစ်ပယ်မည်"
 
-#: gitwidget.cpp:1156
+#: gitwidget.cpp:1152
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore ဖွင့်မည်"
 
-#: gitwidget.cpp:1157 gitwidget.cpp:1212 gitwidget.cpp:1262
+#: gitwidget.cpp:1153 gitwidget.cpp:1200 gitwidget.cpp:1242
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:100
 #, fuzzy, kde-format
 msgid "Show Diff"
 msgstr "Diff အထုတ်"
 
-#: gitwidget.cpp:1174
+#: gitwidget.cpp:1170
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr ""
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1175
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr ""
 
-#: gitwidget.cpp:1211
+#: gitwidget.cpp:1199
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "Open File"
 msgstr "ဖိုင်လ်ဖွင့်မည်"
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1201
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr ""
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1202
 #, kde-format
 msgid "Open at HEAD"
 msgstr "HEADတွင် ဖွင့်မည်"
 
-#: gitwidget.cpp:1215
+#: gitwidget.cpp:1203
 #, fuzzy, kde-format
 #| msgid "Unstage file"
 msgid "Unstage File"
 msgstr "ဖိုင်လ်ကို ပေးပို့မှုတွင် မပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1215
+#: gitwidget.cpp:1203
 #, fuzzy, kde-format
 #| msgid "Stage file"
 msgid "Stage File"
 msgstr "ဖိုင်လ်ကို ပေးပို့မှုတွင် ပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1216
+#: gitwidget.cpp:1204
 #, kde-format
 msgid "Remove"
 msgstr "ဖယ်ရှားမည်"
 
-#: gitwidget.cpp:1216
+#: gitwidget.cpp:1204
 #, kde-format
 msgid "Discard"
 msgstr "ပစ်ပယ်မည်"
 
-#: gitwidget.cpp:1233
+#: gitwidget.cpp:1221
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr ""
 
-#: gitwidget.cpp:1246
+#: gitwidget.cpp:1230
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "ဤဖိုင်လ်ကို သင်တကယ်ဖျက်တော့မည်လား။"
 
-#: gitwidget.cpp:1261
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Unstage All"
 msgstr "အားလုံးကို ပေးပို့မှုတွင် မပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1328
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "ရွေးထားသောဖိုင်လ်များကို ပေးပို့မှုတွင် မပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1328
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "ရွေးထားသောဖိုင်လ်များကို ပေးပို့မှုတွင် ပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1329
+#: gitwidget.cpp:1309
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "ရွေးထားသော ဖိုင်လ်များ ပစ်ပယ်မည်"
 
-#: gitwidget.cpp:1333
+#: gitwidget.cpp:1313
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "ရွေးထားသော ဖိုင်လ်များ ဖယ်ရှားမည်"
 
-#: gitwidget.cpp:1346
+#: gitwidget.cpp:1326
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr ""
 
-#: gitwidget.cpp:1355
+#: gitwidget.cpp:1331
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
@@ -519,12 +519,12 @@ msgstr ""
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:541
+#: kateproject.cpp:517
 #, kde-format
 msgid "<untracked>"
 msgstr "<မစောင့်ကြည့်ထားသော>"
 
-#: kateprojectcompletion.cpp:64
+#: kateprojectcompletion.cpp:54
 #, fuzzy, kde-format
 msgid "Project Completion"
 msgstr "လက်ရှိ ပရောဂျက်"
@@ -660,7 +660,7 @@ msgstr ""
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:69
+#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "ပရောဂျက်များ"
@@ -786,12 +786,12 @@ msgstr ""
 msgid "Indexing is not enabled"
 msgstr ""
 
-#: kateprojectitem.cpp:176
+#: kateprojectitem.cpp:166
 #, kde-format
 msgid "Error"
 msgstr "အမှား"
 
-#: kateprojectitem.cpp:176
+#: kateprojectitem.cpp:166
 #, kde-format
 msgid "File name already exists"
 msgstr "ဖိုင်လ်အမည်တူ ရှိနှင့်ပြီး ဖြစ်ပါသည်"
@@ -818,111 +818,111 @@ msgid ""
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectplugin.cpp:696 kateprojectpluginview.cpp:75
-#: kateprojectpluginview.cpp:231 kateprojectviewtree.cpp:136
+#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
+#: kateprojectpluginview.cpp:228 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
 msgstr "ပရောဂျက်"
 
-#: kateprojectpluginview.cpp:59
+#: kateprojectpluginview.cpp:56
 #, fuzzy, kde-format
 #| msgid "Kate Project Manager"
 msgid "Project Manager"
 msgstr "ကိတ်ပရောဂျက်မန်နေဂျာ"
 
-#: kateprojectpluginview.cpp:81
+#: kateprojectpluginview.cpp:78
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Open projects list"
 msgstr "လက်ရှိ ပရောဂျက်"
 
-#: kateprojectpluginview.cpp:86
+#: kateprojectpluginview.cpp:83
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Reload project"
 msgstr "ပရောဂျက် ပိတ်မည်"
 
-#: kateprojectpluginview.cpp:89
+#: kateprojectpluginview.cpp:86
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Close project"
 msgstr "ပရောဂျက် ပိတ်မည်"
 
-#: kateprojectpluginview.cpp:104
+#: kateprojectpluginview.cpp:101
 #, kde-format
 msgid "Refresh git status"
 msgstr ""
 
-#: kateprojectpluginview.cpp:182
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Open Folder..."
 msgstr "ဖိုလ်ဒါ ဖွင့်မည်..."
 
-#: kateprojectpluginview.cpp:187
+#: kateprojectpluginview.cpp:184
 #, fuzzy, kde-format
 msgid "Project TODOs"
 msgstr "လက်ရှိ ပရောဂျက်"
 
-#: kateprojectpluginview.cpp:191
+#: kateprojectpluginview.cpp:188
 #, kde-format
 msgid "Activate Previous Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:193
 #, kde-format
 msgid "Activate Next Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:201
+#: kateprojectpluginview.cpp:198
 #, kde-format
 msgid "Lookup"
 msgstr "ရှာဖွေမည်"
 
-#: kateprojectpluginview.cpp:205
+#: kateprojectpluginview.cpp:202
 #, kde-format
 msgid "Close Project"
 msgstr "ပရောဂျက် ပိတ်မည်"
 
-#: kateprojectpluginview.cpp:209
+#: kateprojectpluginview.cpp:206
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Close All Projects"
 msgstr "ပရောဂျက် ပိတ်မည်"
 
-#: kateprojectpluginview.cpp:214
+#: kateprojectpluginview.cpp:211
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Close Orphaned Projects"
 msgstr "ပရောဂျက် ပိတ်မည်"
 
-#: kateprojectpluginview.cpp:218
+#: kateprojectpluginview.cpp:215
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Reload Project"
 msgstr "ပရောဂျက် ပိတ်မည်"
 
-#: kateprojectpluginview.cpp:228
+#: kateprojectpluginview.cpp:225
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "ဂစ်-ကုတ်ကိုင်း ပြောင်းလဲမည်"
 
-#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:822
+#: kateprojectpluginview.cpp:231 kateprojectpluginview.cpp:805
 #, kde-format
 msgid "Lookup: %1"
 msgstr "ရှာဖွေမှု - %1"
 
-#: kateprojectpluginview.cpp:235 kateprojectpluginview.cpp:823
+#: kateprojectpluginview.cpp:232 kateprojectpluginview.cpp:806
 #, kde-format
 msgid "Goto: %1"
 msgstr "သွားမည် - %1"
 
-#: kateprojectpluginview.cpp:316
+#: kateprojectpluginview.cpp:306
 #, fuzzy, kde-format
 msgid "Projects Index"
 msgstr "&Pပရောဂျက်များ"
 
-#: kateprojectpluginview.cpp:867
+#: kateprojectpluginview.cpp:850
 #, kde-format
 msgid "Choose a directory"
 msgstr "ဒါရိုက်ထရီရွေးချယ်မည်"

@@ -1037,9 +1037,12 @@ void GitWidget::buildMenu(KActionCollection *ac)
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("git_show_commit"), this, [this] {
-        const QString hash = QInputDialog::getText(this, i18n("Show Commit"), i18n("Commit hash"));
-        const QString base = m_activeGitDirPath;
-        CommitView::openCommit(hash, base, m_mainWin);
+        bool ok = false;
+        const QString hash = QInputDialog::getText(this, i18n("Show Commit"), i18n("Commit hash"), QLineEdit::Normal, {}, &ok);
+        if (ok && !hash.isEmpty()) {
+            const QString base = m_activeGitDirPath;
+            CommitView::openCommit(hash, base, m_mainWin);
+        }
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     a->setText(i18n("Open Commit..."));

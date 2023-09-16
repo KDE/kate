@@ -2833,7 +2833,3 @@ msgstr "Gestiona les sessions..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Mostra a les finestres noves"
-
-#~ msgid "This view may have unsaved work. Do you really want to close it?"
-#~ msgstr ""
-#~ "Esta vista pot tindre treballs sense guardar. Segur que voleu tancar-la?"

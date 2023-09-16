@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-14 01:55+0000\n"
-"PO-Revision-Date: 2023-07-29 08:18+0200\n"
+"PO-Revision-Date: 2023-09-14 10:23+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -266,7 +266,7 @@ msgstr "Neteja configuració"
 #: plugin_katebuild.cpp:1415
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "No s'han pogut guardar els objectius de construcció en: %1"
 
 #: TargetHtmlDelegate.cpp:50
 #, kde-format
@@ -305,12 +305,12 @@ msgstr ""
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Projecte"
 
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Sessió"
 
 #: TargetModel.cpp:625
 #, kde-format
@@ -332,7 +332,7 @@ msgstr "Executa una ordre"
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 "Filtreu els objectius, utilitzeu les tecles de fletxa per a seleccionar, "
-"Retorn per a executar"
+"«Retorn» per a executar"
 
 #: targets.cpp:27
 #, kde-format
@@ -389,15 +389,3 @@ msgstr "Inserix camí"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccioneu el directori que s'ha d'inserir"
-
-#~ msgid "Project Plugin Targets"
-#~ msgstr "Objectius del connector de projectes"
-
-#~ msgid "build"
-#~ msgstr "construcció"
-
-#~ msgid "clean"
-#~ msgstr "neteja"
-
-#~ msgid "quick"
-#~ msgstr "ràpid"

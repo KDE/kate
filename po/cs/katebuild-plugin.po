@@ -300,12 +300,12 @@ msgstr ""
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Sezení"
 
 #: TargetModel.cpp:625
 #, kde-format
@@ -382,9 +382,3 @@ msgstr "Vložit cestu"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vyberte adresář pro vložení"
-
-#~ msgid "build"
-#~ msgstr "překlad"
-
-#~ msgid "clean"
-#~ msgstr "vymazat"

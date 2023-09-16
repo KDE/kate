@@ -28,7 +28,7 @@ msgstr "Yeniden &Yükle"
 #: katefiletree.cpp:122
 #, kde-format
 msgid "Reload selected document(s) from disk."
-msgstr "Seçilen belgeleri diskten yeniden yükle."
+msgstr "Seçili belgeleri diskten yeniden yükleyin."
 
 #: katefiletree.cpp:124
 #, kde-format
@@ -39,7 +39,7 @@ msgstr "Kapat"
 #: katefiletree.cpp:126
 #, kde-format
 msgid "Close the current document."
-msgstr "Geçerli belgeyi kapat."
+msgstr "Geçerli belgeyi kapatın."
 
 #: katefiletree.cpp:128
 #, kde-format
@@ -50,7 +50,7 @@ msgstr "Özyineli Olarak Genişlet"
 #: katefiletree.cpp:130
 #, kde-format
 msgid "Expand the file list sub tree recursively."
-msgstr "Dosya listesi alt ağacını özyineli genişlet."
+msgstr "Dosya listesi alt ağacını özyineli genişletin."
 
 #: katefiletree.cpp:132
 #, kde-format
@@ -61,7 +61,7 @@ msgstr "Özyineli Olarak Daralt"
 #: katefiletree.cpp:134
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
-msgstr "Dosya listesi alt ağacını özyineli daralt."
+msgstr "Dosya listesi alt ağacını özyineli daraltın."
 
 #: katefiletree.cpp:136
 #, kde-format
@@ -72,7 +72,7 @@ msgstr "Diğerlerini Kapat"
 #: katefiletree.cpp:138
 #, kde-format
 msgid "Close other documents in this folder."
-msgstr "Bu klasördeki diğer belgeleri kapat."
+msgstr "Bu klasördeki diğer belgeleri kapatın."
 
 #: katefiletree.cpp:141
 #, kde-format
@@ -83,7 +83,7 @@ msgstr "İçeren Klasörü Aç"
 #: katefiletree.cpp:143
 #, kde-format
 msgid "Open the folder this file is located in."
-msgstr "Bu dosyanın bulunduğu klasörü aç."
+msgstr "Bu dosyanın bulunduğu klasörü açın."
 
 #: katefiletree.cpp:145
 #, kde-format
@@ -94,7 +94,7 @@ msgstr "Konumu Kopyala"
 #: katefiletree.cpp:147
 #, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr "Dosya yolunu ve adını panoya kopyala."
+msgstr "Dosya yolunu ve adını panoya kopyalayın."
 
 #: katefiletree.cpp:149
 #, kde-format
@@ -105,12 +105,12 @@ msgstr "Yeniden Adlandır..."
 #: katefiletree.cpp:151
 #, kde-format
 msgid "Rename the selected file."
-msgstr "Seçilen dosyayı yeniden adlandır."
+msgstr "Seçili dosyayı yeniden adlandırın."
 
 #: katefiletree.cpp:154
 #, kde-format
 msgid "Print selected document."
-msgstr "Seçilen belgeyi yazdır."
+msgstr "Seçili belgeyi yazdırın."
 
 #: katefiletree.cpp:157
 #, kde-format
@@ -126,7 +126,7 @@ msgstr "Sil"
 #: katefiletree.cpp:161
 #, kde-format
 msgid "Close and delete selected file from storage."
-msgstr "Seçilen dosyayı kapat ve depodan sil."
+msgstr "Seçili dosyayı kapat ve depodan silin."
 
 #: katefiletree.cpp:165
 #, kde-format
@@ -404,64 +404,3 @@ msgstr "Geçerli belgeyi yeni bir adla kaydet"
 #, kde-format
 msgid "&Go"
 msgstr "G&it"
-
-#~ msgid "&Other..."
-#~ msgstr "&Diğer..."
-
-#~ msgid "Do you really want to delete file \"%1\" from storage?"
-#~ msgstr "Gerçekten \"%1\" dosyasını silmek istiyor musunuz?"
-
-#~ msgid "Delete file?"
-#~ msgstr "Dosya silinsin mi?"
-
-#~ msgid "File \"%1\" could not be deleted."
-#~ msgstr "\"%1\" dosyası silinemedi."
-
-#~ msgid "Rename file"
-#~ msgstr "Dosyayı yeniden adlandır"
-
-#~ msgid "New file name"
-#~ msgstr "Yeni dosya adı"
-
-#~ msgid "File \"%1\" could not be moved to \"%2\""
-#~ msgstr "\"%1\" dosyası şuraya taşınamadı: \"%2\""
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Sezer Bozkır, Emir SARI"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "natgho@hotmail.com, emir_sari@icloud.com"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Close Other"
-#~ msgid "Close Widget"
-#~ msgstr "Diğerlerini Kapat"
-
-#~ msgid "Kate File Tree"
-#~ msgstr "Kate Dosya Ağacı"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Copy File Path"
-#~ msgstr "Dosya Yolunu Kopyala"
-
-#~ msgid "&View"
-#~ msgstr "&Görünüm"
-
-#~ msgid "Save Current Document"
-#~ msgstr "Mevcut belgeyi kapat."
-
-#~ msgid "Save Current Document As"
-#~ msgstr "Mevcut Dosyayı Farklı Kaydet"
-
-#~ msgid "Application '%1' not found."
-#~ msgstr "'%1' uygulaması bulunamadı."
-
-#~ msgid "Application not found"
-#~ msgstr "Uygulama bulunamadı"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Delete Document"
-#~ msgstr "Belgeyi Sil"

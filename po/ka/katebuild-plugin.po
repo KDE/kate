@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-14 01:55+0000\n"
-"PO-Revision-Date: 2023-07-31 06:26+0200\n"
+"PO-Revision-Date: 2023-09-15 06:10+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -259,7 +259,7 @@ msgstr "ConfigClean"
 #: plugin_katebuild.cpp:1415
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "შეუძლებელია აგების სამიზნეების შენახვა მისამართზე: %1"
 
 #: TargetHtmlDelegate.cpp:50
 #, kde-format
@@ -298,12 +298,12 @@ msgstr ""
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "პროექტები"
 
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "სესია"
 
 #: TargetModel.cpp:625
 #, kde-format

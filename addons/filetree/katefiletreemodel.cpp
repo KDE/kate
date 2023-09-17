@@ -1028,8 +1028,8 @@ void KateFileTreeModel::updateBackgrounds(bool force)
 
     std::unordered_map<ProxyItem *, QBrush> oldBrushes = std::move(m_brushes);
 
-    const int hc = m_viewHistory.size();
-    const int ec = m_editHistory.size();
+    const int hc = (int)m_viewHistory.size();
+    const int ec = (int)m_editHistory.size();
     const QColor base = QPalette().color(QPalette::Base);
 
     for (const auto &[item, editViewCount] : helper) {

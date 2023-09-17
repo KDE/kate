@@ -1228,7 +1228,7 @@ keep the matched string for the next context.
 <listitem>
 <para>You can validate every &XML; file by using the command
 <command>validatehl.sh mySyntax.xml</command>.
-The file <filename>validatehl.sh</filename> use <filename>language.xsd</filename> which are both available in <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema">Syntax
+The file <filename>validatehl.sh</filename> uses <filename>language.xsd</filename> which are both available in <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema">Syntax
 Highlighting repository</ulink>.
 </para>
 </listitem>

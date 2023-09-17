@@ -157,7 +157,7 @@ bool CEWidget::eventFilter(QObject *o, QEvent *e)
     }
 
     auto event = static_cast<QHoverEvent *>(e);
-    auto cursor = m_textEditor->coordinatesToCursor(event->pos());
+    auto cursor = m_textEditor->coordinatesToCursor(event->position().toPoint());
     Q_EMIT lineHovered(cursor.line()); // Can be invalid, that is okay
     m_asmView->viewport()->update();
 

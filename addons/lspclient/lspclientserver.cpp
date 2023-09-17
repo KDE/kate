@@ -1350,7 +1350,7 @@ public:
 
     int cancel(int reqid)
     {
-        if (m_handlers.remove(reqid) > 0) {
+        if (m_handlers.remove(reqid)) {
             auto params = QJsonObject{{QLatin1String(MEMBER_ID), reqid}};
             write(init_request(QStringLiteral("$/cancelRequest"), params));
         }

@@ -16,7 +16,7 @@
 
 #include <QDir>
 #include <QFile>
-#include <QTextCodec>
+#include <QStringDecoder>
 #include <QUrl>
 
 KateStashManager::KateStashManager(QObject *parent)
@@ -139,8 +139,8 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
         QFile input(stashedFile);
         input.open(QIODevice::ReadOnly);
 
-        const auto codec = QTextCodec::codecForName(kconfig.readEntry("Encoding").toLocal8Bit());
-        QString text = codec ? codec->toUnicode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
+        auto decoder = QStringDecoder(kconfig.readEntry("Encoding").toUtf8().constData());
+        QString text = decoder.isValid() ? decoder.decode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
 
         // normalize line endings, to e.g. catch issues with \r\n on Windows
         text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));

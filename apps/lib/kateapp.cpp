@@ -45,7 +45,7 @@
 #include <QJsonDocument>
 #include <QLoggingCategory>
 #include <QRegularExpression>
-#include <QTextCodec>
+#include <QStringDecoder>
 #include <QTimer>
 #include <QUrlQuery>
 
@@ -417,11 +417,10 @@ bool KateApp::startupKate()
         newMainWindow();
     }
 
-    QTextCodec *codec = m_args.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(m_args.value(QStringLiteral("encoding")).toUtf8()) : nullptr;
     bool tempfileSet = m_args.isSet(QStringLiteral("tempfile"));
 
     KTextEditor::Document *doc = nullptr;
-    const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
+    const QString codec_name = m_args.isSet(QStringLiteral("encoding")) ? m_args.value(QStringLiteral("encoding")) : QString();
 
     const auto args = m_args.positionalArguments();
 
@@ -451,7 +450,8 @@ bool KateApp::startupKate()
     if (m_args.isSet(QStringLiteral("stdin"))) {
         QFile input;
         input.open(stdin, QIODevice::ReadOnly);
-        QString text = codec ? codec->toUnicode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
+        auto decoder = QStringDecoder(codec_name.toUtf8().constData());
+        QString text = decoder.isValid() ? decoder.decode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
 
         // normalize line endings, to e.g. catch issues with \r\n on Windows
         text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
@@ -531,8 +531,6 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
         return nullptr;
     }
 
-    QTextCodec *codec = encoding.isEmpty() ? nullptr : QTextCodec::codecForName(encoding.toLatin1());
-
     // this file is no local dir, open it, else warn
     bool noDir = !url.isLocalFile() || KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::LowSideEffectsOptimizations)
         || !QFileInfo(url.toLocalFile()).isDir();
@@ -542,12 +540,7 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
     if (noDir) {
         KateDocumentInfo docInfo;
         docInfo.startCursor = c;
-        // open a normal file
-        if (codec) {
-            doc = mainWindow->viewManager()->openUrl(url, QString::fromLatin1(codec->name()), activateView, isTempFile, docInfo);
-        } else {
-            doc = mainWindow->viewManager()->openUrl(url, QString(), activateView, isTempFile, docInfo);
-        }
+        doc = mainWindow->viewManager()->openUrl(url, encoding, activateView, isTempFile, docInfo);
     } else {
         KMessageBox::error(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
     }

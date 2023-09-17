@@ -30,7 +30,7 @@
 #include <QRegularExpression>
 #include <QSessionManager>
 #include <QStandardPaths>
-#include <QTextCodec>
+#include <QStringDecoder>
 #include <QVariant>
 
 #include <qglobal.h>
@@ -423,11 +423,12 @@ int main(int argc, char **argv)
 
             if (parser.isSet(readStdInOption)) {
                 // set chosen codec
-                QTextCodec *codec = parser.isSet(useEncodingOption) ? QTextCodec::codecForName(parser.value(useEncodingOption).toUtf8()) : nullptr;
+                const QString codec_name = parser.isSet(QStringLiteral("encoding")) ? parser.value(QStringLiteral("encoding")) : QString();
 
                 QFile input;
                 input.open(stdin, QIODevice::ReadOnly);
-                QString text = codec ? codec->toUnicode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
+                auto decoder = QStringDecoder(codec_name.toUtf8().constData());
+                QString text = decoder.isValid() ? decoder.decode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
 
                 // normalize line endings, to e.g. catch issues with \r\n on Windows
                 text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
@@ -439,7 +440,7 @@ int main(int argc, char **argv)
 
                 QList<QVariant> dbusargs;
                 dbusargs.append(text);
-                dbusargs.append(codec ? QString::fromLatin1(codec->name()) : QString());
+                dbusargs.append(codec_name);
                 m.setArguments(dbusargs);
 
                 QDBusConnection::sessionBus().call(m);

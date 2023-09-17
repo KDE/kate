@@ -602,7 +602,7 @@ public:
     void updatePalette()
     {
         auto pal = palette();
-        pal.setBrush(QPalette::Base, parentWidget()->palette().window());
+        pal.setBrush(QPalette::Base, qobject_cast<QWidget *>(parent())->palette().window());
         auto textColor = pal.text().color();
         textColor = textColor.lightness() > 127 ? textColor.darker(150) : textColor.lighter(150);
         pal.setBrush(QPalette::Inactive, QPalette::Text, textColor);

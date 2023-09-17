@@ -198,7 +198,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     // One disadvantage of the current approach is that the user
     // might not know that kate's tabs can be dragged to other
     // places, unless they drag it really far away
-    auto viewSpace = qobject_cast<KateViewSpace *>(parentWidget());
+    auto viewSpace = qobject_cast<KateViewSpace *>(parent());
     const auto viewspaceRect = viewSpace->rect();
     QRect viewspaceRectTopArea = viewspaceRect;
     viewspaceRectTopArea.setTop(viewspaceRect.top() - 40);

@@ -69,7 +69,7 @@ public:
     void run(int loopCount, QColor c)
     {
         // If parent is not visible, do nothing
-        if (parentWidget() && !parentWidget()->isVisible()) {
+        if (auto p = qobject_cast<QWidget *>(parent()); p && !p->isVisible()) {
             return;
         }
         m_flashColor = c;
@@ -477,7 +477,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
      */
     if (shouldShowOutputToolView) {
         QPointer<QWidget> focusWidget = qApp->focusWidget();
-        m_mainWindow->showToolView(parentWidget());
+        m_mainWindow->showToolView(qobject_cast<QWidget *>(parent()));
         if (focusWidget) {
             focusWidget->setFocus();
         }

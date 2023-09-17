@@ -323,7 +323,7 @@ void KateMwModOnHdDialog::slotGitDiffDone(QProcess *p, KTextEditor::Document *do
         QString t = QFileInfo(doc->url().toLocalFile()).fileName() + i18n("[NEW]");
         params.tabTitle = s + QStringLiteral("..") + t;
         params.workingDir = p->workingDirectory();
-        auto mw = static_cast<KateMainWindow *>(parentWidget());
+        auto mw = static_cast<KateMainWindow *>(parent());
         DiffWidgetManager::openDiff(out, params, mw->wrapper());
     }
 }

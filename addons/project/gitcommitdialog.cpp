@@ -118,7 +118,7 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, QWidget *parent, Qt:
         }
         setWindowTitle(i18n("Amending Commit"));
         ok.setText(i18n("Amend"));
-        const auto [msg, desc] = GitUtils::getLastCommitMessage(static_cast<GitWidget *>(this->parentWidget())->dotGitPath());
+        const auto [msg, desc] = GitUtils::getLastCommitMessage(static_cast<GitWidget *>(this->parent())->dotGitPath());
         m_le.setText(msg);
         m_pe.setPlainText(desc);
     });

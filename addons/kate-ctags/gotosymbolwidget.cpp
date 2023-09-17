@@ -373,7 +373,7 @@ void GotoSymbolWidget::updateViewGeometry()
 
     // Position should be central over the editor area, so map to global from
     // parent of central widget since the view is positioned in global coords
-    const QPoint centralWidgetPos = window->parentWidget() ? window->mapToGlobal(window->pos()) : window->pos();
+    const QPoint centralWidgetPos = window->parent() ? window->mapToGlobal(window->pos()) : window->pos();
     const int xPos = std::max(0, centralWidgetPos.x() + (centralSize.width() - viewSize.width()) / 2);
     const int yPos = std::max(0, centralWidgetPos.y() + (centralSize.height() - viewSize.height()) * 1 / 4);
 

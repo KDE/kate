@@ -114,7 +114,7 @@ KateKonsolePluginView::~KateKonsolePluginView()
     m_plugin->mViews.removeAll(this);
 
     // cleanup, kill toolview + console
-    QWidget *toolview = m_console->parentWidget();
+    auto toolview = m_console->parent();
     delete m_console;
     delete toolview;
 }
@@ -189,7 +189,7 @@ void KateConsole::loadConsoleIfNeeded()
         return;
     }
 
-    if (!window() || !parentWidget()) {
+    if (!window() || !parent()) {
         return;
     }
     if (!window() || !isVisibleTo(window())) {
@@ -264,7 +264,7 @@ void KateConsole::slotDestroyed()
     setFocusProxy(nullptr);
 
     // hide the dockwidget
-    if (parentWidget()) {
+    if (parent()) {
         m_mw->hideToolView(m_toolView);
     }
 }
@@ -427,7 +427,7 @@ void KateConsole::slotManualSync()
     slotSync();
 
     if (!m_part || !m_part->widget()->isVisible()) {
-        m_mw->showToolView(parentWidget());
+        m_mw->showToolView(qobject_cast<QWidget *>(parent()));
     }
 }
 
@@ -496,7 +496,7 @@ void KateConsole::slotToggleVisibility()
 {
     QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_visibility"));
     if (!m_part || !m_part->widget()->isVisible()) {
-        m_mw->showToolView(parentWidget());
+        m_mw->showToolView(qobject_cast<QWidget *>(parent()));
         action->setText(i18nc("@action", "&Hide Terminal Panel"));
     } else {
         m_mw->hideToolView(m_toolView);
@@ -517,7 +517,7 @@ void KateConsole::focusChanged(QWidget *, QWidget *now)
 void KateConsole::slotToggleFocus()
 {
     if (!m_part) {
-        m_mw->showToolView(parentWidget());
+        m_mw->showToolView(qobject_cast<QWidget *>(parent()));
         return; // this shows and focuses the konsole
     }
 
@@ -527,8 +527,8 @@ void KateConsole::slotToggleFocus()
         }
     } else {
         // show the view if it is hidden
-        if (parentWidget()->isHidden()) {
-            m_mw->showToolView(parentWidget());
+        if (auto p = qobject_cast<QWidget *>(parent()); p->isHidden()) {
+            m_mw->showToolView(p);
         } else { // should focus the widget too!
             m_part->widget()->setFocus(Qt::OtherFocusReason);
         }

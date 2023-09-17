@@ -73,7 +73,7 @@ KateFileBrowserPluginView::KateFileBrowserPluginView(KTextEditor::Plugin *plugin
 KateFileBrowserPluginView::~KateFileBrowserPluginView()
 {
     // cleanup, kill toolview + console
-    delete m_fileBrowser->parentWidget();
+    delete m_fileBrowser->parent();
 }
 
 void KateFileBrowserPluginView::readSessionConfig(const KConfigGroup &config)

@@ -166,7 +166,7 @@ public:
     void resize_impl()
     {
         if (m_tabIdx >= 0) {
-            auto tabBar = qobject_cast<QTabBar *>(parentWidget());
+            auto tabBar = qobject_cast<QTabBar *>(parent());
             if (!tabBar) {
                 setVisible(false);
                 return;
@@ -178,14 +178,14 @@ public:
             return;
         }
 
-        if (parentWidget() && size() != parentWidget()->size()) {
-            resize(parentWidget()->size());
+        if (auto p = qobject_cast<QWidget *>(parent()); p && size() != p->size()) {
+            resize(p->size());
         }
     }
 
     bool eventFilter(QObject *o, QEvent *e) override
     {
-        if (parentWidget() && o == parentWidget() && (e->type() == QEvent::Resize || e->type() == QEvent::Show)) {
+        if (parent() && o == parent() && (e->type() == QEvent::Resize || e->type() == QEvent::Show)) {
             doResize();
         }
         return QWidget::eventFilter(o, e);

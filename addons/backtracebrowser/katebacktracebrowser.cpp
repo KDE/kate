@@ -122,7 +122,7 @@ KateBtBrowserPluginView::KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KT
 KateBtBrowserPluginView::~KateBtBrowserPluginView()
 {
     // cleanup, kill toolview + widget
-    QWidget *toolview = m_widget->parentWidget();
+    auto toolview = m_widget->parent();
     delete m_widget;
     delete toolview;
 }

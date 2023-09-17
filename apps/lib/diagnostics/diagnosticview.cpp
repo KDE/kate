@@ -539,8 +539,8 @@ void DiagnosticsView::handleEsc(QEvent *event)
 
     auto keyEvent = static_cast<QKeyEvent *>(event);
     if (keyEvent && keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
-        if (parentWidget() && parentWidget()->isVisible()) {
-            m_mainWindow->hideToolView(parentWidget());
+        if (auto p = qobject_cast<QWidget *>(parent()); p && p->isVisible()) {
+            m_mainWindow->hideToolView(p);
             event->accept();
         }
     }
@@ -1211,7 +1211,7 @@ void DiagnosticsView::onMarkClicked(KTextEditor::Document *document, KTextEditor
 
 void DiagnosticsView::showToolview(DiagnosticsProvider *filterTo)
 {
-    m_mainWindow->showToolView(parentWidget());
+    m_mainWindow->showToolView(qobject_cast<QWidget *>(parent()));
     filterViewTo(filterTo);
 }
 
@@ -1246,7 +1246,7 @@ bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, int line,
         m_diagnosticsTree->setCurrentIndex(idx);
         m_diagnosticsTree->blockSignals(false);
         if (doShow) {
-            m_mainWindow->showToolView(parentWidget());
+            m_mainWindow->showToolView(qobject_cast<QWidget *>(parent()));
         }
     }
     return targetItem != nullptr;

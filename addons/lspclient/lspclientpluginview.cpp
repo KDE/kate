@@ -688,7 +688,7 @@ public:
     KTextEditor::View *viewFromWidget(QWidget *widget)
     {
         if (widget) {
-            return qobject_cast<KTextEditor::View *>(widget->parentWidget());
+            return qobject_cast<KTextEditor::View *>(widget->parent());
         }
         return nullptr;
     }
@@ -2391,7 +2391,7 @@ public:
     {
         // We need to remove our list or they will accumulated on next show event
         for (auto *act : m_contextMenuActions) {
-            act->parentWidget()->removeAction(act);
+            qobject_cast<QWidget *>(act->parent())->removeAction(act);
         }
     }
 

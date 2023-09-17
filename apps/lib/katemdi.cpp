@@ -1290,8 +1290,8 @@ void Sidebar::saveSession(KConfigGroup &config)
 
 // BEGIN MAIN WINDOW
 
-MainWindow::MainWindow(QWidget *parentWidget)
-    : KParts::MainWindow(parentWidget, Qt::Window)
+MainWindow::MainWindow(QWidget *parent)
+    : KParts::MainWindow(parent, Qt::Window)
     , m_guiClient(new GUIClient(this))
 {
     // central frame for all stuff

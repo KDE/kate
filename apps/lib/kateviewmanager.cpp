@@ -712,7 +712,7 @@ bool KateViewManager::deleteView(KTextEditor::View *view)
         return true;
     }
 
-    KateViewSpace *viewspace = static_cast<KateViewSpace *>(view->parentWidget()->parentWidget());
+    KateViewSpace *viewspace = static_cast<KateViewSpace *>(view->parent()->parent());
     viewspace->removeView(view);
     updateViewSpaceActions();
 
@@ -801,7 +801,7 @@ void KateViewManager::activateSpace(KTextEditor::View *v)
         return;
     }
 
-    KateViewSpace *vs = static_cast<KateViewSpace *>(v->parentWidget()->parentWidget());
+    KateViewSpace *vs = static_cast<KateViewSpace *>(v->parent()->parent());
 
     if (!vs->isActiveSpace()) {
         setActiveSpace(vs);
@@ -960,7 +960,7 @@ void KateViewManager::activateIntuitiveNeighborView(Qt::Orientation o, int dir)
     if (!currentViewSpace) {
         return;
     }
-    KateViewSpace *target = findIntuitiveNeighborView(qobject_cast<KateSplitter *>(currentViewSpace->parentWidget()), currentViewSpace, o, dir);
+    KateViewSpace *target = findIntuitiveNeighborView(qobject_cast<KateSplitter *>(currentViewSpace->parent()), currentViewSpace, o, dir);
     if (target) {
         setActiveSpace(target);
         activateView(target->currentView());
@@ -1015,7 +1015,7 @@ KateViewSpace *KateViewManager::findIntuitiveNeighborView(KateSplitter *splitter
         }
     }
     // otherwise try to go up in the splitter tree
-    return findIntuitiveNeighborView(qobject_cast<KateSplitter *>(splitter->parentWidget()), splitter, o, dir);
+    return findIntuitiveNeighborView(qobject_cast<KateSplitter *>(splitter->parent()), splitter, o, dir);
 }
 
 void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)
@@ -1039,13 +1039,13 @@ void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)
 void KateViewManager::closeView(KTextEditor::View *view)
 {
     // we can only close views that are in our viewspaces
-    if (!view || !view->parentWidget() || !view->parentWidget()->parentWidget()) {
+    if (!view || !view->parent() || !view->parent()->parent()) {
         return;
     }
 
     // get the viewspace if possible and close the document there => should close the passed view
     // will close the full document, too, if last
-    auto viewSpace = qobject_cast<KateViewSpace *>(view->parentWidget()->parentWidget());
+    auto viewSpace = qobject_cast<KateViewSpace *>(view->parent()->parent());
     if (viewSpace) {
         viewSpace->closeDocument(view->document());
     }
@@ -1100,7 +1100,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     }
 
     // get current splitter, and abort if null
-    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parentWidget());
+    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parent());
     if (!currentSplitter) {
         return;
     }
@@ -1258,7 +1258,7 @@ void KateViewManager::closeViewSpace(KTextEditor::View *view)
     KateViewSpace *space;
 
     if (view) {
-        space = static_cast<KateViewSpace *>(view->parentWidget()->parentWidget());
+        space = static_cast<KateViewSpace *>(view->parent()->parent());
     } else {
         space = activeViewSpace();
     }
@@ -1273,7 +1273,7 @@ void KateViewManager::toggleSplitterOrientation()
     }
 
     // get current splitter, and abort if null
-    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parentWidget());
+    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parent());
     if (!currentSplitter || (currentSplitter->count() == 1)) {
         return;
     }
@@ -1343,8 +1343,8 @@ bool KateViewManager::viewsInSameViewSpace(KTextEditor::View *view1, KTextEditor
         return true;
     }
 
-    KateViewSpace *vs1 = static_cast<KateViewSpace *>(view1->parentWidget()->parentWidget());
-    KateViewSpace *vs2 = static_cast<KateViewSpace *>(view2->parentWidget()->parentWidget());
+    KateViewSpace *vs1 = static_cast<KateViewSpace *>(view1->parent()->parent());
+    KateViewSpace *vs2 = static_cast<KateViewSpace *>(view2->parent()->parent());
     return vs1 && (vs1 == vs2);
 }
 
@@ -1380,7 +1380,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     }
 
     // get current splitter
-    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(viewspace->parentWidget());
+    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(viewspace->parent());
 
     // no splitter found, bah
     if (!currentSplitter) {
@@ -1423,7 +1423,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     // the splitter then.
     if (currentSplitter != this) {
         // get parent splitter
-        KateSplitter *parentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parentWidget());
+        KateSplitter *parentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parent());
 
         // only do magic if found ;)
         if (parentSplitter) {
@@ -1697,7 +1697,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         return;
     }
 
-    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parentWidget());
+    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parent());
 
     if (!currentSplitter) {
         return;
@@ -1762,7 +1762,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
 
         currentWidget = static_cast<QWidget *>(currentSplitter);
         // the parent of the current splitter will become the current splitter
-        currentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parentWidget());
+        currentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parent());
     }
 }
 

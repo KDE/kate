@@ -153,7 +153,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
                 job->setWorkingDirectory(filename);
             }
             job->start();
-        } else if (action->parentWidget() == openWithMenu) {
+        } else if (action->parent() == openWithMenu) {
             KateFileActions::showOpenWithMenu(parent, url, action);
         } else if (action == openContaingFolderAction) {
             KIO::highlightInFileManager({url});

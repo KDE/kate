@@ -421,7 +421,7 @@ public:
     /**
      * Constructor
      */
-    explicit MainWindow(QWidget *parentWidget = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
 
     /**
      * Destructor

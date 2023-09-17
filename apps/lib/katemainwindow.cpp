@@ -934,9 +934,8 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
         // view where it was dropped
         KTextEditor::View *kVsender = qobject_cast<KTextEditor::View *>(QObject::sender());
         if (kVsender != nullptr) {
-            QWidget *parent = kVsender->parentWidget();
-            if (parent != nullptr) {
-                KateViewSpace *vs = qobject_cast<KateViewSpace *>(parent->parentWidget());
+            if (auto parent = kVsender->parent()) {
+                KateViewSpace *vs = qobject_cast<KateViewSpace *>(parent->parent());
                 if (vs != nullptr) {
                     m_viewManager->setActiveSpace(vs);
                 }
@@ -1307,7 +1306,7 @@ void KateMainWindow::slotUpdateBottomViewBar()
     }
 
     // always activate the current statusbar
-    Q_ASSERT(bs.statusBar()->parentWidget() == statusBarStackedWidget());
+    Q_ASSERT(bs.statusBar()->parent() == statusBarStackedWidget());
     statusBarStackedWidget()->setCurrentWidget(bs.statusBar());
 
     // hide or show the bar

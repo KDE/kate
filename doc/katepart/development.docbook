@@ -439,6 +439,11 @@ line. Available attributes are:</term>
 <para><userinput>name</userinput> states the context name. Rules will use this name
 to specify the context to switch to if the rule matches.</para>
 
+<para><userinput>attribute</userinput> identifies the style to use for a
+character when no rule matches or when a rule does not specify attribute.
+In the latter case, <emphasis>attribute</emphasis> of the context specified
+in the rule's <emphasis>context</emphasis> will be used.</para>
+
 <para><userinput>lineEndContext</userinput> defines the context the highlight
 system switches to if it reaches the end of a line. This may either be a name
 of another context, <userinput>#stay</userinput> to not switch the context
@@ -448,10 +453,9 @@ to pop three times, or even <userinput>#pop#pop!OtherContext</userinput> to pop
 two times and switch to the context named <userinput>OtherContext</userinput>.
 It is also possible to switch to a context that belongs to another language definition,
 in the same way as in the <userinput>IncludeRules</userinput> rules, &eg;,
-<userinput>SomeContext##JavaScript</userinput>. Note that it is not possible to use
-this context switch in combination with <userinput>#pop</userinput>, for example,
-<userinput>#pop!SomeContext##JavaScript</userinput> is not valid.
-Context switches are also described in <xref linkend="kate-highlight-rules-detailled"/>.</para>
+<userinput>SomeContext##JavaScript</userinput>.
+Context switches are also described in <xref linkend="kate-highlight-rules-detailled"/>.
+Default: #stay.</para>
 <para><userinput>lineEmptyContext</userinput> defines the context if an empty
 line is encountered. The nomenclature of context switches is the same as
 previously described in <emphasis>lineEndContext</emphasis>. Default: #stay.</para>
@@ -710,7 +714,8 @@ context.</para>
 <listitem>
 <para>An <emphasis>order</emphasis> telling the engine to stay in the
 current context (<userinput>#stay</userinput>), or to pop back to a
-previous context used in the string (<userinput>#pop</userinput>).</para>
+previous context used in the string (<userinput>#pop</userinput>).
+An empty or absent context is equivalent to <userinput>#stay</userinput>.</para>
 <para>To go back more steps, the #pop keyword can be repeated:
 <userinput>#pop#pop#pop</userinput></para>
 </listitem>
@@ -727,9 +732,7 @@ followed by two hashes (<userinput>##</userinput>) and another
 This naming is similar to that used in <userinput>IncludeRules</userinput>
 rules and allows you to switch to a context belonging to another syntax
 highlighting definition, e.g. <userinput>SomeContext##JavaScript</userinput>.
-Note that it is not possible to use this context switch in combination with
-<userinput>#pop</userinput>, for example,
-<userinput>#pop!SomeContext##JavaScript</userinput> is not valid.</para>
+</para>
 </listitem>
 </itemizedlist>
 
@@ -740,15 +743,14 @@ following sections.</para>
 <title>Common attributes</title>
 <para>All rules have the following attributes in common and are
 available whenever <userinput>(common attributes)</userinput> appears.
-<emphasis>attribute</emphasis> and <emphasis>context</emphasis>
-are required attributes, all others are optional.
+All attributes are optional.
 </para>
 
 <listitem>
-<para><emphasis>attribute</emphasis>: An attribute maps to a defined <emphasis>itemData</emphasis>.</para>
+<para><emphasis>attribute</emphasis>: An attribute maps to a defined <emphasis>itemData</emphasis>. Default: <emphasis>attribute</emphasis> from the context specified in <emphasis>context</emphasis> attribute.</para>
 </listitem>
 <listitem>
-<para><emphasis>context</emphasis>: Specify the context to which the highlighting system switches if the rule matches.</para>
+<para><emphasis>context</emphasis>: Specify the context to which the highlighting system switches if the rule matches. Default: #stay.</para>
 </listitem>
 <listitem>
 <para><emphasis>beginRegion</emphasis>: Start a code folding block. Default: unset.</para>
@@ -922,6 +924,8 @@ to match.</para>
 <programlisting>&lt;Detect2Chars char=&quot;(character)&quot; char1=&quot;(character)&quot; (common attributes) /&gt;</programlisting>
 <para>The <userinput>char</userinput> attribute defines the first character to match,
 <userinput>char1</userinput> the second.</para>
+<para>This rule is present for historical reasons and for readability it's
+preferable to use <userinput>StringDetect</userinput>.</para>
 </listitem>
 </varlistentry>
 
@@ -1178,11 +1182,6 @@ tips.
 </para>
 
 <listitem>
-<para>If you only match two characters use <userinput>Detect2Chars</userinput>
-instead of <userinput>StringDetect</userinput>. The same applies to
-<userinput>DetectChar</userinput>.</para>
-</listitem>
-<listitem>
 <para>Regular expressions are easy to use but often there is another much
 faster way to achieve the same result. Consider you only want to match
 the character <userinput>'#'</userinput> if it is the first character in the
@@ -1211,7 +1210,7 @@ want to switch context when you meet the string <userinput>*/</userinput>, but
 need to process that string in the next context. The below rule will match, and
 the <userinput>lookAhead</userinput> attribute will cause the highlighter to
 keep the matched string for the next context.
-<programlisting>&lt;Detect2Chars attribute=&quot;Comment&quot; context=&quot;#pop&quot; char=&quot;*&quot; char1=&quot;/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
+<programlisting>&lt;StringDetect attribute=&quot;Comment&quot; context=&quot;#pop&quot; String=&quot;*/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
 </para>
 </listitem>
 <listitem>
@@ -1228,9 +1227,8 @@ keep the matched string for the next context.
 </listitem>
 <listitem>
 <para>You can validate every &XML; file by using the command
-<command>validatehl.sh language.xsd mySyntax.xml</command>.
-The files <filename>validatehl.sh</filename> and <filename>language.xsd</filename>
-are available in <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema">Syntax
+<command>validatehl.sh mySyntax.xml</command>.
+The file <filename>validatehl.sh</filename> use <filename>language.xsd</filename> which are both available in <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema">Syntax
 Highlighting repository</ulink>.
 </para>
 </listitem>
@@ -1239,13 +1237,32 @@ Highlighting repository</ulink>.
 <emphasis>ENTITIES</emphasis>. Example:</para>
 <programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE language SYSTEM "language.dtd"
+&lt;!DOCTYPE language
 [
         &lt;!ENTITY myref    "[A-Za-z_:][\w.:_-]*"&gt;
 ]&gt;
 </programlisting>
 <para>Now you can use <emphasis>&amp;myref;</emphasis> instead of the regular
 expression.</para>
+</listitem>
+<listitem>
+<para>On Kate Editor, you can reload syntaxes using the built-in command line
+(<userinput>F7</userinput> shortcut by default) and the <command>reload-highlighting</command>
+command.</para>
+</listitem>
+<listitem>
+<para>You can use the command-line utility named <userinput>ksyntaxhighlighter6</userinput>
+(<userinput>kate-syntax-highlighter</userinput> on older versions) to test a
+syntax and display the style and regions associated with each part of a text.</para>
+
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="ksyntaxhighlighter6-trace-format.png"/></imageobject>
+<textobject><phrase>Result of <command>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command>.</phrase></textobject>
+<caption><para>Result of <command>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command>.</para>
+</caption>
+</mediaobject>
+
+<para>Use <command>ksyntaxhighlighter6 -h</command> for more options.</para>
 </listitem>
 </itemizedlist>
 </sect3>

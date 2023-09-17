@@ -520,9 +520,8 @@ const CommitInfo &KateGitBlamePluginView::blameInfo(int lineNr)
         return blameGetUpdateInfo(-1);
     }
 
-    int totalBlamedLines = m_blamedLines.size();
-
-    int adjustedLineNr = lineNr + m_lineOffset;
+    const int totalBlamedLines = (int)m_blamedLines.size();
+    const int adjustedLineNr = lineNr + m_lineOffset;
     const QByteArray lineText = activeDocument()->line(lineNr).toUtf8();
 
     if (adjustedLineNr >= 0 && adjustedLineNr < totalBlamedLines) {

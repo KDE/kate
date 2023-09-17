@@ -31,10 +31,6 @@ if (HAVE_X11)
     endif()
 endif()
 
-if (QT_MAJOR_VERSION STREQUAL "6")
-	target_link_libraries(kate-bin PRIVATE Qt::Core5Compat)
-endif()
-
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kate-bin PRIVATE TRANSLATION_DOMAIN="kate")
 

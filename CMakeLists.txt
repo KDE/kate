@@ -35,9 +35,6 @@ include(ECMDeprecationSettings)
 include(FeatureSummary)
 include(FindIntl)
 
-# forbid some old things
-add_definitions(-DQT_NO_FOREACH)
-
 # Required here so that the version comparison below works
 find_package(Qt${QT_MAJOR_VERSION}Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
 

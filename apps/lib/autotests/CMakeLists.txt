@@ -15,28 +15,26 @@ macro(kate_executable_tests)
 endmacro()
 
 # some test ATM timeout with Qt 6 in the CI
-if (WIN32 AND QT_MAJOR_VERSION STREQUAL "6")
-kate_executable_tests(
-  session_test
-#  session_manager_test
-#  sessions_action_test
-  urlinfo_test
-  json_utils_test
-#  location_history_test
-#  kate_view_mgmt_tests
-  bytearraysplitter_tests
-  diffwidget_tests
-)
+if (WIN32)
+    kate_executable_tests(
+        session_test
+        session_manager_test
+        sessions_action_test
+        urlinfo_test
+        json_utils_test
+        location_history_test
+        kate_view_mgmt_tests
+        bytearraysplitter_tests
+        diffwidget_tests)
 else()
-kate_executable_tests(
-  session_test
-  session_manager_test
-  sessions_action_test
-  urlinfo_test
-  json_utils_test
-  location_history_test
-  kate_view_mgmt_tests
-  bytearraysplitter_tests
-  diffwidget_tests
-)
+    kate_executable_tests(
+        session_test
+        session_manager_test
+        sessions_action_test
+        urlinfo_test
+        json_utils_test
+        location_history_test
+        kate_view_mgmt_tests
+        bytearraysplitter_tests
+        diffwidget_tests)
 endif()

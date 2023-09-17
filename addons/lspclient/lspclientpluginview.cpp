@@ -56,8 +56,8 @@
 #include <QScopeGuard>
 #include <QSet>
 #include <QStandardItem>
+#include <QStringDecoder>
 #include <QStyledItemDelegate>
-#include <QTextCodec>
 #include <QTimer>
 #include <QTreeView>
 #include <unordered_map>
@@ -147,10 +147,9 @@ public:
         while (file.isOpen() && !file.atEnd()) {
             auto line = file.readLine();
             if (++lastLineNo == lineno) {
-                QTextCodec::ConverterState state;
-                QTextCodec *codec = QTextCodec::codecForName("UTF-8");
-                QString text = codec->toUnicode(line.constData(), line.size(), &state);
-                if (state.invalidChars > 0) {
+                auto toUtf16 = QStringDecoder(QStringDecoder::Utf8);
+                QString text = toUtf16(line);
+                if (toUtf16.hasError()) {
                     text = QString::fromLatin1(line);
                 }
 

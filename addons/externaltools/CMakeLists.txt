@@ -15,14 +15,11 @@ target_compile_definitions(externaltoolsplugin PRIVATE TRANSLATION_DOMAIN="katee
 target_link_libraries(externaltoolsplugin PRIVATE
     KF${KF_MAJOR_VERSION}::CoreAddons
     KF${KF_MAJOR_VERSION}::IconThemes
+    KF${KF_MAJOR_VERSION}::IconWidgets
     KF${KF_MAJOR_VERSION}::TextEditor
     KF${KF_MAJOR_VERSION}::I18n
     kateprivate
 )
-
-if (QT_MAJOR_VERSION STREQUAL "6")
-    target_link_libraries(externaltoolsplugin PRIVATE KF6::IconWidgets)
-endif()
 
 ki18n_wrap_ui(externaltoolsplugin configwidget.ui
     tooldialog.ui

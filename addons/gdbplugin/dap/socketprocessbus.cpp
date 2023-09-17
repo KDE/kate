@@ -3,8 +3,9 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+
 #include "settings.h"
-#include <QTextCodec>
+
 #include <QTimer>
 #include <memory>
 
@@ -150,7 +151,7 @@ void SocketProcessBus::readError()
     // process' standard error
     qCDebug(DAPCLIENT) << "[BUS] STDERR << " << message;
 
-    Q_EMIT serverOutput(QTextCodec::codecForLocale()->toUnicode(message));
+    Q_EMIT serverOutput(QString::fromLocal8Bit(message));
 }
 
 void SocketProcessBus::readOutput()
@@ -158,7 +159,7 @@ void SocketProcessBus::readOutput()
     const auto &message = process.readAllStandardOutput();
     qCDebug(DAPCLIENT) << "[BUS] STDOUT << " << message;
 
-    Q_EMIT processOutput(QTextCodec::codecForLocale()->toUnicode(message));
+    Q_EMIT processOutput(QString::fromLocal8Bit(message));
 }
 
 }

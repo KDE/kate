@@ -3,8 +3,8 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+
 #include <QString>
-#include <QTextCodec>
 
 #include "dapclient_debug.h"
 #include "processbus.h"
@@ -113,7 +113,7 @@ void ProcessBus::readError()
     // process' standard error
     qCDebug(DAPCLIENT) << "[BUS] STDERR << " << message;
 
-    Q_EMIT serverOutput(QTextCodec::codecForLocale()->toUnicode(message));
+    Q_EMIT serverOutput(QString::fromLocal8Bit(message));
 }
 
 }

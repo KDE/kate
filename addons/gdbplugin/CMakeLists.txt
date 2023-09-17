@@ -59,10 +59,6 @@ target_sources(
     plugin.qrc 
 )
 
-if (TARGET Qt6::Core5Compat)
-    target_link_libraries(kategdbplugin PRIVATE Qt6::Core5Compat) # QTextCodec
-endif()
-
 if (BUILD_PCH)
     target_precompile_headers(kategdbplugin REUSE_FROM katepch)
 endif()

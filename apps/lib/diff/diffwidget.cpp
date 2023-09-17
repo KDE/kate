@@ -647,7 +647,7 @@ markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChang
         hunkChangedLinesB.clear();
         return;
     }
-    const int size = hunkChangedLinesA.size();
+    const int size = (int)hunkChangedLinesA.size();
     for (int i = 0; i < size; ++i) {
         const auto [leftChange, rightChange] = inlineDiff(hunkChangedLinesA.at(i).line, hunkChangedLinesB.at(i).line);
         hunkChangedLinesA[i].c = leftChange;

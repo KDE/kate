@@ -106,7 +106,7 @@ public:
 
     int rowCount(const QModelIndex &) const override
     {
-        return m_rows.size();
+        return (int)m_rows.size();
     }
 
     QVariant data(const QModelIndex &index, int role) const override
@@ -129,7 +129,7 @@ public:
 
     void addCommits(std::vector<Commit> &&cmts)
     {
-        beginInsertRows(QModelIndex(), m_rows.size(), m_rows.size() + cmts.size() - 1);
+        beginInsertRows(QModelIndex(), (int)m_rows.size(), (int)m_rows.size() + (int)cmts.size() - 1);
         m_rows.insert(m_rows.end(), std::make_move_iterator(cmts.begin()), std::make_move_iterator(cmts.end()));
         endInsertRows();
     }

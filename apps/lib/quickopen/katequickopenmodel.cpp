@@ -29,7 +29,7 @@ int KateQuickOpenModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid()) {
         return 0;
     }
-    return m_modelEntries.size();
+    return (int)m_modelEntries.size();
 }
 
 int KateQuickOpenModel::columnCount(const QModelIndex &parent) const

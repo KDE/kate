@@ -13,6 +13,3 @@ target_sources(
     plugin_katexmlcheck.cpp
     plugin.qrc
 )
-if (QT_MAJOR_VERSION STREQUAL "6")
-	target_link_libraries( katexmlcheckplugin PRIVATE Qt::Core5Compat)
-endif()

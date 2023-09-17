@@ -61,7 +61,7 @@
 
 #include <QFile>
 #include <QPushButton>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStandardPaths>
 #include <QString>
 #include <QUrl>
@@ -69,6 +69,7 @@
 #include <ktexteditor/editor.h>
 
 #include <kxmlguifactory.h>
+#include <qregularexpression.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(PluginKateXMLCheckFactory, "katexmlcheck.json", registerPlugin<PluginKateXMLCheck>();)
 
@@ -297,18 +298,17 @@ bool PluginKateXMLCheckView::slotValidate()
     QString text_start = kv->document()->text().left(10000);
     // remove comments before looking for doctype (as a doctype might be commented out
     // and needs to be ignored then):
-    QRegExp re("<!--.*-->");
-    re.setMinimal(true);
-    text_start = re.removeIn(text_start);
-    QRegExp re_doctype("<!DOCTYPE\\s+(.*)\\s+(?:PUBLIC\\s+[\"'].*[\"']\\s+[\"'](.*)[\"']|SYSTEM\\s+[\"'](.*)[\"'])", Qt::CaseInsensitive);
-    re_doctype.setMinimal(true);
+    static const QRegularExpression re("<!--.*-->", QRegularExpression::InvertedGreedinessOption);
+    text_start.remove(re);
+    static const QRegularExpression re_doctype("<!DOCTYPE\\s+(.*)\\s+(?:PUBLIC\\s+[\"'].*[\"']\\s+[\"'](.*)[\"']|SYSTEM\\s+[\"'](.*)[\"'])",
+                                               QRegularExpression::InvertedGreedinessOption | QRegularExpression::CaseInsensitiveOption);
 
-    if (re_doctype.indexIn(text_start) != -1) {
+    if (QRegularExpressionMatch match = re_doctype.match(text_start); match.hasMatch()) {
         QString dtdname;
-        if (!re_doctype.cap(2).isEmpty()) {
-            dtdname = re_doctype.cap(2);
+        if (!match.captured(2).isEmpty()) {
+            dtdname = match.captured(2);
         } else {
-            dtdname = re_doctype.cap(3);
+            dtdname = match.captured(2);
         }
         if (!dtdname.startsWith(QLatin1String("http:"))) { // todo: u_dtd.isLocalFile() doesn't work :-(
             // a local DTD is used

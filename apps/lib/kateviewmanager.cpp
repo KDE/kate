@@ -29,7 +29,7 @@
 #include <KToolBar>
 #include <KXMLGUIFactory>
 
-#if defined(KF5Activities_FOUND) || defined(KF6Activities_FOUND)
+#ifdef KF6Activities_FOUND
 #include <KActivities/ResourceInstance>
 #endif
 
@@ -658,7 +658,7 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
      */
     m_views[view].lruAge = m_minAge--;
 
-#if defined(KF5Activities_FOUND) || defined(KF6Activities_FOUND)
+#ifdef KF6Activities_FOUND
     m_views[view].activityResource = new KActivities::ResourceInstance(view->window()->winId(), view);
     m_views[view].activityResource->setUri(doc->url());
 #endif
@@ -868,7 +868,7 @@ void KateViewManager::activateView(KTextEditor::View *view)
 
         updateViewSpaceActions();
 
-#if defined(KF5Activities_FOUND) || defined(KF6Activities_FOUND)
+#ifdef KF6Activities_FOUND
         // inform activity manager
         m_views[view].activityResource->setUri(view->document()->url());
         m_views[view].activityResource->notifyFocusedIn();

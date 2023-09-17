@@ -69,7 +69,7 @@ DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
         // set a small alpha to be able to see the red/green bg
         // with selection
         if (fg.alpha() == 255) {
-            sel.setAlphaF(0.8);
+            sel.setAlphaF(0.8f);
         }
         pal.setColor(QPalette::Highlight, sel);
         pal.setColor(QPalette::HighlightedText, fg);
@@ -109,14 +109,14 @@ DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
 void DiffEditor::updateDiffColors(bool darkMode)
 {
     red1 = darkMode ? QColor(Qt::red).darker(120) : QColor(Qt::red).lighter(140);
-    red1.setAlphaF(0.1);
+    red1.setAlphaF(0.1f);
     green1 = darkMode ? QColor(Qt::green).darker(140) : QColor(Qt::green).lighter(140);
-    green1.setAlphaF(0.1);
+    green1.setAlphaF(0.1f);
 
     red2 = darkMode ? QColor(Qt::red).darker(80) : QColor(Qt::darkRed).lighter(120);
-    red2.setAlphaF(0.20);
+    red2.setAlphaF(0.20f);
     green2 = darkMode ? QColor(Qt::green).darker(110) : QColor(Qt::darkGreen).lighter(120);
-    green2.setAlphaF(0.20);
+    green2.setAlphaF(0.20f);
 }
 
 void DiffEditor::scrollToBlock(int block, bool flashBlock)

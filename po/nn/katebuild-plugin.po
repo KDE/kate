@@ -381,15 +381,3 @@ msgstr "Set inn adresse"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vel mappa som skal setjast inn"
-
-#~ msgid "Project Plugin Targets"
-#~ msgstr "Mål for prosjekt-tillegg"
-
-#~ msgid "build"
-#~ msgstr "bygg"
-
-#~ msgid "clean"
-#~ msgstr "rydd opp"
-
-#~ msgid "quick"
-#~ msgstr "kjapp"

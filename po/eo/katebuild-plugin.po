@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-14 01:55+0000\n"
-"PO-Revision-Date: 2023-07-29 07:08+0100\n"
+"PO-Revision-Date: 2023-09-16 11:33+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -261,7 +261,7 @@ msgstr "ConfigClean"
 #: plugin_katebuild.cpp:1415
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "Ne eblas konservi konstrucelojn en: %1"
 
 #: TargetHtmlDelegate.cpp:50
 #, kde-format
@@ -300,12 +300,12 @@ msgstr ""
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Projekto"
 
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Seanco"
 
 #: TargetModel.cpp:625
 #, kde-format
@@ -382,15 +382,3 @@ msgstr "Enmeti vojon"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Elekti dosierujon enmetendan"
-
-#~ msgid "Project Plugin Targets"
-#~ msgstr "Projektaj Kromaĵo-Celoj"
-
-#~ msgid "build"
-#~ msgstr "konstrui"
-
-#~ msgid "clean"
-#~ msgstr "purigi"
-
-#~ msgid "quick"
-#~ msgstr "rapida"

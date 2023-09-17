@@ -376,15 +376,3 @@ msgstr "Sett inn sti"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Velg mappe som skal settes inn"
-
-#~ msgid "Project Plugin Targets"
-#~ msgstr "Mål for prosjekt-tillegg"
-
-#~ msgid "build"
-#~ msgstr "bygg"
-
-#~ msgid "clean"
-#~ msgstr "rydd opp"
-
-#~ msgid "quick"
-#~ msgstr "hurtig"

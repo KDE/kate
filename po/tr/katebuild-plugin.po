@@ -263,7 +263,7 @@ msgstr "YapılandırmayıTemizle"
 #: plugin_katebuild.cpp:1415
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "Şuradaki yapı hedefleri kaydedilemiyor: %1"
 
 #: TargetHtmlDelegate.cpp:50
 #, kde-format
@@ -302,12 +302,12 @@ msgstr ""
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Proje"
 
 #: TargetModel.cpp:531
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Oturum"
 
 #: TargetModel.cpp:625
 #, kde-format
@@ -384,102 +384,4 @@ msgstr "Yol ekle"
 #: UrlInserter.cpp:51
 #, kde-format
 msgid "Select directory to insert"
-msgstr "Eklenecek dizini seçin"
-
-#~ msgid "Project Plugin Targets"
-#~ msgstr "Proje Eklenti Hedefleri"
-
-#~ msgid "build"
-#~ msgstr "yap"
-
-#~ msgid "clean"
-#~ msgstr "temizle"
-
-#~ msgid "quick"
-#~ msgstr "hızlı"
-
-#~ msgid "Building <b>%1</b> completed."
-#~ msgstr "<b>%1</b> yapımı tamamlandı."
-
-#~ msgid "Building <b>%1</b> had errors."
-#~ msgstr "<b>%1</b> yapımında hatalar oluştu."
-
-#~ msgid "Building <b>%1</b> had warnings."
-#~ msgstr "<b>%1</b> yapımında uyarılar var."
-
-#~ msgid "Show:"
-#~ msgstr "Göster:"
-
-#~ msgctxt "Header for the file name column"
-#~ msgid "File"
-#~ msgstr "Dosya"
-
-#~ msgctxt "Header for the line number column"
-#~ msgid "Line"
-#~ msgstr "Satır"
-
-#~ msgctxt "Header for the error message column"
-#~ msgid "Message"
-#~ msgstr "İleti"
-
-#~ msgid "Next Error"
-#~ msgstr "Sonraki Hata"
-
-#~ msgid "Previous Error"
-#~ msgstr "Önceki Hata"
-
-#~ msgid "Show Marks"
-#~ msgstr "İmleri Göster"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#~ "to the working directory in the Target Settings"
-#~ msgstr ""
-#~ "<title>Dosya açılamadı:</title><nl/>%1<br/>Hedef Ayarları'nda çalışma "
-#~ "dizinine bir arama yolu eklemeyi deneyin"
-
-#~ msgid "Error"
-#~ msgstr "Hata"
-
-#~ msgid "Warning"
-#~ msgstr "Uyarı"
-
-#~ msgid "Only Errors"
-#~ msgstr "Yalnızca Hatalar"
-
-#~ msgid "Errors and Warnings"
-#~ msgstr "Hatalar ve Uyarılar"
-
-#~ msgid "Parsed Output"
-#~ msgstr "Ayrıştırılmış Çıktı"
-
-#~ msgid "Full Output"
-#~ msgstr "Tüm Çıktı"
-
-#~ msgid ""
-#~ "Check the check-box to make the command the default for the target-set."
-#~ msgstr ""
-#~ "Komutu hedef kümesi için öntanımlı yapmak için bu onay kutusunu "
-#~ "işaretleyin."
-
-#~ msgid "Select active target set"
-#~ msgstr "Etkin hedef kümesini seçin"
-
-#~ msgid "Filter targets"
-#~ msgstr "Hedefleri süz"
-
-#~ msgid "Build Default Target"
-#~ msgstr "Öntanımlı Hedefi Yap"
-
-#~ msgid "Build and Run Default Target"
-#~ msgstr "Öntanımlı Hedefi Yap ve Çalıştır"
-
-#~ msgid "Build Previous Target"
-#~ msgstr "Önceki Hedefi Yap"
-
-#~ msgid "Active target-set:"
-#~ msgstr "Etkin hedef kümesi:"
-
-#~ msgid "config"
-#~ msgstr "yapılandır"
+msgstr "Eklenecek dizini seç"

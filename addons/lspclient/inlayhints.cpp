@@ -77,8 +77,8 @@ void InlayHintNoteProvider::setView(KTextEditor::View *v)
     if (v) {
         m_noteColor = QColor::fromRgba(v->theme().textColor(KSyntaxHighlighting::Theme::Normal));
         m_noteBgColor = m_noteColor;
-        m_noteBgColor.setAlphaF(0.1);
-        m_noteColor.setAlphaF(0.5);
+        m_noteBgColor.setAlphaF(0.1f);
+        m_noteColor.setAlphaF(0.5f);
     }
     m_hints = {};
 }

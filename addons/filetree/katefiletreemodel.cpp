@@ -433,7 +433,7 @@ KateFileTreeModel::KateFileTreeModel(KTextEditor::MainWindow *mainWindow, QObjec
     initModel();
 
     // ensure palette change updates the colors properly
-    connect(qGuiApp, &QGuiApplication::paletteChanged, this, [this]() {
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, [this]() {
         m_inactiveDocColor = KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText).color();
         updateBackgrounds(true);
     });

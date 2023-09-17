@@ -9,6 +9,7 @@
 #include "ktexteditor_utils.h"
 
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
 #include <KColorScheme>
@@ -292,7 +293,7 @@ public:
 
         connect(&m_list, &FilterableListView::returnPressed, this, &DirFilesList::onClicked);
         connect(&m_list, &FilterableListView::clicked, this, &DirFilesList::onClicked);
-        connect(qApp, &QApplication::paletteChanged, this, &DirFilesList::updatePalette, Qt::QueuedConnection);
+        connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &DirFilesList::updatePalette, Qt::QueuedConnection);
     }
 
     void updatePalette()
@@ -399,7 +400,7 @@ public:
 
         connect(&m_tree, &FilterableTreeView::clicked, this, &SymbolsTreeView::onClicked);
         connect(&m_tree, &FilterableTreeView::returnPressed, this, &SymbolsTreeView::onClicked);
-        connect(qApp, &QApplication::paletteChanged, this, &SymbolsTreeView::updatePalette, Qt::QueuedConnection);
+        connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &SymbolsTreeView::updatePalette, Qt::QueuedConnection);
     }
 
     void updatePalette()
@@ -582,7 +583,7 @@ public:
         setTextElideMode(Qt::ElideNone);
         setSpacing(0);
 
-        connect(qApp, &QApplication::paletteChanged, this, &BreadCrumbView::updatePalette, Qt::QueuedConnection);
+        connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &BreadCrumbView::updatePalette, Qt::QueuedConnection);
         updatePalette();
 
         auto onConfigChanged = [this] {
@@ -1029,8 +1030,8 @@ public:
         });
 
         connect(
-            qApp,
-            &QApplication::paletteChanged,
+            KTextEditor::Editor::instance(),
+            &KTextEditor::Editor::configChanged,
             this,
             [this] {
                 m_sepPixmap = QPixmap();
@@ -1199,7 +1200,7 @@ void KateUrlBar::setupLayout()
         m_untitledDocLabel->setPalette(pal);
     };
     updatePalette();
-    connect(qApp, &QApplication::paletteChanged, this, updatePalette, Qt::QueuedConnection);
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updatePalette, Qt::QueuedConnection);
 }
 
 void KateUrlBar::onViewChanged(KTextEditor::View *v)

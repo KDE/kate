@@ -151,7 +151,7 @@ protected:
         if (e->type() == QEvent::MouseButtonPress) {
             QMouseEvent *me = static_cast<QMouseEvent *>(e);
             if (me->button() == Qt::LeftButton) {
-                const QModelIndex idx = m_itemView.indexAt(m_itemView.viewport()->mapFromGlobal(me->globalPos()));
+                const QModelIndex idx = m_itemView.indexAt(m_itemView.viewport()->mapFromGlobal(me->globalPosition().toPoint()));
                 if (!idx.isValid()) {
                     return QWidget::eventFilter(o, me);
                 }

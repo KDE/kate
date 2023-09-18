@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-14 01:55+0000\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
 "PO-Revision-Date: 2020-09-17 14:57+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -245,7 +245,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "未定義的參照"
 
-#: plugin_katebuild.cpp:1220 TargetModel.cpp:286 TargetModel.cpp:298
+#: plugin_katebuild.cpp:1220 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "目標集"
@@ -304,27 +304,27 @@ msgstr ""
 "\"%d\" 表示目前檔案所在的目錄\n"
 "\"%n\" 表示目前的檔名，不含後置字串"
 
-#: TargetModel.cpp:531
+#: TargetModel.cpp:530
 #, kde-format
 msgid "Project"
 msgstr ""
 
-#: TargetModel.cpp:531
+#: TargetModel.cpp:530
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:625
+#: TargetModel.cpp:624
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "指令/目標集名稱"
 
-#: TargetModel.cpp:628
+#: TargetModel.cpp:627
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "工作目錄 / 指令"
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:630
 #, kde-format
 msgid "Run Command"
 msgstr ""

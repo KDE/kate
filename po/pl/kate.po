@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1660204 $
+# Version: $Revision: 1660427 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
-"PO-Revision-Date: 2023-09-09 10:50+0200\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
+"PO-Revision-Date: 2023-09-17 13:18+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -260,10 +260,9 @@ msgstr "&Narzędzia"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:273
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Diagnostyka"
+msgstr "Widok diagnostyczny"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -311,11 +310,10 @@ msgid "All"
 msgstr "Wszystkie"
 
 #: lib/diagnostics/diagnosticview.cpp:314
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "Diagnostyka"
+msgstr "Widok diagnostyczny"
 
 #: lib/diagnostics/diagnosticview.cpp:319
 #, kde-format
@@ -934,12 +932,12 @@ msgstr "Przyjemna pomoc"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Wszyscy, którzy pomogli i o których zapomniałem wspomnieć"
 
-#: lib/kateapp.cpp:446
+#: lib/kateapp.cpp:445
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Katalogi można otwierać dopiero po włączeniu wtyczki projektów"
 
-#: lib/kateapp.cpp:552
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1703,7 +1701,7 @@ msgstr "Ukryje to całkowicie pasek menu. Możesz go przywrócić wpisując %1."
 msgid "Hide menu bar"
 msgstr "Ukryj pasek menu"
 
-#: lib/katemainwindow.cpp:952
+#: lib/katemainwindow.cpp:951
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1711,19 +1709,19 @@ msgid ""
 msgstr ""
 "Upuściłeś katalog %1 w Kate. Czy otworzyć wszystkie pliki, które on zawiera?"
 
-#: lib/katemainwindow.cpp:955
+#: lib/katemainwindow.cpp:954
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Otwieranie plików wgłąb"
 
-#: lib/katemainwindow.cpp:956
+#: lib/katemainwindow.cpp:955
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otwórz wszystkie pliki"
 
-#: lib/katemainwindow.cpp:1188
+#: lib/katemainwindow.cpp:1187
 #, kde-format
 msgid " [read only]"
 msgstr " [tylko do odczytu]"
@@ -2328,13 +2326,15 @@ msgstr "Podział przestrzeni widoku sterowania"
 #: lib/kateviewspace.cpp:119
 #, kde-format
 msgid "S&ynchronize Scrolling"
-msgstr ""
+msgstr "Zs&ynchronizuj przewijanie"
 
 #: lib/kateviewspace.cpp:121
 #, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
 msgstr ""
+"Zsynchronizuj przewijanie tego podzielonego widoku z innymi "
+"zsynchronizowanymi widokami podzielonymi"
 
 #: lib/kateviewspace.cpp:222
 #, kde-format

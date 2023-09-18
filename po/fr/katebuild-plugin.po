@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-14 01:55+0000\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
 "PO-Revision-Date: 2023-09-15 19:54+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -247,7 +247,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "référence indéfinie"
 
-#: plugin_katebuild.cpp:1220 TargetModel.cpp:286 TargetModel.cpp:298
+#: plugin_katebuild.cpp:1220 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "Ensemble de cibles"
@@ -307,27 +307,27 @@ msgstr ""
 "« %d » pour le dossier du fichier actuel\n"
 "« %n » pour le nom du fichier actuel sans suffixe"
 
-#: TargetModel.cpp:531
+#: TargetModel.cpp:530
 #, kde-format
 msgid "Project"
 msgstr "Projet"
 
-#: TargetModel.cpp:531
+#: TargetModel.cpp:530
 #, kde-format
 msgid "Session"
 msgstr "Session"
 
-#: TargetModel.cpp:625
+#: TargetModel.cpp:624
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nom de la commande / Ensemble de cibles"
 
-#: TargetModel.cpp:628
+#: TargetModel.cpp:627
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Dossier de travail / Commande"
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:630
 #, kde-format
 msgid "Run Command"
 msgstr "Exécuter une commande"

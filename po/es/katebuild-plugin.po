@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-14 01:55+0000\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
 "PO-Revision-Date: 2023-09-14 04:55+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -242,7 +242,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "referencia no definida"
 
-#: plugin_katebuild.cpp:1220 TargetModel.cpp:286 TargetModel.cpp:298
+#: plugin_katebuild.cpp:1220 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "Conjunto de objetivos"
@@ -301,27 +301,27 @@ msgstr ""
 "«%d» para el directorio del archivo actual\n"
 "«%n» para el nombre del archivo actual sin sufijo"
 
-#: TargetModel.cpp:531
+#: TargetModel.cpp:530
 #, kde-format
 msgid "Project"
 msgstr "Proyecto"
 
-#: TargetModel.cpp:531
+#: TargetModel.cpp:530
 #, kde-format
 msgid "Session"
 msgstr "Sesión"
 
-#: TargetModel.cpp:625
+#: TargetModel.cpp:624
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nombre del conjunto de órdenes u objetivos"
 
-#: TargetModel.cpp:628
+#: TargetModel.cpp:627
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Orden o directorio de trabajo"
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:630
 #, kde-format
 msgid "Run Command"
 msgstr "Ejecutar orden"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-14 01:55+0000\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
 "PO-Revision-Date: 2023-04-10 10:28+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -262,7 +262,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "неопределённая ссылка"
 
-#: plugin_katebuild.cpp:1220 TargetModel.cpp:286 TargetModel.cpp:298
+#: plugin_katebuild.cpp:1220 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "Набор целей"
@@ -323,27 +323,27 @@ msgstr ""
 "«%d» для каталога текущего файла.\n"
 "«%n» для названия текущего файла без суффикса."
 
-#: TargetModel.cpp:531
+#: TargetModel.cpp:530
 #, kde-format
 msgid "Project"
 msgstr ""
 
-#: TargetModel.cpp:531
+#: TargetModel.cpp:530
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:625
+#: TargetModel.cpp:624
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Наборы целей"
 
-#: TargetModel.cpp:628
+#: TargetModel.cpp:627
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Рабочий каталог / команда"
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:630
 #, kde-format
 msgid "Run Command"
 msgstr "Выполнить команду"

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
 "PO-Revision-Date: 2023-07-25 19:54+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -938,12 +938,12 @@ msgstr "Erittäin mukava apu"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Kaikki, jotka ovat auttaneet, mutta joiden nimet olen unohtanut"
 
-#: lib/kateapp.cpp:446
+#: lib/kateapp.cpp:445
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Kansioita voi avata vain, kun projektiliitännäinen on käytössä"
 
-#: lib/kateapp.cpp:552
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1705,7 +1705,7 @@ msgstr ""
 msgid "Hide menu bar"
 msgstr "Piilota valikkorivi"
 
-#: lib/katemainwindow.cpp:952
+#: lib/katemainwindow.cpp:951
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1714,19 +1714,19 @@ msgstr ""
 "Pudotit kansion %1 Kateen. Haluatko avata kaikki sen sisällä olevat "
 "tiedostot?"
 
-#: lib/katemainwindow.cpp:955
+#: lib/katemainwindow.cpp:954
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Tiedostojen avaaminen rekursiivisesti"
 
-#: lib/katemainwindow.cpp:956
+#: lib/katemainwindow.cpp:955
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Avaa kaikki tiedostot"
 
-#: lib/katemainwindow.cpp:1188
+#: lib/katemainwindow.cpp:1187
 #, kde-format
 msgid " [read only]"
 msgstr " [vain luku]"

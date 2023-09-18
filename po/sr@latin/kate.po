@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -929,12 +929,12 @@ msgstr "valjana pomoć"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "svi koji su doprineli, a ja zaboravih da ih spomenem"
 
-#: lib/kateapp.cpp:446
+#: lib/kateapp.cpp:445
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:552
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1725,7 +1725,7 @@ msgstr ""
 msgid "Hide menu bar"
 msgstr "Sakrivanje trake menija"
 
-#: lib/katemainwindow.cpp:952
+#: lib/katemainwindow.cpp:951
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1737,7 +1737,7 @@ msgstr ""
 "Prevukli ste fasciklu %1 na Kate. Želite li da učitate sve fajlove iz nje?"
 
 # >> @title:window
-#: lib/katemainwindow.cpp:955
+#: lib/katemainwindow.cpp:954
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
@@ -1745,14 +1745,14 @@ msgid "Open Files Recursively"
 msgstr "Učitati fajlove rekurzivno?"
 
 # >> @title:window
-#: lib/katemainwindow.cpp:956
+#: lib/katemainwindow.cpp:955
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otvaranje fajla"
 
-#: lib/katemainwindow.cpp:1188
+#: lib/katemainwindow.cpp:1187
 #, kde-format
 msgid " [read only]"
 msgstr " [samo čitanje]"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
 "PO-Revision-Date: 2022-01-25 10:16+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -17,47 +17,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 21.07.70\n"
 
-#: plugin_katexmlcheck.cpp:95
+#: plugin_katexmlcheck.cpp:96
 #, fuzzy, kde-format
 #| msgid "XML Checker Output"
 msgid "XML Check"
 msgstr "XML-ellenőrző kimenet"
 
-#: plugin_katexmlcheck.cpp:100
+#: plugin_katexmlcheck.cpp:101
 #, kde-format
 msgid "Validate XML"
 msgstr "XML validálása"
 
-#: plugin_katexmlcheck.cpp:130
+#: plugin_katexmlcheck.cpp:131
 #, kde-format
 msgid "Validate process crashed"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
-#: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
-#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:337
+#: plugin_katexmlcheck.cpp:131 plugin_katexmlcheck.cpp:149
+#: plugin_katexmlcheck.cpp:209 plugin_katexmlcheck.cpp:234
+#: plugin_katexmlcheck.cpp:254 plugin_katexmlcheck.cpp:337
 #, fuzzy, kde-format
 #| msgid "XML Checker Output"
 msgid "XMLCheck"
 msgstr "XML-ellenőrző kimenet"
 
-#: plugin_katexmlcheck.cpp:144
+#: plugin_katexmlcheck.cpp:145
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:146
+#: plugin_katexmlcheck.cpp:147
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:232
+#: plugin_katexmlcheck.cpp:233
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Hiba:</b> Nem sikerült létrehozni a(z) „%1” ideiglenes fájlt."
 
-#: plugin_katexmlcheck.cpp:251
+#: plugin_katexmlcheck.cpp:252
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "

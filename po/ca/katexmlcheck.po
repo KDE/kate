@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
 "PO-Revision-Date: 2023-01-15 10:19+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -20,45 +20,45 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Generator: Lokalize 20.12.0\n"
 
-#: plugin_katexmlcheck.cpp:95
+#: plugin_katexmlcheck.cpp:96
 #, kde-format
 msgid "XML Check"
 msgstr "Validació d'XML"
 
-#: plugin_katexmlcheck.cpp:100
+#: plugin_katexmlcheck.cpp:101
 #, kde-format
 msgid "Validate XML"
 msgstr "Valida l'XML"
 
-#: plugin_katexmlcheck.cpp:130
+#: plugin_katexmlcheck.cpp:131
 #, kde-format
 msgid "Validate process crashed"
 msgstr "El procés de validació ha fallat"
 
-#: plugin_katexmlcheck.cpp:130 plugin_katexmlcheck.cpp:148
-#: plugin_katexmlcheck.cpp:208 plugin_katexmlcheck.cpp:233
-#: plugin_katexmlcheck.cpp:253 plugin_katexmlcheck.cpp:337
+#: plugin_katexmlcheck.cpp:131 plugin_katexmlcheck.cpp:149
+#: plugin_katexmlcheck.cpp:209 plugin_katexmlcheck.cpp:234
+#: plugin_katexmlcheck.cpp:254 plugin_katexmlcheck.cpp:337
 #, kde-format
 msgid "XMLCheck"
 msgstr "XMLCheck"
 
-#: plugin_katexmlcheck.cpp:144
+#: plugin_katexmlcheck.cpp:145
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr "No s'ha trobat el DOCTYPE, només es validarà la correcció del format."
 
-#: plugin_katexmlcheck.cpp:146
+#: plugin_katexmlcheck.cpp:147
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr "No s'ha trobat el «%1», només es validarà la correcció del format."
 
-#: plugin_katexmlcheck.cpp:232
+#: plugin_katexmlcheck.cpp:233
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Error:</b> No s'ha pogut crear el fitxer temporal «%1»."
 
-#: plugin_katexmlcheck.cpp:251
+#: plugin_katexmlcheck.cpp:252
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "

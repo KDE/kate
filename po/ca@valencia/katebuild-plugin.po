@@ -323,7 +323,7 @@ msgstr "Executa una ordre"
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 "Filtreu els objectius, utilitzeu les tecles de fletxa per a seleccionar, "
-"Retorn per a executar"
+"«Retorn» per a executar"
 
 #: targets.cpp:27
 #, kde-format

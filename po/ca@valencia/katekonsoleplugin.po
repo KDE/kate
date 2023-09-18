@@ -204,7 +204,7 @@ msgid ""
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
 "Açò pot causar problemes amb les aplicacions de terminal que fan servir la "
-"tecla Esc, p. ex., el vim. Afegiu estes aplicacions a continuació en "
+"tecla «Esc», p. ex., vim. Afegiu estes aplicacions a continuació en "
 "l'entrada (en una llista separada per comes)"
 
 #: kateconsole.cpp:669

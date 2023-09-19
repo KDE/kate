@@ -20,6 +20,7 @@
 #include <QLocale>
 #include <QPointer>
 #include <QTimer>
+#include <QUrl>
 #include <QVariant>
 #include <QVector>
 

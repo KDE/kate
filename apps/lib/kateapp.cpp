@@ -497,8 +497,12 @@ void KateApp::shutdownKate(KateMainWindow *win)
      * all main windows will be cleaned up
      * in the KateApp destructor after the event
      * loop is left
+     *
+     * NOTE: From Qt 6, quit() will ask all windows to close,
+     * but we already do our cleanup (and save prompts) when
+     * the event loop quits, so we explicitly call exit() here.
      */
-    QApplication::quit();
+    QApplication::exit();
 }
 
 KatePluginManager *KateApp::pluginManager()

@@ -4001,7 +4001,7 @@ Projects Replicode run / stop-->
 >Configuració del client LSP de símbols d'esquema</title>
 
 <para
->De manera predeterminada, els símbols s'ordenen per la seva aparició en el document, però podeu canviar l'ordenació per a que sigui alfabètica. Per fer-ho, feu clic dret a la vista d'eina i marqueu «Ordena alfabèticament». </para>
+>De manera predeterminada, els símbols s'ordenen per la seva aparició en el document, però podeu canviar l'ordenació perquè sigui alfabètica. Per fer-ho, feu clic dret a la vista d'eina i marqueu «Ordena alfabèticament». </para>
 
 <para
 >La vista d'eina mostra els símbols en mode arbre de manera predeterminada, però podeu canviar-ho a una llista utilitzant el menú contextual. </para>
@@ -4291,7 +4291,7 @@ exec myserver
 >Cada regla (vàlida) té un nom arbitrari i es defineix per una matriu de longitud 2 o 3, la qual proporciona una expressió regular que coincidirà amb el nom de fitxer (complet), una expressió regular perquè coincideixi amb el diagnòstic (text) i una expressió regular opcional que coincideixi amb el text (interval del codi font de) al qual s'aplica el diagnòstic. </para>
 
 <para
->A més de la configuració detallada anterior, el menú contextual a la pestanya de diagnòstic també admet afegir/eliminar les supressions que coincideixin exactament amb un diagnòstic (text) en particular, ja sigui globalment (qualsevol fitxer) o localment (el fitxer específic en qüestió). Aquestes supressions s'emmagatzemen i es carregaran des de la configuració de la sessió. </para>
+>A més de la configuració detallada anterior, el menú contextual a la pestanya de diagnòstic també admet afegir/eliminar les supressions que coincideixin exactament amb un diagnòstic (text) en particular, sigui globalment (qualsevol fitxer) o sigui localment (el fitxer específic en qüestió). Aquestes supressions s'emmagatzemen i es carregaran des de la configuració de la sessió. </para>
 
 </sect3>
 

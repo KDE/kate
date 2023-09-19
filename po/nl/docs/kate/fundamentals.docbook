@@ -881,7 +881,7 @@ action="simul"
 > met een lege tekenreeks: <replaceable
 >''</replaceable
 >.</para>
-<!--FIXME still valid for kf5 -->
+
 <para
 >Sinds &kate; 2.5.1 wordt de <acronym
 >PID</acronym

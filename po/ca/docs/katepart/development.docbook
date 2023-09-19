@@ -170,7 +170,7 @@
 >Estils per omissió</title>
 
 <para
->Si obriu un fitxer de codi font en C++, un fitxer de codi font en &Java; i un document en &HTML; a la &kappname;, podreu comprovar que tot i que els formats són diferents, i per tant les paraules que reben un tractament especial també són diferents, els colors emprats són els mateixos. Això és perquè la &kappname; té una llista predefinida d'estils predeterminats, els quals s'empren en les definicions individuals de la sintaxi.</para>
+>Si obriu un fitxer de codi font en C++, un fitxer de codi font en &Java; i un document en &HTML; a la &kappname;, podreu comprovar que tot i que els formats són diferents i, per tant, les paraules que reben un tractament especial també són diferents, els colors emprats són els mateixos. Això és perquè la &kappname; té una llista predefinida d'estils predeterminats, els quals s'empren en les definicions individuals de la sintaxi.</para>
 
 <para
 >Això facilita reconèixer conceptes similars en diferents formats de text. Per exemple, els comentaris estan presents en pràcticament qualsevol llenguatge de programació, creació de scripts o de marques, i si es presenten utilitzant el mateix estil en tots els llenguatges, no haureu de parar-vos a pensar i identificar la seva posició en el text.</para>
@@ -582,6 +582,15 @@
 
 <para
 ><userinput
+>attribute</userinput
+> identifica l'estil a utilitzar per a un caràcter quan no coincideix cap regla o quan una regla no especifica cap atribut. En aquest últim cas, s'utilitzarà <emphasis
+>attribute</emphasis
+> del context especificat a la regla <emphasis
+>context</emphasis
+>.</para>
+
+<para
+><userinput
 >lineEndContext</userinput
 > defineix el context al qual canviarà el sistema de ressaltat si abasta el final de la línia. Pot ser un nom o un altre context, <userinput
 >#stay</userinput
@@ -597,11 +606,7 @@
 >IncludeRules</userinput
 >, &pex;, <userinput
 >AlgunContext##JavaScript</userinput
->. Cal tenir en compte que no és possible utilitzar aquest canvi de context en combinació amb <userinput
->#pop</userinput
->, &pex;, <userinput
->#pop!AlgunContext##JavaScript</userinput
-> no és vàlid. Els canvis de context també es descriuen a <xref linkend="kate-highlight-rules-detailled"/>.</para>
+>. Els canvis de context també es descriuen a <xref linkend="kate-highlight-rules-detailled"/>. De manera predeterminada: #stay.</para>
 <para
 ><userinput
 >lineEmptyContext</userinput
@@ -648,7 +653,7 @@
 >itemData</userinput
 > es troba en el grup <userinput
 >itemDatas</userinput
->. Defineix l'estil i els colors de les lletres. Per tant és possible definir els vostres propis estils i colors. Encara que recomanem utilitzar els estils predeterminats, atès que així l'usuari veurà colors homogenis per als diferents llenguatges. Si bé, algunes vegades no hi ha altres possibilitats i és necessari canviar el color i els atributs de la lletra. Els atributs «name» i «defStyleNum» són necessaris, els altres són opcionals. Els atributs disponibles són:</term>
+>. Defineix l'estil i els colors de les lletres. Per tant, és possible definir els vostres propis estils i colors. Encara que recomanem utilitzar els estils predeterminats, atès que així l'usuari veurà colors homogenis per als diferents llenguatges. Si bé, algunes vegades no hi ha altres possibilitats i és necessari canviar el color i els atributs de la lletra. Els atributs «name» i «defStyleNum» són necessaris, els altres són opcionals. Els atributs disponibles són:</term>
 
 <listitem>
 <para
@@ -1091,7 +1096,7 @@
 <para
 >Cada regla pot coincidir en cap o amb diversos caràcters al començament de la cadena amb què es comparen. Si la regla coincideix, als caràcters coincidents se'ls assigna l'estil o <emphasis
 >attribute</emphasis
-> definit per la regla, tanmateix una regla pot demanar que es canviï el context actual.</para>
+> definit per la regla, tanmateix, una regla pot demanar que es canviï el context actual.</para>
 
 <para
 >Una regla té aquest aspecte:</para>
@@ -1126,7 +1131,9 @@
 >#stay</userinput
 >), o que salti al context anterior (<userinput
 >#pop</userinput
->).</para>
+>). Un context buit o absent és equivalent a <userinput
+>#stay</userinput
+>.</para>
 <para
 >Per a retrocedir més passos, es pot repetir la paraula clau #pop: <userinput
 >#pop#pop#pop</userinput
@@ -1152,15 +1159,11 @@
 >##</userinput
 >) i un altre <emphasis
 >identificador</emphasis
->, el qual és el nom d'una definició de llenguatge. Aquest nom és similar al què s'utilitza en les regles <userinput
+>, el qual és el nom d'una definició de llenguatge. Aquest nom és similar al que s'utilitza en les regles <userinput
 >IncludeRules</userinput
 > i permet canviar a un context que pertany a una altra definició de ressaltat de la sintaxi, &pex;, <userinput
 >AlgunContext##JavaScript</userinput
->. Cal tenir en compte que no és possible utilitzar aquest canvi de context en combinació amb <userinput
->#pop</userinput
->, &pex;, <userinput
->#pop!AlgunContext##JavaScript</userinput
-> no és vàlid.</para>
+>. </para>
 </listitem>
 </itemizedlist>
 
@@ -1173,25 +1176,25 @@
 <para
 >Totes les regles tenen els següents atributs comuns i estan disponibles sempre que apareixen <userinput
 >(atributs comuns)</userinput
->. <emphasis
->attribute</emphasis
-> i <emphasis
->context</emphasis
-> són atributs requerits, els altres són opcionals. </para>
+>. Tots els atributs són opcionals. </para>
 
 <listitem>
 <para
 ><emphasis
 >attribute</emphasis
->: Un mapa d'atributs d'un <emphasis
+>: Un atribut es correspon a un <emphasis
 >itemData</emphasis
-> definit.</para>
+> definit. De manera predeterminada: <emphasis
+>attribute</emphasis
+> del context especificat en l'atribut <emphasis
+>context</emphasis
+>.</para>
 </listitem>
 <listitem>
 <para
 ><emphasis
 >context</emphasis
->: Especifica el context al que canviarà el sistema de ressaltat si les regles coincideixen.</para>
+>: Especifica el context al qual canviarà el sistema de ressaltat si les regles coincideixen. De manera predeterminada: #stay.</para>
 </listitem>
 <listitem>
 <para
@@ -1497,6 +1500,10 @@
 > defineix el primer caràcter a comparar, <userinput
 >char1</userinput
 > el segon.</para>
+<para
+>Aquesta regla és present per raons històriques i per llegibilitat és preferible utilitzar <userinput
+>StringDetect</userinput
+>.</para>
 </listitem>
 </varlistentry>
 
@@ -1878,16 +1885,6 @@
 
 <listitem>
 <para
->Si només heu de localitzar dos caràcters, utilitzeu <userinput
->Detect2Chars</userinput
-> en comptes de <userinput
->StringDetect</userinput
->. El mateix s'aplica a <userinput
->DetectChar</userinput
->.</para>
-</listitem>
-<listitem>
-<para
 >Les expressions regulars són fàcils d'emprar, però a vegades hi ha formes molt més ràpides d'obtenir el mateix resultat. Imagineu que només desitgeu localitzar el caràcter <userinput
 >«#»</userinput
 > si aquest és el primer caràcter de la línia. Una solució basada en una expressió regular seria quelcom semblant a això: <programlisting
@@ -1902,7 +1899,7 @@
 >column=&quot;0&quot;</userinput
 >. L'atribut <userinput
 >column</userinput
-> compta els caràcters, per tant el tabulador és només un caràcter. </para>
+> compta els caràcters, per tant, el tabulador és només un caràcter. </para>
 </listitem>
 <listitem>
 <para
@@ -1929,7 +1926,7 @@
 >, però cal processar aquesta cadena en el següent context. La regla de sota coincidirà, i l'atribut <userinput
 >lookAhead</userinput
 > farà que es desi la cadena coincident per al següent context. <programlisting
->&lt;Detect2Chars attribute=&quot;Comment&quot; context=&quot;#pop&quot; char=&quot;*&quot; char1=&quot;/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
+>&lt;StringDetect attribute=&quot;Comment&quot; context=&quot;#pop&quot; String=&quot;*/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
 </para>
 </listitem>
 <listitem>
@@ -1957,12 +1954,12 @@
 <listitem>
 <para
 >Podeu validar tots els fitxers &XML; utilitzant l'ordre <command
->validatehl.sh language.xsd mySyntax.xml</command
->. Els fitxers <filename
+>validatehl.sh mySyntax.xml</command
+>. El fitxer <filename
 >validatehl.sh</filename
-> i <filename
+> usa el <filename
 >language.xsd</filename
-> estan disponibles al <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
+>, els quals estan disponibles al <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
 >repositori del ressaltat de la sintaxi</ulink
 >. </para>
 </listitem>
@@ -1973,7 +1970,7 @@
 >. Exemple:</para>
 <programlisting
 >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE language SYSTEM "language.dtd"
+&lt;!DOCTYPE language
 [
         &lt;!ENTITY la_meva_ref    "[A-Za-z_:][\w.:_-]*"&gt;
 ]&gt;
@@ -1982,6 +1979,44 @@
 >Ara podeu utilitzar <emphasis
 >&amp;la_meva_ref;</emphasis
 > en comptes de l'expressió regular.</para>
+</listitem>
+<listitem>
+<para
+>A l'editor del Kate, podeu tornar a carregar les sintaxis utilitzant la línia d'ordres integrada (drecera predeterminada <userinput
+>F7</userinput
+>) i l'ordre <command
+>reload-highlighting</command
+>.</para>
+</listitem>
+<listitem>
+<para
+>Podeu utilitzar la utilitat de línia d'ordres anomenada <userinput
+>ksyntaxhighlighter6</userinput
+> (<userinput
+>kate-syntax-highlighter</userinput
+> en versions anteriors) per provar una sintaxi i mostrar l'estil i les regions associades amb cada part d'un text.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="ksyntaxhighlighter6-trace-format.png"/></imageobject>
+<textobject
+><phrase
+>Resultat de <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</phrase
+></textobject>
+<caption
+><para
+>Resultat de <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</para>
+</caption>
+</mediaobject>
+
+<para
+>Useu <command
+>ksyntaxhighlighter6 -h</command
+> per a més opcions.</para>
 </listitem>
 </itemizedlist>
 </sect3>

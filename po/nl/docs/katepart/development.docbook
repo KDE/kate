@@ -582,6 +582,15 @@
 
 <para
 ><userinput
+>attribuut</userinput
+> identificeert de te gebruiken stijl voor een teken wanneer geen regel overeenkomt of wanneer een regel geen attribuut specificeert. In het laatste geval zal het <emphasis
+>attribuut</emphasis
+> van de context gespecificeerd in de <emphasis
+>context</emphasis
+> van de regel worden gebruikt.</para>
+
+<para
+><userinput
 >lineEndContext</userinput
 > definieert de context waarnaar het systeem voor accentuering omschakelt als het einde van een regel wordt bereikt. Dit kan of de naam van een andere context zijn, <userinput
 >#stay</userinput
@@ -597,11 +606,7 @@
 >IncludeRules</userinput
 >, &eg; <userinput
 >SomeContext##JavaScript</userinput
->. Merk op dat het niet mogelijk is om deze omschakeling van context te gebruiken in combinatie met <userinput
->#pop</userinput
->, bijvoorbeeld, <userinput
->#pop!SomeContext##JavaScript</userinput
-> is niet geldig. Omschakelen van context worden ook beschreven in <xref linkend="kate-highlight-rules-detailled"/>.</para>
+>. Omschakelen van context wordt ook beschreven in <xref linkend="kate-highlight-rules-detailled"/>. Standaard: #stay.</para>
 <para
 ><userinput
 >lineEmptyContext</userinput
@@ -1116,7 +1121,9 @@
 >#stay</userinput
 >) of terug te gaan naar een eerdere context met in de tekenreeks (<userinput
 >#pop</userinput
->).</para>
+>). Een lege of afwezige context is gelijk aan <userinput
+>#stay</userinput
+>.</para>
 <para
 >Om meer stappen terug te gaan kan het #pop commando worden herhaald: <userinput
 >#pop#pop#pop</userinput
@@ -1146,11 +1153,7 @@
 >IncludeRules</userinput
 > regels en u toestaat om naar een context om te schakelen behorende bij een andere syntaxisaccentueringsdefinitie, bijv. <userinput
 >SomeContext##JavaScript</userinput
->. Merk op dat het niet mogelijk is om deze omschakeling van context te gebruiken in combinatie met <userinput
->#pop</userinput
->, bijvoorbeeld, <userinput
->#pop!SomeContext##JavaScript</userinput
-> is niet geldig.</para>
+>. </para>
 </listitem>
 </itemizedlist>
 
@@ -1163,11 +1166,7 @@
 <para
 >Alle regels hebben de volgende gezamenlijke attributen en zijn beschikbaar wanneer <userinput
 >(common attributes)</userinput
-> verschijnt. <emphasis
->attribute</emphasis
-> en <emphasis
->context</emphasis
-> zijn vereiste attributen, alle andere zijn optioneel. </para>
+> verschijnt. Alle attributen zijn optioneel. </para>
 
 <listitem>
 <para
@@ -1175,13 +1174,17 @@
 >attribute</emphasis
 >: Een attribuut komt overeen met een gedefinieerd <emphasis
 >itemData</emphasis
+>. Standaard: <emphasis
+>attribuut</emphasis
+> uit de context gespecificeerd in attribuut <emphasis
+>context</emphasis
 >.</para>
 </listitem>
 <listitem>
 <para
 ><emphasis
 >context</emphasis
->: Specificeer de context waarnaar het accentueringssysteem omschakelt als de regel overeenkomt.</para>
+>: Specificeer de context waarnaar het accentueringssysteem omschakelt als de regel overeenkomt. Standaard: #stay.</para>
 </listitem>
 <listitem>
 <para
@@ -1489,6 +1492,10 @@
 > definieert het eerste teken dat moet overeenkomen, <userinput
 >char1</userinput
 > the tweede.</para>
+<para
+>Deze regel is aanwezig voor historische redenen en voor leesbaarheid heeft het voorkeur om <userinput
+>StringDetect</userinput
+> te gebruiken.</para>
 </listitem>
 </varlistentry>
 
@@ -1872,16 +1879,6 @@
 
 <listitem>
 <para
->Als u alleen twee tekens wilt laten overeenkomen gebruik dan <userinput
->Detect2Chars</userinput
-> in plaats van <userinput
->StringDetect</userinput
->. Hetzelfde is van toepassing op <userinput
->DetectChar</userinput
->.</para>
-</listitem>
-<listitem>
-<para
 >Reguliere expressies zijn gemakkelijk te gebruiken maar vaak is er een andere veel snellere manier om hetzelfde resultaat te behalen. U wilt alleen een overeenkomst vinden met het teken <userinput
 >'#'</userinput
 > als het het eerste teken is in de regel. Een oplossing gebaseerd op een reguliere expressie zou er zo uit zien: <programlisting
@@ -1923,7 +1920,7 @@
 > tegenkomt, maar u moet die tekenreeks in de volgende context bewerken. De onderstaande regel zal overeenkomen en het attribuut <userinput
 >lookAhead</userinput
 > zal de overeenkomende tekenreeks voor accentuering bewaren voor de volgende context. <programlisting
->&lt;Detect2Chars attribute=&quot;Comment&quot; context=&quot;#pop&quot; char=&quot;*&quot; char1=&quot;/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
+>&lt;StringDetect attribute=&quot;Comment&quot; context=&quot;#pop&quot; String=&quot;*/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
 </para>
 </listitem>
 <listitem>
@@ -1951,12 +1948,12 @@
 <listitem>
 <para
 >U kunt elk &XML;-bestand valideren met de opdracht <command
->validatehl.sh language.xsd mySyntax.xml</command
->. De bestanden <filename
+>validatehl.sh mySyntax.xml</command
+>. Het bestand <filename
 >validatehl.sh</filename
-> en <filename
->taal.xsd</filename
-> zijn beschikbaar in <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
+> gebruikt <filename
+>language.xsd</filename
+> die beiden beschikbaar zijn in <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
 >Opslagruimte voor accentuering van syntaxis</ulink
 >. </para>
 </listitem>
@@ -1967,7 +1964,7 @@
 > gebruiken. Voorbeeld:</para>
 <programlisting
 >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE language SYSTEM "language.dtd"
+&lt;!DOCTYPE language
 [
         &lt;!ENTITY myref    "[A-Za-z_:][\w.:_-]*"&gt;
 ]&gt;
@@ -1976,6 +1973,44 @@
 >Nu kunt u <emphasis
 >&amp;myref;</emphasis
 > gebruiken in plaats van de reguliere expressie.</para>
+</listitem>
+<listitem>
+<para
+>In de bewerker Kate kunt u syntaxes herladen met de ingebouwde opdrachtregel (<userinput
+>F7</userinput
+> standaard sneltoets) en de opdracht <command
+>reload-highlighting</command
+>.</para>
+</listitem>
+<listitem>
+<para
+>U kunt het hulpmiddel op de opdrachtregel genaamd <userinput
+>ksyntaxhighlighter6</userinput
+> gebruiken (<userinput
+>kate-syntax-highlighter</userinput
+> op oudere versies) om een syntaxis te testen en de stijl en gebieden geassocieerd met elk deel van een tekst te tonen.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="ksyntaxhighlighter6-trace-format.png"/></imageobject>
+<textobject
+><phrase
+>Resultaat van <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</phrase
+></textobject>
+<caption
+><para
+>Resultaat van <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</para>
+</caption>
+</mediaobject>
+
+<para
+>Gebruik <command
+>ksyntaxhighlighter6 -h</command
+> voor meer opties.</para>
 </listitem>
 </itemizedlist>
 </sect3>

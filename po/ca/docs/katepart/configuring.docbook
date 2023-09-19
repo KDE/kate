@@ -1258,7 +1258,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem>
 <para
->Defineix la codificació de reserva per a intentar obrir els fitxers si no es tria cap codificació com a estàndard, ni s'especifica en el diàleg obre/desa, ni a la línia d'ordres que coincideixi amb el contingut del fitxer. Abans d'utilitzar-la, es farà una temptativa per a determinar la codificació a utilitzar cercant una marca d'ordre de bytes a l'inici del fitxer: Si es troba, se seleccionarà la codificació unicode correcta, altrament s'executarà la detecció de la codificació, i si les dues fallen, es triarà la codificació de reserva.</para>
+>Defineix la codificació de reserva per a intentar obrir els fitxers si no es tria cap codificació com a estàndard, ni s'especifica en el diàleg obre/desa, ni a la línia d'ordres que coincideixi amb el contingut del fitxer. Abans d'utilitzar-la, es farà una temptativa per a determinar la codificació a utilitzar cercant una marca d'ordre de bytes a l'inici del fitxer: Si es troba, se seleccionarà la codificació Unicode correcta, altrament s'executarà la detecció de la codificació, i si totes dues fallen, es triarà la codificació de reserva.</para>
 </listitem>
 </varlistentry>
 
@@ -1290,7 +1290,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem>
 <para
->La marca d'ordre de bytes és una seqüència especial al començament dels documents codificats amb unicode. Ajuda als editors a obrir documents de text amb la codificació unicode correcta. Per a obtenir més informació, vegeu <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
+>La marca d'ordre de bytes és una seqüència especial al començament dels documents codificats amb Unicode. Ajuda als editors a obrir documents de text amb la codificació Unicode correcta. Per a obtenir més informació, vegeu <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
 >Marca d'ordre de bytes</ulink
 >.</para>
 </listitem>
@@ -1404,7 +1404,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Els fitxers de còpia de seguretat faran que la &kappname; copiï el fitxer del disc (la versió del fitxer desada anteriorment) a &lt;prefix&gt;&lt;nomfitxer&gt;&lt;sufix&gt; abans de desar els canvis nous. Un fitxer de còpia de seguretat pot ajudar a recuperar el treball si quelcom acaba malament en desar o si més tard voleu recuperar la versió anterior del fitxer. El sufix predeterminat és <emphasis role="bold"
+>Els fitxers de còpia de seguretat faran que la &kappname; copiï el fitxer del disc (la versió del fitxer desada anteriorment) a &lt;prefix&gt;&lt;nomfitxer&gt;&lt;sufix&gt; abans de desar els canvis nous. Un fitxer de còpia de seguretat pot ajudar a recuperar el treball si res acaba malament en desar o si més tard voleu recuperar la versió anterior del fitxer. El sufix predeterminat és <emphasis role="bold"
 >~</emphasis
 > i el prefix restarà buit de manera predeterminada. </para>
 <variablelist>
@@ -1477,7 +1477,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ><para
 >De manera predeterminada, els fitxers d'intercanvi es desaran a la mateixa carpeta que el fitxer. Quan es tria <guilabel
 >Activat, emmagatzematge en un directori personalitzat</guilabel
-> per al mode del fitxer d'intercanvi, aquests es crearan a la carpeta especificada. Això és útil per a sistemes de fitxers en xarxa per a evitar el trànsit de xarxa innecessari.</para>
+> al mode del fitxer d'intercanvi, aquests es crearan a la carpeta especificada. Això és útil per a sistemes de fitxers en xarxa per a evitar el trànsit de xarxa innecessari.</para>
 </listitem>
 </varlistentry>
 <varlistentry>

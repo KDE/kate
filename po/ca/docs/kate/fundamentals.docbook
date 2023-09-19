@@ -879,7 +879,7 @@ action="simul"
 > amb una cadena buida: <replaceable
 >''</replaceable
 >.</para>
-<!--FIXME still valid for kf5 -->
+
 <para
 >Des del &kate; 2.5.1 el <acronym
 >PID</acronym
@@ -1038,7 +1038,7 @@ action="simul"
 <para
 >El &kate; no proveeix (encara!) cap mitjà per a llegir documents relacionats amb la documentació. Depenent del fitxer que esteu editant, podreu trobar ajuda en l'<link linkend="kate-application-plugin-konsole"
 >Emulador de terminal integrat</link
->, a on podreu veure les pàgines del manual d'&UNIX; o de la documentació info relacionades o per a aquesta fi també podeu emprar el &konqueror;.</para>
+>, a on podreu veure les pàgines del manual d'&UNIX; o de la documentació info relacionades o per a aquest fi també podeu emprar el &konqueror;.</para>
 
 </sect2>
 

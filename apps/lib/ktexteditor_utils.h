@@ -7,6 +7,8 @@
 #include "kateprivate_export.h"
 
 #include <QString>
+#include <QUrl>
+#include <QWidgetList>
 
 QT_BEGIN_NAMESPACE
 class QScrollBar;

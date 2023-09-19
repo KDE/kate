@@ -5,6 +5,7 @@
 */
 #pragma once
 
+#include <QSet>
 #include <QString>
 #include <QVector>
 

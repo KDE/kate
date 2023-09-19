@@ -443,8 +443,6 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
             urlGroup.deleteGroup();
             ok = false;
         }
-
-        m_metaInfos.sync();
     }
 
     return ok && doc->url() == url;
@@ -490,11 +488,6 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
             doc->writeSessionConfig(urlGroup);
         }
     }
-
-    /**
-     * sync to not loose data
-     */
-    m_metaInfos.sync();
 }
 
 void KateDocManager::slotModChanged(KTextEditor::Document *doc)

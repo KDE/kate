@@ -1746,7 +1746,7 @@ msgstr "&Araç Görünümleri"
 #: lib/katemdi.cpp:111
 #, kde-format
 msgid "Show Side&bars"
-msgstr "Yan Çu&bukları Göster"
+msgstr "Kenar Çu&buklarını Göster"
 
 #: lib/katemdi.cpp:119
 #, kde-format
@@ -1811,17 +1811,17 @@ msgstr "Bir Sola"
 #: lib/katemdi.cpp:1057
 #, kde-format
 msgid "Left Sidebar"
-msgstr "Sol Yan Çubuğu"
+msgstr "Sol Kenar Çubuğu"
 
 #: lib/katemdi.cpp:1061
 #, kde-format
 msgid "Right Sidebar"
-msgstr "Sağ Yan Çubuğu"
+msgstr "Sağ Kenar Çubuğu"
 
 #: lib/katemdi.cpp:1065
 #, kde-format
 msgid "Top Sidebar"
-msgstr "Üst Yan Çubuğu"
+msgstr "Üst Kenar Çubuğu"
 
 #: lib/katemdi.cpp:1069
 #, kde-format
@@ -1837,11 +1837,12 @@ msgid ""
 "Sidebars</b> in the menu. It is still possible to show/hide the tool views "
 "with the assigned shortcuts.</qt>"
 msgstr ""
-"<qt>Yan çubukları gizlemek üzeresiniz. Yan çubukları gizlediğinizde artık "
-"fare yardımıyla araçlar görünümlerine doğrudan erişemezsiniz. Yan çubuklara "
-"yeniden erişmek isterseniz menüden <b>Görünüm &gt; Araç Görünümleri &gt; Yan "
-"Çubukları Göster</b> yolunu izlemelisiniz. Kısayolları kullanarak araç "
-"görünümlerini gizlemek/göstermek de olanaklıdır.</qt>"
+"<qt>Kenar çubuklarını gizlemek üzeresiniz. Kenar çubuklarını gizlediğinizde "
+"artık fare yardımıyla araçlar görünümlerine doğrudan erişemezsiniz. Kenar "
+"çubuklarına yeniden erişmek isterseniz menüden <b>Görünüm &gt; Araç "
+"Görünümleri &gt; Kenar Çubuklarını Göster</b> yolunu izlemelisiniz. "
+"Kısayolları kullanarak araç görünümlerini gizlemek/göstermek de olanaklıdır."
+"</qt>"
 
 #: lib/katemwmodonhddialog.cpp:53
 #, kde-format
@@ -2850,7 +2851,3 @@ msgstr "Oturumları Yönet..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Yeni pencerelerde göster"
-
-#~ msgid "This view may have unsaved work. Do you really want to close it?"
-#~ msgstr ""
-#~ "Bu görünümde kaydedilmemiş veri var. Gerçekten kapatmak istiyor musunuz?"

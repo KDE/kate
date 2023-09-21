@@ -461,6 +461,8 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
         return;
     }
 
+    const QSet<QString> flags{QStringLiteral("SkipUrl")};
+
     /**
      * store meta info for all non-modified documents which have some checksum
      */
@@ -478,14 +480,20 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
             /**
              * write the group with checksum and time
              */
-            KConfigGroup urlGroup(&m_metaInfos, doc->url().toString());
-            urlGroup.writeEntry("Checksum", QString::fromLatin1(checksum));
-            urlGroup.writeEntry("Time", now);
+            const QString url = doc->url().toString();
+            KConfigGroup urlGroup(&m_metaInfos, url);
 
             /**
              * write document session config
              */
-            doc->writeSessionConfig(urlGroup);
+            doc->writeSessionConfig(urlGroup, flags);
+            if (!urlGroup.keyList().isEmpty()) {
+                urlGroup.writeEntry("URL", url);
+                urlGroup.writeEntry("Checksum", QString::fromLatin1(checksum));
+                urlGroup.writeEntry("Time", now);
+            } else {
+                urlGroup.deleteGroup();
+            }
         }
     }
 }

@@ -2823,7 +2823,3 @@ msgstr "Oturumları Yönet..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Yeni pencerelerde göster"
-
-#~ msgid "This view may have unsaved work. Do you really want to close it?"
-#~ msgstr ""
-#~ "Bu görünümde kaydedilmemiş veri var. Gerçekten kapatmak istiyor musunuz?"

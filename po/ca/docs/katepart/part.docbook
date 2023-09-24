@@ -966,9 +966,9 @@
 ><para
 >Per a crear-los a través del teclat, premeu <keycombo action="simul"
 >&Ctrl;&Alt;&Up;</keycombo
-> per crear un cursor sobre el cursor primari i <keycombo action="simul"
+> per a crear un cursor sobre el cursor primari i <keycombo action="simul"
 >&Ctrl;&Alt;&Down;</keycombo
-> per crear el cursor a sota. Aquestes dreceres també són configurables.</para
+> per a crear el cursor a sota. Aquestes dreceres també són configurables.</para
 ></listitem>
 
 <listitem
@@ -1003,11 +1003,11 @@
 >&Ctrl;&Alt;&Maj;<keycap
 >J</keycap
 ></keycombo
-> per cercar totes les ocurrències de la paraula sota el cursor i seleccionar-les amb un cursor al final de cada selecció. Podeu usar <keycombo action="simul"
+> per a cercar totes les ocurrències de la paraula sota el cursor i seleccionar-les amb un cursor al final de cada selecció. Podeu usar <keycombo action="simul"
 >&Alt;<keycap
 >J</keycap
 ></keycombo
-> per circular a través de les paraules seleccionades i usar <keycombo action="simul"
+> per a circular a través de les paraules seleccionades i usar <keycombo action="simul"
 >&Alt;<keycap
 >K</keycap
 ></keycombo
@@ -1024,7 +1024,7 @@
 >Una vegada hàgiu creat alguns cursors, podreu realitzar la majoria de les operacions d'edició sobre ells com ho faríeu en un cursor sol. Per exemple, teclejar una lletra l'escriurà per a cada cursor. De la mateixa manera podeu realitzar transformacions de text, &pex;, posar en majúscules totes les posicions o seleccions.</para>
 
 <para
->A vegades voldreu eliminar cursors. Per fer-ho, podeu fer &Alt; + &BER; al cursor que voleu eliminar. Si només voleu eliminar els cursors en línies que estan buides, hi ha una acció preparada ho farà. Per invocar l'acció, obriu la barra d'ordres utilitzant <keycombo action="simul"
+>A vegades voldreu eliminar cursors. Per a fer-ho, podeu fer &Alt; + &BER; al cursor que voleu eliminar. Si només voleu eliminar els cursors en línies que estan buides, hi ha una acció preparada ho farà. Per a invocar l'acció, obriu la barra d'ordres utilitzant <keycombo action="simul"
 >&Ctrl;&Alt;<keycap
 >I</keycap
 ></keycombo

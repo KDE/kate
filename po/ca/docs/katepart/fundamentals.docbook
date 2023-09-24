@@ -396,7 +396,7 @@
 ></entry>
 <entry
 ><para
->Insereix una nova línia incloent caràcters al començament de la línia actual, que no siguin lletres o números. És útil, &pex;, per escriure comentaris en el codi: Al final de la línia <quote
+>Insereix una nova línia incloent caràcters al començament de la línia actual, que no siguin lletres o números. És útil, &pex;, per a escriure comentaris en el codi: Al final de la línia <quote
 >// algun text</quote
 > premeu aquesta drecera i la següent línia ja començarà amb <quote
 >//</quote

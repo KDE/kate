@@ -840,9 +840,9 @@
 ></term>
 <listitem>
 <para
->Aquesta opció permet establir el modificador que s'utilitzarà per crear cursors múltiples amb un clic del &BER;. Cal prémer els modificadors i fer clic amb el &BER; per crear un cursor en la ubicació desitjada. Vegeu <link linkend="kate-part-create-multiple-cursors"
+>Aquesta opció permet establir el modificador que s'utilitzarà per a crear cursors múltiples amb un clic del &BER;. Cal prémer els modificadors i fer clic amb el &BER; per a crear un cursor en la ubicació desitjada. Vegeu <link linkend="kate-part-create-multiple-cursors"
 >Creació de cursors múltiples</link
-> per descobrir altres maneres de crear cursors múltiples.</para>
+> per a descobrir altres maneres de crear cursors múltiples.</para>
 </listitem>
 </varlistentry>
 

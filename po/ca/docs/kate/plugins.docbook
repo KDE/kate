@@ -269,7 +269,7 @@
 <para
 ><userinput
 >Activador</userinput
->, un activador per executar aquesta eina. Un activador només afectarà el document actiu actualment i només s'executarà si el tipus MIME del document actiu actual coincideix amb el tipus MIME de l'eina externa.</para>
+>, un activador per a executar aquesta eina. Un activador només afectarà el document actiu actualment i només s'executarà si el tipus MIME del document actiu actual coincideix amb el tipus MIME de l'eina externa.</para>
     <variablelist
 ><varlistentry>
     <term
@@ -1574,7 +1574,7 @@
 ><title
 >Introducció</title>
 <para
->El connector de claus amb color acoloreix els parells de claus que concorden en colors diferents per millorar la llegibilitat. No obstant això, no s'acoloreixen totes les claus. S'ignorarà la clau quan la clau concordant d'obertura o tancament no sigui visible. De la mateixa manera, no s'acolorirà un parell de claus que sigui l'únic parell de claudàtors d'una línia. </para>
+>El connector de claus amb color acoloreix els parells de claus que concorden en colors diferents per a millorar la llegibilitat. No obstant això, no s'acoloreixen totes les claus. S'ignorarà la clau quan la clau concordant d'obertura o tancament no sigui visible. De la mateixa manera, no s'acolorirà un parell de claus que sigui l'únic parell de claudàtors d'una línia. </para>
 </sect2>
 
 <sect2
@@ -3019,7 +3019,7 @@ folder if possible.</para
 ></term>
 <listitem>
 <para
->Conté una àrea que mostra la sortida del programa en execució i una línia d'ordres des d'on podeu proveir entrades a aquest.</para>
+>Conté una àrea que mostra la sortida del programa en execució i una línia d'ordres des d'on podeu proveir entrades en aquest.</para>
 
 <screenshot id="screenshot-gdb-io">
 <screeninfo
@@ -3341,7 +3341,7 @@ kate /path/to/folder
 >"hidden"</code
 > és 0. <code
 >"exclude_patterns"</code
-> és una llista de patrons d'expressió regular que es poden utilitzar per excloure carpetes i fitxers de l'arbre del projecte. En aquest exemple, s'exclouran tots els fitxers i carpetes d'un directori <filename
+> és una llista de patrons d'expressió regular que es poden utilitzar per a excloure carpetes i fitxers de l'arbre del projecte. En aquest exemple, s'exclouran tots els fitxers i carpetes d'un directori <filename
 >build</filename
 > des de l'arrel. </para>
 
@@ -3395,7 +3395,7 @@ kate /path/to/folder
 >"name"</code
 > és el nom de l'objectiu, <code
 >"build_cmd"</code
-> s'usarà per construir l'objectiu, <code
+> s'usarà per a construir l'objectiu, <code
 >"run_cmd"</code
 > s'usarà per a executar l'objectiu. El més important de tot és <code
 > "directory"</code
@@ -3994,7 +3994,7 @@ Projects Replicode run / stop-->
 <title
 >Implementació del símbol «goto»</title>
 <para
->El client LSP pot ajudar-vos a saltar a qualsevol símbol en el vostre projecte o fitxer actual. Per saltar a qualsevol símbol del fitxer, useu la vista d'eina «Client LSP de símbols d'esquema» a la vora dreta del Kate. Aquesta vista d'eina llista tots els símbols trobats pel servidor en el document actual. </para>
+>El client LSP pot ajudar-vos a saltar a qualsevol símbol en el vostre projecte o fitxer actual. Per a saltar a qualsevol símbol del fitxer, useu la vista d'eina «Client LSP de símbols d'esquema» a la vora dreta del Kate. Aquesta vista d'eina llista tots els símbols trobats pel servidor en el document actual. </para>
 
 <sect3 id="lspclient-symbol-outline-config">
 <title
@@ -4011,7 +4011,7 @@ Projects Replicode run / stop-->
 <title
 >Implementació del símbol «goto» global</title>
 <para
->Per saltar a qualsevol símbol del projecte, podeu obrir el diàleg del símbol «goto» utilitzant <keycombo action="simul"
+>Per a saltar a qualsevol símbol del projecte, podeu obrir el diàleg del símbol «goto» utilitzant <keycombo action="simul"
 >&Ctrl;&Alt;<keycap
 >p</keycap
 ></keycombo
@@ -4025,7 +4025,7 @@ Projects Replicode run / stop-->
 >Altres característiques</title>
 
 <para
->S'admet l'ordre de la capçalera del codi font de commutació del «clangd». Per canviar la capçalera d'origen en un projecte de C o C++ utilitzeu l'opció «Commuta la capçalera del codi font» des del menú contextual o la drecera <keycombo action="simul"
+>S'admet l'ordre de la capçalera del codi font de commutació del «clangd». Per a canviar la capçalera d'origen en un projecte de C o C++ utilitzeu l'opció «Commuta la capçalera del codi font» des del menú contextual o la drecera <keycombo action="simul"
 ><keycap
 >F12</keycap
 ></keycombo
@@ -4144,7 +4144,7 @@ Projects Replicode run / stop-->
 >, no es proporcionarà cap ID d'idioma al servidor en obrir el document. Això pot tenir millors resultats per a alguns servidors que són més precisos determinant el tipus de document que fer-ho basant-se en un mode del &kate;. </para>
 
 <para
->A partir de l'exemple anterior, se suposa que l'essència és clara. A més, cada objecte d'entrada del servidor també podrà tenir una entrada «initializationOptions», la qual es passarà al servidor com a part del mètode «initialize». Si està present, es passarà una entrada «settings» al servidor mitjançant la notificació «workspace/didChangeConfiguration». Es poden especificar tant «completionTriggerCharacters» o «signatureTriggerCharacters» com un objecte JSON amb membres de cadena "exclude" i/o "include". S'utilitzaran per excloure o afegir alguns caràcters al joc d'activadors respectiu tal com el proporciona el servidor. </para>
+>A partir de l'exemple anterior, se suposa que l'essència és clara. A més, cada objecte d'entrada del servidor també podrà tenir una entrada «initializationOptions», la qual es passarà al servidor com a part del mètode «initialize». Si està present, es passarà una entrada «settings» al servidor mitjançant la notificació «workspace/didChangeConfiguration». Es poden especificar tant «completionTriggerCharacters» o «signatureTriggerCharacters» com un objecte JSON amb membres de cadena "exclude" i/o "include". S'utilitzaran per a excloure o afegir alguns caràcters al joc d'activadors respectiu tal com el proporciona el servidor. </para>
 
 <para
 >S'apliquen diverses etapes de superposició/fusió; <itemizedlist>
@@ -5315,7 +5315,7 @@ when finished.</para
 
 <sect3 id="keyboardmacros-basicusage-record">
 <title
->Per començar l'enregistrament d'una macro de teclat:</title>
+>Per a començar l'enregistrament d'una macro de teclat:</title>
 <para
 ><menuchoice
 ><guimenu
@@ -5336,7 +5336,7 @@ when finished.</para
 
 <sect3 id="keyboardmacros-basicusage-record-end">
 <title
->Per finalitzar l'enregistrament:</title>
+>Per a finalitzar l'enregistrament:</title>
 <para
 ><menuchoice
 ><guimenu
@@ -5357,7 +5357,7 @@ when finished.</para
 
 <sect3 id="keyboardmacros-basicusage-record-cancel">
 <title
->Per cancel·lar l'enregistrament:</title>
+>Per a cancel·lar l'enregistrament:</title>
 <para
 ><menuchoice
 ><guimenu
@@ -5378,7 +5378,7 @@ when finished.</para
 
 <sect3 id="keyboardmacros-basicusage-play">
 <title
->Per reproduir la macro actual:</title>
+>Per a reproduir la macro actual:</title>
 <para
 ><menuchoice
 ><guimenu
@@ -5418,7 +5418,7 @@ when finished.</para
 
 <sect3 id="keyboardmacros-namedmacros-save">
 <title
->Per desar la macro actual:</title>
+>Per a desar la macro actual:</title>
 <para
 ><menuchoice
 ><guimenu
@@ -5449,7 +5449,7 @@ when finished.</para
 
 <sect3 id="keyboardmacros-namedmacros-load">
 <title
->Per carregar una macro desada com a macro actual:</title>
+>Per a carregar una macro desada com a macro actual:</title>
 <para
 ><menuchoice
 ><guimenu
@@ -5476,7 +5476,7 @@ when finished.</para
 
 <sect3 id="keyboardmacros-namedmacros-play">
 <title
->Per reproduir una macro desada sense carregar-la:</title>
+>Per a reproduir una macro desada sense carregar-la:</title>
 <para
 ><menuchoice
 ><guimenu
@@ -5511,7 +5511,7 @@ when finished.</para
 
 <sect3 id="keyboardmacros-namedmacros-wipe">
 <title
->Per esborrar (és a dir, suprimir) una macro desada:</title>
+>Per a esborrar (és a dir, suprimir) una macro desada:</title>
 <para
 ><menuchoice
 ><guimenu

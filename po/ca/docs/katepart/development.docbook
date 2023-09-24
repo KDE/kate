@@ -616,7 +616,7 @@
 <para
 ><userinput
 >fallthroughContext</userinput
-> especifica el context següent al que canviar si no coincideix cap regla. La nomenclatura dels commutadors de context és la mateixa que s'ha descrit anteriorment a <emphasis
+> especifica el context següent al qual canviar si no coincideix cap regla. La nomenclatura dels commutadors de context és la mateixa que s'ha descrit anteriorment a <emphasis
 >lineEndContext</emphasis
 >. De manera predeterminada: #stay.</para>
 <para
@@ -1994,7 +1994,7 @@
 >ksyntaxhighlighter6</userinput
 > (<userinput
 >kate-syntax-highlighter</userinput
-> en versions anteriors) per provar una sintaxi i mostrar l'estil i les regions associades amb cada part d'un text.</para>
+> en versions anteriors) per a provar una sintaxi i mostrar l'estil i les regions associades amb cada part d'un text.</para>
 
 <mediaobject>
 <imageobject
@@ -2067,7 +2067,7 @@
 </para>
 
 <para
->Per evitar confusions, el següent queda fora de l'àmbit: <itemizedlist>
+>Per a evitar confusions, el següent queda fora de l'àmbit: <itemizedlist>
 <listitem
 ><para
 >El tipus i mida de la lletra.</para

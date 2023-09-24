@@ -117,7 +117,7 @@ regulars de Perl, ni de <command
 >Pere</literal
 >, després una part de coincidència exacta <literal
 >di</literal
-> i per acabar un altre subpatró que coincideix amb <literal
+> i, finalment, un altre subpatró que coincideix amb <literal
 >u</literal
 > <emphasis
 >o amb </emphasis

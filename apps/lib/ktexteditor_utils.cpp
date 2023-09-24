@@ -9,6 +9,7 @@
 #include "diffwidget.h"
 #include "katemainwindow.h"
 
+#include <QDir>
 #include <QFontDatabase>
 #include <QIcon>
 #include <QMimeDatabase>
@@ -242,5 +243,20 @@ KTextEditor::Cursor cursorFromOffset(KTextEditor::Document *doc, int offset)
         return KTextEditor::Cursor(line, col);
     }
     return KTextEditor::Cursor::invalid();
+}
+
+QString niceFileNameWithPath(const QUrl &url)
+{
+    // we want some filename @ folder output to have chance to keep important stuff even on elide
+    if (url.isLocalFile()) {
+        // perhaps shorten the path
+        const QString homePath = QDir::homePath();
+        QString path = url.toString(QUrl::RemoveFilename | QUrl::PreferLocalFile | QUrl::StripTrailingSlash);
+        if (path.startsWith(homePath)) {
+            path = QLatin1String("~") + path.right(path.length() - homePath.length());
+        }
+        return url.fileName() + QStringLiteral(" @ ") + path;
+    }
+    return url.toDisplayString();
 }
 }

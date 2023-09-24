@@ -7,6 +7,8 @@
 
 #include "recentitemsmodel.h"
 
+#include "ktexteditor_utils.h"
+
 #include <QMimeDatabase>
 
 RecentItemsModel::RecentItemsModel(QObject *parent)
@@ -59,11 +61,8 @@ void RecentItemsModel::refresh(const QList<QUrl> &urls)
             icon = QIcon::fromTheme(QStringLiteral("network-server"));
         }
 
-        if (url.isLocalFile()) {
-            name = url.fileName();
-        } else {
-            name = url.toDisplayString();
-        }
+        // we want some filename @ folder output to have chance to keep important stuff even on elide, see bug 472981
+        name = Utils::niceFileNameWithPath(url);
 
         recentItems.append({icon, name, url});
     }

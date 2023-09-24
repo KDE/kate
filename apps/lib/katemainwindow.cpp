@@ -1162,17 +1162,7 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
         c = m_viewManager->activeView()->document()->documentName();
     } else {
         // we want some filename @ folder output to have chance to keep important stuff even on elide
-        if (url.isLocalFile()) {
-            // perhaps shorten the path
-            const QString homePath = QDir::homePath();
-            QString path = url.toString(QUrl::RemoveFilename | QUrl::PreferLocalFile | QUrl::StripTrailingSlash);
-            if (path.startsWith(homePath)) {
-                path = QLatin1String("~") + path.right(path.length() - homePath.length());
-            }
-            c = url.fileName() + QStringLiteral(" @ ") + path;
-        } else {
-            c = url.toDisplayString();
-        }
+        c = Utils::niceFileNameWithPath(url);
     }
 
     setWindowFilePath(url.toString(QUrl::PreferLocalFile));

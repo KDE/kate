@@ -366,8 +366,15 @@ public:
             return {};
         }
 
-        auto langId = _languageId(doc->highlightingMode());
-        return langId.isEmpty() ? _languageId(doc->mode()) : langId;
+        // prefer the mode over the highlighting to allow to
+        // use known a highlighting with existing LSP
+        // for a mode for a new language and own LSP
+        // see bug 474887
+        if (const auto langId = _languageId(doc->mode()); !langId.isEmpty()) {
+            return langId;
+        }
+
+        return _languageId(doc->highlightingMode());
     }
 
     QObject *projectPluginView(KTextEditor::MainWindow *mainWindow)

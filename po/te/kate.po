@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 01:57+0000\n"
+"POT-Creation-Date: 2023-09-26 01:47+0000\n"
 "PO-Revision-Date: 2007-03-09 14:17+0530\n"
 "Last-Translator: pavithran <pavithran.s@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -1703,7 +1703,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1187
+#: lib/katemainwindow.cpp:1177
 #, kde-format
 msgid " [read only]"
 msgstr ""
@@ -2240,36 +2240,36 @@ msgstr ""
 msgid "Opening Large File"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:507
+#: lib/kateviewmanager.cpp:508
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:524
+#: lib/kateviewmanager.cpp:525
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:530
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:533
+#: lib/kateviewmanager.cpp:534
 #, fuzzy, kde-format
 #| msgid "&New..."
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "(&N) కొత్త..."
 
-#: lib/kateviewmanager.cpp:534
+#: lib/kateviewmanager.cpp:535
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:541
+#: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""

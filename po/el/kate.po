@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 01:57+0000\n"
+"POT-Creation-Date: 2023-09-26 01:47+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1760,7 +1760,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Να ανοίξουν όλα τα αρχεία"
 
-#: lib/katemainwindow.cpp:1187
+#: lib/katemainwindow.cpp:1177
 #, kde-format
 msgid " [read only]"
 msgstr " [ανάγνωση μόνο]"
@@ -2323,17 +2323,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Άνοιγμα μεγάλου αρχείου"
 
-#: lib/kateviewmanager.cpp:507
+#: lib/kateviewmanager.cpp:508
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "Αδυναμία ανοίγματος φακέλων από το %1"
 
-#: lib/kateviewmanager.cpp:524
+#: lib/kateviewmanager.cpp:525
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Το πρόσθετο για το άνοιγμα των φακέλων δεν βρέθηκε"
 
-#: lib/kateviewmanager.cpp:530
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2341,19 +2341,19 @@ msgstr ""
 "Για να ανοίξουν οι φάκελοι, το πρόσθετο <b>%1</b> πρέπει να ενεργοποιηθεί. "
 "Να ενεργοποιηθεί;"
 
-#: lib/kateviewmanager.cpp:533
+#: lib/kateviewmanager.cpp:534
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Άνοιγμα φακέλου"
 
-#: lib/kateviewmanager.cpp:534
+#: lib/kateviewmanager.cpp:535
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Ενεργοποίηση"
 
-#: lib/kateviewmanager.cpp:541
+#: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Αποτυχία ενεργοποίησης του πρόσθετου <b>%1</b>"

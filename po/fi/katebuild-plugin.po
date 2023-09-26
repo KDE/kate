@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-18 02:00+0000\n"
-"PO-Revision-Date: 2023-04-27 19:54+0300\n"
+"PO-Revision-Date: 2023-08-26 17:58+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:21:56+0000\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -53,19 +53,17 @@ msgstr "Peru"
 #: buildconfig.cpp:26
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "Lisää virheet ja varoitukset diagnostiikkaan"
 
 #: buildconfig.cpp:37
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "Koosta uudelleen"
+msgstr "Koosta ja suorita"
 
 #: buildconfig.cpp:43
-#, fuzzy, kde-format
-#| msgid "Build and Run Selected Target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "Koosta ja suorita valittu kohde"
+msgstr "Koosta ja suorita -asetukset"
 
 #: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1221
 #, kde-format

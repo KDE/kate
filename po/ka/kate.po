@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 01:57+0000\n"
+"POT-Creation-Date: 2023-09-26 01:47+0000\n"
 "PO-Revision-Date: 2023-09-13 16:13+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -1704,7 +1704,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "ყველა ფაილის გახსნა"
 
-#: lib/katemainwindow.cpp:1187
+#: lib/katemainwindow.cpp:1177
 #, kde-format
 msgid " [read only]"
 msgstr " (მხოლოდ-კითხვადი)"
@@ -2254,17 +2254,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "დიდი ფაილის გასნა"
 
-#: lib/kateviewmanager.cpp:507
+#: lib/kateviewmanager.cpp:508
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 -ს საქაღალდეების გახსნა არ შეუძლია"
 
-#: lib/kateviewmanager.cpp:524
+#: lib/kateviewmanager.cpp:525
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "დამატება, რომელიც საქაღალდეების გასახსნელადაა საჭირო, აღმოჩენილი არაა"
 
-#: lib/kateviewmanager.cpp:530
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2272,19 +2272,19 @@ msgstr ""
 "იმისათვის, რომ საქაღალდეები გასნათ, საჭიროა, ჩართოთ დამატება <b>%1</b>. "
 "ჩავრთო?"
 
-#: lib/kateviewmanager.cpp:533
+#: lib/kateviewmanager.cpp:534
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "საქაღალდის გახსნა"
 
-#: lib/kateviewmanager.cpp:534
+#: lib/kateviewmanager.cpp:535
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "ჩართვა"
 
-#: lib/kateviewmanager.cpp:541
+#: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> დამატების ჩართვის შეცდომა"

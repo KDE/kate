@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 01:57+0000\n"
+"POT-Creation-Date: 2023-09-26 01:47+0000\n"
 "PO-Revision-Date: 2023-06-18 19:22+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -1748,7 +1748,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Deschide fișier"
 
-#: lib/katemainwindow.cpp:1187
+#: lib/katemainwindow.cpp:1177
 #, kde-format
 msgid " [read only]"
 msgstr " [numai citire]"
@@ -2319,35 +2319,35 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Deschiderea unui fișier mare"
 
-#: lib/kateviewmanager.cpp:507
+#: lib/kateviewmanager.cpp:508
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 nu poate deschide dosare"
 
-#: lib/kateviewmanager.cpp:524
+#: lib/kateviewmanager.cpp:525
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:530
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:533
+#: lib/kateviewmanager.cpp:534
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Deschide dosarul"
 
-#: lib/kateviewmanager.cpp:534
+#: lib/kateviewmanager.cpp:535
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Activează"
 
-#: lib/kateviewmanager.cpp:541
+#: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""

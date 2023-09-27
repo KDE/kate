@@ -89,6 +89,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     m_cmbSingleClick->addItem(i18n("Show Diff"));
     m_cmbSingleClick->addItem(i18n("Open file"));
     m_cmbSingleClick->addItem(i18n("Stage / Unstage"));
+    label->setBuddy(m_cmbSingleClick);
     hbox->addWidget(label);
     hbox->addWidget(m_cmbSingleClick);
     vbox->addLayout(hbox);
@@ -100,6 +101,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     m_cmbDoubleClick->addItem(i18n("Show Diff"));
     m_cmbDoubleClick->addItem(i18n("Open file"));
     m_cmbDoubleClick->addItem(i18n("Stage / Unstage"));
+    label->setBuddy(m_cmbDoubleClick);
     hbox->addWidget(label);
     hbox->addWidget(m_cmbDoubleClick);
     vbox->addLayout(hbox);

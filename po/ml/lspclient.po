@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-18 02:00+0000\n"
+"POT-Creation-Date: 2023-09-28 01:41+0000\n"
 "PO-Revision-Date: 2019-08-11 02:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -364,57 +364,57 @@ msgstr ""
 msgid "Question from LSP server"
 msgstr ""
 
-#: lspclientservermanager.cpp:597
+#: lspclientservermanager.cpp:604
 #, kde-format
 msgid "Restarting"
 msgstr ""
 
-#: lspclientservermanager.cpp:597
+#: lspclientservermanager.cpp:604
 #, kde-format
 msgid "NOT Restarting"
 msgstr ""
 
-#: lspclientservermanager.cpp:598
+#: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
 
-#: lspclientservermanager.cpp:794
+#: lspclientservermanager.cpp:801
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr ""
 
-#: lspclientservermanager.cpp:797 lspclientservermanager.cpp:839
+#: lspclientservermanager.cpp:804 lspclientservermanager.cpp:846
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr ""
 
-#: lspclientservermanager.cpp:798 lspclientservermanager.cpp:840
+#: lspclientservermanager.cpp:805 lspclientservermanager.cpp:847
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr ""
 
-#: lspclientservermanager.cpp:836
+#: lspclientservermanager.cpp:843
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr ""
 
-#: lspclientservermanager.cpp:844
+#: lspclientservermanager.cpp:851
 #, kde-format
 msgid "Started server %2: %1"
 msgstr ""
 
-#: lspclientservermanager.cpp:879
+#: lspclientservermanager.cpp:886
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 
-#: lspclientservermanager.cpp:882
+#: lspclientservermanager.cpp:889
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr ""
 
-#: lspclientservermanager.cpp:886
+#: lspclientservermanager.cpp:893
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr ""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-16 01:56+0000\n"
+"POT-Creation-Date: 2023-09-28 01:41+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -420,7 +420,7 @@ msgid "Open .gitignore"
 msgstr ".gitignore megnyitása"
 
 #: gitwidget.cpp:1156 gitwidget.cpp:1203 gitwidget.cpp:1245
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Show Diff"
 msgstr "Összehasonlítás megjelenítése"
@@ -650,32 +650,32 @@ msgstr "Git"
 msgid "Single click action in the git status view"
 msgstr "Egyszeres kattintás művelet a git állapotnézetben"
 
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "No Action"
 msgstr "Nincs művelet"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Open file"
 msgstr "Fájl megnyitása"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Kiválasztás / visszavonás"
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:98
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Dupla kattintás művelet a git állapotnézetben"
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:134 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projektek"
 
-#: kateprojectconfigpage.cpp:137
+#: kateprojectconfigpage.cpp:139
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

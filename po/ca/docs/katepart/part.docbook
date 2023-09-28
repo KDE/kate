@@ -986,7 +986,7 @@
 >&Alt;<keycap
 >J</keycap
 ></keycombo
-> per cercar l'ocurrència següent de la paraula sota el cursor i seleccionar/la + crear un cursor. Si voleu ometre la paraula actual sota el cursor, premeu <keycombo action="simul"
+> per a cercar l'ocurrència següent de la paraula sota el cursor i seleccionar/la + crear un cursor. Si voleu ometre la paraula actual sota el cursor, premeu <keycombo action="simul"
 >&Alt;<keycap
 >K</keycap
 ></keycombo

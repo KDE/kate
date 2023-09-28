@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-16 01:56+0000\n"
+"POT-Creation-Date: 2023-09-28 01:41+0000\n"
 "PO-Revision-Date: 2023-09-06 19:13+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -407,7 +407,7 @@ msgid "Open .gitignore"
 msgstr "Öppna .gitignore"
 
 #: gitwidget.cpp:1156 gitwidget.cpp:1203 gitwidget.cpp:1245
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Show Diff"
 msgstr "Visa jämförelse"
@@ -633,32 +633,32 @@ msgstr "Git"
 msgid "Single click action in the git status view"
 msgstr "Åtgärd vid enkelklick i Git statusvy"
 
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "No Action"
 msgstr "Ingen åtgärd"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Open file"
 msgstr "Öppna fil"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Förbered eller avlägsna"
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:98
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Åtgärd vid dubbelklick i Git statusvy"
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:134 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projekt"
 
-#: kateprojectconfigpage.cpp:137
+#: kateprojectconfigpage.cpp:139
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

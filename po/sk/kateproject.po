@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-16 01:56+0000\n"
+"POT-Creation-Date: 2023-09-28 01:41+0000\n"
 "PO-Revision-Date: 2023-01-31 18:13+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -410,7 +410,7 @@ msgid "Open .gitignore"
 msgstr "Otvoriť .gitignore"
 
 #: gitwidget.cpp:1156 gitwidget.cpp:1203 gitwidget.cpp:1245
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Show Diff"
 msgstr "Zobraziť rozdiel"
@@ -636,32 +636,32 @@ msgstr "Git"
 msgid "Single click action in the git status view"
 msgstr "Akcia jedným kliknutím v zobrazení stavu git"
 
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "No Action"
 msgstr "Žiadna akcia"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Open file"
 msgstr "Otvoriť súbor"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Označiť / Zrušiť označenie"
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:98
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Akcia dvojitým kliknutím v zobrazení stavu git"
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:134 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projekty"
 
-#: kateprojectconfigpage.cpp:137
+#: kateprojectconfigpage.cpp:139
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

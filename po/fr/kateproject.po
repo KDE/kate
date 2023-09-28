@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-16 01:56+0000\n"
+"POT-Creation-Date: 2023-09-28 01:41+0000\n"
 "PO-Revision-Date: 2023-09-12 13:03+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -424,7 +424,7 @@ msgid "Open .gitignore"
 msgstr "Ouvrir « .gitignore »"
 
 #: gitwidget.cpp:1156 gitwidget.cpp:1203 gitwidget.cpp:1245
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Show Diff"
 msgstr "Afficher les différences"
@@ -651,32 +651,32 @@ msgstr "Git"
 msgid "Single click action in the git status view"
 msgstr "Une action sur un simple clic dans l'affichage d'états git"
 
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "No Action"
 msgstr "Aucune action"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Open file"
 msgstr "Ouvrir un fichier"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Indexer / Désindexer"
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:98
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Action sur un double clic dans l'affichage des états de git"
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:134 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projets"
 
-#: kateprojectconfigpage.cpp:137
+#: kateprojectconfigpage.cpp:139
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

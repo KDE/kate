@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-16 01:56+0000\n"
+"POT-Creation-Date: 2023-09-28 01:41+0000\n"
 "PO-Revision-Date: 2023-09-13 16:31+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -409,7 +409,7 @@ msgid "Open .gitignore"
 msgstr "Aperi .gitignore"
 
 #: gitwidget.cpp:1156 gitwidget.cpp:1203 gitwidget.cpp:1245
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Show Diff"
 msgstr "Monstra diff"
@@ -635,32 +635,32 @@ msgstr "Git"
 msgid "Single click action in the git status view"
 msgstr "Action de singule click in le vista de stato de git"
 
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "No Action"
 msgstr "Nulle action"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Open file"
 msgstr "Aperi file"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Stage / Unstage (organisa/deorganisa9"
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:98
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Action de duple click in le vista de stato de git"
 
-#: kateprojectconfigpage.cpp:132 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:134 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projectos"
 
-#: kateprojectconfigpage.cpp:137
+#: kateprojectconfigpage.cpp:139
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

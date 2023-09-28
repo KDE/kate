@@ -1,6 +1,6 @@
 # Kate application
 
-find_package(KF${KF_MAJOR_VERSION}DBusAddons ${KF5_DEP_VERSION} REQUIRED)
+find_package(KF6DBusAddons ${KF5_DEP_VERSION} REQUIRED)
 
 if (UNIX AND NOT APPLE)
     set(HAVE_X11 TRUE)
@@ -17,7 +17,7 @@ add_executable(kate-bin
     # single application handing for the non-dbus case
     SingleApplication/singleapplication.cpp
     SingleApplication/singleapplication_p.cpp)
-target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF${KF_MAJOR_VERSION}::DBusAddons)
+target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF6::DBusAddons)
 
 if (HAVE_X11)
     target_link_libraries(kate-bin PRIVATE Qt::GuiPrivate)

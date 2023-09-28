@@ -1,6 +1,6 @@
 kate_add_plugin(katebacktracebrowserplugin)
 target_compile_definitions(katebacktracebrowserplugin PRIVATE TRANSLATION_DOMAIN="katebacktracebrowserplugin")
-target_link_libraries(katebacktracebrowserplugin PRIVATE KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor KF${KF_MAJOR_VERSION}::KIOWidgets)
+target_link_libraries(katebacktracebrowserplugin PRIVATE KF6::I18n KF6::TextEditor KF6::KIOWidgets)
 
 ki18n_wrap_ui(katebacktracebrowserplugin btbrowserwidget.ui btconfigwidget.ui)
 target_sources(

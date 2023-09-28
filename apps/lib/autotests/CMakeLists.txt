@@ -1,6 +1,6 @@
 include(ECMMarkAsTest)
 
-find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
+find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
 # add given tests to run in offscreen rendering
 macro(kate_executable_tests)

@@ -49,8 +49,8 @@ target_compile_definitions(katepythonplugin PRIVATE TRANSLATION_DOMAIN="katepyth
 target_link_libraries(
   katepythonplugin
   PRIVATE
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::TextEditor
+    KF6::I18n
+    KF6::TextEditor
     Shiboken2::libshiboken
     PySide2::pyside2
     ${Python3_LIBRARIES}

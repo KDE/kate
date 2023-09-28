@@ -2,7 +2,7 @@ add_executable(tstestapp "")
 
 target_link_libraries(
   tstestapp 
-  PRIVATE KF${KF_MAJOR_VERSION}::TextEditor kateprivate
+  PRIVATE KF6::TextEditor kateprivate
 )
 
 target_sources(

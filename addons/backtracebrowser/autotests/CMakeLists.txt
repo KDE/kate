@@ -3,7 +3,7 @@ include(ECMMarkAsTest)
 add_executable(btbrowser_test "")
 target_include_directories(btbrowser_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
+find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   btbrowser_test 
   PRIVATE 

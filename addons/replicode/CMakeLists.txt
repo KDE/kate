@@ -5,8 +5,8 @@ target_link_libraries(
   katereplicodeplugin
   PRIVATE
     kateprivate
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::TextEditor
+    KF6::I18n
+    KF6::TextEditor
 )
 
 ki18n_wrap_ui(katereplicodeplugin config.ui)

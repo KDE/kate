@@ -1,7 +1,7 @@
-find_package(KF${KF_MAJOR_VERSION}NewStuff ${KF5_DEP_VERSION} QUIET)
-set_package_properties(KF${KF_MAJOR_VERSION}NewStuff PROPERTIES PURPOSE "Required to build the snippets addon")
+find_package(KF6NewStuff ${KF5_DEP_VERSION} QUIET)
+set_package_properties(KF6NewStuff PROPERTIES PURPOSE "Required to build the snippets addon")
 
-if(NOT KF${KF_MAJOR_VERSION}NewStuff_FOUND)
+if(NOT KF6NewStuff_FOUND)
   return()
 endif()
 
@@ -11,9 +11,9 @@ target_compile_definitions(katesnippetsplugin PRIVATE TRANSLATION_DOMAIN="katesn
 target_link_libraries(
   katesnippetsplugin 
   PRIVATE
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::NewStuffWidgets
-    KF${KF_MAJOR_VERSION}::TextEditor
+    KF6::I18n
+    KF6::NewStuffWidgets
+    KF6::TextEditor
 )
 
 ki18n_wrap_ui(katesnippetsplugin snippetview.ui editrepository.ui editsnippet.ui)

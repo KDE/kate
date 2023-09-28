@@ -1,9 +1,9 @@
-find_package(Qt${QT_MAJOR_VERSION}Concurrent ${QT_MIN_VERSION} QUIET)
-find_package(KF${KF_MAJOR_VERSION}GuiAddons ${KF5_DEP_VERSION} QUIET)
+find_package(Qt6Concurrent ${QT_MIN_VERSION} QUIET)
+find_package(KF6GuiAddons ${KF5_DEP_VERSION} QUIET)
 
-set_package_properties(KF${KF_MAJOR_VERSION}GuiAddons PROPERTIES PURPOSE "Required to build the project addon")
+set_package_properties(KF6GuiAddons PROPERTIES PURPOSE "Required to build the project addon")
 
-if(NOT KF${KF_MAJOR_VERSION}_FOUND OR NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
+if(NOT KF6_FOUND OR NOT Qt6Concurrent_FOUND)
   return()
 endif()
 
@@ -15,9 +15,9 @@ target_link_libraries(
     PRIVATE
         kateprivate
         Qt::Concurrent
-        KF${KF_MAJOR_VERSION}::GuiAddons
-        KF${KF_MAJOR_VERSION}::I18n
-        KF${KF_MAJOR_VERSION}::TextEditor
+        KF6::GuiAddons
+        KF6::I18n
+        KF6::TextEditor
 )
 
 target_sources(

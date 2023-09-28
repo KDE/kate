@@ -1,6 +1,6 @@
-find_package(Qt${QT_MAJOR_VERSION}Concurrent ${QT_MIN_VERSION} QUIET)
+find_package(Qt6Concurrent ${QT_MIN_VERSION} QUIET)
 
-if(NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
+if(NOT Qt6Concurrent_FOUND)
   return()
 endif()
 
@@ -11,8 +11,8 @@ target_link_libraries(
   katesearchplugin
   PRIVATE
     Qt::Concurrent
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::TextEditor
+    KF6::I18n
+    KF6::TextEditor
     kateprivate
 )
 

@@ -13,7 +13,6 @@ project(kate VERSION ${RELEASE_SERVICE_VERSION})
 set(QT_MIN_VERSION "6.5.0")
 set(KF5_DEP_VERSION "5.240.0")
 set(QT_MAJOR_VERSION "6")
-set(KF_MAJOR_VERSION "6")
 
 # We need some parts of the ECM CMake helpers.
 find_package(ECM ${KF5_DEP_VERSION} QUIET REQUIRED NO_MODULE)
@@ -36,10 +35,10 @@ include(FeatureSummary)
 include(FindIntl)
 
 # Required here so that the version comparison below works
-find_package(Qt${QT_MAJOR_VERSION}Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
+find_package(Qt6Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
 
 # Required here so that the ki18n_install/kdoctools_install calls work.
-find_package(KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION}
+find_package(KF6 ${KF5_DEP_VERSION}
     REQUIRED COMPONENTS
         I18n
         CoreAddons
@@ -74,7 +73,7 @@ ecm_optional_add_subdirectory(apps)
 ecm_optional_add_subdirectory(doc)
 
 ki18n_install(po)
-if(KF${KF_MAJOR_VERSION}DocTools_FOUND)
+if(KF6DocTools_FOUND)
     kdoctools_install(po)
 endif()
 

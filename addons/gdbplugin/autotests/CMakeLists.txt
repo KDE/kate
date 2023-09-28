@@ -3,12 +3,12 @@ include(ECMMarkAsTest)
 add_executable(gdbplugin_test_gdbmi "")
 target_include_directories(gdbplugin_test_gdbmi PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
+find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   gdbplugin_test_gdbmi
   PRIVATE
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::TextEditor
+    KF6::I18n
+    KF6::TextEditor
     Qt::Test
 )
 
@@ -27,13 +27,13 @@ ecm_mark_as_test(gdbplugin_test_gdbmi)
 add_executable(gdbplugin_test_gdbbackend "")
 target_include_directories(gdbplugin_test_gdbbackend PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
+find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   gdbplugin_test_gdbbackend
   PRIVATE
     kateprivate
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::TextEditor
+    KF6::I18n
+    KF6::TextEditor
     Qt::Test
 )
 ki18n_wrap_ui(gdbplugin_test_gdbbackend ${CMAKE_CURRENT_SOURCE_DIR}/../advanced_settings.ui)

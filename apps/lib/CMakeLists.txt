@@ -32,7 +32,7 @@ target_include_directories(
 )
 
 find_package(
-  KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION}
+  KF6 ${KF5_DEP_VERSION}
   QUIET
   REQUIRED
   COMPONENTS
@@ -44,26 +44,26 @@ find_package(
 )
 
 if (NOT WIN32 AND NOT APPLE)
-    find_package(KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION} OPTIONAL_COMPONENTS Activities)
+    find_package(KF6 ${KF5_DEP_VERSION} OPTIONAL_COMPONENTS Activities)
 endif()
 
 target_link_libraries(
   kateprivate
   PUBLIC
-    KF${KF_MAJOR_VERSION}::CoreAddons
-    KF${KF_MAJOR_VERSION}::Crash
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::IconThemes
-    KF${KF_MAJOR_VERSION}::TextEditor
-    KF${KF_MAJOR_VERSION}::TextWidgets
-    KF${KF_MAJOR_VERSION}::WindowSystem
-    KF${KF_MAJOR_VERSION}::KIOGui
-    KF${KF_MAJOR_VERSION}::KIOWidgets
+    KF6::CoreAddons
+    KF6::Crash
+    KF6::I18n
+    KF6::IconThemes
+    KF6::TextEditor
+    KF6::TextWidgets
+    KF6::WindowSystem
+    KF6::KIOGui
+    KF6::KIOWidgets
 )
 
-if(KF${KF_MAJOR_VERSION}Activities_FOUND)
-  target_link_libraries(kateprivate PUBLIC KF${KF_MAJOR_VERSION}::Activities)
-  target_compile_definitions(kateprivate PUBLIC -DKF${KF_MAJOR_VERSION}Activities_FOUND)
+if(KF6Activities_FOUND)
+  target_link_libraries(kateprivate PUBLIC KF6::Activities)
+  target_compile_definitions(kateprivate PUBLIC -DKF6Activities_FOUND)
 endif()
 
 if (NOT WIN32 AND NOT HAIKU)

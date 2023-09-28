@@ -1,6 +1,6 @@
 kate_add_plugin(textfilterplugin)
 target_compile_definitions(textfilterplugin PRIVATE TRANSLATION_DOMAIN="katetextfilter")
-target_link_libraries(textfilterplugin PRIVATE KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor)
+target_link_libraries(textfilterplugin PRIVATE KF6::I18n KF6::TextEditor)
 
 ki18n_wrap_ui(textfilterplugin textfilterwidget.ui)
 

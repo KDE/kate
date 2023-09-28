@@ -1,10 +1,10 @@
-find_package(KF${KF_MAJOR_VERSION}Wallet ${KF5_DEP_VERSION} QUIET)
-set_package_properties(KF${KF_MAJOR_VERSION}Wallet PROPERTIES PURPOSE "Required to build the katesql addon")
+find_package(KF6Wallet ${KF5_DEP_VERSION} QUIET)
+set_package_properties(KF6Wallet PROPERTIES PURPOSE "Required to build the katesql addon")
 
-find_package(Qt${QT_MAJOR_VERSION}Sql ${QT_MIN_VERSION} QUIET)
-set_package_properties(Qt${QT_MAJOR_VERSION}Sql PROPERTIES PURPOSE "Required to build the katesql addon")
+find_package(Qt6Sql ${QT_MIN_VERSION} QUIET)
+set_package_properties(Qt6Sql PROPERTIES PURPOSE "Required to build the katesql addon")
 
-if(NOT KF5Wallet_FOUND OR NOT Qt${QT_MAJOR_VERSION}Sql_FOUND)
+if(NOT KF5Wallet_FOUND OR NOT Qt6Sql_FOUND)
   return()
 endif()
 
@@ -14,10 +14,10 @@ target_compile_definitions(katesqlplugin PRIVATE TRANSLATION_DOMAIN="katesql")
 target_link_libraries(
   katesqlplugin 
   PRIVATE
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::TextEditor
-    KF${KF_MAJOR_VERSION}::Wallet
-    KF${KF_MAJOR_VERSION}::KIOWidgets
+    KF6::I18n
+    KF6::TextEditor
+    KF6::Wallet
+    KF6::KIOWidgets
     Qt::Sql
 )
 

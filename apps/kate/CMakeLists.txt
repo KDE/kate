@@ -3,10 +3,6 @@
 find_package(KF${KF_MAJOR_VERSION}DBusAddons ${KF5_DEP_VERSION} REQUIRED)
 
 if (UNIX AND NOT APPLE)
-    if (QT_MAJOR_VERSION STREQUAL "5")
-        find_package(Qt5X11Extras REQUIRED)
-    endif()
-
     set(HAVE_X11 TRUE)
 endif()
 
@@ -24,11 +20,7 @@ add_executable(kate-bin
 target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF${KF_MAJOR_VERSION}::DBusAddons)
 
 if (HAVE_X11)
-    if (QT_MAJOR_VERSION STREQUAL "5")
-        target_link_libraries(kate-bin PRIVATE Qt5::X11Extras)
-    else()
-        target_link_libraries(kate-bin PRIVATE Qt::GuiPrivate)
-    endif()
+    target_link_libraries(kate-bin PRIVATE Qt::GuiPrivate)
 endif()
 
 # ensure right translations domain, we use one kate.po(t) for lib + apps

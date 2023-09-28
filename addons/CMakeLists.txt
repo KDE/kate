@@ -1,9 +1,5 @@
 function (kate_add_plugin name)
-if(QT_MAJOR_VERSION STREQUAL "5")
-    kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "ktexteditor")
-else()
-    kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "kf6/ktexteditor")
-endif()
+kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "kf6/ktexteditor")
 endfunction()
 
 # Most plugins will need to link against KF${KF_MAJOR_VERSION}TextEditor to have access to its plugin interface.

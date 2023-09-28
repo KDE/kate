@@ -155,7 +155,7 @@ public:
         case QEvent::MouseButtonRelease:
         case QEvent::MouseButtonDblClick:
         case QEvent::Wheel:
-            if (!rect().contains(static_cast<QMouseEvent *>(e)->pos())) {
+            if (!rect().contains(static_cast<QSinglePointEvent *>(e)->position().toPoint())) {
                 hideTooltip();
             }
             break;

@@ -7,7 +7,6 @@
 #include "ktexteditor_utils.h"
 #include "diagnostics/diagnosticview.h"
 #include "diffwidget.h"
-#include "katemainwindow.h"
 
 #include <QDir>
 #include <QFontDatabase>
@@ -22,6 +21,7 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
 

@@ -5,6 +5,7 @@
 #include "currentgitbranchbutton.h"
 
 #include "gitprocess.h"
+#include "hostprocess.h"
 
 #include <KAcceleratorManager>
 #include <KLocalizedString>

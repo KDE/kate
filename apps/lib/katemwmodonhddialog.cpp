@@ -8,6 +8,7 @@
 
 #include "diffwidget.h"
 #include "gitprocess.h"
+#include "hostprocess.h"
 #include "kateapp.h"
 #include "katedocmanager.h"
 #include "katemainwindow.h"

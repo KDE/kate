@@ -7,10 +7,9 @@
 #include "kategitblameplugin.h"
 #include "ktexteditor_utils.h"
 
+#include "hostprocess.h"
 #include <commitfilesview.h>
 #include <gitprocess.h>
-
-#include <algorithm>
 
 #include <KActionCollection>
 #include <KLocalizedString>

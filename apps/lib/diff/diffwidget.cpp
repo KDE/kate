@@ -5,7 +5,7 @@
 #include "diffwidget.h"
 #include "gitdiff.h"
 #include "gitprocess.h"
-#include "katemainwindow.h"
+#include "hostprocess.h"
 #include "ktexteditor_utils.h"
 
 #include <QApplication>

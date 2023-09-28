@@ -7,7 +7,6 @@
 #include "katesession.h"
 
 #include "katedebug.h"
-#include "katesessionmanager.h"
 
 #include <KConfig>
 #include <KConfigGroup>

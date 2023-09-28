@@ -7,6 +7,7 @@
 #include "filehistorywidget.h"
 #include "commitfilesview.h"
 #include "diffparams.h"
+#include "hostprocess.h"
 #include "ktexteditor_utils.h"
 #include <bytearraysplitter.h>
 #include <gitprocess.h>
@@ -31,8 +32,6 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
-
-#include <charconv>
 
 struct Commit {
     QByteArray hash;

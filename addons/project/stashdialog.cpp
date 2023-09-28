@@ -4,9 +4,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "stashdialog.h"
-#include "git/gitutils.h"
 #include "gitwidget.h"
-#include "kateprojectpluginview.h"
+#include "hostprocess.h"
 
 #include <QProcess>
 #include <QTreeView>

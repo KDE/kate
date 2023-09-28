@@ -6,11 +6,11 @@
 
 #include "comparebranchesview.h"
 #include "diffparams.h"
+#include "hostprocess.h"
 #include "kateprojectitem.h"
 #include "kateprojectpluginview.h"
 #include "kateprojectworker.h"
 #include "ktexteditor_utils.h"
-
 #include <gitprocess.h>
 
 #include <QDir>

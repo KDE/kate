@@ -5,6 +5,7 @@
 */
 
 #include "gitprocess.h"
+#include "hostprocess.h"
 
 #include <QProcess>
 #include <QRegularExpression>

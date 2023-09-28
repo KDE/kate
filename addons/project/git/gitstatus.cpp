@@ -5,6 +5,7 @@
 */
 #include "gitstatus.h"
 
+#include "hostprocess.h"
 #include <bytearraysplitter.h>
 #include <gitprocess.h>
 

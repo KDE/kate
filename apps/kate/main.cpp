@@ -42,7 +42,6 @@
 
 #if HAVE_X11
 
-#include "kwindowsystem_version.h"
 #include <KX11Extras>
 
 #include <private/qtx11extras_p.h>

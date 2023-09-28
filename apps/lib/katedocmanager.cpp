@@ -9,7 +9,6 @@
 #include "katedocmanager.h"
 
 #include "kateapp.h"
-#include "katedebug.h"
 #include "katemainwindow.h"
 #include "katesavemodifieddialog.h"
 #include "kateviewmanager.h"

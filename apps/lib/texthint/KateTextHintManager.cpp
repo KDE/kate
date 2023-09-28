@@ -4,7 +4,6 @@
 */
 #include "KateTextHintManager.h"
 
-#include "katemainwindow.h"
 #include "tooltip.h"
 
 #include <KTextEditor/MainWindow>

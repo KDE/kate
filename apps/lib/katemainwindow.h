@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include "diffparams.h"
 #include "katemdi.h"
 #include "kateviewmanager.h"
 

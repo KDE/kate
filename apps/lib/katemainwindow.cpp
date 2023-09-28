@@ -9,15 +9,12 @@
 
 // BEGIN Includes
 #include "katemainwindow.h"
-#include "kconfigwidgets_version.h"
 #include <KColorSchemeMenu>
 
 #include "diagnostics/diagnosticview.h"
 #include "filehistorywidget.h"
 #include "kateapp.h"
 #include "kateconfigdialog.h"
-#include "kateconfigplugindialogpage.h"
-#include "katedebug.h"
 #include "katedocmanager.h"
 #include "katefileactions.h"
 #include "katemwmodonhddialog.h"
@@ -70,8 +67,6 @@
 #include <QStackedWidget>
 #include <QTimer>
 #include <QToolButton>
-
-#include "diffwidget.h"
 
 #include <ktexteditor/sessionconfiginterface.h>
 

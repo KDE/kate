@@ -6,8 +6,6 @@
 
 #include "katesavemodifieddialog.h"
 
-#include "katedebug.h"
-
 #include <KGuiItem>
 #include <KLocalizedString>
 #include <KMessageBox>

@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "hostprocess.h"
 #include "kateprivate_export.h"
 
+#include <QProcess>
 #include <optional>
 #include <utility>
 

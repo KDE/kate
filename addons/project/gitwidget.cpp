@@ -12,6 +12,7 @@
 #include "diffparams.h"
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
+#include "hostprocess.h"
 #include "kateproject.h"
 #include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"

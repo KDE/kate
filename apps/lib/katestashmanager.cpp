@@ -9,10 +9,7 @@
 #include "katedebug.h"
 
 #include "kateapp.h"
-#include "katedocmanager.h"
 #include "kateviewmanager.h"
-
-#include "ksharedconfig.h"
 
 #include <QDir>
 #include <QFile>

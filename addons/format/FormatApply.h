@@ -4,6 +4,7 @@
 */
 #pragma once
 
+#include "hostprocess.h"
 #include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/MovingCursor>

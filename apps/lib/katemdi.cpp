@@ -10,8 +10,6 @@
 #include "katemdi.h"
 #include "kateapp.h"
 
-#include "katedebug.h"
-
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KConfigGroup>
@@ -33,8 +31,6 @@
 #include <QStyle>
 #include <QTimer>
 #include <QVBoxLayout>
-
-#include <array>
 
 namespace KateMDI
 {

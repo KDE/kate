@@ -6,6 +6,7 @@
 
 #include "commitfilesview.h"
 
+#include "hostprocess.h"
 #include <diffparams.h>
 #include <gitprocess.h>
 #include <ktexteditor_utils.h>

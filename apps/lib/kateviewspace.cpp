@@ -9,7 +9,6 @@
 
 #include "diffwidget.h"
 #include "kateapp.h"
-#include "katedebug.h"
 #include "katedocmanager.h"
 #include "katefileactions.h"
 #include "katemainwindow.h"

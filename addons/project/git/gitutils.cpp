@@ -6,6 +6,7 @@
 
 #include "gitutils.h"
 
+#include "hostprocess.h"
 #include <gitprocess.h>
 
 #include <QProcess>

@@ -10,7 +10,6 @@
 #include "kateprivate_export.h"
 
 #include <utility>
-#include <vector>
 
 #include <QString>
 

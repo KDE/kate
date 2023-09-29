@@ -52,7 +52,6 @@ public:
     void registerProvider(KateTextHintProvider *provider);
 
 private:
-    void unregisterProvider(KateTextHintProvider *provider);
     void onTextHintAvailable(const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos);
     void onShowTextHint(const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos);
     void showTextHint(const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force);

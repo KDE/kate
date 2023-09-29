@@ -49,10 +49,8 @@ KateFileTreePlugin::~KateFileTreePlugin()
 
 QObject *KateFileTreePlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KateFileTreePluginView *view = new KateFileTreePluginView(mainWindow, this);
-    connect(view, &KateFileTreePluginView::destroyed, this, &KateFileTreePlugin::viewDestroyed);
+    auto view = new KateFileTreePluginView(mainWindow, this);
     m_views.append(view);
-
     return view;
 }
 
@@ -231,6 +229,8 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
 
 KateFileTreePluginView::~KateFileTreePluginView()
 {
+    m_plug->viewDestroyed(this);
+
     m_mainWindow->guiFactory()->removeClient(this);
 
     // clean up tree and toolview

@@ -83,18 +83,14 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
 {
     if (std::find(m_providers.begin(), m_providers.end(), provider) == m_providers.end()) {
         m_providers.push_back(provider);
-        connect(provider, &QObject::destroyed, this, [this](QObject *o) {
-            unregisterProvider(static_cast<KateTextHintProvider *>(o));
+        connect(provider, &QObject::destroyed, this, [this](QObject *provider) {
+            auto it = std::find(m_providers.begin(), m_providers.end(), provider);
+            if (it != m_providers.end()) {
+                m_providers.erase(it);
+            }
         });
         connect(provider, &KateTextHintProvider::textHintAvailable, this, &KateTextHintManager::onTextHintAvailable);
         connect(provider, &KateTextHintProvider::showTextHint, this, &KateTextHintManager::onShowTextHint);
-    }
-}
-void KateTextHintManager::unregisterProvider(KateTextHintProvider *provider)
-{
-    auto it = std::find(m_providers.begin(), m_providers.end(), provider);
-    if (it != m_providers.end()) {
-        m_providers.erase(it);
     }
 }
 

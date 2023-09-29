@@ -1,0 +1,1086 @@
+<chapter id="fundamentals">
+<chapterinfo>
+<authorgroup>
+<author
+><personname
+><firstname
+></firstname
+></personname
+></author>
+<othercredit role="translator"
+><firstname
+>Kaan</firstname
+><surname
+>Özdinçer</surname
+><affiliation
+><address
+><email
+>kaanozdincer@gmail.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@icloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Temel Bilgiler</title>
+
+<para
+>Daha önce bir metin düzenleyicisi kullandıysanız &kate; kullanırken hiçbir sorun yaşamazsınız. Sonraki iki bölümde (<link linkend="starting-kate"
+>&kate;'i Başlatmak</link
+> ve <link linkend="working-with-kate"
+>&kate; ile Çalışmak</link
+>), hızlıca alışmanızı sağlamak için gereksiniminiz olacak her şeyi göstereceğiz. </para>
+
+<sect1 id="starting-kate">
+<title
+>&kate;'i Başlatmak</title>
+
+<para
+>&kate; uygulamasını, uygulama başlatıcısından veya komut satırından başlatabilirsiniz. </para>
+
+<sect2 id="starting-from-the-menu">
+<title
+>Menüden</title>
+<para
+>Ekranınızın sol altındaki araç çubuğundaki uygulama başlatıcısı simgesine tıklayarak &kde; programları menüsünü açın. İmleci <menuchoice
+><guimenu
+>Uygulamalar</guimenu
+><guisubmenu
+>İzlenceler</guisubmenu
+><guimenuitem
+>&kate; Gelişmiş Metin Düzenleyicisi</guimenuitem
+></menuchoice
+> ögesine getirin. </para>
+
+</sect2>
+
+<sect2 id="starting-from-the-command-line">
+<title
+>Komut Satırından</title>
+
+<para
+>Komut satırına adını yazarak &kate;'yi başlatabilirsiniz. Aşağıdaki örnekte olduğu gibi bir dosya adı verirseniz o dosyayı açar veya oluşturur. </para>
+
+<informalexample>
+<screen
+><prompt
+>%</prompt
+><userinput
+><command
+>kate</command
+> <option
+><replaceable
+>dosyam.txt</replaceable
+></option
+></userinput
+>
+</screen>
+</informalexample>
+
+<para
+>Etkin bir bağlantınız ve izinleriniz varsa &kde;'nin ağ saydamlığından yararlanarak internetteki dosyaları da açabilirsiniz. </para>
+
+<informalexample>
+<screen
+><prompt
+>%</prompt
+><userinput
+><command
+>kate</command
+> <option
+><replaceable
+>dosyam.txt</replaceable
+></option
+></userinput
+>
+</screen>
+</informalexample>
+
+<para
+>Geçici dosyalar dizinini değiştirmek için (öntanımlı olarak <filename class="directory"
+>/tmp</filename
+>) &kate;'i başlatmadan önce <envar
+>TMPDIR</envar
+> çevre değişkenini ayarlayın; &eg; <informalexample
+> <screen
+><prompt
+>%</prompt
+><userinput
+><command
+>mkdir</command
+> /tmp/kate -p &amp;&amp; export TMPDIR=/tmp/kate &amp;&amp; kate</userinput
+>
+</screen>
+</informalexample>
+</para>
+
+<sect3 id="command-line-options">
+<title
+>Komut Satırı Seçenekleri</title>
+<para
+>&kate;, aşağıdaki komut satırı seçeneklerini kabul eder:</para>
+
+<variablelist>
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--help</option
+></userinput
+></term>
+<listitem>
+<para
+>Bu, komut satırındaki kullanılabilir seçenekleri listeler. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-s</option
+> <option
+>--start</option
+> <parameter
+>ad</parameter
+></userinput
+></term>
+<listitem>
+<para
+>&kate;'i <parameter
+>ad</parameter
+> oturumuyla başlatır. Oturum halihazırda yoksa oluşturulur. Belirtilen oturumu çalıştıran bir &kate; örneği varsa, belirtilen dosyalar bu örneğe yüklenir. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-p</option
+> <option
+>--pid</option
+> <parameter
+>PID</parameter
+></userinput
+></term>
+<listitem>
+<para
+>Yalnızca belirtilen PID'ye (Süreç Kimliği) sahip bir örneği yeniden kullanır. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-e</option
+> <option
+>--encoding</option
+> <parameter
+>kodlama</parameter
+> <parameter
+>URL</parameter
+></userinput
+></term>
+<listitem
+><para
+>Belge için belirtilen kodlamayı kullanır. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-l</option
+> <option
+>--line</option
+> <parameter
+>satır</parameter
+> <parameter
+>URL</parameter
+></userinput
+></term>
+<listitem
+><para
+>Belgeyi açtıktan sonra belirtilen satıra gider. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-c</option
+> <option
+>--column</option
+> <parameter
+>sütun</parameter
+> <parameter
+>URL</parameter
+></userinput
+></term>
+<listitem
+><para
+>Belgeyi açtıktan sonra belirtilen sütuna gider. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-i</option
+> <option
+>--stdin</option
+></userinput
+></term>
+<listitem
+><para
+>Belgeyi standart girdi'den okur. Bu, çoğu komut satırı programında bulunan <option
+>-</option
+> seçeneğine benzerdir ve komut çıktısını &kate;'e veriyolu yapmanıza olanak tanır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--startanon</option
+></userinput
+></term>
+<listitem
+><para
+>&kate;'i yeni bir anonim oturum ile başlat, <option
+>-n</option
+> ima eder.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-n</option
+> <option
+>--new</option
+></userinput
+></term>
+<listitem
+><para
+>Yeni bir &kate; örneğinin başlatılmasını zorla (<option
+>start</option
+> kullanılırsa ve verilen oturum başka bir &kate; örneğinde halihazırda açıksa yok sayılır), hiçbir parametre ve hiçbir URL belirtilmemişse zorlanır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-b</option
+> <option
+>--block</option
+></userinput
+></term>
+<listitem
+><para
+>Halihazırda çalışan bir &kate; örneği kullanıyorsanız URL'ler açılmaları için verilmişse çıkana kadar engelleyin.</para>
+<para
+>Bu seçenekle, &git; veya <application
+>Subversion</application
+> gibi sürüm denetim sistemleri için işleme iletileri yazmak amacıyla düzenleyici olarak &kate;'i kullanabilirsiniz. Bu sistemler, siz iletinizi girene kadar düzenleyiciyi engellerler; çünkü o zaman &kate; çağırana hemen geri dönerse boş olacak olan geçici dosyayı açarlar. </para>
+<para
+>Bu seçenek, uzak bir dosyayı (geçici olarak indirilmiş olan) açarsanız ve kaydettikten sonra yeniden karşıya yüklenmesi gerekiyorsa KIO (&kde; Giriş/Çıkış) için de gereklidir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--tempfile</option
+></userinput
+></term>
+<listitem
+><para
+>Kullanıldığında, belirtilen dosyalar geçici dosyalar olarak kabul edilir ve açıldıktan sonra değiştirilmedikleri sürece kapatıldığında (yerel dosyalarsa ve yeterli izinleriniz varsa) silinir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--desktopfile</option
+> <parameter
+>dosya-adı</parameter
+></userinput
+></term>
+<listitem
+><para
+>Bu uygulamanın masaüstü girdisinin temel dosya adı.</para>
+<para
+>Bu özellikle sarmalayıcı uygulamalar ve genel olarak birden fazla masaüstü dosyasına sahip uygulamalar için kullanışlıdır. Böylece her masaüstü dosyası <option
+>Exec</option
+> girdisi için kendi komut satırına sahip olabilir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--author</option
+></userinput
+></term>
+<listitem>
+<para
+>&kate;'in yazarlarını uçbirim penceresinde listeler. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-v</option
+> <option
+>--version</option
+></userinput
+></term>
+<listitem>
+<para
+>&kate;'in sürüm bilgisini listeler. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--license</option
+></userinput
+></term>
+<listitem>
+<para
+>Lisans bilgisini gösterir. </para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+</sect2>
+
+<sect2 id="drag-and-drop">
+<title
+>Sürükle ve Bırak</title>
+<para
+>&kate;, &kde;'nin Sürükle ve Bırak protokolünü kullanır. Dosyalar &kate; üzerine Masaüstü'nden, &dolphin; dosya yöneticisinden veya &dolphin; pencerelerinde açılmış kimi FTP sitelerinden sürüklenip bırakılabilir. </para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-kate">
+<title
+>&kate; ile Çalışmak</title>
+<para
+><link linkend="quick-start"
+>Hızlı Başlat</link
+>, &kate;'in daha güçlü özelliklerini yapılandırmanızı sağlayan dört basit seçeneği nasıl değiştireceğinizi gösterir. <link linkend="keystroke-commands"
+> Kısayollar</link
+>, fare kullanmak istemeyen ve kullanmayanlar için öntanımlı klavye kısayollarını gösterir. </para>
+
+<sect2 id="quick-start">
+<title
+>Hızlı Başlangıç</title>
+
+<para
+>Bu bölüm, &kate;'i, onunla çalışmak isteyebileceğiniz biçimde tez yapılandırabilmeniz için <guimenu
+>Görünüm</guimenu
+> menüsündeki bazı öğeleri açıklar. </para>
+
+<para
+>&kate;'i ilk başlattığınızda, beyaz arka planlı iki pencere göreceksiniz. İki pencerenin üstünde, her zamanki etiketli simgelerin yer aldığı bir araç çubuğu bulunur. Onun üstünde de bir menü çubuğu vardır. </para>
+
+<para
+>Soldaki pencere bir kenar çubuğudur. <guilabel
+>Belgeler</guilabel
+> ve <guilabel
+>Dosya Sistemi Tarayıcısı</guilabel
+> pencerelerini birleştirir. Pencerenin solundaki sekmelere tıklayarak ikisi arasında geçiş yapın. </para>
+
+<para
+>&kate;'i bir dosya ile başlatırsanız sağdaki pencere düzenlediğiniz dosyayı ve kenar çubuğundaki <guilabel
+>Belgeler</guilabel
+> dosyanın adını gösterir. Dosyaları açmak için <guilabel
+>Dosya Sistemi Tarayıcısı</guilabel
+>'nı kullanın. </para>
+
+<para
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Araç Görünümleri</guisubmenu
+></menuchoice
+> menüsünü veya <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>F</keycap
+></keycombo
+> kısayolunu kullanarak tüm kenar çubuğu pencerelerini açıp kapatabilirsiniz. Bu menü, &kate;'in gücüne ve esnekliğine bir giriş niteliğindedir. </para>
+
+<para
+><guisubmenu
+>Araç Görünümü</guisubmenu
+> bölümünde tüm etkin eklentilerin bir listesi vardır. Bu araç görünümünü açıp kapatmak için her bir ögenin önündeki onay kutularına veya kenar çubuğundaki araç düğmelerine &LMB; ile tıklayın. </para>
+
+</sect2>
+
+<sect2 id="keystroke-commands">
+<title
+>Kısayollar</title>
+
+<para
+>&kate;'in düğme vuruşu komutlarının (kısayollarının) çoğu <link linkend="settings-help-menu"
+>Ayarlar</link
+> menüsü ile yapılandırılabilirdir. Öntanımlı olarak &kate; aşağıdaki düğme bağıntılarını izler. </para>
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+
+<row>
+<entry
+><para
+><keycombo action="simul"
+><keycap
+>F1</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Yardım</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;<keycap
+>F1</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="whats-this"
+>Bu Nedir?</link
+></para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="file-new"
+>Yeni</link
+> Belge</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Tümünü Kaydet</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="file-open"
+>Belge Aç</link
+> </para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Hızlı Aç</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>F</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Tam Ekran Kipi</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>,</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>&kate; Uygulamasını Yapılandır</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+> / <keycombo action="simul"
+>&Ctrl;&Esc;</keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="file-close"
+>Kapat</link
+> </para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Çık - Düzenleyicinin etkin kopyasını kapat </para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>F</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Kenar Çubuklarını Göster</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Yatay Böl</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>L</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Dikey Böl</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F8</keycap
+></para
+></entry>
+<entry
+><para
+>Sonraki Bölünmüş Görünüm</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;<keycap
+>F8</keycap
+></keycombo
+> / <keycombo action="simul"
+>&Ctrl;&Esc;</keycombo
+></para
+></entry>
+<entry
+><para
+>Önceki Bölünmüş Görünüm</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>R</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Geçerli Görünümü Kapat</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Sonraki Sekme</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Önceki Sekme</para
+></entry>
+</row>
+
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Ek olarak, <ulink url="help:/katepart/keybindings.html"
+>&katepart;</ulink
+> bileşeni ve tüm etkin <link linkend="plugins"
+>&kate; eklentileri</link
+> tarafından sağlanan klavye kısayollarını da kullanabilirsiniz.</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-mdi">
+<title
+>&kate; <acronym
+>MDI</acronym
+> ile Çalışmak</title>
+
+<sect2 id="kate-mdi-overview">
+<title
+>Genel Görünüm</title>
+
+<para
+>Pencere, Görünüm, Belge, Çerçeve, Düzenleyici... &kate; terminolojisinde bunlar nedir ve bunların çoğunu nasıl anlarsınız? Bu bölüm, bunların tümünü ve çok daha fazlasını anlatacaktır.</para>
+
+<sect3 id="kate-mdi-overview-mainwindow">
+
+<title
+>Ana Pencere</title>
+
+<para
+><indexterm
+><primary
+>Ana pencere</primary
+></indexterm
+> &kate; Ana Penceresi, araç görünümlerini içeren kenar çubuklarının eklendiği standart bir &kde; uygulaması penceresidir. Tüm ortak menüleri ve daha fazlasını içeren bir menü çubuğuna ve yaygın olarak kullanılan komutlara erişim sağlayan bir araç çubuğuna sahiptir.</para>
+
+<para
+>Pencerenin en önemli kısmı; belgelerinizle çalışabileceğiniz, öntanımlı olarak tek bir metin düzenleyicisi bileşeninin görüntülendiği düzenleme alanıdır.</para>
+
+<para
+>Pencerenin yerleştirilebilme yetenekleri, ayarlar iletişim kutusunda etkinleştirilen herhangi bir eklentinin araç pencereleri için kullanılır.</para>
+
+<para
+>Araç görünümleri herhangi bir kenar çubuğuna yerleştirilebilir; bir aracı taşımak için kenar çubuğu düğmesine sağ tıklayın ve &RMB; menüsünden seçim yapın.</para>
+
+<para
+>Bir araç görünümü, kendi &RMB; menüsünde <emphasis
+>kalıcı</emphasis
+> olarak imlenebilir. Kenar çubuğu herhangi bir anda birden çok araç içerebilir, böylece bir araç kalıcı olduğunda diğer araçlar da onunla aynı anda gösterilebilir.</para>
+
+<para
+>Bir eklentinin yapılandırma seçenekleri varsa &kate;'in ayarlar iletişim kutusunda ilgili sayfayı açmak için bağlam menüsündeki ilk ögeyi kullanabilirsiniz.</para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="kate-mdi-editor">
+
+<title
+>Düzenleyici alanı</title>
+
+<para
+><indexterm
+><primary
+>Düzenleme Alanı</primary
+></indexterm
+> &kate;, &konqueror;'ın veya popüler metin düzenleyicisi <application
+>emacs</application
+>'in çalışma biçimine benzer olarak, aynı anda birden çok belgeyi açabilir ve düzenleme alanını istediğiniz sayıda çerçeveye bölebilir. Böylece, aynı anda birden çok belgeyi veya aynı belgenin birden çok örneğini görüntüleyebilirsiniz. Bu örneğin, belgeniz en üstte tanımlar ve altta da tanımlara başvurular içeriyorsa ikisini aynı anda görebilmek için yararlıdır. Başka bir örnek olarak, bir program kaynağı üstbilgisini bir çerçevede görebilir, uygulanmasını da başka bir çerçevede düzenleyebilirsiniz.</para>
+
+<para
+>Bir belge birden fazla düzenleyicide kullanıldığında, bir düzenleyicide yapılan değişiklikler anında diğerlerine de yansıtılacaktır. Bunda metin değiştirmenin yanı sıra metin seçme de içerilir. Arama işlemleri veya imleç hareketi yalnızca geçerli düzenleyiciye yansıtılır. </para>
+
+<para
+>Bir örneğin düzenlenirken diğerinin düzenlenmeyeceği anlamında aynı belgenin daha fazla örneğinin açık olması şu anda olanaklı değildir.</para>
+
+<para
+>Bir düzenleyiciyi iki çerçeveye böldüğünüzde, her ikisi de o düzenleyicinin geçerli belgesini görüntüleyen eşit boyutlu iki çerçeveye bölünür. Yeni çerçeve altta (yatay bölme durumunda) veya sağda (dikey bölme durumunda) olacaktır. Yeni kare, odaklanılan karedeki yanıp sönen imleç çubuğuyla görselleştirilen odağı alır.</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="fundamentals-using-sessions">
+<title
+>Oturumları Kullanmak</title>
+
+<para
+>Oturumlar, &kate;'in birden çok dosya listesini ve &GUI; yapılandırmasını saklamanıza olanak sağlamasıdır. İstediğiniz sayıda adlandırılmış oturuma sahip olabilirsiniz ve yalnızca bir kez kullanmak istediğiniz dosyalar için adsız veya anonim oturumlar kullanabilirsiniz. Şu anda &kate;, açık dosyaların listesini ve oturumdaki genel pencere yapılandırmasını kaydedebilir; &kate;'in gelecekteki sürümleri, oturumlara kaydedilebilecek daha fazla özellik ekleyebilir. Oturumların kullanılmaya başlanmasıyla &kate; ayrıca, öntanımlı davranış olarak eskiden olduğu gibi uygulamanın yalnızca bir örneğini açmak yerine istediğiniz sayıda örneğini açmanıza da olanak tanır.</para>
+
+<para
+>Oturumlar üç alanda desteklenir: <itemizedlist>
+<listitem
+><para
+>&kate;'i komut satırından başlatırken oturumları seçmenizi ve onları başlatmanızı sağlayan <link linkend="command-line-options"
+><emphasis
+>komut satırı seçeneklerinde</emphasis
+></link
+>.</para>
+</listitem>
+<listitem
+><para
+>Oturumlar arasında geçiş yapmanızı, onları kaydetmenizi, başlatmanızı ve yönetmenizi sağlayan <link linkend="sessions-menu"
+><emphasis
+>oturumlar menüsü</emphasis
+></link
+>.</para
+></listitem>
+<listitem
+><para
+>Oturumların genel olarak nasıl davranması gerektiğini belirleyebileceğiniz <link linkend="config-dialog-sessions"
+><emphasis
+>yapılandırma seçenekleri</emphasis
+></link
+>.</para
+></listitem>
+</itemizedlist>
+
+</para>
+
+<para
+>Yeni bir oturum başlatılırken, <guilabel
+>Öntanımlı Oturum</guilabel
+>'un &GUI; yapılandırması yüklenir. Pencere yapılandırmasını öntanımlı oturuma kaydetmek için yapılandırma iletişim kutusunun oturum yapılandırma sayfasında pencere yapılandırmasını kaydetmeyi etkinleştirmeniz ve ardından öntanımlı oturumu yüklemeniz, pencereyi istediğiniz gibi ayarlamanız ve oturumu yeniden kaydetmeniz gerekir.</para>
+
+<para
+>Ad verilmiş bir oturum yüklendiğinde &kate;, oturum adını pencere başlığının başlangıcında görüntüleyecektir. Bu dizi, <quote
+><replaceable
+>Oturum adı</replaceable
+>: <replaceable
+>Belge adı veya &URL;'si'</replaceable
+> - &kate;</quote
+> biçimindedir.</para>
+
+<para
+>Dosyaları komut satırında <option
+>--start <replaceable
+>ad</replaceable
+></option
+> seçeneği ile açarken veya bir oturum, oturum seçicisinden seçilmişse belirtilen oturum, komut satırında belirtilen dosyaların yüklenmesinden önce yüklenir. Komut satırından dosyaları yeni, adsız bir oturum ile açmak için yapılandırma iletişim kutusunun oturum sayfasında &kate;'i öntanımlı olarak yeni bir oturum başlatması için yapılandırın veya <option
+>--start</option
+> seçeneğini boş bir diziyle kullanın: <replaceable
+>''</replaceable
+>.</para>
+
+<para
+>&kate; 2.5.1 sürümünden bu yana, geçerli örneğin <acronym
+>PID</acronym
+>'si <envar
+>KATE_PID</envar
+> çevre değişkenine dışa aktarılır. Yerleşik uçbirimden dosyalar açarken Kate, komut satırında başka bir şey belirtilmemişse kendiliğinden geçerli örneği seçer.</para>
+
+</sect1>
+
+<sect1 id="fundamentals-quick-open">
+<title
+>Hızlı Aç</title>
+
+<para
+>Tez dosyalar açmak/aralarında geçiş yapmak için Kate, yerleşik bir hızlı aç iletişim kutusuyla gelir. Bunu, <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+> kısayoluyla açabilirsiniz. </para>
+
+<para
+>Hızlı aç, Kate'de açık olan tüm açık belgeleri ve projeleri gösterebilir. Proje dosyalarını görebilmek için <link linkend="kate-application-plugin-projects"
+>Proje Eklentisi</link
+>'ni etkinleştirmeniz gerekir. </para>
+
+<sect2>
+<title
+>Hızlı Aç'ı Kullanmak</title>
+
+<para
+>Hızlı aç'ı kullanmak çok basittir. Açtığınızda, açmak istediğiniz dosyanın adını veya adının bir kısmını yazmanız yeterlidir; hızlı aç, yazdıklarınıza göre listeyi süzer. &Enter; düğmesine basmak seçili dosyayı açar, &Esc; ise hızlı aç'ı gizler. </para>
+<para
+>Öntanımlı olarak, süzme sırasında yalnızca dosya adı eşleştirilir. Yolu eşleştirmek isterseniz yazılan metinde bir "/" olmalıdır. Örneğin: "belge/indeks", "belge" klasöründe "indeks" içeren tüm belgelerle eşleşecektir. </para>
+<para
+>Halihazırda açık olan belgeler kalın harflerle vurgulanır ve iletişim kutusu açıldığında en üstte listelenir. Ayrıca, hızlı açma görüntülendiğinde önceki açık belge halihazırda seçilidir, böylece yalnızca &Enter; düğmesine basabilirsiniz ve bu sizi o belgeye götürecektir. </para>
+
+</sect2>
+
+<sect2>
+<title
+>Hızlı Aç Yapılandırması</title>
+<screenshot id="screenshot-project-quickopen">
+<screeninfo
+>Hızlı Aç</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+<para
+>Hızlı aç, birkaç yapılandırma seçeneği sağlar. Bu seçeneklere ulaşmak için giriş satırında sağ tıklayın. </para>
+<variablelist>
+<varlistentry>
+<term
+>Şu anda kullanılabilir seçenekler şunlardır:</term>
+<listitem>
+<para
+><userinput
+>Geçerli Proje</userinput
+> - Yalnızca geçerli projeden olan dosyaları göster</para>
+<para
+><userinput
+>Tüm Projeler</userinput
+> -  Tüm projelerden olan dosyaları göster</para>
+<para
+><userinput
+>Belirsiz Süzme</userinput
+> - Dosyaları süzmek için belirsiz eşleştirme algoritmasını kullan</para>
+<para
+><userinput
+>Jokerle Süzme</userinput
+>- Dosyaları süzmek için joker eşleştirmesi algoritmasını kullan</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+</sect1>
+
+<sect1 id="fundamentals-getting-help">
+
+<title
+>Yardım Almak</title>
+
+<sect2>
+
+<title
+>&kate; ile</title>
+<variablelist>
+
+<varlistentry>
+<term
+>Bu kılavuz</term>
+
+<listitem>
+<para
+>Tüm menü komutları, yapılandırma seçenekleri, araçlar, iletişim kutuları, eklentiler vb. hakkında ayrıntılı belgeler sunar; ayrıca &kate; penceresinin, düzenleyicisinin ve uygulamada kullanılan çeşitli kavramların açıklamalarını verir.</para>
+
+<para
+>Bu kılavuzu görüntülemek için <keycap
+>F1</keycap
+> düğmesine basın veya <menuchoice
+><guimenu
+>Yardım</guimenu
+> <guimenuitem
+>&kate; El Kitabı</guimenuitem
+></menuchoice
+> menü başlığını kullanın.</para
+></listitem>
+
+</varlistentry>
+
+<varlistentry id="whats-this">
+<term
+>Bu Nedir Yardımı</term>
+<listitem>
+<para
+>Bu Nedir Yardımı, düğmeler veya diğer pencere alanları gibi grafik pencerelerin tekil ögeleriyle ilgili anında yardım sunar.</para>
+
+<para
+>Mantıklı olan tüm ögeler için Bu Nedir yardımını sağlamaya çalışıyoruz. Yapılandırma iletişim kutusunda ve diğer birçok iletişim kutusunda da kullanılabilirdir.</para>
+
+<para
+>Bu Nedir yardımını açmak için <keycombo action="simul"
+>&Shift;<keycap
+>F1</keycap
+></keycombo
+> düğmelerine basın veya <menuchoice
+><guimenu
+>Yardım</guimenu
+><guimenuitem
+>Bu Nedir?</guimenuitem
+></menuchoice
+> menü ögesini seçin. İmleç, soru işareti ile birlikte bir oka dönüşecektir ve artık herhangi bir ögenin, eğer varsa Bu Nedir yardımı içeriğini okuyabilirsiniz.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>İletişim Kutularındaki Yardım Düğmeleri</term>
+<listitem>
+<para
+>Bazı iletişim kutularında bir <guibutton
+>Yardım</guibutton
+> düğmesi vardır. Ona tıklamak &khelpcenter;'ni başlatır ve ilgili belgelendirmeyi açar.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2>
+<title
+>Metin Dosyalarınızla</title>
+
+<para
+>&kate; henüz düzenlediğiniz projelere ilişik belgelendirmeleri (örneğin kod veya API belgelendirmesi) okumak için henüz bir yordan sağlamıyor. Düzenlediğiniz dosyaya bağlı olarak, &UNIX; kılavuz sayfalarını görüntülemek için <link linkend="kate-application-plugin-konsole"
+>Yerleşik Uçbirim Öykünücüsü</link
+>'nü veya &konqueror;'ı kullanabilirsiniz.</para>
+
+</sect2>
+
+<sect2>
+<title
+>&kate; ile İlgili Yazılar</title>
+
+<para
+>&kate;'in ana sayfası, bu el kitabının kapsamı dışında olan bazı <ulink url="https://kate-editor.org/featured-articles"
+>Yazılar ve Nasıl Yapılırlar</ulink
+> sağlar.</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>

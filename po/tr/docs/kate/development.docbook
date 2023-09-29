@@ -1,0 +1,79 @@
+<chapter id="dev">
+<chapterinfo>
+<authorgroup>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="translator"
+><firstname
+>Kaan</firstname
+><surname
+>Özdinçer</surname
+><affiliation
+><address
+><email
+>kaanozdincer@gmail.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>&kate;'i Genişletmek</title>
+
+<sect1 id="dev-intro">
+<title
+>Giriş</title>
+
+<para
+>Gelişmiş herhangi bir metin düzenleyicisi gibi, &kate; de, işlevselliğini genişletmenin çeşitli yollarını sunar. <link linkend="dev-scripting"
+>&javascript; ile basit betikler yazabilir</link
+> veya <link linkend="dev-app"
+>C++ ile yazılmış &kate; Uygulama Eklentileri</link
+> ile çok daha fazla özellik ekleyebilirsiniz. Son olarak, &kate;'i genişlettikten sonra, <ulink url="https://kate-editor.org/join-us/"
+>bize katılın</ulink
+> ve iyileştirmelerinizi dünyayla paylaşın!</para>
+
+</sect1>
+
+<sect1 id="highlight">
+<title
+>Sözdizim Vurgulamalarıyla Çalışmak</title>
+
+<para
+>Sözdizim vurgulamaları tanımlamarını eklemek veya düzenlemek hakkında bilgi için <ulink url="help:/katepart/highlight.html"
+>&katepart; El Kitabı'nın Geliştirme bölümünün Sözdizim Vurgulamalarıyla Çalışmak bölümüne</ulink
+> bakın.</para>
+
+</sect1>
+
+<sect1 id="dev-scripting">
+<title
+> &javascript; ile Betik Yazımı</title>
+
+<para
+>&javascript; ile betik yazımı hakkında bilgi için <ulink url="help:/katepart/highlight.html"
+>&katepart; El Kitabı</ulink
+>'nın &javascript; ile betik yazımı bölümüne bakın.</para>
+
+</sect1>
+
+<sect1 id="dev-app">
+<title
+>&kate; (C++) Uygulama Eklentileri</title>
+
+<para
+><link linkend="kate-application-plugins"
+>&kate; Uygulama Eklentileri</link
+>, düşleyebileceğiniz herhangi bir biçimde &kate; düzenleyicisinin işlevselliğini genişletir, &kate;'in yazıldığı programlama dili olan C++ programlama dilini kullanarak yazılmıştır.</para>
+
+<para
+>Başlamak için &kate; web sitesindeki <ulink url="https://kate-editor.org/2004/01/06/writing-a-kate-plugin/"
+>&kate; Eklentileri Öğreticisi</ulink
+>'ne bakın.</para>
+
+</sect1>
+
+</chapter>

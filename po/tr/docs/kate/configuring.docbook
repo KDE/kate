@@ -1,0 +1,609 @@
+<chapter id="configuring-kate">
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<othercredit role="translator"
+><firstname
+>Kaan</firstname
+><surname
+>Özdinçer</surname
+><affiliation
+><address
+><email
+>kaanozdincer@gmail.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@icloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>&kate; Yapılandırması</title>
+
+<sect1 id="configuring-overview">
+<title
+>Genel Bakış</title>
+<para>
+<indexterm>
+<primary
+>yapılandır</primary>
+<secondary
+>ayarlar</secondary>
+<tertiary
+>tercihler</tertiary
+></indexterm
+><anchor id="find"/> <anchor id="find-again"/> <anchor id="replace"/> <anchor id="undo"/> <anchor id="redo"/> &kate;, uygulamanın istediğiniz gibi davranması için çeşitli yöntemler sunar. En önemlileri şunlardır: </para>
+
+<variablelist>
+<varlistentry>
+<term id="configure"
+>Yapılandırma İletişim Kutusu</term>
+<listitem
+><para
+>Ana yapılandırma aracı, &kate; uygulamasını, düzenleyici bileşenini ve eklentilerin kullanımını yapılandırmanızı sağlar.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term id="settings"
+><guimenu
+>Ayarlar</guimenu
+> Menüsü</term>
+<listitem
+><para
+>Sık kullanılan ayarları değiştirmenize ve yapılandırma pencerelerini başlatmanıza izin verir.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guimenu
+>Görünüm</guimenu
+> Menüsü</term>
+<listitem
+><para
+>Geçerli çerçeveyi bölmenize, ayrıca şu anda düzenlenen belgenin simgelerini ve satır numaraları bölmesini görüntülemenize olanak tanır.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Gömülü uçbirim, &systemsettings; içinde tanımlanmış olan yapılandırmayı kullanır ve bağlam menüsün görüntülenmesi için &RMB; ile tıklanarak yapılandırılabilir.</para>
+
+</sect1>
+
+<sect1 id="configuring-kate-configdialog">
+<title
+>Ana Yapılandırma İletişim Kutusu</title>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="configdialog01.png"/>
+</imageobject>
+</mediaobject>
+
+<para
+>&kate; yapılandırma iletişim kutusu, solda konular ağacını ve sağda seçili konuyla ilgili bir yapılandırma sayfası görüntüler.</para>
+
+<para
+>Yapılandırma iki gruba ayrılır; bunların adları: <itemizedlist>
+<listitem
+><para
+><link linkend="config-dialog"
+>Uygulama yapılandırması</link>
+</para
+></listitem>
+<listitem
+><para
+><link linkend="config-dialog-editor"
+>Düzenleyici bileşeni yapılandırması</link
+></para
+></listitem>
+
+</itemizedlist>
+
+</para>
+
+</sect1>
+
+<sect1 id="config-dialog">
+<title
+>&kate; Uygulaması Yapılandırması</title>
+<para
+>Bu grup, ana &kate; uygulaması yapılandırması sayfalarını içerir</para>
+
+<sect2 id="config-dialog-general">
+<title
+>Genel</title>
+<para
+>Bu bölüm, &kate; için bir kaç global seçenek içerir</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><anchor id="config-general-behavior"/>
+<guilabel
+>Davranış</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><anchor id="config-dialog-general-open-each-document"/>
+<guilabel
+>Her bir belgeyi kendi penceresinde aç</guilabel
+></term>
+<listitem
+><para
+>Etkinleştirilmişse her bir belge kendi penceresinde açılır. Etkinleştirilmemişse belgeler geçerli pencerede yeni bir sekmede açılır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-dialog-general-switch-to-output"/>
+<guilabel
+>Şu ileti türünde çıktı görünümüne geç</guilabel
+></term>
+<listitem
+><para
+>Bu seçenek, eylem çıktısının türüne bağlı olarak &kate;'in ne zaman çıktı bölmesi göstermesi gerektiğini yapılandırmaya izin verir.</para>
+<para
+><guimenuitem
+>Asla</guimenuitem
+>, <guimenuitem
+>Hata</guimenuitem
+> (hata durumunda), <guimenuitem
+>Uyarı</guimenuitem
+> (uyarı durumunda veya yukarıdakinde), <guimenuitem
+>Bilgi</guimenuitem
+> (bilgi varken veya yukarıdakinde) ve <guimenuitem
+>Günlük</guimenuitem
+> (günlük durumunda veya yukarıdakinde) seçenekleri kullanılabilirdir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-dialog-general-separate-dialog"/>
+<guilabel
+>Dışarıdan değiştirilen dosyaları işlemek için ayrı bir iletişim kutusu kullan</guilabel
+></term>
+<listitem
+><para
+>Etkinleştirildiğinde &kate;, ana pencere giriş odağını aldığında uygulamanın dışından değiştirilen tüm dosyalar hakkında kalıcı bir iletişim kutusuyla sizi bilgilendirecektir. Değiştirilen birkaç dosyayla aynı anda ilgilenebileceksiniz; değiştirilenleri yeniden yükleyebilir, kaydedebilir veya gruplar halinde dosyaları atabilirsiniz.</para>
+<para
+>Etkinleştirilmemişse &kate;, yalnızca o dosyanın görünümü odaklandığında, değiştirilen her dosya için ne yapmanız gerektiğini ayrı ayrı soracaktır.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry
+><!-- /behavior group -->
+
+<varlistentry>
+<term
+><anchor id="config-general-quick-open"/>
+<guilabel
+>Hızlı Aç</guilabel
+></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term
+><anchor id="config-general-quick-open-match-mode"/>
+<guilabel
+>Eşleşme Kipi</guilabel
+></term>
+<listitem
+><para
+><link linkend="view-quick-open"
+>Hızlı Aç</link
+> aracı için liste kipini ayarlayın. Dosyalar hem adları hem de yollarıyla eşleştirilebilir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-quick-open-list-mode"/>
+<guilabel
+>Liste Kipi</guilabel
+></term>
+<listitem
+><para
+><link linkend="view-quick-open"
+>Hızlı Aç</link
+> aracı için liste kipini ayarlayın. <guilabel
+>Geçerli Proje Dosyaları</guilabel
+> ve <guilabel
+>Tüm Projelerin Dosyaları</guilabel
+> arasında seçim yapılabilir.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /quick open group -->
+
+<varlistentry>
+<term
+><anchor id="config-general-tabs"/>
+<guilabel
+>Sekmeler</guilabel
+></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term
+><anchor id="config-general-limit-number-of-tabs"/>
+<guilabel
+>Sekme sayısını sınırla</guilabel
+></term>
+<listitem
+><para
+>Olabilecek en çok sekme sayısını ayarlayın. Herhangi bir sınır koymak istemiyorsanız <guimenuitem
+>Sınırsız</guimenuitem
+> seçebilirsiniz.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-auto-hide-tabs"/>
+<guilabel
+>Sekmeleri otomatik gizle</guilabel
+></term>
+<listitem
+><para
+>İşaretlendiğinde, yalnızca tek bir belge açıksa sekmeler gizlenir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-show-close-button"/>
+<guilabel
+>Kapat düğmesini göster</guilabel
+></term>
+<listitem
+><para
+>İşaretlendiğinde, her bir sekme bir kapat düğmesi gösterir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-expand-tabs"/>
+<guilabel
+>Sekmeleri genişlet</guilabel
+></term>
+<listitem
+><para
+>İşaretlendiğinde, sekmeler olabildiğince çok yer kaplar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-double-click"/>
+<guilabel
+>Çift tıklama yeni bir belge açar</guilabel
+></term>
+<listitem
+><para
+>İşaretlendiğinde, çift tıklama yeni bir belge açar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-middle-click"/>
+<guilabel
+>Orta tık belgeyi kapatır</guilabel
+></term>
+<listitem
+><para
+>İşaretlendiğinde, orta tıklama bir belgeyi kapatır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-tab-scrolling"/>
+<guilabel
+>Sekme sarımına izin ver</guilabel
+></term>
+<listitem
+><para
+>İşaretlendiğinde, pek çok sekme varsa sekme çubuğunu sarmaya izin verir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-elide-tab-text"/>
+<guilabel
+>Sekme metnini yuvarla</guilabel
+></term>
+<listitem
+><para
+>İşaretlendiğinde, sekme metni pek uzunsa yuvarlanabilir.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /tabs group -->
+
+<varlistentry>
+<term
+><anchor id="config-general-mouse"/>
+<guilabel
+>Sekmeler</guilabel
+></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term
+><anchor id="config-general-backward-button-pressed"/>
+<guilabel
+>Geri düğmesine basıldığında</guilabel
+></term>
+<listitem
+><para
+>Fare geri düğmesi eylemini <guimenuitem
+>Önceki sekme</guimenuitem
+> ve <guimenuitem
+>Geri geçmiş</guimenuitem
+> düğmeleri arasında seçmeye izin verir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-forward-button-pressed"/>
+<guilabel
+>İleri düğmesine basıldığında</guilabel
+></term>
+<listitem
+><para
+>Fare ileri düğmesi eylemini <guimenuitem
+>Sonraki sekme</guimenuitem
+> ve <guimenuitem
+>İleri geçmiş</guimenuitem
+> düğmeleri arasında seçmeye izin verir.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /mouse group -->
+</variablelist>
+</sect2>
+
+<sect2 id="config-dialog-sessions">
+<title
+>Oturum</title>
+
+<para
+>Bu bölüm, <link linkend="fundamentals-using-sessions"
+>oturumları kullanmak</link
+> ile ilişkili seçenekleri içerir.</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-startup-behavior"/>
+<guilabel
+>Uygulama Başlangıcı Davranışı</guilabel
+></term>
+<listitem>
+<para
+>&kate;'in başlangıçta nasıl davranmasını istediğinizi seçin. Bu ayar, <link linkend="command-line-options"
+>command line</link
+> seçenekleri verilerek geçersiz kılınabilir.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Yeni oturum başlat</guilabel
+></term>
+<listitem
+><para
+>Bu seçenek ile &kate;, yeni adsız bir oturum başlatacaktır.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Son kullanılan oturumu yükle</guilabel
+></term>
+<listitem
+><para
+>&kate;, başlangıçta en son açılan oturumu kullanır. Her zaman aynı oturumu kullanmak veya nadiren geçiş yapmak istiyorsanız bu iyi bir seçimdir.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Elle oturum seç</guilabel
+></term>
+<listitem
+><para
+>&kate;, tercih ettiğiniz oturumu seçmenizi veya kaydedilmemişse öntanımlı oturumu yüklemenizi sağlayan küçük bir iletişim kutusu görüntüleyecektir. Bu, öntanımlı davranıştır. Çok sayıda farklı oturumu sık sık kullanıyorsanız yararlıdır.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry
+><!-- /startup behavior -->
+
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-shutdown-behavior"/>
+<guilabel
+>Uygulama Başlatma/Kapatma Davranışı</guilabel
+></term>
+<listitem>
+<para
+>&kate;'in kapatma sırasında nasıl davranmasını istediğinizi seçin. &kate;'in neyi <guilabel
+>Kendiliğinden kaydet ve geri yükle</guilabel
+> yapmasını tanımlamak olanaklıdır.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Yeni oluşturulan kaydedilmemiş dosyalar</guilabel
+></term>
+<listitem
+><para
+>Bu öge işaretlendiğinde &kate; tüm yeni oluşturulan kaydedilmemiş dosyaları kendiliğinden kaydeder.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Kaydedilmemiş değişiklikli dosyalar</guilabel
+></term>
+<listitem
+><para
+>Bu öge, kapatma sırasında kaydedilmemiş değişiklikler içeren tüm dosyaların otomatik olarak kaydedilmesi için &kate;'in yapılandırılmasına olanak tanır.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-close-mod"/>
+<guilabel
+>Son dosya kapatıldığında uygulamayı tümüyle kapat</guilabel
+></term>
+<listitem
+><para
+>Etkinleştirilmişse &kate;, düzenlenen son dosya kapatıldığında çıkar. Aksi takdirde yeni bir dosya başlatabilmeniz için boş bir sayfa açılır.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /shutdown behavior -->
+
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-elements"/>
+<guilabel
+>Oturum Ögeleri</guilabel
+></term>
+<listitem>
+<variablelist>
+<!--FIXME Maximum number of entries in recent file list-->
+<varlistentry>
+<term
+><guilabel
+>Pencere ayarlarını içer</guilabel
+></term>
+<listitem
+><para
+>Etkinleştirilmişse &kate;, her bir oturum için pencere yapılandırmalarını kaydedecektir.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry
+><!-- /elements of sessions -->
+
+<varlistentry>
+<term
+><anchor id="config-sessions-keep-meta-information"/>
+<guilabel
+>Geçmiş oturumlardaki üstbilgiyi sakla</guilabel
+></term>
+<listitem
+><para
+>Etkinleştirildiğinde &kate;, belgelerinizi kapattığınızda bile yer imleri ve oturum yapılandırması gibi üst veriyi depolar. Belge yeniden açıldığında değiştirilmemişse veri kullanılacaktır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-sessions-delete-meta-information-after"/>
+<guilabel
+>Kullanılmayan üstbilgiyi sil</guilabel
+></term>
+<listitem
+><para
+>Önceden açılmış dosyalara ilişkin üstbilginin saklanacağı en çok gün sayısını ayarlayın. Bu, üstbilgi veritabanının makul boyutta tutulmasına yardımcı olur.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+<para
+>Oturum verilerinde yapılan herhangi bir değişiklik (açık dosyalar ve etkinse pencere/yapılandırma) her zaman kaydedilecektir.</para>
+
+</sect2>
+
+<sect2 id="config-dialog-plugins">
+<title
+>Eklentiler</title>
+
+<para
+>Bu sayfa, &kate; uygulamasında kurulu eklentilerin bir listesini sağlar. Her eklenti, adı ve kısa bir açıklamasıyla temsil edilir. Temsil ettiği eklentiyi etkinleştirmek için onay kutusunu bir ögeyle işaretleyebilirsiniz. </para>
+
+<para
+>Bir eklenti yapılandırma seçenekleri sağlıyorsa bunlara erişebileceğiniz bir bölüm bu sayfanın alt öğesi olarak görünecektir.</para>
+
+<para
+>Eklentiler hakkında daha fazla bilgi için: <xref linkend="plugins"/>.</para>
+
+</sect2>
+
+<sect2 id="config-dialog-editor">
+<title
+>Düzenleyici Bileşeni Yapılandırması</title>
+
+<para
+>Yapılandırma iletişim kutusunun bu bölümü hakkında bilgi almak için <ulink url="help:/katepart/config-dialog.html"
+>&katepart; El Kitabı'nın Düzenleyici Bileşeni Yapılandırması</ulink
+> bölümüne bakın.</para>
+
+</sect2>
+
+<sect2 id="config-variables">
+<title
+>Belge Değişkenleriyle Yapılandırma</title>
+
+<para
+>&kate; ile belge değişkenlerinin kullanımı hakkında bilgi almak için <ulink url="help:/katepart/config-variables.html"
+>&katepart; El Kitabı'nın Belge Değişkenleriyle Yapılandırma</ulink
+> bölümüne bakın.</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>

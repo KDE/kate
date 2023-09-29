@@ -1,0 +1,443 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY kappname "&kwrite;">
+<!ENTITY % Turkish "INCLUDE"
+> <!-- change language only here -->
+]>
+
+<article id="kwrite" lang="&language;">
+
+<articleinfo>
+<title
+>&kwrite; El Kitabı</title>
+<authorgroup>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="developer"
+>&Christoph.Cullmann; &Christoph.Cullmann.mail; </othercredit>
+
+<othercredit role="translator"
+><firstname
+>Hasan</firstname
+><surname
+>Kiran</surname
+><affiliation
+><address
+><email
+>sunder67@hotmail.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@icloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+
+</authorgroup>
+
+<copyright>
+<year
+>2014</year>
+<holder
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2021-09-02</date>
+<releaseinfo
+>KDE Gear 21.12</releaseinfo>
+
+<abstract>
+<para
+>&kwrite;, &kde; tarafından sağlanan bir metin düzenleyicisidir ve her pencerede aynı anda bir dosyayı düzenlemenize olanak tanır.</para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>K Yaz</keyword>
+<keyword
+>metin</keyword>
+<keyword
+>düzenleyici</keyword>
+</keywordset>
+
+</articleinfo>
+
+<sect1 id="introduction">
+<title
+>Giriş</title>
+
+<para
+>&kwrite;, &kde; tarafından sağlanan bir metin düzenleyicisinden daha fazlasıdır. Bir programcının düzenleyicisi olması amaçlanmıştır ve daha güçlü düzenleyicilere en azından kısımsal bir alternatif olarak düşünülebilir. Farklı dillerdeki kaynak dosyalarını taramak için en iyi şekilde &konqueror; veya &dolphin; ile birlikte kullanılabilir. &kwrite; aynı zamanda basit bir metin düzenleyicisi olarak da çok iyi çalışır. &kwrite;'ın ana özelliklerinden biri; C/C++, &Java;, Perl, Bash, Modula 2, &HTML;, Ada ve Python gibi birçok farklı programlama dili için özelleştirilmiş, renklendirilmiş sözdizimidir. &kwrite;, her pencerede aynı anda bir dosyayı düzenlemenize olanak tanıyan tek bir belge arayüzüne (<acronym
+>SDI</acronym
+>) sahiptir. </para>
+
+<para
+>&kwrite;, &kate;, &kdevelop; ve gelişmiş metin düzenleme gerektiren diğer &kde; uygulamaları tarafından da kullanılan &katepart; bileşenine yönelik basit bir arayüzdür. Bu nedenle, &kwrite;'ın tüm özelliklerine ilişkin eksiksiz belgeler <ulink url="help:/katepart"
+>&katepart; El Kitabı</ulink
+>'nda bulunabilir. </para>
+</sect1>
+
+<sect1 id="command-line-options">
+<title
+>Komut Satırı Seçenekleri</title>
+
+<para
+>&kwrite; çoğunlukla &plasma; uygulama başlatıcısından veya bir masaüstü simgesinden başlatılabilse de, bir uçbirim penceresinin komut satırı isteminden de açılabilir. Bunu yaparken kullanılabilecek birkaç yararlı seçenek vardır. </para>
+
+<para
+>&katepart; kullanan diğer birçok uygulama benzer komut satırı seçenekleri sunarlar.</para>
+
+<sect2 id="specify-a-file">
+<title
+>Bir dosya belirt</title>
+
+<para
+>Kullanıcı, belirli bir dosyanın yolunu ve adını belirterek, &kwrite; başlangıcında hemen o dosyayı açabilir (veya oluşturabilir). Bu seçenek aşağıdakine benzer:</para>
+
+<informalexample
+><screen
+><prompt
+>%</prompt
+> <userinput
+><command
+>kwrite</command>
+<option
+><replaceable
+>/home/ben/belgeler/dosyam.txt</replaceable
+></option>
+</userinput
+>
+</screen>
+</informalexample>
+</sect2>
+<sect2 id="editing-files-on-the-internet">
+<title
+>İnternet'teki bir dosyayı belirt</title>
+
+<para
+>Yukarıda belirtilen yöntem, İnternet'teki dosyaları açmak için bile kullanılabilir (eğer kullanıcının o sırada etkin bir bağlantısı varsa). Bunun bir örneği aşağıdakine benzer:</para>
+
+<informalexample
+><screen
+><prompt
+>%</prompt
+> <userinput
+><command
+>kwrite</command>
+<option
+><replaceable
+>ftp://ftp.kde.org/pub/kde/BENİOKU</replaceable>
+</option
+></userinput
+>
+</screen>
+</informalexample>
+
+</sect2>
+
+<sect2 id="other-command-line-options">
+<title
+>Diğer Komut Satırı Seçenekleri</title>
+
+<para
+>Aşağıdaki komut satırı yardım seçenekleri kullanılabilirdir</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>--help</option
+></userinput
+></term>
+<listitem
+><para
+>Bu, komut satırında kullanılabilir olan en temel seçenekleri listeler.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>--author</option
+></userinput
+></term>
+<listitem
+><para
+>&kwrite;'ın yazarlarını uçbirim penceresinde listeler.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-v</option
+>, <option
+>--version</option
+></userinput
+></term>
+<listitem
+><para
+>Uygulamanın sürüm bilgisini listeler.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>--license</option
+></userinput
+></term>
+<listitem>
+<para
+>Lisans bilgisini gösterir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>--desktopfile</option
+> <parameter
+>dosya-adı</parameter
+></userinput
+></term>
+<listitem
+><para
+>Bu uygulamanın masaüstü girdisinin temel dosya adı.</para>
+<para
+>Bu özellikle sarmalayıcı uygulamalar ve genel olarak birden fazla masaüstü dosyasına sahip uygulamalar için kullanışlıdır. Böylece her masaüstü dosyası <option
+>Exec</option
+> girdisi için kendi komut satırına sahip olabilir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-e</option
+>, <option
+>--encoding</option
+> <parameter
+>kodlama</parameter
+> </userinput
+></term>
+<listitem
+><para
+>Belge için &kwrite;'ın belirtilen kodlamayı kullanmasını sağlar. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-l</option
+>, <option
+>--line</option
+> <parameter
+>satır</parameter
+> </userinput
+></term>
+<listitem
+><para
+>Belgeyi açtıktan sonra belirtilen satıra gidin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-c</option
+>, <option
+>--column</option
+> <parameter
+>sütun</parameter
+> </userinput
+></term>
+<listitem
+><para
+>Belgeyi açtıktan sonra belirtilen sütuna gidin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-i</option
+>, <option
+>--stdin</option
+></userinput
+></term>
+<listitem
+><para
+>&kwrite;'ın belgeyi standart girdi'den okumasını sağlar. Bu, çoğu komut satırı programında bulunan <option
+>-</option
+> seçeneğine benzerdir ve komut çıktısını &kwrite;'a veriyolu yapmanıza olanak tanır.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
+<sect1 id="credits">
+<title
+>Emeği Geçenler ve Lisans</title>
+
+<para
+>&kwrite; Telif hakkı 2001-2014 &kate; takımı.</para>
+
+<para
+>Özgün &kwrite; temellidir, telif hakkı 2000, Jochen Wilhelmy <email
+>digisnap@cs.tu-berlin.de</email
+> </para>
+
+<para
+>Katkıda bulunanlar:</para>
+
+<itemizedlist>
+<listitem>
+<para
+>&Christoph.Cullmann; &Christoph.Cullmann.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Michael Bartl <email
+>michael.bartl1@chello.at</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>Phlip <email
+>phlip_cpp@my-deja.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Anders.Lund; &Anders.Lund.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Matt Newell <email
+>newellm@proaxis.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Joseph.Wenninger; &Joseph.Wenninger.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Jochen Wilhelmy <email
+>digisnap@cs.tu-berlin.de</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Michael.Koch; &Michael.Koch.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>&Christian.Gebauer; &Christian.Gebauer.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>&Simon.Hausmann; &Simon.Hausmann.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Glen Parker <email
+>glenebob@nwlink.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>Scott Manson <email
+>sdmanson@altel.net</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&John.Firebaugh; &John.Firebaugh.mail;</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Çeviren: Hasan Kiran<email
+>sunder67@hotmail.com</email
+></para
+><para
+>Çeviren: Emir SARI<email
+>emir_sari@icloud.com</email
+></para
+> &underFDL; &underGPL; </sect1>
+
+</article>
+<!--
+Local Variables:
+mode: sgml
+sgml-namecase-general: t
+sgml-namecase-entity: nil
+sgml-general-insert-case: lower
+sgml-minimize-attributes: nil
+sgml-omittag: nil
+End:
+-->

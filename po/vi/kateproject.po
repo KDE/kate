@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-28 01:41+0000\n"
+"POT-Creation-Date: 2023-09-29 01:40+0000\n"
 "PO-Revision-Date: 2023-02-20 11:25+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -88,7 +88,7 @@ msgstr[0] "Bạn có chắc chắn muốn xoá những nhánh đã chọn không
 msgid "Select Branch..."
 msgstr "Chọn nhánh..."
 
-#: branchesdialog.cpp:126 gitwidget.cpp:533 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:126 gitwidget.cpp:534 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -98,19 +98,19 @@ msgstr "Git"
 msgid "Back"
 msgstr "Lùi"
 
-#: currentgitbranchbutton.cpp:123
+#: currentgitbranchbutton.cpp:124
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
 msgstr "HEAD ở bản chuyển giao %1"
 
-#: currentgitbranchbutton.cpp:125
+#: currentgitbranchbutton.cpp:126
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
 msgstr "HEAD ở thẻ gắn %1"
 
-#: currentgitbranchbutton.cpp:127
+#: currentgitbranchbutton.cpp:128
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
@@ -121,7 +121,7 @@ msgstr "Nhánh hoạt động: %1"
 msgid "Commit Changes"
 msgstr "Chuyển giao các thay đổi"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:261
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:262
 #, kde-format
 msgid "Commit"
 msgstr "Chuyển giao"
@@ -151,7 +151,7 @@ msgstr "Xác nhận"
 msgid "Amend"
 msgstr "Sửa đổi"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1004
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1005
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Sửa đổi bản chuyển giao cuối"
@@ -193,310 +193,310 @@ msgstr "Xung đột"
 msgid "Modified"
 msgstr "Đã chỉnh sửa"
 
-#: gitwidget.cpp:269
+#: gitwidget.cpp:270
 #, kde-format
 msgid "Git Push"
 msgstr "Đẩy lên Git"
 
-#: gitwidget.cpp:282
+#: gitwidget.cpp:283
 #, kde-format
 msgid "Git Pull"
 msgstr "Kéo về Git"
 
-#: gitwidget.cpp:295
+#: gitwidget.cpp:296
 #, kde-format
 msgid "Cancel Operation"
 msgstr "Huỷ thao tác"
 
-#: gitwidget.cpp:303
+#: gitwidget.cpp:304
 #, kde-format
 msgid " canceled."
 msgstr " đã huỷ."
 
-#: gitwidget.cpp:324 kateprojectview.cpp:59
+#: gitwidget.cpp:325 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
 msgstr "Lọc..."
 
-#: gitwidget.cpp:412
+#: gitwidget.cpp:413
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
 "Không tìm thấy thư mục .git for '%1', các chức năng có thể không hoạt động "
 "đúng"
 
-#: gitwidget.cpp:617
+#: gitwidget.cpp:618
 #, kde-format
 msgid " error: %1"
 msgstr " lỗi: %1"
 
-#: gitwidget.cpp:623
+#: gitwidget.cpp:624
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "Thực thi \"%1\" thành công: %2"
 
-#: gitwidget.cpp:643
+#: gitwidget.cpp:644
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Chấp nhận tệp thất bại. Lỗi:"
 
-#: gitwidget.cpp:656
+#: gitwidget.cpp:657
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Bỏ chấp nhận tệp thất bại. Lỗi:"
 
-#: gitwidget.cpp:667
+#: gitwidget.cpp:668
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Loại bỏ các thay đổi thất bại. Lỗi:"
 
-#: gitwidget.cpp:678
+#: gitwidget.cpp:679
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Xoá thất bại. Lỗi:"
 
-#: gitwidget.cpp:694
+#: gitwidget.cpp:695
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Mở tệp ở HEAD thất bại: %1"
 
-#: gitwidget.cpp:726
+#: gitwidget.cpp:727
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Lấy phần chênh của tệp thất bại: %1"
 
-#: gitwidget.cpp:793
+#: gitwidget.cpp:794
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Chuyển giao thất bại: %1"
 
-#: gitwidget.cpp:797
+#: gitwidget.cpp:798
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Các thay đổi được chuyển giao thành công."
 
-#: gitwidget.cpp:807
+#: gitwidget.cpp:808
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Không có gì để chuyển giao. Vui lòng chấp nhận các thay đổi trước đã."
 
-#: gitwidget.cpp:820
+#: gitwidget.cpp:821
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Thông điệp chuyển giao không được để trống."
 
-#: gitwidget.cpp:936
+#: gitwidget.cpp:937
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Không có phần chênh cho %1...%2"
 
-#: gitwidget.cpp:942
+#: gitwidget.cpp:943
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "So sánh thất bại: %1...%2"
 
-#: gitwidget.cpp:957
+#: gitwidget.cpp:958
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Lấy numstat thất bại khi so sánh %1...%2"
 
-#: gitwidget.cpp:996
+#: gitwidget.cpp:997
 #, kde-format
 msgid "Refresh"
 msgstr "Cập nhật"
 
-#: gitwidget.cpp:1012
+#: gitwidget.cpp:1013
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Lấy ra nhánh"
 
-#: gitwidget.cpp:1024
+#: gitwidget.cpp:1025
 #, kde-format
 msgid "Delete Branch"
 msgstr "Xoá nhánh"
 
-#: gitwidget.cpp:1036
+#: gitwidget.cpp:1037
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "So sánh nhánh với..."
 
-#: gitwidget.cpp:1041
+#: gitwidget.cpp:1042
 #, kde-format
 msgid "Show Commit"
 msgstr "Hiện bản chuyển giao"
 
-#: gitwidget.cpp:1041
+#: gitwidget.cpp:1042
 #, kde-format
 msgid "Commit hash"
 msgstr "Giá trị băm của bản chuyển giao"
 
-#: gitwidget.cpp:1048
+#: gitwidget.cpp:1049
 #, kde-format
 msgid "Open Commit..."
 msgstr "Mở bản chuyển giao..."
 
-#: gitwidget.cpp:1051 gitwidget.cpp:1090
+#: gitwidget.cpp:1052 gitwidget.cpp:1091
 #, kde-format
 msgid "Stash"
 msgstr "Cất"
 
-#: gitwidget.cpp:1061
+#: gitwidget.cpp:1062
 #, kde-format
 msgid "Diff - stash"
 msgstr "Phần chênh - cất"
 
-#: gitwidget.cpp:1094
+#: gitwidget.cpp:1095
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Lấy ra phần cất cuối"
 
-#: gitwidget.cpp:1098
+#: gitwidget.cpp:1099
 #, kde-format
 msgid "Pop Stash"
 msgstr "Lấy phần cất ra"
 
-#: gitwidget.cpp:1102
+#: gitwidget.cpp:1103
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Áp dụng phần cất cuối"
 
-#: gitwidget.cpp:1104
+#: gitwidget.cpp:1105
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Cất (để nguyên phần đã chấp nhận)"
 
-#: gitwidget.cpp:1108
+#: gitwidget.cpp:1109
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Cất (bao gồm phần chưa theo dõi)"
 
-#: gitwidget.cpp:1112
+#: gitwidget.cpp:1113
 #, kde-format
 msgid "Apply Stash"
 msgstr "Áp dụng phần cất"
 
-#: gitwidget.cpp:1113
+#: gitwidget.cpp:1114
 #, kde-format
 msgid "Drop Stash"
 msgstr "Bỏ phần cất"
 
-#: gitwidget.cpp:1114
+#: gitwidget.cpp:1115
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Hiện nội dung phần cất"
 
-#: gitwidget.cpp:1150
+#: gitwidget.cpp:1151
 #, kde-format
 msgid "Stage All"
 msgstr "Chấp nhận tất cả"
 
-#: gitwidget.cpp:1152
+#: gitwidget.cpp:1153
 #, kde-format
 msgid "Remove All"
 msgstr "Xoá tất cả"
 
-#: gitwidget.cpp:1152
+#: gitwidget.cpp:1153
 #, kde-format
 msgid "Discard All"
 msgstr "Loại bỏ tất cả"
 
-#: gitwidget.cpp:1155
+#: gitwidget.cpp:1156
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Mở .gitignore"
 
-#: gitwidget.cpp:1156 gitwidget.cpp:1203 gitwidget.cpp:1245
+#: gitwidget.cpp:1157 gitwidget.cpp:1204 gitwidget.cpp:1246
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Show Diff"
 msgstr "Hiện phần chênh"
 
-#: gitwidget.cpp:1173
+#: gitwidget.cpp:1174
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Bạn có chắc chắn muốn xoá những tệp này không?"
 
-#: gitwidget.cpp:1178
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Bạn có chắc chắn muốn loại bỏ tất cả các thay đổi không?"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Open File"
 msgstr "Mở tệp"
 
-#: gitwidget.cpp:1204
+#: gitwidget.cpp:1205
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Hiện ở công cụ xem phần chênh Git bên ngoài"
 
-#: gitwidget.cpp:1205
+#: gitwidget.cpp:1206
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Mở ở HEAD"
 
-#: gitwidget.cpp:1206
+#: gitwidget.cpp:1207
 #, kde-format
 msgid "Unstage File"
 msgstr "Bỏ chấp nhận tệp"
 
-#: gitwidget.cpp:1206
+#: gitwidget.cpp:1207
 #, kde-format
 msgid "Stage File"
 msgstr "Chấp nhận tệp"
 
-#: gitwidget.cpp:1207
+#: gitwidget.cpp:1208
 #, kde-format
 msgid "Remove"
 msgstr "Xoá"
 
-#: gitwidget.cpp:1207
+#: gitwidget.cpp:1208
 #, kde-format
 msgid "Discard"
 msgstr "Loại bỏ"
 
-#: gitwidget.cpp:1224
+#: gitwidget.cpp:1225
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Bạn có chắc chắn muốn loại bỏ các thay đổi trong tệp này không?"
 
-#: gitwidget.cpp:1233
+#: gitwidget.cpp:1234
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Bạn có chắc chắn muốn xoá tệp này không?"
 
-#: gitwidget.cpp:1244
+#: gitwidget.cpp:1245
 #, kde-format
 msgid "Unstage All"
 msgstr "Bỏ chấp nhận tất cả"
 
-#: gitwidget.cpp:1311
+#: gitwidget.cpp:1312
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Bỏ chấp nhận các tệp đã chọn"
 
-#: gitwidget.cpp:1311
+#: gitwidget.cpp:1312
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Chấp nhận các tệp đã chọn"
 
-#: gitwidget.cpp:1312
+#: gitwidget.cpp:1313
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Loại bỏ các tệp đã chọn"
 
-#: gitwidget.cpp:1316
+#: gitwidget.cpp:1317
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Xoá các tệp đã chọn"
 
-#: gitwidget.cpp:1329
+#: gitwidget.cpp:1330
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Bạn có chắc chắn muốn loại bỏ các thay đổi không?"
 
-#: gitwidget.cpp:1334
+#: gitwidget.cpp:1335
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Bạn có chắc chắn muốn xoá những thay đổi chưa được theo dõi này không?"
@@ -981,62 +981,62 @@ msgstr "Tạo tệp %1 thất bại, lỗi: %2"
 msgid "Failed to create dir: %1"
 msgstr "Tạo thư mục %1 thất bại"
 
-#: stashdialog.cpp:37
+#: stashdialog.cpp:36
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr "Thông điệp cất (không bắt buộc). Enter để xác nhận, Esc để thoát."
 
-#: stashdialog.cpp:44
+#: stashdialog.cpp:43
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "Gõ để lọc, Enter để lấy phần cất ra, Esc để thoát."
 
-#: stashdialog.cpp:143
+#: stashdialog.cpp:142
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Cất các thay đổi thất bại: %1"
 
-#: stashdialog.cpp:145
+#: stashdialog.cpp:144
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Các thay đổi được cất thành công."
 
-#: stashdialog.cpp:164
+#: stashdialog.cpp:163
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Lấy danh sách phần cất thất bại. Lỗi: "
 
-#: stashdialog.cpp:180
+#: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Áp dụng phần cất thất bại. Lỗi: "
 
-#: stashdialog.cpp:182
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Bỏ phần cất thất bại. Lỗi: "
 
-#: stashdialog.cpp:184
+#: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Lấy phần cất ra thất bại. Lỗi: "
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:187
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Áp dụng phần cất thành công."
 
-#: stashdialog.cpp:190
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Bỏ phần cất thành công."
 
-#: stashdialog.cpp:192
+#: stashdialog.cpp:191
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Lấy phần cất ra thành công."
 
-#: stashdialog.cpp:221
+#: stashdialog.cpp:220
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Hiện phần cất thất bại. Lỗi: "

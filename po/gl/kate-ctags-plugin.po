@@ -259,7 +259,7 @@ msgstr "Non se atopou o executábel de CTags."
 #: gotosymbolmodel.cpp:80
 #, kde-format
 msgid "CTags executable failed to execute."
-msgstr "Non se puido iniciar o executábel de CTags."
+msgstr "Non foi posíbel iniciar o executábel de CTags."
 
 #: gotosymbolmodel.cpp:148
 #, kde-format
@@ -370,7 +370,7 @@ msgstr "Configuración de CTags"
 #: kate_ctags_plugin.cpp:231
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "Non se puido executar «%1». Estado de saída = %2"
+msgstr "Non foi posíbel executar «%1». Estado de saída = %2"
 
 #: kate_ctags_plugin.cpp:242
 #, kde-format
@@ -461,7 +461,7 @@ msgstr "Non hai cartafoles nin ficheiros para indexar."
 #: kate_ctags_view.cpp:558
 #, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "Non se puido executar. Erro: «%1». Código de saída: %2."
+msgstr "Non foi posíbel executar. Erro: «%1». Código de saída: %2."
 
 #: kate_ctags_view.cpp:573
 #, kde-format

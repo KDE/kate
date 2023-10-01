@@ -409,7 +409,7 @@ msgstr ""
 #: lspclientservermanager.cpp:903
 #, kde-format
 msgid "Failed to start server: %1"
-msgstr "Non se puido iniciar o servidor: %1"
+msgstr "Non foi posíbel iniciar o servidor: %1"
 
 #: lspclientservermanager.cpp:911
 #, fuzzy, kde-format
@@ -432,7 +432,7 @@ msgstr "Non se puido analizar a configuración do servidor: %1"
 #: lspclientservermanager.cpp:952
 #, kde-format
 msgid "Failed to read server configuration: %1"
-msgstr "Non se puido ler a configuración do servidor: %1"
+msgstr "Non foi posíbel ler a configuración do servidor: %1"
 
 #: lspclientsymbolview.cpp:240
 #, fuzzy, kde-format

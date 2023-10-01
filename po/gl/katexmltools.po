@@ -57,12 +57,12 @@ msgstr ""
 #: plugin_katexmltools.cpp:451
 #, kde-format
 msgid "Loading XML Meta DTD"
-msgstr "Estase a cargar o meta DTD XML"
+msgstr "Cargando o meta DTD XML"
 
 #: plugin_katexmltools.cpp:483
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
-msgstr "Non se puido abrir o ficheiro «%1». O servidor devolveu un erro."
+msgstr "Non foi posíbel abrir o ficheiro «%1». O servidor devolveu un erro."
 
 #: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
@@ -109,7 +109,7 @@ msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr ""
-"Non se puido procesar o ficheiro «%1». Comprobe que o ficheiro contén XML "
+"Non foi posíbel procesar o ficheiro «%1». Comprobe que o ficheiro contén XML "
 "correcto."
 
 #: pseudo_dtd.cpp:54
@@ -130,7 +130,7 @@ msgstr ""
 #: pseudo_dtd.cpp:70
 #, kde-format
 msgid "Analyzing meta DTD..."
-msgstr "Estase a analizar o meta DTD…"
+msgstr "Analizando o meta DTD…"
 
 #: pseudo_dtd.cpp:70
 #, kde-format

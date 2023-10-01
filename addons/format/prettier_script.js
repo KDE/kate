@@ -44,14 +44,13 @@ process.stdin.on("data", async (data) => {
       return;
     }
 
-    const options =
-      prettier.resolveConfig.sync(filePath, {
+    const options = await prettier.resolveConfig(filePath, {
         useCache: false,
         editorconfig: true,
       }) || {};
 
     log(
-      prettier.formatWithCursor(source, {
+      await prettier.formatWithCursor(source, {
         cursorOffset: parseInt(cursorOffset),
         filepath: stdinFilePath,
         ...options,

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-10-01 01:56+0000\n"
 "PO-Revision-Date: 2022-12-11 17:38+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque\n"
@@ -340,8 +340,8 @@ msgstr ""
 "Gaituta dagoenean, «Gorde» antzeko ekintzak dituen tresna-barra bat azaltzen "
 "da dokumentu zerrendaren gainean."
 
-#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:129
-#: katefiletreeplugin.cpp:136
+#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:127
+#: katefiletreeplugin.cpp:134
 #, kde-format
 msgid "Documents"
 msgstr "Dokumentuak"

@@ -256,7 +256,7 @@ msgstr ""
 #: debugview.cpp:384
 #, kde-format
 msgid "Could not start debugger process"
-msgstr "Non se puido iniciar o proceso do depurador"
+msgstr "Non foi posíbel iniciar o proceso do depurador"
 
 #: debugview.cpp:442
 #, kde-format

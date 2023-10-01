@@ -771,7 +771,7 @@ msgstr "Buscar"
 #: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
-msgstr "Non se puido crear o índice. Instale «ctags»."
+msgstr "Non foi posíbel crear o índice. Instale «ctags»."
 
 #: kateprojectinfoviewindex.cpp:207
 #, kde-format

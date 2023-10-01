@@ -907,7 +907,7 @@ action="simul"
 > con una stringa vuota: <replaceable
 >''</replaceable
 >.</para>
-<!--FIXME still valid for kf5 -->
+
 <para
 >Da &kate; 2.5.1 il <acronym
 >PID</acronym

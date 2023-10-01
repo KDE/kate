@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-10-01 01:56+0000\n"
 "PO-Revision-Date: 2022-12-11 12:02+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -341,8 +341,8 @@ msgstr ""
 "Si está activado, se muestra una barra de herramientas, con acciones como "
 "«Guardar», encima de la lista de documentos."
 
-#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:129
-#: katefiletreeplugin.cpp:136
+#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:127
+#: katefiletreeplugin.cpp:134
 #, kde-format
 msgid "Documents"
 msgstr "Documentos"

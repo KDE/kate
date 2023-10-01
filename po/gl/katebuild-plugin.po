@@ -140,13 +140,13 @@ msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
-"Non se pode executar a orde: %1\n"
+"Non é posíbel executar a orde: %1\n"
 "A ruta de traballo non existe: %2"
 
 #: plugin_katebuild.cpp:684
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "Non se puido executar «%1». Estado de saída = %2"
+msgstr "Non foi posíbel executar «%1». Estado de saída = %2"
 
 #: plugin_katebuild.cpp:699
 #, kde-format

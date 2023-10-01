@@ -558,13 +558,13 @@ msgstr "Non se atoparon diferenzas"
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
-"Non se puido obter o historial do ficheiro: non se atopou o executábel «git» "
-"no PATH"
+"Non foi posíbel obter o historial do ficheiro: non se atopou o executábel "
+"«git» no PATH"
 
 #: lib/filehistorywidget.cpp:295
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr "Non se puido obter o historial do ficheiro: %1"
+msgstr "Non foi posíbel obter o historial do ficheiro: %1"
 
 #: lib/filehistorywidget.cpp:306
 #, kde-format
@@ -931,7 +931,8 @@ msgstr ""
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
 msgstr ""
-"Non se puido abrir o ficheiro «%1»: non é un ficheiro normal, é un cartafol."
+"Non foi posíbel abrir o ficheiro «%1»: non é un ficheiro normal, é un "
+"cartafol."
 
 #: lib/kateconfigdialog.cpp:54
 #, kde-format
@@ -1326,7 +1327,7 @@ msgstr "Novo nome de ficheiro"
 #: lib/katefileactions.cpp:108
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
-msgstr "Non se puido mover o ficheiro «%1» a «%2»."
+msgstr "Non foi posíbel mover o ficheiro «%1» a «%2»."
 
 #: lib/katefileactions.cpp:129
 #, kde-format
@@ -1341,7 +1342,7 @@ msgstr "Eliminar o ficheiro"
 #: lib/katefileactions.cpp:151
 #, kde-format
 msgid "File \"%1\" could not be deleted."
-msgstr "Non se puido eliminar o ficheiro «%1»."
+msgstr "Non foi posíbel eliminar o ficheiro «%1»."
 
 #: lib/katefileactions.cpp:202
 #, kde-format
@@ -1924,7 +1925,7 @@ msgid ""
 "Could not save the document \n"
 "'%1'"
 msgstr ""
-"Non se puido gardar o documento \n"
+"Non foi posíbel gardar o documento \n"
 "«%1»"
 
 # skip-rule: kde_path
@@ -2037,7 +2038,7 @@ msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
 msgstr ""
-"Non se puideron escribir os datos que pediu gardar. Escolla como quere "
+"Non foi posíbel escribir os datos que pediu gardar. Escolla como quere "
 "proceder."
 
 #: lib/kateviewmanager.cpp:134
@@ -2297,7 +2298,7 @@ msgstr "Activar"
 #: lib/kateviewmanager.cpp:542
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr "Non se puido activar o complemento <b>%1</b>"
+msgstr "Non foi posíbel activar o complemento <b>%1</b>"
 
 #: lib/kateviewspace.cpp:94
 #, kde-format
@@ -2386,7 +2387,7 @@ msgstr "Comparar co documento activo usando"
 #: lib/kateviewspace.cpp:1128
 #, kde-format
 msgid "Could not start program"
-msgstr "Non se puido iniciar o programa"
+msgstr "Non foi posíbel iniciar o programa"
 
 #: lib/kateviewspace.cpp:1129
 #, kde-format
@@ -2538,7 +2539,7 @@ msgstr "Abrir de novo"
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
-"Non se puido renomear a sesión como «%1». Non se puido escribir en «%2»."
+"Non foi posíbel renomear a sesión como «%1». Non se puido escribir en «%2»."
 
 #: lib/session/katesessionmanager.cpp:339
 #, kde-format

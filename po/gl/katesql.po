@@ -100,7 +100,7 @@ msgstr "Opcións da conexión:"
 #: connectionwizard.cpp:153
 #, kde-format
 msgid "Unable to connect to database."
-msgstr "Non se pode conectar á base de datos."
+msgstr "Non é posíbel conectar á base de datos."
 
 #: connectionwizard.cpp:170
 #, kde-format
@@ -132,7 +132,7 @@ msgstr "Ruta:"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
-msgstr "Non se pode conectar á base de datos.<nl/><message>%1</message>"
+msgstr "Non é posíbel conectar á base de datos.<nl/><message>%1</message>"
 
 #: connectionwizard.cpp:227
 #, kde-format
@@ -192,7 +192,7 @@ msgstr "Usar a configuración rexional do sistema"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
-msgstr "Non se pode abrir o ficheiro <filename>%1</filename>."
+msgstr "Non é posíbel abrir o ficheiro <filename>%1</filename>."
 
 #: exportwizard.cpp:26
 #, kde-format

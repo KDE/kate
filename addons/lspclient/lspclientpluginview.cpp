@@ -733,7 +733,7 @@ public:
         // common stuff that we need for both events
         auto viewInternal = static_cast<QWidget *>(obj);
         KTextEditor::View *v = viewFromWidget(viewInternal);
-        if (!v) {
+        if (!v || v->selection()) {
             return false;
         }
 

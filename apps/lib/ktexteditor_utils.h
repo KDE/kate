@@ -114,11 +114,6 @@ KATE_PRIVATE_EXPORT QString projectBaseDirForDocument(KTextEditor::Document *doc
 KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc);
 
 /**
- * Translates offset to line, col aka KTextEditor::Cursor
- */
-KATE_PRIVATE_EXPORT KTextEditor::Cursor cursorFromOffset(KTextEditor::Document *doc, int offset);
-
-/**
  * Convert an url to a xxx.yyy @ dir representation, used e.g. in the window title
  */
 KATE_PRIVATE_EXPORT QString niceFileNameWithPath(const QUrl &url);

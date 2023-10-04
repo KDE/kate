@@ -268,7 +268,7 @@ void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTe
 
     auto setCursorPositionFromOffset = [this, offset, doc] {
         if (offset > -1 && m_mainWindow->activeView()->document() == doc) {
-            m_mainWindow->activeView()->setCursorPosition(Utils::cursorFromOffset(doc, offset));
+            m_mainWindow->activeView()->setCursorPosition(doc->offsetToCursor(offset));
         }
     };
 

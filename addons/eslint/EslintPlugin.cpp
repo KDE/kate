@@ -253,8 +253,8 @@ void ESLintPluginView::fixDiagnostic(const QUrl &url, const DiagnosticWithFix::F
         return;
     }
 
-    KTextEditor::Cursor s = Utils::cursorFromOffset(d, fix.rangeStart);
-    KTextEditor::Cursor e = Utils::cursorFromOffset(d, fix.rangeEnd);
+    KTextEditor::Cursor s = d->offsetToCursor(fix.rangeStart);
+    KTextEditor::Cursor e = d->offsetToCursor(fix.rangeEnd);
     if (s.isValid() && e.isValid()) {
         d->replaceText({s, e}, fix.text);
     }

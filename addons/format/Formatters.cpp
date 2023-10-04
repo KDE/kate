@@ -17,20 +17,6 @@
 
 #include <KTextEditor/Editor>
 
-// TODO: Move to KTextEditor::Document
-static QString cursorToOffset(KTextEditor::Document *doc, KTextEditor::Cursor c)
-{
-    if (doc) {
-        int o = 0;
-        for (int i = 0; i < c.line(); ++i) {
-            o += doc->lineLength(i) + 1; // + 1 for \n
-        }
-        o += c.column();
-        return QString::number(o);
-    }
-    return {};
-}
-
 static QStringList readCommandFromJson(const QJsonObject &o)
 {
     const auto arr = o.value(QStringLiteral("command")).toArray();
@@ -178,11 +164,11 @@ void AbstractFormatter::onResultReady(const RunOutput &o)
 QStringList ClangFormat::args(KTextEditor::Document *doc) const
 {
     QString file = doc->url().toLocalFile();
-    const QString offset = cursorToOffset(m_doc, m_pos);
+    int off = m_doc->cursorToOffset(m_pos);
     QStringList args;
-    if (!offset.isEmpty()) {
+    if (off != -1) {
         const_cast<ClangFormat *>(this)->m_withCursor = true;
-        args << QStringLiteral("--cursor=%1").arg(offset);
+        args << QStringLiteral("--cursor=%1").arg(off);
     }
 
     args << QStringLiteral("--assume-filename=%1").arg(filenameFromMode(doc));
@@ -389,7 +375,7 @@ void PrettierFormat::run(KTextEditor::Document *doc)
     o[QStringLiteral("filePath")] = path;
     o[QStringLiteral("stdinFilePath")] = filenameFromMode(doc);
     o[QStringLiteral("source")] = originalText;
-    o[QStringLiteral("cursorOffset")] = cursorToOffset(doc, m_pos);
+    o[QStringLiteral("cursorOffset")] = doc->cursorToOffset(m_pos);
     s_nodeProcess->write(QJsonDocument(o).toJson(QJsonDocument::Compact) + '\0');
 }
 

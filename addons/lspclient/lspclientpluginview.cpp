@@ -745,26 +745,17 @@ public:
         }
 
         if (event->type() != QEvent::MouseButtonPress && event->type() != QEvent::MouseMove) {
+            // we are only concerned with mouse events for now :)
             return QObject::eventFilter(obj, event);
         }
 
         auto mouseEvent = static_cast<QMouseEvent *>(event);
-        // we are only concerned with mouse events for now :)
-        if (!mouseEvent) {
-            return false;
-        }
-
         const auto coords = viewInternal->mapTo(v, mouseEvent->pos());
         const auto cur = v->coordinatesToCursor(coords);
         // there isn't much we can do now, just bail out
         // if we have selection, and the click is on the selection ignore
         // the event as we might block actions like ctrl-drag of text
         if (!cur.isValid() || v->selectionRange().contains(cur)) {
-            return false;
-        }
-
-        auto doc = v->document();
-        if (!doc) {
             return false;
         }
 
@@ -780,6 +771,7 @@ public:
         // The user is hovering with Ctrl pressed
         else if (event->type() == QEvent::MouseMove) {
             if (mouseEvent->modifiers() == Qt::ControlModifier) {
+                auto doc = v->document();
                 auto range = doc->wordRangeAt(cur);
                 if (!range.isEmpty()) {
                     // check if we are in #include

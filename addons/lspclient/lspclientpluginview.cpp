@@ -733,7 +733,7 @@ public:
         // common stuff that we need for both events
         auto viewInternal = static_cast<QWidget *>(obj);
         KTextEditor::View *v = viewFromWidget(viewInternal);
-        if (!v || v->selection()) {
+        if (!v) {
             return false;
         }
 
@@ -757,7 +757,9 @@ public:
         const auto coords = viewInternal->mapTo(v, mouseEvent->pos());
         const auto cur = v->coordinatesToCursor(coords);
         // there isn't much we can do now, just bail out
-        if (!cur.isValid()) {
+        // if we have selection, and the click is on the selection ignore
+        // the event as we might block actions like ctrl-drag of text
+        if (!cur.isValid() || v->selectionRange().contains(cur)) {
             return false;
         }
 

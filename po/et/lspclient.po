@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-28 01:41+0000\n"
+"POT-Creation-Date: 2023-10-05 01:42+0000\n"
 "PO-Revision-Date: 2020-10-23 11:58+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -255,45 +255,45 @@ msgstr ""
 msgid "More options"
 msgstr ""
 
-#: lspclientpluginview.cpp:835 lspclientsymbolview.cpp:287
+#: lspclientpluginview.cpp:829 lspclientsymbolview.cpp:287
 #, kde-format
 msgid "Expand All"
 msgstr "Ava kõik"
 
-#: lspclientpluginview.cpp:836 lspclientsymbolview.cpp:288
+#: lspclientpluginview.cpp:830 lspclientsymbolview.cpp:288
 #, kde-format
 msgid "Collapse All"
 msgstr "Sule kõik"
 
-#: lspclientpluginview.cpp:1039
+#: lspclientpluginview.cpp:1033
 #, kde-format
 msgid "RangeHighLight"
 msgstr "RangeHighLight"
 
-#: lspclientpluginview.cpp:1351
+#: lspclientpluginview.cpp:1345
 #, kde-format
 msgid "Line: %1: "
 msgstr "Rida: %1: "
 
-#: lspclientpluginview.cpp:1503 lspclientpluginview.cpp:1851
-#: lspclientpluginview.cpp:1970
+#: lspclientpluginview.cpp:1497 lspclientpluginview.cpp:1845
+#: lspclientpluginview.cpp:1964
 #, kde-format
 msgid "No results"
 msgstr "Tulemusi pole"
 
-#: lspclientpluginview.cpp:1562
+#: lspclientpluginview.cpp:1556
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Definitsioon: %1"
 
-#: lspclientpluginview.cpp:1568
+#: lspclientpluginview.cpp:1562
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Deklaratsioon: %1"
 
-#: lspclientpluginview.cpp:1574
+#: lspclientpluginview.cpp:1568
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "Definition: %1"
@@ -301,13 +301,13 @@ msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Definitsioon: %1"
 
-#: lspclientpluginview.cpp:1580
+#: lspclientpluginview.cpp:1574
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Viited: %1"
 
-#: lspclientpluginview.cpp:1592
+#: lspclientpluginview.cpp:1586
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "Definition: %1"
@@ -315,66 +315,66 @@ msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Definitsioon: %1"
 
-#: lspclientpluginview.cpp:1605
+#: lspclientpluginview.cpp:1599
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Esiletõstmine: %1"
 
-#: lspclientpluginview.cpp:1629 lspclientpluginview.cpp:1640
-#: lspclientpluginview.cpp:1653
+#: lspclientpluginview.cpp:1623 lspclientpluginview.cpp:1634
+#: lspclientpluginview.cpp:1647
 #, fuzzy, kde-format
 #| msgid "General Options"
 msgid "No Actions"
 msgstr "Üldised valikud"
 
-#: lspclientpluginview.cpp:1644
+#: lspclientpluginview.cpp:1638
 #, kde-format
 msgid "Loading..."
 msgstr ""
 
-#: lspclientpluginview.cpp:1736
+#: lspclientpluginview.cpp:1730
 #, kde-format
 msgid "No edits"
 msgstr "Muudatusi pole"
 
-#: lspclientpluginview.cpp:1810
+#: lspclientpluginview.cpp:1804
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Nime muutmine"
 
-#: lspclientpluginview.cpp:1811
+#: lspclientpluginview.cpp:1805
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr ""
 "Uus nimi (ettevaatust: mitte kõiki viiteid ei pruugi olla võimalik asendada)"
 
-#: lspclientpluginview.cpp:1857
+#: lspclientpluginview.cpp:1851
 #, fuzzy, kde-format
 #| msgid "No results"
 msgid "Not enough results"
 msgstr "Tulemusi pole"
 
-#: lspclientpluginview.cpp:1926
+#: lspclientpluginview.cpp:1920
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr ""
 
-#: lspclientpluginview.cpp:2122 lspclientpluginview.cpp:2159
+#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2153
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP server"
 
-#: lspclientpluginview.cpp:2182
+#: lspclientpluginview.cpp:2176
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP klient"
 
-#: lspclientpluginview.cpp:2454
+#: lspclientpluginview.cpp:2448
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"

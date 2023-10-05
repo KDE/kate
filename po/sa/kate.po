@@ -1,0 +1,2818 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2023-09-29 01:40+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Sanskrit\n"
+"Language: sa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>2);\n"
+"X-Generator: Poedit 3.3.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "श्रीकान्त् कलवार्"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "skkalwar999@gmail.com"
+
+#: kate/main.cpp:87
+#, kde-format
+msgid "Kate"
+msgstr "केट्"
+
+#: kate/main.cpp:89
+#, kde-format
+msgid "Kate - Advanced Text Editor"
+msgstr "केट - उन्नत पाठ्य सम्पादक"
+
+#: kate/main.cpp:91 kwrite/main.cpp:46
+#, kde-format
+msgid "(c) 2000-2022 The Kate Authors"
+msgstr "(c) २०००-२०२२ केट लेखकाः"
+
+#: kate/main.cpp:137
+#, kde-format
+msgid "Start Kate with a given session."
+msgstr "दत्तसत्रेण केट् आरभत।."
+
+#: kate/main.cpp:138
+#, kde-format
+msgid "session"
+msgstr "सत्र"
+
+#: kate/main.cpp:143
+#, kde-format
+msgid "Start Kate with a new anonymous session, implies '-n'."
+msgstr "केट् नूतनेन अनामिकेन सत्रेण आरभत, '-n' इत्यस्य तात्पर्यम् ।."
+
+#: kate/main.cpp:148
+#, kde-format
+msgid ""
+"Force start of a new kate instance (is ignored if start is used and another "
+"kate instance already has the given session opened), forced if no parameters "
+"and no URLs are given at all."
+msgstr ""
+"नूतनस्य केट् उदाहरणस्य आरम्भं बलात् (यदि start इत्यस्य उपयोगः भवति तथा च अन्यस्य kate "
+"उदाहरणस्य पूर्वमेव दत्तं सत्रं उद्घाटितं भवति तर्हि अवहेलितं भवति), यदि कोऽपि पैरामीटर् "
+"नास्ति तथा च URL सर्वथा न दत्तः तर्हि बलात् क्रियते."
+
+#: kate/main.cpp:154
+#, kde-format
+msgid ""
+"If using an already running kate instance, block until it exits, if URLs "
+"given to open."
+msgstr ""
+"यदि पूर्वमेव चालितं केट् उदाहरणं उपयुज्यते तर्हि यावत् तत् निर्गच्छति तावत् अवरोधयन्तु, यदि "
+"URLs उद्घाटयितुं दत्ताः सन्ति ।."
+
+#: kate/main.cpp:160
+#, kde-format
+msgid ""
+"Only try to reuse kate instance with this pid (is ignored if start is used "
+"and another kate instance already has the given session opened)."
+msgstr ""
+"केवलं अस्मिन् pid सह केट् उदाहरणं इत्यस्य पुनः उपयोगं कर्तुं प्रयतध्वम् (यदि आरभत इत्यस्य "
+"उपयोगः भवति तथा च अन्यस्य केट् उदाहरणं इत्यस्य पूर्वमेव दत्तं सत्रं उद्घाटितं भवति तर्हि "
+"उपेक्षितं भवति) ।."
+
+#: kate/main.cpp:161
+#, kde-format
+msgid "pid"
+msgstr "पिड"
+
+#: kate/main.cpp:166 kwrite/main.cpp:97
+#, kde-format
+msgid "Set encoding for the file to open."
+msgstr "सञ्चिकायाः उद्घाटनार्थं सङ्कूटन निरूपयत् कुर्वन्तु ।."
+
+#: kate/main.cpp:167 kwrite/main.cpp:98
+#, kde-format
+msgid "encoding"
+msgstr "सङ्कूटनम्"
+
+#: kate/main.cpp:171 kwrite/main.cpp:102
+#, kde-format
+msgid "Navigate to this line."
+msgstr "अस्याः पङ्क्तौ गच्छन्तु ।."
+
+#: kate/main.cpp:171 kwrite/main.cpp:102
+#, kde-format
+msgid "line"
+msgstr "पंक्ति"
+
+#: kate/main.cpp:176 kwrite/main.cpp:106
+#, kde-format
+msgid "Navigate to this column."
+msgstr "अस्मिन् स्तम्भे गच्छन्तु ।."
+
+#: kate/main.cpp:177 kwrite/main.cpp:106
+#, kde-format
+msgid "column"
+msgstr "स्तम्भः"
+
+#: kate/main.cpp:181 kwrite/main.cpp:110
+#, kde-format
+msgid "Read the contents of stdin."
+msgstr "\"stdin\" इत्यस्य विषयवस्तु पठन्तु।."
+
+#: kate/main.cpp:186 kwrite/main.cpp:114
+#, kde-format
+msgid "The files/URLs opened by the application will be deleted after use"
+msgstr "अनुप्रयोगेन उद्घाटिताः सञ्चिकाः/URLs उपयोगानन्तरं विलोपिताः भविष्यन्ति"
+
+#: kate/main.cpp:190 kwrite/main.cpp:118
+#, kde-format
+msgid "Documents to open."
+msgstr "दस्तावेजाः उद्घाटयितुं।."
+
+#: kate/main.cpp:190 kwrite/main.cpp:118
+#, kde-format
+msgid "[urls...]"
+msgstr "[urls...]"
+
+#: kwrite/main.cpp:42
+#, kde-format
+msgid "KWrite"
+msgstr "KWrite"
+
+#: kwrite/main.cpp:44
+#, kde-format
+msgid "KWrite - Text Editor"
+msgstr "KWrite - पाठ्य सम्पादक"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/commitfilesview.cpp:356 lib/filehistorywidget.cpp:247
+#: lib/session/katesessionmanagedialog.ui:183
+#, kde-format
+msgid "Close"
+msgstr "पिधाय"
+
+#: lib/commitfilesview.cpp:392 lib/kateviewmanager.cpp:329
+#: lib/kateviewmanager.cpp:331
+#, kde-format
+msgid "Open File"
+msgstr "सञ्चिकां उद्घाटयन्तु"
+
+#: lib/commitfilesview.cpp:398 lib/katemainwindow.cpp:351
+#, kde-format
+msgid "Copy Location"
+msgstr "प्रतिलिपि स्थानम्"
+
+#: lib/commitfilesview.cpp:420 lib/commitfilesview.cpp:514
+#: lib/commitfilesview.cpp:520 lib/filehistorywidget.cpp:364
+#, kde-format
+msgid "Git"
+msgstr "गिट्"
+
+#: lib/commitfilesview.cpp:514
+#, kde-format
+msgid "Invalid hash"
+msgstr "अमान्य हैश"
+
+#: lib/commitfilesview.cpp:520 lib/filehistorywidget.cpp:364
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr "%1 git repo मध्ये नास्ति ।."
+
+#: lib/commitfilesview.cpp:535
+#, kde-format
+msgctxt "@title:tab"
+msgid "Commit %1"
+msgstr "%1 प्रतिबद्धः"
+
+#. i18n: ectx: Menu (file)
+#: lib/data/kateui.rc:6
+#, kde-format
+msgid "&File"
+msgstr "&संचिका"
+
+#. i18n: ectx: Menu (file_file_actions)
+#: lib/data/kateui.rc:30
+#, kde-format
+msgid "File Actions"
+msgstr "सञ्चिकाक्रियाः"
+
+#. i18n: ectx: Menu (edit)
+#: lib/data/kateui.rc:43
+#, kde-format
+msgid "&Edit"
+msgstr "&सम्पादयन्तु"
+
+#. i18n: ectx: Menu (selection)
+#: lib/data/kateui.rc:54
+#, kde-format
+msgid "&Selection"
+msgstr "&चयनम्"
+
+#. i18n: ectx: Menu (go)
+#: lib/data/kateui.rc:57
+#, kde-format
+msgid "&Go"
+msgstr "&गच्छ"
+
+#. i18n: ectx: Menu (view)
+#: lib/data/kateui.rc:73
+#, kde-format
+msgid "&View"
+msgstr "&दृश्यं"
+
+#. i18n: ectx: Menu (view-split)
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:114
+#, kde-format
+msgid "Split View"
+msgstr "विभक्त दृश्य"
+
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:109 lib/diagnostics/ui.rc:6
+#, kde-format
+msgid "&Tools"
+msgstr "&उपकरणाः"
+
+#. i18n: ectx: Menu (tools_diagnosticsview)
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:273
+#: lib/diagnostics/ui.rc:8
+#, kde-format
+msgid "Diagnostics View"
+msgstr "निदानं दृश्यम्"
+
+#. i18n: ectx: Menu (settings)
+#: lib/data/kateui.rc:129
+#, kde-format
+msgid "&Settings"
+msgstr "&समयोजनानि"
+
+#. i18n: ectx: Menu (help)
+#: lib/data/kateui.rc:137
+#, kde-format
+msgid "&Help"
+msgstr "&साहाय्यम्‌"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: lib/data/kateui.rc:142
+#, kde-format
+msgid "Main Toolbar"
+msgstr "मुख्य साधनपट्टी"
+
+#. i18n: ectx: ToolBar (hamburgerBar)
+#: lib/data/kateui.rc:158
+#, kde-format
+msgid "Hamburger Menu Toolbar"
+msgstr "हैम्बर्गर विकल्पसूचि साधनशलाका"
+
+#. i18n: ectx: Menu (viewspace_popup_statusbar)
+#: lib/data/kateui.rc:176
+#, kde-format
+msgid "&Status Bar Items"
+msgstr "&स्थिति पट्टी द्रव्यम्"
+
+#: lib/diagnostics/diagnostic_suppression.h:39
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error in regular expression: %1\n"
+"offset %2: %3"
+msgstr ""
+"नियमितव्यञ्जने त्रुटिः: %1\n"
+"अवस्थानम् %2: %3"
+
+#: lib/diagnostics/diagnosticview.cpp:59
+#, kde-format
+msgid "All"
+msgstr "सर्वे"
+
+#: lib/diagnostics/diagnosticview.cpp:314
+#, kde-format
+msgctxt "@action:inmenu Diagnostics View actions menu"
+msgid "Diagnostics View"
+msgstr "निदानं दृश्यम्"
+
+#: lib/diagnostics/diagnosticview.cpp:319
+#, kde-format
+msgid "Quick Fix"
+msgstr "शीघ्रं निराकरणम्"
+
+#: lib/diagnostics/diagnosticview.cpp:325
+#, kde-format
+msgid "Next Item"
+msgstr "अग्रिमः द्रव्यम्"
+
+#: lib/diagnostics/diagnosticview.cpp:331
+#, kde-format
+msgid "Previous Item"
+msgstr "पूर्व द्रव्यम्"
+
+#: lib/diagnostics/diagnosticview.cpp:339
+#, kde-format
+msgid "Clear Diagnostics Filter"
+msgstr "निदानं फ़िल्टरं स्वच्छं कुर्वन्तु"
+
+#: lib/diagnostics/diagnosticview.cpp:379
+#, kde-format
+msgid "Diagnostics"
+msgstr "निदानम्"
+
+#: lib/diagnostics/diagnosticview.cpp:417
+#, kde-format
+msgid "Errors"
+msgstr "दोषाः"
+
+#: lib/diagnostics/diagnosticview.cpp:433
+#, kde-format
+msgid "Warnings"
+msgstr "चेतावनी"
+
+#: lib/diagnostics/diagnosticview.cpp:447
+#, kde-format
+msgid "Filter..."
+msgstr "फ़िल्टर..."
+
+#: lib/diagnostics/diagnosticview.cpp:1019 lib/kateconfigdialog.cpp:258
+#, kde-format
+msgid "Error"
+msgstr "त्रुटि"
+
+#: lib/diagnostics/diagnosticview.cpp:1023 lib/kateconfigdialog.cpp:258
+#: lib/kateconfigdialog.cpp:791
+#, kde-format
+msgid "Warning"
+msgstr "चेतवानी"
+
+#: lib/diagnostics/diagnosticview.cpp:1027
+#, kde-format
+msgid "Information"
+msgstr "सूचना"
+
+#: lib/diagnostics/diagnosticview.cpp:1147
+#, kde-format
+msgctxt "@info"
+msgid "%1 [suppressed: %2]"
+msgstr "%1 [दमितम्: %2]"
+
+#: lib/diagnostics/diagnosticview.cpp:1286
+#, kde-format
+msgid "Expand All"
+msgstr "सर्वं विस्तारयतु"
+
+#: lib/diagnostics/diagnosticview.cpp:1287
+#, kde-format
+msgid "Collapse All"
+msgstr "ध्वस्तं कुर्वन्तु सर्वे"
+
+#: lib/diagnostics/diagnosticview.cpp:1294
+#, kde-format
+msgid "Copy to Clipboard"
+msgstr "अंशफलक प्रति प्रतिलिख्यताम्"
+
+#: lib/diagnostics/diagnosticview.cpp:1317
+#, kde-format
+msgid "Remove Global Suppression"
+msgstr "वैश्विकदमनं निष्कासयन्तु"
+
+#: lib/diagnostics/diagnosticview.cpp:1319
+#, kde-format
+msgid "Add Global Suppression"
+msgstr "वैश्विकदमनं योजयन्तु"
+
+#: lib/diagnostics/diagnosticview.cpp:1323
+#, kde-format
+msgid "Remove Local Suppression"
+msgstr "स्थानीय दमनं निष्कासयन्तु"
+
+#: lib/diagnostics/diagnosticview.cpp:1325
+#, kde-format
+msgid "Add Local Suppression"
+msgstr "Local Suppression इति योजयन्तु"
+
+#: lib/diagnostics/diagnosticview.cpp:1340
+#, kde-format
+msgid "Disable Suppression"
+msgstr "दमनं निष्क्रियं कुर्वन्तु"
+
+#: lib/diagnostics/diagnosticview.cpp:1342
+#, kde-format
+msgid "Enable Suppression"
+msgstr "दमनं सक्षमं कुर्वन्तु"
+
+#: lib/diff/diffeditor.cpp:182
+#, kde-format
+msgid "Change Style"
+msgstr "शैली परिवर्तयतु"
+
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:428
+#, kde-format
+msgid "Side By Side"
+msgstr "पार्श्वतः पार्श्वे"
+
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:429
+#, kde-format
+msgid "Unified"
+msgstr "एकीकृत"
+
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:430
+#, kde-format
+msgid "Raw"
+msgstr "अपक्व"
+
+#: lib/diff/diffeditor.cpp:219
+#, kde-format
+msgid "Stage Line"
+msgid_plural "Stage Lines"
+msgstr[0] "रेखा प्रतिष्ठापयति"
+msgstr[1] "रेखाः प्रतिष्ठापयति"
+
+#: lib/diff/diffeditor.cpp:224
+#, kde-format
+msgid "Stage Hunk"
+msgstr "हंक प्रतिष्ठापयति"
+
+#: lib/diff/diffeditor.cpp:231
+#, kde-format
+msgid "Discard Line"
+msgid_plural "Discard Lines"
+msgstr[0] "रेखां परित्यजतु"
+msgstr[1] "रेखाः परित्यजन्तु"
+
+#: lib/diff/diffeditor.cpp:236
+#, kde-format
+msgid "Discard Hunk"
+msgstr "हङ्कं परित्यजन्तु"
+
+#: lib/diff/diffeditor.cpp:243
+#, kde-format
+msgid "Unstage Line"
+msgid_plural "Unstage Lines"
+msgstr[0] "रेखा अप्रतिष्ठाप्यते"
+msgstr[1] "रेखाः अप्रतिष्ठाप्यते"
+
+#: lib/diff/diffeditor.cpp:248
+#, kde-format
+msgid "Unstage Hunk"
+msgstr "हंक अप्रतिष्ठाप्यते"
+
+#: lib/diff/diffwidget.cpp:60
+#, kde-format
+msgid "Diff %1"
+msgstr "भेद %1"
+
+#: lib/diff/diffwidget.cpp:62
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "भेद %1..%2"
+
+#: lib/diff/diffwidget.cpp:83
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "भेद %1 .. %2"
+
+#: lib/diff/diffwidget.cpp:113
+#, kde-format
+msgid "Show/Hide Commit Info"
+msgstr "Commit सूचना दर्शयतु/गोपयतु"
+
+#: lib/diff/diffwidget.cpp:118
+#, kde-format
+msgid "Jump to Next File"
+msgstr "अग्रिमः सञ्चिका इत्यत्र कूदन्तु"
+
+#: lib/diff/diffwidget.cpp:122
+#, kde-format
+msgid "Jump to Previous File"
+msgstr "पूर्वसञ्चिकां प्रति कूदन्तु"
+
+#: lib/diff/diffwidget.cpp:126
+#, kde-format
+msgid "Jump to Next Hunk"
+msgstr "अग्रिमः हङ्कः इत्यत्र कूदन्तु"
+
+#: lib/diff/diffwidget.cpp:130
+#, kde-format
+msgid "Jump to Previous Hunk"
+msgstr "पूर्वः हङ्कः इत्यत्र कूदन्तु"
+
+#: lib/diff/diffwidget.cpp:134
+#, kde-format
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "पुनः भारितम् अन्तरम्"
+
+#: lib/diff/diffwidget.cpp:138
+#, kde-format
+msgctxt "Tooltip for a button"
+msgid "Show diff with full context, not just the changed lines"
+msgstr "पूर्णसन्दर्भेण सह भेद दर्शयन्तु, न केवलं परिवर्तितानि रेखाः"
+
+#: lib/diff/diffwidget.cpp:551
+#, kde-format
+msgid ""
+"<b>git</b> not found. Git is needed to diff the documents. If git is already "
+"installed, make sure it is your PATH variable. See https://git-scm.com/"
+"downloads"
+msgstr ""
+"<b>git</b> न लभ्यते । दस्तावेजान् भेद कर्तुं Git आवश्यकम् अस्ति। यदि git पूर्वमेव संस्थापितम् "
+"अस्ति तर्हि सुनिश्चितं कुर्वन्तु यत् एषः भवतः PATH चरः अस्ति । https://git-scm.com/"
+"downloads इति पश्यन्तु"
+
+#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
+#: lib/kateconfigdialog.cpp:422
+#, kde-format
+msgid "Diff"
+msgstr "भेद्"
+
+#: lib/diff/diffwidget.cpp:764 lib/diff/diffwidget.cpp:968
+#, kde-format
+msgid "New file %1"
+msgstr "नूतनसञ्चिका %1"
+
+#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
+#, kde-format
+msgid "Deleted file %1"
+msgstr "%1 सञ्चिका विलोपिता"
+
+#: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
+#, kde-format
+msgid "No differences found"
+msgstr "न भेदाः लब्धाः"
+
+#: lib/filehistorywidget.cpp:282
+#, kde-format
+msgid "Failed to get file history: git executable not found in PATH"
+msgstr "सञ्चिका-इतिहासं प्राप्तुं असफलम्: git executable PATH मध्ये न प्राप्तम्"
+
+#: lib/filehistorywidget.cpp:295
+#, kde-format
+msgid "Failed to get file history: %1"
+msgstr "सञ्चिका-इतिहासं प्राप्तुं असफलम्: %1"
+
+#: lib/filehistorywidget.cpp:306
+#, kde-format
+msgctxt "@menu:action"
+msgid "Copy Commit Hash"
+msgstr "प्रतिबद्ध हैश प्रतिलिख्यताम्"
+
+#: lib/filehistorywidget.cpp:314
+#, kde-format
+msgctxt "@menu:action"
+msgid "Show Full Commit"
+msgstr "पूर्णप्रतिबद्धता दर्शयतु"
+
+#: lib/filehistorywidget.cpp:373
+#, kde-format
+msgctxt "@title:tab"
+msgid "File History - %1"
+msgstr "सञ्चिका-इतिहासः - %1"
+
+#: lib/kateapp.cpp:99
+msgid ""
+"Running this editor with sudo can cause bugs and expose you to security "
+"vulnerabilities. Instead use this editor normally and you will be prompted "
+"for elevated privileges when saving documents if needed."
+msgstr ""
+"\"sudo\" इत्यनेन सह एतत् सम्पादकं चालयित्वा दोषाः उत्पद्येत, सुरक्षादुर्बलतां च प्राप्नुवन्ति "
+"। तस्य स्थाने सामान्यतया एतस्य सम्पादकस्य उपयोगं कुर्वन्तु तथा च आवश्यकतानुसारं दस्तावेजान् "
+"रक्षन्ते सति भवन्तः उन्नतविशेषाधिकारं प्रार्थयिष्यन्ति ।."
+
+#: lib/kateapp.cpp:106
+msgid ""
+"Running this editor with kdesu can cause bugs and expose you to security "
+"vulnerabilities. Instead use this editor normally and you will be prompted "
+"for elevated privileges when saving documents if needed."
+msgstr ""
+"\"kdesu\" इत्यनेन सह एतत् सम्पादकं चालयित्वा दोषाः उत्पद्यन्ते, सुरक्षादुर्बलतां च उत्पद्येत । "
+"तस्य स्थाने सामान्यतया एतस्य सम्पादकस्य उपयोगं कुर्वन्तु तथा च आवश्यकतानुसारं दस्तावेजान् "
+"रक्षन्ते सति भवन्तः उन्नतविशेषाधिकारं प्रार्थयिष्यन्ति ।."
+
+#: lib/kateapp.cpp:270
+#, kde-format
+msgid "Christoph Cullmann"
+msgstr "क्रिस्टोफ कल्मैन्"
+
+#: lib/kateapp.cpp:270
+#, kde-format
+msgid "Maintainer"
+msgstr "परिपालकः"
+
+#: lib/kateapp.cpp:271
+#, kde-format
+msgid "Dominik Haumann"
+msgstr "डोमिनिक हौमन"
+
+#: lib/kateapp.cpp:271 lib/kateapp.cpp:274 lib/kateapp.cpp:275
+#: lib/kateapp.cpp:277 lib/kateapp.cpp:280 lib/kateapp.cpp:286
+#, kde-format
+msgid "Core Developer"
+msgstr "मूल विकासकः"
+
+#: lib/kateapp.cpp:272
+#, kde-format
+msgid "Sven Brauch"
+msgstr "स्वेन ब्रौच्"
+
+#: lib/kateapp.cpp:272 lib/kateapp.cpp:273 lib/kateapp.cpp:281
+#, kde-format
+msgid "Developer"
+msgstr "विकासकः"
+
+#: lib/kateapp.cpp:273
+#, kde-format
+msgid "Kåre Särs"
+msgstr "कारे सार्स"
+
+#: lib/kateapp.cpp:274
+#, kde-format
+msgid "Waqar Ahmed"
+msgstr "वकार् अहमद्"
+
+#: lib/kateapp.cpp:275
+#, kde-format
+msgid "Anders Lund"
+msgstr "एण्डर्स् लण्ड्"
+
+#: lib/kateapp.cpp:276
+#, kde-format
+msgid "Joseph Wenninger"
+msgstr "जोसेफ् वेनिङ्गर्"
+
+#: lib/kateapp.cpp:280
+#, kde-format
+msgid "Hamish Rodda"
+msgstr "हमिश् रोड्डा"
+
+#: lib/kateapp.cpp:281
+#, kde-format
+msgid "Alexander Neundorf"
+msgstr "अलेक्जेण्डर् न्यूण्डोर्फ"
+
+#: lib/kateapp.cpp:282
+#, kde-format
+msgid "Waldo Bastian"
+msgstr "वाल्दो बास्टियन्"
+
+#: lib/kateapp.cpp:282
+#, kde-format
+msgid "The cool buffersystem"
+msgstr "शीतलं बफरप्रणाली"
+
+#: lib/kateapp.cpp:283
+#, kde-format
+msgid "Charles Samuels"
+msgstr "चार्ल्स सैमुअल्स्"
+
+#: lib/kateapp.cpp:283
+#, kde-format
+msgid "The Editing Commands"
+msgstr "सम्पादन आदेशाः"
+
+#: lib/kateapp.cpp:284
+#, kde-format
+msgid "Matt Newell"
+msgstr "मैट् न्यूवेल्"
+
+#: lib/kateapp.cpp:284
+#, kde-format
+msgid "Testing, ..."
+msgstr "परीक्षणं, ..."
+
+#: lib/kateapp.cpp:285
+#, kde-format
+msgid "Michael Bartl"
+msgstr "माइकल् बार्टल्"
+
+#: lib/kateapp.cpp:285
+#, kde-format
+msgid "Former Core Developer"
+msgstr "पूर्व मूल विकासकः"
+
+#: lib/kateapp.cpp:286
+#, kde-format
+msgid "Michael McCallum"
+msgstr "माइकल् मेक्कलम्"
+
+#: lib/kateapp.cpp:287
+#, kde-format
+msgid "Jochen Wilhemly"
+msgstr "जोचेन् विल्हेमली"
+
+#: lib/kateapp.cpp:287
+#, kde-format
+msgid "KWrite Author"
+msgstr "KWrite लेखक"
+
+#: lib/kateapp.cpp:288
+#, kde-format
+msgid "Michael Koch"
+msgstr "माइकल् कोच्"
+
+#: lib/kateapp.cpp:288
+#, kde-format
+msgid "KWrite port to KParts"
+msgstr "KWrite पोर्ट् to KParts"
+
+#: lib/kateapp.cpp:289
+#, kde-format
+msgid "Christian Gebauer"
+msgstr "क्रिश्चियन गेबाउर्"
+
+#: lib/kateapp.cpp:290
+#, kde-format
+msgid "Simon Hausmann"
+msgstr "सिमोन हाउसमैन्"
+
+#: lib/kateapp.cpp:291
+#, kde-format
+msgid "Glen Parker"
+msgstr "ग्लेन पार्कर"
+
+#: lib/kateapp.cpp:291
+#, kde-format
+msgid "KWrite Undo History, Kspell integration"
+msgstr "KWrite पूर्ववत इतिहास, Kspell एकीकरण"
+
+#: lib/kateapp.cpp:292
+#, kde-format
+msgid "Scott Manson"
+msgstr "स्कॉट् मैन्सन्"
+
+#: lib/kateapp.cpp:292
+#, kde-format
+msgid "KWrite XML Syntax highlighting support"
+msgstr "KWrite XML Syntax प्रकाशयन् समर्थनम्"
+
+#: lib/kateapp.cpp:293
+#, kde-format
+msgid "John Firebaugh"
+msgstr "जॉन फायरबाउ"
+
+#: lib/kateapp.cpp:293
+#, kde-format
+msgid "Patches and more"
+msgstr "पट्टिकाः इत्यादयः"
+
+#: lib/kateapp.cpp:294
+#, kde-format
+msgid "Pablo Martín"
+msgstr "पाब्लो मार्टिन्"
+
+#: lib/kateapp.cpp:295
+#, kde-format
+msgid "Python Plugin Developer"
+msgstr "पायथन प्लगिन् विकासक"
+
+#: lib/kateapp.cpp:298
+#, kde-format
+msgid "Gerald Senarclens de Grancy"
+msgstr "जेराल्ड सेनार्क्लेन्स डी ग्रान्सी"
+
+#: lib/kateapp.cpp:299
+#, kde-format
+msgid "QA and Scripting"
+msgstr "QA तथा स्क्रिप्टिंग"
+
+#: lib/kateapp.cpp:303
+#, kde-format
+msgid "Tyson Tan"
+msgstr "टायसन तान"
+
+#: lib/kateapp.cpp:304
+#, kde-format
+msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
+msgstr "केटस्य शुभंकरस्य 'केट् द साइबर वुडपेकर' इत्यस्य डिजाइनरः।"
+
+#: lib/kateapp.cpp:307
+#, kde-format
+msgid "Matteo Merli"
+msgstr "मट्टियो मेरली"
+
+#: lib/kateapp.cpp:307
+#, kde-format
+msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
+msgstr "RPM Spec-Files, Perl, भेद इत्यादीनां कृते प्रकाशयन्"
+
+#: lib/kateapp.cpp:308
+#, kde-format
+msgid "Rocky Scaletta"
+msgstr "रॉकी स्केलेटा"
+
+#: lib/kateapp.cpp:308
+#, kde-format
+msgid "Highlighting for VHDL"
+msgstr "VHDL कृते प्रकाशयन्"
+
+#: lib/kateapp.cpp:309
+#, kde-format
+msgid "Yury Lebedev"
+msgstr "युरी लेबेदेव"
+
+#: lib/kateapp.cpp:309
+#, kde-format
+msgid "Highlighting for SQL"
+msgstr "SQL कृते प्रकाशयन्"
+
+#: lib/kateapp.cpp:310
+#, kde-format
+msgid "Chris Ross"
+msgstr "क्रिस रॉस्"
+
+#: lib/kateapp.cpp:310
+#, kde-format
+msgid "Highlighting for Ferite"
+msgstr "Ferite कृते प्रकाशयन्"
+
+#: lib/kateapp.cpp:311
+#, kde-format
+msgid "Nick Roux"
+msgstr "निक रूक्स"
+
+#: lib/kateapp.cpp:311
+#, kde-format
+msgid "Highlighting for ILERPG"
+msgstr "ILERPG कृते प्रकाशयन्"
+
+#: lib/kateapp.cpp:312
+#, kde-format
+msgid "Carsten Niehaus"
+msgstr "कार्स्टेन नीहाउस्"
+
+#: lib/kateapp.cpp:312
+#, kde-format
+msgid "Highlighting for LaTeX"
+msgstr "LaTeX कृते प्रकाशयन्"
+
+#: lib/kateapp.cpp:313
+#, kde-format
+msgid "Per Wigren"
+msgstr "प्रति विग्रेन्"
+
+#: lib/kateapp.cpp:313
+#, kde-format
+msgid "Highlighting for Makefiles, Python"
+msgstr "Makefiles, Python इत्यस्य कृते प्रकाशयन्"
+
+#: lib/kateapp.cpp:314
+#, kde-format
+msgid "Jan Fritz"
+msgstr "जन फ्रिट्ज"
+
+#: lib/kateapp.cpp:314
+#, kde-format
+msgid "Highlighting for Python"
+msgstr "पायथन् कृते प्रकाशयन्"
+
+#: lib/kateapp.cpp:315
+#, kde-format
+msgid "Daniel Naber"
+msgstr "डैनियल नाबेर"
+
+#: lib/kateapp.cpp:316
+#, kde-format
+msgid "Roland Pabel"
+msgstr "रोलाण्ड् पबेल्"
+
+#: lib/kateapp.cpp:316
+#, kde-format
+msgid "Highlighting for Scheme"
+msgstr "योजनायाः कृते प्रकाशयन्"
+
+#: lib/kateapp.cpp:317
+#, kde-format
+msgid "Cristi Dumitrescu"
+msgstr "क्रिस्टी दुमित्रेस्कु"
+
+#: lib/kateapp.cpp:317
+#, kde-format
+msgid "PHP Keyword/Datatype list"
+msgstr "PHP मुख्यपद/दत्तांशप्रकार सूची"
+
+#: lib/kateapp.cpp:318
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr "कार्स्टेन् फीफर्"
+
+#: lib/kateapp.cpp:318
+#, kde-format
+msgid "Very nice help"
+msgstr "अतीव सुन्दरं साहाय्यं"
+
+#: lib/kateapp.cpp:319
+#, kde-format
+msgid "All people who have contributed and I have forgotten to mention"
+msgstr "ये जनाः योगदानं दत्तवन्तः तेषां सर्वेषां उल्लेखः मया विस्मृतः"
+
+#: lib/kateapp.cpp:445
+#, kde-format
+msgid "Folders can only be opened when the projects plugin is enabled"
+msgstr "यदा परियोजनानि प्लगिन् सक्षमं भवति तदा एव पुटम् उद्घाटयितुं शक्यन्ते"
+
+#: lib/kateapp.cpp:549
+#, kde-format
+msgid ""
+"The file '%1' could not be opened: it is not a normal file, it is a folder."
+msgstr ""
+"'%1' इति सञ्चिका उद्घाटयितुं न शक्यते: एषा सामान्यसञ्चिका नास्ति, एषा पुटम् अस्ति ।."
+
+#: lib/kateconfigdialog.cpp:54
+#, kde-format
+msgid "Configure"
+msgstr "विन्यस्तं कुर्वन्तु"
+
+#: lib/kateconfigdialog.cpp:226
+#, kde-format
+msgid "Behavior"
+msgstr "व्यवहार"
+
+#: lib/kateconfigdialog.cpp:228
+#, kde-format
+msgid "Behavior Options"
+msgstr "व्यवहारविकल्पाः"
+
+#: lib/kateconfigdialog.cpp:235
+#, kde-format
+msgid "&Behavior"
+msgstr "&व्यवहार"
+
+#: lib/kateconfigdialog.cpp:240
+#, kde-format
+msgid "Open each document in its own window"
+msgstr "प्रत्येकं दस्तावेजं स्वस्य गवाक्ष मध्ये उद्घाटयन्तु"
+
+#: lib/kateconfigdialog.cpp:243
+#, kde-format
+msgid ""
+"If enabled, each document will be opened in its own window. If not enabled, "
+"each document will be opened in a new tab in the current window."
+msgstr ""
+"यदि सक्षमं भवति तर्हि प्रत्येकं दस्तावेजं स्वस्य गवाक्षस्य मध्ये उद्घाटितं भविष्यति । यदि सक्षमं "
+"न भवति तर्हि प्रत्येकं दस्तावेजं वर्तमानगवाक्षस्य मध्ये नूतने ट्याब् मध्ये उद्घाटितं भविष्यति ।."
+
+#: lib/kateconfigdialog.cpp:253
+#, kde-format
+msgid "&Switch to output view upon message type:"
+msgstr "&सन्देशप्रकारस्य उपरि आउटपुट् दृश्यं प्रति स्विच कुर्वन्तु:"
+
+#: lib/kateconfigdialog.cpp:258
+#, kde-format
+msgid "Never"
+msgstr "कदापि न"
+
+#: lib/kateconfigdialog.cpp:258
+#, kde-format
+msgid "Info"
+msgstr "वर्णन"
+
+#: lib/kateconfigdialog.cpp:258
+#, kde-format
+msgid "Log"
+msgstr "वृत्त"
+
+#: lib/kateconfigdialog.cpp:264
+#, kde-format
+msgid "&Limit output view history:"
+msgstr "&निर्गमदृश्य इतिहासं सीमितं कुर्वन्तु:"
+
+#: lib/kateconfigdialog.cpp:270 lib/kateconfigdialog.cpp:334
+#, kde-format
+msgid "Unlimited"
+msgstr "असीमित"
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "Use a separate &dialog for handling externally modified files"
+msgstr "बाह्यरूपेण परिवर्तितानां सञ्चिकानां निबन्धनार्थं पृथक् &संवादः इत्यस्य उपयोगं कुर्वन्तु"
+
+#: lib/kateconfigdialog.cpp:280
+#, kde-format
+msgid ""
+"If enabled, a modal dialog will be used to show all of the modified files. "
+"If not enabled, you will be individually asked what to do for each modified "
+"file only when that file's view receives focus."
+msgstr ""
+"यदि सक्षमं भवति तर्हि परिवर्तितानां सर्वाणि सञ्चिकानि दर्शयितुं प्रतिरूप संवादस्य उपयोगः "
+"भविष्यति । यदि सक्षमं न भवति तर्हि भवन्तः व्यक्तिगतरूपेण पृष्टाः भविष्यन्ति यत् प्रत्येकस्य "
+"परिवर्तितसञ्चिकायाः कृते किं कर्तव्यमिति केवलं तदा एव यदा तस्याः सञ्चिकायाः दृश्यं ध्यानं "
+"प्राप्नोति ।."
+
+#: lib/kateconfigdialog.cpp:289
+#, kde-format
+msgid "&Sidebars"
+msgstr "&पार्श्वपट्टिकाः"
+
+#: lib/kateconfigdialog.cpp:292
+#, kde-format
+msgid "Sync section size with tab positions"
+msgstr "ट्याब्स्थानैः सह खण्डस्य आकारं समन्वययन्तु"
+
+#: lib/kateconfigdialog.cpp:295
+#, kde-format
+msgid ""
+"When enabled the section size will be determined by the position of the "
+"tabs.\n"
+"This option does not affect the bottom sidebar."
+msgstr ""
+"यदा सक्षमं भवति तदा ट्याब्स् इत्यस्य स्थानेन विभागस्य आकारः निर्धारितः भविष्यति । एषः "
+"विकल्पः अधः पार्श्वपट्टिकां न प्रभावितं करोति ।."
+
+#: lib/kateconfigdialog.cpp:300
+#, kde-format
+msgid "Show text for left and right sidebar buttons"
+msgstr "वामदक्षिणपार्श्वपट्टिकागण्डयोः कृते पाठ्यं दर्शयतु"
+
+#: lib/kateconfigdialog.cpp:305
+#, kde-format
+msgid "Icon size for left and right sidebar buttons"
+msgstr "वामदक्षिणपार्श्वपट्टिकागण्डयोः कृते चिह्नस्य आकारः"
+
+#: lib/kateconfigdialog.cpp:324
+#, kde-format
+msgid "&Tabs"
+msgstr "&टेब्स्"
+
+#: lib/kateconfigdialog.cpp:328
+#, kde-format
+msgid "&Limit number of tabs:"
+msgstr "&ट्याब्स् संख्यां सीमितं कुर्वन्तु:"
+
+#: lib/kateconfigdialog.cpp:339
+#, kde-format
+msgid ""
+"A high limit can increase the window size, please enable 'Allow tab "
+"scrolling' to prevent it. Unlimited tabs are always scrollable."
+msgstr ""
+"उच्चसीमा गवाक्ष आकारं वर्धयितुं शक्नोति, कृपया तत् निवारयितुं 'ट्याब् सारणनं अनुमन्यताम्' "
+"सक्षमं कुर्वन्तु । असीमित ट्याब्स् सर्वदा सारण कर्तुं शक्यन्ते ।."
+
+#: lib/kateconfigdialog.cpp:343
+#, kde-format
+msgid "&Auto hide tabs"
+msgstr "&स्वयं गोपन ट्याब्स्"
+
+#: lib/kateconfigdialog.cpp:345
+#, kde-format
+msgid "When checked tabs will be hidden if only one document is open."
+msgstr ""
+"यदा अभिवृत कृतं तदा ट्याब्स् गोपिताः भविष्यन्ति यदि केवलम् एकः दस्तावेजः उद्घाटितः अस्ति ।."
+
+#: lib/kateconfigdialog.cpp:349
+#, kde-format
+msgid "&Show close button"
+msgstr "&पिधायस्य गण्डं दर्शयतु"
+
+#: lib/kateconfigdialog.cpp:351
+#, kde-format
+msgid "When checked each tab will display a close button."
+msgstr "यदा अभिवृत क्रियते तदा प्रत्येकं ट्याब् एकं पिधाय गण्डं प्रदर्शयिष्यति ।."
+
+#: lib/kateconfigdialog.cpp:355
+#, kde-format
+msgid "&Expand tabs"
+msgstr "&ट्याब्स् विस्तारयन्तु"
+
+#: lib/kateconfigdialog.cpp:357
+#, kde-format
+msgid "When checked tabs take as much size as possible."
+msgstr "यदा अभिवृत कृतानि ट्याब्स् यथासम्भवं आकारं गृह्णन्ति ।."
+
+#: lib/kateconfigdialog.cpp:361
+#, kde-format
+msgid "&Double click opens a new document"
+msgstr "&द्विवारं नोदनम् कृत्वा नूतनं दस्तावेजं उद्घाट्यते"
+
+#: lib/kateconfigdialog.cpp:363
+#, kde-format
+msgid "When checked double click opens a new document."
+msgstr "यदा अभिवृत भवति तदा डबल क्लिक् कृत्वा नूतनं दस्तावेजं उद्घाट्यते ।."
+
+#: lib/kateconfigdialog.cpp:367
+#, kde-format
+msgid "&Middle click closes a document"
+msgstr "&मध्य नोदनम् कृत्वा दस्तावेजं बन्दं भवति"
+
+#: lib/kateconfigdialog.cpp:369
+#, kde-format
+msgid "When checked middle click closes a document."
+msgstr "यदा अभिवृत भवति तदा मध्यक्लिक् कृत्वा दस्तावेजं बन्दं करोति ।."
+
+#: lib/kateconfigdialog.cpp:373
+#, kde-format
+msgid "Allow tab scrolling"
+msgstr "ट्याब् स्क्रॉलिंग् इत्यस्य अनुमतिं ददातु"
+
+#: lib/kateconfigdialog.cpp:375
+#, kde-format
+msgid ""
+"When checked this will allow scrolling in tab bar when number of tabs is "
+"large."
+msgstr ""
+"यदा अभिवृत भवति तदा एतत् ट्याब्-पट्टिकायां स्क्रॉलं कर्तुं शक्नोति यदा ट्याब्-सङ्ख्या अधिका "
+"भवति ।."
+
+#: lib/kateconfigdialog.cpp:379
+#, kde-format
+msgid "Elide tab text"
+msgstr "ट्याब् पाठ्यः लुम्पते"
+
+#: lib/kateconfigdialog.cpp:381
+#, kde-format
+msgid "When checked tab text might be elided if its too long."
+msgstr "यदा अभिवृत ट्याब् पाठ्य लुप्त भवेत् यदि तस्य अतिदीर्घः ।."
+
+#: lib/kateconfigdialog.cpp:385
+#, kde-format
+msgid "Open new tab to the right of current tab."
+msgstr "वर्तमान ट्याब् इत्यस्य दक्षिणभागे नूतनं ट्याब् उद्घाटयन्तु ।."
+
+#: lib/kateconfigdialog.cpp:387
+#, kde-format
+msgid "If unchecked the new tab will open at the end."
+msgstr "यदि अप्रतिहत कृतः तर्हि नूतनं ट्याब् अन्ते उद्घाट्यते ।."
+
+#: lib/kateconfigdialog.cpp:393
+#, kde-format
+msgid "&Mouse"
+msgstr "&मूषकः"
+
+#: lib/kateconfigdialog.cpp:398
+#, kde-format
+msgid "&Backward button pressed:"
+msgstr "&पश्चात्तापं गण्डं दबाधितम् :"
+
+#: lib/kateconfigdialog.cpp:403
+#, kde-format
+msgid "Previous tab"
+msgstr "पूर्वः ट्याब्"
+
+#: lib/kateconfigdialog.cpp:403
+#, kde-format
+msgid "History back"
+msgstr "इतिहासः पृष्ठतः"
+
+#: lib/kateconfigdialog.cpp:409
+#, kde-format
+msgid "&Forward button pressed:"
+msgstr "&अग्रे इति गण्ड दबाधितम् :"
+
+#: lib/kateconfigdialog.cpp:414
+#, kde-format
+msgid "Next tab"
+msgstr "अग्रिमः ट्याब्"
+
+#: lib/kateconfigdialog.cpp:414
+#, kde-format
+msgid "History forward"
+msgstr "इतिहास अग्रे"
+
+#: lib/kateconfigdialog.cpp:431
+#, kde-format
+msgid "Diff Style:"
+msgstr "भिन्नः शैली :"
+
+#: lib/kateconfigdialog.cpp:436
+#, kde-format
+msgid "Navigation Bar"
+msgstr "नेविगेशन बार"
+
+#: lib/kateconfigdialog.cpp:441
+#, kde-format
+msgid "Show current symbol in navigation bar"
+msgstr "नेविगेशन-पट्टिकायां वर्तमान-चिह्नं दर्शयतु"
+
+#: lib/kateconfigdialog.cpp:455
+#, kde-format
+msgid "Session"
+msgstr "सत्र"
+
+#: lib/kateconfigdialog.cpp:457
+#, kde-format
+msgid "Session Management"
+msgstr "सत्र प्रबन्धन"
+
+#: lib/kateconfigdialog.cpp:468
+#, kde-format
+msgctxt "The special case of 'Delete unused meta-information after'"
+msgid "(never)"
+msgstr "(कदापि न)"
+
+#: lib/kateconfigdialog.cpp:469
+#, kde-format
+msgctxt "The suffix of 'Delete unused meta-information after'"
+msgid " day"
+msgid_plural " days"
+msgstr[0] " दिनं"
+msgstr[1] " दिनानि"
+
+#: lib/kateconfigdialog.cpp:502
+#, kde-format
+msgid ""
+"When a window is closed the documents opened only in this window are closed "
+"as well."
+msgstr ""
+"यदा कश्चन गवाक्ष पिहितः भवति तदा केवलम् अस्मिन् गवाक्ष मध्ये उद्घाटिताः दस्तावेजाः अपि "
+"पिहिताः भवन्ति ।."
+
+#: lib/kateconfigdialog.cpp:537
+#, kde-format
+msgid "Plugins"
+msgstr "प्लगिन्स्"
+
+#: lib/kateconfigdialog.cpp:539
+#, kde-format
+msgid "Plugin Manager"
+msgstr "प्लगिन् प्रबन्धक"
+
+#: lib/kateconfigdialog.cpp:557 lib/kateconfigdialog.cpp:559
+#, kde-format
+msgid "User Feedback"
+msgstr "उपयोक्तृप्रतिक्रिया"
+
+#: lib/kateconfigdialog.cpp:790
+#, kde-format
+msgid ""
+"You have unsaved changes. Do you want to apply the changes or discard them?"
+msgstr "भवतः अरक्षिताः परिवर्तनाः सन्ति। परिवर्तनं प्रयोक्तुं इच्छति वा परित्यक्तुं वा?"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Name"
+msgstr "नामः"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Description"
+msgstr "वर्णनम्‌"
+
+#: lib/kateconfigplugindialogpage.cpp:69
+#, kde-format
+msgid ""
+"Here you can see all available Kate plugins. Those with a check mark are "
+"loaded, and will be loaded again the next time Kate is started."
+msgstr ""
+"अत्र भवन्तः सर्वाणि उपलब्धानि केट् प्लगिन्स् द्रष्टुं शक्नुवन्ति । येषां अभिवृत चिह्नः अस्ति ते "
+"आरोपय भवन्ति, अग्रिमे समये केट् आरब्धे पुनः आरोपय भविष्यन्ति ।."
+
+#: lib/katedocmanager.cpp:276
+#, kde-format
+msgid ""
+"<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
+"save your changes or discard them?</p>"
+msgstr ""
+"<p>'%1' इति दस्तावेजं परिवर्तितं, परन्तु न रक्षितम् ।</p><p>किं भवान् स्वपरिवर्तनानि "
+"रक्षितुम् इच्छति वा परित्यक्तुं इच्छति वा?</p>"
+
+#: lib/katedocmanager.cpp:279 lib/katesavemodifieddialog.cpp:129
+#, kde-format
+msgid "Close Document"
+msgstr "दस्तावेजं बन्दं कुर्वन्तु"
+
+#: lib/katedocmanager.cpp:288
+#, kde-format
+msgid "Save As"
+msgstr "As Save As इति"
+
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#, kde-format
+msgid "New file opened while trying to close Kate, closing aborted."
+msgstr "केट् बन्दं कर्तुं प्रयतमाने नूतना सञ्चिका उद्घाटिता, बन्दीकरणं निरस्तम्।."
+
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#, kde-format
+msgid "Closing Aborted"
+msgstr "समापन Aborted"
+
+#: lib/katedocmanager.cpp:384
+#, kde-format
+msgid "Starting Up"
+msgstr "Starting Up इति"
+
+#: lib/katedocmanager.cpp:385
+#, kde-format
+msgid "Reopening files from the last session..."
+msgstr "अन्तिमसत्रात् सञ्चिकाः पुनः उद्घाटयति..."
+
+#: lib/katefileactions.cpp:74
+#, kde-format
+msgid "Rename file"
+msgstr "सञ्चिकायाः नाम परिवर्तनं कुर्वन्तु"
+
+#: lib/katefileactions.cpp:74
+#, kde-format
+msgid "New file name"
+msgstr "नवीनं सञ्चिकानाम"
+
+#: lib/katefileactions.cpp:108
+#, kde-format
+msgid "File \"%1\" could not be moved to \"%2\""
+msgstr "%1 सञ्चिका \"%2\" प्रति स्थानान्तरितुं न शक्यते ।"
+
+#: lib/katefileactions.cpp:129
+#, kde-format
+msgid "Do you really want to delete file \"%1\"?"
+msgstr "किं भवान् वास्तवमेव \"%1\" सञ्चिकां विलोपयितुम् इच्छति?"
+
+#: lib/katefileactions.cpp:130
+#, kde-format
+msgid "Delete file"
+msgstr "सञ्चिकां विलोपयन्तु"
+
+#: lib/katefileactions.cpp:151
+#, kde-format
+msgid "File \"%1\" could not be deleted."
+msgstr "%1 सञ्चिकां लोपयितुं न शक्यते ।."
+
+#: lib/katefileactions.cpp:202
+#, kde-format
+msgid "&Other Application..."
+msgstr "&अन्य अनुप्रयोग..."
+
+#: lib/katemainwindow.cpp:238
+#, kde-format
+msgid "Use this command to show or hide the view's statusbar"
+msgstr "दृश्यस्य स्थितिपट्टिकां दर्शयितुं गोपयितुं वा एतस्य आदेशस्य उपयोगं कुर्वन्तु"
+
+#: lib/katemainwindow.cpp:241
+#, kde-format
+msgid "Show &Tabs"
+msgstr "&टेब्स् दर्शयतु"
+
+#: lib/katemainwindow.cpp:244
+#, kde-format
+msgid "Use this command to show or hide the tabs for the views"
+msgstr "दृश्यानां कृते ट्याब्स् दर्शयितुं गोपयितुं वा एतत् आदेशं उपयुज्यताम्"
+
+#: lib/katemainwindow.cpp:246
+#, kde-format
+msgid "Sho&w Path in Titlebar"
+msgstr "शीर्षकपट्टिकायां मार्गं &दर्शयतु"
+
+#: lib/katemainwindow.cpp:249
+#, kde-format
+msgid "Show the complete document path in the window caption"
+msgstr "गवाक्षस्य शीर्षकवाक्य मध्ये सम्पूर्णं दस्तावेजमार्गं दर्शयतु"
+
+#: lib/katemainwindow.cpp:251
+#, kde-format
+msgid "Show Navigation Bar"
+msgstr "नेविगेशन बार दर्शयतु"
+
+#: lib/katemainwindow.cpp:260
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr "&गवाक्षस्य रङ्गस्य योजना"
+
+#: lib/katemainwindow.cpp:264
+#, kde-format
+msgid "&Previous Tab"
+msgstr "&पूर्व ट्याब्"
+
+#: lib/katemainwindow.cpp:265
+#, kde-format
+msgid "Focus the previous tab."
+msgstr "पूर्वस्मिन् ट्याब् केन्द्रीक्रियताम् ।."
+
+#: lib/katemainwindow.cpp:270
+#, kde-format
+msgid "&Next Tab"
+msgstr "&अग्रिमः ट्याब्"
+
+#: lib/katemainwindow.cpp:271
+#, kde-format
+msgid "Focus the next tab."
+msgstr "अग्रिम ट्याब् केन्द्रीकुरुत।."
+
+#: lib/katemainwindow.cpp:278
+#, kde-format
+msgid "&Quick Open"
+msgstr "&त्वरित उद्घाटित"
+
+#: lib/katemainwindow.cpp:281
+#, kde-format
+msgid "Open a form to quick open documents."
+msgstr "दस्तावेजान् शीघ्रं उद्घाटयितुं प्रपत्रं उद्घाटयन्तु।."
+
+#: lib/katemainwindow.cpp:312
+#, kde-format
+msgid "Output"
+msgstr "उत्पादनम्"
+
+#: lib/katemainwindow.cpp:322
+#, kde-format
+msgid "Create a new document"
+msgstr "नूतनं दस्तावेजं रचयन्तु"
+
+#: lib/katemainwindow.cpp:325
+#, kde-format
+msgid "Open an existing document for editing"
+msgstr "सम्पादनार्थं विद्यमानं दस्तावेजं उद्घाटयन्तु"
+
+#: lib/katemainwindow.cpp:335
+#, kde-format
+msgid ""
+"This lists files which you have opened recently, and allows you to easily "
+"open them again."
+msgstr ""
+"एतेन भवता अद्यतनतया उद्घाटिताः सञ्चिकाः सूचीबद्धाः सन्ति, पुनः सुलभतया उद्घाटयितुं च "
+"शक्यते ।."
+
+#: lib/katemainwindow.cpp:339
+#, kde-format
+msgid "Save A&ll"
+msgstr "&सर्वे रक्षतु"
+
+#: lib/katemainwindow.cpp:342
+#, kde-format
+msgid "Save all open, modified documents to disk."
+msgstr "सर्वाणि उद्घाटितानि, परिवर्तितानि दस्तावेजानि डिस्कमध्ये रक्षन्तु ।."
+
+#: lib/katemainwindow.cpp:345
+#, kde-format
+msgid "&Reload All"
+msgstr "&सर्वाणि पुनः आरोपयन्तु"
+
+#: lib/katemainwindow.cpp:347
+#, kde-format
+msgid "Reload all open documents."
+msgstr "सर्वाणि उद्घाटितानि दस्तावेजानि पुनः आरोपय कुर्वन्तु।."
+
+#: lib/katemainwindow.cpp:356 lib/katemainwindow.cpp:365
+#, kde-format
+msgid "Copies the file path of the current file to clipboard."
+msgstr "वर्तमानसञ्चिकायाः सञ्चिकामार्गं अंशफलक प्रति प्रतिलिखति ।."
+
+#: lib/katemainwindow.cpp:360 lib/welcomeview/welcomeview.cpp:265
+#, kde-format
+msgid "&Open Containing Folder"
+msgstr "&समाविष्टं पुटं उद्घाटयन्तु"
+
+#: lib/katemainwindow.cpp:369
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Rename..."
+msgstr "नामान्तरितम्..."
+
+#: lib/katemainwindow.cpp:374
+#, kde-format
+msgid "Renames the file belonging to the current document."
+msgstr "वर्तमानदस्तावेजस्य सञ्चिकायाः नाम नामान्तरियति ।."
+
+#: lib/katemainwindow.cpp:378
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Delete"
+msgstr "विलोपयन्तु"
+
+#: lib/katemainwindow.cpp:383 lib/katemainwindow.cpp:392
+#, kde-format
+msgid "Deletes the file belonging to the current document."
+msgstr "वर्तमानदस्तावेजस्य सञ्चिकां विलोपयति ।."
+
+#: lib/katemainwindow.cpp:387
+#, kde-format
+msgid "Properties"
+msgstr "गुणाः"
+
+#: lib/katemainwindow.cpp:395 lib/katemainwindow.cpp:397
+#, kde-format
+msgid "Compare"
+msgstr "तूल"
+
+#: lib/katemainwindow.cpp:397
+#, kde-format
+msgid "Use the Tabbar context menu to compare two documents"
+msgstr "द्वयोः दस्तावेजयोः तुलनां कर्तुं ट्याबपट्टिका सन्दर्भ विकल्पसूचि इत्यस्य उपयोगं कुर्वन्तु"
+
+#: lib/katemainwindow.cpp:399
+#, kde-format
+msgid "Shows a hint how to compare documents."
+msgstr "दस्तावेजानां तुलना कथं कर्तव्या इति संकेतं दर्शयति ।."
+
+#: lib/katemainwindow.cpp:402
+#, kde-format
+msgid "Close Orphaned"
+msgstr "अनाथः पिधाय"
+
+#: lib/katemainwindow.cpp:404
+#, kde-format
+msgid ""
+"Close all documents in the file list that could not be reopened, because "
+"they are not accessible anymore."
+msgstr ""
+"सञ्चिकासूचौ सर्वाणि दस्तावेजानि पिधाय ये पुनः उद्घाटयितुं न शक्यन्ते, यतः ते इतः परं सुलभाः "
+"न सन्ति ।."
+
+#: lib/katemainwindow.cpp:408
+#, kde-format
+msgid "Close the current document."
+msgstr "वर्तमानदस्तावेजं पिधाय ।."
+
+#: lib/katemainwindow.cpp:411
+#, kde-format
+msgid "Close Other"
+msgstr "अन्ये पिधाय"
+
+#: lib/katemainwindow.cpp:413
+#, kde-format
+msgid "Close other open documents."
+msgstr "अन्ये मुक्तदस्तावेजाः पिधाय।."
+
+#: lib/katemainwindow.cpp:416
+#, kde-format
+msgid "Clos&e All"
+msgstr "&सर्वाणि पिधाय"
+
+#: lib/katemainwindow.cpp:418
+#, kde-format
+msgid "Close all open documents."
+msgstr "सर्वाणि मुक्तदस्तावेजानि पिधाय।."
+
+#: lib/katemainwindow.cpp:423
+#, kde-format
+msgid "Close this window"
+msgstr "एतत् गवाक्ष पिधाय"
+
+#: lib/katemainwindow.cpp:427
+#, kde-format
+msgid "&New Window"
+msgstr "&नवीन गवाक्ष"
+
+#: lib/katemainwindow.cpp:430
+#, kde-format
+msgid "Create a new window."
+msgstr "नूतनं गवाक्ष रचयन्तु।."
+
+#: lib/katemainwindow.cpp:437
+#, kde-format
+msgid "Open W&ith"
+msgstr "&एतेन सह उद्घाटयन्तु"
+
+#: lib/katemainwindow.cpp:439
+#, kde-format
+msgid ""
+"Open the current document using another application registered for its file "
+"type, or an application of your choice."
+msgstr ""
+"वर्तमानदस्तावेजं तस्य सञ्चिकाप्रकारस्य कृते पञ्जीकृतस्य अन्यस्य अनुप्रयोगस्य उपयोगेन, अथवा भवतः "
+"पसन्दस्य अनुप्रयोगस्य उपयोगेन उद्घाटयन्तु ।."
+
+#: lib/katemainwindow.cpp:447
+#, kde-format
+msgid "Configure the application's keyboard shortcut assignments."
+msgstr "अनुप्रयोगस्य कीलफलकसंक्षिप्तमार्गः नियोजनम्‌ विन्यस्यताम् ।."
+
+#: lib/katemainwindow.cpp:450
+#, kde-format
+msgid "Configure which items should appear in the toolbar(s)."
+msgstr "साधनशलाकाः मध्ये के वस्तूनि दृश्यन्ते इति विन्यस्यताम् ।."
+
+#: lib/katemainwindow.cpp:453
+#, kde-format
+msgid ""
+"Configure various aspects of this application and the editing component."
+msgstr "अस्य अनुप्रयोगस्य विविधपक्षं सम्पादनघटकं च विन्यस्यताम् ।."
+
+#: lib/katemainwindow.cpp:457
+#, kde-format
+msgid "&Plugins Handbook"
+msgstr "&प्लगिन्स् हस्तपुस्तिका"
+
+#: lib/katemainwindow.cpp:459
+#, kde-format
+msgid "This shows help files for various available plugins."
+msgstr "एतेन विभिन्नानां उपलब्धानां प्लगिन्स् कृते सहायतासञ्चिकाः दृश्यन्ते ।."
+
+#: lib/katemainwindow.cpp:476
+#, kde-format
+msgid "Sess&ions"
+msgstr "&सत्रम्"
+
+#: lib/katemainwindow.cpp:482
+#, kde-format
+msgctxt "Menu entry Session->New Session"
+msgid "&New Session"
+msgstr "&नव सत्रम्"
+
+#: lib/katemainwindow.cpp:487
+#, kde-format
+msgid "&Recent Sessions"
+msgstr "&हाले सत्र"
+
+#: lib/katemainwindow.cpp:492
+#, kde-format
+msgid "&All Sessions"
+msgstr "&सर्व सत्रम्"
+
+#: lib/katemainwindow.cpp:499
+#, kde-format
+msgid "&Manage Sessions..."
+msgstr "&सत्रं प्रबन्धयतु..."
+
+#: lib/katemainwindow.cpp:508
+#, kde-format
+msgid "&Save Session"
+msgstr "&सत्रं रक्षतु"
+
+#: lib/katemainwindow.cpp:514
+#, kde-format
+msgid "Save Session &As..."
+msgstr "&यथा सत्रं रक्षन्तु..."
+
+#: lib/katemainwindow.cpp:521 lib/kateviewspace.cpp:57
+#, kde-format
+msgid "Go to Previous Location"
+msgstr "पूर्वस्थानं गच्छन्तु"
+
+#: lib/katemainwindow.cpp:530 lib/kateviewspace.cpp:69
+#, kde-format
+msgid "Go to Next Location"
+msgstr "अग्रिमस्थानं गच्छन्तु"
+
+#: lib/katemainwindow.cpp:538
+#, kde-format
+msgid "Show File Git History"
+msgstr "सञ्चिका गिट् इतिहासं दर्शयतु"
+
+#: lib/katemainwindow.cpp:587
+#, kde-format
+msgid "This will close all open documents. Are you sure you want to continue?"
+msgstr ""
+"एतेन सर्वे मुक्तदस्तावेजाः बन्दाः भविष्यन्ति । किं भवन्तः निश्चयेन निरन्तरं कर्तुम् इच्छन्ति ?"
+
+#: lib/katemainwindow.cpp:588
+#, kde-format
+msgid "Close all documents"
+msgstr "सर्वाणि दस्तावेजानि बन्दं कुर्वन्तु"
+
+#: lib/katemainwindow.cpp:603
+#, kde-format
+msgid ""
+"This will close all open documents beside the current one. Are you sure you "
+"want to continue?"
+msgstr ""
+"एतेन वर्तमानस्य पार्श्वे सर्वाणि मुक्तदस्तावेजानि पिधास्यन्ति । किं भवन्तः निश्चयेन निरन्तरं "
+"कर्तुम् इच्छन्ति ?"
+
+#: lib/katemainwindow.cpp:604
+#, kde-format
+msgid "Close all documents beside current one"
+msgstr "वर्तमानस्य पार्श्वे सर्वाणि दस्तावेजानि पिधायताम्"
+
+#: lib/katemainwindow.cpp:844
+#, kde-format
+msgid ""
+"This will hide the menu bar completely. You can show it again by typing %1."
+msgstr ""
+"एतेन विकल्पसूचि-पट्टिका पूर्णतया गोपिता भविष्यति । %1 इति टङ्कयित्वा पुनः दर्शयितुं "
+"शक्नुवन्ति ।."
+
+#: lib/katemainwindow.cpp:847
+#, kde-format
+msgid "Hide menu bar"
+msgstr "विकल्पसूचि-पट्टिकां गोपयन्तु"
+
+#: lib/katemainwindow.cpp:946
+#, kde-format
+msgid ""
+"You dropped the directory %1 into Kate. Do you want to open all files "
+"contained in it?"
+msgstr ""
+"भवान् %1 निर्देशिकां केट् मध्ये पातितवान् । तस्मिन् निहिताः सर्वाणि सञ्चिकाः उद्घाटयितुम् "
+"इच्छति वा ?"
+
+#: lib/katemainwindow.cpp:949
+#, kde-format
+msgctxt "@title:window"
+msgid "Open Files Recursively"
+msgstr "सञ्चिकाः पुनरावर्तनीयरूपेण उद्घाटयन्तु"
+
+#: lib/katemainwindow.cpp:950
+#, kde-format
+msgctxt "@action:button"
+msgid "Open All Files"
+msgstr "सर्वाणि सञ्चिकाः उद्घाटयन्तु"
+
+#: lib/katemainwindow.cpp:1172
+#, kde-format
+msgid " [read only]"
+msgstr " [पठितमात्रम्] ।"
+
+#: lib/katemdi.cpp:81
+#, kde-format
+msgid "Toolview Manager"
+msgstr "उपकरणदृश्यम् प्रबन्धक"
+
+#: lib/katemdi.cpp:99
+#, kde-format
+msgid "Sidebar Buttons"
+msgstr "पार्श्वपट्टिका गण्डाः"
+
+#: lib/katemdi.cpp:102
+#, kde-format
+msgid "Focus Toolview"
+msgstr "पकरणदृश्यम् केन्द्रीक्रियताम्"
+
+#: lib/katemdi.cpp:105
+#, kde-format
+msgid "Tool &Views"
+msgstr "साधनम् &दृश्यानि"
+
+#: lib/katemdi.cpp:107
+#, kde-format
+msgid "Show Side&bars"
+msgstr "&पार्श्वपट्टिकाः दर्शयतु"
+
+#: lib/katemdi.cpp:115
+#, kde-format
+msgid "Hide All Tool Views"
+msgstr "सर्वाणि साधनदृश्यानि गोपयन्तु"
+
+#: lib/katemdi.cpp:164
+#, kde-format
+msgid "Show %1"
+msgstr "%1 दर्शयतु"
+
+#: lib/katemdi.cpp:175
+#, kde-format
+msgid "Show %1 Button"
+msgstr "%1 गण्डं दर्शयतु"
+
+#: lib/katemdi.cpp:191
+#, kde-format
+msgid "Focus %1"
+msgstr "%1 केन्द्रीक्रियताम्"
+
+#: lib/katemdi.cpp:1016
+#, kde-format
+msgid "Configure..."
+msgstr "विन्यस्तं कुर्वन्तु..."
+
+#: lib/katemdi.cpp:1020
+#, kde-format
+msgid "Hide Button"
+msgstr "गोपन गण्ड"
+
+#: lib/katemdi.cpp:1022
+#, kde-format
+msgid "Move To"
+msgstr "इति स्थानान्तरणम्"
+
+#: lib/katemdi.cpp:1027
+#, kde-format
+msgid "Own Section"
+msgstr "स्वखण्डः"
+
+#: lib/katemdi.cpp:1033 lib/katemdi.cpp:1041
+#, kde-format
+msgid "One Down"
+msgstr "एकं अधः"
+
+#: lib/katemdi.cpp:1035 lib/katemdi.cpp:1046
+#, kde-format
+msgid "One Right"
+msgstr "एकः दक्षिणः"
+
+#: lib/katemdi.cpp:1039
+#, kde-format
+msgid "One Up"
+msgstr "एकं उपरि"
+
+#: lib/katemdi.cpp:1044
+#, kde-format
+msgid "One Left"
+msgstr "एकः वाम"
+
+#: lib/katemdi.cpp:1053
+#, kde-format
+msgid "Left Sidebar"
+msgstr "वामपार्श्वपट्टिका"
+
+#: lib/katemdi.cpp:1057
+#, kde-format
+msgid "Right Sidebar"
+msgstr "दक्षिणपार्श्वपट्टिका"
+
+#: lib/katemdi.cpp:1061
+#, kde-format
+msgid "Top Sidebar"
+msgstr "शीर्ष पार्श्वपट्टिका"
+
+#: lib/katemdi.cpp:1065
+#, kde-format
+msgid "Bottom Sidebar"
+msgstr "अधः पार्श्वपट्टिका"
+
+#: lib/katemdi.cpp:1457
+#, kde-format
+msgid ""
+"<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+"possible to directly access the tool views with the mouse anymore, so if you "
+"need to access the sidebars again invoke <b>View &gt; Tool Views &gt; Show "
+"Sidebars</b> in the menu. It is still possible to show/hide the tool views "
+"with the assigned shortcuts.</qt>"
+msgstr ""
+"<qt>भवन्तः पार्श्वपट्टिकाः गोपयितुं प्रवृत्ताः सन्ति। गुप्तपार्श्वपट्टिकाभिः सह इतः परं मूषकेन "
+"साधनदृश्यानि प्रत्यक्षतया प्राप्तुं न शक्यते, अतः यदि भवन्तः पुनः पार्श्वपट्टिकाः अभिगन्तुं "
+"इच्छन्ति तर्हि <b>दृश्यं &gt; साधनदृश्यानि &gt; विकल्पसूचि मध्ये पार्श्वपट्टिकाः</b> इति "
+"दर्शयतु । अद्यापि नियुक्तैः शॉर्टकट्-सहितं साधनदृश्यानि दर्शयितुं/गोपयितुं शक्यते ।</qt>"
+
+#: lib/katemwmodonhddialog.cpp:54
+#, kde-format
+msgid "Documents Modified on Disk"
+msgstr "डिस्क् इत्यत्र परिवर्तिताः दस्तावेजाः"
+
+#: lib/katemwmodonhddialog.cpp:70
+#, kde-format
+msgid ""
+"<qt>The documents listed below have changed on disk.<p>Select one or more at "
+"once, and press an action button until the list is empty.</p></qt>"
+msgstr ""
+"<qt>अधः सूचीकृताः दस्तावेजाः डिस्कमध्ये परिवर्तिताः।<p>एकदा एव एकं वा अधिकं वा चिनोतु, "
+"तथा च यावत् सूची रिक्तं न भवति तावत् एकं क्रियागण्डं नुदन्तु।</p></qt>"
+
+#: lib/katemwmodonhddialog.cpp:80
+#, kde-format
+msgid "Filename"
+msgstr "सञ्चिकानाम"
+
+#: lib/katemwmodonhddialog.cpp:80
+#, kde-format
+msgid "Status on Disk"
+msgstr "डिस्क इत्यत्र स्थितिः"
+
+#: lib/katemwmodonhddialog.cpp:85
+#, kde-format
+msgid "Modified"
+msgstr "परिवर्तित"
+
+#: lib/katemwmodonhddialog.cpp:85
+#, kde-format
+msgid "Created"
+msgstr "निर्मितम्"
+
+#: lib/katemwmodonhddialog.cpp:85
+#, kde-format
+msgid "Deleted"
+msgstr "विलोपितम्"
+
+#: lib/katemwmodonhddialog.cpp:108
+#, kde-format
+msgid "&View Difference"
+msgstr "&अन्तरं पश्यन्तु"
+
+#: lib/katemwmodonhddialog.cpp:109
+#, kde-format
+msgid ""
+"Calculates the difference between the editor contents and the disk file for "
+"the selected document."
+msgstr "चयनितदस्तावेजस्य सम्पादकसामग्रीणां डिस्कसञ्चिकायाः च मध्ये अन्तरं गणयति ।."
+
+#: lib/katemwmodonhddialog.cpp:117
+#, kde-format
+msgid "&Ignore Changes"
+msgstr "&परिवर्तनानि अवहेलयन्तु"
+
+#: lib/katemwmodonhddialog.cpp:118
+#, kde-format
+msgid "Remove modified flag from selected documents"
+msgstr "चयनितदस्तावेजेभ्यः परिवर्तितं ध्वजं निष्कासयन्तु"
+
+#: lib/katemwmodonhddialog.cpp:124
+#, kde-format
+msgid "Overwrite selected documents, discarding disk changes"
+msgstr "चयनितदस्तावेजान् अधिलेखयन्तु, डिस्कपरिवर्तनं परित्यजन्तु"
+
+#: lib/katemwmodonhddialog.cpp:128
+#, kde-format
+msgid "&Reload"
+msgstr "&पुनः आरोपयन्तु"
+
+#: lib/katemwmodonhddialog.cpp:130
+#, kde-format
+msgid "Reload selected documents from disk"
+msgstr "डिस्कतः चयनितदस्तावेजान् पुनः आरोपयन्तु"
+
+#: lib/katemwmodonhddialog.cpp:194
+#, kde-format
+msgid ""
+"Could not save the document \n"
+"'%1'"
+msgstr "'%1' इति दस्तावेजं रक्षितुं न शक्यते ।"
+
+#: lib/katemwmodonhddialog.cpp:314
+#, kde-format
+msgid ""
+"The diff command failed. Please make sure that git is installed and in your "
+"PATH."
+msgstr ""
+"भेद आदेशः विफलः अभवत् । कृपया सुनिश्चितं कुर्वन्तु यत् git संस्थापितम् अस्ति तथा च भवतः PATH "
+"मध्ये अस्ति ।."
+
+#: lib/katemwmodonhddialog.cpp:316
+#, kde-format
+msgid "Error Creating Diff"
+msgstr "भेद् रचने त्रुटिः"
+
+#: lib/katemwmodonhddialog.cpp:323
+#, kde-format
+msgid "[OLD]"
+msgstr "[वृद्धः]"
+
+#: lib/katemwmodonhddialog.cpp:324
+#, kde-format
+msgid "[NEW]"
+msgstr "[नूतनम्‌]"
+
+#: lib/kateoutputview.cpp:173
+#, kde-format
+msgid "Search..."
+msgstr "अन्वेषण..."
+
+#: lib/kateoutputview.cpp:189
+#, kde-format
+msgid "Copy all text to clipboard"
+msgstr "सर्वं पाठ्यं अंशफलक प्रति प्रतिलिख्यताम्"
+
+#: lib/kateoutputview.cpp:194
+#, kde-format
+msgid "Clear all messages"
+msgstr "सर्वान् सन्देशान् स्वच्छं कुर्वन्तु"
+
+#: lib/kateoutputview.cpp:389
+#, kde-format
+msgctxt "@info"
+msgid "Error"
+msgstr "त्रुटि"
+
+#: lib/kateoutputview.cpp:393
+#, kde-format
+msgctxt "@info"
+msgid "Warning"
+msgstr "चेतवानी"
+
+#: lib/kateoutputview.cpp:397
+#, kde-format
+msgctxt "@info"
+msgid "Info"
+msgstr "Info"
+
+#: lib/kateoutputview.cpp:402
+#, kde-format
+msgctxt "@info"
+msgid "Log"
+msgstr "वृत्त"
+
+#: lib/katesavemodifieddialog.cpp:77
+#, kde-format
+msgid "Save As (%1)"
+msgstr "यथा रक्षतु (%1)"
+
+#: lib/katesavemodifieddialog.cpp:129
+#, kde-format
+msgid "Save Documents"
+msgstr "दस्तावेजान् रक्षन्तु"
+
+#: lib/katesavemodifieddialog.cpp:153
+#, kde-format
+msgid ""
+"The document \"%1\" has been modified. Do you want to save your changes or "
+"discard them?"
+msgstr ""
+"%1 इति दस्तावेजं परिवर्तितम् अस्ति । किं भवन्तः स्वपरिवर्तनानि रक्षितुं इच्छन्ति वा परित्यक्तुं "
+"इच्छन्ति वा?"
+
+#: lib/katesavemodifieddialog.cpp:157
+#, kde-format
+msgid ""
+"<qt>The following documents have been modified. Do you want to save them "
+"before closing?</qt>"
+msgstr ""
+"<qt>निम्नलिखितानि दस्तावेजानि परिवर्तितानि सन्ति। किं भवन्तः तान् निमीलितुं पूर्वं रक्षितुम् "
+"इच्छन्ति?</qt>"
+
+#: lib/katesavemodifieddialog.cpp:166
+#, kde-format
+msgid "Documents"
+msgstr "दस्तावेजाः"
+
+#: lib/katesavemodifieddialog.cpp:166
+#, kde-format
+msgid "Location"
+msgstr "स्थानीय"
+
+#: lib/katesavemodifieddialog.cpp:176
+#, kde-format
+msgid "Se&lect All"
+msgstr "सर्वान् &चिनोतु"
+
+#: lib/katesavemodifieddialog.cpp:254
+#, kde-format
+msgid ""
+"Data you requested to be saved could not be written. Please choose how you "
+"want to proceed."
+msgstr ""
+"भवता रक्षितुं याचितं दत्तांशं लिखितुं न शक्यते स्म । कृपया कथं प्रवर्तयितुम् इच्छसि इति चिनोतु।."
+
+#: lib/kateviewmanager.cpp:134
+#, kde-format
+msgid "Split Ve&rtical"
+msgstr "विभक्त &लम्बवत"
+
+#: lib/kateviewmanager.cpp:138
+#, kde-format
+msgid "Split the currently active view vertically into two views."
+msgstr "वर्तमान सक्रियदृश्यं लम्बवत् द्वयोः दृश्ययोः विभजन्तु ।."
+
+#: lib/kateviewmanager.cpp:142
+#, kde-format
+msgid "Split &Horizontal"
+msgstr "विभक्त &क्षैतिजः"
+
+#: lib/kateviewmanager.cpp:146
+#, kde-format
+msgid "Split the currently active view horizontally into two views."
+msgstr "वर्तमान सक्रियदृश्यं क्षैतिजरूपेण द्वयोः दृश्ययोः विभजन्तु ।."
+
+#: lib/kateviewmanager.cpp:150
+#, kde-format
+msgid "Move Document to New Vertical Split"
+msgstr "दस्तावेजं नवीन ऊर्ध्वाधर विभाजन इत्यत्र स्थानान्तरयन्तु"
+
+#: lib/kateviewmanager.cpp:154
+#, kde-format
+msgid ""
+"Split the currently active view vertically into two views and move the "
+"currently active document to right view."
+msgstr ""
+"वर्तमान सक्रियदृश्यं लम्बवत् द्वयोः दृश्ययोः विभज्य वर्तमान सक्रियदस्तावेजं दक्षिणदृश्यं प्रति "
+"स्थानान्तरयन्तु ।."
+
+#: lib/kateviewmanager.cpp:159
+#, kde-format
+msgid "Move Document to New Horizontal Split"
+msgstr "दस्तावेजं नवीन क्षैतिजविभाजनं प्रति स्थानान्तरयन्तु"
+
+#: lib/kateviewmanager.cpp:163
+#, kde-format
+msgid ""
+"Split the currently active view horizontally into two views and move the "
+"currently active document to view below."
+msgstr ""
+"वर्तमान सक्रियदृश्यं क्षैतिजरूपेण द्वयोः दृश्ययोः विभज्य वर्तमान सक्रियदस्तावेजं अधः द्रष्टुं "
+"चालयन्तु ।."
+
+#: lib/kateviewmanager.cpp:168
+#, kde-format
+msgid "Cl&ose Current View"
+msgstr "वर्तमान दृश्य &पिधाय"
+
+#: lib/kateviewmanager.cpp:172
+#, kde-format
+msgid "Close the currently active split view"
+msgstr "वर्तमानं सक्रियं विभक्तदृश्यं पिधाय"
+
+#: lib/kateviewmanager.cpp:176
+#, kde-format
+msgid "Close Inactive Views"
+msgstr "निष्क्रियदृश्यानि बन्दं कुर्वन्तु"
+
+#: lib/kateviewmanager.cpp:179
+#, kde-format
+msgid "Close every view but the active one"
+msgstr "प्रत्येकं दृश्यं पिधाय किन्तु सक्रियं दृश्यम्"
+
+#: lib/kateviewmanager.cpp:183
+#, kde-format
+msgid "Hide Inactive Views"
+msgstr "निष्क्रियदृश्यानि गोपयन्तु"
+
+#: lib/kateviewmanager.cpp:187
+#, kde-format
+msgid "Hide every view but the active one"
+msgstr "प्रत्येकं दृश्यं गोपयन्तु परन्तु सक्रियं दृश्यम्"
+
+#: lib/kateviewmanager.cpp:190
+#, kde-format
+msgid "Toggle Orientation"
+msgstr "अभिविन्यासं टॉगल कुर्वन्तु"
+
+#: lib/kateviewmanager.cpp:193
+#, kde-format
+msgid "Toggles the orientation of the current split view"
+msgstr "वर्तमानस्य विभक्तदृश्यस्य अभिमुखीकरणं टॉगल करोति"
+
+#: lib/kateviewmanager.cpp:196
+#, kde-format
+msgid "Next Split View"
+msgstr "अग्रिमः विभक्तदृश्यः"
+
+#: lib/kateviewmanager.cpp:201
+#, kde-format
+msgid "Make the next split view the active one."
+msgstr "अग्रिमं विभक्तदृश्यं सक्रियं कुर्वन्तु ।."
+
+#: lib/kateviewmanager.cpp:204
+#, kde-format
+msgid "Previous Split View"
+msgstr "पूर्व विभक्त दृश्य"
+
+#: lib/kateviewmanager.cpp:209
+#, kde-format
+msgid "Make the previous split view the active one."
+msgstr "पूर्वविभक्तदृश्यं सक्रियं कुर्वन्तु ।."
+
+#: lib/kateviewmanager.cpp:212
+#, kde-format
+msgid "Left Split View"
+msgstr "वामविभक्तदृश्यम्"
+
+#: lib/kateviewmanager.cpp:217
+#, kde-format
+msgid "Make the split view intuitively on the left the active one."
+msgstr "वामे स्थितं विभक्तदृश्यं सहजतया सक्रियं कुर्वन्तु ।."
+
+#: lib/kateviewmanager.cpp:220
+#, kde-format
+msgid "Right Split View"
+msgstr "दक्षिण विभक्त दृश्य"
+
+#: lib/kateviewmanager.cpp:225
+#, kde-format
+msgid "Make the split view intuitively on the right the active one."
+msgstr "दक्षिणभागे विभक्तदृश्यं सहजतया सक्रियं कुर्वन्तु ।."
+
+#: lib/kateviewmanager.cpp:228
+#, kde-format
+msgid "Upward Split View"
+msgstr "ऊर्ध्वं विभक्तं दृश्यम्"
+
+#: lib/kateviewmanager.cpp:233
+#, kde-format
+msgid "Make the split view intuitively upward the active one."
+msgstr "विभक्तदृश्यं सहजतया सक्रियस्य उपरि कुर्वन्तु।."
+
+#: lib/kateviewmanager.cpp:236
+#, kde-format
+msgid "Downward Split View"
+msgstr "अधोमुखी विभक्त दृश्य"
+
+#: lib/kateviewmanager.cpp:241
+#, kde-format
+msgid "Make the split view intuitively downward the active one."
+msgstr "विभक्तदृश्यं सहजतया सक्रियस्य अधः कृत्वा कुर्वन्तु।."
+
+#: lib/kateviewmanager.cpp:244
+#, kde-format
+msgid "Move Splitter Right"
+msgstr "विभाजकं दक्षिणतः चालयन्तु"
+
+#: lib/kateviewmanager.cpp:247
+#, kde-format
+msgid "Move the splitter of the current view to the right"
+msgstr "वर्तमानदृश्यस्य विभक्तं दक्षिणतः चालयन्तु"
+
+#: lib/kateviewmanager.cpp:250
+#, kde-format
+msgid "Move Splitter Left"
+msgstr "विभाजकं वामभागे चालयन्तु"
+
+#: lib/kateviewmanager.cpp:253
+#, kde-format
+msgid "Move the splitter of the current view to the left"
+msgstr "वर्तमानदृश्यस्य विभक्तं वामभागे चालयन्तु"
+
+#: lib/kateviewmanager.cpp:256
+#, kde-format
+msgid "Move Splitter Up"
+msgstr "विभाजकं उपरि चालयन्तु"
+
+#: lib/kateviewmanager.cpp:259
+#, kde-format
+msgid "Move the splitter of the current view up"
+msgstr "वर्तमानदृश्यस्य विभक्तं उपरि चालयन्तु"
+
+#: lib/kateviewmanager.cpp:262
+#, kde-format
+msgid "Move Splitter Down"
+msgstr "विभाजकं अधः चालयन्तु"
+
+#: lib/kateviewmanager.cpp:265
+#, kde-format
+msgid "Move the splitter of the current view down"
+msgstr "वर्तमानदृश्यस्य विभक्तं अधः चालयन्तु"
+
+#: lib/kateviewmanager.cpp:268
+#, kde-format
+msgid "Focus Navigation Bar"
+msgstr "फोकस नेविगेशन बार"
+
+#: lib/kateviewmanager.cpp:269
+#, kde-format
+msgid "Focus the navigation bar"
+msgstr "नेविगेशन-पट्टिकां केन्द्रीक्रियताम्"
+
+#: lib/kateviewmanager.cpp:276
+#, kde-format
+msgid "Welcome Page"
+msgstr "स्वागत पृष्ठ"
+
+#: lib/kateviewmanager.cpp:281
+#, kde-format
+msgid "Show the welcome page"
+msgstr "स्वागतपृष्ठं दर्शयतु"
+
+#: lib/kateviewmanager.cpp:350
+#, kde-format
+msgid ""
+"<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
+"you want to proceed?</p><p><strong>Beware that kate may stop responding for "
+"some time when opening large files.</strong></p>"
+msgstr ""
+"<p>भवन्तः एकं वा अधिकं वा बृहत् सञ्चिकां उद्घाटयितुं प्रयतन्ते:</p><ul>%1</ul><p>किं भवान् "
+"अग्रे गन्तुम् इच्छति?</p><p><strong>सावधानं भवतु यत् केठ् बृहत् सञ्चिकाः उद्घाटयन् किञ्चित्कालं "
+"यावत् प्रतिक्रियां दातुं स्थगयितुं शक्नोति ।</strong></p>"
+
+#: lib/kateviewmanager.cpp:353
+#, kde-format
+msgid "Opening Large File"
+msgstr "बृहत् सञ्चिकां उद्घाटयति"
+
+#: lib/kateviewmanager.cpp:508
+#, kde-format
+msgid "%1 cannot open folders"
+msgstr "%1 पुटं उद्घाटयितुं न शक्नोति"
+
+#: lib/kateviewmanager.cpp:525
+#, kde-format
+msgid "The plugin required to open folders was not found"
+msgstr "पुटं उद्घाटयितुं आवश्यकं प्लगिन् न प्राप्तम्"
+
+#: lib/kateviewmanager.cpp:531
+#, kde-format
+msgid ""
+"In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
+msgstr "पुटं उद्घाटयितुं <b>%1</b> प्लगिन् सक्षमं भवितुमर्हति । तत् सक्षमं कुर्वन्तु?"
+
+#: lib/kateviewmanager.cpp:534
+#, kde-format
+msgctxt "@title:window"
+msgid "Open Folder"
+msgstr "पुटं उद्घाटयन्तु"
+
+#: lib/kateviewmanager.cpp:535
+#, kde-format
+msgctxt "@action:button"
+msgid "Enable"
+msgstr "सक्रियं करोतु"
+
+#: lib/kateviewmanager.cpp:542
+#, kde-format
+msgid "Failed to enable <b>%1</b> plugin"
+msgstr "<b>%1</b> प्लगिन् सक्षमीकरणे असफलम्"
+
+#: lib/kateviewspace.cpp:94
+#, kde-format
+msgctxt "indicator for more documents"
+msgid "+%1"
+msgstr "+%1"
+
+#: lib/kateviewspace.cpp:99 lib/kateviewspace.cpp:220
+#, kde-format
+msgid "Click here to switch to the Quick Open view."
+msgstr "शीघ्रं उद्घाटितम् दृश्यं प्रति गन्तुं अत्र क्लिक् कुर्वन्तु ।."
+
+#: lib/kateviewspace.cpp:115
+#, kde-format
+msgid "Control view space splitting"
+msgstr "दृश्यस्थानविभाजनं नियन्त्रयन्तु"
+
+#: lib/kateviewspace.cpp:118
+#, kde-format
+msgid "S&ynchronize Scrolling"
+msgstr "&समन्वयनम् सारणं"
+
+#: lib/kateviewspace.cpp:120
+#, kde-format
+msgid ""
+"Synchronize Scrolling of this split-view with other synchronized split-views"
+msgstr "अन्यैः समन्वयितैः विभक्त-दृश्यैः सह अस्य विभक्त-दृश्यस्य सारणं समन्वययन्तु"
+
+#: lib/kateviewspace.cpp:221
+#, kde-format
+msgid ""
+"Currently, there is one more document open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgid_plural ""
+"Currently, there are %1 more documents open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgstr[0] ""
+"सम्प्रति एकं दस्तावेजम् अपि उद्घाटितम् अस्ति । सर्वाणि मुक्तदस्तावेजानि द्रष्टुं अत्र नोदनम् "
+"कृत्वा त्वरित उद्घाटनम् दृश्यं प्रति गच्छन्तु ।."
+msgstr[1] ""
+"सम्प्रति %1 दस्तावेजाः अपि उद्घाटितम् सन्ति। सर्वाणि मुक्तदस्तावेजानि द्रष्टुं अत्र क्लिक् कृत्वा "
+"त्वरित उद्घाटनम् दृश्यं प्रति गच्छन्तु ।."
+
+#: lib/kateviewspace.cpp:1021
+#, kde-format
+msgid "Close Tab"
+msgstr "ट्याब् बन्दं कुर्वन्तु"
+
+#: lib/kateviewspace.cpp:1039
+#, kde-format
+msgid "&Close Document"
+msgstr "&दस्तावेज पिधाय"
+
+#: lib/kateviewspace.cpp:1040
+#, kde-format
+msgid "Close Other &Documents"
+msgstr "अन्ये &दस्तावेजाः पिधाय"
+
+#: lib/kateviewspace.cpp:1041
+#, kde-format
+msgid "Close &All Documents"
+msgstr "&सर्वाणि दस्तावेजानि पिधाय"
+
+#: lib/kateviewspace.cpp:1044
+#, kde-format
+msgid "D&etach Document"
+msgstr "दस्तावेजं &विच्छेदं कुरुत"
+
+#: lib/kateviewspace.cpp:1046
+#, kde-format
+msgid "Opens the document in a new window and closes it in the current window"
+msgstr "नूतने गवाक्षस्य मध्ये दस्तावेजं उद्घाटयति वर्तमानगवाक्ष मध्ये च पिधायति"
+
+#: lib/kateviewspace.cpp:1055
+#, kde-format
+msgid "Compare with Active Document"
+msgstr "सक्रियदस्तावेजेन सह तुलनां कुर्वन्तु"
+
+#: lib/kateviewspace.cpp:1061
+#, kde-format
+msgid "Compare with Active Document Using"
+msgstr "सक्रियदस्तावेजस्य उपयोगेन सह तुलनां कुर्वन्तु"
+
+#: lib/kateviewspace.cpp:1128
+#, kde-format
+msgid "Could not start program"
+msgstr "कार्यक्रमं आरभुं न शक्तवान्"
+
+#: lib/kateviewspace.cpp:1129
+#, kde-format
+msgid "The selected program could not be started. Maybe it is not installed."
+msgstr "चयनितः कार्यक्रमः आरभ्यतुं न शक्तवान् । कदाचित् न संस्थापितम्।."
+
+#: lib/quickopen/katequickopenlineedit.cpp:22
+#, kde-format
+msgid "Quick Open Search (configure via context menu)"
+msgstr "त्वरितं उद्घाटितं अन्वेषणं (सन्दर्भविकल्पसूचिद्वारा विन्यस्तं कुर्वन्तु)"
+
+#: lib/quickopen/katequickopenlineedit.cpp:61
+#, kde-format
+msgid "All Projects"
+msgstr "सर्वाणि परियोजनानि"
+
+#: lib/quickopen/katequickopenlineedit.cpp:73
+#, kde-format
+msgid "Current Project"
+msgstr "वर्तमान परियोजना"
+
+#: lib/quickopen/katequickopenlineedit.cpp:88
+#, kde-format
+msgid "Fuzzy Filtering"
+msgstr "फजी फ़िल्टरिंग"
+
+#: lib/quickopen/katequickopenlineedit.cpp:99
+#, kde-format
+msgid "Wildcard Filtering"
+msgstr "वाइल्डकार्ड फ़िल्टरिंग"
+
+#: lib/session/katesessionmanagedialog.cpp:26
+#, kde-format
+msgid "Manage Sessions"
+msgstr "सत्रं प्रबन्धयन्तु"
+
+#: lib/session/katesessionmanagedialog.cpp:62
+#, kde-format
+msgid "Session Chooser"
+msgstr "सत्रचयनकर्ता"
+
+#: lib/session/katesessionmanagedialog.cpp:146
+#, kde-format
+msgid "Restore"
+msgstr "निर्यत्"
+
+#: lib/session/katesessionmanagedialog.cpp:303
+#, kde-format
+msgid "Session will be deleted on dialog close"
+msgstr "संवादः समाप्तः इत्यत्र सत्रं विलोपितं भविष्यति"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
+#: lib/session/katesessionmanagedialog.ui:30
+#, kde-format
+msgid "Filter Sessions"
+msgstr "सत्रं छानयतु"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:55
+#, kde-format
+msgid "Session Name"
+msgstr "सत्रनाम"
+
+#. i18n: The number of open documents
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:60
+#, kde-format
+msgid "Files"
+msgstr "सञ्चिकाः"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:68
+#, kde-format
+msgid "Last opened"
+msgstr "अन्तिमं उद्घाटितम्"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_openButton)
+#: lib/session/katesessionmanagedialog.ui:87
+#, kde-format
+msgid "&Open"
+msgstr "&उद्घाटयतु"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
+#. i18n: ectx: property (text), widget (QPushButton, m_newButton)
+#: lib/session/katesessionmanagedialog.ui:97 lib/welcomeview/welcomeview.ui:363
+#, kde-format
+msgid "New Session"
+msgstr "नव सत्र"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
+#: lib/session/katesessionmanagedialog.ui:107
+#, kde-format
+msgid "Open as Template"
+msgstr "आकृति इति रूपेण उद्घाटयन्तु"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
+#: lib/session/katesessionmanagedialog.ui:114
+#, kde-format
+msgid "Don't ask again"
+msgstr "पुनः मा पृच्छतु"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
+#: lib/session/katesessionmanagedialog.ui:134
+#, kde-format
+msgid "Duplicate..."
+msgstr "द्वितीयकम्..."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
+#: lib/session/katesessionmanagedialog.ui:141
+#, kde-format
+msgid "&Rename..."
+msgstr "&नामान्तरितम्..."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
+#: lib/session/katesessionmanagedialog.ui:161
+#, kde-format
+msgid "Delete"
+msgstr "लोपयन्तु"
+
+#: lib/session/katesessionmanager.cpp:129
+#, kde-format
+msgid ""
+"Internal error: there is more than one instance open for a given session."
+msgstr "आन्तरिकदोषः : दत्तसत्रस्य कृते एकादशाधिकं उदाहरणं उद्घाटितम् अस्ति ।."
+
+#: lib/session/katesessionmanager.cpp:136
+#, kde-format
+msgid ""
+"Session '%1' is already opened in another Kate instance. Switch to that or "
+"reopen in this instance?"
+msgstr ""
+"अन्यस्मिन् केट् दृष्टान्ते '%1' सत्रं पूर्वमेव उद्घाटितम् अस्ति । तस्मिन् स्विच् कुर्वन्तु अथवा अस्मिन् "
+"दृष्टान्ते पुनः उद्घाटयन्तु?"
+
+#: lib/session/katesessionmanager.cpp:138
+#, kde-format
+msgctxt "@action:button"
+msgid "Switch to Instance"
+msgstr "उदाहरणं प्रति परिवर्तनं कुर्वन्तु"
+
+#: lib/session/katesessionmanager.cpp:139
+#, kde-format
+msgctxt "@action:button"
+msgid "Reopen"
+msgstr "पुनः उद्घाटयतु"
+
+#: lib/session/katesessionmanager.cpp:338
+#, kde-format
+msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+msgstr "सत्रस्य नाम \"%1\" इति परिवर्तयितुं न शक्यते स्म । \"%2\" इत्यत्र लिखितुं असफलम् ।"
+
+#: lib/session/katesessionmanager.cpp:339
+#, kde-format
+msgid "Session Renaming"
+msgstr "सत्र पुनर्नामकरणम्"
+
+#: lib/session/katesessionmanager.cpp:489
+#, kde-format
+msgid "Session name:"
+msgstr "सत्रस्य नाम :"
+
+#: lib/session/katesessionmanager.cpp:491
+#, kde-format
+msgid ""
+"There is already an existing session with your chosen name: %1\n"
+"Please choose a different one."
+msgstr ""
+"भवतः चयनितनाम्ना सह विद्यमानं सत्रं पूर्वमेव अस्ति: %1\n"
+"कृपया भिन्नं चिनोतु ।."
+
+#: lib/session/katesessionmanager.cpp:493
+#, kde-format
+msgid "To save a session, you must specify a name."
+msgstr "सत्रं रक्षितुं भवता नाम निर्दिष्टव्यम् ।."
+
+#: lib/session/katesessionmanager.cpp:520
+#, kde-format
+msgid "Specify a name for this session"
+msgstr "अस्य सत्रस्य नाम निर्दिशन्तु"
+
+#: lib/session/katesessionmanager.cpp:522
+#, kde-format
+msgid "Specify a new name for session: %1"
+msgstr "सत्रस्य कृते नूतनं नाम निर्दिशन्तु: %1"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
+#: lib/ui/sessionconfigwidget.ui:17
+#, kde-format
+msgid "Application Startup Behavior"
+msgstr "अनुप्रयोग प्रारम्भ व्यवहार"
+
+#. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:23
+#, kde-format
+msgid "&Start new session"
+msgstr "&नवं सत्रं आरभत"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:30
+#, kde-format
+msgid "&Load last used session"
+msgstr "&अन्तिमप्रयुक्तसत्रं आरोपय कुर्वन्तु"
+
+#. i18n: ectx: property (text), widget (QRadioButton, manuallyChooseSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:37
+#, kde-format
+msgid "&Manually choose a session"
+msgstr "&हस्तचलितरूपेण एकं सत्रं चिनोतु"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: lib/ui/sessionconfigwidget.ui:47
+#, kde-format
+msgid "Application Startup/Shutdown Behavior"
+msgstr "अनुप्रयोग प्रारम्भ/निरोध व्यवहार"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: lib/ui/sessionconfigwidget.ui:55
+#, kde-format
+msgid "Automatically save and restore:"
+msgstr "स्वयमेव रक्षन्तु पुनर्स्थापनं च कुर्वन्तु:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
+#: lib/ui/sessionconfigwidget.ui:67
+#, kde-format
+msgid "Newly-created unsaved files"
+msgstr "नवनिर्मितानि असरक्षितानि सञ्चिकाः"
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
+#: lib/ui/sessionconfigwidget.ui:77
+#, kde-format
+msgid "Files with unsaved changes"
+msgstr "असरक्षितपरिवर्तनयुक्ताः सञ्चिकाः"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, showWelcomeViewForNewWindow)
+#: lib/ui/sessionconfigwidget.ui:88
+#, kde-format
+msgid "If disabled, an untitled document will be shown for new windows."
+msgstr "यदि अक्षमम् अस्ति तर्हि नूतनानां गवाक्षानां कृते अशीर्षकं दस्तावेजं दर्शितं भविष्यति ।."
+
+#. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
+#: lib/ui/sessionconfigwidget.ui:91
+#, kde-format
+msgid "Show welcome view for new windows"
+msgstr "नूतनगवाक्षस्य स्वागतदृश्यं दर्शयतु"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:98
+#, kde-format
+msgid ""
+"If enabled, the application will shutdown when the last file being edited is "
+"closed, otherwise a blank page will open so that you can start a new file."
+msgstr ""
+"यदि सक्षमं भवति तर्हि सम्पादितायाः अन्तिमसञ्चिकायाः पिधानसमये अनुप्रयोगः निष्क्रियः "
+"भविष्यति, अन्यथा रिक्तं पृष्ठं उद्घाट्यते येन भवान् नूतनां सञ्चिकां आरभुं शक्नोति ।."
+
+#. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:101
+#, kde-format
+msgid "Close the application entirely when the last file is closed"
+msgstr "अन्तिमसञ्चिका यदा पिहितं भवति तदा अनुप्रयोगं सम्पूर्णतया पिधायताम्"
+
+#. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
+#: lib/ui/sessionconfigwidget.ui:108
+#, kde-format
+msgid "Close documents with the window they belong to"
+msgstr "दस्तावेजाः यस्य गवाक्षस्य सन्ति तस्य सह पिधायताम्"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbElements)
+#: lib/ui/sessionconfigwidget.ui:118
+#, kde-format
+msgid "Session Elements"
+msgstr "सत्रतत्त्वानि"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/ui/sessionconfigwidget.ui:124
+#, kde-format
+msgid ""
+"The session contains the list of open documents, recently opened files list, "
+"bookmarks, cursor position etc. When the session is loaded all elements are "
+"restored."
+msgstr ""
+"सत्रे मुक्तदस्तावेजानां सूची, सद्यः उद्घाटितानां सञ्चिकासूची, पुस्तकचिह्नानि, कर्सरस्थानं "
+"इत्यादयः सन्ति यदा सत्रं आरोपय भवति तदा सर्वे तत्त्वानि पुनःस्थापितानि भवन्ति ।."
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/ui/sessionconfigwidget.ui:136
+#, kde-format
+msgid "Maximum number of entries in recent file list:"
+msgstr "अद्यतनसञ्चिकासूचौ अधिकतमं प्रविष्टीनां संख्या:"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:164
+#, kde-format
+msgid ""
+"Check this if you want all your views and frames restored each time you open "
+"the application."
+msgstr ""
+"यदि भवान् इच्छति यत् प्रत्येकं अनुप्रयोगं उद्घाटयति तदा भवतां सर्वाणि दृश्यानि फ्रेम्स च "
+"पुनर्स्थापितानि भवेयुः तर्हि एतत् अभिवृत्यन्तु ।."
+
+#. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:167
+#, kde-format
+msgid "Include &window configuration"
+msgstr "&गवाक्षस्य विन्यासः समाविष्टः"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:177
+#, kde-format
+msgid ""
+"Check this if you want document configuration like for example bookmarks to "
+"be saved past editor sessions. The configuration will be restored if the "
+"document has not changed when reopened."
+msgstr ""
+"यदि भवान् दस्तावेजविन्यासं इच्छति यथा उदाहरणार्थं पुस्तकचिह्नानि पूर्वसम्पादकसत्रेषु रक्षितुं "
+"इच्छन्ति तर्हि एतत् अभिवृत्यन्तु । यदि पुनः उद्घाटितस्य दस्तावेजस्य परिवर्तनं न जातम् तर्हि "
+"विन्यासः पुनः स्थापितः भविष्यति ।."
+
+#. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:180
+#, kde-format
+msgid "Keep &meta-information past sessions"
+msgstr "&मेटा - सूचना गतसत्रेषु स्थापयन्तु"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: lib/ui/sessionconfigwidget.ui:191
+#, kde-format
+msgid "Delete unused meta-information after:"
+msgstr "अप्रयुक्ता मेटा-सूचनाः ततः परं विलोपयन्तु:"
+
+#: lib/welcomeview/welcomeview.cpp:55
+#, kde-format
+msgid "Welcome to %1"
+msgstr "%1 इत्यत्र स्वागतम्"
+
+#: lib/welcomeview/welcomeview.cpp:59
+#, kde-format
+msgid "Recent Documents and Projects"
+msgstr "अद्यतनदस्तावेजाः परियोजनाश्च"
+
+#: lib/welcomeview/welcomeview.cpp:59
+#, kde-format
+msgid "Recent Documents"
+msgstr "अद्यतन दस्तावेज"
+
+#: lib/welcomeview/welcomeview.cpp:62
+#, kde-format
+msgid "No recent documents or projects"
+msgstr "अद्यतनदस्तावेजाः परियोजना वा न"
+
+#: lib/welcomeview/welcomeview.cpp:62
+#, kde-format
+msgid "No recent documents"
+msgstr "अद्यतनदस्तावेजाः नास्ति"
+
+#: lib/welcomeview/welcomeview.cpp:115
+#, kde-format
+msgid "No saved sessions"
+msgstr "न रक्षिताः सत्राः"
+
+#: lib/welcomeview/welcomeview.cpp:245
+#, kde-format
+msgid "Open Selected Files..."
+msgstr "चयनितसञ्चिकाः उद्घाटयन्तु..."
+
+#: lib/welcomeview/welcomeview.cpp:258
+#, kde-format
+msgid "Copy &Location"
+msgstr "&स्थानस्य प्रतिलिपिं कुर्वन्तु"
+
+#: lib/welcomeview/welcomeview.cpp:273
+#, kde-format
+msgid "&Remove"
+msgstr "&निष्कासयतु"
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
+#, kde-format
+msgid "Welcome"
+msgstr "स्वागतम्‌"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:179
+#, kde-format
+msgid "New File"
+msgstr "नवीन सञ्चिका"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:186
+#, kde-format
+msgid "Open Folder..."
+msgstr "पुटं उद्घाटयन्तु..."
+
+#. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
+#: lib/welcomeview/welcomeview.ui:193
+#, kde-format
+msgid "Recent Files"
+msgstr "अद्यतनसञ्चिकाः"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:203
+#, kde-format
+msgid "Open File..."
+msgstr "सञ्चिकां उद्घाटयतु..."
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
+#: lib/welcomeview/welcomeview.ui:242
+#, kde-format
+msgid "Clear Recent Files"
+msgstr "अद्यतनसञ्चिकाः स्वच्छं कुर्वन्तु"
+
+#. i18n: ectx: property (text), widget (QLabel, labelHelp)
+#: lib/welcomeview/welcomeview.ui:270
+#, kde-format
+msgid "Help"
+msgstr "साहाय्यम्‌"
+
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
+#: lib/welcomeview/welcomeview.ui:280
+#, kde-format
+msgid "Visit homepage"
+msgstr "मुखपृष्ठं पश्यन्तु"
+
+#. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
+#: lib/welcomeview/welcomeview.ui:293
+#, kde-format
+msgid "Get involved"
+msgstr "प्रवृत्त हो जाओ"
+
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
+#: lib/welcomeview/welcomeview.ui:306
+#, kde-format
+msgid "Read handbook"
+msgstr "हस्तपुस्तिका पठन्तु"
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:353
+#, kde-format
+msgid "Saved Sessions"
+msgstr "रक्षिताः सत्राः"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:389
+#, kde-format
+msgid "Manage Sessions..."
+msgstr "सत्रं प्रबन्धयन्तु..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:442
+#, kde-format
+msgid "Show for new window"
+msgstr "नूतनगवाक्ष कृते दर्शयतु"
+
+#~ msgid "Message ID"
+#~ msgstr "सन्देशपरिचयः"

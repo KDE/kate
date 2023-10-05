@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-28 01:41+0000\n"
+"POT-Creation-Date: 2023-10-05 01:42+0000\n"
 "PO-Revision-Date: 2022-12-21 10:05+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -253,119 +253,119 @@ msgstr "Перейти"
 msgid "More options"
 msgstr "Дополнительные параметры"
 
-#: lspclientpluginview.cpp:835 lspclientsymbolview.cpp:287
+#: lspclientpluginview.cpp:829 lspclientsymbolview.cpp:287
 #, kde-format
 msgid "Expand All"
 msgstr "Развернуть все"
 
-#: lspclientpluginview.cpp:836 lspclientsymbolview.cpp:288
+#: lspclientpluginview.cpp:830 lspclientsymbolview.cpp:288
 #, kde-format
 msgid "Collapse All"
 msgstr "Свернуть все"
 
-#: lspclientpluginview.cpp:1039
+#: lspclientpluginview.cpp:1033
 #, kde-format
 msgid "RangeHighLight"
 msgstr "Подсветка диапазона"
 
-#: lspclientpluginview.cpp:1351
+#: lspclientpluginview.cpp:1345
 #, kde-format
 msgid "Line: %1: "
 msgstr "Строка: %1: "
 
-#: lspclientpluginview.cpp:1503 lspclientpluginview.cpp:1851
-#: lspclientpluginview.cpp:1970
+#: lspclientpluginview.cpp:1497 lspclientpluginview.cpp:1845
+#: lspclientpluginview.cpp:1964
 #, kde-format
 msgid "No results"
 msgstr "Нет результатов"
 
-#: lspclientpluginview.cpp:1562
+#: lspclientpluginview.cpp:1556
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Определение: %1"
 
-#: lspclientpluginview.cpp:1568
+#: lspclientpluginview.cpp:1562
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Объявление: %1"
 
-#: lspclientpluginview.cpp:1574
+#: lspclientpluginview.cpp:1568
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Определение типа: %1"
 
-#: lspclientpluginview.cpp:1580
+#: lspclientpluginview.cpp:1574
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Ссылки: %1"
 
-#: lspclientpluginview.cpp:1592
+#: lspclientpluginview.cpp:1586
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Реализация: %1"
 
-#: lspclientpluginview.cpp:1605
+#: lspclientpluginview.cpp:1599
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Подсветка: %1"
 
-#: lspclientpluginview.cpp:1629 lspclientpluginview.cpp:1640
-#: lspclientpluginview.cpp:1653
+#: lspclientpluginview.cpp:1623 lspclientpluginview.cpp:1634
+#: lspclientpluginview.cpp:1647
 #, kde-format
 msgid "No Actions"
 msgstr "Нет действий"
 
-#: lspclientpluginview.cpp:1644
+#: lspclientpluginview.cpp:1638
 #, kde-format
 msgid "Loading..."
 msgstr "Загрузка…"
 
-#: lspclientpluginview.cpp:1736
+#: lspclientpluginview.cpp:1730
 #, kde-format
 msgid "No edits"
 msgstr "Нет правок"
 
-#: lspclientpluginview.cpp:1810
+#: lspclientpluginview.cpp:1804
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Переименование"
 
-#: lspclientpluginview.cpp:1811
+#: lspclientpluginview.cpp:1805
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Новое название (внимание: не все ссылки возможно заменить)"
 
-#: lspclientpluginview.cpp:1857
+#: lspclientpluginview.cpp:1851
 #, kde-format
 msgid "Not enough results"
 msgstr "Недостаточно результатов"
 
-#: lspclientpluginview.cpp:1926
+#: lspclientpluginview.cpp:1920
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "Соответствующий заголовок или источник не найден"
 
-#: lspclientpluginview.cpp:2122 lspclientpluginview.cpp:2159
+#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2153
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Сервер LSP"
 
-#: lspclientpluginview.cpp:2182
+#: lspclientpluginview.cpp:2176
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Клиент LSP"
 
-#: lspclientpluginview.cpp:2454
+#: lspclientpluginview.cpp:2448
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"

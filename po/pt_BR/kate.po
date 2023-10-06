@@ -21,15 +21,15 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-21 02:33+0000\n"
-"PO-Revision-Date: 2023-03-03 10:05-0300\n"
+"PO-Revision-Date: 2023-10-05 18:14-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -295,7 +295,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: lib/diagnostics/diagnosticview.cpp:323
 #, fuzzy, kde-format
@@ -304,22 +304,19 @@ msgid "Quick Fix"
 msgstr "Abertura &rápida"
 
 #: lib/diagnostics/diagnosticview.cpp:327
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Próxima aba"
+msgstr "Próximo item"
 
 #: lib/diagnostics/diagnosticview.cpp:332
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Aba anterior"
+msgstr "Item anterior"
 
 #: lib/diagnostics/diagnosticview.cpp:339
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "Diagnósticos"
+msgstr "Limpar filtro de diagnósticos"
 
 #: lib/diagnostics/diagnosticview.cpp:370
 #, kde-format
@@ -327,16 +324,14 @@ msgid "Diagnostics"
 msgstr "Diagnósticos"
 
 #: lib/diagnostics/diagnosticview.cpp:408
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Erro"
+msgstr "Erros"
 
 #: lib/diagnostics/diagnosticview.cpp:424
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Aviso"
+msgstr "Avisos"
 
 #: lib/diagnostics/diagnosticview.cpp:438
 #, kde-format
@@ -533,34 +528,34 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Diff"
-msgstr ""
+msgstr "Diferença"
 
 #: lib/diff/diffwidget.cpp:764 lib/diff/diffwidget.cpp:968
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Novo nome de arquivo"
+msgstr "Novo arquivo %1"
 
 #: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Excluir arquivo"
+msgstr "Arquivo excluído %1"
 
 #: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Nenhuma diferença encontrada"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
+"Falha ao obter histórico do arquivo: executável do git não foi encontrado no "
+"PATH"
 
 #: lib/filehistorywidget.cpp:296
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "Falha ao obter histórico do arquivo: %1"
 
 #: lib/filehistorywidget.cpp:307
 #, kde-format

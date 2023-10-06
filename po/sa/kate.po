@@ -2658,7 +2658,7 @@ msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
 msgstr ""
-"यदि भवान् इच्छति यत् प्रत्येकं अनुप्रयोगं उद्घाटयति तदा भवतां सर्वाणि दृश्यानि फ्रेम्स च "
+"यदि भवान् इच्छति यत् प्रत्येकं अनुप्रयोगं उद्घाटयति तदा भवतां सर्वाणि दृश्यानि खण्ड च "
 "पुनर्स्थापितानि भवेयुः तर्हि एतत् अभिवृत्यन्तु ।."
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)

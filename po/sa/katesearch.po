@@ -1,0 +1,682 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Sanskrit\n"
+"Language: sa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>2);\n"
+"X-Generator: Poedit 3.3.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: KateSearchCommand.cpp:80
+#, kde-format
+msgid "Usage: grep [pattern to search for in folder]"
+msgstr "उपयोगः: grep [पुटे अन्वेष्टुं प्रतिरूपम्] ।"
+
+#: KateSearchCommand.cpp:82
+#, kde-format
+msgid "Usage: newGrep [pattern to search for in folder]"
+msgstr "उपयोगः: newGrep [पुटे अन्वेष्टुं प्रतिरूपम्] ।"
+
+#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#, kde-format
+msgid "Usage: search [pattern to search for in open files]"
+msgstr "उपयोगः: अन्वेषणं [उद्घाटितसञ्चिकासु अन्वेषणार्थं प्रतिरूपम्] ।"
+
+#: KateSearchCommand.cpp:92
+#, kde-format
+msgid "Usage: pgrep [pattern to search for in current project]"
+msgstr "उपयोगः: pgrep [वर्तमानप्रकल्पे अन्वेषणार्थं प्रतिरूपम्] ।"
+
+#: KateSearchCommand.cpp:94
+#, kde-format
+msgid "Usage: newPGrep [pattern to search for in current project]"
+msgstr "उपयोगः: newPGrep [वर्तमानप्रकल्पे अन्वेषणार्थं प्रतिरूपम्] ।"
+
+#: KateSearchCommand.cpp:98
+#, kde-format
+msgid "Usage: preg [regex pattern to search for in current project]"
+msgstr "उपयोगः: preg [वर्तमानप्रकल्पे अन्वेषणार्थं regex pattern] ।"
+
+#: MatchExportDialog.cpp:20
+#, kde-format
+msgid "Export Search Result Matches"
+msgstr "अन्वेषणपरिणाममेलनानि निर्यातयन्तु"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
+#: MatchExportDialog.ui:31
+#, kde-format
+msgid "Export Pattern"
+msgstr "निर्यात प्रतिरूपम्"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushButton)
+#: MatchExportDialog.ui:38
+#, kde-format
+msgid "Generate"
+msgstr "जनयतु"
+
+#. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
+#: MatchExportDialog.ui:50
+#, kde-format
+msgid "Result"
+msgstr "परिणाम"
+
+#: MatchModel.cpp:545 MatchModel.cpp:547
+#, kde-format
+msgid "<b><i>Generating file list: ...%1</i></b>"
+msgstr "<b><i>सञ्चिकासूचीं जनयति : ...%1</i></b>"
+
+#: MatchModel.cpp:555
+#, kde-format
+msgid "<b><i>One match found, searching: ...%2</i></b>"
+msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
+msgstr[0] "<b><i>एकः मेलः प्राप्तः, अन्वेषणं कुर्वन्: ...%2</i></b>"
+msgstr[1] "<b><i>%1 मेलाः प्राप्ताः, अन्वेषणं कुर्वन्: ...%2</i></b>"
+
+#: MatchModel.cpp:560
+#, kde-format
+msgid "<b><i>One match found, searching: %2</i></b>"
+msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
+msgstr[0] "<b><i>एकः मेलः प्राप्तः, अन्वेषणं कुर्वन्: %2</i></b>"
+msgstr[1] "<b><i>%1 मेलाः प्राप्ताः, अन्वेषणं कुर्वन्: %2</i></b>"
+
+#: MatchModel.cpp:567 MatchModel.cpp:721
+#, kde-format
+msgid "One checked"
+msgid_plural "%1 checked"
+msgstr[0] "एकः परीक्षितवान्"
+msgstr[1] "%1 परीक्षितम्"
+
+#: MatchModel.cpp:571
+#, kde-format
+msgid "<b><i>One match (%2) found in file</i></b>"
+msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
+msgstr[0] "<b><i>सञ्चिकायां</i></b>मध्ये एकः मेलः (%2) प्राप्तः"
+msgstr[1] "<b><i>सञ्चिकायां</i></b>मध्ये %1 मेलाः (%2) प्राप्ताः"
+
+#: MatchModel.cpp:573
+#, kde-format
+msgid "<b><i>One match (%2) found in open files</i></b>"
+msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
+msgstr[0] "<b><i>एकः मेलः (%2) मुक्तसञ्चिकासु प्राप्यते</i></b>"
+msgstr[1] "<b><i>%1 मेलाः (%2) मुक्तसञ्चिकासु प्राप्यते</i></b>"
+
+#: MatchModel.cpp:576
+#, kde-format
+msgid "<b><i>One match (%3) found in folder %2</i></b>"
+msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
+msgstr[0] "<b><i>एकः मेलः (%3) %2</i></b>पुटे प्राप्तः"
+msgstr[1] "<b><i>%1 मेलाः(%3) %2</i></b>पुटे प्राप्ताः"
+
+#: MatchModel.cpp:583
+#, kde-format
+msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
+msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
+msgstr[0] "<b><i>एकः मेलः (%4) परियोजना %2 (%3)</i></b> इत्यत्र प्राप्तः"
+msgstr[1] "<b><i>%1 मेलाः (%4) परियोजना %2 (%3)</i></b> इत्यत्र प्राप्ताः"
+
+#: MatchModel.cpp:592
+#, kde-format
+msgid ""
+"<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
+msgid_plural ""
+"<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
+msgstr[0] "<b><i>एकः मेलः (%3) सर्वेषु मुक्तप्रकल्पेषु (सामान्यमातापिता: %2)</i></b> दृश्यते"
+msgstr[1] "<b><i>%1 मेलाः (%3) सर्वेषु मुक्तप्रकल्पेषु (सामान्यमातापिता: %2)</i></b> दृश्यते"
+
+#: MatchModel.cpp:705 MatchModel.cpp:707
+#, kde-format
+msgid "Generating file list: ...%1"
+msgstr "सञ्चिकासूचीं जनयति: ...%1"
+
+#: MatchModel.cpp:715
+#, kde-format
+msgid "One match found, searching: ...%2"
+msgid_plural "%1 matches found, searching: ...%2"
+msgstr[0] "एकः मेलः प्राप्तः, अन्वेषणं कुर्वन्: ...%2"
+msgstr[1] "%1 मेलाः प्राप्ताः, अन्वेषणं कुर्वन्: ...%2"
+
+#: MatchModel.cpp:717
+#, kde-format
+msgid "One match found, searching: %2"
+msgid_plural "%1 matches found, searching: %2"
+msgstr[0] "एकः मेलः प्राप्तः, अन्वेषणं कुर्वन्: %2"
+msgstr[1] "%1 मेलाः प्राप्ताः, अन्वेषणं कुर्वन्: %2"
+
+#: MatchModel.cpp:725
+#, kde-format
+msgid "One match (%2) found in file"
+msgid_plural "%1 matches (%2) found in current file"
+msgstr[0] "एकः मेलः (%2) सञ्चिकायां प्राप्तः"
+msgstr[1] "%1 मेलाः (%2) सञ्चिकायां प्राप्ताः"
+
+#: MatchModel.cpp:727
+#, kde-format
+msgid "One match (%2) found in open files"
+msgid_plural "%1 matches (%2) found in open files"
+msgstr[0] "एकः मेलः (%2) उद्घाटितसञ्चिकासु प्राप्तः"
+msgstr[1] "%1 मेलाः (%2) उद्घाटितसञ्चिकासु प्राप्ताः"
+
+#: MatchModel.cpp:730
+#, kde-format
+msgid "One match (%3) found in folder %2"
+msgid_plural "%1 matches (%3) found in folder %2"
+msgstr[0] "एकः मेलः (%3) %2 पुटे प्राप्तः"
+msgstr[1] "%1 मेलाः (%3) %2 पुटे प्राप्ताः"
+
+#: MatchModel.cpp:733
+#, kde-format
+msgid "One match (%4) found in project %2 (%3)"
+msgid_plural "%1 matches (%4) found in project %2 (%3)"
+msgstr[0] "एकः मेलः (%4) परियोजना %2 (%3) मध्ये प्राप्तः ।"
+msgstr[1] "%1 मेलाः (%4) परियोजना %2 (%3) मध्ये प्राप्ताः ।"
+
+#: MatchModel.cpp:742
+#, kde-format
+msgid "One match (%3) found in all open projects (common parent: %2)"
+msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
+msgstr[0] "सर्वेषु उद्घाटितेषु परियोजनासु एकः मेलः (%3) प्राप्तः (सामान्यः मातापिता: %2)"
+msgstr[1] "सर्वेषु उद्घाटितेषु परियोजनासु %1 मेलाः (%3) प्राप्ताः (सामान्यः मातापिता: %2)"
+
+#: Results.cpp:31
+#, kde-format
+msgid "Filter..."
+msgstr "शोधक..."
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
+#. i18n: ectx: property (text), widget (QPushButton, searchButton)
+#: search.ui:34 search.ui:37 SearchPlugin.cpp:299
+#, kde-format
+msgid "Search"
+msgstr "अन्वेषण"
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
+#: search.ui:47
+#, kde-format
+msgid "Replace Checked"
+msgstr "प्रतिस्थापनं परीक्षितम्"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
+#. i18n: ectx: property (text), widget (QPushButton, nextButton)
+#: search.ui:67 search.ui:70
+#, kde-format
+msgid "Next"
+msgstr "अग्रिम"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
+#. i18n: ectx: property (text), widget (QPushButton, stopButton)
+#: search.ui:75 search.ui:78
+#, kde-format
+msgid "Stop"
+msgstr "विरमतु"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
+#: search.ui:115
+#, kde-format
+msgid "Match case"
+msgstr "मेलप्रकरणम्"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
+#: search.ui:131
+#, kde-format
+msgid ""
+"<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
+"by using the buttons in the search and replace text fields.</p></body></html>"
+msgstr ""
+"<html><head/><body><p>नियमितव्यञ्जनानि सक्षमं कुर्वन्तु । अन्वेषणे गण्ड-प्रयोगेन regex "
+"syntax कृते सहायतां ज्ञात्वा पाठक्षेत्राणि प्रतिस्थापयन्तु ।</p></body></html>"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
+#: search.ui:160
+#, kde-format
+msgid "Expand results"
+msgstr "परिणामान् विस्तारयतु"
+
+#. i18n: ectx: property (text), widget (QToolButton, filterBtn)
+#. i18n: ectx: property (text), widget (QToolButton, displayOptions)
+#. i18n: ectx: property (text), widget (QToolButton, newTabButton)
+#: search.ui:176 search.ui:246 search.ui:259
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceButton)
+#: search.ui:192 SearchPlugin.cpp:507
+#, kde-format
+msgid "Replace"
+msgstr "प्रत्याहृ"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
+#: search.ui:215
+#, kde-format
+msgid "In Current File"
+msgstr "वर्तमानसञ्चिकायां"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
+#: search.ui:220
+#, kde-format
+msgid "In Open Files"
+msgstr "उद्घाटितसञ्चिकासु"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
+#: search.ui:225
+#, kde-format
+msgid "In Folder"
+msgstr "पुटे"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
+#: search.ui:233
+#, kde-format
+msgid "Use the current document's path."
+msgstr "वर्तमानदस्तावेजस्य मार्गस्य उपयोगं कुर्वन्तु ।."
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
+#: search.ui:243
+#, kde-format
+msgid "Show more search options"
+msgstr "अधिकानि अन्वेषणविकल्पानि दर्शयतु"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
+#: search.ui:256
+#, kde-format
+msgid "Add new search tab"
+msgstr "नूतनं अन्वेषण ट्याब् योजयन्तु"
+
+#. i18n: ectx: property (text), widget (QLabel, folderLabel)
+#: search.ui:353
+#, kde-format
+msgid "Folder:"
+msgstr "पुटम् :"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
+#: search.ui:371
+#, kde-format
+msgid "Go one folder up."
+msgstr "एकं पुटं उपरि गच्छतु।."
+
+#. i18n: ectx: property (text), widget (QLabel, filterLabel)
+#: search.ui:380
+#, kde-format
+msgid "Filter:"
+msgstr "शोधक:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
+#: search.ui:402
+#, kde-format
+msgid "*"
+msgstr "*"
+
+#. i18n: ectx: property (text), widget (QLabel, excludeLabel)
+#: search.ui:410
+#, kde-format
+msgid "Exclude:"
+msgstr "बहिष्कृत्य :"
+
+#. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
+#: search.ui:431
+#, kde-format
+msgid "Recursive"
+msgstr "पुनरावर्तनीयम्"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
+#: search.ui:441
+#, kde-format
+msgid "Include hidden"
+msgstr "गुप्तं समावेशयन्तु"
+
+#. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
+#: search.ui:448
+#, kde-format
+msgid "Follow symbolic links"
+msgstr "प्रतीकात्मकाः कडिानां अनुसरणं कुर्वन्तु"
+
+#. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
+#: search.ui:455
+#, kde-format
+msgid "Include binary files"
+msgstr "द्विचक्रीयसञ्चिकाः समाविष्टाः कुर्वन्तु"
+
+#: SearchPlugin.cpp:81 SearchPlugin.cpp:114
+#, kde-format
+msgid "Line break"
+msgstr "रेखाविच्छेदः"
+
+#: SearchPlugin.cpp:82 SearchPlugin.cpp:115
+#, kde-format
+msgid "Tab"
+msgstr "टेब"
+
+#: SearchPlugin.cpp:93
+#, kde-format
+msgid "Beginning of line"
+msgstr "रेखायाः आरम्भः"
+
+#: SearchPlugin.cpp:94
+#, kde-format
+msgid "End of line"
+msgstr "रेखायाः अन्तः"
+
+#: SearchPlugin.cpp:96
+#, kde-format
+msgid "Any single character (excluding line breaks)"
+msgstr "कोऽपि एकः वर्णः (रेखाविच्छेदं विहाय)"
+
+#: SearchPlugin.cpp:97
+#, kde-format
+msgid "Literal dot"
+msgstr "शाब्दिक बिन्दु"
+
+#: SearchPlugin.cpp:99
+#, kde-format
+msgid "One or more occurrences"
+msgstr "एकं वा अधिकं वा घटना"
+
+#: SearchPlugin.cpp:100
+#, kde-format
+msgid "Zero or more occurrences"
+msgstr "शून्यं वा अधिकानि वा घटनानि"
+
+#: SearchPlugin.cpp:101
+#, kde-format
+msgid "Zero or one occurrences"
+msgstr "शून्यं वा एकं वा घटनाः"
+
+#: SearchPlugin.cpp:103
+#, kde-format
+msgid "<a> through <b> occurrences"
+msgstr "<a> माध्यमेन <b> घटनाः"
+
+#: SearchPlugin.cpp:105
+#, kde-format
+msgid "Group, capturing"
+msgstr "समूहः, ग्रहणम्"
+
+#: SearchPlugin.cpp:106
+#, kde-format
+msgid "Or"
+msgstr "वा"
+
+#: SearchPlugin.cpp:107
+#, kde-format
+msgid "Set of characters"
+msgstr "वर्णानाम् समुच्चयः"
+
+#: SearchPlugin.cpp:108
+#, kde-format
+msgid "Negative set of characters"
+msgstr "वर्णानाम् नकारात्मकः समुच्चयः"
+
+#: SearchPlugin.cpp:109
+#, kde-format
+msgid "Group, non-capturing"
+msgstr "समूहः, अग्रहणम्"
+
+#: SearchPlugin.cpp:110
+#, kde-format
+msgid "Lookahead"
+msgstr "अग्रे पश्यतु"
+
+#: SearchPlugin.cpp:111
+#, kde-format
+msgid "Negative lookahead"
+msgstr "नकारात्मकं अग्रे दृष्टिः"
+
+#: SearchPlugin.cpp:116
+#, kde-format
+msgid "Word boundary"
+msgstr "शब्दसीमा"
+
+#: SearchPlugin.cpp:117
+#, kde-format
+msgid "Not word boundary"
+msgstr "न शब्दसीमा"
+
+#: SearchPlugin.cpp:118
+#, kde-format
+msgid "Digit"
+msgstr "अङ्कः"
+
+#: SearchPlugin.cpp:119
+#, kde-format
+msgid "Non-digit"
+msgstr "अ-अङ्कीयवर्णः"
+
+#: SearchPlugin.cpp:120
+#, kde-format
+msgid "Whitespace (excluding line breaks)"
+msgstr "श्वेतस्थानम् (रेखाविच्छेदं विहाय)"
+
+#: SearchPlugin.cpp:121
+#, kde-format
+msgid "Non-whitespace (excluding line breaks)"
+msgstr "अश्वेतस्थानम् (रेखाविच्छेदं विहाय)"
+
+#: SearchPlugin.cpp:122
+#, kde-format
+msgid "Word character (alphanumerics plus '_')"
+msgstr "शब्दवर्णः (वर्णसंख्या योजना '_')"
+
+#: SearchPlugin.cpp:123
+#, kde-format
+msgid "Non-word character"
+msgstr "अशब्दवर्णः"
+
+#: SearchPlugin.cpp:135
+#, kde-format
+msgid "Regular expression capture 0 (whole match)"
+msgstr "नियमितव्यञ्जनग्रहणम् ० (सम्पूर्णमेलनम्)"
+
+#: SearchPlugin.cpp:136
+#, kde-format
+msgid "Regular expression capture 1-9"
+msgstr "नियमितव्यञ्जनग्रहणम् १-९"
+
+#: SearchPlugin.cpp:137
+#, kde-format
+msgid "Regular expression capture 0-999"
+msgstr "नियमित अभिव्यक्ति ग्रहणम् ०-९९९"
+
+#: SearchPlugin.cpp:139
+#, kde-format
+msgid "Upper-cased capture 0-9"
+msgstr "उच्च-अक्षर-ग्रहणम् ०-९"
+
+#: SearchPlugin.cpp:140
+#, kde-format
+msgid "Upper-cased capture 0-999"
+msgstr "उच्च-अक्षर-ग्रहणम् ०-९९९"
+
+#: SearchPlugin.cpp:141
+#, kde-format
+msgid "Lower-cased capture 0-9"
+msgstr "लघु-अक्षर-ग्रहणम् ०-९"
+
+#: SearchPlugin.cpp:142
+#, kde-format
+msgid "Lower-cased capture 0-999"
+msgstr "लघु-अक्षर-ग्रहणम् ०-९९९"
+
+#: SearchPlugin.cpp:292
+#, kde-format
+msgid "Search & Replace"
+msgstr "अन्वेषण एवं प्रतिस्थापन"
+
+#: SearchPlugin.cpp:333
+#, kde-format
+msgid "Find in Files"
+msgstr "सञ्चिकासु अन्वेष्टुम्"
+
+#: SearchPlugin.cpp:339
+#, kde-format
+msgid "Find in Files (in a New Tab)"
+msgstr "सञ्चिकासु अन्वेष्टुम् (नव ट्याब् मध्ये)"
+
+#: SearchPlugin.cpp:345
+#, kde-format
+msgid "Go to Next Match"
+msgstr "अग्रिम-मेलनं गच्छन्तु"
+
+#: SearchPlugin.cpp:351
+#, kde-format
+msgid "Go to Previous Match"
+msgstr "पूर्वमेलनं गच्छन्तु"
+
+#: SearchPlugin.cpp:357
+#, kde-format
+msgid "Cut Matching Lines"
+msgstr "मिलान रेखाः कटयतु"
+
+#: SearchPlugin.cpp:359
+#, kde-format
+msgid ""
+"This will cut all highlighted search match lines from the current document "
+"to the clipboard"
+msgstr ""
+"एतेन वर्तमानदस्तावेजात् अंशफलक यावत् सर्वाणि प्रकाशितम् कृतानि अन्वेषणमेलनरेखाः कटितानि "
+"भविष्यन्ति"
+
+#: SearchPlugin.cpp:364
+#, kde-format
+msgid "Copy Matching Lines"
+msgstr "मिलान रेखाः प्रतिलिपि कुर्वन्तु"
+
+#: SearchPlugin.cpp:366
+#, kde-format
+msgid ""
+"This will copy all highlighted search match lines in the current document to "
+"the clipboard"
+msgstr ""
+"एतेन वर्तमानदस्तावेजे सर्वाणि प्रकाशितानि अन्वेषणमेलनपङ्क्तयः अंशफलक प्रति प्रतिलिपिताः "
+"भविष्यन्ति"
+
+#: SearchPlugin.cpp:394
+#, kde-format
+msgid ""
+"Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+msgstr "अन्वेषणार्थं सञ्चिकाप्रकारस्य अल्पविरामेन पृथक्कृता सूची उदाहरणम् : \"*.cpp,*.h\".\n"
+
+#: SearchPlugin.cpp:395
+#, kde-format
+msgid ""
+"Comma separated list of files and directories to exclude from the search. "
+"Example: \"build*\""
+msgstr ""
+"अन्वेषणात् बहिष्कृत्य सञ्चिकानां पुटानां च अल्पविरामेन पृथक्कृता सूची । उदाहरणम् : \"build*\" "
+"।"
+
+#: SearchPlugin.cpp:397
+#, kde-format
+msgid "Click to filter through results"
+msgstr "परिणामान् छानयितुं नोदनम् कुर्वन्तु"
+
+#: SearchPlugin.cpp:487
+#, kde-format
+msgid "Find"
+msgstr "अन्वेषय"
+
+#: SearchPlugin.cpp:1319
+#, kde-format
+msgid "Searching while you type was interrupted. It would have taken too long."
+msgstr "टङ्कयन्ते सति अन्वेषणं बाधितं जातम् । बहुकालं यावत् समयः स्यात्।."
+
+#: SearchPlugin.cpp:1652
+#, kde-format
+msgid "Search Match"
+msgstr "मेलनं अन्वेष्टुम्"
+
+#: SearchPlugin.cpp:1832 SearchPlugin.cpp:1909
+#, kde-format
+msgid "Next from cursor"
+msgstr "अग्रिमः कर्सरतः"
+
+#: SearchPlugin.cpp:1849
+#, kde-format
+msgid "Starting from first match"
+msgstr "प्रथममेलनात् आरभ्य"
+
+#: SearchPlugin.cpp:1869
+#, kde-format
+msgid "Continuing from first match"
+msgstr "प्रथममेलनात् निरन्तरं"
+
+#: SearchPlugin.cpp:1926
+#, kde-format
+msgid "Starting from last match"
+msgstr "अन्तिममेलनात् आरभ्य"
+
+#: SearchPlugin.cpp:1946
+#, kde-format
+msgid "Continuing from last match"
+msgstr "अन्तिमक्रीडायाः निरन्तरम्"
+
+#: SearchPlugin.cpp:2105
+#, kde-format
+msgid "Search: %1"
+msgstr "अन्वेषणम् : %1"
+
+#: SearchPlugin.cpp:2236
+#, kde-format
+msgid "Copy all"
+msgstr "सर्वाणि प्रतिलिख्यताम्"
+
+#: SearchPlugin.cpp:2241
+#, kde-format
+msgid "Copy expanded"
+msgstr "प्रतिलिपिः विस्तारिता"
+
+#: SearchPlugin.cpp:2244
+#, kde-format
+msgid "Export matches"
+msgstr "निर्यात मेलनम्"
+
+#: SearchPlugin.cpp:2250
+#, kde-format
+msgid "Open as Editor Tab"
+msgstr "सम्पादक ट्याब् रूपेण उद्घाटयन्तु"
+
+#: SearchPlugin.cpp:2257
+#, kde-format
+msgid "Clear"
+msgstr "स्वच्छं कुर्वन्तु"
+
+#: SearchPlugin.cpp:2367 SearchPlugin.cpp:2401
+#, kde-format
+msgid "Add..."
+msgstr "संयोजयतु..."
+
+#: SearchPlugin.cpp:2379
+#, kde-format
+msgid "Search As You Type"
+msgstr "यथा टङ्कयसि तथा अन्वेष्टुम्"
+
+#: SearchPlugin.cpp:2450
+#, kde-format
+msgid "In Current Project"
+msgstr "वर्तमान परियोजनायां"
+
+#: SearchPlugin.cpp:2452
+#, kde-format
+msgid "In All Open Projects"
+msgstr "सर्वेषु उद्घाटितेषु परियोजनासु"
+
+#. i18n: ectx: Menu (edit)
+#: ui.rc:6
+#, kde-format
+msgid "&Edit"
+msgstr "&सम्पादयतु"
+
+#. i18n: ectx: Menu (search_more)
+#: ui.rc:9
+#, kde-format
+msgid "Find in Files Variants"
+msgstr "\"सञ्चिकानां रूपान्तराणि\" इत्यत्र अन्वेषणं कुर्वन्तु"
+
+#~ msgid "Message ID"
+#~ msgstr "सन्देशपरिचयः"

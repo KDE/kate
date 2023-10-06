@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2017-05-16 06:36-0400\n"
+"PO-Revision-Date: 2023-10-05 08:39+0300\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
 "Language: he\n"
@@ -16,53 +16,53 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
 #, kde-format
 msgid "Session-global index targets"
-msgstr ""
+msgstr "יעדי מפתח כלליים להפעלה"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: CTagsGlobalConfig.ui:33 kate_ctags.ui:109
 #, kde-format
 msgid "Add"
-msgstr "הוסף"
+msgstr "הוספה"
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
 #: CTagsGlobalConfig.ui:40 kate_ctags.ui:116
 #, kde-format
 msgid "Remove"
-msgstr "הסר"
+msgstr "הסרה"
 
 #. i18n: ectx: property (text), widget (QPushButton, updateDB)
 #: CTagsGlobalConfig.ui:54
 #, kde-format
 msgid "Update"
-msgstr "עדכן"
+msgstr "עדכון"
 
 #. i18n: ectx: property (text), widget (QLabel, cmdLabel)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: CTagsGlobalConfig.ui:66 kate_ctags.ui:172
 #, kde-format
 msgid "CTags command"
-msgstr ""
+msgstr "פקודות CTags"
 
 #: ctagskinds.cpp:23
 msgctxt "Tag Type"
 msgid "define"
-msgstr ""
+msgstr "הגדרה"
 
 #: ctagskinds.cpp:24 ctagskinds.cpp:66
 msgctxt "Tag Type"
 msgid "label"
-msgstr ""
+msgstr "תווית"
 
 #: ctagskinds.cpp:25 ctagskinds.cpp:39 ctagskinds.cpp:85
 msgctxt "Tag Type"
 msgid "macro"
-msgstr ""
+msgstr "מאקרו"
 
 #: ctagskinds.cpp:28 ctagskinds.cpp:30 ctagskinds.cpp:41 ctagskinds.cpp:63
 #: ctagskinds.cpp:83 ctagskinds.cpp:87 ctagskinds.cpp:91 ctagskinds.cpp:93
@@ -70,229 +70,228 @@ msgstr ""
 #: ctagskinds.cpp:110
 msgctxt "Tag Type"
 msgid "function"
-msgstr ""
+msgstr "פונקציה"
 
 #: ctagskinds.cpp:28 ctagskinds.cpp:71 ctagskinds.cpp:89 ctagskinds.cpp:95
 msgctxt "Tag Type"
 msgid "subroutine"
-msgstr ""
+msgstr "תת־שגרה"
 
 #: ctagskinds.cpp:32
 msgctxt "Tag Type"
 msgid "fragment definition"
-msgstr ""
+msgstr "הגדרת קטע"
 
 #: ctagskinds.cpp:33
 msgctxt "Tag Type"
 msgid "any pattern"
-msgstr ""
+msgstr "כל תבנית שהיא"
 
 #: ctagskinds.cpp:34
 msgctxt "Tag Type"
 msgid "slot"
-msgstr ""
+msgstr "חריץ"
 
 #: ctagskinds.cpp:35
 msgctxt "Tag Type"
 msgid "pattern"
-msgstr ""
+msgstr "תבנית"
 
 #: ctagskinds.cpp:38 ctagskinds.cpp:55 ctagskinds.cpp:76 ctagskinds.cpp:91
 #: ctagskinds.cpp:93 ctagskinds.cpp:97
 msgctxt "Tag Type"
 msgid "class"
-msgstr ""
+msgstr "מחלקה"
 
 #: ctagskinds.cpp:40
 msgctxt "Tag Type"
 msgid "enumerator"
-msgstr ""
+msgstr "מונה"
 
 #: ctagskinds.cpp:42
 msgctxt "Tag Type"
 msgid "enumeration"
-msgstr ""
+msgstr "מנייה"
 
 #: ctagskinds.cpp:43
 msgctxt "Tag Type"
 msgid "member"
-msgstr ""
+msgstr "חבר"
 
 #: ctagskinds.cpp:44 ctagskinds.cpp:106
 msgctxt "Tag Type"
 msgid "namespace"
-msgstr ""
+msgstr "מרחב שם"
 
 #: ctagskinds.cpp:45
 msgctxt "Tag Type"
 msgid "prototype"
-msgstr ""
+msgstr "אבטיפוס"
 
 #: ctagskinds.cpp:46
 msgctxt "Tag Type"
 msgid "struct"
-msgstr ""
+msgstr "מבנה"
 
 #: ctagskinds.cpp:47
 msgctxt "Tag Type"
 msgid "typedef"
-msgstr ""
+msgstr "הגדרת סוג"
 
 #: ctagskinds.cpp:48
 msgctxt "Tag Type"
 msgid "union"
-msgstr ""
+msgstr "איחוד"
 
 #: ctagskinds.cpp:49 ctagskinds.cpp:73
 msgctxt "Tag Type"
 msgid "variable"
-msgstr ""
+msgstr "משתנה"
 
 #: ctagskinds.cpp:50
 msgctxt "Tag Type"
 msgid "external variable"
-msgstr ""
+msgstr "ערך חיצוני"
 
 #: ctagskinds.cpp:53
 msgctxt "Tag Type"
 msgid "paragraph"
-msgstr ""
+msgstr "פסקה"
 
 #: ctagskinds.cpp:56
 msgctxt "Tag Type"
 msgid "feature"
-msgstr ""
+msgstr "יכולת"
 
 #: ctagskinds.cpp:57
 msgctxt "Tag Type"
 msgid "local entity"
-msgstr ""
+msgstr "ישות מקומית"
 
 #: ctagskinds.cpp:60
 msgctxt "Tag Type"
 msgid "block"
-msgstr ""
+msgstr "מקטע"
 
 #: ctagskinds.cpp:61
 msgctxt "Tag Type"
 msgid "common"
-msgstr ""
+msgstr "משותף"
 
 #: ctagskinds.cpp:62
 msgctxt "Tag Type"
 msgid "entry"
-msgstr ""
+msgstr "רשומה"
 
 #: ctagskinds.cpp:64 ctagskinds.cpp:78
 msgctxt "Tag Type"
 msgid "interface"
-msgstr ""
+msgstr "מנשק"
 
 #: ctagskinds.cpp:65
 msgctxt "Tag Type"
 msgid "type component"
-msgstr ""
+msgstr "רכיב סוג"
 
 #: ctagskinds.cpp:67
 msgctxt "Tag Type"
 msgid "local"
-msgstr ""
+msgstr "מקומי"
 
 #: ctagskinds.cpp:68
 msgctxt "Tag Type"
 msgid "module"
-msgstr ""
+msgstr "מודול"
 
 #: ctagskinds.cpp:69
 msgctxt "Tag Type"
 msgid "namelist"
-msgstr ""
+msgstr "רשימת שמות"
 
 #: ctagskinds.cpp:70
 msgctxt "Tag Type"
 msgid "program"
-msgstr ""
+msgstr "תוכנית"
 
 #: ctagskinds.cpp:72
 msgctxt "Tag Type"
 msgid "type"
-msgstr ""
+msgstr "סוג"
 
 #: ctagskinds.cpp:77
 msgctxt "Tag Type"
 msgid "field"
-msgstr ""
+msgstr "שדה"
 
 #: ctagskinds.cpp:79
 msgctxt "Tag Type"
 msgid "method"
-msgstr ""
+msgstr "מתודה"
 
 #: ctagskinds.cpp:80
 msgctxt "Tag Type"
 msgid "package"
-msgstr ""
+msgstr "חבילה"
 
 #: ctagskinds.cpp:87 ctagskinds.cpp:108
 msgctxt "Tag Type"
 msgid "procedure"
-msgstr ""
+msgstr "תהליך"
 
 #: ctagskinds.cpp:99
 msgctxt "Tag Type"
 msgid "mixin"
-msgstr ""
+msgstr "ערבוב"
 
 #: ctagskinds.cpp:102
 msgctxt "Tag Type"
 msgid "set"
-msgstr ""
+msgstr "סדרה"
 
 #: gotosymbolmodel.cpp:67
 #, kde-format
 msgid "CTags executable not found."
-msgstr ""
+msgstr "קובץ ההפעלה של CTags לא נמצא."
 
 #: gotosymbolmodel.cpp:80
 #, kde-format
 msgid "CTags executable failed to execute."
-msgstr ""
+msgstr "הרצת קובץ ההפעלה של CTags נכשלה."
 
 #: gotosymbolmodel.cpp:148
-#, fuzzy, kde-format
-#| msgid "CTags database file"
+#, kde-format
 msgid "CTags was unable to parse this file."
-msgstr "מסד נתונים של CTags"
+msgstr "ל־CTags לא הייתה אפשרות לפענח את הקובץ הזה."
 
 #: gotosymbolwidget.cpp:246
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
-msgstr ""
+msgstr "לא נמצאו תגיות. נא לייצר אחת ידנית או באמצעות תוסף CTags"
 
 #: gotosymbolwidget.cpp:315
 #, kde-format
 msgid "File for '%1' not found."
-msgstr ""
+msgstr "הקובץ עבור ‚%1’ לא נמצא."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:33
 #, kde-format
 msgid "Lookup"
-msgstr ""
+msgstr "חיפוש"
 
 #. i18n: ectx: property (text), widget (QPushButton, updateButton)
 #. i18n: ectx: property (text), widget (QPushButton, updateButton2)
 #: kate_ctags.ui:58 kate_ctags.ui:136
 #, kde-format
 msgid "Update Index"
-msgstr "עדכן אינדקס"
+msgstr "עדכון מפתח"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
 #: kate_ctags.ui:69
 #, kde-format
 msgid "Tag"
-msgstr "תג"
+msgstr "תגית"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
 #: kate_ctags.ui:74
@@ -310,7 +309,7 @@ msgstr "קובץ"
 #: kate_ctags.ui:88
 #, kde-format
 msgid "Index Targets"
-msgstr "יעד אינדקס"
+msgstr "יעדי מפתח"
 
 #. i18n: ectx: attribute (title), widget (QWidget, database)
 #: kate_ctags.ui:144
@@ -328,35 +327,35 @@ msgstr "מסד נתונים של CTags"
 #: kate_ctags.ui:205
 #, kde-format
 msgid "Revert to the default command"
-msgstr "חזור על פעולת ברירת המחדל"
+msgstr "חזרה לפקודת ברירת המחדל"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:208
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:110
 #, kde-format
 msgid "Add a directory to index."
-msgstr "הוסף תיקיה לאינדקס"
+msgstr "הוספת תיקייה למפתח."
 
 #: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:113
 #, kde-format
 msgid "Remove a directory."
-msgstr "הסר תיקיה"
+msgstr "היסרת תיקיה."
 
 #: kate_ctags_plugin.cpp:83
 #, kde-format
 msgid "(Re-)generate the common CTags database."
-msgstr ""
+msgstr "יצירה (מחדש) של מסד נתוני CTags נפוצים."
 
 #: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:47 kate_ctags_view.cpp:54
 #: kate_ctags_view.cpp:97 kate_ctags_view.cpp:135 kate_ctags_view.cpp:547
 #: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
 #, kde-format
 msgid "CTags"
-msgstr ""
+msgstr "CTags"
 
 #: kate_ctags_plugin.cpp:107
 #, kde-format
@@ -366,106 +365,105 @@ msgstr "הגדרות CTags"
 #: kate_ctags_plugin.cpp:231
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "נכשל בהרצת \"%1\". exitStatus = %2"
+msgstr "הרצת „%1” נכשלה. מצב יציאה = %2"
 
 #: kate_ctags_plugin.cpp:242
 #, kde-format
 msgid "The CTags executable crashed."
-msgstr ""
+msgstr "קובץ ההפעלה של CTags קרס."
 
 #: kate_ctags_plugin.cpp:244
 #, kde-format
 msgid "The CTags command exited with code %1"
-msgstr ""
+msgstr "הפקודה CTags יצאה עם הקוד %1"
 
 #: kate_ctags_view.cpp:58
 #, kde-format
 msgid "Jump back one step"
-msgstr ""
+msgstr "קפיצה צעד אחורה"
 
 #: kate_ctags_view.cpp:62
 #, kde-format
 msgid "Go to Declaration"
-msgstr ""
+msgstr "מעבר להצהרה"
 
 #: kate_ctags_view.cpp:66
 #, kde-format
 msgid "Go to Definition"
-msgstr ""
+msgstr "מעבר להגדרה"
 
 #: kate_ctags_view.cpp:70
 #, kde-format
 msgid "Lookup Current Text"
-msgstr ""
+msgstr "חיפוש הטקסט הנוכחי"
 
 #: kate_ctags_view.cpp:74
 #, kde-format
 msgid "Configure ..."
-msgstr ""
+msgstr "הגדרה…"
 
 #: kate_ctags_view.cpp:89
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr ""
+msgstr "הגדרת תוסף CTags"
 
 #: kate_ctags_view.cpp:100 kate_ctags_view.cpp:189
 #, kde-format
 msgid "Go to Declaration: %1"
-msgstr ""
+msgstr "מעבר להצהרה: %1"
 
 #: kate_ctags_view.cpp:101 kate_ctags_view.cpp:190
 #, kde-format
 msgid "Go to Definition: %1"
-msgstr ""
+msgstr "מעבר להגדרה: %1"
 
 #: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
 #, kde-format
 msgid "Lookup: %1"
-msgstr ""
+msgstr "חיפוש: %1"
 
 #: kate_ctags_view.cpp:116 kate_ctags_view.cpp:119
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
-msgstr ""
+msgstr "יצירה (מחדש) של מסד נתוני ה־CTags להפעלה המסוימת הזאת."
 
 #: kate_ctags_view.cpp:124
 #, kde-format
 msgid "Select new or existing database file."
-msgstr ""
+msgstr "בחירת קובץ מסד נתונים חדש או קיים."
 
 #: kate_ctags_view.cpp:140
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr ""
+msgstr "מעבר לסמל מקומי"
 
 #: kate_ctags_view.cpp:145
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr ""
+msgstr "מעבר לסמל כללי"
 
 #: kate_ctags_view.cpp:320 kate_ctags_view.cpp:352
 #, kde-format
 msgid "No hits found"
-msgstr ""
+msgstr "לא נמצאו תוצאות"
 
 #: kate_ctags_view.cpp:547
 #, kde-format
 msgid "No folders or files to index"
-msgstr ""
+msgstr "אין תיקיות או קבצים להוספה למפתח"
 
 #: kate_ctags_view.cpp:558
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "נכשל בהרצת \"%1\". exitStatus = %2"
+msgstr "ההרצה נכשלה. שגיאה: %1, קוד יציאה: %2"
 
 #: kate_ctags_view.cpp:573
 #, kde-format
 msgid "The CTags executable crashed"
-msgstr ""
+msgstr "קובץ ההפעלה של CTags קרס"
 
 #: kate_ctags_view.cpp:575
 #, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr ""
+msgstr "התוכנית CTags יצאה עם הקוד %2: %1"

@@ -23,25 +23,25 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-29 01:40+0000\n"
-"PO-Revision-Date: 2017-05-16 06:36-0400\n"
+"PO-Revision-Date: 2023-10-05 08:44+0300\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Zanata 3.9.6\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "דרור לוין "
+msgstr "דרור לוין וצוות התרגום של KDE ישראל"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "spatz@012.net.il"
+msgstr "spatz@012.net.il,kde-l10n-he@kde.org"
 
 #: kate/main.cpp:87
 #, kde-format
@@ -550,7 +550,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:422
 #, kde-format
 msgid "Diff"
-msgstr ""
+msgstr "הבדלים"
 
 #: lib/diff/diffwidget.cpp:764 lib/diff/diffwidget.cpp:968
 #, fuzzy, kde-format
@@ -567,7 +567,7 @@ msgstr "למחוק קובץ?"
 #: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "לא נמצאו הבדלים"
 
 #: lib/filehistorywidget.cpp:282
 #, kde-format

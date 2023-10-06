@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate-replicode-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2017-05-16 06:36-0400\n"
+"PO-Revision-Date: 2023-10-05 08:41+0300\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
 "Language: he\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
 #, kde-format
 msgid "Run"
-msgstr "הרץ"
+msgstr "הרצה"
 
 #. i18n: ectx: property (text), widget (QLabel, label_34)
 #: config.ui:24
@@ -40,31 +40,31 @@ msgstr "רמת בדיקה:"
 #: config.ui:58
 #, kde-format
 msgid "User operations layout module:"
-msgstr ""
+msgstr "מודול פריסת פעולות משתמש:"
 
 #. i18n: ectx: property (text), widget (QLabel, userClassLabel)
 #: config.ui:71
 #, kde-format
 msgid "User classes file:"
-msgstr "קובץ מחלקות משתמש"
+msgstr "קובץ מחלקות משתמש:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: config.ui:84
 #, kde-format
 msgid "Base period:"
-msgstr "זמן בסיס:"
+msgstr "משך זמן בסיס:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: config.ui:101
 #, kde-format
 msgid "Reduction core count:"
-msgstr ""
+msgstr "ספירת צמצום ליבה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: config.ui:118
 #, kde-format
 msgid "Time core count:"
-msgstr ""
+msgstr "ספירת ליבת זמן:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, system)
 #: config.ui:136
@@ -160,19 +160,19 @@ msgstr ""
 #: config.ui:387
 #, kde-format
 msgid "Debug"
-msgstr "ניפוי באגים"
+msgstr "ניפוי תקלות"
 
 #. i18n: ectx: property (text), widget (QLabel, label_22)
 #: config.ui:396
 #, kde-format
 msgid "Debug:"
-msgstr "ניפוי באגים:"
+msgstr "ניפוי תקלות:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_23)
 #: config.ui:413
 #, kde-format
 msgid "Debug windows:"
-msgstr "חלון ניפוי באגים:"
+msgstr "חלון ניפוי תקלות:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_24)
 #: config.ui:426
@@ -316,13 +316,13 @@ msgstr ""
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Run (%1)"
-msgstr "הרץ (%1)"
+msgstr "הרצה (%1)"
 
 #: replicodeview.cpp:65
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Stop (%1)"
-msgstr "עצור (%1)"
+msgstr "עצירה (%1)"
 
 #: replicodeview.cpp:100
 #, kde-format
@@ -333,7 +333,7 @@ msgstr "לא נמצאו מסמכים פעילים"
 #: replicodeview.cpp:100
 #, kde-format
 msgid "Could not find an active document to run."
-msgstr "לא יכול למצוא מסמכים פעילים להרצה."
+msgstr "לא ניתן למצוא מסמכים פעילים להרצה."
 
 #: replicodeview.cpp:105
 #, kde-format
@@ -344,7 +344,7 @@ msgstr "מסמך ריק"
 #: replicodeview.cpp:105
 #, kde-format
 msgid "Cannot execute an empty document."
-msgstr "לא יכול להריץ מסמך ריק"
+msgstr "לא ניתן להריץ מסמך ריק."
 
 #: replicodeview.cpp:112
 #, kde-format
@@ -355,7 +355,7 @@ msgstr "הקובץ לא נמצא"
 #: replicodeview.cpp:112
 #, kde-format
 msgid "Unable to open source file for reading."
-msgstr "לא יכול לפתוח את הקובץ מקור לקריאה."
+msgstr "לא ניתן לפתוח את קובץ המקור לקריאה."
 
 #: replicodeview.cpp:127
 #, kde-format

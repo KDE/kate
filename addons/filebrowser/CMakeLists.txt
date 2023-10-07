@@ -9,6 +9,7 @@ target_link_libraries(
     KF6::TextEditor 
     KF6::KIOFileWidgets
     KF6::Bookmarks
+    KF6::BookmarksWidgets
 )
 
 target_sources(

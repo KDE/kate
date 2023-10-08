@@ -1288,58 +1288,59 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
     menu->addSeparator();
 
     QModelIndex index = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
-    QStandardItem *item = m_model.itemFromIndex(index);
-    if (item->type() == DiagnosticItem_Diag) {
-        auto diagText = index.data().toString();
-        menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy to Clipboard"), [diagText]() {
-            QClipboard *clipboard = QGuiApplication::clipboard();
-            clipboard->setText(diagText);
-        });
-        menu->addSeparator();
-        auto parent = index.parent();
-        auto docDiagItem = static_cast<DocumentDiagnosticItem *>(m_model.itemFromIndex(parent));
-        // track validity of raw pointer
-        QPersistentModelIndex pindex(parent);
-        auto h = [this, pindex, diagText, docDiagItem](bool add, const QString &file, const QString &diagnostic) {
-            if (!pindex.isValid()) {
-                return;
-            }
-            if (add) {
-                m_sessionDiagnosticSuppressions->add(file, diagnostic);
+    if (QStandardItem *item = m_model.itemFromIndex(index)) {
+        if (item->type() == DiagnosticItem_Diag) {
+            auto diagText = index.data().toString();
+            menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy to Clipboard"), [diagText]() {
+                QClipboard *clipboard = QGuiApplication::clipboard();
+                clipboard->setText(diagText);
+            });
+            menu->addSeparator();
+            auto parent = index.parent();
+            auto docDiagItem = static_cast<DocumentDiagnosticItem *>(m_model.itemFromIndex(parent));
+            // track validity of raw pointer
+            QPersistentModelIndex pindex(parent);
+            auto h = [this, pindex, diagText, docDiagItem](bool add, const QString &file, const QString &diagnostic) {
+                if (!pindex.isValid()) {
+                    return;
+                }
+                if (add) {
+                    m_sessionDiagnosticSuppressions->add(file, diagnostic);
+                } else {
+                    m_sessionDiagnosticSuppressions->remove(file, diagnostic);
+                }
+                updateDiagnosticsSuppression(docDiagItem, docDiagItem->diagnosticSuppression->document(), true);
+            };
+            using namespace std::placeholders;
+            const auto empty = QString();
+            if (m_sessionDiagnosticSuppressions->hasSuppression(empty, diagText)) {
+                menu->addAction(i18n("Remove Global Suppression"), this, std::bind(h, false, empty, diagText));
             } else {
-                m_sessionDiagnosticSuppressions->remove(file, diagnostic);
+                menu->addAction(i18n("Add Global Suppression"), this, std::bind(h, true, empty, diagText));
             }
-            updateDiagnosticsSuppression(docDiagItem, docDiagItem->diagnosticSuppression->document(), true);
-        };
-        using namespace std::placeholders;
-        const auto empty = QString();
-        if (m_sessionDiagnosticSuppressions->hasSuppression(empty, diagText)) {
-            menu->addAction(i18n("Remove Global Suppression"), this, std::bind(h, false, empty, diagText));
-        } else {
-            menu->addAction(i18n("Add Global Suppression"), this, std::bind(h, true, empty, diagText));
-        }
-        auto file = parent.data(Qt::UserRole).toString();
-        if (m_sessionDiagnosticSuppressions->hasSuppression(file, diagText)) {
-            menu->addAction(i18n("Remove Local Suppression"), this, std::bind(h, false, file, diagText));
-        } else {
-            menu->addAction(i18n("Add Local Suppression"), this, std::bind(h, true, file, diagText));
-        }
-    } else if (item->type() == DiagnosticItem_File) {
-        // track validity of raw pointer
-        QPersistentModelIndex pindex(index);
-        auto docDiagItem = static_cast<DocumentDiagnosticItem *>(item);
-        auto h = [this, item, pindex](bool enabled) {
-            if (!pindex.isValid()) {
-                return;
+            auto file = parent.data(Qt::UserRole).toString();
+            if (m_sessionDiagnosticSuppressions->hasSuppression(file, diagText)) {
+                menu->addAction(i18n("Remove Local Suppression"), this, std::bind(h, false, file, diagText));
+            } else {
+                menu->addAction(i18n("Add Local Suppression"), this, std::bind(h, true, file, diagText));
             }
+        } else if (item->type() == DiagnosticItem_File) {
+            // track validity of raw pointer
+            QPersistentModelIndex pindex(index);
             auto docDiagItem = static_cast<DocumentDiagnosticItem *>(item);
-            docDiagItem->enabled = enabled;
-            updateDiagnosticsState(docDiagItem);
-        };
-        if (docDiagItem->enabled) {
-            menu->addAction(i18n("Disable Suppression"), this, std::bind(h, false));
-        } else {
-            menu->addAction(i18n("Enable Suppression"), this, std::bind(h, true));
+            auto h = [this, item, pindex](bool enabled) {
+                if (!pindex.isValid()) {
+                    return;
+                }
+                auto docDiagItem = static_cast<DocumentDiagnosticItem *>(item);
+                docDiagItem->enabled = enabled;
+                updateDiagnosticsState(docDiagItem);
+            };
+            if (docDiagItem->enabled) {
+                menu->addAction(i18n("Disable Suppression"), this, std::bind(h, false));
+            } else {
+                menu->addAction(i18n("Enable Suppression"), this, std::bind(h, true));
+            }
         }
     }
     menu->popup(m_diagnosticsTree->viewport()->mapToGlobal(pos));

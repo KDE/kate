@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-29 01:40+0000\n"
-"PO-Revision-Date: 2023-07-24 23:30+0200\n"
+"PO-Revision-Date: 2023-10-08 22:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -870,8 +870,7 @@ msgid "Close Orphaned Projects"
 msgstr "접근 불가능한 프로젝트 닫기"
 
 #: kateprojectpluginview.cpp:215
-#, fuzzy, kde-format
-#| msgid "Reload project"
+#, kde-format
 msgid "Reload Project"
 msgstr "프로젝트 새로 고침"
 

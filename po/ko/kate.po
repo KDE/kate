@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-29 01:40+0000\n"
-"PO-Revision-Date: 2023-08-07 00:16+0200\n"
+"PO-Revision-Date: 2023-10-08 22:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -245,10 +245,9 @@ msgstr "도구(&T)"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:273
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "진단"
+msgstr "진단 보기"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -296,11 +295,10 @@ msgid "All"
 msgstr "모두"
 
 #: lib/diagnostics/diagnosticview.cpp:314
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "진단"
+msgstr "진단 보기"
 
 #: lib/diagnostics/diagnosticview.cpp:319
 #, kde-format

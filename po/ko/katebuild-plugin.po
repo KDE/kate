@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-18 02:00+0000\n"
-"PO-Revision-Date: 2023-08-07 00:19+0200\n"
+"PO-Revision-Date: 2023-10-08 22:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -261,7 +261,7 @@ msgstr "설정 청소"
 #: plugin_katebuild.cpp:1415
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "빌드 대상을 다음에 저장할 수 없음: %1"
 
 #: TargetHtmlDelegate.cpp:50
 #, kde-format
@@ -300,12 +300,12 @@ msgstr ""
 #: TargetModel.cpp:530
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "프로젝트"
 
 #: TargetModel.cpp:530
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "세션"
 
 #: TargetModel.cpp:624
 #, kde-format

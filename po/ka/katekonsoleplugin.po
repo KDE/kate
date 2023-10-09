@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-09 00:51+0000\n"
-"PO-Revision-Date: 2023-09-13 18:20+0200\n"
+"PO-Revision-Date: 2023-10-08 06:10+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #: kateconsole.cpp:56
 #, kde-format
@@ -197,6 +197,9 @@ msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
+"ამას შეუძლია გამოიწვიოს პრობლემები კონსოლის აპლიკაციასთან, რომლებიც Esc "
+"ღილაკს იყენებენ. მაგ: vin. ასეთი აპები ქვემოთ ველში შეიყვანეთ (მძიმით "
+"გამოყოფილი სია)"
 
 #: kateconsole.cpp:669
 #, kde-format

@@ -2915,16 +2915,3 @@ msgstr "セッション管理(&M)..."
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "新しい文書を作成します"
-
-#, fuzzy
-#~| msgid "Besides white space changes, the files are identical."
-#~ msgid "Ignoring amount of white space changed, the files are identical."
-#~ msgstr "空白の違いを除けばファイルは同一です。"
-
-#~ msgid "Diff Output"
-#~ msgstr "diff 出力"
-
-#, fuzzy
-#~| msgid "Save As"
-#~ msgid "Save"
-#~ msgstr "名前を付けて保存"

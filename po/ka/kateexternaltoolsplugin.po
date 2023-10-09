@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-31 03:15+0000\n"
-"PO-Revision-Date: 2023-09-13 18:20+0200\n"
+"PO-Revision-Date: 2023-10-08 06:12+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -531,6 +531,9 @@ msgid ""
 "line with the_name_you_specified_here. Please do not use spaces or tabs in "
 "the name."
 msgstr ""
+"თუ აქ სახელს მიუთითებთ, ბრძანება შეგიძლათ ხედის ბრძანების სტრიქონიდან "
+"გაუშვათ იმ_სახელით_რომელსაც_აქ_მიუთებთ. სახელში გამოტოვებებს და ტაბულაციებს, "
+"თქვენი ჭირიმე, ნუ გამოიყენებთ."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
 #: tooldialog.ui:281

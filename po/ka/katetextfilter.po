@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2023-09-16 23:47+0200\n"
+"PO-Revision-Date: 2023-10-08 06:05+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -105,6 +105,9 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
+"თუ ჩართულია, გამოტანა STDOUT-დან და STDERR-დან შერწყმული იქნება და შეცდომები "
+"თქვენამდე ვერ მოაღწევს.\n"
+"სხვა შემთხვევაში STDERR ნაჩვენები პასიური შეტყობინების სახით იქნება."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60

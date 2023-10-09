@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-09-13 18:21+0200\n"
+"PO-Revision-Date: 2023-10-08 06:07+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -341,7 +341,7 @@ msgstr "მართლა გნებავთ ფრაგმენტის 
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"
-msgstr ""
+msgstr "მართლა გნებავთ რეპოზიტორიის '%1' წაშლა, მისი ყველა ფრაგმენტით?"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
 #: snippetview.ui:35

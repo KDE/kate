@@ -9,7 +9,7 @@ macro(kate_executable_tests)
         target_link_libraries(${_testname}
             PRIVATE
                 kateprivate Qt::Test)
-        add_test(NAME kateapp-${_testname} COMMAND ${_testname} -platform offscreen)
+        add_test(NAME kateapp-${_testname} COMMAND ${_testname} ${OFFSCREEN_QPA})
         ecm_mark_as_test(${_testname})
     endforeach()
 endmacro()

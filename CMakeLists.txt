@@ -58,6 +58,13 @@ if (NOT WIN32 AND NOT HAIKU)
     )
 endif()
 
+# define which offscreen platform plugin to use for tests
+# windows has issues with offscreen tests in the CI
+set(OFFSCREEN_QPA)
+if(NOT WIN32)
+    set(OFFSCREEN_QPA "-platform" "offscreen")
+endif()
+
 option(BUILD_PCH "Enable PCH support" ON)
 if (BUILD_PCH)
     add_subdirectory(pch)

@@ -22,5 +22,5 @@ target_sources(
     ${CMAKE_CURRENT_SOURCE_DIR}/../tools/shellcheck.cpp
 )
 
-add_test(NAME plugin-project_test COMMAND projectplugin_test -platform offscreen)
+add_test(NAME plugin-project_test COMMAND projectplugin_test ${OFFSCREEN_QPA})
 ecm_mark_as_test(projectplugin_test)

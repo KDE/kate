@@ -16,5 +16,5 @@ target_sources(btbrowser_test PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/../btparser.cpp
 )
 
-add_test(NAME plugin-btbrowser_test COMMAND btbrowser_test -platform offscreen)
+add_test(NAME plugin-btbrowser_test COMMAND btbrowser_test ${OFFSCREEN_QPA})
 ecm_mark_as_test(btbrowser_test)

@@ -18,5 +18,5 @@ target_sources(
     test_formatapply.cpp
 )
 
-add_test(NAME kateapp-test_formatapply COMMAND test_formatapply -platform offscreen)
+add_test(NAME kateapp-test_formatapply COMMAND test_formatapply ${OFFSCREEN_QPA})
 ecm_mark_as_test(test_formatapply)

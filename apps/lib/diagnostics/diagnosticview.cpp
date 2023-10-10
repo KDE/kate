@@ -1359,7 +1359,7 @@ void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cur
         int count = targetItem->rowCount();
         for (int i = 0; i < count; ++i) {
             auto item = targetItem->child(i);
-            result += QStringLiteral("  \n"); // markdown 2 spaces = newline
+            result += QStringLiteral("\n");
             result += item->text();
         }
         // but let's not get carried away too far
@@ -1370,7 +1370,7 @@ void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cur
         }
     }
 
-    m_textHintProvider->textHintAvailable(result.toHtmlEscaped(), TextHintMarkupKind::MarkDown, position);
+    m_textHintProvider->textHintAvailable(result, TextHintMarkupKind::PlainText, position);
 }
 
 void DiagnosticsView::onDocumentUrlChanged()

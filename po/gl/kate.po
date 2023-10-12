@@ -1939,7 +1939,7 @@ msgstr "A orde diff fallou. Asegúrese de que «git» está instalado e na PATH.
 #: lib/katemwmodonhddialog.cpp:316
 #, kde-format
 msgid "Error Creating Diff"
-msgstr "Ocorreu un erro ao crear o Diff"
+msgstr "Produciuse un erro ao crear o Diff"
 
 #: lib/katemwmodonhddialog.cpp:323
 #, kde-format

@@ -1289,12 +1289,13 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
 
     QModelIndex index = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
     if (QStandardItem *item = m_model.itemFromIndex(index)) {
+        auto diagText = index.data().toString();
+        menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy to Clipboard"), [diagText]() {
+            QClipboard *clipboard = QGuiApplication::clipboard();
+            clipboard->setText(diagText);
+        });
+
         if (item->type() == DiagnosticItem_Diag) {
-            auto diagText = index.data().toString();
-            menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy to Clipboard"), [diagText]() {
-                QClipboard *clipboard = QGuiApplication::clipboard();
-                clipboard->setText(diagText);
-            });
             menu->addSeparator();
             auto parent = index.parent();
             auto docDiagItem = static_cast<DocumentDiagnosticItem *>(m_model.itemFromIndex(parent));

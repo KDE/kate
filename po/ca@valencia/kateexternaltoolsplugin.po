@@ -420,8 +420,8 @@ msgid ""
 "for example, an FTP client."
 msgstr ""
 "De manera opcional guarda el document actual o tots els modificats abans "
-"d'executar l'ordre. Açò és útil si voleu passar URL a una aplicació, p. ex., "
-"a un client FTP."
+"d'executar l'ordre. Açò és útil si voleu passar URL cap a una aplicació, p. "
+"ex., a un client FTP."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
@@ -512,7 +512,7 @@ msgstr "Inserix en un document nou"
 #: tooldialog.ui:255
 #, kde-format
 msgid "Copy to Clipboard"
-msgstr "Copia al porta-retalls"
+msgstr "Copia a dins del porta-retalls"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:260

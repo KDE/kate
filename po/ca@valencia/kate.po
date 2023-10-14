@@ -381,7 +381,7 @@ msgstr "Reduïx-ho tot"
 #: lib/diagnostics/diagnosticview.cpp:1294
 #, kde-format
 msgid "Copy to Clipboard"
-msgstr "Copia al porta-retalls"
+msgstr "Copia a dins del porta-retalls"
 
 #: lib/diagnostics/diagnosticview.cpp:1317
 #, kde-format
@@ -493,22 +493,22 @@ msgstr "Mostra/oculta la informació de la comissió"
 #: lib/diff/diffwidget.cpp:118
 #, kde-format
 msgid "Jump to Next File"
-msgstr "Salta al fitxer següent"
+msgstr "Salta fins al fitxer següent"
 
 #: lib/diff/diffwidget.cpp:122
 #, kde-format
 msgid "Jump to Previous File"
-msgstr "Salta al fitxer anterior"
+msgstr "Salta fins al fitxer anterior"
 
 #: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr "Salta al bloc següent"
+msgstr "Salta fins al bloc següent"
 
 #: lib/diff/diffwidget.cpp:130
 #, kde-format
 msgid "Jump to Previous Hunk"
-msgstr "Salta al bloc anterior"
+msgstr "Salta fins al bloc anterior"
 
 #: lib/diff/diffwidget.cpp:134
 #, kde-format
@@ -1336,7 +1336,7 @@ msgstr "Nom nou del fitxer"
 #: lib/katefileactions.cpp:108
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
-msgstr "El fitxer «%1» no s'ha pogut moure a «%2»"
+msgstr "El fitxer «%1» no s'ha pogut moure cap a «%2»"
 
 #: lib/katefileactions.cpp:129
 #, kde-format
@@ -1656,12 +1656,12 @@ msgstr "Anomena i gu&arda la sessió..."
 #: lib/katemainwindow.cpp:521 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
-msgstr "Ves a la ubicació anterior"
+msgstr "Ves fins a la ubicació anterior"
 
 #: lib/katemainwindow.cpp:530 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
-msgstr "Ves a la ubicació següent"
+msgstr "Ves fins a la ubicació següent"
 
 #: lib/katemainwindow.cpp:538
 #, kde-format
@@ -1789,7 +1789,7 @@ msgstr "Oculta el botó"
 #: lib/katemdi.cpp:1022
 #, kde-format
 msgid "Move To"
-msgstr "Mou a"
+msgstr "Mou cap a"
 
 #: lib/katemdi.cpp:1027
 #, kde-format

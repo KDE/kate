@@ -391,12 +391,12 @@ msgstr "Fes un pas arrere"
 #: kate_ctags_view.cpp:62
 #, kde-format
 msgid "Go to Declaration"
-msgstr "Ves a la declaració"
+msgstr "Ves fins a la declaració"
 
 #: kate_ctags_view.cpp:66
 #, kde-format
 msgid "Go to Definition"
-msgstr "Ves a la definició"
+msgstr "Ves fins a la definició"
 
 #: kate_ctags_view.cpp:70
 #, kde-format
@@ -417,12 +417,12 @@ msgstr "Configureu el connector de CTags"
 #: kate_ctags_view.cpp:100 kate_ctags_view.cpp:189
 #, kde-format
 msgid "Go to Declaration: %1"
-msgstr "Ves a la declaració: %1"
+msgstr "Ves fins a la declaració: %1"
 
 #: kate_ctags_view.cpp:101 kate_ctags_view.cpp:190
 #, kde-format
 msgid "Go to Definition: %1"
-msgstr "Ves a la definició: %1"
+msgstr "Ves fins a la definició: %1"
 
 #: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
 #, kde-format
@@ -442,12 +442,12 @@ msgstr "Seleccioneu un fitxer de base de dades nou o existent."
 #: kate_ctags_view.cpp:140
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr "Ves al símbol local"
+msgstr "Ves fins al símbol local"
 
 #: kate_ctags_view.cpp:145
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr "Ves al símbol global"
+msgstr "Ves fins al símbol global"
 
 #: kate_ctags_view.cpp:320 kate_ctags_view.cpp:352
 #, kde-format

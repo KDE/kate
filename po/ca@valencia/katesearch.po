@@ -541,12 +541,12 @@ msgstr "Busca en els fitxers (en una pestanya nova)"
 #: SearchPlugin.cpp:345
 #, kde-format
 msgid "Go to Next Match"
-msgstr "Ves a la coincidència següent"
+msgstr "Ves fins a la coincidència següent"
 
 #: SearchPlugin.cpp:351
 #, kde-format
 msgid "Go to Previous Match"
-msgstr "Ves a la coincidència anterior"
+msgstr "Ves fins a la coincidència anterior"
 
 #: SearchPlugin.cpp:357
 #, kde-format

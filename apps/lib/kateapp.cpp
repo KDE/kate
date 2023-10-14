@@ -341,9 +341,11 @@ bool KateApp::init()
      */
     KSignalHandler::self()->watchSignal(SIGINT);
     KSignalHandler::self()->watchSignal(SIGTERM);
-    connect(KSignalHandler::self(), &KSignalHandler::signalReceived, this, [this]() {
-        printf("Shutting down...\n");
-        quit();
+    connect(KSignalHandler::self(), &KSignalHandler::signalReceived, this, [this](int signal) {
+        if (signal == SIGINT || signal == SIGTERM) {
+            printf("Shutting down...\n");
+            quit();
+        }
     });
 #endif
 

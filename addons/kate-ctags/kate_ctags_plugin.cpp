@@ -203,14 +203,13 @@ void KateCTagsConfigPage::updateGlobalDB()
         return;
     }
 
-    QString targets;
-    QString target;
+    QStringList targets;
     for (int i = 0; i < m_confUi.targetList->count(); i++) {
-        target = m_confUi.targetList->item(i)->text();
+        auto target = m_confUi.targetList->item(i)->text();
         if (target.endsWith(QLatin1Char('/')) || target.endsWith(QLatin1Char('\\'))) {
             target = target.left(target.size() - 1);
         }
-        targets += QLatin1Char('\"') + target + QLatin1String("\" ");
+        targets << target;
     }
 
     QString file = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1String("/katectags");
@@ -222,13 +221,13 @@ void KateCTagsConfigPage::updateGlobalDB()
         return;
     }
 
-    QString commandLine = QStringLiteral("%1 -f %2 %3").arg(m_confUi.cmdEdit->text(), file, targets);
-    QStringList arguments = m_proc.splitCommand(commandLine);
-    QString command = arguments.takeFirst();
+    QStringList arguments = m_proc.splitCommand(m_confUi.cmdEdit->text());
+    const QString command = arguments.takeFirst();
+    arguments << QStringLiteral("-f") << file << targets;
     startHostProcess(m_proc, command, arguments);
 
     if (!m_proc.waitForStarted(500)) {
-        KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", commandLine, m_proc.exitStatus()));
+        KMessageBox::error(nullptr, i18n("Failed to run. Error: %1, exit code: %2", m_proc.errorString(), m_proc.exitCode()));
         return;
     }
     m_confUi.updateDB->setDisabled(true);

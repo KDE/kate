@@ -20,6 +20,13 @@
 #include <KNetworkMounts>
 #include <KSharedConfig>
 
+// signal handler for SIGINT & SIGTERM
+#ifdef Q_OS_UNIX
+#include <KSignalHandler>
+#include <signal.h>
+#include <unistd.h>
+#endif
+
 // X11 startup handling
 #if __has_include(<KStartupInfo>)
 #include <KStartupInfo>
@@ -49,7 +56,6 @@
 #include <QTimer>
 #include <QUrlQuery>
 
-#include <signal_watcher.h>
 #include <urlinfo.h>
 
 #ifndef Q_OS_WIN
@@ -333,8 +339,9 @@ bool KateApp::init()
     /**
      * Set up signal handler for SIGINT and SIGTERM
      */
-    auto sigWatcher = new SignalWatcher(this);
-    connect(sigWatcher, &SignalWatcher::unixSignal, this, [this](SignalWatcher::Signal) {
+    KSignalHandler::self()->watchSignal(SIGINT);
+    KSignalHandler::self()->watchSignal(SIGTERM);
+    connect(KSignalHandler::self(), &KSignalHandler::signalReceived, this, [this]() {
         printf("Shutting down...\n");
         quit();
     });

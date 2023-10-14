@@ -135,7 +135,6 @@ target_sources(
 
     kateurlbar.cpp
 
-    signal_watcher.cpp
     gitprocess.cpp
     quickdialog.cpp
     ktexteditor_utils.cpp

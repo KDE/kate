@@ -96,17 +96,17 @@ msgstr "LSP"
 #: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Go to Definition"
-msgstr "Ves a la definició"
+msgstr "Ves fins a la definició"
 
 #: lspclientpluginview.cpp:512
 #, kde-format
 msgid "Go to Declaration"
-msgstr "Ves a la declaració"
+msgstr "Ves fins a la declaració"
 
 #: lspclientpluginview.cpp:514
 #, kde-format
 msgid "Go to Type Definition"
-msgstr "Ves a la definició del tipus"
+msgstr "Ves fins a la definició del tipus"
 
 #: lspclientpluginview.cpp:516
 #, kde-format
@@ -131,7 +131,7 @@ msgstr "Informació dels símbols"
 #: lspclientpluginview.cpp:525
 #, kde-format
 msgid "Search and Go to Symbol"
-msgstr "Busca i ves al símbol"
+msgstr "Busca i ves fins al símbol"
 
 #: lspclientpluginview.cpp:530
 #, kde-format
@@ -248,7 +248,7 @@ msgstr "Reinicia tots els servidors LSP"
 #: lspclientpluginview.cpp:627
 #, kde-format
 msgid "Go To"
-msgstr "Ves a"
+msgstr "Ves fins a"
 
 #: lspclientpluginview.cpp:654
 #, kde-format

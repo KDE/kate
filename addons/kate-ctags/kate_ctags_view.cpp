@@ -23,6 +23,8 @@
 #include "kate_ctags_debug.h"
 #include "kate_ctags_plugin.h"
 
+#include "hostprocess.h"
+
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QKeyEvent>
@@ -523,14 +525,13 @@ void KateCTagsView::updateSessionDB()
         return;
     }
 
-    QString targets;
-    QString target;
+    QStringList targets;
     for (int i = 0; i < m_ctagsUi.targetList->count(); i++) {
-        target = m_ctagsUi.targetList->item(i)->text();
+        auto target = m_ctagsUi.targetList->item(i)->text();
         if (target.endsWith(QLatin1Char('/')) || target.endsWith(QLatin1Char('\\'))) {
             target = target.left(target.size() - 1);
         }
-        targets += QLatin1Char('\"') + target + QLatin1String("\" ");
+        targets << target;
     }
 
     QString pluginFolder = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1String("/katectags");
@@ -549,10 +550,10 @@ void KateCTagsView::updateSessionDB()
         return;
     }
 
-    QString commandLine = QStringLiteral("\"%1\" -f \"%2\" %3").arg(m_ctagsUi.cmdEdit->text(), m_ctagsUi.tagsFile->text(), targets);
-    QStringList arguments = m_proc.splitCommand(commandLine);
-    QString command = arguments.takeFirst();
-    m_proc.start(command, arguments);
+    QStringList arguments = m_proc.splitCommand(m_ctagsUi.cmdEdit->text());
+    const QString command = arguments.takeFirst();
+    arguments << QStringLiteral("-f") << m_ctagsUi.tagsFile->text() << targets;
+    startHostProcess(m_proc, command, arguments);
 
     if (!m_proc.waitForStarted(500)) {
         Utils::showMessage(i18n("Failed to run. Error: %1, exit code: %2", m_proc.errorString(), m_proc.exitCode()),

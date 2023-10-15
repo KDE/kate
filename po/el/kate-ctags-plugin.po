@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2023-10-15 01:41+0000\n"
 "PO-Revision-Date: 2022-12-30 15:00+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -339,12 +339,12 @@ msgstr "Επαναφορά στην προκαθορισμένη εντολή"
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:110
+#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:112
 #, kde-format
 msgid "Add a directory to index."
 msgstr "Προσθήκη καταλόγου στο ευρετήριο."
 
-#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:113
+#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:115
 #, kde-format
 msgid "Remove a directory."
 msgstr "Αφαίρεση καταλόγου."
@@ -354,9 +354,9 @@ msgstr "Αφαίρεση καταλόγου."
 msgid "(Re-)generate the common CTags database."
 msgstr "(Ανα)δημιουργία της κοινής βάσης δεδομένων CTags."
 
-#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:47 kate_ctags_view.cpp:54
-#: kate_ctags_view.cpp:97 kate_ctags_view.cpp:135 kate_ctags_view.cpp:547
-#: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
+#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
+#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:548
+#: kate_ctags_view.cpp:561 kate_ctags_view.cpp:574 kate_ctags_view.cpp:578
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
@@ -366,114 +366,112 @@ msgstr "CTags"
 msgid "CTags Settings"
 msgstr "Ρυθμίσεις CTags"
 
-#: kate_ctags_plugin.cpp:231
-#, kde-format
-msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "Αποτυχία εκτέλεσης \"%1\". κατάστασηΕξόδου = %2"
-
-#: kate_ctags_plugin.cpp:242
-#, kde-format
-msgid "The CTags executable crashed."
-msgstr "Το εκτελέσιμο CTags κατέρρευσε."
-
-#: kate_ctags_plugin.cpp:244
-#, kde-format
-msgid "The CTags command exited with code %1"
-msgstr "Η εντολή CTags τερματίστηκε με κωδικό %1"
-
-#: kate_ctags_view.cpp:58
-#, kde-format
-msgid "Jump back one step"
-msgstr "Άλμα ένα βήμα πίσω"
-
-#: kate_ctags_view.cpp:62
-#, kde-format
-msgid "Go to Declaration"
-msgstr "Μετάβαση στη δήλωση"
-
-#: kate_ctags_view.cpp:66
-#, kde-format
-msgid "Go to Definition"
-msgstr "Μετάβαση στον ορισμό"
-
-#: kate_ctags_view.cpp:70
-#, kde-format
-msgid "Lookup Current Text"
-msgstr "Αναζήτηση τρέχοντος κειμένου"
-
-#: kate_ctags_view.cpp:74
-#, kde-format
-msgid "Configure ..."
-msgstr "Διαμόρφωση..."
-
-#: kate_ctags_view.cpp:89
-#, kde-format
-msgctxt "@title:window"
-msgid "Configure CTags Plugin"
-msgstr "Διαμόρφωση πρόσθετου CTags"
-
-#: kate_ctags_view.cpp:100 kate_ctags_view.cpp:189
-#, kde-format
-msgid "Go to Declaration: %1"
-msgstr "Μετάβαση στη δήλωση: %1"
-
-#: kate_ctags_view.cpp:101 kate_ctags_view.cpp:190
-#, kde-format
-msgid "Go to Definition: %1"
-msgstr "Μετάβαση στον ορισμό: %1"
-
-#: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
-#, kde-format
-msgid "Lookup: %1"
-msgstr "Αναζήτηση: %1"
-
-#: kate_ctags_view.cpp:116 kate_ctags_view.cpp:119
-#, kde-format
-msgid "(Re-)generate the session specific CTags database."
-msgstr "(Ανα)δημιουργία της ειδικά για τη συνεδρία βάσης δεδομένων CTags."
-
-#: kate_ctags_view.cpp:124
-#, kde-format
-msgid "Select new or existing database file."
-msgstr "Επιλογή νέου ή υφιστάμενου αρχείου βάσης δεδομένων."
-
-#: kate_ctags_view.cpp:140
-#, kde-format
-msgid "Go To Local Symbol"
-msgstr "Μετάβαση στο τοπικό σύμβολο"
-
-#: kate_ctags_view.cpp:145
-#, kde-format
-msgid "Go To Global Symbol"
-msgstr "Μετάβαση στο καθολικό σύμβολο"
-
-#: kate_ctags_view.cpp:320 kate_ctags_view.cpp:352
-#, kde-format
-msgid "No hits found"
-msgstr "Δε βρέθηκαν εμφανίσεις"
-
-#: kate_ctags_view.cpp:547
-#, kde-format
-msgid "No folders or files to index"
-msgstr "Δεν βρέθηκαν φάκελοι ή αρχεία για δεικτοδότηση"
-
-#: kate_ctags_view.cpp:558
+#: kate_ctags_plugin.cpp:230 kate_ctags_view.cpp:559
 #, fuzzy, kde-format
 #| msgid "Failed to run \"%1\". exitStatus = %2"
 msgid "Failed to run. Error: %1, exit code: %2"
 msgstr "Αποτυχία εκτέλεσης \"%1\". κατάστασηΕξόδου = %2"
 
-#: kate_ctags_view.cpp:573
+#: kate_ctags_plugin.cpp:241
+#, kde-format
+msgid "The CTags executable crashed."
+msgstr "Το εκτελέσιμο CTags κατέρρευσε."
+
+#: kate_ctags_plugin.cpp:243
+#, kde-format
+msgid "The CTags command exited with code %1"
+msgstr "Η εντολή CTags τερματίστηκε με κωδικό %1"
+
+#: kate_ctags_view.cpp:60
+#, kde-format
+msgid "Jump back one step"
+msgstr "Άλμα ένα βήμα πίσω"
+
+#: kate_ctags_view.cpp:64
+#, kde-format
+msgid "Go to Declaration"
+msgstr "Μετάβαση στη δήλωση"
+
+#: kate_ctags_view.cpp:68
+#, kde-format
+msgid "Go to Definition"
+msgstr "Μετάβαση στον ορισμό"
+
+#: kate_ctags_view.cpp:72
+#, kde-format
+msgid "Lookup Current Text"
+msgstr "Αναζήτηση τρέχοντος κειμένου"
+
+#: kate_ctags_view.cpp:76
+#, kde-format
+msgid "Configure ..."
+msgstr "Διαμόρφωση..."
+
+#: kate_ctags_view.cpp:91
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure CTags Plugin"
+msgstr "Διαμόρφωση πρόσθετου CTags"
+
+#: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
+#, kde-format
+msgid "Go to Declaration: %1"
+msgstr "Μετάβαση στη δήλωση: %1"
+
+#: kate_ctags_view.cpp:103 kate_ctags_view.cpp:192
+#, kde-format
+msgid "Go to Definition: %1"
+msgstr "Μετάβαση στον ορισμό: %1"
+
+#: kate_ctags_view.cpp:104 kate_ctags_view.cpp:193
+#, kde-format
+msgid "Lookup: %1"
+msgstr "Αναζήτηση: %1"
+
+#: kate_ctags_view.cpp:118 kate_ctags_view.cpp:121
+#, kde-format
+msgid "(Re-)generate the session specific CTags database."
+msgstr "(Ανα)δημιουργία της ειδικά για τη συνεδρία βάσης δεδομένων CTags."
+
+#: kate_ctags_view.cpp:126
+#, kde-format
+msgid "Select new or existing database file."
+msgstr "Επιλογή νέου ή υφιστάμενου αρχείου βάσης δεδομένων."
+
+#: kate_ctags_view.cpp:142
+#, kde-format
+msgid "Go To Local Symbol"
+msgstr "Μετάβαση στο τοπικό σύμβολο"
+
+#: kate_ctags_view.cpp:147
+#, kde-format
+msgid "Go To Global Symbol"
+msgstr "Μετάβαση στο καθολικό σύμβολο"
+
+#: kate_ctags_view.cpp:322 kate_ctags_view.cpp:354
+#, kde-format
+msgid "No hits found"
+msgstr "Δε βρέθηκαν εμφανίσεις"
+
+#: kate_ctags_view.cpp:548
+#, kde-format
+msgid "No folders or files to index"
+msgstr "Δεν βρέθηκαν φάκελοι ή αρχεία για δεικτοδότηση"
+
+#: kate_ctags_view.cpp:574
 #, fuzzy, kde-format
 #| msgid "The CTags executable crashed."
 msgid "The CTags executable crashed"
 msgstr "Το εκτελέσιμο CTags κατέρρευσε."
 
-#: kate_ctags_view.cpp:575
+#: kate_ctags_view.cpp:576
 #, fuzzy, kde-format
 #| msgid "The CTags program exited with code %1: %2"
 msgid "The CTags program exited with code %2: %1"
 msgstr "Το πρόγραμμα CTags τερματίστηκε με κωδικό %1: %2"
+
+#~ msgid "Failed to run \"%1\". exitStatus = %2"
+#~ msgstr "Αποτυχία εκτέλεσης \"%1\". κατάστασηΕξόδου = %2"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

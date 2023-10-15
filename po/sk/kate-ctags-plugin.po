@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2023-10-15 01:41+0000\n"
 "PO-Revision-Date: 2022-08-22 17:05+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -337,12 +337,12 @@ msgstr "Vrátiť na predvolený príkaz"
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:110
+#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:112
 #, kde-format
 msgid "Add a directory to index."
 msgstr "Pridať adresár do indexu."
 
-#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:113
+#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:115
 #, kde-format
 msgid "Remove a directory."
 msgstr "Odstrániť adresár."
@@ -352,9 +352,9 @@ msgstr "Odstrániť adresár."
 msgid "(Re-)generate the common CTags database."
 msgstr "Znovu generovať bežnú databázu CTags."
 
-#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:47 kate_ctags_view.cpp:54
-#: kate_ctags_view.cpp:97 kate_ctags_view.cpp:135 kate_ctags_view.cpp:547
-#: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
+#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
+#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:548
+#: kate_ctags_view.cpp:561 kate_ctags_view.cpp:574 kate_ctags_view.cpp:578
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
@@ -364,114 +364,112 @@ msgstr "CTags"
 msgid "CTags Settings"
 msgstr "Nastavenia CTags"
 
-#: kate_ctags_plugin.cpp:231
-#, kde-format
-msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "Zlyhalo spustenie \"%1\". exitStatus = %2"
-
-#: kate_ctags_plugin.cpp:242
-#, kde-format
-msgid "The CTags executable crashed."
-msgstr "Spustiteľný súbor CTags spadol."
-
-#: kate_ctags_plugin.cpp:244
-#, kde-format
-msgid "The CTags command exited with code %1"
-msgstr "Príkaz CTags skončil s kódom %1"
-
-#: kate_ctags_view.cpp:58
-#, kde-format
-msgid "Jump back one step"
-msgstr "Skočiť späť jeden krok"
-
-#: kate_ctags_view.cpp:62
-#, kde-format
-msgid "Go to Declaration"
-msgstr "Ísť na deklaráciu"
-
-#: kate_ctags_view.cpp:66
-#, kde-format
-msgid "Go to Definition"
-msgstr "Ísť na definíciu"
-
-#: kate_ctags_view.cpp:70
-#, kde-format
-msgid "Lookup Current Text"
-msgstr "Hľadať aktuálny text"
-
-#: kate_ctags_view.cpp:74
-#, kde-format
-msgid "Configure ..."
-msgstr "Nastaviť..."
-
-#: kate_ctags_view.cpp:89
-#, kde-format
-msgctxt "@title:window"
-msgid "Configure CTags Plugin"
-msgstr "Nastaviť doplnok CTags"
-
-#: kate_ctags_view.cpp:100 kate_ctags_view.cpp:189
-#, kde-format
-msgid "Go to Declaration: %1"
-msgstr "Ísť na deklaráciu: %1"
-
-#: kate_ctags_view.cpp:101 kate_ctags_view.cpp:190
-#, kde-format
-msgid "Go to Definition: %1"
-msgstr "Ísť na definíciu: %1"
-
-#: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
-#, kde-format
-msgid "Lookup: %1"
-msgstr "Hľadanie: %1"
-
-#: kate_ctags_view.cpp:116 kate_ctags_view.cpp:119
-#, kde-format
-msgid "(Re-)generate the session specific CTags database."
-msgstr "Znovu generovať databázu CTags podľa sedenia."
-
-#: kate_ctags_view.cpp:124
-#, kde-format
-msgid "Select new or existing database file."
-msgstr "Vybrať nový alebo existujúci databázový súbor."
-
-#: kate_ctags_view.cpp:140
-#, kde-format
-msgid "Go To Local Symbol"
-msgstr "Prejsť na lokálny symbol"
-
-#: kate_ctags_view.cpp:145
-#, kde-format
-msgid "Go To Global Symbol"
-msgstr "Prejsť na globálny znak"
-
-#: kate_ctags_view.cpp:320 kate_ctags_view.cpp:352
-#, kde-format
-msgid "No hits found"
-msgstr "Nenájdená žiadna zhoda"
-
-#: kate_ctags_view.cpp:547
-#, kde-format
-msgid "No folders or files to index"
-msgstr "Žiadny adresár alebo súbor na indexovanie"
-
-#: kate_ctags_view.cpp:558
+#: kate_ctags_plugin.cpp:230 kate_ctags_view.cpp:559
 #, fuzzy, kde-format
 #| msgid "Failed to run \"%1\". exitStatus = %2"
 msgid "Failed to run. Error: %1, exit code: %2"
 msgstr "Zlyhalo spustenie \"%1\". exitStatus = %2"
 
-#: kate_ctags_view.cpp:573
+#: kate_ctags_plugin.cpp:241
+#, kde-format
+msgid "The CTags executable crashed."
+msgstr "Spustiteľný súbor CTags spadol."
+
+#: kate_ctags_plugin.cpp:243
+#, kde-format
+msgid "The CTags command exited with code %1"
+msgstr "Príkaz CTags skončil s kódom %1"
+
+#: kate_ctags_view.cpp:60
+#, kde-format
+msgid "Jump back one step"
+msgstr "Skočiť späť jeden krok"
+
+#: kate_ctags_view.cpp:64
+#, kde-format
+msgid "Go to Declaration"
+msgstr "Ísť na deklaráciu"
+
+#: kate_ctags_view.cpp:68
+#, kde-format
+msgid "Go to Definition"
+msgstr "Ísť na definíciu"
+
+#: kate_ctags_view.cpp:72
+#, kde-format
+msgid "Lookup Current Text"
+msgstr "Hľadať aktuálny text"
+
+#: kate_ctags_view.cpp:76
+#, kde-format
+msgid "Configure ..."
+msgstr "Nastaviť..."
+
+#: kate_ctags_view.cpp:91
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure CTags Plugin"
+msgstr "Nastaviť doplnok CTags"
+
+#: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
+#, kde-format
+msgid "Go to Declaration: %1"
+msgstr "Ísť na deklaráciu: %1"
+
+#: kate_ctags_view.cpp:103 kate_ctags_view.cpp:192
+#, kde-format
+msgid "Go to Definition: %1"
+msgstr "Ísť na definíciu: %1"
+
+#: kate_ctags_view.cpp:104 kate_ctags_view.cpp:193
+#, kde-format
+msgid "Lookup: %1"
+msgstr "Hľadanie: %1"
+
+#: kate_ctags_view.cpp:118 kate_ctags_view.cpp:121
+#, kde-format
+msgid "(Re-)generate the session specific CTags database."
+msgstr "Znovu generovať databázu CTags podľa sedenia."
+
+#: kate_ctags_view.cpp:126
+#, kde-format
+msgid "Select new or existing database file."
+msgstr "Vybrať nový alebo existujúci databázový súbor."
+
+#: kate_ctags_view.cpp:142
+#, kde-format
+msgid "Go To Local Symbol"
+msgstr "Prejsť na lokálny symbol"
+
+#: kate_ctags_view.cpp:147
+#, kde-format
+msgid "Go To Global Symbol"
+msgstr "Prejsť na globálny znak"
+
+#: kate_ctags_view.cpp:322 kate_ctags_view.cpp:354
+#, kde-format
+msgid "No hits found"
+msgstr "Nenájdená žiadna zhoda"
+
+#: kate_ctags_view.cpp:548
+#, kde-format
+msgid "No folders or files to index"
+msgstr "Žiadny adresár alebo súbor na indexovanie"
+
+#: kate_ctags_view.cpp:574
 #, fuzzy, kde-format
 #| msgid "The CTags executable crashed."
 msgid "The CTags executable crashed"
 msgstr "Spustiteľný súbor CTags spadol."
 
-#: kate_ctags_view.cpp:575
+#: kate_ctags_view.cpp:576
 #, fuzzy, kde-format
 #| msgid "The CTags program exited with code %1: %2"
 msgid "The CTags program exited with code %2: %1"
 msgstr "Program CTags skončil s chybou %1: %2"
+
+#~ msgid "Failed to run \"%1\". exitStatus = %2"
+#~ msgstr "Zlyhalo spustenie \"%1\". exitStatus = %2"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2023-10-15 01:41+0000\n"
 "PO-Revision-Date: 2023-07-17 15:21+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -341,12 +341,12 @@ msgstr "Öntanımlı komuta geri dön"
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:110
+#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:112
 #, kde-format
 msgid "Add a directory to index."
 msgstr "İndekse bir dizin ekle."
 
-#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:113
+#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:115
 #, kde-format
 msgid "Remove a directory."
 msgstr "Bir dizin sil."
@@ -356,9 +356,9 @@ msgstr "Bir dizin sil."
 msgid "(Re-)generate the common CTags database."
 msgstr "CTags genel veritabanı dosyasını yeniden oluştur."
 
-#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:47 kate_ctags_view.cpp:54
-#: kate_ctags_view.cpp:97 kate_ctags_view.cpp:135 kate_ctags_view.cpp:547
-#: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
+#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
+#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:548
+#: kate_ctags_view.cpp:561 kate_ctags_view.cpp:574 kate_ctags_view.cpp:578
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
@@ -368,111 +368,109 @@ msgstr "CTags"
 msgid "CTags Settings"
 msgstr "CTags Ayarları"
 
-#: kate_ctags_plugin.cpp:231
+#: kate_ctags_plugin.cpp:230 kate_ctags_view.cpp:559
 #, kde-format
-msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "\"%1\" çalıştırılamadı. exitStatus = %2"
+msgid "Failed to run. Error: %1, exit code: %2"
+msgstr "Çalıştırılamadı. Hata: %1, çıkış kodu: %2"
 
-#: kate_ctags_plugin.cpp:242
+#: kate_ctags_plugin.cpp:241
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "CTags yürütülebiliri çöktü."
 
-#: kate_ctags_plugin.cpp:244
+#: kate_ctags_plugin.cpp:243
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "CTags komutundan %1 kodu ile çıkıldı"
 
-#: kate_ctags_view.cpp:58
+#: kate_ctags_view.cpp:60
 #, kde-format
 msgid "Jump back one step"
 msgstr "Bir adım geri git"
 
-#: kate_ctags_view.cpp:62
+#: kate_ctags_view.cpp:64
 #, kde-format
 msgid "Go to Declaration"
 msgstr "Bildirime Git"
 
-#: kate_ctags_view.cpp:66
+#: kate_ctags_view.cpp:68
 #, kde-format
 msgid "Go to Definition"
 msgstr "Tanımlamaya Git"
 
-#: kate_ctags_view.cpp:70
+#: kate_ctags_view.cpp:72
 #, kde-format
 msgid "Lookup Current Text"
 msgstr "Geçerli Metni Ara"
 
-#: kate_ctags_view.cpp:74
+#: kate_ctags_view.cpp:76
 #, kde-format
 msgid "Configure ..."
 msgstr "Yapılandır..."
 
-#: kate_ctags_view.cpp:89
+#: kate_ctags_view.cpp:91
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
 msgstr "CTags Eklentisini Yapılandır"
 
-#: kate_ctags_view.cpp:100 kate_ctags_view.cpp:189
+#: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
 #, kde-format
 msgid "Go to Declaration: %1"
 msgstr "Bildirime Git: %1"
 
-#: kate_ctags_view.cpp:101 kate_ctags_view.cpp:190
+#: kate_ctags_view.cpp:103 kate_ctags_view.cpp:192
 #, kde-format
 msgid "Go to Definition: %1"
 msgstr "Tanımlamaya Git: %1"
 
-#: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
+#: kate_ctags_view.cpp:104 kate_ctags_view.cpp:193
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Ara: %1"
 
-#: kate_ctags_view.cpp:116 kate_ctags_view.cpp:119
+#: kate_ctags_view.cpp:118 kate_ctags_view.cpp:121
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
 msgstr "Oturuma özel CTags veritabanı dosyasını yeniden oluşturun."
 
-#: kate_ctags_view.cpp:124
+#: kate_ctags_view.cpp:126
 #, kde-format
 msgid "Select new or existing database file."
 msgstr "Yeni veya var olan bir veritabanı dosyasını seçin."
 
-#: kate_ctags_view.cpp:140
+#: kate_ctags_view.cpp:142
 #, kde-format
 msgid "Go To Local Symbol"
 msgstr "Yerel Sembole Git"
 
-#: kate_ctags_view.cpp:145
+#: kate_ctags_view.cpp:147
 #, kde-format
 msgid "Go To Global Symbol"
 msgstr "Global Sembole Git"
 
-#: kate_ctags_view.cpp:320 kate_ctags_view.cpp:352
+#: kate_ctags_view.cpp:322 kate_ctags_view.cpp:354
 #, kde-format
 msgid "No hits found"
 msgstr "Eşleşme bulunamadı"
 
-#: kate_ctags_view.cpp:547
+#: kate_ctags_view.cpp:548
 #, kde-format
 msgid "No folders or files to index"
 msgstr "İndekslenecek klasör veya dosya yok"
 
-#: kate_ctags_view.cpp:558
-#, kde-format
-msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "Çalıştırılamadı. Hata: %1, çıkış kodu: %2"
-
-#: kate_ctags_view.cpp:573
+#: kate_ctags_view.cpp:574
 #, kde-format
 msgid "The CTags executable crashed"
 msgstr "CTags yürütülebiliri çöktü"
 
-#: kate_ctags_view.cpp:575
+#: kate_ctags_view.cpp:576
 #, kde-format
 msgid "The CTags program exited with code %2: %1"
 msgstr "CTags uygulamasından %2 kodu ile çıkıldı: %1"
+
+#~ msgid "Failed to run \"%1\". exitStatus = %2"
+#~ msgstr "\"%1\" çalıştırılamadı. exitStatus = %2"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

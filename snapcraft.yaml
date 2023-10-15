@@ -1,0 +1,182 @@
+---
+name: kate
+confinement: classic
+grade: stable
+base: core22
+adopt-info: kate
+apps:
+    kate:
+        # extensions:
+        # - kde-neon
+        command: usr/bin/kate
+        common-id: org.kde.kate.desktop
+        desktop: usr/share/applications/org.kde.kate.desktop
+assumes:
+- snapd2.58.3
+compression: lzo
+environment:
+    QTWEBENGINEPROCESS_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/libexec/QtWebEngineProcess"
+    XDG_DATA_DIRS: "$XDG_DATA_DIRS:$SNAP/usr/share"
+    XDG_CONFIG_DIRS: "$XDG_CONFIG_DIRS:$SNAP/etc/xdg"
+    __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
+    LIBGL_DRIVERS_PATH: "$SNAP/usr/lib/${CRAFT_ARCH_TRIPLET}/dri"
+layout:
+    /usr/share/X11:
+        symlink: $SNAP/usr/share/X11
+    /usr/share/qt5:
+        bind: $SNAP/usr/share/qt5
+package-repositories:
+-   type: apt
+    components:
+    - main
+    suites:
+    - jammy
+    key-id: 444DABCF3667D0283F894EDDE6D4736255751E5D
+    url: http://origin.archive.neon.kde.org/user
+    key-server: keyserver.ubuntu.com
+parts:
+    mesa-patchelf:
+        plugin: nil
+        stage-packages:
+        - libgl1-mesa-dri
+        - freeglut3
+        - libglu1-mesa
+        stage:
+        - "-usr/lib/${CRAFT_ARCH_TRIPLET}/dri"
+    mesa-no-patchelf:
+        plugin: nil
+        stage-packages:
+        - libgl1-mesa-dri
+        build-attributes:
+        - no-patchelf
+        stage:
+        - usr/lib/${CRAFT_ARCH_TRIPLET}/dri
+    qtconf:
+        plugin: nil
+        override-build: |
+            mkdir -p $CRAFT_PART_INSTALL/usr/bin
+            cat <<EOF > $CRAFT_PART_INSTALL/usr/bin/qt.conf
+            [Paths]
+            Prefix = ../../
+            LibraryExecutables = usr/lib/$CRAFT_ARCH_TRIPLET/qt5/libexec
+            Plugins = usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins
+            Qml2Imports = usr/lib/$CRAFT_ARCH_TRIPLET/qt5/qml
+            Translations = usr/share/qt5/translations
+            Data = usr/share/qt5
+            EOF
+    kate:
+        after:
+        - mesa-patchelf
+        - mesa-no-patchelf
+        - qtconf
+        parse-info:
+        - usr/share/metainfo/org.kde.kate.appdata.xml
+        plugin: cmake
+        build-packages:
+        - cmake
+        - extra-cmake-modules
+        - kinit-dev
+        - kuserfeedback-dev
+        - libkf5activities-dev
+        - libkf5config-dev
+        - libkf5crash-dev
+        - libkf5dbusaddons-dev
+        - libkf5doctools-dev
+        - libkf5guiaddons-dev
+        - libkf5i18n-dev
+        - libkf5iconthemes-dev
+        - libkf5itemmodels-dev
+        - libkf5jobwidgets-dev
+        - libkf5kio-dev
+        - libkf5newstuff-dev
+        - libkf5parts-dev
+        - libkf5plasma-dev
+        - libkf5pty-dev
+        - libkf5syntaxhighlighting-dev
+        - libkf5texteditor-dev
+        - libkf5threadweaver-dev
+        - libkf5wallet-dev
+        - libkf5windowsystem-dev
+        - libkf5xmlgui-dev
+        - libqt5x11extras5-dev
+        - pkg-config
+        - qtbase5-dev
+        stage-packages:
+        - ktexteditor-katepart
+        - plasma-framework
+        - qml-module-org-kde-kquickcontrolsaddons
+        - qml-module-qtquick-layouts
+        - qml-module-qtquick2
+        - libc6
+        - libkf5activities5
+        - libkf5bookmarks5
+        - libkf5completion5
+        - libkf5configcore5
+        - libkf5configgui5
+        - libkf5configwidgets5
+        - libkf5coreaddons5
+        - libkf5crash5
+        - libkf5dbusaddons5
+        - libkf5guiaddons5
+        - libkf5i18n5
+        - libkf5iconthemes5
+        - libkf5jobwidgets5
+        - libkf5kiocore5
+        - libkf5kiofilewidgets5
+        - libkf5kiogui5
+        - libkf5kiowidgets5
+        - libkf5newstuff5
+        - libkf5newstuffcore5
+        - libkf5newstuffwidgets5
+        - libkf5parts5
+        - libkf5service5
+        - libkf5syntaxhighlighting5
+        - libkf5texteditor5
+        - libkf5textwidgets5
+        - libkf5wallet5
+        - libkf5widgetsaddons5
+        - libkf5windowsystem5
+        - libkf5xmlgui5
+        - libkuserfeedbackcore1
+        - libkuserfeedbackwidgets1
+        - libqt5concurrent5
+        - libqt5core5a
+        - libqt5dbus5
+        - libqt5gui5
+        - libqt5network5
+        - libqt5sql5
+        - libqt5widgets5
+        - libqt5x11extras5
+        - libqt5xml5
+        - libstdc++6
+        - sonnet-plugins
+        - darcs
+        - exuberant-ctags
+        - git
+        - konsole-kpart
+        - mercurial
+        - subversion
+        source: .
+        source-type: local
+        cmake-parameters:
+        - "-DCMAKE_INSTALL_PREFIX=/usr"
+        - "-DCMAKE_BUILD_TYPE=Release"
+        - "-DENABLE_TESTING=OFF"
+        - "-DBUILD_TESTING=OFF"
+        - "-DKDE_SKIP_TEST_SETTINGS=ON"
+        build-attributes:
+        - enable-patchelf
+        build-environment:
+        - XDG_CONFIG_DIRS: "$CRAFT_STAGE/etc/xdg"
+        prime:
+        - "-usr/lib/*/cmake/*"
+        - "-usr/include/*"
+        - "-usr/share/ECM/*"
+        - "-usr/share/doc/*"
+        - "-usr/share/man/*"
+        - "-usr/share/icons/breeze-dark*"
+        - "-usr/bin/X11"
+        - "-usr/lib/gcc/$CRAFT_ARCH_TRIPLET/6.0.0"
+        - "-usr/lib/aspell/*"
+        - "-usr/lib/${CRAFT_ARCH_TRIPLET}/dri"
+

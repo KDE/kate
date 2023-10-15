@@ -29,10 +29,6 @@
 #include <KToolBar>
 #include <KXMLGUIFactory>
 
-#ifdef KF6Activities_FOUND
-#include <KActivities/ResourceInstance>
-#endif
-
 #include <QFileDialog>
 #include <QTimer>
 
@@ -655,14 +651,8 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
 
     /**
      * remember this view, active == false, min age set
-     * create activity resource
      */
     m_views[view].lruAge = m_minAge--;
-
-#ifdef KF6Activities_FOUND
-    m_views[view].activityResource = new KActivities::ResourceInstance(view->window()->winId(), view);
-    m_views[view].activityResource->setUri(doc->url());
-#endif
 
     // disable settings dialog action
     delete view->actionCollection()->action(QStringLiteral("set_confdlg"));
@@ -868,12 +858,6 @@ void KateViewManager::activateView(KTextEditor::View *view)
         Q_EMIT viewChanged(view);
 
         updateViewSpaceActions();
-
-#ifdef KF6Activities_FOUND
-        // inform activity manager
-        m_views[view].activityResource->setUri(view->document()->url());
-        m_views[view].activityResource->notifyFocusedIn();
-#endif
     }
 }
 

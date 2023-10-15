@@ -20,11 +20,6 @@
 
 #include <unordered_map>
 
-namespace KActivities
-{
-class ResourceInstance;
-}
-
 namespace KTextEditor
 {
 class View;
@@ -389,11 +384,6 @@ private:
          * important: smallest age ==> latest used view
          */
         qint64 lruAge = 0;
-
-        /**
-         * activity resource for the view
-         */
-        KActivities::ResourceInstance *activityResource = nullptr;
     };
 
     /**

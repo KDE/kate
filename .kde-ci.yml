@@ -14,10 +14,6 @@ Dependencies:
     'frameworks/ktextwidgets': '@latest-kf6'
     'libraries/kuserfeedback': '@latest-kf6'
 
-- 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
-  'require':
-    'frameworks/kactivities': '@latest-kf6'
-
 Options:
   test-before-installing: True
   require-passing-tests-on: [ 'Linux', 'FreeBSD', 'Windows' ]

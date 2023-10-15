@@ -43,10 +43,6 @@ find_package(
     WindowSystem
 )
 
-if (NOT WIN32 AND NOT APPLE)
-    find_package(KF6 ${KF5_DEP_VERSION} OPTIONAL_COMPONENTS Activities)
-endif()
-
 target_link_libraries(
   kateprivate
   PUBLIC
@@ -60,11 +56,6 @@ target_link_libraries(
     KF6::KIOGui
     KF6::KIOWidgets
 )
-
-if(KF6Activities_FOUND)
-  target_link_libraries(kateprivate PUBLIC KF6::Activities)
-  target_compile_definitions(kateprivate PUBLIC -DKF6Activities_FOUND)
-endif()
 
 if (NOT WIN32 AND NOT HAIKU)
     target_compile_definitions(kateprivate PRIVATE -DKDE_INSTALL_FULL_LOCALEDIR=\"${KDE_INSTALL_FULL_LOCALEDIR}\")

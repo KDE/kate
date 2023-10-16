@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-15 01:41+0000\n"
+"POT-Creation-Date: 2023-10-16 01:41+0000\n"
 "PO-Revision-Date: 2023-09-04 10:29+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -372,37 +372,37 @@ msgstr "Expande omne"
 msgid "Collapse All"
 msgstr "Plica omne"
 
-#: lib/diagnostics/diagnosticview.cpp:1294
+#: lib/diagnostics/diagnosticview.cpp:1293
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copia in area de transferentia"
 
-#: lib/diagnostics/diagnosticview.cpp:1317
+#: lib/diagnostics/diagnosticview.cpp:1318
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Remove Suppression Global"
 
-#: lib/diagnostics/diagnosticview.cpp:1319
+#: lib/diagnostics/diagnosticview.cpp:1320
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Adde Suppression Global"
 
-#: lib/diagnostics/diagnosticview.cpp:1323
+#: lib/diagnostics/diagnosticview.cpp:1324
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Remove Suppression Local"
 
-#: lib/diagnostics/diagnosticview.cpp:1325
+#: lib/diagnostics/diagnosticview.cpp:1326
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Adde Suppression Local"
 
-#: lib/diagnostics/diagnosticview.cpp:1340
+#: lib/diagnostics/diagnosticview.cpp:1341
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Dishabilita Suppression"
 
-#: lib/diagnostics/diagnosticview.cpp:1342
+#: lib/diagnostics/diagnosticview.cpp:1343
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Habilita Suppression"

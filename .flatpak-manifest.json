@@ -27,7 +27,8 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://invent.kde.org/utilities/markdownpart.git"
+                    "url": "https://invent.kde.org/utilities/markdownpart.git",
+                    "branch": "release/23.08"
                 }
             ]
         },
@@ -37,7 +38,8 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://invent.kde.org/utilities/konsole.git"
+                    "url": "https://invent.kde.org/utilities/konsole.git",
+                    "branch": "release/23.08"
                 }
             ]
         },

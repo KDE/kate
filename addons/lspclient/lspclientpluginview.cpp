@@ -388,7 +388,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QTreeView> m_typeDefTree;
 
     // views on which completions have been registered
-    QSet<KTextEditor::View *> m_completionViews;
+    QList<KTextEditor::View *> m_completionViews;
 
     // outstanding request
     LSPClientServer::RequestHandle m_handle;
@@ -2404,7 +2404,7 @@ public:
 
     void viewDestroyed(QObject *view)
     {
-        m_completionViews.remove(static_cast<KTextEditor::View *>(view));
+        m_completionViews.removeAll(view);
     }
 
     void updateCompletion(KTextEditor::View *view, LSPClientServer *server)
@@ -2418,13 +2418,13 @@ public:
         if (!registered && server && server->capabilities().completionProvider.provider) {
             qCInfo(LSPCLIENT) << "registering cci";
             view->registerCompletionModel(m_completion.get());
-            m_completionViews.insert(view);
+            m_completionViews.append(view);
         }
 
         if (registered && !server) {
             qCInfo(LSPCLIENT) << "unregistering cci";
             view->unregisterCompletionModel(m_completion.get());
-            m_completionViews.remove(view);
+            m_completionViews.removeAll(view);
         }
     }
 

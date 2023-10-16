@@ -143,6 +143,18 @@ int SnippetCompletionModel::rowCount(const QModelIndex &parent) const
     }
 }
 
+bool SnippetCompletionModel::shouldStartCompletion(KTextEditor::View *view,
+                                                   const QString &insertedText,
+                                                   bool userInsertion,
+                                                   const KTextEditor::Cursor &position)
+{
+    Q_UNUSED(view);
+    Q_UNUSED(insertedText);
+    Q_UNUSED(userInsertion);
+    Q_UNUSED(position);
+    return false;
+}
+
 bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion)
 {
     if (view->cursorPosition() < range.start() || view->cursorPosition() > range.end()) {

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-16 01:41+0000\n"
+"POT-Creation-Date: 2023-10-17 01:40+0000\n"
 "PO-Revision-Date: 2023-09-13 16:13+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -160,8 +160,8 @@ msgstr "KWrite - ტექსტური რედაქტორი"
 msgid "Close"
 msgstr "დახურვა"
 
-#: lib/commitfilesview.cpp:392 lib/kateviewmanager.cpp:329
-#: lib/kateviewmanager.cpp:331
+#: lib/commitfilesview.cpp:392 lib/kateviewmanager.cpp:325
+#: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "ფაილის გახსნა"
@@ -2029,32 +2029,32 @@ msgstr ""
 "მონაცემების, რომლების შენახვაც მოითხოვეთ, ჩაწერა შეუძლებელია. აირჩიეთ, რისი "
 "გაკეთება გნებავთ."
 
-#: lib/kateviewmanager.cpp:134
+#: lib/kateviewmanager.cpp:130
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "&ვერტიკალურად გაყოფა"
 
-#: lib/kateviewmanager.cpp:138
+#: lib/kateviewmanager.cpp:134
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "მიმდინარე აქტიური ხედის შვეულად, ორ ხედად გაყოფა."
 
-#: lib/kateviewmanager.cpp:142
+#: lib/kateviewmanager.cpp:138
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "&ჰორიზონტალურად გაყოფა"
 
-#: lib/kateviewmanager.cpp:146
+#: lib/kateviewmanager.cpp:142
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "მიმდინარე აქტიური ხედის თარაზულად, ორ ხედად გაყოფა."
 
-#: lib/kateviewmanager.cpp:150
+#: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "დოკუმენტის ახალ შვეულ დანაყოფში გადატანა"
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -2063,12 +2063,12 @@ msgstr ""
 "ამჟამად აქტიური ხედის შვეულად, ორ ხედად გაყოფა და ამჟამად აქტიური დოკუმენტის "
 "მარჯვენა ხედში გადატანა."
 
-#: lib/kateviewmanager.cpp:159
+#: lib/kateviewmanager.cpp:155
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "დოკუმენტის ახალ თარაზულ დანაყოფში გადატანა"
 
-#: lib/kateviewmanager.cpp:163
+#: lib/kateviewmanager.cpp:159
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -2077,167 +2077,167 @@ msgstr ""
 "ამჟამად აქტიური ხედის თარაზულად, ორ ხედად გაყოფა და ამჟამად აქტიური "
 "დოკუმენტის ქვედა ხედში გადატანა."
 
-#: lib/kateviewmanager.cpp:168
+#: lib/kateviewmanager.cpp:164
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "&მიმდინარე ხედის დახურვა"
 
-#: lib/kateviewmanager.cpp:172
+#: lib/kateviewmanager.cpp:168
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "&ამჟამად აქტიური დაყოფილი ხედის დახურვა"
 
-#: lib/kateviewmanager.cpp:176
+#: lib/kateviewmanager.cpp:172
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "არააქტიური ხედების დახურვა"
 
-#: lib/kateviewmanager.cpp:179
+#: lib/kateviewmanager.cpp:175
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "ყველა ხედის, აქტიურის გარდა, დახურვა"
 
-#: lib/kateviewmanager.cpp:183
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "არააქტიური ხედების დამალვა"
 
-#: lib/kateviewmanager.cpp:187
+#: lib/kateviewmanager.cpp:183
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "ყველა ხედის, აქტიურის გარდა, დახურვა"
 
-#: lib/kateviewmanager.cpp:190
+#: lib/kateviewmanager.cpp:186
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "ორიენტაციის გადართვა"
 
-#: lib/kateviewmanager.cpp:193
+#: lib/kateviewmanager.cpp:189
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "გადართავს მიმდინარე გაყოფილი ხედის ორიენტაციას"
 
-#: lib/kateviewmanager.cpp:196
+#: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Next Split View"
 msgstr "შემდეგი გაყოფილი ხედი"
 
-#: lib/kateviewmanager.cpp:201
+#: lib/kateviewmanager.cpp:197
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "შემდეგი ხედის დანაყოფის გააქტიურება."
 
-#: lib/kateviewmanager.cpp:204
+#: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Previous Split View"
 msgstr "წინა გაყოფილი ხედი"
 
-#: lib/kateviewmanager.cpp:209
+#: lib/kateviewmanager.cpp:205
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "წინა ხედის დანაყოფის გააქტიურება."
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:208
 #, kde-format
 msgid "Left Split View"
 msgstr "მარცხენა გაყოფილი ხედი"
 
-#: lib/kateviewmanager.cpp:217
+#: lib/kateviewmanager.cpp:213
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "აქტიურიდან მარცხენა მხარეს გაყოფილი ხედის ინტუიციურად შექმნა."
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:216
 #, kde-format
 msgid "Right Split View"
 msgstr "მარჯვენა გაყოფილი ხედი"
 
-#: lib/kateviewmanager.cpp:225
+#: lib/kateviewmanager.cpp:221
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "აქტიურიდან მარჯვენა მხარეს გაყოფილი ხედის ინტუიციურად შექმნა."
 
-#: lib/kateviewmanager.cpp:228
+#: lib/kateviewmanager.cpp:224
 #, kde-format
 msgid "Upward Split View"
 msgstr "ხედის გაყოფა ზემო მიმართულებით"
 
-#: lib/kateviewmanager.cpp:233
+#: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "აქტიურიდან ზედა მხარეს გაყოფილი ხედის ინტუიციურად შექმნა."
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:232
 #, kde-format
 msgid "Downward Split View"
 msgstr "ხედის გაყოფა ქვემო მიმართულებით"
 
-#: lib/kateviewmanager.cpp:241
+#: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "აქტიურიდან ქვედა მხარეს გაყოფილი ხედის ინტუიციურად შექმნა."
 
-#: lib/kateviewmanager.cpp:244
+#: lib/kateviewmanager.cpp:240
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "გამყოფის მარჯვენივ გაწევა"
 
-#: lib/kateviewmanager.cpp:247
+#: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "მიმდინარე ხედის გამყოფის მარჯვნივ გაწევა"
 
-#: lib/kateviewmanager.cpp:250
+#: lib/kateviewmanager.cpp:246
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "გამყოფის მარცხნივ გაწევა"
 
-#: lib/kateviewmanager.cpp:253
+#: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "მიმდინარე ხედის გამყოფის მარცხნივ გაწევა"
 
-#: lib/kateviewmanager.cpp:256
+#: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "გამყოფის მაღლა აწევა"
 
-#: lib/kateviewmanager.cpp:259
+#: lib/kateviewmanager.cpp:255
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "მიმდინარე ხედის გამყოფის აწევა"
 
-#: lib/kateviewmanager.cpp:262
+#: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "გამყოფის დაბლა ჩამოწევა"
 
-#: lib/kateviewmanager.cpp:265
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "მიმდინარე ხედის გამყოფის დაწევა"
 
-#: lib/kateviewmanager.cpp:268
+#: lib/kateviewmanager.cpp:264
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "ფოკუსი ნავიგაციის პანელზე"
 
-#: lib/kateviewmanager.cpp:269
+#: lib/kateviewmanager.cpp:265
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "ფოკუსი ნავიგაციის პანელზე"
 
-#: lib/kateviewmanager.cpp:276
+#: lib/kateviewmanager.cpp:272
 #, kde-format
 msgid "Welcome Page"
 msgstr "საწყისი გვერდი"
 
-#: lib/kateviewmanager.cpp:281
+#: lib/kateviewmanager.cpp:277
 #, kde-format
 msgid "Show the welcome page"
 msgstr "საწყისი გვერდის ჩვენება"
 
-#: lib/kateviewmanager.cpp:350
+#: lib/kateviewmanager.cpp:346
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2249,22 +2249,22 @@ msgstr ""
 "Kate-მა შეიძლება პასუხი საკმაოდ დიდი ხნის განმავლობაში არ დაგიბრუნოთ.</"
 "strong></p>"
 
-#: lib/kateviewmanager.cpp:353
+#: lib/kateviewmanager.cpp:349
 #, kde-format
 msgid "Opening Large File"
 msgstr "დიდი ფაილის გასნა"
 
-#: lib/kateviewmanager.cpp:508
+#: lib/kateviewmanager.cpp:504
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 -ს საქაღალდეების გახსნა არ შეუძლია"
 
-#: lib/kateviewmanager.cpp:525
+#: lib/kateviewmanager.cpp:521
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "დამატება, რომელიც საქაღალდეების გასახსნელადაა საჭირო, აღმოჩენილი არაა"
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:527
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2272,19 +2272,19 @@ msgstr ""
 "იმისათვის, რომ საქაღალდეები გასნათ, საჭიროა, ჩართოთ დამატება <b>%1</b>. "
 "ჩავრთო?"
 
-#: lib/kateviewmanager.cpp:534
+#: lib/kateviewmanager.cpp:530
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "საქაღალდის გახსნა"
 
-#: lib/kateviewmanager.cpp:535
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "ჩართვა"
 
-#: lib/kateviewmanager.cpp:542
+#: lib/kateviewmanager.cpp:538
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> დამატების ჩართვის შეცდომა"

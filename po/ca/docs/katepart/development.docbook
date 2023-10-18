@@ -1354,7 +1354,7 @@
 <para
 >En aquest senzill exemple, el text que coincideix amb l'expressió regular <userinput
 >=*</userinput
-> serà capturat i inserit din de <replaceable
+> serà capturat i inserit dins de <replaceable
 >%1</replaceable
 > a la regla dinàmica. Això permet que el comentari acabi amb la mateixa quantitat de <userinput
 >=</userinput

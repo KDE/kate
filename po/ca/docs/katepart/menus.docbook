@@ -2564,7 +2564,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 <listitem
 ><para
 ><action
->Inicia el programa de correcció ortogràfica -un programa dissenyat per a ajudar a l'usuari a corregir qualsevol error ortogràfic-.</action
+>Inicia el programa de correcció ortogràfica -un programa dissenyat per a ajudar l'usuari a corregir qualsevol error ortogràfic-.</action
 > Fent clic en aquesta entrada s'iniciarà el corrector i apareixerà un diàleg a través del qual podreu controlar el procés. Hi ha quatre opcions alineades verticalment en el centre del diàleg amb les seves corresponents etiquetes a l'esquerra. Començant per dalt són:</para>
 
 <variablelist>

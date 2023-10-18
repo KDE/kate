@@ -1,0 +1,356 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY % Turkish "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>&kate; Kullanıcı Kılavuzu</title>
+<author
+>&Lauri.Watts; &Lauri.Watts.mail;</author>
+<date
+>2021-07-12</date>
+<releaseinfo
+>KDE Gear 21.08</releaseinfo>
+<productname
+>KDE Gear</productname>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>kate</command
+></refentrytitle>
+<manvolnum
+>1</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+><command
+>kate</command
+></refname>
+<refpurpose
+>&kde; tarafından yapılan gelişmiş bir metin düzenleyicisi</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<cmdsynopsis
+><command
+>kate</command
+> <group choice="opt"
+><option
+>-s, --start</option
+> <replaceable
+> ad</replaceable
+> </group
+> <group choice="opt"
+><option
+>--startanon</option
+></group
+> <group choice="opt"
+><option
+>-n, --new</option
+></group
+> <group choice="opt"
+><option
+>-b, --block</option
+></group
+> <group choice="opt"
+><option
+>-p, --pid</option
+><replaceable
+> pid</replaceable
+></group
+> <group choice="opt"
+><option
+>-e, --encoding</option
+> <replaceable
+> ad</replaceable
+></group
+> <group choice="opt"
+><option
+>-l, --line</option
+> <replaceable
+> satır</replaceable
+></group
+> <group choice="opt"
+><option
+>-c, --column</option
+> <replaceable
+> sütun</replaceable
+></group
+> <group choice="opt"
+><option
+>-i, --stdin</option
+></group
+> <group choice="opt"
+><option
+>--tempfile</option
+></group
+> <group choice="opt"
+><option
+><replaceable
+>dosya</replaceable
+></option
+></group
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title
+>Açıklama</title>
+<para
+>&kate;, &kde; Gelişmiş Metin Düzenleyicisi'dir. </para>
+<para
+>Ayrıca &kate;, &kwrite; adı altında çeşitli uygulamalar için bir düzenleyici de sağlamaktadır.</para>
+<para
+>&kate;'in özellikleri arasında; C, C++, &HTML; ve bash betikleri de bulunan uzun bir dil listesi için yapılandırılabilir sözdizim vurgulaması, proje oluşturma ve sürdürme yeteneği, çoklu belge arayüzü (<acronym
+>MDI</acronym
+>) ve kendi içinde yerleşik bir uçbirim öykünücüsü bulunur. </para>
+
+<para
+>&kate;, bir programcının düzenleyicisinden çok daha fazlasıdır. Aynı anda birden çok dosyayı açabilme özelliği, onu &UNIX; yapılandırma dosyalarını düzenlemek için ideal kılar. Bu belge, &kate; ile yazılmıştır. </para>
+
+
+</refsect1>
+
+<refsect1>
+<title
+>Seçenekler</title>
+
+<variablelist>
+<varlistentry>
+<term
+><option
+>-s</option
+>, <option
+>--start</option
+> <replaceable
+>ad</replaceable
+></term>
+<listitem
+><para
+>&kate;'i verilen oturum ile başlat</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>--startanon</option
+></term>
+<listitem
+><para
+>&kate; uygulamasını yeni bir anonim oturum ile başlat, <option
+>-n</option
+> ima eder.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-n</option
+>, <option
+>--new</option
+></term>
+<listitem
+><para
+>Yeni bir &kate; örneğinin başlatılmasını zorla (<option
+>start</option
+> kullanılmışsa ve başka bir &kate; örneği verilen oturumu halihazırda açmışsa yok sayılır), herhangi bir URL veya parametre verilmemişse bu zorlanır.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-b</option
+>, <option
+>--block</option
+></term>
+<listitem
+><para
+>Açmak için URL'ler verilmişse ve halihazırda çalışan bir &kate; örneği kullanılıyorsa o çıkana kadar engelle.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-p, --pid</option
+> <replaceable
+> pid</replaceable
+></term>
+<listitem
+><para
+>Kate örneğini yalnızca bu <replaceable
+>pid</replaceable
+> ile yeniden kullanmaya çalış (<option
+>start</option
+> kullanılmışsa ve başka bir &kate; örneği verilen oturumu halihazırda açmışsa yok sayılır).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-e, --encoding</option
+> <replaceable
+> ad</replaceable
+></term>
+<listitem
+><para
+>Açılacak dosya için kodlamayı ayarla.</para
+><para
+>Örneğin utf-8 biçiminde açılan bir dosyayı zorlamak için bunu kullanabilirsiniz. (<command
+>iconv -l</command
+> komutu, size yardımcı olabilecek kodlamaların bir listesini sağlar.)</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-l, --line</option
+> <replaceable
+> satır</replaceable
+></term>
+<listitem
+><para
+>Bu satıra git.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-c, --column</option
+> <replaceable
+> sütun</replaceable
+></term>
+<listitem
+><para
+>Bu sütuna git.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-i, --stdin</option
+></term>
+<listitem
+><para
+><filename
+>stdin</filename
+> içeriğini oku.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>--tempfile</option
+></term>
+<listitem
+><para
+>Uygulama tarafından açılan dosyalar/&URL;'ler, kullanımdan sonra silinir.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+><replaceable
+>dosya</replaceable
+></option
+></term>
+<listitem
+><para
+>Açılacak dosya.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>Ayrıca</title>
+
+<simplelist
+><member
+>Ayrıntılı kullanıcı belgelendirmesine <ulink url="help:/kate"
+>help:/kate</ulink
+> üzerinden ulaşılabilir (ya bu &URL;'yi &konqueror;'a girin veya <userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/kate</parameter
+></userinput
+> komutunu çalıştırın).</member>
+<member
+>kf5options(7)</member>
+<member
+>qt5options(7)</member>
+<member
+><ulink url="https://kate-editor.org/"
+>&kate; web sitesinde</ulink
+> ek bilgiler bulabilirsiniz.</member>
+</simplelist>
+</refsect1>
+
+<refsect1>
+<title
+>Örnekler</title>
+
+<para
+>Geçerli &kate; penceresinde, <filename
+>kaynak.cpp</filename
+> dosyasının 15. sütun, 25. satırda açmak için şunu kullanabilirsiniz:</para>
+<screen
+><userinput
+><command
+>kate</command
+> <option
+>-c 15</option
+> <option
+>-l 25</option
+> <filename
+>kaynak.cpp</filename
+></userinput
+>
+</screen>
+
+<para
+>Etkin bir internet bağlantınız varsa bir &FTP; sitesinden dosya açmak için &kde;'nin ağ saydamlığından yararlanabilirsiniz. Uzak sunucuda yazma izniniz yoksa dosya saltokunur olarak açılacak ve değişiklik yaptığınızda kaydedilecek yerel bir dosya adı istenecektir. Yazma izniniz varsa değişiklikler ağ üzerinden saydam bir biçimde kaydedilir.</para>
+<screen
+><userinput
+><command
+>kate</command
+> <option
+><replaceable
+>&kde-ftp;BENİOKU</replaceable
+></option
+></userinput
+></screen>
+
+<!-- FIXME: Some more useful examples would be cool, how about this snagged -->
+<!-- from a mail of anders (slightly edited /line/l to remove the double -->
+<!-- dashes:
+> /some/file/path/file.name:lineno
+
+> it would rock if Kate could understand that and not only open up file.name,
+
+> but jump to lineno after the file is opened.
+
+How bad is it to have to convert that into
+-l lineno /some/file/path/file.name
+
+sed s,([^:]*):(\d+),-l \2 \1,
+
+will do that, for example.-->
+
+</refsect1>
+
+<refsect1>
+<title
+>Yazarlar</title>
+<para
+>&kate; proje yürütücüsü, &Christoph.Cullmann; &Christoph.Cullmann.mail;. Yazarların ve katkıda bulunanların kapsamlı bir listesi yukarıda belirtilen kullanım kılavuzunun tamamında vardır.</para>
+</refsect1>
+
+</refentry>

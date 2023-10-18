@@ -60,9 +60,9 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
     return {};
 }
 
-void BranchesDialogModel::refresh(const QVector<GitUtils::Branch> &branches, bool checkingOut)
+void BranchesDialogModel::refresh(const QList<GitUtils::Branch> &branches, bool checkingOut)
 {
-    QVector<Branch> temp;
+    QList<Branch> temp;
     if (checkingOut) {
         Branch create{branches.at(0).name, {}, {}, 0, ItemType::CreateBranch};
         Branch createFrom{branches.at(1).name, {}, {}, 0, ItemType::CreateBranchFrom};
@@ -83,7 +83,7 @@ void BranchesDialogModel::refresh(const QVector<GitUtils::Branch> &branches, boo
 void BranchesDialogModel::clear()
 {
     beginResetModel();
-    QVector<Branch>().swap(m_modelEntries);
+    QList<Branch>().swap(m_modelEntries);
     endResetModel();
 }
 

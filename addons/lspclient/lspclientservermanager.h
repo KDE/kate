@@ -78,7 +78,7 @@ Q_SIGNALS:
     void serverLogMessage(LSPClientServer *server, const LSPShowMessageParams &);
     void serverWorkDoneProgress(LSPClientServer *server, const LSPWorkDoneProgressParams &);
     void showMessageRequest(const LSPShowMessageParams &message,
-                            const QVector<LSPMessageRequestAction> &actions,
+                            const QList<LSPMessageRequestAction> &actions,
                             const std::function<void()> chooseNothing,
                             bool &handled);
 };

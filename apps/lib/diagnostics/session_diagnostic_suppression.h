@@ -6,9 +6,9 @@
 #pragma once
 
 #include <KConfigGroup>
+#include <QList>
 #include <QSet>
 #include <QString>
-#include <QVector>
 
 class SessionDiagnosticSuppressions
 {
@@ -67,9 +67,9 @@ public:
         }
     }
 
-    QVector<QString> getSuppressions(const QString &file)
+    QList<QString> getSuppressions(const QString &file)
     {
-        QVector<QString> result;
+        QList<QString> result;
 
         for (const auto &entry : {QString(), file}) {
             auto it = m_suppressions.find(entry);

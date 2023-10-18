@@ -117,7 +117,7 @@ public:
             return;
         }
 
-        QVector<QTextLayout::FormatRange> fmts;
+        QList<QTextLayout::FormatRange> fmts;
 
         // is a label?
         if (!text.isEmpty() && !text.at(0).isSpace()) {
@@ -234,14 +234,14 @@ public:
         return -1;
     }
 
-    static QVector<LabelInRow> rowLabels(const QModelIndex &index)
+    static QList<LabelInRow> rowLabels(const QModelIndex &index)
     {
-        return index.data(AsmViewModel::RowLabels).value<QVector<LabelInRow>>();
+        return index.data(AsmViewModel::RowLabels).value<QList<LabelInRow>>();
     }
 
     void drawTextWithErrors(QPainter *p, const QStyleOptionViewItem &option, const QString &text) const
     {
-        QVector<QTextLayout::FormatRange> fmts;
+        QList<QTextLayout::FormatRange> fmts;
 
         int errIdx = text.indexOf(QLatin1String("error:"));
         if (errIdx != -1) {
@@ -307,12 +307,12 @@ void AsmView::contextMenuEvent(QContextMenuEvent *e)
 
     QModelIndex index = indexAt(e->pos());
     if (index.isValid()) {
-        auto labels = index.data(AsmViewModel::RowLabels).value<QVector<LabelInRow>>();
+        auto labels = index.data(AsmViewModel::RowLabels).value<QList<LabelInRow>>();
         if (!labels.isEmpty()) {
             menu.addAction(i18n("Jump to label"), this, [this, index] {
                 auto model = static_cast<AsmViewModel *>(this->model());
 
-                const auto labels = index.data(AsmViewModel::RowLabels).value<QVector<LabelInRow>>();
+                const auto labels = index.data(AsmViewModel::RowLabels).value<QList<LabelInRow>>();
                 if (labels.isEmpty()) {
                     return;
                 }

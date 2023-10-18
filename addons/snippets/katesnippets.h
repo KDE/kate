@@ -67,5 +67,5 @@ private:
     /**
      * remember for which text views we might need to cleanup stuff
      */
-    QVector<QPointer<KTextEditor::View>> m_textViews;
+    QList<QPointer<KTextEditor::View>> m_textViews;
 };

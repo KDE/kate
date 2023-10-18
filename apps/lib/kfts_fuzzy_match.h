@@ -394,10 +394,10 @@ static QString to_scored_fuzzy_matched_display_string(const QStringView pattern,
     return str;
 }
 
-Q_DECL_UNUSED static QVector<QTextLayout::FormatRange>
+Q_DECL_UNUSED static QList<QTextLayout::FormatRange>
 get_fuzzy_match_formats(const QStringView pattern, const QStringView str, int offset, const QTextCharFormat &fmt)
 {
-    QVector<QTextLayout::FormatRange> ranges;
+    QList<QTextLayout::FormatRange> ranges;
     if (pattern.isEmpty()) {
         return ranges;
     }

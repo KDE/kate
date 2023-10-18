@@ -66,7 +66,7 @@ public:
         return {};
     }
 
-    void update(const QVector<DiagnosticsProvider *> &providerList)
+    void update(const QList<DiagnosticsProvider *> &providerList)
     {
         beginResetModel();
         m_providers.clear();
@@ -76,7 +76,7 @@ public:
     }
 
     DiagnosticsView *m_diagView;
-    QVector<DiagnosticsProvider *> m_providers;
+    QList<DiagnosticsProvider *> m_providers;
 };
 
 class DiagnosticsProxyModel final : public QSortFilterProxyModel
@@ -211,7 +211,7 @@ public:
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-        QVector<QTextLayout::FormatRange> formats;
+        QList<QTextLayout::FormatRange> formats;
         int lastSlash = text.lastIndexOf(QLatin1Char('/'));
         if (lastSlash != -1) {
             QTextCharFormat fmt;
@@ -619,7 +619,7 @@ static void fillItemRoles(QStandardItem *item, const QUrl &url, const KTextEdito
     item->setData(QVariant::fromValue(kind), DiagnosticModelRole::KindRole);
 }
 
-void DiagnosticsView::onFixesAvailable(const QVector<DiagnosticFix> &fixes, const QVariant &data)
+void DiagnosticsView::onFixesAvailable(const QList<DiagnosticFix> &fixes, const QVariant &data)
 {
     if (fixes.empty() || data.isNull()) {
         return;
@@ -659,7 +659,7 @@ void DiagnosticsView::onFixesAvailable(const QVector<DiagnosticFix> &fixes, cons
     }
 }
 
-void DiagnosticsView::showFixesInMenu(const QVector<DiagnosticFix> &fixes)
+void DiagnosticsView::showFixesInMenu(const QList<DiagnosticFix> &fixes)
 {
     auto av = m_mainWindow->activeView();
     if (av) {
@@ -696,7 +696,7 @@ void DiagnosticsView::quickFix()
 
     if (targetItem && targetItem->type() == DiagnosticItem_Diag) {
         if (static_cast<DiagnosticItem *>(targetItem)->hasFixes()) {
-            QVector<DiagnosticFix> fixes;
+            QList<DiagnosticFix> fixes;
             for (int i = 0; i < targetItem->rowCount(); ++i) {
                 auto item = targetItem->child(i);
                 if (item && item->type() == DiagnosticItem_Fix) {
@@ -854,7 +854,7 @@ static auto getProvider(QStandardItem *item)
     return item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
 }
 
-void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider)
+void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QString> &filesToKeep, DiagnosticsProvider *provider)
 {
     auto all_diags_from_provider = [provider](DocumentDiagnosticItem *file) {
         if (file->rowCount() == 0) {
@@ -864,7 +864,7 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
             return true;
         }
         if (!provider) {
-            const QVector<DiagnosticsProvider *> &providers = file->providers();
+            const QList<DiagnosticsProvider *> &providers = file->providers();
             return std::all_of(providers.begin(), providers.end(), [](DiagnosticsProvider *p) {
                 return !p->persistentDiagnostics();
             });
@@ -1260,8 +1260,8 @@ void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagT
 
     auto &suppressions = diagTopItem->diagnosticSuppression;
     if (!suppressions || force) {
-        QVector<QJsonObject> providerSupressions;
-        const QVector<DiagnosticsProvider *> &providers = diagTopItem->providers();
+        QList<QJsonObject> providerSupressions;
+        const QList<DiagnosticsProvider *> &providers = diagTopItem->providers();
         for (auto p : providers) {
             auto suppressions = p->suppressions(doc);
             if (!suppressions.isEmpty()) {

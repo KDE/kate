@@ -37,7 +37,7 @@ inline QPixmap colorIcon(const QIcon &icon, const QColor &fgColor, const QSize s
  * Draws text in an item view for e.g treeview
  * It assumes options.rect == textRect
  */
-inline void paintItemViewText(QPainter *p, const QString &text, const QStyleOptionViewItem &options, QVector<QTextLayout::FormatRange> formats)
+inline void paintItemViewText(QPainter *p, const QString &text, const QStyleOptionViewItem &options, QList<QTextLayout::FormatRange> formats)
 {
     // set formats
     QTextLayout textLayout(text, options.font);

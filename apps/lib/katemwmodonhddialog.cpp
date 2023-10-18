@@ -47,7 +47,7 @@ public:
     QPointer<KTextEditor::Document> document;
 };
 
-KateMwModOnHdDialog::KateMwModOnHdDialog(const QVector<KTextEditor::Document *> &docs, QWidget *parent, const char *name)
+KateMwModOnHdDialog::KateMwModOnHdDialog(const QList<KTextEditor::Document *> &docs, QWidget *parent, const char *name)
     : QDialog(parent)
     , m_blockAddDocument(false)
 {

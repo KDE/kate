@@ -193,7 +193,7 @@ public:
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-        QVector<QTextLayout::FormatRange> formats;
+        QList<QTextLayout::FormatRange> formats;
         if (!index.parent().isValid()) {
             int lastSlash = text.lastIndexOf(QLatin1Char('/'));
             if (lastSlash != -1) {
@@ -398,11 +398,11 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     // accept incoming applyEdit
     bool m_accept_edit = false;
     // characters to trigger format request
-    QVector<QChar> m_onTypeFormattingTriggers;
+    QList<QChar> m_onTypeFormattingTriggers;
 
     // ongoing workDoneProgress
     // list of (enhanced server token, progress begin)
-    QVector<std::pair<QString, LSPWorkDoneProgressParams>> m_workDoneProgress;
+    QList<std::pair<QString, LSPWorkDoneProgressParams>> m_workDoneProgress;
 
     CtrlHoverFeedback m_ctrlHoverFeedback = {};
 
@@ -1167,7 +1167,7 @@ public:
         std::shared_ptr<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
         auto h = [url, snapshot, executeCodeAction, this, data](const QList<LSPCodeAction> &actions) {
             // add actions below diagnostic item
-            QVector<DiagnosticFix> fixes;
+            QList<DiagnosticFix> fixes;
             for (const auto &action : actions) {
                 DiagnosticFix fix;
                 fix.fixTitle = action.title;
@@ -1320,7 +1320,7 @@ public:
         return url;
     }
 
-    void makeTree(const QVector<RangeItem> &locations, const LSPClientRevisionSnapshot *snapshot)
+    void makeTree(const QList<RangeItem> &locations, const LSPClientRevisionSnapshot *snapshot)
     {
         // group by url, assuming input is suitably sorted that way
         auto treeModel = new QStandardItemModel();
@@ -1497,7 +1497,7 @@ public:
                 showMessage(i18n("No results"), KTextEditor::Message::Information);
             } else {
                 // convert to helper type
-                QVector<RangeItem> ranges;
+                QList<RangeItem> ranges;
                 ranges.reserve(defs.size());
                 for (const auto &def : defs) {
                     ranges.push_back(itemConverter(def));
@@ -1852,7 +1852,7 @@ public:
             }
 
             auto selections = activeView->selectionRanges();
-            QVector<KTextEditor::Range> ret;
+            QList<KTextEditor::Range> ret;
 
             for (int i = 0; i < cursors.size(); i++) {
                 const auto &lspSelectionRange = reply.at(i);
@@ -2434,7 +2434,7 @@ public:
     }
 
     void showMessageRequest(const LSPShowMessageParams &message,
-                            const QVector<LSPMessageRequestAction> &actions,
+                            const QList<LSPMessageRequestAction> &actions,
                             const std::function<void()> chooseNothing,
                             bool &handled)
     {

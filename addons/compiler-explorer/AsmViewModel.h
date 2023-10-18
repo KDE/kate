@@ -27,10 +27,10 @@ struct LabelInRow {
     int col = 0;
     int len = 0;
 };
-Q_DECLARE_METATYPE(QVector<LabelInRow>)
+Q_DECLARE_METATYPE(QList<LabelInRow>)
 
 struct AsmRow {
-    QVector<LabelInRow> labels;
+    QList<LabelInRow> labels;
 
     // Corresponding source location
     // for this asm row

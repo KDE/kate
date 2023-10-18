@@ -153,7 +153,7 @@ void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine)
     }
 }
 
-QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
+QList<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
 {
     if (!m_colorNoteIndices.contains(line)) {
         const QString lineText = m_doc->line(line);
@@ -195,7 +195,7 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
     const auto line = note.position().line();
     auto colorEnd = note.position().column();
 
-    const QVector<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
+    const QList<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
     // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes(), we can use binary search to find the index (or color note
     // number) for the line
     const int colorNoteNumber = std::lower_bound(colorNoteIndices.cbegin(), colorNoteIndices.cend(), colorEnd) - colorNoteIndices.cbegin();
@@ -226,7 +226,7 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
     const auto line = note.position().line();
     auto colorEnd = note.position().column();
 
-    const QVector<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
+    const QList<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
     // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes, we can use binary search to find the index (or color note
     // number) for the line
     const int colorNoteNumber = std::lower_bound(colorNoteIndices.cbegin(), colorNoteIndices.cend(), colorEnd) - colorNoteIndices.cbegin();

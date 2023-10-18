@@ -59,7 +59,7 @@ QIcon blankIcon()
     return QIcon(pm);
 }
 
-static void makeToolUnique(KateExternalTool *tool, const QVector<KateExternalTool *> &tools)
+static void makeToolUnique(KateExternalTool *tool, const QList<KateExternalTool *> &tools)
 {
     // Ensure that tool->name is unique
     int i = 1;
@@ -109,7 +109,7 @@ static void makeToolUnique(KateExternalTool *tool, const QVector<KateExternalToo
     tool->cmdname = cmdname;
 }
 
-static KateExternalTool defaultTool(const QString &actionName, const QVector<KateExternalTool> &defaultTools)
+static KateExternalTool defaultTool(const QString &actionName, const QList<KateExternalTool> &defaultTools)
 {
     auto it = std::find_if(defaultTools.cbegin(), defaultTools.cend(), [actionName](const KateExternalTool &defaultTool) {
         return actionName == defaultTool.actionName;
@@ -117,7 +117,7 @@ static KateExternalTool defaultTool(const QString &actionName, const QVector<Kat
     return (it != defaultTools.cend()) ? *it : KateExternalTool();
 }
 
-static bool isDefaultTool(KateExternalTool *tool, const QVector<KateExternalTool> &defaultTools)
+static bool isDefaultTool(KateExternalTool *tool, const QList<KateExternalTool> &defaultTools)
 {
     return tool && !defaultTool(tool->actionName, defaultTools).actionName.isEmpty();
 }

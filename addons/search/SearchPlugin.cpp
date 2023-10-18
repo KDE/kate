@@ -165,7 +165,7 @@ KatePluginSearch::KatePluginSearch(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
     // ensure we can send over vector of matches via queued connection
-    qRegisterMetaType<QVector<KateSearchMatch>>();
+    qRegisterMetaType<QList<KateSearchMatch>>();
 
     m_searchCommand = new KateSearchCommand(this);
 }
@@ -590,9 +590,9 @@ KatePluginSearchView::~KatePluginSearchView()
     delete m_toolView;
 }
 
-QVector<int> KatePluginSearchView::getDocumentSearchMarkedLines(KTextEditor::Document *currentDocument)
+QList<int> KatePluginSearchView::getDocumentSearchMarkedLines(KTextEditor::Document *currentDocument)
 {
-    QVector<int> result;
+    QList<int> result;
     if (!currentDocument) {
         return result;
     }
@@ -608,7 +608,7 @@ QVector<int> KatePluginSearchView::getDocumentSearchMarkedLines(KTextEditor::Doc
     return result;
 }
 
-void KatePluginSearchView::setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QVector<int> lineNumbers)
+void KatePluginSearchView::setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QList<int> lineNumbers)
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
     QString text;
@@ -630,7 +630,7 @@ void KatePluginSearchView::cutSearchedLines()
         return;
     }
 
-    QVector<int> lineNumbers = getDocumentSearchMarkedLines(currentDocument);
+    QList<int> lineNumbers = getDocumentSearchMarkedLines(currentDocument);
     setClipboardFromDocumentLines(currentDocument, lineNumbers);
 
     // Iterate in descending line number order to remove the search matched lines to complete
@@ -654,7 +654,7 @@ void KatePluginSearchView::copySearchedLines()
         return;
     }
 
-    QVector<int> lineNumbers = getDocumentSearchMarkedLines(currentDocument);
+    QList<int> lineNumbers = getDocumentSearchMarkedLines(currentDocument);
     setClipboardFromDocumentLines(currentDocument, lineNumbers);
 }
 
@@ -786,13 +786,13 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
     }
 
     const QStringList tmpTypes = types.split(QLatin1Char(','), Qt::SkipEmptyParts);
-    QVector<QRegularExpression> typeList;
+    QList<QRegularExpression> typeList;
     for (const auto &type : tmpTypes) {
         typeList << QRegularExpression(QRegularExpression::wildcardToRegularExpression(type.trimmed()));
     }
 
     const QStringList tmpExcludes = excludes.split(QLatin1Char(','), Qt::SkipEmptyParts);
-    QVector<QRegularExpression> excludeList;
+    QList<QRegularExpression> excludeList;
     for (const auto &exclude : tmpExcludes) {
         excludeList << QRegularExpression(QRegularExpression::wildcardToRegularExpression(exclude.trimmed()));
     }
@@ -971,7 +971,7 @@ void KatePluginSearchView::searchPlaceChanged()
     }
 }
 
-void KatePluginSearchView::matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc)
+void KatePluginSearchView::matchesFound(const QUrl &url, const QList<KateSearchMatch> &searchMatches, KTextEditor::Document *doc)
 {
     if (!m_curResults) {
         return;
@@ -1655,7 +1655,7 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc, const Kat
     doc->addMark(match.range.start().line(), KTextEditor::Document::markType32);
 }
 
-void KatePluginSearchView::updateCheckState(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+void KatePluginSearchView::updateCheckState(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles)
 {
     Q_UNUSED(topLeft);
     Q_UNUSED(bottomRight);
@@ -1700,7 +1700,7 @@ void KatePluginSearchView::updateMatchMarks()
     connect(&res->matchModel, &QAbstractItemModel::dataChanged, this, &KatePluginSearchView::updateCheckState, Qt::UniqueConnection);
 
     // Add match marks for all matches in the file
-    const QVector<KateSearchMatch> &fileMatches = res->matchModel.fileMatches(doc);
+    const QList<KateSearchMatch> &fileMatches = res->matchModel.fileMatches(doc);
     for (const KateSearchMatch &match : fileMatches) {
         addRangeAndMark(doc, match, m_resultAttr);
     }

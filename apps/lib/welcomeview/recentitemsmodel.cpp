@@ -47,7 +47,7 @@ int RecentItemsModel::rowCount(const QModelIndex &parent) const
 
 void RecentItemsModel::refresh(const QList<QUrl> &urls)
 {
-    QVector<RecentItemInfo> recentItems;
+    QList<RecentItemInfo> recentItems;
     recentItems.reserve(urls.count());
 
     QIcon icon;

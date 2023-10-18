@@ -929,14 +929,14 @@ private:
         }
     }
 
-    static QVector<DirNamePath> splittedUrl(const QString &base, const QString &s)
+    static QList<DirNamePath> splittedUrl(const QString &base, const QString &s)
     {
         QDir dir(s);
         const QString fileName = dir.dirName();
         dir.cdUp();
         const QString path = dir.absolutePath();
 
-        QVector<DirNamePath> dirsList;
+        QList<DirNamePath> dirsList;
         dirsList << DirNamePath{fileName, path};
 
         // arrived at base?

@@ -50,5 +50,5 @@ private Q_SLOTS:
     void unloadPlugin(KatePluginListItem *);
 
 private:
-    QVector<class KatePluginListItem *> m_pluginItems;
+    QList<class KatePluginListItem *> m_pluginItems;
 };

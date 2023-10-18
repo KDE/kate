@@ -249,7 +249,7 @@ static QStandardItem *directoryParent(const QDir &base, QHash<QString, QStandard
 }
 
 // Copied from CompareBranchView in KateProject plugin
-static void createFileTree(QStandardItem *parent, const QString &basePath, const QVector<GitFileItem> &files)
+static void createFileTree(QStandardItem *parent, const QString &basePath, const QList<GitFileItem> &files)
 {
     QDir dir(basePath);
     const QString dirPath = dir.path() + QLatin1Char('/');
@@ -287,9 +287,9 @@ static bool getNum(const QByteArray &numBytes, int *num)
     return res;
 }
 
-static QVector<GitFileItem> parseNumStat(const QByteArray &raw)
+static QList<GitFileItem> parseNumStat(const QByteArray &raw)
 {
-    QVector<GitFileItem> items;
+    QList<GitFileItem> items;
 
     const auto lines = raw.split(0x00);
     for (const auto &line : lines) {

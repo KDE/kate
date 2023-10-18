@@ -38,12 +38,12 @@ static QString toolsConfigDir()
     return dir;
 }
 
-static QVector<KateExternalTool> readDefaultTools()
+static QList<KateExternalTool> readDefaultTools()
 {
     QDir dir(QStringLiteral(":/kconfig/externaltools-config/"));
     const QStringList entries = dir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
-    QVector<KateExternalTool> tools;
+    QList<KateExternalTool> tools;
     for (const auto &file : entries) {
         KConfig config(dir.absoluteFilePath(file));
         KConfigGroup cg = config.group("General");
@@ -233,12 +233,12 @@ const KateExternalTool *KateExternalToolsPlugin::toolForCommand(const QString &c
     return nullptr;
 }
 
-const QVector<KateExternalTool *> &KateExternalToolsPlugin::tools() const
+const QList<KateExternalTool *> &KateExternalToolsPlugin::tools() const
 {
     return m_tools;
 }
 
-QVector<KateExternalTool> KateExternalToolsPlugin::defaultTools() const
+QList<KateExternalTool> KateExternalToolsPlugin::defaultTools() const
 {
     return m_defaultTools;
 }

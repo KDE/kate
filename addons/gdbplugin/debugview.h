@@ -13,9 +13,9 @@
 
 #include <QObject>
 
+#include <QList>
 #include <QProcess>
 #include <QUrl>
-#include <QVector>
 #include <optional>
 #include <sys/types.h>
 
@@ -212,7 +212,7 @@ private:
     int m_seq = 0;
     GdbState m_gdbState = Disconnected;
     QList<dap::StackFrame> m_stackFrames;
-    QVector<QString> m_registerNames;
+    QList<QString> m_registerNames;
     QSet<int> m_changedRegisters;
     bool m_lastInputReady = false;
     bool m_pointerThis = false;

@@ -18,7 +18,6 @@
 #include <QString>
 #include <QTextFormat>
 #include <QVariant>
-#include <QVector>
 #include <QWidget>
 #include <QtGlobal>
 

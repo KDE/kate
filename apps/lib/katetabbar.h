@@ -84,7 +84,7 @@ public:
      * Returns the document list of this tab bar.
      * @return document list in order of tabs
      */
-    QVector<DocOrWidget> documentList() const;
+    QList<DocOrWidget> documentList() const;
 
 Q_SIGNALS:
     /**

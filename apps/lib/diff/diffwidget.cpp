@@ -562,7 +562,7 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
     runGitDiff();
 }
 
-static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, int &lineB, QVector<int> &lineNosA, QVector<int> &lineNosB)
+static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, int &lineB, QList<int> &lineNosA, QList<int> &lineNosB)
 {
     while (left.size() < right.size()) {
         lineA++;
@@ -640,7 +640,7 @@ struct HunkChangedLine {
 using HunkChangedLines = std::vector<HunkChangedLine>;
 
 static void
-markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChangedLinesB, QVector<LineHighlight> &leftHlts, QVector<LineHighlight> &rightHlts)
+markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChangedLinesB, QList<LineHighlight> &leftHlts, QList<LineHighlight> &rightHlts)
 {
     if (hunkChangedLinesA.size() != hunkChangedLinesB.size()) {
         hunkChangedLinesA.clear();
@@ -654,7 +654,7 @@ markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChang
         hunkChangedLinesB[i].c = rightChange;
     }
 
-    auto addHighlights = [](HunkChangedLines &hunkChangedLines, QVector<LineHighlight> &hlts) {
+    auto addHighlights = [](HunkChangedLines &hunkChangedLines, QList<LineHighlight> &hlts) {
         for (int i = 0; i < (int)hunkChangedLines.size(); ++i) {
             auto &change = hunkChangedLines[i];
             for (int j = hlts.size() - 1; j >= 0; --j) {
@@ -674,7 +674,7 @@ markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChang
     hunkChangedLinesB.clear();
 }
 
-static QVector<KSyntaxHighlighting::Definition> defsForFileExtensions(const QSet<QString> &fileExtensions)
+static QList<KSyntaxHighlighting::Definition> defsForFileExtensions(const QSet<QString> &fileExtensions)
 {
     const auto &repo = KTextEditor::Editor::instance()->repository();
     if (fileExtensions.size() == 1) {
@@ -682,13 +682,13 @@ static QVector<KSyntaxHighlighting::Definition> defsForFileExtensions(const QSet
         return {repo.definitionForFileName(name)};
     }
 
-    QVector<KSyntaxHighlighting::Definition> defs;
+    QList<KSyntaxHighlighting::Definition> defs;
     for (const auto &ext : fileExtensions) {
         const QString name = QStringLiteral("a.") + ext;
         defs.push_back(repo.definitionForFileName(name));
     }
     QSet<QString> seenDefs;
-    QVector<KSyntaxHighlighting::Definition> uniqueDefs;
+    QList<KSyntaxHighlighting::Definition> uniqueDefs;
     for (const auto &def : defs) {
         if (!seenDefs.contains(def.name())) {
             uniqueDefs.push_back(def);
@@ -715,13 +715,13 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     QStringList right;
 
     // Highlighting data for modified lines
-    QVector<LineHighlight> leftHlts;
-    QVector<LineHighlight> rightHlts;
-    // QVector<QPair<int, HunkData>> hunkDatas; // lineNo => HunkData
+    QList<LineHighlight> leftHlts;
+    QList<LineHighlight> rightHlts;
+    // QList<QPair<int, HunkData>> hunkDatas; // lineNo => HunkData
 
     // Line numbers that will be shown in the editor
-    QVector<int> lineNumsA;
-    QVector<int> lineNumsB;
+    QList<int> lineNumsA;
+    QList<int> lineNumsB;
 
     // Changed lines of hunk, used to determine differences between two lines
     HunkChangedLines hunkChangedLinesA;
@@ -732,10 +732,10 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     QString tgtFile;
 
     // viewLine => rawDiffLine
-    QVector<ViewLineToDiffLine> lineToRawDiffLine;
+    QList<ViewLineToDiffLine> lineToRawDiffLine;
     // for Folding/stage/unstage hunk
-    QVector<ViewLineToDiffLine> linesWithHunkHeading;
-    QVector<int> linesWithFileName;
+    QList<ViewLineToDiffLine> linesWithHunkHeading;
+    QList<int> linesWithFileName;
 
     int maxLineNoFound = 0;
     int lineA = 0;
@@ -921,22 +921,22 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     QStringList lines;
 
     // Highlighting data for modified lines
-    QVector<LineHighlight> hlts;
+    QList<LineHighlight> hlts;
 
     // Line numbers that will be shown in the editor
-    QVector<int> lineNumsA;
-    QVector<int> lineNumsB;
+    QList<int> lineNumsA;
+    QList<int> lineNumsB;
 
     // Changed lines of hunk, used to determine differences between two lines
     HunkChangedLines hunkChangedLinesA;
     HunkChangedLines hunkChangedLinesB;
 
     // viewLine => rawDiffLine
-    QVector<ViewLineToDiffLine> lineToRawDiffLine;
+    QList<ViewLineToDiffLine> lineToRawDiffLine;
     // for Folding/stage/unstage hunk
-    QVector<ViewLineToDiffLine> linesWithHunkHeading;
+    QList<ViewLineToDiffLine> linesWithHunkHeading;
     // Lines containing filename
-    QVector<int> linesWithFileName;
+    QList<int> linesWithFileName;
 
     QSet<QString> fileExtensions;
     QString srcFile;

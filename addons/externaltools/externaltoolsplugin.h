@@ -7,7 +7,7 @@
 #pragma once
 
 #include <KTextEditor/Plugin>
-#include <QVector>
+#include <QList>
 
 #include <KSharedConfig>
 
@@ -79,13 +79,13 @@ public:
     /**
      * Returns a list of all existing external tools.
      */
-    const QVector<KateExternalTool *> &tools() const;
+    const QList<KateExternalTool *> &tools() const;
 
     /**
      * Returns the list of external tools that are shipped by default with
      * the external tools plugin.
      */
-    QVector<KateExternalTool> defaultTools() const;
+    QList<KateExternalTool> defaultTools() const;
 
     /**
      * Executes the tool based on the view as current document.
@@ -142,9 +142,9 @@ private:
     KateToolRunner *runnerForTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger);
 
     KSharedConfigPtr m_config;
-    QVector<KateExternalTool> m_defaultTools;
-    QVector<KateExternalToolsPluginView *> m_views;
-    QVector<KateExternalTool *> m_tools;
+    QList<KateExternalTool> m_defaultTools;
+    QList<KateExternalToolsPluginView *> m_views;
+    QList<KateExternalTool *> m_tools;
     QStringList m_commands;
     KateExternalToolsCommand *m_command = nullptr;
 

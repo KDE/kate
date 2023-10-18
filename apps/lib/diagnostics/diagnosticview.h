@@ -96,7 +96,7 @@ Q_SIGNALS:
     void requestFixes(const QUrl &, const Diagnostic &, const QVariant &data);
 
     /// emitted by provider when fixes are available
-    void fixesAvailable(const QVector<DiagnosticFix> &fixes, const QVariant &data);
+    void fixesAvailable(const QList<DiagnosticFix> &fixes, const QVariant &data);
 
     /// emitted by provider to clear suppressions
     /// (as some state that the previously provided ones depend on may have changed
@@ -185,8 +185,8 @@ private Q_SLOTS:
     void tabForToolViewAdded(QWidget *toolView, QWidget *tab);
 
 private:
-    void onFixesAvailable(const QVector<DiagnosticFix> &fixes, const QVariant &data);
-    void showFixesInMenu(const QVector<DiagnosticFix> &fixes);
+    void onFixesAvailable(const QList<DiagnosticFix> &fixes, const QVariant &data);
+    void showFixesInMenu(const QList<DiagnosticFix> &fixes);
     void quickFix();
     void moveDiagnosticsSelection(bool forward);
     void nextItem();
@@ -196,7 +196,7 @@ private:
     {
         clearDiagnosticsForStaleDocs({}, provider);
     }
-    void clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider);
+    void clearDiagnosticsForStaleDocs(const QList<QString> &filesToKeep, DiagnosticsProvider *provider);
     void clearSuppressionsFromProvider(DiagnosticsProvider *provider);
     void onDocumentUrlChanged();
     void updateDiagnosticsState(struct DocumentDiagnosticItem *&topItem);
@@ -233,10 +233,10 @@ private:
 
     QStandardItemModel m_model;
     QSortFilterProxyModel *const m_proxy;
-    QVector<DiagnosticsProvider *> m_providers;
+    QList<DiagnosticsProvider *> m_providers;
     std::unique_ptr<SessionDiagnosticSuppressions> m_sessionDiagnosticSuppressions;
 
-    QHash<KTextEditor::Document *, QVector<KTextEditor::MovingRange *>> m_diagnosticsRanges;
+    QHash<KTextEditor::Document *, QList<KTextEditor::MovingRange *>> m_diagnosticsRanges;
     // applied marks
     QSet<KTextEditor::Document *> m_diagnosticsMarks;
 

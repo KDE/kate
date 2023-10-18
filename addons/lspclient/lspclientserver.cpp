@@ -199,7 +199,7 @@ static QJsonArray to_json(const QList<LSPTextDocumentContentChangeEvent> &change
     return result;
 }
 
-static QJsonArray to_json(const QVector<LSPPosition> &positions)
+static QJsonArray to_json(const QList<LSPPosition> &positions)
 {
     QJsonArray result;
     for (const auto &position : positions) {
@@ -242,7 +242,7 @@ static QJsonObject textDocumentPositionParams(const QUrl &document, LSPPosition 
     return params;
 }
 
-static QJsonObject textDocumentPositionsParams(const QUrl &document, const QVector<LSPPosition> &positions)
+static QJsonObject textDocumentPositionsParams(const QUrl &document, const QList<LSPPosition> &positions)
 {
     auto params = textDocumentParams(document);
     params[QLatin1String(MEMBER_POSITIONS)] = to_json(positions);
@@ -350,7 +350,7 @@ static QJsonObject changeWorkspaceFoldersParams(const QList<LSPWorkspaceFolder> 
     return QJsonObject{{QStringLiteral("event"), event}};
 }
 
-static void from_json(QVector<QChar> &trigger, const rapidjson::Value &json)
+static void from_json(QList<QChar> &trigger, const rapidjson::Value &json)
 {
     if (json.IsArray()) {
         const auto triggersArray = json.GetArray();
@@ -437,7 +437,7 @@ static void from_json(LSPSemanticTokensOptions &options, const rapidjson::Value 
         }
         options.legend.initialize(types);
     }
-    // options.types = QVector<QString>(types.begin(), types.end());
+    // options.types = QList<QString>(types.begin(), types.end());
     // Disabled
     //     const auto tokenMods = legend.value(QStringLiteral("tokenModifiers")).toArray();
     //     std::vector<QString> modifiers;
@@ -969,9 +969,9 @@ static LSPCommand parseCommand(const rapidjson::Value &result)
     return {title, command, args};
 }
 
-static QVector<LSPDiagnostic> parseDiagnosticsArray(const rapidjson::Value &result)
+static QList<LSPDiagnostic> parseDiagnosticsArray(const rapidjson::Value &result)
 {
-    QVector<LSPDiagnostic> ret;
+    QList<LSPDiagnostic> ret;
     if (!result.IsArray()) {
         return ret;
     }
@@ -1097,9 +1097,9 @@ static LSPSemanticTokensDelta parseSemanticTokensDelta(const rapidjson::Value &r
     return ret;
 }
 
-static QVector<LSPInlayHint> parseInlayHints(const rapidjson::Value &result)
+static QList<LSPInlayHint> parseInlayHints(const rapidjson::Value &result)
 {
-    QVector<LSPInlayHint> ret;
+    QList<LSPInlayHint> ret;
     if (!result.IsArray()) {
         return ret;
     }
@@ -1293,7 +1293,7 @@ class LSPClientServer::LSPClientServerPrivate
     QHash<int, std::pair<GenericReplyHandler, GenericReplyHandler>> m_handlers;
     // pending request responses
     static constexpr int MAX_REQUESTS = 5;
-    QVector<QVariant> m_requests{MAX_REQUESTS + 1};
+    QList<QVariant> m_requests{MAX_REQUESTS + 1};
 
     // currently accumulated stderr output, used to output to the message view on line level
     QString m_currentStderrOutput;
@@ -1582,7 +1582,7 @@ private:
         }
     }
 
-    void applyTriggerOverride(QVector<QChar> &characters, const TriggerCharactersOverride &adjust)
+    void applyTriggerOverride(QList<QChar> &characters, const TriggerCharactersOverride &adjust)
     {
         // these are expected 'small' sets, so the simple way should do
         for (const auto &c : adjust.exclude) {
@@ -1811,7 +1811,7 @@ public:
         return send(init_request(QStringLiteral("textDocument/signatureHelp"), params), h);
     }
 
-    RequestHandle selectionRange(const QUrl &document, const QVector<LSPPosition> &positions, const GenericReplyHandler &h)
+    RequestHandle selectionRange(const QUrl &document, const QList<LSPPosition> &positions, const GenericReplyHandler &h)
     {
         auto params = textDocumentPositionsParams(document, positions);
         return send(init_request(QStringLiteral("textDocument/selectionRange"), params), h);
@@ -2046,7 +2046,7 @@ public:
             h(QJsonValue());
         } else if (method == QLatin1String("window/showMessageRequest")) {
             auto actions = GetJsonArrayForKey(params, MEMBER_ACTIONS).GetArray();
-            QVector<LSPMessageRequestAction> v;
+            QList<LSPMessageRequestAction> v;
             auto responder = prepareResponse(msgId);
             for (const auto &action : actions) {
                 QString title = GetStringValue(action, MEMBER_TITLE);
@@ -2204,7 +2204,7 @@ LSPClientServer::signatureHelp(const QUrl &document, const LSPPosition &pos, con
 }
 
 LSPClientServer::RequestHandle
-LSPClientServer::selectionRange(const QUrl &document, const QVector<LSPPosition> &positions, const QObject *context, const SelectionRangeReplyHandler &h)
+LSPClientServer::selectionRange(const QUrl &document, const QList<LSPPosition> &positions, const QObject *context, const SelectionRangeReplyHandler &h)
 {
     return d->selectionRange(document, positions, make_handler(h, context, parseSelectionRanges));
 }

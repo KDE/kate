@@ -31,9 +31,9 @@ class InlayHintNoteProvider : public KTextEditor::InlineNoteProvider
 public:
     InlayHintNoteProvider();
     void setView(KTextEditor::View *v);
-    void setHints(const QVector<LSPInlayHint> &hints);
+    void setHints(const QList<LSPInlayHint> &hints);
 
-    QVector<int> inlineNotes(int line) const override;
+    QList<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
     void paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const override;
 
@@ -41,7 +41,7 @@ private:
     QColor m_noteColor;
     QColor m_noteBgColor;
     QPointer<KTextEditor::View> m_view;
-    QVector<LSPInlayHint> m_hints;
+    QList<LSPInlayHint> m_hints;
 };
 
 class InlayHintsManager : public QObject
@@ -66,9 +66,9 @@ private:
     struct InsertResult {
         const bool newDoc = false;
         const QVarLengthArray<int, 16> changedLines;
-        const QVector<LSPInlayHint> addedHints;
+        const QList<LSPInlayHint> addedHints;
     };
-    InsertResult insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const QVector<LSPInlayHint> &newHints);
+    InsertResult insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const QList<LSPInlayHint> &newHints);
 
     void onTextInserted(KTextEditor::Document *doc, KTextEditor::Cursor pos, const QString &text);
     void onTextRemoved(KTextEditor::Document *doc, KTextEditor::Range range, const QString &t);
@@ -78,7 +78,7 @@ private:
     struct HintData {
         QPointer<KTextEditor::Document> doc;
         QByteArray checksum;
-        QVector<LSPInlayHint> m_hints;
+        QList<LSPInlayHint> m_hints;
     };
     std::vector<HintData> m_hintDataByDoc;
 
@@ -86,5 +86,5 @@ private:
     QPointer<KTextEditor::View> m_currentView;
     InlayHintNoteProvider m_noteProvider;
     std::shared_ptr<LSPClientServerManager> m_serverManager;
-    QVector<KTextEditor::Range> pendingRanges;
+    QList<KTextEditor::Range> pendingRanges;
 };

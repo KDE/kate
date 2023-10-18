@@ -99,7 +99,7 @@ public:
 private:
     struct MatchFile {
         QUrl fileUrl;
-        QVector<KateSearchMatch> matches;
+        QList<KateSearchMatch> matches;
         QPointer<KTextEditor::Document> doc;
         Qt::CheckState checkState = Qt::Checked;
     };
@@ -128,9 +128,9 @@ public:
         return m_matchFiles.isEmpty();
     }
 
-    const QVector<KateSearchMatch> &fileMatches(KTextEditor::Document *doc) const;
+    const QList<KateSearchMatch> &fileMatches(KTextEditor::Document *doc) const;
 
-    void updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ranges);
+    void updateMatchRanges(const QList<KTextEditor::MovingRange *> &ranges);
 
     void uncheckAll();
 
@@ -144,7 +144,7 @@ public Q_SLOTS:
 
     /** This function is used to add a new file */
     /** @p doc may be null if we are searching disk files for instance */
-    void addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
+    void addMatches(const QUrl &fileUrl, const QList<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
 
     /** This function is used to set the last added file to the search list.
      * This is done to update the match tree when we generate the search file list. */
@@ -214,7 +214,7 @@ private:
 
     Match *matchFromIndex(const QModelIndex &matchIndex);
 
-    QVector<MatchFile> m_matchFiles;
+    QList<MatchFile> m_matchFiles;
     QHash<QUrl, int> m_matchFileIndexHash;
     // for unsaved documents with no url
     QHash<KTextEditor::Document *, int> m_matchUnsavedFileIndexHash;

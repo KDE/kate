@@ -7,7 +7,7 @@
 */
 #pragma once
 
-#include <QVector>
+#include <QList>
 #include <memory>
 
 class QUrl;
@@ -173,7 +173,7 @@ public:
      * @note: Each file-pair is only listed once for each consecutive run
      * of hunks which apply to it.
      */
-    const QVector<FilePair> fileNames() const;
+    const QList<FilePair> fileNames() const;
 
 private:
     std::unique_ptr<class VcsDiffPrivate> d;

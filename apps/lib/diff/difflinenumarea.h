@@ -15,7 +15,7 @@ public:
     int lineNumAreaWidth() const;
     QSize sizeHint() const override;
 
-    void setLineNumData(QVector<int> leftLineNos, QVector<int> rightLineNos);
+    void setLineNumData(QList<int> leftLineNos, QList<int> rightLineNos);
     void setMaxLineNum(int n)
     {
         maxLineNum = n;
@@ -43,7 +43,7 @@ private:
     //     QBrush m_currentLineBgColor;
     QColor m_otherLinesColor;
     QColor m_borderColor;
-    QVector<int> m_lineToNumA;
-    QVector<int> m_lineToNumB;
+    QList<int> m_lineToNumA;
+    QList<int> m_lineToNumB;
     int maxLineNum = 0;
 };

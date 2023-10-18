@@ -6,10 +6,10 @@
 
 #pragma once
 
+#include <QList>
 #include <QRegularExpression>
 #include <QStringList>
 #include <QThread>
-#include <QVector>
 
 class FolderFilesList : public QThread
 {
@@ -49,5 +49,5 @@ private:
     bool m_hidden = false;
     bool m_symlinks = false;
     QStringList m_types;
-    QVector<QRegularExpression> m_excludes;
+    QList<QRegularExpression> m_excludes;
 };

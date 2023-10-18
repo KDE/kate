@@ -34,17 +34,17 @@ public:
 
     void setStatusItems(GitUtils::GitParsedStatus status);
 
-    const QVector<GitUtils::StatusItem> &untrackedFiles() const
+    const QList<GitUtils::StatusItem> &untrackedFiles() const
     {
         return m_nodes[3];
     }
 
-    const QVector<GitUtils::StatusItem> &stagedFiles() const
+    const QList<GitUtils::StatusItem> &stagedFiles() const
     {
         return m_nodes[0];
     }
 
-    const QVector<GitUtils::StatusItem> &changedFiles() const
+    const QList<GitUtils::StatusItem> &changedFiles() const
     {
         return m_nodes[1];
     }
@@ -57,6 +57,6 @@ public:
     QModelIndex indexForFilename(const QString &file);
 
 private:
-    QVector<GitUtils::StatusItem> m_nodes[4];
+    QList<GitUtils::StatusItem> m_nodes[4];
     QSet<QString> m_nonUniqueFileNames;
 };

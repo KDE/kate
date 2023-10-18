@@ -118,7 +118,7 @@ private Q_SLOTS:
 
     void folderFileListChanged();
 
-    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
+    void matchesFound(const QUrl &url, const QList<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
 
     void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr);
 
@@ -137,7 +137,7 @@ private Q_SLOTS:
 
     void replaceDone();
 
-    void updateCheckState(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+    void updateCheckState(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles);
     void updateMatchMarks();
 
     void syncModelRanges();
@@ -167,8 +167,8 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
-    QVector<int> getDocumentSearchMarkedLines(KTextEditor::Document *currentDocument);
-    void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QVector<int> lineNumbers);
+    QList<int> getDocumentSearchMarkedLines(KTextEditor::Document *currentDocument);
+    void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QList<int> lineNumbers);
 
     QStringList filterFiles(const QStringList &fileList) const;
     void startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, bool includeBinaryFiles);
@@ -204,7 +204,7 @@ private:
     bool m_isSearchAsYouType = false;
     bool m_isVerticalLayout = false;
     QString m_resultBaseDir;
-    QVector<KTextEditor::MovingRange *> m_matchRanges;
+    QList<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;
     QPointer<KTextEditor::Message> m_infoMessage;
     QColor m_replaceHighlightColor;

@@ -72,17 +72,17 @@ CheckoutResult checkoutNewBranch(const QString &repo, const QString &newBranch, 
 /**
  * @brief get all local and remote branches
  */
-QVector<Branch> getAllBranches(const QString &repo);
+QList<Branch> getAllBranches(const QString &repo);
 
 /**
  * @brief get all local and remote branches + tags
  */
-QVector<Branch> getAllBranchesAndTags(const QString &repo, RefType ref = RefType::All);
+QList<Branch> getAllBranchesAndTags(const QString &repo, RefType ref = RefType::All);
 
 /**
  * @brief get all local branches with last commit
  */
-QVector<Branch> getAllLocalBranchesWithLastCommitSubject(const QString &repo);
+QList<Branch> getAllLocalBranchesWithLastCommitSubject(const QString &repo);
 
 std::pair<QString, QString> getLastCommitMessage(const QString &repo);
 

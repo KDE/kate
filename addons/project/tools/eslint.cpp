@@ -87,7 +87,7 @@ FileDiagnostics ESLint::parseLine(const QString &line) const
         return {};
     }
 
-    QVector<Diagnostic> diags;
+    QList<Diagnostic> diags;
     diags.reserve(messages.size());
     for (const auto &m : messages) {
         const auto msg = m.toObject();

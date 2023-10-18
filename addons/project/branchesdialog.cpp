@@ -31,7 +31,7 @@ public:
 
         auto name = index.data().toString();
 
-        QVector<QTextLayout::FormatRange> formats;
+        QList<QTextLayout::FormatRange> formats;
         QTextCharFormat fmt;
         fmt.setForeground(options.palette.link());
         fmt.setFontWeight(QFont::Bold);
@@ -99,7 +99,7 @@ void BranchesDialog::openDialog(GitUtils::RefType r)
 {
     m_lineEdit.setPlaceholderText(i18n("Select Branch..."));
 
-    QVector<GitUtils::Branch> branches = GitUtils::getAllBranchesAndTags(m_projectPath, r);
+    QList<GitUtils::Branch> branches = GitUtils::getAllBranchesAndTags(m_projectPath, r);
     m_model->refresh(branches);
 
     reselectFirst();

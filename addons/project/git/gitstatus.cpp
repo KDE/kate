@@ -17,7 +17,7 @@
 #include <charconv>
 #include <optional>
 
-static void numStatForStatus(QVector<GitUtils::StatusItem> &list, const QString &workDir, bool modified)
+static void numStatForStatus(QList<GitUtils::StatusItem> &list, const QString &workDir, bool modified)
 {
     const auto args = modified ? QStringList{QStringLiteral("diff"), QStringLiteral("--numstat"), QStringLiteral("-z")}
                                : QStringList{QStringLiteral("diff"), QStringLiteral("--numstat"), QStringLiteral("--staged"), QStringLiteral("-z")};
@@ -44,10 +44,10 @@ QByteArray fileNameFromPath(const QByteArray &path)
 
 GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, const QString &workingDir)
 {
-    QVector<GitUtils::StatusItem> untracked;
-    QVector<GitUtils::StatusItem> unmerge;
-    QVector<GitUtils::StatusItem> staged;
-    QVector<GitUtils::StatusItem> changed;
+    QList<GitUtils::StatusItem> untracked;
+    QList<GitUtils::StatusItem> unmerge;
+    QList<GitUtils::StatusItem> staged;
+    QList<GitUtils::StatusItem> changed;
 
     for (auto r : ByteArraySplitter(raw, '\0')) {
         if (r.length() < 3) {
@@ -126,7 +126,7 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, const QSt
 
     QSet<QString> nonUniqueFileNames;
     QSet<QByteArray> seen;
-    auto getNonUniqueFileNamesFor = [&nonUniqueFileNames, &seen](const QVector<GitUtils::StatusItem> &items) {
+    auto getNonUniqueFileNamesFor = [&nonUniqueFileNames, &seen](const QList<GitUtils::StatusItem> &items) {
         for (const auto &c : items) {
             const auto file = fileNameFromPath(c.file);
             if (seen.contains(file)) {
@@ -179,7 +179,7 @@ QString GitUtils::statusString(GitUtils::GitStatus s)
     return QString();
 }
 
-static void addNumStat(QVector<GitUtils::StatusItem> &items, int add, int sub, std::string_view file)
+static void addNumStat(QList<GitUtils::StatusItem> &items, int add, int sub, std::string_view file)
 {
     // look in modified first, then staged
     auto item = std::find_if(items.begin(), items.end(), [file](const GitUtils::StatusItem &si) {
@@ -202,7 +202,7 @@ static std::optional<int> toInt(std::string_view s)
     return std::nullopt;
 }
 
-void GitUtils::parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByteArray &raw)
+void GitUtils::parseDiffNumStat(QList<GitUtils::StatusItem> &items, const QByteArray &raw)
 {
     // format:
     // 12\t10\tFileName
@@ -241,9 +241,9 @@ void GitUtils::parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByt
     }
 }
 
-QVector<GitUtils::StatusItem> GitUtils::parseDiffNameStatus(const QByteArray &raw)
+QList<GitUtils::StatusItem> GitUtils::parseDiffNameStatus(const QByteArray &raw)
 {
-    QVector<GitUtils::StatusItem> out;
+    QList<GitUtils::StatusItem> out;
     for (auto l : ByteArraySplitter(raw, '\n')) {
         ByteArraySplitter splitter(l, '\t');
         if (splitter.empty()) {

@@ -1101,7 +1101,7 @@ void KateMainWindow::slotFullScreen(bool t)
 bool KateMainWindow::showModOnDiskPrompt(ModOnDiskMode mode)
 {
     const auto documents = KateApp::self()->documentManager()->documentList();
-    QVector<KTextEditor::Document *> list;
+    QList<KTextEditor::Document *> list;
     list.reserve(documents.size());
     for (auto doc : documents) {
         if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc && (doc->isModified() || mode == PromptAll)) {
@@ -1320,7 +1320,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
     bool modOnDisk = static_cast<uint>(docInfo->modifiedOnDisc);
 
     if (s_modOnHdDialog == nullptr && modOnDisk) {
-        QVector<KTextEditor::Document *> list;
+        QList<KTextEditor::Document *> list;
         list.append(doc);
 
         s_modOnHdDialog = new KateMwModOnHdDialog(list, this);

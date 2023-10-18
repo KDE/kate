@@ -57,16 +57,16 @@ private:
      */
     void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir);
 
-    static QVector<QString> findFiles(const QDir &dir, const QVariantMap &filesEntry);
+    static QList<QString> findFiles(const QDir &dir, const QVariantMap &filesEntry);
 
-    static QVector<QString> filesFromGit(const QDir &dir, bool recursive);
-    static QVector<QString> filesFromMercurial(const QDir &dir, bool recursive);
-    static QVector<QString> filesFromSubversion(const QDir &dir, bool recursive);
-    static QVector<QString> filesFromDarcs(const QDir &dir, bool recursive);
-    static QVector<QString> filesFromFossil(const QDir &dir, bool recursive);
-    static QVector<QString> filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters);
+    static QList<QString> filesFromGit(const QDir &dir, bool recursive);
+    static QList<QString> filesFromMercurial(const QDir &dir, bool recursive);
+    static QList<QString> filesFromSubversion(const QDir &dir, bool recursive);
+    static QList<QString> filesFromDarcs(const QDir &dir, bool recursive);
+    static QList<QString> filesFromFossil(const QDir &dir, bool recursive);
+    static QList<QString> filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters);
 
-    static QVector<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);
+    static QList<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);
 
 private:
     /**

@@ -14,7 +14,6 @@
 #include <QPointer>
 #include <QString>
 #include <QUrl>
-#include <QVector>
 
 #include <functional>
 #include <optional>
@@ -71,7 +70,7 @@ using ExpandMacroHandler = ReplyHandler<LSPExpandedMacro>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformation>>;
 using SelectionRangeReplyHandler = ReplyHandler<QList<std::shared_ptr<LSPSelectionRange>>>;
-using InlayHintsReplyHandler = ReplyHandler<QVector<LSPInlayHint>>;
+using InlayHintsReplyHandler = ReplyHandler<QList<LSPInlayHint>>;
 
 class LSPClientPlugin;
 
@@ -107,8 +106,8 @@ public:
 
     // optionally adjust server provided/suggest trigger characters
     struct TriggerCharactersOverride {
-        QVector<QChar> exclude;
-        QVector<QChar> include;
+        QList<QChar> exclude;
+        QList<QChar> include;
     };
 
     // collect additional tweaks into a helper struct to avoid ever growing parameter list
@@ -156,7 +155,7 @@ public:
     RequestHandle documentCompletion(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentCompletionReplyHandler &h);
     RequestHandle documentCompletionResolve(const LSPCompletionItem &c, const QObject *context, const DocumentCompletionResolveReplyHandler &h);
     RequestHandle signatureHelp(const QUrl &document, const LSPPosition &pos, const QObject *context, const SignatureHelpReplyHandler &h);
-    RequestHandle selectionRange(const QUrl &document, const QVector<LSPPosition> &positions, const QObject *context, const SelectionRangeReplyHandler &h);
+    RequestHandle selectionRange(const QUrl &document, const QList<LSPPosition> &positions, const QObject *context, const SelectionRangeReplyHandler &h);
     // clangd specific
     RequestHandle clangdSwitchSourceHeader(const QUrl &document, const QObject *context, const SwitchSourceHeaderHandler &h);
     RequestHandle clangdMemoryUsage(const QObject *context, const MemoryUsageHandler &h);
@@ -220,7 +219,7 @@ Q_SIGNALS:
     void applyEdit(const LSPApplyWorkspaceEditParams &req, const ApplyEditReplyHandler &h, bool &handled);
     void workspaceFolders(const WorkspaceFoldersReplyHandler &h, bool &handled);
     void showMessageRequest(const LSPShowMessageParams &message,
-                            const QVector<LSPMessageRequestAction> &actions,
+                            const QList<LSPMessageRequestAction> &actions,
                             const std::function<void()> chooseNothing,
                             bool &handled);
 

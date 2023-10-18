@@ -102,9 +102,9 @@ private:
     DiffStyle m_style = SideBySide;
     DiffParams m_params;
     QByteArray m_rawDiff; // Raw diff saved as is
-    QVector<ViewLineToDiffLine> m_lineToRawDiffLine;
-    QVector<ViewLineToDiffLine> m_lineToDiffHunkLine;
-    QVector<int> m_linesWithFileName;
+    QList<ViewLineToDiffLine> m_lineToRawDiffLine;
+    QList<ViewLineToDiffLine> m_lineToDiffHunkLine;
+    QList<int> m_linesWithFileName;
     bool m_stopScrollSync = false;
     bool m_blockShowEvent = true;
 };

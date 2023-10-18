@@ -106,7 +106,7 @@ static GitUtils::Branch parseRemoteBranch(const QString &raw)
     return GitUtils::Branch{raw.mid(len), raw.mid(len, indexofRemote - len), GitUtils::Remote, QString()};
 }
 
-QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, RefType ref)
+QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, RefType ref)
 {
     // git for-each-ref --format '%(refname)' --sort=-committerdate ...
     QProcess git;
@@ -128,7 +128,7 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
     }
 
     startHostProcess(git, QProcess::ReadOnly);
-    QVector<Branch> branches;
+    QList<Branch> branches;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         QString gitout = QString::fromUtf8(git.readAllStandardOutput());
         QStringList out = gitout.split(QLatin1Char('\n'));
@@ -151,7 +151,7 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
     return branches;
 }
 
-QVector<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(const QString &repo)
+QList<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(const QString &repo)
 {
     // git for-each-ref --format '%(refname)' --sort=-committerdate ...
     QProcess git;
@@ -167,7 +167,7 @@ QVector<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(con
     }
 
     startHostProcess(git, QProcess::ReadOnly);
-    QVector<Branch> branches;
+    QList<Branch> branches;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         QByteArray gitout = git.readAllStandardOutput();
         QByteArrayList rows = gitout.split('\n');
@@ -190,7 +190,7 @@ QVector<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(con
     return branches;
 }
 
-QVector<GitUtils::Branch> GitUtils::getAllBranches(const QString &repo)
+QList<GitUtils::Branch> GitUtils::getAllBranches(const QString &repo)
 {
     return getAllBranchesAndTags(repo, static_cast<RefType>(RefType::Head | RefType::Remote));
 }

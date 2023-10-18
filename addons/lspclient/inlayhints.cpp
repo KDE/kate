@@ -46,7 +46,7 @@ static auto binaryFind(T &&hints, int line)
     return hints.end();
 }
 
-static auto binaryFind(const QVector<LSPInlayHint> &hints, KTextEditor::Cursor pos)
+static auto binaryFind(const QList<LSPInlayHint> &hints, KTextEditor::Cursor pos)
 {
     auto it = std::lower_bound(hints.begin(), hints.end(), pos, [](const LSPInlayHint &h, KTextEditor::Cursor p) {
         return h.position < p;
@@ -57,7 +57,7 @@ static auto binaryFind(const QVector<LSPInlayHint> &hints, KTextEditor::Cursor p
     return hints.end();
 }
 
-static void removeInvalidRanges(QVector<LSPInlayHint> &hints, QVector<LSPInlayHint>::iterator begin, QVector<LSPInlayHint>::iterator end)
+static void removeInvalidRanges(QList<LSPInlayHint> &hints, QList<LSPInlayHint>::iterator begin, QList<LSPInlayHint>::iterator end)
 {
     hints.erase(std::remove_if(begin,
                                end,
@@ -83,14 +83,14 @@ void InlayHintNoteProvider::setView(KTextEditor::View *v)
     m_hints = {};
 }
 
-void InlayHintNoteProvider::setHints(const QVector<LSPInlayHint> &hints)
+void InlayHintNoteProvider::setHints(const QList<LSPInlayHint> &hints)
 {
     m_hints = hints;
 }
 
-QVector<int> InlayHintNoteProvider::inlineNotes(int line) const
+QList<int> InlayHintNoteProvider::inlineNotes(int line) const
 {
-    QVector<int> ret;
+    QList<int> ret;
     auto it = binaryFind(m_hints, line);
     while (it != m_hints.cend() && it->position.line() == line) {
         ret.push_back(it->position.column());
@@ -269,7 +269,7 @@ void InlayHintsManager::sendRequest(KTextEditor::Range rangeToRequest)
     auto v = m_currentView;
     auto server = m_serverManager->findServer(v, false);
     if (server) {
-        server->documentInlayHint(url, rangeToRequest, this, [v = QPointer(m_currentView), rangeToRequest, this](QVector<LSPInlayHint> hints) {
+        server->documentInlayHint(url, rangeToRequest, this, [v = QPointer(m_currentView), rangeToRequest, this](QList<LSPInlayHint> hints) {
             if (!v || m_currentView != v) {
                 return;
             }
@@ -483,7 +483,7 @@ void InlayHintsManager::clearHintsForDoc(KTextEditor::Document *doc)
 }
 
 InlayHintsManager::InsertResult
-InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const QVector<LSPInlayHint> &newHints)
+InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const QList<LSPInlayHint> &newHints)
 {
     auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
         return hd.doc == doc;

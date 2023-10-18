@@ -96,7 +96,7 @@ public:
     }
 };
 
-static void createFileTree(QStandardItem *parent, const QString &basePath, const QVector<GitUtils::StatusItem> &files)
+static void createFileTree(QStandardItem *parent, const QString &basePath, const QList<GitUtils::StatusItem> &files)
 {
     QDir dir(basePath);
     const QString dirPath = dir.path() + QLatin1Char('/');
@@ -128,7 +128,7 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
     }
 }
 
-CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath, const QString fromB, const QString &toBr, QVector<GitUtils::StatusItem> items)
+CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath, const QString fromB, const QString &toBr, QList<GitUtils::StatusItem> items)
     : QWidget(parent)
     , m_gitDir(gitPath)
     , m_fromBr(fromB)

@@ -5,9 +5,9 @@
 */
 #pragma once
 
+#include <QList>
 #include <QSet>
 #include <QString>
-#include <QVector>
 
 namespace GitUtils
 {
@@ -58,18 +58,18 @@ struct StatusItem {
 };
 
 struct GitParsedStatus {
-    QVector<StatusItem> untracked;
-    QVector<StatusItem> unmerge;
-    QVector<StatusItem> staged;
-    QVector<StatusItem> changed;
+    QList<StatusItem> untracked;
+    QList<StatusItem> unmerge;
+    QList<StatusItem> staged;
+    QList<StatusItem> changed;
     QSet<QString> nonUniqueFileNames;
 };
 
 GitParsedStatus parseStatus(const QByteArray &raw, const QString &workingDir);
 
-void parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByteArray &raw);
+void parseDiffNumStat(QList<GitUtils::StatusItem> &items, const QByteArray &raw);
 
-QVector<StatusItem> parseDiffNameStatus(const QByteArray &raw);
+QList<StatusItem> parseDiffNameStatus(const QByteArray &raw);
 
 QString statusString(GitStatus s);
 }

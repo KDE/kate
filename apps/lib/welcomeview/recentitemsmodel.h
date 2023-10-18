@@ -31,5 +31,5 @@ private:
         QUrl url;
     };
 
-    QVector<RecentItemInfo> m_recentItems;
+    QList<RecentItemInfo> m_recentItems;
 };

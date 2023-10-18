@@ -17,7 +17,7 @@ class CompareBranchesView : public QWidget
 {
     Q_OBJECT
 public:
-    explicit CompareBranchesView(QWidget *parent, const QString &gitPath, const QString fromB, const QString &toBr, QVector<GitUtils::StatusItem> items);
+    explicit CompareBranchesView(QWidget *parent, const QString &gitPath, const QString fromB, const QString &toBr, QList<GitUtils::StatusItem> items);
     void setPluginView(KateProjectPluginView *pv)
     {
         m_pluginView = pv;

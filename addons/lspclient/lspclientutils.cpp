@@ -32,7 +32,7 @@ void applyEdits(KTextEditor::Document *doc, const LSPClientRevisionSnapshot *sna
 
     // all coordinates in edits are wrt original document,
     // so create moving ranges that will adjust to preceding edits as they are applied
-    QVector<KTextEditor::MovingRange *> ranges;
+    QList<KTextEditor::MovingRange *> ranges;
     for (const auto &edit : edits) {
         auto range = snapshot ? transformRange(doc->url(), *snapshot, edit.range) : edit.range;
         KTextEditor::MovingRange *mr = doc->newMovingRange(range);

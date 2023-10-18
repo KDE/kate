@@ -115,7 +115,7 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
         text = match.preMatchStr + match.matchStr + match.postMatchStr;
     }
 
-    QVector<QTextLayout::FormatRange> formats;
+    QList<QTextLayout::FormatRange> formats;
 
     QTextLayout::FormatRange fontFmt;
     fontFmt.start = 0;

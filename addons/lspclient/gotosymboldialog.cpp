@@ -72,7 +72,7 @@ public:
         auto symbol = index.data(SymbolInfoRole).value<GotoSymbolItem>();
         auto kind = symbol.kind;
 
-        QVector<QTextLayout::FormatRange> fmts;
+        QList<QTextLayout::FormatRange> fmts;
         int colons = text.indexOf(QStringLiteral("::"));
         int i = 0;
         // container name

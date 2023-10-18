@@ -22,12 +22,12 @@ class DiagnosticSuppression
     struct Suppression {
         QRegularExpression diag, code;
     };
-    QVector<Suppression> m_suppressions;
+    QList<Suppression> m_suppressions;
     QPointer<KTextEditor::Document> m_document;
 
 public:
     // construct from configuration
-    DiagnosticSuppression(KTextEditor::Document *doc, const QVector<QJsonObject> &serverConfigs, const QVector<QString> &sessionSuppressions)
+    DiagnosticSuppression(KTextEditor::Document *doc, const QList<QJsonObject> &serverConfigs, const QList<QString> &sessionSuppressions)
         : m_document(doc)
     {
         // check regexp and report

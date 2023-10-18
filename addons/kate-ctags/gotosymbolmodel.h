@@ -8,7 +8,6 @@
 #include <QAbstractTableModel>
 #include <QIcon>
 #include <QString>
-#include <QVector>
 
 struct SymbolItem {
     QString name;
@@ -30,5 +29,5 @@ public:
     void refresh(const QString &filePath);
 
 private:
-    QVector<SymbolItem> m_rows;
+    QList<SymbolItem> m_rows;
 };

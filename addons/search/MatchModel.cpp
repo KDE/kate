@@ -137,7 +137,7 @@ int MatchModel::matchFileRow(const QUrl &fileUrl, KTextEditor::Document *doc) co
 }
 
 /** This function is used to add a match to a new file */
-void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc)
+void MatchModel::addMatches(const QUrl &fileUrl, const QList<KateSearchMatch> &searchMatches, KTextEditor::Document *doc)
 {
     m_lastMatchUrl = fileUrl;
     m_searchState = Searching;
@@ -213,17 +213,17 @@ KTextEditor::Range MatchModel::matchRange(const QModelIndex &matchIndex) const
     return m_matchFiles[fileRow].matches[matchRow].range;
 }
 
-const QVector<KateSearchMatch> &MatchModel::fileMatches(KTextEditor::Document *doc) const
+const QList<KateSearchMatch> &MatchModel::fileMatches(KTextEditor::Document *doc) const
 {
     int row = matchFileRow(doc->url(), doc);
     if (row < 0 || row >= m_matchFiles.size()) {
-        static const QVector<KateSearchMatch> EmptyDummy;
+        static const QList<KateSearchMatch> EmptyDummy;
         return EmptyDummy;
     }
     return m_matchFiles[row].matches;
 }
 
-void MatchModel::updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ranges)
+void MatchModel::updateMatchRanges(const QList<KTextEditor::MovingRange *> &ranges)
 {
     if (ranges.isEmpty()) {
         return;
@@ -240,7 +240,7 @@ void MatchModel::updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ra
         return; // No such document in the results
     }
 
-    QVector<KateSearchMatch> &matches = m_matchFiles[fileRow].matches;
+    QList<KateSearchMatch> &matches = m_matchFiles[fileRow].matches;
 
     if (ranges.size() != matches.size()) {
         // The sizes do not match so we cannot match the ranges easily.. abort
@@ -349,12 +349,12 @@ bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelInde
     }
 
     // Create a vector of moving ranges for updating the tree-view after replace
-    QVector<KTextEditor::MovingRange *> matchRanges;
+    QList<KTextEditor::MovingRange *> matchRanges;
     // Only add items after "matchIndex"
     int fileRow = matchIndex.internalId();
     int matchRow = matchIndex.row();
 
-    QVector<Match> &matches = m_matchFiles[fileRow].matches;
+    QList<Match> &matches = m_matchFiles[fileRow].matches;
 
     for (int i = matchRow + 1; i < matches.size(); ++i) {
         KTextEditor::MovingRange *mr = doc->newMovingRange(matches[i].range);
@@ -430,7 +430,7 @@ void MatchModel::doReplaceNextMatch()
     auto &matches = matchFile.matches;
 
     // Create a vector of moving ranges for updating the matches after replace
-    QVector<KTextEditor::MovingRange *> matchRanges;
+    QList<KTextEditor::MovingRange *> matchRanges;
     matchRanges.reserve(matches.size());
     for (const auto &match : qAsConst(matches)) {
         matchRanges.append(doc->newMovingRange(match.range));
@@ -1037,14 +1037,14 @@ bool MatchModel::setFileChecked(int fileRow, bool checked)
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
         return false;
     }
-    QVector<Match> &matches = m_matchFiles[fileRow].matches;
+    QList<Match> &matches = m_matchFiles[fileRow].matches;
     for (int i = 0; i < matches.size(); ++i) {
         matches[i].checked = checked;
     }
     m_matchFiles[fileRow].checkState = checked ? Qt::Checked : Qt::Unchecked;
     QModelIndex rootFileIndex = index(fileRow, 0, createIndex(0, 0, InfoItemId));
-    dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex), QVector<int>{Qt::CheckStateRole});
-    dataChanged(rootFileIndex, rootFileIndex, QVector<int>{Qt::CheckStateRole});
+    dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex), QList<int>{Qt::CheckStateRole});
+    dataChanged(rootFileIndex, rootFileIndex, QList<int>{Qt::CheckStateRole});
     return true;
 }
 
@@ -1068,7 +1068,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
         }
         m_infoCheckState = checked ? Qt::Checked : Qt::Unchecked;
         QModelIndex infoIndex = createIndex(0, 0, InfoItemId);
-        dataChanged(infoIndex, infoIndex, QVector<int>{Qt::CheckStateRole});
+        dataChanged(infoIndex, infoIndex, QList<int>{Qt::CheckStateRole});
         return true;
     }
 
@@ -1090,7 +1090,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
         }
         m_infoCheckState = checkState;
         QModelIndex infoIndex = createIndex(0, 0, InfoItemId);
-        dataChanged(infoIndex, infoIndex, QVector<int>{Qt::CheckStateRole});
+        dataChanged(infoIndex, infoIndex, QList<int>{Qt::CheckStateRole});
         return true;
     }
 
@@ -1100,7 +1100,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     }
 
     int row = itemIndex.row();
-    QVector<Match> &matches = m_matchFiles[rootRow].matches;
+    QList<Match> &matches = m_matchFiles[rootRow].matches;
     if (row < 0 || row >= matches.size()) {
         return false;
     }
@@ -1121,8 +1121,8 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     }
 
     QModelIndex rootFileIndex = index(rootRow, 0);
-    dataChanged(rootFileIndex, rootFileIndex, QVector<int>{Qt::CheckStateRole});
-    dataChanged(index(row, 0, rootFileIndex), index(row, 0, rootFileIndex), QVector<int>{Qt::CheckStateRole});
+    dataChanged(rootFileIndex, rootFileIndex, QList<int>{Qt::CheckStateRole});
+    dataChanged(index(row, 0, rootFileIndex), index(row, 0, rootFileIndex), QList<int>{Qt::CheckStateRole});
     return true;
 }
 

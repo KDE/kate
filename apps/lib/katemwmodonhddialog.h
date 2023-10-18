@@ -7,7 +7,7 @@
 #pragma once
 
 #include <QDialog>
-#include <QVector>
+#include <QList>
 
 class KProcess;
 class QTemporaryFile;
@@ -27,7 +27,7 @@ class KateMwModOnHdDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit KateMwModOnHdDialog(const QVector<KTextEditor::Document *> &docs, QWidget *parent = nullptr, const char *name = nullptr);
+    explicit KateMwModOnHdDialog(const QList<KTextEditor::Document *> &docs, QWidget *parent = nullptr, const char *name = nullptr);
     ~KateMwModOnHdDialog() override;
     void addDocument(KTextEditor::Document *doc);
 

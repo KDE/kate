@@ -290,7 +290,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
     /**
      * get list of files for this directory, might query the VCS
      */
-    const QVector<QString> files = findFiles(dir, filesEntry);
+    const QList<QString> files = findFiles(dir, filesEntry);
 
     QStringList excludeFolderPatterns = m_projectMap.value(QStringLiteral("exclude_patterns")).toStringList();
     std::vector<QRegularExpression> excludeRegexps;
@@ -369,7 +369,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
     }
 }
 
-QVector<QString> KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry)
+QList<QString> KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry)
 {
     /**
      * shall we collect files recursively or not?
@@ -437,7 +437,7 @@ QVector<QString> KateProjectWorker::findFiles(const QDir &dir, const QVariantMap
     return filesFromDirectory(dir, recursive, hidden, filesEntry[QStringLiteral("filters")].toStringList());
 }
 
-QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
+QList<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 {
     /**
      * query files via ls-files and make them absolute afterwards
@@ -475,9 +475,9 @@ QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive
     return gitFiles(dir, recursive, lsFilesArgs) << gitFiles(dir, recursive, lsFilesUntrackedArgs);
 }
 
-QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringList &args)
+QList<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringList &args)
 {
-    QVector<QString> files;
+    QList<QString> files;
     QProcess git;
     if (!setupGitProcess(git, dir.absolutePath(), args)) {
         return files;
@@ -500,10 +500,10 @@ QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, co
     return files;
 }
 
-QVector<QString> KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive)
+QList<QString> KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive)
 {
     // only use version control from PATH
-    QVector<QString> files;
+    QList<QString> files;
     static const auto fullExecutablePath = safeExecutableName(QStringLiteral("hg"));
     if (fullExecutablePath.isEmpty()) {
         return files;
@@ -532,10 +532,10 @@ QVector<QString> KateProjectWorker::filesFromMercurial(const QDir &dir, bool rec
     return files;
 }
 
-QVector<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive)
+QList<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive)
 {
     // only use version control from PATH
-    QVector<QString> files;
+    QList<QString> files;
     static const auto fullExecutablePath = safeExecutableName(QStringLiteral("svn"));
     if (fullExecutablePath.isEmpty()) {
         return files;
@@ -599,10 +599,10 @@ QVector<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool re
     return files;
 }
 
-QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
+QList<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
 {
     // only use version control from PATH
-    QVector<QString> files;
+    QList<QString> files;
     static const auto fullExecutablePath = safeExecutableName(QStringLiteral("darcs"));
     if (fullExecutablePath.isEmpty()) {
         return files;
@@ -662,10 +662,10 @@ QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursi
     return files;
 }
 
-QVector<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursive)
+QList<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursive)
 {
     // only use version control from PATH
-    QVector<QString> files;
+    QList<QString> files;
     static const auto fullExecutablePath = safeExecutableName(QStringLiteral("fossil"));
     if (fullExecutablePath.isEmpty()) {
         return files;
@@ -694,7 +694,7 @@ QVector<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recurs
     return files;
 }
 
-QVector<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters)
+QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters)
 {
     /**
      * setup our filters
@@ -718,7 +718,7 @@ QVector<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive,
     /**
      * create iterator and collect all files
      */
-    QVector<QString> files;
+    QList<QString> files;
     QDirIterator dirIterator(dir, flags);
     const QString dirPath = dir.path() + QLatin1Char('/');
     while (dirIterator.hasNext()) {

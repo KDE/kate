@@ -522,9 +522,9 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
     return ret;
 }
 
-const QVector<VcsDiff::FilePair> VcsDiff::fileNames() const
+const QList<VcsDiff::FilePair> VcsDiff::fileNames() const
 {
-    QVector<VcsDiff::FilePair> ret;
+    QList<VcsDiff::FilePair> ret;
     VcsDiff::FilePair current;
     for (const auto &h : d->hunks) {
         // List each pair only once

@@ -157,7 +157,7 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
      * get results of analysis
      */
     m_errOutput = {};
-    QHash<QUrl, QVector<Diagnostic>> fileDiagnostics;
+    QHash<QUrl, QList<Diagnostic>> fileDiagnostics;
     while (m_analyzer->canReadLine()) {
         /**
          * get one line, split it, skip it, if too few elements

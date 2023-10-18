@@ -284,7 +284,7 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
 
 void WelcomeView::updateButtons()
 {
-    QVector<QPushButton *> buttons{buttonNewFile, buttonOpenFile, buttonOpenFolder};
+    QList<QPushButton *> buttons{buttonNewFile, buttonOpenFile, buttonOpenFolder};
     if (KateApp::isKate()) {
         buttons << buttonNewSession << buttonManageSessions;
     }

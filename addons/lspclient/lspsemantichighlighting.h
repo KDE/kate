@@ -75,7 +75,7 @@ private:
     /**
      * token types specified in server caps. Uncomment for debugging
      */
-    //     QVector<QString> m_types;
+    //     QList<QString> m_types;
 
     /**
      * Doc => result-id mapping

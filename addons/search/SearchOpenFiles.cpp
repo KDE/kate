@@ -100,7 +100,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
 
     time.start();
     int resultLine = 0;
-    QVector<KateSearchMatch> matches;
+    QList<KateSearchMatch> matches;
     for (int line = startLine; line < doc->lines(); line++) {
         if (time.elapsed() > 100) {
             // qDebug() << "Search time exceeded" << time.elapsed() << line;
@@ -177,7 +177,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
     match = tmpRegExp.match(m_fullDoc, column);
     column = match.capturedStart();
     int resultLine = 0;
-    QVector<KateSearchMatch> matches;
+    QList<KateSearchMatch> matches;
     while (column != -1 && !match.captured().isEmpty()) {
         // search for the line number of the match
         int i;

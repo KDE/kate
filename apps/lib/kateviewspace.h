@@ -79,7 +79,7 @@ public:
      * Returns the document list of this tab bar.
      * @return document list in order of tabs
      */
-    QVector<DocOrWidget> documentList() const
+    QList<DocOrWidget> documentList() const
     {
         return m_tabBar->documentList();
     }
@@ -323,7 +323,7 @@ private:
      * tab in the KateTabBar
      * these are stored in used order (MRU last)
      */
-    QVector<DocOrWidget> m_registeredDocuments;
+    QList<DocOrWidget> m_registeredDocuments;
 
     // the list of views that are contained in this view space,
     // mapped through a hash from Document to View.

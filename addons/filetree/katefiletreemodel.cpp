@@ -1467,7 +1467,7 @@ void KateFileTreeModel::resetHistory()
 
     for (ProxyItem *item : qAsConst(list)) {
         QModelIndex idx = createIndex(item->row(), 0, item);
-        dataChanged(idx, idx, QVector<int>(1, Qt::BackgroundRole));
+        dataChanged(idx, idx, QList<int>(1, Qt::BackgroundRole));
     }
 }
 

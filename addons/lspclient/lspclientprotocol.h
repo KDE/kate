@@ -12,7 +12,6 @@
 #include <QList>
 #include <QString>
 #include <QUrl>
-#include <QVector>
 
 #include "lspsemantichighlighting.h"
 #include "semantic_tokens_legend.h"
@@ -67,12 +66,12 @@ struct LSPTextDocumentSyncOptions {
 struct LSPCompletionOptions {
     bool provider = false;
     bool resolveProvider = false;
-    QVector<QChar> triggerCharacters;
+    QList<QChar> triggerCharacters;
 };
 
 struct LSPSignatureHelpOptions {
     bool provider = false;
-    QVector<QChar> triggerCharacters;
+    QList<QChar> triggerCharacters;
 };
 
 // ensure distinct type
@@ -85,7 +84,7 @@ struct LSPSemanticTokensOptions {
     bool fullDelta = false;
     bool range = false;
     SemanticTokensLegend legend;
-    //     QVector<QString> types;
+    //     QList<QString> types;
 };
 
 struct LSPWorkspaceFoldersServerCapabilities {
@@ -163,7 +162,7 @@ struct LSPHover {
     // vector for contents to support all three variants:
     // MarkedString | MarkedString[] | MarkupContent
     // vector variant is still in use e.g. by Rust rls
-    QVector<LSPMarkupContent> contents;
+    QList<LSPMarkupContent> contents;
     LSPRange range;
 };
 
@@ -349,7 +348,7 @@ Q_DECLARE_TYPEINFO(LSPSemanticHighlightingToken, Q_MOVABLE_TYPE);
 
 struct LSPSemanticHighlightingInformation {
     int line = -1;
-    QVector<LSPSemanticHighlightingToken> tokens;
+    QList<LSPSemanticHighlightingToken> tokens;
 };
 
 struct LSPVersionedTextDocumentIdentifier {
@@ -359,7 +358,7 @@ struct LSPVersionedTextDocumentIdentifier {
 
 struct LSPSemanticHighlightingParams {
     LSPVersionedTextDocumentIdentifier textDocument;
-    QVector<LSPSemanticHighlightingInformation> lines;
+    QList<LSPSemanticHighlightingInformation> lines;
 };
 
 struct LSPCommand {
@@ -383,7 +382,7 @@ struct LSPWorkspaceEdit {
 struct LSPCodeAction {
     QString title;
     QString kind;
-    QVector<LSPDiagnostic> diagnostics;
+    QList<LSPDiagnostic> diagnostics;
     LSPWorkspaceEdit edit;
     LSPCommand command;
 };

@@ -46,7 +46,7 @@ void SearchDiskFiles::run()
         }
 
         // let the right search algorithm compute the matches for this file
-        QVector<KateSearchMatch> matches;
+        QList<KateSearchMatch> matches;
         if (multiLineSearch) {
             matches = searchMultiLineRegExp(file);
         } else {
@@ -62,10 +62,10 @@ void SearchDiskFiles::run()
     }
 }
 
-QVector<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
+QList<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
 {
     QTextStream stream(&file);
-    QVector<KateSearchMatch> matches;
+    QList<KateSearchMatch> matches;
     QString line;
     int currentLineNumber = 0;
     while (stream.readLineInto(&line)) {
@@ -121,15 +121,15 @@ QVector<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
     return matches;
 }
 
-QVector<KateSearchMatch> SearchDiskFiles::searchMultiLineRegExp(QFile &file)
+QList<KateSearchMatch> SearchDiskFiles::searchMultiLineRegExp(QFile &file)
 {
     int column = 0;
     int line = 0;
     QString fullDoc;
-    QVector<int> lineStart;
+    QList<int> lineStart;
     QRegularExpression tmpRegExp = m_regExp;
 
-    QVector<KateSearchMatch> matches;
+    QList<KateSearchMatch> matches;
     QTextStream stream(&file);
     fullDoc = stream.readAll();
 

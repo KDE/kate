@@ -1161,7 +1161,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             return;
         }
 
-        const QVector<GitUtils::StatusItem> &items = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
+        const QList<GitUtils::StatusItem> &items = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
         QStringList files;
         files.reserve(items.size());
         std::transform(items.begin(), items.end(), std::back_inserter(files), [](const GitUtils::StatusItem &i) {
@@ -1256,7 +1256,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 
         // git reset -q HEAD --
         if (act == stage) {
-            const QVector<GitUtils::StatusItem> &items = m_model->stagedFiles();
+            const QList<GitUtils::StatusItem> &items = m_model->stagedFiles();
             QStringList files;
             files.reserve(items.size());
             std::transform(items.begin(), items.end(), std::back_inserter(files), [](const GitUtils::StatusItem &i) {

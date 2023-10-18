@@ -41,7 +41,7 @@ Q_DECLARE_METATYPE(Diagnostic)
 
 struct FileDiagnostics {
     QUrl uri;
-    QVector<Diagnostic> diagnostics;
+    QList<Diagnostic> diagnostics;
 };
 Q_DECLARE_METATYPE(FileDiagnostics)
 

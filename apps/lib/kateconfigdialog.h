@@ -114,7 +114,7 @@ private:
 
     QPointer<class QListView> m_sideBar;
     QSet<KPageWidgetItem *> m_allPages;
-    QVector<QWidget *> m_searchMatchOverlays;
+    QList<QWidget *> m_searchMatchOverlays;
 
 #ifdef WITH_KUSERFEEDBACK
     KUserFeedback::FeedbackConfigWidget *m_userFeedbackWidget = nullptr;

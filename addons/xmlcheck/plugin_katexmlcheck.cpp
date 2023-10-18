@@ -149,7 +149,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         Utils::showMessage(msg, {}, i18n("XMLCheck"), MessageType::Warning);
     }
     if (!proc_stderr.isEmpty()) {
-        QVector<Diagnostic> diags;
+        QList<Diagnostic> diags;
         QStringList lines = proc_stderr.split('\n', Qt::SkipEmptyParts);
         QString linenumber, msg;
         int line_count = 0;

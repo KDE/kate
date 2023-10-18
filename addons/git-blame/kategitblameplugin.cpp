@@ -48,15 +48,15 @@ GitBlameInlineNoteProvider::~GitBlameInlineNoteProvider()
     }
 }
 
-QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
+QList<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
 {
     if (!m_pluginView->hasBlameInfo()) {
-        return QVector<int>();
+        return QList<int>();
     }
 
     QPointer<KTextEditor::Document> doc = m_pluginView->activeDocument();
     if (!doc) {
-        return QVector<int>();
+        return QList<int>();
     }
 
     if (m_mode == KateGitBlameMode::None) {
@@ -66,9 +66,9 @@ QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
     int lineLen = doc->line(line).size();
     QPointer<KTextEditor::View> view = m_pluginView->activeView();
     if (view->cursorPosition().line() == line || m_mode == KateGitBlameMode::AllLines) {
-        return QVector<int>{lineLen + 4};
+        return QList<int>{lineLen + 4};
     }
-    return QVector<int>();
+    return QList<int>();
 }
 
 QSize GitBlameInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note) const

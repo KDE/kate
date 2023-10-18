@@ -39,7 +39,7 @@ private:
     int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 
 Q_SIGNALS:
-    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
+    void matchesFound(const QUrl &url, const QList<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
     void searchDone();
     void searching(const QString &file);
 
@@ -52,6 +52,6 @@ private:
     bool m_cancelSearch = true;
     bool m_terminateSearch = false;
     QString m_fullDoc;
-    QVector<int> m_lineStart;
+    QList<int> m_lineStart;
     QElapsedTimer m_statusTime;
 };

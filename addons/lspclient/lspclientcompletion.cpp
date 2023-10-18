@@ -192,8 +192,8 @@ class LSPClientCompletionImpl : public LSPClientCompletion
     bool m_complParens = true;
     bool m_autoImport = true;
 
-    QVector<QChar> m_triggersCompletion;
-    QVector<QChar> m_triggersSignature;
+    QList<QChar> m_triggersCompletion;
+    QList<QChar> m_triggersSignature;
     bool m_triggerSignature = false;
     bool m_triggerCompletion = false;
 

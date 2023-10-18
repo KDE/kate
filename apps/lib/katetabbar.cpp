@@ -60,7 +60,7 @@ void KateTabBar::readConfig()
     const int tabCountLimit = std::max(cgGeneral.readEntry("Tabbar Tab Limit", 0), 0);
     if (m_tabCountLimit != tabCountLimit) {
         m_tabCountLimit = tabCountLimit;
-        const QVector<DocOrWidget> docList = documentList();
+        const QList<DocOrWidget> docList = documentList();
         if (m_tabCountLimit > 0 && docList.count() > m_tabCountLimit) {
             // close N least used tabs
             QMap<quint64, DocOrWidget> lruDocs;
@@ -481,9 +481,9 @@ void KateTabBar::tabInserted(int idx)
     m_beingAdded.clear();
 }
 
-QVector<DocOrWidget> KateTabBar::documentList() const
+QList<DocOrWidget> KateTabBar::documentList() const
 {
-    QVector<DocOrWidget> result;
+    QList<DocOrWidget> result;
     result.reserve(count());
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);

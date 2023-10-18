@@ -22,7 +22,6 @@
 #include <QTimer>
 #include <QUrl>
 #include <QVariant>
-#include <QVector>
 
 enum class KateGitBlameMode { None, SingleLine, AllLines, Count = AllLines };
 
@@ -48,7 +47,7 @@ public:
     explicit GitBlameInlineNoteProvider(KateGitBlamePluginView *view);
     ~GitBlameInlineNoteProvider() override;
 
-    QVector<int> inlineNotes(int line) const override;
+    QList<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
     void paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const override;
 

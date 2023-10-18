@@ -6,8 +6,8 @@
 #pragma once
 
 #include <QAbstractTableModel>
+#include <QList>
 #include <QVariant>
-#include <QVector>
 
 #include "git/gitutils.h"
 
@@ -22,7 +22,7 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &idx, int role) const override;
-    void refresh(const QVector<GitUtils::Branch> &branches, bool checkingOut = false);
+    void refresh(const QList<GitUtils::Branch> &branches, bool checkingOut = false);
     void clear();
     void clearBranchCreationItems();
 
@@ -47,5 +47,5 @@ private:
         ItemType itemType;
     };
 
-    QVector<BranchesDialogModel::Branch> m_modelEntries;
+    QList<BranchesDialogModel::Branch> m_modelEntries;
 };

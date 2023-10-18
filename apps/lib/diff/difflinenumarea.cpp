@@ -51,7 +51,7 @@ int LineNumArea::lineNumAreaWidth() const
     return 13 + textEdit->fontMetrics().horizontalAdvance(u'9') * digits;
 }
 
-void LineNumArea::setLineNumData(QVector<int> leftLineNos, QVector<int> rightLineNos)
+void LineNumArea::setLineNumData(QList<int> leftLineNos, QList<int> rightLineNos)
 {
     m_lineToNumA = std::move(leftLineNos);
     m_lineToNumB = std::move(rightLineNos);

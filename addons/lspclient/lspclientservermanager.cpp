@@ -247,7 +247,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     // most either do not care about the id, or can find out themselves
     // (and might get confused if we pass a not so accurate one)
     QHash<QString, bool> m_documentLanguageId;
-    typedef QVector<std::shared_ptr<LSPClientServer>> ServerList;
+    typedef QList<std::shared_ptr<LSPClientServer>> ServerList;
 
     // Servers which were not found to be installed. We use this
     // variable to avoid warning more than once

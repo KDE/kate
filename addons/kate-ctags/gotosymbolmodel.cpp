@@ -82,7 +82,7 @@ void GotoSymbolModel::refresh(const QString &filePath)
         return;
     }
 
-    QVector<SymbolItem> symItems;
+    QList<SymbolItem> symItems;
     const auto tags = out.split('\n');
     symItems.reserve(tags.size());
     for (const auto &tag : tags) {

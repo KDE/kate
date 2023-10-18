@@ -199,8 +199,8 @@ public:
         const int nameLen = name.length();
         // space between name and path
         constexpr int space = 1;
-        QVector<QTextLayout::FormatRange> formats;
-        QVector<QTextLayout::FormatRange> pathFormats;
+        QList<QTextLayout::FormatRange> formats;
+        QList<QTextLayout::FormatRange> pathFormats;
 
         if (m_filterMode == Fuzzy) {
             // collect formats

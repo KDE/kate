@@ -34,5 +34,5 @@ private:
         }
     };
 
-    QVector<SessionInfo> m_sessions;
+    QList<SessionInfo> m_sessions;
 };

@@ -153,13 +153,13 @@ void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document 
     }
 }
 
-QVector<std::pair<QString, QString>> KateFileActions::supportedDiffTools()
+QList<std::pair<QString, QString>> KateFileActions::supportedDiffTools()
 {
     // query once if the tools are there in the path and store that
     // we will disable the actions for the tools not found
-    static QVector<std::pair<QString, QString>> resultList{{QStringLiteral("kdiff3"), safeExecutableName(QStringLiteral("kdiff3"))},
-                                                           {QStringLiteral("kompare"), safeExecutableName(QStringLiteral("kompare"))},
-                                                           {QStringLiteral("meld"), safeExecutableName(QStringLiteral("meld"))}};
+    static QList<std::pair<QString, QString>> resultList{{QStringLiteral("kdiff3"), safeExecutableName(QStringLiteral("kdiff3"))},
+                                                         {QStringLiteral("kompare"), safeExecutableName(QStringLiteral("kompare"))},
+                                                         {QStringLiteral("meld"), safeExecutableName(QStringLiteral("meld"))}};
     return resultList;
 }
 

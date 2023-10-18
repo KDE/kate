@@ -89,13 +89,13 @@ void HUDStyleDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
 
     QString text = index.data(m_displayRole).toString();
 
-    QVector<QTextLayout::FormatRange> formats;
+    QList<QTextLayout::FormatRange> formats;
 
     QTextCharFormat fmt;
     fmt.setForeground(options.palette.link());
     fmt.setFontWeight(QFont::Bold);
     auto ranges = KFuzzyMatcher::matchedRanges(m_filterString, text);
-    QVector<QTextLayout::FormatRange> resFmts;
+    QList<QTextLayout::FormatRange> resFmts;
     std::transform(ranges.begin(), ranges.end(), std::back_inserter(resFmts), [fmt](const KFuzzyMatcher::Range &fr) {
         return QTextLayout::FormatRange{fr.start, fr.length, fmt};
     });

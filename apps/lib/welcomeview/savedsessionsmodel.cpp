@@ -46,7 +46,7 @@ int SavedSessionsModel::rowCount(const QModelIndex &parent) const
 
 void SavedSessionsModel::refresh(const KateSessionList &sessionList)
 {
-    QVector<SessionInfo> sessions;
+    QList<SessionInfo> sessions;
     sessions.reserve(sessionList.count());
 
     for (const KateSession::Ptr &session : sessionList) {

@@ -60,7 +60,7 @@ struct DiagnosticItem : public QStandardItem {
 // likewise; a custom item for document level model item
 struct DocumentDiagnosticItem : public QStandardItem {
 private:
-    QVector<DiagnosticsProvider *> m_providers;
+    QList<DiagnosticsProvider *> m_providers;
 
 public:
     bool enabled = true;
@@ -70,7 +70,7 @@ public:
         return DiagnosticItem_File;
     }
 
-    const QVector<DiagnosticsProvider *> &providers() const
+    const QList<DiagnosticsProvider *> &providers() const
     {
         return m_providers;
     }

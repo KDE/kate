@@ -10,7 +10,6 @@
 
 #include <QString>
 #include <QStringList>
-#include <QVector>
 
 class Tags
 {
@@ -25,7 +24,7 @@ public:
         QString pattern;
     };
 
-    typedef QVector<TagEntry> TagList;
+    typedef QList<TagEntry> TagList;
 
     /**
      *    Method to set the tag database filename

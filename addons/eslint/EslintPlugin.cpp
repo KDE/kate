@@ -134,7 +134,7 @@ static FileDiagnostics parseLine(const QString &line, std::vector<DiagnosticWith
         return fd;
     }
 
-    QVector<Diagnostic> diags;
+    QList<Diagnostic> diags;
     diags.reserve(messages.size());
     for (const auto &m : messages) {
         const auto msg = m.toObject();
@@ -192,7 +192,7 @@ void ESLintPluginView::onReadyRead()
     /**
      * get results of analysis
      */
-    QHash<QUrl, QVector<Diagnostic>> fileDiagnostics;
+    QHash<QUrl, QList<Diagnostic>> fileDiagnostics;
     const auto out = m_eslintProcess.readAllStandardOutput().split('\n');
     for (const auto &rawLine : out) {
         /**

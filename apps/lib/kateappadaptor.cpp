@@ -14,8 +14,10 @@
 #include "katedebug.h"
 
 // X11 startup handling
-#if __has_include(<KStartupInfo>)
+#define HAVE_X11 __has_include(<KStartupInfo>)
+#if HAVE_X11
 #include <KStartupInfo>
+#include <KWindowInfo>
 #endif
 
 #include <KWindowSystem>
@@ -46,7 +48,7 @@ void KateAppAdaptor::activate(const QString &token)
 
     // try to raise window, see bug 407288
     if (KWindowSystem::isPlatformX11()) {
-#if __has_include(<KStartupInfo>)
+#if HAVE_X11
         KStartupInfo::setNewStartupId(win->windowHandle(), token.toUtf8());
 #endif
     } else if (KWindowSystem::isPlatformWayland()) {
@@ -122,10 +124,12 @@ bool KateAppAdaptor::activateSession(const QString &session)
 
 int KateAppAdaptor::desktopNumber()
 {
+#if HAVE_X11
     if (KWindowSystem::isPlatformX11()) {
         KWindowInfo appInfo(m_app->activeKateMainWindow()->winId(), NET::WMDesktop);
         return appInfo.desktop();
     }
+#endif
 
     return 0;
 }

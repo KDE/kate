@@ -28,11 +28,11 @@
 #endif
 
 // X11 startup handling
-#if __has_include(<KStartupInfo>)
+#define HAVE_X11 __has_include(<KStartupInfo>)
+#if HAVE_X11
 #include <KStartupInfo>
-#endif
-
 #include <KWindowInfo>
+#endif
 
 #ifdef WITH_KUSERFEEDBACK
 #include <KUserFeedbackQt6/ApplicationVersionSource>
@@ -409,7 +409,7 @@ bool KateApp::startupKate()
         } else if (!m_args.isSet(QStringLiteral("stdin")) && (m_args.positionalArguments().count() == 0)) { // only start session if no files specified
             // let the user choose session if possible
             if (!sessionManager()->chooseSession()) {
-#if __has_include(<KStartupInfo>)
+#if HAVE_X11
                 // we will exit kate now, notify the rest of the world we are done
                 KStartupInfo::appStarted();
 #endif
@@ -519,6 +519,7 @@ KateStashManager *KateApp::stashManager()
 
 bool KateApp::isOnActivity(const QString &activity)
 {
+#if HAVE_X11
     for (const auto window : qAsConst(m_mainWindows)) {
         const KWindowInfo info(window->winId(), {}, NET::WM2Activities);
         const auto activities = info.activities();
@@ -529,6 +530,9 @@ bool KateApp::isOnActivity(const QString &activity)
     }
 
     return false;
+#else
+    return true;
+#endif
 }
 
 KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile, bool activateView, KTextEditor::Cursor c)

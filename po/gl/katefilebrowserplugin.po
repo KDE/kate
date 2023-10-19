@@ -46,10 +46,8 @@ msgstr "&Outro…"
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
-msgstr[0] ""
-"Está a piques de abrir un ficheiro, está seguro de que quere abrilo?"
-msgstr[1] ""
-"Está a piques de abrir %1 ficheiros, está seguro de que quere abrilos?"
+msgstr[0] "Está a piques de abrir un ficheiro, seguro que quere abrilo?"
+msgstr[1] "Está a piques de abrir %1 ficheiros, seguro que quere abrilos?"
 
 #: katefilebrowser.cpp:347
 #, kde-format

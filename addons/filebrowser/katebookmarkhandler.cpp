@@ -32,7 +32,7 @@ KateBookmarkHandler::KateBookmarkHandler(KateFileBrowser *parent, QMenu *kpopupm
         file = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/fsbookmarks.xml");
     }
 
-    KBookmarkManager *manager = KBookmarkManager::managerForFile(file);
+    KBookmarkManager *manager = new KBookmarkManager(file, this);
     manager->setUpdate(true);
 
     m_bookmarkMenu = new KBookmarkMenu(manager, this, m_menu);

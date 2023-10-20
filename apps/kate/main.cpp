@@ -347,7 +347,7 @@ int main(int argc, char **argv)
                         if (answer.size() == 1) {
                             // special case: on all desktops! that is -1 aka NET::OnAllDesktops, see KWindowInfo::desktop() docs
                             const int sessionDesktopNumber = answer.at(0).toInt();
-                            if (sessionDesktopNumber == desktopnumber || sessionDesktopNumber == NET::OnAllDesktops) {
+                            if (sessionDesktopNumber == desktopnumber || sessionDesktopNumber == -1) {
                                 // stop searching. a candidate instance in the current desktop has been found
                                 foundRunningService = true;
                                 break;

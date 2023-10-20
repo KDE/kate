@@ -113,6 +113,7 @@
         "julia": {
             "command": ["julia", "-e", "using LanguageServer; runserver();"],
             "root": ".",
+            "path": ["%{ENV:HOME}/.juliaup/bin"],
             "url": "https://github.com/julia-vscode/LanguageServer.jl",
             "highlightingModeRegex": "^Julia$"
         },

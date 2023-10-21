@@ -15,7 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Zanata 3.9.6\n"
 
 #, kde-format
@@ -174,18 +175,22 @@ msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
 #: plugin_katebuild.cpp:909
-#, kde-format
+#, fuzzy, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "נמצאה שגיאה אחת"
 msgstr[1] "נמצאו %1 שגיאות"
+msgstr[2] ""
+msgstr[3] ""
 
 #: plugin_katebuild.cpp:913
-#, kde-format
+#, fuzzy, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "נמצאה הזהרה אחת"
 msgstr[1] "נמצאו %1 הזהרות"
+msgstr[2] ""
+msgstr[3] ""
 
 #: plugin_katebuild.cpp:916
 #, fuzzy, kde-format
@@ -195,6 +200,8 @@ msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "נמצאה שגיאה אחת"
 msgstr[1] "נמצאו %1 שגיאות"
+msgstr[2] ""
+msgstr[3] ""
 
 #: plugin_katebuild.cpp:921
 #, kde-format

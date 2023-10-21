@@ -15,7 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Zanata 3.9.6\n"
 
 #, kde-format
@@ -100,11 +101,13 @@ msgid "Done"
 msgstr "הסתיים"
 
 #: close_except_plugin.cpp:260
-#, kde-format
+#, fuzzy, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
 msgstr[0] "קובץ %1 נסגר"
 msgstr[1] "%1 קבצים נסגרו"
+msgstr[2] ""
+msgstr[3] ""
 
 #: close_except_plugin.cpp:273
 #, kde-kuit-format

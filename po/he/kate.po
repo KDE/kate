@@ -30,7 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
@@ -455,6 +456,8 @@ msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
@@ -467,6 +470,8 @@ msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
@@ -479,6 +484,8 @@ msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
@@ -1226,12 +1233,14 @@ msgid "(never)"
 msgstr "(אף פעם)"
 
 #: lib/kateconfigdialog.cpp:469
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
 msgid_plural " days"
 msgstr[0] " יום"
 msgstr[1] " ימים"
+msgstr[2] ""
+msgstr[3] ""
 
 #: lib/kateconfigdialog.cpp:502
 #, kde-format
@@ -2361,7 +2370,7 @@ msgid ""
 msgstr ""
 
 #: lib/kateviewspace.cpp:221
-#, kde-format
+#, fuzzy, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
 "switch to the Quick Open view by clicking here."
@@ -2374,6 +2383,8 @@ msgstr[0] ""
 msgstr[1] ""
 "כרגע יש עוד %1 מסמכים פתוחים. כדי לראות את כולם, החלף לתצוגת פתיחה מהירה ע"
 "\"י לחיצה כאן"
+msgstr[2] ""
+msgstr[3] ""
 
 #: lib/kateviewspace.cpp:1021
 #, fuzzy, kde-format

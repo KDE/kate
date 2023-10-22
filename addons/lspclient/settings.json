@@ -110,6 +110,13 @@
             "url": "https://github.com/microsoft/vscode/tree/main/extensions/json-language-features/server",
             "highlightingModeRegex": "^JSON$"
         },
+        "julia": {
+            "command": ["julia", "-e", "using LanguageServer; runserver();"],
+            "root": ".",
+            "path": ["%{ENV:HOME}/.juliaup/bin"],
+            "url": "https://github.com/julia-vscode/LanguageServer.jl",
+            "highlightingModeRegex": "^Julia$"
+        },
         "kotlin": {
             "command": ["kotlin-language-server"],
             "root": ".",

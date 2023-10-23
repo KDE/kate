@@ -2361,7 +2361,7 @@ public:
         QAction *insertBefore = nullptr;
         // the name is used in KXMLGUI as object name
         // we want to insert before the cut action to ensure the KTE spelling menu is still on top
-        auto cutName = QString::fromLatin1(KStandardAction::name(KStandardAction::StandardAction::Cut));
+        const auto cutName = KStandardAction::name(KStandardAction::StandardAction::Cut);
 
         for (auto *act : menu->actions()) {
             if (act->objectName() == cutName) {

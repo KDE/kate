@@ -75,6 +75,7 @@ parts:
         build-packages:
         - cmake
         - extra-cmake-modules
+        - gettext
         - kinit-dev
         - kuserfeedback-dev
         - libkf5activities-dev

@@ -485,7 +485,7 @@ void KateViewManagementTests::testNewWindowHasSameGlobalOptions()
     KateMainWindow *mw = app->activeKateMainWindow();
     mw->openUrl(QUrl());
     mw->openUrl(QUrl());
-    QAction *act = mw->action("settings_show_tab_bar");
+    QAction *act = mw->action(QStringLiteral("settings_show_tab_bar"));
     QVERIFY(act && act->isCheckable());
     const bool state = act->isChecked();
     qDebug() << "v" << mw->viewManager()->activeViewSpace()->m_tabBar->isVisible() << act->isChecked();

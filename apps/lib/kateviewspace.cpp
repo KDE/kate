@@ -1031,7 +1031,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     auto *doc = docOrWidget.doc();
 
     auto addActionFromCollection = [this](QMenu *menu, const char *action_name) {
-        QAction *action = m_viewManager->mainWindow()->action(action_name);
+        QAction *action = m_viewManager->mainWindow()->action(QLatin1StringView(action_name));
         return menu->addAction(action->icon(), action->text());
     };
 

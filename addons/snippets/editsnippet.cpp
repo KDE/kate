@@ -36,7 +36,7 @@ KTextEditor::View *createView(QWidget *tabWidget)
     auto document = KTextEditor::Editor::instance()->createDocument(tabWidget);
     auto view = document->createView(tabWidget);
 
-    view->action("file_save")->setEnabled(false);
+    view->action(QStringLiteral("file_save"))->setEnabled(false);
     tabWidget->layout()->addWidget(view);
     view->setStatusBarEnabled(false);
     return view;

@@ -890,11 +890,11 @@ void KateMainWindow::slotUpdateActionsNeedingUrl()
     auto &&view = viewManager()->activeView();
     const bool hasUrl = view && !view->document()->url().isEmpty();
 
-    action("file_copy_filepath")->setEnabled(hasUrl);
-    action("file_open_containing_folder")->setEnabled(hasUrl);
-    action("file_rename")->setEnabled(hasUrl);
-    action("file_delete")->setEnabled(hasUrl);
-    action("file_properties")->setEnabled(hasUrl);
+    action(QStringLiteral("file_copy_filepath"))->setEnabled(hasUrl);
+    action(QStringLiteral("file_open_containing_folder"))->setEnabled(hasUrl);
+    action(QStringLiteral("file_rename"))->setEnabled(hasUrl);
+    action(QStringLiteral("file_delete"))->setEnabled(hasUrl);
+    action(QStringLiteral("file_properties"))->setEnabled(hasUrl);
     documentOpenWith->setEnabled(hasUrl);
 }
 

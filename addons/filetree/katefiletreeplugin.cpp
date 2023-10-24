@@ -274,11 +274,11 @@ void KateFileTreePluginView::setupActions()
      */
     if (KXmlGuiWindow *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window())) {
         bool newOrOpen = false;
-        if (auto a = parentClient->action("file_new")) {
+        if (auto a = parentClient->action(QStringLiteral("file_new"))) {
             m_toolbar->addAction(a);
             newOrOpen = true;
         }
-        if (auto a = parentClient->action("file_open")) {
+        if (auto a = parentClient->action(QStringLiteral("file_open"))) {
             m_toolbar->addAction(a);
             newOrOpen = true;
         }

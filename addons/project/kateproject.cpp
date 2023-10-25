@@ -137,6 +137,7 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
     , m_baseDir(QDir(directory).absolutePath())
     , m_globalProject(globalProject)
 {
+    m_model.m_project = this;
     // try to load the project map, will start worker thread, too
     load(globalProject);
 }

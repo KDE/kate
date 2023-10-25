@@ -476,7 +476,7 @@ msgstr "sol·licitud de mòdul"
 #: debugview_dap.cpp:749
 #, kde-format
 msgid "goto targets request"
-msgstr "sol·licitud d'anar a objectius"
+msgstr "sol·licitud d'anar fins a objectius"
 
 #: debugview_dap.cpp:750
 #, kde-format

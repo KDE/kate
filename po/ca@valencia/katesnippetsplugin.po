@@ -290,7 +290,7 @@ msgstr "Aplica a tots els tipus de fitxer"
 #: snippetrepository.cpp:360
 #, kde-format
 msgid "Applies to the following filetypes: %1"
-msgstr "Aplica als següents tipus de fitxer: %1"
+msgstr "Aplica als tipus de fitxer següents: %1"
 
 #: snippetview.cpp:93
 #, kde-format

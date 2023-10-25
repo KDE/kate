@@ -78,7 +78,7 @@ int main(int argc, char **argv)
     /**
      * Connect application with translation catalogs, Kate & KWrite share the same one
      */
-    KLocalizedString::setApplicationDomain("kate");
+    KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));
 
     /**
      * construct about data for Kate

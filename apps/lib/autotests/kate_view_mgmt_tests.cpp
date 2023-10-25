@@ -48,7 +48,7 @@ KateViewManagementTests::KateViewManagementTests(QObject *)
 {
     // ensure ui file can be found and the translation domain is set to avoid warnings
     qApp->setApplicationName(QStringLiteral("kate"));
-    KLocalizedString::setApplicationDomain("kate");
+    KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));
 
     m_tempdir = new QTemporaryDir;
     QVERIFY(m_tempdir->isValid());

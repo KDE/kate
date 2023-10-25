@@ -33,7 +33,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     /**
      * Connect application with translation catalogs, Kate & KWrite share the same one
      */
-    KLocalizedString::setApplicationDomain("kate");
+    KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));
 
     /**
      * then use i18n and co

@@ -43,7 +43,7 @@ msgstr "Format Clang del text seleccionat"
 #, kde-format
 msgctxt "External tool name"
 msgid "Compile and Run cpp"
-msgstr "Compila i executa el cpp"
+msgstr "Compila i executa cpp"
 
 #. i18n: file: 7
 #, kde-format

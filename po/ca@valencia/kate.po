@@ -715,7 +715,7 @@ msgstr "Michael Koch"
 #: lib/kateapp.cpp:305
 #, kde-format
 msgid "KWrite port to KParts"
-msgstr "Port de KWrite a KParts"
+msgstr "Port de KWrite a les KPart"
 
 #: lib/kateapp.cpp:306
 #, kde-format

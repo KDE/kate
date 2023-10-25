@@ -331,7 +331,7 @@ msgstr "SQL"
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
-msgstr "Configureu la pàgina de configuració d'SQL"
+msgstr "Configureu la pàgina de configuració de SQL"
 
 #: katesqlview.cpp:45
 #, kde-format

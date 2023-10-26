@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-29 01:40+0000\n"
+"POT-Creation-Date: 2023-10-26 01:47+0000\n"
 "PO-Revision-Date: 2023-09-06 17:32+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -510,12 +510,12 @@ msgstr ""
 "Ви справді хочете вилучити ці зміни, за якими не ведеться стеження у системі "
 "керування версіями?"
 
-#: kateproject.cpp:217
+#: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Помилкове форматування файла JSON «%1»: %2"
 
-#: kateproject.cpp:517
+#: kateproject.cpp:518
 #, kde-format
 msgid "<untracked>"
 msgstr "<стеження не виконується>"

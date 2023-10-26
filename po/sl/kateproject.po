@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-29 01:40+0000\n"
+"POT-Creation-Date: 2023-10-26 01:47+0000\n"
 "PO-Revision-Date: 2023-09-06 07:19+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -510,12 +510,12 @@ msgstr "Ali ste prepričani, da želite zavreči spremembe?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Ali ste prepričani, da želite odstraniti te nesledene spremembe?"
 
-#: kateproject.cpp:217
+#: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Pokvarjena datoteka JSON '%1': %2"
 
-#: kateproject.cpp:517
+#: kateproject.cpp:518
 #, kde-format
 msgid "<untracked>"
 msgstr "<ni sledeno>"

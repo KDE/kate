@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-29 01:40+0000\n"
+"POT-Creation-Date: 2023-10-26 01:47+0000\n"
 "PO-Revision-Date: 2019-03-17 02:54+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -501,12 +501,12 @@ msgstr ""
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 
-#: kateproject.cpp:217
+#: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:517
+#: kateproject.cpp:518
 #, kde-format
 msgid "<untracked>"
 msgstr ""

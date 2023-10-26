@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-29 01:40+0000\n"
+"POT-Creation-Date: 2023-10-26 01:47+0000\n"
 "PO-Revision-Date: 2023-09-17 13:15+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -509,12 +509,12 @@ msgstr "Czy na pewno porzucić te zmiany?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Czy na pewno usunąć te nieśledzone zmiany?"
 
-#: kateproject.cpp:217
+#: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Zniekształcony plik JSON '%1': %2"
 
-#: kateproject.cpp:517
+#: kateproject.cpp:518
 #, kde-format
 msgid "<untracked>"
 msgstr "<nieśledzony>"

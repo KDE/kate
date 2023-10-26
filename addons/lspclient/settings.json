@@ -128,6 +128,10 @@
             "url": "https://texlab.netlify.com/",
             "highlightingModeRegex": "^LaTeX$"
         },
+        "less": {
+            "use": "css",
+            "highlightingModeRegex": "^LESSCSS$"
+        },
         "lua": {
             "command": ["lua-language-server"],
             "url": "https://github.com/sumneko/lua-language-server",
@@ -208,6 +212,10 @@
             "rootIndicationFileNames": ["build.sbt"],
             "url": "https://scalameta.org/metals/",
             "highlightingModeRegex": "^Scala$"
+        },
+        "scss": {
+            "use": "css",
+            "highlightingModeRegex": "^SCSS$"
         },
         "terraform": {
             "command": ["terraform-ls", "serve"],

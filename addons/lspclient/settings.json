@@ -232,6 +232,11 @@
             "url": "https://github.com/Prince781/vala-language-server",
             "highlightingModeRegex": "^Vala$"
         },
+        "xml": {
+            "command": ["lemminx"],
+            "url": "https://github.com/redhat-developer/vscode-xml#lemminx-binary",
+            "highlightingModeRegex": "^XML$"
+        },
         "yaml": {
             "command": ["yaml-language-server", "--stdio"],
             "url": "https://github.com/redhat-developer/yaml-language-server",

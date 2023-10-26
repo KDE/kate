@@ -160,6 +160,13 @@
             "url": "https://github.com/richterger/Perl-LanguageServer",
             "highlightingModeRegex": "^Perl$"
         },
+        "php": {
+            "command": ["phpactor", "language-server"],
+            "commandDebug": ["phpactor", "language-server", "-vvv"],
+            "root": ".",
+            "url": "https://github.com/phpactor/phpactor",
+            "highlightingModeRegex": "^PHP \\(HTML\\)$"
+        },
         "python": {
             "command": ["pylsp", "--check-parent-process"],
             "url": "https://github.com/python-lsp/python-lsp-server",

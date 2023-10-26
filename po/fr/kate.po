@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-21 02:33+0000\n"
-"PO-Revision-Date: 2023-09-16 19:12+0200\n"
+"PO-Revision-Date: 2023-10-24 21:28+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -300,7 +300,7 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
-"Erreur dans une expression régulière : %1\n"
+"Erreur dans une expression rationnelle : %1\n"
 "décalage %2 : %3"
 
 #: lib/diagnostics/diagnosticview.cpp:63
@@ -564,8 +564,8 @@ msgstr "Aucune différence trouvée"
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
-"Impossible d'obtenir l'historique du fichier : l'exécutable associé à Git "
-"n'a pas été trouvé dans la variable d'environnement « PATH »"
+"Impossible d'obtenir l'historique du fichier : il a été impossible de "
+"trouver l'exécutable associé à Git dans la variable d'environnement « PATH »"
 
 #: lib/filehistorywidget.cpp:296
 #, kde-format
@@ -1173,13 +1173,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:501
 #, kde-format
 msgid "Open new tab to the right of current tab."
-msgstr "Ouvrir un nouvel onglet à droite de l’onglet actuel."
+msgstr "Ouvrir un nouvel onglet à droite de l'onglet actuel."
 
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr ""
-"Si cette option est non sélectionnée, le nouvel onglet s’ouvrira à la fin."
+"Si cette option est non sélectionnée, le nouvel onglet s'ouvrira à la fin."
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format

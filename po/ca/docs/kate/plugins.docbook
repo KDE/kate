@@ -2357,9 +2357,7 @@ folder if possible.</para
 <para
 >Si s'obren dos o més fitxers amb el mateix nom (ubicats en diferents carpetes) en el <guimenuitem
 >Mode de llista</guimenuitem
->, el nom del segon prendrà la forma <quote
->(2)</quote
-> i així successivament. El consell d'eina per al fitxer mostrarà el seu nom complet incloent el camí, permetent-vos escollir el que vulgueu.</para
+>, el nom del segon prendrà la forma «(2)» i així successivament. El consell d'eina per al fitxer mostrarà el seu nom complet incloent el camí, permetent-vos escollir el que vulgueu.</para
 > <para
 >Per a mostrar un document en el marc actiu, feu clic al nom del document en la llista.</para>
 
@@ -3170,9 +3168,7 @@ folder if possible.</para
 </screenshot>
 
 <para
->Com podeu veure, el projecte actualment actiu és el <quote
->Kate</quote
->, i el seu contingut apareix a la vista en arbre. En fer clic sobre algun dels fitxers a la vista en arbre, aquest s'obrirà a l'editor. A més, proporciona un menú contextual amb el qual podreu obrir els fitxers amb altres aplicacions, com per exemple un fitxer <filename class="extension"
+>Com podeu veure, el projecte actualment actiu és el «Kate», i el seu contingut apareix a la vista en arbre. En fer clic sobre algun dels fitxers a la vista en arbre, aquest s'obrirà a l'editor. A més, proporciona un menú contextual amb el qual podreu obrir els fitxers amb altres aplicacions, com per exemple un fitxer <filename class="extension"
 >.ui</filename
 > amb el Qt Designer.</para>
 <para
@@ -3281,9 +3277,7 @@ folder if possible.</para
 >.kateproject</filename
 > a la carpeta arrel del projecte. Per exemple, el fitxer <filename
 >.kateproject</filename
-> del <quote
->Kate</quote
-> es veu així: </para>
+> del «Kate» es veu així: </para>
 
 <screen
 >{
@@ -3297,9 +3291,7 @@ folder if possible.</para
 </screen>
 
 <para
->El contingut del fitxer s'escriu en la sintaxi &JSON;. El nom del projecte és <quote
->Kate</quote
->, i els fitxers continguts s'han de llegir des de &git;. </para>
+>El contingut del fitxer s'escriu en la sintaxi &JSON;. El nom del projecte és «Kate», i els fitxers continguts s'han de llegir des de &git;. </para>
 
 <para
 >També en comptes de <literal
@@ -4113,35 +4105,17 @@ Projects Replicode run / stop-->
 </screen>
 
 <para
->Cal tenir en compte que cada <quote
->command</quote
-> pot ser una matriu o una cadena (en aquest cas es divideix en una matriu). A més, una entrada <quote
->global</quote
-> de nivell superior (al costat de <quote
->server</quote
->) també es considerarà (vegeu més a baix). El binari especificat és la cerca de la forma habitual, &pex;, utilitzant <literal
+>Cal tenir en compte que cada «command» pot ser una matriu o una cadena (en aquest cas es divideix en una matriu). A més, una entrada «global» de nivell superior (al costat de «server») també es considerarà (vegeu més a baix). El binari especificat és la cerca de la forma habitual, &pex;, utilitzant <literal
 >PATH</literal
 >. Si està instal·lat en una ubicació personalitzada, és possible que s'hagi d'estendre aquest últim. O de manera alternativa, es pot utilitzar un enllaç (simbòlic) o un script d'embolcall en una ubicació que estigui dins del <literal
 >PATH</literal
-> habitual. Com s'il·lustra a dalt, també es pot especificar un <quote
->camí</quote
-> que se cercarà després de les ubicacions estàndard. </para>
+> habitual. Com s'il·lustra a dalt, també es pot especificar un «camí» que se cercarà després de les ubicacions estàndard. </para>
 
 <para
->Totes les entrades a <quote
->command</quote
->, <quote
->root</quote
-> i <quote
->path</quote
-> estan subjectes a l'expansió de les variables. </para>
+>Totes les entrades a «command», «root» i «path» estan subjectes a l'expansió de les variables. </para>
 
 <para
->El <quote
->highlightingModeRegex</quote
-> s'utilitza per a mapar el mode de ressaltat emprat pel &kate; amb l'ID d'idioma de servidor. Si no es proporciona una expressió regular, s'utilitzarà l'ID de l'idioma. Si s'estableix a fals una entrada <quote
->documentLanguageId</quote
->, no es proporcionarà cap ID d'idioma al servidor en obrir el document. Això pot tenir millors resultats per a alguns servidors que són més precisos determinant el tipus de document que fer-ho basant-se en un mode del &kate;. </para>
+>El «highlightingModeRegex» s'utilitza per a mapar el mode de ressaltat emprat pel &kate; amb l'ID d'idioma de servidor. Si no es proporciona una expressió regular, s'utilitzarà l'ID de l'idioma. Si s'estableix a fals una entrada «documentLanguageId», no es proporcionarà cap ID d'idioma al servidor en obrir el document. Això pot tenir millors resultats per a alguns servidors que són més precisos determinant el tipus de document que fer-ho basant-se en un mode del &kate;. </para>
 
 <para
 >A partir de l'exemple anterior, se suposa que l'essència és clara. A més, cada objecte d'entrada del servidor també podrà tenir una entrada «initializationOptions», la qual es passarà al servidor com a part del mètode «initialize». Si està present, es passarà una entrada «settings» al servidor mitjançant la notificació «workspace/didChangeConfiguration». Es poden especificar tant «completionTriggerCharacters» o «signatureTriggerCharacters» com un objecte JSON amb membres de cadena "exclude" i/o "include". S'utilitzaran per a excloure o afegir alguns caràcters al joc d'activadors respectiu tal com el proporciona el servidor. </para>
@@ -4166,9 +4140,7 @@ Projects Replicode run / stop-->
 </para>
 
 <para
->S'utilitza una instància del servidor per combinació (arrel, tipus de servidor). Si s'especifica «root» com un camí absolut, llavors s'utilitzarà com està, en cas contrari serà relatiu a <quote
->projectBase</quote
-> (segons ho determini el <link linkend="kate-application-plugin-projects"
+>S'utilitza una instància del servidor per combinació (arrel, tipus de servidor). Si s'especifica «root» com un camí absolut, llavors s'utilitzarà com està, en cas contrari serà relatiu a «projectBase» (segons ho determini el <link linkend="kate-application-plugin-projects"
 >connector Projecte</link
 >) si escau, o d'una altra manera relativa al directori del document. Si no s'especifica i «rootIndicationFileNames» és una matriu com noms de fitxer, llavors se selecciona un directori pare del document actual que conté aquest fitxer. Alternativament, si no s'especifica «root» i «rootIndicationFilePatterns» és una matriu de patrons de fitxers, llavors se selecciona un directori pare del document actual que coincideixi amb el patró de fitxer. Com a últim recurs, se seleccionarà el directori inicial com a «root». Per a qualsevol document, el «root» resultant determinarà si es necessita o no una instància separada. Si és així, el «root» es passarà com a rootUri/rootPath. </para>
 
@@ -4888,9 +4860,7 @@ its view and place the cursor at the start of the definition.
 <title
 >Introducció</title>
 <para
->El Retalls del &kate; és un connector utilitzat per a estalviar una mica de temps, afegint una implementació per als anomenats <quote
->retalls</quote
-> (codi font reutilitzable, codi de màquina o text). El connector també és compatible amb la compleció del codi i &javascript;.</para>
+>El Retalls del &kate; és un connector utilitzat per a estalviar una mica de temps, afegint una implementació per als anomenats «retalls» (codi font reutilitzable, codi de màquina o text). El connector també és compatible amb la compleció del codi i &javascript;.</para>
 </sect2>
 
 <sect2 id="snippets-menu">
@@ -5058,9 +5028,7 @@ when finished.</para
 ></term>
 <listitem
 ><para
->Seleccioneu el/s tipus de fitxer/s que voleu aplicar al repositori de retalls. De manera predeterminada s'estableix a <quote
-></quote
-> -es deixa buit-, de manera que el repositori ho aplicarà a tots els fitxers. Podeu canviar-ho a quelcom com C++, o seleccionar des d'una llista fent clic en els elements. Podeu especificar més d'un tipus de fitxer prement la tecla &Maj; mentre s'afegeixen els tipus.</para
+>Seleccioneu el/s tipus de fitxer/s que voleu aplicar al repositori de retalls. De manera predeterminada s'estableix a «» -es deixa buit-, de manera que el repositori ho aplicarà a tots els fitxers. Podeu canviar-ho a quelcom com C++, o seleccionar des d'una llista fent clic en els elements. Podeu especificar més d'un tipus de fitxer prement la tecla &Maj; mentre s'afegeixen els tipus.</para
 ></listitem>
 </varlistentry>
 
@@ -6404,11 +6372,7 @@ VALUES ("<replaceable
 <para
 >Aquest connector comprova que els fitxers &XML; estiguin ben formats i que són vàlids.</para>
 <para
->Aquest connector comprova el fitxer actual. A la part inferior de la finestra principal del &kate; apareixerà una llista d'avisos i errors. Podeu fer clic sobre un missatge d'error per a saltar al lloc corresponent en el fitxer. Si el fitxer té una <quote
->DOCTYPE</quote
->, la DTD indicada amb aquest tipus de document serà utilitzada per a comprovar la validesa del fitxer. S'espera que la DTD estigui al lloc corresponent en el fitxer actual, &pex; si el tipus de document fa referència a <quote
->DTD/xhtml1-transitional.dtd</quote
-> i el fitxer és <filename
+>Aquest connector comprova el fitxer actual. A la part inferior de la finestra principal del &kate; apareixerà una llista d'avisos i errors. Podeu fer clic sobre un missatge d'error per a saltar al lloc corresponent en el fitxer. Si el fitxer té una «DOCTYPE», la DTD indicada amb aquest tipus de document serà utilitzada per a comprovar la validesa del fitxer. S'espera que la DTD estigui al lloc corresponent en el fitxer actual, &pex; si el tipus de document fa referència a «DTD/xhtml1-transitional.dtd» i el fitxer és <filename
 >/home/pere/prova.xml</filename
 >, s'esperarà que la DTD es trobi a <filename
 >/home/pere/DTD/xhtml1-transitional.dtd</filename
@@ -6469,9 +6433,7 @@ VALUES ("<replaceable
 <title
 >Agraïments i reconeixements</title>
 <para
->Copyright del connector <quote
->Validació &XML;</quote
-> del &kate;, 2002 per en &Daniel.Naber; &Daniel.Naber.mail;. </para>
+>Copyright del connector «Validació &XML;» del &kate;, 2002 per en &Daniel.Naber; &Daniel.Naber.mail;. </para>
 <para
 >Copyright de la documentació, 2002 per en &Daniel.Naber;</para>
 
@@ -6490,18 +6452,14 @@ VALUES ("<replaceable
 >Compleció &XML;</title>
 
 <para
->Aquest connector ofereix consells sobre el que està permès en una determinada posició en un fitxer &XML;, segons la DTD del fitxer. Es mostrarà una llista de possibles elements, atributs, valors d'atributs o entitats, en funció de la posició del cursor (&pex;, totes les entitats seran llistades si el caràcter a l'esquerra del cursor és <quote
->&amp;</quote
->). També és possible tancar l'etiqueta d'obertura més propera a l'esquerra.</para>
+>Aquest connector ofereix consells sobre el que està permès en una determinada posició en un fitxer &XML;, segons la DTD del fitxer. Es mostrarà una llista de possibles elements, atributs, valors d'atributs o entitats, en funció de la posició del cursor (&pex;, totes les entitats seran llistades si el caràcter a l'esquerra del cursor és «&amp;»). També és possible tancar l'etiqueta d'obertura més propera a l'esquerra.</para>
 
 <para
 >La <acronym
 >DTD</acronym
 > ha d'existir en format &XML;, presentada pel programa <command
 >dtdparse</command
-> de Perl. Cridarem una DTD en aquest format <quote
->meta DTD</quote
->. Se subministren algunes meta DTD. Es troben instal·lades a <filename class="directory"
+> de Perl. Cridarem una DTD en aquest format «meta DTD». Se subministren algunes meta DTD. Es troben instal·lades a <filename class="directory"
 >katexmltools/</filename
 > a <userinput
 ><command
@@ -6540,9 +6498,7 @@ VALUES ("<replaceable
 ><guimenuitem
 >Assigna la meta DTD...</guimenuitem
 ></menuchoice
->. Si el document no conté una <quote
->DOCTYPE</quote
-> o el tipus de document és desconegut, haureu de triar una meta DTD des del sistema de fitxers. En cas contrari, la meta DTD que coincideixi amb el DOCTYPE del document actual serà carregada automàticament.</para>
+>. Si el document no conté una «DOCTYPE» o el tipus de document és desconegut, haureu de triar una meta DTD des del sistema de fitxers. En cas contrari, la meta DTD que coincideixi amb el DOCTYPE del document actual serà carregada automàticament.</para>
 
 <para
 >Ara podeu utilitzar el connector en teclejar el vostre text:</para>
@@ -6556,9 +6512,7 @@ VALUES ("<replaceable
 > (menys que)</term>
 <listitem
 ><para
->Donarà lloc a una llista de possibles elements menors al cursor que ja es troben dins d'una etiqueta. Cal tenir en compte que actualment no es pot utilitzar per a inserir l'element de nivell superior (&pex;, <quote
->&lt;html&gt;</quote
->).</para
+>Donarà lloc a una llista de possibles elements menors al cursor que ja es troben dins d'una etiqueta. Cal tenir en compte que actualment no es pot utilitzar per a inserir l'element de nivell superior (&pex;, «&lt;html&gt;»).</para
 ></listitem>
 </varlistentry>
 
@@ -6700,9 +6654,7 @@ VALUES ("<replaceable
 <title
 >Agraïments i reconeixements</title>
 <para
->Copyright del connector <quote
->Compleció &XML;</quote
-> del &kate;, 2001, 2002 per en &Daniel.Naber; &Daniel.Naber.mail;. </para>
+>Copyright del connector «Compleció &XML;» del &kate;, 2001, 2002 per en &Daniel.Naber; &Daniel.Naber.mail;. </para>
 <para
 >Copyright de la versió SC 4 del &kde;, 2010 per en Tomáš Trnka</para>
 <para

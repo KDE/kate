@@ -32,44 +32,18 @@ regulars de Perl, ni de <command
 > us proporcionen un mètode per a descriure el possible contingut d'una cadena de text de manera que pugui ser interpretada per una petita peça de programari, i d'aquesta manera es pugui esbrinar si un text es correspon amb el cercat i, en el cas d'aplicacions avançades, es posin els mitjans per a recuperar parts del text coincident.</para>
 
 <para
->Per exemple: Posem que voleu cercar un text que és el començament d'un paràgraf que inclou els noms <quote
->Enric</quote
-> o <quote
->Pere</quote
->, seguits d'alguna forma del verb <quote
->dir</quote
->.</para>
+>Per exemple: Posem que voleu cercar un text que és el començament d'un paràgraf que inclou els noms «Enric» o «Pere», seguits d'alguna forma del verb «dir».</para>
 
 <para
->En una cerca normal, s'hauria de començar a cercar el primer nom, <quote
->Enric</quote
-> potser seguit de <quote
->di</quote
->, de la següent manera: <userinput
+>En una cerca normal, s'hauria de començar a cercar el primer nom, «Enric» potser seguit de «di», de la següent manera: <userinput
 >Enric di</userinput
->, i mentre cerca coincidències, haureu de descartar aquelles que no estiguin al començament d'un paràgraf, així com aquelles en les que la paraula que comenci per <quote
->di</quote
-> que no pertanyi al verb <quote
->dir</quote
->. I després tornar a repetir tot el procés amb el següent nom...</para>
+>, i mentre cerca coincidències, haureu de descartar aquelles que no estiguin al començament d'un paràgraf, així com aquelles en les que la paraula que comenci per «di» que no pertanyi al verb «dir». I després tornar a repetir tot el procés amb el següent nom...</para>
 
 <para
 >Amb les expressions regulars, aquesta tasca s'hauria de realitzar d'una sola cerca, i amb un alt grau de precisió.</para>
 
 <para
->Per a aconseguir-ho, les expressions regulars estableixen regles per a expressar amb detall una generalització de la cadena a cercar. El nostre exemple, el podríem expressar literalment com: <quote
->Una línia que comença per <quote
->Enric</quote
-> o per <quote
->Pere</quote
-> (possiblement després de fins a 4 espais en blanc o tabulacions) seguit d'un espai en blanc seguit de <quote
->di</quote
-> i després <quote
->u</quote
-> o <quote
->gué</quote
-></quote
->, es podria expressar amb la següent expressió regular:</para
+>Per a aconseguir-ho, les expressions regulars estableixen regles per a expressar amb detall una generalització de la cadena a cercar. El nostre exemple, el podríem expressar literalment com: "Una línia que comença per «Enric» o per «Pere» (possiblement després de fins a 4 espais en blanc o tabulacions) seguit d'un espai en blanc seguit de «di» i després «u» o «gué»", es podria expressar amb l'expressió regular següent:</para
 > <para
 ><userinput
 >^[ \t]{0,4}(Enric|Pere) di(u|gué)</userinput
@@ -128,9 +102,7 @@ regulars de Perl, ni de <command
 <para
 >La cadena <literal
 >{0,4}</literal
-> és un quantificador que diu <quote
->en qualsevol lloc des de 0 fins a 4 caràcters anteriors</quote
->.</para>
+> és un quantificador que diu «en qualsevol lloc des de 0 fins a 4 caràcters anteriors».</para>
 
 <para
 >Com el programari d'expressions regulars suporta el concepte de <emphasis
@@ -169,9 +141,7 @@ regulars de Perl, ni de <command
 
 
 <para
->El programari d'expressions regulars ignorarà l'escapat de qualsevol caràcter que no tingui cap significat especial en el context, així que escapar, per exemple, <quote
->j</quote
-> (<userinput
+>El programari d'expressions regulars ignorarà l'escapat de qualsevol caràcter que no tingui cap significat especial en el context, així que escapar, per exemple, «j» (<userinput
 >\j</userinput
 >) no té per què causar problemes. Si teniu cap dubte sobre quan un caràcter pot tenir un significat especial, escapeu-lo amb seguretat.</para>
 
@@ -196,13 +166,7 @@ regulars de Perl, ni de <command
 <para
 >Les classes de caràcters simples tan sols contenen un o més caràcters literals, per exemple <userinput
 >[abc]</userinput
-> (que coincidirà amb les lletres <quote
->a</quote
->, <quote
->b</quote
-> o <quote
->c</quote
->) o <userinput
+> (que coincidirà amb les lletres «a», «b» o «c») o <userinput
 >[0123456789]</userinput
 > (que coincidirà amb qualsevol dígit).</para>
 
@@ -217,35 +181,7 @@ regulars de Perl, ni de <command
 >[0123456789]</userinput
 >. Combinant aquestes construccions, per exemple <userinput
 >[a-fynot1-38]</userinput
-> resulta completament vàlid (aquesta última hauria de coincidir amb qualsevol dels caràcters o dígits <quote
->a</quote
->, <quote
->b</quote
->, <quote
->c</quote
->, <quote
->d</quote
->, <quote
->e</quote
->, <quote
->f</quote
->, <quote
->y</quote
->, <quote
->n</quote
->, <quote
->o</quote
->, <quote
->t</quote
->, <quote
->1</quote
->, <quote
->2</quote
->, <quote
->3</quote
-> o <quote
->8</quote
->).</para>
+> resulta completament vàlid (aquesta última hauria de coincidir amb qualsevol dels caràcters o dígits «a», «b», «c», «d», «e», «f», «y», «n», «o», «t», «1», «2», «3» o «8»).</para>
 
 <para
 >Com les lletres majúscules són caràcters diferents que els seus equivalents en minúscula, per a crear una classe de caràcter independent de la caixa de les lletres que coincideixi amb «a» o «b», haureu d'escriure <userinput
@@ -253,11 +189,7 @@ regulars de Perl, ni de <command
 >.</para>
 
 <para
->De manera que és possible crear una classe <quote
->negativa</quote
-> perquè es faci coincidir <quote
->tot menys</quote
->. Per a fer-ho incloeu un accent circumflex (<literal
+>De manera que és possible crear una classe «negativa» perquè es faci coincidir «tot menys». Per a fer-ho incloeu un accent circumflex (<literal
 >^</literal
 >) al començament de la classe: </para>
 
@@ -266,13 +198,7 @@ regulars de Perl, ni de <command
 >[^abc]</userinput
 > coincidirà amb qualsevol caràcter <emphasis
 >excepte amb</emphasis
-> <quote
->a</quote
->, <quote
->b</quote
-> o <quote
->c</quote
->.</para>
+> «a», «b» o «c».</para>
 
 <para
 >A més dels caràcters literals, hi ha alguns abreujaments definits, per a facilitar una mica les coses: <variablelist>
@@ -428,9 +354,7 @@ regulars de Perl, ni de <command
 ></term>
 <listitem
 ><para
->Coincideix amb qualsevol <quote
->caràcter d'una paraula</quote
->, en aquest cas qualsevol lletra, dígit o guió baix. És igual que <literal
+>Coincideix amb qualsevol «caràcter d'una paraula», en aquest cas qualsevol lletra, dígit o guió baix. És igual que <literal
 >[a-zA-Z0-9_]</literal
 >.</para
 ></listitem>
@@ -483,9 +407,7 @@ regulars de Perl, ni de <command
 >Caràcters amb significat especial dintre de les classes de caràcters</title>
 
 <para
->Els següents caràcters tenen un significat especial dintre de la construcció de classes dels caràcters <quote
->[]</quote
->, i és necessari escapar-los perquè siguin inclosos literalment en una classe:</para>
+>Els següents caràcters tenen un significat especial dintre de la construcció de classes dels caràcters «[]», i és necessari escapar-los perquè siguin inclosos literalment en una classe:</para>
 
 <variablelist>
 <varlistentry>
@@ -538,9 +460,7 @@ regulars de Perl, ni de <command
 <sect2>
 
 <title
->Alternatives: Coincidències amb <quote
->un de</quote
-></title>
+>Alternatives: Coincidències amb «un de»</title>
 
 <para
 >Si desitgeu que la coincidència sigui una d'una sèrie de patrons alternatius, els podeu separar amb <literal
@@ -548,11 +468,7 @@ regulars de Perl, ni de <command
 > (caràcter de barra vertical).</para>
 
 <para
->Per exemple, per a trobar <quote
->Jordi</quote
-> o <quote
->Albert</quote
->, hauríeu d'utilitzar una expressió <userinput
+>Per exemple, per a trobar «Jordi» o «Albert», hauríeu d'utilitzar una expressió <userinput
 >Jordi|Albert</userinput
 >.</para>
 
@@ -574,18 +490,10 @@ regulars de Perl, ni de <command
 >Especificació d'alternatives</title>
 
 <para
->Podeu usar un subpatró per a agrupar un conjunt d'alternatives dins d'un patró més gran. Les alternatives se separen amb el caràcter <quote
->|</quote
-> (barra vertical).</para>
+>Podeu usar un subpatró per a agrupar un conjunt d'alternatives dins d'un patró més gran. Les alternatives se separen amb el caràcter «|» (barra vertical).</para>
 
 <para
->Per exemple, per a cercar la coincidència de les paraules <quote
->int</quote
->, <quote
->float</quote
-> o <quote
->double</quote
->, es podria usar el patró <userinput
+>Per exemple, per a cercar la coincidència de les paraules «int», «float» o «double», es podria usar el patró <userinput
 >int|float|double</userinput
 >. Si tan sols desitgeu trobar-ne una seguida d'algun tipus d'espai en blanc i després algunes lletres, poseu les alternatives dins d'un subpatró: <userinput
 >(int|float|double)\s+\w+</userinput
@@ -634,17 +542,13 @@ regulars de Perl, ni de <command
 ><para
 ><userinput
 >\{12}1</userinput
-> és <quote
->utilitza el subpatró 12</quote
-></para
+> és «utilitza el subpatró 12»</para
 ></listitem>
 <listitem
 ><para
 ><userinput
 >\123</userinput
-> és <quote
->utilitza la captura 1 després 23 com a text normal</quote
-></para
+> és «utilitza la captura 1 després 23 com a text normal»</para
 ></listitem>
 </itemizedlist>
 
@@ -670,17 +574,9 @@ regulars de Perl, ni de <command
 >.</para>
 
 <para
->Per exemple, si voleu cercar la cadena literal <quote
->Bill</quote
->, però tan sols si no va seguida de <quote
-> Gates</quote
->, podeu usar l'expressió: <userinput
+>Per exemple, si voleu cercar la cadena literal «Bill», però tan sols si no va seguida de « Gates», podeu usar l'expressió: <userinput
 >Bill(?! Gates)</userinput
->. (Això coincidirà amb <quote
->Bill Clinton</quote
-> i amb <quote
->Billy el nen</quote
->, però ignoraria en silenci les altres coincidències).</para>
+>. (Això coincidirà amb «Bill Clinton» i amb «Billy el nen», però ignoraria en silenci les altres coincidències).</para>
 
 <para
 >Els subpatrons usats en les declaracions no es capturen.</para>
@@ -704,11 +600,7 @@ regulars de Perl, ni de <command
 >.</para>
 
 <para
->La cerca cap enrere té el mateix efecte que l'anticipada, però funciona a l'inrevés. Per exemple, per a fer coincidir la cadena literal <quote
->fruit</quote
->, però només si no està precedida per <quote
->grape</quote
->, podreu utilitzar aquesta expressió: <userinput
+>La cerca cap enrere té el mateix efecte que l'anticipada, però funciona a l'inrevés. Per exemple, per a fer coincidir la cadena literal «fruit», però només si no està precedida per «grape», podreu utilitzar aquesta expressió: <userinput
 >(?&lt;!grape)fruit</userinput
 >.</para>
 
@@ -986,11 +878,7 @@ regulars de Perl, ni de <command
 >.</para>
 
 <para
->El programari modern d'expressions regulars proporciona els mitjans per a <quote
->desactivar la voracitat</quote
->, tot i que en els entorns gràfics dependrà de la interfície en tenir accés a aquesta característica. Per exemple, un diàleg de cerca que permeti expressions regulars, podria tenir una casella de selecció anomenada <quote
->Coincidència mínima</quote
->, a més, hi podria haver una indicació que la voracitat és el comportament predeterminat.</para>
+>El programari modern d'expressions regulars proporciona els mitjans per a «desactivar la voracitat», tot i que en els entorns gràfics dependrà de la interfície en tenir accés a aquesta característica. Per exemple, un diàleg de cerca que permeti expressions regulars, podria tenir una casella de selecció anomenada «Coincidència mínima», a més, hi podria haver una indicació que la voracitat és el comportament predeterminat.</para>
 
 </sect2>
 
@@ -1010,15 +898,7 @@ regulars de Perl, ni de <command
 ></term>
 <listitem
 ><para
->Coincideix amb els dígits en <quote
->1234 ja</quote
-> i <quote
->12345 ara</quote
->, però no amb els de <quote
->567 onze</quote
-> ni els de <quote
->223459 enlloc</quote
->.</para
+>Coincideix amb els dígits en «1234 ja» i «12345 ara», però no amb els de «567 onze» ni els de «223459 enlloc».</para
 ></listitem>
 </varlistentry>
 
@@ -1040,15 +920,7 @@ regulars de Perl, ni de <command
 ></term>
 <listitem
 ><para
->Coincideix amb <quote
->blablabla</quote
-> i amb el <quote
->bla</quote
-> de <quote
->blanc</quote
-> o <quote
->tabla</quote
->.</para
+>Coincideix amb «blablabla» i amb el «bla» de «blanc» o «tabla».</para
 ></listitem>
 </varlistentry>
 
@@ -1059,15 +931,7 @@ regulars de Perl, ni de <command
 ></term>
 <listitem
 ><para
->Coincideix amb <quote
->/&gt;</quote
-> en <quote
->&lt;elementtancat/&gt;</quote
-> així com amb <quote
->&gt;</quote
-> en <quote
->&lt;elementobert&gt;</quote
->.</para
+>Coincideix amb «/&gt;» en «&lt;elementtancat/&gt;» així com amb «&gt;» en «&lt;elementobert&gt;».</para
 ></listitem>
 </varlistentry>
 
@@ -1108,13 +972,7 @@ regulars de Perl, ni de <command
 > <para
 >L'expressió <userinput
 >^Pere</userinput
-> coincidirà amb <quote
->Pere</quote
-> en la cadena <quote
->Pere, hola!</quote
-> però no en <quote
->Hola Pere!</quote
-> </para
+> coincidirà amb «Pere» en la cadena «Pere, hola!» però no en «Hola Pere!» </para
 > </listitem>
 </varlistentry>
 
@@ -1130,11 +988,7 @@ regulars de Perl, ni de <command
 <para
 >L'expressió <userinput
 >tu\?$</userinput
-> coincidirà amb el final de la cadena <quote
->No l'has fet tu?</quote
->, però amb cap part de <quote
->Tu no l'has fet?</quote
-></para>
+> coincidirà amb el final de la cadena «No l'has fet tu?», però amb cap part de «Tu no l'has fet?»</para>
 
 </listitem>
 </varlistentry>
@@ -1150,15 +1004,7 @@ regulars de Perl, ni de <command
 <para
 >Això és molt útil per a trobar el final de les paraules, o ambdós extrems per a delimitar tota la paraula. L'expressió <userinput
 >\bin\b</userinput
-> coincidirà amb el <quote
->in</quote
-> separat en la cadena <quote
->He came in through the window</quote
->, però no amb el <quote
->in</quote
-> de <quote
->window</quote
->.</para
+> coincidirà amb el «in» separat en la cadena «He came in through the window», però no amb el «in» de «window».</para
 ></listitem>
 
 </varlistentry>
@@ -1170,19 +1016,11 @@ regulars de Perl, ni de <command
 > (no límit de paraula)</term>
 <listitem
 ><para
->Coincideix amb tot el que <quote
->\b</quote
-> no coincideix.</para>
+>Coincideix amb tot el que «\b» no coincideix.</para>
 <para
 >Això vol dir que coincidirà, per exemple, dins de les paraules: L'expressió <userinput
 >\Bin\B</userinput
-> coincidirà en <quote
->window</quote
-> però no en <quote
->integer</quote
-> o en <quote
->I'm in love</quote
->.</para>
+> coincidirà en «window» però no en «integer» o en «I'm in love».</para>
 </listitem>
 </varlistentry>
 
@@ -1199,13 +1037,7 @@ regulars de Perl, ni de <command
 <para
 >L'expressió <userinput
 >handy(?=\w)</userinput
-> coincidirà amb <quote
->handy</quote
-> en <quote
->handyman</quote
-> però no en <quote
->That came in handy!</quote
-></para>
+> coincidirà amb «handy» en «handyman» però no en «That came in handy!»</para>
 </listitem>
 </varlistentry>
 
@@ -1223,17 +1055,7 @@ regulars de Perl, ni de <command
 <para
 >L'expressió <userinput
 >const \w+\b(?!\s*&amp;)</userinput
-> coincidirà amb <quote
->const char</quote
-> en la cadena <quote
->const char* foo</quote
->, mentre que no coincidirà amb <quote
->const QString</quote
-> en <quote
->const QString&amp; bar</quote
->, atès que el <quote
->&amp;</quote
-> coincideix amb el patró de la declaració d'anticipació negativa.</para>
+> coincidirà amb «const char» en la cadena «const char* foo», mentre que no coincidirà amb «const QString» en «const QString&amp; bar», atès que el «&amp;» coincideix amb el patró de la declaració d'anticipació negativa.</para>
 </listitem>
 </varlistentry>
 
@@ -1250,17 +1072,7 @@ regulars de Perl, ni de <command
 <para
 >L'expressió <userinput
 >(?&lt;=cup)cake</userinput
-> coincidirà amb <quote
->cake</quote
-> si està precedit per <quote
->cup</quote
-> (sí a <quote
->cupcake</quote
-> però no a <quote
->cheesecake</quote
-> o <quote
->cake</quote
->).</para>
+> coincidirà amb «cake» si està precedit per «cup» (sí a «cupcake» però no a «cheesecake» o «cake»).</para>
 </listitem>
 </varlistentry>
 
@@ -1277,17 +1089,7 @@ regulars de Perl, ni de <command
 <para
 >L'expressió <userinput
 >(?&lt;![\w\.])[0-9]+</userinput
-> coincidirà amb <quote
->123</quote
-> a les cadenes <quote
->=123</quote
-> i <quote
->-123</quote
-> però no coincidirà amb les cadenes <quote
->.123</quote
-> o <quote
->word123</quote
->.</para>
+> coincidirà amb «123» a les cadenes «=123» i «-123» però no coincidirà amb les cadenes «.123» o «word123».</para>
 </listitem>
 </varlistentry>
 

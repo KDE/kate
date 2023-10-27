@@ -2077,9 +2077,7 @@
 >Els colors de l'aplicació d'edició de text, com el mapa de la barra de desplaçament, els menús, la barra de pestanyes, el color de la finestra, &etc; En les aplicacions &kde;, com el &kate; o el &kdevelop;, aquests colors es defineixen mitjançant l'<userinput
 >esquema de color global del &plasma;</userinput
 >, el qual s'estableix en el mòdul <ulink url="help:/kcontrol/colors/"
-><quote
->Colors</quote
-></ulink
+>«Colors»</ulink
 > a l'&systemsettings; o des de la mateixa aplicació en el menú <menuchoice
 ><guimenu
 >Arranjament</guimenu
@@ -2096,23 +2094,11 @@
 ><imagedata format="PNG" fileref="breeze-color-theme-preview.png"/></imageobject>
 <textobject
 ><phrase
->Temes de color <quote
->Brisa clara</quote
-> i <quote
->Brisa fosca</quote
-> amb ressaltat de la sintaxi del <quote
->C++</quote
->.</phrase>
+>Temes de color «Brisa clara» i «Brisa fosca» amb ressaltat de la sintaxi del «C++».</phrase>
 </textobject>
 <caption
 ><para
->Temes de color <quote
->Brisa clara</quote
-> i <quote
->Brisa fosca</quote
-> amb ressaltat de la sintaxi del <quote
->C++</quote
->.</para>
+>Temes de color «Brisa clara» i «Brisa fosca» amb ressaltat de la sintaxi del «C++».</para>
 </caption>
 </mediaobject>
 
@@ -2155,18 +2141,14 @@
 
 <para
 >El marc de treball KSyntaxHighlighting inclou una varietat de temes integrats que es mostren a la pàgina <ulink url="https://kate-editor.org/themes/"
-><quote
->Temes de color</quote
-></ulink
+>«Temes de color»</ulink
 > del lloc web de l'editor &kate;.</para>
 
 <para
 >El marc de treball <ulink url="https://api.kde.org/frameworks/ktexteditor/html/"
 >KTextEditor</ulink
 >, el qual és el motor d'edició de text, proporciona una interfície d'usuari per a crear i editar els temes de color, inclosa una eina per a importar i exportar els temes. Aquesta és la forma més senzilla de crear-los i editar-los, podeu accedir-hi des del <link linkend="config-dialog"
->diàleg <quote
->Configura</quote
-></link
+>diàleg «Configura»</link
 > de l'editor de text. Hi ha més detalls a <xref linkend="color-themes-gui"/>.</para>
 
 <mediaobject>
@@ -2342,31 +2324,19 @@
 ><para
 >Col·leccions de parells clau/valor, separats per comes i agrupats en <userinput
 >{}</userinput
->, els quals anomenarem <quote
->objectes</quote
->.</para
+>, els quals anomenarem «objectes».</para
 ></listitem>
 <listitem
 ><para
 >Llistes ordenades de valors, separats per comes i agrupats en <userinput
 >[]</userinput
->, a les quals anomenarem <quote
->matriu</quote
->.</para
+>, a les quals anomenarem «matriu».</para
 ></listitem
 ></itemizedlist>
 </para>
 
 <para
->En aquest article s'utilitzaran les nomenclatures <quote
->clau</quote
->, <quote
->valor</quote
->, <quote
->objecte</quote
-> i <quote
->matriu</quote
->. Si és la primera vegada que treballeu amb fitxers &JSON;, comprendre'ls és tan senzill com mirar els exemples que hi ha a continuació. </para>
+>En aquest article s'utilitzaran les nomenclatures «clau», «valor», «objecte» i «matriu». Si és la primera vegada que treballeu amb fitxers &JSON;, comprendre'ls és tan senzill com mirar els exemples que hi ha a continuació. </para>
 
 </sect3>
 
@@ -2440,16 +2410,12 @@
 > en l'objecte arrel per a escriure els comentaris, per exemple, si esteu adaptant un tema existent, podeu posar l'&URL; del repositori original. La forma més pràctica és utilitzar una matriu de cadenes. </para>
 
 <para
->A continuació es mostra un fitxer d'exemple per al tema <quote
->Breeze Light</quote
->. Podeu observar que, per a evitar que l'exemple sigui massa gran, els objectes <userinput
+>A continuació es mostra un fitxer d'exemple per al tema «Breeze Light». Podeu observar que, per a evitar que l'exemple sigui massa gran, els objectes <userinput
 >editor-colors</userinput
 > i <userinput
 >text-styles</userinput
 > no contenen totes les claus requerides. Podeu veure tot el fitxer <ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/data/themes/breeze-light.theme"
->del tema <quote
->Breeze Light</quote
-> al repositori de KSyntaxHighlighting</ulink
+>del tema «Breeze Light» al repositori de KSyntaxHighlighting</ulink
 >. </para>
 
 <programlisting
@@ -2635,9 +2601,7 @@
 >totes les claus disponibles són obligatòries</userinput
 >, els seus valors són <userinput
 >cadenes</userinput
-> amb codis de color en hexadecimal, com <quote
->#00B5CF</quote
->. </para>
+> amb codis de color en hexadecimal, com «#00B5CF». </para>
 
 <para
 >A <link linkend="color-themes-gui"
@@ -2818,9 +2782,7 @@
 >)</term>
 <listitem
 ><para
->Aquest color s'utilitza per a dibuixar el número de línia de la línia actual, quan es mostra, a la banda esquerra de la vista. Establir això una mica diferent de <quote
->LineNumbers</quote
-> ajudarà a mantenir l'enfocament sobre la línia actual. </para
+>Aquest color s'utilitza per a dibuixar el número de línia de la línia actual, quan es mostra, a la banda esquerra de la vista. Establir això una mica diferent de «LineNumbers» ajudarà a mantenir l'enfocament sobre la línia actual. </para
 ></listitem>
 </varlistentry>
 
@@ -3254,15 +3216,7 @@
 >estils predeterminats</userinput
 > utilitzats en els fitxers &XML; de definició per al <link linkend="highlight"
 >ressaltat de la sintaxi</link
->, per exemple, l'atribut <quote
->Normal</quote
-> és equivalent a <quote
->dsNormal</quote
-> en els fitxers &XML; i <quote
->DataType</quote
-> és equivalent a <quote
->dsDataType</quote
->. Vegeu <xref linkend="kate-highlight-default-styles"/> a la documentació del ressaltat de la sintaxi. </para>
+>, per exemple, l'atribut «Normal» és equivalent a «dsNormal» en els fitxers &XML; i «DataType» és equivalent a «dsDataType». Vegeu <xref linkend="kate-highlight-default-styles"/> a la documentació del ressaltat de la sintaxi. </para>
 </note>
 
 <tip>
@@ -3335,9 +3289,7 @@
 <para
 ><userinput
 >selected-text-color</userinput
->: El color del text quan se selecciona generalment és el mateix valor que <quote
->text-color</quote
->. Quan se selecciona el text, el fons és definit pel valor de <link linkend="variable-pref-colors-selected-text"
+>: El color del text quan se selecciona generalment és el mateix valor que «text-color». Quan se selecciona el text, el fons és definit pel valor de <link linkend="variable-pref-colors-selected-text"
 >TextSelection</link
 > als <link linkend="color-themes-editor-colors"
 >Colors de l'editor</link
@@ -3593,20 +3545,16 @@
 >SpecialChar</userinput
 > (<guilabel
 >Caràcter especial</guilabel
->): Estil de text per als caràcters d'escapament en les cadenes, p. ex. <quote
-><userinput
+>): Estil de text per als caràcters d'escapament en les cadenes, p. ex. «<userinput
 >hola\n</userinput
-></quote
-> i altres caràcters amb un significat especial en les cadenes, com les substitucions o operadors d'expressió regular.</para>
+>» i altres caràcters amb un significat especial en les cadenes, com les substitucions o operadors d'expressió regular.</para>
 
 <para
 ><userinput
 >String</userinput
->: Estil de text per a les cadenes com <quote
-><userinput
+>: Estil de text per a les cadenes com «<userinput
 >hola món</userinput
-></quote
->.</para>
+>».</para>
 
 <para
 ><userinput
@@ -3669,11 +3617,9 @@
 >Variable de comentari</guilabel
 >): Estil de text que es refereix als noms de les variables utilitzades en les ordres anteriors en un comentari, com <userinput
 >foobar</userinput
-> a <quote
-><userinput
+> a «<userinput
 >@param foobar</userinput
-></quote
->, en Doxygen o JavaDoc.</para>
+>», en Doxygen o JavaDoc.</para>
 
 <para
 ><userinput
@@ -3788,25 +3734,13 @@
 >. </para>
 
 <para
->Per exemple, en aquest fragment de codi, la definició de ressaltat de la sintaxi <quote
->ISO C++</quote
-> té un estil de text especial per als atributs <quote
->Modificadors de tipus</quote
-> i <quote
->Classes estàndard</quote
->. En el fitxer &XML; corresponent <quote
->isocpp.xml</quote
->, l'atribut definit <quote
->Classes estàndard</quote
-> utilitza l'estil predeterminat <userinput
+>Per exemple, en aquest fragment de codi, la definició de ressaltat de la sintaxi «ISO C++» té un estil de text especial per als atributs «Modificadors de tipus» i «Classes estàndard». En el fitxer &XML; corresponent «isocpp.xml», l'atribut definit «Classes estàndard» utilitza l'estil predeterminat <userinput
 >BuiltIn</userinput
 > (o <userinput
 >dsBuiltIn</userinput
 >). En aquest atribut, només se sobreescriurà el valor de <userinput
 >text-color</userinput
-> amb el nou color <quote
->#6431b3</quote
->. </para>
+> amb el nou color «#6431b3». </para>
 
 <programlisting
 >"custom-styles": {
@@ -3833,11 +3767,7 @@
 
 <listitem>
 <para
->Les definicions del ressaltat de la sintaxi sovint inclouen altres definicions. Per exemple, el ressaltador de <quote
->QML</quote
-> inclou el ressaltador de <quote
->JavaScript</quote
->, ja que comparteixen la funcionalitat en el ressaltat.</para>
+>Les definicions del ressaltat de la sintaxi sovint inclouen altres definicions. Per exemple, el ressaltador de «QML» inclou el ressaltador de «JavaScript», ja que comparteixen la funcionalitat en el ressaltat.</para>
 </listitem>
 
 </itemizedlist>
@@ -3850,11 +3780,7 @@
 ><guilabel
 >Estils del text ressaltat</guilabel
 ></userinput
->. De manera predeterminada, l'editor preselecciona el ressaltat del document actual. Notareu que molts ressaltats contenen altres ressaltats representats per grups en la llista d'estils. Per exemple, la majoria dels ressaltats importen el ressaltat <quote
->Alert</quote
->, i molts formats de codi font importen el ressaltat <quote
->Doxygen</quote
->. </para>
+>. De manera predeterminada, l'editor preselecciona el ressaltat del document actual. Notareu que molts ressaltats contenen altres ressaltats representats per grups en la llista d'estils. Per exemple, la majoria dels ressaltats importen el ressaltat «Alert», i molts formats de codi font importen el ressaltat «Doxygen». </para>
 
 </sect3>
 
@@ -3867,9 +3793,7 @@
 
 <para
 >La forma més senzilla de crear i editar temes de color és mitjançant la &IGU; dins del diàleg <link linkend="config-dialog"
-><quote
->Configura</quote
-></link
+>«Configura»</link
 > proporcionat per <ulink url="https://api.kde.org/frameworks/ktexteditor/html/"
 >KTextEditor</ulink
 >. Per a accedir-hi, seleccioneu <menuchoice
@@ -3928,18 +3852,12 @@
 ></userinput
 > està activada, la qual triarà un tema de color més apropiat d'acord amb l'<emphasis
 >esquema de color del &plasma;</emphasis
-> utilitzat en l'aplicació d'edició de text; normalment es tria <quote
->Brisa clara</quote
-> i <quote
->Brisa fosca</quote
-> si l'esquema és clar o fosc, respectivament. </para>
+> utilitzat en l'aplicació d'edició de text; normalment es tria «Brisa clara» i «Brisa fosca» si l'esquema és clar o fosc, respectivament. </para>
 
 <tip>
 <para
 >Podeu ajustar l'esquema de color global del &kde; en el mòdul <ulink url="help:/kcontrol/colors/"
-><quote
->Colors</quote
-> a l'&systemsettings;</ulink
+>«Colors» a l'&systemsettings;</ulink
 >. També el podreu canviar individualment en algunes aplicacions com el &kate; o el &kdevelop;, des del menú <menuchoice
 ><guimenu
 >Arranjament</guimenu
@@ -3955,11 +3873,7 @@
 >Crea un tema nou</title>
 
 <para
->Per a crear un tema nou, primer cal copiar-ne un d'existent. Seleccioneu un tema existent que voleu utilitzar com a base, com el <quote
->Brisa clar</quote
-> o <quote
->Brisa fosca</quote
-> i feu clic a <guibutton
+>Per a crear un tema nou, primer cal copiar-ne un d'existent. Seleccioneu un tema existent que voleu utilitzar com a base, com el «Brisa clar» o «Brisa fosca» i feu clic a <guibutton
 >Copia</guibutton
 >. Després escriviu un nom per al tema nou. </para>
 
@@ -4120,49 +4034,27 @@
 ><para
 >Utilitzeu negreta per als <link linkend="color-themes-text-styles"
 >estils de text</link
-> <quote
->Keyword</quote
-> i <quote
->ControlFlow</quote
->.</para
+> «Keyword» i «ControlFlow».</para
 ></listitem>
 
 <listitem
 ><para
 >No utilitzeu el color de fons en cap <link linkend="color-themes-text-styles"
 >estil de text</link
->, excepte <quote
->Alert</quote
-> i <quote
->RegionMarker</quote
->.</para
+>, excepte «Alert» i «RegionMarker».</para
 ></listitem>
 </itemizedlist>
 
 <para
->La majoria dels ressaltadors de la sintaxi estan pensats perquè es vegi bé en els temes predeterminats <quote
->Brisa clara</quote
-> i <quote
->Brisa fosca</quote
->, per tant, una altra forma de mantenir la coherència és utilitzar colors similars en els <link linkend="color-themes-text-styles"
+>La majoria dels ressaltadors de la sintaxi estan pensats perquè es vegi bé en els temes predeterminats «Brisa clara» i «Brisa fosca», per tant, una altra forma de mantenir la coherència és utilitzar colors similars en els <link linkend="color-themes-text-styles"
 >estils de text</link
 >, com el <emphasis
 >green</emphasis
-> per a <quote
->Preprocessor</quote
-> i <quote
->Others</quote
->, <emphasis
+> per a «Preprocessor» i «Others», <emphasis
 >blue</emphasis
-> per a <quote
->DataType</quote
-> i <quote
->Attribute</quote
->, o <emphasis
+> per a «DataType» i «Attribute», o <emphasis
 >purple</emphasis
-> per a <quote
->Function</quote
->.</para>
+> per a «Function».</para>
 
 <para
 >Recordeu que aquestes recomanacions no són obligatòries quan es crea i publica un tema.</para>
@@ -4276,9 +4168,7 @@ var katescript = {
 >required-syntax-style</literal
 > [opcional]: L'estil de la sintaxi requerida, el qual coincideix amb <literal
 >style</literal
-> especificat als fitxers de ressaltat de la sintaxi. Això és important per als sagnats que es basen en la informació de ressaltat específica en el document. Si s'especifica un estil de la sintaxi requerit, el sagnat només estarà disponible amb el ressaltat actiu apropiat. Això evita <quote
->comportament sense definir</quote
-> causat per l'ús del sagnat sense l'esquema del ressaltat esperat. Per exemple, el sagnat de Ruby en fa ús en els fitxers <filename
+> especificat als fitxers de ressaltat de la sintaxi. Això és important per als sagnats que es basen en la informació de ressaltat específica en el document. Si s'especifica un estil de la sintaxi requerit, el sagnat només estarà disponible amb el ressaltat actiu apropiat. Això evita «comportament sense definir» causat per l'ús del sagnat sense l'esquema del ressaltat esperat. Per exemple, el sagnat de Ruby en fa ús en els fitxers <filename
 >ruby.js</filename
 > i <filename
 >ruby.xml</filename
@@ -4390,11 +4280,7 @@ function indent(line, indentWidth, ch)
 ></para
 ></listitem
 > </itemizedlist
-> En aquest cas, el primer element és la profunditat de sagnat com anteriorment amb el mateix significat dels valors especials. No obstant això, el segon element és un valor absolut que representa una columna d'<quote
->alineació</quote
->. Si aquest valor és major que el valor de sagnat, la diferència representa un nombre d'espais a afegir després del sagnat del primer paràmetre. En cas contrari, el segon nombre serà ignorat. L'ús de tabulacions i espais per al sagnat sovint és referit com <quote
->mode mixt</quote
->. </para>
+> En aquest cas, el primer element és la profunditat de sagnat com anteriorment amb el mateix significat dels valors especials. No obstant això, el segon element és un valor absolut que representa una columna d'«alineació». Si aquest valor és major que el valor de sagnat, la diferència representa un nombre d'espais a afegir després del sagnat del primer paràmetre. En cas contrari, el segon nombre serà ignorat. L'ús de tabulacions i espais per al sagnat sovint és referit com «mode mixt». </para>
 
 <para
 >Considerem el següent exemple: Suposem que s'utilitzen tabulacions per a sagnar, i l'amplada de la tabulació és 4. Aquí, &lt;tab&gt; representa una tabulació i «.» un espai: <programlisting>
@@ -4991,11 +4877,9 @@ require ("range.js");
 ></term>
 <listitem
 ><para
->Retorna el cursor com una cadena de la forma <quote
-><literal
+>Retorna el cursor com una cadena de la forma «<literal
 >Cursor(line, column)</literal
-></quote
->. </para
+>». </para
 ></listitem>
 </varlistentry
 ></variablelist>
@@ -5409,11 +5293,9 @@ require ("range.js");
 ></term>
 <listitem
 ><para
->Retorna l'interval com una cadena de la forma <quote
-><literal
+>Retorna l'interval com una cadena de la forma «<literal
 >Rang(Cursor(line, column), Cursor(line, column))</literal
-></quote
->. </para
+>». </para
 ></listitem>
 </varlistentry
 ></variablelist>
@@ -5681,11 +5563,9 @@ require ("range.js");
 <title
 >L'API de «View»</title>
 <para
->Cada vegada que s'executa un script, si hi ha una variable global <quote
-><literal
+>Cada vegada que s'executa un script, si hi ha una variable global «<literal
 >view</literal
-></quote
-> que representa la vista actual de l'editor actiu. La següent és una llista de totes les funcions «View» disponibles. <variablelist>
+>» que representa la vista actual de l'editor actiu. La següent és una llista de totes les funcions «View» disponibles. <variablelist>
 
 <varlistentry>
 <term
@@ -6103,11 +5983,9 @@ void view.setVirtualCursorPosition(<parameter
 <title
 >L'API de «Document»</title>
 <para
->Cada vegada que s'executa un script, si hi ha una variable global <quote
-><literal
+>Cada vegada que s'executa un script, si hi ha una variable global «<literal
 >document</literal
-></quote
-> que representa el document actiu actual. La següent és una llista de totes les funcions de «Document» disponibles. <variablelist>
+>» que representa el document actiu actual. La següent és una llista de totes les funcions de «Document» disponibles. <variablelist>
 
 <varlistentry>
 <term
@@ -6227,11 +6105,9 @@ void view.setVirtualCursorPosition(<parameter
 ></term>
 <listitem
 ><para
->Retorna el contingut complet del document en una cadena de text única. Els salts de línia estan marcats amb el caràcter de nova línia <quote
-><literal
+>Retorna el contingut complet del document en una cadena de text única. Els salts de línia estan marcats amb el caràcter de nova línia «<literal
 >\n</literal
-></quote
->. </para
+>». </para
 ></listitem>
 </varlistentry>
 
@@ -7547,9 +7423,7 @@ Cursor document.toVirtualCursor(<parameter
 ></term>
 <listitem
 ><para
->Converteix la posició <quote
->real</quote
-> donada del cursor a una posició virtual del cursor, d'altra manera retorna un «int» o un objecte «Cursor». </para
+>Converteix la posició «real» donada del cursor a una posició virtual del cursor, d'altra manera retorna un «int» o un objecte «Cursor». </para
 ></listitem>
 </varlistentry>
 
@@ -7580,9 +7454,7 @@ Cursor document.fromVirtualCursor(<parameter
 ></term>
 <listitem
 ><para
->Converteix la posició virtual donada del cursor a una posició <quote
->real</quote
-> del cursor, d'altra manera retorna un «int» o un objecte «Cursor». </para
+>Converteix la posició virtual donada del cursor a una posició «real» del cursor, d'altra manera retorna un «int» o un objecte «Cursor». </para
 ></listitem>
 </varlistentry>
 

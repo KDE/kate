@@ -16,9 +16,7 @@
 >Mode d'entrada del Vi</title>
 
 <para
->L'objectiu del mode VI no és substituir-lo completament per Vim, sí que dona suport a totes les característiques de Vim. El seu objectiu és fer que la <quote
->forma Vim</quote
-> d'editar el text -i els hàbits apresos a Vim- estiguin disponibles per als programes utilitzant l'editor de text &kappname; com al seu editor intern.</para>
+>L'objectiu del mode VI no és substituir-lo completament per Vim, sí que dona suport a totes les característiques de Vim. El seu objectiu és fer que la «forma Vim» d'editar el text -i els hàbits apresos a Vim- estiguin disponibles per als programes utilitzant l'editor de text &kappname; com al seu editor intern.</para>
 
 <para
 >El mode VI té com a finalitat integrar-se molt bé amb el programa i desviar-se del comportament de Vim, on prengui sentit. Per exemple, <userinput
@@ -73,15 +71,13 @@
 <para
 >Això no s'aplica a les ordres que utilitzen la tecla &Ctrl;, ja que es poden introduir independentment del mode <keycap
 >Bloq Maj</keycap
-> i sense necessitat de prémer &Maj;. No obstant això, algunes ordres requereixen l'ús de la tecla &Ctrl; seguida d'una altra tecla que distingeix entre majúscules i minúscules. Per exemple, per a introduir <quote
-><keycombo action="simul"
+> i sense necessitat de prémer &Maj;. No obstant això, algunes ordres requereixen l'ús de la tecla &Ctrl; seguida d'una altra tecla que distingeix entre majúscules i minúscules. Per exemple, per a introduir «<keycombo action="simul"
 >&Ctrl;<keycap
 >W</keycap
 ></keycombo
 >, <userinput
 >h</userinput
-></quote
-> (canviar a la vista dividida de la dreta) assegureu-vos que <keycap
+>» (canviar a la vista dividida de la dreta) assegureu-vos que <keycap
 >Bloq Maj</keycap
 > està inhabilitada, premeu <keycombo action="simul"
 >&Ctrl;<keycap
@@ -133,9 +129,7 @@
 ><guimenuitem
 >Mode d'entrada del Vi</guimenuitem
 ></menuchoice
->), per tant, una acció de refer necessita estar disponible com a tecla <quote
->normal</quote
->. A més, el comportament de l'ordre <userinput
+>), per tant, una acció de refer necessita estar disponible com a tecla «normal». A més, el comportament de l'ordre <userinput
 >U</userinput
 > en Vim no es correlaciona bé amb el sistema intern de desfer de &kappname;, de manera que no seria trivial donar-ne suport.</para>
 </listitem>
@@ -159,9 +153,7 @@
 ><command
 >:print</command
 ></userinput
-> estan disponibles no només en el mode de VI, però també per als usuaris que utilitzen <quote
->regularment</quote
-> &kappname; -per tant, l'ordre <userinput
+> estan disponibles no només en el mode de VI, però també per als usuaris que utilitzen «regularment» &kappname; -per tant, l'ordre <userinput
 ><command
 >:print</command
 ></userinput
@@ -203,9 +195,7 @@
 >Y</userinput
 > copien la línia actual. En mode VI de &kappname; <userinput
 >Y</userinput
-> copiarà al final de la línia. Això es descriu <quote
->més lògicament</quote
-> en la <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y"
+> copiarà al final de la línia. Això es descriu «més lògicament» en la <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y"
 >documentació</ulink
 > de Vim. </para>
 </listitem>
@@ -662,9 +652,7 @@
 ></entry>
 <entry
 ><para
->Segueix un moviment per a <quote
->tirar</quote
-> (copia)</para
+>Segueix un moviment per a «tirar» (copia)</para
 ></entry>
 </row>
 <row
@@ -2211,9 +2199,7 @@
 >arg2</replaceable
 >, prement <userinput
 >ci</userinput
->, (<quote
->canvi de coma interior</quote
->) que elimina <replaceable
+>, («canvi de coma interior») que elimina <replaceable
 >arg2 doble</replaceable
 > i situa el cursor entre les dues comes en el mode d'inserció. Una manera molt còmoda per a canviar els paràmetres d'una funció.</para
 ></caption>

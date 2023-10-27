@@ -743,9 +743,7 @@
 ><para
 >Insereix una cadena de data/hora definida d'acord amb el <userinput
 >format</userinput
->, o si aquest no s'especifica s'utilitzarà el format <quote
->aaaa-MM-dd hh:mm:ss</quote
->. La interpretació del <userinput
+>, o si aquest no s'especifica s'utilitzarà el format «aaaa-MM-dd hh:mm:ss». La interpretació del <userinput
 >format</userinput
 > serà la següent: <informaltable
 > <tgroup cols="2"
@@ -1037,15 +1035,7 @@
 >Substitució de text en tot el fitxer</title>
 
 <para
->Imagineu que teniu un fitxer, en el que mencioneu a <quote
->Miss Jensen</quote
-> diverses vegades, quan resulta que algú ve i us diu que s'acaba de casar amb <quote
->Mr Jones</quote
->. Per descomptat, voldreu substituir cada ocurrència de <quote
->Miss Jensen</quote
-> per <quote
->Ms Jones</quote
->.</para>
+>Imagineu que teniu un fitxer, en el que mencioneu a «Miss Jensen» diverses vegades, quan resulta que algú ve i us diu que s'acaba de casar amb «Mr Jones». Per descomptat, voldreu substituir cada ocurrència de «Miss Jensen» per «Ms Jones».</para>
 
 <para
 >Entreu a la línia d'ordres, escriviu l'ordre <userinput
@@ -1072,9 +1062,7 @@
 <para
 >Però us adoneu que aquest codi no està bé i decidiu que voleu utilitzar la paraula clau <constant
 >const</constant
-> per a tots els arguments <quote
->adreça de</quote
->, que es caracteritzen per tenir un operador &amp; al davant del nom de l'argument. També voldreu simplificar l'espai en blanc, de manera que només n'hi hagi un entre cada paraula.</para>
+> per a tots els arguments «adreça de», que es caracteritzen per tenir un operador &amp; al davant del nom de l'argument. També voldreu simplificar l'espai en blanc, de manera que només n'hi hagi un entre cada paraula.</para>
 
 <para
 >Obriu el diàleg Ordre d'edició i introduïu: <userinput
@@ -1099,20 +1087,14 @@
 >\w+</literal
 >) seguits d'algun espai en blanc (<literal
 >\s+</literal
->) seguit del símbol «&amp;», i en el procés hem desat el bloc alfabètic i el caràcter «&amp;» per a tornar a emprar-los en l'operació de substitució. Aleshores hem substituït la part coincident de la nostra línia per un espai en blanc seguit de <quote
->const</quote
-> seguit d'un espai en blanc seguit del nostre bloc alfabètic (<literal
+>) seguit del símbol «&amp;», i en el procés hem desat el bloc alfabètic i el caràcter «&amp;» per a tornar a emprar-los en l'operació de substitució. Aleshores hem substituït la part coincident de la nostra línia per un espai en blanc seguit de «const» seguit d'un espai en blanc seguit del nostre bloc alfabètic (<literal
 >\1</literal
 >) seguit d'un espai en blanc seguit del nostre caràcter «&amp;» emmagatzemat (<literal
 >\2</literal
 >)</para>
 
 <para
->En alguns casos el bloc alfabètic era <quote
->String</quote
->, en d'altres <quote
->int</quote
->, de manera que emprant la classe de caràcter <literal
+>En alguns casos el bloc alfabètic era «String», en d'altres «int», de manera que emprant la classe de caràcter <literal
 >\w</literal
 > i el quantificador <literal
 >+</literal
@@ -1607,9 +1589,7 @@
 ></term>
 <listitem
 ><para
->Aquesta ordre proveeix cerca <quote
->quan-escriviu</quote
->. Podeu configurar-ne el comportament o la cerca afegint dos punts seguits per a una o més opcions, de forma similar a: <userinput
+>Aquesta ordre proveeix cerca «quan-escriviu». Podeu configurar-ne el comportament o la cerca afegint dos punts seguits per a una o més opcions, de forma similar a: <userinput
 >ifind:patró d'opcions</userinput
 >. Les opcions permeses són: <variablelist>
 <varlistentry>

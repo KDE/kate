@@ -260,9 +260,7 @@
 >Usar la selecció en bloc</title>
 
 <para
->Quan la selecció en bloc estigui activada, podreu realitzar <quote
->seleccions verticals</quote
-> en el text, el qual vol dir que podeu seleccionar un nombre determinat de columnes en diverses línies a la vegada. Això és útil, per exemple, si treballeu amb línies separades per tabulacions.</para>
+>Quan la selecció en bloc estigui activada, podreu realitzar «seleccions verticals» en el text, el qual vol dir que podeu seleccionar un nombre determinat de columnes en diverses línies a la vegada. Això és útil, per exemple, si treballeu amb línies separades per tabulacions.</para>
 
 <para
 >La selecció en bloc es pot activar/desactivar en l'element <menuchoice

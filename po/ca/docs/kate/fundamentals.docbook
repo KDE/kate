@@ -861,13 +861,11 @@ action="simul"
 >. Per a desar la configuració de la finestra com a sessió predeterminada us caldrà desar la configuració de la finestra a la pàgina de configuració Sessions del diàleg de configuració, i a continuació carregar la sessió predeterminada, podent configurar la finestra com vulgueu i desar la sessió una altra vegada.</para>
 
 <para
->Quan es carrega una sessió amb nom, el &kate; mostrarà el nom de la sessió en el títol de la finestra, la qual tindrà la forma <quote
-><replaceable
+>Quan es carrega una sessió amb nom, el &kate; mostrarà el nom de la sessió en el títol de la finestra, la qual tindrà la forma «<replaceable
 >Nom de la sessió</replaceable
 >: <replaceable
 >Nom del document o &URL;</replaceable
-> - &kate;</quote
->.</para>
+> - &kate;».</para>
 
 <para
 >En obrir fitxers a la línia d'ordres amb <option

@@ -4,13 +4,13 @@
 # Translators:
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2017, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-26 02:49+0000\n"
-"PO-Revision-Date: 2023-06-04 01:40+0300\n"
+"PO-Revision-Date: 2023-10-28 02:17+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "Çıkış yapılacak dalı seçin. İptal için 'Esc'ye basın."
+msgstr "Çıkış yapılacak dalı seçin. İptal için 'Vazgeç'e basın."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -84,8 +84,8 @@ msgstr "Sil"
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] "Seçili dalı silmek istediğinize emin misiniz?"
-msgstr[1] "Seçili dalları silmek istediğinize emin misiniz?"
+msgstr[0] "Seçili dalı silmek istediğinizden emin misiniz?"
+msgstr[1] "Seçili dalları silmek istediğinizden emin misiniz?"
 
 #: branchesdialog.cpp:100
 #, kde-format
@@ -461,12 +461,12 @@ msgstr "At"
 #: gitwidget.cpp:1233
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr "Bu dosyadaki değişiklikleri atmak istediğinize emin misiniz?"
+msgstr "Bu dosyadaki değişiklikleri atmak istediğinizden emin misiniz?"
 
 #: gitwidget.cpp:1246
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr "Bu dosyayı kaldırmak istediğinize emin misiniz?"
+msgstr "Bu dosyayı kaldırmak istediğinizden emin misiniz?"
 
 #: gitwidget.cpp:1261
 #, kde-format
@@ -496,12 +496,12 @@ msgstr "Seçili Dosyaları Kaldır"
 #: gitwidget.cpp:1346
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr "Değişiklikleri atmak istediğinize emin misiniz?"
+msgstr "Değişiklikleri atmak istediğinizden emin misiniz?"
 
 #: gitwidget.cpp:1355
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
-msgstr "Bu izlenmeyen değişiklikleri kaldırmak istediğinize emin misiniz?"
+msgstr "Bu izlenmeyen değişiklikleri kaldırmak istediğinizden emin misiniz?"
 
 #: kateproject.cpp:218
 #, kde-format
@@ -952,7 +952,7 @@ msgstr "Burada Dış Uçbirim Aç"
 #: kateprojecttreeviewcontextmenu.cpp:112
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr "&İçeren Dizini Aç"
+msgstr "İçeren Klasörü &Aç"
 
 #: kateprojecttreeviewcontextmenu.cpp:122
 #, kde-format

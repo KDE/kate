@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2023-10-05 13:10+0300\n"
+"PO-Revision-Date: 2023-10-28 02:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.2\n"
 "(http: //www.transifex.com/projects/p/applications-k-tr/language/tr/)\n"
 
 #, kde-format
@@ -35,7 +35,7 @@ msgstr "volkankoc2000@gmail.com"
 #, kde-format
 msgctxt "@title:window"
 msgid "Close files confirmation"
-msgstr "Dosyaları onaylama ile kapat"
+msgstr "Dosyaları Kapat Onayı"
 
 #: close_confirm_dialog.cpp:72
 #, kde-format
@@ -59,7 +59,7 @@ msgstr "Konum"
 #, kde-format
 msgctxt "option:check"
 msgid "Do not ask again"
-msgstr "Bir kez daha sorma"
+msgstr "Bir daha sorma"
 
 #: close_except_plugin.cpp:74
 #, kde-format
@@ -71,18 +71,18 @@ msgstr "Onay Göster"
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
-msgstr "Diğerlerini Kapat"
+msgstr "Şunun Dışındakileri Kapat"
 
 #: close_except_plugin.cpp:76
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
-msgstr "Benzerleri Kapat"
+msgstr "Benzerlerini Kapat"
 
 #: close_except_plugin.cpp:79
 #, kde-format
 msgid "Close Except/Like Plugin"
-msgstr "Benzer/Diğerlerini Kapat Eklentisi"
+msgstr "Dışındakileri/Benzerlerini Kapat Eklentisi"
 
 #: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
@@ -106,8 +106,8 @@ msgstr "Tamamlandı"
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
-msgstr[0] "%1 dosya kapandı"
-msgstr[1] "%1 dosya kapandı"
+msgstr[0] "%1 dosya kapatıldı"
+msgstr[1] "%1 dosya kapatıldı"
 
 #: close_except_plugin.cpp:273
 #, kde-kuit-format

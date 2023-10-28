@@ -5,13 +5,13 @@
 # obsoleteman <tulliana@gmail.com>, 2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2017, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-05-06 20:27+0300\n"
+"PO-Revision-Date: 2023-10-28 02:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -211,7 +211,7 @@ msgstr "Ara"
 #: search.ui:47
 #, kde-format
 msgid "Replace Checked"
-msgstr "İmleneni Değiştir"
+msgstr "İşaretleneni Değiştir"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
@@ -286,7 +286,7 @@ msgstr "Klasörde"
 #: search.ui:233
 #, kde-format
 msgid "Use the current document's path."
-msgstr "Geçerli belgenin yolunu kullan."
+msgstr "Geçerli belgenin yolunu kullanın."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:243
@@ -310,7 +310,7 @@ msgstr "Klasör:"
 #: search.ui:371
 #, kde-format
 msgid "Go one folder up."
-msgstr "Bir klasör yukarı git."
+msgstr "Bir klasör yukarı gidin."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
 #: search.ui:380
@@ -328,7 +328,7 @@ msgstr "*"
 #: search.ui:410
 #, kde-format
 msgid "Exclude:"
-msgstr "Hariç Tut:"
+msgstr "Dışarıda tut:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
 #: search.ui:431
@@ -340,7 +340,7 @@ msgstr "Özyineli"
 #: search.ui:441
 #, kde-format
 msgid "Include hidden"
-msgstr "Gizlileri dahil et"
+msgstr "Gizlileri içer"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
 #: search.ui:448
@@ -377,7 +377,7 @@ msgstr "Satır sonu"
 #: SearchPlugin.cpp:100
 #, kde-format
 msgid "Any single character (excluding line breaks)"
-msgstr "Herhangi bir tek karakter (satır sonu sembolleri hariç)"
+msgstr "Herhangi bir tek karakter (satır sonu sembolleri içerilmez)"
 
 #: SearchPlugin.cpp:101
 #, kde-format
@@ -407,7 +407,7 @@ msgstr "<a> <b> doğrultusunda eşleşmeler"
 #: SearchPlugin.cpp:109
 #, kde-format
 msgid "Group, capturing"
-msgstr "Grup, yakalama"
+msgstr "Grup, yakalayan"
 
 #: SearchPlugin.cpp:110
 #, kde-format
@@ -427,7 +427,7 @@ msgstr "Negatif karakter kümesi"
 #: SearchPlugin.cpp:113
 #, kde-format
 msgid "Group, non-capturing"
-msgstr "Grup, yakalama yok"
+msgstr "Grup, yakalamayan"
 
 #: SearchPlugin.cpp:114
 #, kde-format
@@ -462,17 +462,17 @@ msgstr "Rakam olmayan"
 #: SearchPlugin.cpp:124
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
-msgstr "Beyaz boşluk (satır sonları hariç)"
+msgstr "Boşluk (satır sonları içerilmez)"
 
 #: SearchPlugin.cpp:125
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
-msgstr "Beyaz boşluk alan olmayan (satır sonları hariç)"
+msgstr "Boşluk alan olmayan (satır sonları içerilmez)"
 
 #: SearchPlugin.cpp:126
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
-msgstr "Sözcük karakteri (harfler sayılar ve '_')"
+msgstr "Sözcük karakteri (harfler, sayılar ve '_')"
 
 #: SearchPlugin.cpp:127
 #, kde-format
@@ -580,7 +580,7 @@ msgid ""
 "Comma separated list of files and directories to exclude from the search. "
 "Example: \"build*\""
 msgstr ""
-"Aramadan hariç tutulacak dosya ve dizinlerin virgülle ayrılmış listesi. "
+"Aramadan dışarıda tutulacak dosya ve dizinlerin virgülle ayrılmış listesi. "
 "Örnek: \"build*\""
 
 #: SearchPlugin.cpp:401
@@ -611,7 +611,7 @@ msgstr "İmleçten itibaren sonraki"
 #: SearchPlugin.cpp:1912
 #, kde-format
 msgid "Starting from first match"
-msgstr "İlk eşleşmeden başlıyor"
+msgstr "İlk eşleşmeden başlanıyor"
 
 #: SearchPlugin.cpp:1932
 #, kde-format
@@ -621,7 +621,7 @@ msgstr "İlk eşleşmeden sürdürülüyor"
 #: SearchPlugin.cpp:1989
 #, kde-format
 msgid "Starting from last match"
-msgstr "Son eşleşmeden başlayarak"
+msgstr "Son eşleşmeden başlanıyor"
 
 #: SearchPlugin.cpp:2009
 #, kde-format

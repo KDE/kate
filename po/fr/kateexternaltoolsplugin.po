@@ -1,20 +1,20 @@
+# SPDX-FileCopyrightText: 2021, 2022, 2023 Xavier Besnard <xavier.besnard@neuf.fr>
 # Simon Depiets <sdepiets@gmail.com>, 2020.
-# Xavier Besnard <xavier.besnard@neuf.fr>, 2021, 2022.
 # Xavier BESNARD <xavier.besnard@neuf.fr>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-15 01:54+0000\n"
-"PO-Revision-Date: 2023-02-25 15:25+0100\n"
-"Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
+"PO-Revision-Date: 2023-10-26 18:13+0200\n"
+"Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.08.1\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -534,7 +534,7 @@ msgid ""
 "the name."
 msgstr ""
 "Si vous renseignez un nom ici, vous pouvez invoquer la commande depuis la "
-"ligne de commande de la vue avec le_nom_que_vous_avez_renseigné. N'utilisez "
+"ligne de commande de la vue avec le-nom-que-vous-avez-renseigné. N'utilisez "
 "pas d'espaces ou de tabulations dans ce nom."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)

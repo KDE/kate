@@ -1,0 +1,2249 @@
+<!--pulled in by kwrite too-->
+<chapter id="vi-input-mode-chapter">
+<chapterinfo>
+<authorgroup
+><author
+>&Erlend.Hamberg; &Erlend.Hamberg.mail; </author>
+<othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@icloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+
+<title
+>Vi Giriş Kipi</title>
+
+<sect1 id="vi-mode-sect1">
+<title
+>Vi Giriş Kipi</title>
+
+<para
+>Vi kipinin amacı, Vim'in tam yerini almak ve Vim'in tüm özelliklerini desteklemek değildir. Amacı, metin düzenlemenin <quote
+>Vim yöntemini</quot
+> - ve öğrenilen Vim alışkanlıklarını - içsel düzenleyici olarak &kappname; metin düzenleyicisini kullanan programlar için kullanılabilir hale getirmektir.</para>
+
+<para
+>Vi kipi, programla güzel bir şekilde bütünleşmeyi ve Vim'in davranışından mantıklı olduğu yerde sapmayı amaçlamaktadır. Örneğin, <userinput
+><command
+>:w</command
+></userinput
+>, &kappname;'in Vi kipinde bir kaydetme iletişim kutusu açacaktır.</para>
+
+<para
+>Vi Giriş Kipi'ni tüm yeni görünümler için etkinleştirmek üzere <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>&kappname; Uygulamasını Yapılandır...</guimenuitem
+> <guimenu
+>Düzenleme</guimenu
+><guimenuitem
+>Vi Giriş Kipi</guimenuitem
+></menuchoice
+> bölümüne gidin. Bu sekmede Vi Giriş Kipi için seçenekler koyabilir ve düğme eşlemlerini düzenleyebilirsiniz. Vi Giriş Kipi, aynı zamanda <guimenu
+>Edit</guimenu
+> menüsündeki <guimenuitem
+>Vi Giriş Kipi</guimenuitem
+> ögesinden de açılabilir/kapatılabilir. (Öntanımlı kısayol düğmesi: <keycombo action="simul"
+>&Meta;&Ctrl;<keycap
+>V</keycap
+></keycombo
+> - &Meta;, genelde <keysym
+>Windows</keysym
+> düğmesidir).</para>
+
+<note>
+<para
+>Birçok Vi Kipi klavye kısayolu, çoğu &kde; uygulamasını aksine BÜYÜK/küçük harf duyarlıdır. Bu; örneğin, <userinput
+>y</userinput
+> ve <userinput
+>Y</userinput
+> girişlerinin farklı komutlara karşılık geldiği anlamına gelir. <userinput
+>y</userinput
+> (yank-kopyala) komutunu girmek için <keysym
+>Büyük Harf</keysym
+> düğmesinin kapalı olduğundan emin olun ve <keycap
+>Y</keycap
+> düğmesine basın. <userinput
+>Y</userinput
+> (tüm satırı kopyala) komutunu girmek içinse <keycombo action="simul"
+>&Shift;<keycap
+>Y</keycap
+></keycombo
+> düğmelerine basın.</para>
+
+<para
+>Bu, <keycap
+>Büyük Harf</keycap
+> ve &Shift; düğmelerinin durumundan bağımsız olarak girilebilen &Ctrl; düğmesini kullanan komutlar için geçerli değildir. Ancak bazı komutlar, &Ctrl; düğmesinin yanı sıra BÜYÜK/küçük harf duyarlı başka bir düğmenin kullanımını gerektiren bir düğme kombinasyonu gerektirebilir. Örneğin, <quote
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+>, <userinput
+>h</userinput
+></quote
+> (sağdaki bölünmüş görünüme geç) kısayolunu kullanmak için <keycap
+>Büyük Harf</keycap
+> düğmesinin kapalı olduğundan emin olun, <keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+> düğmelerine basın, bırakın ve sonrasında <keycap
+>H</keycap
+> düğmesine basın.</para>
+</note>
+
+<sect2 id="vi-incompatibilities">
+<title
+>Vim ile uyumsuzluklar</title>
+
+<para
+>&kappname;'in Vi kipinin Vim ile uyumsuz olan yalnızca birkaç özelliği vardır (eksik şeyleri saymazsak). Aşağıda nedenleri ile birlikte sıralanmışlardır.</para>
+<itemizedlist>
+<listitem>
+<para
+>&kappname;: <userinput
+>U</userinput
+> ve <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+>, yinele komutudur.</para>
+<para
+>Vim: <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> normal yinele komutudur; <keycap
+>U</keycap
+>, bir satırdaki tüm güncel değişiklikleri geri almak için kullanılır.</para>
+<para
+>&kappname;'in Vi kipinde <keycap
+>U</keycap
+> düğmesini yinele olarak kullanmanın nedeni, <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> kısayolu öntanımlı olarak &kappname;’in değiştir işlevi için ayrılmıştır (ara ve değiştir). Öntanımlı olarak Vi kipi, &kappname;’in kısayollarını geçersiz kılmaz (bu, <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>&kappname; Uygulamasını Yapılandır...</guimenuitem
+> <guimenu
+>Düzenleme</guimenu
+><guimenuitem
+>Vi Giriş Kipi</guimenuitem
+></menuchoice
+> bölümünde yapılandırılabilir), bundan dolayı bir yinele eyleminin <quote
+>düzenli</quote
+> bir düğme basımı olarak kullanılabilir olması gereklidir. Ek olarak, Vim'deki <userinput
+>U</userinput
+> komutu, &kappname;’in içsel geri al sistemiyle düzgün bir biçimde tümleşmez, o yüzden desteklemek kolay değildir.</para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+><command
+>print</command
+></userinput
+>, <guilabel
+>Yazdır</guilabel
+> iletişim kutusunu gösterir.</para>
+<para
+>Vim: <userinput
+><command
+>print</command
+></userinput
+>, verilen erimdeki satırları yazdırır, tıpkı dedesi ed gibi.</para>
+<para
+><userinput
+><command
+>:print</command
+></userinput
+> gibi komutlar yalnızca Vi kipinde değil <quote
+>düzenli</quote
+> &kappname; kullanıcıları için de kullanılabilirdir; bu demektir ki <userinput
+><command
+>:print</command
+></userinput
+> komutu Vim'in davranışını taklit etmek yerine yazdırma iletişim kutusunu açar.</para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+>Y</userinput
+>, satırın sonuna kadar kopyalar.</para>
+<para
+>Vim: <userinput
+>Y</userinput
+> tüm satırı kopyalar, tıpkı <userinput
+>y</userinput
+><userinput
+>y</userinput
+> gibi.</para>
+<para
+>Vi'nin <userinput
+>Y</userinput
+> komutu davranışı aslında bir hatadır. Değiştir ve sil komutları için <userinput
+>c</userinput
+><userinput
+>c</userinput
+>/ <userinput
+>d</userinput
+><userinput
+>d</userinput
+> girişleri eylemini geçerli satırda yapar ve <userinput
+>C</userinput
+>/<userinput
+>D</userinput
+> geçerli imleç sütunundan satırın sonuna kadar çalışır. Ancak hem <userinput
+>y</userinput
+><userinput
+>y</userinput
+> ve <userinput
+>Y</userinput
+>, geçerli satırı kopyalar. &kappname;’in Vi Kipi'nde <userinput
+>Y</userinput
+>, satırın sonuna kadar kopyalar. Bu, Vim <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y"
+>belgelendirmesinde</ulink
+> <quote
+>daha mantıklı bir davranış</quote
+> olarak açıklanmıştır. </para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+>O</userinput
+> ve <userinput
+>o</userinput
+>, yeni satırlar [<replaceable
+>sayı</replaceable
+>] açar ve sizi ekle kipine koyar.</para>
+<para
+>Vim: <userinput
+>O</userinput
+> ve <userinput
+>o</userinput
+> yeni bir satır açar ve ekle kipinden çıkarken [<replaceable
+>sayı</replaceable
+>] kadar metin koyar.</para>
+<para
+>Bu çoğunlukla, Vim IRC kanalında (Libera Chat üzerinde #vim) bu davranış nedeniyle birçok kişinin kafasının karışmasına tanık olmanın bir sonucu olarak yapılmıştır.</para>
+</listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2 id="vi-switching-modes">
+<title
+>Kip Değiştirmek</title>
+
+<itemizedlist>
+<listitem>
+<para
+><emphasis
+>Normal Kip</emphasis
+>, bir belgede gezinmek veya belgeyi düzenlemek için komutlar girmenize olanak tanır ve öntanımlı kiptir. &Esc; düğmesine basarak başka herhangi bir kipten bu kipe geri dönebilirsiniz. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Görsel Kip</emphasis
+>, bir belgedeki metni vurgulamanıza olanak tanır. Normal Kip komutlarının çoğu bu kipte de geçerlidir. Karakterleri seçmek için <userinput
+>v</userinput
+> düğmesine veya satırları seçmek için <userinput
+>V</userinput
+> düğmesine basabilirsiniz. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Ekle Kipi</emphasis
+>, belgeyi doğrudan düzenlemenize olanak tanır. <userinput
+>i</userinput
+> düğmesine veya aşağıda listelenen diğer birkaç komuttan birine basarak girebilirsiniz. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Komut Kipi</emphasis
+>, &kappname;'in komut satırını çağırarak, Vi uygulamalarında bulunan birçok komutun yanı sıra &kappname;'e özgü bazı komutları çalıştırmanıza olanak tanır. Bu komutlar hakkında daha fazla bilgi için <xref linkend="advanced-editing-tools-commandline"/> bölümüne bakın. Kullanmak için <keycap
+>:</keycap
+> düğmesine basın, komutu girin ve &Enter; ile sürdürün.</para>
+</listitem>
+</itemizedlist>
+<!-- add a picture like https://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
+</sect2>
+
+<sect2 id="vi-integration">
+<title
+>&kate; özellikleriyle tümleştirme</title>
+<itemizedlist>
+
+<listitem>
+<para
+>Fare ile metin seçildiğinde Görsel Kip'e kendiliğinden girilir. Ayrıca Tümünü Seç gibi metni seçen &kate; işlevleri kullanılırken de girilebilir (menüden veya <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+> </keycombo
+> aracılığıyla.)</para>
+</listitem>
+
+<listitem>
+<para
+>Vi imleri ve <link linkend="kate-part-bookmarks"
+>&kate; yer imleri</link
+> birbirleriyle tümleşiktir. Vi Kipi'nde bir im oluşturulduğunda, onunla eşleşen bir &kate; yer imi de oluşturulur ve <guimenu
+>Yer İmleri</guimenu
+> menüsünde görünür. Tam tersi olarak bir &kate; yer imi de oluşturulduğunda eşleşen bir Vi imi, 0. sütünda yerini alır.</para>
+</listitem>
+
+</itemizedlist>
+</sect2>
+
+<sect2 id="vi-normal-visual-mode-commands">
+<title
+>Desteklenen normal/görsel kip komutları</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>a</userinput
+></para
+></entry>
+<entry
+><para
+>Ekle Kipi'ne gir, imleçten sonra iliştir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>A</userinput
+></para
+></entry>
+<entry
+><para
+>Ekle Kipi'ne gir, satırdan sonra iliştir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i</userinput
+></para
+></entry>
+<entry
+><para
+>Ekle Kipi'ne gir, imleçten önce ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Ins;</para
+></entry>
+<entry
+><para
+>Ekle Kipi'ne gir, imleçten önce ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>I</userinput
+></para
+></entry>
+<entry
+><para
+>Ekle Kipi'ne gir, satırdaki ilk boş olmayan karakterden önce ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gi</userinput
+></para
+></entry>
+<entry
+><para
+>Ekle Kipi'ne gir, son Ekle Kipi'nden çıkış sırasında bırakılan yerden önce ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>v</userinput
+></para
+></entry>
+<entry
+><para
+>Görsel Kip'e gir, karakterler seç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>V</userinput
+></para
+></entry>
+<entry
+><para
+>Görsel Kip'e gir, satırlar seç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>v</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Görsel Kip'e gir, bloklar seç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gb</userinput
+></para
+></entry>
+<entry
+><para
+>Görsel Kip'e gir, son seçimi yeniden seç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>o</userinput
+></para
+></entry>
+<entry
+><para
+>Geçerli satırın altında yeni bir satır aç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>O</userinput
+></para
+></entry>
+<entry
+><para
+>Geçerli satırın üstünde yeni bir satır aç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>J</userinput
+></para
+></entry>
+<entry
+><para
+>Satırları birbirlerine kat</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>c</userinput
+></para
+></entry>
+<entry
+><para
+>Değiştir: Ardına bir hareket ekle ve Ekle Kipi'ne gir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>C</userinput
+></para
+></entry>
+<entry
+><para
+>Satır sonuna kadar değiştir: Satırın sonuna kadar sil ve Ekle Kipi'ne gir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>cc</userinput
+></para
+></entry>
+<entry
+><para
+>Satırı değiştir: Satırı sil ve Ekle Kipi'ne gir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>s</userinput
+></para
+></entry>
+<entry
+><para
+>Karakteri başkasıyla değiştir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>S</userinput
+></para
+></entry>
+<entry
+><para
+>Satırı başkasıyla değiştir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>dd</userinput
+></para
+></entry>
+<entry
+><para
+>Satırı sil</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>d</userinput
+></para
+></entry>
+<entry
+><para
+>Silmek için ardına bir hareket ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>D</userinput
+></para
+></entry>
+<entry
+><para
+>Satır sonuna kadar sil</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>x</userinput
+></para
+></entry>
+<entry
+><para
+>İmlecin sağındaki karakteri sil</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Del;</para
+></entry>
+<entry
+><para
+>İmlecin sağındaki karakteri sil</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>X</userinput
+></para
+></entry>
+<entry
+><para
+>İmlecin solundaki karakteri sil</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gu</userinput
+></para
+></entry>
+<entry
+><para
+>Küçük harf yapmak için ardına bir hareket ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>guu</userinput
+></para
+></entry>
+<entry
+><para
+>Geçerli satırı küçük harf yap</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gU</userinput
+></para
+></entry>
+<entry
+><para
+>BÜYÜK harf yapmak için ardına bir hareket ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gUU</userinput
+></para
+></entry>
+<entry
+><para
+>Geçerli satırı büyük harf yap</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>y</userinput
+></para
+></entry>
+<entry
+><para
+><quote
+>Kopyalamak</quote
+> için ardına bir hareket ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>yy</userinput
+></para
+></entry>
+<entry
+><para
+>Satırı kopyala</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>Y</userinput
+></para
+></entry>
+<entry
+><para
+>Satırı kopyala</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>p</userinput
+></para
+></entry>
+<entry
+><para
+>İmleçten sonra yapıştır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>P</userinput
+></para
+></entry>
+<entry
+><para
+>İmleçten önce yapıştır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]p</userinput
+></para
+></entry>
+<entry
+><para
+>İmleç girintilendikten sonra yapıştır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[p</userinput
+></para
+></entry>
+<entry
+><para
+>İmleç girintilendikten önce yapıştır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>r</userinput
+></para
+></entry>
+<entry
+><para
+>İmleçten sonraki karakteri değiştirmek için ardına bir karakter ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>R</userinput
+></para
+></entry>
+<entry
+><para
+>Değiştir Kipi'ne gir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>:</userinput
+></para
+></entry>
+<entry
+><para
+>Komut Kipi'ne gir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>/</userinput
+></para
+></entry>
+<entry
+><para
+>Ara</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>u</userinput
+></para
+></entry>
+<entry
+><para
+>Geri al</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Yinele</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>U</userinput
+></para
+></entry>
+<entry
+><para
+>Yinele</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>m</userinput
+></para
+></entry>
+<entry
+><para
+>İm koy (sonrasında hareketler tarafından kullanılabilir)</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>n</userinput
+></para
+></entry>
+<entry
+><para
+>Sonrakini bul</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>N</userinput
+></para
+></entry>
+<entry
+><para
+>Öncekini bul</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>Satırı girintile</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Satır girintisini kaldır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>Satırları girintile</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Satır girintilerini kaldır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Sayfa aşağı</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Sayfa yukarı</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ga</userinput
+></para
+></entry>
+<entry
+><para
+>Karakterin &ASCII; değerini yazdır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>.</userinput
+></para
+></entry>
+<entry
+><para
+>Son değişikliği yinele</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>==</userinput
+></para
+></entry>
+<entry
+><para
+>Satırı hizala</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>=</userinput
+></para
+></entry>
+<entry
+><para
+>Satırları hizala</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>~</userinput
+></para
+></entry>
+<entry
+><para
+>Geçerli karakterin BÜYÜK/küçük harf durumunu değiştir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Görünümü yatay böl</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>V</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Görünümü dikey böl</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>w</userinput
+></para
+></entry>
+<entry
+><para
+>Sonraki bölünmüş pencereye geç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>h</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Soldaki bölünmüş pencereye geç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>l</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Sağdaki bölünmüş pencereye geç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>k</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Yukarıdaki bölünmüş pencereye geç</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>j</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Aşağıdaki bölünmüş pencereye geç</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-motions">
+<title
+>Desteklenen hareketler</title>
+
+<para
+>Bunlar, Normal veya Görsel kipte bir belgede gezinmek için veya yukarıdaki komutlardan biriyle birlikte kullanılabilir. Bunların önüne, uygun hareketlerden kaç tanesinin yapılacağını gösteren bir sayı gelebilir.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>h</userinput
+></para
+></entry>
+<entry
+><para
+>Sol</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Left;</para
+></entry>
+<entry
+><para
+>Sol</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Backspace;</para
+></entry>
+<entry
+><para
+>Sol</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>j</userinput
+></para
+></entry>
+<entry
+><para
+>Aşağı</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Down;</para
+></entry>
+<entry
+><para
+>Aşağı</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>k</userinput
+></para
+></entry>
+<entry
+><para
+>Yukarı</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Up;</para
+></entry>
+<entry
+><para
+>Yukarı</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>l</userinput
+></para
+></entry>
+<entry
+><para
+>Sağ</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Right;</para
+></entry>
+<entry
+><para
+>Sağ</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Space;</para
+></entry>
+<entry
+><para
+>Sağ</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>$</userinput
+></para
+></entry>
+<entry
+><para
+>Satır sonu</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&End;</para
+></entry>
+<entry
+><para
+>Satır sonu</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>0</userinput
+></para
+></entry>
+<entry
+><para
+>Satırın ilk karakteri (0. sütun)</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Home;</para
+></entry>
+<entry
+><para
+>Satırın ilk karakteri</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>^</userinput
+></para
+></entry>
+<entry
+><para
+>Satırın ilk boşluk olmayan karakteri</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>f</userinput
+></para
+></entry>
+<entry
+><para
+>İmlecin sağına gitmek için ardına bir karakter ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>F</userinput
+></para
+></entry>
+<entry
+><para
+>İmlecin soluna gitmek için ardına bir karakter ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>t</userinput
+></para
+></entry>
+<entry
+><para
+>İmleci önceki karaktere yerleştirerek imlecin sağına gitmek için ardına bir karakter ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>T</userinput
+></para
+></entry>
+<entry
+><para
+>İmleci önceki karaktere yerleştirerek imlecin soluna gitmek için ardına bir karakter ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gg</userinput
+></para
+></entry>
+<entry
+><para
+>İlk satır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>G</userinput
+></para
+></entry>
+<entry
+><para
+>Son satır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>w</userinput
+></para
+></entry>
+<entry
+><para
+>Sonraki sözcük</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>W</userinput
+></para
+></entry>
+<entry
+><para
+>Boşlukla ayrılan sonraki sözcük</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>b</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki sözcük</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>B</userinput
+></para
+></entry>
+<entry
+><para
+>Boşlukla ayrılan önceki sözcük</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>e</userinput
+></para
+></entry>
+<entry
+><para
+>Sözcüğün sonu</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>E</userinput
+></para
+></entry>
+<entry
+><para
+>Boşlukla ayrılan sözcük sonu</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ge</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki sözcüğün sonu</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gE</userinput
+></para
+></entry>
+<entry
+><para
+>Boşlukla ayrılan önceki sözcüğün sonu</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>|</userinput
+></para
+></entry>
+<entry
+><para
+>Bu sütuna gitmek için ardına bir sütun numarası ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>%</userinput
+></para
+></entry>
+<entry
+><para
+>O ögeye gitmek için ardına bir öge ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>`</userinput
+></para
+></entry>
+<entry
+><para
+>İm</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>‘</userinput
+></para
+></entry>
+<entry
+><para
+>İmin bulunduğu satırın boşluk olmayan ilk karakteri</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[[</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki açılış ayracı</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]]</userinput
+></para
+></entry>
+<entry
+><para
+>Sonraki açılış braketi</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[]</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki kapanış ayracı</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>][</userinput
+></para
+></entry>
+<entry
+><para
+>Sonraki kapanış ayracı</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Sonraki konuma atla</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Önceki konuma atla</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>H</userinput
+></para
+></entry>
+<entry
+>Ekranın ilk satırına git</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>M</userinput
+></para
+></entry>
+<entry
+>Ekranın orta satırına git</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>L</userinput
+></para
+></entry>
+<entry
+>Ekranın son satırına git</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>%<replaceable
+>yüzde</replaceable
+></userinput
+></para
+></entry>
+<entry
+><para
+>Belgenin belirtilen yüzdesine git</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gk</userinput
+></para
+></entry>
+<entry
+><para
+>Görsel olarak bir satır yukarı git (devingen sözcük kaydırma kullanılırken)</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gj</userinput
+></para
+></entry>
+<entry
+><para
+>Görsel olarak bir satır aşağı git (devingen sözcük kaydırma kullanılırken)</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Bir sözcük sola git</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Bir sözcük sağa git</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-text-objects">
+<title
+>Desteklenen metin nesneleri</title>
+
+<para
+>Bunlar, bir belgenin belirli bölümlerini seçmek için kullanılabilir.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>iw</userinput
+></para
+></entry>
+<entry
+><para
+>İçteki sözcük: Boşlukla birlikte sözcük</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>aw</userinput
+></para
+></entry>
+<entry
+><para
+>Bir sözcük: Boşluk içermeyen sözcük</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i"</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki çift tırnaktan (<userinput
+>"</userinput
+>) sonraki çift tırnağa, tırnak işaretleri içerilir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a”</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki çift tırnaktan (<userinput
+>"</userinput
+>) sonraki çift tırnağa, tırnak işaretleri içerilmez</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i'</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki tek tırnaktan (<userinput
+>"</userinput
+>) sonraki tek tırnağa, tırnak işaretleri içerilir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a'</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki tek tırnaktan (<userinput
+>"</userinput
+>) sonraki tek tırnağa, tırnak işaretleri içerilmez</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i(</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki açılış parantezinden [<userinput
+>(</userinput
+>] sonraki kapanış parantezine [<userinput
+>)</userinput
+>], parantez içerilir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a(</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki açılış parantezinden [<userinput
+>(</userinput
+>] sonraki kapanış parantezine [<userinput
+>)</userinput
+>], parantez içerilmez</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i[</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki açılış köşeli ayracından (<userinput
+>[</userinput
+>) sonraki kapanış köşeli ayracına (<userinput
+>]</userinput
+>), ayraçlar içerilir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a[</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki açılış köşeli ayracından (<userinput
+>[</userinput
+>) sonraki kapanış köşeli ayracına (<userinput
+>]</userinput
+>), ayraçlar içerilmez</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i{</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki açılış süslü ayracından (<userinput
+>{</userinput
+>) sonraki kapanış süslü ayracına (<userinput
+>}</userinput
+>), ayraçlar içerilir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a{</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki açılış süslü ayracından (<userinput
+>{</userinput
+>) sonraki kapanış süslü ayracına (<userinput
+>}</userinput
+>), ayraçlar içerilmez</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki açılış açılı ayracından (<userinput
+>&lt;</userinput
+>) sonraki kapanış açılı ayracına (<userinput
+>&gt;</userinput
+>), ayraçlar içerilir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki açılış açılı ayracından (<userinput
+>&lt;</userinput
+>) sonraki kapanış açılı ayracına (<userinput
+>&gt;</userinput
+>), ayraçlar içerilmez</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i`</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki ters tırnaktan (<userinput
+>`</userinput
+>) sonraki ters tırnağa, tırnaklar içerilir</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a`</userinput
+></para
+></entry>
+<entry
+><para
+>Önceki ters tırnaktan (<userinput
+>`</userinput
+>) sonraki ters tırnağa, tırnaklar içerilmez</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-insert-mode-commands">
+<title
+>Desteklenen Ekle Kipi komutları</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Girintilemeyi kaldır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Girintile</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Aşağıdan ekle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Y</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Sözcük sil</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Sözcük sil</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Satırı sil</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Yeni satır</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Karakteri geriye doğru sil</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Belgedeki ilk karaktere git</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> <userinput
+>n</userinput
+></para
+></entry>
+<entry
+><literal
+>n</literal
+> yazmacının içeriğini ekle</entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+>, <replaceable
+>komut</replaceable
+></para
+></entry>
+<entry
+><para
+>Yalnızca bir komut için Normal Kip'e gir</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Geçerli seçili sayıyı artır</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>X</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Geçerli seçili sayıyı azalt</para
+></entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-text-object">
+<title
+>Virgül Metin Nesnesi</title>
+
+<para
+>Bu nesne Vim'de yoktur. Virgül Metin Nesnesi, C benzeri dillerdeki ve diğer virgülle ayrılmış listelerdeki parametre listelerini değiştirmeyi kolaylaştırır. Temel olarak iki virgül veya virgül ile parantez arasındaki alandır. Çizimde gösterilen satırda, bu metin nesnesinin yayılabileceği üç erim vurgulanmıştır.</para>
+
+<screenshot id="screenshot-resources">
+<screeninfo
+>Bir Virgül Metin Nesnesi örneği</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="comma-to.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Bir Virgül Metin Nesnesi örneği</phrase
+></textobject>
+<caption
+><para
+>Virgül metin nesnesi erimleri. Örneğin, imleç <replaceable
+>arg2</replaceable
+> üzerindeyse <userinput
+>ci</userinput
+> komutunu girmek (<quote
+>içteki virgülü değiştir</quote
+>), <replaceable
+>double arg2</replaceable
+> ögesini siler ve imleci iki virgülün arasına yerleştirir ve Ekle Kipi'ne geçer. Bir işlevin parametrelerini değiştirmenin pek kolay bir yoludur.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="vi-missing-features">
+<title
+>Eksik Özellikler</title>
+
+<para
+>Daha önce de belirtildiği üzere, &kappname; Vi Kipi'nin amacı Vim'in özelliklerinin %​100'ünü desteklemek değildir.</para>
+</sect2>
+
+</sect1>
+
+</chapter>

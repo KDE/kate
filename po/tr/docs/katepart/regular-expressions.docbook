@@ -1,0 +1,1381 @@
+<appendix id="regular-expressions">
+<appendixinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<othercredit role="translator"
+><firstname
+>İşbaran</firstname
+><surname
+>Akçayır</surname
+><affiliation
+><address
+><email
+>isbaran@gmail.com</email
+></address
+></affiliation
+><contrib
+>-</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@icloud.com</email
+></address
+></affiliation
+><contrib
+>-</contrib
+></othercredit
+> 
+</authorgroup>
+</appendixinfo>
+
+<title
+>Düzenli İfadeler</title>
+
+<synopsis
+>Bu Ek, <emphasis
+>düzenli ifadeler</emphasis
+> dünyasına kısa;
+ancak umarım yeterli ve kapsamlı bir giriş içerir. Bu belgede,
+&kappname; içinde kullanılabilir olan düzenli ifadeler anlatılır.
+Bu düzenli ifade biçimi, ne perl düzenli ifadeleriyle ne de
+<command
+>grep</command
+> ile kullanılabilir düzenli ifadelerle
+doğrudan uyumlu değildir.</synopsis>
+
+<sect1>
+
+<title
+>Giriş</title>
+
+<para
+><emphasis
+>Düzenli İfadeler</emphasis
+>, bize bir metin dizisinin kimi olası içeriğini küçük bir yazılım parçası tarafından anlaşılacak şekilde tanımlamanın bir yolunu sağlar, böylece bir metnin eşleşip eşleşmediğini görebilir ve bazı gelişmiş durumlarda belirli parçaları veya eşleşen metni kaydedebiliriz.</para>
+
+<para
+>Örnek: Bir metni, içinde <quote
+>Henrik</quote
+> veya <quote
+>Pernille</quote
+> adlarından biriyle başlayan ve sonrasında <quote
+>say</quote
+> gelen paragraflar için aramak istiyoruz.</para>
+
+<para
+>Normal bir aramada, öncelikle adla aramaya başlardık; <quote
+>Henrik</quote
+>, belki sonrasında <quote
+>sa</quote
+> getirirdik: <userinput
+>Henrik sa</userinput
+>; eşleşmeleri ararken paragraf başı olmayan varyantları ve <quote
+>sa</quote
+> ile başlayan sözcükleri yok saymamız gerekirdi; örneğin <quote
+>says</quote
+>, <quote
+>said</quote
+> vb. Sonrasında bunların hepsini diğer adla da yinelememiz gerekecekti...</para>
+
+<para
+>Düzenli İfadeler sayesinde bu görev tek bir aramayla ve daha büyük bir doğrulukla gerçekleştirilebilir.</para>
+
+<para
+>Bunu başarmak için, Düzenli İfadeler, eşleşecek bir dizinin genelleştirilmesini ayrıntılı olarak ifade etmeye yönelik kuralları tanımlar. Sözcüğü tam anlamıyla şu şekilde ifade edebiliriz: <quote
+>Ya <quote
+>Henrik</quote
+> ya da <quote
+>Pernille</quote
+> ile başlayan bir satır (büyük olasılıkla öncesinde bir sekme karakteri veya 4 adet boşluk olabilir), sonrasında bir boşluk ve <quote
+>sa</quote
+> ve sonrasında ya <quote
+>ys</quote
+> veya <quote
+>id</quote
+></quote
+> şu düzenli ifadeyle gösterilebilirdi:</para
+> <para
+><userinput
+>^[ \t]{0,4}(Henrik|Pernille) sa(ys|id)</userinput
+></para>
+
+<para
+>Yukarıdaki örnek, çağdaş Düzenli İfadelerin dört ana konseptinin tümünü göstermektedir:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Dizgiler</para
+></listitem>
+<listitem
+><para
+>Savlar</para
+></listitem>
+<listitem
+><para
+>Niceleyiciler</para
+></listitem>
+<listitem
+><para
+>Geriye başvurular</para
+></listitem>
+</itemizedlist>
+
+<para
+>İfadeyi başlatan şapka (<literal
+>^</literal
+>) bir savdır ve yalnızca aşağıdaki eşleşen dizi bir satırın başındaysa doğrudur.</para>
+
+<para
+><literal
+>[ \t]</literal
+> ve <literal
+>(Henrik|Pernille) sa(ys|id)</literal
+> dizgilerdir. İlki, ya bir boş ya da (yatay) sekme karakteriyle eşleşen bir <emphasis
+>karakter sınıfıdır</emphasis
+>; diğer dizgi ise ya <literal
+>Henrik</literal
+> <emphasis
+>ya da</emphasis
+> <literal
+>Pernille</literal
+> ile eşleşen bir alt dizgi ve <literal
+> sa</literal
+> dizisiyle tam olarak eşleşen bir parçadır ve son olarak ya <literal
+>ys</literal
+> <emphasis
+>ya da</emphasis
+> <literal
+>id</literal
+> ile eşleşen bir alt dizgidir</para>
+
+<para
+><literal
+>{0,4}</literal
+> dizisi, <quote
+>öncekinin 0'dan 4'e kadar herhangi bir yer</quote
+> olan bir niceleyicidir.</para>
+
+<para
+><emphasis
+>Geriye başvurular</emphasis
+> kavramını destekleyen düzenli ifade yazılımı, dizinin eşleşen kısmının tümünü ve parantez içine alınmış alt kalıpları kaydettiği için bu başvurulara bazı erişim araçları verildiğinde, ya eşleşmenin tümünü (düzenli bir ifadeyle bir düzenleyicide bir metin belgesi aranırken, bu genellikle seçilmiş olarak işaretlenir) ya da bulunan ad ya da yüklemin son kısmını ele alabiliriz.</para>
+
+<para
+>Tümü birlikte, ifade nerede eşleşmesini istiyorsak yalnızca orada eşleşir.</para>
+
+<para
+>Aşağıdaki bölümlerde dizgilerin, karakter sınıflarının, savların, niceleyicilerin ve geriye başvuruların nasıl oluşturulacağı ve kullanılacağı ayrıntılı olarak açıklanacak ve son bölümde birkaç yararlı örnek verilecektir.</para>
+
+</sect1>
+
+<sect1 id="regex-patterns">
+
+<title
+>Dizgiler</title>
+
+<para
+>Dizgiler, değişmez dizilerden ve karakter sınıflarından oluşur. Dizgiler, parantez içine alınmış dizgiler olan alt dizgiler içerebilir.</para>
+
+<sect2>
+<title
+>Karakterleri kaçırmak</title>
+
+<para
+>Dizgilerde olduğu gibi karakter sınıflarında da bazı karakterlerin özel bir anlamı vardır. Bu karakterlerden herhangi birini tam anlamıyla eşleştirmek için düzenli ifade yazılımının bu tür karakterleri gerçek anlamlarında yorumlaması gerektiğini bilmesini sağlamak amacıyla bunların imlenmesi veya <emphasis
+>kaçırılması</emphasis
+> gerekir.</para>
+
+<para
+>Bu, karakterin başına ters eğik çizgi (<literal
+>\</literal
+>) getirilerek yapılır.</para>
+
+
+<para
+>Düzenli ifade yazılımı, bağlamda herhangi bir özel anlamı olmayan bir karakterden kaçmayı sessizce yok sayar; bu nedenle, örneğin bir <quote
+>j</quote
+> (<userinput
+>\j</userinput
+>) karakterinden kaçmak güvenlidir. Bir karakterin özel bir anlamı olup olmadığından kuşkunuz varsa onu güvenle kaçırabilirsiniz.</para>
+
+<para
+>Kaçış, elbette ters eğik çizgi karakterinin kendisini de içerir, böyle bir dizinin tam anlamıyla eşleşmesi için <userinput
+>\\</userinput
+> yazarsınız.</para>
+
+</sect2>
+
+<sect2>
+<title
+>Karakter sınıfları ve kısaltmalar</title>
+
+<para
+>Bir <emphasis
+>karakter sınıfı</emphasis
+>, tanımlanmış bir karakter kümesinden biriyle eşleşen bir ifadedir. Düzenli ifadelerde karakter sınıfları, sınıfın yasal karakterlerini <literal
+>[]</literal
+> köşeli parantez içine alarak veya aşağıda açıklanan kısaltılmış sınıflardan birini kullanarak tanımlanır.</para>
+
+<para
+>Basit karakter sınıfları yalnızca bir veya daha çok düz karakter içerir; örneğin, <userinput
+>[abc]</userinput
+> (<quote
+>a</quote
+>, <quote
+>b</quote
+> veya <quote
+>c</quote
+> harflerinden biriyle eşleşir) veya <userinput
+>[0123456789]</userinput
+> (herhangi bir rakamla eşleşir).</para>
+
+<para
+>Harfler ve rakamlar mantıksal bir sıraya sahip olduğundan, erimlerini belirterek bunları kısaltabilirsiniz: <userinput
+>[a-c]</userinput
+>, <userinput
+>[abc]</userinput
+>'ye ve <userinput
+>[0-9]</userinput
+> ise <userinput
+>[0123456789]</userinput
+>'a eşittir. Bu yapıları birleştirerek; örneğin <userinput
+>[a-fynot1-38]</userinput
+> gibi tümüyle geçerli bir yapı oluşturabilirsiniz (sonuncusu, elbette <quote
+>a</quote
+>,<quote
+>b</quote
+>,<quote
+>c</quote
+>,<quote
+>d</quote
+>, <quote
+>e</quote
+>,<quote
+>f</quote
+>,<quote
+>y</quote
+>,<quote
+>n</quote
+>,<quote
+>o</quote
+>,<quote
+>t</quote
+>, <quote
+>1</quote
+>,<quote
+>2</quote
+>,<quote
+>3</quote
+> veya <quote
+>8</quote
+> ögelerinden biriyle eşleşecektir).</para>
+
+<para
+>BÜYÜK harfler, BÜYÜK harf olmayan karşılıklarından farklı karakterler olduğundan, <quote
+>a</quote
+> veya <quote
+>b</quote
+> ile eşleşen ve BÜYÜK/küçük harf duyarsız bir karakter sınıfı oluşturmak için her durumda, onu <userinput
+>[aAbB]</userinput
+> olarak yazmanız gerekir.</para>
+
+<para
+>Elbette <quote
+>herhangi bir şeyin dışındaki her şeyle</quote
+> eşleşen bir <quote
+>negatif</quote
+> sınıf oluşturmak olanaklıdır. Bunu yapmak için sınıfın başına bir şapka (<literal
+>^</literal
+>) koyun: </para>
+
+<para
+><userinput
+>[^abc]</userinput
+>, <quote
+>a</quote
+>, <quote
+>b</quote
+> veya <quote
+>c</quote
+> <emphasis
+>dışındaki</emphasis
+> herhangi bir karakterler eşleşir.</para>
+
+<para
+>Gerçek karakterlerin yanı sıra bazı kısaltmalar da tanımlanmış olup bu da işimizi biraz daha kolaylaştırmaktadır: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>\a</userinput
+></term>
+<listitem
+><para
+>Bu, &ASCII; zil karakteriyle (BEL, 0x07) eşleşir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\f</userinput
+></term>
+<listitem
+><para
+>Bu, &ASCII; form besleme karakteriyle (FF, 0x0C) eşleşir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\n</userinput
+></term>
+<listitem
+><para
+>Bu, &ASCII; satır besleme karakteriyle (LF, 0x0A, Unix yenisatır) eşleşir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\r</userinput
+></term>
+<listitem
+><para
+>Bu, &ASCII; satır başı karakteriyle (CR, 0x0D) eşleşir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\t</userinput
+></term>
+<listitem
+><para
+>Bu, &ASCII; yatay sekme karakteriyle (HT, 0x09) eşleşir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\v</userinput
+></term>
+<listitem
+><para
+>Bu, &ASCII; dikey sekme karakteriyle (VT, 0x0B) eşleşir.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>\xhhhh</userinput
+></term>
+
+<listitem
+><para
+>Bu, onaltılık hhhh Unicode karakteriyle eşleşir (0x0000 ve 0xFFFF arasında). \0ooo (&ie;, \zero ooo), ooo sekizlik &ASCII;/Latin-1 karakteriyle eşleşir (0 ve 0377).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>.</userinput
+> (nokta)</term>
+<listitem
+><para
+>Bu, herhangi bir karakterle eşleşir (yenisatır içerilir).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\d</userinput
+></term>
+<listitem
+><para
+>Bu, bir rakamla eşleşir. <literal
+>[0-9]</literal
+> ile aynıdır</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\D</userinput
+></term>
+<listitem
+><para
+>Bu, rakam olmayan bir şeyle eşleşir. <literal
+>[^0-9]</literal
+> veya <literal
+>[^\d]</literal
+> ile aynıdır</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\s</userinput
+></term>
+<listitem
+><para
+>Bu, boşluk karakteriyle eşleşir. <literal
+>[ \t\n\r]</literal
+> ile aynı şeydir</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\S</userinput
+></term>
+<listitem
+><para
+>Bu, boşluk olmayan bir karakterle eşleşir. <literal
+>[^ \t\r\n]</literal
+> ve <literal
+>[^\s]</literal
+> ile aynıdır</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\w</userinput
+></term>
+<listitem
+><para
+>Herhangi bir <quote
+>sözcük karakteriyle</quote
+> eşleşir; bu durumda bu bir harf, rakam veya alt çizgi olabilir. <literal
+>[a-zA-Z0-9_]</literal
+> ile aynıdır</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\W</userinput
+></term>
+<listitem
+><para
+>Bu, sözcük karakteri olmayan herhangi bir karakterler eşleşir; bu durumda bu harfler, sayılar ve alt çizgi dışındaki her şey olabilir. <literal
+>[^a-zA-Z0-9_]</literal
+> veya <literal
+>[^\w]</literal
+> ile aynıdır</para
+></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</para>
+
+<para
+><emphasis
+>Sınıfların POSIX biçimine simgelemi</emphasis
+>, <userinput
+>[:&lt;class name&gt;:]</userinput
+> de ayrıca desteklenir. Örneğin, <userinput
+>[:digit:]</userinput
+>, <userinput
+>\d</userinput
+>'e ve <userinput
+>[:space:]</userinput
+> de <userinput
+>\s</userinput
+>'e eşittir. POSIX karakter sınıflarının tam listesine <ulink url="https://www.regular-expressions.info/posixbrackets.html"
+>buradan</ulink
+> bakabilirsiniz.</para>
+
+<para
+>Kısaltılmış sınıflar özel bir sınıfın içine yerleştirilebilir; örneğin bir sözcük karakteriyle, bir boşlukla veya bir noktayla eşleştirmek için <userinput
+>[\w \.]</userinput
+> yazabilirsiniz</para>
+
+<sect3>
+<title
+>Karakter sınıflarındaki özel anlamlara sahip karakterler</title>
+
+<para
+>Aşağıdaki karakterlerin <quote
+>[]</quote
+> karakter sınıfı yapısında özel bir anlamı vardır ve bir sınıfa sözcüğün tam anlamıyla içerilebilmesi için kaçış karakterlerinin kullanılması gerekir:</para>
+
+<variablelist>
+<varlistentry>
+<term
+><userinput
+>]</userinput
+></term>
+<listitem
+><para
+>Karakter sınıfını sonlandırır. Sınıftaki ilk karakter olmadığı sürece kaçırılmalıdır (kaçırılmamış bir şapka işaretinden sonra gelebilir).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (şapka)</term>
+<listitem
+><para
+>İlk karakter ise negatif sınıfı belirtir. Sınıfın ilk karakteri ise sözcüğün tam anlamıyla eşleşecek biçimde kaçırılmalıdır.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>-</userinput
+> (tire)</term>
+<listitem
+><para
+>Mantıksal bir erimi belirtir. Bir karakter sınıfı içinde her zaman kaçırılmalıdır.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>\</userinput
+> (ters eğik çizgi)</term>
+<listitem
+><para
+>Kaçış karakteri. Her zaman kaçırılmalıdır.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2>
+
+<title
+>Alternatifler: Bunlardan <quote
+>biriyle</quote
+> eşleştirmek</title>
+
+<para
+>Bir dizi alternatif dizgiden birini eşleştirmek istiyorsanız bunları <literal
+>|</literal
+> (dikey çubuk karakteri) ile ayırabilirsiniz.</para>
+
+<para
+>Örneğin <quote
+>John</quote
+> veya <quote
+>Harry</quote
+> bulmak istediğinizde <userinput
+>John|Harry</userinput
+> düzenli ifadesini kullanırsınız.</para>
+
+</sect2>
+
+<sect2>
+
+<title
+>Alt Dizgiler</title>
+
+<para
+><emphasis
+>Alt dizgiler</emphasis
+>, parantez içine alınmış dizgilerdir ve düzenli ifadeler dünyasında çeşitli kullanımları vardır.</para>
+
+<sect3>
+
+<title
+>Alternatifleri belirtmek</title>
+
+<para
+>Bir dizi alternatifi daha büyük bir dizgi içinde gruplandırmak için bir alt dizgi kullanabilirsiniz. Alternatifler <quote
+>|</quote
+> (dikey çubuk) karakteriyle ayrılır.</para>
+
+<para
+>Örneğin, <quote
+>int</quote
+>, <quote
+>float</quote
+> veya <quote
+>double</quote
+> sözcüklerinden biriyle eşleşmek için <userinput
+>int|float|double</userinput
+> dizgisini kullanabilirsiniz. Yalnızca bir boşluk ve ardından birkaç harf gelen bir tanesini bulmak istiyorsanız alternatifleri bir alt dizginin içine yerleştirin: <userinput
+>(int|float|double)\s+\w+</userinput
+>.</para>
+
+</sect3>
+
+<sect3 id="regex-capturing">
+
+<title
+>Eşleşen metni yakalamak (geriye başvurular)</title>
+
+<para
+>Geriye başvuru kullanmak istiyorsanız dizginin istenilen kısmının anımsanması için <userinput
+>(DİZGİ)</userinput
+> alt dizgisini kullanın. Alt dizginin anımsanmasını önlemek için yakalamayan bir <userinput
+>(?:DİZGİ)</userinput
+> grubu kullanın.</para>
+
+<para
+>Örneğin, aynı sözcüğün virgülle ve büyük olasılıkla bir miktar boşlukla ayrılmış iki örneğini bulmak istiyorsanız <userinput
+>(\w+),\s*\1</userinput
+> yazabilirsiniz. <literal
+>\w+</literal
+> alt dizgisi bir sözcük karakterleri parçası bulur ve ifadenin tümü onlardan sonra bir virgül, 0 veya birden çok boşluk ve aynı miktarda sözcük karakteri geliyorsa eşleşir. (<literal
+>\1</literal
+> dizisi, <emphasis
+>paranteze alınmış ilk alt dizgiye</emphasis
+> başvurur.)</para>
+
+<note>
+<para
+><userinput
+>\1</userinput
+> kullanımı ile ilgili anlatım bozukluklarını önlemek için ardına birkaç rakam koyun (&eg; <userinput
+>\12</userinput
+>, 12. alt dizgi veya <userinput
+>2</userinput
+> içeren ilk alt dizgi olabilir); birden çok rakamlı alt dizgiler için biz <userinput
+>\{12}</userinput
+> kullanıyoruz.</para>
+<para
+>Örnekler:</para>
+<itemizedlist>
+<listitem
+><para
+><userinput
+>\{12}1</userinput
+>, <quote
+>12 alt dizgisini kullan</quote
+> anlamına gelir</para
+></listitem>
+<listitem
+><para
+><userinput
+>\123</userinput
+>, <quote
+>yakalama 1'i kullan, sonrasında 23'ü normal metin olarak kullan</quote
+> anlamına gelir</para
+></listitem>
+</itemizedlist>
+
+</note>
+
+<!-- <para
+>See also <link linkend="backreferences"
+>Back references</link
+>.</para
+> -->
+
+</sect3>
+
+<sect3 id="lookahead-assertions">
+<title
+>İleri Savlar</title>
+
+<para
+>Bir ileri sav, ya <literal
+>?=</literal
+> ya da <literal
+>?!</literal
+> ile başlayan bir alt dizgidir.</para>
+
+<para
+><quote
+>Bill</quote
+> dizisi ile yalnızca ardından <quote
+> Gates</quote
+> gelmiyorsa eşleşmek istiyorsanız şu ifadeyi kullanabilirsiniz: <userinput
+>Bill(?! Gates)</userinput
+>. (Bu, hem <quote
+>Bill Clinton</quote
+>'u hem de <quote
+>Billy the kid</quote
+>'i bulur; ancak diğer eşleşmeleri sessizce yok sayar.)</para>
+
+<para
+>Savlar için kullanılan alt dizgiler yakalanmaz.</para>
+
+<para
+>Ayrıca <link linkend="assertions"
+>Savlar</link
+> bölümüne bakın.</para>
+
+</sect3>
+
+<sect3 id="lookbehind-assertions">
+<title
+>Arkaya Savlar</title>
+
+<para
+>Bir arkaya sav, ya <literal
+>?&lt;=</literal
+> ya da <literal
+>?&lt;!</literal
+> ile başlayan bir alt dizgidir.</para>
+
+<para
+>Arka sav, ileri sav ile aynı etkiye sahiptir; ancak geriye doğru çalışır. Örneğin, <quote
+>fruit</quote
+> gerçek dizisiyle yalnızca önünde <quote
+>grape</quote
+> yoksa eşleşmek istiyorsanız <userinput
+>(?&lt;!grape)fruit</userinput
+> ifadesini kullanabilirsiniz.</para>
+
+<para
+>Savlar için kullanılan alt dizgiler yakalanmaz.</para>
+
+<para
+>Ayrıca <link linkend="assertions"
+>Savlar</link
+> bölümüne bakın</para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="special-characters-in-patterns">
+<title
+>Dizgiler içinde özel anlam taşıyan karakterler</title>
+
+<para
+>Aşağıdaki karakterlerin bir dizgi içinde anlamı vardır ve bunları tam anlamıyla eşleştirmek istiyorsanız kaçış karakterlerinin kullanılması gerekir: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>\</userinput
+> (ters eğik çizgi)</term>
+<listitem
+><para
+>Kaçış karakteri.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (şapka)</term>
+<listitem
+><para
+>Dizinin başını bildirir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>$</userinput
+></term>
+<listitem
+><para
+>Dizinin sonunu bildirir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>()</userinput
+> (sol ve sağ parantez)</term>
+<listitem
+><para
+>Alt dizgileri bildirir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{}</userinput
+> (sol ve sağ süslü ayraçlar)</term>
+<listitem
+><para
+>Sayısal niceleyicileri bildirir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>[]</userinput
+> (sol ve sağ köşeli ayraçlar)</term>
+<listitem
+><para
+>Karakter sınıflarını bildirir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>|</userinput
+> (dikey çubuk)</term>
+<listitem
+><para
+>Mantıksal OR. Alternatifleri ayırır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>+</userinput
+> (artı işareti)</term>
+<listitem
+><para
+>Niceleyici, 1 veya daha çok.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>*</userinput
+> (yıldız işareti)</term>
+<listitem
+><para
+>Niceleyici, 0 veya daha çok.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>?</userinput
+> (soru işareti)</term>
+<listitem
+><para
+>İsteğe bağlı bir karakter. Bir niceleyici olarak yorumlanabilir, 0 veya 1.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="quantifiers">
+<title
+>Niceleyiciler</title>
+
+<para
+><emphasis
+>Niceleyiciler</emphasis
+>, düzenli bir ifadenin bir karakterin, karakter sınıfının veya alt dizginin belirli bir sayısı veya sayı erimiyle eşleşmesine olanak tanır.</para>
+
+<para
+>Niceleyiciler süslü ayraçlar içine alınır (<literal
+>{</literal
+> ve <literal
+>}</literal
+>) ve genellikle <literal
+>{[en-az-oluş][,[en-çok-oluş]]}</literal
+> biçimindedirler </para>
+
+<para
+>Kullanımları en iyi örnekle açıklanabilir: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>{1}</userinput
+></term>
+<listitem
+><para
+>Tam 1 oluş</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{0,1}</userinput
+></term>
+<listitem
+><para
+>Sıfır veya 1 oluş</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{,1}</userinput
+></term>
+<listitem
+><para
+>Aynısı, daha kısası ;)</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{5,10}</userinput
+></term>
+<listitem
+><para
+>En az 5; ancak en çok 10 oluş.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{5,}</userinput
+></term>
+<listitem
+><para
+>En az 5 oluş, sınırsız.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<para
+>Ek olarak, bazı kısaltmalar vardır: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>*</userinput
+> (yıldız işareti)</term>
+<listitem
+><para
+><literal
+>{0,}</literal
+> gibi, herhangi bir sayıda oluş bul.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>+</userinput
+> (artı işareti)</term>
+<listitem
+><para
+><literal
+>{1,}</literal
+> gibi, en az 1 oluş.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>?</userinput
+> (soru işareti)</term>
+<listitem
+><para
+><literal
+>{0,1}</literal
+> gibi, sıfır veya 1 oluş.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<sect2>
+
+<title
+>Açgözlülük</title>
+
+<para
+>En çok değere sahip olmayan niceleyiciler kullanılırken, düzenli ifadeler aranan dizinin olabildiğince büyük bölümüyle eşleşmeye öntanımlıdır, buna genellikle <emphasis
+>açgözlü</emphasis
+> davranış denir.</para>
+
+<para
+>Çağdaş düzenli ifade yazılımları, <quote
+>açgözlülüğü kapatmanın</quote
+> yollarını sağlar; ancak grafiksel bir ortamda bu özelliğe erişmenizi sağlamak arayüzün sorumluluğundadır. Örneğin, düzenli ifade araması sağlayan bir arama iletişim kutusunda <quote
+>En az eşleşme</quote
+> etiketli bir onay kutusu bulunabilir ve ayrıca açgözlülüğün öntanımlı davranış olup olmadığının belirtilmesi gerekir.</para>
+
+</sect2>
+
+<sect2>
+<title
+>Bağlamsal örnekler</title>
+
+<para
+>Niceleyicilerin kullanımına ilişkin birkaç örnek:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>^\d{4,5}\s</userinput
+></term>
+<listitem
+><para
+><quote
+>1234 go</quote
+> ve <quote
+>12345 now</quote
+> içindeki rakamlarla eşleşir; ancak <quote
+>567 eleven</quote
+> veya <quote
+>223459 somewhere</quote
+> içindekilerle eşleşmez.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\s+</userinput
+></term>
+<listitem
+><para
+>Bir veya daha çok boşluk karakteriyle eşleşir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(bla){1,}</userinput
+></term>
+<listitem
+><para
+><quote
+>blablabla</quote
+> dizisinin tümüyle ve <quote
+>blackbird</quote
+> veya <quote
+>tabla</quote
+> içindeki <quote
+>bla</quote
+> ile eşleşir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>/?&gt;</userinput
+></term>
+<listitem
+><para
+><quote
+>&lt;closeditem/&gt;</quote
+> içindeki <quote
+>/&gt;</quote
+> ile ve <quote
+>&lt;openitem&gt;</quote
+> içindeki <quote
+>&gt;</quote
+> ile eşleşir.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="assertions">
+<title
+>Savlar</title>
+
+<para
+><emphasis
+>Savlar</emphasis
+>, düzenli bir ifadenin yalnızca belirli denetimli koşullar altında eşleşmesine olanak tanır.</para>
+
+<para
+>Bir savın eşleşecek bir karaktere gereksinimi yoktur; olası bir eşleşmeyi onaylamadan önce çevreyi araştırır. Örneğin, <emphasis
+>sözcük sınırı</emphasis
+> savı, konumunda bir sözcüğün karşısında sözcük olmayan bir karakter bulmaya çalışmaz, bunun yerine bir sözcük karakterinin bulunmadığından emin olur. Bu, hiçbir karakterin olmadığı durumda iddianın eşleşebileceği anlamına gelir; örneğin aranan bir dizinin sonunda.</para>
+
+<para
+>Bazı savların aslında eşleşecek bir dizgisi vardır; ancak dizi eşleşmesinin parçası, tam ifade eşleşmesinin sonucunun bir parçası olmayacaktır.</para>
+
+<para
+>Burada belgelenen düzenli ifadeler aşağıdaki savları destekler: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (şapka: dizinin başı)</term>
+<listitem
+><para
+>Aranan dizinin başlangıcıyla eşleşir.</para
+> <para
+><userinput
+>^Peter</userinput
+> ifadesi, <quote
+>Peter, hey!</quote
+> dizisindeki <quote
+>Peter</quote
+> ile eşleşir; ancak <quote
+>Hey, Peter!</quote
+> ile eşleşmez </para
+> </listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>$</userinput
+> (dizi sonu)</term>
+<listitem
+><para
+>Aranan dizinin sonuyla eşleşir.</para>
+
+<para
+><userinput
+>you\?$</userinput
+> ifadesi, <quote
+>You didn't do that, did you?</quote
+> dizisindeki son you ile eşleşir; ancak <quote
+>You didn't do that, right?</quote
+> ile eşleşmez</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\b</userinput
+> (sözcük sınırı)</term>
+<listitem
+><para
+>Bir tarafta sözcük karakteri varken diğer tarafta yoksa eşleşir.</para>
+<para
+>Bu, sözcük sonlarını bulmak için kullanışlıdır; örneğin, bir sözcüğün tamamını bulmak için her iki uç da kullanılabilir. <userinput
+>\bin\b</userinput
+> ifadesi, <quote
+>He came in through the window</quote
+> dizisindeki <quote
+>in</quote
+> ile eşleşir; ancak <quote
+>window</quote
+> içindeki <quote
+>in</quote
+> ile eşleşmez.</para
+></listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\B</userinput
+> (sözcük sınırı olmayan)</term>
+<listitem
+><para
+><quote
+>\b</quote
+> ifadesinin eşleşmediği her yerde eşleşir.</para>
+<para
+>Bu, örneğin sözcüğün içinde eşleşeceği anlamına gelir: <userinput
+>\Bin\B</userinput
+> ifadesi, <quote
+>window</quote
+> ile eşleşir; ancak <quote
+>integer</quote
+> veya <quote
+>I'm in love</quote
+> ile eşleşmez.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?=DİZGİ)</userinput
+> (pozitif ileri bakış)</term>
+<listitem
+><para
+>İleriye bakan bir sav, dizinin olası bir eşleşmeyi takip eden kısmına bakar. Olası eşleşmeyi takip eden metin savın <emphasis
+>DİZGİ</emphasis
+>'siyle eşleşmezse pozitif bakış dizinin eşleşmesini engeller; ancak bununla eşleşen metin sonuçta içerilmez.</para>
+<para
+><userinput
+>handy(?=\w)</userinput
+> ifadesi <quote
+>handyman</quote
+> içindeki <quote
+>handy</quote
+> ile eşleşir; ancak <quote
+>That came in handy!</quote
+> içindekiyle eşleşmez</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?!DİZGİ)</userinput
+> (negatif ileri bakış)</term>
+
+<listitem
+><para
+>Negatif bakış, aranan dizinin aşağıdaki bölümünün <emphasis
+>DİZGİ</emphasis
+> ile eşleşmesi durumunda olası bir eşleşmenin onaylanmasını önler.</para>
+<para
+><userinput
+>const \w+\b(?!\s*&amp;)</userinput
+> ifadesi, <quote
+>const char* foo</quote
+> içindeki <quote
+>const char</quote
+> ile eşleşir; ancak <quote
+>const QString&amp; bar</quote
+> içindeki <quote
+>const QString</quote
+> ile eşleşmez; çünkü <quote
+>&amp;</quote
+> negatif ileriye bakan sav dizgisi ile eşleşir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;=DİZGİ)</userinput
+> (pozitif geri bakış)</term>
+<listitem
+><para
+>Arkaya bakma, ileriye bakmayla aynı etkiye sahiptir; ancak geriye doğru çalışır. Geriye doğru bir bakış, dizinin olası bir eşleşmeden önceki kısmına bakar. Pozitif geriye bakış, yalnızca savın <emphasis
+>DİZGİ</emphasis
+>'sinden önce geliyorsa bir diziyle eşleşir; ancak bununla eşleşen metin sonuçta içerilmez.</para>
+<para
+><userinput
+>(?&lt;=cup)cake</userinput
+> ifadesi,<quote
+>cake</quote
+> ile yalnızca önünde <quote
+>cup</quote
+> geliyorsa eşleşir (<quote
+>cupcake</quote
+> gibi; ancak <quote
+>cheesecake</quote
+> veya tek başına <quote
+>cake</quote
+> değilse).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;!DİZGİ)</userinput
+> (negatif geri bakış)</term>
+<listitem
+><para
+>Negatif geriye bakış, aranan dizinin önceki kısmı <emphasis
+>DİZGİ</emphasis
+> ile eşleşmiyorsa olası bir eşleşmenin onaylanmasını önler.</para>
+<para
+><userinput
+>(?&lt;![\w\.])[0-9]+</userinput
+> ifadesi, <quote
+>=123</quote
+> ve <quote
+>-123</quote
+> dizilerindeki <quote
+>123</quote
+> ile eşleşir; ancak <quote
+>.123</quote
+> veya <quote
+>word123</quote
+> içindeki <quote
+>123</quote
+> ile eşleşemez.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(DİZGİ)</userinput
+> (yakalayan grup)</term>
+
+<listitem
+><para
+>Parantez içindeki alt dizgi yakalanır ve anımsanır; böylece geriye başvurularda kullanılabilir. Örneğin, <userinput
+>(&amp;quot;+)[^&amp;quot;]*\1</userinput
+> ifadesi, <userinput
+>&quot;&quot;&quot;&quot;text&quot;&quot;&quot;&quot;</userinput
+> ve <userinput
+>&quot;text&quot;</userinput
+> ile eşleşir.</para>
+<para
+>Daha fazla bilgi için <link linkend="regex-capturing"
+>Eşleşen metni yakalamak (geriye başvurular)</link
+> bölümüne bakın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?:DİZGİ)</userinput
+> (yakalamayan grup)</term>
+
+<listitem
+><para
+>Parantez içindeki alt dizgi yakalanmaz ve anımsanmaz. Yakalamalar kullanılmayacaksa her zaman yakalamayan grupların kullanılması tercih edilir.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+</sect1>
+
+<!-- TODO sect1 id="backreferences">
+
+<title
+>Back References</title>
+
+<para
+></para>
+
+</sect1 -->
+
+</appendix>

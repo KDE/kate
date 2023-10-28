@@ -1,0 +1,2748 @@
+<chapter id="the-menu-entries">
+<title
+>Menü Girdileri</title>
+
+<sect1 id="file-menu">
+<title
+>Dosya Menüsü</title>
+
+<variablelist>
+
+<varlistentry id="file-new">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Yeni</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu komut, düzenleme penceresinde <action
+>yeni bir belge başlatır</action
+>. Yeni dosya, soldaki <guibutton
+>Belgeler</guibutton
+> listesinde <emphasis
+>Adsız</emphasis
+> olarak görünür. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-open">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Aç...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Standart bir &kde; <guilabel
+>Dosya Aç</guilabel
+> iletişim kutusu görüntüler. Açmak istediğiniz dosyayı seçmek için dosya görünümünü kullanın ve açmak için <guibutton
+>Aç</guibutton
+>'a tıklayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-open-recent">
+<term
+><menuchoice
+><guimenu
+>Dosya</guimenu
+> <guisubmenu
+>Son Kullanılanı Aç</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, yakın zamanda kaydedilen belgeleri açmak için kullanılan bir kısayoldur. Bu ögeye tıklamak, menünün yanında en son kaydedilen dosyalardan birkaçını içeren bir liste açar. Belirli bir dosyaya tıklamak dosya hala aynı konumdaysa onu &kappname; ile açar. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-open-with">
+<term>
+<menuchoice
+><guimenu
+>Dosya</guimenu
+> <guisubmenu
+>Birlikte Aç</guisubmenu
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bu alt menü, geçerli belgenizin &MIME; türünü işlediği bilinen uygulamaların bir listesini sunar. Bir girdinin etkinleştirilmesi, geçerli belgenin o uygulamayla açılmasını sağlar.</para>
+<para
+>Ek olarak, bir <guimenuitem
+>Diğer...</guimenuitem
+> girdisi, etkin dosyayı açmak için <action
+>başka bir uygulama seçmenize olanak veren</action
+> Birlikte Aç iletişim kutusunu açar. Dosyanız hâlâ &kate;'de açık olacaktır. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Kaydet</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, geçerli belgeyi kaydeder. Belge halihazırda kaydedilmişse kullanıcının izni istenmeden önceden kaydedilen dosyanın üzerine yazılır. Yeni bir belgenin ilk kaydı ise farklı kaydet iletişim kutusu (aşağıda açıklanmıştır) çağrılacaktır. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-as">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Farklı Kaydet...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, belgenin yeni bir dosya adıyla kaydedilmesine olanak tanır. Bu, yukarıda bu yardım dosyasının <link linkend="file-open"
+>Aç</link
+> bölümünde açıklanan dosya iletişim kutusu aracılığıyla yapılır. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-as-encoding">
+<term
+><menuchoice
+><guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Kodlamayla Farklı Kaydet</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Belgeyi yeni bir dosya adıyla farklı bir kodlamayla kaydedin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-copy-as">
+<term
+><menuchoice
+><guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Kopyayı Farklı Kaydet</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Belgenin bir kopyasını yeni bir dosya adıyla kaydedin ve özgün belgeyi düzenlemeyi sürdürün.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-all">
+<term>
+<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Tümünü Kaydet</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bu komut, <action
+>değiştirilen tüm açık dosyaları kaydeder</action
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-reload">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F5</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Yeniden Yükle</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Etkin dosyayı diskten yeniden yükler. Bu komut, dosyayı &kappname; ile açıkken başka bir program veya işlem değiştirmişse kullanışlıdır. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-reload-all">
+<term>
+<menuchoice
+><guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Tümünü Yeniden Yükle</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+><action
+>Tüm açık dosyaları yeniden yükler.</action
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-print">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>P</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Yazdır...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Kullanıcının neyi, nerede ve nasıl yazdıracağını belirlemesine olanak tanıyan basit bir yazdırma iletişim kutusu açar. </para>
+</listitem>
+</varlistentry>
+
+<!--FIXME Print Preview -->
+
+<varlistentry id="file-export-as-html">
+<term
+><menuchoice
+><guimenu
+>Dosya</guimenu
+> <guimenuitem
+>HTML Olarak Dışa Aktar</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Şu anda açık olan belgeyi, geçerli sözdizim vurgulama ve renk şeması ayarları kullanılarak biçimlendirilecek bir &HTML; dosyası olarak kaydedin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Kaydet</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Etkin dosyayı bu komutla kapatın. Kaydedilmemiş değişiklikler yaptıysanız &kate; dosyayı kapatmadan önce dosyayı kaydetmeniz istenecektir. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-other">
+<term>
+<menuchoice
+><guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Diğerlerini Kapat</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Diğer açık belgeleri kapatın. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-all">
+<term>
+<menuchoice
+><guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Tümünü Kapat</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bu komut, &kate;'de <action
+>açtığınız tüm dosyaları kapatır</action
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-orphaned">
+<term>
+<menuchoice
+><guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Terk Edilmişi Kapat</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Dosya listesindeki, artık erişilebilir olmadıkları için başlatma sırasında yeniden açılamayan tüm belgeleri <action
+>kapatın</action
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-quit">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Dosya</guimenu
+> <guimenuitem
+>Çık</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu komut, <action
+>&kate;'i ve düzenlediğiniz tüm dosyaları kapatır</action
+>. Düzenlediğiniz dosyalardan herhangi birinde kaydedilmemiş değişiklikler yaptıysanız bunları kaydetmeniz istenecektir. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="edit-menu">
+<title
+>Düzen Menüsü</title>
+
+<variablelist>
+
+<varlistentry id="edit-undo">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Geri Al</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Son düzenleme komutunu geri alın (yazma, kopyalama, kesme &etc;)</para>
+<note
+><para
+>Bu, karakterlerin yazılması gibi aynı türden birkaç düzenleme komutunun geri alınmasına neden olabilir.</para
+></note>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-redo">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Yinele</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, Geri Al kullanılarak yapılan en son değişikliği (varsa) tersine çevirir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-cut">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>X</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Kes</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu komut geçerli seçimi siler ve panoya yerleştirir. Pano görünmez bir şekilde çalışır ve uygulamalar arasında veri aktarımı için bir yol sağlar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-copy">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Kopyala</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, o anda seçili olan metni başka bir yere yapıştırılabilmesi için panoya kopyalar. Pano görünmez bir şekilde çalışır ve uygulamalar arasında veri aktarımı için bir yol sağlar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-paste">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>V</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Yapıştır</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, panodaki ilk öğeyi imleç konumuna yerleştirir. Pano görünmez bir şekilde çalışır ve uygulamalar arasında veri aktarımı için bir yol sağlar.</para>
+<note
+><para
+>Seçimin Üzerine Yaz etkinleştirilirse yapıştırılan metin, varsa seçimin üzerine yazılır.</para
+></note>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-paste-selection">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;&Ins;</keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Seçimi Yapıştır</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, daha önce seçilmiş olan <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System"
+>fare seçimi</ulink
+> içeriğini yapıştırır. Bu menü ögesini kullanarak, o anda açık olan dosyaya yapıştırmak için fare işaretçisiyle bir metni işaretleyin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-swap-with-clipboard-contents">
+<term
+><menuchoice
+><guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Pano İçeriği ile Değiştir</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, seçili metni <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System"
+>pano</ulink
+> içeriğiyle değiştirir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-clipboard-history">
+<term
+><menuchoice
+><guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Pano Geçmişi</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu alt menü, yakın zamanda panoya kopyalanan metin bölümlerinin başlangıcını görüntüler. Şu anda açık olan dosyaya yapıştırmak için bu menüden bir öge seçin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-copy-as-html">
+<term
+><menuchoice
+><guimenu
+>Düzen</guimenu
+> <guimenuitem
+>HTML Olarak Kopyala</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Seçimi, geçerli sözdizim vurgulama ve renk şeması ayarları kullanılarak biçimlendirilecek &HTML; olarak kopyalayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-select-all">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Tümünü Seç</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, belgenin tamamını seçer. Bu, dosyanın tümünü başka bir uygulamaya kopyalamak için çok yararlı olabilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-deselect">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Seçimi Kaldır</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Varsa düzenleyicide seçili metnin seçimini kaldırır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-toggle-block-selection">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Blok Seçim Kipi</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Seçim Kipi'ni açar/kapatır. Seçim Kipi <guilabel
+>BLOK</guilabel
+> olduğunda, durum çubuğu <guilabel
+>[BLOK]</guilabel
+> dizisini içerir ve dikey seçimler yapabilirsiniz; &eg;, 9'dan 15'e kadar olan satırlarda 5'ten 10'a kadar olan sütunları seçebilirsiniz.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-input-modes">
+<term
+><menuchoice
+><guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Giriş Kipleri</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Normal ve vi benzeri kipsel düzenleme kipi arasında geçiş yapın. Vi giriş kipi, Vim'in normal ve görsel modundan en çok kullanılan komutları ve hareketleri destekler ve isteğe bağlı bir Vi kipi durum çubuğuna sahiptir. Bu durum çubuğu, girilirken komutları, komutlardan çıktıyı ve geçerli kipi gösterir. Bu kipin davranışı &kappname;'in ayarlar iletişim kutusundaki <guilabel
+>Düzenleme</guilabel
+> sayfasının <ulink url="help:/katepart/config-dialog-editor.html#pref-edit-vi-input-mode"
+>Vi Giriş Kipi</ulink
+> bölümünde yapılandırılabilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-overwrite-mode">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ekle</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Üzerine Yazma Kipi</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Ekle/Üzerine Yaz kiplerini açar/kapatır. Kip <guilabel
+>EKLE</guilabel
+> iken karakterleri imlecin olduğu yere eklersiniz. Kip <guilabel
+>ÜZERİNE YAZ</guilabel
+> iken, yazdığınız karakterler imleciniz herhangi bir karakterden önce konumlandıysa var olan karakterlerin yerine geçer. Durum çubuğu, ya <guilabel
+>EKLE</guilabel
+> ya da <guilabel
+>ÜZERİNE YAZ</guilabel
+> olacak şekilde Üzerine Yazma Kipi'nin geçerli durumunu gösterir.</para>
+</listitem>
+</varlistentry>
+<!--FIXME keep in sync with katepart/part.docbook <sect2 id="finding-text"
+> -->
+<varlistentry id="edit-find">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Bul...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, düzenleyici penceresinin altındaki artımlı arama çubuğunu açar. Çubuğun sol tarafında, çubuğu kapatmak için bir simgenin bulunduğu bir düğme ve ardından arama dizgisini girmek için küçük bir metin kutusu bulunur.</para>
+<para
+>Arama dizginizin karakterlerini girmeye başladığınızda arama hemen başlar. Metinde bir eşleşme varsa bu vurgulanır ve giriş alanının arka plan rengi açık yeşile döner. Arama modeli metindeki herhangi bir diziyle eşleşmiyorsa bu durum giriş alanının açık kırmızı arka plan rengiyle gösterilir.</para>
+<para
+>Belgedeki önceki veya sonraki eşleşmeye atlamak için <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> veya <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> düğmelerini kullanın.</para>
+<para
+>Arama çubuğunu kapattığınızda bile belgedeki eşleşmeler vurgulanır. Bu vurgulamayı temizlemek için &Esc; düğmesine basın.</para>
+<para
+>Aramanın BÜYÜK/küçük harf duyarlı olup olmayacağını seçebilirsiniz. <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> seçmek, arama dizgisindeki karakterlerin her birini BÜYÜK/küçük harf durumuyla (BÜYÜK veya küçük) eşleşen girdileri bulmaya sınırlayacaktır. </para>
+<para
+>Güçlü arama ve değiştirme çubuğuna geçmek için artımlı arama çubuğunun sağ tarafındaki <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> düğmesine tıklayın. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-next">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F3</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Benzerlerini Bul</guisubmenu
+> <guimenuitem
+>Sonrakini Bul</guimenuitem
+> </menuchoice
+></term>
+ <listitem>
+<para
+>Bu, artımlı arama çubuğunu çağırmadan ve imleç konumundan başlayarak belgede ileriye doğru arama yapmadan, varsa son bulma işlemini yineler. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>F3</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Benzerlerini Bul</guisubmenu
+> <guimenuitem
+>Öncekini Bul</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, artımlı arama çubuğunu çağırmadan ve belgede ileri yerine geriye doğru arama yapmadan, varsa son bulma işlemini yineler. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-selected">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Benzerlerini Bul</guisubmenu
+> <guimenuitem
+>Seçiliyi Bul</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Seçili metnin bir sonraki oluşunu bulur.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-selected-backwards">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Benzerlerini Bul</guisubmenu
+> <guimenuitem
+>Seçiliyi Geriye Doğru Bul</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Seçili metnin bir önceki oluşunu bulur.</para>
+</listitem>
+</varlistentry>
+<!--FIXME keep in sync with katepart/part.docbook <sect2 id="replacing-text"
+> -->
+<varlistentry id="edit-replace">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Değiştir...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu komut, güçlü arama ve değiştirme çubuğunu açar. Çubuğun sol üst tarafında, çubuğu kapatmak için bir simgenin bulunduğu bir düğme ve ardından arama modelini girmek için küçük bir metin kutusu bulunur.</para>
+<para
+>Arama kipini açılır menüden; <guilabel
+>Düz metin</guilabel
+>, <guilabel
+>Tüm sözcükler</guilabel
+>, <guilabel
+>Kaçış dizileri</guilabel
+> veya <guilabel
+>Düzenli ifade</guilabel
+> ögelerinden birini seçerek denetleyebilirsiniz. </para>
+<para
+><guilabel
+>Kaçış dizileri</guilabel
+> veya <guilabel
+>Düzenli ifade</guilabel
+> seçiliyse metin kutularının bağlam menüsünün alt kısmındaki <guibutton
+>Ekle...</guibutton
+> menü ögesi etkinleştirilir ve önceden tanımlanmış listelerden aramaya kaçış dizileri veya düzenli ifade ögeleri eklemenize veya dizgileri değiştirmenize olanak tanır.</para>
+<para
+>Belgedeki önceki veya sonraki eşleşmeye atlamak için <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> veya <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> düğmelerini kullanın.</para>
+<para
+>Değiştirilecek metni <guilabel
+>Değiştir</guilabel
+> etiketli metin kutusuna girin ve yalnızca vurgulanan metni değiştirmek için <guibutton
+>Değiştir</guibutton
+> düğmesine veya arama metnini tüm belgede değiştirmek için <guibutton
+>Tümünü Değiştir</guibutton
+> düğmesine tıklayın. </para>
+<para
+>Çubuğun altındaki farklı seçenekleri belirleyerek arama ve değiştirme davranışını değiştirebilirsiniz. <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> seçmek, arama dizgisindeki karakterlerin her birinin BÜYÜK/küçük harfle (BÜYÜK veya küçük) eşleşen girişlerle bulmaya sınırlandıracaktır. <inlinemediaobject
+><imageobject
+><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, yalnızca geçerli seçim içinde arama yapacak ve değiştirecektir. <guilabel
+>Tümünü Bul</guilabel
+> düğmesi belgedeki tüm eşleşmeleri vurgular ve bulunan eşleşmelerin sayısını küçük bir açılır pencerede gösterir. </para>
+<para
+>Artımlı arama çubuğuna geçmek için güçlü arama ve değiştirme çubuğunun sağ tarafındaki <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> düğmesine tıklayın. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-go-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Git</guisubmenu
+> <guimenuitem
+>Ayracın Eşine Git</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>İmleci ilgili açılış veya kapanış ayracına taşıyın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-select-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Git</guisubmenu
+> <guimenuitem
+>Ayracın Eşine Kadar Seç</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>İlgili açılış ve kapanış ayraçları arasındaki metni seçer.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-go-to-previous-modified-line">
+<term
+><menuchoice
+><guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Git</guisubmenu
+> <guimenuitem
+>Önceki Düzenlenmiş Satıra Git</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Dosya açıldıktan sonra değiştirilen satırlara modifiye satırlar denir. Bu eylem önceki değiştirilen satıra atlar. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-go-to-next-modified-line">
+<term
+><menuchoice
+><guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Git</guisubmenu
+> <guimenuitem
+>Sonraki Düzenlenmiş Satıra Git</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Dosya açıldıktan sonra değiştirilen satırlara modifiye satırlar denir. Bu eylem sonraki değiştirilen satıra atlar. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-edit-go-to-line">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>G</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guisubmenu
+>Git</guisubmenu
+> <guimenuitem
+>Satıra Git...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, imlecin belgedeki belirli bir satıra (numarayla belirtilen) atlaması için kullanılan, pencerenin alt kısmındaki satıra git çubuğunu açar. Satır numarası doğrudan metin kutusuna girilebilir veya metin kutusunun yan tarafındaki yukarı veya aşağı ok döndürme denetimlerine tıklanarak grafiksel olarak girilebilir. Küçük yukarı ok satır numarasını artıracak, aşağı ok ise azaltacaktır. Çubuğun sol tarafında simge bulunan düğmeye tıklayarak çubuğu kapatın. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="view-menu">
+<title
+>Görünüm Menüsü</title>
+
+<variablelist>
+
+<varlistentry id="view-new-window">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Yeni Pencere</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>&kate;'in başka bir örneğini açar</action
+>. Yeni örnek önceki örneğinizle aynı olacaktır. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-next-tab">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&Right;</keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Sonraki Sekme</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Sekme çubuğundaki sonraki sekmeyi etkinleştirir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-previous-tab">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&Left;</keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Önceki Sekme</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Sekme çubuğundaki önceki sekmeyi etkinleştirir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-quick-open">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Tez Aç</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Düzenleyici alanında bir arama alanı ve açılan dosyaların listesini gösterin. Arama alanına metin girerken, eşleşen metin için belge adları ve belge &URL'leri aranır. Arama alanına metin girerken liste görünümünde gezinmek için &Up; ve &Down; ok düğmelerini kullanabilirsiniz. &Enter; düğmesine basmak veya listedeki bir ögeye çift tıklamak, görünümü liste görünümünde seçili belgeye geçirir. Bu, eğer çok sayıda açık belge varsa belgeler arasında geçiş yapmayı kolaylaştırır.</para>
+<para
+>Bu eyleme düzenleyici penceresinin sağ üst köşesindeki <inlinemediaobject
+><imageobject
+><imagedata fileref="quickopen-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> simgesi kullanılarak da ulaşılabilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>F8</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Önceki Bölünmüş Görünüm</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Düzenleyici alanını birden çok görünüme böldüyseniz önceki belge görünümüne odaklanın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-next">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F8</keycap
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Sonraki Bölünmüş Görünüm</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Düzenleyici alanını birden çok görünüme böldüyseniz sonraki belge görünümüne odaklanın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-left">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Sol Bölünmüş Görünüm</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Gerekirse belirsizliği gidermek için imleç konumunu kullanarak bölünmüş görünümü sezgisel olarak sola odaklayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-right">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Sağ Bölünmüş Görünüm</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Gerekirse belirsizliği gidermek için imleç konumunu kullanarak bölünmüş görünümü sezgisel olarak sağa odaklayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-upward">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Yukarı Bölünmüş Görünüm</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Gerekirse belirsizliği gidermek için imleç konumunu kullanarak bölünmüş görünümü sezgisel olarak yukarı odaklayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-downward">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Aşağı Bölünmüş Görünüm</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Gerekirse belirsizliği gidermek için imleç konumunu kullanarak bölünmüş görünümü sezgisel olarak aşağı odaklayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-vertical">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>L</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Dikey Olarak Böl</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bu, çerçeveyi (ana düzenleme alanı olabilir) iki eşit boyutlu çerçeveye böler; yenisi geçerli çerçevenin soluna yerleştirilir. Yeni çerçeve odağı alır ve eski belgeyle aynı belgeyi görüntüler.</para>
+<para
+>Ayrıca <link linkend="kate-mdi"
+>&kate; MDI ile çalışmak</link
+> belgesine bir göz atın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-horizontal">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Yatay Olarak Böl</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bu, çerçeveyi (ana düzenleme alanı olabilir) iki eşit boyutlu çerçeveye böler; yenisi geçerli çerçevenin altına yerleştirilir. Yeni çerçeve odağı alır ve eski belgeyle aynı belgeyi görüntüler.</para>
+<para
+>Ayrıca <link linkend="kate-mdi"
+>&kate; MDI ile çalışmak</link
+> belgesine bir göz atın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="move-document-to-new-vertical-split">
+<term>
+<menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Belgeyi Yeni Dikey Bölüntüye Taşı</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bu, geçerli etkin görünümü dikey olarak iki görünüme bölecek ve geçerli etkin belgeyi sağ görünüme taşıyacaktır.</para>
+<para
+>Ayrıca <link linkend="kate-mdi"
+>&kate; MDI ile çalışmak</link
+> belgesine bir göz atın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="move-document-to-new-horizontal-split">
+<term>
+<menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Belgeyi Yeni Yatay Bölüntüye Taşı</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bu, geçerli etkin görünümü dikey olarak iki görünüme bölecek ve geçerli etkin belgeyi aşağı görünüme taşıyacaktır.</para>
+<para
+>Ayrıca <link linkend="kate-mdi"
+>&kate; MDI ile çalışmak</link
+> belgesine bir göz atın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-toggle-orientation">
+<term>
+<menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Yönelimi Değiştir</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Yatay ve dikey bölüntüler arasında geçiş yapın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-close-current">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Geçerli Görünümü Kapat</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Yanıp sönen imleci görüntüleyen çerçeveyi olarak tanımlanabilecek etkin çerçeveyi kapatır. Yalnızca bir kare (ana düzenleme alanı) varsa bu devre dışı bırakılır.</para
+> <para
+>Hiçbir belge bir çerçeve kapatılarak kapatılmaz; belgelere dosya listesinin yanı sıra <link linkend="view-menu"
+><guimenu
+>Görünüm</guimenu
+> menüsünden de ulaşılabilir.</para
+> <para
+>Ayrıca <link linkend="kate-mdi"
+>&kate; MDI ile çalışmak</link
+> belgesine bir göz atın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-close-inactive">
+<term>
+<menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Etkin Olmayan Görünümleri Kapat</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Etkin çerçeve (yanıp sönen imlecin bulunduğu çerçeve) dışındaki tüm çerçeveleri kapatır. Yalnızca bir kare (ana düzenleme alanı) varsa bu devre dışı bırakılır.</para>
+<para
+>Hiçbir belge bir çerçeve kapatılarak kapatılmaz; belgelere dosya listesinin yanı sıra <link linkend="view-menu"
+><guimenu
+>Görünüm</guimenu
+> menüsünden de ulaşılabilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-hide-inactive">
+<term>
+<menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Etkin Olmayan Görünümleri Gizle</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bu, şu anda etkin olan dışındaki tüm bölünmüş görünümleri gizler.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-left">
+<term>
+<menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Bölücüyü Sola Taşı</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bölünmüş Görünüm etkinleştirildiğinde, bu, dikey olarak bölünmüş iki belge arasındaki kenarlığı daha sola kaydırır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-right">
+<term>
+<menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Bölücüyü Sağa Taşı</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bölünmüş Görünüm etkinleştirildiğinde, bu, dikey olarak bölünmüş iki belge arasındaki kenarlığı daha sağa kaydırır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-up">
+<term>
+<menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Bölücüyü Yukarı Taşı</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bölünmüş Görünüm etkinleştirildiğinde, bu, dikey olarak bölünmüş iki belge arasındaki kenarlığı daha yukarı kaydırır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-down">
+<term>
+<menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> <guimenuitem
+>Bölücüyü Aşağı Taşı</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Bölünmüş Görünüm etkinleştirildiğinde, bu, dikey olarak bölünmüş iki belge arasındaki kenarlığı daha aşağı kaydırır.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<note
+><para
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> menüsündeki bazı yaygın kullanılan eylemlere, düzenleyici penceresinin sağ üst köşesinde bulunan <guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="view-split-left-right-22.png" format="PNG"/> </imageobject
+></inlinemediaobject
+></guiicon
+> düğmesinden de ulaşılabilir </para
+></note>
+
+<variablelist>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Araç Görünümleri</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<variablelist>
+<varlistentry id="view-toolviews-show-sidebars">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>F</keycap
+> </keycombo
+></shortcut
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Araç Görünümleri</guisubmenu
+> <guimenuitem
+>Kenar Çubuklarını Göster</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Kenar çubuğu düğmesi satırlarının görünümünü değiştirir. Bu komut, kenar çubuğu içerik araç takımlarının görüntülenmesini etkilemez; görünür olan herhangi bir kenar çubuğu görünür durumda kalacaktır ve aşağıdaki komutlara kısayollar atadıysanız elbette bunlar çalışmayı sürdürecektir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-toolviews-show-plugins">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Araç Görünümleri</guisubmenu
+> <guimenuitem
+><replaceable
+>Eklenti Adı</replaceable
+> Ögesini Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Etkinleştirilen tüm eklentilerin listesi. Araç görünümünün görünümünü değiştirmek için her ögenin önündeki onay kutusunu kullanın.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-command-line">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F7</keycap
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Komut Satırına Geç</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu komut, <ulink url="help:/katepart/advanced-editing-tools-commandline.html"
+>yerleşik komut satırının</ulink
+> görüntülenmesini açacaktır/kapatacaktır. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-enlarge-font">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Yazıtipini Büyüt</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu, görüntü yazıtipi boyutunu artırır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-shrink-font">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Yazıtipini Küçült</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu, görüntü yazıtipi boyutunu azaltır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-schema">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Şema</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu menü, kullanılabilir renk şemalarını listeler. Geçerli görünümün şemasını buradan değiştirebilirsiniz; öntanımlı şemayı değiştirmek için yapılandırma iletişim kutusunun <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
+>Yazıtipleri ve Renkler</ulink
+> sayfasını kullanmanız gerekir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-dynamic-word-wrap">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F10</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Sözcük Kaydırma</guisubmenu
+> <guimenuitem
+>Devingen Sözcük Kaydırma</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Geçerli görünümde devingen sözcük kaydırmayı açar/kapatır. Devingen sözcük kaydırma, gerektiğinde daha fazla görsel satırda tek bir gerçek satırı oluşturarak, yatay kaydırmaya gerek kalmadan görünümdeki tüm metni görünür hale getirir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-dynamic-word-wrap-indicators">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Sözcük Kaydırma</guisubmenu
+> <guisubmenu
+>Devingen Sözcük Kaydırma Belirteçleri</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Devingen sözcük kaydırma belirteçlerinin ne zaman ve nasıl görüntüleneceğini seçin. Bu yalnızca <guilabel
+>Devingen Sözcük Kaydırma</guilabel
+> seçeneği işaretliyse kullanılabilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-statik-word-wrap-markers">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Sözcük Kaydırma</guisubmenu
+> <guimenuitem
+>Durağan Sözcük Kaydırma İşaretçisini Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><ulink url="help:/katepart/config-dialog-editor.html#pref-wrap-words-at"
+>Yapılandırma iletişim kutusunda</ulink
+> yapılandırıldığı şekliyle sarma genişliğinin konumunu gösteren dikey bir çizginin görünümünü değiştirir. Bu özellik, gerçek eş aralıklı bir yazıtipi kullanmanızı gerektirir. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-icon-border">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Kenarlıklar</guisubmenu
+> <guimenuitem
+>Simge Kenarlığını Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu bir geçiş ögesidir. İşaretli olarak ayarlamak, simge kenarlığının etkin düzenleyicinin sol tarafında görünmesini sağlar (veya bunun tersi de geçerlidir). Simge kenarlığı, işaretli satırların düzenleyicideki konumlarını gösterir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-line-numbers">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F11</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Kenarlıklar</guisubmenu
+> <guimenuitem
+>Satır Numaralarını Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu bir geçiş ögesidir. İşaretli olarak ayarlamak, belgenin satır numaralarını gösteren bir bölmenin etkin düzenleyicinin sol kenarında görünmesini sağlar (veya bunun tersi de geçerlidir).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-scrollbar-marks">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Kenarlıklar</guisubmenu
+> <guimenuitem
+>Sarma Çubuğu İmlerini Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Dikey sarma çubuğundaki yer imlerinin (ve diğer işaretlerin) görselleştirilmesini açar/kapatır. Etkinleştirildiğinde, bir im, sarma çubuğundaki im renginde ince bir çizgiyle temsil edilir; çizgideki &MMB; düğmesine tıklamak, görünümü imin yakınındaki bir konuma saracaktır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-border-show-scrollbar-minimap">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Kenarlıklar</guisubmenu
+> <guimenuitem
+>Sarma Çubuğu Küçük Haritasını Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu, sarma çubuğunu geçerli belgenin görselleştirmesiyle değiştirecektir. Sarma çubuğu mini haritası hakkında daha fazla bilgi için <ulink url="help:/katepart/kate-part-scrollbar-minimap.html"
+>&katepart; El Kitabı'nın Sarma Çubuğu Mini Haritası</ulink
+> bölümüne bakın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-code-folding">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Kod Katlama</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu seçenekler, <ulink url="help:/katepart/advanced-editing-tools-code-folding.html"
+>kod katlama</ulink
+> ile ilgilidir:</para>
+<variablelist>
+
+<varlistentry id="view-show-folding-markers">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F9</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Katlama İmleyicilerini Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Görünümün sol tarafındaki katlama imleyicisi bölmesinin görüntülenmesini açar/kapatır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-fold-current-node">
+<term
+><menuchoice>
+<guimenuitem
+>Geçerli Düğümü Katla</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>İmlecin bulunduğu bölgeyi daraltın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-unfold-current-node">
+<term
+><menuchoice>
+<guimenuitem
+>Geçerli Düğümün Katını Aç</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>İmlecin bulunduğu bölgeyi genişletin.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-fold-toplevel-nodes">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Üst Düzey Düğümleri Katla</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Belgedeki tüm üst düzey bölgeleri daraltın. Tüm üst düzey bölgeleri genişletmek için sağdaki işaret üçgenine tıklayın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-unfold-toplevel-nodes">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Üst Düzey Düğümlerin Katını Aç</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Belgedeki tüm üst düzey bölgeleri genişletin.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-non-printable-spaces">
+<term
+><menuchoice>
+<guimenuitem
+>Yazdırılamaz Boşlukları Göster</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Yazdırılamaz alanların çevresindeki sınırlayıcı kutuyu gösterin/gizleyin.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="bookmarks-menu">
+<title
+>Yer İmleri Menüsü</title>
+
+<para
+>Burada açıklanan girdilerin altında, etkin belgedeki her yer imi için bir giriş kullanılabilir olacaktır. Metin, imli satırın ilk birkaç sözcüğü olur. İmleci o satırın başına taşımak için bir öge seçin. Düzenleyici, bu satırı görünür kılmak için gerektiği kadar sarar.</para>
+
+<variablelist>
+
+<varlistentry id="bookmarks-set-bookmark">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Yer İmleri</guimenu
+> <guimenuitem
+>Yer İmi Ayarla</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Etkin belgenin geçerli satırına bir yer imi koyar veya kaldırır (Eğer oradaysa kaldırılır, aksi takdirde bir tane koyulur.)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="bookmarks-clear-bookmarks">
+<term
+><menuchoice
+><guimenu
+>Yer İmleri</guimenu
+> <guimenuitem
+>Tüm Yer İmlerini Temizle</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu komut, belgedeki tüm imleyicilerin yanı sıra bu menü ögesinin altına eklenen imleyiciler listesini de kaldıracaktır. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="bookmarks-bookmarks-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&PgUp;</keycombo
+> </shortcut
+> <guimenu
+>Yer İmleri</guimenu
+> <guimenuitem
+>Önceki</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu, imleci yukarıdaki yer iminin bulunduğu ilk satırın başına taşır. Menü ögesi metni, satır numarasını ve satırdaki ilk metin parçasını içerecektir. Bu öge yalnızca imlecin üzerindeki satırda bir yer imi bulunduğunda kullanılabilir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="bookmarks-bookmarks-next">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&PgDn;</keycombo
+> </shortcut
+> <guimenu
+>Yer İmleri</guimenu
+> <guimenuitem
+>Sonraki</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu, imleci yukarıdaki yer iminin bulunduğu sonraki satırın başına taşır. Menü ögesi metni, satır numarasını ve satırdaki ilk metin parçasını içerecektir. Bu öge yalnızca imlecin üzerindeki satırda bir yer imi bulunduğunda kullanılabilir.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="sessions-menu">
+<title
+>Oturumlar Menüsü</title>
+
+<para
+>Bu menü, &kate; oturumlarını kullanmak ve yönetmek için girdiler içerir. Daha fazla bilgi için <link linkend="fundamentals-using-sessions"
+>Oturumları Kullanmak</link
+> bölümünü okuyun.</para>
+
+<variablelist>
+
+<varlistentry id="sessions-new">
+<term
+><menuchoice
+><guimenu
+>Oturumlar</guimenu
+> <guimenuitem
+>Yeni</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Yeni bir boş oturum oluşturur. Şu anda açık olan tüm dosyalar kapatılır.</para
+></listitem>
+
+</varlistentry>
+
+<varlistentry id="sessions-open">
+<term
+><menuchoice
+><guimenu
+>Oturumlar</guimenu
+> <guimenuitem
+>Oturum Aç...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Var olan bir oturumu açın. Birini seçmenize izin vermek için Oturum Seçicisi iletişim kutusu görüntülenir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="sessions-quick-open">
+<term
+><menuchoice
+><guimenu
+>Oturumlar</guimenu
+> <guisubmenu
+>Tez Oturum Aç</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu alt menü, var olan bir oturumu açmanıza olanak tanır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="sessions-save">
+<term
+><menuchoice
+><guimenu
+>Oturumlar</guimenu
+> <guimenuitem
+>Oturumu Kaydet</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Geçerli oturumu kaydedin. Oturum anonimse sizden bir oturum adı istenecektir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="sessions-save-as">
+<term
+><menuchoice
+><guimenu
+>Oturumlar</guimenu
+> <guimenuitem
+>Oturumu Farklı Kaydet...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Geçerli oturumu yeni bir adla kaydedin. Kullanılacak bir ad istenir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="sessions-manage">
+<term
+><menuchoice
+><guimenu
+>Oturumlar</guimenu
+> <guimenuitem
+>Oturumları Yönet...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Oturumları yeniden adlandırmanıza ve silmenize olanak tanıyan Oturum Yöneticisi iletişim kutusunu görüntüler.</para
+></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="tools-menu">
+
+<title
+>Araçlar Menüsü</title>
+
+<variablelist>
+
+<varlistentry id="tools-read-only">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guimenuitem
+>Saltokunur Kip</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Geçerli belgeyi saltokunur kipe ayarlayın. Bu, herhangi bir metin eklenmesini ve belge biçimindeki herhangi bir değişikliği önler.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-filetype">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Kip</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Etkin belge için tercih ettiğiniz <ulink url="help:/katepart/pref-open-save-modes-filetypes.html"
+>dosya türü</ulink
+> şemasını seçin. Bu, yalnızca geçerli belgeniz için Dosya Türleri sekmesinde <menuchoice
+><guimenu
+>Ayarlar</guimenu
+> <guimenuitem
+>&kate; Uygulamasını Yapılandır...</guimenuitem
+></menuchoice
+> bölümünde ayarlanan global dosya türü kipinin üzerine yazar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-highlighting">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Vurgulama</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Etkin belge için tercih ettiğiniz vurgulama şemasını seçin. Bu, yalnızca geçerli belgeniz için <menuchoice
+> <guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>Düzenleyiciyi Yapılandır...</guimenuitem
+> </menuchoice
+> bölümünde ayarlanan global vurgulama kipinin üzerine yazar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-indentation">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Girintileme</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Etkin belgeniz için istediğiniz <ulink url="help:/katepart/kate-part-autoindent.html"
+>girintileme biçemini</ulink
+> seçin. Bu, yalnızca geçerli belgeniz için <menuchoice
+> <guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>Düzenleyiciyi Yapılandır...</guimenuitem
+> </menuchoice
+> bölümünde ayarlanan global girintileme kipinin üzerine yazar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-encoding">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Kodlama</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Etkin belgeniz için istediğiniz kodlamayı seçin. Bu, yalnızca geçerli belgeniz için <menuchoice
+> <guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>Düzenleyiciyi Yapılandır...</guimenuitem
+> </menuchoice
+> bölümünde ayarlanan global kodlamanın üzerine yazar. Burada ayarladığınız kodlama, yalnızca şu anki belgeniz için geçerli olacaktır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-end-of-line">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Satır Sonu</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Etkin belgeniz için tercih ettiğiniz satır sonu kipini seçin. Bu, yalnızca geçerli belgeniz için <menuchoice
+> <guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>Düzenleyiciyi Yapılandır...</guimenuitem
+> </menuchoice
+> bölümünde ayarlanan global satır sonu kipinin üzerine yazar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-add-byte-mark-order">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Bayt Sıralama İmi (BOM) Ekle</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu eylemi işaretleyerek Unicode kodlu belgeler için açıkça bir bayt sırası imi ekleyebilirsiniz. Bayt Sırası İmi (BOM), bir metin dosyasının veya akışın son haneliliğini (bayt sırasını) belirtmek için kullanılan bir Unicode karakterdir; daha fazla bilgi için <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
+>Bayt Sırası İmi</ulink
+> sayfasına bakın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-scripts">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Betikler</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu alt menü, betiklerle yazılan tüm eylemlerin bir listesini içerir. Liste, kendi <ulink url="help:/katepart/dev-scripting.html#dev-scripting-command-line"
+>betiklerinizi</ulink
+> yazarak kolayca değiştirilebilir. Böylece &kate;, kullanıcı tanımlı araçlarla genişletilebilir. </para>
+<para
+><ulink url="help:/katepart/dev-scripting.html"
+>&katepart; belgelendirmesinde betiklerin tam bir listesi bulunur.</ulink
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-invoke-code-completition">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Space;</keycombo
+> </shortcut
+> <guimenu
+>Araçlar</guimenu
+> <guimenuitem
+>Kod Tamamlamayı Başlat</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Genellikle bu eyleme bağlı bir kısayol kullanarak komut tamamlamayı elle çağırın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-word-completition">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guimenuitem
+>Sözcük Tamamlama</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><guimenuitem
+>Aşağıdaki Sözcüğü Yeniden Kullan</guimenuitem
+> (<keycombo action="simul"
+>&Ctrl; <keycap
+>9</keycap
+></keycombo
+>) ve <guimenuitem
+>Yukarıdaki Sözcüğü Yeniden Kullan</guimenuitem
+> (<keycombo action="simul"
+>&Ctrl; <keycap
+>8</keycap
+></keycombo
+>), şu anda yazılan sözcüğü, imleç konumundan öne veya arkaya benzer sözcükleri arayarak tamamlar. <guimenuitem
+>Kabuk Tamamlama</guimenuitem
+>, eşleşen girdilerle birlikte bir tamamlama kutusu açar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="spelling-automatic-spell-checking">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Yazım Denetimi</guisubmenu
+> <guimenuitem
+>Otomatik Yazım Denetimi</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><guimenuitem
+>Otomatik Yazım Denetimi</guimenuitem
+> etkinleştirildiğinde, yanlış yazılan sözcüklerin altı o anda çizilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="spelling-spelling">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Yazım Denetimi</guisubmenu
+> <guimenuitem
+>Yazım Denetimi...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Bu, kullanıcının yazım hatalarını yakalayıp düzeltmesine yardımcı olmak için tasarlanmış bir program olan yazım denetimi programını başlatır.</action
+></para>
+
+<para
+>&kde; yazım denetimi programını kullanmak üzerine daha fazla bilgi için <ulink url="help:/fundamentals/spellcheck.html"
+><emphasis
+>&kde; Temelleri</emphasis
+> belgelendirmesinin <emphasis
+>Yazım Denetimi</emphasis
+> bölümüne bakın</ulink
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-spelling-from-cursor">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Yazım Denetimi</guisubmenu
+> <guimenuitem
+>Yazım Denetimi (İmleçten İtibaren)...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bu, yazım denetimi programını başlatır; ancak belgenin başlangıcı yerine imlecinizin bulunduğu yerden başlar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-spellcheck-selection">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Yazım Denetimi</guisubmenu
+> <guimenuitem
+>Seçimin Yazımını Denetle...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Geçerli seçimin yazımını denetler.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-change-dictionary">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Yazım Denetimi</guisubmenu
+> <guimenuitem
+>Sözlüğü Değiştir</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Düzenleyici penceresinin alt kısmında yazım denetimi için kullanılabilir tüm sözlükleri içeren bir açılır kutu görüntüler. Bu, farklı dillerdeki metinlerin kendiliğinden yazımının denetlenmesi için yazım denetimi sözlüğünün kolayca değiştirilmesine olanak tanır.</para>
+</listitem>
+</varlistentry>
+
+<!-- Indent/Unindent no longer in the menu ???, but shortcuts work-->
+<!--
+<varlistentry id="tools-indent">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Indent</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This increases the paragraph's indentation by one step. The size of the
+step depends on the <link linkend="pref-edit-indent"
+> indentation
+settings</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-unindent">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>I</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Unindent</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This reduces the paragraph's indentation by one step. The size of the step
+depends on the <link linkend="pref-edit-indent"
+> indentation settings</link
+>.</para>
+</listitem>
+</varlistentry>
+-->
+
+<!-- <Pablo
+> These are in the selection menu now, and are documented in doc/katepart/menus.docbook -->
+<!--
+<varlistentry id="tools-cleanindent">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Clean Indentation</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This cleans the indentation for the current selection or for the
+line the cursor is currently in. Cleaning the indentation ensures that
+all your selected text follows the indentation mode you choose.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-formatindent">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Format Indent</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>Causes a realign of the current line or selected lines using the
+indentation mode and indentation settings in the document.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-alignon">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Align On...</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This command aligns lines in the selected block or whole document on the column given by a regular expression that you will be prompted for.</para>
+<para
+>If you give an empty pattern it will align on the first non-blank character by default.</para>
+<para
+>If the pattern has a capture it will indent on the captured match.</para>
+<para
+><emphasis
+>Examples:</emphasis
+></para>
+<para
+>With '<userinput
+>-</userinput
+>' it will insert spaces before the first '-' of each lines to align them all on the same column.</para>
+<para
+>With '<userinput
+>alignon :\\s+(.)</userinput
+>' it will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-comment">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Comment</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>This adds one space to the beginning of the line
+where the text cursor is located or to the beginning of any
+selected lines.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-uncomment">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>D</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uncomment</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>This removes one space (if any exist) from the beginning of the
+line where the text cursor is located or from the beginning of any
+selected lines.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-uppercase">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uppercase</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Put the selected text or the letter after the cursor in
+uppercase.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-lowercase">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>U</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Lowercase</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Put the selected text or the letter after the cursor in
+lowercase.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-capitalize">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>U</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Capitalize</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Capitalize the selected text or the current
+word.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-join-lines">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Join Lines</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Joins the selected lines, or the current line and the line below
+with one white space character as a separator. Leading/trailing white space on
+joined lines is removed in the affected ends.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-word-wrap-document">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Apply Word Wrap</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Apply static word wrapping on all the document. That means that
+a new line of text will automatically start when the current
+line exceeds the length specified by the <guilabel
+>Wrap words at</guilabel
+> option
+in the Editing tab in <menuchoice>
+<guimenu
+>Settings</guimenu
+><guimenuitem
+>Configure
+Editor...</guimenuitem
+></menuchoice
+>.</para
+></listitem>
+</varlistentry>
+-->
+
+</variablelist>
+</sect1>
+
+<sect1 id="settings-help-menu">
+<title
+>Ayarlar ve Yardım Menüsü</title>
+
+<para
+>&kate;, genel &kde; <guimenu
+>Ayarlar</guimenu
+> ve <guimenu
+>Yardım</guimenu
+> menüsü ögelerine sahiptir; daha fazla bilgi için &kde; Temelleri'nin aşağıdaki ek girdilerle birlikte <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Ayarlar Menüsü</ulink
+> ve <ulink url="help:/fundamentals/menus.html#menus-help"
+>Yardım Menüsü</ulink
+> bölümlerini okuyun. </para>
+
+<variablelist>
+
+<varlistentry id="settings-colorscheme">
+<term
+><menuchoice
+><guimenu
+>Ayarlar</guimenu
+> <guimenuitem
+>Renk Teması</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><ulink url="help:/kcontrol/colors/index.html"
+>Renkler</ulink
+> &systemsettings; modülünde açıklanan sistem global renk şemasından farklı bir renk şeması kullanın. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="settings-show-tabs">
+<term
+><menuchoice
+><guimenu
+>Ayarlar</guimenu
+> <guimenuitem
+>Sekmeleri Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Sekmeler, &LMB; kullanılarak taşınabilir ve belgeleri kapatmak, yolu panoya kopyalamak ve dosyanın klasörünü dosya yöneticisinde açmak gibi ek bağlam menüsü ögelerine sahiptir. <inlinemediaobject
+><imageobject
+><imagedata fileref="quickopen-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <link linkend="view-quick-open"
+><guibutton
+>Tez Aç</guibutton
+> </link
+> düğmesini kullanmak, belgeler arasında geçiş yapmayı pek kolay kılar. <guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Bölünmüş Görünüm</guisubmenu
+> menüsündeki eylemlerle bir menü açmak için <inlinemediaobject
+><imageobject
+><imagedata fileref="view-split-left-right-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> düğmesine &LMB; ile tıklayın. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="settings-show-path">
+<term
+><menuchoice
+><guimenu
+>Ayarlar</guimenu
+> <guimenuitem
+>Yolu Başlık Çubuğunda Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Etkinleştirilirse etkin belgenin tam yolu görüntülenir, aksi takdirde yalnızca dosya adı görüntülenir. Bu, aynı dosya adına sahip birden fazla dosyayı düzenlerseniz bunları ayırt etmek için kullanışlıdır.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+</chapter>

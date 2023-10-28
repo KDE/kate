@@ -52,7 +52,7 @@ template<typename T>
 using ReplyHandler = std::function<void(const T &)>;
 
 using ErrorReplyHandler = ReplyHandler<LSPResponseError>;
-using DocumentSymbolsReplyHandler = ReplyHandler<QList<LSPSymbolInformation>>;
+using DocumentSymbolsReplyHandler = ReplyHandler<std::list<LSPSymbolInformation>>;
 using DocumentDefinitionReplyHandler = ReplyHandler<QList<LSPLocation>>;
 using DocumentHighlightReplyHandler = ReplyHandler<QList<LSPDocumentHighlight>>;
 using DocumentHoverReplyHandler = ReplyHandler<LSPHover>;

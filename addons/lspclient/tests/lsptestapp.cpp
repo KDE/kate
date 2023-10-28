@@ -50,8 +50,8 @@ int main(int argc, char **argv)
     QString content = in.readAll();
     lsp.didOpen(document, 0, QString(), content);
 
-    auto ds_h = [&q](const QList<LSPSymbolInformation> &syms) {
-        std::cout << "symbol count: " << syms.length() << std::endl;
+    auto ds_h = [&q](const std::list<LSPSymbolInformation> &syms) {
+        std::cout << "symbol count: " << syms.size() << std::endl;
         q.quit();
     };
     lsp.documentSymbols(document, &app, ds_h);

@@ -345,7 +345,7 @@ public:
         }
     }
 
-    void makeNodes(const QList<LSPSymbolInformation> &symbols, bool tree, bool show_detail, QStandardItemModel *model, QStandardItem *parent, bool &details)
+    void makeNodes(const std::list<LSPSymbolInformation> &symbols, bool tree, bool show_detail, QStandardItemModel *model, QStandardItem *parent, bool &details)
     {
         const QIcon *icon = nullptr;
         for (const auto &symbol : symbols) {
@@ -354,7 +354,7 @@ public:
             case LSPSymbolKind::Module:
             case LSPSymbolKind::Namespace:
             case LSPSymbolKind::Package:
-                if (symbol.children.count() == 0) {
+                if (symbol.children.empty()) {
                     continue;
                 }
                 icon = &m_icon_pkg;
@@ -409,12 +409,12 @@ public:
         }
     }
 
-    void onDocumentSymbols(const QList<LSPSymbolInformation> &outline)
+    void onDocumentSymbols(const std::list<LSPSymbolInformation> &outline)
     {
         onDocumentSymbolsOrProblem(outline, QString(), true);
     }
 
-    void onDocumentSymbolsOrProblem(const QList<LSPSymbolInformation> &outline, const QString &problem = QString(), bool cache = false)
+    void onDocumentSymbolsOrProblem(const std::list<LSPSymbolInformation> &outline, const QString &problem = QString(), bool cache = false)
     {
         if (!m_symbols) {
             return;
@@ -504,7 +504,7 @@ public:
             // but let's only do it if needed, e.g. when changing view
             // so as to avoid unhealthy flickering in other cases
             if (clear) {
-                onDocumentSymbolsOrProblem(QList<LSPSymbolInformation>(), QString(), false);
+                onDocumentSymbolsOrProblem({}, QString(), false);
             }
 
             // check (valid) cache
@@ -573,7 +573,7 @@ public:
         }
 
         // else: inform that no server is there
-        onDocumentSymbolsOrProblem(QList<LSPSymbolInformation>(), i18n("No LSP server for this document."));
+        onDocumentSymbolsOrProblem({}, i18n("No LSP server for this document."));
     }
 
     // returns (covering item, closest child of covering item after line)

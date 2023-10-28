@@ -693,7 +693,7 @@ static LSPHover parseHover(const rapidjson::Value &hover)
     return ret;
 }
 
-static QList<LSPSymbolInformation> parseDocumentSymbols(const rapidjson::Value &result)
+static std::list<LSPSymbolInformation> parseDocumentSymbols(const rapidjson::Value &result)
 {
     // the reply could be old SymbolInformation[] or new (hierarchical) DocumentSymbol[]
     // try to parse it adaptively in any case
@@ -704,10 +704,11 @@ static QList<LSPSymbolInformation> parseDocumentSymbols(const rapidjson::Value &
     //   then we try to find such a parent whose range contains current range
     //   (otherwise fall back to using the last instance as a parent)
 
-    QList<LSPSymbolInformation> ret;
+    std::list<LSPSymbolInformation> ret;
     if (!result.IsArray()) {
         return ret;
     }
+    // std::list provides stable references/iterators, so index by direct pointer is safe
     QMultiMap<QString, LSPSymbolInformation *> index;
 
     std::function<void(const rapidjson::Value &symbol, LSPSymbolInformation *parent)> parseSymbol = [&](const rapidjson::Value &symbol,

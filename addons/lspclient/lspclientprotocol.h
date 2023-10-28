@@ -215,7 +215,7 @@ struct LSPSymbolInformation {
     LSPRange range;
     double score = 0.0;
     LSPSymbolTag tags;
-    QList<LSPSymbolInformation> children;
+    std::list<LSPSymbolInformation> children;
 };
 
 struct LSPTextEdit {

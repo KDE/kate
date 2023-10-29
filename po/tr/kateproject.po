@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-26 01:47+0000\n"
-"PO-Revision-Date: 2023-10-28 02:17+0300\n"
+"PO-Revision-Date: 2023-10-28 05:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -776,7 +776,7 @@ msgstr "Hata"
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "File name already exists"
-msgstr "Dosya adı halihazırda mevcut"
+msgstr "Dosya adı halihazırda var"
 
 #: kateprojectplugin.cpp:217
 #, kde-format

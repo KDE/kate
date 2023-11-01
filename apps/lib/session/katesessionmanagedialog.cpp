@@ -410,13 +410,11 @@ KateSession::Ptr KateSessionManageDialog::currentSelectedSession() const
 
 bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
 {
-    QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-
     if (object == m_sessionList) {
         if (!m_editByUser) { // No need for further action
             return false;
         }
-
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if (event->type() == QEvent::KeyPress) {
             switch (ke->key()) {
             // Avoid to apply changes with untypical keys/don't left edit field this way
@@ -442,9 +440,10 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
             }
         }
 
-    } else if (object == m_filterBox) {
+    } else if (object == m_filterBox && event->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         // Catch Return key to avoid to finish the dialog
-        if (event->type() == QEvent::KeyPress && (ke->key() == Qt::Key_Return || ke->key() == Qt::Key_Enter)) {
+        if (ke->key() == Qt::Key_Return || ke->key() == Qt::Key_Enter) {
             // avoid crash, see bug 142127
             QTimer::singleShot(0, this, &KateSessionManageDialog::updateSessionList);
             m_sessionList->setFocus();

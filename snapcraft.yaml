@@ -149,6 +149,8 @@ parts:
         - libqt5widgets5
         - libqt5x11extras5
         - libqt5xml5
+        - libqt5waylandclient5
+        - libqt5waylandcompositor5
         - libstdc++6
         - sonnet-plugins
         - darcs
@@ -157,6 +159,7 @@ parts:
         - konsole-kpart
         - mercurial
         - subversion
+        - libsecret-1-0
         source: .
         source-type: local
         cmake-parameters:

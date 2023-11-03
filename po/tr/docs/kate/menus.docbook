@@ -1069,7 +1069,7 @@
 ></term>
 <listitem>
 <para
->Düzenleyici alanında bir arama alanı ve açılan dosyaların listesini gösterin. Arama alanına metin girerken, eşleşen metin için belge adları ve belge &URL'leri aranır. Arama alanına metin girerken liste görünümünde gezinmek için &Up; ve &Down; ok düğmelerini kullanabilirsiniz. &Enter; düğmesine basmak veya listedeki bir ögeye çift tıklamak, görünümü liste görünümünde seçili belgeye geçirir. Bu, eğer çok sayıda açık belge varsa belgeler arasında geçiş yapmayı kolaylaştırır.</para>
+>Düzenleyici alanında bir arama alanı ve açılan dosyaların listesini gösterin. Arama alanına metin girerken, eşleşen metin için belge adları ve belge &URL;'leri aranır. Arama alanına metin girerken liste görünümünde gezinmek için &Up; ve &Down; ok düğmelerini kullanabilirsiniz. &Enter; düğmesine basmak veya listedeki bir ögeye çift tıklamak, görünümü liste görünümünde seçili belgeye geçirir. Bu, eğer çok sayıda açık belge varsa belgeler arasında geçiş yapmayı kolaylaştırır.</para>
 <para
 >Bu eyleme düzenleyici penceresinin sağ üst köşesindeki <inlinemediaobject
 ><imageobject
@@ -1328,6 +1328,7 @@
 >Hiçbir belge bir çerçeve kapatılarak kapatılmaz; belgelere dosya listesinin yanı sıra <link linkend="view-menu"
 ><guimenu
 >Görünüm</guimenu
+></link
 > menüsünden de ulaşılabilir.</para
 > <para
 >Ayrıca <link linkend="kate-mdi"
@@ -1354,6 +1355,7 @@
 >Hiçbir belge bir çerçeve kapatılarak kapatılmaz; belgelere dosya listesinin yanı sıra <link linkend="view-menu"
 ><guimenu
 >Görünüm</guimenu
+></link
 > menüsünden de ulaşılabilir.</para>
 </listitem>
 </varlistentry>

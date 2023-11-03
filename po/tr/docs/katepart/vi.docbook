@@ -31,7 +31,7 @@
 
 <para
 >Vi kipinin amacı, Vim'in tam yerini almak ve Vim'in tüm özelliklerini desteklemek değildir. Amacı, metin düzenlemenin <quote
->Vim yöntemini</quot
+>Vim yöntemini</quote
 > - ve öğrenilen Vim alışkanlıklarını - içsel düzenleyici olarak &kappname; metin düzenleyicisini kullanan programlar için kullanılabilir hale getirmektir.</para>
 
 <para

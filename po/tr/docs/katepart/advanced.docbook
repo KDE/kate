@@ -1,0 +1,1944 @@
+<chapter id="advanced-editing-tools">
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<othercredit role="translator"
+><firstname
+>İşbaran</firstname
+><surname
+>Akçayır</surname
+><affiliation
+><address
+><email
+>isbaran@gmail.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@icloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Gelişmiş Düzenleme Araçları</title>
+
+<sect1 id="advanced-editing-tools-comment">
+
+<title
+>Yorum/Yorumları Kaldır</title>
+
+<para
+><guimenu
+>Araçlar</guimenu
+> menüsünde bulunan <guimenuitem
+>Yorum</guimenuitem
+> ve <guimenuitem
+>Yorumları Kaldır</guimenuitem
+> komutları, düzenlediğiniz metnin biçimi izin veriyorsa seçime veya seçili metin yoksa geçerli satıra yorum imleyicileri eklemenize veya kaldırmanıza olanak tanır.</para>
+
+<para
+>Yorumlamanın nasıl yapıldığına ilişkin kurallar sözdizim tanımlarında tanımlanmıştır, dolayısıyla sözdizim vurgulama kullanılmazsa yorum yapma/yorumları kaldırma olanaklı değildir. </para>
+
+<para
+>Bazı biçimler tek satırlı yorum imleyicilerini, bazıları çok satırlıları ve bazıları da her ikisini birden tanımlar. Çok satırlı imleyiciler kullanılamıyorsa son satırını tam olarak içermeyen bir seçimin yorumlanması olanaklı değildir.</para>
+
+<para
+>Tek satır imleyicisi kullanılabiliyorsa iç içe geçmiş yorumlarla ilgili sorunların önlenmesine yardımcı olduğundan, uygun olduğu yerde tek satırlara yorum yapılması tercih edilir.</para>
+
+<para
+>Yorum imleyicilerini kaldırırken yorumsuz metin seçilmemelidir. Bir seçimden çok satırlı yorum imleyicilerini kaldırırken, yorum işaretçilerinin dışındaki tüm boşluklar dikkate alınmaz.</para>
+
+<para
+><indexterm
+><primary
+>yoruma</primary
+></indexterm
+> Yorum imleyicileri yerleştirmek için <menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Yorum</guimenuitem
+></menuchoice
+> menü ögesini veya ilgili klavye kısayolu dizisini kullanın; öntanımlı kısayol: <keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+>.</para>
+
+<para
+><indexterm
+><primary
+>yorumları kaldır</primary
+></indexterm
+> Yorum imleyicilerini kaldırmak için <menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Yorumları Kaldır</guimenuitem
+></menuchoice
+> menü ögesini veya ilgili klavye kısayolu dizisini kullanın; öntanımlı kısayol: <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>D</keycap
+></keycombo
+>.</para>
+
+</sect1>
+
+<sect1 id="advanced-editing-tools-commandline">
+<title
+>Düzenleyici Bileşeni Komut Satırı</title>
+
+<para
+>&kappname; uygulamasını düzenleyici bileşeninde içsel bir komut satırı vardır; bu bileşen, minimal bir grafik arayüzden çeşitli eylemleri gerçekleştirmenize olanak tanır. Komut satırı, düzenleyici alanının alt kısmında bulunan bir metin girişi alanıdır; onu göstermek için <menuchoice
+><guimenu
+>Görünüm</guimenu
+><guimenuitem
+>Komut Satırına Geç</guimenuitem
+></menuchoice
+> ögesini veya klavye kısayolunu (öntanımlı kısayol: <keycombo action="simul"
+><keycap
+>F7</keycap
+></keycombo
+>) kullanın. Düzenleyici, aşağıda belgelendiği gibi bir dizi komut sağlar ve eklentiler tarafından ek komutlar verilebilir.</para>
+
+<para
+>Bir komutu yürütmek için komutu yazın ve ardından Dönüş düğmesine basın. Komut satırı başarılı olup olmadığını gösterecek ve büyük olasılıkla bir ileti görüntüleyecektir. Komut satırına <keycap
+>F7</keycap
+> düğmesine basarak girdiyseniz birkaç saniye sonra kendiliğinden gizlenir. İletiyi temizlemek ve yeni bir komut girmek için yeniden <keycap
+>F7</keycap
+> düğmesine basın.</para>
+
+<para
+>Komut satırında yerleşik bir yardım sistemi bulunur; Başlamak için <command
+>help</command
+> komutunu verin. Kullanılabilir tüm komutların bir listesini görmek için <command
+>help list</command
+> komutunu verin; Belirli bir komutun yardımını görüntülemek için <command
+>help <replaceable
+>komut</replaceable
+></command
+> girişini yapın.</para>
+
+<para
+>Komut satırının yerleşik bir geçmişi vardır, böylece önceden yazdığınız komutları yeniden kullanabilirsiniz. Geçmişe gitmek için &Up; ve &Down; düğmelerini kullanın. Geçmiş komutları gösterirken, komutun argüman kısmı seçilerek argümanların üzerine kolayca yazmanıza olanak sağlanır.</para>
+
+<sect2 id="advanced-editing-tools-commandline-commands">
+<title
+>Standart Komut Satırı Komutları</title>
+
+<variablelist>
+<title
+>Argüman türleri</title>
+
+<varlistentry>
+<term
+>BOOLE</term>
+<listitem
+><para
+>Bir şeyleri açıp kapatan komutlarla kullanılır. Kullanılabilir değerler şunlardır: <userinput
+>on</userinput
+>, <userinput
+>off</userinput
+>, <userinput
+>true</userinput
+>, <userinput
+>false</userinput
+>, <userinput
+>1</userinput
+> or <userinput
+>0</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>TAMSAYI</term>
+<listitem
+><para
+>Bir tamsayı.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>DİZİ</term>
+<listitem
+><para
+>Boşluk içerdiğinde tek tırnak (') veya çift tırnak (") ile çevrelenen bir dizi.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+
+
+<sect3 id="advanced-editing-tools-commandline-commands-configure">
+<title
+>Düzenleyiciyi Yapılandırmak için Komutlar</title>
+
+<para
+>Bu komutlar düzenleyici bileşeni tarafından sağlanır ve etkin belgeyi ve yalnızca görüntülemeyi yapılandırmanıza olanak tanır. Girinti gibi öntanımlı ayarlardan farklı bir ayar kullanmak istiyorsanız bu kullanışlıdır. </para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-tab-width</command
+><arg choice="req"
+>TAMSAYI genişlik</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Sekme <userinput
+>genişliğini</userinput
+> ayarlar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-indent-width</command
+><arg choice="req"
+>TAMSAYI genişlik</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Girintileme <userinput
+>genişliğini</userinput
+> ayarlar. Yalnızca boşluklarla girintileme yapıyorsanız kullanılır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-word-wrap-column</command
+><arg choice="req"
+>TAMSAYI genişlik</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Sert kaydırma için satır <userinput
+>genişliğini</userinput
+> ayarlar. Bu, metninizde kendiliğinden kaydırma kullanıyorsanız kullanılır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-icon-border</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+> </cmdsynopsis
+></term>
+<listitem
+><para
+>Simge kenarlığının görünürlüğünü ayarlar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-folding-markers</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Katlama imleyicileri yüzeyinin görünürlüğünü ayarlar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-line-numbers</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Satır numaraları yüzeyinin görünürlüğünü ayarlar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-replace-tabs</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Etkinleştirilirse sekmeler siz yazdıkça boşluklarla değiştirilir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-remove-trailing-space</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Etkinleştirilirse sondaki boşluklar imleç satırı terk ettiğinde kaldırılır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-show-tabs</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Etkinleştirilirse SEKME karakterleri ve sondaki boşluklar küçük bir noktayla görselleştirilir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-show-indent</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Etkinleştirilirse girintileme dikey noktalı bir satırla görselleştirilir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-indent-spaces</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Etkinleştirilirse düzenleyici her bir girintileme düzeyi için SEKME karakteri yerine <option
+>indent-width</option
+> kadar boşlukla girintileme yapar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-mixed-indent</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Etkinleştirilirse &kappname;, girintileme için SEKME ve boşlukların bir karışımını kullanır. Her girinti düzeyi <option
+>indent-width</option
+> genişliğinde olacak ve daha fazla girinti düzeyi olabildiğince çok sayıda SEKME karakteri kullanacak şekilde eniyilenecektir.</para>
+<para
+>Yürütüldüğünde, bu komut ek olarak boşluk girintisini etkinleştirir ve girinti genişliği belirtilmemişse yürütme sırasında belgenin <option
+>tab-width</option
+> değerinin yarısına ayarlanır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-word-wrap</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+><userinput
+>enable</userinput
+> değerine göre devingen sözcük kaydırmayı etkinleştirir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-replace-tabs-save</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Etkinleştirildiğinde, belge kaydedildiğinde sekmelerin yerini boşluklar alacaktır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-replace-tabs-save</command
+><arg choice="req"
+>BOOLE etkinleştir</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Etkinleştirildiğinde, belge kaydedildiğinde her satırın sondaki boşluk kaldırılacaktır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-indent-mode</command
+><arg choice="req"
+>DİZİ ad</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Kendiliğinden girintileme kipini <userinput
+>ad</userinput
+> olarak ayarlar. <userinput
+>ad</userinput
+> bilinmiyorsa kip 'none' olarak ayarlanır. Geçerli kipler: 'none', 'normal', 'cstyle', 'haskell', 'lilypond', 'lisp', 'python', 'ruby' ve 'xml'.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-auto-ident</command
+><arg choice="req"
+>BOOLE betik</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Kendiliğinden girintilemeyi etkinleştirin veya devre dışı bırakın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-highlight</command
+><arg choice="req"
+>DİZİ vurgu</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Belgenin sözdizim vurgulama sistemini ayarlar. Argüman, <menuchoice
+><guimenu
+>Araçlar</guimenu
+><guisubmenu
+>Vurgulama</guisubmenu
+></menuchoice
+> menüsünde görüldüğü gibi geçerli bir vurgu adı olmalıdır. Bu komut, argümanı için bir kendiliğinden tamamlama listesi sağlar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>reload-scripts</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Girintileyiciler ve komut satırı betikleri de içerilmek üzere, &kate;'in kullandığı tüm <link linkend="dev-scripting"
+>&javascript; betiklerini</link
+> yeniden yükleyin.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-mode</command
+><arg choice="req"
+>DİZİ kip</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Geçerli belge için dosya türü şemasını seçin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nn[oremap]</command
+><arg choice="req"
+>DİZGİ özgün</arg
+> <arg choice="req"
+>DİZİ eşlemlenen</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+><userinput
+>Özgün</userinput
+> düğme sıralamasını <userinput
+>eşlemlenen</userinput
+> sıralamasına eşlemler.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="advanced-editing-tools-commandline-commands-edit">
+<title
+>Düzenleme için komutlar</title>
+
+<para
+>Bu komutlar, geçerli belgeyi değiştirir.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>indent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili satırları veya geçerli satırı girintiler.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>unindent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili satırların veya geçerli satırın girintisini kaldırır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>cleanindent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili satırların veya geçerli satırın girintisini belgedeki girintileme ayarlarına göre temizler. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>comment</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçimi veya seçili satırları veya geçerli satırı, belgenin sözdizim vurgulama tanımıyla tanımlandığı şekilde metin biçimine göre bir yorum haline getirmek için yorum imleyicileri ekler.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>uncomment</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Belgenin sözdizim vurgulama tanımıyla tanımlanan metin biçimine göre seçimden veya seçili satırlardan veya geçerli satırdan yorum imleyicilerini kaldırır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>kill-line</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Geçerli satırı siler.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>replace</command
+><arg choice="req"
+> DİZİ dizgi</arg
+> <arg choice="req"
+>DİZİ değişim</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+><userinput
+>dizgi</userinput
+> ile eşleşen metni <userinput
+>değişim</userinput
+> ile değiştirir. <userinput
+>dizgi</userinput
+>'de boşlukları içermek isterseniz hem <userinput
+>dizgi</userinput
+> hem <userinput
+>değişim</userinput
+> değişkenlerini tek veya çift tırnak içine almalısınız. Argümanlar tırnak içinde değilse ilk sözcük <userinput
+>dizgi</userinput
+> ve geri kalanı <userinput
+>değişim</userinput
+> olarak kullanılır. Eğer <userinput
+>değişim</userinput
+> boşsa her bir <userinput
+>dizgi</userinput
+> oluşu kaldırılır.</para>
+<para
+>Aramayı yapılandırmak için iki nokta üst üste ve ardından her biri bir yapılandırmayı temsil eden bir veya daha fazla harf ekleyerek <userinput
+>replace:seçenekler dizgi değişim</userinput
+> formunu vererek bayrakları ayarlayabilirsiniz. Kullanılabilir seçenekler şunlardır: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Geriye doğru arayın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>İmleç konumundan itibaren arayın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>e</userinput
+></term>
+<listitem
+><para
+>Yalnızca seçimde arayın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Düzenli ifade araması yapın. Ayarlıysa N değiştirme dizisindeki yakalamaları temsil etmek üzere bir numara olması için <userinput
+>\N</userinput
+> kullanabilirsiniz.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>BÜYÜK/küçük harf duyarlı arama yapın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>p</userinput
+></term>
+<listitem
+><para
+>Sonraki oluşu değiştirmek için izin isteyin.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>w</userinput
+></term>
+<listitem
+><para
+>Yalnızca tam sözcüklerle eşleştirin.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>date</command
+><arg choice="req"
+>DİZİ biçim</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Tanımlı <userinput
+>biçim</userinput
+> veya yoksa <quote
+>yyyy-MM-dd hh:mm:ss</quote
+> biçimi ile bir tarih/zaman dizisi ekler. <userinput
+>biçim</userinput
+> yorumlanırken aşağıdaki çeviriler kullanılır: <informaltable
+> <tgroup cols="2"
+> <tbody>
+<row
+><entry
+><literal
+>d</literal
+></entry
+><entry
+>Başında sıfır olmadan sayı olarak gün (1-31).</entry
+></row>
+<row
+><entry
+><literal
+>dd</literal
+></entry
+><entry
+>Başında sıfır olacak şekilde gün (01-31).</entry
+></row>
+<row
+><entry
+><literal
+>ddd</literal
+></entry
+><entry
+>Kısa yerelleştirilmiş gün adı (&eg;, 'Pzt'..'Paz').</entry
+></row>
+<row
+><entry
+><literal
+>dddd</literal
+></entry
+><entry
+>Uzun yerelleştirilmiş gün adı (&eg;, 'Pazartesi'..'Pazar').</entry
+></row>
+<row
+><entry
+><literal
+>M</literal
+></entry
+><entry
+>Başında sıfır olmadan sayı olarak ay (1-12).</entry
+></row>
+<row
+><entry
+><literal
+>MM</literal
+></entry
+><entry
+>Başında sıfır olacak şekilde ay (01-12).</entry
+></row>
+<row
+><entry
+><literal
+>MMMM</literal
+></entry
+><entry
+>Uzun yerelleştirilmiş ay adı (&eg;, 'Ocak'..'Şubat').</entry
+></row>
+<row
+><entry
+><literal
+>MMM</literal
+></entry
+><entry
+>Kısa yerelleştirilmiş ay adı (&eg;, 'Oca'..'Şub').</entry
+></row>
+<row
+><entry
+><literal
+>yy</literal
+></entry
+><entry
+>İki basamaklı sayı olarak yıl (00-99).</entry
+></row>
+<row
+><entry
+><literal
+>yyyy</literal
+></entry
+><entry
+>Dört basamaklı sayı olarak yıl (1752-8000).</entry
+></row>
+<row
+><entry
+><literal
+>h</literal
+></entry
+><entry
+>Başında sıfır olmadan saat (0..23 veya ÖÖ/ÖS görüntüleniyorsa 1..12).</entry
+></row>
+<row
+><entry
+><literal
+>hh</literal
+></entry
+><entry
+>Başında sıfır olarak saat (00..23 veya ÖÖ/ÖS görüntüleniyorsa 01..02).</entry
+></row>
+<row
+><entry
+><literal
+>m</literal
+></entry
+><entry
+>Başında sıfır olmadan dakika (0..59).</entry
+></row>
+<row
+><entry
+><literal
+>mm</literal
+></entry
+><entry
+>Başında sıfır olarak dakika (00..59).</entry
+></row>
+<row
+><entry
+><literal
+>s</literal
+></entry
+><entry
+>Başında sıfır olmadan saniye (0..59).</entry
+></row>
+<row
+><entry
+><literal
+>ss</literal
+></entry
+><entry
+>Önünde sıfır olarak saniye (00..59).</entry
+></row>
+<row
+><entry
+><literal
+>z</literal
+></entry
+><entry
+>Başında sıfır olmadan milisaniye (0..999).</entry
+></row>
+<row
+><entry
+><literal
+>zzz</literal
+></entry
+><entry
+>Başında sıfır olarak milisaniye (000..999).</entry
+></row>
+<row
+><entry
+><literal
+>AP</literal
+></entry
+><entry
+>ÖÖ/ÖS görüntüsünü kullanın. AP, "ÖÖ" veya "ÖS" ile değiştirilir.</entry
+></row>
+<row
+><entry
+><literal
+>ap</literal
+></entry
+><entry
+>ÖÖ/ÖS görüntüsünü kullanın. AP, "AM" veya "PM" olarak değiştirilir.</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>char</command
+><arg choice="req"
+>DİZİ tanımlayıcı</arg
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Bu komut, sayısal tanımlayıcılarına göre; ondalık, sekizlik veya onaltılık biçimde gerçek karakterleri eklemenizi sağlar. Bunu kullanmak için Düzenleme Komutu iletişim kutusunu başlatın ve giriş kutusuna <userinput
+>char: [number]</userinput
+> yazın, ardından <guibutton
+>Tamam</guibutton
+>'a basın.</para>
+
+<example>
+<title
+><command
+>char</command
+> örnekleri</title>
+
+<para
+>Girdi: <userinput
+>char:234</userinput
+></para>
+<para
+>Çıktı: <computeroutput
+>&#234;</computeroutput
+></para>
+<para
+>Girdi: <userinput
+>char:0x1234</userinput
+></para>
+<para
+>Çıktı: <computeroutput
+>&#x1234;</computeroutput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<indexterm
+><primary
+>sed biçeminde değiştirme</primary>
+<secondary
+>sed biçeminde arama</secondary
+></indexterm
+><command
+>s///[ig]</command
+> <command
+>%s///[ig]</command
+></term>
+
+<listitem>
+<para
+>Bu komut, geçerli satırda veya tüm dosyada sed benzeri arama/değiştirme işlemi yapar (<command
+>%s///</command
+>).</para>
+
+<para
+>Kısacası metinde, birinci ve ikinci eğik çizgi arasındaki normal ifade olan <emphasis
+>arama dizgisi</emphasis
+> ile eşleşen metin aranır ve bir eşleşme bulunduğunda metnin eşleşen kısmı, ikinci ve son eğik çizgi arasındaki ifadeyle değiştirilir. Arama dizgisindeki parantezler <emphasis
+>geriye başvurular</emphasis
+> oluşturur; yani komut, parantez içinde eşleşen dizinin hangi bölümünün anımsanacağını bilir; bu diziler, ilk parantez kümesi için <userinput
+>\1</userinput
+>, ikinci parantez kümesi için <userinput
+>\2</userinput
+> olarak anılan değiştirme dizgisinde yeniden kullanılabilir.</para>
+
+<para
+>Bir gerçek karakter aramak için <literal
+>(</literal
+> veya <literal
+>)</literal
+> onu bir ters eğik çizgi karakteriyle <emphasis
+>kaçırmalısınız</emphasis
+>: <userinput
+>\(\)</userinput
+></para>
+
+<para
+>İfadenin sonuna <userinput
+>i</userinput
+> koyarsanız eşleştirme BÜYÜK/küçük harfe duyarlı olmayacaktır. Eğer sona bir <userinput
+>g</userinput
+> koyarsanız dizginin tüm oluşları değiştirilecektir, aksi takdirde yalnızca ilk oluş değiştirilir.</para>
+
+<example>
+
+<title
+>Geçerli satırda metin değiştirmek</title>
+
+<para
+>Dost canlısı derleyiciniz, kaynak dosyanızda 3902. satırda bahsedilen <classname
+>sınıfım</classname
+> sınıfının tanımlanmadığını söyleyerek durdu.</para>
+
+<para
+>&quot;Tüh!&quot;, tabii ki <classname
+>Sınıfım</classname
+> olması gerek diye düşündünüz. 3902. satıra gittiniz ve metinde sözcüğü bulmak yerine Düzenleme Komutu iletişim kutusunu açarak <userinput
+>s/sınıfım/Sınıfım/i</userinput
+> yazdınız ve <guibutton
+>Tamam</guibutton
+> düğmesine bastınız; artık dosyayı kaydedip hatasız şekilde derleyebilirsiniz.</para>
+
+</example>
+
+<example>
+<title
+>Tüm dosyada metin değiştirmek</title>
+
+<para
+>Birkaç kez <quote
+>Bayan Gökçen</quote
+>'den söz ettiğiniz bir dosyanız olduğunu ve birisinin gelip size <quote
+>Bay Gökmen</quote
+> ile yeni evlendiğini söylediğini hayal edin. Elbette, <quote
+>Bayan Gökçen</quote
+> ifadesinin her bir örneğini <quote
+>Bayan Gökmen</quote
+> ile değiştirmek istersiniz.</para>
+
+<para
+>Komut satırına girin ve <userinput
+>%s/Gökçen/Gökmen/</userinput
+> komutunu çalıştırın, işiniz bitti.</para>
+
+</example>
+
+<example>
+<title
+>Daha Gelişmiş Bir Örnek</title>
+
+<para
+>Bu örnekte <emphasis
+>geriye başvuruların</emphasis
+> yanı sıra <emphasis
+>karakter sınıfının</emphasis
+> kullanımı kullanılmaktadır (bunun ne olduğunu bilmiyorsanız lütfen aşağıda belirtilen ilgili belgelere bakın).</para>
+
+<para
+>Aşağıdaki gibi bir satırınız olduğunu düşünün: <programlisting
+>void MyClass::DoStringOps( String      &amp;foo, String &amp;bar, String *p, int  &amp;a, int &amp;b )</programlisting>
+</para>
+<para
+>Bunun pek güzel bir kod olmadığını anladınız ve argüman adının önünde &amp; ile karakterize edilen tüm <quote
+>address of</quote
+> argümanları için <constant
+>const</constant
+> anahtar sözcüğünü kullanmaya karar verdiniz. Ayrıca, her sözcük arasında yalnızca 1 boşluk karakteri olacak şekilde beyaz alanı basitleştirmek istediniz.</para>
+
+<para
+>Düzenleme Komut iletişim kutusunu açın ve <userinput
+>s/\s+(\w+)\s+(&amp;)/ const \1 \2/g</userinput
+> yazarak <guibutton
+>Tamam</guibutton
+> düğmesine tıklayın. İfadenin sonundaki <userinput
+>g</userinput
+> <emphasis
+>geriye başvuruların</emphasis
+> kaydedilmesi için düzenli ifadenin her eşleşmede yeniden derlenmesini sağlar.</para>
+
+<para
+>Çıktı: <computeroutput
+>void MyClass::DoStringOps( const String &amp;foo, const String &amp;bar, String *p, const int &amp;a, const int &amp;b )</computeroutput
+></para>
+
+<para
+>Görev tamamlandı! Şimdi ne yaptık? İlk olarak, biraz boşluk (<literal
+>\s+</literal
+>), sonrasında bir veya daha çok abecesel karakterler (<literal
+>\w+</literal
+>), sonrasında biraz daha boşluk (<literal
+>\s+</literal
+>), sonrasında bir ve işareti aradık; bu süreçte abecesel parçayı ve ve işaretini değiştirme işleminde yeniden kullanım için sakladık. Sonrasında, satırımızın eşleşen kısmını bir boşluk ve sonrasında <quote
+>const</quote
+> ile bir boşluk daha ve abecesel parça ile izledik (<literal
+>\1</literal
+>); bunlardan sonra yine bir boşluk ve kaydettiğimiz ve işaretini koyduk (<literal
+>\2</literal
+>)</para>
+
+<para
+>Bazı durumlarda bu abecesel parça bir <quote
+>String</quote
+>, bazı durumlarda ise <quote
+>int</quote
+> idi, böylece <literal
+>\w</literal
+> karakter sınıfını ve <literal
+>+</literal
+> niceleyicisi bize çok yararlı oldu.</para>
+
+</example>
+
+</listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>sort</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili metni veya tüm belgeyi sıralar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>natsort</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili satırları veya tüm belgeyi doğal olarak sıralayın.</para>
+
+<example>
+<title
+><command
+>sort</command
+> ve <command
+>natsort</command
+></title>
+<para
+><userinput
+><command
+>sort</command
+>(a10, a1, a2)</userinput
+>, <computeroutput
+>a1, a10, a2</computeroutput
+> sonucunu verir</para>
+<para
+><userinput
+><command
+>natsort</command
+>(a10, a1, a2)</userinput
+>, <computeroutput
+>a1, a2, a10</computeroutput
+> sonucunu verir</para>
+</example
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>moveLinesDown</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili satırları aşağı taşıyın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>moveLinesUp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili satırları yukarı taşıyın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>uniq</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili metinden veya tüm belgeden yinelenen satırları kaldırın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>rtrim</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili metnin veya tüm belgenin sonundaki gereksiz boşluğu kaldırın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>ltrim</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili metnin ya da tüm belgenin başındaki boşlukları kaldırın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>join</command
+><arg choice="opt"
+>DİZİ ayırıcı</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili satırları veya tüm belgeyi birbirine katın. İsteğe bağlı olarak bir ayırıcı tanımlayan bir parametre alır; örneğin <userinput
+><command
+>join</command
+> ', '</userinput
+> </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>rmblank</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili metinden veya tüm belgeden boş boşlukları kaldırın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>alignon</command
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Bu komut, seçilen bloktaki veya belgenin tamamındaki satırları, argüman olarak verilen normal bir ifadeyle verilen sütunda hizalar.</para>
+<para
+>Boş bir dizgi verirseniz öntanımlı olarak ilk boş olmayan karaktere hizalanır.</para>
+<para
+>Dizginin bir yakalaması varsa yakalanan eşleşmeye girintili olacaktır.</para>
+<para
+><emphasis
+>Örnekler:</emphasis
+></para>
+<para
+><userinput
+>alignon -</userinput
+>, tümünü aynı sütunda hizalamak için her bir satırın önündeki '-' öncesinde boşluklar ekler.</para>
+<para
+><userinput
+>alignon :\\s+(.)</userinput
+>, tümünü aynı sütunda hizalamak için bir noktalı virgülden sonra oluşan ilk boş olmayan karakterin öncesine boşluklar ekler.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>unwrap</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili metnin veya tüm belgenin kaydırmasını geri alın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>each</command
+><arg choice="req"
+>DİZİ betik</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Argüman olarak bir &javascript; işlevi verildiğinde, seçili satırların listesi için bunu çağırın ve bunları, o geri çağırmanın dönüş değeriyle değiştirin.</para>
+
+<example>
+<title
+>Seçili satırları birbirine kat</title>
+<para
+><userinput
+><command
+>each</command
+> 'function(lines){return lines.join(", ")}' </userinput
+></para>
+
+<para
+>Veya kısaca:</para>
+<para
+><userinput
+><command
+>each</command
+> 'lines.join(", ")'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>filter</command
+><arg choice="req"
+>DİZİ betik</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Argüman olarak bir &javascript; işlevi verildiğinde, seçili satırların listesi için bunu çağırın ve geri çağırmanın false döndürdüğü satırları kaldırın.</para>
+
+<example>
+<title
+>Boş satırları kaldır</title>
+<para
+><userinput
+><command
+>filter</command
+> 'function(1){return 1.length 
+> 0;}' </userinput
+></para>
+
+<para
+>Veya kısaca:</para>
+<para
+><userinput
+><command
+>filter</command
+> 'line.length 
+> 0'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>map</command
+><arg choice="req"
+>DİZİ betik</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Argüman olarak bir &javascript; işlevi verildiğinde, seçili satırların listesi için bunu çağırın ve satırı geri çağırmanın değeriyle değiştirin.</para>
+
+<example>
+<title
+>Boş satırları kaldır</title>
+<para
+><userinput
+><command
+>map</command
+> 'function(line){return line.replace(/^s+/,"");}' </userinput
+></para>
+
+<para
+>Veya kısaca:</para>
+<para
+><userinput
+><command
+>map</command
+> 'line.replace(/^s+/,"")'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>duplicateLinesUp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili satırları geçerli seçim üzerine çoğaltın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>duplicateLinesDown</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Seçili satırları geçerli seçimin altına çoğaltın.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="advanced-editing-tools-commandline-commands-navigation">
+<title
+>Dolaşım için komutlar</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>goto</command
+><arg choice="req"
+>TAMSAYI satır</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Bu komut, belirtilen satıra gider.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>grep</command
+> <arg choice="req"
+>DİZİ dizgi</arg
+> </cmdsynopsis
+></term>
+<listitem
+><para
+>Belgeyi, <userinput
+>dizgi</userinput
+> düzenli ifadesi için arayın. Daha fazla bilgi için <xref linkend="regular-expressions"/> bölümüne bakın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>find</command
+><arg choice="req"
+>DİZİ dizgi</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Bu komut, yapılandırmaya göre <userinput
+>dizgi</userinput
+>'nin ilk oluşuna gider. İzleyen oluşlar, <menuchoice
+><guimenu
+>Düzen</guimenu
+><guimenuitem
+>Sonrakini Bul</guimenuitem
+></menuchoice
+> ile bulunabilir (öntanımlı kısayol: <keycap
+>F3</keycap
+>).</para>
+<para
+>Bul komutu, iki nokta üst üste ve ardından bir veya daha fazla seçeneğin eklenmesiyle yapılandırılabilir; komutun biçimi <userinput
+>find:seçenekler dizgi</userinput
+> biçimindedir. Aşağıdaki seçenekler desteklenir:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Geriye doğru arayın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>İmleç konumundan itibaren arayın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>e</userinput
+></term>
+<listitem
+><para
+>Yalnızca seçimde arayın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Düzenli ifade araması yapın. Ayarlıysa N değiştirme dizisindeki yakalamaları temsil etmek üzere bir numara olması için <userinput
+>\N</userinput
+> kullanabilirsiniz.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>BÜYÜK/küçük harf duyarlı arama yapın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>w</userinput
+></term>
+<listitem
+><para
+>Yalnızca tam sözcüklerle eşleştirin.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>ifind</command
+><arg choice="req"
+>DİZİ dizgi</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Bu komut, <quote
+>yazdıkça</quote
+> aramayı sağlar. Aramanın davranışını bir sütun ve seçenekleri ekleyerek yapılandırabilirsiniz; şöyledir: <userinput
+>ifind:seçenekler dizgi</userinput
+>. İzin verilen seçenekler: <variablelist>
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Geriye doğru arayın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Düzenli ifade araması yapın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>BÜYÜK/küçük harf duyarlı arama yapın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>İmleç konumundan itibaren arayın.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+<sect3 id="advanced-editing-tools-commandline-commands-basic">
+<title
+>Temel Düzenleyici İşlevleri için Komutlar (Bunlar düzenleyici bileşenin kullanıldığı uygulamaya göre değişir)</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>w</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Geçerli belgeyi kaydedin.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Tüm geçerli açık belgeleri kaydedin.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>q</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Geçerli belgeyi kapatın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>qa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Tüm açık belgeleri kapatın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wq</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Geçerli belgeyi kaydedin ve kapatın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wqa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Tüm geçerli açık belgeleri kaydedin ve kapatın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>x</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Geçerli belgeyi yalnızca değiştiyse kaydedin ve kapatın. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>x</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Geçerli açık olan tüm belgeleri yalnızca değiştiyse kaydedin ve kapatın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>bp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Belgeler listesindeki önceki belgeye gidin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>bn</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Belgeler listesindeki sonraki belgeye gidin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>new</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Yatay bölünmüş görünümde yeni bir belge açın. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>vnew</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Dikey bölünmüş görünümde yeni bir belge açın. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>e</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Geçerli belge diskte değiştiyse yeniden yükleyin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>enew</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Yeni bir belge düzenleyin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>print</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Geçerli belgeyi yazdırmak için Yazdır iletişim kutusunu açın. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-editing-tools-code-folding">
+<title
+>Kod Katlamayı Kullanmak</title>
+
+<para
+>Kod katlama, bir belgenin bölümlerini düzenleyicide gizlemenize olanak tanıyarak büyük belgelere genel bakışı kolaylaştırır. &kappname;'de katlanabilir bölgeler, sözdizim vurgulama tanımlarında tanımlanan kurallar kullanılarak hesaplanır ve bu nedenle yalnızca bazı biçimlerde kullanılabilir - tipik olarak program kaynak kodu, XML işaretlemesi ve benzeri. Kod katlamayı destekleyen çoğu vurgu tanımı, genellikle <userinput
+>BEGIN</userinput
+> ve <userinput
+>END</userinput
+> anahtar sözcüklerini kullanarak katlanabilir bölgeleri elle tanımlamanıza da olanak tanır.</para>
+
+<para
+>Kod katlama özelliğini kullanmak için, halihazırda görünmüyorsa <menuchoice
+><guimenu
+>Görünüm</guimenu
+><guimenuitem
+>Katlama İmleyicilerini Göster</guimenuitem
+></menuchoice
+> menü ögesini kullanarak katlama imleyicilerini etkinleştirin. Ekranın sol tarafındaki Katlama İmleyicileri Bölmesi, belirli bir bölgedeki olası işlemi belirtmek için üçgen sembolleriyle katlanabilir bölgelerin grafiksel bir görünümünü görüntüler: Yukarıdan aşağıya bir üçgen, bölgenin genişletildiği anlamına gelir; tıklandığında bölge daraltılır ve bunun yerine sağa işaret eden bir üçgen görüntülenir.</para>
+<!--FIXME change Three to Four when Unfold Toplevel Nodes action is back-->
+<para
+>Katlama bölgelerinin durumunu değiştirmek için üç komut sağlanır; ek bilgi için <link linkend="view-code-folding"
+>menü belgelendirmesine</link
+> bakın. </para>
+
+<para
+>Katlanmış çizgiler, bir dosya kapatıldığında anımsanır, böylece dosyayı yeniden açtığınızda katlanmış düğümler hala katlanmış olacaktır. Bu aynı zamanda yeniden yükleme işlemleri için de geçerlidir.</para>
+
+<para
+>Kod katlama özelliğini kullanmak istemiyorsanız düzenleyici yapılandırmasının <link linkend="appearance"
+>Görünüş</link
+> bölümündeki <guilabel
+>Katlama imleyicilerini göster</guilabel
+> seçeneğini kullanabilirsiniz.</para>
+
+</sect1>
+
+</chapter>

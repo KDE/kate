@@ -138,9 +138,6 @@ class GitBlameTooltip::Private : public QTextBrowser
 public:
     QKeySequence m_ignoreKeySequence;
 
-    static const uint64_t ModifierMask =
-        Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier | Qt::KeypadModifier | Qt::GroupSwitchModifier;
-
     explicit Private(KateGitBlamePluginView *pluginView)
         : QTextBrowser(nullptr)
     {
@@ -194,13 +191,9 @@ public:
         }
         case QEvent::KeyRelease: {
             QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-            int ignoreKey = 0;
-            if (m_ignoreKeySequence.count() > 0) {
-                ignoreKey = m_ignoreKeySequence[m_ignoreKeySequence.count() - 1] & ~ModifierMask;
-            }
-            if (ke->matches(QKeySequence::Copy) || ke->matches(QKeySequence::SelectAll) || (ignoreKey != 0 && ignoreKey == ke->key())
-                || ke->key() == Qt::Key_Control || ke->key() == Qt::Key_Alt || ke->key() == Qt::Key_Shift || ke->key() == Qt::Key_AltGr
-                || ke->key() == Qt::Key_Meta) {
+            if (ke->matches(QKeySequence::Copy) || ke->matches(QKeySequence::SelectAll)
+                || (m_ignoreKeySequence.matches(QKeySequence(ke->key()) == QKeySequence::PartialMatch)) || ke->key() == Qt::Key_Control
+                || ke->key() == Qt::Key_Alt || ke->key() == Qt::Key_Shift || ke->key() == Qt::Key_AltGr || ke->key() == Qt::Key_Meta) {
                 event->accept();
                 return true;
             }

@@ -323,7 +323,7 @@ public Q_SLOTS:
         QList<KTextEditor::MainWindow *> windows;
         windows.reserve(m_mainWindows.size());
 
-        for (const auto mainWindow : qAsConst(m_mainWindows)) {
+        for (const auto mainWindow : std::as_const(m_mainWindows)) {
             windows.push_back(mainWindow->wrapper());
         }
         return windows;

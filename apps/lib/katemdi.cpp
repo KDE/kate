@@ -10,6 +10,7 @@
 #include "katemdi.h"
 #include "kateapp.h"
 
+#include <KAcceleratorManager>
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KConfigGroup>
@@ -1647,6 +1648,16 @@ void MainWindow::saveSession(KConfigGroup &config)
     for (auto &sidebar : m_sidebars) {
         sidebar->saveSession(config);
     }
+}
+
+QWidget *MainWindow::createContainer(QWidget *parent, int index, const QDomElement &element, QAction *&containerAction)
+{
+    // ensure we don't have toolbar accelerators that clash with other stuff
+    QWidget *createdContainer = KParts::MainWindow::createContainer(parent, index, element, containerAction);
+    if (element.tagName() == QLatin1String("ToolBar")) {
+        KAcceleratorManager::setNoAccel(createdContainer);
+    }
+    return createdContainer;
 }
 
 // END MAIN WINDOW

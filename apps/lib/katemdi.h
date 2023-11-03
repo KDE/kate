@@ -531,6 +531,9 @@ protected:
 
     void insertWidgetBeforeStatusbar(QWidget *widget);
 
+    // ensure we don't have toolbar accelerators that clash with other stuff
+    QWidget *createContainer(QWidget *parent, int index, const QDomElement &element, QAction *&containerAction) override;
+
     /**
      * modifiers for existing toolviews
      */

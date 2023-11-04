@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 01:42+0000\n"
+"POT-Creation-Date: 2023-11-04 01:39+0000\n"
 "PO-Revision-Date: 2023-09-10 17:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1702,112 +1702,112 @@ msgstr "அனைத்து கோப்புகளையும் திற"
 msgid " [read only]"
 msgstr " [படித்தல் மட்டும்]"
 
-#: lib/katemdi.cpp:81
+#: lib/katemdi.cpp:82
 #, kde-format
 msgid "Toolview Manager"
 msgstr "கருவிப்பகுதி மேலாளி"
 
-#: lib/katemdi.cpp:99
+#: lib/katemdi.cpp:100
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr "ஓரப்பட்டையிலுள்ள பட்டன்கள்"
 
-#: lib/katemdi.cpp:102
+#: lib/katemdi.cpp:103
 #, kde-format
 msgid "Focus Toolview"
 msgstr "கருவிப்பகுதியை குவியப்படுத்து"
 
-#: lib/katemdi.cpp:105
+#: lib/katemdi.cpp:106
 #, kde-format
 msgid "Tool &Views"
 msgstr "கருவி &காட்சிப்பகுதிகள்"
 
-#: lib/katemdi.cpp:107
+#: lib/katemdi.cpp:108
 #, kde-format
 msgid "Show Side&bars"
 msgstr "&ஓரப்பட்டைகளை காட்டு"
 
-#: lib/katemdi.cpp:115
+#: lib/katemdi.cpp:116
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "அனைத்து கருவிக்காட்சிகளையும் மறை"
 
-#: lib/katemdi.cpp:164
+#: lib/katemdi.cpp:165
 #, kde-format
 msgid "Show %1"
 msgstr "%1 தனை காட்டு"
 
-#: lib/katemdi.cpp:175
+#: lib/katemdi.cpp:176
 #, kde-format
 msgid "Show %1 Button"
 msgstr "%1 பட்டனை காட்டு"
 
-#: lib/katemdi.cpp:191
+#: lib/katemdi.cpp:192
 #, kde-format
 msgid "Focus %1"
 msgstr "%1 தனை குவியப்படுத்து"
 
-#: lib/katemdi.cpp:1016
+#: lib/katemdi.cpp:1017
 #, kde-format
 msgid "Configure..."
 msgstr "அமை..."
 
-#: lib/katemdi.cpp:1020
+#: lib/katemdi.cpp:1021
 #, kde-format
 msgid "Hide Button"
 msgstr "பட்டனை மறை"
 
-#: lib/katemdi.cpp:1022
+#: lib/katemdi.cpp:1023
 #, kde-format
 msgid "Move To"
 msgstr "இங்கு நகர்த்து"
 
-#: lib/katemdi.cpp:1027
+#: lib/katemdi.cpp:1028
 #, kde-format
 msgid "Own Section"
 msgstr "தனிப்பட்ட பிரிவு"
 
-#: lib/katemdi.cpp:1033 lib/katemdi.cpp:1041
+#: lib/katemdi.cpp:1034 lib/katemdi.cpp:1042
 #, kde-format
 msgid "One Down"
 msgstr "ஒருபடி கீழே"
 
-#: lib/katemdi.cpp:1035 lib/katemdi.cpp:1046
+#: lib/katemdi.cpp:1036 lib/katemdi.cpp:1047
 #, kde-format
 msgid "One Right"
 msgstr "ஒருபடி வலதாக"
 
-#: lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1040
 #, kde-format
 msgid "One Up"
 msgstr "ஒருபடி மேலே"
 
-#: lib/katemdi.cpp:1044
+#: lib/katemdi.cpp:1045
 #, kde-format
 msgid "One Left"
 msgstr "ஒருபடி இடதாக"
 
-#: lib/katemdi.cpp:1053
+#: lib/katemdi.cpp:1054
 #, kde-format
 msgid "Left Sidebar"
 msgstr "இடது ஓரப்பட்டை"
 
-#: lib/katemdi.cpp:1057
+#: lib/katemdi.cpp:1058
 #, kde-format
 msgid "Right Sidebar"
 msgstr "வலது ஓரப்பட்டை"
 
-#: lib/katemdi.cpp:1061
+#: lib/katemdi.cpp:1062
 #, kde-format
 msgid "Top Sidebar"
 msgstr "மேல் ஓரப்பட்டை"
 
-#: lib/katemdi.cpp:1065
+#: lib/katemdi.cpp:1066
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "கீழ் ஓரப்பட்டை"
 
-#: lib/katemdi.cpp:1457
+#: lib/katemdi.cpp:1458
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

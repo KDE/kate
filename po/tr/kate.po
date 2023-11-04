@@ -3,7 +3,6 @@
 #
 # Translators:
 # Adem Alp Yıldız <ademalp@linux-sevenler.org>, 2004.
-# Adil Yıldız <adil@linux-sevenler.org>, 2004.
 # Adil Yıldız <adil_yildiztr@yahoo.com>, 2004.
 # Görkem Çetin <gorkem@kde.org>, 2002-2004.
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
@@ -13,12 +12,13 @@
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014, 2015, 2017, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
 # SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: applications-kde4\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 01:42+0000\n"
-"PO-Revision-Date: 2023-10-28 02:30+0300\n"
+"POT-Creation-Date: 2023-11-04 01:39+0000\n"
+"PO-Revision-Date: 2023-11-03 22:09+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1080,7 +1080,7 @@ msgstr "Sekmeleri &otomatik gizle"
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
-msgstr "İmlendiğinde, yalnızca bir belge açıksa sekmeler gizlenecektir."
+msgstr "İşaretlendiğinde sekmeler yalnızca bir belge açıksa gizlenir."
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
@@ -1090,7 +1090,7 @@ msgstr "Kapat düğme&sini göster"
 #: lib/kateconfigdialog.cpp:351
 #, kde-format
 msgid "When checked each tab will display a close button."
-msgstr "İmlendiğinde, her bir sekme bir kapat düğmesi görüntüler."
+msgstr "İşaretlendiğinde, her sekmede bir kapatma düğmesi görüntülenir."
 
 #: lib/kateconfigdialog.cpp:355
 #, kde-format
@@ -1100,17 +1100,17 @@ msgstr "Sekmeleri Ge&nişlet"
 #: lib/kateconfigdialog.cpp:357
 #, kde-format
 msgid "When checked tabs take as much size as possible."
-msgstr "İmlendiğinde, sekmeler olabildiğince fazla yer kaplar."
+msgstr "İşaretlendiğinde, sekmeler olabildiğince çok yer kaplar."
 
 #: lib/kateconfigdialog.cpp:361
 #, kde-format
 msgid "&Double click opens a new document"
-msgstr "Çi&ft tıklama yeni bir belge açar"
+msgstr "Çi&ft tık yeni bir belge açar"
 
 #: lib/kateconfigdialog.cpp:363
 #, kde-format
 msgid "When checked double click opens a new document."
-msgstr "İmlendiğinde, çift tıklama yeni bir belge açar."
+msgstr "İşaretlendiğinde, çift tık yeni bir belge açar."
 
 #: lib/kateconfigdialog.cpp:367
 #, kde-format
@@ -1120,7 +1120,7 @@ msgstr "&Orta tık belgeyi kapatır"
 #: lib/kateconfigdialog.cpp:369
 #, kde-format
 msgid "When checked middle click closes a document."
-msgstr "İmlendiğinde, orta tıklama bir belgeyi kapatır."
+msgstr "İşaretlendiğinde, orta tık bir belgeyi kapatır."
 
 #: lib/kateconfigdialog.cpp:373
 #, kde-format
@@ -1133,7 +1133,8 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
-"İmlendiğinde, eğer sekme sayısı çoksa sekme çubuğunda sarmaya izin verir."
+"İşaretlendiğinde bu, sekme sayısı fazla olduğunda sekme çubuğunda sarma "
+"yapılmasına olanak tanır."
 
 #: lib/kateconfigdialog.cpp:379
 #, kde-format
@@ -1143,7 +1144,7 @@ msgstr "Sekme metnini yuvarla"
 #: lib/kateconfigdialog.cpp:381
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
-msgstr "İmlendiğinde, sekme metni eğer pek uzunsa yuvarlanır."
+msgstr "İşaretlendiğinde, sekme metni çok uzunsa yuvarlanabilir."
 
 #: lib/kateconfigdialog.cpp:385
 #, kde-format
@@ -1723,112 +1724,112 @@ msgstr "Tüm Dosyaları Aç"
 msgid " [read only]"
 msgstr " [saltokunur]"
 
-#: lib/katemdi.cpp:81
+#: lib/katemdi.cpp:82
 #, kde-format
 msgid "Toolview Manager"
 msgstr "Araç Görünümü Yöneticisi"
 
-#: lib/katemdi.cpp:99
+#: lib/katemdi.cpp:100
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr "Kenar Çubuğu Düğmeleri"
 
-#: lib/katemdi.cpp:102
+#: lib/katemdi.cpp:103
 #, kde-format
 msgid "Focus Toolview"
 msgstr "Odak Araç Görünümü"
 
-#: lib/katemdi.cpp:105
+#: lib/katemdi.cpp:106
 #, kde-format
 msgid "Tool &Views"
 msgstr "&Araç Görünümleri"
 
-#: lib/katemdi.cpp:107
+#: lib/katemdi.cpp:108
 #, kde-format
 msgid "Show Side&bars"
 msgstr "Kenar Çu&buklarını Göster"
 
-#: lib/katemdi.cpp:115
+#: lib/katemdi.cpp:116
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "Tüm Araç Görünümlerini Gizle"
 
-#: lib/katemdi.cpp:164
+#: lib/katemdi.cpp:165
 #, kde-format
 msgid "Show %1"
 msgstr "%1 Ögesini Göster"
 
-#: lib/katemdi.cpp:175
+#: lib/katemdi.cpp:176
 #, kde-format
 msgid "Show %1 Button"
 msgstr "%1 Düğmesini Göster"
 
-#: lib/katemdi.cpp:191
+#: lib/katemdi.cpp:192
 #, kde-format
 msgid "Focus %1"
 msgstr "Odaklan: %1"
 
-#: lib/katemdi.cpp:1016
+#: lib/katemdi.cpp:1017
 #, kde-format
 msgid "Configure..."
 msgstr "Yapılandır..."
 
-#: lib/katemdi.cpp:1020
+#: lib/katemdi.cpp:1021
 #, kde-format
 msgid "Hide Button"
 msgstr "Düğmeyi Gizle"
 
-#: lib/katemdi.cpp:1022
+#: lib/katemdi.cpp:1023
 #, kde-format
 msgid "Move To"
 msgstr "Taşı"
 
-#: lib/katemdi.cpp:1027
+#: lib/katemdi.cpp:1028
 #, kde-format
 msgid "Own Section"
 msgstr "Kendi Bölümü"
 
-#: lib/katemdi.cpp:1033 lib/katemdi.cpp:1041
+#: lib/katemdi.cpp:1034 lib/katemdi.cpp:1042
 #, kde-format
 msgid "One Down"
 msgstr "Bir Aşağı"
 
-#: lib/katemdi.cpp:1035 lib/katemdi.cpp:1046
+#: lib/katemdi.cpp:1036 lib/katemdi.cpp:1047
 #, kde-format
 msgid "One Right"
 msgstr "Bir Sağa"
 
-#: lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1040
 #, kde-format
 msgid "One Up"
 msgstr "Bir Yukarı"
 
-#: lib/katemdi.cpp:1044
+#: lib/katemdi.cpp:1045
 #, kde-format
 msgid "One Left"
 msgstr "Bir Sola"
 
-#: lib/katemdi.cpp:1053
+#: lib/katemdi.cpp:1054
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Sol Kenar Çubuğu"
 
-#: lib/katemdi.cpp:1057
+#: lib/katemdi.cpp:1058
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Sağ Kenar Çubuğu"
 
-#: lib/katemdi.cpp:1061
+#: lib/katemdi.cpp:1062
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Üst Kenar Çubuğu"
 
-#: lib/katemdi.cpp:1065
+#: lib/katemdi.cpp:1066
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Alt Kenar Çubuğu"
 
-#: lib/katemdi.cpp:1457
+#: lib/katemdi.cpp:1458
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

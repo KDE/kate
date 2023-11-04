@@ -1,0 +1,8021 @@
+<!-- auto-generate scripting documentation (kwrite-devel@kde.org Re: [kate] doc/kate: document most of the new scripts in 4.10) -->
+<chapter id="dev">
+<chapterinfo>
+<authorgroup>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="translator"
+><firstname
+>Oliver</firstname
+><surname
+>Kellogg</surname
+><affiliation
+><address
+><email
+>okellogg@users.sf.net</email
+></address
+></affiliation
+><contrib
+>Translation</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Etendante &katepart;</title>
+
+<sect1 id="dev-intro">
+<title
+>Enkonduko</title>
+
+<para
+>Kiel ajna altnivela tekstredaktilo, &katepart; proponas diversajn manierojn etendi ĝian funkciecon. Vi povas <link linkend="dev-scripting"
+>skribi simplajn skriptojn por aldoni funkciojn per &javascript;</link
+>. Fine, post kiam vi etendis &katepart;, vi bonvenas <ulink url="https://kate-editor.org/join-us/"
+>aliĝu al ni</ulink
+> kaj kunhavigi viajn plibonigojn kun la mondo!</para>
+
+</sect1>
+
+<sect1 id="highlight">
+<title
+>Laborante kun Syntax Highlighting</title>
+
+<sect2 id="highlight-overview">
+
+<title
+>Superrigardo</title>
+
+<para
+>Sintakso Highlighting estas tio, kio igas la redaktilon aŭtomate montri tekston en malsamaj stiloj/koloroj, depende de la funkcio de la ĉeno rilate al la celo de la dosiero. En programa fontkodo ekzemple, kontroldeklaroj povas esti grasigitaj, dum datumtipoj kaj komentoj ricevas malsamajn kolorojn de la resto de la teksto. Tio multe plibonigas la legeblecon de la teksto, kaj tiel helpas la aŭtoron esti pli efika kaj produktiva.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="highlighted.png"/></imageobject>
+<textobject
+><phrase
+>C++-funkcio, bildita kun sintaksa reliefigo.</phrase
+></textobject>
+<caption
+><para
+>C++-funkcio, bildita kun sintaksa reliefigo.</para>
+</caption>
+</mediaobject>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="unhighlighted.png"/></imageobject>
+<textobject
+><phrase
+>La sama C++-funkcio, sen reliefigo.</phrase
+></textobject>
+<caption
+><para
+>La sama C++-funkcio, sen reliefigo.</para
+></caption>
+</mediaobject>
+
+<para
+>El la du ekzemploj, kiu estas plej facile legebla?</para>
+
+<para
+>&kappname; venas kun fleksebla, agordebla kaj kapabla sistemo por fari sintaksan reliefigon, kaj la norma distribuo disponigas difinojn por larĝa gamo de programado, skriptlingvoj kaj markado kaj aliaj tekstdosierformatoj. Krome vi povas provizi viajn proprajn difinojn en simpla &XML; dosierojn.</para>
+
+<para
+>&kappname; aŭtomate detektos la ĝustajn sintaksajn regulojn kiam vi malfermas dosieron, surbaze de la &MIME; Tipo de la dosiero, determinita de ĝia etendaĵo, aŭ, se ĝi ne havas, la enhavo. Se vi spertas malbonan elekton, vi povas mane agordi la sintakson por uzi el la menuo <menuchoice
+><guimenu
+>Iloj</guimenu
+><guisubmenu
+>Emstarigado </guisubmenu
+></menuchoice
+>.</para>
+
+<para
+>La stiloj kaj koloroj uzataj de ĉiu sintaksa emfaza difino povas esti agorditaj uzante la langeton <link linkend="prefcolors-highlighting-text-styles"
+>Elstarigante Tekstajn Stilojn</link
+> de la <link linkend="config-dialog "
+>Agorda Dialogo</link
+>, dum la &MIME; Tipoj kaj dosier-etendoj por kiuj ĝi estu uzata estas pritraktataj de la langeto <link linkend="pref-open-save-modes-filetypes"
+>Reĝimoj &amp; Dosiertipoj</link
+>.</para>
+
+<note>
+<para
+>La sintaksa reliefigo estas tie por plibonigi la legeblecon de ĝusta teksto, sed vi ne povas fidi ĝin por validigi vian tekston. Marki tekston por sintakso estas malfacila depende de la formato, kiun vi uzas, kaj en iuj kazoj la aŭtoroj de la sintaksaj reguloj fieros se 98% de teksto estas ĝuste bilditaj, kvankam plej ofte vi bezonas maloftan stilon por vidi la malĝustajn 2% .</para>
+</note>
+
+</sect2>
+
+<sect2 id="katehighlight-system">
+
+<title
+>La &kappname; Sintakso Highlight System</title>
+
+<para
+>Ĉi tiu sekcio diskutos pri la &kappname; sintaksa reliefiga mekanismo pli detale. Ĝi estas por vi, se vi volas scii pri ĝi, aŭ se vi volas ŝanĝi aŭ krei sintaksajn difinojn.</para>
+
+<sect3 id="katehighlight-howitworks">
+
+<title
+>Kiel ĝi Funkcias</title>
+
+<para
+>Kiam ajn vi malfermas dosieron, unu el la unuaj aferoj la &kappname; redaktilo faras estas detekti kiun sintaksan difinon uzi por la dosiero. Dum legado de la teksto de la dosiero, kaj dum vi tajpas en ĝi, la sintaksa emfaza sistemo analizos la tekston uzante la regulojn difinitajn de la sintaksa difino kaj markos en ĝi kie komenciĝas kaj finiĝas malsamaj kuntekstoj kaj stiloj.</para>
+
+<para
+>Kiam vi tajpas la dokumenton, la nova teksto estas analizita kaj markita sur la flugo, tiel ke se vi forigas signon kiu estas markita kiel la komenco aŭ fino de kunteksto, la stilo de ĉirkaŭa teksto ŝanĝiĝas laŭe.</para>
+
+<para
+>La sintaksaj difinoj uzataj de la &kappname; Sintakso Highlighting System estas &XML; dosieroj, enhavantaj <itemizedlist>
+<listitem
+><para
+>Reguloj por detekti la rolon de teksto, organizitaj en kuntekstblokojn</para
+></listitem>
+<listitem
+><para
+>Listo de ŝlosilvortoj</para
+></listitem>
+<listitem
+><para
+>Stilo Item-difinoj</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Kiam oni analizas la tekston, la detektaj reguloj estas taksitaj en la ordo en kiu ili estas difinitaj, kaj se la komenco de la nuna ĉeno kongruas kun regulo, la rilata kunteksto estas uzata. La komenca punkto en la teksto estas movita al la fina punkto ĉe kiu tiu regulo kongruis kaj nova buklo de la reguloj komenciĝas, komencante en la kunteksto fiksita per la kongrua regulo.</para>
+
+</sect3>
+
+<sect3 id="highlight-system-rules">
+<title
+>Reguloj</title>
+
+<para
+>La detektaj reguloj estas la koro de la reliefiga detektsistemo. Regulo estas ĉeno, signo aŭ <link linkend="regular-expressions"
+>regula esprimo</link
+> kontraŭ kiu kongrui la analizitan tekston. Ĝi enhavas informojn pri kiu stilo uzi por la kongrua parto de la teksto. Ĝi povas ŝanĝi la laborkuntekston de la sistemo aŭ al eksplicite menciita kunteksto aŭ al la antaŭa kunteksto uzata de la teksto.</para>
+
+<para
+>Reguloj estas organizitaj en kuntekstaj grupoj. Kunteksta grupo estas uzata por ĉefaj tekstokonceptoj ene de la formato, ekzemple cititaj tekstoĉenoj aŭ komentblokoj en programfontokodo. Ĉi tio certigas, ke la emfaza sistemo ne bezonas trapasi ĉiujn regulojn kiam ĝi ne estas necesa, kaj ke iuj signosekvencoj en la teksto povas esti traktataj malsame depende de la nuna kunteksto. </para>
+
+<para
+>Kuntekstoj povas esti generitaj dinamike por permesi la uzon de instancospecifaj datenoj en reguloj.</para>
+
+</sect3>
+
+<sect3 id="highlight-context-styles-keywords">
+<title
+>Kuntekstaj Stiloj kaj Ŝlosilvortoj</title>
+
+<para
+>En kelkaj programlingvoj, entjeraj nombroj estas traktataj alimaniere ol glitkomaj fare de la kompililo (la programo kiu konvertas la fontkodon al binara efektivigebla), kaj povas ekzisti signoj havantaj specialan signifon ene de citita ĉeno. En tiaj kazoj, estas senco redoni ilin alimaniere de la ĉirkaŭaĵo por ke ili estu facile identigeblaj dum legado de la teksto. Do eĉ se ili ne reprezentas specialajn kuntekstojn, ili povas esti viditaj kiel tiaj per la sintaksa reliefigsistemo, tiel ke ili povas esti markitaj por malsama bildigo.</para>
+
+<para
+>Sintaksa difino povas enhavi tiom da stiloj kiom necesas por kovri la konceptojn de la formato por kiu ĝi estas uzata.</para>
+
+<para
+>En multaj formatoj, ekzistas listoj de vortoj kiuj reprezentas specifan koncepton. Ekzemple, en programlingvoj, kontroldeklaroj estas unu koncepto, datumtipnomoj alia, kaj konstruitaj en funkcioj de la lingvo triono. La &kappname; Syntax Highlighting System povas uzi tiajn listojn por detekti kaj marki vortojn en la teksto por emfazi konceptojn de la tekstoformatoj.</para>
+
+</sect3>
+
+<sect3 id="kate-highlight-system-default-styles">
+<title
+>Defaŭltaj Stiloj</title>
+
+<para
+>Se vi malfermas fontdosieron C++, &Java; fontdosiero kaj &HTML; dokumenton en &kappname;, vi vidos ke kvankam la formatoj estas malsamaj, kaj tiel malsamaj vortoj estas elektitaj por speciala traktado, la koloroj uzataj estas la samaj. Ĉi tio estas ĉar &kappname; havas antaŭdifinitan liston de Defaŭltaj Stiloj, kiuj estas uzataj de la individuaj sintaksaj difinoj.</para>
+
+<para
+>Ĉi tio faciligas rekoni similajn konceptojn en malsamaj tekstoformatoj. Ekzemple, komentoj ĉeestas en preskaŭ ajna programado, skripto aŭ markadlingvo, kaj kiam ili estas prezentitaj uzante la saman stilon en ĉiuj lingvoj, vi ne devas halti kaj pensi identigi ilin en la teksto.</para>
+
+<tip>
+<para
+>Ĉiuj stiloj en sintaksa difino uzas unu el la defaŭltaj stiloj. Kelkaj sintaksaj difinoj uzas pli da stiloj ol estas defaŭltaj, do se vi uzas formaton ofte, eble indas lanĉi la agordan dialogon por vidi ĉu iuj konceptoj uzas la saman stilon. Ekzemple, ekzistas nur unu defaŭlta stilo por ĉenoj, sed ĉar la Perl programlingvo funkcias kun du specoj de ĉenoj, vi povas plibonigi la reliefigon agordante tiujn por esti iomete malsamaj. Ĉiuj <link linkend="kate-highlight-default-styles"
+>disponeblaj defaŭltaj stiloj</link
+> estos klarigitaj poste.</para>
+</tip>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="katehighlight-xml-format">
+<title
+>La Marka Difino &XML; Formato</title>
+
+<sect3>
+<title
+>Superrigardo</title>
+
+<para
+>&kappname; uzas la kadron Syntax-Highlighting de &kde-frameworks;. La defaŭlta reliefigo &XML; dosieroj senditaj kun &kappname; estas kompilitaj en la bibliotekon Syntax-Highlighting defaŭlte. </para>
+
+<para
+>Ĉi tiu sekcio estas superrigardo de la Highlight Definition &XML; formato. Surbaze de malgranda ekzemplo ĝi priskribos la ĉefajn komponantojn kaj ilian signifon kaj uzadon. La sekva sekcio eniros en detalojn kun la plej elstaraj detektaj reguloj.</para>
+
+<para
+>La formala difino, ankaŭ konata kiel la <acronym
+>XSD</acronym
+>, kiun vi trovas en <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
+>Syntax Highlighting-deponejo </ulink
+> en la dosiero <filename
+>language.xsd</filename
+> </para>
+
+<para
+>Propraj <filename class="extension"
+>.xml</filename
+> elstaraj difindosieroj troviĝas en <filename class="directory"
+>org.kde.syntax-highlighting/syntax/</filename
+> en via uzanto dosierujo trovita kun <userinput
+><command
+>qtpaths</command
+><option
+> --paths GenericDataLocation</option
+></userinput
+> kiuj kutime estas <filename class="directory"
+><envar
+>$HOME</envar
+>/.local/share/</filename
+> kaj <filename class="directory"
+>/usr/share/</filename
+>. </para>
+
+<para
+>En Flatpak kaj Snap-pakaĵoj, ĉi-supra dosierujo ne funkcios ĉar la datuma loko estas malsama por ĉiu aplikaĵo. En aplikaĵo de Flatpak, la loko de propra &XML; dosieroj estas kutime <filename class="directory"
+><envar
+>$HOME</envar
+>/.var/app/<replaceable
+>flatpak-package-name</replaceable
+>/data/org.kde.syntax-highlighting /syntax/</filename
+> kaj en Snap-aplikaĵo tiu loko estas <filename class="directory"
+><envar
+>$HOME</envar
+>/snap/<replaceable
+>snap-package-name</replaceable
+>/ current/.local/share/org.kde.syntax-highlighting/syntax/</filename
+>. </para>
+
+<para
+>Sur &Windows; ĉi tiuj dosieroj troviĝas <filename
+>%USERPROFILE%\AppData\Local\org.kde.syntax-highlighting\syntax</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> kutime vastiĝas al <filename
+>C:\Users\<replaceable
+>uzanto</replaceable
+></filename
+>.</para>
+
+<para
+>Resume, por plej multaj agordoj la dosierujo de propra &XML; dosieroj estas kiel sekvas:</para>
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+<row>
+<entry
+>Por loka uzanto</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/.local/share/org.kde.syntax-highlighting/syntax/</filename
+></entry>
+</row>
+<row>
+<entry
+>Por ĉiuj uzantoj</entry>
+<entry
+><filename class="directory"
+>/usr/share/org.kde.syntax-highlighting/syntax/</filename
+></entry>
+</row>
+<row>
+<entry
+>Por Flatpak-pakaĵoj</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/.var/app/<replaceable
+>flatpak-package-name</replaceable
+>/data/org.kde.syntax-highlighting/syntax/</filename
+></entry>
+</row>
+<row>
+<entry
+>Por Snap-pakaĵoj</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/snap/<replaceable
+>snap-package-name</replaceable
+>/current/.local/share/org.kde.syntax-highlighting/syntax/</filename
+></entry>
+</row>
+<row>
+<entry
+>Sur &Windows;</entry>
+<entry
+><filename
+>%USERPROFILE%\AppData\Local\org.kde.syntax-highlighting\syntax</filename
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Se ekzistas pluraj dosieroj por la sama lingvo, la dosiero kun la plej alta <userinput
+>versio</userinput
+> atributo en la elemento <userinput
+>lingvo</userinput
+> estos ŝargita.</para>
+
+<variablelist>
+<title
+>Ĉefaj sekcioj de &kappname; Emfazu Difindosierojn</title>
+
+<varlistentry>
+<term
+>Elstariga dosiero enhavas kaplinion kiu fiksas la &XML; versio:</term>
+<listitem>
+<programlisting
+>&amp;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>La radiko de la difindosiero estas la elemento <userinput
+>lingvo</userinput
+>. Disponeblaj atributoj estas:</term>
+
+<listitem>
+<para
+>Bezonataj atributoj:</para>
+<para
+><userinput
+>nomo</userinput
+> fiksas la nomon de la lingvo. Ĝi aperas poste en la menuoj kaj dialogoj.</para>
+<para
+><userinput
+>sekcio</userinput
+> specifas la kategorion.</para>
+<para
+><userinput
+>etendoj</userinput
+> difinas dosierajn etendaĵojn, kiel &quot;*.cpp;*.h&quot;</para>
+<para
+><userinput
+>versio</userinput
+> specifas la nunan revizion de la difindosiero laŭ entjera nombro. Kiam ajn vi ŝanĝas elstaran difindosieron, certigu pliigi ĉi tiun nombron.</para>
+<para
+><userinput
+>kateversion</userinput
+> specifas la plej lastan subtenatan &kappname; versio.</para>
+
+<para
+>Laŭvolaj atributoj:</para>
+<para
+><userinput
+>mimetype</userinput
+> asocias &MIME;-tipon al dosieroj.</para>
+<para
+><userinput
+>majusklesendebla</userinput
+> difinas ĉu la ŝlosilvortoj distingas minusklecon aŭ ne.</para>
+<para
+><userinput
+>prioritato</userinput
+> estas necesa se alia elstara difindosiero uzas la samajn etendaĵojn. La pli alta prioritato venkos.</para>
+<para
+><userinput
+>aŭtoro</userinput
+> enhavas la nomon de la aŭtoro kaj lian retadreson.</para>
+<para
+><userinput
+>licenco</userinput
+> enhavas la permesilon, kutime la MIT-licencon por novaj sintaksaj eminentaj dosieroj.</para>
+<para
+><userinput
+>stilo</userinput
+> enhavas la provizitan lingvon kaj estas uzata de la indentistoj por la atributo <literal
+>required-syntax-style</literal
+>.</para>
+<para
+><userinput
+>indentor</userinput
+> difinas kiun endentigilo estos uzata defaŭlte. Disponeblaj indentiloj estas: <emphasis
+>ada, normala, cstyle, cmake, haskell, latex, lilypond, lisp, lua, pascal, python, replicode, ruby</emphasis
+> kaj <emphasis
+>xml</emphasis
+>.</para>
+<para
+><userinput
+>kaŝita</userinput
+> difinas ĉu la nomo aperu en la menuoj de &kappname;.</para>
+<para
+>Do la sekva linio povas aspekti jene:</para>
+<programlisting
+>&lt;language name=&quot;C++&quot; version=&quot;1&quot; kateversion=&quot;2.4&quot; section=&quot;Fontoj&quot; extensions=&quot;*.cpp;*.h&quot; /&gt;
+</programlisting>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>Poste venas la elemento <userinput
+>markigo</userinput
+>, kiu enhavas la laŭvolan elementon <userinput
+>list</userinput
+> kaj la postulatajn elementojn <userinput
+>kuntekstoj</userinput
+> kaj <userinput
+>itemDatas</userinput
+>.</term>
+<listitem>
+<para
+><userinput
+>listo</userinput
+> elementoj enhavas liston de ŝlosilvortoj. Ĉi-kaze la ŝlosilvortoj estas <emphasis
+>klaso</emphasis
+> kaj <emphasis
+>konst</emphasis
+>. Vi povas aldoni tiom da listoj kiom vi bezonas.</para>
+<para
+>Ekde &kde-frameworks; 5.53, listo povas inkluzivi ŝlosilvortojn de alia listo aŭ lingvo/dosiero, uzante la elementon <userinput
+>include</userinput
+>. <userinput
+>##</userinput
+> estas uzata por apartigi la listonomon kaj la lingvodifinnomon, same kiel en la regulo <userinput
+>Inkludi Regulojn</userinput
+>. Ĉi tio estas utila por eviti duobligi ŝlosillistojn, se vi bezonas inkluzivi la ŝlosilvortojn de alia lingvo/dosiero. Ekzemple, la listo <emphasis
+>alianomo</emphasis
+> enhavas la ŝlosilvorton <emphasis
+>str</emphasis
+> kaj ĉiujn ŝlosilvortojn de la listo <emphasis
+>tipoj</emphasis
+>, kiu apartenas al la <emphasis
+>ISO C++</emphasis
+> lingvo.</para>
+<para
+>La elemento <userinput
+>kuntekstoj</userinput
+> enhavas ĉiujn kuntekstojn. La unua kunteksto estas defaŭlte la komenco de la reliefigo. Estas du reguloj en la kunteksto <emphasis
+>Normala Teksto</emphasis
+>, kiuj kongruas kun la listo de ŝlosilvortoj kun la nomo <emphasis
+>iunomo</emphasis
+> kaj regulo, kiu detektas citaĵon kaj ŝanĝas la kuntekston al <emphasis
+>ĉeno</emphasis
+>. Por lerni pli pri reguloj legu la sekvan ĉapitron.</para>
+<para
+>La tria parto estas la elemento <userinput
+>itemDatas</userinput
+>. Ĝi enhavas ĉiujn kolorojn kaj tiparstilojn bezonatajn de la kuntekstoj kaj reguloj. En ĉi tiu ekzemplo, la <userinput
+>itemData</userinput
+> <emphasis
+>Normala Teksto</emphasis
+>, <emphasis
+>String</emphasis
+> kaj <emphasis
+>Ŝlosilvorto</emphasis
+> estas uzataj. </para>
+<programlisting
+>&lt;highlighting&gt;
+    &lt;list name=&quot;iunomo&quot;&gt;
+      &lt;item&gt;class&lt;/item&gt;
+      &lt;item&gt;const&lt;/item&gt;
+    &lt;/list&gt;
+    &lt;list name=&quot;alianomo&quot;&gt;
+      &lt;item&gt;str&lt;/item&gt;
+      &lt;include&gt;types##ISO C++&lt;/include&gt;
+    &lt;/list&gt;
+    &lt;contexts&gt;
+      &lt;context attribute=&quot;Normal Text&quot; lineEndContext=&quot;#pop&quot; name=&quot;Normal Text&quot; &gt;
+        &lt;keyword attribute=&quot;Keyword&quot; context=&quot;#stay&quot; String=&quot;iunomo&quot; /&gt;
+        &lt;keyword attribute=&quot;Keyword&quot; context=&quot;#stay&quot; String=&quot;alianomo&quot; /&gt;
+        &lt;DetectChar attribute=&quot;String&quot; context=&quot;string&quot; char=&quot;&amp;quot;&quot; /&gt;
+      &lt;/context&gt;
+      &lt;context attribute=&quot;String&quot; lineEndContext=&quot;#stay&quot; name=&quot;string&quot; &gt;
+        &lt;DetectChar attribute=&quot;String&quot; context=&quot;#pop&quot; char=&quot;&amp;quot;&quot; /&gt;
+      &lt;/context&gt;
+    &lt;/contexts&gt;
+    &lt;itemDatas&gt;
+      &lt;itemData name=&quot;Normal Text&quot; defStyleNum=&quot;dsNormal&quot; /&gt;
+      &lt;itemData name=&quot;Keyword&quot; defStyleNum=&quot;dsKeyword&quot; /&gt;
+      &lt;itemData name=&quot;String&quot; defStyleNum=&quot;dsString&quot; /&gt;
+    &lt;/itemDatas&gt;
+  &lt;/highlighting&gt;
+</programlisting>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>La lasta parto de elstara difino estas la laŭvola sekcio <userinput
+>ĝenerala</userinput
+>. Ĝi povas enhavi informojn pri ŝlosilvortoj, kodfaldado, komentoj, deŝovo, malplenaj linioj kaj literuma kontrolo.</term>
+
+<listitem>
+<para
+>La sekcio <userinput
+>komento</userinput
+> difinas per kia ĉeno unulinia komento estas enkondukita. Vi ankaŭ povas difini plurlinian komenton uzante <emphasis
+>multilinio</emphasis
+> kun la kroma atributo <emphasis
+>fino</emphasis
+>. Ĉi tio estas uzata se la uzanto premas la respondan ŝparvojon por <emphasis
+>komenti/malkomenti</emphasis
+>.</para>
+<para
+>La sekcio <userinput
+>ŝlosilvortoj</userinput
+> difinas ĉu ŝlosillistoj distingas minusklecon aŭ ne. Aliaj atributoj estos klarigitaj poste.</para>
+<para
+>La aliaj sekcioj, <userinput
+>faldado</userinput
+>, <userinput
+>malplenaj Linioj</userinput
+> kaj <userinput
+>ortkontrolo</userinput
+>, kutime ne necesas kaj estas klarigitaj poste.</para>
+<programlisting
+>&lt;general&gt;
+    &lt;comments&gt;
+      &lt;comment name="singleLine" start="#"/&gt;
+      &lt;comment name="multiLine" start="###" end="###" region="CommentFolding"/&gt;
+    &lt;/comments&gt;
+    &lt;keywords casesensitive="1"/&gt;
+    &lt;folding indentationsensitive="0"/&gt;
+    &lt;emptyLines&gt;
+      &lt;emptyLine regexpr="\s+"/&gt;
+      &lt;emptyLine regexpr="\s*#.*"/&gt;
+    &lt;/emptyLines&gt;
+    &lt;spellchecking&gt;
+      &lt;encoding char="&#225;" string="\&#39;a"/&gt;
+      &lt;encoding char="&#224;" string="\&#96;a"/&gt;
+    &lt;/spellchecking&gt;
+  &lt;/general&gt;
+&lt;/language&gt;
+</programlisting>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+</sect3>
+
+<sect3 id="kate-highlight-sections">
+<title
+>La Sekcioj en Detalo</title>
+<para
+>Ĉi tiu parto priskribos ĉiujn disponeblajn atributojn por kuntekstoj, itemDatoj, ŝlosilvortoj, komentoj, kodo-faldado kaj indentaĵo.</para>
+
+<variablelist>
+<varlistentry>
+<term
+>La elemento <userinput
+>kunteksto</userinput
+> apartenas al la grupo <userinput
+>kuntekstoj</userinput
+>. Kunteksto mem difinas kunteksto-specifajn regulojn kiel ekzemple kio devus okazi se la elstara sistemo atingas la finon de linio. Disponeblaj atributoj estas:</term>
+
+
+<listitem>
+<para
+><userinput
+>nomo</userinput
+> deklaras la kuntekstan nomon. Reguloj uzos ĉi tiun nomon por specifi la kuntekston por ŝanĝi, se la regulo kongruas.</para>
+
+<para
+><userinput
+>atributo</userinput
+> identigas la stilon por uzi por signo kiam neniu regulo kongruas aŭ kiam regulo ne specifas atributon. En ĉi-lasta kazo, estos uzata <emphasis
+>atributo</emphasis
+> de la kunteksto specifita en la <emphasis
+>kunteksto</emphasis
+> de la regulo.</para>
+
+<para
+><userinput
+>lineEndContext</userinput
+> difinas la kuntekston, al kiu la emfazsistemo ŝanĝas se ĝi atingas la finon de linio. Ĉi tio povas aŭ esti nomo de alia kunteksto, <userinput
+>#resti</userinput
+> por ne ŝanĝi la kuntekston (&eg;. fari nenion) aŭ <userinput
+>#pop</userinput
+> kiu igos ĝin forlasi ĉi tiun kuntekston. Eblas uzi ekzemple <userinput
+>#pop#pop#pop</userinput
+> por krevi trifoje, aŭ eĉ <userinput
+>#pop#pop!OtherContext</userinput
+> por krevi dufoje kaj ŝanĝi al la kunteksto nomata <userinput
+>Alia Kunteksto</userinput
+>. Eblas ankaŭ ŝanĝi al kunteksto, kiu apartenas al alia lingvodifino, same kiel en la reguloj <userinput
+>Inkluzi Reguloj</userinput
+>, &eg;, <userinput
+>IuKunteksto##JavaScript</userinput
+>. Kuntekstŝaltiloj ankaŭ estas priskribitaj en <xref linkend="kate-highlight-rules-detailed"/>. Defaŭlte: #resti.</para>
+<para
+><userinput
+>lineEmptyContext</userinput
+> difinas la kuntekston se malplena linio estas renkontita. La nomenklaturo de kuntekstŝaltiloj estas la sama kiel antaŭe priskribita en <emphasis
+>lineEndContext</emphasis
+>. Defaŭlte: #resti.</para>
+<para
+><userinput
+>fallthroughContext</userinput
+> specifas la sekvan kuntekston por ŝanĝi se neniu regulo kongruas. La nomenklaturo de kuntekstŝaltiloj estas la sama kiel antaŭe priskribita en <emphasis
+>lineEndContext</emphasis
+>. Defaŭlte: #resti.</para>
+<para
+><userinput
+>falthrough</userinput
+> difinas ĉu la emfazsistemo ŝanĝas al la kunteksto specifita en <userinput
+>fallthroughContext</userinput
+> se neniu regulo kongruas. Notu ke ekde &kde; &frameworks; 5.62 ĉi tiu atributo estas malrekomendita favore al <userinput
+>fallthroughContext</userinput
+>, ĉar se la atributo <userinput
+>fallthroughContext</userinput
+> ĉeestas, estas implicite komprenite, ke la valoro de <userinput
+>fallthrough</userinput
+> estas <emphasis
+>true</emphasis
+>. Defaŭlte: <emphasis
+>false</emphasis
+>.</para>
+<para
+><userinput
+>noIndentationBasedFolding</userinput
+> malŝaltas indent-bazitan faldadon en la kunteksto. Se indent-bazita faldado ne estas aktivigita, ĉi tiu atributo estas senutila. Ĉi tio estas difinita en la elemento <emphasis
+>faldado</emphasis
+> de la grupo <emphasis
+>ĝenerala</emphasis
+>. Defaŭlte: <emphasis
+>false</emphasis
+>.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>La elemento <userinput
+>itemData</userinput
+> estas en la grupo <userinput
+>itemData</userinput
+>. Ĝi difinas la tiparstilon kaj kolorojn. Do eblas difini viajn proprajn stilojn kaj kolorojn. Tamen, ni rekomendas vin alteni la defaŭltajn stilojn se eble, por ke la uzanto ĉiam vidu la samajn kolorojn uzatajn en malsamaj lingvoj. Tamen, foje ne ekzistas alia maniero kaj necesas ŝanĝi kolorojn kaj tipatributojn. La atributoj name kaj defStyleNum estas postulataj, la aliaj estas laŭvolaj. Disponeblaj atributoj estas:</term>
+
+<listitem>
+<para
+><userinput
+>nomo</userinput
+> fiksas la nomon de la itemDatumo. Kuntekstoj kaj reguloj uzos ĉi tiun nomon en sia atributo <emphasis
+>atributo</emphasis
+> por referenci elementon.</para>
+<para
+><userinput
+>defStyleNum</userinput
+> difinas kiun defaŭltan stilon uzi. Disponeblaj defaŭltaj stiloj estas klarigitaj detale poste.</para>
+<para
+><userinput
+>koloro</userinput
+> difinas koloron. Validaj formatoj estas '#rrggbb' aŭ '#rgb'.</para>
+<para
+><userinput
+>selColor</userinput
+> difinas la elektokoloron.</para>
+<para
+><userinput
+>kursiva</userinput
+> se <emphasis
+>true</emphasis
+>, la teksto estos kursiva.</para>
+<para
+><userinput
+>grasa</userinput
+> se <emphasis
+>true</emphasis
+>, la teksto estos grasa.</para>
+<para
+><userinput
+>substreki</userinput
+> se <emphasis
+>true</emphasis
+>, la teksto estos substrekita.</para>
+<para
+><userinput
+>forstreko</userinput
+> se <emphasis
+>true</emphasis
+>, la teksto estos forstrekita.</para>
+<para
+><userinput
+>ortografio</userinput
+> se <emphasis
+>true</emphasis
+>, la teksto estos literumkontrolita.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>La elemento <userinput
+>ŝlosilvortoj</userinput
+> en la grupo <userinput
+>ĝenerala</userinput
+> difinas ŝlosilvortojn. Disponeblaj atributoj estas:</term>
+
+<listitem>
+<para
+><userinput
+>majusklesentema</userinput
+> povas esti <emphasis
+>true</emphasis
+> aŭ <emphasis
+>false</emphasis
+>. Se <emphasis
+>true</emphasis
+>, ĉiuj ŝlosilvortoj estas kongruaj majuskle.</para>
+<para
+><userinput
+>weakDeliminator</userinput
+> estas listo de signoj, kiuj ne funkcias kiel vortlimigiloj. Ekzemple, la punkto <userinput
+>'.'</userinput
+> estas vortlimigilo. Supozu, ke ŝlosilvorto en <userinput
+>listo</userinput
+> enhavas punkton, ĝi nur kongruos se vi specifigas la punkton kiel malfortan limigilon.</para>
+<para
+><userinput
+>additionalDeliminator</userinput
+> difinas kromajn limigilojn.</para>
+<para
+><userinput
+>wordWrapDeliminator</userinput
+> difinas signojn post kiuj povas okazi linivolviĝo.</para>
+<para
+>Defaŭltaj limigiloj kaj vortvolvaĵlimigiloj estas la signoj <userinput
+>.():!+,-&lt;=&gt;%&amp;*/;?[]^{|}~\</userinput
+>, spaco (<userinput
+>' '</userinput
+>) kaj tabeligilo (<userinput
+>'\t'</userinput
+>).</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>La elemento <userinput
+>komento</userinput
+> en la grupo <userinput
+>komentoj</userinput
+> difinas komentajn trajtojn, kiuj estas uzataj por <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Komento</guimenuitem
+></menuchoice
+>, <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Malkomenti</guimenuitem
+></menuchoice
+> kaj <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Baskuligi Komenton</guimenuitem
+></menuchoice
+>. Disponeblaj atributoj estas:</term>
+
+<listitem>
+<para
+><userinput
+>nomo</userinput
+> estas aŭ <emphasis
+>unuLinio</emphasis
+> aŭ <emphasis
+>multlinio</emphasis
+>. Se vi elektas <emphasis
+>multLinio</emphasis
+> la atributoj <emphasis
+>fino</emphasis
+> kaj <emphasis
+>regiono</emphasis
+> estas postulataj. Se vi elektas <emphasis
+>unuLinio</emphasis
+> vi povas aldoni la laŭvolan atributon <emphasis
+>pozicio</emphasis
+>.</para>
+<para
+><userinput
+>komenco</userinput
+> difinas la ĉenon uzatan por komenci komenton. En C++ ĉi tio estus &quot;/*&quot; en plurliniaj komentoj. Ĉi tiu atributo estas postulata por tipoj <emphasis
+>multiLine</emphasis
+> kaj <emphasis
+>singleLine</emphasis
+>.</para>
+<para
+><userinput
+>end</userinput
+> difinas la ĉenon uzatan por fermi komenton. En C++ ĉi tio estus &quot;*/&quot;. Ĉi tiu atributo estas nur disponebla kaj necesas por komentoj de tipo <emphasis
+>multiLine</emphasis
+>.</para>
+<para
+><userinput
+>regiono</userinput
+> devus esti la nomo de la faldebla plurlinia komento. Supozu, ke vi havas <emphasis
+>beginRegion="Comment"</emphasis
+> ... <emphasis
+>endRegion="Comment"</emphasis
+> en viaj reguloj, vi devus uzi <emphasis
+>region="Comment"</emphasis
+>. Tiel malkomentado funkcias eĉ se vi ne elektas la tutan tekston de la plurlinia komento. La kursoro nur devas esti en la plurlinia komento. Ĉi tiu atributo disponeblas nur por tipo <emphasis
+>multilinio</emphasis
+>.</para>
+<para
+><userinput
+>pozicio</userinput
+> difinas kie la unulinia komento estas enmetita. Defaŭlte, la unulinia komento estas metita komence de la linio ĉe kolumno 0, sed se vi uzas <emphasis
+>position="afterwhitespace"</emphasis
+> la komento estas enmetita post gvidado de blankspacoj dekstre, antaŭ la unua ne-blankspaca signo. Ĉi tio estas utila por meti komentojn ĝuste en lingvoj kie deŝoviĝo estas grava, kiel Python aŭ YAML. Ĉi tiu atributo estas nedeviga kaj la nura ebla valoro estas <emphasis
+>postblankspaco</emphasis
+>. Ĉi tio disponeblas nur por tipo <emphasis
+>singleLine</emphasis
+>.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>La elemento <userinput
+>faldado</userinput
+> en la grupo <userinput
+>ĝenerala</userinput
+> difinas kodfaldajn ecojn. Disponeblaj atributoj estas:</term>
+
+<listitem>
+<para
+><userinput
+>indentationsensitive</userinput
+> se <emphasis
+>true</emphasis
+>, la kodaj faldmarkoj estos aldonitaj deŝovo bazitaj, kiel en la skriptlingvo Python. Kutime vi ne bezonas agordi ĝin, ĉar ĝi defaŭlte estas <emphasis
+>false</emphasis
+>.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>La elemento <userinput
+>emptyLine</userinput
+> en la grupo <userinput
+>emptyLines</userinput
+> difinas kiuj linioj estu traktataj kiel malplenaj linioj. Ĉi tio permesas modifi la konduton de la atributo <emphasis
+>lineEmptyContext</emphasis
+> en la elementoj <userinput
+>kunteksto</userinput
+>. Disponeblaj atributoj estas:</term>
+
+<listitem>
+<para
+><userinput
+>regexpr</userinput
+> difinas regulan esprimon, kiu estos traktata kiel malplena linio. Defaŭlte, malplenaj linioj enhavas neniujn signojn, tial ĉi tio aldonas pliajn malplenajn liniojn, ekzemple, se vi volas, ke linioj kun spacoj ankaŭ estu konsiderataj malplenaj linioj. Tamen, en la plej multaj sintaksaj difinoj vi ne bezonas agordi ĉi tiun atributon.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>La elemento <userinput
+>kodigo</userinput
+> en la grupo <userinput
+>ortografia kontrolo</userinput
+> difinas signan kodigon por literumkontrolo. Disponeblaj atributoj:</term>
+
+<listitem>
+<para
+><userinput
+>char</userinput
+> estas kodita signo.</para>
+<para
+><userinput
+>ĉeno</userinput
+> estas sinsekvo de signoj kiuj estos kodita kiel la signo <emphasis
+>char</emphasis
+> en la literuma kontrolo. Ekzemple, en la lingvo LaTeX, la ĉeno <userinput
+>\&quot;{A}</userinput
+> reprezentas la signon <userinput
+>Ä</userinput
+>.</para>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+
+</sect3>
+
+<sect3 id="kate-highlight-default-styles">
+<title
+>Disponeblaj Defaŭltaj Stiloj</title>
+<para
+>Defaŭltaj Stiloj estis <link linkend="kate-highlight-system-default-styles"
+>jam klarigitaj</link
+>, kiel mallonga resumo: Defaŭltaj stiloj estas antaŭdifinitaj tiparo kaj kolorstiloj.</para>
+<variablelist>
+<varlistentry>
+<term
+>Ĝeneralaj defaŭltaj stiloj:</term>
+<listitem>
+<para
+><userinput
+>dsNormal</userinput
+>, kiam ne necesas speciala reliefigo.</para>
+<para
+><userinput
+>dsKeyword</userinput
+>, enkonstruitaj lingvaj ŝlosilvortoj.</para>
+<para
+><userinput
+>dsFunction</userinput
+>, funkciovokoj kaj difinoj.</para>
+<para
+><userinput
+>dsVariable</userinput
+>, se aplikebla: variablo-nomoj (&eg; $someVar en PHP/Perl).</para>
+<para
+><userinput
+>dsControlFlow</userinput
+>, kontrolfluaj ŝlosilvortoj kiel se, else, ŝaltilo, rompo, reveno, rendimento, ...</para>
+<para
+><userinput
+>dsOperator</userinput
+>, operatoroj kiel + - * / :: &lt; &gt;</para>
+<para
+><userinput
+>dsBuiltIn</userinput
+>, enkonstruitaj funkcioj, klasoj kaj objektoj.</para>
+<para
+><userinput
+>dsExtension</userinput
+>, oftaj etendaĵoj, kiel &Qt; klasoj kaj funkcioj/makrooj en C++ kaj Python.</para>
+<para
+><userinput
+>dsPreprocessor</userinput
+>, antaŭprocesoraj deklaroj aŭ makrodifinoj.</para>
+<para
+><userinput
+>dsAttribute</userinput
+>, komentarioj kiel @override kaj __declspec(...).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Defaŭltaj stiloj rilataj al ĉenoj:</term>
+<listitem>
+<para
+><userinput
+>dsChar</userinput
+>, unuopaj signoj, kiel 'x'.</para>
+<para
+><userinput
+>dsSpecialChar</userinput
+>, signoj kun speciala signifo en ĉenoj kiel eskapoj, anstataŭaĵoj aŭ regex operatoroj.</para>
+<para
+><userinput
+>dsString</userinput
+>, ĉenoj kiel "saluton mondo".</para>
+<para
+><userinput
+>Laŭvorta Ĉeno</userinput
+>, laŭvorte aŭ krudaj ĉenoj kiel 'raw \backslash' en Perl, CoffeeScript, kaj ŝeloj, same kiel r'\raw' en Python.</para>
+<para
+><userinput
+>dsSpecialString</userinput
+>, SQL, regeksoj, TIE dokumentoj, &latex; matematika reĝimo, ...</para>
+<para
+><userinput
+>dsImport</userinput
+>, importi, inkluzivi, postuli de moduloj.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Nombro-rilataj defaŭltaj stiloj:</term>
+<listitem>
+<para
+><userinput
+>dsDataType</userinput
+>, enkonstruitaj datumtipoj kiel int, void, u64.</para>
+<para
+><userinput
+>dsDecVal</userinput
+>, decimalaj valoroj.</para>
+<para
+><userinput
+>dsBaseN</userinput
+>, valoroj kun bazo alia ol 10.</para>
+<para
+><userinput
+>dsFloat</userinput
+>, glitkomaj valoroj.</para>
+<para
+><userinput
+>dsConstant</userinput
+>, konstantoj enkonstruitaj kaj uzantodifinitaj  kiel PI.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Komento kaj dokumentar-rilataj defaŭltaj stiloj:</term>
+<listitem>
+<para
+><userinput
+>dsComment</userinput
+>, komentoj.</para>
+<para
+><userinput
+>dsDocumentation</userinput
+>, /** Dokumentaj komentoj */ aŭ """docstrings""".</para>
+<para
+><userinput
+>dsAnnotation</userinput
+>, dokumentaj komandoj kiel @param, @brief.</para>
+<para
+><userinput
+>dsCommentVar</userinput
+>, la variablonomoj uzataj en supraj komandoj, kiel "foobar" en @param foobar.</para>
+<para
+><userinput
+>dsRegionMarker</userinput
+>, regionmarkoj kiel //BEGIN, //END en komentoj.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Aliaj defaŭltaj stiloj:</term>
+<listitem>
+<para
+><userinput
+>dsInformation</userinput
+>, notoj kaj konsiloj kiel @note en doxygen.</para>
+<para
+><userinput
+>dsWarning</userinput
+>, avertoj kiel @warning en doksigeno.</para>
+<para
+><userinput
+>dsAlert</userinput
+>, specialaj vortoj kiel TODO, FIXME, XXXX.</para>
+<para
+><userinput
+>dsError</userinput
+>, erara reliefigo kaj malĝusta sintakso.</para>
+<para
+><userinput
+>dsOthers</userinput
+>, kiam nenio alia taŭgas.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="kate-highlight-rules-detailled">
+<title
+>Emfazu Detektajn Regulojn</title>
+
+<para
+>Ĉi tiu sekcio priskribas la sintaksajn detektajn regulojn.</para>
+
+<para
+>Ĉiu regulo povas kongrui kun nul aŭ pli da signoj ĉe la komenco de la ĉeno kontraŭ kiu ili estas testitaj. Se la regulo kongruas, la kongruaj signoj ricevas la stilon aŭ <emphasis
+>atributon</emphasis
+> difinitan de la regulo, kaj regulo povas peti ke la nuna kunteksto estas ŝanĝita.</para>
+
+<para
+>Regulo aspektas jene:</para>
+
+<programlisting
+>&lt;RuleName attribute=&quot;(identigilo)&quot; context=&quot;(identigilo)&quot; [specifaj atributoj de la regulo] /&gt;</programlisting>
+
+<para
+>La <emphasis
+>atributo</emphasis
+> identigas la stilon uzi por kongruaj signoj laŭ nomo, kaj la <emphasis
+>kunteksto</emphasis
+> identigas la kuntekston uzi de ĉi tie.</para>
+
+<para
+>La <emphasis
+>kunteksto</emphasis
+> povas esti identigita per:</para>
+
+<itemizedlist>
+<listitem>
+<para
+><emphasis
+>identigilo</emphasis
+>, kiu estas la nomo de la alia kunteksto.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>ordo</emphasis
+> ordonanta al la motoro resti en la nuna kunteksto (<userinput
+>#restado</userinput
+>), aŭ reiri al antaŭa kunteksto uzata en la ĉeno (<userinput
+>#pop</userinput
+>). Malplena aŭ forestanta kunteksto ekvivalentas al <userinput
+>#restado</userinput
+>.</para>
+<para
+>Por retroiri pliajn paŝojn, la #pop ŝlosilvorto povas esti ripetita: <userinput
+>#pop#pop#pop</userinput
+></para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>ordo</emphasis
+> sekvata de ekkria signo (<emphasis
+>!</emphasis
+>) kaj <emphasis
+>identigilo</emphasis
+>, kiuj igos la motoron unue sekvi la ordon kaj poste ŝanĝi al la alia kunteksto, &eg; <userinput
+>#pop#pop!OtherContext</userinput
+>.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>identigilo</emphasis
+>, kiu estas kunteksta nomo, sekvata de du haŝoj (<userinput
+>##</userinput
+>) kaj alia <emphasis
+>identigilo</emphasis
+>, kiu estas la nomo de lingvodifino . Ĉi tiu nomado estas simila al tiu uzata en reguloj de <userinput
+>Inkluzi Reguloj</userinput
+> kaj ebligas al vi ŝanĝi al kunteksto apartenanta al alia sintaksa emfaza difino, ekz. <userinput
+>IomKunteksto##JavaScript</userinput
+>. </para>
+</listitem>
+</itemizedlist>
+
+<para
+>Regulaj specifaj atributoj varias kaj estas priskribitaj en la sekvaj sekcioj.</para>
+
+<itemizedlist>
+<title
+>Komunaj atributoj</title>
+<para
+>Ĉiuj reguloj havas la jenajn atributojn komunaj kaj disponeblas kiam ajn <userinput
+>(komunaj atributoj)</userinput
+> aperas. Ĉiuj atributoj estas laŭvolaj. </para>
+
+<listitem>
+<para
+><emphasis
+>atributo</emphasis
+>: Atributo mapas al difinita <emphasis
+>itemData</emphasis
+>. Defaŭlte: <emphasis
+>atributo</emphasis
+> el la kunteksto specifita en <emphasis
+>kunteksto</emphasis
+> atributo.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>kunteksto</emphasis
+>: Specifu la kuntekston, al kiu la reliefiga sistemo ŝanĝas se la regulo kongruas. Defaŭlte: #resti.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>beginRegion</emphasis
+>: Komencu kodan faldblokon. Defaŭlte: malŝaltita.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>endRegion</emphasis
+>: Fermu kodan faldblokon. Defaŭlte: malŝaltita.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>lookAhead</emphasis
+>: Se <emphasis
+>true</emphasis
+>, la emfaza sistemo ne prilaboros la kongruan longon. Defaŭlte: <emphasis
+>false</emphasis
+>.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>firstNonSpace</emphasis
+>: Kongruas nur, se la ĉeno estas la unua neblankspaco en la linio. Defaŭlte: <emphasis
+>false</emphasis
+>.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>kolumno</emphasis
+>: Kongruas nur, se la kolumno kongruas. Defaŭlte: malŝaltita.</para>
+</listitem>
+</itemizedlist>
+
+<itemizedlist>
+<title
+>Dinamikaj reguloj</title>
+<para
+>Iuj reguloj permesas la laŭvolan atributon <userinput
+>dinamika</userinput
+> de tipo bulea kiu defaŭlte estas <emphasis
+>false</emphasis
+>. Se dinamiko estas <emphasis
+>true</emphasis
+>, regulo povas uzi anstataŭaĵojn reprezentantajn la tekston kongruan per regulo <emphasis
+>regula esprimo</emphasis
+> kiu ŝanĝis al la nuna kunteksto en sia <userinput
+>ĉeno</userinput
+> aŭ <userinput
+>char</userinput
+> atributoj. En <userinput
+>ĉeno</userinput
+>, la lokokupilo <replaceable
+>%N</replaceable
+> (kie N estas nombro) estos anstataŭigita per la responda kapto <replaceable
+>N</replaceable
+> de la voka regula esprimo, komencante de 1. En <userinput
+>char</userinput
+> la lokokupilo devas esti nombro <replaceable
+>N</replaceable
+> kaj ĝi estos anstataŭigita per la unua signo de la responda kapto <replaceable
+>N</replaceable
+> de la voka regula esprimo. Kiam ajn regulo permesas ĉi tiun atributon ĝi enhavos <emphasis
+>(dinamikan)</emphasis
+>.</para>
+
+<listitem>
+<para
+><emphasis
+>dinamika</emphasis
+>: povas esti <emphasis
+>(true|false)</emphasis
+>.</para>
+</listitem>
+</itemizedlist>
+
+<para
+><userinput
+>Kiel ĝi funkcias:</userinput
+></para>
+
+<para
+>En la <link linkend="regular-expressions"
+>regulaj esprimoj</link
+> de la reguloj <userinput
+>RegExpr</userinput
+>, ĉio teksto ene de simplaj kurbaj krampoj <userinput
+>(PATTERN)</userinput
+> estas kaptita kaj rememoris. Tiuj ĉi kaptoj povas esti uzataj en la kunteksto al kiu ĝi estas ŝanĝita, en la reguloj kun la atributo <userinput
+>dinamika</userinput
+> <emphasis
+>true</emphasis
+>, per <replaceable
+>%N</replaceable
+> (en <emphasis
+>Ĉeno</emphasis
+>) aŭ <replaceable
+>N</replaceable
+> (en <emphasis
+>char</emphasis
+>).</para>
+
+<para
+>Gravas mencii, ke teksto kaptita en regulo <userinput
+>RegEx</userinput
+> estas nur konservita por la ŝanĝita kunteksto, specifita en ĝia <userinput
+>kunteksto</userinput
+> atributo.</para>
+
+<tip>
+<itemizedlist>
+
+<listitem>
+<para
+>Se la kaptoj ne estos uzataj, kaj laŭ dinamikaj reguloj kaj en la sama regula esprimo, oni uzu <userinput
+>nekaptajn grupojn</userinput
+>: <userinput
+>(?:PATTERN)</userinput
+></para>
+<para
+>La <emphasis
+>rigardo</emphasis
+> aŭ <emphasis
+>malantaŭen</emphasis
+> grupoj kiel <userinput
+>(?=PATTERN)</userinput
+>, <userinput
+>(?!PATTERN)</userinput
+> aŭ <userinput
+> (?&lt;=PATTERN)</userinput
+> ne estas kaptitaj. Vidu <link linkend="regular-expressions"
+>Regulaj esprimoj</link
+> por pliaj informoj.</para>
+</listitem>
+
+<listitem>
+<para
+>La kaptogrupoj povas esti uzataj ene de la sama regula esprimo, uzante <replaceable
+>\N</replaceable
+> anstataŭ <replaceable
+>%N</replaceable
+> respektive. Por pliaj informoj, vidu <link linkend="regex-capturing"
+>Kapti kongruan tekston (malantaŭaj referencoj)</link
+> en <link linkend="regular-expressions"
+>Regulaj Esprimoj</link
+>.</para>
+</listitem>
+
+</itemizedlist>
+</tip>
+
+<para
+>Ekzemplo 1:</para>
+<para
+>En ĉi tiu simpla ekzemplo, la teksto kongrua per la regula esprimo <userinput
+>=*</userinput
+> estas kaptita kaj enmetita en <replaceable
+>%1</replaceable
+> en la dinamika regulo. Tio ebligas al la komento finiĝi kun la sama kvanto de <userinput
+>=</userinput
+> kiel ĉe la komenco. Ĉi tio kongruas kun teksto kiel: <userinput
+>[[ komento ]]</userinput
+>, <userinput
+>[=[ komento ]=]</userinput
+> aŭ <userinput
+>[=====[ komento ]===== ]</userinput
+>.</para>
+<para
+>Krome, la kaptoj disponeblas nur en la ŝanĝita kunteksto <emphasis
+>Multlinia Komento</emphasis
+>.</para>
+
+<programlisting
+>&lt;context name="Normal" attribute="Normal Text" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="Multi-line Comment" attribute="Comment" String="\[(=*)\[" beginRegion="RegionComment"/&gt;
+&lt;/context&gt;
+&lt;context name="Multi-line Comment" attribute="Comment" lineEndContext="#stay"&gt;
+  &lt;StringDetect context="#pop" attribute="Comment" String="]%1]" dynamic="true" endRegion="RegionComment"/&gt;
+&lt;/context&gt;
+</programlisting>
+
+<para
+>Ekzemplo 2:</para>
+<para
+>En la dinamika regulo, <replaceable
+>%1</replaceable
+> respondas al la kapto, kiu kongruas kun <userinput
+>#+</userinput
+>, kaj <replaceable
+>%2</replaceable
+> al <userinput
+>&amp;&quot;+</userinput
+>. Ĉi tio kongruas kun teksto kiel: <userinput
+>#label""""en la kunteksto""""#</userinput
+>.</para>
+<para
+>Tiuj ĉi kaptoj ne estos disponeblaj en aliaj kuntekstoj, kiel <emphasis
+>AliaKunteksto</emphasis
+>, <emphasis
+>Trovi Eskapojn</emphasis
+> aŭ <emphasis
+>IuKunteksto</emphasis
+>.</para>
+
+<programlisting
+>&lt;context name="SomeContext" attribute="Normal Text" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="#pop!NamedString" attribute="String" String="(#+)(?:[\w-]|[^[:ascii:]])(&amp;quot;+)"/&gt;
+&lt;/context&gt;
+&lt;context name="NamedString" attribute="String" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="#pop!OtherContext" attribute="String" String="%2(?:%1)?" dynamic="true"/&gt;
+  &lt;DetectChar context="FindEscapes" attribute="Escape" char="\"/&gt;
+&lt;/context&gt;
+</programlisting>
+
+<para
+>Ekzemplo 3:</para>
+<para
+>Ĉi tio kongruas kun teksto kiel: <userinput
+>Class::function&lt;TO&gt;( ... )</userinput
+>.</para>
+
+<programlisting
+>&lt;context name="Normal" attribute="Normal Text" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="FunctionName" lookAhead="true"
+              String="\b([a-zA-Z_][\w-]*)(::)([a-zA-Z_][\w-]*)(?:&amp;lt;[\w\-\s]*&amp;gt;)?(\()"/&gt;
+&lt;/context&gt;
+&lt;context name="FunctionName" attribute="Normal Text" lineEndContext="#pop"&gt;
+  &lt;StringDetect context="#stay" attribute="Class" String="%1" dynamic="true"/&gt;
+  &lt;StringDetect context="#stay" attribute="Operator" String="%2" dynamic="true"/&gt;
+  &lt;StringDetect context="#stay" attribute="Function" String="%3" dynamic="true"/&gt;
+  &lt;DetectChar context="#pop" attribute="Normal Text" char="4" dynamic="true"/&gt;
+&lt;/context&gt;
+</programlisting>
+
+<itemizedlist>
+<title
+>Lokaj limigiloj</title>
+<para
+>Iuj reguloj permesas la laŭvolajn atributojn <userinput
+>weakDeliminator</userinput
+> kaj <userinput
+>additionalDeliminator</userinput
+> kiuj estas kombinitaj kun samnomaj atributoj de <userinput
+>ŝlosilvortoj</userinput
+> etikedo. Ekzemple, kiam <userinput
+>'%'</userinput
+> estas malforta limigo de <userinput
+>ŝlosilvortoj</userinput
+>, ĝi povas fariĝi vortlimigilo nur por regulo metante ĝin en sian atributon <userinput
+>additionalDeliminator</userinput
+>. Kiam ajn regulo permesas ĉi tiujn atributojn ĝi enhavos <emphasis
+>(lokaj limigiloj)</emphasis
+>.</para>
+
+<listitem>
+<para
+><emphasis
+>malfortaDeliminilo</emphasis
+>: listo de signoj, kiuj ne funkcias kiel vortlimigiloj.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>aldonaDeliminilo</emphasis
+>: difinas kromajn limilojn.</para>
+</listitem>
+</itemizedlist>
+
+<sect3 id="highlighting-rules-in-detail">
+<title
+>La Reguloj en Detalo</title>
+
+<variablelist>
+<varlistentry>
+<term
+>DetectChar</term>
+<listitem>
+<para
+>Detektu ununuran specifan signon. Ofte uzata ekzemple por trovi la finojn de cititaj ĉenoj.</para>
+<programlisting
+>&lt;DetectChar char=&quot;(signo)&quot; (komunaj atributoj) (dinamika) /&gt;</programlisting>
+<para
+>La atributo <userinput
+>char</userinput
+> difinas la signon por kongrui.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Detekti2Chars</term>
+<listitem>
+<para
+>Detektu du specifajn signojn en difinita ordo.</para>
+<programlisting
+>&lt;Detect2Chars char=&quot;(signo)&quot; char1=&quot;(signo)&quot; (oftaj atributoj) /&gt;</programlisting>
+<para
+>La atributo <userinput
+>char</userinput
+> difinas la unuan signon kongruan, <userinput
+>char1</userinput
+> la duan.</para>
+<para
+>Ĉi tiu regulo ĉeestas pro historiaj kialoj kaj por legebleco estas preferinde uzi <userinput
+>StringDetect</userinput
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>AnyChar</term>
+<listitem>
+<para
+>Detektu unu signon de aro de specifitaj signoj.</para>
+<programlisting
+>&lt;AnyChar String=&quot;(ĉeno)&quot; (komunaj atributoj) /&gt;</programlisting>
+<para
+>La atributo <userinput
+>String</userinput
+> difinas la aron de signoj.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>StringDetect</term>
+<listitem>
+<para
+>Detektu precizan ĉenon.</para>
+<programlisting
+>&lt;StringDetect String = &quot;(ĉeno)&quot; [insensitive=&quot;true|false&quot;] (oftaj atributoj) (dinamika) /&gt;</programlisting>
+<para
+>La atributo <userinput
+>String</userinput
+> difinas la ĉenon kongruan. La atributo <userinput
+>senentema</userinput
+> defaŭlte estas <emphasis
+>false</emphasis
+> kaj estas transdonita al la ĉena kompara funkcio. Se la valoro estas <emphasis
+>true</emphasis
+> nesentema komparo estas uzata.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>WordDetect</term>
+<listitem>
+<para
+>Detektu precizan ĉenon sed aldone postulas vortlimojn kiel punkton <userinput
+>'.'</userinput
+> aŭ blankspacon ĉe la komenco kaj la fino de la vorto. Pensu pri <userinput
+>\b&lt;string&gt;\b</userinput
+> laŭ regula esprimo, sed ĝi estas pli rapida ol la regulo <userinput
+>RegExpr</userinput
+>.</para>
+<programlisting
+>&lt;WordDetect String="(ĉeno)" [insensitive=&quot;true|false&quot;] (oftaj atributoj) (lokaj limigiloj) /&gt;</programlisting>
+<para
+>La atributo <userinput
+>String</userinput
+> difinas la ĉenon kongruan. La atributo <userinput
+>senentema</userinput
+> defaŭlte estas <emphasis
+>false</emphasis
+> kaj estas transdonita al la ĉena kompara funkcio. Se la valoro estas <emphasis
+>true</emphasis
+> nesentema komparo estas uzata.</para>
+<para
+>Ekde: &kate; 3.5 (&kde; 4.5)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>RegEx</term>
+<listitem>
+<para
+>Kongruas kontraŭ regula esprimo.</para>
+<programlisting
+>&lt;RegExpr String = &quot;(ĉeno)&quot; [insensitive=&quot;true|false&quot;] [minimal=&quot;true|false&quot;] (oftaj atributoj) (dinamika) /&gt;</programlisting>
+<para
+>La atributo <userinput
+>String</userinput
+> difinas la regulan esprimon.</para>
+<para
+><userinput
+>nesentema</userinput
+> defaŭlte al <emphasis
+>false</emphasis
+> kaj estas transdonita al la regula esprimo-motoro.</para>
+<para
+><userinput
+>minimuma</userinput
+> defaŭlte al <emphasis
+>false</emphasis
+> kaj estas transdonita al la regula esprimo-motoro.</para>
+<para
+>Ĉar la reguloj ĉiam kongruas kontraŭ la komenco de la nuna ĉeno, regula esprimo komencanta per signo (<literal
+>^</literal
+>) indikas ke la regulo devus esti egalita nur kontraŭ la komenco de linio.</para>
+<para
+>Vidu <link linkend="regular-expressions"
+>Regulaj esprimoj</link
+> por pliaj informoj pri tiuj.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>ŝlosilvorto</term>
+<listitem>
+<para
+>Detektu ŝlosilvorton el difinita listo.</para>
+<programlisting
+>&lt;keyword String=&quot;(listnomo)&quot; (komunaj atributoj) (lokaj limigiloj) /&gt;</programlisting>
+<para
+>La atributo <userinput
+>String</userinput
+> identigas la ŝlosilvortliston laŭ nomo. Listo kun tiu nomo devas ekzisti.</para>
+<para
+>La elstara sistemo prilaboras ŝlosilvortajn regulojn en tre optimumigita maniero. Ĉi tio igas absolutan neceson, ke ĉiuj ŝlosilvortoj kongruaj devas esti ĉirkaŭitaj de difinitaj limigiloj, aŭ implicitaj (la defaŭltaj limigiloj), aŭ eksplicite specifitaj ene de la eco <emphasis
+>additionalDeliminator</emphasis
+> de la <emphasis
+>ŝlosilvortoj</emphasis
+>. emfazo
+> etikedo.</para>
+<para
+>Se kongruota ŝlosilvorto enhavas limigan signon, ĉi tiu respektiva signo devas esti aldonita al la eco <emphasis
+>weakDeliminator</emphasis
+> de la etikedo <emphasis
+>ŝlosilvortoj</emphasis
+>. Ĉi tiu signo tiam perdos sian limigilon en ĉiuj reguloj de <emphasis
+>ŝlosilvorto</emphasis
+>. Eblas ankaŭ uzi la atributon <emphasis
+>weakDeliminator</emphasis
+> de <emphasis
+>ŝlosilvorto</emphasis
+> tiel ke ĉi tiu modifo nur validu por ĉi tiu regulo.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Int</term>
+<listitem>
+<para
+>Detekti entjeron (kiel la regula esprimo: <userinput
+>\b[0-9]+</userinput
+>).</para>
+<para
+><programlisting
+>&lt;Int (komunaj atributoj) (lokaj limigiloj) /&gt;</programlisting
+></para>
+<para
+>Ĉi tiu regulo ne havas specifajn atributojn.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Flosilo</term>
+<listitem>
+<para
+>Detekti glitkoman nombron (kiel la regula esprimo: <userinput
+>(\b[0-9]+\.[0-9]*|\.[0-9]+)([eE][- +]?[0-9]+)?</userinput
+>).</para>
+<para
+><programlisting
+>&lt;Float (komunaj atributoj) (lokaj limigiloj) /&gt;</programlisting
+></para>
+<para
+>Ĉi tiu regulo ne havas specifajn atributojn.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>HlCOct</term>
+<listitem>
+<para
+>Detekti okan punkta nombro-reprezenton (kiel la regula esprimo: <userinput
+>\b0[0-7]+</userinput
+>).</para>
+<para
+><programlisting
+>&lt;HlCOct (komunaj atributoj) (lokaj limigiloj) /&gt;</programlisting
+></para>
+<para
+>Ĉi tiu regulo ne havas specifajn atributojn.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>HlCHex</term>
+<listitem>
+<para
+>Detekti deksesuma nombro-reprezento (kiel regula esprimo: <userinput
+>\b0[xX][0-9a-fA-F]+</userinput
+>).</para>
+<para
+><programlisting
+>&lt;HlCHex (komunaj atributoj) (lokaj limigiloj) /&gt;</programlisting
+></para>
+<para
+>Ĉi tiu regulo ne havas specifajn atributojn.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>HlCStringChar</term>
+<listitem>
+<para
+>Detektu eskapintan signon.</para>
+<para
+><programlisting
+>&lt;HlCStringChar (komunaj atributoj) /&gt;</programlisting
+></para>
+<para
+>Ĉi tiu regulo ne havas specifajn atributojn.</para>
+
+<para
+>Ĝi kongruas laŭvortajn prezentojn de signoj kutime uzataj en programkodo, ekzemple <userinput
+>\n</userinput
+> (novlinio) aŭ <userinput
+>\t</userinput
+> (TAB).</para>
+
+<para
+>La sekvaj signoj kongruos se ili sekvas malantaŭan oblikvon (<literal
+>\</literal
+>): <userinput
+>abefnrtv&quot;'?\</userinput
+>. Aldone, eskapis deksesumaj nombroj kiel ekzemple <userinput
+>\ xff</userinput
+> kaj eskapintaj oktalaj nombroj, ekzemple <userinput
+>\033</userinput
+> kongruos.</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>HlCChar</term>
+<listitem>
+<para
+>Detektu C-signon.</para>
+<para
+><programlisting
+>&lt;HlCChar (komunaj atributoj) /&gt;</programlisting
+></para>
+<para
+>Ĉi tiu regulo ne havas specifajn atributojn.</para>
+
+<para
+>Ĝi kongruas kun C-signoj enfermitaj en apostrofo (Ekzemplo: <userinput
+>'c'</userinput
+>). La apostrofoj povas esti simpla signo aŭ eskapita signo. Vidu HlCStringChar por egalitaj eskapintaj signosekvencoj.</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>RangeDetect</term>
+<listitem>
+<para
+>Detektu ĉenon kun difinitaj komencaj kaj finaj signoj.</para>
+<programlisting
+>&lt;RangeDetect char=&quot;(signo)&quot; char1=&quot;(signo)&quot; (oftaj atributoj) /&gt;</programlisting>
+<para
+><userinput
+>char</userinput
+> difinas la signon komencantan la intervalon, <userinput
+>char1</userinput
+> la signon finantan la intervalon.</para>
+<para
+>Utila por detekti ekzemple malgrandajn cititajn ĉenojn kaj similajn, sed rimarku, ke ĉar la reliefiga motoro funkcias sur unu linio samtempe, ĉi tio ne trovos ĉenojn etendantajn super liniorompo.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>LinioDaŭrigi</term>
+<listitem>
+<para
+>Kongruas kun specifita signo ĉe la fino de linio.</para>
+<programlisting
+>&lt;LineContinue (komunaj atributoj) [char="\"] /&gt;</programlisting>
+<para
+><userinput
+>char</userinput
+> laŭvola signo por kongrui, defaŭlta estas malantaŭa oblikvo (<userinput
+>'\'</userinput
+>). Nova ekde &kde; 4.13.</para>
+<para
+>Ĉi tiu regulo estas utila por ŝanĝi kuntekston ĉe fino de linio. Ĉi tio necesas ekzemple en C/C++ por daŭrigi makroojn aŭ ĉenojn.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Inkluzivi Regulojn</term>
+<listitem>
+<para
+>Enmetu regulojn de alia kunteksto aŭ lingvo/dosiero.</para>
+<programlisting
+>&lt;IncludeRules context=&quot;contextlink&quot; [includeAttrib=&quot;true|false&quot;] /&gt;</programlisting>
+
+<para
+>La atributo <userinput
+>kunteksto</userinput
+> difinas kiun kuntekston inkluzivi.</para>
+<para
+>Se ĝi estas simpla ĉeno, ĝi inkluzivas ĉiujn difinitajn regulojn en la nunan kuntekston, ekzemple: <programlisting
+>&lt;IncludeRules context=&quot;aliaKunteksto&quot; /&gt;</programlisting
+></para>
+
+<para
+>Se la ĉeno enhavas <userinput
+>##</userinput
+> la emfazsistemo serĉos kuntekston el alia lingvodifino kun la persona nomo, ekzemple <programlisting
+>&lt;IncludeRules context=&quot;String##C++&quot; &gt;</programlisting
+> inkluzivus la kuntekston <emphasis
+>String</emphasis
+> el la <emphasis
+>C++</emphasis
+>-reliefiga difino.</para>
+<para
+>Se la atributo <userinput
+>includeAttrib</userinput
+> estas <emphasis
+>true</emphasis
+>, ŝanĝu la cel-atributon al tiu de la fonto. Ĉi tio estas bezonata por ke, ekzemple, komentu funkciu, se teksto kongrua per la inkluzivita kunteksto estas malsama kulminaĵo de la gastiga kunteksto. </para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>DetectSpaces</term>
+<listitem>
+<para
+>Detekti blankajn spacojn.</para>
+<programlisting
+>&lt;DetectSpaces (komunaj atributoj) /&gt;</programlisting>
+
+<para
+>Ĉi tiu regulo ne havas specifajn atributojn.</para>
+<para
+>Uzu ĉi tiun regulon se vi scias, ke povas esti pluraj blankspacoj antaŭe, ekzemple en la komenco de indentitaj linioj. Ĉi tiu regulo preterlasos ĉiujn blankspacojn samtempe, anstataŭ testi plurajn regulojn kaj preterlasi unu samtempe pro neniu kongruo.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>DetektiIdentigilo</term>
+<listitem>
+<para
+>Detekti identigajn ĉenojn (kiel la regula esprimo: <userinput
+>[a-zA-Z_][a-zA-Z0-9_]*</userinput
+>).</para>
+<programlisting
+>&lt;DetectIdentifier (komunaj atributoj) /&gt;</programlisting>
+
+<para
+>Ĉi tiu regulo ne havas specifajn atributojn.</para>
+<para
+>Uzu ĉi tiun regulon por preterlasi ĉenon de vortsignoj samtempe, anstataŭ provi kun pluraj reguloj kaj salti unuope pro neniu kongruo.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3>
+<title
+>Konsiloj &amp; Trukoj</title>
+
+<itemizedlist>
+<para
+>Post kiam vi komprenis kiel funkcias la kuntekstoŝanĝo, estos facile skribi elstarajn difinojn. Tamen vi devas zorge kontroli kian regulon vi elektas en kiu situacio. Regulaj esprimoj estas tre potencaj, sed ili estas malrapidaj kompare kun la aliaj reguloj. Do vi povas konsideri la sekvajn konsiletojn. </para>
+
+<listitem>
+<para
+>Regulaj esprimoj estas facile uzeblaj sed ofte ekzistas alia multe pli rapida maniero atingi la saman rezulton. Konsideru, ke vi volas kongrui kun la signo <userinput
+>'#'</userinput
+> nur se ĝi estas la unua signo en la linio. Solvo bazita en regula esprimo aspektus jene: <programlisting
+>&lt;RegExpr attribute=&quot;Macro&quot; context=&quot;macro&quot; String=&quot;^\s*#&quot; /&gt;</programlisting
+> Vi povas atingi la samon multe pli rapide uzante : <programlisting
+>&lt;DetectChar attribute=&quot;Makro&quot; context=&quot;makro&quot; char=&quot;#&quot; firstNonSpace=&quot;true&quot; /&gt;</programlisting
+> Se vi volas kongrui kun la regula esprimo <userinput
+>'^#'</userinput
+> vi ankoraŭ povas uzi <userinput
+>DetectChar</userinput
+> kun la atributo <userinput
+>column=&quot;0&quot;</userinput
+>. La atributo <userinput
+>column</userinput
+> nombras signojn, do tabelilo estas nur unu signo. </para>
+</listitem>
+<listitem>
+<para
+>En reguloj <userinput
+>RegExpr</userinput
+>, uzu la atributon <userinput
+>column="0"</userinput
+> se la ŝablono <userinput
+>^PATTERN</userinput
+> estos uzata por kongrui tekston komence de linion. Ĉi tio plibonigas rendimenton, ĉar ĝi evitos serĉi kongruojn en la ceteraj kolumnoj.</para>
+</listitem>
+<listitem>
+<para
+>En regulaj esprimoj, uzu nekaptajn grupojn <userinput
+>(?:PATTERN)</userinput
+> anstataŭ kapti grupojn <userinput
+>(PATTERN)</userinput
+>, se la kaptoj ne estos uzataj en la sama regula esprimo aŭ en dinamikaj reguloj. Ĉi tio evitas konservi kaptojn nenecese.</para>
+</listitem>
+<listitem>
+<para
+>Vi povas ŝanĝi kuntekstojn sen prilabori signojn. Supozu, ke vi volas ŝanĝi kuntekston kiam vi renkontas la ĉenon <userinput
+>*/</userinput
+>, sed bezonas prilabori tiun ĉenon en la sekva kunteksto. La suba regulo kongruos, kaj la atributo <userinput
+>lookAhead</userinput
+> igos la reliefigilon konservi la kongruan ĉenon por la sekva kunteksto. <programlisting
+>&lt;StringDetect attribute=&quot;Comment&quot; context=&quot;#pop&quot; String=&quot;*/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
+</para>
+</listitem>
+<listitem>
+<para
+>Uzu <userinput
+>Detekti Spacojn</userinput
+> se vi scias ke multaj blankspacoj okazas.</para>
+</listitem>
+<listitem>
+<para
+>Uzu <userinput
+>DetektiIdentigilon</userinput
+> anstataŭ la regula esprimo <userinput
+>'[a-zA-Z_]\w*'</userinput
+>.</para>
+</listitem>
+<listitem>
+<para
+>Uzu defaŭltajn stilojn kiam ajn vi povas. Tiel la uzanto trovos konatan medion.</para>
+</listitem>
+<listitem>
+<para
+>Rigardu aliajn &XML; dosierojn por vidi kiel aliaj homoj efektivigas malfacilajn regulojn.</para>
+</listitem>
+<listitem>
+<para
+>Vi povas validigi ĉiun &XML; dosiero per la komando <command
+>validatehl.sh mySyntax.xml</command
+>. La dosiero <filename
+>validatehl.sh</filename
+> uzas <filename
+>language.xsd</filename
+> kiuj ambaŭ estas disponeblaj en <ulink url="https://commits.kde.org/syntax-highlighting?path= data/schema"
+>Deponejo pri sintaksa reliefigo</ulink
+>. </para>
+</listitem>
+<listitem>
+<para
+>Se vi ripetas kompleksan regulan esprimon tre ofte, vi povas uzi <emphasis
+>ENTOJ</emphasis
+>. Ekzemplo:</para>
+<programlisting
+>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE language
+[
+        &lt;!ENTITY miaref   "[A-Za-z_:][\w.:_-]*"&gt;
+]&gt;
+</programlisting>
+<para
+>Nun vi povas uzi <emphasis
+>&amp;miaref;</emphasis
+> anstataŭ la regula esprimo.</para>
+</listitem>
+<listitem>
+<para
+>En Kate Editor, vi povas reŝargi sintaksojn uzante la enkonstruitan komandlinion (<userinput
+>F7</userinput
+> ŝparvojo defaŭlte) kaj la komandon <command
+>reload-highlighting</command
+>.</para>
+</listitem>
+<listitem>
+<para
+>Vi povas uzi la komandlinian ilon nomitan <userinput
+>ksyntaxhighlighter6</userinput
+> (<userinput
+>kate-syntax-highlighter</userinput
+> ĉe pli malnovaj versioj) por testi sintakson kaj montri la stilon kaj regionojn asociitajn kun ĉiu parto de teksto.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="ksyntaxhighlighter6-trace-format.png"/></imageobject>
+<textobject
+><phrase
+>Rezulto de <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</phrase
+></textobject>
+<caption
+><para
+>Rezulto de <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</para>
+</caption>
+</mediaobject>
+
+<para
+>Uzu <command
+>ksyntaxhighlighter6 -h</command
+> por pliaj opcioj.</para>
+</listitem>
+</itemizedlist>
+</sect3>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="color-themes">
+<title
+>Laborante kun Koloraj Temoj</title>
+
+<sect2 id="color-themes-overview">
+
+<title
+>Superrigardo</title>
+
+<para
+>Kolortemoj difinas la kolorojn de la <link linkend="kate-part"
+>teksta redakta areo</link
+> kaj la <link linkend="highlight"
+>sintakso reliefigo</link
+>. Kolora temo ampleksas la jenon: <itemizedlist>
+<listitem
+><para
+>La teksta stilo, uzata por sintaksa reliefigo per la <emphasis
+>defaŭltaj stilaj atributoj</emphasis
+>. Ekzemple, la tekstokoloro kaj la elektita tekstokoloro.</para
+></listitem>
+<listitem
+><para
+>La fono de la teksta redakta areo, inkluzive de la tekstoelekto kaj la aktuala linio.</para
+></listitem>
+<listitem
+><para
+>La piktograma rando de la teksta areo: ilia fono, la apartlinio, la linionumeroj, la liniaj vortvolvaj markiloj, la modifitaj linimarkoj kaj la koda faldado.</para
+></listitem>
+<listitem
+><para
+>Tekstaj dekoraciistoj kiel ekzemple la serĉsignoj, la indentaĵo kaj tab-/spac-liniomarkoj, la kongruo de krampoj kaj la literuma kontrolo.</para
+></listitem>
+<listitem
+><para
+>Legosignoj kaj fragmentoj.</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Por eviti konfuzon, la jena estas ekstere de amplekso: <itemizedlist>
+<listitem
+><para
+>La tiparo kaj la tipa grandeco.</para
+></listitem>
+<listitem
+><para
+>La koloroj de la teksta redakta aplikaĵo, kiel la rulumbreto mapo, la menuoj, la langetobreto, la fenestrokoloro, ktp. En &kde; aplikoj, kiel &kate; aŭ &kdevelop;, ĉi tiuj koloroj estas difinitaj per la <userinput
+>&kde; &plasma; ĉiea kolorskemo</userinput
+>, kiuj estas fiksitaj en la modulo <ulink url="help:/kcontrol/colors/"
+><quote
+>Koloroj</quote
+> en &systemsettings;</ulink
+> aŭ de la aplikaĵo mem en la menuo <menuchoice
+><guimenu
+>Agordoj</guimenu
+><guisubmenu
+>Kolorskemo</guisubmenu
+></menuchoice
+>. </para
+></listitem>
+</itemizedlist>
+</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="breeze-color-theme-preview.png"/></imageobject>
+<textobject
+><phrase
+><quote
+>Breeze Light</quote
+> kaj <quote
+>Breeze Dark</quote
+> kolortemoj kun la sintaksa reliefigo de <quote
+>C++</quote
+>.</phrase>
+</textobject>
+<caption
+><para
+><quote
+>Breeze Light</quote
+> kaj <quote
+>Breeze Dark</quote
+> kolortemoj kun la sintaksa reliefigo de <quote
+>C++</quote
+>.</para>
+</caption>
+</mediaobject>
+
+</sect2>
+
+<sect2 id="color-themes-ksyntaxhighlighting">
+
+<title
+>La KSyntaxHighlighting Koloraj Temoj</title>
+
+<para
+>La <ulink url="https://api.kde.org/frameworks/syntax-highlighting/html/"
+>KSyntaxHighlighting</ulink
+> kadro, kiu estas la <link linkend="highlight"
+>sintakso reliefigo </link
+> motoro, estas la biblioteko kiu <userinput
+> provizas kaj administras la kolortemojn</userinput
+>. Ĉi tio estas parto de &kde; &frameworks; kaj estas uzata en &kde; tekstredaktiloj kiel <ulink url="https://apps.kde.org/en/kate"
+>&kate;</ulink
+>, <ulink url="https://apps.kde.org/en /kwrite"
+>&kwrite;</ulink
+>, <ulink url="https://apps.kde.org/en/kile"
+>&kile;</ulink
+> kaj <ulink url="https://apps.kde.org/en/kdevelop"
+>&kdevelop;</ulink
+>. Ĉi tiu dependeco aspektas kiel jena:</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="kf5-ksyntaxhighlighting.png"/></imageobject>
+<textobject
+><phrase
+>Dependeco de &kde; &frameworks; 5 bibliotekoj pri tekstoredaktiloj.</phrase
+></textobject>
+<caption
+><para
+>Dependeco de &kde; &frameworks; bibliotekoj pri tekstoredaktiloj.</para>
+</caption>
+</mediaobject>
+
+<para
+>KSyntaxHighlighting inkluzivas diversajn enkonstruitajn temojn kiuj estas montritaj sur la paĝo <ulink url="https://kate-editor.org/themes/"
+><quote
+>Koloraj Temoj</quote
+> de la retejo de Kate-redaktilo. </ulink
+>.</para>
+
+<para
+>La kadro <ulink url="https://api.kde.org/frameworks/ktexteditor/html/"
+>KTextEditor</ulink
+>, kiu estas la tekstoredaktadmotoro, disponigas uzantinterfacon por krei kaj redakti kolortemojn , inkluzive de ilo por importi kaj eksporti temojn. Ĉi tio estas la plej simpla maniero krei kaj redakti ilin, vi povas aliri ĝin de la <link linkend="config-dialog"
+><quote
+>Agordi</quote
+> dialogo</link
+> de la tekstredaktilo. Pliaj detaloj en <xref linkend="color-themes-gui"/>.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="color-themes-gui-breeze-dark-default-text-styles.png"/></imageobject>
+<textobject
+><phrase
+>La &GUI; por administri kolortemojn en la agordoj de &kate;.</phrase
+></textobject>
+<caption
+><para
+>La &GUI; por administri kolorajn temojn en la agordoj de &kate;.</para>
+</caption>
+</mediaobject>
+
+<para
+>Estas grave mencii ke, en la &kde; tekstredaktiloj kiel &kate; aŭ &kdevelop;, la kolortemoj de KSyntaxHighlighting estas uzataj <ulink url="https://kate-editor.org/post/2020/2020-09-13-kate-color-themes-5.75/"
+>ekde &kde; &frameworks; 5.75</ulink
+>, publikigita la 10-an de oktobro 2020. Antaŭe, la kolorskemoj de &kate; (skem-agordo bazita en KConfig) estis uzataj kaj nun estas malrekomenditaj. Tamen, eblas konverti la malnovan &kate; skemoj al la kolortemoj de KSyntaxHighlighting. La <ulink url="https://invent.kde.org/frameworks/syntax-highlighting"
+>KSyntaxHighlighting-deponejo</ulink
+> inkluzivas la <userinput
+>utils/kateschema_to_theme_converter.py</userinput
+> skripton kaj la <userinput
+>utils/schema-converter/</userinput
+> ilo por tiu celo. </para>
+
+</sect2>
+
+<sect2 id="color-themes-json">
+
+<title
+>La Koloraj Temoj &JSON; Formato</title>
+
+<sect3 id="color-themes-json-overview">
+
+<title
+>Superrigardo</title>
+
+<para
+>Koloraj temoj estas konservitaj en JSON; formataj dosieroj, kun la etendo <userinput
+>.theme</userinput
+>.</para>
+
+<para
+>En la <ulink url="https://invent.kde.org/frameworks/syntax-highlighting"
+> KSyntaxHighlighting fontkodo</ulink
+>, la &JSON; dosieroj de enkonstruitaj temoj troviĝas en la dosierujo <userinput
+>data/themes/</userinput
+>. Notu, ke en tekstredaktiloj, la enkonstruitaj temoj estas kompilitaj en la bibliotekon KSyntaxHighlighting, tial la maniero aliri ilin estas per la fontkodo aŭ per <link linkend="color-themes-gui-import-export"
+> eksportante ilin el la &GUI; por administri temojn de KTextEditor</link
+>.</para>
+
+<para
+>Ankaŭ eblas facile aldoni pliajn aŭ proprajn temojn, kiuj estas ŝargitaj de la dosiersistemo. Uzant-personigitaj etosdosieroj troviĝas en la dosierujo <filename class="directory"
+>org.kde.syntax-highlighting/themes/</filename
+> en via uzantdosierujo, kiun vi povas trovi per la komando <userinput
+><command
+>qtpaths</command
+><option
+> --paths GenericDataLocation</option
+></userinput
+> kaj estas kutime <filename class="directory"
+><envar
+>$HOME</envar
+>/.local/share/</filename
+> kaj <filename class="directory"
+>/usr/share/</filename
+>. </para>
+
+<para
+>En Flatpak kaj Snap-pakaĵoj, ĉi-supra dosierujo ne funkcios ĉar la datuma loko estas malsama por ĉiu aplikaĵo. En Flatpak-aplikaĵo, la loko de propraj etosdosieroj estas kutime <filename class="directory"
+><envar
+>$HOME</envar
+>/.var/app/<replaceable
+>flatpak-package-name</replaceable
+> /data/org.kde.syntax-highlighting/themes/</filename
+> kaj en Snap-aplikaĵo tiu loko estas <filename class="directory"
+><envar
+>$HOME</envar
+>/snap/<replaceable
+> snap-package-name</replaceable
+>/current/.local/share/org.kde.syntax-highlighting/themes/</filename
+>. </para>
+
+<para
+>Sur &Windows; ĉi tiuj dosieroj troviĝas <filename
+>%USERPROFILE%\AppData\Local\org.kde.syntax-highlighting	hemes</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> kutime vastiĝas al <filename
+>C:\Users\<replaceable
+>uzantnomo</replaceable
+></filename
+>.</para>
+
+<para
+>Resume, por la plej multaj agordoj la propraj temoj dosierujo estas jena:</para>
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+<row>
+<entry
+>Por loka uzanto</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/.local/share/org.kde.syntax-highlighting/themes/</filename
+></entry>
+</row>
+<row>
+<entry
+>Por ĉiuj uzantoj</entry>
+<entry
+><filename class="directory"
+>/usr/share/org.kde.syntax-highlighting/themes/</filename
+></entry>
+</row>
+<row>
+<entry
+>Por Flatpak-pakaĵoj</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/.var/app/<replaceable
+>flatpak-package-name</replaceable
+>/data/org.kde.syntax-highlighting/themes/</filename
+></entry>
+</row>
+<row>
+<entry
+>Por Snap-pakaĵoj</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/snap/<replaceable
+>snap-package-name</replaceable
+>/current/.local/share/org.kde.syntax-highlighting/themes/</filename
+></entry>
+</row>
+<row>
+<entry
+>Sur &Windows;</entry>
+<entry
+><filename
+>%USERPROFILE%\AppData\Local\org.kde.syntax-highlighting	hemes</filename
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Se ekzistas pluraj temodosieroj kun la sama nomo, la dosiero kun la plej alta <userinput
+>revizio</userinput
+> estos ŝargita. </para>
+
+</sect3>
+
+<sect3 id="color-themes-json-basic">
+
+<title
+>La &JSON; Strukturo</title>
+
+<para
+>La strukturo de &JSON; dosiero estas klarigita en <ulink url="https://www.json.org"
+>ilia retejo</ulink
+>. Esence, &JSON; formato dosiero konsistas el: <itemizedlist>
+<listitem
+><para
+>Kolektoj de ŝlosilaj/valoraj paroj, apartigitaj per komoj kaj grupigitaj en <userinput
+>{ }</userinput
+> kiujn ni nomos <quote
+>objektoj</quote
+>.</para
+></listitem>
+<listitem
+><para
+>Ordigitaj valorlistoj, apartigitaj per komoj kaj grupigitaj en <userinput
+>[ ]</userinput
+> kiun ni nomos <quote
+>tabelo</quote
+>.</para
+></listitem
+></itemizedlist>
+</para>
+
+<para
+>La nomenklaturo <quote
+>ŝlosilo</quote
+>, <quote
+>valoro</quote
+>, <quote
+>objekto</quote
+> kaj <quote
+>tabelo</quote
+> estos uzataj en ĉi tiu artikolo. Se ĉi tio estas via unua fojo laboranta kun &JSON; dosierojn, kompreni ilin estas tiel simple kiel rigardi la ekzemplojn sube. </para>
+
+</sect3>
+
+<sect3 id="color-themes-json-root">
+
+<title
+>Ĉefaj Sekcioj de la &JSON; Koloraj Temoj Dosieroj</title>
+
+<para
+>La radika objekto de la kolortemo &JSON; dosiero enhavas la sekvajn skemajn ŝlosilojn:</para>
+
+<itemizedlist>
+<listitem
+><para
+><userinput
+>metadatenoj</userinput
+>: Ĝi estas deviga. La valoro estas objekto kun la metadatenoj de la temo, kiel nomo, revizio kaj permesilo.</para>
+<para
+>Ĉi tio estas detala en <xref linkend="color-themes-json-metadata"/>.</para>
+</listitem>
+
+<listitem
+><para
+><userinput
+>editor-colors</userinput
+>: Ĝi estas deviga. La valoro estas objekto kun la koloroj de la teksta redakta areo, kiel la fono, la piktogramo kaj la teksta ornamado.</para>
+<para
+>Ĉi tio estas detala en <xref linkend="color-themes-editor-colors"/>.</para>
+</listitem>
+
+<listitem
+><para
+><userinput
+>teksto-stiloj</userinput
+>: Ĝi estas deviga. La valoro estas objekto kun la <emphasis
+>defaŭlta tekstostilo</emphasis
+> atributoj de la sintaksa reliefigo. Ĉiu eco difinas sian <emphasis
+>tekstokoloron</emphasis
+>, ĝian <emphasis
+>elektitan tekstokoloron</emphasis
+>, aŭ ĉu ĝi ekzemple <emphasis
+>grasa</emphasis
+> aŭ <emphasis
+>kursiva</emphasis
+>. La tekstostiloj povas esti referencitaj de <link linkend="kate-highlight-default-styles"
+>la atributoj de la sintaksa difino &XML; dosieroj</link
+>.</para>
+<para
+>Ĉi tio estas detala en <xref linkend="color-themes-text-styles"/>.</para>
+</listitem>
+
+<listitem
+><para
+><userinput
+>personaj stiloj</userinput
+>: Ĝi estas laŭvola. Difinas tekstajn stilojn por la atributoj de specifaj sintakso elstarigante difinojn. Ekzemple, en reliefiga difino kiel <userinput
+>Python</userinput
+> aŭ <userinput
+>Markdown</userinput
+> vi povas specifi malsaman tekstostilon, kiu anstataŭas la defaŭltan difinitan en <userinput
+>teksto-stiloj</userinput
+>.</para>
+<para
+>Ĉi tio estas detala en <xref linkend="color-themes-custom-styles"/>.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>La &JSON; lingvo ne subtenas komentojn. Tamen, vi povas uzi la laŭvolan klavon <userinput
+>_comments</userinput
+> en la radika objekto por skribi komentojn, ekzemple, se vi adaptas ekzistantan temon vi povas meti la URL de la originala deponejo. La plej praktika maniero estas uzi tabelon de ĉenoj. </para>
+
+<para
+>Malsupre estas ekzempla dosiero por la temo <quote
+>Breeze Light</quote
+>. Vi povas rimarki ke, por eviti ke la ekzemplo estu tro granda, la objektoj <userinput
+>editor-colors</userinput
+> kaj <userinput
+>text-stiloj</userinput
+> ne enhavas ĉiujn postulatajn ŝlosilojn. Vi povas vidi la plenan arkivon de <ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/data/themes/breeze-light.theme"
+> la <quote
+>Breeze Light</quote
+> etoso en la KSyntaxHighlighting-deponejo</ulink
+>. </para>
+
+<programlisting
+>{
+    "_comments": [
+        "Ĉi tio estas komento.",
+        "Se ĉi tiu temo estas adapto de alia, metu la ligilon al la origina deponejo."
+    ],
+    "metadata": {
+        "name" : "Breeze Light",
+        "revision" : 5,
+        "copyright": [
+            "SPDX-FileCopyrightText: 2016 Volker Krause &lt;vkrause@kde.org&gt;",
+            "SPDX-FileCopyrightText: 2016 Dominik Haumann &lt;dhaumann@kde.org&gt;"
+        ],
+        "license": "SPDX-License-Identifier: MIT"
+    },
+    "editor-colors": {
+        "BackgroundColor" : "#ffffff",
+        "CodeFolding" : "#94caef",
+        "BracketMatching" : "#ffff00",
+        "CurrentLine" : "#f8f7f6",
+        "IconBorder" : "#f0f0f0",
+        "IndentationLine" : "#d2d2d2",
+        "LineNumbers" : "#a0a0a0",
+        "CurrentLineNumber" : "#1e1e1e",
+        <replaceable
+>La aliaj redaktilaj kolorklavoj...</replaceable>
+
+    },
+    "text-styles": {
+        "Normal" : {
+            "text-color" : "#1f1c1b",
+            "selected-text-color" : "#ffffff",
+            "bold" : false,
+            "italic" : false,
+            "underline" : false,
+            "strike-through" : false
+        },
+        "Keyword" : {
+            "text-color" : "#1f1c1b",
+            "selected-text-color" : "#ffffff",
+            "bold" : true
+        },
+        "Function" : {
+            "text-color" : "#644a9b",
+            "selected-text-color" : "#452886"
+        },
+        "Variable" : {
+            "text-color" : "#0057ae",
+            "selected-text-color" : "#00316e"
+        },
+        <replaceable
+>La aliaj tekstaj stilklavoj...</replaceable>
+
+    },
+    "custom-styles": {
+        "ISO C++": {
+            "Data Type": {
+                "bold": true,
+                "selected-text-color": "#009183",
+                "text-color": "#00b5cf"
+            },
+            "Keyword": {
+                "text-color": "#6431b3"
+            }
+        },
+        "YAML": {
+            "Attribute": {
+                "selected-text-color": "#00b5cf",
+                "text-color": "#00b5cf"
+            }
+        }
+    }
+}
+</programlisting>
+
+</sect3>
+
+<sect3 id="color-themes-json-metadata">
+
+<title
+>Metadatenoj</title>
+
+<para
+>La &JSON; objekto de la ŝlosilo <userinput
+>metadatumoj</userinput
+> enhavas koncernajn informojn pri la temo. Ĉi tiu objekto havas la sekvajn ŝlosilojn: <itemizedlist>
+<listitem
+><para
+><userinput
+>nomo</userinput
+>: Ĝi estas <emphasis
+>ĉeno</emphasis
+> fiksas la nomon de la lingvo. Ĝi aperas poste en la menuoj kaj dialogoj. Ĝi estas deviga.</para
+></listitem>
+
+<listitem
+><para
+><userinput
+>revizio</userinput
+>: Ĝi estas <emphasis
+>entjera</emphasis
+> nombro kiu specifas la nunan revizion de la temodosiero. Kiam ajn vi ĝisdatigas kolorteman dosieron, certigu pliigi ĉi tiun nombron. Ĝi estas deviga.</para
+></listitem>
+
+<listitem
+><para
+><userinput
+>licenco</userinput
+>: Ĝi estas <emphasis
+>ĉeno</emphasis
+> kiu difinas la permesilon de la temo, uzante la identigilon <userinput
+>SPDX-License-Identifier</userinput
+> el la norma <ulink url= "https://spdx.dev/"
+>SPDX-licenca komunikformato</ulink
+>. Ĝi estas laŭvola.</para>
+<para
+>Vi povas vidi la plenan liston de SPDX-licencaj identigiloj <ulink url="https://spdx.org/licenses/"
+>ĉi tie</ulink
+>.</para
+></listitem>
+
+<listitem
+><para
+><userinput
+>kopirajto</userinput
+>: Ĝi estas <emphasis
+>tabelo</emphasis
+> de <emphasis
+>ĉenoj</emphasis
+> kiu specifas la aŭtorojn de la temo, uzante la identigilon <userinput
+>SPDX-FileCopyrightText</userinput
+> de la norma <ulink url="https://spdx.dev/"
+>SPDX-licenca komunika formato</ulink
+>. Ĝi estas laŭvola.</para
+></listitem>
+</itemizedlist>
+</para>
+
+<programlisting
+>"metadata": {
+    "name" : "Breeze Light",
+    "revision" : 5,
+    "copyright": [
+        "SPDX-FileCopyrightText: 2016 Volker Krause &lt;vkrause@kde.org&gt;",
+        "SPDX-FileCopyrightText: 2016 Dominik Haumann &lt;dhaumann@kde.org&gt;"
+    ],
+    "license": "SPDX-License-Identifier: MIT"
+}
+</programlisting>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="color-themes-editing">
+
+<title
+>Koloroj en Detalo</title>
+
+<para
+>Ĉi tiu sekcio detaligas ĉiujn disponeblajn kolorajn atributojn kaj disponeblajn kolorajn agordojn.</para>
+
+<sect3 id="color-themes-editor-colors">
+
+<title
+>Redaktoro Koloroj</title>
+
+<para
+>Korespondas al la koloroj de la <link linkend="kate-part"
+>teksta redakta areo</link
+>.</para>
+
+<para
+>En la <link linkend="color-themes-json"
+>&JSON; temodosiero</link
+>, la respektiva klavo <userinput
+>editor-colors</userinput
+> havas kiel valoron <emphasis
+>objekton</emphasis
+> kie ĉiu ŝlosilo referencas al atributokoloro de la tekstredaktilo. Ĉi tie, <userinput
+>ĉiuj disponeblaj ŝlosiloj estas devigaj</userinput
+>, iliaj valoroj estas <userinput
+>ĉenoj</userinput
+> kun deksesuma kolorkodoj, kiel <quote
+>#00B5CF</quote
+>. </para>
+
+<para
+>En <link linkend="color-themes-gui"
+>la &GUI; por administri temojn de KTextEditor</link
+>, ĉi tiuj atributoj povas esti modifitaj en la langeto <userinput
+><guilabel
+>Koloroj</guilabel
+></userinput
+>. </para>
+
+<para
+>La disponeblaj ŝlosiloj estas la jenaj; la ŝlosiloj uzataj en la <link linkend="color-themes-json"
+>&JSON; dosiero</link
+> estas listigitaj en <emphasis
+>grasa</emphasis
+>, la nomoj uzataj en la <link linkend="color-themes-gui"
+>&GUI;</link
+> estas montritaj inter krampoj. </para>
+
+<variablelist>
+
+<varlistentry id="variable-prefcolors-colors-text-background">
+<term
+><guilabel
+>Redaktoro Fonaj Koloroj</guilabel
+></term>
+<listitem>
+
+<variablelist>
+
+<varlistentry id="variable-pref-colors-normal-text">
+<term
+><userinput
+>Fona Koloro</userinput
+> (<guilabel
+>Teksta Areo</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tio estas la defaŭlta fono por la redaktora areo, ĝi estos la domina koloro sur la redaktora areo.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-BackgroundColor.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-selected-text">
+<term
+><userinput
+>Tekstoelekto</userinput
+> (<guilabel
+>Elektita Teksto</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tio estas la fono por elektita teksto. </para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-TextSelection.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-current-line">
+<term
+><userinput
+>Nuna Linio</userinput
+> (<guilabel
+>Nuna Linio</guilabel
+>)</term>
+<listitem
+><para
+>Agordu la koloron por la nuna linio. Agordi ĉi tion iom diferenca de la Normala tekstfono helpas konservi fokuson sur la nuna linio. </para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-CurrentLine.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-search-highlight">
+<term
+><userinput
+>Serĉu Highlight</userinput
+> (<guilabel
+>Serĉi Highlight</guilabel
+>)</term>
+<listitem
+><para
+>Agordu la koloron por la teksto, kiu kongruas kun via lasta serĉo. </para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-SearchHighlight.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-replace-highlight">
+<term
+><userinput
+>Anstataŭigi Highlight</userinput
+> (<guilabel
+>Anstataŭigi Highlight</guilabel
+>)</term>
+<listitem
+><para
+>Agordu la koloron por la teksto, kiu kongruas kun via lasta anstataŭiga operacio.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-ReplaceHighlight.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-icon-border">
+<term
+><guilabel
+>Piktogramo Limo</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>PiktogramoBordo</userinput
+> (<guilabel
+>Fona Areo</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por la markoj, lininumeroj kaj faldeblaj signobordoj en la maldekstra flanko de la redaktora vido kiam ili estas montrataj. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>Lininumeroj</userinput
+> (<guilabel
+>Lininumeroj</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por desegni la linionumeroj sur la maldekstra flanko de la vido kiam estas montrata.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>CurrentLineNumber</userinput
+> (<guilabel
+>Nuna Linia Numero</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por desegni la linionumeron de la nuna linio, sur la maldekstra flanko de la vido kiam montrata. Agordi ĉi tion iom diferenca de <quote
+>Linenumeroj</quote
+> helpas konservi fokuson sur la nuna linio. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>Apartilo</userinput
+> (<guilabel
+>Apartilo</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por desegni la vertikalan linion, kiu apartigas la piktograman randon de la fono de la teksta areo.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-IconBorder.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>WordWrapMarker</userinput
+> (<guilabel
+>WordWrap Marker</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por desegni ŝablonon maldekstre de dinamike envolvitaj linioj kiam tiuj estas vicigitaj vertikale, same kiel por la senmova vortvolva markilo.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-WordWrapMarker.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>Kodfaldado</userinput
+> (<guilabel
+>Kodofaldado</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por reliefigi la sekcion de kodo, kiu estus faldita kiam vi alklakas la kodan faldsagon maldekstre de dokumento. Por pliaj informoj, vidu <link linkend="advanced-editing-tools-code-folding"
+>la kodfalddokumentadon</link
+>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-CodeFolding.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>Modifitaj Linioj</userinput
+> (<guilabel
+>Modifitaj Linioj</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por reliefigi maldekstre de dokumento linioj kiuj estis modifitaj sed ankoraŭ ne konservitaj. Por pliaj informoj, vidu <xref linkend="kate-part-line-modification"/>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>Konservitaj Linioj</userinput
+> (<guilabel
+>Konservitaj Linioj</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por reliefigi maldekstre de dokumentlinioj kiuj estis modifitaj ĉi tiu sesio kaj konservitaj. Por pliaj informoj, vidu <xref linkend="kate-part-line-modification"/>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-ModifiedLines.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-text-decorations">
+<term
+><guilabel
+>Tekstaj Dekoracioj</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>Ortografiokontrolo</userinput
+> (<guilabel
+>Literuma eraro</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por indiki literumajn erarojn.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-SpellChecking.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>TabMarker</userinput
+> (<guilabel
+>Tab kaj Spacaj Markiloj</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por desegni blankspacaj indikiloj, kiam ili estas ebligitaj.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-TabMarker.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>IndentLinio</userinput
+> (<guilabel
+>IndentLinio</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por desegni linion maldekstre de indentitaj blokoj, se <link linkend="appearance-general"
+>tiu funkcio estas ebligita</link
+>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-IndentationLine.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>Krampo-Kongruo</userinput
+> (<guilabel
+>Krampo-Elstaraĵo</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por desegni la fonon de kongruaj krampoj. </para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-BracketMatching.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-marker-colors">
+<term
+><guilabel
+>Markaj Koloroj</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>Marki legomarkon</userinput
+> (<guilabel
+>Legomarko</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata por indiki legosignojn. Notu, ke ĉi tiu koloro havas opakecon de 22% (kaj 33% por la nuna linio) rilate al la fono. Por pliaj informoj, vidu <xref linkend="kate-part-bookmarks"/>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-MarkBookmark.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkBreakpointActive</userinput
+> (<guilabel
+>Aktiva Breakpunkto</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la GDB-kromaĵo por indiki aktivan rompopunkton. Rimarku, ke ĉi tiu koloro havas opakecon al la fono. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-gdb.html"
+>la dokumentaron pri GDB-Aldonaĵo</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkBreakpointReached</userinput
+> (<guilabel
+>Atingita Breakpunkto</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la GDB-kromaĵo por indiki rompopunkton, kiun vi atingis dum senararigado. Rimarku, ke ĉi tiu koloro havas opakecon al la fono. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-gdb.html"
+>la dokumentaron pri GDB-Aldonaĵo</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkBreakpointDisabled</userinput
+> (<guilabel
+>Malŝaltita Breakpoint</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la GDB-kromaĵo por indiki neaktivan rompopunkton. Rimarku, ke ĉi tiu koloro havas opakecon al la fono. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-gdb.html"
+>la dokumentaron pri GDB-Aldonaĵo</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkExecution</userinput
+> (<guilabel
+>Ekzekuto</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la GDB-kromaĵo la linio nuntempe ekzekutita. Rimarku, ke ĉi tiu koloro havas opakecon al la fono. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-gdb.html"
+>la dokumentaron pri GDB-Aldonaĵo</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkWarning</userinput
+> (<guilabel
+>Averto</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la konstrukromaĵo por indiki linion, kiu kaŭzis averton pri kompililo. Rimarku, ke ĉi tiu koloro havas opakecon al la fono. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-build.html"
+>la dokumentaron pri Konstrua Kromaĵo</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkError</userinput
+> (<guilabel
+>Eraro</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la konstrukromaĵo por indiki linion, kiu kaŭzis eraron de kompililo. Rimarku, ke ĉi tiu koloro havas opakecon al la fono. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-build.html"
+>la dokumentaron pri Konstrua Kromaĵo</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-text-templates-snippets">
+<term
+><guilabel
+>Tekstaj Ŝablonoj &amp; Fragmentoj</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>Ŝablona Fono</userinput
+> (<guilabel
+>Fono</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la &kate; Kromaĵo de fragmentoj por marki la fonon de fragmento. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>la &kate; Dokumentado pri fragmentoj</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>ŜablonoPlaceholder</userinput
+> (<guilabel
+>Redaktebla Anstataŭilo</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la &kate; Aldonaĵo de fragmentoj por marki lokokupilon, kiun vi povas alklaki por redakti mane. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>la &kate; Dokumentado pri fragmentoj</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>TemplateFocusedPlaceholder</userinput
+> (<guilabel
+>Enfokusigita Redaktebla Anstataŭilo</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la &kate; Aldonaĵo de fragmentoj por marki la lokokupilon, kiun vi nun redaktas. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>la &kate; Dokumentado pri fragmentoj</ulink
+>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-Template.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>TemplateReadOnlyPlaceholder</userinput
+> (<guilabel
+>Ne Redaktebla Anstataŭilo</guilabel
+>)</term>
+<listitem
+><para
+>Ĉi tiu koloro estas uzata de la &kate; Aldonaĵo de fragmentoj por marki lokokupilon, kiu ne povas esti redaktita permane, kiel tiu, kiu estas aŭtomate plenigita. Por pliaj informoj, vidu <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>la &kate; Dokumentado pri fragmentoj</ulink
+>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-TemplateReadOnlyPlaceholder.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="color-themes-text-styles">
+
+<title
+>Defaŭltaj Tekstaj Stiloj</title>
+
+<para
+>La defaŭltaj tekstaj stiloj estas hereditaj de la elstaraj tekstostiloj, permesante al la redaktilo prezenti tekston en tre konsekvenca maniero, ekzemple komenta teksto uzas la saman stilon en preskaŭ ĉiuj tekstformatoj kiujn KSyntaxHighlighting povas reliefigi. </para>
+
+<note>
+<para
+>Tiuj ĉi tekstostiloj povas esti referencitaj de la <userinput
+>defaŭltaj stiloj</userinput
+> uzataj en <link linkend="highlight"
+>sintakso reliefigo</link
+> difino &XML; dosierojn, ekzemple, la atributo <quote
+>Normala</quote
+> estas ekvivalenta al <quote
+>dsNormal</quote
+> en la &XML; dosieroj, kaj <quote
+>DataType</quote
+> estas ekvivalenta al <quote
+>dsDataType</quote
+>. Vidu <xref linkend="kate-highlight-default-styles"/> en la dokumentaro pri sintaksa reliefigo. </para>
+</note>
+
+<tip>
+<para
+>Nepre elektu legeblajn kolorojn kun bona kontrasto precipe en kombinaĵo kun la <userinput
+><link linkend="color-themes-editor-colors"
+>Redaktilaj Koloroj</link
+></userinput
+>. Vidu <xref linkend="color-themes-contrast"/>. </para>
+</tip>
+
+<para
+>En la <link linkend="color-themes-json"
+>&JSON; dosiero</link
+>, la respektiva klavo <userinput
+>tekstaj stiloj</userinput
+> havas kiel valoron <emphasis
+>objekton</emphasis
+> kie ĉiu klavo respondas al la nomo de <emphasis
+>defaŭlta tekstostilo</emphasis
+> , kiuj estas ekvivalentaj al tiuj uzataj en la sintakso elstarigante difinojn. Ĉi tie, <userinput
+>ĉiuj disponeblaj tekststilaj klavoj estas devigaj</userinput
+>, ĉi tiuj estas listigitaj sube. </para>
+
+<programlisting
+>"text-styles": {
+    "Normal" : {
+        "text-color" : "#1f1c1b",
+        "selected-text-color" : "#ffffff",
+        "bold" : false,
+        "italic" : false,
+        "underline" : false,
+        "strike-through" : false
+    },
+    "Keyword" : {
+        "text-color" : "#1f1c1b",
+        "selected-text-color" : "#ffffff",
+        "bold" : true
+    },
+    "Function" : {
+        "text-color" : "#644a9b",
+        "selected-text-color" : "#452886"
+    },
+    <replaceable
+>La aliaj tekststilaj klavoj...</replaceable>
+}
+</programlisting>
+
+<variablelist>
+<varlistentry>
+
+<term
+>Ĉiu ŝlosilo de <emphasis
+>defaŭlta teksta stilo</emphasis
+> havas &JSON; objekto kiel ĝia valoro, kie valoroj kiel <emphasis
+>koloro</emphasis
+>, <emphasis
+>grasa</emphasis
+>, <emphasis
+>kursivo</emphasis
+>, ktp. Ĉi tiuj klavoj estas kiel sekvas: </term>
+
+<listitem>
+
+<para
+><userinput
+>teksto-koloro</userinput
+>: Ĝi estas <emphasis
+>ĉeno</emphasis
+> kun la tekstkoloro en deksesuma kolorkodo. Ĉi tiu ŝlosilo/valoro estas postulata.</para>
+
+<para
+><userinput
+>elektita-teksto-koloro</userinput
+>: La tekstokoloro kiam ĝi estas elektita estas ĝenerale la sama valoro kiel <quote
+>text-color</quote
+>. Kiam la teksto estas elektita, la fono estas difinita per la valoro de <link linkend="variable-pref-colors-selected-text"
+>TextSelection</link
+> en la <link linkend="color-themes-editor -colors"
+>Redaktilaj Koloroj</link
+>, do vi devas certigi, ke la teksto havas bonan kontraston kaj estas legebla kun ĉi tiu fono. La valoro estas <emphasis
+>ĉeno</emphasis
+> kun deksesuma kolorkodo. Ĉi tiu ŝlosilo/valoro estas postulata.</para>
+
+<para
+><userinput
+>grasa</userinput
+>: Ĝi estas <emphasis
+>bulea</emphasis
+> kiu determinas ĉu la teksto estas grasa. Ĉi tiu ŝlosilo estas laŭvola, la defaŭlta valoro estas <userinput
+>false</userinput
+>.</para>
+
+<para
+><userinput
+>kursivo</userinput
+>: Ĝi estas <emphasis
+>bulea</emphasis
+> kiu determinas ĉu la teksto estas kurba. Ĉi tiu ŝlosilo estas laŭvola, la defaŭlta valoro estas <userinput
+>false</userinput
+>.</para>
+
+<para
+><userinput
+>substreki</userinput
+>: Ĝi estas <emphasis
+>bulea</emphasis
+> kiu determinas ĉu la teksto estas substrekita. Ĉi tiu ŝlosilo estas laŭvola, la defaŭlta valoro estas <userinput
+>false</userinput
+>.</para>
+
+<para
+><userinput
+>streko</userinput
+>: Ĝi estas <emphasis
+>bulea</emphasis
+> kiu determinas ĉu la teksto estas trastrekita. Ĉi tiu ŝlosilo estas laŭvola, la defaŭlta valoro estas <userinput
+>false</userinput
+>.</para>
+
+<para
+><userinput
+>fono-koloro</userinput
+>: Determinas la fonon de la teksto, uzata ekzemple en atentigoj en komentoj. La valoro estas <emphasis
+>ĉeno</emphasis
+> kun deksesuma kolorkodo. Ĉi tiu ŝlosilo estas laŭvola, defaŭlte ne ekzistas fono.</para>
+
+<para
+><userinput
+>elektita-fono-koloro</userinput
+>: Determinas la fonon de la teksto kiam ĝi estas elektita. La valoro estas <emphasis
+>ĉeno</emphasis
+> kun deksesuma kolorkodo. Ĉi tiu ŝlosilo estas laŭvola, defaŭlte ne ekzistas fono.</para>
+
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>En <link linkend="color-themes-gui"
+>la &GUI; por administri kolortemojn de KTextEditor</link
+>, ĉi tiuj atributoj povas esti modifitaj en la langeto <userinput
+><guilabel
+>Defaŭltaj Tekstaj Stiloj</guilabel
+></userinput
+>. La nomo en la listo de stiloj uzas la stilon agordita por la ero, provizante al vi tujan antaŭrigardon dum agordado de stilo. Ĉiu stilo ebligas al vi elekti komunajn atributojn same kiel malfonojn kaj fonkolorojn. Por nuligi fonkoloron, dekstre alklaku por uzi la kuntekstan menuon.</para>
+
+<para
+>La disponeblaj tekstaj stilklavoj estas la jenaj; la ŝlosiloj uzataj en la <link linkend="color-themes-json"
+>&JSON; dosiero</link
+> estas listigitaj en <emphasis
+>grasa</emphasis
+>, la nomoj uzataj en la <link linkend="color-themes-gui"
+>&GUI;</link
+> estas montritaj inter krampoj se ili estas malsamaj .</para>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Normala Teksto &amp; Fonta Kodo</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>Normala</userinput
+>: Defaŭlta tekststilo por normala teksto kaj fontkodo sen speciala reliefigo.</para>
+
+<para
+><userinput
+>Ŝlosilvorto</userinput
+>: Teksta stilo por enkonstruitaj lingvaj ŝlosilvortoj.</para>
+
+<para
+><userinput
+>Funkcio</userinput
+>: Teksta stilo por funkciodifinoj kaj funkciovokoj.</para>
+
+<para
+><userinput
+>Variablo</userinput
+>: Teksta stilo por variabloj, se aplikeble. Ekzemple, variabloj en PHP/Perl kutime komenciĝas per <userinput
+>$</userinput
+>, do ĉiuj identigiloj sekvantaj la ŝablonon <userinput
+>$foo</userinput
+> estas emfazitaj kiel variablo.</para>
+
+<para
+><userinput
+>ControlFlow</userinput
+> (<guilabel
+>Kontrolfluo</guilabel
+>): Tekstostilo por kontrolfluaj ŝlosilvortoj, kiel <emphasis
+>se</emphasis
+>, <emphasis
+>tiam</emphasis
+>, <emphasis
+> alie</emphasis
+>, <emphasis
+>reveni</emphasis
+>, <emphasis
+>ŝanĝi</emphasis
+>, <emphasis
+>rompi</emphasis
+>, <emphasis
+>cedi</emphasis
+>, <emphasis
+>daŭrigi</emphasis
+> , ktp.</para>
+
+<para
+><userinput
+>Operatoro</userinput
+>: Teksta stilo por funkciigistoj, kiel <userinput
+>+</userinput
+>, <userinput
+>-</userinput
+>, <userinput
+>*</userinput
+>, <userinput
+>/</userinput
+>, <userinput
+>%</userinput
+>, ktp.</para>
+
+<para
+><userinput
+>Enkonstruita</userinput
+> (<guilabel
+>Enkonstruita</guilabel
+>): Teksta stilo por enkonstruitaj lingvoklasoj, funkcioj kaj objektoj.</para>
+
+<para
+><userinput
+>Etendaĵo</userinput
+>: Teksta stilo por konataj etendaĵoj, kiel &Qt; klasoj, funkcioj/makrooj en C++ kaj Python aŭ boost.</para>
+
+<para
+><userinput
+>Antaŭprocesoro</userinput
+>: Tekstostilo por antaŭprocesoraj deklaroj aŭ makrodifinoj.</para>
+
+<para
+><userinput
+>Atributo</userinput
+>: Teksta stilo por komentarioj aŭ atributoj de funkcioj aŭ objektoj, ekz. <userinput
+>@override</userinput
+> en Java, aŭ <userinput
+>__declspec(...)</userinput
+> kaj <userinput
+>__attribute__((...))</userinput
+> en C++.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Nombroj, Tipoj &amp; Konstantoj</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>Datupo</userinput
+> (<guilabel
+>Datumtipo</guilabel
+>): Teksta stilo por enkonstruitaj datumtipoj kiel <emphasis
+>int</emphasis
+>, <emphasis
+>char</emphasis
+>, <emphasis
+>flosi</emphasis
+>, <emphasis
+>malplenigo</emphasis
+>, <emphasis
+>u64</emphasis
+>, ktp.</para>
+
+<para
+><userinput
+>DecVal</userinput
+> (<guilabel
+>Decimalo/Valoro</guilabel
+>): Teksta stilo por dekumaj valoroj.</para>
+
+<para
+><userinput
+>BazoN</userinput
+> (<guilabel
+>Baza-N Entjero</guilabel
+>): Teksta stilo por nombroj kun bazo alia ol 10.</para>
+
+<para
+><userinput
+>Flosilo</userinput
+> (<guilabel
+>Flobilpunkto</guilabel
+>): Teksta stilo por glitkomaj nombroj.</para>
+
+<para
+><userinput
+>Konstanto</userinput
+>: Teksta stilo por lingvaj konstantoj kaj uzant-difinitaj konstantoj, ekz. <emphasis
+>True</emphasis
+>, <emphasis
+>False</emphasis
+>, <emphasis
+>None</emphasis
+> en Python aŭ <emphasis
+>nullptr</emphasis
+> en C/C++; aŭ matematikaj konstantoj kiel <emphasis
+>PI</emphasis
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ĉenoj &amp; Signoj</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>Signo</userinput
+> (<guilabel
+>Signo</guilabel
+>): Teksta stilo por unuopaj signoj kiel <userinput
+>'x'</userinput
+>.</para>
+
+<para
+><userinput
+>Speciala Signo</userinput
+> (<guilabel
+>Speciala Signo</guilabel
+>): Tekstostilo por eskapintaj signoj en ĉenoj, ekz. <quote
+><userinput
+>saluton\n</userinput
+></quote
+>, kaj aliajn signojn kun speciala signifo en ĉenoj, kiel anstataŭaĵoj aŭ regex operatoroj.</para>
+
+<para
+><userinput
+>String</userinput
+>: Teksta stilo por ĉenoj kiel <quote
+><userinput
+>saluton mondo</userinput
+></quote
+>.</para>
+
+<para
+><userinput
+>VerbatimString</userinput
+> (<guilabel
+>Laŭvorta String</guilabel
+>): Tekstostilo por laŭvorte aŭ krudaj ĉenoj kiel <userinput
+>'raw \backlash'</userinput
+> en Perl, CoffeeScript, kaj ŝeloj, kiel same kiel <userinput
+>r'\raw'</userinput
+> en Python, aŭ kiel ĈI TIE dokumentoj.</para>
+
+<para
+><userinput
+>Speciala Ĉeno</userinput
+> (<guilabel
+>Speciala Ĉeno</guilabel
+>): Teksta stilo por specialaj ĉenoj, kiel regulaj esprimoj en ECMAScript, la &latex; matematika reĝimo, SQL, ktp.</para>
+
+<para
+><userinput
+>Importu</userinput
+> (<guilabel
+>Importadoj, Moduloj, Inkluziviĝoj</guilabel
+>): Tekstostilo por inkludoj, importadoj, moduloj aŭ &latex; pakoj.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Komentoj &amp; Dokumentado</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>Komento</userinput
+>: Teksta stilo por normalaj komentoj.</para>
+
+<para
+><userinput
+>Dokumentado</userinput
+>: Teksta stilo por komentoj kiuj reflektas API-dokumentadon, kiel ekzemple <userinput
+>/** doxygen-komentoj */</userinput
+> aŭ <userinput
+>"""docstrings"""</userinput
+>.</para>
+
+<para
+><userinput
+>Komentado</userinput
+>: Teksta stilo por komentoj en komentoj aŭ dokumentaj komandoj, kiel <userinput
+>@param</userinput
+> en Doxygen aŭ JavaDoc.</para>
+
+<para
+><userinput
+>CommentVar</userinput
+> (<guilabel
+>Komenta Variablo</guilabel
+>): Tekstostilo kiu rilatas al variablo-nomoj uzataj en supraj komandoj en komento, kiel <userinput
+>foobar</userinput
+> en <quote
+><. userinput
+>@param foobar</userinput
+></quote
+>, en Doxygen aŭ JavaDoc.</para>
+
+<para
+><userinput
+>Regiomarkilo</userinput
+> (<guilabel
+>Regiona markilo</guilabel
+>): Teksta stilo por regionmarkoj, kutime difinita per <userinput
+>//BEGIN</userinput
+> kaj <userinput
+>//END</userinput
+> en komentoj.</para>
+
+<para
+><userinput
+>Informo</userinput
+>: Teksta stilo por informoj, notoj kaj konsiloj, kiel la ŝlosilvorto <userinput
+>@noto</userinput
+> en Doxygen.</para>
+
+<para
+><userinput
+>Averto</userinput
+>: Teksta stilo por avertoj, kiel la ŝlosilvorto <userinput
+>@warning</userinput
+> en Doxygen.</para>
+
+<para
+><userinput
+>Averto</userinput
+>: Teksta stilo por specialaj vortoj en komentoj, kiel <userinput
+>TODO</userinput
+>, <userinput
+>FIXME</userinput
+>, <userinput
+>XXXX</userinput
+> kaj <userinput
+>AVERTO </userinput
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Diversaj</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>Eraro</userinput
+>: Teksta stilo indikanta eraran reliefigon kaj malĝustan sintakson.</para>
+
+<para
+><userinput
+>Aliaj</userinput
+>: Teksta stilo por atributoj kiuj ne kongruas kun iu ajn el la aliaj defaŭltaj stiloj.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+<sect3 id="color-themes-custom-styles">
+
+<title
+>Propra Substrekante Tekstajn Stilojn</title>
+
+<para
+>Ĉi tie vi povas establi tekstajn stilojn por specifa sintaksa emfaza difino, superregante la <userinput
+>defaŭltan tekstostilon</userinput
+> priskribitan en <link linkend="color-themes-text-styles"
+>la antaŭa sekcio</link
+> . </para>
+
+<para
+>En la <link linkend="color-themes-json"
+>&JSON; temodosiero</link
+>, ĉi tio respondas al la ŝlosilo <userinput
+>personaj stiloj</userinput
+>, kies valoro estas <emphasis
+>objekto</emphasis
+> kie ĉiu subskema ŝlosilo respondas al la <userinput
+>nomo de sintaksa reliefigo-difino</userinput
+>. Ĝia valoro estas <emphasis
+>objekto</emphasis
+> kie ĉiu ŝlosilo referencas al la <userinput
+>nomo de stilaj atributoj</userinput
+> difinita en <link linkend="kate-highlight-sections"
+>la <userinput
+>itemData</userinput
+> elementoj</link
+> de la sintakso reliefiganta &XML; dosiero, kaj la respektiva valoro estas subobjekto kun la klavoj <emphasis
+>text-color</emphasis
+>, <emphasis
+>selected-text-color</emphasis
+>, <emphasis
+>grasa</emphasis
+>, <emphasis
+>kursivo</emphasis
+>, <emphasis
+>substreki</emphasis
+>, <emphasis
+>streko</emphasis
+>, <emphasis
+>fonkoloro</emphasis
+> kaj <emphasis
+>elektita fonkoloro</emphasis
+>, difinita en <link linkend="color-themes-text-styles"
+>la antaŭa sekcio</link
+>. Ĉiu el ĉi tiuj valoroj estas nedeviga, ĉar se ili ne ĉeestas, la stilo fiksita en <userinput
+>teksto-stiloj</userinput
+> estas konsiderata. </para>
+
+<para
+>Ekzemple, en ĉi tiu kodo, la sintaksa emfaza difino de <quote
+>ISO C++</quote
+> havas specialan tekstan stilon por la atributoj <quote
+>Tipo-Modifiloj</quote
+> kaj <quote
+>Normaj Klasoj</quote
+>. En la responda &XML; dosiero <quote
+>isocpp.xml</quote
+>, la difinita atributo <quote
+>Normaj Klasoj</quote
+> uzas la defaŭltan stilon <userinput
+>BuiltIn</userinput
+> (aŭ dsBuiltIn). En ĉi tiu eco, nur la valoro de <userinput
+>teksto-koloro</userinput
+> estas anstataŭita de la nova koloro <quote
+>#6431b3</quote
+>. </para>
+
+<programlisting
+>"custom-styles": {
+    "ISO C++": {
+        "Standard Classes": {
+            "text-color": "#6431b3"
+        },
+        "Type Modifiers": {
+            "bold": true,
+            "selected-text-color": "#009183",
+            "text-color": "#00b5cf"
+        }
+    }
+}
+</programlisting>
+
+<note>
+<itemizedlist>
+
+<listitem>
+<para
+>Vi devus konsideri, ke ĉi tiuj tekstaj stiloj estas asociitaj kun la atributaj nomoj difinitaj en la sintaksa reliefigo &XML; dosierojn. Se XML-dosiero estas ĝisdatigita kaj iuj atributoj estas renomitaj aŭ forigitaj, la propra stilo difinita en la temo ne plu aplikiĝos.</para>
+</listitem>
+
+<listitem>
+<para
+>Sintakso elstariganta difinojn ofte inkluzivas aliajn difinojn. Ekzemple, la markilo <quote
+>QML</quote
+> inkluzivas la markilon <quote
+>JavaScript</quote
+>, ĉar ili kunhavas funkciojn en reliefigo.</para>
+</listitem>
+
+</itemizedlist>
+</note>
+
+<para
+>En <link linkend="color-themes-gui"
+>la &GUI; por administri temojn de KTextEditor</link
+>, ĉi tiuj atributoj povas esti modifitaj en la langeto <userinput
+><guilabel
+>Elstarigado de Tekstaj Stiloj</guilabel
+></userinput
+>. Defaŭlte, la redaktilo antaŭelektas la reliefigon de la nuna dokumento. Vi rimarkos, ke multaj lumaĵoj enhavas aliajn lumaĵojn reprezentitajn de grupoj en la stillisto. Ekzemple la plej multaj elstaraĵoj importas la emfazon <quote
+>Atento</quote
+>, kaj multaj fontkodformatoj importas la elstaraĵon <quote
+>Doxygen</quote
+>. </para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="color-themes-gui">
+
+<title
+>La Koloraj Temoj &GUI;</title>
+
+<para
+>La plej simpla maniero krei kaj redakti kolorajn temojn estas per la &GUI; ene de la dialogo <link linkend="config-dialog"
+><quote
+>Agordu</quote
+></link
+> provizita de <ulink url="https://api.kde.org/frameworks/ktexteditor/html /"
+>KTekstRedaktilo</ulink
+>. Por aliri ĝin, elektu <menuchoice
+><guimenu
+>Agordoj</guimenu
+> <guimenuitem
+>Agordu <replaceable
+>Apliko</replaceable
+>...</guimenuitem
+></menuchoice
+> el la menubreto en via tekstredaktilo. Ĉi tio aperigas la dialogujon <guilabel
+>Agordu</guilabel
+>, tie elektu <guilabel
+>Koloraj Temoj</guilabel
+> en la flanka panelo. </para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="color-themes-gui-default-text-styles.png"/></imageobject>
+<textobject
+><phrase
+>La agorda dialogujo de &kate; kun la kolora etoso-administrado.</phrase
+></textobject>
+<caption
+><para
+>La agorda dialogujo de &kate; kun la kolortemo-administrado.</para>
+</caption>
+</mediaobject>
+
+<para
+>En ĉi tiu <link linkend="config-dialog"
+>dialogo</link
+> vi povas agordi ĉiujn kolorojn en iu ajn temo, kiun vi havas, kaj ankaŭ krei/kopii novajn temojn, forigi ilin, eksporti ilin al <userinput
+> .theme</userinput
+> dosiero kun <link linkend="color-themes-json"
+>&JSON; formati</link
+> aŭ importi ilin el eksteraj <userinput
+>.theme</userinput
+> dosieroj. Ĉiu temo havas agordojn por tekstaj koloroj kaj stiloj. </para>
+
+<para
+>La enkonstruitaj temoj ne povas esti modifitaj defaŭlte. Por fari tion, vi devas kopii ilin kaj doni al ili novan nomon.</para>
+
+<para
+>Por uzi temon konstante en via tekstredaktilo, vi devas elekti ĝin en la kombinujo etikedita <guilabel
+>Defaŭlta temo por <replaceable
+>Apliko</replaceable
+></guilabel
+> ĉe la malsupro de la dialogo kaj premu <guibutton
+>Apliki</guilabel
+>. guibutton
+> aŭ <guibutton
+>Bone</guibutton
+>. Defaŭlte estas aktiva la opcio <userinput
+><guilabel
+>Aŭtomata Elekto</guilabel
+></userinput
+>, kiu elektas pli taŭgan kolortemon laŭ la <emphasis
+>&kde; &plasma; kolorskemo</emphasis
+> uzata en la tekstredakta aplikaĵo; ĝi kutime elektas inter <quote
+>Breeze Light</quote
+> kaj <quote
+>Breeze Dark</quote
+> se la skemo estas hela aŭ malhela, respektive. </para>
+
+<tip>
+<para
+>Vi povas alĝustigi la &kde; ĉiea kolorskemo en la modulo <ulink url="help:/kcontrol/colors/"
+><quote
+>Koloroj</quote
+> en &systemsettings;</ulink
+>. Vi ankaŭ povas ŝanĝi ĝin en iuj aplikaĵoj individue kiel ekzemple &kate; aŭ &kdevelop;, el la menuo <menuchoice
+><guimenu
+>Agordoj</guimenu
+><guisubmenu
+>Kolorskemo</guisubmenu
+></menuchoice
+>. </para>
+</tip>
+
+<sect3 id="color-themes-gui-new-theme">
+
+<title
+>Kreu novan temon</title>
+
+<para
+>Por krei novan temon, unue necesas kopii ekzistantan. Elektu ekzistantan temon, kiun vi volas uzi kiel bazon, kiel <quote
+>Breeze Light</quote
+> aŭ <quote
+>Breeze Dark</quote
+>, kaj alklaku <guibutton
+>Kopii</guibutton
+>. Poste skribu nomon por la nova temo. </para>
+
+<para
+>Se vi volas modifi enkonstruitan aŭ nurlegeblan temon, vi unue devas kopii ĝin sub malsama nomo.</para>
+
+</sect3>
+
+<sect3 id="color-themes-gui-import-export">
+
+<title
+>Importi aŭ eksporti &JSON; temodosieroj</title>
+
+<para
+>Vi povas eksporti elektitan temon (inkluzive de enkonstruitaj) al <link linkend="color-themes-json"
+>&JSON; dosiero</link
+> kun etendo <userinput
+>.theme</userinput
+>, per la butono <guibutton
+>Eksporti</guibutton
+>. Ĉi tio malfermos dialogon por konservi la dosieron. Por aldoni kolortemon de ekstera <link linkend="color-themes-json"
+>&JSON; dosiero</link
+>, simple premu la butonon <guibutton
+>Importi</guibutton
+> kaj elektu la dosieron <userinput
+>.theme</userinput
+> el la dialogo. </para>
+
+<tip>
+<itemizedlist>
+
+<listitem>
+<para
+>Kiel <link linkend="color-themes-json-overview"
+>menciite supre</link
+>, uzant-personigitaj etosdosieroj estas konservitaj en la <filename class="directory"
+>org.kde.syntax-highlighting /themes/</filename
+> dosierujo. Kiam vi kopias aŭ kreas temon, ĝi aŭtomate aperos tie. Ankaŭ, importi aŭ aldoni temon estas ekvivalenta al kopiado de ekstera <userinput
+>.theme</userinput
+> dosiero en ĉi tiun dosierujon. KSyntaxHighlighting aŭtomate prenas kolortemajn dosierojn el ĉi tiu dosierujo.</para>
+</listitem>
+
+<listitem>
+<para
+>Se vi volas publikigi temon kreitan de vi, estas nepre kontroli la objekton <link linkend="color-themes-json-metadata"
+>metadata</link
+> de la <link linkend="color-themes. -json"
+>&JSON; dosiero</link
+>, aldonante la respektivan permesilon kaj kontrolante la revizian numeron.</para>
+</listitem>
+
+</itemizedlist>
+</tip>
+
+</sect3>
+
+<sect3 id="color-themes-gui-editing">
+
+<title
+>Redaktado de koloraj temoj</title>
+
+<sect4 id="prefcolors-colors">
+
+<title
+>Koloroj</title>
+
+<para
+>Ĉi tie la koloroj de la teksta redakta areo estas ĝustigitaj. Ĉi tiuj estas detalaj en <xref linkend="color-themes-editor-colors"/>.</para>
+
+</sect4>
+
+<sect4 id="prefcolors-normal-text-styles">
+
+<title
+>Defaŭltaj Tekstaj Stiloj</title>
+
+<para
+>La defaŭltaj tekstaj stiloj estas hereditaj de la elstaraj tekstostiloj, permesante al la redaktilo prezenti tekston en tre konsekvenca maniero, ekzemple komenta teksto uzas la saman stilon en preskaŭ ĉiuj tekstformatoj kiujn KSyntaxHighlighting povas reliefigi.</para>
+<para
+>La nomo en la listo de stiloj uzas la stilon agordita por la ero, provizante al vi tujan antaŭrigardon dum agordado de stilo. </para>
+<para
+>Ĉiu stilo ebligas al vi elekti komunajn atributojn same kiel malfonojn kaj fonkolorojn. Por nuligi fonkoloron, dekstre alklaku por uzi la kuntekstan menuon.</para>
+<para
+>La atributoj de ĉi tiu areo estas detalaj en <xref linkend="color-themes-text-styles"/>.</para>
+
+</sect4>
+
+<sect4 id="prefcolors-highlighting-text-styles">
+
+<title
+>Emfazante Tekstajn Stilojn</title>
+
+<para
+>Ĉi tie vi povas redakti la tekstajn stilojn uzatajn de specifa elstara difino. La redaktilo antaŭelektas la lumaĵon uzatan de via nuna dokumento. Por labori pri malsama elstaraĵo, elektu unu en la kombinujo <guilabel 
+>Elstaraĵo</guilabel
+> super la stillisto. </para>
+<para
+>La nomo en la listo de stiloj uzas la stilon agordita por la ero, provizante al vi tujan antaŭrigardon dum agordado de stilo. </para>
+<para
+>Ĉiu stilo ebligas al vi elekti komunajn atributojn same kiel malfonojn kaj fonkolorojn. Por nuligi fonkoloron, dekstre alklaku por uzi la kuntekstan menuon. Krome vi povas vidi ĉu stilo egalas al la defaŭlta stilo uzata por la ero, kaj agordi ĝin al tio se ne.</para>
+<para
+>Vi rimarkos, ke multaj lumaĵoj enhavas aliajn lumaĵojn reprezentitajn de grupoj en la stillisto. Ekzemple la plej multaj elstaraĵoj importas la Alert-elstaraĵon, kaj multaj fontkodformatoj importas la Doxygen-elstaraĵon. Redakti kolorojn en tiuj grupoj nur influas la stilojn kiam uzataj en la redaktita elstara formato. </para>
+
+</sect4>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="color-themes-tips-and-tricks">
+
+<title
+>Konsiloj &amp; Trukoj</title>
+
+<sect3 id="color-themes-contrast">
+
+<title
+>Kontrasto de Tekstaj Koloroj</title>
+
+<para
+>Grava aspekto kiam oni laboras kun kolortemoj estas elekti tekstan kontraston, kiu faciligas la legadon, precipe en kombinaĵo kun la fono.</para>
+
+<para
+>La aplikaĵo <userinput
+>Kontrast</userinput
+> estas kolorkontrastokontrolilo. Ĝi diras al vi, ke la tekstkoloro kaj fonkoloro-kombinaĵoj estas legeblaj kaj alireblaj, do ĉi tio estas bonega ilo por helpi vin krei kolorajn temojn.</para>
+
+<para
+>Vi povas elŝuti <userinput
+>Kontrast</userinput
+> de <ulink url="https://apps.kde.org/en/kontrast"
+>la &kde; Aplika retejo</ulink
+> aŭ de <ulink url="https://flathub.org/apps/details/org.kde.kontrast"
+>la pako Flatpak sur Flathub</ulink
+> (nur en GNU/Linukso) .</para>
+
+<para
+>La aplikaĵo GNOME <userinput
+>Kontrasto</userinput
+> estas simila. Vi povas elŝuti <ulink url="https://flathub.org/apps/details/org.gnome.design.Contrast"
+>la Flatpak-pakaĵon sur Flathub</ulink
+> (nur en GNU/Linukso).</para>
+
+</sect3>
+
+<sect3 id="color-themes-tips-and-tricks-consistency">
+
+<title
+>Sugestoj de Konsekvenco kun Sintakso-Efakto</title>
+
+<para
+>KSyntaxHighlighting inkluzivas <ulink url="https://kate-editor.org/syntax/"
+>pli ol 300 sintaksajn difinojn</ulink
+>, tial estas ideale, ke vi certigu, ke via nova temo aspektas bone en ĉiuj sintakso. reliefigante difinojn. La enkonstruitaj kolortemoj havas la jenajn similecojn, kiujn rekomendas (sed ne devige) sekvi por atingi ĝustan montradon de ĉiuj sintaksaj emfazaj difinoj:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Uzu grase por la <quote
+>Ŝlosilvorto</quote
+> kaj <quote
+>ControlFlow</quote
+> <link linkend="color-themes-text-styles"
+>tekstaj stiloj</link
+>.</para
+></listitem>
+
+<listitem
+><para
+>Ne uzu fonkoloron en ajna <link linkend="color-themes-text-styles"
+>teksta stilo</link
+>, krom <quote
+>Atento</quote
+> kaj <quote
+>RegionMarker</quote
+>.</para
+></listitem>
+</itemizedlist>
+
+<para
+>Plej multaj el la sintaksaj lumigiloj intencas aspekti bone en la defaŭltaj temoj <quote
+>Breeze Light</quote
+> kaj <quote
+>Breeze Dark</quote
+>, do alia maniero konservi konsistencon estas uzi similajn kolorojn en la <link. linkend="color-themes-text-styles"
+>tekstaj stiloj</link
+>, kiel <emphasis
+>verda</emphasis
+> por <quote
+>Antaŭprocesoro</quote
+> kaj <quote
+>Aliaj</quote
+>, <emphasis
+>blua</emphasis
+> por <quote
+>Datupo</quote
+> kaj <quote
+>Atributo</quote
+>, aŭ <emphasis
+>purpura</emphasis
+> por <quote
+>Funkcio</quote
+>.</para>
+
+<para
+>Notu, ke ĉi tiuj rekomendoj ne estas devigaj dum kreado kaj publikigado de temo.</para>
+
+</sect3>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="dev-scripting">
+<title
+>Skripto per &javascript;</title>
+
+<para
+>La &kappname; redaktila komponanto estas facile etendebla skribante skriptojn. La skriptlingvo estas ECMAScript (vaste konata kiel &javascript;). &kappname; subtenas du specojn de skriptoj: indentaĵo kaj komandlinio-skriptoj. </para>
+
+<sect2 id="dev-scripting-indentation">
+<title
+>Indentaĵo-Skriptoj</title>
+
+<para
+>Indentskriptoj - ankaŭ referitaj kiel indentiloj - aŭtomate indentigas la fontkodon dum tajpado de teksto. Ekzemple, post frapado de la revenklavo la indentnivelo ofte pliiĝas. </para>
+
+<para
+>La sekvaj sekcioj priskribas paŝon post paŝo kiel krei la skeleton por simpla indentilo. Kiel unua paŝo, kreu novan <filename
+>*.js</filename
+> dosieron nomatan &eg; <filename
+>javascript.js</filename
+> en la loka hejma dosierujo <filename
+>$<envar
+>XDG_DATA_HOME</envar
+>/katepart5/script/indentation</filename
+>. En tio, la mediovariablo <envar
+>XDG_DATA_HOME</envar
+> kutime vastiĝas al aŭ <filename
+>~/.local</filename
+> aŭ <filename
+>~/.local/share</filename
+>. </para>
+<para
+>Sur &Windows; ĉi tiuj dosieroj troviĝas en <filename
+>%USERPROFILE%\AppData\Local\katepart5\script\indentation</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> kutime vastiĝas al <filename
+>C:\\Uzantoj\\<replaceable
+>uzanto</replaceable
+></filename
+>.</para>
+
+<sect3 id="dev-scripting-indentation-header">
+<title
+>La Indenta Skripto-Kapo</title>
+<para
+>La kaplinio de la dosiero <filename
+>javascript.js</filename
+> estas enigita kiel &JSON; komence de la dokumento jene: <programlisting>
+var katescript = {
+    "name": "JavaScript",
+    "author": "Ekzempla nomo <example.name@some.address.org
+>",
+    "license": "BSD-Permesilo",
+    "revision": 1,
+    "kate-version": "5.1",
+    "required-syntax-style": "javascript",
+    "indent-languages": ["javascript"],
+    "priority": 0,
+}; // kate-script-header, devas esti ĉe la komenco de la dosiero sen komentoj
+</programlisting
+> Ĉiu eniro estas klarigita detale nun: <itemizedlist>
+<listitem
+><para
+><literal
+>nomo</literal
+> [bezonata]: Ĉi tiu estas la indentnomo, kiu aperas en la menuo <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Indentaĵo</guimenuitem
+></menuchoice
+> kaj en la agorda dialogo . </para
+></listitem>
+<listitem
+><para
+><literal
+>aŭtoro</literal
+> [laŭvola]: La nomo de la aŭtoro kaj kontaktinformoj. </para
+></listitem>
+<listitem
+><para
+><literal
+>licenco</literal
+> [laŭvola]: Mallonga formo de la permesilo, kiel BSD License aŭ LGPLv3. </para
+></listitem>
+<listitem
+><para
+><literal
+>revizio</literal
+> [bezonata]: La revizio de la skripto. Ĉi tiu nombro devus esti pliigita kiam ajn la skripto estas modifita. </para
+></listitem>
+<listitem
+><para
+><literal
+>kate-version</literal
+> [bezonata]: Minimuma bezonata &kappname; versio. </para
+></listitem>
+<listitem
+><para
+><literal
+>required-syntax-style</literal
+> [laŭvola]: La bezonata sintaksa stilo, kiu kongruas kun la specifita <literal
+>stilo</literal
+> en sintaksaj reliefaj dosieroj. Ĉi tio estas grava por endentantoj, kiuj dependas de specifaj elstaraj informoj en la dokumento. Se bezonata sintaksa stilo estas specifita, la indentigilo disponeblas nur kiam la taŭga markilo estas aktiva. Ĉi tio malhelpas <quote
+>nedifinitan konduton</quote
+> kaŭzitan de uzado de la endentigilo sen la atendata reliefa skemo. Ekzemple, la Ruby-indentigilo uzas ĉi tion en la dosieroj <filename
+>ruby.js</filename
+> kaj <filename
+>ruby.xml</filename
+>. </para
+></listitem>
+<listitem
+><para
+><literal
+>indent-lingvoj</literal
+> [laŭvola]: &JSON; tabelo de sintaksaj stiloj la endentigilo povas ĝuste indentigi, &eg;: <literal
+>["c++", "java"]</literal
+>. </para
+></listitem>
+<listitem
+><para
+><literal
+>prioritato</literal
+> [laŭvola]: Se pluraj endentigiloj taŭgas por certa elstarigita dosiero, la prioritato decidas kiu endentigilo estas elektita kiel defaŭlta endentigilo. </para
+></listitem>
+</itemizedlist>
+</para>
+
+</sect3>
+
+<sect3 id="dev-scripting-indentation-body">
+<title
+>La Indenter Fontkodo</title>
+<para
+>Specifinte la kaplinion, ĉi tiu sekcio klarigas kiel funkcias la indentskripto mem. La baza skeleto de la korpo aspektas jene: <programlisting>
+// bezonataj katepart js-bibliotekoj, &eg; range.js se vi uzas Range
+require ("range.js");
+
+triggerCharacters = "{}/:;";
+function indent(linio, indentLarĝo, ch)
+{
+    // vokita por ĉiu novlinio (ch == '\n') kaj ĉiuj signoj specifitaj en
+    // la ĉiea variablo triggerCharacters. Kiam oni vokas <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Formatigi deŝovon</guimenuitem
+></menuchoice>
+    // la variablo ch estas malplena, t.e. ch == ''.
+    //
+    // vidu ankaŭ: Scripting API
+    return -2;
+}
+</programlisting
+> La funkcio <function
+>indent()</function
+> havas tri parametrojn: <itemizedlist
+> <listitem
+><para
+><literal
+>linio </literal
+>: la linio, kiu devas esti indentigita</para
+></listitem
+> <listitem
+><para
+><literal
+>indentWidth</literal
+>: la indentlarĝo en nombro da spacoj</para
+></listitem
+> <listitem
+><para
+><literal
+>ch</literal
+>: ĉu novlinia signo (<literal
+>ch == '\n'</literal
+>), la ellasilo specifita en <literal
+>triggerCharacters</literal
+> aŭ malplenigi se la uzanto alvokis la agon <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Formatita indentaĵo</guimenuitem
+></menuchoice
+>.</para
+></listitem
+> </itemizedlist
+> La revena valoro de la <function
+>indent()</function
+> funkcio specifas kiel la linio estos indentigita. Se la revena valoro estas simpla entjera nombro, ĝi estas interpretata jene: <itemizedlist
+> <listitem
+><para
+>revenvaloro <literal
+>-2</literal
+>: faru nenion</para
+></listitem
+> <listitem
+> <para
+>redona valoro <literal
+>-1</literal
+>: konservi indentaĵon (serĉas antaŭan nemalplenan linion)</para
+></listitem
+> <listitem
+><para
+>redonas valoron <literal
+> 0</literal
+> : nombroj &gt;= 0 precizigas la indentprofundecon en spacoj</para
+></listitem
+> </itemizedlist
+> Alternative, tabelo de du elementoj povas esti resendita: <itemizedlist
+> <listitem
+><para
+><literal
+>return [ indent, align ];</literal
+></para
+></listitem
+> </itemizedlist
+> En ĉi tiu kazo, la unua elemento estas la indentprofundo kiel supre kun la sama signifo de la specialaj valoroj. Tamen, la dua elemento estas absoluta valoro reprezentanta kolumnon por <quote
+>aligno</quote
+>. Se ĉi tiu valoro estas pli alta ol la indenta valoro, la diferenco reprezentas kelkajn spacojn aldonotajn post la indentaĵo de la unua parametro. Alie, la dua nombro estas ignorita. Uzado de taboj kaj spacoj por indentaĵo estas ofte nomata <quote
+>miksita reĝimo</quote
+>. </para>
+
+<para
+>Konsideru la sekvan ekzemplon: Supozu uzanta tabojn por indentigi, kaj tab-larĝo estas agordita al 4. Ĉi tie, &lt;tab&gt; reprezentas tabon kaj '.' spacon: <programlisting>
+1: &lt;tab&gt;&lt;tab&gt;foobar("saluton",
+2: &lt;tab&gt;&lt;tab&gt;......."mondo");
+</programlisting
+> Kiam indentlinio 2, la funkcio <function
+>indent()</function
+> redonas [8, 15]. Kiel rezulto, du taboj estas enmetitaj por deŝovi al kolumno 8, kaj 7 spacoj estas aldonitaj por vicigi la duan parametron sub la unua, tiel ke ĝi restu vicigita se la dosiero estas rigardata kun malsama tab-larĝo. </para>
+
+<para
+>Defaŭlta &kde; instalaĵo sendas &kappname; kun pluraj indentiloj. La responda &javascript; fontkodo troviĝas en <filename
+>$<envar
+>XDG_DATA_DIRS</envar
+>/katepart5/script/indentation</filename
+>.</para>
+<para
+>Sur &Windows; ĉi tiuj dosieroj troviĝas en <filename
+>%USERPROFILE%\AppData\Local\katepart5\script\indentation</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> kutime vastiĝas al <filename
+>C:\\Uzantoj\\<replaceable
+>uzanto</replaceable
+></filename
+>. </para>
+
+<para
+>Disvolvi endentigilon postulas reŝargi la skriptojn por vidi ĉu la ŝanĝoj kondutas taŭge. Anstataŭ rekomenci la aplikaĵon, simple ŝanĝu al la komandlinio kaj alvoku la komandon <command
+>reload-scripts</command
+>. </para>
+
+<para
+>Se vi disvolvas utilajn skriptojn bonvolu konsideri kontribui al la &kappname; Projekto per <ulink url="mailto:kwrite-devel@kde.org"
+>kontaktante la dissendoliston</ulink
+>. </para>
+
+</sect3>
+</sect2>
+
+<sect2 id="dev-scripting-command-line">
+<title
+>Komandoliniaj Skriptoj</title>
+
+<para
+>Ĉar estas malfacile kontentigi ĉies bezonojn, &kappname; subtenas malgrandajn helpajn ilojn por rapida manipulado de teksto per la <link linkend="advanced-editing-tools-commandline"
+>enkonstruita komandlinio</link
+>. Ekzemple, la komando <command
+>sort</command
+> estas efektivigita kiel skripto. Ĉi tiu sekcio klarigas kiel krei dosierojn <filename
+>*.js</filename
+> por etendi &kappname; kun arbitraj helpaj skriptoj. </para>
+
+<para
+>Komandliniaj skriptoj troviĝas en la sama dosierujo kiel deŝentaj skriptoj. Do kiel unua paŝo, kreu novan dosieron <filename
+>*.js</filename
+> nomitan <filename
+>myutils.js</filename
+> en la loka hejma dosierujo <filename
+>$<envar
+>XDG_DATA_HOME</envar
+>/katepart5 /script/commands</filename
+>. En tio, la mediovariablo <envar
+>XDG_DATA_HOME</envar
+> kutime vastiĝas al aŭ <filename
+>~/.local</filename
+> aŭ <filename
+>~/.local/share</filename
+>.</para>
+<para
+>Sur &Windows; ĉi tiuj dosieroj troviĝas en <filename
+>%USERPROFILE%\AppData\Local\katepart5\script\commands</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> kutime vastiĝas al <filename
+>C:\\Uzantoj\\<replaceable
+>uzanto</replaceable
+></filename
+>. </para>
+
+<sect3 id="dev-scripting-command-line-header">
+<title
+>La Komandlinia Skripto-Ĉefkapo</title>
+<para
+>La kaplinio de ĉiu komandlinia skripto estas enigita en &JSON; komence de la skripto jene: <programlisting>
+var katescript = {
+    "author": "Ekzempla nomo <example.name@some.address.org
+>",
+    "license" : "LGPLv2+",
+    "revision": 1,
+    "kate-version": "5.1",
+    "functions": ["ordigi", " moveLinesDown"],
+    "actions": [
+       { "function": "sort",
+         "name": "Ordigi Elektitan Tekston",
+         "category ": "Redaktado",
+         "interactive": "false"
+       },
+       { "function": "moveLinesDown",
+         "name": \ "Movi Liniojn Malsupren",
+         "category": "Redaktado",
+         "shortcut": "Ctrl+Shift+Down",
+         "interactive": "false"
+       }
+    ]
+}; // kate-script-header, devas esti ĉe la komenco de la dosiero sen komentoj
+</programlisting
+> Ĉiu eniro estas klarigita detale nun: <itemizedlist>
+<listitem
+><para
+><literal
+>aŭtoro</literal
+> [laŭvola]: La nomo de la aŭtoro kaj kontaktinformoj.</para
+></listitem>
+<listitem
+><para
+><literal
+>licenco</literal
+> [laŭvola]: Mallonga formo de la permesilo, kiel BSD License aŭ LGPLv2.</para
+></listitem>
+<listitem
+><para
+><literal
+>revizio</literal
+> [bezonata]: La revizio de la skripto. Ĉi tiu nombro devus esti pliigita kiam ajn la skripto estas modifita.</para
+></listitem>
+<listitem
+><para
+><literal
+>kate-version</literal
+> [bezonata]: Minimuma bezonata &kappname; versio.</para
+></listitem>
+<listitem
+><para
+><literal
+>funkcioj</literal
+> [bezonata]: &JSON; tabelo de komandoj en la skripto.</para
+></listitem>
+<listitem
+><para
+><literal
+>agoj</literal
+> [laŭvola]: &JSON; Tabelo de &JSON; objektoj kiuj difinas la agojn kiuj aperas en la aplikaĵa menuo. Detalaj informoj estas provizitaj en la sekcio <link linkend="advanced-editing-tools-commandline"
+>Ligaj Ŝparvojoj</link
+>.</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Ĉar la valoro de <literal
+>funkcioj</literal
+> estas &JSON; tabelo, ununura skripto kapablas enhavi arbitran nombron da komandliniaj komandoj. Ĉiu funkcio disponeblas per la <link linkend="advanced-editing-tools-commandline"
+>enkonstruita komandlinio</link
+> de &kappname;. </para>
+</sect3>
+
+<sect3 id="dev-scripting-command-line-body">
+<title
+>La Skripto Fontkodo</title>
+
+<para
+>Ĉiuj funkcioj specifitaj en la kaplinio devas esti efektivigitaj en la skripto. Ekzemple, la skriptodosiero de la supra ekzemplo bezonas efektivigi la du funkciojn <command
+>sort</command
+> kaj <command
+>moveLinesDown</command
+>. Ĉiuj funkcioj havas la sekvan sintakson: <programlisting
+>// postulis katepart js-bibliotekojn, &eg; range.js se vi uzas Range
+require ("range.js");
+
+function &lt;nomo&gt;(arg1, arg2, ...)
+{
+ // ... efektivigo, vidu ankaŭ: Skripta API
+}
+</programlisting>
+</para>
+
+<para
+>Argumentoj en la komandlinio estas transdonitaj al la funkcio kiel <parameter
+>arg1</parameter
+>, <parameter
+>arg2</parameter
+>, &etc; Por provizi dokumentadon por ĉiu komando, simple efektivigu la funkcion '<function
+>help</function
+>' jene: <programlisting>
+function help(cmd)
+{
+ if (cmd == "ordigi" ) {
+ return i18n("Ordigu la elektitan tekston.");
+ } else if (cmd == "...") {
+ // ...
+ }
+}\ n</programlisting
+> Efektivigi <command
+>help sort</command
+> en la komandlinio tiam vokas ĉi tiun helpfunkcion kun la argumento <parameter
+>cmd</parameter
+> agordita al la donita komando, &ie; <parameter
+>cmd == "ordigi"</parameter
+>. &kappname; tiam prezentas la resenditan tekston kiel dokumentadon al la uzanto. Nepre <link linkend="dev-scripting-api-i18n"
+>traduki la ĉenojn</link
+>. </para>
+
+<para
+>Disvolvi komandlinian skripton postulas reŝargi la skriptojn por vidi ĉu la ŝanĝoj kondutas taŭge. Anstataŭ rekomenci la aplikaĵon, simple ŝanĝu al la komandlinio kaj alvoku la komandon <command
+>reload-scripts</command
+>. </para>
+
+<sect4 id="dev-scripting-command-line-shortcuts">
+<title
+>Ligantaj Ŝparvojoj</title>
+<para
+>Por igi la skriptojn alireblaj en la aplikaĵa menuo kaj atribui ŝparvojojn, la skripto devas provizi taŭgan skripton. En la ĉi-supra ekzemplo, ambaŭ funkcioj <literal
+>ordigi</literal
+> kaj <literal
+>moveLinesDown</literal
+> aperas en la menuo pro la sekva parto en la skriptkapo: <programlisting>
+var katescript = {
+    ...
+    "actions": [
+        {   "function": "sort",
+            "name": "Ordigi Elektitan Tekston",
+            "icon": "",
+            "category": "Redaktado",
+            "interactive": "false"
+        },
+        {   "function": "moveLinesDown",
+            "name": "Movi Liniojn Malsupren",
+            "icon": "",
+            "category": "Redaktado",
+            "shortcut": "Ctrl+Shift+Down",
+            "interactive": "false"
+        }
+    ]
+};
+</programlisting
+> La kampoj por unu ago estas jenaj: <itemizedlist>
+<listitem
+><para
+><literal
+>funkcio</literal
+> [bezonata]: La funkcio kiu devus aperi en la menuo <menuchoice
+><guimenu
+>Iloj</guimenu
+> <guisubmenu
+>Skriptoj</guisubmenu
+></menuchoice
+>.</para
+></listitem>
+<listitem
+><para
+><literal
+>nomo</literal
+> [bezonata]: La teksto aperas en la skriptmenuo.</para
+></listitem>
+<listitem
+><para
+><literal
+>pikono</literal
+> [laŭvola]: La piktogramo aperas apud la teksto en la menuo. Ĉiuj &kde; piktogramnomoj povas esti uzataj ĉi tie.</para
+></listitem>
+<listitem
+><para
+><literal
+>kategorio</literal
+> [laŭvola]: Se kategorio estas specifita, la skripto aperas en submenuo.</para
+></listitem>
+<listitem
+><para
+><literal
+>mallongigo</literal
+> [laŭvola]: La ŝparvojo donita ĉi tie estas la defaŭlta ŝparvojo. Ekzemplo: <literal
+>Ktrl+Alt+t</literal
+>. Vidu la <ulink url="https://doc.qt.io/qt-5/qt.html#Key-enum"
+>&Qt; dokumentado</ulink
+> por pliaj detaloj.</para
+></listitem>
+<listitem
+><para
+><literal
+>interaga</literal
+> [laŭvola]: Se la skripto bezonas enigon de uzanto en la komandlinio, agordu ĉi tion al <literal
+>true</literal
+>.</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Se vi disvolvas utilajn skriptojn bonvolu konsideri kontribui al la &kappname; Projekto per <ulink url="mailto:kwrite-devel@kde.org"
+>kontaktante la dissendoliston</ulink
+>. </para>
+
+</sect4>
+</sect3>
+</sect2>
+
+<sect2 id="dev-scripting-api">
+<title
+>Skripta API</title>
+
+<para
+>La scripting API prezentita ĉi tie estas disponebla por ĉiuj skriptoj, &ie; indentskriptoj kaj komandliniaj komandoj. La klasoj <classname
+>Kursoro</classname
+> kaj <classname
+>Range</classname
+> estas provizitaj de bibliotekaj dosieroj en <filename
+>$<envar
+>XDG_DATA_DIRS</envar
+>/katepart5/libraries</filename
+>. Se vi volas uzi ilin en via skripto, kiu bezonas uzi iujn el la funkcioj <classname
+>Dokumento</classname
+> aŭ <classname
+>Vidi</classname
+>, bonvolu inkluzivi la necesan bibliotekon uzante: <programlisting
+>// postulis katepart js-bibliotekojn, &eg; range.js se vi uzas Range
+require ("range.js");
+</programlisting>
+</para>
+
+<para
+>Por etendi la norman scripting API kun viaj propraj funkcioj kaj prototipoj simple kreu novan dosieron en la loka agorda dosierujo de &kde; <filename
+>$<envar
+>XDG_DATA_HOME</envar
+>/katepart5/libraries</filename
+> kaj enmetu ĝin en vian skripto uzante: <programlisting
+>postuli ("miaskriptnomo ĉi tie.js");
+</programlisting>
+
+</para>
+
+<para
+>Sur &Windows; ĉi tiuj dosieroj troviĝas en <filename
+>%USERPROFILE%\AppData\Local\katepart5\libraries</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> kutime vastiĝas al <filename
+>C:\\Uzantoj\\<replaceable
+>uzanto</replaceable
+></filename
+>.</para>
+
+<para
+>Por etendi ekzistantajn prototipojn kiel <classname
+>Kursoro</classname
+> aŭ <classname
+>Gamo</classname
+>, la rekomendinda maniero estas <emphasis
+>ne</emphasis
+> modifi la ĉieajn <filename
+>*.js</filename
+> dosierojn. . Anstataŭe, ŝanĝu la prototipon <classname
+>Kursoro</classname
+> en &javascript; post kiam la <filename
+>cursor.js</filename
+> estas inkluzivita en vian skripton per <literal
+>require</literal
+>. </para>
+
+<sect3 id="dev-scripting-api-prototypes">
+<title
+>Kurseroj kaj Gamoj</title>
+
+<para
+>Kiel &kappname; estas tekstredaktilo, ĉiuj scripting API baziĝas sur kursoroj kaj intervaloj kiam ajn eblas. Kursoro estas simpla <literal
+>(linio, kolumno)</literal
+> opo reprezentanta tekstopozicion en la dokumento. Gamo ampleksas tekston de komenca kursora pozicio ĝis fina kursora pozicio. La API estas klarigita detale en la sekvaj sekcioj. </para>
+
+<sect4 id="dev-scripting-api-cursors">
+<title
+>La Prototipo de Kursoro</title>
+
+<variablelist
+><varlistentry>
+<term
+><synopsis
+>Kursoro ();
+</synopsis
+></term>
+<listitem
+><para
+>Konstruisto. Liveras Kursoron ĉe pozicio <literal
+>(0, 0)</literal
+>.</para>
+<para
+>Ekzemplo: <function
+>var cursor = new Cursor();</function
+> </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Kursoro(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Konstruisto. Liveras Kursoron ĉe pozicio (linio, kolumno). </para>
+<para
+>Ekzemplo: <function
+>var cursor = new Cursor(3, 42);</function
+> </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Kursoro(<parameter
+>Kursoro <replaceable
+>alia</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Kopiu konstruilo. Liveras kopion de la kursoro <replaceable
+>alia</replaceable
+>. </para>
+<para
+>Ekzemplo: <function
+>var kopio = nova Kursoro(alia);</function
+> </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Kursoro Cursor.clone();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras klonon de la kursoro.</para>
+<para
+>Ekzemplo: <function
+>var clone = cursor.clone();</function
+> </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Cursor.setPosition(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Agordas la pozicion de la kursoro al <replaceable
+>linio</replaceable
+> kaj <replaceable
+>kolumno</replaceable
+>.</para>
+<para
+>Ekde: &kde; 4.11 </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Cursor.isValid();
+</synopsis
+></term>
+<listitem
+><para
+>Kontrolu ĉu la kursoro validas. La kursoro estas nevalida, se linio kaj/aŭ kolumno estas agordita al <literal
+>-1</literal
+>. </para>
+<para
+>Ekzemplo: <function
+>var valid = cursor.isValid();</function
+> </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Kursoro Cursor.invalid();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras novan nevalidan kursoron situantan ĉe <literal
+>(-1, -1)</literal
+>. </para>
+<para
+>Ekzemplo: <function
+>var invalidCursor = cursor.invalid();</function
+> </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>int Cursor.compareTo(<parameter
+>Kurso <replaceable
+>alia</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Komparas ĉi tiun kursoron kun la kursoro <replaceable
+>alia</replaceable
+>. Revenoj <itemizedlist>
+<listitem
+><para
+><literal
+>-1</literal
+>, se ĉi tiu kursoro troviĝas antaŭ la kursoro <replaceable
+>alia</replaceable
+>,</para
+></listitem>
+<listitem
+><para
+><literal
+>0</literal
+>, se ambaŭ kursoroj egalas kaj</para
+></listitem>
+<listitem
+><para
+><literal
+>+1</literal
+>, se ĉi tiu kursoro troviĝas post la kursoro <replaceable
+>alia</replaceable
+>.</para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Cursor.equals(<parameter
+>Kursoro <replaceable
+>alia</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se ĉi tiu kursoro kaj la kursoro <replaceable
+>alia</replaceable
+> estas egalaj, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String Cursor.toString();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la kursoron kiel ĉeno de la formo <quote
+><literal
+>Kursoro(linio, kolumno)</literal
+></quote
+>. </para
+></listitem>
+</varlistentry
+></variablelist>
+
+</sect4>
+
+
+<sect4 id="dev-scripting-api-ranges">
+<title
+>La Gama Prototipo</title>
+
+<variablelist
+><varlistentry>
+<term
+><synopsis
+>Gamo();
+</synopsis
+></term>
+<listitem
+><para
+>Konstruisto. Voki <literal
+>new Range()</literal
+> liveras Gamon ĉe (0, 0) - (0, 0). </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Gamo (<parameter
+>Kursoro <replaceable
+>komenco</replaceable
+></parameter
+>, <parameter
+>Kursoro <replaceable
+>fino</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Konstruisto. Voki <literal
+>nova Gamo(<replaceable
+>komenco</replaceable
+>, <replaceable
+>fino</replaceable
+>)</literal
+> redonas la Gamon (<replaceable
+>komenco</replaceable
+>, <replaceable
+>fino</replaceable
+> ). </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Gamo(<parameter
+>int <replaceable
+>komencLinio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>startColumn</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>endLinio</replaceable
+></parameter
+> parametro
+>, <parameter
+>int <replaceable
+>endColumn</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Konstruisto. Voki <literal
+>nova Gamo(<replaceable
+>startLine</replaceable
+>, <replaceable
+>startColumn</replaceable
+>, <replaceable
+>endLine</replaceable
+>, <replaceable
+>endColumn</replaceable
+>)</literal
+> redonas la Gamon de (<replaceable
+>komencLinio</replaceable
+>, <replaceable
+>komencKolumno</replaceable
+>) al (<replaceable
+>finLinio</replaceable
+>, <replaceable
+>finKolumno</replaceable
+>). </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Gamo(<parameter
+>Gamo <replaceable
+>alia</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Kopiu konstruilo. Resendas kopion de Range <replaceable
+>alia</replaceable
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Gamo Range.clone();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras klonon de la intervalo. </para>
+<para
+>Ekzemplo: <function
+>var clone = range.clone();</function
+> </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.isEmpty ();
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la komencaj kaj finaj kursoroj estas egalaj. </para>
+<para
+>Ekzemplo: <function
+>var empty = range.isEmpty();</function
+> </para>
+<para
+>Ekde: &kde; 4.11 </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.isValid();
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se kaj komenca kaj fina kursoro validas, alie <literal
+>false</literal
+>. </para>
+<para
+>Ekzemplo: <function
+>var valid = range.isValid();</function
+> </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Gamo Range.invalid();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la Gamon de (-1, -1) al (-1, -1). </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.contains(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se ĉi tiu intervalo enhavas la kursoran pozicion, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.contains(<parameter
+>Gamo <replaceable
+>alia</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se ĉi tiu gamo enhavas la Gamon <replaceable
+>alia</replaceable
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.containsColumn(<parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se <replaceable
+>kolumno</replaceable
+> estas en la duonmalferma intervalo <literal
+>[komenco.kolumno, fino.kolumno)</literal
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.containsLine(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se <replaceable
+>linio</replaceable
+> estas en la duonmalferma intervalo <literal
+>[komenco.linio, fino.linio)</literal
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.overlaps(<parameter
+>Gamo <replaceable
+>alia</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se ĉi tiu intervalo kaj la intervalo <replaceable
+>alia</replaceable
+> dividas komunan regionon, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.overlapsLine(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se <replaceable
+>linio</replaceable
+> estas en la intervalo <literal
+>[start.line, end.line]</literal
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.overlapsColumn(<parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se <replaceable
+>kolumno</replaceable
+> estas en la intervalo <literal
+>[komenco.kolumno, fino.kolumno]</literal
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.onSingleLine();
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la intervalo komenciĝas kaj finiĝas ĉe la sama linio, &ie; if <replaceable
+>Range.start.line == Range.end.line</replaceable
+>. </para>
+<para
+>Ekde: &kde; 4.9 </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool Range.equals(<parameter
+>Gamo <replaceable
+>alia</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se ĉi tiu gamo kaj la Gamo <replaceable
+>alia</replaceable
+> estas egalaj, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String Range.toString ();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la intervalon kiel ĉeno de la formo <quote
+><literal
+>Gamo(Kursoro(linio, kolumno), Kursoro(linio, kolumno))</literal
+></quote
+>. </para
+></listitem>
+</varlistentry
+></variablelist>
+
+</sect4>
+</sect3>
+
+<sect3 id="dev-scripting-api-global">
+<title
+>Ĉieaj Funkcioj</title>
+<para
+>Ĉi tiu sekcio listigas ĉiujn ĉieajn funkciojn.</para>
+
+
+<sect4 id="dev-scripting-api-includes">
+<title
+>Legado &amp; Inkluzivado de Dosieroj</title>
+
+<variablelist
+><varlistentry>
+<term
+><synopsis
+>String read(<parameter
+>String <replaceable
+>dosiero</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Serĉos la donitan <replaceable
+>dosieron</replaceable
+> rilate al la dosierujo <literal
+>katepart5/script/files</literal
+> kaj resendos ĝian enhavon kiel ĉenon. </para
+></listitem>
+</varlistentry
+></variablelist>
+
+<variablelist
+><varlistentry>
+<term
+><synopsis
+>void require(<parameter
+>String <replaceable
+>dosiero</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Serĉos la donitan <replaceable
+>dosieron</replaceable
+> rilate al la dosierujo <literal
+>katepart5/script/libraries</literal
+> kaj taksos ĝin. <literal
+>require</literal
+> estas interne protektita kontraŭ multoblaj inkludoj de la sama <replaceable
+>dosiero</replaceable
+>. </para>
+<para
+>Ekde: &kde; 4.10 </para>
+</listitem>
+</varlistentry
+></variablelist>
+
+</sect4>
+
+<sect4 id="dev-scripting-api-debug">
+<title
+>Sencimigado</title>
+
+<variablelist
+><varlistentry>
+<term
+><synopsis
+>void debug(<parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Presas <replaceable
+>tekston</replaceable
+> al <literal
+>stdout</literal
+> en la konzolo lanĉanta la aplikaĵon. </para
+></listitem>
+</varlistentry
+></variablelist>
+
+</sect4>
+
+<sect4 id="dev-scripting-api-i18n">
+<title
+>Traduko</title>
+
+<para
+>Por subteni plenan lokalizon, ekzistas pluraj funkcioj por traduki ĉenojn en skriptoj, nome <literal
+>i18n</literal
+>, <literal
+>i18nc</literal
+>, <literal
+>i18np</literal
+> kaj <literal
+>i18ncp</literal
+>. Ĉi tiuj funkcioj kondutas ekzakte kiel <ulink url="https://techbase.kde.org/Development/Tutorials/Localization/i18n"
+> la tradukfunkcioj de &kde;</ulink
+>. </para>
+
+<para
+>La tradukfunkcioj tradukas la envolvitajn ĉenojn per la traduksistemo de &kde; al la lingvo uzata en la aplikaĵo. Ĉenoj en skriptoj evoluantaj en la oficiala &kappname; fontoj estas aŭtomate ĉerpitaj kaj tradukeblaj. Alivorte, kiel &kappname; programisto vi ne devas ĝeni per eltiro kaj tradukado de mesaĝoj. Notu tamen, ke la traduko funkcias nur ene de la &kde; infrastrukturo, &ie;, novaj ĉenoj en triaj skriptoj disvolvitaj ekster &kde; ne estas tradukitaj. Tial bonvolu konsideri kontribui viajn skriptojn al &kate; tia ke taŭga tradukado estas ebla. </para>
+
+<variablelist
+><varlistentry>
+<term
+><synopsis
+>void i18n(<parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>, <replaceable
+>arg1</replaceable
+>, ...);
+</synopsis
+></term>
+<listitem
+><para
+>Tradukas <replaceable
+>tekston</replaceable
+> al la lingvo uzata de la aplikaĵo. La argumentoj <replaceable
+>arg1</replaceable
+>, ..., estas nedevigaj kaj uzataj por anstataŭigi la anstataŭaĵojn <literal
+>%1</literal
+>, <literal
+>%2</literal
+>, &etc;</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void i18nc(<parameter
+>String <replaceable
+>kunteksto</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>, <replaceable
+>arg1</replaceable
+>, ...) ;
+</synopsis
+></term>
+<listitem
+><para
+>Tradukas <replaceable
+>tekston</replaceable
+> al la lingvo uzata de la aplikaĵo. Aldone, la ĉeno <replaceable
+>kunteksto</replaceable
+> estas videbla por tradukistoj por ke ili povu provizi pli bonan tradukon. La argumentoj <replaceable
+>arg1</replaceable
+>, ..., estas nedevigaj kaj uzataj por anstataŭigi la anstataŭaĵojn <literal
+>%1</literal
+>, <literal
+>%2</literal
+>, &etc;</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void i18np(<parameter
+>String <replaceable
+>unuopa</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>pluralo</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>nombro</replaceable
+></parameter
+>, <replaceable
+>arg1</replaceable
+>, ...);
+</synopsis
+></term>
+<listitem
+><para
+>Tradukas aŭ <replaceable
+>singularo</replaceable
+> aŭ <replaceable
+>pluralo</replaceable
+> en la lingvon uzatan de la aplikaĵo, depende de la donita <replaceable
+>nombro</replaceable
+>. La argumentoj <replaceable
+>arg1</replaceable
+>, ..., estas nedevigaj kaj uzataj por anstataŭigi la anstataŭaĵojn <literal
+>%1</literal
+>, <literal
+>%2</literal
+>, &etc;</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void i18ncp(<parameter
+>Ĉeno <replaceable
+>kunteksto</replaceable
+> </parameter
+>, <parameter
+>Ĉeno <replaceable
+>unuopa</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>pluralo</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>nombro</replaceable
+></parameter
+>, <replaceable
+>arg1</replaceable
+>, ...);
+</synopsis
+></term>
+<listitem
+><para
+>Tradukas aŭ <replaceable
+>singularo</replaceable
+> aŭ <replaceable
+>pluralo</replaceable
+> en la lingvon uzatan de la aplikaĵo, depende de la donita <replaceable
+>nombro</replaceable
+>. Aldone, la ĉeno <replaceable
+>kunteksto</replaceable
+> estas videbla por tradukistoj por ke ili povu provizi pli bonan tradukon. La argumentoj <replaceable
+>arg1</replaceable
+>, ..., estas nedevigaj kaj uzataj por anstataŭigi la anstataŭaĵojn <literal
+>%1</literal
+>, <literal
+>%2</literal
+>, &etc;</para
+></listitem>
+</varlistentry
+></variablelist>
+
+</sect4>
+</sect3>
+
+<sect3 id="dev-scripting-api-view">
+<title
+>La View API</title>
+<para
+>Kiam ajn skripto estas ekzekutita, ekzistas ĉiea variablo <quote
+><literal
+>vido</literal
+></quote
+> reprezentanta la nunan aktivan redaktan vidon. La sekvanta estas listo de ĉiuj disponeblaj Vidaj funkcioj. <variablelist>
+
+<varlistentry>
+<term
+><synopsis
+><function
+>void view.copy()</function
+>
+</synopsis
+></term>
+<listitem>
+<para
+>Kopiu la elekton se ekzistas unu, alie la nunan linion se la opcio <userinput
+>[ ] Kopiu/Tranĉi la nunan linion se neniu elekto</userinput
+> estas agordita.</para>
+<para
+>Ekde: &kde-frameworks; 5.79</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+><function
+>void view.cut()</function
+>
+</synopsis
+></term>
+<listitem>
+<para
+>Tranĉi la elekton se ekzistas unu, alie la aktuala linio se la opcio <userinput
+>[ ] Kopiu/Tranĉi la nunan linion se neniu elekto</userinput
+> estas agordita.</para>
+<para
+>Ekde: &kde-frameworks; 5.79</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+><function
+>void view.paste()</function
+>
+</synopsis
+></term>
+<listitem>
+<para
+>Algluu la enhavon de la tondujo.</para>
+<para
+>Ekde: &kde-frameworks; 5.79</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+><function
+>Kursor view.cursorPosition()</function
+>
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la aktualan kursoran pozicion en la vido.</para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.setCursorPosition(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+void view.setCursorPosition(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Agordu la aktualan kursoron al aŭ (linio, kolumno) aŭ al la donita kursoro. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Kursoro vido.virtualCursorPosition ();
+</synopsis
+></term>
+<listitem
+><para
+>Resendas la virtualan kursoran pozicion kun ĉiu tabo kalkulanta la respondan kvanton da spacoj depende de la nuna tab-larĝeco. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.setVirtualCursorPosition(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+void view.setVirtualCursorPosition(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Agordu la nunan virtualan kursoran pozicion al (linio, kolumno) aŭ al la donita kursoro. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String view.selectedText ();
+</synopsis
+></term>
+<listitem
+><para
+>Resendas la elektitan tekston. Se neniu teksto estas elektita, la resendita ĉeno estas malplena. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool view.hasSelection();
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se la vido elektis tekston, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Range view.selection();
+</synopsis
+></term>
+<listitem
+><para
+>Redonas la elektitan tekstan gamon. La redonita intervalo estas nevalida se ne estas elektita teksto. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.setSelection(<parameter
+>Gamo <replaceable
+>gamo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Agordu la elektitan tekston al la donita gamo. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>malplena view.removeSelectedText ();
+</synopsis
+></term>
+<listitem
+><para
+>Forigu la elektitan tekston. Se la vido ne havas ajnan elektitan tekston, tio faras nenion. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.selectAll ();
+</synopsis
+></term>
+<listitem
+><para
+>Elektas la tutan tekston en la dokumento. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>malplena vido.clearSelection();
+</synopsis
+></term>
+<listitem
+><para
+>Purigas la teksto-elekton sen forigi la tekston. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.setBlockSelection(bool on);
+</synopsis
+></term>
+<listitem
+><para
+>Ŝaltu aŭ malŝaltu blokan elektoreĝimon. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>bool view.blockSelection();
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se blokelekta reĝimo estas ŝaltita, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.align(<parameter
+>Gamo <replaceable
+>gamo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Ĝuste reindentigas liniojn ene de <replaceable
+>intervalo</replaceable
+> laŭ aktualaj indentagordoj. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void view.alignOn(<parameter
+>Gamo <replaceable
+>gamo</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>ŝablono</replaceable
+> = &quot;&quot;</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Vicigas liniojn en <replaceable
+>gamo</replaceable
+> sur la kolumno donita de la regula esprimo <replaceable
+>ŝablono</replaceable
+>. Kun malplena <replaceable
+>ŝablono</replaceable
+> ĝi viciĝos al la unua nemalplena signo defaŭlte. Se la ŝablono havas kapton, ĝi deŝovos sur la kaptita kongruo. </para>
+<para
+><emphasis
+>Ekzemploj:</emphasis
+></para>
+<para
+><literal
+>view.alignOn(document.documentRange(), '-');</literal
+> enmetos spacojn antaŭ la unua <literal
+>-</literal
+> de ĉiu linioj por vicigi ilin ĉiujn sur la sama kolumno.</para>
+<para
+><literal
+>view.alignOn(document.documentRange(), ':\\s+(.)');</literal
+> enmetos spacojn antaŭ la unua nemalplena signo kiu okazas post dupunkto por vicigi ilin ĉiujn. la sama kolumno.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>objekto view.executeCommand(<parameter
+>String <replaceable
+>komando</replaceable
+></parameter
+>,
+ <parameter
+>String <replaceable
+>argoj</replaceable
+></parameter
+>,
+ <parameter
+>Gamo <replaceable
+> intervalo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Efektigas la <link linkend="advanced-editing-tools-commandline"
+>komandlinian komandon</link
+> <replaceable
+>komandon</replaceable
+> kun la nedevigaj argumentoj <replaceable
+>args</replaceable
+> kaj la nedeviga <replaceable
+>gamo</replaceable
+>. La redonita <replaceable
+>objekto</replaceable
+> havas bulean econ <replaceable
+>object.ok</replaceable
+> kiu indikas ĉu plenumo de la <replaceable
+>komando</replaceable
+> sukcesis. En kazo de eraro, la ĉeno <replaceable
+>object.status</replaceable
+> enhavas erarmesaĝon. </para>
+<para
+>Ekde: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>Range view.searchText(<parameter
+>Range <replaceable
+>gamo</replaceable
+></parameter
+>,
+                      <parameter
+>String <replaceable
+>ŝablono</replaceable
+></parameter
+>,
+                      <parameter
+>bool <replaceable
+>malantaŭen</replaceable
+> = false</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Serĉu la unuan aperon de <replaceable
+>ŝablono</replaceable
+> en <replaceable
+>gamo</replaceable
+> kaj resendas la kongruan intervalon. Serĉo estas farita malantaŭen se la laŭvola bulea parametro <replaceable
+>malantaŭen</replaceable
+> estas agordita al <literal
+>true</literal
+>. </para>
+<para
+>La redonita intervalo estas nevalida (vidu Range.isValid()) se <replaceable
+>ŝablono</replaceable
+> ne troviĝas en <replaceable
+>intervalo</replaceable
+>. </para>
+<para
+>Ekde: &kde-frameworks; 5.97</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect3>
+
+<sect3 id="dev-scripting-api-document">
+<title
+>La Dokumenta API</title>
+<para
+>Kiam ajn skripto estas ekzekutita, estas ĉiea variablo <quote
+><literal
+>dokumento</literal
+></quote
+> reprezentanta la nunan aktivan dokumenton. La sekvanta estas listo de ĉiuj disponeblaj Dokumentaj funkcioj. <variablelist>
+
+<varlistentry>
+<term
+><synopsis
+>String document.fileName();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la dosiernomon de la dokumento aŭ malplenan ĉenon por nekonservitaj tekstaj bufroj. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.url();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la plenan &URL de la dokumento; aŭ malplena ĉeno por nekonservitaj tekstaj bufroj. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.mimeType();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la dokumenton &MIME; tajpu aŭ la &MIME; tajpu <literal
+>aplikaĵon/oktet-fluon</literal
+> se neniu taŭga &MIME; tipo povus esti trovita. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.encoding();
+</synopsis
+></term>
+<listitem
+><para
+>Redonas la nuntempe uzatan kodigon por konservi la dosieron. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>String document.highlightingMode ();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la ĉiean reliefigreĝimon uzatan por la tuta dokumento. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>String document.highlightingModeAt(<parameter
+>Kursoro <replaceable
+>pos</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas la emfazan reĝimon uzatan ĉe la donita pozicio en la dokumento. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>Array document.embeddedHighlightingModes ();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras tabelon de reliefaj modoj enigitaj en ĉi tiu dokumento. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isModified();
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se la dokumento havas nekonservitajn ŝanĝojn (modifitajn), alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.text();
+</synopsis
+></term>
+<listitem
+><para
+>Resendas la tutan enhavon de la dokumento en ununura tekstoĉeno. Novlinioj estas markitaj per la novlinia signo <quote
+><literal
+>\n</literal
+></quote
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.text(<parameter
+>int <replaceable
+>deLinio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>deKolumno</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>alLinio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>alKolumno</replaceable
+></parameter
+>);
+String document.text(<parameter
+>Kursoro <replaceable
+>de</replaceable
+></parameter
+>, <parameter
+>Cursor <replaceable
+>al</replaceable
+></parameter
+>);
+String document.text(<parameter
+>Range <replaceable
+>intervalo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la tekston en la donita gamo. Oni rekomendas uzi la kursoron kaj gamon bazitan version por pli bona legebleco de la fontkodo. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.line(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la donitan tekstlinion kiel ĉenon. La ĉeno estas malplena se la petita linio estas ekster intervalo. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.wordAt(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+String document.wordAt(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la vorton ĉe la donita kursora pozicio. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term>
+<synopsis
+>Range document.wordRangeAt(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+Range document.wordRangeAt(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis>
+</term>
+<listitem
+><para
+>Redonu la gamon de la vorto ĉe la donita kursora pozicio. La redonita intervalo estas nevalida (vidu Range.isValid()), se la tekstopozicio estas post la fino de linio. Se ne estas vorto ĉe la donita kursoro, malplena gamo estas resendita. </para>
+<para
+>Ekde: &kde; 4.9 </para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.charAt(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+String document.charAt(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la signon ĉe la donita kursora pozicio. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.firstChar(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la unuan signon en la donita <replaceable
+>linio</replaceable
+> kiu ne estas blankspaco. La unua signo estas ĉe kolumno 0. Se la linio estas malplena aŭ enhavas nur blankspacsignojn, la resendita ĉeno estas malplena. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.lastChar(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la lastan signon en la donita <replaceable
+>linio</replaceable
+> kiu ne estas blankspaco. Se la linio estas malplena aŭ enhavas nur blankspacsignojn, la resendita ĉeno estas malplena. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isSpace(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool document.isSpace(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la signo ĉe la donita kursora pozicio estas blankspaco, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.matchesAt(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>);
+bool document.matchesAt(<parameter
+>Kurso <replaceable
+>kurso</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>teksto</replaceable
+> </parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la donita <replaceable
+>teksto</replaceable
+> kongruas ĉe la responda kursora pozicio, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.startsWith(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>, <parameter
+>bool <replaceable
+>skipWhiteSpaces</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la linio komenciĝas per <replaceable
+>teksto</replaceable
+>, alie <literal
+>false</literal
+>. La argumento <replaceable
+>skipWhiteSpaces</replaceable
+> kontrolas ĉu gvidaj blankspacoj estas ignoritaj. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.endsWith(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>, <parameter
+>bool <replaceable
+>skipWhiteSpaces</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se la linio finiĝas per <replaceable
+>teksto</replaceable
+>, alie <literal
+>false</literal
+>. La argumento <replaceable
+>skipWhiteSpaces</replaceable
+> kontrolas ĉu postaj blankspacoj estas ignoritaj. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.setText(<parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Agordas la tutan dokumentan tekston. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.clear();
+</synopsis
+></term>
+<listitem
+><para
+>Forigas la tutan tekston en la dokumento. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.truncate(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool document.truncate(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Detranĉu la donitan linion ĉe la donita kolumno aŭ kursora pozicio. Redonas <literal
+>true</literal
+> je sukceso, aŭ <literal
+>false</literal
+> se la donita linio ne estas parto de la dokumento-intervalo. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.insertText(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>);
+bool document.insertText(<parameter
+>Kurso <replaceable
+>kurso</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Enmetas la <replaceable
+>tekston</replaceable
+> ĉe la donita kursora pozicio. Redonas <literal
+>true</literal
+> je sukceso, aŭ <literal
+>false</literal
+>, se la dokumento estas en nurlegebla reĝimo. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.removeText(<parameter
+>int <replaceable
+>deLinio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>deKolumno</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>alLinio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>alKolumno</replaceable
+></parameter
+>);
+bool document.removeText(<parameter
+>Kursoro <replaceable
+>de</replaceable
+></parameter
+>, <parameter
+>Cursor <replaceable
+>al</replaceable
+></parameter
+>);
+bool document.removeText(<parameter
+>Range <replaceable
+>intervalo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Forigas la tekston en la donita gamo. Redonas <literal
+>true</literal
+> je sukceso, aŭ <literal
+>false</literal
+>, se la dokumento estas en nurlegebla reĝimo. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.insertLine(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Enmetas tekston en la donita linio. Redonas <literal
+>true</literal
+> je sukceso, aŭ <literal
+>false</literal
+>, se la dokumento estas en nurlegebla reĝimo aŭ la linio ne estas en la dokumento-intervalo. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.removeLine(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Forigas la donitan tekstan linion. Redonas <literal
+>true</literal
+> je sukceso, aŭ <literal
+>false</literal
+>, se la dokumento estas en nurlegebla reĝimo aŭ la linio ne estas en la dokumento-intervalo. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.wrapLine(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool document.wrapLine(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Envolvas la linion ĉe la donita kursora pozicio. Redonas <literal
+>true</literal
+> je sukceso, alie <literal
+>false</literal
+>, &eg; if linio &lt; 0. </para>
+<para
+>Ekde: &kde; 4.9 </para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void document.joinLines(<parameter
+>int <replaceable
+>startLine</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>endLine</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Kunigas la liniojn de <replaceable
+>startLine</replaceable
+> al <replaceable
+>endLine</replaceable
+>. Du sekvaj tekstlinioj ĉiam estas apartigitaj per ununura spaco. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int dokumento.linioj();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la nombron da linioj en la dokumento. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isLineModified(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se <replaceable
+>linio</replaceable
+> nuntempe enhavas nekonservitajn datumojn. </para>
+<para
+>Ekde: &kde; 5.0 </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isLineSaved(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se <replaceable
+>linio</replaceable
+> estis ŝanĝita, sed la dokumento estis konservita. Tial, la linio nuntempe ne enhavas iujn ajn nekonservitajn datumojn. </para>
+<para
+>Ekde: &kde; 5.0 </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isLineTouched(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se <replaceable
+>linio</replaceable
+> nuntempe enhavas nekonservitajn datumojn aŭ estis ŝanĝita antaŭe. </para>
+<para
+>Ekde: &kde; 5.0 </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.findTouchedLine(<parameter
+>int <replaceable
+>startLinio</replaceable
+></parameter
+>, <parameter
+>bool <replaceable
+>malsupren</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Serĉu la sekvan tuŝitan linion komencante ĉe <replaceable
+>linio</replaceable
+>. La serĉo estas farita aŭ supren aŭ malsupren laŭ la serĉdirekto specifita en <replaceable
+>malsupren</replaceable
+>. </para>
+<para
+>Ekde: &kde; 5.0 </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int dokumento.longo();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la nombron da signoj en la dokumento. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int dokumento.lineLength(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la longon de la <replaceable
+>linio</replaceable
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>malplena dokumento.editKomenci();
+</synopsis
+></term>
+<listitem
+><para
+>Lanĉas redaktan grupon por malfari/refari grupigon. Certiĝu ĉiam voki <function
+>editEnd()</function
+> tiom ofte kiom vi vokas <function
+>editBegin()</function
+>. Voki <function
+>editBegin()</function
+> interne uzas referencan nombrilon, &ie;, ĉi tiu voko povas esti nestita. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>malplena dokumento.editEnd();
+</synopsis
+></term>
+<listitem
+><para
+>Finas redaktan grupon. La lasta alvoko de <function
+>editEnd()</function
+> (&t.e.; tiu por la unua voko de <function
+>editBegin()</function
+>) finas la redaktan paŝon. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int dokumento.unuaKolumno(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la unuan ne-blankspackolumnon en la donita <replaceable
+>linio</replaceable
+>. Se estas nur blankspacoj en la linio, la revena valoro estas <literal
+>-1</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int dokumento.lastKolumno(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la lastan ne-blankspackolumnon en la donita <replaceable
+>linio</replaceable
+>. Se estas nur blankspacoj en la linio, la revena valoro estas <literal
+>-1</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int document.prevNonSpaceColumn(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+int document.prevNonSpaceColumn(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas la kolumnon kun ne-blankspaca signo komencanta ĉe la donita kursora pozicio kaj serĉanta malantaŭen. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int document.nextNonSpaceColumn(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+int document.nextNonSpaceColumn(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas la kolumnon kun ne-blankspaca signo komencanta ĉe la donita kursora pozicio kaj serĉante antaŭen. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int document.prevNonEmptyLine(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la sekvan nemalplenan linion enhavantan ne-blankspacsignojn serĉantajn malantaŭen. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int dokumento.nextNonEmptyLine(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la sekvan nemalplenan linion enhavantan ne-blankspacsignojn serĉantajn antaŭen. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isInWord(<parameter
+>String <replaceable
+>signo</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>atributo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la donita <replaceable
+>signo</replaceable
+> kun la donita <replaceable
+>atributo</replaceable
+> povas esti parto de vorto, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.canBreakAt(<parameter
+>String <replaceable
+>signo</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>atributo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la donita <replaceable
+>signo</replaceable
+> kun la donita <replaceable
+>atributo</replaceable
+> taŭgas por envolvi linion, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.canComment(<parameter
+>int <replaceable
+>startAtribute</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>endAttribute</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se intervalo komencanta kaj finiĝanta per la donitaj atributoj taŭgas por esti komentita, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.commentMarker(<parameter
+>int <replaceable
+>atributo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la komentmarkilon por unuliniaj komentoj por donita <replaceable
+>atributo</replaceable
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.commentStart(<parameter
+>int <replaceable
+>atributo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la komentmarkilon por la komenco de plurliniaj komentoj por donita <replaceable
+>atributo</replaceable
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.commentEnd(<parameter
+>int <replaceable
+>atributo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas la komentan markilon por la fino de plurliniaj komentoj por donita <replaceable
+>atributo</replaceable
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Range document.documentRange();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras gamon, kiu ampleksas la tutan dokumenton. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Kursoro documentEnd ();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras kursoron poziciigitan ĉe la lasta kolumno de la lasta linio en la dokumento. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool isValidTextPosition(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool isValidTextPosition(<parameter
+>Kursoro <replaceable
+>kursoro </replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la donita kursora pozicio estas poziciigita ĉe valida tekstopozicio. Teksta pozicio validas nur se ĝi situas ĉe la komenco, en la mezo aŭ la fino de valida linio. Plue, tekstpozicio estas malvalida se ĝi troviĝas en Unikoda anstataŭaĵo. </para
+><para
+>Ekde: &kde; 5.0 </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int document.attribute(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+int document.attribute(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la atributon ĉe la donita kursora pozicio. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isAttribute(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>atributo</replaceable
+></parameter
+>);
+bool document.isAttribute(<parameter
+>Kurso <replaceable
+>kurso</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>atributo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la atributo ĉe la donita kursora pozicio egalas <replaceable
+>atributo</replaceable
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.attributeName(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+String document.attributeName(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas la atributan nomon kiel homlegebla teksto. Ĉi tio estas egala al la nomo <literal
+>itemData</literal
+> en la sintaksa reliefaj dosieroj. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isAttributeName(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>nomo</replaceable
+></parameter
+>);
+bool document.isAttributeName(<parameter
+>Kursoro <replaceable
+>kurso</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>nomo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se la atributnomo ĉe certa kursorpozicio kongruas kun la donita <replaceable
+>nomo</replaceable
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>String document.variable(<parameter
+>String <replaceable
+>klavo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la valoron de la petita dokumentvariablo <replaceable
+>ŝlosilo</replaceable
+>. Se la dokumentvariablo ne ekzistas, la revena valoro estas malplena ĉeno. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void document.setVariable(<parameter
+>String <replaceable
+>ŝlosilo</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>valoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Agordu la valoron de la petita dokumentvariablo <replaceable
+>ŝlosilo</replaceable
+>. </para>
+<para
+>Vidu ankaŭ: <link linkend="config-variables"
+>Kate-dokumentvariabloj</link
+> </para>
+<para
+>Ekde: &kde; 4.8 </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int dokumento.unuaVirtualaKolumno(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la virtualan kolumnon de la unua ne-spaco en la donita linio aŭ <literal
+>-1</literal
+>, se la linio estas malplena aŭ enhavas nur blankspacsignojn. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int dokumento.lastVirtualColumn(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la virtualan kolumnon de la lasta ne-spaco en la donita linio aŭ <literal
+>-1</literal
+>, se la linio estas malplena aŭ enhavas nur blankspacsignojn. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int document.toVirtualColumn(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+int document.toVirtualColumn(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+Kursoro document.toVirtualCursor(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Konvertas la donitan <quote
+>realan</quote
+> kursoran pozicion al virtuala kursora pozicio, ĉu resendante int aŭ Cursor-objekton. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int document.fromVirtualColumn(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>virtualaKolumno</replaceable
+></parameter
+>);
+int document.fromVirtualColumn(<parameter
+>Kursoro <replaceable
+>virtualaKursoro</replaceable
+></parameter
+>);
+Kursoro document.fromVirtualCursor(<parameter
+>Kursoro <replaceable
+>virtualaKursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Konvertas la donitan virtualan kursoran pozicion al <quote
+>reala</quote
+> kursora pozicio, ĉu resendante int aŭ Cursor-objekton. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Kursoro document.anchor(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>, <parameter
+>Char <replaceable
+>signo</replaceable
+></parameter
+>);
+Kursoro document.anchor(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>, <parameter
+>Signo <replaceable
+>signo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Serĉas malantaŭen la donitan signon komencante de la donita kursoro. Ekzemple, se '(' estas pasigita kiel signo, ĉi tiu funkcio redonos la pozicion de la malfermaĵo '('. Ĉi tiu referenca nombrado, &ie; aliaj '(...)' estas ignoritaj. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>Kursoro document.rfind(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>atributo</replaceable
+> = -1</parameter
+>);
+Kursoro document.rfind(<parameter
+>Kursoro <replaceable
+>kurso</replaceable
+></parameter
+>, <parameter
+>Ĉeno <replaceable
+>teksto</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>atributo</replaceable
+> = -1</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Trovu serĉante malantaŭen la donitan tekston kun la taŭga <replaceable
+>atributo</replaceable
+>. La argumento <replaceable
+>atributo</replaceable
+> estas ignorata se ĝi estas agordita al <literal
+>-1</literal
+>. La redonita kursoro estas nevalida, se la teksto ne troviĝis. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>int document.defStyleNum(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+int document.defStyleNum(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la defaŭltan stilon uzatan ĉe la donita kursora pozicio. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isCode(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool document.isCode(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se la atributo ĉe la donita kursora pozicio ne egalas al ĉiuj jenaj stiloj: <literal
+>dsComment</literal
+>, <literal
+>dsString</literal
+>, <literal
+>dsRegionMarker </literal
+>, <literal
+>dsChar</literal
+>, <literal
+>dsOthers</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isComment(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool document.isComment(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se la eco de la signo ĉe la kursora pozicio estas <literal
+>dsComment</literal
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isString(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool document.isString(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se la atributo de la signo ĉe la kursora pozicio estas <literal
+>dsString</literal
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isRegionMarker(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool document.isRegionMarker(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se la eco de la signo ĉe la kursora pozicio estas <literal
+>dsRegionMarker</literal
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isChar(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool document.isChar(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Redonas <literal
+>true</literal
+>, se la eco de la signo ĉe la kursora pozicio estas <literal
+>dsChar</literal
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>bool document.isOthers(<parameter
+>int <replaceable
+>linio</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>kolumno</replaceable
+></parameter
+>);
+bool document.isOthers(<parameter
+>Kursoro <replaceable
+>kursoro</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Donas <literal
+>true</literal
+>, se la eco de la signo ĉe la kursora pozicio estas <literal
+>dsOthers</literal
+>, alie <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void document.indent(<parameter
+>Gamo <replaceable
+>intervalo</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>ŝanĝo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Indentigas ĉiujn liniojn en <replaceable
+>intervalo</replaceable
+> per <replaceable
+>ŝanĝo</replaceable
+> taboj aŭ <replaceable
+>ŝanĝo</replaceable
+> oble <literal
+>tabSize</literal
+> spacoj depende de la preferoj de la uzantoj. La parametro <replaceable
+>ŝanĝo</replaceable
+> povas esti negativa. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect3>
+
+<sect3 id="dev-scripting-api-editor">
+<title
+>La Redaktilo API</title>
+<para
+>Krom la dokumento kaj vido API, ekzistas ĝenerala redaktilo API kiu disponigas funkciojn por ĝenerala redaktilo skriptfunkcio. <variablelist>
+
+<varlistentry>
+<term
+><synopsis
+>String editor.clipboardText ();
+</synopsis
+></term>
+<listitem
+><para
+>Liveras la tekston kiu nuntempe estas en la ĉiea tondujo. </para>
+<para
+>Ekde: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>String editor.clipboard Historio();
+</synopsis
+></term>
+<listitem
+><para
+>La redaktilo tenas historion de tondujo kiu enhavas ĝis 10 enskribojn de tondujo. Ĉi tiu funkcio resendas ĉiujn enskribojn kiuj nuntempe estas en la tondujohistorio. </para>
+<para
+>Ekde: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void editor.setClipboardText(<parameter
+>String <replaceable
+>teksto</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Agordu la enhavon de la tondujo al <replaceable
+>teksto</replaceable
+>. La <replaceable
+>teksto</replaceable
+> estos aldonita al la historio de la tondujo. </para>
+<para
+>Ekde: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect3>
+</sect2>
+
+</sect1>
+
+</chapter>

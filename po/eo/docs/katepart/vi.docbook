@@ -1,0 +1,2249 @@
+<!--pulled in by kwrite too-->
+<chapter id="vi-input-mode-chapter">
+<chapterinfo>
+<authorgroup
+><author
+>&Erlend.Hamberg; &Erlend.Hamberg.mail; </author>
+<othercredit role="translator"
+><firstname
+>Oliver</firstname
+><surname
+>Kellogg</surname
+><affiliation
+><address
+><email
+>okellogg@users.sf.net</email
+></address
+></affiliation
+><contrib
+>Translation</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+
+<title
+>La VI Eniga Reĝimo</title>
+
+<sect1 id="vi-mode-sect1">
+<title
+>VI Eniga Reĝimo</title>
+
+<para
+>La celo de la VI-reĝimo estas ne esti kompleta anstataŭaĵo por Vim kaj subteni ĉiujn funkciojn de Vim. Ĝia celo estas disponigi la <quote
+>Vim-manieron</quote
+> de tekstoredaktado - kaj la lernitajn Vim-kutimojn - por programoj uzantaj la &kappname; tekstredaktilo kiel ilia interna redaktilo.</para>
+
+<para
+>La VI-reĝimo celas integriĝi bele kun la programo kaj devii de la konduto de Vim kie ĝi havas sencon. Ekzemple, <userinput
+><command
+>:w</command
+></userinput
+> malfermos konservan dialogon en la VI-reĝimo de &kappname;.</para>
+
+<para
+>Por ebligi la VI-Enigan Reĝimon por ĉiuj novaj vidoj, iru al <menuchoice
+><guimenu
+>Agordoj</guimenu
+><guimenuitem
+>Agordu &kappname;...</guimenuitem
+> <guimenu
+>Redaktado</guimenu
+><guimenuitem
+>VI-Enigo Reĝimo</guimenuitem
+></menuchoice
+>. Sur ĉi tiu langeto vi povas agordi opciojn por la VI Enigo-Reĝimo kaj difini kaj redakti la klavmapadon en ĉi tiu reĝimo. VI-Eniga Reĝimo ankaŭ povas esti ŝanĝita per la agordo <guimenuitem
+>VI-Eniga Reĝimo</guimenuitem
+> en la menuo <guimenu
+>Redakti</guimenu
+>. (La defaŭlta klavoklavo estas <keycombo action="simul"
+>&Meta;&Ctrl;<keycap
+>V</keycap
+></keycombo
+> - kie &Meta; kutime estas la <keysym
+>Vindozo</keysym
+> klavo).</para>
+
+<note>
+<para
+>Multaj Vi-Modaj klavaraj komandoj estas uskle-distintaj, male al plej multaj &kde; klavaraj ŝparvojoj. Tio signifas, ke <userinput
+>y</userinput
+> kaj <userinput
+>Y</userinput
+> estas malsamaj ordonoj. Por enigi la komandon <userinput
+>y</userinput
+> (jank), certigu, ke <keysym
+>Majuskloj</keysym
+> estas malŝaltita kaj premu <keycap
+>Y</keycap
+>. Por enigi la komandon <userinput
+>Y</userinput
+> (tiri al fino de linio), <keycombo action="simul"
+>&Shift;<keycap
+>Y</keycap
+></keycombo
+>.</para>
+
+<para
+>Ĉi tio ne validas por komandoj kiuj uzas la &Ctrl; klavo, kiu povas esti enigita sendepende de <keycap
+>Majuskloj</keycap
+> reĝimo kaj sen premado de &Shift;. Tamen, iuj komandoj postulas la uzon de &Ctrl;-klavo kombinaĵo sekvita de alia klavo kiu distingas minusklojn. Ekzemple, por enigi <quote
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+>, <userinput
+>h</userinput
+></quote
+> (ŝanĝu al dividita vido dekstre) certigu, ke <keycap
+>Majuskloj</keycap
+> estas malŝaltita, premu <keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+>, liberigu, kaj poste premu <keycap
+> H</keycap
+>.</para>
+</note>
+
+<sect2 id="vi-incompatibilities">
+<title
+>Nekongruoj kun Vim</title>
+
+<para
+>Estas nur kelkaj funkcioj de la VI-reĝimo de &kappname; kiuj estas nekongruaj kun Vim (sen kalkuli aferojn mankantajn). Ili estas listigitaj malsupre kune kun la respektivaj kialoj.</para>
+<itemizedlist>
+<listitem>
+<para
+>&kappname;: <userinput
+>U</userinput
+> kaj <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> estas refari.</para>
+<para
+>Vim: <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> estas normala refari, <keycap
+>U</keycap
+> estas uzata por malfari ĉiujn lastajn ŝanĝojn sur unu linio.</para>
+<para
+>La kialo por ke <keycap
+>U</keycap
+> agas kiel refari en la VI-reĝimo de &kappname; estas ke la ŝparvojo <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> defaŭlte estas prenita de la anstataŭiga funkcio de &kappname; (serĉi kaj anstataŭigi). Defaŭlte, la VI-reĝimo ne anstataŭigos la ŝparvojojn de &kappname; (ĉi tio povas esti agordita en <menuchoice
+><guimenu
+>Agordoj</guimenu
+><guimenuitem
+>Agordu &kappname;...</guimenuitem
+> <guimenu
+>Redaktado</guimenu
+><guimenuitem
+>Vi Eniga Reĝimo</guimenuitem
+></menuchoice
+>), tial refara ago ankaŭ devas esti disponebla kiel <quote
+>regula</quote
+> klavopremo. Cetere, la konduto de la komando <userinput
+>U</userinput
+> en Vim ne bone mapas al la interna malfara sistemo de &kappname;, do estus ne bagatela subteni ĉiukaze.</para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+><command
+>print</command
+></userinput
+> montras la dialogon <guilabel
+>Presi</guilabel
+>.</para>
+<para
+>Vim: <userinput
+><command
+>print</command
+></userinput
+> presas la liniojn de la donita gamo kiel ĝia avo ed.</para>
+<para
+>Komandoj kiel <userinput
+><command
+>:print</command
+></userinput
+> estas disponeblaj ne nur en la VI-reĝimo sed ankaŭ por uzantoj uzantaj <quote
+>regula</quote
+> &kappname; - tial la <userinput
+><command
+>:print</command
+></userinput
+> komando malfermas la presitan dialogon - sekvante la principon de malplej surprizo anstataŭ imiti la konduton de Vim.</para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+>Y</userinput
+> tiras al la fino de linio.</para>
+<para
+>Vim: <userinput
+>Y</userinput
+> tiras tutan linion, same kiel <userinput
+>y</userinput
+><userinput
+>y</userinput
+>.</para>
+<para
+>La konduto de VI por la komando <userinput
+>Y</userinput
+> estas praktike cimo. Por kaj ŝanĝi kaj forigi komandojn, <userinput
+>c</userinput
+><userinput
+>c</userinput
+>/ <userinput
+>d</userinput
+><userinput
+>d</userinput
+> faros sian agon sur la nuna linio kaj <userinput
+>C</userinput
+>/<userinput
+>D</userinput
+> funkcios de la kursora kolumno ĝis la fino de la linio. Tamen, kaj <userinput
+>y</userinput
+><userinput
+>y</userinput
+> kaj <userinput
+>Y</userinput
+> tiras la nunan linion. En la VI-Reĝimo de &kappname; <userinput
+>Y</userinput
+> ektiros ĝis la fino de la linio. Ĉi tio estas priskribita kiel <quote
+>pli logika</quote
+> en la Vim <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y"
+>dokumentado</ulink
+>. </para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+>O</userinput
+> kaj <userinput
+>o</userinput
+> malfermas [<replaceable
+>kalkuli</replaceable
+>] novajn liniojn kaj metas vin en enmeti reĝimon.</para>
+<para
+>Vim: <userinput
+>O</userinput
+> kaj <userinput
+>o</userinput
+> malfermas novan linion kaj enmetas tekston [<replaceable
+>nombro</replaceable
+>] fojojn kiam oni forlasas enmetreĝimon.</para>
+<para
+>Ĉi tio estas plejparte farita kiel konsekvenco de vidi ke multaj homoj estas konfuzitaj de ĉi tiu konduto sur vim &irc; kanalo (#vim sur Libera Chat).</para>
+</listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2 id="vi-switching-modes">
+<title
+>Ŝanĝado de Reĝimoj</title>
+
+<itemizedlist>
+<listitem>
+<para
+><emphasis
+>Normala Reĝimo</emphasis
+> permesas vin enigi komandojn por navigi aŭ redakti dokumenton, kaj estas la defaŭlta reĝimo. Vi povas reveni al ĝi de iu ajn alia reĝimo premante &Esc;. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Vida Reĝimo</emphasis
+> permesas vin reliefigi tekston en dokumento. Plej multaj normalaj komandoj ankaŭ validas en ĉi tiu reĝimo. Vi povas enigi ĝin premante <userinput
+>v</userinput
+> por elekti signojn aŭ <userinput
+>V</userinput
+> por elekti liniojn. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Enmeti Reĝimon</emphasis
+> permesas rekte redakti la dokumenton. Vi povas enigi ĝin premante <userinput
+>i</userinput
+> aŭ unu el pluraj aliaj komandoj listigitaj sube. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Komanda Reĝimo</emphasis
+> alvokas la komandlinion de &kappname;, permesante al vi ruli multajn komandojn disponeblajn en Vi-efektivigoj same kiel iujn specifajn por &kappname;. Por pliaj informoj pri ĉi tiuj komandoj, vidu <xref linkend="advanced-editing-tools-commandline"/>. Por uzi ĝin, premu <keycap
+>:</keycap
+>, enigu la komandon, kaj premu &Enter;.</para>
+</listitem>
+</itemizedlist>
+<!-- add a picture like https://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
+</sect2>
+
+<sect2 id="vi-integration">
+<title
+>Integriĝo kun &kate; Trajtoj</title>
+<itemizedlist>
+
+<listitem>
+<para
+>Vida Reĝimo estas enirita aŭtomate kiam teksto estas elektita per la muso. Ĝi ankaŭ estas enigita kiam oni uzas funkciojn de &kate; kiuj elektas tekston, kiel Elektu Ĉion (ĉu el la menuo aŭ per <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+> </keycombo
+>.)</para>
+</listitem>
+
+<listitem>
+<para
+>Vi markoj kaj <link linkend="kate-part-bookmarks"
+>&kate; legosignoj</link
+> estas integritaj. Kiam marko estas kreita en Vi Mode, responda &kate; legosigno estas kreita kaj aperas en la menuo <guimenu
+>Legosignoj</guimenu
+>. Male, kiam &kate; legosigno estas kreita, responda Vi-marko ĉe la 0 kolumno ankaŭ estas kreita.</para>
+</listitem>
+
+</itemizedlist>
+</sect2>
+
+<sect2 id="vi-normal-visual-mode-commands">
+<title
+>Subtenataj normalaj/vidaj reĝimaj komandoj</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>a</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Enmeti Reĝimon; aldonu post kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>A</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Enmeti Reĝimon; aldonu post linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>en</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Enmeti Reĝimon; enmeti antaŭ kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Ins;</para
+></entry>
+<entry
+><para
+>Eniru Enmeti Reĝimon; enmeti antaŭ kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>EN</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Enmeti Reĝimon; enmeti antaŭ la unua nemalplena signo en linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gi</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Enmeti Reĝimon; enmeti antaŭ loko, kie lasante la lastan enmetreĝimon</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>v</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Vidan Reĝimon; elektu signojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>V</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Vidan Reĝimon; elektu liniojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>v</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Eniru Vidan Reĝimon; elektu blokojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gb</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Vidan Reĝimon; elektu la lastan elekton</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>de</userinput
+></para
+></entry>
+<entry
+><para
+>Malfermu novan linion sub la nuna linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>OF</userinput
+></para
+></entry>
+<entry
+><para
+>Malfermu novan linion super la nuna linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>EN</userinput
+></para
+></entry>
+<entry
+><para
+>Kunigu liniojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>c</userinput
+></para
+></entry>
+<entry
+><para
+>Ŝanĝo: sekvu movon por forigi kaj eniri Enmeti reĝimon</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>C</userinput
+></para
+></entry>
+<entry
+><para
+>Ŝanĝi al fino de linio: Forigu al fino de linio kaj eniru Enmeti Reĝimon</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>cc</userinput
+></para
+></entry>
+<entry
+><para
+>Ŝanĝi linion: Forigu linion kaj eniru Insert Mode</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>oj</userinput
+></para
+></entry>
+<entry
+><para
+>Anstataŭa signo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>S</userinput
+></para
+></entry>
+<entry
+><para
+>Anstataŭa linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>dd</userinput
+></para
+></entry>
+<entry
+><para
+>Forigi linion</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>d</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu per movo por forigi</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>D</userinput
+></para
+></entry>
+<entry
+><para
+>Forigi ĝis fino de linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>x</userinput
+></para
+></entry>
+<entry
+><para
+>Forigu signon dekstre de kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Del;</para
+></entry>
+<entry
+><para
+>Forigu signon dekstre de kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>X</userinput
+></para
+></entry>
+<entry
+><para
+>Forigu signon maldekstre de la kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gui</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu per movo por fari minusklojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gui</userinput
+></para
+></entry>
+<entry
+><para
+>Faru la nunan linion minuskla</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gUI</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu per movo por fari majusklojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gUI</userinput
+></para
+></entry>
+<entry
+><para
+>Faru la nunan linion majuskle</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>de</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu per movo por <quote
+>tiri</quote
+> (kopii)</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>jj</userinput
+></para
+></entry>
+<entry
+><para
+>Jank (kopiu) linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>BY</userinput
+></para
+></entry>
+<entry
+><para
+>Jank (kopiu) linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>p</userinput
+></para
+></entry>
+<entry
+><para
+>Algluu post kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>P</userinput
+></para
+></entry>
+<entry
+><para
+>Algluu antaŭ kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]p</userinput
+></para
+></entry>
+<entry
+><para
+>Algluu post kursoro indentigita</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[p</userinput
+></para
+></entry>
+<entry
+><para
+>Algluu antaŭ la kursoro indentigita</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>r</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu per signo por anstataŭigi la signon post la kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>R</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Anstataŭigan Reĝimon</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>:</userinput
+></para
+></entry>
+<entry
+><para
+>Eniru Komandan Reĝimon</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>/</userinput
+></para
+></entry>
+<entry
+><para
+>Serĉu</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>u</userinput
+></para
+></entry>
+<entry
+><para
+>Malfari</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Refari</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>U</userinput
+></para
+></entry>
+<entry
+><para
+>Refari</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>m</userinput
+></para
+></entry>
+<entry
+><para
+>Agordu markon (povas esti uzata per movoj poste)</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>en</userinput
+></para
+></entry>
+<entry
+><para
+>Trovu sekvan</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>EN</userinput
+></para
+></entry>
+<entry
+><para
+>Trovu antaŭan</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>Indentlinio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Neindentlinio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>Indentlinioj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Malstreĉi liniojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Paĝo malsupren</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Paĝo supren</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ga</userinput
+></para
+></entry>
+<entry
+><para
+>Presi la &ASCII;-valoron de la signo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>.</userinput
+></para
+></entry>
+<entry
+><para
+>Ripetu la lastan ŝanĝon</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>==</userinput
+></para
+></entry>
+<entry
+><para
+>komandoAlignLine</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>=</userinput
+></para
+></entry>
+<entry
+><para
+>komandoAlignLines</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>~</userinput
+></para
+></entry>
+<entry
+><para
+>Ŝanĝi minusklecon de aktuala signo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Dividi vidon horizontale</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>V</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Dividi vidon vertikale</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>w</userinput
+></para
+></entry>
+<entry
+><para
+>Cikli al la sekva dividita fenestro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>h</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Iru al maldekstra fenestra fenestro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>l</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simulator"
+>X Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Iru dekstren dividita fenestro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>k</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Iru al la supra dividita fenestro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>j</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Iru al la malsupra fenestra fenestro</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-motions">
+<title
+>Subtenataj movoj</title>
+
+<para
+>Ĉi tiuj povas esti uzataj por movi dokumenton en Normala aŭ Vida reĝimo, aŭ kune kun unu el la supraj komandoj. Ili povas esti antaŭitaj de kalkulo, kiu indikas kiom da la taŭgaj movoj fari.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>h</userinput
+></para
+></entry>
+<entry
+><para
+>Maldekstre</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Left;</para
+></entry>
+<entry
+><para
+>Maldekstre</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Backspace;</para
+></entry>
+<entry
+><para
+>Maldekstre</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>en</userinput
+></para
+></entry>
+<entry
+><para
+>Suben</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Down;</para
+></entry>
+<entry
+><para
+>Suben</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>k</userinput
+></para
+></entry>
+<entry
+><para
+>Supren</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Up;</para
+></entry>
+<entry
+><para
+>Supren</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>l</userinput
+></para
+></entry>
+<entry
+><para
+>Ĝuste</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Ĝuste;</para
+></entry>
+<entry
+><para
+>Ĝuste</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Space;</para
+></entry>
+<entry
+><para
+>Ĝuste</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>$</userinput
+></para
+></entry>
+<entry
+><para
+>Fino de linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&End;</para
+></entry>
+<entry
+><para
+>Fino de linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>0</userinput
+></para
+></entry>
+<entry
+><para
+>Unua signo de linio (Kolumno 0)</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Home;</para
+></entry>
+<entry
+><para
+>Unua signo de linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>^</userinput
+></para
+></entry>
+<entry
+><para
+>Unua nemalplena signo de linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>se</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu per signo por movi dekstren de la kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>IF</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu per signo por movi maldekstren de la kursoro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>t</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu per signo por movi dekstren de kursoro, metante la kursoron sur signon antaŭ ĝi</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>AL</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu per signo por movi maldekstren de kursoro, metante la kursoron sur signon antaŭ ĝi</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gg</userinput
+></para
+></entry>
+<entry
+><para
+>Unua linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>G</userinput
+></para
+></entry>
+<entry
+><para
+>Lasta linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>kun</userinput
+></para
+></entry>
+<entry
+><para
+>Sekva Vorto</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>KUN</userinput
+></para
+></entry>
+<entry
+><para
+>Sekva vorto apartigita per blankspaco</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>b</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa vorto</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>B</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa vorto apartigita per blankspaco</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>e</userinput
+></para
+></entry>
+<entry
+><para
+>Fino de vorto</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>E</userinput
+></para
+></entry>
+<entry
+><para
+>Fino de vorto apartigita per blankspaco</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ge</userinput
+></para
+></entry>
+<entry
+><para
+>Fino de antaŭa vorto</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gE</userinput
+></para
+></entry>
+<entry
+><para
+>Fino de antaŭa vorto apartigita per blankspaco</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>|</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu kolumnon por moviĝi al tiu kolumno</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>%</userinput
+></para
+></entry>
+<entry
+><para
+>Sekvu eron por moviĝi al tiu aĵo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>`</userinput
+></para
+></entry>
+<entry
+><para
+>Mark</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>‘</userinput
+></para
+></entry>
+<entry
+><para
+>Unua ne-blankspaco de la linio, kiun la marko estas sur</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[[</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa malferma krampo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]]</userinput
+></para
+></entry>
+<entry
+><para
+>Sekva malferma krampo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[]</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa ferma krampo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>][</userinput
+></para
+></entry>
+<entry
+><para
+>Sekva ferma krampo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Mi</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Saltu al la sekva loko</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Saltu al antaŭa loko</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>H</userinput
+></para
+></entry>
+<entry
+>Iru al la unua linio de ekrano</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>M</userinput
+></para
+></entry>
+<entry
+>Iru al meza linio de ekrano</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>L</userinput
+></para
+></entry>
+<entry
+>Iru al la lasta linio de ekrano</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>%<replaceable
+>procento</replaceable
+></userinput
+></para
+></entry>
+<entry
+><para
+>Iru al specifita procento de la dokumento</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gk</userinput
+></para
+></entry>
+<entry
+><para
+>Iru unu vicon vide (kiam vi uzas dinamikan vortvolvaĵon)</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gj</userinput
+></para
+></entry>
+<entry
+><para
+>Iru unu linion malsupren videble (kiam vi uzas dinamikan vortvolvaĵon)</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Movu unu vorton maldekstren</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Movu unu vorton ĝuste</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-text-objects">
+<title
+>Subtenataj tekstaj objektoj</title>
+
+<para
+>Ĉi tiuj povas esti uzataj por elekti iujn partojn de dokumento.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>se</userinput
+></para
+></entry>
+<entry
+><para
+>Interna vorto: vorto inkluzive de blankspaco</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>kiel</userinput
+></para
+></entry>
+<entry
+><para
+>Vorto: vorto ekskludante blankspacon</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>en"</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa citaĵo (<userinput
+>"</userinput
+>) al sekva duobla citaĵo, inkluzive de citiloj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a”</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa citaĵo (<userinput
+>"</userinput
+>) al sekva duobla citaĵo, krom citiloj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>en'</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa unucitaĵo (<userinput
+>'</userinput
+>) al la sekva unucitaĵo, inkluzive de citiloj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a'</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa unucitaĵo (<userinput
+>'</userinput
+>) al la sekva unucitaĵo, krom citiloj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>en(</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa malferma krampo [<userinput
+>(</userinput
+>] al sekva ferma krampo [<userinput
+>)</userinput
+>], inkluzive de la krampo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a(</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa malferma krampo [<userinput
+>(</userinput
+>] al sekva ferma krampo [<userinput
+>)</userinput
+>], ekskludante la krampon</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>en[</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa malferma kvadrata krampo (<userinput
+>[</userinput
+>) al venonta ferma kvadrata krampo (<userinput
+>]</userinput
+>), inkluzive de la krampoj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a[</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa malferma kvadrata krampo (<userinput
+>[</userinput
+>) al la sekva ferma kvadrata krampo (<userinput
+>]</userinput
+>), ekskludante la krampojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>en{</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa malferma krampo (<userinput
+>{</userinput
+>) al venonta ferma krampo (<userinput
+>}</userinput
+>), inkluzive de la krampoj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a{</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa malferma krampo (<userinput
+>{</userinput
+>) al venonta ferma krampo (<userinput
+>}</userinput
+>), ekskludante la krampojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa malferma angula krampo (<userinput
+>&lt;</userinput
+>) al venonta ferma angula krampo (<userinput
+>&gt;</userinput
+>), inkluzive de la krampoj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa malferma angula krampo (<userinput
+>&lt;</userinput
+>) al la sekva ferma kvadrata krampo (<userinput
+>&gt;</userinput
+>), ekskludante la krampojn</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>en`</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa retromarko (<userinput
+>`</userinput
+>) al sekva malantaŭa markilo, inkluzive de la malantaŭo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a`</userinput
+></para
+></entry>
+<entry
+><para
+>Antaŭa retromarko (<userinput
+>`</userinput
+>) al sekva malantaŭa markilo, ekskludante la malantaŭajn markojn</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-insert-mode-commands">
+<title
+>Subtenataj enmetaj reĝimaj komandoj</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Unindent</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Indent</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Enigu de malsupre</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Y</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Forigi vorton</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Forigi vorton</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Forigi linion</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Nova linio</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Forigi char malantaŭen</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Movu al la unua signo en la dokumento</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> <userinput
+>n</userinput
+></para
+></entry>
+<entry
+>Enmetu la enhavon de registro <literal
+>n</literal
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+>, <replaceable
+>komando</replaceable
+></para
+></entry>
+<entry
+><para
+>Enigu normalan reĝimon nur por unu komando</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Pliigu nuntempe elektitan nombron</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>X</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Malkresku nuntempe elektitan nombron</para
+></entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-text-object">
+<title
+>La Koma Teksto Objekto</title>
+
+<para
+>Ĉi tiu objekto mankas en Vim. La koma tekstobjekto faciligas modifi parametrajn listojn en C-similaj lingvoj kaj aliaj komo-disigitaj listoj. Ĝi estas esence la areo inter du komoj aŭ inter komo kaj krampo. En la linio montrita en la ilustraĵo, la tri intervaloj kiujn ĉi tiu tekstobjekto povas etendi estas elstarigitaj.</para>
+
+<screenshot id="screenshot-resources">
+<screeninfo
+>Ekzemplo de Koma Teksto-Objekto</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="comma-to.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Ekzemplo de Koma Teksta Objekto</phrase
+></textobject>
+<caption
+><para
+>Koma teksto-objektaj gamoj. Se la kursoro estas super &eg; <replaceable
+>arg2</replaceable
+>, premante <userinput
+>ci</userinput
+>, (<quote
+>ŝanĝu internan komon</quote
+>) forigus <replaceable
+>duoblan arg2</replaceable
+> kaj metus la kursoron inter la du komojn en enmeta reĝimo. Tre oportuna maniero ŝanĝi la parametrojn de funkcio.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="vi-missing-features">
+<title
+>Mankas Trajtoj</title>
+
+<para
+>Kiel dirite antaŭe, la celo de la VI-Reĝimo de &kappname; estas ne subteni 100% de la funkcioj de Vim.</para>
+</sect2>
+
+</sect1>
+
+</chapter>

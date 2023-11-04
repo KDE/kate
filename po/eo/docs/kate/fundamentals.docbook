@@ -1,0 +1,1072 @@
+<chapter id="fundamentals">
+<chapterinfo>
+<authorgroup>
+<author
+><personname
+><firstname
+></firstname
+></personname
+></author>
+<othercredit role="translator"
+><firstname
+>Oliver</firstname
+><surname
+>Kellogg</surname
+><affiliation
+><address
+><email
+>okellogg@users.sf.net</email
+></address
+></affiliation
+><contrib
+>Translation</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>La Fundamentoj</title>
+
+<para
+>Se vi iam uzis tekstredaktilon, vi ne havos problemon uzi &kate;. En la sekvaj du sekcioj, <link linkend="starting-kate"
+>Starti &kate; </link
+> kaj en <link linkend="working-with-kate"
+>Laborante kun &kate;</link
+>, ni montros al vi ĉion, kion vi bezonas por rapide ekfunkcii. </para>
+
+<sect1 id="starting-kate">
+<title
+>Komencante &kate;</title>
+
+<para
+>Vi povas komenci &kate; de la aplikaĵlanĉilo aŭ de la komandlinio. </para>
+
+<sect2 id="starting-from-the-menu">
+<title
+>De la Menuo</title>
+<para
+>Malfermu la &kde; programmenuo alklakante la aplikaĵlanĉilo-piktogramon sur la ilobreto maldekstre malsupre de via ekrano. Ĉi tio altigos menuon. Movu vian kursoron supren laŭ la menuo al la menuero <menuchoice
+><guimenu
+>Aplikoj</guimenu
+><guisubmenu
+>Uzaĵoj</guisubmenu
+> <guimenuitem
+>Altnivela Tekstredaktilo &kate;</guimenuitem
+></menuchoice
+>. </para>
+
+</sect2>
+
+<sect2 id="starting-from-the-command-line">
+<title
+>De la Komandlinio</title>
+
+<para
+>Vi povas komenci &kate; tajpante ĝian nomon sur la komandlinio. Se vi donas al ĝi dosiernomon, kiel en la ekzemplo sube, ĝi malfermos aŭ kreos tiun dosieron. </para>
+
+<informalexample>
+<screen
+><prompt
+>%</prompt
+><userinput
+><command
+>kate</command
+> <option
+><replaceable
+>mia dosiero.txt</replaceable
+></option
+></userinput
+>
+</screen>
+</informalexample>
+
+<para
+>Se vi havas aktivan konekton, kaj permeson, vi povas utiligi la retan travideblecon de &kde; por malfermi dosierojn en la interreto. </para>
+
+<informalexample>
+<screen
+><prompt
+>%</prompt
+><userinput
+><command
+>kate</command
+> <option
+><replaceable
+>&kde-ftp;LEGUMIN</replaceable
+></option
+></userinput
+>
+</screen>
+</informalexample>
+
+<para
+>Por ŝanĝi la dosierujon por provizoraj dosieroj, kiu defaŭlte estas <filename class="directory"
+>/tmp</filename
+> agordu la mediovariablon <envar
+>TMPDIR</envar
+> antaŭ ol komenci &kate;, &eg; <informalexample
+> <screen
+><prompt
+>%</prompt
+><userinput
+><command
+>mkdir</command
+> /tmp/kate -p &amp;&amp; export TMPDIR=/tmp/kate &amp;&amp; kate</userinput
+>
+</screen>
+</informalexample>
+</para>
+
+<sect3 id="command-line-options">
+<title
+>Komandliniaj Opcioj</title>
+<para
+>&kate; akceptas jenajn komandliniajn opciojn:</para>
+
+<variablelist>
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--help</option
+></userinput
+></term>
+<listitem>
+<para
+>Ĉi tio listigas la disponeblajn elektojn ĉe la komandlinio. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-s</option
+> <option
+>--start</option
+> <parameter
+>nomo</parameter
+></userinput
+></term>
+<listitem>
+<para
+>Komencas &kate; kun la seanco <parameter
+>nomo</parameter
+>. La seanco estas kreita se ĝi ne jam ekzistas. Se &kate;-instanco rulanta la specifita seanco ekzistas, la specifitaj dosieroj estas ŝargitaj en tiu kazo. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+> -p</option
+> <option
+> -- pid</option
+> <parameter
+>PID</parameter
+></userinput
+></term>
+<listitem>
+<para
+>Nur reuzas ekzemplon kun la specifita PID (Process ID). </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+> -e</option
+> <option
+> -- kodo</option
+> <parameter
+>kodado</parameter
+> <parameter
+>URL</parameter
+></userinput
+></term>
+<listitem
+><para
+>Uzas la specifitan kodigon por la dokumento. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-l</option
+> <option
+> -- linio</option
+> <parameter
+>linio</parameter
+> <parameter
+>URL</parameter
+></userinput
+></term>
+<listitem
+><para
+>Navigas al la specifita linio post malfermi la dokumenton. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-c</option
+> <option
+> -- kolumno</option
+> <parameter
+>kolumno</parameter
+> <parameter
+>URL</parameter
+></userinput
+></term>
+<listitem
+><para
+>Navigas al la specifita kolumno post malfermi la dokumenton. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-i</option
+> <option
+>--stdin</option
+></userinput
+></term>
+<listitem
+><para
+>Legas la dokumentenhavon de STDIN. Ĉi tio similas al la komuna opcio <option
+>-</option
+> uzata en multaj komandliniaj programoj, kaj ebligas vin enkonduki komandan eligon en &kate;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--startanon</option
+></userinput
+></term>
+<listitem
+><para
+>Komencu &kate; kun nova anonima seanco, implicas <option
+>-n</option
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-n</option
+> <option
+>--new</option
+></userinput
+></term>
+<listitem
+><para
+>Devigi la komencon de nova &kate; ekzemplo (estas ignorita se <option
+>komenco</option
+> estas uzata kaj alia petskribo de &kate; jam havas la donitan seancon malfermita), devigita se neniuj parametroj kaj URL-oj estas donitaj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-b</option
+> <option
+>--bloki</option
+></userinput
+></term>
+<listitem
+><para
+>Se vi uzas jam funkciantan &kate;-instancon, bloki ĝis ĝi eliras, se doniĝis URLoj por malfermi.</para>
+<para
+>Vi povas uzi &kate; kun ĉi tiu opcio kiel redaktilo por tajpi en kommit mesaĝojn por versio-kontrolsistemoj kiel &git; aŭ <application
+>Subversigo</application
+>. Ĉi tiuj sistemoj atendas bloki la redaktilon ĝis vi enigis vian mesaĝon, ĉar ili tiam malfermas la provizoran dosieron, kiu estus malplena se &kate; tuj revenis al la alvokanto. </para>
+<para
+>Ĉi tiu opcio ankaŭ estas bezonata ĉe KIO (&kde; Enigo/Eligo), se vi malfermas foran dosieron (kiu estis elŝutita al provizora) kaj devus esti re-alŝutita, post kiam vi konservis ĝin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--tempfile</option
+></userinput
+></term>
+<listitem
+><para
+>Kiam ili estas uzataj, la specifitaj dosieroj estas traktataj kiel provizoraj dosieroj kaj forigitaj (se ili estas lokaj dosieroj kaj vi havas sufiĉajn permesojn) kiam ili estas fermitaj, krom se ili estis modifitaj de kiam ili estis malfermitaj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--desktopfile</option
+> <parameter
+>dosiernomo</parameter
+></userinput
+></term>
+<listitem
+><para
+>La baza dosiernomo de la labortabla eniro por ĉi tiu aplikaĵo.</para>
+<para
+>Ĉi tio estas precipe utila por envolvaĵaplikoj kaj aplikaĵoj havantaj ĝenerale multoblajn labortablajn dosierojn. Tiel ĉiu labortabla dosiero povas havi sian propran komandlinion por la eniro <option
+>Exec</option
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--aŭtoro</option
+></userinput
+></term>
+<listitem>
+<para
+>Listigas la aŭtorojn de &kate; en la fina fenestro. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>-v</option
+> <option
+>--version</option
+></userinput
+></term>
+<listitem>
+<para
+>Listigas versiinformojn por &kate;. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kate</command
+> <option
+>--licenco</option
+></userinput
+></term>
+<listitem>
+<para
+>Montras informojn pri licenco. </para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+</sect2>
+
+<sect2 id="drag-and-drop">
+<title
+>Treni kaj Faligi</title>
+<para
+>&kate; uzas la &kde; Treni kaj Faligi protokolon. Dosieroj povas esti trenitaj kaj faligitaj sur &kate; de la Labortablo, la dosieradministranto &dolphin; aŭ iu fora &FTP; retejo malfermiĝis en unu el la fenestroj de &dolphin;. </para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-kate">
+<title
+>Laborante kun &kate;</title>
+<para
+><link linkend="quick-start"
+>Rapida Komenco</link
+> montros al vi kiel ŝanĝi kvar simplajn opciojn, kiuj permesos al vi agordi kelkajn el la pli potencaj funkcioj de &kate; tuj. <link linkend="keystroke-commands"
+> Ŝparvojoj</link
+> prezentas kelkajn el la defaŭltaj klavoklavoj por tiuj, kiuj ne povas aŭ ne volas uzi muson. </para>
+
+<sect2 id="quick-start">
+<title
+>Rapida Komenco</title>
+
+<para
+>Ĉi tiu sekcio priskribos kelkajn el la eroj en la menuo <guimenu
+>Vidi</guimenu
+> por ke vi povu rapide agordi &kate; labori kiel vi volas ĝin. </para>
+
+<para
+>Kiam vi komencas &kate; unuafoje vi vidos du fenestrojn kun blankaj fonoj. Super la du fenestroj estas ilobreto kun la kutimaj etikeditaj piktogramoj. Kaj super tio, menubreto. </para>
+
+<para
+>La maldekstramana fenestro estas flanka stango. Ĝi kombinas la fenestrojn <guilabel
+>Dokumentoj</guilabel
+> kaj <guilabel
+>Dosiersistema Foliumilo</guilabel
+>. Ŝanĝu inter la du klakante sur la langetoj maldekstre de la fenestro. </para>
+
+<para
+>Se vi komencis &kate; kun dosiero, la dekstra fenestro montros la dosieron kiun vi redaktas kaj la <guilabel
+>Dokumentoj</guilabel
+> sur la flanka stango montros la nomon de la dosiero. Uzu la fenestron <guilabel
+>Dosiersistema Foliumilo</guilabel
+> por malfermi dosierojn. </para>
+
+<para
+>Vi povas ŝalti kaj malŝalti ĉiujn flankajn fenestrojn en la menuo <menuchoice
+><guimenu
+>Vidi</guimenu
+><guisubmenu
+>Ilaj Vidoj</guisubmenu
+></menuchoice
+> aŭ uzi <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>F</keycap
+></keycombo
+>. Ĉi tiu menuo ofertas al vi vian unuan ekvidon pri la potenco kaj fleksebleco de &kate;. </para>
+
+<para
+>En <guisubmenu
+>Ilaj Vidoj</guisubmenu
+> vi havas liston de ĉiuj ebligitaj kromprogramoj. Alklaku la markobutonon antaŭ ĉiu elemento aŭ alklaku per la &LMB; sur la ilbutonoj en la flanka kolumno por ŝalti kaj malŝalti ĉi tiun ilan vidon. </para>
+
+</sect2>
+
+<sect2 id="keystroke-commands">
+<title
+>Ŝparvojoj</title>
+
+<para
+>Multaj el la klavpremaj komandoj (mallongigoj) de &kate; estas agordeblaj per la menuo <link linkend="settings-help-menu"
+>Agordoj</link
+>. Defaŭlte &kate; honoras la sekvajn klavligilojn. </para>
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+
+<row>
+<entry
+><para
+><keycombo action="simul"
+><keycap
+>F1</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Helpo</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;<keycap
+>F1</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="whats-this"
+>Kio estas tio?</link
+></para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="file-new"
+>Nova</link
+> dokumento</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Konservi Ĉion</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="file-open"
+>Malfermi dokumenton</link
+> </para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Rapida Malfermo</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>F</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Plena Ekrana Reĝimo</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>,</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Agordi &kate;</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+> / <keycombo action="simul"
+>&Ctrl;&Esc;</keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="file-close"
+>Fermi</link
+> </para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Quit - fermi aktivan kopion de redaktilo </para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>F</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Montri Flankmenuojn</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Split Horizontala</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>L</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Split Vertikala</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F8</keycap
+></para
+></entry>
+<entry
+><para
+>Sekva Split View</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;<keycap
+>F8</keycap
+></keycombo
+> / <keycombo action="simul"
+>&Ctrl;&Esc;</keycombo
+></para
+></entry>
+<entry
+><para
+>Antaŭa Split View</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>R</keycap
+></keycombo
+> </para
+></entry>
+<entry
+><para
+>Fermi Aktualan Vidon</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Sekva Langeto</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Antaŭa Langeto</para
+></entry>
+</row>
+
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Aldone vi povas uzi la ŝparvojojn provizitajn de la komponanto <ulink url="help:/katepart/keybindings.html"
+>&katepart;</ulink
+> kaj de ĉiuj aktivigitaj <link linkend="plugins"
+>&kate; kromaĵojn</link
+>.</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-mdi">
+<title
+>Laborante Kun la &kate; <acronym
+>MDI</acronym
+></title>
+
+<sect2 id="kate-mdi-overview">
+<title
+>Superrigardo</title>
+
+<para
+>Fenestro, Vido, Dokumento, Kadro, Redaktilo... Kio estas ili ĉiuj en la terminologio de &kate;, kaj kiel vi povas profiti el ĝi la plej grandan parton? Ĉi tiu ĉapitro klarigos ĉion, kaj eĉ pli.</para>
+
+<sect3 id="kate-mdi-overview-mainwindow">
+
+<title
+>La Ĉefa Fenestro</title>
+
+<para
+><indexterm
+><primary
+>Ĉefa fenestro</primary
+></indexterm
+> La &kate; Ĉefa Fenestro estas norma &kde; aplika fenestro, kun aldono de flankaj stangoj enhavantaj ilajn vidojn. Ĝi havas menubreton kun ĉiuj komunaj menuoj, kaj kelkajn pli, kaj ilobreton havigante aliron al ofte uzataj komandoj.</para>
+
+<para
+>La plej grava parto de la fenestro estas la redakta areo, defaŭlte montranta ununuran tekstredaktilkomponenton, en kiu vi povas labori kun viaj dokumentoj.</para>
+
+<para
+>La aldokaj kapabloj de la fenestro estas uzataj por la ilaj fenestroj de iu ajn kromaĵo ebligita en la agorda dialogo.</para>
+
+<para
+>Ilvidoj povas esti poziciigitaj en iu ajn flanka kolumno, por movi ilon dekstre alklaku ĝian flankan butonon kaj elektu el la &RMB; menuo</para>
+
+<para
+>Ila vido povas esti markita kiel <emphasis
+>persistenta</emphasis
+> en la &RMB; menuo por ĝia flankbretobutono. La flankbreto povas enhavi pli da iloj samtempe tiel ke kiam ilo estas persista aliaj iloj povas esti montritaj samtempe.</para>
+
+<para
+>Se kromaĵo havas agordajn opciojn, vi povas uzi la unuan eron en la kunteksta menuo por malfermi la respondan paĝon en la agorda dialogo de &kate;.</para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="kate-mdi-editor">
+
+<title
+>La Redaktora areo</title>
+
+<para
+><indexterm
+><primary
+>Redakta Areo</primary
+></indexterm
+> &kate; kapablas havi pli ol unu dokumenton malfermitaj samtempe, kaj ankaŭ dividi la redaktan areon en ajnan nombron da kadroj, simile al kiel ekzemple &konqueror; aŭ la populara <application
+>emacs</application
+> tekstredaktilo funkcias. Tiel vi povas vidi plurajn dokumentojn samtempe, aŭ pli da ekzemploj de la sama dokumento, utila ekzemple se via dokumento enhavas difinojn en la supro, kiujn vi volas ofte vidi por referenco. Aŭ vi povus vidi programfontokapon en unu kadro, dum vi redaktas la efektivigdosieron en alia.</para>
+
+<para
+>Kiam dokumento estas havebla en pli ol unu redaktilo, ŝanĝoj faritaj en unu redaktilo tuj estos reflektitaj ankaŭ en la aliaj. Ĉi tio inkluzivas ŝanĝi la tekston kaj elekti tekston. Serĉaj operacioj aŭ kursoromovo nur reflektiĝas en la nuna redaktilo.</para>
+
+<para
+>Nuntempe ne eblas havi pliajn okazojn de la sama dokumento malfermitaj en la senco, ke unu okazo estos redaktita dum la alia ne.</para>
+
+<para
+>Dum dividado de redaktilo en du kadrojn, ĝi estas dividita en du samgrandajn kadrojn, ambaŭ montrante la nunan dokumenton de tiu redaktilo. La nova kadro estos malsupre (kaze de horizontala disigo) aŭ dekstre (por vertikala disigo). La nova kadro ricevas la fokuson, kiu estas bildigita per la palpebruma kursora stango en la fokusita kadro.</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="fundamentals-using-sessions">
+<title
+>Uzante Seancojn</title>
+
+<para
+>Seancoj estas kiel &kate; permesas konservi pli ol unu liston de dosieroj kaj &GUI; agordo ĉirkaŭe. Vi povas havi tiom da nomitaj seancoj kiom vi volas, kaj vi povas uzi nenomitajn aŭ anonimajn seancojn por dosieroj, kiujn vi volas uzi nur unufoje. Nuntempe &kate; povas konservi la liston de malfermitaj dosieroj, kaj la ĝeneralan fenestran agordon en la seanco; estontaj versioj de &kate; povas aldoni pliajn funkciojn, kiuj povas esti konservitaj en seancoj. Kun la enkonduko de seancoj, &kate; ankaŭ permesas vin malfermi ajnan nombron da okazoj de la aplikaĵo anstataŭ nur unu kiel ĝi kutimis fari kiel la defaŭlta konduto.</para>
+
+<para
+>Seancoj estas subtenataj en tri areoj: <itemizedlist>
+<listitem
+><para
+><link linkend="command-line-options"
+><emphasis
+>Komandliniaj opcioj</emphasis
+></link
+> kiu ebligas al vi elekti kaj komenci seancojn dum lanĉo de &kate; de la komandlinio.</para>
+</listitem>
+<listitem
+><para
+><link linkend="sessions-menu"
+><emphasis
+>La Seancoj-menuo</emphasis
+></link
+> kiu ebligas al vi ŝanĝi, konservi, komenci kaj administri viajn seancojn.</para
+></listitem>
+<listitem
+><para
+><link linkend="config-dialog-sessions"
+><emphasis
+>Agordaj opcioj</emphasis
+></link
+> kiu ebligas al vi decidi kiel sesioj ĝenerale devus konduti.</para
+></listitem>
+</itemizedlist>
+
+</para>
+
+<para
+>Kiam oni komencas novan seancon, la &GUI; agordo de <guilabel
+>Defaŭlta Seanco</guilabel
+> estas ŝargita. Por konservi fenestran agordon en la defaŭlta seanco, vi devas ebligi konservadon de fenestra agordo en la paĝo de agordo de seancoj de la agorda dialogo kaj poste ŝargi la defaŭltan seancon, agordi la fenestron laŭdezire kaj konservi la seancon denove.</para>
+
+<para
+>Kiam nomita seanco estas ŝargita, &kate; montros la sean nomon je la komenco de la fenestrotitolo, kiu tiam havas la formon <quote
+><replaceable
+>Seancnomo</replaceable
+>: <replaceable
+>Dokumentnomo aŭ &URL;</replaceable
+> - &kate;</quote
+> .</para>
+
+<para
+>Kiam oni malfermas dosierojn sur la komandlinio per <option
+>--start <replaceable
+>nomo</replaceable
+></option
+> aŭ se seanco estas elektita per la seanca elektilo, la specifita seanco estas ŝargita antaŭ la dosieroj specifitaj sur la komando linio. Por malfermi dosierojn el la komandlinio en nova, nenomita seanco, agordu &kate; por komenci novan seancon defaŭlte en la seanpaĝo de la agorda dialogo aŭ uzu <option
+>--start</option
+> kun malplena ĉeno: <replaceable
+>''</replaceable
+>.</para>
+
+<para
+>Ekde &kate; 2.5.1 la <acronym
+>PID</acronym
+> de la nuna okazo estas eksportita al la mediovariablo <envar
+>KATE_PID</envar
+>. Kiam oni malfermas dosierojn el la enkonstruita terminalo, Kate aŭtomate elektos la nunan kazon se nenio alia estas indikita sur la komandlinio.</para>
+
+</sect1>
+
+<sect1 id="fundamentals-quick-open">
+<title
+>Rapida Malfermo</title>
+
+<para
+>Por povi rapide malfermi/ŝanĝi inter dosieroj, Kate venas kun enkonstruita rapida malferma dialogo. Vi povas malfermi ĝin per <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+>. </para>
+
+<para
+>Rapida malfermo povas montri ĉiujn malfermitajn dokumentojn en Kate kaj ankaŭ ĉiujn dosierojn en malfermitaj projektoj. Por povi vidi projektdosierojn, vi devas ebligi <link linkend="kate-application-plugin-projects"
+>Projekta kromprogramo</link
+>. </para>
+
+<sect2>
+<title
+>Uzante Rapidan Malfermon</title>
+
+<para
+>Uzi rapidan malfermon estas tre simpla. Post kiam vi malfermas ĝin, simple tajpu la nomon aŭ partojn de la nomo de la dosiero, kiun vi volas malfermi, kaj rapida malfermo filtros la liston laŭ tio, kion vi tajpis. Premante &Enter; malfermas la elektitan dosieron, dum &Esc; kaŝas la rapidan malfermon. </para>
+<para
+>Defaŭlte, nur la dosiernomo kongruas dum filtrado. Se vi volas kongrui vojon, vi devas havi "/" en la tajpita teksto. Ekzemple: "doc/index" kongruos kun ĉiuj dosieroj kiuj enhavas "index" ene de la dosierujo "doc". </para>
+<para
+>La dokumentoj kiuj estas jam malfermitaj estas emfazitaj en grasa skribo kaj estas listigitaj supre kiam la dialogo malfermiĝas. Ankaŭ, kiam aperas rapida malfermo, la antaŭa malfermita dokumento jam estas elektita, do vi povas simple premi &Enter; kaj ĝi kondukos vin al tiu dokumento. </para>
+
+</sect2>
+
+<sect2>
+<title
+>Agordo Rapida Malfermo</title>
+<screenshot id="screenshot-project-quickopen">
+<screeninfo
+>Rapida Malfermo</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+<para
+>Rapida malfermo provizas kelkajn agordajn opciojn. Por aliri ĉi tiujn opciojn, dekstre alklaku en la enigolinia redakto. </para>
+<variablelist>
+<varlistentry>
+<term
+>Nuntempe disponeblaj opcioj estas:</term>
+<listitem>
+<para
+><userinput
+>Aktuala Projekto</userinput
+> - Montri dosierojn nur de aktuala projekto</para>
+<para
+><userinput
+>Ĉiuj Projektoj</userinput
+> - Montri dosierojn de ĉiuj malfermitaj projektoj</para>
+<para
+><userinput
+>Malklara Filtrado</userinput
+> - Uzi 'fuzzy' kongruoalgoritmon por filtri dosierojn</para>
+<para
+><userinput
+>Filtrado de ĵokeroj</userinput
+>- Uzi ĵokeran kongruon por filtri dosierojn</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+</sect1>
+
+<sect1 id="fundamentals-getting-help">
+
+<title
+>Ricevi Helpon</title>
+
+<sect2>
+
+<title
+>Kun &kate;</title>
+<variablelist>
+
+<varlistentry>
+<term
+>Ĉi tiu manlibro</term>
+
+<listitem>
+<para
+>Proponas detalan dokumentadon pri ĉiuj menukomandoj, agordaj opcioj, iloj, dialogoj, kromprogramoj &etc; same kiel priskriboj de la &kate; fenestro, la redaktilo kaj diversaj konceptoj uzataj en la aplikaĵo.</para>
+
+<para
+>Premu <keycap
+>F1</keycap
+> aŭ uzu la <menuchoice
+><guimenu
+>Helpon</guimenu
+> <guimenuitem
+>&kate; Manlibro</guimenuitem
+></menuchoice
+> menua temo por vidi ĉi tiun manlibron.</para
+></listitem>
+
+</varlistentry>
+
+<varlistentry id="whats-this">
+<term
+>Kio estas Ĉi Helpo</term>
+<listitem>
+<para
+>Kio estas Ĉi tiu helpo ofertas tujan helpon kun unuopaj elementoj de grafikaj fenestroj, kiel butonoj aŭ aliaj fenestraj areoj.</para>
+
+<para
+>Ni strebas provizi Kio estas Ĉi helpo por iuj elementoj por kiuj ĝi havas sencon. Ĝi estas havebla ĉie en la agorda dialogo, kaj en multaj aliaj dialogoj ankaŭ.</para>
+
+<para
+>Por utiligi la helpon de Kio estas Ĉi, premu <keycombo action="simul"
+>&Shift;<keycap
+>F1</keycap
+></keycombo
+> aŭ uzu la <menuchoice
+><guimenu
+>Helpon</guimenu
+><guimenuitem
+>Kio estas Ĉi </guimenuitem
+></menuchoice
+> menuero por ebligi Kio estas Ĉi tiu reĝimo. La kursoro fariĝos sago kun demandosigno, kaj vi nun povas klaki iun ajn elementon en la fenestro por legi la Helpon Kio estas Ĉi por tiu elemento, se ĝi disponeblas.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Helpbutonoj en Dialogoj</term>
+<listitem>
+<para
+>Iuj dialogoj havas <guibutton
+>Helpo</guibutton
+> Butonon. Premante ĝin komencos la &khelpcenter; kaj malfermu la koncernan dokumentaron.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2>
+<title
+>Kun Viaj Tekstaj Dosieroj</title>
+
+<para
+>&kate; ne (ankoraŭ!) provizas ajnan rimedon por legi dokumentan rilatan dokumentadon. Depende de la dosiero, kiun vi redaktas, vi eble trovos la <link linkend="kate-application-plugin-konsole"
+>Konstruita en Terminal Emulator</link
+> utila por vidi rilatajn &UNIX; manlibroj aŭ informdokumentado, aŭ vi povas uzi &konqueror;.</para>
+
+</sect2>
+
+<sect2>
+<title
+>Artikoloj pri &kate;</title>
+
+<para
+>La hejmpaĝo de &kate; provizas kelkajn <ulink url="https://kate-editor.org/featured-articles"
+> Artikolojn kaj Kieltojn</ulink
+> kun pliaj informoj ekster la amplekso de ĉi tiu manlibro.</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>

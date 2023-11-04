@@ -1,0 +1,496 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+  <!ENTITY gdb "<acronym
+>GDB</acronym
+>">
+  <!ENTITY kparts "<acronym
+>KParts</acronym
+>">
+  <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
+  <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
+  <!ENTITY menu-chapter SYSTEM "menus.docbook">
+  <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
+  <!ENTITY development-chapter SYSTEM "development.docbook">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Esperanto "INCLUDE"
+><!-- change language only here -->
+]>
+
+<book id="kate" lang="&language;">
+<title
+>La &kate; Manlibro</title>
+
+<bookinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&Seth.Rothberg; &Seth.Rothberg.mail;</author>
+<author
+>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="translator"
+><firstname
+>Oliver</firstname
+><surname
+>Kellogg</surname
+><affiliation
+><address
+><email
+>okellogg@users.sf.net</email
+></address
+></affiliation
+><contrib
+>Translation</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2000</year>
+<year
+>2001</year>
+<holder
+>&Seth.Rothberg;</holder>
+</copyright>
+<copyright>
+<year
+>2002</year
+><year
+>2003</year
+><year
+>2005</year>
+<holder
+>&Anders.Lund;</holder>
+</copyright>
+<copyright>
+<year
+>2005</year
+><year
+>2009</year>
+<holder
+>&Dominik.Haumann;</holder>
+</copyright>
+<copyright>
+<year
+>2011</year
+><year
+>2012</year
+><year
+>2013</year
+><year
+>2014</year>
+<holder
+>&TC.Hollingsworth;</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2022-04-22</date>
+<releaseinfo
+>Aplikoj 22.08</releaseinfo>
+
+<abstract>
+<para
+>&kate; estas tekstredaktilo de programisto de &kde;.</para>
+
+<para
+>Ĉi tiu manlibro dokumentas &kate; Versio 22.08</para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdebase</keyword>
+<keyword
+>Kate</keyword>
+<keyword
+>teksto</keyword>
+<keyword
+>redaktisto</keyword>
+<keyword
+>programisto</keyword>
+<keyword
+>programado</keyword>
+<keyword
+>projektoj</keyword>
+<keyword
+>MDI</keyword>
+<keyword
+>Multi</keyword>
+<keyword
+>Dokumento</keyword>
+<keyword
+>Interfaco</keyword>
+<keyword
+>terminalo</keyword>
+<keyword
+>konzolo</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Enkonduko</title>
+
+<para
+>Bonvenon al &kate;, tekstredaktilo de programisto de &kde;. Kelkaj el la multaj funkcioj de &kate; inkluzivas agordeblan sintaksan reliefigon por lingvoj de C kaj C++ al &HTML; al bash-skriptoj, la kapablo krei kaj konservi projektojn, multoblan dokumentinterfacon (<acronym
+>MDI</acronym
+>), kaj memstara fina emulilo. </para>
+
+<para
+>Sed &kate; estas pli ol redaktilo de programisto. Ĝia kapablo malfermi plurajn dosierojn samtempe faras ĝin ideala por redakti la multajn agordajn dosierojn de &UNIX;. Ĉi tiu dokumento estis skribita en &kate;. </para>
+
+<para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="kate.png"/></imageobject>
+<caption
+><para
+>Redaktante ĉi tiun manlibron...</para
+></caption>
+</mediaobject>
+</para>
+
+</chapter>
+
+&fundamentals-chapter;
+
+<chapter id="kate-part">
+<title
+>Laborante kun la &kate; Redaktoro</title>
+<para
+>Por informoj pri la bazoj pri laboro kun la redaktilo subesta &kate;, vidu la <ulink url="help:/katepart/kate-part.html"
+>Laborado kun la &katepart; Redaktila ĉapitro de la &katepart; Manlibro</ulink
+>.</para>
+</chapter>
+
+&plugins-chapter;
+
+<chapter id="advanced-editing-tools">
+<title
+>Altnivelaj Redaktaj Iloj</title>
+<para
+>Por informoj pri la altnivelaj redaktaj iloj inkluzivitaj kun &kate;, vidu la ĉapitron <ulink url="help:/katepart/advanced-editing-tools.html"
+>Altnivelaj redaktaj iloj de la &katepart; Manlibro</ulink
+>.</para>
+</chapter>
+
+&development-chapter;
+
+<chapter id="vi-input-mode-chapter">
+<title
+>La VI Eniga Reĝimo</title>
+<para
+>Por informoj pri la VI-enigreĝimo de &kate;, vidu la ĉapitron <ulink url="help:/katepart/vi-input-mode-chapter.html"
+>VI-enigreĝimo de la &katepart; Manlibro</ulink
+>.</para>
+</chapter>
+
+&menu-chapter;
+
+&configuring-chapter;
+
+<chapter id="credits">
+
+<title
+>Kreditoj kaj Licenco</title>
+
+<para
+>&kate;. Programo kopirajto 2000, 2001, 2002 - 2005 de la &kate; teamo de programistoj. </para>
+
+<variablelist>
+<title
+>La &kate; teamo:</title>
+<varlistentry>
+<term
+>&Christoph.Cullmann; &Christoph.Cullmann.mail;</term>
+<listitem
+><para
+>Projektestro &amp; Kerna Programisto</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Anders.Lund; &Anders.Lund.mail;</term>
+<listitem
+><para
+>Kerna Programisto, Perl-sintakso reliefigo, dokumentado</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Joseph.Wenninger; &Joseph.Wenninger.mail;</term>
+<listitem
+><para
+>Kerna Programisto, sintaksa reliefigo</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Michael Bartl <email
+>michael.bartl1@chello.at</email
+></term>
+<listitem
+><para
+>Kerna Programisto</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Phlip <email
+>phlip_cpp@my-deja.com</email
+></term>
+<listitem
+><para
+>La projekta kompililo</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Waldo.Bastian; &Waldo.Bastian.mail;</term>
+<listitem
+><para
+>La malvarmeta bufrosistemo</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Matt Newell <email
+>newellm@proaxis.com</email
+></term>
+<listitem
+><para
+>Testante...</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Michael McCallum <email
+>gholam@xtra.co.nz</email
+></term>
+<listitem
+><para
+>Kerna Programisto</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Jochen Wilhemly <email
+>digisnap@cs.tu-berlin.de</email
+></term>
+<listitem
+><para
+>&kwrite; Aŭtoro</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Michael.Koch; &Michael.Koch.mail;</term>
+<listitem
+><para
+>&kwrite; portado al &kparts;</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Christian.Gebauer; <email
+>gebauer@bigfoot.com</email
+></term>
+<listitem
+><para
+>Nespecifita</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Simon.Hausmann; &Simon.Hausmann.mail;</term>
+<listitem
+><para
+>Nespecifita</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Glen Parker <email
+>glenebob@nwlink.com</email
+></term>
+<listitem
+><para
+>&kwrite; Malfari Historion, KSpell-integriĝon</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Scott Manson <email
+>sdmanson@alltel.net</email
+></term>
+<listitem
+><para
+>&kwrite; &XML; sintakso reliefiganta subtenon</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&John.Firebaugh; &John.Firebaugh.mail;</term>
+<listitem
+><para
+>Diversaj Flikiloj</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Dominik.Haumann; &Dominik.Haumann.mail;</term>
+<listitem
+><para
+>Ellaboranto, Emfazi sorĉisto</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<title
+>Multaj aliaj homoj kontribuis:</title>
+<varlistentry>
+<term
+>Matteo Merli <email
+>merlim@libero.it</email
+></term>
+<listitem
+><para
+>Elstarigante por RPM Spec-Files, Diff kaj pli</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Rocky Scaletta <email
+>rocky@purdue.edu</email
+></term>
+<listitem
+><para
+>Elstarigante por VHDL</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Jurij Lebedev </term>
+<listitem
+><para
+>Emfazado por SQL</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Chris Ross</term>
+<listitem
+><para
+>Elstarigante por Ferite</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Nick Roux</term>
+<listitem
+><para
+>Elstarigo por ILERPG</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&John.Firebaugh;</term>
+<listitem
+><para
+>Elstarigante por &Java;, kaj multe pli</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Carsten.Niehaus;</term>
+<listitem
+><para
+>Emfazado por &latex;</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Laŭ Wigren</term>
+<listitem
+><para
+>Elstarigante por Makefiles, Python</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Jan Fritz</term>
+<listitem
+><para
+>Emfazado por Python</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Daniel.Naber;</term>
+<listitem
+><para
+>Malgrandaj erarkorektoj, &XML;-kromprogramo</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Dokumenta kopirajto 2000,2001 &Seth.Rothberg; &Seth.Rothberg.mail;</para>
+
+<para
+>Dokumenta kopirajto 2002, 2003, 2005 &Anders.Lund; &Anders.Lund.mail;</para>
+
+CREDIT_FOR_TRANSLATORS &underFDL; &underGPL; </chapter>
+
+<appendix id="regular-expressions">
+<title
+>Regulaj Esprimoj</title>
+
+<para
+>Por informoj pri uzado de regulaj esprimoj en &kate;, vidu la <ulink url="help:/katepart/regular-expressions.html"
+>apendicon de Regulaj esprimoj al la &katepart; Manlibro</ulink
+>.</para>
+
+</appendix>
+
+&documentation.index;
+
+<!--
+Index Word List:
+menu - context - syntax - markup - shortcuts - highlighting
+embedded terminal - editing - search - replace - regexp -> Regular Expression
+split window - selection - insert overwrite - selection -
+configure/customize/preferences - insert/overwrite - non-printing characters
+font - unicode - wordwrap/linewrap - project - bookmarks - docks - plugins
+block selection / rectangles - view - indenting - editor - word processor
+copy - paste - find - spelling - language (both kinds) - encoding -
+pretty printing - formatting - line numbers - icon border -
+folding - insert time - sed
+
+done
+comment / uncomment
+configure / settings / preferences
+
+-->
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-namecase-general: t
+sgml-namecase-entity: nil
+sgml-general-insert-case: lower
+sgml-minimize-attributes: nil
+sgml-omittag: nil
+End:
+-->

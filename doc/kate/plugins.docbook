@@ -114,7 +114,7 @@ query on SQL databases</para>
 <para><link linkend="kate-application-plugin-textfilter">Text Filter</link> - Process text using terminal commands</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements,
+<para><link linkend="kate-application-plugin-xmltools">&XML; Completion</link> - Lists &XML; elements,
 attributes, attribute values and entities allowed by DTD</para>
 </listitem>
 <listitem>

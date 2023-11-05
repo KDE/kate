@@ -12,7 +12,7 @@ Dependencies:
     'frameworks/knewstuff': '@latest-kf6'
     'frameworks/ktexteditor': '@latest-kf6'
     'frameworks/ktextwidgets': '@latest-kf6'
-    'libraries/kuserfeedback': '@latest-kf6'
+    'frameworks/kuserfeedback': '@latest-kf6'
 
 Options:
   test-before-installing: True

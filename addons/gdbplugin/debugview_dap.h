@@ -170,7 +170,7 @@ private:
 
     QStringList m_commandQueue;
 
-    QMap<QString, QList<std::optional<dap::Breakpoint>>> m_breakpoints;
-    QMap<QString, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
+    std::map<QString, QList<std::optional<dap::Breakpoint>>> m_breakpoints;
+    std::map<QString, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
     QList<dap::StackFrame> m_frames;
 };

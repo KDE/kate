@@ -372,9 +372,9 @@ void DapDebugView::onStackTrace(const int /* threadId */, const dap::StackTraceI
 
 void DapDebugView::clearBreakpoints()
 {
-    for (auto it = m_breakpoints.constBegin(); it != m_breakpoints.constEnd(); ++it) {
-        const auto path = QUrl::fromLocalFile(it.key());
-        for (const auto &bp : it.value()) {
+    for (const auto &[url, breakpoints] : m_breakpoints) {
+        const auto path = QUrl::fromLocalFile(url);
+        for (const auto &bp : breakpoints) {
             if (bp && bp->line) {
                 Q_EMIT breakPointCleared(path, bp->line.value() - 1);
             }
@@ -414,11 +414,11 @@ void DapDebugView::onProgramEnded(int exitCode)
 void DapDebugView::onInitialized()
 {
     Q_EMIT clearBreakpointMarks();
-    if (!m_wantedBreakpoints.isEmpty()) {
-        for (auto it = m_wantedBreakpoints.constBegin(); it != m_wantedBreakpoints.constEnd(); ++it) {
-            m_breakpoints[it.key()].clear();
+    if (!m_wantedBreakpoints.empty()) {
+        for (const auto &[url, breakpoints] : m_wantedBreakpoints) {
+            m_breakpoints[url].clear();
             pushRequest();
-            m_client->requestSetBreakpoints(it.key(), it.value(), true);
+            m_client->requestSetBreakpoints(url, breakpoints, true);
         }
     }
     shutdownUntil(PostMortem);
@@ -656,7 +656,7 @@ void DapDebugView::onSourceBreakpoints(const QString &path, int reference, const
         return;
     }
 
-    if (!m_breakpoints.contains(id)) {
+    if (m_breakpoints.find(id) == m_breakpoints.end()) {
         m_breakpoints[id] = QList<std::optional<dap::Breakpoint>>();
         m_breakpoints[id].reserve(breakpoints->size());
     }
@@ -805,10 +805,10 @@ bool DapDebugView::debuggerBusy() const
 
 std::optional<int> DapDebugView::findBreakpoint(const QString &path, int line) const
 {
-    if (!m_breakpoints.contains(path))
+    if (m_breakpoints.find(path) == m_breakpoints.end())
         return std::nullopt;
 
-    const auto &bpoints = m_breakpoints[path];
+    const auto &bpoints = m_breakpoints.at(path);
     int index = 0;
     for (const auto &bp : bpoints) {
         if (bp && bp->line && (line == bp->line)) {
@@ -821,11 +821,11 @@ std::optional<int> DapDebugView::findBreakpoint(const QString &path, int line) c
 
 std::optional<int> DapDebugView::findBreakpointIntent(const QString &path, int line) const
 {
-    if (!m_wantedBreakpoints.contains(path)) {
+    if (m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) {
         return std::nullopt;
     }
 
-    const auto &bpoints = m_wantedBreakpoints[path];
+    const auto &bpoints = m_wantedBreakpoints.at(path);
     int index = 0;
     for (const auto &bp : bpoints) {
         if (bp.line == line) {
@@ -888,7 +888,7 @@ bool DapDebugView::removeBreakpoint(const QString &path, int line)
 
 void DapDebugView::insertBreakpoint(const QString &path, int line)
 {
-    if (!m_wantedBreakpoints.contains(path)) {
+    if (m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) {
         m_wantedBreakpoints[path] = {dap::SourceBreakpoint(line)};
         m_breakpoints[path] = {std::nullopt};
     } else {
@@ -933,7 +933,7 @@ void DapDebugView::runToCursor(QUrl const &url, int line)
     dap::SourceBreakpoint bp(line);
     bp.hitCondition = QStringLiteral("<=1");
 
-    if (!m_wantedBreakpoints.contains(path)) {
+    if (m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) {
         m_wantedBreakpoints[path] = {std::move(bp)};
         m_breakpoints[path] = {std::nullopt};
     } else {
@@ -1268,11 +1268,11 @@ void DapDebugView::cmdListModules(const QString &)
 void DapDebugView::cmdListBreakpoints(const QString &)
 {
     int bId = 0;
-    for (auto it = m_breakpoints.begin(); it != m_breakpoints.end(); ++it) {
-        const auto &sourceId = it.key();
+    for (const auto &[url, breakpoints] : m_breakpoints) {
+        const auto &sourceId = url;
         const auto &defs = m_wantedBreakpoints[sourceId];
         int pointIdx = 0;
-        for (const auto &b : it.value()) {
+        for (const auto &b : breakpoints) {
             const auto &def = defs[pointIdx];
             Q_EMIT outputText(newLine(printBreakpoint(sourceId, def, b, bId)));
             ++pointIdx;

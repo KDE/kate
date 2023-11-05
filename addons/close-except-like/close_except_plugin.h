@@ -50,7 +50,7 @@ class CloseExceptPlugin; // forward declaration
 class CloseExceptPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
-    typedef QMap<QString, QPointer<QAction>> actions_map_type;
+    typedef std::map<QString, QPointer<QAction>> actions_map_type;
 
 public:
     /// Default constructor

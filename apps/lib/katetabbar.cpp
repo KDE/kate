@@ -63,12 +63,12 @@ void KateTabBar::readConfig()
         const QList<DocOrWidget> docList = documentList();
         if (m_tabCountLimit > 0 && docList.count() > m_tabCountLimit) {
             // close N least used tabs
-            QMap<quint64, DocOrWidget> lruDocs;
+            std::map<quint64, DocOrWidget> lruDocs;
             for (const DocOrWidget &doc : docList) {
                 lruDocs[m_docToLruCounterAndHasTab[doc].first] = doc;
             }
             int toRemove = docList.count() - m_tabCountLimit;
-            for (DocOrWidget doc : std::as_const(lruDocs)) {
+            for (const auto &[_, doc] : lruDocs) {
                 if (toRemove-- == 0) {
                     break;
                 }

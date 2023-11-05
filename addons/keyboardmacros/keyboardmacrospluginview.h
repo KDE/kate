@@ -30,11 +30,11 @@ class KeyboardMacrosPluginView : public QObject, public KXMLGUIClient
     QPointer<QAction> m_playAction;
     QPointer<QAction> m_saveAction;
     QPointer<KActionMenu> m_loadMenu;
-    QMap<QString, QPointer<QAction>> m_namedMacrosLoadActions;
+    std::map<QString, QPointer<QAction>> m_namedMacrosLoadActions;
     QPointer<KActionMenu> m_playMenu;
-    QMap<QString, QPointer<QAction>> m_namedMacrosPlayActions;
+    std::map<QString, QPointer<QAction>> m_namedMacrosPlayActions;
     QPointer<KActionMenu> m_wipeMenu;
-    QMap<QString, QPointer<QAction>> m_namedMacrosWipeActions;
+    std::map<QString, QPointer<QAction>> m_namedMacrosWipeActions;
 
 public:
     explicit KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin, KTextEditor::MainWindow *mainwindow);

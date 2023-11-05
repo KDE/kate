@@ -158,10 +158,11 @@ void CloseExceptPluginView::updateMenu(const std::set<QUrl> &paths,
     menu->setEnabled(!paths.empty());
 
     // Clear previous menus
-    for (actions_map_type::iterator it = actions.begin(), last = actions.end(); it != last;) {
-        menu->removeAction(*it);
-        actions.erase(it++);
+    for (const auto &[_, action] : actions) {
+        menu->removeAction(action);
     }
+    actions.clear();
+
     // Form a new one
     appendActionsFrom(paths, actions, menu, closeFunction);
     if (!masks.empty()) {

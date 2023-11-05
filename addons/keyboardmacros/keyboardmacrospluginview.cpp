@@ -91,7 +91,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     m_loadMenu->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
     actionCollection()->addAction(QStringLiteral("keyboardmacros_named_load"), m_loadMenu);
     m_loadMenu->setToolTip(i18n("Load a named macro as the current one."));
-    m_loadMenu->setEnabled(!plugin->m_namedMacros.isEmpty());
+    m_loadMenu->setEnabled(!plugin->m_namedMacros.empty());
     menu->addAction(m_loadMenu);
 
     // create play named menu
@@ -99,7 +99,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     m_playMenu->setIcon(QIcon::fromTheme(QStringLiteral("auto-type")));
     actionCollection()->addAction(QStringLiteral("keyboardmacros_named_play"), m_playMenu);
     m_playMenu->setToolTip(i18n("Play a named macro without loading it."));
-    m_playMenu->setEnabled(!plugin->m_namedMacros.isEmpty());
+    m_playMenu->setEnabled(!plugin->m_namedMacros.empty());
     menu->addAction(m_playMenu);
 
     // create wipe named menu
@@ -107,11 +107,11 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     m_wipeMenu->setIcon(QIcon::fromTheme(QStringLiteral("delete")));
     actionCollection()->addAction(QStringLiteral("keyboardmacros_named_wipe"), m_wipeMenu);
     m_wipeMenu->setToolTip(i18n("Wipe a named macro."));
-    m_wipeMenu->setEnabled(!plugin->m_namedMacros.isEmpty());
+    m_wipeMenu->setEnabled(!plugin->m_namedMacros.empty());
     menu->addAction(m_wipeMenu);
 
     // add named macros to our menus
-    for (const auto &[name, macro] : plugin->m_namedMacros.toStdMap()) {
+    for (const auto &[name, macro] : plugin->m_namedMacros) {
         addNamedMacro(name, macro.toString());
     }
 
@@ -182,7 +182,7 @@ void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const QString 
     });
     m_loadMenu->addAction(action);
     // remember load action pointer
-    m_namedMacrosLoadActions.insert(name, action);
+    m_namedMacrosLoadActions.insert_or_assign(name, action);
     // update load menu state
     m_loadMenu->setEnabled(true);
 
@@ -197,7 +197,7 @@ void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const QString 
     // add the play action to the collection (a user may want to set a shortcut for a macro they use very often)
     actionCollection()->addAction(QStringLiteral("keyboardmacros_named_play_") + name, action);
     // remember play action pointer
-    m_namedMacrosPlayActions.insert(name, action);
+    m_namedMacrosPlayActions.insert_or_assign(name, action);
     // update play menu state
     m_playMenu->setEnabled(true);
 
@@ -210,7 +210,7 @@ void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const QString 
     });
     m_wipeMenu->addAction(action);
     // remember wipe action pointer
-    m_namedMacrosWipeActions.insert(name, action);
+    m_namedMacrosWipeActions.insert_or_assign(name, action);
     // update wipe menu state
     m_wipeMenu->setEnabled(true);
 }
@@ -220,31 +220,34 @@ void KeyboardMacrosPluginView::removeNamedMacro(const QString &name)
     QAction *action;
 
     // remove load action
-    action = m_namedMacrosLoadActions.value(name);
+    auto it = m_namedMacrosLoadActions.find(name);
+    action = (it == m_namedMacrosLoadActions.end()) ? nullptr : it->second;
     m_loadMenu->removeAction(action);
     actionCollection()->removeAction(action);
     // forget load action pointer
-    m_namedMacrosLoadActions.remove(name);
+    m_namedMacrosLoadActions.erase(name);
     // update load menu state
-    m_loadMenu->setEnabled(!m_namedMacrosLoadActions.isEmpty());
+    m_loadMenu->setEnabled(!m_namedMacrosLoadActions.empty());
 
     // remove play action
-    action = m_namedMacrosPlayActions.value(name);
+    it = m_namedMacrosPlayActions.find(name);
+    action = (it == m_namedMacrosPlayActions.end()) ? nullptr : it->second;
     m_playMenu->removeAction(action);
     actionCollection()->removeAction(action);
     // forget play action pointer
-    m_namedMacrosPlayActions.remove(name);
+    m_namedMacrosPlayActions.erase(name);
     // update play menu state
-    m_playMenu->setEnabled(!m_namedMacrosPlayActions.isEmpty());
+    m_playMenu->setEnabled(!m_namedMacrosPlayActions.empty());
 
     // remove wipe action
-    action = m_namedMacrosWipeActions.value(name);
+    it = m_namedMacrosWipeActions.find(name);
+    action = (it == m_namedMacrosWipeActions.end()) ? nullptr : it->second;
     m_wipeMenu->removeAction(action);
     actionCollection()->removeAction(action);
     // forget wipe action pointer
-    m_namedMacrosWipeActions.remove(name);
+    m_namedMacrosWipeActions.erase(name);
     // update wipe menu state
-    m_wipeMenu->setEnabled(!m_namedMacrosWipeActions.isEmpty());
+    m_wipeMenu->setEnabled(!m_namedMacrosWipeActions.empty());
 }
 
 // BEGIN Action slots

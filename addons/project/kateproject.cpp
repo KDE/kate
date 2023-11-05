@@ -193,7 +193,7 @@ QJsonDocument KateProject::readJSONFile(const QString &fileName) const
     /**
      * keep each project file last modification time to warn the user only once per malformed file.
      */
-    static QMap<QString, QDateTime> lastModifiedTimes;
+    static QHash<QString, QDateTime> lastModifiedTimes;
 
     if (fileName.isEmpty()) {
         return QJsonDocument();

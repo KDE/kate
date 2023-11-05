@@ -81,7 +81,7 @@ void KeyboardMacrosPlugin::loadNamedMacros()
                 m_wipedMacros.insert(it.key());
                 continue;
             }
-            m_namedMacros.insert(it.key(), maybeMacro.first);
+            m_namedMacros[it.key()] = maybeMacro.first;
         }
     }
     storage.close();
@@ -90,12 +90,12 @@ void KeyboardMacrosPlugin::loadNamedMacros()
 void KeyboardMacrosPlugin::saveNamedMacros()
 {
     // first keep a copy of the named macros of our instance
-    QMap<QString, Macro> ourNamedMacros;
-    ourNamedMacros.swap(m_namedMacros);
+    std::map<QString, Macro> ourNamedMacros = std::move(m_namedMacros);
+    // ourNamedMacros.swap(m_namedMacros);
     // then reload from storage in case another instance saved macros since we first loaded ours from storage
     loadNamedMacros();
     // then insert all of our macros, prioritizing ours in case of name conflict since we are the most recent save
-    m_namedMacros.insert(ourNamedMacros);
+    m_namedMacros.merge(ourNamedMacros);
     // and now save named macros
     QSaveFile storage(m_storage);
     if (!storage.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -103,7 +103,7 @@ void KeyboardMacrosPlugin::saveNamedMacros()
         return;
     }
     QJsonObject json;
-    for (const auto &[name, macro] : m_namedMacros.toStdMap()) {
+    for (const auto &[name, macro] : m_namedMacros) {
         json.insert(name, macro.toJson());
     }
     storage.write(QJsonDocument(json).toJson(QJsonDocument::Compact));
@@ -267,8 +267,8 @@ void KeyboardMacrosPlugin::stop(bool save)
 bool KeyboardMacrosPlugin::play(const QString &name)
 {
     Macro macro;
-    if (!name.isEmpty() && m_namedMacros.contains(name)) {
-        macro = m_namedMacros.value(name);
+    if (!name.isEmpty() && m_namedMacros.find(name) != m_namedMacros.end()) {
+        macro = m_namedMacros[name];
         qDebug(KM_DBG) << "playing macro:" << name;
     } else if (name.isEmpty() && !m_macro.isEmpty()) {
         macro = m_macro;
@@ -298,7 +298,7 @@ bool KeyboardMacrosPlugin::save(const QString &name)
         return false;
     }
     qDebug(KM_DBG) << "saving macro:" << name;
-    m_namedMacros.insert(name, m_macro);
+    m_namedMacros[name] = m_macro;
     // update GUI:
     for (auto &pluginView : m_pluginViews) {
         pluginView->addNamedMacro(name, m_macro.toString());
@@ -310,14 +310,15 @@ bool KeyboardMacrosPlugin::save(const QString &name)
 
 bool KeyboardMacrosPlugin::load(const QString &name)
 {
-    if (!m_namedMacros.contains(name)) {
+    auto it = m_namedMacros.find(name);
+    if (it == m_namedMacros.end()) {
         return false;
     }
     qDebug(KM_DBG) << "loading macro:" << name;
     // clear current macro
     m_macro.clear();
     // load named macro
-    m_macro = m_namedMacros.value(name);
+    m_macro = it->second;
     // update GUI
     for (auto &pluginView : m_pluginViews) {
         pluginView->macroLoaded(true);
@@ -329,11 +330,12 @@ bool KeyboardMacrosPlugin::load(const QString &name)
 
 bool KeyboardMacrosPlugin::wipe(const QString &name)
 {
-    if (!m_namedMacros.contains(name)) {
+    auto it = m_namedMacros.find(name);
+    if (it == m_namedMacros.end()) {
         return false;
     }
     qDebug(KM_DBG) << "wiping macro:" << name;
-    m_namedMacros.remove(name);
+    m_namedMacros.erase(it);
     m_wipedMacros.insert(name);
     // update GUI
     for (auto &pluginView : m_pluginViews) {

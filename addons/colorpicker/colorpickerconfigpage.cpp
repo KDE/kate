@@ -45,13 +45,13 @@ KateColorPickerConfigPage::KateColorPickerConfigPage(QWidget *parent, KateColorP
     QGroupBox *hexGroup = new QGroupBox(i18n("Hex color matching"), this);
     QVBoxLayout *hexLayout = new QVBoxLayout();
     // Hex color formats supported by QColor. See https://doc.qt.io/qt-5/qcolor.html#setNamedColor
-    chkHexLengths.insert(12, new QCheckBox(i18n("12 digits (#RRRRGGGGBBBB)"), this));
-    chkHexLengths.insert(9, new QCheckBox(i18n("9 digits (#RRRGGGBBB)"), this));
-    chkHexLengths.insert(8, new QCheckBox(i18n("8 digits (#AARRGGBB)"), this));
-    chkHexLengths.insert(6, new QCheckBox(i18n("6 digits (#RRGGBB)"), this));
-    chkHexLengths.insert(3, new QCheckBox(i18n("3 digits (#RGB)"), this));
+    chkHexLengths.insert_or_assign(12, new QCheckBox(i18n("12 digits (#RRRRGGGGBBBB)"), this));
+    chkHexLengths.insert_or_assign(9, new QCheckBox(i18n("9 digits (#RRRGGGBBB)"), this));
+    chkHexLengths.insert_or_assign(8, new QCheckBox(i18n("8 digits (#AARRGGBB)"), this));
+    chkHexLengths.insert_or_assign(6, new QCheckBox(i18n("6 digits (#RRGGBB)"), this));
+    chkHexLengths.insert_or_assign(3, new QCheckBox(i18n("3 digits (#RGB)"), this));
 
-    for (QCheckBox *chk : std::as_const(chkHexLengths)) {
+    for (const auto &[_, chk] : std::as_const(chkHexLengths)) {
         hexLayout->addWidget(chk);
         connect(chk, &QCheckBox::stateChanged, this, &KateColorPickerConfigPage::changed);
     }
@@ -95,9 +95,9 @@ void KateColorPickerConfigPage::apply()
     config.writeEntry("PreviewAfterColor", chkPreviewAfterColor->isChecked());
 
     QList<int> hexLengths;
-    for (auto it = chkHexLengths.cbegin(); it != chkHexLengths.cend(); ++it) {
-        if (it.value()->isChecked()) {
-            hexLengths.append(it.key());
+    for (const auto &[hexLength, chkBox] : chkHexLengths) {
+        if (chkBox->isChecked()) {
+            hexLengths.append(hexLength);
         }
     }
     config.writeEntry("HexLengths", hexLengths);
@@ -115,9 +115,8 @@ void KateColorPickerConfigPage::reset()
 
     const QList<int> enabledHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 6, 3});
 
-    for (auto it = chkHexLengths.cbegin(); it != chkHexLengths.cend(); ++it) {
-        int hexLength = it.key();
-        it.value()->setChecked(enabledHexLengths.contains(hexLength));
+    for (const auto &[hexLength, chkBox] : chkHexLengths) {
+        chkBox->setChecked(enabledHexLengths.contains(hexLength));
     }
 }
 

@@ -2462,7 +2462,7 @@ public:
             break;
         }
 
-        QMap<QAbstractButton *, std::function<void()>> onClick;
+        std::map<QAbstractButton *, std::function<void()>> onClick;
         for (auto &action : actions) {
             QString escaped = action.title;
             escaped.replace(QLatin1Char('&'), QLatin1String("&&"));

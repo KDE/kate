@@ -873,8 +873,8 @@ void GitWidget::parseStatusReady()
 {
     // Remember collapse/expand state
     // The default is expanded, so only add here which should be not expanded
-    QMap<int, bool> nodeIsExpanded;
-    nodeIsExpanded.insert(GitStatusModel::NodeUntrack, false);
+    std::map<int, bool> nodeIsExpanded;
+    nodeIsExpanded[GitStatusModel::NodeUntrack] = false;
 
     const auto *model = m_treeView->model();
     for (int i = 0; i < model->rowCount(); ++i) {
@@ -896,7 +896,7 @@ void GitWidget::parseStatusReady()
             continue;
         }
         const auto t = index.data(GitStatusModel::TreeItemType).toInt();
-        if (!nodeIsExpanded.contains(t) || nodeIsExpanded[t]) {
+        if (nodeIsExpanded.find(t) == nodeIsExpanded.end() || nodeIsExpanded[t]) {
             m_treeView->expand(index);
         } else {
             m_treeView->collapse(index);

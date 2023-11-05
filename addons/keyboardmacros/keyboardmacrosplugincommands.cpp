@@ -70,8 +70,13 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
 bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd, QString &msg)
 {
     QString macros;
-    if (!m_plugin->m_namedMacros.keys().isEmpty()) {
-        macros = QStringLiteral("<p><b>Named macros:</b> ") + QStringList(m_plugin->m_namedMacros.keys()).join(QStringLiteral(", ")) + QStringLiteral(".</p>");
+    if (!m_plugin->m_namedMacros.empty()) {
+        QStringList keys;
+        keys.reserve(m_plugin->m_namedMacros.size());
+        for (const auto &[key, _] : m_plugin->m_namedMacros) {
+            keys.push_back(key);
+        }
+        macros = QStringLiteral("<p><b>Named macros:</b> ") + keys.join(QStringLiteral(", ")) + QStringLiteral(".</p>");
     }
     if (cmd == QStringLiteral("kmsave")) {
         msg = i18n("<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard macro as <code>&lt;name&gt;</code>.</p>%1</qt>", macros);

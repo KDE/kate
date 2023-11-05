@@ -187,9 +187,9 @@
 </listitem>
 <listitem>
 <para
-><link linkend="kate-application-plugin-xmltools"
->&XML; Completion</link
-> - Lists &XML; elements, attributes, attribute values and entities allowed by DTD</para>
+><link linkend="kate-application-plugin-xml tools"
+>&XML;-Kompletigo</link
+> - Listigas &XML; elementojn, atributojn, atributajn valorojn kaj entojn permesitajn de DTD</para>
 </listitem>
 <listitem>
 <para
@@ -5327,7 +5327,7 @@ when finished.</para
 >Registri makroon...</guimenuitem
 ></menuchoice
 > (<keycombo action="simul"
->&Ctrl;&Shift ;<keycap
+>&Ctrl;&Shift;<keycap
 >K</keycap
 ></keycombo
 >). </para>
@@ -5369,7 +5369,7 @@ when finished.</para
 >Nuligi makroregistradon</guimenuitem
 ></menuchoice
 > (<keycombo action="simul"
->&Ctrl;&Alt;&Shift ;<keycap
+>&Ctrl;&Alt;&Shift;<keycap
 >K</keycap
 ></keycombo
 >). </para>

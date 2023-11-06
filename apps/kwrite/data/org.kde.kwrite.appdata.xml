@@ -5,6 +5,7 @@
   <project_license>LGPL-2.1+</project_license>
   <name>KWrite</name>
   <name xml:lang="ar">كاتبك</name>
+  <name xml:lang="ast">KWrite</name>
   <name xml:lang="az">KWrite</name>
   <name xml:lang="bg">KWrite</name>
   <name xml:lang="bs">Kwrite</name>
@@ -159,6 +160,7 @@
     <p xml:lang="zh-TW">KWrite 是一套 KDE 的文字編輯器，基於 Kate 的編輯器組件。</p>
     <p>Features:</p>
     <p xml:lang="ar">الميزات:</p>
+    <p xml:lang="ast">Funciones:</p>
     <p xml:lang="az">İmkanlar:</p>
     <p xml:lang="bg">Функции:</p>
     <p xml:lang="bs">Svojstva:</p>

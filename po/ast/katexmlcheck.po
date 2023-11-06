@@ -1,0 +1,76 @@
+# Copyright (C) 2023 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2023 Enol P. <enolp@softastur.org>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2023-09-18 02:00+0000\n"
+"PO-Revision-Date: 2023-11-06 00:54+0100\n"
+"Last-Translator: Enol P. <enolp@softastur.org>\n"
+"Language-Team: \n"
+"Language: ast_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.08.2\n"
+
+#: plugin_katexmlcheck.cpp:96
+#, kde-format
+msgid "XML Check"
+msgstr ""
+
+#: plugin_katexmlcheck.cpp:101
+#, kde-format
+msgid "Validate XML"
+msgstr ""
+
+#: plugin_katexmlcheck.cpp:131
+#, kde-format
+msgid "Validate process crashed"
+msgstr ""
+
+#: plugin_katexmlcheck.cpp:131 plugin_katexmlcheck.cpp:149
+#: plugin_katexmlcheck.cpp:209 plugin_katexmlcheck.cpp:234
+#: plugin_katexmlcheck.cpp:254 plugin_katexmlcheck.cpp:337
+#, kde-format
+msgid "XMLCheck"
+msgstr ""
+
+#: plugin_katexmlcheck.cpp:145
+#, kde-format
+msgid "No DOCTYPE found, will only check well-formedness."
+msgstr ""
+
+#: plugin_katexmlcheck.cpp:147
+#, kde-format
+msgctxt "%1 refers to the XML DTD"
+msgid "'%1' not found, will only check well-formedness."
+msgstr ""
+
+#: plugin_katexmlcheck.cpp:233
+#, kde-format
+msgid "<b>Error:</b> Could not create temporary file '%1'."
+msgstr ""
+
+#: plugin_katexmlcheck.cpp:252
+#, kde-format
+msgid ""
+"<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
+"installed. It is part of libxml2."
+msgstr ""
+
+#: plugin_katexmlcheck.cpp:335
+#, kde-format
+msgid ""
+"<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
+"installed. It is part of libxml2."
+msgstr ""
+
+#. i18n: ectx: Menu (xml)
+#: ui.rc:6
+#, kde-format
+msgid "&XML"
+msgstr "&XML"

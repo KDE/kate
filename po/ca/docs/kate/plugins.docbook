@@ -175,7 +175,7 @@
 <para
 ><link linkend="kate-application-plugin-xmltools"
 >Compleció &XML;</link
->: Llista els elements, atributs, valors dels atributs i entitats permeses per la DTD</para>
+>: Llista els elements, atributs, valors dels atributs i entitats &XML; permeses per la DTD</para>
 </listitem>
 <listitem>
 <para

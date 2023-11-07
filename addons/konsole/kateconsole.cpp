@@ -453,7 +453,7 @@ void KateConsole::slotRun()
         document->save();
     }
 
-    KConfigGroup cg(KSharedConfig::openConfig(), "Konsole");
+    KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("Konsole"));
     // The string that should be output to terminal, upon acceptance
     QString output_str;
     // Set prefix first
@@ -540,11 +540,11 @@ void KateConsole::readConfig()
     disconnect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotViewOrUrlChanged);
     disconnect(m_urlChangedConnection);
 
-    if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("AutoSyncronize", true)) {
+    if (KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("AutoSyncronize", true)) {
         connect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotViewOrUrlChanged);
     }
 
-    if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("SetEditor", false)) {
+    if (KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("SetEditor", false)) {
         qputenv("EDITOR", "kate -b");
     } else {
         setEditorEnv(m_plugin->previousEditorEnv());
@@ -553,11 +553,11 @@ void KateConsole::readConfig()
 
 void KateConsole::handleEsc(QEvent *e)
 {
-    if (!KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyBehaviour", true)) {
+    if (!KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("KonsoleEscKeyBehaviour", true)) {
         return;
     }
 
-    QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
+    QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
 
     if (!m_mw || !m_toolView || !e) {
         return;
@@ -666,7 +666,7 @@ QIcon KateKonsoleConfigPage::icon() const
 
 void KateKonsoleConfigPage::apply()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "Konsole");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Konsole"));
     config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
     config.writeEntry("RemoveExtension", cbRemoveExtension->isChecked());
     config.writeEntry("RunPrefix", lePrefix->text());
@@ -679,7 +679,7 @@ void KateKonsoleConfigPage::apply()
 
 void KateKonsoleConfigPage::reset()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "Konsole");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Konsole"));
     cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", true));
     cbRemoveExtension->setChecked(config.readEntry("RemoveExtension", false));
     lePrefix->setText(config.readEntry("RunPrefix", ""));

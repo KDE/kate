@@ -192,7 +192,7 @@ void KateViewSpace::readConfig()
 {
     // get tab config
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
     m_autoHideTabBar = cgGeneral.readEntry("Auto Hide Tabs", KateApp::isKWrite());
 
     // init tab bar

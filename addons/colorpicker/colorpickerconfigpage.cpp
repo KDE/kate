@@ -90,7 +90,7 @@ void KateColorPickerConfigPage::apply()
         return;
     }
 
-    KConfigGroup config(KSharedConfig::openConfig(), "ColorPicker");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("ColorPicker"));
     config.writeEntry("NamedColors", chkNamedColors->isChecked());
     config.writeEntry("PreviewAfterColor", chkPreviewAfterColor->isChecked());
 
@@ -109,7 +109,7 @@ void KateColorPickerConfigPage::apply()
 
 void KateColorPickerConfigPage::reset()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "ColorPicker");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("ColorPicker"));
     chkNamedColors->setChecked(config.readEntry("NamedColors", false));
     chkPreviewAfterColor->setChecked(config.readEntry("PreviewAfterColor", true));
 

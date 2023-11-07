@@ -10,7 +10,7 @@
 #include <KColorUtils>
 
 KateFileTreePluginSettings::KateFileTreePluginSettings()
-    : m_group(KSharedConfig::openConfig(), "filetree")
+    : m_group(KSharedConfig::openConfig(), QStringLiteral("filetree"))
 {
     KColorScheme colors(QPalette::Active);
     QColor bg = colors.background().color();

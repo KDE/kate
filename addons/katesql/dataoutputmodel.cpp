@@ -51,7 +51,7 @@ void DataOutputModel::clear()
 
 void DataOutputModel::readConfig()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
 
     KConfigGroup group = config.group("OutputCustomization");
 

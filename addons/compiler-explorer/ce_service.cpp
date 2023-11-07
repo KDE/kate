@@ -78,7 +78,7 @@ CompilerExplorerSvc::CompilerExplorerSvc(QObject *parent)
     mgr = new QNetworkAccessManager(this);
     connect(mgr, &QNetworkAccessManager::finished, this, &CompilerExplorerSvc::slotNetworkReply);
 
-    KConfigGroup cg(KSharedConfig::openConfig(), "kate_compilerexplorer");
+    KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("kate_compilerexplorer"));
     changeUrl(cg.readEntry("kate_compilerexplorer_url", QStringLiteral("http://localhost:10240")));
 }
 

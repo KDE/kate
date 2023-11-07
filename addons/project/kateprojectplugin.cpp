@@ -485,7 +485,7 @@ bool KateProjectPlugin::restoreProjectsForSession() const
 
 void KateProjectPlugin::readConfig()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "project");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("project"));
 
     const QStringList autorepository = config.readEntry("autorepository", DefaultConfig);
     m_autoGit = autorepository.contains(GitConfig);
@@ -509,7 +509,7 @@ void KateProjectPlugin::readConfig()
 
 void KateProjectPlugin::writeConfig()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "project");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("project"));
     QStringList repos;
 
     if (m_autoGit) {

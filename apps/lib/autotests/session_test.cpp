@@ -91,14 +91,14 @@ void KateSessionTest::createFrom()
 void KateSessionTest::setFile()
 {
     KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QStringLiteral("session name"));
-    s->config()->group("test").writeEntry("foo", "bar");
+    s->config()->group(QStringLiteral("test")).writeEntry("foo", "bar");
 
     QTemporaryFile file2;
     file2.open();
 
     s->setFile(file2.fileName());
     QCOMPARE(s->config()->name(), file2.fileName());
-    QCOMPARE(s->config()->group("test").readEntry("foo"), QLatin1String("bar"));
+    QCOMPARE(s->config()->group(QStringLiteral("test")).readEntry("foo"), QLatin1String("bar"));
 }
 
 void KateSessionTest::timestamp()

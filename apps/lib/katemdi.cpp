@@ -153,7 +153,7 @@ void GUIClient::registerToolView(ToolView *tv)
     auto shortcutsForActionName = [](const QString &aname) {
         QList<QKeySequence> shortcuts;
         KSharedConfigPtr cfg = KSharedConfig::openConfig();
-        const QString shortcutString = cfg->group("Shortcuts").readEntry(aname, QString());
+        const QString shortcutString = cfg->group(QStringLiteral("Shortcuts")).readEntry(aname, QString());
         const auto shortcutStrings = shortcutString.split(QLatin1Char(';'));
         for (const QString &shortcut : shortcutStrings) {
             shortcuts << QKeySequence::fromString(shortcut);
@@ -558,7 +558,7 @@ void Sidebar::readConfig()
     bool needsUpdate = false;
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
     const bool syncWithTabs = cgGeneral.readEntry("Sync section size with tab positions", false);
     if (syncWithTabs != m_syncWithTabs) {
         m_syncWithTabs = syncWithTabs;

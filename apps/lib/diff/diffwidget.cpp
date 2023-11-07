@@ -105,7 +105,7 @@ public:
 
         setToolButtonStyle(Qt::ToolButtonIconOnly);
 
-        KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), "General");
+        KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
         bool show = cgGeneral.readEntry("DiffWidget Show Commit Info", true);
 
         m_showCommitInfoAction = addAction(QIcon::fromTheme(QStringLiteral("view-visible")), QString());
@@ -244,7 +244,7 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
 
     connect(m_toolbar, &Toolbar::showCommitInfoChanged, this, [this](bool v) {
         m_commitInfo->setVisible(v);
-        KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), "General");
+        KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
         cgGeneral.writeEntry("DiffWidget Show Commit Info", v);
     });
     connect(m_toolbar, &Toolbar::jumpToNextFile, this, &DiffWidget::jumpToNextFile);
@@ -255,7 +255,7 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     connect(m_toolbar, &Toolbar::showWithFullContext, this, &DiffWidget::showWithFullContext);
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
     handleStyleChange(cgGeneral.readEntry("Diff Show Style", (int)SideBySide));
     // clear, after handleStyleChange there might be "no differences found" text
     m_left->clear();
@@ -312,7 +312,7 @@ void DiffWidget::handleStyleChange(int newStyle)
 
     if (sender() && (sender() == m_left || sender() == m_right)) {
         KSharedConfig::Ptr config = KSharedConfig::openConfig();
-        KConfigGroup cgGeneral = KConfigGroup(config, "General");
+        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
         cgGeneral.writeEntry("Diff Show Style", (int)m_style);
     }
 }

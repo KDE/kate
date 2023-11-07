@@ -28,7 +28,7 @@ void ExternalToolTest::cleanupTestCase()
 void ExternalToolTest::testLoadSave()
 {
     KConfig config;
-    KConfigGroup cg(&config, "tool");
+    KConfigGroup cg(&config, QStringLiteral("tool"));
 
     KateExternalTool tool;
     tool.category = QStringLiteral("Git Tools");

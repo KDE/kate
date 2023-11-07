@@ -54,7 +54,7 @@ KateTabBar::KateTabBar(QWidget *parent)
 void KateTabBar::readConfig()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
     // 0 == unlimited, normalized other inputs
     const int tabCountLimit = std::max(cgGeneral.readEntry("Tabbar Tab Limit", 0), 0);

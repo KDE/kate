@@ -146,7 +146,7 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     }
 
     static const char showForNewWindowKey[] = "Show welcome view for new window";
-    KConfigGroup configGroup = KSharedConfig::openConfig()->group("General");
+    KConfigGroup configGroup = KSharedConfig::openConfig()->group(QStringLiteral("General"));
     checkBoxShowForNewWindow->setChecked(configGroup.readEntry(showForNewWindowKey, true));
     connect(checkBoxShowForNewWindow, &QCheckBox::toggled, this, [configGroup](bool checked) mutable {
         configGroup.writeEntry(showForNewWindowKey, checked);

@@ -35,7 +35,7 @@ public:
     void writeSessionConfig(KConfigGroup &cg)
     {
         // clear existing entries
-        cg.deleteGroup();
+        cg.deleteGroup(QLatin1String());
         for (auto it = m_suppressions.begin(); it != m_suppressions.end(); ++it) {
             QStringList entries = it.value().values();
             if (entries.size()) {

@@ -75,7 +75,7 @@ Qt::ItemFlags SnippetStore::flags(const QModelIndex &index) const
 
 KConfigGroup SnippetStore::getConfig()
 {
-    return KSharedConfig::openConfig()->group("Snippets");
+    return KSharedConfig::openConfig()->group(QStringLiteral("Snippets"));
 }
 
 bool SnippetStore::setData(const QModelIndex &index, const QVariant &value, int role)

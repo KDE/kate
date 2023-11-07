@@ -144,17 +144,18 @@ static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral
 bool KateProjectInfoViewTerminal::ignoreEsc() const
 {
     // if konsole is not found, do not ignore esc
-    if (!m_konsolePart && !KConfigGroup(KSharedConfig::openConfig(), "Konsole").exists()) {
+    if (!m_konsolePart && !KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).exists()) {
         return false;
     }
 
     // If Hide with Esc is disabled in konsole settings, ignore esc press.
-    if (!KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyBehaviour", true)) {
+    if (!KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("KonsoleEscKeyBehaviour", true)) {
         return true;
     }
     // Otherwise only ignore apps in given list
     else {
-        const QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
+        const QStringList exceptList =
+            KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
         const auto app = qobject_cast<TerminalInterface *>(m_konsolePart)->foregroundProcessName();
         return exceptList.contains(app);
     }

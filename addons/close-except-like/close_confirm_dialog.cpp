@@ -94,13 +94,13 @@ CloseConfirmDialog::CloseConfirmDialog(QList<KTextEditor::Document *> &docs, KTo
     // Update documents list according checkboxes
     connect(this, &CloseConfirmDialog::accepted, this, &CloseConfirmDialog::updateDocsList);
 
-    KConfigGroup gcg(KSharedConfig::openConfig(), "kate-close-except-like-CloseConfirmationDialog");
+    KConfigGroup gcg(KSharedConfig::openConfig(), QStringLiteral("kate-close-except-like-CloseConfirmationDialog"));
     KWindowConfig::restoreWindowSize(windowHandle(), gcg); // restore dialog geometry from config
 }
 
 CloseConfirmDialog::~CloseConfirmDialog()
 {
-    KConfigGroup gcg(KSharedConfig::openConfig(), "kate-close-except-like-CloseConfirmationDialog");
+    KConfigGroup gcg(KSharedConfig::openConfig(), QStringLiteral("kate-close-except-like-CloseConfirmationDialog"));
     KWindowConfig::saveWindowSize(windowHandle(), gcg); // write dialog geometry to config
     gcg.sync();
 }

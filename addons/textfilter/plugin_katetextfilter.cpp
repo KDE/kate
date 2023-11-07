@@ -171,7 +171,7 @@ void PluginKateTextFilter::slotEditFilter()
 
     dialog.setWindowTitle(i18n("Text Filter"));
 
-    KConfigGroup config(KSharedConfig::openConfig(), "PluginTextFilter");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginTextFilter"));
     QStringList items = config.readEntry("Completion list", QStringList());
     copyResult = config.readEntry("Copy result", false);
     mergeOutput = config.readEntry("Merge output", true);

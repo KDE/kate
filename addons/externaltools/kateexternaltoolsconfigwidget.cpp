@@ -302,7 +302,7 @@ void KateExternalToolsConfigWidget::apply()
     m_changed = false;
 
     KSharedConfigPtr config = m_plugin->config();
-    config->group("Global").writeEntry("firststart", false);
+    config->group(QStringLiteral("Global")).writeEntry("firststart", false);
     config->sync();
 
     m_plugin->removeTools(m_toolsToRemove);
@@ -341,7 +341,7 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
     KSharedConfigPtr config = m_plugin->config();
 
     KateExternalToolServiceEditor editor(tool, m_plugin, this);
-    KConfigGroup editorGroup = config->group("Editor");
+    KConfigGroup editorGroup = config->group(QStringLiteral("Editor"));
     editor.resize(editorGroup.readEntry("Size", QSize()));
 
     if (editor.exec() == QDialog::Accepted) {

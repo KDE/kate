@@ -46,7 +46,7 @@ static QList<KateExternalTool> readDefaultTools()
     QList<KateExternalTool> tools;
     for (const auto &file : entries) {
         KConfig config(dir.absoluteFilePath(file));
-        KConfigGroup cg = config.group("General");
+        KConfigGroup cg = config.group(QStringLiteral("General"));
 
         KateExternalTool tool;
         tool.load(cg);
@@ -84,10 +84,10 @@ void KateExternalToolsPlugin::migrateConfig()
 
     if (!oldFile.isEmpty()) {
         KConfig oldConf(oldFile);
-        KConfigGroup oldGroup(&oldConf, "Global");
+        KConfigGroup oldGroup(&oldConf, QStringLiteral("Global"));
 
         const bool isFirstRun = oldGroup.readEntry("firststart", true);
-        m_config->group("Global").writeEntry("firststart", isFirstRun);
+        m_config->group(QStringLiteral("Global")).writeEntry("firststart", isFirstRun);
         m_config->sync();
 
         const int toolCount = oldGroup.readEntry("tools", 0);
@@ -100,7 +100,7 @@ void KateExternalToolsPlugin::migrateConfig()
             }
 
             KConfig newConfig(newConfPath);
-            KConfigGroup newGroup = newConfig.group("General");
+            KConfigGroup newGroup = newConfig.group(QStringLiteral("General"));
             oldGroup.copyTo(&newGroup, KConfigBase::Persistent);
             newConfig.sync();
         }
@@ -165,7 +165,7 @@ void KateExternalToolsPlugin::save(KateExternalTool *tool, const QString &oldNam
 {
     const QString name = KateExternalTool::configFileName(tool->name);
     KConfig config(toolsConfigDir() + name);
-    KConfigGroup cg = config.group("General");
+    KConfigGroup cg = config.group(QStringLiteral("General"));
     tool->save(cg);
     config.sync();
 
@@ -182,7 +182,7 @@ void KateExternalToolsPlugin::save(KateExternalTool *tool, const QString &oldNam
 
 void KateExternalToolsPlugin::reload()
 {
-    KConfigGroup group(m_config, "Global");
+    KConfigGroup group(m_config, QStringLiteral("Global"));
     const bool firstStart = group.readEntry("firststart", true);
 
     if (!firstStart) {
@@ -191,7 +191,7 @@ void KateExternalToolsPlugin::reload()
         const QStringList entries = dir.entryList(QDir::NoDotAndDotDot | QDir::Files);
         for (const auto &file : entries) {
             KConfig config(dir.absoluteFilePath(file));
-            KConfigGroup cg = config.group("General");
+            KConfigGroup cg = config.group(QStringLiteral("General"));
 
             auto t = new KateExternalTool();
             t->load(cg);

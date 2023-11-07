@@ -203,9 +203,9 @@ void KateSQLView::readSessionConfig(KConfigGroup const &group)
 
 void KateSQLView::writeSessionConfig(KConfigGroup &group)
 {
-    group.deleteGroup();
+    group.deleteGroup(QLatin1String());
 
-    KConfigGroup globalConfig(KSharedConfig::openConfig(), "KateSQLPlugin");
+    KConfigGroup globalConfig(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
     bool saveConnections = globalConfig.readEntry("SaveConnections", true);
 
     if (saveConnections) {

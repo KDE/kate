@@ -47,7 +47,7 @@ void RainbowParenPlugin::readConfig()
         }
     }
 
-    KConfigGroup config(KSharedConfig::openConfig(), "ColoredBrackets");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("ColoredBrackets"));
     QColor br = config.readEntry("color1", QStringLiteral("#1275ef"));
     attrs[0]->setForeground(br);
     br = config.readEntry("color2", QStringLiteral("#f83c1f"));
@@ -509,7 +509,7 @@ QIcon RainbowParenConfigPage::icon() const
 
 void RainbowParenConfigPage::apply()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "ColoredBrackets");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("ColoredBrackets"));
     config.writeEntry("color1", m_btns[0].color().name(QColor::HexRgb));
     config.writeEntry("color2", m_btns[1].color().name(QColor::HexRgb));
     config.writeEntry("color3", m_btns[2].color().name(QColor::HexRgb));

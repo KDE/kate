@@ -80,13 +80,13 @@ QString PushPullDialog::getLastPushPullCmd(Mode m) const
 
 void PushPullDialog::loadLastExecutedCommands()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "kategit");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("kategit"));
     m_lastExecutedCommands = config.readEntry("lastExecutedGitCmds", QStringList());
 }
 
 void PushPullDialog::saveCommand(const QString &command)
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "kategit");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("kategit"));
     QStringList cmds = m_lastExecutedCommands;
     cmds.removeAll(command);
     cmds.push_front(command);

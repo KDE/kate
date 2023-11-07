@@ -61,7 +61,7 @@ QIcon KateSQLConfigPage::icon() const
 
 void KateSQLConfigPage::apply()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
 
     config.writeEntry("SaveConnections", m_box->isChecked());
 
@@ -74,7 +74,7 @@ void KateSQLConfigPage::apply()
 
 void KateSQLConfigPage::reset()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
 
     m_box->setChecked(config.readEntry("SaveConnections", true));
 
@@ -83,7 +83,7 @@ void KateSQLConfigPage::reset()
 
 void KateSQLConfigPage::defaults()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
 
     config.revertToDefault("SaveConnections");
     config.revertToDefault("OutputCustomization");

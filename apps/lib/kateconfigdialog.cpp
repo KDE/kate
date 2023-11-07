@@ -220,7 +220,7 @@ QSize KateConfigDialog::sizeHint() const
 void KateConfigDialog::addBehaviorPage()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
     QFrame *generalFrame = new QFrame;
     KPageWidgetItem *item = addScrollablePage(generalFrame, i18n("Behavior"));
@@ -449,7 +449,7 @@ void KateConfigDialog::addBehaviorPage()
 void KateConfigDialog::addSessionPage()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
     QWidget *sessionsPage = new QWidget();
     auto item = addScrollablePage(sessionsPage, i18n("Session"));
@@ -635,7 +635,7 @@ void KateConfigDialog::slotApply()
             m_configPluginPage->slotApply();
         }
 
-        KConfigGroup cg(config, "General");
+        KConfigGroup cg(config, QStringLiteral("General"));
 
         cg.writeEntry("SDI Mode", m_sdiMode->isChecked());
 
@@ -775,7 +775,7 @@ void KateConfigDialog::slotHelp()
 
 int KateConfigDialog::recentFilesMaxCount()
 {
-    int maxItems = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Recent File List Entry Count", 10);
+    int maxItems = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General")).readEntry("Recent File List Entry Count", 10);
     return maxItems;
 }
 

@@ -132,7 +132,7 @@ void KateCTagsConfigPage::apply()
 /******************************************************************/
 void KateCTagsConfigPage::reset()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "CTags");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("CTags"));
     m_confUi.cmdEdit->setText(config.readEntry(QStringLiteral("GlobalCommand"), DEFAULT_CTAGS_CMD));
 
     int numEntries = config.readEntry(QStringLiteral("GlobalNumTargets"), 0);

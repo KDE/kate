@@ -97,7 +97,7 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
     KTextEditor::Document *doc = KTextEditor::Editor::instance()->createDocument(this);
 
     // turn off the editorpart's own modification dialog, we have our own one, too!
-    const KConfigGroup generalGroup(KSharedConfig::openConfig(), "General");
+    const KConfigGroup generalGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
     bool ownModNotification = generalGroup.readEntry("Modified Notification", false);
     doc->setModifiedOnDiskWarning(!ownModNotification);
 
@@ -357,7 +357,7 @@ void KateDocManager::closeOrphaned()
 
 void KateDocManager::saveDocumentList(KConfig *config)
 {
-    KConfigGroup openDocGroup(config, "Open Documents");
+    KConfigGroup openDocGroup(config, QStringLiteral("Open Documents"));
 
     openDocGroup.writeEntry("Count", (int)m_docList.size());
 
@@ -373,7 +373,7 @@ void KateDocManager::saveDocumentList(KConfig *config)
 
 void KateDocManager::restoreDocumentList(KConfig *config)
 {
-    KConfigGroup openDocGroup(config, "Open Documents");
+    KConfigGroup openDocGroup(config, QStringLiteral("Open Documents"));
     unsigned int count = openDocGroup.readEntry("Count", 0);
 
     if (count == 0) {

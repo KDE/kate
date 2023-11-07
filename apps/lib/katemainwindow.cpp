@@ -76,7 +76,7 @@
 static bool winClosesDocuments()
 {
     const auto config = KSharedConfig::openConfig();
-    const KConfigGroup cgGeneral(config, "General");
+    const KConfigGroup cgGeneral(config, QStringLiteral("General"));
     return cgGeneral.readEntry("Close documents with window", true);
 }
 
@@ -160,7 +160,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
 
     finishRestore();
 
-    m_fileOpenRecent->loadEntries(KConfigGroup(sconfig, "Recent Files"));
+    m_fileOpenRecent->loadEntries(KConfigGroup(sconfig, QStringLiteral("Recent Files")));
 
     setAcceptDrops(true);
 
@@ -183,7 +183,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
 KateMainWindow::~KateMainWindow()
 {
     // first, save our fallback window size ;)
-    KConfigGroup cfg(KSharedConfig::openConfig(), "MainWindow");
+    KConfigGroup cfg(KSharedConfig::openConfig(), QStringLiteral("MainWindow"));
     KWindowConfig::saveWindowSize(windowHandle(), cfg);
 
     // save other options ;=)
@@ -549,7 +549,7 @@ void KateMainWindow::setupActions()
 void KateMainWindow::setupDiagnosticsView(KConfig *sconfig)
 {
     m_diagView = DiagnosticsView::instance(wrapper());
-    m_diagView->readSessionConfig(KConfigGroup(sconfig, "Kate Diagnostics"));
+    m_diagView->readSessionConfig(KConfigGroup(sconfig, QStringLiteral("Kate Diagnostics")));
     // See comment in DiagnosticsView::DiagnosticsView()
     m_diagView->actionCollection()->addAssociatedWidget(m_viewManager);
 }
@@ -736,7 +736,7 @@ KateMainWindow *KateMainWindow::newWindow() const
 
 void KateMainWindow::slotEditToolbars()
 {
-    KConfigGroup cfg(KSharedConfig::openConfig(), "MainWindow");
+    KConfigGroup cfg(KSharedConfig::openConfig(), QStringLiteral("MainWindow"));
     saveMainWindowSettings(cfg);
 
     KEditToolBar dlg(factory(), this);
@@ -758,7 +758,7 @@ void KateMainWindow::reloadXmlGui()
 
 void KateMainWindow::slotNewToolbarConfig()
 {
-    applyMainWindowSettings(KConfigGroup(KSharedConfig::openConfig(), "MainWindow"));
+    applyMainWindowSettings(KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("MainWindow")));
 
     // we need to reload all View's XML Gui from disk to ensure toolbar
     // changes are applied to all views.
@@ -784,7 +784,7 @@ void KateMainWindow::readOptions()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
 
-    const KConfigGroup generalGroup(config, "General");
+    const KConfigGroup generalGroup(config, QStringLiteral("General"));
     m_modNotification = generalGroup.readEntry("Modified Notification", false);
     m_modCloseAfterLast = generalGroup.readEntry("Close After Last", KateApp::isKWrite());
     KateApp::self()->documentManager()->setSaveMetaInfos(generalGroup.readEntry("Save Meta Infos", true));
@@ -816,7 +816,7 @@ void KateMainWindow::saveOptions()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
 
-    KConfigGroup generalGroup(config, "General");
+    KConfigGroup generalGroup(config, QStringLiteral("General"));
 
     generalGroup.writeEntry("Save Meta Infos", KateApp::self()->documentManager()->getSaveMetaInfos());
 
@@ -1217,26 +1217,26 @@ void KateMainWindow::readProperties(const KConfigGroup &config)
 
 void KateMainWindow::saveOpenRecent(KConfig *config)
 {
-    m_fileOpenRecent->saveEntries(KConfigGroup(config, "Recent Files"));
+    m_fileOpenRecent->saveEntries(KConfigGroup(config, QStringLiteral("Recent Files")));
 }
 
 void KateMainWindow::loadOpenRecent(const KConfig *config)
 {
-    m_fileOpenRecent->loadEntries(KConfigGroup(config, "Recent Files"));
+    m_fileOpenRecent->loadEntries(KConfigGroup(config, QStringLiteral("Recent Files")));
 }
 
 void KateMainWindow::saveGlobalProperties(KConfig *sessionConfig)
 {
     KateApp::self()->documentManager()->saveDocumentList(sessionConfig);
 
-    KConfigGroup cg(sessionConfig, "General");
+    KConfigGroup cg(sessionConfig, QStringLiteral("General"));
     cg.writeEntry("Last Session", KateApp::self()->sessionManager()->activeSession()->name());
 
     // save plugin config !!
     KateApp::self()->pluginManager()->writeConfig(sessionConfig);
 
     if (m_diagView) {
-        KConfigGroup cg(sessionConfig, "Kate Diagnostics");
+        KConfigGroup cg(sessionConfig, QStringLiteral("Kate Diagnostics"));
         m_diagView->writeSessionConfig(cg);
     }
 }

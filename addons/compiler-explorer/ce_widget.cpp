@@ -39,7 +39,7 @@ enum CE_Options {
 
 static bool readConfigForCEOption(CE_Options o)
 {
-    KConfigGroup cg(KSharedConfig::openConfig(), "kate_compilerexplorer");
+    KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("kate_compilerexplorer"));
     switch (o) {
     case CE_Option_FilterLabel:
         return cg.readEntry("FilterUnusedLabels", true);
@@ -58,7 +58,7 @@ static bool readConfigForCEOption(CE_Options o)
 
 static void writeConfigForCEOption(CE_Options o, bool value)
 {
-    KConfigGroup cg(KSharedConfig::openConfig(), "kate_compilerexplorer");
+    KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("kate_compilerexplorer"));
     switch (o) {
     case CE_Option_FilterLabel:
         return cg.writeEntry("FilterUnusedLabels", value);
@@ -304,7 +304,7 @@ void CEWidget::initOptionsComboBox()
     menu->addAction(checkableAction(i18n("Intel Syntax"), CE_Option_IntelAsm));
 
     menu->addAction(i18n("Change Url..."), this, [this] {
-        KConfigGroup cg(KSharedConfig::openConfig(), "kate_compilerexplorer");
+        KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("kate_compilerexplorer"));
         QString url = cg.readEntry("kate_compilerexplorer_url", QStringLiteral("http://localhost:10240"));
 
         bool ok = false;

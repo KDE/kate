@@ -100,7 +100,7 @@ KateViewManager::~KateViewManager()
 void KateViewManager::readConfig()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
     m_sdiMode = cgGeneral.readEntry("SDI Mode", false);
 }
 
@@ -373,7 +373,7 @@ void KateViewManager::slotDocumentClose(KTextEditor::Document *document)
         }
 
         KSharedConfig::Ptr config = KSharedConfig::openConfig();
-        KConfigGroup cgGeneral = KConfigGroup(config, "General");
+        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
         // Otherwise, show the welcome view
         if (cgGeneral.readEntry("Show welcome view for new window", true)) {
@@ -1771,7 +1771,7 @@ void KateViewManager::showWelcomeViewOrNewDocumentIfNeeded()
 
         // the user can decide: welcome page or a new untitled document for a new window?
         KSharedConfig::Ptr config = KSharedConfig::openConfig();
-        KConfigGroup cgGeneral = KConfigGroup(config, "General");
+        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
         if (!m_welcomeViewAlreadyShown && cgGeneral.readEntry("Show welcome view for new window", true)) {
             showWelcomeView();
         } else {

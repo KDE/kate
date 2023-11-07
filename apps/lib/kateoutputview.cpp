@@ -258,7 +258,7 @@ void KateOutputView::search()
 void KateOutputView::readConfig()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
     m_showOutputViewForMessageType = cgGeneral.readEntry("Show output view for message type", 1);
     const int historyLimit = cgGeneral.readEntry("Output History Limit", 100);
 

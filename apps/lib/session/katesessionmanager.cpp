@@ -201,18 +201,18 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
     }
 
     // window config
-    KConfigGroup c(sharedConfig, "General");
+    KConfigGroup c(sharedConfig, QStringLiteral("General"));
 
     KConfig *cfg = sc;
     bool delete_cfg = false;
     // a new, named session, read settings of the default session.
-    if (!sc->hasGroup("Open MainWindows")) {
+    if (!sc->hasGroup(QLatin1String("Open MainWindows"))) {
         delete_cfg = true;
         cfg = new KConfig(anonymousSessionFile(), KConfig::SimpleConfig);
     }
 
     if (c.readEntry("Restore Window Configuration", true)) {
-        int wCount = cfg->group("Open MainWindows").readEntry("Count", 1);
+        int wCount = cfg->group(QStringLiteral("Open MainWindows")).readEntry("Count", 1);
 
         for (int i = 0; i < wCount; ++i) {
             if (i >= KateApp::self()->mainWindowsCount()) {
@@ -288,7 +288,7 @@ bool KateSessionManager::deleteSession(KateSession::Ptr session)
         return false;
     }
 
-    KConfigGroup c(KSharedConfig::openConfig(), "General");
+    KConfigGroup c(KSharedConfig::openConfig(), QStringLiteral("General"));
     if (c.readEntry("Last Session") == session->name()) {
         c.writeEntry("Last Session", QString());
         c.sync();
@@ -375,10 +375,10 @@ void KateSessionManager::saveSessionTo(KConfig *sc)
     // save document configs + which documents to load
     KateApp::self()->documentManager()->saveDocumentList(sc);
 
-    sc->group("Open MainWindows").writeEntry("Count", KateApp::self()->mainWindowsCount());
+    sc->group(QStringLiteral("Open MainWindows")).writeEntry("Count", KateApp::self()->mainWindowsCount());
 
     // save config for all windows around ;)
-    bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
+    bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General")).readEntry("Restore Window Configuration", true);
     for (int i = 0; i < KateApp::self()->mainWindowsCount(); ++i) {
         KConfigGroup cg(sc, QStringLiteral("MainWindow%1").arg(i));
         // saveProperties() handles saving the "open recent" files list
@@ -420,7 +420,7 @@ bool KateSessionManager::saveActiveSession(bool rememberAsLast)
 
     if (rememberAsLast && !activeSession()->isAnonymous()) {
         KSharedConfigPtr c = KSharedConfig::openConfig();
-        c->group("General").writeEntry("Last Session", activeSession()->name());
+        c->group(QStringLiteral("General")).writeEntry("Last Session", activeSession()->name());
         c->sync();
     }
     return true;
@@ -428,7 +428,7 @@ bool KateSessionManager::saveActiveSession(bool rememberAsLast)
 
 bool KateSessionManager::chooseSession()
 {
-    const KConfigGroup c(KSharedConfig::openConfig(), "General");
+    const KConfigGroup c(KSharedConfig::openConfig(), QStringLiteral("General"));
 
     // get last used session, default to default session
     const QString lastSession(c.readEntry("Last Session", QString()));
@@ -663,7 +663,7 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     const auto actions = df->readActions();
     for (const QString &action : actions) {
         if (action.startsWith(QLatin1String("Session "))) {
-            // TODO is there no deleteGroup(KConfigGroup)?
+            // TODO is there no deleteGroup(QLatin1String(KConfigGroup))?
             df->deleteGroup(df->actionGroup(action).name());
         }
     }

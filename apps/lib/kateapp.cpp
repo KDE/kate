@@ -372,7 +372,7 @@ void KateApp::restoreKate()
     KConfig *sessionConfig = KConfigGui::sessionConfig();
 
     // activate again correct session!!!
-    QString lastSession(sessionConfig->group("General").readEntry("Last Session", QString()));
+    QString lastSession(sessionConfig->group(QStringLiteral("General")).readEntry("Last Session", QString()));
     sessionManager()->activateSession(lastSession, false, false);
 
     // plugins

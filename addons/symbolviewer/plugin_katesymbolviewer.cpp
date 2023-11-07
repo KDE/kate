@@ -90,7 +90,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
     m_typesOn = m_popup->addAction(i18n("Show Parameters"), this, &KatePluginSymbolViewerView::displayOptionChanged);
     m_typesOn->setCheckable(true);
 
-    KConfigGroup config(KSharedConfig::openConfig(), "PluginSymbolViewer");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
     m_typesOn->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
     m_expandOn->setChecked(config.readEntry(QStringLiteral("ExpandTree"), false));
     m_treeOn->setChecked(config.readEntry(QStringLiteral("TreeView"), false));

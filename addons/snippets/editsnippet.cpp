@@ -114,7 +114,7 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     setTabOrder(m_ui->snippetNameEdit, m_snippetView);
 
     KSharedConfigPtr config = KSharedConfig::openConfig(QLatin1String(s_configFile));
-    KConfigGroup group = config->group("General");
+    KConfigGroup group = config->group(QStringLiteral("General"));
     const QSize savedSize = group.readEntry("Size", QSize());
     if (savedSize.isValid()) {
         resize(savedSize);
@@ -177,7 +177,7 @@ void EditSnippet::save()
     setWindowTitle(i18n("Edit Snippet %1 in %2", m_snippet->text(), m_repo->text()));
 
     KSharedConfigPtr config = KSharedConfig::openConfig(QLatin1String(s_configFile));
-    KConfigGroup group = config->group("General");
+    KConfigGroup group = config->group(QStringLiteral("General"));
     group.writeEntry("Size", size());
     group.sync();
 }

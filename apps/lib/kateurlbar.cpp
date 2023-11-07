@@ -587,7 +587,7 @@ public:
         updatePalette();
 
         auto onConfigChanged = [this] {
-            KConfigGroup cg(KSharedConfig::openConfig(), "General");
+            KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("General"));
             auto v = cg.readEntry("Show Symbol In Navigation Bar", true);
             if (v != m_showSymbolCrumb) {
                 m_showSymbolCrumb = v;

@@ -132,7 +132,7 @@ KateFileBrowser::~KateFileBrowser()
 // BEGIN Public Methods
 void KateFileBrowser::setupToolbar()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("filebrowser"));
     QStringList actions = config.readEntry("toolbar actions", QStringList());
     if (actions.isEmpty()) { // default toolbar
         actions << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("bookmarks") << QStringLiteral("sync_dir")

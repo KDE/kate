@@ -106,8 +106,8 @@ void KateExternalToolsMenuAction::reload()
 
     // load shortcuts
     KSharedConfigPtr pConfig = m_plugin->config();
-    KConfigGroup group(pConfig, "Global");
-    group = KConfigGroup(pConfig, "Shortcuts");
+    KConfigGroup group(pConfig, QStringLiteral("Global"));
+    group = KConfigGroup(pConfig, QStringLiteral("Shortcuts"));
     m_actionCollection->readSettings(&group);
     slotViewChanged(m_mainwindow->activeView());
 }

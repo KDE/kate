@@ -84,7 +84,7 @@ void KateBtBrowserPlugin::startIndexer()
         indexer.cancel();
         indexer.wait();
     }
-    KConfigGroup cg(KSharedConfig::openConfig(), "backtracebrowser");
+    KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("backtracebrowser"));
     indexer.setSearchPaths(cg.readEntry("search-folders", QStringList()));
     indexer.setFilter(cg.readEntry("file-extensions", fileExtensions));
     indexer.start();
@@ -296,7 +296,7 @@ void KateBtConfigWidget::apply()
         for (int i = 0; i < lstFolders->count(); ++i) {
             sl << lstFolders->item(i)->data(Qt::DisplayRole).toString();
         }
-        KConfigGroup cg(KSharedConfig::openConfig(), "backtracebrowser");
+        KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("backtracebrowser"));
         cg.writeEntry("search-folders", sl);
 
         QString filter = edtExtensions->text();
@@ -310,7 +310,7 @@ void KateBtConfigWidget::apply()
 
 void KateBtConfigWidget::reset()
 {
-    KConfigGroup cg(KSharedConfig::openConfig(), "backtracebrowser");
+    KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("backtracebrowser"));
     lstFolders->clear();
     lstFolders->addItems(cg.readEntry("search-folders", QStringList()));
     edtExtensions->setText(cg.readEntry("file-extensions", fileExtensions).join(QLatin1Char(' ')));

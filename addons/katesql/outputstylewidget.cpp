@@ -94,8 +94,8 @@ QTreeWidgetItem *OutputStyleWidget::addContext(const QString &key, const QString
 
 void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
-    KConfigGroup g = config.group("OutputCustomization").group(item->data(0, Qt::UserRole).toString());
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
+    KConfigGroup g = config.group("OutputCustomization").group(item->data(0, QLatin1String(Qt::UserRole).toString()));
 
     QCheckBox *boldCheckBox = static_cast<QCheckBox *>(itemWidget(item, 1));
     QCheckBox *italicCheckBox = static_cast<QCheckBox *>(itemWidget(item, 2));
@@ -117,9 +117,9 @@ void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
 
 void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
 
-    KConfigGroup g = config.group("OutputCustomization").group(item->data(0, Qt::UserRole).toString());
+    KConfigGroup g = config.group("OutputCustomization").group(item->data(0, QLatin1String(Qt::UserRole).toString()));
 
     QCheckBox *boldCheckBox = static_cast<QCheckBox *>(itemWidget(item, 1));
     QCheckBox *italicCheckBox = static_cast<QCheckBox *>(itemWidget(item, 2));
@@ -151,8 +151,8 @@ void OutputStyleWidget::readConfig()
 
 void OutputStyleWidget::writeConfig()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
-    config.deleteGroup("OutputCustomization");
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
+    config.deleteGroup(QStringLiteral("OutputCustomization"));
 
     QTreeWidgetItem *root = invisibleRootItem();
 

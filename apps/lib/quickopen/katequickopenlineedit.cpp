@@ -23,7 +23,7 @@ QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
 
     // ensure config is read (menu only created upon demand)
     KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
-    KConfigGroup cg(cfg, "General");
+    KConfigGroup cg(cfg, QStringLiteral("General"));
 
     const bool cfgListMode = cg.readEntry(CONFIG_QUICKOPEN_LISTMODE, true);
     m_listMode = cfgListMode ? KateQuickOpenModelList::CurrentProject : KateQuickOpenModelList::AllProjects;
@@ -34,7 +34,7 @@ QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
 QuickOpenLineEdit::~QuickOpenLineEdit()
 {
     KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
-    KConfigGroup cg(cfg, "General");
+    KConfigGroup cg(cfg, QStringLiteral("General"));
 
     cg.writeEntry(CONFIG_QUICKOPEN_LISTMODE, m_listMode == KateQuickOpenModelList::CurrentProject);
     cg.writeEntry(CONFIG_QUICKOPEN_FILTERMODE, (int)m_filterMode);

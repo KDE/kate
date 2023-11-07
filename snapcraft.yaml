@@ -108,7 +108,6 @@ parts:
         - qml-module-org-kde-kquickcontrolsaddons
         - qml-module-qtquick-layouts
         - qml-module-qtquick2
-        - libc6
         - libkf5activities5
         - libkf5bookmarks5
         - libkf5completion5
@@ -151,7 +150,6 @@ parts:
         - libqt5xml5
         - libqt5waylandclient5
         - libqt5waylandcompositor5
-        - libstdc++6
         - sonnet-plugins
         - darcs
         - exuberant-ctags
@@ -160,6 +158,8 @@ parts:
         - mercurial
         - subversion
         - libsecret-1-0
+        stage-snaps:
+        - khelpcenter
         source: .
         source-type: local
         cmake-parameters:
@@ -176,7 +176,6 @@ parts:
         - "-usr/lib/*/cmake/*"
         - "-usr/include/*"
         - "-usr/share/ECM/*"
-        - "-usr/share/doc/*"
         - "-usr/share/man/*"
         - "-usr/share/icons/breeze-dark*"
         - "-usr/bin/X11"

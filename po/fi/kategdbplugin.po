@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-15 01:54+0000\n"
-"PO-Revision-Date: 2023-05-29 21:11+0300\n"
+"PO-Revision-Date: 2023-09-29 10:11+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:21:57+0000\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -462,10 +462,11 @@ msgstr "ehdolliset keskeytyskohdat"
 msgid "function breakpoints"
 msgstr "funktion keskeytyskohdat"
 
+# *** TARKISTA: Ei aavistustakaan, mitä ”hit” tässä on, mutta conditional ≠ hit conditional, joten jotakin pitää keksiä.
 #: debugview_dap.cpp:747
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "osumaehtoiset keskeytyskohdat"
 
 #: debugview_dap.cpp:748
 #, kde-format
@@ -542,7 +543,7 @@ msgstr "palvelin ei tue ehdollisia keskeytyskohtia"
 #: debugview_dap.cpp:1316
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "palvelin ei tue osumaehtoisia keskeytyskohtia"
 
 #: debugview_dap.cpp:1336
 #, kde-format

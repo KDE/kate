@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-05 01:42+0000\n"
-"PO-Revision-Date: 2023-03-30 12:00+0300\n"
+"PO-Revision-Date: 2023-09-26 10:34+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -363,10 +363,9 @@ msgid "LSP Client"
 msgstr "LSP-asiakas"
 
 #: lspclientpluginview.cpp:2448
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
-msgstr "Käynnistä LSP-palvelin uudelleen"
+msgstr "Kysymys LSP-palvelimelta"
 
 #: lspclientservermanager.cpp:604
 #, kde-format

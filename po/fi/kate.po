@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-04 01:39+0000\n"
-"PO-Revision-Date: 2023-07-25 19:54+0300\n"
+"PO-Revision-Date: 2023-09-26 10:33+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -269,10 +269,9 @@ msgstr "&Työkalut"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:273
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Diagnostiikka"
+msgstr "Diagnostiikkanäkymä"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -320,11 +319,10 @@ msgid "All"
 msgstr "Kaikki"
 
 #: lib/diagnostics/diagnosticview.cpp:314
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "Diagnostiikka"
+msgstr "Diagnostiikkanäkymä"
 
 #: lib/diagnostics/diagnosticview.cpp:319
 #, kde-format
@@ -2328,16 +2326,15 @@ msgid "Control view space splitting"
 msgstr "Hallitse näkymien viemän tilan jakamista"
 
 #: lib/kateviewspace.cpp:118
-#, fuzzy, kde-format
-#| msgid "&New Synchronized Window"
+#, kde-format
 msgid "S&ynchronize Scrolling"
-msgstr "Uusi s&ynkronoitu ikkuna"
+msgstr "Tahdista &vieritys"
 
 #: lib/kateviewspace.cpp:120
 #, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
-msgstr ""
+msgstr "Tahdistaa jaetun näkymän vierityksen muiden jaettujen näkymien kanssa"
 
 #: lib/kateviewspace.cpp:221
 #, kde-format

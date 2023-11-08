@@ -44,7 +44,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Replace Checked</string>
+        <string comment="Checked here refers to the items  on the list below that can have a checkmark or not. It's not about any verification or similar, plainly about user interface">Replace Checked</string>
        </property>
       </widget>
      </item>

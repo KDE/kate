@@ -1,9 +1,9 @@
 include(ECMMarkAsTest)
 
+find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
+
 add_executable(gdbplugin_test_gdbmi "")
 target_include_directories(gdbplugin_test_gdbmi PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-
-find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   gdbplugin_test_gdbmi
   PRIVATE
@@ -11,7 +11,6 @@ target_link_libraries(
     KF6::TextEditor
     Qt::Test
 )
-
 target_sources(
   gdbplugin_test_gdbmi
   PRIVATE
@@ -19,15 +18,12 @@ target_sources(
     ${CMAKE_CURRENT_SOURCE_DIR}/../gdbmi/tokens.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../gdbmi/parser.cpp
 )
-
 add_test(NAME plugin-gdb_test_gdbmi COMMAND gdbplugin_test_gdbmi ${OFFSCREEN_QPA})
 ecm_mark_as_test(gdbplugin_test_gdbmi)
 
 
 add_executable(gdbplugin_test_gdbbackend "")
 target_include_directories(gdbplugin_test_gdbbackend PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-
-find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   gdbplugin_test_gdbbackend
   PRIVATE
@@ -37,7 +33,6 @@ target_link_libraries(
     Qt::Test
 )
 ki18n_wrap_ui(gdbplugin_test_gdbbackend ${CMAKE_CURRENT_SOURCE_DIR}/../advanced_settings.ui)
-
 target_sources(
   gdbplugin_test_gdbbackend
   PRIVATE
@@ -50,6 +45,5 @@ target_sources(
     ${CMAKE_CURRENT_SOURCE_DIR}/../gdbmi/tokens.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../gdbmi/parser.cpp
 )
-
 add_test(NAME plugin-gdb_test_gdbbackend COMMAND gdbplugin_test_gdbbackend ${OFFSCREEN_QPA})
 ecm_mark_as_test(gdbplugin_test_gdbbackend)

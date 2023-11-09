@@ -17,7 +17,6 @@ class GDBVariableParser : public QObject
 public:
     GDBVariableParser(QObject *parent = nullptr);
 
-public Q_SLOTS:
     void addLocal(const QString &vString);
     void openScope();
     void closeScope();

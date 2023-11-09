@@ -40,3 +40,21 @@ target_link_libraries(
 ki18n_wrap_ui(gdbplugin_test_gdbbackend ${CMAKE_CURRENT_SOURCE_DIR}/../advanced_settings.ui)
 add_test(NAME plugin-gdb_test_gdbbackend COMMAND gdbplugin_test_gdbbackend ${OFFSCREEN_QPA})
 ecm_mark_as_test(gdbplugin_test_gdbbackend)
+
+
+add_executable(gdbplugin_test_gdbvariableparser
+    test_gdbvariableparser.cpp
+    ../gdbvariableparser.cpp
+    ../dap/entities.cpp
+)
+target_include_directories(gdbplugin_test_gdbvariableparser PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_link_libraries(
+  gdbplugin_test_gdbvariableparser
+  PRIVATE
+    kateprivate
+    KF6::I18n
+    KF6::TextEditor
+    Qt::Test
+)
+add_test(NAME plugin-gdb_test_gdbvariableparse COMMAND gdbplugin_test_gdbvariableparser ${OFFSCREEN_QPA})
+ecm_mark_as_test(gdbplugin_test_gdbvariableparser)

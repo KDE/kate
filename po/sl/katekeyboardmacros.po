@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2022-08-16 10:07+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -35,7 +35,7 @@ msgstr "Ni bilo mogoče naložiti '%1': pokvarjen makro; ga brišem."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Makroji na tipkovnici"
@@ -70,12 +70,12 @@ msgstr "Snemanje %1"
 msgid "Saved '%1'"
 msgstr "Shranjevanje '%1'"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Nalaganje '%1'"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Brisanje '%1'"
@@ -96,7 +96,7 @@ msgstr "Ni najdenega makroja tipkovnice z imenom '%1'."
 msgid "Cannot save empty keyboard macro."
 msgstr "Ni mogoče shraniti praznega makroja."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -105,7 +105,7 @@ msgstr ""
 "<qt><p>Uporaba: <code>kmsave &lt;ime&gt;</code></p><p>Shrani trenutni makro "
 "tipkovnice kot <code>&lt;ime&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -114,7 +114,7 @@ msgstr ""
 "<qt><p>Uporaba: <code>kmload &lt;ime&gt;</code></p><p>Naloži shranjen makro "
 "tipkovnice <code>&lt;ime&gt;</code> kot trenutni makro.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -123,7 +123,7 @@ msgstr ""
 "<qt><p>Uporaba: <code>kmplay &lt;ime&gt;</code></p><p>Zaženi shranjeni makro "
 "tipkovnice <code>&lt;ime&gt;</code> brez nalaganja.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -237,12 +237,12 @@ msgstr "Poženi makro '%1', ne da bi ga naložili."
 msgid "Wipe the '%1' macro."
 msgstr "Pobriši makro '%1'."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Naj shranim trenutni makro kot?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Naj pobrišem makro '%1'?"

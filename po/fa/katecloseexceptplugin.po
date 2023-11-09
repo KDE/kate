@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2014-07-22 16:02+0430\n"
 "Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <kde-i18n-fa@kde.org>\n"
@@ -80,32 +80,32 @@ msgstr ""
 msgid "Close Except/Like Plugin"
 msgstr ""
 
-#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
+#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr "خطا"
 
-#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
+#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "هیچ فایلی برای بسته‌شدن نیست..."
 
-#: close_except_plugin.cpp:260
+#: close_except_plugin.cpp:261
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
 msgstr "انجام‌شده"
 
-#: close_except_plugin.cpp:260
+#: close_except_plugin.cpp:261
 #, fuzzy, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
 msgstr[0] " %1 پرونده بسته شد"
 msgstr[1] ""
 
-#: close_except_plugin.cpp:273
+#: close_except_plugin.cpp:274
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

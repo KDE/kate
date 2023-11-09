@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2022-08-24 21:22+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Không tải được '%1': vĩ lệnh sai dạng; đang xoá."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Vĩ lệnh bàn phím"
@@ -69,12 +69,12 @@ msgstr "Đang ghi %1"
 msgid "Saved '%1'"
 msgstr "Đã lưu '%1'"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Đã tải '%1'"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Đã xoá '%1'"
@@ -95,7 +95,7 @@ msgstr "Không tìm thấy vĩ lệnh bàn phím nào có tên '%1'."
 msgid "Cannot save empty keyboard macro."
 msgstr "Không thể lưu vĩ lệnh bàn phím rỗng."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -104,7 +104,7 @@ msgstr ""
 "<qt><p>Cách dùng: <code>kmsave &lt;tên&gt;</code></p><p>Lưu vĩ lệnh bàn phím "
 "hiện tại thành <code>&lt;tên&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -113,7 +113,7 @@ msgstr ""
 "<qt><p>Cách dùng: <code>kmload &lt;tên&gt;</code></p><p>Tải vĩ lệnh bàn phím "
 "đã lưu với tên <code>&lt;tên&gt;</code> làm vĩ lệnh hiện tại.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -122,7 +122,7 @@ msgstr ""
 "<qt><p>Cách dùng: <code>kmplay &lt;tên&gt;</code></p><p>Chạy vĩ lệnh bàn "
 "phím đã lưu với tên <code>&lt;tên&gt;</code> mà không tải nó.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -237,12 +237,12 @@ msgstr "Chạy vĩ lệnh '%1' mà không tải nó."
 msgid "Wipe the '%1' macro."
 msgstr "Xoá vĩ lệnh '%1'."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Lưu vĩ lệnh hiện tại thành?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Xoá vĩ lệnh '%1'?"

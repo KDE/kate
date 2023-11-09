@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2022-01-03 20:53+0100\n"
 "Last-Translator: mkkDr2010 <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -80,32 +80,32 @@ msgstr "Затваряне на документи подобни на"
 msgid "Close Except/Like Plugin"
 msgstr "Затваряне на плъгин с изключение/подобни на:"
 
-#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
+#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr "Грешка"
 
-#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
+#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "Няма файлове за затваряне..."
 
-#: close_except_plugin.cpp:260
+#: close_except_plugin.cpp:261
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
 msgstr "Готово"
 
-#: close_except_plugin.cpp:260
+#: close_except_plugin.cpp:261
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
 msgstr[0] "затворен е %1 файл"
 msgstr[1] "затворени са %1 файла"
 
-#: close_except_plugin.cpp:273
+#: close_except_plugin.cpp:274
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

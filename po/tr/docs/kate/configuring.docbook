@@ -203,7 +203,7 @@
 <term
 ><anchor id="config-general-quick-open"/>
 <guilabel
->Hızlı Aç</guilabel
+>Tez Aç</guilabel
 ></term>
  <listitem>
 
@@ -217,7 +217,7 @@
 <listitem
 ><para
 ><link linkend="view-quick-open"
->Hızlı Aç</link
+>Tez Aç</link
 > aracı için liste kipini ayarlayın. Dosyalar hem adları hem de yollarıyla eşleştirilebilir.</para
 ></listitem>
 </varlistentry>
@@ -231,7 +231,7 @@
 <listitem
 ><para
 ><link linkend="view-quick-open"
->Hızlı Aç</link
+>Tez Aç</link
 > aracı için liste kipini ayarlayın. <guilabel
 >Geçerli Proje Dosyaları</guilabel
 > ve <guilabel

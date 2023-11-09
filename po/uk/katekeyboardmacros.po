@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2022-08-15 09:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Клавіатурні макроси"
@@ -71,12 +71,12 @@ msgstr "Записуємо %1"
 msgid "Saved '%1'"
 msgstr "Збережено «%1»"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Завантажено «%1»"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Витерто «%1»"
@@ -97,7 +97,7 @@ msgstr "Не знайдено клавіатурного макроса із н�
 msgid "Cannot save empty keyboard macro."
 msgstr "Неможливо зберегти порожній клавіатурний макрос."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -106,7 +106,7 @@ msgstr ""
 "<qt><p>Користування: <code>kmsave &lt;назва&gt;</code></p><p>Зберегти "
 "поточний клавіатурний макрос із назвою <code>&lt;назва&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -116,7 +116,7 @@ msgstr ""
 "збережений клавіатурний макрос <code>&lt;назва&gt;</code> як поточний макрос."
 "</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -126,7 +126,7 @@ msgstr ""
 "збережений клавіатурний макрос <code>&lt;назва&gt;</code> без його "
 "завантаження.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -244,12 +244,12 @@ msgstr "Відтворити макрос «%1» без його заванта�
 msgid "Wipe the '%1' macro."
 msgstr "Витерти макрос «%1»."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Зберегти поточний макрос із новою назвою?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Витерти макрос «%1»?"

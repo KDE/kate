@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2022-08-15 22:36+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "'%1' yüklenemedi: Hatalı oluşturulmuş makrolar, siliniyor."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Klavye Makroları"
@@ -69,12 +69,12 @@ msgstr "%1 kaydediliyor"
 msgid "Saved '%1'"
 msgstr "'%1' kaydedildi"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "'%1' yüklendi"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "'%1' silindi"
@@ -95,7 +95,7 @@ msgstr "'%1' adlı bir klavye makrosu bulunamadı."
 msgid "Cannot save empty keyboard macro."
 msgstr "Boş klavye makrosu kaydedilemez."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -104,7 +104,7 @@ msgstr ""
 "<qt><p>Kullanım: <code>kmsave &lt;ad&gt;</code></p><p>Geçerli klavye "
 "makrosunu <code>&lt;ad&gt;</code> olarak kaydet.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -114,7 +114,7 @@ msgstr ""
 "code> olarak kaydedilmiş klavye makrosunu geçerli makro olarak yükle.</p>%1</"
 "qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -123,7 +123,7 @@ msgstr ""
 "<qt><p>Kullanım: <code>kmplay &lt;ad&gt;</code></p><p><code>&lt;ad&gt;</"
 "code> olarak kayıtlı klavye makrosunu yüklemeden oynat.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -238,12 +238,12 @@ msgstr "'%1' makrosunu yüklemeden oynat."
 msgid "Wipe the '%1' macro."
 msgstr "'%1' makrosunu sil."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Geçerli makro ne olarak kaydedilslin?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "'%1' makrosu silinsin mi?"

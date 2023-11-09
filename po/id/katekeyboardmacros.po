@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2022-10-25 08:30+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Tidak bisa memuat '%1': bentuk makro salah; menyekanya."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Makro Keyboard"
@@ -69,12 +69,12 @@ msgstr "Merekam %1"
 msgid "Saved '%1'"
 msgstr "'%1' disimpan"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "'%1' dimuat"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "'%1' diseka"
@@ -95,7 +95,7 @@ msgstr "Tidak ada makro keyboard bernama '%1' yang ditemukan."
 msgid "Cannot save empty keyboard macro."
 msgstr "Tidak bisa menyimpan makro keyboard kosong."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -104,7 +104,7 @@ msgstr ""
 "<qt><p>Penggunaan: <code>kmsave &lt;name&gt;</code></p><p>Simpan makro "
 "keyboard saat ini sebagai <code>&lt;name&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -114,7 +114,7 @@ msgstr ""
 "keyboard <code>&lt;name&gt;</code> yang tersimpan sebagai makro saat ini.</p>"
 "%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -123,7 +123,7 @@ msgstr ""
 "<qt><p>Penggunaan: <code>kmplay &lt;name&gt;</code></p><p>Putar makro "
 "keyboard <code>&lt;name&gt;</code> yang tersimpan tanpa memuatnya.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -240,12 +240,12 @@ msgstr "Putar makro '%1' tanpa memuatnya."
 msgid "Wipe the '%1' macro."
 msgstr "Seka makro '%1'."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Simpan makro saat ini sebagai?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Seka makro '%1'?"

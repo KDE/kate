@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2013-04-15 10:51+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -87,34 +87,34 @@ msgstr "यासारखे बंद करा"
 msgid "Close Except/Like Plugin"
 msgstr "याशिवाय/यासारखे प्लगइन बंद करा"
 
-#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
+#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr ""
 
-#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
+#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
 #, fuzzy, kde-format
 #| msgid "No files to close ..."
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "बंद करण्याकरिता फाईल्स नाहीत ..."
 
-#: close_except_plugin.cpp:260
+#: close_except_plugin.cpp:261
 #, fuzzy, kde-format
 #| msgid "Done"
 msgctxt "@title:window"
 msgid "Done"
 msgstr "झाले"
 
-#: close_except_plugin.cpp:260
+#: close_except_plugin.cpp:261
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
 msgstr[0] "%1 फाईल बंद केली"
 msgstr[1] "%1 फाईल्स बंद केल्या"
 
-#: close_except_plugin.cpp:273
+#: close_except_plugin.cpp:274
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

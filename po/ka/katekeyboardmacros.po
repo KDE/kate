@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2023-01-06 07:40+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -35,7 +35,7 @@ msgstr "'%1'-ის ჩატვირთვის შეცდომა: არ
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "კლავიატურის მაკროები"
@@ -70,12 +70,12 @@ msgstr "%1-ის ჩაწერა"
 msgid "Saved '%1'"
 msgstr "%1 შენახულია"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "%1 ჩაიტვირთა"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "%1 წაიშალა"
@@ -96,7 +96,7 @@ msgstr "კლავიატურის მაკრო სახელით 
 msgid "Cannot save empty keyboard macro."
 msgstr "ცარიელი კლავიატურის მაკროს შენახვის შეცდომა."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -105,7 +105,7 @@ msgstr ""
 "<qt><p>გამოყენება: <code>kmsave &lt;სახელი&gt;</code></p><p>მიმდინარე "
 "კლავიატურის მაკროს შენახვა, როგორც <code>&lt;სახელი&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -115,7 +115,7 @@ msgstr ""
 "კლავიატურის მაკროს ჩატვირთვა <code>&lt;სახელით&gt;</code> როგორც მიმდინარე "
 "მაკრო.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -125,7 +125,7 @@ msgstr ""
 "კლავიატურის მაკროს <code>&lt;სახელით&gt;</code> გაშვება ჩატვირთვის გარეშე.</"
 "p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -241,12 +241,12 @@ msgstr "'%1' მაკროს გაშვება მისი ჩატვ�
 msgid "Wipe the '%1' macro."
 msgstr "წაშალეთ %1 მაკრო."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "შევინახო მიმდინარე მაკრო?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "წავშალო %1 მაკრო?"

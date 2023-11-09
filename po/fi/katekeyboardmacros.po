@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2022-08-22 21:53+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Ei voitu ladata: ”%1”: virheellinen makro, pyyhitään se."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Näppäinmakrot"
@@ -69,12 +69,12 @@ msgstr "nauhoitetaan %1"
 msgid "Saved '%1'"
 msgstr "Tallennettu: ”%1”"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Ladattu: ”%1”"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Pyyhitty: ”%1”"
@@ -95,7 +95,7 @@ msgstr "Näppäinmakroa nimeltä ”%1” ei löytynyt."
 msgid "Cannot save empty keyboard macro."
 msgstr "Tyhjää näppäinmakroa ei voi tallentaa."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -104,7 +104,7 @@ msgstr ""
 "<qt><p>Käyttö: <code>kmsave &lt;nimi&gt;</code></p><p>>Tallenna nykyinen "
 "näppäinmakro nimellä <code>&lt;nimi&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -113,7 +113,7 @@ msgstr ""
 "<qt><p>Käyttö: <code>kmload &lt;nimi&gt;</code></p><p>Lataa tallennettu "
 "näppäinmakro <code>&lt;nimi&gt;</code> nykyiseksi makroksi.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -122,7 +122,7 @@ msgstr ""
 "<qt><p>Usage: <code>kmplay &lt;nimi&gt;</code></p><p>Toista tallennettu "
 "näppäinmakro <code>&lt;nimi&gt;</code> lataamatta sitä.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -236,12 +236,12 @@ msgstr "Toista makro ”%1” lataamatta sitä."
 msgid "Wipe the '%1' macro."
 msgstr "Pyyhi makro ”%1”."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Tallennetaanko nykyinen makro?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Pyyhitäänkö makro ”%1”?"

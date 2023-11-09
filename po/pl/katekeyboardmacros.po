@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2022-08-16 20:53+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -35,7 +35,7 @@ msgstr "Nie można wczytać '%1': zniekształcone makro; czyszczenie go."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Makra klawiaturowe"
@@ -70,12 +70,12 @@ msgstr "Nagrywanie %1"
 msgid "Saved '%1'"
 msgstr "Zapisane '%1'"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Wczytane '%1'"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Wyczyszczone '%1'"
@@ -96,7 +96,7 @@ msgstr "Nie znaleziono żadnego makra o nazwie '%1'."
 msgid "Cannot save empty keyboard macro."
 msgstr "Nie można zapisać pustego makra klawiaturowego."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -105,7 +105,7 @@ msgstr ""
 "<qt><p>Użycie: <code>kmsave &lt;nazwa&gt;</code></p><p>Zapisz bieżące makro "
 "klawiaturowe jako <code>&lt;nazwa&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -114,7 +114,7 @@ msgstr ""
 "<qt><p>Użycie: <code>kmload &lt;nazwa&gt;</code></p><p>Wczytaj zapisane "
 "makro klawiaturowe <code>&lt;nazwa&gt;</code> jako bieżące makro.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -124,7 +124,7 @@ msgstr ""
 "makro klawiaturowe <code>&lt;nazwa&gt;</code> bez jego wczytywania.</p>%1</"
 "qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -241,12 +241,12 @@ msgstr "Odtwórz makro '%1' bez jego wczytywania."
 msgid "Wipe the '%1' macro."
 msgstr "Wyczyść makro '%1'."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Czy zapisać bieżące makro jako?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Czy wyczyścić makro '%1'?"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2023-07-24 23:27+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "'%1'을(를) 불러올 수 없음: 잘못된 매크로입니다. 삭제�
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "키보드 매크로"
@@ -69,12 +69,12 @@ msgstr "기록 %1"
 msgid "Saved '%1'"
 msgstr "'%1' 저장됨"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "'%1' 불러옴"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "'%1' 삭제됨"
@@ -95,7 +95,7 @@ msgstr "이름이 '%1'인 키보드 매크로를 찾을 수 없습니다."
 msgid "Cannot save empty keyboard macro."
 msgstr "빈 키보드 매크로를 저장할 수 없습니다."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -104,7 +104,7 @@ msgstr ""
 "<qt><p>사용 방법: <code>kmsave &lt;name&gt;</code></p><p>현재 키보드 매크로"
 "를 <code>&lt;name&gt;</code>으로 저장합니다.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -113,7 +113,7 @@ msgstr ""
 "<qt><p>사용 방법: <code>kmload &lt;name&gt;</code></p><p>저장된 키보드 매크"
 "로 <code>&lt;name&gt;</code>을 현재 매크로로 불러옵니다.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -122,7 +122,7 @@ msgstr ""
 "<qt><p>사용 방법: <code>kmplay &lt;name&gt;</code></p><p>저장된 키보드 매크"
 "로 <code>&lt;name&gt;</code>을 불러오지 않고 재생만 합니다.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -234,12 +234,12 @@ msgstr "'%1' 매크로를 불러오지 않고 재생만 합니다."
 msgid "Wipe the '%1' macro."
 msgstr "'%1' 매크로를 삭제합니다."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "현재 매크로 다른 이름으로 저장?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "'%1' 매크로를 삭제하시겠습니까?"

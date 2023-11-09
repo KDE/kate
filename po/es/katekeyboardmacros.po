@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-19 00:50+0000\n"
+"POT-Creation-Date: 2023-11-09 01:39+0000\n"
 "PO-Revision-Date: 2022-08-15 12:25+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -36,7 +36,7 @@ msgstr "No se ha podido cargar «%1»: macro mal formada; se borra."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
+#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Macros de teclado"
@@ -71,12 +71,12 @@ msgstr "Grabando %1"
 msgid "Saved '%1'"
 msgstr "Se ha guardado «%1»"
 
-#: keyboardmacrosplugin.cpp:326
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Se ha cargado «%1»"
 
-#: keyboardmacrosplugin.cpp:343
+#: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Se ha borrado «%1»"
@@ -97,7 +97,7 @@ msgstr "No se ha encontrado ninguna macro de teclado con el nombre «%1»."
 msgid "Cannot save empty keyboard macro."
 msgstr "No se puede guardar una macro de teclado vacía."
 
-#: keyboardmacrosplugincommands.cpp:77
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -106,7 +106,7 @@ msgstr ""
 "<qt><p>Uso: <code>kmsave &lt;nombre&gt;</code></p><p>Guardar la macro de "
 "teclado actual como <code>&lt;nombre&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:80
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -115,7 +115,7 @@ msgstr ""
 "<qt><p>Uso: <code>kmload &lt;nombre&gt;</code></p><p>Cargar la macro de "
 "teclado <code>&lt;nombre&gt;</code> como la macro actual.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -124,7 +124,7 @@ msgstr ""
 "<qt><p>Uso: <code>kmplay &lt;nombre&gt;</code></p><p>Reproduce la macro de "
 "teclado guardada <code>&lt;nombre&gt;</code> sin cargarla.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
@@ -243,12 +243,12 @@ msgstr "Reproducir la macro «%1» sin cargarla."
 msgid "Wipe the '%1' macro."
 msgstr "Borrar la macro «%1»."
 
-#: keyboardmacrospluginview.cpp:284
+#: keyboardmacrospluginview.cpp:287
 #, kde-format
 msgid "Save current macro as?"
 msgstr "¿Guardar la macro actual como?"
 
-#: keyboardmacrospluginview.cpp:318
+#: keyboardmacrospluginview.cpp:321
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "¿Borrar la macro «%1»?"

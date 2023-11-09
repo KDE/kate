@@ -1,0 +1,1051 @@
+<!--pulled in by kwrite too-->
+<chapter id="kate-part">
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+ROLES_OF_TRANSLATORS"translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@icloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>&kappname; düzenleyicisiyle çalışmak</title>
+
+<sect1 id="kate-part-overview">
+
+<title
+>Genel Görünüm</title>
+
+<para
+>&kappname; düzenleyicisi &kappname; penceresinin düzenleme alanıdır. Bu düzenleyici &kate; ve &kwrite; arasında paylaşılır ve aynı zamanda yerel bilgisayarınızdan veya ağdan gelen metin dosyalarını görüntülemek için &konqueror;'da da kullanılabilir.</para>
+
+<para
+>Düzenleyici aşağıdaki bileşenlerden oluşur:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+>Düzenleme Alanı</term>
+<listitem
+><para
+>Bu belgenizin metninin konumlandığı yerdir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Sarma Çubukları</term>
+<listitem>
+<para
+>Sarma çubukları, belge metninin görünür kısmının konumunu belirtir ve belgede dolaşmak için kullanılabilir. Sarma çubuklarının sürüklenmesi, ekleme imlecinin hareket etmesine neden olmaz.</para>
+<para
+>Sarma çubukları gerektikçe görüntülenir veya gizlenir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Simge Kenarlığı</term>
+<listitem>
+<para
+>Simge kenarlığı, düzenleyicinin sol tarafında, imli satırların yanında küçük bir simge görüntüleyen küçük bir bölmedir.</para>
+<para
+>Görünür bir satırdaki <link linkend="kate-part-bookmarks"
+>yer imini</link
+>, o satırın yanındaki simge kenarlığına &LMB; ile tıklayarak ayarlayabilir veya kaldırabilirsiniz.</para>
+<para
+>Simge kenarlığının görüntülenmesi <menuchoice
+><guimenu
+>Görünüm</guimenu
+><guimenuitem
+>Simge Kenarlığını Göster</guimenuitem
+></menuchoice
+> menü ögesi ile açılıp kapatılabilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Satır Numaraları Bölmesi</term>
+<listitem>
+<para
+>Satır numaraları bölmesi, belgedeki tüm görünür satırların satır numaralarını gösterir.</para>
+<para
+>Satır numaraları bölmesinin görüntülenmesi, <menuchoice
+><guimenu
+>Görünüm</guimenu
+><guimenuitem
+>Satır Numaralarını Göster</guimenuitem
+></menuchoice
+> menü ögesi ile açılıp kapatılabilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Katlama Bölmesi</term>
+<listitem>
+<para
+>Katlama bölmesi, katlanabilir satır bloklarını daraltmanıza veya genişletmenize olanak tanır. Katlanabilir bölgelerin hesaplanması, belgenin sözdizim vurgulama tanımındaki kurallara göre yapılır.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<itemizedlist>
+<title
+>Yine bu fasılda:</title>
+<listitem
+><para
+><link linkend="kate-part-navigation"
+>Metinde Dolaşmak</link
+> </para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-selection"
+>Seçimle Çalışmak</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-copy-and-paste"
+>Metin Kopyalamak ve Yapıştırmak</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-find-replace"
+>Metin Bul ve Değiştir</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-bookmarks"
+>Yer İmlerini Kullanmak</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-auto-wrap"
+>Kendiliğinden Metin Kaydırma</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-autoindent"
+>Otomatik girintileme kullanarak</link
+></para
+></listitem>
+</itemizedlist>
+
+</sect1>
+
+<sect1 id="kate-part-navigation">
+<title
+>Metinde Dolaşmak</title>
+
+<para
+>&kappname;'de metinde dolaşmak çoğu grafik metin düzenleyicisi ile benzerdir. İmleci, &Ctrl; ve &Shift; değiştiricileriyle birlikte ok düğmelerini ve &PgUp;, &PgDn;, &Home; ve &End; düğmelerini kullanarak hareket ettirirsiniz. &Shift; düğmesi her zaman bir seçim üretmek için kullanılırken, &Ctrl; düğmesinin farklı düğmeler üzerinde farklı etkileri vardır: <itemizedlist>
+<listitem
+><para
+>&Up; ve &Down; düğmeleri için imleci hareket ettirmekten ziyade sarma anlamına gelir.</para
+></listitem>
+<listitem
+><para
+>&Left; ve &Right; düğmeleri için karakterler yerine sözcükleri atlama anlamına gelir.</para
+></listitem>
+<listitem
+><para
+>&PgUp; ve &PgDn; düğmeleri için tarama yerine görünümün görünür kenarına hareket etme anlamına gelir.</para>
+</listitem>
+<listitem
+><para
+>&Home; ve &End; düğmeleri için satır başı ve sonu yerine belgenin başına ve sonuna git anlamı taşır.</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>&kappname; ayrıca eşleşen ayraç veya parantezlere hızlı bir biçimde atlamanın bir yolunu da sağlar: İmleci parantez veya ayraç karakterinin içine yerleştirin ve eşleşen parantez veya ayraca atlamak için <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+> kısayolunu kullanın.</para>
+
+<para
+>Ek olarak, kendi tanımladığınız konumlara hızlıca atlamak için <link linkend="kate-part-bookmarks"
+>yer imlerini</link
+> kullanabilirsiniz.</para>
+
+</sect1>
+
+<sect1 id="kate-part-selection">
+<title
+>Seçimle Çalışmak</title>
+
+<para
+>&kappname; içinde iki temel metin seçim yolu bulunur: Fareyi ve klavyeyi kullanarak.</para>
+
+<para
+>Fareyi kullanarak seçim yapmak için, fare imlecini seçimin başlaması gereken yerden istenen bitiş noktasına sürüklerken &LMB;'ni basılı tutun. Siz sürükledikçe metin seçilir.</para>
+
+<para
+>Bir sözcüğe çift tıklamak o sözcüğü seçecektir.</para>
+
+<para
+>Bir satıra üç kez tıklamak tüm satırı seçecektir.</para>
+
+<para
+>Tıklarken &Shift; basılı tutulursa metin seçilecektir:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Halihazırda bir şey seçili değilse metin imleci konumundan fare imleci konumuna kadar.</para
+></listitem>
+<listitem
+><para
+>Bir seçim varsa bu seçimden fare imleci konumuna kadar.</para
+></listitem>
+</itemizedlist>
+
+<note>
+<para
+>Fareyi sürükleyerek metin seçerken, seçili metin panoya kopyalanır ve düzenleyicide veya metni yapıştırmak istediğiniz başka herhangi bir uygulamada farenin orta tuşuna basılarak yapıştırılabilir. </para>
+</note>
+
+<para
+>Klavyeyi kullanarak seçim yapmak için dolaşma (ok düğmeleri, &PgUp;, &PgDn;, &Home; ve &End;, metin imlecinin hareketini genişletmek için büyük olasılıkla &Ctrl; ile birlikte) düğmelerini kullanırken &Shift; düğmesini basılı tutun.</para>
+
+<para
+>Bu fasıldaki <link linkend="kate-part-navigation"
+>Metinde Dolaşmak</link
+> bölümüne de göz atın.</para>
+
+<para
+>Geçerli seçimi <action
+>kopyalamak</action
+> için <menuchoice
+><guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Kopyala</guimenuitem
+></menuchoice
+> menü ögesini veya klavye kısayolunu kullanın (öntanımlı olarak <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+>).</para>
+
+<para
+>Geçerli seçimi <action
+>kaldırmak</action
+> için <menuchoice
+><guimenu
+>Seçim</guimenu
+> <guimenuitem
+>Seçimi Kaldır</guimenuitem
+></menuchoice
+> menü ögesini veya klavye kısayolunu kullanın (öntanımlı olarak <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>A</keycap
+></keycombo
+>) veya düzenleyicide &LMB; ile tıklayın.</para>
+
+<sect2 id="kate-part-selection-block">
+<title
+>Blok Seçimi Kullanmak</title>
+
+<para
+>Blok Seçim Kipi etkinleştirildiğinde, metinde <quote
+>dikey seçimler</quote
+> yapabilirsiniz; bu, birden çok satırdan sınırlı sayıda sütunların seçilebilmesi anlamına gelir. Bu; örneğin, sekmeyle ayrılmış satırlarla çalışmak için kullanışlıdır.</para>
+
+<para
+>Blok Seçim Kipi <menuchoice
+><guimenu
+>Seçim</guimenu
+> <guimenuitem
+>Blok Seçim Kipi</guimenuitem
+></menuchoice
+> menü ögesiyle açılıp kapatılabilir. Öntanımlı klavye kısayolu: <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>B</keycap
+></keycombo
+>.</para>
+
+</sect2>
+
+<sect2 id="kate-part-selection-overwrite">
+<!-- term not used in settings Editing Text Seöection Mode, it is called "Normal"-->
+<title
+>Seçimin Üzerine Yazmayı Kullanmak</title>
+
+<para
+>Seçimin Üzerine Yaz etkinleştirilirse seçime metin yazmak veya yapıştırmak, seçili metnin değiştirilmesine neden olur. Etkinleştirilmezse metin imlecinin konumuna yeni metin eklenir.</para>
+
+<para
+>Seçimin Üzerine Yaz öntanımlı olarak etkindir.</para>
+
+<para
+>Bu seçeneğin ayarını değiştirmek için <link linkend="config-dialog"
+>Yapılandırma İletişim Kutusu</link
+>'ndaki <link linkend="pref-edit-cursor-selection"
+>İmleç ve Seçim</link
+> sayfasını kullanın.</para>
+
+</sect2>
+
+<sect2 id="kate-part-selection-persistent">
+
+<title
+>Kalıcı Seçimi Kullanmak</title>
+
+<para
+>Kalıcı Seçim etkinleştirildiğinde, karakterler girmek veya imleci hareket ettirmek seçimin kaldırılmasına neden olmaz. Bu, imleci seçimden uzaklaştırıp metin yazabileceğiniz anlamına gelir.</para>
+
+<para
+>Kalıcı Seçim öntanımlı olarak devre dışıdır.</para>
+
+<para
+>Kalıcı Seçim, <link linkend="config-dialog"
+>Yapılandırma İletişim Kutusu</link
+>'ndaki <link linkend="pref-edit-cursor-selection"
+>İmleç ve Seçim</link
+> sayfasından etkinleştirilebilir.</para>
+
+<warning
+> <!-- is that still possible in 4.4? radio button Normal + Persistent!-->
+<para
+>Kalıcı Seçim ve Seçimin Üzerine Yaz etkinse metin imleci seçimin içindeyken yazmak veya metin yapıştırmak metnin değiştirilmesine ve seçimin kaldırılmasına neden olur.</para>
+</warning>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-part-copy-and-paste">
+
+<title
+>Metin Kopyalamak ve Yapıştırmak</title>
+
+<para
+>Metin kopyalamak için metni seçin ve <menuchoice
+><guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Kopyala</guimenuitem
+></menuchoice
+> menü ögesini kullanın. Ek olarak, metni fareyle seçmek, metnin X panosuna kopyalanmasıne neden olacaktır.</para>
+
+<para
+>Şu anda panoda olan metni yapıştırmak için <menuchoice
+> <guimenu
+>Düzen</guimenu
+><guimenuitem
+>Yapıştır</guimenuitem
+></menuchoice
+> menü ögesini kullanın.</para>
+
+<para
+>Ayrıca fareyle seçilen metin, &MMB; ile tıklanarak istenilen konuma yapıştırılabilir.</para>
+
+<tip>
+<para
+>&kde; masaüstünü kullanıyorsanız daha önceden kopyalanan metinleri sistem tepsisindeki &klipper; simgesine tıklayarak alabilirsiniz.</para>
+</tip>
+
+</sect1>
+
+<!-- changed in 4.5-->
+<sect1 id="kate-part-find-replace">
+<title
+>Metin Bul ve Değiştir</title>
+
+<sect2 id="find-replace-bars">
+<title
+>Ara ve Değiştir Çubukları</title>
+
+
+<para
+>&kappname;'de artımlı bir arama çubuğu ve güçlü arama ve değiştirme çubuğu bulunur; bu, birkaç ek seçeneğin yanı sıra yeni bir dizi girme olanağı sunar.</para>
+
+<para
+>Çubuklar şu ortak seçenekleri sunar:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Bul</guilabel
+></term>
+<listitem
+><para
+>Arama dizisinin girileceği yer burasıdır. Dizinin yorumlanması aşağıda açıklanan seçeneklerden bazılarına bağlıdır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>BÜYÜK/küçük harf eşleştir</guilabel
+></term>
+<listitem>
+<para
+>Etkinleştirilirse arama, arama dizgisindeki karakterlerin her birinin BÜYÜK/küçük harfiyle eşleşen girişlerle sınırlı olacaktır.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Gelişmiş ara ve değiştir çubuğu bazı ek seçenekler sunar:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Düz metin</guilabel
+></term>
+<listitem>
+<para
+>Arama dizisinin herhangi bir örneğini eşleştirin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Tam sözcükler</guilabel
+></term>
+<listitem>
+<para
+>Seçilirse arama, yalnızca dizi eşleşmesinin her iki ucunda da bir sözcük sınırı varsa eşleşir; bu, abece-sayısal bir karakter anlamına gelmez - başka bir görünür karakter veya satır sonu olabilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Kaçış dizileri</guilabel
+></term>
+<listitem>
+<para
+>Seçilirse metin kutularının bağlam menüsünün altındaki <guibutton
+>Ekle</guibutton
+> menü ögesi etkinleştirilir ve önceden tanımlanmış bir listeden arama dizgisine kaçış dizileri eklemenize olanak tanınır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Düzenli ifadeler</guilabel
+></term>
+<listitem>
+<para
+>Seçilirse arama dizisi, düzenli ifade olarak yorumlanır. Metin kutularının bağlam menüsünün altındaki <guibutton
+>Ekle</guibutton
+> menü ögesi etkinleştirilir ve arama dizgisine önceden tanımlanmış bir listeden düzenli ifade ögeleri eklemenize olanak tanınır.</para>
+<para
+>Bu konu hakkında daha fazla bilgi için <link linkend="regular-expressions"
+>Düzenli İfadeler</link
+> bölümüne bakın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Yalnızca seçimde ara</guilabel
+></term>
+<listitem>
+<para
+>İşaretlenirse ara ve değiştir yalnızca seçili metin içinde gerçekleştirilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Tümünü bul</guilabel
+></term>
+<listitem>
+<para
+>Bu düğmeye tıklamak, belgedeki tüm eşleşmeleri vurgular ve bulunan eşleşmelerin sayısını küçük bir açılır pencerede gösterir. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-find"
+> -->
+<sect2 id="finding-text">
+<title
+>Metin Bulmak</title>
+
+<para
+>Metin bulmak için <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+> klavye kısayoluyla veya <menuchoice
+><guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Bul...</guimenuitem
+></menuchoice
+> menü ögesinden artımlı arama çubuğunu başlatın.</para>
+<para
+>Bu, düzenleyici penceresinin altındaki artımlı arama çubuğunu açar. Çubuğun sol tarafında, çubuğu kapatmak için bir simgenin bulunduğu bir düğme ve ardından arama dizgisini girmek için küçük bir metin kutusu bulunur.</para>
+<para
+>Arama dizginizin karakterlerini girmeye başladığınızda arama hemen başlar. Metinde bir eşleşme varsa bu vurgulanır ve giriş alanının arka plan rengi açık yeşil olarak değişir. Arama dizgisi herhangi bir diziyle eşleşmezse metinde bu, giriş alanının açık kırmızı arka plan rengiyle belirtilir.</para>
+<para
+>Belgedeki önceki veya sonraki eşleşmeye atlamak için <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> veya <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> düğmelerini kullanın.</para>
+<para
+>Arama çubuğunu kapattığınızda bile belgedeki eşleşmeler vurgulanır. Bu vurgulamayı temizlemek için Esc; düğmesine basın.</para>
+<para
+>Aramanızın BÜYÜK/küçük harf duyarlı olup olmayacağını seçebilirsiniz. <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> seçmek, arama dizgisindeki her bir karakterin metindeki BÜYÜK/küçük harflerle eşleşip eşleşmeyeceğini seçmenize olanak tanır.</para>
+<para
+>Gelişmiş ara ve değiştir çubuğuna geçmek için artımlı arama çubuğunun sağ tarafındaki <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> düğmesine tıklayın. </para>
+<para
+>Son bulma işlemini (varsa) artımlı arama çubuğunu çağırmadan yinelemek için <menuchoice
+> <shortcut
+><keycombo action="simul"
+><keycap
+>F3</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Düzen</guimenu
+><guimenuitem
+>Sonrakini Bul</guimenuitem
+></menuchoice
+> veya <menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>F3</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Düzen</guimenu
+><guimenuitem
+>Öncekini Bul</guimenuitem
+></menuchoice
+> ögelerini kullanın. </para>
+
+</sect2>
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-replace"
+> -->
+<sect2 id="replacing-text">
+<title
+>Metni Değiştirmek</title>
+
+<para
+>Metni değiştirmek için <menuchoice
+><guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Değiştir</guimenuitem
+></menuchoice
+> menü ögesini veya <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> kısayolunu kullanarak gelişmiş arama çubuğunu başlatın.</para>
+<para
+>Çubuğun sol üst tarafında, çubuğu kapatmak için bir simge bulunan bir düğme ve ardından arama dizgisini girmek için küçük bir birleşik giriş kutusu bulunur. Kutu, son kullanılan dizgileri anımsar.</para>
+<para
+>Arama kipini, açılır kutudan <guilabel
+>Düz metin</guilabel
+>, <guilabel
+>Tam sözcükler</guilabel
+>, <guilabel
+>Kaçış dizileri</guilabel
+> veya <guilabel
+>Düzenli ifade</guilabel
+> seçeneklerini kullanarak denetleyebilirsiniz. </para>
+<para
+><guilabel
+>Kaçış dizileri</guilabel
+> veya <guilabel
+>Düzenli ifade</guilabel
+> seçilirse metin kutularının bağlam menüsünün altında bulunan <guibutton
+>Ekle...</guibutton
+> düğmesi etkinleştirilir ve ara ve değiştir dizgilerine önceden tanımlanan listelerden kaçış dizileri veya düzenli ifade ögeleri eklemenize olanak tanır.</para>
+<para
+>Belgedeki önceki veya sonraki eşleşmeye atlamak için <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> veya <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> düğmelerini kullanın.</para>
+<para
+><guilabel
+>Değiştir</guilabel
+> etiketli metin kutusuna değiştirilecek metni girin ve yalnızca vurgulanan metni değiştirmek için <guibutton
+>Değiştir</guibutton
+> düğmesini veya tüm belgedeki arama metnini değiştirmek için <guibutton
+>Tümünü Değiştir</guibutton
+> düğmesine tıklayın. </para>
+<para
+>Çubuğun altındaki bölümden değişik seçenekler seçerek ara ve değiştir davranışını değiştirebilirsiniz. <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> seçmek, aramayı BÜYÜK/küçük harf eşleşen girdilere sınırlar. <inlinemediaobject
+><imageobject
+><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, yalnızca geçerli seçimde ara ve değiştir yapar. <guilabel
+>Tümünü Bul</guilabel
+> düğmesi, belgedeki tüm eşleşmeleri vurgular ve küçük bir açılır pencerede bulunan eşleşme sayısını görüntüler. </para>
+<para
+>Artımlı arama çubuğuna geçmek için gelişmiş arama çubuğunun sağ tarafındaki <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> düğmesine tıklayın. </para>
+<tip>
+<para
+>Değiştirilecek metni bulmak için düzenli bir ifade kullanıyorsanız ifadenin parantez içindeki alt dizgilerinde yakalanan metni yeniden kullanmak için geriye başvurulardan yararlanabilirsiniz.</para>
+<para
+>Bu konu hakkında daha fazla bilgi için <link linkend="regular-expressions"
+>Düzenli İfadeler</link
+> bölümüne bakın.</para>
+</tip>
+
+<tip
+><para
+><link linkend="advanced-editing-tools-commandline"
+>Komut satırından</link
+> <command
+>find</command
+> (bul), <command
+>replace</command
+> (değiştir) ve <command
+>ifind</command
+> (artımlı arama) yapabilirsiniz.</para>
+</tip>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-part-bookmarks">
+<title
+>Yer İmlerini Kullanmak</title>
+
+<para
+>Yer imleri özelliği, belirli satırları imlemenize ve bunları yeniden kolayca bulabilmenize olanak tanır.</para>
+
+<para
+>Bir satırdaki yer imini iki yolla koyabilir veya kaldırabilirsiniz:</para>
+
+<itemizedlist>
+<listitem>
+<para
+>Ekleme imlecini satıra götürün ve <menuchoice
+><guimenu
+>Yer İmleri</guimenu
+><guimenuitem
+>Yer İmi Koy</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+>) komutunu kullanın.</para>
+</listitem>
+<listitem>
+<para
+>Satırın yanındaki simge kenarlığına tıklayın.</para>
+</listitem>
+</itemizedlist>
+
+
+<para
+>Yer imleri, <guimenu
+>Yer İmleri</guimenu
+> menüsünden kullanılabilir. Bireysel yer imleri, yer iminin bulunduğu satırın satır numarasıyla ve satırdaki metnin ilk birkaç karakteriyle etiketlenmiş menü ögeleri olarak bulunur. Ekleme imlecini, yer imi koyulmuş bir satırın başına taşımak için menüyü açın ve yer imini seçin.</para>
+
+<para
+>Yer imleri arasında hızlıca gezinmek veya önceki/sonraki yer imine gitmek için <menuchoice
+><guimenu
+>Yer İmleri</guimenu
+><guimenuitem
+>Sonraki</guimenuitem
+> </menuchoice
+> (<keycombo action="simul"
+>&Alt;&PgDn;</keycombo
+>) veya <menuchoice
+> <guimenu
+>Yer İmleri</guimenu
+><guimenuitem
+>Önceki</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Alt;&PgUp;</keycombo
+>) komutlarını kullanın.</para>
+
+</sect1>
+
+<sect1 id="kate-part-auto-wrap">
+<!--dynamic word wrap needs description here-->
+<title
+>Metni Kendiliğinden Kaydırmak</title>
+
+<para
+>Bu özellik, metni çok basit bir şekilde biçimlendirmenize olanak tanır: Metin kaydırılır, böylece boşluk olmayan karakterlerden oluşan daha uzun bir dizi olmadığı sürece hiçbir satır, satır başına en çok karakter sayısını aşmaz.</para>
+
+<para
+>Etkinleştirmek veya devre dışı bırakmak için <link linkend="config-dialog"
+>yapılandırma iletişim kutusundaki</link
+> <link linkend="pref-word-wrap"
+>Düzenleme</link
+> sayfasından <guibutton
+>Durağan Sözcük Kaydırma</guibutton
+> onay kutusunu işaretleyin veya işaretini kaldırın.</para>
+
+<para
+>En büyük satır genişliğini ayarlamak için (satır başına en çok karakter) <link linkend="config-dialog"
+>yapılandırma iletişim kutusundaki</link
+> <link linkend="pref-word-wrap"
+>Düzenleme</link
+> sayfasından <link linkend="pref-wrap-words-at"
+><guibutton
+>Sözcükleri şurada kaydır</guibutton
+></link
+> seçeneğini kullanın.</para>
+
+<para
+>Etkinleştirilirse şunlara neden olur: <itemizedlist>
+<listitem
+><para
+>Yazarken düzenleyici, en çok satır genişliğine ulaşılmadan önceki bir konuma, son boşluk karakterinden sonra kendiliğinden sabit bir satır sonu ekleyecektir.</para
+></listitem>
+<listitem
+><para
+>Bir belgeyi yüklerken düzenleyici, metni benzer şekilde kaydırır, böylece herhangi bir boşluk varsa hiçbir satır en büyük satır genişliğinden daha uzun olmayacaktır.</para
+></listitem>
+</itemizedlist>
+
+</para>
+
+<note
+><para
+>Şu anda belge türleri için sözcük kaydırmayı ayarlamanın, hatta özelliği belge başına etkinleştirmenin veya devre dışı bırakmanın bir yolu yoktur. Bu, &kappname;'in gelecekteki bir sürümünde düzeltilecektir.</para
+></note>
+
+</sect1>
+
+<sect1 id="kate-part-autoindent">
+<title
+>Kendiliğinden Girintilemeyi Kullanmak</title>
+
+<para
+>&kappname;'in düzenleyici bileşeni, çeşitli metin biçimleri için tasarlanan birçok kendiliğinden girintileme aracını destekler. <menuchoice
+><guimenu
+>Araçlar</guimenu
+><guisubmenu
+>Girintileme</guisubmenu
+></menuchoice
+> menüsünden kullanılabilir kipleri seçebilirsiniz. Kendiliğinden girintileme modülleri ayrıca, seçili veya geçerli satırın girintilemesini yeniden hesaplayan bir <menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Girintilemeyi Biçimlendir</guimenuitem
+></menuchoice
+> işlevine sahiptir. Böylece, metni seçip bu eylemi etkinleştirerek tüm belgenizi yeniden girintileyebilirsiniz.</para>
+
+<para
+>Tüm girinti kipleri, etkin belgedeki girintilemeyle ilgili ayarları kullanır.</para>
+
+<tip
+><para
+>Girintilemeyle ilgili her tür yapılandırma değişkenini <link linkend="config-variables"
+>Belge Değişkenleri</link
+> ve <link linkend="pref-open-save-modes-filetypes"
+>Dosya Türleri</link
+> kullanarak ayarlayabilirsiniz.</para
+></tip>
+
+<variablelist>
+
+<title
+>Kullanılabilir Kendiliğinden Girintileme Kipleri</title>
+
+<varlistentry>
+<term
+>Yok</term>
+<listitem
+><para
+>Bu kipi seçmek kendiliğinden girintilemeyi tümüyle kapatır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Normal</term>
+<listitem
+><para
+>Bu girinti, boşluk dışındaki herhangi bir içerikteki girintiyi önceki satıra benzer şekilde tutar. Bunu, kendi zevkinize göre girinti yapmak için girintileme ve girintiyi kaldırma eylemlerini kullanarak birleştirebilirsiniz. </para
+></listitem>
+</varlistentry>
+
+<varlistentry
+><term
+>C Tarzı</term>
+<listitem
+><para
+>C ve benzeri diller (C++, C#, &Java;, &javascript; vb.) için bir girintileyici. Bu girintileyici, Perl veya PHP gibi betik yazımı dilleriyle çalışmaz.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Haskell</term>
+<listitem
+><para
+>İşlevsel programlama dili Haskell için bir girintileyici. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Lilypond</term>
+<listitem
+><para
+>Müzik simgelemi yazım dili Lilypond için bir girintileyici. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Lisp</term>
+<listitem
+><para
+>Özellikle Lisp betik yazımı dili ve Lisp lehçeleri için bir girintileyici. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Python</term>
+<listitem
+><para
+>Python betik yazımı dili için özel girintileyici. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>XML Tarzı</term>
+<listitem
+><para
+>XML benzeri diller için özel bir girintileyici. </para
+></listitem>
+</varlistentry>
+<!--Ruby + Lua missing -->
+</variablelist>
+
+</sect1>
+
+<sect1 id="kate-part-line-modification">
+<title
+>Satır Değişiklik Göstergeleri</title>
+
+<para
+>&kappname;'in satır değişikliği göstergeleri, bir dosyada en son neleri değiştirdiğinizi kolayca görmenizi sağlar. Öntanımlı olarak, kaydedilen değişiklikler belgenin solundaki yeşil bir çubukla gösterilirken, kaydedilmemiş değişiklikler turuncu bir çubukla gösterilir.</para>
+
+<para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="line-modification-system.png"/></imageobject>
+<caption
+><para
+>Satır Değişiklik Göstergeleri kullanılırken.</para
+></caption>
+</mediaobject>
+</para>
+
+<para
+>Kullanılan renkleri, <link linkend="prefcolors"
+><guilabel
+>Yazıtipleri ve Renkler</guilabel
+> yapılandırma panelinden</link
+> değiştirebilir veya bu özelliği <guilabel
+>Appearance</guilabel
+> yapılandırma panelinin <link linkend="appearance-borders"
+><guilabel
+>Kenarlıklar</guilabel
+> sekmesinden devre dışı bırakabilirsiniz</link
+>.</para>
+
+</sect1>
+
+<sect1 id="kate-part-scrollbar-minimap">
+<title
+>Sarma Çubuğu Mini Haritası</title>
+
+<para
+>&kappname;'in Sarma Çubuğu Mini Haritası, sarma çubuğu yerine belgenin önizlemesini görüntüler. Belgenin o anda görünen kısmı vurgulanır. </para>
+
+<para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="minimap.png"/></imageobject>
+<caption
+><para
+>Sarma Çubuğu Mini Haritası, &kate; kaynak kodunun bir önizlemesini gösterirken. </para
+></caption>
+</mediaobject>
+</para>
+
+<para
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+><guimenuitem
+>Sarma Çubuğu Mini Haritası</guimenuitem
+></menuchoice
+> menü ögesini seçerek veya &kappname; yapılandırmasının <link linkend="appearance-borders"
+>Görünüş</link
+> bölümünden kalıcı olarak etkinleştirebilir veya devre dışı bırakabilirsiniz.</para>
+
+</sect1>
+
+<sect1 id="kate-part-multiple-cursors">
+<title
+>Çoklu İmleçler</title>
+
+<para
+>Çoklu imleç desteği, katepart 5.93 sürümünde eklendi.</para>
+
+<sect2 id="kate-part-create-multiple-cursors">
+<title
+>Birden çok imleç oluşturmak</title>
+
+<itemizedlist>
+<listitem
+><para
+>Onları oluşturmak için &Alt; + &LMB; kullanın. Değiştirici kombinasyon yapılandırılabilirdir; <link linkend="multicursor-modifier-configure"
+>Çoklu imleç değiştiricisini yapılandırmak</link
+> bölümüne bakın</para
+></listitem>
+
+<listitem
+><para
+>Klavyeyle birincil imlecin üstünde oluşturmak için <keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+>, altında oluşturmak için <keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
+> kısayollarını kullanın. Bu kısayollar yapılandırılabilirdir</para
+></listitem>
+
+<listitem
+><para
+>Bir seçimden imleçler oluşturmak için önce biraz metin seçin ve sonrasında <keycombo action="simul"
+>&Shift;&Alt;<keycap
+>I</keycap
+></keycombo
+> kısayolunu kullanın. Bu, seçimdeki her bir satırın sonunda bir imleç oluşturacaktır.</para
+></listitem>
+
+<listitem
+><para
+>İmlecin altındaki sözcüğün bir sonraki oluşunu bulmak için <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> kısayolunu kullanın ve onu seçin, sonrasında bir imleç oluşturun. İmleç altındaki geçerli sözcüğü atlamak istiyorsanız <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> kısayolunu kullanın ve bu, geçerli seçili sözcüğü atlanmış olarak imler. <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> kısayoluna yeniden basarsanız geçerli sözcüğün seçimini kaldırır ve sonraki sözcüğe geçer.</para>
+</listitem>
+
+<listitem
+><para
+>İmlecin altındaki sözcüğün tüm oluşlarını bulmak için <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
+></keycombo
+> kısayolunu kullanın ve bunları her seçimin sonunda imleçle seçin. Seçili sözcükler arasında geçiş yapmak için <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> kullanabilir ve önceki paragrafta belirtildiği gibi herhangi bir kelimenin seçimini kaldırmak için <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> kısayolunu kullanabilirsiniz.</para
+></listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2
+><title
+>Birden çok imleçle çalışmak</title>
+<para
+>Birkaç imleç oluşturduğunuzda, tek bir imleçte yaptığınız gibi düzenleme işlemlerinin çoğunu bunlar üzerinde gerçekleştirebilirsiniz. Örneğin, bir harf yazmak, her imleç için o harfi yazacaktır. Benzer şekilde metin dönüşümleri gerçekleştirebilirsiniz; örneğin tüm pozisyonlar veya seçimler için büyük harf kullanımı gibi.</para>
+
+<para
+>Bazen imleçleri kaldırmak isteyeceksiniz. Bunu yapmak için kaldırmak istediğiniz imlecin üzerinde &Alt;+&LMB; kullanın. Yalnızca boş satırlardaki imleçleri kaldırmak istiyorsanız bunu sizin için yapacak bir işlev bulunur. Eylemi başlatmak için <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>I</keycap
+></keycombo
+> kullanarak Komut Çubuğu'nu açın ve <guimenuitem
+>Boş satırlardan imleçleri kaldır</guimenuitem
+> ögesini arayın ve &Enter;'a basın. Ayrıca bu eylem için bir kısayol da yapılandırabilirsiniz.</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>

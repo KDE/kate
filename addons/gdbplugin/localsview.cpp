@@ -98,6 +98,11 @@ void LocalsView::openVariableScope()
 
 void LocalsView::closeVariableScope()
 {
+    if (m_variables.count() == 1) {
+        // Auto-expand if there is a single item
+        QTreeWidgetItem *item = m_variables.begin().value();
+        item->setExpanded(true);
+    }
 }
 
 void LocalsView::addVariableLevel(int parentId, const dap::Variable &variable)

@@ -1,23 +1,23 @@
 # Translation of katesearch.po to Catalan (Valencian)
-# Copyright (C) 2011-2022 This_file_is_part_of_KDE
+# Copyright (C) 2011-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2020, 2021, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2020, 2021, 2022, 2023.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2015, 2017, 2019, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2022-12-21 13:39+0100\n"
-"Last-Translator: Antoni Bella <antonibella5@yahoo.com>\n"
+"PO-Revision-Date: 2023-11-09 13:04+0100\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Kate 22.08.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -220,7 +220,7 @@ msgstr "Busca"
 #: search.ui:47
 #, kde-format
 msgid "Replace Checked"
-msgstr "Substituïx les verificades"
+msgstr "Substituïx les marcades"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)

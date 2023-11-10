@@ -22,15 +22,11 @@ void GDBVariableParser::openScope()
 {
     m_varId = MIN_VAR_ID;
     m_allAdded = false;
-
-    Q_EMIT scopeOpened();
 }
 
 void GDBVariableParser::closeScope()
 {
     m_allAdded = true;
-
-    Q_EMIT scopeClosed();
 }
 
 int GDBVariableParser::newVariableId()

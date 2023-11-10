@@ -20,10 +20,7 @@ public:
     void insertVariable(const QString &name, const QString &value, const QString &type, bool changed = false);
 
 Q_SIGNALS:
-    // flat variable
     void variable(int parentId, const dap::Variable &variable);
-    void scopeOpened();
-    void scopeClosed();
 
 private:
     void parseNested(const dap::Variable &parent);

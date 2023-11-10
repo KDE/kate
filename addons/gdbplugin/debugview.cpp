@@ -101,8 +101,6 @@ DebugView::DebugView(QObject *parent)
 {
     // variable parser
     connect(&m_variableParser, &GDBVariableParser::variable, this, &DebugViewInterface::variableInfo);
-    connect(&m_variableParser, &GDBVariableParser::scopeClosed, this, &DebugViewInterface::variableScopeClosed);
-    connect(&m_variableParser, &GDBVariableParser::scopeOpened, this, &DebugViewInterface::variableScopeOpened);
 
     connect(m_parser, &gdbmi::GdbmiParser::outputProduced, this, &DebugView::processMIStreamOutput);
     connect(m_parser, &gdbmi::GdbmiParser::recordProduced, this, &DebugView::processMIRecord);

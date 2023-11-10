@@ -18,7 +18,6 @@ public:
     GDBVariableParser(QObject *parent = nullptr);
 
     void insertVariable(const QString &name, const QString &value, const QString &type, bool changed = false);
-    void parseNested(const dap::Variable &parent);
 
 Q_SIGNALS:
     // flat variable
@@ -27,6 +26,7 @@ Q_SIGNALS:
     void scopeClosed();
 
 private:
+    void parseNested(const dap::Variable &parent);
     void addLocal(const QString &vString);
     void openScope();
     void closeScope();

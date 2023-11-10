@@ -1333,7 +1333,7 @@ void DebugView::responseMIThisScope(const gdbmi::Record &record)
     const auto value = record.value[QStringLiteral("value")].toString();
     const auto parent = dap::Variable(QString(), value, 0);
     Q_EMIT variableScopeOpened();
-    m_variableParser.parseNested(parent);
+    m_variableParser.insertVariable(QStringLiteral("*this"), value, QString());
     Q_EMIT variableScopeClosed();
 }
 

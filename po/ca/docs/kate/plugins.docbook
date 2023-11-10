@@ -4475,7 +4475,7 @@ its view and place the cursor at the start of the definition.
 <varlistentry>
 <term
 ><guibutton
->Substitueix les verificades</guibutton
+>Substitueix les marcades</guibutton
 ></term>
 <listitem
 ><para

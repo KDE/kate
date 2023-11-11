@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-01 01:56+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2023-07-26 12:44+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -361,37 +361,37 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokumentet har ändrats av ett annat program.</p>"
 
-#: katefiletreeplugin.cpp:246
+#: katefiletreeplugin.cpp:248
 #, kde-format
 msgid "Previous Document"
 msgstr "Föregående dokument"
 
-#: katefiletreeplugin.cpp:252
+#: katefiletreeplugin.cpp:254
 #, kde-format
 msgid "Next Document"
 msgstr "Nästa dokument"
 
-#: katefiletreeplugin.cpp:258
+#: katefiletreeplugin.cpp:260
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Vi&sa aktivt dokument"
 
-#: katefiletreeplugin.cpp:263
+#: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "Save"
 msgstr "Spara"
 
-#: katefiletreeplugin.cpp:264
+#: katefiletreeplugin.cpp:266
 #, kde-format
 msgid "Save the current document"
 msgstr "Spara aktuellt dokument"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save As"
 msgstr "Spara som"
 
-#: katefiletreeplugin.cpp:269
+#: katefiletreeplugin.cpp:271
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Spara aktuellt dokument med nytt namn"

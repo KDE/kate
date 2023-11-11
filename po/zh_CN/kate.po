@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:39+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2023-10-21 13:51\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1787,7 +1787,7 @@ msgstr "上侧边栏"
 msgid "Bottom Sidebar"
 msgstr "下侧边栏"
 
-#: lib/katemdi.cpp:1458
+#: lib/katemdi.cpp:1462
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1907,40 +1907,40 @@ msgstr "[旧]"
 msgid "[NEW]"
 msgstr "[新]"
 
-#: lib/kateoutputview.cpp:173
+#: lib/kateoutputview.cpp:174
 #, kde-format
 msgid "Search..."
 msgstr "搜索..."
 
-#: lib/kateoutputview.cpp:189
+#: lib/kateoutputview.cpp:191
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "复制所有文本到剪贴板"
 
-#: lib/kateoutputview.cpp:194
+#: lib/kateoutputview.cpp:196
 #, kde-format
 msgid "Clear all messages"
 msgstr "清除所有消息"
 
-#: lib/kateoutputview.cpp:389
+#: lib/kateoutputview.cpp:399
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "错误"
 
-#: lib/kateoutputview.cpp:393
+#: lib/kateoutputview.cpp:403
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "警告"
 
-#: lib/kateoutputview.cpp:397
+#: lib/kateoutputview.cpp:407
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "信息"
 
-#: lib/kateoutputview.cpp:402
+#: lib/kateoutputview.cpp:412
 #, kde-format
 msgctxt "@info"
 msgid "Log"

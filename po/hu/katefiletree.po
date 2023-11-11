@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-01 01:56+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2021-12-23 15:04+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -370,38 +370,38 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>A dokumentumot egy másik alkalmazás módosította.</p>"
 
-#: katefiletreeplugin.cpp:246
+#: katefiletreeplugin.cpp:248
 #, kde-format
 msgid "Previous Document"
 msgstr "Előző dokumentum"
 
-#: katefiletreeplugin.cpp:252
+#: katefiletreeplugin.cpp:254
 #, kde-format
 msgid "Next Document"
 msgstr "Következő dokumentum"
 
-#: katefiletreeplugin.cpp:258
+#: katefiletreeplugin.cpp:260
 #, fuzzy, kde-format
 #| msgid "&Show Active"
 msgid "&Show Active Document"
 msgstr "Aktív megjeleníté&se"
 
-#: katefiletreeplugin.cpp:263
+#: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: katefiletreeplugin.cpp:264
+#: katefiletreeplugin.cpp:266
 #, kde-format
 msgid "Save the current document"
 msgstr "A jelenlegi dokumentum mentése"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save As"
 msgstr ""
 
-#: katefiletreeplugin.cpp:269
+#: katefiletreeplugin.cpp:271
 #, fuzzy, kde-format
 #| msgid "Save current document under new name"
 msgid "Save the current document under a new name"

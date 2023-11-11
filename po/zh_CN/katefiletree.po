@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-01 01:56+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2023-10-21 13:51\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -354,37 +354,37 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>文档已被其他程序修改。</p>"
 
-#: katefiletreeplugin.cpp:246
+#: katefiletreeplugin.cpp:248
 #, kde-format
 msgid "Previous Document"
 msgstr "上一个文档"
 
-#: katefiletreeplugin.cpp:252
+#: katefiletreeplugin.cpp:254
 #, kde-format
 msgid "Next Document"
 msgstr "下一个文档"
 
-#: katefiletreeplugin.cpp:258
+#: katefiletreeplugin.cpp:260
 #, kde-format
 msgid "&Show Active Document"
 msgstr "显示活动文档(&S)"
 
-#: katefiletreeplugin.cpp:263
+#: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "Save"
 msgstr "保存"
 
-#: katefiletreeplugin.cpp:264
+#: katefiletreeplugin.cpp:266
 #, kde-format
 msgid "Save the current document"
 msgstr "保存当前文档"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save As"
 msgstr "另存为"
 
-#: katefiletreeplugin.cpp:269
+#: katefiletreeplugin.cpp:271
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "用新名称保存文档"

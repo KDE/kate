@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-05 01:42+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2022-01-25 10:17+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 21.07.70\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:252
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
 msgid "Filter..."
 msgstr "Szűrő…"
@@ -252,12 +252,12 @@ msgstr ""
 msgid "More options"
 msgstr "További beállítások"
 
-#: lspclientpluginview.cpp:829 lspclientsymbolview.cpp:287
+#: lspclientpluginview.cpp:829 lspclientsymbolview.cpp:295
 #, kde-format
 msgid "Expand All"
 msgstr "Összes kibontása"
 
-#: lspclientpluginview.cpp:830 lspclientsymbolview.cpp:288
+#: lspclientpluginview.cpp:830 lspclientsymbolview.cpp:296
 #, kde-format
 msgid "Collapse All"
 msgstr "Összes összecsukása"
@@ -427,38 +427,38 @@ msgstr "Nem sikerült feldolgozni a(z) „%1” kiszolgálóbeállítást: %2"
 msgid "Failed to read server configuration: %1"
 msgstr "Nem sikerült olvasni a kiszolgálóbeállítást: %1"
 
-#: lspclientsymbolview.cpp:240
+#: lspclientsymbolview.cpp:241
 #, fuzzy, kde-format
 #| msgid "Symbol Outline Options"
 msgid "Symbol Outline"
 msgstr "Tagolási szimbólum beállításai"
 
-#: lspclientsymbolview.cpp:278
+#: lspclientsymbolview.cpp:286
 #, kde-format
 msgid "Tree Mode"
 msgstr "Famód"
 
-#: lspclientsymbolview.cpp:280
+#: lspclientsymbolview.cpp:288
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Fa automatikus kibontása"
 
-#: lspclientsymbolview.cpp:282
+#: lspclientsymbolview.cpp:290
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Rendezés betűrendben"
 
-#: lspclientsymbolview.cpp:284
+#: lspclientsymbolview.cpp:292
 #, kde-format
 msgid "Show Details"
 msgstr "Részletek megjelenítése"
 
-#: lspclientsymbolview.cpp:445
+#: lspclientsymbolview.cpp:453
 #, kde-format
 msgid "Symbols"
 msgstr "Szimbólumok"
 
-#: lspclientsymbolview.cpp:576
+#: lspclientsymbolview.cpp:584
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Nincs LSP kiszolgáló ehhez a dokumentumhoz."

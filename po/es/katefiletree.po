@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-01 01:56+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2022-12-11 12:02+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -367,37 +367,37 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>El documento se ha modificado desde otra aplicación.</p>"
 
-#: katefiletreeplugin.cpp:246
+#: katefiletreeplugin.cpp:248
 #, kde-format
 msgid "Previous Document"
 msgstr "Documento anterior"
 
-#: katefiletreeplugin.cpp:252
+#: katefiletreeplugin.cpp:254
 #, kde-format
 msgid "Next Document"
 msgstr "Documento siguiente"
 
-#: katefiletreeplugin.cpp:258
+#: katefiletreeplugin.cpp:260
 #, kde-format
 msgid "&Show Active Document"
 msgstr "&Mostrar el documento activo"
 
-#: katefiletreeplugin.cpp:263
+#: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "Save"
 msgstr "Guardar"
 
-#: katefiletreeplugin.cpp:264
+#: katefiletreeplugin.cpp:266
 #, kde-format
 msgid "Save the current document"
 msgstr "Guardar el documento actual"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save As"
 msgstr "Guardar como"
 
-#: katefiletreeplugin.cpp:269
+#: katefiletreeplugin.cpp:271
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Guardar el documento actual con un nuevo nombre"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:39+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2023-09-03 00:48+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1833,7 +1833,7 @@ msgstr "Goiko alboko-barra"
 msgid "Bottom Sidebar"
 msgstr "Beheko alboko-barra"
 
-#: lib/katemdi.cpp:1458
+#: lib/katemdi.cpp:1462
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1959,40 +1959,40 @@ msgstr "[ZAHARRA]"
 msgid "[NEW]"
 msgstr "[BERRIA]"
 
-#: lib/kateoutputview.cpp:173
+#: lib/kateoutputview.cpp:174
 #, kde-format
 msgid "Search..."
 msgstr "Bilatu..."
 
-#: lib/kateoutputview.cpp:189
+#: lib/kateoutputview.cpp:191
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "Kopiatu testu osoa arbelera"
 
-#: lib/kateoutputview.cpp:194
+#: lib/kateoutputview.cpp:196
 #, kde-format
 msgid "Clear all messages"
 msgstr "Garbitu mezu guztiak"
 
-#: lib/kateoutputview.cpp:389
+#: lib/kateoutputview.cpp:399
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Errorea"
 
-#: lib/kateoutputview.cpp:393
+#: lib/kateoutputview.cpp:403
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Abisua"
 
-#: lib/kateoutputview.cpp:397
+#: lib/kateoutputview.cpp:407
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Informazioa"
 
-#: lib/kateoutputview.cpp:402
+#: lib/kateoutputview.cpp:412
 #, kde-format
 msgctxt "@info"
 msgid "Log"

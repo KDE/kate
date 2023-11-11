@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-05 01:42+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2023-09-04 10:29+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 22.12.3\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:252
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
 msgid "Filter..."
 msgstr "Filtro..."
@@ -251,12 +251,12 @@ msgstr "Vade a"
 msgid "More options"
 msgstr "Altere optiones"
 
-#: lspclientpluginview.cpp:829 lspclientsymbolview.cpp:287
+#: lspclientpluginview.cpp:829 lspclientsymbolview.cpp:295
 #, kde-format
 msgid "Expand All"
 msgstr "Expande omne"
 
-#: lspclientpluginview.cpp:830 lspclientsymbolview.cpp:288
+#: lspclientpluginview.cpp:830 lspclientsymbolview.cpp:296
 #, kde-format
 msgid "Collapse All"
 msgstr "Plica omne"
@@ -424,37 +424,37 @@ msgstr "Falleva a analysar configuration de servitor '%1': %2"
 msgid "Failed to read server configuration: %1"
 msgstr "Il falleva a leger le confiurtion del sevitor: %1"
 
-#: lspclientsymbolview.cpp:240
+#: lspclientsymbolview.cpp:241
 #, kde-format
 msgid "Symbol Outline"
 msgstr "Schizzo de symbolo"
 
-#: lspclientsymbolview.cpp:278
+#: lspclientsymbolview.cpp:286
 #, kde-format
 msgid "Tree Mode"
 msgstr "Modo a arbore"
 
-#: lspclientsymbolview.cpp:280
+#: lspclientsymbolview.cpp:288
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Automaticamente expande arbore"
 
-#: lspclientsymbolview.cpp:282
+#: lspclientsymbolview.cpp:290
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Ordina alphabeticamente"
 
-#: lspclientsymbolview.cpp:284
+#: lspclientsymbolview.cpp:292
 #, kde-format
 msgid "Show Details"
 msgstr "Monstra Detalios"
 
-#: lspclientsymbolview.cpp:445
+#: lspclientsymbolview.cpp:453
 #, kde-format
 msgid "Symbols"
 msgstr "Symbolos"
 
-#: lspclientsymbolview.cpp:576
+#: lspclientsymbolview.cpp:584
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Necun servitor LSP per iste documento."

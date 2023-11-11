@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Vit Pelcak <vit@pelcak.org>, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023 Vit Pelcak <vit@pelcak.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-05 01:42+0000\n"
-"PO-Revision-Date: 2023-02-01 10:22+0100\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"PO-Revision-Date: 2023-11-02 14:00+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.08.2\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:252
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
 msgid "Filter..."
 msgstr "Filtr..."
@@ -246,12 +246,12 @@ msgstr "Přejít na"
 msgid "More options"
 msgstr "Více možností"
 
-#: lspclientpluginview.cpp:829 lspclientsymbolview.cpp:287
+#: lspclientpluginview.cpp:829 lspclientsymbolview.cpp:295
 #, kde-format
 msgid "Expand All"
 msgstr "Rozvinout vše"
 
-#: lspclientpluginview.cpp:830 lspclientsymbolview.cpp:288
+#: lspclientpluginview.cpp:830 lspclientsymbolview.cpp:296
 #, kde-format
 msgid "Collapse All"
 msgstr "Svinout vše"
@@ -361,7 +361,7 @@ msgstr "Klient LSP"
 #: lspclientpluginview.cpp:2448
 #, kde-format
 msgid "Question from LSP server"
-msgstr ""
+msgstr "Dotaz ze serveru LSP"
 
 # window title for kernel loading (see txt_load_kernel)
 #: lspclientservermanager.cpp:604
@@ -420,37 +420,37 @@ msgstr ""
 msgid "Failed to read server configuration: %1"
 msgstr ""
 
-#: lspclientsymbolview.cpp:240
+#: lspclientsymbolview.cpp:241
 #, kde-format
 msgid "Symbol Outline"
 msgstr ""
 
-#: lspclientsymbolview.cpp:278
+#: lspclientsymbolview.cpp:286
 #, kde-format
 msgid "Tree Mode"
 msgstr "Stromový pohled"
 
-#: lspclientsymbolview.cpp:280
+#: lspclientsymbolview.cpp:288
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr ""
 
-#: lspclientsymbolview.cpp:282
+#: lspclientsymbolview.cpp:290
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Seřadit podle abecedy"
 
-#: lspclientsymbolview.cpp:284
+#: lspclientsymbolview.cpp:292
 #, kde-format
 msgid "Show Details"
 msgstr "Zobrazit podrobnosti"
 
-#: lspclientsymbolview.cpp:445
+#: lspclientsymbolview.cpp:453
 #, kde-format
 msgid "Symbols"
 msgstr "Symboly"
 
-#: lspclientsymbolview.cpp:576
+#: lspclientsymbolview.cpp:584
 #, kde-format
 msgid "No LSP server for this document."
 msgstr ""

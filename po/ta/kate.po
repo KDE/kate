@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:39+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2023-09-10 17:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1807,7 +1807,7 @@ msgstr "மேல் ஓரப்பட்டை"
 msgid "Bottom Sidebar"
 msgstr "கீழ் ஓரப்பட்டை"
 
-#: lib/katemdi.cpp:1458
+#: lib/katemdi.cpp:1462
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1934,40 +1934,40 @@ msgstr "[பழையது]"
 msgid "[NEW]"
 msgstr "[புதியது]"
 
-#: lib/kateoutputview.cpp:173
+#: lib/kateoutputview.cpp:174
 #, kde-format
 msgid "Search..."
 msgstr "தேடு..."
 
-#: lib/kateoutputview.cpp:189
+#: lib/kateoutputview.cpp:191
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "எல்லா உரையையையும் பிடிப்புப்பலகைக்கு நகலெடு"
 
-#: lib/kateoutputview.cpp:194
+#: lib/kateoutputview.cpp:196
 #, kde-format
 msgid "Clear all messages"
 msgstr "அனைத்து செய்திகளையும் நீக்கு"
 
-#: lib/kateoutputview.cpp:389
+#: lib/kateoutputview.cpp:399
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "சிக்கல்"
 
-#: lib/kateoutputview.cpp:393
+#: lib/kateoutputview.cpp:403
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "எச்சரிக்கை"
 
-#: lib/kateoutputview.cpp:397
+#: lib/kateoutputview.cpp:407
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "தகவல்"
 
-#: lib/kateoutputview.cpp:402
+#: lib/kateoutputview.cpp:412
 #, kde-format
 msgctxt "@info"
 msgid "Log"

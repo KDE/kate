@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecppsymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2022-10-12 14:50+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -157,59 +157,59 @@ msgstr "Список идентификаторов"
 msgid "Filter..."
 msgstr "Фильтр..."
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "Идентификаторы"
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "Позиция"
 
-#: plugin_katesymbolviewer.cpp:361
+#: plugin_katesymbolviewer.cpp:362
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr "Функция пока не поддерживается."
 
-#: plugin_katesymbolviewer.cpp:365
+#: plugin_katesymbolviewer.cpp:366
 #, kde-format
 msgid "File type: %1"
 msgstr "Тип файла: %1"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Показывать аргументы функций"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Разворачивать узлы деревьев автоматически"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Всегда показывать идентификаторы в дереве"
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Всегда сортировать идентификаторы"
 
-#: plugin_katesymbolviewer.cpp:483
+#: plugin_katesymbolviewer.cpp:484
 #, kde-format
 msgid "Parser Options"
 msgstr "Параметры анализатора"
 
-#: plugin_katesymbolviewer.cpp:511
+#: plugin_katesymbolviewer.cpp:512
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Просмотр идентификаторов"
 
-#: plugin_katesymbolviewer.cpp:516
+#: plugin_katesymbolviewer.cpp:517
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Настройка просмотра идентификаторов"

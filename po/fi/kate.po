@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:39+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2023-09-26 10:33+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1838,7 +1838,7 @@ msgstr "Yläsivupalkkiin"
 msgid "Bottom Sidebar"
 msgstr "Alasivupalkkiin"
 
-#: lib/katemdi.cpp:1458
+#: lib/katemdi.cpp:1462
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1963,40 +1963,40 @@ msgstr "[VANHA]"
 msgid "[NEW]"
 msgstr "[UUSI]"
 
-#: lib/kateoutputview.cpp:173
+#: lib/kateoutputview.cpp:174
 #, kde-format
 msgid "Search..."
 msgstr "Etsi…"
 
-#: lib/kateoutputview.cpp:189
+#: lib/kateoutputview.cpp:191
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "Kopioi kaikki teksti leikepöydälle"
 
-#: lib/kateoutputview.cpp:194
+#: lib/kateoutputview.cpp:196
 #, kde-format
 msgid "Clear all messages"
 msgstr "Poista kaikki viestit"
 
-#: lib/kateoutputview.cpp:389
+#: lib/kateoutputview.cpp:399
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Virhe"
 
-#: lib/kateoutputview.cpp:393
+#: lib/kateoutputview.cpp:403
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Varoitus"
 
-#: lib/kateoutputview.cpp:397
+#: lib/kateoutputview.cpp:407
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Tiedote"
 
-#: lib/kateoutputview.cpp:402
+#: lib/kateoutputview.cpp:412
 #, kde-format
 msgctxt "@info"
 msgid "Log"

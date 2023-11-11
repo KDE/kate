@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2022-08-24 18:51+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -142,59 +142,59 @@ msgstr "სიმბოლოების სია"
 msgid "Filter..."
 msgstr "გაფილტვრა..."
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "სიმბოლოები"
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "თანამდებობა"
 
-#: plugin_katesymbolviewer.cpp:361
+#: plugin_katesymbolviewer.cpp:362
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr "ჯერ მხარდაჭერილი არაა!"
 
-#: plugin_katesymbolviewer.cpp:365
+#: plugin_katesymbolviewer.cpp:366
 #, kde-format
 msgid "File type: %1"
 msgstr "ფაილის ტიპი: %1"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Display functions parameters"
 msgstr "ფუნქციის პარამეტრების ჩვენება"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "ხის რეჟიმში კვანძების ავტომატური გაფართოება"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "ხის რეჟიმში სიმბოლოების ყოველთვის ჩვენება"
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Always sort symbols"
 msgstr "სიმბოლოები ყოველთვის დალაგდება"
 
-#: plugin_katesymbolviewer.cpp:483
+#: plugin_katesymbolviewer.cpp:484
 #, kde-format
 msgid "Parser Options"
 msgstr "მუშვებლის მორგება"
 
-#: plugin_katesymbolviewer.cpp:511
+#: plugin_katesymbolviewer.cpp:512
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "სიმბოლოს ნახვა"
 
-#: plugin_katesymbolviewer.cpp:516
+#: plugin_katesymbolviewer.cpp:517
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "სიმბოლოს ნახვის მორგების გვერდი"

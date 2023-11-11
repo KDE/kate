@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2020-07-15 07:20+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -142,59 +142,59 @@ msgstr "Daftar Simbol"
 msgid "Filter..."
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "Simbol"
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "Posisi"
 
-#: plugin_katesymbolviewer.cpp:361
+#: plugin_katesymbolviewer.cpp:362
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr "Maaf, belum didukung!"
 
-#: plugin_katesymbolviewer.cpp:365
+#: plugin_katesymbolviewer.cpp:366
 #, kde-format
 msgid "File type: %1"
 msgstr "Tipe file: %1"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Tampilkan parameter fungsi"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Secara otomatis membentangkan node dalam mode ranting"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Selalu tampilkan simbol dalam mode ranting"
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Selalu urutkan simbol"
 
-#: plugin_katesymbolviewer.cpp:483
+#: plugin_katesymbolviewer.cpp:484
 #, kde-format
 msgid "Parser Options"
 msgstr "Opsi Parser"
 
-#: plugin_katesymbolviewer.cpp:511
+#: plugin_katesymbolviewer.cpp:512
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Penampil Simbol"
 
-#: plugin_katesymbolviewer.cpp:516
+#: plugin_katesymbolviewer.cpp:517
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Halaman Konfigurasi Penampil Simbol"

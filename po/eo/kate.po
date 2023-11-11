@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:39+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2023-09-09 10:31+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -1820,7 +1820,7 @@ msgstr "Supra flankmenuo"
 msgid "Bottom Sidebar"
 msgstr "Malsupra flankmenuo"
 
-#: lib/katemdi.cpp:1458
+#: lib/katemdi.cpp:1462
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1944,40 +1944,40 @@ msgstr "[MALNOVA]"
 msgid "[NEW]"
 msgstr "[NOVA]"
 
-#: lib/kateoutputview.cpp:173
+#: lib/kateoutputview.cpp:174
 #, kde-format
 msgid "Search..."
 msgstr "Serĉi..."
 
-#: lib/kateoutputview.cpp:189
+#: lib/kateoutputview.cpp:191
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "Kopii la tutan tekston al tondujo"
 
-#: lib/kateoutputview.cpp:194
+#: lib/kateoutputview.cpp:196
 #, kde-format
 msgid "Clear all messages"
 msgstr "Forigi ĉiujn mesaĝojn"
 
-#: lib/kateoutputview.cpp:389
+#: lib/kateoutputview.cpp:399
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Eraro"
 
-#: lib/kateoutputview.cpp:393
+#: lib/kateoutputview.cpp:403
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Averto"
 
-#: lib/kateoutputview.cpp:397
+#: lib/kateoutputview.cpp:407
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Info"
 
-#: lib/kateoutputview.cpp:402
+#: lib/kateoutputview.cpp:412
 #, kde-format
 msgctxt "@info"
 msgid "Log"

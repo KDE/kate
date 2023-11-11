@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecppsymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2023-11-11 01:45+0000\n"
 "PO-Revision-Date: 2007-03-05 01:24+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -151,62 +151,62 @@ msgstr "Popis znakova"
 msgid "Filter..."
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, fuzzy, kde-format
 #| msgid "Symbols"
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "Znakovi"
 
-#: plugin_katesymbolviewer.cpp:143
+#: plugin_katesymbolviewer.cpp:144
 #, fuzzy, kde-format
 #| msgid "Position"
 msgctxt "@title:column"
 msgid "Position"
 msgstr "Položaj"
 
-#: plugin_katesymbolviewer.cpp:361
+#: plugin_katesymbolviewer.cpp:362
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:365
+#: plugin_katesymbolviewer.cpp:366
 #, kde-format
 msgid "File type: %1"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:479
 #, fuzzy, kde-format
 #| msgid "Display functions' parameters"
 msgid "Display functions parameters"
 msgstr "Prikaži parametre funkcija"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Always sort symbols"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:483
+#: plugin_katesymbolviewer.cpp:484
 #, kde-format
 msgid "Parser Options"
 msgstr "Opcije raščlanjivanja"
 
-#: plugin_katesymbolviewer.cpp:511
+#: plugin_katesymbolviewer.cpp:512
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Preglednik znakova"
 
-#: plugin_katesymbolviewer.cpp:516
+#: plugin_katesymbolviewer.cpp:517
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Konfiguracija preglednika znakova"

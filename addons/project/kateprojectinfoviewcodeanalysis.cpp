@@ -18,6 +18,7 @@
 
 #include <QFileInfo>
 #include <QHBoxLayout>
+#include <QLabel>
 #include <QSortFilterProxyModel>
 #include <QStandardPaths>
 #include <QToolTip>
@@ -35,6 +36,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     , m_analyzer(nullptr)
     , m_analysisTool(nullptr)
     , m_toolSelector(new QComboBox())
+    , m_toolInfoLabel(new QLabel(this))
     , m_diagnosticProvider(new DiagnosticsProvider(pluginView->mainWindow(), this))
 {
     m_diagnosticProvider->setObjectName(QStringLiteral("CodeAnalysisDiagnosticProvider"));
@@ -58,21 +60,15 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
      * layout widget
      */
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setSpacing(0);
-    layout->setContentsMargins(0, 0, 0, 0);
     // top: selector and buttons...
     QHBoxLayout *hlayout = new QHBoxLayout;
     layout->addLayout(hlayout);
-    hlayout->setSpacing(0);
     hlayout->addWidget(m_toolSelector);
-    auto infoButton = new QPushButton(QIcon::fromTheme(QStringLiteral("documentinfo")), QString(), this);
-    infoButton->setFocusPolicy(Qt::FocusPolicy::TabFocus);
-    connect(infoButton, &QPushButton::clicked, this, [this]() {
-        QToolTip::showText(QCursor::pos(), m_toolInfoText);
-    });
-    hlayout->addWidget(infoButton);
     hlayout->addWidget(m_startStopAnalysis);
     hlayout->addStretch();
+
+    layout->addWidget(m_toolInfoLabel);
+
     // below: result list...
     layout->addStretch();
     setLayout(layout);
@@ -97,9 +93,9 @@ void KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged(int)
 {
     m_analysisTool = m_toolSelector->currentData(Qt::UserRole + 1).value<KateProjectCodeAnalysisTool *>();
     if (m_analysisTool) {
-        m_toolInfoText = i18n("%1<br/><br/>The tool will be run on all project files which match this list of file extensions:<br/><br/><b>%2</b>",
-                              m_analysisTool->description(),
-                              m_analysisTool->fileExtensions());
+        m_toolInfoLabel->setText(i18n("%1<br/><br/>The tool will be run on all project files which match this list of file extensions:<br/><br/><b>%2</b>",
+                                      m_analysisTool->description(),
+                                      m_analysisTool->fileExtensions()));
     }
 }
 

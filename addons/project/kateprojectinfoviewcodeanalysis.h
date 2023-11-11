@@ -21,6 +21,7 @@ class KateProject;
 class QStandardItemModel;
 class DiagnosticsProvider;
 class QSortFilterProxyModel;
+class QLabel;
 
 namespace KTextEditor
 {
@@ -112,9 +113,9 @@ private:
     QComboBox *m_toolSelector;
 
     /**
-     * contains a rich text to explain what the current tool does
+     * Contains a rich text to explain what the current tool does
      */
-    QString m_toolInfoText;
+    QLabel *m_toolInfoLabel;
 
     DiagnosticsProvider *const m_diagnosticProvider;
 

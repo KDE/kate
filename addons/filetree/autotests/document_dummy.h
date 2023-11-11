@@ -125,7 +125,7 @@ public:
     {
         return KTextEditor::Cursor();
     }
-    int totalCharacters() const override
+    qsizetype totalCharacters() const override
     {
         return 0;
     }

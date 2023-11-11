@@ -185,6 +185,7 @@ void KateProjectInfoViewIndex::enableWidgets(bool valid)
         }
     } else if (!m_messageWidget) {
         m_messageWidget = new KMessageWidget();
+        m_messageWidget->setPosition(KMessageWidget::Header);
         m_messageWidget->setCloseButtonVisible(true);
         m_messageWidget->setMessageType(KMessageWidget::Warning);
         m_messageWidget->setWordWrap(false);

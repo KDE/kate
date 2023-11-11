@@ -21,6 +21,8 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
     : m_project(project)
     , m_terminal(nullptr)
 {
+    setDocumentMode(true);
+
     /**
      * skip terminal toolviews if no terminal aka KonsolePart around
      */

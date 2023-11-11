@@ -1337,6 +1337,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto separator = new QFrame(this);
     separator->setFrameShape(QFrame::HLine);
+    separator->setFixedHeight(1);
     toplevelVBox->addWidget(separator);
 
     // bottom side bar spans full windows, include status bar, too

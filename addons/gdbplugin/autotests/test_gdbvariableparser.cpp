@@ -103,8 +103,6 @@ void TestGdbVariableParser::parseVariable_data()
                                       "    b2-->12\n"
                                       "    b3-->1.23456\n";
 
-    // ***** Following tests fail *****
-
     QTest::newRow("simple_array") << "my_array"
                                   << "{100, 150, 175}"
                                   << "my_array-->{...}\n"

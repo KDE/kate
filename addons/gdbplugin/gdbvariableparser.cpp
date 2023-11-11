@@ -1,308 +1,186 @@
 //
-// Description: GDB variable parser (refactored from localsview)
+// Description: GDB variable parser
 //
-// SPDX-FileCopyrightText: 2010 KÃ¥re SÃ¤rs <kare.sars@iki.fi>
+// This class parses a "flat" GDB variable string and outputs the structure of its child variables.
+// A signal is emitted for each of its child variable with a reference to its parent variable.
 //
-//  SPDX-License-Identifier: LGPL-2.0-only
-
-#include <QRegularExpression>
-#include <QRegularExpressionMatch>
+// Example : GDB gives the following flat value for the variable 'abcd':
+// "{name = \"hello\", d = {a = 0x7fffe0020ff0, size = 5}, value = 12}"
+//
+// The output will be the following structure :
+//
+// Symbol            Value
+// ----------------------------------
+// abcd
+//   name          "hello"
+//     d
+//       a          0x7fffe0020ff0
+//       size       5
+//     value        12
+//
+// SPDX-FileCopyrightText: 2010 Kåre Särs <kare.sars@iki.fi>
+// SPDX-FileCopyrightText: 2023 Rémi Peuchot <kde.remi@proton.me>
+//
+// SPDX-License-Identifier: LGPL-2.0-only
 
 #include "gdbvariableparser.h"
 
-static constexpr int MIN_VAR_ID = 10;
-
 GDBVariableParser::GDBVariableParser(QObject *parent)
     : QObject(parent)
-    , m_varId(MIN_VAR_ID)
 {
-}
-
-void GDBVariableParser::openScope()
-{
-    m_varId = MIN_VAR_ID;
-    m_allAdded = false;
-}
-
-void GDBVariableParser::closeScope()
-{
-    m_allAdded = true;
-}
-
-int GDBVariableParser::newVariableId()
-{
-    return ++m_varId;
-}
-
-int GDBVariableParser::currentVariableId() const
-{
-    return m_varId;
-}
-
-dap::Variable createVariable(const QStringList &symbolAndValue, const int refId)
-{
-    if (symbolAndValue.count() > 1) {
-        return dap::Variable(symbolAndValue[0], symbolAndValue[1], refId);
-    } else {
-        return dap::Variable(symbolAndValue[0], QString(), refId);
-    }
-}
-
-static const QRegularExpression isStruct(QStringLiteral("\\A\\{\\S*\\s=\\s.*\\z"));
-
-void GDBVariableParser::addLocal(const QString &vString)
-{
-    static const QRegularExpression isValue(QStringLiteral("\\A(\\S*)\\s=\\s(.*)\\z"));
-    static const QRegularExpression isStartPartial(QStringLiteral("\\A\\S*\\s=\\s\\S*\\s=\\s\\{\\z"));
-    static const QRegularExpression isPrettyQList(QStringLiteral("\\A\\s*\\[\\S*\\]\\s=\\s\\S*\\z"));
-    static const QRegularExpression isPrettyValue(QStringLiteral("\\A(\\S*)\\s=\\s(\\S*)\\s=\\s(.*)\\z"));
-    static const QRegularExpression isThisValue(QStringLiteral("\\A\\$\\d+\\z"));
-
-    if (m_allAdded) {
-        openScope();
-    }
-
-    if (vString.isEmpty()) {
-        closeScope();
-        return;
-    }
-
-    QRegularExpressionMatch match = isStartPartial.match(vString);
-    if (match.hasMatch()) {
-        m_local = vString;
-        return;
-    }
-    match = isPrettyQList.match(vString);
-    if (match.hasMatch()) {
-        m_local += vString.trimmed();
-        if (m_local.endsWith(QLatin1Char(','))) {
-            m_local += QLatin1Char(' ');
-        }
-        return;
-    }
-    if (vString == QLatin1String("}")) {
-        m_local += vString;
-    }
-
-    QStringList symbolAndValue;
-    QString value;
-
-    if (m_local.isEmpty()) {
-        if (vString == QLatin1String("No symbol table info available.")) {
-            return; /* this is not an error */
-        }
-        match = isValue.match(vString);
-        if (!match.hasMatch()) {
-            qDebug() << "Could not parse:" << vString;
-            return;
-        }
-        symbolAndValue << match.captured(1);
-        value = match.captured(2);
-        // check out for "print *this"
-        match = isThisValue.match(symbolAndValue[0]);
-        if (match.hasMatch()) {
-            symbolAndValue[0] = QStringLiteral("*this");
-        }
-    } else {
-        match = isPrettyValue.match(m_local);
-        if (!match.hasMatch()) {
-            qDebug() << "Could not parse:" << m_local;
-            m_local.clear();
-            return;
-        }
-        symbolAndValue << match.captured(1) << match.captured(2);
-        value = match.captured(3);
-    }
-
-    if (value[0] == QLatin1Char('{')) {
-        if (value[1] == QLatin1Char('{')) {
-            const auto item = createVariable(symbolAndValue, newVariableId());
-            Q_EMIT variable(0, item);
-            addArray(item.variablesReference, value.mid(1, value.size() - 2));
-        } else {
-            match = isStruct.match(value);
-            if (match.hasMatch()) {
-                const auto item = createVariable(symbolAndValue, newVariableId());
-                Q_EMIT variable(0, item);
-                addStruct(item.variablesReference, value.mid(1, value.size() - 2));
-            } else {
-                Q_EMIT variable(0, dap::Variable(symbolAndValue[0], value));
-            }
-        }
-    } else {
-        Q_EMIT variable(0, dap::Variable(symbolAndValue[0], value));
-    }
-
-    m_local.clear();
-}
-
-void GDBVariableParser::emitNestedVariable(int parentId, const dap::Variable &var)
-{
-    if (m_pendingVariable) {
-        m_pendingVariable->value = QLatin1String("{...}");
-        Q_EMIT variable(0, *m_pendingVariable);
-        m_pendingVariable.reset();
-    }
-
-    Q_EMIT variable(parentId, var);
 }
 
 void GDBVariableParser::insertVariable(const QString &name, const QString &value, const QString &type, bool changed)
 {
-    const int varId = newVariableId();
-    m_pendingVariable = dap::Variable(name, value, varId);
-    m_pendingVariable->valueChanged = changed;
-    if (!type.isEmpty()) {
-        m_pendingVariable->type = type;
-    }
-    parseNested(*m_pendingVariable);
-
-    if (m_pendingVariable) {
-        Q_EMIT variable(0, *m_pendingVariable);
-        m_pendingVariable.reset();
-    }
+    QStringView tail(value);
+    insertNamedVariable(0, name, 0, tail, type, changed);
 }
 
-void GDBVariableParser::parseNested(const dap::Variable &parent)
+// Take the next available variable id, signal the variable and return its id
+int GDBVariableParser::createAndSignalVariable(int parentId, const QStringView name, const QStringView value, const QString &type, bool changed)
 {
-    const auto &value = parent.value;
-    if (value.size() < 2) {
+    m_variableId++;
+    dap::Variable var(name.toString(), value.toString(), m_variableId);
+    var.valueChanged = changed;
+    if (!type.isEmpty()) {
+        var.type = type;
+    }
+    Q_EMIT variable(parentId, var);
+    return m_variableId;
+}
+
+// Return the first index of the given char outside of quoted strings
+// example : firstIndexOf("aa\"blabla\"hello", 'l') gives 12 (the first 'l' of "hello")
+// Note : the quoted strings can also contain escaped quotes
+// example : firstIndexOf("aa\"bla\\\"bl\\\"a\"hello", 'l') gives 14 (the first 'l' of "hello")
+qsizetype firstIndexOf(const QStringView tail, QChar ch)
+{
+    const QChar QUOTE((short)'"');
+    const QChar BACKSLASH((short)'\\');
+    QChar previous(0);
+    bool inQuotedString = false;
+    for (int i = 0; i < tail.length(); i++) {
+        QChar current = tail[i];
+        if (inQuotedString) {
+            if (current == QUOTE && previous != BACKSLASH) {
+                inQuotedString = false;
+            }
+        } else {
+            if (current == ch) {
+                return i;
+            }
+            if (current == QUOTE) {
+                inQuotedString = true;
+            }
+        }
+        previous = current;
+    }
+    return -1;
+}
+
+// Return index of first char among 'characters' in tail
+qsizetype firstIndexOf(const QStringView tail, QString characters)
+{
+    qsizetype first = -1;
+    for (auto ch : characters) {
+        qsizetype i = firstIndexOf(tail, ch);
+        if (i != -1 && (first == -1 || i < first)) {
+            first = i;
+        }
+    }
+    return first;
+}
+
+// If tail starts with pattern "name = value" :
+// - advance tail to first char of value
+// - extract and return name
+// else :
+// - let tail unchanged
+// - return empty string
+QStringView findVariableName(QStringView &tail)
+{
+    const QChar EQUAL((short)'=');
+    auto closingIndex = firstIndexOf(tail, QStringLiteral("=,{}"));
+    if (closingIndex != -1 && tail[closingIndex] == EQUAL) {
+        QStringView name = tail.mid(0, closingIndex).trimmed();
+        tail = tail.mid(closingIndex + 1).trimmed();
+        return name;
+    }
+    return QStringView();
+}
+
+// Parse the (eventually named) variable at the beginning of the given tail.
+// The pattern defines the value type :
+// - "name = value" : it's a named variable, 'itemIndex' is ignored
+// - "value" : it's an array item of index 'itemIndex'
+// The given tail will be advanced to the next character after this variable value.
+void GDBVariableParser::insertVariable(int parentId, int itemIndex, QStringView &tail, const QString &type, bool changed)
+{
+    QStringView name = findVariableName(tail);
+    if (name.isEmpty()) {
+        // No variable name : it's an array item
+        QString itemName = QStringLiteral("[%1]").arg(itemIndex);
+        insertNamedVariable(parentId, itemName, itemIndex, tail, type, changed);
         return;
     }
-    if (value[0] == QLatin1Char('{')) {
-        if (value[1] == QLatin1Char('{')) {
-            addArray(parent.variablesReference, value.mid(1, value.size() - 2));
-        } else {
-            const auto match = isStruct.match(value);
-            if (match.hasMatch()) {
-                addStruct(parent.variablesReference, value.mid(1, value.size() - 2));
-            }
-        }
-    }
+    insertNamedVariable(parentId, name, itemIndex, tail, type, changed);
 }
 
-void GDBVariableParser::addArray(int parentId, const QString &vString)
+// Parse the variable value at the beginning of the given tail.
+// The pattern defines the value type :
+// - if value contains an open brace, it's a parent object with children : "optional_string{child0, child1, ...}"
+// - else, it's a simple variable value
+// The given tail will be advanced to the next character after this variable value.
+void GDBVariableParser::insertNamedVariable(int parentId, QStringView name, int itemIndex, QStringView &tail, const QString &type, bool changed)
 {
-    // getting here we have this kind of string:
-    // "{...}" or "{...}, {...}" or ...
-    int count = 1;
-    bool inComment = false;
-    int index = 0;
-    int start = 1;
-    int end = 1;
+    // Find an opening brace in the value (before next comma or next closing brace)
+    const QChar OPENING_BRACE((short)'{');
+    int openingIndex = firstIndexOf(tail, QStringLiteral(",{}"));
+    if (openingIndex != -1 && tail[openingIndex] == OPENING_BRACE) {
+        // It's a parent object
+        QString value = tail.mid(0, openingIndex).toString();
+        tail = tail.mid(openingIndex + 1).trimmed(); // Advance after the opening brace
 
-    while (end < vString.size()) {
-        if (!inComment) {
-            if (vString[end] == QLatin1Char('"')) {
-                inComment = true;
-            } else if (vString[end] == QLatin1Char('}')) {
-                count--;
-            } else if (vString[end] == QLatin1Char('{')) {
-                count++;
-            }
-            if (count == 0) {
-                QStringList name;
-                name << QStringLiteral("[%1]").arg(index);
-                index++;
-                const auto item = createVariable(name, newVariableId());
-                emitNestedVariable(parentId, item);
-                addStruct(item.variablesReference, vString.mid(start, end - start));
-                end += 4; // "}, {"
-                start = end;
-                count = 1;
-            }
+        if (tail.startsWith(QStringLiteral("}"))) {
+            // It's an empty object
+            value = value + QStringLiteral("{}");
+            createAndSignalVariable(parentId, name, value, type, changed);
         } else {
-            if ((vString[end] == QLatin1Char('"')) && (vString[end - 1] != QLatin1Char('\\'))) {
-                inComment = false;
-            }
+            // It contains some child variables
+            value = value + QStringLiteral("{...}");
+
+            // Create the parent object
+            int id = createAndSignalVariable(parentId, name, value, type, changed);
+
+            // Insert the first child variable, siblings will be created recursively
+            insertVariable(id, 0, tail, QStringLiteral(""), changed);
         }
-        end++;
+
+        // All child variables have been parsed, the parent is supposed to be closed now
+        if (tail.startsWith(QStringLiteral("}"))) {
+            tail = tail.mid(1).trimmed(); // Advance after the closing brace
+        } else {
+            qWarning() << "Missing closing brace at the end of parent variable";
+        }
+    } else {
+        // It's a simple variable value
+        auto valueLength = firstIndexOf(tail, QStringLiteral(",}"));
+        if (valueLength == -1) {
+            // It's the last value in the tail : take everything else
+            valueLength = tail.length();
+        }
+
+        // Extract the value
+        QStringView value = tail.mid(0, valueLength).trimmed();
+        createAndSignalVariable(parentId, name, value, QStringLiteral(""), changed);
+        tail = tail.mid(valueLength).trimmed(); // Advance after value
     }
-}
 
-void GDBVariableParser::addStruct(int parentId, const QString &vString)
-{
-    static const QRegularExpression isArray(QStringLiteral("\\A\\{\\.*\\s=\\s.*\\z"));
-    static const QRegularExpression isStruct1(QStringLiteral("\\A\\.*\\s=\\s.*\\z"));
-
-    QStringList symbolAndValue;
-    QString subValue;
-    int start = 0;
-    while (start < vString.size()) {
-        // Symbol
-        symbolAndValue.clear();
-        int end = vString.indexOf(QLatin1String(" = "), start);
-        if (end < 0) {
-            // error situation -> bail out
-            emitNestedVariable(parentId, dap::Variable(QString(), vString.right(start), parentId));
-            break;
-        }
-        symbolAndValue << vString.mid(start, end - start);
-        // Value
-        start = end + 3;
-        end = start;
-        if (start < 0 || start >= vString.size()) {
-            qDebug() << vString << start;
-            break;
-        }
-        if (vString[start] == QLatin1Char('{')) {
-            start++;
-            end++;
-            int count = 1;
-            bool inComment = false;
-            // search for the matching }
-            while (end < vString.size()) {
-                if (!inComment) {
-                    if (vString[end] == QLatin1Char('"')) {
-                        inComment = true;
-                    } else if (vString[end] == QLatin1Char('}')) {
-                        count--;
-                    } else if (vString[end] == QLatin1Char('{')) {
-                        count++;
-                    }
-                    if (count == 0) {
-                        break;
-                    }
-                } else {
-                    if ((vString[end] == QLatin1Char('"')) && (vString[end - 1] != QLatin1Char('\\'))) {
-                        inComment = false;
-                    }
-                }
-                end++;
-            }
-            subValue = vString.mid(start, end - start);
-            if (isArray.match(subValue).hasMatch()) {
-                const auto item = createVariable(symbolAndValue, newVariableId());
-                emitNestedVariable(parentId, item);
-                addArray(item.variablesReference, subValue);
-            } else if (isStruct1.match(subValue).hasMatch()) {
-                const auto item = createVariable(symbolAndValue, newVariableId());
-                emitNestedVariable(parentId, item);
-                addStruct(item.variablesReference, subValue);
-            } else {
-                emitNestedVariable(parentId, dap::Variable(symbolAndValue[0], vString.mid(start, end - start)));
-            }
-            start = end + 3; // },_
-        } else {
-            // look for the end of the value in the vString
-            bool inComment = false;
-            while (end < vString.size()) {
-                if (!inComment) {
-                    if (vString[end] == QLatin1Char('"')) {
-                        inComment = true;
-                    } else if (vString[end] == QLatin1Char(',')) {
-                        break;
-                    }
-                } else {
-                    if ((vString[end] == QLatin1Char('"')) && (vString[end - 1] != QLatin1Char('\\'))) {
-                        inComment = false;
-                    }
-                }
-                end++;
-            }
-            emitNestedVariable(parentId, dap::Variable(symbolAndValue[0], vString.mid(start, end - start)));
-            start = end + 2; // ,_
-        }
+    // Variable has been parsed, eventually parse its next sibling
+    if (tail.startsWith(QStringLiteral(","))) {
+        // There is a sibling
+        tail = tail.mid(1).trimmed(); // Advance after the comma
+        insertVariable(parentId, itemIndex + 1, tail, QStringLiteral(""), changed);
     }
 }
 

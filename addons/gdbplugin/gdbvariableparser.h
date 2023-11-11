@@ -1,15 +1,15 @@
 //
-// Description: GDB variable parser (refactored from localsview)
+// Description: GDB variable parser
 //
-// SPDX-FileCopyrightText: 2010 KÃ¥re SÃ¤rs <kare.sars@iki.fi>
+// SPDX-FileCopyrightText: 2010 Kåre Särs <kare.sars@iki.fi>
+// SPDX-FileCopyrightText: 2023 Rémi Peuchot <kde.remi@proton.me>
 //
-//  SPDX-License-Identifier: LGPL-2.0-only
+// SPDX-License-Identifier: LGPL-2.0-only
 
 #pragma once
 
 #include "dap/entities.h"
 #include <QObject>
-#include <optional>
 
 class GDBVariableParser : public QObject
 {
@@ -23,18 +23,9 @@ Q_SIGNALS:
     void variable(int parentId, const dap::Variable &variable);
 
 private:
-    void parseNested(const dap::Variable &parent);
-    void addLocal(const QString &vString);
-    void openScope();
-    void closeScope();
-    void addStruct(int parentId, const QString &vString);
-    void addArray(int parentId, const QString &vString);
-    void emitNestedVariable(int parentId, const dap::Variable &variable);
-    int newVariableId();
-    int currentVariableId() const;
+    int createAndSignalVariable(int parentId, const QStringView name, const QStringView value, const QString &type, bool changed);
+    void insertVariable(int parentId, int itemIndex, QStringView &tail, const QString &type, bool changed);
+    void insertNamedVariable(int parentId, QStringView name, int itemIndex, QStringView &tail, const QString &type, bool changed);
 
-    std::optional<dap::Variable> m_pendingVariable = std::nullopt;
-    int m_varId;
-    bool m_allAdded = true;
-    QString m_local;
+    int m_variableId = 0;
 };

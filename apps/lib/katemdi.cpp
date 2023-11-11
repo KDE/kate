@@ -660,6 +660,11 @@ QSize Sidebar::sizeHint() const
     return minimumSizeHint();
 }
 
+QSize Sidebar::minimumSizeHint() const
+{
+    return isVisible() ? QSplitter::minimumSizeHint() : QSize{0, 0};
+}
+
 MultiTabBar *Sidebar::insertTabBar(int idx /* = -1*/)
 {
     auto *newBar = new MultiTabBar(m_tabBarPosition, this, idx);

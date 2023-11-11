@@ -252,6 +252,7 @@ public:
     Sidebar(KMultiTabBar::KMultiTabBarPosition pos, QSplitter *sp, class MainWindow *mainwin, QWidget *parent);
 
     QSize sizeHint() const override;
+    QSize minimumSizeHint() const override;
 
     ToolView *addToolView(const QIcon &icon, const QString &text, const QString &identifier, ToolView *widget);
     bool removeToolView(ToolView *widget);

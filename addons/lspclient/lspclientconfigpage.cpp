@@ -28,6 +28,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 {
     ui = new Ui::LspConfigWidget();
     ui->setupUi(this);
+    ui->tabWidget->setDocumentMode(true);
 
     // fix-up our two text edits to be proper JSON file editors
     updateHighlighters();

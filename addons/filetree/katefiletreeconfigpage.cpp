@@ -40,7 +40,6 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     , m_plug(fl)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
 
     gbEnableShading = new QGroupBox(i18n("Background Shading"), this);
     gbEnableShading->setCheckable(true);

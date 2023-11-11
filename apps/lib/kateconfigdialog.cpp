@@ -229,7 +229,6 @@ void KateConfigDialog::addBehaviorPage()
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-system-windows-behavior")));
 
     QVBoxLayout *layout = new QVBoxLayout(generalFrame);
-    layout->setContentsMargins(0, 0, 0, 0);
 
     // GROUP with the one below: "Behavior"
     QGroupBox *buttonGroup = new QGroupBox(i18n("&Behavior"), generalFrame);

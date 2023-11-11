@@ -582,7 +582,6 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
 {
     QVBoxLayout *lo = new QVBoxLayout(this);
     lo->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
-    lo->setContentsMargins(0, 0, 0, 0);
 
     cbAutoSyncronize = new QCheckBox(i18n("&Automatically synchronize the terminal with the current document when possible"), this);
     lo->addWidget(cbAutoSyncronize);

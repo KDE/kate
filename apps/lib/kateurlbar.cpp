@@ -1231,8 +1231,10 @@ void KateUrlBar::updateForDocument(KTextEditor::Document *doc)
     }
     m_currentDoc = doc;
     if (!doc) {
+        hide();
         return;
     }
+    show();
 
     // we want to watch for url changed
     connect(m_currentDoc, &KTextEditor::Document::documentUrlChanged, this, &KateUrlBar::updateForDocument);

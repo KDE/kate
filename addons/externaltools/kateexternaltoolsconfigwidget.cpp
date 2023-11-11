@@ -219,6 +219,8 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
 {
     setupUi(this);
     layout()->setContentsMargins(0, 0, 0, 0);
+    layout()->setSpacing(0);
+    lbTools->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::BottomEdge}));
     lbTools->setModel(&m_toolsModel);
     lbTools->setSelectionMode(QAbstractItemView::SingleSelection);
     lbTools->setDragEnabled(true);
@@ -227,6 +229,12 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
     lbTools->setDropIndicatorShown(true);
     lbTools->setDragDropOverwriteMode(false);
     lbTools->setDragDropMode(QAbstractItemView::InternalMove);
+
+    horizontalLayout->setSpacing(style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
+    horizontalLayout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                                         style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                                         style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                                         style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
 
     // Add... button popup menu
     auto addMenu = new QMenu(btnAdd);

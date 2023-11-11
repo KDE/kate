@@ -61,6 +61,7 @@ KateFileBrowserConfigPage::KateFileBrowserConfigPage(QWidget *parent, KateFileBr
 
     // Toolbar - a lot for a little...
     QGroupBox *gbToolbar = new QGroupBox(i18n("Toolbar"), this);
+    gbToolbar->setFlat(true);
     acSel = new KActionSelector(gbToolbar);
     acSel->setAvailableLabel(i18n("A&vailable actions:"));
     acSel->setSelectedLabel(i18n("S&elected actions:"));

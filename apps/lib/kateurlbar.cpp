@@ -604,7 +604,7 @@ public:
     {
         auto pal = palette();
         pal.setBrush(QPalette::Base, qobject_cast<QWidget *>(parent())->palette().window());
-        auto textColor = pal.text().color();
+        auto textColor = pal.windowText().color();
         textColor = textColor.lightness() > 127 ? textColor.darker(150) : textColor.lighter(150);
         pal.setBrush(QPalette::Inactive, QPalette::Text, textColor);
         pal.setBrush(QPalette::Active, QPalette::Text, textColor);

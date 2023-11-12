@@ -11,9 +11,11 @@
 #include <QJsonObject>
 #include <QString>
 #include <QTest>
+#include <cstdlib>
 #include <iostream>
 #include <qstringliteral.h>
 #include <qtestcase.h>
+#include <time.h>
 
 QTEST_MAIN(TestGdbVariableParser)
 
@@ -236,6 +238,45 @@ void TestGdbVariableParser::parseVariable_data()
            "        size-->1\n"
            "    static _empty-->0 u'0000'\n";
 }
+
+// It does not really make sense to run many fuzzy tests systematically
+// Try with FUZZY_TESTS_COUNT=1000000 if GDBVariableParser has been modified
+static const int FUZZY_TESTS_COUNT = 1;
+static const int FUZZY_TESTS_MAX_BUFFER_SIZE = 100;
+const QString MEANINGFUL_CHARS = QStringLiteral("=,{}\\\"\0"); // Meaningful to variable parser
+
+QChar randomChar()
+{
+    // Artificially increases the probability to return a meaningful character (more likely to create problems)
+    if ((rand() % 2) == 0) {
+        // Random char among meaningful chars
+        return MEANINGFUL_CHARS[rand() % MEANINGFUL_CHARS.length()];
+    } else {
+        // Truly random char
+        return QChar(rand() % (1 << 16));
+    }
+}
+
+// Call 'GDBVariableParser::insertVariable' with random noise as input
+// structuredOutput is not compared at the end, it is only expected to :
+// - not crash
+// - not fall in infinite loop
+void TestGdbVariableParser::fuzzyTest()
+{
+    srand(time(nullptr));
+    GDBVariableParser parser;
+    for (int t = 0; t < FUZZY_TESTS_COUNT; t++) {
+        int buffer_size = rand() % FUZZY_TESTS_MAX_BUFFER_SIZE;
+        QString randomBuffer(buffer_size, QChar(0));
+        for (int i = 0; i < buffer_size; i++) {
+            randomBuffer[i] = randomChar();
+        }
+        // Print the random buffer so we can reproduce and investigate if something goes wrong
+        // (don't use qDebug because it can modify/truncate the output)
+        std::cout << "fuzzyTest " << t + 1 << "/" << FUZZY_TESTS_COUNT << " randomBuffer:" << randomBuffer.toStdString() << std::endl;
+        parser.insertVariable(QStringLiteral("fuzzy_var"), randomBuffer, QStringLiteral(""));
+    }
+};
 
 #include "moc_test_gdbvariableparser.cpp"
 #include "test_gdbvariableparser.moc"

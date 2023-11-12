@@ -13,4 +13,5 @@ class TestGdbVariableParser : public QObject
 private Q_SLOTS:
     void parseVariable();
     void parseVariable_data();
+    void fuzzyTest();
 };

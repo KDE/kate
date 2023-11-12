@@ -249,13 +249,13 @@ static QStandardItem *directoryParent(const QDir &base, QHash<QString, QStandard
 }
 
 // Copied from CompareBranchView in KateProject plugin
-static void createFileTree(QStandardItem *parent, const QString &basePath, const QList<GitFileItem> &files)
+static void createFileTree(QStandardItem *parent, const QString &basePath, const std::vector<GitFileItem> &files)
 {
     QDir dir(basePath);
     const QString dirPath = dir.path() + QLatin1Char('/');
     QHash<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
-    for (const auto &file : qAsConst(files)) {
+    for (const auto &file : files) {
         const QString filePath = QString::fromUtf8(file.file);
         /**
          * cheap file name computation
@@ -287,10 +287,8 @@ static bool getNum(const QByteArray &numBytes, int *num)
     return res;
 }
 
-static QList<GitFileItem> parseNumStat(const QByteArray &raw)
+static void parseNumStat(const QByteArray &raw, std::vector<GitFileItem> *items)
 {
-    QList<GitFileItem> items;
-
     const auto lines = raw.split(0x00);
     for (const auto &line : lines) {
         // format: 12(adds)\t10(subs)\tFileName
@@ -310,10 +308,8 @@ static QList<GitFileItem> parseNumStat(const QByteArray &raw)
 
         const auto file = cols.at(2);
 
-        items << GitFileItem{file, add, sub};
+        items->push_back(GitFileItem{file, add, sub});
     }
-
-    return items;
 }
 
 class CommitDiffTreeView : public QWidget
@@ -435,7 +431,9 @@ void CommitDiffTreeView::openCommit(const QString &hash)
 void CommitDiffTreeView::createFileTreeForCommit(const QByteArray &rawNumStat)
 {
     QStandardItem root;
-    createFileTree(&root, m_gitDir, parseNumStat(rawNumStat));
+    std::vector<GitFileItem> items;
+    parseNumStat(rawNumStat, &items);
+    createFileTree(&root, m_gitDir, items);
 
     // Remove nodes that have only one item. i.e.,
     // - kate

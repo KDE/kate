@@ -51,7 +51,7 @@ public:
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
     {
-        if (index.row() >= m_providers.size()) {
+        if (size_t(index.row()) >= m_providers.size()) {
             return {};
         }
         if (role == Qt::DisplayRole) {
@@ -66,17 +66,17 @@ public:
         return {};
     }
 
-    void update(const QList<DiagnosticsProvider *> &providerList)
+    void update(const std::vector<DiagnosticsProvider *> &providerList)
     {
         beginResetModel();
         m_providers.clear();
         m_providers.push_back(nullptr);
-        m_providers.append(providerList);
+        m_providers.insert(m_providers.end(), providerList.begin(), providerList.end());
         endResetModel();
     }
 
     DiagnosticsView *m_diagView;
-    QList<DiagnosticsProvider *> m_providers;
+    std::vector<DiagnosticsProvider *> m_providers;
 };
 
 class DiagnosticsProxyModel final : public QSortFilterProxyModel
@@ -479,7 +479,7 @@ void DiagnosticsView::onViewChanged(KTextEditor::View *v)
 
 void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
 {
-    if (m_providers.contains(provider)) {
+    if (std::find(m_providers.begin(), m_providers.end(), provider) != m_providers.end()) {
         qWarning() << provider << " already registred, ignoring!";
         return;
     }
@@ -499,14 +499,15 @@ void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
 
 void DiagnosticsView::unregisterDiagnosticsProvider(DiagnosticsProvider *provider)
 {
-    if (!m_providers.contains(provider)) {
+    auto it = std::find(m_providers.begin(), m_providers.end(), provider);
+    if (it == m_providers.end()) {
         return;
     }
     disconnect(provider, &DiagnosticsProvider::diagnosticsAdded, this, &DiagnosticsView::onDiagnosticsAdded);
     disconnect(provider, &DiagnosticsProvider::fixesAvailable, this, &DiagnosticsView::onFixesAvailable);
     disconnect(provider, &DiagnosticsProvider::requestClearDiagnostics, this, &DiagnosticsView::clearDiagnosticsFromProvider);
     disconnect(provider, &DiagnosticsProvider::requestClearSuppressions, this, &DiagnosticsView::clearSuppressionsFromProvider);
-    m_providers.removeOne(provider);
+    m_providers.erase(it);
 
     m_providerModel->update(m_providers);
 
@@ -1088,10 +1089,10 @@ void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
     }
 }
 
-void DiagnosticsView::updateMarks(const QList<QUrl> &urls)
+void DiagnosticsView::updateMarks(const std::vector<QUrl> &urls)
 {
     std::vector<KTextEditor::Document *> docs;
-    if (!urls.isEmpty()) {
+    if (!urls.empty()) {
         auto app = KTextEditor::Editor::instance()->application();
         for (const auto &url : urls) {
             if (auto doc = app->findUrl(url)) {
@@ -1260,7 +1261,7 @@ void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagT
 
     auto &suppressions = diagTopItem->diagnosticSuppression;
     if (!suppressions || force) {
-        QList<QJsonObject> providerSupressions;
+        std::vector<QJsonObject> providerSupressions;
         const QList<DiagnosticsProvider *> &providers = diagTopItem->providers();
         for (auto p : providers) {
             auto suppressions = p->suppressions(doc);
@@ -1272,7 +1273,7 @@ void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagT
         auto supp = new DiagnosticSuppression(doc, providerSupressions, sessionSuppressions);
         const bool hadSuppression = suppressions != nullptr;
         suppressions.reset(supp);
-        if (!providerSupressions.isEmpty() || !sessionSuppressions.isEmpty() || hadSuppression) {
+        if (!providerSupressions.empty() || !sessionSuppressions.empty() || hadSuppression) {
             updateDiagnosticsState(diagTopItem);
         }
     }

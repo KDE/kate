@@ -253,9 +253,9 @@ public:
         const auto fileInfos = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs | QDir::Hidden);
         for (const auto &fi : fileInfos) {
             if (fi.isDir()) {
-                m_fileInfos << fi;
+                m_fileInfos.push_back(fi);
             } else if (QMimeDatabase().mimeTypeForFile(fi).inherits(QStringLiteral("text/plain"))) {
-                m_fileInfos << fi;
+                m_fileInfos.push_back(fi);
             }
         }
         endResetModel();
@@ -267,7 +267,7 @@ public:
     }
 
 private:
-    QList<QFileInfo> m_fileInfos;
+    std::vector<QFileInfo> m_fileInfos;
     QDir m_currentDir;
 };
 
@@ -929,15 +929,15 @@ private:
         }
     }
 
-    static QList<DirNamePath> splittedUrl(const QString &base, const QString &s)
+    static std::vector<DirNamePath> splittedUrl(const QString &base, const QString &s)
     {
         QDir dir(s);
         const QString fileName = dir.dirName();
         dir.cdUp();
         const QString path = dir.absolutePath();
 
-        QList<DirNamePath> dirsList;
-        dirsList << DirNamePath{fileName, path};
+        std::vector<DirNamePath> dirsList;
+        dirsList.push_back(DirNamePath{fileName, path});
 
         // arrived at base?
         if (dir.absolutePath() == base) {

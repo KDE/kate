@@ -110,11 +110,10 @@ private:
     Ui::SessionConfigWidget sessionConfigUi;
 
     QHash<KPageWidgetItem *, PluginPageListItem> m_pluginPages;
-    QList<KTextEditor::ConfigPage *> m_editorPages;
+    std::vector<KTextEditor::ConfigPage *> m_editorPages;
 
     QPointer<class QListView> m_sideBar;
     QSet<KPageWidgetItem *> m_allPages;
-    QList<QWidget *> m_searchMatchOverlays;
 
 #ifdef WITH_KUSERFEEDBACK
     KUserFeedback::FeedbackConfigWidget *m_userFeedbackWidget = nullptr;

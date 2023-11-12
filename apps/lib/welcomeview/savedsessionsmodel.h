@@ -34,5 +34,5 @@ private:
         }
     };
 
-    QList<SessionInfo> m_sessions;
+    std::vector<SessionInfo> m_sessions;
 };

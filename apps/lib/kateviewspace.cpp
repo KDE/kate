@@ -457,7 +457,7 @@ bool KateViewSpace::showView(DocOrWidget docOrWidget)
     }
     // move view to end of list
     m_registeredDocuments.removeAt(index);
-    m_registeredDocuments.append(docOrWidget);
+    m_registeredDocuments.push_back(docOrWidget);
 
     /**
      * show the wanted view
@@ -467,7 +467,7 @@ bool KateViewSpace::showView(DocOrWidget docOrWidget)
         stack->setCurrentWidget(kv);
         kv->show();
     } else {
-        stack->setCurrentWidget(m_registeredDocuments.last().widget());
+        stack->setCurrentWidget(m_registeredDocuments.back().widget());
     }
 
     /**
@@ -608,7 +608,7 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
     /**
      * if this was the last doc, let viewManager know we are empty
      */
-    if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
+    if (m_registeredDocuments.empty() && m_tabBar->count() == 0) {
         Q_EMIT viewSpaceEmptied(this);
     }
 }
@@ -822,7 +822,7 @@ void KateViewSpace::removeWidget(QWidget *w)
         }
 
         // if this was the last doc, let viewManager know we are empty
-        if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
+        if (m_registeredDocuments.empty() && m_tabBar->count() == 0) {
             Q_EMIT viewSpaceEmptied(this);
         }
     }
@@ -867,7 +867,7 @@ void KateViewSpace::addWidgetAsTab(QWidget *widget)
     m_tabBar->setCurrentDocument(widget);
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     stack->setCurrentWidget(widget);
-    m_registeredDocuments.append(widget);
+    m_registeredDocuments.push_back(widget);
     updateTabBar();
 }
 
@@ -914,7 +914,7 @@ bool KateViewSpace::activateWidget(QWidget *widget)
 
     stack->setCurrentWidget(widget);
     m_registeredDocuments.removeOne(widget);
-    m_registeredDocuments.append(widget);
+    m_registeredDocuments.push_back(widget);
     m_tabBar->setCurrentDocument(DocOrWidget(widget));
     return true;
 }

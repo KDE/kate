@@ -562,17 +562,17 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
     runGitDiff();
 }
 
-static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, int &lineB, QList<int> &lineNosA, QList<int> &lineNosB)
+static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, int &lineB, std::vector<int> &lineNosA, std::vector<int> &lineNosB)
 {
     while (left.size() < right.size()) {
         lineA++;
         left.push_back({});
-        lineNosA.append(-1);
+        lineNosA.push_back(-1);
     }
     while (right.size() < left.size()) {
         lineB++;
         right.push_back({});
-        lineNosB.append(-1);
+        lineNosB.push_back(-1);
     }
 }
 
@@ -639,8 +639,10 @@ struct HunkChangedLine {
 };
 using HunkChangedLines = std::vector<HunkChangedLine>;
 
-static void
-markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChangedLinesB, QList<LineHighlight> &leftHlts, QList<LineHighlight> &rightHlts)
+static void markInlineDiffs(HunkChangedLines &hunkChangedLinesA,
+                            HunkChangedLines &hunkChangedLinesB,
+                            std::vector<LineHighlight> &leftHlts,
+                            std::vector<LineHighlight> &rightHlts)
 {
     if (hunkChangedLinesA.size() != hunkChangedLinesB.size()) {
         hunkChangedLinesA.clear();
@@ -654,7 +656,7 @@ markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChang
         hunkChangedLinesB[i].c = rightChange;
     }
 
-    auto addHighlights = [](HunkChangedLines &hunkChangedLines, QList<LineHighlight> &hlts) {
+    auto addHighlights = [](HunkChangedLines &hunkChangedLines, std::vector<LineHighlight> &hlts) {
         for (int i = 0; i < (int)hunkChangedLines.size(); ++i) {
             auto &change = hunkChangedLines[i];
             for (int j = hlts.size() - 1; j >= 0; --j) {
@@ -674,7 +676,7 @@ markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChang
     hunkChangedLinesB.clear();
 }
 
-static QList<KSyntaxHighlighting::Definition> defsForFileExtensions(const QSet<QString> &fileExtensions)
+static std::vector<KSyntaxHighlighting::Definition> defsForFileExtensions(const QSet<QString> &fileExtensions)
 {
     const auto &repo = KTextEditor::Editor::instance()->repository();
     if (fileExtensions.size() == 1) {
@@ -682,13 +684,13 @@ static QList<KSyntaxHighlighting::Definition> defsForFileExtensions(const QSet<Q
         return {repo.definitionForFileName(name)};
     }
 
-    QList<KSyntaxHighlighting::Definition> defs;
+    std::vector<KSyntaxHighlighting::Definition> defs;
     for (const auto &ext : fileExtensions) {
         const QString name = QStringLiteral("a.") + ext;
         defs.push_back(repo.definitionForFileName(name));
     }
     QSet<QString> seenDefs;
-    QList<KSyntaxHighlighting::Definition> uniqueDefs;
+    std::vector<KSyntaxHighlighting::Definition> uniqueDefs;
     for (const auto &def : defs) {
         if (!seenDefs.contains(def.name())) {
             uniqueDefs.push_back(def);
@@ -715,13 +717,13 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     QStringList right;
 
     // Highlighting data for modified lines
-    QList<LineHighlight> leftHlts;
-    QList<LineHighlight> rightHlts;
+    std::vector<LineHighlight> leftHlts;
+    std::vector<LineHighlight> rightHlts;
     // QList<QPair<int, HunkData>> hunkDatas; // lineNo => HunkData
 
     // Line numbers that will be shown in the editor
-    QList<int> lineNumsA;
-    QList<int> lineNumsB;
+    std::vector<int> lineNumsA;
+    std::vector<int> lineNumsB;
 
     // Changed lines of hunk, used to determine differences between two lines
     HunkChangedLines hunkChangedLinesA;
@@ -732,10 +734,10 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     QString tgtFile;
 
     // viewLine => rawDiffLine
-    QList<ViewLineToDiffLine> lineToRawDiffLine;
+    std::vector<ViewLineToDiffLine> lineToRawDiffLine;
     // for Folding/stage/unstage hunk
-    QList<ViewLineToDiffLine> linesWithHunkHeading;
-    QList<int> linesWithFileName;
+    std::vector<ViewLineToDiffLine> linesWithHunkHeading;
+    std::vector<int> linesWithFileName;
 
     int maxLineNoFound = 0;
     int lineA = 0;
@@ -770,9 +772,9 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                     right.append(Utils::fileNameFromPath(tgtFile));
                 }
                 Q_ASSERT(left.size() == right.size() && lineA == lineB);
-                linesWithFileName.append(lineA);
-                lineNumsA.append(-1);
-                lineNumsB.append(-1);
+                linesWithFileName.push_back(lineA);
+                lineNumsA.push_back(-1);
+                lineNumsB.push_back(-1);
                 lineA++;
                 lineB++;
             }
@@ -788,11 +790,11 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
         const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3) /* + QStringLiteral(" ") + srcFile*/;
         const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
-        lineNumsA.append(-1);
-        lineNumsB.append(-1);
-        left.append(headingLeft);
-        right.append(headingRight);
-        linesWithHunkHeading.append({lineA, i, /*unused*/ false});
+        lineNumsA.push_back(-1);
+        lineNumsB.push_back(-1);
+        left.push_back(headingLeft);
+        right.push_back(headingRight);
+        linesWithHunkHeading.push_back({lineA, i, /*unused*/ false});
         lineA++;
         lineB++;
 
@@ -814,11 +816,11 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
 
                 l = l.mid(1);
-                left.append(l);
-                right.append(l);
+                left.push_back(l);
+                right.push_back(l);
                 //                 lineNo++;
-                lineNumsA.append(srcLine++);
-                lineNumsB.append(tgtLine++);
+                lineNumsA.push_back(srcLine++);
+                lineNumsB.push_back(tgtLine++);
                 lineA++;
                 lineB++;
             } else if (l.startsWith(QLatin1Char('+'))) {
@@ -829,9 +831,9 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 h.added = true;
                 h.changes.push_back({0, Change::FullBlock});
                 rightHlts.push_back(h);
-                lineNumsB.append(tgtLine++);
-                lineToRawDiffLine.append({lineB, j, true});
-                right.append(l);
+                lineNumsB.push_back(tgtLine++);
+                lineToRawDiffLine.push_back({lineB, j, true});
+                right.push_back(l);
 
                 hunkChangedLinesB.emplace_back(l, lineB, h.added);
 
@@ -846,10 +848,10 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 h.changes.push_back({0, Change::FullBlock});
 
                 leftHlts.push_back(h);
-                lineNumsA.append(srcLine++);
-                left.append(l);
+                lineNumsA.push_back(srcLine++);
+                left.push_back(l);
                 hunkChangedLinesA.emplace_back(l, lineA, h.added);
-                lineToRawDiffLine.append({lineA, j, false});
+                lineToRawDiffLine.push_back({lineA, j, false});
 
                 lineA++;
             } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
@@ -858,12 +860,12 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
 
                 // add line number for current line
-                lineNumsA.append(-1);
-                lineNumsB.append(-1);
+                lineNumsA.push_back(-1);
+                lineNumsB.push_back(-1);
 
                 // add new line
-                left.append(QString());
-                right.append(QString());
+                left.push_back(QString());
+                right.push_back(QString());
                 lineA += 1;
                 lineB += 1;
                 break;
@@ -872,10 +874,10 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 // Start of a new file
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
                 // add new line
-                lineNumsA.append(-1);
-                lineNumsB.append(-1);
-                left.append(QString());
-                right.append(QString());
+                lineNumsA.push_back(-1);
+                lineNumsB.push_back(-1);
+                left.push_back(QString());
+                right.push_back(QString());
                 lineA += 1;
                 lineB += 1;
                 break;
@@ -900,13 +902,13 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     m_right->appendPlainText(rightText);
     m_left->setLineNumberData(lineNumsA, {}, maxLineNoFound);
     m_right->setLineNumberData(lineNumsB, {}, maxLineNoFound);
-    m_lineToRawDiffLine += lineToRawDiffLine;
-    m_lineToDiffHunkLine += linesWithHunkHeading;
-    m_linesWithFileName += linesWithFileName;
+    m_lineToDiffHunkLine.insert(m_lineToDiffHunkLine.end(), linesWithHunkHeading.begin(), linesWithHunkHeading.end());
+    m_lineToRawDiffLine.insert(m_lineToRawDiffLine.end(), lineToRawDiffLine.begin(), lineToRawDiffLine.end());
+    m_linesWithFileName.insert(m_linesWithFileName.end(), linesWithFileName.begin(), linesWithFileName.end());
 
     const auto defs = defsForFileExtensions(fileExtensions);
-    leftHl->setDefinition(defs.constFirst());
-    rightHl->setDefinition(defs.constFirst());
+    leftHl->setDefinition(defs.front());
+    rightHl->setDefinition(defs.front());
 }
 
 void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
@@ -921,22 +923,22 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     QStringList lines;
 
     // Highlighting data for modified lines
-    QList<LineHighlight> hlts;
+    std::vector<LineHighlight> hlts;
 
     // Line numbers that will be shown in the editor
-    QList<int> lineNumsA;
-    QList<int> lineNumsB;
+    std::vector<int> lineNumsA;
+    std::vector<int> lineNumsB;
 
     // Changed lines of hunk, used to determine differences between two lines
     HunkChangedLines hunkChangedLinesA;
     HunkChangedLines hunkChangedLinesB;
 
     // viewLine => rawDiffLine
-    QList<ViewLineToDiffLine> lineToRawDiffLine;
+    std::vector<ViewLineToDiffLine> lineToRawDiffLine;
     // for Folding/stage/unstage hunk
-    QList<ViewLineToDiffLine> linesWithHunkHeading;
+    std::vector<ViewLineToDiffLine> linesWithHunkHeading;
     // Lines containing filename
-    QList<int> linesWithFileName;
+    std::vector<int> linesWithFileName;
 
     QSet<QString> fileExtensions;
     QString srcFile;
@@ -971,9 +973,9 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 } else if (!srcFile.isEmpty() && !tgtFile.isEmpty()) {
                     lines.append(QStringLiteral("%1 → %2").arg(Utils::fileNameFromPath(srcFile), Utils::fileNameFromPath(tgtFile)));
                 }
-                lineNumsA.append(-1);
-                lineNumsB.append(-1);
-                linesWithFileName.append(lineNo);
+                lineNumsA.push_back(-1);
+                lineNumsB.push_back(-1);
+                linesWithFileName.push_back(lineNo);
                 lineNo++;
             }
             continue;
@@ -989,9 +991,9 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
         //         const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
         lines.push_back(line);
-        lineNumsA.append(-1);
-        lineNumsB.append(-1);
-        linesWithHunkHeading.append({lineNo, i, false});
+        lineNumsA.push_back(-1);
+        lineNumsB.push_back(-1);
+        linesWithHunkHeading.push_back({lineNo, i, false});
         lineNo++;
 
         hunkChangedLinesA.clear();
@@ -1011,8 +1013,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
 
                 l = l.mid(1);
                 lines.append(l);
-                lineNumsA.append(srcLine++);
-                lineNumsB.append(tgtLine++);
+                lineNumsA.push_back(srcLine++);
+                lineNumsB.push_back(tgtLine++);
                 lineNo++;
                 //                 lineB++;
             } else if (l.startsWith(QLatin1Char('+'))) {
@@ -1024,9 +1026,9 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 h.changes.push_back({0, Change::FullBlock});
                 lines.append(l);
                 hlts.push_back(h);
-                lineNumsA.append(-1);
-                lineNumsB.append(tgtLine++);
-                lineToRawDiffLine.append({lineNo, j, false});
+                lineNumsA.push_back(-1);
+                lineNumsB.push_back(tgtLine++);
+                lineToRawDiffLine.push_back({lineNo, j, false});
 
                 hunkChangedLinesB.emplace_back(l, lineNo, h.added);
                 lineNo++;
@@ -1038,19 +1040,19 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 h.changes.push_back({0, Change::FullBlock});
 
                 hlts.push_back(h);
-                lineNumsA.append(srcLine++);
-                lineNumsB.append(-1);
+                lineNumsA.push_back(srcLine++);
+                lineNumsB.push_back(-1);
                 lines.append(l);
                 hunkChangedLinesA.emplace_back(l, lineNo, h.added);
-                lineToRawDiffLine.append({lineNo, j, false});
+                lineToRawDiffLine.push_back({lineNo, j, false});
 
                 lineNo++;
             } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
                 i = j - 1;
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, hlts, hlts);
                 // add line number for current line
-                lineNumsA.append(-1);
-                lineNumsB.append(-1);
+                lineNumsA.push_back(-1);
+                lineNumsB.push_back(-1);
 
                 // add new line
                 lines.append(QString());
@@ -1061,8 +1063,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, hlts, hlts);
                 // add new line
                 lines.append(QString());
-                lineNumsA.append(-1);
-                lineNumsB.append(-1);
+                lineNumsA.push_back(-1);
+                lineNumsB.push_back(-1);
                 lineNo += 1;
                 break;
             }
@@ -1076,12 +1078,12 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     m_left->appendData(hlts);
     m_left->appendPlainText(lines.join(QLatin1Char('\n')));
     m_left->setLineNumberData(lineNumsA, lineNumsB, maxLineNoFound);
-    m_lineToDiffHunkLine += linesWithHunkHeading;
-    m_lineToRawDiffLine += lineToRawDiffLine;
-    m_linesWithFileName += linesWithFileName;
+    m_lineToDiffHunkLine.insert(m_lineToDiffHunkLine.end(), linesWithHunkHeading.begin(), linesWithHunkHeading.end());
+    m_lineToRawDiffLine.insert(m_lineToRawDiffLine.end(), lineToRawDiffLine.begin(), lineToRawDiffLine.end());
+    m_linesWithFileName.insert(m_linesWithFileName.end(), linesWithFileName.begin(), linesWithFileName.end());
 
     const auto defs = defsForFileExtensions(fileExtensions);
-    leftHl->setDefinition(defs.constFirst());
+    leftHl->setDefinition(defs.front());
 }
 
 static QString commitInfoFromDiff(const QByteArray &raw)
@@ -1164,7 +1166,7 @@ bool DiffWidget::isHunk(const int line) const
 
 int DiffWidget::hunkLineCount(int hunkLine)
 {
-    for (int i = 0; i < m_lineToDiffHunkLine.size(); ++i) {
+    for (size_t i = 0; i < m_lineToDiffHunkLine.size(); ++i) {
         const auto h = m_lineToDiffHunkLine.at(i);
         if (h.line == hunkLine) {
             // last hunk?

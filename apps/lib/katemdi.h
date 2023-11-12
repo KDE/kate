@@ -207,7 +207,7 @@ public:
         return m_multiTabBar;
     }
 
-    QList<int> tabList() const
+    const std::vector<int> &tabList() const
     {
         return m_tabList;
     }
@@ -237,7 +237,7 @@ private:
     Sidebar *m_sb;
     QStackedWidget *m_stack;
     KMultiTabBar *m_multiTabBar;
-    QList<int> m_tabList;
+    std::vector<int> m_tabList;
     int m_activeTab = 0;
     int m_sectionSize = 0;
 };

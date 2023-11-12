@@ -594,7 +594,7 @@ public Q_SLOTS:
      */
     void showMessage(const QVariantMap &map);
 
-    void addPositionToHistory(const QUrl& url, KTextEditor::Cursor c);
+    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 
 private Q_SLOTS:
     void slotUpdateBottomViewBar();
@@ -648,8 +648,6 @@ private:
 
     QWidget *m_bottomViewBarContainer = nullptr;
     KateContainerStackedLayout *m_bottomContainerStack = nullptr;
-
-    QList<QString> m_lastUsedCmdBarActions;
 
     class BarState
     {
@@ -714,6 +712,7 @@ private:
      * Diagnostics view at the bottom
      */
     class DiagnosticsView *m_diagView = nullptr;
+
 public:
     /**
      * The available actions for the mouse back button, used as indexing

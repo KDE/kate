@@ -19,8 +19,8 @@ RecentItemsModel::RecentItemsModel(QObject *parent)
 QVariant RecentItemsModel::data(const QModelIndex &index, int role) const
 {
     if (index.isValid()) {
-        const int row = index.row();
-        if (row >= 0 && row < m_recentItems.count()) {
+        const size_t row = index.row();
+        if (row < m_recentItems.size()) {
             const RecentItemInfo &recentItem = m_recentItems.at(row);
             switch (role) {
             case Qt::DisplayRole:
@@ -42,13 +42,13 @@ int RecentItemsModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
 
-    return m_recentItems.count();
+    return m_recentItems.size();
 }
 
 void RecentItemsModel::refresh(const QList<QUrl> &urls)
 {
-    QList<RecentItemInfo> recentItems;
-    recentItems.reserve(urls.count());
+    std::vector<RecentItemInfo> recentItems;
+    recentItems.reserve(urls.size());
 
     QIcon icon;
     QString name;
@@ -64,7 +64,7 @@ void RecentItemsModel::refresh(const QList<QUrl> &urls)
         // we want some filename @ folder output to have chance to keep important stuff even on elide, see bug 472981
         name = Utils::niceFileNameWithPath(url);
 
-        recentItems.append({icon, name, url});
+        recentItems.push_back({icon, name, url});
     }
 
     beginResetModel();
@@ -75,8 +75,8 @@ void RecentItemsModel::refresh(const QList<QUrl> &urls)
 QUrl RecentItemsModel::url(const QModelIndex &index) const
 {
     if (index.isValid()) {
-        const int row = index.row();
-        if (row >= 0 && row < m_recentItems.count()) {
+        const size_t row = index.row();
+        if (row < m_recentItems.size()) {
             return m_recentItems.at(row).url;
         }
     }

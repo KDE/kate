@@ -51,7 +51,7 @@ int LineNumArea::lineNumAreaWidth() const
     return 13 + textEdit->fontMetrics().horizontalAdvance(u'9') * digits;
 }
 
-void LineNumArea::setLineNumData(QList<int> leftLineNos, QList<int> rightLineNos)
+void LineNumArea::setLineNumData(std::vector<int> leftLineNos, std::vector<int> rightLineNos)
 {
     m_lineToNumA = std::move(leftLineNos);
     m_lineToNumB = std::move(rightLineNos);
@@ -99,7 +99,7 @@ static void paintTriangle(QPainter &painter, QColor c, int xOffset, int yOffset,
 
 void LineNumArea::paintEvent(QPaintEvent *event)
 {
-    if (m_lineToNumA.isEmpty()) {
+    if (m_lineToNumA.empty()) {
         return;
     }
     QPainter painter(this);
@@ -139,15 +139,19 @@ void LineNumArea::paintEvent(QPaintEvent *event)
             //             }
 
             // Line number left
-            int n = m_lineToNumA.value(blockNumber, -1);
-            QRect numRect(0, top, w, textEdit->fontMetrics().height());
-            drawLineNumber(painter, numRect, blockNumber, n, colors);
+            auto it = std::find(m_lineToNumA.begin(), m_lineToNumA.end(), blockNumber);
+            if (it != m_lineToNumA.end()) {
+                QRect numRect(0, top, w, textEdit->fontMetrics().height());
+                drawLineNumber(painter, numRect, blockNumber, *it, colors);
+            }
 
             if (!m_lineToNumB.empty()) {
                 // we are in unified mode, draw the right line number
-                int n = m_lineToNumB.value(blockNumber, -1);
-                QRect numRect(w, top, w, textEdit->fontMetrics().height());
-                drawLineNumber(painter, numRect, blockNumber, n, colors);
+                auto it = std::find(m_lineToNumB.begin(), m_lineToNumB.end(), blockNumber);
+                if (it != m_lineToNumB.end()) {
+                    QRect numRect(w, top, w, textEdit->fontMetrics().height());
+                    drawLineNumber(painter, numRect, blockNumber, *it, colors);
+                }
             }
 
             // Hunk fold marker

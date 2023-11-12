@@ -54,7 +54,7 @@ public:
     bool isHunk(int line) const;
     bool isFileNameLine(int line) const
     {
-        return m_linesWithFileName.contains(line);
+        return std::find(m_linesWithFileName.begin(), m_linesWithFileName.end(), line) != m_linesWithFileName.end();
     }
     int hunkLineCount(int hunkLine);
 
@@ -102,9 +102,9 @@ private:
     DiffStyle m_style = SideBySide;
     DiffParams m_params;
     QByteArray m_rawDiff; // Raw diff saved as is
-    QList<ViewLineToDiffLine> m_lineToRawDiffLine;
-    QList<ViewLineToDiffLine> m_lineToDiffHunkLine;
-    QList<int> m_linesWithFileName;
+    std::vector<ViewLineToDiffLine> m_lineToRawDiffLine;
+    std::vector<ViewLineToDiffLine> m_lineToDiffHunkLine;
+    std::vector<int> m_linesWithFileName;
     bool m_stopScrollSync = false;
     bool m_blockShowEvent = true;
 };

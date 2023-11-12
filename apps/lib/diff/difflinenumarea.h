@@ -15,7 +15,7 @@ public:
     int lineNumAreaWidth() const;
     QSize sizeHint() const override;
 
-    void setLineNumData(QList<int> leftLineNos, QList<int> rightLineNos);
+    void setLineNumData(std::vector<int> leftLineNos, std::vector<int> rightLineNos);
     void setMaxLineNum(int n)
     {
         maxLineNum = n;
@@ -23,12 +23,17 @@ public:
 
     int lineNumForBlock(int block)
     {
-        return m_lineToNumA.value(block);
+        auto it = std::find(m_lineToNumA.begin(), m_lineToNumA.end(), block);
+        if (it == m_lineToNumA.end()) {
+            return 0;
+        }
+        return *it;
     }
 
     int blockForLineNum(int lineNo)
     {
-        return m_lineToNumA.indexOf(lineNo);
+        auto it = std::find(m_lineToNumA.begin(), m_lineToNumA.end(), lineNo);
+        return std::distance(m_lineToNumA.begin(), it);
     }
 
 protected:
@@ -43,7 +48,7 @@ private:
     //     QBrush m_currentLineBgColor;
     QColor m_otherLinesColor;
     QColor m_borderColor;
-    QList<int> m_lineToNumA;
-    QList<int> m_lineToNumB;
+    std::vector<int> m_lineToNumA;
+    std::vector<int> m_lineToNumB;
     int maxLineNum = 0;
 };

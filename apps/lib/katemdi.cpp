@@ -371,13 +371,13 @@ KMultiTabBarTab *MultiTabBar::addTab(int id, ToolView *tv)
     m_stack->addWidget(tv);
     KMultiTabBarTab *newTab;
 
-    if (m_tabList.contains(id)) {
+    if (std::find(m_tabList.begin(), m_tabList.end(), id) != m_tabList.end()) {
         // We are in session restore
         newTab = m_multiTabBar->tab(id);
         newTab->setIcon(tv->icon);
         newTab->setText(tv->text);
     } else {
-        m_tabList.append(id);
+        m_tabList.push_back(id);
         m_multiTabBar->appendTab(tv->icon, id, tv->text);
         newTab = m_multiTabBar->tab(id);
     }
@@ -392,7 +392,7 @@ KMultiTabBarTab *MultiTabBar::addTab(int id, ToolView *tv)
 int MultiTabBar::addBlankTab()
 {
     int id = m_sb->nextId();
-    m_tabList.append(id);
+    m_tabList.push_back(id);
     m_multiTabBar->appendTab(QIcon(), id, QStringLiteral("placeholder"));
     return id;
 }
@@ -410,7 +410,7 @@ void MultiTabBar::tabClicked(int id)
 
 void MultiTabBar::removeBlankTab(int id)
 {
-    m_tabList.removeAll(id);
+    m_tabList.erase(std::remove(m_tabList.begin(), m_tabList.end(), id), m_tabList.end());
     m_multiTabBar->removeTab(id);
     if (tabCount() == 0) {
         m_activeTab = 0;
@@ -420,7 +420,7 @@ void MultiTabBar::removeBlankTab(int id)
 
 void MultiTabBar::removeTab(int id)
 {
-    m_tabList.removeAll(id);
+    m_tabList.erase(std::remove(m_tabList.begin(), m_tabList.end(), id), m_tabList.end());
     m_multiTabBar->removeTab(id);
     ToolView *tv = m_sb->m_idToWidget.at(id);
     m_sb->m_widgetToTabBar.erase(tv);

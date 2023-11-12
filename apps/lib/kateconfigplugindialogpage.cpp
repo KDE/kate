@@ -74,7 +74,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
         item->setText(0, pluginInfo.metaData.name());
         item->setText(1, pluginInfo.metaData.description());
         listView->addTopLevelItem(item);
-        m_pluginItems.append(item);
+        m_pluginItems.push_back(item);
     }
 
     listView->resizeColumnToContents(0);

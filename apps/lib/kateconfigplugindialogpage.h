@@ -50,5 +50,5 @@ private Q_SLOTS:
     void unloadPlugin(KatePluginListItem *);
 
 private:
-    QList<class KatePluginListItem *> m_pluginItems;
+    std::vector<class KatePluginListItem *> m_pluginItems;
 };

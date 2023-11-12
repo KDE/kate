@@ -498,18 +498,19 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
 
 void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)
 {
-    QList<KPageWidgetItem *> remove;
+    std::vector<KPageWidgetItem *> remove;
     for (QHash<KPageWidgetItem *, PluginPageListItem>::const_iterator it = m_pluginPages.constBegin(); it != m_pluginPages.constEnd(); ++it) {
         const PluginPageListItem &pli = it.value();
 
         if (pli.plugin == plugin) {
-            remove.append(it.key());
+            remove.push_back(it.key());
         }
     }
 
-    qCDebug(LOG_KATE) << remove.count();
-    while (!remove.isEmpty()) {
-        KPageWidgetItem *wItem = remove.takeLast();
+    qCDebug(LOG_KATE) << remove.size();
+    while (!remove.empty()) {
+        KPageWidgetItem *wItem = remove.back();
+        remove.pop_back();
         PluginPageListItem item = m_pluginPages.take(wItem);
         m_allPages.remove(wItem);
         delete item.pluginPage;
@@ -630,7 +631,7 @@ void KateConfigDialog::slotApply()
     }
 
     // apply ktexteditor pages
-    for (KTextEditor::ConfigPage *page : qAsConst(m_editorPages)) {
+    for (KTextEditor::ConfigPage *page : m_editorPages) {
         page->apply();
     }
 

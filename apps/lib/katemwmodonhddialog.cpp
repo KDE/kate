@@ -173,12 +173,12 @@ void KateMwModOnHdDialog::handleSelected(int action)
     m_blockAddDocument = true;
 
     // collect all items we can remove
-    QList<QTreeWidgetItem *> itemsToDelete;
+    std::vector<QTreeWidgetItem *> itemsToDelete;
     for (QTreeWidgetItemIterator it(docsTreeWidget); *it; ++it) {
         KateDocItem *item = static_cast<KateDocItem *>(*it);
         auto docInfo = KateApp::self()->documentManager()->documentInfo(item->document);
         if (!item->document || !docInfo) {
-            itemsToDelete.append(item);
+            itemsToDelete.push_back(item);
             continue;
         }
 
@@ -204,7 +204,7 @@ void KateMwModOnHdDialog::handleSelected(int action)
             }
 
             if (success) {
-                itemsToDelete.append(item);
+                itemsToDelete.push_back(item);
             } else {
                 item->document->setModifiedOnDisk(reason);
             }
@@ -212,9 +212,7 @@ void KateMwModOnHdDialog::handleSelected(int action)
     }
 
     // remove the marked items, addDocument is blocked, this is save!
-    for (int i = 0; i < itemsToDelete.count(); ++i) {
-        delete itemsToDelete[i];
-    }
+    qDeleteAll(itemsToDelete);
 
     // any documents left unhandled?
     if (!docsTreeWidget->topLevelItemCount()) {

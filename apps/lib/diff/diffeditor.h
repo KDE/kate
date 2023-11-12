@@ -38,7 +38,7 @@ struct Change {
 };
 
 struct LineHighlight {
-    QList<Change> changes;
+    std::vector<Change> changes;
     IntT line;
     bool added;
 };
@@ -60,12 +60,12 @@ public:
         m_data.clear();
         setLineNumberData({}, {}, 0);
     }
-    void appendData(const QList<LineHighlight> &newData)
+    void appendData(const std::vector<LineHighlight> &newData)
     {
-        m_data.append(newData);
+        m_data.insert(m_data.end(), newData.begin(), newData.end());
     }
 
-    void setLineNumberData(QList<int> lineNosA, QList<int> lineNosB, int maxLineNum);
+    void setLineNumberData(std::vector<int> lineNosA, std::vector<int> lineNosB, int maxLineNum);
 
     KTextEditor::Range selectionRange() const;
 
@@ -107,7 +107,7 @@ private:
     void onContextMenuRequest();
     void addStageUnstageDiscardActions(QMenu *menu);
 
-    QList<LineHighlight> m_data;
+    std::vector<LineHighlight> m_data;
     QColor red1;
     QColor red2;
     QColor green1;

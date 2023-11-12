@@ -200,7 +200,7 @@ private:
     void clearSuppressionsFromProvider(DiagnosticsProvider *provider);
     void onDocumentUrlChanged();
     void updateDiagnosticsState(struct DocumentDiagnosticItem *&topItem);
-    void updateMarks(const QList<QUrl> &urls = {});
+    void updateMarks(const std::vector<QUrl> &urls = {});
     void goToItemLocation(QModelIndex index);
 
     void onViewChanged(KTextEditor::View *v);
@@ -233,7 +233,7 @@ private:
 
     QStandardItemModel m_model;
     QSortFilterProxyModel *const m_proxy;
-    QList<DiagnosticsProvider *> m_providers;
+    std::vector<DiagnosticsProvider *> m_providers;
     std::unique_ptr<SessionDiagnosticSuppressions> m_sessionDiagnosticSuppressions;
 
     QHash<KTextEditor::Document *, QList<KTextEditor::MovingRange *>> m_diagnosticsRanges;

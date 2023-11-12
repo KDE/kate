@@ -67,9 +67,9 @@ public:
         }
     }
 
-    QList<QString> getSuppressions(const QString &file)
+    std::vector<QString> getSuppressions(const QString &file)
     {
-        QList<QString> result;
+        std::vector<QString> result;
 
         for (const auto &entry : {QString(), file}) {
             auto it = m_suppressions.find(entry);

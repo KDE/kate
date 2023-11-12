@@ -402,7 +402,7 @@ const LineHighlight *DiffEditor::highlightingForLine(int line)
     return it == m_data.cend() ? nullptr : &(*it);
 }
 
-void DiffEditor::setLineNumberData(QList<int> lineNosA, QList<int> lineNosB, int maxLineNum)
+void DiffEditor::setLineNumberData(std::vector<int> lineNosA, std::vector<int> lineNosB, int maxLineNum)
 {
     m_lineNumArea->setLineNumData(std::move(lineNosA), std::move(lineNosB));
     m_lineNumArea->setMaxLineNum(maxLineNum);

@@ -18,8 +18,8 @@ SavedSessionsModel::SavedSessionsModel(QObject *parent)
 QVariant SavedSessionsModel::data(const QModelIndex &index, int role) const
 {
     if (index.isValid()) {
-        const int row = index.row();
-        if (row >= 0 && row < m_sessions.count()) {
+        const size_t row = index.row();
+        if (row < m_sessions.size()) {
             const SessionInfo &session = m_sessions.at(row);
             switch (role) {
             case Qt::DisplayRole:
@@ -41,16 +41,16 @@ int SavedSessionsModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
 
-    return m_sessions.count();
+    return m_sessions.size();
 }
 
 void SavedSessionsModel::refresh(const KateSessionList &sessionList)
 {
-    QList<SessionInfo> sessions;
+    std::vector<SessionInfo> sessions;
     sessions.reserve(sessionList.count());
 
     for (const KateSession::Ptr &session : sessionList) {
-        sessions.append({session->timestamp(), session->name()});
+        sessions.push_back({session->timestamp(), session->name()});
     }
 
     std::sort(sessions.begin(), sessions.end());

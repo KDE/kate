@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-12 01:39+0000\n"
 "PO-Revision-Date: 2023-09-26 10:33+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1774,71 +1774,71 @@ msgstr "Näytä %1-painike"
 msgid "Focus %1"
 msgstr "Kohdista: %1"
 
-#: lib/katemdi.cpp:1017
+#: lib/katemdi.cpp:1022
 #, kde-format
 msgid "Configure..."
 msgstr "Asetukset …"
 
-#: lib/katemdi.cpp:1021
+#: lib/katemdi.cpp:1026
 #, kde-format
 msgid "Hide Button"
 msgstr "Piilota painike"
 
 # Viestin alkuosa; loppuosa on ”Left/Right/Top/Bottom Sidebar”.
-#: lib/katemdi.cpp:1023
+#: lib/katemdi.cpp:1028
 #, kde-format
 msgid "Move To"
 msgstr "Siirrä"
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1033
 #, kde-format
 msgid "Own Section"
 msgstr "Oma osio"
 
-#: lib/katemdi.cpp:1034 lib/katemdi.cpp:1042
+#: lib/katemdi.cpp:1039 lib/katemdi.cpp:1047
 #, kde-format
 msgid "One Down"
 msgstr "Yksi alas"
 
-#: lib/katemdi.cpp:1036 lib/katemdi.cpp:1047
+#: lib/katemdi.cpp:1041 lib/katemdi.cpp:1052
 #, kde-format
 msgid "One Right"
 msgstr "Yksi oikealle"
 
-#: lib/katemdi.cpp:1040
+#: lib/katemdi.cpp:1045
 #, kde-format
 msgid "One Up"
 msgstr "Yksi ylös"
 
-#: lib/katemdi.cpp:1045
+#: lib/katemdi.cpp:1050
 #, kde-format
 msgid "One Left"
 msgstr "Yksi vasempaan"
 
-#: lib/katemdi.cpp:1054
+#: lib/katemdi.cpp:1059
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Vasempaan sivupalkkiin"
 
 # Jatketta viestille ”Move To”.
-#: lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1063
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Oikeaan sivupalkkiin"
 
 # Jatketta viestille ”Move To”.
-#: lib/katemdi.cpp:1062
+#: lib/katemdi.cpp:1067
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Yläsivupalkkiin"
 
 # Jatketta viestille ”Move To”.
-#: lib/katemdi.cpp:1066
+#: lib/katemdi.cpp:1071
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Alasivupalkkiin"
 
-#: lib/katemdi.cpp:1462
+#: lib/katemdi.cpp:1468
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

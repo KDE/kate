@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-12 01:39+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -1793,69 +1793,69 @@ msgstr "Mostrer %1"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1017
+#: lib/katemdi.cpp:1022
 #, fuzzy, kde-format
 #| msgid "Configure Paths..."
 msgid "Configure..."
 msgstr "Apontyî les tchmins..."
 
-#: lib/katemdi.cpp:1021
+#: lib/katemdi.cpp:1026
 #, kde-format
 msgid "Hide Button"
 msgstr ""
 
-#: lib/katemdi.cpp:1023
+#: lib/katemdi.cpp:1028
 #, kde-format
 msgid "Move To"
 msgstr "Bodjî viè"
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "Drovi ene session"
 
-#: lib/katemdi.cpp:1034 lib/katemdi.cpp:1042
+#: lib/katemdi.cpp:1039 lib/katemdi.cpp:1047
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1036 lib/katemdi.cpp:1047
+#: lib/katemdi.cpp:1041 lib/katemdi.cpp:1052
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1040
+#: lib/katemdi.cpp:1045
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1045
+#: lib/katemdi.cpp:1050
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1054
+#: lib/katemdi.cpp:1059
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Hintche båre di costé"
 
-#: lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1063
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Droete båre di costé"
 
-#: lib/katemdi.cpp:1062
+#: lib/katemdi.cpp:1067
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Båre di costé di pa dzeu"
 
-#: lib/katemdi.cpp:1066
+#: lib/katemdi.cpp:1071
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Båre di costé di pa dzo"
 
-#: lib/katemdi.cpp:1462
+#: lib/katemdi.cpp:1468
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

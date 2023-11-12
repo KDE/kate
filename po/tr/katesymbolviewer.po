@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-11 01:45+0000\n"
-"PO-Revision-Date: 2023-07-13 23:50+0300\n"
+"PO-Revision-Date: 2023-11-11 23:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 23.11.70\n"
 "(http: //www.transifex.com/projects/p/applications-k-tr/language/tr/)\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
@@ -183,7 +183,7 @@ msgstr "İşlev parametrelerini göster"
 #: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
-msgstr "Ağaç kipi görünümde düğümleri otomatik olarak genişlet"
+msgstr "Ağaç kipi görünümde düğümleri kendiliğinden genişlet"
 
 #: plugin_katesymbolviewer.cpp:481
 #, kde-format

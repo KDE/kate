@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-12 01:39+0000\n"
 "PO-Revision-Date: 2011-09-27 16:16+0330\n"
 "Last-Translator: Mohamad Reza Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <>\n"
@@ -1805,70 +1805,70 @@ msgstr "نمایش %1"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1017
+#: lib/katemdi.cpp:1022
 #, fuzzy, kde-format
 #| msgid "Configure"
 msgid "Configure..."
 msgstr "پیکربندی"
 
-#: lib/katemdi.cpp:1021
+#: lib/katemdi.cpp:1026
 #, fuzzy, kde-format
 #| msgid "Hide Path"
 msgid "Hide Button"
 msgstr "مخفی کردن مسیر"
 
-#: lib/katemdi.cpp:1023
+#: lib/katemdi.cpp:1028
 #, kde-format
 msgid "Move To"
 msgstr "حرکت به"
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "باز کردن نشست"
 
-#: lib/katemdi.cpp:1034 lib/katemdi.cpp:1042
+#: lib/katemdi.cpp:1039 lib/katemdi.cpp:1047
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1036 lib/katemdi.cpp:1047
+#: lib/katemdi.cpp:1041 lib/katemdi.cpp:1052
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1040
+#: lib/katemdi.cpp:1045
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1045
+#: lib/katemdi.cpp:1050
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1054
+#: lib/katemdi.cpp:1059
 #, kde-format
 msgid "Left Sidebar"
 msgstr "میله جانبی چپ"
 
-#: lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1063
 #, kde-format
 msgid "Right Sidebar"
 msgstr "میله جانبی راست"
 
-#: lib/katemdi.cpp:1062
+#: lib/katemdi.cpp:1067
 #, kde-format
 msgid "Top Sidebar"
 msgstr "میله جانبی بالا"
 
-#: lib/katemdi.cpp:1066
+#: lib/katemdi.cpp:1071
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "میله جانبی پایین"
 
-#: lib/katemdi.cpp:1462
+#: lib/katemdi.cpp:1468
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

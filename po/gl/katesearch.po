@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-09 01:39+0000\n"
-"PO-Revision-Date: 2023-10-10 16:15+0200\n"
+"PO-Revision-Date: 2023-11-11 14:08+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -211,14 +211,13 @@ msgstr "Buscar"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:47
-#, fuzzy, kde-format
-#| msgid "Replace Checked"
+#, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr "Substituír os marcados"
+msgstr "Substituír o marcado"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)

@@ -522,20 +522,6 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
     return ret;
 }
 
-const QList<VcsDiff::FilePair> VcsDiff::fileNames() const
-{
-    QList<VcsDiff::FilePair> ret;
-    VcsDiff::FilePair current;
-    for (const auto &h : d->hunks) {
-        // List each pair only once
-        if (h.srcFile == current.source && h.tgtFile == current.target)
-            continue;
-        current = {h.srcFile, h.tgtFile};
-        ret.push_back(current);
-    }
-    return ret;
-}
-
 int VcsDiff::diffLineToSourceLine(const uint line) const
 {
     return d->mapDiffLine(line, VcsDiffPrivate::SRC);

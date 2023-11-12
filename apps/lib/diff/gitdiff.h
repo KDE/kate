@@ -155,26 +155,6 @@ public:
      */
     int diffLineToTargetLine(const uint line) const;
 
-    /**
-     * Represents a pair of files which are compared
-     */
-    struct FilePair {
-        QString source;
-        QString target;
-        bool operator==(const FilePair p) const
-        {
-            return (source == p.source && target == p.target);
-        }
-    };
-
-    /**
-     * @returns a list of filename pairs that the patch applies to
-     *
-     * @note: Each file-pair is only listed once for each consecutive run
-     * of hunks which apply to it.
-     */
-    const QList<FilePair> fileNames() const;
-
 private:
     std::unique_ptr<class VcsDiffPrivate> d;
 };

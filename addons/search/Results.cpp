@@ -18,6 +18,7 @@ Results::Results(QWidget *parent)
     setupUi(this);
 
     treeView->setItemDelegate(new SearchResultsDelegate(treeView));
+    treeView->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     connect(treeView, &ResultsTreeView::detachClicked, this, [this] {
         Q_EMIT requestDetachToMainWindow(this);
     });

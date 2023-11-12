@@ -290,6 +290,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     m_diagnosticsTree->setLayoutDirection(Qt::LeftToRight);
     m_diagnosticsTree->setSortingEnabled(false);
     m_diagnosticsTree->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_diagnosticsTree->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     m_diagnosticsTree->setUniformRowHeights(true);
     m_diagnosticsTree->setContextMenuPolicy(Qt::CustomContextMenu);
     m_diagnosticsTree->setItemDelegate(new DiagnosticsLocationTreeDelegate(this));
@@ -399,8 +400,13 @@ DiagnosticsView::~DiagnosticsView()
 
 void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
 {
-    mainLayout->setSpacing(2);
+    mainLayout->setSpacing(0);
     auto l = new QHBoxLayout();
+    l->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                          style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                          style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                          style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+    l->setSpacing(style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
     mainLayout->addLayout(l);
 
     l->addWidget(m_providerCombo);

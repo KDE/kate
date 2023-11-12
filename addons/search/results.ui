@@ -23,6 +23,9 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <item>
     <widget class="ResultsTreeView" name="treeView">
      <property name="uniformRowHeights">

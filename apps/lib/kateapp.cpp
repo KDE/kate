@@ -35,12 +35,12 @@
 #endif
 
 #ifdef WITH_KUSERFEEDBACK
-#include <KUserFeedbackQt6/ApplicationVersionSource>
-#include <KUserFeedbackQt6/PlatformInfoSource>
-#include <KUserFeedbackQt6/QtVersionSource>
-#include <KUserFeedbackQt6/ScreenInfoSource>
-#include <KUserFeedbackQt6/StartCountSource>
-#include <KUserFeedbackQt6/UsageTimeSource>
+#include <KUserFeedback/ApplicationVersionSource>
+#include <KUserFeedback/PlatformInfoSource>
+#include <KUserFeedback/QtVersionSource>
+#include <KUserFeedback/ScreenInfoSource>
+#include <KUserFeedback/StartCountSource>
+#include <KUserFeedback/UsageTimeSource>
 #endif
 
 #include <QApplication>

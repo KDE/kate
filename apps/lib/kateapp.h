@@ -10,7 +10,7 @@
 #include <ktexteditor/application.h>
 
 #ifdef WITH_KUSERFEEDBACK
-#include <KUserFeedbackQt6/Provider>
+#include <KUserFeedback/Provider>
 #endif
 
 #include "kateappadaptor.h"

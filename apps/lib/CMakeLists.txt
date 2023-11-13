@@ -64,10 +64,10 @@ if (NOT WIN32 AND NOT HAIKU)
 endif()
 
 # optional KUserFeedback integration
-find_package(KUserFeedbackQt6 1.2.1 CONFIG)
+find_package(KF6UserFeedback ${KF5_DEP_VERSION} CONFIG)
 
-if (TARGET KUserFeedbackWidgetsQt6)
-    target_link_libraries(kateprivate PUBLIC KUserFeedbackWidgetsQt6)
+if (TARGET KF6::UserFeedbackWidgets)
+    target_link_libraries(kateprivate PUBLIC KF6::UserFeedbackWidgets)
     target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 

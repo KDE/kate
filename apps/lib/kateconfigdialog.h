@@ -18,7 +18,7 @@
 #include <KPageDialog>
 
 #ifdef WITH_KUSERFEEDBACK
-#include <KUserFeedbackQt6/FeedbackConfigWidget>
+#include <KUserFeedback/FeedbackConfigWidget>
 #endif
 
 #include "ui_sessionconfigwidget.h"

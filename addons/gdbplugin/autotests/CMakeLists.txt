@@ -19,7 +19,7 @@ ecm_mark_as_test(gdbplugin_test_gdbmi)
 
 
 add_executable(gdbplugin_test_gdbbackend
-    tst_gdb_backend.cpp
+    test_gdbbackend.cpp
     ../debugview.cpp
     ../debugview_iface.cpp
     ../gdbvariableparser.cpp

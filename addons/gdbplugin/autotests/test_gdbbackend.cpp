@@ -4,7 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "tst_gdb_backend.h"
+#include "test_gdbbackend.h"
 
 #include "../debugview.h"
 
@@ -106,4 +106,4 @@ void TestGdbBackend::parseBreakpoint_data()
                                    << 1 << 130 << QStringLiteral("/tests/solib.cpp");
 }
 
-#include "moc_tst_gdb_backend.cpp"
+#include "moc_test_gdbbackend.cpp"

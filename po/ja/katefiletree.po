@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2013-05-10 23:29-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -205,7 +205,7 @@ msgstr ""
 msgid "Sort by Opening Order"
 msgstr "開いた順番でソート"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
 #, kde-format
 msgid "Custom Sorting"
 msgstr ""
@@ -233,78 +233,78 @@ msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:45
+#: katefiletreeconfigpage.cpp:44
 #, kde-format
 msgid "Background Shading"
 msgstr "背景の濃淡"
 
-#: katefiletreeconfigpage.cpp:52
+#: katefiletreeconfigpage.cpp:51
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "見た文書の色(&V):"
 
-#: katefiletreeconfigpage.cpp:58
+#: katefiletreeconfigpage.cpp:57
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "変更した文書の色(&M):"
 
-#: katefiletreeconfigpage.cpp:66
+#: katefiletreeconfigpage.cpp:65
 #, kde-format
 msgid "&Sort by:"
 msgstr "ソート順(&S):"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Opening Order"
 msgstr "開いた順番"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Document Name"
 msgstr "文書名"
 
-#: katefiletreeconfigpage.cpp:73
+#: katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Url"
 msgstr "URL"
 
-#: katefiletreeconfigpage.cpp:79
+#: katefiletreeconfigpage.cpp:78
 #, kde-format
 msgid "&View Mode:"
 msgstr "表示モード(&V):"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "Tree View"
 msgstr "ツリー表示"
 
-#: katefiletreeconfigpage.cpp:85
+#: katefiletreeconfigpage.cpp:84
 #, kde-format
 msgid "List View"
 msgstr "リスト表示"
 
-#: katefiletreeconfigpage.cpp:90
+#: katefiletreeconfigpage.cpp:89
 #, kde-format
 msgid "&Show Full Path"
 msgstr "フルパスを表示(&S)"
 
-#: katefiletreeconfigpage.cpp:95
+#: katefiletreeconfigpage.cpp:94
 #, kde-format
 msgid "Show &Toolbar"
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:98
+#: katefiletreeconfigpage.cpp:97
 #, kde-format
 msgid "Show Close Button"
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:100
+#: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid ""
 "When enabled, this will show a close button for opened documents on hover."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:105
+#: katefiletreeconfigpage.cpp:104
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -314,12 +314,12 @@ msgstr ""
 "背景色の濃淡を有効にすると、セッション中で見たか変更した文書は濃淡のある背景"
 "色で表示されます。一番最近の文書が一番濃い色になります。"
 
-#: katefiletreeconfigpage.cpp:108
+#: katefiletreeconfigpage.cpp:107
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr "見た文書の色を設定します。"
 
-#: katefiletreeconfigpage.cpp:110
+#: katefiletreeconfigpage.cpp:109
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
@@ -328,27 +328,27 @@ msgstr ""
 "変更した文書の色を設定します。この色は見た文書の色に加えられます。一番最近変"
 "更した文書が最も多くこの色の影響を受けます。"
 
-#: katefiletreeconfigpage.cpp:115
+#: katefiletreeconfigpage.cpp:114
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
 "path rather than just the last folder name."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:118
+#: katefiletreeconfigpage.cpp:117
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:127
+#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
 #: katefiletreeplugin.cpp:134
 #, kde-format
 msgid "Documents"
 msgstr "文書"
 
-#: katefiletreeconfigpage.cpp:142
+#: katefiletreeconfigpage.cpp:141
 #, kde-format
 msgid "Configure Documents"
 msgstr "文書の設定"

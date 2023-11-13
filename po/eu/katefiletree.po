@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2022-12-11 17:38+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque\n"
@@ -195,7 +195,7 @@ msgstr "Irekitze-hurrenkera"
 msgid "Sort by Opening Order"
 msgstr "Sailkatu Irekitze-hurrekeraren arabera"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Norberak finkatutako sailkapena"
@@ -223,72 +223,72 @@ msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "Sailkatu honen arabera"
 
-#: katefiletreeconfigpage.cpp:45
+#: katefiletreeconfigpage.cpp:44
 #, kde-format
 msgid "Background Shading"
 msgstr "Atzealdeko itzaldura"
 
-#: katefiletreeconfigpage.cpp:52
+#: katefiletreeconfigpage.cpp:51
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "&Ikusitako dokumentuen itzala:"
 
-#: katefiletreeconfigpage.cpp:58
+#: katefiletreeconfigpage.cpp:57
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "&Aldatutako dokumentuen itzala:"
 
-#: katefiletreeconfigpage.cpp:66
+#: katefiletreeconfigpage.cpp:65
 #, kde-format
 msgid "&Sort by:"
 msgstr "&sailkatu honen arabera:"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Opening Order"
 msgstr "Irekitze-hurrenkera"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Document Name"
 msgstr "Dokumentuaren izena"
 
-#: katefiletreeconfigpage.cpp:73
+#: katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Url"
 msgstr "Url"
 
-#: katefiletreeconfigpage.cpp:79
+#: katefiletreeconfigpage.cpp:78
 #, kde-format
 msgid "&View Mode:"
 msgstr "&Ikuspegi-modua:"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "Tree View"
 msgstr "Zuhaitz-ikuspegia"
 
-#: katefiletreeconfigpage.cpp:85
+#: katefiletreeconfigpage.cpp:84
 #, kde-format
 msgid "List View"
 msgstr "Zerrenda-ikuspegia"
 
-#: katefiletreeconfigpage.cpp:90
+#: katefiletreeconfigpage.cpp:89
 #, kde-format
 msgid "&Show Full Path"
 msgstr "&Erakutsi bide-izen osoa"
 
-#: katefiletreeconfigpage.cpp:95
+#: katefiletreeconfigpage.cpp:94
 #, kde-format
 msgid "Show &Toolbar"
 msgstr "Erakutsi &tresna-barra"
 
-#: katefiletreeconfigpage.cpp:98
+#: katefiletreeconfigpage.cpp:97
 #, kde-format
 msgid "Show Close Button"
 msgstr "Erakutsi ixteko botoia"
 
-#: katefiletreeconfigpage.cpp:100
+#: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid ""
 "When enabled, this will show a close button for opened documents on hover."
@@ -296,7 +296,7 @@ msgstr ""
 "Gaituta dagoenean, honek, irekitako dokumentuen gainetik igarotzean ixteko "
 "botoi bat erakutsiko du."
 
-#: katefiletreeconfigpage.cpp:105
+#: katefiletreeconfigpage.cpp:104
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -307,12 +307,12 @@ msgstr ""
 "izan diren dokumentuek atzealde itzaldura izango dute. Berrikien erabilitako "
 "dokumentuek itzaldura nabarmenagoa izango dute."
 
-#: katefiletreeconfigpage.cpp:108
+#: katefiletreeconfigpage.cpp:107
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr "Ezarri ikusitako dokumentuak itzaltzeko kolorea."
 
-#: katefiletreeconfigpage.cpp:110
+#: katefiletreeconfigpage.cpp:109
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
@@ -322,7 +322,7 @@ msgstr ""
 "kolorearekin nahasten da. Berrikien editatutako dokumentuek lortzen dute "
 "kolore honetako gehiena."
 
-#: katefiletreeconfigpage.cpp:115
+#: katefiletreeconfigpage.cpp:114
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
@@ -331,7 +331,7 @@ msgstr ""
 "Gaituta dagoenean, zuhaitz-moduan, goi-mailako karpetek haien bide-izen "
 "osoarekin agertuko dira azken karpetaren izenarekin erakutsi ordez."
 
-#: katefiletreeconfigpage.cpp:118
+#: katefiletreeconfigpage.cpp:117
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
@@ -340,13 +340,13 @@ msgstr ""
 "Gaituta dagoenean, «Gorde» antzeko ekintzak dituen tresna-barra bat azaltzen "
 "da dokumentu zerrendaren gainean."
 
-#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:127
+#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
 #: katefiletreeplugin.cpp:134
 #, kde-format
 msgid "Documents"
 msgstr "Dokumentuak"
 
-#: katefiletreeconfigpage.cpp:142
+#: katefiletreeconfigpage.cpp:141
 #, kde-format
 msgid "Configure Documents"
 msgstr "Konfiguratu dokumentuak"

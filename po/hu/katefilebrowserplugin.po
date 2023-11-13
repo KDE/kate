@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2021-12-23 15:05+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -84,22 +84,22 @@ msgstr ""
 msgid "Toolbar"
 msgstr "Eszköztár"
 
-#: katefilebrowserconfig.cpp:65
+#: katefilebrowserconfig.cpp:66
 #, kde-format
 msgid "A&vailable actions:"
 msgstr "Elérhető mű&veletek:"
 
-#: katefilebrowserconfig.cpp:66
+#: katefilebrowserconfig.cpp:67
 #, kde-format
 msgid "S&elected actions:"
 msgstr "K&ijelölt műveletek:"
 
-#: katefilebrowserconfig.cpp:83
+#: katefilebrowserconfig.cpp:84
 #, kde-format
 msgid "Filesystem Browser"
 msgstr "Fájlrendszer-böngésző"
 
-#: katefilebrowserconfig.cpp:88
+#: katefilebrowserconfig.cpp:89
 #, kde-format
 msgid "Filesystem Browser Settings"
 msgstr "A Fájlrendszer-böngésző beállításai"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2020-09-16 00:25+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -197,7 +197,7 @@ msgstr "Ordinea de deschidere"
 msgid "Sort by Opening Order"
 msgstr "Sortează în ordinea deschiderii"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
 #, kde-format
 msgid "Custom Sorting"
 msgstr ""
@@ -225,79 +225,79 @@ msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "Sortează după"
 
-#: katefiletreeconfigpage.cpp:45
+#: katefiletreeconfigpage.cpp:44
 #, kde-format
 msgid "Background Shading"
 msgstr "Nuanțe de fundal"
 
-#: katefiletreeconfigpage.cpp:52
+#: katefiletreeconfigpage.cpp:51
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "Fundalul documentelor &vizualizate:"
 
-#: katefiletreeconfigpage.cpp:58
+#: katefiletreeconfigpage.cpp:57
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "Fundalul documentelor &modificate:"
 
-#: katefiletreeconfigpage.cpp:66
+#: katefiletreeconfigpage.cpp:65
 #, kde-format
 msgid "&Sort by:"
 msgstr "&Sortează după:"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Opening Order"
 msgstr "Ordinea de deschidere"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Document Name"
 msgstr "Denumire document"
 
-#: katefiletreeconfigpage.cpp:73
+#: katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Url"
 msgstr "Url"
 
-#: katefiletreeconfigpage.cpp:79
+#: katefiletreeconfigpage.cpp:78
 #, kde-format
 msgid "&View Mode:"
 msgstr "Regim de &vizualizare:"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "Tree View"
 msgstr "Vizualizare arborescentă"
 
-#: katefiletreeconfigpage.cpp:85
+#: katefiletreeconfigpage.cpp:84
 #, kde-format
 msgid "List View"
 msgstr "Vizualizare listă"
 
-#: katefiletreeconfigpage.cpp:90
+#: katefiletreeconfigpage.cpp:89
 #, kde-format
 msgid "&Show Full Path"
 msgstr "&Arată calea completă"
 
-#: katefiletreeconfigpage.cpp:95
+#: katefiletreeconfigpage.cpp:94
 #, fuzzy, kde-format
 #| msgid "Main Toolbar"
 msgid "Show &Toolbar"
 msgstr "Bara de unelte principală"
 
-#: katefiletreeconfigpage.cpp:98
+#: katefiletreeconfigpage.cpp:97
 #, kde-format
 msgid "Show Close Button"
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:100
+#: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid ""
 "When enabled, this will show a close button for opened documents on hover."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:105
+#: katefiletreeconfigpage.cpp:104
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -308,12 +308,12 @@ msgstr ""
 "sau redactate în sesiunea curentă vor avea un fundal colorat. Documentele "
 "recente au nuanța cea mai intensă."
 
-#: katefiletreeconfigpage.cpp:108
+#: katefiletreeconfigpage.cpp:107
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr "Stabilește culoarea pentru fundalul documentelor vizualizate."
 
-#: katefiletreeconfigpage.cpp:110
+#: katefiletreeconfigpage.cpp:109
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
@@ -323,7 +323,7 @@ msgstr ""
 "este amestecată cu culoarea fișierelor vizualizate. Cele mai recent "
 "redactate documente au această culoare într-o nuanță mai intensă."
 
-#: katefiletreeconfigpage.cpp:115
+#: katefiletreeconfigpage.cpp:114
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
@@ -332,20 +332,20 @@ msgstr ""
 "Când este activat, în regim arborescent, dosarele primului nivel vor fi "
 "afișate cu calea completă împreună cu denumirea ultimului dosar."
 
-#: katefiletreeconfigpage.cpp:118
+#: katefiletreeconfigpage.cpp:117
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:127
+#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
 #: katefiletreeplugin.cpp:134
 #, kde-format
 msgid "Documents"
 msgstr "Documente"
 
-#: katefiletreeconfigpage.cpp:142
+#: katefiletreeconfigpage.cpp:141
 #, kde-format
 msgid "Configure Documents"
 msgstr "Configurare documente"

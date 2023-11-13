@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2021-04-18 01:28+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -197,7 +197,7 @@ msgstr "Urutan Membuka"
 msgid "Sort by Opening Order"
 msgstr "Urutkan berdasarkan Urutan Membuka"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
 #, kde-format
 msgid "Custom Sorting"
 msgstr ""
@@ -225,78 +225,78 @@ msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "Urutkan Berdasarkan"
 
-#: katefiletreeconfigpage.cpp:45
+#: katefiletreeconfigpage.cpp:44
 #, kde-format
 msgid "Background Shading"
 msgstr "Bayangan Latarbelakang"
 
-#: katefiletreeconfigpage.cpp:52
+#: katefiletreeconfigpage.cpp:51
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "Bayangan dokumen &tertampil:"
 
-#: katefiletreeconfigpage.cpp:58
+#: katefiletreeconfigpage.cpp:57
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "Bayangan dokumen &termodifikasi:"
 
-#: katefiletreeconfigpage.cpp:66
+#: katefiletreeconfigpage.cpp:65
 #, kde-format
 msgid "&Sort by:"
 msgstr "&Urutkan berdasarkan:"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Opening Order"
 msgstr "Urutan Membuka"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Document Name"
 msgstr "Nama Dokumen"
 
-#: katefiletreeconfigpage.cpp:73
+#: katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Url"
 msgstr "Url"
 
-#: katefiletreeconfigpage.cpp:79
+#: katefiletreeconfigpage.cpp:78
 #, kde-format
 msgid "&View Mode:"
 msgstr "Mode &dilihat:"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "Tree View"
 msgstr "Tampilan Ranting"
 
-#: katefiletreeconfigpage.cpp:85
+#: katefiletreeconfigpage.cpp:84
 #, kde-format
 msgid "List View"
 msgstr "Tampilan Daftar"
 
-#: katefiletreeconfigpage.cpp:90
+#: katefiletreeconfigpage.cpp:89
 #, kde-format
 msgid "&Show Full Path"
 msgstr "&Tunjukkan Alur Penuh"
 
-#: katefiletreeconfigpage.cpp:95
+#: katefiletreeconfigpage.cpp:94
 #, kde-format
 msgid "Show &Toolbar"
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:98
+#: katefiletreeconfigpage.cpp:97
 #, kde-format
 msgid "Show Close Button"
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:100
+#: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid ""
 "When enabled, this will show a close button for opened documents on hover."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:105
+#: katefiletreeconfigpage.cpp:104
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -307,12 +307,12 @@ msgstr ""
 "diedit dari sesi sekarang akan memiliki latar belakang berbayangan. Dokumen "
 "paling baru memiliki bayangan paling kuat."
 
-#: katefiletreeconfigpage.cpp:108
+#: katefiletreeconfigpage.cpp:107
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr "Tentukan warna untuk bayangan dokumen pernah dilihat."
 
-#: katefiletreeconfigpage.cpp:110
+#: katefiletreeconfigpage.cpp:109
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
@@ -322,7 +322,7 @@ msgstr ""
 "file pernah dilihat. Dokumen paling baru diedit mendapatkan warna paling "
 "banyak."
 
-#: katefiletreeconfigpage.cpp:115
+#: katefiletreeconfigpage.cpp:114
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
@@ -331,20 +331,20 @@ msgstr ""
 "Ketika difungsikan, dalam mode ranting, folder level atas akan ditampilkan "
 "dengan alur penuhnya daripada hanya nama akhir folder."
 
-#: katefiletreeconfigpage.cpp:118
+#: katefiletreeconfigpage.cpp:117
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:127
+#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
 #: katefiletreeplugin.cpp:134
 #, kde-format
 msgid "Documents"
 msgstr "Dokumen"
 
-#: katefiletreeconfigpage.cpp:142
+#: katefiletreeconfigpage.cpp:141
 #, kde-format
 msgid "Configure Documents"
 msgstr "Konfigurasikan Dokumen"

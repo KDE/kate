@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2022-12-22 12:54+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -194,7 +194,7 @@ msgstr "ترتيب الفتح"
 msgid "Sort by Opening Order"
 msgstr "افرز بترتيب الفتح"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
 #, kde-format
 msgid "Custom Sorting"
 msgstr "فرز مخصّص"
@@ -222,78 +222,78 @@ msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "افرز ب‍"
 
-#: katefiletreeconfigpage.cpp:45
+#: katefiletreeconfigpage.cpp:44
 #, kde-format
 msgid "Background Shading"
 msgstr "ظلّ في الخلفيّة"
 
-#: katefiletreeconfigpage.cpp:52
+#: katefiletreeconfigpage.cpp:51
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "ظلّ المستندات المعرو&ضة:"
 
-#: katefiletreeconfigpage.cpp:58
+#: katefiletreeconfigpage.cpp:57
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "ظلّ المستندات المع&دّلة:"
 
-#: katefiletreeconfigpage.cpp:66
+#: katefiletreeconfigpage.cpp:65
 #, kde-format
 msgid "&Sort by:"
 msgstr "ا&فرز ب‍:"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Opening Order"
 msgstr "ترتيب الفتح"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Document Name"
 msgstr "اسم المستند"
 
-#: katefiletreeconfigpage.cpp:73
+#: katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Url"
 msgstr "العنوان"
 
-#: katefiletreeconfigpage.cpp:79
+#: katefiletreeconfigpage.cpp:78
 #, kde-format
 msgid "&View Mode:"
 msgstr "وضع المن&ظور:"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "Tree View"
 msgstr "وضع الشّجرة"
 
-#: katefiletreeconfigpage.cpp:85
+#: katefiletreeconfigpage.cpp:84
 #, kde-format
 msgid "List View"
 msgstr "وضع القائمة"
 
-#: katefiletreeconfigpage.cpp:90
+#: katefiletreeconfigpage.cpp:89
 #, kde-format
 msgid "&Show Full Path"
 msgstr "أ&ظهر كامل المسار"
 
-#: katefiletreeconfigpage.cpp:95
+#: katefiletreeconfigpage.cpp:94
 #, kde-format
 msgid "Show &Toolbar"
 msgstr "اعرض شريط الأ&دوات"
 
-#: katefiletreeconfigpage.cpp:98
+#: katefiletreeconfigpage.cpp:97
 #, kde-format
 msgid "Show Close Button"
 msgstr "اعرض زر الغلق"
 
-#: katefiletreeconfigpage.cpp:100
+#: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid ""
 "When enabled, this will show a close button for opened documents on hover."
 msgstr "عند التمكين ، سيعرض هذا زر إغلاق للمستندات المفتوحة عند التمرير."
 
-#: katefiletreeconfigpage.cpp:105
+#: katefiletreeconfigpage.cpp:104
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -303,12 +303,12 @@ msgstr ""
 "إن كان ظلّ الخلفيّة مفعّلًا، فسيكون للمستندات المعروضة أو المعدّلة في الجلسة "
 "الحاليّة خلفيّة بظلّ. سيكون لأحدث المستندات أقوى ظلّ."
 
-#: katefiletreeconfigpage.cpp:108
+#: katefiletreeconfigpage.cpp:107
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr "اضبط لون ظلّ المستندات المعروضة."
 
-#: katefiletreeconfigpage.cpp:110
+#: katefiletreeconfigpage.cpp:109
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
@@ -317,7 +317,7 @@ msgstr ""
 "اضبط لون المستندات المعدّلة. هذا اللون يُمزج بلون الملفّات المعروضة. سيكون "
 "لأحدث المستندات المعدّلة أغلب اللون."
 
-#: katefiletreeconfigpage.cpp:115
+#: katefiletreeconfigpage.cpp:114
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
@@ -326,7 +326,7 @@ msgstr ""
 "إن فُعّل، ستظهر المجلّدات (في وضع الشّجرة) الأعلى مستوًى بمسارها الكامل بدل اسم "
 "المجلّد الأخير فحسب."
 
-#: katefiletreeconfigpage.cpp:118
+#: katefiletreeconfigpage.cpp:117
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
@@ -334,13 +334,13 @@ msgid ""
 msgstr ""
 "عند التمكين ، يتم عرض شريط أدوات بإجراءات مثل \"احفظ\" أعلى قائمة المستندات."
 
-#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:127
+#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
 #: katefiletreeplugin.cpp:134
 #, kde-format
 msgid "Documents"
 msgstr "المستندات"
 
-#: katefiletreeconfigpage.cpp:142
+#: katefiletreeconfigpage.cpp:141
 #, kde-format
 msgid "Configure Documents"
 msgstr "اضبط المستندات"

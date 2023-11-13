@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2020-09-17 14:59+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "您沒有足夠的權限來使用 shell 或模擬終端機"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:654
+#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:653
 #, kde-format
 msgid "Terminal"
 msgstr "終端機"
@@ -141,34 +141,34 @@ msgstr "焦點離開終端機"
 msgid "Focus Terminal Panel"
 msgstr "焦點放在終端機"
 
-#: kateconsole.cpp:587
+#: kateconsole.cpp:586
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
 msgstr "自動以目前的文件來同步終端機(&A)"
 
-#: kateconsole.cpp:591 kateconsole.cpp:612
+#: kateconsole.cpp:590 kateconsole.cpp:611
 #, kde-format
 msgid "Run in terminal"
 msgstr "在終端器執行"
 
-#: kateconsole.cpp:593
+#: kateconsole.cpp:592
 #, kde-format
 msgid "&Remove extension"
 msgstr "移除附加元件（&R）"
 
-#: kateconsole.cpp:598
+#: kateconsole.cpp:597
 #, kde-format
 msgid "Prefix:"
 msgstr "前置文字："
 
-#: kateconsole.cpp:606
+#: kateconsole.cpp:605
 #, kde-format
 msgid "&Show warning next time"
 msgstr "下次仍顯示這個警告（&S）"
 
-#: kateconsole.cpp:608
+#: kateconsole.cpp:607
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -177,31 +177,31 @@ msgstr ""
 "當下一次「%1」執行時，請確定警告視窗會顯示，並且顯示要傳送到終端器的指令以供"
 "再次確認。"
 
-#: kateconsole.cpp:619
+#: kateconsole.cpp:618
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "將 EDITOR 環境變數設為 'kate -b'(&E)"
 
-#: kateconsole.cpp:622
+#: kateconsole.cpp:621
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "重要：此文件必須被關閉，才能讓主控台應用程式繼續"
 
-#: kateconsole.cpp:625
+#: kateconsole.cpp:624
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr ""
 
-#: kateconsole.cpp:628
+#: kateconsole.cpp:627
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
 
-#: kateconsole.cpp:659
+#: kateconsole.cpp:658
 #, kde-format
 msgid "Terminal Settings"
 msgstr "終端機設定"

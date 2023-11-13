@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-04-30 09:26+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "Ez duzu shell edo terminal emulatzaile bat atzitzeko adinako karmarik"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:654
+#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:653
 #, kde-format
 msgid "Terminal"
 msgstr "Terminala"
@@ -137,7 +137,7 @@ msgstr "Fokua kendu terminal-paneletik"
 msgid "Focus Terminal Panel"
 msgstr "Fokuratu terminal-panela"
 
-#: kateconsole.cpp:587
+#: kateconsole.cpp:586
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
@@ -145,27 +145,27 @@ msgid ""
 msgstr ""
 "&Automatikoki sinkronizatu terminala uneko dokumentuarekin posible denean"
 
-#: kateconsole.cpp:591 kateconsole.cpp:612
+#: kateconsole.cpp:590 kateconsole.cpp:611
 #, kde-format
 msgid "Run in terminal"
 msgstr "Exekutatu terminalean"
 
-#: kateconsole.cpp:593
+#: kateconsole.cpp:592
 #, kde-format
 msgid "&Remove extension"
 msgstr "&Kendu luzapena"
 
-#: kateconsole.cpp:598
+#: kateconsole.cpp:597
 #, kde-format
 msgid "Prefix:"
 msgstr "Aurrizkia:"
 
-#: kateconsole.cpp:606
+#: kateconsole.cpp:605
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&Erakutsi abisua hurrengo aldian"
 
-#: kateconsole.cpp:608
+#: kateconsole.cpp:607
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -174,12 +174,12 @@ msgstr ""
 "'%1' exekutatzen den hurrengo aldian, ziurtatu abisu leiho bat azaleratzen "
 "dela, terminalera bidali beharreko komandoa bistaratuz, berrikusteko."
 
-#: kateconsole.cpp:619
+#: kateconsole.cpp:618
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Ezarri inguruneko &EDITOR aldagaia 'kate -b' balioarekin"
 
-#: kateconsole.cpp:622
+#: kateconsole.cpp:621
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -188,12 +188,12 @@ msgstr ""
 "Garrantzitsua: Dokumentua itxi egin behar da kontsolako aplikazioak jarrai "
 "dezan"
 
-#: kateconsole.cpp:625
+#: kateconsole.cpp:624
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Ezkutatu Kontsola 'Ihes' sakatzean"
 
-#: kateconsole.cpp:628
+#: kateconsole.cpp:627
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -203,7 +203,7 @@ msgstr ""
 "litzake, adib. vim. Gehitu aplikazio horiek beheko sarrerakoan (koma bidez "
 "bereizita)"
 
-#: kateconsole.cpp:659
+#: kateconsole.cpp:658
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminalaren ezarpenak"

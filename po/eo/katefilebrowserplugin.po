@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-03-09 22:47+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
@@ -83,22 +83,22 @@ msgstr "Reliefigi aktualan dosieron"
 msgid "Toolbar"
 msgstr "Ilobreto"
 
-#: katefilebrowserconfig.cpp:65
+#: katefilebrowserconfig.cpp:66
 #, kde-format
 msgid "A&vailable actions:"
 msgstr "Agoj ha&veblaj:"
 
-#: katefilebrowserconfig.cpp:66
+#: katefilebrowserconfig.cpp:67
 #, kde-format
 msgid "S&elected actions:"
 msgstr "&Elektitaj agoj:"
 
-#: katefilebrowserconfig.cpp:83
+#: katefilebrowserconfig.cpp:84
 #, kde-format
 msgid "Filesystem Browser"
 msgstr "Foliumilo de dosiersistemo"
 
-#: katefilebrowserconfig.cpp:88
+#: katefilebrowserconfig.cpp:89
 #, kde-format
 msgid "Filesystem Browser Settings"
 msgstr "Agordoj de foliumilo de dosiersistemo"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-09-12 13:03+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -424,7 +424,7 @@ msgid "Open .gitignore"
 msgstr "Ouvrir « .gitignore »"
 
 #: gitwidget.cpp:1159 gitwidget.cpp:1206 gitwidget.cpp:1248
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
 msgstr "Afficher les différences"
@@ -534,13 +534,13 @@ msgstr "<non suivi>"
 msgid "Project Completion"
 msgstr "Achèvement du projet"
 
-#: kateprojectconfigpage.cpp:25
+#: kateprojectconfigpage.cpp:24
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories"
 msgstr "Charger les dépôts automatiquement"
 
-#: kateprojectconfigpage.cpp:27
+#: kateprojectconfigpage.cpp:26
 #, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies when there is "
@@ -550,64 +550,64 @@ msgstr ""
 "copies de travail des dépôts même si aucun fichier « .kateproject » n'est "
 "encore défini."
 
-#: kateprojectconfigpage.cpp:30
+#: kateprojectconfigpage.cpp:29
 #, kde-format
 msgid "&Git"
 msgstr "&Git"
 
-#: kateprojectconfigpage.cpp:33
+#: kateprojectconfigpage.cpp:32
 #, kde-format
 msgid "&Subversion"
 msgstr "&Subversion"
 
-#: kateprojectconfigpage.cpp:35
+#: kateprojectconfigpage.cpp:34
 #, kde-format
 msgid "&Mercurial"
 msgstr "&Mercurial"
 
-#: kateprojectconfigpage.cpp:37
+#: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
 msgstr "&Fossil"
 
-#: kateprojectconfigpage.cpp:46
+#: kateprojectconfigpage.cpp:45
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr "Comportement de session"
 
-#: kateprojectconfigpage.cpp:47
+#: kateprojectconfigpage.cpp:46
 #, kde-format
 msgid "Session settings for projects"
 msgstr "Configuration des sessions pour les projets"
 
-#: kateprojectconfigpage.cpp:48
+#: kateprojectconfigpage.cpp:47
 #, kde-format
 msgid "Restore Open Projects"
 msgstr "Restaurer les projets en cours"
 
-#: kateprojectconfigpage.cpp:55
+#: kateprojectconfigpage.cpp:54
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "Index des projets"
 
-#: kateprojectconfigpage.cpp:56
+#: kateprojectconfigpage.cpp:55
 #, kde-format
 msgid "Project ctags index settings"
 msgstr "Réglages de l'index des « Ctag » de projet"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
+#: kateprojectconfigpage.cpp:56 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
 msgstr "Activer l'indexation"
 
-#: kateprojectconfigpage.cpp:60
+#: kateprojectconfigpage.cpp:59
 #, kde-format
 msgid "Directory for index files"
 msgstr "Dossier pour les fichiers d'index"
 
-#: kateprojectconfigpage.cpp:64
+#: kateprojectconfigpage.cpp:63
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -616,13 +616,13 @@ msgstr ""
 "Le dossier temporaire du système est utilisé par défaut, ce qui peut "
 "provoquer des dépassements de capacité pour les très grands dépôts"
 
-#: kateprojectconfigpage.cpp:71
+#: kateprojectconfigpage.cpp:70
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr "Fonctionnalité inter-projets"
 
-#: kateprojectconfigpage.cpp:72
+#: kateprojectconfigpage.cpp:71
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
@@ -630,95 +630,95 @@ msgstr ""
 "Le module d'extension projet est capable d'effectuer certaines opérations "
 "sur plusieurs projets"
 
-#: kateprojectconfigpage.cpp:73
+#: kateprojectconfigpage.cpp:72
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "Complètement inter-projets"
 
-#: kateprojectconfigpage.cpp:75
+#: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr "Symbole de destination pour les déplacements inter-projets"
 
-#: kateprojectconfigpage.cpp:83
+#: kateprojectconfigpage.cpp:82
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:86
+#: kateprojectconfigpage.cpp:85
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "Une action sur un simple clic dans l'affichage d'états git"
 
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:87 kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "No Action"
 msgstr "Aucune action"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Open file"
 msgstr "Ouvrir un fichier"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Indexer / Désindexer"
 
-#: kateprojectconfigpage.cpp:98
+#: kateprojectconfigpage.cpp:97
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Action sur un double clic dans l'affichage des états de git"
 
-#: kateprojectconfigpage.cpp:134 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:133 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projets"
 
-#: kateprojectconfigpage.cpp:139
+#: kateprojectconfigpage.cpp:138
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Propriétés du projet"
 
-#: kateprojectinfoview.cpp:34
+#: kateprojectinfoview.cpp:36
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Terminal (.kateproject)"
 
-#: kateprojectinfoview.cpp:42
+#: kateprojectinfoview.cpp:44
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Terminal (Base)"
 
-#: kateprojectinfoview.cpp:49
+#: kateprojectinfoview.cpp:51
 #, kde-format
 msgid "Code Index"
 msgstr "Index du code"
 
-#: kateprojectinfoview.cpp:54
+#: kateprojectinfoview.cpp:56
 #, kde-format
 msgid "Code Analysis"
 msgstr "Analyse du code"
 
-#: kateprojectinfoview.cpp:59
+#: kateprojectinfoview.cpp:61
 #, kde-format
 msgid "Notes"
 msgstr "Remarques"
 
-#: kateprojectinfoviewcodeanalysis.cpp:34
+#: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Démarrer une analyse..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:41
+#: kateprojectinfoviewcodeanalysis.cpp:43
 #, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Analyse du code - %1"
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -727,14 +727,14 @@ msgstr ""
 "%1<br/><br/>Cet outil sera lancé sur tous les fichiers du projet qui "
 "correspondent à la liste d'extensions ci-dessous :<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:138
+#: kateprojectinfoviewcodeanalysis.cpp:134
+#: kateprojectinfoviewcodeanalysis.cpp:194
 #: kateprojectinfoviewcodeanalysis.cpp:198
-#: kateprojectinfoviewcodeanalysis.cpp:202
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "Analyse du code"
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:189
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -745,7 +745,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "[%1] Analyse terminée sur le fichier %2."
 msgstr[1] "[%1] Analyse terminée sur les %2 fichiers."
 
-#: kateprojectinfoviewcodeanalysis.cpp:201
+#: kateprojectinfoviewcodeanalysis.cpp:197
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Échec de l'analyse avec le code de sortie %1, erreur : %2."
@@ -775,12 +775,12 @@ msgstr "Ligne"
 msgid "Search"
 msgstr "Rechercher"
 
-#: kateprojectinfoviewindex.cpp:197
+#: kateprojectinfoviewindex.cpp:198
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Impossible de créer l'index. Veuillez installer « ctags »."
 
-#: kateprojectinfoviewindex.cpp:207
+#: kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "L'indexation n'est pas activée."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-04-10 10:31+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -189,8 +189,8 @@ msgstr ""
 "используются корректные имена переменных (если таковые имеются)"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
-#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264
-#: kateexternaltoolsconfigwidget.cpp:269 kateexternaltoolsview.cpp:159
+#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:272
+#: kateexternaltoolsconfigwidget.cpp:277 kateexternaltoolsview.cpp:159
 #: kateexternaltoolsview.cpp:163 kateexternaltoolsview.cpp:211
 #, kde-format
 msgid "External Tools"
@@ -265,33 +265,33 @@ msgstr "Выберите типы MIME, для которых следует в�
 msgid "Select Mime Types"
 msgstr "Выбор типов MIME"
 
-#: kateexternaltoolsconfigwidget.cpp:233
+#: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
 msgstr "Добавить приложение..."
 
-#: kateexternaltoolsconfigwidget.cpp:234
+#: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
 msgstr "Добавить известное приложение"
 
-#: kateexternaltoolsconfigwidget.cpp:236
+#: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
 msgstr "Добавить категорию"
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:396
-#: kateexternaltoolsconfigwidget.cpp:443
+#: kateexternaltoolsconfigwidget.cpp:291 kateexternaltoolsconfigwidget.cpp:404
+#: kateexternaltoolsconfigwidget.cpp:451
 #, kde-format
 msgid "Uncategorized"
 msgstr "Без категории"
 
-#: kateexternaltoolsconfigwidget.cpp:485
+#: kateexternaltoolsconfigwidget.cpp:493
 #, kde-format
 msgid "New Category"
 msgstr "Новая категория"
 
-#: kateexternaltoolsconfigwidget.cpp:488
+#: kateexternaltoolsconfigwidget.cpp:496
 #, kde-format
 msgid "New Category %1"
 msgstr "Новая категория %1"

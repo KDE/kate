@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-02-27 20:56+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -186,8 +186,8 @@ msgstr ""
 "and that variable names, if used, are correct"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
-#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264
-#: kateexternaltoolsconfigwidget.cpp:269 kateexternaltoolsview.cpp:159
+#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:272
+#: kateexternaltoolsconfigwidget.cpp:277 kateexternaltoolsview.cpp:159
 #: kateexternaltoolsview.cpp:163 kateexternaltoolsview.cpp:211
 #, kde-format
 msgid "External Tools"
@@ -258,33 +258,33 @@ msgstr "Select the MimeTypes for which to enable this tool."
 msgid "Select Mime Types"
 msgstr "Select Mime Types"
 
-#: kateexternaltoolsconfigwidget.cpp:233
+#: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
 msgstr "Add Tool..."
 
-#: kateexternaltoolsconfigwidget.cpp:234
+#: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
 msgstr "Add Tool from Defaults"
 
-#: kateexternaltoolsconfigwidget.cpp:236
+#: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
 msgstr "Add Category"
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:396
-#: kateexternaltoolsconfigwidget.cpp:443
+#: kateexternaltoolsconfigwidget.cpp:291 kateexternaltoolsconfigwidget.cpp:404
+#: kateexternaltoolsconfigwidget.cpp:451
 #, kde-format
 msgid "Uncategorized"
 msgstr "Uncategorised"
 
-#: kateexternaltoolsconfigwidget.cpp:485
+#: kateexternaltoolsconfigwidget.cpp:493
 #, kde-format
 msgid "New Category"
 msgstr "New Category"
 
-#: kateexternaltoolsconfigwidget.cpp:488
+#: kateexternaltoolsconfigwidget.cpp:496
 #, kde-format
 msgid "New Category %1"
 msgstr "New Category %1"

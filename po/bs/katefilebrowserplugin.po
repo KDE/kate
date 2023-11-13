@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2013-01-28 12:58+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -85,22 +85,22 @@ msgstr ""
 msgid "Toolbar"
 msgstr "Alatna traka"
 
-#: katefilebrowserconfig.cpp:65
+#: katefilebrowserconfig.cpp:66
 #, kde-format
 msgid "A&vailable actions:"
 msgstr "&Dostupne akcije:"
 
-#: katefilebrowserconfig.cpp:66
+#: katefilebrowserconfig.cpp:67
 #, kde-format
 msgid "S&elected actions:"
 msgstr "Izabran&e akcije:"
 
-#: katefilebrowserconfig.cpp:83
+#: katefilebrowserconfig.cpp:84
 #, kde-format
 msgid "Filesystem Browser"
 msgstr "Preglednik datotečnog sistema"
 
-#: katefilebrowserconfig.cpp:88
+#: katefilebrowserconfig.cpp:89
 #, kde-format
 msgid "Filesystem Browser Settings"
 msgstr "Postavke pregledača datotečnog sistema"

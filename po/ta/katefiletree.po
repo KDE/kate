@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2022-10-13 19:31+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -192,7 +192,7 @@ msgstr "திறந்த வரிசை"
 msgid "Sort by Opening Order"
 msgstr "முதலில் திறந்தவற்றை முதலில் காட்டும்"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
 #, kde-format
 msgid "Custom Sorting"
 msgstr "விருப்ப வரிசை"
@@ -220,72 +220,72 @@ msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "வரிசைப்படுத்தும் முறை"
 
-#: katefiletreeconfigpage.cpp:45
+#: katefiletreeconfigpage.cpp:44
 #, kde-format
 msgid "Background Shading"
 msgstr "பின்புல நிறமாற்றம்"
 
-#: katefiletreeconfigpage.cpp:52
+#: katefiletreeconfigpage.cpp:51
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "&பார்த்துள்ள ஆவணங்களின் பின்புல நிறம்:"
 
-#: katefiletreeconfigpage.cpp:58
+#: katefiletreeconfigpage.cpp:57
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "&மாற்றப்பட்டுள்ள ஆவணங்களின் பின்புல நிறம்:"
 
-#: katefiletreeconfigpage.cpp:66
+#: katefiletreeconfigpage.cpp:65
 #, kde-format
 msgid "&Sort by:"
 msgstr "&வரிசைப்படுத்தும் முறை:"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Opening Order"
 msgstr "திறந்ததன் வரிசை"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Document Name"
 msgstr "ஆவணப் பெயர்"
 
-#: katefiletreeconfigpage.cpp:73
+#: katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Url"
 msgstr "முகவரி"
 
-#: katefiletreeconfigpage.cpp:79
+#: katefiletreeconfigpage.cpp:78
 #, kde-format
 msgid "&View Mode:"
 msgstr "&காட்சிமுறை:"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "Tree View"
 msgstr "கிளைப்பட காட்சிமுறை"
 
-#: katefiletreeconfigpage.cpp:85
+#: katefiletreeconfigpage.cpp:84
 #, kde-format
 msgid "List View"
 msgstr "பட்டியல் காட்சிமுறை"
 
-#: katefiletreeconfigpage.cpp:90
+#: katefiletreeconfigpage.cpp:89
 #, kde-format
 msgid "&Show Full Path"
 msgstr "&முழுப் பாதையைக் காட்டு"
 
-#: katefiletreeconfigpage.cpp:95
+#: katefiletreeconfigpage.cpp:94
 #, kde-format
 msgid "Show &Toolbar"
 msgstr "&கருவிப்பட்டையைக் காட்டு"
 
-#: katefiletreeconfigpage.cpp:98
+#: katefiletreeconfigpage.cpp:97
 #, kde-format
 msgid "Show Close Button"
 msgstr "மூடுவதற்கான பட்டனைக் காட்டு"
 
-#: katefiletreeconfigpage.cpp:100
+#: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid ""
 "When enabled, this will show a close button for opened documents on hover."
@@ -293,7 +293,7 @@ msgstr ""
 "இத்தேர்வு இயக்கப்பட்டிருந்தால், திறந்துள்ள ஆவணமொன்றின் மீது சுட்டியை வைக்கும்போது அதை "
 "மூடுவதற்கான பட்டன் காட்டப்படும்."
 
-#: katefiletreeconfigpage.cpp:105
+#: katefiletreeconfigpage.cpp:104
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -304,12 +304,12 @@ msgstr ""
 "கோப்புப்பட்டியலில் வேறுபட்ட பின்புல நிறத்தைக் கொண்டிருக்கும். மிகசமீபமானவற்றின் நிறம் அடர்ந்த‍"
 "தாக இருக்கும்."
 
-#: katefiletreeconfigpage.cpp:108
+#: katefiletreeconfigpage.cpp:107
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr "பார்த்த ஆவணங்களுக்கான நிறத்தை அமையுங்கள்."
 
-#: katefiletreeconfigpage.cpp:110
+#: katefiletreeconfigpage.cpp:109
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
@@ -318,7 +318,7 @@ msgstr ""
 "மாற்றப்பட்டுள்ள ஆவணங்களுக்கான நிறத்தை அமையுங்கள். பார்க்கப்பட்டுள்ள கோப்புகளுக்கான நிறத்துடன் "
 "இது கலந்து காட்டப்படும். மிகச்சமீபமாக திருத்திய ஆவணங்களுக்கு இந்நிறம் அடர்த்தியாக இடப்படும்."
 
-#: katefiletreeconfigpage.cpp:115
+#: katefiletreeconfigpage.cpp:114
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
@@ -327,7 +327,7 @@ msgstr ""
 "இது இயக்கப்பட்டிருந்தால், கிளைப்படு காட்சிமுறையில் முதல் மட்ட அடைவுகள் அவற்றின் முழு "
 "பாதையுடன் காட்டப்படும்."
 
-#: katefiletreeconfigpage.cpp:118
+#: katefiletreeconfigpage.cpp:117
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
@@ -336,13 +336,13 @@ msgstr ""
 "இது இயக்கப்பட்டிருந்தால், ஆவணங்களின் பட்டியலுக்கு மேல் சேமித்தல் போன்ற செயல்களைக் கொண்ட "
 "கருவிப்பட்டை காட்டப்படும்."
 
-#: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:127
+#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
 #: katefiletreeplugin.cpp:134
 #, kde-format
 msgid "Documents"
 msgstr "ஆவணங்கள்"
 
-#: katefiletreeconfigpage.cpp:142
+#: katefiletreeconfigpage.cpp:141
 #, kde-format
 msgid "Configure Documents"
 msgstr "ஆவணங்களை அமை"

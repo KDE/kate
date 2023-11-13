@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2019-12-03 10:48+0000\n"
 "Last-Translator: Subin Siby <subins2000@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -184,8 +184,8 @@ msgid ""
 msgstr ""
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
-#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264
-#: kateexternaltoolsconfigwidget.cpp:269 kateexternaltoolsview.cpp:159
+#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:272
+#: kateexternaltoolsconfigwidget.cpp:277 kateexternaltoolsview.cpp:159
 #: kateexternaltoolsview.cpp:163 kateexternaltoolsview.cpp:211
 #, kde-format
 msgid "External Tools"
@@ -256,33 +256,33 @@ msgstr ""
 msgid "Select Mime Types"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:233
+#: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:234
+#: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:236
+#: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:396
-#: kateexternaltoolsconfigwidget.cpp:443
+#: kateexternaltoolsconfigwidget.cpp:291 kateexternaltoolsconfigwidget.cpp:404
+#: kateexternaltoolsconfigwidget.cpp:451
 #, kde-format
 msgid "Uncategorized"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:485
+#: kateexternaltoolsconfigwidget.cpp:493
 #, kde-format
 msgid "New Category"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:488
+#: kateexternaltoolsconfigwidget.cpp:496
 #, kde-format
 msgid "New Category %1"
 msgstr ""

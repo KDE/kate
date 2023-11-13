@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2010-02-03 11:09+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -81,22 +81,22 @@ msgstr ""
 msgid "Toolbar"
 msgstr "របារ​ឧបករណ៍"
 
-#: katefilebrowserconfig.cpp:65
+#: katefilebrowserconfig.cpp:66
 #, kde-format
 msgid "A&vailable actions:"
 msgstr "អំពើ​ដែល​មាន ៖"
 
-#: katefilebrowserconfig.cpp:66
+#: katefilebrowserconfig.cpp:67
 #, kde-format
 msgid "S&elected actions:"
 msgstr "អំពើ​ដែល​បាន​ជ្រើស ៖"
 
-#: katefilebrowserconfig.cpp:83
+#: katefilebrowserconfig.cpp:84
 #, kde-format
 msgid "Filesystem Browser"
 msgstr "កម្មវិធី​រុករក​ប្រព័ន្ធ​ឯកសារ"
 
-#: katefilebrowserconfig.cpp:88
+#: katefilebrowserconfig.cpp:89
 #, kde-format
 msgid "Filesystem Browser Settings"
 msgstr "ការ​កំណត់​​កម្មវិធីរុករក​ប្រព័ន្ធ​ឯកសារ"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2021-09-09 16:20+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "Bạn không đủ quyền truy cập trình giả lập thiết bị đầu cuối hoặc hệ vỏ"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:654
+#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:653
 #, kde-format
 msgid "Terminal"
 msgstr "Dòng lệnh"
@@ -131,34 +131,34 @@ msgstr "Bỏ nhắm khỏi bảng \"Dòng lệnh\""
 msgid "Focus Terminal Panel"
 msgstr "Nhắm vào bảng \"Dòng lệnh\""
 
-#: kateconsole.cpp:587
+#: kateconsole.cpp:586
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
 msgstr "&Tự động đồng bộ hoá dòng lệnh với tài liệu hiện tại khi có thể"
 
-#: kateconsole.cpp:591 kateconsole.cpp:612
+#: kateconsole.cpp:590 kateconsole.cpp:611
 #, kde-format
 msgid "Run in terminal"
 msgstr "Chạy trong dòng lệnh"
 
-#: kateconsole.cpp:593
+#: kateconsole.cpp:592
 #, kde-format
 msgid "&Remove extension"
 msgstr "&Xoá phần mở rộng"
 
-#: kateconsole.cpp:598
+#: kateconsole.cpp:597
 #, kde-format
 msgid "Prefix:"
 msgstr "Tiền tố:"
 
-#: kateconsole.cpp:606
+#: kateconsole.cpp:605
 #, kde-format
 msgid "&Show warning next time"
 msgstr "H&iện cảnh báo lần sau"
 
-#: kateconsole.cpp:608
+#: kateconsole.cpp:607
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -167,24 +167,24 @@ msgstr ""
 "Lần tiếp theo '%1' được thực thi, đảm bảo rằng một cửa sổ cảnh báo sẽ bật "
 "lên, hiển thị lệnh sẽ được gửi đến dòng lệnh."
 
-#: kateconsole.cpp:619
+#: kateconsole.cpp:618
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Đặt biến môi trường &EDITOR thành 'kate -b'"
 
-#: kateconsole.cpp:622
+#: kateconsole.cpp:621
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "Quan trọng: Tài liệu phải được đóng để trình dòng lệnh tiếp tục"
 
-#: kateconsole.cpp:625
+#: kateconsole.cpp:624
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Ẩn Konsole khi nhấn 'Esc'"
 
-#: kateconsole.cpp:628
+#: kateconsole.cpp:627
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -194,7 +194,7 @@ msgstr ""
 "vim. Thêm các ứng dụng như vậy vào ô bên dưới (danh sách phân cách bởi dấu "
 "phẩy)"
 
-#: kateconsole.cpp:659
+#: kateconsole.cpp:658
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Thiết lập dòng lệnh"

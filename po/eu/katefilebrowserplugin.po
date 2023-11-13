@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2022-08-19 22:21+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -86,22 +86,22 @@ msgstr "Nabarmendu uneko fitxategia"
 msgid "Toolbar"
 msgstr "Tresna-barra"
 
-#: katefilebrowserconfig.cpp:65
+#: katefilebrowserconfig.cpp:66
 #, kde-format
 msgid "A&vailable actions:"
 msgstr "Ekintza era&bilgarriak:"
 
-#: katefilebrowserconfig.cpp:66
+#: katefilebrowserconfig.cpp:67
 #, kde-format
 msgid "S&elected actions:"
 msgstr "&Hautatutako ekintzak:"
 
-#: katefilebrowserconfig.cpp:83
+#: katefilebrowserconfig.cpp:84
 #, kde-format
 msgid "Filesystem Browser"
 msgstr "Fitxategi-sistemaren arakatzailea"
 
-#: katefilebrowserconfig.cpp:88
+#: katefilebrowserconfig.cpp:89
 #, kde-format
 msgid "Filesystem Browser Settings"
 msgstr "Fitxategi-sistema arakatzailearen ezarpenak"

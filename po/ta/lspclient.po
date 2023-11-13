@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-09-10 17:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -23,38 +23,38 @@ msgid "Filter..."
 msgstr "வடிகட்டு..."
 
 #. i18n: ectx: Menu (LSPClient Menubar)
-#: lspclientconfigpage.cpp:98 lspclientconfigpage.cpp:103
+#: lspclientconfigpage.cpp:99 lspclientconfigpage.cpp:104
 #: lspclientpluginview.cpp:452 lspclientpluginview.cpp:607 ui.rc:6
 #, kde-format
 msgid "LSP Client"
 msgstr ""
 
-#: lspclientconfigpage.cpp:213
+#: lspclientconfigpage.cpp:214
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "சரிபார்ப்பதற்கு எந்த JSON தரவும் இல்லை"
 
-#: lspclientconfigpage.cpp:222
+#: lspclientconfigpage.cpp:223
 #, kde-format
 msgid "JSON data is valid."
 msgstr "JSON முறையானது."
 
-#: lspclientconfigpage.cpp:224
+#: lspclientconfigpage.cpp:225
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "JSON முறையற்றது: JSON object இல்லை"
 
-#: lspclientconfigpage.cpp:227
+#: lspclientconfigpage.cpp:228
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "JSON முறையற்றது: %1"
 
-#: lspclientconfigpage.cpp:275
+#: lspclientconfigpage.cpp:276
 #, kde-format
 msgid "Delete selected entries"
 msgstr "தேர்ந்தெடுக்கப்பட்டுள்ள பதிவுகளை நீக்கு"
 
-#: lspclientconfigpage.cpp:280
+#: lspclientconfigpage.cpp:281
 #, kde-format
 msgid "Delete all entries"
 msgstr "அனைத்துப் பதிவுகளையும் நீக்கு"

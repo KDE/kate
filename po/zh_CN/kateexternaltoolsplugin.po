@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-11-11 07:19\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -183,8 +183,8 @@ msgid ""
 msgstr "找不到可执行文件 %1 。请确保可执行文件存在，并且使用的变量名正确"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
-#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264
-#: kateexternaltoolsconfigwidget.cpp:269 kateexternaltoolsview.cpp:159
+#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:272
+#: kateexternaltoolsconfigwidget.cpp:277 kateexternaltoolsview.cpp:159
 #: kateexternaltoolsview.cpp:163 kateexternaltoolsview.cpp:211
 #, kde-format
 msgid "External Tools"
@@ -255,33 +255,33 @@ msgstr "选择启用此工具的 MIME 类型。"
 msgid "Select Mime Types"
 msgstr "选择 MIME 类型"
 
-#: kateexternaltoolsconfigwidget.cpp:233
+#: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
 msgstr "添加工具..."
 
-#: kateexternaltoolsconfigwidget.cpp:234
+#: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
 msgstr "从默认添加工具"
 
-#: kateexternaltoolsconfigwidget.cpp:236
+#: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
 msgstr "添加分类"
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:396
-#: kateexternaltoolsconfigwidget.cpp:443
+#: kateexternaltoolsconfigwidget.cpp:291 kateexternaltoolsconfigwidget.cpp:404
+#: kateexternaltoolsconfigwidget.cpp:451
 #, kde-format
 msgid "Uncategorized"
 msgstr "未分类"
 
-#: kateexternaltoolsconfigwidget.cpp:485
+#: kateexternaltoolsconfigwidget.cpp:493
 #, kde-format
 msgid "New Category"
 msgstr "新建分类"
 
-#: kateexternaltoolsconfigwidget.cpp:488
+#: kateexternaltoolsconfigwidget.cpp:496
 #, kde-format
 msgid "New Category %1"
 msgstr "新建分类 %1"

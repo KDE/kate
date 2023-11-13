@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-10-28 02:22+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -187,8 +187,8 @@ msgstr ""
 "kullanılmışsa değişken adlarının doğru olduğundan emin olun"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
-#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:264
-#: kateexternaltoolsconfigwidget.cpp:269 kateexternaltoolsview.cpp:159
+#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:272
+#: kateexternaltoolsconfigwidget.cpp:277 kateexternaltoolsview.cpp:159
 #: kateexternaltoolsview.cpp:163 kateexternaltoolsview.cpp:211
 #, kde-format
 msgid "External Tools"
@@ -259,33 +259,33 @@ msgstr "Bu aracı etkinleştirmek için Mime Türleri seçin."
 msgid "Select Mime Types"
 msgstr "Mime Türleri Seçin"
 
-#: kateexternaltoolsconfigwidget.cpp:233
+#: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
 msgstr "Araç Ekle..."
 
-#: kateexternaltoolsconfigwidget.cpp:234
+#: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
 msgstr "Öntanımlılardan Araç Ekle"
 
-#: kateexternaltoolsconfigwidget.cpp:236
+#: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
 msgstr "Kategori Ekle"
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:396
-#: kateexternaltoolsconfigwidget.cpp:443
+#: kateexternaltoolsconfigwidget.cpp:291 kateexternaltoolsconfigwidget.cpp:404
+#: kateexternaltoolsconfigwidget.cpp:451
 #, kde-format
 msgid "Uncategorized"
 msgstr "Kategorisiz"
 
-#: kateexternaltoolsconfigwidget.cpp:485
+#: kateexternaltoolsconfigwidget.cpp:493
 #, kde-format
 msgid "New Category"
 msgstr "Yeni Kategori"
 
-#: kateexternaltoolsconfigwidget.cpp:488
+#: kateexternaltoolsconfigwidget.cpp:496
 #, kde-format
 msgid "New Category %1"
 msgstr "Yeni Kategori %1"

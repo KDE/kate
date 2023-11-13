@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
-"PO-Revision-Date: 2023-06-04 23:16+0100\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"PO-Revision-Date: 2023-11-12 16:39+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
 "Language: eo\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "Vi ne havas sufiĉe da karmo por aliri ŝelon aŭ terminal-imitilon"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:654
+#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:653
 #, kde-format
 msgid "Terminal"
 msgstr "Terminalo"
@@ -135,60 +135,60 @@ msgstr "Malfokusi Terminal-Panelon"
 msgid "Focus Terminal Panel"
 msgstr "Fokusi Terminal-Panelon"
 
-#: kateconsole.cpp:587
+#: kateconsole.cpp:586
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
 msgstr "&Aŭtomate sinkronigi la terminalon kun la aktuala dokumento kiam eble"
 
-#: kateconsole.cpp:591 kateconsole.cpp:612
+#: kateconsole.cpp:590 kateconsole.cpp:611
 #, kde-format
 msgid "Run in terminal"
 msgstr "Ruli en terminalo"
 
-#: kateconsole.cpp:593
+#: kateconsole.cpp:592
 #, kde-format
 msgid "&Remove extension"
 msgstr "Fo&rigi etendon"
 
-#: kateconsole.cpp:598
+#: kateconsole.cpp:597
 #, kde-format
 msgid "Prefix:"
 msgstr "Prefikso:"
 
-#: kateconsole.cpp:606
+#: kateconsole.cpp:605
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&Montri averton venontfoje"
 
-#: kateconsole.cpp:608
+#: kateconsole.cpp:607
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
-"La venontan fojon kiam '%1' estos ekzekutita, certigu, ke avertanta fenestro "
+"La venontan fojon kiam '%1' estos plenumita, certigu, ke avertanta fenestro "
 "aperos, montrante la komandon sendotan al terminalo, por revizio."
 
-#: kateconsole.cpp:619
+#: kateconsole.cpp:618
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Agordi ĉirkaŭaĵvariablon &EDITOR al 'kate -b'"
 
-#: kateconsole.cpp:622
+#: kateconsole.cpp:621
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "Grava: la dokumento devas esti fermita por daŭrigi la konzolon"
 
-#: kateconsole.cpp:625
+#: kateconsole.cpp:624
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Kaŝi Konsole premante 'Esk'"
 
-#: kateconsole.cpp:628
+#: kateconsole.cpp:627
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -198,7 +198,7 @@ msgstr ""
 "klavon, ekzemple vim. Aldonu ĉi tiujn programojn en la suban enigon (listo "
 "disigita per komoj)"
 
-#: kateconsole.cpp:659
+#: kateconsole.cpp:658
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Agordoj de terminalo"

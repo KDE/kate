@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2021-06-14 10:01+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Δεν έχετε αρκετά δικαιώματα για πρόσβαση σε ένα κέλυφος ή εξομοίωση "
 "τερματικού"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:654
+#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:653
 #, kde-format
 msgid "Terminal"
 msgstr "Τερματικό"
@@ -138,7 +138,7 @@ msgstr "Απομάκρυνση από τον πίνακα τερματικού"
 msgid "Focus Terminal Panel"
 msgstr "Εστίαση στον πίνακα τερματικού"
 
-#: kateconsole.cpp:587
+#: kateconsole.cpp:586
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
@@ -147,27 +147,27 @@ msgstr ""
 "&Αυτόματος συγχρονισμός του τερματικού με το τρέχον έγγραφο όταν αυτό είναι "
 "δυνατό"
 
-#: kateconsole.cpp:591 kateconsole.cpp:612
+#: kateconsole.cpp:590 kateconsole.cpp:611
 #, kde-format
 msgid "Run in terminal"
 msgstr "Εκτέλεση στο τερματικό"
 
-#: kateconsole.cpp:593
+#: kateconsole.cpp:592
 #, kde-format
 msgid "&Remove extension"
 msgstr "&Αφαίρεση επέκτασης"
 
-#: kateconsole.cpp:598
+#: kateconsole.cpp:597
 #, kde-format
 msgid "Prefix:"
 msgstr "Πρόθεμα:"
 
-#: kateconsole.cpp:606
+#: kateconsole.cpp:605
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&Να εμφανιστεί προειδοποίηση την επόμενη φορά"
 
-#: kateconsole.cpp:608
+#: kateconsole.cpp:607
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -177,12 +177,12 @@ msgstr ""
 "προειδοποίησης θα εμφανιστεί με την εντολή που θα σταλεί στο τερματικό, για "
 "επισκόπηση."
 
-#: kateconsole.cpp:619
+#: kateconsole.cpp:618
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Ορισμός της μεταβλητής περιβάλλοντος &EDITOR στο 'kate -b'"
 
-#: kateconsole.cpp:622
+#: kateconsole.cpp:621
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -191,12 +191,12 @@ msgstr ""
 "Σημαντικό: Το έγγραφο πρέπει να κλείσει για να συνεχιστεί η εφαρμογή της "
 "κονσόλας"
 
-#: kateconsole.cpp:625
+#: kateconsole.cpp:624
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Απόκρυψη κονσόλας με το πάτημα του 'Esc'"
 
-#: kateconsole.cpp:628
+#: kateconsole.cpp:627
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -206,7 +206,7 @@ msgstr ""
 "χρησιμοποιούν το πλήκτρο Esc, π.χ. το vim. Προσθέστε αυτές τις εφαρμογές "
 "στην παρακάτω είσοδο δεδομένων (λίστα με διαχωριστικό το κόμμα)"
 
-#: kateconsole.cpp:659
+#: kateconsole.cpp:658
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Ρυθμίσεις τερματικού"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-09-06 07:19+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -415,7 +415,7 @@ msgid "Open .gitignore"
 msgstr "Odpri .gitignore"
 
 #: gitwidget.cpp:1159 gitwidget.cpp:1206 gitwidget.cpp:1248
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
 msgstr "Prikaži razlike"
@@ -525,13 +525,13 @@ msgstr "<ni sledeno>"
 msgid "Project Completion"
 msgstr "Dopolnjevanje projekta"
 
-#: kateprojectconfigpage.cpp:25
+#: kateprojectconfigpage.cpp:24
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories"
 msgstr "Samodejno naloži skladišča"
 
-#: kateprojectconfigpage.cpp:27
+#: kateprojectconfigpage.cpp:26
 #, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies when there is "
@@ -540,64 +540,64 @@ msgstr ""
 "Vstavek za projekte lahko samodejno naloži delovne kopije v skladišču, če še "
 "ne obstaja datoteka .kateproject."
 
-#: kateprojectconfigpage.cpp:30
+#: kateprojectconfigpage.cpp:29
 #, kde-format
 msgid "&Git"
 msgstr "&Git"
 
-#: kateprojectconfigpage.cpp:33
+#: kateprojectconfigpage.cpp:32
 #, kde-format
 msgid "&Subversion"
 msgstr "&Subversion"
 
-#: kateprojectconfigpage.cpp:35
+#: kateprojectconfigpage.cpp:34
 #, kde-format
 msgid "&Mercurial"
 msgstr "&Mercurial"
 
-#: kateprojectconfigpage.cpp:37
+#: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
 msgstr "&Fossil"
 
-#: kateprojectconfigpage.cpp:46
+#: kateprojectconfigpage.cpp:45
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr "Obnašanje seje"
 
-#: kateprojectconfigpage.cpp:47
+#: kateprojectconfigpage.cpp:46
 #, kde-format
 msgid "Session settings for projects"
 msgstr "Nastavitve sej za projekte"
 
-#: kateprojectconfigpage.cpp:48
+#: kateprojectconfigpage.cpp:47
 #, kde-format
 msgid "Restore Open Projects"
 msgstr "Obnovi odprte projekte"
 
-#: kateprojectconfigpage.cpp:55
+#: kateprojectconfigpage.cpp:54
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "Indeks projektov"
 
-#: kateprojectconfigpage.cpp:56
+#: kateprojectconfigpage.cpp:55
 #, kde-format
 msgid "Project ctags index settings"
 msgstr "Nastavitve indeksa značk projekta"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
+#: kateprojectconfigpage.cpp:56 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
 msgstr "Omogoči indeksiranje"
 
-#: kateprojectconfigpage.cpp:60
+#: kateprojectconfigpage.cpp:59
 #, kde-format
 msgid "Directory for index files"
 msgstr "Mapa indeksnih datotek"
 
-#: kateprojectconfigpage.cpp:64
+#: kateprojectconfigpage.cpp:63
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -606,13 +606,13 @@ msgstr ""
 "Sistemska mapa začasnih datotek bo uporabljena, če ni določeno drugače. Za "
 "velike repozitorije bi se lahko zgodilo, da bo prostor premajhen"
 
-#: kateprojectconfigpage.cpp:71
+#: kateprojectconfigpage.cpp:70
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr "Med-projektna funkcionalnost"
 
-#: kateprojectconfigpage.cpp:72
+#: kateprojectconfigpage.cpp:71
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
@@ -620,95 +620,95 @@ msgstr ""
 "Projektni vtičnik je na voljo za izvajanje nekaterih operacij na več "
 "projektih"
 
-#: kateprojectconfigpage.cpp:73
+#: kateprojectconfigpage.cpp:72
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "Med-projektno zaključevanje"
 
-#: kateprojectconfigpage.cpp:75
+#: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr "Med-projektno simbol Goto"
 
-#: kateprojectconfigpage.cpp:83
+#: kateprojectconfigpage.cpp:82
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:86
+#: kateprojectconfigpage.cpp:85
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "Dejavnost enojnega klika v pogledu statusa git"
 
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:87 kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "No Action"
 msgstr "Ni dejavnosti"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Open file"
 msgstr "Odpri datoteko"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Postavi / odstavi"
 
-#: kateprojectconfigpage.cpp:98
+#: kateprojectconfigpage.cpp:97
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Dejavnost dvojnega klika v pogledu statusa git"
 
-#: kateprojectconfigpage.cpp:134 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:133 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projekti"
 
-#: kateprojectconfigpage.cpp:139
+#: kateprojectconfigpage.cpp:138
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Lastnosti projekta"
 
-#: kateprojectinfoview.cpp:34
+#: kateprojectinfoview.cpp:36
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Terminal (.kateproject)"
 
-#: kateprojectinfoview.cpp:42
+#: kateprojectinfoview.cpp:44
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Terminal (osnova)"
 
-#: kateprojectinfoview.cpp:49
+#: kateprojectinfoview.cpp:51
 #, kde-format
 msgid "Code Index"
 msgstr "Kazalo kode"
 
-#: kateprojectinfoview.cpp:54
+#: kateprojectinfoview.cpp:56
 #, kde-format
 msgid "Code Analysis"
 msgstr "Preučevanje kode"
 
-#: kateprojectinfoview.cpp:59
+#: kateprojectinfoview.cpp:61
 #, kde-format
 msgid "Notes"
 msgstr "Opombe"
 
-#: kateprojectinfoviewcodeanalysis.cpp:34
+#: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Začni z analizo..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:41
+#: kateprojectinfoviewcodeanalysis.cpp:43
 #, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Analiza kode - %1"
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -717,14 +717,14 @@ msgstr ""
 "%1<br/><br/>Orodje bo obdelalo vse datoteke projektov, ki ustrezajo seznamu "
 "naslednjih podaljškov datotek:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:138
+#: kateprojectinfoviewcodeanalysis.cpp:134
+#: kateprojectinfoviewcodeanalysis.cpp:194
 #: kateprojectinfoviewcodeanalysis.cpp:198
-#: kateprojectinfoviewcodeanalysis.cpp:202
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "Preučevanje kode"
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:189
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -737,7 +737,7 @@ msgstr[1] "[%1]Analiza na %2 datotekah končana."
 msgstr[2] "[%1]Analiza na %2 datotekah končana."
 msgstr[3] "[%1]Analiza na %2 datotekah končana."
 
-#: kateprojectinfoviewcodeanalysis.cpp:201
+#: kateprojectinfoviewcodeanalysis.cpp:197
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Analiza je izpadla s kodo %1, Napaka: %2"
@@ -767,12 +767,12 @@ msgstr "Vrstica"
 msgid "Search"
 msgstr "Poišči"
 
-#: kateprojectinfoviewindex.cpp:197
+#: kateprojectinfoviewindex.cpp:198
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Kazala ni bilo mogoče ustvariti. Namestite program »ctags«."
 
-#: kateprojectinfoviewindex.cpp:207
+#: kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Indeksiranje ni omogočeno"

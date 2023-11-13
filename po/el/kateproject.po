@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-01-02 16:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -412,7 +412,7 @@ msgid "Open .gitignore"
 msgstr "Άνοιγμα .gitignore"
 
 #: gitwidget.cpp:1159 gitwidget.cpp:1206 gitwidget.cpp:1248
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
 msgstr "εμφάνιση διαφορών"
@@ -522,13 +522,13 @@ msgstr "<δεν παρακολουθείται>"
 msgid "Project Completion"
 msgstr "Ολοκλήρωση έργου"
 
-#: kateprojectconfigpage.cpp:25
+#: kateprojectconfigpage.cpp:24
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories"
 msgstr "Αυτόματη φόρτωση αποθετηρίων"
 
-#: kateprojectconfigpage.cpp:27
+#: kateprojectconfigpage.cpp:26
 #, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies when there is "
@@ -537,64 +537,64 @@ msgstr ""
 "Το πρόσθετο έργων μπορεί να φορτώσει αυτόματα αντίγραφα εργασίας όταν δεν "
 "έχει οριστεί ακόμη .kateproject αρχείο."
 
-#: kateprojectconfigpage.cpp:30
+#: kateprojectconfigpage.cpp:29
 #, kde-format
 msgid "&Git"
 msgstr "&Git"
 
-#: kateprojectconfigpage.cpp:33
+#: kateprojectconfigpage.cpp:32
 #, kde-format
 msgid "&Subversion"
 msgstr "&Subversion"
 
-#: kateprojectconfigpage.cpp:35
+#: kateprojectconfigpage.cpp:34
 #, kde-format
 msgid "&Mercurial"
 msgstr "&Mercurial"
 
-#: kateprojectconfigpage.cpp:37
+#: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
 msgstr "&Fossil"
 
-#: kateprojectconfigpage.cpp:46
+#: kateprojectconfigpage.cpp:45
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr "Συμπεριφορά συνεδρίας"
 
-#: kateprojectconfigpage.cpp:47
+#: kateprojectconfigpage.cpp:46
 #, kde-format
 msgid "Session settings for projects"
 msgstr "Ρυθμίσεις συνεδρίας για έργα"
 
-#: kateprojectconfigpage.cpp:48
+#: kateprojectconfigpage.cpp:47
 #, kde-format
 msgid "Restore Open Projects"
 msgstr "Επαναφορά ανοικτών έργων"
 
-#: kateprojectconfigpage.cpp:55
+#: kateprojectconfigpage.cpp:54
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "Ευρετήριο έργου"
 
-#: kateprojectconfigpage.cpp:56
+#: kateprojectconfigpage.cpp:55
 #, kde-format
 msgid "Project ctags index settings"
 msgstr "Ρυθμίσεις δείκτη ctags έργου"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
+#: kateprojectconfigpage.cpp:56 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
 msgstr "Ενεργοποίηση δεικτοδότησης"
 
-#: kateprojectconfigpage.cpp:60
+#: kateprojectconfigpage.cpp:59
 #, kde-format
 msgid "Directory for index files"
 msgstr "Κατάλογος για αρχεία ευρετηρίου"
 
-#: kateprojectconfigpage.cpp:64
+#: kateprojectconfigpage.cpp:63
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -603,109 +603,109 @@ msgstr ""
 "Ο προσωρινός κατάλογος του συστήματος χρησιμποιείται αν δεν έχει οριστεί και "
 "μπορεί να υπερχειλίσει για πολύ μεγάλα αποθετήρια"
 
-#: kateprojectconfigpage.cpp:71
+#: kateprojectconfigpage.cpp:70
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr "Λειτουργικότητα διασνδεδεμένων έργων"
 
-#: kateprojectconfigpage.cpp:72
+#: kateprojectconfigpage.cpp:71
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
 "Το πρόσθετο έργου μπορεί να εκτελέσει κάποιες λειτουργίες για πολλά έργα"
 
-#: kateprojectconfigpage.cpp:73
+#: kateprojectconfigpage.cpp:72
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "Ολοκλήρωση διασυνδεδεμένων έργων"
 
-#: kateprojectconfigpage.cpp:75
+#: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr "Σύμβολο μετάβασης δισυνδεδεμένων έργων"
 
-#: kateprojectconfigpage.cpp:83
+#: kateprojectconfigpage.cpp:82
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:86
+#: kateprojectconfigpage.cpp:85
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "Ενέργεια με απλό κλικ στην προβολή του git status"
 
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:87 kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "No Action"
 msgstr "Καμία ενέργεια"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Open file"
 msgstr "Άνοιγμα αρχείου"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Προετοιμασία υποβολής / αναίρεση"
 
-#: kateprojectconfigpage.cpp:98
+#: kateprojectconfigpage.cpp:97
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Ενέργεια με διπλό κλικ στην προβολή του git status"
 
-#: kateprojectconfigpage.cpp:134 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:133 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Έργα"
 
-#: kateprojectconfigpage.cpp:139
+#: kateprojectconfigpage.cpp:138
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Ιδιότητες έργων"
 
-#: kateprojectinfoview.cpp:34
+#: kateprojectinfoview.cpp:36
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Τερματικό (.kateproject)"
 
-#: kateprojectinfoview.cpp:42
+#: kateprojectinfoview.cpp:44
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Τερματικό (Βάση)"
 
-#: kateprojectinfoview.cpp:49
+#: kateprojectinfoview.cpp:51
 #, kde-format
 msgid "Code Index"
 msgstr "Ευρετήριο κώδικα"
 
-#: kateprojectinfoview.cpp:54
+#: kateprojectinfoview.cpp:56
 #, kde-format
 msgid "Code Analysis"
 msgstr "Ανάλυση κώδικα"
 
-#: kateprojectinfoview.cpp:59
+#: kateprojectinfoview.cpp:61
 #, kde-format
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: kateprojectinfoviewcodeanalysis.cpp:34
+#: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Έναρξη ανάλυσης..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:41
+#: kateprojectinfoviewcodeanalysis.cpp:43
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Ανάλυση κώδικα"
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -714,15 +714,15 @@ msgstr ""
 "%1<br/><br/>Το εργαλείο θα εκτελεστεί σε όλα τα αρχεία έργων που ταιριάζουν "
 "με αυτήν τη λίστα κατάληξης αρχείων:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:138
+#: kateprojectinfoviewcodeanalysis.cpp:134
+#: kateprojectinfoviewcodeanalysis.cpp:194
 #: kateprojectinfoviewcodeanalysis.cpp:198
-#: kateprojectinfoviewcodeanalysis.cpp:202
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Ανάλυση κώδικα"
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:189
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -735,7 +735,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "Η ανάλυση σε %1 αρχείο ολοκληρώθηκε."
 msgstr[1] "Η ανάλυση σε %1 αρχεία ολοκληρώθηκε."
 
-#: kateprojectinfoviewcodeanalysis.cpp:201
+#: kateprojectinfoviewcodeanalysis.cpp:197
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -767,12 +767,12 @@ msgstr "Γραμμή"
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: kateprojectinfoviewindex.cpp:197
+#: kateprojectinfoviewindex.cpp:198
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Αδυναμία δημιουργίας του ευρετηρίου. Εγκαταστήστε το 'ctags'."
 
-#: kateprojectinfoviewindex.cpp:207
+#: kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Η δεικτοδότηση δεν είναι ενεργή"

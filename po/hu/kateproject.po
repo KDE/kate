@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -420,7 +420,7 @@ msgid "Open .gitignore"
 msgstr ".gitignore megnyitása"
 
 #: gitwidget.cpp:1159 gitwidget.cpp:1206 gitwidget.cpp:1248
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
 msgstr "Összehasonlítás megjelenítése"
@@ -534,13 +534,13 @@ msgstr "<nem követett>"
 msgid "Project Completion"
 msgstr "Projektkiegészítés"
 
-#: kateprojectconfigpage.cpp:25
+#: kateprojectconfigpage.cpp:24
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories"
 msgstr "Automatikus tárolóbetöltés"
 
-#: kateprojectconfigpage.cpp:27
+#: kateprojectconfigpage.cpp:26
 #, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies when there is "
@@ -549,65 +549,65 @@ msgstr ""
 "A Projekt bővítmény képes automatikusan betölteni a tárolók munkapéldányait, "
 "amennyiben nincs még .kateproject fájl definiálva."
 
-#: kateprojectconfigpage.cpp:30
+#: kateprojectconfigpage.cpp:29
 #, kde-format
 msgid "&Git"
 msgstr "&Git"
 
-#: kateprojectconfigpage.cpp:33
+#: kateprojectconfigpage.cpp:32
 #, kde-format
 msgid "&Subversion"
 msgstr "&Subversion"
 
-#: kateprojectconfigpage.cpp:35
+#: kateprojectconfigpage.cpp:34
 #, kde-format
 msgid "&Mercurial"
 msgstr "&Mercurial"
 
-#: kateprojectconfigpage.cpp:37
+#: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
 msgstr "&Fossil"
 
-#: kateprojectconfigpage.cpp:46
+#: kateprojectconfigpage.cpp:45
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:47
+#: kateprojectconfigpage.cpp:46
 #, kde-format
 msgid "Session settings for projects"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:48
+#: kateprojectconfigpage.cpp:47
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Restore Open Projects"
 msgstr "Jelenlegi projekt"
 
-#: kateprojectconfigpage.cpp:55
+#: kateprojectconfigpage.cpp:54
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "Projektindex"
 
-#: kateprojectconfigpage.cpp:56
+#: kateprojectconfigpage.cpp:55
 #, kde-format
 msgid "Project ctags index settings"
 msgstr "A projekt ctags indexelésének beállításai"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:208
+#: kateprojectconfigpage.cpp:56 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
 msgstr "Indexelés bekapcsolása"
 
-#: kateprojectconfigpage.cpp:60
+#: kateprojectconfigpage.cpp:59
 #, kde-format
 msgid "Directory for index files"
 msgstr "Indexfájlok mappája"
 
-#: kateprojectconfigpage.cpp:64
+#: kateprojectconfigpage.cpp:63
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -616,109 +616,109 @@ msgstr ""
 "A rendszer átmeneti mappáját használja, ha nincs kitöltve, ami túlcsordulhat "
 "nagyon nagy tárolók esetén"
 
-#: kateprojectconfigpage.cpp:71
+#: kateprojectconfigpage.cpp:70
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr "Projektközi funkcionalitás"
 
-#: kateprojectconfigpage.cpp:72
+#: kateprojectconfigpage.cpp:71
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
 "A Projekt bővítmény képes végrehajtani bizonyos műveleteket több projekten is"
 
-#: kateprojectconfigpage.cpp:73
+#: kateprojectconfigpage.cpp:72
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "Projektközi kiegészítés"
 
-#: kateprojectconfigpage.cpp:75
+#: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr "Projektközi goto szimbólum"
 
-#: kateprojectconfigpage.cpp:83
+#: kateprojectconfigpage.cpp:82
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:86
+#: kateprojectconfigpage.cpp:85
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "Egyszeres kattintás művelet a git állapotnézetben"
 
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:87 kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "No Action"
 msgstr "Nincs művelet"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "Open file"
 msgstr "Fájl megnyitása"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Kiválasztás / visszavonás"
 
-#: kateprojectconfigpage.cpp:98
+#: kateprojectconfigpage.cpp:97
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Dupla kattintás művelet a git állapotnézetben"
 
-#: kateprojectconfigpage.cpp:134 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:133 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projektek"
 
-#: kateprojectconfigpage.cpp:139
+#: kateprojectconfigpage.cpp:138
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Projektbeállítások"
 
-#: kateprojectinfoview.cpp:34
+#: kateprojectinfoview.cpp:36
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Terminál (.kateproject)"
 
-#: kateprojectinfoview.cpp:42
+#: kateprojectinfoview.cpp:44
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Terminál (alap)"
 
-#: kateprojectinfoview.cpp:49
+#: kateprojectinfoview.cpp:51
 #, kde-format
 msgid "Code Index"
 msgstr "Kódindex"
 
-#: kateprojectinfoview.cpp:54
+#: kateprojectinfoview.cpp:56
 #, kde-format
 msgid "Code Analysis"
 msgstr "Kódelemzés"
 
-#: kateprojectinfoview.cpp:59
+#: kateprojectinfoview.cpp:61
 #, kde-format
 msgid "Notes"
 msgstr "Megjegyzések"
 
-#: kateprojectinfoviewcodeanalysis.cpp:34
+#: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Elemzés indítása…"
 
-#: kateprojectinfoviewcodeanalysis.cpp:41
+#: kateprojectinfoviewcodeanalysis.cpp:43
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Kódelemzés"
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -727,15 +727,15 @@ msgstr ""
 "%1<br/><br/>Az eszköz az összes olyan projektfájlra futtatva lesz, ami "
 "illeszkedik erre a fájlkiterjesztés-listára:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:138
+#: kateprojectinfoviewcodeanalysis.cpp:134
+#: kateprojectinfoviewcodeanalysis.cpp:194
 #: kateprojectinfoviewcodeanalysis.cpp:198
-#: kateprojectinfoviewcodeanalysis.cpp:202
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Kódelemzés"
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:189
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -748,7 +748,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "%1 fájl elemzése befejeződött."
 msgstr[1] "%1 fájl elemzése befejeződött."
 
-#: kateprojectinfoviewcodeanalysis.cpp:201
+#: kateprojectinfoviewcodeanalysis.cpp:197
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -780,12 +780,12 @@ msgstr "Sor"
 msgid "Search"
 msgstr "Keresés"
 
-#: kateprojectinfoviewindex.cpp:197
+#: kateprojectinfoviewindex.cpp:198
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Az index nem hozható létre. Telepítse a „ctags” csomagot."
 
-#: kateprojectinfoviewindex.cpp:207
+#: kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Az indexelés nincs bekapcsolva"

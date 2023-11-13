@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2023-11-13 01:39+0000\n"
 "PO-Revision-Date: 2023-03-03 10:00-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -25,38 +25,38 @@ msgid "Filter..."
 msgstr "Filtro..."
 
 #. i18n: ectx: Menu (LSPClient Menubar)
-#: lspclientconfigpage.cpp:98 lspclientconfigpage.cpp:103
+#: lspclientconfigpage.cpp:99 lspclientconfigpage.cpp:104
 #: lspclientpluginview.cpp:452 lspclientpluginview.cpp:607 ui.rc:6
 #, kde-format
 msgid "LSP Client"
 msgstr "Cliente LSP"
 
-#: lspclientconfigpage.cpp:213
+#: lspclientconfigpage.cpp:214
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Não há dados JSON para validar."
 
-#: lspclientconfigpage.cpp:222
+#: lspclientconfigpage.cpp:223
 #, kde-format
 msgid "JSON data is valid."
 msgstr "Os dados de JSON são válidos."
 
-#: lspclientconfigpage.cpp:224
+#: lspclientconfigpage.cpp:225
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "Os dados JSON são inválidos: nenhum objeto JSON"
 
-#: lspclientconfigpage.cpp:227
+#: lspclientconfigpage.cpp:228
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "Os dados JSON são inválidos: %1"
 
-#: lspclientconfigpage.cpp:275
+#: lspclientconfigpage.cpp:276
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Excluir as entradas selecionadas"
 
-#: lspclientconfigpage.cpp:280
+#: lspclientconfigpage.cpp:281
 #, kde-format
 msgid "Delete all entries"
 msgstr "Excluir todas as entradas"

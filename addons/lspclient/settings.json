@@ -103,7 +103,7 @@
             "rootIndicationFileNames": ["package.json", "package-lock.json"],
             "url": "https://github.com/theia-ide/typescript-language-server",
             "highlightingModeRegex": "^JavaScript.*$",
-            "documentLanguageId": false
+            "documentLanguageId": true
         },
         "json": {
             "command": ["vscode-json-languageserver", "--stdio"],

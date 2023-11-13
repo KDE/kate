@@ -3,7 +3,7 @@ include(ECMMarkAsTest)
 find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
 add_executable(gdbplugin_test_gdbmi
-    tst_gdbmiitems.cpp
+    test_gdbmi.cpp
     ../gdbmi/tokens.cpp
     ../gdbmi/parser.cpp
 )

@@ -4,7 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "tst_gdbmiitems.h"
+#include "test_gdbmi.h"
 
 #include "../gdbmi/parser.h"
 #include "../gdbmi/tokens.h"
@@ -13,9 +13,9 @@
 #include <QString>
 #include <QTest>
 
-QTEST_MAIN(TestGdbmiItems)
+QTEST_MAIN(TestGdbmi)
 
-void TestGdbmiItems::tryToken()
+void TestGdbmi::tryToken()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -37,7 +37,7 @@ void TestGdbmiItems::tryToken()
     }
 }
 
-void TestGdbmiItems::tryToken_data()
+void TestGdbmi::tryToken_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -53,7 +53,7 @@ void TestGdbmiItems::tryToken_data()
     QTest::newRow("asdf") << "asdf" << 0 << true << false << 0 << -1;
 }
 
-void TestGdbmiItems::advanceBlanks()
+void TestGdbmi::advanceBlanks()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -63,7 +63,7 @@ void TestGdbmiItems::advanceBlanks()
     QCOMPARE(pos, position);
 }
 
-void TestGdbmiItems::advanceBlanks_data()
+void TestGdbmi::advanceBlanks_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -75,7 +75,7 @@ void TestGdbmiItems::advanceBlanks_data()
     QTest::newRow("asdf") << "asdf" << 2 << 2;
 }
 
-void TestGdbmiItems::tryString()
+void TestGdbmi::tryString()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -97,7 +97,7 @@ void TestGdbmiItems::tryString()
     }
 }
 
-void TestGdbmiItems::tryString_data()
+void TestGdbmi::tryString_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -118,7 +118,7 @@ void TestGdbmiItems::tryString_data()
     QTest::newRow("\"1234") << "\"1234" << 0 << true << true << 0 << "";
 }
 
-void TestGdbmiItems::tryClassName()
+void TestGdbmi::tryClassName()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -140,7 +140,7 @@ void TestGdbmiItems::tryClassName()
     }
 }
 
-void TestGdbmiItems::tryClassName_data()
+void TestGdbmi::tryClassName_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -158,7 +158,7 @@ void TestGdbmiItems::tryClassName_data()
     QTest::newRow("^running\\n*running,id=1") << "^running\n*running,id=1" << 1 << false << false << 8 << "running";
 }
 
-void TestGdbmiItems::tryVariable()
+void TestGdbmi::tryVariable()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -180,7 +180,7 @@ void TestGdbmiItems::tryVariable()
     }
 }
 
-void TestGdbmiItems::tryVariable_data()
+void TestGdbmi::tryVariable_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -195,7 +195,7 @@ void TestGdbmiItems::tryVariable_data()
     QTest::newRow("reason") << "reason" << 0 << true << true << 0 << "";
 }
 
-void TestGdbmiItems::tryStreamOutput()
+void TestGdbmi::tryStreamOutput()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -218,7 +218,7 @@ void TestGdbmiItems::tryStreamOutput()
     }
 }
 
-void TestGdbmiItems::tryStreamOutput_data()
+void TestGdbmi::tryStreamOutput_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -236,7 +236,7 @@ void TestGdbmiItems::tryStreamOutput_data()
     QTest::newRow("~\"algo\\n") << "~\"algo\n" << 0 << false << false << 7 << "\"algo" << '~';
 }
 
-void TestGdbmiItems::tryResult()
+void TestGdbmi::tryResult()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -260,7 +260,7 @@ void TestGdbmiItems::tryResult()
     }
 }
 
-void TestGdbmiItems::tryResult_data()
+void TestGdbmi::tryResult_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -280,7 +280,7 @@ void TestGdbmiItems::tryResult_data()
     QTest::newRow("frame={}") << "frame={}" << 0 << false << false << 8 << QJsonObject{{QStringLiteral("frame"), QJsonObject()}};
 }
 
-void TestGdbmiItems::tryResults()
+void TestGdbmi::tryResults()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -302,7 +302,7 @@ void TestGdbmiItems::tryResults()
     }
 }
 
-void TestGdbmiItems::tryResults_data()
+void TestGdbmi::tryResults_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -382,7 +382,7 @@ void TestGdbmiItems::tryResults_data()
                        {QStringLiteral("core"), QStringLiteral("1")}};
 }
 
-void TestGdbmiItems::tryTuple()
+void TestGdbmi::tryTuple()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -404,7 +404,7 @@ void TestGdbmiItems::tryTuple()
     }
 }
 
-void TestGdbmiItems::tryTuple_data()
+void TestGdbmi::tryTuple_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -436,7 +436,7 @@ void TestGdbmiItems::tryTuple_data()
                        {QStringLiteral("times"), QStringLiteral("0")}};
 }
 
-void TestGdbmiItems::tryValue()
+void TestGdbmi::tryValue()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -458,7 +458,7 @@ void TestGdbmiItems::tryValue()
     }
 }
 
-void TestGdbmiItems::tryValue_data()
+void TestGdbmi::tryValue_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -474,7 +474,7 @@ void TestGdbmiItems::tryValue_data()
                                                   << QJsonValue(QJsonArray{QStringLiteral("breakpoint-hit"), QStringLiteral("i1")});
 }
 
-void TestGdbmiItems::tryList()
+void TestGdbmi::tryList()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -496,7 +496,7 @@ void TestGdbmiItems::tryList()
     }
 }
 
-void TestGdbmiItems::tryList_data()
+void TestGdbmi::tryList_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -520,7 +520,7 @@ void TestGdbmiItems::tryList_data()
                                                                QJsonObject{{QStringLiteral("frame"), QStringLiteral("frame2")}}});
 }
 
-void TestGdbmiItems::quoted()
+void TestGdbmi::quoted()
 {
     QFETCH(QString, original);
     QFETCH(QString, expected);
@@ -530,7 +530,7 @@ void TestGdbmiItems::quoted()
     QCOMPARE(replaced, expected);
 }
 
-void TestGdbmiItems::quoted_data()
+void TestGdbmi::quoted_data()
 {
     QTest::addColumn<QString>("original");
     QTest::addColumn<QString>("expected");
@@ -543,7 +543,7 @@ void TestGdbmiItems::quoted_data()
                                     << "abc \\\"cde\\\"";
 }
 
-void TestGdbmiItems::tryRecord()
+void TestGdbmi::tryRecord()
 {
     QFETCH(QString, msg);
     QFETCH(int, start);
@@ -572,7 +572,7 @@ void TestGdbmiItems::tryRecord()
     }
 }
 
-void TestGdbmiItems::tryRecord_data()
+void TestGdbmi::tryRecord_data()
 {
     QTest::addColumn<QString>("msg");
     QTest::addColumn<int>("start");
@@ -615,7 +615,7 @@ void TestGdbmiItems::tryRecord_data()
                                     {QStringLiteral("arch"), QStringLiteral("i386:x86_64")}}}};
 }
 
-void TestGdbmiItems::parseResponse()
+void TestGdbmi::parseResponse()
 {
     gdbmi::GdbmiParser parser;
 
@@ -645,7 +645,7 @@ void TestGdbmiItems::parseResponse()
     QCOMPARE(QStringLiteral("done"), qvariant_cast<gdbmi::Record>(recSpy[2][0]).resultClass);
 }
 
-void TestGdbmiItems::parseResponse2()
+void TestGdbmi::parseResponse2()
 {
     gdbmi::GdbmiParser parser;
 
@@ -683,7 +683,7 @@ void TestGdbmiItems::parseResponse2()
     QCOMPARE(gdbmi::Record::Prompt, qvariant_cast<gdbmi::Record>(recSpy[5][0]).category);
 }
 
-void TestGdbmiItems::parseResponse3()
+void TestGdbmi::parseResponse3()
 {
     gdbmi::GdbmiParser parser;
 
@@ -724,7 +724,7 @@ void TestGdbmiItems::parseResponse3()
     QCOMPARE(gdbmi::Record::Prompt, qvariant_cast<gdbmi::Record>(recSpy[3][0]).category);
 }
 
-void TestGdbmiItems::compare(const QJsonValue &ref, const QJsonValue &result)
+void TestGdbmi::compare(const QJsonValue &ref, const QJsonValue &result)
 {
     if (ref.isNull()) {
         QVERIFY(result.isNull());
@@ -748,7 +748,7 @@ void TestGdbmiItems::compare(const QJsonValue &ref, const QJsonValue &result)
     }
 }
 
-void TestGdbmiItems::compare(const QJsonArray &ref, const QJsonArray &result)
+void TestGdbmi::compare(const QJsonArray &ref, const QJsonArray &result)
 {
     QCOMPARE(ref.size(), result.size());
 
@@ -757,7 +757,7 @@ void TestGdbmiItems::compare(const QJsonArray &ref, const QJsonArray &result)
     }
 }
 
-void TestGdbmiItems::compare(const QJsonObject &ref, const QJsonObject &result)
+void TestGdbmi::compare(const QJsonObject &ref, const QJsonObject &result)
 {
     QCOMPARE(ref.size(), result.size());
 
@@ -766,4 +766,4 @@ void TestGdbmiItems::compare(const QJsonObject &ref, const QJsonObject &result)
     }
 }
 
-#include "moc_tst_gdbmiitems.cpp"
+#include "moc_test_gdbmi.cpp"

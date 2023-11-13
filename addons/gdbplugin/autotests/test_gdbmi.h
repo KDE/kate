@@ -8,7 +8,7 @@
 
 #include <QObject>
 
-class TestGdbmiItems : public QObject
+class TestGdbmi : public QObject
 {
     Q_OBJECT
 

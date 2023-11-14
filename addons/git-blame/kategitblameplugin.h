@@ -65,7 +65,7 @@ class KateGitBlamePlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 public:
-    explicit KateGitBlamePlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    explicit KateGitBlamePlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };

@@ -173,7 +173,7 @@ private:
     QObject *m_projectPluginView = nullptr;
 };
 
-typedef QList<QVariant> VariantList;
+typedef QVariantList VariantList;
 
 /******************************************************************/
 class KateBuildPlugin : public KTextEditor::Plugin

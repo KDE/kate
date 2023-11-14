@@ -62,7 +62,7 @@ class KateColorPickerPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 public:
-    explicit KateColorPickerPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    explicit KateColorPickerPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~KateColorPickerPlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

@@ -1294,7 +1294,7 @@ class LSPClientServer::LSPClientServerPrivate
     QHash<int, std::pair<GenericReplyHandler, GenericReplyHandler>> m_handlers;
     // pending request responses
     static constexpr int MAX_REQUESTS = 5;
-    QList<QVariant> m_requests{MAX_REQUESTS + 1};
+    QVariantList m_requests{MAX_REQUESTS + 1};
 
     // currently accumulated stderr output, used to output to the message view on line level
     QString m_currentStderrOutput;

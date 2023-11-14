@@ -30,7 +30,7 @@ class KHistoryComboBox;
 class QTextEdit;
 class QTreeWidget;
 
-typedef QList<QVariant> VariantList;
+typedef QVariantList VariantList;
 
 class KatePluginGDB : public KTextEditor::Plugin
 {

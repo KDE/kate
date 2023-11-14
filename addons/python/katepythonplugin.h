@@ -15,7 +15,7 @@ class KatePythonPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 public:
-    KatePythonPlugin(QObject * = nullptr, const QList<QVariant> & = QList<QVariant>());
+    KatePythonPlugin(QObject * = nullptr, const QVariantList & = QVariantList());
     ~KatePythonPlugin() = default;
     QObject *createView(KTextEditor::MainWindow *) override;
 };

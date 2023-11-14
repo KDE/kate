@@ -17,7 +17,7 @@ public:
     /**
      * Plugin constructor.
      */
-    explicit CEPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    explicit CEPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
 
     ~CEPlugin() override;
 

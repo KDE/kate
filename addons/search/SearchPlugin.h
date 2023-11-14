@@ -59,7 +59,7 @@ class KatePluginSearch : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KatePluginSearch(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    explicit KatePluginSearch(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~KatePluginSearch() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

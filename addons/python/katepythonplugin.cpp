@@ -12,7 +12,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePythonPluginFactory, "katepythonplugin.json", registerPlugin<KatePythonPlugin>();)
 
-KatePythonPlugin::KatePythonPlugin(QObject *application, const QList<QVariant> &)
+KatePythonPlugin::KatePythonPlugin(QObject *application, const QVariantList &)
     : KTextEditor::Plugin(application)
 {
     qDebug() << "init res; " << PythonUtils::init();

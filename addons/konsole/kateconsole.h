@@ -36,7 +36,7 @@ class KateKonsolePlugin : public KTextEditor::Plugin
     friend class KateKonsolePluginView;
 
 public:
-    explicit KateKonsolePlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    explicit KateKonsolePlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~KateKonsolePlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

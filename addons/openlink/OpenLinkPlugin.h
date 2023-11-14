@@ -27,7 +27,7 @@ class OpenLinkPlugin final : public KTextEditor::Plugin
 {
     Q_OBJECT
 public:
-    explicit OpenLinkPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>())
+    explicit OpenLinkPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList())
         : KTextEditor::Plugin(parent)
     {
     }

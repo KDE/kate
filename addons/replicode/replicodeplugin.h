@@ -15,7 +15,7 @@ class ReplicodePlugin : public KTextEditor::Plugin
 
 public:
     // Constructor
-    explicit ReplicodePlugin(QObject *parent = nullptr, const QList<QVariant> &args = QList<QVariant>());
+    explicit ReplicodePlugin(QObject *parent = nullptr, const QVariantList &args = QVariantList());
     // Destructor
     ~ReplicodePlugin() override;
 

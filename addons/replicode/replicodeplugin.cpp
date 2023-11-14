@@ -13,7 +13,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateReplicodePluginFactory, "katereplicodeplugin.json", registerPlugin<ReplicodePlugin>();)
 
-ReplicodePlugin::ReplicodePlugin(QObject *parent, const QList<QVariant> &args)
+ReplicodePlugin::ReplicodePlugin(QObject *parent, const QVariantList &args)
     : KTextEditor::Plugin(qobject_cast<KTextEditor::Application *>(parent))
 {
     Q_UNUSED(args);

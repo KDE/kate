@@ -159,7 +159,7 @@ class KatePluginSymbolViewer : public KTextEditor::Plugin
 
     Q_OBJECT
 public:
-    explicit KatePluginSymbolViewer(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    explicit KatePluginSymbolViewer(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~KatePluginSymbolViewer() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

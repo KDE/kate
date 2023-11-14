@@ -281,7 +281,7 @@ public:
                 return {};
             QTextCharFormat boldFormat;
             boldFormat.setFontWeight(QFont::Bold);
-            const QList<QVariant> highlighting{
+            const QVariantList highlighting{
                 QVariant(0),
                 QVariant(match.len),
                 boldFormat,

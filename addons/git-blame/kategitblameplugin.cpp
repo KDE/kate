@@ -161,7 +161,7 @@ void GitBlameInlineNoteProvider::setMode(KateGitBlameMode mode)
 
 K_PLUGIN_FACTORY_WITH_JSON(KateGitBlamePluginFactory, "kategitblameplugin.json", registerPlugin<KateGitBlamePlugin>();)
 
-KateGitBlamePlugin::KateGitBlamePlugin(QObject *parent, const QList<QVariant> &)
+KateGitBlamePlugin::KateGitBlamePlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
 {
 }

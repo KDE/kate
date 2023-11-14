@@ -420,7 +420,7 @@ bool KatePluginSymbolViewerView::filterSymbols(QTreeWidgetItem *item, const QStr
     return is_item_shown;
 }
 
-KatePluginSymbolViewer::KatePluginSymbolViewer(QObject *parent, const QList<QVariant> &)
+KatePluginSymbolViewer::KatePluginSymbolViewer(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
 {
     // qDebug()<<"KatePluginSymbolViewer";

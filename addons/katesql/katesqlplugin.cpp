@@ -15,7 +15,7 @@
 K_PLUGIN_FACTORY_WITH_JSON(KateSQLFactory, "katesql.json", registerPlugin<KateSQLPlugin>();)
 
 // BEGIN KateSQLPLugin
-KateSQLPlugin::KateSQLPlugin(QObject *parent, const QList<QVariant> &)
+KateSQLPlugin::KateSQLPlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
 {
 }

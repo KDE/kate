@@ -249,7 +249,7 @@ int main(int argc, char **argv)
                                                         QStringLiteral("org.kde.ActivityManager.Activities"),
                                                         QStringLiteral("CurrentActivity"));
         QDBusMessage res = QDBusConnection::sessionBus().call(m);
-        QList<QVariant> answer = res.arguments();
+        QVariantList answer = res.arguments();
         if (answer.size() == 1) {
             currentActivity = answer.at(0).toString();
         }
@@ -265,14 +265,14 @@ int main(int argc, char **argv)
                                                                 QStringLiteral("org.kde.Kate.Application"),
                                                                 QStringLiteral("isOnActivity"));
 
-                QList<QVariant> dbargs;
+                QVariantList dbargs;
 
                 // convert to an url
                 dbargs.append(currentActivity);
                 m.setArguments(dbargs);
 
                 QDBusMessage res = QDBusConnection::sessionBus().call(m);
-                QList<QVariant> answer = res.arguments();
+                QVariantList answer = res.arguments();
                 if (answer.size() == 1) {
                     const bool canBeUsed = answer.at(0).toBool();
 
@@ -343,7 +343,7 @@ int main(int argc, char **argv)
                                                                         QStringLiteral("desktopNumber"));
 
                         QDBusMessage res = QDBusConnection::sessionBus().call(m);
-                        QList<QVariant> answer = res.arguments();
+                        QVariantList answer = res.arguments();
                         if (answer.size() == 1) {
                             // special case: on all desktops! that is -1 aka NET::OnAllDesktops, see KWindowInfo::desktop() docs
                             const int sessionDesktopNumber = answer.at(0).toInt();
@@ -374,7 +374,7 @@ int main(int argc, char **argv)
                                                                 QStringLiteral("org.kde.Kate.Application"),
                                                                 QStringLiteral("activateSession"));
 
-                QList<QVariant> dbusargs;
+                QVariantList dbusargs;
                 dbusargs.append(parser.value(startSessionOption));
                 m.setArguments(dbusargs);
 
@@ -396,7 +396,7 @@ int main(int argc, char **argv)
                                                                 QStringLiteral("tokenOpenUrlAt"));
 
                 UrlInfo info(url);
-                QList<QVariant> dbusargs;
+                QVariantList dbusargs;
 
                 // convert to an url
                 dbusargs.append(info.url.toString());
@@ -437,7 +437,7 @@ int main(int argc, char **argv)
                                                                 QStringLiteral("org.kde.Kate.Application"),
                                                                 QStringLiteral("openInput"));
 
-                QList<QVariant> dbusargs;
+                QVariantList dbusargs;
                 dbusargs.append(text);
                 dbusargs.append(codec_name);
                 m.setArguments(dbusargs);
@@ -465,7 +465,7 @@ int main(int argc, char **argv)
                                                                 QStringLiteral("org.kde.Kate.Application"),
                                                                 QStringLiteral("setCursor"));
 
-                QList<QVariant> args;
+                QVariantList args;
                 args.append(line);
                 args.append(column);
                 m.setArguments(args);

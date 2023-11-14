@@ -24,7 +24,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(TabSwitcherPluginFactory, "tabswitcherplugin.json", registerPlugin<TabSwitcherPlugin>();)
 
-TabSwitcherPlugin::TabSwitcherPlugin(QObject *parent, const QList<QVariant> &)
+TabSwitcherPlugin::TabSwitcherPlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
 {
 }

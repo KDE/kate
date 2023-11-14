@@ -37,7 +37,7 @@ public:
     /**
      * Plugin constructor.
      */
-    explicit TabSwitcherPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    explicit TabSwitcherPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
 
     /**
      * Create a new tab switcher for @p mainWindow.

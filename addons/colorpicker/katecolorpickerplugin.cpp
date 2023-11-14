@@ -255,7 +255,7 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
 
 K_PLUGIN_FACTORY_WITH_JSON(KateColorPickerPluginFactory, "katecolorpickerplugin.json", registerPlugin<KateColorPickerPlugin>();)
 
-KateColorPickerPlugin::KateColorPickerPlugin(QObject *parent, const QList<QVariant> &)
+KateColorPickerPlugin::KateColorPickerPlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
 {
 }

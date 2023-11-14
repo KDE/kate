@@ -43,7 +43,7 @@ K_PLUGIN_FACTORY_WITH_JSON(CloseExceptPluginFactory, "katecloseexceptplugin.json
 namespace kate
 {
 // BEGIN CloseExceptPlugin
-CloseExceptPlugin::CloseExceptPlugin(QObject *application, const QList<QVariant> &)
+CloseExceptPlugin::CloseExceptPlugin(QObject *application, const QVariantList &)
     : KTextEditor::Plugin(application)
 {
 }

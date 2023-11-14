@@ -623,7 +623,7 @@ public:
         m_model.clear();
         m_symbolsModel = nullptr;
 
-        int i = 0;
+        size_t i = 0;
         QIcon seperator = m_urlBar->seperator();
         for (const auto &dir : dirs) {
             auto item = new QStandardItem(dir.name);

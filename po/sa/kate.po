@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2023-11-14 01:40+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -151,40 +151,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - पाठ्य सम्पादक"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:356 lib/filehistorywidget.cpp:247
+#: lib/commitfilesview.cpp:352 lib/filehistorywidget.cpp:247
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "पिधाय"
 
-#: lib/commitfilesview.cpp:392 lib/kateviewmanager.cpp:325
+#: lib/commitfilesview.cpp:388 lib/kateviewmanager.cpp:325
 #: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "सञ्चिकां उद्घाटयन्तु"
 
-#: lib/commitfilesview.cpp:398 lib/katemainwindow.cpp:351
+#: lib/commitfilesview.cpp:394 lib/katemainwindow.cpp:351
 #, kde-format
 msgid "Copy Location"
 msgstr "प्रतिलिपि स्थानम्"
 
-#: lib/commitfilesview.cpp:420 lib/commitfilesview.cpp:514
-#: lib/commitfilesview.cpp:520 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:416 lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "Git"
 msgstr "गिट्"
 
-#: lib/commitfilesview.cpp:514
+#: lib/commitfilesview.cpp:512
 #, kde-format
 msgid "Invalid hash"
 msgstr "अमान्य हैश"
 
-#: lib/commitfilesview.cpp:520 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 git repo मध्ये नास्ति ।."
 
-#: lib/commitfilesview.cpp:535
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -337,69 +337,69 @@ msgstr "चेतावनी"
 msgid "Filter..."
 msgstr "फ़िल्टर..."
 
-#: lib/diagnostics/diagnosticview.cpp:1019 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1020 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "त्रुटि"
 
-#: lib/diagnostics/diagnosticview.cpp:1023 lib/kateconfigdialog.cpp:151
-#: lib/kateconfigdialog.cpp:684
+#: lib/diagnostics/diagnosticview.cpp:1024 lib/kateconfigdialog.cpp:151
+#: lib/kateconfigdialog.cpp:685
 #, kde-format
 msgid "Warning"
 msgstr "चेतवानी"
 
-#: lib/diagnostics/diagnosticview.cpp:1027
+#: lib/diagnostics/diagnosticview.cpp:1028
 #, kde-format
 msgid "Information"
 msgstr "सूचना"
 
-#: lib/diagnostics/diagnosticview.cpp:1147
+#: lib/diagnostics/diagnosticview.cpp:1148
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [दमितम्: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1286
+#: lib/diagnostics/diagnosticview.cpp:1287
 #, kde-format
 msgid "Expand All"
 msgstr "सर्वं विस्तारयतु"
 
-#: lib/diagnostics/diagnosticview.cpp:1287
+#: lib/diagnostics/diagnosticview.cpp:1288
 #, kde-format
 msgid "Collapse All"
 msgstr "ध्वस्तं कुर्वन्तु सर्वे"
 
-#: lib/diagnostics/diagnosticview.cpp:1293
+#: lib/diagnostics/diagnosticview.cpp:1294
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "अंशफलक प्रति प्रतिलिख्यताम्"
 
-#: lib/diagnostics/diagnosticview.cpp:1318
+#: lib/diagnostics/diagnosticview.cpp:1319
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "वैश्विकदमनं निष्कासयन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1320
+#: lib/diagnostics/diagnosticview.cpp:1321
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "वैश्विकदमनं योजयन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1324
+#: lib/diagnostics/diagnosticview.cpp:1325
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "स्थानीय दमनं निष्कासयन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1326
+#: lib/diagnostics/diagnosticview.cpp:1327
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Local Suppression इति योजयन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1341
+#: lib/diagnostics/diagnosticview.cpp:1342
 #, kde-format
 msgid "Disable Suppression"
 msgstr "दमनं निष्क्रियं कुर्वन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1343
+#: lib/diagnostics/diagnosticview.cpp:1344
 #, kde-format
 msgid "Enable Suppression"
 msgstr "दमनं सक्षमं कुर्वन्तु"
@@ -523,23 +523,23 @@ msgstr ""
 "अस्ति तर्हि सुनिश्चितं कुर्वन्तु यत् एषः भवतः PATH चरः अस्ति । https://git-scm.com/"
 "downloads इति पश्यन्तु"
 
-#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
+#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1155
 #: lib/kateconfigdialog.cpp:315
 #, kde-format
 msgid "Diff"
 msgstr "भेद्"
 
-#: lib/diff/diffwidget.cpp:764 lib/diff/diffwidget.cpp:968
+#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
 #, kde-format
 msgid "New file %1"
 msgstr "नूतनसञ्चिका %1"
 
-#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
+#: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
 #, kde-format
 msgid "Deleted file %1"
 msgstr "%1 सञ्चिका विलोपिता"
 
-#: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
+#: lib/diff/diffwidget.cpp:1138 lib/diff/diffwidget.cpp:1139
 #, kde-format
 msgid "No differences found"
 msgstr "न भेदाः लब्धाः"
@@ -1233,7 +1233,7 @@ msgstr "प्लगिन् प्रबन्धक"
 msgid "User Feedback"
 msgstr "उपयोक्तृप्रतिक्रिया"
 
-#: lib/kateconfigdialog.cpp:683
+#: lib/kateconfigdialog.cpp:684
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1904,7 +1904,7 @@ msgid ""
 "'%1'"
 msgstr "'%1' इति दस्तावेजं रक्षितुं न शक्यते ।"
 
-#: lib/katemwmodonhddialog.cpp:314
+#: lib/katemwmodonhddialog.cpp:312
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -1913,17 +1913,17 @@ msgstr ""
 "भेद आदेशः विफलः अभवत् । कृपया सुनिश्चितं कुर्वन्तु यत् git संस्थापितम् अस्ति तथा च भवतः PATH "
 "मध्ये अस्ति ।."
 
-#: lib/katemwmodonhddialog.cpp:316
+#: lib/katemwmodonhddialog.cpp:314
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "भेद् रचने त्रुटिः"
 
-#: lib/katemwmodonhddialog.cpp:323
+#: lib/katemwmodonhddialog.cpp:321
 #, kde-format
 msgid "[OLD]"
 msgstr "[वृद्धः]"
 
-#: lib/katemwmodonhddialog.cpp:324
+#: lib/katemwmodonhddialog.cpp:322
 #, kde-format
 msgid "[NEW]"
 msgstr "[नूतनम्‌]"

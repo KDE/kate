@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2023-11-14 01:40+0000\n"
 "PO-Revision-Date: 2023-09-10 17:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -154,40 +154,40 @@ msgid "KWrite - Text Editor"
 msgstr "கேரைட் -  உரைதொகுப்பாளர் உறுப்பு"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:356 lib/filehistorywidget.cpp:247
+#: lib/commitfilesview.cpp:352 lib/filehistorywidget.cpp:247
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "மூடு"
 
-#: lib/commitfilesview.cpp:392 lib/kateviewmanager.cpp:325
+#: lib/commitfilesview.cpp:388 lib/kateviewmanager.cpp:325
 #: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "கோப்பை திறத்தல்"
 
-#: lib/commitfilesview.cpp:398 lib/katemainwindow.cpp:351
+#: lib/commitfilesview.cpp:394 lib/katemainwindow.cpp:351
 #, kde-format
 msgid "Copy Location"
 msgstr "இருப்பிடத்தை நகலெடு"
 
-#: lib/commitfilesview.cpp:420 lib/commitfilesview.cpp:514
-#: lib/commitfilesview.cpp:520 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:416 lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "Git"
 msgstr "கிட்"
 
-#: lib/commitfilesview.cpp:514
+#: lib/commitfilesview.cpp:512
 #, kde-format
 msgid "Invalid hash"
 msgstr "செல்லுபடியாகாத சரிகாண்தொகை"
 
-#: lib/commitfilesview.cpp:520 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ஓர் கிட் கிடங்கில் இல்லை."
 
-#: lib/commitfilesview.cpp:535
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -340,69 +340,69 @@ msgstr "எச்சரிக்கைகள்"
 msgid "Filter..."
 msgstr "வடிகட்டு..."
 
-#: lib/diagnostics/diagnosticview.cpp:1019 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1020 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "பிழை"
 
-#: lib/diagnostics/diagnosticview.cpp:1023 lib/kateconfigdialog.cpp:151
-#: lib/kateconfigdialog.cpp:684
+#: lib/diagnostics/diagnosticview.cpp:1024 lib/kateconfigdialog.cpp:151
+#: lib/kateconfigdialog.cpp:685
 #, kde-format
 msgid "Warning"
 msgstr "எச்சரிக்கை"
 
-#: lib/diagnostics/diagnosticview.cpp:1027
+#: lib/diagnostics/diagnosticview.cpp:1028
 #, kde-format
 msgid "Information"
 msgstr "தகவல்"
 
-#: lib/diagnostics/diagnosticview.cpp:1147
+#: lib/diagnostics/diagnosticview.cpp:1148
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [மறைத்துள்ளவை: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1286
+#: lib/diagnostics/diagnosticview.cpp:1287
 #, kde-format
 msgid "Expand All"
 msgstr "அனைத்தையும் விரிவாக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1287
+#: lib/diagnostics/diagnosticview.cpp:1288
 #, kde-format
 msgid "Collapse All"
 msgstr "அனைத்தையும் சுருக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1293
+#: lib/diagnostics/diagnosticview.cpp:1294
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "பிடிப்புப்பலகைக்கு நகலெடு"
 
-#: lib/diagnostics/diagnosticview.cpp:1318
+#: lib/diagnostics/diagnosticview.cpp:1319
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "பொதுவான அடக்கல்விதியை நீக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1320
+#: lib/diagnostics/diagnosticview.cpp:1321
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "பொதுவான அடக்கல்விதியை சேர்"
 
-#: lib/diagnostics/diagnosticview.cpp:1324
+#: lib/diagnostics/diagnosticview.cpp:1325
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "வட்டார அடக்கல்விதியை நீக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1326
+#: lib/diagnostics/diagnosticview.cpp:1327
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "வட்டார அடக்கல்விதியை சேர்"
 
-#: lib/diagnostics/diagnosticview.cpp:1341
+#: lib/diagnostics/diagnosticview.cpp:1342
 #, kde-format
 msgid "Disable Suppression"
 msgstr "அடக்கலை முடக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1343
+#: lib/diagnostics/diagnosticview.cpp:1344
 #, kde-format
 msgid "Enable Suppression"
 msgstr "அடக்கலை இயக்கு"
@@ -526,23 +526,23 @@ msgstr ""
 "தேவை. கிட் ஏற்கனவே நிறுவப்பட்டிருந்தால், அதற்கான பாதை உங்கள் PATH சூழ்மாறியில் உள்ளதா என "
 "சரிபாருங்கள். விவரங்களுக்கு https://git-scm.com/downloads என்பதைப் பாருங்கள்."
 
-#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
+#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1155
 #: lib/kateconfigdialog.cpp:315
 #, kde-format
 msgid "Diff"
 msgstr "வித்தியாசம்"
 
-#: lib/diff/diffwidget.cpp:764 lib/diff/diffwidget.cpp:968
+#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
 #, kde-format
 msgid "New file %1"
 msgstr "புதிய கோப்பு %1"
 
-#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
+#: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
 #, kde-format
 msgid "Deleted file %1"
 msgstr "நீக்கப்பட்ட கோப்பு %1"
 
-#: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
+#: lib/diff/diffwidget.cpp:1138 lib/diff/diffwidget.cpp:1139
 #, kde-format
 msgid "No differences found"
 msgstr "வித்தியாசங்கள் இல்லை"
@@ -1235,7 +1235,7 @@ msgstr "செருகுநிரல் மேலாளர்"
 msgid "User Feedback"
 msgstr "பயனர் பின்னூட்டம்"
 
-#: lib/kateconfigdialog.cpp:683
+#: lib/kateconfigdialog.cpp:684
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1910,7 +1910,7 @@ msgstr ""
 "'%1'\n"
 "என்ற ஆவணத்தை சேமிக்க முடியவில்லை"
 
-#: lib/katemwmodonhddialog.cpp:314
+#: lib/katemwmodonhddialog.cpp:312
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -1919,17 +1919,17 @@ msgstr ""
 "diff கட்டளை தோல்வியடைந்தது. git நிறுவப்பட்டுள்ளதென்றும், உங்கள் PATH-இல் உள்ளதென்றும் "
 "உறுதி செய்யுங்கள்."
 
-#: lib/katemwmodonhddialog.cpp:316
+#: lib/katemwmodonhddialog.cpp:314
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "வித்தியாசங்களை கண்டுபிடிப்பதில் சிக்கல்"
 
-#: lib/katemwmodonhddialog.cpp:323
+#: lib/katemwmodonhddialog.cpp:321
 #, kde-format
 msgid "[OLD]"
 msgstr "[பழையது]"
 
-#: lib/katemwmodonhddialog.cpp:324
+#: lib/katemwmodonhddialog.cpp:322
 #, kde-format
 msgid "[NEW]"
 msgstr "[புதியது]"

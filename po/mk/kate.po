@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2023-11-14 01:40+0000\n"
 "PO-Revision-Date: 2007-02-17 11:32+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -161,42 +161,42 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Уредувач на текст"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:356 lib/filehistorywidget.cpp:247
+#: lib/commitfilesview.cpp:352 lib/filehistorywidget.cpp:247
 #: lib/session/katesessionmanagedialog.ui:183
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close"
 msgstr "Затвори ги сит&е"
 
-#: lib/commitfilesview.cpp:392 lib/kateviewmanager.cpp:325
+#: lib/commitfilesview.cpp:388 lib/kateviewmanager.cpp:325
 #: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "Отворете датотека"
 
-#: lib/commitfilesview.cpp:398 lib/katemainwindow.cpp:351
+#: lib/commitfilesview.cpp:394 lib/katemainwindow.cpp:351
 #, fuzzy, kde-format
 msgid "Copy Location"
 msgstr "Локација"
 
-#: lib/commitfilesview.cpp:420 lib/commitfilesview.cpp:514
-#: lib/commitfilesview.cpp:520 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:416 lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:514
+#: lib/commitfilesview.cpp:512
 #, fuzzy, kde-format
 #| msgid "Invalid Folder"
 msgid "Invalid hash"
 msgstr "Невалидна папка"
 
-#: lib/commitfilesview.cpp:520 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:535
+#: lib/commitfilesview.cpp:533
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
@@ -356,74 +356,74 @@ msgstr ""
 msgid "Filter..."
 msgstr "Датотеки:"
 
-#: lib/diagnostics/diagnosticview.cpp:1019 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1020 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1023 lib/kateconfigdialog.cpp:151
-#: lib/kateconfigdialog.cpp:684
+#: lib/diagnostics/diagnosticview.cpp:1024 lib/kateconfigdialog.cpp:151
+#: lib/kateconfigdialog.cpp:685
 #, kde-format
 msgid "Warning"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1027
+#: lib/diagnostics/diagnosticview.cpp:1028
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "Метаинформација"
 
-#: lib/diagnostics/diagnosticview.cpp:1147
+#: lib/diagnostics/diagnosticview.cpp:1148
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1286
+#: lib/diagnostics/diagnosticview.cpp:1287
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1287
+#: lib/diagnostics/diagnosticview.cpp:1288
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Затвори ги сит&е"
 
-#: lib/diagnostics/diagnosticview.cpp:1293
+#: lib/diagnostics/diagnosticview.cpp:1294
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1318
+#: lib/diagnostics/diagnosticview.cpp:1319
 #, fuzzy, kde-format
 #| msgid "Regular expression"
 msgid "Remove Global Suppression"
 msgstr "Регуларен израз"
 
-#: lib/diagnostics/diagnosticview.cpp:1320
+#: lib/diagnostics/diagnosticview.cpp:1321
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "Сес&ии"
 
-#: lib/diagnostics/diagnosticview.cpp:1324
+#: lib/diagnostics/diagnosticview.cpp:1325
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1326
+#: lib/diagnostics/diagnosticview.cpp:1327
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1341
+#: lib/diagnostics/diagnosticview.cpp:1342
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "Сесии"
 
-#: lib/diagnostics/diagnosticview.cpp:1343
+#: lib/diagnostics/diagnosticview.cpp:1344
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -552,24 +552,24 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1153
+#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1155
 #: lib/kateconfigdialog.cpp:315
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:764 lib/diff/diffwidget.cpp:968
+#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Име на датотека"
 
-#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
+#: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "Избришано"
 
-#: lib/diff/diffwidget.cpp:1136 lib/diff/diffwidget.cpp:1137
+#: lib/diff/diffwidget.cpp:1138 lib/diff/diffwidget.cpp:1139
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -1268,7 +1268,7 @@ msgstr "Менаџер на приклучоци"
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:683
+#: lib/kateconfigdialog.cpp:684
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
@@ -2008,7 +2008,7 @@ msgstr ""
 "Не можев да го зачувам документот \n"
 "„%1“"
 
-#: lib/katemwmodonhddialog.cpp:314
+#: lib/katemwmodonhddialog.cpp:312
 #, fuzzy, kde-format
 #| msgid ""
 #| "The diff command failed. Please make sure that diff(1) is installed and "
@@ -2020,17 +2020,17 @@ msgstr ""
 "Наредбата diff не успеа. Осигурете се дека diff(1) е инсталиран и се наоѓа "
 "во вашата $PATH."
 
-#: lib/katemwmodonhddialog.cpp:316
+#: lib/katemwmodonhddialog.cpp:314
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Грешка при креирање на разлика"
 
-#: lib/katemwmodonhddialog.cpp:323
+#: lib/katemwmodonhddialog.cpp:321
 #, kde-format
 msgid "[OLD]"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:324
+#: lib/katemwmodonhddialog.cpp:322
 #, kde-format
 msgid "[NEW]"
 msgstr ""

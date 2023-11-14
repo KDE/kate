@@ -139,18 +139,18 @@ void LineNumArea::paintEvent(QPaintEvent *event)
             //             }
 
             // Line number left
-            auto it = std::find(m_lineToNumA.begin(), m_lineToNumA.end(), blockNumber);
-            if (it != m_lineToNumA.end()) {
+            if (size_t(blockNumber) < m_lineToNumA.size()) {
+                int n = m_lineToNumA[blockNumber];
                 QRect numRect(0, top, w, textEdit->fontMetrics().height());
-                drawLineNumber(painter, numRect, blockNumber, *it, colors);
+                drawLineNumber(painter, numRect, blockNumber, n, colors);
             }
 
             if (!m_lineToNumB.empty()) {
                 // we are in unified mode, draw the right line number
-                auto it = std::find(m_lineToNumB.begin(), m_lineToNumB.end(), blockNumber);
-                if (it != m_lineToNumB.end()) {
+                if (size_t(blockNumber) < m_lineToNumB.size()) {
+                    int n = m_lineToNumB[blockNumber];
                     QRect numRect(w, top, w, textEdit->fontMetrics().height());
-                    drawLineNumber(painter, numRect, blockNumber, *it, colors);
+                    drawLineNumber(painter, numRect, blockNumber, n, colors);
                 }
             }
 

@@ -102,8 +102,7 @@
             "command": ["typescript-language-server", "--stdio"],
             "rootIndicationFileNames": ["package.json", "package-lock.json"],
             "url": "https://github.com/theia-ide/typescript-language-server",
-            "highlightingModeRegex": "^JavaScript.*$",
-            "documentLanguageId": true
+            "highlightingModeRegex": "^JavaScript.*$"
         },
         "json": {
             "command": ["vscode-json-languageserver", "--stdio"],
@@ -231,8 +230,7 @@
         },
         "typescript": {
             "use": "javascript",
-            "highlightingModeRegex": "^TypeScript.*$",
-            "documentLanguageId": false
+            "highlightingModeRegex": "^TypeScript.*$"
         },
         "vala": {
             "command": ["vala-language-server"],

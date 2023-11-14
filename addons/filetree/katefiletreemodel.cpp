@@ -92,8 +92,8 @@ public:
     void setIcon(const QIcon &i);
     const QIcon &icon() const;
 
-    const QList<ProxyItem *> &children() const;
-    QList<ProxyItem *> &children();
+    const std::vector<ProxyItem *> &children() const;
+    std::vector<ProxyItem *> &children();
 
     void setDoc(KTextEditor::Document *doc);
     KTextEditor::Document *doc() const;
@@ -116,7 +116,7 @@ private:
     QString m_path;
     QString m_documentName;
     ProxyItemDir *m_parent;
-    QList<ProxyItem *> m_children;
+    std::vector<ProxyItem *> m_children;
     int m_row;
     Flags m_flags;
 
@@ -229,9 +229,9 @@ int ProxyItem::addChild(ProxyItem *item)
         item->m_parent->removeChild(item);
     }
 
-    const int item_row = m_children.count();
+    const int item_row = m_children.size();
     item->m_row = item_row;
-    m_children.append(item);
+    m_children.push_back(item);
     item->m_parent = static_cast<ProxyItemDir *>(this);
 
     item->updateDisplay();
@@ -241,12 +241,12 @@ int ProxyItem::addChild(ProxyItem *item)
 
 void ProxyItem::removeChild(ProxyItem *item)
 {
-    const int idx = m_children.indexOf(item);
-    Q_ASSERT(idx != -1);
+    auto it = std::find(m_children.begin(), m_children.end(), item);
+    Q_ASSERT(it != m_children.end());
+    m_children.erase(it);
 
-    m_children.removeAt(idx);
-
-    for (int i = idx; i < m_children.count(); i++) {
+    auto idx = std::distance(m_children.begin(), it);
+    for (size_t i = idx; i < m_children.size(); i++) {
         m_children[i]->m_row = i;
     }
 
@@ -260,12 +260,12 @@ ProxyItemDir *ProxyItem::parent() const
 
 ProxyItem *ProxyItem::child(int idx) const
 {
-    return (idx < 0 || idx >= m_children.count()) ? nullptr : m_children[idx];
+    return (size_t(idx) >= m_children.size()) ? nullptr : m_children[idx];
 }
 
 int ProxyItem::childCount() const
 {
-    return m_children.count();
+    return m_children.size();
 }
 
 int ProxyItem::row() const
@@ -304,12 +304,12 @@ void ProxyItem::setPath(const QString &p)
     updateDisplay();
 }
 
-const QList<ProxyItem *> &ProxyItem::children() const
+const std::vector<ProxyItem *> &ProxyItem::children() const
 {
     return m_children;
 }
 
-QList<ProxyItem *> &ProxyItem::children()
+std::vector<ProxyItem *> &ProxyItem::children()
 {
     return m_children;
 }
@@ -351,7 +351,7 @@ QList<KTextEditor::Document *> ProxyItem::docTree() const
         return result;
     }
 
-    for (const ProxyItem *item : qAsConst(m_children)) {
+    for (const ProxyItem *item : m_children) {
         result.append(item->docTree());
     }
 
@@ -717,11 +717,11 @@ bool KateFileTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction, int 
     int sourceRow = index.row();
 
     beginMoveRows(index.parent(), index.row(), index.row(), parent, row);
-    childs.insert(row, childs.at(index.row()));
+    childs.insert(childs.begin() + row, childs.at(index.row()));
     if (sourceRow > row) {
         sourceRow++;
     }
-    childs.takeAt(sourceRow);
+    childs.erase(childs.begin() + sourceRow);
     endMoveRows();
     return true;
 }

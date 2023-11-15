@@ -22,7 +22,7 @@ QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
     /*
      * available linters
      */
-    const QList<KateProjectCodeAnalysisTool *> tools = {
+    const KateProjectCodeAnalysisTool *tools[] = {
         // cppcheck, for C++
         new KateProjectCodeAnalysisToolCppcheck(model),
         // flake8, for Python

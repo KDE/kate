@@ -49,28 +49,48 @@ int GDBVariableParser::createAndSignalVariable(int parentId, const QStringView n
     return m_variableId;
 }
 
-// Return the first index of the given char outside of quoted strings
-// example : firstIndexOf("aa\"blabla\"hello", 'l') gives 12 (the first 'l' of "hello")
-// Note : the quoted strings can also contain escaped quotes
-// example : firstIndexOf("aa\"bla\\\"bl\\\"a\"hello", 'l') gives 14 (the first 'l' of "hello")
+enum ParsingState {
+    Normal,
+    InQuotedString,
+    InParenthesis,
+};
+
+// Return the first index of the given char outside of quoted strings and parenthesis
+// example : finding the first comma in the following string:
+// "aaa\"bbb,bbb\\"bbb,bbb\\"bbb\"aaa(ccc,ccc)aaa,aaa,aaa"
+//                                               ^
+//                              gives this one : ^
+//
+// because the string is decomposed into :
+// - bbb : "in quoted string"
+// - ccc : "in parenthesis"
+// - aaa : normal (where the comma is searched for)
 qsizetype firstIndexOf(const QStringView tail, QChar ch)
 {
     const QChar QUOTE((short)'"');
     const QChar BACKSLASH((short)'\\');
+    const QChar OPENING_PARENTHESIS((short)'(');
+    const QChar CLOSING_PARENTHESIS((short)')');
     QChar previous(0);
-    bool inQuotedString = false;
+    ParsingState state = Normal;
     for (int i = 0; i < tail.length(); i++) {
         QChar current = tail[i];
-        if (inQuotedString) {
-            if (current == QUOTE && previous != BACKSLASH) {
-                inQuotedString = false;
-            }
-        } else {
+        if (state == Normal) {
             if (current == ch) {
                 return i;
             }
             if (current == QUOTE) {
-                inQuotedString = true;
+                state = InQuotedString;
+            } else if (current == OPENING_PARENTHESIS) {
+                state = InParenthesis;
+            }
+        } else if (state == InQuotedString) {
+            if (current == QUOTE && previous != BACKSLASH) {
+                state = Normal;
+            }
+        } else if (state == InParenthesis) {
+            if (current == CLOSING_PARENTHESIS) {
+                state = Normal;
             }
         }
         previous = current;

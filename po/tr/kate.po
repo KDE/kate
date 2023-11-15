@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:40+0000\n"
+"POT-Creation-Date: 2023-11-15 01:40+0000\n"
 "PO-Revision-Date: 2023-11-03 22:09+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -308,115 +308,115 @@ msgstr ""
 msgid "All"
 msgstr "Tümü"
 
-#: lib/diagnostics/diagnosticview.cpp:314
+#: lib/diagnostics/diagnosticview.cpp:315
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Tanılar Görünümü"
 
-#: lib/diagnostics/diagnosticview.cpp:319
+#: lib/diagnostics/diagnosticview.cpp:320
 #, kde-format
 msgid "Quick Fix"
 msgstr "Hızlı Düzelt"
 
-#: lib/diagnostics/diagnosticview.cpp:325
+#: lib/diagnostics/diagnosticview.cpp:326
 #, kde-format
 msgid "Next Item"
 msgstr "Sonraki Öge"
 
-#: lib/diagnostics/diagnosticview.cpp:331
+#: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
 msgid "Previous Item"
 msgstr "Önceki Öge"
 
-#: lib/diagnostics/diagnosticview.cpp:339
+#: lib/diagnostics/diagnosticview.cpp:340
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Tanılar Süzgecini Temizle"
 
-#: lib/diagnostics/diagnosticview.cpp:379
+#: lib/diagnostics/diagnosticview.cpp:380
 #, kde-format
 msgid "Diagnostics"
 msgstr "Tanılar"
 
-#: lib/diagnostics/diagnosticview.cpp:417
+#: lib/diagnostics/diagnosticview.cpp:423
 #, kde-format
 msgid "Errors"
 msgstr "Hatalar"
 
-#: lib/diagnostics/diagnosticview.cpp:433
+#: lib/diagnostics/diagnosticview.cpp:439
 #, kde-format
 msgid "Warnings"
 msgstr "Uyarılar"
 
-#: lib/diagnostics/diagnosticview.cpp:447
+#: lib/diagnostics/diagnosticview.cpp:453
 #, kde-format
 msgid "Filter..."
 msgstr "Süz..."
 
-#: lib/diagnostics/diagnosticview.cpp:1020 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1026 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "Hata"
 
-#: lib/diagnostics/diagnosticview.cpp:1024 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1030 lib/kateconfigdialog.cpp:151
 #: lib/kateconfigdialog.cpp:685
 #, kde-format
 msgid "Warning"
 msgstr "Uyarı"
 
-#: lib/diagnostics/diagnosticview.cpp:1028
+#: lib/diagnostics/diagnosticview.cpp:1034
 #, kde-format
 msgid "Information"
 msgstr "Bilgi"
 
-#: lib/diagnostics/diagnosticview.cpp:1148
+#: lib/diagnostics/diagnosticview.cpp:1154
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [susturulmuş: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1287
+#: lib/diagnostics/diagnosticview.cpp:1293
 #, kde-format
 msgid "Expand All"
 msgstr "Tümünü Genişlet"
 
-#: lib/diagnostics/diagnosticview.cpp:1288
+#: lib/diagnostics/diagnosticview.cpp:1294
 #, kde-format
 msgid "Collapse All"
 msgstr "Tümünü Daralt"
 
-#: lib/diagnostics/diagnosticview.cpp:1294
+#: lib/diagnostics/diagnosticview.cpp:1300
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Panoya Kopyala"
 
-#: lib/diagnostics/diagnosticview.cpp:1319
+#: lib/diagnostics/diagnosticview.cpp:1325
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Global Susturmayı Kaldır"
 
-#: lib/diagnostics/diagnosticview.cpp:1321
+#: lib/diagnostics/diagnosticview.cpp:1327
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Global Susturma Ekle"
 
-#: lib/diagnostics/diagnosticview.cpp:1325
+#: lib/diagnostics/diagnosticview.cpp:1331
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Yerel Susturmayı Kaldır"
 
-#: lib/diagnostics/diagnosticview.cpp:1327
+#: lib/diagnostics/diagnosticview.cpp:1333
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Yerel Susturma Ekle"
 
-#: lib/diagnostics/diagnosticview.cpp:1342
+#: lib/diagnostics/diagnosticview.cpp:1348
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Susturmayı Devre Dışı Bırak"
 
-#: lib/diagnostics/diagnosticview.cpp:1344
+#: lib/diagnostics/diagnosticview.cpp:1350
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Susturmayı Etkinleştir"

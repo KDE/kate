@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2023-11-15 01:40+0000\n"
 "PO-Revision-Date: 2017-06-25 15:08+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -250,7 +250,7 @@ msgstr[1] "<b><i>%1 atitikmenys rasti projekte %2 (%3)</i></b>"
 msgstr[2] "<b><i>%1 atitikmenų rasti projekte %2 (%3)</i></b>"
 msgstr[3] "<b><i>%1 atitikmuo rastas projekte %2 (%3)</i></b>"
 
-#: Results.cpp:31
+#: Results.cpp:32
 #, fuzzy, kde-format
 #| msgid "Filter"
 msgid "Filter..."
@@ -258,13 +258,13 @@ msgstr "Filtruoti"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:34 search.ui:37 SearchPlugin.cpp:299
+#: search.ui:52 search.ui:55 SearchPlugin.cpp:299
 #, kde-format
 msgid "Search"
 msgstr "Ieškoti"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
-#: search.ui:47
+#: search.ui:65
 #, fuzzy, kde-format
 #| msgid "Replace checked"
 msgctxt ""
@@ -276,27 +276,27 @@ msgstr "Pakeisti pažymėtus"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
-#: search.ui:67 search.ui:70
+#: search.ui:85 search.ui:88
 #, kde-format
 msgid "Next"
 msgstr "Kitas"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
 #. i18n: ectx: property (text), widget (QPushButton, stopButton)
-#: search.ui:75 search.ui:78
+#: search.ui:93 search.ui:96
 #, kde-format
 msgid "Stop"
 msgstr "stabdyti"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
-#: search.ui:115
+#: search.ui:133
 #, fuzzy, kde-format
 #| msgid "&Match case"
 msgid "Match case"
 msgstr "&Skirti raidžių dydį"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
-#: search.ui:131
+#: search.ui:149
 #, kde-format
 msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
@@ -304,7 +304,7 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
-#: search.ui:160
+#: search.ui:178
 #, kde-format
 msgid "Expand results"
 msgstr "Išplėsti rezultatus"
@@ -312,110 +312,110 @@ msgstr "Išplėsti rezultatus"
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
 #. i18n: ectx: property (text), widget (QToolButton, newTabButton)
-#: search.ui:176 search.ui:246 search.ui:259
+#: search.ui:194 search.ui:264 search.ui:277
 #, kde-format
 msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:507
+#: search.ui:210 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "Pakeisti"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:215
+#: search.ui:233
 #, fuzzy, kde-format
 #| msgid "in Project"
 msgid "In Current File"
 msgstr "Projekte"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:220
+#: search.ui:238
 #, fuzzy, kde-format
 #| msgid "in Open files"
 msgid "In Open Files"
 msgstr "atvertuose failuose"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:225
+#: search.ui:243
 #, fuzzy, kde-format
 #| msgid "F&older"
 msgid "In Folder"
 msgstr "&Aplankas"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
-#: search.ui:233
+#: search.ui:251
 #, kde-format
 msgid "Use the current document's path."
 msgstr "Naudoti dabartinio failo adresą."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
-#: search.ui:243
+#: search.ui:261
 #, fuzzy, kde-format
 #| msgid "Se&arch:"
 msgid "Show more search options"
 msgstr "I&eškoti:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
-#: search.ui:256
+#: search.ui:274
 #, kde-format
 msgid "Add new search tab"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
-#: search.ui:353
+#: search.ui:371
 #, fuzzy, kde-format
 #| msgid "F&older"
 msgid "Folder:"
 msgstr "&Aplankas"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
-#: search.ui:371
+#: search.ui:389
 #, kde-format
 msgid "Go one folder up."
 msgstr "Eiti vienu aplanku aukštyn."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
-#: search.ui:380
+#: search.ui:398
 #, fuzzy, kde-format
 #| msgid "Filter"
 msgid "Filter:"
 msgstr "Filtruoti"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
-#: search.ui:402
+#: search.ui:420
 #, kde-format
 msgid "*"
 msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
-#: search.ui:410
+#: search.ui:428
 #, fuzzy, kde-format
 #| msgid "Exclude"
 msgid "Exclude:"
 msgstr "Neįtraukti"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
-#: search.ui:431
+#: search.ui:449
 #, kde-format
 msgid "Recursive"
 msgstr "Rekursyviai"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
-#: search.ui:441
+#: search.ui:459
 #, kde-format
 msgid "Include hidden"
 msgstr "įtraukiant paslėptus"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
-#: search.ui:448
+#: search.ui:466
 #, kde-format
 msgid "Follow symbolic links"
 msgstr "Sekti simbolinėmis nuorodomis"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
-#: search.ui:455
+#: search.ui:473
 #, kde-format
 msgid "Include binary files"
 msgstr "Įtraukti dvejetainius failus"

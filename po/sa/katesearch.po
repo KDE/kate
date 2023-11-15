@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2023-11-15 01:40+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -185,20 +185,20 @@ msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] "सर्वेषु उद्घाटितेषु परियोजनासु एकः मेलः (%3) प्राप्तः (सामान्यः मातापिता: %2)"
 msgstr[1] "सर्वेषु उद्घाटितेषु परियोजनासु %1 मेलाः (%3) प्राप्ताः (सामान्यः मातापिता: %2)"
 
-#: Results.cpp:31
+#: Results.cpp:32
 #, kde-format
 msgid "Filter..."
 msgstr "शोधक..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:34 search.ui:37 SearchPlugin.cpp:299
+#: search.ui:52 search.ui:55 SearchPlugin.cpp:299
 #, kde-format
 msgid "Search"
 msgstr "अन्वेषण"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
-#: search.ui:47
+#: search.ui:65
 #, fuzzy, kde-format
 #| msgid "Replace Checked"
 msgctxt ""
@@ -210,26 +210,26 @@ msgstr "प्रतिस्थापनं परीक्षितम्"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
-#: search.ui:67 search.ui:70
+#: search.ui:85 search.ui:88
 #, kde-format
 msgid "Next"
 msgstr "अग्रिम"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
 #. i18n: ectx: property (text), widget (QPushButton, stopButton)
-#: search.ui:75 search.ui:78
+#: search.ui:93 search.ui:96
 #, kde-format
 msgid "Stop"
 msgstr "विरमतु"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
-#: search.ui:115
+#: search.ui:133
 #, kde-format
 msgid "Match case"
 msgstr "मेलप्रकरणम्"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
-#: search.ui:131
+#: search.ui:149
 #, kde-format
 msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
@@ -239,7 +239,7 @@ msgstr ""
 "syntax कृते सहायतां ज्ञात्वा पाठक्षेत्राणि प्रतिस्थापयन्तु ।</p></body></html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
-#: search.ui:160
+#: search.ui:178
 #, kde-format
 msgid "Expand results"
 msgstr "परिणामान् विस्तारयतु"
@@ -247,103 +247,103 @@ msgstr "परिणामान् विस्तारयतु"
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
 #. i18n: ectx: property (text), widget (QToolButton, newTabButton)
-#: search.ui:176 search.ui:246 search.ui:259
+#: search.ui:194 search.ui:264 search.ui:277
 #, kde-format
 msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:507
+#: search.ui:210 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "प्रत्याहृ"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:215
+#: search.ui:233
 #, kde-format
 msgid "In Current File"
 msgstr "वर्तमानसञ्चिकायां"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:220
+#: search.ui:238
 #, kde-format
 msgid "In Open Files"
 msgstr "उद्घाटितसञ्चिकासु"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:225
+#: search.ui:243
 #, kde-format
 msgid "In Folder"
 msgstr "पुटे"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
-#: search.ui:233
+#: search.ui:251
 #, kde-format
 msgid "Use the current document's path."
 msgstr "वर्तमानदस्तावेजस्य मार्गस्य उपयोगं कुर्वन्तु ।."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
-#: search.ui:243
+#: search.ui:261
 #, kde-format
 msgid "Show more search options"
 msgstr "अधिकानि अन्वेषणविकल्पानि दर्शयतु"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
-#: search.ui:256
+#: search.ui:274
 #, kde-format
 msgid "Add new search tab"
 msgstr "नूतनं अन्वेषण ट्याब् योजयन्तु"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
-#: search.ui:353
+#: search.ui:371
 #, kde-format
 msgid "Folder:"
 msgstr "पुटम् :"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
-#: search.ui:371
+#: search.ui:389
 #, kde-format
 msgid "Go one folder up."
 msgstr "एकं पुटं उपरि गच्छतु।."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
-#: search.ui:380
+#: search.ui:398
 #, kde-format
 msgid "Filter:"
 msgstr "शोधक:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
-#: search.ui:402
+#: search.ui:420
 #, kde-format
 msgid "*"
 msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
-#: search.ui:410
+#: search.ui:428
 #, kde-format
 msgid "Exclude:"
 msgstr "बहिष्कृत्य :"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
-#: search.ui:431
+#: search.ui:449
 #, kde-format
 msgid "Recursive"
 msgstr "पुनरावर्तनीयम्"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
-#: search.ui:441
+#: search.ui:459
 #, kde-format
 msgid "Include hidden"
 msgstr "गुप्तं समावेशयन्तु"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
-#: search.ui:448
+#: search.ui:466
 #, kde-format
 msgid "Follow symbolic links"
 msgstr "प्रतीकात्मकाः कडिानां अनुसरणं कुर्वन्तु"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
-#: search.ui:455
+#: search.ui:473
 #, kde-format
 msgid "Include binary files"
 msgstr "द्विचक्रीयसञ्चिकाः समाविष्टाः कुर्वन्तु"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2023-11-15 01:40+0000\n"
 "PO-Revision-Date: 2020-09-17 14:59+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -204,7 +204,7 @@ msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
 "<b><i>在所有開啟專案（共同父專案：%2）中找到 %1 個相符項目 (%3)</i></b>"
 
-#: Results.cpp:31
+#: Results.cpp:32
 #, fuzzy, kde-format
 #| msgid "Filter:"
 msgid "Filter..."
@@ -212,13 +212,13 @@ msgstr "過濾器："
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:34 search.ui:37 SearchPlugin.cpp:299
+#: search.ui:52 search.ui:55 SearchPlugin.cpp:299
 #, kde-format
 msgid "Search"
 msgstr "搜尋"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
-#: search.ui:47
+#: search.ui:65
 #, fuzzy, kde-format
 #| msgid "Replace Checked"
 msgctxt ""
@@ -230,26 +230,26 @@ msgstr "取代勾選"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
-#: search.ui:67 search.ui:70
+#: search.ui:85 search.ui:88
 #, kde-format
 msgid "Next"
 msgstr "下一個"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
 #. i18n: ectx: property (text), widget (QPushButton, stopButton)
-#: search.ui:75 search.ui:78
+#: search.ui:93 search.ui:96
 #, kde-format
 msgid "Stop"
 msgstr "停止"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
-#: search.ui:115
+#: search.ui:133
 #, kde-format
 msgid "Match case"
 msgstr "符合大小寫"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
-#: search.ui:131
+#: search.ui:149
 #, kde-format
 msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
@@ -259,7 +259,7 @@ msgstr ""
 "以取得關於正規表示式語法的說明。</p></body></html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
-#: search.ui:160
+#: search.ui:178
 #, kde-format
 msgid "Expand results"
 msgstr "展開結果"
@@ -267,104 +267,104 @@ msgstr "展開結果"
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
 #. i18n: ectx: property (text), widget (QToolButton, newTabButton)
-#: search.ui:176 search.ui:246 search.ui:259
+#: search.ui:194 search.ui:264 search.ui:277
 #, kde-format
 msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:507
+#: search.ui:210 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "取代"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:215
+#: search.ui:233
 #, kde-format
 msgid "In Current File"
 msgstr "在目前的檔案中"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:220
+#: search.ui:238
 #, kde-format
 msgid "In Open Files"
 msgstr "在開啟的檔案中"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:225
+#: search.ui:243
 #, kde-format
 msgid "In Folder"
 msgstr "在資料夾"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
-#: search.ui:233
+#: search.ui:251
 #, kde-format
 msgid "Use the current document's path."
 msgstr "使用目前的文件路徑。"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
-#: search.ui:243
+#: search.ui:261
 #, fuzzy, kde-format
 #| msgid "Show search options"
 msgid "Show more search options"
 msgstr "顯示搜尋選項"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
-#: search.ui:256
+#: search.ui:274
 #, kde-format
 msgid "Add new search tab"
 msgstr "新增新的搜尋標籤"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
-#: search.ui:353
+#: search.ui:371
 #, kde-format
 msgid "Folder:"
 msgstr "資料夾："
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
-#: search.ui:371
+#: search.ui:389
 #, kde-format
 msgid "Go one folder up."
 msgstr "往上一層資料夾。"
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
-#: search.ui:380
+#: search.ui:398
 #, kde-format
 msgid "Filter:"
 msgstr "過濾器："
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
-#: search.ui:402
+#: search.ui:420
 #, kde-format
 msgid "*"
 msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
-#: search.ui:410
+#: search.ui:428
 #, kde-format
 msgid "Exclude:"
 msgstr "排除："
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
-#: search.ui:431
+#: search.ui:449
 #, kde-format
 msgid "Recursive"
 msgstr "遞迴"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
-#: search.ui:441
+#: search.ui:459
 #, kde-format
 msgid "Include hidden"
 msgstr "包含隱藏檔"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
-#: search.ui:448
+#: search.ui:466
 #, kde-format
 msgid "Follow symbolic links"
 msgstr "跟隨符號連結"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
-#: search.ui:455
+#: search.ui:473
 #, kde-format
 msgid "Include binary files"
 msgstr "包含二進位檔案"

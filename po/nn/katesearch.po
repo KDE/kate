@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2023-11-15 01:40+0000\n"
 "PO-Revision-Date: 2023-01-08 11:44+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -192,20 +192,20 @@ msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] "Fann 1 treff (%3) i alle opne prosjekt (felles forelder: %2)"
 msgstr[1] "Fann %1 treff (%3) i alle opne prosjekt (felles forelder: %2)"
 
-#: Results.cpp:31
+#: Results.cpp:32
 #, kde-format
 msgid "Filter..."
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:34 search.ui:37 SearchPlugin.cpp:299
+#: search.ui:52 search.ui:55 SearchPlugin.cpp:299
 #, kde-format
 msgid "Search"
 msgstr "Søk"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
-#: search.ui:47
+#: search.ui:65
 #, fuzzy, kde-format
 #| msgid "Replace Checked"
 msgctxt ""
@@ -217,26 +217,26 @@ msgstr "Bytt ut merkte"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
-#: search.ui:67 search.ui:70
+#: search.ui:85 search.ui:88
 #, kde-format
 msgid "Next"
 msgstr "Neste"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
 #. i18n: ectx: property (text), widget (QPushButton, stopButton)
-#: search.ui:75 search.ui:78
+#: search.ui:93 search.ui:96
 #, kde-format
 msgid "Stop"
 msgstr "Stopp"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
-#: search.ui:115
+#: search.ui:133
 #, kde-format
 msgid "Match case"
 msgstr "Skil mellom store og små bokstavar"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
-#: search.ui:131
+#: search.ui:149
 #, kde-format
 msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
@@ -246,7 +246,7 @@ msgstr ""
 "å bruka knappane i søkje- og utbytingsfelta.</p></body></html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
-#: search.ui:160
+#: search.ui:178
 #, kde-format
 msgid "Expand results"
 msgstr "Utvid resultat"
@@ -254,103 +254,103 @@ msgstr "Utvid resultat"
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
 #. i18n: ectx: property (text), widget (QToolButton, newTabButton)
-#: search.ui:176 search.ui:246 search.ui:259
+#: search.ui:194 search.ui:264 search.ui:277
 #, kde-format
 msgid "..."
 msgstr "…"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:507
+#: search.ui:210 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "Byt ut"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:215
+#: search.ui:233
 #, kde-format
 msgid "In Current File"
 msgstr "I gjeldande fil"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:220
+#: search.ui:238
 #, kde-format
 msgid "In Open Files"
 msgstr "I opne filer"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:225
+#: search.ui:243
 #, kde-format
 msgid "In Folder"
 msgstr "I mappe"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
-#: search.ui:233
+#: search.ui:251
 #, kde-format
 msgid "Use the current document's path."
 msgstr "Bruk mappa til gjeldande dokument."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
-#: search.ui:243
+#: search.ui:261
 #, kde-format
 msgid "Show more search options"
 msgstr "Vis fleire søkjeval"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
-#: search.ui:256
+#: search.ui:274
 #, kde-format
 msgid "Add new search tab"
 msgstr "Legg til ny søkjefane"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
-#: search.ui:353
+#: search.ui:371
 #, kde-format
 msgid "Folder:"
 msgstr "Mappe:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
-#: search.ui:371
+#: search.ui:389
 #, kde-format
 msgid "Go one folder up."
 msgstr "Gå éi mappe opp."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
-#: search.ui:380
+#: search.ui:398
 #, kde-format
 msgid "Filter:"
 msgstr "Filter:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
-#: search.ui:402
+#: search.ui:420
 #, kde-format
 msgid "*"
 msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
-#: search.ui:410
+#: search.ui:428
 #, kde-format
 msgid "Exclude:"
 msgstr "Utelat:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
-#: search.ui:431
+#: search.ui:449
 #, kde-format
 msgid "Recursive"
 msgstr "Rekursivt"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
-#: search.ui:441
+#: search.ui:459
 #, kde-format
 msgid "Include hidden"
 msgstr "Ta med gøymde"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
-#: search.ui:448
+#: search.ui:466
 #, kde-format
 msgid "Follow symbolic links"
 msgstr "Følg symbolske lenkjer"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
-#: search.ui:455
+#: search.ui:473
 #, kde-format
 msgid "Include binary files"
 msgstr "Ta med binærfiler"

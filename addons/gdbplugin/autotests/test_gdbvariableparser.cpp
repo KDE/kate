@@ -237,6 +237,16 @@ void TestGdbVariableParser::parseVariable_data()
            "        ptr-->0x7f45550045b5 <findVariableName(QStringView&)+119> u\"blablabla\"\n"
            "        size-->1\n"
            "    static _empty-->0 u'0000'\n";
+
+    QTest::newRow("value_with_comma_in_parenthesis")
+        << "my_var"
+        << "{d = {data = 0, static_metacall = 0x5555555708c2 <SingleApplication::qt_static_metacall(QObject*, QMetaObject::Call, int, void**)>, "
+           "relatedMetaObject = 0x0}}"
+        << "my_var-->{...}\n"
+           "    d-->{...}\n"
+           "        data-->0\n"
+           "        static_metacall-->0x5555555708c2 <SingleApplication::qt_static_metacall(QObject*, QMetaObject::Call, int, void**)>\n"
+           "        relatedMetaObject-->0x0\n";
 }
 
 // It does not really make sense to run many fuzzy tests systematically

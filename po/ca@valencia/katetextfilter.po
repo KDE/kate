@@ -108,7 +108,7 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
-"Si està activada, es fusionarà l'eixida de STDOUT i STDERR i no s'informarà "
+"Si se selecciona, es fusionarà l'eixida de STDOUT i STDERR, i no s'informarà "
 "de cap error.\n"
 "En cas contrari, STDERR es mostrarà com un missatge passiu."
 

@@ -474,7 +474,7 @@ msgstr "Diff %1 .. %2"
 #: lib/diff/diffwidget.cpp:113
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr "Mostra/oculta la informació de la comissió"
+msgstr "Mostra o oculta la informació de la comissió"
 
 #: lib/diff/diffwidget.cpp:118
 #, kde-format
@@ -958,8 +958,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
-"Si està activada, cada document s'obrirà en la seua pròpia finestra. Si no "
-"està activada, cada document s'obrirà en una pestanya nova de la finestra "
+"Si se selecciona, cada document s'obrirà en la seua pròpia finestra. Si no "
+"se selecciona, cada document s'obrirà en una pestanya nova de la finestra "
 "actual."
 
 #: lib/kateconfigdialog.cpp:369
@@ -1006,8 +1006,8 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
-"Si està activada, s'utilitzarà un diàleg modal per a mostrar tots els "
-"fitxers modificats. Si no està activada, se us demanarà individualment què "
+"Si se selecciona, s'utilitzarà un diàleg modal per a mostrar tots els "
+"fitxers modificats. Si no se selecciona, se us demanarà individualment què "
 "fer per a cada fitxer modificat només quan la vista d'este fitxer reba el "
 "focus."
 
@@ -1028,7 +1028,7 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
-"Quan està activada, la mida de la secció es determinarà per la posició de "
+"Quan se selecciona, la mida de la secció es determinarà per la posició de "
 "les tabulacions.\n"
 "Esta opció no afecta la barra lateral inferior."
 
@@ -1058,8 +1058,8 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
-"Un límit alt pot fer augmentar la mida de la finestra. Activeu «Permet el "
-"desplaçament de les pestanyes» per a evitar-ho. Les pestanyes sense límit "
+"Un límit alt pot fer augmentar la mida de la finestra. Seleccioneu «Permet "
+"el desplaçament de les pestanyes» per a evitar-ho. Les pestanyes sense límit "
 "sempre es poden desplaçar."
 
 #: lib/kateconfigdialog.cpp:459
@@ -1071,7 +1071,7 @@ msgstr "&Oculta automàticament les pestanyes"
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
-"Si està activada, les pestanyes s'ocultaran si només hi ha un document obert."
+"Si se selecciona, les pestanyes s'ocultaran si només hi ha un document obert."
 
 #: lib/kateconfigdialog.cpp:465
 #, kde-format
@@ -1081,7 +1081,7 @@ msgstr "Mo&stra el botó de tancament"
 #: lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid "When checked each tab will display a close button."
-msgstr "Si està activada, cada pestanya mostrarà un botó de tancament."
+msgstr "Si se selecciona, cada pestanya mostrarà un botó de tancament."
 
 #: lib/kateconfigdialog.cpp:471
 #, kde-format
@@ -1092,7 +1092,7 @@ msgstr "Ex&pandix les pestanyes"
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
-"Si està activada, les pestanyes prendran tota la mida que siga possible."
+"Si se selecciona, les pestanyes prendran tota la mida que siga possible."
 
 #: lib/kateconfigdialog.cpp:477
 #, kde-format
@@ -1102,7 +1102,7 @@ msgstr "El &doble clic obri un document nou"
 #: lib/kateconfigdialog.cpp:479
 #, kde-format
 msgid "When checked double click opens a new document."
-msgstr "Si està activada, el doble clic obrirà un document nou."
+msgstr "Si se selecciona, el doble clic obrirà un document nou."
 
 #: lib/kateconfigdialog.cpp:483
 #, kde-format
@@ -1112,7 +1112,7 @@ msgstr "El clic del &mig tanca un document"
 #: lib/kateconfigdialog.cpp:485
 #, kde-format
 msgid "When checked middle click closes a document."
-msgstr "Si està activada, el clic del mig tancarà un document."
+msgstr "Si se selecciona, el clic del mig tancarà un document."
 
 #: lib/kateconfigdialog.cpp:489
 #, kde-format
@@ -1125,7 +1125,7 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
-"Si està activada, açò permet desplaçar la barra de pestanyes quan el nombre "
+"Si se selecciona, es permetrà desplaçar la barra de pestanyes quan el nombre "
 "de pestanyes és gran."
 
 #: lib/kateconfigdialog.cpp:495
@@ -1137,7 +1137,7 @@ msgstr "Elidix el text de les pestanyes"
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
-"Si està activada, el text de les pestanyes es pot elidir si és massa llarg."
+"Si se selecciona, el text de les pestanyes es podrà elidir si és massa llarg."
 
 #: lib/kateconfigdialog.cpp:501
 #, kde-format
@@ -1147,7 +1147,7 @@ msgstr "Obri una pestanya nova a la dreta de l'actual."
 #: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr "Si no està activada, la pestanya nova s'obrirà al final."
+msgstr "Si no se selecciona, la pestanya nova s'obrirà al final."
 
 #: lib/kateconfigdialog.cpp:509
 #, kde-format
@@ -2631,7 +2631,7 @@ msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
-"Si està activada, l'aplicació es tancarà quan es tanque l'últim fitxer en "
+"Si se selecciona, l'aplicació es tancarà quan es tanque l'últim fitxer en "
 "editar-se, altrament, s'obrirà una pàgina en blanc per a començar un fitxer "
 "nou."
 
@@ -2678,7 +2678,7 @@ msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
 msgstr ""
-"Marqueu-la si voleu que es restauren totes les vistes i els marcs cada "
+"Seleccioneu-la si voleu que es restauren totes les vistes i els marcs cada "
 "vegada que obriu l'aplicació."
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
@@ -2695,8 +2695,8 @@ msgid ""
 "be saved past editor sessions. The configuration will be restored if the "
 "document has not changed when reopened."
 msgstr ""
-"Marqueu-la si voleu que la configuració del document, com per exemple els "
-"punts, es guarde després de les sessions de l'editor. La configuració es "
+"Seleccioneu-la si voleu que la configuració del document, com per exemple "
+"els punts, es guarde després de les sessions de l'editor. La configuració es "
 "restaurarà si el document no ha canviat en tornar-lo a obrir."
 
 #. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)

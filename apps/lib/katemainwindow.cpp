@@ -548,6 +548,10 @@ void KateMainWindow::setupActions()
 
 void KateMainWindow::setupDiagnosticsView(KConfig *sconfig)
 {
+    if (KateApp::isKWrite()) {
+        return;
+    }
+
     m_diagView = DiagnosticsView::instance(wrapper());
     m_diagView->readSessionConfig(KConfigGroup(sconfig, QStringLiteral("Kate Diagnostics")));
     // See comment in DiagnosticsView::DiagnosticsView()

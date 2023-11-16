@@ -67,7 +67,7 @@ msgstr "Predeterminat"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
-msgstr "Nom de la màquina:"
+msgstr "Nom de l'amfitrió:"
 
 #: connectionwizard.cpp:97
 #, kde-format

@@ -68,7 +68,7 @@ msgstr "Port sèrie remot"
 #: advanced_settings.ui:127
 #, kde-format
 msgid "Host"
-msgstr "Màquina"
+msgstr "Amfitrió"
 
 #. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
 #. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
@@ -302,7 +302,7 @@ msgstr "Marc actual: %1:%2"
 #: debugview.cpp:707
 #, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Màquina: %1. Objectiu: %1"
+msgstr "Amfitrió: %1. Objectiu: %1"
 
 #: debugview.cpp:1377
 #, kde-format

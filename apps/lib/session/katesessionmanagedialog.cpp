@@ -386,6 +386,14 @@ void KateSessionManageDialog::updateSessionList()
     }
 
     if (m_sessionList->topLevelItemCount() == 0) {
+        m_openButton->setEnabled(false);
+        m_templateButton->setEnabled(false);
+        m_dontAskCheckBox->setEnabled(false);
+        m_copyButton->setEnabled(false);
+        m_renameButton->setEnabled(false);
+        m_deleteButton->setEnabled(false);
+        m_filterBox->setEnabled(false);
+
         m_newButton->setFocus();
     } else {
         m_sessionList->setFocus();

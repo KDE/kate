@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-15 01:40+0000\n"
+"POT-Creation-Date: 2023-11-17 01:39+0000\n"
 "PO-Revision-Date: 2023-09-09 10:31+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -1289,13 +1289,13 @@ msgstr "Fermi dokumenton"
 msgid "Save As"
 msgstr "Konservi kiel"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Nova dosiero malfermiĝis dum finiga provo de Kejt'; finigo interrompita."
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Fermado interrompita"
@@ -1651,19 +1651,19 @@ msgstr "Iri al Sekva Loko"
 msgid "Show File Git History"
 msgstr "Montri Dosieran Git-Historion"
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:591
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Ĉi tio fermos ĉiujn malfermitajn dokumentojn. Ĉu vi certas, ke vi volas "
 "daŭrigi?"
 
-#: lib/katemainwindow.cpp:588
+#: lib/katemainwindow.cpp:592
 #, kde-format
 msgid "Close all documents"
 msgstr "Fermi ĉiujn dokumentojn"
 
-#: lib/katemainwindow.cpp:603
+#: lib/katemainwindow.cpp:607
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1672,24 +1672,24 @@ msgstr ""
 "Ĉi tio fermos ĉiujn malfermitajn dokumentojn apud la nuna. Ĉu vi certas, ke "
 "vi volas daŭrigi?"
 
-#: lib/katemainwindow.cpp:604
+#: lib/katemainwindow.cpp:608
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Fermi ĉiujn dokumentojn apud la nuna"
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:848
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "Ĉi tio tute kaŝos la menubreton. Vi povas montri ĝin denove tajpante %1."
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:851
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Kaŝi menubreton"
 
-#: lib/katemainwindow.cpp:946
+#: lib/katemainwindow.cpp:950
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1698,19 +1698,19 @@ msgstr ""
 "Vi faligis la dosierujon %1 en Kate. Ĉu vi volas malfermi ĉiujn dosierojn en "
 "ĝi?"
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Malfermi dosierojn rekursie"
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:954
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Malfermi Ĉiujn Dosierojn"
 
-#: lib/katemainwindow.cpp:1172
+#: lib/katemainwindow.cpp:1176
 #, kde-format
 msgid " [read only]"
 msgstr "[nurlegebla]"

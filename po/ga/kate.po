@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-15 01:40+0000\n"
+"POT-Creation-Date: 2023-11-17 01:39+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -1308,12 +1308,12 @@ msgstr "Dún an Cháipéis"
 msgid "Save As"
 msgstr "Sábháil Mar"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr ""
@@ -1694,62 +1694,62 @@ msgstr "Athchóirigh &suíomh"
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:591
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:588
+#: lib/katemainwindow.cpp:592
 #, kde-format
 msgid "Close all documents"
 msgstr "Dún gach cáipéis"
 
-#: lib/katemainwindow.cpp:603
+#: lib/katemainwindow.cpp:607
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:604
+#: lib/katemainwindow.cpp:608
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close all documents beside current one"
 msgstr "Dún gach cáipéis"
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:848
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:851
 #, fuzzy, kde-format
 #| msgid "Hide Side&bars"
 msgid "Hide menu bar"
 msgstr "Folaigh &Barraí Taoibh"
 
-#: lib/katemainwindow.cpp:946
+#: lib/katemainwindow.cpp:950
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:954
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Oscail Comhad"
 
-#: lib/katemainwindow.cpp:1172
+#: lib/katemainwindow.cpp:1176
 #, kde-format
 msgid " [read only]"
 msgstr ""

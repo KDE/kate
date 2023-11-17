@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-15 01:40+0000\n"
+"POT-Creation-Date: 2023-11-17 01:39+0000\n"
 "PO-Revision-Date: 2023-09-10 17:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1281,12 +1281,12 @@ msgstr "ஆவணத்தை மூடு"
 msgid "Save As"
 msgstr "வேறு பெயரில் சேமி"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "கேட்டை மூட முயற்சிக்கும்போது புது கோப்பு திறக்கப்பட்டதால் மூடுதல் கைவிடப்பட்டது."
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr "மூடுதல் கைவிடப்பட்டது"
@@ -1639,17 +1639,17 @@ msgstr "அடுத்த இடத்திற்கு செல்"
 msgid "Show File Git History"
 msgstr "கோப்பின் கிட் வரலாற்றைக் காட்டு"
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:591
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "திறந்துள்ள அனைத்து ஆவணங்களையும் இது மூடும். உறுதியாக தொடர வேண்டுமா?"
 
-#: lib/katemainwindow.cpp:588
+#: lib/katemainwindow.cpp:592
 #, kde-format
 msgid "Close all documents"
 msgstr "அனைத்து ஆவணங்களையும் மூடு"
 
-#: lib/katemainwindow.cpp:603
+#: lib/katemainwindow.cpp:607
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1658,12 +1658,12 @@ msgstr ""
 "தற்போதைய ஆவணத்தை தவிர திறந்துள்ள அனைத்து ஆவணங்களையும் இது மூடும். உறுதியாக தொடர "
 "வேண்டுமா?"
 
-#: lib/katemainwindow.cpp:604
+#: lib/katemainwindow.cpp:608
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "நடப்பு ஆவணத்தை தவிர மற்ற எல்லா ஆவணங்களையும் மூடு"
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:848
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1671,12 +1671,12 @@ msgstr ""
 "இது பட்டிப் பட்டையை முழுதாக மறைத்துவிடும். %1 என்பதை தட்டி நீங்கள் மறுபடியும் அதை "
 "காட்டலாம்."
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:851
 #, kde-format
 msgid "Hide menu bar"
 msgstr "பட்டிப் பட்டையை மறை"
 
-#: lib/katemainwindow.cpp:946
+#: lib/katemainwindow.cpp:950
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1685,19 +1685,19 @@ msgstr ""
 "%1 என்ற அடைவை நீங்கள் கேட்டிற்குள் இழுத்து போட்டுள்ளீர்கள். அதிலுள்ள அனைத்து கோப்புகளையும் "
 "திறக்க வேண்டுமா?"
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "அடைவுகளுக்குள் உள்ள கோப்புகளை திறக்கலாமா?"
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:954
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "அனைத்து கோப்புகளையும் திற"
 
-#: lib/katemainwindow.cpp:1172
+#: lib/katemainwindow.cpp:1176
 #, kde-format
 msgid " [read only]"
 msgstr " [படித்தல் மட்டும்]"

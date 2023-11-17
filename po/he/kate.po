@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-15 01:40+0000\n"
+"POT-Creation-Date: 2023-11-17 01:39+0000\n"
 "PO-Revision-Date: 2023-10-05 08:44+0300\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
@@ -1313,12 +1313,12 @@ msgstr "סגור מסמך"
 msgid "Save As"
 msgstr "שמירה בשם"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "נפתח קובץ חדש בעת סגירת Kate, הסגירה בוטלה."
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr "הסגירה בוטלה"
@@ -1686,17 +1686,17 @@ msgstr ""
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:591
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "פעולה זו תסגור את כל המסמכים הפתוחים. האם אתה בטוח שברצונך להמשיך?"
 
-#: lib/katemainwindow.cpp:588
+#: lib/katemainwindow.cpp:592
 #, kde-format
 msgid "Close all documents"
 msgstr "סגור את כל המסמכים"
 
-#: lib/katemainwindow.cpp:603
+#: lib/katemainwindow.cpp:607
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1704,12 +1704,12 @@ msgid ""
 msgstr ""
 "פעולה זו תסגור את כל המסמכים הפתוחים חוץ מהנוכחי. אתה בטוח שברצונך להמשיך?"
 
-#: lib/katemainwindow.cpp:604
+#: lib/katemainwindow.cpp:608
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "סגור את כל המסמכים חוץ מהנוכחי"
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:848
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1717,32 +1717,32 @@ msgstr ""
 "<qt> זה יחביא את שורת התפריט לגמרי. באפשרותך להציג אותה שוב על ידי הפקודה: "
 "%1. </qt>"
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:851
 #, kde-format
 msgid "Hide menu bar"
 msgstr "הסתר תפריט"
 
-#: lib/katemainwindow.cpp:946
+#: lib/katemainwindow.cpp:950
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:954
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "פתיחת קובץ"
 
-#: lib/katemainwindow.cpp:1172
+#: lib/katemainwindow.cpp:1176
 #, kde-format
 msgid " [read only]"
 msgstr " [קריאה בלבד]"

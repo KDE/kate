@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-15 01:40+0000\n"
+"POT-Creation-Date: 2023-11-17 01:39+0000\n"
 "PO-Revision-Date: 2023-10-08 22:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1269,12 +1269,12 @@ msgstr "문서 닫기"
 msgid "Save As"
 msgstr "다른 이름으로 저장"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate를 닫으려고 할 때 새 파일이 열려서 종료가 중단되었습니다."
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr "종료 중단됨"
@@ -1626,17 +1626,17 @@ msgstr "다음 위치로 이동"
 msgid "Show File Git History"
 msgstr "파일 Git 기록 표시"
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:591
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "열려 있는 모든 문서를 닫습니다. 계속 진행하시겠습니까?"
 
-#: lib/katemainwindow.cpp:588
+#: lib/katemainwindow.cpp:592
 #, kde-format
 msgid "Close all documents"
 msgstr "모든 문서 닫기"
 
-#: lib/katemainwindow.cpp:603
+#: lib/katemainwindow.cpp:607
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1644,23 +1644,23 @@ msgid ""
 msgstr ""
 "현재 문서를 제외한 열려 있는 모든 문서를 닫습니다. 계속 진행하시겠습니까?"
 
-#: lib/katemainwindow.cpp:604
+#: lib/katemainwindow.cpp:608
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "현재 문서를 제외한 모든 문서 닫기"
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:848
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "메뉴 표시줄을 완전히 숨깁니다. %1 키를 눌러서 다시 볼 수 있습니다."
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:851
 #, kde-format
 msgid "Hide menu bar"
 msgstr "메뉴 표시줄 숨기기"
 
-#: lib/katemainwindow.cpp:946
+#: lib/katemainwindow.cpp:950
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1669,19 +1669,19 @@ msgstr ""
 "Kate에 %1 디렉터리를 끌어다 놓았습니다. 디렉터리에 있는 모든 파일을 여시겠습"
 "니까?"
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "재귀적으로 파일 불러오기"
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:954
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "모든 파일 열기"
 
-#: lib/katemainwindow.cpp:1172
+#: lib/katemainwindow.cpp:1176
 #, kde-format
 msgid " [read only]"
 msgstr " [읽기 전용]"

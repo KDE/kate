@@ -4,13 +4,13 @@
 # Translators:
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2017, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-15 01:54+0000\n"
-"PO-Revision-Date: 2023-05-06 20:27+0300\n"
+"PO-Revision-Date: 2023-11-16 12:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -33,17 +33,17 @@ msgstr "volkangezer@gmail.com"
 #: editrepository.cpp:81 editrepository.cpp:126
 #, kde-format
 msgid "Edit Snippet Repository %1"
-msgstr "%1 Kod Parçacığı Deposunu Düzenle"
+msgstr "%1 Parçacık Deposunu Düzenle"
 
 #: editrepository.cpp:83
 #, kde-format
 msgid "Create New Snippet Repository"
-msgstr "Yeni Kod Parçacığı Deposu Oluştur"
+msgstr "Yeni Parçacık Deposu Oluştur"
 
 #: editrepository.cpp:142
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr "<i>genel amaçlı kod parçacıkları için boş bırakın</i>"
+msgstr "<i>genel amaçlı parçacıklar için boş bırakın</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
@@ -91,17 +91,17 @@ msgstr "Kod tamamlamada gösterilecek önek"
 #: editsnippet.cpp:97 editsnippet.cpp:177
 #, kde-format
 msgid "Edit Snippet %1 in %2"
-msgstr "%1 Kod Parçacığını %2 İçinde Düzenle"
+msgstr "%1 Parçacığını %2 İçinde Düzenle"
 
 #: editsnippet.cpp:107
 #, kde-format
 msgid "Create New Snippet in Repository %1"
-msgstr "%1 Deposu İçerisinde Yeni Kod Parçacığı Oluştur"
+msgstr "%1 Deposunda Yeni Parçacık Oluştur"
 
 #: editsnippet.cpp:145
 #, kde-format
 msgid "Snippet name cannot contain spaces"
-msgstr "Kod parçacığı adı boşluk içeremez"
+msgstr "Parçacık adı boşluk içeremez"
 
 #: editsnippet.cpp:189
 #, kde-format
@@ -109,8 +109,8 @@ msgid ""
 "The snippet contains unsaved changes. Do you want to continue and lose all "
 "changes?"
 msgstr ""
-"Kod parçacığı kaydedilmemiş değişiklikler içeriyor. Sürdürerek bu "
-"değişiklikleri kaybetmek istiyor musunuz?"
+"Parçacık kaydedilmemiş değişiklikler içeriyor. Sürdürerek bu değişiklikleri "
+"kaybetmek istiyor musunuz?"
 
 #: editsnippet.cpp:190
 #, kde-format
@@ -121,13 +121,13 @@ msgstr "Uyarı - Kaydedilmemiş Değişiklikler Var"
 #: editsnippet.ui:42
 #, kde-format
 msgid "will be shown in the completion list"
-msgstr "tamamlama listesinde gösterilecektir"
+msgstr "tamamlama listesinde gösterilir"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:62
 #, kde-format
 msgid "&Snippet"
-msgstr "Kod &Parçacığı"
+msgstr "&Parçacık"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetLabel)
 #: editsnippet.ui:68
@@ -187,31 +187,31 @@ msgid ""
 "tt> objects. Refer to the scripting API documentation for more information."
 "\">More...</a>"
 msgstr ""
-"Kod parçanızda kullanmak için JavaScript yardımcı işlevlerini buraya yazın. "
-"<a href=\"Tüm JavaScript işlevleri bir şablon alanında karakter dizisi "
-"olarak tutmak isteyeceğiniz içerik döndürmelidir.<br>İşlevler tüm "
-"düzenlenebilir şablon alanlarının içeriğini yerel değişkenler olarak tutan "
-"bir bağlamda çağrılırlar. Örneğin, <tt>${field}</tt> içeren bir kod "
-"parçasında <tt>field</tt> adlı değişken şablon alanının içeriğinin güncel "
-"değerlerini temsil eder. Bu değişkenler bir fonksiyonda statik olarak "
-"kullanılabilecekleri gibi, kod parçası dizisinde <tt>${func(field)}</tt> "
-"veya <tt>${field2=func(field)}</tt> sözdizimleri kullanılarak değer olarak "
-"da geçilebilirler.<br>Kate betik API'sini kullanarak seçilen metni, tam "
-"metni, dosya adını ve daha fazlasını <tt>document</tt> ve <tt>view</tt> "
-"kullanarak alabilirsiniz. Daha ayrıntılı bilgi için betik API "
-"belgelendirmesine bakabilirsiniz.\">Daha Fazla...</a>"
+"Parçacığınızda kullanmak üzere JavaScript yardımcı işlevlerini buraya yazın. "
+"Tüm JavaScript işlevleri bir şablon alanında karakter dizisi olarak tutmak "
+"isteyeceğiniz içerik döndürmelidir.<br>İşlevler, tüm düzenlenebilir şablon "
+"alanlarının içeriğini yerel değişkenler olarak içeren bir kapsamda çağrılır. "
+"Örneğin, <tt>${field}</tt> içeren bir parçacıkta, şablon alanının güncel "
+"içeriğini sağlayan <tt>field</tt> adlı bir değişken bulunur. Bu değişkenler "
+"hem işlevde statik değişkenler olarak kullanılabilir hem de parçacık "
+"dizisindeki <tt>${func(field)}</tt> veya <tt>${field2=func(field)}</tt> "
+"sözdizimi kullanılarak argümanlar olarak geçirilebilirler.<br>Kate betik "
+"yazımı API'sini kullanarak seçili metni, tam metni, dosya adını ve daha "
+"fazlasını <tt>document</tt> ve <tt>view</tt> kullanarak alabilirsiniz. Daha "
+"ayrıntılı bilgi için betik yazımı API belgelendirmesine bakabilirsiniz.<a "
+"href=\"\">Daha Fazla...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:105
 #, kde-format
 msgid "Test this snippet"
-msgstr "Bu kod parçasını sına"
+msgstr "Bu parçacığı sına"
 
 #: katesnippetglobal.cpp:103
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
-msgstr "%1 kod parçacığı"
+msgstr "%1 parçacık"
 
 #: katesnippets.cpp:44 katesnippets.cpp:52 snippetcompletionmodel.cpp:43
 #: snippetview.cpp:76 snippetview.cpp:202
@@ -222,7 +222,7 @@ msgstr "Parçacıklar"
 #: katesnippets.cpp:63
 #, kde-format
 msgid "Create Snippet"
-msgstr "Kod Parçacığı Oluştur"
+msgstr "Parçacık Oluştur"
 
 #: snippet.cpp:23
 #, kde-format
@@ -232,7 +232,7 @@ msgstr "<boş parçacık>"
 #: snippet.cpp:61
 #, kde-format
 msgid "insert snippet %1"
-msgstr "%1 kod parçacığını ekle"
+msgstr "%1 parçacığını ekle"
 
 #: snippetrepository.cpp:45
 #, kde-format
@@ -246,8 +246,8 @@ msgid ""
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
-"Kişisel dizininizde olmayan bir kod parçacığı deposunu düzenlediniz; bu "
-"nedenle özgün dosyanın bir kopyası kişisel veri dizininizde oluşturuldu."
+"Kişisel dizininizde olmayan bir parçacık deposunu düzenlediniz; bu nedenle "
+"özgün dosyanın bir kopyası kişisel veri dizininizde oluşturuldu."
 
 #: snippetrepository.cpp:238
 #, kde-format
@@ -257,7 +257,7 @@ msgstr "'%1' çıktı dosyası yazma için açılamadı"
 #: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
-msgstr "%1 kod parçacığı deposu açılamadı."
+msgstr "%1 parçacık deposu açılamadı."
 
 #: snippetrepository.cpp:286
 #, kde-format
@@ -269,7 +269,7 @@ msgstr ""
 #: snippetrepository.cpp:293
 #, kde-format
 msgid "Invalid XML snippet file: %1"
-msgstr "Geçersiz XML kod parçacığı dosyası: %1"
+msgstr "Geçersiz XML parçacığı dosyası: %1"
 
 #: snippetrepository.cpp:355
 #, kde-format
@@ -277,7 +277,7 @@ msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr ""
-"Depo devre dışı, içerdiği kod parçacıkları kod tamamlama sırasında "
+"Depo devre dışı, içerdiği parçacıklar kod tamamlama sırasında "
 "gösterilmeyecek."
 
 #: snippetrepository.cpp:358
@@ -308,27 +308,27 @@ msgstr "Depoyu Kaldır"
 #: snippetview.cpp:109
 #, kde-format
 msgid "Add Snippet"
-msgstr "Kod Parçacığı Ekle"
+msgstr "Parçacık Ekle"
 
 #: snippetview.cpp:112
 #, kde-format
 msgid "Edit Snippet"
-msgstr "Kod Parçacığını Düzenle"
+msgstr "Parçacığı Düzenle"
 
 #: snippetview.cpp:115
 #, kde-format
 msgid "Remove Snippet"
-msgstr "Kod Parçacığını Kaldır"
+msgstr "Parçacığı Kaldır"
 
 #: snippetview.cpp:121
 #, kde-format
 msgid "Get New Snippets"
-msgstr "Yeni Kod Parçacıkları Al"
+msgstr "Yeni Parçacıklar Al"
 
 #: snippetview.cpp:210
 #, kde-format
 msgid "Snippet: %1"
-msgstr "Kod Parçacığı: %1"
+msgstr "Parçacık: %1"
 
 #: snippetview.cpp:218
 #, kde-format
@@ -338,14 +338,14 @@ msgstr "Depo: %1"
 #: snippetview.cpp:282
 #, kde-format
 msgid "Do you really want to delete the snippet \"%1\"?"
-msgstr "\"%1\" kod parçacığını gerçekten silmek istiyor musunuz?"
+msgstr "\"%1\" parçacığını gerçekten silmek istiyor musunuz?"
 
 #: snippetview.cpp:324
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"
 msgstr ""
-"Gerçekten \"%1\" deposunu içindeki tüm kod parçacıkları ile birlikte silmek "
+"\"%1\" deposunu içindeki tüm parçacıklar ile birlikte gerçekten silmek "
 "istiyor musunuz?"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)

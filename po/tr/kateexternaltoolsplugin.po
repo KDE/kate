@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2023-10-28 02:22+0300\n"
+"PO-Revision-Date: 2023-11-16 15:00+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Full File"
-msgstr "Tüm Dosya'yi Clang Format ile İşle"
+msgstr "Tüm Dosyayı Clang Format'la"
 
 #. i18n: file: 4
 #, kde-format
@@ -34,7 +34,7 @@ msgstr "Araçlar"
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Selected Text"
-msgstr "Seçili Metni Clang Format ile İşle"
+msgstr "Seçili Metni Clang Format'la"
 
 #. i18n: file: 7
 #, kde-format
@@ -89,7 +89,7 @@ msgstr "GoImports Tam Dosya"
 #, kde-format
 msgctxt "External tool name"
 msgid "Google Selected Text"
-msgstr "Seçili Metni Google'da Ara"
+msgstr "Seçili Metni Google ile Ara"
 
 #. i18n: file: 7
 #, kde-format
@@ -101,7 +101,7 @@ msgstr "UUID Ekle"
 #, kde-format
 msgctxt "External tool name"
 msgid "JSON Format Full File"
-msgstr "Tüm Dosyayı JSON Biçiminde İşle"
+msgstr "Tüm Dosyayı JSON'la"
 
 #. i18n: file: 7
 #, kde-format
@@ -149,7 +149,7 @@ msgstr "Qt API İçinde Ara"
 #, kde-format
 msgctxt "External tool name"
 msgid "XML Format Full File"
-msgstr "Tüm Dosyası XML Biçiminde İşle"
+msgstr "Tüm Dosyayı XML'le"
 
 #. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
 #: configwidget.ui:17
@@ -443,7 +443,7 @@ msgstr "Tüm Belgeler"
 #: tooldialog.ui:181
 #, kde-format
 msgid "Trigger"
-msgstr "Tetik"
+msgstr "Tetikleyici"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:194

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-15 01:40+0000\n"
+"POT-Creation-Date: 2023-11-17 01:39+0000\n"
 "PO-Revision-Date: 2023-06-18 19:22+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -1309,13 +1309,13 @@ msgstr "Închide documentul"
 msgid "Save As"
 msgstr "Salvează ca"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "A fost deschis un fișier nou în tip ce Kate se termina. Închidere anulată."
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Terminare anulată"
@@ -1684,19 +1684,19 @@ msgstr ""
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:591
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Această operație va închide toate documentele deschise. Sigur doriți să "
 "continuați?"
 
-#: lib/katemainwindow.cpp:588
+#: lib/katemainwindow.cpp:592
 #, kde-format
 msgid "Close all documents"
 msgstr "Închide toate documentele"
 
-#: lib/katemainwindow.cpp:603
+#: lib/katemainwindow.cpp:607
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1705,24 +1705,24 @@ msgstr ""
 "Aceasta va închide toate documentele deschise în afară de cel actual. Sigur "
 "doriți să continuați?"
 
-#: lib/katemainwindow.cpp:604
+#: lib/katemainwindow.cpp:608
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Închide toate documentele în afară de cel actual"
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:848
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "Aceasta va ascunde complet bara meniului. O puteți afișa din nou tastând %1."
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:851
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Ascunde bara meniului"
 
-#: lib/katemainwindow.cpp:946
+#: lib/katemainwindow.cpp:950
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1734,21 +1734,21 @@ msgstr ""
 "Ați lăsat dosarul %1 în Kate. Doriți să încărcați toate fișierele conținute "
 "în acesta?"
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:953
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Încărcați fișiere recursiv?"
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:954
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Deschide fișier"
 
-#: lib/katemainwindow.cpp:1172
+#: lib/katemainwindow.cpp:1176
 #, kde-format
 msgid " [read only]"
 msgstr " [numai citire]"

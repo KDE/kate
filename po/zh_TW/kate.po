@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-15 01:40+0000\n"
+"POT-Creation-Date: 2023-11-17 01:39+0000\n"
 "PO-Revision-Date: 2023-02-09 02:25+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -1292,12 +1292,12 @@ msgstr "關閉文件"
 msgid "Save As"
 msgstr "另存新檔"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "當嘗試關閉 Kate 時新檔案被開啟，中止關閉程序。"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr "關閉已中止"
@@ -1656,40 +1656,40 @@ msgstr "前往下一個編輯的位置"
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:591
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "這樣會關閉所有開啟的文件。您確定要繼續嗎？"
 
-#: lib/katemainwindow.cpp:588
+#: lib/katemainwindow.cpp:592
 #, kde-format
 msgid "Close all documents"
 msgstr "關閉所有的文件"
 
-#: lib/katemainwindow.cpp:603
+#: lib/katemainwindow.cpp:607
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr "這樣會關閉除了目前這個以外所有開啟的文件。您確定要繼續嗎？"
 
-#: lib/katemainwindow.cpp:604
+#: lib/katemainwindow.cpp:608
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "關閉除了目前這個以外所有的文件"
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:848
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "這會完全隱藏選單列。您可以按下 %1 重新顯示選單列。"
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:851
 #, kde-format
 msgid "Hide menu bar"
 msgstr "隱藏選單列"
 
-#: lib/katemainwindow.cpp:946
+#: lib/katemainwindow.cpp:950
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1699,21 +1699,21 @@ msgid ""
 "contained in it?"
 msgstr "您將目錄 %1 拖進 Kate 中。您要將目錄中所有檔案都載入嗎？"
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:953
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "要遞迴載入檔案嗎？"
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:954
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "開啟舊檔"
 
-#: lib/katemainwindow.cpp:1172
+#: lib/katemainwindow.cpp:1176
 #, kde-format
 msgid " [read only]"
 msgstr " [唯讀]"

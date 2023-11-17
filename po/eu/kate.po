@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-15 01:40+0000\n"
+"POT-Creation-Date: 2023-11-17 01:39+0000\n"
 "PO-Revision-Date: 2023-09-03 00:48+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1302,12 +1302,12 @@ msgstr "Itxi dokumentua"
 msgid "Save As"
 msgstr "Gorde honela"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Fitxategi berria ireki da Kate ixten saiatzean, ixtea galarazi da."
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:689
+#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Ixtea galarazi da"
@@ -1664,19 +1664,19 @@ msgstr "Joan hurrengo kokalekura."
 msgid "Show File Git History"
 msgstr "Erakutsi fitxategien Git historia"
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:591
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Honek irekitako dokumentu guztiak itxiko ditu. Ziur zaude jarraitu nahi "
 "duzula?"
 
-#: lib/katemainwindow.cpp:588
+#: lib/katemainwindow.cpp:592
 #, kde-format
 msgid "Close all documents"
 msgstr "Itxi dokumentu guztiak"
 
-#: lib/katemainwindow.cpp:603
+#: lib/katemainwindow.cpp:607
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1685,24 +1685,24 @@ msgstr ""
 "Honek irekitako dokumentu guztiak itxiko ditu unekoa ezik. Ziur zaude "
 "jarraitu nahi duzula?"
 
-#: lib/katemainwindow.cpp:604
+#: lib/katemainwindow.cpp:608
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Itxi dokumentu guztiak unekoa ezik"
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:848
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "Honek menu-barra erabat ezkutatuk du. Berriz erakutsi dezakezu %1 tekleatuz."
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:851
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Ezkutatu menu-barra"
 
-#: lib/katemainwindow.cpp:946
+#: lib/katemainwindow.cpp:950
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1711,19 +1711,19 @@ msgstr ""
 "%1 direktorioa Kate-ren gainean jaregin duzu. Hartan edukitako fitxategi "
 "guztiak zamatu nahi dituzu?"
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Ireki fitxak era errekurtsiboan"
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:954
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Ireki fitxategi guztiak"
 
-#: lib/katemainwindow.cpp:1172
+#: lib/katemainwindow.cpp:1176
 #, kde-format
 msgid " [read only]"
 msgstr " [irakurtzeko soilik]"

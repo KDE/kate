@@ -414,8 +414,8 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
         if (!m_editByUser) { // No need for further action
             return false;
         }
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if (event->type() == QEvent::KeyPress) {
+            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
             switch (ke->key()) {
             // Avoid to apply changes with untypical keys/don't left edit field this way
             case Qt::Key_Up:
@@ -428,6 +428,7 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
             }
 
         } else if (event->type() == QEvent::KeyRelease) {
+            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
             switch (ke->key()) {
             case Qt::Key_Escape:
                 editDone(); // Abort edit

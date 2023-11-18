@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-18 02:00+0000\n"
-"PO-Revision-Date: 2023-10-28 05:56+0300\n"
+"PO-Revision-Date: 2023-11-17 18:49+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -89,7 +89,7 @@ msgstr "Seçili Hedefi Yap ve Çalıştır"
 #: plugin_katebuild.cpp:237
 #, kde-format
 msgid "Stop"
-msgstr "Dur"
+msgstr "Durdur"
 
 #: plugin_katebuild.cpp:242
 #, kde-format
@@ -142,7 +142,7 @@ msgstr "\"%1\" çalıştırılamadı. Çıktı durumu = %2"
 #: plugin_katebuild.cpp:699
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
-msgstr "<b>%1</b> yapımında iptal edildi"
+msgstr "<b>%1</b> yapımı iptal edildi"
 
 #: plugin_katebuild.cpp:806
 #, kde-format
@@ -157,7 +157,7 @@ msgstr "Yapım için herhangi bir dosya veya dizin belirtilmedi."
 #: plugin_katebuild.cpp:826
 #, kde-format
 msgid "Already building..."
-msgstr "Zaten yapılıyor..."
+msgstr "Halihazırda yapılıyor..."
 
 #: plugin_katebuild.cpp:853
 #, kde-format
@@ -168,7 +168,7 @@ msgstr "<b>%1</b> hedefi yapılıyor..."
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
-msgstr "<title>Yapım Sonuçları:</title><nl/>%1"
+msgstr "<title>Make sonuçları:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:903
 #, kde-format
@@ -199,12 +199,12 @@ msgstr[1] "%1 not bulundu."
 #: plugin_katebuild.cpp:921
 #, kde-format
 msgid "Build failed."
-msgstr "Yapım işlemi başarısız oldu."
+msgstr "Yapı başarısız oldu."
 
 #: plugin_katebuild.cpp:923
 #, kde-format
 msgid "Build completed without problems."
-msgstr "Yapım işlemi sorunsuz tamamlandı."
+msgstr "Yapı sorunsuzca tamamlandı."
 
 #: plugin_katebuild.cpp:928
 #, kde-format
@@ -214,7 +214,7 @@ msgstr "<b>%1</b> yapısı iptal edildi. %2 hata, %3 uyarı, %4 not"
 #: plugin_katebuild.cpp:952
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr "Yürütülemiyor: %1 Bir çalışma dizini ayarlanmamış."
+msgstr "Yürütülemiyor: %1 Bir çalışma dizini ayarlanmadı."
 
 #: plugin_katebuild.cpp:1178
 #, kde-format
@@ -269,7 +269,7 @@ msgstr "Şuradaki yapı hedefleri kaydedilemiyor: %1"
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
-msgstr "<B>T:</B> %1"
+msgstr "<B>Hedef:</B> %1"
 
 #: TargetHtmlDelegate.cpp:52
 #, kde-format
@@ -374,7 +374,7 @@ msgstr "Seçili hedefi aşağı taşı"
 #: ui.rc:6
 #, kde-format
 msgid "&Build"
-msgstr "&Yap"
+msgstr "&Yapı"
 
 #: UrlInserter.cpp:32
 #, kde-format

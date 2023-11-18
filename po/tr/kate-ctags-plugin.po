@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-15 01:41+0000\n"
-"PO-Revision-Date: 2023-10-28 02:27+0300\n"
+"PO-Revision-Date: 2023-11-17 20:12+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
@@ -284,7 +284,7 @@ msgstr "'%1' için dosya bulunamadı."
 #: kate_ctags.ui:33
 #, kde-format
 msgid "Lookup"
-msgstr "Bul"
+msgstr "Arama"
 
 #. i18n: ectx: property (text), widget (QPushButton, updateButton)
 #. i18n: ectx: property (text), widget (QPushButton, updateButton2)
@@ -315,7 +315,7 @@ msgstr "Dosya"
 #: kate_ctags.ui:88
 #, kde-format
 msgid "Index Targets"
-msgstr "Hedefleri İndeksle"
+msgstr "İndeksleme Hedefleri"
 
 #. i18n: ectx: attribute (title), widget (QWidget, database)
 #: kate_ctags.ui:144
@@ -344,7 +344,7 @@ msgstr "..."
 #: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:112
 #, kde-format
 msgid "Add a directory to index."
-msgstr "İndekse bir dizin ekle."
+msgstr "İndekse bir dizin ekleyin."
 
 #: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:115
 #, kde-format
@@ -386,7 +386,7 @@ msgstr "CTags komutundan %1 kodu ile çıkıldı"
 #: kate_ctags_view.cpp:60
 #, kde-format
 msgid "Jump back one step"
-msgstr "Bir adım geri git"
+msgstr "Bir Adım Geri Git"
 
 #: kate_ctags_view.cpp:64
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-15 01:54+0000\n"
-"PO-Revision-Date: 2023-10-28 02:23+0300\n"
+"PO-Revision-Date: 2023-11-17 19:30+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
 msgid "Show preview for known color names"
-msgstr "Bilinen renk adları için önizlemeyi göster"
+msgstr "Bilinen renkler için önizlemeyi göster"
 
 #: colorpickerconfigpage.cpp:36
 #, kde-format
@@ -30,14 +30,14 @@ msgid ""
 "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
 "colors."
 msgstr ""
-"Ayrıca bilinen renk adları için renk seçicisini gösterin (örn. gök mavisi).\n"
-"Renklerin listesi için https://www.w3.org/TR/SVG11/types.html#ColorKeywords "
-"adresine bakın."
+"Bilinen renk adları için renk seçicinin gösterilip gösterilmeyeceği (örn., "
+"skyblue</literal>). Renk listesi için https://www.w3.org/TR/SVG11/types."
+"html#ColorKeywords adresine bakın."
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format
 msgid "Place preview after text color"
-msgstr "Metin renginden sonra önizlemeyi yerleştir"
+msgstr "Metin renginden sonra önizlemeyi getir"
 
 #: colorpickerconfigpage.cpp:45
 #, kde-format

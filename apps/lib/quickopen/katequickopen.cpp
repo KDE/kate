@@ -359,7 +359,7 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
                 return true;
             }
 
-        } else {
+        } else if (obj == m_listView) {
             const bool forward2input = (keyEvent->key() != Qt::Key_Up) && (keyEvent->key() != Qt::Key_Down) && (keyEvent->key() != Qt::Key_PageUp)
                 && (keyEvent->key() != Qt::Key_PageDown) && (keyEvent->key() != Qt::Key_Tab) && (keyEvent->key() != Qt::Key_Backtab);
             if (forward2input) {

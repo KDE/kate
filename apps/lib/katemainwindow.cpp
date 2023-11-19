@@ -1496,9 +1496,10 @@ void KateMainWindow::slotQuickOpen()
     /**
      * show quick open and pass focus to it
      */
-    KateQuickOpen quickOpen(this);
-    centralWidget()->setFocusProxy(&quickOpen);
-    quickOpen.exec();
+    KateQuickOpen *quickOpen = new KateQuickOpen(this);
+    centralWidget()->setFocusProxy(quickOpen);
+    quickOpen->raise();
+    quickOpen->show();
 }
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin,

@@ -29,6 +29,7 @@
 
 #include <drawing_utils.h>
 #include <kfts_fuzzy_match.h>
+#include <qgraphicseffect.h>
 
 class QuickOpenFilterProxyModel final : public QSortFilterProxyModel
 {
@@ -268,9 +269,18 @@ private:
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
 KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
-    : QMenu(mainWindow)
+    : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
 {
+    QGraphicsDropShadowEffect *e = new QGraphicsDropShadowEffect(this);
+    e->setColor(palette().color(QPalette::Shadow));
+    e->setOffset(2.);
+    e->setBlurRadius(8.);
+    setGraphicsEffect(e);
+
+    // handle resizing
+    mainWindow->installEventFilter(this);
+
     // ensure the components have some proper frame
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(0);
@@ -357,6 +367,23 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
                 return true;
             }
         }
+
+        if (keyEvent->key() == Qt::Key_Escape) {
+            hide();
+            deleteLater();
+            return true;
+        }
+    }
+
+    if (event->type() == QEvent::FocusOut) {
+        hide();
+        deleteLater();
+        return true;
+    }
+
+    // handle resizing
+    if (m_mainWindow == obj && event->type() == QEvent::Resize) {
+        updateViewGeometry();
     }
 
     return QWidget::eventFilter(obj, event);
@@ -465,7 +492,7 @@ void KateQuickOpen::updateViewGeometry()
     const int xPos = std::max(0, (centralSize.width() - viewMaxSize.width()) / 2);
     const int yPos = std::max(0, (centralSize.height() - viewMaxSize.height()) * 1 / 4);
     const QPoint p(xPos, yPos);
-    move(p + m_mainWindow->pos());
+    move(p);
 
     setFixedSize(viewMaxSize);
 }

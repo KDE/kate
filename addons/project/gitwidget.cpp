@@ -27,6 +27,7 @@
 #include <QContextMenuEvent>
 #include <QDialog>
 #include <QEvent>
+#include <QGuiApplication>
 #include <QHeaderView>
 #include <QInputDialog>
 #include <QInputMethodEvent>
@@ -863,12 +864,16 @@ void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
 
 void GitWidget::treeViewSingleClicked(const QModelIndex &idx)
 {
-    handleClick(idx, m_pluginView->plugin()->singleClickAcion());
+    if (qGuiApp->keyboardModifiers() == Qt::NoModifier) {
+        handleClick(idx, m_pluginView->plugin()->singleClickAcion());
+    }
 }
 
 void GitWidget::treeViewDoubleClicked(const QModelIndex &idx)
 {
-    handleClick(idx, m_pluginView->plugin()->doubleClickAcion());
+    if (qGuiApp->keyboardModifiers() == Qt::NoModifier) {
+        handleClick(idx, m_pluginView->plugin()->doubleClickAcion());
+    }
 }
 
 void GitWidget::parseStatusReady()

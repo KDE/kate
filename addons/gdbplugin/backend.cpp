@@ -8,7 +8,7 @@
 
 #include "backend.h"
 #include "dapbackend.h"
-#include "debugview.h"
+#include "gdbbackend.h"
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -25,15 +25,15 @@ void Backend::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
         return;
     }
 
-    DebugView *gdb;
+    GdbBackend *gdb;
 
     if (m_mode != GDB) {
         unbind();
-        m_debugger = gdb = new DebugView(this);
+        m_debugger = gdb = new GdbBackend(this);
         m_mode = GDB;
         bind();
     } else {
-        gdb = qobject_cast<DebugView *>(m_debugger);
+        gdb = qobject_cast<GdbBackend *>(m_debugger);
     }
 
     gdb->runDebugger(conf, ioFifos);

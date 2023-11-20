@@ -41,7 +41,7 @@ target_sources(
   PRIVATE
     plugin_kategdb.cpp
     backendinterface.cpp
-    debugview.cpp
+    gdbbackend.cpp
     configview.cpp
     ioview.cpp
     localsview.cpp

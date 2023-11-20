@@ -1,5 +1,5 @@
 //
-// debugview.cpp
+// gdbbackend.cpp
 //
 // Description: Manages the interaction with GDB
 //
@@ -9,7 +9,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#include "debugview.h"
+#include "gdbbackend.h"
 #include "gdbmi/tokens.h"
 #include "hostprocess.h"
 
@@ -76,22 +76,22 @@ bool GdbCommand::check(const QString &part1, const QString &part2) const
     return (arguments.size() >= 2) && (arguments.first() == part1) && (arguments.at(1) == part2);
 }
 
-void DebugView::enqueue(const QString &command)
+void GdbBackend::enqueue(const QString &command)
 {
     m_nextCommands << PendingCommand{command, std::nullopt, Default};
 }
 
-void DebugView::enqueue(const QString &command, const QJsonValue &data, uint8_t captureMode)
+void GdbBackend::enqueue(const QString &command, const QJsonValue &data, uint8_t captureMode)
 {
     m_nextCommands << PendingCommand{command, data, captureMode};
 }
 
-void DebugView::prepend(const QString &command)
+void GdbBackend::prepend(const QString &command)
 {
     m_nextCommands.prepend({command, std::nullopt, Default});
 }
 
-DebugView::DebugView(QObject *parent)
+GdbBackend::GdbBackend(QObject *parent)
     : BackendInterface(parent)
     , m_debugProcess(nullptr)
     , m_state(none)
@@ -102,12 +102,12 @@ DebugView::DebugView(QObject *parent)
     // variable parser
     connect(&m_variableParser, &GDBVariableParser::variable, this, &BackendInterface::variableInfo);
 
-    connect(m_parser, &gdbmi::GdbmiParser::outputProduced, this, &DebugView::processMIStreamOutput);
-    connect(m_parser, &gdbmi::GdbmiParser::recordProduced, this, &DebugView::processMIRecord);
-    connect(m_parser, &gdbmi::GdbmiParser::parserError, this, &DebugView::onMIParserError);
+    connect(m_parser, &gdbmi::GdbmiParser::outputProduced, this, &GdbBackend::processMIStreamOutput);
+    connect(m_parser, &gdbmi::GdbmiParser::recordProduced, this, &GdbBackend::processMIRecord);
+    connect(m_parser, &gdbmi::GdbmiParser::parserError, this, &GdbBackend::onMIParserError);
 }
 
-DebugView::~DebugView()
+GdbBackend::~GdbBackend()
 {
     if (m_debugProcess.state() != QProcess::NotRunning) {
         m_debugProcess.kill();
@@ -118,32 +118,32 @@ DebugView::~DebugView()
     m_parser->deleteLater();
 }
 
-bool DebugView::supportsMovePC() const
+bool GdbBackend::supportsMovePC() const
 {
     return m_capabilities.execJump.value_or(false) && canMove();
 }
 
-bool DebugView::supportsRunToCursor() const
+bool GdbBackend::supportsRunToCursor() const
 {
     return canMove();
 }
 
-bool DebugView::canSetBreakpoints() const
+bool GdbBackend::canSetBreakpoints() const
 {
     return m_gdbState != Disconnected;
 }
 
-bool DebugView::canMove() const
+bool GdbBackend::canMove() const
 {
     return (m_gdbState == Connected) || (m_gdbState == Stopped);
 }
 
-bool DebugView::canContinue() const
+bool GdbBackend::canContinue() const
 {
     return canMove();
 }
 
-void DebugView::resetSession()
+void GdbBackend::resetSession()
 {
     m_nextCommands.clear();
     m_currentThread.reset();
@@ -151,7 +151,7 @@ void DebugView::resetSession()
     m_registerNames.clear();
 }
 
-void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
+void GdbBackend::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
 {
     // TODO correct remote flow (connected, interrupt, etc.)
     if (conf.executable.isEmpty()) {
@@ -195,13 +195,13 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
         // create a process to control GDB
         m_debugProcess.setWorkingDirectory(m_targetConf.workDir);
 
-        connect(&m_debugProcess, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::errorOccurred), this, &DebugView::slotError);
+        connect(&m_debugProcess, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::errorOccurred), this, &GdbBackend::slotError);
 
-        connect(&m_debugProcess, &QProcess::readyReadStandardError, this, &DebugView::slotReadDebugStdErr);
+        connect(&m_debugProcess, &QProcess::readyReadStandardError, this, &GdbBackend::slotReadDebugStdErr);
 
-        connect(&m_debugProcess, &QProcess::readyReadStandardOutput, this, &DebugView::slotReadDebugStdOut);
+        connect(&m_debugProcess, &QProcess::readyReadStandardOutput, this, &GdbBackend::slotReadDebugStdOut);
 
-        connect(&m_debugProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &DebugView::slotDebugFinished);
+        connect(&m_debugProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &GdbBackend::slotDebugFinished);
 
         startHostProcess(m_debugProcess, fullExecutable, {QLatin1String("--interpreter=mi3")});
 
@@ -216,7 +216,7 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
     issueNextCommandLater(std::nullopt);
 }
 
-void DebugView::issueNextCommandLater(const std::optional<State> &state)
+void GdbBackend::issueNextCommandLater(const std::optional<State> &state)
 {
     if (state) {
         setState(*state);
@@ -224,10 +224,10 @@ void DebugView::issueNextCommandLater(const std::optional<State> &state)
 
     // On startup the gdb prompt will trigger the "nextCommands",
     // here we have to trigger it manually.
-    QTimer::singleShot(0, this, &DebugView::issueNextCommand);
+    QTimer::singleShot(0, this, &GdbBackend::issueNextCommand);
 }
 
-void DebugView::enqueueProtocolHandshake()
+void GdbBackend::enqueueProtocolHandshake()
 {
     m_capabilities.family = Unknown;
     m_capabilities.execRunStart.reset();
@@ -246,7 +246,7 @@ void DebugView::enqueueProtocolHandshake()
     enqueue(QStringLiteral("-kate-init"), QJsonValue(1));
 }
 
-void DebugView::enqueue(const QStringList &commands, bool prepend)
+void GdbBackend::enqueue(const QStringList &commands, bool prepend)
 {
     if (commands.isEmpty()) {
         return;
@@ -262,7 +262,7 @@ void DebugView::enqueue(const QStringList &commands, bool prepend)
     }
 }
 
-QStringList DebugView::makeInitSequence()
+QStringList GdbBackend::makeInitSequence()
 {
     m_requests.clear();
     QStringList sequence;
@@ -283,7 +283,7 @@ QStringList DebugView::makeInitSequence()
     return sequence;
 }
 
-void DebugView::enqueueThreadInfo()
+void GdbBackend::enqueueThreadInfo()
 {
     if (!m_inspectable) {
         return;
@@ -295,7 +295,7 @@ void DebugView::enqueueThreadInfo()
     }
 }
 
-QStringList DebugView::makeRunSequence(bool stop)
+QStringList GdbBackend::makeRunSequence(bool stop)
 {
     QStringList sequence;
     if (stop) {
@@ -314,17 +314,17 @@ QStringList DebugView::makeRunSequence(bool stop)
     return sequence;
 }
 
-bool DebugView::debuggerRunning() const
+bool GdbBackend::debuggerRunning() const
 {
     return (m_state != none);
 }
 
-bool DebugView::debuggerBusy() const
+bool GdbBackend::debuggerBusy() const
 {
     return (m_state == executingCmd) || !m_nextCommands.isEmpty();
 }
 
-int DebugView::findFirstBreakpoint(const QUrl &url, int line) const
+int GdbBackend::findFirstBreakpoint(const QUrl &url, int line) const
 {
     for (auto it = m_breakpointTable.constBegin(); it != m_breakpointTable.constEnd(); ++it) {
         if ((url == it.value().file) && (line == it.value().line)) {
@@ -334,7 +334,7 @@ int DebugView::findFirstBreakpoint(const QUrl &url, int line) const
     return -1;
 }
 
-QStringList DebugView::findAllBreakpoints(const QUrl &url, int line) const
+QStringList GdbBackend::findAllBreakpoints(const QUrl &url, int line) const
 {
     QStringList out;
     for (auto it = m_breakpointTable.constBegin(); it != m_breakpointTable.constEnd(); ++it) {
@@ -345,12 +345,12 @@ QStringList DebugView::findAllBreakpoints(const QUrl &url, int line) const
     return out;
 }
 
-bool DebugView::hasBreakpoint(const QUrl &url, int line) const
+bool GdbBackend::hasBreakpoint(const QUrl &url, int line) const
 {
     return findFirstBreakpoint(url, line) >= 0;
 }
 
-QString DebugView::makeCmdBreakInsert(const QUrl &url, int line, bool pending, bool temporal) const
+QString GdbBackend::makeCmdBreakInsert(const QUrl &url, int line, bool pending, bool temporal) const
 {
     QString flags = temporal ? QLatin1String("-t") : QString();
     if (pending && m_capabilities.pendingBreakpoints.value_or(false)) {
@@ -360,7 +360,7 @@ QString DebugView::makeCmdBreakInsert(const QUrl &url, int line, bool pending, b
     return QStringLiteral("-break-insert %1 %2:%3").arg(flags).arg(url.path()).arg(line);
 }
 
-void DebugView::toggleBreakpoint(QUrl const &url, int line)
+void GdbBackend::toggleBreakpoint(QUrl const &url, int line)
 {
     if (m_state != ready) {
         return;
@@ -377,12 +377,12 @@ void DebugView::toggleBreakpoint(QUrl const &url, int line)
     issueCommand(cmd);
 }
 
-void DebugView::slotError()
+void GdbBackend::slotError()
 {
     Q_EMIT backendError(i18n("Could not start debugger process"), KTextEditor::Message::Error);
 }
 
-void DebugView::slotReadDebugStdOut()
+void GdbBackend::slotReadDebugStdOut()
 {
     m_outBuffer += m_debugProcess.readAllStandardOutput();
 
@@ -412,7 +412,7 @@ void DebugView::slotReadDebugStdOut()
     } while (!m_outBuffer.isEmpty());
 }
 
-void DebugView::slotReadDebugStdErr()
+void GdbBackend::slotReadDebugStdErr()
 {
     m_errBuffer += QString::fromLocal8Bit(m_debugProcess.readAllStandardError().data());
     int end = 0;
@@ -428,13 +428,13 @@ void DebugView::slotReadDebugStdErr()
     Q_EMIT outputError(m_errBuffer + QLatin1String("\n"));
 }
 
-void DebugView::clearDebugLocation()
+void GdbBackend::clearDebugLocation()
 {
     m_debugLocationChanged = true;
     Q_EMIT debugLocationChanged(QUrl(), -1);
 }
 
-void DebugView::slotDebugFinished(int /*exitCode*/, QProcess::ExitStatus status)
+void GdbBackend::slotDebugFinished(int /*exitCode*/, QProcess::ExitStatus status)
 {
     if (status != QProcess::NormalExit) {
         Q_EMIT outputText(i18n("*** gdb exited normally ***") + QLatin1Char('\n'));
@@ -452,7 +452,7 @@ void DebugView::slotDebugFinished(int /*exitCode*/, QProcess::ExitStatus status)
     Q_EMIT gdbEnded();
 }
 
-void DebugView::movePC(QUrl const &url, int line)
+void GdbBackend::movePC(QUrl const &url, int line)
 {
     if ((m_state == ready) && m_capabilities.execJump.value_or(false)) {
         // jump if inferior is running, or run inferrior and stop at start
@@ -462,7 +462,7 @@ void DebugView::movePC(QUrl const &url, int line)
     }
 }
 
-void DebugView::runToCursor(QUrl const &url, int line)
+void GdbBackend::runToCursor(QUrl const &url, int line)
 {
     if (m_state == ready) {
         // continue if inferior running, or run inferior
@@ -471,7 +471,7 @@ void DebugView::runToCursor(QUrl const &url, int line)
     }
 }
 
-void DebugView::slotInterrupt()
+void GdbBackend::slotInterrupt()
 {
     if (m_state == executingCmd) {
         m_debugLocationChanged = true;
@@ -486,7 +486,7 @@ void DebugView::slotInterrupt()
     }
 }
 
-void DebugView::slotKill()
+void GdbBackend::slotKill()
 {
     if (inferiorRunning() && (m_state != ready)) {
         slotInterrupt();
@@ -500,7 +500,7 @@ void DebugView::slotKill()
     }
 }
 
-void DebugView::slotReRun()
+void GdbBackend::slotReRun()
 {
     resetSession();
     if (inferiorRunning()) {
@@ -510,27 +510,27 @@ void DebugView::slotReRun()
     issueNextCommandLater(std::nullopt);
 }
 
-void DebugView::slotStepInto()
+void GdbBackend::slotStepInto()
 {
     issueCommand(QStringLiteral("-kate-try-run 1"), QJsonValue(QStringLiteral("-exec-step")));
 }
 
-void DebugView::slotStepOver()
+void GdbBackend::slotStepOver()
 {
     issueCommand(QStringLiteral("-kate-try-run 1"), QJsonValue(QStringLiteral("-exec-next")));
 }
 
-void DebugView::slotStepOut()
+void GdbBackend::slotStepOut()
 {
     issueCommand(QStringLiteral("-kate-try-run 1"), QJsonValue(QStringLiteral("-exec-finish")));
 }
 
-void DebugView::slotContinue()
+void GdbBackend::slotContinue()
 {
     issueCommand(QStringLiteral("-kate-try-run 0"), QJsonValue(QStringLiteral("-exec-continue")));
 }
 
-void DebugView::processMIRecord(const gdbmi::Record &record)
+void GdbBackend::processMIRecord(const gdbmi::Record &record)
 {
     m_errorCounter = 0;
     switch (record.category) {
@@ -551,7 +551,7 @@ void DebugView::processMIRecord(const gdbmi::Record &record)
     }
 }
 
-void DebugView::processMIPrompt()
+void GdbBackend::processMIPrompt()
 {
     if ((m_state != ready) && (m_state != none)) {
         return;
@@ -604,7 +604,7 @@ static QString getFilename(const QJsonObject &item)
     return file;
 }
 
-dap::StackFrame DebugView::parseFrame(const QJsonObject &object)
+dap::StackFrame GdbBackend::parseFrame(const QJsonObject &object)
 {
     dap::StackFrame frame;
     frame.id = object[QLatin1String("level")].toString().toInt();
@@ -630,12 +630,12 @@ dap::StackFrame DebugView::parseFrame(const QJsonObject &object)
     return frame;
 }
 
-bool DebugView::inferiorRunning() const
+bool GdbBackend::inferiorRunning() const
 {
     return (m_gdbState == Running) || (m_gdbState == Stopped);
 }
 
-void DebugView::processMIExec(const gdbmi::Record &record)
+void GdbBackend::processMIExec(const gdbmi::Record &record)
 {
     const auto threadId = stoppedThreadsToString(record.value.value(QLatin1String("thread-id")));
     if (record.resultClass == QLatin1String("running")) {
@@ -685,7 +685,7 @@ void DebugView::processMIExec(const gdbmi::Record &record)
     }
 }
 
-void DebugView::processMINotify(const gdbmi::Record &record)
+void GdbBackend::processMINotify(const gdbmi::Record &record)
 {
     if (record.resultClass == QLatin1String("breakpoint-created")) {
         responseMIBreakInsert(record);
@@ -713,7 +713,7 @@ void DebugView::processMINotify(const gdbmi::Record &record)
     }
 }
 
-void DebugView::processMIResult(const gdbmi::Record &record)
+void GdbBackend::processMIResult(const gdbmi::Record &record)
 {
     auto reqType = GdbCommand::None;
     bool isMI = true;
@@ -791,7 +791,7 @@ void DebugView::processMIResult(const gdbmi::Record &record)
     }
 }
 
-void DebugView::clearFrames()
+void GdbBackend::clearFrames()
 {
     // clear cached frames
     m_stackFrames.clear();
@@ -803,7 +803,7 @@ void DebugView::clearFrames()
     clearVariables();
 }
 
-void DebugView::clearVariables()
+void GdbBackend::clearVariables()
 {
     if (m_queryLocals) {
         Q_EMIT scopesInfo(QList<dap::Scope>{}, std::nullopt);
@@ -812,7 +812,7 @@ void DebugView::clearVariables()
     }
 }
 
-bool DebugView::responseMIThreadInfo(const gdbmi::Record &record)
+bool GdbBackend::responseMIThreadInfo(const gdbmi::Record &record)
 {
     if (record.resultClass == QLatin1String("error")) {
         if (!m_capabilities.threadInfo) {
@@ -871,7 +871,7 @@ bool DebugView::responseMIThreadInfo(const gdbmi::Record &record)
     return true;
 }
 
-bool DebugView::responseMIExit(const gdbmi::Record &record)
+bool GdbBackend::responseMIExit(const gdbmi::Record &record)
 {
     if (record.resultClass != QLatin1String("exit")) {
         return true;
@@ -882,7 +882,7 @@ bool DebugView::responseMIExit(const gdbmi::Record &record)
     return false;
 }
 
-bool DebugView::responseMIKill(const gdbmi::Record &record)
+bool GdbBackend::responseMIKill(const gdbmi::Record &record)
 {
     if (record.resultClass != QLatin1String("done")) {
         return true;
@@ -894,7 +894,7 @@ bool DebugView::responseMIKill(const gdbmi::Record &record)
     return false;
 }
 
-bool DebugView::responseMIInfoGdbCommand(const gdbmi::Record &record, const QStringList &args)
+bool GdbBackend::responseMIInfoGdbCommand(const gdbmi::Record &record, const QStringList &args)
 {
     if (record.resultClass != QLatin1String("done")) {
         return true;
@@ -920,7 +920,7 @@ bool DebugView::responseMIInfoGdbCommand(const gdbmi::Record &record, const QStr
     return true;
 }
 
-bool DebugView::responseMILldbVersion(const gdbmi::Record &record)
+bool GdbBackend::responseMILldbVersion(const gdbmi::Record &record)
 {
     bool isLLDB = false;
     if (record.resultClass == QLatin1String("done")) {
@@ -935,7 +935,7 @@ bool DebugView::responseMILldbVersion(const gdbmi::Record &record)
     return true;
 }
 
-bool DebugView::responseMIStackListFrames(const gdbmi::Record &record)
+bool GdbBackend::responseMIStackListFrames(const gdbmi::Record &record)
 {
     if (record.resultClass == QLatin1String("error")) {
         return true;
@@ -959,7 +959,7 @@ bool DebugView::responseMIStackListFrames(const gdbmi::Record &record)
     return true;
 }
 
-bool DebugView::responseMIRegisterNames(const gdbmi::Record &record)
+bool GdbBackend::responseMIRegisterNames(const gdbmi::Record &record)
 {
     if (record.resultClass != QLatin1String("done")) {
         return true;
@@ -975,7 +975,7 @@ bool DebugView::responseMIRegisterNames(const gdbmi::Record &record)
     return true;
 }
 
-bool DebugView::responseMIRegisterValues(const gdbmi::Record &record)
+bool GdbBackend::responseMIRegisterValues(const gdbmi::Record &record)
 {
     if (record.resultClass != QLatin1String("done")) {
         return true;
@@ -999,7 +999,7 @@ bool DebugView::responseMIRegisterValues(const gdbmi::Record &record)
     return true;
 }
 
-bool DebugView::responseMIChangedRegisters(const gdbmi::Record &record)
+bool GdbBackend::responseMIChangedRegisters(const gdbmi::Record &record)
 {
     if (record.resultClass != QLatin1String("done")) {
         return true;
@@ -1015,7 +1015,7 @@ bool DebugView::responseMIChangedRegisters(const gdbmi::Record &record)
     return true;
 }
 
-bool DebugView::responseMIStackListVariables(const gdbmi::Record &record)
+bool GdbBackend::responseMIStackListVariables(const gdbmi::Record &record)
 {
     if (record.resultClass == QLatin1String("error")) {
         return true;
@@ -1031,7 +1031,7 @@ bool DebugView::responseMIStackListVariables(const gdbmi::Record &record)
     return true;
 }
 
-bool DebugView::responseMIListFeatures(const gdbmi::Record &record)
+bool GdbBackend::responseMIListFeatures(const gdbmi::Record &record)
 {
     if (record.resultClass != QLatin1String("done")) {
         return true;
@@ -1123,7 +1123,7 @@ BreakPoint BreakPoint::parse(const QJsonObject &item)
     return breakPoint;
 }
 
-BreakPoint DebugView::parseBreakpoint(const QJsonObject &item)
+BreakPoint GdbBackend::parseBreakpoint(const QJsonObject &item)
 {
     // XXX in a breakpoint with multiple locations, only the first one is considered
     BreakPoint breakPoint = BreakPoint::parse(item);
@@ -1132,14 +1132,14 @@ BreakPoint DebugView::parseBreakpoint(const QJsonObject &item)
     return breakPoint;
 }
 
-void DebugView::insertBreakpoint(const QJsonObject &item)
+void GdbBackend::insertBreakpoint(const QJsonObject &item)
 {
     const BreakPoint breakPoint = parseBreakpoint(item);
     Q_EMIT breakPointSet(breakPoint.file, breakPoint.line - 1);
     m_breakpointTable[breakPoint.number] = std::move(breakPoint);
 }
 
-bool DebugView::responseMIBreakpointList(const gdbmi::Record &record)
+bool GdbBackend::responseMIBreakpointList(const gdbmi::Record &record)
 {
     if (record.resultClass != QLatin1String("done")) {
         return true;
@@ -1155,7 +1155,7 @@ bool DebugView::responseMIBreakpointList(const gdbmi::Record &record)
     return true;
 }
 
-bool DebugView::responseMIBreakInsert(const gdbmi::Record &record)
+bool GdbBackend::responseMIBreakInsert(const gdbmi::Record &record)
 {
     if (record.resultClass == QLatin1String("error")) {
         // cancel pending commands
@@ -1173,7 +1173,7 @@ bool DebugView::responseMIBreakInsert(const gdbmi::Record &record)
     return true;
 }
 
-void DebugView::notifyMIBreakpointModified(const gdbmi::Record &record)
+void GdbBackend::notifyMIBreakpointModified(const gdbmi::Record &record)
 {
     const auto bkpt = record.value[QLatin1String("bkpt")].toObject();
     if (bkpt.isEmpty()) {
@@ -1201,7 +1201,7 @@ void DebugView::notifyMIBreakpointModified(const gdbmi::Record &record)
     }
 }
 
-void DebugView::deleteBreakpoint(const int bpNumber)
+void GdbBackend::deleteBreakpoint(const int bpNumber)
 {
     if (!m_breakpointTable.contains(bpNumber)) {
         return;
@@ -1213,7 +1213,7 @@ void DebugView::deleteBreakpoint(const int bpNumber)
     }
 }
 
-void DebugView::notifyMIBreakpointDeleted(const gdbmi::Record &record)
+void GdbBackend::notifyMIBreakpointDeleted(const gdbmi::Record &record)
 {
     bool ok = false;
     const int bpNumber = record.value[QLatin1String("id")].toString().toInt(&ok);
@@ -1222,7 +1222,7 @@ void DebugView::notifyMIBreakpointDeleted(const gdbmi::Record &record)
     }
 }
 
-bool DebugView::responseMIBreakDelete(const gdbmi::Record &record, const QStringList &args)
+bool GdbBackend::responseMIBreakDelete(const gdbmi::Record &record, const QStringList &args)
 {
     if (record.resultClass != QLatin1String("done")) {
         return true;
@@ -1245,7 +1245,7 @@ bool DebugView::responseMIBreakDelete(const gdbmi::Record &record, const QString
     return true;
 }
 
-QString DebugView::makeFrameFlags() const
+QString GdbBackend::makeFrameFlags() const
 {
     if (!m_currentThread || !m_currentFrame) {
         return QString();
@@ -1260,7 +1260,7 @@ QString DebugView::makeFrameFlags() const
     return QLatin1String("--thread %1 --frame %2").arg(QString::number(*m_currentThread)).arg(frameId);
 }
 
-void DebugView::enqueueScopes()
+void GdbBackend::enqueueScopes()
 {
     if (!m_currentFrame || !m_currentThread) {
         return;
@@ -1268,7 +1268,7 @@ void DebugView::enqueueScopes()
     enqueue(QLatin1String("-data-evaluate-expression %1 \"this\"").arg(makeFrameFlags()), QJsonValue(DATA_EVAL_THIS_CHECK), MuteLog);
 }
 
-void DebugView::enqueueScopeVariables()
+void GdbBackend::enqueueScopeVariables()
 {
     if (!m_currentFrame || !m_currentThread) {
         return;
@@ -1291,7 +1291,7 @@ void DebugView::enqueueScopeVariables()
     }
 }
 
-void DebugView::responseMIScopes(const gdbmi::Record &record)
+void GdbBackend::responseMIScopes(const gdbmi::Record &record)
 {
     m_pointerThis = record.resultClass != QLatin1String("error");
     if (!m_inspectable || !m_queryLocals) {
@@ -1322,7 +1322,7 @@ void DebugView::responseMIScopes(const gdbmi::Record &record)
     }
 }
 
-void DebugView::responseMIThisScope(const gdbmi::Record &record)
+void GdbBackend::responseMIThisScope(const gdbmi::Record &record)
 {
     if (record.resultClass == QLatin1String("error")) {
         return;
@@ -1335,7 +1335,7 @@ void DebugView::responseMIThisScope(const gdbmi::Record &record)
     Q_EMIT variableScopeClosed();
 }
 
-bool DebugView::responseMIDataEvaluateExpression(const gdbmi::Record &record, const std::optional<QJsonValue> &data)
+bool GdbBackend::responseMIDataEvaluateExpression(const gdbmi::Record &record, const std::optional<QJsonValue> &data)
 {
     if (data) {
         const int mode = data->toInt(-1);
@@ -1366,7 +1366,7 @@ bool DebugView::responseMIDataEvaluateExpression(const gdbmi::Record &record, co
     return true;
 }
 
-void DebugView::onMIParserError(const QString &errorMessage)
+void GdbBackend::onMIParserError(const QString &errorMessage)
 {
     QString message;
     ++m_errorCounter;
@@ -1384,19 +1384,19 @@ void DebugView::onMIParserError(const QString &errorMessage)
     }
 }
 
-QString DebugView::slotPrintVariable(const QString &variable)
+QString GdbBackend::slotPrintVariable(const QString &variable)
 {
     const QString cmd = QStringLiteral("-data-evaluate-expression \"%1\"").arg(gdbmi::quotedString(variable));
     issueCommand(cmd, QJsonValue(variable));
     return cmd;
 }
 
-void DebugView::issueCommand(QString const &cmd)
+void GdbBackend::issueCommand(QString const &cmd)
 {
     issueCommand(cmd, std::nullopt);
 }
 
-void DebugView::cmdKateInit()
+void GdbBackend::cmdKateInit()
 {
     // enqueue full init sequence
     updateInputReady(!debuggerBusy() && canMove(), true);
@@ -1404,7 +1404,7 @@ void DebugView::cmdKateInit()
     issueNextCommandLater(std::nullopt);
 }
 
-void DebugView::cmdKateTryRun(const GdbCommand &command, const QJsonValue &data)
+void GdbBackend::cmdKateTryRun(const GdbCommand &command, const QJsonValue &data)
 {
     // enqueue command if running, or run inferior
     // 0 - run & continue
@@ -1429,7 +1429,7 @@ void DebugView::cmdKateTryRun(const GdbCommand &command, const QJsonValue &data)
     issueNextCommandLater(std::nullopt);
 }
 
-void DebugView::issueCommand(const QString &cmd, const std::optional<QJsonValue> &data, uint8_t captureMode)
+void GdbBackend::issueCommand(const QString &cmd, const std::optional<QJsonValue> &data, uint8_t captureMode)
 {
     auto command = GdbCommand::parse(cmd);
     // macro command
@@ -1517,7 +1517,7 @@ void DebugView::issueCommand(const QString &cmd, const std::optional<QJsonValue>
     }
 }
 
-void DebugView::updateInputReady(bool newState, bool force)
+void GdbBackend::updateInputReady(bool newState, bool force)
 {
     // refresh only when the state changed
     if (force || (m_lastInputReady != newState)) {
@@ -1526,7 +1526,7 @@ void DebugView::updateInputReady(bool newState, bool force)
     }
 }
 
-void DebugView::setState(State newState, std::optional<GdbState> newGdbState)
+void GdbBackend::setState(State newState, std::optional<GdbState> newGdbState)
 {
     m_state = newState;
     if (newGdbState) {
@@ -1536,14 +1536,14 @@ void DebugView::setState(State newState, std::optional<GdbState> newGdbState)
     updateInputReady(!debuggerBusy() && canMove(), true);
 }
 
-void DebugView::setGdbState(GdbState newState)
+void GdbBackend::setGdbState(GdbState newState)
 {
     m_gdbState = newState;
 
     updateInputReady(!debuggerBusy() && canMove(), true);
 }
 
-void DebugView::issueNextCommand()
+void GdbBackend::issueNextCommand()
 {
     if (m_state == ready) {
         if (!m_nextCommands.empty()) {
@@ -1563,7 +1563,7 @@ void DebugView::issueNextCommand()
     }
 }
 
-QUrl DebugView::resolveFileName(const QString &fileName, bool silent)
+QUrl GdbBackend::resolveFileName(const QString &fileName, bool silent)
 {
     QFileInfo fInfo = QFileInfo(fileName);
     // did we end up with an absolute path or a relative one?
@@ -1602,7 +1602,7 @@ QUrl DebugView::resolveFileName(const QString &fileName, bool silent)
     return QUrl::fromUserInput(fileName);
 }
 
-void DebugView::processMIStreamOutput(const gdbmi::StreamOutput &output)
+void GdbBackend::processMIStreamOutput(const gdbmi::StreamOutput &output)
 {
     switch (output.channel) {
     case gdbmi::StreamOutput::Console:
@@ -1622,7 +1622,7 @@ void DebugView::processMIStreamOutput(const gdbmi::StreamOutput &output)
     }
 }
 
-void DebugView::informStackFrame()
+void GdbBackend::informStackFrame()
 {
     if (!m_queryLocals) {
         return;
@@ -1645,7 +1645,7 @@ void DebugView::informStackFrame()
     Q_EMIT stackFrameInfo(-1, QString());
 }
 
-void DebugView::slotQueryLocals(bool query)
+void GdbBackend::slotQueryLocals(bool query)
 {
     if (!debuggerRunning()) {
         return;
@@ -1689,17 +1689,17 @@ void DebugView::slotQueryLocals(bool query)
     }
 }
 
-QString DebugView::targetName() const
+QString GdbBackend::targetName() const
 {
     return m_targetConf.targetName;
 }
 
-void DebugView::setFileSearchPaths(const QStringList &paths)
+void GdbBackend::setFileSearchPaths(const QStringList &paths)
 {
     m_targetConf.srcPaths = paths;
 }
 
-void DebugView::updateInspectable(bool inspectable)
+void GdbBackend::updateInspectable(bool inspectable)
 {
     m_inspectable = inspectable;
     m_currentThread.reset();
@@ -1709,7 +1709,7 @@ void DebugView::updateInspectable(bool inspectable)
     Q_EMIT scopesInfo(QList<dap::Scope>{}, std::nullopt);
 }
 
-void DebugView::changeStackFrame(int index)
+void GdbBackend::changeStackFrame(int index)
 {
 #ifdef DEBUG_GDBMI
     Q_EMIT outputText(QStringLiteral("\n***(gdbmi^)\nCHANGE FRAME %1\n***\n").arg(index));
@@ -1746,7 +1746,7 @@ void DebugView::changeStackFrame(int index)
     issueNextCommandLater(std::nullopt);
 }
 
-void DebugView::changeThread(int index)
+void GdbBackend::changeThread(int index)
 {
 #ifdef DEBUG_GDBMI
     Q_EMIT outputText(QStringLiteral("\n***(gdbmi^)\nCHANGE THREAD %1\n***\n").arg(index));
@@ -1767,7 +1767,7 @@ void DebugView::changeThread(int index)
     issueNextCommandLater(std::nullopt);
 }
 
-void DebugView::changeScope(int scopeId)
+void GdbBackend::changeScope(int scopeId)
 {
 #ifdef DEBUG_GDBMI
     Q_EMIT outputText(QStringLiteral("\n***(gdbmi^)\nCHANGE SCOPE %1\n***\n").arg(scopeId));
@@ -1791,4 +1791,4 @@ void DebugView::changeScope(int scopeId)
     }
 }
 
-#include "moc_debugview.cpp"
+#include "moc_gdbbackend.cpp"

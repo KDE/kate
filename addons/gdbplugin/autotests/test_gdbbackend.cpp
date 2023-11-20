@@ -6,7 +6,7 @@
 
 #include "test_gdbbackend.h"
 
-#include "../debugview.h"
+#include "../gdbbackend.h"
 
 #include <QJsonArray>
 #include <QJsonObject>

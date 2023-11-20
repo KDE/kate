@@ -1,5 +1,5 @@
 //
-// debugview.h
+// gdbbackend.h
 //
 // Description: Manages the interaction with GDB
 //
@@ -65,12 +65,12 @@ struct BreakPoint {
     static BreakPoint parse(const QJsonObject &);
 };
 
-class DebugView : public BackendInterface
+class GdbBackend : public BackendInterface
 {
     Q_OBJECT
 public:
-    DebugView(QObject *parent);
-    ~DebugView() override;
+    GdbBackend(QObject *parent);
+    ~GdbBackend() override;
 
     void runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos);
     bool debuggerRunning() const override;

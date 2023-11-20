@@ -7,8 +7,8 @@
  */
 
 #include "backend.h"
+#include "dapbackend.h"
 #include "debugview.h"
-#include "debugview_dap.h"
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -50,10 +50,10 @@ void Backend::runDebugger(const DAPTargetConf &conf)
         return;
     }
 
-    DapDebugView *dap;
+    DapBackend *dap;
 
     unbind();
-    m_debugger = dap = new DapDebugView(this);
+    m_debugger = dap = new DapBackend(this);
     m_mode = DAP;
     bind();
 

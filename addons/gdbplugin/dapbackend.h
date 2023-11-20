@@ -16,12 +16,12 @@
 #include <memory>
 #include <optional>
 
-class DapDebugView : public BackendInterface
+class DapBackend : public BackendInterface
 {
     Q_OBJECT
 public:
-    DapDebugView(QObject *parent);
-    ~DapDebugView() override = default;
+    DapBackend(QObject *parent);
+    ~DapBackend() override = default;
 
     void runDebugger(const DAPTargetConf &conf);
     bool debuggerRunning() const override;

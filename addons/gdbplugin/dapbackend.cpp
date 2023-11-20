@@ -12,7 +12,7 @@
 
 #include <KLocalizedString>
 
-#include "debugview_dap.h"
+#include "dapbackend.h"
 #include "json_placeholders.h"
 
 QString newLine(const QString &text)
@@ -25,7 +25,7 @@ QString printEvent(const QString &text)
     return QStringLiteral("\n--> %1").arg(text);
 }
 
-DapDebugView::DapDebugView(QObject *parent)
+DapBackend::DapBackend(QObject *parent)
     : BackendInterface(parent)
     , m_client(nullptr)
     , m_state(State::None)
@@ -33,7 +33,7 @@ DapDebugView::DapDebugView(QObject *parent)
 {
 }
 
-void DapDebugView::unsetClient()
+void DapBackend::unsetClient()
 {
     if (m_client) {
         disconnect(m_client->bus());
@@ -47,7 +47,7 @@ void DapDebugView::unsetClient()
     m_currentScope = std::nullopt;
 }
 
-void DapDebugView::resetState(State state)
+void DapBackend::resetState(State state)
 {
     m_requests = 0;
     m_runToCursor = std::nullopt;
@@ -63,7 +63,7 @@ void DapDebugView::resetState(State state)
     setState(state);
 }
 
-void DapDebugView::setState(State state)
+void DapBackend::setState(State state)
 {
     if (state == m_state)
         return;
@@ -98,7 +98,7 @@ void DapDebugView::setState(State state)
     }
 }
 
-void DapDebugView::setTaskState(Task state)
+void DapBackend::setTaskState(Task state)
 {
     if (state == m_task)
         return;
@@ -109,13 +109,13 @@ void DapDebugView::setTaskState(Task state)
     }
 }
 
-void DapDebugView::pushRequest()
+void DapBackend::pushRequest()
 {
     ++m_requests;
     setTaskState(Busy);
 }
 
-void DapDebugView::popRequest()
+void DapBackend::popRequest()
 {
     if (m_requests > 0) {
         --m_requests;
@@ -123,7 +123,7 @@ void DapDebugView::popRequest()
     setTaskState(m_requests > 0 ? Busy : Idle);
 }
 
-dap::settings::ClientSettings &DapDebugView::target2dap(const DAPTargetConf &target)
+dap::settings::ClientSettings &DapBackend::target2dap(const DAPTargetConf &target)
 {
     // resolve dynamic port
     auto settings = dap::settings::resolveClientPort(target.dapSettings->settings);
@@ -149,7 +149,7 @@ dap::settings::ClientSettings &DapDebugView::target2dap(const DAPTargetConf &tar
     return *m_settings;
 }
 
-void DapDebugView::start()
+void DapBackend::start()
 {
     if ((m_state != None) && (m_state != PostMortem)) {
         KMessageBox::error(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
@@ -162,42 +162,42 @@ void DapDebugView::start()
     Q_EMIT debuggerCapabilitiesChanged();
 
     // connect
-    connect(m_client->bus(), &dap::Bus::error, this, &DapDebugView::onError);
+    connect(m_client->bus(), &dap::Bus::error, this, &DapBackend::onError);
 
-    connect(m_client, &dap::Client::finished, this, &DapDebugView::onServerFinished);
+    connect(m_client, &dap::Client::finished, this, &DapBackend::onServerFinished);
     connect(m_client, &dap::Client::failed, [this] {
         onError(i18n("DAP backend failed"));
     });
 
-    connect(m_client, &dap::Client::serverDisconnected, this, &DapDebugView::onServerDisconnected);
-    connect(m_client, &dap::Client::debuggeeExited, this, &DapDebugView::onProgramEnded);
-    connect(m_client, &dap::Client::debuggeeTerminated, this, &DapDebugView::onTerminated);
-    connect(m_client, &dap::Client::debuggeeStopped, this, &DapDebugView::onStopped);
-    connect(m_client, &dap::Client::capabilitiesReceived, this, &DapDebugView::onCapabilitiesReceived);
-    connect(m_client, &dap::Client::debuggeeRunning, this, &DapDebugView::onRunning);
-    connect(m_client, &dap::Client::debuggeeContinued, this, &DapDebugView::onContinuedEvent);
-    connect(m_client, &dap::Client::debuggingProcess, this, &DapDebugView::onDebuggingProcess);
+    connect(m_client, &dap::Client::serverDisconnected, this, &DapBackend::onServerDisconnected);
+    connect(m_client, &dap::Client::debuggeeExited, this, &DapBackend::onProgramEnded);
+    connect(m_client, &dap::Client::debuggeeTerminated, this, &DapBackend::onTerminated);
+    connect(m_client, &dap::Client::debuggeeStopped, this, &DapBackend::onStopped);
+    connect(m_client, &dap::Client::capabilitiesReceived, this, &DapBackend::onCapabilitiesReceived);
+    connect(m_client, &dap::Client::debuggeeRunning, this, &DapBackend::onRunning);
+    connect(m_client, &dap::Client::debuggeeContinued, this, &DapBackend::onContinuedEvent);
+    connect(m_client, &dap::Client::debuggingProcess, this, &DapBackend::onDebuggingProcess);
 
-    connect(m_client, &dap::Client::threads, this, &DapDebugView::onThreads);
-    connect(m_client, &dap::Client::stackTrace, this, &DapDebugView::onStackTrace);
-    connect(m_client, &dap::Client::initialized, this, &DapDebugView::onInitialized);
-    connect(m_client, &dap::Client::errorResponse, this, &DapDebugView::onErrorResponse);
-    connect(m_client, &dap::Client::outputProduced, this, &DapDebugView::onOutputProduced);
+    connect(m_client, &dap::Client::threads, this, &DapBackend::onThreads);
+    connect(m_client, &dap::Client::stackTrace, this, &DapBackend::onStackTrace);
+    connect(m_client, &dap::Client::initialized, this, &DapBackend::onInitialized);
+    connect(m_client, &dap::Client::errorResponse, this, &DapBackend::onErrorResponse);
+    connect(m_client, &dap::Client::outputProduced, this, &DapBackend::onOutputProduced);
 
-    connect(m_client, &dap::Client::threadChanged, this, &DapDebugView::onThreadEvent);
-    connect(m_client, &dap::Client::moduleChanged, this, &DapDebugView::onModuleEvent);
-    connect(m_client, &dap::Client::scopes, this, &DapDebugView::onScopes);
-    connect(m_client, &dap::Client::variables, this, &DapDebugView::onVariables);
-    connect(m_client, &dap::Client::modules, this, &DapDebugView::onModules);
-    connect(m_client, &dap::Client::sourceBreakpoints, this, &DapDebugView::onSourceBreakpoints);
-    connect(m_client, &dap::Client::breakpointChanged, this, &DapDebugView::onBreakpointEvent);
-    connect(m_client, &dap::Client::expressionEvaluated, this, &DapDebugView::onExpressionEvaluated);
-    connect(m_client, &dap::Client::gotoTargets, this, &DapDebugView::onGotoTargets);
+    connect(m_client, &dap::Client::threadChanged, this, &DapBackend::onThreadEvent);
+    connect(m_client, &dap::Client::moduleChanged, this, &DapBackend::onModuleEvent);
+    connect(m_client, &dap::Client::scopes, this, &DapBackend::onScopes);
+    connect(m_client, &dap::Client::variables, this, &DapBackend::onVariables);
+    connect(m_client, &dap::Client::modules, this, &DapBackend::onModules);
+    connect(m_client, &dap::Client::sourceBreakpoints, this, &DapBackend::onSourceBreakpoints);
+    connect(m_client, &dap::Client::breakpointChanged, this, &DapBackend::onBreakpointEvent);
+    connect(m_client, &dap::Client::expressionEvaluated, this, &DapBackend::onExpressionEvaluated);
+    connect(m_client, &dap::Client::gotoTargets, this, &DapBackend::onGotoTargets);
 
     m_client->bus()->start(m_settings->busSettings);
 }
 
-void DapDebugView::runDebugger(const DAPTargetConf &conf)
+void DapBackend::runDebugger(const DAPTargetConf &conf)
 {
     m_targetName = conf.targetName;
 
@@ -206,7 +206,7 @@ void DapDebugView::runDebugger(const DAPTargetConf &conf)
     start();
 }
 
-void DapDebugView::onTerminated()
+void DapBackend::onTerminated()
 {
     Q_EMIT outputText(printEvent(i18n("program terminated")));
     if (m_state < Terminated) {
@@ -214,7 +214,7 @@ void DapDebugView::onTerminated()
     }
 }
 
-bool DapDebugView::tryDisconnect()
+bool DapBackend::tryDisconnect()
 {
     if (!isConnectedState()) {
         return false;
@@ -229,7 +229,7 @@ bool DapDebugView::tryDisconnect()
     return true;
 }
 
-void DapDebugView::cmdShutdown()
+void DapBackend::cmdShutdown()
 {
     if (m_state == None)
         return;
@@ -242,7 +242,7 @@ void DapDebugView::cmdShutdown()
     }
 }
 
-bool DapDebugView::tryTerminate()
+bool DapBackend::tryTerminate()
 {
     if (!isRunningState())
         return false;
@@ -256,13 +256,13 @@ bool DapDebugView::tryTerminate()
     return true;
 }
 
-void DapDebugView::onError(const QString &message)
+void DapBackend::onError(const QString &message)
 {
     Q_EMIT outputError(newLine(i18n("DAP backend: %1", message)));
     setState(PostMortem);
 }
 
-void DapDebugView::onStopped(const dap::StoppedEvent &info)
+void DapBackend::onStopped(const dap::StoppedEvent &info)
 {
     setState(Stopped);
     m_currentThread = m_watchedThread = info.threadId;
@@ -301,7 +301,7 @@ void DapDebugView::onStopped(const dap::StoppedEvent &info)
     m_client->requestThreads();
 }
 
-void DapDebugView::onContinuedEvent(const dap::ContinuedEvent &info)
+void DapBackend::onContinuedEvent(const dap::ContinuedEvent &info)
 {
     resetState();
     Q_EMIT outputText(printEvent(i18n("(continued) thread %1", QString::number(info.threadId))));
@@ -310,7 +310,7 @@ void DapDebugView::onContinuedEvent(const dap::ContinuedEvent &info)
     }
 }
 
-void DapDebugView::onRunning()
+void DapBackend::onRunning()
 {
     setState(State::Running);
     Q_EMIT outputText(printEvent(i18n("(running)")));
@@ -321,7 +321,7 @@ void DapDebugView::onRunning()
     }
 }
 
-void DapDebugView::onThreads(const QList<dap::Thread> &threads)
+void DapBackend::onThreads(const QList<dap::Thread> &threads)
 {
     if (!m_currentThread) {
         if (!threads.isEmpty()) {
@@ -336,7 +336,7 @@ void DapDebugView::onThreads(const QList<dap::Thread> &threads)
     popRequest();
 }
 
-void DapDebugView::informStackFrame()
+void DapBackend::informStackFrame()
 {
     if (!m_queryLocals)
         return;
@@ -358,7 +358,7 @@ void DapDebugView::informStackFrame()
     Q_EMIT stackFrameInfo(-1, QString());
 }
 
-void DapDebugView::onStackTrace(const int /* threadId */, const dap::StackTraceInfo &info)
+void DapBackend::onStackTrace(const int /* threadId */, const dap::StackTraceInfo &info)
 {
     m_currentFrame = std::nullopt;
     m_frames = info.stackFrames;
@@ -370,7 +370,7 @@ void DapDebugView::onStackTrace(const int /* threadId */, const dap::StackTraceI
     popRequest();
 }
 
-void DapDebugView::clearBreakpoints()
+void DapBackend::clearBreakpoints()
 {
     for (const auto &[url, breakpoints] : m_breakpoints) {
         const auto path = QUrl::fromLocalFile(url);
@@ -383,7 +383,7 @@ void DapDebugView::clearBreakpoints()
     Q_EMIT clearBreakpointMarks();
 }
 
-void DapDebugView::onServerDisconnected()
+void DapBackend::onServerDisconnected()
 {
     if (!isConnectedState()) {
         return;
@@ -399,19 +399,19 @@ void DapDebugView::onServerDisconnected()
     setState(Disconnected);
 }
 
-void DapDebugView::onServerFinished()
+void DapBackend::onServerFinished()
 {
     Q_EMIT outputError(newLine(i18n("*** connection with server closed ***")));
 
     setState(PostMortem);
 }
 
-void DapDebugView::onProgramEnded(int exitCode)
+void DapBackend::onProgramEnded(int exitCode)
 {
     Q_EMIT outputText(printEvent(i18n("program exited with code %1", exitCode)));
 }
 
-void DapDebugView::onInitialized()
+void DapBackend::onInitialized()
 {
     Q_EMIT clearBreakpointMarks();
     if (!m_wantedBreakpoints.empty()) {
@@ -425,7 +425,7 @@ void DapDebugView::onInitialized()
     Q_EMIT outputText(newLine(i18n("*** waiting for user actions ***")));
 }
 
-void DapDebugView::onErrorResponse(const QString &summary, const std::optional<dap::Message> &message)
+void DapBackend::onErrorResponse(const QString &summary, const std::optional<dap::Message> &message)
 {
     Q_EMIT outputError(newLine(i18n("error on response: %1", summary)));
     if (message) {
@@ -433,7 +433,7 @@ void DapDebugView::onErrorResponse(const QString &summary, const std::optional<d
     }
 }
 
-void DapDebugView::onOutputProduced(const dap::Output &output)
+void DapBackend::onOutputProduced(const dap::Output &output)
 {
     if (output.output.isEmpty())
         return;
@@ -460,7 +460,7 @@ void DapDebugView::onOutputProduced(const dap::Output &output)
     }
 }
 
-void DapDebugView::onDebuggingProcess(const dap::ProcessInfo &info)
+void DapBackend::onDebuggingProcess(const dap::ProcessInfo &info)
 {
     QString out;
     if (info.systemProcessId) {
@@ -474,7 +474,7 @@ void DapDebugView::onDebuggingProcess(const dap::ProcessInfo &info)
     Q_EMIT outputText(printEvent(out));
 }
 
-void DapDebugView::onThreadEvent(const dap::ThreadEvent &info)
+void DapBackend::onThreadEvent(const dap::ThreadEvent &info)
 {
     Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason).arg(i18n("thread %1", QString::number(info.threadId)))));
 }
@@ -540,12 +540,12 @@ QString printBreakpoint(const QString &sourceId, const dap::SourceBreakpoint &de
     return out.join(QString());
 }
 
-void DapDebugView::onModuleEvent(const dap::ModuleEvent &info)
+void DapBackend::onModuleEvent(const dap::ModuleEvent &info)
 {
     Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason).arg(printModule(info.module))));
 }
 
-void DapDebugView::changeScope(int scopeId)
+void DapBackend::changeScope(int scopeId)
 {
     if (!m_client)
         return;
@@ -561,7 +561,7 @@ void DapDebugView::changeScope(int scopeId)
     }
 }
 
-void DapDebugView::onScopes(const int /*frameId*/, const QList<dap::Scope> &scopes)
+void DapBackend::onScopes(const int /*frameId*/, const QList<dap::Scope> &scopes)
 {
     std::optional<int> activeScope = std::nullopt;
 
@@ -589,7 +589,7 @@ void DapDebugView::onScopes(const int /*frameId*/, const QList<dap::Scope> &scop
     popRequest();
 }
 
-void DapDebugView::onVariables(const int variablesReference, const QList<dap::Variable> &variables)
+void DapBackend::onVariables(const int variablesReference, const QList<dap::Variable> &variables)
 {
     if (!m_queryLocals) {
         popRequest();
@@ -619,7 +619,7 @@ void DapDebugView::onVariables(const int variablesReference, const QList<dap::Va
     popRequest();
 }
 
-void DapDebugView::onModules(const dap::ModulesInfo &modules)
+void DapBackend::onModules(const dap::ModulesInfo &modules)
 {
     for (const auto &mod : modules.modules) {
         Q_EMIT outputText(newLine(printModule(mod)));
@@ -627,7 +627,7 @@ void DapDebugView::onModules(const dap::ModulesInfo &modules)
     popRequest();
 }
 
-void DapDebugView::informBreakpointAdded(const QString &path, const dap::Breakpoint &bpoint)
+void DapBackend::informBreakpointAdded(const QString &path, const dap::Breakpoint &bpoint)
 {
     if (bpoint.line) {
         Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint set")).arg(path).arg(bpoint.line.value()));
@@ -636,14 +636,14 @@ void DapDebugView::informBreakpointAdded(const QString &path, const dap::Breakpo
     }
 }
 
-void DapDebugView::informBreakpointRemoved(const QString &path, int line)
+void DapBackend::informBreakpointRemoved(const QString &path, int line)
 {
     Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint cleared")).arg(path).arg(line));
     // zero based line expected
     Q_EMIT breakPointCleared(QUrl::fromLocalFile(path), line - 1);
 }
 
-void DapDebugView::onSourceBreakpoints(const QString &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints)
+void DapBackend::onSourceBreakpoints(const QString &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints)
 {
     if (!breakpoints) {
         popRequest();
@@ -695,7 +695,7 @@ void DapDebugView::onSourceBreakpoints(const QString &path, int reference, const
     }
 }
 
-void DapDebugView::onBreakpointEvent(const dap::BreakpointEvent &info)
+void DapBackend::onBreakpointEvent(const dap::BreakpointEvent &info)
 {
     QStringList parts = {i18n("(%1) breakpoint", info.reason)};
     if (info.breakpoint.source) {
@@ -708,7 +708,7 @@ void DapDebugView::onBreakpointEvent(const dap::BreakpointEvent &info)
     Q_EMIT outputText(printEvent(parts.join(QString())));
 }
 
-void DapDebugView::onExpressionEvaluated(const QString &expression, const std::optional<dap::EvaluateInfo> &info)
+void DapBackend::onExpressionEvaluated(const QString &expression, const std::optional<dap::EvaluateInfo> &info)
 {
     QString result;
     if (info) {
@@ -722,7 +722,7 @@ void DapDebugView::onExpressionEvaluated(const QString &expression, const std::o
     popRequest();
 }
 
-void DapDebugView::onGotoTargets(const dap::Source &source, const int, const QList<dap::GotoTarget> &targets)
+void DapBackend::onGotoTargets(const dap::Source &source, const int, const QList<dap::GotoTarget> &targets)
 {
     if (!targets.isEmpty() && m_currentThread) {
         Q_EMIT outputError(newLine(QStringLiteral("jump target %1:%2 (%3)").arg(source.unifiedId()).arg(targets[0].line).arg(targets[0].label)));
@@ -731,7 +731,7 @@ void DapDebugView::onGotoTargets(const dap::Source &source, const int, const QLi
     popRequest();
 }
 
-void DapDebugView::onCapabilitiesReceived(const dap::Capabilities &capabilities)
+void DapBackend::onCapabilitiesReceived(const dap::Capabilities &capabilities)
 {
     // can set breakpoints now
     setState(State::Initializing);
@@ -753,57 +753,57 @@ void DapDebugView::onCapabilitiesReceived(const dap::Capabilities &capabilities)
     Q_EMIT outputText(text.join(QString()));
 }
 
-bool DapDebugView::supportsMovePC() const
+bool DapBackend::supportsMovePC() const
 {
     return isRunningState() && m_client && m_client->adapterCapabilities().supportsGotoTargetsRequest;
 }
 
-bool DapDebugView::supportsRunToCursor() const
+bool DapBackend::supportsRunToCursor() const
 {
     return isAttachedState() && m_client && m_client->adapterCapabilities().supportsHitConditionalBreakpoints;
 }
 
-bool DapDebugView::isConnectedState() const
+bool DapBackend::isConnectedState() const
 {
     return m_client && (m_state != None) && (m_state != Disconnected) && (m_state != PostMortem);
 }
 
-bool DapDebugView::isAttachedState() const
+bool DapBackend::isAttachedState() const
 {
     return isConnectedState() && (m_state != Terminated);
 }
 
-bool DapDebugView::isRunningState() const
+bool DapBackend::isRunningState() const
 {
     return (m_state == Running) || (m_state == Stopped);
 }
 
-bool DapDebugView::canSetBreakpoints() const
+bool DapBackend::canSetBreakpoints() const
 {
     return isAttachedState();
 }
 
-bool DapDebugView::canMove() const
+bool DapBackend::canMove() const
 {
     return isRunningState();
 }
 
-bool DapDebugView::canContinue() const
+bool DapBackend::canContinue() const
 {
     return (m_state == Initializing) || (m_state == Stopped);
 }
 
-bool DapDebugView::debuggerRunning() const
+bool DapBackend::debuggerRunning() const
 {
     return m_client && (m_state != None);
 }
 
-bool DapDebugView::debuggerBusy() const
+bool DapBackend::debuggerBusy() const
 {
     return debuggerRunning() && (m_task == Busy);
 }
 
-std::optional<int> DapDebugView::findBreakpoint(const QString &path, int line) const
+std::optional<int> DapBackend::findBreakpoint(const QString &path, int line) const
 {
     if (m_breakpoints.find(path) == m_breakpoints.end())
         return std::nullopt;
@@ -819,7 +819,7 @@ std::optional<int> DapDebugView::findBreakpoint(const QString &path, int line) c
     return std::nullopt;
 }
 
-std::optional<int> DapDebugView::findBreakpointIntent(const QString &path, int line) const
+std::optional<int> DapBackend::findBreakpointIntent(const QString &path, int line) const
 {
     if (m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) {
         return std::nullopt;
@@ -836,12 +836,12 @@ std::optional<int> DapDebugView::findBreakpointIntent(const QString &path, int l
     return std::nullopt;
 }
 
-bool DapDebugView::hasBreakpoint(QUrl const &url, int line) const
+bool DapBackend::hasBreakpoint(QUrl const &url, int line) const
 {
     return findBreakpoint(*resolveFilename(url.path()), line).has_value();
 }
 
-void DapDebugView::toggleBreakpoint(QUrl const &url, int line)
+void DapBackend::toggleBreakpoint(QUrl const &url, int line)
 {
     const auto path = resolveOrWarn(url.path());
 
@@ -850,7 +850,7 @@ void DapDebugView::toggleBreakpoint(QUrl const &url, int line)
     }
 }
 
-bool DapDebugView::removeBreakpoint(const QString &path, int line)
+bool DapBackend::removeBreakpoint(const QString &path, int line)
 {
     bool informed = false;
     // clear all breakpoints in the same line (there can be more than one)
@@ -886,7 +886,7 @@ bool DapDebugView::removeBreakpoint(const QString &path, int line)
     return true;
 }
 
-void DapDebugView::insertBreakpoint(const QString &path, int line)
+void DapBackend::insertBreakpoint(const QString &path, int line)
 {
     if (m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) {
         m_wantedBreakpoints[path] = {dap::SourceBreakpoint(line)};
@@ -900,7 +900,7 @@ void DapDebugView::insertBreakpoint(const QString &path, int line)
     m_client->requestSetBreakpoints(path, m_wantedBreakpoints[path], true);
 }
 
-void DapDebugView::movePC(QUrl const &url, int line)
+void DapBackend::movePC(QUrl const &url, int line)
 {
     if (!m_client)
         return;
@@ -920,7 +920,7 @@ void DapDebugView::movePC(QUrl const &url, int line)
     m_client->requestGotoTargets(path, line);
 }
 
-void DapDebugView::runToCursor(QUrl const &url, int line)
+void DapBackend::runToCursor(QUrl const &url, int line)
 {
     if (!m_client)
         return;
@@ -946,7 +946,7 @@ void DapDebugView::runToCursor(QUrl const &url, int line)
     m_client->requestSetBreakpoints(path, m_wantedBreakpoints[path], true);
 }
 
-void DapDebugView::cmdEval(const QString &cmd)
+void DapBackend::cmdEval(const QString &cmd)
 {
     int start = cmd.indexOf(QLatin1Char(' '));
 
@@ -967,7 +967,7 @@ void DapDebugView::cmdEval(const QString &cmd)
     m_client->requestWatch(expression, frameId);
 }
 
-void DapDebugView::cmdJump(const QString &cmd)
+void DapBackend::cmdJump(const QString &cmd)
 {
     const static QRegularExpression rx_goto(QStringLiteral(R"--(^j[a-z]*\s+(\d+)(?:\s+(\S+))?$)--"));
 
@@ -1002,7 +1002,7 @@ void DapDebugView::cmdJump(const QString &cmd)
     this->movePC(QUrl::fromLocalFile(path), line);
 }
 
-void DapDebugView::cmdRunToCursor(const QString &cmd)
+void DapBackend::cmdRunToCursor(const QString &cmd)
 {
     const static QRegularExpression rx_goto(QStringLiteral(R"--(^to?\s+(\d+)(?:\s+(\S+))?$)--"));
 
@@ -1037,7 +1037,7 @@ void DapDebugView::cmdRunToCursor(const QString &cmd)
     this->runToCursor(QUrl::fromLocalFile(path), line);
 }
 
-void DapDebugView::cmdPause(const QString &cmd)
+void DapBackend::cmdPause(const QString &cmd)
 {
     if (!m_client)
         return;
@@ -1071,7 +1071,7 @@ void DapDebugView::cmdPause(const QString &cmd)
     m_client->requestPause(threadId);
 }
 
-void DapDebugView::cmdContinue(const QString &cmd)
+void DapBackend::cmdContinue(const QString &cmd)
 {
     if (!m_client)
         return;
@@ -1107,7 +1107,7 @@ void DapDebugView::cmdContinue(const QString &cmd)
     m_client->requestContinue(threadId, !only.isNull());
 }
 
-void DapDebugView::cmdStepIn(const QString &cmd)
+void DapBackend::cmdStepIn(const QString &cmd)
 {
     if (!m_client)
         return;
@@ -1143,7 +1143,7 @@ void DapDebugView::cmdStepIn(const QString &cmd)
     m_client->requestStepIn(threadId, !only.isNull());
 }
 
-void DapDebugView::cmdStepOut(const QString &cmd)
+void DapBackend::cmdStepOut(const QString &cmd)
 {
     if (!m_client)
         return;
@@ -1179,7 +1179,7 @@ void DapDebugView::cmdStepOut(const QString &cmd)
     m_client->requestStepOut(threadId, !only.isNull());
 }
 
-void DapDebugView::cmdNext(const QString &cmd)
+void DapBackend::cmdNext(const QString &cmd)
 {
     if (!m_client)
         return;
@@ -1215,7 +1215,7 @@ void DapDebugView::cmdNext(const QString &cmd)
     m_client->requestNext(threadId, !only.isNull());
 }
 
-void DapDebugView::cmdHelp(const QString & /*cmd*/)
+void DapBackend::cmdHelp(const QString & /*cmd*/)
 {
     QStringList out = {QString(), i18n("Available commands:")};
 
@@ -1252,7 +1252,7 @@ void DapDebugView::cmdHelp(const QString & /*cmd*/)
     Q_EMIT outputText(out.join(QStringLiteral("\n")));
 }
 
-void DapDebugView::cmdListModules(const QString &)
+void DapBackend::cmdListModules(const QString &)
 {
     if (!m_client)
         return;
@@ -1265,7 +1265,7 @@ void DapDebugView::cmdListModules(const QString &)
     m_client->requestModules();
 }
 
-void DapDebugView::cmdListBreakpoints(const QString &)
+void DapBackend::cmdListBreakpoints(const QString &)
 {
     int bId = 0;
     for (const auto &[url, breakpoints] : m_breakpoints) {
@@ -1281,7 +1281,7 @@ void DapDebugView::cmdListBreakpoints(const QString &)
     }
 }
 
-void DapDebugView::cmdBreakpointOn(const QString &cmd)
+void DapBackend::cmdBreakpointOn(const QString &cmd)
 {
     static const QRegularExpression rx_bon(
         QStringLiteral(R"--(^b\s+(\d+)(?:\s+when\s+\{(?P<COND>.+)\})?(?:\s*hitcont\s+\{(?P<HIT>.+)\})?(?:\s+on\s+(?P<SOURCE>.+))?\s*$)--"));
@@ -1344,7 +1344,7 @@ void DapDebugView::cmdBreakpointOn(const QString &cmd)
     m_client->requestSetBreakpoints(path, m_wantedBreakpoints[path], true);
 }
 
-void DapDebugView::cmdBreakpointOff(const QString &cmd)
+void DapBackend::cmdBreakpointOff(const QString &cmd)
 {
     const static QRegularExpression rx_boff(QStringLiteral(R"--(^bo[a-z]*?\s+(\d+)(?:\s+(\S+))?$)--"));
 
@@ -1382,7 +1382,7 @@ void DapDebugView::cmdBreakpointOff(const QString &cmd)
     }
 }
 
-void DapDebugView::cmdWhereami(const QString &)
+void DapBackend::cmdWhereami(const QString &)
 {
     QStringList parts = {newLine(i18n("Current thread: "))};
 
@@ -1427,7 +1427,7 @@ void DapDebugView::cmdWhereami(const QString &)
     Q_EMIT outputText(parts.join(QString()));
 }
 
-void DapDebugView::issueCommand(QString const &command)
+void DapBackend::issueCommand(QString const &command)
 {
     if (!m_client)
         return;
@@ -1477,17 +1477,17 @@ void DapDebugView::issueCommand(QString const &command)
     }
 }
 
-QString DapDebugView::targetName() const
+QString DapBackend::targetName() const
 {
     return m_targetName;
 }
 
-void DapDebugView::setFileSearchPaths(const QStringList & /*paths*/)
+void DapBackend::setFileSearchPaths(const QStringList & /*paths*/)
 {
     // TODO
 }
 
-void DapDebugView::slotInterrupt()
+void DapBackend::slotInterrupt()
 {
     if (!isRunningState()) {
         return;
@@ -1501,7 +1501,7 @@ void DapDebugView::slotInterrupt()
     m_client->requestPause(*m_currentThread);
 }
 
-void DapDebugView::slotStepInto()
+void DapBackend::slotStepInto()
 {
     if (!m_client)
         return;
@@ -1515,7 +1515,7 @@ void DapDebugView::slotStepInto()
     m_client->requestStepIn(*m_currentThread);
 }
 
-void DapDebugView::slotStepOut()
+void DapBackend::slotStepOut()
 {
     if (!m_client)
         return;
@@ -1529,7 +1529,7 @@ void DapDebugView::slotStepOut()
     m_client->requestStepOut(*m_currentThread);
 }
 
-void DapDebugView::slotStepOver()
+void DapBackend::slotStepOver()
 {
     if (!m_client)
         return;
@@ -1543,7 +1543,7 @@ void DapDebugView::slotStepOver()
     m_client->requestNext(*m_currentThread);
 }
 
-void DapDebugView::slotContinue()
+void DapBackend::slotContinue()
 {
     if (!isAttachedState())
         return;
@@ -1555,7 +1555,7 @@ void DapDebugView::slotContinue()
     }
 }
 
-void DapDebugView::shutdownUntil(std::optional<State> state)
+void DapBackend::shutdownUntil(std::optional<State> state)
 {
     if (!state) {
         m_shutdown.target = std::nullopt;
@@ -1566,12 +1566,12 @@ void DapDebugView::shutdownUntil(std::optional<State> state)
     }
 }
 
-bool DapDebugView::continueShutdown() const
+bool DapBackend::continueShutdown() const
 {
     return m_restart || (m_shutdown.target && (m_shutdown.target > m_state));
 }
 
-void DapDebugView::slotKill()
+void DapBackend::slotKill()
 {
     if (!isConnectedState()) {
         setState(None);
@@ -1609,7 +1609,7 @@ void DapDebugView::slotKill()
     }
 }
 
-void DapDebugView::slotReRun()
+void DapBackend::slotReRun()
 {
     if (!m_client && m_settings) {
         start();
@@ -1620,7 +1620,7 @@ void DapDebugView::slotReRun()
     slotKill();
 }
 
-void DapDebugView::slotQueryLocals(bool display)
+void DapBackend::slotQueryLocals(bool display)
 {
     m_queryLocals = display;
 
@@ -1637,14 +1637,14 @@ void DapDebugView::slotQueryLocals(bool display)
     }
 }
 
-QString DapDebugView::slotPrintVariable(const QString &variable)
+QString DapBackend::slotPrintVariable(const QString &variable)
 {
     const auto cmd = QStringLiteral("print %1").arg(variable);
     issueCommand(cmd);
     return cmd;
 }
 
-void DapDebugView::changeStackFrame(int index)
+void DapBackend::changeStackFrame(int index)
 {
     if (!debuggerRunning())
         return;
@@ -1670,7 +1670,7 @@ void DapDebugView::changeStackFrame(int index)
     slotQueryLocals(m_queryLocals);
 }
 
-void DapDebugView::changeThread(int index)
+void DapBackend::changeThread(int index)
 {
     if (!debuggerRunning())
         return;
@@ -1687,7 +1687,7 @@ void DapDebugView::changeThread(int index)
     m_client->requestStackTrace(index);
 }
 
-std::optional<QString> DapDebugView::resolveFilename(const QString &filename, bool fallback) const
+std::optional<QString> DapBackend::resolveFilename(const QString &filename, bool fallback) const
 {
     QFileInfo fInfo = QFileInfo(filename);
     if (fInfo.exists() && fInfo.isDir()) {
@@ -1722,7 +1722,7 @@ std::optional<QString> DapDebugView::resolveFilename(const QString &filename, bo
     return std::nullopt;
 }
 
-QString DapDebugView::resolveOrWarn(const QString &filename)
+QString DapBackend::resolveOrWarn(const QString &filename)
 {
     const auto path = resolveFilename(filename, false);
 
@@ -1734,4 +1734,4 @@ QString DapDebugView::resolveOrWarn(const QString &filename)
     return filename;
 }
 
-#include "moc_debugview_dap.cpp"
+#include "moc_dapbackend.cpp"

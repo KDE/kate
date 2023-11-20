@@ -52,7 +52,7 @@ target_sources(
     ${GDBMI_SOURCES}
     ${DEBUG_SOURCES}
     json_placeholders.cpp
-    debugview_dap.cpp
+    dapbackend.cpp
     gdbvariableparser.cpp
     backend.cpp
 

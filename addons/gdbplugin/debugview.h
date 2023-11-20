@@ -19,9 +19,9 @@
 #include <optional>
 #include <sys/types.h>
 
+#include "backendinterface.h"
 #include "configview.h"
 #include "dap/entities.h"
-#include "debugview_iface.h"
 #include "gdbmi/parser.h"
 #include "gdbmi/records.h"
 #include "gdbvariableparser.h"
@@ -65,7 +65,7 @@ struct BreakPoint {
     static BreakPoint parse(const QJsonObject &);
 };
 
-class DebugView : public DebugViewInterface
+class DebugView : public BackendInterface
 {
     Q_OBJECT
 public:

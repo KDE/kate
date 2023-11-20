@@ -198,55 +198,55 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     m_tabWidget->addTab(m_configView, i18nc("Tab label", "Settings"));
 
     m_debugView = new Backend(this);
-    connect(m_debugView, &DebugViewInterface::readyForInput, this, &KatePluginGDBView::enableDebugActions);
-    connect(m_debugView, &DebugViewInterface::debuggerCapabilitiesChanged, [this] {
+    connect(m_debugView, &BackendInterface::readyForInput, this, &KatePluginGDBView::enableDebugActions);
+    connect(m_debugView, &BackendInterface::debuggerCapabilitiesChanged, [this] {
         enableDebugActions(true);
     });
 
-    connect(m_debugView, &DebugViewInterface::outputText, this, &KatePluginGDBView::addOutputText);
+    connect(m_debugView, &BackendInterface::outputText, this, &KatePluginGDBView::addOutputText);
 
-    connect(m_debugView, &DebugViewInterface::outputError, this, &KatePluginGDBView::addErrorText);
+    connect(m_debugView, &BackendInterface::outputError, this, &KatePluginGDBView::addErrorText);
 
-    connect(m_debugView, &DebugViewInterface::debugLocationChanged, this, &KatePluginGDBView::slotGoTo);
+    connect(m_debugView, &BackendInterface::debugLocationChanged, this, &KatePluginGDBView::slotGoTo);
 
-    connect(m_debugView, &DebugViewInterface::breakPointSet, this, &KatePluginGDBView::slotBreakpointSet);
+    connect(m_debugView, &BackendInterface::breakPointSet, this, &KatePluginGDBView::slotBreakpointSet);
 
-    connect(m_debugView, &DebugViewInterface::breakPointCleared, this, &KatePluginGDBView::slotBreakpointCleared);
+    connect(m_debugView, &BackendInterface::breakPointCleared, this, &KatePluginGDBView::slotBreakpointCleared);
 
-    connect(m_debugView, &DebugViewInterface::clearBreakpointMarks, this, &KatePluginGDBView::clearMarks);
+    connect(m_debugView, &BackendInterface::clearBreakpointMarks, this, &KatePluginGDBView::clearMarks);
 
-    connect(m_debugView, &DebugViewInterface::programEnded, this, &KatePluginGDBView::programEnded);
+    connect(m_debugView, &BackendInterface::programEnded, this, &KatePluginGDBView::programEnded);
 
-    connect(m_debugView, &DebugViewInterface::gdbEnded, this, &KatePluginGDBView::programEnded);
+    connect(m_debugView, &BackendInterface::gdbEnded, this, &KatePluginGDBView::programEnded);
 
-    connect(m_debugView, &DebugViewInterface::gdbEnded, this, &KatePluginGDBView::gdbEnded);
+    connect(m_debugView, &BackendInterface::gdbEnded, this, &KatePluginGDBView::gdbEnded);
 
-    connect(m_debugView, &DebugViewInterface::stackFrameInfo, this, &KatePluginGDBView::insertStackFrame);
+    connect(m_debugView, &BackendInterface::stackFrameInfo, this, &KatePluginGDBView::insertStackFrame);
 
-    connect(m_debugView, &DebugViewInterface::stackFrameChanged, this, &KatePluginGDBView::stackFrameChanged);
+    connect(m_debugView, &BackendInterface::stackFrameChanged, this, &KatePluginGDBView::stackFrameChanged);
 
-    connect(m_debugView, &DebugViewInterface::scopesInfo, this, &KatePluginGDBView::insertScopes);
+    connect(m_debugView, &BackendInterface::scopesInfo, this, &KatePluginGDBView::insertScopes);
 
-    connect(m_debugView, &DebugViewInterface::variableScopeOpened, m_localsView, &LocalsView::openVariableScope);
-    connect(m_debugView, &DebugViewInterface::variableScopeClosed, m_localsView, &LocalsView::closeVariableScope);
-    connect(m_debugView, &DebugViewInterface::variableInfo, m_localsView, &LocalsView::addVariableLevel);
+    connect(m_debugView, &BackendInterface::variableScopeOpened, m_localsView, &LocalsView::openVariableScope);
+    connect(m_debugView, &BackendInterface::variableScopeClosed, m_localsView, &LocalsView::closeVariableScope);
+    connect(m_debugView, &BackendInterface::variableInfo, m_localsView, &LocalsView::addVariableLevel);
 
-    connect(m_debugView, &DebugViewInterface::threadInfo, this, &KatePluginGDBView::insertThread);
+    connect(m_debugView, &BackendInterface::threadInfo, this, &KatePluginGDBView::insertThread);
 
-    connect(m_debugView, &DebugViewInterface::debuggeeOutput, this, &KatePluginGDBView::addOutput);
+    connect(m_debugView, &BackendInterface::debuggeeOutput, this, &KatePluginGDBView::addOutput);
 
-    connect(m_debugView, &DebugViewInterface::sourceFileNotFound, this, [this](const QString &fileName) {
+    connect(m_debugView, &BackendInterface::sourceFileNotFound, this, [this](const QString &fileName) {
         displayMessage(xi18nc("@info",
                               "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to Advanced Settings -> Source file search paths",
                               fileName),
                        KTextEditor::Message::Error);
     });
 
-    connect(m_debugView, &DebugViewInterface::backendError, this, [this](const QString &message, KTextEditor::Message::MessageType level) {
+    connect(m_debugView, &BackendInterface::backendError, this, [this](const QString &message, KTextEditor::Message::MessageType level) {
         displayMessage(message, level);
     });
 
-    connect(m_localsView, &LocalsView::localsVisible, m_debugView, &DebugViewInterface::slotQueryLocals);
+    connect(m_localsView, &LocalsView::localsVisible, m_debugView, &BackendInterface::slotQueryLocals);
 
     connect(m_configView, &ConfigView::configChanged, this, [this]() {
         if (!m_configView->debuggerIsGDB())
@@ -275,14 +275,14 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     a->setText(i18n("Kill / Stop Debugging"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
     actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::ALT | Qt::Key_F7)));
-    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotKill);
+    connect(a, &QAction::triggered, m_debugView, &BackendInterface::slotKill);
     buttonsLayout->addWidget(createDebugButton(a));
 
     a = actionCollection()->addAction(QStringLiteral("continue"));
     a->setText(i18n("Continue"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_F7)));
-    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotContinue);
+    connect(a, &QAction::triggered, m_debugView, &BackendInterface::slotContinue);
 
     a = actionCollection()->addAction(QStringLiteral("toggle_breakpoint"));
     a->setText(i18n("Toggle Breakpoint / Break"));
@@ -294,21 +294,21 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     a->setText(i18n("Step In"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-into")));
     actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::Key_F10)));
-    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotStepInto);
+    connect(a, &QAction::triggered, m_debugView, &BackendInterface::slotStepInto);
     buttonsLayout->addWidget(createDebugButton(a));
 
     a = actionCollection()->addAction(QStringLiteral("step_over"));
     a->setText(i18n("Step Over"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-over")));
     actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::Key_F9)));
-    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotStepOver);
+    connect(a, &QAction::triggered, m_debugView, &BackendInterface::slotStepOver);
     buttonsLayout->addWidget(createDebugButton(a));
 
     a = actionCollection()->addAction(QStringLiteral("step_out"));
     a->setText(i18n("Step Out"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-out")));
     actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::SHIFT | Qt::Key_F10)));
-    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotStepOut);
+    connect(a, &QAction::triggered, m_debugView, &BackendInterface::slotStepOut);
     buttonsLayout->addWidget(createDebugButton(a));
 
     a = actionCollection()->addAction(QStringLiteral("run_to_cursor"));

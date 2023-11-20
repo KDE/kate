@@ -15,12 +15,12 @@
 #include "configview.h"
 #include "dap/entities.h"
 
-class DebugViewInterface : public QObject
+class BackendInterface : public QObject
 {
     Q_OBJECT
 public:
-    DebugViewInterface(QObject *parent);
-    ~DebugViewInterface() override = default;
+    BackendInterface(QObject *parent);
+    ~BackendInterface() override = default;
 
     /**
      * true if debugger is running

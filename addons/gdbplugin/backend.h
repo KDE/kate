@@ -11,10 +11,10 @@
 #include <memory>
 #include <optional>
 
+#include "backendinterface.h"
 #include "configview.h"
-#include "debugview_iface.h"
 
-class Backend : public DebugViewInterface
+class Backend : public BackendInterface
 {
     Q_OBJECT
 public:
@@ -59,6 +59,6 @@ private:
     void bind();
     void unbind();
 
-    DebugViewInterface *m_debugger;
+    BackendInterface *m_debugger;
     std::optional<bool> m_displayQueryLocals = std::nullopt;
 };

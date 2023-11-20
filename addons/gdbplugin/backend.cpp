@@ -13,7 +13,7 @@
 #include <KMessageBox>
 
 Backend::Backend(QObject *parent)
-    : DebugViewInterface(parent)
+    : BackendInterface(parent)
     , m_debugger(nullptr)
 {
 }
@@ -66,30 +66,30 @@ void Backend::runDebugger(const DAPTargetConf &conf)
 
 void Backend::bind()
 {
-    connect(m_debugger, &DebugViewInterface::debugLocationChanged, this, &DebugViewInterface::debugLocationChanged);
-    connect(m_debugger, &DebugViewInterface::breakPointSet, this, &DebugViewInterface::breakPointSet);
-    connect(m_debugger, &DebugViewInterface::breakPointCleared, this, &DebugViewInterface::breakPointCleared);
-    connect(m_debugger, &DebugViewInterface::clearBreakpointMarks, this, &DebugViewInterface::clearBreakpointMarks);
-    connect(m_debugger, &DebugViewInterface::stackFrameInfo, this, &DebugViewInterface::stackFrameInfo);
-    connect(m_debugger, &DebugViewInterface::stackFrameChanged, this, &DebugViewInterface::stackFrameChanged);
-    connect(m_debugger, &DebugViewInterface::threadInfo, this, &DebugViewInterface::threadInfo);
+    connect(m_debugger, &BackendInterface::debugLocationChanged, this, &BackendInterface::debugLocationChanged);
+    connect(m_debugger, &BackendInterface::breakPointSet, this, &BackendInterface::breakPointSet);
+    connect(m_debugger, &BackendInterface::breakPointCleared, this, &BackendInterface::breakPointCleared);
+    connect(m_debugger, &BackendInterface::clearBreakpointMarks, this, &BackendInterface::clearBreakpointMarks);
+    connect(m_debugger, &BackendInterface::stackFrameInfo, this, &BackendInterface::stackFrameInfo);
+    connect(m_debugger, &BackendInterface::stackFrameChanged, this, &BackendInterface::stackFrameChanged);
+    connect(m_debugger, &BackendInterface::threadInfo, this, &BackendInterface::threadInfo);
 
-    connect(m_debugger, &DebugViewInterface::variableInfo, this, &DebugViewInterface::variableInfo);
-    connect(m_debugger, &DebugViewInterface::variableScopeOpened, this, &DebugViewInterface::variableScopeOpened);
-    connect(m_debugger, &DebugViewInterface::variableScopeClosed, this, &DebugViewInterface::variableScopeClosed);
+    connect(m_debugger, &BackendInterface::variableInfo, this, &BackendInterface::variableInfo);
+    connect(m_debugger, &BackendInterface::variableScopeOpened, this, &BackendInterface::variableScopeOpened);
+    connect(m_debugger, &BackendInterface::variableScopeClosed, this, &BackendInterface::variableScopeClosed);
 
-    connect(m_debugger, &DebugViewInterface::outputText, this, &DebugViewInterface::outputText);
-    connect(m_debugger, &DebugViewInterface::outputError, this, &DebugViewInterface::outputError);
-    connect(m_debugger, &DebugViewInterface::readyForInput, this, &DebugViewInterface::readyForInput);
-    connect(m_debugger, &DebugViewInterface::programEnded, this, &DebugViewInterface::programEnded);
-    connect(m_debugger, &DebugViewInterface::gdbEnded, this, &DebugViewInterface::gdbEnded);
-    connect(m_debugger, &DebugViewInterface::sourceFileNotFound, this, &DebugViewInterface::sourceFileNotFound);
-    connect(m_debugger, &DebugViewInterface::scopesInfo, this, &DebugViewInterface::scopesInfo);
+    connect(m_debugger, &BackendInterface::outputText, this, &BackendInterface::outputText);
+    connect(m_debugger, &BackendInterface::outputError, this, &BackendInterface::outputError);
+    connect(m_debugger, &BackendInterface::readyForInput, this, &BackendInterface::readyForInput);
+    connect(m_debugger, &BackendInterface::programEnded, this, &BackendInterface::programEnded);
+    connect(m_debugger, &BackendInterface::gdbEnded, this, &BackendInterface::gdbEnded);
+    connect(m_debugger, &BackendInterface::sourceFileNotFound, this, &BackendInterface::sourceFileNotFound);
+    connect(m_debugger, &BackendInterface::scopesInfo, this, &BackendInterface::scopesInfo);
 
-    connect(m_debugger, &DebugViewInterface::debuggerCapabilitiesChanged, this, &DebugViewInterface::debuggerCapabilitiesChanged);
+    connect(m_debugger, &BackendInterface::debuggerCapabilitiesChanged, this, &BackendInterface::debuggerCapabilitiesChanged);
 
-    connect(m_debugger, &DebugViewInterface::debuggeeOutput, this, &DebugViewInterface::debuggeeOutput);
-    connect(m_debugger, &DebugViewInterface::backendError, this, &DebugViewInterface::backendError);
+    connect(m_debugger, &BackendInterface::debuggeeOutput, this, &BackendInterface::debuggeeOutput);
+    connect(m_debugger, &BackendInterface::backendError, this, &BackendInterface::backendError);
 }
 
 void Backend::unbind()

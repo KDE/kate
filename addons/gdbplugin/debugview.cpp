@@ -92,7 +92,7 @@ void DebugView::prepend(const QString &command)
 }
 
 DebugView::DebugView(QObject *parent)
-    : DebugViewInterface(parent)
+    : BackendInterface(parent)
     , m_debugProcess(nullptr)
     , m_state(none)
     , m_debugLocationChanged(true)
@@ -100,7 +100,7 @@ DebugView::DebugView(QObject *parent)
     , m_parser(new gdbmi::GdbmiParser(this))
 {
     // variable parser
-    connect(&m_variableParser, &GDBVariableParser::variable, this, &DebugViewInterface::variableInfo);
+    connect(&m_variableParser, &GDBVariableParser::variable, this, &BackendInterface::variableInfo);
 
     connect(m_parser, &gdbmi::GdbmiParser::outputProduced, this, &DebugView::processMIStreamOutput);
     connect(m_parser, &gdbmi::GdbmiParser::recordProduced, this, &DebugView::processMIRecord);

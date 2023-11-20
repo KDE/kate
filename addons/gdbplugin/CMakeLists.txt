@@ -40,7 +40,7 @@ target_sources(
   kategdbplugin
   PRIVATE
     plugin_kategdb.cpp
-    debugview_iface.cpp
+    backendinterface.cpp
     debugview.cpp
     configview.cpp
     ioview.cpp

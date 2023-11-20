@@ -26,7 +26,7 @@ QString printEvent(const QString &text)
 }
 
 DapDebugView::DapDebugView(QObject *parent)
-    : DebugViewInterface(parent)
+    : BackendInterface(parent)
     , m_client(nullptr)
     , m_state(State::None)
     , m_requests(0)

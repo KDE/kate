@@ -8,15 +8,15 @@
 #include <QMap>
 #include <QObject>
 
+#include "backendinterface.h"
 #include "configview.h"
 #include "dap/client.h"
 #include "dap/entities.h"
 #include "dap/settings.h"
-#include "debugview_iface.h"
 #include <memory>
 #include <optional>
 
-class DapDebugView : public DebugViewInterface
+class DapDebugView : public BackendInterface
 {
     Q_OBJECT
 public:

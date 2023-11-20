@@ -954,7 +954,7 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
                                                     KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
                                                     KStandardGuiItem::cancel())
                     == KMessageBox::PrimaryAction) {
-                    KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
+                    KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, KIO::ListJob::ListFlags{});
                     connect(list_job, &KIO::ListJob::entries, this, &KateMainWindow::slotListRecursiveEntries);
                 }
             } else {

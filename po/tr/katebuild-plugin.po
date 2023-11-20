@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-18 02:00+0000\n"
-"PO-Revision-Date: 2023-11-17 18:49+0300\n"
+"PO-Revision-Date: 2023-11-19 14:38+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -312,12 +312,12 @@ msgstr "Oturum"
 #: TargetModel.cpp:624
 #, kde-format
 msgid "Command/Target-set Name"
-msgstr "Komut/Hedef kümesi adı"
+msgstr "Komut/Hedef Kümesi Adı"
 
 #: TargetModel.cpp:627
 #, kde-format
 msgid "Working Directory / Command"
-msgstr "Çalışma Dizini / Komut"
+msgstr "Çalışma Dizini/Komut"
 
 #: TargetModel.cpp:630
 #, kde-format

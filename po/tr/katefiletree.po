@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2023-10-28 02:22+0300\n"
+"PO-Revision-Date: 2023-11-19 15:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -192,7 +192,7 @@ msgstr "Açma Sırası"
 #: katefiletree.cpp:256
 #, kde-format
 msgid "Sort by Opening Order"
-msgstr "Açma Sırasına Göre Sıralama"
+msgstr "Açma Sırasına Göre Sırala"
 
 #: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
 #, kde-format
@@ -214,18 +214,18 @@ msgstr "Dosya Git Geçmişini Göster"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
-msgstr "Gösterim Kipi"
+msgstr "Görüntüleme Kipi"
 
 #: katefiletree.cpp:445
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
-msgstr "Sıralama"
+msgstr "Şuna Göre Sırala"
 
 #: katefiletreeconfigpage.cpp:44
 #, kde-format
 msgid "Background Shading"
-msgstr "Arka Plan Gölgeleme"
+msgstr "Arka Plan Gölgelendirme"
 
 #: katefiletreeconfigpage.cpp:51
 #, kde-format
@@ -240,7 +240,7 @@ msgstr "&Değiştirilmiş belgelerin gölgelenmesi:"
 #: katefiletreeconfigpage.cpp:65
 #, kde-format
 msgid "&Sort by:"
-msgstr "&Sırala:"
+msgstr "Ş&una göre sırala:"
 
 #: katefiletreeconfigpage.cpp:70
 #, kde-format
@@ -260,7 +260,7 @@ msgstr "URL"
 #: katefiletreeconfigpage.cpp:78
 #, kde-format
 msgid "&View Mode:"
-msgstr "&Görünüm kipi:"
+msgstr "&Görüntüleme kipi:"
 
 #: katefiletreeconfigpage.cpp:83
 #, kde-format
@@ -302,9 +302,9 @@ msgid ""
 "edited within the current session will have a shaded background. The most "
 "recent documents have the strongest shade."
 msgstr ""
-"Arka plan gölgelemesi etkin olduğundan, geçerli oturumda görüntülenen veya "
-"düzenlenen dosyalar gölgeli bir arka plana sahip olurlar. En yakın dosyalar "
-"en koyu gölgeye sahip olacak olanlardır."
+"Arka plan gölgelendirme etkinleştirildiğinde, geçerli oturumda görüntülenen "
+"veya düzenlenen belgeler gölgeli bir arka plana sahip olacaktır. En yeni "
+"belgeler en güçlü gölgeye sahiptir."
 
 #: katefiletreeconfigpage.cpp:107
 #, kde-format

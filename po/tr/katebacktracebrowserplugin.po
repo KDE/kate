@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2023-10-28 02:26+0300\n"
+"PO-Revision-Date: 2023-11-19 15:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
 #: btbrowserwidget.ui:27
@@ -56,7 +56,7 @@ msgstr "Yolları Yapılandır..."
 #: btbrowserwidget.ui:79
 #, kde-format
 msgid "Use Clipboard"
-msgstr "Pano Kullan"
+msgstr "Panoyu Kullan"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnBacktrace)
 #: btbrowserwidget.ui:86

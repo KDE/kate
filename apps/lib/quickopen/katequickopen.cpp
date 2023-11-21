@@ -25,6 +25,7 @@
 #include <QPointer>
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
+#include <QToolBar>
 #include <QTreeView>
 
 #include <drawing_utils.h>
@@ -481,20 +482,54 @@ void KateQuickOpen::setFilterMode()
     m_listView->viewport()->update();
 }
 
+static QRect getQuickOpenBoundingRect(QMainWindow *mainWindow)
+{
+    QRect boundingRect = mainWindow->contentsRect();
+
+    // exclude the menu bar from the bounding rect
+    if (const QWidget *menuWidget = mainWindow->menuWidget()) {
+        if (!menuWidget->isHidden()) {
+            boundingRect.setTop(boundingRect.top() + menuWidget->height());
+        }
+    }
+
+    // exclude any undocked toolbar from the bounding rect
+    const QList<QToolBar *> toolBars = mainWindow->findChildren<QToolBar *>();
+    for (QToolBar *toolBar : toolBars) {
+        if (toolBar->isHidden() || toolBar->isFloating()) {
+            continue;
+        }
+
+        if (mainWindow->toolBarArea(toolBar) == Qt::TopToolBarArea) {
+            boundingRect.setTop(std::max(boundingRect.top(), toolBar->geometry().bottom()));
+        }
+    }
+
+    return boundingRect;
+}
+
 void KateQuickOpen::updateViewGeometry()
 {
-    const QSize centralSize = m_mainWindow->size();
+    const QRect boundingRect = getQuickOpenBoundingRect(m_mainWindow);
 
-    // width: 2.4 of editor, height: 1/2 of editor
-    const QSize viewMaxSize(centralSize.width() / 2.4, centralSize.height() / 2);
+    static constexpr int minWidth = 500;
+    const int maxWidth = boundingRect.width();
+    const int preferredWidth = maxWidth / 2.4;
 
-    // Position should be central over window
-    const int xPos = std::max(0, (centralSize.width() - viewMaxSize.width()) / 2);
-    const int yPos = std::max(0, (centralSize.height() - viewMaxSize.height()) * 1 / 4);
-    const QPoint p(xPos, yPos);
-    move(p);
+    static constexpr int minHeight = 250;
+    const int maxHeight = boundingRect.height();
+    const int preferredHeight = maxHeight / 2;
 
-    setFixedSize(viewMaxSize);
+    const QSize size{std::min(maxWidth, std::max(preferredWidth, minWidth)), std::min(maxHeight, std::max(preferredHeight, minHeight))};
+
+    // resize() doesn't work here, so use setFixedSize() instead
+    setFixedSize(size);
+
+    // set the position to the top-center of the parent
+    // just below the menubar/toolbar (if any)
+    const QPoint position{boundingRect.center().x() - size.width() / 2, boundingRect.y()};
+
+    move(position);
 }
 
 #include "moc_katequickopen.cpp"

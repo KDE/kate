@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-17 01:39+0000\n"
+"POT-Creation-Date: 2023-11-22 01:37+0000\n"
 "PO-Revision-Date: 2023-08-04 22:21+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -1241,7 +1241,7 @@ msgstr ""
 "Her ser du alle dei tilgjengelege programtillegga i Kate. Dei som er kryssa "
 "av er lasta inn og vert lasta inn på nytt neste gong Kate startar."
 
-#: lib/katedocmanager.cpp:276
+#: lib/katedocmanager.cpp:279
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1250,32 +1250,32 @@ msgstr ""
 "<p>Dokumentet «%1» er endra, men ikkje lagra.</p><p>Vil du ta vare på "
 "endringane eller forkasta dei?</p>"
 
-#: lib/katedocmanager.cpp:279 lib/katesavemodifieddialog.cpp:129
+#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:129
 #, kde-format
 msgid "Close Document"
 msgstr "Lukk dokument"
 
-#: lib/katedocmanager.cpp:288
+#: lib/katedocmanager.cpp:291
 #, kde-format
 msgid "Save As"
 msgstr "Lagra som"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
+#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Ny fil opna mens Kate vart lukka. Lukkinga er avbroten."
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
+#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Lukking avbroten"
 
-#: lib/katedocmanager.cpp:384
+#: lib/katedocmanager.cpp:387
 #, kde-format
 msgid "Starting Up"
 msgstr "Startar"
 
-#: lib/katedocmanager.cpp:385
+#: lib/katedocmanager.cpp:388
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Opnar filer frå førre økt …"

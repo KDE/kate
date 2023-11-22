@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-17 01:39+0000\n"
+"POT-Creation-Date: 2023-11-22 01:37+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -1282,7 +1282,7 @@ msgid ""
 "loaded, and will be loaded again the next time Kate is started."
 msgstr ""
 
-#: lib/katedocmanager.cpp:276
+#: lib/katedocmanager.cpp:279
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1291,34 +1291,34 @@ msgstr ""
 "<p>Li documint '%1' a stî candjî, mins nén schapé.</p><p>Voloz vs schaper "
 "vos candjmints ou les passer?</p>"
 
-#: lib/katedocmanager.cpp:279 lib/katesavemodifieddialog.cpp:129
+#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:129
 #, kde-format
 msgid "Close Document"
 msgstr "Clôre li documint"
 
-#: lib/katedocmanager.cpp:288
+#: lib/katedocmanager.cpp:291
 #, kde-format
 msgid "Save As"
 msgstr "Schaper eyet rlomer"
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
+#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Novea fitchî drovou sol tins k' dji sayîve di clôre Kate. Clôre a stî "
 "abandné."
 
-#: lib/katedocmanager.cpp:306 lib/katemainwindow.cpp:693
+#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:693
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Clôre a stî abandné"
 
-#: lib/katedocmanager.cpp:384
+#: lib/katedocmanager.cpp:387
 #, kde-format
 msgid "Starting Up"
 msgstr "Enondaedje"
 
-#: lib/katedocmanager.cpp:385
+#: lib/katedocmanager.cpp:388
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Ridrovi des fitchî del dierinne session..."

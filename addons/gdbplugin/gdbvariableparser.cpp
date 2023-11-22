@@ -25,6 +25,9 @@
 
 #include "gdbvariableparser.h"
 
+// Smaller ids are reserved for scopes
+static constexpr int MIN_VAR_ID = 10;
+
 GDBVariableParser::GDBVariableParser(QObject *parent)
     : QObject(parent)
 {
@@ -39,7 +42,9 @@ void GDBVariableParser::insertVariable(const QString &name, const QString &value
 // Take the next available variable id, signal the variable and return its id
 int GDBVariableParser::createAndSignalVariable(int parentId, const QStringView name, const QStringView value, const QString &type, bool changed)
 {
-    m_variableId++;
+    // Increment variable id, restart from MIN_VAR_ID in case of int overflow
+    m_variableId = std::max(MIN_VAR_ID, m_variableId + 1);
+
     dap::Variable var(name.toString(), value.toString(), m_variableId);
     var.valueChanged = changed;
     if (!type.isEmpty()) {

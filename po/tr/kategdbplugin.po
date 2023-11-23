@@ -2,17 +2,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # obsoleteman <tulliana@gmail.com>, 2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# Emir SARI <emir_sari@icloud.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-10-28 02:20+0300\n"
+"PO-Revision-Date: 2023-11-22 15:10+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.11.70\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -194,7 +195,7 @@ msgstr "Kullanıcı Hata Ayıklama Bağdaştırıcısı Ayarları"
 #: debugconfig.ui:41
 #, kde-format
 msgid "Settings File:"
-msgstr "Ayarlar Dosyası:"
+msgstr "Ayarlar dosyası:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
@@ -205,7 +206,7 @@ msgstr "Öntanımlı Hata Ayıklama Bağdaştırıcısı Ayarları"
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
 #, kde-format
 msgid "Debugger"
-msgstr "Hata Ayıklayıcı"
+msgstr "Hata Ayıklayıcısı"
 
 #: debugconfigpage.cpp:128
 #, kde-format
@@ -649,7 +650,7 @@ msgstr "adlı ögeler"
 #: plugin_kategdb.cpp:106
 #, kde-format
 msgid "Kate Debug"
-msgstr "Kate Hata Ayıkla"
+msgstr "Kate Hata Ayıklama"
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -708,7 +709,7 @@ msgstr "Hata Ayıklamayı Başlat"
 #: plugin_kategdb.cpp:278
 #, kde-format
 msgid "Kill / Stop Debugging"
-msgstr "Hata Ayıklamayı Sonlandır / Durdur"
+msgstr "Hata Ayıklamayı Öldür/Durdur"
 
 #: plugin_kategdb.cpp:285
 #, kde-format
@@ -718,22 +719,22 @@ msgstr "Sürdür"
 #: plugin_kategdb.cpp:291
 #, kde-format
 msgid "Toggle Breakpoint / Break"
-msgstr "Kesme Noktası / Kesme Aç/Kapat"
+msgstr "Kesme Noktası-Kesme Ekle/Kaldır"
 
 #: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Step In"
-msgstr "Bir Adım İçeri"
+msgstr "İçeri Gir"
 
 #: plugin_kategdb.cpp:304
 #, kde-format
 msgid "Step Over"
-msgstr "Üstünden Adımla"
+msgstr "Üzerinden Geç"
 
 #: plugin_kategdb.cpp:311
 #, kde-format
 msgid "Step Out"
-msgstr "Bir Adım Dışarı"
+msgstr "Dışarı Çık"
 
 #: plugin_kategdb.cpp:318 plugin_kategdb.cpp:350
 #, kde-format
@@ -749,7 +750,7 @@ msgstr "Hata Ayıklamayı Yeniden Başlat"
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
-msgstr "PC'yi Taşı"
+msgstr "Program Sayacını Taşı"
 
 #: plugin_kategdb.cpp:338
 #, kde-format
@@ -779,7 +780,7 @@ msgstr "Kesme noktasını kaldır"
 #: plugin_kategdb.cpp:599 plugin_kategdb.cpp:613
 #, kde-format
 msgid "Execution point"
-msgstr "Çalıştırma noktası"
+msgstr "Yürütme noktası"
 
 #: plugin_kategdb.cpp:771
 #, kde-format
@@ -789,18 +790,18 @@ msgstr "İş Parçacığı %1"
 #: plugin_kategdb.cpp:871
 #, kde-format
 msgid "IO"
-msgstr "Girdi/Çıktı"
+msgstr "Girdi-Çıktı"
 
 #: plugin_kategdb.cpp:956 plugin_kategdb.cpp:964
 #, kde-format
 msgid "Breakpoint"
-msgstr "Kesme noktası"
+msgstr "Kesme Noktası"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
 #, kde-format
 msgid "&Debug"
-msgstr "Hata &Ayıkla"
+msgstr "Hata &Ayıklama"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29

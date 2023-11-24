@@ -21,9 +21,9 @@
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QProcess>
-#include <QPushButton>
 #include <QStandardItem>
 #include <QStyledItemDelegate>
+#include <QToolButton>
 #include <QTreeView>
 #include <QUrl>
 #include <QVBoxLayout>
@@ -335,7 +335,7 @@ private Q_SLOTS:
 
 private:
     KTextEditor::MainWindow *m_mainWindow;
-    QPushButton m_backBtn;
+    QToolButton m_backBtn;
     QTreeView m_tree;
     QStandardItemModel m_model;
     QString m_gitDir;
@@ -348,10 +348,15 @@ CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &h
     , m_gitDir(repoBase)
 {
     setLayout(new QVBoxLayout);
+    layout()->setContentsMargins({});
+    layout()->setSpacing(0);
 
     m_backBtn.setText(i18n("Close"));
-    m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
-    connect(&m_backBtn, &QPushButton::clicked, this, [parent, mainWindow] {
+    m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
+    m_backBtn.setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_backBtn.setAutoRaise(true);
+    m_backBtn.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+    connect(&m_backBtn, &QAbstractButton::clicked, this, [parent, mainWindow] {
         Q_ASSERT(parent);
         parent->deleteLater();
         mainWindow->hideToolView(parent);
@@ -365,6 +370,7 @@ CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &h
     m_tree.setEditTriggers(QTreeView::NoEditTriggers);
     m_tree.setItemDelegate(new DiffStyleDelegate(this));
     m_tree.setIndentation(10);
+    m_tree.setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
 
     m_tree.setContextMenuPolicy(Qt::CustomContextMenu);
     connect(&m_tree, &QTreeView::customContextMenuRequested, this, &CommitDiffTreeView::openContextMenu);

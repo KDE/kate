@@ -23,8 +23,8 @@
 #include <QPainter>
 #include <QPointer>
 #include <QProcess>
-#include <QPushButton>
 #include <QStyledItemDelegate>
+#include <QToolButton>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -217,7 +217,7 @@ public:
     explicit FileHistoryWidget(const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent = nullptr);
     ~FileHistoryWidget() override;
 
-    QPushButton m_backBtn;
+    QToolButton m_backBtn;
     QListView *m_listView;
     QProcess m_git;
     const QString m_file;
@@ -240,13 +240,19 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     auto model = new CommitListModel(this);
     m_listView = new QListView;
     m_listView->setModel(model);
+    m_listView->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     getFileHistory(file);
 
     setLayout(new QVBoxLayout);
+    layout()->setContentsMargins({});
+    layout()->setSpacing(0);
 
     m_backBtn.setText(i18n("Close"));
     m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
-    connect(&m_backBtn, &QPushButton::clicked, this, [this] {
+    m_backBtn.setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_backBtn.setAutoRaise(true);
+    m_backBtn.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+    connect(&m_backBtn, &QAbstractButton::clicked, this, [this] {
         deleteLater();
         m_mainWindow->hideToolView(m_toolView);
         m_toolView->deleteLater();

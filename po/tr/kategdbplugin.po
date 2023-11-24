@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-24 01:36+0000\n"
 "PO-Revision-Date: 2023-11-22 15:10+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -102,7 +102,7 @@ msgstr "solib-search-path"
 msgid "Custom Init Commands"
 msgstr "Özel Init Komutları"
 
-#: backend.cpp:24 backend.cpp:49 debugview_dap.cpp:155
+#: backend.cpp:24 backend.cpp:49 dapbackend.cpp:155
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -185,6 +185,323 @@ msgstr "Hedefler"
 msgid "Target %1"
 msgstr "Hedef %1"
 
+#: dapbackend.cpp:169
+#, kde-format
+msgid "DAP backend failed"
+msgstr "DAP arka ucu başarısız oldu"
+
+#: dapbackend.cpp:211
+#, kde-format
+msgid "program terminated"
+msgstr "program sonlandırıldı"
+
+#: dapbackend.cpp:223
+#, kde-format
+msgid "requesting disconnection"
+msgstr "bağlantı kesimi isteniyor"
+
+#: dapbackend.cpp:237
+#, kde-format
+msgid "requesting shutdown"
+msgstr "kapatma isteniyor"
+
+#: dapbackend.cpp:261
+#, kde-format
+msgid "DAP backend: %1"
+msgstr "DAP arka ucu: %1"
+
+#: dapbackend.cpp:270 gdbbackend.cpp:653
+#, kde-format
+msgid "stopped (%1)."
+msgstr "durduruldu (%1)."
+
+#: dapbackend.cpp:278 gdbbackend.cpp:657
+#, kde-format
+msgid "Active thread: %1 (all threads stopped)."
+msgstr "Etkin iş parçacığı: %1 (tüm iş parçacıkları durduruldu)."
+
+#: dapbackend.cpp:280 gdbbackend.cpp:659
+#, kde-format
+msgid "Active thread: %1."
+msgstr "Etkin iş parçacığı: %1."
+
+#: dapbackend.cpp:285
+#, kde-format
+msgid "Breakpoint(s) reached:"
+msgstr "Ulaşılan kesme noktaları:"
+
+#: dapbackend.cpp:307
+#, kde-format
+msgid "(continued) thread %1"
+msgstr "(sürdürülen) iş parçacığı %1"
+
+#: dapbackend.cpp:309
+#, kde-format
+msgid "all threads continued"
+msgstr "tüm iş parçacıkları sürdürüldü"
+
+#: dapbackend.cpp:316
+#, kde-format
+msgid "(running)"
+msgstr "(çalışıyor)"
+
+#: dapbackend.cpp:404
+#, kde-format
+msgid "*** connection with server closed ***"
+msgstr "*** sunucu bağlantısı kapatıldı ***"
+
+#: dapbackend.cpp:411
+#, kde-format
+msgid "program exited with code %1"
+msgstr "program, %1 kodu ile çıktı"
+
+#: dapbackend.cpp:425
+#, kde-format
+msgid "*** waiting for user actions ***"
+msgstr "*** kullanıcı eylemleri bekleniyor ***"
+
+#: dapbackend.cpp:430
+#, kde-format
+msgid "error on response: %1"
+msgstr "yanıta gelen hata: %1"
+
+#: dapbackend.cpp:445
+#, kde-format
+msgid "important"
+msgstr "önemli"
+
+#: dapbackend.cpp:448
+#, kde-format
+msgid "telemetry"
+msgstr "telemetri"
+
+#: dapbackend.cpp:467
+#, kde-format
+msgid "debugging process [%1] %2"
+msgstr "hata ayıklama süreci [%1] %2"
+
+#: dapbackend.cpp:469
+#, kde-format
+msgid "debugging process %1"
+msgstr "hata ayıklama süreci %1"
+
+#: dapbackend.cpp:472
+#, kde-format
+msgid "Start method: %1"
+msgstr "Başlangıç yöntemi: %1"
+
+#: dapbackend.cpp:479
+#, kde-format
+msgid "thread %1"
+msgstr "iş parçacığı %1"
+
+#: dapbackend.cpp:633
+#, kde-format
+msgid "breakpoint set"
+msgstr "kesme noktası ayarlandı"
+
+#: dapbackend.cpp:641
+#, kde-format
+msgid "breakpoint cleared"
+msgstr "kesme noktası temizlendi"
+
+#: dapbackend.cpp:700
+#, kde-format
+msgid "(%1) breakpoint"
+msgstr "(%1) kesme noktası"
+
+#: dapbackend.cpp:717
+#, kde-format
+msgid "<not evaluated>"
+msgstr "<değerlendirilmedi>"
+
+#: dapbackend.cpp:739
+#, kde-format
+msgid "server capabilities"
+msgstr "sunucu yetenekleri"
+
+#: dapbackend.cpp:742
+#, kde-format
+msgid "supported"
+msgstr "destekleniyor"
+
+#: dapbackend.cpp:742
+#, kde-format
+msgid "unsupported"
+msgstr "desteklenmiyor"
+
+#: dapbackend.cpp:745
+#, kde-format
+msgid "conditional breakpoints"
+msgstr "koşulsal kesme noktaları"
+
+#: dapbackend.cpp:746
+#, kde-format
+msgid "function breakpoints"
+msgstr "işlev kesme noktaları"
+
+#: dapbackend.cpp:747
+#, kde-format
+msgid "hit conditional breakpoints"
+msgstr "koşulsal kesme noktalarına çarp"
+
+#: dapbackend.cpp:748
+#, kde-format
+msgid "log points"
+msgstr "günlük noktaları"
+
+#: dapbackend.cpp:748
+#, kde-format
+msgid "modules request"
+msgstr "modüller isteği"
+
+#: dapbackend.cpp:749
+#, kde-format
+msgid "goto targets request"
+msgstr "goto hedefleri isteği"
+
+#: dapbackend.cpp:750
+#, kde-format
+msgid "terminate request"
+msgstr "sonlandırma isteği"
+
+#: dapbackend.cpp:751
+#, kde-format
+msgid "terminate debuggee"
+msgstr "hata ayıklananı sonlandır"
+
+#: dapbackend.cpp:958
+#, kde-format
+msgid "syntax error: expression not found"
+msgstr "sözdizim hatası: ifade bulunamadı"
+
+#: dapbackend.cpp:976 dapbackend.cpp:1011 dapbackend.cpp:1049
+#: dapbackend.cpp:1083 dapbackend.cpp:1119 dapbackend.cpp:1155
+#: dapbackend.cpp:1191 dapbackend.cpp:1291 dapbackend.cpp:1353
+#, kde-format
+msgid "syntax error: %1"
+msgstr "sözdizim hatası: %1"
+
+#: dapbackend.cpp:984 dapbackend.cpp:1019 dapbackend.cpp:1298
+#: dapbackend.cpp:1361
+#, kde-format
+msgid "invalid line: %1"
+msgstr "geçersiz satır: %1"
+
+#: dapbackend.cpp:991 dapbackend.cpp:996 dapbackend.cpp:1026
+#: dapbackend.cpp:1031 dapbackend.cpp:1322 dapbackend.cpp:1327
+#: dapbackend.cpp:1368 dapbackend.cpp:1373
+#, kde-format
+msgid "file not specified: %1"
+msgstr "dosya belirtilmedi: %1"
+
+#: dapbackend.cpp:1061 dapbackend.cpp:1095 dapbackend.cpp:1131
+#: dapbackend.cpp:1167 dapbackend.cpp:1203
+#, kde-format
+msgid "invalid thread id: %1"
+msgstr "geçersiz iş parçacığı kimliği: %1"
+
+#: dapbackend.cpp:1067 dapbackend.cpp:1101 dapbackend.cpp:1137
+#: dapbackend.cpp:1173 dapbackend.cpp:1209
+#, kde-format
+msgid "thread id not specified: %1"
+msgstr "iş parçacığı kimliği belirtilmedi: %1"
+
+#: dapbackend.cpp:1220
+#, kde-format
+msgid "Available commands:"
+msgstr "Kullanılabilir komutlar:"
+
+#: dapbackend.cpp:1308
+#, kde-format
+msgid "conditional breakpoints are not supported by the server"
+msgstr "koşulsal kesme noktaları, sunucu tarafından desteklenmiyor"
+
+#: dapbackend.cpp:1316
+#, kde-format
+msgid "hit conditional breakpoints are not supported by the server"
+msgstr "koşulsal kesme noktalarına çarpma, sunucu tarafından desteklenmiyor"
+
+#: dapbackend.cpp:1336
+#, kde-format
+msgid "line %1 already has a breakpoint"
+msgstr "%1. satırda bir kesme noktası halihazırda var"
+
+#: dapbackend.cpp:1381
+#, kde-format
+msgid "breakpoint not found (%1:%2)"
+msgstr "kesme noktası bulunamadı (%1:%2)"
+
+#: dapbackend.cpp:1387
+#, kde-format
+msgid "Current thread: "
+msgstr "Geçerli iş parçacığı: "
+
+#: dapbackend.cpp:1392 dapbackend.cpp:1399 dapbackend.cpp:1423
+#, kde-format
+msgid "none"
+msgstr "hiçbiri"
+
+#: dapbackend.cpp:1395
+#, kde-format
+msgid "Current frame: "
+msgstr "Geçerli kare: "
+
+#: dapbackend.cpp:1402
+#, kde-format
+msgid "Session state: "
+msgstr "Oturum durumu: "
+
+#: dapbackend.cpp:1405
+#, kde-format
+msgid "initializing"
+msgstr "ilklendiriliyor"
+
+#: dapbackend.cpp:1408
+#, kde-format
+msgid "running"
+msgstr "çalışıyor"
+
+#: dapbackend.cpp:1411
+#, kde-format
+msgid "stopped"
+msgstr "durduruldu"
+
+#: dapbackend.cpp:1414
+#, kde-format
+msgid "terminated"
+msgstr "sonlandırıldı"
+
+#: dapbackend.cpp:1417
+#, kde-format
+msgid "disconnected"
+msgstr "bağlantı kesildi"
+
+#: dapbackend.cpp:1420
+#, kde-format
+msgid "post mortem"
+msgstr "kapatma sonrası"
+
+#: dapbackend.cpp:1476
+#, kde-format
+msgid "command not found"
+msgstr "komut bulunamadı"
+
+#: dapbackend.cpp:1497
+#, kde-format
+msgid "missing thread id"
+msgstr "eksik iş parçacığı kimliği"
+
+#: dapbackend.cpp:1605
+#, kde-format
+msgid "killing backend"
+msgstr "arka uç öldürülüyor"
+
+#: dapbackend.cpp:1663
+#, kde-format
+msgid "Current frame [%3]: %1:%2 (%4)"
+msgstr "Geçerli kare [%3]: %1:%2 (%4)"
+
 #. i18n: ectx: attribute (title), widget (QWidget, tab_1)
 #: debugconfig.ui:33
 #, kde-format
@@ -228,23 +545,23 @@ msgstr "JSON verisi geçersiz: JSON nesnesi yok"
 msgid "JSON data is invalid: %1"
 msgstr "JSON verisi geçersiz: %1"
 
-#: debugview.cpp:35
+#: gdbbackend.cpp:35
 #, kde-format
 msgid "Locals"
 msgstr "Yereller"
 
-#: debugview.cpp:37
+#: gdbbackend.cpp:37
 #, kde-format
 msgid "CPU registers"
 msgstr "CPU yazmaçları"
 
-#: debugview.cpp:160
+#: gdbbackend.cpp:158
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
 "'Hata Ayıkla' panelindeki 'Ayarlar' sekmesinden yürütülebiliri ayarlayın."
 
-#: debugview.cpp:169
+#: gdbbackend.cpp:167
 #, kde-format
 msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
@@ -253,7 +570,7 @@ msgstr ""
 "Bir hata ayıklayıcı seçili değil. 'Hata Ayıkla' panelindeki 'Ayarlar' "
 "sekmesinden bir tane seçin."
 
-#: debugview.cpp:178
+#: gdbbackend.cpp:176
 #, kde-format
 msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
@@ -262,52 +579,37 @@ msgstr ""
 "Hata ayıklayıcı bulunamadı. Sisteminizde bir tane kurulu olduğundan lütfen "
 "emin olun. Seçili hata ayıklayıcı '%1'"
 
-#: debugview.cpp:384
+#: gdbbackend.cpp:382
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Hata ayıklayıcı süreci başlatılamadı"
 
-#: debugview.cpp:442
+#: gdbbackend.cpp:440
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb uygulamasından normal olarak çıkıldı ***"
 
-#: debugview.cpp:648
+#: gdbbackend.cpp:646
 #, kde-format
 msgid "all threads running"
 msgstr "tüm iş parçacıkları çalışıyor"
 
-#: debugview.cpp:650
+#: gdbbackend.cpp:648
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "çalışan iş parçacıkları: %1"
 
-#: debugview.cpp:655 debugview_dap.cpp:270
-#, kde-format
-msgid "stopped (%1)."
-msgstr "durduruldu (%1)."
-
-#: debugview.cpp:659 debugview_dap.cpp:278
-#, kde-format
-msgid "Active thread: %1 (all threads stopped)."
-msgstr "Etkin iş parçacığı: %1 (tüm iş parçacıkları durduruldu)."
-
-#: debugview.cpp:661 debugview_dap.cpp:280
-#, kde-format
-msgid "Active thread: %1."
-msgstr "Etkin iş parçacığı: %1."
-
-#: debugview.cpp:680
+#: gdbbackend.cpp:678
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "Geçerli kare: %1:%2"
 
-#: debugview.cpp:707
+#: gdbbackend.cpp:705
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "Makine: %1. Hedef: %1"
 
-#: debugview.cpp:1377
+#: gdbbackend.cpp:1375
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
@@ -315,312 +617,10 @@ msgid ""
 msgstr ""
 "gdb-mi: Son yanıt ayrıştırılamadı: %1. Çok fazla art arda hata. Kapatılıyor."
 
-#: debugview.cpp:1379
+#: gdbbackend.cpp:1377
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Son yanıt ayrıştırılamadı: %1"
-
-#: debugview_dap.cpp:169
-#, kde-format
-msgid "DAP backend failed"
-msgstr "DAP arka ucu başarısız oldu"
-
-#: debugview_dap.cpp:211
-#, kde-format
-msgid "program terminated"
-msgstr "program sonlandırıldı"
-
-#: debugview_dap.cpp:223
-#, kde-format
-msgid "requesting disconnection"
-msgstr "bağlantı kesimi isteniyor"
-
-#: debugview_dap.cpp:237
-#, kde-format
-msgid "requesting shutdown"
-msgstr "kapatma isteniyor"
-
-#: debugview_dap.cpp:261
-#, kde-format
-msgid "DAP backend: %1"
-msgstr "DAP arka ucu: %1"
-
-#: debugview_dap.cpp:285
-#, kde-format
-msgid "Breakpoint(s) reached:"
-msgstr "Ulaşılan kesme noktaları:"
-
-#: debugview_dap.cpp:307
-#, kde-format
-msgid "(continued) thread %1"
-msgstr "(sürdürülen) iş parçacığı %1"
-
-#: debugview_dap.cpp:309
-#, kde-format
-msgid "all threads continued"
-msgstr "tüm iş parçacıkları sürdürüldü"
-
-#: debugview_dap.cpp:316
-#, kde-format
-msgid "(running)"
-msgstr "(çalışıyor)"
-
-#: debugview_dap.cpp:404
-#, kde-format
-msgid "*** connection with server closed ***"
-msgstr "*** sunucu bağlantısı kapatıldı ***"
-
-#: debugview_dap.cpp:411
-#, kde-format
-msgid "program exited with code %1"
-msgstr "program, %1 kodu ile çıktı"
-
-#: debugview_dap.cpp:425
-#, kde-format
-msgid "*** waiting for user actions ***"
-msgstr "*** kullanıcı eylemleri bekleniyor ***"
-
-#: debugview_dap.cpp:430
-#, kde-format
-msgid "error on response: %1"
-msgstr "yanıta gelen hata: %1"
-
-#: debugview_dap.cpp:445
-#, kde-format
-msgid "important"
-msgstr "önemli"
-
-#: debugview_dap.cpp:448
-#, kde-format
-msgid "telemetry"
-msgstr "telemetri"
-
-#: debugview_dap.cpp:467
-#, kde-format
-msgid "debugging process [%1] %2"
-msgstr "hata ayıklama süreci [%1] %2"
-
-#: debugview_dap.cpp:469
-#, kde-format
-msgid "debugging process %1"
-msgstr "hata ayıklama süreci %1"
-
-#: debugview_dap.cpp:472
-#, kde-format
-msgid "Start method: %1"
-msgstr "Başlangıç yöntemi: %1"
-
-#: debugview_dap.cpp:479
-#, kde-format
-msgid "thread %1"
-msgstr "iş parçacığı %1"
-
-#: debugview_dap.cpp:633
-#, kde-format
-msgid "breakpoint set"
-msgstr "kesme noktası ayarlandı"
-
-#: debugview_dap.cpp:641
-#, kde-format
-msgid "breakpoint cleared"
-msgstr "kesme noktası temizlendi"
-
-#: debugview_dap.cpp:700
-#, kde-format
-msgid "(%1) breakpoint"
-msgstr "(%1) kesme noktası"
-
-#: debugview_dap.cpp:717
-#, kde-format
-msgid "<not evaluated>"
-msgstr "<değerlendirilmedi>"
-
-#: debugview_dap.cpp:739
-#, kde-format
-msgid "server capabilities"
-msgstr "sunucu yetenekleri"
-
-#: debugview_dap.cpp:742
-#, kde-format
-msgid "supported"
-msgstr "destekleniyor"
-
-#: debugview_dap.cpp:742
-#, kde-format
-msgid "unsupported"
-msgstr "desteklenmiyor"
-
-#: debugview_dap.cpp:745
-#, kde-format
-msgid "conditional breakpoints"
-msgstr "koşulsal kesme noktaları"
-
-#: debugview_dap.cpp:746
-#, kde-format
-msgid "function breakpoints"
-msgstr "işlev kesme noktaları"
-
-#: debugview_dap.cpp:747
-#, kde-format
-msgid "hit conditional breakpoints"
-msgstr "koşulsal kesme noktalarına çarp"
-
-#: debugview_dap.cpp:748
-#, kde-format
-msgid "log points"
-msgstr "günlük noktaları"
-
-#: debugview_dap.cpp:748
-#, kde-format
-msgid "modules request"
-msgstr "modüller isteği"
-
-#: debugview_dap.cpp:749
-#, kde-format
-msgid "goto targets request"
-msgstr "goto hedefleri isteği"
-
-#: debugview_dap.cpp:750
-#, kde-format
-msgid "terminate request"
-msgstr "sonlandırma isteği"
-
-#: debugview_dap.cpp:751
-#, kde-format
-msgid "terminate debuggee"
-msgstr "hata ayıklananı sonlandır"
-
-#: debugview_dap.cpp:958
-#, kde-format
-msgid "syntax error: expression not found"
-msgstr "sözdizim hatası: ifade bulunamadı"
-
-#: debugview_dap.cpp:976 debugview_dap.cpp:1011 debugview_dap.cpp:1049
-#: debugview_dap.cpp:1083 debugview_dap.cpp:1119 debugview_dap.cpp:1155
-#: debugview_dap.cpp:1191 debugview_dap.cpp:1291 debugview_dap.cpp:1353
-#, kde-format
-msgid "syntax error: %1"
-msgstr "sözdizim hatası: %1"
-
-#: debugview_dap.cpp:984 debugview_dap.cpp:1019 debugview_dap.cpp:1298
-#: debugview_dap.cpp:1361
-#, kde-format
-msgid "invalid line: %1"
-msgstr "geçersiz satır: %1"
-
-#: debugview_dap.cpp:991 debugview_dap.cpp:996 debugview_dap.cpp:1026
-#: debugview_dap.cpp:1031 debugview_dap.cpp:1322 debugview_dap.cpp:1327
-#: debugview_dap.cpp:1368 debugview_dap.cpp:1373
-#, kde-format
-msgid "file not specified: %1"
-msgstr "dosya belirtilmedi: %1"
-
-#: debugview_dap.cpp:1061 debugview_dap.cpp:1095 debugview_dap.cpp:1131
-#: debugview_dap.cpp:1167 debugview_dap.cpp:1203
-#, kde-format
-msgid "invalid thread id: %1"
-msgstr "geçersiz iş parçacığı kimliği: %1"
-
-#: debugview_dap.cpp:1067 debugview_dap.cpp:1101 debugview_dap.cpp:1137
-#: debugview_dap.cpp:1173 debugview_dap.cpp:1209
-#, kde-format
-msgid "thread id not specified: %1"
-msgstr "iş parçacığı kimliği belirtilmedi: %1"
-
-#: debugview_dap.cpp:1220
-#, kde-format
-msgid "Available commands:"
-msgstr "Kullanılabilir komutlar:"
-
-#: debugview_dap.cpp:1308
-#, kde-format
-msgid "conditional breakpoints are not supported by the server"
-msgstr "koşulsal kesme noktaları, sunucu tarafından desteklenmiyor"
-
-#: debugview_dap.cpp:1316
-#, kde-format
-msgid "hit conditional breakpoints are not supported by the server"
-msgstr "koşulsal kesme noktalarına çarpma, sunucu tarafından desteklenmiyor"
-
-#: debugview_dap.cpp:1336
-#, kde-format
-msgid "line %1 already has a breakpoint"
-msgstr "%1. satırda bir kesme noktası halihazırda var"
-
-#: debugview_dap.cpp:1381
-#, kde-format
-msgid "breakpoint not found (%1:%2)"
-msgstr "kesme noktası bulunamadı (%1:%2)"
-
-#: debugview_dap.cpp:1387
-#, kde-format
-msgid "Current thread: "
-msgstr "Geçerli iş parçacığı: "
-
-#: debugview_dap.cpp:1392 debugview_dap.cpp:1399 debugview_dap.cpp:1423
-#, kde-format
-msgid "none"
-msgstr "hiçbiri"
-
-#: debugview_dap.cpp:1395
-#, kde-format
-msgid "Current frame: "
-msgstr "Geçerli kare: "
-
-#: debugview_dap.cpp:1402
-#, kde-format
-msgid "Session state: "
-msgstr "Oturum durumu: "
-
-#: debugview_dap.cpp:1405
-#, kde-format
-msgid "initializing"
-msgstr "ilklendiriliyor"
-
-#: debugview_dap.cpp:1408
-#, kde-format
-msgid "running"
-msgstr "çalışıyor"
-
-#: debugview_dap.cpp:1411
-#, kde-format
-msgid "stopped"
-msgstr "durduruldu"
-
-#: debugview_dap.cpp:1414
-#, kde-format
-msgid "terminated"
-msgstr "sonlandırıldı"
-
-#: debugview_dap.cpp:1417
-#, kde-format
-msgid "disconnected"
-msgstr "bağlantı kesildi"
-
-#: debugview_dap.cpp:1420
-#, kde-format
-msgid "post mortem"
-msgstr "kapatma sonrası"
-
-#: debugview_dap.cpp:1476
-#, kde-format
-msgid "command not found"
-msgstr "komut bulunamadı"
-
-#: debugview_dap.cpp:1497
-#, kde-format
-msgid "missing thread id"
-msgstr "eksik iş parçacığı kimliği"
-
-#: debugview_dap.cpp:1605
-#, kde-format
-msgid "killing backend"
-msgstr "arka uç öldürülüyor"
-
-#: debugview_dap.cpp:1663
-#, kde-format
-msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr "Geçerli kare [%3]: %1:%2 (%4)"
 
 #: localsview.cpp:17
 #, kde-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-24 01:36+0000\n"
 "PO-Revision-Date: 2023-05-08 13:25+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -99,7 +99,7 @@ msgstr "шлях-пошуку-бібліотек-so"
 msgid "Custom Init Commands"
 msgstr "Нетипові команди ініціалізації"
 
-#: backend.cpp:24 backend.cpp:49 debugview_dap.cpp:155
+#: backend.cpp:24 backend.cpp:49 dapbackend.cpp:155
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -180,6 +180,323 @@ msgstr "Призначення"
 msgid "Target %1"
 msgstr "Призначення %1"
 
+#: dapbackend.cpp:169
+#, kde-format
+msgid "DAP backend failed"
+msgstr "Помилка модуля обробки DAP"
+
+#: dapbackend.cpp:211
+#, kde-format
+msgid "program terminated"
+msgstr "роботу програми перервано"
+
+#: dapbackend.cpp:223
+#, kde-format
+msgid "requesting disconnection"
+msgstr "надсилаємо запит щодо роз'єднання"
+
+#: dapbackend.cpp:237
+#, kde-format
+msgid "requesting shutdown"
+msgstr "надсилаємо запит щодо вимикання"
+
+#: dapbackend.cpp:261
+#, kde-format
+msgid "DAP backend: %1"
+msgstr "Модуль обробки DAP: %1"
+
+#: dapbackend.cpp:270 gdbbackend.cpp:653
+#, kde-format
+msgid "stopped (%1)."
+msgstr "зупинено (%1)."
+
+#: dapbackend.cpp:278 gdbbackend.cpp:657
+#, kde-format
+msgid "Active thread: %1 (all threads stopped)."
+msgstr "Активний потік: %1 (усі потоки зупинено)."
+
+#: dapbackend.cpp:280 gdbbackend.cpp:659
+#, kde-format
+msgid "Active thread: %1."
+msgstr "Активний потік: %1."
+
+#: dapbackend.cpp:285
+#, kde-format
+msgid "Breakpoint(s) reached:"
+msgstr "Досягнуті точки зупинки:"
+
+#: dapbackend.cpp:307
+#, kde-format
+msgid "(continued) thread %1"
+msgstr "(продовжений) потік %1"
+
+#: dapbackend.cpp:309
+#, kde-format
+msgid "all threads continued"
+msgstr "усі потоки продовжено"
+
+#: dapbackend.cpp:316
+#, kde-format
+msgid "(running)"
+msgstr "(виконуємо)"
+
+#: dapbackend.cpp:404
+#, kde-format
+msgid "*** connection with server closed ***"
+msgstr "*** з'єднання з сервером розірвано ***"
+
+#: dapbackend.cpp:411
+#, kde-format
+msgid "program exited with code %1"
+msgstr "програма завершила роботу з кодом %1"
+
+#: dapbackend.cpp:425
+#, kde-format
+msgid "*** waiting for user actions ***"
+msgstr "*** очікуємо на дії користувача ***"
+
+#: dapbackend.cpp:430
+#, kde-format
+msgid "error on response: %1"
+msgstr "помилка при відповіді: %1"
+
+#: dapbackend.cpp:445
+#, kde-format
+msgid "important"
+msgstr "важливий"
+
+#: dapbackend.cpp:448
+#, kde-format
+msgid "telemetry"
+msgstr "телеметрія"
+
+#: dapbackend.cpp:467
+#, kde-format
+msgid "debugging process [%1] %2"
+msgstr "діагностика процесу [%1] %2"
+
+#: dapbackend.cpp:469
+#, kde-format
+msgid "debugging process %1"
+msgstr "діагностика процесу %1"
+
+#: dapbackend.cpp:472
+#, kde-format
+msgid "Start method: %1"
+msgstr "Метод запуску: %1"
+
+#: dapbackend.cpp:479
+#, kde-format
+msgid "thread %1"
+msgstr "потік %1"
+
+#: dapbackend.cpp:633
+#, kde-format
+msgid "breakpoint set"
+msgstr "точку зупинки встановлено"
+
+#: dapbackend.cpp:641
+#, kde-format
+msgid "breakpoint cleared"
+msgstr "точку зупинки знято"
+
+#: dapbackend.cpp:700
+#, kde-format
+msgid "(%1) breakpoint"
+msgstr "точка зупинки (%1)"
+
+#: dapbackend.cpp:717
+#, kde-format
+msgid "<not evaluated>"
+msgstr "<не обчислено>"
+
+#: dapbackend.cpp:739
+#, kde-format
+msgid "server capabilities"
+msgstr "можливості сервера"
+
+#: dapbackend.cpp:742
+#, kde-format
+msgid "supported"
+msgstr "підтримку передбачено"
+
+#: dapbackend.cpp:742
+#, kde-format
+msgid "unsupported"
+msgstr "підтримки не передбачено"
+
+#: dapbackend.cpp:745
+#, kde-format
+msgid "conditional breakpoints"
+msgstr "умовні точки зупинки"
+
+#: dapbackend.cpp:746
+#, kde-format
+msgid "function breakpoints"
+msgstr "точки зупинки функції"
+
+#: dapbackend.cpp:747
+#, kde-format
+msgid "hit conditional breakpoints"
+msgstr "точки зупинки за умовою"
+
+#: dapbackend.cpp:748
+#, kde-format
+msgid "log points"
+msgstr "точки журналу"
+
+#: dapbackend.cpp:748
+#, kde-format
+msgid "modules request"
+msgstr "запит щодо модулів"
+
+#: dapbackend.cpp:749
+#, kde-format
+msgid "goto targets request"
+msgstr "запит щодо переходу до цілей"
+
+#: dapbackend.cpp:750
+#, kde-format
+msgid "terminate request"
+msgstr "запит щодо переривання"
+
+#: dapbackend.cpp:751
+#, kde-format
+msgid "terminate debuggee"
+msgstr "перервати діагностику"
+
+#: dapbackend.cpp:958
+#, kde-format
+msgid "syntax error: expression not found"
+msgstr "синтаксична помилка: виразу не знайдено"
+
+#: dapbackend.cpp:976 dapbackend.cpp:1011 dapbackend.cpp:1049
+#: dapbackend.cpp:1083 dapbackend.cpp:1119 dapbackend.cpp:1155
+#: dapbackend.cpp:1191 dapbackend.cpp:1291 dapbackend.cpp:1353
+#, kde-format
+msgid "syntax error: %1"
+msgstr "синтаксична помилка: %1"
+
+#: dapbackend.cpp:984 dapbackend.cpp:1019 dapbackend.cpp:1298
+#: dapbackend.cpp:1361
+#, kde-format
+msgid "invalid line: %1"
+msgstr "некоректний рядок: %1"
+
+#: dapbackend.cpp:991 dapbackend.cpp:996 dapbackend.cpp:1026
+#: dapbackend.cpp:1031 dapbackend.cpp:1322 dapbackend.cpp:1327
+#: dapbackend.cpp:1368 dapbackend.cpp:1373
+#, kde-format
+msgid "file not specified: %1"
+msgstr "не вказано файл: %1"
+
+#: dapbackend.cpp:1061 dapbackend.cpp:1095 dapbackend.cpp:1131
+#: dapbackend.cpp:1167 dapbackend.cpp:1203
+#, kde-format
+msgid "invalid thread id: %1"
+msgstr "некоректний ідентифікатор потоку: %1"
+
+#: dapbackend.cpp:1067 dapbackend.cpp:1101 dapbackend.cpp:1137
+#: dapbackend.cpp:1173 dapbackend.cpp:1209
+#, kde-format
+msgid "thread id not specified: %1"
+msgstr "не вказано ідентифікатор потоку: %1"
+
+#: dapbackend.cpp:1220
+#, kde-format
+msgid "Available commands:"
+msgstr "Доступні команди:"
+
+#: dapbackend.cpp:1308
+#, kde-format
+msgid "conditional breakpoints are not supported by the server"
+msgstr "на сервері не передбачено підтримки умовних точок зупинки"
+
+#: dapbackend.cpp:1316
+#, kde-format
+msgid "hit conditional breakpoints are not supported by the server"
+msgstr "на сервері не передбачено підтримки точок зупинки за умовою"
+
+#: dapbackend.cpp:1336
+#, kde-format
+msgid "line %1 already has a breakpoint"
+msgstr "на рядку %1 вже є точка зупинки"
+
+#: dapbackend.cpp:1381
+#, kde-format
+msgid "breakpoint not found (%1:%2)"
+msgstr "не знайдено точки зупинки (%1:%2)"
+
+#: dapbackend.cpp:1387
+#, kde-format
+msgid "Current thread: "
+msgstr "Поточний потік:"
+
+#: dapbackend.cpp:1392 dapbackend.cpp:1399 dapbackend.cpp:1423
+#, kde-format
+msgid "none"
+msgstr "немає"
+
+#: dapbackend.cpp:1395
+#, kde-format
+msgid "Current frame: "
+msgstr "Поточний кадр:"
+
+#: dapbackend.cpp:1402
+#, kde-format
+msgid "Session state: "
+msgstr "Стан сеансу: "
+
+#: dapbackend.cpp:1405
+#, kde-format
+msgid "initializing"
+msgstr "ініціалізація"
+
+#: dapbackend.cpp:1408
+#, kde-format
+msgid "running"
+msgstr "працює"
+
+#: dapbackend.cpp:1411
+#, kde-format
+msgid "stopped"
+msgstr "зупинено"
+
+#: dapbackend.cpp:1414
+#, kde-format
+msgid "terminated"
+msgstr "перервано"
+
+#: dapbackend.cpp:1417
+#, kde-format
+msgid "disconnected"
+msgstr "роз'єднано"
+
+#: dapbackend.cpp:1420
+#, kde-format
+msgid "post mortem"
+msgstr "після смерті"
+
+#: dapbackend.cpp:1476
+#, kde-format
+msgid "command not found"
+msgstr "команди не знайдено"
+
+#: dapbackend.cpp:1497
+#, kde-format
+msgid "missing thread id"
+msgstr "пропущено ідентифікатор потоку"
+
+#: dapbackend.cpp:1605
+#, kde-format
+msgid "killing backend"
+msgstr "припиняємо роботу модуля обробки"
+
+#: dapbackend.cpp:1663
+#, kde-format
+msgid "Current frame [%3]: %1:%2 (%4)"
+msgstr "поточний кадр [%3]: %1:%2 (%4)"
+
 #. i18n: ectx: attribute (title), widget (QWidget, tab_1)
 #: debugconfig.ui:33
 #, kde-format
@@ -223,24 +540,24 @@ msgstr "Дані JSON є некоректними: немає об'єкта JSON
 msgid "JSON data is invalid: %1"
 msgstr "Дані JSON є некоректними: %1"
 
-#: debugview.cpp:35
+#: gdbbackend.cpp:35
 #, kde-format
 msgid "Locals"
 msgstr "Локальні змінні"
 
-#: debugview.cpp:37
+#: gdbbackend.cpp:37
 #, kde-format
 msgid "CPU registers"
 msgstr "Регістри процесора"
 
-#: debugview.cpp:160
+#: gdbbackend.cpp:158
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr ""
 "Будь ласка, вкажіть виконуваний файл на вкладці «Параметри», панель "
 "«Діагностика»."
 
-#: debugview.cpp:169
+#: gdbbackend.cpp:167
 #, kde-format
 msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
@@ -249,7 +566,7 @@ msgstr ""
 "Не вибрано засобу діагностики. Будь ласка, виберіть його на вкладці "
 "«Параметри», панель «Діагностика»."
 
-#: debugview.cpp:178
+#: gdbbackend.cpp:176
 #, kde-format
 msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
@@ -258,52 +575,37 @@ msgstr ""
 "Не знайдено засобу діагностики. Будь ласка, переконайтеся, що його "
 "встановлено у вашій системі. Вибраним засобом діагностики є «%1»"
 
-#: debugview.cpp:384
+#: gdbbackend.cpp:382
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Не вдалося запустити процес налагоджування"
 
-#: debugview.cpp:442
+#: gdbbackend.cpp:440
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** роботу gdb завершено у нормальному режимі ***"
 
-#: debugview.cpp:648
+#: gdbbackend.cpp:646
 #, kde-format
 msgid "all threads running"
 msgstr "запущено усі потоки обробки"
 
-#: debugview.cpp:650
+#: gdbbackend.cpp:648
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "запущено потоків обробки: %1"
 
-#: debugview.cpp:655 debugview_dap.cpp:270
-#, kde-format
-msgid "stopped (%1)."
-msgstr "зупинено (%1)."
-
-#: debugview.cpp:659 debugview_dap.cpp:278
-#, kde-format
-msgid "Active thread: %1 (all threads stopped)."
-msgstr "Активний потік: %1 (усі потоки зупинено)."
-
-#: debugview.cpp:661 debugview_dap.cpp:280
-#, kde-format
-msgid "Active thread: %1."
-msgstr "Активний потік: %1."
-
-#: debugview.cpp:680
+#: gdbbackend.cpp:678
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "Поточний кадр: %1:%2"
 
-#: debugview.cpp:707
+#: gdbbackend.cpp:705
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "Вузол: %1. Призначення: %1"
 
-#: debugview.cpp:1377
+#: gdbbackend.cpp:1375
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
@@ -312,312 +614,10 @@ msgstr ""
 "gdb-mi: не вдалося обробити останню відповідь: %1. Занадто багато "
 "послідовних помилок. Завершуємо обробку."
 
-#: debugview.cpp:1379
+#: gdbbackend.cpp:1377
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: не вдалося обробити останню відповідь: %1"
-
-#: debugview_dap.cpp:169
-#, kde-format
-msgid "DAP backend failed"
-msgstr "Помилка модуля обробки DAP"
-
-#: debugview_dap.cpp:211
-#, kde-format
-msgid "program terminated"
-msgstr "роботу програми перервано"
-
-#: debugview_dap.cpp:223
-#, kde-format
-msgid "requesting disconnection"
-msgstr "надсилаємо запит щодо роз'єднання"
-
-#: debugview_dap.cpp:237
-#, kde-format
-msgid "requesting shutdown"
-msgstr "надсилаємо запит щодо вимикання"
-
-#: debugview_dap.cpp:261
-#, kde-format
-msgid "DAP backend: %1"
-msgstr "Модуль обробки DAP: %1"
-
-#: debugview_dap.cpp:285
-#, kde-format
-msgid "Breakpoint(s) reached:"
-msgstr "Досягнуті точки зупинки:"
-
-#: debugview_dap.cpp:307
-#, kde-format
-msgid "(continued) thread %1"
-msgstr "(продовжений) потік %1"
-
-#: debugview_dap.cpp:309
-#, kde-format
-msgid "all threads continued"
-msgstr "усі потоки продовжено"
-
-#: debugview_dap.cpp:316
-#, kde-format
-msgid "(running)"
-msgstr "(виконуємо)"
-
-#: debugview_dap.cpp:404
-#, kde-format
-msgid "*** connection with server closed ***"
-msgstr "*** з'єднання з сервером розірвано ***"
-
-#: debugview_dap.cpp:411
-#, kde-format
-msgid "program exited with code %1"
-msgstr "програма завершила роботу з кодом %1"
-
-#: debugview_dap.cpp:425
-#, kde-format
-msgid "*** waiting for user actions ***"
-msgstr "*** очікуємо на дії користувача ***"
-
-#: debugview_dap.cpp:430
-#, kde-format
-msgid "error on response: %1"
-msgstr "помилка при відповіді: %1"
-
-#: debugview_dap.cpp:445
-#, kde-format
-msgid "important"
-msgstr "важливий"
-
-#: debugview_dap.cpp:448
-#, kde-format
-msgid "telemetry"
-msgstr "телеметрія"
-
-#: debugview_dap.cpp:467
-#, kde-format
-msgid "debugging process [%1] %2"
-msgstr "діагностика процесу [%1] %2"
-
-#: debugview_dap.cpp:469
-#, kde-format
-msgid "debugging process %1"
-msgstr "діагностика процесу %1"
-
-#: debugview_dap.cpp:472
-#, kde-format
-msgid "Start method: %1"
-msgstr "Метод запуску: %1"
-
-#: debugview_dap.cpp:479
-#, kde-format
-msgid "thread %1"
-msgstr "потік %1"
-
-#: debugview_dap.cpp:633
-#, kde-format
-msgid "breakpoint set"
-msgstr "точку зупинки встановлено"
-
-#: debugview_dap.cpp:641
-#, kde-format
-msgid "breakpoint cleared"
-msgstr "точку зупинки знято"
-
-#: debugview_dap.cpp:700
-#, kde-format
-msgid "(%1) breakpoint"
-msgstr "точка зупинки (%1)"
-
-#: debugview_dap.cpp:717
-#, kde-format
-msgid "<not evaluated>"
-msgstr "<не обчислено>"
-
-#: debugview_dap.cpp:739
-#, kde-format
-msgid "server capabilities"
-msgstr "можливості сервера"
-
-#: debugview_dap.cpp:742
-#, kde-format
-msgid "supported"
-msgstr "підтримку передбачено"
-
-#: debugview_dap.cpp:742
-#, kde-format
-msgid "unsupported"
-msgstr "підтримки не передбачено"
-
-#: debugview_dap.cpp:745
-#, kde-format
-msgid "conditional breakpoints"
-msgstr "умовні точки зупинки"
-
-#: debugview_dap.cpp:746
-#, kde-format
-msgid "function breakpoints"
-msgstr "точки зупинки функції"
-
-#: debugview_dap.cpp:747
-#, kde-format
-msgid "hit conditional breakpoints"
-msgstr "точки зупинки за умовою"
-
-#: debugview_dap.cpp:748
-#, kde-format
-msgid "log points"
-msgstr "точки журналу"
-
-#: debugview_dap.cpp:748
-#, kde-format
-msgid "modules request"
-msgstr "запит щодо модулів"
-
-#: debugview_dap.cpp:749
-#, kde-format
-msgid "goto targets request"
-msgstr "запит щодо переходу до цілей"
-
-#: debugview_dap.cpp:750
-#, kde-format
-msgid "terminate request"
-msgstr "запит щодо переривання"
-
-#: debugview_dap.cpp:751
-#, kde-format
-msgid "terminate debuggee"
-msgstr "перервати діагностику"
-
-#: debugview_dap.cpp:958
-#, kde-format
-msgid "syntax error: expression not found"
-msgstr "синтаксична помилка: виразу не знайдено"
-
-#: debugview_dap.cpp:976 debugview_dap.cpp:1011 debugview_dap.cpp:1049
-#: debugview_dap.cpp:1083 debugview_dap.cpp:1119 debugview_dap.cpp:1155
-#: debugview_dap.cpp:1191 debugview_dap.cpp:1291 debugview_dap.cpp:1353
-#, kde-format
-msgid "syntax error: %1"
-msgstr "синтаксична помилка: %1"
-
-#: debugview_dap.cpp:984 debugview_dap.cpp:1019 debugview_dap.cpp:1298
-#: debugview_dap.cpp:1361
-#, kde-format
-msgid "invalid line: %1"
-msgstr "некоректний рядок: %1"
-
-#: debugview_dap.cpp:991 debugview_dap.cpp:996 debugview_dap.cpp:1026
-#: debugview_dap.cpp:1031 debugview_dap.cpp:1322 debugview_dap.cpp:1327
-#: debugview_dap.cpp:1368 debugview_dap.cpp:1373
-#, kde-format
-msgid "file not specified: %1"
-msgstr "не вказано файл: %1"
-
-#: debugview_dap.cpp:1061 debugview_dap.cpp:1095 debugview_dap.cpp:1131
-#: debugview_dap.cpp:1167 debugview_dap.cpp:1203
-#, kde-format
-msgid "invalid thread id: %1"
-msgstr "некоректний ідентифікатор потоку: %1"
-
-#: debugview_dap.cpp:1067 debugview_dap.cpp:1101 debugview_dap.cpp:1137
-#: debugview_dap.cpp:1173 debugview_dap.cpp:1209
-#, kde-format
-msgid "thread id not specified: %1"
-msgstr "не вказано ідентифікатор потоку: %1"
-
-#: debugview_dap.cpp:1220
-#, kde-format
-msgid "Available commands:"
-msgstr "Доступні команди:"
-
-#: debugview_dap.cpp:1308
-#, kde-format
-msgid "conditional breakpoints are not supported by the server"
-msgstr "на сервері не передбачено підтримки умовних точок зупинки"
-
-#: debugview_dap.cpp:1316
-#, kde-format
-msgid "hit conditional breakpoints are not supported by the server"
-msgstr "на сервері не передбачено підтримки точок зупинки за умовою"
-
-#: debugview_dap.cpp:1336
-#, kde-format
-msgid "line %1 already has a breakpoint"
-msgstr "на рядку %1 вже є точка зупинки"
-
-#: debugview_dap.cpp:1381
-#, kde-format
-msgid "breakpoint not found (%1:%2)"
-msgstr "не знайдено точки зупинки (%1:%2)"
-
-#: debugview_dap.cpp:1387
-#, kde-format
-msgid "Current thread: "
-msgstr "Поточний потік:"
-
-#: debugview_dap.cpp:1392 debugview_dap.cpp:1399 debugview_dap.cpp:1423
-#, kde-format
-msgid "none"
-msgstr "немає"
-
-#: debugview_dap.cpp:1395
-#, kde-format
-msgid "Current frame: "
-msgstr "Поточний кадр:"
-
-#: debugview_dap.cpp:1402
-#, kde-format
-msgid "Session state: "
-msgstr "Стан сеансу: "
-
-#: debugview_dap.cpp:1405
-#, kde-format
-msgid "initializing"
-msgstr "ініціалізація"
-
-#: debugview_dap.cpp:1408
-#, kde-format
-msgid "running"
-msgstr "працює"
-
-#: debugview_dap.cpp:1411
-#, kde-format
-msgid "stopped"
-msgstr "зупинено"
-
-#: debugview_dap.cpp:1414
-#, kde-format
-msgid "terminated"
-msgstr "перервано"
-
-#: debugview_dap.cpp:1417
-#, kde-format
-msgid "disconnected"
-msgstr "роз'єднано"
-
-#: debugview_dap.cpp:1420
-#, kde-format
-msgid "post mortem"
-msgstr "після смерті"
-
-#: debugview_dap.cpp:1476
-#, kde-format
-msgid "command not found"
-msgstr "команди не знайдено"
-
-#: debugview_dap.cpp:1497
-#, kde-format
-msgid "missing thread id"
-msgstr "пропущено ідентифікатор потоку"
-
-#: debugview_dap.cpp:1605
-#, kde-format
-msgid "killing backend"
-msgstr "припиняємо роботу модуля обробки"
-
-#: debugview_dap.cpp:1663
-#, kde-format
-msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr "поточний кадр [%3]: %1:%2 (%4)"
 
 #: localsview.cpp:17
 #, kde-format

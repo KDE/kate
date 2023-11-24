@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-24 01:36+0000\n"
 "PO-Revision-Date: 2023-07-30 19:22+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -100,7 +100,7 @@ msgstr "solib-bilatze-bideizena"
 msgid "Custom Init Commands"
 msgstr "Norberak finkatutako haste-komandoak"
 
-#: backend.cpp:24 backend.cpp:49 debugview_dap.cpp:155
+#: backend.cpp:24 backend.cpp:49 dapbackend.cpp:155
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -181,6 +181,323 @@ msgstr "Helburuak"
 msgid "Target %1"
 msgstr "Jomuga %1"
 
+#: dapbackend.cpp:169
+#, kde-format
+msgid "DAP backend failed"
+msgstr "DAP bizkarraldekoak huts egin du"
+
+#: dapbackend.cpp:211
+#, kde-format
+msgid "program terminated"
+msgstr "programa amaitu da"
+
+#: dapbackend.cpp:223
+#, kde-format
+msgid "requesting disconnection"
+msgstr "deskonektatzeko eskaera"
+
+#: dapbackend.cpp:237
+#, kde-format
+msgid "requesting shutdown"
+msgstr "itzaltzeko eskaera"
+
+#: dapbackend.cpp:261
+#, kde-format
+msgid "DAP backend: %1"
+msgstr "DAP bizkarraldekoak: %1"
+
+#: dapbackend.cpp:270 gdbbackend.cpp:653
+#, kde-format
+msgid "stopped (%1)."
+msgstr "geldituta (%1)."
+
+#: dapbackend.cpp:278 gdbbackend.cpp:657
+#, kde-format
+msgid "Active thread: %1 (all threads stopped)."
+msgstr "Hari aktiboa: %1 (hari guztiak geldituta)."
+
+#: dapbackend.cpp:280 gdbbackend.cpp:659
+#, kde-format
+msgid "Active thread: %1."
+msgstr "Hari aktiboa: %1."
+
+#: dapbackend.cpp:285
+#, kde-format
+msgid "Breakpoint(s) reached:"
+msgstr "Eten-puntu(eta)ra iritsi da:"
+
+#: dapbackend.cpp:307
+#, kde-format
+msgid "(continued) thread %1"
+msgstr "(jarraitu du) %1 haria"
+
+#: dapbackend.cpp:309
+#, kde-format
+msgid "all threads continued"
+msgstr "hari guztiek jarraitu dute"
+
+#: dapbackend.cpp:316
+#, kde-format
+msgid "(running)"
+msgstr "(exekutatzen)"
+
+#: dapbackend.cpp:404
+#, kde-format
+msgid "*** connection with server closed ***"
+msgstr "*** zerbitzariarekiko konexioa itxi da***"
+
+#: dapbackend.cpp:411
+#, kde-format
+msgid "program exited with code %1"
+msgstr "programa %1 kodearekin irten da"
+
+#: dapbackend.cpp:425
+#, kde-format
+msgid "*** waiting for user actions ***"
+msgstr "*** erabiltzailearen ekintzen zain ***"
+
+#: dapbackend.cpp:430
+#, kde-format
+msgid "error on response: %1"
+msgstr "errorea erantzunean: %1"
+
+#: dapbackend.cpp:445
+#, kde-format
+msgid "important"
+msgstr "garrantzitsua"
+
+#: dapbackend.cpp:448
+#, kde-format
+msgid "telemetry"
+msgstr "telemetria"
+
+#: dapbackend.cpp:467
+#, kde-format
+msgid "debugging process [%1] %2"
+msgstr "arazteko prozesua [%1] %2"
+
+#: dapbackend.cpp:469
+#, kde-format
+msgid "debugging process %1"
+msgstr "arazteko prozesua %1"
+
+#: dapbackend.cpp:472
+#, kde-format
+msgid "Start method: %1"
+msgstr "Hasteko metodoa: %1"
+
+#: dapbackend.cpp:479
+#, kde-format
+msgid "thread %1"
+msgstr "%1 haria"
+
+#: dapbackend.cpp:633
+#, kde-format
+msgid "breakpoint set"
+msgstr "Eten-puntua ezarri da"
+
+#: dapbackend.cpp:641
+#, kde-format
+msgid "breakpoint cleared"
+msgstr "Eten-puntua garbitu da"
+
+#: dapbackend.cpp:700
+#, kde-format
+msgid "(%1) breakpoint"
+msgstr "(%1) eten-puntua"
+
+#: dapbackend.cpp:717
+#, kde-format
+msgid "<not evaluated>"
+msgstr "<ebaluatu gabe>"
+
+#: dapbackend.cpp:739
+#, kde-format
+msgid "server capabilities"
+msgstr "zerbitzariaren gaitasunak"
+
+#: dapbackend.cpp:742
+#, kde-format
+msgid "supported"
+msgstr "euskarriduna"
+
+#: dapbackend.cpp:742
+#, kde-format
+msgid "unsupported"
+msgstr "euskarrigabea"
+
+#: dapbackend.cpp:745
+#, kde-format
+msgid "conditional breakpoints"
+msgstr "baldintzazko eten-puntuak"
+
+#: dapbackend.cpp:746
+#, kde-format
+msgid "function breakpoints"
+msgstr "funtzioko eten-puntuak"
+
+#: dapbackend.cpp:747
+#, kde-format
+msgid "hit conditional breakpoints"
+msgstr "iritsi baldintzazko eten-puntuak"
+
+#: dapbackend.cpp:748
+#, kde-format
+msgid "log points"
+msgstr "erregistro puntuak"
+
+#: dapbackend.cpp:748
+#, kde-format
+msgid "modules request"
+msgstr "moduluen eskaera"
+
+#: dapbackend.cpp:749
+#, kde-format
+msgid "goto targets request"
+msgstr "joan jomugetara eskaera"
+
+#: dapbackend.cpp:750
+#, kde-format
+msgid "terminate request"
+msgstr "amaitzeko eskaera"
+
+#: dapbackend.cpp:751
+#, kde-format
+msgid "terminate debuggee"
+msgstr "amaitu araztea"
+
+#: dapbackend.cpp:958
+#, kde-format
+msgid "syntax error: expression not found"
+msgstr "sintaxi akatsa: adierazpena ez da aurkitu"
+
+#: dapbackend.cpp:976 dapbackend.cpp:1011 dapbackend.cpp:1049
+#: dapbackend.cpp:1083 dapbackend.cpp:1119 dapbackend.cpp:1155
+#: dapbackend.cpp:1191 dapbackend.cpp:1291 dapbackend.cpp:1353
+#, kde-format
+msgid "syntax error: %1"
+msgstr "sintaxi akatsa: %1"
+
+#: dapbackend.cpp:984 dapbackend.cpp:1019 dapbackend.cpp:1298
+#: dapbackend.cpp:1361
+#, kde-format
+msgid "invalid line: %1"
+msgstr "lerro baliogabea: %1"
+
+#: dapbackend.cpp:991 dapbackend.cpp:996 dapbackend.cpp:1026
+#: dapbackend.cpp:1031 dapbackend.cpp:1322 dapbackend.cpp:1327
+#: dapbackend.cpp:1368 dapbackend.cpp:1373
+#, kde-format
+msgid "file not specified: %1"
+msgstr "zehaztu gabeko fitxategia: %1"
+
+#: dapbackend.cpp:1061 dapbackend.cpp:1095 dapbackend.cpp:1131
+#: dapbackend.cpp:1167 dapbackend.cpp:1203
+#, kde-format
+msgid "invalid thread id: %1"
+msgstr "hari baliogabearen id: %1"
+
+#: dapbackend.cpp:1067 dapbackend.cpp:1101 dapbackend.cpp:1137
+#: dapbackend.cpp:1173 dapbackend.cpp:1209
+#, kde-format
+msgid "thread id not specified: %1"
+msgstr "zehaztu gabeko hari id: %1"
+
+#: dapbackend.cpp:1220
+#, kde-format
+msgid "Available commands:"
+msgstr "Komando erabilgarriak:"
+
+#: dapbackend.cpp:1308
+#, kde-format
+msgid "conditional breakpoints are not supported by the server"
+msgstr "zerbitzariak ez ditu onartzen baldintzazko eten-puntuak"
+
+#: dapbackend.cpp:1316
+#, kde-format
+msgid "hit conditional breakpoints are not supported by the server"
+msgstr "zerbitzariak ez ditu onartzen iritsi baldintzazko eten-puntuak"
+
+#: dapbackend.cpp:1336
+#, kde-format
+msgid "line %1 already has a breakpoint"
+msgstr "%1. lerroak badu jada eten-puntu bat"
+
+#: dapbackend.cpp:1381
+#, kde-format
+msgid "breakpoint not found (%1:%2)"
+msgstr "eten-puntua ez da aurkitu (%1:%2)"
+
+#: dapbackend.cpp:1387
+#, kde-format
+msgid "Current thread: "
+msgstr "Uneko haria: "
+
+#: dapbackend.cpp:1392 dapbackend.cpp:1399 dapbackend.cpp:1423
+#, kde-format
+msgid "none"
+msgstr "bat ere ez"
+
+#: dapbackend.cpp:1395
+#, kde-format
+msgid "Current frame: "
+msgstr "Uneko markoa: "
+
+#: dapbackend.cpp:1402
+#, kde-format
+msgid "Session state: "
+msgstr "Saioaren egoera: "
+
+#: dapbackend.cpp:1405
+#, kde-format
+msgid "initializing"
+msgstr "hasieratzen"
+
+#: dapbackend.cpp:1408
+#, kde-format
+msgid "running"
+msgstr "exekutatzen"
+
+#: dapbackend.cpp:1411
+#, kde-format
+msgid "stopped"
+msgstr "geldirik"
+
+#: dapbackend.cpp:1414
+#, kde-format
+msgid "terminated"
+msgstr "amaituta"
+
+#: dapbackend.cpp:1417
+#, kde-format
+msgid "disconnected"
+msgstr "deskonektatuta"
+
+#: dapbackend.cpp:1420
+#, kde-format
+msgid "post mortem"
+msgstr "post mortem"
+
+#: dapbackend.cpp:1476
+#, kde-format
+msgid "command not found"
+msgstr "Komandoa ez da aurkitu"
+
+#: dapbackend.cpp:1497
+#, kde-format
+msgid "missing thread id"
+msgstr "hariaren IDa falta da"
+
+#: dapbackend.cpp:1605
+#, kde-format
+msgid "killing backend"
+msgstr "bizkarraldekoa akabatzen"
+
+#: dapbackend.cpp:1663
+#, kde-format
+msgid "Current frame [%3]: %1:%2 (%4)"
+msgstr "Uneko markoa [%3]: %1:%2 (%4)"
+
 #. i18n: ectx: attribute (title), widget (QWidget, tab_1)
 #: debugconfig.ui:33
 #, kde-format
@@ -224,22 +541,22 @@ msgstr "JSON datuak baliogabeak dira: ez da JSON objektua"
 msgid "JSON data is invalid: %1"
 msgstr "JSON datuak baliogabeak dira: %1"
 
-#: debugview.cpp:35
+#: gdbbackend.cpp:35
 #, kde-format
 msgid "Locals"
 msgstr "Lokalak"
 
-#: debugview.cpp:37
+#: gdbbackend.cpp:37
 #, kde-format
 msgid "CPU registers"
 msgstr "PUZeko erregistroak"
 
-#: debugview.cpp:160
+#: gdbbackend.cpp:158
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr "Mesedez, ezarri exekutagarria 'Araztu' paneleko 'Ezarpenak\" fitxan."
 
-#: debugview.cpp:169
+#: gdbbackend.cpp:167
 #, kde-format
 msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
@@ -248,7 +565,7 @@ msgstr ""
 "Ez da araztailerik hautatu. Mesedez, hautatu bat  'Araztu' paneleko "
 "'Ezarpenak\" fitxan."
 
-#: debugview.cpp:178
+#: gdbbackend.cpp:176
 #, kde-format
 msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
@@ -257,52 +574,37 @@ msgstr ""
 "Araztailea ez da aurkitu. Mesedez. Ziurtatu zure sistema instalatuta duzula. "
 "Hautatutako araztailea '%1' da"
 
-#: debugview.cpp:384
+#: gdbbackend.cpp:382
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Ezin izan da arazteko prozesua abiarazi"
 
-#: debugview.cpp:442
+#: gdbbackend.cpp:440
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb ohi bezala amaitu da ***"
 
-#: debugview.cpp:648
+#: gdbbackend.cpp:646
 #, kde-format
 msgid "all threads running"
 msgstr "hari guztiak ibiltzen ari dira"
 
-#: debugview.cpp:650
+#: gdbbackend.cpp:648
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "ibiltzen ari d(ir)en haria(k): %1"
 
-#: debugview.cpp:655 debugview_dap.cpp:270
-#, kde-format
-msgid "stopped (%1)."
-msgstr "geldituta (%1)."
-
-#: debugview.cpp:659 debugview_dap.cpp:278
-#, kde-format
-msgid "Active thread: %1 (all threads stopped)."
-msgstr "Hari aktiboa: %1 (hari guztiak geldituta)."
-
-#: debugview.cpp:661 debugview_dap.cpp:280
-#, kde-format
-msgid "Active thread: %1."
-msgstr "Hari aktiboa: %1."
-
-#: debugview.cpp:680
+#: gdbbackend.cpp:678
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "Uneko markoa: %1:%2"
 
-#: debugview.cpp:707
+#: gdbbackend.cpp:705
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "Ostalaria: %1. Jomuga %1"
 
-#: debugview.cpp:1377
+#: gdbbackend.cpp:1375
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
@@ -311,313 +613,11 @@ msgstr ""
 "gdb-mi: Ezin izan du azken erantzunaren azterketa sintaktikoa gainditu: %1. "
 "Ondoz ondoko akats gehiegi.Itzaltzen."
 
-#: debugview.cpp:1379
+#: gdbbackend.cpp:1377
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr ""
 "gdb-mi: Ezin izan du azken erantzunaren azterketa sintaktikoa gainditu: %1"
-
-#: debugview_dap.cpp:169
-#, kde-format
-msgid "DAP backend failed"
-msgstr "DAP bizkarraldekoak huts egin du"
-
-#: debugview_dap.cpp:211
-#, kde-format
-msgid "program terminated"
-msgstr "programa amaitu da"
-
-#: debugview_dap.cpp:223
-#, kde-format
-msgid "requesting disconnection"
-msgstr "deskonektatzeko eskaera"
-
-#: debugview_dap.cpp:237
-#, kde-format
-msgid "requesting shutdown"
-msgstr "itzaltzeko eskaera"
-
-#: debugview_dap.cpp:261
-#, kde-format
-msgid "DAP backend: %1"
-msgstr "DAP bizkarraldekoak: %1"
-
-#: debugview_dap.cpp:285
-#, kde-format
-msgid "Breakpoint(s) reached:"
-msgstr "Eten-puntu(eta)ra iritsi da:"
-
-#: debugview_dap.cpp:307
-#, kde-format
-msgid "(continued) thread %1"
-msgstr "(jarraitu du) %1 haria"
-
-#: debugview_dap.cpp:309
-#, kde-format
-msgid "all threads continued"
-msgstr "hari guztiek jarraitu dute"
-
-#: debugview_dap.cpp:316
-#, kde-format
-msgid "(running)"
-msgstr "(exekutatzen)"
-
-#: debugview_dap.cpp:404
-#, kde-format
-msgid "*** connection with server closed ***"
-msgstr "*** zerbitzariarekiko konexioa itxi da***"
-
-#: debugview_dap.cpp:411
-#, kde-format
-msgid "program exited with code %1"
-msgstr "programa %1 kodearekin irten da"
-
-#: debugview_dap.cpp:425
-#, kde-format
-msgid "*** waiting for user actions ***"
-msgstr "*** erabiltzailearen ekintzen zain ***"
-
-#: debugview_dap.cpp:430
-#, kde-format
-msgid "error on response: %1"
-msgstr "errorea erantzunean: %1"
-
-#: debugview_dap.cpp:445
-#, kde-format
-msgid "important"
-msgstr "garrantzitsua"
-
-#: debugview_dap.cpp:448
-#, kde-format
-msgid "telemetry"
-msgstr "telemetria"
-
-#: debugview_dap.cpp:467
-#, kde-format
-msgid "debugging process [%1] %2"
-msgstr "arazteko prozesua [%1] %2"
-
-#: debugview_dap.cpp:469
-#, kde-format
-msgid "debugging process %1"
-msgstr "arazteko prozesua %1"
-
-#: debugview_dap.cpp:472
-#, kde-format
-msgid "Start method: %1"
-msgstr "Hasteko metodoa: %1"
-
-#: debugview_dap.cpp:479
-#, kde-format
-msgid "thread %1"
-msgstr "%1 haria"
-
-#: debugview_dap.cpp:633
-#, kde-format
-msgid "breakpoint set"
-msgstr "Eten-puntua ezarri da"
-
-#: debugview_dap.cpp:641
-#, kde-format
-msgid "breakpoint cleared"
-msgstr "Eten-puntua garbitu da"
-
-#: debugview_dap.cpp:700
-#, kde-format
-msgid "(%1) breakpoint"
-msgstr "(%1) eten-puntua"
-
-#: debugview_dap.cpp:717
-#, kde-format
-msgid "<not evaluated>"
-msgstr "<ebaluatu gabe>"
-
-#: debugview_dap.cpp:739
-#, kde-format
-msgid "server capabilities"
-msgstr "zerbitzariaren gaitasunak"
-
-#: debugview_dap.cpp:742
-#, kde-format
-msgid "supported"
-msgstr "euskarriduna"
-
-#: debugview_dap.cpp:742
-#, kde-format
-msgid "unsupported"
-msgstr "euskarrigabea"
-
-#: debugview_dap.cpp:745
-#, kde-format
-msgid "conditional breakpoints"
-msgstr "baldintzazko eten-puntuak"
-
-#: debugview_dap.cpp:746
-#, kde-format
-msgid "function breakpoints"
-msgstr "funtzioko eten-puntuak"
-
-#: debugview_dap.cpp:747
-#, kde-format
-msgid "hit conditional breakpoints"
-msgstr "iritsi baldintzazko eten-puntuak"
-
-#: debugview_dap.cpp:748
-#, kde-format
-msgid "log points"
-msgstr "erregistro puntuak"
-
-#: debugview_dap.cpp:748
-#, kde-format
-msgid "modules request"
-msgstr "moduluen eskaera"
-
-#: debugview_dap.cpp:749
-#, kde-format
-msgid "goto targets request"
-msgstr "joan jomugetara eskaera"
-
-#: debugview_dap.cpp:750
-#, kde-format
-msgid "terminate request"
-msgstr "amaitzeko eskaera"
-
-#: debugview_dap.cpp:751
-#, kde-format
-msgid "terminate debuggee"
-msgstr "amaitu araztea"
-
-#: debugview_dap.cpp:958
-#, kde-format
-msgid "syntax error: expression not found"
-msgstr "sintaxi akatsa: adierazpena ez da aurkitu"
-
-#: debugview_dap.cpp:976 debugview_dap.cpp:1011 debugview_dap.cpp:1049
-#: debugview_dap.cpp:1083 debugview_dap.cpp:1119 debugview_dap.cpp:1155
-#: debugview_dap.cpp:1191 debugview_dap.cpp:1291 debugview_dap.cpp:1353
-#, kde-format
-msgid "syntax error: %1"
-msgstr "sintaxi akatsa: %1"
-
-#: debugview_dap.cpp:984 debugview_dap.cpp:1019 debugview_dap.cpp:1298
-#: debugview_dap.cpp:1361
-#, kde-format
-msgid "invalid line: %1"
-msgstr "lerro baliogabea: %1"
-
-#: debugview_dap.cpp:991 debugview_dap.cpp:996 debugview_dap.cpp:1026
-#: debugview_dap.cpp:1031 debugview_dap.cpp:1322 debugview_dap.cpp:1327
-#: debugview_dap.cpp:1368 debugview_dap.cpp:1373
-#, kde-format
-msgid "file not specified: %1"
-msgstr "zehaztu gabeko fitxategia: %1"
-
-#: debugview_dap.cpp:1061 debugview_dap.cpp:1095 debugview_dap.cpp:1131
-#: debugview_dap.cpp:1167 debugview_dap.cpp:1203
-#, kde-format
-msgid "invalid thread id: %1"
-msgstr "hari baliogabearen id: %1"
-
-#: debugview_dap.cpp:1067 debugview_dap.cpp:1101 debugview_dap.cpp:1137
-#: debugview_dap.cpp:1173 debugview_dap.cpp:1209
-#, kde-format
-msgid "thread id not specified: %1"
-msgstr "zehaztu gabeko hari id: %1"
-
-#: debugview_dap.cpp:1220
-#, kde-format
-msgid "Available commands:"
-msgstr "Komando erabilgarriak:"
-
-#: debugview_dap.cpp:1308
-#, kde-format
-msgid "conditional breakpoints are not supported by the server"
-msgstr "zerbitzariak ez ditu onartzen baldintzazko eten-puntuak"
-
-#: debugview_dap.cpp:1316
-#, kde-format
-msgid "hit conditional breakpoints are not supported by the server"
-msgstr "zerbitzariak ez ditu onartzen iritsi baldintzazko eten-puntuak"
-
-#: debugview_dap.cpp:1336
-#, kde-format
-msgid "line %1 already has a breakpoint"
-msgstr "%1. lerroak badu jada eten-puntu bat"
-
-#: debugview_dap.cpp:1381
-#, kde-format
-msgid "breakpoint not found (%1:%2)"
-msgstr "eten-puntua ez da aurkitu (%1:%2)"
-
-#: debugview_dap.cpp:1387
-#, kde-format
-msgid "Current thread: "
-msgstr "Uneko haria: "
-
-#: debugview_dap.cpp:1392 debugview_dap.cpp:1399 debugview_dap.cpp:1423
-#, kde-format
-msgid "none"
-msgstr "bat ere ez"
-
-#: debugview_dap.cpp:1395
-#, kde-format
-msgid "Current frame: "
-msgstr "Uneko markoa: "
-
-#: debugview_dap.cpp:1402
-#, kde-format
-msgid "Session state: "
-msgstr "Saioaren egoera: "
-
-#: debugview_dap.cpp:1405
-#, kde-format
-msgid "initializing"
-msgstr "hasieratzen"
-
-#: debugview_dap.cpp:1408
-#, kde-format
-msgid "running"
-msgstr "exekutatzen"
-
-#: debugview_dap.cpp:1411
-#, kde-format
-msgid "stopped"
-msgstr "geldirik"
-
-#: debugview_dap.cpp:1414
-#, kde-format
-msgid "terminated"
-msgstr "amaituta"
-
-#: debugview_dap.cpp:1417
-#, kde-format
-msgid "disconnected"
-msgstr "deskonektatuta"
-
-#: debugview_dap.cpp:1420
-#, kde-format
-msgid "post mortem"
-msgstr "post mortem"
-
-#: debugview_dap.cpp:1476
-#, kde-format
-msgid "command not found"
-msgstr "Komandoa ez da aurkitu"
-
-#: debugview_dap.cpp:1497
-#, kde-format
-msgid "missing thread id"
-msgstr "hariaren IDa falta da"
-
-#: debugview_dap.cpp:1605
-#, kde-format
-msgid "killing backend"
-msgstr "bizkarraldekoa akabatzen"
-
-#: debugview_dap.cpp:1663
-#, kde-format
-msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr "Uneko markoa [%3]: %1:%2 (%4)"
 
 #: localsview.cpp:17
 #, kde-format

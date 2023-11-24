@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2023-11-24 01:36+0000\n"
 "PO-Revision-Date: 2023-05-10 05:48+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -97,7 +97,7 @@ msgstr "solib-search-path"
 msgid "Custom Init Commands"
 msgstr "ინიციალიზაციის ხელით მითითებული ბრძანებები"
 
-#: backend.cpp:24 backend.cpp:49 debugview_dap.cpp:155
+#: backend.cpp:24 backend.cpp:49 dapbackend.cpp:155
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -178,6 +178,323 @@ msgstr "სამიზნეები"
 msgid "Target %1"
 msgstr "სამიზნე %1"
 
+#: dapbackend.cpp:169
+#, kde-format
+msgid "DAP backend failed"
+msgstr "DAP უკანაბოლოს შეცდომა"
+
+#: dapbackend.cpp:211
+#, kde-format
+msgid "program terminated"
+msgstr "პროგრამა დასრულდა"
+
+#: dapbackend.cpp:223
+#, kde-format
+msgid "requesting disconnection"
+msgstr "შეერთების გათიშვის მოთხოვნა"
+
+#: dapbackend.cpp:237
+#, kde-format
+msgid "requesting shutdown"
+msgstr "გამორთვის მოთხოვნა"
+
+#: dapbackend.cpp:261
+#, kde-format
+msgid "DAP backend: %1"
+msgstr "DAP უკანაბოლო: %1"
+
+#: dapbackend.cpp:270 gdbbackend.cpp:653
+#, kde-format
+msgid "stopped (%1)."
+msgstr "გაჩერებული (%1)."
+
+#: dapbackend.cpp:278 gdbbackend.cpp:657
+#, kde-format
+msgid "Active thread: %1 (all threads stopped)."
+msgstr "აქტიური ნაკადი: %1 (ყველა ნაკადი შეჩერდა)."
+
+#: dapbackend.cpp:280 gdbbackend.cpp:659
+#, kde-format
+msgid "Active thread: %1."
+msgstr "აქტიური ნაკადი: %1."
+
+#: dapbackend.cpp:285
+#, kde-format
+msgid "Breakpoint(s) reached:"
+msgstr "მიღწეულია გამართვის წერტილ(ებ)-ი:"
+
+#: dapbackend.cpp:307
+#, kde-format
+msgid "(continued) thread %1"
+msgstr "(გაგრძელდა) ნაკადი %1"
+
+#: dapbackend.cpp:309
+#, kde-format
+msgid "all threads continued"
+msgstr "ყველა ნაკადი გაგრძელდა"
+
+#: dapbackend.cpp:316
+#, kde-format
+msgid "(running)"
+msgstr "[გაშვებულია]"
+
+#: dapbackend.cpp:404
+#, kde-format
+msgid "*** connection with server closed ***"
+msgstr "*** სერვერთან შეერთება დაიხურა ***"
+
+#: dapbackend.cpp:411
+#, kde-format
+msgid "program exited with code %1"
+msgstr "პროგრამა დასრულდა კოდით %1"
+
+#: dapbackend.cpp:425
+#, kde-format
+msgid "*** waiting for user actions ***"
+msgstr "*** მოხმარებლის ქმედების მოლოდინი ***"
+
+#: dapbackend.cpp:430
+#, kde-format
+msgid "error on response: %1"
+msgstr "შეცდომა პასუხზე: %1"
+
+#: dapbackend.cpp:445
+#, kde-format
+msgid "important"
+msgstr "მნიშვნელოვანი"
+
+#: dapbackend.cpp:448
+#, kde-format
+msgid "telemetry"
+msgstr "ტელემეტრია"
+
+#: dapbackend.cpp:467
+#, kde-format
+msgid "debugging process [%1] %2"
+msgstr "პროცესის [%1] %2 გამართვა"
+
+#: dapbackend.cpp:469
+#, kde-format
+msgid "debugging process %1"
+msgstr "პროცესის გამართვა %1"
+
+#: dapbackend.cpp:472
+#, kde-format
+msgid "Start method: %1"
+msgstr "გაშვების მეთოდი: %1"
+
+#: dapbackend.cpp:479
+#, kde-format
+msgid "thread %1"
+msgstr "ნაკადი %1"
+
+#: dapbackend.cpp:633
+#, kde-format
+msgid "breakpoint set"
+msgstr "გამართვის წერტილი დაყენებულია"
+
+#: dapbackend.cpp:641
+#, kde-format
+msgid "breakpoint cleared"
+msgstr "გამართვის წერტილი გასუფთავდა"
+
+#: dapbackend.cpp:700
+#, kde-format
+msgid "(%1) breakpoint"
+msgstr "(%1) გამართვის წერტილი"
+
+#: dapbackend.cpp:717
+#, kde-format
+msgid "<not evaluated>"
+msgstr "<not evaluated>"
+
+#: dapbackend.cpp:739
+#, kde-format
+msgid "server capabilities"
+msgstr "სერვერის შესაძლებლობები"
+
+#: dapbackend.cpp:742
+#, kde-format
+msgid "supported"
+msgstr "მხარდაჭერილი"
+
+#: dapbackend.cpp:742
+#, kde-format
+msgid "unsupported"
+msgstr "მხარდაუჭერელი"
+
+#: dapbackend.cpp:745
+#, kde-format
+msgid "conditional breakpoints"
+msgstr "პირობითი გამართვის წერტილები"
+
+#: dapbackend.cpp:746
+#, kde-format
+msgid "function breakpoints"
+msgstr "ფუნქციის გამართვის წერტილები"
+
+#: dapbackend.cpp:747
+#, kde-format
+msgid "hit conditional breakpoints"
+msgstr "მიღწეული გამართვის წერტილები"
+
+#: dapbackend.cpp:748
+#, kde-format
+msgid "log points"
+msgstr "ჟურნალში ჩასაწერი წერტილები"
+
+#: dapbackend.cpp:748
+#, kde-format
+msgid "modules request"
+msgstr "მოდულების მოთხოვნა"
+
+#: dapbackend.cpp:749
+#, kde-format
+msgid "goto targets request"
+msgstr "სამიზნის მოთხოვნაზე გადასვლა"
+
+#: dapbackend.cpp:750
+#, kde-format
+msgid "terminate request"
+msgstr "მოთხოვნის შეწყვეტა"
+
+#: dapbackend.cpp:751
+#, kde-format
+msgid "terminate debuggee"
+msgstr "გასამართი პროცესის მოკვლა"
+
+#: dapbackend.cpp:958
+#, kde-format
+msgid "syntax error: expression not found"
+msgstr "სინტაქსის შეცდომა: გამოსახულება ვერ ვიპოვე"
+
+#: dapbackend.cpp:976 dapbackend.cpp:1011 dapbackend.cpp:1049
+#: dapbackend.cpp:1083 dapbackend.cpp:1119 dapbackend.cpp:1155
+#: dapbackend.cpp:1191 dapbackend.cpp:1291 dapbackend.cpp:1353
+#, kde-format
+msgid "syntax error: %1"
+msgstr "სინტაქსური შეცდომა: %1"
+
+#: dapbackend.cpp:984 dapbackend.cpp:1019 dapbackend.cpp:1298
+#: dapbackend.cpp:1361
+#, kde-format
+msgid "invalid line: %1"
+msgstr "არასწორი ხაზი: %1"
+
+#: dapbackend.cpp:991 dapbackend.cpp:996 dapbackend.cpp:1026
+#: dapbackend.cpp:1031 dapbackend.cpp:1322 dapbackend.cpp:1327
+#: dapbackend.cpp:1368 dapbackend.cpp:1373
+#, kde-format
+msgid "file not specified: %1"
+msgstr "ფაილი მითითებული არაა: %1"
+
+#: dapbackend.cpp:1061 dapbackend.cpp:1095 dapbackend.cpp:1131
+#: dapbackend.cpp:1167 dapbackend.cpp:1203
+#, kde-format
+msgid "invalid thread id: %1"
+msgstr "ნაკადის არასწორი ID: %1"
+
+#: dapbackend.cpp:1067 dapbackend.cpp:1101 dapbackend.cpp:1137
+#: dapbackend.cpp:1173 dapbackend.cpp:1209
+#, kde-format
+msgid "thread id not specified: %1"
+msgstr "ნაკადი მითითებული არაა: %1"
+
+#: dapbackend.cpp:1220
+#, kde-format
+msgid "Available commands:"
+msgstr "ხელმისაწვდომი ბრძანებები:"
+
+#: dapbackend.cpp:1308
+#, kde-format
+msgid "conditional breakpoints are not supported by the server"
+msgstr "პირობითი გამართვის წერტილები სერვერის მიერ მხარდაჭერილი არაა"
+
+#: dapbackend.cpp:1316
+#, kde-format
+msgid "hit conditional breakpoints are not supported by the server"
+msgstr "პირობით გამართვის წერტილებამდე მიღწევა სერვერის მიერ მხარდაჭერილი არაა"
+
+#: dapbackend.cpp:1336
+#, kde-format
+msgid "line %1 already has a breakpoint"
+msgstr "ხაზს %1 გამართვის წერტილი უკვე გააჩნია"
+
+#: dapbackend.cpp:1381
+#, kde-format
+msgid "breakpoint not found (%1:%2)"
+msgstr "გამართვის წერტილი ვერ ვიპოვე (%1:%2)"
+
+#: dapbackend.cpp:1387
+#, kde-format
+msgid "Current thread: "
+msgstr "მიმდინარე ნაკადი: "
+
+#: dapbackend.cpp:1392 dapbackend.cpp:1399 dapbackend.cpp:1423
+#, kde-format
+msgid "none"
+msgstr "არა"
+
+#: dapbackend.cpp:1395
+#, kde-format
+msgid "Current frame: "
+msgstr "მიმდინარე კადრი: "
+
+#: dapbackend.cpp:1402
+#, kde-format
+msgid "Session state: "
+msgstr "სესიის მდგომარეობა: "
+
+#: dapbackend.cpp:1405
+#, kde-format
+msgid "initializing"
+msgstr "ინიციალიზაცია"
+
+#: dapbackend.cpp:1408
+#, kde-format
+msgid "running"
+msgstr "გაშვებულია"
+
+#: dapbackend.cpp:1411
+#, kde-format
+msgid "stopped"
+msgstr "შეჩერებულია"
+
+#: dapbackend.cpp:1414
+#, kde-format
+msgid "terminated"
+msgstr "სწეყდა"
+
+#: dapbackend.cpp:1417
+#, kde-format
+msgid "disconnected"
+msgstr "გათიშულია"
+
+#: dapbackend.cpp:1420
+#, kde-format
+msgid "post mortem"
+msgstr "სიკვდილის შემდეგ"
+
+#: dapbackend.cpp:1476
+#, kde-format
+msgid "command not found"
+msgstr "ბრძანება ვერ ვიპოვე"
+
+#: dapbackend.cpp:1497
+#, kde-format
+msgid "missing thread id"
+msgstr "ნაკლული ნაკადის ID"
+
+#: dapbackend.cpp:1605
+#, kde-format
+msgid "killing backend"
+msgstr "უკანაბოლოს მოკვლა"
+
+#: dapbackend.cpp:1663
+#, kde-format
+msgid "Current frame [%3]: %1:%2 (%4)"
+msgstr "მიმდინარე კადრი [%3]: %1:%2 (%4)"
+
 #. i18n: ectx: attribute (title), widget (QWidget, tab_1)
 #: debugconfig.ui:33
 #, kde-format
@@ -221,22 +538,22 @@ msgstr "JSON მონაცემები არასწორია: JSON �
 msgid "JSON data is invalid: %1"
 msgstr "JSON მონაცემები არასწორია: %1"
 
-#: debugview.cpp:35
+#: gdbbackend.cpp:35
 #, kde-format
 msgid "Locals"
 msgstr "ლოკალურები"
 
-#: debugview.cpp:37
+#: gdbbackend.cpp:37
 #, kde-format
 msgid "CPU registers"
 msgstr "CPU-ის რეგისტრები"
 
-#: debugview.cpp:160
+#: gdbbackend.cpp:158
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
 msgstr "დააყენეთ გამშვები ფაილი 'გამართვის' პანელის 'მორგების' ჩანართში."
 
-#: debugview.cpp:169
+#: gdbbackend.cpp:167
 #, kde-format
 msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
@@ -245,7 +562,7 @@ msgstr ""
 "გამმართველი მითითებული არაა. აირჩიეთ ერთ-ერთი 'გამართვის' პანელის 'მორგების "
 "ჩანართზე'."
 
-#: debugview.cpp:178
+#: gdbbackend.cpp:176
 #, kde-format
 msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
@@ -254,52 +571,37 @@ msgstr ""
 "გამმართველი აღმოჩენილი არაა. დარწმუნდით, რომ გიყენიათ ის. არჩეულია "
 "გამმართველია '%1'"
 
-#: debugview.cpp:384
+#: gdbbackend.cpp:382
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "გამმართველის პროცესის გაშვების შეცდომა"
 
-#: debugview.cpp:442
+#: gdbbackend.cpp:440
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb ნორმალურად დასრულდა ***"
 
-#: debugview.cpp:648
+#: gdbbackend.cpp:646
 #, kde-format
 msgid "all threads running"
 msgstr "ყველა ნაკადი გაშვებულია"
 
-#: debugview.cpp:650
+#: gdbbackend.cpp:648
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "გაშვებული ნაკადები: %1"
 
-#: debugview.cpp:655 debugview_dap.cpp:270
-#, kde-format
-msgid "stopped (%1)."
-msgstr "გაჩერებული (%1)."
-
-#: debugview.cpp:659 debugview_dap.cpp:278
-#, kde-format
-msgid "Active thread: %1 (all threads stopped)."
-msgstr "აქტიური ნაკადი: %1 (ყველა ნაკადი შეჩერდა)."
-
-#: debugview.cpp:661 debugview_dap.cpp:280
-#, kde-format
-msgid "Active thread: %1."
-msgstr "აქტიური ნაკადი: %1."
-
-#: debugview.cpp:680
+#: gdbbackend.cpp:678
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "მიმდინარე კადრი: %1:%2"
 
-#: debugview.cpp:707
+#: gdbbackend.cpp:705
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "ჰოსტი: %1. სამიზნე: %1"
 
-#: debugview.cpp:1377
+#: gdbbackend.cpp:1375
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
@@ -308,312 +610,10 @@ msgstr ""
 "gdb-mi: ბოლო პასუხის დამუშავების შეცდომა: %1. ძალიან ბევრი ერთდროული "
 "შეცდომა. გაითიშება."
 
-#: debugview.cpp:1379
+#: gdbbackend.cpp:1377
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: ბოლო პასუხის დამუშავების შეცდომა: %1"
-
-#: debugview_dap.cpp:169
-#, kde-format
-msgid "DAP backend failed"
-msgstr "DAP უკანაბოლოს შეცდომა"
-
-#: debugview_dap.cpp:211
-#, kde-format
-msgid "program terminated"
-msgstr "პროგრამა დასრულდა"
-
-#: debugview_dap.cpp:223
-#, kde-format
-msgid "requesting disconnection"
-msgstr "შეერთების გათიშვის მოთხოვნა"
-
-#: debugview_dap.cpp:237
-#, kde-format
-msgid "requesting shutdown"
-msgstr "გამორთვის მოთხოვნა"
-
-#: debugview_dap.cpp:261
-#, kde-format
-msgid "DAP backend: %1"
-msgstr "DAP უკანაბოლო: %1"
-
-#: debugview_dap.cpp:285
-#, kde-format
-msgid "Breakpoint(s) reached:"
-msgstr "მიღწეულია გამართვის წერტილ(ებ)-ი:"
-
-#: debugview_dap.cpp:307
-#, kde-format
-msgid "(continued) thread %1"
-msgstr "(გაგრძელდა) ნაკადი %1"
-
-#: debugview_dap.cpp:309
-#, kde-format
-msgid "all threads continued"
-msgstr "ყველა ნაკადი გაგრძელდა"
-
-#: debugview_dap.cpp:316
-#, kde-format
-msgid "(running)"
-msgstr "[გაშვებულია]"
-
-#: debugview_dap.cpp:404
-#, kde-format
-msgid "*** connection with server closed ***"
-msgstr "*** სერვერთან შეერთება დაიხურა ***"
-
-#: debugview_dap.cpp:411
-#, kde-format
-msgid "program exited with code %1"
-msgstr "პროგრამა დასრულდა კოდით %1"
-
-#: debugview_dap.cpp:425
-#, kde-format
-msgid "*** waiting for user actions ***"
-msgstr "*** მოხმარებლის ქმედების მოლოდინი ***"
-
-#: debugview_dap.cpp:430
-#, kde-format
-msgid "error on response: %1"
-msgstr "შეცდომა პასუხზე: %1"
-
-#: debugview_dap.cpp:445
-#, kde-format
-msgid "important"
-msgstr "მნიშვნელოვანი"
-
-#: debugview_dap.cpp:448
-#, kde-format
-msgid "telemetry"
-msgstr "ტელემეტრია"
-
-#: debugview_dap.cpp:467
-#, kde-format
-msgid "debugging process [%1] %2"
-msgstr "პროცესის [%1] %2 გამართვა"
-
-#: debugview_dap.cpp:469
-#, kde-format
-msgid "debugging process %1"
-msgstr "პროცესის გამართვა %1"
-
-#: debugview_dap.cpp:472
-#, kde-format
-msgid "Start method: %1"
-msgstr "გაშვების მეთოდი: %1"
-
-#: debugview_dap.cpp:479
-#, kde-format
-msgid "thread %1"
-msgstr "ნაკადი %1"
-
-#: debugview_dap.cpp:633
-#, kde-format
-msgid "breakpoint set"
-msgstr "გამართვის წერტილი დაყენებულია"
-
-#: debugview_dap.cpp:641
-#, kde-format
-msgid "breakpoint cleared"
-msgstr "გამართვის წერტილი გასუფთავდა"
-
-#: debugview_dap.cpp:700
-#, kde-format
-msgid "(%1) breakpoint"
-msgstr "(%1) გამართვის წერტილი"
-
-#: debugview_dap.cpp:717
-#, kde-format
-msgid "<not evaluated>"
-msgstr "<not evaluated>"
-
-#: debugview_dap.cpp:739
-#, kde-format
-msgid "server capabilities"
-msgstr "სერვერის შესაძლებლობები"
-
-#: debugview_dap.cpp:742
-#, kde-format
-msgid "supported"
-msgstr "მხარდაჭერილი"
-
-#: debugview_dap.cpp:742
-#, kde-format
-msgid "unsupported"
-msgstr "მხარდაუჭერელი"
-
-#: debugview_dap.cpp:745
-#, kde-format
-msgid "conditional breakpoints"
-msgstr "პირობითი გამართვის წერტილები"
-
-#: debugview_dap.cpp:746
-#, kde-format
-msgid "function breakpoints"
-msgstr "ფუნქციის გამართვის წერტილები"
-
-#: debugview_dap.cpp:747
-#, kde-format
-msgid "hit conditional breakpoints"
-msgstr "მიღწეული გამართვის წერტილები"
-
-#: debugview_dap.cpp:748
-#, kde-format
-msgid "log points"
-msgstr "ჟურნალში ჩასაწერი წერტილები"
-
-#: debugview_dap.cpp:748
-#, kde-format
-msgid "modules request"
-msgstr "მოდულების მოთხოვნა"
-
-#: debugview_dap.cpp:749
-#, kde-format
-msgid "goto targets request"
-msgstr "სამიზნის მოთხოვნაზე გადასვლა"
-
-#: debugview_dap.cpp:750
-#, kde-format
-msgid "terminate request"
-msgstr "მოთხოვნის შეწყვეტა"
-
-#: debugview_dap.cpp:751
-#, kde-format
-msgid "terminate debuggee"
-msgstr "გასამართი პროცესის მოკვლა"
-
-#: debugview_dap.cpp:958
-#, kde-format
-msgid "syntax error: expression not found"
-msgstr "სინტაქსის შეცდომა: გამოსახულება ვერ ვიპოვე"
-
-#: debugview_dap.cpp:976 debugview_dap.cpp:1011 debugview_dap.cpp:1049
-#: debugview_dap.cpp:1083 debugview_dap.cpp:1119 debugview_dap.cpp:1155
-#: debugview_dap.cpp:1191 debugview_dap.cpp:1291 debugview_dap.cpp:1353
-#, kde-format
-msgid "syntax error: %1"
-msgstr "სინტაქსური შეცდომა: %1"
-
-#: debugview_dap.cpp:984 debugview_dap.cpp:1019 debugview_dap.cpp:1298
-#: debugview_dap.cpp:1361
-#, kde-format
-msgid "invalid line: %1"
-msgstr "არასწორი ხაზი: %1"
-
-#: debugview_dap.cpp:991 debugview_dap.cpp:996 debugview_dap.cpp:1026
-#: debugview_dap.cpp:1031 debugview_dap.cpp:1322 debugview_dap.cpp:1327
-#: debugview_dap.cpp:1368 debugview_dap.cpp:1373
-#, kde-format
-msgid "file not specified: %1"
-msgstr "ფაილი მითითებული არაა: %1"
-
-#: debugview_dap.cpp:1061 debugview_dap.cpp:1095 debugview_dap.cpp:1131
-#: debugview_dap.cpp:1167 debugview_dap.cpp:1203
-#, kde-format
-msgid "invalid thread id: %1"
-msgstr "ნაკადის არასწორი ID: %1"
-
-#: debugview_dap.cpp:1067 debugview_dap.cpp:1101 debugview_dap.cpp:1137
-#: debugview_dap.cpp:1173 debugview_dap.cpp:1209
-#, kde-format
-msgid "thread id not specified: %1"
-msgstr "ნაკადი მითითებული არაა: %1"
-
-#: debugview_dap.cpp:1220
-#, kde-format
-msgid "Available commands:"
-msgstr "ხელმისაწვდომი ბრძანებები:"
-
-#: debugview_dap.cpp:1308
-#, kde-format
-msgid "conditional breakpoints are not supported by the server"
-msgstr "პირობითი გამართვის წერტილები სერვერის მიერ მხარდაჭერილი არაა"
-
-#: debugview_dap.cpp:1316
-#, kde-format
-msgid "hit conditional breakpoints are not supported by the server"
-msgstr "პირობით გამართვის წერტილებამდე მიღწევა სერვერის მიერ მხარდაჭერილი არაა"
-
-#: debugview_dap.cpp:1336
-#, kde-format
-msgid "line %1 already has a breakpoint"
-msgstr "ხაზს %1 გამართვის წერტილი უკვე გააჩნია"
-
-#: debugview_dap.cpp:1381
-#, kde-format
-msgid "breakpoint not found (%1:%2)"
-msgstr "გამართვის წერტილი ვერ ვიპოვე (%1:%2)"
-
-#: debugview_dap.cpp:1387
-#, kde-format
-msgid "Current thread: "
-msgstr "მიმდინარე ნაკადი: "
-
-#: debugview_dap.cpp:1392 debugview_dap.cpp:1399 debugview_dap.cpp:1423
-#, kde-format
-msgid "none"
-msgstr "არა"
-
-#: debugview_dap.cpp:1395
-#, kde-format
-msgid "Current frame: "
-msgstr "მიმდინარე კადრი: "
-
-#: debugview_dap.cpp:1402
-#, kde-format
-msgid "Session state: "
-msgstr "სესიის მდგომარეობა: "
-
-#: debugview_dap.cpp:1405
-#, kde-format
-msgid "initializing"
-msgstr "ინიციალიზაცია"
-
-#: debugview_dap.cpp:1408
-#, kde-format
-msgid "running"
-msgstr "გაშვებულია"
-
-#: debugview_dap.cpp:1411
-#, kde-format
-msgid "stopped"
-msgstr "შეჩერებულია"
-
-#: debugview_dap.cpp:1414
-#, kde-format
-msgid "terminated"
-msgstr "სწეყდა"
-
-#: debugview_dap.cpp:1417
-#, kde-format
-msgid "disconnected"
-msgstr "გათიშულია"
-
-#: debugview_dap.cpp:1420
-#, kde-format
-msgid "post mortem"
-msgstr "სიკვდილის შემდეგ"
-
-#: debugview_dap.cpp:1476
-#, kde-format
-msgid "command not found"
-msgstr "ბრძანება ვერ ვიპოვე"
-
-#: debugview_dap.cpp:1497
-#, kde-format
-msgid "missing thread id"
-msgstr "ნაკლული ნაკადის ID"
-
-#: debugview_dap.cpp:1605
-#, kde-format
-msgid "killing backend"
-msgstr "უკანაბოლოს მოკვლა"
-
-#: debugview_dap.cpp:1663
-#, kde-format
-msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr "მიმდინარე კადრი [%3]: %1:%2 (%4)"
 
 #: localsview.cpp:17
 #, kde-format

@@ -169,12 +169,11 @@ void KeyboardMacrosPluginView::macroLoaded(bool enable)
 void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const QString &description)
 {
     QAction *action;
-    QString label = KStringHandler::rsqueeze(name + QStringLiteral(": ") + description, 50)
-                        // avoid unwanted accelerators
-                        .replace(QRegularExpression(QStringLiteral("&(?!&)")), QStringLiteral("&&"));
+    // avoid unwanted accelerators
+    QString label = KLocalizedString::removeAcceleratorMarker(KStringHandler::rsqueeze(name + QStringLiteral(": ") + description, 50));
 
     // add load action
-    action = new QAction(QStringLiteral("Load ") + label);
+    action = new QAction(i18n("Load %1", label), this);
     action->setToolTip(i18n("Load the '%1' macro as the current one.", name));
     action->setEnabled(true);
     connect(action, &QAction::triggered, m_plugin, [this, name] {
@@ -187,7 +186,7 @@ void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const QString 
     m_loadMenu->setEnabled(true);
 
     // add play action
-    action = new QAction(QStringLiteral("Play ") + label);
+    action = new QAction(i18n("Play %1", label), this);
     action->setToolTip(i18n("Play the '%1' macro without loading it.", name));
     action->setEnabled(true);
     connect(action, &QAction::triggered, m_plugin, [this, name] {
@@ -202,7 +201,7 @@ void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const QString 
     m_playMenu->setEnabled(true);
 
     // add wipe action
-    action = new QAction(QStringLiteral("Wipe ") + label);
+    action = new QAction(i18n("Wipe %1", label), this);
     action->setToolTip(i18n("Wipe the '%1' macro.", name));
     action->setEnabled(true);
     connect(action, &QAction::triggered, m_plugin, [this, name] {

@@ -93,9 +93,27 @@ void KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged(int)
 {
     m_analysisTool = m_toolSelector->currentData(Qt::UserRole + 1).value<KateProjectCodeAnalysisTool *>();
     if (m_analysisTool) {
-        m_toolInfoLabel->setText(i18n("%1<br/><br/>The tool will be run on all project files which match this list of file extensions:<br/><br/><b>%2</b>",
-                                      m_analysisTool->description(),
-                                      m_analysisTool->fileExtensions()));
+        const QString fullExecutable = safeExecutableName(m_analysisTool->path());
+        if (fullExecutable.isEmpty()) {
+            m_startStopAnalysis->setEnabled(false);
+            m_toolInfoLabel->setText(
+                i18n("'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run on all project files which match this list of file "
+                     "extensions:<br/><b>%4</b>",
+                     m_analysisTool->name(),
+                     m_analysisTool->notInstalledMessage(),
+                     m_analysisTool->description(),
+                     m_analysisTool->fileExtensions()));
+
+        } else {
+            m_startStopAnalysis->setEnabled(true);
+            m_toolInfoLabel->setText(
+                i18n("Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project files which match this list of file "
+                     "extensions:<br/><b>%4</b>",
+                     m_analysisTool->name(),
+                     fullExecutable,
+                     m_analysisTool->description(),
+                     m_analysisTool->fileExtensions()));
+        }
     }
 }
 

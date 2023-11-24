@@ -82,10 +82,27 @@ FileDiagnostics KateProjectCodeAnalysisToolClazy::parseLine(const QString &line)
     if (idxColon < 0) {
         return {};
     }
+    // File
     const QString file = line.mid(0, idxColon);
     idxColon++;
+
+    // Line
     int nextColon = line.indexOf(QLatin1Char(':'), idxColon);
+    if (nextColon < 0) {
+        return {};
+    }
     const QString lineNo = line.mid(idxColon, nextColon - idxColon);
+    bool ok = true;
+    lineNo.toInt(&ok);
+    if (!ok) {
+        return {};
+    }
+    idxColon = nextColon + 1;
+
+    // Column
+    nextColon = line.indexOf(QLatin1Char(':'), idxColon);
+    const QString columnNo = line.mid(idxColon, nextColon - idxColon);
+    idxColon = nextColon + 1;
 
     int spaceIdx = line.indexOf(QLatin1Char(' '), nextColon);
     if (spaceIdx < 0) {
@@ -100,14 +117,29 @@ FileDiagnostics KateProjectCodeAnalysisToolClazy::parseLine(const QString &line)
     const QString severity = line.mid(spaceIdx + 1, idxColon - (spaceIdx + 1));
 
     idxColon++;
-    const QString msg = line.mid(idxColon);
+    QString msg = line.mid(idxColon);
+
+    // Code e.g [-Wclazy-range-loop]
+    QString code;
+    {
+        int bracketOpen = msg.lastIndexOf(QLatin1Char('['));
+        int bracketClose = msg.lastIndexOf(QLatin1Char(']'));
+        if (bracketOpen > 0 && bracketClose > 0) {
+            code = msg.mid(bracketOpen + 1, bracketClose - bracketOpen);
+            // remove code from msg
+            msg.remove(bracketOpen, (bracketClose - bracketOpen) + 1);
+        }
+    }
 
     const auto url = QUrl::fromLocalFile(file);
     Diagnostic d;
     d.message = msg;
     d.severity = DiagnosticSeverity::Warning;
+    d.code = code;
     int ln = lineNo.toInt() - 1;
-    d.range = KTextEditor::Range(ln, 0, ln, -1);
+    int col = columnNo.toInt() - 1;
+    col = col < 0 ? 0 : col;
+    d.range = KTextEditor::Range(ln, col, ln, col);
     return {url, {d}};
 }
 

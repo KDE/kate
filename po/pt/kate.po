@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-22 01:37+0000\n"
+"POT-Creation-Date: 2023-11-25 01:36+0000\n"
 "PO-Revision-Date: 2023-07-02 02:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
@@ -175,40 +175,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Editor de Texto"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:352 lib/filehistorywidget.cpp:247
+#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "Fechar"
 
-#: lib/commitfilesview.cpp:388 lib/kateviewmanager.cpp:325
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:325
 #: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "Abrir um Ficheiro"
 
-#: lib/commitfilesview.cpp:394 lib/katemainwindow.cpp:351
+#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:351
 #, kde-format
 msgid "Copy Location"
 msgstr "Copiar a Localização"
 
-#: lib/commitfilesview.cpp:416 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518
 #, kde-format
 msgid "Invalid hash"
 msgstr "Código inválido"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "O %1 não existe num repositório de Git."
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:539
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -572,31 +572,31 @@ msgstr "Ficheiro apagado %1"
 msgid "No differences found"
 msgstr "Nenhuma diferença encontrada"
 
-#: lib/filehistorywidget.cpp:282
+#: lib/filehistorywidget.cpp:288
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Não foi possível obter o histórico dos ficheiros: o executável 'git' não "
 "consta na PATH"
 
-#: lib/filehistorywidget.cpp:295
+#: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Não foi possível obter o histórico dos ficheiros: %1"
 
-#: lib/filehistorywidget.cpp:306
+#: lib/filehistorywidget.cpp:312
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Copiar o Código da Modificação"
 
-#: lib/filehistorywidget.cpp:314
+#: lib/filehistorywidget.cpp:320
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Mostrar a Modificação Completa"
 
-#: lib/filehistorywidget.cpp:373
+#: lib/filehistorywidget.cpp:379
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

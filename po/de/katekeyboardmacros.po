@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2023-11-25 01:36+0000\n"
 "PO-Revision-Date: 2022-11-18 16:11+0100\n"
 "Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -36,7 +36,7 @@ msgstr "„%1“ kann nicht geladen werden: ungültiges Makro; wird gelöscht."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
+#: keyboardmacrospluginview.cpp:286 keyboardmacrospluginview.cpp:320 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Tastaturmakros"
@@ -226,27 +226,44 @@ msgstr "Ein benanntes Makro löschen."
 msgid "End Macro &Recording"
 msgstr "Makroaufnahme bee&nden"
 
-#: keyboardmacrospluginview.cpp:178
+#: keyboardmacrospluginview.cpp:176
+#, fuzzy, kde-format
+#| msgid "Loaded '%1'"
+msgid "Load %1"
+msgstr "„%1“ geladen"
+
+#: keyboardmacrospluginview.cpp:177
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "Das Makro „%1“ als das aktuelle laden."
 
-#: keyboardmacrospluginview.cpp:191
+#: keyboardmacrospluginview.cpp:189
+#, kde-format
+msgid "Play %1"
+msgstr ""
+
+#: keyboardmacrospluginview.cpp:190
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "Das Makro „%1“ wiedergeben ohne es zu laden."
 
-#: keyboardmacrospluginview.cpp:206
+#: keyboardmacrospluginview.cpp:204
+#, fuzzy, kde-format
+#| msgid "Wiped '%1'"
+msgid "Wipe %1"
+msgstr "„%1“ gelöscht"
+
+#: keyboardmacrospluginview.cpp:205
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "Das Makro „%1“ löschen."
 
-#: keyboardmacrospluginview.cpp:287
+#: keyboardmacrospluginview.cpp:286
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Aktuelles Makro speichern als?"
 
-#: keyboardmacrospluginview.cpp:321
+#: keyboardmacrospluginview.cpp:320
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Das Makro „%1“ löschen?"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2023-11-25 01:36+0000\n"
 "PO-Revision-Date: 2023-01-16 22:17+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Non poteva cargar '%1': macro malformate, essugar lo."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
+#: keyboardmacrospluginview.cpp:286 keyboardmacrospluginview.cpp:320 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Macros de Claviero"
@@ -224,27 +224,44 @@ msgstr "Essuga un macro nominate."
 msgid "End Macro &Recording"
 msgstr "Termina &Rgistrar de Macro"
 
-#: keyboardmacrospluginview.cpp:178
+#: keyboardmacrospluginview.cpp:176
+#, fuzzy, kde-format
+#| msgid "Loaded '%1'"
+msgid "Load %1"
+msgstr "Cargate '%1'"
+
+#: keyboardmacrospluginview.cpp:177
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "Carga le macro '%1' omo le currente."
 
-#: keyboardmacrospluginview.cpp:191
+#: keyboardmacrospluginview.cpp:189
+#, kde-format
+msgid "Play %1"
+msgstr ""
+
+#: keyboardmacrospluginview.cpp:190
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "Reproduce le macro '%1' sin cargar lo."
 
-#: keyboardmacrospluginview.cpp:206
+#: keyboardmacrospluginview.cpp:204
+#, fuzzy, kde-format
+#| msgid "Wiped '%1'"
+msgid "Wipe %1"
+msgstr "Essugate '%1'"
+
+#: keyboardmacrospluginview.cpp:205
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "Essuga le  macro '%1'."
 
-#: keyboardmacrospluginview.cpp:287
+#: keyboardmacrospluginview.cpp:286
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Salveguarda macro currente como?"
 
-#: keyboardmacrospluginview.cpp:321
+#: keyboardmacrospluginview.cpp:320
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Essuga le macro '%1'?"

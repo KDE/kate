@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2023-11-25 01:36+0000\n"
 "PO-Revision-Date: 2023-01-25 17:34+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -33,7 +33,7 @@ msgstr "Nemožno načítať '%1': chybne vytvorené makro; vymazanie."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
+#: keyboardmacrospluginview.cpp:286 keyboardmacrospluginview.cpp:320 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Makrá klávesnice"
@@ -223,27 +223,44 @@ msgstr "Vymazať pomenované makro."
 msgid "End Macro &Recording"
 msgstr "Ukončiť nah&rávanie makra"
 
-#: keyboardmacrospluginview.cpp:178
+#: keyboardmacrospluginview.cpp:176
+#, fuzzy, kde-format
+#| msgid "Loaded '%1'"
+msgid "Load %1"
+msgstr "Načítané '%1'"
+
+#: keyboardmacrospluginview.cpp:177
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "Načítať makro '%1' ako aktuálne."
 
-#: keyboardmacrospluginview.cpp:191
+#: keyboardmacrospluginview.cpp:189
+#, kde-format
+msgid "Play %1"
+msgstr ""
+
+#: keyboardmacrospluginview.cpp:190
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "Prehrať makro '%1' bez jeho načítania."
 
-#: keyboardmacrospluginview.cpp:206
+#: keyboardmacrospluginview.cpp:204
+#, fuzzy, kde-format
+#| msgid "Wiped '%1'"
+msgid "Wipe %1"
+msgstr "Vymazané '%1'"
+
+#: keyboardmacrospluginview.cpp:205
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "Vymazať makro '%1'."
 
-#: keyboardmacrospluginview.cpp:287
+#: keyboardmacrospluginview.cpp:286
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Uložiť aktuálne makro ako?"
 
-#: keyboardmacrospluginview.cpp:321
+#: keyboardmacrospluginview.cpp:320
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Vymazať makro '%1'?"

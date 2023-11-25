@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2023-11-25 01:36+0000\n"
 "PO-Revision-Date: 2023-04-09 23:45+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -35,7 +35,7 @@ msgstr "Ne eblis ŝargi '%1': misformita makroo; viŝante ĝin."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:287 keyboardmacrospluginview.cpp:321 ui.rc:12
+#: keyboardmacrospluginview.cpp:286 keyboardmacrospluginview.cpp:320 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Klavaraj makrooj"
@@ -223,27 +223,44 @@ msgstr "Forviŝi nomitan makroon."
 msgid "End Macro &Recording"
 msgstr "Fini Makro-&Registradon"
 
-#: keyboardmacrospluginview.cpp:178
+#: keyboardmacrospluginview.cpp:176
+#, fuzzy, kde-format
+#| msgid "Loaded '%1'"
+msgid "Load %1"
+msgstr "Ŝargis '%1'"
+
+#: keyboardmacrospluginview.cpp:177
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "Ŝargi la makroon '%1' kiel la nunan."
 
-#: keyboardmacrospluginview.cpp:191
+#: keyboardmacrospluginview.cpp:189
+#, kde-format
+msgid "Play %1"
+msgstr ""
+
+#: keyboardmacrospluginview.cpp:190
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "Ruli la makroon '%1' sen ŝargi ĝin."
 
-#: keyboardmacrospluginview.cpp:206
+#: keyboardmacrospluginview.cpp:204
+#, fuzzy, kde-format
+#| msgid "Wiped '%1'"
+msgid "Wipe %1"
+msgstr "Viŝis '%1'"
+
+#: keyboardmacrospluginview.cpp:205
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "Forviŝi la makroon '%1'."
 
-#: keyboardmacrospluginview.cpp:287
+#: keyboardmacrospluginview.cpp:286
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Ĉu konservi nunan makroon kiel?"
 
-#: keyboardmacrospluginview.cpp:321
+#: keyboardmacrospluginview.cpp:320
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Ĉu viŝi la makroon '%1'?"

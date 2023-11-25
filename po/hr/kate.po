@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate 0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-22 01:37+0000\n"
+"POT-Creation-Date: 2023-11-25 01:36+0000\n"
 "PO-Revision-Date: 2010-03-15 15:31+0100\n"
 "Last-Translator: Andrej Dundovic <adundovi@gmail.com>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -159,42 +159,42 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - uređivač teksta"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:352 lib/filehistorywidget.cpp:247
+#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
 #: lib/session/katesessionmanagedialog.ui:183
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close"
 msgstr "&Zatvori sve"
 
-#: lib/commitfilesview.cpp:388 lib/kateviewmanager.cpp:325
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:325
 #: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "Otvori datoteku"
 
-#: lib/commitfilesview.cpp:394 lib/katemainwindow.cpp:351
+#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:351
 #, fuzzy, kde-format
 msgid "Copy Location"
 msgstr "Lokacija"
 
-#: lib/commitfilesview.cpp:416 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518
 #, fuzzy, kde-format
 #| msgid "Invalid Folder"
 msgid "Invalid hash"
 msgstr "Neispravna mapa"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:539
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
@@ -570,30 +570,30 @@ msgstr "Izbrisano"
 msgid "No differences found"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:282
+#: lib/filehistorywidget.cpp:288
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:295
+#: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:306
+#: lib/filehistorywidget.cpp:312
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:314
+#: lib/filehistorywidget.cpp:320
 #, fuzzy, kde-format
 #| msgid "Sho&w Path"
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Prikaži &putanju"
 
-#: lib/filehistorywidget.cpp:373
+#: lib/filehistorywidget.cpp:379
 #, fuzzy, kde-format
 #| msgid "File Selector"
 msgctxt "@title:tab"

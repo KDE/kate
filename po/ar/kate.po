@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-22 01:37+0000\n"
+"POT-Creation-Date: 2023-11-25 01:36+0000\n"
 "PO-Revision-Date: 2023-07-06 10:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -163,40 +163,40 @@ msgid "KWrite - Text Editor"
 msgstr "كاتبك - محرّر نصوص"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:352 lib/filehistorywidget.cpp:247
+#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "أغلق"
 
-#: lib/commitfilesview.cpp:388 lib/kateviewmanager.cpp:325
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:325
 #: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "افتح ملفًّا"
 
-#: lib/commitfilesview.cpp:394 lib/katemainwindow.cpp:351
+#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:351
 #, kde-format
 msgid "Copy Location"
 msgstr "انسخ المكان"
 
-#: lib/commitfilesview.cpp:416 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "Git"
 msgstr "غت"
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518
 #, kde-format
 msgid "Invalid hash"
 msgstr "تلبيدة غير صالحة"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 غير موجود في مستودع غت"
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:539
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -570,29 +570,29 @@ msgstr "ملف محذوف %1"
 msgid "No differences found"
 msgstr "لم يعثر على فروقات"
 
-#: lib/filehistorywidget.cpp:282
+#: lib/filehistorywidget.cpp:288
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "أخفق في الحصول على ملف التاريخ: لم يعثر على تنفيذي غت في المسار PATH"
 
-#: lib/filehistorywidget.cpp:295
+#: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "أخفق في الحصول على ملف التاريخ: %1"
 
-#: lib/filehistorywidget.cpp:306
+#: lib/filehistorywidget.cpp:312
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "انسخ تلبيدة الإيداع"
 
-#: lib/filehistorywidget.cpp:314
+#: lib/filehistorywidget.cpp:320
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "أظهر كامل الإيداع"
 
-#: lib/filehistorywidget.cpp:373
+#: lib/filehistorywidget.cpp:379
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

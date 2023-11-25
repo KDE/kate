@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-22 01:37+0000\n"
+"POT-Creation-Date: 2023-11-25 01:36+0000\n"
 "PO-Revision-Date: 2023-11-19 03:37\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -157,40 +157,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - 文本编辑器"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:352 lib/filehistorywidget.cpp:247
+#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "关闭"
 
-#: lib/commitfilesview.cpp:388 lib/kateviewmanager.cpp:325
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:325
 #: lib/kateviewmanager.cpp:327
 #, kde-format
 msgid "Open File"
 msgstr "打开文件"
 
-#: lib/commitfilesview.cpp:394 lib/katemainwindow.cpp:351
+#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:351
 #, kde-format
 msgid "Copy Location"
 msgstr "复制位置"
 
-#: lib/commitfilesview.cpp:416 lib/commitfilesview.cpp:512
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518
 #, kde-format
 msgid "Invalid hash"
 msgstr "哈希无效"
 
-#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 不存在于 git 仓库中。"
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:539
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -546,30 +546,30 @@ msgstr "已删除文件 %1"
 msgid "No differences found"
 msgstr "未发现差异"
 
-#: lib/filehistorywidget.cpp:282
+#: lib/filehistorywidget.cpp:288
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "无法获取文件历史：可执行文件 git 无法在环境变量 PATH 指定的位置中找到。"
 
-#: lib/filehistorywidget.cpp:295
+#: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "无法获取文件历史：%1"
 
-#: lib/filehistorywidget.cpp:306
+#: lib/filehistorywidget.cpp:312
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "复制提交哈希值"
 
-#: lib/filehistorywidget.cpp:314
+#: lib/filehistorywidget.cpp:320
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "显示完整提交"
 
-#: lib/filehistorywidget.cpp:373
+#: lib/filehistorywidget.cpp:379
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

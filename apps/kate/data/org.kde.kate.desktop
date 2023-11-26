@@ -222,6 +222,6 @@ Keywords[tr]=text;txt;düzenleyici;programlama;programcı;geliştirme;geliştiri
 Keywords[uk]=text;txt;editor;programming;programmer;development;developer;code;текст;теексте;редактор;програмування;програміст;розробка;розробник;код;
 Keywords[vi]=text;txt;editor;programming;programmer;development;developer;code;văn bản;trình biên tập;lập trình;lập trình viên;phát triển;nhà phát triển;mã;
 Keywords[x-test]=xxtextxx;xxtxtxx;xxeditorxx;xxprogrammingxx;xxprogrammerxx;xxdevelopmentxx;xxdeveloperxx;xxcodexx;
-Keywords[zh_CN]=text;txt;editor;programming;programmer;development;developer;code;文本;文字;编辑器;编程;程序员;开发;开发者;代码;
+Keywords[zh_CN]=text;txt;editor;programming;programmer;development;developer;code;文本;文字;编辑器;编程;程序员;开发;开发者;代码;wenben;wenzi;bianjiqi;biancheng;chengxuyuan;kaifa;kaifazhe;daima;
 Keywords[zh_TW]=text;txt;editor;programming;programmer;development;developer;code;
 StartupWMClass=kate

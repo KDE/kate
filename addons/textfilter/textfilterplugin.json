@@ -68,7 +68,7 @@
         "Name[uk]": "Фільтр тексту",
         "Name[vi]": "Bộ lọc văn bản",
         "Name[x-test]": "xxText Filterxx",
-        "Name[zh_CN]": "文本筛选器",
+        "Name[zh_CN]": "文本过滤器",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

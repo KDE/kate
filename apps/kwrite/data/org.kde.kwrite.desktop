@@ -217,6 +217,6 @@ Keywords[tr]=metin;txt;düzenleyici;not;not defteri;
 Keywords[uk]=text;txt;editor;note;notepad;текст;теексте;редактор;нотатка;нотатник;
 Keywords[vi]=text;txt;editor;note;notepad;văn bản;trình biên tập;ghi chép;sổ ghi chép;
 Keywords[x-test]=xxtextxx;xxtxtxx;xxeditorxx;xxnotexx;xxnotepadxx;
-Keywords[zh_CN]=text;txt;editor;note;notepad;文字;文本;编辑器;笔记;记事本;
+Keywords[zh_CN]=text;txt;editor;note;notepad;文字;文本;编辑器;笔记;记事本;wenzi;wenben;bianjiqi;biji;jishiben;
 Keywords[zh_TW]=text;txt;editor;note;notepad;
 StartupWMClass=kwrite

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2022.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2022.
+# SPDX-FileCopyrightText: 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2022-08-15 12:25+0200\n"
+"PO-Revision-Date: 2023-11-25 17:42+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.07.90\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -229,10 +229,9 @@ msgid "End Macro &Recording"
 msgstr "&Terminar grabación de macro"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "Se ha cargado «%1»"
+msgstr "Cargar %1"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
@@ -242,7 +241,7 @@ msgstr "Cargar la macro «%1» y convertirla en la actual."
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Reproducir %1"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
@@ -250,10 +249,9 @@ msgid "Play the '%1' macro without loading it."
 msgstr "Reproducir la macro «%1» sin cargarla."
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "Se ha borrado «%1»"
+msgstr "Borrar %1"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2023-11-19 15:01+0300\n"
+"PO-Revision-Date: 2023-11-25 14:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -197,7 +197,7 @@ msgstr "Açma Sırasına Göre Sırala"
 #: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
 #, kde-format
 msgid "Custom Sorting"
-msgstr "Özel Sıralama"
+msgstr "Özel sıralama"
 
 #: katefiletree.cpp:388
 #, kde-format
@@ -225,17 +225,17 @@ msgstr "Şuna Göre Sırala"
 #: katefiletreeconfigpage.cpp:44
 #, kde-format
 msgid "Background Shading"
-msgstr "Arka Plan Gölgelendirme"
+msgstr "Arka plan gölgelendirme"
 
 #: katefiletreeconfigpage.cpp:51
 #, kde-format
 msgid "&Viewed documents' shade:"
-msgstr "Görün&tülenmiş belgelerin gölgesi:"
+msgstr "Görün&tülenen belgelerin gölgesi:"
 
 #: katefiletreeconfigpage.cpp:57
 #, kde-format
 msgid "&Modified documents' shade:"
-msgstr "&Değiştirilmiş belgelerin gölgelenmesi:"
+msgstr "&Değiştirilen belgelerin gölgesi:"
 
 #: katefiletreeconfigpage.cpp:65
 #, kde-format
@@ -245,12 +245,12 @@ msgstr "Ş&una göre sırala:"
 #: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Opening Order"
-msgstr "Açma Sırası"
+msgstr "Açma sırası"
 
 #: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Document Name"
-msgstr "Belge Adı"
+msgstr "Belge adı"
 
 #: katefiletreeconfigpage.cpp:72
 #, kde-format
@@ -265,27 +265,27 @@ msgstr "&Görüntüleme kipi:"
 #: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "Tree View"
-msgstr "Ağaç Görünümü"
+msgstr "Ağaç görünümü"
 
 #: katefiletreeconfigpage.cpp:84
 #, kde-format
 msgid "List View"
-msgstr "Liste Görünümü"
+msgstr "Liste görünümü"
 
 #: katefiletreeconfigpage.cpp:89
 #, kde-format
 msgid "&Show Full Path"
-msgstr "&Tam Yolu Göster"
+msgstr "&Tam yolu göster"
 
 #: katefiletreeconfigpage.cpp:94
 #, kde-format
 msgid "Show &Toolbar"
-msgstr "Araç Ç&ubuğunu Göster"
+msgstr "Araç ç&ubuğunu göster"
 
 #: katefiletreeconfigpage.cpp:97
 #, kde-format
 msgid "Show Close Button"
-msgstr "Kapat Düğmesini Göster"
+msgstr "Kapat düğmesini göster"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format

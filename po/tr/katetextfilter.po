@@ -8,13 +8,13 @@
 # obsoleteman <tulliana@gmail.com>, 2009.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2023-05-06 20:28+0300\n"
+"PO-Revision-Date: 2023-11-25 15:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 23.08.3\n"
 "(http: //www.transifex.com/projects/p/applications-k-tr/language/tr/)\n"
 
 #: plugin_katetextfilter.cpp:89
@@ -41,7 +41,7 @@ msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
 "to be able to do this, contact your system administrator."
 msgstr ""
-"Harici uygulamaları keyfi çalıştırma yetkiniz yok. Bu tür programları "
+"Dış uygulamaları keyfi olarak çalıştırma yetkiniz yok. Bu tür programları "
 "çalıştırmak istiyorsanız sistem yöneticiniz ile iletişime geçin."
 
 #: plugin_katetextfilter.cpp:154
@@ -83,7 +83,7 @@ msgstr "İletişim Kutusu"
 #: textfilterwidget.ui:26
 #, kde-format
 msgid "Enter command to &pipe selected text through:"
-msgstr "Seçili metni &veriyolu yapmak için komut girin:"
+msgstr "Seçili metni &veriyolu yapmak için komut gir:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, newDoc)
 #: textfilterwidget.ui:39
@@ -95,13 +95,13 @@ msgstr "Sonuçları yeni bir belgede aç"
 #: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
-msgstr "Belgeyi değiştirmeden bırakarak sonucu panoya kopyala."
+msgstr "Belgeyi değiştirmeden bırakarak sonucu panoya kopyalayın."
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:49
 #, kde-format
 msgid "Copy the result instead of pasting it"
-msgstr "Sonucu yapıştırma yerine kopyala"
+msgstr "Sonucu yapıştırmak yerine kopyala"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:57
@@ -111,9 +111,9 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
-"Eğer işaretlenirse STDOUT ve STDERR birleştirilerek hiçbir hata "
-"bildirilmeyecek.\n"
-"Aksi halde, pasif bir ileti olarak STDERR görüntülenecek."
+"İşaretlenirse STDOUT ve STDERR'den gelen çıktılar birleştirilecek ve hiçbir "
+"hata bildirilmeyecektir.\n"
+"Aksi halde STDERR pasif bir ileti olarak görüntülenecektir."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2023-09-19 19:24+0200\n"
+"PO-Revision-Date: 2023-11-25 11:28+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -228,10 +228,9 @@ msgid "End Macro &Recording"
 msgstr "Finalitza l'en&registrament de la macro"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "S'ha carregat «%1»"
+msgstr "Carrega %1"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
@@ -241,7 +240,7 @@ msgstr "Carrega la macro «%1» com a l'actual."
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Reprodueix %1"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
@@ -249,10 +248,9 @@ msgid "Play the '%1' macro without loading it."
 msgstr "Reprodueix la macro «%1» sense carregar-la."
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "S'ha esborrat «%1»"
+msgstr "Esborra %1"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format

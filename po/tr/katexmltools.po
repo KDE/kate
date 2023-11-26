@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-15 01:54+0000\n"
-"PO-Revision-Date: 2023-11-19 15:11+0300\n"
+"PO-Revision-Date: 2023-11-25 15:28+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -81,7 +81,7 @@ msgstr "XML varlıkları"
 #: plugin_katexmltools.cpp:986
 #, kde-format
 msgid "XML attribute values"
-msgstr "XML öznitelik değerleri"
+msgstr "XML öznitelikleri değerleri"
 
 #: plugin_katexmltools.cpp:988
 #, kde-format

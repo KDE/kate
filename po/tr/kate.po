@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2023-11-17 19:19+0300\n"
+"PO-Revision-Date: 2023-11-25 14:23+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1085,7 +1085,7 @@ msgstr "İşaretlendiğinde sekmeler yalnızca bir belge açıksa gizlenir."
 #: lib/kateconfigdialog.cpp:242
 #, kde-format
 msgid "&Show close button"
-msgstr "Kapat düğme&sini göster"
+msgstr "Kapat düğmesini &göster"
 
 #: lib/kateconfigdialog.cpp:244
 #, kde-format
@@ -1737,7 +1737,7 @@ msgstr "Kenar Çubuğu Düğmeleri"
 #: lib/katemdi.cpp:103
 #, kde-format
 msgid "Focus Toolview"
-msgstr "Odak Araç Görünümü"
+msgstr "Şu Görünüme Odaklan"
 
 #: lib/katemdi.cpp:106
 #, kde-format
@@ -1757,17 +1757,17 @@ msgstr "Tüm Araç Görünümlerini Gizle"
 #: lib/katemdi.cpp:165
 #, kde-format
 msgid "Show %1"
-msgstr "%1 Ögesini Göster"
+msgstr "%1"
 
 #: lib/katemdi.cpp:176
 #, kde-format
 msgid "Show %1 Button"
-msgstr "%1 Düğmesini Göster"
+msgstr "%1"
 
 #: lib/katemdi.cpp:192
 #, kde-format
 msgid "Focus %1"
-msgstr "Odaklan: %1"
+msgstr "%1"
 
 #: lib/katemdi.cpp:1022
 #, kde-format

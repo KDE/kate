@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-15 01:40+0000\n"
-"PO-Revision-Date: 2023-11-09 11:48+0300\n"
+"PO-Revision-Date: 2023-11-25 13:27+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -291,7 +291,7 @@ msgstr "Klasörde"
 #: search.ui:251
 #, kde-format
 msgid "Use the current document's path."
-msgstr "Geçerli belgenin yolunu kullanın."
+msgstr "Geçerli belgenin yolunu kullan"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:261
@@ -315,7 +315,7 @@ msgstr "Klasör:"
 #: search.ui:389
 #, kde-format
 msgid "Go one folder up."
-msgstr "Bir klasör yukarı gidin."
+msgstr "Bir klasör yukarı git"
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
 #: search.ui:398
@@ -351,7 +351,7 @@ msgstr "Gizlileri içer"
 #: search.ui:466
 #, kde-format
 msgid "Follow symbolic links"
-msgstr "Sembolik bağlantıları takip et"
+msgstr "Sembolik bağlantıları izle"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
 #: search.ui:473

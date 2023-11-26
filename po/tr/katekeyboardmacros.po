@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2023-11-23 13:36+0300\n"
+"PO-Revision-Date: 2023-11-25 14:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -225,10 +225,9 @@ msgid "End Macro &Recording"
 msgstr "Makro &Kaydını Sonlandır"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "'%1' yüklendi"
+msgstr "Yükle: %1"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
@@ -238,7 +237,7 @@ msgstr "'%1' makrosunu geçerli makro olarak yükleyin."
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Oynat: %1"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
@@ -246,10 +245,9 @@ msgid "Play the '%1' macro without loading it."
 msgstr "'%1' makrosunu yüklemeden oynatın."
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "'%1' silindi"
+msgstr "Sil: %1"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format

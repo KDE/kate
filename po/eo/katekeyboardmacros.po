@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2023-04-09 23:45+0100\n"
+"PO-Revision-Date: 2023-11-25 09:31+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -224,10 +224,9 @@ msgid "End Macro &Recording"
 msgstr "Fini Makro-&Registradon"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "Ŝargis '%1'"
+msgstr "Ŝargi '%1'"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
@@ -237,7 +236,7 @@ msgstr "Ŝargi la makroon '%1' kiel la nunan."
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Ludi %1"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
@@ -245,10 +244,9 @@ msgid "Play the '%1' macro without loading it."
 msgstr "Ruli la makroon '%1' sen ŝargi ĝin."
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "Viŝis '%1'"
+msgstr "Viŝi '%1'"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format

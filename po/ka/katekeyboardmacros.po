@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2023-01-06 07:40+0100\n"
+"PO-Revision-Date: 2023-11-25 06:12+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -227,10 +227,9 @@ msgid "End Macro &Recording"
 msgstr "&მაკროს ჩაწერის დასრულება"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "%1 ჩაიტვირთა"
+msgstr "%1-ის ჩატვირთვა"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
@@ -240,7 +239,7 @@ msgstr "'%1' მაკროს მიმდინარედ ჩატვი�
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "%1-ს გაშვება"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
@@ -248,10 +247,9 @@ msgid "Play the '%1' macro without loading it."
 msgstr "'%1' მაკროს გაშვება მისი ჩატვირთვის გარეშე."
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "%1 წაიშალა"
+msgstr "%1-ის წაშლა"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format

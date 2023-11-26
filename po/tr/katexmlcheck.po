@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-18 02:00+0000\n"
-"PO-Revision-Date: 2023-10-28 02:10+0300\n"
+"PO-Revision-Date: 2023-11-25 15:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: plugin_katexmlcheck.cpp:96
 #, kde-format
@@ -38,7 +38,7 @@ msgstr "Süreci doğrulama çöktü"
 #: plugin_katexmlcheck.cpp:254 plugin_katexmlcheck.cpp:337
 #, kde-format
 msgid "XMLCheck"
-msgstr "XMLCheck"
+msgstr "XML Denetimi"
 
 #: plugin_katexmlcheck.cpp:145
 #, kde-format

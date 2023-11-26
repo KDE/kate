@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-15 01:40+0000\n"
-"PO-Revision-Date: 2023-11-19 03:37\n"
+"PO-Revision-Date: 2023-11-25 02:26\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -175,7 +175,7 @@ msgstr[0] "所有打开的项目中找到 %1 个匹配 (%3) (共同父目录：%
 #: Results.cpp:32
 #, kde-format
 msgid "Filter..."
-msgstr "筛选..."
+msgstr "过滤..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -559,7 +559,7 @@ msgstr "用于排除在搜索外的逗号分割的文件和目录列表。例如
 #: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
-msgstr "点击筛选结果"
+msgstr "点击过滤结果"
 
 #: SearchPlugin.cpp:487
 #, kde-format

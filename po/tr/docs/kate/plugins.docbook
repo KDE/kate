@@ -1,0 +1,6732 @@
+<chapter id="plugins">
+
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<othercredit role="translator"
+><firstname
+>Alper</firstname
+><surname
+>Tekinalp</surname
+><affiliation
+><address
+><email
+>alper.tekinalp@gmail.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@icloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+
+<title
+>Eklentilerle Çalışmak</title>
+
+<para
+>Eklentileri teker teker <link linkend="configuring-kate-configdialog"
+>yapılandırma iletişim kutusundan</link
+> etkinleştirebilirsiniz; burası ayrı zamanda ilgili eklenti yapılandırma seçeneklerine de erişim sağlar.</para>
+
+<sect1 id="kate-application-plugins">
+<title
+>&kate; Uygulama Eklentileri</title>
+
+<!-- from doc/kate-addons/index.docbook -->
+<para
+>&kate; eklentileri, &kate; düzenleyicisine ek işlevsel sağlar. Ek menüler ve kısayollar ekleyebilirler ve &kate;'in özelliklerini genişletebilirler. &kate; içinden istediğiniz kadar kurabilirsiniz. &kate;'in yapılandırma iletişim kutusunu <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>&kate; Uygulamasını Yapılandır...</guimenuitem
+></menuchoice
+> yolunu izleyerek açın. İstediğiniz eklentileri seçmek için <menuchoice
+><guimenu
+>Uygulama</guimenu
+><guimenuitem
+>Eklentiler</guimenuitem
+></menuchoice
+> ögesini kullanın. </para>
+
+<para
+>Kullanılabilir eklentiler: </para>
+<itemizedlist>
+<listitem>
+<para
+><link linkend="kate-application-plugin-external-tools"
+>Dış Araçlar</link
+> - Dış araçlar ve uygulamalar çalıştırın</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-backtracebrowser"
+>Geri İz Tarayıcısı</link
+> - C/C++ Geri İzleri dolaşım araç görünümü</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-build"
+>Yapı Eklentisi</link
+> - Derle/Yap ve hata iletilerini ayrıştırın</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-closeexceptlike"
+>Dışındakini/Benzerini Kapat</link
+> - Ortak bir yol veya dosya uzantısı temelli bir belge grubunu kapatın</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-colorpicker"
+>Renk Seçicisi</link
+> - Bilinen renkler için önizlemeyi göster</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-colored-brackets"
+>Renklendirilmiş Ayraçlar</link
+> - Okunabilirlik için renklendirilmiş ayraçlar</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-ctags"
+>CTags</link
+> - Tanımları/Beyanları CTags ile arayın</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-preview"
+>Belge Önizlemesi</link
+> - Belgeyi hedef biçimde önizleyin</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-documentswitcher"
+>Belge Değiştiricisi</link
+> - <keycombo action="simul"
+>&Alt;&Tab;</keycombo
+> kombinasyonuyla hızlı belge değiştirmesi</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-fsbrowser"
+>Dosya Sistemi Tarayıcısı</link
+> - Dosya sistemi tarayıcısı araç görünümü</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-documents"
+>Belge Ağacı Görünümü</link
+> - Açık belgeleri bir dosya ağacında görüntüler</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-gdb"
+>&gdb;</link
+> - Bir temel &gdb; ön ucu sağlar</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-projects"
+>Proje Eklentisi</link
+> - &git; ve diğer kaynak denetim sistemleriyle tümleştirme</para>
+</listitem>
+<listitem>
+<para
+>Replicode - Yapılandırmacı yapay zeka dili ve çalışma zamanı</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-lspclient"
+>LSP İstemcisi</link
+> - Birçok dil için kod dolaşımı ve tamamlaması sağlayan LSP istemcisi</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-searchinfiles"
+>Ara ve Değiştir</link
+> - Belgelerde, klasörlerde ve projelerde arayın ve değiştirin</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-snippets"
+>Parçacıklar Araç Görünümü</link
+> - Parçacıklar gömme yönetimini sağlayan araç görünümü</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-keyboardmacros"
+>Klavye Makroları</link
+> - Klavye makroları kaydedin ve oynatın (örn., klavye eylem sıralamaları)</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-sql"
+>SQL Eklentisi</link
+> - SQL veritabanlarında sorgular yürütün</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-symbolviewer"
+>Sembol Görüntüleyicisi</link
+> - Kaynaktan başvuru sembollerini çıkarın ve gösterin</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-konsole"
+>Uçbirim Araç Görünümü</link
+> - &kde;'nin &konsole; araç takımını kullanarak elinizin altında bir uçbirim bulundurun</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-textfilter"
+>Metin Süzgeci</link
+> - Uçbirim komutları kullanarak metin işleyin</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-xmltools"
+>&XML; Tamamlama</link
+> - DTD tarafından izin verilen &XML; ögelerini, özniteliklerini, öznitelik değerlerini ve varlıklarını listeler</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-xmlcheck"
+>&XML; Doğrulama</link
+> - &XML; dosyalarını xmllint kullanarak doğrular</para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="kate-application-plugin-external-tools">
+<title
+>Dış Araçlar</title>
+
+<para
+><guilabel
+>Dış Araçlar</guilabel
+> eklentisi, geçerli belgeyle ilgili verilerle (örneğin URL'si, dizini, metni veya seçimi) dış uygulamaları çağırmaya olanak tanır. Etkinleştirildiğinde, aşağıda gösterildiği gibi var olan araçların değiştirilmesine veya kaldırılmasına olanak tanıyan bir yapılandırma sayfası görünür. Benzer şekilde beğeninize göre yeni araçlar da eklenebilir. Araçlar daha sonra uygulamanın <guimenu
+>Araçlar</guimenu
+> menüsünün <guisubmenu
+>Dış Araçlar</guisubmenu
+> alt menüsünde görünecektir. </para>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="kateexternaltools.png"/>
+</imageobject>
+</mediaobject>
+
+<para
+>Yapılandırma sayfası, <guilabel
+>Ekle</guilabel
+> düğmesine tıklayarak yeni dış araçlar eklemenize olanak tanır. Bu durumda, yeni bir dış aracın, önceden tanımlı bir listeden var olan bir aracın veya dış araçları kategorize etmek için yeni bir kategorinin ekleneceği bir açılır menü görünür. Benzer olarak, var olan araçlar çift tıklatılarak veya <guilabel
+>Düzenle...</guilabel
+> çağrılarak değiştirilebilir ve <guilabel
+>Kaldır</guilabel
+> düğmesi ise seçilen araçları kaldırır. </para>
+
+<sect2 id="kate-application-plugin-external-tools-edit">
+<title
+>Dış Araçları Yapılandırmak</title>
+
+<para
+>Bir aracı düzenlemek, aracın ayrıntılı şekilde yapılandırılmasına olanak tanıyan bir yapılandırma iletişim kutusunu açar:</para>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="kateeditexternaltool.png"/>
+</imageobject>
+</mediaobject>
+
+<variablelist>
+<varlistentry>
+<term
+>Görüldüğü üzere birçok ayrıntı tanımlanabilir:</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>, daha sonra menüde görünecek olan aracın adı.</para>
+<para
+><userinput
+>Simge</userinput
+>, menüde görünen isteğe bağlı simge.</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>, tam yol içeren yürütülebilir dosya veya sizin yürütülebilir dosyanız <envar
+>PATH</envar
+> çevre değişkeninde olmalıdır.</para>
+<para
+><userinput
+>Argümanlar</userinput
+>, yürütülebilir dosyaya iletilen isteğe bağlı argümanlar.</para>
+<para
+><userinput
+>Girdi</userinput
+>, stdin aracılığıyla işleme aktarılan isteğe bağlı girdi.</para>
+<para
+><userinput
+>Çalışma dizini</userinput
+>, aracın başlatılacağı çalışma dizini. Boşsa, çalışma dizini geçerli belgenin yoluna ayarlanır.</para>
+<para
+><userinput
+>MIME türleri</userinput
+>, ayarlandıysa araç yalnızca geçerli belgenin mime türü eşleştiğinde etkin olur.</para>
+<para
+><userinput
+>Kaydet</userinput
+>, çağrıldığında hiçbirini, geçerli belgeyi veya tüm belgeleri kaydeder.</para>
+<para
+><userinput
+>Tetikleyici</userinput
+>, bu aracı çalıştırmak için bir tetikleyici. Bir tetikleyici, yalnızca geçerli etkin belgeyi etkiler ve yalnızca geçerli etkin belgenin MIME türü, harici aracın MIME türüyle eşleştiğinde yürütülür.</para>
+    <variablelist
+><varlistentry>
+    <term
+>Aşağıdaki tetikleyiciler kullanılabilir:</term>
+    <listitem>
+    <para
+><userinput
+>Yok</userinput
+>, bu öntanımlıdır, aracın tetikleyisinin olmadığı anlamına gelir.</para>
+    <para
+><userinput
+>Kaydetme Öncesi</userinput
+>, bu tetikleyici, belge kaydedilmeden hemen önce yürütülür.</para>
+    <para
+><userinput
+>Kaydetme Sonrası</userinput
+>, bu tetikleyici, belge kaydedildikten hemen sonra yürütülür.</para>
+    </listitem>
+    </varlistentry
+></variablelist>
+<para
+><userinput
+>Yürütme sonrası geçerli belgeyi yeniden yükle</userinput
+>, geçerli dosya diskte değiştirildiğinde yararlıdır.</para>
+<para
+><userinput
+>Çıktı</userinput
+>, çıktı, stdout'un hedefini tanımlar. Geçerli seçenekler: <userinput
+>Yok Say</userinput
+>, <userinput
+>İmleç Konumunda Ekle</userinput
+>, <userinput
+>Seçili Metni Değiştir</userinput
+>, <userinput
+>Geçerli Belgeyi Değiştir</userinput
+>, <userinput
+>Geçerli Belgeye İliştir</userinput
+>, <userinput
+>Yeni Belgede Ekle</userinput
+>, <userinput
+>Panoya Kopyala</userinput
+>, <userinput
+>Panelde Görüntüle</userinput
+>.</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>, yerleşik <ulink url="help:/katepart/advanced.html#advanced-editing-tools-commandline"
+>komut satırı ile </ulink
+> dış aracı çağırmak için kullanılabilecek isteğe bağlı komut.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para
+><guilabel
+>Öntanımlılar</guilabel
+> düğmesi yalnızca Kate ile birlikte gönderilen araçlar için görünür. Tıklandığında, aracın tüm ayarları öntanımlı (diğer bir deyişle fabrika) değerlerine döndürülür. </para>
+
+</sect2>
+
+<sect2 id="kate-application-plugin-external-tools-variables">
+<title
+>Değişken Genişleme</title>
+
+<para
+><guilabel
+>Yürütülebilir</guilabel
+>, <guilabel
+>Argümanlar</guilabel
+>, <guilabel
+>Girdi</guilabel
+> ve <guilabel
+>Çalışma Dizini</guilabel
+> gibi kimi düzenleme alanları, araç çağrıldığında genişletilen değişkenleri desteklerler. Bu, bu metin giriş alanlarından biri odağı aldığında görünen <guilabel
+>{}</guilabel
+> simgesiyle gösterilir: </para>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="katevariableexpansion.png"/>
+</imageobject>
+</mediaobject>
+
+<para
+>Bu metin giriş alanlarından birinin üzerine gelindiğinde geçerli genişletilmiş metni içeren bir araç ipucu da gösterilir. Ayrıca, <guilabel
+>{}</guilabel
+> eylemine tıklamak, kullanılabilir tüm değişkenleri listeleyen bir iletişim kutusu açacaktır: </para>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="kateexternaltoolvariablechooser.png"/>
+</imageobject>
+</mediaobject>
+
+<para
+>Bu özellik, bir dış araç tanımlarken pek çok esneklik sağlar; çünkü <userinput
+>%{...}</userinput
+> biçimindeki tüm değişkenler, araç çağrıldığında genişletilirler. İki tür desteklenen değişken vardır: <itemizedlist
+> <listitem
+><para
+><userinput
+>%{variable-name}</userinput
+></para
+></listitem
+> <listitem
+><para
+><userinput
+>%{variable-name:&lt;value&gt;}</userinput
+></para
+></listitem
+> </itemizedlist
+> İlk <userinput
+>%{variable-name}</userinput
+> biçimi, değişkeni içeriğiyle değiştirir. Örneğin, <userinput
+>%{Document:FileName}</userinput
+> değişkeni geçerli belgenin yol içermeyen dosya adıyla değiştirilir. İkinci <userinput
+>%{variable-name:&lt;value&gt;}</userinput
+> biçimi, içeriği olarak <userinput
+>&lt;value&gt;</userinput
+> alır. Örneğin, bu, <userinput
+>%{ENV:HOME}</userinput
+> ile bir çevre değişkenini genişletmek veya geçerli tarihi yeğlenen <userinput
+>%{Date:yyyy-MM-dd}</userinput
+> biçiminde almak için kullanılabilir. </para>
+
+<variablelist>
+<varlistentry>
+<term
+>Desteklenen değişkenler şunlardır:</term>
+<listitem>
+<para
+><userinput
+>Document:FileBaseName</userinput
+>: Geçerli belgenin yolu ve son eki olmadan dosya tabanı adı.</para>
+<para
+><userinput
+>Document:FileExtension</userinput
+>: Geçerli belgenin dosya uzantısı.</para>
+<para
+><userinput
+>Document:FileName</userinput
+>: Geçerli belgenin yol olmadan dosya adı.</para>
+<para
+><userinput
+>Document:FilePath</userinput
+>: Geçerli belgenin dosya adı da içerilmek üzere tam yolu.</para>
+<para
+><userinput
+>Document:Text</userinput
+>: Geçerli belgenin içeriği.</para>
+<para
+><userinput
+>Document:Path</userinput
+>: Geçerli belgenin dosya adı dışında tam yolu.</para>
+<para
+><userinput
+>Document:NativeFilePath</userinput
+>: Yerel yol ayırıcıyla birlikte (Windows'ta ters eğik çizgi) dosya adı da içerilen tam belge yolu.</para>
+<para
+><userinput
+>Document:NativePath</userinput
+>: Yerel yol ayırıcıyla birlikte (Windows'ta ters eğik çizgi) dosya adı dışında tam belge yolu.</para>
+<para
+><userinput
+>Document:Cursor:Line</userinput
+>: Geçerli belgedeki metin imleci konumunun satır numarası (0 ile başlar).</para>
+<para
+><userinput
+>Document:Cursor:Column</userinput
+>: Geçerli belgedeki metin imleci konumunun sütun numarası (0 ile başlar).</para>
+<para
+><userinput
+>Document:Cursor:XPos</userinput
+>: İmleç konumunun genel ekran koordinatlarındaki X bileşeni.</para>
+<para
+><userinput
+>Document:Cursor:YPos</userinput
+>: İmleç konumunun genel ekran koordinatlarındaki Y bileşeni.</para>
+<para
+><userinput
+>Document:Selection:Text</userinput
+>: Geçerli belgenin metin seçimi.</para>
+<para
+><userinput
+>Document:Selection:StartLine</userinput
+>: Geçerli belgenin seçili metninin başlangıç satırı.</para>
+<para
+><userinput
+>Document:Selection:StartColumn</userinput
+>: Geçerli belgenin seçili metninin başlangıç sütunu.</para>
+<para
+><userinput
+>Document:Selection:EndLine</userinput
+>: Geçerli belgenin seçili metninin bitiş satırı.</para>
+<para
+><userinput
+>Document:Selection:EndColumn</userinput
+>: Geçerli belgenin seçili metninin bitiş sütunu.</para>
+<para
+><userinput
+>Document:RowCount</userinput
+>: Geçerli belgenin satır sayısı.</para>
+<para
+><userinput
+>Document:Variable:&lt;variable&gt;</userinput
+>: Rastgele <ulink url="help:/katepart/config-variables.html"
+>belge değişkenlerini</ulink
+> genişletin.</para>
+<para
+><userinput
+>Date:Locale</userinput
+>: Geçerli yerel ayar biçimindeki geçerli tarih.</para>
+<para
+><userinput
+>Date:ISO</userinput
+>: Geçerli tarih (ISO).</para>
+<para
+><userinput
+>Date:&lt;value&gt;</userinput
+>: Geçerli tarih (<ulink url="https://doc.qt.io/qt-5/qdate.html#toString"
+>QDate biçim dizisi</ulink
+>).</para>
+<para
+><userinput
+>Time:Locale</userinput
+>: Geçerli yerel ayar biçimindeki geçerli zaman.</para>
+<para
+><userinput
+>Time:ISO</userinput
+>: Geçerli zaman (ISO).</para>
+<para
+><userinput
+>Time:&lt;value&gt;</userinput
+>: Geçerli zaman (<ulink url="https://doc.qt.io/qt-5/qtime.html#toString"
+>QTime biçim dizisi</ulink
+>).</para>
+<para
+><userinput
+>ENV:&lt;value&gt;</userinput
+>: Çevre değişkenlerine erişim.</para>
+<para
+><userinput
+>JS:&lt;expression&gt;</userinput
+>: Basit JavaScript ifadelerini değerlendirin.</para>
+<para
+><userinput
+>PercentEncoded:&lt;text&gt;</userinput
+>: Yüzde kodlamalı metin.</para>
+<para
+><userinput
+>UUID</userinput
+>: Yeni bir UUID üretin.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+ 
+
+</sect2>
+
+<sect2 id="kate-application-plugin-external-tools-defaults">
+<title
+>Öntanımlı Araçların Listesi</title>
+
+<para
+>Öntanımlı olarak çeşitli araçlar sağlanır. Ancak, daha yararlı araçlarınız varsa lütfen bunları <email
+>kwrite-devel@kde.org</email
+> adresine gönderin, böylece onları bu listeye ekleyebiliriz. Tüm öntanımlı araçlar öntanımlı olarak liste görünümünde görünür. Bununla birlikte, kategori ve hatta araçların silinmesi de dahil olmak üzere tüm araçlar beğeninize göre değiştirilebilir. Silinen araçlar, yukarıda anlatıldığı gibi yapılandırma sayfasındaki <guibutton
+>Ekle</guibutton
+> düğmesine basılarak yeniden eklenebilir. </para>
+
+<variablelist>
+<title
+>git-cola</title>
+
+<varlistentry>
+<term
+>git-cola, değişiklikleri kolayca hazırlamanıza ve işlemenize olanak tanıyan grafiksel bir git istemcisidir. Kuruluysa komut satırından <userinput
+>git-cola</userinput
+> yazılarak da kullanılabilir.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: git-cola</para>
+<para
+><userinput
+>Simge</userinput
+>: git-cola</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: git-cola</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: -r %{Document:Path}</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: git-cola</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>gitk</title>
+
+<varlistentry>
+<term
+>gitk, git geçmişini güzel bir şekilde görselleştirmeye olanak tanıyan bir git istemcisidir.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: gitk</para>
+<para
+><userinput
+>Simge</userinput
+>: git-gui</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: gitk</para>
+<para
+><userinput
+>Çalışma dizini</userinput
+>: %{Document:Path}</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: gitk</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>git blame</title>
+
+<varlistentry>
+<term
+>Geçerli dosyadaki git değişikliklerini kolayca takip etmek için git blame'i başlatır.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: git blame</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: git</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: gui blame %{Document:FileName}</para>
+<para
+><userinput
+>Kaydet</userinput
+>: Geçerli belge</para>
+<para
+><userinput
+>Çalışma dizini</userinput
+>: %{Document:Path}</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: git-blame</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>Kabuk Betiği Çalıştır</title>
+
+<varlistentry>
+<term
+>Geçerli belgenin yürütüldüğü dış bir konsol başlatır. Betiğin ilk satırda yorumlayıcıyı bir shebang <userinput
+>#!/yorumlayıcı/yolu</userinput
+> aracılığıyla belirtmesi gerekir.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: Kabuk Betiği Çalıştır</para>
+<para
+><userinput
+>Simge</userinput
+>: system-run</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: konsole</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: -e sh -c &quot;cd %{Document:Path} &amp;&amp; pwd &amp;&amp; chmod -vc a+x %{Document:FileName} &amp;&amp; ./%{Document:FileName} ; echo Sürdürmek için herhangi bir düğmeye basın... &amp;&amp; read -n 1&quot;</para>
+<para
+><userinput
+>Kaydet</userinput
+>: Geçerli belge</para>
+<para
+><userinput
+>Çalışma dizini</userinput
+>: %{Document:Path}</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: run-script</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>Seçili Metni Google ile Ara</title>
+
+<varlistentry>
+<term
+>Seçili metni Google ile arayın.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: Seçili Metni Google ile Ara</para>
+<para
+><userinput
+>Simge</userinput
+>: globe</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: xdg-open</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: &quot;https://www.google.com/search?q=%{Document:Selection:Text}&quot;</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: google</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>UUID Ekle</title>
+
+<varlistentry>
+<term
+>Bu eylem her çağrıldığında yeni bir UUID ekler.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: UUID Ekle</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: echo</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: %{UUID}</para>
+<para
+><userinput
+>Çıktı</userinput
+>: İmleç Konumunda Ekle</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: uuid</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>Tüm Dosyayı Clang Format'la</title>
+
+<varlistentry>
+<term
+>Diskteki geçerli dosyada clang-format'ı çalıştırır. Belge daha sonra yeniden yüklenir.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: Tüm Dosyayı Clang Format'la</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: clang-format</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: -i %{Document:FileName}</para>
+<para
+><userinput
+>Çalışma dizini</userinput
+>: %{Document:Path}</para>
+<para
+><userinput
+>Kaydet</userinput
+>: Geçerli belge</para>
+<para
+><userinput
+>Yeniden yükle</userinput
+>: Evet</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: clang-format-file</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>Seçili Metni Clang Format'la</title>
+
+<varlistentry>
+<term
+>Geçerli belgedeki seçili metinde clang-format'ı çalıştırır.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: Seçili Metni Clang Format'la</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: clang-format</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: -assume-fileName: %{Document:FileName}</para>
+<para
+><userinput
+>Çalışma dizini</userinput
+>: %{Document:Path}</para>
+<para
+><userinput
+>Girdi</userinput
+>: %{Document:Selection:Text}</para>
+<para
+><userinput
+>Çıktı</userinput
+>: Seçili Metni Değiştir</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: clang-format-selection</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>Qt Quick 2 Önizlemesi (qmlscene)</title>
+
+<varlistentry>
+<term
+>Geçerli qml dosyasını qmlscene'de önizler.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: Qt Quick 2 Önizlemesi (qmlscene)</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: qmlscene</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: %{Document:FileName}</para>
+<para
+><userinput
+>Kaydet</userinput
+>: Geçerli belge</para>
+<para
+><userinput
+>Çalışma dizini</userinput
+>: %{Document:Path}</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: qml-preview</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>Tüm Dosyayı JSON'la</title>
+
+<varlistentry>
+<term
+>Tüm JSON dosyasını biçimlendir.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: Tüm Dosyayı JSON'la</para>
+<para
+><userinput
+>Simge</userinput
+>: application-json</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: jq</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: %{Document:FileName}</para>
+<para
+><userinput
+>Kaydet</userinput
+>: Geçerli belge</para>
+<para
+><userinput
+>Çalışma dizini</userinput
+>: %{Document:Path}</para>
+<para
+><userinput
+>Çıktı</userinput
+>: Geçerli Belgeyi Değiştir</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: json-format-file</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title
+>Tüm Dosyayı XML'le</title>
+
+<varlistentry>
+<term
+>Tüm XML dosyasını biçimlendir.</term>
+<listitem>
+<para
+><userinput
+>Ad</userinput
+>: Tüm Dosyayı JSON'la</para>
+<para
+><userinput
+>Simge</userinput
+>: application-xml</para>
+<para
+><userinput
+>Yürütülebilir</userinput
+>: xmllint</para>
+<para
+><userinput
+>Argümanlar</userinput
+>: --format %{Document:FileName}</para>
+<para
+><userinput
+>Kaydet</userinput
+>: Geçerli belge</para>
+<para
+><userinput
+>Çalışma dizini</userinput
+>: %{Document:Path}</para>
+<para
+><userinput
+>Çıktı</userinput
+>: Geçerli Belgeyi Değiştir</para>
+<para
+><userinput
+>Düzenleyici komutu</userinput
+>: xml-format-file</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-backtracebrowser">
+<!--https://kate-editor.org/2008/08/12/kate-fast-backtrace-navigation/-->
+<title
+>Geri İz Tarayıcısı Eklentisi</title>
+
+<sect2 id="backtracebrowser-using">
+<title
+>Geri İz Tarayıcısı Eklentisini Kullanmak</title>
+
+<para
+>Bu eklenti geliştiricilere yöneliktir ve büyük olasılıkla düz kullanıcılar için pek kullanışlı değildir. &kate; araç görünümündeki liste görünümünde gdb tarafından sağlanan bir geri izi gösterir. Bir ögeye tıklamak seçili dosyayı açar ve doğru satır numarasına atlar. Hem kendi makinenizde oluşturulan geri izler hem de başkalarından gelen geri izler için de çalışır; yani <filename
+>/home/dummy/qt-copy/…/qwidget.cpp</filename
+> başka makinelerde de bulunur. Bunun çalışması için kaynak kodun bulunduğu dizinleri indekslemeniz gerekir. </para>
+
+<para
+>Bazen aynı ada sahip birden çok dosya olabilir; &eg;,</para>
+
+<simplelist>
+<member
+><filename
+>kdegraphics/okular/generators/dvi/config.h</filename
+></member>
+<member
+><filename
+>kdepim-runtime/resources/gmail/saslplugin/config.h</filename
+></member>
+</simplelist>
+
+<para
+>Doğru seçimi seçmek için eklenti &URL;'nin son iki bölümünü seçer; bu durumda bu şu şekilde olur:</para>
+
+<simplelist>
+<member
+><filename
+>dvi/config.h</filename
+></member>
+<member
+><filename
+>saslplugin/config.h</filename
+></member>
+</simplelist>
+
+<para
+>Ve sonra genellikle eklenti doğru olanı bulur.</para>
+
+<para
+>Ana dal ve diğer dalları indekslemek elbette bir çatışmaya yol açacaktır.</para>
+
+</sect2>
+
+<sect2 id="backtracebrowser-config">
+<title
+>Yapılandırma</title>
+
+<para
+>Yapılandırma sayfasında kaynak kodunu içeren dizinleri ekleyin.</para>
+
+<screenshot id="screenshot-backtrace-settings">
+<screeninfo
+>Geri İz Tarayıcısı</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="backtrace-settings.png" format="PNG"/></imageobject>
+<caption
+>Geri iz tarayıcısı araç görünümünde yolları yapılandır</caption>
+</mediaobject>
+</screenshot>
+
+<para
+><guibutton
+>Tamam</guibutton
+>'a tıklamak indekslemeyi başlatır. İndeksleme bittiğinde <guilabel
+>Geri İz Tarayıcısı</guilabel
+> araç görünümünü açın.</para>
+<para
+>Artık panodan (&eg;, &drkonqi;'de <guibutton
+>Panoya Kopyala</guibutton
+>'ya tıkladığınız zaman) veya bir dosyadan bir geri iz yükleyebilirsiniz.</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-build">
+<!--https://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
+<sect1info>
+<authorgroup>
+<author
+><firstname
+>Salma</firstname
+> <surname
+>Sultana</surname
+></author>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+</authorgroup>
+</sect1info>
+<title
+>Yapı Eklentisi</title>
+
+<sect2 id="build-intro">
+<title
+>Giriş</title>
+
+<para
+>Yapı eklentisi; bir projeyi yapım, temizlik ve derleme gibi eylemleri çalıştırmanıza olanak tanır.</para>
+
+</sect2>
+
+<sect2 id="build-using">
+<title
+>Yapı eklentisini kullanmak</title>
+
+<para
+>Yapı eklentisi, alt tarafa bir <guilabel
+>Yapı Çıktısı</guilabel
+> araç görünümü ve menü çubuğuna bir <guimenu
+>Yapı</guimenu
+> menüsü ekler. Araç görünümü yapı hedefi ayarlarını yapılandırmak için kullanılabilirken menü; oluşturma, temizleme ve derleme eylemlerini gerçekleştirmek için kullanılabilir.</para>
+
+<screenshot id="screenshot-build-output">
+<screeninfo
+>Yapı Çıktısı</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="build-output.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+><guilabel
+>Yapı Çıktısı</guilabel
+> araç görünümü iki sekmeye sahiptir:</para>
+
+<itemizedlist>
+<listitem
+><para
+><guilabel
+>Hedef Ayarları</guilabel
+></para
+></listitem>
+<listitem
+><para
+><guilabel
+>Çıktı</guilabel
+></para
+></listitem>
+</itemizedlist>
+
+<sect3 id="build-using-target-settings">
+<title
+>Hedef Ayarları sekmesi</title>
+
+<para
+>Hedef ayarları sekmesi, çeşitli yapı hedefleri yapılandırmak ve hedef kümeleri tanımlamak için kullanılabilir.</para>
+
+<para
+>Adları veya komutları değiştirmek için tablodaki girdilere çift tıklayın ve etkin hedef kümesini seçmek için açılır kutuyu kullanın. Bir öntanımlı değer tanımlamak için her hedefin önündeki onay kutusunu kullanın.</para>
+
+<para
+>Yeni bir hedef kümesi birçok yapılandırma seçeneği içerir:</para>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Çalışma Dizini</guilabel
+></term>
+<listitem
+><para
+>Burada projeye giden yolu ayarlayabilirsiniz. Geçerli belgenin bulunduğu dizini kullanmak için bunu boş bırakın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Yapı</guilabel
+></term>
+<listitem
+><para
+>Bu seçenek, yapı komutunu tanımlamanıza olanak tanır. Öntanımlı olarak <command
+>make</command
+> biçiminde ayarlıdır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Temizle</guilabel
+></term>
+<listitem
+><para
+>Bu seçenek, temizleme komutunu tanımlamanıza olanak tanır. Öntanımlı olarak <command
+>make clean</command
+> biçiminde ayarlıdır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Yapılandırma</guilabel
+></term>
+<listitem
+><para
+>Bu seçenek, yapılandırma komutunu tanımlamanıza olanak tanır. Öntanımlı olarak <command
+>cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../</command
+> biçiminde ayarlıdır.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Bu eklentinin üst kısmında aşağıdaki düğmelerin bulunduğu bir araç çubuğu bulunur:</para>
+
+<simplelist>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="dialog-ok-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Seçili hedefi yap</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="list-add-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Yeni hedef ekle</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-new-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Yeni hedef kümesi oluştur</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="edit-copy-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Komutu veya hedef kümesini kopyala</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="edit-delete-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Geçerli hedefi veya geçerli hedef kümelerini sil</member>
+</simplelist>
+
+</sect3>
+
+<sect3 id="build-using-output">
+<title
+>Çıktı sekmesi</title>
+
+<para
+><guilabel
+>Çıktı</guilabel
+> sekmesi, son komut tarafından oluşturulan konsol çıktısını gösterir.</para>
+
+<para
+>Çıktı kategorilerini göstermek veya gizlemek için üstteki kaydırıcıyı kullanın:</para>
+
+<para
+><guilabel
+>Tam Çıktı</guilabel
+>, <guilabel
+>Ayrıştırılmış Çıktı</guilabel
+>, <guilabel
+>Hatalar ve Uyarılar</guilabel
+> veya <guilabel
+>Yalnızca Hatalar</guilabel
+> </para>
+
+<para
+>Her satırda bir ileti ve varsa dosya adı ve satır numarası bulunur. Hata veya uyarıya tıklamak sizi uygun dosyaya götürür ve imleci ilgili satır numarasının üzerine yerleştirir.</para>
+
+<para
+>Bir önceki hataya gitmerk için <keycombo action="simul"
+>&Alt;&Shift;&Left;</keycombo
+>, bir sonraki hataya gitmek için <keycombo action="simul"
+>&Alt;&Shift;&Right;</keycombo
+> kısayollarını kullanın.</para>
+
+</sect3>
+</sect2>
+
+<sect2 id="build-menu">
+<title
+>Menü Yapısı</title>
+
+<variablelist id="build-build">
+<varlistentry>
+<term
+><menuchoice id="build-targets"
+><guimenu
+>Yapı</guimenu
+><guisubmenu
+>Hedef Seç</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+>Kullanıcı tarafından yapılandırılan hedefler listesinden seçim yapın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="build-default">
+<term
+><menuchoice
+><guimenu
+>Yapı</guimenu
+><guimenuitem
+>Öntanımlı Hedefi Yap</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Etkin hedef kümesinde öntanımlı olarak tanımlanan hedefi yapar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="build-previous">
+<term
+><menuchoice
+><guimenu
+>Yapı</guimenu
+><guimenuitem
+>Önceki Hedefi Yap</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Kullanıcı tarafından yapılandırılan önceki hedefe geçin.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="build-stop">
+<term
+><menuchoice
+><guimenu
+>Yapı</guimenu
+><guimenuitem
+>Durdur</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bir hedefi yapmayı durdurun.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="build-previous-error">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Alt;&Left;</keycombo
+></shortcut
+> <guimenu
+>Yapı</guimenu
+><guimenuitem
+>Önceki Hata</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>İmleci belgedeki önceki hatanın bulunduğu konuma taşır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="build-next-error">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Alt;&Right;</keycombo
+></shortcut
+> <guimenu
+>Yapı</guimenu
+><guimenuitem
+>Sonraki Hata</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>İmleci belgedeki sonraki hatanın bulunduğu konuma taşır.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="build-ack">
+<title
+>Teşekkürler ve Destek Olanlar</title>
+<para
+>&kate; Yapı Eklentisi, Kåre Särs tarafından yazıldı.</para>
+<para
+>Bu bölümün çoğunu yazdığı için Google Code-In 2011 katılımcısı Salma Sultana'ya özellikle teşekkür ederiz.</para>
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-closeexceptlike">
+
+<title
+>Dışındakileri/Benzerleri Kapat Eklentisi</title>
+
+<sect2 id="closeexceptlike-intro">
+<title
+>Giriş</title>
+
+<para
+>Bu eklenti, bir grup belgeyi uzantılarına ve yollarına göre kapatmanıza olanak tanır.</para>
+
+</sect2>
+
+<sect2 id="closeexceptlike-using">
+<title
+>Dışındakileri/Benzerleri Kapat eklentisini kullanmak</title>
+
+<para
+>&kate;'de aşağıdaki belgeleri açtığınızı varsayalım:</para>
+
+<simplelist>
+<member
+>/tmp/subfolder/test.h</member>
+<member
+>/tmp/test.cpp</member>
+<member
+>/tmp/test.txt</member>
+</simplelist>
+
+<para
+>Ardından, ekran görüntüsünde gösterildiği gibi belgeleri kapatmak için aşağıdaki seçeneklere sahipsiniz:</para>
+
+<screenshot id="screenshot-closeexceptlike">
+<screeninfo
+>Dışındakileri Kapat</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="close-except-like.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Onay iletişim kutusunu etkinleştirmek veya devre dışı bırakmak için listenin son ögesindeki onay kutusunu kullanın. Seçili seçenek her iki kapatma işlemine de uygulanacaktır. </para>
+
+</sect2>
+
+<sect2 id="closeexceptlike-menu">
+<title
+>Menü Yapısı</title>
+
+<variablelist>
+<varlistentry id="file-close-except">
+<term
+><menuchoice
+><guimenu
+>Dosya</guimenu
+> <guisubmenu
+>Dışındakileri Kapat</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Alt menüden seçili yol veya dosya uzantısıyla eşleşenler <emphasis
+>dışındaki</emphasis
+> tüm açık belgeleri <action
+>kapatın</action
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-like">
+<term
+><menuchoice
+><guimenu
+>Dosya</guimenu
+> <guisubmenu
+>Benzerleri Kapat</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Alt menüden seçili yol veya dosya uzantısıyla eşleşen tüm açık belgeleri <action
+>kapatın</action
+>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-colorpicker">
+
+<title
+>Renk Seçicisi Eklentisi</title>
+
+<sect2 id="colorpicker-intro">
+<title
+>Giriş</title>
+
+<para
+>Bu eklenti, metindeki renklere satır içi renk önizlemesi/seçicisi ekler (&eg;, <literal
+>#FFFFFF</literal
+>, <literal
+>white</literal
+>).</para>
+
+<para
+>Bu eklentiyi yüklemek için <menuchoice
+><guimenu
+>Ayarlar</guimenu
+> <guimenuitem
+>&kate; Uygulamasını Yapılandır...</guimenuitem
+></menuchoice
+> altından &kate;'in yapılandırma iletişim kutusunu açın. Sonrasında, <guilabel
+>Renk Seçicisi</guilabel
+>'ni seçin ve iletişim kutusunu kapatın. </para>
+</sect2>
+
+<sect2 id="colorpicker-config">
+<title
+>Yapılandırma</title>
+
+<para
+>&kate;'in yapılandırmasındaki Renk Seçicisi ayarları sayfasında eklenti davranışının aşağıdaki seçeneklerini yapılandırabilirsiniz.</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Bilinen renkler için önizlemeyi göster</guilabel
+></term>
+<listitem>
+<para
+>Bilinen renk adları için renk seçicinin gösterilip gösterilmeyeceği (&eg;, <literal
+>skyblue</literal
+>). Renk listesi için <ulink url="https://www.w3.org/TR/SVG11/types.html#ColorKeywords"
+>bu sayfaya</ulink
+> bakın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Metin renginden sonra önizlemeyi getir</guilabel
+></term>
+<listitem>
+<para
+>Satır içi önizlemenin metinde metin renginden sonra gelip gelmeyeceği.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Onaltılı renk eşleşmesi</guilabel
+></term>
+<listitem>
+<para
+>Burada kodunuzda kullanılan renklere en uygun olanı seçebilirsiniz.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-colored-brackets">
+<title
+>Renkli Ayraçlar</title>
+
+<sect2
+><title
+>Giriş</title>
+<para
+>Okunabilirliği artırmak için farklı renklerdeki ayraç çiftleriyle eşleşen renkli ayraç eklentisi. Ancak tüm ayraçlar renklendirilmez. Eşleşen açıcısı veya kapatıcısı görünmeyen bir ayraç dikkate alınmayacaktır. Benzer şekilde, bir çizgideki tek ayraç çifti olan ayraç çifti renklendirilmez. </para>
+</sect2>
+
+<sect2
+><title
+>Yapılandırma</title>
+<para
+>Bu eklenti, herhangi bir yapılandırma seçeneği sunmaz.</para>
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-ctags">
+<!--https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/-->
+<title
+>CTags Eklentisi</title>
+
+<sect2 id="ctags-intro">
+<title
+>Giriş</title>
+
+<para
+><ulink url="https://en.wikipedia.org/wiki/Ctags"
+>CTags</ulink
+>, &kate;'deki bu eklentiyi kullanarak kaynak dosyalardaki ögelerin kolaylıkla bulunabilmesini sağlayan bir dil nesneleri indeksi (veya etiketi) üretir. </para>
+<para
+>Etiket, bir dizin girdisinin kullanılabilir olduğu bir dil nesnesini (veya alternatif olarak o nesne için oluşturulan dizin girdisini) belirtir.</para>
+
+<para
+>Etiket üretimi, bu <ulink url="http://ctags.sourceforge.net/languages.html"
+>programlama dilleri</ulink
+> için desteklenir. </para>
+</sect2>
+
+<sect2 id="ctags-config">
+<title
+>Yapılandırma</title>
+
+<para
+>CTags eklentisi, indeksleme için iki farklı veritabanı dosyası kullanır.</para>
+
+<para
+>&kate;'in yapılandırmasındaki CTags ayarları sayfasında, kaynak kodunu içeren dizinleri ekleyebilir veya kaldırabilir ve ortak CTags veritabanını yeniden oluşturabilirsiniz.</para>
+
+<sect3 id="ctags-config-common">
+<title
+>Genel İndeks</title>
+
+<screenshot id="screenshot-ctags-global-settings">
+<screeninfo
+>CTags Ayarları</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ctags-global-setting.png" format="PNG"/></imageobject>
+<caption
+>CTags Genel Veritabanını Yapılandır</caption>
+</mediaobject>
+</screenshot>
+
+<para
+>Ayarlar sayfasının alt kısmında <guilabel
+>CTags komutunu</guilabel
+> uyarlayabilirsiniz. </para>
+
+<para
+>Kullanılabilir tüm seçenekler için lütfen CTags man sayfasını okuyun. Bu man sayfasına &khelpcenter; içinden erişilebilir veya <emphasis
+>man:/ctags</emphasis
+> &URL;'sini doğrudan &konqueror;'a girebilirsiniz. </para>
+
+<para
+><guibutton
+>Güncelle</guibutton
+>'ye tıklamak indekslemeyi başlatacaktır. Dizin oluşturma tamamlandığında iletişim kutusunu kapatın.</para>
+</sect3>
+
+<sect3 id="ctags-config-session">
+<title
+>Oturum İndeksi</title>
+
+<para
+>Oturum indeksini yapılandırmak için <guilabel
+>CTags</guilabel
+> görünümünü açın.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice>
+<guimenu
+>İndeksleme Hedefleri</guimenu>
+</menuchoice
+></term>
+<listitem>
+<para
+>Bu sekmede kaynak kodunu içeren dizinleri ekleyebilir veya kaldırabilir ve oturuma özel CTags veritabanını elle yeniden üretebilirsiniz.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice>
+<guimenu
+>Veritabanı</guimenu>
+</menuchoice
+></term>
+<listitem>
+<screenshot id="screenshot-ctags-session-settings">
+<screeninfo
+>Veritabanı Ayarları</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ctags-session-setting.png" format="PNG"/></imageobject>
+<caption
+>Ctags Oturum Veritabanını Yapılandır</caption>
+</mediaobject>
+</screenshot>
+<para
+>Başka bir CTags veritabanı dosyası seçin, CTags komutunu yapılandırın veya öntanımlı komuta geri dönün.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="ctags-using">
+<title
+>CTags Eklentisini kullanmak</title>
+
+<para
+>Fare imlecini ilgilendiğiniz işlev, sembol vb. dil nesnesinin üzerine yerleştirirsiniz ve ardından nesnenin tanımlandığı veya beyan edildiği satıra ve dosyaya geçmek için <guimenu
+>CTags</guimenu
+> menüsündeki eylemlerden birini seçersiniz.</para>
+<para
+>Öntanımlı olarak, <guimenu
+>CTags</guimenu
+> menüsündeki eylemlerde atanan klavye kısayolları yoktur. Kendi kısayollarınızı yapılandırmak için <ulink url="help:/fundamentals/shortcuts.html"
+>klavye kısayolları düzenleyicisini</ulink
+> kullanın.</para>
+
+<para
+>Alternatif olarak CTags görünümünün <guilabel
+>Arama</guilabel
+> sekmesindeki arama alanını kullanın.</para>
+<para
+>Arama alanına karakterlerin girilmesi, aramayı başlatacak ve işlevler, sınıflar, semboller vb. gibi dil nesnelerinin eşleşen adlarını tür ve dosya adıyla birlikte görüntüleyecektir.</para>
+<para
+>Kaynak dosyadaki ilgili satıra atlamak için listeden bir öge seçin.</para>
+<!--FIXME why Tag Type here but Name Kind in Project plugin, is there really any difference?-->
+
+<!--FIXME completion as in Project plugin? -->
+
+</sect2>
+
+<sect2 id="ctags-menu">
+<title
+>Menü Yapısı</title>
+
+<variablelist>
+
+<varlistentry id="ctags-jumpback">
+<term
+><menuchoice
+><guimenu
+>CTags</guimenu
+> <guisubmenu
+>Bir Adım Geri Git</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Geçmişte ziyaret edilen son etikete geri dönün.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="ctags-lookup">
+<term
+><menuchoice
+><guimenu
+>CTags</guimenu
+> <guisubmenu
+>Geçerli Metni Ara</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>CTags görünümünün <guilabel
+>Arama</guilabel
+> sekmesini açar ve listedeki geçerli metin seçimiyle eşleşen tüm dil nesnelerini görüntüler.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="ctags-gotodeclaration">
+<term
+><menuchoice
+><guimenu
+>CTags</guimenu
+> <guisubmenu
+>Beyana Git</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>İmleç bir tanım nesnesinin içindeyse bu, gerekirse karşılık gelen beyanı içeren belgeyi açar, görünümünü etkinleştirir ve imleci beyanın başlangıcına yerleştirir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="ctags-gotodefinition">
+<term
+><menuchoice
+><guimenu
+>CTags</guimenu
+> <guisubmenu
+>Tanıma Git</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>İmleç bir beyan nesnesinin içindeyse bu, gerekirse karşılık gelen tanımı içeren belgeyi açar, görünümünü etkinleştirir ve imleci tanımın başlangıcına yerleştirir.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<!--context menu with Lookup Current Text, Goto Declaration, Goto Definition -->
+
+</sect2>
+
+</sect1>
+<!--https://frinring.wordpress.com/2017/11/07/ktexteditorpreviewplugin-0-2-1-last-stand-alone/-->
+<!-- https://frinring.wordpress.com/2017/08/21/look-what-you-have-donewwdo/-->
+<sect1 id="kate-application-plugin-preview">
+<title
+>Belge Önizlemesi Eklentisi</title>
+
+<sect2 id="preview-introduction">
+<title
+>Giriş</title>
+<para
+>Eklenti, halihazırda düzenlenen metin belgesinin kenar çubuğunda son biçiminin canlı önizlemesini sağlar. Örneğin, bir &Markdown; metni veya &SVG; görseli düzenlerken, çıktı, kaynak metnin yanında anında görünür. </para>
+
+<para
+>Görüntüleme için eklenti, şu anda belgenin &MIME; türü için tercih edilen olarak seçili &kparts; eklentisini kullanır. Bu tür için &kparts; eklentisi yoksa önizleme olanaklı değildir. </para>
+
+<para
+>Tercih edilen eklentiyi değiştirmek için &systemsettings; içindeki <guilabel
+>Dosya İlişkilendirmeleri</guilabel
+> modülünü açın ve <guilabel
+>Gömme</guilabel
+> sekmesindeki <guilabel
+>Hizmetler Tercih Sırası</guilabel
+> bölümünü düzenleyin. </para>
+
+<table>
+<title
+>Bazı kullanılabilir &kparts; eklentileri</title>
+<tgroup cols="2">
+<tbody>
+<row>
+<entry
+>&MIME; türü</entry
+><entry
+>&kparts; eklentisi</entry>
+</row>
+<row>
+<entry
+>&Markdown; metni</entry
+><entry
+>KMarkdownWebViewPart veya OkularPart</entry>
+</row>
+<row>
+<entry
+>&SVG; görseli</entry
+><entry
+>SVGPart</entry>
+</row>
+<row>
+<entry
+>&Qt; UI dosyaları</entry
+><entry
+>KUIViewerPart</entry>
+</row>
+<row>
+<entry
+>&DOT; grafik dosyaları</entry
+><entry
+>KGraphviewerPart</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</sect2>
+
+<sect2 id="preview-menu">
+<title
+>Menü Yapısı</title>
+<variablelist>
+
+<varlistentry id="view-toolviews-show-preview">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Araç Görünümleri</guisubmenu
+> <guimenuitem
+>Önizleme</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Kenar çubuğunda, &kate;'in belge önizlemesinin görüntülenmesini açar/kapatır.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="preview-interface">
+<title
+>Arayüz</title>
+<para
+>Önizleme penceresinin üstündeki düğmeler şu eylemleri sağlar: </para>
+<itemizedlist>
+<listitem>
+<para
+>Önizlemeyi belirli bir belgeye kilitleyin. Bu seçeneğin seçilmesi, odağın aynı &kate; penceresindeki başka bir belgenin görünümüne değiştirilmesi durumunda önizlemenin o belgeyi takip etmemesini; ancak bu belgenin önizlemesini sürdürmesini sağlar.</para>
+</listitem>
+<listitem>
+<para
+>Geçerli belge içeriğinin önizlemesinin güncellemelerini etkinleştir veya devre dışı bırak</para>
+</listitem>
+<listitem>
+<para
+>Geçerli belge içeriğinin önizlemesini elle güncelle</para>
+</listitem>
+<listitem>
+<para
+>&kparts; eklentisindeki işlemleri içeren bir açılır menü</para>
+</listitem>
+</itemizedlist>
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-documentswitcher">
+
+<title
+>Belge Değiştiricisi Eklentisi</title>
+
+<sect2 id="documentswitcher-menu">
+<title
+>Menü Yapısı</title>
+
+<variablelist>
+
+<varlistentry id="view-documentswitcher">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Tab;</keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Son Kullanılan Görünümler</guisubmenu
+> </menuchoice
+></term>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;&Tab;</keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Son Kullanılan Görünümler (Ters)</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+
+<para
+>Son görüntülenen belgeleri içeren bir liste <action
+>açar</action
+>:</para>
+
+<screenshot id="screenshot-documentswitcher">
+<screeninfo
+>Son Görüntülenen Belgeler</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="documentswitcher.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Listede ilerlemek için &Ctrl; düğmesini basılı tutun ve &Tab; düğmesine basın. Ayrıca yönü tersine çevirmek için &Shift; düğmesini kullanın. </para>
+
+<para
+>Listede dolaşmak için <keycombo action="simul"
+>&Ctrl;&Tab;</keycombo
+> kısayolunu basılı tutarken &Up;, &Down;, &Home; veya &End; düğmelerine basın. Bir karakter düğmesine art arda basıldığında, listedeki ilk eşleşen tüm ögeler arasında geçiş yapılır. Kısayol düğmelerini bırakırsanız görünüm, listede seçilen belgeye geçiş yapar. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="kate-application-plugin-fsbrowser">
+
+<title
+>Dosya Sistemi Tarayıcısı</title>
+
+<para
+>Dosya Sistemi Tarayıcısı, geçerli çerçevede görüntülenen bir klasördeki dosyaları açmanıza olanak tanıyan bir klasör görüntüleyicisidir.</para>
+
+<sect2 id="fsbrowser-menu">
+<title
+>Menü Yapısı</title>
+<variablelist>
+
+<varlistentry id="view-toolviews-show-filebrowser">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Araç Görünümleri</guisubmenu
+> <guimenuitem
+>Dosya Sistemi</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>&kate;'in Dosya Sistemi Tarayıcısı'nın görüntülenmesini açar/kapatır.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="fsbrowser-interface">
+<title
+>Arayüz</title>
+
+<para
+>Yukarıdan aşağıya doğru, Dosya Sistemi Tarayıcısı aşağıdaki ögelerden oluşur:</para>
+
+<variablelist>
+<varlistentry>
+<term
+>Bir Araç Çubuğu</term>
+<listitem>
+<para
+>Bu, standart dolaşım aracı düğmelerini içerir:</para>
+<variablelist>
+<varlistentry>
+<term
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="go-previous-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Geri</guiicon
+></term>
+<listitem
+><para
+>Klasör görünümünün geçmişte daha önce görüntülenen klasöre <command
+>cd</command
+> yapmasına neden olur. Önceki öge yoksa bu düğme devre dışı bırakılır.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="go-next-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> İleri</guiicon
+></term>
+<listitem
+><para
+>Klasör görünümünün geçmişteki sonraki klasöre <command
+>cd</command
+> yapmasına neden olur. Sonraki öge yoksa bu düğme devre dışı bırakılır.</para
+></listitem>
+</varlistentry>
+<!--varlistentry>
+<term
+><guibutton
+>Parent Folder</guibutton
+></term>
+<listitem
+><para
+>This will cause the folder view to <command
+>cd</command
+> to the immediate parent of the currently displayed
+folder if possible.</para
+></listitem>
+</varlistentry-->
+<varlistentry>
+<term
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="bookmarks-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Yer İmleri</guiicon
+></term>
+<listitem
+><para
+>Yer imlerini düzenlemek veya eklemek ve yeni bir yer imi klasörü eklemek için bir alt menü açar.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="system-switch-user-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Geçerli Belge Klasörü</guiicon
+></term>
+<listitem
+><para
+>Bu düğme, klasör görünümünün olanaklıysa o anda etkin olan belgenin klasörüne <command
+>cd</command
+> yapmasını sağlar. Etkin belge yeni kaydedilmemiş bir dosyaysa veya içinde bulunduğu klasör belirlenemiyorsa bu düğme devre dışı bırakılır.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="games-config-options-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Seçenekler</guiicon
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guimenuitem
+>Kısa Görünüm</guimenuitem
+></term>
+<listitem
+><para
+>Yalnızca dosya adlarını görüntüler.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guimenuitem
+>Ayrıntılı Görünüm</guimenuitem
+></term>
+<listitem
+><para
+>Dosyaların; <guilabel
+>Ad</guilabel
+>, <guilabel
+>Tarih</guilabel
+> ve <guilabel
+>Boyutu</guilabel
+> özelliklerini görüntüler.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guimenuitem
+>Ağaç Görünümü</guimenuitem
+></term>
+<listitem
+><para
+>Kısa Görünüm gibi; ancak klasörler içeriklerini görüntülemek için genişletilebilir.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guimenuitem
+>Ayrıntılı Ağaç Görünümü</guimenuitem
+></term>
+<listitem
+><para
+>Bu aynı zamanda klasörlerin genişletilmesine de olanak tanır; ancak Ayrıntılı Görünüm'de kullanılabilir olan ek sütunları görüntüler.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guimenuitem
+>Gizli Dosyaları Göster</guimenuitem
+></term>
+<listitem
+><para
+>Normalde &OS; tarafından gizlenen belgeleri görüntüler.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guimenuitem
+>Geçerli belge ile kendiliğinden eşzamanla</guimenuitem
+></term>
+<listitem
+><para
+>Bu seçenek etkinleştirildiğinde, dosya sistemi tarayıcısı her değişiklikte kendiliğinden düzenleme alanında açık olan belgenin klasörüne <command
+>cd</command
+> yapar.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Bir Konum Girdisi</term>
+<listitem>
+<para
+>Bu, &dolphin;'e benzer şekilde, o anda açık olan klasöre yönelik bir ekmek kırıntısı dolaşımı görüntüler. Göz atmak için herhangi bir klasöre veya altındaki herhangi bir klasörü seçmek için klasörün solundaki oklardan birine tıklayabilirsiniz. Şu anki Yerinizi temsil eden bir simgeyi görüntüleyen ekmek kırıntısı dolaşımında en soldaki simgeyi tıklayarak da Yerler listenizden seçim yapabilirsiniz.</para>
+
+<para
+>Ayrıca, göz atılacak klasörün yolunu yazabileceğiniz bir metin kutusuna dönüştürmek için ekmek kırıntılarının sağına da tıklayabilirsiniz. &URL; girdisi, önceden yazılan yolların bir listesini tutar. Birini seçmek için girdinin sağındaki ok düğmesini kullanın.</para>
+<tip
+><para
+>&URL; girdisinde klasör kendiliğinden tamamlama özelliği vardır. Tamamlama yöntemi, metin girişinin &RMB; menüsü kullanılarak ayarlanabilir.</para
+></tip>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Bir Klasör Görünümü</term>
+<listitem
+><para
+>Bu, standart bir &kde; klasör görünümüdür.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Bir Süzgeç Girdisi</term>
+<listitem>
+<para
+>Süzgeç girdisi, klasör görünümünde görüntülenen dosyalar için bir süzgeç girmenizi sağlar. Süzgeç, standart global ayarları kullanır; dizgiler boşlukla ayrılmalıdır. Örnek: <userinput
+>*.cpp *.h *.moc</userinput
+></para>
+<para
+>Tüm dosyaları görüntülemek için tek bir <userinput
+>*</userinput
+> kullanın.</para>
+<para
+>Süzgeç girdisi, oturumlar arasında girilen son 10 süzgeci kaydeder. Birini kullanmak için girdinin sağındaki ok düğmesine basın ve istediğiniz süzgeç dizisini seçin. Kendiliğinden tamamlama ok düğmesinin solundaki <guibutton
+>Metni temizle</guibutton
+> düğmesine basarak süzgeci devre dışı bırakabilirsiniz.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+
+<sect2 id="fsbrowser-config">
+<title
+>Yapılandırma</title>
+
+<para
+>Bu eklenti, <link linkend="configuring-kate-configdialog"
+>&kate; yapılandırmasının</link
+> <guilabel
+>Dosya Sistemi Tarayıcısı</guilabel
+> sayfasında yapılandırılabilir.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Araç Çubuğu</guilabel
+></term>
+<listitem
+><para
+>Etkinleştirilmesini istediğiniz düğmeleri <guilabel
+>Seçili Eylemler</guilabel
+> listesine taşıyarak Dosya Sistemi Tarayıcısı araç çubuğundaki düğmeleri yapılandırın ve listenin yan tarafındaki ok düğmelerini kullanarak bunları sıralayın.</para>
+ </listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-documents">
+<title
+>Belgeler Listesi</title>
+<!-- https://kate-editor.org/2010/09/12/kate-tree-view-plugin-update/-->
+<sect2 id="documents-intro">
+<title
+>Giriş</title>
+
+<para
+><indexterm
+><primary
+>Belgeler listesi</primary
+></indexterm
+> Belgeler listesi, o anda &kate;'de açık olan tüm belgelerin bir listesini görüntüler. Değiştirilen dosyaların sol tarafında bu durumu belirtmek için küçük bir <guiicon
+>disket</guiicon
+> simgesi bulunur.</para>
+
+<para
+>Belgeler listesinin üst kısmında aşağıdaki düğmeleri içeren bir araç çubuğu bulunur:</para>
+
+<simplelist>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-new-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Yeni belge oluştur</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-open-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Var olan bir belgeyi aç</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="go-up-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Önceki Belge</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="go-down-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Sonraki Belge</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-save-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Geçerli belgeyi kaydet</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-save-as-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Geçerli belgeyi yeni bir adla kaydet</member>
+</simplelist>
+
+<para
+>Öntanımlı olarak Belgeler Listesi, o anda açık olan tüm belgeleri çevreleyen klasör yapısını görüntüleyen <guimenuitem
+>Ağaç Kipi</guimenuitem
+>'nde görünür. Ayrıca tüm açık belgelerin basit bir listesini görüntüleyen <guimenuitem
+>Liste Kipi</guimenuitem
+> de kullanılabilir. Listeye sağ tıklayıp <guisubmenu
+>Görüntüleme Kipi</guisubmenu
+> menüsünden seçim yaparak modları değiştirebilirsiniz.</para>
+
+<para
+><guimenuitem
+>Liste Kipi</guimenuitem
+>'nde farklı klasörlerde bulunan aynı adlı iki dosya açıksa ikinci dosyanın adının sonuna <quote
+>(2)</quote
+> ve artan sayılar iliştirilecektir. Dosyanın araç ipucu, yol da dahil olmak üzere tam adını görüntüleyecek ve istediğiniz dosyayı seçmenize olanak tanıyacaktır.</para
+> <para
+>Bir belgeyi o anda etkin olan çerçevede görüntülemek için listedeki belge adına tıklayın.</para>
+
+<para
+>Bağlam menüsünde <guimenu
+>Dosya</guimenu
+> menüsündeki bazı ortak işlemler bulunur.</para>
+
+<para
+>Ayrıca dosyayı yeniden adlandırmak veya silmek için dosya yöneticisi eylemleri vardır. <guimenuitem
+>Konumu Kopyala</guimenuitem
+> ile belgenin tam yolunu panoya kopyalayabilirsiniz.</para>
+
+<para
+>Listeye sağ tıklayıp <guisubmenu
+>Şuna Göre Sırala</guisubmenu
+> menüsünden seçim yaparak listeyi birkaç farklı şekilde sıralayabilirsiniz. Seçenekler şunlardır: <variablelist>
+
+<varlistentry>
+<term
+><guimenuitem
+>Belge Adı</guimenuitem
+></term>
+<listitem
+><para
+>Belgeleri adlarına göre abecesel olarak listeler.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guimenuitem
+>Belge Yolu</guimenuitem
+></term>
+<listitem
+><para
+>Belgeleri yollarına göre abecesel olarak listeler.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guimenuitem
+>Açma Sırası</guimenuitem
+></term>
+<listitem
+><para
+>Belgeleri açılış sıralarına göre listeler.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<para
+>Belge listesi öntanımlı olarak, en yeni belgelerin girdilerini bir arka plan rengiyle gölgeleyerek geçmişinizi görselleştirecektir. Belge düzenlenmişse fazladan bir renk eklenir. En yeni belge en güçlü renge sahiptir, böylece üzerinde çalıştığınız belgeleri kolayca bulabilirsiniz. Bu özellik, yapılandırma iletişim kutusunun <link linkend="config-dialog-documents"
+>Belgeler</link
+> sayfasında devre dışı bırakılabilir.</para>
+<para
+>&kate; penceresindeki belge listesinin öntanımlı konumu düzenleme alanının soludur.</para>
+
+</sect2>
+
+<sect2 id="documents-menus">
+<title
+>Menü Yapısı</title>
+
+<variablelist>
+
+<varlistentry id="view-document-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&Up;</keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Önceki Belge</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Belgeler listesinde o anda açık olan belgenin üzerinde görüntülenen belgeyi açar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-document-next">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&Down;</keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Sonraki Belge</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Belgeler listesinde o anda açık olan belgenin altında görüntülenen belgeyi açar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-active">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Etkin Belgeyi Göster</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Şu anda açık olan belgeyi Belgeler listesinde görüntüler.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="config-dialog-documents">
+<title
+>Yapılandırma</title>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Arka Plan Gölgelendirme</guilabel
+></term>
+<listitem
+><para
+>Bu bölüm, son etkinliğinizin arka plan gölgelendirme görselleştirmesini etkinleştirmenize veya devre dışı bırakmanıza ve etkinleştirildiğinde hangi renklerin kullanılacağını seçmenize olanak tanır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Şuna Göre Sırala</guilabel
+></term>
+<listitem
+><para
+>Belge listesinin nasıl sıralanmasını istediğinizi ayarlayın. Bu, belge listesindeki &RMB; menüsünden de ayarlanabilir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Görüntüleme Kipi</guilabel
+></term>
+<listitem
+><para
+>Bu, Belgeler aracı görünümünün görüntülenmesini etkileyen iki seçenek sunar. <guilabel
+>Ağaç Görünümü</guilabel
+> seçeneği, belgeleri bulundukları klasörlerin altındaki bir ağaçta görüntülerken, <guilabel
+>Liste Görünümü</guilabel
+> seçeneği belgelerin düz bir listesini görüntüler. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Tam Yolu Göster</guilabel
+></term>
+<listitem
+><para
+>Ağaç Görünümü ve bu seçenek etkinleştirildiğinde, Belgeler aracı görünümünde görüntülenen klasör girdileri, klasörün adına ek olarak klasöre giden tam dosya sistemi yolunu da görüntüler. Liste Görünümü'nde hiçbir etkisi yoktur.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Araç Çubuğunu Göster</guilabel
+></term>
+<listitem
+><para
+>Ağaç Görünümü ve bu seçenek etkinleştirildiğinde, belge listesinin üzerinde <guibutton
+>Kaydet</guibutton
+> gibi eylemlerin bulunduğu bir araç çubuğu görüntülenir. Araç çubuğunun gizlenmesi gerekiyorsa bu seçeneğin işaretini kaldırın.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Kapat Düğmesini Göster</guilabel
+></term>
+<listitem
+><para
+>Bu seçenek etkinleştirildiğinde &kate;, fareyle üzerine gelindiğinde açılan belgeler için bir kapatma düğmesi gösterecektir.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-gdb">
+<!--https://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
+<sect1info>
+<authorgroup>
+<author
+><firstname
+>Martin</firstname
+> <surname
+>Gergov</surname
+></author>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+</authorgroup>
+</sect1info>
+<title
+>&gdb; Eklentisi</title>
+
+<sect2 id="gdb-intro">
+<title
+>Giriş</title>
+
+<para
+>&kate;'in &gdb; eklentisi, popüler &GNU; Proje Hata Ayıklayıcısı için temel bir ön yüz sağlar.</para>
+
+<important>
+<para
+>Öncesinde &gdb; kullanımı hakkında bilgi sahibi olmanız şiddetle önerilir. &gdb; kullanımı üzerine daha fazla bilgi için <ulink url="https://www.gnu.org/software/gdb/"
+>&gdb; web sitesini</ulink
+> ziyaret edin.</para>
+</important>
+
+<para
+>&gdb; eklentisini, &kate; yapılandırmasının <link linkend="config-dialog-plugins"
+>Eklentiler</link
+> bölümünden etkinleştirebilirsiniz.</para>
+
+<para
+>Eklentinin düzgünce çalışması için bir kaynak dosyasına (&gdb; tarafından desteklenen herhangi biri) ve bir yürütülebilire gereksiniminiz olacak.</para>
+
+<tip>
+<para
+>&gcc;/<command
+>g++</command
+> kullanarak derliyorsanız <command
+><parameter
+>-ggdb</parameter
+></command
+> komut satırı argümanını kullanmak isteyebilirsiniz. </para>
+</tip>
+
+<para
+>Bu hazırlıklar tamamlandıktan sonra, kaynak dosyasını &kate; ile açın, <guilabel
+>Hata Ayıklama Görünümü</guilabel
+>'nün <guilabel
+>Ayarlar</guilabel
+> sekmesini kullanarak yürütülebilirin yolunu girin ve menüden <menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Hata Ayıklamayı Başlat</guimenuitem
+></menuchoice
+>'ı seçerek başlayın.</para>
+
+</sect2>
+
+<sect2 id="gdb-menus">
+<title
+>Menü ve Araç Çubuğu Yapısı</title>
+
+<para
+>Bu seçeneklerin tümüne &kate;'in menülerinden ve çoğuna Hata Ayıklama araç çubuğundan da ulaşılabilir.</para>
+
+<variablelist>
+
+<varlistentry id="gdb-menus-show-debug-view">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Araç Görünümleri</guisubmenu
+><guimenuitem
+>Hata Ayıklama</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>&gdb; çıktısını, kullanılan &gdb; komut satırını ve diğer ayarları içeren bir araç görünümü gösterir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-show-locals-and-stack">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Araç Görünümleri</guisubmenu
+><guimenuitem
+>Yereller ve Yığın</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Şu anda yüklü tüm değişkenleri, onların değerlerini ve bir &gdb; geri izini gösterir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-targets">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guisubmenu
+>Hedefler</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+>Hedeflerin (yürütülebilirlerin) bir listesini içeren bir alt menü. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-start">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Hata Ayıklamayı Başlat</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>&gdb;'yi bir hedef ile başlatır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-kill">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Hata Ayıklamayı Öldür/Durdur</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>&gdb;'yi durdurur.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-restart">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Hata Ayıklamayı Yeniden Başlat</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>&gdb;'yi yeniden başlatır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-break">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Kesme Noktası-Kesme Ekle/Kaldır</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Geçerli imleç konumuna bir kesme noktası ekleyin/kaldırın. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-step-in">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>İçeri Gir</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Geçerli ifadeyi yürütün (işlev çağrısında hata ayıklama gerçekleştirilecek). </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-step-over">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Üzerinden Geç</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Geçerli ifadeyi yürütün (işlev çağrısında hata ayıklama gerçekleştirilmeyecek).</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-step-out">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Dışarı Çık</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Yürütme işlemi sonlanana kadar yürütmeyi sürdürür.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-move-pc">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Program Sayacını Taşı</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Program sayacını taşıyın (sonraki yürütme).</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-run-to-cursor">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>İmlece Kadar Çalıştır</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Programı, geçerli imleç konumuna kadar çalıştırır. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-continue">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Sürdür</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Tüm kesme noktalarını yok sayar ve program sonlanana kadar onu yürütür (başarılı veya değil).</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-print-value">
+<term
+><menuchoice
+><guimenu
+>Hata Ayıklama</guimenu
+><guimenuitem
+>Değeri Yazdır</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>İmlecin şu anda işaret ettiği değişkenin değerini yazdırır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-toolbar">
+<term
+><menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guisubmenu
+>Gösterilen Araç Çubukları</guisubmenu
+><guimenuitem
+>Hata Ayıklama Eklentisi</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Hata ayıklama araç çubuğunu görüntüler.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="gdb-debug-view">
+<title
+>Hata Ayıklama Görünümü</title>
+
+<para
+><guilabel
+>Hata Ayıklama Görünümü</guilabel
+> araç çubuğu, çeşitli sekmelerden oluşur: </para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>&gdb; Çıktısı</guilabel
+></term>
+<listitem>
+<para
+>&gdb; ve &gdb; komut satırından çıktılar içerir.</para>
+
+<screenshot id="screenshot-gdb-output">
+<screeninfo
+>Çıktı Sekmesi</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="gdb-output.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Çıktı sekmesi.</phrase
+></textobject>
+<caption
+><para
+><guilabel
+>Çıktı</guilabel
+> sekmesi, bir hata ayıklama oturumundan gelen çıktıyı görüntüler.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ayarlar</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Yürütülebilir</guilabel
+></term>
+<listitem
+><para
+>Hata ayıklama için hedef (yürütülebilir) yolu.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Çalışma Dizini</guilabel
+></term>
+<listitem
+><para
+>Hedefe sağlanan geçerli çalışma dizini. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Argümanlar</guilabel
+></term>
+<listitem
+><para
+>Programa geçirilen argümanlar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Odağı tut</guilabel
+></term>
+<listitem
+><para
+>Odağı &gdb; komut satırında tutun.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Girdi-Çıktı'yı Yeniden Yönlendir</guilabel
+></term>
+<listitem
+><para
+><guilabel
+>Hata Ayıklama Görünümü</guilabel
+>'nde, çıktıyı görebileceğiniz ve çalışan programa girdi sağlayabileceğiniz yeni bir <guilabel
+>Girdi-Çıktı</guilabel
+> sekmesi açar.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+<screenshot id="screenshot-gdb-settings">
+<screeninfo
+>Ayarlar iletişim kutusu</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="gdb-settings.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Ayarlar iletişim kutusu</phrase
+></textobject>
+<caption
+><para
+>Bir hata ayıklama oturumunun yapılandırmasını görüntüleyen<guilabel
+>Ayarlar</guilabel
+> iletişim kutusu.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Girdi-Çıktı</guilabel
+></term>
+<listitem>
+<para
+>Çalışan programın çıktısını görüntüleyen bir alan ve bu programa girdi sağlayabileceğiniz bir komut satırı içerir.</para>
+
+<screenshot id="screenshot-gdb-io">
+<screeninfo
+>Girdi-Çıktı Sekmesi</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="gdb-io.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Girdi-Çıktı sekmesi.</phrase
+></textobject>
+<caption
+><para
+><guilabel
+>Girdi-Çıktı</guilabel
+> sekmesi, basit bir sınama programından çıktı görüntüler.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="gdb-other">
+<title
+>Çağrı Yığını ve Yereller</title>
+
+<para
+><guilabel
+>Çağrı Yığını</guilabel
+> araç görünümü, &gdb;'den dönen biçimlendirilmiş bir geri iz listesi içerir.</para>
+
+<screenshot id="screenshot-gdb-call-stack">
+<screeninfo
+>&gdb; Çağrı Yığını Araç Görünümü</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="gdb-call-stack.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Çağrı Yığını araç görünümü.</phrase
+></textobject>
+<caption
+><para
+>&gdb; eklentisinin <guilabel
+>Çağrı Yığını</guilabel
+> araç görünümü. </para
+></caption>
+</mediaobject>
+</screenshot>
+
+<para
+><guilabel
+>Yereller</guilabel
+> araç görünümü, programdan o anda yüklü olan tüm değişkenlerin ve bunlara karşılık gelen değerlerin bir listesini içerir.</para>
+
+<screenshot id="screenshot-gdb-locals">
+<screeninfo
+>&gdb; Yereller Araç Görünümü</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="gdb-locals.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Yereller araç görünümü.</phrase
+></textobject>
+<caption
+><para
+>&gdb; eklentisinin <guilabel
+>Yereller</guilabel
+> araç görünümü. </para
+></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="gdb-ack">
+<title
+>Teşekkürler ve Destek Olanlar</title>
+
+<para
+>Bu bölümün çoğunu yazan Google Code-In 2011 katılımcısı Martin Gergov'a özellikle teşekkürler.</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-projects">
+<!--https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate -->
+
+<title
+>Proje Eklentisi</title>
+
+<sect2 id="project-intro">
+<title
+>Giriş</title>
+
+<para
+>Project eklentisinin temel fikri, aşağıdaki özelliklere sahip, projeye ait dosyaların yapılandırılmış bir listesine sahip olmaktır:</para>
+
+<orderedlist>
+<listitem
+><para
+>Dosyaların yapısal bir görünümünü sağla</para
+></listitem>
+<listitem
+><para
+>Projeleri açmayı ve aralarında geçiş yapmayı kolay ve çok hızlı hale getir</para
+></listitem>
+<listitem
+><para
+>Bir proje için aramayı ve değiştirmeyi destekle</para
+></listitem>
+<listitem
+><para
+>Temel kendiliğinden tamamlama sağla</para
+></listitem>
+<listitem
+><para
+>Projede tez dosya açmayı kolaylaştır</para
+></listitem>
+<listitem
+><para
+>Projeyi derleme desteği sağla</para
+></listitem>
+</orderedlist>
+</sect2>
+
+<sect2 id="project-view">
+<title
+>Dosyaların Yapısal Görünümü</title>
+
+<para
+>Proje eklentisi &kate; yapılandırma sayfasına yüklendikten sonra, bir projede bir dosya açın; tüm projelerin yanı sıra proje dosyalarını da listeleyen bir kenar çubuğu aşağıdaki gibi görünür:</para>
+
+<screenshot id="screenshot-project-view">
+<screeninfo
+>Proje Görünümü</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-view.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Gördüğünüz gibi şu anda etkin olan proje <quote
+>Kate</quote
+>'tir ve içeriği ağaç görünümünde listelenmektedir. Ağaç görünümünde dosyalara tıklamak, dosyayı düzenleyicide açar. Ayrıca, Qt Designer ile <filename class="extension"
+>.ui</filename
+> dosyası gibi dosyaları diğer uygulamalarla açabileceğiniz bir bağlam menüsü de sağlanır.</para>
+<para
+>Aradığınız dosya adının bazı kısımlarını listenin alt kısmındaki arama çubuğuna yazarak ögeleri süzebilirsiniz.</para>
+</sect2>
+
+<sect2 id="project-switch">
+<title
+>Projeler Arasında Geçiş Yapmak</title>
+
+<para
+>Buradaki fikir hiçbir zaman bir projeyi elle açmak zorunda kalmamanızdır, hatta bu hiç desteklenmemektedir. Bu nedenle, bir dosyayı açtığınızda olan şey şudur; proje eklentisi hızlı bir şekilde klasörü ve onun üst klasörlerini bir <filename
+>.kateproject</filename
+> dosyası için tarar. Bulunursa proje kendiliğinden yüklenir.</para>
+
+<para
+>Ayrıca &kate;'de başka bir projeye ait başka bir belge açarsanız proje eklentisi kendiliğinden geçerli projeye geçiş yapar. Yani sezgisel olarak her zaman doğru proje etkindir. Tabii ki, halihazırda etkin olan projeyi açılır kutuyu kullanarak da değiştirebilirsiniz.</para>
+
+</sect2>
+
+<sect2 id="project-search-replace">
+<title
+>Projelerde Ara ve Değiştir</title>
+
+<para
+>&kate;'in alt kenar çubuğunda görünen bir Ara ve Değiştir eklentisi vardır. Bir proje yüklüyse Ara ve Değiştir kenar çubuğunu açın ve geçerli projede arama ve değiştirme kipine geçin:</para>
+
+<screenshot id="screenshot-projects-search">
+<screeninfo
+>Projelerde Ara</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-search.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="project-autocompletition">
+<title
+>Temel Kendiliğinden Tamamlama</title>
+
+<para
+>Bir projeye ait tüm dosyalar hakkında bilgi sahibi olan proje eklentisi, CTags'lere dayalı temel kendiliğinden tamamlama olanakları sağlar. Bir proje başlangıçta açılırsa CTags tüm proje dosyalarını bir arka plan iş parçacığında ayrıştırır ve CTags bilgisini <filename class="directory"
+>/tmp</filename
+> dosyasına kaydeder. Bu dosya daha sonra &kate;'deki kendiliğinden tamamlama açılır penceresini doldurmak için kullanılır.</para>
+
+<para
+>Bunun aksine, bu kendiliğinden tamamlama olmadan Kate yalnızca geçerli dosyadaki sözcüklere dayalı olarak kendiliğinden tamamlama ögelerini gösterebilir. Demeli ki, proje eklentisinin sağladığı kendiliğinden tamamlama çok daha güçlüdür.</para>
+
+<screenshot id="screenshot-completion-search">
+<screeninfo
+>Projelerde Tamamlama</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-completition.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>CTags eksikse, pasif bir açılır pencere sizi bu konuda uyarır. &kate; çıktığında <filename class="directory"
+>/tmp</filename
+> konumundaki CTags dosyası temizlenir, böylece eklenti, sisteminizi gereksiz dosyalarla kirletmez.</para>
+
+</sect2>
+
+<sect2 id="project-build">
+<title
+>Proje Derleme Desteği</title>
+
+<para
+>Bir diğer özellik ise <link linkend="projects-build-support"
+>Yapı Eklentisi</link
+> desteğidir; böylece kendiliğinden düzgünce yapılandırılır.</para>
+
+</sect2>
+
+<sect2 id="project-create">
+<title
+>Proje Oluşturmak</title>
+
+<sect3 id="project-autoload">
+<!--https://kate-editor.org/2014/10/12/autoloading-projects-plugin-kate-5/-->
+<title
+>Projeleri Kendiliğinden Yüklemek</title>
+
+<para
+>Proje eklentisinin kendiliğinden yükleme özelliği vardır. Dosya listesini sürüm denetim sisteminden okuyabilirsiniz. Bu amaçla, ilgili sürüm denetim sistemi için kendiliğinden yüklemenin ayarlarda etkinleştirilmesi gerekir (öntanımlı olarak etkindir): </para>
+
+<screenshot id="screenshot-project-configure">
+<screeninfo
+>Proje Eklentisi Yapılandırması</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-configure.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+</sect3>
+
+<sect3 id="project-manual">
+<title
+>Projeleri Elle Oluşturmak</title>
+<para
+>Yalnızca, projenizin kök klasöründe bir <filename
+>.kateproject</filename
+> dosyası oluşturmalısınız. Örneğin, <quote
+>Kate</quote
+> <filename
+>.kateproject</filename
+> dosyası şöyle görünür: </para>
+
+<screen
+>{
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ]
+}
+</screen>
+
+<para
+>Dosya içeriği, &JSON; sözdizimi ile yazılır. Proje adı <quote
+>Kate</quote
+>'dir ve içerdiği dosyalar &git; ile okunmalıdır. </para>
+
+<para
+><literal
+>git</literal
+> yerine, <literal
+>svn</literal
+> üzerinden Subversion ve <literal
+>hg</literal
+> üzerinden Mercurial da desteklenir. Dosyaları bir sürüm denetim sisteminden okumak istemiyorsanız Kate'i komut satırından şöyle çalıştırabilirsiniz: <screen>
+kate /klasöre/olan/yol
+</screen
+> veya aşağıdaki gibi dosyaları klasörlerden özyineli olarak yüklemesini söyleyebilirsiniz: </para>
+
+<screen
+>{
+  "name": "Kate",
+  "files": [
+    {
+      "directory": "kate",
+      "filters": [
+        "*.cpp",
+        "*.h",
+        "*.ui",
+        "CMakeLists.txt",
+        "Find*.cmake"
+      ],
+      "recursive": 1,
+      "hidden": 1
+    }
+  ],
+  "exclude_patterns" : [
+    "^build/.*"
+  ]
+}
+</screen>
+
+<para
+>Burada, alt klasörler ve süzgeçler neyin projenin bir parçası olduğunu tanımlar. Ayrıca süzgeçlere dayalı tanımları ve sürüm denetim sistemini aynı anda kullanabilirsiniz. <code
+>"hidden"</code
+> seçeneği 0 ise gizli dosyalar alınmaz. <code
+>"exclude_patterns"</code
+>, dosyaları ve klasörleri proje ağacından dışarıda tutmak için kullanılabilecek bir düzenli ifade dizgileri listesidir. Bu örnekte, kök düzeydeki <filename
+>build</filename
+> klasöründeki tüm dosyalar ve klasörler dışarıda tutulacaktır. </para>
+
+<para id="projects-build-support"
+>Yapım desteği eklemek istiyorsanız <filename
+>.kateproject</filename
+> dosyasını aşağıdaki gibi yazabilirsiniz:</para>
+
+<screen
+>{
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "build": {
+    "directory": "build",
+    "build": "make all",
+    "clean": "make clean",
+    "install": "make install",
+    "targets": [
+      {
+        "name": "all",
+        "build_cmd": "ninja"
+        "run_cmd": "./bin/kate"
+      },
+      {
+        "name": "kate",
+        "build_cmd": "ninja kate-bin"
+      }
+    ]
+  }
+}
+</screen>
+
+<para
+>Yukarıda belirtilen hedefler <emphasis role="bold"
+> "Proje Eklenti Hedefleri"</emphasis
+> altındaki <link linkend="kate-application-plugin-build"
+>Yapı Eklentisi</link
+>'nde görünür. <code
+>"targets"</code
+> dizilişi belirtilmişse <code
+>"build"</code
+>, <code
+>"clean"</code
+> ve <code
+>"install"</code
+> yok sayılır. Dizilişteki her bir öge bir hedef belirtir. <code
+>"name"</code
+>, hedefin adıdır; <code
+>"build_cmd"</code
+>, hedefi yapmak için kullanılır; <code
+>"run_cmd"</code
+>, hedefi çalıştırmak için kullanılır. Bunlardan en önemlisi, komutların yürütüleceği <code
+>"directory"</code
+>'dir. </para>
+
+<para
+>Bir sürüm denetim sistemi tarafından izlenen bir <filename
+>.kateproject</filename
+> dosyanız varsa; ancak belirli bir çalışma alanın için olan yapılandırmada ayarlar yapmanız gerekiyorsa bu değişiklikleri <filename
+>.kateproject.local</filename
+> adındaki başka bir dosyaya kaydedebilirsiniz. Bu dosyanın içeriğine <filename
+>.kateproject</filename
+> dosyasına kıyasla öncelik verilir. </para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="project-current">
+<title
+>Geçerli Proje</title>
+
+<para
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Alt;<keycap
+>1</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Projeler</guimenu
+><guimenuitem
+>Git</guimenuitem
+></menuchoice
+> menüsünü kullanarak, düzenleyici penceresinin altında dört adet sekmeyle görünecek olan <guilabel
+>Geçerli Proje</guilabel
+> görünümünü açabilirsiniz:</para>
+
+<screenshot id="screenshot-project-current">
+<screeninfo
+>Geçerli Proje</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-current-analysis.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<variablelist>
+
+<varlistentry>
+<term>
+<guimenu
+>Uçbirim Paneli</guimenu>
+</term>
+<listitem>
+<para
+>Projenin kök klasöründe başlayan bir <link linkend="kate-application-plugin-konsole"
+>Uçbirim Öykünücüsü</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<guimenu
+>Kod İndeksi</guimenu>
+</term>
+<listitem>
+<para
+>Arama çubuğuna karakterlerin girilmesi, aramayı başlatacak ve tür, dosya adı ve satır numarasıyla birlikte işlevlerin, sınıfların, sembollerin vb. eşleşen adlarını görüntüleyecektir.</para>
+<para
+>Kaynak dosyadaki ilgili satıra atlamak için listeden bir öge seçin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<guimenu
+>Kod Çözümlemesi</guimenu>
+</term>
+<listitem>
+<para
+>C ve C++ için <command
+>cppcheck</command
+> kullanarak bir durgun kod çözümlemesi başlatmak için <guilabel
+>Çözümlemeyi Başlat</guilabel
+>'a tıklayın. Bu; dosya adı, satır numarası, öncelik (biçem, uyarı vb.) ve bulunan sorunu görüntüleyecektir.</para>
+<para
+>Kaynak dosyadaki ilgili satıra atlamak için listeden bir öge seçin.</para>
+</listitem>
+</varlistentry>
+<!--FIXME options for cppcheck? configurable?-->
+<varlistentry>
+<term>
+<guimenu
+>Notlar</guimenu>
+</term>
+<listitem>
+<para
+>Bu sekmeye girilen metin <filename
+>.kateproject.notes</filename
+> dosyasına kaydedilir.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="projects-menu">
+<title
+>Projeler Menüsü</title>
+
+<para
+><guimenu
+>Projeler</guimenu
+> menüsü, şu anda açık olan projeler arasında geçiş yapmanızı sağlar. Proje eklentisi tarafından görüntülenir.</para>
+
+<variablelist>
+
+<varlistentry id="projects-back">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Left;</keycombo
+> </shortcut
+> <guimenu
+>Projelen</guimenu
+> <guimenuitem
+>Geri</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Önceki projeye geçin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="projects-forward">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Right;</keycombo
+> </shortcut
+> <guimenu
+>Projeler</guimenu
+> <guimenuitem
+>İleri</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Sonraki projeye geçin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="projects-goto">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;<keycap
+>1</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Projeler</guimenu
+><guimenuitem
+>Git</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Düzenleyici penceresinin alt kısmındaki <guilabel
+>Geçerli Proje</guilabel
+> görünümünü açın.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+<!--
+context menu Project->Lookup:xxx
+-->
+
+</sect1>
+
+<!--FIXME Replicode
+Projects Replicode run / stop-->
+
+<sect1 id="kate-application-plugin-lspclient">
+<title
+>LSP İstemcisi Eklentisi</title>
+
+<para
+><ulink url="https://microsoft.github.io/language-server-protocol/"
+>Dil Sunucusu Protokolü</ulink
+> tabanlı bir özellik olan LSP İstemcisi eklentisi; kod tamamlama, kod dolaşımı veya başvuru bulma gibi birçok dil özelliği sağlar.</para>
+
+<para
+>Eklenti sayfasında LSP İstemcisini etkinleştirdiğinizde, &kate; yapılandırma iletişim kutusunda LSP İstemcisi adında yeni bir sayfa görünecektir. </para>
+
+<sect2 id="lspclient-menu">
+<title
+>Menü Yapısı</title>
+
+<para
+>Uygun olması halinde, aşağıdaki açıklamada karşılık gelen bir LSP komutundan da söz edilmektedir; bunun belgelendirmesi daha sonra ek arka plan ve yorum sağlayabilir; ancak gerçek dile bağlı olarak değişiklik gösterebilir. 'Geçerli sembol' ifadesi, dil ve sunucu uygulaması tarafından belirlenen geçerli imleç konumuna karşılık gelen simgeyi ifade eder. </para>
+
+<variablelist>
+
+<varlistentry id="lspclient-definition">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Tanıma Git</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/definition] Geçerli sembolün tanımına gidin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-declaration">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Beyana Git</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/declaration] Geçerli sembolün beyanına gidin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-typedefinition">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Tür Tanımına Git</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/typeDefinition] Geçerli sembolün tür tanımına gidin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-references">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Başvuruları Bul</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/references] Geçerli sembole olan başvuruları bulun.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-implementation">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Uygulama Noktalarını Bul</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/implementation] Geçerli sembolün uygulandığı noktaları bulun.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-highlight">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Vurgula</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/documentHighlight] Geçerli belgede geçerli sembol başvurularını vurgulayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-hover">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Üzerine Gelince Bilgi Göster</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/hover] Geçerli sembol için üzerine gelinince gösterilen bilgi.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-format">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Biçimlendir</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/formatting] [textDocument/rangeFormatting] Geçerli belgeyi veya seçimi biçimlendirin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-rename">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Yeniden Adlandır</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/rename] Geçerli sembolü yeniden adlandırın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-quick-fix">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Tez Düzelt</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/codeAction, workspace/executeCommand] Geçerli konumda (veya satırda) tanılama için hızlı bir düzeltmeyi hesaplar ve uygular.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-completion-documentation">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Seçili Tamamlama Belgelendirmesini Göster</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Tamamlama listesinde seçili bir ögeye ilişkin belgeleri gösterin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-signature-help">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Kendiliğinden Tamamlamalı İmza Yardımını Etkinleştir</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Ayrıca tamamlanma listesinde imza yardımını da gösterin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-declaration-references">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Başvurularda Beyanları İçer</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Başvuru isterken bir sembolün beyanını ekleme talebi.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-completion-parens">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>İşlev Tamamlamasında Ayraçlar Ekle</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bir işlevin tamamlanmasından sonra kendiliğinden bir çift ayraç ekleyin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-show-hover">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Üzerine Gelince Bilgi Göster</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>(Fare imleci) üzerine geldiğinden bilgi göster. Bu ayardan bağımsız olarak istek her zaman elle başlatılabilir. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-format-typing">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Yazarken Biçimlendir</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[document/onTypeFormatting] Belirli tetikleyici karakterleri yazarken belgenin bölümlerini biçimlendirin. Örneğin bu, yeni satıra girintileme uygulayabilir veya LSP Sunucusu tarafından başka şekilde belirlenebilir. Düzenleyici girintileme betiklerinin (kipe bağlı olarak) aynı şeyi yapmaya çalışıyor olabileceğini ve bu nedenle her ikisinin de aynı anda etkinleştirilmesinin önerilmeyebileceğini unutmayın. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-incremental-sync">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Artımlı Belge Eşzamanlaması</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Sunucuyu güncellemek için belge metninin tamamı yerine (destekleniyorsa) kısımsal belge düzenlemeleri gönderin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-highlight-goto">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>goto Konumunu Vurgula</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Bir konuma (tanım, beyan vb.) gittikten sonra geçici bir görsel işaret sağlayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-diagnostics">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Tanı Bildirimlerini Göster</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>[textDocument/publishDiagnostics] Sunucu tarafından gönderilen tanı bildirimlerini işleyin ve gösterin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-diagnostics-highlight">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Tanı Vurgulamalarını Göster</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Tanıda belirtilen erimler için metin vurguları ekleyin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-diagnostics-marks">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Tanı İmlerini Göster</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Tanıda belirtilen satırlar için belge imleri ekleyin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-diagnostics-tab">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Tanı Sekmesine Geç</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Eklenti araç görünümündeki tanı sekmesine geçin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-close-non-diagnostics">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Tanı Olmayan Tüm Sekmeleri Kapat</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Eklenti araç görünümündeki tüm tanı olmayan sekmeleri (örneğin, başvurular) kapatın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-restart">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>LSP Sunucusunu Yeniden Başlat</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Geçerli belgenin LSP sunucusunu yeniden başlatın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-restart-all">
+<term
+><menuchoice
+><guimenu
+>LSP İstemcisi</guimenu
+> <guisubmenu
+>Tüm LSP Sunucularını Yeniden Başlat</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Tüm LSP sunucularını durdurun. Gerektiğinde yeniden başlatılacaklardır.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="lspclient-go-to-symbol">
+<title
+>Goto Sembolü Desteği</title>
+<para
+>LSP İstemcisi, projenizdeki veya geçerli dosyanızdaki herhangi bir sembole atlamanıza yardımcı olabilir. Dosyadaki herhangi bir sembole atlamak için Kate'in sağ kenarındaki "LSP İstemcisi Sembolü Ana Hattı" araç görünümünü kullanın. Bu araç görünümü, sunucu tarafından geçerli belgede bulunan tüm sembolleri listeler. </para>
+
+<sect3 id="lspclient-symbol-outline-config">
+<title
+>LSP İstemcisi Sembolü Ana Hattı</title>
+
+<para
+>Öntanımlı olarak semboller belgedeki oluşumlarına göre sıralanır; ancak sıralamayı abecesel olacak biçimde değiştirebilirsiniz. Bunu yapmak için araç görünümüne sağ tıklayın ve "Abecesel Olarak Sırala" seçeneğini işaretleyin. </para>
+
+<para
+>Araç görünümü, sembolleri öntanımlı olarak ağaç kipinde gösterir; ancak bağlam menüsünü kullanarak bunu bir listeye değiştirebilirsiniz. </para>
+</sect3>
+
+<sect3 id="lspclient-global-go-to-symbol">
+<title
+>Global Goto sembolü desteği</title>
+<para
+>Projenizdeki herhangi bir sembole atlamak için goto sembolü iletişim kutusunu <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>p</keycap
+></keycombo
+>. kullanarak açabilirsiniz. İletişim kutusu açıldığında boştur; ancak bir şey yazdığınız anda iletişim kutusu size eşleşen sembolleri göstermeye başlayacaktır. Eşleşmelerin kalitesi ve süzme yetenekleri kullandığınız sunucuya bağlıdır. Örneğin, clangd bulanık süzmeyi destekler; ancak diğer bazı sunucular desteklemeyebilir. </para>
+</sect3>
+
+</sect2>
+
+<sect2 id="lspclient-extra">
+<title
+>Diğer Özellikler</title>
+
+<para
+>Clangd kaynak üstbilgisini değiştirme komutu desteklenir. Bir C veya C++ projesinde kaynak üstbilgisini değiştirmek için bağlam menüsündeki "Kaynak Üstbilgisini Değiştir" seçeneğini veya <keycombo action="simul"
+><keycap
+>F12</keycap
+></keycombo
+> kısayolunu kullanın. </para>
+
+<para
+>Farenizi bir sembolün üzerine getirip <keycombo action="simul"
+>&Ctrl;</keycombo
+> + sol fare düğmesini kullanarak herhangi bir sembole kolaylıkla atlayabilirsiniz. </para>
+
+</sect2>
+
+<sect2 id="lspclient-configuration">
+<title
+>Yapılandırma</title>
+
+<para
+>Eklentinin yapılandırma sayfası çoğunlukla yukarıdaki menü ögelerinin bazılarının kalıcı olarak yapılandırılmasına izin verir. Ancak Sunucu Yapılandırması dosyasını belirtmek için ek bir girdi daha vardır. Bu, başlatılacak LSP sunucusunu belirtmek (ve ardından stdin/stdout üzerinden iletişim kurmak) için kullanılabilecek bir &JSON; dosyasıdır. Kolaylık sağlamak amacıyla, eklentinin yapılandırma sayfasında incelenebilecek bazı öntanımlı yapılandırmalar eklenmiştir. Aşağıdaki açıklamaya yardımcı olmak için burada bu yapılandırmadan bir alıntı verilmiştir: </para>
+
+<screen
+>{
+    "servers": {
+        "bibtex": {
+            "use": "latex",
+            "highlightingModeRegex": "^BibTeX$"
+        },
+        "c": {
+            "command": ["clangd", "-log=error", "--background-index"],
+            "commandDebug": ["clangd", "-log=verbose", "--background-index"],
+            "url": "https://clang.llvm.org/extra/clangd/",
+            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
+        },
+        "cpp": {
+            "use": "c",
+            "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
+        },
+        "d": {
+            "command": ["dls", "--stdio"],
+            "url": "https://github.com/d-language-server/dls",
+            "highlightingModeRegex": "^D$"
+        },
+        "fortran": {
+            "command": ["fortls"],
+            "rootIndicationFileNames": [".fortls"],
+            "url": "https://github.com/hansec/fortran-language-server",
+            "highlightingModeRegex": "^Fortran.*$"
+        },
+        "javascript": {
+            "command": ["typescript-language-server", "--stdio"],
+            "rootIndicationFileNames": ["package.json", "package-lock.json"],
+            "url": "https://github.com/theia-ide/typescript-language-server",
+            "highlightingModeRegex": "^JavaScript.*$",
+            "documentLanguageId": false
+        },
+        "latex": {
+            "command": ["texlab"],
+            "url": "https://texlab.netlify.com/",
+            "highlightingModeRegex": "^LaTeX$"
+        },
+        "go": {
+            "command": ["go-langserver"],
+            "commandDebug": ["go-langserver", "-trace"],
+            "url": "https://github.com/sourcegraph/go-langserver",
+            "highlightingModeRegex": "^Go$"
+        },
+        "python": {
+            "command": ["python3", "-m", "pyls", "--check-parent-process"],
+            "url": "https://github.com/palantir/python-language-server",
+            "highlightingModeRegex": "^Python$"
+        },
+        "rust": {
+            "command": ["rls"],
+            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
+            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
+            "url": "https://github.com/rust-lang/rls",
+            "highlightingModeRegex": "^Rust$"
+        },
+        "ocaml": {
+            "command": ["ocamlmerlin-lsp"],
+            "url": "https://github.com/ocaml/merlin",
+            "highlightingModeRegex": "^Objective Caml.*$"
+        }
+    }
+}
+</screen>
+
+<para
+>Her "komutun" bir diziliş veya dizi olabileceğini unutmayın (bu durumda bir dizilişe bölünmüştür). Ayrıca, üst düzey bir "global" girdi ("server"nun yanında) da dikkate alınır (aşağıya bakınız). Belirtilen ikili dosya olağan şekilde aranır; örneğin, <literal
+>PATH</literal
+> kullanarak. Özel bir konuma kurulursa ikincisinin genişletilmesi gerekebilir. Veya alternatif olarak, olağan <literal
+>PATH</literal
+> içindeki bir konumda bir sembolik bağlantı veya bir sarmalayıcı betik kullanılabilir. Yukarıda gösterildiği gibi standart konumlardan sonra aranacak bir "yol" da belirtilebilir. </para>
+
+<para
+>"command", "root" ve "path" içindeki tüm girdiler değişken genişletmeye tabidir. </para>
+
+<para
+>"highlightingModeRegex", &kate; tarafından kullanılan vurgulama kipini sunucunun dil kimliğine eşlemek için kullanılır. Düzenli ifade verilmezse dil kimliğinin kendisi kullanılır. Bir "documentLanguageId" girişi false olarak ayarlanırsa belgeyi açarken sunucuya herhangi bir dil kimliği sağlanmaz. Bu, belge türünü belirlemede Kate kipine dayalı olarak yapmaktan daha hassas olan bazı sunucular için daha iyi sonuçlara sahip olabilir. </para>
+
+<para
+>Yukarıdaki örnekte ana düşünce açıktır. Ek olarak, her sunucu girdi nesnesi, 'initialize' yönteminin bir parçası olarak sunucuya iletilen bir "initializationOptions" girdisine de sahip olabilir. Varsa 'workspace/didChangeConfiguration' bildirimi aracılığıyla sunucuya bir "settings" girdisi iletilir. "completionTriggerCharacters" veya "signatureTriggerCharacters" dizileri üyeleri "exclude" ve/veya "include" olan bir JSON nesnesi olarak belirtilebilir. Bunlar, sunucu tarafından sağlanan ilgili tetikleyici setine bazı karakterleri sırasıyla dışarıda tutmak veya eklemek için kullanılacaktır. </para>
+
+<para
+>Üzerine yazma veya birleştirmenin çeşitli aşamaları uygulanır; <itemizedlist>
+<listitem>
+<para
+>kullanıcı yapılandırması (dosyadan yüklenen), öntanımlı (içsel) yapılandırmanın üzerine yazar</para>
+</listitem>
+<listitem>
+<para
+><filename
+>.kateproject</filename
+> projesindeki "lspclient" girdisi, yukarıdakini geçersiz kılar</para>
+</listitem>
+<listitem>
+<para
+>sonuç olarak çıkan "global" girdisi, herhangi bir sunucu girdisini desteklemek (geçersiz kılmak değil) için kullanılır</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>(root, servertype) kombinasyonu başına bir sunucu örneği kullanılır. "root" mutlak yol olarak belirtilirse olduğu gibi kullanılır, aksi takdirde <quote
+>projectBase</quote
+>'e görelidir (<link linkend="kate-application-plugin-projects"
+>Proje Eklentisi</link
+> tarafından belirlendiği üzere) varsa veya belgenin dizinine göre değilse. Belirtilmemişse ve "rootIndicationFileNames" dosya adı olarak bir dizilişse bu tür bir dosyayı içeren geçerli belgenin ana dizini seçilir. Alternatif olarak, "root" belirtilmemişse ve "rootIndicationFilePatterns" bir dosya dizgileri dizilişiyse geçerli belgenin dosya dizgisiyle eşleşen bir üst dizini seçilir. Son çare olarak ana dizin "root" olarak seçilir. Herhangi bir belge için ortaya çıkan "root", ayrı bir örneğin gerekli olup olmadığını belirler. Eğer öyleyse "root" rootUri/rootPath olarak iletilir. </para>
+
+<para
+>Genel olarak, bir sunucu için o kadar da önemli olmadığından kökü belirtmeden bırakmanız önerilir (ancak sizin için aynı durum geçerli olmayabilir). Daha az sayıda sunucu örneği açıkça daha verimlidir ve aynı zamanda birçok ayrı örneğin görünümünden 'daha geniş' bir görünüme sahiptirler. </para>
+
+<para
+>Yukarıda belirtildiği gibi, çeşitli girdiler değişken genişlemeye tabidir. Bunun "sarmalayıcı betik" yaklaşımlarıyla birleştirilmiş uygun bir uygulaması, birçok duruma göre özelleştirmeye olanak tanır. Örneğin, her biri kendi virtualenv kurulumuna sahip birden fazla projeden (örn. git depoları) oluşan bir python geliştirme senaryosunu düşünün. Öntanımlı yapılandırma kullanıldığında python dil sunucusu sanal ortamdan haberdar olmayacaktır. Ancak aşağıdaki yaklaşımla bu sorun çözülebilir. İlk olarak, LSPClient eklentisinin "Kullanıcı Sunucu Ayarları"na aşağıdaki parça girilebilir: </para>
+<screen
+>{
+        "servers":
+        {
+                "python":
+                {
+                        "command": ["pylsp_in_env", "%{Project:NativePath}"],
+                        "root": "."
+                }
+        }
+}
+</screen>
+<para
+>Yukarıdaki kök girdisi proje dizinine bağlıdır ve her proje için ayrı bir dil sunucusunun başlatılmasını sağlar; bu durumda her birinin farklı bir sanal ortamı olması nedeniyle bu gereklidir. </para>
+<para
+><filename
+>pylsp_in_env</filename
+>, aşağıdaki içerikle (düzeltilmek üzere) <literal
+>PATH</literal
+>'e yerleştirilmesi gereken küçük bir "sarmalayıcı betik"tir: </para>
+<screen
+>#!/bin/bash
+cd $1
+# sunucuyu (python-lsp-server) virtualenv içinde çalıştır
+# (demek oluyor ki virtualenv değişkenleri ayarıyla)
+# bundan dolayı virtualenv'i kaynakla
+source XYZ
+# sunucu durumu veya argümanlar değişebilir
+exec myserver
+</screen>
+
+
+<sect3 id="lspclient-customization">
+<title
+>LSP Sunucusu Yapılandırması</title>
+
+<para
+>Her bir LSP sunucusunun kendi özelleştirme yolları vardır ve yapılandırma için dile/araca özel yöntemler kullanabilirler; örneğin, Python için <filename
+>tox.ini</filename
+>, C++ tarzı biçimlendirme için <filename
+>.clang-format</filename
+>. Bu tür yapılandırmalar başka (LSP olmayan) araçlar için de kullanılabilirler (<application
+>tox</application
+> veya <application
+>clang-format</application
+> gibi). Bunun üzerine, bazı LSP sunucuları ayrıca özel dosyalardan da yapılandırma yükleyebilirler (&eg;, <filename
+>.ccls</filename
+>). Dahası, özel sunucu yapılandırmaları ayrıca LSP (protokol) üzerinden de geçirilebilirler; sunucu yapılandırmasında yukarıda belirtilen "initializationOptions" ve "settings" girdilerine bakın. </para>
+
+<para
+>Çeşitli düzeylerde geçersiz kılma/birleştirme uygulandığından, aşağıdaki kullanıcı tarafından belirlenen istemci yapılandırması örneği, bazı python dili sunucusu yapılandırmasında ince ayarlar yapar. </para>
+
+<screen
+>{
+    "servers": {
+        "python": {
+            "settings": {
+                "pyls": {
+                    "plugins": {
+                        "pylint": {
+                            "enable": true
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</screen>
+
+<para
+>Ne yazık ki, LSP sunucusu yapılandırması/özelleştirmesi çoğu zaman o kadar iyi belgelenmemiştir; yalnızca kaynak kodunun incelenmesi, yapılandırma yaklaşımlarını ve kullanılabilir yapılandırma seçenekleri kümesini gösterir. Özellikle yukarıdaki örneğin sunucusu "settings" içinde çok daha fazla seçeneği desteklemektedir. Kolayca değiştirilebilen diğer çeşitli dil sunucusu örnekleri ve ilgili ayarlar için burada kullanılan ve yukarıda özetlenen JSON yapılandırmasına dönüştürülen <ulink url="https://github.com/neoclide/coc.nvim/wiki/Language-servers"
+> başka bir LSP istemcisinin belgelerine</ulink
+> bakın. </para>
+
+</sect3>
+
+<sect3 id="lspclient-format-on-save">
+<title
+>LSP Sunucusu Kaydederken Biçimlendirme</title>
+
+<para
+>Yapılandırma iletişim kutusunda "kaydederken biçimlendir" özelliğini LSP ayarlarından etkinleştirebilirsiniz. </para>
+
+</sect3>
+
+<sect3 id="lspclient-diagnostics-suppression">
+<title
+>LSP Sunucusu Tanı Susturması</title>
+
+<para
+>Pek kullanışlı olmayan tanıların bildirilmesi olanaklıdır. Bu, özellikle de çok sayıda varsa (çoğunlukla aynı türden) oldukça zahmetli olabilir. Bazı durumlarda bu, dile (sunucuya) özgü yöntemlerle değiştirilebilir. Örneğin, <ulink url="https://clangd.llvm.org/config.html"
+>clangd yapılandırma mekanizması</ulink
+> bazı tanı hususlarında ince ayarlar yapılmasına olanak tanır. Ancak genel olarak bunun nasıl yapılacağı her zaman açık olmayabilir veya sunucu sınırlamaları veya hata nedeniyle istenilen şekillerde hiç olanaklı olmayabilir. </para>
+
+<para
+>Bu nedenle eklenti; örneğin, valgrind susturmaları. En ayrıntılı yapılandırma, (birleştirilmiş) &JSON; yapılandırmasındaki "suppressions" anahtarında sağlanabilir. </para>
+
+<screen
+>{
+    "servers": {
+        "c": {
+            "suppressions": {
+                "rulename": ["filename", "foo"],
+                "clang_pointer": ["", "clang-tidy", "clear_pointer"],
+            }
+        }
+    }
+}
+</screen>
+
+<para
+>Her (geçerli) kuralın rastgele bir adı vardır ve 2 veya 3 uzunluğunda bir dizilişle tanımlanır. Bunlar; (tam) dosya adıyla eşleşecek bir düzenli ifade, tanıyla (metin) eşleşecek bir düzenli ifade ve tanının geçerli olduğu metinle (kaynak kodu aralığı) eşleşen isteğe bağlı bir düzenli ifade. </para>
+
+<para
+>Yukarıdaki ayrıntılı yapılandırmaya ek olarak, tanı sekmesindeki bağlam menüsü aynı zamanda genel olarak (herhangi bir dosya) veya yerel olarak (söz konusu belirli dosya) belirli bir tanıyla (metinle) tam olarak eşleşen gizlemelerin eklenmesini/kaldırılmasını da destekler. Bu susturma, oturum yapılandırmasında saklanır ve buradan yüklenir. </para>
+
+</sect3>
+
+<sect3 id="lspclient-troubleshooting">
+<title
+>LSP Sunucusu Sorun Giderme</title>
+
+<para
+>Belirli bir dil için (özel) bir LSP sunucusunun nasıl yapılandırılacağını açıklamak bir şeydir, sunucunun sorunsuz çalışmasını sağlamak başka bir şeydir. Şans eseri genellikle durum ikincisidir. Ancak bazen "aptalca" bir yanlış yapılandırma veya sunucunun kendisiyle ilgili daha temel bir sorun nedeniyle sorunlar ortaya çıkabilir. İkincisi, &kate; Çıktı sekmesinde bildirildiği gibi, genellikle sunucuyu başlatmaya yönelik birkaç girişim olarak kendini gösterebilir. Ancak ikincisi, ayrıntılı tanı sağlamaktan ziyade yalnızca üst düzey iletileri veya ilerlemeyi iletmeyi amaçlamaktadır ve aslında başka bir süreç (LSP sunucusu) için bu daha da azdır. </para>
+
+<para
+>Bunu tanılamanın genel yolu, öntanımlı olarak ayarlanmadığı sürece (bazı dosyalara veya standart hatalara) (ek) günlüğe kaydetmeyi olanaklı kılan (dil sunucusunun) başlangıç komutuna bazı bayrak(lar) eklemektir. Eğer &kate; daha sonra komut satırında başlatılırsa neyin yanlış gittiğine dair daha fazla görüş elde edilebilir. </para>
+
+<para
+>&kate;'in LSP istemcisi ile LSP sunucusu arasındaki protokol alışverişini incelemek de bilgilendirici olabilir. Yine, ikincisinin genellikle bunun izini sürmenin yolları vardır. LSP istemcisi ayrıca &kate;, <literal
+>QT_LOGGING_RULES=katelspclientplugin=true</literal
+> ile <literal
+>export</literal
+> yapıldığında ek hata ayıklama izlemesi (stderr'e) sağlar: </para>
+
+</sect3>
+
+</sect2>
+
+<!--TODO: Supported languages, describe features and actions a bit -->
+
+<!--<screenshot id="screenshot-rust-configuration">
+<screeninfo
+>Rust Configuration</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="rust-configuration.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Edit the command to run <ulink url="https://github.com/phildawes/racer"
+>Racer</ulink
+>,
+an utility intended to provide Rust code completion for editors.</para>
+
+<para
+>You also need the Rust source code and have to provide the path to the source tree.
+</para>
+
+<para
+>While typing code a popup list appears with items for completion:
+</para>
+
+<screenshot id="screenshot-rust-completion">
+<screeninfo
+>Rust Completion</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="rust-completion.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>In addition to code completion popups, the plugin also installs
+a <guimenuitem
+>Go to Definition</guimenuitem
+> action in the <guimenu
+>Edit</guimenu
+> menu and
+in the context menu. You can configure a keyboard shortcut for it as well.
+</para>
+
+<para
+>This action will open the document containing the definition if needed, activate
+its view and place the cursor at the start of the definition.
+</para
+>-->
+
+</sect1>
+
+<sect1 id="kate-application-plugin-searchinfiles">
+<sect1info>
+<authorgroup
+><author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail; </author
+></authorgroup>
+</sect1info>
+<title
+>Ara ve Değiştir</title>
+
+<sect2 id="searchinfiles-intro">
+<title
+>Giriş</title>
+<para
+>&kate;'in Ara ve Değiştir eklentisi, birçok farklı dosyadaki metni veya <ulink url="help:/katepart/regular-expressions.html"
+>düzenli ifadeleri</ulink
+> aynı anda aramanıza olanak tanır. Tüm açık dosyaları, bir dizindeki ve isteğe bağlı olarak alt dizinlerindeki tüm dosyaları veya etkin dosyadaki tüm dosyaları arayabilirsiniz. Hatta dosya adına göre süzebilirsiniz; örneğin, yalnızca belirli bir dosya uzantısıyla biten dosyaları arayabilirsiniz.</para>
+
+</sect2>
+
+<sect2 id="searchinfiles-ui">
+<title
+>Arayüz</title>
+
+<sect3 id="searchinfiles-ui-query">
+<title
+>Arama Sorgusu</title>
+
+<para
+>Aşağıdaki seçenekler her zaman Dosyalarda Arama aracı görünümünün üst kısmında görüntülenir:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="tab-new-22.png" format="PNG"/>
+</imageobject
+></inlinemediaobject
+></guiicon
+></term>
+<listitem
+><para
+>Aynı anda istediğiniz kadar arama açabilirsiniz. Arama aracı görünümünün sol üst köşesindeki yeni sekme düğmesini tıklamanız yeterlidir; başka bir arama yapmanıza olanak tanıyan yeni bir sonuçlar sekmesi açılacaktır. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="games-config-options-22.png" format="PNG"/>
+</imageobject
+></inlinemediaobject
+></guiicon
+></term>
+<listitem
+><para
+>Dosyalarda Arama aracı görünümünün sağ üst köşesindeki düğme, araç görünümünün alt yarısında Klasörde Arama kipine yönelik ek seçeneklerin görüntülenmesi ile aramanızın sonuçları arasında geçiş yapar. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Bul</guilabel
+></term>
+<listitem
+><para
+>Bulmak istediğiniz şeyi yazacağınız yer burasıdır. Etkinleştirilmişse standart metin veya düzenli ifade girebilirsiniz. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Değiştir</guilabel
+> (metin kutusu)</term>
+<listitem
+><para
+><guilabel
+>Bul</guilabel
+> metin kutusundaki metnin yerine dosya(lar)a eklenecek yedek metin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guibutton
+>Ara</guibutton
+></term>
+<listitem
+><para
+>Her şeyi yapılandırmayı bitirdiğiniz zaman, aramanızı gerçekleştirmek için yalnızca <guibutton
+>Ara</guibutton
+> düğmesine basın. <guilabel
+>Bul</guilabel
+> metin kutusunda &Enter; düğmesine basmak da aynı işi görür. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guibutton
+>Değiştir</guibutton
+></term>
+<listitem
+><para
+>Her şeyi yapılandırmayı bitirdiğiniz zaman, <guilabel
+>Bul</guilabel
+> metin kutusuna girdiğiniz metni <guilabel
+>Değiştir</guilabel
+> kutusuna girdiğiniz metinle değiştirmek için <guilabel
+>Değiştir</guilabel
+> düğmesine basın. <guilabel
+>Değiştir</guilabel
+> metin kutusunda &Enter; düğmesine basmak da aynı işi görür. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guibutton
+>Sonraki</guibutton
+></term>
+<listitem
+><para
+>Gerekirse başka bir dosyaya geçerek arama sorgunuzun bir sonraki eşleşmesine gidin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guibutton
+>İşaretleneni Değiştir</guibutton
+></term>
+<listitem
+><para
+><guibutton
+>Değiştir</guibutton
+> ile aynıdır; ancak yalnızca aşağıdaki bölmede işaretli olan dosyalarda değişiklikler gerçekleştirir. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="searchinfiles-ui-folder">
+<title
+>Klasörde Ara Seçenekleri</title>
+
+<para
+>Bu seçenekler, yukarıda belirtilen sorgu seçeneklerinin altında görüntülenir. Bunun yerine arama sonuçları görüntüleniyorsa onları görüntülemek için <guiicon
+><inlinemediaobject
+><imageobject
+> <imagedata fileref="games-config-options-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> düğmesine basın.</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Şurada ara</guilabel
+></term>
+<listitem
+><para
+>Burada üç seçenek vardır. Şu anda &kate; içinde açık olan tüm dosyaları aramak için <guilabel
+>Açık Dosyalarda</guilabel
+> seçeneğini kullanın. Bir klasör ve isteğe bağlı olarak tüm alt klasörlerinin içinde aramak için <guilabel
+>Klasörde</guilabel
+> seçeneğini, yalnızca etkin dosyada arama yapmak içinse <guilabel
+>Geçerli Dosyada</guilabel
+> yolunu izleyin. </para>
+<para
+><guilabel
+>Projeler</guilabel
+> eklentisi yüklüyse <guilabel
+>Geçerli Proje</guilabel
+> veya <guilabel
+>Tüm Açık Projeler</guilabel
+> içinde de arama yapabilirsiniz. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>BÜYÜK/küçük harf eşleştir</guilabel
+></term>
+<listitem
+><para
+>Arama sonuçlarını yalnızca arama sorgunuzla tümüyle aynı BÜYÜK ve küçük harf kombinasyonuna sahip olanlarla sınırlandırır. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Düzenli ifadeler</guilabel
+></term>
+<listitem
+><para
+>Arama sorgusu olarak basit metin yerine <ulink url="help:/katepart/regular-expressions.html"
+>düzenli ifadeler</ulink
+> kullanmanıza izin verir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Sonuçları genişlet</guilabel
+></term>
+<listitem
+><para
+>Yalnızca arama sorgusunu içeren dosyaların listesi yerine, her dosyada bulunan tüm sonuçları görüntüleyin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Klasör</guilabel
+></term>
+<listitem
+><para
+>Aramak istediğiniz klasörün yolunu girebilirsiniz. Örneğin, &kate; kaynak kodunda arama yapmak için <userinput
+>~/development/kde/kate/</userinput
+> yolunu girin. Bu seçenek yalnızca <guilabel
+>Klasörde</guilabel
+> kipi etkinse kullanılabilirdir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guiicon
+>Dosya iletişim kutusunu aç</guiicon
+></term>
+<listitem
+><para
+>Klasörü masaüstünüzün klasör tarayıcısında bulmak için bu düğmeye basın. Bu düğme yalnızca <guilabel
+>Klasörde</guilabel
+> kipi kullanıldığında çalışır. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="go-up-22.png" format="PNG"/>
+</imageobject
+></inlinemediaobject
+></guiicon
+></term>
+<listitem
+><para
+><guilabel
+>Klasör</guilabel
+>'ü geçerli seçili klasörün üst ögesi olarak değiştirmek için bu düğmeye basın. Bu düğme yalnızca <guilabel
+>Klasörde</guilabel
+> kipi kullanıldığında çalışır. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="view-refresh-22.png" format="PNG"/>
+</imageobject
+></inlinemediaobject
+></guiicon
+></term>
+<listitem
+><para
+>Bu düğme, <guilabel
+>Klasör</guilabel
+> girdisini o anda açık olan belgenin bulunduğu klasöre ayarlayacaktır. Bu düğme yalnızca <guilabel
+>Klasörde</guilabel
+> kipi kullanıldığında çalışır. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Süz</guilabel
+></term>
+<listitem
+><para
+>Bu, yalnızca belirli bir dizgiyle eşleşen dosya adlarını aramanıza izin verir. Örneğin, C++ ile yazılmış dosyaları aramak için onu <userinput
+>*.cpp</userinput
+> olarak değiştirin. Başlangıcı yalnızca <literal
+>kate</literal
+> ile eşleşen dosyaları aramak için onu <userinput
+>kate*</userinput
+> olarak değiştirin. Virgülle ayrılmış birden çok süzgeç (<userinput
+>,</userinput
+>) girebilirsiniz. Bu seçenek, <guilabel
+>Açık Dosyalarda</guilabel
+> kipindeyken kullanılamaz. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Dışarıda Tut</guilabel
+></term>
+<listitem
+><para
+><guilabel
+>Süz</guilabel
+>'ün tersi olarak, bu &kate;'in belirli bir dizgiyle eşleşen dosyaları aramasını engeller. <guilabel
+>Süz</guilabel
+>'de olduğu gibi, virgülle ayrılan (<userinput
+>,</userinput
+>) birden çok dizgi girebilirsiniz. Bu seçenek, <guilabel
+>Açık Dosyalarda</guilabel
+> kipindeyken kullanılamaz. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Özyineli</guilabel
+></term>
+<listitem
+><para
+>Bu seçenek etkinleştirilirse &kate;, seçili klasörün tüm alt klasörlerinde de arama yapar. Bu seçenek yalnızca <guilabel
+>Klasörde</guilabel
+> kipi etkinse kullanılabilir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Gizlileri içer</guilabel
+></term>
+<listitem
+><para
+>Bu seçenek etkinleştirilirse &kate;, normalde &OS; tarafından gizlenen dosyalarda/klasörlerde de arama yapar. Bu seçenek yalnızca <guilabel
+>Klasörde</guilabel
+> kipi etkinse kullanılabilir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Sembolik bağlantıları izle</guilabel
+></term>
+<listitem
+><para
+>Dosyalarda Ara eklentisi normalde <ulink url="https://en.wikipedia.org/wiki/Symbolic_link"
+>sembolik bağlantıları</ulink
+> izlemez. Bu seçenek etkinleştirildiğinde, eklenti onları izleyecek ve başvurdukları dosyaların/klasörlerin içinde de arama yapacaktır. Bu seçenek yalnızca <guilabel
+>Klasörde</guilabel
+> kipi etkinse kullanılabilir. </para>
+<warning
+><para
+>Sembolik bağlantıların, aranmakta olan klasörün üst ögesi olan bir klasöre veya üst ögelerine sembolik bağlantılar içeren diğer klasörlere başvurması olanaklıdır. Aranan klasörde böyle bir bağlantı varsa ve bu seçenek etkinleştirilirse &kate; bağlantıyı hep izleyecek ve klasörü arayacaktır ve arama hiçbir zaman tamamlanmayacaktır.</para
+></warning>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>İkili dosyaları içer</guilabel
+></term>
+<listitem
+><para
+>Etkinleştirilirse &kate;, metin dosyasına benzemeyen dosyalarda da arama yapacaktır. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="searchinfiles-ui-results">
+<title
+>Arama Sonuçları</title>
+
+<para
+>Aramanızın sonuçları sorgu seçeneklerinin altında görüntülenir. Klasörde kipinde arama seçenekleri görüntüleniyorsa onları görüntülemek için <guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="games-config-options-22.png" format="PNG"/> </imageobject
+></inlinemediaobject
+></guiicon
+> düğmesine basın. Ayrıca bir arama gerçekleştirildiği anda kendiliğinden görüntüleneceklerdir.</para>
+
+<para
+>Arama sonuçları, arama sorgunuzla eşleşen metni içeren dosyaların bir listesini ve ardından o dosyada bulunan eşleşme sayısını görüntüler.</para>
+
+<para
+>Bu dosyadaki eşleşmelerin listesini görmek için dosya adının solundaki genişletme okuna tıklamanız yeterlidir. (<guilabel
+>Sonuçları genişlet</guilabel
+> seçeneğini seçtiyseniz bu sizin için zaten yapılır.) Her eşleşmenin bulunduğu satır numarası, ardından o satırın içeriği ve arama sorgunuz kalın metinle belirtilecektir.</para>
+
+<para
+>Sonucunuzun bulunduğu dosyayı açmak için çift tıklamanız yeterlidir. &kate; gerekirse dosyayı açacaktır. Ayrıca, dosya adı yerine listeye çift tıklayarak imleci belirli bir eşleşmenin konumuna taşıyabilirsiniz. </para>
+
+</sect3>
+</sect2>
+
+<sect2 id="searchinfiles-menu">
+<title
+>Menü Yapısı</title>
+
+<variablelist>
+
+<varlistentry id="edit-searchinfiles">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>F</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Dosyalarda Ara</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Ara ve Değiştir araç görünümünü başlatır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-next-match">
+<term
+><menuchoice
+><guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Sonraki Eşleşmeye Git</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Ara ve Değiştir eklentisi tarafından gerçekleştirilen aramada bir sonraki eşleşmeye gidin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-previous-match">
+<term
+><menuchoice
+><guimenu
+>Düzen</guimenu
+> <guimenuitem
+>Önceki Eşleşmeye Git</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Ara ve Değiştir eklentisi tarafından gerçekleştirilen aramada bir önceki eşleşmeye gidin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-toolviews-searchandreplace">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Araç Görünümleri</guisubmenu
+> <guimenuitem
+>Ara ve Değiştir</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>&kate;'in <guilabel
+>Ara ve Değiştir</guilabel
+> aracını açar/kapatır. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-snippets">
+<sect1info>
+<authorgroup>
+<author
+><firstname
+>Martin</firstname
+> <surname
+>Gergov</surname
+></author>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+</authorgroup>
+</sect1info>
+<title
+>&kate; Parçacıkları</title>
+
+<sect2 id="snippets-intro">
+<title
+>Giriş</title>
+<para
+>&kate; Parçacıkları, <quote
+>parçacık</quote
+> (yeniden kullanılabilir kaynak, makine kodu veya metin) ekleme desteği sunarak size biraz zaman kazandırmayı amaçlayan bir eklentidir. Eklenti, kod tamamlama ve &javascript; destekler.</para>
+</sect2>
+
+<sect2 id="snippets-menu">
+<title
+>Menü Yapısı</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Araç Görünümleri</guisubmenu
+> <guimenuitem
+>Parçacıklar</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Şu anda açık olan dosya türü için deponuzdaki tüm parçacıkları içeren kod parçacıkları panelini gösterir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-create-snippet">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guimenuitem
+>Parçacık Oluştur</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Herhangi bir belgenin herhangi bir bölümüne ekleyebileceğiniz yeniden kullanılabilir bir metin parçası olan yeni bir parçacık oluşturun.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="snippets-panel">
+<title
+>Parçacıklar panosu</title>
+
+<screenshot id="screenshot-snippets-panel">
+<screeninfo
+>&kate; Parçacıklar Panosu</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="snippets-panel.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kate; parçacıklar panosu.</phrase
+></textobject>
+<caption
+><para
+>&kate; parçacıkları için pano.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+<para
+>Panelde, parçacık depolarının bir listesini ve kendinizinkini oluşturma, bunları internetten alma veya yerel bir dosyadan yükleme seçeneklerini görmelisiniz. Her deponun, onu etkinleştirmek veya devre dışı bırakmak için kullanılabilecek bir onay kutusu vardır. Var olan depoları düzenlemek ve silmek için düğmeler de bulunur.</para>
+
+<sect3 id="snippets-repo-internet">
+<title
+>Parçacık Deposu Dosyalarını Yüklemek</title>
+<para
+>Parçacık depolarını internetten indirebilirsiniz. <guibutton
+>Yeni Parçacıklar Al</guibutton
+>'a tıklamanız yeterlidir; parça depolarının listesini içeren bir pencere açılacaktır. İstediğiniz parçacığı indirdikten sonra etkinleştirdiğinizden emin olun.</para>
+<!--FIXME no way to load a local file ?
+<para
+>You can also load snippet repositories from a local file using the file
+browser at the bottom of the panel.  Click <guibutton
+>Copy to repository</guibutton>
+when finished.</para
+>-->
+</sect3>
+
+<sect3 id="snippets-repo-editor">
+<title
+>Depoları Oluşturmak ve Düzenlemek</title>
+
+<para
+>Yeni bir parçacık deposu oluşturmak için <guibutton
+>Depo Ekle</guibutton
+>'ye tıklayın. Artık parçacık dosyasının, lisansının ve yazarının adını soran bir iletişim kutusu görmelisiniz. İstediğiniz seçenekleri belirledikten sonra <guibutton
+>Tamam</guibutton
+>'a tıklayın.</para>
+
+<screenshot id="screenshot-snippets-repository">
+<screeninfo
+>Parçacık Düzenleyicisi</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="snippets-repository.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Depo düzenleyicisi.</phrase
+></textobject>
+<caption
+><para
+>Depo düzenleyicisi arayüzü.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+<para
+>Parçacık deposu düzenleyicisi, aşağıdaki seçenekleri içerir:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Ad</guilabel
+></term>
+<listitem
+><para
+>Araç görünümündeki parçacıklar listesinde görünür ve ayrıca kod tamamlama özelliği kullanılırken de aranır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ad Alanı</guilabel
+></term>
+<listitem
+><para
+>Kod tamamlama kullanılırken kullanılan önek.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Lisans</guilabel
+></term>
+<listitem
+><para
+>Parçacık deponuz için lisansı seçin.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Yazarlar</guilabel
+></term>
+<listitem
+><para
+>Parçacık dosyasının yazar(lar)ının ad(lar)ını girin.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Dosya türleri</guilabel
+></term>
+<listitem
+><para
+>Parçacık deposunun uygulanmasını istediğiniz dosya türlerini seçin. Öntanımlı olarak <quote
+></quote
+> olarak ayarlanmıştır, böylece depo tüm dosyalara uygulanır. Örneğin bunu <userinput
+>C++</userinput
+> gibi bir şeyle değiştirebilir veya ögelere tıklayarak listeden seçim yapabilirsiniz. Türleri eklerken &Shift; düğmesine basarak birden fazla dosya türü belirleyebilirsiniz.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="snippets-editor">
+<title
+>Parçacıkları Oluşturmak ve Düzenlemek</title>
+
+<screenshot id="screenshot-snippets-form">
+<screeninfo
+>Parçacık Düzenleyicisi</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="snippets-form.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Parçacık düzenleyicisi.</phrase
+></textobject>
+<caption
+><para
+>Parçacık düzenleyicisi arayüzü.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Ad</guilabel
+></term>
+<listitem
+><para
+>Ad, tamamlanma listesinde gösterilecektir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Kısayol</term>
+<listitem
+><para
+>Bu kısayola basmak, parçacığı belgeye ekleyecektir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Parçacıklar</guilabel
+></term>
+<listitem
+><para
+>Parçacığınızın belgeye ekleyeceği metin.</para>
+<para
+>Bir parçacık düzenlenebilir alanlar içerebilir. &Tab; düğmesine basılarak bunlar arasında geçiş yapılabilir. Alan oluşturmak için şablon metninde aşağıdaki ifadeler kullanılabilir:</para>
+<para
+><userinput
+>${<replaceable
+>field_name</replaceable
+>}</userinput
+>, basit, düzenlenebilir bir alan oluşturur. Aynı <replaceable
+>field_name</replaceable
+>'in tüm sonraki oluşları, düzenleme sırasında ilkini yansılayan alanlar oluşturur.</para>
+<para
+><userinput
+>${<replaceable
+>field_name=default</replaceable
+>}</userinput
+>, alan için öntanımlı bir değer belirlemek üzere kullanılabilir. <replaceable
+>default</replaceable
+>, herhangi bir &javascript; ifadesi için kullanılabilir.</para>
+<para
+>Öntanımlı olarak sabit bir dizi belirtmek üzere <userinput
+>${<replaceable
+>field_name</replaceable
+>=<replaceable
+>metin</replaceable
+>}</userinput
+> kullanın.</para>
+<para
+><userinput
+>${func(<replaceable
+>other_field1</replaceable
+>, <replaceable
+>other_field2</replaceable
+>, ...)}</userinput
+>, her bir düzenlemede bir &javascript; işlevini değerlendiren ve içeriğini kapsayan bir alan oluşturmak için kullanılabilir. Daha fazla bilgi için <guilabel
+>Betikler</guilabel
+> sayfasına bakın.</para>
+<para
+><userinput
+>${cursor}</userinput
+>, diğer her şey doldurulduktan sonra imlecin konumunu belirtmek için kullanılabilir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Betikler</guilabel
+></term>
+<listitem
+><para
+>Parçacıklarınızda kullanılmak üzere &javascript; yardımcı işlevleri.</para>
+<para
+>Tüm &javascript; işlevleri, şablon alanına yerleştirmek istediğiniz içeriği bir dizi olarak döndürmelidir.</para>
+<para
+>İşlevler, tüm düzenlenebilir şablon alanlarının içeriğini yerel değişkenler olarak içeren bir kapsamda çağrılır. Örneğin, <userinput
+>${<replaceable
+>field</replaceable
+>}</userinput
+> içeren bir parçacıkta, şablon alanının güncel içeriğini sağlayan <userinput
+>field</userinput
+> adlı bir değişken bulunur. Bu değişkenler hem işlevde statik değişkenler olarak kullanılabilir hem de parçacık dizisindeki <userinput
+>${func(field)}</userinput
+> veya <userinput
+>${<replaceable
+>field2=func(field)</replaceable
+>}</userinput
+> sözdizimi kullanılarak argümanlar olarak geçirilebilirler.</para>
+<para
+><ulink url="help:/katepart/dev-scripting.html#dev-scripting-api"
+>&kate; Betik Yazımı API'si</ulink
+> kullanılarak seçili metni, tam metni, dosya adını ve daha fazlasını <userinput
+>document</userinput
+> ve <userinput
+>view</userinput
+> nesnelerinin uygun yöntemlerini kullanarak elde edebilirsiniz. Daha fazla bilgi için betik yazımı API'si belgelendirmesine bakın.</para>
+<para
+>Daha karmaşık betikler için <emphasis
+>önce</emphasis
+> ham parçacığın belgeye eklendiğini ve <emphasis
+>sonrasında</emphasis
+> işlevlerin değerlendirildiğini anlamak önemlidir; örneğin, bir işlev, parçacığın eklendiği satırdaki metni alıyorsa o metin ayrıca <userinput
+>${functionCall()}</userinput
+> içerecektir.</para>
+<para
+>Betik yazımı API'sini kullanarak seçimlerle çalışmanın bir örneği olarak, seçili metni etiketlerin içine sarmanın basit bir yolu şu kod parçasıdır: <userinput
+>&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput
+> </para>
+<para
+>Aşağıdaki örnek, seçim olmaması durumunda öntanımlı metni ekleyen bir betiği çağırır. Parçacık:</para>
+<para>
+<userinput
+>${rangeCommand("&lt;strong&gt;%%1&lt;/strong&gt;", "Bold")}</userinput
+></para>
+<para
+>Betik: <programlisting
+>function rangeCommand(command, def) {
+    if (view.selectedText().length 
+> 0) {
+        return command.replace("%%1", view.selectedText());
+    } else {
+        return command.replace("%%1", def);
+    }
+}
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+</sect2>
+
+<sect2 id="snippets-using">
+<title
+>Parçacıkları Kullanmak</title>
+
+<screenshot id="screenshot-snippets-usage">
+<screeninfo
+>&kate; Parçacıkları Çalışırken</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="snippets-usage.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kate; parçacıklarına bir araç görünümünden ve açılır menüden erişmek.</phrase
+></textobject>
+<caption
+><para
+>Bir parçacıklar listesinden seçmek.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+<para
+>Parçacıkları iki yolla çağırabilirsiniz:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Araç görünümünden parçacık seçerek.</para
+></listitem>
+<listitem
+><para
+>Yazı yazarken, <keycombo action="simul"
+>&Ctrl; &Space;</keycombo
+> kısayoluna bastığınızda, parçacıkları içinden seçebileceğiniz kullanışlı bir pencere görüntülenir. Bu düğme kombinasyonu, kod tamamlamaya benzer bir işlevsellik sunar.</para
+></listitem>
+</itemizedlist>
+
+<para
+>Parçacık değişkenler içeriyorsa (<literal
+>${cursor}</literal
+> dışında) imleç otomatik olarak bir değişkenin ilk geçtiği yere gidecek ve bir şey yazmanızı bekleyecektir. İşiniz bittiğinde bir sonraki değişkene geçmek için &Tab; düğmesine basabilirsiniz.</para>
+
+</sect2>
+
+<sect2 id="snippets-ack">
+<title
+>Teşekkürler ve Destek Olanlar</title>
+<para
+>&kate; Parçacıkları, Joseph Wenninger tarafından yazıldı.</para>
+<para
+>Bu bölümün çoğunu yazan Google Code-In 2011 katılımcısı Martin Gergov'a özellikle teşekkürler.</para>
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-keyboardmacros">
+<sect1info>
+<authorgroup>
+<!--author
+>&Pablo.Rauzy; &Pablo.Rauzy.mail;</author--> <!-- TODO: use that when the version of KDocTools that Kate depends on has it -->
+<author
+><firstname
+>Pablo</firstname
+> <surname
+>Rauzy</surname
+> <email
+>r .at. uzy.me</email
+></author>
+</authorgroup>
+</sect1info>
+<title
+>Klavye Makroları Eklentisi</title>
+
+<sect2 id="keyboardmacros-intro">
+<title
+>Giriş</title>
+<para
+>Klavye makroları kaydet ve oynat (örn. klavye eylem sıralamaları)</para>
+</sect2>
+
+<sect2 id="keyboardmacros-basicusage">
+<title
+>Temel kullanım</title>
+
+<sect3 id="keyboardmacros-basicusage-record">
+<title
+>Bir klavye makrosu kaydetmeye başlamak için:</title>
+<para
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Klavye Makroları</guimenuitem
+><guimenuitem
+>Makro Kaydet...</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Eklenti, siz kaydı bitirene kadar her düğme basışınızı kaydedecektir.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-basicusage-record-end">
+<title
+>Kaydı bitirmek için:</title>
+<para
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Klavye Makroları</guimenuitem
+><guimenuitem
+>Makro Kaydını Sonlandır</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Eklenti, düğme basışlarını kaydetmeyi durduracak ve sırayı geçerli makro olarak kaydedecektir.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-basicusage-record-cancel">
+<title
+>Kaydı iptal etmek için:</title>
+<para
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Klavye Makroları</guimenuitem
+><guimenuitem
+>Makro Kaydını İptal Et</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Eklenti düğme basışlarını kaydetmeyi durdurur; ancak mevcut geçerli değişmez.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-basicusage-play">
+<title
+>Geçerli makroyu oynatmak için:</title>
+<para
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Klavye Makroları</guimenuitem
+><guimenuitem
+>Makroyu Oynat</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Eklenti geçerli makroyu oynatır.</para>
+<para
+><userinput
+>kmplay</userinput
+> komutu da herhangi bir argüman olmadan geçerli makroyu oynatır.</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="keyboardmacros-namedmacros">
+<title
+>Adlı makrolar</title>
+
+<para
+>Onlara bir ad vererek klavye makroları kaydedilebilir.</para>
+<para
+>Adlı makrolar Kate oturumları arasında kalıcıdır ve Kate'in kullanıcı verileri dizinindeki <filename
+>keyboardmacros.json</filename
+> dosyasına kaydedilirler (genellikle <filename
+>~/.local/share/kate/</filename
+>).</para>
+
+<sect3 id="keyboardmacros-namedmacros-save">
+<title
+>Geçerli makroyu kaydetmek için:</title>
+<para
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Klavye Makroları</guimenuitem
+><guimenuitem
+>Geçerli Makroyu Kaydet</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Alt;&Shift;<keycap
+>K</keycap
+></keycombo
+>). </para>
+<para
+>Eklenti sizden bir ad isteyecek ve makroyu onun altına kaydedecektir.</para>
+<para
+><userinput
+>kmsave <replaceable
+>ad</replaceable
+></userinput
+> komutu, geçerli makroyu <userinput
+><replaceable
+>ad</replaceable
+></userinput
+> olarak kaydeder.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-load">
+<title
+>Kaydedilen bir makroyu geçerli olarak yüklemek için:</title>
+<para
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Klavye Makroları</guimenuitem
+><guimenuitem
+>Adlı Makroyu Yükle...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Eklenti, kaydedilen makroları bu alt menüde ögeler olarak listeler; bir ögenin etkinleştirilmesi, karşılık gelen makroyu geçerli makro olarak yükleyecektir.</para>
+<para
+><userinput
+>kmload <replaceable
+>ad</replaceable
+></userinput
+> komutu, <userinput
+><replaceable
+>ad</replaceable
+></userinput
+> altında kayıtlı makroyu geçerli makro olarak yükler.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-play">
+<title
+>Kayıtlı bir makroyu onu yüklemeden oynatmak için:</title>
+<para
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Klavye Makroları</guimenuitem
+><guimenuitem
+>Adlı Makroyu Oynat...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Eklenti, kaydedilen makroları bu alt menüdeki ögeler olarak listeler; bir ögenin etkinleştirilmesi, ilgili makroyu yüklemeden oynatır.</para>
+<para
+>Kaydedilen her makronun, geçerli eylem koleksiyonunun parçası olan bir eylem olduğunu unutmayın; böylece onlara <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>Klavye Kısayollarını Yapılandır...</guimenuitem
+></menuchoice
+> arayüzü aracılığıyla özel bir kısayol atanabilir.</para>
+<para
+><userinput
+>kmplay <replaceable
+>ad</replaceable
+></userinput
+> komutu, <userinput
+><replaceable
+>ad</replaceable
+></userinput
+> altında kayıtlı makroyu onu yüklemeden oynatır.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-wipe">
+<title
+>Bir makroyu silmek için:</title>
+<para
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Klavye Makroları</guimenuitem
+><guimenuitem
+>Adlı Makroyu Sil...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Eklenti, kaydedilen makroları bu alt menüdeki ögeler olarak listeler; bir ögenin etkinleştirilmesi, ilgili makronun silinmesine neden olur.</para>
+<para
+><userinput
+>kmwipe <replaceable
+>ad</replaceable
+></userinput
+> komutu, <userinput
+><replaceable
+>ad</replaceable
+></userinput
+> altında kayıtlı makroyu siler.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-command-tips">
+<title
+>Komut ipuçları:</title>
+<para
+><userinput
+>km</userinput
+> önekinden sonra tüm komutlar farklı bir harfle başlar, böylece onları anında sekme tamamlamayı kullanarak çağırabilirsiniz.</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="keyboardmacros-limitations">
+<title
+>Sınırlamalar</title>
+
+<para
+>Şu an itibariyle, bazı grafik arayüz araç takımları türleri kullanıldığında klavye makroları düzgün şekilde oynatılamıyor: örneğin QMenu, QuickOpenLineEdit veya TabSwitcherTreeView. Neden olduğundan emin değilim; ancak ilk tahminim bu araç takımlarının klavye olayları açısından standart olmayan bir şekilde çalıştığı yönünde.</para>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="kate-application-plugin-sql">
+<sect1info>
+<authorgroup>
+<author
+><firstname
+>Ömer</firstname
+> <othername
+>Faruk</othername
+> <surname
+>ORUÇ</surname
+></author>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+</authorgroup>
+</sect1info>
+<title
+>SQL Eklentisi</title>
+
+<sect2 id="sql-intro">
+<title
+>Giriş</title>
+
+<para
+>Yapılandırılmış Sorgu Dili (SQL), veritabanlarından bilgi güncellemek, silmek ve talep etmek için özel bir dildir.</para>
+
+<para
+>&kate; SQL Eklentisi şunlara olanak tanır:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Bir veritabanı oluşturmak</para
+></listitem>
+<listitem
+><para
+>Var olan veritabanlarına bağlanmak</para
+></listitem>
+<listitem
+><para
+>Veritabanına bilgi eklemek ve silmek</para
+></listitem>
+<listitem
+><para
+>Sorgu çalıştırmak</para
+></listitem>
+<listitem
+><para
+>Sonuçları bir tabloda göstermek</para
+></listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2 id="sql-connecting">
+<title
+>Bir veritabanına bağlanmak</title>
+
+<para
+><guimenu
+>SQL</guimenu
+> menüsü veya araç çubuğundan <guibutton
+>Bağlantı Ekle</guibutton
+>'yi ve sonrasında kullanmak istediğiniz &Qt; veritabanı sürücüsünü seçin (QSQLITE, QMYSQL3, QMYSQL, QODBC3, QODBC, QPSQL7, and QPSQL içerilir). İstediğiniz sürücüyü göremiyorsanız onu kurmanız gerekir. Sonrasında <guibutton
+>Sonraki</guibutton
+> düğmesine basın. </para>
+
+<para
+>Seçtiğiniz veritabanı bir dosya kullanıyorsa veritabanının konumunu belirtmeniz ve <guibutton
+>Sonraki</guibutton
+> düğmesine basmanız yeterlidir. Bir sunucuya bağlanmayı gerektiriyorsa sunucunun makine adını, kullanıcı adınızı ve parolanızı ve belirli bir sürücünün gerektirebileceği diğer bilgileri girmeniz gerekir. Daha sonra <guibutton
+>Sonraki</guibutton
+>'ye basın.</para>
+
+<para
+>Son olarak bağlantınıza bir ad verin ve <guibutton
+>Bitir</guibutton
+>'e basın.</para>
+
+</sect2>
+
+<sect2 id="sql-querying">
+<title
+>Sorgular Çalıştırmak</title>
+
+<sect3 id="sql-querying-insert-delete-update">
+<title
+>INSERT/DELETE/UPDATE</title>
+
+<para
+>Tıpkı komut satırından veya bir programın içinden yaptığınız gibi, SQL eklentisini kullanarak verileri ekleyebilir, silebilir ve güncelleyebilirsiniz. Yalnızca bir sorgu girin ve araç çubuğundaki <guibutton
+>Sorgu Çalıştır</guibutton
+> düğmesine basın veya <menuchoice
+><guimenu
+>SQL</guimenu
+><guimenuitem
+>Sorgu Çalıştır</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+>) menüsünü kullanın.</para>
+
+<example>
+<title
+>Bazı Örnek Sorgular</title>
+<variablelist>
+
+<varlistentry>
+<term
+><command
+>INSERT</command
+></term>
+<listitem
+><para
+><programlisting
+>INSERT INTO <replaceable
+>tablo_adı</replaceable
+> ("<replaceable
+>özellik1</replaceable
+>", "<replaceable
+>özellik2</replaceable
+>", "<replaceable
+>özellik3</replaceable
+>", "<replaceable
+>özellik4</replaceable
+>", "<replaceable
+>özellik5</replaceable
+>")
+VALUES ("<replaceable
+>değer1</replaceable
+>", "<replaceable
+>değer2</replaceable
+>", "<replaceable
+>değer3</replaceable
+>", "<replaceable
+>değer4</replaceable
+>", "<replaceable
+>değer5</replaceable
+>" )
+</programlisting
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><command
+>DELETE</command
+></term>
+<listitem
+><para
+><programlisting
+>DELETE FROM <replaceable
+>table_adı</replaceable
+> WHERE name = "<replaceable
+>metin</replaceable
+>"
+</programlisting
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><command
+>UPDATE</command
+></term>
+<listitem
+><para
+><programlisting
+>UPDATE <replaceable
+>tablo_adı</replaceable
+> SET "<replaceable
+>özellik1</replaceable
+>" = "<replaceable
+>metin</replaceable
+>", "<replaceable
+>özellik2</replaceable
+>" = "<replaceable
+>metin</replaceable
+>", "<replaceable
+>özellik3</replaceable
+>" = "<replaceable
+>metin</replaceable
+>", "<replaceable
+>özellik4</replaceable
+>" = "<replaceable
+>metin</replaceable
+>", "<replaceable
+>özellik5</replaceable
+>" = "<replaceable
+>metin</replaceable
+>"
+</programlisting
+></para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</example>
+
+</sect3>
+
+<sect3 id="sql-querying-select">
+<title
+>SELECT</title>
+
+<para
+>Bir <command
+>SELECT</command
+> sorgusu çalıştırdıktan sonra, sonuçları &kate;'in altındaki <guilabel
+>SQL Veri Çıktısı</guilabel
+> araç görünümünde belirecek bir tabloda veya <guilabel
+>SQL Metin Çıktısı</guilabel
+>'nda metin olarak görebilirsiniz. Bir hata varsa metin çıktısında bulunur.</para>
+
+<example>
+<title
+>Örnek <command
+>SELECT</command
+> Sorgusu</title>
+<para
+><programlisting
+>SELECT * FROM <replaceable
+>tablo_adı</replaceable
+>
+</programlisting
+></para>
+</example>
+
+<para
+><guilabel
+>SQL Veri Çıktısı</guilabel
+> araç görünümünde çeşitli düğmeler vardır:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guibutton
+>Sütunları içeriğe göre yeniden boyutlandır</guibutton
+></term>
+<listitem
+><para
+>Sütunların boyutunu içeriklerine uyacak şekilde değiştirir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guibutton
+>Satırları içeriğe göre yeniden boyutlandır</guibutton
+></term>
+<listitem
+><para
+>Satırların boyutunu içeriklerine uyacak şekilde değiştirir.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guibutton
+>Kopyala</guibutton
+></term>
+<listitem
+><para
+>Tüm tablo içeriğini seçer ve pano arabelleğine kopyalar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guibutton
+>Dışa Aktar</guibutton
+></term>
+<listitem
+><para
+>Tablo içeriğinin tümünü bir dosyaya, panoya veya geçerli belgeye Virgülle Ayrılmış Değerler biçiminde dışa aktarır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guibutton
+>Temizle</guibutton
+></term>
+<listitem
+><para
+>Tablo görünümünden her şeyi kaldırır.</para
+></listitem>
+</varlistentry>
+
+<!--FIXME Use system locale -->
+
+</variablelist>
+
+<para
+>Artık tabloda görüntülenen renkleri <menuchoice
+><guimenu
+>Ayarlar</guimenu
+><guimenuitem
+>&kate; Uygulamasını Yapılandır...</guimenuitem
+> </menuchoice
+> iletişim kutusunun <guilabel
+>SQL</guilabel
+> bölümünden yapılandırabilirsiniz.</para>
+
+</sect3>
+</sect2>
+
+<sect2 id="sql-browsing">
+<title
+>Tarama</title>
+
+<para
+>Soldaki <guilabel
+>Veritabanı şeması</guilabel
+> tarayıcı aracı görünümünü kullanarak veritabanınıza göz atabilirsiniz. Görüntülenen bilgiler, kullandığınız veritabanı sürücüsüne bağlı olarak değişir.</para>
+
+<para
+>Bu listeyi yenilemek için, araç çubuğundaki herhangi bir yere sağ tıklayın ve <guimenuitem
+>Yenile</guimenuitem
+>'yi seçin. Listedeki bir öge için bir sorgu oluşturmak için bir ögeye sağ tıklayın, <guisubmenu
+>Oluştur</guisubmenu
+>'u seçin ve beliren alt menüden sorgu tipini (<guimenuitem
+>SELECT</guimenuitem
+>, <guimenuitem
+>UPDATE</guimenuitem
+>, <guimenuitem
+>INSERT</guimenuitem
+> veya <guimenuitem
+>DELETE</guimenuitem
+>) seçeneklerinden birini seçin.</para>
+
+</sect2>
+
+<sect2 id="sql-menus">
+<title
+>Menü Yapısı</title>
+<variablelist>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>SQL</guimenu
+><guimenuitem
+>Bağlantı Ekle...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Herhangi bir veritabanı sürücüsünü kullanarak yeni bir bağlantı ekler. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>SQL</guimenu
+><guimenuitem
+>Bağlantıyı Kaldır</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Seçili bağlantıyı kaldırır. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>SQL</guimenu
+><guimenuitem
+>Bağlantıyı Düzenle...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Geçerli bağlantının ayarlarını düzenler. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Bağlantılar</term>
+<listitem
+><para
+>Oluşturduğunuz tüm veritabanı bağlantıları <guimenuitem
+>Bağlantıyı Düzenle</guimenuitem
+> ve <guimenuitem
+>Sorgu Çalıştır</guimenuitem
+> menü ögeleri arasında listelenir. Sorguları çalıştırmak veya üzerinde değişiklik yapmak için birini seçin. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+></shortcut
+> <guimenu
+>SQL</guimenu
+><guimenuitem
+>Sorgu Çalıştır</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Sorgunuzu çalıştırır. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="sql-ack">
+<title
+>Teşekkürler ve Destek Olanlar</title>
+
+<para
+>SQL eklentisi, Marco Mentasti tarafından yazıldı.</para>
+<para
+>Bu bölümün çoğunu yazan Google Code-In 2011 katılımcısı Ömer Faruk ORUÇ'a özellikle teşekkürler.</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-symbolviewer">
+<!--https://kate-editor.org/2010/10/27/php-treeview-improvements-in-kate/?-->
+<title
+>Sembol Görüntüleyicisi Eklentisi</title>
+
+<sect2 id="symbolviewer-using">
+<title
+>Dışındakileri/Benzerleri Kapat eklentisini kullanmak</title>
+
+<para
+>Geliştiricilerin kaynak koddaki sembolleri (işlevler, makrolar ve yapılar) görüntülemesine olanak tanır.</para>
+<para
+>Ayrıştırılan bilgilere tıklayarak koda kolayca göz atabilirsiniz.</para>
+<para
+>Şu anda aşağıdaki diller desteklenmektedir:</para>
+<para
+>C/C++, &Java;, Perl, PHP, Python, Ruby, XSLT, Tcl/Tk, Fortran</para>
+
+<para
+>Özellik listesi:</para>
+<simplelist>
+<member
+>Liste/Ağaç kipi</member>
+<member
+>Sıralamayı etkinleştir/devre dışı bırak</member>
+<member
+>İşlev parametrelerini göster/gizle</member>
+<member
+>Ağaç kipini genişlet/daralt</member>
+<member
+>Belge değişikliklerinde kendiliğinden güncelle</member>
+<member
+>Kod ayrıştırma, &kde-frameworks; içindeki sözdizim vurgulama çatısı temellidir</member>
+</simplelist>
+
+</sect2>
+
+<sect2 id="symbolviewer-menu">
+<title
+>Menü Yapısı</title>
+<variablelist>
+
+<varlistentry id="tools-symbolviewer">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>\</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guisubmenu
+>Araç Görünümleri</guisubmenu
+> <guimenuitem
+>Sembol Listesi</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Etkin belgedeki kaynak kodu işlevlerini, makrolarını ve yapılarını görüntüleyen &kate;'in sembol listesi görüntülenmesini açın/kapatın.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="symbolviewer-config">
+<title
+>Yapılandırma</title>
+
+<screenshot id="screenshot-symbolviewer-settings">
+<screeninfo
+>Sembol Görüntüleyicisi</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="symbolviewer-settings.png" format="PNG"/></imageobject>
+<caption
+><para
+>Öntanımlı ayrıştırıcı seçeneklerini seç</para
+></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="kate-application-plugin-konsole">
+<title
+>Uçbirim Araç Görünümü Eklentisi</title>
+
+<para
+><indexterm
+><primary
+>Uçbirim öykünücüsü</primary
+></indexterm
+> Yerleşik uçbirim öykünücüsü, size kolaylık sağlamak amacıyla &kde; &konsole; uçbirim uygulamasının bir kopyasıdır. <menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Araç Görünümleri</guisubmenu
+> <guimenuitem
+>Uçbirim Panelini Göster</guimenuitem
+></menuchoice
+> menü ögesinden görüntülenir ve anında odağı alır. Ek olarak, <link linkend="konsole-config"
+>Olanaklıysa uçbirimi geçerli belgeyle eşzamanla</link
+> seçeneği etkinleştirilirse görüntülendiğine veya geçerli belge değiştiğinde olanaklıysa geçerli belgenin dizinine geçer.</para>
+
+<para
+>&kate; dosyasındaki öntanımlı konumu en altta, düzenleme alanının altındadır.</para>
+
+<para
+>&konsole;'u onun &RMB; menüsünü kullanarak yapılandırabilirsiniz; daha fazla bilgi için <ulink url="help:/konsole/index.html"
+>&konsole; kılavuzuna</ulink
+> bakın.</para>
+
+<para
+>Yerleşik uçbirim öykünücüsü, Uçbirim Araç Görünümü eklentisi tarafından sağlanır.</para>
+
+<sect2 id="konsole-menus">
+<title
+>Menü Yapısı</title>
+
+<variablelist>
+
+<varlistentry id="view-toolviews-show-terminal">
+<term
+><menuchoice
+><guimenu
+>Görünüm</guimenu
+><guisubmenu
+>Araç Görünümleri</guisubmenu
+> <guimenuitem
+>Uçbirim</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Yerleşik uçbirim öykünücüsünün görüntülenmesini açar/kapatır.</para>
+<para
+>İlk kez etkinleştirildiğinde uçbirim oluşturulacaktır.</para>
+<para
+>Uçbirim öykünücüsü görüntülendiğinde odağı alır, böylecek doğrudan komutlar girmeye başlayabilirsiniz. <link linkend="config-dialog"
+>Ana yapılandırma iletişim kutusunun</link
+> <guilabel
+>Uçbirim</guilabel
+> sayfasında <link linkend="konsole-config"
+>Olanaklıysa uçbirimi geçerli belgeyle eşzamanla</link
+> seçeneği etkinleştirilirse kabuk oturumu yerel bir dosyaysa etkin belgenin dizinine geçer.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-toolviews-pipe-to-terminal">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+><guimenuitem
+>Uçbirime Veriyolu Yap</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Seçili olan metni yerleşik uçbirim öykünücüsüne besleyin. Metinden sonra yenisatır eklenmez.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-sync-terminal-document">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guimenuitem
+>Uçbirimi Geçerli Belgeyle Eşzamanla</guimenuitem
+></menuchoice
+></term>
+<listitem>
+<para
+>Bu, yerleşik uçbirimin etkin belgenin dizinine <command
+>cd</command
+> yapmasını sağlar.</para>
+
+<para
+>Alternatif olarak &kate;'i, uçbirimi her zaman geçerli belgeyle eşzamanlı tutacak biçimde yapılandırabilirsiniz. Daha fazla bilgi için <xref linkend='konsole-config'/> bölümüne bakın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-run-current-document">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guimenuitem
+>Geçerli Belgeyi Çalıştır</guimenuitem
+></menuchoice
+></term>
+<listitem>
+<para
+>Geçerli belgeyi &konsole;'de çalıştırın. Yalnızca yerel belgeler çalıştırılabilir. Bu eylem ciddi bir güvenlik tehdidi olabileceğinden &kate; belgeyi çalıştırmadan önce bir uyarı gösterecektir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-focus-terminal">
+<term
+><menuchoice
+><guimenu
+>Araçlar</guimenu
+> <guimenuitem
+>Uçbirim Paneline Odaklan/Panelindeki Odağı Kaldır</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Odağı geçerli belgeden uçbirime veya tam tersi olacak biçimde değiştirin. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="konsole-config">
+<title
+>Yapılandırma</title>
+
+<para
+>Uçbirim araç görünümü eklentisini <link linkend="configuring-kate"
+>yapılandırma iletişim kutusunun</link
+> <guilabel
+>Uçbirim</guilabel
+> sayfasında yapılandırabilirsiniz.</para>
+
+<para
+>Aşağıdaki seçenekler kullanılabilir:</para>
+
+<variablelist>
+<varlistentry>
+<term>
+<guilabel
+>Olanaklıysa uçbirimi geçerli belgeyle eşzamanla</guilabel
+></term>
+<listitem
+><para
+>Bu, yerleşik uçbirimin başlatıldığında ve yeni bir belgeye odaklanıldığında etkin belgenin dizinine <command
+>cd</command
+> yapmasını sağlar. Etkinleştirilmemişse uçbirimdeki tüm dolaşımınızı kendi başınıza yapmanız gerekir. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>EDITOR çevre değişkenini 'kate -b' olarak ayarla</guilabel
+></term>
+<listitem
+><para
+>Bu, <envar
+>EDITOR</envar
+> çevre değişkenini, yerleşik uçbirimde çalışan ve bir dosyayı kendiliğinden bir düzenleyicide açan programların, bunları kabuğunuzda yapılandırılan öntanımlı düzenleyici yerine &kate;'de açmasını sağlayacak şekilde ayarlar. Dosyayı &kate;'de kapatana kadar uçbirimi kullanmayı sürdüremezsiniz, böylece çağıran program, dosyayı düzenlemeyi bitirdiğinizin farkında olacaktır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>'Vazgeç'e basıldığında &konsole;'yi gizle</guilabel
+></term>
+<listitem
+><para
+>Bu, &Esc; düğmesine basılarak yerleşik uçbirimin kapatılmasına olanak sağlar. &Esc; düğmesini kullanan uçbirim uygulamalarında sorunlara neden olabilir; örneğin, <application
+>vim</application
+>. Bu tür uygulamaları aşağıdaki metin kutusuna ekleyin. Listedeki ögeler virgülle ayrılmalıdır.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-textfilter">
+
+<title
+>Metin Süzgeci Eklentisi</title>
+
+<sect2 id="textfilter-using">
+<title
+>Metin Süzgeci eklentisini kullanmak</title>
+
+<para
+>Seçili metni uçbirim komutlarını kullanarak işlemek için bu eklentiyi kullanabilirsiniz. Seçim, komutun girdisi olarak kullanılacak ve kullanıcının tercihine bağlı olarak çıktı ya seçimin yerini alacak ya da panoya kopyalanacaktır. </para>
+
+<itemizedlist>
+<title
+>Örnekler:</title>
+<listitem
+><para
+><command
+>less /etc/fstab</command
+> - bu dosyanın içeriğini yapıştır veya panoya kopyala </para
+></listitem>
+<listitem
+><para
+><command
+>wc</command
+> - satırları, sözcükleri ve karakterleri say ve sayıyı belgeye yapıştır veya panoya kopyala </para
+></listitem>
+<listitem
+><para
+><command
+>sort</command
+> - seçili satırları sırala ve sonucu belgeye yapıştır veya panoya kopyala </para
+></listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2 id="textfilter-menu">
+<title
+>Menü Yapısı</title>
+
+<variablelist>
+
+<varlistentry id="tools-textfilter">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>\</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Araçlar</guimenu
+> <guisubmenu
+>Metni Süz</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+
+<para
+>Metin Süzgeci iletişim kutusunu <action
+>açar</action
+>:</para>
+
+<screenshot id="screenshot-filtertext">
+<screeninfo
+>Metin Süzgeci iletişim kutusu</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="textfilter.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Kabuk komutunu çoklu kutuya girin veya geçmişten önceki bir komutu seçin.</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Sonucu yapıştırmak yerine kopyala</guilabel
+></term>
+<listitem>
+<para
+>Belgeyi değiştirmeden bırakarak sonucu panoya kopyalayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>STDOUT ve STDERR'ı birleştir</guilabel
+></term>
+<listitem>
+<para
+>İşaretlenirse STDOUT ve STDERR'den gelen çıktılar birleştirilecek ve hiçbir hata bildirilmeyecektir. Aksi halde STDERR pasif bir ileti olarak görüntülenecektir.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-xmlcheck">
+<!-- from doc/kate-addons/xmlcheck.docbook -->
+<sect1info>
+<authorgroup
+><author
+>&Daniel.Naber; &Daniel.Naber.mail; </author
+></authorgroup>
+</sect1info>
+
+<title
+>&XML; Doğrulama</title>
+
+<para
+>Bu eklenti, &XML; dosyalarının geçerliliğini ve iyi biçimliliğini denetler.</para>
+<para
+>Bu eklenti geçerli dosyayı denetler. &kate;'in ana penceresinin altında bir uyarı ve hata listesi görünecektir. Dosyadaki ilgili yere atlamak için bir hata iletisine tıklayabilirsiniz. Dosyanın bir <quote
+>DOCTYPE</quote
+>'ı varsa bu belge türüyle verilen DTD, dosyanın geçerliliğini denetlemek için kullanılacaktır. DTD'nin geçerli dosyaya göreceli bir konumda olması beklenir; örneğin, doctype <quote
+>DTD/xhtml1-transitional.dtd</quote
+> ise ve dosya da <filename
+>/home/peter/test.xml</filename
+> ise DTD'nin <filename
+>/home/peter/DTD/xhtml1-transitional.dtd</filename
+> konumunda olması beklenir. Ancak HTTP aracılığıyle uzak DTD'ler de desteklenir.</para>
+
+<para
+>Dosyanın doctype'ı yoksa iyi biçimlendirilmiş olup olmadığı denetlenir.</para>
+
+<para
+>&XML; hakkında daha fazla bilgi için <ulink url="https://www.w3.org/XML/"
+>resmi W3C &XML; sayfalarına</ulink
+> bir bakın.</para>
+
+<para
+>Bu eklenti, içsel olarak libxml2'nin bir parçası olan <command
+>xmllint</command
+> dış komutunu çağırır. Bu komut sisteminize doğru şekilde kurulmamışsa eklenti çalışmayacaktır.</para>
+
+<para
+>Bu eklentiyi yüklemek için <menuchoice
+><guimenu
+>Ayarlar</guimenu
+> <guimenuitem
+>&kate; Uygulamasını Yapılandır...</guimenuitem
+></menuchoice
+> altındaki &kate; yapılandırma iletişim kutusunu açın. Sonrasında, <guilabel
+>Uygulama</guilabel
+>/<guilabel
+>Eklentiler</guilabel
+> altındaki <guilabel
+>&XML; Doğrulama</guilabel
+>'yı seçin ve iletişim kutusunu kapatın. </para>
+
+<sect2 id="xmlcheck-menu">
+<title
+>Menü Yapısı</title>
+
+<variablelist>
+<varlistentry>
+<term>
+<menuchoice
+><guimenu
+>&XML;</guimenu
+> <guimenuitem
+>&XML;'yi Doğrula</guimenuitem
+> </menuchoice>
+</term>
+<listitem
+><para
+>Bu, yukarıda açıklandığı üzere denetimi başlatacaktır.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="xmlcheck-thanks-and-acknowledgements">
+<title
+>Teşekkürler ve Destek Olanlar</title>
+<para
+>&kate; eklentisi <quote
+>&XML; Doğrulama</quote
+>, Telif hakkı 2002 &Daniel.Naber; &Daniel.Naber.mail;. </para>
+<para
+>Belgelendirme telif hakkı 2002 &Daniel.Naber;</para>
+
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-xmltools">
+<!-- from doc/kate-addons/xmlcheck.docbook -->
+<sect1info>
+<authorgroup
+><author
+>&Daniel.Naber; &Daniel.Naber.mail; </author
+></authorgroup>
+</sect1info>
+<title
+>&XML; Tamamlama</title>
+
+<para
+>Bu eklenti, dosyanın DTD'sine göre bir &XML; dosyasında belirli bir konumda nelere izin verildiğine dair ipuçları verir. İmlecin konumuna bağlı olarak olası ögeleri, öznitelikleri, öznitelik değerlerini veya varlıkları listeleyecektir (örneğin, imlecin solundaki karakter <quote
+>&amp;</quote
+> ise tüm varlıklar listelenir). Soldaki en yakın açık etiketi kapatmak da olanaklıdır.</para>
+
+<para
+><acronym
+>DTD</acronym
+> kısaltması, <command
+>dtdparse</command
+> Perl programının ürettiği biçimde &XML; biçiminde var olmalıdır. Bu biçimdeki bir DTD'yi <quote
+>meta DTD</quote
+> olarak adlandıracağız. Bazı meta DTD'ler sağlanır. Aynı zamanda <guimenuitem
+>Meta DTD Ata...</guimenuitem
+> ögesini seçtiğinizdeki öntanımlı klasör olan <userinput
+><command
+>qtpaths</command
+> <option
+>--paths GenericDataLocation </option
+></userinput
+> içindeki <filename class="directory"
+>katexmltools/</filename
+> bünyesinde kuruludurlar. Kendi meta DTD'lerinizi üretmek için <ulink url="http://dtdparse.sourceforge.net"
+>http://dtdparse.sourceforge.net</ulink
+> konumundan <command
+>dtdparse</command
+>'yi alın.</para>
+
+<sect2 id="xmltools-how-to-use">
+<title
+>Nasıl Kullanılır</title>
+
+<para
+>&kate;'i başlatın ve <menuchoice
+><guimenu
+>Ayarlar</guimenu
+> <guimenuitem
+>&kate; Uygulamasını Yapılandır...</guimenuitem
+></menuchoice
+> altındaki yapılandırma iletişim kutusunu açın. Sonrasında, <menuchoice
+><guimenu
+>Uygulama</guimenu
+> <guimenuitem
+>Eklentiler</guimenuitem
+></menuchoice
+> sayfasından <guilabel
+>&XML; Tamamlama</guilabel
+>'yı seçin ve iletişim kutusunu kapatın. İzleyen adım olarak, <menuchoice
+><guimenu
+>&XML;</guimenu
+><guimenuitem
+>Meta DTD Ata...</guimenuitem
+></menuchoice
+> yolunu izleyin. Belgenizde bir <quote
+>DOCTYPE</quote
+> yoksa veya doctype bilinmiyorsa dosya sisteminizden bir meta DTD seçmeniz gerekecektir. Aksi takdirde, geçerli belgenin DOCTYPE'ı ile eşleşen meta DTD kendiliğinden yüklenir.</para>
+
+<para
+>Şimdi metninizi yazarken eklentiyi kullanabilirsiniz:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><keycap
+>&lt;</keycap
+> (küçüktür)</term>
+<listitem
+><para
+>Bu, imleç zaten bir etiketin içinde olmadığı sürece olası ögelerin bir listesini tetikleyecektir. Şu anda bunu üst düzey ögeyi eklemek için kullanamayacağınızı unutmayın (&eg; <quote
+>&lt;html&gt;</quote
+>).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><keycap
+>&lt;</keycap
+><keycap
+>/</keycap
+>(küçüktür + bölü)</term>
+<listitem
+><para
+>Bu karakterlerin girilmesi, geçerli ögenin kapatılmasını sağlayacaktır (imlecin solundaki en yakın açık öğe). Öneriyi kabul etmek için &Enter; düğmesine basın. <guimenuitem
+>Ögeyi Kapat</guimenuitem
+> menü ögesinin aksine, bu yalnızca atanmış bir DTD ile çalışır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><keycap
+>"</keycap
+> (tırnak)</term>
+<listitem
+><para
+>Tırnak karakteri, bir etiketin içindeyseniz olası öznitelik değerlerinin (varsa) bir listesini tetikler.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><keycap
+>&nbsp;</keycap
+> (boşluk)</term>
+<listitem
+><para
+>Bu düğme, eğer bir etiketin içindeyseniz geçerli öge için olası özniteliklerin bir listesini tetikleyecektir.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><keycap
+>&amp;</keycap
+> (ve)</term>
+<listitem
+><para
+>Bu düğme, adlı varlıkların bir listesini tetikler.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="xmltools-features-and-limitations">
+<title
+>Özellikler ve Sınırlamalar</title>
+
+<para
+><userinput
+><command
+>qtpaths</command
+> <option
+>--paths GenericDataLocation </option
+></userinput
+> içindeki <filename
+>katexmltools/testcases.xml</filename
+> dosyasını &kate;'e yükleyip yönergeleri izleyerek tüm işlevleri ve sınırlamaları sınayabilirsiniz.</para>
+
+</sect2>
+
+
+<sect2 id="xmltools-menu">
+<title
+>Menü Yapısı</title>
+
+<variablelist id="xml-insert-element">
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>&XML;</guimenu
+> <guimenuitem
+>Öge Ekle...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu bir &XML; ögesi eklemenizi sağlayacak bir iletişim kutusu açacaktır. &lt;, &gt; karakterleri ve kapama etiketi kendiliğinden eklenir. Bu menü ögesi seçildiğinde seçili metin varsa seçili metin açılış ve kapanış etiketi ile çevrili olacaktır. İletişim kutusu ayrıca, <guimenuitem
+>Meta DTD Ata...</guimenuitem
+> kullanarak bir meta DTD atadıysanız geçerli imleç konumuna eklenebilecek tüm ögelerin tamamlanmasını da sunar. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="xml-close-element">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>&lt;</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>&XML;</guimenu
+> <guimenuitem
+>Ögeyi Kapat</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu, metninizde henüz kapatılmamış bir etiketi arayacak ve ilgili kapanış etiketini ekleyerek metni kapatacaktır. Arama imleç konumunda başlar ve sola doğru gider. Açık bir etiket bulamazsa hiçbir şey olmayacaktır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="xml-assign-metadtd">
+<term
+><menuchoice
+><guimenu
+>&XML;</guimenu
+> <guimenuitem
+>Meta DTD Ata...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Bu, eklentiye geçerli belge için hangi meta DTD'nin kullanılacağını söyleyecektir. Bu atamanın kaydedilmeyeceğini unutmayın. Bir dahaki kere &kate;'i başlattığınızda bunu yinelemeniz gerekir.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="xmltools-thanks-and-acknowledgements">
+<title
+>Teşekkürler ve Destek Olanlar</title>
+<para
+>&kate; eklentisi <quote
+>&XML; Tamamlama</quote
+>, Telif hakkı 2001,2002 &Daniel.Naber; &Daniel.Naber.mail;. </para>
+<para
+>&kde; SC 4 sürümü telif hakkı 2010 Tomáš Trnka</para>
+<para
+>Belgelendirme telif hakkı 2001,2002 &Daniel.Naber;</para>
+</sect2>
+</sect1>
+
+</chapter>

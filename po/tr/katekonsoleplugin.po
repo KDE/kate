@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2023-11-11 23:31+0300\n"
+"PO-Revision-Date: 2023-11-25 14:48+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: kateconsole.cpp:56
 #, kde-format
@@ -42,7 +42,7 @@ msgstr "Uçbirime &Veriyolu Yap"
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
-msgstr "Uçbirimi Geçerli Belge ile &Eşzamanla"
+msgstr "Uçbirimi Geçerli Belgeyle &Eşzamanla"
 
 #: kateconsole.cpp:151
 #, kde-format
@@ -92,7 +92,7 @@ msgstr "Uçbirime Veriyolu Yap"
 #: kateconsole.cpp:408
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
-msgstr "Üzgünüm, '%1' içine geçilemedi"
+msgstr "Üzgünüm, '%1' içine cd yapılamadı"
 
 #: kateconsole.cpp:444
 #, kde-format
@@ -107,8 +107,8 @@ msgid ""
 "with your user rights, in the terminal:\n"
 "'%1'"
 msgstr ""
-"Gerçekten belgeyi çalıştırmak istiyor musunuz?\n"
-"Bu işlem aşağıdaki komutu sizin -\n"
+"Belgeyi gerçekten çalıştırmak istiyor musunuz?\n"
+"Bu işlem uçbirimde aşağıdaki komutu sizin\n"
 "kullanıcı haklarınızla çalıştıracak:\n"
 "'%1'"
 
@@ -143,7 +143,7 @@ msgstr "Uçbirim Paneline Odaklan"
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
-msgstr "Uygun olduğunda, uçbirimi geçerli belge ile otomatik &olarak eşzamanla"
+msgstr "Olanaklıysa uçbirimi geçerli belgeyle eşzamanla"
 
 #: kateconsole.cpp:590 kateconsole.cpp:611
 #, kde-format
@@ -163,7 +163,7 @@ msgstr "Önek:"
 #: kateconsole.cpp:605
 #, kde-format
 msgid "&Show warning next time"
-msgstr "Bir sonraki &sefere uyarı göster"
+msgstr "Sonraki Kez Uyarı &Göster"
 
 #: kateconsole.cpp:607
 #, kde-format
@@ -191,7 +191,7 @@ msgstr ""
 #: kateconsole.cpp:624
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
-msgstr "'Esc'ye basıldığında Konsole'yi gizle"
+msgstr "'Vazgeç'e basıldığında Konsole'yi gizle"
 
 #: kateconsole.cpp:627
 #, kde-format
@@ -200,8 +200,8 @@ msgid ""
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
 "Bu işlem, Vazgeç düğmesini kullanan uçbirim uygulamalarında sorunlar "
-"çıkarabilir; örneğin Vim. Bu uygulamaları aşağıdaki girdiye ekleyin "
-"(virgülle ayrılmış)"
+"çıkarabilir; örneğin, Vim. Bu uygulamaları aşağıdaki metin kutusuna ekleyin "
+"(virgülle ayırarak)"
 
 #: kateconsole.cpp:658
 #, kde-format

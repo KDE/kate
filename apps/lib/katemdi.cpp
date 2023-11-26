@@ -24,9 +24,12 @@
 #include <QApplication>
 #include <QContextMenuEvent>
 #include <QDomDocument>
+#include <QDrag>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMenu>
+#include <QMimeData>
+#include <QRubberBand>
 #include <QSizePolicy>
 #include <QStackedWidget>
 #include <QStyle>
@@ -524,8 +527,11 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, QSplitter *sp, MainWind
     , m_ownSplit(new QSplitter(sp))
     , m_ownSplitIndex(sp->indexOf(m_ownSplit))
     , m_lastSize(200) // Default used when no session to restore is around
+    , m_dropIndicator(new QRubberBand(QRubberBand::Rectangle, mainwin))
 {
     setChildrenCollapsible(false);
+    setAcceptDrops(true);
+    connect(this, &Sidebar::destroyed, m_dropIndicator, &QObject::deleteLater);
 
     if (isVertical()) {
         m_ownSplit->setOrientation(Qt::Vertical);
@@ -1086,20 +1092,93 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
         }
     } else if (ev->type() == QEvent::MouseButtonPress) {
         QMouseEvent *e = static_cast<QMouseEvent *>(ev);
-        // The non-tab area of the sidebar is clicked (well, pressed) => toggle collapse/expand
-        if (e->button() == Qt::LeftButton) {
-            if (obj->property("is-multi-tabbar").toBool()) {
-                if (isCollapsed()) {
-                    updateSidebar();
-                } else {
-                    collapseSidebar();
+        if (qobject_cast<MultiTabBar *>(obj)) {
+            // The non-tab area of the sidebar is clicked (well, pressed) => toggle collapse/expand
+            if (e->button() == Qt::LeftButton) {
+                if (obj->property("is-multi-tabbar").toBool()) {
+                    if (isCollapsed()) {
+                        updateSidebar();
+                    } else {
+                        collapseSidebar();
+                    }
+                    return true;
                 }
-                return true;
             }
+        } else if (auto btn = qobject_cast<KMultiTabBarTab *>(obj) && e->button() == Qt::LeftButton) {
+            dragStartPos = e->pos();
+        }
+    } else if (!dragStartPos.isNull() && ev->type() == QEvent::MouseMove) {
+        QMouseEvent *e = static_cast<QMouseEvent *>(ev);
+        auto tab = qobject_cast<KMultiTabBarTab *>(obj);
+        if (tab && (e->pos() - dragStartPos).manhattanLength() >= QApplication::startDragDistance()) {
+            // start drag
+            QPixmap pixmap = tab->grab();
+            QDrag *drag = new QDrag(this);
+            auto md = new QMimeData();
+            ToolView *toolView = m_idToWidget[tab->id()];
+            Q_ASSERT(toolView);
+            md->setProperty("toolviewToMove", QVariant::fromValue(toolView));
+            drag->setMimeData(md);
+            drag->setPixmap(pixmap);
+            drag->setHotSpot(dragStartPos);
+            dragStartPos = {};
+            connect(drag, &QObject::destroyed, this, &Sidebar::dragEnded);
+
+            Q_EMIT dragStarted();
+
+            drag->exec(Qt::MoveAction);
+            return true;
         }
     }
 
     return false;
+}
+
+void Sidebar::dragEnterEvent(QDragEnterEvent *e)
+{
+    if (e->proposedAction() != Qt::MoveAction || e->source() == this) {
+        return;
+    }
+
+    e->acceptProposedAction();
+
+    { // Show Drop Indicator
+        m_dropIndicator->raise();
+        if (m_dropIndicator->geometry() != geometry()) {
+            m_dropIndicator->setGeometry(geometry());
+        }
+        auto globalPos = mapToGlobal(pos());
+        auto indicatorPos = m_dropIndicator->mapFromGlobal(globalPos);
+        if (indicatorPos != m_dropIndicator->pos()) {
+            m_dropIndicator->move(indicatorPos);
+        }
+
+        m_dropIndicator->show();
+    }
+}
+
+void Sidebar::dropEvent(QDropEvent *e)
+{
+    auto mimeData = e->mimeData();
+    m_dropIndicator->hide();
+
+    if (!mimeData) {
+        return;
+    }
+
+    ToolView *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
+    if (!toolview || m_widgetToId.find(toolview) != m_widgetToId.end()) {
+        // dropping on ourselves => do nothing
+        return;
+    }
+    m_mainWin->moveToolView(toolview, position(), /*isDND=*/true);
+    m_mainWin->showToolView(toolview);
+    e->accept();
+}
+
+void Sidebar::dragLeaveEvent(QDragLeaveEvent *)
+{
+    m_dropIndicator->hide();
 }
 
 void Sidebar::setVisible(bool visible)
@@ -1364,6 +1443,26 @@ MainWindow::MainWindow(QWidget *parent)
 
     for (const auto &sidebar : m_sidebars) {
         connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
+
+        // Drag/Drop
+        connect(sidebar.get(), &Sidebar::dragStarted, this, [this]() {
+            for (const auto &sb : m_sidebars) {
+                m_dragState.m_wasVisible[(int)sb->position()] = sb->isVisible();
+                if (!sb->isVisible()) {
+                    sb->setMinimumSize({50, 50});
+                    sb->QSplitter::setVisible(true);
+                }
+            }
+        });
+        connect(sidebar.get(), &Sidebar::dragEnded, this, [this]() {
+            for (const auto &sb : m_sidebars) {
+                bool wasVisible = m_dragState.m_wasVisible[(int)sb->position()];
+                if (!wasVisible) {
+                    sb->setMinimumSize({0, 0});
+                    sb->QSplitter::setVisible(false);
+                }
+            }
+        });
     }
 }
 
@@ -1495,7 +1594,7 @@ KMultiTabBar::KMultiTabBarStyle MainWindow::toolViewStyle() const
     return m_sidebars[KMultiTabBar::Top]->tabStyle();
 }
 
-bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPosition pos)
+bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPosition pos, bool isDND)
 {
     if (!widget || widget->mainWindow() != this) {
         return false;
@@ -1507,7 +1606,26 @@ bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPositi
         pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos)));
     }
 
+    if (isDND) {
+        // Ensure that after dropping, sidebar becomes visiblee
+        // Sidebar might have been hidden because it was empty i.e.,
+        // had no toolviews
+        m_dragState.m_wasVisible[pos] = true;
+
+        // If source sidebar contains only 1 toolview, then hide it
+        // because after the drop it will have nothing.
+        auto source = widget->sidebar();
+        if (source->toolviewCount() == 1) {
+            m_dragState.m_wasVisible[source->position()] = false;
+        }
+    }
+
     m_sidebars[pos]->addToolView(widget->icon, widget->text, widget->id, widget);
+
+    if (isDND) {
+        // reduce min size so that sidebar can adjust size properly
+        m_sidebars[pos]->setMinimumSize({0, 0});
+    }
 
     return true;
 }

@@ -32,6 +32,7 @@ class QPixmap;
 class QStackedWidget;
 class KConfigBase;
 class QHBoxLayout;
+class QRubberBand;
 
 namespace KTextEditor
 {
@@ -276,6 +277,11 @@ public:
         return nullptr;
     }
 
+    int toolviewCount() const
+    {
+        return m_idToWidget.size();
+    }
+
     /**
      * Will the sidebar expand when some tool has to be visible in any section,
      * or calling collapseSidebar() if non such tool is found
@@ -320,6 +326,9 @@ public Q_SLOTS:
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
+    void dragEnterEvent(QDragEnterEvent *) override;
+    void dragLeaveEvent(QDragLeaveEvent *) override;
+    void dropEvent(QDropEvent *) override;
 
 private Q_SLOTS:
     void buttonPopupActivate(QAction *);
@@ -404,9 +413,13 @@ private:
     bool m_syncWithTabs = false;
     bool m_showTextForLeftRight = false;
     int m_leftRightSidebarIconSize = 32;
+    QPoint dragStartPos;
+    QRubberBand *m_dropIndicator;
 
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);
+    void dragStarted();
+    void dragEnded();
 };
 
 class MainWindow : public KParts::MainWindow
@@ -545,7 +558,7 @@ public:
      * @param pos position to move too, during session restore, only preference
      * @return success
      */
-    bool moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPosition pos);
+    bool moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPosition pos, bool isDND = false);
 
     /**
      * show given toolview, discarded while session restore
@@ -642,6 +655,10 @@ private:
     QStackedWidget *m_statusBarStackedWidget;
 
     QHBoxLayout *m_bottomSidebarLayout = nullptr;
+
+    struct DragState {
+        bool m_wasVisible[4] = {};
+    } m_dragState;
 
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);

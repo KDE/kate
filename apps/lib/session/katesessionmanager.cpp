@@ -9,6 +9,7 @@
 #include "katesessionmanagedialog.h"
 
 #include "kateapp.h"
+#include "katemainwindow.h"
 #include "katepluginmanager.h"
 #include "katerunninginstanceinfo.h"
 

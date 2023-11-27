@@ -15,7 +15,6 @@
 
 #include "kateappadaptor.h"
 #include "katedocmanager.h"
-#include "katemainwindow.h"
 #include "katepluginmanager.h"
 #include "kateprivate_export.h"
 #include "katesessionmanager.h"
@@ -317,30 +316,13 @@ public Q_SLOTS:
      * Get a list of all main windows.
      * @return all main windows
      */
-    QList<KTextEditor::MainWindow *> mainWindows()
-    {
-        // assemble right list
-        QList<KTextEditor::MainWindow *> windows;
-        windows.reserve(m_mainWindows.size());
-
-        for (const auto mainWindow : std::as_const(m_mainWindows)) {
-            windows.push_back(mainWindow->wrapper());
-        }
-        return windows;
-    }
+    QList<KTextEditor::MainWindow *> mainWindows();
 
     /**
      * Accessor to the active main window.
      * \return a pointer to the active mainwindow
      */
-    KTextEditor::MainWindow *activeMainWindow()
-    {
-        // either return wrapper or nullptr
-        if (KateMainWindow *a = activeKateMainWindow()) {
-            return a->wrapper();
-        }
-        return nullptr;
-    }
+    KTextEditor::MainWindow *activeMainWindow();
 
     /**
      * Get a list of all documents that are managed by the application.

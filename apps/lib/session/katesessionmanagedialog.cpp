@@ -17,6 +17,7 @@
 #include <KSharedConfig>
 #include <KStandardGuiItem>
 
+#include <QKeyEvent>
 #include <QTimer>
 
 KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)

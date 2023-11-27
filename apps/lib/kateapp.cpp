@@ -7,6 +7,7 @@
 
 #include "kateapp.h"
 
+#include "katemainwindow.h"
 #include "kateviewmanager.h"
 
 #include <kcoreaddons_version.h>
@@ -664,6 +665,27 @@ bool KateApp::openInput(const QString &text, const QString &encoding)
     }
 
     return doc->setText(text);
+}
+
+KTextEditor::MainWindow *KateApp::activeMainWindow()
+{
+    // either return wrapper or nullptr
+    if (KateMainWindow *a = activeKateMainWindow()) {
+        return a->wrapper();
+    }
+    return nullptr;
+}
+
+QList<KTextEditor::MainWindow *> KateApp::mainWindows()
+{
+    // assemble right list
+    QList<KTextEditor::MainWindow *> windows;
+    windows.reserve(m_mainWindows.size());
+
+    for (const auto mainWindow : std::as_const(m_mainWindows)) {
+        windows.push_back(mainWindow->wrapper());
+    }
+    return windows;
 }
 
 KateMainWindow *KateApp::newMainWindow(KConfig *sconfig_, const QString &sgroup_, bool userTriggered)

@@ -14,6 +14,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QIcon>
 #include <QStandardPaths>
 
 extern "C" Q_DECL_EXPORT int main(int argc, char **argv)

@@ -5,6 +5,7 @@
 
 #include "kateurlbar.h"
 #include "kateapp.h"
+#include "katemainwindow.h"
 #include "kateviewmanager.h"
 #include "ktexteditor_utils.h"
 

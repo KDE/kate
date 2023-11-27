@@ -8,6 +8,7 @@
 #include "welcomeview.h"
 
 #include "kateapp.h"
+#include "katemainwindow.h"
 #include "kateviewmanager.h"
 #include "recentitemsmodel.h"
 #include "savedsessionsmodel.h"

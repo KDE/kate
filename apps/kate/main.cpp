@@ -26,6 +26,7 @@
 #include <QCommandLineParser>
 #include <QDBusMessage>
 #include <QDBusReply>
+#include <QIcon>
 #include <QJsonDocument>
 #include <QRegularExpression>
 #include <QSessionManager>

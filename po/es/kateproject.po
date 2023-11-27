@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-26 02:01+0000\n"
-"PO-Revision-Date: 2023-09-07 00:47+0200\n"
+"PO-Revision-Date: 2023-11-27 00:46+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "com>\n"
 "com>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.0\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -706,28 +706,23 @@ msgid "Code Analysis - %1"
 msgstr "Análisis de código - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>La herramienta se ejecutará en todos los archivos del proyecto "
-"que coincidan con las extensiones:<br/><br/><b>%2</b>"
+"«%1» no está instalado en su sistema, %2<br/><br/>%3. La herramienta se "
+"ejecutará en todos los archivos del proyecto que coincidan con las "
+"extensiones:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>La herramienta se ejecutará en todos los archivos del proyecto "
-"que coincidan con las extensiones:<br/><br/><b>%2</b>"
+"Usando %1 instalado en: %2<br/><br/>%3. La herramienta se ejecutará en todos "
+"los archivos del proyecto que coincidan con las extensiones:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212

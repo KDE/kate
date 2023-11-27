@@ -67,9 +67,3 @@ msgstr "Encara no s'ha comès"
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
-
-#~ msgid "Close"
-#~ msgstr "Tanca"
-
-#~ msgid "Commit"
-#~ msgstr "Publica"

@@ -586,7 +586,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Hızlı Aç</para
+>Tez Aç</para
 ></entry>
 </row>
 <row>
@@ -851,7 +851,7 @@ action="simul"
 >Oturumları Kullanmak</title>
 
 <para
->Oturumlar, &kate;'in birden çok dosya listesini ve &GUI; yapılandırmasını saklamanıza olanak sağlamasıdır. İstediğiniz sayıda adlandırılmış oturuma sahip olabilirsiniz ve yalnızca bir kez kullanmak istediğiniz dosyalar için adsız veya anonim oturumlar kullanabilirsiniz. Şu anda &kate;, açık dosyaların listesini ve oturumdaki genel pencere yapılandırmasını kaydedebilir; &kate;'in gelecekteki sürümleri, oturumlara kaydedilebilecek daha fazla özellik ekleyebilir. Oturumların kullanılmaya başlanmasıyla &kate; ayrıca, öntanımlı davranış olarak eskiden olduğu gibi uygulamanın yalnızca bir örneğini açmak yerine istediğiniz sayıda örneğini açmanıza da olanak tanır.</para>
+>Oturumlar, &kate;'in birden çok dosya listesini ve &GUI; yapılandırmasını saklamanıza olanak sağlamasıdır. İstediğiniz sayıda adlı oturuma sahip olabilirsiniz ve yalnızca bir kez kullanmak istediğiniz dosyalar için adsız veya anonim oturumlar kullanabilirsiniz. Şu anda &kate;, açık dosyaların listesini ve oturumdaki genel pencere yapılandırmasını kaydedebilir; &kate;'in gelecekteki sürümleri, oturumlara kaydedilebilecek daha fazla özellik ekleyebilir. Oturumların kullanılmaya başlanmasıyla &kate; ayrıca, öntanımlı davranış olarak eskiden olduğu gibi uygulamanın yalnızca bir örneğini açmak yerine istediğiniz sayıda örneğini açmanıza da olanak tanır.</para>
 
 <para
 >Oturumlar üç alanda desteklenir: <itemizedlist>
@@ -919,7 +919,7 @@ action="simul"
 
 <sect1 id="fundamentals-quick-open">
 <title
->Hızlı Aç</title>
+>Tez Aç</title>
 
 <para
 >Tez dosyalar açmak/aralarında geçiş yapmak için Kate, yerleşik bir hızlı aç iletişim kutusuyla gelir. Bunu, <keycombo action="simul"
@@ -929,36 +929,36 @@ action="simul"
 > kısayoluyla açabilirsiniz. </para>
 
 <para
->Hızlı aç, Kate'de açık olan tüm açık belgeleri ve projeleri gösterebilir. Proje dosyalarını görebilmek için <link linkend="kate-application-plugin-projects"
+>Tez Aç, Kate'de açık olan tüm açık belgeleri ve projeleri gösterebilir. Proje dosyalarını görebilmek için <link linkend="kate-application-plugin-projects"
 >Proje Eklentisi</link
 >'ni etkinleştirmeniz gerekir. </para>
 
 <sect2>
 <title
->Hızlı Aç'ı Kullanmak</title>
+>Tez Aç'ı Kullanmak</title>
 
 <para
->Hızlı aç'ı kullanmak çok basittir. Açtığınızda, açmak istediğiniz dosyanın adını veya adının bir kısmını yazmanız yeterlidir; hızlı aç, yazdıklarınıza göre listeyi süzer. &Enter; düğmesine basmak seçili dosyayı açar, &Esc; ise hızlı aç'ı gizler. </para>
+>Tez Aç'ı kullanmak çok basittir. Açtığınızda, açmak istediğiniz dosyanın adını veya adının bir kısmını yazmanız yeterlidir; Tez Aç, yazdıklarınıza göre listeyi süzer. &Enter; düğmesine basmak seçili dosyayı açar, &Esc; ise Tez Aç'ı gizler. </para>
 <para
 >Öntanımlı olarak, süzme sırasında yalnızca dosya adı eşleştirilir. Yolu eşleştirmek isterseniz yazılan metinde bir "/" olmalıdır. Örneğin: "belge/indeks", "belge" klasöründe "indeks" içeren tüm belgelerle eşleşecektir. </para>
 <para
->Halihazırda açık olan belgeler kalın harflerle vurgulanır ve iletişim kutusu açıldığında en üstte listelenir. Ayrıca, hızlı açma görüntülendiğinde önceki açık belge halihazırda seçilidir, böylece yalnızca &Enter; düğmesine basabilirsiniz ve bu sizi o belgeye götürecektir. </para>
+>Halihazırda açık olan belgeler kalın harflerle vurgulanır ve iletişim kutusu açıldığında en üstte listelenir. Ayrıca, Tez Aç görüntülendiğinde önceki açık belge halihazırda seçilidir, böylece yalnızca &Enter; düğmesine basabilirsiniz ve bu sizi o belgeye götürecektir. </para>
 
 </sect2>
 
 <sect2>
 <title
->Hızlı Aç Yapılandırması</title>
+>Tez Aç Yapılandırması</title>
 <screenshot id="screenshot-project-quickopen">
 <screeninfo
->Hızlı Aç</screeninfo>
+>Tez Aç</screeninfo>
 <mediaobject>
 <imageobject
 ><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
 </mediaobject>
 </screenshot>
 <para
->Hızlı aç, birkaç yapılandırma seçeneği sağlar. Bu seçeneklere ulaşmak için giriş satırında sağ tıklayın. </para>
+>Tez Aç, birkaç yapılandırma seçeneği sağlar. Bu seçeneklere ulaşmak için giriş satırında sağ tıklayın. </para>
 <variablelist>
 <varlistentry>
 <term

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-26 02:01+0000\n"
-"PO-Revision-Date: 2023-09-06 17:32+0300\n"
+"PO-Revision-Date: 2023-11-26 09:14+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -709,28 +709,24 @@ msgid "Code Analysis - %1"
 msgstr "Аналіз коду – %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Інструмент обробки буде запущено для усіх файлів проєкту, "
-"суфікси назв яких є у цьому списку:<br/><br/><b>%2</b>"
+"«%1» не встановлено у вашій системі, %2.<br/><br/>%3. Інструмент обробки "
+"буде запущено для усіх файлів проєкту, суфікси назв яких є у цьому списку:"
+"<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Інструмент обробки буде запущено для усіх файлів проєкту, "
-"суфікси назв яких є у цьому списку:<br/><br/><b>%2</b>"
+"Використовуємо %1, яку встановлено до %2.<br/><br/>%3. Інструмент обробки "
+"буде запущено для усіх файлів проєкту, суфікси назв яких є у цьому списку:"
+"<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212

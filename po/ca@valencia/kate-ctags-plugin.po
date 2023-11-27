@@ -468,6 +468,3 @@ msgstr "L'executable CTags ha fallat"
 #, kde-format
 msgid "The CTags program exited with code %2: %1"
 msgstr "El programa CTags ha finalitzat amb el codi %2: %1"
-
-#~ msgid "Failed to run \"%1\". exitStatus = %2"
-#~ msgstr "No s'ha pogut executar «%1». Estat de l'eixida = %2"

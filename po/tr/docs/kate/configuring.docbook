@@ -493,7 +493,7 @@
 ></term>
 <listitem
 ><para
->Bu öge, kapatma sırasında kaydedilmemiş değişiklikler içeren tüm dosyaların otomatik olarak kaydedilmesi için &kate;'in yapılandırılmasına olanak tanır.</para
+>Bu öge, kapatma sırasında kaydedilmemiş değişiklikler içeren tüm dosyaların kendiliğinden kaydedilmesi için &kate;'in yapılandırılmasına olanak tanır.</para
 ></listitem>
 </varlistentry>
 <varlistentry>

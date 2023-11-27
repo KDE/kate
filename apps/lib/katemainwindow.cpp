@@ -675,12 +675,11 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc, KateMainWin
                                 modifiedDocuments.end());
     }
 
-    // Remove all docs for which doc::queryClose == true. These can be untitled
-    // docs for e.g.,
+    // Remove all documents that can be closed without user confirmation
     modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
                                            modifiedDocuments.end(),
                                            [](KTextEditor::Document *d) {
-                                               return d->queryClose();
+                                               return !d->isModified() || (d->isEmpty() && d->url().isEmpty());
                                            }),
                             modifiedDocuments.end());
 

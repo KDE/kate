@@ -715,7 +715,7 @@ KateMainWindow *KateApp::activeKateMainWindow()
         return nullptr;
     }
 
-    int n = m_mainWindows.indexOf(static_cast<KateMainWindow *>((static_cast<QApplication *>(QCoreApplication::instance())->activeWindow())));
+    int n = m_mainWindows.indexOf(qApp->activeWindow());
 
     if (n < 0) {
         n = 0;

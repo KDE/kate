@@ -714,7 +714,7 @@ msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
 "of file extensions:<br/><br/><b>%2</b>"
 msgstr ""
-"%1<br/><br/>Esta eina s'executarà a tots els fitxers de projectes que "
+"%1<br/><br/>Esta eina s'executarà sobre tots els fitxers de projecte que "
 "coincidisquen amb esta llista d'extensions de fitxer:<br/><br/><b>%2</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:138

@@ -193,6 +193,7 @@ public:
     int addBlankTab();
     void removeBlankTab(int id);
     void removeTab(int id);
+    void reorderTab(int id, KMultiTabBarTab *before);
 
     void showToolView(int id);
     void hideToolView(int id);
@@ -328,6 +329,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
     void dragEnterEvent(QDragEnterEvent *) override;
     void dragLeaveEvent(QDragLeaveEvent *) override;
+    void dragMoveEvent(QDragMoveEvent *) override;
     void dropEvent(QDropEvent *) override;
 
 private Q_SLOTS:
@@ -415,6 +417,7 @@ private:
     int m_leftRightSidebarIconSize = 32;
     QPoint dragStartPos;
     QRubberBand *m_dropIndicator;
+    QRubberBand *m_internalDropIndicator;
 
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);

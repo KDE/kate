@@ -449,6 +449,55 @@ void MultiTabBar::removeTab(int id)
     }
 }
 
+void MultiTabBar::reorderTab(int id, KMultiTabBarTab *before)
+{
+    // can't find source id?
+    auto it = std::find(m_tabList.begin(), m_tabList.end(), id);
+    if (it == m_tabList.end()) {
+        return;
+    }
+    int idIdx = std::distance(m_tabList.begin(), it);
+    it = before ? std::find(m_tabList.begin(), m_tabList.end(), before->id()) : m_tabList.end();
+    if (before && it == m_tabList.end()) {
+        // can't find before id?
+        return;
+    }
+    // before == null, idx will be the last idx
+    int beforeIdx = it == m_tabList.end() ? m_tabList.size() - 1 : std::distance(m_tabList.begin(), it);
+    if (idIdx == beforeIdx) {
+        return;
+    }
+
+    int start = std::min(idIdx, beforeIdx);
+
+    // copy because after removeTab `before` will be invalid
+    const int beforeId = before ? before->id() : -1;
+
+    // Remove the actual tabs
+    for (size_t i = start; i < m_tabList.size(); ++i) {
+        auto oldTab = m_multiTabBar->tab(m_tabList[i]);
+        oldTab->removeEventFilter(m_sb);
+        m_multiTabBar->removeTab(m_tabList[i]);
+    }
+
+    // reorder the tab list
+    // erase old position
+    m_tabList.erase(std::remove(m_tabList.begin(), m_tabList.end(), id), m_tabList.end());
+    // find new position and insert
+    it = before ? std::find(m_tabList.begin(), m_tabList.end(), beforeId) : m_tabList.end();
+    m_tabList.insert(it, id);
+
+    // re-add tabs
+    for (size_t i = start; i < m_tabList.size(); ++i) {
+        auto tabId = m_tabList[i];
+        ToolView *tv = m_sb->m_idToWidget.at(tabId);
+        m_multiTabBar->appendTab(tv->icon, tabId, tv->text);
+        auto newTab = m_multiTabBar->tab(tabId);
+        newTab->installEventFilter(m_sb);
+        connect(newTab, &KMultiTabBarTab::clicked, this, &MultiTabBar::tabClicked);
+    }
+}
+
 void MultiTabBar::showToolView(int id)
 {
     setTabActive(id, true);
@@ -528,6 +577,7 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, QSplitter *sp, MainWind
     , m_ownSplitIndex(sp->indexOf(m_ownSplit))
     , m_lastSize(200) // Default used when no session to restore is around
     , m_dropIndicator(new QRubberBand(QRubberBand::Rectangle, mainwin))
+    , m_internalDropIndicator(new QRubberBand(QRubberBand::Rectangle, mainwin))
 {
     setChildrenCollapsible(false);
     setAcceptDrops(true);
@@ -1136,13 +1186,39 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
 void Sidebar::dragEnterEvent(QDragEnterEvent *e)
 {
-    if (e->proposedAction() != Qt::MoveAction || e->source() == this) {
+    if (e->proposedAction() != Qt::MoveAction) {
         return;
     }
 
-    e->acceptProposedAction();
+    if (e->source() == this) {
+        if (toolviewCount() == 1) {
+            // only 1 toolview? Nothing to reorder then
+            return;
+        }
+        m_internalDropIndicator->raise();
+        if (m_internalDropIndicator->geometry() != geometry()) {
+            m_internalDropIndicator->setGeometry(geometry());
+        }
 
-    { // Show Drop Indicator
+        if (isVertical()) {
+            m_internalDropIndicator->setFixedHeight(4);
+        } else {
+            m_internalDropIndicator->setFixedWidth(4);
+        }
+
+        auto mimeData = e->mimeData();
+        ToolView *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
+        QWidget *tab = tabButtonForToolview(toolview);
+        if (!tab || !toolview) {
+            return;
+        }
+
+        const QPoint tabPos = tab->pos();
+        auto globalPos = mapToGlobal(tabPos);
+        auto pos = m_mainWin->mapFromGlobal(globalPos);
+        m_internalDropIndicator->move(pos);
+        m_internalDropIndicator->show();
+    } else { // Show Drop Indicator
         m_dropIndicator->raise();
         if (m_dropIndicator->geometry() != geometry()) {
             m_dropIndicator->setGeometry(geometry());
@@ -1155,29 +1231,82 @@ void Sidebar::dragEnterEvent(QDragEnterEvent *e)
 
         m_dropIndicator->show();
     }
+    e->acceptProposedAction();
 }
 
 void Sidebar::dropEvent(QDropEvent *e)
 {
     auto mimeData = e->mimeData();
     m_dropIndicator->hide();
+    m_internalDropIndicator->hide();
 
     if (!mimeData) {
         return;
     }
-
     ToolView *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
-    if (!toolview || m_widgetToId.find(toolview) != m_widgetToId.end()) {
-        // dropping on ourselves => do nothing
+    if (!toolview) {
         return;
     }
-    m_mainWin->moveToolView(toolview, position(), /*isDND=*/true);
-    m_mainWin->showToolView(toolview);
+
+    if (e->source() == this) {
+        // Re-ordering tabs
+        auto sourceTab = qobject_cast<KMultiTabBarTab *>(tabButtonForToolview(toolview));
+        if (!sourceTab) {
+            return;
+        }
+        // destTab might be null, which means we will just append to the end
+        auto destTab = qobject_cast<KMultiTabBarTab *>(childAt(e->position().toPoint()));
+        auto tabbar = m_widgetToTabBar[toolview];
+        tabbar->reorderTab(sourceTab->id(), destTab);
+    } else {
+        m_mainWin->moveToolView(toolview, position(), /*isDND=*/true);
+        m_mainWin->showToolView(toolview);
+    }
+
     e->accept();
+}
+
+void Sidebar::dragMoveEvent(QDragMoveEvent *e)
+{
+    if (e->source() != this || toolviewCount() == 1) {
+        // We only handle drag move if we are moving on source sidebar
+        // and if there is only 1 toolview, there is nothing to reorder
+        return;
+    }
+
+    auto *tab = qobject_cast<KMultiTabBarTab *>(childAt(e->position().toPoint()));
+    if (tab) {
+        // moving over a tab? show the indicator at tab start
+        const QPoint tabPos = tab->pos();
+        auto globalPos = mapToGlobal(tabPos);
+        auto pos = m_mainWin->mapFromGlobal(globalPos);
+        m_internalDropIndicator->move(pos);
+    } else {
+        // Otherwise show at the end of tab list
+        auto mimeData = e->mimeData();
+        ToolView *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
+        if (!toolview) {
+            return;
+        }
+        auto tabbar = m_widgetToTabBar[toolview];
+        auto lastTabId = tabbar->tabList().back();
+        auto tab = tabbar->tabBar()->tab(lastTabId);
+
+        QPoint tabPos = tab->pos();
+        if (isVertical()) {
+            tabPos.setY(tabPos.y() + tab->height());
+        } else {
+            tabPos.setX(tabPos.x() + tab->width());
+        }
+        auto globalPos = mapToGlobal(tabPos);
+        auto pos = m_mainWin->mapFromGlobal(globalPos);
+        m_internalDropIndicator->move(pos);
+    }
 }
 
 void Sidebar::dragLeaveEvent(QDragLeaveEvent *)
 {
+    m_internalDropIndicator->hide();
     m_dropIndicator->hide();
 }
 

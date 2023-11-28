@@ -11,17 +11,17 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-26 02:01+0000\n"
-"PO-Revision-Date: 2023-09-06 07:19+0200\n"
+"PO-Revision-Date: 2023-11-27 07:26+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -709,28 +709,25 @@ msgid "Code Analysis - %1"
 msgstr "Analiza kode - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Orodje bo obdelalo vse datoteke projektov, ki ustrezajo seznamu "
-"naslednjih podaljškov datotek:<br/><br/><b>%2</b>"
+"'%1' ni nameščen v vašem sistemu, %2.<br/><br/>%3. Orodje se bo izvajalo na "
+"vseh datotekah projekta, ki se ujemajo s tem seznamom končnic datotek:<br/"
+"><b>%4</b>\n"
+"​"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Orodje bo obdelalo vse datoteke projektov, ki ustrezajo seznamu "
-"naslednjih podaljškov datotek:<br/><br/><b>%2</b>"
+"Uporaba %1, nameščenega na: %2.<br/><br/>%3. Orodje se bo izvajalo na vseh "
+"datotekah projekta, ki se ujemajo s tem seznamom končnic datotek:<br/><b>%4</"
+"b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-26 02:01+0000\n"
-"PO-Revision-Date: 2023-09-13 16:31+0200\n"
+"PO-Revision-Date: 2023-11-27 11:00+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -703,28 +703,24 @@ msgid "Code Analysis - %1"
 msgstr "Analyse de codice - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Le instrumento essera executate sur omne files de projecto que "
-"equala iste lista de extensiones de file:<br/><br/><b>%2</b>"
+"'%1' Non es installate sur tu systema, %2.<br/><br/>%3. Le instrumento "
+"essera  executate sur omne files de projecto que equala iste lista de "
+"extensiones de file :<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Le instrumento essera executate sur omne files de projecto que "
-"equala iste lista de extensiones de file:<br/><br/><b>%2</b>"
+"Usante %1 installate a: %2.<br/><br/>%3<br/><br/>Le instrumento essera "
+"executate sur omne files de projecto que equala iste lista de extensiones de "
+"file:<br/><br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212

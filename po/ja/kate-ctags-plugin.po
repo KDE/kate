@@ -467,6 +467,3 @@ msgstr "CTags プログラムがクラッシュしました。"
 #| msgid "The CTags program exited with code %1"
 msgid "The CTags program exited with code %2: %1"
 msgstr "CTags プログラムは終了コード %1 で終了しました"
-
-#~ msgid "Failed to run \"%1\". exitStatus = %2"
-#~ msgstr "%1 を実行できませんでした。終了ステータス = %2"

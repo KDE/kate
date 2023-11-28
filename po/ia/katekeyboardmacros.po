@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2023-01-16 22:17+0100\n"
+"PO-Revision-Date: 2023-11-27 10:56+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -225,10 +225,9 @@ msgid "End Macro &Recording"
 msgstr "Termina &Rgistrar de Macro"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "Cargate '%1'"
+msgstr "Carga %1"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
@@ -238,7 +237,7 @@ msgstr "Carga le macro '%1' omo le currente."
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Reproduce %1"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
@@ -246,10 +245,9 @@ msgid "Play the '%1' macro without loading it."
 msgstr "Reproduce le macro '%1' sin cargar lo."
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "Essugate '%1'"
+msgstr "Netta %1"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format

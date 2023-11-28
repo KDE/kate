@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-27 01:39+0000\n"
+"POT-Creation-Date: 2023-11-28 01:37+0000\n"
 "PO-Revision-Date: 2023-10-08 22:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -31,37 +31,37 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name,sptcedna@gmail.com"
 
-#: kate/main.cpp:87
+#: kate/main.cpp:88
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:89
+#: kate/main.cpp:90
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - 고급 문서 편집기"
 
-#: kate/main.cpp:91 kwrite/main.cpp:46
+#: kate/main.cpp:92 kwrite/main.cpp:47
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 The Kate Authors"
 
-#: kate/main.cpp:137
+#: kate/main.cpp:138
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "지정한 세션으로 Kate를 시작합니다."
 
-#: kate/main.cpp:138
+#: kate/main.cpp:139
 #, kde-format
 msgid "session"
 msgstr "세션"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "이름 없는 새 세션으로 Kate를 시작합니다. '-n'이 지정됩니다."
 
-#: kate/main.cpp:148
+#: kate/main.cpp:149
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -71,7 +71,7 @@ msgstr ""
 "새 Kate 인스턴스를 강제로 시작합니다(다른 Kate 인스턴스에서 지정한 세션을 열"
 "어 둔 경우 제외). 만약 인자나 URL이 지정되지 않았으면 강제로 지정됩니다."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -79,7 +79,7 @@ msgid ""
 msgstr ""
 "만약 실행 중인 Kate 인스턴스가 있고 URL을 지정했으면 끝날 때까지 기다립니다."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -88,67 +88,67 @@ msgstr ""
 "이 PID와 연결되어 있는 Kate 인스턴스를 다시 사용합니다(다른 Kate 인스턴스에"
 "서 지정한 세션을 열어 둔 경우 제외)."
 
-#: kate/main.cpp:161
+#: kate/main.cpp:162
 #, kde-format
 msgid "pid"
 msgstr "PID"
 
-#: kate/main.cpp:166 kwrite/main.cpp:97
+#: kate/main.cpp:167 kwrite/main.cpp:98
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "열 파일의 인코딩을 지정합니다."
 
-#: kate/main.cpp:167 kwrite/main.cpp:98
+#: kate/main.cpp:168 kwrite/main.cpp:99
 #, kde-format
 msgid "encoding"
 msgstr "인코딩"
 
-#: kate/main.cpp:171 kwrite/main.cpp:102
+#: kate/main.cpp:172 kwrite/main.cpp:103
 #, kde-format
 msgid "Navigate to this line."
 msgstr "이 줄로 찾아갑니다."
 
-#: kate/main.cpp:171 kwrite/main.cpp:102
+#: kate/main.cpp:172 kwrite/main.cpp:103
 #, kde-format
 msgid "line"
 msgstr "줄"
 
-#: kate/main.cpp:176 kwrite/main.cpp:106
+#: kate/main.cpp:177 kwrite/main.cpp:107
 #, kde-format
 msgid "Navigate to this column."
 msgstr "이 칸으로 찾아갑니다."
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:107
 #, kde-format
 msgid "column"
 msgstr "칸"
 
-#: kate/main.cpp:181 kwrite/main.cpp:110
+#: kate/main.cpp:182 kwrite/main.cpp:111
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "표준 입력의 내용을 읽어옵니다."
 
-#: kate/main.cpp:186 kwrite/main.cpp:114
+#: kate/main.cpp:187 kwrite/main.cpp:115
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "앱에서 연 파일/URL을 사용한 후 삭제합니다"
 
-#: kate/main.cpp:190 kwrite/main.cpp:118
+#: kate/main.cpp:191 kwrite/main.cpp:119
 #, kde-format
 msgid "Documents to open."
 msgstr "열 문서입니다."
 
-#: kate/main.cpp:190 kwrite/main.cpp:118
+#: kate/main.cpp:191 kwrite/main.cpp:119
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
 
-#: kwrite/main.cpp:42
+#: kwrite/main.cpp:43
 #, kde-format
 msgid "KWrite"
 msgstr "KWrite"
 
-#: kwrite/main.cpp:44
+#: kwrite/main.cpp:45
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - 텍스트 편집기"
@@ -572,7 +572,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "파일 기록 - %1"
 
-#: lib/kateapp.cpp:105
+#: lib/kateapp.cpp:106
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -582,7 +582,7 @@ msgstr ""
 "에 노출될 수 있습니다. 편집기를 일반 사용자로 실행하십시오. 문서를 저장할 때 "
 "권한 상승이 필요하면 물어 볼 것입니다."
 
-#: lib/kateapp.cpp:112
+#: lib/kateapp.cpp:113
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -592,328 +592,328 @@ msgstr ""
 "에 노출될 수 있습니다. 편집기를 일반 사용자로 실행하십시오. 문서를 저장할 때 "
 "권한 상승이 필요하면 물어 볼 것입니다."
 
-#: lib/kateapp.cpp:276
+#: lib/kateapp.cpp:277
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "Christoph Cullmann"
 
-#: lib/kateapp.cpp:276
+#: lib/kateapp.cpp:277
 #, kde-format
 msgid "Maintainer"
 msgstr "관리자"
 
-#: lib/kateapp.cpp:277
+#: lib/kateapp.cpp:278
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "Dominik Haumann"
 
-#: lib/kateapp.cpp:277 lib/kateapp.cpp:280 lib/kateapp.cpp:281
-#: lib/kateapp.cpp:283 lib/kateapp.cpp:286 lib/kateapp.cpp:292
+#: lib/kateapp.cpp:278 lib/kateapp.cpp:281 lib/kateapp.cpp:282
+#: lib/kateapp.cpp:284 lib/kateapp.cpp:287 lib/kateapp.cpp:293
 #, kde-format
 msgid "Core Developer"
 msgstr "핵심 개발자"
 
-#: lib/kateapp.cpp:278
+#: lib/kateapp.cpp:279
 #, kde-format
 msgid "Sven Brauch"
 msgstr "Sven Brauch"
 
-#: lib/kateapp.cpp:278 lib/kateapp.cpp:279 lib/kateapp.cpp:287
+#: lib/kateapp.cpp:279 lib/kateapp.cpp:280 lib/kateapp.cpp:288
 #, kde-format
 msgid "Developer"
 msgstr "개발자"
 
-#: lib/kateapp.cpp:279
+#: lib/kateapp.cpp:280
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kåre Särs"
 
-#: lib/kateapp.cpp:280
+#: lib/kateapp.cpp:281
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr "Waqar Ahmed"
 
-#: lib/kateapp.cpp:281
+#: lib/kateapp.cpp:282
 #, kde-format
 msgid "Anders Lund"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:282
+#: lib/kateapp.cpp:283
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Joseph Wenninger"
 
-#: lib/kateapp.cpp:286
+#: lib/kateapp.cpp:287
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "Hamish Rodda"
 
-#: lib/kateapp.cpp:287
+#: lib/kateapp.cpp:288
 #, kde-format
 msgid "Alexander Neundorf"
 msgstr "Alexander Neundorf"
 
-#: lib/kateapp.cpp:288
+#: lib/kateapp.cpp:289
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "Waldo Bastian"
 
-#: lib/kateapp.cpp:288
+#: lib/kateapp.cpp:289
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "괜찮은 버퍼 시스템"
 
-#: lib/kateapp.cpp:289
+#: lib/kateapp.cpp:290
 #, kde-format
 msgid "Charles Samuels"
 msgstr "Charles Samuels"
 
-#: lib/kateapp.cpp:289
+#: lib/kateapp.cpp:290
 #, kde-format
 msgid "The Editing Commands"
 msgstr "편집 명령"
 
-#: lib/kateapp.cpp:290
+#: lib/kateapp.cpp:291
 #, kde-format
 msgid "Matt Newell"
 msgstr "Matt Newell"
 
-#: lib/kateapp.cpp:290
+#: lib/kateapp.cpp:291
 #, kde-format
 msgid "Testing, ..."
 msgstr "테스트, ..."
 
-#: lib/kateapp.cpp:291
+#: lib/kateapp.cpp:292
 #, kde-format
 msgid "Michael Bartl"
 msgstr "Michael Bartl"
 
-#: lib/kateapp.cpp:291
+#: lib/kateapp.cpp:292
 #, kde-format
 msgid "Former Core Developer"
 msgstr "예전 핵심 개발자"
 
-#: lib/kateapp.cpp:292
+#: lib/kateapp.cpp:293
 #, kde-format
 msgid "Michael McCallum"
 msgstr "Michael McCallum"
 
-#: lib/kateapp.cpp:293
+#: lib/kateapp.cpp:294
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr "Jochen Wilhemly"
 
-#: lib/kateapp.cpp:293
+#: lib/kateapp.cpp:294
 #, kde-format
 msgid "KWrite Author"
 msgstr "KWrite 작성자"
 
-#: lib/kateapp.cpp:294
+#: lib/kateapp.cpp:295
 #, kde-format
 msgid "Michael Koch"
 msgstr "Michael Koch"
 
-#: lib/kateapp.cpp:294
+#: lib/kateapp.cpp:295
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "KWrite KParts 포팅"
 
-#: lib/kateapp.cpp:295
+#: lib/kateapp.cpp:296
 #, kde-format
 msgid "Christian Gebauer"
 msgstr "Christian Gebauer"
 
-#: lib/kateapp.cpp:296
+#: lib/kateapp.cpp:297
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "Simon Hausmann"
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:298
 #, kde-format
 msgid "Glen Parker"
 msgstr "Glen Parker"
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:298
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "KWrite 실행 취소 역사, Kspell 통합"
 
-#: lib/kateapp.cpp:298
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "Scott Manson"
 msgstr "Scott Manson"
 
-#: lib/kateapp.cpp:298
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "KWrite XML 구문 강조 지원"
 
-#: lib/kateapp.cpp:299
+#: lib/kateapp.cpp:300
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: lib/kateapp.cpp:299
+#: lib/kateapp.cpp:300
 #, kde-format
 msgid "Patches and more"
 msgstr "패치와 그 밖에 여러가지"
 
-#: lib/kateapp.cpp:300
+#: lib/kateapp.cpp:301
 #, kde-format
 msgid "Pablo Martín"
 msgstr "Pablo Martín"
 
-#: lib/kateapp.cpp:301
+#: lib/kateapp.cpp:302
 #, kde-format
 msgid "Python Plugin Developer"
 msgstr "파이썬 플러그인 개발자"
 
-#: lib/kateapp.cpp:304
+#: lib/kateapp.cpp:305
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr "Gerald Senarclens de Grancy"
 
-#: lib/kateapp.cpp:305
+#: lib/kateapp.cpp:306
 #, kde-format
 msgid "QA and Scripting"
 msgstr "QA 및 스크립팅"
 
-#: lib/kateapp.cpp:309
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "Tyson Tan"
 msgstr "Tyson Tan"
 
-#: lib/kateapp.cpp:310
+#: lib/kateapp.cpp:311
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr "Kate의 마스코트 'Kate 사이버 딱따구리' 제작자"
 
-#: lib/kateapp.cpp:313
+#: lib/kateapp.cpp:314
 #, kde-format
 msgid "Matteo Merli"
 msgstr "Matteo Merli"
 
-#: lib/kateapp.cpp:313
+#: lib/kateapp.cpp:314
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "RPM Spec 파일, 펄, Diff 등 구문 강조"
 
-#: lib/kateapp.cpp:314
+#: lib/kateapp.cpp:315
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "Rocky Scaletta"
 
-#: lib/kateapp.cpp:314
+#: lib/kateapp.cpp:315
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "VHDL 구문 강조"
 
-#: lib/kateapp.cpp:315
+#: lib/kateapp.cpp:316
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "Yury Lebedev"
 
-#: lib/kateapp.cpp:315
+#: lib/kateapp.cpp:316
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "SQL 구문 강조"
 
-#: lib/kateapp.cpp:316
+#: lib/kateapp.cpp:317
 #, kde-format
 msgid "Chris Ross"
 msgstr "Chris Ross"
 
-#: lib/kateapp.cpp:316
+#: lib/kateapp.cpp:317
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "Ferite 구문 강조"
 
-#: lib/kateapp.cpp:317
+#: lib/kateapp.cpp:318
 #, kde-format
 msgid "Nick Roux"
 msgstr "Nick Roux"
 
-#: lib/kateapp.cpp:317
+#: lib/kateapp.cpp:318
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "ILERPG 구문 강조"
 
-#: lib/kateapp.cpp:318
+#: lib/kateapp.cpp:319
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "Carsten Niehaus"
 
-#: lib/kateapp.cpp:318
+#: lib/kateapp.cpp:319
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "LaTeX 구문 강조"
 
-#: lib/kateapp.cpp:319
+#: lib/kateapp.cpp:320
 #, kde-format
 msgid "Per Wigren"
 msgstr "Per Wigren"
 
-#: lib/kateapp.cpp:319
+#: lib/kateapp.cpp:320
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "파이썬, Makefile 구문 강조"
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:321
 #, kde-format
 msgid "Jan Fritz"
 msgstr "Jan Fritz"
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:321
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "파이썬 구문 강조"
 
-#: lib/kateapp.cpp:321
+#: lib/kateapp.cpp:322
 #, kde-format
 msgid "Daniel Naber"
 msgstr "Daniel Naber"
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:323
 #, kde-format
 msgid "Roland Pabel"
 msgstr "Roland Pabel"
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:323
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "스킴 구문 강조"
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "Cristi Dumitrescu"
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "PHP 키워드/자료형 목록"
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Very nice help"
 msgstr "매우 좋은 도움말"
 
-#: lib/kateapp.cpp:325
+#: lib/kateapp.cpp:326
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "여기에 언급하지 않았지만 기여를 해 준 많은 좋은 사람"
 
-#: lib/kateapp.cpp:454
+#: lib/kateapp.cpp:455
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "프로젝트 플러그인이 활성화되어 있어야만 폴더를 열 수 있음"
 
-#: lib/kateapp.cpp:562
+#: lib/kateapp.cpp:563
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1269,12 +1269,12 @@ msgstr "문서 닫기"
 msgid "Save As"
 msgstr "다른 이름으로 저장"
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:693
+#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:692
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate를 닫으려고 할 때 새 파일이 열려서 종료가 중단되었습니다."
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:693
+#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:692
 #, kde-format
 msgid "Closing Aborted"
 msgstr "종료 중단됨"
@@ -1437,7 +1437,7 @@ msgstr "모든 열린 문서를 다시 불러옵니다."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "클립보드에 현재 파일 경로를 복사합니다."
 
-#: lib/katemainwindow.cpp:360 lib/welcomeview/welcomeview.cpp:265
+#: lib/katemainwindow.cpp:360 lib/welcomeview/welcomeview.cpp:266
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "포함하는 폴더 열기(&O)"
@@ -1649,18 +1649,18 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "현재 문서를 제외한 모든 문서 닫기"
 
-#: lib/katemainwindow.cpp:848
+#: lib/katemainwindow.cpp:847
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "메뉴 표시줄을 완전히 숨깁니다. %1 키를 눌러서 다시 볼 수 있습니다."
 
-#: lib/katemainwindow.cpp:851
+#: lib/katemainwindow.cpp:850
 #, kde-format
 msgid "Hide menu bar"
 msgstr "메뉴 표시줄 숨기기"
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:949
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1669,19 +1669,19 @@ msgstr ""
 "Kate에 %1 디렉터리를 끌어다 놓았습니다. 디렉터리에 있는 모든 파일을 여시겠습"
 "니까?"
 
-#: lib/katemainwindow.cpp:953
+#: lib/katemainwindow.cpp:952
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "재귀적으로 파일 불러오기"
 
-#: lib/katemainwindow.cpp:954
+#: lib/katemainwindow.cpp:953
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "모든 파일 열기"
 
-#: lib/katemainwindow.cpp:1176
+#: lib/katemainwindow.cpp:1175
 #, kde-format
 msgid " [read only]"
 msgstr " [읽기 전용]"
@@ -2373,22 +2373,22 @@ msgstr "퍼지 필터링"
 msgid "Wildcard Filtering"
 msgstr "와일드카드 필터링"
 
-#: lib/session/katesessionmanagedialog.cpp:26
+#: lib/session/katesessionmanagedialog.cpp:27
 #, kde-format
 msgid "Manage Sessions"
 msgstr "세션 관리"
 
-#: lib/session/katesessionmanagedialog.cpp:62
+#: lib/session/katesessionmanagedialog.cpp:63
 #, kde-format
 msgid "Session Chooser"
 msgstr "세션 선택기"
 
-#: lib/session/katesessionmanagedialog.cpp:146
+#: lib/session/katesessionmanagedialog.cpp:147
 #, kde-format
 msgid "Restore"
 msgstr "복원"
 
-#: lib/session/katesessionmanagedialog.cpp:303
+#: lib/session/katesessionmanagedialog.cpp:304
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "대화 상자를 닫으면 세션을 삭제합니다"
@@ -2461,13 +2461,13 @@ msgstr "이름 바꾸기(&R)..."
 msgid "Delete"
 msgstr "삭제"
 
-#: lib/session/katesessionmanager.cpp:129
+#: lib/session/katesessionmanager.cpp:130
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr "내부 오류: 지정한 세션의 인스턴스가 하나 이상 열려 있습니다."
 
-#: lib/session/katesessionmanager.cpp:136
+#: lib/session/katesessionmanager.cpp:137
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2476,34 +2476,34 @@ msgstr ""
 "세션 '%1'이(가) 다른 Kate 인스턴스에 열려 있습니다. 해당 인스턴스로 전환하거"
 "나 이 인스턴스에서 다시 여시겠습니까?"
 
-#: lib/session/katesessionmanager.cpp:138
+#: lib/session/katesessionmanager.cpp:139
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "인스턴스로 전환"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "다시 열기"
 
-#: lib/session/katesessionmanager.cpp:338
+#: lib/session/katesessionmanager.cpp:339
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "세션 이름을 \"%1\"(으)로 변경할 수 없습니다. \"%2\"에 쓸 수 없습니다"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:340
 #, kde-format
 msgid "Session Renaming"
 msgstr "세션 이름 바꾸기"
 
-#: lib/session/katesessionmanager.cpp:489
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "Session name:"
 msgstr "세션 이름:"
 
-#: lib/session/katesessionmanager.cpp:491
+#: lib/session/katesessionmanager.cpp:492
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2512,17 +2512,17 @@ msgstr ""
 "지정한 이름의 세션이 이미 있습니다: %1\n"
 "다른 이름을 지정하십시오."
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:494
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "세션을 저장하려면 이름을 입력해야 합니다."
 
-#: lib/session/katesessionmanager.cpp:520
+#: lib/session/katesessionmanager.cpp:521
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "이 세션의 이름 지정"
 
-#: lib/session/katesessionmanager.cpp:522
+#: lib/session/katesessionmanager.cpp:523
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "세션의 새로운 이름 지정: %1"
@@ -2669,47 +2669,47 @@ msgstr "이전 세션의 메타 정보 보존하기(&M)"
 msgid "Delete unused meta-information after:"
 msgstr "사용하지 않은 메타 정보를 지울 시간:"
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Welcome to %1"
 msgstr "%1에 오신 것을 환영합니다"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:60
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "최근 문서와 프로젝트"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:60
 #, kde-format
 msgid "Recent Documents"
 msgstr "최근 문서"
 
-#: lib/welcomeview/welcomeview.cpp:62
+#: lib/welcomeview/welcomeview.cpp:63
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "최근 문서나 프로젝트 없음"
 
-#: lib/welcomeview/welcomeview.cpp:62
+#: lib/welcomeview/welcomeview.cpp:63
 #, kde-format
 msgid "No recent documents"
 msgstr "최근 문서 없음"
 
-#: lib/welcomeview/welcomeview.cpp:115
+#: lib/welcomeview/welcomeview.cpp:116
 #, kde-format
 msgid "No saved sessions"
 msgstr "저장한 세션 없음"
 
-#: lib/welcomeview/welcomeview.cpp:245
+#: lib/welcomeview/welcomeview.cpp:246
 #, kde-format
 msgid "Open Selected Files..."
 msgstr "선택한 파일 열기..."
 
-#: lib/welcomeview/welcomeview.cpp:258
+#: lib/welcomeview/welcomeview.cpp:259
 #, kde-format
 msgid "Copy &Location"
 msgstr "위치 복사(&L)"
 
-#: lib/welcomeview/welcomeview.cpp:273
+#: lib/welcomeview/welcomeview.cpp:274
 #, kde-format
 msgid "&Remove"
 msgstr "삭제(&R)"

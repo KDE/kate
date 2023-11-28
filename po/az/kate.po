@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-27 01:39+0000\n"
+"POT-Creation-Date: 2023-11-28 01:37+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -27,37 +27,37 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xxmn77@gmail.com"
 
-#: kate/main.cpp:87
+#: kate/main.cpp:88
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:89
+#: kate/main.cpp:90
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Təkmilləşdirilmiş Mətn Redaktoru"
 
-#: kate/main.cpp:91 kwrite/main.cpp:46
+#: kate/main.cpp:92 kwrite/main.cpp:47
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 Kate müəllifləri"
 
-#: kate/main.cpp:137
+#: kate/main.cpp:138
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Kate-i verilmiş sesiya ilə başlatmaq."
 
-#: kate/main.cpp:138
+#: kate/main.cpp:139
 #, kde-format
 msgid "session"
 msgstr "sesiya"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Kate'i yeni anonim sessiya ilə başladın, 'n' nəzərdə tutulur."
 
-#: kate/main.cpp:148
+#: kate/main.cpp:149
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -68,7 +68,7 @@ msgstr ""
 "sesiyanı artıq açmışsa, nəzərə alınmır), parametrlər və URL-lar verilməzsə "
 "məcburi olur."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -77,7 +77,7 @@ msgstr ""
 "Artıq bir Kate nümunəsi istifadə edirsinizsə, URL-lar açılacaqsa, ondan "
 "çıxılana qədər əngəlləyin."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -87,69 +87,69 @@ msgstr ""
 "etmək (--start istifadə edildikdə və başqa bir kate nümunəsində verilmiş "
 "sesiya açıldığı təqdirdə nəzərə alınmır)"
 
-#: kate/main.cpp:161
+#: kate/main.cpp:162
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:166 kwrite/main.cpp:97
+#: kate/main.cpp:167 kwrite/main.cpp:98
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Açılan faylın şifrələnməsi"
 
-#: kate/main.cpp:167 kwrite/main.cpp:98
+#: kate/main.cpp:168 kwrite/main.cpp:99
 #, kde-format
 msgid "encoding"
 msgstr "şifrələmə"
 
-#: kate/main.cpp:171 kwrite/main.cpp:102
+#: kate/main.cpp:172 kwrite/main.cpp:103
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Bu sətirə keçmək."
 
-#: kate/main.cpp:171 kwrite/main.cpp:102
+#: kate/main.cpp:172 kwrite/main.cpp:103
 #, kde-format
 msgid "line"
 msgstr "sətir"
 
-#: kate/main.cpp:176 kwrite/main.cpp:106
+#: kate/main.cpp:177 kwrite/main.cpp:107
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Bu sütuna keçmək"
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:107
 #, kde-format
 msgid "column"
 msgstr "sütun"
 
-#: kate/main.cpp:181 kwrite/main.cpp:110
+#: kate/main.cpp:182 kwrite/main.cpp:111
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Standart girişdən məzmunu oxumaq."
 
-#: kate/main.cpp:186 kwrite/main.cpp:114
+#: kate/main.cpp:187 kwrite/main.cpp:115
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Bu tətbiq tərəfindən aşılan fayllar və URL -lar istifadə olunduqdan sonra "
 "silinəcək"
 
-#: kate/main.cpp:190 kwrite/main.cpp:118
+#: kate/main.cpp:191 kwrite/main.cpp:119
 #, kde-format
 msgid "Documents to open."
 msgstr "Açılacaq sənəd"
 
-#: kate/main.cpp:190 kwrite/main.cpp:118
+#: kate/main.cpp:191 kwrite/main.cpp:119
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
 
-#: kwrite/main.cpp:42
+#: kwrite/main.cpp:43
 #, kde-format
 msgid "KWrite"
 msgstr "KWrite"
 
-#: kwrite/main.cpp:44
+#: kwrite/main.cpp:45
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "Kate - Mətn Redaktoru"
@@ -580,7 +580,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Fayl tarixçəsi: - %1"
 
-#: lib/kateapp.cpp:105
+#: lib/kateapp.cpp:106
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -591,7 +591,7 @@ msgstr ""
 "proqram sənədi saxlamaq üçün kök imtiyazlarından istifadə etməyi təklif "
 "edəcək."
 
-#: lib/kateapp.cpp:112
+#: lib/kateapp.cpp:113
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -601,328 +601,328 @@ msgstr ""
 "bilər. Bu redaktoru adi qaydada istifadə edin və lazım gəldikdə proqram "
 "sənədi saxlamaq üçün kök imtiyazlarından istifadə etməyi təklif edəcək."
 
-#: lib/kateapp.cpp:276
+#: lib/kateapp.cpp:277
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "Christoph Cullmann"
 
-#: lib/kateapp.cpp:276
+#: lib/kateapp.cpp:277
 #, kde-format
 msgid "Maintainer"
 msgstr "Müşayətçi"
 
-#: lib/kateapp.cpp:277
+#: lib/kateapp.cpp:278
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "Dominik Haumann"
 
-#: lib/kateapp.cpp:277 lib/kateapp.cpp:280 lib/kateapp.cpp:281
-#: lib/kateapp.cpp:283 lib/kateapp.cpp:286 lib/kateapp.cpp:292
+#: lib/kateapp.cpp:278 lib/kateapp.cpp:281 lib/kateapp.cpp:282
+#: lib/kateapp.cpp:284 lib/kateapp.cpp:287 lib/kateapp.cpp:293
 #, kde-format
 msgid "Core Developer"
 msgstr "Proqramın əsas tərtibatçısı"
 
-#: lib/kateapp.cpp:278
+#: lib/kateapp.cpp:279
 #, kde-format
 msgid "Sven Brauch"
 msgstr "Sven Brauch"
 
-#: lib/kateapp.cpp:278 lib/kateapp.cpp:279 lib/kateapp.cpp:287
+#: lib/kateapp.cpp:279 lib/kateapp.cpp:280 lib/kateapp.cpp:288
 #, kde-format
 msgid "Developer"
 msgstr "Tərtibatçı"
 
-#: lib/kateapp.cpp:279
+#: lib/kateapp.cpp:280
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kåre Särs"
 
-#: lib/kateapp.cpp:280
+#: lib/kateapp.cpp:281
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr "Waqar Ahmed"
 
-#: lib/kateapp.cpp:281
+#: lib/kateapp.cpp:282
 #, kde-format
 msgid "Anders Lund"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:282
+#: lib/kateapp.cpp:283
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Joseph Wenninger"
 
-#: lib/kateapp.cpp:286
+#: lib/kateapp.cpp:287
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "Hamish Rodda"
 
-#: lib/kateapp.cpp:287
+#: lib/kateapp.cpp:288
 #, kde-format
 msgid "Alexander Neundorf"
 msgstr "Alexander Neundorf"
 
-#: lib/kateapp.cpp:288
+#: lib/kateapp.cpp:289
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "Waldo Bastian"
 
-#: lib/kateapp.cpp:288
+#: lib/kateapp.cpp:289
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "Çox gözəl bufer sistemi"
 
-#: lib/kateapp.cpp:289
+#: lib/kateapp.cpp:290
 #, kde-format
 msgid "Charles Samuels"
 msgstr "Charles Samuels"
 
-#: lib/kateapp.cpp:289
+#: lib/kateapp.cpp:290
 #, kde-format
 msgid "The Editing Commands"
 msgstr "Düzəliş əmrləri"
 
-#: lib/kateapp.cpp:290
+#: lib/kateapp.cpp:291
 #, kde-format
 msgid "Matt Newell"
 msgstr "Matt Newell"
 
-#: lib/kateapp.cpp:290
+#: lib/kateapp.cpp:291
 #, kde-format
 msgid "Testing, ..."
 msgstr "Yoxlama və s. ..."
 
-#: lib/kateapp.cpp:291
+#: lib/kateapp.cpp:292
 #, kde-format
 msgid "Michael Bartl"
 msgstr "Michael Bartl"
 
-#: lib/kateapp.cpp:291
+#: lib/kateapp.cpp:292
 #, kde-format
 msgid "Former Core Developer"
 msgstr "Keçmiş əsas tərtibatçı"
 
-#: lib/kateapp.cpp:292
+#: lib/kateapp.cpp:293
 #, kde-format
 msgid "Michael McCallum"
 msgstr "Michael McCallum"
 
-#: lib/kateapp.cpp:293
+#: lib/kateapp.cpp:294
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr "Jochen Wilhemly"
 
-#: lib/kateapp.cpp:293
+#: lib/kateapp.cpp:294
 #, kde-format
 msgid "KWrite Author"
 msgstr "KWrite müəllifi"
 
-#: lib/kateapp.cpp:294
+#: lib/kateapp.cpp:295
 #, kde-format
 msgid "Michael Koch"
 msgstr "Michael Koch"
 
-#: lib/kateapp.cpp:294
+#: lib/kateapp.cpp:295
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "KWrite -ın KParts -a köşürülməsi"
 
-#: lib/kateapp.cpp:295
+#: lib/kateapp.cpp:296
 #, kde-format
 msgid "Christian Gebauer"
 msgstr "Christian Gebauer"
 
-#: lib/kateapp.cpp:296
+#: lib/kateapp.cpp:297
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "Simon Hausmann"
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:298
 #, kde-format
 msgid "Glen Parker"
 msgstr "Glen Parker"
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:298
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "KWrite izləmə jurnalı, Kspell inteqrasiyası"
 
-#: lib/kateapp.cpp:298
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "Scott Manson"
 msgstr "Scott Manson"
 
-#: lib/kateapp.cpp:298
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "KWrite -da XML sintaksisinin işıqlanması"
 
-#: lib/kateapp.cpp:299
+#: lib/kateapp.cpp:300
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: lib/kateapp.cpp:299
+#: lib/kateapp.cpp:300
 #, kde-format
 msgid "Patches and more"
 msgstr "Səhv düzəlişləri və bir çoxları"
 
-#: lib/kateapp.cpp:300
+#: lib/kateapp.cpp:301
 #, kde-format
 msgid "Pablo Martín"
 msgstr "Pablo Martín"
 
-#: lib/kateapp.cpp:301
+#: lib/kateapp.cpp:302
 #, kde-format
 msgid "Python Plugin Developer"
 msgstr "Python Plugin Tərtibatçısı"
 
-#: lib/kateapp.cpp:304
+#: lib/kateapp.cpp:305
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr "Gerald Senarclens de Grancy"
 
-#: lib/kateapp.cpp:305
+#: lib/kateapp.cpp:306
 #, kde-format
 msgid "QA and Scripting"
 msgstr "Keyfiyyətə nəzarət və əmr faylları"
 
-#: lib/kateapp.cpp:309
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "Tyson Tan"
 msgstr "Tyson Tan"
 
-#: lib/kateapp.cpp:310
+#: lib/kateapp.cpp:311
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr "Kate'in maskotu 'Kate - Kiber ağacdələn'in dizayneri"
 
-#: lib/kateapp.cpp:313
+#: lib/kateapp.cpp:314
 #, kde-format
 msgid "Matteo Merli"
 msgstr "Matteo Merli"
 
-#: lib/kateapp.cpp:313
+#: lib/kateapp.cpp:314
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "RPM, Perl, Diff və digər spec-faylların seçilməsi və s."
 
-#: lib/kateapp.cpp:314
+#: lib/kateapp.cpp:315
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "Rocky Scaletta"
 
-#: lib/kateapp.cpp:314
+#: lib/kateapp.cpp:315
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "VHDL-in seçilməsi"
 
-#: lib/kateapp.cpp:315
+#: lib/kateapp.cpp:316
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "Yury Lebedev"
 
-#: lib/kateapp.cpp:315
+#: lib/kateapp.cpp:316
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "SQL-in seçilməsi"
 
-#: lib/kateapp.cpp:316
+#: lib/kateapp.cpp:317
 #, kde-format
 msgid "Chris Ross"
 msgstr "Chris Ross"
 
-#: lib/kateapp.cpp:316
+#: lib/kateapp.cpp:317
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "Ferite seçilməsi"
 
-#: lib/kateapp.cpp:317
+#: lib/kateapp.cpp:318
 #, kde-format
 msgid "Nick Roux"
 msgstr "Nick Roux"
 
-#: lib/kateapp.cpp:317
+#: lib/kateapp.cpp:318
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "ILERPG-in seçilməsi"
 
-#: lib/kateapp.cpp:318
+#: lib/kateapp.cpp:319
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "Carsten Niehaus"
 
-#: lib/kateapp.cpp:318
+#: lib/kateapp.cpp:319
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "LaTeX-in seçilməsi"
 
-#: lib/kateapp.cpp:319
+#: lib/kateapp.cpp:320
 #, kde-format
 msgid "Per Wigren"
 msgstr "Per Wigren"
 
-#: lib/kateapp.cpp:319
+#: lib/kateapp.cpp:320
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "Makefile, Python-un seçilməsi"
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:321
 #, kde-format
 msgid "Jan Fritz"
 msgstr "Jan Fritz"
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:321
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "Python-un seçilməsi"
 
-#: lib/kateapp.cpp:321
+#: lib/kateapp.cpp:322
 #, kde-format
 msgid "Daniel Naber"
 msgstr "Daniel Naber"
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:323
 #, kde-format
 msgid "Roland Pabel"
 msgstr "Roland Pabel"
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:323
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "Sxemin seçiməsi"
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "Cristi Dumitrescu"
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "PHP açar sözü və verilənlər siahısı"
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Very nice help"
 msgstr "Ən yaxşı kömək"
 
-#: lib/kateapp.cpp:325
+#: lib/kateapp.cpp:326
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Bütün bu layihədə iştirak edənlər lakin adları çəkilməyəblər"
 
-#: lib/kateapp.cpp:454
+#: lib/kateapp.cpp:455
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Qovluğu yalnız layihə qoşması aktiv olduqda açmaq olar"
 
-#: lib/kateapp.cpp:562
+#: lib/kateapp.cpp:563
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1290,13 +1290,13 @@ msgstr "Sənədi bağlamaq"
 msgid "Save As"
 msgstr "Belə Saxlayın"
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:693
+#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:692
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Kate bağlamağa cəhd etdiyiniz zaman yeni fayl açıldı, bağlanma ləğv edildi."
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:693
+#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:692
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Bağlana ləğv edidli"
@@ -1463,7 +1463,7 @@ msgstr "bütün açılmış sənədləri yenidən yükləmək."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Cari faylın fayl yolunu mübadilə yaddaşına kopyalayır."
 
-#: lib/katemainwindow.cpp:360 lib/welcomeview/welcomeview.cpp:265
+#: lib/katemainwindow.cpp:360 lib/welcomeview/welcomeview.cpp:266
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Fayldan ibarət qovluğu açmaq"
@@ -1681,7 +1681,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "Cari sənədin yanındakı bütün sənədləri bağlamaq"
 
-#: lib/katemainwindow.cpp:848
+#: lib/katemainwindow.cpp:847
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1689,12 +1689,12 @@ msgstr ""
 "Bu menyu panelini tamamilə bağlayacaqdır. Siz bunu %1 yazaraq yenidən görə "
 "bilərsiniz."
 
-#: lib/katemainwindow.cpp:851
+#: lib/katemainwindow.cpp:850
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Menyu panelini gizlətmək"
 
-#: lib/katemainwindow.cpp:950
+#: lib/katemainwindow.cpp:949
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1703,19 +1703,19 @@ msgstr ""
 "Siz %1 qovluğunu Kate daxilinə atdınız. Tərkibindəki bütün faylları açmaq "
 "istəyirsiniz?"
 
-#: lib/katemainwindow.cpp:953
+#: lib/katemainwindow.cpp:952
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Fayllar rekursiv olaraq açılsın"
 
-#: lib/katemainwindow.cpp:954
+#: lib/katemainwindow.cpp:953
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Bütün faylları açın"
 
-#: lib/katemainwindow.cpp:1176
+#: lib/katemainwindow.cpp:1175
 #, kde-format
 msgid " [read only]"
 msgstr " [yalnız oxumaq]"
@@ -2420,22 +2420,22 @@ msgstr "Dəqiq olmayan süzgəcləmə"
 msgid "Wildcard Filtering"
 msgstr "Şablonlar ilə süzgəcləmə"
 
-#: lib/session/katesessionmanagedialog.cpp:26
+#: lib/session/katesessionmanagedialog.cpp:27
 #, kde-format
 msgid "Manage Sessions"
 msgstr "Sesiyaları idarə etmək"
 
-#: lib/session/katesessionmanagedialog.cpp:62
+#: lib/session/katesessionmanagedialog.cpp:63
 #, kde-format
 msgid "Session Chooser"
 msgstr "Sesia seçimi"
 
-#: lib/session/katesessionmanagedialog.cpp:146
+#: lib/session/katesessionmanagedialog.cpp:147
 #, kde-format
 msgid "Restore"
 msgstr "Bərpa etmək"
 
-#: lib/session/katesessionmanagedialog.cpp:303
+#: lib/session/katesessionmanagedialog.cpp:304
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Dialoq bağlandıqda sesiya silinəcək"
@@ -2508,13 +2508,13 @@ msgstr "&Adını dəyişin..."
 msgid "Delete"
 msgstr "Silmək"
 
-#: lib/session/katesessionmanager.cpp:129
+#: lib/session/katesessionmanager.cpp:130
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr "Daxili xəta: verilmiş sesiya üçün birdən çox nümunə açılıb."
 
-#: lib/session/katesessionmanager.cpp:136
+#: lib/session/katesessionmanager.cpp:137
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2523,35 +2523,35 @@ msgstr ""
 "\"%1\" sessiyası artıq başqa Kate nümünəsi tərəfindən açılıb. Başqa nümunəyə "
 "keçmək, yoxsa bu nümunədə yenidən açmaq istəyirsiniz?"
 
-#: lib/session/katesessionmanager.cpp:138
+#: lib/session/katesessionmanager.cpp:139
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Nümunəyə keçin"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Yenidən açın"
 
-#: lib/session/katesessionmanager.cpp:338
+#: lib/session/katesessionmanager.cpp:339
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Sesiyanın adı \"%1\" kimi dəyişdirilə bilməz. \"%2\" üzərinə yazıla bilmədi"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:340
 #, kde-format
 msgid "Session Renaming"
 msgstr "Sesiyanın adı dəyişdirilir"
 
-#: lib/session/katesessionmanager.cpp:489
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "Session name:"
 msgstr "Sesiyanın adı:"
 
-#: lib/session/katesessionmanager.cpp:491
+#: lib/session/katesessionmanager.cpp:492
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2560,17 +2560,17 @@ msgstr ""
 "Seçdiyiniz %1 adı ilə artıq sesiya mövcuddur.\n"
 "Başqa bir ad seçin."
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:494
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Sesiyanı saxlamaq üçün ona ad verməlisiniz."
 
-#: lib/session/katesessionmanager.cpp:520
+#: lib/session/katesessionmanager.cpp:521
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Bu sesiyaya ad verin"
 
-#: lib/session/katesessionmanager.cpp:522
+#: lib/session/katesessionmanager.cpp:523
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Bu sesiya üçün ad göstərin: %1"
@@ -2720,47 +2720,47 @@ msgstr "Sonuncu sesiyanın &meta məlumatlarını saxlayın"
 msgid "Delete unused meta-information after:"
 msgstr "İstifadə olunmamış meta məlumatlarını silin"
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Welcome to %1"
 msgstr "%1 sizi salamlayır"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:60
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Sonuncu sənədlər və layihələr"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:60
 #, kde-format
 msgid "Recent Documents"
 msgstr "Sonucu sənədlər"
 
-#: lib/welcomeview/welcomeview.cpp:62
+#: lib/welcomeview/welcomeview.cpp:63
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "Heç bir sonuncu sənəd və ya layihə tapılmadı"
 
-#: lib/welcomeview/welcomeview.cpp:62
+#: lib/welcomeview/welcomeview.cpp:63
 #, kde-format
 msgid "No recent documents"
 msgstr "Heç bir sonuncu sənəd yoxdur"
 
-#: lib/welcomeview/welcomeview.cpp:115
+#: lib/welcomeview/welcomeview.cpp:116
 #, kde-format
 msgid "No saved sessions"
 msgstr "Saxlanılmış sesiyalar yoxdur"
 
-#: lib/welcomeview/welcomeview.cpp:245
+#: lib/welcomeview/welcomeview.cpp:246
 #, kde-format
 msgid "Open Selected Files..."
 msgstr "Seçilmiş faylları açın..."
 
-#: lib/welcomeview/welcomeview.cpp:258
+#: lib/welcomeview/welcomeview.cpp:259
 #, kde-format
 msgid "Copy &Location"
 msgstr "&Yerini kopyalamaq"
 
-#: lib/welcomeview/welcomeview.cpp:273
+#: lib/welcomeview/welcomeview.cpp:274
 #, kde-format
 msgid "&Remove"
 msgstr "&Silin"

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="katepython" library="katepythonplugin" version="1" translationDomain="katepythonplugin">
-  <MenuBar>
-    <Menu name="file">
-      <text>&amp;File</text>
-    </Menu>
-  </MenuBar>
-</gui>

@@ -5,12 +5,6 @@ endfunction()
 # Most plugins will need to link against KF6TextEditor to have access to its plugin interface.
 find_package(KF6TextEditor ${KF5_DEP_VERSION} QUIET REQUIRED)
 
-# python plugin, purely optional ATM
-option(BUILD_PYTHON_BINDINGS "Enable building python bindings" OFF)
-if (BUILD_PYTHON_BINDINGS)
-    ecm_optional_add_subdirectory(python)
-endif()
-
 ecm_set_disabled_deprecation_versions(
     QT 5.15
     KF 5.90

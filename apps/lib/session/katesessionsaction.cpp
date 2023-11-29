@@ -5,20 +5,18 @@
 */
 
 #include "katesessionsaction.h"
-
-#include "kateapp.h"
 #include "katesessionmanager.h"
 
+#include <KConfig>
 #include <QActionGroup>
 #include <QMenu>
 #include <algorithm>
 
 KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager, bool allSessions)
     : KActionMenu(text, parent)
+    , m_manager(manager)
     , m_allSessions(allSessions)
 {
-    m_manager = manager ? manager : KateApp::self()->sessionManager();
-
     connect(menu(), &QMenu::aboutToShow, this, &KateSessionsAction::slotAboutToShow);
     setPopupMode(QToolButton::InstantPopup);
 

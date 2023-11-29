@@ -484,12 +484,12 @@ void KateMainWindow::setupActions()
         connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionNew, Qt::QueuedConnection);
 
         // recent sessions menu
-        a = new KateSessionsAction(i18n("&Recent Sessions"), this, nullptr, false);
+        a = new KateSessionsAction(i18n("&Recent Sessions"), this, KateApp::self()->sessionManager(), false);
         sessionsMenu->menu()->addAction(a);
         actionCollection()->addAction(QStringLiteral("session_open_recent"), a);
 
         // session menu
-        a = new KateSessionsAction(i18n("&All Sessions"), this, nullptr, true);
+        a = new KateSessionsAction(i18n("&All Sessions"), this, KateApp::self()->sessionManager(), true);
         sessionsMenu->menu()->addAction(a);
         actionCollection()->addAction(QStringLiteral("session_open_session"), a);
 

@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-28 01:37+0000\n"
+"POT-Creation-Date: 2023-11-29 01:39+0000\n"
 "PO-Revision-Date: 2023-10-26 18:10+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -1818,67 +1818,67 @@ msgstr "Afficher un bouton %1"
 msgid "Focus %1"
 msgstr "Faire un focus sur %1"
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1078
 #, kde-format
 msgid "Configure..."
 msgstr "Configurer..."
 
-#: lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1082
 #, kde-format
 msgid "Hide Button"
 msgstr "Masquer un bouton"
 
-#: lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1084
 #, kde-format
 msgid "Move To"
 msgstr "Déplacer vers"
 
-#: lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1089
 #, kde-format
 msgid "Own Section"
 msgstr "Votre propre section"
 
-#: lib/katemdi.cpp:1045 lib/katemdi.cpp:1053
+#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1103
 #, kde-format
 msgid "One Down"
 msgstr "Un vers le bas"
 
-#: lib/katemdi.cpp:1047 lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1097 lib/katemdi.cpp:1108
 #, kde-format
 msgid "One Right"
 msgstr "Un vers la droite"
 
-#: lib/katemdi.cpp:1051
+#: lib/katemdi.cpp:1101
 #, kde-format
 msgid "One Up"
 msgstr "Un vers le haut"
 
-#: lib/katemdi.cpp:1056
+#: lib/katemdi.cpp:1106
 #, kde-format
 msgid "One Left"
 msgstr "Un vers la gauche"
 
-#: lib/katemdi.cpp:1065
+#: lib/katemdi.cpp:1115
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barre latérale gauche"
 
-#: lib/katemdi.cpp:1069
+#: lib/katemdi.cpp:1119
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barre latérale droite"
 
-#: lib/katemdi.cpp:1073
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barre latérale en haut"
 
-#: lib/katemdi.cpp:1077
+#: lib/katemdi.cpp:1127
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barre latérale en bas"
 
-#: lib/katemdi.cpp:1567
+#: lib/katemdi.cpp:1696
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-28 01:37+0000\n"
+"POT-Creation-Date: 2023-11-29 01:39+0000\n"
 "PO-Revision-Date: 2023-02-09 02:25+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -1766,69 +1766,69 @@ msgstr "顯示關閉按鈕(&S)"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1078
 #, fuzzy, kde-format
 #| msgid "Configure ..."
 msgid "Configure..."
 msgstr "設定 ..."
 
-#: lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1082
 #, kde-format
 msgid "Hide Button"
 msgstr ""
 
-#: lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1084
 #, kde-format
 msgid "Move To"
 msgstr "移動到"
 
-#: lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1089
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Own Section"
 msgstr "篩選作業階段"
 
-#: lib/katemdi.cpp:1045 lib/katemdi.cpp:1053
+#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1103
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1047 lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1097 lib/katemdi.cpp:1108
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1051
+#: lib/katemdi.cpp:1101
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1056
+#: lib/katemdi.cpp:1106
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1065
+#: lib/katemdi.cpp:1115
 #, kde-format
 msgid "Left Sidebar"
 msgstr "左方邊列"
 
-#: lib/katemdi.cpp:1069
+#: lib/katemdi.cpp:1119
 #, kde-format
 msgid "Right Sidebar"
 msgstr "右方邊列"
 
-#: lib/katemdi.cpp:1073
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "Top Sidebar"
 msgstr "頂端邊列"
 
-#: lib/katemdi.cpp:1077
+#: lib/katemdi.cpp:1127
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "底部邊列"
 
-#: lib/katemdi.cpp:1567
+#: lib/katemdi.cpp:1696
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

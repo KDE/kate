@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-28 01:37+0000\n"
+"POT-Creation-Date: 2023-11-29 01:39+0000\n"
 "PO-Revision-Date: 2009-12-19 02:07+0100\n"
 "Last-Translator: Mark Kwidzińśczi <mark@linuxcsb.org>\n"
 "Language-Team: Kaszëbsczi <i18n-csb@linuxcsb.org>\n"
@@ -1805,70 +1805,70 @@ msgstr "Pòkôżë %1"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1078
 #, fuzzy, kde-format
 #| msgid "Configure"
 msgid "Configure..."
 msgstr "Kònfigùracëjô"
 
-#: lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1082
 #, fuzzy, kde-format
 #| msgid "Hide Path"
 msgid "Hide Button"
 msgstr "Zatacë stegnã"
 
-#: lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1084
 #, kde-format
 msgid "Move To"
 msgstr "Przeniesë do"
 
-#: lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1089
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "Òtemkni sesëjã"
 
-#: lib/katemdi.cpp:1045 lib/katemdi.cpp:1053
+#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1103
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1047 lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1097 lib/katemdi.cpp:1108
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1051
+#: lib/katemdi.cpp:1101
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1056
+#: lib/katemdi.cpp:1106
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1065
+#: lib/katemdi.cpp:1115
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Lewô listew"
 
-#: lib/katemdi.cpp:1069
+#: lib/katemdi.cpp:1119
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Prawô listew"
 
-#: lib/katemdi.cpp:1073
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Górnô listew"
 
-#: lib/katemdi.cpp:1077
+#: lib/katemdi.cpp:1127
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Dolnô listew"
 
-#: lib/katemdi.cpp:1567
+#: lib/katemdi.cpp:1696
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

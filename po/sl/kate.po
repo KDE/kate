@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-28 01:37+0000\n"
+"POT-Creation-Date: 2023-11-29 01:39+0000\n"
 "PO-Revision-Date: 2023-11-04 14:21+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -1778,67 +1778,67 @@ msgstr "Pokaži gumb %1"
 msgid "Focus %1"
 msgstr "Fokus %1"
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1078
 #, kde-format
 msgid "Configure..."
 msgstr "Konfiguriraj..."
 
-#: lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1082
 #, kde-format
 msgid "Hide Button"
 msgstr "Skrij gumb"
 
-#: lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1084
 #, kde-format
 msgid "Move To"
 msgstr "Premakni v"
 
-#: lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1089
 #, kde-format
 msgid "Own Section"
 msgstr "Lastni razdelek"
 
-#: lib/katemdi.cpp:1045 lib/katemdi.cpp:1053
+#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1103
 #, kde-format
 msgid "One Down"
 msgstr "Ena dol"
 
-#: lib/katemdi.cpp:1047 lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1097 lib/katemdi.cpp:1108
 #, kde-format
 msgid "One Right"
 msgstr "Ena desno"
 
-#: lib/katemdi.cpp:1051
+#: lib/katemdi.cpp:1101
 #, kde-format
 msgid "One Up"
 msgstr "Ena gor"
 
-#: lib/katemdi.cpp:1056
+#: lib/katemdi.cpp:1106
 #, kde-format
 msgid "One Left"
 msgstr "Ena levo"
 
-#: lib/katemdi.cpp:1065
+#: lib/katemdi.cpp:1115
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Levo stransko vrstico"
 
-#: lib/katemdi.cpp:1069
+#: lib/katemdi.cpp:1119
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Desno stransko vrstico"
 
-#: lib/katemdi.cpp:1073
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Zgornjo stransko vrstico"
 
-#: lib/katemdi.cpp:1077
+#: lib/katemdi.cpp:1127
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Spodnjo stransko vrstico"
 
-#: lib/katemdi.cpp:1567
+#: lib/katemdi.cpp:1696
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

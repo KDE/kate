@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-28 01:37+0000\n"
+"POT-Creation-Date: 2023-11-29 01:39+0000\n"
 "PO-Revision-Date: 2022-10-28 19:12+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -1719,67 +1719,67 @@ msgstr "Monstrar li icone"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1078
 #, kde-format
 msgid "Configure..."
 msgstr "Configurar..."
 
-#: lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1082
 #, kde-format
 msgid "Hide Button"
 msgstr "Celar li buton"
 
-#: lib/katemdi.cpp:1034
+#: lib/katemdi.cpp:1084
 #, kde-format
 msgid "Move To"
 msgstr "Mover a"
 
-#: lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1089
 #, fuzzy, kde-format
 msgid "Own Section"
 msgstr "Section: "
 
-#: lib/katemdi.cpp:1045 lib/katemdi.cpp:1053
+#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1103
 #, fuzzy, kde-format
 msgid "One Down"
 msgstr "Mover li selectet element al sequent linea"
 
-#: lib/katemdi.cpp:1047 lib/katemdi.cpp:1058
+#: lib/katemdi.cpp:1097 lib/katemdi.cpp:1108
 #, fuzzy, kde-format
 msgid "One Right"
 msgstr "Dextri"
 
-#: lib/katemdi.cpp:1051
+#: lib/katemdi.cpp:1101
 #, fuzzy, kde-format
 msgid "One Up"
 msgstr "Mover li selectet element al precedent linea"
 
-#: lib/katemdi.cpp:1056
+#: lib/katemdi.cpp:1106
 #, fuzzy, kde-format
 msgid "One Left"
 msgstr "Left"
 
-#: lib/katemdi.cpp:1065
+#: lib/katemdi.cpp:1115
 #, fuzzy, kde-format
 msgid "Left Sidebar"
 msgstr "Panel láteral sinistri"
 
-#: lib/katemdi.cpp:1069
+#: lib/katemdi.cpp:1119
 #, fuzzy, kde-format
 msgid "Right Sidebar"
 msgstr "Panel láteral dextri"
 
-#: lib/katemdi.cpp:1073
+#: lib/katemdi.cpp:1123
 #, fuzzy, kde-format
 msgid "Top Sidebar"
 msgstr "In li panel lateral"
 
-#: lib/katemdi.cpp:1077
+#: lib/katemdi.cpp:1127
 #, fuzzy, kde-format
 msgid "Bottom Sidebar"
 msgstr "A bass"
 
-#: lib/katemdi.cpp:1567
+#: lib/katemdi.cpp:1696
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

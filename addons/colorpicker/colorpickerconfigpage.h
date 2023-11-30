@@ -12,7 +12,6 @@
 #include <KTextEditor/ConfigPage>
 
 #include <QCheckBox>
-#include <QMap>
 
 class KateColorPickerConfigPage : public KTextEditor::ConfigPage
 {

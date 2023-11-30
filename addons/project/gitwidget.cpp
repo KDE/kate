@@ -33,7 +33,6 @@
 #include <QInputMethodEvent>
 #include <QKeySequence>
 #include <QLineEdit>
-#include <QMap>
 #include <QMenu>
 #include <QPainter>
 #include <QPushButton>

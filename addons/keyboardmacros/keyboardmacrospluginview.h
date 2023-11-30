@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include <QMap>
 #include <QObject>
 #include <QPointer>
 #include <QString>

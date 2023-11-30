@@ -8,7 +8,6 @@
 #include <QEvent>
 #include <QKeySequence>
 #include <QList>
-#include <QMap>
 #include <QObject>
 #include <QPointer>
 #include <QString>

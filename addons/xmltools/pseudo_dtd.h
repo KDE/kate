@@ -22,8 +22,8 @@
 
 #pragma once
 
-#include <QMap>
 #include <QProgressDialog>
+#include <map>
 #include <qdom.h>
 
 /**
@@ -60,13 +60,13 @@ protected:
     bool m_sgmlSupport;
 
     // Entities, e.g. <"nbsp", "160">
-    QMap<QString, QString> m_entityList;
+    std::map<QString, QString> m_entityList;
     // Elements, e.g. <"a", ( "b", "i", "em", "strong" )>
-    QMap<QString, QStringList> m_elementsList;
+    std::map<QString, QStringList> m_elementsList;
     // Attributes e.g. <"a", ( "href", "lang", "title" )>
-    QMap<QString, ElementAttributes> m_attributesList;
+    std::map<QString, ElementAttributes> m_attributesList;
     // Attribute values e.g. <"td", <"align", ( "left", "right", "justify" )>>
-    QMap<QString, QMap<QString, QStringList>> m_attributevaluesList;
+    std::map<QString, std::map<QString, QStringList>> m_attributevaluesList;
 };
 
 // kate: space-indent on; indent-width 4; replace-tabs on; mixed-indent off;

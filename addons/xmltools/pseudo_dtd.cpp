@@ -104,7 +104,7 @@ bool PseudoDTD::parseElements(QDomDocument *doc, QProgressDialog *progress)
     // We only display a list, i.e. we pretend that the content model is just
     // a set, so we use a map. This is necessary e.g. for xhtml 1.0's head element,
     // which would otherwise display some elements twice.
-    QMap<QString, bool> subelementList; // the bool is not used
+    std::map<QString, bool> subelementList; // the bool is not used
 
     QDomNodeList list = doc->elementsByTagName(QStringLiteral("element"));
     uint listLength = list.count(); // speedup (really! )
@@ -165,7 +165,7 @@ bool PseudoDTD::parseElements(QDomDocument *doc, QProgressDialog *progress)
                         QDomNode subNode = subList.item(l);
                         QDomElement subElem = subNode.toElement();
                         if (!subElem.isNull()) {
-                            QMap<QString, bool>::Iterator it = subelementList.find(subElem.attribute(QStringLiteral("name")));
+                            auto it = subelementList.find(subElem.attribute(QStringLiteral("name")));
                             if (it != subelementList.end()) {
                                 subelementList.erase(it);
                             }
@@ -176,12 +176,11 @@ bool PseudoDTD::parseElements(QDomDocument *doc, QProgressDialog *progress)
 
             // turn the map into a list:
             QStringList subelementListTmp;
-            QMap<QString, bool>::Iterator it;
-            for (it = subelementList.begin(); it != subelementList.end(); ++it) {
-                subelementListTmp.append(it.key());
+            for (auto it = subelementList.begin(); it != subelementList.end(); ++it) {
+                subelementListTmp.append(it->first);
             }
 
-            m_elementsList.insert(elem.attribute(QStringLiteral("name")), subelementListTmp);
+            m_elementsList.insert_or_assign(elem.attribute(QStringLiteral("name")), subelementListTmp);
         }
 
     } // end iteration over all <element> nodes
@@ -197,14 +196,13 @@ QStringList PseudoDTD::allowedElements(const QString &parentElement)
 {
     if (m_sgmlSupport) {
         // find the matching element, ignoring case:
-        QMap<QString, QStringList>::Iterator it;
-        for (it = m_elementsList.begin(); it != m_elementsList.end(); ++it) {
-            if (it.key().compare(parentElement, Qt::CaseInsensitive) == 0) {
-                return it.value();
+        for (const auto &[key, elements] : m_elementsList) {
+            if (key.compare(parentElement, Qt::CaseInsensitive) == 0) {
+                return elements;
             }
         }
-    } else if (m_elementsList.contains(parentElement)) {
-        return m_elementsList[parentElement];
+    } else if (auto it = m_elementsList.find(parentElement); it != m_elementsList.end()) {
+        return it->second;
     }
 
     return QStringList();
@@ -248,7 +246,7 @@ bool PseudoDTD::parseAttributes(QDomDocument *doc, QProgressDialog *progress)
                     }
                 }
             }
-            m_attributesList.insert(elem.attribute(QStringLiteral("name")), attrs);
+            m_attributesList.insert_or_assign(elem.attribute(QStringLiteral("name")), attrs);
         }
     }
 
@@ -261,14 +259,13 @@ QStringList PseudoDTD::allowedAttributes(const QString &element)
 {
     if (m_sgmlSupport) {
         // find the matching element, ignoring case:
-        QMap<QString, ElementAttributes>::Iterator it;
-        for (it = m_attributesList.begin(); it != m_attributesList.end(); ++it) {
-            if (it.key().compare(element, Qt::CaseInsensitive) == 0) {
-                return it.value().optionalAttributes + it.value().requiredAttributes;
+        for (const auto &[key, attributes] : m_attributesList) {
+            if (key.compare(element, Qt::CaseInsensitive) == 0) {
+                return attributes.optionalAttributes + attributes.requiredAttributes;
             }
         }
-    } else if (m_attributesList.contains(element)) {
-        return m_attributesList[element].optionalAttributes + m_attributesList[element].requiredAttributes;
+    } else if (auto it = m_attributesList.find(element); it != m_attributesList.end()) {
+        return it->second.optionalAttributes + it->second.requiredAttributes;
     }
 
     return QStringList();
@@ -277,14 +274,13 @@ QStringList PseudoDTD::allowedAttributes(const QString &element)
 QStringList PseudoDTD::requiredAttributes(const QString &element) const
 {
     if (m_sgmlSupport) {
-        QMap<QString, ElementAttributes>::ConstIterator it;
-        for (it = m_attributesList.begin(); it != m_attributesList.end(); ++it) {
-            if (it.key().compare(element, Qt::CaseInsensitive) == 0) {
-                return it.value().requiredAttributes;
+        for (const auto &[key, attributes] : m_attributesList) {
+            if (key.compare(element, Qt::CaseInsensitive) == 0) {
+                return attributes.requiredAttributes;
             }
         }
-    } else if (m_attributesList.contains(element)) {
-        return m_attributesList[element].requiredAttributes;
+    } else if (auto it = m_attributesList.find(element); it != m_attributesList.end()) {
+        return it->second.requiredAttributes;
     }
 
     return QStringList();
@@ -297,7 +293,7 @@ QStringList PseudoDTD::requiredAttributes(const QString &element) const
 bool PseudoDTD::parseAttributeValues(QDomDocument *doc, QProgressDialog *progress)
 {
     m_attributevaluesList.clear(); // 1 element : n possible attributes
-    QMap<QString, QStringList> attributevaluesTmp; // 1 attribute : n possible values
+    std::map<QString, QStringList> attributevaluesTmp; // 1 attribute : n possible values
     QDomNodeList list = doc->elementsByTagName(QStringLiteral("attlist"));
     uint listLength = list.count();
 
@@ -322,10 +318,10 @@ bool PseudoDTD::parseAttributeValues(QDomDocument *doc, QProgressDialog *progres
                 QDomElement attributeElem = attributeNode.toElement();
                 if (!attributeElem.isNull()) {
                     QString value = attributeElem.attribute(QStringLiteral("value"));
-                    attributevaluesTmp.insert(attributeElem.attribute(QStringLiteral("name")), value.split(QChar(' ')));
+                    attributevaluesTmp.insert_or_assign(attributeElem.attribute(QStringLiteral("name")), value.split(QChar(' ')));
                 }
             }
-            m_attributevaluesList.insert(elem.attribute(QStringLiteral("name")), attributevaluesTmp);
+            m_attributevaluesList.insert_or_assign(elem.attribute(QStringLiteral("name")), attributevaluesTmp);
         }
     }
     return true;
@@ -342,23 +338,20 @@ QStringList PseudoDTD::attributeValues(const QString &element, const QString &at
     // because we need to be case-insensitive.
     if (m_sgmlSupport) {
         // first find the matching element, ignoring case:
-        QMap<QString, QMap<QString, QStringList>>::Iterator it;
-        for (it = m_attributevaluesList.begin(); it != m_attributevaluesList.end(); ++it) {
-            if (it.key().compare(element, Qt::CaseInsensitive) == 0) {
-                QMap<QString, QStringList> attrVals = it.value();
-                QMap<QString, QStringList>::Iterator itV;
+        for (const auto &[key, attrVals] : m_attributevaluesList) {
+            if (key.compare(element, Qt::CaseInsensitive) == 0) {
                 // then find the matching attribute for that element, ignoring case:
-                for (itV = attrVals.begin(); itV != attrVals.end(); ++itV) {
-                    if (itV.key().compare(attribute, Qt::CaseInsensitive) == 0) {
-                        return (itV.value());
+                for (const auto &[k, attrs] : attrVals) {
+                    if (k.compare(attribute, Qt::CaseInsensitive) == 0) {
+                        return attrs;
                     }
                 }
             }
         }
-    } else if (m_attributevaluesList.contains(element)) {
-        QMap<QString, QStringList> attrVals = m_attributevaluesList[element];
-        if (attrVals.contains(attribute)) {
-            return attrVals[attribute];
+    } else if (auto it = m_attributevaluesList.find(element); it != m_attributevaluesList.end()) {
+        const std::map<QString, QStringList> &attrVals = it->second;
+        if (auto it = attrVals.find(attribute); it != attrVals.end()) {
+            return it->second;
         }
     }
 
@@ -407,9 +400,9 @@ bool PseudoDTD::parseEntities(QDomDocument *doc, QProgressDialog *progress)
                 exp = QChar( exp.toInt() );
                 }
                 */
-                m_entityList.insert(elem.attribute(QStringLiteral("name")), exp);
+                m_entityList.insert_or_assign(elem.attribute(QStringLiteral("name")), exp);
             } else {
-                m_entityList.insert(elem.attribute(QStringLiteral("name")), QString());
+                m_entityList.insert_or_assign(elem.attribute(QStringLiteral("name")), QString());
             }
         }
     }
@@ -422,10 +415,9 @@ bool PseudoDTD::parseEntities(QDomDocument *doc, QProgressDialog *progress)
 QStringList PseudoDTD::entities(const QString &start)
 {
     QStringList entities;
-    QMap<QString, QString>::Iterator it;
-    for (it = m_entityList.begin(); it != m_entityList.end(); ++it) {
-        if ((*it).startsWith(start)) {
-            const QString &str = it.key();
+    for (const auto &[key, value] : m_entityList) {
+        if (value.startsWith(start)) {
+            const QString &str = key;
             /* TODO: show entities as unicode character
             if( !it.data().isEmpty() ) {
             //str += " -- " + it.data();

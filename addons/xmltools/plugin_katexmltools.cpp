@@ -90,6 +90,7 @@ TODO:
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
 #include <kxmlguifactory.h>
+#include <map>
 
 K_PLUGIN_FACTORY_WITH_JSON(PluginKateXMLToolsFactory, "katexmltools.json", registerPlugin<PluginKateXMLTools>();)
 
@@ -998,11 +999,11 @@ QString PluginKateXMLToolsCompletionModel::currentModeToString() const
 /** Sort a QStringList case-insensitively. Static. TODO: make it more simple. */
 QStringList PluginKateXMLToolsCompletionModel::sortQStringList(QStringList list)
 {
-    // Sort list case-insensitive. This looks complicated but using a QMap
+    // Sort list case-insensitive. This looks complicated but using a map
     // is even suggested by the Qt documentation.
-    QMap<QString, QString> mapList;
+    std::map<QString, QString> mapList;
     for (const auto &str : qAsConst(list)) {
-        if (mapList.contains(str.toLower())) {
+        if (mapList.find(str.toLower()) != mapList.end()) {
             // do not override a previous value, e.g. "Auml" and "auml" are two different
             // entities, but they should be sorted next to each other.
             // TODO: currently it's undefined if e.g. "A" or "a" comes first, it depends on
@@ -1014,11 +1015,10 @@ QStringList PluginKateXMLToolsCompletionModel::sortQStringList(QStringList list)
     }
 
     list.clear();
-    QMap<QString, QString>::Iterator it;
 
     // Qt doc: "the items are alphabetically sorted [by key] when iterating over the map":
-    for (it = mapList.begin(); it != mapList.end(); ++it) {
-        list.append(it.value());
+    for (const auto &[_, value] : mapList) {
+        list.append(value);
     }
 
     return list;

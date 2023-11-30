@@ -136,7 +136,7 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
 
     // make sure we have a vertical layout
     new QVBoxLayout(this);
-    layout()->setContentsMargins(0, 0, 0, 0);
+    layout()->setContentsMargins(0, 1, 0, 0);
 
     QAction *a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_pipe_to_terminal"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("dialog-scripts")));

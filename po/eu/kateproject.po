@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2023-09-09 00:40+0200\n"
+"PO-Revision-Date: 2023-12-02 07:02+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.0\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -705,28 +705,24 @@ msgid "Code Analysis - %1"
 msgstr "Kodearen analisia - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Tresna, fitxategi luzapen zerrenda honekin bat datozen proiektu "
-"guztietan exekutatuko da:<br/><br/><b>%2</b>"
+"'%1' ez dago zure sisteman instalatuta, %2.<br/><br/>%3. Tresna, fitxategi-"
+"luzapen zerrenda horrekin bat datozen proiektuko fitxategi guztietan "
+"exekutatuko da:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Tresna, fitxategi luzapen zerrenda honekin bat datozen proiektu "
-"guztietan exekutatuko da:<br/><br/><b>%2</b>"
+"%1 erabiltzen, hemen instalatua: %2.<br/><br/>%3. Tresna, fitxategi-luzapen "
+"zerrenda horrekin bat datozen proiektuko fitxategi guztietan exekutatutako "
+"da:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212

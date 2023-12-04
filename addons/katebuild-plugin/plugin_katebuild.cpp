@@ -205,7 +205,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     // e.g. from gcc: "main.cpp:14:8: error: cannot convert ‘std::string’ to ‘int’ in return"
     // e.g. from icpc: "main.cpp(14): error: no suitable conversion function from "std::string" to "int" exists"
     // e.g. from clang: ""main.cpp(14,8): fatal error: 'boost/scoped_array.hpp' file not found"
-    , m_filenameDetector(QStringLiteral("((?:[a-np-zA-Z]:[\\\\/])?[^\\s:(]+)[:\\(](\\d+)[,:]?(\\d+)?[\\):]* (.*)"))
+    , m_filenameDetector(QStringLiteral("(?<filename>(?:[a-np-zA-Z]:[\\\\/])?[^\\s:(]+)[:(](?<line>\\d+)[,:]?(?<column>\\d+)?[):]* (?<message>.*)"))
     , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ '(.*)'"))
     , m_diagnosticsProvider(mw, this)
 {
@@ -1148,10 +1148,10 @@ KateBuildView::OutputLine KateBuildView::processOutputLine(QString line)
         return {Category::Normal, line, line, QString(), 0, 0};
     }
 
-    QString filename = match.captured(1);
-    const QString line_n = match.captured(2);
-    const QString col_n = match.captured(3);
-    const QString msg = match.captured(4);
+    QString filename = match.captured(QStringLiteral("filename"));
+    const QString line_n = match.captured(QStringLiteral("line"));
+    const QString col_n = match.captured(QStringLiteral("column"));
+    const QString msg = match.captured(QStringLiteral("message"));
 
 #ifdef Q_OS_WIN
     // convert '\' to '/' so the concatenation works

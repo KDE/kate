@@ -1,102 +1,100 @@
+# Copyright (C) 2023 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2023 Paolo Zamponi <feus73@gmail.com>
 #
-# SPDX-FileCopyrightText: 2023 Xavier BESNARD <xavier.besnard@neuf.fr>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-26 02:01+0000\n"
-"PO-Revision-Date: 2023-12-04 20:40+0100\n"
-"Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
-"Language-Team: \n"
-"Language: fr\n"
+"PO-Revision-Date: 2023-11-28 14:20+0100\n"
+"Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
+"Language-Team: Italian <kde-i18n-it@kde.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.08.3\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
 #: FormatterFactory.h:59
 #, kde-format
 msgid "Format"
-msgstr "Format"
+msgstr "Formato"
 
 #: FormatApply.h:22
 #, kde-format
 msgid "Failed to write a temp file"
-msgstr "Impossible d'écrire dans un fichier temporaire"
+msgstr "Impossibile scrivere un file temporaneo"
 
 #: FormatApply.h:35
 #, kde-format
 msgid "Failed to run git diff: %1"
-msgstr "Impossible de lancer un « git diff : %1"
+msgstr ""
 
 #: FormatConfig.cpp:122
 #, kde-format
 msgid "User Settings"
-msgstr "Configuration utilisateur"
+msgstr "Impostazioni utente"
 
 #: FormatConfig.cpp:130
 #, kde-format
 msgid "Default Settings"
-msgstr "Configuration par défaut"
+msgstr "Impostazioni predefinite"
 
 #: FormatConfig.h:19 FormatPlugin.cpp:112
 #, kde-format
 msgid "Formatting"
-msgstr "Formatage"
+msgstr "Formattazione"
 
 #: FormatConfig.h:24
 #, kde-format
 msgid "Formatting Settings"
-msgstr "Configuration du formatage"
+msgstr "Impostazioni formattazione"
 
 #: FormatPlugin.cpp:82
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
-msgstr "Impossible de lire le fichier « settings.json ». Erreur : %1"
+msgstr "Impossibile leggere settings.json. Errore: %1"
 
 #: FormatPlugin.cpp:118
 #, kde-format
 msgid "Format Document"
-msgstr "Formater un document"
+msgstr "Formato documento"
 
 #: FormatPlugin.cpp:136
 #, kde-format
 msgid "Format on Save"
-msgstr "Format de l'enregistrement"
+msgstr "Formattazione al salvataggio"
 
 #: FormatPlugin.cpp:139
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
-"Désactiver le formatage lors de l'enregistrement sans le mettant à jour dans "
-"la configuration"
 
 #: FormatterFactory.h:59
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
-msgstr "Impossible de lancer le formateur. Langue non prise en charge %1"
+msgstr ""
 
 #: Formatters.cpp:110
 #, kde-format
 msgid "%1: Unexpected empty command!"
-msgstr "%1 : commande vide inattendue !"
+msgstr ""
 
 #: Formatters.cpp:117
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
-msgstr ""
-"%1 n'est pas installé. Veuillez l'installer pour pouvoir formater ce "
-"document !"
+msgstr "%1 non è installato. Installalo per poter formattare questo documento."
 
 #: Formatters.cpp:306
 #, kde-format
 msgid "Please install node and prettier"
-msgstr "Veuillez installer les paquets « node » et « prettier »"
+msgstr ""
 
 #: Formatters.cpp:313
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
-msgstr "Format de » prettier » : impossible de créer un fichier temporaire"
+msgstr ""

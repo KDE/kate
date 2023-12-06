@@ -85,19 +85,21 @@ public:
      * Remove items for given provider. If p == null, remove all items of the file
      * except the items whose provider has m_persistentDiagnostics.
      */
-    void removeItemsForProvider(DiagnosticsProvider *p)
+    int removeItemsForProvider(DiagnosticsProvider *p)
     {
+        int removedCount = 0;
         if (m_providers.size() == 1) {
             if (p == nullptr && m_providers.back()->persistentDiagnostics()) {
                 // If there is only 1 provider and it's diagnostics are persistent, we have nothing to do here
-                return;
+                return removedCount;
             } else if (m_providers.contains(p)) {
                 m_providers.clear();
+                removedCount = rowCount();
                 setRowCount(0);
-                return;
+                return removedCount;
             } else {
                 // if we don't have any diagnostics from this provider, we have nothing to do
-                return;
+                return removedCount;
             }
         }
 
@@ -123,6 +125,7 @@ public:
                     removeProvider(itemProvider);
                 } else {
                     if (start > -1 && count != 0) {
+                        removedCount += count;
                         removeRows(start, count);
                         i = start - 1;
                         start = -1;
@@ -131,6 +134,7 @@ public:
                 }
             }
             if (start > -1 && count != 0) {
+                removedCount += count;
                 removeRows(start, count);
             }
         } else {
@@ -148,6 +152,7 @@ public:
                     count++;
                 } else {
                     if (start > -1 && count != 0) {
+                        removedCount += count;
                         removeRows(start, count);
                         i = start - 1;
                         start = -1;
@@ -156,6 +161,7 @@ public:
                 }
             }
             if (start > -1 && count != 0) {
+                removedCount += count;
                 removeRows(start, count);
             }
         }
@@ -164,6 +170,7 @@ public:
         for (auto p : removedProviders) {
             m_providers.removeOne(p);
         }
+        return removedCount;
     }
 };
 

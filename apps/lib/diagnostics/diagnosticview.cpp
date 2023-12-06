@@ -464,6 +464,7 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
             clearAllMarks(d);
         }
         m_model.clear();
+        m_diagnosticsCount = 0;
     });
     l->addWidget(m_clearButton);
 }
@@ -754,6 +755,10 @@ void DiagnosticsView::onDoubleClicked(const QModelIndex &index, bool quickFix)
 
 void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
 {
+    if (m_diagnosticsCount > 12000) {
+        return;
+    }
+
     auto *provider = qobject_cast<DiagnosticsProvider *>(sender());
     Q_ASSERT(provider);
 
@@ -785,7 +790,8 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
 
         // Remove old diagnostics of this provider
         if (!provider->m_persistentDiagnostics) {
-            topItem->removeItemsForProvider(provider);
+            int removedCount = topItem->removeItemsForProvider(provider);
+            m_diagnosticsCount -= removedCount;
         }
     }
     topItem->addProvider(provider);
@@ -834,6 +840,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
             item->appendRow(relatedItemMessage);
         }
     }
+    m_diagnosticsCount += diagItems.size();
     topItem->appendRows(diagItems);
 
     // TODO perhaps add some custom delegate that only shows 1 line
@@ -880,8 +887,11 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QString> &filesTo
         return false;
     };
 
-    auto bulk_remove = [](QStandardItemModel *model, int &start, int &count, int &i) {
+    auto bulk_remove = [this](QStandardItemModel *model, int &start, int &count, int &i) {
         if (start > -1 && count != 0) {
+            for (int r = start; r < (start + count); r++) {
+                m_diagnosticsCount -= model->item(r)->rowCount();
+            }
             model->removeRows(start, count);
             i = start - 1; // reset i
         }
@@ -911,6 +921,9 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QString> &filesTo
     }
 
     if (start != -1 && count != 0) {
+        for (int r = start; r < (start + count); r++) {
+            m_diagnosticsCount -= m_model.item(r)->rowCount();
+        }
         m_model.removeRows(start, count);
     }
 

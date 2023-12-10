@@ -1,8 +1,8 @@
 //
 // Description: GDB variable parser
 //
-// SPDX-FileCopyrightText: 2010 Kåre Särs <kare.sars@iki.fi>
-// SPDX-FileCopyrightText: 2023 Rémi Peuchot <kde.remi@proton.me>
+// SPDX-FileCopyrightText: 2010 KÃ¥re SÃ¤rs <kare.sars@iki.fi>
+// SPDX-FileCopyrightText: 2023 RÃ©mi Peuchot <kde.remi@proton.me>
 //
 // SPDX-License-Identifier: LGPL-2.0-only
 

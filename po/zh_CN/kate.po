@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-21 02:33+0000\n"
-"PO-Revision-Date: 2023-11-25 02:33\n"
+"PO-Revision-Date: 2023-12-09 09:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -1006,7 +1006,7 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
-"启用后，显示区域大小将由标签位置决定。\n"
+"启用后，显示区域大小将由标签页位置决定。\n"
 "此选项不影响底部侧边栏。"
 
 #: lib/kateconfigdialog.cpp:416
@@ -1041,12 +1041,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:459
 #, kde-format
 msgid "&Auto hide tabs"
-msgstr "自动隐藏标签(&A)"
+msgstr "自动隐藏标签页(&A)"
 
 #: lib/kateconfigdialog.cpp:461
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
-msgstr "选中后，如果只打开一个文档，标签将自动隐藏"
+msgstr "选中后，如果只打开一个文档，标签页将自动隐藏"
 
 #: lib/kateconfigdialog.cpp:465
 #, kde-format
@@ -1056,17 +1056,17 @@ msgstr "显示关闭按钮(&S)"
 #: lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid "When checked each tab will display a close button."
-msgstr "选中时，每个标签将显示一个关闭按钮。"
+msgstr "选中时，每个标签页将显示一个关闭按钮。"
 
 #: lib/kateconfigdialog.cpp:471
 #, kde-format
 msgid "&Expand tabs"
-msgstr "扩展标签(&E)"
+msgstr "扩展标签页(&E)"
 
 #: lib/kateconfigdialog.cpp:473
 #, kde-format
 msgid "When checked tabs take as much size as possible."
-msgstr "选中后，标签会占据尽可能多的宽度。"
+msgstr "选中后，标签页会占据尽可能多的宽度。"
 
 #: lib/kateconfigdialog.cpp:477
 #, kde-format
@@ -1098,7 +1098,7 @@ msgstr "允许标签页滚动"
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
-msgstr "勾选此项后，标签页数量较多时可以滚动标签栏。"
+msgstr "勾选此项后，标签页数量较多时可以滚动标签页栏。"
 
 #: lib/kateconfigdialog.cpp:495
 #, kde-format
@@ -1327,7 +1327,7 @@ msgstr "显示标签页(&T)"
 #: lib/katemainwindow.cpp:245
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
-msgstr "使用此命令来显示或隐藏视图的标签栏"
+msgstr "使用此命令来显示或隐藏视图的标签页栏"
 
 #: lib/katemainwindow.cpp:247
 #, kde-format
@@ -1357,7 +1357,7 @@ msgstr "上一个标签页(&P)"
 #: lib/katemainwindow.cpp:271
 #, kde-format
 msgid "Focus the previous tab."
-msgstr "聚焦于上一个标签页。"
+msgstr "焦点转移到上一个标签页。"
 
 #: lib/katemainwindow.cpp:276
 #, kde-format
@@ -1367,7 +1367,7 @@ msgstr "下一个标签页(&N)"
 #: lib/katemainwindow.cpp:277
 #, kde-format
 msgid "Focus the next tab."
-msgstr "聚焦于下一个标签页。"
+msgstr "焦点转移到下一个标签页。"
 
 #: lib/katemainwindow.cpp:284
 #, kde-format
@@ -2281,7 +2281,7 @@ msgstr "关闭所有文档(&A)"
 #: lib/kateviewspace.cpp:1036
 #, kde-format
 msgid "D&etach Document"
-msgstr "拆分文档(&E)"
+msgstr "分离文档(&E)"
 
 #: lib/kateviewspace.cpp:1038
 #, kde-format

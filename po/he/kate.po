@@ -18,21 +18,22 @@
 # Tahmar1900 <tahmar1900@gmail.com>, 2011.
 # elkana bardugo <ttv200@gmail.com>, 2016.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
+# SPDX-FileCopyrightText: 2023 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-29 01:39+0000\n"
-"PO-Revision-Date: 2023-10-05 08:44+0300\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2023-12-08 17:15+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -55,9 +56,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - עורך טקסט מתקדם"
 
 #: kate/main.cpp:92 kwrite/main.cpp:47
-#, fuzzy, kde-format
+#, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
-msgstr "(c) 2000-2013 Kate יוצרי"
+msgstr "(c) 2000‏-2022 Kate יוצרי"
 
 #: kate/main.cpp:138
 #, kde-format
@@ -65,7 +66,7 @@ msgid "Start Kate with a given session."
 msgstr "התחל את Kate עם ההפעלה הנתונה "
 
 #: kate/main.cpp:139
-#, fuzzy, kde-format
+#, kde-format
 msgid "session"
 msgstr "הפעלה"
 
@@ -108,9 +109,9 @@ msgid "Set encoding for the file to open."
 msgstr "קבע קידוד עבור הקובץ שיפתח."
 
 #: kate/main.cpp:168 kwrite/main.cpp:99
-#, fuzzy, kde-format
+#, kde-format
 msgid "encoding"
-msgstr "הצג קידוד"
+msgstr "קידוד"
 
 #: kate/main.cpp:172 kwrite/main.cpp:103
 #, kde-format
@@ -128,9 +129,9 @@ msgid "Navigate to this column."
 msgstr ".דלג לטור זה"
 
 #: kate/main.cpp:178 kwrite/main.cpp:107
-#, fuzzy, kde-format
+#, kde-format
 msgid "column"
-msgstr "הערה"
+msgstr "עמודה"
 
 #: kate/main.cpp:182 kwrite/main.cpp:111
 #, kde-format
@@ -153,24 +154,21 @@ msgid "[urls...]"
 msgstr ""
 
 #: kwrite/main.cpp:43
-#, fuzzy, kde-format
-#| msgid "KWrite Author"
+#, kde-format
 msgid "KWrite"
-msgstr "הכותב של KWrite"
+msgstr "KWrite"
 
 #: kwrite/main.cpp:45
-#, fuzzy, kde-format
-#| msgid "Kate - Advanced Text Editor"
+#, kde-format
 msgid "KWrite - Text Editor"
-msgstr "Kate - עורך טקסט מתקדם"
+msgstr "Kate - עורך טקסט"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
 #: lib/session/katesessionmanagedialog.ui:183
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close"
-msgstr "ס&גור הכל"
+msgstr "סגירה"
 
 #: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:325
 #: lib/kateviewmanager.cpp:327
@@ -179,10 +177,9 @@ msgid "Open File"
 msgstr "פתיחת קובץ"
 
 #: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:351
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Copy Location"
-msgstr "מיקום"
+msgstr "העתקת מקום"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
 #: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
@@ -214,10 +211,9 @@ msgstr "&קובץ"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "Sessions"
+#, kde-format
 msgid "File Actions"
-msgstr "הפעלות"
+msgstr "פעולות קבצים"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2023-11-25 02:26\n"
+"PO-Revision-Date: 2023-12-09 09:24\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -228,7 +228,7 @@ msgstr "服务器内存使用情况"
 #: lspclientpluginview.cpp:581
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
-msgstr "关闭所有动态参考标签"
+msgstr "关闭所有动态参考标签页"
 
 #: lspclientpluginview.cpp:583
 #, kde-format

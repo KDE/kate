@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-24 01:36+0000\n"
-"PO-Revision-Date: 2023-11-25 02:26\n"
+"PO-Revision-Date: 2023-12-09 09:24\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -548,14 +548,14 @@ msgstr "CPU 寄存器"
 #: gdbbackend.cpp:158
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr "请在“调试”面板的“设置”选项卡中设置可执行文件。"
+msgstr "请在“调试”面板的“设置”标签页中设置可执行文件。"
 
 #: gdbbackend.cpp:167
 #, kde-format
 msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
-msgstr "没有选择调试器。请在“调试”面板“设置”选项卡中选择一个。"
+msgstr "没有选择调试器。请在“调试”面板“设置”标签页中选择一个。"
 
 #: gdbbackend.cpp:176
 #, kde-format

@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kdeorg\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2023-11-26 02:01+0000\n"
+"PO-Revision-Date: 2023-12-09 09:24\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: kdeorg\n"
+"X-Crowdin-Project-ID: 269464\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /kf6-trunk/messages/kate/formatplugin.pot\n"
+"X-Crowdin-File-ID: 48678\n"
+
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
+#: FormatterFactory.h:59
+#, kde-format
+msgid "Format"
+msgstr "格式"
+
+#: FormatApply.h:22
+#, kde-format
+msgid "Failed to write a temp file"
+msgstr "写入临时文件失败"
+
+#: FormatApply.h:35
+#, kde-format
+msgid "Failed to run git diff: %1"
+msgstr "运行 git diff 失败：%1"
+
+#: FormatConfig.cpp:122
+#, kde-format
+msgid "User Settings"
+msgstr "用户设置"
+
+#: FormatConfig.cpp:130
+#, kde-format
+msgid "Default Settings"
+msgstr "默认设置"
+
+#: FormatConfig.h:19 FormatPlugin.cpp:112
+#, kde-format
+msgid "Formatting"
+msgstr "格式"
+
+#: FormatConfig.h:24
+#, kde-format
+msgid "Formatting Settings"
+msgstr "格式设置"
+
+#: FormatPlugin.cpp:82
+#, kde-format
+msgid "Failed to read settings.json. Error: %1"
+msgstr "读取 settings.json 失败。错误：%1"
+
+#: FormatPlugin.cpp:118
+#, kde-format
+msgid "Format Document"
+msgstr "格式化文档"
+
+#: FormatPlugin.cpp:136
+#, kde-format
+msgid "Format on Save"
+msgstr "保存时格式化"
+
+#: FormatPlugin.cpp:139
+#, kde-format
+msgid "Disable formatting on save without persisting it in settings"
+msgstr "禁用保存时格式化但不保存到设置"
+
+#: FormatterFactory.h:59
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr "无法运行格式化程序。不支持的语言 %1"
+
+#: Formatters.cpp:110
+#, kde-format
+msgid "%1: Unexpected empty command!"
+msgstr "%1：意外的空命令！"
+
+#: Formatters.cpp:117
+#, kde-format
+msgid ""
+"%1 is not installed, please install it to be able to format this document!"
+msgstr "%1 没有安装。请安装它以格式化此文档！"
+
+#: Formatters.cpp:306
+#, kde-format
+msgid "Please install node and prettier"
+msgstr "请安装 node 和 prettier"
+
+#: Formatters.cpp:313
+#, kde-format
+msgid "PrettierFormat: Failed to create temporary file"
+msgstr "PrettierFormat：创建临时文件失败"

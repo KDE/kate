@@ -222,7 +222,7 @@ public:
 
     QStringList args(KTextEditor::Document *) const override
     {
-        return {QStringLiteral("--color=never"), QStringLiteral("--check")};
+        return {QStringLiteral("--color=never"), QStringLiteral("--emit=stdout")};
     }
 
 private:

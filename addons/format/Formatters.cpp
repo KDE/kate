@@ -237,61 +237,7 @@ void RustFormat::onResultReady(const RunOutput &out)
         return;
     }
 
-    std::vector<PatchLine> patch;
-    const auto lines = out.out.split('\n');
-    for (int i = 0; i < lines.size(); ++i) {
-        if (!lines[i].startsWith("Diff in")) {
-            continue;
-        }
-
-        int x = lines[i].indexOf("at line ");
-        if (x < 0) {
-            qWarning() << "Invalid rustfmt diff 1?";
-            continue;
-        }
-        x += sizeof("at line ") - 1;
-        int e = lines[i].indexOf(':', x);
-        if (e < 0) {
-            qWarning() << "Invalid rustfmt diff 2?";
-            continue;
-        }
-        bool ok = false;
-        auto lineNo = lines[i].mid(x, e - x).toInt(&ok);
-        if (!ok) {
-            qWarning() << "Invalid rustfmt diff 3?";
-            continue;
-        }
-
-        // unroll into the hunk
-        int srcline = lineNo - 1;
-        int tgtline = lineNo - 1;
-        for (int j = i + 1; j < lines.size(); ++j) {
-            const auto &hl = lines.at(j);
-            if (hl.startsWith((' '))) {
-                srcline++;
-                tgtline++;
-            } else if (hl.startsWith(('+'))) {
-                PatchLine p;
-                p.type = PatchLine::Add;
-                p.text = QString::fromUtf8(hl.mid(1));
-                p.inPos = KTextEditor::Cursor(tgtline, 0);
-                patch.push_back(p);
-                tgtline++;
-            } else if (hl.startsWith(('-'))) {
-                PatchLine p;
-                p.type = PatchLine::Remove;
-                p.pos = m_doc->newMovingCursor(KTextEditor::Cursor(srcline, 0));
-
-                patch.push_back(p);
-                srcline++;
-            } else if (hl.startsWith("Diff in")) {
-                i = j - 1; // advance i to next hunk
-                break;
-            }
-        }
-    }
-
-    textFormattedPatch(m_doc, patch);
+    textFormatted(this, m_doc, out.out);
 }
 
 void PrettierFormat::setupNode()

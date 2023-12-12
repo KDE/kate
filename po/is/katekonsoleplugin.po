@@ -3,28 +3,29 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Sveinn í Felli <sveinki@nett.is>, 2011.
+# SPDX-FileCopyrightText: 2023 Guðmundur Erlingsson <gudmundure@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2011-08-30 07:34+0000\n"
-"Last-Translator: Sveinn í Felli <sveinki@nett.is>\n"
-"Language-Team: Icelandic <kde-isl@molar.is>\n"
+"PO-Revision-Date: 2023-12-06 21:14+0000\n"
+"Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
+"Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: kateconsole.cpp:56
 #, kde-format
 msgid "You do not have enough karma to access a shell or terminal emulation"
-msgstr ""
+msgstr "Þú ert ekki með nóg karma til að geta opnað skel eða skjáhermi"
 
 #: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:653
-#, fuzzy, kde-format
+#, kde-format
 msgid "Terminal"
 msgstr "Skjáhermir"
 
@@ -32,103 +33,106 @@ msgstr "Skjáhermir"
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
-msgstr ""
+msgstr "Senda í &pípu í skjáhermi"
 
 #: kateconsole.cpp:147
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
-msgstr ""
+msgstr "Sa&mstilla skjáhermi við núverandi skjal"
 
 #: kateconsole.cpp:151
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
-msgstr ""
+msgstr "Keyra núverandi skjal"
 
 #: kateconsole.cpp:156 kateconsole.cpp:503
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
-msgstr "Skjáhermir"
+msgstr "Sýna skjá&hermisspjald"
 
 #: kateconsole.cpp:162
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
-msgstr "Skjáhermir"
+msgstr "Gefa skjáhermisspjaldi &fókus"
 
 #: kateconsole.cpp:302
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Konsole er ekki uppsett. Settu upp konsole til að geta notað skjáherminn."
 
 #: kateconsole.cpp:378
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
 "contained commands with your user rights."
 msgstr ""
-"Viltu virkilega senda textann í skeljarglugga? Ef einhver skipun er í "
-"textanum mun hún verða keyrð með þínum notendaheimildum."
+"Viltu í alvöru senda textann í skeljarglugga? Ef einhver skipun er í "
+"textanum mun hún verða keyrð með þínum notandaheimildum."
 
 #: kateconsole.cpp:379
 #, kde-format
 msgid "Pipe to Terminal?"
-msgstr ""
+msgstr "Senda í pípu í skjáhermi?"
 
 #: kateconsole.cpp:380
 #, kde-format
 msgid "Pipe to Terminal"
-msgstr ""
+msgstr "Senda í pípu í skjáhermi"
 
 #: kateconsole.cpp:408
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
-msgstr ""
+msgstr "Get því miður ekki farið í '%1' með cd-skipuninni"
 
 #: kateconsole.cpp:444
 #, kde-format
 msgid "Not a local file: '%1'"
-msgstr ""
+msgstr "Ekki skrá á þessu skráakerfi: '%1'"
 
 #: kateconsole.cpp:477
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
 "This will execute the following command,\n"
 "with your user rights, in the terminal:\n"
 "'%1'"
 msgstr ""
-"Viltu virkilega senda textann í skeljarglugga? Ef einhver skipun er í "
-"textanum mun hún verða keyrð með þínum notendaheimildum."
+"Viltu virkilega keyra skjalið?\n"
+"Þá verður eftirfarandi skipun keyrð\n"
+"með þínum notandaheimildum í skjáhermi:\n"
+"'%1'"
 
 #: kateconsole.cpp:484
-#, fuzzy, kde-format
+#, kde-format
 msgid "Run in Terminal?"
-msgstr "Skjáhermir"
+msgstr "Keyra í skjáhermi?"
 
 #: kateconsole.cpp:485
 #, kde-format
 msgid "Run"
-msgstr ""
+msgstr "Keyra"
 
 #: kateconsole.cpp:500
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
-msgstr "Skjáhermir"
+msgstr "&Fela skjáhermisspjald"
 
 #: kateconsole.cpp:511
 #, kde-format
 msgid "Defocus Terminal Panel"
-msgstr ""
+msgstr "Taka fókus af skjáhermisspjaldi"
 
 #: kateconsole.cpp:512 kateconsole.cpp:513
 #, kde-format
 msgid "Focus Terminal Panel"
-msgstr ""
+msgstr "Gefa skjáhermisspjaldi fókus"
 
 #: kateconsole.cpp:586
 #, kde-format
@@ -136,26 +140,27 @@ msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
 msgstr ""
+"S&amstilla skjáherminn sjálfkrafa við núverandi skjal þegar það er hægt"
 
 #: kateconsole.cpp:590 kateconsole.cpp:611
-#, fuzzy, kde-format
+#, kde-format
 msgid "Run in terminal"
-msgstr "Skjáhermir"
+msgstr "Keyra í skjáhermi"
 
 #: kateconsole.cpp:592
 #, kde-format
 msgid "&Remove extension"
-msgstr ""
+msgstr "Fja&rlægja skráarendingu"
 
 #: kateconsole.cpp:597
 #, kde-format
 msgid "Prefix:"
-msgstr ""
+msgstr "Forskeyti:"
 
 #: kateconsole.cpp:605
 #, kde-format
 msgid "&Show warning next time"
-msgstr ""
+msgstr "&Sýna viðvörun næst"
 
 #: kateconsole.cpp:607
 #, kde-format
@@ -163,11 +168,13 @@ msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
+"Næst þegar '%1' er keyrð skaltu tryggja að viðvörunargluggi opnist semsýnir "
+"skipunina sem á að senda í skjáherminn, svo þú getir yfirfarið hana."
 
 #: kateconsole.cpp:618
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
-msgstr ""
+msgstr "Stilla umhverfisbreytuna &EDITOR á 'kate -b'"
 
 #: kateconsole.cpp:621
 #, kde-format
@@ -175,11 +182,12 @@ msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr ""
+"Mikilvægt: Það verður að loka skjalinu til að láta skeljaforritið halda áfram"
 
 #: kateconsole.cpp:624
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
-msgstr ""
+msgstr "Fela Konsole þegar ýtt er á 'Esc'"
 
 #: kateconsole.cpp:627
 #, kde-format
@@ -187,17 +195,20 @@ msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
+"Þetta getur valdið árekstrum við skjáhermisforrit sem nota Esc-lykilinn, t."
+"d. vim. Bættu þessum forritum við í reitnum hér fyrir neðan (aðskilið með "
+"kommum)"
 
 #: kateconsole.cpp:658
 #, kde-format
 msgid "Terminal Settings"
-msgstr ""
+msgstr "Skjáhermisstillingar"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Tools"
-msgstr "Á&höld"
+msgstr "&Verkfæri"
 
 #, fuzzy
 #~ msgctxt "NAME OF TRANSLATORS"

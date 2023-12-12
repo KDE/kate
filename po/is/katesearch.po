@@ -3,127 +3,128 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Sveinn í Felli <sveinki@nett.is>, 2011.
+# SPDX-FileCopyrightText: 2023 Guðmundur Erlingsson <gudmundure@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-15 01:40+0000\n"
-"PO-Revision-Date: 2011-08-30 07:35+0000\n"
-"Last-Translator: Sveinn í Felli <sveinki@nett.is>\n"
-"Language-Team: Icelandic <kde-isl@molar.is>\n"
+"PO-Revision-Date: 2023-12-06 21:41+0000\n"
+"Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
+"Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: KateSearchCommand.cpp:80
-#, fuzzy, kde-format
+#, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
-msgstr "Notkun: grep [mynstur sem leita á eftir í möppu]"
+msgstr "Notkun: grep [mynstur sem á að leita að í möppu]"
 
 #: KateSearchCommand.cpp:82
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
-msgstr ""
+msgstr "Notkun: newGrep [mynstur sem á að leita að í möppu]"
 
 #: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
-#, fuzzy, kde-format
+#, kde-format
 msgid "Usage: search [pattern to search for in open files]"
-msgstr "Notkun: search [mynstur sem leita á eftir í opnum skrám]"
+msgstr "Notkun: search [mynstur sem á að leita að í möppu]"
 
 #: KateSearchCommand.cpp:92
-#, fuzzy, kde-format
+#, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
-msgstr "Notkun: grep [mynstur sem leita á eftir í möppu]"
+msgstr "Notkun: pgrep [mynstur sem á að leita að í möppu]"
 
 #: KateSearchCommand.cpp:94
-#, fuzzy, kde-format
+#, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
-msgstr "Notkun: grep [mynstur sem leita á eftir í möppu]"
+msgstr "Notkun: newPGgrep [mynstur sem á að leita að í möppu]"
 
 #: KateSearchCommand.cpp:98
-#, fuzzy, kde-format
+#, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
-msgstr "Notkun: grep [mynstur sem leita á eftir í möppu]"
+msgstr "Notkun: pgrep [regex-mynstur sem á að leita að í möppu]"
 
 #: MatchExportDialog.cpp:20
-#, fuzzy, kde-format
+#, kde-format
 msgid "Export Search Result Matches"
-msgstr "Leita í skrám"
+msgstr "Flytja út samsvaranir í leitarniðurstöðum"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
 #: MatchExportDialog.ui:31
 #, kde-format
 msgid "Export Pattern"
-msgstr ""
+msgstr "Flytja út mynstur"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:38
 #, kde-format
 msgid "Generate"
-msgstr ""
+msgstr "Búa til"
 
 #. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
 #: MatchExportDialog.ui:50
 #, kde-format
 msgid "Result"
-msgstr ""
+msgstr "Niðurstaða"
 
 #: MatchModel.cpp:545 MatchModel.cpp:547
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr ""
+msgstr "<b><i>Bý til skráalista: ...%1</i></b>"
 
 #: MatchModel.cpp:555
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>Ein samsvörun fannst, leita: ...%2</i></b>"
+msgstr[1] "<b><i>%1 samsvaranir fundust, leita: ...%2</i></b>"
 
 #: MatchModel.cpp:560
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>Ein samsvörun fannst, leita: %2</i></b>"
+msgstr[1] "<b><i>%1 samsvaranir fundust, leita: %2</i></b>"
 
 #: MatchModel.cpp:567 MatchModel.cpp:721
-#, fuzzy, kde-format
+#, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
-msgstr[0] "Leita í skrám"
-msgstr[1] "Leita í skrám"
+msgstr[0] "Ein skoðuð"
+msgstr[1] "%1 skoðaðar"
 
 #: MatchModel.cpp:571
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>Ein samsvörun (%2) fannst í skrá</i></b>"
+msgstr[1] "<b><i>%1 samsvaranir (%2) fundust í þessari skrá</i></b>"
 
 #: MatchModel.cpp:573
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>Ein samsvörun (%2) fannst í skrám sem eru opnar</i></b>"
+msgstr[1] "<b><i>%1 samsvaranir (%2) fundust í skrám sem eru opnar</i></b>"
 
 #: MatchModel.cpp:576
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>Ein samsvörun (%3) fannst í möppunni %2</i></b>"
+msgstr[1] "<b><i>%1 samsvaranir (%3) fundust í möppunni %2</i></b>"
 
 #: MatchModel.cpp:583
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>Ein samsvörun (%4) fannst í verkefninu %2 (%3)</i></b>"
+msgstr[1] "<b><i>%1 samsvaranir (%4) fundust í verkefninu %2 (%3)</i></b>"
 
 #: MatchModel.cpp:592
 #, kde-format
@@ -132,103 +133,110 @@ msgid ""
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
 msgstr[0] ""
+"<b><i>Ein samsvörun (%3) fannst í öllum opnum verkefnum (sameiginleg "
+"yfirmappa: %2)</i></b>"
 msgstr[1] ""
+"<b><i>%1 samsvaranir (%3) fundust í öllum opnum verkefnum (sameiginleg "
+"yfirmappa: %2)</i></b>"
 
 #: MatchModel.cpp:705 MatchModel.cpp:707
 #, kde-format
 msgid "Generating file list: ...%1"
-msgstr ""
+msgstr "Bý til skráalista: ...%1"
 
 #: MatchModel.cpp:715
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ein samsvörun fannst, leita: ...%2"
+msgstr[1] "%1 samsvaranir fundust, leita: ...%2"
 
 #: MatchModel.cpp:717
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ein samsvörun fannst, leita: %2"
+msgstr[1] "%1 samsvaranir fundust, leita: %2"
 
 #: MatchModel.cpp:725
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ein samsvörun (%2) fannst í skrá"
+msgstr[1] "%1 samsvaranir (%2) fundust í þessari skrá"
 
 #: MatchModel.cpp:727
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ein samsvörun (%2) fannst í skrám sem eru opnar"
+msgstr[1] "%1 samsvaranir (%2) fundust í skrám sem eru opnar"
 
 #: MatchModel.cpp:730
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ein samsvörun (%3) fannst í möppunni %2"
+msgstr[1] "%1 samsvaranir (%3) fundust í möppunni %2"
 
 #: MatchModel.cpp:733
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ein samsvörun (%4) fannst í verkefninu %2 (%3)"
+msgstr[1] "%1 samsvaranir (%4) fundust í verkefninu %2 (%3)"
 
 #: MatchModel.cpp:742
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
+"Ein samsvörun (%3) fannst í öllum opnum verkefnum (sameiginleg yfirmappa: %2)"
 msgstr[1] ""
+"%1 samsvaranir (%3) fundust í öllum opnum verkefnum (sameiginleg yfirmappa: "
+"%2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filter..."
-msgstr "Sía"
+msgstr "Sía..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:52 search.ui:55 SearchPlugin.cpp:299
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search"
 msgstr "Leita"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:65
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr "Leita í skrám"
+msgstr "Skipta út merktu"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
 #: search.ui:85 search.ui:88
 #, kde-format
 msgid "Next"
-msgstr ""
+msgstr "Næsta"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
 #. i18n: ectx: property (text), widget (QPushButton, stopButton)
 #: search.ui:93 search.ui:96
-#, fuzzy, kde-format
+#, kde-format
 msgid "Stop"
 msgstr "Stöðva"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
 #: search.ui:133
-#, fuzzy, kde-format
+#, kde-format
 msgid "Match case"
-msgstr "Passa við stafstöðu"
+msgstr "Samsvara há-/lágstöfum"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:149
@@ -237,84 +245,87 @@ msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
 "by using the buttons in the search and replace text fields.</p></body></html>"
 msgstr ""
+"<html><head/><body><p>Virkja reglulegar segðir. Hægt er að fá aðstoð fyrir  "
+"reglulegar segðir með því að nota hnappana í leitarreitunum.</p></body></"
+"html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
 #: search.ui:178
 #, kde-format
 msgid "Expand results"
-msgstr ""
+msgstr "Víkka út niðurstöður"
 
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
 #. i18n: ectx: property (text), widget (QToolButton, newTabButton)
 #: search.ui:194 search.ui:264 search.ui:277
-#, fuzzy, kde-format
+#, kde-format
 msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
 #: search.ui:210 SearchPlugin.cpp:507
-#, fuzzy, kde-format
+#, kde-format
 msgid "Replace"
-msgstr "Leita í skrám"
+msgstr "Skipta út"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:233
-#, fuzzy, kde-format
+#, kde-format
 msgid "In Current File"
-msgstr "í opnum skrám"
+msgstr "Í þessari skrá"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:238
-#, fuzzy, kde-format
+#, kde-format
 msgid "In Open Files"
-msgstr "í opnum skrám"
+msgstr "Í opnum skrám"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:243
-#, fuzzy, kde-format
+#, kde-format
 msgid "In Folder"
-msgstr "í möppu"
+msgstr "Í möppu"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
 #: search.ui:251
 #, kde-format
 msgid "Use the current document's path."
-msgstr ""
+msgstr "Nota slóð núverandi skjals."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:261
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show more search options"
-msgstr "Leita"
+msgstr "Sýna fleiri leitarvalkosti"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
 #: search.ui:274
 #, kde-format
 msgid "Add new search tab"
-msgstr ""
+msgstr "Bæta við nýjum leitarflipa"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
 #: search.ui:371
-#, fuzzy, kde-format
+#, kde-format
 msgid "Folder:"
-msgstr "Mappa"
+msgstr "Mappa:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
 #: search.ui:389
 #, kde-format
 msgid "Go one folder up."
-msgstr ""
+msgstr "Fara upp um eina möppu."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
 #: search.ui:398
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filter:"
-msgstr "Sía"
+msgstr "Sía:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
 #: search.ui:420
-#, fuzzy, kde-format
+#, kde-format
 msgid "*"
 msgstr "*"
 
@@ -322,221 +333,221 @@ msgstr "*"
 #: search.ui:428
 #, kde-format
 msgid "Exclude:"
-msgstr ""
+msgstr "Útiloka:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
 #: search.ui:449
-#, fuzzy, kde-format
+#, kde-format
 msgid "Recursive"
 msgstr "Endurkvæmt"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
 #: search.ui:459
-#, fuzzy, kde-format
+#, kde-format
 msgid "Include hidden"
-msgstr "Hafa með falið"
+msgstr "Innfela falið"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
 #: search.ui:466
-#, fuzzy, kde-format
+#, kde-format
 msgid "Follow symbolic links"
-msgstr "Elta táknræna tengingar"
+msgstr "Elta tákntengla"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
 #: search.ui:473
 #, kde-format
 msgid "Include binary files"
-msgstr ""
+msgstr "Innifela tvíundarskrár"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
-#, fuzzy, kde-format
+#, kde-format
 msgid "Line break"
 msgstr "Línuskil"
 
 #: SearchPlugin.cpp:82 SearchPlugin.cpp:115
-#, fuzzy, kde-format
+#, kde-format
 msgid "Tab"
 msgstr "Tab"
 
 #: SearchPlugin.cpp:93
-#, fuzzy, kde-format
+#, kde-format
 msgid "Beginning of line"
-msgstr "Í byrjun línu"
+msgstr "Byrjun línu"
 
 #: SearchPlugin.cpp:94
-#, fuzzy, kde-format
+#, kde-format
 msgid "End of line"
-msgstr "Í enda línu"
+msgstr "Endir línu"
 
 #: SearchPlugin.cpp:96
-#, fuzzy, kde-format
+#, kde-format
 msgid "Any single character (excluding line breaks)"
-msgstr "Einhver stakur stafur (þó ekki línuskiptar)"
+msgstr "Hvaða stakur stafur sem er (að undanskildum línuskilum)"
 
 #: SearchPlugin.cpp:97
 #, kde-format
 msgid "Literal dot"
-msgstr ""
+msgstr "Raunverulegur punktur"
 
 #: SearchPlugin.cpp:99
-#, fuzzy, kde-format
+#, kde-format
 msgid "One or more occurrences"
 msgstr "Eitt eða fleiri tilfelli"
 
 #: SearchPlugin.cpp:100
-#, fuzzy, kde-format
+#, kde-format
 msgid "Zero or more occurrences"
 msgstr "Ekkert eða fleiri tilfelli"
 
 #: SearchPlugin.cpp:101
-#, fuzzy, kde-format
+#, kde-format
 msgid "Zero or one occurrences"
 msgstr "Ekkert eða eitt tilfelli"
 
 #: SearchPlugin.cpp:103
-#, fuzzy, kde-format
+#, kde-format
 msgid "<a> through <b> occurrences"
 msgstr "<a> til <b> tilfelli"
 
 #: SearchPlugin.cpp:105
-#, fuzzy, kde-format
+#, kde-format
 msgid "Group, capturing"
-msgstr "Hópur, samsöfnun"
+msgstr "Hópur, tekinn með"
 
 #: SearchPlugin.cpp:106
-#, fuzzy, kde-format
+#, kde-format
 msgid "Or"
 msgstr "Eða"
 
 #: SearchPlugin.cpp:107
-#, fuzzy, kde-format
+#, kde-format
 msgid "Set of characters"
-msgstr "Mengi stafa"
+msgstr "Stafamengi"
 
 #: SearchPlugin.cpp:108
-#, fuzzy, kde-format
+#, kde-format
 msgid "Negative set of characters"
-msgstr "Viðsnúið stafamengi"
+msgstr "Neikvætt stafamengi"
 
 #: SearchPlugin.cpp:109
-#, fuzzy, kde-format
+#, kde-format
 msgid "Group, non-capturing"
-msgstr "Hópur, ekki-samsöfnun"
+msgstr "Hópur, undanskilinn"
 
 #: SearchPlugin.cpp:110
-#, fuzzy, kde-format
+#, kde-format
 msgid "Lookahead"
-msgstr "Forvinnsla"
+msgstr "Framlit"
 
 #: SearchPlugin.cpp:111
-#, fuzzy, kde-format
+#, kde-format
 msgid "Negative lookahead"
-msgstr "Neikvæð forvinnsla"
+msgstr "Neikvætt framlit"
 
 #: SearchPlugin.cpp:116
-#, fuzzy, kde-format
+#, kde-format
 msgid "Word boundary"
 msgstr "Orðamörk"
 
 #: SearchPlugin.cpp:117
-#, fuzzy, kde-format
+#, kde-format
 msgid "Not word boundary"
-msgstr "Ekki-orðamörk"
+msgstr "Ekki orðamörk"
 
 #: SearchPlugin.cpp:118
-#, fuzzy, kde-format
+#, kde-format
 msgid "Digit"
 msgstr "Tala"
 
 #: SearchPlugin.cpp:119
-#, fuzzy, kde-format
+#, kde-format
 msgid "Non-digit"
-msgstr "Ekki-tala"
+msgstr "Ekki tala"
 
 #: SearchPlugin.cpp:120
-#, fuzzy, kde-format
+#, kde-format
 msgid "Whitespace (excluding line breaks)"
-msgstr "Biltákn (utan línuskiptatákna)"
+msgstr "Biltákn (að undanskildum línuskilum)"
 
 #: SearchPlugin.cpp:121
-#, fuzzy, kde-format
+#, kde-format
 msgid "Non-whitespace (excluding line breaks)"
-msgstr "Ekki-biltákn (utan línuskiptatákna)"
+msgstr "Ekki biltákn (að undanskildum línuskilum)"
 
 #: SearchPlugin.cpp:122
-#, fuzzy, kde-format
+#, kde-format
 msgid "Word character (alphanumerics plus '_')"
-msgstr "Orðstafur (ritstafir auk '_')"
+msgstr "Orðstafur (tölu- og bókstafir auk '_')"
 
 #: SearchPlugin.cpp:123
-#, fuzzy, kde-format
+#, kde-format
 msgid "Non-word character"
-msgstr "Ekki-orðstafur"
+msgstr "Ekki orðstafur"
 
 #: SearchPlugin.cpp:135
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
-msgstr ""
+msgstr "Reglulegrar segðarhópur 0 (heildarsamsvörun)"
 
 #: SearchPlugin.cpp:136
-#, fuzzy, kde-format
+#, kde-format
 msgid "Regular expression capture 1-9"
-msgstr "Regluleg segð"
+msgstr "Reglulegrar segðarhópur 1-9"
 
 #: SearchPlugin.cpp:137
-#, fuzzy, kde-format
+#, kde-format
 msgid "Regular expression capture 0-999"
-msgstr "Regluleg segð"
+msgstr "Reglulegrar segðarhópur 0-999"
 
 #: SearchPlugin.cpp:139
 #, kde-format
 msgid "Upper-cased capture 0-9"
-msgstr ""
+msgstr "Hópur í hástafi 0-9"
 
 #: SearchPlugin.cpp:140
 #, kde-format
 msgid "Upper-cased capture 0-999"
-msgstr ""
+msgstr "Hópur í hástafi 0-999"
 
 #: SearchPlugin.cpp:141
 #, kde-format
 msgid "Lower-cased capture 0-9"
-msgstr ""
+msgstr "Hópur í lágstafi 0-9"
 
 #: SearchPlugin.cpp:142
 #, kde-format
 msgid "Lower-cased capture 0-999"
-msgstr ""
+msgstr "Hópur í lágstafi 0-999"
 
 #: SearchPlugin.cpp:292
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search & Replace"
-msgstr "Leita í skrám"
+msgstr "Leita og skipta út"
 
 #: SearchPlugin.cpp:333
-#, fuzzy, kde-format
+#, kde-format
 msgid "Find in Files"
-msgstr "í opnum skrám"
+msgstr "Finna í skrám"
 
 #: SearchPlugin.cpp:339
-#, fuzzy, kde-format
+#, kde-format
 msgid "Find in Files (in a New Tab)"
-msgstr "Leita í skrám"
+msgstr "Finna í skrám (í nýjum flipa)"
 
 #: SearchPlugin.cpp:345
 #, kde-format
 msgid "Go to Next Match"
-msgstr ""
+msgstr "Fara á næstu samsvörun"
 
 #: SearchPlugin.cpp:351
 #, kde-format
 msgid "Go to Previous Match"
-msgstr ""
+msgstr "Fara á fyrri samsvörun"
 
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Klippa út samsvarandi línur"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -544,11 +555,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Þetta klippir allar áherslulitaðar línur úr þessu skjali sem passa við "
+"leitina og færir þær á klippispjaldið"
 
 #: SearchPlugin.cpp:364
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Afrita samsvarandi línur"
 
 #: SearchPlugin.cpp:366
 #, kde-format
@@ -556,12 +569,16 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Þetta afritar allar áherslulitaðar línur í þessu skjali sem passa við "
+"leitina á klippispjaldið"
 
 #: SearchPlugin.cpp:394
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr ""
+"Listi yfir skrárgerðir sem er leitað í, aðskildar með kommum. Dæmi: \"*.cpp,"
+"*.h\"\n"
 
 #: SearchPlugin.cpp:395
 #, kde-format
@@ -569,105 +586,107 @@ msgid ""
 "Comma separated list of files and directories to exclude from the search. "
 "Example: \"build*\""
 msgstr ""
+"Listi yfir skrár og möppur sem á ekki að hafa með í leit, aðskildar með "
+"kommum. Dæmi: \"build*\""
 
 #: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
-msgstr ""
+msgstr "Smelltu til að sía niðurstöðurnar"
 
 #: SearchPlugin.cpp:487
 #, kde-format
 msgid "Find"
-msgstr ""
+msgstr "Finna"
 
 #: SearchPlugin.cpp:1319
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
-msgstr ""
+msgstr "Leit við innslátt var stöðvuð. Hún hefði tekið of langan tíma."
 
 #: SearchPlugin.cpp:1652
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search Match"
-msgstr "Leita"
+msgstr "Leitarsamsvörun"
 
 #: SearchPlugin.cpp:1832 SearchPlugin.cpp:1909
 #, kde-format
 msgid "Next from cursor"
-msgstr ""
+msgstr "Næsta frá bendli"
 
 #: SearchPlugin.cpp:1849
 #, kde-format
 msgid "Starting from first match"
-msgstr ""
+msgstr "Byrjað frá fyrstu samsvörun"
 
 #: SearchPlugin.cpp:1869
 #, kde-format
 msgid "Continuing from first match"
-msgstr ""
+msgstr "Haldið áfram frá fyrstu samsvörun"
 
 #: SearchPlugin.cpp:1926
 #, kde-format
 msgid "Starting from last match"
-msgstr ""
+msgstr "Byrjað frá síðustu samsvörun"
 
 #: SearchPlugin.cpp:1946
 #, kde-format
 msgid "Continuing from last match"
-msgstr ""
+msgstr "Haldið áfram frá síðustu samsvörun"
 
 #: SearchPlugin.cpp:2105
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search: %1"
-msgstr "Leita"
+msgstr "Leita: %1"
 
 #: SearchPlugin.cpp:2236
 #, kde-format
 msgid "Copy all"
-msgstr ""
+msgstr "Afrita allt"
 
 #: SearchPlugin.cpp:2241
 #, kde-format
 msgid "Copy expanded"
-msgstr ""
+msgstr "Afrita útvíkkað"
 
 #: SearchPlugin.cpp:2244
 #, kde-format
 msgid "Export matches"
-msgstr ""
+msgstr "Flytja út samsvaranir"
 
 #: SearchPlugin.cpp:2250
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Opna sem ritilsflipa"
 
 #: SearchPlugin.cpp:2257
 #, kde-format
 msgid "Clear"
-msgstr ""
+msgstr "Hreinsa"
 
 #: SearchPlugin.cpp:2367 SearchPlugin.cpp:2401
-#, fuzzy, kde-format
+#, kde-format
 msgid "Add..."
 msgstr "Bæta við..."
 
 #: SearchPlugin.cpp:2379
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search As You Type"
-msgstr "Leita"
+msgstr "Leita við innslátt"
 
 #: SearchPlugin.cpp:2450
-#, fuzzy, kde-format
+#, kde-format
 msgid "In Current Project"
-msgstr "í opnum skrám"
+msgstr "Í þessu verkefni"
 
 #: SearchPlugin.cpp:2452
 #, kde-format
 msgid "In All Open Projects"
-msgstr ""
+msgstr "Í öllum opnum verkefnum"
 
 #. i18n: ectx: Menu (edit)
 #: ui.rc:6
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Edit"
 msgstr "Br&eyta"
 
@@ -675,7 +694,7 @@ msgstr "Br&eyta"
 #: ui.rc:9
 #, kde-format
 msgid "Find in Files Variants"
-msgstr ""
+msgstr "Finna í skráaafbrigðum"
 
 #, fuzzy
 #~ msgid "Kate Search & Replace"

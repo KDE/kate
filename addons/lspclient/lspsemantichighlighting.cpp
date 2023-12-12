@@ -33,7 +33,7 @@ void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, bool t
         m_requestTimer.start(1000);
     } else {
         // This is not a textChange, its either the user scrolled or view changed etc
-        m_requestTimer.start(40);
+        m_requestTimer.start(1);
     }
 }
 
@@ -75,7 +75,19 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
     };
 
     if (caps.semanticTokenProvider.range) {
-        server->documentSemanticTokensRange(doc->url(), Utils::getVisibleRange(view), this, h);
+        auto visibleRange = Utils::getVisibleRange(view);
+        if (visibleRange.start().line() > 8) {
+            auto s = visibleRange.start();
+            s.setLine(s.line() - 8);
+            visibleRange.setStart(s);
+        }
+        if (visibleRange.end().line() + 8 < view->document()->lines()) {
+            auto e = visibleRange.end();
+            e.setLine(e.line() + 8);
+            visibleRange.setEnd(e);
+        }
+        m_currentHighlightedRange = visibleRange;
+        server->documentSemanticTokensRange(doc->url(), visibleRange, this, h);
     } else if (caps.semanticTokenProvider.fullDelta) {
         auto prevResultId = previousResultIdForDoc(doc);
         server->documentSemanticTokensFullDelta(doc->url(), prevResultId, this, h);
@@ -86,6 +98,11 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
 
 void SemanticHighlighter::semanticHighlightRange(KTextEditor::View *view, const KTextEditor::Cursor &)
 {
+    const auto range = Utils::getVisibleRange(view);
+    if (m_currentHighlightedRange.contains(range)) {
+        return;
+    }
+
     doSemanticHighlighting(view, false);
 }
 

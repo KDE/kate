@@ -64,6 +64,11 @@ private:
     void update(KTextEditor::Document *doc, const QString &resultId, uint32_t start, uint32_t deleteCount, const std::vector<uint32_t> &data);
 
     /**
+     * The current visible range for which we requested highlights
+     */
+    KTextEditor::Range m_currentHighlightedRange;
+
+    /**
      * A simple struct which holds the tokens recieved from server +
      * moving ranges that were created to highlight those tokens
      */

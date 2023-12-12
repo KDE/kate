@@ -1,6 +1,6 @@
 # translation of kategdbplugin.po to Slovak
 # Richard Fric <Richard.Fric@kdemail.net>, 2010.
-# Roman Paholík <wizzardsk@gmail.com>, 2013, 2014.
+# SPDX-FileCopyrightText: 2013, 2014, 2023 Roman Paholík <wizzardsk@gmail.com>
 # Matej Mrenica <matejm98mthw@gmail.com>, 2020, 2021, 2022.
 # Ferdinand Galko <galko.ferdinand@gmail.com>, 2023.
 msgid ""
@@ -8,20 +8,19 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-15 00:49+0000\n"
-"PO-Revision-Date: 2023-02-07 18:19+0100\n"
-"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
-"Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
+"PO-Revision-Date: 2023-12-11 18:05+0100\n"
+"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "GDB príkaz"
 
@@ -187,11 +186,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "Nastavenia"
+msgstr "Súbor nastavení:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
@@ -200,30 +197,29 @@ msgid "Default Debug Adapter Settings"
 msgstr ""
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Ladenie"
+msgstr "Debugger"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Žiadne JSON údaje na overenie."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "Údaje JSON sú platné."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Údaje JSON sú neplatné: žiadny objekt JSON"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "Údaje JSON sú neplatné: %1"
 
 #: debugview.cpp:35
 #, kde-format
@@ -641,10 +637,9 @@ msgid "named items"
 msgstr "pomenované položky"
 
 #: plugin_kategdb.cpp:106
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr "Kate ladenie"
 
 #: plugin_kategdb.cpp:110
 #, kde-format
@@ -674,12 +669,10 @@ msgid "Frame"
 msgstr "Rámec"
 
 #: plugin_kategdb.cpp:200
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB výstup"
+msgstr "Ladiaci výstup"
 
 #: plugin_kategdb.cpp:201
 #, kde-format
@@ -804,7 +797,7 @@ msgstr "&Ladiť"
 #, fuzzy, kde-format
 #| msgid "GDB Plugin"
 msgid "Debug Plugin"
-msgstr "GDB Plugin"
+msgstr "Ladiaci plugin"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

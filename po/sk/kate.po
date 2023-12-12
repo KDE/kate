@@ -4,7 +4,7 @@
 # Stanislav Visnovsky <visnovsky@kde.org>, 2003, 2004.
 # Richard Fric <Richard.Fric@kdemail.net>, 2006, 2009.
 # Jozef Riha <jose1711@gmail.com>, 2006.
-# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019.
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2023 Roman Paholík <wizzardsk@gmail.com>
 # Mthw <jari_45@hotmail.com>, 2018, 2019.
 # Matej Mrenica <matejm98mthw@gmail.com>, 2019, 2020, 2021, 2022.
 # Dušan Kazik <prescott66@gmail.com>, 2020.
@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-21 02:33+0000\n"
-"PO-Revision-Date: 2023-02-07 18:18+0100\n"
-"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
-"Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
+"PO-Revision-Date: 2023-12-11 18:04+0100\n"
+"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -291,7 +291,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Všetko"
 
 #: lib/diagnostics/diagnosticview.cpp:323
 #, kde-format
@@ -299,16 +299,14 @@ msgid "Quick Fix"
 msgstr "Rýchla oprava"
 
 #: lib/diagnostics/diagnosticview.cpp:327
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "&Nasledujúca karta"
+msgstr "Ďalšia položka"
 
 #: lib/diagnostics/diagnosticview.cpp:332
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Predchádzajúca karta"
+msgstr "Predošlá položka"
 
 #: lib/diagnostics/diagnosticview.cpp:339
 #, fuzzy, kde-format
@@ -322,16 +320,14 @@ msgid "Diagnostics"
 msgstr "Diagnostika"
 
 #: lib/diagnostics/diagnosticview.cpp:408
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Chyba"
+msgstr "Chyby"
 
 #: lib/diagnostics/diagnosticview.cpp:424
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Upozornenie"
+msgstr "Upozornenia"
 
 #: lib/diagnostics/diagnosticview.cpp:438
 #, kde-format
@@ -1952,12 +1948,12 @@ msgstr "Chyba pri vytváraní rozdielu"
 #: lib/katemwmodonhddialog.cpp:347
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[staré]"
 
 #: lib/katemwmodonhddialog.cpp:348
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[nové]"
 
 #: lib/kateoutputview.cpp:189
 #, kde-format
@@ -2742,10 +2738,9 @@ msgid "No saved sessions"
 msgstr "Žiadne uložené sedenia"
 
 #: lib/welcomeview/welcomeview.cpp:245
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Otvoriť súbor..."
+msgstr "Otvoriť vybraté súbory..."
 
 #: lib/welcomeview/welcomeview.cpp:258
 #, kde-format

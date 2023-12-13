@@ -36,4 +36,5 @@ Q_SIGNALS:
 
 private:
     QCheckBox *m_useDiagnosticsCB = nullptr;
+    QCheckBox *m_autoSwitchToOutput = nullptr;
 };

@@ -166,6 +166,7 @@ private:
     bool m_firstBuild = true;
     DiagnosticsProvider m_diagnosticsProvider;
     bool m_addDiagnostics = true;
+    bool m_autoSwitchToOutput = true;
 
     /**
      * current project plugin view, if any

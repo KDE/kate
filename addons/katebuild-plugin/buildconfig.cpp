@@ -24,11 +24,14 @@ KateBuildConfigPage::KateBuildConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)
 {
     m_useDiagnosticsCB = new QCheckBox(i18n("Add errors and warnings to Diagnostics"), this);
+    m_autoSwitchToOutput = new QCheckBox(i18n("Automatically switch to output pane on executing the selected target"), this);
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_useDiagnosticsCB);
+    layout->addWidget(m_autoSwitchToOutput);
     layout->addStretch(1);
     reset();
-    connect(m_useDiagnosticsCB, &QCheckBox::stateChanged, this, &KateBuildConfigPage::changed);
+    for (const auto *item : {m_useDiagnosticsCB, m_autoSwitchToOutput})
+        connect(item, &QCheckBox::stateChanged, this, &KateBuildConfigPage::changed);
 }
 
 /******************************************************************/
@@ -54,7 +57,8 @@ void KateBuildConfigPage::apply()
 {
     Q_ASSERT(m_useDiagnosticsCB);
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
-    config.writeEntry("UseDiagnosticsOutput", m_useDiagnosticsCB->checkState() == Qt::CheckState::Checked);
+    config.writeEntry("UseDiagnosticsOutput", m_useDiagnosticsCB->isChecked());
+    config.writeEntry("AutoSwitchToOutput", m_autoSwitchToOutput->isChecked());
     config.sync();
     Q_EMIT configChanged();
 }
@@ -64,8 +68,8 @@ void KateBuildConfigPage::reset()
 {
     Q_ASSERT(m_useDiagnosticsCB);
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
-    bool use = config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true);
-    m_useDiagnosticsCB->setCheckState(use ? Qt::CheckState::Checked : Qt::CheckState::Unchecked);
+    m_useDiagnosticsCB->setChecked(config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true));
+    m_autoSwitchToOutput->setChecked(config.readEntry(QStringLiteral("AutoSwitchToOutput"), true));
 }
 
 /******************************************************************/
@@ -73,6 +77,7 @@ void KateBuildConfigPage::defaults()
 {
     Q_ASSERT(m_useDiagnosticsCB);
     m_useDiagnosticsCB->setCheckState(Qt::CheckState::Checked);
+    m_autoSwitchToOutput->setCheckState(Qt::CheckState::Checked);
 }
 
 #include "moc_buildconfig.cpp"

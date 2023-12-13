@@ -537,6 +537,7 @@ void KateBuildView::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
     m_addDiagnostics = config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true);
+    m_autoSwitchToOutput = config.readEntry(QStringLiteral("AutoSwitchToOutput"), true);
 }
 
 /******************************************************************/
@@ -654,10 +655,13 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     // clear previous runs
     clearBuildResults();
 
-    // activate the output tab
-    m_buildUi.u_tabWidget->setCurrentIndex(1);
+    if (m_autoSwitchToOutput) {
+        // activate the output tab
+        m_buildUi.u_tabWidget->setCurrentIndex(1);
+        m_win->showToolView(m_toolView);
+    }
+
     m_buildUi.u_tabWidget->setTabIcon(1, QIcon::fromTheme(QStringLiteral("system-run")));
-    m_win->showToolView(m_toolView);
 
     QFont font = Utils::editorFont();
     m_buildUi.textBrowser->setFont(font);

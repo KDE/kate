@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-26 02:01+0000\n"
+"POT-Creation-Date: 2023-12-13 01:36+0000\n"
 "PO-Revision-Date: 2023-12-09 09:24\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -89,12 +89,12 @@ msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 没有安装。请安装它以格式化此文档！"
 
-#: Formatters.cpp:306
+#: Formatters.cpp:252
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "请安装 node 和 prettier"
 
-#: Formatters.cpp:313
+#: Formatters.cpp:259
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat：创建临时文件失败"

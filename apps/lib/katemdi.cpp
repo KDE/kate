@@ -1190,6 +1190,10 @@ void Sidebar::dragEnterEvent(QDragEnterEvent *e)
         return;
     }
 
+    if (!e->mimeData() || !e->mimeData()->property("toolviewToMove").value<ToolView *>()) {
+        return;
+    }
+
     if (e->source() == this) {
         if (toolviewCount() == 1) {
             // only 1 toolview? Nothing to reorder then

@@ -13,3 +13,4 @@ include:
       - /gitlab-templates/flatpak.yml
       - /gitlab-templates/craft-appimage.yml
       - /gitlab-templates/craft-windows-x86-64.yml
+      - /gitlab-templates/craft-windows-appx-qt5.yml

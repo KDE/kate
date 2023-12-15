@@ -18,7 +18,7 @@
 #include <KPluginFactory>
 #include <KSharedConfig>
 
-#include <QApplication>
+#include <QCoreApplication>
 #include <QEvent>
 #include <QPainter>
 #include <QPointer>
@@ -375,15 +375,10 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
         }
     }
 
-    if (event->type() == QEvent::FocusOut) {
-        auto w = qApp->focusWidget();
-        // if nothing is focused or the focus doesn't
-        // belong to us, then its time to hide
-        if (!w || w->parentWidget() != this) {
-            hide();
-            deleteLater();
-            return true;
-        }
+    if (event->type() == QEvent::FocusOut && !(m_inputLine->hasFocus() || m_listView->hasFocus())) {
+        hide();
+        deleteLater();
+        return true;
     }
 
     // handle resizing

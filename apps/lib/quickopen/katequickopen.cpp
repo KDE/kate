@@ -18,7 +18,7 @@
 #include <KPluginFactory>
 #include <KSharedConfig>
 
-#include <QCoreApplication>
+#include <QApplication>
 #include <QEvent>
 #include <QPainter>
 #include <QPointer>
@@ -292,7 +292,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
 
     layout->addWidget(m_inputLine);
 
-    m_listView = new QTreeView();
+    m_listView = new QTreeView(this);
     layout->addWidget(m_listView, 1);
     m_listView->setTextElideMode(Qt::ElideLeft);
     m_listView->setUniformRowHeights(true);
@@ -376,9 +376,14 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
     }
 
     if (event->type() == QEvent::FocusOut) {
-        hide();
-        deleteLater();
-        return true;
+        auto w = qApp->focusWidget();
+        // if nothing is focused or the focus doesn't
+        // belong to us, then its time to hide
+        if (!w || w->parentWidget() != this) {
+            hide();
+            deleteLater();
+            return true;
+        }
     }
 
     // handle resizing
@@ -455,6 +460,8 @@ void KateQuickOpen::slotReturnPressed()
     }
 
     hide();
+    deleteLater();
+
     m_mainWindow->slotWindowActivated();
 
     // store the new position in location history

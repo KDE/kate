@@ -492,9 +492,7 @@ void MultiTabBar::reorderTab(int id, KMultiTabBarTab *before)
         auto tabId = m_tabList[i];
         ToolView *tv = m_sb->m_idToWidget.at(tabId);
         m_multiTabBar->appendTab(tv->icon, tabId, tv->text);
-        auto newTab = m_multiTabBar->tab(tabId);
-        newTab->installEventFilter(m_sb);
-        connect(newTab, &KMultiTabBarTab::clicked, this, &MultiTabBar::tabClicked);
+        m_sb->appendStyledTab(tabId, this, tv);
     }
 }
 
@@ -1181,7 +1179,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
         }
     }
 
-    return false;
+    return QSplitter::eventFilter(obj, ev);
 }
 
 void Sidebar::dragEnterEvent(QDragEnterEvent *e)

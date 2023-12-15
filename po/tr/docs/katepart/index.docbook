@@ -1,0 +1,290 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+  <!ENTITY kappname "&katepart;">
+  <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
+  <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
+  <!ENTITY menus-chapter SYSTEM "menus.docbook">
+  <!ENTITY part-chapter SYSTEM "part.docbook">
+  <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
+  <!ENTITY dev-chapter SYSTEM "development.docbook">
+  <!ENTITY vi-appendix SYSTEM "vi.docbook">
+  <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Turkish "INCLUDE"
+> <!-- change language only here -->
+]>
+
+<book id="katepart" lang="&language;">
+
+<bookinfo>
+<title
+>&katepart; El Kitabı</title>
+<authorgroup>
+<author
+>&Thad.McGinnis; &Thad.McGinnis.mail;</author>
+<author
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail;</author>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="developer"
+>&Christoph.Cullmann; &Christoph.Cullmann.mail; </othercredit>
+
+<othercredit role="reviewer"
+>&Lauri.Watts; &Lauri.Watts.mail; </othercredit>
+
+<othercredit role="translator"
+><firstname
+>Kaan</firstname
+><surname
+>Özdinçer</surname
+><affiliation
+><address
+><email
+>kaanozdincer@gmail.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@icloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+
+</authorgroup>
+
+<copyright>
+<year
+>2000</year
+><year
+>2001</year>
+<holder
+>&Thad.McGinnis;</holder>
+</copyright>
+<copyright>
+<year
+>2005</year>
+<holder
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail;</holder>
+<holder
+>&Anders.Lund; &Anders.Lund.mail;</holder>
+</copyright>
+<copyright>
+<year
+>2011</year
+><year
+>2012</year
+><year
+>2013</year
+><year
+>2014</year>
+<holder
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2022-05-02</date>
+<releaseinfo
+>&frameworks; 5.94</releaseinfo>
+
+<abstract>
+<para
+>&katepart;, &kde; için tam özellikli bir düzenleyici bileşenidir.</para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>KatePart</keyword>
+<keyword
+>K Yaz</keyword>
+<keyword
+>metin</keyword>
+<keyword
+>düzenleyici</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Giriş</title>
+
+<para
+>&katepart;, birçok &Qt; ve &kde; uygulaması için tam özellikli bir düzenleyici bileşendir. &katepart;, bir metin düzenleyicisinden fazlasıdır; bir programcı düzenleyicisi olarak tasarlanmıştır ve daha güçlü düzenleyicilere en azından kısımsal bir alternatif olarak düşünülebilir. &katepart;'ın temel özelliklerinden biri, sözdizim renklendirmesidir ve bu özellik bir çok programlama dili için özelleştirilmiştir: C/C++, &Java;, Python, Perl, Bash, Modula 2, &HTML; ve Ada. </para>
+<para
+>&kwrite;, &katepart; temelli yalın bir metin düzenleyicisidir. Pencere başına o anda bir dosyayı düzenlemenizi sağlayan tek bir belge arabirimi (<acronym
+>SDI</acronym
+>) vardır. &kwrite;, &katepart;'ın çok basit bir uygulamasıdır ve kendi belgelendirmesini gerektirmemektedir. &katepart;'ın nasıl kullanılacağını biliyorsanız &kwrite;'ı da kullanabilirsiniz. </para>
+</chapter>
+
+&fundamentals-chapter;
+
+&part-chapter;
+
+&menus-chapter;
+
+&advanced-chapter;
+
+&dev-chapter;
+
+&configuring-chapter;
+
+<chapter id="credits">
+<title
+>Emeği Geçenler ve Lisans</title>
+
+<para
+>&katepart; ve &kwrite; Telif hakkı 2001-2014 &kate; takımı.</para>
+
+<para
+>Özgün &kwrite; temellidir, Telif hakkı 2000 Jochen Wilhelmy <email
+>digisnap@cs.tu-berlin.de</email
+> </para>
+
+<para
+>Katkılar:</para>
+
+<itemizedlist>
+<listitem>
+<para
+>&Christoph.Cullmann; &Christoph.Cullmann.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Michael Bartl <email
+>michael.bartl1@chello.at</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>Phlip <email
+>phlip_cpp@my-deja.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Anders.Lund; &Anders.Lund.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Matt Newell <email
+>newellm@proaxis.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Joseph.Wenninger; &Joseph.Wenninger.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Jochen Wilhelmy <email
+>digisnap@cs.tu-berlin.de</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Michael.Koch; &Michael.Koch.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>&Christian.Gebauer; &Christian.Gebauer.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>&Simon.Hausmann; &Simon.Hausmann.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Glen Parker <email
+>glenebob@nwlink.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>Scott Manson <email
+>sdmanson@altel.net</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&John.Firebaugh; &John.Firebaugh.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Nibaldo González <email
+>nibgonz@gmail.com</email
+></para>
+</listitem>
+</itemizedlist>
+
+<para
+>&katepart; belgelendirmesi, özgün &kwrite; belgelendirmesi temellidir ve &katepart; ile alakalı olacak şekilde değiştirilmiştir. </para>
+
+<para
+>Özgün &kwrite; belgelendirmesi, &Thad.McGinnis; &Thad.McGinnis.mail; tarafından yazılmış, &Cristian.Tibirna; &Cristian.Tibirna.mail; tarafından  bir çok düzeltme almıştır. &Lauri.Watts; &Lauri.Watts.mail; tarafından docbook biçimine dönüştürülmüş, &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; ve &Anders.Lund; &Anders.Lund.mail; tarafından güncellenmiştir </para>
+
+<para
+>Geçerli &katepart; belgelendirmesi bakımı &TC.Hollingsworth; &TC.Hollingsworth.mail; tarafından yapılmaktadır. Yorumlarınızı ve önerilerinizi lütfen &katepart; geliştirme posta listesine (<email
+>kwrite-devel@kde.org</email
+>) gönderin veya <ulink url="https://bugs.kde.org/"
+>&kde; Hata İzleme Sistemi</ulink
+>'nde bir hata kaydı açın.</para>
+
+<para
+>Çeviri: Kaan Özdinçer <email
+>kaanozdincer@gmail.com</email
+></para
+><para
+>Çeviri: Emir SARI <email
+>emir_sari@icloud.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&vi-appendix;
+
+&regexp-appendix;
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-namecase-general: t
+sgml-namecase-entity: nil
+sgml-general-insert-case: lower
+sgml-minimize-attributes: nil
+sgml-omittag: nil
+End:
+-->
+

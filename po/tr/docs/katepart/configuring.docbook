@@ -1502,7 +1502,7 @@ Remove selected Add new mapping Import from vimrc file-->
 
 <sect3 id="pref-open-save-modes-filetypes">
 <title
->Kipler &ve Dosya Türleri</title>
+>Kipler ve Dosya Türleri</title>
 <para
 >Bu sayfa, belirtilen &MIME; türlerindeki belgeler için öntanımlı yapılandırmayı geçersiz kılmanıza olanak tanır. Düzenleyici bir belge yüklediğinde, bunun tanımlanmış dosya türlerinden biri için dosya maskeleri veya &MIME; türleriyle eşleşip eşleşmediğini deneyecek ve eğer öyleyse tanımlanan değişkenleri uygulayacaktır. Daha fazla dosya türü eşleşirse en yüksek önceliğe sahip olan kullanılır. </para>
 <variablelist>
@@ -1693,7 +1693,7 @@ Remove selected Add new mapping Import from vimrc file-->
 >.kateconfig</filename
 > adlı bir dosyaya yerleştirilebilir ve yapılandırılan ayarlar, dizindeki ve alt dizinlerindeki her dosyaya kip satırları girilmiş gibi uygulanacaktır. Belge değişkenleri, <filename
 >.kateconfig</filename
-> dosyasındaki kip satırları ile aynı sözdizimini kullanır; ancak <link linkend="kateconfig-extulated-options"
+> dosyasındaki kip satırları ile aynı sözdizimini kullanır; ancak <link linkend="kateconfig-extended-options"
 >genişletilmiş seçeneklerle</link
 >.</para>
 
@@ -2526,7 +2526,7 @@ kate-wildcard(Makefile): replace-tabs off;
 <note
 ><para
 ><filename
->.kateconfig</file name
+>.kateconfig</filename
 > dosyalarındaki desteğin yanı sıra, joker karakterlerine ve &MIME; türüne bağlı belge değişkenleri de dosyaların kendisinde yorumlar olarak desteklenir. </para
 ></note>
 

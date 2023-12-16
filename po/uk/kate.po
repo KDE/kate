@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-29 01:39+0000\n"
+"POT-Creation-Date: 2023-12-16 01:39+0000\n"
 "PO-Revision-Date: 2023-08-30 08:01+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -1782,67 +1782,67 @@ msgstr "Показати кнопку %1"
 msgid "Focus %1"
 msgstr "Фокусувати %1"
 
-#: lib/katemdi.cpp:1078
+#: lib/katemdi.cpp:1076
 #, kde-format
 msgid "Configure..."
 msgstr "Налаштувати…"
 
-#: lib/katemdi.cpp:1082
+#: lib/katemdi.cpp:1080
 #, kde-format
 msgid "Hide Button"
 msgstr "Приховати кнопку"
 
-#: lib/katemdi.cpp:1084
+#: lib/katemdi.cpp:1082
 #, kde-format
 msgid "Move To"
 msgstr "Пересунути до"
 
-#: lib/katemdi.cpp:1089
+#: lib/katemdi.cpp:1087
 #, kde-format
 msgid "Own Section"
 msgstr "Власний розділ"
 
-#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1103
+#: lib/katemdi.cpp:1093 lib/katemdi.cpp:1101
 #, kde-format
 msgid "One Down"
 msgstr "На один вниз"
 
-#: lib/katemdi.cpp:1097 lib/katemdi.cpp:1108
+#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1106
 #, kde-format
 msgid "One Right"
 msgstr "На один праворуч"
 
-#: lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1099
 #, kde-format
 msgid "One Up"
 msgstr "На один вгору"
 
-#: lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1104
 #, kde-format
 msgid "One Left"
 msgstr "На один ліворуч"
 
-#: lib/katemdi.cpp:1115
+#: lib/katemdi.cpp:1113
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Ліва бічна панель"
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1117
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Права бічна панель"
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1121
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Верхня бічна панель"
 
-#: lib/katemdi.cpp:1127
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Нижня бічна панель"
 
-#: lib/katemdi.cpp:1696
+#: lib/katemdi.cpp:1698
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

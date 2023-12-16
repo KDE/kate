@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-29 01:39+0000\n"
+"POT-Creation-Date: 2023-12-16 01:39+0000\n"
 "PO-Revision-Date: 2023-11-25 14:23+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -1769,67 +1769,67 @@ msgstr "%1"
 msgid "Focus %1"
 msgstr "%1"
 
-#: lib/katemdi.cpp:1078
+#: lib/katemdi.cpp:1076
 #, kde-format
 msgid "Configure..."
 msgstr "Yapılandır..."
 
-#: lib/katemdi.cpp:1082
+#: lib/katemdi.cpp:1080
 #, kde-format
 msgid "Hide Button"
 msgstr "Düğmeyi Gizle"
 
-#: lib/katemdi.cpp:1084
+#: lib/katemdi.cpp:1082
 #, kde-format
 msgid "Move To"
 msgstr "Taşı"
 
-#: lib/katemdi.cpp:1089
+#: lib/katemdi.cpp:1087
 #, kde-format
 msgid "Own Section"
 msgstr "Kendi Bölümü"
 
-#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1103
+#: lib/katemdi.cpp:1093 lib/katemdi.cpp:1101
 #, kde-format
 msgid "One Down"
 msgstr "Bir Aşağı"
 
-#: lib/katemdi.cpp:1097 lib/katemdi.cpp:1108
+#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1106
 #, kde-format
 msgid "One Right"
 msgstr "Bir Sağa"
 
-#: lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1099
 #, kde-format
 msgid "One Up"
 msgstr "Bir Yukarı"
 
-#: lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1104
 #, kde-format
 msgid "One Left"
 msgstr "Bir Sola"
 
-#: lib/katemdi.cpp:1115
+#: lib/katemdi.cpp:1113
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Sol Kenar Çubuğu"
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1117
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Sağ Kenar Çubuğu"
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1121
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Üst Kenar Çubuğu"
 
-#: lib/katemdi.cpp:1127
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Alt Kenar Çubuğu"
 
-#: lib/katemdi.cpp:1696
+#: lib/katemdi.cpp:1698
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

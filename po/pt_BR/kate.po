@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-29 01:39+0000\n"
+"POT-Creation-Date: 2023-12-16 01:39+0000\n"
 "PO-Revision-Date: 2023-03-03 10:05-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -1769,68 +1769,68 @@ msgstr "Mostrar botão %1"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1078
+#: lib/katemdi.cpp:1076
 #, kde-format
 msgid "Configure..."
 msgstr "Configurar..."
 
-#: lib/katemdi.cpp:1082
+#: lib/katemdi.cpp:1080
 #, kde-format
 msgid "Hide Button"
 msgstr "Ocultar botão"
 
-#: lib/katemdi.cpp:1084
+#: lib/katemdi.cpp:1082
 #, kde-format
 msgid "Move To"
 msgstr "Mover para"
 
-#: lib/katemdi.cpp:1089
+#: lib/katemdi.cpp:1087
 #, fuzzy, kde-format
 #| msgid "&Selection"
 msgid "Own Section"
 msgstr "&Seleção"
 
-#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1103
+#: lib/katemdi.cpp:1093 lib/katemdi.cpp:1101
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1097 lib/katemdi.cpp:1108
+#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1106
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1099
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1104
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1115
+#: lib/katemdi.cpp:1113
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barra lateral esquerda"
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1117
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barra lateral direita"
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1121
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barra superior"
 
-#: lib/katemdi.cpp:1127
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barra inferior"
 
-#: lib/katemdi.cpp:1696
+#: lib/katemdi.cpp:1698
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

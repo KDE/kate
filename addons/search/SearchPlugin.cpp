@@ -376,6 +376,11 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     QIcon useRegExpIcon = QIcon::fromTheme(QStringLiteral("code-context"), QIcon::fromTheme(QStringLiteral("edit-find-replace")));
     QIcon expandResultsIcon = QIcon::fromTheme(QStringLiteral("view-list-tree"), QIcon::fromTheme(QStringLiteral("format-indent-more")));
 
+    m_ui.gridLayout->setSpacing(searchUi->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
+    m_ui.gridLayout->setContentsMargins(searchUi->style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                                        searchUi->style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                                        searchUi->style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                                        searchUi->style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
     m_ui.displayOptions->setIcon(dispOptIcon);
     m_ui.searchButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
     m_ui.nextButton->setIcon(QIcon::fromTheme(QStringLiteral("go-down-search")));

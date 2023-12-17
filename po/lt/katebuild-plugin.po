@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-18 02:00+0000\n"
+"POT-Creation-Date: 2023-12-17 01:37+0000\n"
 "PO-Revision-Date: 2015-12-29 21:20+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -55,19 +55,24 @@ msgstr "Atšaukti"
 msgid "Add errors and warnings to Diagnostics"
 msgstr ""
 
-#: buildconfig.cpp:37
+#: buildconfig.cpp:27
+#, kde-format
+msgid "Automatically switch to output pane on executing the selected target"
+msgstr ""
+
+#: buildconfig.cpp:40
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgid "Build & Run"
 msgstr "Kurti dar kartą"
 
-#: buildconfig.cpp:43
+#: buildconfig.cpp:46
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build & Run Settings"
 msgstr "Kompiliavimas nepavyko."
 
-#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1221
+#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1225
 #, kde-format
 msgid "Build"
 msgstr "Kompiliuoti"
@@ -119,12 +124,12 @@ msgstr "Tikslo nuostatos"
 msgid "Build Information"
 msgstr "Kurti dar kartą"
 
-#: plugin_katebuild.cpp:619
+#: plugin_katebuild.cpp:620
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Nėra failo arba aplanko nurodyto statymui."
 
-#: plugin_katebuild.cpp:623
+#: plugin_katebuild.cpp:624
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -132,57 +137,57 @@ msgstr ""
 "Failas „%1“ nėra vietinis failas. Ne vietiniai failai negali būti "
 "kompiliuojami."
 
-#: plugin_katebuild.cpp:670
+#: plugin_katebuild.cpp:674
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:684
+#: plugin_katebuild.cpp:688
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Nepavyko paleisti „%1“. Išėjimo statusas (exitStatus) = %2"
 
-#: plugin_katebuild.cpp:699
+#: plugin_katebuild.cpp:703
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr ""
 
-#: plugin_katebuild.cpp:806
+#: plugin_katebuild.cpp:810
 #, kde-format
 msgid "No target available for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:820
+#: plugin_katebuild.cpp:824
 #, fuzzy, kde-format
 #| msgid "There is no file or directory specified for building."
 msgid "There is no local file or directory specified for building."
 msgstr "Nėra failo arba aplanko nurodyto statymui."
 
-#: plugin_katebuild.cpp:826
+#: plugin_katebuild.cpp:830
 #, kde-format
 msgid "Already building..."
 msgstr ""
 
-#: plugin_katebuild.cpp:853
+#: plugin_katebuild.cpp:857
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building target <b>%1</b> ..."
 msgstr "Kompiliavimas nepavyko."
 
-#: plugin_katebuild.cpp:867
+#: plugin_katebuild.cpp:871
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:903
+#: plugin_katebuild.cpp:907
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:909
+#: plugin_katebuild.cpp:913
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -191,7 +196,7 @@ msgstr[1] "Rastos %1 klaidos."
 msgstr[2] "Rasta %1 klaidų."
 msgstr[3] "Rasta %1 klaida."
 
-#: plugin_katebuild.cpp:913
+#: plugin_katebuild.cpp:917
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -200,7 +205,7 @@ msgstr[1] "Rasti %1 įspėjimai."
 msgstr[2] "Rasta %1 įspėjimų."
 msgstr[3] "Rastas %1 įspėjimas."
 
-#: plugin_katebuild.cpp:916
+#: plugin_katebuild.cpp:920
 #, fuzzy, kde-format
 #| msgid "Found one error."
 #| msgid_plural "Found %1 errors."
@@ -211,27 +216,27 @@ msgstr[1] "Rastos %1 klaidos."
 msgstr[2] "Rasta %1 klaidų."
 msgstr[3] "Rasta %1 klaida."
 
-#: plugin_katebuild.cpp:921
+#: plugin_katebuild.cpp:925
 #, kde-format
 msgid "Build failed."
 msgstr "Kompiliavimas nepavyko."
 
-#: plugin_katebuild.cpp:923
+#: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Kompiliavimas pavyko be problemų."
 
-#: plugin_katebuild.cpp:928
+#: plugin_katebuild.cpp:932
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:952
+#: plugin_katebuild.cpp:956
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1178
+#: plugin_katebuild.cpp:1182
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -239,7 +244,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "klaida"
 
-#: plugin_katebuild.cpp:1181
+#: plugin_katebuild.cpp:1185
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -247,41 +252,41 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "perspėjimas"
 
-#: plugin_katebuild.cpp:1184
+#: plugin_katebuild.cpp:1188
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1187
+#: plugin_katebuild.cpp:1191
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "neapibrėžta nuoroda"
 
-#: plugin_katebuild.cpp:1220 TargetModel.cpp:285 TargetModel.cpp:297
+#: plugin_katebuild.cpp:1224 TargetModel.cpp:285 TargetModel.cpp:297
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "Tikslas"
 
-#: plugin_katebuild.cpp:1222
+#: plugin_katebuild.cpp:1226
 #, kde-format
 msgid "Clean"
 msgstr "Valyti"
 
-#: plugin_katebuild.cpp:1223
+#: plugin_katebuild.cpp:1227
 #, kde-format
 msgid "Config"
 msgstr "Konfigūracija"
 
-#: plugin_katebuild.cpp:1224
+#: plugin_katebuild.cpp:1228
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"
 msgstr "Konfigūracija"
 
-#: plugin_katebuild.cpp:1415
+#: plugin_katebuild.cpp:1419
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""

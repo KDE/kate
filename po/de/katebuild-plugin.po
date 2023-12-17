@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-18 02:00+0000\n"
+"POT-Creation-Date: 2023-12-17 01:37+0000\n"
 "PO-Revision-Date: 2023-06-05 13:12+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -50,19 +50,24 @@ msgstr "Abbrechen"
 msgid "Add errors and warnings to Diagnostics"
 msgstr ""
 
-#: buildconfig.cpp:37
+#: buildconfig.cpp:27
+#, kde-format
+msgid "Automatically switch to output pane on executing the selected target"
+msgstr ""
+
+#: buildconfig.cpp:40
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgid "Build & Run"
 msgstr "Erneut erstellen"
 
-#: buildconfig.cpp:43
+#: buildconfig.cpp:46
 #, fuzzy, kde-format
 #| msgid "Build and Run Selected Target"
 msgid "Build & Run Settings"
 msgstr "Ausgewähltes Ziel erstellen und ausführen"
 
-#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1221
+#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1225
 #, kde-format
 msgid "Build"
 msgstr "Erstellen"
@@ -110,12 +115,12 @@ msgstr "Ziel-Einstellungen"
 msgid "Build Information"
 msgstr "Kompilierungs-Informationen"
 
-#: plugin_katebuild.cpp:619
+#: plugin_katebuild.cpp:620
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Es ist keine Datei oder Ordner zum Erstellen angegeben."
 
-#: plugin_katebuild.cpp:623
+#: plugin_katebuild.cpp:624
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -123,7 +128,7 @@ msgstr ""
 "Die Datei „%1“ ist keine lokale Datei. Nichtlokale Dateien können nicht "
 "kompiliert werden."
 
-#: plugin_katebuild.cpp:670
+#: plugin_katebuild.cpp:674
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -132,137 +137,137 @@ msgstr ""
 "Der Befehl %1 kann nicht ausgeführt werden\n"
 "der Pfad %2 existiert nicht."
 
-#: plugin_katebuild.cpp:684
+#: plugin_katebuild.cpp:688
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "„%1“ kann nicht ausgeführt werden. exitStatus = %2"
 
-#: plugin_katebuild.cpp:699
+#: plugin_katebuild.cpp:703
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Das Erstellen von <b>%1</b> wurde abgebrochen"
 
-#: plugin_katebuild.cpp:806
+#: plugin_katebuild.cpp:810
 #, kde-format
 msgid "No target available for building."
 msgstr "Kein Ziel für die Erstellung verfügbar."
 
-#: plugin_katebuild.cpp:820
+#: plugin_katebuild.cpp:824
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr ""
 "Es ist keine lokale Datei oder kein lokaler Ordner zum Erstellen angegeben."
 
-#: plugin_katebuild.cpp:826
+#: plugin_katebuild.cpp:830
 #, kde-format
 msgid "Already building..."
 msgstr "Wird bereits erstellt ..."
 
-#: plugin_katebuild.cpp:853
+#: plugin_katebuild.cpp:857
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Ziel <b>%1</b> wird erstellt ..."
 
-#: plugin_katebuild.cpp:867
+#: plugin_katebuild.cpp:871
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make-Ergebnis:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:903
+#: plugin_katebuild.cpp:907
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 "Erstellen von <b>%1</b> abgeschlossen. %2 Fehler, %3 Warnung(en), %4 "
 "Hinweis(e)"
 
-#: plugin_katebuild.cpp:909
+#: plugin_katebuild.cpp:913
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Ein Fehler gefunden."
 msgstr[1] "%1 Fehler gefunden."
 
-#: plugin_katebuild.cpp:913
+#: plugin_katebuild.cpp:917
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Eine Warnung gefunden."
 msgstr[1] "%1 Warnungen gefunden."
 
-#: plugin_katebuild.cpp:916
+#: plugin_katebuild.cpp:920
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Ein Hinweis gefunden."
 msgstr[1] "%1 Hinweise gefunden."
 
-#: plugin_katebuild.cpp:921
+#: plugin_katebuild.cpp:925
 #, kde-format
 msgid "Build failed."
 msgstr "Erstellen fehlgeschlagen."
 
-#: plugin_katebuild.cpp:923
+#: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Erstellen ohne Probleme abgeschlossen."
 
-#: plugin_katebuild.cpp:928
+#: plugin_katebuild.cpp:932
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 "Erstellen von <b>%1 abgebrochen</b>. %2 Fehler, %3 Warnung(en), %4 Hinweis(e)"
 
-#: plugin_katebuild.cpp:952
+#: plugin_katebuild.cpp:956
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Kann nicht ausgeführt werden: %1 Kein Arbeitsordner gesetzt."
 
-#: plugin_katebuild.cpp:1178
+#: plugin_katebuild.cpp:1182
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "Fehler"
 
-#: plugin_katebuild.cpp:1181
+#: plugin_katebuild.cpp:1185
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "Warnung"
 
-#: plugin_katebuild.cpp:1184
+#: plugin_katebuild.cpp:1188
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "Hinweis"
 
-#: plugin_katebuild.cpp:1187
+#: plugin_katebuild.cpp:1191
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "Undefinierter Verweis"
 
-#: plugin_katebuild.cpp:1220 TargetModel.cpp:285 TargetModel.cpp:297
+#: plugin_katebuild.cpp:1224 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "Zielgruppe"
 
-#: plugin_katebuild.cpp:1222
+#: plugin_katebuild.cpp:1226
 #, kde-format
 msgid "Clean"
 msgstr "Aufräumen"
 
-#: plugin_katebuild.cpp:1223
+#: plugin_katebuild.cpp:1227
 #, kde-format
 msgid "Config"
 msgstr "Einstellungen"
 
-#: plugin_katebuild.cpp:1224
+#: plugin_katebuild.cpp:1228
 #, kde-format
 msgid "ConfigClean"
 msgstr "Konfiguration aufräumen"
 
-#: plugin_katebuild.cpp:1415
+#: plugin_katebuild.cpp:1419
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""

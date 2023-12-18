@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-17 01:37+0000\n"
-"PO-Revision-Date: 2023-09-15 06:10+0200\n"
+"PO-Revision-Date: 2023-12-17 05:10+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -54,7 +54,7 @@ msgstr "შეცდომებისა და გაფრთხილებ�
 #: buildconfig.cpp:27
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "ავტომატური გადართვა გამოტანის პანელზე მონიშნულ სამიზნეზე შესრულებისას"
 
 #: buildconfig.cpp:40
 #, kde-format

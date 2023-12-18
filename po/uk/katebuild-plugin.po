@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-17 01:37+0000\n"
-"PO-Revision-Date: 2023-09-14 12:04+0300\n"
+"PO-Revision-Date: 2023-12-17 12:24+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -57,6 +57,7 @@ msgstr "Додати помилки і попередження до «Діаг�
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr ""
+"Автоматично перемикатися на панель виведення при виконанні вибраної цілі"
 
 #: buildconfig.cpp:40
 #, kde-format

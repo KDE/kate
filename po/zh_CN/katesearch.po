@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-15 01:40+0000\n"
-"PO-Revision-Date: 2023-12-09 09:24\n"
+"POT-Creation-Date: 2023-12-18 02:00+0000\n"
+"PO-Revision-Date: 2023-12-17 11:26\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -179,13 +179,13 @@ msgstr "过滤..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:52 search.ui:55 SearchPlugin.cpp:299
+#: search.ui:37 search.ui:40 SearchPlugin.cpp:299
 #, kde-format
 msgid "Search"
 msgstr "搜索"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
-#: search.ui:65
+#: search.ui:50
 #, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
@@ -196,26 +196,26 @@ msgstr "替换选中项"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
-#: search.ui:85 search.ui:88
+#: search.ui:70 search.ui:73
 #, kde-format
 msgid "Next"
 msgstr "下一个"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
 #. i18n: ectx: property (text), widget (QPushButton, stopButton)
-#: search.ui:93 search.ui:96
+#: search.ui:78 search.ui:81
 #, kde-format
 msgid "Stop"
 msgstr "停止"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
-#: search.ui:133
+#: search.ui:118
 #, kde-format
 msgid "Match case"
 msgstr "区分大小写"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
-#: search.ui:149
+#: search.ui:134
 #, kde-format
 msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
@@ -225,7 +225,7 @@ msgstr ""
 "正则表达式。</p></body></html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
-#: search.ui:178
+#: search.ui:163
 #, kde-format
 msgid "Expand results"
 msgstr "展开结果"
@@ -233,103 +233,103 @@ msgstr "展开结果"
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
 #. i18n: ectx: property (text), widget (QToolButton, newTabButton)
-#: search.ui:194 search.ui:264 search.ui:277
+#: search.ui:179 search.ui:249 search.ui:262
 #, kde-format
 msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:210 SearchPlugin.cpp:507
+#: search.ui:195 SearchPlugin.cpp:512
 #, kde-format
 msgid "Replace"
 msgstr "替换"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:233
+#: search.ui:218
 #, kde-format
 msgid "In Current File"
 msgstr "当前文件"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:238
+#: search.ui:223
 #, kde-format
 msgid "In Open Files"
 msgstr "在打开的文件中"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:243
+#: search.ui:228
 #, kde-format
 msgid "In Folder"
 msgstr "在文件夹中"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
-#: search.ui:251
+#: search.ui:236
 #, kde-format
 msgid "Use the current document's path."
 msgstr "使用当前文档的路径。"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
-#: search.ui:261
+#: search.ui:246
 #, kde-format
 msgid "Show more search options"
 msgstr "显示更多搜索选项"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
-#: search.ui:274
+#: search.ui:259
 #, kde-format
 msgid "Add new search tab"
 msgstr "添加新搜索标签页"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
-#: search.ui:371
+#: search.ui:356
 #, kde-format
 msgid "Folder:"
 msgstr "文件夹："
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
-#: search.ui:389
+#: search.ui:374
 #, kde-format
 msgid "Go one folder up."
 msgstr "进入上层目录。"
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
-#: search.ui:398
+#: search.ui:383
 #, kde-format
 msgid "Filter:"
 msgstr "过滤："
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
-#: search.ui:420
+#: search.ui:405
 #, kde-format
 msgid "*"
 msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
-#: search.ui:428
+#: search.ui:413
 #, kde-format
 msgid "Exclude:"
 msgstr "排除："
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
-#: search.ui:449
+#: search.ui:434
 #, kde-format
 msgid "Recursive"
 msgstr "递归"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
-#: search.ui:459
+#: search.ui:444
 #, kde-format
 msgid "Include hidden"
 msgstr "包含隐藏文件"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
-#: search.ui:466
+#: search.ui:451
 #, kde-format
 msgid "Follow symbolic links"
 msgstr "跟随符号链接"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
-#: search.ui:473
+#: search.ui:458
 #, kde-format
 msgid "Include binary files"
 msgstr "包含二进制文件"
@@ -543,110 +543,110 @@ msgid ""
 "the clipboard"
 msgstr "这将复制所有高亮的搜索匹配行，从当前文档到剪贴板"
 
-#: SearchPlugin.cpp:394
+#: SearchPlugin.cpp:399
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr "逗号分割的要搜索的文件类型列表。例如：“*.cpp,*.h”\n"
 
-#: SearchPlugin.cpp:395
+#: SearchPlugin.cpp:400
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
 "Example: \"build*\""
 msgstr "用于排除在搜索外的逗号分割的文件和目录列表。例如：“build*”"
 
-#: SearchPlugin.cpp:397
+#: SearchPlugin.cpp:402
 #, kde-format
 msgid "Click to filter through results"
 msgstr "点击过滤结果"
 
-#: SearchPlugin.cpp:487
+#: SearchPlugin.cpp:492
 #, kde-format
 msgid "Find"
 msgstr "查找"
 
-#: SearchPlugin.cpp:1319
+#: SearchPlugin.cpp:1324
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "输入时搜索已中断。因为耗时过长。"
 
-#: SearchPlugin.cpp:1652
+#: SearchPlugin.cpp:1657
 #, kde-format
 msgid "Search Match"
 msgstr "选择匹配"
 
-#: SearchPlugin.cpp:1832 SearchPlugin.cpp:1909
+#: SearchPlugin.cpp:1837 SearchPlugin.cpp:1914
 #, kde-format
 msgid "Next from cursor"
 msgstr "从光标处的下一个"
 
-#: SearchPlugin.cpp:1849
+#: SearchPlugin.cpp:1854
 #, kde-format
 msgid "Starting from first match"
 msgstr "从第一个匹配开始"
 
-#: SearchPlugin.cpp:1869
+#: SearchPlugin.cpp:1874
 #, kde-format
 msgid "Continuing from first match"
 msgstr "从第一个匹配继续"
 
-#: SearchPlugin.cpp:1926
+#: SearchPlugin.cpp:1931
 #, kde-format
 msgid "Starting from last match"
 msgstr "从最后一个匹配开始"
 
-#: SearchPlugin.cpp:1946
+#: SearchPlugin.cpp:1951
 #, kde-format
 msgid "Continuing from last match"
 msgstr "从最后一个匹配继续"
 
-#: SearchPlugin.cpp:2105
+#: SearchPlugin.cpp:2110
 #, kde-format
 msgid "Search: %1"
 msgstr "搜索：%1"
 
-#: SearchPlugin.cpp:2236
+#: SearchPlugin.cpp:2241
 #, kde-format
 msgid "Copy all"
 msgstr "复制全部"
 
-#: SearchPlugin.cpp:2241
+#: SearchPlugin.cpp:2246
 #, kde-format
 msgid "Copy expanded"
 msgstr "复制展开内容"
 
-#: SearchPlugin.cpp:2244
+#: SearchPlugin.cpp:2249
 #, kde-format
 msgid "Export matches"
 msgstr "导出匹配项"
 
-#: SearchPlugin.cpp:2250
+#: SearchPlugin.cpp:2255
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "打开为编辑器标签页"
 
-#: SearchPlugin.cpp:2257
+#: SearchPlugin.cpp:2262
 #, kde-format
 msgid "Clear"
 msgstr "清除"
 
-#: SearchPlugin.cpp:2367 SearchPlugin.cpp:2401
+#: SearchPlugin.cpp:2372 SearchPlugin.cpp:2406
 #, kde-format
 msgid "Add..."
 msgstr "添加..."
 
-#: SearchPlugin.cpp:2379
+#: SearchPlugin.cpp:2384
 #, kde-format
 msgid "Search As You Type"
 msgstr "即输即搜"
 
-#: SearchPlugin.cpp:2450
+#: SearchPlugin.cpp:2455
 #, kde-format
 msgid "In Current Project"
 msgstr "当前工程"
 
-#: SearchPlugin.cpp:2452
+#: SearchPlugin.cpp:2457
 #, kde-format
 msgid "In All Open Projects"
 msgstr "全部打开的工程"

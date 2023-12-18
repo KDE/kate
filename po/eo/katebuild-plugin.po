@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-17 01:37+0000\n"
-"PO-Revision-Date: 2023-09-16 11:33+0100\n"
+"PO-Revision-Date: 2023-12-17 22:24+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -55,7 +55,7 @@ msgstr "Aldoni erarojn kaj avertojn al Diagnozo"
 #: buildconfig.cpp:27
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "Aŭtomate ŝalti al eligpanelo je efektivigo de la elektita celo"
 
 #: buildconfig.cpp:40
 #, kde-format

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-21 02:33+0000\n"
-"PO-Revision-Date: 2023-12-09 09:30\n"
+"PO-Revision-Date: 2023-12-17 11:32\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -42,7 +42,7 @@ msgstr "Kate"
 #: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
-msgstr "Kate - 高级文本编辑器"
+msgstr "Kate - 多功能文本编辑器"
 
 #: kate/main.cpp:98 kwrite/main.cpp:46
 #, kde-format

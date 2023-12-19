@@ -170,21 +170,21 @@ void OpenLinkPluginView::onActiveViewChanged(KTextEditor::View *view)
     if (view && view->focusProxy()) {
         view->focusProxy()->installEventFilter(this);
         connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &OpenLinkPluginView::onViewScrolled);
-        connect(view, &KTextEditor::View::textInserted, this, &OpenLinkPluginView::onTextInserted);
         onViewScrolled();
+
         auto doc = view->document();
-        connect(doc,
-                SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
-                this,
-                SLOT(clear(KTextEditor::Document *)),
-                Qt::UniqueConnection);
-        connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clear(KTextEditor::Document *)), Qt::UniqueConnection);
+        connect(doc, &KTextEditor::Document::textInserted, this, &OpenLinkPluginView::onTextInserted);
+        connect(doc, &KTextEditor::Document::textRemoved, this, &OpenLinkPluginView::onTextRemoved);
+
+        connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &OpenLinkPluginView::clear, Qt::UniqueConnection);
+        connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &OpenLinkPluginView::clear, Qt::UniqueConnection);
     }
 
     if (oldView && oldView->focusProxy()) {
         oldView->focusProxy()->removeEventFilter(this);
         disconnect(oldView, &KTextEditor::View::verticalScrollPositionChanged, this, &OpenLinkPluginView::onViewScrolled);
-        disconnect(oldView, &KTextEditor::View::textInserted, this, &OpenLinkPluginView::onTextInserted);
+        disconnect(oldView->document(), &KTextEditor::Document::textInserted, this, &OpenLinkPluginView::onTextInserted);
+        disconnect(oldView->document(), &KTextEditor::Document::textRemoved, this, &OpenLinkPluginView::onTextRemoved);
     }
 }
 
@@ -246,33 +246,45 @@ void OpenLinkPluginView::highlightIfLink(KTextEditor::Cursor c, QWidget *viewInt
     }
 }
 
-void OpenLinkPluginView::onTextInserted(KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &)
+void OpenLinkPluginView::onTextInserted(KTextEditor::Document *doc, KTextEditor::Cursor pos, const QString &text)
 {
-    if (view == m_activeView) {
-        highlightLinks(position);
+    if (doc == m_activeView->document()) {
+        KTextEditor::Range range(pos, pos);
+        int newlines = text.count(QLatin1Char('\n'));
+        pos.setLine(pos.line() + newlines);
+        range.setEnd(pos);
+        highlightLinks(range);
+    }
+}
+
+void OpenLinkPluginView::onTextRemoved(KTextEditor::Document *doc, KTextEditor::Range range, const QString &)
+{
+    if (doc == m_activeView->document()) {
+        highlightLinks(range);
     }
 }
 
 void OpenLinkPluginView::onViewScrolled()
 {
-    highlightLinks(KTextEditor::Cursor::invalid());
+    highlightLinks(KTextEditor::Range::invalid());
 }
 
-void OpenLinkPluginView::highlightLinks(KTextEditor::Cursor pos)
+void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
 {
     if (!m_activeView) {
         return;
     }
+    const auto lineRange = range.toLineRange();
 
-    const int startLine = pos.isValid() ? pos.line() : m_activeView->firstDisplayedLine();
-    const int endLine = pos.isValid() ? pos.line() : m_activeView->lastDisplayedLine();
+    const int startLine = lineRange.isValid() ? lineRange.start() : m_activeView->firstDisplayedLine();
+    const int endLine = lineRange.isValid() ? lineRange.end() : m_activeView->lastDisplayedLine();
     auto doc = m_activeView->document();
     auto &ranges = m_docHighligtedLinkRanges[doc];
-    if (pos.isValid()) {
+    if (lineRange.isValid()) {
         ranges.erase(std::remove_if(ranges.begin(),
                                     ranges.end(),
-                                    [line = pos.line()](const std::unique_ptr<KTextEditor::MovingRange> &r) {
-                                        return r && r->start().line() == line;
+                                    [lineRange](const std::unique_ptr<KTextEditor::MovingRange> &r) {
+                                        return lineRange.overlapsLine(r->start().line());
                                     }),
                      ranges.end());
     } else {

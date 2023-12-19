@@ -46,10 +46,11 @@ private:
     bool eventFilter(QObject *obj, QEvent *event) override;
     void highlightIfLink(KTextEditor::Cursor c, QWidget *viewInternal);
     void gotoLink();
-    void onTextInserted(KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text);
+    void onTextRemoved(KTextEditor::Document *, KTextEditor::Range range, const QString &text);
+    void onTextInserted(KTextEditor::Document *, KTextEditor::Cursor pos, const QString &text);
     void onViewScrolled();
-    void highlightLinks(KTextEditor::Cursor pos);
-    Q_SLOT void clear(KTextEditor::Document *doc);
+    void highlightLinks(KTextEditor::Range range);
+    void clear(KTextEditor::Document *doc);
 
     QPointer<KTextEditor::View> m_activeView;
     KTextEditor::MainWindow *m_mainWindow;

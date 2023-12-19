@@ -209,7 +209,6 @@
         "rust": {
             "command": ["rust-analyzer"],
             "path": ["%{ENV:CARGO_HOME}/bin", "%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
-            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
             "url": "https://rust-analyzer.github.io",
             "highlightingModeRegex": "^Rust$"
         },

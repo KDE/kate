@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-18 02:00+0000\n"
+"POT-Creation-Date: 2023-12-19 01:35+0000\n"
 "PO-Revision-Date: 2022-10-05 20:28+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -335,76 +335,76 @@ msgstr "သတိ"
 msgid "Filter..."
 msgstr "စစ်ထုတ်…"
 
-#: lib/diagnostics/diagnosticview.cpp:1040 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1039 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "အမှား"
 
-#: lib/diagnostics/diagnosticview.cpp:1044 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1043 lib/kateconfigdialog.cpp:151
 #: lib/kateconfigdialog.cpp:685
 #, kde-format
 msgid "Warning"
 msgstr "သတိ"
 
-#: lib/diagnostics/diagnosticview.cpp:1048
+#: lib/diagnostics/diagnosticview.cpp:1047
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Information"
 msgstr "တည်နေရာ"
 
-#: lib/diagnostics/diagnosticview.cpp:1168
+#: lib/diagnostics/diagnosticview.cpp:1167
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1307
+#: lib/diagnostics/diagnosticview.cpp:1306
 #, fuzzy, kde-format
 #| msgid "&Expand tabs"
 msgid "Expand All"
 msgstr "&Eတပ်ဘ်များဖြန့်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1308
+#: lib/diagnostics/diagnosticview.cpp:1307
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "&eအားလုံးပိတ်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1314
+#: lib/diagnostics/diagnosticview.cpp:1313
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy to Clipboard"
 msgstr "ကလစ်ဘုတ်သို့ကူးယူမည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1339
+#: lib/diagnostics/diagnosticview.cpp:1338
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1341
+#: lib/diagnostics/diagnosticview.cpp:1340
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "ဆက်ရှင် &Aအားလုံး"
 
-#: lib/diagnostics/diagnosticview.cpp:1345
+#: lib/diagnostics/diagnosticview.cpp:1344
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1347
+#: lib/diagnostics/diagnosticview.cpp:1346
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1362
+#: lib/diagnostics/diagnosticview.cpp:1361
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "လုပ်ငန်းဆောင်ရွက်မှုခန်းများ စစ်ထုတ်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1364
+#: lib/diagnostics/diagnosticview.cpp:1363
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"

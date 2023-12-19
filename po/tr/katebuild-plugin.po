@@ -59,7 +59,7 @@ msgstr "Tanılara hataları ve uyarıları ekle"
 #: buildconfig.cpp:27
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "Seçili hedefi yürütürken kendiliğinden çıktı bölmesine geç"
 
 #: buildconfig.cpp:40
 #, kde-format

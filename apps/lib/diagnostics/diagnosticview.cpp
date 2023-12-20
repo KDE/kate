@@ -268,6 +268,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     , m_sessionDiagnosticSuppressions(std::make_unique<SessionDiagnosticSuppressions>())
     , m_posChangedTimer(new QTimer(this))
     , m_filterChangedTimer(new QTimer(this))
+    , m_urlChangedTimer(new QTimer(this))
     , m_textHintProvider(new KateTextHintProvider(mainWindow, this))
 {
     setComponentName(QStringLiteral("kate_diagnosticsview"), i18n("Diagnostics View"));
@@ -351,6 +352,11 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
             }
         }
     });
+
+    // collapse url changed events
+    m_urlChangedTimer->setInterval(100);
+    m_urlChangedTimer->setSingleShot(true);
+    m_urlChangedTimer->callOnTimeout(this, &DiagnosticsView::onDocumentUrlChanged);
 
     // handle tab button creation
     connect(mainWindow->window(), SIGNAL(tabForToolViewAdded(QWidget *, QWidget *)), this, SLOT(tabForToolViewAdded(QWidget *, QWidget *)));
@@ -480,7 +486,7 @@ void DiagnosticsView::onViewChanged(KTextEditor::View *v)
     }
 
     if (v && v->document()) {
-        connect(v->document(), &KTextEditor::Document::documentUrlChanged, this, &DiagnosticsView::onDocumentUrlChanged, Qt::UniqueConnection);
+        connect(v->document(), &KTextEditor::Document::documentUrlChanged, m_urlChangedTimer, QOverload<>::of(&QTimer::start), Qt::UniqueConnection);
     }
 }
 

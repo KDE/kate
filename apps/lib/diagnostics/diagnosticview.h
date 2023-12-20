@@ -246,5 +246,6 @@ private:
     QMetaObject::Connection posChangedConnection;
     QTimer *const m_posChangedTimer;
     QTimer *const m_filterChangedTimer;
+    QTimer *const m_urlChangedTimer;
     std::unique_ptr<KateTextHintProvider> m_textHintProvider;
 };

@@ -6,8 +6,8 @@
 # Matthieu Robin <kde@macolu.org>, 2003.
 # Matthieu Robin <kde@macolu.org>, 2004.
 # Joëlle Cornavin <jcornavi@club-internet.fr>, 2007, 2008.
-# xavier <ktranslator31@yahoo.fr>, 2013, 2014.
-# Xavier Besnard <xavier.besnard@neuf.fr>, 2022.
+# Xavier Besnard <xavier.besnard@kde.org>, 2013, 2014.
+# Xavier Besnard <xavier.besnard@kde.org>, 2022.
 #
 msgid ""
 msgstr ""

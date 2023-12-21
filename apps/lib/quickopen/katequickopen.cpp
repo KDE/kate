@@ -269,7 +269,7 @@ private:
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
 KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
-    : QWidget(mainWindow)
+    : QFrame(mainWindow)
     , m_mainWindow(mainWindow)
 {
     QGraphicsDropShadowEffect *e = new QGraphicsDropShadowEffect(this);
@@ -278,13 +278,17 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     e->setBlurRadius(8.);
     setGraphicsEffect(e);
 
+    setAutoFillBackground(true);
+    setFrameShadow(QFrame::Raised);
+    setFrameShape(QFrame::Box);
+
     // handle resizing
     mainWindow->installEventFilter(this);
 
     // ensure the components have some proper frame
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(0);
-    layout->setContentsMargins(4, 4, 4, 4);
+    layout->setContentsMargins(2, 2, 2, 2);
     setLayout(layout);
 
     m_inputLine = new QuickOpenLineEdit(this);

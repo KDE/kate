@@ -21,7 +21,7 @@ enum KateQuickOpenModelList : int;
 
 class QuickOpenFilterProxyModel;
 
-class KateQuickOpen : public QWidget
+class KateQuickOpen : public QFrame
 {
     Q_OBJECT
 public:

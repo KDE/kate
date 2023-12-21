@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-19 01:35+0000\n"
+"POT-Creation-Date: 2023-12-21 02:01+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -247,7 +247,7 @@ msgstr "&Công cụ"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:273
+#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:274
 #: lib/diagnostics/ui.rc:8
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
@@ -299,121 +299,121 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:315
+#: lib/diagnostics/diagnosticview.cpp:316
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Chẩn đoán"
 
-#: lib/diagnostics/diagnosticview.cpp:320
+#: lib/diagnostics/diagnosticview.cpp:321
 #, kde-format
 msgid "Quick Fix"
 msgstr "Sửa nhanh"
 
-#: lib/diagnostics/diagnosticview.cpp:326
+#: lib/diagnostics/diagnosticview.cpp:327
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Item"
 msgstr "Thẻ sau"
 
-#: lib/diagnostics/diagnosticview.cpp:332
+#: lib/diagnostics/diagnosticview.cpp:333
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Item"
 msgstr "Thẻ trước"
 
-#: lib/diagnostics/diagnosticview.cpp:340
+#: lib/diagnostics/diagnosticview.cpp:341
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
 msgid "Clear Diagnostics Filter"
 msgstr "Chẩn đoán"
 
-#: lib/diagnostics/diagnosticview.cpp:380
+#: lib/diagnostics/diagnosticview.cpp:386
 #, kde-format
 msgid "Diagnostics"
 msgstr "Chẩn đoán"
 
-#: lib/diagnostics/diagnosticview.cpp:423
+#: lib/diagnostics/diagnosticview.cpp:429
 #, fuzzy, kde-format
 #| msgid "Error"
 msgid "Errors"
 msgstr "Lỗi"
 
-#: lib/diagnostics/diagnosticview.cpp:439
+#: lib/diagnostics/diagnosticview.cpp:445
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgid "Warnings"
 msgstr "Cảnh báo"
 
-#: lib/diagnostics/diagnosticview.cpp:453
+#: lib/diagnostics/diagnosticview.cpp:459
 #, kde-format
 msgid "Filter..."
 msgstr "Lọc..."
 
-#: lib/diagnostics/diagnosticview.cpp:1039 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1045 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "Lỗi"
 
-#: lib/diagnostics/diagnosticview.cpp:1043 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1049 lib/kateconfigdialog.cpp:151
 #: lib/kateconfigdialog.cpp:685
 #, kde-format
 msgid "Warning"
 msgstr "Cảnh báo"
 
-#: lib/diagnostics/diagnosticview.cpp:1047
+#: lib/diagnostics/diagnosticview.cpp:1053
 #, kde-format
 msgid "Information"
 msgstr "Thông tin"
 
-#: lib/diagnostics/diagnosticview.cpp:1167
+#: lib/diagnostics/diagnosticview.cpp:1173
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [bị loại trừ: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1306
+#: lib/diagnostics/diagnosticview.cpp:1312
 #, kde-format
 msgid "Expand All"
 msgstr "Mở rộng tất cả"
 
-#: lib/diagnostics/diagnosticview.cpp:1307
+#: lib/diagnostics/diagnosticview.cpp:1313
 #, kde-format
 msgid "Collapse All"
 msgstr "Thu gọn tất cả"
 
-#: lib/diagnostics/diagnosticview.cpp:1313
+#: lib/diagnostics/diagnosticview.cpp:1319
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Chép vào bảng nháp"
 
-#: lib/diagnostics/diagnosticview.cpp:1338
+#: lib/diagnostics/diagnosticview.cpp:1344
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Xoá phần loại trừ toàn cục"
 
-#: lib/diagnostics/diagnosticview.cpp:1340
+#: lib/diagnostics/diagnosticview.cpp:1346
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Thêm phần loại trừ toàn cục"
 
-#: lib/diagnostics/diagnosticview.cpp:1344
+#: lib/diagnostics/diagnosticview.cpp:1350
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Xoá phần loại trừ cục bộ"
 
-#: lib/diagnostics/diagnosticview.cpp:1346
+#: lib/diagnostics/diagnosticview.cpp:1352
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Thêm phần loại trừ cục bộ"
 
-#: lib/diagnostics/diagnosticview.cpp:1361
+#: lib/diagnostics/diagnosticview.cpp:1367
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Tắt loại trừ"
 
-#: lib/diagnostics/diagnosticview.cpp:1363
+#: lib/diagnostics/diagnosticview.cpp:1369
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Bật loại trừ"

@@ -622,6 +622,15 @@
 
 <para
 ><userinput
+>attribute</userinput
+> identifica lo stile da usare per un carattere quando nessuna regola corrisponde o quando queste non specificano attributi. Nell'ultimo caso verrà usato l'<userinput
+>attribute</userinput
+> del contesto specificato nel <emphasis
+>context</emphasis
+> della regola.</para>
+
+<para
+><userinput
 >lineEndContext</userinput
 > definisce il contesto a cui il sistema di evidenziazione passa se viene raggiunta la fine della riga. Questo può essere sia il nome di un altro contesto, <userinput
 >#stay</userinput
@@ -637,11 +646,7 @@
 >IncludeRules</userinput
 >, &eg; <userinput
 >SomeContext##JavaScript</userinput
->. Nota che non è possibile usare questo cambio di contesto in combinazione con <userinput
->#pop</userinput
->, ad esempio <userinput
->#pop!SomeContext##JavaScript</userinput
-> non è valido. I cambi di contesto sono descritti anche in <xref linkend="kate-highlight-rules-detailled"/>.</para>
+> non è valido. I cambi di contesto sono descritti anche in <xref linkend="kate-highlight-rules-detailled"/>. Predefinito: #stay.</para>
 <para
 ><userinput
 >lineEmptyContext</userinput
@@ -1168,7 +1173,9 @@
 >#stay</userinput
 >), oppure di ritornare a quello precedentemente usato nella stringa (<userinput
 >#pop</userinput
->).</para>
+>). Un contesto vuoto o assente è equivalente a <userinput
+>#stay</userinput
+>.</para>
 <para
 >Per tornare indietro di più passi la parola chiave #pop può essere ripetuta: <userinput
 >#pop#pop#pop</userinput
@@ -1196,11 +1203,7 @@
 >IncludeRules</userinput
 >, e ti permette di passare ad un contesto appartenente ad un'altra definizione di evidenziazione della sintassi, ad esempio <userinput
 >SomeContext##JavaScript</userinput
->. Nota che non è possibile usare questo cambio di contesto in combinazione con <userinput
->#pop</userinput
->, ad esempio <userinput
->#pop!SomeContext##JavaScript</userinput
-> non è valido.</para>
+>. </para>
 </listitem>
 </itemizedlist>
 
@@ -1213,11 +1216,7 @@
 <para
 >Tutte le regole hanno in comune i seguenti attributi, e sono disponibili ogni volta che compare <userinput
 >(attributi comuni)</userinput
->. Sono attributi richiesti <emphasis
->attribute</emphasis
-> e <emphasis
->context</emphasis
->, tutti gli altri sono opzionali. </para>
+>. Tutti gli attributi sono opzionali. </para>
 
 <listitem>
 <para
@@ -1225,13 +1224,17 @@
 >attribute</emphasis
 >: un attributo associato ad un determinato <emphasis
 >itemData</emphasis
+>. Predefinito: <emphasis
+>attribute</emphasis
+> dal contesto specificato nell'attributo <emphasis
+>context</emphasis
 >.</para>
 </listitem>
 <listitem>
 <para
 ><emphasis
 >context</emphasis
->: specifica il contesto al quale il sistema di evidenziazione passa se la regola corrisponde.</para>
+>: specifica il contesto al quale il sistema di evidenziazione passa se la regola corrisponde. Predefinito: #stay.</para>
 </listitem>
 <listitem>
 <para
@@ -1537,6 +1540,10 @@
 > definisce il primo carattere da associare, <userinput
 >char1</userinput
 > il secondo.</para>
+<para
+>Questa regola è presente per ragioni storiche, e per leggibilità è preferibile usare <userinput
+>StringDetect</userinput
+>.</para>
 </listitem>
 </varlistentry>
 
@@ -1920,16 +1927,6 @@
 
 <listitem>
 <para
->Se cerchi la corrispondenza di solo due caratteri, usa <userinput
->Detect2Chars</userinput
-> invece che <userinput
->StringDetect</userinput
->. Lo stesso vale per <userinput
->DetectChar</userinput
->.</para>
-</listitem>
-<listitem>
-<para
 >Le espressioni regolari sono semplici da usare, ma spesso c'è un altro modo molto più veloce per ottenere gli stessi risultati. Considera di voler semplicemente cercare la corrispondenza del carattere <userinput
 >«#»</userinput
 > solo quando è il primo della riga. Una soluzione basata su un'espressione regolare assomiglierebbe a questo: <programlisting
@@ -1971,7 +1968,7 @@
 > devi almeno elaborare quella stringa nel contesto del testo. La regola qui sotto corrisponderà, e l'attributo <userinput
 >lookAhead</userinput
 > farà in modo che l'evidenziatore tenga la stringa corrispondente per il contesto successivo. <programlisting
->&lt;Detect2Chars attribute=&quot;Comment&quot; context=&quot;#pop&quot; char=&quot;*&quot; char1=&quot;/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
+>&lt;StringDetect attribute=&quot;Comment&quot; context=&quot;#pop&quot; String=&quot;*/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
 </para>
 </listitem>
 <listitem>
@@ -1999,12 +1996,12 @@
 <listitem>
 <para
 >Puoi validare ogni file &XML; usando il comando <command
->validatehl.sh language.xsd mySyntax.xml</command
->. I file <filename
+>validatehl.sh mySyntax.xml</command
+>. Il file <filename
 >validatehl.sh</filename
-> e <filename
+> usa <filename
 >language.xsd</filename
-> si trovano nel <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
+>, che sono entrambi disponibili nel <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
 >deposito di evidenziazione della sintassi</ulink
 >. </para>
 </listitem>
@@ -2015,7 +2012,7 @@
 >. Esempio:</para>
 <programlisting
 >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE language SYSTEM "language.dtd"
+&lt;!DOCTYPE language
 [
         &lt;!ENTITY myref    "[A-Za-z_:][\w.:_-]*"&gt;
 ]&gt;
@@ -2024,6 +2021,44 @@
 >Ora puoi usare <emphasis
 >&amp;myref;</emphasis
 > invece dell'espressione regolare.</para>
+</listitem>
+<listitem>
+<para
+>Nell'editor Kate puoi ricaricare le sintassi usando la riga di comando incorporata (<userinput
+>F7</userinput
+> è la scorciatoia per impostazione predefinita) e il comando <command
+>reload-highlighting</command
+>.</para>
+</listitem>
+<listitem>
+<para
+>Puoi usare il programma da riga di comando chiamato <userinput
+>ksyntaxhighlighter6</userinput
+> (<userinput
+>kate-syntax-highlighter</userinput
+> nelle versioni più vecchie) per provare una sintassi e per visualizzare lo stile e le regioni associate con ciascuna parte di un testo.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="ksyntaxhighlighter6-trace-format.png"/></imageobject>
+<textobject
+><phrase
+>Il risultato di <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</phrase
+></textobject>
+<caption
+><para
+>Il risultato di <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</para>
+</caption>
+</mediaobject>
+
+<para
+>Usa <command
+>ksyntaxhighlighter6 -h</command
+> per le altre opzioni.</para>
 </listitem>
 </itemizedlist>
 </sect3>

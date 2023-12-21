@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-17 01:37+0000\n"
-"PO-Revision-Date: 2023-12-17 11:26\n"
+"PO-Revision-Date: 2023-12-20 11:22\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -53,7 +53,7 @@ msgstr "添加错误和警告到诊断消息"
 #: buildconfig.cpp:27
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "执行选定的目标时自动切换到输出窗格"
 
 #: buildconfig.cpp:40
 #, kde-format

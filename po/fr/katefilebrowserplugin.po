@@ -2,11 +2,11 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Joëlle Cornavin <jcorn@free.fr>, 2007, 2008, 2009, 2012, 2013.
-# xavier <ktranslator31@yahoo.fr>, 2013.
+# Xavier Besnard <xavier.besnard@kde.org>, 2013.
 # Raphaël Jakse <raphael.jakse@gmail.com>, 2014.
 # Maxime Corteel <mcorteel@gmail.com>, 2014.
-# Xavier Besnard <xavier.besnard@neuf.fr>, 2020, 2021, 2022.
-# Xavier BESNARD <xavier.besnard@neuf.fr>, 2023.
+# Xavier Besnard <xavier.besnard@kde.org>, 2020, 2021, 2022.
+# Xavier BESNARD <xavier.besnard@kde.org>, 2023.
 #
 msgid ""
 msgstr ""

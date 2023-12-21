@@ -17,16 +17,9 @@
 
 static constexpr int textChangedDelay = 1000; // 1s
 
-static std::size_t hash_combine(std::size_t seed, std::size_t v)
-{
-    seed ^= v + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-    return seed;
-}
-
 size_t qHash(const LSPInlayHint &s, size_t seed = 0)
 {
-    std::size_t h1 = hash_combine(seed, qHash(s.position));
-    return hash_combine(h1, qHash(s.label));
+    return qHashMulti(seed, s.position, s.label);
 }
 
 [[maybe_unused]] static bool operator==(const LSPInlayHint &l, const LSPInlayHint &r)

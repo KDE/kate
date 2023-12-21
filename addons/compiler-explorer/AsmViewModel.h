@@ -11,10 +11,12 @@ struct SourcePos {
     int line = 0;
     int col = 0;
 };
-inline uint qHash(const SourcePos &key, uint seed = 0)
+
+inline size_t qHash(const SourcePos &key, size_t seed = 0)
 {
-    return qHash(key.line /* + key.col*/, seed) ^ qHash(key.file, seed);
+    return qHashMulti(seed, key.line, key.file);
 }
+
 inline bool operator==(const SourcePos &l, const SourcePos &r)
 {
     return r.file == l.file && r.line == l.line;

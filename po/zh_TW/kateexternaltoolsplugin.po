@@ -6,20 +6,21 @@
 # Automatically generated, 2019.
 # pan93412 <pan93412@gmail.com>, 2019.
 # Jeff Huang <s8321414@gmail.com>, 2020.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2020-09-17 14:58+0800\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
+"PO-Revision-Date: 2023-12-22 05:16+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 19.08.3\n"
+"X-Generator: Lokalize 24.01.80\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -43,7 +44,7 @@ msgstr "Clang 格式化選取文字"
 #, kde-format
 msgctxt "External tool name"
 msgid "Compile and Run cpp"
-msgstr ""
+msgstr "編譯並執行 cpp"
 
 #. i18n: file: 7
 #, kde-format
@@ -71,26 +72,22 @@ msgid "gitk"
 msgstr "gitk"
 
 #. i18n: file: 9
-#, fuzzy, kde-format
-#| msgctxt "External tool name"
-#| msgid "XML Format Full File"
+#, kde-format
 msgctxt "External tool name"
 msgid "Go Fmt Full File"
-msgstr "XML 格式化完整檔案"
+msgstr "Go Fmt 格式化整個檔案"
 
 #. i18n: file: 4
 #, kde-format
 msgctxt "External tool category"
 msgid "Go"
-msgstr ""
+msgstr "Go"
 
 #. i18n: file: 9
-#, fuzzy, kde-format
-#| msgctxt "External tool name"
-#| msgid "XML Format Full File"
+#, kde-format
 msgctxt "External tool name"
 msgid "GoImports Full File"
-msgstr "XML 格式化完整檔案"
+msgstr "Go Imports 整個檔案"
 
 #. i18n: file: 8
 #, kde-format
@@ -114,7 +111,7 @@ msgstr "JSON 格式化完整檔案"
 #, kde-format
 msgctxt "External tool name"
 msgid "Prettier Format Current File"
-msgstr ""
+msgstr "用 Prettier 格式化目前檔案"
 
 #. i18n: file: 8
 #, kde-format
@@ -135,24 +132,22 @@ msgid "Run Shell Script"
 msgstr "執行 Shell 文稿"
 
 #. i18n: file: 9
-#, fuzzy, kde-format
-#| msgctxt "External tool name"
-#| msgid "XML Format Full File"
+#, kde-format
 msgctxt "External tool name"
 msgid "Rust Fmt Full File"
-msgstr "XML 格式化完整檔案"
+msgstr "Rust Fmt 格式化整個檔案"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search KDE API"
-msgstr ""
+msgstr "搜尋 KDE API"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search Qt API"
-msgstr ""
+msgstr "搜尋 Qt API"
 
 #. i18n: file: 8
 #, kde-format
@@ -191,6 +186,7 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"找不到執行檔 '%1'。請確認該執行檔存在，若使用變數時也請確認變數名稱是正確的"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
 #: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:272
@@ -203,29 +199,27 @@ msgstr "外部工具"
 #: externaltoolsplugin.cpp:294
 #, kde-format
 msgid "Running %1: %2 %3"
-msgstr ""
+msgstr "正在執行 %1：%2 %3"
 
 #: externaltoolsplugin.cpp:295
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
-msgstr ""
+msgstr "正在執行 %1：%2 %3 輸入為 %4"
 
 #: externaltoolsplugin.cpp:398
-#, fuzzy, kde-format
-#| msgid "Data written to stderr:"
+#, kde-format
 msgid "Data written to stderr:\n"
-msgstr "寫入標準錯誤的資料："
+msgstr "寫入標準錯誤的資料：\n"
 
 #: externaltoolsplugin.cpp:409
 #, kde-format
 msgid "%1 crashed"
-msgstr ""
+msgstr "%1 已崩潰"
 
 #: externaltoolsplugin.cpp:411
-#, fuzzy, kde-format
-#| msgid "Finished with exit code: %1"
+#, kde-format
 msgid "%1 finished with exit code %2"
-msgstr "完成，結束碼是：%1"
+msgstr "%1 已完成，結束碼是 %2"
 
 #: kateexternaltoolscommand.cpp:38
 #, kde-format
@@ -255,7 +249,7 @@ msgstr "您必須至少指定一個檔案及一個可執行檔"
 #: kateexternaltoolsconfigwidget.cpp:196
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
-msgstr ""
+msgstr "啟用「觸發」的時候，至少需要指定一個 MIME 類型。"
 
 #: kateexternaltoolsconfigwidget.cpp:205
 #, kde-format
@@ -446,19 +440,19 @@ msgstr "所有文件"
 #: tooldialog.ui:181
 #, kde-format
 msgid "Trigger"
-msgstr ""
+msgstr "觸發"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:194
 #, kde-format
 msgid "Before Save"
-msgstr ""
+msgstr "儲存前"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:199
 #, kde-format
 msgid "After Save"
-msgstr ""
+msgstr "儲存後"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkReload)
 #: tooldialog.ui:207

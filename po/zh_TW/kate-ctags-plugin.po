@@ -6,19 +6,20 @@
 # Jeff Huang <s8321414@gmail.com>, 2016, 2020, 2022.
 # pan93412 <pan93412@gmail.com>, 2018.
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2008, 2009.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-15 01:41+0000\n"
-"PO-Revision-Date: 2022-02-19 11:37+0800\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@lists.slat.org>\n"
+"PO-Revision-Date: 2023-12-22 04:54+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 24.01.80\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -366,10 +367,9 @@ msgid "CTags Settings"
 msgstr "CTags 設定"
 
 #: kate_ctags_plugin.cpp:230 kate_ctags_view.cpp:559
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "執行 %1 失敗。離開狀態：%2"
+msgstr "執行失敗。錯誤：%1，結束碼：%2"
 
 #: kate_ctags_plugin.cpp:241
 #, kde-format
@@ -458,16 +458,14 @@ msgid "No folders or files to index"
 msgstr "沒有要進行索引的資料夾"
 
 #: kate_ctags_view.cpp:574
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "CTags 執行檔發生問題。"
+msgstr "CTags 執行檔崩潰了"
 
 #: kate_ctags_view.cpp:576
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "CTags 程式已離開，狀態為 %1: %2"
+msgstr "CTags 程式已結束，結束碼為 %1：%2"
 
 #~ msgid "Failed to run \"%1\". exitStatus = %2"
 #~ msgstr "執行 %1 失敗。離開狀態：%2"

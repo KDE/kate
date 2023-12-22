@@ -2,26 +2,28 @@
 # kate 套件的正體中文翻譯.
 # Copyright (C) 2022 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Automatically generated, 2022.
 #
+# Automatically generated, 2022.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-15 01:54+0000\n"
-"PO-Revision-Date: 2021-11-03 00:23+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-12-22 05:12+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 24.01.80\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
 msgid "Show preview for known color names"
-msgstr ""
+msgstr "為已知顏色名稱顯示預覽"
 
 #: colorpickerconfigpage.cpp:36
 #, kde-format
@@ -30,58 +32,60 @@ msgid ""
 "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
 "colors."
 msgstr ""
+"也為已知顏色名稱（例如 skyblue）顯示取色工具。已知顏色名稱列表請見 https://"
+"www.w3.org/TR/SVG11/types.html#ColorKeywords。"
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format
 msgid "Place preview after text color"
-msgstr ""
+msgstr "將預覽放於文字顏色後方"
 
 #: colorpickerconfigpage.cpp:45
 #, kde-format
 msgid "Hex color matching"
-msgstr ""
+msgstr "十六進位顏色比對"
 
 #: colorpickerconfigpage.cpp:48
 #, kde-format
 msgid "12 digits (#RRRRGGGGBBBB)"
-msgstr ""
+msgstr "12 碼 (#RRRRGGGGBBBB)"
 
 #: colorpickerconfigpage.cpp:49
 #, kde-format
 msgid "9 digits (#RRRGGGBBB)"
-msgstr ""
+msgstr "9 碼 (#RRRGGGBBB)"
 
 #: colorpickerconfigpage.cpp:50
 #, kde-format
 msgid "8 digits (#AARRGGBB)"
-msgstr ""
+msgstr "8 碼 (#AARRGGBB)"
 
 #: colorpickerconfigpage.cpp:51
 #, kde-format
 msgid "6 digits (#RRGGBB)"
-msgstr ""
+msgstr "6 碼 (#RRGGBB)"
 
 #: colorpickerconfigpage.cpp:52
 #, kde-format
 msgid "3 digits (#RGB)"
-msgstr ""
+msgstr "3 碼 (#RGB)"
 
 #: colorpickerconfigpage.cpp:72
 #, kde-format
 msgid "Color Picker"
-msgstr ""
+msgstr "取色工具"
 
 #: colorpickerconfigpage.cpp:77
 #, kde-format
 msgid "Color Picker Settings"
-msgstr ""
+msgstr "取色工具設定"
 
 #: katecolorpickerplugin.cpp:241
 #, kde-format
 msgid "Select Color (Hex output)"
-msgstr ""
+msgstr "選擇顏色（十六進位輸出）"
 
 #: katecolorpickerplugin.cpp:244
 #, kde-format
 msgid "View Color [Read only]"
-msgstr ""
+msgstr "檢視顏色 [唯讀]"

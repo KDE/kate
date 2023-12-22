@@ -4,19 +4,20 @@
 # Franklin Weng <franklin@mail.everfocus.com.tw>, 2011, 2012, 2013, 2014, 2015, 2017.
 # Jeff Huang <s8321414@gmail.com>, 2016, 2017, 2020.
 # pan93412 <pan93412@gmail.com>, 2018, 2019, 2020.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-18 02:00+0000\n"
-"PO-Revision-Date: 2020-09-17 14:59+0800\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
+"PO-Revision-Date: 2023-12-22 03:40+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 19.08.3\n"
+"X-Generator: Lokalize 24.01.80\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: KateSearchCommand.cpp:80
@@ -45,77 +46,67 @@ msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "用法：newPGrep [要在目前專案中搜尋的樣式]"
 
 #: KateSearchCommand.cpp:98
-#, fuzzy, kde-format
-#| msgid "Usage: pgrep [pattern to search for in current project]"
+#, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
-msgstr "用法：pgrep [要在目前專案中搜尋的樣式]"
+msgstr "用法：preg [要在目前專案中搜尋的正則表達式]"
 
 #: MatchExportDialog.cpp:20
-#, fuzzy, kde-format
-#| msgid "Kate Search & Replace"
+#, kde-format
 msgid "Export Search Result Matches"
-msgstr "Kate 搜尋並取代"
+msgstr "匯出搜尋結果符合項目"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
 #: MatchExportDialog.ui:31
 #, kde-format
 msgid "Export Pattern"
-msgstr ""
+msgstr "匯出樣式"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:38
 #, kde-format
 msgid "Generate"
-msgstr ""
+msgstr "產生"
 
 #. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
 #: MatchExportDialog.ui:50
 #, kde-format
 msgid "Result"
-msgstr ""
+msgstr "結果"
 
 #: MatchModel.cpp:545 MatchModel.cpp:547
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%2) found in file</i></b>"
-#| msgid_plural "<b><i>%1 matches (%2) found in file</i></b>"
+#, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr "<b><i>在檔案中找到 %1 個相符項目 (%2)</i></b>"
+msgstr "<b><i>正在產生檔案清單：...%1</i></b>"
 
 #: MatchModel.cpp:555
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%3) found in folder %2</i></b>"
-#| msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
+#, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] "<b><i>在資料夾 %2 中找到 %1 個相符項目 (%3)</i></b>"
+msgstr[0] "<b><i>找到 %1 個相符項目，搜尋中：...%2</i></b>"
 
 #: MatchModel.cpp:560
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%3) found in folder %2</i></b>"
-#| msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
+#, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
-msgstr[0] "<b><i>在資料夾 %2 中找到 %1 個相符項目 (%3)</i></b>"
+msgstr[0] "<b><i>找到 %1 個相符項目，搜尋中：%2</i></b>"
 
 #: MatchModel.cpp:567 MatchModel.cpp:721
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
-msgstr[0] "勾選 %1 項"
+msgstr[0] "%1 項已勾選"
 
 #: MatchModel.cpp:571
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%2) found in file</i></b>"
-#| msgid_plural "<b><i>%1 matches (%2) found in file</i></b>"
+#, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] "<b><i>在檔案中找到 %1 個相符項目 (%2)</i></b>"
+msgstr[0] "<b><i>在目前檔案中找到 %1 個相符項目 (%2)</i></b>"
 
 #: MatchModel.cpp:573
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
-msgstr[0] "<b><i>開啟檔案中找到 %1 個相符項目 (%2)</i></b>"
+msgstr[0] "<b><i>在已開啟檔案中找到 %1 個相符項目 (%2)</i></b>"
 
 #: MatchModel.cpp:576
 #, kde-format
@@ -136,79 +127,59 @@ msgid ""
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
 msgstr[0] ""
-"<b><i>在所有開啟專案（共同父專案：%2）中找到 %1 個相符項目 (%3)</i></b>"
+"<b><i>在所有開啟專案（共同親專案：%2）中找到 %1 個相符項目 (%3)</i></b>"
 
 #: MatchModel.cpp:705 MatchModel.cpp:707
 #, kde-format
 msgid "Generating file list: ...%1"
-msgstr ""
+msgstr "正在產生檔案清單：...%1"
 
 #: MatchModel.cpp:715
-#, fuzzy, kde-format
-#| msgid "%1 match found in: %2\n"
-#| msgid_plural "%1 matches found in: %2\n"
+#, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] "找到 %1 個符合項目於：%2\n"
+msgstr[0] "找到 %1 個相符項目，搜尋中：...%2"
 
 #: MatchModel.cpp:717
-#, fuzzy, kde-format
-#| msgid "%1 match found in: %2\n"
-#| msgid_plural "%1 matches found in: %2\n"
+#, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
-msgstr[0] "找到 %1 個符合項目於：%2\n"
+msgstr[0] "找到 %1 個相符項目，搜尋中：%2"
 
 #: MatchModel.cpp:725
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%2) found in file</i></b>"
-#| msgid_plural "<b><i>%1 matches (%2) found in file</i></b>"
+#, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
-msgstr[0] "<b><i>在檔案中找到 %1 個相符項目 (%2)</i></b>"
+msgstr[0] "在目前檔案中找到 %1 個相符項目 (%2)"
 
 #: MatchModel.cpp:727
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%2) found in open files</i></b>"
-#| msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
+#, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
-msgstr[0] "<b><i>開啟檔案中找到 %1 個相符項目 (%2)</i></b>"
+msgstr[0] "在已開啟檔案中找到 %1 個相符項目 (%2)"
 
 #: MatchModel.cpp:730
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%3) found in folder %2</i></b>"
-#| msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
+#, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
-msgstr[0] "<b><i>在資料夾 %2 中找到 %1 個相符項目 (%3)</i></b>"
+msgstr[0] "在資料夾 %2 中找到 %1 個相符項目 (%3)"
 
 #: MatchModel.cpp:733
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
-#| msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
+#, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] "<b><i>在專案 %2 (%3) 中找到 %1 個相符項目 (%4)</i></b>"
+msgstr[0] "在專案 %2 (%3) 中找到 %1 個相符項目 (%4)"
 
 #: MatchModel.cpp:742
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b><i>One match (%3) found in all open projects (common parent: %2)</i></"
-#| "b>"
-#| msgid_plural ""
-#| "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></"
-#| "b>"
+#, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
-msgstr[0] ""
-"<b><i>在所有開啟專案（共同父專案：%2）中找到 %1 個相符項目 (%3)</i></b>"
+msgstr[0] "在所有開啟專案（共同親專案：%2）中找到 %1 個相符項目 (%3)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter..."
-msgstr "過濾器："
+msgstr "過濾…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -219,14 +190,13 @@ msgstr "搜尋"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
-#, fuzzy, kde-format
-#| msgid "Replace Checked"
+#, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr "取代勾選"
+msgstr "取代已勾選的"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
@@ -304,16 +274,15 @@ msgstr "使用目前的文件路徑。"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:246
-#, fuzzy, kde-format
-#| msgid "Show search options"
+#, kde-format
 msgid "Show more search options"
-msgstr "顯示搜尋選項"
+msgstr "顯示更多搜尋選項"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
 #: search.ui:259
 #, kde-format
 msgid "Add new search tab"
-msgstr "新增新的搜尋標籤"
+msgstr "新增搜尋分頁"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
 #: search.ui:356
@@ -422,7 +391,7 @@ msgstr "<a> 次到 <b> 次之間"
 #: SearchPlugin.cpp:105
 #, kde-format
 msgid "Group, capturing"
-msgstr "群組，抓取中"
+msgstr "群組，擷取中"
 
 #: SearchPlugin.cpp:106
 #, kde-format
@@ -442,7 +411,7 @@ msgstr "字元補集"
 #: SearchPlugin.cpp:109
 #, kde-format
 msgid "Group, non-capturing"
-msgstr "群組，未抓取"
+msgstr "群組，不擷取"
 
 #: SearchPlugin.cpp:110
 #, kde-format
@@ -457,12 +426,12 @@ msgstr "Negative lookahead"
 #: SearchPlugin.cpp:116
 #, kde-format
 msgid "Word boundary"
-msgstr "字元邊界"
+msgstr "單字邊界"
 
 #: SearchPlugin.cpp:117
 #, kde-format
 msgid "Not word boundary"
-msgstr "非字元邊界"
+msgstr "非單字邊界"
 
 #: SearchPlugin.cpp:118
 #, kde-format
@@ -530,20 +499,17 @@ msgid "Lower-cased capture 0-999"
 msgstr "小寫擷取 0-999"
 
 #: SearchPlugin.cpp:292
-#, fuzzy, kde-format
-#| msgid "Search and Replace"
+#, kde-format
 msgid "Search & Replace"
-msgstr "搜尋並取代"
+msgstr "搜尋與取代"
 
 #: SearchPlugin.cpp:333
-#, fuzzy, kde-format
-#| msgid "In Open Files"
+#, kde-format
 msgid "Find in Files"
-msgstr "在開啟的檔案中"
+msgstr "在檔案中尋找"
 
 #: SearchPlugin.cpp:339
-#, fuzzy, kde-format
-#| msgid "Search in Files (in new tab)"
+#, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "在檔案中尋找（新分頁）"
 
@@ -560,26 +526,26 @@ msgstr "跳到上一筆符合"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "剪下符合的行"
 
 #: SearchPlugin.cpp:359
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
-msgstr ""
+msgstr "這會將目前文件中所有符合搜尋而突顯的行剪下到剪貼簿中"
 
 #: SearchPlugin.cpp:364
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "複製符合的行"
 
 #: SearchPlugin.cpp:366
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
-msgstr ""
+msgstr "這會將目前文件中所有符合搜尋而突顯的行複製到剪貼簿中"
 
 #: SearchPlugin.cpp:399
 #, kde-format
@@ -597,13 +563,12 @@ msgstr "要排除不搜尋的檔案與目錄清單，以逗號分隔。如：\"b
 #: SearchPlugin.cpp:402
 #, kde-format
 msgid "Click to filter through results"
-msgstr ""
+msgstr "點擊以篩選結果"
 
 #: SearchPlugin.cpp:492
-#, fuzzy, kde-format
-#| msgid "Find:"
+#, kde-format
 msgid "Find"
-msgstr "尋找："
+msgstr "尋找"
 
 #: SearchPlugin.cpp:1324
 #, kde-format
@@ -611,10 +576,9 @@ msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "您的輸入搜尋被中斷。它花了太長的時間。"
 
 #: SearchPlugin.cpp:1657
-#, fuzzy, kde-format
-#| msgid "Search More"
+#, kde-format
 msgid "Search Match"
-msgstr "搜尋更多"
+msgstr "搜尋符合"
 
 #: SearchPlugin.cpp:1837 SearchPlugin.cpp:1914
 #, kde-format
@@ -632,10 +596,9 @@ msgid "Continuing from first match"
 msgstr "從第一個符合的地方繼續"
 
 #: SearchPlugin.cpp:1931
-#, fuzzy, kde-format
-#| msgid "Starting from first match"
+#, kde-format
 msgid "Starting from last match"
-msgstr "從第一個符合的地方開始"
+msgstr "從最後一個符合的地方開始"
 
 #: SearchPlugin.cpp:1951
 #, kde-format
@@ -643,10 +606,9 @@ msgid "Continuing from last match"
 msgstr "從最後一個符合的地方繼續"
 
 #: SearchPlugin.cpp:2110
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "搜尋"
+msgstr "搜尋：%1"
 
 #: SearchPlugin.cpp:2241
 #, kde-format
@@ -661,17 +623,17 @@ msgstr "複製擴充部份"
 #: SearchPlugin.cpp:2249
 #, kde-format
 msgid "Export matches"
-msgstr ""
+msgstr "匯出符合"
 
 #: SearchPlugin.cpp:2255
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "作為編輯器分頁開啟"
 
 #: SearchPlugin.cpp:2262
 #, kde-format
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #: SearchPlugin.cpp:2372 SearchPlugin.cpp:2406
 #, kde-format
@@ -679,10 +641,9 @@ msgid "Add..."
 msgstr "新增..."
 
 #: SearchPlugin.cpp:2384
-#, fuzzy, kde-format
-#| msgid "Search More"
+#, kde-format
 msgid "Search As You Type"
-msgstr "搜尋更多"
+msgstr "打字同時搜尋"
 
 #: SearchPlugin.cpp:2455
 #, kde-format
@@ -704,7 +665,7 @@ msgstr "編輯(&E)"
 #: ui.rc:9
 #, kde-format
 msgid "Find in Files Variants"
-msgstr ""
+msgstr "在檔案中尋找的變種"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Kate 搜尋並取代"

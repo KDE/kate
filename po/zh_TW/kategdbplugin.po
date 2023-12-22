@@ -3,25 +3,25 @@
 #
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2010, 2011, 2012, 2013, 2014.
 # Jeff Huang <s8321414@gmail.com>, 2020.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-24 01:36+0000\n"
-"PO-Revision-Date: 2020-09-17 14:58+0800\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
+"PO-Revision-Date: 2023-12-22 05:20+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 19.08.3\n"
+"X-Generator: Lokalize 24.01.80\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "GDB 指令"
 
@@ -133,7 +133,7 @@ msgstr "工作目錄："
 #: configview.cpp:133
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "行程 ID："
 
 #: configview.cpp:138
 #, kde-format
@@ -180,48 +180,47 @@ msgstr "目標 %1"
 #: dapbackend.cpp:169
 #, kde-format
 msgid "DAP backend failed"
-msgstr ""
+msgstr "DAP 後端已失敗"
 
 #: dapbackend.cpp:211
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "程式已終止"
 
 #: dapbackend.cpp:223
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "正在請求斷線"
 
 #: dapbackend.cpp:237
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "正在請求關閉"
 
 #: dapbackend.cpp:261
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "DAP 後端：%1"
 
 #: dapbackend.cpp:270 gdbbackend.cpp:653
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "已停止 (%1)。"
 
 #: dapbackend.cpp:278 gdbbackend.cpp:657
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "作用中執行緒：%1（所有執行緒皆以停止）。"
 
 #: dapbackend.cpp:280 gdbbackend.cpp:659
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "作用中執行緒：%1。"
 
 #: dapbackend.cpp:285
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr "中斷點"
+msgstr "已抵達的中斷點："
 
 #: dapbackend.cpp:307
 #, kde-format
@@ -236,22 +235,22 @@ msgstr ""
 #: dapbackend.cpp:316
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "（執行中）"
 
 #: dapbackend.cpp:404
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** 已關閉與伺服器的連線 ***"
 
 #: dapbackend.cpp:411
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "程式已結束，結束碼為 %1"
 
 #: dapbackend.cpp:425
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** 正在等待使用者動作 ***"
 
 #: dapbackend.cpp:430
 #, kde-format
@@ -261,7 +260,7 @@ msgstr ""
 #: dapbackend.cpp:445
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "重要"
 
 #: dapbackend.cpp:448
 #, kde-format
@@ -284,28 +283,24 @@ msgid "Start method: %1"
 msgstr ""
 
 #: dapbackend.cpp:479
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread %1"
 msgstr "執行緒 %1"
 
 #: dapbackend.cpp:633
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint set"
-msgstr "中斷點"
+msgstr "中斷點已設定"
 
 #: dapbackend.cpp:641
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint cleared"
-msgstr "中斷點"
+msgstr "中斷點已清除"
 
 #: dapbackend.cpp:700
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "(%1) breakpoint"
-msgstr "中斷點"
+msgstr "(%1) 中斷點"
 
 #: dapbackend.cpp:717
 #, kde-format
@@ -315,29 +310,27 @@ msgstr ""
 #: dapbackend.cpp:739
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "伺服器功能"
 
 #: dapbackend.cpp:742
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "支援"
 
 #: dapbackend.cpp:742
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "不支援"
 
 #: dapbackend.cpp:745
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "conditional breakpoints"
-msgstr "插入中斷點"
+msgstr "條件中斷點"
 
 #: dapbackend.cpp:746
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "function breakpoints"
-msgstr "插入中斷點"
+msgstr "函式中斷點"
 
 #: dapbackend.cpp:747
 #, kde-format
@@ -347,7 +340,7 @@ msgstr ""
 #: dapbackend.cpp:748
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "紀錄點"
 
 #: dapbackend.cpp:748
 #, kde-format
@@ -372,14 +365,14 @@ msgstr ""
 #: dapbackend.cpp:958
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "語法錯誤：找不到表達式"
 
 #: dapbackend.cpp:976 dapbackend.cpp:1011 dapbackend.cpp:1049
 #: dapbackend.cpp:1083 dapbackend.cpp:1119 dapbackend.cpp:1155
 #: dapbackend.cpp:1191 dapbackend.cpp:1291 dapbackend.cpp:1353
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "語法錯誤：%1"
 
 #: dapbackend.cpp:984 dapbackend.cpp:1019 dapbackend.cpp:1298
 #: dapbackend.cpp:1361
@@ -409,7 +402,7 @@ msgstr ""
 #: dapbackend.cpp:1220
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "可用的指令："
 
 #: dapbackend.cpp:1308
 #, kde-format
@@ -509,11 +502,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "設定"
+msgstr "設定檔案："
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
@@ -522,10 +513,9 @@ msgid "Default Debug Adapter Settings"
 msgstr ""
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "除錯"
+msgstr "除錯器"
 
 #: debugconfigpage.cpp:128
 #, kde-format
@@ -535,17 +525,17 @@ msgstr ""
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON 資料有效。"
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON 資料是無效的：沒有 JSON 物件"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON 資料是無效的：%1"
 
 #: gdbbackend.cpp:35
 #, kde-format
@@ -592,10 +582,9 @@ msgid "all threads running"
 msgstr ""
 
 #: gdbbackend.cpp:648
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "執行緒 %1"
+msgstr "執行中執行緒：%1"
 
 #: gdbbackend.cpp:678
 #, kde-format
@@ -646,10 +635,9 @@ msgid "named items"
 msgstr ""
 
 #: plugin_kategdb.cpp:103
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Kate GDB"
+msgstr "Kate 除錯"
 
 #: plugin_kategdb.cpp:107
 #, kde-format
@@ -679,12 +667,10 @@ msgid "Frame"
 msgstr "框架"
 
 #: plugin_kategdb.cpp:197
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB 輸出"
+msgstr "除錯輸出"
 
 #: plugin_kategdb.cpp:198
 #, kde-format
@@ -804,10 +790,9 @@ msgstr "除錯(&D)"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "GDB 外掛程式"
+msgstr "除錯外掛程式"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

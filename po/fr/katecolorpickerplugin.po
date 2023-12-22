@@ -1,4 +1,4 @@
-# Xavier Besnard <xavier.besnard@neuf.fr>, 2020, 2021.
+# Xavier Besnard <xavier.besnard@kde.org>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

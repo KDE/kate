@@ -2,20 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Franklin, 2014.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 01:01+0000\n"
-"PO-Revision-Date: 2014-09-14 09:05+0800\n"
-"Last-Translator: Franklin\n"
-"Language-Team: Chinese Traditional <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2023-12-22 02:53+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 24.01.80\n"
 
 #: tabswitcher.cpp:49
 #, kde-format
@@ -50,19 +51,18 @@ msgstr "開啟清單並反向瀏覽上次使用的檢視。"
 #: tabswitcher.cpp:110
 #, kde-format
 msgid "Close View"
-msgstr ""
+msgstr "關閉檢視"
 
 #: tabswitcher.cpp:113 tabswitcher.cpp:114
-#, fuzzy, kde-format
-#| msgid "Opens a list to walk through the list of last used views."
+#, kde-format
 msgid "Closes the selected view in the list of last used views."
-msgstr "開啟清單並瀏覽上次使用的檢視。"
+msgstr "在最近使用檢視列表中關閉選取的檢視。"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:6
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "跳至(&G)"
 
 #~ msgid "&View"
 #~ msgstr "檢視(&V)"

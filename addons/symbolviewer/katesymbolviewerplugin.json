@@ -33,6 +33,7 @@
         "Description[vi]": "Trích xuất và hiển thị các kí hiệu tham chiếu từ mã nguồn",
         "Description[x-test]": "xxExtract and show reference symbols from sourcexx",
         "Description[zh_CN]": "从源代码中提取并显示引用符号",
+        "Description[zh_TW]": "從原始碼取出並顯示參考符號",
         "Name": "Symbol Viewer",
         "Name[ar]": "عارض الرّموز",
         "Name[az]": "Simvol Görünüşü",
@@ -69,6 +70,7 @@
         "Name[vi]": "Trình xem kí hiệu",
         "Name[x-test]": "xxSymbol Viewerxx",
         "Name[zh_CN]": "符号查看器",
+        "Name[zh_TW]": "符號檢視器",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -30,6 +30,7 @@
         "Description[vi]": "Phần cài cắm để định dạng mã",
         "Description[x-test]": "xxPlugin for formatting codexx",
         "Description[zh_CN]": "格式化代码插件",
+        "Description[zh_TW]": "格式化程式碼用的外掛程式",
         "Name": "Formatting",
         "Name[az]": "Formatlama",
         "Name[bg]": "Форматиране",
@@ -62,6 +63,7 @@
         "Name[vi]": "Định dạng",
         "Name[x-test]": "xxFormattingxx",
         "Name[zh_CN]": "格式",
+        "Name[zh_TW]": "格式化",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

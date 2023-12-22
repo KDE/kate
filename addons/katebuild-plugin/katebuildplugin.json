@@ -23,6 +23,7 @@
         "Description[uk]": "Збирає, обробляє виведені дані і запускає програми",
         "Description[x-test]": "xxBuild, parse output and run applicationsxx",
         "Description[zh_CN]": "构建，解析输出并运行应用程序",
+        "Description[zh_TW]": "編譯、剖析輸出、執行應用程式",
         "Name": "Build & Run",
         "Name[bg]": "Компилиране и стартиране",
         "Name[ca@valencia]": "Construïx i executa",
@@ -46,6 +47,7 @@
         "Name[uk]": "Зібрати і запустити",
         "Name[x-test]": "xxBuild & Runxx",
         "Name[zh_CN]": "构建并运行",
+        "Name[zh_TW]": "編譯與執行",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

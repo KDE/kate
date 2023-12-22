@@ -27,6 +27,7 @@
         "Description[uk]": "Надає інтеграцію із засобом діагностики",
         "Description[x-test]": "xxProvides debugger integrationxx",
         "Description[zh_CN]": "提供调试器集成",
+        "Description[zh_TW]": "提供除錯器整合",
         "Name": "Kate Debugger",
         "Name[az]": "Kate sazlayıcısı",
         "Name[bg]": "Програма за трасиране на Kate",
@@ -55,6 +56,7 @@
         "Name[uk]": "Зневадник Kate",
         "Name[x-test]": "xxKate Debuggerxx",
         "Name[zh_CN]": "Kate 调试器",
+        "Name[zh_TW]": "Kate 除錯器",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

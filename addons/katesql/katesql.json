@@ -33,6 +33,7 @@
         "Description[vi]": "Thực thi truy vấn trong các cơ sở dữ liệu SQL",
         "Description[x-test]": "xxExecute query on SQL databasesxx",
         "Description[zh_CN]": "在 SQL 数据库中执行查询",
+        "Description[zh_TW]": "在 SQL 資料庫上執行查詢",
         "Name": "SQL Plugin",
         "Name[ar]": "ملحقة SQL",
         "Name[az]": "SQL qoşması",
@@ -69,6 +70,7 @@
         "Name[vi]": "Phần cài cắm SQL",
         "Name[x-test]": "xxSQL Pluginxx",
         "Name[zh_CN]": "SQL 插件",
+        "Name[zh_TW]": "SQL 外掛程式",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

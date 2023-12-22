@@ -32,6 +32,7 @@
         "Description[vi]": "Dấu ngoặc được tô màu cho dễ đọc",
         "Description[x-test]": "xxColored brackets for readabilityxx",
         "Description[zh_CN]": "提升可读性的彩色括号",
+        "Description[zh_TW]": "為可讀性為括號加上顏色",
         "Name": "Colored Brackets",
         "Name[az]": "Rəngli mötərizələr",
         "Name[bg]": "Оцветени скоби",
@@ -65,6 +66,7 @@
         "Name[vi]": "Dấu ngoặc được tô màu",
         "Name[x-test]": "xxColored Bracketsxx",
         "Name[zh_CN]": "彩色括号",
+        "Name[zh_TW]": "彩色括號",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

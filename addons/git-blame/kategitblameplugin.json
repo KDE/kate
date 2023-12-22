@@ -32,6 +32,7 @@
         "Description[vi]": "Thêm một phần xem thử git-blame tại chỗ ở cuối dòng",
         "Description[x-test]": "xxAdds an inline git-blame preview at the end of the linexx",
         "Description[zh_CN]": "在行尾添加行内 git-blame 预览",
+        "Description[zh_TW]": "在行尾加上行內的 git-blame 預覽",
         "Name": "Git Blame",
         "Name[az]": "Git Blame",
         "Name[bg]": "Git Blame",
@@ -66,6 +67,7 @@
         "Name[vi]": "Git Blame",
         "Name[x-test]": "xxGit Blamexx",
         "Name[zh_CN]": "Git Blame",
+        "Name[zh_TW]": "Git Blame",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

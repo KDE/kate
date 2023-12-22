@@ -33,6 +33,7 @@
         "Description[vi]": "Trình khách Giao thức Trình chủ Ngôn ngữ",
         "Description[x-test]": "xxLanguage Server Protocol Clientxx",
         "Description[zh_CN]": "语言服务器协议客户端",
+        "Description[zh_TW]": "語言伺服器協定 (LSP) 用戶端",
         "Name": "LSP Client",
         "Name[ar]": "عميل LSP",
         "Name[az]": "LSP müştərisi",
@@ -69,6 +70,7 @@
         "Name[vi]": "Trình khách LSP",
         "Name[x-test]": "xxLSP Clientxx",
         "Name[zh_CN]": "LSP 客户端",
+        "Name[zh_TW]": "LSP 用戶端",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -33,6 +33,7 @@
         "Description[vi]": "Quản lí các mảnh mã của bạn hoặc tải về những mảnh mã mới",
         "Description[x-test]": "xxManage your code snippets or download new onesxx",
         "Description[zh_CN]": "管理您的代码片段或下载新代码片段",
+        "Description[zh_TW]": "管理您的程式碼片段，或下載新的",
         "Icon": "document-new",
         "Name": "Snippets",
         "Name[az]": "Fraqmentlər",
@@ -63,6 +64,7 @@
         "Name[vi]": "Mảnh mã",
         "Name[x-test]": "xxSnippetsxx",
         "Name[zh_CN]": "代码片段",
+        "Name[zh_TW]": "片段",
         "ServiceTypes": [
             "KTextEditor/Plugin",
             "KDevelop/Plugin"

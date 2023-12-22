@@ -33,6 +33,7 @@
         "Description[vi]": "Phần cài cắm CMake cho Kate",
         "Description[x-test]": "xxCMake plugin for katexx",
         "Description[zh_CN]": "Kate 的 CMake 插件",
+        "Description[zh_TW]": "Kate 的 CMake 外掛程式",
         "Name": "CMake Tools",
         "Name[ar]": "أدوات سي ميك",
         "Name[az]": "CMake alətləri",
@@ -67,6 +68,7 @@
         "Name[vi]": "Các công cụ CMake",
         "Name[x-test]": "xxCMake Toolsxx",
         "Name[zh_CN]": "CMake 工具",
+        "Name[zh_TW]": "CMake 工具",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

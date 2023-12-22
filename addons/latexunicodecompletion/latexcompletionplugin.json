@@ -66,6 +66,7 @@
         "Name[vi]": "Hoàn tất LaTeX",
         "Name[x-test]": "xxLaTeX completionxx",
         "Name[zh_CN]": "LaTeX 代码补全",
+        "Name[zh_TW]": "LaTeX 補完",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -15,7 +15,7 @@
 # Maxime Corteel <mcorteel@gmail.com>, 2014.
 # Vincent Pinon <vpinon@kde.org>, 2017, 2019.
 # Simon Depiets <sdepiets@gmail.com>, 2018.
-# Xavier Besnard <xavier.besnard@neuf.fr>, 2021, 2022.
+# Xavier Besnard <xavier.besnard@kde.org>, 2021, 2022.
 #
 msgid ""
 msgstr ""

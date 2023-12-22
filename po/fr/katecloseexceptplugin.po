@@ -16,7 +16,7 @@
 # Sébastien Renard <Sebastien.Renard@digitalfox.org>, 2008.
 # Joëlle Cornavin <jcorn@free.fr>, 2007, 2008, 2009, 2010, 2011, 2012, 2013.
 # Sebastien Renard <sebastien.renard@enioka.com>, 2013.
-# xavier <xavier.besnard@neuf.fr>, 2013, 2014.
+# Xavier Besnard <xavier.besnard@kde.org>, 2013, 2014.
 # Maxime Corteel <mcorteel@gmail.com>, 2015.
 msgid ""
 msgstr ""

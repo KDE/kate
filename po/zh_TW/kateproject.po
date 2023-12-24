@@ -4,13 +4,13 @@
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2012, 2013, 2014, 2015.
 # Jeff Huang <s8321414@gmail.com>, 2016, 2020.
 # pan93412 <pan93412@gmail.com>, 2018, 2019.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
+# SPDX-FileCopyrightText: 2023 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2023-12-22 03:58+0900\n"
+"PO-Revision-Date: 2023-12-24 04:55+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.01.80\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -179,7 +179,7 @@ msgstr "<span style=\"color:%1;\">%2</span> / 52"
 #: gitstatusmodel.cpp:85
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "已暫存"
 
 #: gitstatusmodel.cpp:87
 #, kde-format
@@ -239,12 +239,12 @@ msgstr "\"%1\" 成功執行：%2"
 #: gitwidget.cpp:646
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "暫存檔案時失敗。錯誤："
 
 #: gitwidget.cpp:659
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "取消暫存檔案時失敗。錯誤："
 
 #: gitwidget.cpp:670
 #, kde-format
@@ -279,7 +279,7 @@ msgstr "變更已成功提交。"
 #: gitwidget.cpp:810
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "無可提交。請先將您的變更加入暫存區。"
 
 #: gitwidget.cpp:823
 #, kde-format
@@ -364,7 +364,7 @@ msgstr "套用上一個貯存"
 #: gitwidget.cpp:1111
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "貯存（保留暫存區）"
 
 #: gitwidget.cpp:1115
 #, kde-format
@@ -389,7 +389,7 @@ msgstr "顯示貯存內容"
 #: gitwidget.cpp:1157
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "暫存全部"
 
 #: gitwidget.cpp:1159
 #, kde-format
@@ -440,12 +440,12 @@ msgstr "在 HEAD 開啟"
 #: gitwidget.cpp:1213
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "取消暫存檔案"
 
 #: gitwidget.cpp:1213
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "暫存檔案"
 
 #: gitwidget.cpp:1214
 #, kde-format
@@ -470,17 +470,17 @@ msgstr "您確定要移除這個檔案嗎？"
 #: gitwidget.cpp:1251
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "取消暫存全部"
 
 #: gitwidget.cpp:1318
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "取消暫存已選的檔案"
 
 #: gitwidget.cpp:1318
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "暫存已選的檔案"
 
 #: gitwidget.cpp:1319
 #, kde-format
@@ -642,7 +642,7 @@ msgstr "開啟檔案"
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "暫存 / 取消暫存"
 
 #: kateprojectconfigpage.cpp:97
 #, kde-format
@@ -1011,7 +1011,7 @@ msgstr "輸入以過濾，Enter 來彈出貯存，Esc 來離開。"
 #: stashdialog.cpp:142
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr ""
+msgstr "無法貯存變更 %1"
 
 #: stashdialog.cpp:144
 #, kde-format
@@ -1056,7 +1056,7 @@ msgstr "成功彈出貯存。"
 #: stashdialog.cpp:220
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr ""
+msgstr "顯示貯存時失敗。錯誤："
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

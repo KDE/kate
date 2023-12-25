@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-21 02:01+0000\n"
-"PO-Revision-Date: 2023-07-22 14:32+0300\n"
+"PO-Revision-Date: 2023-12-24 18:46+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -268,8 +268,7 @@ msgstr "С&ервис"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:274
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
 msgstr "Диагностика"
 
@@ -319,8 +318,7 @@ msgid "All"
 msgstr "Все"
 
 #: lib/diagnostics/diagnosticview.cpp:316
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Диагностика"
@@ -2332,16 +2330,15 @@ msgid "Control view space splitting"
 msgstr "Управление разделением окна на створки"
 
 #: lib/kateviewspace.cpp:118
-#, fuzzy, kde-format
-#| msgid "&New Synchronized Window"
+#, kde-format
 msgid "S&ynchronize Scrolling"
-msgstr "&Новое синхронизированное окно"
+msgstr "Синхронизировать &прокрутку"
 
 #: lib/kateviewspace.cpp:120
 #, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
-msgstr ""
+msgstr "Синхронизация прокрутки панелей разделённого экрана"
 
 #: lib/kateviewspace.cpp:221
 #, kde-format

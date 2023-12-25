@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Alexander Yavorsky <kekcuha@gmail.com>, 2022.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2022-12-21 10:30+0300\n"
+"PO-Revision-Date: 2023-12-24 18:44+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -229,10 +229,9 @@ msgid "End Macro &Recording"
 msgstr "&Завершить запись макроса"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "Клавиатурный макрос «%1» загружен"
+msgstr "Загрузить %1"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
@@ -242,7 +241,7 @@ msgstr "Загрузить макрос «%1» в качестве текуще�
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Воспроизвести %1"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
@@ -250,10 +249,9 @@ msgid "Play the '%1' macro without loading it."
 msgstr "Воспроизвести макрос '%1', не загружая его"
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "Клавиатурный макрос «%1» удалён"
+msgstr "Стереть %1"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format

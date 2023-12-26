@@ -17,7 +17,6 @@
 #define HAVE_X11 __has_include(<KStartupInfo>)
 #if HAVE_X11
 #include <KStartupInfo>
-#include <KWindowInfo>
 #endif
 
 #include <KWindowSystem>
@@ -120,18 +119,6 @@ bool KateAppAdaptor::openInput(const QString &text, const QString &encoding)
 bool KateAppAdaptor::activateSession(const QString &session)
 {
     return m_app->sessionManager()->activateSession(session);
-}
-
-int KateAppAdaptor::desktopNumber()
-{
-#if HAVE_X11
-    if (KWindowSystem::isPlatformX11()) {
-        KWindowInfo appInfo(m_app->activeKateMainWindow()->winId(), NET::WMDesktop);
-        return appInfo.desktop();
-    }
-#endif
-
-    return 0;
 }
 
 qint64 KateAppAdaptor::lastActivationChange() const

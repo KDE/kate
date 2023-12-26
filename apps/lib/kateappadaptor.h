@@ -87,8 +87,6 @@ public Q_SLOTS:
      */
     bool activateSession(const QString &session);
 
-    int desktopNumber();
-
     /**
      * last time some QEvent::ActivationChange occured
      * used to determine which instance to reuse, if we have multiple

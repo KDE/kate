@@ -90,6 +90,12 @@ public Q_SLOTS:
     int desktopNumber();
 
     /**
+     * last time some QEvent::ActivationChange occured
+     * used to determine which instance to reuse, if we have multiple
+     */
+    qint64 lastActivationChange() const;
+
+    /**
      * activate this kate instance
      */
     void activate(const QString &token = QString());

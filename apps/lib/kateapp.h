@@ -397,6 +397,15 @@ public Q_SLOTS:
     }
 
     /**
+     * last time some QEvent::ActivationChange occured
+     * used to determine which instance to reuse, if we have multiple
+     */
+    qint64 lastActivationChange() const
+    {
+        return m_lastActivationChange;
+    }
+
+    /**
      * A message is received from an external instance, if we use QtSingleApplication
      *
      * \p instanceId the instance id we got the message from

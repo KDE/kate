@@ -134,6 +134,11 @@ int KateAppAdaptor::desktopNumber()
     return 0;
 }
 
+qint64 KateAppAdaptor::lastActivationChange() const
+{
+    return m_app->lastActivationChange();
+}
+
 QString KateAppAdaptor::activeSession()
 {
     return m_app->sessionManager()->activeSession()->name();

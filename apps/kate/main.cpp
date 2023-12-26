@@ -320,43 +320,31 @@ int main(int argc, char **argv)
             }
         }
 
-        // prefer the Kate instance running on the current virtual desktop
+        // prefer the Kate instance that got activated last
         bool foundRunningService = false;
-        if ((!force_new) && (serviceName.isEmpty())) {
-            int desktopnumber = 0;
-#if HAVE_X11
-            if (KWindowSystem::isPlatformX11()) {
-                desktopnumber = KX11Extras::currentDesktop();
-            }
-#endif
-
-            for (int s = 0; s < kateServices.count(); s++) {
-                serviceName = kateServices[s];
-
-                if (!serviceName.isEmpty()) {
-                    QDBusReply<bool> there = sessionBusInterface->isServiceRegistered(serviceName);
-
+        if (!force_new && serviceName.isEmpty()) {
+            qint64 lastUsedChosen = 0;
+            for (const auto &currentServiceName : kateServices) {
+                if (!currentServiceName.isEmpty()) {
+                    QDBusReply<bool> there = sessionBusInterface->isServiceRegistered(currentServiceName);
                     if (there.isValid() && there.value()) {
-                        // query instance current desktop
-                        QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
-                                                                        QStringLiteral("/MainApplication"),
-                                                                        QStringLiteral("org.kde.Kate.Application"),
-                                                                        QStringLiteral("desktopNumber"));
+                        // get last activation info
+                        const QDBusMessage m = QDBusMessage::createMethodCall(currentServiceName,
+                                                                              QStringLiteral("/MainApplication"),
+                                                                              QStringLiteral("org.kde.Kate.Application"),
+                                                                              QStringLiteral("lastActivationChange"));
 
-                        QDBusMessage res = QDBusConnection::sessionBus().call(m);
-                        QVariantList answer = res.arguments();
+                        const QDBusMessage res = QDBusConnection::sessionBus().call(m);
+                        const QVariantList answer = res.arguments();
                         if (answer.size() == 1) {
-                            // special case: on all desktops! that is -1 aka NET::OnAllDesktops, see KWindowInfo::desktop() docs
-                            const int sessionDesktopNumber = answer.at(0).toInt();
-                            if (sessionDesktopNumber == desktopnumber || sessionDesktopNumber == -1) {
-                                // stop searching. a candidate instance in the current desktop has been found
-                                foundRunningService = true;
-                                break;
+                            const qint64 currentLastUsed = answer.at(0).toLongLong();
+                            if (currentLastUsed > lastUsedChosen) {
+                                serviceName = currentServiceName;
+                                lastUsedChosen = currentLastUsed;
                             }
                         }
                     }
                 }
-                serviceName.clear();
             }
         }
 

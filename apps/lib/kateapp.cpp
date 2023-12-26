@@ -190,6 +190,7 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
     , m_docManager(this)
     , m_sessionManager(this, sessionsDir)
     , m_stashManager(this)
+    , m_lastActivationChange(QDateTime::currentMSecsSinceEpoch())
 {
     /**
      * For Windows and macOS: use Breeze if available
@@ -766,10 +767,15 @@ KTextEditor::Plugin *KateApp::plugin(const QString &name)
 
 bool KateApp::eventFilter(QObject *obj, QEvent *event)
 {
+    // keep track when we got activated last time
+    if (event->type() == QEvent::ActivationChange) {
+        m_lastActivationChange = QDateTime::currentMSecsSinceEpoch();
+    }
+
     /**
      * handle mac os like file open
      */
-    if (event->type() == QEvent::FileOpen) {
+    else if (event->type() == QEvent::FileOpen) {
         /**
          * try to open and activate the new document, like we would do for stuff
          * opened via dbus

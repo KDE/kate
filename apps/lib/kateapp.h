@@ -482,4 +482,10 @@ private:
      */
     KUserFeedback::Provider m_userFeedbackProvider;
 #endif
+
+    /**
+     * last time some QEvent::ActivationChange occured
+     * used to determine which instance to reuse, if we have multiple
+     */
+    qint64 m_lastActivationChange;
 };

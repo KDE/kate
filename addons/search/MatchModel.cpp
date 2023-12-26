@@ -605,12 +605,13 @@ QString MatchModel::matchPath(const MatchFile &matchFile) const
     QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
     // make sure only to remove the leading part and not subsequent occurrences
     // also, if the basedir is root /, then do not strip that, as that would be more confusing
-    auto &baseDir = m_resultBaseDir;
-    if (baseDir.length() > 1 && path.startsWith(baseDir)) {
-        path = path.mid(baseDir.length());
-    }
+
+    // Add the trailing '/' to the path, if needed
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
         path += QLatin1Char('/');
+    }
+    if (m_resultBaseDir.length() > 1 && path.startsWith(m_resultBaseDir)) {
+        path = path.mid(m_resultBaseDir.length());
     }
     return path;
 }

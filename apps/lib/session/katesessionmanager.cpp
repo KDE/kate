@@ -24,8 +24,6 @@
 
 #include <QApplication>
 #include <QCryptographicHash>
-#include <QDBusConnectionInterface>
-#include <QDBusReply>
 #include <QDir>
 #include <QInputDialog>
 #include <QTimer>
@@ -561,35 +559,17 @@ void KateSessionManager::sessionManage()
 
 bool KateSessionManager::sessionIsActive(const QString &session)
 {
-    // Try to avoid unneed action
+    // first check the current instance, that is skipped below
     if (activeSession() && activeSession()->name() == session) {
         return true;
     }
 
-    QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface();
-    if (!i) {
-        return false;
-    }
-
-    // look up all running kate instances and there sessions
-    QDBusReply<QStringList> servicesReply = i->registeredServiceNames();
-    QStringList services;
-    if (servicesReply.isValid()) {
-        services = servicesReply.value();
-    }
-
-    for (const QString &s : qAsConst(services)) {
-        if (!s.startsWith(QLatin1String("org.kde.kate-"))) {
-            continue;
-        }
-
-        KateRunningInstanceInfo rii(s);
-        if (rii.valid && rii.sessionName == session) {
-            return true;
-        }
-    }
-
-    return false;
+    // check if the requested session is open in another instance
+    const auto instances = fillinRunningKateAppInstances();
+    const auto it = std::find_if(instances.cbegin(), instances.cend(), [&session](const auto &instance) {
+        return instance.sessionName == session;
+    });
+    return it != instances.end();
 }
 
 QString KateSessionManager::anonymousSessionFile() const

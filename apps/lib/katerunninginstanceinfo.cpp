@@ -12,6 +12,19 @@
 #include <QRegularExpression>
 #include <QStringList>
 
+KateRunningInstanceInfo::KateRunningInstanceInfo(const QString &serviceName_)
+    : serviceName(serviceName_)
+    , dbus_if(new QDBusInterface(serviceName_,
+                                 QStringLiteral("/MainApplication"),
+                                 QString(), // I don't know why it does not work if I specify org.kde.Kate.Application here
+                                 QDBusConnection::sessionBus()))
+{
+    const QVariant a_s = dbus_if->property("activeSession");
+    if (a_s.isValid()) {
+        sessionName = a_s.toString();
+    }
+}
+
 std::vector<KateRunningInstanceInfo> fillinRunningKateAppInstances()
 {
     // if we have no dbus, nothing to do

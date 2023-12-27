@@ -282,23 +282,9 @@ int main(int argc, char **argv)
         if (!force_new && serviceName.isEmpty()) {
             qint64 lastUsedChosen = 0;
             for (const auto &currentService : kateServices) {
-                QDBusReply<bool> there = sessionBusInterface->isServiceRegistered(currentService.serviceName);
-                if (there.isValid() && there.value()) {
-                    // get last activation info
-                    const QDBusMessage m = QDBusMessage::createMethodCall(currentService.serviceName,
-                                                                          QStringLiteral("/MainApplication"),
-                                                                          QStringLiteral("org.kde.Kate.Application"),
-                                                                          QStringLiteral("lastActivationChange"));
-
-                    const QDBusMessage res = QDBusConnection::sessionBus().call(m);
-                    const QVariantList answer = res.arguments();
-                    if (answer.size() == 1) {
-                        const qint64 currentLastUsed = answer.at(0).toLongLong();
-                        if (currentLastUsed > lastUsedChosen) {
-                            serviceName = currentService.serviceName;
-                            lastUsedChosen = currentLastUsed;
-                        }
-                    }
+                if (currentService.lastActivationChange > lastUsedChosen) {
+                    serviceName = currentService.serviceName;
+                    lastUsedChosen = currentService.lastActivationChange;
                 }
             }
         }

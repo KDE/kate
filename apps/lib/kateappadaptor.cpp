@@ -121,7 +121,7 @@ qint64 KateAppAdaptor::lastActivationChange() const
     return m_app->lastActivationChange();
 }
 
-QString KateAppAdaptor::activeSession()
+QString KateAppAdaptor::activeSession() const
 {
     return m_app->sessionManager()->activeSession()->name();
 }

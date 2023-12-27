@@ -15,6 +15,7 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Kate.Application")
     Q_PROPERTY(QString activeSession READ activeSession)
+    Q_PROPERTY(qint64 lastActivationChange READ lastActivationChange)
 public:
     explicit KateAppAdaptor(KateApp *app);
 
@@ -81,12 +82,6 @@ public Q_SLOTS:
     bool activateSession(const QString &session);
 
     /**
-     * last time some QEvent::ActivationChange occured
-     * used to determine which instance to reuse, if we have multiple
-     */
-    qint64 lastActivationChange() const;
-
-    /**
      * activate this kate instance
      */
     void activate(const QString &token = QString());
@@ -100,7 +95,13 @@ Q_SIGNALS:
     void documentClosed(const QString &token);
 
 public:
-    QString activeSession();
+    QString activeSession() const;
+
+    /**
+     * last time some QEvent::ActivationChange occured
+     * used to determine which instance to reuse, if we have multiple
+     */
+    qint64 lastActivationChange() const;
 
 private:
     KateApp *m_app;

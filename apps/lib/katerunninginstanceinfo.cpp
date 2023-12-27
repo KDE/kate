@@ -19,6 +19,14 @@ KateRunningInstanceInfo::KateRunningInstanceInfo(const QString &serviceName_)
                                  QString(), // I don't know why it does not work if I specify org.kde.Kate.Application here
                                  QDBusConnection::sessionBus()))
 {
+    // get the last used timestamp, if that is not valid, we can ignore the rest
+    const QVariant a_l = dbus_if->property("lastActivationChange");
+    if (!a_l.isValid()) {
+        return;
+    }
+    lastActivationChange = a_l.toLongLong();
+
+    // get the active session
     const QVariant a_s = dbus_if->property("activeSession");
     if (a_s.isValid()) {
         sessionName = a_s.toString();
@@ -46,7 +54,11 @@ std::vector<KateRunningInstanceInfo> fillinRunningKateAppInstances()
                                      : QString::number(QCoreApplication::applicationPid());
     for (const QString &s : servicesReply.value()) {
         if (s.startsWith(QLatin1String("org.kde.kate")) && !s.endsWith(my_pid)) {
-            instances.emplace_back(s);
+            // ignore instancer we not even can query the lastActivationChange
+            KateRunningInstanceInfo instance(s);
+            if (instance.lastActivationChange > 0) {
+                instances.push_back(std::move(instance));
+            }
         }
     }
     return instances;

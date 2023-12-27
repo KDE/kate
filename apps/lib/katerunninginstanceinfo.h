@@ -21,6 +21,7 @@ public:
     explicit KateRunningInstanceInfo(const QString &serviceName_);
     const QString serviceName;
     std::unique_ptr<QDBusInterface> dbus_if;
+    qint64 lastActivationChange = 0;
     QString sessionName;
 };
 

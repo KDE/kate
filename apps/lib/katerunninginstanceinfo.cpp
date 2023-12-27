@@ -5,6 +5,7 @@
 */
 
 #include "katerunninginstanceinfo.h"
+
 #include <QCoreApplication>
 #include <QDBusConnectionInterface>
 #include <QDBusReply>

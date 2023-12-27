@@ -8,9 +8,7 @@
 
 #include "kateprivate_export.h"
 
-#include <QDBusConnection>
 #include <QDBusInterface>
-#include <QVariant>
 
 #include <memory>
 #include <vector>

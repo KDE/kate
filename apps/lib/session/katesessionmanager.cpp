@@ -125,23 +125,21 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
 
     if (!session->isAnonymous()) {
         // check if the requested session is already open in another instance
-        KateRunningInstanceMap instances;
-        if (!fillinRunningKateAppInstances(&instances)) {
-            KMessageBox::error(nullptr, i18n("Internal error: there is more than one instance open for a given session."));
-            return false;
-        }
-
-        if (instances.find(session->name()) != instances.end()) {
-            if (KMessageBox::questionTwoActions(
-                    nullptr,
-                    i18n("Session '%1' is already opened in another Kate instance. Switch to that or reopen in this instance?", session->name()),
-                    QString(),
-                    KGuiItem(i18nc("@action:button", "Switch to Instance"), QStringLiteral("window")),
-                    KGuiItem(i18nc("@action:button", "Reopen"), QStringLiteral("document-open")),
-                    QStringLiteral("katesessionmanager_switch_instance"))
-                == KMessageBox::PrimaryAction) {
-                instances[session->name()].dbus_if->call(QStringLiteral("activate"));
-                return false;
+        const auto instances = fillinRunningKateAppInstances();
+        for (const auto &instance : instances) {
+            if (session->name() == instance.sessionName) {
+                if (KMessageBox::questionTwoActions(
+                        nullptr,
+                        i18n("Session '%1' is already opened in another Kate instance. Switch to that or reopen in this instance?", session->name()),
+                        QString(),
+                        KGuiItem(i18nc("@action:button", "Switch to Instance"), QStringLiteral("window")),
+                        KGuiItem(i18nc("@action:button", "Reopen"), QStringLiteral("document-open")),
+                        QStringLiteral("katesessionmanager_switch_instance"))
+                    == KMessageBox::PrimaryAction) {
+                    instance.dbus_if->call(QStringLiteral("activate"));
+                    return false;
+                }
+                break;
             }
         }
     }

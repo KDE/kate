@@ -11,7 +11,9 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QVariant>
+
 #include <memory>
+#include <vector>
 
 class KateRunningInstanceInfo
 {
@@ -55,6 +57,4 @@ private:
     static inline int dummy_session = 0;
 };
 
-typedef std::map<QString, KateRunningInstanceInfo> KateRunningInstanceMap;
-
-KATE_PRIVATE_EXPORT bool fillinRunningKateAppInstances(KateRunningInstanceMap *map);
+KATE_PRIVATE_EXPORT std::vector<KateRunningInstanceInfo> fillinRunningKateAppInstances();

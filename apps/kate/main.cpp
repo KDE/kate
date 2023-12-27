@@ -239,20 +239,9 @@ int main(int argc, char **argv)
         /**
          * try to get the current running kate instances
          */
-        KateRunningInstanceMap mapSessionRii;
-        if (!fillinRunningKateAppInstances(&mapSessionRii)) {
-            return 1;
-        }
-
-        QStringList kateServices;
-        for (const auto &[_, katerunninginstanceinfo] : mapSessionRii) {
-            Q_UNUSED(_)
-            QString serviceName = katerunninginstanceinfo.serviceName;
-            kateServices << serviceName;
-        }
+        const auto kateServices = fillinRunningKateAppInstances();
 
         QString serviceName;
-
         QString start_session;
         bool session_already_opened = false;
 
@@ -261,9 +250,11 @@ int main(int argc, char **argv)
             force_new = true;
         } else if (parser.isSet(startSessionOption)) {
             start_session = parser.value(startSessionOption);
-            auto it = mapSessionRii.find(start_session);
-            if (it != mapSessionRii.end()) {
-                serviceName = it->second.serviceName;
+            const auto it = std::find_if(kateServices.cbegin(), kateServices.cend(), [&start_session](const auto &instance) {
+                return instance.sessionName == start_session;
+            });
+            if (it != kateServices.end()) {
+                serviceName = it->serviceName;
                 force_new = false;
                 session_already_opened = true;
             }
@@ -277,7 +268,10 @@ int main(int argc, char **argv)
                 QString usePid = (parser.isSet(usePidOption)) ? parser.value(usePidOption) : QString::fromLocal8Bit(qgetenv("KATE_PID"));
 
                 serviceName = QLatin1String("org.kde.kate-") + usePid;
-                if (!kateServices.contains(serviceName)) {
+                const auto it = std::find_if(kateServices.cbegin(), kateServices.cend(), [&serviceName](const auto &instance) {
+                    return instance.serviceName == serviceName;
+                });
+                if (it == kateServices.end()) {
                     serviceName.clear();
                 }
             }
@@ -287,24 +281,22 @@ int main(int argc, char **argv)
         bool foundRunningService = false;
         if (!force_new && serviceName.isEmpty()) {
             qint64 lastUsedChosen = 0;
-            for (const auto &currentServiceName : kateServices) {
-                if (!currentServiceName.isEmpty()) {
-                    QDBusReply<bool> there = sessionBusInterface->isServiceRegistered(currentServiceName);
-                    if (there.isValid() && there.value()) {
-                        // get last activation info
-                        const QDBusMessage m = QDBusMessage::createMethodCall(currentServiceName,
-                                                                              QStringLiteral("/MainApplication"),
-                                                                              QStringLiteral("org.kde.Kate.Application"),
-                                                                              QStringLiteral("lastActivationChange"));
+            for (const auto &currentService : kateServices) {
+                QDBusReply<bool> there = sessionBusInterface->isServiceRegistered(currentService.serviceName);
+                if (there.isValid() && there.value()) {
+                    // get last activation info
+                    const QDBusMessage m = QDBusMessage::createMethodCall(currentService.serviceName,
+                                                                          QStringLiteral("/MainApplication"),
+                                                                          QStringLiteral("org.kde.Kate.Application"),
+                                                                          QStringLiteral("lastActivationChange"));
 
-                        const QDBusMessage res = QDBusConnection::sessionBus().call(m);
-                        const QVariantList answer = res.arguments();
-                        if (answer.size() == 1) {
-                            const qint64 currentLastUsed = answer.at(0).toLongLong();
-                            if (currentLastUsed > lastUsedChosen) {
-                                serviceName = currentServiceName;
-                                lastUsedChosen = currentLastUsed;
-                            }
+                    const QDBusMessage res = QDBusConnection::sessionBus().call(m);
+                    const QVariantList answer = res.arguments();
+                    if (answer.size() == 1) {
+                        const qint64 currentLastUsed = answer.at(0).toLongLong();
+                        if (currentLastUsed > lastUsedChosen) {
+                            serviceName = currentService.serviceName;
+                            lastUsedChosen = currentLastUsed;
                         }
                     }
                 }

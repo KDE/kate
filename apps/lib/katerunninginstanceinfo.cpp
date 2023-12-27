@@ -12,36 +12,29 @@
 #include <QRegularExpression>
 #include <QStringList>
 
-bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
+std::vector<KateRunningInstanceInfo> fillinRunningKateAppInstances()
 {
-    QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface();
+    // if we have no dbus, nothing to do
+    std::vector<KateRunningInstanceInfo> instances;
+    auto i = QDBusConnection::sessionBus().interface();
     if (!i) {
-        return true; // we do not know about any others...
+        return instances;
     }
 
-    // look up all running kate instances and there sessions
-    QDBusReply<QStringList> servicesReply = i->registeredServiceNames();
-    QStringList services;
-    if (servicesReply.isValid()) {
-        services = servicesReply.value();
+    // get all instances
+    const QDBusReply<QStringList> servicesReply = i->registeredServiceNames();
+    if (!servicesReply.isValid()) {
+        return instances;
     }
 
+    // try to filter out the current instance
     const bool inSandbox = QFileInfo::exists(QStringLiteral("/flatpak-info"));
     const QString my_pid = inSandbox ? QDBusConnection::sessionBus().baseService().replace(QRegularExpression(QStringLiteral("[\\.:]")), QStringLiteral("_"))
                                      : QString::number(QCoreApplication::applicationPid());
-
-    for (const QString &s : qAsConst(services)) {
+    for (const QString &s : servicesReply.value()) {
         if (s.startsWith(QLatin1String("org.kde.kate")) && !s.endsWith(my_pid)) {
-            KateRunningInstanceInfo rii(s);
-            if (rii.valid) {
-                if (map->find(rii.sessionName) != map->end()) {
-                    return false; // ERROR no two instances may have the same session name
-                }
-                auto sessionName = rii.sessionName;
-                map->emplace(sessionName, std::move(rii));
-                // std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
-            }
+            instances.emplace_back(s);
         }
     }
-    return true;
+    return instances;
 }

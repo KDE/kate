@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-18 02:00+0000\n"
+"POT-Creation-Date: 2023-12-27 01:35+0000\n"
 "PO-Revision-Date: 2023-11-10 00:02+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -95,7 +95,7 @@ msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>Se ha encontrado 1 coincidencia, buscando: %2</i></b>"
 msgstr[1] "<b><i>Se han encontrado %1 coincidencias, buscando: %2</i></b>"
 
-#: MatchModel.cpp:567 MatchModel.cpp:721
+#: MatchModel.cpp:567 MatchModel.cpp:722
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
@@ -150,54 +150,54 @@ msgstr[1] ""
 "<b><i>Se han encontrado %1 coincidencias (%3) en todos los proyectos "
 "abiertos (padre común: %2)</i></b>"
 
-#: MatchModel.cpp:705 MatchModel.cpp:707
+#: MatchModel.cpp:706 MatchModel.cpp:708
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Generando lista de archivos: ...%1"
 
-#: MatchModel.cpp:715
+#: MatchModel.cpp:716
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] "Se ha encontrado 1 coincidencia, buscando: ...%2"
 msgstr[1] "Se han encontrado %1 coincidencias, buscando: ...%2"
 
-#: MatchModel.cpp:717
+#: MatchModel.cpp:718
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "Se ha encontrado 1 coincidencia, buscando: %2"
 msgstr[1] "Se han encontrado %1 coincidencias, buscando: %2"
 
-#: MatchModel.cpp:725
+#: MatchModel.cpp:726
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "Se ha encontrado 1 coincidencia (%2) en el archivo"
 msgstr[1] "Se han encontrado %1 coincidencias (%2) en el archivo actual"
 
-#: MatchModel.cpp:727
+#: MatchModel.cpp:728
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "Se ha encontrado 1 coincidencia (%2) en los archivos abiertos"
 msgstr[1] "Se han encontrado %1 coincidencias (%2) en los archivos abiertos"
 
-#: MatchModel.cpp:730
+#: MatchModel.cpp:731
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "Se ha encontrado 1 coincidencia (%3) en la carpeta %2"
 msgstr[1] "Se han encontrado %1 coincidencias (%3) en la carpeta %2"
 
-#: MatchModel.cpp:733
+#: MatchModel.cpp:734
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "Se ha encontrado 1 coincidencia (%4) en el proyecto %2 (%3)"
 msgstr[1] "Se han encontrado %1 coincidencias (%4) en el proyecto %2 (%3)"
 
-#: MatchModel.cpp:742
+#: MatchModel.cpp:743
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"

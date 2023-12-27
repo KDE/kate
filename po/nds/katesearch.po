@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-18 02:00+0000\n"
+"POT-Creation-Date: 2023-12-27 01:35+0000\n"
 "PO-Revision-Date: 2014-08-14 17:02+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -98,7 +98,7 @@ msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>En Övereenstimmen binnen Orner %2 funnen</i></b>"
 msgstr[1] "<b><i>%1 Övereenstimmen binnen Orner %2 funnen</i></b>"
 
-#: MatchModel.cpp:567 MatchModel.cpp:721
+#: MatchModel.cpp:567 MatchModel.cpp:722
 #, fuzzy, kde-format
 #| msgid "Replace checked"
 msgid "One checked"
@@ -153,26 +153,26 @@ msgid_plural ""
 msgstr[0] "<b><i>En Övereenstimmen binnen Projekt %2 (%3) funnen</i></b>"
 msgstr[1] "<b><i>%1 Övereenstimmen binnen Projekt %2 (%3) funnen</i></b>"
 
-#: MatchModel.cpp:705 MatchModel.cpp:707
+#: MatchModel.cpp:706 MatchModel.cpp:708
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr ""
 
-#: MatchModel.cpp:715
+#: MatchModel.cpp:716
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] ""
 msgstr[1] ""
 
-#: MatchModel.cpp:717
+#: MatchModel.cpp:718
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] ""
 msgstr[1] ""
 
-#: MatchModel.cpp:725
+#: MatchModel.cpp:726
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found</i></b>"
 #| msgid_plural "<b><i>%1 matches found</i></b>"
@@ -181,7 +181,7 @@ msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "<b><i>En Övereenstimmen funnen</i></b>"
 msgstr[1] "<b><i>%1 Övereenstimmen funnen</i></b>"
 
-#: MatchModel.cpp:727
+#: MatchModel.cpp:728
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in open files</i></b>"
 #| msgid_plural "<b><i>%1 matches found in open files</i></b>"
@@ -190,7 +190,7 @@ msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "<b><i>En Övereenstimmen binnen opmaakt Dateien funnen</i></b>"
 msgstr[1] "<b><i>%1 Övereenstimmen binnen opmaakt Dateien funnen</i></b>"
 
-#: MatchModel.cpp:730
+#: MatchModel.cpp:731
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
@@ -199,7 +199,7 @@ msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "<b><i>En Övereenstimmen binnen Orner %2 funnen</i></b>"
 msgstr[1] "<b><i>%1 Övereenstimmen binnen Orner %2 funnen</i></b>"
 
-#: MatchModel.cpp:733
+#: MatchModel.cpp:734
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in project %2 (%3)</i></b>"
 #| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"
@@ -208,7 +208,7 @@ msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "<b><i>En Övereenstimmen binnen Projekt %2 (%3) funnen</i></b>"
 msgstr[1] "<b><i>%1 Övereenstimmen binnen Projekt %2 (%3) funnen</i></b>"
 
-#: MatchModel.cpp:742
+#: MatchModel.cpp:743
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in project %2 (%3)</i></b>"
 #| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"

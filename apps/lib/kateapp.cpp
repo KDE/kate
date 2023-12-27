@@ -32,7 +32,6 @@
 #define HAVE_X11 __has_include(<KStartupInfo>)
 #if HAVE_X11
 #include <KStartupInfo>
-#include <KWindowInfo>
 #endif
 
 #ifdef WITH_KUSERFEEDBACK
@@ -517,24 +516,6 @@ KateSessionManager *KateApp::sessionManager()
 KateStashManager *KateApp::stashManager()
 {
     return &m_stashManager;
-}
-
-bool KateApp::isOnActivity(const QString &activity)
-{
-#if HAVE_X11
-    for (const auto window : qAsConst(m_mainWindows)) {
-        const KWindowInfo info(window->winId(), {}, NET::WM2Activities);
-        const auto activities = info.activities();
-        // handle special case of "on all activities"
-        if (activities.isEmpty() || activities.contains(activity)) {
-            return true;
-        }
-    }
-
-    return false;
-#else
-    return true;
-#endif
 }
 
 KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile, bool activateView, KTextEditor::Cursor c)

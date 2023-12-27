@@ -247,16 +247,9 @@ public:
     bool documentVisibleInOtherWindows(KTextEditor::Document *doc, KateMainWindow *window) const;
 
     /**
-     * some stuff for the dcop API
+     * some stuff for the DBus API
      */
 public:
-    /**
-     * checks if the current instance is in a given activity
-     * @param activity activity to check
-     * @return true if the window is in the given activity, false otherwise
-     */
-    bool isOnActivity(const QString &activity);
-
     /**
      * open url with given encoding
      * used by kate if --use given

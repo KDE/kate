@@ -35,13 +35,6 @@ public Q_SLOTS:
     bool openUrl(const QString &url, const QString &encoding);
 
     /**
-     * checks if the Kate instance is in the specified activity
-     * @param activity activity to check
-     * @return true if it is in the specified activity, false otherwise
-     */
-    bool isOnActivity(const QString &activity);
-
-    /**
      * open a file with given url and encoding
      * will get view created
      * @param url url of the file

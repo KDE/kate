@@ -69,11 +69,6 @@ bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding, bool i
     return m_app->openDocUrl(QUrl(url), encoding, isTempFile);
 }
 
-bool KateAppAdaptor::isOnActivity(const QString &activity)
-{
-    return m_app->isOnActivity(activity);
-}
-
 //-----------
 QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding)
 {

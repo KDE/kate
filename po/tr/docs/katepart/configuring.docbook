@@ -188,7 +188,7 @@
 >(</keycap
 > veya <keycap
 >)</keycap
->), eşleşen ayracı hızlıca yanıp söndürür.</para
+>), eşleşen ayracı tez yanıp söndürür.</para
 ></listitem>
 </varlistentry>
 </variablelist>
@@ -448,7 +448,7 @@
 ></term>
 <listitem
 ><para
->Bu seçenek işaretlenirse ve sarma çubuğu üzerinde fare imleciyle gezinirseniz imleç konumu çevresinde geçerli belgenin birkaç satırının yer aldığı küçük bir metin önizlemesi görüntülenecektir. Bu, belgenin başka bir bölümüne hızlı bir şekilde geçiş yapmanızı sağlar.</para>
+>Bu seçenek işaretlenirse ve sarma çubuğu üzerinde fare imleciyle gezinirseniz imleç konumu çevresinde geçerli belgenin birkaç satırının yer aldığı küçük bir metin önizlemesi görüntülenecektir. Bu, belgenin başka bir bölümüne tez geçiş yapmanızı sağlar.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -836,11 +836,11 @@
 <varlistentry id="multicursor-modifier-configure">
 <term
 ><guilabel
->Çoklu imleç değiştiricileri</guilabel
+>Çoklu imleç niteleyicisi</guilabel
 ></term>
 <listitem>
 <para
->Bu seçenek, &LMB; ile birden çok imleç oluşturmak için kullanılacak değiştiriciyi ayarlamanıza olanak tanır. İstediğiniz konumda bir imleç oluşturmak için değiştiricilere basmanız ve &LMB; ile tıklamanız gerekir. Birden çok imleç oluşturmanın diğer yollarını keşfetmek için <link linkend="kate-part-create-multiple-cursors"
+>Bu seçenek, &LMB; ile birden çok imleç oluşturmak için kullanılacak niteleyiciyi ayarlamanıza olanak tanır. İstediğiniz konumda bir imleç oluşturmak için niteleyicilere basmanız ve &LMB; ile tıklamanız gerekir. Birden çok imleç oluşturmanın diğer yollarını keşfetmek için <link linkend="kate-part-create-multiple-cursors"
 >Birden çok imleç oluşturma</link
 > konusuna bakın.</para>
 </listitem>

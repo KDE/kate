@@ -1549,7 +1549,7 @@ depends on the <link linkend="pref-edit-indent"
 <listitem>
 <para
 >Bu eylem, <link linkend="multicursor-modifier-configure"
->çoklu imleç yapılanırmasındaki</link
+>çoklu imleç yapılandırmasındaki</link
 > bir önceki düzenleme satırına atlar. </para>
 </listitem>
 </varlistentry>
@@ -1572,7 +1572,7 @@ depends on the <link linkend="pref-edit-indent"
 <listitem>
 <para
 >Bu eylem, <link linkend="multicursor-modifier-configure"
->çoklu imleç yapılanırmasındaki</link
+>çoklu imleç yapılandırmasındaki</link
 > bir sonraki düzenleme satırına atlar. </para>
 </listitem>
 </varlistentry>

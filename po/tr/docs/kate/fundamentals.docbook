@@ -46,7 +46,7 @@
 >&kate;'i Başlatmak</link
 > ve <link linkend="working-with-kate"
 >&kate; ile Çalışmak</link
->), hızlıca alışmanızı sağlamak için gereksiniminiz olacak her şeyi göstereceğiz. </para>
+>), hemen alışmanızı sağlamak için gereksiniminiz olacak her şeyi göstereceğiz. </para>
 
 <sect1 id="starting-kate">
 <title
@@ -434,14 +434,14 @@
 >&kate; ile Çalışmak</title>
 <para
 ><link linkend="quick-start"
->Hızlı Başlat</link
+>Tez Başlat</link
 >, &kate;'in daha güçlü özelliklerini yapılandırmanızı sağlayan dört basit seçeneği nasıl değiştireceğinizi gösterir. <link linkend="keystroke-commands"
 > Kısayollar</link
 >, fare kullanmak istemeyen ve kullanmayanlar için öntanımlı klavye kısayollarını gösterir. </para>
 
 <sect2 id="quick-start">
 <title
->Hızlı Başlangıç</title>
+>Tez Başlangıç</title>
 
 <para
 >Bu bölüm, &kate;'i, onunla çalışmak isteyebileceğiniz biçimde tez yapılandırabilmeniz için <guimenu
@@ -922,7 +922,7 @@ action="simul"
 >Tez Aç</title>
 
 <para
->Tez dosyalar açmak/aralarında geçiş yapmak için Kate, yerleşik bir hızlı aç iletişim kutusuyla gelir. Bunu, <keycombo action="simul"
+>Tez dosyalar açmak/aralarında geçiş yapmak için Kate, yerleşik bir tez aç iletişim kutusuyla gelir. Bunu, <keycombo action="simul"
 >&Ctrl;&Alt;<keycap
 >O</keycap
 ></keycombo

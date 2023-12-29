@@ -121,7 +121,7 @@
 >Belge Değiştiricisi</link
 > - <keycombo action="simul"
 >&Alt;&Tab;</keycombo
-> kombinasyonuyla hızlı belge değiştirmesi</para>
+> kombinasyonuyla tez belge değiştirmesi</para>
 </listitem>
 <listitem>
 <para
@@ -3212,7 +3212,7 @@ folder if possible.</para
 >Projeler Arasında Geçiş Yapmak</title>
 
 <para
->Buradaki fikir hiçbir zaman bir projeyi elle açmak zorunda kalmamanızdır, hatta bu hiç desteklenmemektedir. Bu nedenle, bir dosyayı açtığınızda olan şey şudur; proje eklentisi hızlı bir şekilde klasörü ve onun üst klasörlerini bir <filename
+>Buradaki fikir hiçbir zaman bir projeyi elle açmak zorunda kalmamanızdır, hatta bu hiç desteklenmemektedir. Bu nedenle, bir dosyayı açtığınızda olan şey şudur; proje eklentisi tez klasörü ve onun üst klasörlerini bir <filename
 >.kateproject</filename
 > dosyası için tarar. Bulunursa proje kendiliğinden yüklenir.</para>
 
@@ -3785,7 +3785,7 @@ Projects Replicode run / stop-->
 ></term>
 <listitem>
 <para
->[textDocument/codeAction, workspace/executeCommand] Geçerli konumda (veya satırda) tanılama için hızlı bir düzeltmeyi hesaplar ve uygular.</para>
+>[textDocument/codeAction, workspace/executeCommand] Geçerli konumda (veya satırda) tanılama için tez bir düzeltmeyi hesaplar ve uygular.</para>
 </listitem>
 </varlistentry>
 

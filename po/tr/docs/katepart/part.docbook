@@ -162,7 +162,7 @@
 >Metinde Dolaşmak</title>
 
 <para
->&kappname;'de metinde dolaşmak çoğu grafik metin düzenleyicisi ile benzerdir. İmleci, &Ctrl; ve &Shift; değiştiricileriyle birlikte ok düğmelerini ve &PgUp;, &PgDn;, &Home; ve &End; düğmelerini kullanarak hareket ettirirsiniz. &Shift; düğmesi her zaman bir seçim üretmek için kullanılırken, &Ctrl; düğmesinin farklı düğmeler üzerinde farklı etkileri vardır: <itemizedlist>
+>&kappname;'de metinde dolaşmak çoğu grafik metin düzenleyicisi ile benzerdir. İmleci, &Ctrl; ve &Shift; niteleyicileriyle birlikte ok düğmelerini ve &PgUp;, &PgDn;, &Home; ve &End; düğmelerini kullanarak hareket ettirirsiniz. &Shift; düğmesi her zaman bir seçim üretmek için kullanılırken, &Ctrl; düğmesinin farklı düğmeler üzerinde farklı etkileri vardır: <itemizedlist>
 <listitem
 ><para
 >&Up; ve &Down; düğmeleri için imleci hareket ettirmekten ziyade sarma anlamına gelir.</para
@@ -183,14 +183,14 @@
 </para>
 
 <para
->&kappname; ayrıca eşleşen ayraç veya parantezlere hızlı bir biçimde atlamanın bir yolunu da sağlar: İmleci parantez veya ayraç karakterinin içine yerleştirin ve eşleşen parantez veya ayraca atlamak için <keycombo action="simul"
+>&kappname; ayrıca eşleşen ayraç veya parantezlere tez atlamanın bir yolunu da sağlar: İmleci parantez veya ayraç karakterinin içine yerleştirin ve eşleşen parantez veya ayraca atlamak için <keycombo action="simul"
 >&Ctrl;<keycap
 >6</keycap
 ></keycombo
 > kısayolunu kullanın.</para>
 
 <para
->Ek olarak, kendi tanımladığınız konumlara hızlıca atlamak için <link linkend="kate-part-bookmarks"
+>Ek olarak, kendi tanımladığınız konumlara tez atlamak için <link linkend="kate-part-bookmarks"
 >yer imlerini</link
 > kullanabilirsiniz.</para>
 
@@ -710,7 +710,7 @@
 > menüsünden kullanılabilir. Bireysel yer imleri, yer iminin bulunduğu satırın satır numarasıyla ve satırdaki metnin ilk birkaç karakteriyle etiketlenmiş menü ögeleri olarak bulunur. Ekleme imlecini, yer imi koyulmuş bir satırın başına taşımak için menüyü açın ve yer imini seçin.</para>
 
 <para
->Yer imleri arasında hızlıca gezinmek veya önceki/sonraki yer imine gitmek için <menuchoice
+>Yer imleri arasında tez gezinmek veya önceki/sonraki yer imine gitmek için <menuchoice
 ><guimenu
 >Yer İmleri</guimenu
 ><guimenuitem
@@ -969,8 +969,8 @@
 <itemizedlist>
 <listitem
 ><para
->Onları oluşturmak için &Alt; + &LMB; kullanın. Değiştirici kombinasyon yapılandırılabilirdir; <link linkend="multicursor-modifier-configure"
->Çoklu imleç değiştiricisini yapılandırmak</link
+>Onları oluşturmak için &Alt; + &LMB; kullanın. Niteleyici kombinasyon yapılandırılabilirdir; <link linkend="multicursor-modifier-configure"
+>Çoklu imleç niteleyicisini yapılandırmak</link
 > bölümüne bakın</para
 ></listitem>
 

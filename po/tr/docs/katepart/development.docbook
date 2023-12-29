@@ -1909,7 +1909,7 @@
 >'#'</userinput
 > karakterini eşleştirmek istediğinizi varsayalım. Düzenli ifade tabanlı bir çözüm şöyle görünecektir: <programlisting
 >&lt;RegExpr attribute=&quot;Macro&quot; context=&quot;macro&quot; String=&quot;^\s*#&quot; /&gt;</programlisting
-> Aynısını çok daha tez şunu kullanarak elde edebilirsiniz: <programlisting
+> Aynısını çok daha hızlıca şunu kullanarak elde edebilirsiniz: <programlisting
 >&lt;DetectChar attribute=&quot;Macro&quot; context=&quot;macro&quot; char=&quot;#&quot; firstNonSpace=&quot;true&quot; /&gt;</programlisting
 >. <userinput
 >'^#'</userinput
@@ -4465,7 +4465,7 @@ function indent(line, indentWidth, ch)
 <para
 >Herkesin gereksinimlerini karşılamak güç olsa da, &kappname;, <link linkend="advanced-editing-tools-commandline"
 >yerleşik komut satırı</link
-> ile hızlı metin manipülasyonunu sağlamak için küçük yardımcı araçlar sağlar. Örneğin, <command
+> ile tez metin manipülasyonunu sağlamak için küçük yardımcı araçlar sağlar. Örneğin, <command
 >sort</command
 > komutu bir betik olarak uygulanmıştır. Bu bölüm, &kappname; uygulamasını olabildiğince genişletmek için nasıl <filename
 >*.js</filename
@@ -7316,7 +7316,7 @@ bool isValidTextPosition(<parameter
 ><para
 >Verilen imleç konumu geçerli bir metin konumundaysa <literal
 >true</literal
-> değerini döndürür. Bir metin konumu yalnızca geçerli bir satırın başında, ortasında veya sonunda bulunuyorsa geçerlidir. Ayrıca bir metin konumu, bir Unicode yedek alanında bulunuyorsa geçersizdir. </para
+> değerini döndürür. Bir metin konumu yalnızca geçerli bir satırın başında, ortasında veya sonunda bulunuyorsa geçerlidir. Ayrıca bir metin konumu, bir Unicode vekilinde bulunuyorsa geçersizdir. </para
 ><para
 >Eklendiği sürüm: &kde; 5.0 </para
 ></listitem>

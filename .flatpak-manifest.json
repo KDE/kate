@@ -2,7 +2,7 @@
     "id": "org.kde.kate",
     "branch": "master",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-22.08",
+    "runtime-version": "6.6-kf6preview",
     "sdk": "org.kde.Sdk",
     "command": "kate",
     "tags": [

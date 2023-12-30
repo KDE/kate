@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-09-06 21:53+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -584,7 +584,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Cronologia del file - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -594,7 +594,7 @@ msgstr ""
 "di sicurezza. Avvialo invece normalmente: se necessario, al salvataggio dei "
 "documenti ti verranno chiesti dei privilegi più elevati."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -928,7 +928,7 @@ msgstr ""
 "Le cartelle possono essere aperte solo quando l'estensione di progetto è "
 "abilitata"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2515,14 +2515,7 @@ msgstr "&Rinomina..."
 msgid "Delete"
 msgstr "Elimina"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr ""
-"Errore interno: c'è più di una istanza aperta per la sessione specificata."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2531,35 +2524,35 @@ msgstr ""
 "La sessione «%1» è già aperta in un'altra istanza di Kate, vuoi passare a "
 "quella invece di riaprirla?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Passa all'istanza"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Riapri"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Impossibile rinominare la sessione in «%1». Scrittura in «%2» non riuscita"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Rinomina della sessione"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "Nome della sessione:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2568,17 +2561,17 @@ msgstr ""
 "C'è già una sessione con il nome che hai scelto: %1\n"
 "Scegline un altro."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Per salvare una sessione devi specificare un nome."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Specifica un nome per questa sessione"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Specifica un nuovo nome per la sessione: %1"
@@ -2855,6 +2848,11 @@ msgstr "Gestisci le sessioni..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Mostra per le nuove finestre"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr ""
+#~ "Errore interno: c'è più di una istanza aperta per la sessione specificata."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr ""

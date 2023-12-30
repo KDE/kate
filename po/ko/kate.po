@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-10-08 22:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -572,7 +572,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "파일 기록 - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -582,7 +582,7 @@ msgstr ""
 "에 노출될 수 있습니다. 편집기를 일반 사용자로 실행하십시오. 문서를 저장할 때 "
 "권한 상승이 필요하면 물어 볼 것입니다."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -913,7 +913,7 @@ msgstr "여기에 언급하지 않았지만 기여를 해 준 많은 좋은 사�
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "프로젝트 플러그인이 활성화되어 있어야만 폴더를 열 수 있음"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2461,13 +2461,7 @@ msgstr "이름 바꾸기(&R)..."
 msgid "Delete"
 msgstr "삭제"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "내부 오류: 지정한 세션의 인스턴스가 하나 이상 열려 있습니다."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2476,34 +2470,34 @@ msgstr ""
 "세션 '%1'이(가) 다른 Kate 인스턴스에 열려 있습니다. 해당 인스턴스로 전환하거"
 "나 이 인스턴스에서 다시 여시겠습니까?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "인스턴스로 전환"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "다시 열기"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "세션 이름을 \"%1\"(으)로 변경할 수 없습니다. \"%2\"에 쓸 수 없습니다"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "세션 이름 바꾸기"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "세션 이름:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2512,17 +2506,17 @@ msgstr ""
 "지정한 이름의 세션이 이미 있습니다: %1\n"
 "다른 이름을 지정하십시오."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "세션을 저장하려면 이름을 입력해야 합니다."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "이 세션의 이름 지정"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "세션의 새로운 이름 지정: %1"
@@ -2791,6 +2785,10 @@ msgstr "세션 관리..."
 #, kde-format
 msgid "Show for new window"
 msgstr "새 창에 표시"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "내부 오류: 지정한 세션의 인스턴스가 하나 이상 열려 있습니다."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr ""

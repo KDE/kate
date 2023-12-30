@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2013-05-10 23:29-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -596,14 +596,14 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr ""
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -934,7 +934,7 @@ msgstr "貢献してくれたすべての人々と私が言及し忘れてしま
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2575,32 +2575,26 @@ msgstr "名前変更(&R)..."
 msgid "Delete"
 msgstr "削除されました"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr ""
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2610,17 +2604,17 @@ msgstr ""
 "セッション名を <resource>%1</resource> に変更できませんでした。同じ名前のセッ"
 "ションが既に存在します。"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "セッション名の変更"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "セッション名:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2634,18 +2628,18 @@ msgstr ""
 "他の名前を付けてください。\n"
 "セッション名:"
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "セッションを保存するためには、名前を指定しなければなりません。"
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "セッションの新しい名前を指定"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

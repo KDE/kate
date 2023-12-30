@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-09-13 16:13+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -576,7 +576,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "ფაილის ისტორია - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -587,7 +587,7 @@ msgstr ""
 "ნორმალურად და თუ დოკუმენტების შესანახად აუცილებელი გახდება აღმატებული "
 "წვდომები, ამის შესახებ თვითონ გკითხავთ."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -921,7 +921,7 @@ msgstr ""
 "საქაღალდეების გახსნა მხოლოდ მაშინაა შესაძლებელი, როცა პროექტების დამატება "
 "ჩართულია"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2496,14 +2496,7 @@ msgstr "&სახელის გადარქმევა..."
 msgid "Delete"
 msgstr "წაშლა"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr ""
-"შიდა შეცდომა: მითითებული სესიისთვის ერთზე მეტი გაშვებული ასლი არსებობს."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2512,34 +2505,34 @@ msgstr ""
 "სესია '%1' უკვე გახსნილია Kate-ის სხვა გაშვებულ ასლში. გადავრთო იმ გაშვებულ "
 "ასლზე თუ თავიდან გავხსნა ამ გაშვებულ ასლში?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "გაშვებულ ასლზე გადასვლა"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "ხელახლა გახსნა"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "სესიის სახელის გადარქმევა '%1'-ზე შეუძლებელია. '%2'-ში ჩაწერა ჩავარდა"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "სესიის გადარქმევა"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "სესიის სახელი:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2548,17 +2541,17 @@ msgstr ""
 "სესია თქვენი არჩეული სახელით უკვე არსებობს: %1\n"
 "აირჩიეთ სხვა სახელი."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "სესიის შესანახად საჭიროა სახელის მითითება."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "ამ სესიის ფაილის მიითება"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "მიუთითეთ ახალი სახელი სესიისთვის: %1"
@@ -2830,6 +2823,11 @@ msgstr "სესიების მართვა..."
 #, kde-format
 msgid "Show for new window"
 msgstr "ახალი ფანჯრისთვის ჩვენება"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr ""
+#~ "შიდა შეცდომა: მითითებული სესიისთვის ერთზე მეტი გაშვებული ასლი არსებობს."
 
 #~ msgid "Diff Output"
 #~ msgstr "Diff -ის გამოტანა"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2021-05-01 23:42-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -597,14 +597,14 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "ਫਾਇਲ ਚੋਣਕਾਰ"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -932,7 +932,7 @@ msgstr "ਸਾਰੇ ਲੋਕ, ਜਿਨਾਂ ਨੇ ਹਿੱਸਾ ਪਾਇ
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2515,13 +2515,7 @@ msgstr "ਨਾਂ ਬਦਲੋ(&R)..."
 msgid "Delete"
 msgstr "ਹਟਾਓ"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "ਅੰਦਰੂਨੀ ਗਲਤੀ: ਦਿੱਤੇ ਸ਼ੈਸ਼ਨ ਨੂੰ ਇੱਕ ਤੋਂ ਵੱਧ ਥਾਂ ਉੱਤੇ ਖੋਲ੍ਹਿਆ ਗਿਆ ਹੈ।"
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2531,36 +2525,36 @@ msgid ""
 "reopen in this instance?"
 msgstr "'%1' ਸ਼ੈਸ਼ਨ ਪਹਿਲਾਂ ਹੀ ਹੋਰ ਕੇਟ ਨਾਲ ਖੁੱਲ੍ਹਾ ਹੈ, ਮੁੜ ਖੋਲ੍ਹਣ ਦੀ ਬਜਾਏ ਉੱਥੇ ਬਦਲਾਅ ਕਰਨੇ ਹਨ?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "ਸ਼ੈਸ਼ਨ \"%1\" ਦਾ ਨਾਂ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ। \"%2\" ਲਿਖਣ ਲਈ ਅਸਫ਼ਲ ਹੈ"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "ਸ਼ੈਸ਼ਨ ਨਾਂ ਬਦਲਣਾ"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "ਸ਼ੈਸ਼ਨ ਨਾਂ:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2569,17 +2563,17 @@ msgstr ""
 "ਤੁਹਾਡੇ ਵਲੋਂ ਚੁਣੇ ਨਾਂ ਨਾਲ ਪਹਿਲਾਂ ਹੀ ਸ਼ੈਸ਼ਨ ਮੌਜੂਦ ਹੈ: %1\n"
 "ਵੱਖਰ ਨਾਂ ਚੁਣੋ ਜੀ।"
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ਇੱਕ ਸ਼ੈਸ਼ਨ ਨੂੰ ਸੰਭਾਲਣ ਲਈ, ਤੁਹਾਨੂੰ ਨਾਂ ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "ਇਸ ਸ਼ੈਸ਼ਨ ਲਈ ਨਾਂ ਦਿਓ"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "ਸ਼ੈਸ਼ਨ ਲਈ ਨਵਾਂ ਨਾਂ ਦਿਓ: %1"
@@ -2874,6 +2868,10 @@ msgstr "...ਸ਼ੈਸ਼ਨ ਪਰਬੰਧ(&M)"
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "ਨਵਾਂ ਡੌਕੂਮੈਂਟ ਬਣਾਓ"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "ਅੰਦਰੂਨੀ ਗਲਤੀ: ਦਿੱਤੇ ਸ਼ੈਸ਼ਨ ਨੂੰ ਇੱਕ ਤੋਂ ਵੱਧ ਥਾਂ ਉੱਤੇ ਖੋਲ੍ਹਿਆ ਗਿਆ ਹੈ।"
 
 #~ msgid "Ignoring amount of white space changed, the files are identical."
 #~ msgstr "ਖਾਲੀ ਥਾਵਾਂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਛੱਡ ਕੇ, ਫਾਇਲਾਂ ਇੱਕੋ ਜੇਹੀਆਂ ਹੀ ਹਨ।"

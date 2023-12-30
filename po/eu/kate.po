@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-09-03 00:48+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -588,7 +588,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Fitxategiaren historia - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -599,7 +599,7 @@ msgstr ""
 "arruntean eta dokumentuak gordetzeko beharrezkoak badira, pribilegio "
 "altuagoak eskatu zaizkizu."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -931,7 +931,7 @@ msgstr "Parte hartu arren, aipatzea ahaztu zaizkidan guztiak"
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Proiektu-plugina gaituta dagoenean bakarrik ireki daitezke karpetak"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2516,15 +2516,7 @@ msgstr "Be&rrizendatu..."
 msgid "Delete"
 msgstr "Ezabatua"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr ""
-"Barneko errorea: Instantzia bat baino gehiago irekita dago saio jakin "
-"baterako."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2533,35 +2525,35 @@ msgstr ""
 "'%1' saioa dagoeneko irekita dago Kate-ren beste instantzia batean, han "
 "aldatu berrireki ordez?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Aldatu instantziara"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Berrireki"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Saioa ezin izan da «%1» gisa berrizendatu. «%2»(e)ra idaztea huts egin du"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Saio berrizendatzea"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "Saioaren izena:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2570,17 +2562,17 @@ msgstr ""
 "Badago dagoeneko hautatu duzun izeneko saio bat: %1\n"
 "Aukeratu beste bat."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Saio bat gordetzeko, izen bat zehaztu behar duzu."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Zehaztu saiorako izen bat"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Zehaztu saiorako izen berri bat: %1"
@@ -2855,6 +2847,12 @@ msgstr "Kudeatu saioak..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Erakutsi leiho berrirako"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr ""
+#~ "Barneko errorea: Instantzia bat baino gehiago irekita dago saio jakin "
+#~ "baterako."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr ""

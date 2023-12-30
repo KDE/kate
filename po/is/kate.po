@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-12-08 21:02+0000\n"
 "Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -586,7 +586,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Ferill skrár - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -596,7 +596,7 @@ msgstr ""
 "þig fyrir öryggishættum. Í stað þess skaltu nota ritilinn eins og venjulega "
 "og þú færð tilkynningu þegar aukinna heimilda er þörf til að vista skjöl."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -927,7 +927,7 @@ msgstr "Allir þeir sem hafa lagt verkinu lið og við höfum gleymt að minnast
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Það er bara hægt að opna möppur þegar verkefnaviðbótin er virk"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2502,13 +2502,7 @@ msgstr "Endu&rnefna..."
 msgid "Delete"
 msgstr "Eyða"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "Innri villa: fleiri en eitt tilvik er opið fyrir tilgreinda setu."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2517,35 +2511,35 @@ msgstr ""
 "Setan '%1' er nú þegar opin í öðru tilviki af Kate. Á að skipta yfir í það "
 "tilvik eða opna aftur í þessu tilviki?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Skipta í tilvik"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Opna aftur"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Ekki var hægt að endurnefna setuna sem \"%1\". Mistókst að skrifa í \"%2\""
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Seta endurnefnd"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "Nafn á setu:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2554,17 +2548,17 @@ msgstr ""
 "Það er þegar til seta með nafninu sem þú valdir. %1\n"
 "Veldu frekar eitthvað annað nafn."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Þú verður að gefa upp nafn til að vista setu."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Gefa þessari setu nafn"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Gefa setu nýtt nafn: %1"
@@ -2838,6 +2832,10 @@ msgstr "Umsjón með setum..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Sýna í nýjum glugga"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "Innri villa: fleiri en eitt tilvik er opið fyrir tilgreinda setu."
 
 #, fuzzy
 #~ msgid "Ignoring amount of white space changed, the files are identical."

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -608,14 +608,14 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr ""
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -946,7 +946,7 @@ msgstr "មនុស្ស​ទាំងអស់​ដែល​បាន​ច
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2575,13 +2575,7 @@ msgstr "ប្តូរឈ្មោះ..."
 msgid "Delete"
 msgstr "បាន​លុប"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "កំហុស​ខាង​ក្នុង ៖ មាន​ធាតុ​ច្រើនជាង​មួយ​​បើក​ ​សម្រាប់​សម័យ​ដែល​បាន​ផ្ដល់ ។"
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2591,19 +2585,19 @@ msgid ""
 "reopen in this instance?"
 msgstr "សម័យ '%1' ត្រូវ​បានបើក​រួច​ហើយ​នៅ​​ក្នុង​ធាតុ kate ផ្សេង ផ្លាស់ប្ដូរ​វា​​ជំនួស​ឲ្យ​បើក​ឡើង​វិញ ?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2611,17 +2605,17 @@ msgstr ""
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "មិនអាច​ប្ដូរ​ឈ្មោះ​សម័យ​ទៅ \"%1\" បានទេ ព្រោះ​មាន​សម័យ​ផ្សេងមាន​ឈ្មោះ​នេះ​រួចហើយ"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "ការ​ប្ដូរ​ឈ្មោះ​សម័យ"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "ឈ្មោះ​សម័យ ៖"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2635,18 +2629,18 @@ msgstr ""
 "សូម​ជ្រើស​ឈ្មោះ​សម័យ\n"
 "ផ្សេង ៖"
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ដើម្បី​រក្សាទុកសម័យ​មួយ អ្នក​ត្រូវ​តែ​បញ្ជាក់​ឈ្មោះ​មួយ​ ។"
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "បញ្ជាក់​ឈ្មោះ​ថ្មី​សម្រាប់​សម័យ"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"
@@ -2940,6 +2934,10 @@ msgstr "គ្រប់គ្រង​សម័យ..."
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "បង្កើត​ឯកសារ​ថ្មី​មួយ"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "កំហុស​ខាង​ក្នុង ៖ មាន​ធាតុ​ច្រើនជាង​មួយ​​បើក​ ​សម្រាប់​សម័យ​ដែល​បាន​ផ្ដល់ ។"
 
 #, fuzzy
 #~| msgid "Besides white space changes, the files are identical."

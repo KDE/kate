@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-11-04 14:21+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -596,7 +596,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Zgodovina datoteke - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -607,7 +607,7 @@ msgstr ""
 "opozorjeni za povečane pravice ob shranjevanju dokumentov, če bi bilo "
 "potrebno."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -939,7 +939,7 @@ msgstr "Vsi, ki so prispevali, pa sem jih pozabil omeniti"
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Mape je mogoče odpreti le, ko je omogočen vtičnik za projekte"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2526,13 +2526,7 @@ msgstr "Preimenuj..."
 msgid "Delete"
 msgstr "Briši"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "Notranja napaka: za dano sejo je odprt več kot en primerek."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2541,35 +2535,35 @@ msgstr ""
 "Seja '%1' je že odprta v drugem pojavku Kate. Ali naj preklopim nanj ali naj "
 "ponovno odprem v tem pojavku?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Preklopi na pojavek"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Ponovno odpri"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Seje ni bilo mogoče preimenovati v \"%1\". Ni bilo mogoče pisati v \"%2\""
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Preimenovanje seje"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "Ime seje:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2578,17 +2572,17 @@ msgstr ""
 "Seja z izbranim imenom že obstaja: %1\n"
 "Prosim, izberite drugačno ime."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Za shranitev seje morate navesti njeno ime."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Navedite ime za to sejo"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Navedite novo ime za sejo: %1"
@@ -2861,6 +2855,10 @@ msgstr "Upravljaj seje..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Pokaži za novo okno"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "Notranja napaka: za dano sejo je odprt več kot en primerek."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr "Ta pogled ima morda neshranjeno delo. Ali ga zares želite zapreti?"

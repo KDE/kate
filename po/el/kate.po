@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -607,7 +607,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Ιστορικό αρχείου - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 #, fuzzy
 #| msgid ""
 #| "Running Kate with sudo can cause bugs and expose you to security "
@@ -623,7 +623,7 @@ msgstr ""
 "και θα ερωτηθείτε για κλιμάκωση προνομίων, αν απαιτείται, κατά την "
 "αποθήκευση των εγγράφων."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 #, fuzzy
 #| msgid ""
 #| "Running Kate with kdesu can cause bugs and expose you to security "
@@ -960,7 +960,7 @@ msgstr "Όλοι όσοι έχουν συνεισφέρει και ξέχασα 
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Οι φάκελοι ανοίγουν μόνο όταν το πρόσθετο των έργων είναι ενεργό"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2565,15 +2565,7 @@ msgstr "&Μετονομασία..."
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr ""
-"Εσωτερικό σφάλμα: υπάρχει παραπάνω από μία ανοιχτή διεργασία για μια δοσμένη "
-"συνεδρία."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2582,35 +2574,35 @@ msgstr ""
 "Η συνεδρία '%1' είναι ήδη ανοιχτή σε μία άλλη διεργασία του kate. Να γίνει "
 "εναλλαγή εκεί ή να ανοίξει πάλι σε αυτήν;"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Εναλλαγή σε διεργασία"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Άνοιγμα πάλι"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Αδυναμία μετονομασίας της συνεδρίας σε «%1». Αποτυχία εγγραφής στο «%2»"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Μετονομασία συνεδρίας"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "Όνομα συνεδρίας:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2619,17 +2611,17 @@ msgstr ""
 "Υπάρχει ήδη μια συνεδρία με το επιλεγμένο όνομα: %1\n"
 "Παρακαλώ επιλέξτε ένα διαφορετικό."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Για την αποθήκευση μιας συνεδρίας, πρέπει να ορίσετε ένα όνομα."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Ορισμός ονόματος για αυτήν τη συνεδρία"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Ορισμός νέου ονόματος για τη συνεδρία: %1"
@@ -2905,6 +2897,12 @@ msgstr "Διαχείριση συνεδριών..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Εμφάνιση για νέο παράθυρο"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr ""
+#~ "Εσωτερικό σφάλμα: υπάρχει παραπάνω από μία ανοιχτή διεργασία για μια "
+#~ "δοσμένη συνεδρία."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr ""

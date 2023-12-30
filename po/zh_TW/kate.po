@@ -10,20 +10,20 @@
 # pan93412 <pan93412@gmail.com>, 2018, 2019, 2020.
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2006, 2008, 2009, 2010.
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2007.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
+# SPDX-FileCopyrightText: 2023 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
-"PO-Revision-Date: 2023-12-22 04:45+0900\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
+"PO-Revision-Date: 2023-12-29 20:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.01.80\n"
+"X-Generator: Lokalize 24.01.85\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -482,7 +482,7 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:113
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "顯示/隱藏提交資訊"
 
 #: lib/diff/diffwidget.cpp:118
 #, kde-format
@@ -573,14 +573,14 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "檔案歷史 - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -908,7 +908,7 @@ msgstr "所有曾協力但我忘記提及的人"
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "僅能在專案外掛程式啟用時開啟資料夾"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2449,13 +2449,7 @@ msgstr "重新命名(&R)..."
 msgid "Delete"
 msgstr "刪除"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "內部錯誤：有一個以上的實體開啟相同的工作階段"
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2463,34 +2457,34 @@ msgid ""
 msgstr ""
 "工作階段 '%1' 已在另一個 Kate 實體開啟。要切換過去還是要在這個實體重新開啟？"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "切換到實體"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "重新開啟"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "此工作階段無法重新命名為「%1」。寫入「%2」失敗"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "重新命名工作階段"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "工作階段名稱:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2499,17 +2493,17 @@ msgstr ""
 "您選擇的名稱已經存在：%1\n"
 "請選擇其他名稱。"
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "要儲存工作階段，您必須指定一個名稱。"
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "為工作階段指定新的名稱"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "為工作階段指定新的名稱：%1"
@@ -2781,6 +2775,10 @@ msgstr "管理工作階段..."
 #, kde-format
 msgid "Show for new window"
 msgstr "為新視窗顯示"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "內部錯誤：有一個以上的實體開啟相同的工作階段"
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr "此檢視可能有未儲存的工作。您真的想要關閉它嗎？"

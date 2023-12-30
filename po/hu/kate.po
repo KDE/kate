@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2022-01-14 10:53+0100\n"
 "Last-Translator: Kristóf Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -602,14 +602,14 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Fájlválasztó ablak"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -938,7 +938,7 @@ msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 "Mappák csak akkor nyithatók meg, ha a Projekt bővítmény engedélyezve van"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2559,14 +2559,7 @@ msgstr "Átne&vezés…"
 msgid "Delete"
 msgstr "Törlés"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr ""
-"Belső hiba: több mint egy példány van megnyitva egy adott munkamenetből."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2578,36 +2571,36 @@ msgstr ""
 "A(z) „%1” munkamenet már meg van nyitva egy másik Kate példányban, átvált "
 "arra az újra megnyitás helyett?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Nem sikerült átnevezni a munkamenetet erre: „%1”. Nem sikerült írni ezt: "
 "„%2”."
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Munkamenet átnevezése"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "A munkamenet neve:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2616,17 +2609,17 @@ msgstr ""
 "Már létezik ilyen nevű munkamenet: %1\n"
 "Válasszon egy másik nevet."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Munkamenet mentéséhez meg kell adni egy nevet."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Adja meg a munkamenet nevét"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Adja meg a munkamenet új nevét: %1"
@@ -2930,6 +2923,11 @@ msgstr "&Munkamenetkezelő…"
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "Új dokumentum létrehozása"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr ""
+#~ "Belső hiba: több mint egy példány van megnyitva egy adott munkamenetből."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr "A nézetben nem mentett munkák lehetnek. Biztosan szeretné bezárni?"

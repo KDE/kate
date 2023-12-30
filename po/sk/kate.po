@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -594,7 +594,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "História súborov - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 #, fuzzy
 #| msgid ""
 #| "Running Kate with sudo can cause bugs and expose you to security "
@@ -609,7 +609,7 @@ msgstr ""
 "zraniteľnostiam. Namiesto toho používajte Kate normálne a v prípade potreby "
 "budete pri ukladaní dokumentov vyzvaní na zadanie vyšších oprávnení."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 #, fuzzy
 #| msgid ""
 #| "Running Kate with kdesu can cause bugs and expose you to security "
@@ -945,7 +945,7 @@ msgstr "Všetci ostatní, ktorí prispeli a zabudol som sa o nich zmieniť"
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Priečinky je možné otvoriť, iba ak je povolený doplnok projekty"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2527,13 +2527,7 @@ msgstr "&Premenovať..."
 msgid "Delete"
 msgstr "Vymazať"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "Vnútorná chyba: pre dané sedenie je viac ako jedna otvorená inštancia."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2542,34 +2536,34 @@ msgstr ""
 "Sedenie '%1' je už otvorené v inej inštancii Kate. Prepnúť na ňu, alebo "
 "znovu otvoriť v tejto inštancii?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Prepnúť na inštanciu"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Znovu otvoriť"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Sedenie nie je možné premenovať na \"%1\". Zlyhal zápis do \"%2\""
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Premenovanie sedenia"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "Meno sedenia:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2578,17 +2572,17 @@ msgstr ""
 "Už existuje sedenie s vami vybraným názvom: %1\n"
 "Prosím zvoľte iný názov."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Na uloženie sedenia treba zadať meno."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Zadajte meno pre toto sedenie"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Zadajte nové meno pre sedenie: %1"
@@ -2861,6 +2855,11 @@ msgstr "Spravovať sedenia..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Zobraziť pre nové okno"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr ""
+#~ "Vnútorná chyba: pre dané sedenie je viac ako jedna otvorená inštancia."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr ""

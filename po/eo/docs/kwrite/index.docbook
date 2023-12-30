@@ -1,0 +1,425 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY kappname "&kwrite;">
+<!ENTITY % Esperanto "INCLUDE"
+> <!-- change language only here -->
+]>
+
+<article id="kwrite" lang="&language;">
+
+<articleinfo>
+<title
+>La &kwrite; Manlibro</title>
+<authorgroup>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="developer"
+>&Christoph.Cullmann; &Christoph.Cullmann.mail; </othercredit>
+
+<othercredit role="translator"
+><firstname
+>Oliver</firstname
+><surname
+>Kellogg</surname
+><affiliation
+><address
+><email
+>okellogg@users.sf.net</email
+></address
+></affiliation
+><contrib
+>Translation</contrib
+></othercredit
+> 
+
+</authorgroup>
+
+<copyright>
+<year
+>2014</year>
+<holder
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2021-09-02</date>
+<releaseinfo
+>KDE Gear 21.12</releaseinfo>
+
+<abstract>
+<para
+>&kwrite; estas tekstredaktilo de &kde; permesante al vi redakti unu dosieron samtempe per fenestro.</para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>KWrite</keyword>
+<keyword
+>teksto</keyword>
+<keyword
+>redaktilo</keyword>
+</keywordset>
+
+</articleinfo>
+
+<sect1 id="introduction">
+<title
+>Enkonduko</title>
+
+<para
+>&kwrite; estas pli ol tekstredaktilo de &kde;. Ĝi estas intencita esti redaktilo de programisto, kaj povus esti konsiderata kiel almenaŭ parta alternativo al pli potencaj redaktiloj. Ĝi povas esti plej bone uzata kune kun &konqueror; aŭ &dolphin; por foliumado de fontdosieroj por malsamaj lingvoj. &kwrite; ankaŭ tre bone funkcias kiel simpla tekstredaktilo. Unu el la ĉefaj trajtoj de &kwrite; estas la kolorigita sintakso, proprigita por multaj malsamaj programlingvoj kiel: C/C++, &Java;, Python, Perl, Bash, Modula 2, &HTML;, kaj Ada. &kwrite; havas ununuran dokumentinterfacon (<acronym
+>SDI</acronym
+>) ebligante vin redakti unu dosieron samtempe per fenestro. </para>
+
+<para
+>&kwrite; estas simpla interfaco al la &katepart; komponanto ankaŭ uzata de &kate;, &kdevelop;, kaj aliaj aplikaĵoj de &kde; kiuj postulas altnivelan tekstoredaktadon. Tial, kompleta dokumentaro por ĉiuj funkcioj de &kwrite; troveblas en la <ulink url="help:/katepart"
+>&katepart; Manlibro</ulink
+>. </para>
+</sect1>
+
+<sect1 id="command-line-options">
+<title
+>Komandliniaj Opcioj</title>
+
+<para
+>Kvankam &kwrite; povas plej ofte esti komencita de la &plasma; aplika startigilo, aŭ labortabla piktogramo, ĝi ankaŭ povas esti malfermita ĉe la komandlinia instigilo de terminalfenestro. Estas kelkaj utilaj ebloj disponeblaj kiam vi faras tion. </para>
+
+<para
+>Multaj aliaj aplikaĵoj kiuj uzas &katepart; proponi similajn komandliniajn opciojn.</para>
+
+<sect2 id="specify-a-file">
+<title
+>Specifi dosieron</title>
+
+<para
+>Specifante la vojon kaj nomon de aparta dosiero la uzanto povas havi &kwrite; malfermu (aŭ kreu) tiun dosieron tuj post ekfunkciigo. Ĉi tiu opcio povus aspekti kiel la jena:</para>
+
+<informalexample
+><screen
+><prompt
+>%</prompt
+> <userinput
+><command
+>kwrite</command>
+<option
+><replaceable
+>/home/myhome/docs/myfile.txt</replaceable
+></option>
+</userinput
+>
+</screen>
+</informalexample>
+</sect2>
+<sect2 id="editing-files-on-the-internet">
+<title
+>Indiki dosieron en la Interreto</title>
+
+<para
+>La supre menciita metodo eĉ povus esti uzata por malfermi dosierojn en la Interreto (se la uzanto havas aktivan konekton tiutempe.) Ekzemplo de tio povus aspekti kiel jena:</para>
+
+<informalexample
+><screen
+><prompt
+>%</prompt
+> <userinput
+><command
+>kwrite</command>
+<option
+><replaceable
+>ftp://ftp.kde.org/pub/kde/README</replaceable>
+</option
+></userinput
+>
+</screen>
+</informalexample>
+
+</sect2>
+
+<sect2 id="other-command-line-options">
+<title
+>Aliaj Komandliniaj Opcioj</title>
+
+<para
+>La jenaj komandliniaj helpopcioj disponeblas</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>--help</option
+></userinput
+></term>
+<listitem
+><para
+>Ĉi tio listigas la plej bazajn elektojn disponeblajn ĉe la komandlinio.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>--author</option
+></userinput
+></term>
+<listitem
+><para
+>Listigas la aŭtorojn de &kwrite; en la terminala fenestro.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-v</option
+>, <option
+>--version</option
+></userinput
+></term>
+<listitem
+><para
+>Listigas versiinformojn por la aplikaĵo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>--license</option
+></userinput
+></term>
+<listitem>
+<para
+>Montras informojn pri licenco.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>--desktopfile</option
+> <parameter
+>dosiernomo</parameter
+></userinput
+></term>
+<listitem
+><para
+>La baza dosiernomo de la labortabla eniro por ĉi tiu aplikaĵo.</para>
+<para
+>Ĉi tio estas precipe utila por envolvaĵaplikoj kaj aplikaĵoj havantaj ĝenerale multoblajn labortablajn dosierojn. Tiel ĉiu labortabla dosiero povas havi sian propran komandlinion por la eniro <option
+>Exec</option
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-e</option
+>, <option
+>--encoding</option
+> <parameter
+>kodigo</parameter
+> </userinput
+></term>
+<listitem
+><para
+>Kaŭzas &kwrite; uzi la specifitan kodigon por la dokumento. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-l</option
+>, <option
+>--line</option
+> <parameter
+>linio</parameter
+> </userinput
+></term>
+<listitem
+><para
+>Iri al la specifita linio post malfermi la dokumenton. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-c</option
+>, <option
+>--column</option
+> <parameter
+>kolumno</parameter
+> </userinput
+></term>
+<listitem
+><para
+>Iri al la specifita kolumno post malfermi la dokumenton. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kwrite</command
+> <option
+>-i</option
+>, <option
+>--stdin</option
+></userinput
+></term>
+<listitem
+><para
+>Kaŭzas &kwrite; legi la dokumentenhavon de STDIN. Ĉi tio similas al la komuna opcio <option
+>-</option
+> uzata en multaj komandliniaj programoj, kaj ebligas al vi enkonduki komandan eligon en &kwrite;.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
+<sect1 id="credits">
+<title
+>Kreditoj kaj Licenco</title>
+
+<para
+>&kwrite; Kopirajto 2001-2014 de la &kate; teamo.</para>
+
+<para
+>Surbaze de la originala &kwrite;, kiu estis Kopirajto 2000 de Jochen Wilhelmy <email
+>digisnap@cs.tu-berlin.de</email
+> </para>
+
+<para
+>Kontribuoj:</para>
+
+<itemizedlist>
+<listitem>
+<para
+>&Christoph.Cullmann; &Christoph.Cullmann.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Michael Bartl <email
+>michael.bartl1@chello.at</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>Phlip <email
+>phlip_cpp@my-deja.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Anders.Lund; &Anders.Lund.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Matt Newell <email
+>newellm@proaxis.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Joseph.Wenninger; &Joseph.Wenninger.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Jochen Wilhelmy <email
+>digisnap@cs.tu-berlin.de</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Michael.Koch; &Michael.Koch.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>&Christian.Gebauer; &Christian.Gebauer.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>&Simon.Hausmann; &Simon.Hausmann.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Glen Parker <email
+>glenebob@nwlink.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>Scott Manson <email
+>sdmanson@altel.net</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&John.Firebaugh; &John.Firebaugh.mail;</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Translation Oliver Kellogg <email
+>okellogg@users.sf.net</email
+></para
+> &underFDL; &underGPL; </sect1>
+
+</article>
+<!--
+Local Variables:
+mode: sgml
+sgml-namecase-general: t
+sgml-namecase-entity: nil
+sgml-general-insert-case: lower
+sgml-minimize-attributes: nil
+sgml-omittag: nil
+End:
+-->

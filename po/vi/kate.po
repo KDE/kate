@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -584,7 +584,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Lịch sử tệp - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -594,7 +594,7 @@ msgstr ""
 "cơ về an ninh. Thay vì thế, hãy dùng trình biên tập này bình thường và nếu "
 "cần thiết bạn sẽ được nhắc về đặc quyền cao hơn khi lưu tài liệu."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -925,7 +925,7 @@ msgstr "Tất cả những người đã đóng góp mà tôi quên không đề
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Chỉ có thể mở thư mục khi phần cài cắm \"Dự án\" được bật"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2503,13 +2503,7 @@ msgstr "Đổ&i tên..."
 msgid "Delete"
 msgstr "Xoá"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "Lỗi nội bộ: có nhiều hơn một hiện thể đang mở cùng một phiên."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2518,34 +2512,34 @@ msgstr ""
 "Phiên '%1' đang mở trong một hiện thể Kate khác. Chuyển sang đó hay mở lại "
 "trong hiện thể này?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Chuyển sang hiện thể"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Mở lại"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Không đổi tên được phiên thành \"%1\". Ghi vào \"%2\" thất bại"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Đổi tên phiên"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "Tên phiên:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2554,17 +2548,17 @@ msgstr ""
 "Đã có một phiên với tên mà bạn chọn: %1\n"
 "Vui lòng chọn một tên khác."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Để lưu phiên, bạn phải đưa ra một cái tên."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Đưa ra một cái tên cho phiên này"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Đưa ra tên mới cho phiên: %1"
@@ -2837,6 +2831,10 @@ msgstr "Quản lí phiên..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Hiện cho cửa sổ mới"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "Lỗi nội bộ: có nhiều hơn một hiện thể đang mở cùng một phiên."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr ""

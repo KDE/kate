@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -580,7 +580,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Fayl tarixçəsi: - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -591,7 +591,7 @@ msgstr ""
 "proqram sənədi saxlamaq üçün kök imtiyazlarından istifadə etməyi təklif "
 "edəcək."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -922,7 +922,7 @@ msgstr "Bütün bu layihədə iştirak edənlər lakin adları çəkilməyəblə
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Qovluğu yalnız layihə qoşması aktiv olduqda açmaq olar"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2508,13 +2508,7 @@ msgstr "&Adını dəyişin..."
 msgid "Delete"
 msgstr "Silmək"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "Daxili xəta: verilmiş sesiya üçün birdən çox nümunə açılıb."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2523,35 +2517,35 @@ msgstr ""
 "\"%1\" sessiyası artıq başqa Kate nümünəsi tərəfindən açılıb. Başqa nümunəyə "
 "keçmək, yoxsa bu nümunədə yenidən açmaq istəyirsiniz?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Nümunəyə keçin"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Yenidən açın"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Sesiyanın adı \"%1\" kimi dəyişdirilə bilməz. \"%2\" üzərinə yazıla bilmədi"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Sesiyanın adı dəyişdirilir"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "Sesiyanın adı:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2560,17 +2554,17 @@ msgstr ""
 "Seçdiyiniz %1 adı ilə artıq sesiya mövcuddur.\n"
 "Başqa bir ad seçin."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Sesiyanı saxlamaq üçün ona ad verməlisiniz."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Bu sesiyaya ad verin"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Bu sesiya üçün ad göstərin: %1"
@@ -2842,6 +2836,10 @@ msgstr "Sesiyaları idarə etmək..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Yeni pəncərə üçün göstərmək"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "Daxili xəta: verilmiş sesiya üçün birdən çox nümunə açılıb."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr ""

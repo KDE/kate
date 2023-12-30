@@ -1,0 +1,1367 @@
+<appendix id="regular-expressions">
+<appendixinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<othercredit role="translator"
+><firstname
+>Oliver</firstname
+><surname
+>Kellogg</surname
+><affiliation
+><address
+><email
+>okellogg@users.sf.net</email
+></address
+></affiliation
+><contrib
+>Translation</contrib
+></othercredit
+> 
+</authorgroup>
+</appendixinfo>
+
+<title
+>Regulaj Esprimoj</title>
+
+<synopsis
+>Ĉi tiu Apendico enhavas mallongan sed espereble sufiĉan kaj
+kovrantan enkondukon al la mondo de <emphasis
+>regulaj
+esprimoj</emphasis
+>. Ĝi dokumentas regulajn esprimojn en la formo
+havebla ene de &kappname;, kiu ne kongruas kun la regulaj
+esprimoj de perl, nek kun tiuj de ekzemple
+<command
+>grep</command
+>.</synopsis>
+
+<sect1>
+
+<title
+>Enkonduko</title>
+
+<para
+><emphasis
+>Regulaj Esprimoj</emphasis
+> provizas al ni manieron priskribi iujn eblajn enhavojn de teksta ĉeno en maniero komprenita de malgranda programaro, por ke ĝi povu esplori ĉu teksto kongruas, kaj ankaŭ en la kazo de altnivelaj aplikoj kun la rimedoj por konservi pecojn aŭ la kongruan tekston.</para>
+
+<para
+>Ekzemplo: Diru, ke vi volas serĉi tekston por alineoj, kiuj komenciĝas per iu el la nomoj <quote
+>Henrik</quote
+> aŭ <quote
+>Pernille</quote
+> sekvata de iu formo de la verbo <quote
+>diri</quote
+>.</para>
+
+<para
+>Kun normala serĉo, vi komencus serĉi la antaŭnomon, <quote
+>Henrik</quote
+> eble sekvata de <quote
+>dir</quote
+> tiel: <userinput
+>Henrik dir</userinput
+>, kaj dum serĉado por kongruoj, vi devus forĵeti tiujn, kiuj ne estas la komenco de alineo, same kiel tiujn, en kiuj la vorto komencanta per la literoj <quote
+>dir</quote
+> ne estis aŭ <quote
+>diras</quote
+>, <quote
+>diris</quote
+> aŭ tiel. Kaj poste kompreneble ripetu ĉion tion kun la sekva nomo...</para>
+
+<para
+>Kun Regulaj Esprimoj, tiu tasko povus esti plenumita per ununura serĉo, kaj kun pli granda grado da precizeco.</para>
+
+<para
+>Por atingi ĉi tion, Regulaj Esprimoj difinas regulojn por esprimi en detaloj ĝeneraligo de ĉeno kongrua. Nia ekzemplo, kiun ni laŭvorte esprimus tiel: <quote
+>Linio komencanta per aŭ <quote
+>Henrik</quote
+> aŭ <quote
+>Pernille</quote
+> (eble sekvante ĝis 4 malplenajn aŭ tabulajn signojn) sekvata de Blanka spaco sekvata de <quote
+>dir</quote
+> kaj tiam aŭ <quote
+>as</quote
+> aŭ <quote
+>is</quote
+></quote
+> povus esti esprimita per la sekva regula esprimo:</para
+> <para
+><userinput
+>^[ \t]{0,4}(Henrik|Pernille) dir(as|is)</userinput
+></para>
+
+<para
+>La supra ekzemplo montras ĉiujn kvar ĉefajn konceptojn de modernaj Regulaj Esprimoj, nome:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Ŝablonoj</para
+></listitem>
+<listitem
+><para
+>Asertoj</para
+></listitem>
+<listitem
+><para
+>Kvantigiloj</para
+></listitem>
+<listitem
+><para
+>Retroreferencoj</para
+></listitem>
+</itemizedlist>
+
+<para
+>La kamero (<literal
+>^</literal
+>) komencanta la esprimon estas aserto, estante vera nur se la sekva kongrua ĉeno estas ĉe la komenco de linio.</para>
+
+<para
+>La ĉenoj <literal
+>[ \t]</literal
+> kaj <literal
+>(Henrik|Pernille) dir(as|is)</literal
+> estas ŝablonoj. La unua estas <emphasis
+>signa klaso</emphasis
+> kiu kongruas aŭ kun malplena aŭ (horizontala) tabula signo; la alia ŝablono enhavas unue subŝablon kongruantan aŭ <literal
+>Henrik</literal
+> <emphasis
+>aŭ</emphasis
+> <literal
+>Pernille</literal
+>, poste pecon kongruantan kun la ĝusta ĉeno <literal
+>dir</literal
+> kaj fine subŝablono kongruanta aŭ <literal
+>as</literal
+> <emphasis
+>aŭ</emphasis
+> <literal
+>is</literal
+></para>
+
+<para
+>La ĉeno <literal
+>{0,4}</literal
+> estas kvantigilo diranta <quote
+>ie ajn de 0 ĝis 4 el la antaŭa</quote
+>.</para>
+
+<para
+>Ĉar regulesprima programaro subtenanta la koncepton de <emphasis
+>retroreferencoj</emphasis
+> ŝparas la tutan kongruan parton de la ĉeno kaj ankaŭ sub-ŝablonojn enfermitajn inter krampoj, donitaj iujn rimedojn por aliro al tiuj referencoj, ni povus meti niajn manojn aŭ al la tuta kongruo (serĉante tekstdokumenton en redaktilo kun regula esprimo, kiu estas ofte markita kiel elektita) aŭ aŭ la trovita nomo, aŭ al la lasta parto de la verbo.</para>
+
+<para
+>Tute kune, la esprimo kongruos kie ni volis ĝin, kaj nur tie.</para>
+
+<para
+>La sekvaj sekcioj priskribos detale kiel konstrui kaj uzi ŝablonojn, signojn klasojn, asertojn, kvantigilojn kaj retroreferencojn, kaj la fina sekcio donos kelkajn utilajn ekzemplojn.</para>
+
+</sect1>
+
+<sect1 id="regex-patterns">
+
+<title
+>Ŝablonoj</title>
+
+<para
+>Ŝablonoj konsistas el laŭvortaj ĉenoj kaj signoklasoj. Ŝablonoj povas enhavi sub-ŝablonojn, kiuj estas ŝablonoj enfermitaj en krampoj.</para>
+
+<sect2>
+<title
+>Eskapantaj signoj</title>
+
+<para
+>En ŝablonoj same kiel en signo klasoj, kelkaj signoj havas specialan signifon. Por laŭvorte kongrui kun iu ajn el tiuj signoj, ili devas esti markitaj aŭ <emphasis
+>eskapitaj</emphasis
+> por sciigi al la regula esprimo programaro ke ĝi devus interpreti tiajn signojn en sia laŭvorta signifo.</para>
+
+<para
+>Ĉi tio estas farita antaŭmetante la signon per malantaŭa oblikvo (<literal
+>\</literal
+>).</para>
+
+
+<para
+>La regula esprimo programaro silente ignoros eskapi signon kiu ne havas specialan signifon en la kunteksto, do eskapi ekzemple <quote
+>j</quote
+> (<userinput
+>\j</userinput
+>) estas sekura. Se vi dubas, ĉu signo povus havi specialan signifon, vi do povas eviti ĝin sekure.</para>
+
+<para
+>Eskapo kompreneble inkluzivas la inversan oblikvan signon mem, por laŭvorte kongrui kun tia, vi skribus <userinput
+>\\</userinput
+>.</para>
+
+</sect2>
+
+<sect2>
+<title
+>Signaj klasoj kaj mallongigoj</title>
+
+<para
+><emphasis
+>signa klaso</emphasis
+> estas esprimo kiu kongruas kun unu el difinita aro de signoj. En Regulaj esprimoj, signoklasoj estas difinitaj metante la laŭleĝajn signojn por la klaso en kvadrataj krampoj, <literal
+>[]</literal
+>, aŭ uzante unu el la mallongigitaj klasoj priskribitaj malsupre.</para>
+
+<para
+>Simplaj signoklasoj enhavas nur unu aŭ plurajn laŭvortajn signojn, ekzemple <userinput
+>[abc]</userinput
+> (kongruas kun ĉiu el la literoj <quote
+>a</quote
+>, <quote
+>b</quote
+> aŭ <quote
+> c</quote
+>) aŭ <userinput
+>[0123456789]</userinput
+> (kongruante kun iu ajn cifero).</para>
+
+<para
+>Ĉar literoj kaj ciferoj havas logikan ordon, vi povas mallongigi tiujn specifante intervalojn de ili: <userinput
+>[a-c]</userinput
+> estas egala al <userinput
+>[abc]</userinput
+> kaj <userinput
+>[0-9 ]</userinput
+> estas egala al <userinput
+>[0123456789]</userinput
+>. Kombini ĉi tiujn konstrukciojn, ekzemple <userinput
+>[a-fynot1-38]</userinput
+> estas tute laŭleĝa (la lasta kongruus, kompreneble, ĉu de <quote
+>a</quote
+>,<quote
+>b</quote
+>,<quote
+>c</quote
+>,<quote
+>d</quote
+>,<quote
+>e</quote
+>,<quote
+>f</quote
+>, <quote
+>y</quote
+>,<quote
+>n</quote
+>,<quote
+>o</quote
+>,<quote
+>t</quote
+>, <quote
+>1</quote
+>,<quote
+>2</quote
+>,<quote
+>3</quote
+> aŭ <quote
+>8</quote
+>).</para>
+
+<para
+>Ĉar majuskloj estas malsamaj signoj de siaj ne-majusklaj ekvivalentoj, por krei senmajusklan signoklason kongruan kun <quote
+>a</quote
+> aŭ <quote
+>b</quote
+>, ĉiukaze vi devas skribi ĝin <userinput
+> [aAbB]</userinput
+>.</para>
+
+<para
+>Kompreneble eblas krei <quote
+>negativan</quote
+> klasan kongruon kiel <quote
+>io ajn krom</quote
+> Por fari tion metu signon (<literal
+>^</literal
+>) ĉe la komenco de la klaso : </para>
+
+<para
+><userinput
+>[^abc]</userinput
+> kongruos kun ajna signo <emphasis
+>sed</emphasis
+> <quote
+>a</quote
+>, <quote
+>b</quote
+> aŭ <quote
+>c</quote
+>.</para>
+
+<para
+>Krom laŭvortaj signoj, kelkaj mallongigoj estas difinitaj, farante la vivon ankoraŭ iom pli facila: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>\a</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun la &ASCII; sonorilsigno (BEL, 0x07).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\f</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun la &ASCII; formo-flua signo (FF, 0x0C).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\n</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun la &ASCII; signo de linio (LF, 0x0A, Unix-novlinio).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\r</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun la &ASCII; kaleŝorevena signo (CR, 0x0D).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\t</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun la &ASCII; horizontala klapeta signo (HT, 0x09).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\v</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun la &ASCII; vertikala klapeta signo (VT, 0x0B).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>\xhhhh</userinput
+></term>
+
+<listitem
+><para
+>Ĉi tio kongruas kun la Unikoda signo responda al la deksesuma nombro hhhh (inter 0x0000 kaj 0xFFFF). \0ooo (&ie;, \zero ooo) kongruas kun la signo &ASCII;/Latin-1 responda al la okta nombro ooo (inter 0 kaj 0377).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>.</userinput
+> (punkto)</term>
+<listitem
+><para
+>Ĉi tio kongruas kun ajna signo (inkluzive de novlinio).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\d</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun cifero. Egala al <literal
+>[0-9]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\D</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun necifero. Egala al <literal
+>[^0-9]</literal
+> aŭ <literal
+>[^\d]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\s</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun blankspaco. Praktike egala al <literal
+>[ \t\n\r]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\S</userinput
+></term>
+<listitem
+><para
+>Ĉi tio kongruas kun neblankspaco. Praktike egala al <literal
+>[^ \t\r\n]</literal
+>, kaj egala al <literal
+>[^\s]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\w</userinput
+></term>
+<listitem
+><para
+>Kongruas kun ajna <quote
+>vorta signo</quote
+> - ĉi-kaze ajna litero, cifero aŭ substreko. Egala al <literal
+>[a-zA-Z0-9_]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\W</userinput
+></term>
+<listitem
+><para
+>Kongruas kun ajna nevorta signo - io ajn krom literoj, ciferoj aŭ substreko. Egala al <literal
+>[^a-zA-Z0-9_]</literal
+> aŭ <literal
+>[^\w]</literal
+></para
+></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</para>
+
+<para
+>La <emphasis
+>POSIX-notacio de klasoj</emphasis
+>, <userinput
+>[:&lt;class name&gt;:]</userinput
+> ankaŭ estas subtenataj. Ekzemple, <userinput
+>[:cifero:]</userinput
+> estas ekvivalenta al <userinput
+>\d</userinput
+>, kaj <userinput
+>[:space:]</userinput
+> al <userinput
+>\s</userinput
+>. Vidu la plenan liston de POSIX signoklasoj <ulink url="https://www.regular-expressions.info/posixbrackets.html"
+>ĉi tie</ulink
+>.</para>
+
+<para
+>La mallongigitaj klasoj povas esti enmetitaj ene de propra klaso, ekzemple por kongrui kun vorta signo, spaceto aŭ punkto, vi povus skribi <userinput
+>[\w \.]</userinput
+></para>
+
+<sect3>
+<title
+>Signoj kun specialaj signifoj ene de signoklasoj</title>
+
+<para
+>La sekvaj signoj havas specialan signifon ene de la signo klaskonstruaĵo <quote
+>[]</quote
+>, kaj devas esti eskapitaj por esti laŭvorte inkluditaj en klaso:</para>
+
+<variablelist>
+<varlistentry>
+<term
+><userinput
+>]</userinput
+></term>
+<listitem
+><para
+>Finas la signoklason. Devas esti eskapata krom se ĝi estas la unua signo en la klaso (povas sekvi neeskapitan signon).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (marko)</term>
+<listitem
+><para
+>Indikas negativan klason, se ĝi estas la unua signo. Devas esti eskapata por kongrui laŭvorte se ĝi estas la unua signo en la klaso.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>-</userinput
+> (streketo)</term>
+<listitem
+><para
+>Indikas logikan intervalon. Devas ĉiam esti eskapata ene de signoklaso.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>\</userinput
+> (malantaŭa oblikvo)</term>
+<listitem
+><para
+>La eskapa signo. Oni devas ĉiam eskapi.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2>
+
+<title
+>Alternativoj: kongrui <quote
+>unu el</quote
+></title>
+
+<para
+>Se vi volas kongrui kun unu el aro de alternativaj ŝablonoj, vi povas apartigi tiujn per <literal
+>|</literal
+> (vertikala streketo).</para>
+
+<para
+>Ekzemple por trovi aŭ <quote
+>Johano</quote
+> aŭ <quote
+>Harry</quote
+> vi uzus esprimon <userinput
+>Johano|Harry</userinput
+>.</para>
+
+</sect2>
+
+<sect2>
+
+<title
+>Subŝablonoj</title>
+
+<para
+><emphasis
+>Subŝablonoj</emphasis
+> estas ŝablonoj enfermitaj en krampoj, kaj ili havas plurajn uzojn en la mondo de regulaj esprimoj.</para>
+
+<sect3>
+
+<title
+>Specifante alternativojn</title>
+
+<para
+>Vi povas uzi subŝablon por grupigi aron da alternativoj en pli granda ŝablono. La alternativoj estas apartigitaj per la signo <quote
+>|</quote
+> (vertikala stango).</para>
+
+<para
+>Ekzemple por kongrui kun iu ajn el la vortoj <quote
+>int</quote
+>, <quote
+>float</quote
+> aŭ <quote
+>double</quote
+>, vi povus uzi la ŝablonon <userinput
+>int|float|double</userinput
+>. Se vi volas trovi nur unu se ĝi estas sekvata de iom da blankspaco kaj poste kelkaj literoj, metu la alternativojn ene de subŝablono: <userinput
+>(int|float|double)\s+\w+</userinput
+>.</para>
+
+</sect3>
+
+<sect3 id="regex-capturing">
+
+<title
+>Kaptante kongruan tekston (retroreferencoj)</title>
+
+<para
+>Se vi volas uzi retroreferencon, uzu subŝablonon <userinput
+>(PATTERN)</userinput
+> por ke la dezirata parto de la ŝablono memoru. Por eviti ke la subŝablono estu memorita, uzu ne-kaptan grupon <userinput
+>(?:PATTERN)</userinput
+>.</para>
+
+<para
+>Ekzemple, se vi volas trovi du aperon de la sama vorto apartigitaj per komo kaj eble iom da blankspaco, vi povus skribi <userinput
+>(\w+),\s*\1</userinput
+>. La subŝablono <literal
+>\w+</literal
+> trovus pecon da vortsignoj, kaj la tuta esprimo kongruus se tiuj estus sekvataj de komo, 0 aŭ pli da blankspaco kaj tiam egala parto de vortsignoj. (La ĉeno <literal
+>\1</literal
+> referencas al <emphasis
+>la unua subŝablono enfermita inter krampoj</emphasis
+>.)</para>
+
+<note>
+<para
+>Por eviti ambiguaĵojn kun uzado de <userinput
+>\1</userinput
+> kun kelkaj ciferoj malantaŭ ĝi (&eg; <userinput
+>\12</userinput
+> povas esti 12-a subŝablono aŭ nur la unua subŝablono kun <userinput
+>2</userinput
+>) ni uzas <userinput
+>\{12}</userinput
+> kiel sintakson por plurciferaj subŝablonoj.</para>
+<para
+>Ekzemploj:</para>
+<itemizedlist>
+<listitem
+><para
+><userinput
+>\{12}1</userinput
+> estas <quote
+>uzu subŝablon 12</quote
+></para
+></listitem>
+<listitem
+><para
+><userinput
+>\123</userinput
+> estas <quote
+>uzi kapton 1 tiam 23 kiel la normalan tekston</quote
+></para
+></listitem>
+</itemizedlist>
+
+</note>
+
+<!-- <para
+>See also <link linkend="backreferences"
+>Back references</link
+>.</para
+> -->
+
+</sect3>
+
+<sect3 id="lookahead-assertions">
+<title
+>Lookahead-Asertoj</title>
+
+<para
+>Antaŭrigarda aserto estas subŝablono, komencanta aŭ <literal
+>?=</literal
+> aŭ <literal
+>?!</literal
+>.</para>
+
+<para
+>Ekzemple por kongrui kun la laŭvorta ĉeno <quote
+>Bill</quote
+> sed nur se ne sekvata de <quote
+> Gates</quote
+>, vi povus uzi ĉi tiun esprimon: <userinput
+>Bill(?! Gates)</userinput
+>. (Ĉi tio trovus <quote
+>Bill Clinton</quote
+> same kiel <quote
+>Billy the kid</quote
+>, sed silente ignorus la aliajn kongruojn.)</para>
+
+<para
+>Subaj ŝablonoj uzataj por asertoj ne estas kaptitaj.</para>
+
+<para
+>Vidu ankaŭ <link linkend="assertions"
+>Asertoj</link
+>.</para>
+
+</sect3>
+
+<sect3 id="lookbehind-assertions">
+<title
+>Lookbehind Asertoj</title>
+
+<para
+>Malantaŭa aserto estas subŝablono, komencante aŭ <literal
+>?&lt;=</literal
+> aŭ <literal
+>?&lt;!</literal
+>.</para>
+
+<para
+>Rigardu malantaŭen havas la saman efikon kiel la rigardo antaŭen, sed funkcias malantaŭen. Ekzemple por kongrui kun la laŭvorta ĉeno <quote
+>fruit</quote
+> sed nur se ne antaŭita de <quote
+>grape</quote
+>, vi povus uzi ĉi tiun esprimon: <userinput
+>(?&lt;!grape)fruit</userinput
+>.</para>
+
+<para
+>Subaj ŝablonoj uzataj por asertoj ne estas kaptitaj.</para>
+
+<para
+>Vidu ankaŭ <link linkend="assertions"
+>Asertoj</link
+></para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="special-characters-in-patterns">
+<title
+>Signoj kun speciala signifo ene de ŝablonoj</title>
+
+<para
+>La sekvaj signoj havas signifon ene de ŝablono, kaj devas esti eskapitaj se vi volas laŭvorte kongrui kun ili: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>\</userinput
+> (malantaŭa oblikvo)</term>
+<listitem
+><para
+>La eskapa signo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (marko)</term>
+<listitem
+><para
+>Asertas la komencon de la ĉeno.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>$</userinput
+></term>
+<listitem
+><para
+>Asertas la finon de ĉeno.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>()</userinput
+> (maldekstra kaj dekstra krampoj)</term>
+<listitem
+><para
+>Indikas subajn ŝablonojn.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{}</userinput
+> (maldekstre kaj dekstraj buklaj krampoj)</term>
+<listitem
+><para
+>Indikas nombrajn kvantorojn.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>[]</userinput
+> (maldekstre kaj dekstraj kvadrataj krampoj)</term>
+<listitem
+><para
+>Indikas signoklasojn.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>|</userinput
+> (vertikala stango)</term>
+<listitem
+><para
+>logika AŬ. Apartigas alternativojn.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>+</userinput
+> (plus-signo)</term>
+<listitem
+><para
+>Kvantigilo, 1 aŭ pli.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>*</userinput
+> (asterisko)</term>
+<listitem
+><para
+>Kvantigilo, 0 aŭ pli.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>?</userinput
+> (demandosigno)</term>
+<listitem
+><para
+>Nedeviga signo. Povas esti interpretita kiel kvantigilo, 0 aŭ 1.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="quantifiers">
+<title
+>Kvantigiloj</title>
+
+<para
+><emphasis
+>Kvantigiloj</emphasis
+> permesas al regula esprimo kongrui kun difinita nombro aŭ gamo de nombroj de aŭ signo, signoklaso aŭ subŝablono.</para>
+
+<para
+>Kvantigiloj estas enfermitaj en krampoj (<literal
+>{</literal
+> kaj <literal
+>}</literal
+>) kaj havas la ĝeneralan formon <literal
+>{[minimum-okazoj][,[maksimum-okazoj]]}</literal
+> </para>
+
+<para
+>La uzado estas plej bone klarigita per ekzemplo: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>{1}</userinput
+></term>
+<listitem
+><para
+>Ĝuste 1 okazo</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{0,1}</userinput
+></term>
+<listitem
+><para
+>Nulo aŭ 1 okazoj</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{,1}</userinput
+></term>
+<listitem
+><para
+>La sama, kun malpli da laboro ;)</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{5,10}</userinput
+></term>
+<listitem
+><para
+>Almenaŭ 5 sed maksimume 10 okazoj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{5,}</userinput
+></term>
+<listitem
+><para
+>Almenaŭ 5 okazoj, neniu maksimumo.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<para
+>Aldone, estas kelkaj mallongigoj: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>*</userinput
+> (asterisko)</term>
+<listitem
+><para
+>simile al <literal
+>{0,}</literal
+>, trovi ajnan nombron da aperoj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>+</userinput
+> (plus-signo)</term>
+<listitem
+><para
+>simila al <literal
+>{1,}</literal
+>, almenaŭ 1 okazo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>?</userinput
+> (demandosigno)</term>
+<listitem
+><para
+>simila al <literal
+>{0,1}</literal
+>, nulo aŭ 1 okazo.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<sect2>
+
+<title
+>Avideco</title>
+
+<para
+>Kiam oni uzas kvantigilojn sen maksimumo, regulaj esprimoj defaŭlte kongruas kiel eble plej multe de la serĉata ĉeno, ofte konata kiel <emphasis
+>avida</emphasis
+> konduto.</para>
+
+<para
+>Moderna regula esprimo programaro disponigas la rimedojn por <quote
+>malŝalti avidecon</quote
+>, kvankam en grafika medio dependas de la interfaco provizi al vi aliron al ĉi tiu funkcio. Ekzemple serĉa dialogo provizanta serĉon de regula esprimo povus havi markobutonon etikeditan <quote
+>Minimuma kongruo</quote
+> same kiel ĝi devus indiki ĉu avideco estas la defaŭlta konduto.</para>
+
+</sect2>
+
+<sect2>
+<title
+>En kunteksto ekzemploj</title>
+
+<para
+>Jen kelkaj ekzemploj de uzado de kvantigiloj:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>^\d{4,5}\s</userinput
+></term>
+<listitem
+><para
+>Kongruas kun la ciferoj en <quote
+>1234 go</quote
+> kaj <quote
+>12345 nun</quote
+>, sed nek en <quote
+>567 dekunu</quote
+> nek en <quote
+>223459 ie</quote
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\s+</userinput
+></term>
+<listitem
+><para
+>Kongruas kun unu aŭ pluraj blankspacsignoj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(bla){1,}</userinput
+></term>
+<listitem
+><para
+>Kongruas ĉiujn <quote
+>blablabla</quote
+> kaj la <quote
+>bla</quote
+> en <quote
+>merlo</quote
+> aŭ <quote
+>tabla</quote
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>/?&gt;</userinput
+></term>
+<listitem
+><para
+>Kongruas <quote
+>/&gt;</quote
+> en <quote
+>&lt;closeditem/&gt;</quote
+> same kiel <quote
+>&gt;</quote
+> en <quote
+>&lt;penitem&gt;</quote
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="assertions">
+<title
+>Asertoj</title>
+
+<para
+><emphasis
+>Asertoj</emphasis
+> permesas al regula esprimo kongrui nur sub certaj kontrolitaj kondiĉoj.</para>
+
+<para
+>Aserto ne bezonas signon por egali, ĝi prefere esploras la ĉirkaŭon de ebla kongruo antaŭ agnoski ĝin. Ekzemple la aserto <emphasis
+>vortlimo</emphasis
+> ne provas trovi nevortan signon kontraŭ vorto unu ĉe ĝia pozicio, anstataŭe ĝi certigas, ke ne estas vorta signo. Tio signifas, ke la aserto povas kongrui kie ne estas signo, &ie; ĉe la finoj de serĉata ĉeno.</para>
+
+<para
+>Iuj asertoj efektive ja havas ŝablonon por kongrui, sed la parto de la ĉena kongruo kiu ne estos parto de la rezulto de la kongruo de la plena esprimo.</para>
+
+<para
+>Regulaj Esprimoj kiel dokumentite ĉi tie subtenas la sekvajn asertojn: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (marko: komenco de ĉeno)</term>
+<listitem
+><para
+>Kongruas kun la komenco de la serĉita ĉeno.</para
+> <para
+>La esprimo <userinput
+>^Peter</userinput
+> kongruos ĉe <quote
+>Petro</quote
+> en la ĉeno <quote
+>Petro, he!</quote
+> sed ne en <quote
+>He, Petro!</quote
+> </para
+> </listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>$</userinput
+> (fino de ĉeno)</term>
+<listitem
+><para
+>Kongruas kun la fino de la serĉita ĉeno.</para>
+
+<para
+>La esprimo <userinput
+>you\?$</userinput
+> kongruos ĉe la lasta vi en la ĉeno <quote
+>You didn't do that, did you?</quote
+> sed nenie en <quote
+>You didn't do that, right?</quote
+></para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\b</userinput
+> (vortlimo)</term>
+<listitem
+><para
+>Kongruas se estas vortsigno ĉe unu flanko kaj ne vortsigno ĉe la alia.</para>
+<para
+>Ĉi tio utilas por trovi vortfinaĵojn, ekzemple ambaŭ finaĵojn por trovi tutan vorton. La esprimo <userinput
+>\bin\b</userinput
+> kongruos ĉe la aparta <quote
+>in</quote
+> en la ĉeno <quote
+>He came in through the window</quote
+>, sed ne ĉe la <quote
+>in</quote
+> en <quote
+>window</quote
+>.</para
+></listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\B</userinput
+> (ne vortlimo)</term>
+<listitem
+><para
+>Kongruas kie ajn <quote
+>\b</quote
+> ne faras.</para>
+<para
+>Tio signifas, ke ĝi kongruos ekzemple ene de vortoj: La esprimo <userinput
+>\Bin\B</userinput
+> kongruos en <quote
+>window</quote
+> sed ne en <quote
+>integer</quote
+> aŭ <quote
+>I'm in love</quote
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?=PATTERN)</userinput
+> (Pozitiva antaŭrigardo)</term>
+<listitem
+><para
+>Antaŭrigarda aserto rigardas la parton de la ĉeno sekvanta ebla kongruo. La pozitiva antaŭrigardo malhelpos la ĉenon kongrui se la teksto sekvanta la ebla kongruo ne kongruas kun la <emphasis
+>PATTERN</emphasis
+> de la aserto, sed la teksto kongrua per tio ne estos inkluzivita en la rezulto.</para>
+<para
+>La esprimo <userinput
+>handy(?=\w)</userinput
+> kongruos ĉe <quote
+>handy</quote
+> en <quote
+>handyman</quote
+> sed ne en <quote
+>That came in handy!</quote
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?!PATTERN)</userinput
+> (Negativa antaŭrigardo)</term>
+
+<listitem
+><para
+>La negativa antaŭrigardo malhelpas ebla kongruo esti agnoskita se la sekva parto de la serĉita ĉeno ja kongruas kun sia <emphasis
+>PATTERN</emphasis
+>.</para>
+<para
+>La esprimo <userinput
+>konst \w+\b(?!\s*&amp;)</userinput
+> kongruos ĉe <quote
+>const char</quote
+> en la ĉeno <quote
+>const char* foo</quote
+> dum ĝi ne povas kongrui kun <quote
+>const QString</quote
+> en <quote
+>const QString&amp; bar</quote
+> ĉar la <quote
+>&amp;</quote
+> kongruas kun la negativa antaŭrigarda aserta ŝablono.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;=PATTERN)</userinput
+> (Pozitiva rigardo malantaŭe)</term>
+<listitem
+><para
+>Rigardu malantaŭen havas la saman efikon kiel la rigardo antaŭen, sed funkcias malantaŭen. Malantaŭrigardo rigardas la parton de la ĉeno antaŭ ebla kongruo. La pozitiva postrigardo kongruos kun ĉeno nur se ĝi estas antaŭita de la <emphasis
+>PATTERN</emphasis
+> de la aserto, sed la teksto kongrua per tio ne estos inkluzivita en la rezulto.</para>
+<para
+>La esprimo <userinput
+>(?&lt;=cup)cake</userinput
+> kongruos ĉe <quote
+>cake</quote
+> se ĝi estas sekvata de <quote
+>cup</quote
+> (en <quote
+>cake</quote
+> sed ne en <quote
+>cheesecake</quote
+> aŭ en <quote
+>cake</quote
+> sole).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;!PATTERN)</userinput
+> (Negativa postrigardo)</term>
+<listitem
+><para
+>La negativa postrigardo malhelpas ebla kongruo esti agnoskita se la antaŭa parto de la serĉita ĉeno ja kongruas kun sia <emphasis
+>PATTERN</emphasis
+>.</para>
+<para
+>La esprimo <userinput
+>(?&lt;![\w\.])[0-9]+</userinput
+> kongruos ĉe <quote
+>123</quote
+> en la ĉenoj <quote
+>=123</quote
+> kaj <quote
+>-123</quote
+> dum ĝi ne povas kongrui kun <quote
+>123</quote
+> en <quote
+>.123</quote
+> aŭ <quote
+>vorto123</quote
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(ŜABLONO)</userinput
+> (Kaptanta grupo)</term>
+
+<listitem
+><para
+>La subŝablono ene de la krampoj estas kaptita kaj memorita, tiel ke ĝi povas esti uzata en retroreferencoj. Ekzemple, la esprimo <userinput
+>(&amp;quot;+)[^&amp;quot;]*\1</userinput
+> kongruas kun <userinput
+>&quot;&quot;&quot;&quot;text&quot;&quot;&quot;&quot;</userinput
+> kaj <userinput
+>&quot;teksto&quot;</userinput
+>.</para>
+<para
+>Vidu la sekcion <link linkend="regex-capturing"
+>Kapti kongruan tekston (retroreferencoj)</link
+> por pliaj informoj.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?:PATTERN)</userinput
+> (Ne-kapta grupo)</term>
+
+<listitem
+><para
+>La subŝablono ene de la krampoj ne estas kaptita kaj ne estas memorita. Estas preferinde ĉiam uzi nekaptajn grupojn, se la kaptoj ne estos uzataj.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+</sect1>
+
+<!-- TODO sect1 id="backreferences">
+
+<title
+>Back References</title>
+
+<para
+></para>
+
+</sect1 -->
+
+</appendix>

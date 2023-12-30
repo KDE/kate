@@ -1,0 +1,1930 @@
+<chapter id="advanced-editing-tools">
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<othercredit role="translator"
+><firstname
+>Oliver</firstname
+><surname
+>Kellogg</surname
+><affiliation
+><address
+><email
+>okellogg@users.sf.net</email
+></address
+></affiliation
+><contrib
+>Translation</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Altnivelaj Redaktaj Iloj</title>
+
+<sect1 id="advanced-editing-tools-comment">
+
+<title
+>Komenti/Malkomenti</title>
+
+<para
+>La komandoj <guimenuitem
+>Komenti</guimenuitem
+> kaj <guimenuitem
+>Malkomenti</guimenuitem
+>, disponeblaj el la menuo <guimenu
+>Iloj</guimenu
+> permesas aldoni aŭ forigi komentsignojn al la elekto, aŭ la nunan linion se ne. teksto estas elektita, se komentoj estas subtenataj de la formato de la teksto, kiun vi redaktas.</para>
+
+<para
+>La reguloj pri kiel komentado estas farata estas difinitaj en la sintaksaj difinoj, do se sintaksa reliefigo ne estas uzata, komentado/malkomentado ne eblas. </para>
+
+<para
+>Kelkaj formatoj difinas unuliniajn komentmarkojn, kelkajn plurliniajn markilojn kaj iujn ambaŭ. Se plurliniaj markiloj ne estas disponeblaj, ne eblas komenti elekton, kiu ne plene inkluzivas ĝian lastan linion.</para>
+
+<para
+>Se unulinia markilo estas disponebla, komentado de unulinioj estas preferinda kie aplikebla, ĉar tio helpas eviti problemojn kun nestitaj komentoj.</para>
+
+<para
+>Kiam oni forigas komentajn markilojn, neniu nekomentita teksto estu elektita. Kiam oni forigas plurliniajn komentmarkojn de elekto, ajna blankspaco ekster la komentmarkoj estas ignorita.</para>
+
+<para
+><indexterm
+><primary
+>komento</primary
+></indexterm
+> Por meti komentajn markilojn, uzu la menueron <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Komento</guimenuitem
+></menuchoice
+> aŭ la rilatan klavkombinan sekvencon, la defaŭlta estas <keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+>.</para>
+
+<para
+><indexterm
+><primary
+>malkomenti</primary
+></indexterm
+> Por forigi komentajn markilojn, uzu la menueron <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Malkomenti</guimenuitem
+></menuchoice
+> aŭ la rilatan klavkombion, la defaŭlta estas <keycombo action="simul" 
+>&Ctrl;&Shift;<keycap
+>D</keycap
+></keycombo
+>.</para>
+
+</sect1>
+
+<sect1 id="advanced-editing-tools-commandline">
+<title
+>La Redaktilkomponanta Komandlinio</title>
+
+<para
+>La redaktilo de &kappname; havas internan komandlinion, ebligante al vi fari diversajn agojn de minimuma &GUI;. La komandlinio estas teksta eniro ĉe la fundo de la redaktilo; por montri ĝin elektu <menuchoice
+><guimenu
+>Vidi</guimenu
+><guimenuitem
+>Ŝanĝu al komandlinio</guimenuitem
+></menuchoice
+> aŭ uzu la ŝparvojon (defaŭlte estas <keycombo action="simul"
+><keycap
+>). F7</keycap
+></keycombo
+>). La redaktilo disponigas aron da komandoj kiel dokumentite sube, kaj kromaj komandoj povas esti provizitaj per kromaĵoj.</para>
+
+<para
+>Por efektivigi komandon, tajpu la komandon kaj premu la revenklavon. La komandlinio indikos ĉu ĝi sukcesis kaj eble montros mesaĝon. Se vi enigis la komandlinion premante <keycap
+>F7</keycap
+> ĝi aŭtomate kaŝos post kelkaj sekundoj. Por forigi la mesaĝon kaj enigi novan komandon, premu <keycap
+>F7</keycap
+> denove.</para>
+
+<para
+>La komandlinio havas enkonstruitan helpsistemon; eldonu la komandon <command
+>help</command
+> por komenci. Por vidi liston de ĉiuj disponeblaj komandoj eldonu <command
+>help list</command
+>; por vidi helpon pri specifa komando, faru <command
+>help <replaceable
+>komando</replaceable
+></command
+>.</para>
+
+<para
+>La komandlinio havas enkonstruitan historion, do vi povas reuzi komandojn jam tajpitajn. Por navigi la historion, uzu la klavojn &Up; kaj &Down;. Kiam vi montras historiajn ordonojn, la argumenta parto de la komando estos elektita, permesante al vi facile anstataŭigi la argumentojn.</para>
+
+<sect2 id="advanced-editing-tools-commandline-commands">
+<title
+>Normaj Komandliniaj Komandoj</title>
+
+<variablelist>
+<title
+>Argumentaj tipoj</title>
+
+<varlistentry>
+<term
+>BOOLEAN</term>
+<listitem
+><para
+>Ĉi tio estas uzata kun komandoj, kiuj ŝaltas aŭ malŝaltas aferojn. Laŭleĝaj valoroj estas <userinput
+>on</userinput
+>, <userinput
+>off</userinput
+>, <userinput
+>true</userinput
+>, <userinput
+>false</userinput
+>, <userinput
+>1</userinput
+> aŭ <userinput
+>0</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>INTEGER</term>
+<listitem
+><para
+>Entjera nombro.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>STRING</term>
+<listitem
+><para
+>Ĉeno, ĉirkaŭita de unuopaj citiloj (') aŭ duoblaj citiloj (") kiam ĝi enhavas spacojn.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+
+
+<sect3 id="advanced-editing-tools-commandline-commands-configure">
+<title
+>Komandoj por Agordo de la Redaktoro</title>
+
+<para
+>Ĉi tiuj komandoj estas provizitaj de la redaktilo, kaj permesas vin agordi la aktivan dokumenton kaj vidon nur. Ĉi tio estas oportuna se vi volas uzi agordon malsaman de la defaŭltaj agordoj, ekzemple por indentaĵo. </para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-tab-width</command
+><arg choice="req"
+>INTEGER larĝo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordas la tab-larĝon al la nombro <userinput
+>kun</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-indent-width</command
+><arg choice="req"
+>INTEGER larĝo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordas la indentlarĝon al la nombro <userinput
+>larĝo</userinput
+>. Uzata nur se vi indentigas per spacoj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-word-wrap-column</command
+><arg choice="req"
+>INTEGER larĝo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordas la linilarĝon por malmola volvado al <userinput
+>larĝo</userinput
+>. Ĉi tio estas uzata se vi envolvas vian tekston aŭtomate.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-icon-border</command
+><arg choice="req"
+>BOOLEAN aktivigo</arg
+> </cmdsynopsis
+></term>
+<listitem
+><para
+>Agordas la videblecon de la piktogramo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-folding-markers</command
+><arg choice="req"
+>BOOLEAN aktivigi</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordas la videblecon de la faldebla markilo-fenestro.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-line-numbers</command
+><arg choice="req"
+>BOOLEAN ebligi</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordas la videblecon de la lininumera panelo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-replace-tabs</command
+><arg choice="req"
+>BOOLEAN aktivigo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Se enŝaltite, taboj estas anstataŭigitaj per spacoj dum vi tajpas. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-remove-trailing-space</command
+><arg choice="req"
+>BOOLEAN aktivigo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Se ĝi estas ebligita, la malantaŭa blankspaco estas forigita kiam ajn la kursoro forlasas linion.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-show-tabs</command
+><arg choice="req"
+>BOOLEAN aktivigi</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Se ĝi estas ebligita, TAB-signoj kaj malantaŭa blankspaco estos bildigitaj per malgranda punkto.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-show-indent</command
+><arg choice="req"
+>BOOLEAN aktivigo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Se ebligita, indentaĵo estos bildigita per vertikala punktlinio.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-indent-spaces</command
+><arg choice="req"
+>BOOLEAN aktivigo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Se ĝi estas ebligita, la redaktilo deŝovos per <option
+>indent-width</option
+> spacoj por ĉiu indentnivelo, prefere ol per unu TAB-signo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-mixed-indent</command
+><arg choice="req"
+>BOOLEAN aktivigo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Se ebligita, &kappname; uzos miksaĵon de TAB kaj spacoj por indentaĵo. Ĉiu indentnivelo estos larĝa <option
+>indent-width</option
+>, kaj pli da indentniveloj estos optimumigitaj por uzi tiom da TAB-signoj kiel eble.</para>
+<para
+>Kiam efektivigata, ĉi tiu komando aldone ebligos spacetan deŝovon, kaj se la indentlarĝo estas nespecifita, ĝi estos agordita al duono de la <option
+>tab-larĝo</option
+> por la dokumento en la momento de la efektivigo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-word-wrap</command
+><arg choice="req"
+>BOOLEAN aktivigo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ebligas dinamikan vortŝanĝon laŭ <userinput
+>ebligi</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-replace-tabs-save</command
+><arg choice="req"
+>BOOLEAN aktivigi </arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Kiam estas ebligita, taboj estos anstataŭigitaj per blankspaco kiam la dokumento estas konservita.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-remove-trailing-space-save</command
+><arg choice="req"
+>BOOLEAN aktivigi</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Kiam ĝi estas ebligita, posta spaco estos forigita de ĉiu linio kiam la dokumento estas konservita.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-indent-mode</command
+><arg choice="req"
+>STRING nomo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordas la aŭtomatan indentan reĝimon al <userinput
+>nomo</userinput
+>. Se <userinput
+>nomo</userinput
+> ne estas konata, la reĝimo estas agordita al 'neniu'. Validaj reĝimoj estas 'neniu', 'normala', 'cstyle', 'haskell', 'lilypond', 'lisp', 'python', 'ruby' kaj 'xml'.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-auto-ident</command
+><arg choice="req"
+>BOOLEAN skripto</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ebligi aŭ malŝalti aŭtomatan deŝovon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-highlight</command
+><arg choice="req"
+>STRING elstarigi</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordas la sintaksan reliefigsistemon por la dokumento. La argumento devas esti valida elstara nomo, kiel vidite en la menuo <menuchoice
+><guimenu
+>Iloj</guimenu
+><guisubmenu
+>Elstarigado</guisubmenu
+></menuchoice
+>. Ĉi tiu komando provizas aŭtomatan liston por sia argumento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>reload-scripts</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Reŝargi ĉiujn <link linkend="dev-scripting"
+>&javascript; skriptoj</link
+> uzataj de &kate;, inkluzive de endentiloj kaj komandliniaj skriptoj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-mode</command
+><arg choice="req"
+>STRING reĝimo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Elektu la dosiertipskemon por la nuna dokumento. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nn[oremap]</command
+><arg choice="req"
+>STRING originala</arg
+> <arg choice="req"
+>STRING mapita</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Mapi la klavsekvencon <userinput
+>origina</userinput
+> al <userinput
+>mapita</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="advanced-editing-tools-commandline-commands-edit">
+<title
+>Komandoj por redaktado</title>
+
+<para
+>Ĉi tiuj komandoj modifas la nunan dokumenton.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>indent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Indentigas la elektitajn liniojn aŭ la nunan linion.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>unindent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Malstreĉigas la elektitajn liniojn aŭ aktualan linion.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>cleanindent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Purigas la indentaĵon de la elektitaj linioj aŭ aktuala linio laŭ la indentaĵagordoj en la dokumento. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>comment</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Enmetas komentmarkojn por fari la elekton aŭ elektitajn liniojn aŭ nunan linion komento laŭ la tekstformato kiel difinita de la sintaksa emfaza difino por la dokumento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>uncomment</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Forigas komentsignojn de la elekto aŭ elektitaj linioj aŭ aktuala linio laŭ la tekstformato kiel difinita de la sintaksa emfaza difino por la dokumento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>kill-line</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Forigas la nunan linion.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>replace</command
+><arg choice="req"
+> STRING ŝablono</arg
+> <arg choice="req"
+>STRING anstataŭigo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Anstataŭigas tekston kongruan kun <userinput
+>ŝablono</userinput
+> per <userinput
+>anstataŭaĵo</userinput
+>. Se vi volas enmeti blankspacon en la <userinput
+>ŝablono</userinput
+>, vi devas citi kaj la <userinput
+>ŝablono</userinput
+> kaj <userinput
+>anstataŭaĵo</userinput
+> per unuopaj aŭ duoblaj citiloj. Se la argumentoj estas necititaj, la unua vorto estas uzata kiel <userinput
+>ŝablono</userinput
+> kaj la ceteraj por <userinput
+>anstataŭaĵo</userinput
+>. Se <userinput
+>anstataŭaĵo</userinput
+> estas malplena, ĉiu okazo de <userinput
+>ŝablono</userinput
+> estas forigita.</para>
+<para
+>Vi povas agordi flagojn por agordi la serĉon aldonante dupunkton, sekvitan de unu aŭ pluraj literoj ĉiu reprezentante agordon, donante la formon <userinput
+>replace:options padronanstataŭigo</userinput
+>. Disponeblaj opcioj estas: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Serĉi malantaŭen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>Serĉi ekde la pozicio de la kursoro.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>e</userinput
+></term>
+<listitem
+><para
+>Serĉi nur en la elekto.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Fari regul-espriman serĉon. Se agordita, vi povas uzi <userinput
+>\N</userinput
+> kie N estas nombro por reprezenti kaptojn en la anstataŭiga ĉeno.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>Fari usklecdistingan serĉon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>p</userinput
+></term>
+<listitem
+><para
+>Peti permeson anstataŭigi la sekvan okazon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>w</userinput
+></term>
+<listitem
+><para
+>Kongrui nur tutajn vortojn.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>date</command
+><arg choice="req"
+>STRING formato</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Enmetas daton/horan ĉenon kiel difinitan per la specifita <userinput
+>formato</userinput
+>, aŭ la formaton <quote
+>jjyy-MM-dd hh:mm:ss</quote
+> se neniu estas specifita. La sekvaj tradukoj estas faritaj dum interpretado de <userinput
+>formato</userinput
+>: <informaltable
+> <tgroup cols="2"
+> <tbody>
+<row
+><entry
+><literal
+>d</literal
+></entry
+><entry
+>La tago kiel nombro sen unua nulo (1-31).</entry
+></row>
+<row
+><entry
+><literal
+>dd</literal
+></entry
+><entry
+>La tago kiel nombro kun unua nulo (01-31).</entry
+></row>
+<row
+><entry
+><literal
+>ddd</literal
+></entry
+><entry
+>La mallongigita lokalizita tagnomo (&eg; 'Lun'..'Suno').</entry
+></row>
+<row
+><entry
+><literal
+>ddd</literal
+></entry
+><entry
+>La longa lokalizita tagnomo (&eg; 'lundo'..'dimanĉo').</entry
+></row>
+<row
+><entry
+><literal
+>M</literal
+></entry
+><entry
+>La monato kiel nombro sen unua nulo (1-12).</entry
+></row>
+<row
+><entry
+><literal
+>MM</literal
+></entry
+><entry
+>La monato kiel nombro kun unua nulo (01-12).</entry
+></row>
+<row
+><entry
+><literal
+>MMMM</literal
+></entry
+><entry
+>La longa lokalizita monata nomo (&eg; 'januaro'..'decembro').</entry
+></row>
+<row
+><entry
+><literal
+>MMM</literal
+></entry
+><entry
+>La mallongigita lokalizita monata nomo (&eg; 'Jan'..'Dec').</entry
+></row>
+<row
+><entry
+><literal
+>jj</literal
+></entry
+><entry
+>La jaro kiel ducifera nombro (00-99).</entry
+></row>
+<row
+><entry
+><literal
+>yyyy</literal
+></entry
+><entry
+>La jaro kiel kvarcifera nombro (1752-8000).</entry
+></row>
+<row
+><entry
+><literal
+>h</literal
+></entry
+><entry
+>La horo sen antaŭa nulo (0..23 aŭ 1..12 se montriĝas AM/PM).</entry
+></row>
+<row
+><entry
+><literal
+>hh</literal
+></entry
+><entry
+>La horo kun unua nulo (00..23 aŭ 01..12 se montriĝas AM/PM).</entry
+></row>
+<row
+><entry
+><literal
+>m</literal
+></entry
+><entry
+>La minuto sen unua nulo (0..59).</entry
+></row>
+<row
+><entry
+><literal
+>mm</literal
+></entry
+><entry
+>La minuto kun unua nulo (00..59).</entry
+></row>
+<row
+><entry
+><literal
+>s</literal
+></entry
+><entry
+>La dua sen unua nulo (0..59).</entry
+></row>
+<row
+><entry
+><literal
+>ss</literal
+></entry
+><entry
+>La dua kun unua nulo (00..59).</entry
+></row>
+<row
+><entry
+><literal
+>z</literal
+></entry
+><entry
+>La milisekundoj sen antaŭaj nuloj (0..999).</entry
+></row>
+<row
+><entry
+><literal
+>zzz</literal
+></entry
+><entry
+>La milisekundoj kun antaŭaj nuloj (000..999).</entry
+></row>
+<row
+><entry
+><literal
+>AP</literal
+></entry
+><entry
+>Uzi AM/PM-montron. AP estos anstataŭigita per aŭ "AM" aŭ "PM".</entry
+></row>
+<row
+><entry
+><literal
+>ap</literal
+></entry
+><entry
+>Uzi am/pm-montron. ap estos anstataŭigita per aŭ "am" aŭ "pm".</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>char</command
+><arg choice="req"
+>STRING identigilo</arg
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Ĉi tiu komando permesas enmeti laŭvortajn signojn laŭ ilia nombra identigilo, en dekuma, okuma aŭ deksesuma formo. Por uzi ĝin lanĉu la dialogon de Redaktado-Komando kaj tajpu <userinput
+>char: [numero]</userinput
+> en la enirkesto, tiam premu <guibutton
+>OK</guibutton
+>.</para>
+
+<example>
+<title
+><command
+>char</command
+> ekzemploj</title>
+
+<para
+>Enigo: <userinput
+>char:234</userinput
+></para>
+<para
+>Eligo: <computeroutput
+>&#234;</computeroutput
+></para>
+<para
+>Enigo: <userinput
+>char:0x1234</userinput
+></para>
+<para
+>Eligo: <computeroutput
+>&#x1234;</computeroutput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<indexterm
+><primary
+>anstataŭi, 'sed'-stile</primary>
+<secondary
+>serĉi, 'sed'-stile</secondary
+></indexterm
+><command
+>s///[ig]</command
+> <command
+>%s///[ig]</command
+></term>
+
+<listitem>
+<para
+>Ĉi tiu komando faras 'sed'-similan serĉan/anstataŭigan operacion sur la nuna linio, aŭ sur la tuta dosiero (<command
+>%s///</command
+>).</para>
+
+<para
+>Resume, la teksto estas serĉata por teksto kongrua kun la <emphasis
+>serĉa ŝablono</emphasis
+>, la regula esprimo inter la unua kaj la dua oblikvo, kaj kiam kongruo estas trovita, la kongrua parto de la teksto estas anstataŭigita per la esprimo. inter la dua kaj lasta oblikvo. Krampoj en la serĉŝablono kreas <emphasis
+>malantaŭajn referencojn</emphasis
+>, tio estas la komando memoras kiu parto de la ĉeno kongruis en la krampoj; ĉi tiuj ĉenoj povas esti reuzitaj en la anstataŭiga ŝablono, nomata <userinput
+>\1</userinput
+> por la unua aro de krampoj, <userinput
+>\2</userinput
+> por la dua ktp.</para>
+
+<para
+>Por serĉi laŭvortan <literal
+>(</literal
+> aŭ <literal
+>)</literal
+>, vi devas <emphasis
+>eskapi</emphasis
+> ĝin per malantaŭa oblikva signo: <userinput
+>\(\)</userinput
+></para>
+
+<para
+>Se vi metas <userinput
+>i</userinput
+> ĉe la fino de la esprimo, la kongruo estos malsenca. Se vi metas <userinput
+>g</userinput
+> ĉe la fino, ĉiuj aperoj de la ŝablono estos anstataŭigitaj, alie nur la unua apero estas anstataŭigita.</para>
+
+<example>
+
+<title
+>Anstataŭigante tekston en la nuna linio</title>
+
+<para
+>Via amika kompililo ĵus haltis, dirante al vi, ke la klaso <classname
+>miaKlaso</classname
+> menciita en linio 3902 en via fontdosiero ne estas difinita.</para>
+
+<para
+>&quot;Buko!&quot; vi pensas, ĝi estas kompreneble <classname
+>MiaKlaso</classname
+>. Vi iras al linio 3902, kaj anstataŭ provi trovi la vorton en la teksto, vi lanĉas la Redaktan Komando-Dialogon, enigas <userinput
+>s/miaklaso/MiaKlaso/i</userinput
+>, premas la <guibutton
+>OK</guibutton
+> butonon, konservas la dosieron kaj kompilas &ndash; sukcese sen la eraro.</para>
+
+</example>
+
+<example>
+<title
+>Anstataŭigante tekston en la tuta dosiero</title>
+
+<para
+>Imagu, ke vi havas dosieron, en kiu vi plurfoje mencias <quote
+>Fraŭlino Jensen</quote
+>, kiam iu envenas kaj diras al vi, ke ŝi ĵus edziĝis al <quote
+>Sinjoro Jones</quote
+>. Vi volas, kompreneble, anstataŭigi ĉiun kaj ĉiun aperon de <quote
+>Fraŭlino Jensen</quote
+> per <quote
+>S-ino Jones</quote
+>.</para>
+
+<para
+>Enigu la komandlinion kaj eligu la komandon <userinput
+>%s/Miss Jensen/Ms Jones/</userinput
+> kaj premu enigklavon, vi finis.</para>
+
+</example>
+
+<example>
+<title
+>Pli Altnivela Ekzemplo</title>
+
+<para
+>Ĉi tiu ekzemplo uzas <emphasis
+>malantaŭajn referencojn</emphasis
+> kaj ankaŭ <emphasis
+>karaktroklason</emphasis
+> (se vi ne scias kio tio estas, bonvolu raporti al la rilata dokumentaro menciita sube).</para>
+
+<para
+>Supozu, ke vi havas la sekvan linion: <programlisting
+>void MyClass::DoStringOps( String      &amp;foo, String &amp;bar, String *p, int  &amp;a, int &amp;b )</programlisting>
+</para>
+<para
+>Nun vi rimarkas, ke ĉi tio ne estas bela kodo, kaj decidas, ke vi volas uzi la ŝlosilvorton <constant
+>const</constant
+> por ĉiuj <quote
+>adreso de</quote
+> argumentoj, tiuj karakterizitaj de la &amp; operatoro antaŭ la argumentnomo. Vi ankaŭ ŝatus simpligi la blankspacon, tiel ke estu nur 1 blankspaco inter ĉiu vorto.</para>
+
+<para
+>Lanĉu la Redaktan Komandan Dialogon, kaj enigu: <userinput
+>s/\s+(\w+)\s+(&amp;)/ const \1 \2/g</userinput
+> kaj premu la <guibutton
+>OK</guibutton
+> butono. La <userinput
+>g</userinput
+> ĉe la fino de la esprimo faras la regulan esprimon rekompili por ĉiu kongruo por konservi la <emphasis
+>malantaŭreferencojn</emphasis
+>.</para>
+
+<para
+>Eligo: <computeroutput
+>void MyClass::DoStringOps( const String &amp;foo, const String &amp;bar, String *p, const int &amp;a, const int &amp;b )</computeroutput
+></para>
+
+<para
+>Misio plenumita! Nun, kio okazis? Nu, ni serĉis iom da blankspaco (<literal
+>\s+</literal
+>) sekvata de unu aŭ pluraj alfabetaj signoj (<literal
+>\w+</literal
+>) sekvata de iom da plia blankspaco (<literal
+>\s+</literal
+>) sekvita de kaj-signo, kaj en la procezo konservis la alfabetan pecon kaj la kaj-signon por reuzo en la anstataŭiga operacio. Poste ni anstataŭigis la kongruan parton de nia linio per unu blankspaco sekvita de <quote
+>konst</quote
+> sekvita de unu blankspaco sekvita de nia konservita alfabeta peco (<literal
+>\1</literal
+>) sekvita de unu blankspaco sekvita de nia konservita kaj-signo (<literal
+>\2</literal
+>)</para>
+
+<para
+>Nun en kelkaj kazoj la alfabeta peco estis <quote
+>String</quote
+>, en iu <quote
+>int</quote
+>, do uzante la signoklason <literal
+>\w</literal
+> kaj la <literal
+>+</literal
+> kvantigilo pruvis valora valoraĵo.</para>
+
+</example>
+
+</listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>sort</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ordigas la elektitan tekston aŭ tutan dokumenton.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>natsort</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ordigi la elektitajn liniojn aŭ tutan dokumenton nature.</para>
+
+<example>
+<title
+><command
+>sort</command
+> kontraŭ <command
+>natsort</command
+></title>
+<para
+><userinput
+><command
+>sort</command
+>(a10, a1, a2)</userinput
+> rezultigas <computeroutput
+>a1, a10, a2</computeroutput
+></para>
+<para
+><userinput
+><command
+>natsort</command
+>(a10, a1, a2)</userinput
+> rezultigas <computeroutput
+>a1, a2, a10</computeroutput
+></para>
+</example
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>moveLinesDown</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Movi elektitajn liniojn malsupren.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>moveLinesUp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Movi elektitajn liniojn supren.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>uniq</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Forigi duobligitajn liniojn el la elektita teksto aŭ la tuta dokumento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>rtrim</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Forigu malantaŭan spacon de la elektita teksto aŭ de la tuta dokumento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>ltrim</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Forigi antaŭiran spacon el la elektita teksto aŭ el la tuta dokumento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>join</command
+><arg choice="opt"
+>STRING disigilo</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Kunigi elektitajn liniojn aŭ tutan dokumenton. Laŭvole prenas parametron difinantan apartigilon, ekzemple: <userinput
+><command
+>join</command
+> ', '</userinput
+> </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>rmblank</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Forigi ĉiujn malplenajn spacojn el la elektita teksto aŭ la tuta dokumento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>alignon</command
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Ĉi tiu komando vicigas liniojn en la elektita bloko aŭ tuta dokumento sur la kolumno donita per regula esprimo donita kiel argumento.</para>
+<para
+>Se vi donas malplenan ŝablonon, ĝi vicigos al la unua nemalplena signo defaŭlte.</para>
+<para
+>Se la ŝablono havas kapton, ĝi deŝovos sur la kaptita kongruo.</para>
+<para
+><emphasis
+>Ekzemploj:</emphasis
+></para>
+<para
+><userinput
+>alignon -</userinput
+> enmetos spacojn antaŭ la unua '-' de ĉiu linio por vicigi ilin ĉiujn sur la sama kolumno.</para>
+<para
+><userinput
+>alignon :\\s+(.)</userinput
+> enmetos spacojn antaŭ la unua nemalplena signo kiu okazas post dupunkto por vicigi ilin ĉiujn sur la sama kolumno.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>unwrap</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Malvolvi la elektitan tekston aŭ la tutan dokumenton.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>each</command
+><arg choice="req"
+>STRING skripto</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Donita &javascript; funkcion kiel argumento, voki tion por la listo de elektitaj linioj kaj anstataŭigi ilin per la liveraĵo de tiu retrovoko.</para>
+
+<example>
+<title
+>Kunigi elektitajn liniojn</title>
+<para
+><userinput
+><command
+>each</command
+> 'function(linioj){return linioj.join(", ")}' </userinput
+></para>
+
+<para
+>Aŭ, pli mallonge:</para>
+<para
+><userinput
+><command
+>each</command
+> 'linioj.join(", ")'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>filter</command
+><arg choice="req"
+>STRING skripto</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Donita &javascript; funkcion kiel argumento, voki tion por la listo de elektitaj linioj kaj forigi tiujn kie la revoko liveras malvera.</para>
+
+<example>
+<title
+>Forigi malplenajn liniojn</title>
+<para
+><userinput
+><command
+>filter</command
+> 'function(1){return 1.length 
+> 0;}' </userinput
+></para>
+
+<para
+>Aŭ, pli mallonge:</para>
+<para
+><userinput
+><command
+>filter</command
+> 'line.length 
+> 0'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>map</command
+><arg choice="req"
+>STRING skripto</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Donita &javascript; funkcion kiel argumento, voki tion por la listo de elektitaj linioj kaj anstataŭigi la linion per la valoro de la revoko.</para>
+
+<example>
+<title
+>Forigi malplenajn liniojn</title>
+<para
+><userinput
+><command
+>map</command
+> 'function(linio){return linio.replace(/^s+/,"");}' </userinput
+></para>
+
+<para
+>Aŭ, pli mallonge:</para>
+<para
+><userinput
+><command
+>map</command
+> 'line.replace(/^s+/,"")'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>duplicateLinesUp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Duobligi la elektitajn liniojn super la nuna elekto.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>duplicateLinesDown</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Duobligi la elektitajn liniojn sub la nuna elekto.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="advanced-editing-tools-commandline-commands-navigation">
+<title
+>Komandoj por navigado</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>goto</command
+><arg choice="req"
+>INT linio</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ĉi tiu komando navigas al la specifita linio.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>grep</command
+> <arg choice="req"
+>STRING ŝablono</arg
+> </cmdsynopsis
+></term>
+<listitem
+><para
+>Priserĉi la dokumenton laŭ la regula esprimo <userinput
+>ŝablono</userinput
+>. Por pliaj informoj, vidu <xref linkend="regular-expressions"/>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>find</command
+><arg choice="req"
+>STRING ŝablono</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ĉi tiu komando navigas al la unua okazo de <userinput
+>ŝablono</userinput
+> laŭ la agordo. Sekvaj okazoj troveblas per <menuchoice
+><guimenu
+>Redakti</guimenu
+><guimenuitem
+>Trovi Sekvan</guimenuitem
+></menuchoice
+> (la defaŭlta ŝparvojo estas <keycap
+>F3</keycap
+>).</para>
+<para
+>La find-komando povas esti agordita aldonante dupunkton sekvitan de unu aŭ pluraj opcioj, la formo estas <userinput
+>find:options-ŝablono</userinput
+>. La sekvaj opcioj estas subtenataj:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Serĉi malantaŭen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>Serĉi ekde la pozicio de la kursoro.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>e</userinput
+></term>
+<listitem
+><para
+>Serĉi nur en la elekto.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Fari regul-espriman serĉon. Se agordita, vi povas uzi <userinput
+>\N</userinput
+> kie N estas nombro por reprezenti kaptojn en la anstataŭiga ĉeno.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>Fari usklecdistingan serĉon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>w</userinput
+></term>
+<listitem
+><para
+>Kongrui nur tutajn vortojn.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>ifind</command
+><arg choice="req"
+>STRING ŝablono</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ĉi tiu komando provizas <quote
+>kiel vi tajpas</quote
+> serĉadon. Vi povas agordi la konduton de la serĉo aldonante dupunkton sekvitan de unu aŭ pluraj opcioj, kiel ĉi tio: <userinput
+>ifind:options pattern</userinput
+>. Permesitaj opcioj estas: <variablelist>
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Serĉi malantaŭen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Fari regul-espriman serĉon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>Fari usklecdistingan serĉon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>Serĉi ekde la pozicio de la kursoro.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+<sect3 id="advanced-editing-tools-commandline-commands-basic">
+<title
+>Komandoj por Bazaj Redaktaj Funkcioj (Ĉi tiuj dependas de la aplikaĵo, en kiu la redaktilo estas uzata)</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>w</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Konservi la aktualan dokumenton.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Konservi ĉiujn nuntempe malfermitajn dokumentojn.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>q</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Fermi la aktualan dokumenton.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>qa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Fermi ĉiujn malfermitajn dokumentojn.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wq</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Konservi kaj fermi la aktualan dokumenton.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wqa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Konservi kaj fermi ĉiujn nuntempe malfermitajn dokumentojn.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>x</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Konservi kaj fermi la aktualan dokumenton nur se ĝi ŝanĝiĝis. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>x</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Konservi kaj fermi ĉiujn nuntempe malfermitajn dokumentojn nur se ili ŝanĝiĝis.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>bp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Iri al la antaŭa dokumento en la listo de dokumentoj. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>bn</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Iri al la sekva dokumento en la listo de dokumentoj. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>new</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Malfermi novan dokumenton en horizontale dividita vido. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>vnew</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Malfermi novan dokumenton en vertikale dividita vido. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>e</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Reŝargi la aktualan dokumenton se ĝi ŝanĝiĝis sur disko. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>enew</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Redakti novan dokumenton. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>print</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Malfermi la dialogon Presi por presi la aktualan dokumenton. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-editing-tools-code-folding">
+<title
+>Uzante Kodfaldadon</title>
+
+<para
+>Kodfaldado permesas vin kaŝi partojn de dokumento en la redaktilo, faciligante superrigardi grandajn dokumentojn. En &kappname; la faldeblaj regionoj estas kalkulitaj per reguloj difinitaj en la sintaksaj elstaraj difinoj, kaj tial ĝi estas disponebla nur en kelkaj formatoj - tipe programkodo, XML-markado kaj similaj. Plej elstaraj difinoj subtenantaj kodfaldadon ankaŭ ebligas vin mane difini faldeblajn regionojn, kutime uzante la ŝlosilvortojn <userinput
+>BEGIN</userinput
+> kaj <userinput
+>END</userinput
+>.</para>
+
+<para
+>Por uzi la kodfaldajn funkciojn, aktivigu la faldmarkojn per la menuero <menuchoice
+><guimenu
+>Vidi</guimenu
+><guimenuitem
+>Montri faldeblajn markilojn</guimenuitem
+></menuchoice
+> menuero se ili ne estas jam videblaj. La Folding Markers-Panelo sur la maldekstra flanko de la ekrano montras grafikan vidon de la faldeblaj regionoj, kun triangulsimboloj por indiki la eblan operacion sur antaŭfiksita regiono: desupra malsupren triangulo signifas ke la regiono estas vastigita, alklakante ĝin malvastigos la regionon kaj dekstren-indika triangulo estos montrita anstataŭe.</para>
+<!--FIXME change Three to Four when Unfold Toplevel Nodes action is back-->
+<para
+>Tri komandoj estas provizitaj por manipuli la staton de faldregionoj, vidu la <link linkend="view-code-folding"
+>menudokumentadon</link
+>. </para>
+
+<para
+>La falditaj linioj estas memoritaj kiam dosiero estas fermita, do kiam vi remalfermas la dosieron, la falditaj nodoj ankoraŭ estos falditaj. Ĉi tio validas ankaŭ por reŝargi operaciojn.</para>
+
+<para
+>Se vi ne volas uzi la kodan faldfunkcion, vi povas malŝalti la opcion <guilabel
+>Montri faldmarkojn (se disponeblas)</guilabel
+> en la paĝo <link linkend="appearance"
+>Apero</link
+> de la agordo de la redaktilo.</para>
+
+</sect1>
+
+</chapter>

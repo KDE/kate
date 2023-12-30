@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2013-08-28 04:47+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -614,14 +614,14 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "Файл таңдау"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -951,7 +951,7 @@ msgstr "Бүкіл үлесін қосқан бірақ осында аталм�
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2573,13 +2573,7 @@ msgstr "&Қайта атау..."
 msgid "Delete"
 msgstr "Өшірілген"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "Ішкі қате: бұл сеанс үшін артық дана ашылған."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2591,19 +2585,19 @@ msgstr ""
 "'%1' сеансы бұрын басқаi Kate данасында ашылған, қайта ашқаннан орнына соған "
 "оралмақсыз ба?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2613,17 +2607,17 @@ msgstr ""
 "Бұл сеанстың атауы \"%1\" деп өзгертілмейді, өйткені олай аталған басқа "
 "сеанс бар екен"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "Сеанстың атауын өзгерту"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "Сеанс атауы:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2637,18 +2631,18 @@ msgstr ""
 "Басқаша атаңыз\n"
 "Сеанс атауы:"
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Жаңа сеансты сақтау үшін, оны атау керек."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Сеансқа жаңа атау беріңіз"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"
@@ -2944,6 +2938,10 @@ msgstr "Сеанстарды ба&сқару"
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "Жаңа құжатты бастау"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "Ішкі қате: бұл сеанс үшін артық дана ашылған."
 
 #, fuzzy
 #~| msgid "Besides white space changes, the files are identical."

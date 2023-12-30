@@ -1,0 +1,2537 @@
+<chapter id="config-dialog">
+<title
+>Agordi &kappname;</title>
+<para
+>Elektante <menuchoice
+><guimenu
+>Agordojn</guimenu
+><guimenuitem
+>Agordi <replaceable
+>Aplikon</replaceable
+>...</guimenuitem
+></menuchoice
+> el la menuo aperas la dialogokeston <guilabel
+>Agordi</guilabel
+>. Ĉi tiu dialogo povas esti uzata por ŝanĝi kelkajn malsamajn agordojn. La agordoj disponeblaj por ŝanĝo varias laŭ kia kategorio la uzanto elektas el vertikala listo ĉe la maldekstra flanko de la dialogo. Per tri butonoj laŭ la fundo de la skatolo la uzanto povas kontroli la procezon. </para>
+
+<para
+>Vi povas alvoki la sistemon <guilabel
+>Helpo</guilabel
+>, akcepti la aktualajn agordojn kaj fermi la dialogon per la butono <guibutton
+>OK</guibutton
+> aŭ <guibutton
+>Nuligi</guibutton
+> la procezon. La kategorioj <guilabel
+>Aspekto</guilabel
+>, <guilabel
+>Tiparoj &amp; Koloroj</guilabel
+>, <guilabel
+>Redaktado</guilabel
+>, <guilabel
+>Malfermi/Konservi</guilabel
+> kaj <guilabel
+>Etendoj</guilabel
+> estas detalaj sube. </para>
+
+<sect1 id="config-dialog-editor">
+<title
+>La Redaktora Komponenta Agordo</title>
+<para
+>Ĉi tiu grupo enhavas ĉiujn paĝojn rilatajn al la redaktilo de &kappname;. La plej multaj el la agordoj ĉi tie estas defaŭltaj, ili povas esti anstataŭitaj per <link linkend="pref-open-save-modes-filetypes"
+>difinado de dosiertipo</link
+>, per <link linkend="config-variables"
+>Dokumentaj Variabloj</link
+> aŭ ŝanĝante ilin per dokumento dum redakta seanco.</para>
+<sect2 id="appearance">
+<title
+>Aspekto</title>
+
+<sect3 id="appearance-general">
+<title
+>Ĝenerala</title>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Tiparo de la redaktilo</guilabel
+></term>
+<listitem>
+<para
+>Ĉi tie vi povas elekti la tiparon de la redaktila teksto. Vi povas elekti el iu ajn tiparo disponebla en via sistemo, kaj agordi defaŭltan grandecon. Ekzempla teksto estas montrata malsupre de la dialogo, do vi povas vidi la efikon de viaj elektoj. </para>
+<para
+>Por pliaj informoj pri elektado de tiparo, vidu la sekcion <ulink url="help:/fundamentals/fonts.html"
+><emphasis
+>Elekti tiparojn</emphasis
+> de la <emphasis
+>&kde; Fundamentaj</emphasis
+> dokumentado</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Montri blankspacajn indikilojn</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Neniam</guilabel
+></term>
+<listitem
+><para
+>La redaktilo neniam montros punktojn por indiki la ĉeeston de blankspaco.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ĉe la fino de linio</guilabel
+></term>
+<listitem
+><para
+>La redaktilo montros punktojn por indiki la ĉeeston de kroma blankspaco ĉe la fino de linioj.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ĉiam</guilabel
+></term>
+<listitem
+><para
+>La redaktilo ĉiam montros punktojn por indiki la ĉeeston de blankspaco.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Blankspaca indikilo grandeco</guilabel
+></term>
+<listitem
+><para
+>Uzu la glitilon por ŝanĝi la grandecon de la videbla indikilo.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Montri tabajn indikilojn</guilabel
+></term>
+<listitem
+><para
+>Kiam ĝi estas kontrolita, la redaktilo montros » simbolon por indiki la ĉeeston de tabo en la teksto.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Montri fokusan kadron ĉirkaŭ redaktilo</guilabel
+></term>
+<listitem
+><para
+>Se kontrolite, la redaktilo montras fokusan kadron ĉirkaŭ la ĉeffontoteksta kontrolo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Kongruo de krampo </guilabel
+></term>
+<listitem
+><para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Emfazi gamon inter elektitaj krampoj </guilabel
+></term>
+<listitem
+><para
+>Se ĉi tio estas ebligita, la intervalo inter la elektitaj kongruaj krampoj estos reliefigita.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Montri antaŭrigardon de kongrua malferma krampo </guilabel
+></term>
+<listitem
+><para
+>Kiam ĝi estas ebligita, la redaktilo montros konsileton de la kongrua malferma krampo.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ekbrili kongruan krampon kiam kursoro moviĝas al alia krampo duope </guilabel
+></term>
+<listitem
+><para
+>Se enŝaltite, moviĝo sur la krampoj (<keycap
+>{</keycap
+>, <keycap
+>[</keycap
+>, <keycap
+>]</keycap
+>, <keycap
+>}</keycap
+>, <keycap
+>(</keycap
+> aŭ <keycap
+>)</keycap
+>) rapide ekbrilos la kongruan krampon.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Montri deŝovliniojn </guilabel
+></term>
+<listitem
+><para
+>Se ĉi tio estas markita, la redaktilo montros vertikalajn liniojn por helpi identigi deŝovliniojn.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Kalkuloj </guilabel
+></term>
+<listitem
+><para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Montri vortkalkulon </guilabel
+></term>
+<listitem
+><para
+>Montras la nombron da vortoj kaj signoj en la dokumento kaj en la nuna elekto en la statusbreto. Ĉi tiu opcio ankaŭ haveblas en la kunteksta menuo de statusbreto.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Montri liniokalkulon </guilabel
+></term>
+<listitem
+><para
+>Montras la nombron da tutaj linioj en la dokumento en la statusbreto. Ĉi tiu opcio ankaŭ haveblas en la kunteksta menuo de statusbreto.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Faldi la unuan linion </guilabel
+></term>
+<listitem
+><para
+>Se ebligita, la unua linio estas faldita, se eble. Ĉi tio estas utila, se la dosiero komenciĝas per komento, kiel kopirajto</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Dinamika Vortvolvaĵo</guilabel
+></term>
+<listitem>
+<para
+>Se ĉi tiu opcio estas markita, la tekstaj linioj estos envolvitaj ĉe la vidobordo sur la ekrano.</para>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Envolvu dinamike ĉe senmova vortvolva markilo </guilabel
+></term>
+<listitem
+><para
+>Kiam ĝi estas kontrolita, redaktilo envolvas liniojn dinamike ĉe la <link linkend="pref-word-wrap"
+>senmova vortvolva pozicio</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Nekonsideri vortlimojn por dinamika envolvado </guilabel
+></term>
+<listitem
+><para
+>Kiam ĝi estas kontrolita, la redaktilo ne konsideras vortlimojn kiam envolvas tekstliniojn.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Dinamikaj vortvolvaj indikiloj</guilabel
+></term>
+<listitem
+><para
+>Elektu kiam la Dinamikaj vortvolvaj indikiloj estu montrataj, ĉu <guilabel
+>Malŝaltita</guilabel
+>, <guilabel
+>Sekvi Linionombrojn</guilabel
+> aŭ <guilabel
+>Ĉiam ŝaltita</guilabel
+>. </para
+></listitem
+></varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Indentvolvitaj linioj </guilabel
+></term>
+<listitem
+><para
+>Aldone, ĉi tio ebligas al vi agordi maksimuman larĝon de la ekrano, kiel procento, post kiu dinamike envolvitaj linioj ne plu estos vertikale vicigitaj. Ekzemple, ĉe 50%, linioj kies indentniveloj estas pli profundaj ol 50% de la larĝo de la ekrano ne havos vertikalan vicigon aplikita al postaj envolvitaj linioj.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Linia Alteco Multiplikisto </guilabel
+></term>
+<listitem
+><para
+>Ĉi tiu valoro estos multobligita per la defaŭlta linio alteco de la tiparo. Valoro de 1.0 signifas, ke la defaŭlta alteco estos uzata.</para
+></listitem
+></varlistentry>
+</variablelist>
+</sect3>
+
+<sect3 id="appearance-borders">
+<title
+>Limoj</title>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Kodbloko faldebla</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Montri sagojn por kolapsigi kodblokojn </guilabel
+></term>
+<listitem
+><para
+>Se ĉi tiu opcio estas markita, la nuna vido montros markojn por kodfaldado, se kodfaldado estas disponebla.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Montri antaŭrigardon de falditaj blokoj dum ŝvebado </guilabel
+></term>
+<listitem
+><para
+>Se markite, ŝvebi super faldita regiono montras antaŭrigardon de la faldita teksto en ŝprucfenestro.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Faldeblaj sagoj videbleco</guilabel
+></term>
+<listitem
+><para
+>Ŝanĝi la faldeblajn sagojn inter <guimenuitem
+>Montri sur Ŝvebi</guimenuitem
+> kaj <guimenuitem
+>Montri Ĉiam</guimenuitem
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Maldekstra flanko</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Montri markojn </guilabel
+></term>
+<listitem
+><para
+>Se ĉi tio estas markita, vi vidos piktograman randon maldekstre. La piktograma rando montras legosignsignojn ekzemple.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Montri linionombrojn </guilabel
+></term>
+<listitem
+><para
+>Se ĉi tio estas markita, vi vidos linionumeroj maldekstre.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Emfazi ŝanĝitajn kaj nekonservitajn liniojn </guilabel
+></term>
+<listitem
+><para
+>Se ĉi tio estas markita, liniaj modifmarkoj estos videblaj. Por pliaj informoj, vidu <xref linkend="kate-part-line-modification"/>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Rulumbaroj</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Montri markojn </guilabel
+></term>
+<listitem
+><para
+>Se ĉi tiu opcio estas markita, la nuna vido montros markojn sur la vertikala rulumbreto. Ĉi tiuj markoj ekzemple montros legosignojn.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Montri antaŭrigardon dum ŝvebo super rulumbreto</guilabel
+></term>
+<listitem
+><para
+>Se ĉi tiu opcio estas markita, kaj vi ŝvebas la rulumbreton per la muskursoro, malgranda teksta antaŭrigardo kun pluraj linioj de la nuna dokumento ĉirkaŭ la kursora pozicio estos montrata. Ĉi tio permesas vin rapide ŝanĝi al alia parto de la dokumento.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Minimapo</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Montri minimapon</guilabel
+></term>
+<listitem
+><para
+>Se ĉi tiu opcio estas markita, ĉiu nova vido montros minimapon de la dokumento sur la vertikala rulumbreto.</para>
+<para
+>Por pliaj informoj pri la rulumbreto-minimapo, vidu <xref linkend="kate-part-scrollbar-minimap"/>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Minimapo Larĝo</guilabel
+></term>
+<listitem
+><para
+>Alĝustigas la larĝon de la rulbreto mini-mapo, difinita en pikseloj. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Scrollbars videbleco</guilabel
+></term>
+<listitem
+><para
+>Ŝalti, malŝalti la rulumbreton aŭ montri la rulumbreton nur kiam necesas. Klaku per la &LMB; sur la blua rektangulo por montri la linionumeran gamon de la dokumento montrita sur la ekrano. Konservu la &LMB; premita ekster la blua rektangulo por aŭtomate rulumi tra la dokumento. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Menuo por ordigi legosignojn</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Laŭ dato kreita </guilabel
+></term>
+<listitem
+><para
+>Ĉiu nova legosigno estos aldonita al la fundo, sendepende de kie ĝi estas metita en la dokumenton.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Per linionumero </guilabel
+></term>
+<listitem
+><para
+>La legosignoj estos ordigitaj laŭ la linionumeroj ĉe kiuj ili estas metitaj.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+</sect2>
+
+<sect2 id="prefcolors">
+<title
+>Koloraj Etosoj</title>
+
+<para
+>Ĉi tiu sekcio de la dialogo ebligas al vi agordi ĉiujn kolorojn en iu ajn koloretoso, kiun vi havas, kaj krei novajn etosojn, forigi ekzistantajn aŭ simple <guilabel
+>Sekvi Sisteman Kolorskemon</guilabel
+>. Ĉiu skemo havas agordojn por koloroj kaj normalaj kaj emfazitaj tekstostiloj. </para>
+
+<para
+>&kappname; antaŭelektos la nuntempe aktivan etoson por vi, se vi volas labori pri malsama etoso komencu elektante tion el la kombinujo <guilabel
+>Elektu etoson</guilabel
+>. Per la butonoj <guibutton
+>Kopii</guibutton
+> kaj <guibutton
+>Forigi</guibutton
+> vi povas krei novan etoson (kopiante ekzistantan) aŭ forigi ekzistantajn.</para>
+
+<para
+>Ĉi tio estas detale priskribita en <xref linkend="color-themes-gui"/>.</para>
+
+</sect2>
+
+<sect2 id="pref-edit">
+<title
+>Redaktado</title>
+
+<sect3 id="pref-edit-general">
+<title
+>Ĝenerala</title>
+<variablelist>
+
+<varlistentry>
+<term id="pref-word-wrap"
+><guilabel
+>Vortvolvaĵo</guilabel
+></term>
+<listitem
+><para
+>Vortvolvado estas funkcio, kiu igas la redaktilon aŭtomate komenci novan linion de teksto kaj movi (envolvi) la kursoron al la komenco de tiu nova linio. &kappname; aŭtomate komencos novan linion de teksto kiam la nuna linio atingos la longon specifitan per la opcio <link linkend="pref-wrap-words-at"
+>Envolvi vortojn ĉe:</link
+>.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Volvi vortojn ĉe fiksa kolumno</guilabel
+></term>
+<listitem>
+<para
+>Enŝaltas aŭ malŝaltas senmovan vorton.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Desegni vertikalan linion ĉe la vortvolva kolumno</guilabel
+></term>
+<listitem>
+<para
+>Se ĉi tiu opcio estas markita, vertikala linio estos desegnita ĉe la vortvolva kolumno kiel difinita en la <menuchoice
+> <guimenu
+>Agordoj</guimenu
+> <guimenuitem
+>Agordi Redaktilon...</guimenuitem
+></menuchoice
+> en la Redakta langeto. Bonvolu noti, ke la vortvolva markilo estas desegnita nur se vi uzas fiksan tonaltiparo.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term id="pref-wrap-words-at"
+><guilabel
+>Envolvi vortojn ĉe:</guilabel
+></term>
+<listitem>
+<para
+>Se la opcio <link linkend="pref-word-wrap"
+>Envolvi vortojn ĉe fiksa kolumno</link
+> estas elektita ĉi tiu eniro determinas la longon (en signoj) je kiu la redaktilo aŭtomate komencos novan linion.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Defaŭlta eniga reĝimo</guilabel
+></term
+> <listitem
+><para
+>La elektita eniga reĝimo estos ebligita dum malfermo de nova vido. Vi ankoraŭ povas ŝalti/malŝalti la vi-enigreĝimon por aparta vido en la menuo <guimenu
+>Redakti</guimenu
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Krampoj</guilabel
+></term
+> <listitem>
+<para
+>Se la opcio <guilabel
+>Aŭtomate fermi krampojn dum malfermado de krampo estas tajpita</guilabel
+> estas elektita kiam la uzanto tajpas maldekstran krampon (<keycap
+>[</keycap
+>, <keycap
+>(</keycap
+>, aŭ <keycap
+> {</keycap
+>) &kappname; aŭtomate enigas la dekstran krampon (<keycap
+>}</keycap
+>, <keycap
+>)</keycap
+>, aŭ <keycap
+>]</keycap
+>) dekstre de la kursoro.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Enfermante signojn</guilabel
+></term
+> <listitem>
+<para
+>Eblas elekti la enmetitajn signojn uzante la respondan falliston.</para>
+<para
+>Kiam teksto estas elektita, tajpi unu el ĉi tiuj signoj envolvas la elektitan tekston.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Kopii kaj alglui</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Movi elektitan tekston kiam trenite</guilabel
+></term
+> <listitem>
+<para
+>Ĉi tiu opcio ebligas trenadon kaj faligon de la elektita teksto en la fenestro de la redaktilo.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Kopii/tondi la nunan linion se alvokite sen ia teksto elektita</guilabel
+></term
+> <listitem>
+<para
+>Se ĉi tiu opcio estas ebligita kaj la tekstoelekto estas malplena, kopio kaj tranĉo ago estas farita por la linio de teksto ĉe la efektiva kursoro pozicio.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ne movi la tekstan kursoron dum algluado per muso</guilabel
+></term
+> <listitem>
+<para
+>Se ĉi tiu opcio estas ebligita kaj vi algluas iun tekston en la redaktilo fenestro kun la &MMB; klakante, &kappname; ne movos la tekstan kursoron al la klakita pozicio.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-cursor-selection">
+<title
+>Teksta Navigado</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Teksta Kursora Movado</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Saĝa hejmo kaj inteligenta fino</guilabel
+></term>
+<listitem>
+<para
+>Kiam oni elektas, premante la hejman klavon igos la kursoron preterpasi blankan spacon kaj iros al la komenco de la teksto de linio.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>PageSup/PageDown movas kursoron</guilabel
+></term>
+<listitem>
+<para
+>Ĉi tiu opcio ŝanĝas la konduton de la kursoro kiam la uzanto premas la &PgUp; aŭ &PgDn; ŝlosilo. Se neelektita la tekstkursoro konservos sian relativan pozicion ene de la videbla teksto en &kappname; ĉar nova teksto iĝas videbla kiel rezulto de la operacio. Do se la kursoro estas en la mezo de la videbla teksto kiam la operacio okazas, ĝi restos tie (krom kiam oni atingas la komencon aŭ finon.) Kun ĉi tiu opcio elektita, la unua klavo premo igos la kursoron moviĝi al la supro. aŭ malsupro de la videbla teksto kiam nova paĝo de teksto montriĝas.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ebligi movon de la kursoro de kamelo-kamelo</guilabel
+></term>
+<listitem>
+<para
+>Ĉi tiu opcio ŝanĝas la konduton de la kursoro kiam la uzanto premas la <keycombo
+>&Ctrl;<keycap
+>Maldekstra sago</keycap
+></keycombo
+> aŭ <keycombo
+>&Ctrl;<keycap
+>Dekstra sago</keycap
+></keycombo
+> ŝparvojo. Se neelektita, la tekstokurso transsaltas la plenajn vortojn. Kun ĉi tiu opcio elektita, la kursoraj saltoj rompas ĉe kamelkazaj ĝiboj.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Aŭtocentra kursoro:</guilabel
+></term>
+<listitem>
+<para
+>Agordas la nombron da linioj por konservi videbla super kaj sub la kursoro kiam eblas.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Teksta Elekta Reĝimo</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Normala</guilabel
+></term>
+<listitem>
+<para
+>Elektoj estos anstataŭitaj de tajpita teksto kaj perdiĝos ĉe la movo de la kursoro.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Persistenta</guilabel
+></term>
+<listitem>
+<para
+>Elektoj restos eĉ post movo kaj tajpado de la kursoro.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Permesi rulumadon preter la fino de la dokumento</guilabel
+></term
+> <listitem>
+<para
+>Ĉi tiu opcio ebligas al vi rulumi preter la fino de la dokumento. Ĉi tio povas esti uzata por vertikale centri la fundon de la dokumento, aŭ meti ĝin sur la nuna vido.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Retroklavo forigas la bazon de signo kun siaj diakritaj signoj</guilabel
+></term
+> <listitem>
+<para
+>Se elektitaj, kunmetitaj signoj estas forigitaj per siaj diakritaj signoj anstataŭ nur forigado de la baza signo. Ĉi tio estas utila por hindaj lokoj.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="multicursor-modifier-configure">
+<term
+><guilabel
+>Plurkursora modifilo</guilabel
+></term>
+<listitem>
+<para
+>Ĉi tiu opcio ebligas al vi agordi la modifilon kiu estos uzata por krei plurajn kursorojn per &LMB; klaku. Vi devas premi la modifilojn kaj klaki &LMB; por krei kursoron ĉe la dezirata loko. Vidu <link linkend="kate-part-create-multiple-cursors"
+>Kreante plurajn kursorojn</link
+> por malkovri aliajn manierojn krei plurajn kursorojn.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-indent">
+<title
+>Indentaĵo</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Defaŭlta indentreĝimo:</guilabel
+></term>
+<listitem>
+<para
+>Elektu la aŭtomatan indentreĝimon, kiun vi volas uzi defaŭlte. Estas forte rekomendite uzi <userinput
+>Neniu</userinput
+> aŭ <userinput
+>Normala</userinput
+> ĉi tie, kaj uzi dosiertipajn agordojn por agordi aliajn indentreĝimojn por tekstformatoj kiel C/C++-kodo aŭ &XML;.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Indent uzante</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Tabeliloj</guilabel
+></term>
+<listitem>
+<para
+>Kiam tio estas ebligita la redaktilo enmetos tabelsignojn kiam vi premas la &Tab; klavo aŭ uzu <link linkend="kate-part-autoindent"
+>aŭtomatan indentaĵon</link
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Spacoj</guilabel
+></term>
+<listitem>
+<para
+>Kiam ĉi tio estas ebligita, la redaktilo enmetos kalkulitan nombron da spacoj laŭ la pozicio en la teksto kaj la agordo <option
+>tab-width</option
+> kiam vi premas la &Tab; klavo aŭ uzas <link linkend="kate-part-autoindent"
+>aŭtomatan deŝovon</link
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Tabuliloj kaj Spacoj</guilabel
+></term>
+<listitem>
+<para
+>Kiam ĉi tio estas ebligita, la redaktilo enmetos spacojn kiel priskribite supre kiam deŝovas aŭ premas &Tab; je la komenco de linio, sed enigu tabulantojn kiam la &Tab; klavo estas premata meze aŭ fino de linio.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Larĝo de tabo:</guilabel
+></term>
+<listitem>
+<para
+>Ĉi tio agordas la nombron da spacoj, kiuj estas montrataj anstataŭ tabeliga signo.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Indentlarĝo:</guilabel
+></term>
+<listitem>
+<para
+>La indentlarĝo estas la nombro da spacoj, kiu estas uzata por deŝovi linion. Se agordite por indentigi uzante tabeligilojn, tabulatora signo estas enigita se la indentaĵo estas dividebla per la klapeta larĝo.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Indentaj Propraĵoj</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Konservi kromajn spacojn</guilabel
+></term>
+<listitem
+><para
+>Se ĉi tiu opcio estas malŝaltita, ŝanĝi la indentnivelon vicigas linion al oblo de la larĝo specifita en <guilabel
+>Larĝo de indentaĵo</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Alĝustigi deŝovon de teksto gluita el la tondujo</guilabel
+></term>
+<listitem>
+<para
+>Se ĉi tiu opcio estas elektita, teksto algluita el la tondujo estas indentigita. Ekfunkciigi la agon <guimenuitem
+>Malfari</guimenuitem
+> forigas la indentaĵon.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Deŝov-Agoj</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Backspace klavo en gvidaj malplenaj malstrekoj</guilabel
+></term>
+<listitem>
+<para
+>Se ĉi tiu opcio estas elektita, la &Backspace; klavo malpliigas la indentnivelon se la kursoro troviĝas en la ĉefa malplena spaco de linio.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Tabula klava ago (se neniu elekto ekzistas)</guilabel
+></term>
+<listitem>
+<para
+>Se vi volas &Tab; por vicigi la nunan linion en la nuna kodbloko kiel en &Emacs;, igu &Tab; ŝparvojon al la ago <guimenuitem
+>Formati Deŝovon</guimenuitem
+>. </para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ĉiam antaŭeniru al la sekva klapeta pozicio</guilabel
+></term>
+<listitem>
+<para
+>Se ĉi tiu opcio estas elektita, la &Tab; klavo ĉiam enmetas blankan spacon tiel ke la sekva klapeta pozicio estas atingita. Se la opcio <guilabel
+>Enmeti spacojn anstataŭ tabelilojn</guilabel
+> en la langeto <guilabel
+>Ĝenerala</guilabel
+> en la paĝo <guilabel
+>Redaktado</guilabel
+> estas ebligita, spacoj estas enmetitaj; alie, unuopa tabelilo estas enmetita.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ĉiam pliigi deŝovnivelon</guilabel
+></term>
+<listitem>
+<para
+>Se ĉi tiu opcio estas elektita, la &Tab; klavo ĉiam indentigas la aktualan linion per la nombro da signopozicioj specifitaj en <guilabel
+>Indentlarĝo</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Pliigi deŝovnivelon se en gvida malplena spaco</guilabel
+></term>
+<listitem>
+<para
+>Se ĉi tiu opcio estas elektita, la &Tab; klavo aŭ indentigas la nunan linion aŭ antaŭeniras al la sekva klapopozicio. Se la enmetpunkto estas ĉe aŭ antaŭ la unua nespaca signo en la linio, aŭ se estas elekto, la nuna linio estas indentigita per la nombro da signopozicioj specifitaj en <guilabel 
+>Indentlarĝo</guilabel
+>. Se la enmetopunkto troviĝas post la unua nespaca signo en la linio kaj ne estas elekto, blanka spaco estas enmetita tiel ke la sekva tabula pozicio estas atingita: se la opcio <guilabel
+>Enmeti spacojn anstataŭ tabelilojn</guilabel
+> sur la langeto <guilabel
+>Ĝenerala</guilabel
+> en la paĝo <guilabel
+>Redaktado</guilabel
+> estas ebligita, spacoj estas enmetitaj; alie, unuopa tabelilo estas enmetita.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-autocompletion">
+<title
+>Aŭtomata Kompletigo</title>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ĝenerala</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ebligi aŭtomatan kompletigon</guilabel
+></term>
+<listitem>
+<para
+>Se ĝi estas ebligita, aŭtomate aperas vortkompletiga skatolo dum tajpado montrante liston de tekstaj enskriboj por kompletigi la aktualan tekston sub la kursoro.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Aŭtomate elekti la unuan kompletigan eniron</guilabel
+></term>
+<listitem>
+<para
+>Se ĝi estas ebligita, la unua aŭtomata kompletigo estas ĉiam antaŭelektita por ke vi povu enmeti ĝin per &Enter;. Se vi ne volas tian konduton, &eg; se vi volas premi &Enter; por nur enmeti novlinion, tiam malŝalti ĉi tiun eron.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Minimuma vortlongo por kompletigi</guilabel
+></term>
+<listitem
+><para
+>Dum tajpado de teksto, la vortkompletigo serĉas vortojn en la dokumento komencante per la jam tajpita teksto. Ĉi tiu opcio agordas la minimuman kvanton da signoj, kiuj necesas por aktivigi la vortkompletigon kaj aperigi kompletigan skatolon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Forigi la voston komplete</guilabel
+></term>
+<listitem
+><para
+>Forigi la voston de antaŭa vorto kiam la kompletigo estas elektita el listo. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ŝlosilvort-kompletigo </guilabel
+></term>
+<listitem
+><para
+>Se ebligita, la enkonstruita aŭtomata kompletigo uzas la ŝlosilvortojn difinitajn per la sintaksa reliefigo. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="pref-edit-spellcheck">
+<title
+>Literumkontrolo</title>
+<para
+>Ĉi tiuj agordaj opcioj estas priskribitaj en la dokumentado por la &systemsettings; modulo <ulink url="help:/kcontrol/spellchecking"
+>Literuma Kontrolilo</ulink
+>.</para>
+</sect3>
+
+<sect3 id="pref-edit-vi-input-mode">
+<title
+>Vi Eniga Reĝimo</title>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ĝenerala</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Lasi Vi-komandojn superregi la ŝparvojojn de Kate</guilabel
+></term>
+<listitem>
+<para
+>Se elektitaj, Vi-komandoj anstataŭigos la enkonstruitajn komandojn de &kappname;. Ekzemple: <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> refaros, kaj anstataŭigos la norman agon (montrante la serĉan kaj anstataŭigu dialogon).</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Montri relativajn linionombrojn </guilabel
+></term>
+<listitem
+><para
+>se tio estas ebligita, la nuna linio ĉiam rilatas al linio 0. Linioj supre kaj malsupre pliigas la linionumeron relative.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Klava Mapado</guilabel
+></term>
+<listitem
+><para
+>Klavmapado estas uzata por ŝanĝi la signifon de tajpitaj klavoj. Ĉi tio permesas movi komandojn al aliaj klavoj aŭ fari specialajn klavpremojn por fari serion de komandoj.</para>
+<para
+>Ekzemplo:</para>
+<para
+><keycap
+>F2</keycap
+> -> <userinput
+>I--</userinput
+> &Esc;</para>
+<para
+>Ĉi tio antaŭmetos <userinput
+>IN--</userinput
+> al linio kiam premas <keycap
+>F2</keycap
+>. </para>
+</listitem>
+<!-- Normal Mode Insert Mode Visual Mode 
+Commands Repacement Recursuive?
+Remove selected Add new mapping Import from vimrc file-->
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="pref-open-save">
+<title
+>Malfermi/Konservi</title>
+
+<sect3 id="pref-open-save-general">
+<title
+>Ĝenerala</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Dosiera Formato</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Kodigado</guilabel
+></term>
+<listitem>
+<para
+>Ĉi tio difinas la norman kodigon uzi por malfermi/konservi dosierojn, se ne ŝanĝita en la malferma/konservi dialogo aŭ uzante komandlinian opcion.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Kodiga Detektado</guilabel
+></term>
+<listitem>
+<para
+>Elektu eron el la falbutono, ĉu por malŝalti aŭtomatan detekton aŭ uzi <guilabel
+>Universala</guilabel
+> por ebligi aŭtomatan detekton por ĉiuj kodigoj. Sed ĉar ĉi tio verŝajne nur detektos utf-8/utf-16, elekti regionon uzos proprajn heŭristikojn por pli bonaj rezultoj. Se nek la kodigo elektita kiel norma supre, nek la kodigo specifita en la malferma/konservi dialogo, nek la kodigo specifita sur komandlinio kongruas kun la enhavo de la dosiero, ĉi tiu detekto estos rulita.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Fallback-Kodado</guilabel
+></term>
+<listitem>
+<para
+>Ĉi tio difinas la rezervan kodigon provi por malfermi dosierojn se nek la kodigo elektita kiel norma supre, nek la kodigo specifita en la malferma/konserva dialogo, nek la kodigo specifita sur komandlinio kongruas kun la enhavo de la dosiero. Antaŭ ol ĉi tio estas uzata, oni provos determini la kodigon por uzi serĉante bajtan ordomarkon ĉe la komenco de dosiero: se oni trovas unu, la ĝusta unikoda kodado estos elektita; alie koda detekto funkcios, se ambaŭ malsukcesas kodigo de kodado estos provita.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Fino de linio</guilabel
+></term>
+<listitem>
+<para
+>Elektu vian preferatan linioreĝimon por via aktiva dokumento. Vi havas la elekton inter &UNIX;, DOS/&Windows; aŭ Makintoŝo.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Aŭtomata fino de linio-detekto</guilabel
+></term>
+<listitem>
+<para
+>Kontrolu ĉi tion se vi volas, ke la redaktilo aŭtomate detektu la finon de liniotipo. La unua trovita fino de linio tipo estos uzata por la tuta dosiero.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ebligi bajtan ordomarkon (BOM)</guilabel
+></term>
+<listitem>
+<para
+>La bajta ordomarko estas speciala sekvenco komence de unikodaj koditaj dokumentoj. Ĝi helpas redaktistojn malfermi tekstajn dokumentojn kun la ĝusta unikoda kodado. Por pliaj informoj vidu <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
+>Byte Order Mark</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Linio Longa Limo</guilabel
+></term>
+<listitem>
+<para
+>Bedaŭrinde, pro mankoj en &Qt;, &kappname; spertas malbonan rendimenton kiam laboras kun ekstreme longaj linioj. Tial, &kappname; aŭtomate envolvos liniojn kiam ili estas pli longaj ol la nombro da signoj specifita ĉi tie. Por malŝalti ĉi tion, agordu ĉi tion al <userinput
+>0</userinput
+>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Aŭtomataj Purigadoj je Konservado</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Forigi postajn spacojn</guilabel
+></term>
+<listitem>
+<para
+>La redaktilo aŭtomate forigos kromajn spacojn ĉe la finoj de linioj de teksto dum konservado de la dosiero. Vi povas elekti <guilabel
+>Neniam</guilabel
+> por malŝalti ĉi tiun funkcion, <guilabel
+>Sur Modifitaj Linioj</guilabel
+> por fari tion nur sur linioj kiujn vi modifis ekde kiam vi laste konservis la dokumenton, aŭ <guilabel
+>En Tuta Dokumento </guilabel
+> por forigi ilin senkondiĉe el la tuta dokumento.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Aldoni novlinion ĉe la fino de dosiero dum konservado</guilabel
+></term>
+<listitem>
+<para
+>La redaktilo aŭtomate aldonos novlinion al la fino de la dosiero se oni ne jam ĉeestas post konservado de la dosiero.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ebligi Aŭtomatan Konservadon (nur lokaj dosieroj)</guilabel
+></term>
+<listitem>
+<para
+>Kontrolu ĉi tion se vi volas, ke la redaktilo aŭtomate konservu dokumentojn dum vi laboras pri ili. </para>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Aŭtomate konservu dokumenton kiam fokuso forlasas la redaktilon</guilabel
+></term>
+<listitem>
+<para
+>La redaktilo aŭtomate konservos dokumentojn kiam vi ŝanĝas al io ekster la redaktilo, &eg;, la fina panelo en &kate;.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Aŭtomata konserva intervalo</guilabel
+></term>
+<listitem>
+<para
+>Vi povas determini la aŭtomatan konservan intervalon en sekundoj ĉi tie. Se la intervalo estas 0, la dokumento ne estos aŭtomate konservita post intervaloj.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-open-save-advanced">
+<title
+>Altnivela</title>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Skribi rezervan dosieron pri konservi por</guilabel
+></term>
+<listitem
+><para
+>Sekurkopio dum konservado kaŭzos &kappname; kopii la diskdosieron (la antaŭe konservitan version de la dosiero) al &lt;prefikso&gt;&lt;dosiernomo&gt;&lt;sufikso&gt; antaŭ konservi la novajn ŝanĝojn. Rezerva dosiero povas helpi vin reakiri laboron se io misfunkcias dum konservado aŭ se vi poste volas reakiri la antaŭan version de la dosiero. La sufikso defaŭlte estas <emphasis role="bold"
+>~</emphasis
+> kaj prefikso estas malplena defaŭlte. </para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Lokaj dosieroj</guilabel
+></term>
+<listitem>
+<para
+>Kontrolu ĉi tion se vi volas sekurkopiojn de lokaj dosieroj dum konservado.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Foraj dosieroj</guilabel
+></term>
+<listitem>
+<para
+>Kontrolu ĉi tion se vi volas sekurkopiojn de foraj dosieroj dum konservado.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Prefikso por rezervaj dosieroj</guilabel
+></term>
+<listitem>
+<para
+>Enigu la prefikson por antaŭmeti al la rezervaj dosiernomoj.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Sufikso por rezervaj dosieroj</guilabel
+></term>
+<listitem>
+<para
+>Enigu la sufikson por aldoni al la rezervaj dosiernomoj.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ŝanĝi dosierreĝimon</guilabel
+></term>
+<listitem>
+<para
+>&kappname; kapablas reakiri (plej) nekonservitan laboron en kazo de paneo aŭ elektropaneo. Interŝanĝa dosiero (.&amp;dosiernomo&quot;.kate-swp) estas kreita kiam dokumento estas redaktita. Se la uzanto ne konservas la ŝanĝojn kaj &kappname; paneas, la interŝanĝdosiero restas sur la disko. Kiam oni malfermas dosieron, &kappname; kontrolas ĉu ekzistas interŝanĝa dosiero por la dokumento kaj se ĝi estas, ĝi demandas la uzanton ĉu li volas reakiri la perditajn datumojn aŭ ne. La uzanto ankaŭ havas la eblecon vidi la diferencojn inter la originala dosiero kaj la reakirita. La interŝanĝa dosiero estas forigita post ĉiu konservado kaj ĉe normala eliro.</para>
+<para
+>&kappname; sinkronigas la interŝanĝajn dosierojn sur la disko ĉiujn 15 sekundojn, sed nur se ili ŝanĝiĝis ekde la lasta sinkronigo. La uzanto povas malŝalti la interŝanĝajn dosierojn se li volas, elektante <guilabel
+>Malŝalti</guilabel
+>, sed tio povas kaŭzi pli da datumperdo.</para>
+<para
+>Kiam la interŝanĝa dosiero estas ebligita, eblas ŝanĝi inter du reĝimoj, nome <guilabel
+>Ebligita, Konservado en Defaŭlta Dosierujo</guilabel
+> kaj <guilabel
+>Ebligita, Konservado en Propra Dosierujo</guilabel
+>. </para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Konservi interŝanĝajn dosierojn</guilabel
+></term>
+<listitem
+><para
+>Defaŭlte, la interŝanĝaj dosieroj estas konservitaj en la sama dosierujo kiel la dosiero. Kiam <guilabel
+>Ebligita, Konservi en Propra Dosierujo</guilabel
+> estas elektita por la interŝanĝa dosierreĝimo, interŝanĝaj dosieroj estas kreitaj en la specifita dosierujo. Ĉi tio estas utila por retaj dosiersistemoj por eviti nenecesan retan trafikon.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Konservi interŝanĝajn dosierojn ĉiu</guilabel
+></term>
+<listitem
+><para
+>&kappname; sinkronigas la interŝanĝajn dosierojn sur la disko ĉiujn 15 sekundojn, sed nur se ili ŝanĝiĝis ekde la lasta sinkronigo. Vi povas ŝanĝi la sinkronigan intervalon laŭplaĉe.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-open-save-modes-filetypes">
+<title
+>Reĝimoj &amp; Dosierspecoj</title>
+<para
+>Ĉi tiu paĝo ebligas al vi anstataŭi la defaŭltan agordon por dokumentoj de specifita &MIME; tipoj. Kiam la redaktilo ŝargas dokumenton, ĝi provos ĉu ĝi kongruas kun la dosiermaskoj aŭ &MIME; tipoj por unu el la difinitaj dosiertipoj, kaj se jes apliki la difinitajn variablojn. Se pli da dosiertipoj kongruas, tiu kun la plej alta prioritato estos uzata. </para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Dosiertipo:</guilabel
+></term>
+<listitem
+><para
+>La dosiertipo kun la plej alta prioritato estas tiu montrata en la unua falkesto. Se pli da dosiertipoj estis trovitaj, ili ankaŭ estas listigitaj.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Nova</guilabel
+></term>
+<listitem
+><para
+>Ĉi tio estas uzata por krei novan dosiertipon. Post kiam vi alklakas ĉi tiun butonon, la subaj kampoj malpleniĝas kaj vi povas plenigi la ecojn, kiujn vi volas por la nova dosiertipo.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Forigi</guilabel
+></term>
+<listitem
+><para
+>Por forigi ekzistantan dosiertipon, elektu ĝin el la falkesto kaj premu la butonon Forigi.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem
+> </varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Propraĵoj de <replaceable
+>nuna dosiertipo</replaceable
+></guilabel
+></term>
+<listitem
+><para
+>La dosiertipo kun la plej alta prioritato estas tiu montrata en la unua falkesto. Se pli da dosiertipoj estis trovitaj, ili ankaŭ estas listigitaj.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Nomo:</guilabel
+></term>
+<listitem
+><para
+>La nomo de la dosiertipo estos la teksto de la responda menuero. Ĉi tiu nomo estas montrata en la menuo <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Dosiertipoj</guimenuitem
+> </menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Sekcio:</guilabel
+></term>
+<listitem
+><para
+>La sekcionomo estas uzata por organizi la dosiertipojn en menuoj. Ĉi tio ankaŭ estas uzata en la menuo <menuchoice
+><guimenu
+>Iloj</guimenu
+><guimenuitem
+>Dosiertipoj</guimenuitem
+> </menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Variabloj:</guilabel
+></term>
+<listitem
+><para
+>Ĉi tiu ĉeno permesas al vi agordi la agordojn de &kappname; por la dosieroj elektitaj de ĉi tiu &MIME;-tipo uzante &kappname; variabloj. Vi povas agordi preskaŭ ajnan agordan opcion, kiel reliefigon, indent-reĝimon, &etc;</para>
+<para
+>Premu <guibutton
+>Redakti</guibutton
+> por vidi liston de ĉiuj disponeblaj variabloj kaj iliaj priskriboj. Elektu la markobutonon maldekstre por ebligi apartan variablon kaj poste agordi la valoron de la variablo dekstre. Iuj variabloj disponigas falskatolon por elekti eblajn valorojn dum aliaj postulas, ke vi enigu validan valoron permane.</para>
+<para
+>Por kompletaj informoj pri ĉi tiuj variabloj, vidu <link linkend="config-variables"
+>Agordo per Dokumentaj Variabloj</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Emfazado:</guilabel
+></term>
+<listitem
+><para
+>Se vi kreas novan dosiertipon, ĉi tiu falkesto ebligas al vi elekti dosiertipon por reliefigi.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Indenta reĝimo:</guilabel
+></term>
+<listitem
+><para
+>La falkesto specifas la indentreĝimon por novaj dokumentoj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Dosieraj etendoj:</guilabel
+></term>
+<listitem
+><para
+>La masko de ĵokeroj permesas elekti dosierojn laŭ dosiernomo. Tipa masko uzas asteriskon kaj la dosier-etendon, ekzemple <filename
+>*.txt; *.teksto</filename
+>. La ĉeno estas punktokomo-disigita listo de maskoj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>MIME-tipoj:</guilabel
+></term>
+<listitem
+><para
+>Montras asistanton kiu helpas vin facile elekti &MIME; tipoj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Prioritato:</guilabel
+></term>
+<listitem
+><para
+>Agordas prioritaton por ĉi tiu dosiertipo. Se pli ol unu dosiertipo elektas la saman dosieron, tiu kun la plej alta prioritato estos uzata.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem
+> </varlistentry>
+
+</variablelist>
+</sect3>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="config-variables">
+<title
+>Agordo kun Dokumentaj Variabloj</title>
+
+<para
+>&kappname; variables estas la efektivigo de dokumentvariabloj de &kappname;, simila al &Emacs; kaj vi modelines. En katepart, la linioj havas la jenan formaton: <userinput
+>kate: VARIABLENAME VALUE; [ VARIABLENAME VALUE; ... ]</userinput
+> La linioj povas kompreneble esti en komento, se la dosiero estas en formato kun komentoj. Variaj nomoj estas unuopaj vortoj (sen blankspaco), kaj ĉio ĝis la sekva punktokomo estas la valoro. La punktokomo estas postulata.</para>
+
+<para
+>Jen ekzempla varia linio, deviganta indentajn agordojn por C++, &Java; aŭ &javascript; dosiero: <programlisting
+>// kate: replace-tabs on; indent-width 4; indent-mode cstyle;</programlisting>
+</para>
+
+<note
+><para
+>Nur la unuaj kaj lastaj 10 linioj estas serĉataj por variaj linioj.</para
+></note>
+
+<para
+>Aldone, dokumentvariabloj povas esti metitaj en dosieron nomitan <filename
+>.kateconfig</filename
+> en iu ajn dosierujo, kaj la agorditaj agordoj estos aplikitaj kvazaŭ la modellinioj estus enigitaj en ĉiu dosiero en la dosierujo kaj ĝiaj subdosierujoj. Dokumentvariabloj en <filename
+>.kateconfig</filename
+> uzas la saman sintakson kiel en modellinioj, sed kun <link linkend="kateconfig-extended-options"
+>plilongigitaj opcioj</link
+>.</para>
+
+<para
+>Estas variabloj por subteni preskaŭ ĉiujn agordojn en &kappname;, kaj aldone kromaĵojn povas uzi variablojn, tiukaze ĝi devus esti dokumentita en la dokumentaro de la kromprogramo.</para>
+
+<para
+>&kappname; havas subtenon por legi agordojn de <filename
+>.editorconfig</filename
+> dosieroj, kiam la <ulink url="https://editorconfig.org/"
+>editorconfig</ulink
+> biblioteko estas instalita. &kappname; aŭtomate serĉas <filename
+>.editorconfig</filename
+> kiam ajn vi malfermas dosieron. Ĝi tamen donas prioritaton al dosieroj <filename
+>.kateconfig</filename
+>. </para>
+
+<sect2 id="config-variables-howto">
+<title
+>Kiel &kappname; uzas Variaĵojn</title>
+
+<para
+>Legante agordon, katepart rigardas en la sekvaj lokoj (en tiu ordo): <itemizedlist
+> <listitem
+><para
+>La ĉiea agordo.</para
+></listitem
+> <listitem
+><para
+>Laŭvolaj seancaj datumoj.</para
+></listitem
+> <listitem
+><para
+>La agordo "Dosierotipo".</para
+></listitem
+> <listitem
+><para
+>Dokumentvariabloj en <filename
+>.kateconfig</filename
+>.</para
+> </listitem
+> <listitem
+><para
+>Dokumentvariabloj en la dokumento mem.</para
+></listitem
+> <listitem
+><para
+>Agordoj faritaj dum redaktado el menuo aŭ komandlinio.</para
+></listitem
+> </itemizedlist
+> Kiel vi povas vidi, dokumentaj variabloj estas nur anstataŭitaj de ŝanĝoj faritaj ĉe rultempo. Kiam ajn dokumento estas konservita, la dokumentvariabloj estas relegitaj, kaj anstataŭigos ŝanĝojn faritajn per menueroj aŭ la komandlinio.</para>
+
+<para
+>Ajna variablo ne listigita malsupre estas konservita en la dokumento kaj povas esti pridemandita de aliaj objektoj kiel kromaĵojn, kiuj povas uzi ilin por sia propra celo. Ekzemple, la varia indentreĝimo uzas dokumentvariablojn por sia agordo.</para>
+
+<para
+>La variabloj listigitaj ĉi tie dokumentas &kappname; versio 5.38. Pli da variabloj povas esti aldonitaj estonte. Estas 3 eblaj specoj de valoroj por variabloj, kun la sekvaj validaj esprimoj: <itemizedlist>
+<listitem
+><para
+>BOOL - on|off|true|false|1|0</para
+></listitem>
+<listitem
+><para
+>INTEGER - ajna entjera nombro</para
+></listitem>
+<listitem
+><para
+>STRING - io alia</para
+></listitem>
+</itemizedlist>
+</para>
+
+</sect2>
+
+<sect2 id="config-variables-list">
+<title
+>Disponeblaj Variabloj</title>
+
+<variablelist>
+
+<varlistentry id="variable-auto-brackets">
+<term
+><cmdsynopsis
+><command
+>aŭtomate krampoj</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ebligi aŭtomatan enmeton de krampoj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-auto-center-lines">
+<term
+><cmdsynopsis
+><command
+>aŭtomatcentraj linioj</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordi la nombron da aŭtocentraj linioj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-background-color">
+<term
+><cmdsynopsis
+><command
+>background-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la fonkoloron de la dokumento. La valoro devas esti io taksebla al valida koloro, ekzemple <userinput
+>#ff0000</userinput
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-backspace-indents">
+<term
+><cmdsynopsis
+><command
+>backspace-indents</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ebligi aŭ malŝalti maldeŝovadon kiam &Backspace; estas premita.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-block-selection">
+<term
+><cmdsynopsis
+><command
+>block-selection</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝalti aŭ malŝalti <link linkend="kate-part-selection-block"
+>blok-elekton</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-byte-order-mark">
+<term
+><cmdsynopsis
+><command
+>bom | byte-order-mark | byte-order-marker</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ebligu/malŝaltu la bajtan ordomarkon (BOM) dum konservado de dosieroj en Unikoda formato (utf8, utf16, utf32).</para>
+<para
+>Ekde: &kate; 3.4 (&kde; 4.4)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-bracket-highlight-color">
+<term
+><cmdsynopsis
+><command
+>bracket-highlight-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la koloron por la krampo elstara. La valoro devas esti io taksebla al valida koloro, ekzemple <userinput
+>#ff0000</userinput
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-current-line-color">
+<term
+><cmdsynopsis
+><command
+>current-line-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la koloron por la nuna linio. La valoro devas esti io taksebla al valida koloro, ekzemple <userinput
+>#ff0000</userinput
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-default-dictionary">
+<term
+><cmdsynopsis
+><command
+>defaŭlta vortaro</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordas la defaŭltan vortaron uzatan por literumkontrolo.</para>
+<para
+>Ekde: &kate; 3.4 (&kde; 4.4)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-dynamic-word-wrap">
+<term
+><cmdsynopsis
+><command
+>dynamic-word-wrap</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Enŝaltas aŭ malŝaltas <link linkend="kate-part-auto-wrap"
+>dinamikan vortvolvadon</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-end-of-line">
+<term
+><cmdsynopsis
+><command
+>eol | end-of-line</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la finon de linio-reĝimo. Validaj agordoj estas <userinput
+>unikso</userinput
+>, <userinput
+>mac</userinput
+> kaj <userinput
+>dos</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-folding-markers">
+<term
+><cmdsynopsis
+><command
+>faldeblaj markiloj</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝalti aŭ malŝalti la montradon de <link linkend="advanced-editing-tools-code-folding"
+>faldmarkiloj</link
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-folding-preview">
+<term
+><cmdsynopsis
+><command
+>folding-preview</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ebligi faldeblan antaŭrigardo en la redaktora rando.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-font-size">
+<term
+><cmdsynopsis
+><command
+>font-size</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordi la punktograndon de la dokumenttiparo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-font">
+<term
+><cmdsynopsis
+><command
+>font</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordi la tiparon de la dokumento. La valoro estu valida tiparonomo, ekzemple <userinput
+>kuristo</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-syntax">
+<term
+><cmdsynopsis
+><command
+>hl | syntax</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordi la sintaksan reliefigon. Validaj ĉenoj estas ĉiuj nomoj disponeblaj en la menuoj. Ekzemple, por C++ simple skribu <userinput
+>C++</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-icon-bar-color">
+<term
+><cmdsynopsis
+><command
+>icon-bar-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordi la koloron de la piktogramo. La valoro devas esti io taksebla al valida koloro, ekzemple <userinput
+>#ff0000</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-icon-border">
+<term
+><cmdsynopsis
+><command
+>icon-border</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝalti aŭ malŝalti la montradon de la piktolimo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-indent-mode">
+<term
+><cmdsynopsis
+><command
+>indent-mode</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordi la aŭtomatan indentan reĝimon. La opcioj <userinput
+>neniu</userinput
+>, <userinput
+>normala</userinput
+>, <userinput
+>cstyle</userinput
+>, <userinput
+>haskell</userinput
+>, <userinput
+>lilypond</userinput
+>, <userinput
+> lisp</userinput
+>, <userinput
+>python</userinput
+>, <userinput
+>ruby</userinput
+> kaj <userinput
+>xml</userinput
+> estas rekonitaj. Vidu la sekcion <xref linkend="kate-part-autoindent"/> por detaloj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-indent-pasted-text">
+<term
+><cmdsynopsis
+><command
+>indent-pasted-text</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ebligi/malŝalti ĝustigi indentaĵon de teksto gluita el la tondujo.</para>
+<para
+>Ekde: &kate; 3.11 (&kde; 4.11)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-indent-width">
+<term
+><cmdsynopsis
+><command
+>indent-width</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la deŝovolarĝon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-keep-extra-spaces">
+<term
+><cmdsynopsis
+><command
+>keep-extra-spaces</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu ĉu konservi kromajn spacojn dum kalkulado de deŝovolarĝo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-line-numbers">
+<term
+><cmdsynopsis
+><command
+>line-numbers</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝaltu aŭ malŝaltu la montradon de linionumeroj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-newline-at-eof">
+<term
+><cmdsynopsis
+><command
+>newline-at-eof</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Aldonu malplenan linion ĉe la fino de la dosiero (EOF) dum konservado de la dokumento.</para>
+<para
+>Ekde: &kate; 3.9 (&kde; 4.9)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-overwrite-mode">
+<term
+><cmdsynopsis
+><command
+>overwrite-mode</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝaltu aŭ malŝaltu anstataŭigan reĝimon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-persistent-selection">
+<term
+><cmdsynopsis
+><command
+>persistent-selection</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝaltu aŭ malŝaltu <link linkend="kate-part-selection-persistent"
+>daŭran elekton</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-replace-tabs-save">
+<term
+><cmdsynopsis
+><command
+>replace-tabs-save</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu tabon al spackonverto sur konservado aŭ malŝaltita.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-replace-tabs">
+<term
+><cmdsynopsis
+><command
+>replace-tabs</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝaltu aŭ malŝaltu dinamikan tabon al spaca konvertiĝo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-remove-trailing-spaces">
+<term
+><cmdsynopsis
+><command
+>remove-trailing-spaces</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Forigas postajn spacojn dum konservado de la dokumento. Validaj opcioj estas:</para>
+<itemizedlist>
+<listitem
+><para
+><userinput
+>neniu</userinput
+>, <userinput
+>-</userinput
+> aŭ <userinput
+>0</userinput
+>: neniam forigu postajn spacojn.</para
+></listitem>
+<listitem
+><para
+><userinput
+>modifita</userinput
+>, <userinput
+>mod</userinput
+>, <userinput
+>+</userinput
+> aŭ <userinput
+>1</userinput
+>: forigi postajn spacojn nur en modifitaj linioj. La modifitaj linioj estas markitaj per la liniomodifsistemo.</para
+></listitem>
+<listitem
+><para
+><userinput
+>ĉiuj</userinput
+>, <userinput
+>*</userinput
+> aŭ <userinput
+>2</userinput
+>: forigu postajn spacojn en la tuta dokumento.</para
+></listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-scrollbar-minimap">
+<term
+><cmdsynopsis
+><command
+>scrollbar-minimap</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Montru rulumbren minimapon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-scrollbar-preview">
+<term
+><cmdsynopsis
+><command
+>scrollbar-preview</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Montru antaŭrigardon de rulumbreto.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-scheme">
+<term
+><cmdsynopsis
+><command
+>scheme</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la kolorskemon. La ĉeno devas esti la nomo de kolorskemo kiu ekzistas en via agordo por havi ajnan efikon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-selection-color">
+<term
+><cmdsynopsis
+><command
+>selection-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la elektan koloron. La valoro devas esti io taksebla al valida koloro, ekzemple <userinput
+>#ff0000</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-show-tabs">
+<term
+><cmdsynopsis
+><command
+>show-tabs</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝaltu aŭ malŝaltu la vidan tabon.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-smart-home">
+<term
+><cmdsynopsis
+><command
+>inteligenta hejmo</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝaltu aŭ malŝaltu <link linkend="pref-edit-cursor-selection"
+>inteligentan hejman navigadon</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-tab-indents">
+<term
+><cmdsynopsis
+><command
+>tab-indents</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu &Tab;-klavan deŝovon ŝaltita aŭ malŝaltita.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-tab-width">
+<term
+><cmdsynopsis
+><command
+>tab-width</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la montritan larĝon de tab-signo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-undo-steps">
+<term
+><cmdsynopsis
+><command
+>undo-steps</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la nombron da malfaraj paŝoj por memori.</para>
+<para
+>Noto: Malrekomendita ekde &kate; 3 en &kde;4. Ĉi tiu variablo estas ignorita. La maksimuma nombro de malfari paŝoj estas senlima.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-word-wrap-column">
+<term
+><cmdsynopsis
+><command
+>word-wrap-column</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la larĝon de <link linkend="kate-part-auto-wrap"
+>senmova vortvolvaĵo</link
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-word-wrap-marker-color">
+<term
+><cmdsynopsis
+><command
+>word-wrap-marker-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Agordu la vortvolvaĵan markilon. La valoro devas esti io taksebla al valida koloro, ekzemple <userinput
+>#ff0000</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-word-wrap">
+<term
+><cmdsynopsis
+><command
+>word-wrap</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ŝaltu aŭ malŝaltu statikan vortvolvadon.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="kateconfig-extended-options">
+<title
+>Plilongigitaj Opcioj en dosieroj <filename
+>.kateconfig</filename
+></title>
+
+<para
+>&kappname; ĉiam serĉu dosieron <filename
+>.kateconfig</filename
+> por lokaj dosieroj (ne foraj dosieroj). Krome, eblas agordi opciojn bazitajn sur ĵokeroj (dosieraj etendoj) jene:</para>
+
+<programlisting
+>kate: tab-width 4; indent-width 4; replace-tabs on;
+kate-wildcard(*.xml): indent-width 2;
+kate-wildcard(Makefile): replace-tabs off;
+</programlisting>
+
+<para
+>En ĉi tiu ekzemplo, ĉiuj dosieroj uzas klapeton-larĝon de 4 spacoj, indent-larĝon de 4 spacoj, kaj taboj estas anstataŭigitaj vastigitaj al spacoj. Tamen, por ĉiuj dosieroj <filename class="extension"
+>*.xml</filename
+>, la indentlarĝo estas agordita al 2 spacoj. Kaj Makefiles uzas tabojn, &ie; taboj ne estas anstataŭigitaj per spacoj.</para>
+
+<para
+>Ĵokkartoj estas punktokomo apartigitaj, &ie; vi ankaŭ povas specifi plurajn dosier-etendojn jene: </para>
+
+<programlisting
+>kate-wildcard(*.json;*.xml): indent-width 2;</programlisting>
+
+<para
+>Plue, vi povas ankaŭ uzi la &MIME;-tipon por kongrui kun certaj dosieroj, &eg; por indentigi ĉiujn C++ fontdosierojn kun 4 spacoj, vi povas skribi: </para>
+
+<programlisting
+>kate-mimetype(text/x-c++src): indent-width 4;</programlisting>
+
+<note
+><para
+>Apud la subteno en dosieroj <filename
+>.kubeconfig</filename
+>, ĵokero kaj MIME; tipo dependaj dokumentvariabloj ankaŭ estas subtenataj en la dosieroj mem kiel komentoj. </para
+></note>
+
+</sect2>
+
+</sect1>
+
+</chapter>

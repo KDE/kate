@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -572,7 +572,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "सञ्चिका-इतिहासः - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -582,7 +582,7 @@ msgstr ""
 "। तस्य स्थाने सामान्यतया एतस्य सम्पादकस्य उपयोगं कुर्वन्तु तथा च आवश्यकतानुसारं दस्तावेजान् "
 "रक्षन्ते सति भवन्तः उन्नतविशेषाधिकारं प्रार्थयिष्यन्ति ।."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -913,7 +913,7 @@ msgstr "ये जनाः योगदानं दत्तवन्तः �
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "यदा परियोजनानि प्लगिन् सक्षमं भवति तदा एव पुटम् उद्घाटयितुं शक्यन्ते"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2480,13 +2480,7 @@ msgstr "&नामान्तरितम्..."
 msgid "Delete"
 msgstr "लोपयन्तु"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "आन्तरिकदोषः : दत्तसत्रस्य कृते एकादशाधिकं उदाहरणं उद्घाटितम् अस्ति ।."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2495,34 +2489,34 @@ msgstr ""
 "अन्यस्मिन् केट् दृष्टान्ते '%1' सत्रं पूर्वमेव उद्घाटितम् अस्ति । तस्मिन् स्विच् कुर्वन्तु अथवा अस्मिन् "
 "दृष्टान्ते पुनः उद्घाटयन्तु?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "उदाहरणं प्रति परिवर्तनं कुर्वन्तु"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "पुनः उद्घाटयतु"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "सत्रस्य नाम \"%1\" इति परिवर्तयितुं न शक्यते स्म । \"%2\" इत्यत्र लिखितुं असफलम् ।"
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "सत्र पुनर्नामकरणम्"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "सत्रस्य नाम :"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2531,17 +2525,17 @@ msgstr ""
 "भवतः चयनितनाम्ना सह विद्यमानं सत्रं पूर्वमेव अस्ति: %1\n"
 "कृपया भिन्नं चिनोतु ।."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "सत्रं रक्षितुं भवता नाम निर्दिष्टव्यम् ।."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "अस्य सत्रस्य नाम निर्दिशन्तु"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "सत्रस्य कृते नूतनं नाम निर्दिशन्तु: %1"
@@ -2813,6 +2807,10 @@ msgstr "सत्रं प्रबन्धयन्तु..."
 #, kde-format
 msgid "Show for new window"
 msgstr "नूतनगवाक्ष कृते दर्शयतु"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "आन्तरिकदोषः : दत्तसत्रस्य कृते एकादशाधिकं उदाहरणं उद्घाटितम् अस्ति ।."
 
 #~ msgid "Message ID"
 #~ msgstr "सन्देशपरिचयः"

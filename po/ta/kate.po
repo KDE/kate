@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 02:01+0000\n"
+"POT-Creation-Date: 2023-12-30 01:39+0000\n"
 "PO-Revision-Date: 2023-09-10 17:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -575,7 +575,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "கோப்பின் வரலாறு - %1"
 
-#: lib/kateapp.cpp:106
+#: lib/kateapp.cpp:105
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -585,7 +585,7 @@ msgstr ""
 "காரணிக்கலாம். பதிலாக, இத்திருத்தியை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் "
 "உரிமை தேவைப்பட்டால், அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
 
-#: lib/kateapp.cpp:113
+#: lib/kateapp.cpp:112
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -916,7 +916,7 @@ msgstr "உதவியவர்களுள் நாம் குறிப்�
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "திட்டப்பணிகளுக்கான செருகுநிரல் இயக்கப்பட்டிருக்கும்போதே அடைவுகளைத் திறக்க முடியும்"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:545
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2486,13 +2486,7 @@ msgstr "&மறுபெயரிடு..."
 msgid "Delete"
 msgstr "நீக்கு"
 
-#: lib/session/katesessionmanager.cpp:130
-#, kde-format
-msgid ""
-"Internal error: there is more than one instance open for a given session."
-msgstr "உள்ளக சிக்கல்: ஒரே அமர்வு ஒரே நேரத்தில் பலமுறை திறக்கப்பட்டுள்ளது."
-
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:131
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2501,35 +2495,35 @@ msgstr ""
 "'%1' என்ற அமர்வு இன்னொரு கேட் சாளரத்தில் ஏற்கனவே திறக்கப்பட்டுள்ளது. மீண்டும் திறப்பதற்கு "
 "பதிலாக அங்கே தாவலாமா?"
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "அச்சாளரத்திற்கு தாவு"
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "மீண்டும் திற"
 
-#: lib/session/katesessionmanager.cpp:339
+#: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "\"%1\" என்று அமர்வின் பெயரை மாற்ற முடியவில்லை. \"%2\" என்பதற்கு எழுத முடியவில்லை."
 
-#: lib/session/katesessionmanager.cpp:340
+#: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
 msgstr "அமர்வின் பெயரை மாற்றல்"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
 msgstr "அமர்வின் பெயர்:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2538,17 +2532,17 @@ msgstr ""
 "இப்பெயரில் ஏற்கனவே ஒரு அமர்வு உள்ளது: %1\n"
 "வேறு பெயரை தேர்ந்தெடுங்கள்."
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ஒரு அமர்வை சேமிக்க, நீங்கள் அதற்குரிய பெயரை குறிப்பிடவேண்டும்."
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "இந்த அமர்வுக்கான பெயரைக் குறிப்பிடவும்"
 
-#: lib/session/katesessionmanager.cpp:523
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "பின்வரும் அமர்வுக்கான பெயரைக் குறிப்பிடவும்: %1"
@@ -2820,6 +2814,10 @@ msgstr "அமர்வுகளை நிர்வகி..."
 #, kde-format
 msgid "Show for new window"
 msgstr "புதிய சாளரத்திற்கு காட்டு"
+
+#~ msgid ""
+#~ "Internal error: there is more than one instance open for a given session."
+#~ msgstr "உள்ளக சிக்கல்: ஒரே அமர்வு ஒரே நேரத்தில் பலமுறை திறக்கப்பட்டுள்ளது."
 
 #~ msgid "This view may have unsaved work. Do you really want to close it?"
 #~ msgstr "இக்காட்சிப்பகுதியில் சேமிக்கப்படாதவை இருக்கலாம். உறுதியாக இதை மூட வேண்டுமா?"

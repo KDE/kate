@@ -32,6 +32,7 @@
         "Description[vi]": "Cú pháp LaTeX cho các kí hiệu unicode",
         "Description[x-test]": "xxLaTeX syntax for unicode symbolsxx",
         "Description[zh_CN]": "Unicode 符号的 LaTeX 语法",
+        "Description[zh_TW]": "Unicode 符號的 LaTeX 語法",
         "Name": "LaTeX completion",
         "Name[ar]": "إكمال لاتخ",
         "Name[az]": "LaTeX tamamlama",

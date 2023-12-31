@@ -1,33 +1,30 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: kdeorg\n"
+"Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-26 02:01+0000\n"
-"PO-Revision-Date: 2023-12-30 13:38\n"
-"Last-Translator: \n"
-"Language-Team: Chinese Simplified\n"
-"Language: zh_CN\n"
+"PO-Revision-Date: 2023-11-27 21:32-0800\n"
+"Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
+"Language-Team: Japanese <kde-jp@kde.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: kdeorg\n"
-"X-Crowdin-Project-ID: 269464\n"
-"X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/rainbowparens.pot\n"
-"X-Crowdin-File-ID: 48676\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
 
 #: rainbowparens_plugin.cpp:449
 #, kde-format
 msgid "Choose colors that will be used for bracket coloring:"
-msgstr "选择用于显示括号的颜色："
+msgstr ""
 
 #: rainbowparens_plugin.cpp:469
 #, kde-format
 msgid "Colored Brackets"
-msgstr "彩色括号"
+msgstr ""
 
 #: rainbowparens_plugin.cpp:474
 #, kde-format
 msgid "Colored Brackets Settings"
-msgstr "彩色括号设置"
+msgstr ""

@@ -16,14 +16,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-30 01:39+0000\n"
-"PO-Revision-Date: 2023-12-29 20:31+0900\n"
+"PO-Revision-Date: 2023-12-30 17:41+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.01.85\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -189,7 +189,7 @@ msgstr "無效的 hash"
 #: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 不存在於一個 git 版本庫中。"
 
 #: lib/commitfilesview.cpp:539
 #, kde-format
@@ -275,7 +275,7 @@ msgstr "主工具列"
 #: lib/data/kateui.rc:158
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "三點選單工具列"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:176
@@ -364,7 +364,7 @@ msgstr "資訊"
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [已抑制：%2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1312
 #, kde-format
@@ -384,32 +384,32 @@ msgstr "複製到剪貼簿"
 #: lib/diagnostics/diagnosticview.cpp:1344
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "移除全域抑制"
 
 #: lib/diagnostics/diagnosticview.cpp:1346
 #, kde-format
 msgid "Add Global Suppression"
-msgstr ""
+msgstr "新增全域抑制"
 
 #: lib/diagnostics/diagnosticview.cpp:1350
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "移除本地抑制"
 
 #: lib/diagnostics/diagnosticview.cpp:1352
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "新增本地抑制"
 
 #: lib/diagnostics/diagnosticview.cpp:1367
 #, kde-format
 msgid "Disable Suppression"
-msgstr ""
+msgstr "停用抑制"
 
 #: lib/diagnostics/diagnosticview.cpp:1369
 #, kde-format
 msgid "Enable Suppression"
-msgstr ""
+msgstr "啟用抑制"
 
 #: lib/diff/diffeditor.cpp:182
 #, kde-format
@@ -435,12 +435,12 @@ msgstr "原始"
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] ""
+msgstr[0] "暫存行"
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "暫存區塊"
 
 #: lib/diff/diffeditor.cpp:231
 #, kde-format
@@ -451,33 +451,33 @@ msgstr[0] "放棄行"
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "捨棄區塊"
 
 #: lib/diff/diffeditor.cpp:243
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] ""
+msgstr[0] "取消暫存行"
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "取消暫存區塊"
 
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "比對 %1 的差異"
 
 #: lib/diff/diffwidget.cpp:62
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "比對 %1..%2 的差異"
 
 #: lib/diff/diffwidget.cpp:83
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "比對 %1 .. %2 的差異"
 
 #: lib/diff/diffwidget.cpp:113
 #, kde-format
@@ -497,12 +497,12 @@ msgstr "跳到上一個檔案"
 #: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "跳到下一個區塊"
 
 #: lib/diff/diffwidget.cpp:130
 #, kde-format
 msgid "Jump to Previous Hunk"
-msgstr ""
+msgstr "跳到上一個區塊"
 
 #: lib/diff/diffwidget.cpp:134
 #, kde-format
@@ -514,7 +514,7 @@ msgstr "重新載入差異"
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "顯示差異時也顯示完整前後文，不只是變更的行"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -523,6 +523,8 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"找不到 <b>git</b>。需要 Git 才能比對文件的差異。如果 git 已安裝，請確保它在您"
+"的 PATH 環境變數中。也請參閱 https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1155
 #: lib/kateconfigdialog.cpp:315
@@ -579,6 +581,8 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"用 sudo 執行這個編輯器可能會造成臭蟲並讓您暴露在安全性風險下。請用普通方式使"
+"用此編輯器，在儲存需要較高權限的文件時會向您請求權限。"
 
 #: lib/kateapp.cpp:112
 msgid ""
@@ -586,6 +590,8 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"用 kdesu 執行這個編輯器可能會造成臭蟲並讓您暴露在安全性風險下。請用普通方式使"
+"用此編輯器，在儲存需要較高權限的文件時會向您請求權限。"
 
 #: lib/kateapp.cpp:277
 #, kde-format
@@ -937,7 +943,7 @@ msgstr "行為(&B)"
 #: lib/kateconfigdialog.cpp:133
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "在個別視窗開啟各個文件"
 
 #: lib/kateconfigdialog.cpp:136
 #, kde-format
@@ -945,6 +951,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"啟用時，每個文件將會被開啟在它自己的視窗中。停用時，文件會開啟於目前視窗的新"
+"分頁中。"
 
 #: lib/kateconfigdialog.cpp:146
 #, kde-format
@@ -991,6 +999,8 @@ msgstr ""
 "若啟用，將會使用情境對話方塊顯示所有已修改的檔案。若未啟用，則將只會在檔案的"
 "檢視視窗取得焦點時才會單獨詢問您要對每個修改的檔案進行什麼操作。"
 
+# Kate 的 sidebar 不像 Gwenview 的 sidebar 一樣是可以稱作 drawer 或甚至 panel 的。它們真的只有一列的大小，就好像 Lokalize 的狀態列一樣，只是在上下左右都有。翻成側邊欄感覺有點太大；翻成面板又會更大。在這裡「邊列」可能真的是最好的選項。
+# -- kisaragi
 #: lib/kateconfigdialog.cpp:182
 #, kde-format
 msgid "&Sidebars"
@@ -1014,12 +1024,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:193
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr ""
+msgstr "為左右邊列按鈕顯示文字"
 
 #: lib/kateconfigdialog.cpp:198
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
-msgstr ""
+msgstr "左右邊列按鈕的圖示大小"
 
 #: lib/kateconfigdialog.cpp:217
 #, kde-format
@@ -1120,7 +1130,7 @@ msgstr "在目前分頁右方開啟新的分頁。"
 #: lib/kateconfigdialog.cpp:280
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "取消勾選時新分頁會開在尾端。"
 
 #: lib/kateconfigdialog.cpp:286
 #, kde-format
@@ -1130,7 +1140,7 @@ msgstr "滑鼠(&M)"
 #: lib/kateconfigdialog.cpp:291
 #, kde-format
 msgid "&Backward button pressed:"
-msgstr ""
+msgstr "按下返回按鈕時(&B)："
 
 #: lib/kateconfigdialog.cpp:296
 #, kde-format
@@ -1140,12 +1150,12 @@ msgstr "前一個分頁"
 #: lib/kateconfigdialog.cpp:296
 #, kde-format
 msgid "History back"
-msgstr ""
+msgstr "歷史返回"
 
 #: lib/kateconfigdialog.cpp:302
 #, kde-format
 msgid "&Forward button pressed:"
-msgstr ""
+msgstr "按下前進按鈕時(&F)："
 
 #: lib/kateconfigdialog.cpp:307
 #, kde-format
@@ -1155,7 +1165,7 @@ msgstr "下一個分頁"
 #: lib/kateconfigdialog.cpp:307
 #, kde-format
 msgid "History forward"
-msgstr ""
+msgstr "歷史往前"
 
 #: lib/kateconfigdialog.cpp:324
 #, kde-format
@@ -1740,22 +1750,22 @@ msgstr "自己的區段"
 #: lib/katemdi.cpp:1093 lib/katemdi.cpp:1101
 #, kde-format
 msgid "One Down"
-msgstr ""
+msgstr "往下一個"
 
 #: lib/katemdi.cpp:1095 lib/katemdi.cpp:1106
 #, kde-format
 msgid "One Right"
-msgstr ""
+msgstr "往右一個"
 
 #: lib/katemdi.cpp:1099
 #, kde-format
 msgid "One Up"
-msgstr ""
+msgstr "往上一個"
 
 #: lib/katemdi.cpp:1104
 #, kde-format
 msgid "One Left"
-msgstr ""
+msgstr "往左一個"
 
 #: lib/katemdi.cpp:1113
 #, kde-format
@@ -1835,17 +1845,11 @@ msgid "&View Difference"
 msgstr "檢視差異(&V)"
 
 #: lib/katemwmodonhddialog.cpp:109
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
-msgstr ""
-"計算編輯器內容與所選文件的磁碟檔案間的差異，並且以預設的應用程式顯示差異。需"
-"要 diff(1)。"
+msgstr "計算編輯器內容與所選文件的磁碟檔案間的差異。"
 
 #: lib/katemwmodonhddialog.cpp:117
 #, kde-format
@@ -1953,15 +1957,11 @@ msgid "Save Documents"
 msgstr "儲存文件"
 
 #: lib/katesavemodifieddialog.cpp:153
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
-msgstr ""
-"<p>此文件「%1」已被修改，但尚未儲存。</p><p>您想要儲存變更還是放棄變更？</p>"
+msgstr "文件「%1」已被修改。您想要儲存變更還是放棄變更？"
 
 #: lib/katesavemodifieddialog.cpp:157
 #, kde-format
@@ -2018,12 +2018,12 @@ msgid "Move Document to New Vertical Split"
 msgstr "移動文件到新的垂直分割"
 
 #: lib/kateviewmanager.cpp:150
-#, fuzzy, kde-format
-#| msgid "Split the currently active view vertically into two views."
+#, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
-msgstr "將目前作用中的檢視垂直分割為兩個檢視。"
+msgstr ""
+"將目前作用中的檢視垂直分割為兩個檢視，並將目前作用中文件放在右方分割檢視。"
 
 #: lib/kateviewmanager.cpp:155
 #, kde-format
@@ -2031,12 +2031,12 @@ msgid "Move Document to New Horizontal Split"
 msgstr "移動文件到新的水平分割"
 
 #: lib/kateviewmanager.cpp:159
-#, fuzzy, kde-format
-#| msgid "Split the currently active view horizontally into two views."
+#, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
-msgstr "將目前作用中的檢視水平分割為兩個檢視。"
+msgstr ""
+"將目前作用中的檢視水平分割為兩個檢視，並將目前作用中文件放在下方分割檢視。"
 
 #: lib/kateviewmanager.cpp:164
 #, kde-format

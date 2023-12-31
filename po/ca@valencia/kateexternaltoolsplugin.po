@@ -92,7 +92,7 @@ msgstr "Fitxer complet de GoImports"
 #, kde-format
 msgctxt "External tool name"
 msgid "Google Selected Text"
-msgstr "Busca a Google el text seleccionat"
+msgstr "Busca en Google el text seleccionat"
 
 #. i18n: file: 7
 #, kde-format

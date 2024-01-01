@@ -44,6 +44,7 @@
         {
             "name": "ktexteditor",
             "buildsystem": "cmake-ninja",
+            "config-opts": [ "-DENABLE_KAUTH=OFF" ],
             "sources": [
                 {
                     "type": "git",

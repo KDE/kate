@@ -1152,7 +1152,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
                     return true;
                 }
             }
-        } else if (auto btn = qobject_cast<KMultiTabBarTab *>(obj) && e->button() == Qt::LeftButton) {
+        } else if (qobject_cast<KMultiTabBarTab *>(obj) && e->button() == Qt::LeftButton) {
             dragStartPos = e->pos();
         }
     } else if (!dragStartPos.isNull() && ev->type() == QEvent::MouseMove) {

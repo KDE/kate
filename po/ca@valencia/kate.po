@@ -1463,7 +1463,7 @@ msgstr "Actualitza tots els documents oberts."
 #: lib/katemainwindow.cpp:365 lib/katemainwindow.cpp:374
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
-msgstr "Copia el camí del fitxer del fitxer actual al porta-retalls."
+msgstr "Copia el camí del fitxer actual a dins del porta-retalls."
 
 #: lib/katemainwindow.cpp:369 lib/welcomeview/welcomeview.cpp:265
 #, kde-format

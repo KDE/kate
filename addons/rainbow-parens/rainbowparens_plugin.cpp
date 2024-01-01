@@ -209,15 +209,11 @@ void RainbowParenPluginView::clearSavedRangesForDoc(KTextEditor::Document *doc)
     }
 }
 
-static bool isComment(KTextEditor::Document *doc, int line, int col)
+static bool isCommentOrString(KTextEditor::Document *doc, int line, int col)
 {
-    return doc->defaultStyleAt({line, col}) == KSyntaxHighlighting::Theme::TextStyle::Comment;
-}
-
-static bool isString(KTextEditor::Document *doc, int line, int col)
-{
-    const auto defStyle = doc->defaultStyleAt({line, col});
-    return defStyle == KSyntaxHighlighting::Theme::TextStyle::Char || defStyle == KSyntaxHighlighting::Theme::TextStyle::String;
+    const auto style = doc->defaultStyleAt({line, col});
+    return style == KSyntaxHighlighting::Theme::TextStyle::Comment || style == KSyntaxHighlighting::Theme::TextStyle::Char
+        || style == KSyntaxHighlighting::Theme::TextStyle::String;
 }
 
 using ColoredBracket = std::unique_ptr<KTextEditor::MovingRange>;
@@ -269,6 +265,15 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     // we only care about lines that are in the viewport
     int start = view->firstDisplayedLine();
     int end = view->lastDisplayedLine();
+    if (end < start) {
+        qWarning() << "RainbowParenPluginView: Unexpected end < start";
+        return;
+    }
+
+    // if the lines are folded we can get really big range
+    if (end - start > 800) {
+        end = start + 800;
+    }
 
     /** The brackets that we support for now **/
     constexpr int totalBracketTypes = 3;
@@ -330,7 +335,7 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     for (int l = start; l <= end; ++l) {
         const QString line = doc->line(l);
         for (int c = 0; c < line.length(); ++c) {
-            if (isComment(doc, l, c) || isString(doc, l, c)) {
+            if (isCommentOrString(doc, l, c)) {
                 continue;
             }
 

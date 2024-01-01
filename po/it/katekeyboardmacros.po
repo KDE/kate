@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2023-12-03 18:05+0100\n"
+"PO-Revision-Date: 2023-12-20 23:27+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -238,7 +238,7 @@ msgstr "Esegui la macro «%1» come corrente."
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Riproduci %1"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format

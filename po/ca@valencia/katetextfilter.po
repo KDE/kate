@@ -92,7 +92,8 @@ msgstr "Obri els resultats en un document nou"
 #: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
-msgstr "Copia el resultat al porta-retalls, deixant el document sense canvis."
+msgstr ""
+"Copia el resultat a dins del porta-retalls, deixant el document sense canvis."
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:49

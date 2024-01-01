@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-17 01:37+0000\n"
-"PO-Revision-Date: 2023-09-16 23:30+0200\n"
+"PO-Revision-Date: 2023-12-27 20:39+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.0\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -58,6 +58,8 @@ msgstr "Aggiungi errori ed avvisi alla diagnostica"
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr ""
+"Passa automaticamente al pannello di output nell'esecuzione dell'obiettivo "
+"selezionato"
 
 #: buildconfig.cpp:40
 #, kde-format

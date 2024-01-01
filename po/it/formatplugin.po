@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-13 01:36+0000\n"
-"PO-Revision-Date: 2023-11-28 14:20+0100\n"
+"PO-Revision-Date: 2023-12-27 20:56+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
 #: FormatterFactory.h:59
@@ -31,7 +31,7 @@ msgstr "Impossibile scrivere un file temporaneo"
 #: FormatApply.h:35
 #, kde-format
 msgid "Failed to run git diff: %1"
-msgstr ""
+msgstr "Impossibile eseguire git diff: %1"
 
 #: FormatConfig.cpp:122
 #, kde-format
@@ -81,7 +81,7 @@ msgstr ""
 #: Formatters.cpp:110
 #, kde-format
 msgid "%1: Unexpected empty command!"
-msgstr ""
+msgstr "%1: comando vuoto inaspettato."
 
 #: Formatters.cpp:117
 #, kde-format
@@ -92,9 +92,9 @@ msgstr "%1 non è installato. Installalo per poter formattare questo documento."
 #: Formatters.cpp:252
 #, kde-format
 msgid "Please install node and prettier"
-msgstr ""
+msgstr "Installa node e prettier"
 
 #: Formatters.cpp:259
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
-msgstr ""
+msgstr "PrettierFormat: impossibile creare un file temporaneo"

@@ -96,7 +96,7 @@ msgstr "Copia la ubicació"
 #: katefiletree.cpp:147
 #, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr "Copia el camí i el nom del fitxer al porta-retalls."
+msgstr "Copia el camí i el nom del fitxer a dins del porta-retalls."
 
 #: katefiletree.cpp:149
 #, kde-format

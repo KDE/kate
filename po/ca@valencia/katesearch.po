@@ -564,7 +564,7 @@ msgid ""
 "to the clipboard"
 msgstr ""
 "Açò retallarà totes les línies coincidents ressaltades de la busca des del "
-"document actual al porta-retalls"
+"document actual a dins del porta-retalls"
 
 #: SearchPlugin.cpp:364
 #, kde-format
@@ -578,7 +578,7 @@ msgid ""
 "the clipboard"
 msgstr ""
 "Copiarà totes les línies coincidents ressaltades de la busca en el document "
-"actual al porta-retalls"
+"actual a dins del porta-retalls"
 
 #: SearchPlugin.cpp:399
 #, kde-format

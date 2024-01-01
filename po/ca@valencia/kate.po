@@ -1472,7 +1472,7 @@ msgstr "Actualitza tots els documents oberts."
 #: lib/katemainwindow.cpp:356 lib/katemainwindow.cpp:365
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
-msgstr "Copia el camí del fitxer del fitxer actual al porta-retalls."
+msgstr "Copia el camí del fitxer actual a dins del porta-retalls."
 
 #: lib/katemainwindow.cpp:360 lib/welcomeview/welcomeview.cpp:266
 #, kde-format
@@ -2852,9 +2852,3 @@ msgstr "Gestiona les sessions..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Mostra a les finestres noves"
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr ""
-#~ "S'ha produït un error intern: hi ha més d'una instància oberta d'una "
-#~ "sessió proporcionada."

@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# A S Alam <aalam@users.sf.net>, 2015.
+# SPDX-FileCopyrightText: 2015, 2024 A S Alam <aalam@users.sf.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2015-02-01 02:42-0600\n"
-"Last-Translator: A S Alam <aalam@users.sf.net>\n"
-"Language-Team: Punjabi/Panjabi <punjabi-users@list.sf.net>\n"
+"PO-Revision-Date: 2024-01-01 12:46-0600\n"
+"Last-Translator: A S Alam <aalam@punlinux.org>\n"
+"Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
 "Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -73,37 +73,32 @@ msgid "Close other documents in this folder."
 msgstr "ਇਸ ਫੋਲਡਰ ਵਿੱਚ ਹੋਰ ਡੌਕੂਮੈਟਾਂ ਨੂੰ ਬੰਦ ਕਰੋ।"
 
 #: katefiletree.cpp:141
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu sorting option"
-#| msgid "Opening Order"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
-msgstr "ਖੋਲ੍ਹਣ ਕ੍ਰਮ"
+msgstr "ਰੱਖਣ ਵਾਲਾ ਫੋਲਡਰ ਖੋਲ੍ਹੋ"
 
 #: katefiletree.cpp:143
 #, kde-format
 msgid "Open the folder this file is located in."
-msgstr ""
+msgstr "ਇਸ ਫਾਇਲ ਨੂੰ ਰੱਖਣ ਵਾਲੇ ਫੋਲਡਰ ਨੂੰ ਖੋਲ੍ਹੋ।"
 
 #: katefiletree.cpp:145
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "ਟਿਕਾਣੇ ਨੂੰ ਕਾਪੀ ਕਰੋ"
 
 #: katefiletree.cpp:147
-#, fuzzy, kde-format
-#| msgid "Copy the filename of the file."
+#, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr "ਫ਼ਾਇਲ ਤੋਂ ਫਾਇਲ-ਨਾਂ ਨੂੰ ਕਾਪੀ ਕਰੋ।"
+msgstr "ਪਾਥ ਤੇ ਫਾਇਲ-ਨਾਂ ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਕਰੋ।"
 
 #: katefiletree.cpp:149
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename File"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "ਫਾਇਲ ਨਾਂ ਬਦਲੋ"
+msgstr "...ਨਾਂ-ਬਦਲੋ"
 
 #: katefiletree.cpp:151
 #, kde-format
@@ -121,11 +116,10 @@ msgid "Show print preview of current document"
 msgstr "ਮੌਜੂਦਾ ਡੌਕੂਮੈਂਟ ਲਈ ਪਰਿੰਟ ਝਲਕ ਦਿਖਾਉ"
 
 #: katefiletree.cpp:159
-#, fuzzy, kde-format
-#| msgid "Delete file?"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
-msgstr "ਕੀ ਫਾਇਲ ਹਟਾਉਣੀ ਹੈ?"
+msgstr "ਹਟਾਓ"
 
 #: katefiletree.cpp:161
 #, kde-format
@@ -249,7 +243,7 @@ msgstr "ਲੜੀਬੱਧ(&S):"
 #: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Opening Order"
-msgstr ""
+msgstr "ਖੋਲ੍ਹਣ ਦਾ ਕ੍ਰਮ"
 
 #: katefiletreeconfigpage.cpp:71
 #, kde-format
@@ -284,12 +278,12 @@ msgstr "ਪੂਰਾ ਪਾਥ ਦਿਖਾਉ(&S)"
 #: katefiletreeconfigpage.cpp:94
 #, kde-format
 msgid "Show &Toolbar"
-msgstr ""
+msgstr "ਟੂਲਬਾਰ ਵੇਖੋ(&T)"
 
 #: katefiletreeconfigpage.cpp:97
 #, kde-format
 msgid "Show Close Button"
-msgstr ""
+msgstr "ਬੰਦ ਕਰੋ ਬਟਨ ਵੇਖੋ"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
@@ -343,20 +337,18 @@ msgid "Configure Documents"
 msgstr "ਡੌਕੂਮੈਂਟ ਦੀ ਸੰਰਚਨਾ ਕਰੋ"
 
 #: katefiletreemodel.cpp:494
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
+msgstr "ਵਿਜੈੱਟ ਖੋਲ੍ਹੋ"
 
 #: katefiletreemodel.cpp:644
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
-msgstr ""
+msgstr "<p><b>%1</b></p><p>ਡੌਕੂਮੈਂਟ ਨੂੰ ਹੋਰ ਐਪਲੀਕੇਸ਼ਨ ਨਾਲ ਸੋਧਿਆ ਗਿਆ ਹੈ।</p>"
 
 #: katefiletreeplugin.cpp:248
 #, kde-format
@@ -369,15 +361,14 @@ msgid "Next Document"
 msgstr "ਅਗਲਾ ਡੌਕੂਮੈਂਟ"
 
 #: katefiletreeplugin.cpp:260
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "ਸਰਗਰਮ ਦਿਖਾਉ(&S)"
+msgstr "ਸਰਗਰਮ ਡੌਕੂਮੈੰਟ ਨੂੰ ਵੇਖਾਓ(&S)"
 
 #: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "ਸੰਭਾਲੋ"
 
 #: katefiletreeplugin.cpp:266
 #, kde-format
@@ -387,11 +378,10 @@ msgstr "ਮੌਜੂਦਾ ਡੌਕੂਮੈਂਟ ਨੂੰ ਸੰਭਾਲੋ
 #: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "ਇੰਝ ਸੰਭਾਲੋ"
 
 #: katefiletreeplugin.cpp:271
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "ਮੌਜੂਦਾ ਡੌਕੂਮੈਂਟ ਨੂੰ ਨਵੇਂ ਨਾਂ ਨਾਲ ਸੰਭਾਲੋ"
 
@@ -399,7 +389,7 @@ msgstr "ਮੌਜੂਦਾ ਡੌਕੂਮੈਂਟ ਨੂੰ ਨਵੇਂ ਨ�
 #: ui.rc:7
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "ਜਾਓ(&G)"
 
 #~ msgid "&Other..."
 #~ msgstr "ਹੋਰ(&O)..."

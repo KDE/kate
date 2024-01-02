@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# A S Alam <aalam@users.sf.net>, 2007, 2010, 2011, 2012, 2019, 2021.
+# SPDX-FileCopyrightText: 2007, 2010, 2011, 2012, 2019, 2021, 2024 A S Alam <aalam@users.sf.net>
 # ASB <aalam@users.sf.net>, 2007.
 # Amanpreet Singh Alam <apreet.alam@gmail.com>, 2008.
 # Amanpreet Singh <aalam@users.sf.net>, 2008.
@@ -12,25 +12,25 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-30 01:39+0000\n"
-"PO-Revision-Date: 2021-05-01 23:42-0700\n"
-"Last-Translator: A S Alam <aalam@satluj.org>\n"
-"Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
+"PO-Revision-Date: 2024-01-01 12:40-0600\n"
+"Last-Translator: A S Alam <aalam@punlinux.org>\n"
+"Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
 "Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.12.2\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ਅ ਸ ਆਲਮ"
+msgstr "ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ ੨੦੨੪"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "alam.yellow@gmail.com"
+msgstr "aalam@punlinux.org"
 
 #: kate/main.cpp:88
 #, kde-format
@@ -40,13 +40,12 @@ msgstr "ਕੇਟ"
 #: kate/main.cpp:90
 #, kde-format
 msgid "Kate - Advanced Text Editor"
-msgstr "ਕੇਟ - ਇੱਕ ਤਕਨੀਕੀ ਟੈਕਸਟ ਐਡੀਟਰ"
+msgstr "ਕੇਟ - ਤਕਨੀਕੀ ਟੈਕਸਟ ਐਡੀਟਰ"
 
 #: kate/main.cpp:92 kwrite/main.cpp:47
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2021 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
-msgstr "(c) ੨੦੦੦-੨੦੨੧ ਕੇਟ ਲੇਖਕ"
+msgstr "(c) ੨੦੦੦-੨੦੨੨ ਕੇਟ ਲੇਖਕ"
 
 #: kate/main.cpp:138
 #, kde-format
@@ -59,8 +58,7 @@ msgid "session"
 msgstr "ਸ਼ੈਸ਼ਨ"
 
 #: kate/main.cpp:144
-#, fuzzy, kde-format
-#| msgid "Start Kate with a new anonymous session, implies '-n'."
+#, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "ਨਵੇਂ ਅਗਿਆਤ ਸ਼ੈਸ਼ਨ ਨਾਲ ਕੇਟ ਸ਼ੁਰੂ ਕਰੋ, '-n' ਨਾਲ"
 
@@ -142,16 +140,14 @@ msgid "[urls...]"
 msgstr "[urls...]"
 
 #: kwrite/main.cpp:43
-#, fuzzy, kde-format
-#| msgid "KWrite Author"
+#, kde-format
 msgid "KWrite"
-msgstr "KWrite ਲੇਖਕ"
+msgstr "ਕੇ-ਰਾਈਟ"
 
 #: kwrite/main.cpp:45
-#, fuzzy, kde-format
-#| msgid "Kate - Advanced Text Editor"
+#, kde-format
 msgid "KWrite - Text Editor"
-msgstr "ਕੇਟ - ਇੱਕ ਤਕਨੀਕੀ ਟੈਕਸਟ ਐਡੀਟਰ"
+msgstr "KWrite - ਟੈਕਸਟ ਐਡੀਟਰ"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
@@ -167,16 +163,15 @@ msgid "Open File"
 msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
 
 #: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:351
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Copy Location"
-msgstr "ਟਿਕਾਣਾ"
+msgstr "ਟਿਕਾਣੇ ਨੂੰ ਕਾਪੀ ਕਰੋ"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
 #: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: lib/commitfilesview.cpp:518
 #, kde-format
@@ -189,11 +184,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
 #: lib/commitfilesview.cpp:539
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "ਟਿੱਪਣੀ"
+msgstr "ਕਮਿਟ %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -203,23 +197,21 @@ msgstr "ਫਾਇਲ(&F)"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "Actions"
+#, kde-format
 msgid "File Actions"
-msgstr "ਐਕਸ਼ਨ"
+msgstr "ਫਾਇਲ ਕਾਰਵਾਈਆਂ"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
 #, kde-format
 msgid "&Edit"
-msgstr "ਸੋਧ(&E)"
+msgstr "ਸੋਧੋ(&E)"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "Actions"
+#, kde-format
 msgid "&Selection"
-msgstr "ਐਕਸ਼ਨ"
+msgstr "ਚੋਣ(&S)"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -231,7 +223,7 @@ msgstr "ਜਾਓ(&G)"
 #: lib/data/kateui.rc:73
 #, kde-format
 msgid "&View"
-msgstr "ਝਲਕ(&V)"
+msgstr "ਵੇਖੋ(&V)"
 
 #. i18n: ectx: Menu (view-split)
 #: lib/data/kateui.rc:75 lib/kateviewspace.cpp:114
@@ -258,7 +250,7 @@ msgstr "ਲਿਸਟ ਝਲਕ"
 #: lib/data/kateui.rc:129
 #, kde-format
 msgid "&Settings"
-msgstr "ਸੈਟਿੰਗ(&S)"
+msgstr "ਸੈਟਿੰਗਾਂ(&S)"
 
 #. i18n: ectx: Menu (help)
 #: lib/data/kateui.rc:137
@@ -295,7 +287,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:59
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "ਸਭ"
 
 #: lib/diagnostics/diagnosticview.cpp:316
 #, fuzzy, kde-format
@@ -305,22 +297,19 @@ msgid "Diagnostics View"
 msgstr "ਲਿਸਟ ਝਲਕ"
 
 #: lib/diagnostics/diagnosticview.cpp:321
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "ਤੁਰੰਤ ਖੋਲ੍ਹੋ(&Q)"
+msgstr "ਫੌਰੀ ਫਿਕਸ"
 
 #: lib/diagnostics/diagnosticview.cpp:327
-#, fuzzy, kde-format
-#| msgid "&Next Tab"
+#, kde-format
 msgid "Next Item"
-msgstr "ਅਗਲੀ ਟੈਬ(&N)"
+msgstr "ਅਗਲੀ ਆਈਟਮ"
 
 #: lib/diagnostics/diagnosticview.cpp:333
-#, fuzzy, kde-format
-#| msgid "&Previous Tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "ਪਿਛਲੀ ਟੈਬ(&P)"
+msgstr "ਪਿਛਲੀ ਆਈਟਮ"
 
 #: lib/diagnostics/diagnosticview.cpp:341
 #, kde-format
@@ -333,22 +322,19 @@ msgid "Diagnostics"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:429
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "ਗਲਤੀ"
+msgstr "ਗਲਤੀਆਂ"
 
 #: lib/diagnostics/diagnosticview.cpp:445
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "ਸਾਵਾਧਾਨ"
+msgstr "ਚੇਤਾਵਨੀਆਂ"
 
 #: lib/diagnostics/diagnosticview.cpp:459
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter..."
-msgstr "ਫਿਲਟਰ:"
+msgstr "...ਫਿਲਟਰ"
 
 #: lib/diagnostics/diagnosticview.cpp:1045 lib/kateconfigdialog.cpp:151
 #, kde-format
@@ -362,10 +348,9 @@ msgid "Warning"
 msgstr "ਸਾਵਾਧਾਨ"
 
 #: lib/diagnostics/diagnosticview.cpp:1053
-#, fuzzy, kde-format
-#| msgid "Meta-Information"
+#, kde-format
 msgid "Information"
-msgstr "ਮੇਟਾ-ਜਾਣਕਾਰੀ"
+msgstr "ਜਾਣਕਾਰੀ"
 
 #: lib/diagnostics/diagnosticview.cpp:1173
 #, kde-format
@@ -376,18 +361,15 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:1312
 #, kde-format
 msgid "Expand All"
-msgstr ""
+msgstr "ਸਭ ਨੂੰ ਫੈਲਾਓ"
 
 #: lib/diagnostics/diagnosticview.cpp:1313
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "ਸਭ ਬੰਦ ਕਰੋ(&e)"
+msgstr "ਸਭ ਨੂੰ ਸਮੇਟੋ"
 
 #: lib/diagnostics/diagnosticview.cpp:1319
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
 msgstr "ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਕਰੋ"
 
@@ -427,12 +409,12 @@ msgstr "ਸ਼ੈਸ਼ਨ ਇੰਤਜ਼ਾਮ"
 #: lib/diff/diffeditor.cpp:182
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "ਸਟਾਈਲ ਬਦਲੋ"
 
 #: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:321
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "ਨਾਲ ਨਾਲ"
 
 #: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:322
 #, fuzzy, kde-format
@@ -443,7 +425,7 @@ msgstr "ਸੋਧ"
 #: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:323
 #, kde-format
 msgid "Raw"
-msgstr ""
+msgstr "ਰਾਅ"
 
 #: lib/diff/diffeditor.cpp:219
 #, fuzzy, kde-format
@@ -486,12 +468,12 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "%1 ਫ਼ਰਕ"
 
 #: lib/diff/diffwidget.cpp:62
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "ਫ਼ਰਕ %1..%2"
 
 #: lib/diff/diffwidget.cpp:83
 #, kde-format
@@ -506,7 +488,7 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:118
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "ਅਗਲੀ ਫਾਇਲ ਉੱਤੇ ਜਾਓ"
 
 #: lib/diff/diffwidget.cpp:122
 #, kde-format
@@ -548,24 +530,22 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:315
 #, kde-format
 msgid "Diff"
-msgstr ""
+msgstr "ਫ਼ਰਕ"
 
 #: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "ਨਵਾਂ ਫਾਇਲ ਨਾਂ"
+msgstr "ਨਵੀਂ ਫਾਈਲ %1"
 
 #: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "ਫਾਇਲ ਹਟਾਓ"
+msgstr "%1 ਫਾਇਲ ਨੂੰ ਹਟਾਇਆ"
 
 #: lib/diff/diffwidget.cpp:1138 lib/diff/diffwidget.cpp:1139
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "ਕੋਈ ਫ਼ਰਕ ਨਹੀਂ ਲੱਭਿਆ"
 
 #: lib/filehistorywidget.cpp:288
 #, kde-format
@@ -584,18 +564,16 @@ msgid "Copy Commit Hash"
 msgstr ""
 
 #: lib/filehistorywidget.cpp:320
-#, fuzzy, kde-format
-#| msgid "&Show Full Path"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "ਪੂਰਾ ਪਾਥ ਵੇਖੋ(&S)"
+msgstr "ਪੂਰਾ ਕਮਿਟ ਵੇਖਾਓ"
 
 #: lib/filehistorywidget.cpp:379
-#, fuzzy, kde-format
-#| msgid "File Selector"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "ਫਾਇਲ ਚੋਣਕਾਰ"
+msgstr "ਫਾਇਲ ਦਾ ਅਤੀਤ - %1"
 
 #: lib/kateapp.cpp:105
 msgid ""
@@ -949,10 +927,9 @@ msgid "Behavior"
 msgstr "ਰਵੱਈਆ"
 
 #: lib/kateconfigdialog.cpp:122
-#, fuzzy, kde-format
-#| msgid "Behavior"
+#, kde-format
 msgid "Behavior Options"
-msgstr "ਰਵੱਈਆ"
+msgstr "ਰਵੱਈਆ ਚੋਣਾਂ"
 
 #: lib/kateconfigdialog.cpp:128
 #, kde-format
@@ -962,7 +939,7 @@ msgstr "ਰਵੱਈਆ(&B)"
 #: lib/kateconfigdialog.cpp:133
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "ਹਰ ਡੌਕਮੂੈਂਟ ਨੂੰ ਉਸ ਦੀ ਆਪਣੀ ਵਿੰਡੋ ਵਿੱਚ ਖੋਲ੍ਹੋ"
 
 #: lib/kateconfigdialog.cpp:136
 #, kde-format
@@ -1015,10 +992,9 @@ msgid ""
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:182
-#, fuzzy, kde-format
-#| msgid "Top Sidebar"
+#, kde-format
 msgid "&Sidebars"
-msgstr "ਉੱਤੇ ਬਾਹੀ"
+msgstr "ਬਾਹੀ(&S)"
 
 #: lib/kateconfigdialog.cpp:185
 #, kde-format
@@ -1091,10 +1067,9 @@ msgid "When checked tabs take as much size as possible."
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:254
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "&Double click opens a new document"
-msgstr "ਨਵਾਂ ਡੌਕੂਮੈਂਟ ਬਣਾਓ"
+msgstr "ਨਵਾਂ ਡੌਕੂਮੈਂਟ ਨੂੰ ਖੋਲ੍ਹਣ ਲਈ ਡਬਲ ਕਲਿੱਕ ਕਰੋ(&D)"
 
 #: lib/kateconfigdialog.cpp:256
 #, kde-format
@@ -1147,7 +1122,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:286
 #, kde-format
 msgid "&Mouse"
-msgstr ""
+msgstr "ਮਾਊਸ(&M)"
 
 #: lib/kateconfigdialog.cpp:291
 #, kde-format
@@ -1155,10 +1130,9 @@ msgid "&Backward button pressed:"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:296
-#, fuzzy, kde-format
-#| msgid "&Previous Tab"
+#, kde-format
 msgid "Previous tab"
-msgstr "ਪਿਛਲੀ ਟੈਬ(&P)"
+msgstr "ਪਿਛਲੀ ਟੈਬ"
 
 #: lib/kateconfigdialog.cpp:296
 #, fuzzy, kde-format
@@ -1172,10 +1146,9 @@ msgid "&Forward button pressed:"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:307
-#, fuzzy, kde-format
-#| msgid "&Next Tab"
+#, kde-format
 msgid "Next tab"
-msgstr "ਅਗਲੀ ਟੈਬ(&N)"
+msgstr "ਅਗਲੀ ਟੈਬ"
 
 #: lib/kateconfigdialog.cpp:307
 #, fuzzy, kde-format
@@ -1244,7 +1217,7 @@ msgstr "ਪਲੱਗਇਨ ਮੈਨੇਜਰ"
 #: lib/kateconfigdialog.cpp:450 lib/kateconfigdialog.cpp:452
 #, kde-format
 msgid "User Feedback"
-msgstr ""
+msgstr "ਵਰਤੋਂਕਾਰ ਦੀ ਫੀਡਬੈਕ"
 
 #: lib/kateconfigdialog.cpp:684
 #, kde-format
@@ -1341,10 +1314,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "ਫਾਇਲ \"%1\" ਨੂੰ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ।"
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "ਐਪਲੀਕੇਸ਼ਨ"
+msgstr "...ਹੋਰ ਐਪਲੀਕੇਸ਼ਨ(&O)"
 
 #: lib/katemainwindow.cpp:238
 #, kde-format
@@ -1377,10 +1349,9 @@ msgid "Show Navigation Bar"
 msgstr ""
 
 #: lib/katemainwindow.cpp:260
-#, fuzzy, kde-format
-#| msgid "&Color Theme"
+#, kde-format
 msgid "&Window Color Scheme"
-msgstr "ਰੰਗਦਾਰ ਥੀਮ(&C)"
+msgstr "ਵਿੰਡੋ ਰੰਗਦਾਰ ਸਕੀਮ(&W)"
 
 #: lib/katemainwindow.cpp:264
 #, kde-format
@@ -1553,16 +1524,14 @@ msgid "Close this window"
 msgstr "ਇਹ ਵਿੰਡੋ ਬੰਦ ਕਰੋ"
 
 #: lib/katemainwindow.cpp:427
-#, fuzzy, kde-format
-#| msgid "&Window"
+#, kde-format
 msgid "&New Window"
-msgstr "ਵਿੰਡੋ(&W)"
+msgstr "ਨਵੀਂ ਵਿੰਡੋ(&N)"
 
 #: lib/katemainwindow.cpp:430
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Create a new window."
-msgstr "ਨਵਾਂ ਡੌਕੂਮੈਂਟ ਬਣਾਓ"
+msgstr "ਨਵੀਂ ਵਿੰਡੋ ਬਣਾਓ।"
 
 #: lib/katemainwindow.cpp:437
 #, kde-format
@@ -1616,16 +1585,14 @@ msgid "&New Session"
 msgstr "ਨਵਾਂ ਸ਼ੈਸ਼ਨ(&N)"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "&Open Session"
+#, kde-format
 msgid "&Recent Sessions"
-msgstr "ਸ਼ੈਸ਼ਨ ਖੋਲ੍ਹੋ(&O)"
+msgstr "ਸੱਜਰੇ ਸ਼ੈਸ਼ਨ(&R)"
 
 #: lib/katemainwindow.cpp:492
-#, fuzzy, kde-format
-#| msgid "Sess&ions"
+#, kde-format
 msgid "&All Sessions"
-msgstr "ਸ਼ੈਸ਼ਨ(&i)"
+msgstr "ਸਭ ਸ਼ੈਸ਼ਨ(&A)"
 
 #: lib/katemainwindow.cpp:499
 #, kde-format
@@ -1645,7 +1612,7 @@ msgstr "... ਵਜੋਂ ਸ਼ੈਸ਼ਨ ਸੰਭਾਲੋ(&A)"
 #: lib/katemainwindow.cpp:521 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
-msgstr ""
+msgstr "ਪਿਛਲੇ ਟਿਕਾਣੇ ਉੱਤੇ ਜਾਓ"
 
 #: lib/katemainwindow.cpp:530 lib/kateviewspace.cpp:69
 #, kde-format
@@ -1705,11 +1672,10 @@ msgid "Open Files Recursively"
 msgstr "ਫਾਇਲਾਂ ਨੂੰ ਲਗਾਤਾਰ ਲੋਡ ਕਰਨਾ ਹੈ?"
 
 #: lib/katemainwindow.cpp:953
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
+msgstr "ਸਭ ਫਾਇਲਾਂ ਨੂੰ ਖੋਲ੍ਹੋ"
 
 #: lib/katemainwindow.cpp:1175
 #, kde-format
@@ -1717,15 +1683,14 @@ msgid " [read only]"
 msgstr " [ਕੇਵਲ ਪੜ੍ਹਨ ਲਈ]"
 
 #: lib/katemdi.cpp:85
-#, fuzzy, kde-format
-#| msgid "Plugin Manager"
+#, kde-format
 msgid "Toolview Manager"
-msgstr "ਪਲੱਗਇਨ ਮੈਨੇਜਰ"
+msgstr "ਟੂਲ-ਝਲਕ ਮੈਨੇਜਰ"
 
 #: lib/katemdi.cpp:103
 #, kde-format
 msgid "Sidebar Buttons"
-msgstr ""
+msgstr "ਬਾਹੀ ਬਟਨ"
 
 #: lib/katemdi.cpp:106
 #, kde-format
@@ -1754,10 +1719,9 @@ msgid "Show %1"
 msgstr "%1 ਵੇਖੋ"
 
 #: lib/katemdi.cpp:179
-#, fuzzy, kde-format
-#| msgid "&Show close button"
+#, kde-format
 msgid "Show %1 Button"
-msgstr "ਬੰਦ ਕਰੋ ਬਟਨ ਵੇਖੋ(&S)"
+msgstr "%1 ਬਟਨ ਵੇਖਾਓ"
 
 #: lib/katemdi.cpp:195
 #, kde-format
@@ -1765,16 +1729,14 @@ msgid "Focus %1"
 msgstr ""
 
 #: lib/katemdi.cpp:1076
-#, fuzzy, kde-format
-#| msgid "Configure ..."
+#, kde-format
 msgid "Configure..."
-msgstr "ਸੰਰਚਨਾ ..."
+msgstr "ਸੰਰਚਨਾ..."
 
 #: lib/katemdi.cpp:1080
-#, fuzzy, kde-format
-#| msgid "Hide Path"
+#, kde-format
 msgid "Hide Button"
-msgstr "ਮਾਰਗ ਓਹਲੇ"
+msgstr "ਬਟਨ ਓਹਲੇ"
 
 #: lib/katemdi.cpp:1082
 #, kde-format
@@ -1782,30 +1744,29 @@ msgid "Move To"
 msgstr "ਇਸ 'ਤੇ ਭੇਜੋ"
 
 #: lib/katemdi.cpp:1087
-#, fuzzy, kde-format
-#| msgid "Open Session"
+#, kde-format
 msgid "Own Section"
-msgstr "ਸ਼ੈਸ਼ਨ ਖੋਲ੍ਹੋ"
+msgstr "ਆਪਣਾ ਭਾਗ"
 
 #: lib/katemdi.cpp:1093 lib/katemdi.cpp:1101
 #, kde-format
 msgid "One Down"
-msgstr ""
+msgstr "ਇੱਕ ਹੇਠਾਂ"
 
 #: lib/katemdi.cpp:1095 lib/katemdi.cpp:1106
 #, kde-format
 msgid "One Right"
-msgstr ""
+msgstr "ਇੱਕ ਹੇਠਾਂ"
 
 #: lib/katemdi.cpp:1099
 #, kde-format
 msgid "One Up"
-msgstr ""
+msgstr "ਇੱਕ ਉੱਤੇ"
 
 #: lib/katemdi.cpp:1104
 #, kde-format
 msgid "One Left"
-msgstr ""
+msgstr "ਇੱਕ ਖੱਬੇ"
 
 #: lib/katemdi.cpp:1113
 #, kde-format
@@ -1942,24 +1903,22 @@ msgstr "ਅੰਤਰ (diff) ਬਣਾਉਣ ਵਿੱਚ ਗਲਤੀ"
 #: lib/katemwmodonhddialog.cpp:321
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[ਪੁਰਾਣਾ]"
 
 #: lib/katemwmodonhddialog.cpp:322
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[ਨਵਾਂ]"
 
 #: lib/kateoutputview.cpp:174
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "ਖੋਜੋ..."
 
 #: lib/kateoutputview.cpp:191
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਕਰੋ"
+msgstr "ਸਭ ਲਿਖਤ ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਕਰੋ"
 
 #: lib/kateoutputview.cpp:196
 #, kde-format
@@ -2001,16 +1960,13 @@ msgid "Save Documents"
 msgstr "ਡੌਕੂਮੈਂਟ ਸੰਭਾਲੋ"
 
 #: lib/katesavemodifieddialog.cpp:153
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>ਡੌਕੂਮੈਂਟ '%1' ਸੋਧਿਆ ਤਾਂ ਗਿਆ ਹੈ, ਪਰ ਇਸ ਨੂੰ ਸੰਭਾਲਿਆ ਨਹੀਂ ਗਿਆ ਹੈ।</p><p>ਕੀ ਤੁਸੀਂ ਇਹਨਾਂ "
-"ਸੰਭਾਲਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਰੱਦ ਕਰਨਾ?</p>"
+"ਡੌਕੂਮੈਂਟ \"%1\" ਨੂੰ ਸੋਧਿਆ ਗਿਆ ਹੈ। ਕੀ ਤੁਸੀਂ ਆਪਣੀਆਂ ਤਬਦੀਲੀਆਂ ਸੰਭਾਲੀਆਂ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਰੱਦ "
+"ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: lib/katesavemodifieddialog.cpp:157
 #, kde-format
@@ -2253,12 +2209,12 @@ msgstr "ਅਗਲੀ ਟੈਬ ਉੱਤੇ ਫੋਕਸ ਕਰੋ।"
 #: lib/kateviewmanager.cpp:272
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "ਜੀ ਆਇਆਂ ਨੂੰ ਸਫ਼ਾ"
 
 #: lib/kateviewmanager.cpp:277
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "ਜੀ ਆਇਆਂ ਨੂੰ ਸਫ਼ਾ ਵੇਖਾਓ"
 
 #: lib/kateviewmanager.cpp:346
 #, kde-format
@@ -2276,7 +2232,7 @@ msgstr "ਵੱਡੀ ਫਾਇਲ ਖੋਲ੍ਹੀ ਜਾ ਰਹੀ ਹੈ"
 #: lib/kateviewmanager.cpp:504
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 ਫੋਲਡਰਾਂ ਨੂੰ ਨਹੀਂ ਖੋਲ੍ਹ ਸਕਦਾ ਹੈ"
 
 #: lib/kateviewmanager.cpp:521
 #, kde-format
@@ -2290,18 +2246,16 @@ msgid ""
 msgstr ""
 
 #: lib/kateviewmanager.cpp:530
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
+msgstr "ਫੋਲਡਰ ਨੂੰ ਖੋਲ੍ਹੋ"
 
 #: lib/kateviewmanager.cpp:531
-#, fuzzy, kde-format
-#| msgid "Enabled"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr "ਚਾਲੂ ਹੈ"
+msgstr "ਸਮਰੱਥ"
 
 #: lib/kateviewmanager.cpp:538
 #, kde-format
@@ -2348,15 +2302,14 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: lib/kateviewspace.cpp:1021
-#, fuzzy, kde-format
-#| msgid "Close"
+#, kde-format
 msgid "Close Tab"
-msgstr "ਬੰਦ ਕਰੋ"
+msgstr "ਟੈਬ ਨੂੰ ਬੰਦ ਕਰੋ"
 
 #: lib/kateviewspace.cpp:1039
 #, kde-format
 msgid "&Close Document"
-msgstr "ਡੌਕੂਮੈਂਟ ਬੰਦ ਕਰੋ(&C)"
+msgstr "ਡੌਕੂਮੈਂਟ ਨੂੰ ਬੰਦ ਕਰੋ(&C)"
 
 #: lib/kateviewspace.cpp:1040
 #, kde-format
@@ -2364,16 +2317,14 @@ msgid "Close Other &Documents"
 msgstr "ਹੋਰ ਡੌਕੂਮੈਂਟਾਂ ਨੂੰ ਬੰਦ ਕਰੋ(&D)"
 
 #: lib/kateviewspace.cpp:1041
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close &All Documents"
-msgstr "ਸਭ ਡੌਕੂਮੈਂਟ ਬੰਦ ਕਰੋ"
+msgstr "ਸਭ ਡੌਕੂਮੈਂਟਾਂ ਨੂੰ ਬੰਦ ਕਰੋ(&A)"
 
 #: lib/kateviewspace.cpp:1044
-#, fuzzy, kde-format
-#| msgid "Next Document"
+#, kde-format
 msgid "D&etach Document"
-msgstr "ਅਗਲਾ ਡੌਕੂਮੈਂਟ"
+msgstr "ਡੌਕੂਮੈਂਟ ਨੂੰ ਵੱਖ ਕਰੋ(&e)"
 
 #: lib/kateviewspace.cpp:1046
 #, kde-format
@@ -2381,8 +2332,7 @@ msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
 #: lib/kateviewspace.cpp:1055
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document"
 msgstr "ਸਰਗਰਮ ਡੌਕੂਮੈਂਟ ਨਾਲ ਤੁਲਨਾ ਕਰੋ"
 
@@ -2395,7 +2345,7 @@ msgstr "ਸਰਗਰਮ ਡੌਕੂਮੈਂਟ ਨਾਲ ਤੁਲਨਾ ਕ�
 #: lib/kateviewspace.cpp:1128
 #, kde-format
 msgid "Could not start program"
-msgstr ""
+msgstr "ਪਰੋਗਰਾਮ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ"
 
 #: lib/kateviewspace.cpp:1129
 #, kde-format
@@ -2470,7 +2420,7 @@ msgstr "ਫਾਇਲਾਂ"
 #: lib/session/katesessionmanagedialog.ui:68
 #, kde-format
 msgid "Last opened"
-msgstr ""
+msgstr "ਆਖਰੀ ਵਾਰ ਖੋਲ੍ਹੇ"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_openButton)
 #: lib/session/katesessionmanagedialog.ui:87
@@ -2535,7 +2485,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
-msgstr ""
+msgstr "ਮੁੜ-ਖੋਲ੍ਹੋ"
 
 #: lib/session/katesessionmanager.cpp:335
 #, fuzzy, kde-format
@@ -2547,12 +2497,12 @@ msgstr "ਸ਼ੈਸ਼ਨ \"%1\" ਦਾ ਨਾਂ ਬਦਲਿਆ ਨਹੀਂ 
 #: lib/session/katesessionmanager.cpp:336
 #, kde-format
 msgid "Session Renaming"
-msgstr "ਸ਼ੈਸ਼ਨ ਨਾਂ ਬਦਲਣਾ"
+msgstr "ਸ਼ੈਸ਼ਨ ਦਾ ਨਾਂ ਬਦਲਣਾ"
 
 #: lib/session/katesessionmanager.cpp:486
 #, kde-format
 msgid "Session name:"
-msgstr "ਸ਼ੈਸ਼ਨ ਨਾਂ:"
+msgstr "ਸ਼ੈਸ਼ਨ ਦਾ ਨਾਂ:"
 
 #: lib/session/katesessionmanager.cpp:488
 #, kde-format
@@ -2561,7 +2511,7 @@ msgid ""
 "Please choose a different one."
 msgstr ""
 "ਤੁਹਾਡੇ ਵਲੋਂ ਚੁਣੇ ਨਾਂ ਨਾਲ ਪਹਿਲਾਂ ਹੀ ਸ਼ੈਸ਼ਨ ਮੌਜੂਦ ਹੈ: %1\n"
-"ਵੱਖਰ ਨਾਂ ਚੁਣੋ ਜੀ।"
+"ਵੱਖਰਾ ਨਾਂ ਚੁਣੋ ਜੀ।"
 
 #: lib/session/katesessionmanager.cpp:490
 #, kde-format
@@ -2580,10 +2530,9 @@ msgstr "ਸ਼ੈਸ਼ਨ ਲਈ ਨਵਾਂ ਨਾਂ ਦਿਓ: %1"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
 #: lib/ui/sessionconfigwidget.ui:17
-#, fuzzy, kde-format
-#| msgid "Application Options"
+#, kde-format
 msgid "Application Startup Behavior"
-msgstr "ਐਪਲੀਕੇਸ਼ਨ ਚੋਣਾਂ"
+msgstr "ਐਪਲੀਕੇਸ਼ਨ ਸ਼ੁਰੂਆਤ ਰਵੱਈਆ"
 
 #. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
 #: lib/ui/sessionconfigwidget.ui:23
@@ -2728,146 +2677,125 @@ msgstr "ਨਾ-ਸੰਭਾਲਿਆ ਮੇਟਾ-ਡਾਟਾ ਇਸ ਮਗਰ�
 #: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Welcome to %1"
-msgstr ""
+msgstr "%1 ਵਲੋਂ ਜੀ ਆਇਆਂ ਨੂੰ"
 
 #: lib/welcomeview/welcomeview.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "ਡੌਕੂਮੈਂਟ ਖੋਲ੍ਹੋ"
+msgstr "ਸੱਜਰੇ ਡੌਕੂਮੈਂਟ ਅਤੇ ਪਰੋਜੈਕਟ"
 
 #: lib/welcomeview/welcomeview.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents"
-msgstr "ਡੌਕੂਮੈਂਟ ਖੋਲ੍ਹੋ"
+msgstr "ਸੱਜਰੇ ਡੌਕੂਮੈਂਟ"
 
 #: lib/welcomeview/welcomeview.cpp:63
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "ਡੌਕੂਮੈਂਟ ਖੋਲ੍ਹੋ"
+msgstr "ਕੋਈ ਸੱਜਰੇ ਡੌਕੂਮੈਂਟ ਜਾਂ ਪਰੋਜੈਕਟ ਨਹੀਂ ਹਨ"
 
 #: lib/welcomeview/welcomeview.cpp:63
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "ਡੌਕੂਮੈਂਟ ਖੋਲ੍ਹੋ"
+msgstr "ਕੋਈ ਸੱਜਰਾ ਡੌਕੂਮੈੰਟ ਨਹੀਂ ਹੈ"
 
 #: lib/welcomeview/welcomeview.cpp:116
-#, fuzzy, kde-format
-#| msgid "&Do not save session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "ਸ਼ੈਸ਼ਨ ਨਾ ਸੰਭਾਲੋ(&D)"
+msgstr "ਕੋਈ ਸੰਭਾਲਿਆ ਸ਼ੈਸ਼ਨ ਨਹੀਂ ਹੈ"
 
 #: lib/welcomeview/welcomeview.cpp:246
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
+msgstr "...ਚੁਣੀਆਂ ਫਾਇਲਾਂ ਨੂੰ ਖੋਲ੍ਹੋ"
 
 #: lib/welcomeview/welcomeview.cpp:259
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "ਟਿਕਾਣਾ"
+msgstr "ਟਿਕਾਣੇ ਨੂੰ ਕਾਪੀ ਕਰੋ(&L)"
 
 #: lib/welcomeview/welcomeview.cpp:274
-#, fuzzy, kde-format
-#| msgid "Remove target"
+#, kde-format
 msgid "&Remove"
-msgstr "ਟਾਰਗੇਟ ਹਟਾਓ"
+msgstr "ਹਟਾਓ(&R)"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr ""
+msgstr "ਜੀ ਆਇਆਂ ਨੂੰ"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
+msgstr "ਨਵੀਂ ਫਾਇਲ "
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Folder..."
-msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
+msgstr "...ਫੋਲਡਰ ਨੂੰ ਖੋਲ੍ਹੋ"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Delete File"
+#, kde-format
 msgid "Recent Files"
-msgstr "ਫਾਇਲ ਹਟਾਓ"
+msgstr "ਸੱਜਰੀਆਂ ਫ਼ਾਈਲਾਂ"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
+msgstr "...ਫਾਇਲ ਖੋਲ੍ਹੋ"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "ਸੱਜਰੀਆਂ ਫਾਇਲਾਂ ਨੂੰ ਸਾਫ਼ ਕਰੋ"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:270
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "ਮਦਦ(&H)"
+msgstr "ਮਦਦ"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:280
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "ਮੁੱਖ-ਸਫ਼ਾ ਵੇਖੋ"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:293
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "ਹਿੱਸਾ ਲਵੋ"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:306
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr " ਹੈਂਡਬੁੱਕ ਪੜ੍ਹੋ"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:353
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "ਸ਼ੈਸ਼ਨ ਸੰਭਾਲੋ(&S)"
+msgstr "ਸੰਭਾਲੇ ਹੋਏ ਸ਼ੈਸ਼ਨ"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:389
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "...ਸ਼ੈਸ਼ਨ ਪਰਬੰਧ(&M)"
+msgstr "ਸ਼ੈਸ਼ਨਾਂ ਦਾ ਇੰਤਜ਼ਾਮ..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show for new window"
-msgstr "ਨਵਾਂ ਡੌਕੂਮੈਂਟ ਬਣਾਓ"
+msgstr "ਨਵੀਂ ਵਿੰਡੋ ਲਈ ਵੇਖਾਓ"
 
 #~ msgid ""
 #~ "Internal error: there is more than one instance open for a given session."

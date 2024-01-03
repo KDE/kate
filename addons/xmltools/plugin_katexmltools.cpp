@@ -83,12 +83,12 @@ TODO:
 
 #include <KActionCollection>
 #include <KHistoryComboBox>
+#include <KIO/JobUiDelegate>
+#include <KIO/TransferJob>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPluginFactory>
 #include <KXMLGUIClient>
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
 #include <kxmlguifactory.h>
 #include <map>
 

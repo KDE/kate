@@ -37,7 +37,7 @@
 #include <KEditToolBar>
 #include <KFileItem>
 #include <KHelpClient>
-#include <KIO/Job>
+#include <KIO/ListJob>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMultiTabBar>

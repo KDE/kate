@@ -33,7 +33,6 @@ KateBookmarkHandler::KateBookmarkHandler(KateFileBrowser *parent, QMenu *kpopupm
     }
 
     KBookmarkManager *manager = new KBookmarkManager(file, this);
-    manager->setUpdate(true);
 
     m_bookmarkMenu = new KBookmarkMenu(manager, this, m_menu);
 

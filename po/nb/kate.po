@@ -2771,7 +2771,3 @@ msgstr ""
 #, kde-format
 msgid "Show for new window"
 msgstr ""
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr "Intern feil: det er mer enn én instans åpen for en gitt økt."

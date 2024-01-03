@@ -4,13 +4,13 @@
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2012, 2013, 2014, 2015.
 # Jeff Huang <s8321414@gmail.com>, 2016, 2020.
 # pan93412 <pan93412@gmail.com>, 2018, 2019.
-# SPDX-FileCopyrightText: 2023 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023, 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2023-12-24 04:55+0900\n"
+"PO-Revision-Date: 2024-01-02 19:44+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -299,7 +299,7 @@ msgstr "比對 %1...%2 差異時失敗"
 #: gitwidget.cpp:964
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr ""
+msgstr "比對 %1...%2 差異時無法取得 numstat"
 
 #: gitwidget.cpp:1003
 #, kde-format
@@ -319,7 +319,7 @@ msgstr "刪除分支"
 #: gitwidget.cpp:1043
 #, kde-format
 msgid "Compare Branch with..."
-msgstr ""
+msgstr "比對分支..."
 
 #: gitwidget.cpp:1048
 #, kde-format
@@ -697,28 +697,22 @@ msgid "Code Analysis - %1"
 msgstr "程式碼分析 - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>這個工具將會在所有符合此檔案副檔名列表的專案檔上執行：<br/><br/"
-"><b>%2</b>"
+"'%1' 未在您的系統上安裝，%2。<br/><br/>%3。這個工具將會在專案中所有符合此副檔"
+"名列表的檔案上執行：<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>這個工具將會在所有符合此檔案副檔名列表的專案檔上執行：<br/><br/"
-"><b>%2</b>"
+"將使用安裝於 %2 的 %1。<br/><br/>%3。這個工具將會在專案中所有符合此副檔名列表"
+"的檔案上執行：<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212
@@ -728,23 +722,19 @@ msgid "CodeAnalysis"
 msgstr "程式碼分析"
 
 #: kateprojectinfoviewcodeanalysis.cpp:207
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "分析 %1 個檔案完成。"
+msgstr[0] "[%1]已完成對 %2 個檔案的分析。"
 
 #: kateprojectinfoviewcodeanalysis.cpp:215
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "分析 %1 個檔案失敗，回傳錯誤代碼 %2。"
+msgstr "分析失敗，結束碼為 %1，錯誤：%2"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
@@ -860,12 +850,12 @@ msgstr "專案待辦事項"
 #: kateprojectpluginview.cpp:193
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "啟用前一個專案"
 
 #: kateprojectpluginview.cpp:198
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "啟用下一個專案"
 
 #: kateprojectpluginview.cpp:203
 #, kde-format
@@ -883,10 +873,9 @@ msgid "Close All Projects"
 msgstr "關閉所有專案"
 
 #: kateprojectpluginview.cpp:216
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Orphaned Projects"
-msgstr "關閉孤兒專案"
+msgstr "關閉沒有開啟文件的專案"
 
 #: kateprojectpluginview.cpp:220
 #, kde-format

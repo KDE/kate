@@ -2784,8 +2784,3 @@ msgstr "Handsam økter …"
 #, kde-format
 msgid "Show for new window"
 msgstr "Vis for nye vindauge"
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr ""
-#~ "Intern feil: Det finst meir enn éin instans open for den valde økta."

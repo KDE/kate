@@ -2146,10 +2146,16 @@ public:
         if (title.isEmpty()) {
             title = params.value.title;
         }
-        // let's force percentage to 100 to indicate completion
-        // (which it might otherwise not be so it seems)
-        const auto percentage = params.value.kind == LSPWorkDoneProgressKind::End ? 100 : params.value.percentage;
-        const auto msg = QStringLiteral("%1 [%3%] %2").arg(title).arg(params.value.message).arg(percentage, 3);
+
+        const auto percent = params.value.percentage;
+        QString msg = title;
+        if (!percent.has_value()) {
+            msg.append(QLatin1String(" ")).append(params.value.message);
+        } else {
+            msg.append(QStringLiteral(" [%1%] ").arg(percent.value(), 3));
+            msg.append(params.value.message);
+        }
+
         addMessage(LSPMessageType::Info, i18nc("@info", "LSP Server"), msg, token);
     }
 

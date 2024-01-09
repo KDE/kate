@@ -1194,7 +1194,17 @@ void from_json(LSPWorkDoneProgressValue &value, const rapidjson::Value &json)
     value.title = GetStringValue(json, "title");
     value.message = GetStringValue(json, "message");
     value.cancellable = GetBoolValue(json, "cancellable");
-    value.percentage = GetIntValue(json, "percentage");
+    int percentage = GetIntValue(json, "percentage", -1);
+    if (percentage >= 0) {
+        if (percentage > 100) {
+            percentage = 100;
+        }
+        // force it to 100 if its not
+        if (value.kind == LSPWorkDoneProgressKind::End && percentage != 100) {
+            percentage = 100;
+        }
+        value.percentage = percentage;
+    }
 }
 
 template<typename T>

@@ -326,7 +326,7 @@ struct LSPWorkDoneProgressValue {
     QString title;
     QString message;
     bool cancellable;
-    unsigned percentage;
+    std::optional<unsigned> percentage;
 };
 
 template<typename T>

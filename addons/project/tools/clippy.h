@@ -33,6 +33,6 @@ public:
 
     bool isSuccessfulExitCode(int exitCode) const override
     {
-        return 101 == exitCode;
+        return 0 == exitCode;
     }
 };

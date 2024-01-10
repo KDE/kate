@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-01-10 01:36+0000\n"
 "PO-Revision-Date: 2023-11-25 11:21+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -352,19 +352,19 @@ msgstr "Yeterli sonuç yok"
 msgid "Corresponding Header/Source not found"
 msgstr "İlgili Üstbilgi/Kaynak bulunamadı"
 
-#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2153
+#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2159
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP Sunucusu"
 
-#: lspclientpluginview.cpp:2176
+#: lspclientpluginview.cpp:2182
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP İstemcisi"
 
-#: lspclientpluginview.cpp:2448
+#: lspclientpluginview.cpp:2454
 #, kde-format
 msgid "Question from LSP server"
 msgstr "LSP sunucusundan soru"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-01-10 01:36+0000\n"
 "PO-Revision-Date: 2023-09-26 10:34+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -350,19 +350,19 @@ msgstr "Ei tarpeeksi tuloksia"
 msgid "Corresponding Header/Source not found"
 msgstr "Vastaavaa otsaketta/lähdettä ei löytynyt"
 
-#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2153
+#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2159
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP-palvelin"
 
-#: lspclientpluginview.cpp:2176
+#: lspclientpluginview.cpp:2182
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP-asiakas"
 
-#: lspclientpluginview.cpp:2448
+#: lspclientpluginview.cpp:2454
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Kysymys LSP-palvelimelta"

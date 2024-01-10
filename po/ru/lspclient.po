@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-01-10 01:36+0000\n"
 "PO-Revision-Date: 2022-12-21 10:05+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -353,19 +353,19 @@ msgstr "Недостаточно результатов"
 msgid "Corresponding Header/Source not found"
 msgstr "Соответствующий заголовок или источник не найден"
 
-#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2153
+#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2159
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Сервер LSP"
 
-#: lspclientpluginview.cpp:2176
+#: lspclientpluginview.cpp:2182
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Клиент LSP"
 
-#: lspclientpluginview.cpp:2448
+#: lspclientpluginview.cpp:2454
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"

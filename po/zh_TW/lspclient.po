@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-01-10 01:36+0000\n"
 "PO-Revision-Date: 2023-12-22 03:16+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -355,19 +355,19 @@ msgstr "不夠多結果"
 msgid "Corresponding Header/Source not found"
 msgstr "找不到對應的標頭/來源"
 
-#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2153
+#: lspclientpluginview.cpp:2116 lspclientpluginview.cpp:2159
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP 伺服器"
 
-#: lspclientpluginview.cpp:2176
+#: lspclientpluginview.cpp:2182
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP 用戶端"
 
-#: lspclientpluginview.cpp:2448
+#: lspclientpluginview.cpp:2454
 #, kde-format
 msgid "Question from LSP server"
 msgstr "來自 LSP 伺服器的詢問"

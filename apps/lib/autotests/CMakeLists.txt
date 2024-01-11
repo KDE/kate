@@ -22,6 +22,7 @@ if (WIN32)
         # sessions_action_test
         urlinfo_test
         json_utils_test
+        kate_doc_manager_tests
         # location_history_test
         # kate_view_mgmt_tests
         bytearraysplitter_tests
@@ -33,6 +34,7 @@ else()
         sessions_action_test
         urlinfo_test
         json_utils_test
+        kate_doc_manager_tests
         location_history_test
         kate_view_mgmt_tests
         bytearraysplitter_tests

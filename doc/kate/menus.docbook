@@ -748,6 +748,19 @@ The new instance will be identical to your previous instance.
 </listitem>
 </varlistentry>
 
+<varlistentry id="reopen-latest-closed-tab">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>T</keycap></keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Reopen Latest Closed Tab</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Reopens the latest closed tab.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="view-quick-open">
 <term><menuchoice>
 <shortcut>

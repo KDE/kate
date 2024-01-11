@@ -95,6 +95,7 @@ public Q_SLOTS:
     void slotDocumentOpen();
     void slotDocumentClose();
     void slotDocumentClose(KTextEditor::Document *document);
+    void slotRestoreLastClosedDocument();
 
     void setActiveSpace(KateViewSpace *vs);
 

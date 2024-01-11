@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "kateprivate_export.h"
+
 #include <ktexteditor/document.h>
 
 #include <QList>
@@ -37,9 +39,11 @@ public:
     QUrl normalizedUrl;
 };
 
-class KateDocManager : public QObject
+class KATE_PRIVATE_EXPORT KateDocManager : public QObject
 {
     Q_OBJECT
+
+    friend class KateDocManagerTests;
 
 public:
     explicit KateDocManager(QObject *parent);
@@ -61,6 +65,8 @@ public:
 
     std::vector<KTextEditor::Document *>
     openUrls(const QList<QUrl> &, const QString &encoding = QString(), const KateDocumentInfo &docInfo = KateDocumentInfo());
+
+    QList<QUrl> popRecentlyClosedURLs();
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
     bool closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl = true);
@@ -170,6 +176,8 @@ private:
     KConfig m_metaInfos;
     bool m_saveMetaInfos;
     int m_daysMetaInfos;
+
+    QList<QUrl> m_recentlyClosedURLs;
 
 private Q_SLOTS:
     void documentOpened();

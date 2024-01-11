@@ -400,6 +400,14 @@ void KateViewManager::slotDocumentClose()
     }
 }
 
+void KateViewManager::slotRestoreLastClosedDocument()
+{
+    const auto &documentManager = KateApp::self()->documentManager();
+    const auto recentlyClosedUrls = documentManager->popRecentlyClosedURLs();
+
+    openUrls(recentlyClosedUrls, QString());
+}
+
 KTextEditor::Document *
 KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool ignoreForRecentFiles, const KateDocumentInfo &docInfo)
 {

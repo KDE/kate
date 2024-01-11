@@ -171,10 +171,26 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     return doc;
 }
 
+QList<QUrl> KateDocManager::popRecentlyClosedURLs()
+{
+    const auto recentlyClosedURLs = m_recentlyClosedURLs;
+    m_recentlyClosedURLs.clear();
+    return recentlyClosedURLs;
+}
+
 bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl)
 {
     if (documents.empty()) {
         return false;
+    }
+
+    m_recentlyClosedURLs.clear();
+    for (const auto &document : documents) {
+        const auto &docInfo = m_docInfos.at(document);
+
+        if (!docInfo.normalizedUrl.isEmpty()) {
+            m_recentlyClosedURLs.push_back(docInfo.normalizedUrl);
+        }
     }
 
     saveMetaInfos(documents);

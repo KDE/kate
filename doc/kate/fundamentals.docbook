@@ -371,6 +371,10 @@ action="simul">&Ctrl;<keycap>W</keycap></keycombo> /
 <entry><para><keycombo action="simul">&Alt;&Left;</keycombo></para></entry>
 <entry><para>Previous Tab</para></entry>
 </row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>T</keycap></keycombo></para></entry>
+<entry><para>Reopen Latest Closed Tab</para></entry>
+</row>
 
 </tbody>
 </tgroup>

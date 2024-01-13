@@ -9,6 +9,7 @@
 #include <KGuiItem>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KMessageDialog>
 #include <KStandardGuiItem>
 
 #include <QApplication>
@@ -138,7 +139,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
 
     // label
 
-    QLabel *lbl = new QLabel;
+    m_label = new QLabel;
 
     if (!multipleDocuments) {
         // Display a simpler dialog, similar to a QMessageBox::warning one
@@ -150,14 +151,14 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
         iconLabel->setPixmap(icon.pixmap(size));
         wrapperLayout->addWidget(iconLabel, 0, 0);
 
-        lbl->setText(i18n("The document \"%1\" has been modified. Do you want to save your changes or discard them?", documents.front()->documentName()));
-        lbl->setWordWrap(true);
+        m_label->setText(i18n("The document \"%1\" has been modified. Do you want to save your changes or discard them?", documents.front()->documentName()));
+        m_label->setWordWrap(true);
 
     } else {
-        lbl->setText(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"));
+        m_label->setText(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"));
     }
 
-    mainLayout->addWidget(lbl);
+    mainLayout->addWidget(m_label);
 
     // main view
     m_list = new QTreeWidget(this);
@@ -261,6 +262,12 @@ bool KateSaveModifiedDialog::doSave()
     }
 
     return true;
+}
+
+void KateSaveModifiedDialog::showEvent(QShowEvent *event)
+{
+    Q_UNUSED(event);
+    KMessageDialog::beep(KMessageDialog::WarningTwoActionsCancel, m_label->text(), this);
 }
 
 bool KateSaveModifiedDialog::queryClose(QWidget *parent, const std::vector<KTextEditor::Document *> &documents)

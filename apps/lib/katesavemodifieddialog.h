@@ -10,6 +10,7 @@
 
 #include <QDialog>
 
+class QLabel;
 class QTreeWidget;
 class QTreeWidgetItem;
 class QPushButton;
@@ -23,6 +24,7 @@ public:
     static bool queryClose(QWidget *parent, const std::vector<KTextEditor::Document *> &documents);
 
 protected:
+    void showEvent(QShowEvent *event) override;
     bool doSave();
 protected Q_SLOTS:
     void slotSelectAll();
@@ -31,6 +33,7 @@ protected Q_SLOTS:
     void slotDoNotSave();
 
 private:
+    QLabel *m_label;
     QTreeWidget *m_list;
     QPushButton *m_saveButton;
 };

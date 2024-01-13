@@ -41,6 +41,7 @@ find_package(
     TextEditor
     TextWidgets
     WindowSystem
+    WidgetsAddons
 )
 
 target_link_libraries(
@@ -55,6 +56,7 @@ target_link_libraries(
     KF6::WindowSystem
     KF6::KIOGui
     KF6::KIOWidgets
+    KF6::WidgetsAddons
 )
 
 if (NOT WIN32 AND NOT HAIKU)

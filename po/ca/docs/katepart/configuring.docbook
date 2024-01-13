@@ -1290,7 +1290,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem>
 <para
->La marca d'ordre de bytes és una seqüència especial al començament dels documents codificats amb Unicode. Ajuda als editors a obrir documents de text amb la codificació Unicode correcta. Per a obtenir més informació, vegeu <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
+>La marca d'ordre de bytes és una seqüència especial al començament dels documents codificats amb Unicode. Ajuda els editors a obrir documents de text amb la codificació Unicode correcta. Per a obtenir més informació, vegeu <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
 >Marca d'ordre de bytes</ulink
 >.</para>
 </listitem>
@@ -1477,7 +1477,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ><para
 >De manera predeterminada, els fitxers d'intercanvi es desaran a la mateixa carpeta que el fitxer. Quan es tria <guilabel
 >Activat, emmagatzematge en un directori personalitzat</guilabel
-> al mode del fitxer d'intercanvi, aquests es crearan a la carpeta especificada. Això és útil per a sistemes de fitxers en xarxa per a evitar el trànsit de xarxa innecessari.</para>
+> al mode de fitxer d'intercanvi, aquests es crearan a la carpeta especificada. Això és útil per a sistemes de fitxers en xarxa per a evitar el trànsit de xarxa innecessari.</para>
 </listitem>
 </varlistentry>
 <varlistentry>

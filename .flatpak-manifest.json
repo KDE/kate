@@ -42,17 +42,6 @@
             ]
         },
         {
-            "name": "ktexteditor",
-            "buildsystem": "cmake-ninja",
-            "config-opts": [ "-DENABLE_KAUTH=OFF" ],
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://invent.kde.org/frameworks/ktexteditor.git"
-                }
-            ]
-        },
-        {
             "name": "kate",
             "buildsystem": "cmake-ninja",
             "builddir": true,

@@ -267,7 +267,9 @@ bool KateSaveModifiedDialog::doSave()
 void KateSaveModifiedDialog::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 249, 0)
     KMessageDialog::beep(KMessageDialog::WarningTwoActionsCancel, m_label->text(), this);
+#endif
 }
 
 bool KateSaveModifiedDialog::queryClose(QWidget *parent, const std::vector<KTextEditor::Document *> &documents)

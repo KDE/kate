@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-30 01:39+0000\n"
+"POT-Creation-Date: 2024-01-14 00:39+0000\n"
 "PO-Revision-Date: 2023-12-30 17:41+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1260,7 +1260,7 @@ msgid ""
 msgstr ""
 "<p>此文件「%1」已被修改，但尚未儲存。</p><p>您想要儲存變更還是放棄變更？</p>"
 
-#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:129
+#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "關閉文件"
@@ -1946,46 +1946,46 @@ msgctxt "@info"
 msgid "Log"
 msgstr "紀錄"
 
-#: lib/katesavemodifieddialog.cpp:77
+#: lib/katesavemodifieddialog.cpp:78
 #, kde-format
 msgid "Save As (%1)"
 msgstr "另存為(%1)"
 
-#: lib/katesavemodifieddialog.cpp:129
+#: lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Save Documents"
 msgstr "儲存文件"
 
-#: lib/katesavemodifieddialog.cpp:153
+#: lib/katesavemodifieddialog.cpp:154
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr "文件「%1」已被修改。您想要儲存變更還是放棄變更？"
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:158
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
 "before closing?</qt>"
 msgstr "<qt>下列文件已被修改過。您想要在關閉前儲存它們嗎？</qt>"
 
-#: lib/katesavemodifieddialog.cpp:166
+#: lib/katesavemodifieddialog.cpp:167
 #, kde-format
 msgid "Documents"
 msgstr "文件"
 
-#: lib/katesavemodifieddialog.cpp:166
+#: lib/katesavemodifieddialog.cpp:167
 #, kde-format
 msgid "Location"
 msgstr "位置"
 
-#: lib/katesavemodifieddialog.cpp:176
+#: lib/katesavemodifieddialog.cpp:177
 #, kde-format
 msgid "Se&lect All"
 msgstr "選擇全部(&L)"
 
-#: lib/katesavemodifieddialog.cpp:254
+#: lib/katesavemodifieddialog.cpp:255
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

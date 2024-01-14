@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-30 01:39+0000\n"
+"POT-Creation-Date: 2024-01-14 00:39+0000\n"
 "PO-Revision-Date: 2012-12-27 17:53+0200\n"
 "Last-Translator: Maris Nartiss <maris.kde@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -1322,7 +1322,7 @@ msgstr ""
 "<p>Dokuments “%1” ir mainīts, bet nav saglabāts.</p><p>Vai vēlaties saglabāt "
 "izmaiņas vai tās atmest?</p>"
 
-#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:129
+#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Aizvērt dokumentu"
@@ -2053,17 +2053,17 @@ msgctxt "@info"
 msgid "Log"
 msgstr ""
 
-#: lib/katesavemodifieddialog.cpp:77
+#: lib/katesavemodifieddialog.cpp:78
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Saglabāt kā (%1)"
 
-#: lib/katesavemodifieddialog.cpp:129
+#: lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Save Documents"
 msgstr "Saglabāt dokumentus"
 
-#: lib/katesavemodifieddialog.cpp:153
+#: lib/katesavemodifieddialog.cpp:154
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -2075,7 +2075,7 @@ msgstr ""
 "<p>Dokuments “%1” ir mainīts, bet nav saglabāts.</p><p>Vai vēlaties saglabāt "
 "izmaiņas vai tās atmest?</p>"
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:158
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2084,22 +2084,22 @@ msgstr ""
 "<qt>Šie dokumenti ir izmainīti. Vai vēlaties tos pirms aizvēršanas saglabāt?"
 "</qt>"
 
-#: lib/katesavemodifieddialog.cpp:166
+#: lib/katesavemodifieddialog.cpp:167
 #, kde-format
 msgid "Documents"
 msgstr "Dokumenti"
 
-#: lib/katesavemodifieddialog.cpp:166
+#: lib/katesavemodifieddialog.cpp:167
 #, kde-format
 msgid "Location"
 msgstr "Atrašanās vieta"
 
-#: lib/katesavemodifieddialog.cpp:176
+#: lib/katesavemodifieddialog.cpp:177
 #, kde-format
 msgid "Se&lect All"
 msgstr "Izvē&lēties visus"
 
-#: lib/katesavemodifieddialog.cpp:254
+#: lib/katesavemodifieddialog.cpp:255
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

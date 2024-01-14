@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-30 01:39+0000\n"
+"POT-Creation-Date: 2024-01-14 00:39+0000\n"
 "PO-Revision-Date: 2016-03-24 14:50+0100\n"
 "Last-Translator: Bjørn <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -1248,7 +1248,7 @@ msgstr ""
 "<p>Dokumentet «%1» er endret, men ikke lagret.</p><p>Vil du ta vare på "
 "endringene?</p>"
 
-#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:129
+#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Lukk dokument"
@@ -1945,24 +1945,24 @@ msgctxt "@info"
 msgid "Log"
 msgstr ""
 
-#: lib/katesavemodifieddialog.cpp:77
+#: lib/katesavemodifieddialog.cpp:78
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Lagre som (%1)"
 
-#: lib/katesavemodifieddialog.cpp:129
+#: lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Save Documents"
 msgstr "Lagre dokumenter"
 
-#: lib/katesavemodifieddialog.cpp:153
+#: lib/katesavemodifieddialog.cpp:154
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:158
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -1971,22 +1971,22 @@ msgstr ""
 "<qt>De følgende dokumentene er endret. Vil du lagre dem før du avslutter?</"
 "qt>"
 
-#: lib/katesavemodifieddialog.cpp:166
+#: lib/katesavemodifieddialog.cpp:167
 #, kde-format
 msgid "Documents"
 msgstr "Dokumenter"
 
-#: lib/katesavemodifieddialog.cpp:166
+#: lib/katesavemodifieddialog.cpp:167
 #, kde-format
 msgid "Location"
 msgstr "Plassering"
 
-#: lib/katesavemodifieddialog.cpp:176
+#: lib/katesavemodifieddialog.cpp:177
 #, kde-format
 msgid "Se&lect All"
 msgstr "&Velg alle"
 
-#: lib/katesavemodifieddialog.cpp:254
+#: lib/katesavemodifieddialog.cpp:255
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

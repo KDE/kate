@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-30 01:39+0000\n"
+"POT-Creation-Date: 2024-01-14 00:39+0000\n"
 "PO-Revision-Date: 2023-09-03 00:48+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1292,7 +1292,7 @@ msgstr ""
 "<p>'%1' dokumentua aldatu egin da, baina ez da gorde.</p><p>Zure aldaketak "
 "gorde edo baztertu nahi dituzu?</p>"
 
-#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:129
+#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Itxi dokumentua"
@@ -1998,17 +1998,17 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Egunkaria"
 
-#: lib/katesavemodifieddialog.cpp:77
+#: lib/katesavemodifieddialog.cpp:78
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Gorde honela (%1)"
 
-#: lib/katesavemodifieddialog.cpp:129
+#: lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Save Documents"
 msgstr "Gorde dokumentuak"
 
-#: lib/katesavemodifieddialog.cpp:153
+#: lib/katesavemodifieddialog.cpp:154
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
@@ -2017,7 +2017,7 @@ msgstr ""
 "'%1' dokumentua aldatu egin da. Zure aldaketak gorde edo baztertu nahi "
 "dituzu?"
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:158
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2026,22 +2026,22 @@ msgstr ""
 "<qt>Ondoko dokumentuak aldatu egin dira. Itxi aurretik gorde nahi dituzu?</"
 "qt>"
 
-#: lib/katesavemodifieddialog.cpp:166
+#: lib/katesavemodifieddialog.cpp:167
 #, kde-format
 msgid "Documents"
 msgstr "Dokumentuak"
 
-#: lib/katesavemodifieddialog.cpp:166
+#: lib/katesavemodifieddialog.cpp:167
 #, kde-format
 msgid "Location"
 msgstr "Kokalekua"
 
-#: lib/katesavemodifieddialog.cpp:176
+#: lib/katesavemodifieddialog.cpp:177
 #, kde-format
 msgid "Se&lect All"
 msgstr "Hautatu &guztiak"
 
-#: lib/katesavemodifieddialog.cpp:254
+#: lib/katesavemodifieddialog.cpp:255
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

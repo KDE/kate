@@ -1,13 +1,13 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2023 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2023, 2024 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-13 01:36+0000\n"
-"PO-Revision-Date: 2023-12-27 20:56+0100\n"
+"PO-Revision-Date: 2024-01-13 07:55+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: FormatterFactory.h:59
 #, kde-format
 msgid "Format"
-msgstr "Formato"
+msgstr "Formatta"
 
 #: FormatApply.h:22
 #, kde-format
@@ -61,7 +61,7 @@ msgstr "Impossibile leggere settings.json. Errore: %1"
 #: FormatPlugin.cpp:118
 #, kde-format
 msgid "Format Document"
-msgstr "Formato documento"
+msgstr "Formatta documento"
 
 #: FormatPlugin.cpp:136
 #, kde-format
@@ -72,11 +72,13 @@ msgstr "Formattazione al salvataggio"
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
+"Disabilita la formattazione al salvataggio senza renderlo persistente nelle "
+"impostazioni"
 
 #: FormatterFactory.h:59
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
-msgstr ""
+msgstr "Impossibile eseguire il formattatore. Lingua non supportata %1"
 
 #: Formatters.cpp:110
 #, kde-format

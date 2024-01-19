@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2014.
-# Kristof Kiszel <ulysses@fsf.hu>, 2021.
+# SPDX-FileCopyrightText: 2021, 2024 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 01:01+0000\n"
-"PO-Revision-Date: 2021-12-07 09:53+0100\n"
+"PO-Revision-Date: 2024-01-18 09:37+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.11.90\n"
+"X-Generator: Lokalize 24.01.90\n"
 
 #: tabswitcher.cpp:49
 #, kde-format
@@ -64,7 +64,7 @@ msgstr "Bezárja a kiválasztott nézetet a legutóbb használt nézetek listáj
 #: ui.rc:6
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "U&grás"
 
 #~ msgid "&View"
 #~ msgstr "&Nézet"

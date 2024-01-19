@@ -3,31 +3,31 @@
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2011, 2014, 2015.
 # Balázs Úr <urbalazs@gmail.com>, 2012, 2013, 2014.
 # Kiszel Kristóf <kiszel.kristof@gmail.com>, 2017.
-# Kristof Kiszel <ulysses@fsf.hu>, 2021, 2022.
+# SPDX-FileCopyrightText: 2021, 2022, 2024 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-14 03:09+0000\n"
-"PO-Revision-Date: 2022-01-14 10:53+0100\n"
-"Last-Translator: Kristóf Kiszel <ulysses@fsf.hu>\n"
+"PO-Revision-Date: 2024-01-18 09:46+0100\n"
+"Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.07.70\n"
+"X-Generator: Lokalize 24.01.90\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Kiszel Kristóf,Szántó Tamás"
+msgstr "Kiszel Kristóf"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "ulysses@fsf.hu,tszanto@interware.hu"
+msgstr "ulysses@fsf.hu"
 
 #: kate/main.cpp:88
 #, kde-format
@@ -146,16 +146,14 @@ msgid "[urls...]"
 msgstr "[URL-ek…]"
 
 #: kwrite/main.cpp:43
-#, fuzzy, kde-format
-#| msgid "KWrite Author"
+#, kde-format
 msgid "KWrite"
-msgstr "A KWrite szerzője"
+msgstr "KWrite"
 
 #: kwrite/main.cpp:45
-#, fuzzy, kde-format
-#| msgid "Kate - Advanced Text Editor"
+#, kde-format
 msgid "KWrite - Text Editor"
-msgstr "Kate - a KDE szövegszerkesztője"
+msgstr "KWrite - szövegszerkesztő"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
@@ -171,16 +169,15 @@ msgid "Open File"
 msgstr "Fájl megnyitása"
 
 #: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:351
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Copy Location"
-msgstr "Hely"
+msgstr "Hely másolása"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
 #: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: lib/commitfilesview.cpp:518
 #, kde-format
@@ -207,10 +204,9 @@ msgstr "&Fájl"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "Actions"
+#, kde-format
 msgid "File Actions"
-msgstr "Műveletek"
+msgstr "Fájlműveletek"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -220,10 +216,9 @@ msgstr "Szer&kesztés"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "Actions"
+#, kde-format
 msgid "&Selection"
-msgstr "Műveletek"
+msgstr "Kijelölés"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -315,16 +310,14 @@ msgid "Quick Fix"
 msgstr "&Gyors megnyitás"
 
 #: lib/diagnostics/diagnosticview.cpp:327
-#, fuzzy, kde-format
-#| msgid "&Next Tab"
+#, kde-format
 msgid "Next Item"
-msgstr "&Következő lap"
+msgstr "Következő elem"
 
 #: lib/diagnostics/diagnosticview.cpp:333
-#, fuzzy, kde-format
-#| msgid "&Previous Tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "E&lőző lap"
+msgstr "Előző elem"
 
 #: lib/diagnostics/diagnosticview.cpp:341
 #, kde-format
@@ -337,22 +330,19 @@ msgid "Diagnostics"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:429
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Hiba"
+msgstr "Hibák"
 
 #: lib/diagnostics/diagnosticview.cpp:445
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Figyelmeztetés"
+msgstr "Figyelmeztetések"
 
 #: lib/diagnostics/diagnosticview.cpp:459
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter..."
-msgstr "Szűrő:"
+msgstr "Szűrő…"
 
 #: lib/diagnostics/diagnosticview.cpp:1045 lib/kateconfigdialog.cpp:151
 #, kde-format
@@ -366,10 +356,9 @@ msgid "Warning"
 msgstr "Figyelmeztetés"
 
 #: lib/diagnostics/diagnosticview.cpp:1053
-#, fuzzy, kde-format
-#| msgid "Meta-Information"
+#, kde-format
 msgid "Information"
-msgstr "Metaadatok"
+msgstr "Információk"
 
 #: lib/diagnostics/diagnosticview.cpp:1173
 #, kde-format
@@ -378,21 +367,17 @@ msgid "%1 [suppressed: %2]"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1312
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "Lapok &kibontása"
+msgstr "Összes kibontása"
 
 #: lib/diagnostics/diagnosticview.cpp:1313
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "Össz&es bezárása"
+msgstr "Összes összecsukása"
 
 #: lib/diagnostics/diagnosticview.cpp:1319
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
 msgstr "Másolás a vágólapra"
 
@@ -1025,10 +1010,9 @@ msgstr ""
 "külön-külön meg kell adnia, mi történjen, amint a fájl nézete fókuszt kap."
 
 #: lib/kateconfigdialog.cpp:182
-#, fuzzy, kde-format
-#| msgid "Top Sidebar"
+#, kde-format
 msgid "&Sidebars"
-msgstr "Felső oldalsáv"
+msgstr "Oldal&sávok"
 
 #: lib/kateconfigdialog.cpp:185
 #, kde-format
@@ -1167,10 +1151,9 @@ msgid "&Backward button pressed:"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:296
-#, fuzzy, kde-format
-#| msgid "&Previous Tab"
+#, kde-format
 msgid "Previous tab"
-msgstr "E&lőző lap"
+msgstr "Előző lap"
 
 #: lib/kateconfigdialog.cpp:296
 #, fuzzy, kde-format
@@ -1184,10 +1167,9 @@ msgid "&Forward button pressed:"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:307
-#, fuzzy, kde-format
-#| msgid "&Next Tab"
+#, kde-format
 msgid "Next tab"
-msgstr "&Következő lap"
+msgstr "Következő lap"
 
 #: lib/kateconfigdialog.cpp:307
 #, fuzzy, kde-format
@@ -2331,11 +2313,10 @@ msgid ""
 msgstr ""
 
 #: lib/kateviewmanager.cpp:530
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Fájl megnyitása"
+msgstr "Mappa megnyitása"
 
 #: lib/kateviewmanager.cpp:531
 #, fuzzy, kde-format
@@ -2821,10 +2802,9 @@ msgid "No saved sessions"
 msgstr "Nem kell &elmenteni a munkamenetet"
 
 #: lib/welcomeview/welcomeview.cpp:246
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Fájl megnyitása"
+msgstr "Kiválasztott fájlok megnyitása…"
 
 #: lib/welcomeview/welcomeview.cpp:259
 #, fuzzy, kde-format
@@ -2842,87 +2822,79 @@ msgstr "&Eltávolítás"
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr ""
+msgstr "Üdvözöljük"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Fájl megnyitása"
+msgstr "Új fájl"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Folder..."
-msgstr "Fájl megnyitása"
+msgstr "Mappa megnyitása…"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgid "Delete File?"
+#, kde-format
 msgid "Recent Files"
-msgstr "Fájl törlése"
+msgstr "Legutóbbi fájlok"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Fájl megnyitása"
+msgstr "Fájl megnyitása…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Legutóbbi fájlok törlése"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:270
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "&Súgó"
+msgstr "Súgó"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:280
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Honlap megnyitása"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:293
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Közreműködés"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:306
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Kézikönyv olvasása"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:353
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "Munkamenet menté&se"
+msgstr "Mentett munkamenetek"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:389
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "&Munkamenetkezelő…"
+msgstr "Munkamenetkezelő…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show for new window"
-msgstr "Új dokumentum létrehozása"
+msgstr "Megjelenítés új ablakhoz"
 
 #~ msgid ""
 #~ "Internal error: there is more than one instance open for a given session."

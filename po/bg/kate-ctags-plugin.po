@@ -467,6 +467,3 @@ msgstr "Програмата CTags приключи с грешка"
 #| msgid "The CTags program exited with code %1: %2"
 msgid "The CTags program exited with code %2: %1"
 msgstr "Програмата CTags приключи с код %1: %2"
-
-#~ msgid "Failed to run \"%1\". exitStatus = %2"
-#~ msgstr "Грешка при изпълнение на \"%1\". exitStatus = %2"

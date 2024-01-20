@@ -231,7 +231,9 @@ void KateConsole::loadConsoleIfNeeded()
         // clang-format on
     }
 
-    slotSync();
+    if (KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("AutoSyncronize", true)) {
+        slotSync();
+    }
 }
 
 static bool isCtrlShiftT(QKeyEvent *ke)

@@ -33,7 +33,7 @@ public:
     Snippet();
     ~Snippet() override;
 
-    static constexpr inline int SnippetItemType = QStandardItem::UserType + 1;
+    static constexpr inline int SnippetItemType = QStandardItem::UserType + 2;
 
     int type() const override
     {

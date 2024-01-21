@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-01-21 00:39+0000\n"
 "PO-Revision-Date: 2021-12-23 14:50+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Nem rendelkezik elég karmával a parancsértelmező vagy terminálemulátor "
 "használatához"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:653
+#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:655
 #, kde-format
 msgid "Terminal"
 msgstr "Terminál"
@@ -50,7 +50,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Aktuális dokumentum futtatása"
 
-#: kateconsole.cpp:156 kateconsole.cpp:503
+#: kateconsole.cpp:156 kateconsole.cpp:505
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -62,13 +62,13 @@ msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "&Fókusz a terminál panelre"
 
-#: kateconsole.cpp:302
+#: kateconsole.cpp:304
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 
-#: kateconsole.cpp:378
+#: kateconsole.cpp:380
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -77,27 +77,27 @@ msgstr ""
 "Biztosan át szeretné irányítani a szöveget a terminálba? Ezzel bármely "
 "parancs, amit a szöveg tartalmaz, az Ön jogosultságaival hajtódik végre."
 
-#: kateconsole.cpp:379
+#: kateconsole.cpp:381
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Átirányítja a terminálba?"
 
-#: kateconsole.cpp:380
+#: kateconsole.cpp:382
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Átirányítás a terminálba"
 
-#: kateconsole.cpp:408
+#: kateconsole.cpp:410
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
 msgstr "Nem sikerült átváltani ebbe a mappába: „%1”"
 
-#: kateconsole.cpp:444
+#: kateconsole.cpp:446
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "Nem helyi fájl: „%1”"
 
-#: kateconsole.cpp:477
+#: kateconsole.cpp:479
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -110,33 +110,33 @@ msgstr ""
 "Ön jogosultságaival a terminálban:\n"
 "„%1”"
 
-#: kateconsole.cpp:484
+#: kateconsole.cpp:486
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Futtatás a terminálban?"
 
-#: kateconsole.cpp:485
+#: kateconsole.cpp:487
 #, kde-format
 msgid "Run"
 msgstr "Futtatás"
 
-#: kateconsole.cpp:500
+#: kateconsole.cpp:502
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "Terminál panel el&rejtése"
 
-#: kateconsole.cpp:511
+#: kateconsole.cpp:513
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Fókuszelvétel a terminál panelről"
 
-#: kateconsole.cpp:512 kateconsole.cpp:513
+#: kateconsole.cpp:514 kateconsole.cpp:515
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Fókusz a terminál panelre"
 
-#: kateconsole.cpp:586
+#: kateconsole.cpp:588
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
@@ -145,27 +145,27 @@ msgstr ""
 "&Automatikus szinkronizálás a terminál és az aktuális dokumentum között, "
 "amikor lehetséges"
 
-#: kateconsole.cpp:590 kateconsole.cpp:611
+#: kateconsole.cpp:592 kateconsole.cpp:613
 #, kde-format
 msgid "Run in terminal"
 msgstr "Futtatás terminálban"
 
-#: kateconsole.cpp:592
+#: kateconsole.cpp:594
 #, kde-format
 msgid "&Remove extension"
 msgstr "Kiterjesztés el&távolítása"
 
-#: kateconsole.cpp:597
+#: kateconsole.cpp:599
 #, kde-format
 msgid "Prefix:"
 msgstr "Előtag:"
 
-#: kateconsole.cpp:605
+#: kateconsole.cpp:607
 #, kde-format
 msgid "&Show warning next time"
 msgstr "Figyelmeztetés megjeleníté&se legközelebb"
 
-#: kateconsole.cpp:607
+#: kateconsole.cpp:609
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -174,12 +174,12 @@ msgstr ""
 "A(z) „%1” legközelebbi végrehajtásakor jelenjen meg egy felugró "
 "figyelmeztető ablak, a terminálban futtatandó parancs ellenőrzéséhez."
 
-#: kateconsole.cpp:618
+#: kateconsole.cpp:620
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Az &EDITOR környezeti változó beállítása erre: „kate -b”"
 
-#: kateconsole.cpp:621
+#: kateconsole.cpp:623
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -188,12 +188,12 @@ msgstr ""
 "Fontos: a konzolos alkalmazás futásának folytatása előtt a dokumentumot be "
 "kell zárni"
 
-#: kateconsole.cpp:624
+#: kateconsole.cpp:626
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Konsole elrejtése az „Esc” megnyomásakor"
 
-#: kateconsole.cpp:627
+#: kateconsole.cpp:629
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -203,7 +203,7 @@ msgstr ""
 "Esc gombot, mint például a vim. Adja hozzá ezeket az alkalmazásokat a lenti "
 "mezőben, vesszővel elválasztva"
 
-#: kateconsole.cpp:658
+#: kateconsole.cpp:660
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminálbeállítások"

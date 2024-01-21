@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-01-21 02:24+0000\n"
 "PO-Revision-Date: 2023-11-25 14:48+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "Bir kabuğa veya uçbirim öykünücüsüne erişmek için yeterli hakkınız yok"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:653
+#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:655
 #, kde-format
 msgid "Terminal"
 msgstr "Uçbirim"
@@ -50,7 +50,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Geçerli Belgeyi Çalıştır"
 
-#: kateconsole.cpp:156 kateconsole.cpp:503
+#: kateconsole.cpp:156 kateconsole.cpp:505
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -62,7 +62,7 @@ msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "Uçbirim Paneline &Odaklan"
 
-#: kateconsole.cpp:302
+#: kateconsole.cpp:304
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
@@ -70,7 +70,7 @@ msgstr ""
 "Konsole kurulu değil. Uçbirimi kullanabilmek için lütfen Konsole "
 "uygulamasını kurun."
 
-#: kateconsole.cpp:378
+#: kateconsole.cpp:380
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -79,27 +79,27 @@ msgstr ""
 "Gerçekten metni uçbirime veriyolu yapmak istiyor musunuz? Bu işlem içerilen "
 "birçok komutu sizin kullanıcı haklarınızla çalıştıracak."
 
-#: kateconsole.cpp:379
+#: kateconsole.cpp:381
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Uçbirime veriyolu yapılsın mı?"
 
-#: kateconsole.cpp:380
+#: kateconsole.cpp:382
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Uçbirime Veriyolu Yap"
 
-#: kateconsole.cpp:408
+#: kateconsole.cpp:410
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
 msgstr "Üzgünüm, '%1' içine cd yapılamadı"
 
-#: kateconsole.cpp:444
+#: kateconsole.cpp:446
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "Yerel bir dosya değil: '%1'"
 
-#: kateconsole.cpp:477
+#: kateconsole.cpp:479
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -112,60 +112,60 @@ msgstr ""
 "kullanıcı haklarınızla çalıştıracak:\n"
 "'%1'"
 
-#: kateconsole.cpp:484
+#: kateconsole.cpp:486
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Uçbirimde çalıştırılsın mı?"
 
-#: kateconsole.cpp:485
+#: kateconsole.cpp:487
 #, kde-format
 msgid "Run"
 msgstr "Çalıştır"
 
-#: kateconsole.cpp:500
+#: kateconsole.cpp:502
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "Uçbirim &Panelini Gizle"
 
-#: kateconsole.cpp:511
+#: kateconsole.cpp:513
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Uçbirim Panelindeki Odağı Kaldır"
 
-#: kateconsole.cpp:512 kateconsole.cpp:513
+#: kateconsole.cpp:514 kateconsole.cpp:515
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Uçbirim Paneline Odaklan"
 
-#: kateconsole.cpp:586
+#: kateconsole.cpp:588
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
 msgstr "Olanaklıysa uçbirimi geçerli belgeyle eşzamanla"
 
-#: kateconsole.cpp:590 kateconsole.cpp:611
+#: kateconsole.cpp:592 kateconsole.cpp:613
 #, kde-format
 msgid "Run in terminal"
 msgstr "Uçbirimde çalıştır"
 
-#: kateconsole.cpp:592
+#: kateconsole.cpp:594
 #, kde-format
 msgid "&Remove extension"
 msgstr "Uzantıyı &kaldır"
 
-#: kateconsole.cpp:597
+#: kateconsole.cpp:599
 #, kde-format
 msgid "Prefix:"
 msgstr "Önek:"
 
-#: kateconsole.cpp:605
+#: kateconsole.cpp:607
 #, kde-format
 msgid "&Show warning next time"
 msgstr "Sonraki Kez Uyarı &Göster"
 
-#: kateconsole.cpp:607
+#: kateconsole.cpp:609
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -174,12 +174,12 @@ msgstr ""
 "'%1' bir sonraki çalıştırıldığında, bir uyarı penceresinin açıldığından emin "
 "olun,incelenmek üzere uçbirime gönderilecek komutu gösterir."
 
-#: kateconsole.cpp:618
+#: kateconsole.cpp:620
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "&EDITOR çevre değişkenini 'kate -b' olarak ayarla"
 
-#: kateconsole.cpp:621
+#: kateconsole.cpp:623
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -188,12 +188,12 @@ msgstr ""
 "Önemli: Uçbirim uygulamasının sürdürülebilmesi için belgenin kapatılması "
 "gerekir"
 
-#: kateconsole.cpp:624
+#: kateconsole.cpp:626
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "'Vazgeç'e basıldığında Konsole'yi gizle"
 
-#: kateconsole.cpp:627
+#: kateconsole.cpp:629
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -203,7 +203,7 @@ msgstr ""
 "çıkarabilir; örneğin, Vim. Bu uygulamaları aşağıdaki metin kutusuna ekleyin "
 "(virgülle ayırarak)"
 
-#: kateconsole.cpp:658
+#: kateconsole.cpp:660
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Uçbirim Ayarları"

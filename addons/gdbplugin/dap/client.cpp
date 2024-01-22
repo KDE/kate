@@ -514,12 +514,12 @@ void Client::requestConfigurationDone()
         return;
     }
 
-    this->write(makeRequest(QStringLiteral("configurationDone"), QJsonValue(), make_response_handler(&Client::processResponseConfigurationDone, this)));
+    this->write(makeRequest(QStringLiteral("configurationDone"), QJsonObject{}, make_response_handler(&Client::processResponseConfigurationDone, this)));
 }
 
 void Client::requestThreads()
 {
-    this->write(makeRequest(DAP_THREADS, QJsonValue(), make_response_handler(&Client::processResponseThreads, this)));
+    this->write(makeRequest(DAP_THREADS, QJsonObject{}, make_response_handler(&Client::processResponseThreads, this)));
 }
 
 void Client::requestStackTrace(int threadId, int startFrame, int levels)

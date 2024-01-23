@@ -33,7 +33,7 @@
 >Vista general</title>
 
 <para
->El ressaltat de la sintaxi és el que fa que l'editor mostri automàticament text en diferents estils/colors, depenent de la funció de la cadena en relació amb la finalitat del fitxer. En el codi font d'un programa, per exemple, les sentències de control es poden presentar en negreta, mentre que els tipus de dades i els comentaris poden tenir diferents colors que la resta del text. Això millora considerablement la llegibilitat del text, i ajuda a l'autor a ser més eficient i productiu.</para>
+>El ressaltat de la sintaxi és el que fa que l'editor mostri automàticament text en diferents estils/colors, depenent de la funció de la cadena en relació amb la finalitat del fitxer. En el codi font d'un programa, per exemple, les sentències de control es poden presentar en negreta, mentre que els tipus de dades i els comentaris poden tenir diferents colors que la resta del text. Això millora considerablement la llegibilitat del text, i ajuda l'autor a ser més eficient i productiu.</para>
 
 <mediaobject>
 <imageobject
@@ -6776,7 +6776,7 @@ bool document.wrapLine(<parameter
 ><para
 >Cerca la següent línia tocada començant per la <replaceable
 >línia</replaceable
->. La cerca es realitza amunt o avall depenent de la direcció especificada a <replaceable
+>. La cerca es realitza amunt o avall depenent de la direcció especificada en <replaceable
 >avall</replaceable
 >. </para>
 <para

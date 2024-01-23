@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-14 00:39+0000\n"
-"PO-Revision-Date: 2024-01-18 09:46+0100\n"
+"PO-Revision-Date: 2024-01-22 11:29+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -2822,7 +2822,7 @@ msgstr "&Eltávolítás"
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr "Üdvözöljük"
+msgstr "Kezdőlap"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179

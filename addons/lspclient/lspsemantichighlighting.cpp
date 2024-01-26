@@ -84,6 +84,7 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
         if (visibleRange.end().line() + 8 < view->document()->lines()) {
             auto e = visibleRange.end();
             e.setLine(e.line() + 8);
+            e.setColumn(view->document()->lineLength(e.line()));
             visibleRange.setEnd(e);
         }
         m_currentHighlightedRange = visibleRange;

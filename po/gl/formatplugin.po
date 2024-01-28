@@ -1,0 +1,101 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Adrián Chaves (Gallaecio)
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2023-12-13 01:36+0000\n"
+"PO-Revision-Date: 2024-01-27 11:02+0100\n"
+"Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
+"Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.08.4\n"
+
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
+#: FormatterFactory.h:59
+#, kde-format
+msgid "Format"
+msgstr "Formatar"
+
+#: FormatApply.h:22
+#, kde-format
+msgid "Failed to write a temp file"
+msgstr "Non foi posíbel escribir un ficheiro temporal."
+
+#: FormatApply.h:35
+#, kde-format
+msgid "Failed to run git diff: %1"
+msgstr "Non foi posíbel executar «git diff»: %1"
+
+#: FormatConfig.cpp:122
+#, kde-format
+msgid "User Settings"
+msgstr "Configuración persoal"
+
+#: FormatConfig.cpp:130
+#, kde-format
+msgid "Default Settings"
+msgstr "Configuración predeterminada"
+
+#: FormatConfig.h:19 FormatPlugin.cpp:112
+#, kde-format
+msgid "Formatting"
+msgstr "Formatación"
+
+#: FormatConfig.h:24
+#, kde-format
+msgid "Formatting Settings"
+msgstr "Configuración de formatación"
+
+#: FormatPlugin.cpp:82
+#, kde-format
+msgid "Failed to read settings.json. Error: %1"
+msgstr "Non foi posíbel ler «settings.json». Erro: %1"
+
+#: FormatPlugin.cpp:118
+#, kde-format
+msgid "Format Document"
+msgstr "Formatar o documento"
+
+#: FormatPlugin.cpp:136
+#, kde-format
+msgid "Format on Save"
+msgstr "Formatar ao gardar"
+
+#: FormatPlugin.cpp:139
+#, kde-format
+msgid "Disable formatting on save without persisting it in settings"
+msgstr "Desactivar a formatación ao gardar sen aplicalo á configuración."
+
+#: FormatterFactory.h:59
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr ""
+"Non foi posíbel executar o formatador. Non é compatíbel coa linguaxe «%1»."
+
+#: Formatters.cpp:110
+#, kde-format
+msgid "%1: Unexpected empty command!"
+msgstr "%1: a orde está inesperadamente baleira!"
+
+#: Formatters.cpp:117
+#, kde-format
+msgid ""
+"%1 is not installed, please install it to be able to format this document!"
+msgstr "%1 non se instalou, debe instalarse para formatar o documento!"
+
+#: Formatters.cpp:252
+#, kde-format
+msgid "Please install node and prettier"
+msgstr "Instale «node» e «prettier»."
+
+#: Formatters.cpp:259
+#, kde-format
+msgid "PrettierFormat: Failed to create temporary file"
+msgstr "PrettierFormat: non foi posíbel crear un ficheiro temporal."

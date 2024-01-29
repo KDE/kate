@@ -3993,7 +3993,7 @@ Projects Replicode run / stop-->
 >Configuració del client LSP de símbols d'esquema</title>
 
 <para
->De manera predeterminada, els símbols s'ordenen per la seva aparició en el document, però podeu canviar l'ordenació perquè sigui alfabètica. Per fer-ho, feu clic dret a la vista d'eina i marqueu «Ordena alfabèticament». </para>
+>De manera predeterminada, els símbols s'ordenen per la seva aparició en el document, però podeu canviar l'ordenació perquè sigui alfabètica. Per a fer-ho, feu clic dret a la vista d'eina i marqueu «Ordena alfabèticament». </para>
 
 <para
 >La vista d'eina mostra els símbols en mode arbre de manera predeterminada, però podeu canviar-ho a una llista utilitzant el menú contextual. </para>

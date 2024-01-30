@@ -760,7 +760,13 @@ void DiagnosticsView::onDoubleClicked(const QModelIndex &index, bool quickFix)
 
 void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
 {
-    if (m_diagnosticsCount > 12000) {
+    auto view = m_mainWindow->activeView();
+    auto doc = view ? view->document() : nullptr;
+    // We allow diagnostics for the active document always because it might be that diagnostic limit is reached
+    // and the user doesn't know about it and thus won't get any further diagnostics at all while typing
+    const bool diagnosticsAreForActiveDoc = doc ? diagnostics.uri == doc->url() : false;
+
+    if (m_diagnosticsCount > 12000 && !diagnosticsAreForActiveDoc) {
         return;
     }
 

@@ -944,7 +944,8 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QString> &filesTo
                 // If the diagnostics of this file item are from multiple providers
                 // delete the ones from @p provider
                 bulk_remove(&m_model, start, count, i);
-                fileItem->removeItemsForProvider(provider);
+                int removedCount = fileItem->removeItemsForProvider(provider);
+                m_diagnosticsCount -= removedCount;
             } else {
                 if (start == -1) {
                     start = i;

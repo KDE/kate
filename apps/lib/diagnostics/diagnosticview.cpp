@@ -18,6 +18,7 @@
 #include <KTextEditor/MainWindow>
 
 #include <KColorScheme>
+#include <KMessageWidget>
 #include <KXMLGUIFactory>
 #include <QClipboard>
 #include <QComboBox>
@@ -264,6 +265,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     , m_providerCombo(new QComboBox(this))
     , m_errFilterBtn(new QToolButton(this))
     , m_warnFilterBtn(new QToolButton(this))
+    , m_diagLimitReachedWarning(new KMessageWidget(this))
     , m_proxy(new DiagnosticsProxyModel(this))
     , m_sessionDiagnosticSuppressions(std::make_unique<SessionDiagnosticSuppressions>())
     , m_posChangedTimer(new QTimer(this))
@@ -277,6 +279,14 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     auto l = new QVBoxLayout(this);
     l->setContentsMargins({});
     setupDiagnosticViewToolbar(l);
+
+    m_diagLimitReachedWarning->setText(i18n("Diagnostics limit reached, ignoring further diagnostics. The limit can be configured in settings."));
+    m_diagLimitReachedWarning->setWordWrap(true);
+    m_diagLimitReachedWarning->setCloseButtonVisible(false);
+    m_diagLimitReachedWarning->setMessageType(KMessageWidget::Warning);
+    l->addWidget(m_diagLimitReachedWarning);
+    m_diagLimitReachedWarning->hide(); // hidden by default
+
     l->addWidget(m_diagnosticsTree);
 
     m_filterChangedTimer->setInterval(400);
@@ -470,6 +480,7 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
         }
         m_model.clear();
         m_diagnosticsCount = 0;
+        m_diagLimitReachedWarning->hide();
     });
     l->addWidget(m_clearButton);
 }
@@ -770,6 +781,14 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         return;
     }
 
+    auto diagWarnShowGuard = qScopeGuard([this] {
+        if (m_diagnosticsCount > 12000 && !m_diagLimitReachedWarning->isVisible()) {
+            m_diagLimitReachedWarning->show();
+        } else if (m_diagnosticsCount < 12000 && m_diagLimitReachedWarning->isVisible()) {
+            m_diagLimitReachedWarning->hide();
+        }
+    });
+
     auto *provider = qobject_cast<DiagnosticsProvider *>(sender());
     Q_ASSERT(provider);
 
@@ -882,6 +901,12 @@ static auto getProvider(QStandardItem *item)
 
 void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QString> &filesToKeep, DiagnosticsProvider *provider)
 {
+    auto diagWarnShowGuard = qScopeGuard([this] {
+        if (m_diagnosticsCount < 12000 && m_diagLimitReachedWarning->isVisible()) {
+            m_diagLimitReachedWarning->hide();
+        }
+    });
+
     auto all_diags_from_provider = [provider](DocumentDiagnosticItem *file) {
         if (file->rowCount() == 0) {
             return true;

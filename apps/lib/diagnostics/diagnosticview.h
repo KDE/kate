@@ -229,6 +229,7 @@ private:
     class QComboBox *const m_providerCombo;
     class QToolButton *const m_errFilterBtn;
     class QToolButton *const m_warnFilterBtn;
+    class KMessageWidget *const m_diagLimitReachedWarning;
 
     class ProviderListModel *m_providerModel;
 

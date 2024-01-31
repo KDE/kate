@@ -7,7 +7,7 @@
 # Teemu Rytilahti <tpr@d5k.net>, 2003, 2005.
 # Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006.
 # Tommi Nieminen <translator@legisign.org>, 2009.
-# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2022.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011, 2012.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-21 02:33+0000\n"
-"PO-Revision-Date: 2023-07-25 19:54+0300\n"
+"PO-Revision-Date: 2024-01-29 17:51+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -86,8 +86,8 @@ msgid ""
 "kate instance already has the given session opened), forced if no parameters "
 "and no URLs are given at all."
 msgstr ""
-"Saa Katen käynnistämään uuden instanssin (ohitetaan, jos käytetään "
-"käynnistystä ja toisessa Katen instanssissa on jo valittu istunto auki). "
+"Saa Katen käynnistämään uuden ilmentymän (ohitetaan, jos käytetään "
+"käynnistystä ja toisessa Kate-ilmentymässä on valittu istunto jo auki). "
 "Pakotetaan, ellei muita parametreja eikä osoitteita ole annettu."
 
 #: kate/main.cpp:161
@@ -96,7 +96,7 @@ msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr ""
-"Jos käytetään jo käynnissä olevaa Katen instanssia, odotetaan kunnes se "
+"Jos käytetään jo käynnissä olevaa Kate-ilmentymää, odotetaan kunnes se "
 "päättyy, elleivät osoitteet avaudu."
 
 #: kate/main.cpp:167
@@ -105,8 +105,8 @@ msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
-"Yritä käyttää vain sitä Katen instanssia, jolla on tämä PID (ohitetaan, jos "
-"käytetään käynnistystä ja toisessa Katen instanssissa on jo valittu istunto "
+"Yritä käyttää vain sitä Kate-ilmentymää, jolla on tämä PID (ohitetaan, jos "
+"käytetään käynnistystä ja toisessa Kate-ilmentymässä on valittu istunto jo "
 "auki)."
 
 #: kate/main.cpp:168
@@ -2493,7 +2493,7 @@ msgstr "Poista"
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
-msgstr "Sisäinen virhe: useampi kuin yksi instanssi auki valittuun istuntoon"
+msgstr "Sisäinen virhe: valitulle istunnolle auki useampi kuin yksi ilmentymä."
 
 #: lib/session/katesessionmanager.cpp:140
 #, kde-format
@@ -2501,14 +2501,14 @@ msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
-"Istunto ”%1” on jo auki toisessa Katen instanssissa: vaihdetaanko sinne "
+"Istunto ”%1” on jo auki toisessa Kate-ilmentymässä: vaihdetaanko sinne "
 "uudelleenavauksen sijaan?"
 
 #: lib/session/katesessionmanager.cpp:142
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
-msgstr "Vaihda instanssia"
+msgstr "Vaihda ilmentymää"
 
 #: lib/session/katesessionmanager.cpp:143
 #, kde-format

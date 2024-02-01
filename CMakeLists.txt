@@ -36,6 +36,7 @@ include(FindIntl)
 
 # Required here so that the version comparison below works
 find_package(Qt6Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
+find_package(Qt6Concurrent ${QT_MIN_VERSION} CONFIG REQUIRED)
 
 # Required here so that the ki18n_install/kdoctools_install calls work.
 find_package(KF6 ${KF5_DEP_VERSION}

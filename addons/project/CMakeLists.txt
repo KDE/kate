@@ -1,12 +1,3 @@
-find_package(Qt6Concurrent ${QT_MIN_VERSION} QUIET)
-find_package(KF6GuiAddons ${KF5_DEP_VERSION} QUIET)
-
-set_package_properties(KF6GuiAddons PROPERTIES PURPOSE "Required to build the project addon")
-
-if(NOT KF6_FOUND OR NOT Qt6Concurrent_FOUND)
-  return()
-endif()
-
 kate_add_plugin(kateprojectplugin)
 target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="kateproject")
 

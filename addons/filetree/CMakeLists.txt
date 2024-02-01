@@ -1,10 +1,3 @@
-find_package(KF6GuiAddons ${KF5_DEP_VERSION} QUIET)
-set_package_properties(KF6GuiAddons PROPERTIES PURPOSE "Required to build the katefiletree addon")
-
-if(NOT KF6GuiAddons_FOUND)
-  return()
-endif()
-
 kate_add_plugin(katefiletreeplugin)
 
 target_compile_definitions(katefiletreeplugin PRIVATE TRANSLATION_DOMAIN="katefiletree")

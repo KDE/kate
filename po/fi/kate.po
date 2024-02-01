@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-14 00:39+0000\n"
+"POT-Creation-Date: 2024-02-01 00:39+0000\n"
 "PO-Revision-Date: 2024-01-29 17:51+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -267,7 +267,7 @@ msgstr "&Työkalut"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:274
+#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:276
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -313,120 +313,127 @@ msgstr ""
 "Virhe säännöllisessä lausekkeessa: %1\n"
 "sijainti %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:59
+#: lib/diagnostics/diagnosticview.cpp:60
 #, kde-format
 msgid "All"
 msgstr "Kaikki"
 
-#: lib/diagnostics/diagnosticview.cpp:316
+#: lib/diagnostics/diagnosticview.cpp:283
+#, kde-format
+msgid ""
+"Diagnostics limit reached, ignoring further diagnostics. The limit can be "
+"configured in settings."
+msgstr ""
+
+#: lib/diagnostics/diagnosticview.cpp:326
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Diagnostiikkanäkymä"
 
-#: lib/diagnostics/diagnosticview.cpp:321
+#: lib/diagnostics/diagnosticview.cpp:331
 #, kde-format
 msgid "Quick Fix"
 msgstr "Pikakorjaa"
 
-#: lib/diagnostics/diagnosticview.cpp:327
+#: lib/diagnostics/diagnosticview.cpp:337
 #, kde-format
 msgid "Next Item"
 msgstr "Seuraava kohta"
 
-#: lib/diagnostics/diagnosticview.cpp:333
+#: lib/diagnostics/diagnosticview.cpp:343
 #, kde-format
 msgid "Previous Item"
 msgstr "Edellinen kohta"
 
-#: lib/diagnostics/diagnosticview.cpp:341
+#: lib/diagnostics/diagnosticview.cpp:351
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Tyhjennä diagnostiikkasuodatin"
 
-#: lib/diagnostics/diagnosticview.cpp:386
+#: lib/diagnostics/diagnosticview.cpp:396
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostiikka"
 
-#: lib/diagnostics/diagnosticview.cpp:429
+#: lib/diagnostics/diagnosticview.cpp:439
 #, kde-format
 msgid "Errors"
 msgstr "Virheet"
 
-#: lib/diagnostics/diagnosticview.cpp:445
+#: lib/diagnostics/diagnosticview.cpp:455
 #, kde-format
 msgid "Warnings"
 msgstr "Varoitukset"
 
-#: lib/diagnostics/diagnosticview.cpp:459
+#: lib/diagnostics/diagnosticview.cpp:469
 #, kde-format
 msgid "Filter..."
 msgstr "Suodata…"
 
-#: lib/diagnostics/diagnosticview.cpp:1045 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1077 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "Virhe"
 
-#: lib/diagnostics/diagnosticview.cpp:1049 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1081 lib/kateconfigdialog.cpp:151
 #: lib/kateconfigdialog.cpp:685
 #, kde-format
 msgid "Warning"
 msgstr "Varoitus"
 
-#: lib/diagnostics/diagnosticview.cpp:1053
+#: lib/diagnostics/diagnosticview.cpp:1085
 #, kde-format
 msgid "Information"
 msgstr "Tietoa"
 
-#: lib/diagnostics/diagnosticview.cpp:1173
+#: lib/diagnostics/diagnosticview.cpp:1205
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [estetty: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1312
+#: lib/diagnostics/diagnosticview.cpp:1344
 #, kde-format
 msgid "Expand All"
 msgstr "Laajenna kaikki"
 
-#: lib/diagnostics/diagnosticview.cpp:1313
+#: lib/diagnostics/diagnosticview.cpp:1345
 #, kde-format
 msgid "Collapse All"
 msgstr "Supista kaikki"
 
-#: lib/diagnostics/diagnosticview.cpp:1319
+#: lib/diagnostics/diagnosticview.cpp:1351
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopioi leikepöydälle"
 
-#: lib/diagnostics/diagnosticview.cpp:1344
+#: lib/diagnostics/diagnosticview.cpp:1376
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Poista yleinen esto"
 
-#: lib/diagnostics/diagnosticview.cpp:1346
+#: lib/diagnostics/diagnosticview.cpp:1378
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Lisää yleinen esto"
 
-#: lib/diagnostics/diagnosticview.cpp:1350
+#: lib/diagnostics/diagnosticview.cpp:1382
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Poista paikallinen esto"
 
-#: lib/diagnostics/diagnosticview.cpp:1352
+#: lib/diagnostics/diagnosticview.cpp:1384
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Lisää paikallinen esto"
 
-#: lib/diagnostics/diagnosticview.cpp:1367
+#: lib/diagnostics/diagnosticview.cpp:1399
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Poista esto käytöstä"
 
-#: lib/diagnostics/diagnosticview.cpp:1369
+#: lib/diagnostics/diagnosticview.cpp:1401
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Ota esto käyttöön"

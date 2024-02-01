@@ -6712,7 +6712,7 @@ bool document.removeText(<parameter
 ><para
 >Verilen erimdeki metni kaldırır. Başarı durumunda <literal
 >true</literal
->, belge salt okunur kipteyse <literal
+>, belge saltokunur kipteyse <literal
 >false</literal
 > döndürür. </para
 ></listitem>

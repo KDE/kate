@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2015-12-29 21:21+0200\n"
+"PO-Revision-Date: 2024-02-02 16:40+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: plugin_katexmltools.cpp:118
 #, kde-format
@@ -51,7 +51,7 @@ msgid ""
 "The current file has been identified as a document of type \"%1\". The meta "
 "DTD for this document type will now be loaded."
 msgstr ""
-"Esamas failas buvo identifikuota kaip „%1“ tipo dokumentas. Atsižvelgiant į "
+"Esamas failas buvo identifikuotas kaip „%1“ tipo dokumentas. Atsižvelgiant į "
 "tai dabar bus įkeltas šiam dokumento tipui naudojamas Meta DTD."
 
 #: plugin_katexmltools.cpp:452
@@ -67,7 +67,7 @@ msgstr "Failo „%1“ negalima atidaryti. Serveris pateikia klaidą."
 #: plugin_katexmltools.cpp:487 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
 msgid "XML Plugin Error"
-msgstr "XML papildinio klaida"
+msgstr "XML įskiepio klaida"
 
 #: plugin_katexmltools.cpp:985
 #, kde-format
@@ -101,7 +101,7 @@ msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "
 "supplied):"
 msgstr ""
-"Įveskite XML tag'o vardą ir atributus („<“, „>“ ir uždarantis tag'as bus "
+"Įveskite XML žymės pavadinimą ir atributus („<“, „>“ ir uždaranti žymė bus "
 "pateikti):"
 
 #: pseudo_dtd.cpp:45
@@ -123,10 +123,10 @@ msgid ""
 "You can produce such files with dtdparse. See the Kate Plugin documentation "
 "for more information."
 msgstr ""
-"Failas „%1“ nėra tokio formato, kaip tikėtasi. Pasitikrinkite, ar failas yra "
+"Failas „%1“ nėra tokio formato, kaip tikėtasi. Patikrinkite, ar failas yra "
 "šio tipo:\n"
 "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
-"Jūs galite sukurti tokias failus su dtdparse.  Žr. Kate papildinių "
+"Jūs galite sukurti tokius failus su dtdparse.  Žr. Kate įskiepių "
 "dokumentaciją, jei norite daugiau informacijos."
 
 #: pseudo_dtd.cpp:70
@@ -137,7 +137,7 @@ msgstr "Analizuojama meta DTD..."
 #: pseudo_dtd.cpp:70
 #, kde-format
 msgid "Cancel"
-msgstr "Atsisakau"
+msgstr "Atsisakyti"
 
 #. i18n: ectx: Menu (xml)
 #: ui.rc:6

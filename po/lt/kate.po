@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-14 03:09+0000\n"
-"PO-Revision-Date: 2017-10-02 10:24+0200\n"
+"PO-Revision-Date: 2024-02-02 16:48+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -788,7 +788,7 @@ msgstr "Pablo Martín"
 #: lib/kateapp.cpp:302
 #, kde-format
 msgid "Python Plugin Developer"
-msgstr "Python papildinio kūrėjas"
+msgstr "Python įskiepio kūrėjas"
 
 #: lib/kateapp.cpp:305
 #, kde-format
@@ -1252,12 +1252,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:430
 #, kde-format
 msgid "Plugins"
-msgstr "Papildiniai"
+msgstr "Įskiepiai"
 
 #: lib/kateconfigdialog.cpp:432
 #, kde-format
 msgid "Plugin Manager"
-msgstr "Papildinių tvarkyklė"
+msgstr "Įskiepių tvarkytuvė"
 
 #: lib/kateconfigdialog.cpp:450 lib/kateconfigdialog.cpp:452
 #, kde-format
@@ -1291,7 +1291,7 @@ msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
 "loaded, and will be loaded again the next time Kate is started."
 msgstr ""
-"Čia galite pasižiūrėti visus prieinamus Kate papildinius. Tie, kurie turi "
+"Čia galite pasižiūrėti visus prieinamus Kate įskiepius. Tie, kurie turi "
 "žymę, yra įkelti ir vėl bus įkeliami kitą kartą paleidžiant Kate."
 
 #: lib/katedocmanager.cpp:279
@@ -1631,12 +1631,12 @@ msgstr ""
 #: lib/katemainwindow.cpp:457
 #, kde-format
 msgid "&Plugins Handbook"
-msgstr "&Papildinių vadovas"
+msgstr "Įs&kiepių vadovas"
 
 #: lib/katemainwindow.cpp:459
 #, kde-format
 msgid "This shows help files for various available plugins."
-msgstr "Tai parodys įvairių galimų papildinių žinyno failus."
+msgstr "Tai parodys įvairių galimų įskiepių žinyno failus."
 
 #: lib/katemainwindow.cpp:476
 #, kde-format

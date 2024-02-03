@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2011-08-03 00:12+0300\n"
+"PO-Revision-Date: 2024-02-02 16:41+0200\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 
 #: plugin_katetextfilter.cpp:152
-#, kde-format
+#, fuzzy, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
 "to be able to do this, contact your system administrator."

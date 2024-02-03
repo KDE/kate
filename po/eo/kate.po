@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-01 00:39+0000\n"
-"PO-Revision-Date: 2023-11-25 20:11+0100\n"
+"PO-Revision-Date: 2024-02-02 22:38+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -301,6 +301,8 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
+"Diagnozolimo atingita, ignorante pliajn diagnozojn. La limo povas esti "
+"agordita en agordoj."
 
 #: lib/diagnostics/diagnosticview.cpp:326
 #, kde-format
@@ -2840,8 +2842,3 @@ msgstr "Administri Seancojn..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Montri por nova fenestro"
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr ""
-#~ "Interna eraro: estas pli ol unu okazo malfermita por difinita seanco."

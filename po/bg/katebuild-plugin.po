@@ -390,15 +390,3 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
-
-#~ msgid "Project Plugin Targets"
-#~ msgstr "Цели на приставка на проект"
-
-#~ msgid "build"
-#~ msgstr "build"
-
-#~ msgid "clean"
-#~ msgstr "clean"
-
-#~ msgid "quick"
-#~ msgstr "quick"

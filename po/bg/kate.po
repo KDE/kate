@@ -2846,13 +2846,3 @@ msgstr "Управление на сесиите..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Показване за нов прозорец"
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr ""
-#~ "Вътрешна грешка: има повече от един екземпляр отворен за дадена сесия."
-
-#~ msgid "This view may have unsaved work. Do you really want to close it?"
-#~ msgstr ""
-#~ "Този прозорец може да съдържа незапазена работа. Наистина ли искате да го "
-#~ "затворите?"

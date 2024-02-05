@@ -106,6 +106,7 @@ private:
     QComboBox *m_diffStyle = nullptr;
     QCheckBox *m_urlBarShowSymbols = nullptr;
     QCheckBox *m_openNewTabInFrontOfCurrent = nullptr;
+    QSpinBox *m_diagnosticsLimit = nullptr;
 
     Ui::SessionConfigWidget sessionConfigUi;
 

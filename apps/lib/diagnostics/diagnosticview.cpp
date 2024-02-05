@@ -7,6 +7,7 @@
 
 #include "diagnosticitem.h"
 #include "drawing_utils.h"
+#include "kateapp.h"
 #include "kateviewmanager.h"
 #include "session_diagnostic_suppression.h"
 #include "texthint/KateTextHintManager.h"
@@ -382,6 +383,19 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     // manager has been initialized.
     ac->clearAssociatedWidgets();
     ac->addAssociatedWidget(this);
+
+    auto readConfig = [this] {
+        KSharedConfig::Ptr config = KSharedConfig::openConfig();
+        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+        m_diagnosticLimit = cgGeneral.readEntry("Diagnostics Limit", 12000);
+
+        const bool diagnosticsAreLimited = m_diagnosticLimit > -1;
+        if (!diagnosticsAreLimited && m_diagLimitReachedWarning->isVisible()) {
+            m_diagLimitReachedWarning->hide();
+        }
+    };
+    connect(KateApp::self(), &KateApp::configurationChanged, this, readConfig);
+    readConfig();
 }
 
 DiagnosticsView *DiagnosticsView::instance(KTextEditor::MainWindow *mainWindow)
@@ -777,14 +791,20 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
     // and the user doesn't know about it and thus won't get any further diagnostics at all while typing
     const bool diagnosticsAreForActiveDoc = doc ? diagnostics.uri == doc->url() : false;
 
-    if (m_diagnosticsCount > 12000 && !diagnosticsAreForActiveDoc) {
+    const bool diagnosticsAreLimited = m_diagnosticLimit > -1;
+    if (diagnosticsAreLimited && m_diagnosticsCount > m_diagnosticLimit && !diagnosticsAreForActiveDoc) {
         return;
     }
 
     auto diagWarnShowGuard = qScopeGuard([this] {
-        if (m_diagnosticsCount > 12000 && !m_diagLimitReachedWarning->isVisible()) {
+        const bool diagnosticsAreLimited = m_diagnosticLimit > -1;
+        if (!diagnosticsAreLimited) {
+            return;
+        }
+
+        if (m_diagnosticsCount > m_diagnosticLimit && !m_diagLimitReachedWarning->isVisible()) {
             m_diagLimitReachedWarning->show();
-        } else if (m_diagnosticsCount < 12000 && m_diagLimitReachedWarning->isVisible()) {
+        } else if (m_diagnosticsCount < m_diagnosticLimit && m_diagLimitReachedWarning->isVisible()) {
             m_diagLimitReachedWarning->hide();
         }
     });
@@ -902,7 +922,12 @@ static auto getProvider(QStandardItem *item)
 void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QString> &filesToKeep, DiagnosticsProvider *provider)
 {
     auto diagWarnShowGuard = qScopeGuard([this] {
-        if (m_diagnosticsCount < 12000 && m_diagLimitReachedWarning->isVisible()) {
+        const bool diagnosticsAreLimited = m_diagnosticLimit > -1;
+        if (!diagnosticsAreLimited) {
+            return;
+        }
+
+        if (m_diagnosticsCount < m_diagnosticLimit && m_diagLimitReachedWarning->isVisible()) {
             m_diagLimitReachedWarning->hide();
         }
     });

@@ -336,6 +336,22 @@ void KateConfigDialog::addBehaviorPage()
     m_urlBarShowSymbols->setChecked(cgGeneral.readEntry("Show Symbol In Navigation Bar", true));
     connect(m_urlBarShowSymbols, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
+    buttonGroup = new QGroupBox(i18n("Diagnostics"), generalFrame);
+    vbox = new QVBoxLayout(buttonGroup);
+    hlayout = new QHBoxLayout;
+    vbox->addLayout(hlayout);
+    layout->addWidget(buttonGroup);
+    label = new QLabel(i18n("Diagnostics limit:"), buttonGroup);
+    m_diagnosticsLimit = new QSpinBox(buttonGroup);
+    m_diagnosticsLimit->setRange(-1, 50000);
+    m_diagnosticsLimit->setSpecialValueText(i18n("Unlimited"));
+    m_diagnosticsLimit->setValue(cgGeneral.readEntry("Diagnostics Limit", 12000));
+    m_diagnosticsLimit->setToolTip(i18n("Max number of diagnostics allowed in the Diagnostics toolview."));
+    label->setBuddy(m_diagnosticsLimit);
+    hlayout->addWidget(label);
+    hlayout->addWidget(m_diagnosticsLimit);
+    connect(m_diagnosticsLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
+
     layout->addStretch(1); // :-] works correct without autoadd
 }
 
@@ -603,6 +619,8 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Diff Show Style", m_diffStyle->currentIndex());
 
         cg.writeEntry("Show Symbol In Navigation Bar", m_urlBarShowSymbols->isChecked());
+
+        cg.writeEntry("Diagnostics Limit", m_diagnosticsLimit->value());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

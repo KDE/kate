@@ -249,4 +249,5 @@ private:
     QTimer *const m_filterChangedTimer;
     QTimer *const m_urlChangedTimer;
     std::unique_ptr<KateTextHintProvider> m_textHintProvider;
+    int m_diagnosticLimit = 0;
 };

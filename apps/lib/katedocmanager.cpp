@@ -508,7 +508,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
              */
             doc->writeSessionConfig(urlGroup, flags);
             if (!urlGroup.keyList().isEmpty()) {
-                urlGroup.writeEntry("Url", url);
+                urlGroup.writeEntry("URL", url);
                 urlGroup.writeEntry("Checksum", QString::fromLatin1(checksum));
                 urlGroup.writeEntry("Time", now);
             } else {

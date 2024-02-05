@@ -171,11 +171,11 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     return doc;
 }
 
-QList<QUrl> KateDocManager::popRecentlyClosedURLs()
+QList<QUrl> KateDocManager::popRecentlyClosedUrls()
 {
-    const auto recentlyClosedURLs = m_recentlyClosedURLs;
-    m_recentlyClosedURLs.clear();
-    return recentlyClosedURLs;
+    const auto recentlyClosedUrls = m_recentlyClosedUrls;
+    m_recentlyClosedUrls.clear();
+    return recentlyClosedUrls;
 }
 
 bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl)
@@ -184,12 +184,14 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
         return false;
     }
 
-    m_recentlyClosedURLs.clear();
+    m_recentlyClosedUrls.clear();
     for (const auto &document : documents) {
-        const auto &docInfo = m_docInfos.at(document);
+        if (const auto &docInfoItr = m_docInfos.find(document); docInfoItr != m_docInfos.end()) {
+            const auto &docInfo = docInfoItr->second;
 
-        if (!docInfo.normalizedUrl.isEmpty()) {
-            m_recentlyClosedURLs.push_back(docInfo.normalizedUrl);
+            if (!docInfo.normalizedUrl.isEmpty()) {
+                m_recentlyClosedUrls.push_back(docInfo.normalizedUrl);
+            }
         }
     }
 
@@ -506,7 +508,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
              */
             doc->writeSessionConfig(urlGroup, flags);
             if (!urlGroup.keyList().isEmpty()) {
-                urlGroup.writeEntry("URL", url);
+                urlGroup.writeEntry("Url", url);
                 urlGroup.writeEntry("Checksum", QString::fromLatin1(checksum));
                 urlGroup.writeEntry("Time", now);
             } else {

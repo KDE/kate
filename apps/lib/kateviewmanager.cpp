@@ -403,9 +403,11 @@ void KateViewManager::slotDocumentClose()
 void KateViewManager::slotRestoreLastClosedDocument()
 {
     const auto &documentManager = KateApp::self()->documentManager();
-    const auto recentlyClosedUrls = documentManager->popRecentlyClosedURLs();
-
-    openUrls(recentlyClosedUrls, QString());
+    if (const auto recentlyClosedUrls = documentManager->popRecentlyClosedUrls(); !recentlyClosedUrls.isEmpty()) {
+        if (const auto restoredDoc = openUrls(recentlyClosedUrls, QString())) {
+            activateView(restoredDoc);
+        }
+    }
 }
 
 KTextEditor::Document *

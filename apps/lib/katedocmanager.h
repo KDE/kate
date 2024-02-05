@@ -53,7 +53,7 @@ public:
 
     KateDocumentInfo *documentInfo(KTextEditor::Document *doc);
 
-    /** Returns the documentNumber of the doc with url URL or -1 if no such doc is found */
+    /** Returns the documentNumber of the doc with url Url or -1 if no such doc is found */
     KTextEditor::Document *findDocument(const QUrl &url) const;
 
     const QList<KTextEditor::Document *> &documentList() const
@@ -66,7 +66,7 @@ public:
     std::vector<KTextEditor::Document *>
     openUrls(const QList<QUrl> &, const QString &encoding = QString(), const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    QList<QUrl> popRecentlyClosedURLs();
+    QList<QUrl> popRecentlyClosedUrls();
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
     bool closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl = true);
@@ -177,7 +177,7 @@ private:
     bool m_saveMetaInfos;
     int m_daysMetaInfos;
 
-    QList<QUrl> m_recentlyClosedURLs;
+    QList<QUrl> m_recentlyClosedUrls;
 
 private Q_SLOTS:
     void documentOpened();

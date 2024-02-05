@@ -17,10 +17,10 @@ private:
 
 private Q_SLOTS:
     void canCreateDocument();
-    void popRecentlyClosedURLsClearsRecentlyClosedURLs();
-    void popRecentlyClosedURLsReturnsNoneIfNoTabsClosedDuringSession();
-    void popRecentlyClosedURLsReturnsURLIfTabClosedDuringSession();
-    void closeDocumentsWithEmptyURLsAreNotRestorable();
+    void popRecentlyClosedUrlsClearsRecentlyClosedUrls();
+    void popRecentlyClosedUrlsReturnsNoneIfNoTabsClosedDuringSession();
+    void popRecentlyClosedUrlsReturnsUrlIfTabClosedDuringSession();
+    void closedDocumentsWithEmptyUrlsAreNotRestorable();
 
 private:
     std::unique_ptr<KateApp> app;

@@ -757,7 +757,7 @@ The new instance will be identical to your previous instance.
 <guimenuitem>Reopen Latest Closed Tab</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>Reopens the latest closed tab.</para>
+<para>Reopens the latest closed tab or tabs.</para>
 </listitem>
 </varlistentry>
 

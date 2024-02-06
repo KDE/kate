@@ -48,6 +48,7 @@ private:
     class QCheckBox *cbShowFullPath;
     class QCheckBox *cbShowToolbar;
     class QCheckBox *cbShowClose;
+    class QCheckBox *cbMiddleClick;
     KateFileTreePlugin *m_plug;
 
     bool m_changed = false;

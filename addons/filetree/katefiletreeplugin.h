@@ -50,7 +50,8 @@ public:
                      int sortRole,
                      bool showFullPath,
                      bool showToolbar,
-                     bool closeButton);
+                     bool closeButton,
+                     bool middleClickToClose);
 
 public Q_SLOTS:
     void viewDestroyed(QObject *view);

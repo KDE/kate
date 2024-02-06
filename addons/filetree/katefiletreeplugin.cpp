@@ -87,7 +87,8 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled,
                                      int sortRole,
                                      bool showFullPath,
                                      bool showToolbar,
-                                     bool showCloseButton)
+                                     bool showCloseButton,
+                                     bool middleClickToClose)
 {
     // save to settings
     m_settings.setShadingEnabled(shadingEnabled);
@@ -99,6 +100,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled,
     m_settings.setShowFullPathOnRoots(showFullPath);
     m_settings.setShowToolbar(showToolbar);
     m_settings.setShowCloseButton(showCloseButton);
+    m_settings.middleClickToClose = middleClickToClose;
     m_settings.save();
 
     // update views
@@ -113,6 +115,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled,
         view->model()->setShowFullPathOnRoots(showFullPath);
         view->setToolbarVisible(showToolbar);
         view->tree()->setShowCloseButton(showCloseButton);
+        view->tree()->setMiddleClickToClose(middleClickToClose);
     }
 }
 
@@ -149,6 +152,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_fileTree = new KateFileTree(m_mainWindow, m_toolView);
     m_fileTree->setSortingEnabled(true);
     m_fileTree->setShowCloseButton(m_plug->settings().showCloseButton());
+    m_fileTree->setMiddleClickToClose(m_plug->settings().middleClickToClose);
     m_fileTree->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
 
     connect(m_fileTree, &KateFileTree::activateDocument, this, &KateFileTreePluginView::activateDocument);

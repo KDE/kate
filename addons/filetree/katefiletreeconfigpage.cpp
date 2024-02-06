@@ -22,7 +22,6 @@ view needs to pull default settings from the main plugin config
 */
 
 #include "katefiletreeconfigpage.h"
-#include "katefiletreedebug.h"
 #include "katefiletreemodel.h"
 #include "katefiletreeplugin.h"
 #include "katefiletreeproxymodel.h"
@@ -94,9 +93,11 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     cbShowToolbar = new QCheckBox(i18n("Show &Toolbar"), this);
     lo5->addWidget(cbShowToolbar);
 
-    cbShowClose = new QCheckBox(i18n("Show Close Button"), this);
+    cbShowClose = new QCheckBox(i18n("Show Close Button On Hovering"), this);
     layout->addWidget(cbShowClose);
-    layout->addWidget(new QLabel(i18n("When enabled, this will show a close button for opened documents on hover.")));
+
+    cbMiddleClick = new QCheckBox(i18n("Middle Click To Close Documents"), this);
+    layout->addWidget(cbMiddleClick);
 
     layout->insertStretch(-1, 10);
 
@@ -129,6 +130,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     connect(cbShowFullPath, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
     connect(cbShowToolbar, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
     connect(cbShowClose, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(cbMiddleClick, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
 }
 
 QString KateFileTreeConfigPage::name() const
@@ -162,7 +164,8 @@ void KateFileTreeConfigPage::apply()
                         cmbSort->itemData(cmbSort->currentIndex()).toInt(),
                         cbShowFullPath->checkState() == Qt::Checked,
                         cbShowToolbar->checkState() == Qt::Checked,
-                        cbShowClose->isChecked());
+                        cbShowClose->isChecked(),
+                        cbMiddleClick->isChecked());
 }
 
 void KateFileTreeConfigPage::reset()
@@ -177,6 +180,7 @@ void KateFileTreeConfigPage::reset()
     cbShowFullPath->setCheckState(settings.showFullPathOnRoots() ? Qt::Checked : Qt::Unchecked);
     cbShowToolbar->setCheckState(settings.showToolbar() ? Qt::Checked : Qt::Unchecked);
     cbShowClose->setChecked(settings.showCloseButton());
+    cbMiddleClick->setChecked(settings.middleClickToClose);
 
     m_changed = false;
 }

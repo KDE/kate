@@ -5,7 +5,6 @@
 */
 
 #include "katefiletreepluginsettings.h"
-#include "katefiletreedebug.h"
 #include <KColorScheme>
 #include <KColorUtils>
 
@@ -29,6 +28,7 @@ KateFileTreePluginSettings::KateFileTreePluginSettings()
     m_showToolbar = m_group.readEntry("showToolbar", true);
 
     m_showCloseButton = m_group.readEntry("showCloseButton", false);
+    middleClickToClose = m_group.readEntry("middleClickToClose", false);
 }
 
 void KateFileTreePluginSettings::save()
@@ -41,6 +41,7 @@ void KateFileTreePluginSettings::save()
     m_group.writeEntry("showFullPathOnRoots", m_showFullPathOnRoots);
     m_group.writeEntry("showToolbar", m_showToolbar);
     m_group.writeEntry("showCloseButton", m_showCloseButton);
+    m_group.writeEntry("middleClickToClose", middleClickToClose);
 
     m_group.sync();
 }

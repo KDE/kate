@@ -31,6 +31,7 @@ public:
 
     void setModel(QAbstractItemModel *model) override;
     void setShowCloseButton(bool show);
+    void setMiddleClickToClose(bool value);
 
 public Q_SLOTS:
     void slotDocumentClose();
@@ -52,6 +53,7 @@ public Q_SLOTS:
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
+    bool eventFilter(QObject *o, QEvent *e) override;
 
 Q_SIGNALS:
     void closeDocument(KTextEditor::Document *);
@@ -121,6 +123,7 @@ private:
     QPersistentModelIndex m_indexContextMenu;
 
     bool m_hasCloseButton = false;
+    bool m_middleClickToClose = false;
 
     KTextEditor::MainWindow *m_mainWindow;
 };

@@ -17,6 +17,7 @@ public:
 
     void save();
 
+    // TODO remove these getters/setters and just make the vars public
     bool shadingEnabled() const;
     void setShadingEnabled(bool);
 
@@ -40,6 +41,8 @@ public:
 
     bool showCloseButton() const;
     void setShowCloseButton(bool);
+
+    bool middleClickToClose = false;
 
 private:
     KConfigGroup m_group;

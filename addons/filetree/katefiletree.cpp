@@ -221,6 +221,16 @@ void KateFileTree::setShowCloseButton(bool show)
     header()->viewport()->update();
 }
 
+void KateFileTree::setMiddleClickToClose(bool value)
+{
+    m_middleClickToClose = value;
+    if (value) {
+        viewport()->installEventFilter(this);
+    } else {
+        viewport()->removeEventFilter(this);
+    }
+}
+
 void KateFileTree::setupContextMenuActionGroups()
 {
     QActionGroup *modeGroup = new QActionGroup(this);
@@ -459,6 +469,19 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     }
 
     event->accept();
+}
+
+bool KateFileTree::eventFilter(QObject *o, QEvent *e)
+{
+    if (m_middleClickToClose && o == viewport() && e->type() == QEvent::MouseButtonRelease) {
+        auto me = static_cast<QMouseEvent *>(e);
+        if (me->button() == Qt::MiddleButton && me->modifiers() == Qt::NoModifier) {
+            closeClicked(indexAt(me->pos()));
+            return true;
+        }
+    }
+
+    return QObject::eventFilter(o, e);
 }
 
 void KateFileTree::slotFixOpenWithMenu(QMenu *menu)

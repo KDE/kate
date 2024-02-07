@@ -150,6 +150,7 @@ parts:
         - libqt5xml5
         - libqt5waylandclient5
         - libqt5waylandcompositor5
+        - qtwayland5
         - sonnet-plugins
         - darcs
         - exuberant-ctags

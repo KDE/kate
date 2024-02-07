@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-02-07 00:39+0000\n"
 "PO-Revision-Date: 2023-12-22 04:57+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -140,161 +140,161 @@ msgstr "清除歷史"
 msgid "Clear edit/view history."
 msgstr "清除編輯/檢視歷史。"
 
-#: katefiletree.cpp:230
+#: katefiletree.cpp:240
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "樹狀模式"
 
-#: katefiletree.cpp:231
+#: katefiletree.cpp:241
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "將檢視樣式設為樹狀模式"
 
-#: katefiletree.cpp:237
+#: katefiletree.cpp:247
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "列表模式"
 
-#: katefiletree.cpp:238
+#: katefiletree.cpp:248
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "將檢視樣式設為列表模式"
 
-#: katefiletree.cpp:245
+#: katefiletree.cpp:255
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "文件名稱"
 
-#: katefiletree.cpp:246
+#: katefiletree.cpp:256
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "以文件名稱排序"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:261
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "文件路徑"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:261
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "以文件路徑排序"
 
-#: katefiletree.cpp:255
+#: katefiletree.cpp:265
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "開啟順序"
 
-#: katefiletree.cpp:256
+#: katefiletree.cpp:266
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "以開啟順序排序"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
+#: katefiletree.cpp:269 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "自訂排序"
 
-#: katefiletree.cpp:388
+#: katefiletree.cpp:398
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "開啟方式"
 
-#: katefiletree.cpp:402
+#: katefiletree.cpp:412
 #, kde-format
 msgid "Show File Git History"
 msgstr "顯示檔案 Git 歷史紀錄"
 
-#: katefiletree.cpp:441
+#: katefiletree.cpp:451
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "檢視模式"
 
-#: katefiletree.cpp:445
+#: katefiletree.cpp:455
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "排序依據"
 
-#: katefiletreeconfigpage.cpp:44
+#: katefiletreeconfigpage.cpp:43
 #, kde-format
 msgid "Background Shading"
 msgstr "背景陰影"
 
-#: katefiletreeconfigpage.cpp:51
+#: katefiletreeconfigpage.cpp:50
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "已檢視文件陰影(&V)："
 
-#: katefiletreeconfigpage.cpp:57
+#: katefiletreeconfigpage.cpp:56
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "已變更文件陰影(&M)："
 
-#: katefiletreeconfigpage.cpp:65
+#: katefiletreeconfigpage.cpp:64
 #, kde-format
 msgid "&Sort by:"
 msgstr "排序依據(&S):"
 
-#: katefiletreeconfigpage.cpp:70
+#: katefiletreeconfigpage.cpp:69
 #, kde-format
 msgid "Opening Order"
 msgstr "開啟順序"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Document Name"
 msgstr "文件名稱"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Url"
 msgstr "網址"
 
-#: katefiletreeconfigpage.cpp:78
+#: katefiletreeconfigpage.cpp:77
 #, kde-format
 msgid "&View Mode:"
 msgstr "檢視模式(&V)："
 
-#: katefiletreeconfigpage.cpp:83
+#: katefiletreeconfigpage.cpp:82
 #, kde-format
 msgid "Tree View"
 msgstr "樹狀檢視"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "List View"
 msgstr "列表檢視"
 
-#: katefiletreeconfigpage.cpp:89
+#: katefiletreeconfigpage.cpp:88
 #, kde-format
 msgid "&Show Full Path"
 msgstr "顯示完整路徑(&S)"
 
-#: katefiletreeconfigpage.cpp:94
+#: katefiletreeconfigpage.cpp:93
 #, kde-format
 msgid "Show &Toolbar"
 msgstr "顯示工具列(&T)"
 
-#: katefiletreeconfigpage.cpp:97
-#, kde-format
-msgid "Show Close Button"
+#: katefiletreeconfigpage.cpp:96
+#, fuzzy, kde-format
+#| msgid "Show Close Button"
+msgid "Show Close Button On Hovering"
 msgstr "顯示關閉按鈕"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
-msgid ""
-"When enabled, this will show a close button for opened documents on hover."
-msgstr "啟用時，滑鼠停駐在已開啟的文件上時會顯示一個關閉按鈕。"
+msgid "Middle Click To Close Documents"
+msgstr ""
 
-#: katefiletreeconfigpage.cpp:104
+#: katefiletreeconfigpage.cpp:105
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -304,12 +304,12 @@ msgstr ""
 "開啟背景陰影時，目前工作階段中已檢視或已編輯的文件也會有陰影背景。最近的文件"
 "陰影最強。"
 
-#: katefiletreeconfigpage.cpp:107
+#: katefiletreeconfigpage.cpp:108
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr "設定已檢視文件陰影的顏色。"
 
-#: katefiletreeconfigpage.cpp:109
+#: katefiletreeconfigpage.cpp:110
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
@@ -318,27 +318,27 @@ msgstr ""
 "設定已變更文件陰影的顏色。此顏色會與已檢視檔案的顏色混在一起，最新編輯的檔案"
 "此顏色成份最多。"
 
-#: katefiletreeconfigpage.cpp:114
+#: katefiletreeconfigpage.cpp:115
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
 "path rather than just the last folder name."
 msgstr "開啟此選項的話，在樹狀圖模式下，頂層的資料夾會顯示完整路徑。"
 
-#: katefiletreeconfigpage.cpp:117
+#: katefiletreeconfigpage.cpp:118
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr "啟用時，文件列表上方會顯示一個工具列，包含「儲存」等等動作。"
 
-#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
-#: katefiletreeplugin.cpp:134
+#: katefiletreeconfigpage.cpp:138 katefiletreeplugin.cpp:130
+#: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
 msgstr "文件"
 
-#: katefiletreeconfigpage.cpp:141
+#: katefiletreeconfigpage.cpp:143
 #, kde-format
 msgid "Configure Documents"
 msgstr "設定文件"
@@ -357,37 +357,37 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>此文件已被其它應用程式修改。</p>"
 
-#: katefiletreeplugin.cpp:248
+#: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Previous Document"
 msgstr "前一份文件"
 
-#: katefiletreeplugin.cpp:254
+#: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "Next Document"
 msgstr "下一份文件"
 
-#: katefiletreeplugin.cpp:260
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "&Show Active Document"
 msgstr "顯示作用中文件(&S)"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save"
 msgstr "儲存"
 
-#: katefiletreeplugin.cpp:266
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document"
 msgstr "儲存目前的文件"
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save As"
 msgstr "另存新檔"
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:275
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "以新名稱儲存目前的文件"
@@ -397,6 +397,10 @@ msgstr "以新名稱儲存目前的文件"
 #, kde-format
 msgid "&Go"
 msgstr "跳至(&G)"
+
+#~ msgid ""
+#~ "When enabled, this will show a close button for opened documents on hover."
+#~ msgstr "啟用時，滑鼠停駐在已開啟的文件上時會顯示一個關閉按鈕。"
 
 #~ msgid "&Other..."
 #~ msgstr "其他(&O)..."

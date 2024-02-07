@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-01 00:39+0000\n"
+"POT-Creation-Date: 2024-02-07 00:39+0000\n"
 "PO-Revision-Date: 2024-02-05 11:37\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -245,7 +245,7 @@ msgstr "工具(&T)"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:276
+#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:277
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -291,127 +291,127 @@ msgstr ""
 "正则表达式错误：%1\n"
 "偏移 %2：%3"
 
-#: lib/diagnostics/diagnosticview.cpp:60
+#: lib/diagnostics/diagnosticview.cpp:61
 #, kde-format
 msgid "All"
 msgstr "全部"
 
-#: lib/diagnostics/diagnosticview.cpp:283
+#: lib/diagnostics/diagnosticview.cpp:284
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr "已达到诊断数量上限。诊断数量上限可在设置中配置。"
 
-#: lib/diagnostics/diagnosticview.cpp:326
+#: lib/diagnostics/diagnosticview.cpp:327
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "诊断视图"
 
-#: lib/diagnostics/diagnosticview.cpp:331
+#: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
 msgid "Quick Fix"
 msgstr "快速修复"
 
-#: lib/diagnostics/diagnosticview.cpp:337
+#: lib/diagnostics/diagnosticview.cpp:338
 #, kde-format
 msgid "Next Item"
 msgstr "下一项"
 
-#: lib/diagnostics/diagnosticview.cpp:343
+#: lib/diagnostics/diagnosticview.cpp:344
 #, kde-format
 msgid "Previous Item"
 msgstr "上一项"
 
-#: lib/diagnostics/diagnosticview.cpp:351
+#: lib/diagnostics/diagnosticview.cpp:352
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "清除诊断信息过滤器"
 
-#: lib/diagnostics/diagnosticview.cpp:396
+#: lib/diagnostics/diagnosticview.cpp:410 lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Diagnostics"
 msgstr "诊断"
 
-#: lib/diagnostics/diagnosticview.cpp:439
+#: lib/diagnostics/diagnosticview.cpp:453
 #, kde-format
 msgid "Errors"
 msgstr "错误"
 
-#: lib/diagnostics/diagnosticview.cpp:455
+#: lib/diagnostics/diagnosticview.cpp:469
 #, kde-format
 msgid "Warnings"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:469
+#: lib/diagnostics/diagnosticview.cpp:483
 #, kde-format
 msgid "Filter..."
 msgstr "过滤..."
 
-#: lib/diagnostics/diagnosticview.cpp:1077 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1102 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "错误"
 
-#: lib/diagnostics/diagnosticview.cpp:1081 lib/kateconfigdialog.cpp:151
-#: lib/kateconfigdialog.cpp:685
+#: lib/diagnostics/diagnosticview.cpp:1106 lib/kateconfigdialog.cpp:151
+#: lib/kateconfigdialog.cpp:703
 #, kde-format
 msgid "Warning"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:1085
+#: lib/diagnostics/diagnosticview.cpp:1110
 #, kde-format
 msgid "Information"
 msgstr "信息"
 
-#: lib/diagnostics/diagnosticview.cpp:1205
+#: lib/diagnostics/diagnosticview.cpp:1230
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [已抑制：%2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1344
+#: lib/diagnostics/diagnosticview.cpp:1369
 #, kde-format
 msgid "Expand All"
 msgstr "全部展开"
 
-#: lib/diagnostics/diagnosticview.cpp:1345
+#: lib/diagnostics/diagnosticview.cpp:1370
 #, kde-format
 msgid "Collapse All"
 msgstr "全部折叠"
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1376
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "复制到剪贴板"
 
-#: lib/diagnostics/diagnosticview.cpp:1376
+#: lib/diagnostics/diagnosticview.cpp:1401
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "删除全局抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1378
+#: lib/diagnostics/diagnosticview.cpp:1403
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "添加全局抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1382
+#: lib/diagnostics/diagnosticview.cpp:1407
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "移除本地抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1384
+#: lib/diagnostics/diagnosticview.cpp:1409
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "添加本地抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1399
+#: lib/diagnostics/diagnosticview.cpp:1424
 #, kde-format
 msgid "Disable Suppression"
 msgstr "禁用抑制"
 
-#: lib/diagnostics/diagnosticview.cpp:1401
+#: lib/diagnostics/diagnosticview.cpp:1426
 #, kde-format
 msgid "Enable Suppression"
 msgstr "启用抑制"
@@ -986,6 +986,7 @@ msgid "&Limit output view history:"
 msgstr "限制输出视图历史(&L)："
 
 #: lib/kateconfigdialog.cpp:163 lib/kateconfigdialog.cpp:227
+#: lib/kateconfigdialog.cpp:347
 #, kde-format
 msgid "Unlimited"
 msgstr "无限制"
@@ -1186,52 +1187,63 @@ msgstr "导航栏"
 msgid "Show current symbol in navigation bar"
 msgstr "在导航栏中显示当前符号"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:344
+#, fuzzy, kde-format
+#| msgid "Diagnostics View"
+msgid "Diagnostics limit:"
+msgstr "诊断视图"
+
+#: lib/kateconfigdialog.cpp:349
+#, kde-format
+msgid "Max number of diagnostics allowed in the Diagnostics toolview."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:364
 #, kde-format
 msgid "Session"
 msgstr "会话"
 
-#: lib/kateconfigdialog.cpp:350
+#: lib/kateconfigdialog.cpp:366
 #, kde-format
 msgid "Session Management"
 msgstr "会话管理"
 
-#: lib/kateconfigdialog.cpp:361
+#: lib/kateconfigdialog.cpp:377
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(从不)"
 
-#: lib/kateconfigdialog.cpp:362
+#: lib/kateconfigdialog.cpp:378
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
 msgid_plural " days"
 msgstr[0] " 天"
 
-#: lib/kateconfigdialog.cpp:395
+#: lib/kateconfigdialog.cpp:411
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr "当一个窗口被关闭时，仅在此窗口中打开的文档也将会被关闭。"
 
-#: lib/kateconfigdialog.cpp:430
+#: lib/kateconfigdialog.cpp:446
 #, kde-format
 msgid "Plugins"
 msgstr "插件"
 
-#: lib/kateconfigdialog.cpp:432
+#: lib/kateconfigdialog.cpp:448
 #, kde-format
 msgid "Plugin Manager"
 msgstr "插件管理器"
 
-#: lib/kateconfigdialog.cpp:450 lib/kateconfigdialog.cpp:452
+#: lib/kateconfigdialog.cpp:466 lib/kateconfigdialog.cpp:468
 #, kde-format
 msgid "User Feedback"
 msgstr "用户反馈"
 
-#: lib/kateconfigdialog.cpp:684
+#: lib/kateconfigdialog.cpp:702
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

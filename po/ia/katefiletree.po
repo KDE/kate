@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-02-07 00:39+0000\n"
 "PO-Revision-Date: 2022-12-11 22:20+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -137,163 +137,161 @@ msgstr "Netta historia"
 msgid "Clear edit/view history."
 msgstr "Netta historia (chronologia) de moficar/vider"
 
-#: katefiletree.cpp:230
+#: katefiletree.cpp:240
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Modo a arbore"
 
-#: katefiletree.cpp:231
+#: katefiletree.cpp:241
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Fixa stilo a modo a arbore"
 
-#: katefiletree.cpp:237
+#: katefiletree.cpp:247
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Modo a lista"
 
-#: katefiletree.cpp:238
+#: katefiletree.cpp:248
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Fixa stilo a modo a lista"
 
-#: katefiletree.cpp:245
+#: katefiletree.cpp:255
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Nomine de documento"
 
-#: katefiletree.cpp:246
+#: katefiletree.cpp:256
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Ordina per nomine de documento"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:261
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Percurso de documento"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:261
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Ordina per percurso de documento"
 
-#: katefiletree.cpp:255
+#: katefiletree.cpp:265
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Ordine de apertura"
 
-#: katefiletree.cpp:256
+#: katefiletree.cpp:266
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Ordina per ordine de apertura"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
+#: katefiletree.cpp:269 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Ordinar personalisate"
 
-#: katefiletree.cpp:388
+#: katefiletree.cpp:398
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Aperi con"
 
-#: katefiletree.cpp:402
+#: katefiletree.cpp:412
 #, kde-format
 msgid "Show File Git History"
 msgstr "Monstra chronologia de file de Git"
 
-#: katefiletree.cpp:441
+#: katefiletree.cpp:451
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Modo de vista"
 
-#: katefiletree.cpp:445
+#: katefiletree.cpp:455
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "Ordina per"
 
-#: katefiletreeconfigpage.cpp:44
+#: katefiletreeconfigpage.cpp:43
 #, kde-format
 msgid "Background Shading"
 msgstr "Umbrar de fundo"
 
-#: katefiletreeconfigpage.cpp:51
+#: katefiletreeconfigpage.cpp:50
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "&Vidite umbra de documentos:"
 
-#: katefiletreeconfigpage.cpp:57
+#: katefiletreeconfigpage.cpp:56
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "&Modificate umbra de documento:"
 
-#: katefiletreeconfigpage.cpp:65
+#: katefiletreeconfigpage.cpp:64
 #, kde-format
 msgid "&Sort by:"
 msgstr "&Ordina per:"
 
-#: katefiletreeconfigpage.cpp:70
+#: katefiletreeconfigpage.cpp:69
 #, kde-format
 msgid "Opening Order"
 msgstr "Ordine de apertura"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Document Name"
 msgstr "Nomine de documento"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Url"
 msgstr "Url"
 
-#: katefiletreeconfigpage.cpp:78
+#: katefiletreeconfigpage.cpp:77
 #, kde-format
 msgid "&View Mode:"
 msgstr "Modo de &vista:"
 
-#: katefiletreeconfigpage.cpp:83
+#: katefiletreeconfigpage.cpp:82
 #, kde-format
 msgid "Tree View"
 msgstr "Vista a arbore"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "List View"
 msgstr "Vista a lista"
 
-#: katefiletreeconfigpage.cpp:89
+#: katefiletreeconfigpage.cpp:88
 #, kde-format
 msgid "&Show Full Path"
 msgstr "Mon&stra percurso complete"
 
-#: katefiletreeconfigpage.cpp:94
+#: katefiletreeconfigpage.cpp:93
 #, kde-format
 msgid "Show &Toolbar"
 msgstr "Mons&tra le barra de instrumentos"
 
-#: katefiletreeconfigpage.cpp:97
-#, kde-format
-msgid "Show Close Button"
+#: katefiletreeconfigpage.cpp:96
+#, fuzzy, kde-format
+#| msgid "Show Close Button"
+msgid "Show Close Button On Hovering"
 msgstr "Monstra button de clausura"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
-msgid ""
-"When enabled, this will show a close button for opened documents on hover."
+msgid "Middle Click To Close Documents"
 msgstr ""
-"Quando habilitate, isto monstrara un button de clausura per documentos "
-"aperite quando passa supra. "
 
-#: katefiletreeconfigpage.cpp:104
+#: katefiletreeconfigpage.cpp:105
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -304,12 +302,12 @@ msgstr ""
 "modificate intra le currente session habera fundo con umbras. Le plus "
 "recentemente documentos ha le umbra plus forte."
 
-#: katefiletreeconfigpage.cpp:107
+#: katefiletreeconfigpage.cpp:108
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr "Fixa le color pro documentos vidite con umbras."
 
-#: katefiletreeconfigpage.cpp:109
+#: katefiletreeconfigpage.cpp:110
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
@@ -319,7 +317,7 @@ msgstr ""
 "pr files vidite. Le plus recentemente modificate documentos obtene le plus "
 "de iste color."
 
-#: katefiletreeconfigpage.cpp:114
+#: katefiletreeconfigpage.cpp:115
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
@@ -329,7 +327,7 @@ msgstr ""
 "se mesme con lor percurso complete plus tosto que con le sol nomine de "
 "dossier."
 
-#: katefiletreeconfigpage.cpp:117
+#: katefiletreeconfigpage.cpp:118
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
@@ -338,13 +336,13 @@ msgstr ""
 "Quando habilitate, un barra de instrumento con actiones como \"Salveguarda\" "
 "es monstrate super le lista de documentos."
 
-#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
-#: katefiletreeplugin.cpp:134
+#: katefiletreeconfigpage.cpp:138 katefiletreeplugin.cpp:130
+#: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
 msgstr "Documentos"
 
-#: katefiletreeconfigpage.cpp:141
+#: katefiletreeconfigpage.cpp:143
 #, kde-format
 msgid "Configure Documents"
 msgstr "Configura documentos"
@@ -365,37 +363,37 @@ msgstr ""
 "<p><b>%1</b></p><p>Le documento ha essite modificate per un altere "
 "application.</p>"
 
-#: katefiletreeplugin.cpp:248
+#: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Previous Document"
 msgstr "Previe documento"
 
-#: katefiletreeplugin.cpp:254
+#: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "Next Document"
 msgstr "Proxime documento"
 
-#: katefiletreeplugin.cpp:260
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Mon&stra documento active"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save"
 msgstr "Salveguarda"
 
-#: katefiletreeplugin.cpp:266
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document"
 msgstr "Salveguarda le documento currente"
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save As"
 msgstr "Salveguarda como"
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:275
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Salveguarda le documento currente sub un nove nomine"
@@ -405,6 +403,12 @@ msgstr "Salveguarda le documento currente sub un nove nomine"
 #, kde-format
 msgid "&Go"
 msgstr "&Vade"
+
+#~ msgid ""
+#~ "When enabled, this will show a close button for opened documents on hover."
+#~ msgstr ""
+#~ "Quando habilitate, isto monstrara un button de clausura per documentos "
+#~ "aperite quando passa supra. "
 
 #~ msgid "&Other..."
 #~ msgstr "A&ltere..."

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-01 00:39+0000\n"
+"POT-Creation-Date: 2024-02-07 00:39+0000\n"
 "PO-Revision-Date: 2023-07-06 10:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -252,7 +252,7 @@ msgstr "أ&دوات"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:276
+#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:277
 #: lib/diagnostics/ui.rc:8
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
@@ -299,128 +299,128 @@ msgstr ""
 "خطأ في التعبير النمطي: %1\n"
 "الإزاحة %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:60
+#: lib/diagnostics/diagnosticview.cpp:61
 #, kde-format
 msgid "All"
 msgstr "الكل"
 
-#: lib/diagnostics/diagnosticview.cpp:283
+#: lib/diagnostics/diagnosticview.cpp:284
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:326
+#: lib/diagnostics/diagnosticview.cpp:327
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "التشخيص"
 
-#: lib/diagnostics/diagnosticview.cpp:331
+#: lib/diagnostics/diagnosticview.cpp:332
 #, kde-format
 msgid "Quick Fix"
 msgstr "إصلاح سريع"
 
-#: lib/diagnostics/diagnosticview.cpp:337
+#: lib/diagnostics/diagnosticview.cpp:338
 #, kde-format
 msgid "Next Item"
 msgstr "العنصر التالي"
 
-#: lib/diagnostics/diagnosticview.cpp:343
+#: lib/diagnostics/diagnosticview.cpp:344
 #, kde-format
 msgid "Previous Item"
 msgstr "العنصر السّابق"
 
-#: lib/diagnostics/diagnosticview.cpp:351
+#: lib/diagnostics/diagnosticview.cpp:352
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "امسح مرشح التشخيص"
 
-#: lib/diagnostics/diagnosticview.cpp:396
+#: lib/diagnostics/diagnosticview.cpp:410 lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Diagnostics"
 msgstr "التشخيص"
 
-#: lib/diagnostics/diagnosticview.cpp:439
+#: lib/diagnostics/diagnosticview.cpp:453
 #, kde-format
 msgid "Errors"
 msgstr "الأخطاء"
 
-#: lib/diagnostics/diagnosticview.cpp:455
+#: lib/diagnostics/diagnosticview.cpp:469
 #, kde-format
 msgid "Warnings"
 msgstr "التّحذيرات"
 
-#: lib/diagnostics/diagnosticview.cpp:469
+#: lib/diagnostics/diagnosticview.cpp:483
 #, kde-format
 msgid "Filter..."
 msgstr "رشّح..."
 
-#: lib/diagnostics/diagnosticview.cpp:1077 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1102 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "خطأ"
 
-#: lib/diagnostics/diagnosticview.cpp:1081 lib/kateconfigdialog.cpp:151
-#: lib/kateconfigdialog.cpp:685
+#: lib/diagnostics/diagnosticview.cpp:1106 lib/kateconfigdialog.cpp:151
+#: lib/kateconfigdialog.cpp:703
 #, kde-format
 msgid "Warning"
 msgstr "التّحذيرات"
 
-#: lib/diagnostics/diagnosticview.cpp:1085
+#: lib/diagnostics/diagnosticview.cpp:1110
 #, kde-format
 msgid "Information"
 msgstr "المعلومات"
 
-#: lib/diagnostics/diagnosticview.cpp:1205
+#: lib/diagnostics/diagnosticview.cpp:1230
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [مقيد: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1344
+#: lib/diagnostics/diagnosticview.cpp:1369
 #, kde-format
 msgid "Expand All"
 msgstr "وسّع الكل"
 
-#: lib/diagnostics/diagnosticview.cpp:1345
+#: lib/diagnostics/diagnosticview.cpp:1370
 #, kde-format
 msgid "Collapse All"
 msgstr "اطوِ الكل"
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1376
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "انسخ إلى الحافظة"
 
-#: lib/diagnostics/diagnosticview.cpp:1376
+#: lib/diagnostics/diagnosticview.cpp:1401
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "أزل التقييد العام"
 
-#: lib/diagnostics/diagnosticview.cpp:1378
+#: lib/diagnostics/diagnosticview.cpp:1403
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "أضف تقييد العام"
 
-#: lib/diagnostics/diagnosticview.cpp:1382
+#: lib/diagnostics/diagnosticview.cpp:1407
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "أزل التقييد المحلي"
 
-#: lib/diagnostics/diagnosticview.cpp:1384
+#: lib/diagnostics/diagnosticview.cpp:1409
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "أضف تقييد محلي"
 
-#: lib/diagnostics/diagnosticview.cpp:1399
+#: lib/diagnostics/diagnosticview.cpp:1424
 #, kde-format
 msgid "Disable Suppression"
 msgstr "عطل التقييد"
 
-#: lib/diagnostics/diagnosticview.cpp:1401
+#: lib/diagnostics/diagnosticview.cpp:1426
 #, kde-format
 msgid "Enable Suppression"
 msgstr "مكن التقييد"
@@ -1012,6 +1012,7 @@ msgid "&Limit output view history:"
 msgstr "&حد تاريخ منظور الخرج:"
 
 #: lib/kateconfigdialog.cpp:163 lib/kateconfigdialog.cpp:227
+#: lib/kateconfigdialog.cpp:347
 #, kde-format
 msgid "Unlimited"
 msgstr "غير محدود"
@@ -1214,23 +1215,34 @@ msgstr "شريط التنقل"
 msgid "Show current symbol in navigation bar"
 msgstr "أظهر الرمز الحالي في شريط التنقل"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:344
+#, fuzzy, kde-format
+#| msgid "Diagnostics"
+msgid "Diagnostics limit:"
+msgstr "التشخيص"
+
+#: lib/kateconfigdialog.cpp:349
+#, kde-format
+msgid "Max number of diagnostics allowed in the Diagnostics toolview."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:364
 #, kde-format
 msgid "Session"
 msgstr "جلسة"
 
-#: lib/kateconfigdialog.cpp:350
+#: lib/kateconfigdialog.cpp:366
 #, kde-format
 msgid "Session Management"
 msgstr "إدارة الجلسات"
 
-#: lib/kateconfigdialog.cpp:361
+#: lib/kateconfigdialog.cpp:377
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(أبدًا)"
 
-#: lib/kateconfigdialog.cpp:362
+#: lib/kateconfigdialog.cpp:378
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1242,29 +1254,29 @@ msgstr[3] " أيّام"
 msgstr[4] " يومًا"
 msgstr[5] " يوم"
 
-#: lib/kateconfigdialog.cpp:395
+#: lib/kateconfigdialog.cpp:411
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr "عند إغلاق نافذة، تغلق المستندات التي فتحت في هذه النافذة فقط."
 
-#: lib/kateconfigdialog.cpp:430
+#: lib/kateconfigdialog.cpp:446
 #, kde-format
 msgid "Plugins"
 msgstr "الملحقات"
 
-#: lib/kateconfigdialog.cpp:432
+#: lib/kateconfigdialog.cpp:448
 #, kde-format
 msgid "Plugin Manager"
 msgstr "إدارة الملحقات"
 
-#: lib/kateconfigdialog.cpp:450 lib/kateconfigdialog.cpp:452
+#: lib/kateconfigdialog.cpp:466 lib/kateconfigdialog.cpp:468
 #, kde-format
 msgid "User Feedback"
 msgstr "مشاركة بياناتك"
 
-#: lib/kateconfigdialog.cpp:684
+#: lib/kateconfigdialog.cpp:702
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

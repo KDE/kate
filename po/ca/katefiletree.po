@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-02-07 00:39+0000\n"
 "PO-Revision-Date: 2023-10-18 20:36+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -141,163 +141,161 @@ msgstr "Neteja l'historial"
 msgid "Clear edit/view history."
 msgstr "Neteja l'historial d'edició/visualització."
 
-#: katefiletree.cpp:230
+#: katefiletree.cpp:240
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Mode en arbre"
 
-#: katefiletree.cpp:231
+#: katefiletree.cpp:241
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Estableix l'estil de la vista al mode en arbre"
 
-#: katefiletree.cpp:237
+#: katefiletree.cpp:247
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Mode de llista"
 
-#: katefiletree.cpp:238
+#: katefiletree.cpp:248
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Estableix l'estil de la vista al mode de llista"
 
-#: katefiletree.cpp:245
+#: katefiletree.cpp:255
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Nom del document"
 
-#: katefiletree.cpp:246
+#: katefiletree.cpp:256
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Ordena pel nom del document"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:261
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Camí del document"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:261
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Ordena pel camí del document"
 
-#: katefiletree.cpp:255
+#: katefiletree.cpp:265
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Ordre d'obertura"
 
-#: katefiletree.cpp:256
+#: katefiletree.cpp:266
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Ordena per l'ordre d'obertura"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
+#: katefiletree.cpp:269 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Ordenació personalitzada"
 
-#: katefiletree.cpp:388
+#: katefiletree.cpp:398
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Obre amb"
 
-#: katefiletree.cpp:402
+#: katefiletree.cpp:412
 #, kde-format
 msgid "Show File Git History"
 msgstr "Mostra l'historial del Git dels fitxers"
 
-#: katefiletree.cpp:441
+#: katefiletree.cpp:451
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Mode de vista"
 
-#: katefiletree.cpp:445
+#: katefiletree.cpp:455
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "Ordena per"
 
-#: katefiletreeconfigpage.cpp:44
+#: katefiletreeconfigpage.cpp:43
 #, kde-format
 msgid "Background Shading"
 msgstr "Ombra del fons"
 
-#: katefiletreeconfigpage.cpp:51
+#: katefiletreeconfigpage.cpp:50
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "Oculta els documents &visualitzats:"
 
-#: katefiletreeconfigpage.cpp:57
+#: katefiletreeconfigpage.cpp:56
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "Oculta els documents &modificats:"
 
-#: katefiletreeconfigpage.cpp:65
+#: katefiletreeconfigpage.cpp:64
 #, kde-format
 msgid "&Sort by:"
 msgstr "&Ordena per:"
 
-#: katefiletreeconfigpage.cpp:70
+#: katefiletreeconfigpage.cpp:69
 #, kde-format
 msgid "Opening Order"
 msgstr "Ordre d'obertura"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Document Name"
 msgstr "Nom del document"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Url"
 msgstr "URL"
 
-#: katefiletreeconfigpage.cpp:78
+#: katefiletreeconfigpage.cpp:77
 #, kde-format
 msgid "&View Mode:"
 msgstr "Mode de &vista:"
 
-#: katefiletreeconfigpage.cpp:83
+#: katefiletreeconfigpage.cpp:82
 #, kde-format
 msgid "Tree View"
 msgstr "Vista en arbre"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "List View"
 msgstr "Vista de llista"
 
-#: katefiletreeconfigpage.cpp:89
+#: katefiletreeconfigpage.cpp:88
 #, kde-format
 msgid "&Show Full Path"
 msgstr "Mo&stra el camí sencer"
 
-#: katefiletreeconfigpage.cpp:94
+#: katefiletreeconfigpage.cpp:93
 #, kde-format
 msgid "Show &Toolbar"
 msgstr "Mostra la barra d'&eines"
 
-#: katefiletreeconfigpage.cpp:97
-#, kde-format
-msgid "Show Close Button"
+#: katefiletreeconfigpage.cpp:96
+#, fuzzy, kde-format
+#| msgid "Show Close Button"
+msgid "Show Close Button On Hovering"
 msgstr "Mostra el botó de tancament"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
-msgid ""
-"When enabled, this will show a close button for opened documents on hover."
+msgid "Middle Click To Close Documents"
 msgstr ""
-"Quan està habilitada, es mostrarà un botó de tancament en passar el ratolí "
-"per als documents oberts."
 
-#: katefiletreeconfigpage.cpp:104
+#: katefiletreeconfigpage.cpp:105
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -308,12 +306,12 @@ msgstr ""
 "visualitzats o editats durant la sessió actual tindran un fons ombrejat. Els "
 "documents més recents tindran l'ombra més intensa."
 
-#: katefiletreeconfigpage.cpp:107
+#: katefiletreeconfigpage.cpp:108
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr "Establiu el color per a l'ombreig dels documents visualitzats."
 
-#: katefiletreeconfigpage.cpp:109
+#: katefiletreeconfigpage.cpp:110
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
@@ -323,7 +321,7 @@ msgstr ""
 "barrejarà amb el color dels fitxers visualitzats. Els documents editats més "
 "recentment obtindran un ombreig més intens amb aquest color."
 
-#: katefiletreeconfigpage.cpp:114
+#: katefiletreeconfigpage.cpp:115
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
@@ -333,7 +331,7 @@ msgstr ""
 "es mostraran amb el seu camí sencer en lloc de només l'últim nom de la "
 "carpeta."
 
-#: katefiletreeconfigpage.cpp:117
+#: katefiletreeconfigpage.cpp:118
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
@@ -342,13 +340,13 @@ msgstr ""
 "Quan està habilitada, es mostrarà una barra d'eines amb accions com «Desa» a "
 "sobre de la llista de documents."
 
-#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
-#: katefiletreeplugin.cpp:134
+#: katefiletreeconfigpage.cpp:138 katefiletreeplugin.cpp:130
+#: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
 msgstr "Documents"
 
-#: katefiletreeconfigpage.cpp:141
+#: katefiletreeconfigpage.cpp:143
 #, kde-format
 msgid "Configure Documents"
 msgstr "Configura els documents"
@@ -369,37 +367,37 @@ msgstr ""
 "<p><b>%1</b></p><p>El document ha estat modificat per una altra aplicació.</"
 "p>"
 
-#: katefiletreeplugin.cpp:248
+#: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Previous Document"
 msgstr "Document anterior"
 
-#: katefiletreeplugin.cpp:254
+#: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "Next Document"
 msgstr "Document següent"
 
-#: katefiletreeplugin.cpp:260
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Mo&stra el document actiu"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save"
 msgstr "Desa"
 
-#: katefiletreeplugin.cpp:266
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document"
 msgstr "Desa el document actual"
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save As"
 msgstr "Desa com a"
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:275
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Desa el document actual amb un nom nou"
@@ -409,3 +407,9 @@ msgstr "Desa el document actual amb un nom nou"
 #, kde-format
 msgid "&Go"
 msgstr "&Ves"
+
+#~ msgid ""
+#~ "When enabled, this will show a close button for opened documents on hover."
+#~ msgstr ""
+#~ "Quan està habilitada, es mostrarà un botó de tancament en passar el "
+#~ "ratolí per als documents oberts."

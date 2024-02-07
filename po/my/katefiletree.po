@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-02-07 00:39+0000\n"
 "PO-Revision-Date: 2021-09-15 04:45+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -142,161 +142,161 @@ msgstr "မှတ်တမ်းရှင်းမည်"
 msgid "Clear edit/view history."
 msgstr "တည်းဖြတ်/ကြည့်ရှု မှတ်တမ်းရှင်းမည်။"
 
-#: katefiletree.cpp:230
+#: katefiletree.cpp:240
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "သစ်ပင်ပုံစံမြင်ကွင်း"
 
-#: katefiletree.cpp:231
+#: katefiletree.cpp:241
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr ""
 
-#: katefiletree.cpp:237
+#: katefiletree.cpp:247
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "စာရင်းစဥ်မြင်ကွင်း"
 
-#: katefiletree.cpp:238
+#: katefiletree.cpp:248
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr ""
 
-#: katefiletree.cpp:245
+#: katefiletree.cpp:255
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "မှတ်တမ်းပုံနှိပ်မူ အမည်"
 
-#: katefiletree.cpp:246
+#: katefiletree.cpp:256
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "မှတ်တမ်းပုံနှိပ်မူအမည်ဖြင့်စီမည်"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:261
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "မှတ်တမ်းပုံနှိပ်မူလမ်းကြောင်း"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:261
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "မှတ်တမ်းပုံနှိပ်မူလမ်းကြောင်းဖြင့်စီမည်"
 
-#: katefiletree.cpp:255
+#: katefiletree.cpp:265
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "ဖွင့်ထားသော အစဥ်"
 
-#: katefiletree.cpp:256
+#: katefiletree.cpp:266
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "ဖွင့်ထားသော အစဥ်ဖြင့် စီမည်"
 
-#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:73
+#: katefiletree.cpp:269 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr ""
 
-#: katefiletree.cpp:388
+#: katefiletree.cpp:398
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "ဖြင့်ဖွင့်ရန်"
 
-#: katefiletree.cpp:402
+#: katefiletree.cpp:412
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: katefiletree.cpp:441
+#: katefiletree.cpp:451
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "မြင်ကွင်းထုံးနည်း"
 
-#: katefiletree.cpp:445
+#: katefiletree.cpp:455
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "ဖြင့်စီမည်"
 
-#: katefiletreeconfigpage.cpp:44
+#: katefiletreeconfigpage.cpp:43
 #, kde-format
 msgid "Background Shading"
 msgstr "နောက်ခံပုံဖေါ်"
 
-#: katefiletreeconfigpage.cpp:51
+#: katefiletreeconfigpage.cpp:50
 #, kde-format
 msgid "&Viewed documents' shade:"
 msgstr "&Vကြည့်ထားသော မှတ်တမ်းပုံနှိပ်မူများ၏ ပုံစံ -"
 
-#: katefiletreeconfigpage.cpp:57
+#: katefiletreeconfigpage.cpp:56
 #, kde-format
 msgid "&Modified documents' shade:"
 msgstr "&Mမွမ်းမံထားသော မှတ်တမ်းပုံနှိပ်မူများ၏ ပုံစံ -"
 
-#: katefiletreeconfigpage.cpp:65
+#: katefiletreeconfigpage.cpp:64
 #, kde-format
 msgid "&Sort by:"
 msgstr "&Sဖြင့်စီမည်"
 
-#: katefiletreeconfigpage.cpp:70
+#: katefiletreeconfigpage.cpp:69
 #, kde-format
 msgid "Opening Order"
 msgstr "ဖွင့်ထားသော အစဥ်"
 
-#: katefiletreeconfigpage.cpp:71
+#: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Document Name"
 msgstr "မှတ်တမ်းပုံနှိပ်မူ အမည်"
 
-#: katefiletreeconfigpage.cpp:72
+#: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Url"
 msgstr "ယူအာအယ်လ်"
 
-#: katefiletreeconfigpage.cpp:78
+#: katefiletreeconfigpage.cpp:77
 #, kde-format
 msgid "&View Mode:"
 msgstr "&Vမြင်ကွင်းထုံးနည်း -"
 
-#: katefiletreeconfigpage.cpp:83
+#: katefiletreeconfigpage.cpp:82
 #, kde-format
 msgid "Tree View"
 msgstr "သစ်ပင်ပုံစံမြင်ကွင်း"
 
-#: katefiletreeconfigpage.cpp:84
+#: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "List View"
 msgstr "စာရင်းစဥ်မြင်ကွင်း"
 
-#: katefiletreeconfigpage.cpp:89
+#: katefiletreeconfigpage.cpp:88
 #, kde-format
 msgid "&Show Full Path"
 msgstr "&Sလမ်းကြောင်းအပြည့်အစုံပြမည်"
 
-#: katefiletreeconfigpage.cpp:94
+#: katefiletreeconfigpage.cpp:93
 #, kde-format
 msgid "Show &Toolbar"
 msgstr "&Tကိရိယာတန်းပြမည်"
 
-#: katefiletreeconfigpage.cpp:97
-#, kde-format
-msgid "Show Close Button"
+#: katefiletreeconfigpage.cpp:96
+#, fuzzy, kde-format
+#| msgid "Show Close Button"
+msgid "Show Close Button On Hovering"
 msgstr "ပိတ်ရန်ခလုတ်ပြမည်"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
-msgid ""
-"When enabled, this will show a close button for opened documents on hover."
+msgid "Middle Click To Close Documents"
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:104
+#: katefiletreeconfigpage.cpp:105
 #, kde-format
 msgid ""
 "When background shading is enabled, documents that have been viewed or "
@@ -304,39 +304,39 @@ msgid ""
 "recent documents have the strongest shade."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:107
+#: katefiletreeconfigpage.cpp:108
 #, kde-format
 msgid "Set the color for shading viewed documents."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:109
+#: katefiletreeconfigpage.cpp:110
 #, kde-format
 msgid ""
 "Set the color for modified documents. This color is blended into the color "
 "for viewed files. The most recently edited documents get most of this color."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:114
+#: katefiletreeconfigpage.cpp:115
 #, kde-format
 msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
 "path rather than just the last folder name."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:117
+#: katefiletreeconfigpage.cpp:118
 #, kde-format
 msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:136 katefiletreeplugin.cpp:127
-#: katefiletreeplugin.cpp:134
+#: katefiletreeconfigpage.cpp:138 katefiletreeplugin.cpp:130
+#: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
 msgstr "မှတ်တမ်းပုံနှိပ်မူများ"
 
-#: katefiletreeconfigpage.cpp:141
+#: katefiletreeconfigpage.cpp:143
 #, kde-format
 msgid "Configure Documents"
 msgstr "မှတ်တမ်းပုံနှိပ်မူများ ပြင်ဆင်မည်"
@@ -357,38 +357,38 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr ""
 
-#: katefiletreeplugin.cpp:248
+#: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Previous Document"
 msgstr "ရှေ့မှတ်တမ်းပုံနှိပ်မူ"
 
-#: katefiletreeplugin.cpp:254
+#: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "Next Document"
 msgstr "နောက်မှတ်တမ်းပုံနှိပ်မူ"
 
-#: katefiletreeplugin.cpp:260
+#: katefiletreeplugin.cpp:264
 #, fuzzy, kde-format
 #| msgid "&Show Active"
 msgid "&Show Active Document"
 msgstr "&Sသက်ဝင်နေသည်များ ပြမည်"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: katefiletreeplugin.cpp:266
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document"
 msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူကို သိမ်းဆည်းမည်"
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save As"
 msgstr ""
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:275
 #, fuzzy, kde-format
 #| msgid "Save the current document"
 msgid "Save the current document under a new name"

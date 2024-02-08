@@ -1,7 +1,7 @@
 # Finnish messages for katebuild-plugin.
 # Copyright © 2010, 2011, 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kdebase package.
-# Tommi Nieminen <translator@legisign.org>, 2010, 2014, 2019, 2020, 2021, 2022, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2010, 2014, 2019, 2020, 2021, 2022, 2023, 2024.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011-2012.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014, 2015.
 #
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-17 01:37+0000\n"
-"PO-Revision-Date: 2023-09-26 10:33+0300\n"
+"PO-Revision-Date: 2024-02-02 17:36+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -58,7 +58,7 @@ msgstr "Lisää virheet ja varoitukset diagnostiikkaan"
 #: buildconfig.cpp:27
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "Vaihda valittua kohdetta suoritettaessa automaattisesti tulospaneeliin"
 
 #: buildconfig.cpp:40
 #, kde-format

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2024-02-01 16:24+0100\n"
+"PO-Revision-Date: 2024-02-07 12:18+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -307,7 +307,7 @@ msgid ""
 "configured in settings."
 msgstr ""
 "S'ha arribat al límit de diagnòstics, s'ignoren la resta. El límit es pot "
-"configurar a la configuració."
+"configurar en la configuració."
 
 #: lib/diagnostics/diagnosticview.cpp:327
 #, kde-format
@@ -1219,15 +1219,15 @@ msgid "Show current symbol in navigation bar"
 msgstr "Mostra el símbol actual a la barra de navegació"
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Vista del diagnòstic"
+msgstr "Límit dels diagnòstics:"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
+"Nombre màxim de diagnòstics permesos en la vista d'eina de Diagnòstics."
 
 #: lib/kateconfigdialog.cpp:364
 #, kde-format

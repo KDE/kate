@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2024-02-01 15:23+0100\n"
+"PO-Revision-Date: 2024-02-08 01:15+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1237,15 +1237,16 @@ msgid "Show current symbol in navigation bar"
 msgstr "Mostrar el símbolo actual en la barra de navegación"
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Vista de diagnósticos"
+msgstr "Límite de diagnósticos:"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
+"Número máximo de diagnósticos permitidos en el visor de la herramienta de "
+"diagnósticos."
 
 #: lib/kateconfigdialog.cpp:364
 #, kde-format

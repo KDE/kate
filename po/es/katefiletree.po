@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Automatically generated, 2014.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2014, 2016, 2018, 2019, 2021, 2022.
+# SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021, 2022, 2024 Eloy Cuadra <ecuadra@eloihr.net>
 # Rocio Gallego <traducciones@rociogallego.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2022-12-11 12:02+0100\n"
+"PO-Revision-Date: 2024-02-08 01:16+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -285,15 +285,14 @@ msgid "Show &Toolbar"
 msgstr "Mos&trar la barra de herramientas"
 
 #: katefiletreeconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "Show Close Button"
+#, kde-format
 msgid "Show Close Button On Hovering"
-msgstr "Mostrar el botón de cierre"
+msgstr "Mostrar el botón de cierre al pasar el puntero"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "Clic central para cerrar documentos"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format

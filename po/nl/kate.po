@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2024-02-01 10:31+0100\n"
+"PO-Revision-Date: 2024-02-07 14:50+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -1228,15 +1228,16 @@ msgid "Show current symbol in navigation bar"
 msgstr "Huidige symbool in navigatiebalk tonen"
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Weergave van diagnostische meldingen"
+msgstr "Limiet aan diagnostiek"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
+"Max aantal diagnostische melden toegestaan in het hulpmiddel weergave van "
+"diagnostiek."
 
 #: lib/kateconfigdialog.cpp:364
 #, kde-format

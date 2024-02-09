@@ -284,10 +284,9 @@ msgid "Show &Toolbar"
 msgstr "Zobrazi&t panel nástrojů"
 
 #: katefiletreeconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "Show Close Button"
+#, kde-format
 msgid "Show Close Button On Hovering"
-msgstr "Zobrazit uzavírací tlačítko"
+msgstr ""
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
@@ -401,9 +400,3 @@ msgstr "Uložit současný dokument pod novým názvem"
 #, kde-format
 msgid "&Go"
 msgstr "Pře&jít"
-
-#~ msgid ""
-#~ "When enabled, this will show a close button for opened documents on hover."
-#~ msgstr ""
-#~ "Pokud povoleno, zobrazí tento nástroj tlačítko pro zavření otevřených "
-#~ "dokumentů při přejetí myší."

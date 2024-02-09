@@ -212,10 +212,9 @@ msgid "End Macro &Recording"
 msgstr ""
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "Načteno '%1'"
+msgstr ""
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format

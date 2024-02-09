@@ -1179,10 +1179,9 @@ msgid "Show current symbol in navigation bar"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Diagnostický pohled"
+msgstr ""
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
@@ -2794,7 +2793,3 @@ msgstr "Spravovat sezení..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Zobrazit pro nové okno"
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr "Interní chyba: dané sezení je spuštěno více než jednou."

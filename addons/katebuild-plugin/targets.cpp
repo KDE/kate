@@ -97,6 +97,7 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     connect(targetFilterEdit, &QLineEdit::textChanged, this, [this](const QString &text) {
         proxyModel.setFilter(text);
         targetsView->expandAll();
+        targetsView->scrollTo(targetsView->currentIndex());
     });
 
     targetsView->installEventFilter(this);

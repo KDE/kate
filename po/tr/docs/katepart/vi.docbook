@@ -30,19 +30,19 @@
 >Vi Giriş Kipi</title>
 
 <para
->Vi kipinin amacı, Vim'in tam yerini almak ve Vim'in tüm özelliklerini desteklemek değildir. Amacı, metin düzenlemenin <quote
+>Vi kipinin amacı, Vim’in tam yerini almak ve Vim’in tüm özelliklerini desteklemek değildir. Amacı, metin düzenlemenin <quote
 >Vim yöntemini</quote
 > - ve öğrenilen Vim alışkanlıklarını - içsel düzenleyici olarak &kappname; metin düzenleyicisini kullanan programlar için kullanılabilir hale getirmektir.</para>
 
 <para
->Vi kipi, programla güzel bir şekilde bütünleşmeyi ve Vim'in davranışından mantıklı olduğu yerde sapmayı amaçlamaktadır. Örneğin, <userinput
+>Vi kipi, programla güzel bir şekilde bütünleşmeyi ve Vim’in davranışından mantıklı olduğu yerde sapmayı amaçlamaktadır. Örneğin, <userinput
 ><command
 >:w</command
 ></userinput
->, &kappname;'in Vi kipinde bir kaydetme iletişim kutusu açacaktır.</para>
+>, &kappname;’in Vi kipinde bir kaydetme iletişim kutusu açacaktır.</para>
 
 <para
->Vi Giriş Kipi'ni tüm yeni görünümler için etkinleştirmek üzere <menuchoice
+>Vi Giriş Kipi’ni tüm yeni görünümler için etkinleştirmek üzere <menuchoice
 ><guimenu
 >Ayarlar</guimenu
 ><guimenuitem
@@ -131,7 +131,7 @@
 >U</keycap
 >, bir satırdaki tüm güncel değişiklikleri geri almak için kullanılır.</para>
 <para
->&kappname;'in Vi kipinde <keycap
+>&kappname;’in Vi kipinde <keycap
 >U</keycap
 > düğmesini yinele olarak kullanmanın nedeni, <keycombo action="simul"
 >&Ctrl;<keycap
@@ -149,7 +149,7 @@
 ></menuchoice
 > bölümünde yapılandırılabilir), bundan dolayı bir yinele eyleminin <quote
 >düzenli</quote
-> bir düğme basımı olarak kullanılabilir olması gereklidir. Ek olarak, Vim'deki <userinput
+> bir düğme basımı olarak kullanılabilir olması gereklidir. Ek olarak, Vim’deki <userinput
 >U</userinput
 > komutu, &kappname;’in içsel geri al sistemiyle düzgün bir biçimde tümleşmez, o yüzden desteklemek kolay değildir.</para>
 </listitem>
@@ -179,7 +179,7 @@
 ><command
 >:print</command
 ></userinput
-> komutu Vim'in davranışını taklit etmek yerine yazdırma iletişim kutusunu açar.</para>
+> komutu Vim’in davranışını taklit etmek yerine yazdırma iletişim kutusunu açar.</para>
 </listitem>
 <listitem>
 <para
@@ -195,7 +195,7 @@
 >y</userinput
 > gibi.</para>
 <para
->Vi'nin <userinput
+>Vi’nin <userinput
 >Y</userinput
 > komutu davranışı aslında bir hatadır. Değiştir ve sil komutları için <userinput
 >c</userinput
@@ -215,7 +215,7 @@
 >y</userinput
 > ve <userinput
 >Y</userinput
->, geçerli satırı kopyalar. &kappname;’in Vi Kipi'nde <userinput
+>, geçerli satırı kopyalar. &kappname;’in Vi Kipi’nde <userinput
 >Y</userinput
 >, satırın sonuna kadar kopyalar. Bu, Vim <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y"
 >belgelendirmesinde</ulink
@@ -295,7 +295,7 @@
 
 <listitem>
 <para
->Fare ile metin seçildiğinde Görsel Kip'e kendiliğinden girilir. Ayrıca Tümünü Seç gibi metni seçen &kate; işlevleri kullanılırken de girilebilir (menüden veya <keycombo action="simul"
+>Fare ile metin seçildiğinde Görsel Kip’e kendiliğinden girilir. Ayrıca Tümünü Seç gibi metni seçen &kate; işlevleri kullanılırken de girilebilir (menüden veya <keycombo action="simul"
 >&Ctrl;<keycap
 >A</keycap
 > </keycombo
@@ -306,7 +306,7 @@
 <para
 >Vi imleri ve <link linkend="kate-part-bookmarks"
 >&kate; yer imleri</link
-> birbirleriyle tümleşiktir. Vi Kipi'nde bir im oluşturulduğunda, onunla eşleşen bir &kate; yer imi de oluşturulur ve <guimenu
+> birbirleriyle tümleşiktir. Vi Kipi’nde bir im oluşturulduğunda, onunla eşleşen bir &kate; yer imi de oluşturulur ve <guimenu
 >Yer İmleri</guimenu
 > menüsünde görünür. Tam tersi olarak bir &kate; yer imi de oluşturulduğunda eşleşen bir Vi imi, 0. sütünda yerini alır.</para>
 </listitem>
@@ -342,7 +342,7 @@
 ></entry>
 <entry
 ><para
->Ekle Kipi'ne gir, imleçten sonra iliştir</para
+>Ekle Kipi’ne gir, imleçten sonra iliştir</para
 ></entry>
 </row>
 <row
@@ -354,7 +354,7 @@
 ></entry>
 <entry
 ><para
->Ekle Kipi'ne gir, satırdan sonra iliştir</para
+>Ekle Kipi’ne gir, satırdan sonra iliştir</para
 ></entry>
 </row>
 <row
@@ -366,7 +366,7 @@
 ></entry>
 <entry
 ><para
->Ekle Kipi'ne gir, imleçten önce ekle</para
+>Ekle Kipi’ne gir, imleçten önce ekle</para
 ></entry>
 </row>
 <row
@@ -376,7 +376,7 @@
 ></entry>
 <entry
 ><para
->Ekle Kipi'ne gir, imleçten önce ekle</para
+>Ekle Kipi’ne gir, imleçten önce ekle</para
 ></entry>
 </row>
 <row
@@ -388,7 +388,7 @@
 ></entry>
 <entry
 ><para
->Ekle Kipi'ne gir, satırdaki ilk boş olmayan karakterden önce ekle</para
+>Ekle Kipi’ne gir, satırdaki ilk boş olmayan karakterden önce ekle</para
 ></entry>
 </row>
 <row
@@ -400,7 +400,7 @@
 ></entry>
 <entry
 ><para
->Ekle Kipi'ne gir, son Ekle Kipi'nden çıkış sırasında bırakılan yerden önce ekle</para
+>Ekle Kipi’ne gir, son Ekle Kipi’nden çıkış sırasında bırakılan yerden önce ekle</para
 ></entry>
 </row>
 <row
@@ -412,7 +412,7 @@
 ></entry>
 <entry
 ><para
->Görsel Kip'e gir, karakterler seç</para
+>Görsel Kip’e gir, karakterler seç</para
 ></entry>
 </row>
 <row
@@ -424,7 +424,7 @@
 ></entry>
 <entry
 ><para
->Görsel Kip'e gir, satırlar seç</para
+>Görsel Kip’e gir, satırlar seç</para
 ></entry>
 </row>
 <row
@@ -438,7 +438,7 @@
 ></entry>
 <entry
 ><para
->Görsel Kip'e gir, bloklar seç</para
+>Görsel Kip’e gir, bloklar seç</para
 ></entry>
 </row>
 <row
@@ -450,7 +450,7 @@
 ></entry>
 <entry
 ><para
->Görsel Kip'e gir, son seçimi yeniden seç</para
+>Görsel Kip’e gir, son seçimi yeniden seç</para
 ></entry>
 </row>
 <row
@@ -498,7 +498,7 @@
 ></entry>
 <entry
 ><para
->Değiştir: Ardına bir hareket ekle ve Ekle Kipi'ne gir</para
+>Değiştir: Ardına bir hareket ekle ve Ekle Kipi’ne gir</para
 ></entry>
 </row>
 <row
@@ -510,7 +510,7 @@
 ></entry>
 <entry
 ><para
->Satır sonuna kadar değiştir: Satırın sonuna kadar sil ve Ekle Kipi'ne gir</para
+>Satır sonuna kadar değiştir: Satırın sonuna kadar sil ve Ekle Kipi’ne gir</para
 ></entry>
 </row>
 <row
@@ -522,7 +522,7 @@
 ></entry>
 <entry
 ><para
->Satırı değiştir: Satırı sil ve Ekle Kipi'ne gir</para
+>Satırı değiştir: Satırı sil ve Ekle Kipi’ne gir</para
 ></entry>
 </row>
 <row
@@ -774,7 +774,7 @@
 ></entry>
 <entry
 ><para
->Değiştir Kipi'ne gir</para
+>Değiştir Kipi’ne gir</para
 ></entry>
 </row>
 <row
@@ -786,7 +786,7 @@
 ></entry>
 <entry
 ><para
->Komut Kipi'ne gir</para
+>Komut Kipi’ne gir</para
 ></entry>
 </row>
 <row
@@ -2166,7 +2166,7 @@
 ></entry>
 <entry
 ><para
->Yalnızca bir komut için Normal Kip'e gir</para
+>Yalnızca bir komut için Normal Kip’e gir</para
 ></entry
 ></row>
 <row
@@ -2207,7 +2207,7 @@
 >Virgül Metin Nesnesi</title>
 
 <para
->Bu nesne Vim'de yoktur. Virgül Metin Nesnesi, C benzeri dillerdeki ve diğer virgülle ayrılmış listelerdeki parametre listelerini değiştirmeyi kolaylaştırır. Temel olarak iki virgül veya virgül ile parantez arasındaki alandır. Çizimde gösterilen satırda, bu metin nesnesinin yayılabileceği üç erim vurgulanmıştır.</para>
+>Bu nesne Vim’de yoktur. Virgül Metin Nesnesi, C benzeri dillerdeki ve diğer virgülle ayrılmış listelerdeki parametre listelerini değiştirmeyi kolaylaştırır. Temel olarak iki virgül veya virgül ile parantez arasındaki alandır. Çizimde gösterilen satırda, bu metin nesnesinin yayılabileceği üç erim vurgulanmıştır.</para>
 
 <screenshot id="screenshot-resources">
 <screeninfo
@@ -2229,7 +2229,7 @@
 >içteki virgülü değiştir</quote
 >), <replaceable
 >double arg2</replaceable
-> ögesini siler ve imleci iki virgülün arasına yerleştirir ve Ekle Kipi'ne geçer. Bir işlevin parametrelerini değiştirmenin pek kolay bir yoludur.</para
+> ögesini siler ve imleci iki virgülün arasına yerleştirir ve Ekle Kipi’ne geçer. Bir işlevin parametrelerini değiştirmenin pek kolay bir yoludur.</para
 ></caption>
 </mediaobject>
 </screenshot>
@@ -2241,7 +2241,7 @@
 >Eksik Özellikler</title>
 
 <para
->Daha önce de belirtildiği üzere, &kappname; Vi Kipi'nin amacı Vim'in özelliklerinin %​100'ünü desteklemek değildir.</para>
+>Daha önce de belirtildiği üzere, &kappname; Vi Kipi’nin amacı Vim’in özelliklerinin %​100’ünü desteklemek değildir.</para>
 </sect2>
 
 </sect1>

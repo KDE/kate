@@ -160,7 +160,7 @@ doğrudan uyumlu değildir.</synopsis>
 ><literal
 >{0,4}</literal
 > dizisi, <quote
->öncekinin 0'dan 4'e kadar herhangi bir yer</quote
+>öncekinin 0’dan 4’e kadar herhangi bir yer</quote
 > olan bir niceleyicidir.</para>
 
 <para
@@ -678,7 +678,7 @@ doğrudan uyumlu değildir.</synopsis>
 ><userinput
 >\123</userinput
 >, <quote
->yakalama 1'i kullan, sonrasında 23'ü normal metin olarak kullan</quote
+>yakalama 1’i kullan, sonrasında 23’ü normal metin olarak kullan</quote
 > anlamına gelir</para
 ></listitem>
 </itemizedlist>
@@ -1166,9 +1166,9 @@ doğrudan uyumlu değildir.</synopsis>
 ><userinput
 >you\?$</userinput
 > ifadesi, <quote
->You didn't do that, did you?</quote
+>You didn’t do that, did you?</quote
 > dizisindeki son you ile eşleşir; ancak <quote
->You didn't do that, right?</quote
+>You didn’t do that, right?</quote
 > ile eşleşmez</para>
 
 </listitem>
@@ -1216,7 +1216,7 @@ doğrudan uyumlu değildir.</synopsis>
 > ile eşleşir; ancak <quote
 >integer</quote
 > veya <quote
->I'm in love</quote
+>I’m in love</quote
 > ile eşleşmez.</para>
 </listitem>
 </varlistentry>

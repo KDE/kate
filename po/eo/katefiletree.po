@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2023-03-12 01:57+0100\n"
+"PO-Revision-Date: 2024-02-09 22:05+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -282,15 +282,14 @@ msgid "Show &Toolbar"
 msgstr "Montri &Ilobreton"
 
 #: katefiletreeconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "Show Close Button"
+#, kde-format
 msgid "Show Close Button On Hovering"
-msgstr "Montri Fermbutonon"
+msgstr "Montri Fermbutonon Je Ŝvebado"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "Mezklaki Por Fermi Dokumentojn"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -401,9 +400,3 @@ msgstr "Konservi la nunan dokumenton sub nova nomo"
 #, kde-format
 msgid "&Go"
 msgstr "&Iri"
-
-#~ msgid ""
-#~ "When enabled, this will show a close button for opened documents on hover."
-#~ msgstr ""
-#~ "Kiam ĝi estas ebligita, ĉi tio montros fermbutonon por malfermitaj "
-#~ "dokumentoj dum ŝvebado."

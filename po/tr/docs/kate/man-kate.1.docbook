@@ -102,7 +102,7 @@
 <title
 >Açıklama</title>
 <para
->&kate;, &kde; Gelişmiş Metin Düzenleyicisi'dir. </para>
+>&kate;, &kde; Gelişmiş Metin Düzenleyicisi’dir. </para>
 <para
 >Ayrıca &kate;, &kwrite; adı altında çeşitli uygulamalar için bir düzenleyici de sağlamaktadır.</para>
 <para
@@ -170,7 +170,7 @@
 ></term>
 <listitem
 ><para
->Açmak için URL'ler verilmişse ve halihazırda çalışan bir &kate; örneği kullanılıyorsa o çıkana kadar engelle.</para
+>Açmak için URL’ler verilmişse ve halihazırda çalışan bir &kate; örneği kullanılıyorsa o çıkana kadar engelle.</para
 ></listitem>
 </varlistentry>
 <varlistentry>

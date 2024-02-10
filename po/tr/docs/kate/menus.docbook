@@ -612,11 +612,11 @@
 ></term>
 <listitem>
 <para
->Seçim Kipi'ni açar/kapatır. Seçim Kipi <guilabel
+>Seçim Kipi’ni açar/kapatır. Seçim Kipi <guilabel
 >BLOK</guilabel
 > olduğunda, durum çubuğu <guilabel
 >[BLOK]</guilabel
-> dizisini içerir ve dikey seçimler yapabilirsiniz; &eg;, 9'dan 15'e kadar olan satırlarda 5'ten 10'a kadar olan sütunları seçebilirsiniz.</para>
+> dizisini içerir ve dikey seçimler yapabilirsiniz; &eg;, 9’dan 15’e kadar olan satırlarda 5’ten 10’a kadar olan sütunları seçebilirsiniz.</para>
 </listitem>
 </varlistentry>
 
@@ -631,7 +631,7 @@
 ></term>
 <listitem>
 <para
->Normal ve vi benzeri kipsel düzenleme kipi arasında geçiş yapın. Vi giriş kipi, Vim'in normal ve görsel modundan en çok kullanılan komutları ve hareketleri destekler ve isteğe bağlı bir Vi kipi durum çubuğuna sahiptir. Bu durum çubuğu, girilirken komutları, komutlardan çıktıyı ve geçerli kipi gösterir. Bu kipin davranışı &kappname;'in ayarlar iletişim kutusundaki <guilabel
+>Normal ve vi benzeri kipsel düzenleme kipi arasında geçiş yapın. Vi giriş kipi, Vim’in normal ve görsel modundan en çok kullanılan komutları ve hareketleri destekler ve isteğe bağlı bir Vi kipi durum çubuğuna sahiptir. Bu durum çubuğu, girilirken komutları, komutlardan çıktıyı ve geçerli kipi gösterir. Bu kipin davranışı &kappname;’in ayarlar iletişim kutusundaki <guilabel
 >Düzenleme</guilabel
 > sayfasının <ulink url="help:/katepart/config-dialog-editor.html#pref-edit-vi-input-mode"
 >Vi Giriş Kipi</ulink
@@ -664,7 +664,7 @@
 >EKLE</guilabel
 > ya da <guilabel
 >ÜZERİNE YAZ</guilabel
-> olacak şekilde Üzerine Yazma Kipi'nin geçerli durumunu gösterir.</para>
+> olacak şekilde Üzerine Yazma Kipi’nin geçerli durumunu gösterir.</para>
 </listitem>
 </varlistentry>
 <!--FIXME keep in sync with katepart/part.docbook <sect2 id="finding-text"
@@ -1739,7 +1739,7 @@
 <listitem
 ><para
 >Bu, sarma çubuğunu geçerli belgenin görselleştirmesiyle değiştirecektir. Sarma çubuğu mini haritası hakkında daha fazla bilgi için <ulink url="help:/katepart/kate-part-scrollbar-minimap.html"
->&katepart; El Kitabı'nın Sarma Çubuğu Mini Haritası</ulink
+>&katepart; El Kitabı’nın Sarma Çubuğu Mini Haritası</ulink
 > bölümüne bakın.</para
 ></listitem>
 </varlistentry>
@@ -2673,7 +2673,7 @@ Editor...</guimenuitem
 >Ayarlar</guimenu
 > ve <guimenu
 >Yardım</guimenu
-> menüsü ögelerine sahiptir; daha fazla bilgi için &kde; Temelleri'nin aşağıdaki ek girdilerle birlikte <ulink url="help:/fundamentals/menus.html#menus-settings"
+> menüsü ögelerine sahiptir; daha fazla bilgi için &kde; Temelleri’nin aşağıdaki ek girdilerle birlikte <ulink url="help:/fundamentals/menus.html#menus-settings"
 >Ayarlar Menüsü</ulink
 > ve <ulink url="help:/fundamentals/menus.html#menus-help"
 >Yardım Menüsü</ulink

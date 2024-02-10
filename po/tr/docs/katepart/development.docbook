@@ -101,7 +101,7 @@
 
 <note>
 <para
->Sözdizim vurgulama, doğru metnin okunabilirliğini artırmak için vardır; ancak metninizi doğrulamak için ona güvenemezsiniz. Kullandığınız biçime bağlı olarak metni sözdizimi için işaretlemek zordur ve bazı durumlarda sözdizim kurallarının yazarları metnin %​98'i doğru şekilde oluşturulursa gurur duyacaktır; ancak çoğunlukla yanlış %​2'yi görmek için nadir bir biçeme gereksiniminiz vardır.</para>
+>Sözdizim vurgulama, doğru metnin okunabilirliğini artırmak için vardır; ancak metninizi doğrulamak için ona güvenemezsiniz. Kullandığınız biçime bağlı olarak metni sözdizimi için işaretlemek zordur ve bazı durumlarda sözdizim kurallarının yazarları metnin %​98’i doğru şekilde oluşturulursa gurur duyacaktır; ancak çoğunlukla yanlış %​2’yi görmek için nadir bir biçeme gereksiniminiz vardır.</para>
 </note>
 
 </sect2>
@@ -576,7 +576,7 @@
 <title
 >Ayrıntılı Olarak Bölümler</title>
 <para
->Bu kısım; bağlamlar, itemData'lar, anahtar sözcükler, yorumlar, kod katlama ve girintileme ile ilgili tüm öznitelikleri açıklar.</para>
+>Bu kısım; bağlamlar, itemData’lar, anahtar sözcükler, yorumlar, kod katlama ve girintileme ile ilgili tüm öznitelikleri açıklar.</para>
 
 <variablelist>
 <varlistentry>
@@ -675,9 +675,9 @@
 <para
 ><userinput
 >name</userinput
->, itemData'nın adını ayarlar. Bağlamlar ve kurallar, <emphasis
+>, itemData’nın adını ayarlar. Bağlamlar ve kurallar, <emphasis
 >attribute</emphasis
-> özniteliğinde bir itemData'ya başvurmak için bu adı kullanırlar.</para>
+> özniteliğinde bir itemData’ya başvurmak için bu adı kullanırlar.</para>
 <para
 ><userinput
 >defStyleNum</userinput
@@ -1004,11 +1004,11 @@
 <para
 ><userinput
 >dsVerbatimString</userinput
->, Perl, CoffeeScript ve kabuklardaki 'raw \backlash' ve Python'daki r'\raw' gibi gerçek veya ham diziler.</para>
+>, Perl, CoffeeScript ve kabuklardaki ’raw \backlash’ ve Python’daki r’\raw’ gibi gerçek veya ham diziler.</para>
 <para
 ><userinput
 >dsSpecialString</userinput
->, SQL, regex'ler, HERE belgeleri, &latex; matematik kipi, ...</para>
+>, SQL, regex’ler, HERE belgeleri, &latex; matematik kipi, ...</para>
 <para
 ><userinput
 >dsImport</userinput
@@ -1062,7 +1062,7 @@
 <para
 ><userinput
 >dsCommentVar</userinput
->, yukarıdaki komutlarda kullanılan değişken adları; @param foobar'daki "foobar" gibi.</para>
+>, yukarıdaki komutlarda kullanılan değişken adları; @param foobar’daki "foobar" gibi.</para>
 <para
 ><userinput
 >dsRegionMarker</userinput
@@ -1081,7 +1081,7 @@
 <para
 ><userinput
 >dsWarning</userinput
->, doxygen'deki @warning gibi uyarılar.</para>
+>, doxygen’deki @warning gibi uyarılar.</para>
 <para
 ><userinput
 >dsAlert</userinput
@@ -2002,7 +2002,7 @@
 </listitem>
 <listitem>
 <para
->Kate'de, yerleşik komut satırını (öntanımlı kısayolu <userinput
+>Kate’de, yerleşik komut satırını (öntanımlı kısayolu <userinput
 >F7</userinput
 >) ve <command
 >reload-highlighting</command
@@ -2457,7 +2457,7 @@
 <para
 >&JSON; dili yorumları desteklemez. Ancak, yorumlar yazmak için kök nesnede isteğe bağlı <userinput
 >_comments</userinput
-> anahtarını kullanabilirsiniz. Bu örneğin, önceden var olan bir temayı uyarlıyorsanız özgün deponun URL'sini buraya koyabilirsiniz. En pratik yolu, diziler içeren dizilişler kullanmaktır. </para>
+> anahtarını kullanabilirsiniz. Bu örneğin, önceden var olan bir temayı uyarlıyorsanız özgün deponun URL’sini buraya koyabilirsiniz. En pratik yolu, diziler içeren dizilişler kullanmaktır. </para>
 
 <para
 >Aşağıda <quote
@@ -3268,7 +3268,7 @@
 >Öntanımlı Metin Biçemleri</title>
 
 <para
->Öntanımlı metin biçemleri, vurgulanan metin biçemleri tarafından devralınır ve bu, düzenleyicinin metni çok tutarlı bir biçimde sunmasına olanak tanır; örneğin, yorum metni, KSyntaxHighlighting'in vurgulayabildiği hemen hemen tüm metin biçimlerinde aynı biçemi kullanır. </para>
+>Öntanımlı metin biçemleri, vurgulanan metin biçemleri tarafından devralınır ve bu, düzenleyicinin metni çok tutarlı bir biçimde sunmasına olanak tanır; örneğin, yorum metni, KSyntaxHighlighting’in vurgulayabildiği hemen hemen tüm metin biçimlerinde aynı biçemi kullanır. </para>
 
 <note>
 <para
@@ -3530,9 +3530,9 @@
 <para
 ><userinput
 >Attribute</userinput
->: Bilgi notları veya işlevlerin veya nesnelerin öznitelikleri için metin biçemi; örneğin, Java'daki <userinput
+>: Bilgi notları veya işlevlerin veya nesnelerin öznitelikleri için metin biçemi; örneğin, Java’daki <userinput
 >@override</userinput
-> veya C++'daki <userinput
+> veya C++’daki <userinput
 >__declspec(...)</userinput
 > ve <userinput
 >__attribute__((...))</userinput
@@ -3575,7 +3575,7 @@
 >BaseN</userinput
 > (<guilabel
 >N Tabanlı Tamsayı</guilabel
->): 10'dan başka bir tabanlı sayılar için metin biçemi.</para>
+>): 10’dan başka bir tabanlı sayılar için metin biçemi.</para>
 
 <para
 ><userinput
@@ -3587,13 +3587,13 @@
 <para
 ><userinput
 >Constant</userinput
->: Dil sabitleri ve kullanıcı tanımlı sabitler için metin biçemi; örneğin, Python'daki <emphasis
+>: Dil sabitleri ve kullanıcı tanımlı sabitler için metin biçemi; örneğin, Python’daki <emphasis
 >True</emphasis
 >, <emphasis
 >False</emphasis
 >, <emphasis
 >None</emphasis
-> veya C/C++'daki <emphasis
+> veya C/C++’daki <emphasis
 >nullptr</emphasis
 > veya <emphasis
 >PI</emphasis
@@ -3658,8 +3658,8 @@
 ><userinput
 >Import</userinput
 > (<guilabel
->Import'lar, Modüller, Include'lar</guilabel
->): Include'lar, import'lar, modüller veya &latex; paketleri için metin biçemi.</para>
+>Import’lar, Modüller, Include’lar</guilabel
+>): Include’lar, import’lar, modüller veya &latex; paketleri için metin biçemi.</para>
 </listitem>
 </varlistentry>
 
@@ -3695,7 +3695,7 @@
 >CommentVar</userinput
 > (<guilabel
 >Yorum Değişkeni</guilabel
->): Yukarıdaki komutlarda bir yorumda kullanılan değişken adlarına başvuran metin biçemi; örneğin, Doxygen veya JavaDoc'ta <quote
+>): Yukarıdaki komutlarda bir yorumda kullanılan değişken adlarına başvuran metin biçemi; örneğin, Doxygen veya JavaDoc’ta <quote
 ><userinput
 >@param foobar</userinput
 ></quote
@@ -3724,7 +3724,7 @@
 <para
 ><userinput
 >Warning</userinput
->: Uyarılar için metin biçemi; örneğin, Doxygen'deki <userinput
+>: Uyarılar için metin biçemi; örneğin, Doxygen’deki <userinput
 >@warning</userinput
 > anahtar sözcüğü gibi.</para>
 
@@ -4063,7 +4063,7 @@
 >Öntanımlı Metin Biçemleri</title>
 
 <para
->Öntanımlı metin biçemleri, vurgulanan metin biçemleri tarafından devralınır ve bu, düzenleyicinin metni çok tutarlı bir biçimde sunmasına olanak tanır; örneğin, yorum metni, KSyntaxHighlighting'in vurgulayabildiği hemen hemen tüm metin biçimlerinde aynı biçemi kullanır.</para>
+>Öntanımlı metin biçemleri, vurgulanan metin biçemleri tarafından devralınır ve bu, düzenleyicinin metni çok tutarlı bir biçimde sunmasına olanak tanır; örneğin, yorum metni, KSyntaxHighlighting’in vurgulayabildiği hemen hemen tüm metin biçimlerinde aynı biçemi kullanır.</para>
 <para
 >Biçem listesindeki ad, öge için yapılandırılan biçemi kullanır ve bir biçemi yapılandırırken size anında bir önizleme sağlar. </para>
 <para
@@ -4119,14 +4119,14 @@
 > uygulamasını from <ulink url="https://apps.kde.org/en/kontrast"
 >&kde; uygulamaları web sitesinden</ulink
 > veya <ulink url="https://flathub.org/apps/details/org.kde.kontrast"
->Flathub'daki Flatpak paketiyle</ulink
+>Flathub’daki Flatpak paketiyle</ulink
 > indirebilirsiniz (yalnızca GNU/Linux).</para>
 
 <para
 >GNOME <userinput
 >Contrast</userinput
 > uygulaması da benzer bir uygulamadır. <ulink url="https://flathub.org/apps/details/org.gnome.design.Contrast"
->Flathub'daki Flatpak paketiyle</ulink
+>Flathub’daki Flatpak paketiyle</ulink
 > indirebilirsiniz (yalnızca GNU/Linux).</para>
 
 </sect3>
@@ -4138,7 +4138,7 @@
 
 <para
 >KSyntaxHighlighting, <ulink url="https://kate-editor.org/syntax/"
->300'den fazla sözdizimi vurgulama tanımı</ulink
+>300’den fazla sözdizimi vurgulama tanımı</ulink
 > içerir, bu nedenle yeni temanızın tüm sözdizim vurgulama tanımlarında iyi göründüğünden emin olmanız idealdir. Yerleşik renk temaları, tüm sözdizim vurgulama tanımlarının doğru bir şekilde görüntülenmesini sağlamak için takip edilmesi önerilen (ancak zorunlu olmayan) aşağıdaki benzerliklere sahiptir:</para>
 
 <itemizedlist>
@@ -4205,7 +4205,7 @@
 >&javascript; ile betik yazımı</title>
 
 <para
->&kappname; düzenleyici bileşeni, betik yazımı ile kolaylıkla genişletilebilir. Bunun içn kullanılan dil ECMAScript'tir (genellikle &javascript; olarak bilinir). &kappname; iki tür betiği destekler: Girintileme ve komut satırı betikleri. </para>
+>&kappname; düzenleyici bileşeni, betik yazımı ile kolaylıkla genişletilebilir. Bunun içn kullanılan dil ECMAScript’tir (genellikle &javascript; olarak bilinir). &kappname; iki tür betiği destekler: Girintileme ve komut satırı betikleri. </para>
 
 <sect2 id="dev-scripting-indentation">
 <title
@@ -4339,15 +4339,15 @@ var katescript = {
 triggerCharacters = "{}/:;";
 function indent(line, indentWidth, ch)
 {
-    // triggerCharacters global değişkeninde belirtilen her bir yenisatır (ch == '\n') ve tüm karakterler için çağrılır. <menuchoice
+    // triggerCharacters global değişkeninde belirtilen her bir yenisatır (ch == ’\n’) ve tüm karakterler için çağrılır. <menuchoice
 ><guimenu
 >Araçlar</guimenu
 ><guimenuitem
 >Girintilemeyi Biçimlendir</guimenuitem
 ></menuchoice
->, ch değişkeni boştur; demeli, ch == ''.
+>, ch değişkeni boştur; demeli, ch == ’’.
     //
-    // Ayrıca bakınız: Betik Yazımı API'si
+    // Ayrıca bakınız: Betik Yazımı API’si
     return -2;
 }
 </programlisting
@@ -4371,7 +4371,7 @@ function indent(line, indentWidth, ch)
 ><literal
 >ch</literal
 >: Ya bir yenisatır karakteri (<literal
->ch == '\n'</literal
+>ch == ’\n’</literal
 >) ya <literal
 >triggerCharacters</literal
 > içinde belirtilen tetikleyici karakter ya da kullanıcı <menuchoice
@@ -4590,7 +4590,7 @@ var katescript = {
 
 function &lt;name&gt;(arg1, arg2, ...)
 {
-    // ... uygulama, ayrıca bakınız: Betik Yazımı API'si
+    // ... uygulama, ayrıca bakınız: Betik Yazımı API’si
 }
 </programlisting>
 </para>
@@ -4718,10 +4718,10 @@ var katescript = {
 
 <sect2 id="dev-scripting-api">
 <title
->Betik Yazımı API'si</title>
+>Betik Yazımı API’si</title>
 
 <para
->Burada sunulan betik yazımı API'si, tüm betikler için kullanılabilirdir; &ie;, girintileme betikleri ve komut satırı betikleri. <classname
+>Burada sunulan betik yazımı API’si, tüm betikler için kullanılabilirdir; &ie;, girintileme betikleri ve komut satırı betikleri. <classname
 >Cursor</classname
 > ve <classname
 >Range</classname
@@ -4733,14 +4733,14 @@ var katescript = {
 >Document</classname
 > veya <classname
 >View</classname
-> işlevlerinden bazılarını kullanması gereken bu API'yi betiğinizde kullanmak istiyorsanız şunu kullanarak gerekli kitaplığı içerin: <programlisting
+> işlevlerinden bazılarını kullanması gereken bu API’yi betiğinizde kullanmak istiyorsanız şunu kullanarak gerekli kitaplığı içerin: <programlisting
 >// zorunlu katepart js kitaplıkları; &eg;, Range require ("range.js"); kullanıyorsanız range.js
 require ("range.js");
 </programlisting>
 </para>
 
 <para
->Standart betik yazımı API'sini kendi işlevleriniz ve prototiplerinizle genişletmek istiyorsanız yalnızca &kde;'nin yerel yapılandırma klasörü olan <filename
+>Standart betik yazımı API’sini kendi işlevleriniz ve prototiplerinizle genişletmek istiyorsanız yalnızca &kde;’nin yerel yapılandırma klasörü olan <filename
 >$<envar
 >XDG_DATA_HOME</envar
 >/katepart5/libraries</filename
@@ -4783,7 +4783,7 @@ require ("range.js");
 >İmleçler ve Erimler</title>
 
 <para
->&kappname; bir metin düzenleyici olduğundan, tüm betik oluşturma API'si olabildiğince imleçlere ve erimlere dayanır. İmleç, belgedeki bir metin konumunu temsil eden basit bir <literal
+>&kappname; bir metin düzenleyici olduğundan, tüm betik oluşturma API’si olabildiğince imleçlere ve erimlere dayanır. İmleç, belgedeki bir metin konumunu temsil eden basit bir <literal
 >(satır, sütun)</literal
 > demettir. Erim, metni başlangıç imleç konumundan bitiş imleç konumuna kadar yayar. API sonraki bölümlerde ayrıntılı olarak açıklanmaktadır. </para>
 
@@ -5702,7 +5702,7 @@ require ("range.js");
 
 <sect3 id="dev-scripting-api-view">
 <title
->Görünüm API'si</title>
+>Görünüm API’si</title>
 <para
 >Ne zaman bir betik yürütülürse geçerli etkin düzenleyici görünümünü temsil eden bir <quote
 ><literal
@@ -6123,7 +6123,7 @@ void view.setVirtualCursorPosition(<parameter
 
 <sect3 id="dev-scripting-api-document">
 <title
->Belge API'si</title>
+>Belge API’si</title>
 <para
 >Ne zaman bir betik yürütülürse geçerli etkin belgeyi temsil eden bir <quote
 ><literal
@@ -6152,7 +6152,7 @@ void view.setVirtualCursorPosition(<parameter
 ></term>
 <listitem
 ><para
->Belgenin tam URL'sini veya kaydedilmemiş metin arabellekleri için boş bir diziyi döndürür. </para
+>Belgenin tam URL’sini veya kaydedilmemiş metin arabellekleri için boş bir diziyi döndürür. </para
 ></listitem>
 </varlistentry>
 
@@ -7952,9 +7952,9 @@ bool document.isOthers(<parameter
 
 <sect3 id="dev-scripting-api-editor">
 <title
->Düzenleyici API'si</title>
+>Düzenleyici API’si</title>
 <para
->Belge ve görünüm API'sine ek olarak, genel düzenleyici betiği oluşturma işlevlerine yönelik işlevler sağlayan bir genel düzenleyici API'si vardır. <variablelist>
+>Belge ve görünüm API’sine ek olarak, genel düzenleyici betiği oluşturma işlevlerine yönelik işlevler sağlayan bir genel düzenleyici API’si vardır. <variablelist>
 
 <varlistentry>
 <term

@@ -465,7 +465,7 @@
 ></term>
 <listitem>
 <para
->Normal ve Vi benzeri kipsel düzenleme kipi arasında geçiş yapın. Vi giriş kipi, Vim'in normal ve görsel kipinden en çok kullanılan komutları ve hareketleri destekler ve isteğe bağlı bir Vi kipi durum çubuğuna sahiptir. Bu durum çubuğu, girilirken komutları, komutlardan çıktıyı ve geçerli kipi gösterir. Bu kipin davranışı, &kappname;'in ayarlar iletişim kutusunda bulunan <guilabel
+>Normal ve Vi benzeri kipsel düzenleme kipi arasında geçiş yapın. Vi giriş kipi, Vim’in normal ve görsel kipinden en çok kullanılan komutları ve hareketleri destekler ve isteğe bağlı bir Vi kipi durum çubuğuna sahiptir. Bu durum çubuğu, girilirken komutları, komutlardan çıktıyı ve geçerli kipi gösterir. Bu kipin davranışı, &kappname;’in ayarlar iletişim kutusunda bulunan <guilabel
 >Düzenleme</guilabel
 > sayfasındaki <link linkend="pref-edit-vi-input-mode"
 >Vi Giriş Kipi</link
@@ -492,7 +492,7 @@
 >EKLE</guilabel
 > iken, imlecin olduğu yere karakterler girersiniz. Kip <guilabel
 >ÜZERİNE YAZ</guilabel
-> ise yazılan karakterler, imleç başka bir karakterden önce konumlandırılmışsa imleçten sonraki karakterlerin üzerine yazar. Durum çubuğu, Üzerine Yazma Kipi'nin geçerli durumunu <guilabel
+> ise yazılan karakterler, imleç başka bir karakterden önce konumlandırılmışsa imleçten sonraki karakterlerin üzerine yazar. Durum çubuğu, Üzerine Yazma Kipi’nin geçerli durumunu <guilabel
 >EKLE</guilabel
 > veya <guilabel
 >ÜZERİNE YAZ</guilabel
@@ -802,7 +802,7 @@
 >BLOK</guilabel
 > olduğunda, durum çubuğu <guilabel
 >[BLOK]</guilabel
-> dizisini gösterir ve dikey seçimler yapabilirsiniz; örneğin, 9'dan 15'e kadar olan satırlarda 5'ten 10'a kadar olan sütunları seçebilirsiniz.</para>
+> dizisini gösterir ve dikey seçimler yapabilirsiniz; örneğin, 9’dan 15’e kadar olan satırlarda 5’ten 10’a kadar olan sütunları seçebilirsiniz.</para>
 </listitem>
 </varlistentry>
 
@@ -2819,7 +2819,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 >Ayarlar</guimenu
 > ve <guimenu
 >Yardım</guimenu
-> menü ögelerine sahiptir; daha fazla bilgi için &kde; Temelleri'nin <ulink url="help:/fundamentals/menus.html#menus-settings"
+> menü ögelerine sahiptir; daha fazla bilgi için &kde; Temelleri’nin <ulink url="help:/fundamentals/menus.html#menus-settings"
 >Ayarlar Menüsü</ulink
 > ve <ulink url="help:/fundamentals/menus.html#menus-help"
 >Yardım Menüsü</ulink

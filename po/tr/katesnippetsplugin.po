@@ -4,13 +4,13 @@
 # Translators:
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2017, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-15 01:54+0000\n"
-"PO-Revision-Date: 2023-11-16 12:59+0300\n"
+"PO-Revision-Date: 2024-02-09 17:45+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -151,7 +151,7 @@ msgstr ""
 "düzenlenebilir alanlar içerebilir. Sekme düğmesine basarak aralarında "
 "gezinebilirsiniz. Aşağıdaki ifadeleri alanlar oluşturmak için şablon "
 "metninde kullanabilirsiniz: <br><tt>${field_name}</tt>, yalın, "
-"düzenlenebilir bir alan oluşturur. Aynı field_name'in tüm sonraki oluşları, "
+"düzenlenebilir bir alan oluşturur. Aynı field_name’in tüm sonraki oluşları, "
 "düzenleme sırasında ilkinin içeriğini yansılar.<br><tt>"
 "${field_name=öntanımlı}</tt>  ile alan için öntanımlı bir değer "
 "belirtebilirsiniz. <tt>öntanımlı</tt>, herhangi bir JavaScript ifadesi "
@@ -196,7 +196,7 @@ msgstr ""
 "hem işlevde statik değişkenler olarak kullanılabilir hem de parçacık "
 "dizisindeki <tt>${func(field)}</tt> veya <tt>${field2=func(field)}</tt> "
 "sözdizimi kullanılarak argümanlar olarak geçirilebilirler.<br>Kate betik "
-"yazımı API'sini kullanarak seçili metni, tam metni, dosya adını ve daha "
+"yazımı API’sini kullanarak seçili metni, tam metni, dosya adını ve daha "
 "fazlasını <tt>document</tt> ve <tt>view</tt> kullanarak alabilirsiniz. Daha "
 "ayrıntılı bilgi için betik yazımı API belgelendirmesine bakabilirsiniz.<a "
 "href=\"\">Daha Fazla...</a>"

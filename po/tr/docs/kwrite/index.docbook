@@ -131,10 +131,10 @@
 </sect2>
 <sect2 id="editing-files-on-the-internet">
 <title
->İnternet'teki bir dosyayı belirt</title>
+>İnternet’teki bir dosyayı belirt</title>
 
 <para
->Yukarıda belirtilen yöntem, İnternet'teki dosyaları açmak için bile kullanılabilir (eğer kullanıcının o sırada etkin bir bağlantısı varsa). Bunun bir örneği aşağıdakine benzer:</para>
+>Yukarıda belirtilen yöntem, İnternet’teki dosyaları açmak için bile kullanılabilir (eğer kullanıcının o sırada etkin bir bağlantısı varsa). Bunun bir örneği aşağıdakine benzer:</para>
 
 <informalexample
 ><screen
@@ -316,9 +316,9 @@
 ></term>
 <listitem
 ><para
->&kwrite;'ın belgeyi standart girdi'den okumasını sağlar. Bu, çoğu komut satırı programında bulunan <option
+>&kwrite;’ın belgeyi standart girdi’den okumasını sağlar. Bu, çoğu komut satırı programında bulunan <option
 >-</option
-> seçeneğine benzerdir ve komut çıktısını &kwrite;'a veriyolu yapmanıza olanak tanır.</para
+> seçeneğine benzerdir ve komut çıktısını &kwrite;’a veriyolu yapmanıza olanak tanır.</para
 ></listitem>
 </varlistentry>
 

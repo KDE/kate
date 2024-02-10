@@ -7,13 +7,13 @@
 # obsoleteman <tulliana@gmail.com>, 2008-2009,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2015, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-17 01:37+0000\n"
-"PO-Revision-Date: 2023-11-19 14:38+0300\n"
+"PO-Revision-Date: 2024-02-09 17:45+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -333,7 +333,7 @@ msgstr "Komutu Çalıştır"
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
-"Hedefleri süz, seçmek için ok düğmelerini kullan ve yürütmek için Giriş'e bas"
+"Hedefleri süz, seçmek için ok düğmelerini kullan ve yürütmek için Giriş’e bas"
 
 #: targets.cpp:27
 #, kde-format

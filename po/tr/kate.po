@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2024-02-07 16:09+0300\n"
+"PO-Revision-Date: 2024-02-09 17:45+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -60,7 +60,7 @@ msgstr "(c) 2000-2022 Kate Yazarları"
 #: kate/main.cpp:138
 #, kde-format
 msgid "Start Kate with a given session."
-msgstr "Kate'i verilen oturum ile başlat."
+msgstr "Kate’i verilen oturum ile başlat."
 
 #: kate/main.cpp:139
 #, kde-format
@@ -70,7 +70,7 @@ msgstr "oturum"
 #: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
-msgstr "Kate'i yeni bir anonim oturum ile başlat, '-n' ile aynı."
+msgstr "Kate’i yeni bir anonim oturum ile başlat, ’-n’ ile aynı."
 
 #: kate/main.cpp:149
 #, kde-format
@@ -89,7 +89,7 @@ msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr ""
-"Eğer zaten çalışan bir Kate örneği kullanılıyorsa ve açılmak üzere URL'ler "
+"Eğer zaten çalışan bir Kate örneği kullanılıyorsa ve açılmak üzere URL’ler "
 "verilmişse o örnekten çıkılana karar engelle."
 
 #: kate/main.cpp:161
@@ -98,7 +98,7 @@ msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
-"Kate'i yalnızca bu pid ile kullanmaya çalış (başlangıç kullanılmışsa veya "
+"Kate’i yalnızca bu pid ile kullanmaya çalış (başlangıç kullanılmışsa veya "
 "diğer bir Kate örneği açıksa yok sayılır)."
 
 #: kate/main.cpp:162
@@ -139,13 +139,13 @@ msgstr "sütun"
 #: kate/main.cpp:182 kwrite/main.cpp:111
 #, kde-format
 msgid "Read the contents of stdin."
-msgstr "stdin'in içeriğini oku."
+msgstr "stdin’in içeriğini oku."
 
 #: kate/main.cpp:187 kwrite/main.cpp:115
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
-"Uygulama tarafından açılan dosya veya URL'ler kullanımdan sonra silinecektir"
+"Uygulama tarafından açılan dosya veya URL’ler kullanımdan sonra silinecektir"
 
 #: kate/main.cpp:191 kwrite/main.cpp:119
 #, kde-format
@@ -155,7 +155,7 @@ msgstr "Açılacak belgeler."
 #: kate/main.cpp:191 kwrite/main.cpp:119
 #, kde-format
 msgid "[urls...]"
-msgstr "[url'ler...]"
+msgstr "[url’ler...]"
 
 #: kwrite/main.cpp:43
 #, kde-format
@@ -530,13 +530,13 @@ msgstr "Önceki Parçaya Git"
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "Diff'i Yeniden Yükle"
+msgstr "Diff’i Yeniden Yükle"
 
 #: lib/diff/diffwidget.cpp:138
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr "Diff'te yalnızca değiştirilen satırları değil bütün bağlamı göster"
+msgstr "Diff’te yalnızca değiştirilen satırları değil bütün bağlamı göster"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -744,7 +744,7 @@ msgstr "Michael Koch"
 #: lib/kateapp.cpp:295
 #, kde-format
 msgid "KWrite port to KParts"
-msgstr "K Yaz'ın KParts'a aktarımı"
+msgstr "K Yaz’ın KParts’a aktarımı"
 
 #: lib/kateapp.cpp:296
 #, kde-format
@@ -1078,8 +1078,8 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
-"Yüksek bir sınır pencere boyutunu artırabilir, bunu önlemek için 'Sekme "
-"sarımına izin ver'i etkinleştirin. Sınırlandırılmamış sekmeler her zaman "
+"Yüksek bir sınır pencere boyutunu artırabilir, bunu önlemek için ’Sekme "
+"sarımına izin ver’i etkinleştirin. Sınırlandırılmamış sekmeler her zaman "
 "sarılabilir."
 
 #: lib/kateconfigdialog.cpp:236
@@ -1724,7 +1724,7 @@ msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
-"%1 dizinini Kate'in içine bıraktınız. İçerdiği tüm dosyaları açmak istiyor "
+"%1 dizinini Kate’in içine bıraktınız. İçerdiği tüm dosyaları açmak istiyor "
 "musunuz ?"
 
 #: lib/katemainwindow.cpp:952
@@ -1959,7 +1959,7 @@ msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"diff komutu başarısız. git'in kurulu olduğundan ve yolunun doğru "
+"diff komutu başarısız. git’in kurulu olduğundan ve yolunun doğru "
 "tanımlandığından emin olun."
 
 #: lib/katemwmodonhddialog.cpp:314
@@ -2285,7 +2285,7 @@ msgid ""
 msgstr ""
 "<p>Bir veya birden fazla büyük dosya açmaya çalışıyorsunuz:</p><ul>%1</"
 "ul><p>Sürdürmek istiyor musunuz?</p><p><strong>Büyük dosyalar açılırken "
-"Kate'in bir süre yanıt verememek üzere durabileceğine dikkat edin.</strong></"
+"Kate’in bir süre yanıt verememek üzere durabileceğine dikkat edin.</strong></"
 "p>"
 
 #: lib/kateviewmanager.cpp:349

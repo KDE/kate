@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2017, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
 # Emir SARI <emir_sari@icloud.com>, 2023.
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2023-11-26 13:01+0300\n"
+"PO-Revision-Date: 2024-02-09 17:45+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "Çıkış yapılacak dalı seçin. İptal için 'Vazgeç'e basın."
+msgstr "Çıkış yapılacak dalı seçin. İptal için ’Vazgeç’e basın."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -49,12 +49,12 @@ msgstr "%1 dalı çıkış yapılamadı, Hata: %2"
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr "Yeni dal adı girin. İptal için 'Esc'ye basın."
+msgstr "Yeni dal adı girin. İptal için ’Esc’ye basın."
 
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr "Çıkış yapılacak dalı seçin. İptal için 'Esc'ye basın."
+msgstr "Çıkış yapılacak dalı seçin. İptal için ’Esc’ye basın."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
@@ -261,12 +261,12 @@ msgstr "Kaldırılamadı. Hata:"
 #: gitwidget.cpp:697
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr "HEAD'deki dosya açılamadı: %1"
+msgstr "HEAD’deki dosya açılamadı: %1"
 
 #: gitwidget.cpp:729
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr "Şu dosyanın diff'i alınamadı: %1"
+msgstr "Şu dosyanın diff’i alınamadı: %1"
 
 #: gitwidget.cpp:796
 #, kde-format
@@ -406,13 +406,13 @@ msgstr "Tümünü At"
 #: gitwidget.cpp:1162
 #, kde-format
 msgid "Open .gitignore"
-msgstr ".gitignore'u Aç"
+msgstr ".gitignore’u Aç"
 
 #: gitwidget.cpp:1163 gitwidget.cpp:1210 gitwidget.cpp:1252
 #: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
-msgstr "Diff'i göster"
+msgstr "Diff’i göster"
 
 #: gitwidget.cpp:1180
 #, kde-format
@@ -437,7 +437,7 @@ msgstr "Dış Git Diff Aracında Göster"
 #: gitwidget.cpp:1212
 #, kde-format
 msgid "Open at HEAD"
-msgstr "HEAD'de aç"
+msgstr "HEAD’de aç"
 
 #: gitwidget.cpp:1213
 #, kde-format
@@ -772,7 +772,7 @@ msgstr "Ara"
 #: kateprojectinfoviewindex.cpp:198
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
-msgstr "İndeks oluşturulamadı. Lütfen 'ctags'i kurun."
+msgstr "İndeks oluşturulamadı. Lütfen ’ctags’i kurun."
 
 #: kateprojectinfoviewindex.cpp:208
 #, kde-format
@@ -810,7 +810,7 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
-"Dosya adı hariç, yerel yol ayırıcılı (Windows'ta ters eğik çizgi) geçerli "
+"Dosya adı hariç, yerel yol ayırıcılı (Windows’ta ters eğik çizgi) geçerli "
 "projenin tam yolu."
 
 #: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72

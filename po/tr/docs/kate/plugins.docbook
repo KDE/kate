@@ -221,7 +221,7 @@
 <para
 ><guilabel
 >Dış Araçlar</guilabel
-> eklentisi, geçerli belgeyle ilgili verilerle (örneğin URL'si, dizini, metni veya seçimi) dış uygulamaları çağırmaya olanak tanır. Etkinleştirildiğinde, aşağıda gösterildiği gibi var olan araçların değiştirilmesine veya kaldırılmasına olanak tanıyan bir yapılandırma sayfası görünür. Benzer şekilde beğeninize göre yeni araçlar da eklenebilir. Araçlar daha sonra uygulamanın <guimenu
+> eklentisi, geçerli belgeyle ilgili verilerle (örneğin URL’si, dizini, metni veya seçimi) dış uygulamaları çağırmaya olanak tanır. Etkinleştirildiğinde, aşağıda gösterildiği gibi var olan araçların değiştirilmesine veya kaldırılmasına olanak tanıyan bir yapılandırma sayfası görünür. Benzer şekilde beğeninize göre yeni araçlar da eklenebilir. Araçlar daha sonra uygulamanın <guimenu
 >Araçlar</guimenu
 > menüsünün <guisubmenu
 >Dış Araçlar</guisubmenu
@@ -325,7 +325,7 @@
 <para
 ><userinput
 >Çıktı</userinput
->, çıktı, stdout'un hedefini tanımlar. Geçerli seçenekler: <userinput
+>, çıktı, stdout’un hedefini tanımlar. Geçerli seçenekler: <userinput
 >Yok Say</userinput
 >, <userinput
 >İmleç Konumunda Ekle</userinput
@@ -456,11 +456,11 @@
 <para
 ><userinput
 >Document:NativeFilePath</userinput
->: Yerel yol ayırıcıyla birlikte (Windows'ta ters eğik çizgi) dosya adı da içerilen tam belge yolu.</para>
+>: Yerel yol ayırıcıyla birlikte (Windows’ta ters eğik çizgi) dosya adı da içerilen tam belge yolu.</para>
 <para
 ><userinput
 >Document:NativePath</userinput
->: Yerel yol ayırıcıyla birlikte (Windows'ta ters eğik çizgi) dosya adı dışında tam belge yolu.</para>
+>: Yerel yol ayırıcıyla birlikte (Windows’ta ters eğik çizgi) dosya adı dışında tam belge yolu.</para>
 <para
 ><userinput
 >Document:Cursor:Line</userinput
@@ -646,7 +646,7 @@
 
 <varlistentry>
 <term
->Geçerli dosyadaki git değişikliklerini kolayca takip etmek için git blame'i başlatır.</term>
+>Geçerli dosyadaki git değişikliklerini kolayca takip etmek için git blame’i başlatır.</term>
 <listitem>
 <para
 ><userinput
@@ -792,16 +792,16 @@
 
 <variablelist>
 <title
->Tüm Dosyayı Clang Format'la</title>
+>Tüm Dosyayı Clang Format’la</title>
 
 <varlistentry>
 <term
->Diskteki geçerli dosyada clang-format'ı çalıştırır. Belge daha sonra yeniden yüklenir.</term>
+>Diskteki geçerli dosyada clang-format’ı çalıştırır. Belge daha sonra yeniden yüklenir.</term>
 <listitem>
 <para
 ><userinput
 >Ad</userinput
->: Tüm Dosyayı Clang Format'la</para>
+>: Tüm Dosyayı Clang Format’la</para>
 <para
 ><userinput
 >Yürütülebilir</userinput
@@ -834,16 +834,16 @@
 
 <variablelist>
 <title
->Seçili Metni Clang Format'la</title>
+>Seçili Metni Clang Format’la</title>
 
 <varlistentry>
 <term
->Geçerli belgedeki seçili metinde clang-format'ı çalıştırır.</term>
+>Geçerli belgedeki seçili metinde clang-format’ı çalıştırır.</term>
 <listitem>
 <para
 ><userinput
 >Ad</userinput
->: Seçili Metni Clang Format'la</para>
+>: Seçili Metni Clang Format’la</para>
 <para
 ><userinput
 >Yürütülebilir</userinput
@@ -880,7 +880,7 @@
 
 <varlistentry>
 <term
->Geçerli qml dosyasını qmlscene'de önizler.</term>
+>Geçerli qml dosyasını qmlscene’de önizler.</term>
 <listitem>
 <para
 ><userinput
@@ -914,7 +914,7 @@
 
 <variablelist>
 <title
->Tüm Dosyayı JSON'la</title>
+>Tüm Dosyayı JSON’la</title>
 
 <varlistentry>
 <term
@@ -923,7 +923,7 @@
 <para
 ><userinput
 >Ad</userinput
->: Tüm Dosyayı JSON'la</para>
+>: Tüm Dosyayı JSON’la</para>
 <para
 ><userinput
 >Simge</userinput
@@ -960,7 +960,7 @@
 
 <variablelist>
 <title
->Tüm Dosyayı XML'le</title>
+>Tüm Dosyayı XML’le</title>
 
 <varlistentry>
 <term
@@ -969,7 +969,7 @@
 <para
 ><userinput
 >Ad</userinput
->: Tüm Dosyayı JSON'la</para>
+>: Tüm Dosyayı JSON’la</para>
 <para
 ><userinput
 >Simge</userinput
@@ -1416,7 +1416,7 @@
 <para
 >&kate; Yapı Eklentisi, Kåre Särs tarafından yazıldı.</para>
 <para
->Bu bölümün çoğunu yazdığı için Google Code-In 2011 katılımcısı Salma Sultana'ya özellikle teşekkür ederiz.</para>
+>Bu bölümün çoğunu yazdığı için Google Code-In 2011 katılımcısı Salma Sultana’ya özellikle teşekkür ederiz.</para>
 </sect2>
 </sect1>
 
@@ -2042,7 +2042,7 @@
 ></term>
 <listitem>
 <para
->&kate;'in Dosya Sistemi Tarayıcısı'nın görüntülenmesini açar/kapatır.</para>
+>&kate;’in Dosya Sistemi Tarayıcısı’nın görüntülenmesini açar/kapatır.</para>
 </listitem>
 </varlistentry>
 
@@ -2193,7 +2193,7 @@ folder if possible.</para
 ></term>
 <listitem
 ><para
->Bu aynı zamanda klasörlerin genişletilmesine de olanak tanır; ancak Ayrıntılı Görünüm'de kullanılabilir olan ek sütunları görüntüler.</para
+>Bu aynı zamanda klasörlerin genişletilmesine de olanak tanır; ancak Ayrıntılı Görünüm’de kullanılabilir olan ek sütunları görüntüler.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -2564,7 +2564,7 @@ folder if possible.</para
 ></term>
 <listitem
 ><para
->Ağaç Görünümü ve bu seçenek etkinleştirildiğinde, Belgeler aracı görünümünde görüntülenen klasör girdileri, klasörün adına ek olarak klasöre giden tam dosya sistemi yolunu da görüntüler. Liste Görünümü'nde hiçbir etkisi yoktur.</para
+>Ağaç Görünümü ve bu seçenek etkinleştirildiğinde, Belgeler aracı görünümünde görüntülenen klasör girdileri, klasörün adına ek olarak klasöre giden tam dosya sistemi yolunu da görüntüler. Liste Görünümü’nde hiçbir etkisi yoktur.</para
 ></listitem>
 </varlistentry>
 
@@ -3004,7 +3004,7 @@ folder if possible.</para
 <varlistentry>
 <term
 ><guilabel
->Girdi-Çıktı'yı Yeniden Yönlendir</guilabel
+>Girdi-Çıktı’yı Yeniden Yönlendir</guilabel
 ></term>
 <listitem
 ><para
@@ -3134,7 +3134,7 @@ folder if possible.</para
 >Teşekkürler ve Destek Olanlar</title>
 
 <para
->Bu bölümün çoğunu yazan Google Code-In 2011 katılımcısı Martin Gergov'a özellikle teşekkürler.</para>
+>Bu bölümün çoğunu yazan Google Code-In 2011 katılımcısı Martin Gergov’a özellikle teşekkürler.</para>
 
 </sect2>
 
@@ -3244,9 +3244,9 @@ folder if possible.</para
 >Temel Kendiliğinden Tamamlama</title>
 
 <para
->Bir projeye ait tüm dosyalar hakkında bilgi sahibi olan proje eklentisi, CTags'lere dayalı temel kendiliğinden tamamlama olanakları sağlar. Bir proje başlangıçta açılırsa CTags tüm proje dosyalarını bir arka plan iş parçacığında ayrıştırır ve CTags bilgisini <filename class="directory"
+>Bir projeye ait tüm dosyalar hakkında bilgi sahibi olan proje eklentisi, CTags’lere dayalı temel kendiliğinden tamamlama olanakları sağlar. Bir proje başlangıçta açılırsa CTags tüm proje dosyalarını bir arka plan iş parçacığında ayrıştırır ve CTags bilgisini <filename class="directory"
 >/tmp</filename
-> dosyasına kaydeder. Bu dosya daha sonra &kate;'deki kendiliğinden tamamlama açılır penceresini doldurmak için kullanılır.</para>
+> dosyasına kaydeder. Bu dosya daha sonra &kate;’deki kendiliğinden tamamlama açılır penceresini doldurmak için kullanılır.</para>
 
 <para
 >Bunun aksine, bu kendiliğinden tamamlama olmadan Kate yalnızca geçerli dosyadaki sözcüklere dayalı olarak kendiliğinden tamamlama ögelerini gösterebilir. Demeli ki, proje eklentisinin sağladığı kendiliğinden tamamlama çok daha güçlüdür.</para>
@@ -3336,7 +3336,7 @@ folder if possible.</para
 >svn</literal
 > üzerinden Subversion ve <literal
 >hg</literal
-> üzerinden Mercurial da desteklenir. Dosyaları bir sürüm denetim sisteminden okumak istemiyorsanız Kate'i komut satırından şöyle çalıştırabilirsiniz: <screen>
+> üzerinden Mercurial da desteklenir. Dosyaları bir sürüm denetim sisteminden okumak istemiyorsanız Kate’i komut satırından şöyle çalıştırabilirsiniz: <screen>
 kate /klasöre/olan/yol
 </screen
 > veya aşağıdaki gibi dosyaları klasörlerden özyineli olarak yüklemesini söyleyebilirsiniz: </para>
@@ -4022,7 +4022,7 @@ Projects Replicode run / stop-->
 <title
 >Goto Sembolü Desteği</title>
 <para
->LSP İstemcisi, projenizdeki veya geçerli dosyanızdaki herhangi bir sembole atlamanıza yardımcı olabilir. Dosyadaki herhangi bir sembole atlamak için Kate'in sağ kenarındaki "LSP İstemcisi Sembolü Ana Hattı" araç görünümünü kullanın. Bu araç görünümü, sunucu tarafından geçerli belgede bulunan tüm sembolleri listeler. </para>
+>LSP İstemcisi, projenizdeki veya geçerli dosyanızdaki herhangi bir sembole atlamanıza yardımcı olabilir. Dosyadaki herhangi bir sembole atlamak için Kate’in sağ kenarındaki "LSP İstemcisi Sembolü Ana Hattı" araç görünümünü kullanın. Bu araç görünümü, sunucu tarafından geçerli belgede bulunan tüm sembolleri listeler. </para>
 
 <sect3 id="lspclient-symbol-outline-config">
 <title
@@ -4212,7 +4212,7 @@ Projects Replicode run / stop-->
 cd $1
 # sunucuyu (python-lsp-server) virtualenv içinde çalıştır
 # (demek oluyor ki virtualenv değişkenleri ayarıyla)
-# bundan dolayı virtualenv'i kaynakla
+# bundan dolayı virtualenv’i kaynakla
 source XYZ
 # sunucu durumu veya argümanlar değişebilir
 exec myserver
@@ -4317,11 +4317,11 @@ exec myserver
 >Bunu tanılamanın genel yolu, öntanımlı olarak ayarlanmadığı sürece (bazı dosyalara veya standart hatalara) (ek) günlüğe kaydetmeyi olanaklı kılan (dil sunucusunun) başlangıç komutuna bazı bayrak(lar) eklemektir. Eğer &kate; daha sonra komut satırında başlatılırsa neyin yanlış gittiğine dair daha fazla görüş elde edilebilir. </para>
 
 <para
->&kate;'in LSP istemcisi ile LSP sunucusu arasındaki protokol alışverişini incelemek de bilgilendirici olabilir. Yine, ikincisinin genellikle bunun izini sürmenin yolları vardır. LSP istemcisi ayrıca &kate;, <literal
+>&kate;’in LSP istemcisi ile LSP sunucusu arasındaki protokol alışverişini incelemek de bilgilendirici olabilir. Yine, ikincisinin genellikle bunun izini sürmenin yolları vardır. LSP istemcisi ayrıca &kate;, <literal
 >QT_LOGGING_RULES=katelspclientplugin=true</literal
 > ile <literal
 >export</literal
-> yapıldığında ek hata ayıklama izlemesi (stderr'e) sağlar: </para>
+> yapıldığında ek hata ayıklama izlemesi (stderr’e) sağlar: </para>
 
 </sect3>
 
@@ -5201,12 +5201,12 @@ when finished.</para
 > sözdizimi kullanılarak argümanlar olarak geçirilebilirler.</para>
 <para
 ><ulink url="help:/katepart/dev-scripting.html#dev-scripting-api"
->&kate; Betik Yazımı API'si</ulink
+>&kate; Betik Yazımı API’si</ulink
 > kullanılarak seçili metni, tam metni, dosya adını ve daha fazlasını <userinput
 >document</userinput
 > ve <userinput
 >view</userinput
-> nesnelerinin uygun yöntemlerini kullanarak elde edebilirsiniz. Daha fazla bilgi için betik yazımı API'si belgelendirmesine bakın.</para>
+> nesnelerinin uygun yöntemlerini kullanarak elde edebilirsiniz. Daha fazla bilgi için betik yazımı API’si belgelendirmesine bakın.</para>
 <para
 >Daha karmaşık betikler için <emphasis
 >önce</emphasis
@@ -5216,7 +5216,7 @@ when finished.</para
 >${functionCall()}</userinput
 > içerecektir.</para>
 <para
->Betik yazımı API'sini kullanarak seçimlerle çalışmanın bir örneği olarak, seçili metni etiketlerin içine sarmanın basit bir yolu şu kod parçasıdır: <userinput
+>Betik yazımı API’sini kullanarak seçimlerle çalışmanın bir örneği olarak, seçili metni etiketlerin içine sarmanın basit bir yolu şu kod parçasıdır: <userinput
 >&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput
 > </para>
 <para
@@ -5294,7 +5294,7 @@ when finished.</para
 <para
 >&kate; Parçacıkları, Joseph Wenninger tarafından yazıldı.</para>
 <para
->Bu bölümün çoğunu yazan Google Code-In 2011 katılımcısı Martin Gergov'a özellikle teşekkürler.</para>
+>Bu bölümün çoğunu yazan Google Code-In 2011 katılımcısı Martin Gergov’a özellikle teşekkürler.</para>
 </sect2>
 
 </sect1>
@@ -5425,7 +5425,7 @@ when finished.</para
 <para
 >Onlara bir ad vererek klavye makroları kaydedilebilir.</para>
 <para
->Adlı makrolar Kate oturumları arasında kalıcıdır ve Kate'in kullanıcı verileri dizinindeki <filename
+>Adlı makrolar Kate oturumları arasında kalıcıdır ve Kate’in kullanıcı verileri dizinindeki <filename
 >keyboardmacros.json</filename
 > dosyasına kaydedilirler (genellikle <filename
 >~/.local/share/kate/</filename
@@ -6005,7 +6005,7 @@ VALUES ("<replaceable
 <para
 >SQL eklentisi, Marco Mentasti tarafından yazıldı.</para>
 <para
->Bu bölümün çoğunu yazan Google Code-In 2011 katılımcısı Ömer Faruk ORUÇ'a özellikle teşekkürler.</para>
+>Bu bölümün çoğunu yazan Google Code-In 2011 katılımcısı Ömer Faruk ORUÇ’a özellikle teşekkürler.</para>
 
 </sect2>
 
@@ -6279,7 +6279,7 @@ VALUES ("<replaceable
 <varlistentry>
 <term
 ><guilabel
->'Vazgeç'e basıldığında &konsole;'yi gizle</guilabel
+>’Vazgeç’e basıldığında &konsole;’yi gizle</guilabel
 ></term>
 <listitem
 ><para
@@ -6387,11 +6387,11 @@ VALUES ("<replaceable
 <varlistentry>
 <term
 ><guilabel
->STDOUT ve STDERR'ı birleştir</guilabel
+>STDOUT ve STDERR’ı birleştir</guilabel
 ></term>
 <listitem>
 <para
->İşaretlenirse STDOUT ve STDERR'den gelen çıktılar birleştirilecek ve hiçbir hata bildirilmeyecektir. Aksi halde STDERR pasif bir ileti olarak görüntülenecektir.</para>
+>İşaretlenirse STDOUT ve STDERR’den gelen çıktılar birleştirilecek ve hiçbir hata bildirilmeyecektir. Aksi halde STDERR pasif bir ileti olarak görüntülenecektir.</para>
 </listitem>
 </varlistentry>
 
@@ -6421,18 +6421,18 @@ VALUES ("<replaceable
 <para
 >Bu eklenti, &XML; dosyalarının geçerliliğini ve iyi biçimliliğini denetler.</para>
 <para
->Bu eklenti geçerli dosyayı denetler. &kate;'in ana penceresinin altında bir uyarı ve hata listesi görünecektir. Dosyadaki ilgili yere atlamak için bir hata iletisine tıklayabilirsiniz. Dosyanın bir <quote
+>Bu eklenti geçerli dosyayı denetler. &kate;’in ana penceresinin altında bir uyarı ve hata listesi görünecektir. Dosyadaki ilgili yere atlamak için bir hata iletisine tıklayabilirsiniz. Dosyanın bir <quote
 >DOCTYPE</quote
->'ı varsa bu belge türüyle verilen DTD, dosyanın geçerliliğini denetlemek için kullanılacaktır. DTD'nin geçerli dosyaya göreceli bir konumda olması beklenir; örneğin, doctype <quote
+>’ı varsa bu belge türüyle verilen DTD, dosyanın geçerliliğini denetlemek için kullanılacaktır. DTD’nin geçerli dosyaya göreceli bir konumda olması beklenir; örneğin, doctype <quote
 >DTD/xhtml1-transitional.dtd</quote
 > ise ve dosya da <filename
 >/home/peter/test.xml</filename
-> ise DTD'nin <filename
+> ise DTD’nin <filename
 >/home/peter/DTD/xhtml1-transitional.dtd</filename
-> konumunda olması beklenir. Ancak HTTP aracılığıyle uzak DTD'ler de desteklenir.</para>
+> konumunda olması beklenir. Ancak HTTP aracılığıyle uzak DTD’ler de desteklenir.</para>
 
 <para
->Dosyanın doctype'ı yoksa iyi biçimlendirilmiş olup olmadığı denetlenir.</para>
+>Dosyanın doctype’ı yoksa iyi biçimlendirilmiş olup olmadığı denetlenir.</para>
 
 <para
 >&XML; hakkında daha fazla bilgi için <ulink url="https://www.w3.org/XML/"
@@ -6440,7 +6440,7 @@ VALUES ("<replaceable
 > bir bakın.</para>
 
 <para
->Bu eklenti, içsel olarak libxml2'nin bir parçası olan <command
+>Bu eklenti, içsel olarak libxml2’nin bir parçası olan <command
 >xmllint</command
 > dış komutunu çağırır. Bu komut sisteminize doğru şekilde kurulmamışsa eklenti çalışmayacaktır.</para>
 
@@ -6507,7 +6507,7 @@ VALUES ("<replaceable
 >&XML; Tamamlama</title>
 
 <para
->Bu eklenti, dosyanın DTD'sine göre bir &XML; dosyasında belirli bir konumda nelere izin verildiğine dair ipuçları verir. İmlecin konumuna bağlı olarak olası ögeleri, öznitelikleri, öznitelik değerlerini veya varlıkları listeleyecektir (örneğin, imlecin solundaki karakter <quote
+>Bu eklenti, dosyanın DTD’sine göre bir &XML; dosyasında belirli bir konumda nelere izin verildiğine dair ipuçları verir. İmlecin konumuna bağlı olarak olası ögeleri, öznitelikleri, öznitelik değerlerini veya varlıkları listeleyecektir (örneğin, imlecin solundaki karakter <quote
 >&amp;</quote
 > ise tüm varlıklar listelenir). Soldaki en yakın açık etiketi kapatmak da olanaklıdır.</para>
 
@@ -6516,9 +6516,9 @@ VALUES ("<replaceable
 >DTD</acronym
 > kısaltması, <command
 >dtdparse</command
-> Perl programının ürettiği biçimde &XML; biçiminde var olmalıdır. Bu biçimdeki bir DTD'yi <quote
+> Perl programının ürettiği biçimde &XML; biçiminde var olmalıdır. Bu biçimdeki bir DTD’yi <quote
 >meta DTD</quote
-> olarak adlandıracağız. Bazı meta DTD'ler sağlanır. Aynı zamanda <guimenuitem
+> olarak adlandıracağız. Bazı meta DTD’ler sağlanır. Aynı zamanda <guimenuitem
 >Meta DTD Ata...</guimenuitem
 > ögesini seçtiğinizdeki öntanımlı klasör olan <userinput
 ><command
@@ -6528,18 +6528,18 @@ VALUES ("<replaceable
 ></userinput
 > içindeki <filename class="directory"
 >katexmltools/</filename
-> bünyesinde kuruludurlar. Kendi meta DTD'lerinizi üretmek için <ulink url="http://dtdparse.sourceforge.net"
+> bünyesinde kuruludurlar. Kendi meta DTD’lerinizi üretmek için <ulink url="http://dtdparse.sourceforge.net"
 >http://dtdparse.sourceforge.net</ulink
 > konumundan <command
 >dtdparse</command
->'yi alın.</para>
+>’yi alın.</para>
 
 <sect2 id="xmltools-how-to-use">
 <title
 >Nasıl Kullanılır</title>
 
 <para
->&kate;'i başlatın ve <menuchoice
+>&kate;’i başlatın ve <menuchoice
 ><guimenu
 >Ayarlar</guimenu
 > <guimenuitem
@@ -6553,7 +6553,7 @@ VALUES ("<replaceable
 ></menuchoice
 > sayfasından <guilabel
 >&XML; Tamamlama</guilabel
->'yı seçin ve iletişim kutusunu kapatın. İzleyen adım olarak, <menuchoice
+>’yı seçin ve iletişim kutusunu kapatın. İzleyen adım olarak, <menuchoice
 ><guimenu
 >&XML;</guimenu
 ><guimenuitem
@@ -6561,7 +6561,7 @@ VALUES ("<replaceable
 ></menuchoice
 > yolunu izleyin. Belgenizde bir <quote
 >DOCTYPE</quote
-> yoksa veya doctype bilinmiyorsa dosya sisteminizden bir meta DTD seçmeniz gerekecektir. Aksi takdirde, geçerli belgenin DOCTYPE'ı ile eşleşen meta DTD kendiliğinden yüklenir.</para>
+> yoksa veya doctype bilinmiyorsa dosya sisteminizden bir meta DTD seçmeniz gerekecektir. Aksi takdirde, geçerli belgenin DOCTYPE’ı ile eşleşen meta DTD kendiliğinden yüklenir.</para>
 
 <para
 >Şimdi metninizi yazarken eklentiyi kullanabilirsiniz:</para>
@@ -6708,7 +6708,7 @@ VALUES ("<replaceable
 ></term>
 <listitem
 ><para
->Bu, eklentiye geçerli belge için hangi meta DTD'nin kullanılacağını söyleyecektir. Bu atamanın kaydedilmeyeceğini unutmayın. Bir dahaki kere &kate;'i başlattığınızda bunu yinelemeniz gerekir.</para
+>Bu, eklentiye geçerli belge için hangi meta DTD’nin kullanılacağını söyleyecektir. Bu atamanın kaydedilmeyeceğini unutmayın. Bir dahaki kere &kate;’i başlattığınızda bunu yinelemeniz gerekir.</para
 ></listitem>
 </varlistentry>
 </variablelist>

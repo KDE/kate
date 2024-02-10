@@ -189,7 +189,7 @@
 ></term>
 <listitem>
 <para
->Yalnızca belirtilen PID'ye (Süreç Kimliği) sahip bir örneği yeniden kullanır. </para>
+>Yalnızca belirtilen PID’ye (Süreç Kimliği) sahip bir örneği yeniden kullanır. </para>
 </listitem>
 </varlistentry>
 
@@ -269,9 +269,9 @@
 ></term>
 <listitem
 ><para
->Belgeyi standart girdi'den okur. Bu, çoğu komut satırı programında bulunan <option
+>Belgeyi standart girdi’den okur. Bu, çoğu komut satırı programında bulunan <option
 >-</option
-> seçeneğine benzerdir ve komut çıktısını &kate;'e veriyolu yapmanıza olanak tanır.</para
+> seçeneğine benzerdir ve komut çıktısını &kate;’e veriyolu yapmanıza olanak tanır.</para
 ></listitem>
 </varlistentry>
 
@@ -324,7 +324,7 @@
 ></term>
 <listitem
 ><para
->Halihazırda çalışan bir &kate; örneği kullanıyorsanız URL'ler açılmaları için verilmişse çıkana kadar engelleyin.</para>
+>Halihazırda çalışan bir &kate; örneği kullanıyorsanız URL’ler açılmaları için verilmişse çıkana kadar engelleyin.</para>
 <para
 >Bu seçenekle, &git; veya <application
 >Subversion</application
@@ -425,7 +425,7 @@
 <title
 >Sürükle ve Bırak</title>
 <para
->&kate;, &kde;'nin Sürükle ve Bırak protokolünü kullanır. Dosyalar &kate; üzerine Masaüstü'nden, &dolphin; dosya yöneticisinden veya &dolphin; pencerelerinde açılmış kimi FTP sitelerinden sürüklenip bırakılabilir. </para>
+>&kate;, &kde;’nin Sürükle ve Bırak protokolünü kullanır. Dosyalar &kate; üzerine Masaüstü’nden, &dolphin; dosya yöneticisinden veya &dolphin; pencerelerinde açılmış kimi FTP sitelerinden sürüklenip bırakılabilir. </para>
 </sect2>
 </sect1>
 
@@ -893,7 +893,7 @@ action="simul"
 ><replaceable
 >Oturum adı</replaceable
 >: <replaceable
->Belge adı veya &URL;'si'</replaceable
+>Belge adı veya &URL;’si</replaceable
 > - &kate;</quote
 > biçimindedir.</para>
 
@@ -929,16 +929,16 @@ action="simul"
 > kısayoluyla açabilirsiniz. </para>
 
 <para
->Tez Aç, Kate'de açık olan tüm açık belgeleri ve projeleri gösterebilir. Proje dosyalarını görebilmek için <link linkend="kate-application-plugin-projects"
+>Tez Aç, Kate’de açık olan tüm açık belgeleri ve projeleri gösterebilir. Proje dosyalarını görebilmek için <link linkend="kate-application-plugin-projects"
 >Proje Eklentisi</link
->'ni etkinleştirmeniz gerekir. </para>
+>’ni etkinleştirmeniz gerekir. </para>
 
 <sect2>
 <title
->Tez Aç'ı Kullanmak</title>
+>Tez Aç’ı Kullanmak</title>
 
 <para
->Tez Aç'ı kullanmak çok basittir. Açtığınızda, açmak istediğiniz dosyanın adını veya adının bir kısmını yazmanız yeterlidir; Tez Aç, yazdıklarınıza göre listeyi süzer. &Enter; düğmesine basmak seçili dosyayı açar, &Esc; ise Tez Aç'ı gizler. </para>
+>Tez Aç’ı kullanmak çok basittir. Açtığınızda, açmak istediğiniz dosyanın adını veya adının bir kısmını yazmanız yeterlidir; Tez Aç, yazdıklarınıza göre listeyi süzer. &Enter; düğmesine basmak seçili dosyayı açar, &Esc; ise Tez Aç’ı gizler. </para>
 <para
 >Öntanımlı olarak, süzme sırasında yalnızca dosya adı eşleştirilir. Yolu eşleştirmek isterseniz yazılan metinde bir "/" olmalıdır. Örneğin: "belge/indeks", "belge" klasöründe "indeks" içeren tüm belgelerle eşleşecektir. </para>
 <para

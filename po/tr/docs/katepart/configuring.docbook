@@ -310,7 +310,7 @@
 ></term>
 <listitem
 ><para
->Ek olarak bu, ekranın en büyük genişliğini yüzde olarak ayarlamanıza olanak tanır; bundan sonra devingen olarak kaydırılan satırlar artık dikey olarak hizalanmayacaktır. Örneğin, %​50'de, girinti düzeyleri ekran genişliğinin %​50'sinden daha derin olan satırlara sonraki sarılmış çizgilere dikey hizalama uygulanmayacaktır.</para
+>Ek olarak bu, ekranın en büyük genişliğini yüzde olarak ayarlamanıza olanak tanır; bundan sonra devingen olarak kaydırılan satırlar artık dikey olarak hizalanmayacaktır. Örneğin, %​50’de, girinti düzeyleri ekran genişliğinin %​50’sinden daha derin olan satırlara sonraki sarılmış çizgilere dikey hizalama uygulanmayacaktır.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -1249,7 +1249,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <para
 >Kendiliğinden algılamayı devre dışı bırakmak için açılır kutudan bir öge seçin veya tüm kodlamalar için kendiliğinden algılamayı etkinleştirmek üzere <guilabel
 >Evrensel</guilabel
->'i kullanın. Ancak bu büyük olasılıkla yalnızca UTF-8/UTF-16'yı algılayabileceğinden, bir bölge seçmek daha iyi sonuçlar için özel buluşsal yöntemi kullanın. Yukarıda standart olarak seçili kodlama, aç/kaydet iletişim kutusunda belirtilen kodlama veya komut satırında belirtilen kodlama dosyanın içeriğiyle eşleşmiyorsa bu algılama çalıştırılacaktır.</para>
+>’i kullanın. Ancak bu büyük olasılıkla yalnızca UTF-8/UTF-16’yı algılayabileceğinden, bir bölge seçmek daha iyi sonuçlar için özel buluşsal yöntemi kullanın. Yukarıda standart olarak seçili kodlama, aç/kaydet iletişim kutusunda belirtilen kodlama veya komut satırında belirtilen kodlama dosyanın içeriğiyle eşleşmiyorsa bu algılama çalıştırılacaktır.</para>
 </listitem>
 </varlistentry>
 
@@ -1674,7 +1674,7 @@ Remove selected Add new mapping Import from vimrc file-->
 >Belge Değişkenleriyle Yapılandırmak</title>
 
 <para
->&kappname; değişkenleri, &Emacs; ve Vi kip satırlarına benzer biçimde &kappname;'in belge değişkenlerini uygulamasıdır. Katepart'ta satırlar aşağıdaki biçime sahiptir: <userinput
+>&kappname; değişkenleri, &Emacs; ve Vi kip satırlarına benzer biçimde &kappname;’in belge değişkenlerini uygulamasıdır. Katepart’ta satırlar aşağıdaki biçime sahiptir: <userinput
 >kate: DEĞİŞKEN-ADI DEĞER; [ DEĞİŞKEN-ADI DEĞER; ... ]</userinput
 >. Satırlar dosya yorum içeren bir biçimdeyse elbette yorumda yer almalıdır. Değişken adları tek sözcüklerden oluşur (boşluk yoktur) ve sonraki noktalı virgülden sonraki her şey değerdir. Noktalı virgül gereklidir.</para>
 

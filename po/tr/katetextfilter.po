@@ -8,13 +8,13 @@
 # obsoleteman <tulliana@gmail.com>, 2009.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2023-11-25 15:03+0300\n"
+"PO-Revision-Date: 2024-02-09 17:45+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.01.95\n"
 "(http: //www.transifex.com/projects/p/applications-k-tr/language/tr/)\n"
 
 #: plugin_katetextfilter.cpp:89
@@ -111,7 +111,7 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
-"İşaretlenirse STDOUT ve STDERR'den gelen çıktılar birleştirilecek ve hiçbir "
+"İşaretlenirse STDOUT ve STDERR’den gelen çıktılar birleştirilecek ve hiçbir "
 "hata bildirilmeyecektir.\n"
 "Aksi halde STDERR pasif bir ileti olarak görüntülenecektir."
 
@@ -119,7 +119,7 @@ msgstr ""
 #: textfilterwidget.ui:60
 #, kde-format
 msgid "Merge STDOUT and STDERR"
-msgstr "STDOUT ve STDERR'ı birleştir"
+msgstr "STDOUT ve STDERR’ı birleştir"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

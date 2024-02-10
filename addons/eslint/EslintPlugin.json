@@ -25,7 +25,7 @@
         "Description[sk]": "Spustí ESLint na aktuálnom súbore",
         "Description[sl]": "Požene ESLint na trenutni datoteki",
         "Description[sv]": "Kör ESLint med aktuell fil",
-        "Description[tr]": "Geçerli dosyada ESLint'i çalıştırır",
+        "Description[tr]": "Geçerli dosyada ESLint’i çalıştırır",
         "Description[uk]": "Запустити ESLint для поточного файла",
         "Description[vi]": "Chạy ESLint cho tệp hiện tại",
         "Description[x-test]": "xxRuns ESLint on current filexx",

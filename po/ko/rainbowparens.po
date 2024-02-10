@@ -1,0 +1,33 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2024 Shinjo Park <kde@peremen.name>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-01-02 01:33+0000\n"
+"PO-Revision-Date: 2024-02-09 23:20+0100\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 23.08.1\n"
+
+#: rainbowparens_plugin.cpp:454
+#, kde-format
+msgid "Choose colors that will be used for bracket coloring:"
+msgstr "괄호 색상화에 사용할 색 선택:"
+
+#: rainbowparens_plugin.cpp:474
+#, kde-format
+msgid "Colored Brackets"
+msgstr "색깔 있는 괄호"
+
+#: rainbowparens_plugin.cpp:479
+#, kde-format
+msgid "Colored Brackets Settings"
+msgstr "색깔 있는 괄호 설정"

@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2023-10-08 22:50+0200\n"
+"PO-Revision-Date: 2024-02-10 00:49+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -698,28 +698,24 @@ msgid "Code Analysis - %1"
 msgstr "코드 분석 - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>다음 목록에 있는 파일 확장자와 일치하는 모든 프로젝트 파일에 대해"
-"서 도구를 실행합니다:<br/><br/><b>%2</b>"
+"'%1'이(가) 시스템에 설치되어 있지 않습니다. %2.<br/><br/>%3. 다음 목록에 있"
+"는 파일 확장자와 일치하는 모든 프로젝트 파일에 대해서 이 도구를 실행합니다:"
+"<br/><br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>다음 목록에 있는 파일 확장자와 일치하는 모든 프로젝트 파일에 대해"
-"서 도구를 실행합니다:<br/><br/><b>%2</b>"
+"%2 위치에 설치되어 있는 %1을(를) 사용합니다.<br/><br/>%3. 다음 목록에 있는 파"
+"일 확장자와 일치하는 모든 프로젝트 파일에 대해서 이 도구를 실행합니다:<br/"
+"><br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212

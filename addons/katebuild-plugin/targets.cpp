@@ -66,8 +66,8 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     targetsView->expandAll();
     targetsView->header()->setStretchLastSection(false);
     targetsView->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-    targetsView->header()->setSectionResizeMode(1, QHeaderView::Stretch);
-    targetsView->header()->setSectionResizeMode(2, QHeaderView::Stretch);
+    targetsView->header()->setSectionResizeMode(1, QHeaderView::Interactive);
+    targetsView->header()->setSectionResizeMode(2, QHeaderView::Interactive);
     QHBoxLayout *tLayout = new QHBoxLayout();
 
     tLayout->addWidget(targetFilterEdit);

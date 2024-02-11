@@ -70,6 +70,8 @@ void TargetHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
         painter->fillRect(option.rect, option.palette.base());
     }
 
+    painter->setClipRect(option.rect);
+
     options.text = QString(); // clear old text
     options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 

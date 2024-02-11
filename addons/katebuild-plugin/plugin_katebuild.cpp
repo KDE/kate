@@ -489,6 +489,9 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     m_targetsUi->targetsView->setCurrentIndex(cmdIndex);
 
     m_targetsUi->updateTargetsButtonStates();
+
+    m_targetsUi->targetsView->resizeColumnToContents(1);
+    m_targetsUi->targetsView->resizeColumnToContents(2);
 }
 
 /******************************************************************/

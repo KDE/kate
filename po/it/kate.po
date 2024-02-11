@@ -1,5 +1,5 @@
 # translation of kate.po to Italian
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Paolo Zamponi <feus73@gmail.com>
 # Andrea Rizzi <rizzi@kde.org>, 2003, 2004, 2005.
 # Andrea RIZZI <arizzi@pi.infn.it>, 2004.
 # Andrea RIZZI <rizzi@kde.org>, 2004, 2005.
@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2023-09-06 21:53+0200\n"
+"PO-Revision-Date: 2024-02-09 17:06+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.0\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -307,6 +307,8 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
+"È stato raggiunto il limite della diagnostica, quelle ulteriori saranno "
+"ignorate. Il limite può essere configurato nelle impostazioni."
 
 #: lib/diagnostics/diagnosticview.cpp:327
 #, kde-format
@@ -1212,15 +1214,15 @@ msgid "Show current symbol in navigation bar"
 msgstr "Mostra il simbolo corrente nella barra di navigazione"
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Vista Diagnostica"
+msgstr "Limite diagnostica:"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
+"Numero massimo di diagnostica permesso nello strumento visivo Diagnostica."
 
 #: lib/kateconfigdialog.cpp:364
 #, kde-format

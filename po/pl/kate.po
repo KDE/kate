@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1672535 $
+# Version: $Revision: 1672988 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2024-02-04 08:59+0100\n"
+"PO-Revision-Date: 2024-02-11 11:23+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -1221,15 +1221,15 @@ msgid "Show current symbol in navigation bar"
 msgstr "Pokaż bieżący symbol na pasku poruszania się"
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Widok diagnostyczny"
+msgstr "Granica diagnostyczna:"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
+"Graniczna liczba diagnostyki dozwolona w widoku narzędzia diagnostycznego."
 
 #: lib/kateconfigdialog.cpp:364
 #, kde-format

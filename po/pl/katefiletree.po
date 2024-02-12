@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2014, 2016, 2018, 2019, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2023-04-01 09:12+0200\n"
+"PO-Revision-Date: 2024-02-11 11:26+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -282,15 +282,14 @@ msgid "Show &Toolbar"
 msgstr "Pokaż pasek &narzędzi"
 
 #: katefiletreeconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "Show Close Button"
+#, kde-format
 msgid "Show Close Button On Hovering"
-msgstr "Pokaż przycisk zamykający"
+msgstr "Pokaż przycisk zamykający po najechaniu"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "Kliknij środkowym, aby zamknąć dokument"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format

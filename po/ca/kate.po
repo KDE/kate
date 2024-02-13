@@ -2847,8 +2847,3 @@ msgstr "Gestiona les sessions..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Mostra a les finestres noves"
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr ""
-#~ "Error intern: hi ha més d'una instància oberta d'una sessió proporcionada."

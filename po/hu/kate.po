@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-06 03:09+0000\n"
-"PO-Revision-Date: 2024-01-22 11:29+0100\n"
+"PO-Revision-Date: 2024-02-13 11:31+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.01.90\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -182,19 +182,18 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:518
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "Érvénytelen hash"
 
 #: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "A(z) %1 nem létezik a git tárolóban."
 
 #: lib/commitfilesview.cpp:539
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Megjegyzés"
+msgstr "Véglegesítés %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -224,7 +223,7 @@ msgstr "Kijelölés"
 #: lib/data/kateui.rc:57
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "U&grás"
 
 #. i18n: ectx: Menu (view)
 #: lib/data/kateui.rc:73
@@ -248,10 +247,9 @@ msgstr "&Eszközök"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:274
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "List View"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Listanézet"
+msgstr "Diagnosztikai nézet"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -275,7 +273,7 @@ msgstr "Alap eszköztár"
 #: lib/data/kateui.rc:158
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Hamburger menü eszköztár"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:176
@@ -290,24 +288,24 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Hiba a reguláris kifejezésben: %1\n"
+"eltoltás %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:59
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Mind"
 
 #: lib/diagnostics/diagnosticview.cpp:316
-#, fuzzy, kde-format
-#| msgid "List View"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "Listanézet"
+msgstr "Diagnosztikai nézet"
 
 #: lib/diagnostics/diagnosticview.cpp:321
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "&Gyors megnyitás"
+msgstr "Gyors javítás"
 
 #: lib/diagnostics/diagnosticview.cpp:327
 #, kde-format
@@ -322,12 +320,12 @@ msgstr "Előző elem"
 #: lib/diagnostics/diagnosticview.cpp:341
 #, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr ""
+msgstr "Diagnosztikai szűrő törlése"
 
 #: lib/diagnostics/diagnosticview.cpp:386
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnosztika"
 
 #: lib/diagnostics/diagnosticview.cpp:429
 #, kde-format
@@ -364,7 +362,7 @@ msgstr "Információk"
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [mellőzve: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1319
 #, kde-format
@@ -384,94 +382,88 @@ msgstr "Másolás a vágólapra"
 #: lib/diagnostics/diagnosticview.cpp:1351
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Globális mellőzés eltávolítása"
 
 #: lib/diagnostics/diagnosticview.cpp:1353
-#, fuzzy, kde-format
-#| msgid "Sess&ions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "M&unkamenetek"
+msgstr "Globális mellőzés hozzáadása"
 
 #: lib/diagnostics/diagnosticview.cpp:1357
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Helyi mellőzés eltávolítása"
 
 #: lib/diagnostics/diagnosticview.cpp:1359
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Helyi mellőzés hozzáadása"
 
 #: lib/diagnostics/diagnosticview.cpp:1374
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Munkamenetszűrő"
+msgstr "Mellőzés kikapcsolása"
 
 #: lib/diagnostics/diagnosticview.cpp:1376
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Munkamenetkezelő"
+msgstr "Mellőzés bekapcsolása"
 
 #: lib/diff/diffeditor.cpp:182
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "Stílus módosítása"
 
 #: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:321
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "Egymás melletti"
 
 #: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:322
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "Unified"
-msgstr "Módosítva"
+msgstr "Egyesített"
 
 #: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:323
 #, kde-format
 msgid "Raw"
-msgstr ""
+msgstr "Nyers"
 
 #: lib/diff/diffeditor.cpp:219
-#, fuzzy, kde-format
-#| msgid "Line"
+#, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] "Sor"
-msgstr[1] "Sor"
+msgstr[0] "Sor kiválasztása"
+msgstr[1] "Sorok kiválasztása"
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "Módosítás kiválasztása"
 
 #: lib/diff/diffeditor.cpp:231
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sor eldobása"
+msgstr[1] "Sorok eldobása"
 
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Módosítás eldobása"
 
 #: lib/diff/diffeditor.cpp:243
-#, fuzzy, kde-format
-#| msgid "Line"
+#, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] "Sor"
-msgstr[1] "Sor"
+msgstr[0] "Sor visszavonása"
+msgstr[1] "Sorok visszavonása"
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "Módosítás visszavonása"
 
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
@@ -1026,16 +1018,19 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"Ha be van kapcsolva, a szakasz mérete a lapok pozíciója szerint lesz "
+"meghatározva.\n"
+"Ez a beállítás nem hat az alsó oldalsávra."
 
 #: lib/kateconfigdialog.cpp:193
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr ""
+msgstr "Szöveg megjelenítése a bal és jobb oldali oldalsáv gombjain"
 
 #: lib/kateconfigdialog.cpp:198
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
-msgstr ""
+msgstr "A bal és jobb oldali oldalsáv gombjainak ikonmérete"
 
 #: lib/kateconfigdialog.cpp:217
 #, kde-format
@@ -1550,16 +1545,14 @@ msgid "Close this window"
 msgstr "Az ablak bezárása"
 
 #: lib/katemainwindow.cpp:427
-#, fuzzy, kde-format
-#| msgid "&Window"
+#, kde-format
 msgid "&New Window"
-msgstr "&Ablak"
+msgstr "Ú&j ablak"
 
 #: lib/katemainwindow.cpp:430
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Create a new window."
-msgstr "Új dokumentum létrehozása"
+msgstr "Létrehoz egy új ablakot."
 
 #: lib/katemainwindow.cpp:437
 #, kde-format
@@ -1732,7 +1725,7 @@ msgstr "Bővítménykezelő"
 #: lib/katemdi.cpp:103
 #, kde-format
 msgid "Sidebar Buttons"
-msgstr ""
+msgstr "Oldalsáv gombjai"
 
 #: lib/katemdi.cpp:106
 #, kde-format
@@ -1761,10 +1754,9 @@ msgid "Show %1"
 msgstr "%1 megjelenítése"
 
 #: lib/katemdi.cpp:179
-#, fuzzy, kde-format
-#| msgid "&Show close button"
+#, kde-format
 msgid "Show %1 Button"
-msgstr "Bezárás gomb megjeleníté&se"
+msgstr "%1 gomb megjelenítése"
 
 #: lib/katemdi.cpp:195
 #, kde-format
@@ -2273,12 +2265,12 @@ msgstr "Fókusz a következő lapra."
 #: lib/kateviewmanager.cpp:272
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "Kezdőlap"
 
 #: lib/kateviewmanager.cpp:277
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "Kezdőlap megjelenítése"
 
 #: lib/kateviewmanager.cpp:346
 #, kde-format
@@ -2404,6 +2396,7 @@ msgstr "Következő dokumentum"
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
+"Megnyitja a dokumentumot egy új ablakban, és bezárja a jelenlegi ablakot"
 
 #: lib/kateviewspace.cpp:1055
 #, fuzzy, kde-format
@@ -2659,13 +2652,13 @@ msgstr "Fájlok nem mentett változtatásokkal"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
+"Ha ki van kapcsolva, egy névtelen dokumentum jelenik meg az új ablakokban."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Új dokumentum létrehozása"
+msgstr "Kezdőlap megjelenítése új ablakokban"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2765,41 +2758,32 @@ msgstr "A már nem szükséges metaadatok törlése ennyi idő után:"
 #: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Welcome to %1"
-msgstr ""
+msgstr "Üdvözli a %1"
 
 #: lib/welcomeview/welcomeview.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "A megnyitott dokumentumok száma"
+msgstr "Legutóbbi dokumentumok és projektek"
 
 #: lib/welcomeview/welcomeview.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents"
-msgstr "A megnyitott dokumentumok száma"
+msgstr "Legutóbbi dokumentumok"
 
 #: lib/welcomeview/welcomeview.cpp:63
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "A megnyitott dokumentumok száma"
+msgstr "Nincsenek legutóbbi dokumentumok és projektek"
 
 #: lib/welcomeview/welcomeview.cpp:63
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "A megnyitott dokumentumok száma"
+msgstr "Nincsenek legutóbbi dokumentumok"
 
 #: lib/welcomeview/welcomeview.cpp:116
-#, fuzzy, kde-format
-#| msgid "&Do not save session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "Nem kell &elmenteni a munkamenetet"
+msgstr "Nincsenek mentett munkamenetek"
 
 #: lib/welcomeview/welcomeview.cpp:246
 #, kde-format
@@ -2807,14 +2791,12 @@ msgid "Open Selected Files..."
 msgstr "Kiválasztott fájlok megnyitása…"
 
 #: lib/welcomeview/welcomeview.cpp:259
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "Hely"
+msgstr "&Hely másolása"
 
 #: lib/welcomeview/welcomeview.cpp:274
-#, fuzzy, kde-format
-#| msgid "&Remove"
+#, kde-format
 msgid "&Remove"
 msgstr "&Eltávolítás"
 

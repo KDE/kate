@@ -707,7 +707,7 @@ bool KateFileTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction, int 
     }
 
     const auto index = md->index();
-    Q_ASSERT(parent == index.parent());
+    Q_ASSERT(parent == index.parent()); // move is only allowed within the same parent
     if (!index.isValid() || index.row() > rowCount(parent) || index.row() == row) {
         return false;
     }
@@ -722,6 +722,11 @@ bool KateFileTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction, int 
         sourceRow++;
     }
     childs.erase(childs.begin() + sourceRow);
+    // update row number of children
+    for (size_t i = 0; i < childs.size(); i++) {
+        childs[i]->m_row = i;
+    }
+
     endMoveRows();
     return true;
 }
@@ -1201,7 +1206,7 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item, bool
         parts.pop_back();
     }
 
-    for (const QString &part : qAsConst(parts)) {
+    for (const QString &part : std::as_const(parts)) {
         current_parts.append(part);
         ProxyItemDir *find = findChildNode(ptr, part);
         if (!find) {

@@ -53,7 +53,7 @@ KateDocManagerTests::KateDocManagerTests(QObject *)
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));
 }
 
-void KateDocManagerTests::setUp()
+void KateDocManagerTests::init()
 {
     auto tempdir = new QTemporaryDir;
     QVERIFY(tempdir->isValid());
@@ -64,29 +64,23 @@ void KateDocManagerTests::setUp()
     app = std::make_unique<KateApp>(getParser(), KateApp::ApplicationKWrite, tempdir->path());
 }
 
-void KateDocManagerTests::tearDown()
+void KateDocManagerTests::cleanup()
 {
     app.reset(nullptr);
 }
 
 void KateDocManagerTests::canCreateDocument()
 {
-    setUp();
-
     auto documentManager = app->documentManager();
 
     QSignalSpy documentCreatedSpy(documentManager, &KateDocManager::documentCreated);
     const auto document = documentManager->createDoc(createMockDocument());
     Q_ASSERT(document != nullptr);
     Q_ASSERT(documentCreatedSpy.count() == 1);
-
-    tearDown();
 }
 
 void KateDocManagerTests::popRecentlyClosedUrlsClearsRecentlyClosedUrls()
 {
-    setUp();
-
     auto documentManager = app->documentManager();
     const auto createdDocuments = createTestDocumentsWithUrls(documentManager);
 
@@ -101,25 +95,17 @@ void KateDocManagerTests::popRecentlyClosedUrlsClearsRecentlyClosedUrls()
         const auto recentlyClosedUrls = documentManager->popRecentlyClosedUrls();
         Q_ASSERT(recentlyClosedUrls.size() == 0);
     }
-
-    tearDown();
 }
 
 void KateDocManagerTests::popRecentlyClosedUrlsReturnsNoneIfNoTabsClosedDuringSession()
 {
-    setUp();
-
     auto documentManager = app->documentManager();
 
     Q_ASSERT(documentManager->popRecentlyClosedUrls().empty());
-
-    tearDown();
 }
 
 void KateDocManagerTests::popRecentlyClosedUrlsReturnsUrlIfTabClosedDuringSession()
 {
-    setUp();
-
     auto documentManager = app->documentManager();
     const auto createdDocuments = createTestDocumentsWithUrls(documentManager);
 
@@ -129,14 +115,10 @@ void KateDocManagerTests::popRecentlyClosedUrlsReturnsUrlIfTabClosedDuringSessio
     const auto recentlyClosedUrls = documentManager->popRecentlyClosedUrls();
     Q_ASSERT(recentlyClosedUrls.contains(QUrl(i18n(FirstTestUrl))));
     Q_ASSERT(!recentlyClosedUrls.contains(QUrl(i18n(SecondTestUrl))));
-
-    tearDown();
 }
 
 void KateDocManagerTests::closedDocumentsWithEmptyUrlsAreNotRestorable()
 {
-    setUp();
-
     auto documentManager = app->documentManager();
     const auto createdDocuments = createTestDocumentsWithoutUrls(documentManager);
 
@@ -145,8 +127,6 @@ void KateDocManagerTests::closedDocumentsWithEmptyUrlsAreNotRestorable()
 
     const auto recentlyClosedUrls = documentManager->popRecentlyClosedUrls();
     Q_ASSERT(recentlyClosedUrls.isEmpty());
-
-    tearDown();
 }
 
 #include "moc_kate_doc_manager_tests.cpp"

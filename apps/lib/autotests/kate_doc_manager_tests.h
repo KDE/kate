@@ -11,11 +11,9 @@ class KateDocManagerTests : public QObject
 public:
     KateDocManagerTests(QObject *parent = nullptr);
 
-private:
-    void setUp();
-    void tearDown();
-
 private Q_SLOTS:
+    void init();
+    void cleanup();
     void canCreateDocument();
     void popRecentlyClosedUrlsClearsRecentlyClosedUrls();
     void popRecentlyClosedUrlsReturnsNoneIfNoTabsClosedDuringSession();

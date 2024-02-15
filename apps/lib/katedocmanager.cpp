@@ -185,8 +185,8 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
     }
 
     m_recentlyClosedUrls.clear();
-    for (const auto &document : documents) {
-        if (const auto &docInfoItr = m_docInfos.find(document); docInfoItr != m_docInfos.end()) {
+    for (const auto document : documents) {
+        if (const auto docInfoItr = m_docInfos.find(document); docInfoItr != m_docInfos.end()) {
             const auto &docInfo = docInfoItr->second;
 
             if (!docInfo.normalizedUrl.isEmpty()) {

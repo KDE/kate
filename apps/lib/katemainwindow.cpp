@@ -417,12 +417,12 @@ void KateMainWindow::setupActions()
     connect(a, &QAction::triggered, this, &KateMainWindow::slotDocumentCloseAll);
     a->setWhatsThis(i18n("Close all open documents."));
 
-    a = actionCollection()->addAction(QStringLiteral("reopen_latest_closed_tab"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("reopentab")));
-    a->setText(i18n("&Reopen latest closed tab(s)."));
+    a = actionCollection()->addAction(QStringLiteral("reopen_latest_closed_document"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("reopendocument")));
+    a->setText(i18n("&Reopen latest closed document(s)."));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_T));
     connect(a, &QAction::triggered, m_viewManager, &KateViewManager::slotRestoreLastClosedDocument);
-    a->setWhatsThis(i18n("Reopen the tab or tabs that were most recently closed"));
+    a->setWhatsThis(i18n("Reopen the document or documents that were most recently closed"));
 
     a = actionCollection()->addAction(KStandardAction::Quit, QStringLiteral("file_quit"));
     // Qt::QueuedConnection: delay real shutdown, as we are inside menu action handling (bug #185708)

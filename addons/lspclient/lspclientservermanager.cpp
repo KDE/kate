@@ -980,8 +980,8 @@ private:
 
     void update(const decltype(m_docs)::iterator &it, bool force)
     {
-        auto doc = it.key();
         if (it != m_docs.end() && it->server) {
+            auto doc = it.key();
             it->version = it->doc->revision();
 
             if (!m_incrementalSync) {

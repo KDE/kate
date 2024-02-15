@@ -500,7 +500,7 @@ Available default styles are explained in detail later.</para>
 <para><userinput>italic</userinput> if <emphasis>true</emphasis>, the text will be italic.</para>
 <para><userinput>bold</userinput> if <emphasis>true</emphasis>, the text will be bold.</para>
 <para><userinput>underline</userinput> if <emphasis>true</emphasis>, the text will be underlined.</para>
-<para><userinput>strikeout</userinput> if <emphasis>true</emphasis>, the text will be struck out.</para>
+<para><userinput>strikeOut</userinput> if <emphasis>true</emphasis>, the text will be struck out.</para>
 <para><userinput>spellChecking</userinput> if <emphasis>true</emphasis>, the text will be spellchecked.</para>
 </listitem>
 </varlistentry>

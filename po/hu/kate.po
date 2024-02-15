@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2024-02-13 11:31+0100\n"
+"PO-Revision-Date: 2024-02-14 22:33+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -495,29 +495,28 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:118
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Ugrás a következő fájlra"
 
 #: lib/diff/diffwidget.cpp:122
 #, kde-format
 msgid "Jump to Previous File"
-msgstr ""
+msgstr "Ugrás az előző fájlra"
 
 #: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Ugrás a következő módosításra"
 
 #: lib/diff/diffwidget.cpp:130
 #, kde-format
 msgid "Jump to Previous Hunk"
-msgstr ""
+msgstr "Ugrás az előző módosításra"
 
 #: lib/diff/diffwidget.cpp:134
-#, fuzzy, kde-format
-#| msgid "Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "Újratöltés"
+msgstr "Összehasonlítás újratöltése"
 
 #: lib/diff/diffwidget.cpp:138
 #, kde-format
@@ -540,16 +539,14 @@ msgid "Diff"
 msgstr ""
 
 #: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Új fájlnév"
+msgstr "Új fájl: %1"
 
 #: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Fájl törlése"
+msgstr "Törölt fájl: %1"
 
 #: lib/diff/diffwidget.cpp:1138 lib/diff/diffwidget.cpp:1139
 #, kde-format
@@ -573,18 +570,16 @@ msgid "Copy Commit Hash"
 msgstr ""
 
 #: lib/filehistorywidget.cpp:320
-#, fuzzy, kde-format
-#| msgid "&Show Full Path"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "&Teljes elérési út megjelenítése"
+msgstr "Teljes véglegesítő megjelenítése"
 
 #: lib/filehistorywidget.cpp:379
-#, fuzzy, kde-format
-#| msgid "File Selector"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Fájlválasztó ablak"
+msgstr "Fájlelőzmények - %1"
 
 #: lib/kateapp.cpp:105
 msgid ""
@@ -639,7 +634,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:281
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:282
 #, kde-format
@@ -1063,10 +1058,11 @@ msgid "&Auto hide tabs"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:238
-#, fuzzy, kde-format
-#| msgid "When checked each tab will display a close button."
+#, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
-msgstr "Ha be van jelölve, a bezárás gomb minden fülön megjelenik."
+msgstr ""
+"Ha be van jelölve, a lapok el lesznek rejtve, ha csak egy dokumentum van "
+"megnyitva."
 
 #: lib/kateconfigdialog.cpp:242
 #, kde-format
@@ -1127,11 +1123,9 @@ msgid "Elide tab text"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:274
-#, fuzzy, kde-format
-#| msgid "When checked tabs take as much size as possible."
+#, kde-format
 msgid "When checked tab text might be elided if its too long."
-msgstr ""
-"Ha be van jelölve, a fülek annyi helyet foglalnak el, amennyit csak lehet."
+msgstr "Ha be van jelölve, a lapok szövege rövidülhet, ha túl hosszú."
 
 #: lib/kateconfigdialog.cpp:278
 #, kde-format
@@ -2276,10 +2270,9 @@ msgid "Focus Navigation Bar"
 msgstr ""
 
 #: lib/kateviewmanager.cpp:265
-#, fuzzy, kde-format
-#| msgid "Focus the next tab."
+#, kde-format
 msgid "Focus the navigation bar"
-msgstr "Fókusz a következő lapra."
+msgstr "Fókusz a navigációs sávra"
 
 #: lib/kateviewmanager.cpp:272
 #, kde-format
@@ -2330,11 +2323,10 @@ msgid "Open Folder"
 msgstr "Mappa megnyitása"
 
 #: lib/kateviewmanager.cpp:531
-#, fuzzy, kde-format
-#| msgid "Enabled"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr "Engedélyezve"
+msgstr "Engedélyezés"
 
 #: lib/kateviewmanager.cpp:538
 #, kde-format
@@ -2358,10 +2350,9 @@ msgid "Control view space splitting"
 msgstr "Nézetfelosztás beállítása"
 
 #: lib/kateviewspace.cpp:118
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "S&ynchronize Scrolling"
-msgstr "Ú&j ablak"
+msgstr "Görgetés s&zinkronizálása"
 
 #: lib/kateviewspace.cpp:120
 #, kde-format
@@ -2400,16 +2391,14 @@ msgid "Close Other &Documents"
 msgstr "Többi dokumentum bezárás&a"
 
 #: lib/kateviewspace.cpp:1041
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close &All Documents"
-msgstr "Összes dokumentum bezárása"
+msgstr "Összes dokumentum bezárás&a"
 
 #: lib/kateviewspace.cpp:1044
-#, fuzzy, kde-format
-#| msgid "Next Document"
+#, kde-format
 msgid "D&etach Document"
-msgstr "Következő dokumentum"
+msgstr "Dokumentum l&eválasztása"
 
 #: lib/kateviewspace.cpp:1046
 #, kde-format
@@ -2418,16 +2407,14 @@ msgstr ""
 "Megnyitja a dokumentumot egy új ablakban, és bezárja a jelenlegi ablakot"
 
 #: lib/kateviewspace.cpp:1055
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document"
 msgstr "Összehasonlítás az aktív dokumentummal"
 
 #: lib/kateviewspace.cpp:1061
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document Using"
-msgstr "Összehasonlítás az aktív dokumentummal"
+msgstr "Összehasonlítás az aktív dokumentummal ezzel:"
 
 #: lib/kateviewspace.cpp:1128
 #, kde-format
@@ -2457,12 +2444,12 @@ msgstr "Az aktuális projektben"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Fuzzy szűrés"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "Helyettesítőkarakter-szűrés"
 
 #: lib/session/katesessionmanagedialog.cpp:27
 #, kde-format
@@ -2553,28 +2540,25 @@ msgid "Delete"
 msgstr "Törlés"
 
 #: lib/session/katesessionmanager.cpp:131
-#, fuzzy, kde-format
-#| msgid ""
-#| "Session '%1' is already opened in another kate instance, change there "
-#| "instead of reopening?"
+#, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
 "A(z) „%1” munkamenet már meg van nyitva egy másik Kate példányban, átvált "
-"arra az újra megnyitás helyett?"
+"arra, vagy újramegnyitja ebben a példányban?"
 
 #: lib/session/katesessionmanager.cpp:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
-msgstr ""
+msgstr "Váltás a példányra"
 
 #: lib/session/katesessionmanager.cpp:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
-msgstr ""
+msgstr "Újranyitás"
 
 #: lib/session/katesessionmanager.cpp:335
 #, kde-format
@@ -2643,10 +2627,9 @@ msgstr "Munkamenet ki&választása"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47
-#, fuzzy, kde-format
-#| msgid "Application Shutdown Behavior"
+#, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "Az alkalmazás működése kilépéskor"
+msgstr "Az alkalmazás működése indításkor/kilépéskor"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
@@ -2681,30 +2664,26 @@ msgstr "Kezdőlap megjelenítése új ablakokban"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "If enabled, Kate will shutdown when the last file being edited is closed, "
-#| "otherwise a blank page will open so that you can start a new file."
+#, kde-format
 msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
-"Ha be van kapcsolva, a Kate kilép, ha az utolsó szerkesztett fájl is "
+"Ha be van kapcsolva, az alkalmazás kilép, ha az utolsó szerkesztett fájl is "
 "bezárásra kerül, ellenkező esetben egy üres oldal nyílik meg, hogy új fájlt "
 "kezdhessen."
 
 #. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:101
-#, fuzzy, kde-format
-#| msgid "Close Kate entirely when the last file is closed"
+#, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr "Kate teljes bezárása az utolsó fájl bezárásakor"
+msgstr "Az alkalmazás teljes bezárása az utolsó fájl bezárásakor"
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Dokumentumok bezárása az ablakkal, amelyhez tartoznak"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -2732,16 +2711,13 @@ msgstr "A legutóbbi fájlok listájának maximális hossza:"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:164
-#, fuzzy, kde-format
-#| msgid ""
-#| "Check this if you want all your views and frames restored each time you "
-#| "open Kate."
+#, kde-format
 msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
 msgstr ""
-"Jelölje be ezt, ha szeretne visszaállítani minden nézetet és keretet a Kate "
-"minden egyes indulásakor."
+"Jelölje be ezt, ha szeretne visszaállítani minden nézetet és keretet az "
+"alkalmazás minden egyes indulásakor."
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:167

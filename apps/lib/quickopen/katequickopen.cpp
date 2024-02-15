@@ -305,7 +305,6 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_styleDelegate = new QuickOpenStyleDelegate(this);
     m_listView->setItemDelegate(m_styleDelegate);
 
-    connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, &KateQuickOpen::reselectFirst, Qt::QueuedConnection);
     connect(m_inputLine, &QuickOpenLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_inputLine, &QuickOpenLineEdit::listModeChanged, this, &KateQuickOpen::slotListModeChanged);
     connect(m_inputLine, &QuickOpenLineEdit::filterModeChanged, this, &KateQuickOpen::setFilterMode);
@@ -322,22 +321,21 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
 
     connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this](const QString &text) {
         // We init the proxy model when there is something to filter
+        bool didFilter = false;
         if (!m_proxyModel) {
             m_proxyModel = new QuickOpenFilterProxyModel(this);
             m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
             m_proxyModel->setFilterMode(m_inputLine->filterMode());
-            bool filtered = m_proxyModel->setFilterText(text);
+            didFilter = m_proxyModel->setFilterText(text);
             m_proxyModel->setSourceModel(m_model);
             m_listView->setModel(m_proxyModel);
-            if (filtered) {
-                m_styleDelegate->setFilterString(text);
-                m_listView->viewport()->update();
-            }
         } else {
-            if (m_proxyModel->setFilterText(text)) {
-                m_styleDelegate->setFilterString(text);
-                m_listView->viewport()->update();
-            }
+            didFilter = m_proxyModel->setFilterText(text);
+        }
+        if (didFilter) {
+            m_styleDelegate->setFilterString(text);
+            m_listView->viewport()->update();
+            reselectFirst();
         }
     });
 

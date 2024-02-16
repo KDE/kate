@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2024-02-14 22:33+0100\n"
+"PO-Revision-Date: 2024-02-15 22:41+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -475,22 +475,22 @@ msgstr "Módosítás visszavonása"
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "%1 összehasonlítása"
 
 #: lib/diff/diffwidget.cpp:62
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "%1..%2 összehasonlítása"
 
 #: lib/diff/diffwidget.cpp:83
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "%1 .. %2 összehasonlítása"
 
 #: lib/diff/diffwidget.cpp:113
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Véglegesítő információk megjelenítése/elrejtése"
 
 #: lib/diff/diffwidget.cpp:118
 #, kde-format
@@ -523,6 +523,8 @@ msgstr "Összehasonlítás újratöltése"
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
+"Összehasonlítás megjelenítése a teljes környezettel, nem csak a módosított "
+"sorok"
 
 #: lib/diff/diffwidget.cpp:551
 #, kde-format
@@ -531,12 +533,15 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"A <b>git</b> nem található. A Git szükséges a dokumentumok "
+"összehasonlításához. Ha a git már telepítve van, ellenőrizze, hogy a PATH "
+"tartalmazza-e. Lásd https://git-scm.org/downloads"
 
 #: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1155
 #: lib/kateconfigdialog.cpp:315
 #, kde-format
 msgid "Diff"
-msgstr ""
+msgstr "Összehasonlítás"
 
 #: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
 #, kde-format
@@ -551,17 +556,18 @@ msgstr "Törölt fájl: %1"
 #: lib/diff/diffwidget.cpp:1138 lib/diff/diffwidget.cpp:1139
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Nem találhatók különbségek"
 
 #: lib/filehistorywidget.cpp:288
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
+"Nem sikerült lekérni a fájl előzményeit: a git nem található a PATH-ban"
 
 #: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "Nem sikerült lekérni a fájl előzményeit: %1"
 
 #: lib/filehistorywidget.cpp:312
 #, kde-format
@@ -1140,7 +1146,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:286
 #, kde-format
 msgid "&Mouse"
-msgstr ""
+msgstr "&Egér"
 
 #: lib/kateconfigdialog.cpp:291
 #, kde-format
@@ -1379,13 +1385,12 @@ msgstr "A dokumentum teljes elérési útjának megjelenítése az ablak fejléc
 #: lib/katemainwindow.cpp:251
 #, kde-format
 msgid "Show Navigation Bar"
-msgstr ""
+msgstr "Navigációs sáv megjelenítése"
 
 #: lib/katemainwindow.cpp:260
-#, fuzzy, kde-format
-#| msgid "&Color Scheme"
+#, kde-format
 msgid "&Window Color Scheme"
-msgstr "&Színséma"
+msgstr "&Ablak színsémája"
 
 #: lib/katemainwindow.cpp:264
 #, kde-format
@@ -1621,16 +1626,14 @@ msgid "&New Session"
 msgstr "Új munkame&net"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "&Open Session"
+#, kde-format
 msgid "&Recent Sessions"
-msgstr "M&unkamenet megnyitása"
+msgstr "L&egutóbbi munkamenetek"
 
 #: lib/katemainwindow.cpp:492
-#, fuzzy, kde-format
-#| msgid "Sess&ions"
+#, kde-format
 msgid "&All Sessions"
-msgstr "M&unkamenetek"
+msgstr "Minden munk&amenet"
 
 #: lib/katemainwindow.cpp:499
 #, kde-format
@@ -1650,17 +1653,17 @@ msgstr "Munk&amenet mentése másként…"
 #: lib/katemainwindow.cpp:521 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
-msgstr ""
+msgstr "Ugrás az előző helyre"
 
 #: lib/katemainwindow.cpp:530 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
-msgstr ""
+msgstr "Ugrás a következő helyre"
 
 #: lib/katemainwindow.cpp:538
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Fájl Git előzményeinek megjelenítése"
 
 #: lib/katemainwindow.cpp:591
 #, kde-format
@@ -1699,30 +1702,25 @@ msgid "Hide menu bar"
 msgstr "Menüsáv elrejtése"
 
 #: lib/katemainwindow.cpp:949
-#, fuzzy, kde-format
-#| msgid ""
-#| "You dropped the directory %1 into Kate. Do you want to load all files "
-#| "contained in it ?"
+#, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
-"A(z) %1 mappát a Kate-be ejtette. Szeretné betölteni az abban lévő összes "
+"A(z) %1 mappát a Kate-be ejtette. Szeretné megnyitni az abban lévő összes "
 "fájlt?"
 
 #: lib/katemainwindow.cpp:952
-#, fuzzy, kde-format
-#| msgid "Load files recursively?"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
-msgstr "Fájlok betöltése rekurzívan?"
+msgstr "Fájlok megnyitása rekurzívan"
 
 #: lib/katemainwindow.cpp:953
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr "Fájl megnyitása"
+msgstr "Összes fájl megnyitása"
 
 #: lib/katemainwindow.cpp:1175
 #, kde-format
@@ -1777,15 +1775,14 @@ msgid "Focus %1"
 msgstr ""
 
 #: lib/katemdi.cpp:1076
-#, fuzzy, kde-format
-#| msgid "Configure ..."
+#, kde-format
 msgid "Configure..."
 msgstr "Beállítás…"
 
 #: lib/katemdi.cpp:1080
 #, kde-format
 msgid "Hide Button"
-msgstr ""
+msgstr "Gomb elrejtése"
 
 #: lib/katemdi.cpp:1082
 #, kde-format
@@ -1967,17 +1964,17 @@ msgstr "Hiba történt a diff-fájl létrehozásakor"
 #: lib/katemwmodonhddialog.cpp:321
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[RÉGI]"
 
 #: lib/katemwmodonhddialog.cpp:322
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[ÚJ]"
 
 #: lib/kateoutputview.cpp:174
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Keresés…"
 
 #: lib/kateoutputview.cpp:191
 #, fuzzy, kde-format

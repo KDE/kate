@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2014.
-# Kristof Kiszel <ulysses@fsf.hu>, 2021.
+# SPDX-FileCopyrightText: 2021, 2024 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2021-12-23 15:04+0100\n"
+"PO-Revision-Date: 2024-02-15 22:13+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.0\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -41,9 +41,7 @@ msgid "Close the current document."
 msgstr "Az aktuális dokumentum bezárása."
 
 #: katefiletree.cpp:128
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Expand recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Kibontás rekurzívan"
@@ -54,9 +52,7 @@ msgid "Expand the file list sub tree recursively."
 msgstr "A fájllista részfa kibontása rekurzívan."
 
 #: katefiletree.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Collapse recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Összecsukás rekurzívan"
@@ -92,7 +88,7 @@ msgstr "A fájlt tartalmazó mappa megnyitása."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "Hely másolása"
 
 #: katefiletree.cpp:147
 #, kde-format
@@ -200,7 +196,7 @@ msgstr "Rendezés megnyitási sorrend szerint"
 #: katefiletree.cpp:269 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
-msgstr ""
+msgstr "Egyéni rendezés"
 
 #: katefiletree.cpp:398
 #, kde-format
@@ -211,7 +207,7 @@ msgstr "Megnyitás ezzel"
 #: katefiletree.cpp:412
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Fájl Git előzményeinek megjelenítése"
 
 #: katefiletree.cpp:451
 #, kde-format
@@ -352,13 +348,11 @@ msgid "Configure Documents"
 msgstr "Dokumentumok beállítása"
 
 #: katefiletreemodel.cpp:494
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "Megnyitás ezzel"
+msgstr "Elemek megnyitása"
 
 #: katefiletreemodel.cpp:644
 #, kde-format
@@ -379,15 +373,14 @@ msgid "Next Document"
 msgstr "Következő dokumentum"
 
 #: katefiletreeplugin.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "Aktív megjeleníté&se"
+msgstr "Aktív dokumentum megjeleníté&se"
 
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #: katefiletreeplugin.cpp:270
 #, kde-format
@@ -397,11 +390,10 @@ msgstr "A jelenlegi dokumentum mentése"
 #: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Mentés másként"
 
 #: katefiletreeplugin.cpp:275
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "A jelenlegi dokumentum mentése új néven"
 
@@ -409,7 +401,7 @@ msgstr "A jelenlegi dokumentum mentése új néven"
 #: ui.rc:7
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "&Ugrás"
 
 #~ msgid ""
 #~ "When enabled, this will show a close button for opened documents on hover."

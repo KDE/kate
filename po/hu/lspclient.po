@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kristof Kiszel <ulysses@fsf.hu>, 2021, 2022.
+# SPDX-FileCopyrightText: 2021, 2022, 2024 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:36+0000\n"
-"PO-Revision-Date: 2022-01-25 10:17+0100\n"
+"PO-Revision-Date: 2024-02-15 21:55+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.07.70\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
@@ -52,17 +52,17 @@ msgstr "A JSON-adat érvénytelen: %1"
 #: lspclientconfigpage.cpp:276
 #, kde-format
 msgid "Delete selected entries"
-msgstr ""
+msgstr "Kiválasztott bejegyzések törlées"
 
 #: lspclientconfigpage.cpp:281
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Minden bejegyzés törlése"
 
 #: lspclientplugin.cpp:224
 #, kde-format
 msgid "LSP server start requested"
-msgstr ""
+msgstr "LSP-kiszolgáló indítása kérve"
 
 #: lspclientplugin.cpp:227
 #, kde-format
@@ -71,6 +71,9 @@ msgid ""
 "<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
 "the plugin."
 msgstr ""
+"Szeretné elindítani az LSP-kiszolgálót?<br><br>A teljes parancssor:"
+"<br><br><b>%1</b><br><br>A választás a bővítmény beállítóoldalán "
+"változtatható meg."
 
 #: lspclientplugin.cpp:240
 #, kde-format
@@ -78,11 +81,13 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
+"A felhasználó véglegesen tiltotta a(z) „%1” indítását.\n"
+"A bővítmény beállítóoldalán oldhatja fel a tiltást."
 
 #: lspclientpluginview.cpp:419 lspclientpluginview.cpp:671
 #, kde-format
 msgid "LSP"
-msgstr ""
+msgstr "LSP"
 
 #: lspclientpluginview.cpp:481
 #, kde-format
@@ -135,15 +140,14 @@ msgid "Rename"
 msgstr "Átnevezés"
 
 #: lspclientpluginview.cpp:507
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Expand Selection"
-msgstr "Összes kibontása"
+msgstr "Kijelölés kibővítése"
 
 #: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Shrink Selection"
-msgstr ""
+msgstr "Kijelölés zsugorítása"
 
 #: lspclientpluginview.cpp:513
 #, kde-format
@@ -151,10 +155,9 @@ msgid "Switch Source Header"
 msgstr "Váltás a forrásfejlécre"
 
 #: lspclientpluginview.cpp:516
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Expand Macro"
-msgstr "Összes kibontása"
+msgstr "Makró kibontása"
 
 #: lspclientpluginview.cpp:518
 #, kde-format
@@ -206,29 +209,25 @@ msgstr "Ugrási hely kiemelése"
 #: lspclientpluginview.cpp:563
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Soron belüli tippek megjelenítése"
 
 #: lspclientpluginview.cpp:567
-#, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
+#, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Diagnosztikai értesítések megjelenítése"
 
 #: lspclientpluginview.cpp:572
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
 msgstr "Üzenetek megjelenítése"
 
 #: lspclientpluginview.cpp:577
-#, fuzzy, kde-format
-#| msgid "Server memory usage"
+#, kde-format
 msgid "Server Memory Usage"
 msgstr "Kiszolgáló memóriahasználata"
 
 #: lspclientpluginview.cpp:581
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Összes dinamikus hivatkozási lap bezárása"
 
@@ -245,7 +244,7 @@ msgstr "Összes LSP kiszolgáló újraindítása"
 #: lspclientpluginview.cpp:596
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Ugrás ide"
 
 #: lspclientpluginview.cpp:623
 #, kde-format
@@ -343,10 +342,9 @@ msgid "New name (caution: not all references may be replaced)"
 msgstr "Új név (figyelem: nem minden hivatkozás cserélhető)"
 
 #: lspclientpluginview.cpp:1851
-#, fuzzy, kde-format
-#| msgid "No results"
+#, kde-format
 msgid "Not enough results"
-msgstr "Nincs találat"
+msgstr "Nincs elég találat"
 
 #: lspclientpluginview.cpp:1920
 #, kde-format
@@ -357,19 +355,18 @@ msgstr "A megfelelő fejléc/forrás nem található"
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
-msgstr "LSP kiszolgáló"
+msgstr "LSP-kiszolgáló"
 
 #: lspclientpluginview.cpp:2182
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
-msgstr "LSP kliens"
+msgstr "LSP-kliens"
 
 #: lspclientpluginview.cpp:2454
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
-msgstr "LSP kiszolgáló újraindítása"
+msgstr "Kérdés az LSP-kiszolgálótól"
 
 #: lspclientservermanager.cpp:604
 #, kde-format
@@ -428,10 +425,9 @@ msgid "Failed to read server configuration: %1"
 msgstr "Nem sikerült olvasni a kiszolgálóbeállítást: %1"
 
 #: lspclientsymbolview.cpp:241
-#, fuzzy, kde-format
-#| msgid "Symbol Outline Options"
+#, kde-format
 msgid "Symbol Outline"
-msgstr "Tagolási szimbólum beállításai"
+msgstr "Szimbólumadatok"
 
 #: lspclientsymbolview.cpp:286
 #, kde-format
@@ -471,10 +467,9 @@ msgstr "Kliensbeállítások"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Formázás gépeléskor"
+msgstr "Formázás mentéskor"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -486,7 +481,7 @@ msgstr "Szemantikai kiemelés bekapcsolása"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Soron belüli tippek bekapcsolása"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75
@@ -510,7 +505,7 @@ msgstr "Függvényaláírás megjelenítése függvényhívás gépelésekor"
 #: lspconfigwidget.ui:103
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
-msgstr ""
+msgstr "Importálások automatikus hozzáadása szükség esetén kiegészítéskor"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: lspconfigwidget.ui:110
@@ -595,7 +590,7 @@ msgstr "Fa automatikus kibontása"
 #: lspconfigwidget.ui:227
 #, kde-format
 msgid "Allowed && Blocked Servers"
-msgstr ""
+msgstr "Engedélyezett és tiltott kiszolgálók"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: lspconfigwidget.ui:237

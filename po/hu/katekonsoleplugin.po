@@ -4,13 +4,13 @@
 # Tamas Szanto <tszanto@interware.hu>, 2008.
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2011, 2014.
 # Balázs Úr <urbalazs@gmail.com>, 2014.
-# Kristof Kiszel <ulysses@fsf.hu>, 2021.
+# SPDX-FileCopyrightText: 2021, 2024 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-21 02:24+0000\n"
-"PO-Revision-Date: 2021-12-23 14:50+0100\n"
+"PO-Revision-Date: 2024-02-15 22:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.0\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: kateconsole.cpp:56
 #, kde-format
@@ -67,6 +67,8 @@ msgstr "&Fókusz a terminál panelre"
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"A Konsole nincs telepítve. Kérjük, telepítse a Konsole-t, hogy használni "
+"tudja a terminált."
 
 #: kateconsole.cpp:380
 #, kde-format

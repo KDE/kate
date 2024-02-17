@@ -694,7 +694,7 @@
 >, el text es mostrarà subratllat.</para>
 <para
 ><userinput
->strikeout</userinput
+>strikeOut</userinput
 > si està a <emphasis
 >true</emphasis
 >, el text es mostrarà taxat.</para>

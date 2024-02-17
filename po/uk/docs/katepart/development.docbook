@@ -598,6 +598,15 @@
 
 <para
 ><userinput
+>attribute</userinput
+> визначає стиль, який слід використати для символу, якщо не виявлено відповідності жодному правилу або якщо правило не визначає атрибута. У другому випадку буде використано <emphasis
+>атрибут</emphasis
+> контексту, який вказано у <emphasis
+>контексті</emphasis
+> правила.</para>
+
+<para
+><userinput
 >lineEndContext</userinput
 > визначає контекст, на який має перемкнутися система підсвічування у разі досягнення кінця рядка. Значенням може бути назва іншого контексту, <userinput
 >#stay</userinput
@@ -613,11 +622,7 @@
 >IncludeRules</userinput
 >, наприклад, <userinput
 >ЯкийсьКонтекст##JavaScript</userinput
->. Зауважте, що цей перемикач контексту не можна використовувати у поєднанні із <userinput
->#pop</userinput
->. Наприклад, <userinput
->#pop!ЯкийсьКонтекст##JavaScript</userinput
-> є некоректним. Перемикачі контексту також описано у розділі <xref linkend="kate-highlight-rules-detailled"/>.</para>
+>. Перемикачі контексту також описано у розділі <xref linkend="kate-highlight-rules-detailled"/>. Типове значення: #stay.</para>
 <para
 ><userinput
 >lineEmptyContext</userinput
@@ -707,7 +712,7 @@
 >, текст буде підкреслено.</para>
 <para
 ><userinput
->strikeout</userinput
+>strikeOut</userinput
 >, якщо цей параметр має значення <emphasis
 >true</emphasis
 >, текст буде перекреслено.</para>
@@ -1144,7 +1149,9 @@
 >#stay</userinput
 >), чи слід повернутися до попереднього контексту, використаного у рядку (<userinput
 >#pop</userinput
->).</para>
+>). Порожній або невизначений контекст означає <userinput
+>#stay</userinput
+>.</para>
 <para
 >Щоб повернутися на декілька рівнів контексту назад, ключове слово #pop можна повторити декілька разів: <userinput
 >#pop#pop#pop</userinput
@@ -1174,11 +1181,7 @@
 >IncludeRules</userinput
 >. Воно надає вам змогу перемкнутися на контекст, що належить іншому визначення підсвічування синтаксису, наприклад, <userinput
 >ЯкийсьКонтекст##JavaScript</userinput
->. Зауважте, що не можна використовувати цей перемикач контексту у поєднанні із <userinput
->#pop</userinput
->. Наприклад, запис <userinput
->#pop!ЯкийсьКонтекст##JavaScript</userinput
-> є некоректним.</para>
+>. </para>
 </listitem>
 </itemizedlist>
 
@@ -1191,11 +1194,7 @@
 <para
 >Всі правила мають перелічені нижче атрибути, їх можна вказувати всюди, де ви побачите напис <userinput
 >(загальні атрибути)</userinput
-> у списку. Атрибути <emphasis
->attribute</emphasis
-> і <emphasis
->context</emphasis
-> є обов’язковими атрибутами, всі інші атрибути є необов’язковими. </para>
+> у списку. Усі атрибути є необов’язковими. </para>
 
 <listitem>
 <para
@@ -1203,13 +1202,17 @@
 >attribute</emphasis
 >: атрибут, що вказує на визначені <emphasis
 >itemData</emphasis
+>. Типове значення: <emphasis
+>attribute</emphasis
+> з контексту, який вказано в атрибуті <emphasis
+>context</emphasis
 >.</para>
 </listitem>
 <listitem>
 <para
 ><emphasis
 >context</emphasis
->: визначає контекст, на який слід перемкнути систему підсвічування у разі виявлення відповідника правила.</para>
+>: визначає контекст, на який слід перемкнути систему підсвічування у разі виявлення відповідника правила. Типове значення: #stay.</para>
 </listitem>
 <listitem>
 <para
@@ -1517,6 +1520,10 @@
 > визначає перший символ для порівняння, <userinput
 >char1</userinput
 > — другий.</para>
+<para
+>Це правило лишилося з історичних міркувань. Для того, щоб зробити читання зручнішим варто користуватися <userinput
+>StringDetect</userinput
+>.</para>
 </listitem>
 </varlistentry>
 
@@ -1900,16 +1907,6 @@
 
 <listitem>
 <para
->Якщо вам потрібно перевірити відповідність лише двом символам, скористайтеся правилом <userinput
->Detect2Chars</userinput
->, замість правила <userinput
->StringDetect</userinput
->. Те саме стосується правила <userinput
->DetectChar</userinput
->.</para>
-</listitem>
-<listitem>
-<para
 >Формальними виразами просто користуватися, але часто існує інший, набагато швидший спосіб досягти результату. Припустімо вам потрібно перевірити, чи є символ <userinput
 >'#'</userinput
 > першим символом рядка. Вирішення на основі формального виразу має виглядати десь так: <programlisting
@@ -1951,7 +1948,7 @@
 >, але також слід обробити цей рядок у наступному контексті. Ви можете скористатися наведеним нижче правилом, у якому атрибут <userinput
 >lookAhead</userinput
 > призведе до того, що інструмент визначення підсвічування збереже знайдений рядок для обробки у наступному контексті. <programlisting
->&lt;Detect2Chars attribute=&quot;Comment&quot; context=&quot;#pop&quot; char=&quot;*&quot; char1=&quot;/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
+>&lt;StringDetect attribute=&quot;Comment&quot; context=&quot;#pop&quot; String=&quot;*/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
 </para>
 </listitem>
 <listitem>
@@ -1979,12 +1976,12 @@
 <listitem>
 <para
 >Ви можете перевірити коректність будь-якого файла &XML; за допомогою команди <command
->validatehl.sh language.xsd mySyntax.xml</command
->. Файли <filename
+>validatehl.sh mySyntax.xml</command
+>. Файл <filename
 >validatehl.sh</filename
-> і <filename
+> використовує <filename
 >language.xsd</filename
-> зберігаються у <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
+>. Обидва ці файли зберігаються у <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
 >сховищі бібліотеки підсвічування синтаксичних конструкцій</ulink
 >. </para>
 </listitem>
@@ -1995,7 +1992,7 @@
 >. Приклад:</para>
 <programlisting
 >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE language SYSTEM "language.dtd"
+&lt;!DOCTYPE language
 [
         &lt;!ENTITY myref    "[A-Za-z_:][\w.:_-]*"&gt;
 ]&gt;
@@ -2004,6 +2001,44 @@
 >Після такого визначення ви зможете використовувати <emphasis
 >&amp;myref;</emphasis
 > замість формального виразу.</para>
+</listitem>
+<listitem>
+<para
+>У редакторі Kate ви можете перезавантажити синтаксиси за допомогою вбудованого командного рядка (типове скорочення <userinput
+>F7</userinput
+>) і команди <command
+>reload-highlighting</command
+>.</para>
+</listitem>
+<listitem>
+<para
+>Ви можете скористатися засобом командного рядка із назвою <userinput
+>ksyntaxhighlighter6</userinput
+> (<userinput
+>kate-syntax-highlighter</userinput
+> у старіших версіях) для тестування синтаксису і перегляду стилю та ділянок, які пов'язано із кожною частиною тексту.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="ksyntaxhighlighter6-trace-format.png"/></imageobject>
+<textobject
+><phrase
+>Результати виконання <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</phrase
+></textobject>
+<caption
+><para
+>Результат виконання <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</para>
+</caption>
+</mediaobject>
+
+<para
+>Скористайтеся командою <command
+>ksyntaxhighlighter6 -h</command
+>, щоб дізнатися більше про параметри керування роботою програми.</para>
 </listitem>
 </itemizedlist>
 </sect3>

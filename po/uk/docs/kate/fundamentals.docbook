@@ -897,7 +897,7 @@ action="simul"
 > з порожнім аргументом: <replaceable
 >''</replaceable
 >.</para>
-<!--FIXME still valid for kf5 -->
+
 <para
 >Починаючи з версії &kate; 2.5.1 ідентифікатор процесу програми (<acronym
 >PID</acronym

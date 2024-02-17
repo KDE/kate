@@ -696,7 +696,7 @@
 >, de tekst zal onderstreept worden.</para>
 <para
 ><userinput
->strikeout</userinput
+>strikeOut</userinput
 > indien <emphasis
 >true</emphasis
 >, door de tekst zal een streep worden gezet.</para>

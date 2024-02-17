@@ -102,17 +102,7 @@ namespace QTest
 {
 inline bool qCompare(const ResultNode &t1, const ResultNode &t2, const char *actual, const char *expected, const char *file, int line)
 {
-    /* compare_helper is not helping that much, we need to prepare copy of data */
-    const QByteArray a = t1.toString().toLatin1();
-    const QByteArray b = t2.toString().toLatin1();
-
-    char *val1 = new char[a.size() + 1];
-    char *val2 = new char[b.size() + 1];
-
-    memcpy(val1, a.constData(), a.size() + 1);
-    memcpy(val2, b.constData(), b.size() + 1);
-
-    return compare_helper(t1 == t2, "Compared ResultNode trees are not the same", val1, val2, actual, expected, file, line);
+    return compare_helper(t1 == t2, "Compared ResultNode trees are not the same", actual, expected, file, line);
 }
 }
 // END ResultNode

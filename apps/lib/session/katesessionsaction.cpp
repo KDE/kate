@@ -48,7 +48,7 @@ void KateSessionsAction::slotAboutToShow()
     // sort the reduced list alphabetically (#364089)
     std::sort(slist.begin(), slist.end(), KateSession::compareByName);
 
-    for (const KateSession::Ptr &session : qAsConst(slist)) {
+    for (const KateSession::Ptr &session : std::as_const(slist)) {
         QString sessionName = session->name();
         sessionName.replace(QStringLiteral("&"), QStringLiteral("&&"));
         QAction *action = new QAction(sessionName, sessionsGroup);

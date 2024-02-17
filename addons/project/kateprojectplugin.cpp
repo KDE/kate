@@ -81,7 +81,7 @@ KateProjectPlugin::~KateProjectPlugin()
 {
     unregisterVariables();
 
-    for (KateProject *project : qAsConst(m_projects)) {
+    for (KateProject *project : std::as_const(m_projects)) {
         delete project;
     }
     m_projects.clear();
@@ -129,7 +129,7 @@ KateProject *KateProjectPlugin::openProjectForDirectory(const QDir &dir)
     const QDir absDir(dir.absolutePath());
     const QString absolutePath = absDir.path();
     const QString projectFileName = absDir.filePath(ProjectFileName);
-    for (KateProject *project : qAsConst(m_projects)) {
+    for (KateProject *project : std::as_const(m_projects)) {
         if (project->baseDir() == absolutePath || project->fileName() == projectFileName) {
             return project;
         }
@@ -634,7 +634,7 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
     // open directories as projects
     auto args = qApp->arguments();
     args.removeFirst(); // The first argument is the executable name
-    for (const QString &arg : qAsConst(args)) {
+    for (const QString &arg : std::as_const(args)) {
         QFileInfo info(arg);
         if (info.isDir()) {
             projectToActivate = projectForDir(info.absoluteFilePath(), true);

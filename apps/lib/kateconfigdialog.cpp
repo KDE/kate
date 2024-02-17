@@ -642,7 +642,7 @@ void KateConfigDialog::slotApply()
 #endif
     }
 
-    for (const PluginPageListItem &plugin : qAsConst(m_pluginPages)) {
+    for (const PluginPageListItem &plugin : std::as_const(m_pluginPages)) {
         if (plugin.pluginPage) {
             plugin.pluginPage->apply();
         }
@@ -672,7 +672,7 @@ void KateConfigDialog::slotChanged()
 
 void KateConfigDialog::showAppPluginPage(KTextEditor::Plugin *p, int id)
 {
-    for (const PluginPageListItem &plugin : qAsConst(m_pluginPages)) {
+    for (const PluginPageListItem &plugin : std::as_const(m_pluginPages)) {
         if ((plugin.plugin == p) && (id == plugin.idInPlugin)) {
             setCurrentPage(plugin.pageWidgetItem);
             break;

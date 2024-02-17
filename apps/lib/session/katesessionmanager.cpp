@@ -89,7 +89,7 @@ void KateSessionManager::updateSessionList()
     bool changed = false;
 
     // Add new sessions to our list
-    for (const QString &session : qAsConst(list)) {
+    for (const QString &session : std::as_const(list)) {
         if (!m_sessions.contains(session)) {
             const QString file = sessionFileForName(session);
             m_sessions.insert(session, KateSession::create(file, session));

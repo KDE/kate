@@ -161,6 +161,7 @@ private:
      */
     std::unordered_map<DocOrWidget, std::pair<quint64, bool>> m_docToLruCounterAndHasTab;
 
-    QPoint dragStartPos;
-    QPoint dragHotspotPos;
+    QPointF dragStartPos;
+    QPointF dragStartGlobalPos;
+    QPointF dragHotspotPos;
 };

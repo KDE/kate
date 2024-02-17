@@ -940,7 +940,7 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
             }
         }
 
-        for (const QUrl &url : qAsConst(textlist)) {
+        for (const QUrl &url : std::as_const(textlist)) {
             // if url has no file component, try and recursively scan dir
             KFileItem kitem(url);
             kitem.setDelayedMimeTypes(true);

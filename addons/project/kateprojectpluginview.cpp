@@ -270,7 +270,7 @@ KateProjectPluginView::~KateProjectPluginView()
     /**
      * cleanup for all views
      */
-    for (QObject *view : qAsConst(m_textViews)) {
+    for (QObject *view : std::as_const(m_textViews)) {
         KTextEditor::View *v = qobject_cast<KTextEditor::View *>(view);
         if (v) {
             v->unregisterCompletionModel(m_plugin->completion());

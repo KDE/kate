@@ -299,7 +299,7 @@ public:
          */
 
         int count = 0;
-        for (const auto &el : qAsConst(m_servers)) {
+        for (const auto &el : std::as_const(m_servers)) {
             for (const auto &si : el) {
                 auto &s = si.server;
                 if (!s) {
@@ -322,7 +322,7 @@ public:
         count = 0;
         for (count = 0; count < 2; ++count) {
             bool wait = false;
-            for (const auto &el : qAsConst(m_servers)) {
+            for (const auto &el : std::as_const(m_servers)) {
                 for (const auto &si : el) {
                     auto &s = si.server;
                     if (!s) {
@@ -722,7 +722,7 @@ private:
 
         // maybe there is a server with other root that is workspace capable
         if (!server && useWorkspace) {
-            for (const auto &l : qAsConst(m_servers)) {
+            for (const auto &l : std::as_const(m_servers)) {
                 // for (auto it = l.begin(); it != l.end(); ++it) {
                 auto it = l.find(langId);
                 if (it != l.end()) {
@@ -1137,7 +1137,7 @@ private:
         auto &name = props.first;
         auto &baseDir = props.second;
         qCInfo(LSPCLIENT) << "update workspace" << added << baseDir << name;
-        for (const auto &u : qAsConst(m_servers)) {
+        for (const auto &u : std::as_const(m_servers)) {
             for (const auto &si : u) {
                 if (auto server = si.server) {
                     const auto &caps = server->capabilities();

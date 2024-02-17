@@ -1588,7 +1588,7 @@ QUrl GdbBackend::resolveFileName(const QString &fileName, bool silent)
         return QUrl::fromUserInput(fInfo.absoluteFilePath());
     }
 
-    for (const QString &srcPath : qAsConst(m_targetConf.srcPaths)) {
+    for (const QString &srcPath : std::as_const(m_targetConf.srcPaths)) {
         fInfo = QFileInfo(srcPath + QDir::separator() + fileName);
         if (fInfo.exists()) {
             return QUrl::fromUserInput(fInfo.absoluteFilePath());

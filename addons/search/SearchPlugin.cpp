@@ -154,7 +154,7 @@ void KatePluginSearchView::regexHelperActOnAction(QAction *resultAction, const Q
             return;
         }
         lineEdit->insert(beforeAfter[0] + beforeAfter[1]);
-        lineEdit->setCursorPosition(cursorPos + beforeAfter[0].count());
+        lineEdit->setCursorPosition(cursorPos + beforeAfter[0].size());
         lineEdit->setFocus();
     }
 }
@@ -812,7 +812,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
 
         bool skip = false;
         const QStringList pathSplit = nameToCheck.split(QLatin1Char('/'), Qt::SkipEmptyParts);
-        for (const auto &regex : qAsConst(excludeList)) {
+        for (const auto &regex : std::as_const(excludeList)) {
             for (const auto &part : pathSplit) {
                 QRegularExpressionMatch match = regex.match(part);
                 if (match.hasMatch()) {
@@ -828,7 +828,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
         QFileInfo fileInfo(filePath);
         QString fileName = fileInfo.fileName();
 
-        for (const auto &regex : qAsConst(typeList)) {
+        for (const auto &regex : std::as_const(typeList)) {
             QRegularExpressionMatch match = regex.match(fileName);
             if (match.hasMatch()) {
                 filteredFiles << filePath;

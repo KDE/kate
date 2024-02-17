@@ -66,6 +66,12 @@ if(NOT WIN32)
     set(OFFSCREEN_QPA "-platform" "offscreen")
 endif()
 
+# deprecation options
+ecm_set_disabled_deprecation_versions(
+    QT 6.5
+    KF 5.90
+)
+
 option(BUILD_PCH "Enable PCH support" ON)
 if (BUILD_PCH)
     add_subdirectory(pch)

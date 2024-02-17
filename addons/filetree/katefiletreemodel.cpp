@@ -1020,13 +1020,13 @@ void KateFileTreeModel::updateBackgrounds(bool force)
     helper.reserve(m_viewHistory.size() + m_editHistory.size());
 
     int i = 1;
-    for (ProxyItem *item : qAsConst(m_viewHistory)) {
+    for (ProxyItem *item : std::as_const(m_viewHistory)) {
         helper[item].view = i;
         i++;
     }
 
     i = 1;
-    for (ProxyItem *item : qAsConst(m_editHistory)) {
+    for (ProxyItem *item : std::as_const(m_editHistory)) {
         helper[item].edit = i;
         i++;
     }
@@ -1470,7 +1470,7 @@ void KateFileTreeModel::resetHistory()
     m_editHistory.clear();
     m_brushes.clear();
 
-    for (ProxyItem *item : qAsConst(list)) {
+    for (ProxyItem *item : std::as_const(list)) {
         QModelIndex idx = createIndex(item->row(), 0, item);
         dataChanged(idx, idx, QList<int>(1, Qt::BackgroundRole));
     }

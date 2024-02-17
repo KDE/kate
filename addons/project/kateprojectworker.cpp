@@ -649,7 +649,7 @@ QList<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive
     }
 
     files.reserve(relFiles.size());
-    for (const QString &relFile : qAsConst(relFiles)) {
+    for (const QString &relFile : std::as_const(relFiles)) {
         const QString path = dir.relativeFilePath(root + QLatin1String("/") + relFile);
 
         if ((!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) || (recursive && (relFile.indexOf(QLatin1String("..")) == 0))) {

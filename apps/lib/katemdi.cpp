@@ -1823,7 +1823,7 @@ void MainWindow::startRestore(KConfigBase *config, const QString &group)
     }
 
     // restore the sidebars
-    for (auto &sidebar : qAsConst(m_sidebars)) {
+    for (auto &sidebar : std::as_const(m_sidebars)) {
         sidebar->startRestoreSession(cg);
     }
 

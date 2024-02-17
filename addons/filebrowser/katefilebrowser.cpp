@@ -149,7 +149,7 @@ void KateFileBrowser::setupToolbar()
     m_toolbar->clear();
 
     // now add all actions to the toolbar
-    for (const QString &it : qAsConst(actions)) {
+    for (const QString &it : std::as_const(actions)) {
         QAction *ac = nullptr;
         if (it.isEmpty()) {
             continue;

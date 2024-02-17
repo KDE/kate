@@ -136,7 +136,7 @@ void PreviewWidget::setTextEditorView(KTextEditor::View *view)
 
 std::optional<KPluginMetaData> KTextEditorPreview::PreviewWidget::findPreviewPart(const QStringList mimeTypes)
 {
-    for (const auto &mimeType : qAsConst(mimeTypes)) {
+    for (const auto &mimeType : std::as_const(mimeTypes)) {
         const auto offers = KParts::PartLoader::partsForMimeType(mimeType);
 
         if (offers.isEmpty()) {

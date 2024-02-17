@@ -432,7 +432,7 @@ void MatchModel::doReplaceNextMatch()
     // Create a vector of moving ranges for updating the matches after replace
     QList<KTextEditor::MovingRange *> matchRanges;
     matchRanges.reserve(matches.size());
-    for (const auto &match : qAsConst(matches)) {
+    for (const auto &match : std::as_const(matches)) {
         matchRanges.append(doc->newMovingRange(match.range));
     }
 
@@ -529,8 +529,8 @@ QString MatchModel::infoHtmlString() const
 
     int matchesTotal = 0;
     int checkedTotal = 0;
-    for (const auto &matchFile : qAsConst(m_matchFiles)) {
-        for (const auto &match : qAsConst(matchFile.matches)) {
+    for (const auto &matchFile : std::as_const(m_matchFiles)) {
+        for (const auto &match : std::as_const(matchFile.matches)) {
             if (match.matchesFilter) {
                 matchesTotal++;
                 if (match.checked) {
@@ -694,7 +694,7 @@ QString MatchModel::infoToPlainText() const
 
     int matchesTotal = 0;
     int checkedTotal = 0;
-    for (const auto &matchFile : qAsConst(m_matchFiles)) {
+    for (const auto &matchFile : std::as_const(m_matchFiles)) {
         matchesTotal += matchFile.matches.size();
         checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {
             return match.checked;

@@ -168,11 +168,13 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
 
     int tab = tabAt(event->pos());
     if (event->button() == Qt::LeftButton && tab != -1 && count() > 1) {
-        dragStartPos = event->pos();
+        dragStartPos = event->position();
+        dragStartGlobalPos = event->globalPosition();
         auto r = tabRect(tab);
         dragHotspotPos = {dragStartPos.x() - r.x(), dragStartPos.y() - r.y()};
     } else {
         dragStartPos = {};
+        dragStartGlobalPos = {};
     }
 
     QTabBar::mousePressEvent(event);
@@ -208,7 +210,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
         return;
     }
 
-    if ((event->pos() - dragStartPos).manhattanLength() < QApplication::startDragDistance()) {
+    if ((event->position() - dragStartPos).manhattanLength() < QApplication::startDragDistance()) {
         QTabBar::mouseMoveEvent(event);
         return;
     }
@@ -270,10 +272,12 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     QDrag *drag = new QDrag(this);
     drag->setMimeData(mime);
     drag->setPixmap(p);
-    drag->setHotSpot(dragHotspotPos);
+    drag->setHotSpot(dragHotspotPos.toPoint());
 
     auto posCopy = dragStartPos;
+    auto globalPosCopy = dragStartGlobalPos;
     dragStartPos = {};
+    dragStartGlobalPos = {};
     dragHotspotPos = {};
     drag->exec(Qt::CopyAction);
 
@@ -282,7 +286,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     // this tabbar, it failed or there was a copy operation
     // in which case there might be the "movable tab" hanging
     // in between which we reset
-    auto onDragEnd = [this, tabObject, posCopy]() {
+    auto onDragEnd = [this, tabObject, posCopy, globalPosCopy]() {
         bool found = false;
         int tabIdx = 0;
         for (; tabIdx < count(); ++tabIdx) {
@@ -296,7 +300,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
 
         if (found) {
             // We send this even to ensure the "moveable tab" is properly reset and we have no dislocated tabs
-            auto e = QMouseEvent(QEvent::MouseButtonPress, posCopy, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+            auto e = QMouseEvent(QEvent::MouseButtonPress, posCopy, globalPosCopy, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
             qApp->sendEvent(this, &e);
             if (currentIndex() != tabIdx) {
                 setCurrentIndex(tabIdx);

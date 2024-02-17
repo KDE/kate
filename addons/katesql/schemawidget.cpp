@@ -114,7 +114,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     QStringList tables = db.tables(QSql::SystemTables);
 
-    for (const QString &table : qAsConst(tables)) {
+    for (const QString &table : std::as_const(tables)) {
         QTreeWidgetItem *item = new QTreeWidgetItem(systemTablesItem, SystemTableType);
         item->setText(0, table);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));
@@ -123,7 +123,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
 
     tables = db.tables(QSql::Tables);
 
-    for (const QString &table : qAsConst(tables)) {
+    for (const QString &table : std::as_const(tables)) {
         QTreeWidgetItem *item = new QTreeWidgetItem(tablesItem, TableType);
         item->setText(0, table);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));

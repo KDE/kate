@@ -132,7 +132,7 @@ static void removeIncludeArgument(QStringList &commands)
         }
     }
 
-    for (const auto &rem : qAsConst(toRemove)) {
+    for (const auto &rem : std::as_const(toRemove)) {
         commands.removeAll(rem);
     }
 }

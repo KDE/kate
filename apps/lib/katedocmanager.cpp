@@ -248,7 +248,7 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document *doc)
      */
     QList<KTextEditor::Document *> documents;
     documents.reserve(m_docList.size() - 1);
-    for (auto document : qAsConst(m_docList)) {
+    for (auto document : std::as_const(m_docList)) {
         if (document != doc) {
             documents.push_back(document);
         }
@@ -273,7 +273,7 @@ std::vector<KTextEditor::Document *> KateDocManager::modifiedDocumentList()
 bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 {
     const auto docCount = m_docList.size();
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    for (KTextEditor::Document *doc : std::as_const(m_docList)) {
         if (doc->url().isEmpty() && doc->isModified()) {
             int msgres = KMessageBox::warningTwoActionsCancel(w,
                                                               i18n("<p>The document '%1' has been modified, but not saved.</p>"
@@ -315,7 +315,7 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 
 void KateDocManager::saveAll()
 {
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    for (KTextEditor::Document *doc : std::as_const(m_docList)) {
         if (doc->isModified()) {
             doc->documentSave();
         }
@@ -334,7 +334,7 @@ void KateDocManager::saveSelected(const QList<KTextEditor::Document *> &docList)
 void KateDocManager::reloadAll()
 {
     // reload all docs that are NOT modified on disk
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    for (KTextEditor::Document *doc : std::as_const(m_docList)) {
         if (!documentInfo(doc)->modifiedOnDisc) {
             doc->documentReload();
         }
@@ -348,7 +348,7 @@ void KateDocManager::closeOrphaned()
 {
     QList<KTextEditor::Document *> documents;
 
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    for (KTextEditor::Document *doc : std::as_const(m_docList)) {
         KateDocumentInfo *info = documentInfo(doc);
         if (info && !info->openSuccess) {
             documents.push_back(doc);
@@ -365,7 +365,7 @@ void KateDocManager::saveDocumentList(KConfig *config)
     openDocGroup.writeEntry("Count", (int)m_docList.size());
 
     int i = 0;
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    for (KTextEditor::Document *doc : std::as_const(m_docList)) {
         const QString entryName = QStringLiteral("Document %1").arg(i);
         KConfigGroup cg(config, entryName);
         doc->writeSessionConfig(cg);

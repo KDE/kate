@@ -331,7 +331,7 @@ void KateViewManager::slotDocumentOpen()
      * emit size warning, for local files
      */
     QString fileListWithTooLargeFiles;
-    for (const QUrl &url : qAsConst(urls)) {
+    for (const QUrl &url : std::as_const(urls)) {
         if (!url.isLocalFile()) {
             continue;
         }
@@ -356,7 +356,7 @@ void KateViewManager::slotDocumentOpen()
     KateDocumentInfo docInfo;
     docInfo.openedByUser = true;
     if (KTextEditor::Document *lastID = openUrls(urls, QString(), docInfo)) {
-        for (const QUrl &url : qAsConst(urls)) {
+        for (const QUrl &url : std::as_const(urls)) {
             m_mainWindow->addRecentOpenedFile(url);
         }
         activateView(lastID);

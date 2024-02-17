@@ -355,7 +355,7 @@ void DataOutputWidget::exportData(QTextStream &stream,
         stream << "\n";
     }
 
-    for (const int row : qAsConst(rows)) {
+    for (const int row : std::as_const(rows)) {
         if (opt.testFlag(ExportLineNumbers)) {
             stream << row + 1 << fixedFieldDelimiter;
         }

@@ -805,7 +805,7 @@ public:
         m_mainWindow->guiFactory()->removeClient(this);
 
         // unregister all code-completion providers, else we might crash
-        for (auto view : qAsConst(m_completionViews)) {
+        for (auto view : std::as_const(m_completionViews)) {
             view->unregisterCompletionModel(m_completion.get());
         }
 

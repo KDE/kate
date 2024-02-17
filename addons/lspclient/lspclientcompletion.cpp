@@ -308,7 +308,7 @@ public:
 
         // covers most already ...
         bool complete = CodeCompletionModelControllerInterface::shouldStartCompletion(view, insertedText, userInsertion, position);
-        QChar lastChar = insertedText.at(insertedText.count() - 1);
+        QChar lastChar = insertedText.at(insertedText.size() - 1);
 
         m_triggerSignature = false;
         complete = complete || m_triggersCompletion.contains(lastChar);

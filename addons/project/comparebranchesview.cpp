@@ -102,7 +102,7 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
     const QString dirPath = dir.path() + QLatin1Char('/');
     QHash<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
-    for (const auto &file : qAsConst(files)) {
+    for (const auto &file : std::as_const(files)) {
         const QString filePath = QString::fromUtf8(file.file);
         /**
          * cheap file name computation

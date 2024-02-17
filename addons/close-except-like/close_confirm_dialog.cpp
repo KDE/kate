@@ -77,7 +77,7 @@ CloseConfirmDialog::CloseConfirmDialog(QList<KTextEditor::Document *> &docs, KTo
     m_docs_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_docs_tree->setRootIsDecorated(false);
 
-    for (auto &doc : qAsConst(m_docs)) {
+    for (auto &doc : std::as_const(m_docs)) {
         new KateDocItem(doc, m_docs_tree);
     }
     m_docs_tree->header()->setStretchLastSection(false);

@@ -90,7 +90,7 @@ void KateSessionManageDialog::filterChanged()
 
 void KateSessionManageDialog::done(int result)
 {
-    for (const auto &session : qAsConst(m_deleteList)) {
+    for (const auto &session : std::as_const(m_deleteList)) {
         KateApp::self()->sessionManager()->deleteSession(session);
         KateApp::self()->stashManager()->clearStashForSession(session);
     }
@@ -337,7 +337,7 @@ void KateSessionManageDialog::updateSessionList()
         order = Qt::AscendingOrder;
     }
 
-    for (const KateSession::Ptr &session : qAsConst(slist)) {
+    for (const KateSession::Ptr &session : std::as_const(slist)) {
         if (!m_filterBox->text().isEmpty()) {
             if (!session->name().contains(m_filterBox->text(), Qt::CaseInsensitive)) {
                 continue;

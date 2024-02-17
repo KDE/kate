@@ -2,14 +2,6 @@ function (kate_add_plugin name)
 kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "kf6/ktexteditor")
 endfunction()
 
-# Most plugins will need to link against KF6TextEditor to have access to its plugin interface.
-find_package(KF6TextEditor ${KF5_DEP_VERSION} QUIET REQUIRED)
-
-ecm_set_disabled_deprecation_versions(
-    QT 5.15
-    KF 5.90
-)
-
 ecm_optional_add_subdirectory(backtracebrowser)
 ecm_optional_add_subdirectory(close-except-like) # Close all documents except this one (or similar).
 ecm_optional_add_subdirectory(colorpicker) # Inline color preview/picker

@@ -275,15 +275,13 @@ void SnippetRepository::parseFile()
     }
 
     QDomDocument doc;
-    QString errorMsg;
-    int line, col;
-    bool success = doc.setContent(&f, &errorMsg, &line, &col);
-    f.close();
-
-    if (!success) {
-        KMessageBox::error(
-            QApplication::activeWindow(),
-            i18n("<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>", m_file, line, col, i18nc("QXml", errorMsg.toUtf8().data())));
+    if (const auto result = doc.setContent(&f); !result) {
+        KMessageBox::error(QApplication::activeWindow(),
+                           i18n("<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>",
+                                m_file,
+                                QString::number(result.errorLine),
+                                QString::number(result.errorColumn),
+                                i18nc("QXml", result.errorMessage.toUtf8().data())));
         return;
     }
 

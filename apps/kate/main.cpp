@@ -39,12 +39,10 @@
 
 #include "SingleApplication/SingleApplication"
 
-#include "config-kate.h"
-
+// X11 startup handling
+#define HAVE_X11 __has_include(<KX11Extras>)
 #if HAVE_X11
-
 #include <KX11Extras>
-
 #include <private/qtx11extras_p.h>
 #endif
 

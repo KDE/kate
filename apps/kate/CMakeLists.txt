@@ -2,12 +2,6 @@
 
 find_package(KF6DBusAddons ${KF5_DEP_VERSION} REQUIRED)
 
-if (UNIX AND NOT APPLE)
-    set(HAVE_X11 TRUE)
-endif()
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-kate.h.in ${CMAKE_CURRENT_BINARY_DIR}/config-kate.h @ONLY)
-
 add_executable(kate-bin
     main.cpp
     data/kate.qrc
@@ -19,7 +13,8 @@ add_executable(kate-bin
     SingleApplication/singleapplication_p.cpp)
 target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF6::DBusAddons)
 
-if (HAVE_X11)
+# X11 startup handling
+if (UNIX AND NOT APPLE)
     target_link_libraries(kate-bin PRIVATE Qt::GuiPrivate)
 endif()
 

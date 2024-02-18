@@ -419,7 +419,7 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("reopen_latest_closed_document"));
     a->setText(i18n("&Reopen latest closed document(s)."));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_T));
+    // actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_T));
     connect(a, &QAction::triggered, m_viewManager, &KateViewManager::slotRestoreLastClosedDocument);
     a->setWhatsThis(i18n("Reopen the document or documents that were most recently closed"));
 

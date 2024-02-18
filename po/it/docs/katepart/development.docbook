@@ -736,7 +736,7 @@
 >.</para>
 <para
 >Il testo sarà in barrato se <userinput
->strikeout</userinput
+>strikeOut</userinput
 > è <emphasis
 >true</emphasis
 >.</para>

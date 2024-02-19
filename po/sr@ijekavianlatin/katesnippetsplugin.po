@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2024-02-19 00:39+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -267,19 +267,19 @@ msgstr "Izlazni fajl ‘%1’ ne može da se otvori za pisanje."
 msgid "Cannot open snippet repository %1."
 msgstr "Ne mogu da otvorim riznicu isečaka %1."
 
-#: snippetrepository.cpp:286
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>Otkrivena je greška <b>%4</b><br />u fajlu <tt>%1</tt> kod %2:%3</qt>"
 
-#: snippetrepository.cpp:293
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Loš XML fajl isečaka: %1"
 
-#: snippetrepository.cpp:355
+#: snippetrepository.cpp:353
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -287,12 +287,12 @@ msgid ""
 msgstr ""
 "Riznica je isključena, sadržani isečci neće biti nuđeni tokom dopune kode."
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Važi za sve tipove fajlova"
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:358
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Važi za sledeće tipove fajlova: %1"

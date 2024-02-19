@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-07 00:39+0000\n"
+"POT-Creation-Date: 2024-02-19 00:39+0000\n"
 "PO-Revision-Date: 2023-11-02 13:58+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -31,37 +31,37 @@ msgid "Your emails"
 msgstr ""
 "lukas@kde.org,flidr@kky.zcu.cz,koty@seznam.cz,vit@pelcak.org,mkyral@email.cz"
 
-#: kate/main.cpp:88
+#: kate/main.cpp:86
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:90
+#: kate/main.cpp:88
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - rozšířený textový editor KDE"
 
-#: kate/main.cpp:92 kwrite/main.cpp:47
+#: kate/main.cpp:90 kwrite/main.cpp:47
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 autoři Kate"
 
-#: kate/main.cpp:138
+#: kate/main.cpp:136
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Spustit Kate s daným sezením."
 
-#: kate/main.cpp:139
+#: kate/main.cpp:137
 #, kde-format
 msgid "session"
 msgstr "sezení"
 
-#: kate/main.cpp:144
+#: kate/main.cpp:142
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Spustit Kate s novým anonymním sezením, jako s parametrem '-n'."
 
-#: kate/main.cpp:149
+#: kate/main.cpp:147
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -72,7 +72,7 @@ msgstr ""
 "a dané sezení je již otevřeno v jiné instanci kate), vynuceno pokud nejsou "
 "zadány  další parametry a URL."
 
-#: kate/main.cpp:155
+#: kate/main.cpp:153
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -81,7 +81,7 @@ msgstr ""
 "Při použití seznamu URL blokuje další spuštění další instance kate dokud "
 "právě běžící neskončí."
 
-#: kate/main.cpp:161
+#: kate/main.cpp:159
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -90,57 +90,57 @@ msgstr ""
 "Použít pouze instanci kate mající daný pid (ignorováno pokud je použit "
 "parametr start a dané sezení je již otevřeno v jiné instanci kate)."
 
-#: kate/main.cpp:162
+#: kate/main.cpp:160
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:167 kwrite/main.cpp:98
+#: kate/main.cpp:165 kwrite/main.cpp:98
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Nastavit kódování otevíraného souboru."
 
-#: kate/main.cpp:168 kwrite/main.cpp:99
+#: kate/main.cpp:166 kwrite/main.cpp:99
 #, kde-format
 msgid "encoding"
 msgstr "kódování"
 
-#: kate/main.cpp:172 kwrite/main.cpp:103
+#: kate/main.cpp:170 kwrite/main.cpp:103
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Přejít na tento řádek."
 
-#: kate/main.cpp:172 kwrite/main.cpp:103
+#: kate/main.cpp:170 kwrite/main.cpp:103
 #, kde-format
 msgid "line"
 msgstr "řádek"
 
-#: kate/main.cpp:177 kwrite/main.cpp:107
+#: kate/main.cpp:175 kwrite/main.cpp:107
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Přejít na tento sloupec."
 
-#: kate/main.cpp:178 kwrite/main.cpp:107
+#: kate/main.cpp:176 kwrite/main.cpp:107
 #, kde-format
 msgid "column"
 msgstr "sloupec"
 
-#: kate/main.cpp:182 kwrite/main.cpp:111
+#: kate/main.cpp:180 kwrite/main.cpp:111
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Číst obsah ze std. vstupu."
 
-#: kate/main.cpp:187 kwrite/main.cpp:115
+#: kate/main.cpp:185 kwrite/main.cpp:115
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "Soubory/URL otevřené aplikací budou po použití smazány"
 
-#: kate/main.cpp:191 kwrite/main.cpp:119
+#: kate/main.cpp:189 kwrite/main.cpp:119
 #, kde-format
 msgid "Documents to open."
 msgstr "Dokumenty k otevření"
 
-#: kate/main.cpp:191 kwrite/main.cpp:119
+#: kate/main.cpp:189 kwrite/main.cpp:119
 #, kde-format
 msgid "[urls...]"
 msgstr "[url...]"
@@ -1260,7 +1260,7 @@ msgstr ""
 "Zde můžete vidět všechny dostupné moduly Kate. Ty se zaškrtávacím políčkem "
 "jsou načteny a budou také načteny při příštím spuštění Kate."
 
-#: lib/katedocmanager.cpp:279
+#: lib/katedocmanager.cpp:297
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1269,32 +1269,32 @@ msgstr ""
 "<p>Dokument '%1' byl upraven, ale neuložen.</p><p>Přejete si uložit změny "
 "nebo je zahodit?</p>"
 
-#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:300 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Zavřít dokument"
 
-#: lib/katedocmanager.cpp:291
+#: lib/katedocmanager.cpp:309
 #, kde-format
 msgid "Save As"
 msgstr "Uložit jako"
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:692
+#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:698
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Otevřen nový soubor během uzavírání Kate, uzavírání přerušeno."
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:692
+#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:698
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Uzavírání přerušeno"
 
-#: lib/katedocmanager.cpp:387
+#: lib/katedocmanager.cpp:405
 #, kde-format
 msgid "Starting Up"
 msgstr "Spouští se"
 
-#: lib/katedocmanager.cpp:388
+#: lib/katedocmanager.cpp:406
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Otevírám soubory z posledního sezení..."
@@ -1532,27 +1532,38 @@ msgstr "Zavřít vš&e"
 msgid "Close all open documents."
 msgstr "Zavřít všechny otevřené dokumenty."
 
-#: lib/katemainwindow.cpp:423
+#: lib/katemainwindow.cpp:421
+#, fuzzy, kde-format
+#| msgid "Reload all open documents."
+msgid "&Reopen latest closed document(s)."
+msgstr "Znovu načíst všechny otevřené dokumenty."
+
+#: lib/katemainwindow.cpp:424
+#, kde-format
+msgid "Reopen the document or documents that were most recently closed"
+msgstr ""
+
+#: lib/katemainwindow.cpp:429
 #, kde-format
 msgid "Close this window"
 msgstr "Zavřít toto okno"
 
-#: lib/katemainwindow.cpp:427
+#: lib/katemainwindow.cpp:433
 #, kde-format
 msgid "&New Window"
 msgstr "&Nové okno"
 
-#: lib/katemainwindow.cpp:430
+#: lib/katemainwindow.cpp:436
 #, kde-format
 msgid "Create a new window."
 msgstr ""
 
-#: lib/katemainwindow.cpp:437
+#: lib/katemainwindow.cpp:443
 #, kde-format
 msgid "Open W&ith"
 msgstr "Otevřít &pomocí"
 
-#: lib/katemainwindow.cpp:439
+#: lib/katemainwindow.cpp:445
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1561,95 +1572,95 @@ msgstr ""
 "Otevřít současný dokument pomocí jiné aplikace registrované pro tento typ "
 "souboru nebo aplikace dle vlastní volby."
 
-#: lib/katemainwindow.cpp:447
+#: lib/katemainwindow.cpp:453
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Nastavte si klávesové zkratky aplikace."
 
-#: lib/katemainwindow.cpp:450
+#: lib/katemainwindow.cpp:456
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Určete, které položky se objeví v panelech nástrojů."
 
-#: lib/katemainwindow.cpp:453
+#: lib/katemainwindow.cpp:459
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Nastaví různé vlastnosti této aplikace a editační komponenty."
 
-#: lib/katemainwindow.cpp:457
+#: lib/katemainwindow.cpp:463
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "&Příručka k modulům"
 
-#: lib/katemainwindow.cpp:459
+#: lib/katemainwindow.cpp:465
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Toto zobrazí nápovědu k dostupným modulům."
 
-#: lib/katemainwindow.cpp:476
+#: lib/katemainwindow.cpp:482
 #, kde-format
 msgid "Sess&ions"
 msgstr "Sez&ení"
 
-#: lib/katemainwindow.cpp:482
+#: lib/katemainwindow.cpp:488
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "&Nové sezení"
 
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:493
 #, kde-format
 msgid "&Recent Sessions"
 msgstr ""
 
-#: lib/katemainwindow.cpp:492
+#: lib/katemainwindow.cpp:498
 #, kde-format
 msgid "&All Sessions"
 msgstr ""
 
-#: lib/katemainwindow.cpp:499
+#: lib/katemainwindow.cpp:505
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "Spravovat seze&ní..."
 
-#: lib/katemainwindow.cpp:508
+#: lib/katemainwindow.cpp:514
 #, kde-format
 msgid "&Save Session"
 msgstr "&Uložit sezení"
 
-#: lib/katemainwindow.cpp:514
+#: lib/katemainwindow.cpp:520
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Uložit sezení j&ako..."
 
-#: lib/katemainwindow.cpp:521 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:527 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:530 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:536 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:538
+#: lib/katemainwindow.cpp:544
 #, kde-format
 msgid "Show File Git History"
 msgstr "Zobrazit Git historii souboru"
 
-#: lib/katemainwindow.cpp:591
+#: lib/katemainwindow.cpp:597
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Tímto dojde k zavření všech otevřených dokumentů. Přejete si pokračovat?"
 
-#: lib/katemainwindow.cpp:592
+#: lib/katemainwindow.cpp:598
 #, kde-format
 msgid "Close all documents"
 msgstr "Zavřít všechny dokumenty"
 
-#: lib/katemainwindow.cpp:607
+#: lib/katemainwindow.cpp:613
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1658,43 +1669,43 @@ msgstr ""
 "Tímto dojde k zavření všech otevřených dokumentů kromě současného. Opravdu "
 "si přejete pokračovat?"
 
-#: lib/katemainwindow.cpp:608
+#: lib/katemainwindow.cpp:614
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Zavřít všechny dokumenty kromě tohoto"
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:853
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "Toto úplně skryje panel nabídky. Můžete ji opětovně zobrazit pomocí %1."
 
-#: lib/katemainwindow.cpp:850
+#: lib/katemainwindow.cpp:856
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Skrýt nabídku"
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:955
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:952
+#: lib/katemainwindow.cpp:958
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:953
+#: lib/katemainwindow.cpp:959
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otevřít všechny soubory"
 
-#: lib/katemainwindow.cpp:1175
+#: lib/katemainwindow.cpp:1181
 #, kde-format
 msgid " [read only]"
 msgstr " [pouze ke čtení]"
@@ -2239,35 +2250,35 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Otevírám velký soubor"
 
-#: lib/kateviewmanager.cpp:504
+#: lib/kateviewmanager.cpp:514
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:521
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:527
+#: lib/kateviewmanager.cpp:537
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:530
+#: lib/kateviewmanager.cpp:540
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Otevřít složku"
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:541
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Povolit"
 
-#: lib/kateviewmanager.cpp:538
+#: lib/kateviewmanager.cpp:548
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
@@ -2790,6 +2801,7 @@ msgstr "Spravovat sezení..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, kde-format
-msgid "Show for new window"
+#, fuzzy, kde-format
+#| msgid "Show for new window"
+msgid "Show welcome page for new window"
 msgstr "Zobrazit pro nové okno"

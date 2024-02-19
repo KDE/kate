@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-07 00:39+0000\n"
+"POT-Creation-Date: 2024-02-19 00:39+0000\n"
 "PO-Revision-Date: 2024-01-29 17:51+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -48,38 +48,38 @@ msgstr ""
 
 # pmap: =/gen=Katen/
 # pmap: =/elat=Katesta/
-#: kate/main.cpp:88
+#: kate/main.cpp:86
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:90
+#: kate/main.cpp:88
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate – Kehittynyt tekstimuokkain"
 
-#: kate/main.cpp:92 kwrite/main.cpp:47
+#: kate/main.cpp:90 kwrite/main.cpp:47
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "© 2000–2022 Katen tekijät"
 
-#: kate/main.cpp:138
+#: kate/main.cpp:136
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Käynnistä Kate annettuun istuntoon."
 
-#: kate/main.cpp:139
+#: kate/main.cpp:137
 #, kde-format
 msgid "session"
 msgstr "istunto"
 
-#: kate/main.cpp:144
+#: kate/main.cpp:142
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr ""
 "Käynnistää Katen uuteen nimettömään istuntoon (implikoi -n-valitsimen)."
 
-#: kate/main.cpp:149
+#: kate/main.cpp:147
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -90,7 +90,7 @@ msgstr ""
 "käynnistystä ja toisessa Kate-ilmentymässä on valittu istunto jo auki). "
 "Pakotetaan, ellei muita parametreja eikä osoitteita ole annettu."
 
-#: kate/main.cpp:155
+#: kate/main.cpp:153
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -99,7 +99,7 @@ msgstr ""
 "Jos käytetään jo käynnissä olevaa Kate-ilmentymää, odotetaan kunnes se "
 "päättyy, elleivät osoitteet avaudu."
 
-#: kate/main.cpp:161
+#: kate/main.cpp:159
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -109,58 +109,58 @@ msgstr ""
 "käytetään käynnistystä ja toisessa Kate-ilmentymässä on valittu istunto jo "
 "auki)."
 
-#: kate/main.cpp:162
+#: kate/main.cpp:160
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:167 kwrite/main.cpp:98
+#: kate/main.cpp:165 kwrite/main.cpp:98
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Aseta koodaustapa avattavalle tiedostolle."
 
-#: kate/main.cpp:168 kwrite/main.cpp:99
+#: kate/main.cpp:166 kwrite/main.cpp:99
 #, kde-format
 msgid "encoding"
 msgstr "koodaus"
 
-#: kate/main.cpp:172 kwrite/main.cpp:103
+#: kate/main.cpp:170 kwrite/main.cpp:103
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Siirry tälle riville."
 
-#: kate/main.cpp:172 kwrite/main.cpp:103
+#: kate/main.cpp:170 kwrite/main.cpp:103
 #, kde-format
 msgid "line"
 msgstr "rivi"
 
-#: kate/main.cpp:177 kwrite/main.cpp:107
+#: kate/main.cpp:175 kwrite/main.cpp:107
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Siirry tähän sarakkeeseen."
 
-#: kate/main.cpp:178 kwrite/main.cpp:107
+#: kate/main.cpp:176 kwrite/main.cpp:107
 #, kde-format
 msgid "column"
 msgstr "sarake"
 
-#: kate/main.cpp:182 kwrite/main.cpp:111
+#: kate/main.cpp:180 kwrite/main.cpp:111
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Lue vakiosyötteen sisältö."
 
-#: kate/main.cpp:187 kwrite/main.cpp:115
+#: kate/main.cpp:185 kwrite/main.cpp:115
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Sovelluksen avaamat tiedostot ja verkko-osoitteet poistetaan käytön jälkeen"
 
-#: kate/main.cpp:191 kwrite/main.cpp:119
+#: kate/main.cpp:189 kwrite/main.cpp:119
 #, kde-format
 msgid "Documents to open."
 msgstr "Avattavat tiedostot."
 
-#: kate/main.cpp:191 kwrite/main.cpp:119
+#: kate/main.cpp:189 kwrite/main.cpp:119
 #, kde-format
 msgid "[urls...]"
 msgstr "[url:t...]"
@@ -1306,7 +1306,7 @@ msgstr ""
 "liitännäiset ovat ladattuina, ja ladataan uudestaan kun Kate käynnistetään "
 "uudelleen."
 
-#: lib/katedocmanager.cpp:279
+#: lib/katedocmanager.cpp:297
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1315,32 +1315,32 @@ msgstr ""
 "<p>Tiedostoa ”%1” on muutettu muttei tallennettu.</p><p>Haluatko säilyttää "
 "vai hylätä muutokset?</p>"
 
-#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:300 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Sulje tiedosto"
 
-#: lib/katedocmanager.cpp:291
+#: lib/katedocmanager.cpp:309
 #, kde-format
 msgid "Save As"
 msgstr "Tallenna &nimellä"
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:692
+#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:698
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Uusi tiedosto avattiin suljettaessa Katea. Sulkeminen keskeytettiin."
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:692
+#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:698
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Sulkeminen keskeytetty"
 
-#: lib/katedocmanager.cpp:387
+#: lib/katedocmanager.cpp:405
 #, kde-format
 msgid "Starting Up"
 msgstr "Käynnistyy"
 
-#: lib/katedocmanager.cpp:388
+#: lib/katedocmanager.cpp:406
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Avataan tiedostoja edellisestä istunnosta…"
@@ -1580,27 +1580,38 @@ msgstr "S&ulje kaikki"
 msgid "Close all open documents."
 msgstr "Sulje kaikki avoimet tiedostot."
 
-#: lib/katemainwindow.cpp:423
+#: lib/katemainwindow.cpp:421
+#, fuzzy, kde-format
+#| msgid "Reload all open documents."
+msgid "&Reopen latest closed document(s)."
+msgstr "Lataa uudelleen kaikki avoimet tiedostot."
+
+#: lib/katemainwindow.cpp:424
+#, kde-format
+msgid "Reopen the document or documents that were most recently closed"
+msgstr ""
+
+#: lib/katemainwindow.cpp:429
 #, kde-format
 msgid "Close this window"
 msgstr "Sulje tämä ikkuna"
 
-#: lib/katemainwindow.cpp:427
+#: lib/katemainwindow.cpp:433
 #, kde-format
 msgid "&New Window"
 msgstr "&Uusi ikkuna"
 
-#: lib/katemainwindow.cpp:430
+#: lib/katemainwindow.cpp:436
 #, kde-format
 msgid "Create a new window."
 msgstr "Luo uusi ikkuna."
 
-#: lib/katemainwindow.cpp:437
+#: lib/katemainwindow.cpp:443
 #, kde-format
 msgid "Open W&ith"
 msgstr "Avaa &ohjelmalla"
 
-#: lib/katemainwindow.cpp:439
+#: lib/katemainwindow.cpp:445
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1609,94 +1620,94 @@ msgstr ""
 "Avaa nykyinen tiedosto sovelluksella, jolla tiedostotyyppi on määritelty "
 "avattavaksi, tai jollakin toisella sovelluksella."
 
-#: lib/katemainwindow.cpp:447
+#: lib/katemainwindow.cpp:453
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Muokkaa sovelluksen pikanäppäimiä."
 
-#: lib/katemainwindow.cpp:450
+#: lib/katemainwindow.cpp:456
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Muokkaa työkaluriveillä näkyviä toimintoja."
 
-#: lib/katemainwindow.cpp:453
+#: lib/katemainwindow.cpp:459
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Muokkaa sovelluksen asetuksia."
 
-#: lib/katemainwindow.cpp:457
+#: lib/katemainwindow.cpp:463
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "&Liitännäisten käsikirja"
 
-#: lib/katemainwindow.cpp:459
+#: lib/katemainwindow.cpp:465
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Näyttää ohjeita saatavilla olevista laajennuksista."
 
-#: lib/katemainwindow.cpp:476
+#: lib/katemainwindow.cpp:482
 #, kde-format
 msgid "Sess&ions"
 msgstr "Ist&unnot"
 
-#: lib/katemainwindow.cpp:482
+#: lib/katemainwindow.cpp:488
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "&Uusi istunto"
 
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:493
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "&Viimeaikaiset istunnot"
 
-#: lib/katemainwindow.cpp:492
+#: lib/katemainwindow.cpp:498
 #, kde-format
 msgid "&All Sessions"
 msgstr "K&aikki istunnot"
 
-#: lib/katemainwindow.cpp:499
+#: lib/katemainwindow.cpp:505
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "Istuntojen &hallinta…"
 
-#: lib/katemainwindow.cpp:508
+#: lib/katemainwindow.cpp:514
 #, kde-format
 msgid "&Save Session"
 msgstr "&Tallenna istunto"
 
-#: lib/katemainwindow.cpp:514
+#: lib/katemainwindow.cpp:520
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Tallenna istunto &nimellä…"
 
-#: lib/katemainwindow.cpp:521 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:527 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Siirry edelliseen sijaintiin"
 
-#: lib/katemainwindow.cpp:530 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:536 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Siirry seuraavaan sijaintiin"
 
-#: lib/katemainwindow.cpp:538
+#: lib/katemainwindow.cpp:544
 #, kde-format
 msgid "Show File Git History"
 msgstr "Näytä tiedoston git-historia"
 
-#: lib/katemainwindow.cpp:591
+#: lib/katemainwindow.cpp:597
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Kaikki avoimet tiedostot suljetaan. Haluatko varmasti jatkaa?"
 
-#: lib/katemainwindow.cpp:592
+#: lib/katemainwindow.cpp:598
 #, kde-format
 msgid "Close all documents"
 msgstr "Sulje kaikki tiedostot"
 
-#: lib/katemainwindow.cpp:607
+#: lib/katemainwindow.cpp:613
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1704,12 +1715,12 @@ msgid ""
 msgstr ""
 "Kaikki avoimet tiedostot paitsi nykyinen suljetaan. Haluatko varmasti jatkaa?"
 
-#: lib/katemainwindow.cpp:608
+#: lib/katemainwindow.cpp:614
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Sulje kaikki tiedostot paitsi nykyinen"
 
-#: lib/katemainwindow.cpp:847
+#: lib/katemainwindow.cpp:853
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1717,12 +1728,12 @@ msgstr ""
 "Tämä piilottaa valikkorivin täysin. Saat sen uudelleen näkyviin näppäimellä "
 "%1."
 
-#: lib/katemainwindow.cpp:850
+#: lib/katemainwindow.cpp:856
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Piilota valikkorivi"
 
-#: lib/katemainwindow.cpp:949
+#: lib/katemainwindow.cpp:955
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1731,19 +1742,19 @@ msgstr ""
 "Pudotit kansion %1 Kateen. Haluatko avata kaikki sen sisällä olevat "
 "tiedostot?"
 
-#: lib/katemainwindow.cpp:952
+#: lib/katemainwindow.cpp:958
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Tiedostojen avaaminen rekursiivisesti"
 
-#: lib/katemainwindow.cpp:953
+#: lib/katemainwindow.cpp:959
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Avaa kaikki tiedostot"
 
-#: lib/katemainwindow.cpp:1175
+#: lib/katemainwindow.cpp:1181
 #, kde-format
 msgid " [read only]"
 msgstr " [vain luku]"
@@ -2293,17 +2304,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Avaamassa suurta tiedostoa"
 
-#: lib/kateviewmanager.cpp:504
+#: lib/kateviewmanager.cpp:514
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 ei voi avata kansioita"
 
-#: lib/kateviewmanager.cpp:521
+#: lib/kateviewmanager.cpp:531
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Kansioiden avaamiseen vaadittua liitännäistä ei löydy"
 
-#: lib/kateviewmanager.cpp:527
+#: lib/kateviewmanager.cpp:537
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2311,19 +2322,19 @@ msgstr ""
 "Kansioiden avaamiseen vaaditaan <b>%1</b>-liitännäinen. Otetaanko se "
 "käyttöön?"
 
-#: lib/kateviewmanager.cpp:530
+#: lib/kateviewmanager.cpp:540
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Avaa kansio"
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:541
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Ota käyttöön"
 
-#: lib/kateviewmanager.cpp:538
+#: lib/kateviewmanager.cpp:548
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> -liitännäisen käyttöönotto epäonnistui"
@@ -2861,9 +2872,13 @@ msgstr "Istuntojen hallinta…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, kde-format
-msgid "Show for new window"
-msgstr "Näytä uudelle ikkunalle"
+#, fuzzy, kde-format
+#| msgid "Show welcome view for new windows"
+msgid "Show welcome page for new window"
+msgstr "Näytä uusille ikkunoille tervetulonäkymä"
+
+#~ msgid "Show for new window"
+#~ msgstr "Näytä uudelle ikkunalle"
 
 #~ msgid ""
 #~ "Internal error: there is more than one instance open for a given session."

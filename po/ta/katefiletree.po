@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kishore G <kishore96@gmail.com>, 2022.
+# SPDX-FileCopyrightText: 2022, 2024 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-07 00:39+0000\n"
-"PO-Revision-Date: 2022-10-13 19:31+0530\n"
+"PO-Revision-Date: 2024-02-18 15:54+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -281,15 +281,14 @@ msgid "Show &Toolbar"
 msgstr "&கருவிப்பட்டையைக் காட்டு"
 
 #: katefiletreeconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "Show Close Button"
+#, kde-format
 msgid "Show Close Button On Hovering"
-msgstr "மூடுவதற்கான பட்டனைக் காட்டு"
+msgstr "சுட்டிக்குறியை மேல்வைக்கும்போது மூடுவதற்கான பட்டனைக் காட்டு"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "ஆவணங்களை நடு-கிளிக் மூடும்"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -352,7 +351,7 @@ msgstr "ஆவணங்களை அமை"
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "இதனால் திற"
+msgstr "திறந்துள்ள "
 
 #: katefiletreemodel.cpp:644
 #, kde-format

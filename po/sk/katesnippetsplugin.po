@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2024-02-19 00:39+0000\n"
 "PO-Revision-Date: 2021-05-22 20:06+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -252,18 +252,18 @@ msgstr "Výstupný súbor '%1' nie je možné otvoriť na zápis"
 msgid "Cannot open snippet repository %1."
 msgstr "Nemôžem otvoriť repozitár úryvkov %1."
 
-#: snippetrepository.cpp:286
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Chyba <b>%4</b><br /> bola detekovaná v súbore %1 na %2/%3</qt>"
 
-#: snippetrepository.cpp:293
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Neplatný XML súbor úryvku: %1"
 
-#: snippetrepository.cpp:355
+#: snippetrepository.cpp:353
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -272,12 +272,12 @@ msgstr ""
 "Repozitár je zakázaný, obsiahnuté úryvky sa nezobrazia počas dokončovania "
 "kódu."
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Platí pre všetky typy súborov"
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:358
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Platí na nasledovné typy súborov: %1"

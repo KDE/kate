@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2024-02-19 00:39+0000\n"
 "PO-Revision-Date: 2021-04-26 08:10+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -257,19 +257,19 @@ msgstr "Izhodne datoteke '%1' ni bilo mogoče odpreti za pisanje"
 msgid "Cannot open snippet repository %1."
 msgstr "Skladišča izrezkov %1 ni bilo mogoče odpreti."
 
-#: snippetrepository.cpp:286
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>Napaka <b>%4</b><br /> je bila zaznana v datoteki %1 pri %2/%3</qt>"
 
-#: snippetrepository.cpp:293
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Neveljavna datoteka izrezkov XML: %1"
 
-#: snippetrepository.cpp:355
+#: snippetrepository.cpp:353
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -278,12 +278,12 @@ msgstr ""
 "Skladišče je onemogočeno. Vsebovani izrezki med dopolnjevanjem kode ne bodo "
 "prikazani."
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Velja za vse vrste datotek"
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:358
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Velja za naslednje vrste datotek: %1"

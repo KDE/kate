@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2024-02-19 00:39+0000\n"
 "PO-Revision-Date: 2022-02-08 16:03+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -263,18 +263,18 @@ msgstr "Не удалось открыть для записи файл выво
 msgid "Cannot open snippet repository %1."
 msgstr "Не удалось открыть комплект фрагментов %1."
 
-#: snippetrepository.cpp:286
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>В файле %1 (%2/%3) была обнаружена ошибка <b>%4</b><br /></qt>"
 
-#: snippetrepository.cpp:293
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Некорректный файл фрагмента в формате XML: %1"
 
-#: snippetrepository.cpp:355
+#: snippetrepository.cpp:353
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -283,12 +283,12 @@ msgstr ""
 "Комплект отключён, содержащиеся в нём фрагменты не будут показываться при "
 "автодополнении кода."
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Применяется для всех типов файлов"
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:358
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Применяется для следующих типов файлов: %1"

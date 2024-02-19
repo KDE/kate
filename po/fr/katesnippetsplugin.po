@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2024-02-19 00:39+0000\n"
 "PO-Revision-Date: 2020-09-16 13:36+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -267,7 +267,7 @@ msgstr "Impossible d'ouvrir le fichier de sortie « %1 » en écriture"
 msgid "Cannot open snippet repository %1."
 msgstr "Impossible d'ouvrir le dépôt de fragments %1."
 
-#: snippetrepository.cpp:286
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
@@ -275,12 +275,12 @@ msgstr ""
 "<qt>L'erreur <b>%4</b><br /> a été détectée dans le fichier %1 à "
 "l'emplacement %2/%3</qt>"
 
-#: snippetrepository.cpp:293
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Fichier de fragment XML non valable : %1"
 
-#: snippetrepository.cpp:355
+#: snippetrepository.cpp:353
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -289,12 +289,12 @@ msgstr ""
 "Le dépôt est désactivé, les fragments qu'il contient ne seront pas affichés "
 "lors du complètement de code."
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "S'applique à tous les types de fichiers"
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:358
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "S'applique aux types de fichiers suivants : %1"

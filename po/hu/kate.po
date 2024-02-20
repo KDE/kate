@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-06 03:09+0000\n"
-"PO-Revision-Date: 2024-02-15 22:41+0100\n"
+"PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -1178,10 +1178,9 @@ msgid "Diff Style:"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:329
-#, fuzzy, kde-format
-#| msgid "Focus the next tab."
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Fókusz a következő lapra."
+msgstr "Navigációs sáv"
 
 #: lib/kateconfigdialog.cpp:334
 #, fuzzy, kde-format

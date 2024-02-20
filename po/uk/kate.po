@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-19 00:39+0000\n"
-"PO-Revision-Date: 2024-02-07 09:28+0200\n"
+"PO-Revision-Date: 2024-02-19 17:41+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -1584,15 +1584,14 @@ msgid "Close all open documents."
 msgstr "Закрити всі відкриті документи."
 
 #: lib/katemainwindow.cpp:421
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Перезавантажити всі відкриті документи."
+msgstr "&Повторно відкрити останні закриті документи"
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "Повторно відкрити документ або документи, які було закрито останніми"
 
 #: lib/katemainwindow.cpp:429
 #, kde-format
@@ -2897,10 +2896,9 @@ msgstr "Керування сеансами…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "Показувати вітальну панель у нових вікнах"
+msgstr "Показувати вітальну сторінку для нових вікон"
 
 #~ msgid "Show for new window"
 #~ msgstr "Показувати для нового вікна"

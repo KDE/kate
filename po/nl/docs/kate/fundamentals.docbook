@@ -731,6 +731,20 @@ action="simul"
 >Vorig tabblad</para
 ></entry>
 </row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Laatst gesloten document(en) heropenen</para
+></entry>
+</row>
 
 </tbody>
 </tgroup>

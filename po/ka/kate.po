@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-19 00:39+0000\n"
-"PO-Revision-Date: 2024-02-07 04:32+0100\n"
+"PO-Revision-Date: 2024-02-19 05:10+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1564,15 +1564,15 @@ msgid "Close all open documents."
 msgstr "ყველა ღია დოკუმენტის დახურვა."
 
 #: lib/katemainwindow.cpp:421
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "ყველა ღია დოკუმენტის თავიდან ჩატვირთვა."
+msgstr "ახლახან დახუ&რული დოკუმენტ(ებ)-ის თავიდან გახსნა."
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr ""
+"იმ დოკუმენტის, ან დოკუმენტების თავიდან გახსნა, რომლებიც ახლახან დახურეთ"
 
 #: lib/katemainwindow.cpp:429
 #, kde-format
@@ -2851,10 +2851,9 @@ msgstr "სესიების მართვა..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "მისალმების ჩვენება ახალი ფანჯრისთვის"
+msgstr "მისალმების გვერდის ჩვენება ახალი ფანჯრისთვის"
 
 #~ msgid "Show for new window"
 #~ msgstr "ახალი ფანჯრისთვის ჩვენება"

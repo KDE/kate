@@ -1533,10 +1533,9 @@ msgid "Close all open documents."
 msgstr "Zavřít všechny otevřené dokumenty."
 
 #: lib/katemainwindow.cpp:421
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Znovu načíst všechny otevřené dokumenty."
+msgstr ""
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
@@ -2801,7 +2800,6 @@ msgstr "Spravovat sezení..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show for new window"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "Zobrazit pro nové okno"
+msgstr ""

@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-19 00:39+0000\n"
-"PO-Revision-Date: 2024-02-09 17:45+0300\n"
+"PO-Revision-Date: 2024-02-19 12:19+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1576,15 +1576,14 @@ msgid "Close all open documents."
 msgstr "Tüm açık belgeleri kapat."
 
 #: lib/katemainwindow.cpp:421
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Tüm açık belgeleri yeniden yükle."
+msgstr "Son Kapatılan Belgeleri &Yeniden Aç"
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "Belgeyi yeniden aç veya yakın zamanda kapatılan belgeleri aç"
 
 #: lib/katemainwindow.cpp:429
 #, kde-format
@@ -2666,7 +2665,7 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:91
 #, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Yeni pencerelerde hoş geldiniz görünümünü göster"
+msgstr "Yeni pencerelerde karşılama ekranını göster"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2874,10 +2873,9 @@ msgstr "Oturumları Yönet..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "Yeni pencerelerde hoş geldiniz görünümünü göster"
+msgstr "Yeni pencerelerde karşılama ekranını göster"
 
 #~ msgid "Show for new window"
 #~ msgstr "Yeni pencerelerde göster"

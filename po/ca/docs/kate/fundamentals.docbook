@@ -729,6 +729,20 @@ action="simul"
 >Pestanya anterior</para
 ></entry>
 </row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Maj;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Torna a obrir el/s darrer/s document/s tancat/s</para
+></entry>
+</row>
 
 </tbody>
 </tgroup>

@@ -42,6 +42,14 @@ TabSwitcherPluginView::TabSwitcherPluginView(TabSwitcherPlugin *plugin, KTextEdi
     // register this view
     m_plugin->m_views.append(this);
 
+    m_documentsCreatedTimer.setInterval(100);
+    m_documentsCreatedTimer.setSingleShot(true);
+    m_documentsCreatedTimer.callOnTimeout([this] {
+        auto docs = std::move(m_documentsPendingAdd);
+        m_documentsPendingAdd = {};
+        registerDocuments(docs);
+    });
+
     m_model = new detail::TabswitcherFilesModel(this);
     m_treeView = new TabSwitcherTreeView();
     m_treeView->setModel(m_model);
@@ -63,7 +71,10 @@ TabSwitcherPluginView::TabSwitcherPluginView(TabSwitcherPlugin *plugin, KTextEdi
     connect(m_treeView, &TabSwitcherTreeView::itemActivated, this, &TabSwitcherPluginView::activateView);
 
     // track existing documents
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &TabSwitcherPluginView::registerDocument);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, [this](KTextEditor::Document *doc) {
+        m_documentsCreatedTimer.start();
+        m_documentsPendingAdd.push_back(doc);
+    });
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, this, &TabSwitcherPluginView::unregisterDocument);
 
     auto mw = mainWindow->window();
@@ -124,9 +135,7 @@ void TabSwitcherPluginView::setupModel()
 {
     const auto documents = KTextEditor::Editor::instance()->application()->documents();
     // initial fill of model
-    for (auto doc : documents) {
-        registerDocument(doc);
-    }
+    registerDocuments(documents);
 }
 
 void TabSwitcherPluginView::registerItem(DocOrWidget docOrWidget)
@@ -135,7 +144,7 @@ void TabSwitcherPluginView::registerItem(DocOrWidget docOrWidget)
     m_documents.insert(docOrWidget);
 
     // add to model
-    m_model->insertDocument(0, docOrWidget);
+    m_model->insertDocuments(0, {docOrWidget});
 }
 
 void TabSwitcherPluginView::unregisterItem(DocOrWidget docOrWidget)
@@ -143,6 +152,13 @@ void TabSwitcherPluginView::unregisterItem(DocOrWidget docOrWidget)
     // remove from hash
     auto it = m_documents.find(docOrWidget);
     if (it == m_documents.end()) {
+        // remove from pending
+        if (auto doc = docOrWidget.doc()) {
+            auto it = std::find(m_documentsPendingAdd.begin(), m_documentsPendingAdd.end(), doc);
+            if (it != m_documentsPendingAdd.end()) {
+                m_documentsPendingAdd.erase(it);
+            }
+        }
         return;
     }
     m_documents.erase(it);
@@ -161,10 +177,17 @@ void TabSwitcherPluginView::onWidgetRemoved(QWidget *widget)
     unregisterItem(widget);
 }
 
-void TabSwitcherPluginView::registerDocument(KTextEditor::Document *document)
+void TabSwitcherPluginView::registerDocuments(const QList<KTextEditor::Document *> &documents)
 {
-    registerItem(document);
-    connect(document, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
+    m_documents.insert(documents.begin(), documents.end());
+    QList<DocOrWidget> docs;
+    docs.reserve(documents.size());
+    for (auto d : documents) {
+        connect(d, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
+        docs.push_back(DocOrWidget(d));
+    }
+
+    m_model->insertDocuments(0, docs);
 }
 
 void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document *document)

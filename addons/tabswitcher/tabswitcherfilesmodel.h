@@ -47,7 +47,7 @@ class TabswitcherFilesModel : public QAbstractTableModel
 public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
     ~TabswitcherFilesModel() override = default;
-    bool insertDocument(int row, DocOrWidget document);
+    bool insertDocuments(int row, const QList<DocOrWidget> &document);
     bool removeDocument(DocOrWidget document);
 
     /**

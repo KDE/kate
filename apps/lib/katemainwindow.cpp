@@ -630,7 +630,9 @@ void KateMainWindow::slotDocumentCloseSelected(const QList<KTextEditor::Document
 
 void KateMainWindow::slotDocumentCloseOther()
 {
-    slotDocumentCloseOther(m_viewManager->activeView()->document());
+    if (auto v = m_viewManager->activeView()) {
+        slotDocumentCloseOther(v->document());
+    }
 }
 
 bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc, KateMainWindow *win)

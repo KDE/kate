@@ -23,6 +23,7 @@
 #include <QStandardPaths>
 
 #include <KTextEditor/Document>
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
 #include <KActionCollection>

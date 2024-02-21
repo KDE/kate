@@ -11,7 +11,6 @@
 
 #pragma once
 
-#include <KTextEditor/MainWindow>
 #include <QJsonObject>
 #include <QWidget>
 
@@ -32,6 +31,11 @@ class QToolButton;
 class KActionCollection;
 class KConfigGroup;
 class KatePluginGDB;
+
+namespace KTextEditor
+{
+class MainWindow;
+}
 
 struct GDBTargetConf {
     QString targetName;

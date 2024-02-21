@@ -2313,7 +2313,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Aquest element restarà un al text seleccionat, si es tracta d'un número. Per exemple, si se selecciona <userinput
+>Aquest element restarà u del text seleccionat, si es tracta d'un nombre. Per exemple, si se selecciona <userinput
 >5</userinput
 >, esdevindrà <computeroutput
 >4</computeroutput
@@ -2336,7 +2336,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Aquest element restarà deu al text seleccionat, si es tracta d'un número. Per exemple, si se selecciona <userinput
+>Aquest element restarà deu del text seleccionat, si es tracta d'un nombre. Per exemple, si se selecciona <userinput
 >15</userinput
 >, esdevindrà <computeroutput
 >5</computeroutput
@@ -2359,7 +2359,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Aquest element restarà 0,1 al text seleccionat, si es tracta d'un número. Per exemple, si se selecciona <userinput
+>Aquest element restarà 0,1 del text seleccionat, si es tracta d'un nombre. Per exemple, si se selecciona <userinput
 >4,5</userinput
 >, esdevindrà <computeroutput
 >4,4</computeroutput
@@ -2382,7 +2382,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Aquest element sumarà un al text seleccionat, si es tracta d'un número. Per exemple, si se selecciona <userinput
+>Aquest element sumarà u al text seleccionat, si es tracta d'un nombre. Per exemple, si se selecciona <userinput
 >5</userinput
 >, esdevindrà <computeroutput
 >6</computeroutput
@@ -2405,7 +2405,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Aquest element sumarà deu al text seleccionat, si es tracta d'un número. Per exemple, si se selecciona <userinput
+>Aquest element sumarà deu al text seleccionat, si es tracta d'un nombre. Per exemple, si se selecciona <userinput
 >5</userinput
 >, esdevindrà <computeroutput
 >15</computeroutput
@@ -2428,7 +2428,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Aquest element sumarà 0,1 al text seleccionat, si es tracta d'un número. Per exemple, si se selecciona <userinput
+>Aquest element sumarà 0,1 al text seleccionat, si es tracta d'un nombre. Per exemple, si se selecciona <userinput
 >4,5</userinput
 >, esdevindrà <computeroutput
 >4,6</computeroutput

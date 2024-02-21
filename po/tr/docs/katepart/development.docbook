@@ -710,7 +710,7 @@
 > ise metnin altı çizili olur.</para>
 <para
 ><userinput
->strikeout</userinput
+>strikeOut</userinput
 > <emphasis
 >true</emphasis
 > ise metnin üzeri çizili olur.</para>

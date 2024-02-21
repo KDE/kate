@@ -1052,6 +1052,27 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="reopen-latest-closed-document">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Görünüm</guimenu
+> <guimenuitem
+>Son Kapatılan Belgeleri Yeniden Aç</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Yakın zamanda kapatılan belgeyi/belgeleri yeniden açar.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="view-quick-open">
 <term
 ><menuchoice

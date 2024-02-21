@@ -757,6 +757,20 @@ action="simul"
 >Önceki Sekme</para
 ></entry>
 </row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Son Kapatılan Belgeleri Yeniden Aç</para
+></entry>
+</row>
 
 </tbody>
 </tgroup>

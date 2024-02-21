@@ -1497,7 +1497,7 @@ msgstr "비교"
 #: lib/katemainwindow.cpp:397
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
-msgstr "두 문서를 비교하려면 탭 표시줄 콘텍스트 메뉴를 사용하십시오"
+msgstr "두 문서를 비교하려면 탭 표시줄 상황에 맞는 메뉴를 사용하십시오"
 
 #: lib/katemainwindow.cpp:399
 #, kde-format
@@ -2381,7 +2381,7 @@ msgstr "선택한 프로그램을 시작할 수 없습니다. 설치 상태를 �
 #: lib/quickopen/katequickopenlineedit.cpp:22
 #, kde-format
 msgid "Quick Open Search (configure via context menu)"
-msgstr "빠른 열기 검색(콘텍스트 메뉴로 설정 가능)"
+msgstr "빠른 열기 검색(상황에 맞는 메뉴로 설정 가능)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:61
 #, kde-format

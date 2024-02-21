@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-19 00:39+0000\n"
-"PO-Revision-Date: 2024-02-19 21:21+0100\n"
+"PO-Revision-Date: 2024-02-20 16:40+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -2867,10 +2867,9 @@ msgstr "Xestionar as sesións…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "Amosar a vista de benvida nas xanelas novas."
+msgstr "Amosar a páxina de benvida na xanela nova."
 
 #~ msgid "Show for new window"
 #~ msgstr "Amosar para unha xanela nova."

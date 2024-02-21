@@ -114,10 +114,15 @@ detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent)
 {
 }
 
-bool detail::TabswitcherFilesModel::insertDocument(int row, DocOrWidget document)
+bool detail::TabswitcherFilesModel::insertDocuments(int row, const QList<DocOrWidget> &documents)
 {
-    beginInsertRows(QModelIndex(), row, row);
-    data_.insert(data_.begin() + row, FilenameListItem(document));
+    beginInsertRows(QModelIndex(), row, row + documents.size() - 1);
+    FilenameList items;
+    items.reserve(documents.size());
+    for (auto d : std::as_const(documents)) {
+        items.push_back(FilenameListItem(d));
+    }
+    data_.insert(data_.begin() + row, items.begin(), items.end());
     endInsertRows();
 
     // update all other items, since the common prefix path may have changed

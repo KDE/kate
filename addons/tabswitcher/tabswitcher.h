@@ -13,6 +13,7 @@
 #include <doc_or_widget.h>
 
 #include <QList>
+#include <QTimer>
 #include <QVariant>
 
 #include <KXMLGUIClient>
@@ -88,7 +89,7 @@ public Q_SLOTS:
     /**
      * Adds @p document to the model.
      */
-    void registerDocument(KTextEditor::Document *document);
+    void registerDocuments(const QList<KTextEditor::Document *> &documents);
 
     /**
      * Removes @p document from the model.
@@ -150,4 +151,6 @@ private:
     detail::TabswitcherFilesModel *m_model;
     std::unordered_set<DocOrWidget> m_documents;
     TabSwitcherTreeView *m_treeView;
+    QList<KTextEditor::Document *> m_documentsPendingAdd;
+    QTimer m_documentsCreatedTimer;
 };

@@ -122,6 +122,7 @@ private:
     KateFileTreePlugin *m_plug;
     KTextEditor::MainWindow *m_mainWindow;
     QTimer m_documentsCreatedTimer;
+    QTimer m_proxyInvalidateTimer;
     QList<KTextEditor::Document *> m_documentsCreated;
 
 private Q_SLOTS:

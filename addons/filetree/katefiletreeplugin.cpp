@@ -193,6 +193,10 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_documentsCreatedTimer.setInterval(0);
     connect(&m_documentsCreatedTimer, &QTimer::timeout, this, &KateFileTreePluginView::slotDocumentsCreated);
 
+    m_proxyInvalidateTimer.setSingleShot(true);
+    m_proxyInvalidateTimer.setInterval(10);
+    m_proxyInvalidateTimer.callOnTimeout(proxy(), &QSortFilterProxyModel::invalidate);
+
     connect(m_documentModel, &KateFileTreeModel::triggerViewChangeAfterNameChange, this, [this] {
         viewChanged();
     });
@@ -329,7 +333,7 @@ void KateFileTreePluginView::documentOpened(KTextEditor::Document *doc)
 void KateFileTreePluginView::documentClosed(KTextEditor::Document *doc)
 {
     m_documentsCreated.removeAll(doc);
-    m_proxyModel->invalidate();
+    m_proxyInvalidateTimer.start();
 }
 
 void KateFileTreePluginView::setToolbarVisible(bool visible)

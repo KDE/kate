@@ -95,6 +95,7 @@ public Q_SLOTS:
     void setRegexMode(bool enabled);
     void setCaseInsensitive(bool enabled);
     void setExpandResults(bool enabled);
+    void addTab();
 
 private:
     enum CopyResultType { AllExpanded, All };
@@ -105,7 +106,6 @@ private Q_SLOTS:
     void handleEsc(QEvent *e);
     void nextFocus(QWidget *currentWidget, bool *found, bool next);
 
-    void addTab();
     void tabCloseRequested(int index);
     void toggleOptions(bool show);
     void detachTabToMainWindow(Results *);

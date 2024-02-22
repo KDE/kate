@@ -185,7 +185,7 @@ QObject *KatePluginSearch::createView(KTextEditor::MainWindow *mainWindow)
     connect(m_searchCommand, &KateSearchCommand::setRegexMode, view, &KatePluginSearchView::setRegexMode);
     connect(m_searchCommand, &KateSearchCommand::setCaseInsensitive, view, &KatePluginSearchView::setCaseInsensitive);
     connect(m_searchCommand, &KateSearchCommand::setExpandResults, view, &KatePluginSearchView::setExpandResults);
-    connect(m_searchCommand, SIGNAL(newTab()), view, SLOT(addTab()));
+    connect(m_searchCommand, &KateSearchCommand::newTab, view, &KatePluginSearchView::addTab);
 
     connect(view, &KatePluginSearchView::searchBusy, m_searchCommand, &KateSearchCommand::setBusy);
 
@@ -1025,6 +1025,14 @@ void KatePluginSearchView::updateViewColors()
 void KatePluginSearchView::startSearch()
 {
     // s_timer.start();
+    if (QGuiApplication::keyboardModifiers() & Qt::ControlModifier) {
+        // search in new tab
+        const QString tmpSearchString = m_ui.searchCombo->currentText();
+        const QString tmpReplaceString = m_ui.replaceCombo->currentText();
+        addTab();
+        m_ui.searchCombo->setCurrentText(tmpSearchString);
+        m_ui.replaceCombo->setCurrentText(tmpReplaceString);
+    }
 
     // Forcefully stop any ongoing search or replace
     m_folderFilesList.terminateSearch();

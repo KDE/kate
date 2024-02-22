@@ -172,6 +172,26 @@ public:
     }
 };
 
+// tab widget that closes tabs on middle click
+class ClosableTabWidget : public QTabWidget
+{
+public:
+    ClosableTabWidget(QWidget *parent = nullptr)
+        : QTabWidget(parent){};
+
+    void mousePressEvent(QMouseEvent *event) override
+    {
+        QTabWidget::mousePressEvent(event);
+
+        if (event->button() == Qt::MiddleButton) {
+            int id = tabBar()->tabAt(event->pos());
+            if (id >= 0) {
+                Q_EMIT tabCloseRequested(id);
+            }
+        }
+    }
+};
+
 class LocationTreeDelegate : public QStyledItemDelegate
 {
 public:
@@ -367,7 +387,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 
     // toolview
     std::unique_ptr<QWidget> m_toolView;
-    QPointer<QTabWidget> m_tabWidget;
+    QPointer<ClosableTabWidget> m_tabWidget;
     // applied search ranges
     typedef QMultiHash<KTextEditor::Document *, KTextEditor::MovingRange *> RangeCollection;
     RangeCollection m_ranges;
@@ -669,7 +689,7 @@ public:
                                                       KTextEditor::MainWindow::Bottom,
                                                       QIcon::fromTheme(QStringLiteral("format-text-code")),
                                                       i18n("LSP")));
-        m_tabWidget = new QTabWidget(m_toolView.get());
+        m_tabWidget = new ClosableTabWidget(m_toolView.get());
         m_toolView->layout()->addWidget(m_tabWidget);
         m_tabWidget->setFocusPolicy(Qt::NoFocus);
         m_tabWidget->setTabsClosable(true);

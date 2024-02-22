@@ -77,11 +77,8 @@ TabSwitcherPluginView::TabSwitcherPluginView(TabSwitcherPlugin *plugin, KTextEdi
     });
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, this, &TabSwitcherPluginView::unregisterDocument);
 
-    auto mw = mainWindow->window();
-    // clang-format off
-    connect(mw, SIGNAL(widgetAdded(QWidget*)), this, SLOT(onWidgetCreated(QWidget*)));
-    connect(mw, SIGNAL(widgetRemoved(QWidget*)), this, SLOT(onWidgetRemoved(QWidget*)));
-    // clang-format on
+    connect(mainWindow, &KTextEditor::MainWindow::widgetAdded, this, &TabSwitcherPluginView::onWidgetCreated);
+    connect(mainWindow, &KTextEditor::MainWindow::widgetRemoved, this, &TabSwitcherPluginView::onWidgetRemoved);
 
     // track lru activation of views to raise the respective documents in the model
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &TabSwitcherPluginView::raiseView);

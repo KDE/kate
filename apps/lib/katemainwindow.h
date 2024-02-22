@@ -239,9 +239,6 @@ Q_SIGNALS:
     void tabBarToggled();
     void unhandledShortcutOverride(QEvent *e);
 
-    void widgetAdded(QWidget *);
-    void widgetRemoved(QWidget *);
-
 public:
     void openUrl(const QString &name = QString());
 

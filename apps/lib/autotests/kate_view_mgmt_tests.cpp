@@ -135,7 +135,7 @@ void KateViewManagementTests::testViewspaceClosesWhenThereIsWidget()
 
     // add a widget
     QPointer<QWidget> widget = new QWidget;
-    Utils::addWidget(widget, app->activeMainWindow());
+    app->activeMainWindow()->addWidget(widget);
     // active viewspace remains the same
     QCOMPARE(vm->m_viewSpaceList[1], vm->activeViewSpace());
     // the widget should be active in activeViewSpace
@@ -280,7 +280,8 @@ void KateViewManagementTests::testTabLRUWithWidgets()
     // Add a widget
     QWidget *widget = new QWidget;
     widget->setObjectName(QStringLiteral("widget"));
-    Utils::addWidget(widget, app->activeMainWindow());
+    app->activeMainWindow()->addWidget(widget);
+
     QCOMPARE(vs->currentWidget(), widget);
     // There should be no activeView
     QVERIFY(!vm->activeView());
@@ -314,7 +315,7 @@ void KateViewManagementTests::testViewChangedEmittedOnAddWidget()
     app->sessionManager()->sessionNew();
     auto kmw = app->activeMainWindow();
     QSignalSpy spy(kmw, &KTextEditor::MainWindow::viewChanged);
-    Utils::addWidget(new QWidget, kmw);
+    kmw->addWidget(new QWidget);
     spy.wait();
     QVERIFY(spy.count() == 1);
 }
@@ -322,8 +323,8 @@ void KateViewManagementTests::testViewChangedEmittedOnAddWidget()
 void KateViewManagementTests::testWidgetAddedEmittedOnAddWidget()
 {
     app->sessionManager()->sessionNew();
-    QSignalSpy spy(app->activeMainWindow()->window(), SIGNAL(widgetAdded(QWidget *)));
-    Utils::addWidget(new QWidget, app->activeMainWindow());
+    QSignalSpy spy(app->activeMainWindow(), &KTextEditor::MainWindow::widgetAdded);
+    app->activeMainWindow()->addWidget(new QWidget);
     spy.wait();
     QVERIFY(spy.count() == 1);
 }
@@ -331,11 +332,11 @@ void KateViewManagementTests::testWidgetAddedEmittedOnAddWidget()
 void KateViewManagementTests::testWidgetRemovedEmittedOnRemoveWidget()
 {
     app->sessionManager()->sessionNew();
-    auto mw = app->activeMainWindow()->window();
-    QSignalSpy spy(mw, SIGNAL(widgetRemoved(QWidget *)));
+    auto mw = app->activeMainWindow();
+    QSignalSpy spy(mw, &KTextEditor::MainWindow::widgetRemoved);
     auto w = new QWidget;
-    Utils::addWidget(w, app->activeMainWindow());
-    QMetaObject::invokeMethod(mw, "removeWidget", Q_ARG(QWidget *, w));
+    mw->addWidget(w);
+    mw->removeWidget(w);
     spy.wait();
     QVERIFY(spy.count() == 1);
 }
@@ -344,11 +345,10 @@ void KateViewManagementTests::testActivateNotAddedWidget()
 {
     app->sessionManager()->sessionNew();
     auto kmw = app->activeMainWindow();
-    auto mw = app->activeMainWindow()->window();
-    QSignalSpy spy(mw, SIGNAL(widgetAdded(QWidget *)));
+    QSignalSpy spy(kmw, &KTextEditor::MainWindow::widgetAdded);
     QSignalSpy spy1(kmw, &KTextEditor::MainWindow::viewChanged);
     auto w = new QWidget;
-    QMetaObject::invokeMethod(mw, "activateWidget", Q_ARG(QWidget *, w));
+    kmw->activateWidget(w);
     spy.wait();
     spy1.wait();
     QVERIFY(spy.count() == 1);
@@ -444,7 +444,7 @@ void KateViewManagementTests::testTabBarHidesShows()
     QCOMPARE(tabs->count(), 1);
     QVERIFY(!vs->m_tabBar->isVisible()); // 1 -> hide
 
-    Utils::addWidget(new QWidget, app->activeMainWindow());
+    app->activeMainWindow()->addWidget(new QWidget);
     QVERIFY(vs->m_tabBar->isVisible()); // 1 + widget => show
 
     vm->slotDocumentClose();
@@ -660,8 +660,8 @@ void KateViewManagementTests::testNewSessionClearsWindowWidgets()
 
     QPointer<QWidget> w1 = new QWidget;
     QPointer<QWidget> w2 = new QWidget;
-    Utils::addWidget(w1, app->activeMainWindow());
-    Utils::addWidget(w2, app->activeMainWindow());
+    app->activeMainWindow()->addWidget(w1);
+    app->activeMainWindow()->addWidget(w2);
 
     QCOMPARE(mw->viewManager()->activeViewSpace()->m_registeredDocuments.size(), 2);
 
@@ -691,11 +691,11 @@ void KateViewManagementTests::testViewspaceWithWidgetDoesntCrashOnClose()
     QPointer<KateViewSpace> vs2 = vm->activeViewSpace();
 
     QPointer<QWidget> w1 = new QWidget;
-    Utils::addWidget(w1, app->activeMainWindow());
+    app->activeMainWindow()->addWidget(w1);
     QCOMPARE(vs2->currentWidget(), w1);
     QVERIFY(vm->activeView() == nullptr);
 
-    QSignalSpy spy(mw, SIGNAL(widgetRemoved(QWidget *)));
+    QSignalSpy spy(app->activeMainWindow(), &KTextEditor::MainWindow::widgetRemoved);
 
     // close the viewspace
     vm->slotCloseCurrentViewSpace();

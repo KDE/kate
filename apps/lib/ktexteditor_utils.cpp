@@ -180,16 +180,6 @@ void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::Mai
     DiffWidgetManager::openDiff(diff, params, mainWindow);
 }
 
-void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
-{
-    QMetaObject::invokeMethod(mainWindow->parent(), "addWidget", Qt::DirectConnection, Q_ARG(QWidget *, widget));
-}
-
-void activateWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
-{
-    QMetaObject::invokeMethod(mainWindow->parent(), "activateWidget", Qt::DirectConnection, Q_ARG(QWidget *, widget));
-}
-
 QWidgetList widgets(KTextEditor::MainWindow *mainWindow)
 {
     QWidgetList ret;

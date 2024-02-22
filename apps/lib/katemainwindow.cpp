@@ -1397,7 +1397,7 @@ bool KateMainWindow::addWidget(QWidget *widget)
 
     auto vs = m_viewManager->activeViewSpace();
     vs->addWidgetAsTab(widget);
-    Q_EMIT widgetAdded(widget);
+    Q_EMIT wrapper()->widgetAdded(widget);
     m_viewManager->activateView(widget);
     return true;
 }

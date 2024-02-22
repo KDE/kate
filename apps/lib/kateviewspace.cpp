@@ -182,8 +182,8 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     // ensure we show/hide tabbar if needed
     connect(m_viewManager, &KateViewManager::viewCreated, this, &KateViewSpace::updateTabBar);
     connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewSpace::updateTabBar);
-    connect(m_viewManager->mainWindow(), &KateMainWindow::widgetAdded, this, &KateViewSpace::updateTabBar);
-    connect(m_viewManager->mainWindow(), &KateMainWindow::widgetRemoved, this, &KateViewSpace::updateTabBar);
+    connect(m_viewManager->mainWindow()->wrapper(), &KTextEditor::MainWindow::widgetAdded, this, &KateViewSpace::updateTabBar);
+    connect(m_viewManager->mainWindow()->wrapper(), &KTextEditor::MainWindow::widgetRemoved, this, &KateViewSpace::updateTabBar);
 }
 
 KateViewSpace::~KateViewSpace() = default;
@@ -805,7 +805,7 @@ void KateViewSpace::removeWidget(QWidget *w)
         m_tabBar->blockSignals(false);
 
         w->deleteLater();
-        Q_EMIT m_viewManager->mainWindow()->widgetRemoved(w);
+        Q_EMIT m_viewManager->mainWindow()->wrapper()->widgetRemoved(w);
 
         // If some tab was removed, switch to most recently used doc
         if (idx >= 0) {

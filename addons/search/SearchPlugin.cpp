@@ -2108,7 +2108,7 @@ void KatePluginSearchView::detachTabToMainWindow(Results *res)
     int i = m_tabBar->currentIndex();
     res->setWindowIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
     res->setWindowTitle(i18n("Search: %1", m_tabBar->tabText(i)));
-    Utils::addWidget(res, m_mainWindow);
+    m_mainWindow->addWidget(res);
     if (res == m_curResults) {
         m_curResults = nullptr;
     }

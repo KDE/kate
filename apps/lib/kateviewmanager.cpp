@@ -1403,7 +1403,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
         // emit widget removed
         const auto widgets = viewspace->widgets();
         for (auto w : widgets) {
-            Q_EMIT mainWindow()->widgetRemoved(w);
+            Q_EMIT mainWindow()->wrapper()->widgetRemoved(w);
         }
     }
 

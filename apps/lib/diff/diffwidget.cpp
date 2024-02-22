@@ -30,6 +30,7 @@
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
 #include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
 
 DiffWidget *DiffWidgetManager::existingDiffWidgetForParams(KTextEditor::MainWindow *mw, const DiffParams &p)
 {
@@ -63,12 +64,12 @@ void DiffWidgetManager::openDiff(const QByteArray &diff, DiffParams p, class KTe
         }
         existing->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
         existing->openDiff(diff);
-        Utils::addWidget(existing, mw);
+        mw->addWidget(existing);
     } else {
         existing->clearData();
         existing->m_params = p;
         existing->openDiff(diff);
-        Utils::activateWidget(existing, mw);
+        mw->activateWidget(existing);
     }
 }
 
@@ -82,12 +83,12 @@ void DiffWidgetManager::diffDocs(KTextEditor::Document *l, KTextEditor::Document
         existing->diffDocs(l, r);
         existing->setWindowTitle(i18n("Diff %1 .. %2", l->documentName(), r->documentName()));
         existing->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
-        Utils::addWidget(existing, mw);
+        mw->addWidget(existing);
     } else {
         existing->clearData();
         existing->m_params = p;
         existing->diffDocs(l, r);
-        Utils::activateWidget(existing, mw);
+        mw->activateWidget(existing);
     }
 }
 

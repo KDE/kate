@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-24 01:36+0000\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
 "PO-Revision-Date: 2012-01-21 12:41+0200\n"
 "Last-Translator: Cristian Oneț <onet.cristian@gmail.com>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -106,81 +106,81 @@ msgid ""
 "session."
 msgstr ""
 
-#: configview.cpp:92
+#: configview.cpp:93
 #, fuzzy, kde-format
 #| msgid "Add executable target"
 msgid "Add new target"
 msgstr "Adaugă țintă pentru executabil"
 
-#: configview.cpp:96
+#: configview.cpp:97
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy target"
 msgstr "Elimină ținta"
 
-#: configview.cpp:100
+#: configview.cpp:101
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Delete target"
 msgstr "Elimină ținta"
 
-#: configview.cpp:105
+#: configview.cpp:106
 #, kde-format
 msgid "Executable:"
 msgstr ""
 
-#: configview.cpp:125
+#: configview.cpp:126
 #, fuzzy, kde-format
 #| msgid "&Working Directory:"
 msgid "Working Directory:"
 msgstr "&Dosar de lucru:"
 
-#: configview.cpp:133
+#: configview.cpp:134
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:138
+#: configview.cpp:139
 #, fuzzy, kde-format
 #| msgid "Add Argument List"
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Adaugă listă de argumenți"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Păstrează focalizarea"
 
-#: configview.cpp:142
+#: configview.cpp:143
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Păstrează focalizarea pe linia de comandă"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect IO"
 msgstr "Redirectează IO"
 
-#: configview.cpp:145
+#: configview.cpp:146
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Redirectează IO-ul programelor depanate către o filă separată"
 
-#: configview.cpp:147
+#: configview.cpp:148
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "Settings"
 msgid "Advanced Settings"
 msgstr "Configurări"
 
-#: configview.cpp:231
+#: configview.cpp:232
 #, kde-format
 msgid "Targets"
 msgstr "Ținte"
 
-#: configview.cpp:524 configview.cpp:537
+#: configview.cpp:525 configview.cpp:538
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target %1"

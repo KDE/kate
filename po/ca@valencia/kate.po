@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-19 00:39+0000\n"
-"PO-Revision-Date: 2024-02-07 12:18+0100\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"PO-Revision-Date: 2024-02-19 09:52+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -1322,14 +1322,14 @@ msgstr "Tanca el document"
 msgid "Save As"
 msgstr "Anomena i guarda"
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:698
+#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "S'ha obert un fitxer nou mentre s'intentava tancar Kate, s'interromp el "
 "tancament."
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:698
+#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Tancament interromput"
@@ -1584,15 +1584,15 @@ msgid "Close all open documents."
 msgstr "Tanca tots els documents oberts."
 
 #: lib/katemainwindow.cpp:421
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Actualitza tots els documents oberts."
+msgstr "To&rna a obrir els darrers documents tancats."
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr ""
+"Torna a obrir l'últim document o documents que s'han tancat més recentment"
 
 #: lib/katemainwindow.cpp:429
 #, kde-format
@@ -1724,7 +1724,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "Tanca tots els documents excepte l'actual"
 
-#: lib/katemainwindow.cpp:853
+#: lib/katemainwindow.cpp:855
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1732,12 +1732,12 @@ msgstr ""
 "Ocultarà completament la barra de menús. La podeu tornar a mostrar prement "
 "%1."
 
-#: lib/katemainwindow.cpp:856
+#: lib/katemainwindow.cpp:858
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Oculta la barra de menús"
 
-#: lib/katemainwindow.cpp:955
+#: lib/katemainwindow.cpp:957
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1746,19 +1746,19 @@ msgstr ""
 "S'ha deixat anar el directori %1 en Kate. Voleu obrir tots els fitxers "
 "continguts?"
 
-#: lib/katemainwindow.cpp:958
+#: lib/katemainwindow.cpp:960
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Obriu recursivament els fitxers"
 
-#: lib/katemainwindow.cpp:959
+#: lib/katemainwindow.cpp:961
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Obri tots els fitxers"
 
-#: lib/katemainwindow.cpp:1181
+#: lib/katemainwindow.cpp:1183
 #, kde-format
 msgid " [read only]"
 msgstr " [només de lectura]"
@@ -2881,10 +2881,6 @@ msgstr "Gestiona les sessions..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "Mostra una vista de benvinguda a les finestres noves"
-
-#~ msgid "Show for new window"
-#~ msgstr "Mostra a les finestres noves"
+msgstr "Mostra una pàgina de benvinguda en les finestres noves"

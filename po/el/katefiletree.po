@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-07 00:39+0000\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
 "PO-Revision-Date: 2023-01-05 10:48+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -364,37 +364,37 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>Το έγγραφο έχει τροποποιηθεί από κάποια άλλη εφαρμογή.</p>"
 
-#: katefiletreeplugin.cpp:252
+#: katefiletreeplugin.cpp:256
 #, kde-format
 msgid "Previous Document"
 msgstr "Προηγούμενο έγγραφο"
 
-#: katefiletreeplugin.cpp:258
+#: katefiletreeplugin.cpp:262
 #, kde-format
 msgid "Next Document"
 msgstr "Επόμενο έγγραφο"
 
-#: katefiletreeplugin.cpp:264
+#: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "&Show Active Document"
 msgstr "&Εμφάνιση ενεργού εγγράφου"
 
-#: katefiletreeplugin.cpp:269
+#: katefiletreeplugin.cpp:273
 #, kde-format
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save the current document"
 msgstr "Αποθήκευση του τρέχοντος εγγράφου"
 
-#: katefiletreeplugin.cpp:274
+#: katefiletreeplugin.cpp:278
 #, kde-format
 msgid "Save As"
 msgstr "Αποθήκευση ως"
 
-#: katefiletreeplugin.cpp:275
+#: katefiletreeplugin.cpp:279
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Αποθήκευση του τρέχοντος εγγράφου με ένα νέο όνομα"

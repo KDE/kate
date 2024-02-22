@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-24 01:36+0000\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
 "PO-Revision-Date: 2023-03-21 18:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -105,75 +105,75 @@ msgid ""
 msgstr ""
 "Một phiên gỡ lỗi đang diễn ra. Vui lòng chạy lại hoặc dừng phiên hiện tại."
 
-#: configview.cpp:92
+#: configview.cpp:93
 #, kde-format
 msgid "Add new target"
 msgstr "Thêm mục tiêu mới"
 
-#: configview.cpp:96
+#: configview.cpp:97
 #, kde-format
 msgid "Copy target"
 msgstr "Sao chép mục tiêu"
 
-#: configview.cpp:100
+#: configview.cpp:101
 #, kde-format
 msgid "Delete target"
 msgstr "Xoá mục tiêu"
 
-#: configview.cpp:105
+#: configview.cpp:106
 #, kde-format
 msgid "Executable:"
 msgstr "Tệp thực thi:"
 
-#: configview.cpp:125
+#: configview.cpp:126
 #, kde-format
 msgid "Working Directory:"
 msgstr "Thư mục làm việc:"
 
-#: configview.cpp:133
+#: configview.cpp:134
 #, kde-format
 msgid "Process Id:"
 msgstr "Mã tiến trình:"
 
-#: configview.cpp:138
+#: configview.cpp:139
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Đối số:"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Giữ nhắm"
 
-#: configview.cpp:142
+#: configview.cpp:143
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Giữ nhắm vào dòng lệnh"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect IO"
 msgstr "Chuyển hướng vào/ra"
 
-#: configview.cpp:145
+#: configview.cpp:146
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Chuyển hướng đầu vào / đầu ra của chương trình được gỡ lỗi sang một thẻ riêng"
 
-#: configview.cpp:147
+#: configview.cpp:148
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Thiết lập nâng cao"
 
-#: configview.cpp:231
+#: configview.cpp:232
 #, kde-format
 msgid "Targets"
 msgstr "Mục tiêu"
 
-#: configview.cpp:524 configview.cpp:537
+#: configview.cpp:525 configview.cpp:538
 #, kde-format
 msgid "Target %1"
 msgstr "Mục tiêu %1"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-24 01:36+0000\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
 "PO-Revision-Date: 2023-09-29 10:11+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -112,76 +112,76 @@ msgstr ""
 "Virheenpaikannusistunto on käynnissä. Suorita uudelleen tai pysäytä nykyinen "
 "istunto."
 
-#: configview.cpp:92
+#: configview.cpp:93
 #, kde-format
 msgid "Add new target"
 msgstr "Lisää uusi kohde"
 
-#: configview.cpp:96
+#: configview.cpp:97
 #, kde-format
 msgid "Copy target"
 msgstr "Kopioi kohde"
 
-#: configview.cpp:100
+#: configview.cpp:101
 #, kde-format
 msgid "Delete target"
 msgstr "Poista kohde"
 
-#: configview.cpp:105
+#: configview.cpp:106
 #, kde-format
 msgid "Executable:"
 msgstr "Ohjelmatiedosto:"
 
-#: configview.cpp:125
+#: configview.cpp:126
 #, kde-format
 msgid "Working Directory:"
 msgstr "Työhakemisto:"
 
-#: configview.cpp:133
+#: configview.cpp:134
 #, kde-format
 msgid "Process Id:"
 msgstr "Prosessitunniste:"
 
-#: configview.cpp:138
+#: configview.cpp:139
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumentit:"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Pidä kohdistus"
 
-#: configview.cpp:142
+#: configview.cpp:143
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Pidä kohdistus komentorivillä"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect IO"
 msgstr "Uudelleen ohjattu siirräntä"
 
-#: configview.cpp:145
+#: configview.cpp:146
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Ohjaa virheenpaikannuksessa olevien ohjelmien siirräntä uudelleen erilliseen "
 "välilehteen"
 
-#: configview.cpp:147
+#: configview.cpp:148
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Lisäasetukset"
 
-#: configview.cpp:231
+#: configview.cpp:232
 #, kde-format
 msgid "Targets"
 msgstr "Kohteet"
 
-#: configview.cpp:524 configview.cpp:537
+#: configview.cpp:525 configview.cpp:538
 #, kde-format
 msgid "Target %1"
 msgstr "Kohde %1"

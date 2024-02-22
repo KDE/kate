@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-24 01:36+0000\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
 "PO-Revision-Date: 2023-05-08 23:52+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -105,74 +105,74 @@ msgstr ""
 "Está uma sessão de depuração em curso. Por favor, execute de novo ou "
 "interrompa a sessão actual."
 
-#: configview.cpp:92
+#: configview.cpp:93
 #, kde-format
 msgid "Add new target"
 msgstr "Adicionar um novo alvo"
 
-#: configview.cpp:96
+#: configview.cpp:97
 #, kde-format
 msgid "Copy target"
 msgstr "Copiar o alvo"
 
-#: configview.cpp:100
+#: configview.cpp:101
 #, kde-format
 msgid "Delete target"
 msgstr "Apagar o alvo"
 
-#: configview.cpp:105
+#: configview.cpp:106
 #, kde-format
 msgid "Executable:"
 msgstr "Executável:"
 
-#: configview.cpp:125
+#: configview.cpp:126
 #, kde-format
 msgid "Working Directory:"
 msgstr "Pasta de Trabalho:"
 
-#: configview.cpp:133
+#: configview.cpp:134
 #, kde-format
 msgid "Process Id:"
 msgstr "ID do Processo:"
 
-#: configview.cpp:138
+#: configview.cpp:139
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumentos:"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Manter o foco"
 
-#: configview.cpp:142
+#: configview.cpp:143
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Manter o foco na linha de comandos"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect IO"
 msgstr "Direccionar a E/S"
 
-#: configview.cpp:145
+#: configview.cpp:146
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Direccionar a E/S dos programas depurados para uma página separada"
 
-#: configview.cpp:147
+#: configview.cpp:148
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Configuração Avançada"
 
-#: configview.cpp:231
+#: configview.cpp:232
 #, kde-format
 msgid "Targets"
 msgstr "Alvos"
 
-#: configview.cpp:524 configview.cpp:537
+#: configview.cpp:525 configview.cpp:538
 #, kde-format
 msgid "Target %1"
 msgstr "Alvo %1"

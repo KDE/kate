@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-24 01:36+0000\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
 "PO-Revision-Date: 2023-07-26 13:43+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -105,75 +105,75 @@ msgstr ""
 "En avlusningssession är pågående. Använd kör igen eller stoppa den aktuella "
 "sessionen."
 
-#: configview.cpp:92
+#: configview.cpp:93
 #, kde-format
 msgid "Add new target"
 msgstr "Lägg till nytt mål"
 
-#: configview.cpp:96
+#: configview.cpp:97
 #, kde-format
 msgid "Copy target"
 msgstr "Kopiera mål"
 
-#: configview.cpp:100
+#: configview.cpp:101
 #, kde-format
 msgid "Delete target"
 msgstr "Ta bort mål"
 
-#: configview.cpp:105
+#: configview.cpp:106
 #, kde-format
 msgid "Executable:"
 msgstr "Körbar fil:"
 
-#: configview.cpp:125
+#: configview.cpp:126
 #, kde-format
 msgid "Working Directory:"
 msgstr "Arbetskatalog:"
 
-#: configview.cpp:133
+#: configview.cpp:134
 #, kde-format
 msgid "Process Id:"
 msgstr "Process-id: "
 
-#: configview.cpp:138
+#: configview.cpp:139
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argument:"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Behåll fokus"
 
-#: configview.cpp:142
+#: configview.cpp:143
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Behåll fokus på kommandoraden"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect IO"
 msgstr "Omdirigera in- och utmatning"
 
-#: configview.cpp:145
+#: configview.cpp:146
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Omdirigera de avlusade programmens in- och utmatning till en separat flik"
 
-#: configview.cpp:147
+#: configview.cpp:148
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Avancerade inställningar"
 
-#: configview.cpp:231
+#: configview.cpp:232
 #, kde-format
 msgid "Targets"
 msgstr "Mål"
 
-#: configview.cpp:524 configview.cpp:537
+#: configview.cpp:525 configview.cpp:538
 #, kde-format
 msgid "Target %1"
 msgstr "Mål %1"

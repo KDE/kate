@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-19 01:01+0000\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
 "PO-Revision-Date: 2022-05-04 07:59+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -17,44 +17,44 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 21.12.2\n"
 
-#: tabswitcher.cpp:49
+#: tabswitcher.cpp:57
 #, kde-format
 msgid "Document Switcher"
 msgstr "Trình chuyển tài liệu"
 
-#: tabswitcher.cpp:94
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Last Used Views"
 msgstr "Khung xem dùng gần nhất"
 
-#: tabswitcher.cpp:97
+#: tabswitcher.cpp:108
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr "Mở một danh sách để duyệt qua các khung xem được dùng gần đây nhất."
 
-#: tabswitcher.cpp:98 tabswitcher.cpp:106
+#: tabswitcher.cpp:109 tabswitcher.cpp:117
 #, kde-format
 msgid "Walk through the list of last used views"
 msgstr "Duyệt qua danh sách các khung xem dùng gần nhất"
 
-#: tabswitcher.cpp:102
+#: tabswitcher.cpp:113
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr "Khung xem dùng gần nhất (ngược lại)"
 
-#: tabswitcher.cpp:105
+#: tabswitcher.cpp:116
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr ""
 "Mở một danh sách để duyệt qua theo chiều ngược lại các khung xem được dùng "
 "gần đây nhất."
 
-#: tabswitcher.cpp:110
+#: tabswitcher.cpp:121
 #, kde-format
 msgid "Close View"
 msgstr "Đóng khung xem"
 
-#: tabswitcher.cpp:113 tabswitcher.cpp:114
+#: tabswitcher.cpp:124 tabswitcher.cpp:125
 #, kde-format
 msgid "Closes the selected view in the list of last used views."
 msgstr ""

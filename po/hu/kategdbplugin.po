@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-24 01:36+0000\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
 "PO-Revision-Date: 2021-12-23 14:57+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -106,75 +106,75 @@ msgid ""
 "session."
 msgstr ""
 
-#: configview.cpp:92
+#: configview.cpp:93
 #, kde-format
 msgid "Add new target"
 msgstr "Új cél hozzáadása"
 
-#: configview.cpp:96
+#: configview.cpp:97
 #, kde-format
 msgid "Copy target"
 msgstr "Cél másolása"
 
-#: configview.cpp:100
+#: configview.cpp:101
 #, kde-format
 msgid "Delete target"
 msgstr "Cél törlése"
 
-#: configview.cpp:105
+#: configview.cpp:106
 #, kde-format
 msgid "Executable:"
 msgstr "Végrehajtható:"
 
-#: configview.cpp:125
+#: configview.cpp:126
 #, kde-format
 msgid "Working Directory:"
 msgstr "Munkakönyvtár:"
 
-#: configview.cpp:133
+#: configview.cpp:134
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:138
+#: configview.cpp:139
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumentumok:"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Fókusz megtartása"
 
-#: configview.cpp:142
+#: configview.cpp:143
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Fókusz megtartása a parancssoron"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect IO"
 msgstr "I/O átirányítása"
 
-#: configview.cpp:145
+#: configview.cpp:146
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "A hibakeresés alatt álló program be- és kimenetének átirányítása külön lapra"
 
-#: configview.cpp:147
+#: configview.cpp:148
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Speciális beállítások"
 
-#: configview.cpp:231
+#: configview.cpp:232
 #, kde-format
 msgid "Targets"
 msgstr "Célok"
 
-#: configview.cpp:524 configview.cpp:537
+#: configview.cpp:525 configview.cpp:538
 #, kde-format
 msgid "Target %1"
 msgstr "%1. cél"

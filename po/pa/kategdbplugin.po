@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-24 01:36+0000\n"
+"POT-Creation-Date: 2024-02-22 00:39+0000\n"
 "PO-Revision-Date: 2011-10-21 07:41+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -104,79 +104,79 @@ msgid ""
 "session."
 msgstr ""
 
-#: configview.cpp:92
+#: configview.cpp:93
 #, fuzzy, kde-format
 #| msgid "Add executable target"
 msgid "Add new target"
 msgstr "ਚੱਲਣਯੋਗ ਟਾਰਗੇਟ ਸ਼ਾਮਲ"
 
-#: configview.cpp:96
+#: configview.cpp:97
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy target"
 msgstr "ਟਾਰਗੇਟ ਹਟਾਓ"
 
-#: configview.cpp:100
+#: configview.cpp:101
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Delete target"
 msgstr "ਟਾਰਗੇਟ ਹਟਾਓ"
 
-#: configview.cpp:105
+#: configview.cpp:106
 #, kde-format
 msgid "Executable:"
 msgstr ""
 
-#: configview.cpp:125
+#: configview.cpp:126
 #, fuzzy, kde-format
 #| msgid "&Working Directory:"
 msgid "Working Directory:"
 msgstr "ਵਰਕਿੰਗ ਡਾਇਰੈਕਟਰੀ(&W):"
 
-#: configview.cpp:133
+#: configview.cpp:134
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:138
+#: configview.cpp:139
 #, fuzzy, kde-format
 #| msgid "Remove Argument List"
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "ਆਰਗੂਮੈਂਟ ਲਿਸਟ ਹਟਾਓ"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "ਫੋਕਸ ਰੱਖੋ"
 
-#: configview.cpp:142
+#: configview.cpp:143
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr ""
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect IO"
 msgstr ""
 
-#: configview.cpp:145
+#: configview.cpp:146
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 
-#: configview.cpp:147
+#: configview.cpp:148
 #, kde-format
 msgid "Advanced Settings"
 msgstr ""
 
-#: configview.cpp:231
+#: configview.cpp:232
 #, kde-format
 msgid "Targets"
 msgstr ""
 
-#: configview.cpp:524 configview.cpp:537
+#: configview.cpp:525 configview.cpp:538
 #, fuzzy, kde-format
 #| msgid "&Target:"
 msgid "Target %1"

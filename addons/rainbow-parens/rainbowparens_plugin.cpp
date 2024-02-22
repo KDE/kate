@@ -416,6 +416,21 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
         // find if we already highlighted this bracket
         auto [existingStart, existingEnd] = existingColoredBracketForPos(oldRanges, p.opener, p.closer);
         if (existingStart && existingEnd) {
+            // ensure start and end have same attribute and expected range
+            KTextEditor::Range expectedStart = {p.opener, cur1};
+            if (existingStart->toRange() != expectedStart) {
+                existingStart->setRange(expectedStart, existingEnd->attribute());
+            } else if (existingStart->attribute() != existingEnd->attribute()) {
+                existingStart->setAttribute(existingEnd->attribute());
+            }
+
+            auto cur2 = p.closer;
+            cur2.setColumn(cur2.column() + 1);
+            KTextEditor::Range expectedEnd = {p.closer, cur2};
+            if (existingEnd->toRange() != expectedEnd) {
+                existingEnd->setRange(expectedEnd);
+            }
+
             ranges.push_back(std::move(existingStart));
             ranges.push_back(std::move(existingEnd));
             auto attrib = ranges.back()->attribute();

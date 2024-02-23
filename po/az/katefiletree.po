@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-02-23 02:23+0000\n"
 "PO-Revision-Date: 2023-06-30 15:57+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -361,37 +361,37 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p>Bu sənəd başqa tətbiq tərəfindən dəyişdirilib.<p>"
 
-#: katefiletreeplugin.cpp:248
+#: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Previous Document"
 msgstr "Əvvəlki sənəd"
 
-#: katefiletreeplugin.cpp:254
+#: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "Next Document"
 msgstr "Növbəti sənəd"
 
-#: katefiletreeplugin.cpp:260
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Aktiv sənədi gö&stərmək"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save"
 msgstr "Saxlayın"
 
-#: katefiletreeplugin.cpp:266
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document"
 msgstr "Cari sənədi saxlayın"
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save As"
 msgstr "Belə saxlayın"
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:275
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Cari sənədi yeni adla saxlayın"

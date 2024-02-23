@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-02-23 02:23+0000\n"
 "PO-Revision-Date: 2023-01-17 15:20+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -363,37 +363,37 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokument byl změněn jinou aplikací.</p>"
 
-#: katefiletreeplugin.cpp:248
+#: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Previous Document"
 msgstr "Předchozí dokument"
 
-#: katefiletreeplugin.cpp:254
+#: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "Next Document"
 msgstr "Následující dokument"
 
-#: katefiletreeplugin.cpp:260
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Zo&brazit aktivní dokument"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save"
 msgstr "Uložit"
 
-#: katefiletreeplugin.cpp:266
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document"
 msgstr "Uložit současný dokument"
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save As"
 msgstr "Uložit jako"
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:275
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Uložit současný dokument pod novým názvem"

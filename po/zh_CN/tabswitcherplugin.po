@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-19 01:01+0000\n"
+"POT-Creation-Date: 2024-02-23 02:23+0000\n"
 "PO-Revision-Date: 2024-01-06 03:32\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -17,42 +17,42 @@ msgstr ""
 "X-Crowdin-File: /kf6-trunk/messages/kate/tabswitcherplugin.pot\n"
 "X-Crowdin-File-ID: 44799\n"
 
-#: tabswitcher.cpp:49
+#: tabswitcher.cpp:57
 #, kde-format
 msgid "Document Switcher"
 msgstr "文档切换器"
 
-#: tabswitcher.cpp:94
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Last Used Views"
 msgstr "上次使用的视图"
 
-#: tabswitcher.cpp:97
+#: tabswitcher.cpp:108
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr "打开切换浏览上次使用的视图列表。"
 
-#: tabswitcher.cpp:98 tabswitcher.cpp:106
+#: tabswitcher.cpp:109 tabswitcher.cpp:117
 #, kde-format
 msgid "Walk through the list of last used views"
 msgstr "切换浏览上次使用的视图列表"
 
-#: tabswitcher.cpp:102
+#: tabswitcher.cpp:113
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr "上次使用的视图 (逆序)"
 
-#: tabswitcher.cpp:105
+#: tabswitcher.cpp:116
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr "反向打开切换浏览上次使用的视图列表。"
 
-#: tabswitcher.cpp:110
+#: tabswitcher.cpp:121
 #, kde-format
 msgid "Close View"
 msgstr "关闭视图"
 
-#: tabswitcher.cpp:113 tabswitcher.cpp:114
+#: tabswitcher.cpp:124 tabswitcher.cpp:125
 #, kde-format
 msgid "Closes the selected view in the list of last used views."
 msgstr "关闭在上次使用的视图列表中选中的视图。"

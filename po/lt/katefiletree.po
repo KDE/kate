@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk-kf 5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-02-23 02:23+0000\n"
 "PO-Revision-Date: 2017-10-02 10:25+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -372,38 +372,38 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokumentas buvo pakeistas kitos programos.</p>"
 
-#: katefiletreeplugin.cpp:248
+#: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Previous Document"
 msgstr "Ankstesnis dokumentas"
 
-#: katefiletreeplugin.cpp:254
+#: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "Next Document"
 msgstr "Kitas dokumentas"
 
-#: katefiletreeplugin.cpp:260
+#: katefiletreeplugin.cpp:264
 #, fuzzy, kde-format
 #| msgid "&Show Active"
 msgid "&Show Active Document"
 msgstr "Rodyti &aktyvius"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: katefiletreeplugin.cpp:266
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document"
 msgstr "Įrašyti esamą dokumentą"
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save As"
 msgstr ""
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:275
 #, fuzzy, kde-format
 #| msgid "Save current document under new name"
 msgid "Save the current document under a new name"

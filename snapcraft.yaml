@@ -159,8 +159,15 @@ parts:
         - mercurial
         - subversion
         - libsecret-1-0
+        - ibus
+        - ibus-wayland
+        - fcitx5
+        - fcitx5-frontend-all
+        - fcitx5-modules
+        - fcitx-mozc
         stage-snaps:
         - khelpcenter
+        - konsole
         source: .
         source-type: local
         cmake-parameters:
@@ -173,6 +180,9 @@ parts:
         - enable-patchelf
         build-environment:
         - XDG_CONFIG_DIRS: "$CRAFT_STAGE/etc/xdg"
+        stage:
+        - "-usr/lib/*/libglapi.so.0.0.0"
+        - "-usr/share/doc/libglapi-mesa/changelog.Debian.gz"
         prime:
         - "-usr/lib/*/cmake/*"
         - "-usr/include/*"

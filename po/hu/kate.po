@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-02-23 00:40+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -472,53 +472,53 @@ msgstr[1] "Sorok visszavonása"
 msgid "Unstage Hunk"
 msgstr "Módosítás visszavonása"
 
-#: lib/diff/diffwidget.cpp:60
+#: lib/diff/diffwidget.cpp:61
 #, kde-format
 msgid "Diff %1"
 msgstr "%1 összehasonlítása"
 
-#: lib/diff/diffwidget.cpp:62
+#: lib/diff/diffwidget.cpp:63
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "%1..%2 összehasonlítása"
 
-#: lib/diff/diffwidget.cpp:83
+#: lib/diff/diffwidget.cpp:84
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "%1 .. %2 összehasonlítása"
 
-#: lib/diff/diffwidget.cpp:113
+#: lib/diff/diffwidget.cpp:114
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Véglegesítő információk megjelenítése/elrejtése"
 
-#: lib/diff/diffwidget.cpp:118
+#: lib/diff/diffwidget.cpp:119
 #, kde-format
 msgid "Jump to Next File"
 msgstr "Ugrás a következő fájlra"
 
-#: lib/diff/diffwidget.cpp:122
+#: lib/diff/diffwidget.cpp:123
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "Ugrás az előző fájlra"
 
-#: lib/diff/diffwidget.cpp:126
+#: lib/diff/diffwidget.cpp:127
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "Ugrás a következő módosításra"
 
-#: lib/diff/diffwidget.cpp:130
+#: lib/diff/diffwidget.cpp:131
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "Ugrás az előző módosításra"
 
-#: lib/diff/diffwidget.cpp:134
+#: lib/diff/diffwidget.cpp:135
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Összehasonlítás újratöltése"
 
-#: lib/diff/diffwidget.cpp:138
+#: lib/diff/diffwidget.cpp:139
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
@@ -526,7 +526,7 @@ msgstr ""
 "Összehasonlítás megjelenítése a teljes környezettel, nem csak a módosított "
 "sorok"
 
-#: lib/diff/diffwidget.cpp:551
+#: lib/diff/diffwidget.cpp:552
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -537,23 +537,23 @@ msgstr ""
 "összehasonlításához. Ha a git már telepítve van, ellenőrizze, hogy a PATH "
 "tartalmazza-e. Lásd https://git-scm.org/downloads"
 
-#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1155
+#: lib/diff/diffwidget.cpp:555 lib/diff/diffwidget.cpp:1156
 #: lib/kateconfigdialog.cpp:315
 #, kde-format
 msgid "Diff"
 msgstr "Összehasonlítás"
 
-#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
+#: lib/diff/diffwidget.cpp:767 lib/diff/diffwidget.cpp:971
 #, kde-format
 msgid "New file %1"
 msgstr "Új fájl: %1"
 
-#: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
+#: lib/diff/diffwidget.cpp:769 lib/diff/diffwidget.cpp:973
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Törölt fájl: %1"
 
-#: lib/diff/diffwidget.cpp:1138 lib/diff/diffwidget.cpp:1139
+#: lib/diff/diffwidget.cpp:1139 lib/diff/diffwidget.cpp:1140
 #, kde-format
 msgid "No differences found"
 msgstr "Nem találhatók különbségek"

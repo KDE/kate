@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-02-23 00:40+0000\n"
 "PO-Revision-Date: 2006-10-20 20:16+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -487,62 +487,62 @@ msgstr[1] "&Tetingkap"
 msgid "Unstage Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:60
+#: lib/diff/diffwidget.cpp:61
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:62
+#: lib/diff/diffwidget.cpp:63
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:83
+#: lib/diff/diffwidget.cpp:84
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:113
+#: lib/diff/diffwidget.cpp:114
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:118
+#: lib/diff/diffwidget.cpp:119
 #, kde-format
 msgid "Jump to Next File"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:122
+#: lib/diff/diffwidget.cpp:123
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Jump to Previous File"
 msgstr "Kembalikan l&okasi"
 
-#: lib/diff/diffwidget.cpp:126
+#: lib/diff/diffwidget.cpp:127
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:130
+#: lib/diff/diffwidget.cpp:131
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Jump to Previous Hunk"
 msgstr "Kembalikan l&okasi"
 
-#: lib/diff/diffwidget.cpp:134
+#: lib/diff/diffwidget.cpp:135
 #, fuzzy, kde-format
 #| msgid "Plugins"
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Plugin"
 
-#: lib/diff/diffwidget.cpp:138
+#: lib/diff/diffwidget.cpp:139
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:551
+#: lib/diff/diffwidget.cpp:552
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -550,24 +550,24 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:554 lib/diff/diffwidget.cpp:1155
+#: lib/diff/diffwidget.cpp:555 lib/diff/diffwidget.cpp:1156
 #: lib/kateconfigdialog.cpp:315
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:766 lib/diff/diffwidget.cpp:970
+#: lib/diff/diffwidget.cpp:767 lib/diff/diffwidget.cpp:971
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Namafail"
 
-#: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
+#: lib/diff/diffwidget.cpp:769 lib/diff/diffwidget.cpp:973
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "Dipadam"
 
-#: lib/diff/diffwidget.cpp:1138 lib/diff/diffwidget.cpp:1139
+#: lib/diff/diffwidget.cpp:1139 lib/diff/diffwidget.cpp:1140
 #, kde-format
 msgid "No differences found"
 msgstr ""

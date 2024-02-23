@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tabswitcherplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-02-23 00:40+0000\n"
 "PO-Revision-Date: 2022-07-14 09:55-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -24,38 +24,38 @@ msgstr ""
 msgid "Document Switcher"
 msgstr "Seletor de documentos"
 
-#: tabswitcher.cpp:105
+#: tabswitcher.cpp:102
 #, kde-format
 msgid "Last Used Views"
 msgstr "Últimas janelas usadas"
 
-#: tabswitcher.cpp:108
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr "Abre uma lista para percorrer as últimas janelas usadas."
 
-#: tabswitcher.cpp:109 tabswitcher.cpp:117
+#: tabswitcher.cpp:106 tabswitcher.cpp:114
 #, kde-format
 msgid "Walk through the list of last used views"
 msgstr "Percorrer a lista das últimas janelas usadas"
 
-#: tabswitcher.cpp:113
+#: tabswitcher.cpp:110
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr "Últimas janelas usadas (inversa)"
 
-#: tabswitcher.cpp:116
+#: tabswitcher.cpp:113
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr ""
 "Abre uma lista para percorrer as últimas janelas usadas, na ordem inversa."
 
-#: tabswitcher.cpp:121
+#: tabswitcher.cpp:118
 #, kde-format
 msgid "Close View"
 msgstr "Fechar janela"
 
-#: tabswitcher.cpp:124 tabswitcher.cpp:125
+#: tabswitcher.cpp:121 tabswitcher.cpp:122
 #, kde-format
 msgid "Closes the selected view in the list of last used views."
 msgstr "Fecha a janela selecionada na lista das últimas janelas usadas."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-02-23 00:39+0000\n"
 "PO-Revision-Date: 2024-02-07 14:51+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -360,37 +360,37 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>Het document is door een andere toepassing gewijzigd.</p>"
 
-#: katefiletreeplugin.cpp:256
+#: katefiletreeplugin.cpp:255
 #, kde-format
 msgid "Previous Document"
 msgstr "Vorig document"
 
-#: katefiletreeplugin.cpp:262
+#: katefiletreeplugin.cpp:261
 #, kde-format
 msgid "Next Document"
 msgstr "Volgend document"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:267
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Actieve document &tonen"
 
-#: katefiletreeplugin.cpp:273
+#: katefiletreeplugin.cpp:272
 #, kde-format
 msgid "Save"
 msgstr "Opslaan"
 
-#: katefiletreeplugin.cpp:274
+#: katefiletreeplugin.cpp:273
 #, kde-format
 msgid "Save the current document"
 msgstr "Het huidige document opslaan"
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:277
 #, kde-format
 msgid "Save As"
 msgstr "Opslaan als"
 
-#: katefiletreeplugin.cpp:279
+#: katefiletreeplugin.cpp:278
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Het huidige document opslaan onder een nieuwe naam"

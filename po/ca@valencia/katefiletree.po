@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-02-23 00:39+0000\n"
 "PO-Revision-Date: 2024-02-07 12:19+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -366,37 +366,37 @@ msgstr ""
 "<p><b>%1</b></p><p>El document ha sigut modificat per una altra aplicació.</"
 "p>"
 
-#: katefiletreeplugin.cpp:256
+#: katefiletreeplugin.cpp:255
 #, kde-format
 msgid "Previous Document"
 msgstr "Document anterior"
 
-#: katefiletreeplugin.cpp:262
+#: katefiletreeplugin.cpp:261
 #, kde-format
 msgid "Next Document"
 msgstr "Document següent"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:267
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Mo&stra el document actiu"
 
-#: katefiletreeplugin.cpp:273
+#: katefiletreeplugin.cpp:272
 #, kde-format
 msgid "Save"
 msgstr "Guarda"
 
-#: katefiletreeplugin.cpp:274
+#: katefiletreeplugin.cpp:273
 #, kde-format
 msgid "Save the current document"
 msgstr "Guarda el document actual"
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:277
 #, kde-format
 msgid "Save As"
 msgstr "Anomena i guarda"
 
-#: katefiletreeplugin.cpp:279
+#: katefiletreeplugin.cpp:278
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Guarda el document actual amb un nom nou"

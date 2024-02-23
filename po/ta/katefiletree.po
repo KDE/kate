@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-02-23 00:39+0000\n"
 "PO-Revision-Date: 2024-02-18 15:54+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -360,37 +360,37 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>இவ்வாவணம் இன்னொரு செயலியால் மாற்றப்பட்டுள்ளது.</p>"
 
-#: katefiletreeplugin.cpp:256
+#: katefiletreeplugin.cpp:255
 #, kde-format
 msgid "Previous Document"
 msgstr "முந்தைய ஆவணம்"
 
-#: katefiletreeplugin.cpp:262
+#: katefiletreeplugin.cpp:261
 #, kde-format
 msgid "Next Document"
 msgstr "அடுத்த ஆவணம்"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:267
 #, kde-format
 msgid "&Show Active Document"
 msgstr "&செயலிலுள்ளதை ஆவணத்தைக் காட்டு"
 
-#: katefiletreeplugin.cpp:273
+#: katefiletreeplugin.cpp:272
 #, kde-format
 msgid "Save"
 msgstr "சேமி"
 
-#: katefiletreeplugin.cpp:274
+#: katefiletreeplugin.cpp:273
 #, kde-format
 msgid "Save the current document"
 msgstr "தற்போதைய ஆவணத்தைச் சேமிக்கும்"
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:277
 #, kde-format
 msgid "Save As"
 msgstr "வேறு பெயரில் சேமி"
 
-#: katefiletreeplugin.cpp:279
+#: katefiletreeplugin.cpp:278
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "தற்போதைய ஆவணத்தை வேறு பெயரில் சேமிக்கும்"

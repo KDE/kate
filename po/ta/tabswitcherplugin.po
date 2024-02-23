@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-02-23 00:40+0000\n"
 "PO-Revision-Date: 2022-08-23 21:38+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -22,39 +22,39 @@ msgstr ""
 msgid "Document Switcher"
 msgstr "ஆவண மாற்றி"
 
-#: tabswitcher.cpp:105
+#: tabswitcher.cpp:102
 #, kde-format
 msgid "Last Used Views"
 msgstr "கடைசியாக பயன்படுத்திய காட்சிப்பகுதிகள்"
 
-#: tabswitcher.cpp:108
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr ""
 "கடைசியாகப் பயன்படுத்திய காட்சிப்பகுதிகளுக்கிடைய தாவும் வகையில் அவற்றின் பட்டியலைத் "
 "திறக்கும்."
 
-#: tabswitcher.cpp:109 tabswitcher.cpp:117
+#: tabswitcher.cpp:106 tabswitcher.cpp:114
 #, fuzzy, kde-format
 msgid "Walk through the list of last used views"
 msgstr "கடைசியாகப் பயன்படுத்திய காட்சிப்பகுதிகளின் பட்டியலில் முன்செல்"
 
-#: tabswitcher.cpp:113
+#: tabswitcher.cpp:110
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr ""
 
-#: tabswitcher.cpp:116
+#: tabswitcher.cpp:113
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr ""
 
-#: tabswitcher.cpp:121
+#: tabswitcher.cpp:118
 #, kde-format
 msgid "Close View"
 msgstr "காட்சிப்பகுதியை மூடு"
 
-#: tabswitcher.cpp:124 tabswitcher.cpp:125
+#: tabswitcher.cpp:121 tabswitcher.cpp:122
 #, kde-format
 msgid "Closes the selected view in the list of last used views."
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-02-23 00:40+0000\n"
 "PO-Revision-Date: 2023-12-22 02:53+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -23,37 +23,37 @@ msgstr ""
 msgid "Document Switcher"
 msgstr "文件切換器"
 
-#: tabswitcher.cpp:105
+#: tabswitcher.cpp:102
 #, kde-format
 msgid "Last Used Views"
 msgstr "上次使用檢視"
 
-#: tabswitcher.cpp:108
+#: tabswitcher.cpp:105
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr "開啟清單並瀏覽上次使用的檢視。"
 
-#: tabswitcher.cpp:109 tabswitcher.cpp:117
+#: tabswitcher.cpp:106 tabswitcher.cpp:114
 #, kde-format
 msgid "Walk through the list of last used views"
 msgstr "走過上次使用檢視清單"
 
-#: tabswitcher.cpp:113
+#: tabswitcher.cpp:110
 #, kde-format
 msgid "Last Used Views (Reverse)"
 msgstr "上次使用的檢視（反向）"
 
-#: tabswitcher.cpp:116
+#: tabswitcher.cpp:113
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr "開啟清單並反向瀏覽上次使用的檢視。"
 
-#: tabswitcher.cpp:121
+#: tabswitcher.cpp:118
 #, kde-format
 msgid "Close View"
 msgstr "關閉檢視"
 
-#: tabswitcher.cpp:124 tabswitcher.cpp:125
+#: tabswitcher.cpp:121 tabswitcher.cpp:122
 #, kde-format
 msgid "Closes the selected view in the list of last used views."
 msgstr "在最近使用檢視列表中關閉選取的檢視。"

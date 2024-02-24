@@ -179,6 +179,9 @@ void TabSwitcherPluginView::onWidgetRemoved(QWidget *widget)
 
 void TabSwitcherPluginView::registerDocuments(const QList<KTextEditor::Document *> &documents)
 {
+    if (documents.isEmpty()) {
+        return;
+    }
     m_documents.insert(documents.begin(), documents.end());
     QList<DocOrWidget> docs;
     docs.reserve(documents.size());

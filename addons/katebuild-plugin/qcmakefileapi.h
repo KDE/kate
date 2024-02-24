@@ -23,7 +23,7 @@ public:
     //* \a buildDir can be either the cmake build dir or the full path of a CMakeCache.txt
     QCMakeFileApi(const QString& buildDir, bool withSourceFiles = true);
 
-    bool runCMake(/*class KateProjectPlugin *plugin*/);
+    bool runCMake();
 
     const QString& getCMakeExecutable() const;
     QString getCMakeGuiExecutable() const;

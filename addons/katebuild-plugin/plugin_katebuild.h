@@ -44,6 +44,10 @@
 #include "targets.h"
 #include "ui_build.h"
 
+
+class QCMakeFileApi;
+
+
 /******************************************************************/
 class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
@@ -139,6 +143,8 @@ private:
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
 
     void addProjectTarget();
+    QModelIndex createCMakeTargetSet(QModelIndex setIndex, const QString& name,
+                                     const QCMakeFileApi& cmakeFA, const QString& cmakeConfig);
 
     KTextEditor::MainWindow *m_win;
     QWidget *m_toolView;

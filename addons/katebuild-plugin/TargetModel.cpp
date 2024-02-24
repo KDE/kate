@@ -46,9 +46,12 @@ static QDebug operator<<(QDebug debug, const NodeInfo &node)
     return debug;
 }
 
-TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir)
+TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir,
+                                  bool _loadedViaCMake, QString _cmakeConfigName)
     : name(_name)
     , workDir(_dir)
+    , loadedViaCMake(_loadedViaCMake)
+    , cmakeConfigName(_cmakeConfigName)
 {
 }
 
@@ -231,7 +234,8 @@ QModelIndex TargetModel::projectRootIndex() const
     return QModelIndex();
 }
 
-QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex, const QString &setName, const QString &workDir)
+QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex, const QString &setName, const QString &workDir,
+                                              bool loadedViaCMake, const QString& cmakeConfig)
 {
     // qDebug() << "Inserting TargetSet after:" << beforeIndex << setName <<workDir;
     NodeInfo bNode = modelToNodeInfo(beforeIndex);
@@ -263,7 +267,7 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex, co
     bNode.targetSetRow++;
 
     beginInsertRows(index(bNode.rootRow, 0), bNode.targetSetRow, bNode.targetSetRow);
-    TargetModel::TargetSet targetSet(newName, workDir);
+    TargetModel::TargetSet targetSet(newName, workDir, loadedViaCMake, cmakeConfig);
     targetSets.insert(bNode.targetSetRow, targetSet);
     endInsertRows();
     return index(bNode.targetSetRow, 0, index(bNode.rootRow, 0));
@@ -282,7 +286,7 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
         }
         if (m_rootNodes[0].targetSets.isEmpty()) {
             beginInsertRows(index(0, 0), 0, 0);
-            m_rootNodes[0].targetSets.append(TargetSet(i18n("Target Set"), QString()));
+            m_rootNodes[0].targetSets.append(TargetSet(i18n("Target Set"), QString(), false));
             endInsertRows();
         }
         bNode.rootRow = 0;
@@ -294,7 +298,7 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
         // Add the new command to the first target-set of this root node (creating the targetset if needed)
         if (m_rootNodes[bNode.rootRow].targetSets.isEmpty()) {
             beginInsertRows(index(bNode.rootRow, 0), 0, 0);
-            m_rootNodes[bNode.rootRow].targetSets.append(TargetSet(i18n("Target Set"), QString()));
+            m_rootNodes[bNode.rootRow].targetSets.append(TargetSet(i18n("Target Set"), QString(), false));
             endInsertRows();
         }
         bNode.targetSetRow = 0;

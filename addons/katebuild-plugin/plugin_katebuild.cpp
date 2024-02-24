@@ -76,6 +76,9 @@ static const QString DefTargetName = QStringLiteral("build");
 static const QString DefBuildCmd = QStringLiteral("make");
 static const QString DefCleanCmd = QStringLiteral("make clean");
 static const QString DiagnosticsPrefix = QStringLiteral("katebuild");
+static const QString ConfigAllowedCommands = QStringLiteral("AllowedCommandLines");
+static const QString ConfigBlockedCommands = QStringLiteral("BlockedCommandLines");
+
 
 #ifdef Q_OS_WIN
 /******************************************************************/
@@ -577,6 +580,38 @@ void KateBuildView::readConfig()
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
     m_addDiagnostics = config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true);
     m_autoSwitchToOutput = config.readEntry(QStringLiteral("AutoSwitchToOutput"), true);
+
+    // read allow + block lists as two separate keys, let block always win
+    const auto allowed = config.readEntry(ConfigAllowedCommands, QStringList());
+    const auto blocked = config.readEntry(ConfigBlockedCommands, QStringList());
+    m_commandLineToAllowedState.clear();
+    for (const auto &cmd : allowed) {
+        m_commandLineToAllowedState[cmd] = true;
+    }
+    for (const auto &cmd : blocked) {
+        m_commandLineToAllowedState[cmd] = false;
+    }
+
+}
+
+/******************************************************************/
+void KateBuildView::writeConfig()
+{
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
+
+    // write allow + block lists as two separate keys
+    QStringList allowed, blocked;
+    for (const auto &it : m_commandLineToAllowedState) {
+        if (it.second) {
+            allowed.push_back(it.first);
+        } else {
+            blocked.push_back(it.first);
+        }
+    }
+    config.writeEntry(ConfigAllowedCommands, allowed);
+    config.writeEntry(ConfigBlockedCommands, blocked);
+
+    // Q_EMIT configUpdated();
 }
 
 /******************************************************************/
@@ -917,6 +952,12 @@ void KateBuildView::slotLoadCMakeTargets()
 
     QCMakeFileApi cmakeFA(cmakeFile, false);
     if (!cmakeFA.haveKateReplyFiles()) {
+
+        QStringList commandLine = cmakeFA.getCMakeRequestCommandLine();
+        if (!isCommandLineAllowed(commandLine)) {
+            return;
+        }
+
         cmakeFA.writeQueryFiles();
         bool success = cmakeFA.runCMake(/*this*/);
         qDebug() << "cmake success: " << success;
@@ -993,6 +1034,44 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
     }
 
     return setIndex;
+}
+
+
+bool KateBuildView::isCommandLineAllowed(const QStringList &cmdline)
+{
+    // check our allow list
+    // if we already have stored some value, perfect, just use that one
+    const QString fullCommandLineString = cmdline.join(QStringLiteral(" "));
+    if (const auto it = m_commandLineToAllowedState.find(fullCommandLineString); it != m_commandLineToAllowedState.end()) {
+        return it->second;
+    }
+
+    // ask user if the start should be allowed
+    QPointer<QMessageBox> msgBox(new QMessageBox(QApplication::activeWindow()));
+    msgBox->setWindowTitle(i18n("Build plugin wants to execute program"));
+    msgBox->setTextFormat(Qt::RichText);
+    msgBox->setText(
+        i18n("The Kate build plugin needs to execute an external command to read the targets from the build tree.<br><br>"
+             "The full command line is:<br><br><b>%1</b><br><br>"
+             "Proceed and allow to run this command ?<br><br>"
+             "The choice can be altered via the config page of the plugin.",
+             fullCommandLineString.toHtmlEscaped()));
+    msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox->setDefaultButton(QMessageBox::Yes);
+    const bool allowed = (msgBox->exec() == QMessageBox::Yes);
+
+    // store new configured value
+    m_commandLineToAllowedState.emplace(fullCommandLineString, allowed);
+
+    // inform the user if it was forbidden! do this here to just emit this once
+    // if (!allowed) {
+        // Q_EMIT showMessage(KTextEditor::Message::Information,
+                           // i18n("User permanently blocked start of: '%1'.\nUse the config page of the plugin to undo this block.", fullCommandLineString));
+    // }
+
+    // flush config to not loose that setting
+    // writeConfig();
+    return allowed;
 }
 
 

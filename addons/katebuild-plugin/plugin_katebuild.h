@@ -111,6 +111,8 @@ private Q_SLOTS:
      */
     void readConfig();
 
+    void writeConfig();
+
     /**
      * Save the project build target updates
      */
@@ -146,6 +148,13 @@ private:
     QModelIndex createCMakeTargetSet(QModelIndex setIndex, const QString& name,
                                      const QCMakeFileApi& cmakeFA, const QString& cmakeConfig);
 
+    /** Check if given command line is allowed to be executed.
+      * Might ask the user for permission.
+      * @param cmdline full command line including program to check
+      * @return execution allowed?
+      */
+    bool isCommandLineAllowed(const QStringList &cmdline);
+
     KTextEditor::MainWindow *m_win;
     QWidget *m_toolView;
     Ui::build m_buildUi{};
@@ -176,6 +185,9 @@ private:
     DiagnosticsProvider m_diagnosticsProvider;
     bool m_addDiagnostics = true;
     bool m_autoSwitchToOutput = true;
+
+    // hash of allowed and blacklisted command lines
+    std::map<QString, bool> m_commandLineToAllowedState;
 
     /**
      * current project plugin view, if any

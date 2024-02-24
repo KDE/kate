@@ -116,6 +116,10 @@ detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent)
 
 bool detail::TabswitcherFilesModel::insertDocuments(int row, const QList<DocOrWidget> &documents)
 {
+    if (documents.isEmpty()) {
+        // no documents to add
+        return false;
+    }
     beginInsertRows(QModelIndex(), row, row + documents.size() - 1);
     FilenameList items;
     items.reserve(documents.size());

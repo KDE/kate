@@ -77,6 +77,8 @@ private Q_SLOTS:
     void slotBuildPreviousTarget();
     bool slotStop();
 
+    void slotLoadCMakeTargets();
+
     // Parse output
     void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
     void slotReadReadyStdErr();

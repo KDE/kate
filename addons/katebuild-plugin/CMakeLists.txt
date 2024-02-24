@@ -16,6 +16,7 @@ target_sources(
     AppOutput.cpp
     buildconfig.cpp
     plugin.qrc
+    qcmakefileapi.cpp
 )
 
 if (BUILD_PCH)

@@ -28,6 +28,8 @@
 #include "buildconfig.h"
 #include "hostprocess.h"
 
+#include "qcmakefileapi.h"
+
 #include <cassert>
 
 #include <QApplication>
@@ -45,6 +47,7 @@
 #include <QScrollBar>
 #include <QString>
 #include <QTimer>
+#include <QThread>
 
 #include <QAction>
 
@@ -237,6 +240,10 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     a->setText(i18n("Stop"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     connect(a, &QAction::triggered, this, &KateBuildView::slotStop);
+
+    a = actionCollection()->addAction(QStringLiteral("load_targets_cmakefileapi"));
+    a->setText(i18n("Load targets from CMake Build Dir"));
+    connect(a, &QAction::triggered, this, &KateBuildView::slotLoadCMakeTargets);
 
     a = actionCollection()->addAction(QStringLiteral("focus_build_tab_left"));
     a->setText(i18nc("Left is also left in RTL mode", "Focus Next Tab to the Left"));
@@ -875,6 +882,85 @@ bool KateBuildView::buildCurrentTarget()
     m_buildUi.buildStatusLabel->setText(msg);
     return startProcess(dir, buildCmd);
 }
+
+/******************************************************************/
+void KateBuildView::slotLoadCMakeTargets()
+{
+    const QString cmakeFile = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Select CMake Build Dir"), QDir::currentPath(),
+                                                           QStringLiteral("CMake Cache file (CMakeCache.txt)"));
+    fprintf(stderr, "cmake: %s\n", cmakeFile.toUtf8().data());
+    if (cmakeFile.isEmpty()) {
+        return;
+    }
+
+    QCMakeFileApi cmakeFA(cmakeFile, false);
+    if (!cmakeFA.haveKateReplyFiles()) {
+        cmakeFA.writeQueryFiles();
+        bool success = cmakeFA.runCMake(/*this*/);
+        qDebug() << "cmake success: " << success;
+    }
+
+    if (!cmakeFA.haveKateReplyFiles()) {
+        qDebug() << "generating reply files failed !";
+        return;
+    }
+
+    bool success = cmakeFA.readReplyFiles();
+    qDebug() << "reply success: " << success;
+
+    const int numCores = QThread::idealThreadCount();
+    for(const QString& config : cmakeFA.getConfigurations()) {
+
+        QString projectName = QStringLiteral("%1@%2 - [%3]").arg(cmakeFA.getProjectName()).arg(cmakeFA.getBuildDir()).arg(config);
+
+        QModelIndex setIndex = m_targetsUi->targetsModel.sessionRootIndex();
+        setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, projectName, cmakeFA.getBuildDir());
+
+        setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Rerun CMake"),
+                                                                       QStringLiteral("%1 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B \"%2\" -S \"%3\"")
+                                                                         .arg(cmakeFA.getCMakeExecutable())
+                                                                         .arg(cmakeFA.getBuildDir())
+                                                                         .arg(cmakeFA.getSourceDir()),
+                                                             QString());
+
+        QString cmakeGui = cmakeFA.getCMakeGuiExecutable();
+        qDebug() << "cmakeGui: " << cmakeGui;
+        if (!cmakeGui.isEmpty()) {
+          setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Run CMake-Gui"),
+                                                                         QStringLiteral("%1 -B \"%2\"").arg(cmakeGui)
+                                                                              .arg(cmakeFA.getBuildDir()),
+                                                               QString());
+        }
+
+        setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("All"),
+                                                                       QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4")
+                                                                              .arg(cmakeFA.getCMakeExecutable())
+                                                                              .arg(cmakeFA.getBuildDir())
+                                                                              .arg(config)
+                                                                              .arg(numCores),
+                                                             QString());
+
+        setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Clean"),
+                                                                       QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target clean")
+                                                                              .arg(cmakeFA.getCMakeExecutable())
+                                                                              .arg(cmakeFA.getBuildDir())
+                                                                              .arg(config)
+                                                                              .arg(numCores),
+                                                             QString());
+        for(const QString& tgt : cmakeFA.getTargets(config)) {
+            setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, tgt,
+                                                                           QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target %5")
+                                                                              .arg(cmakeFA.getCMakeExecutable())
+                                                                              .arg(cmakeFA.getBuildDir())
+                                                                              .arg(config)
+                                                                              .arg(numCores)
+                                                                              .arg(tgt),
+                                                                 QString());
+        }
+    }
+
+}
+
 
 /******************************************************************/
 void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message::MessageType level)

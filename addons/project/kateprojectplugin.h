@@ -60,7 +60,7 @@ public:
      * @param userSpecified whether user asked to open a directory as project
      * @return project or null if not openable
      */
-    KateProject *projectForDir(QDir dir, bool userSpecified = false);
+    Q_INVOKABLE KateProject *projectForDir(QDir dir, bool userSpecified = false);
 
     /**
      * Try to close the given project.

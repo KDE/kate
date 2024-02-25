@@ -7,7 +7,7 @@
 # Teemu Rytilahti <tpr@d5k.net>, 2003, 2005.
 # Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006.
 # Tommi Nieminen <translator@legisign.org>, 2009.
-# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2016, 2019, 2021, 2022, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2016, 2019, 2021, 2022, 2023, 2024.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011, 2012.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-23 00:39+0000\n"
-"PO-Revision-Date: 2023-03-12 18:06+0200\n"
+"PO-Revision-Date: 2024-02-23 19:45+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -295,15 +295,14 @@ msgid "Show &Toolbar"
 msgstr "Näytä &työkalurivi"
 
 #: katefiletreeconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "Show Close Button"
+#, kde-format
 msgid "Show Close Button On Hovering"
-msgstr "Näytä sulkemispainike"
+msgstr "Näytä sulkemispainike hiiren ollessa yllä"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "Sulje tiedostot hiiren keskinapsautuksella"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:36+0000\n"
-"PO-Revision-Date: 2024-02-09 17:45+0300\n"
+"PO-Revision-Date: 2024-02-24 22:28+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.04.70\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
 msgid "Filter..."
-msgstr "Süz..."
+msgstr "Süz…"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: lspclientconfigpage.cpp:99 lspclientconfigpage.cpp:104
@@ -82,7 +82,7 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
-"Kullanıcı, şu eklentinin başlatılmasını kalıcı olarak engelledi: '%1'\n"
+"Kullanıcı, şu eklentinin başlatılmasını kalıcı olarak engelledi: ‘%1’\n"
 "Bu engellemeyi geri almak için eklentinin yapılandırma sayfasını kullanın."
 
 #: lspclientpluginview.cpp:419 lspclientpluginview.cpp:671
@@ -113,7 +113,7 @@ msgstr "Başvuruları Bul"
 #: lspclientpluginview.cpp:490
 #, kde-format
 msgid "Find Implementations"
-msgstr "Uygulama Noktalarını Bul"
+msgstr "Gerçeklemeleri Bul"
 
 #: lspclientpluginview.cpp:492
 #, kde-format
@@ -306,7 +306,7 @@ msgstr "Başvurular: %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
-msgstr "Uygulama Noktası: %1"
+msgstr "Gerçekleme: %1"
 
 #: lspclientpluginview.cpp:1599
 #, kde-format
@@ -323,7 +323,7 @@ msgstr "Eylem Yok"
 #: lspclientpluginview.cpp:1638
 #, kde-format
 msgid "Loading..."
-msgstr "Yükleniyor..."
+msgstr "Yükleniyor…"
 
 #: lspclientpluginview.cpp:1730
 #, kde-format
@@ -382,7 +382,7 @@ msgstr "Yeniden BAŞLATILMIYOR"
 #: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
-msgstr "Sunucu beklenmedik bir biçimde sonlandı ... %1 [%2] [ana sayfa: %3] "
+msgstr "Sunucu beklenmedik bir biçimde sonlandı… %1 [%2] [ana sayfa: %3] "
 
 #: lspclientservermanager.cpp:801
 #, kde-format
@@ -412,12 +412,12 @@ msgstr "%2 sunucusu başlatıldı: %1"
 #: lspclientservermanager.cpp:886
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
-msgstr "Sunucu yapılandırması '%1' bulunamadı: JSON nesnesi yok"
+msgstr "Sunucu yapılandırması ‘%1’ bulunamadı: JSON nesnesi yok"
 
 #: lspclientservermanager.cpp:889
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
-msgstr "Sunucu yapılandırması '%1' ayrıştırılamadı: %2"
+msgstr "Sunucu yapılandırması ‘%1’ ayrıştırılamadı: %2"
 
 #: lspclientservermanager.cpp:893
 #, kde-format

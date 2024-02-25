@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-23 00:40+0000\n"
-"PO-Revision-Date: 2024-01-29 17:51+0200\n"
+"PO-Revision-Date: 2024-02-23 19:47+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -324,6 +324,8 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
+"Diagnostiikkarajoitus saavutettu: sivuutetaan loput. Rajoitusta voi säätää "
+"asetuksista."
 
 #: lib/diagnostics/diagnosticview.cpp:327
 #, kde-format
@@ -1222,15 +1224,14 @@ msgid "Show current symbol in navigation bar"
 msgstr "Näytä navigointirivillä nykyinen merkki"
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Diagnostiikkanäkymä"
+msgstr "Diagnostiikkarajoitus:"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
-msgstr ""
+msgstr "Diagnostiikan enimmäismäärä Diagnostiikka-työkalunäkymässä."
 
 #: lib/kateconfigdialog.cpp:364
 #, kde-format

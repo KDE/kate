@@ -1,6 +1,6 @@
 # Copyright © 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
-# Tommi Nieminen <translator@legisign.org>, 2012, 2014, 2019, 2020, 2021, 2022, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2012, 2014, 2019, 2020, 2021, 2022, 2023, 2024.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2013, 2014, 2015, 2016.
 #
 # KDE Finnish translation sprint participants:
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2023-09-26 10:34+0300\n"
+"PO-Revision-Date: 2024-02-23 19:47+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -701,28 +701,22 @@ msgid "Code Analysis - %1"
 msgstr "Koodianalyysi – %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Työkalu ajetaan projektin kaikille tiedostoille, joiden pääte "
-"löytyy tästä luettelosta:<br/><br/><b>%2</b>"
+"Ohjelmaa %1 ei ole asennettu, %2.<br/><br/>%3. Työkalu ajetaan projektin "
+"kaikille tiedostoille, joiden pääte löytyy tästä luettelosta:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>Työkalu ajetaan projektin kaikille tiedostoille, joiden pääte "
-"löytyy tästä luettelosta:<br/><br/><b>%2</b>"
+"Käytössä %1, ohjelmatiedosto: %2.<br/><br/>%3. Työkalu ajetaan projektin "
+"kaikille tiedostoille, joiden pääte löytyy tästä luettelosta:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212

@@ -1,7 +1,7 @@
 # Copyright © 2011, 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kde-baseapps package.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2013, 2014, 2015, 2016, 2017, 2022.
-# Tommi Nieminen <translator@legisign.org>, 2012, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2012, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
 #
 # KDE Finnish translation sprint participants:
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-27 01:35+0000\n"
-"PO-Revision-Date: 2023-03-07 21:37+0200\n"
+"PO-Revision-Date: 2024-02-23 19:47+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -216,8 +216,7 @@ msgstr "Etsi"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
-#, fuzzy, kde-format
-#| msgid "Replace Checked"
+#, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "

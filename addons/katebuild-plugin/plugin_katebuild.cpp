@@ -1435,7 +1435,7 @@ void KateBuildView::saveProjectTargets()
             QJsonObject cmdObj;
             cmdObj[QStringLiteral("name")] = cmd.name;
             cmdObj[QStringLiteral("build_cmd")] = cmd.buildCmd;
-            cmdObj[QStringLiteral("runCmd")] = cmd.runCmd;
+            cmdObj[QStringLiteral("run_cmd")] = cmd.runCmd;
             cmdArray.append(cmdObj);
         }
         setObj[QStringLiteral("targets")] = cmdArray;

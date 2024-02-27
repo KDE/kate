@@ -694,6 +694,34 @@ QList<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursiv
     return files;
 }
 
+
+void KateProjectWorker::scanDirRec(const QString& dir, const QString& dirPath,
+                                   const QStringList &nameFilters, QDir::Filters filterFlags, bool recursive,
+                                   QList<QString>& files)
+{
+    if (QFile::exists(dir + QStringLiteral("/CMakeCache.txt"))
+        && !QFile::exists(dir + QStringLiteral("/CMakeLists.txt"))) {
+        // don't include cmake build dirs in a project
+        // do we know other files which are a sure sign that it's an out-of-source build directory ?
+        return;
+    }
+    QDirIterator dirIterator(dir, nameFilters, filterFlags);
+    while (dirIterator.hasNext()) {
+        dirIterator.next();
+        QString nextFile = dirIterator.filePath();
+        if (nextFile.endsWith(QStringLiteral("~")) || nextFile.endsWith(QStringLiteral(".bak"))) {
+            // don't include backup files in the project
+            continue;
+        }
+
+        // make it relative path
+        files.append(dirIterator.filePath().remove(dirPath));
+        if (recursive && dirIterator.fileInfo().isDir()) {
+            scanDirRec(nextFile, dirPath, nameFilters, filterFlags, recursive, files);
+        }
+    }
+}
+
 QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters)
 {
     /**
@@ -702,30 +730,15 @@ QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, b
     QDir::Filters filterFlags = QDir::Files | QDir::Dirs | QDir::NoDot | QDir::NoDotDot;
     if(hidden)
         filterFlags |= QDir::Hidden;
-    dir.setFilter(filterFlags);
-    if (!filters.isEmpty()) {
-        dir.setNameFilters(filters);
-    }
-
-    /**
-     * construct flags for iterator
-     */
-    QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
-    if (recursive) {
-        flags = flags | QDirIterator::Subdirectories | QDirIterator::FollowSymlinks;
-    }
 
     /**
      * create iterator and collect all files
      */
     QList<QString> files;
-    QDirIterator dirIterator(dir, flags);
     const QString dirPath = dir.path() + QLatin1Char('/');
-    while (dirIterator.hasNext()) {
-        dirIterator.next();
-        // make it relative path
-        files.append(dirIterator.filePath().remove(dirPath));
-    }
+
+    scanDirRec(dir.canonicalPath(), dirPath, filters, filterFlags, recursive, files);
+
     return files;
 }
 

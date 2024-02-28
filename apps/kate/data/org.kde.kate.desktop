@@ -2,6 +2,7 @@
 GenericName=Advanced Text Editor
 GenericName[ar]=محرّر نصوص متقدّم
 GenericName[az]=Əlavə mətn redaktoru
+GenericName[be]=Шматфункцыянальны тэкставы рэдактар
 GenericName[bg]=Разширен текстов редактор на KDE
 GenericName[bs]=Napredni uređivač teksta
 GenericName[ca]=Editor de text avançat
@@ -133,6 +134,7 @@ Name[zh_TW]=Kate
 Comment=KDE Advanced Text Editor
 Comment[ar]=كيت محرّر النّصوص المتقدّم
 Comment[az]=Əlavə KDE mətn redaktoru
+Comment[be]=Шматфункцыянальны тэкставы рэдактар для KDE
 Comment[bg]=Разширен текстов редактор на KDE
 Comment[ca]=Editor avançat de text pel KDE
 Comment[ca@valencia]=Editor avançat de text per KDE

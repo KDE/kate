@@ -2,6 +2,7 @@
 GenericName=Text Editor
 GenericName[ar]=محرّر نصوص
 GenericName[az]=Mətn redaktoru
+GenericName[be]=Рэдактар тэксту
 GenericName[bg]=Текстов редактор
 GenericName[bs]=Uređivač teksta
 GenericName[ca]=Editor de text
@@ -66,6 +67,7 @@ GenericName[zh_TW]=文字編輯器
 Name=KWrite
 Name[ar]=كاتبك
 Name[az]=KWrite
+Name[be]=KWrite
 Name[bg]=KWrite
 Name[bs]=Kwrite
 Name[ca]=KWrite

@@ -2,7 +2,7 @@
 # Copyright (C) 2008 This_file_is_part_of_KDE
 # This file is distributed under the same license as the katefilebrowserplugin package.
 # Laurenţiu Buzdugan <lbuz@rolix.org>, 2008".
-# Sergiu Bivol <sergiu@cip.md>, 2008, 2013.
+# Sergiu Bivol <sergiu@cip.md>, 2008, 2013, 2024.
 # Cristian Oneț <onet.cristian@gmail.com>, 2011.
 #
 msgid ""
@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2013-10-05 13:18+0300\n"
-"Last-Translator: Sergiu Bivol <sergiu@ase.md>\n"
+"PO-Revision-Date: 2024-02-27 21:46+0000\n"
+"Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: katefilebrowser.cpp:101
 #, kde-format
 msgid "Search"
-msgstr ""
+msgstr "Caută"
 
 #: katefilebrowser.cpp:116
 #, kde-format
@@ -34,12 +35,12 @@ msgstr "Introduceți un filtru de nume pentru a limita fișierele afișate"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
-msgstr ""
+msgstr "Deschide cu"
 
 #: katefilebrowser.cpp:323
 #, kde-format
 msgid "&Other..."
-msgstr ""
+msgstr "&Altul…"
 
 #: katefilebrowser.cpp:351
 #, kde-format
@@ -53,7 +54,7 @@ msgstr[2] "Încercați să dechideți %1 de fișiere. Sunteți sigur?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr ""
+msgstr "Deschide toate fișierele"
 
 #: katefilebrowser.cpp:416
 #, kde-format
@@ -78,7 +79,7 @@ msgstr "Sincronizează automat cu documentul curent"
 #: katefilebrowser.cpp:451
 #, kde-format
 msgid "Highlight current file"
-msgstr ""
+msgstr "Evidențiază fișierul actual"
 
 #: katefilebrowserconfig.cpp:63
 #, kde-format
@@ -106,68 +107,6 @@ msgid "Filesystem Browser Settings"
 msgstr "Setări navigator sistem de fișiere"
 
 #: katefilebrowserplugin.cpp:66
-#, fuzzy, kde-format
-#| msgid "Filesystem Browser"
+#, kde-format
 msgid "Filesystem"
-msgstr "Navigator sistem de fișiere"
-
-#~ msgid "Filter:"
-#~ msgstr "Filtru:"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Sergiu Bivol"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "sergiu@ase.md"
-
-#~ msgid "Browse through the filesystem"
-#~ msgstr "Navighează prin sistemul de fișiere"
-
-#~ msgid "Apply last filter (\"%1\")"
-#~ msgstr "Aplică ultimul filtru („%1”)"
-
-#~ msgid "Clear filter"
-#~ msgstr "Curăță filtrul"
-
-#~ msgid "File Selector"
-#~ msgstr "Selector de fișiere"
-
-#~ msgid "File Selector Settings"
-#~ msgstr "Setări selector de fișiere"
-
-#~ msgid ""
-#~ "<p>Here you can enter a path for a folder to display.</p><p>To go to a "
-#~ "folder previously entered, press the arrow on the right and choose one.</"
-#~ "p><p>The entry has folder completion. Right-click to choose how "
-#~ "completion should behave.</p>"
-#~ msgstr ""
-#~ "<p>Aici puteți introduce calea pentru un dosar de afișat.</p><p>Pentru a "
-#~ "merge la un dosar introdus anterior, apăsați săgeata din dreapta și "
-#~ "alegeți unul.</p><p>Înregistrarea dispune de completare dosar. Faceți "
-#~ "clic-dreapta pentru a alege comportamentul completării.</p>"
-
-#~ msgid "Auto Synchronization"
-#~ msgstr "Sincronizare automată"
-
-#~ msgid "When a docu&ment becomes active"
-#~ msgstr "Când un docu&ment devine activ"
-
-#~ msgid "When the file selector becomes visible"
-#~ msgstr "Când selectorul de fișiere devine vizibil"
-
-#~ msgid "Remember &locations:"
-#~ msgstr "Memorează &locațiile:"
-
-#~ msgid "Remember &filters:"
-#~ msgstr "Memorează &filtrele:"
-
-#~ msgid "Session"
-#~ msgstr "Sesiune"
-
-#~ msgid "Restore loca&tion"
-#~ msgstr "Res&tabilește locația"
-
-#~ msgid "Restore last f&ilter"
-#~ msgstr "Restabilește ultimul f&iltru"
+msgstr "Sistem de fișiere"

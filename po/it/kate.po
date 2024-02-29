@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-23 00:40+0000\n"
-"PO-Revision-Date: 2024-02-09 17:06+0100\n"
+"PO-Revision-Date: 2024-02-20 19:35+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -1576,15 +1576,15 @@ msgid "Close all open documents."
 msgstr "Chiudi tutti i documenti aperti."
 
 #: lib/katemainwindow.cpp:421
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Ricarica tutti i documenti aperti."
+msgstr "&Riapri gli ultimi documenti chiusi."
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr ""
+"Riapri il documento, o i documenti, che sono stati chiusi più di recente"
 
 #: lib/katemainwindow.cpp:429
 #, kde-format
@@ -2877,10 +2877,9 @@ msgstr "Gestisci le sessioni..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "Mostra la vista di benvenuto per le nuove finestre"
+msgstr "Mostra la pagina di benvenuto per le nuove finestre"
 
 #~ msgid "Show for new window"
 #~ msgstr "Mostra per le nuove finestre"

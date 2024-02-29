@@ -2815,6 +2815,3 @@ msgstr "Handsam økter …"
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "Vis velkomstsida for nye vindauge"
-
-#~ msgid "Show for new window"
-#~ msgstr "Vis for nye vindauge"

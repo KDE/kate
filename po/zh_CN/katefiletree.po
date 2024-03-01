@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-23 00:39+0000\n"
-"PO-Revision-Date: 2024-02-05 11:37\n"
+"PO-Revision-Date: 2024-02-29 12:52\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -281,15 +281,14 @@ msgid "Show &Toolbar"
 msgstr "显示工具栏(&T)"
 
 #: katefiletreeconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "Show Close Button"
+#, kde-format
 msgid "Show Close Button On Hovering"
-msgstr "显示关闭按钮"
+msgstr "悬停时显示关闭按钮"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "中键点击关闭文档"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -394,7 +393,3 @@ msgstr "用新名称保存文档"
 #, kde-format
 msgid "&Go"
 msgstr "转到(&G)"
-
-#~ msgid ""
-#~ "When enabled, this will show a close button for opened documents on hover."
-#~ msgstr "启用此项后，鼠标悬停在打开的文档上时将显示关闭按钮。"

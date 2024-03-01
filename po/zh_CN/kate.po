@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-23 00:40+0000\n"
-"PO-Revision-Date: 2024-02-05 11:37\n"
+"PO-Revision-Date: 2024-02-29 12:52\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -1188,15 +1188,14 @@ msgid "Show current symbol in navigation bar"
 msgstr "在导航栏中显示当前符号"
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "诊断视图"
+msgstr "诊断数量上限："
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
-msgstr ""
+msgstr "诊断工具视图允许的最大诊断数量。"
 
 #: lib/kateconfigdialog.cpp:364
 #, kde-format
@@ -1539,15 +1538,14 @@ msgid "Close all open documents."
 msgstr "关闭所有打开的文档。"
 
 #: lib/katemainwindow.cpp:421
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "重新加载所有打开的文档。"
+msgstr "重新打开最近关闭的文档(&R)"
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "重新打开最近关闭的单个或者多个文档"
 
 #: lib/katemainwindow.cpp:429
 #, kde-format
@@ -2797,10 +2795,6 @@ msgstr "管理会话..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "新窗口显示欢迎界面"
-
-#~ msgid "Show for new window"
-#~ msgstr "新窗口显示此欢迎画面"
+msgstr "新窗口显示欢迎页面"

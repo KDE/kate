@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="katekonsole" library="katekonsoleplugin" version="6" translationDomain="katekonsoleplugin">
+<gui name="katekonsole" library="katekonsoleplugin" version="7" translationDomain="katekonsoleplugin">
   <MenuBar>
     <Menu name="tools">
       <text>&amp;Tools</text>
       <Action name="katekonsole_tools_toggle_visibility" group="tools_konsole"/>
       <Action name="katekonsole_tools_toggle_focus" group="tools_konsole"/>
+      <Action name="katekonsole_tools_split_view_vertical" group="tools_konsole"/>
+      <Action name="katekonsole_tools_split_view_horizontal" group="tools_konsole"/>
+      <Action name="katekonsole_tools_new_tab" group="tools_konsole"/>
       <Action name="katekonsole_tools_pipe_to_terminal" group="tools_konsole"/>
       <Action name="katekonsole_tools_sync" group="tools_konsole"/>
       <Action name="katekonsole_tools_run" group="tools_konsole"/>

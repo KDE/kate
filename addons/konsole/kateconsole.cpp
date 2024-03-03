@@ -163,6 +163,21 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F4));
     connect(a, &QAction::triggered, this, &KateConsole::slotToggleFocus);
 
+    a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_split_view_vertical"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
+    a->setText(i18nc("@action", "&Split Terminal Vertically"));
+    connect(a, &QAction::triggered, this, &KateConsole::slotSplitVertical);
+
+    a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_split_view_horizontal"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("view-split-top-bottom")));
+    a->setText(i18nc("@action", "&Split Terminal Horizontally"));
+    connect(a, &QAction::triggered, this, &KateConsole::slotSplitHorizontal);
+
+    a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_new_tab"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("tab-new")));
+    a->setText(i18nc("@action", "&New Terminal Tab"));
+    connect(a, &QAction::triggered, this, &KateConsole::slotNewTab);
+
     connect(m_mw, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateConsole::handleEsc);
 
     m_mw->guiFactory()->addClient(this);
@@ -514,6 +529,38 @@ void KateConsole::focusChanged(QWidget *, QWidget *now)
     } else if (action->text() != i18n("Focus Terminal Panel")) {
         action->setText(i18n("Focus Terminal Panel"));
     }
+}
+
+void KateConsole::slotSplitVertical()
+{
+    if (!m_part) {
+        return;
+    }
+    auto splitAction = m_part->action(QStringLiteral("split-view-left-right"));
+    if (splitAction) {
+        splitAction->setEnabled(true);
+        splitAction->activate(QAction::Trigger);
+    }
+}
+
+void KateConsole::slotSplitHorizontal()
+{
+    if (!m_part) {
+        return;
+    }
+    auto splitAction = m_part->action(QStringLiteral("split-view-top-bottom"));
+    if (splitAction) {
+        splitAction->setEnabled(true);
+        splitAction->activate(QAction::Trigger);
+    }
+}
+
+void KateConsole::slotNewTab()
+{
+    if (!m_part) {
+        return;
+    }
+    QMetaObject::invokeMethod(m_part, "newTab");
 }
 
 void KateConsole::slotToggleFocus()

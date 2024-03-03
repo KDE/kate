@@ -157,6 +157,21 @@ public Q_SLOTS:
      */
     void slotRun();
 
+    /**
+     * split terminal view vertically
+     */
+    void slotSplitVertical();
+
+    /**
+     * split terminal view horizontally
+     */
+    void slotSplitHorizontal();
+
+    /**
+     * open a new tab
+     */
+    void slotNewTab();
+
 private Q_SLOTS:
     /**
      * the konsole exited ;)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-21 00:39+0000\n"
+"POT-Creation-Date: 2024-03-04 00:39+0000\n"
 "PO-Revision-Date: 2017-11-10 00:41+0530\n"
 "Last-Translator: G Karunakar <karunakar@indlinux.org>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "शैल या टर्मिनल एमुलेशन तक पहुँचने के लिए आपके पास पर्याप्त कर्मा नहीं है"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:655
+#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:702
 #, kde-format
 msgid "Terminal"
 msgstr "टर्मिनल"
@@ -47,7 +47,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr ""
 
-#: kateconsole.cpp:156 kateconsole.cpp:505
+#: kateconsole.cpp:156 kateconsole.cpp:520
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Focus Terminal"
@@ -63,13 +63,35 @@ msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "टर्मिनल फ़ोकस करें (&F)"
 
-#: kateconsole.cpp:304
+#: kateconsole.cpp:168
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "&Pipe to Terminal"
+msgctxt "@action"
+msgid "&Split Terminal Vertically"
+msgstr "टर्मिनल में पाइप करें (&P)"
+
+#: kateconsole.cpp:173
+#, kde-format
+msgctxt "@action"
+msgid "&Split Terminal Horizontally"
+msgstr ""
+
+#: kateconsole.cpp:178
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "&Focus Terminal"
+msgctxt "@action"
+msgid "&New Terminal Tab"
+msgstr "टर्मिनल फ़ोकस करें (&F)"
+
+#: kateconsole.cpp:319
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 
-#: kateconsole.cpp:380
+#: kateconsole.cpp:395
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -78,27 +100,27 @@ msgstr ""
 "क्या आप सचमुच पाठ को कंसोल में पाइप करना चाहते हैं? यह आपके उपयोक्ता अधिकारों के साथ "
 "किसी भी निहित कमांड को चला देगा."
 
-#: kateconsole.cpp:381
+#: kateconsole.cpp:396
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "टर्मिनल में पाइप करें?"
 
-#: kateconsole.cpp:382
+#: kateconsole.cpp:397
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "टर्मिनल में पाइप करें"
 
-#: kateconsole.cpp:410
+#: kateconsole.cpp:425
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
 msgstr "खेद है, '%1' पर डिरेक्ट्री बदल नहीं सका"
 
-#: kateconsole.cpp:446
+#: kateconsole.cpp:461
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr ""
 
-#: kateconsole.cpp:479
+#: kateconsole.cpp:494
 #, fuzzy, kde-format
 #| msgid ""
 #| "Do you really want to pipe the text to the console? This will execute any "
@@ -112,18 +134,18 @@ msgstr ""
 "क्या आप सचमुच पाठ को कंसोल में पाइप करना चाहते हैं? यह आपके उपयोक्ता अधिकारों के साथ "
 "किसी भी निहित कमांड को चला देगा."
 
-#: kateconsole.cpp:486
+#: kateconsole.cpp:501
 #, fuzzy, kde-format
 #| msgid "Pipe to Terminal?"
 msgid "Run in Terminal?"
 msgstr "टर्मिनल में पाइप करें?"
 
-#: kateconsole.cpp:487
+#: kateconsole.cpp:502
 #, kde-format
 msgid "Run"
 msgstr ""
 
-#: kateconsole.cpp:502
+#: kateconsole.cpp:517
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Pipe to Terminal"
@@ -131,78 +153,78 @@ msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "टर्मिनल में पाइप करें (&P)"
 
-#: kateconsole.cpp:513
+#: kateconsole.cpp:528
 #, fuzzy, kde-format
 #| msgid "Defocus Terminal"
 msgid "Defocus Terminal Panel"
 msgstr "टर्मिनल डीफ़ोकस करें"
 
-#: kateconsole.cpp:514 kateconsole.cpp:515
+#: kateconsole.cpp:529 kateconsole.cpp:530
 #, fuzzy, kde-format
 #| msgid "Focus Terminal"
 msgid "Focus Terminal Panel"
 msgstr "टर्मिनल फ़ोकस करें"
 
-#: kateconsole.cpp:588
+#: kateconsole.cpp:635
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
 msgstr "जब संभव हो वर्तमान दस्तावेज़ के साथ टर्मिनल को स्वचालित सिंक्रोनाइज़ करें (&A)"
 
-#: kateconsole.cpp:592 kateconsole.cpp:613
+#: kateconsole.cpp:639 kateconsole.cpp:660
 #, fuzzy, kde-format
 #| msgid "Pipe to Terminal"
 msgid "Run in terminal"
 msgstr "टर्मिनल में पाइप करें"
 
-#: kateconsole.cpp:594
+#: kateconsole.cpp:641
 #, kde-format
 msgid "&Remove extension"
 msgstr ""
 
-#: kateconsole.cpp:599
+#: kateconsole.cpp:646
 #, kde-format
 msgid "Prefix:"
 msgstr ""
 
-#: kateconsole.cpp:607
+#: kateconsole.cpp:654
 #, kde-format
 msgid "&Show warning next time"
 msgstr ""
 
-#: kateconsole.cpp:609
+#: kateconsole.cpp:656
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
 
-#: kateconsole.cpp:620
+#: kateconsole.cpp:667
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr ""
 
-#: kateconsole.cpp:623
+#: kateconsole.cpp:670
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr ""
 
-#: kateconsole.cpp:626
+#: kateconsole.cpp:673
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr ""
 
-#: kateconsole.cpp:629
+#: kateconsole.cpp:676
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
 
-#: kateconsole.cpp:660
+#: kateconsole.cpp:707
 #, kde-format
 msgid "Terminal Settings"
 msgstr "टर्मिनल विन्यास"

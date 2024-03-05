@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-04 00:39+0000\n"
-"PO-Revision-Date: 2023-04-06 08:54+0200\n"
+"PO-Revision-Date: 2024-03-04 09:44+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: kateconsole.cpp:56
 #, kde-format
@@ -63,26 +63,22 @@ msgid "&Focus Terminal Panel"
 msgstr "Plošča terminala v žarišču"
 
 #: kateconsole.cpp:168
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "Skrij ploščo terminala"
+msgstr "Razcepi terminal navpično"
 
 #: kateconsole.cpp:173
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "Razcepi terminal vodoravno"
 
 #: kateconsole.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "Prikaži ploščo terminala"
+msgstr "&Novi zavihek terminala"
 
 #: kateconsole.cpp:319
 #, kde-format

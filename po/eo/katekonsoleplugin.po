@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-04 00:39+0000\n"
-"PO-Revision-Date: 2023-11-12 16:39+0100\n"
+"PO-Revision-Date: 2024-03-04 23:34+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
 "Language: eo\n"
@@ -61,26 +61,22 @@ msgid "&Focus Terminal Panel"
 msgstr "&Fokusi Terminalan Panelon"
 
 #: kateconsole.cpp:168
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "&Kaŝi Terminalan Panelon"
+msgstr "&Dividi Terminalon Vertikale"
 
 #: kateconsole.cpp:173
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "&Dividi Terminalon Horizontale"
 
 #: kateconsole.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "Montri Terminalan &Panelon"
+msgstr "&Nova Terminala Langeto"
 
 #: kateconsole.cpp:319
 #, kde-format

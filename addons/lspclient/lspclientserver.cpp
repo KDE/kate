@@ -593,11 +593,10 @@ static QList<std::shared_ptr<LSPSelectionRange>> parseSelectionRanges(const rapi
     if (!result.IsArray()) {
         return ret;
     }
-    auto selectionRanges = result.GetArray();
-    for (const auto &selectionRange : selectionRanges) {
+    ret.reserve(result.Size());
+    for (const auto &selectionRange : result.GetArray()) {
         ret.push_back(parseSelectionRange(selectionRange));
     }
-
     return ret;
 }
 
@@ -630,6 +629,9 @@ static LSPLocation parseLocationLink(const rapidjson::Value &loc)
 static QList<LSPTextEdit> parseTextEdit(const rapidjson::Value &result)
 {
     QList<LSPTextEdit> ret;
+    if (!result.IsArray()) {
+        return ret;
+    }
     ret.reserve(result.Size());
     for (const auto &edit : result.GetArray()) {
         auto text = GetStringValue(edit, "newText");

@@ -18,6 +18,7 @@
 
 #include <KActionCollection>
 #include <KLocalizedString>
+#include <KNetworkMounts>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
@@ -228,5 +229,30 @@ QString niceFileNameWithPath(const QUrl &url)
         return url.fileName() + QStringLiteral(" @ ") + path;
     }
     return url.toDisplayString();
+}
+
+QUrl normalizeUrl(const QUrl &url)
+{
+    // Resolve symbolic links for local files
+    if (url.isLocalFile() && !KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::StrongSideEffectsOptimizations)) {
+        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
+        if (!normalizedUrl.isEmpty()) {
+            return QUrl::fromLocalFile(normalizedUrl);
+        }
+    }
+
+    // else: cleanup only the .. stuff
+    return url.adjusted(QUrl::NormalizePathSegments);
+}
+
+QUrl absoluteUrl(const QUrl &url)
+{
+    // Get absolute path if local file
+    if (url.isLocalFile()) {
+        return QUrl::fromLocalFile(QFileInfo(url.toLocalFile()).absoluteFilePath());
+    }
+
+    // else: cleanup only the .. stuff
+    return url.adjusted(QUrl::NormalizePathSegments);
 }
 }

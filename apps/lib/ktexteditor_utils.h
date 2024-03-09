@@ -115,4 +115,14 @@ KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc
  * Convert an url to a xxx.yyy @ dir representation, used e.g. in the window title
  */
 KATE_PRIVATE_EXPORT QString niceFileNameWithPath(const QUrl &url);
+
+/**
+ * Convert an url to a normalize one, used by the document manager and Co.
+ */
+KATE_PRIVATE_EXPORT QUrl normalizeUrl(const QUrl &url);
+
+/**
+ * Convert an url to an absolute one, used by the document manager and Co.
+ */
+KATE_PRIVATE_EXPORT QUrl absoluteUrl(const QUrl &url);
 }

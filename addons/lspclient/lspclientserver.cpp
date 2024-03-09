@@ -9,6 +9,8 @@
 #include "hostprocess.h"
 #include "lspclient_debug.h"
 
+#include "ktexteditor_utils.h"
+
 #include <QCoreApplication>
 #include <QFileInfo>
 #include <QJsonArray>
@@ -490,27 +492,10 @@ static void from_json(LSPServerCapabilities &caps, const rapidjson::Value &json)
     caps.inlayHintProvider = json.HasMember("inlayHintProvider");
 }
 
-// follow suit; as performed in kate docmanager
-// normalize at this stage/layer to avoid surprises elsewhere
-// sadly this is not a single QUrl method as one might hope ...
-static QUrl normalizeUrl(const QUrl &url)
-{
-    // Resolve symbolic links for local files (done anyway in KTextEditor)
-    if (url.isLocalFile()) {
-        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
-        if (!normalizedUrl.isEmpty()) {
-            return QUrl::fromLocalFile(normalizedUrl);
-        }
-    }
-
-    // else: cleanup only the .. stuff
-    return url.adjusted(QUrl::NormalizePathSegments);
-}
-
 static void from_json(LSPVersionedTextDocumentIdentifier &id, const rapidjson::Value &json)
 {
     if (json.IsObject()) {
-        id.uri = normalizeUrl(QUrl(GetStringValue(json, MEMBER_URI)));
+        id.uri = Utils::normalizeUrl(QUrl(GetStringValue(json, MEMBER_URI)));
         id.version = GetIntValue(json, MEMBER_VERSION, -1);
     }
 }
@@ -602,7 +587,7 @@ static QList<std::shared_ptr<LSPSelectionRange>> parseSelectionRanges(const rapi
 
 static LSPLocation parseLocation(const rapidjson::Value &loc)
 {
-    auto uri = normalizeUrl(QUrl(GetStringValue(loc, MEMBER_URI)));
+    auto uri = Utils::normalizeUrl(QUrl(GetStringValue(loc, MEMBER_URI)));
     KTextEditor::Range range;
     if (auto it = loc.FindMember(MEMBER_RANGE); it != loc.MemberEnd()) {
         range = parseRange(it->value);
@@ -613,7 +598,7 @@ static LSPLocation parseLocation(const rapidjson::Value &loc)
 static LSPLocation parseLocationLink(const rapidjson::Value &loc)
 {
     auto urlString = GetStringValue(loc, MEMBER_TARGET_URI);
-    auto uri = normalizeUrl(QUrl(urlString));
+    auto uri = Utils::normalizeUrl(QUrl(urlString));
     // both should be present, selection contained by the other
     // so let's preferentially pick the smallest one
     KTextEditor::Range range;
@@ -952,7 +937,7 @@ static LSPWorkspaceEdit parseWorkSpaceEdit(const rapidjson::Value &result)
     const auto &changes = GetJsonObjectForKey(result, "changes");
     for (const auto &change : changes.GetObject()) {
         auto url = QString::fromUtf8(change.name.GetString());
-        ret.changes.insert(normalizeUrl(QUrl(url)), parseTextEdit(change.value.GetArray()));
+        ret.changes.insert(Utils::normalizeUrl(QUrl(url)), parseTextEdit(change.value.GetArray()));
     }
 
     const auto &documentChanges = GetJsonArrayForKey(result, "documentChanges");

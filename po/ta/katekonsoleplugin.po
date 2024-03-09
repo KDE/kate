@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kishore G <kishore96@gmail.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-04 00:39+0000\n"
-"PO-Revision-Date: 2023-04-09 12:31+0530\n"
+"PO-Revision-Date: 2024-03-08 21:40+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.03.90\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: kateconsole.cpp:56
 #, kde-format
@@ -58,26 +58,22 @@ msgid "&Focus Terminal Panel"
 msgstr "முனையப் &பலகையில் குவியத்தை வை"
 
 #: kateconsole.cpp:168
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "முனையப்பலகையை ம&றை"
+msgstr "முனையத்தை நெடுக்காக &பிரி"
 
 #: kateconsole.cpp:173
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "முனையத்தை கிடைமட்டமாக &பிரி"
 
 #: kateconsole.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "&முனையப்பலகையைக் காட்டு"
+msgstr "புதிய முனையக்கீற்று"
 
 #: kateconsole.cpp:319
 #, kde-format

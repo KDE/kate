@@ -61,12 +61,10 @@ msgid "&Focus Terminal Panel"
 msgstr "Přepnout na panel &terminálu"
 
 #: kateconsole.cpp:168
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "Sk&rýt panel terminálu"
+msgstr ""
 
 #: kateconsole.cpp:173
 #, kde-format
@@ -75,12 +73,10 @@ msgid "&Split Terminal Horizontally"
 msgstr ""
 
 #: kateconsole.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "Zobrazit panel &terminálu"
+msgstr ""
 
 #: kateconsole.cpp:319
 #, kde-format

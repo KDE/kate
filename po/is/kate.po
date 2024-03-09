@@ -7,13 +7,13 @@
 # Börkur Ingi Jónsson <berkz@internet.is>, 2004.
 # Arnar Leosson <leosson@frisurf.no>, 2004, 2005.
 # Sveinn í Felli <sveinki@nett.is>, 2009, 2011, 2015.
-# SPDX-FileCopyrightText: 2023 Guðmundur Erlingsson <gudmundure@gmail.com>
+# SPDX-FileCopyrightText: 2023, 2024 Guðmundur Erlingsson <gudmundure@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-23 00:40+0000\n"
-"PO-Revision-Date: 2023-12-08 21:02+0000\n"
+"PO-Revision-Date: 2024-03-06 14:51+0000\n"
 "Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
@@ -311,6 +311,8 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
+"Greiningarmörkum náð, hunsa frekari greiningar. Hægt er að grunnstilla "
+"mörkin í stillingum."
 
 #: lib/diagnostics/diagnosticview.cpp:327
 #, kde-format
@@ -1210,15 +1212,14 @@ msgid "Show current symbol in navigation bar"
 msgstr "Sýna núverandi tákn á yfirlitsstikunni"
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Greiningaryfirlit"
+msgstr "Greiningarmörk:"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
-msgstr ""
+msgstr "Leyfður hámarksfjöldi greininga í Greiningaryfirlitinu."
 
 #: lib/kateconfigdialog.cpp:364
 #, kde-format
@@ -1568,15 +1569,14 @@ msgid "Close all open documents."
 msgstr "Loka öllum opnum skjölum."
 
 #: lib/katemainwindow.cpp:421
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Endurhlaða öll opin skjöl."
+msgstr "&Opna aftur skjal/skjöl sem var nýlega lokað."
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "Opna aftur skjalið eða skjölin sem er nýlega búið að loka"
 
 #: lib/katemainwindow.cpp:429
 #, kde-format
@@ -2859,8 +2859,7 @@ msgstr "Umsjón með setum..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
 msgstr "Sýna upphafssíðu í nýjum gluggum"
 

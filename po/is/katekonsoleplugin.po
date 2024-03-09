@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Sveinn í Felli <sveinki@nett.is>, 2011.
-# SPDX-FileCopyrightText: 2023 Guðmundur Erlingsson <gudmundure@gmail.com>
+# SPDX-FileCopyrightText: 2023, 2024 Guðmundur Erlingsson <gudmundure@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-04 00:39+0000\n"
-"PO-Revision-Date: 2023-12-06 21:14+0000\n"
+"PO-Revision-Date: 2024-03-06 14:52+0000\n"
 "Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
@@ -60,26 +60,22 @@ msgid "&Focus Terminal Panel"
 msgstr "Gefa skjáhermisspjaldi &fókus"
 
 #: kateconsole.cpp:168
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "&Fela skjáhermisspjald"
+msgstr "&Kljúfa skjáhermi lóðrétt"
 
 #: kateconsole.cpp:173
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "&Kljúfa skjáhermi lárétt"
 
 #: kateconsole.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "Sýna skjá&hermisspjald"
+msgstr "&Nýr skjáhermiflipi"
 
 #: kateconsole.cpp:319
 #, kde-format

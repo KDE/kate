@@ -604,8 +604,7 @@ static LSPLocation parseLocation(const rapidjson::Value &loc)
 {
     auto uri = normalizeUrl(QUrl(GetStringValue(loc, MEMBER_URI)));
     KTextEditor::Range range;
-    auto it = loc.FindMember(MEMBER_RANGE);
-    if (it != loc.MemberEnd()) {
+    if (auto it = loc.FindMember(MEMBER_RANGE); it != loc.MemberEnd()) {
         range = parseRange(it->value);
     }
     return {QUrl(uri), range};
@@ -618,10 +617,10 @@ static LSPLocation parseLocationLink(const rapidjson::Value &loc)
     // both should be present, selection contained by the other
     // so let's preferentially pick the smallest one
     KTextEditor::Range range;
-    if (loc.HasMember(MEMBER_TARGET_SELECTION_RANGE)) {
-        range = parseRange(loc[MEMBER_TARGET_SELECTION_RANGE]);
-    } else {
-        range = parseRange(loc[MEMBER_TARGET_RANGE]);
+    if (auto it = loc.FindMember(MEMBER_TARGET_SELECTION_RANGE); it != loc.MemberEnd()) {
+        range = parseRange(it->value);
+    } else if (auto it = loc.FindMember(MEMBER_TARGET_RANGE); it != loc.MemberEnd()) {
+        range = parseRange(it->value);
     }
     return {QUrl(uri), range};
 }

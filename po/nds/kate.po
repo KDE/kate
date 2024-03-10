@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 02:25+0000\n"
+"POT-Creation-Date: 2024-03-10 03:05+0000\n"
 "PO-Revision-Date: 2014-09-18 23:24+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -1296,7 +1296,7 @@ msgstr ""
 "Hier sünd all verföögbore Kate-Plugins oplist. De, de en Haken hebbt, sünd "
 "laadt; se warrt ok wedder laadt, wenn Kate dat tokamen Maal start warrt."
 
-#: lib/katedocmanager.cpp:279
+#: lib/katedocmanager.cpp:252
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1305,33 +1305,33 @@ msgstr ""
 "<p>Dat Dokment \"%1\" wöör ännert, man nich sekert.</p><p>Wullt Du Dien "
 "Ännern sekern oder wegsmieten?</p>"
 
-#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:255 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Dokment tomaken"
 
-#: lib/katedocmanager.cpp:291
+#: lib/katedocmanager.cpp:264
 #, kde-format
 msgid "Save As"
 msgstr "Sekern as"
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:694
+#: lib/katedocmanager.cpp:282 lib/katemainwindow.cpp:694
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Niege Datei opmaakt, wielt Kate beendt warrn schull. Beennen wöör afbraken."
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:694
+#: lib/katedocmanager.cpp:282 lib/katemainwindow.cpp:694
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Utmaken afbraken"
 
-#: lib/katedocmanager.cpp:387
+#: lib/katedocmanager.cpp:360
 #, kde-format
 msgid "Starting Up"
 msgstr "Bi to starten"
 
-#: lib/katedocmanager.cpp:388
+#: lib/katedocmanager.cpp:361
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Törndateien warrt wedder opmaakt..."

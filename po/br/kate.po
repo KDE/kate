@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ./messages/kdebase/kate.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 02:25+0000\n"
+"POT-Creation-Date: 2024-03-10 03:05+0000\n"
 "PO-Revision-Date: 2004-09-22 16:07+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -1272,39 +1272,39 @@ msgid ""
 "loaded, and will be loaded again the next time Kate is started."
 msgstr ""
 
-#: lib/katedocmanager.cpp:279
+#: lib/katedocmanager.cpp:252
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
 "save your changes or discard them?</p>"
 msgstr ""
 
-#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:255 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Serriñ an teul"
 
-#: lib/katedocmanager.cpp:291
+#: lib/katedocmanager.cpp:264
 #, kde-format
 msgid "Save As"
 msgstr "Enrollañ e"
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:694
+#: lib/katedocmanager.cpp:282 lib/katemainwindow.cpp:694
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:694
+#: lib/katedocmanager.cpp:282 lib/katemainwindow.cpp:694
 #, kde-format
 msgid "Closing Aborted"
 msgstr ""
 
-#: lib/katedocmanager.cpp:387
+#: lib/katedocmanager.cpp:360
 #, kde-format
 msgid "Starting Up"
 msgstr "Emaon o loc'hañ"
 
-#: lib/katedocmanager.cpp:388
+#: lib/katedocmanager.cpp:361
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Oc'h adigeriñ ar restroù eus an dalc'h diwezhañ ..."

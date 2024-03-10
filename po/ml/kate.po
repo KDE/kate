@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 02:25+0000\n"
+"POT-Creation-Date: 2024-03-10 03:05+0000\n"
 "PO-Revision-Date: 2020-03-17 11:50+0000\n"
 "Last-Translator: amrithandh m <amrithanadhm@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -1250,7 +1250,7 @@ msgstr ""
 "ലഭ്യമായ എല്ലാ കേറ്റ് പ്ലഗ്ഗിനുകളും ഇവിടെ കാണാം. ടിക് മാർക്ക് ഉള്ളവ ലോഡുചെയ്തിട്ടുണ്ട്, കൂടാതെ "
 "അവ അടുത്തതവണ കേറ്റ് തുറക്കുമ്പോൾ സ്വതേ ലോഡുചെയ്യപ്പെടും."
 
-#: lib/katedocmanager.cpp:279
+#: lib/katedocmanager.cpp:252
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1259,32 +1259,32 @@ msgstr ""
 "<p>'%1' പ്രമാണത്തിൽ മാറ്റങ്ങൾ വന്നിട്ടുണ്ട്, പക്ഷേ സേവ് ചെയ്തിട്ടില്ല.</p><p>മാറ്റങ്ങൾ  സേവ് "
 "ചെയ്യണോ അതോ കളയണോ?</p>"
 
-#: lib/katedocmanager.cpp:282 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:255 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/katedocmanager.cpp:291
+#: lib/katedocmanager.cpp:264
 #, kde-format
 msgid "Save As"
 msgstr ""
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:694
+#: lib/katedocmanager.cpp:282 lib/katemainwindow.cpp:694
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:309 lib/katemainwindow.cpp:694
+#: lib/katedocmanager.cpp:282 lib/katemainwindow.cpp:694
 #, kde-format
 msgid "Closing Aborted"
 msgstr ""
 
-#: lib/katedocmanager.cpp:387
+#: lib/katedocmanager.cpp:360
 #, kde-format
 msgid "Starting Up"
 msgstr "തുടങ്ങുന്നു"
 
-#: lib/katedocmanager.cpp:388
+#: lib/katedocmanager.cpp:361
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "തൊട്ട് മുൻപത്തെ സെഷനിൽ നിന്നും ഫയലുകള്‍ തുറക്കുന്നു..."

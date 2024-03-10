@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-23 00:40+0000\n"
+"POT-Creation-Date: 2024-03-10 00:39+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -1289,7 +1289,7 @@ msgstr ""
 "قويۇلغانلىرى يۈكلەنگەن بولۇپ، كېيىنكى قېتىم Kate باشلانغاندىمۇ يەنە "
 "يۈكلىنىدۇ."
 
-#: lib/katedocmanager.cpp:297
+#: lib/katedocmanager.cpp:270
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1298,32 +1298,32 @@ msgstr ""
 "<p>پۈتۈك «%1» ئۆزگەرتىلىپتۇ، بىراق ساقلانماپتۇ. </p><p>ساقلامسىز ياكى "
 "تاشلىۋېتەمسىز؟</p>"
 
-#: lib/katedocmanager.cpp:300 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:273 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "پۈتۈك ياپ"
 
-#: lib/katedocmanager.cpp:309
+#: lib/katedocmanager.cpp:282
 #, kde-format
 msgid "Save As"
 msgstr "باشقا ئاتتا ساقلا"
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate نى يېپىۋاتقاندا يېڭى ھۆججەت ئېچىلدى. Kate نى يېپىش توختىتىلدى."
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "Closing Aborted"
 msgstr "يېپىش توختىتىلدى"
 
-#: lib/katedocmanager.cpp:405
+#: lib/katedocmanager.cpp:378
 #, kde-format
 msgid "Starting Up"
 msgstr "باشلاۋاتىدۇ"
 
-#: lib/katedocmanager.cpp:406
+#: lib/katedocmanager.cpp:379
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "ئەڭ ئاخىرقى ئەڭگىمەدىن ھۆججەتلەرنى قايتا ئېچىۋاتىدۇ…"

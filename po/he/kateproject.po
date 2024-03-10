@@ -3,21 +3,22 @@
 #
 # Diego Iastrubni <elcuco@kde.org>, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
+# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2017-05-16 06:36-0400\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2024-03-10 00:26+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -184,10 +185,9 @@ msgid "Staged"
 msgstr ""
 
 #: gitstatusmodel.cpp:87
-#, fuzzy, kde-format
-#| msgid "<untracked>"
+#, kde-format
 msgid "Untracked"
-msgstr "<לא במעקב>"
+msgstr "לא במעקב"
 
 #: gitstatusmodel.cpp:89
 #, kde-format
@@ -307,27 +307,27 @@ msgstr ""
 #: gitwidget.cpp:1003
 #, kde-format
 msgid "Refresh"
-msgstr ""
+msgstr "רענון"
 
 #: gitwidget.cpp:1019
 #, kde-format
 msgid "Checkout Branch"
-msgstr ""
+msgstr "משיכת ענף"
 
 #: gitwidget.cpp:1031
 #, kde-format
 msgid "Delete Branch"
-msgstr ""
+msgstr "מחיקת ענף"
 
 #: gitwidget.cpp:1043
 #, kde-format
 msgid "Compare Branch with..."
-msgstr ""
+msgstr "השוואת ענף מול…"
 
 #: gitwidget.cpp:1048
 #, kde-format
 msgid "Show Commit"
-msgstr ""
+msgstr "הצגת הגשה"
 
 #: gitwidget.cpp:1048
 #, kde-format
@@ -335,10 +335,9 @@ msgid "Commit hash"
 msgstr ""
 
 #: gitwidget.cpp:1055
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open Commit..."
-msgstr "פתח באמצעות"
+msgstr "פתיחת הגשה…"
 
 #: gitwidget.cpp:1058 gitwidget.cpp:1097
 #, kde-format
@@ -378,43 +377,43 @@ msgstr ""
 #: gitwidget.cpp:1119
 #, kde-format
 msgid "Apply Stash"
-msgstr ""
+msgstr "החלת הטמנה"
 
 #: gitwidget.cpp:1120
 #, kde-format
 msgid "Drop Stash"
-msgstr ""
+msgstr "השמטת הטמנה"
 
 #: gitwidget.cpp:1121
 #, kde-format
 msgid "Show Stash Content"
-msgstr ""
+msgstr "הצגת תוכן הטמנה"
 
 #: gitwidget.cpp:1157
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "הטמנה של הכול"
 
 #: gitwidget.cpp:1159
 #, kde-format
 msgid "Remove All"
-msgstr ""
+msgstr "הסרה של הכול"
 
 #: gitwidget.cpp:1159
 #, kde-format
 msgid "Discard All"
-msgstr ""
+msgstr "התעלמות מהכול"
 
 #: gitwidget.cpp:1162
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr "פתיחת ‎.gitignore"
 
 #: gitwidget.cpp:1163 gitwidget.cpp:1210 gitwidget.cpp:1252
 #: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
-msgstr ""
+msgstr "הצגת הבדל"
 
 #: gitwidget.cpp:1180
 #, kde-format
@@ -427,10 +426,9 @@ msgid "Are you sure you want to discard all changes?"
 msgstr ""
 
 #: gitwidget.cpp:1209
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "פתח באמצעות"
+msgstr "פתיחת קובץ"
 
 #: gitwidget.cpp:1211
 #, kde-format
@@ -440,7 +438,7 @@ msgstr ""
 #: gitwidget.cpp:1212
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "פתיחה ב־HEAD"
 
 #: gitwidget.cpp:1213
 #, kde-format
@@ -520,7 +518,7 @@ msgstr "<לא במעקב>"
 #: kateprojectcompletion.cpp:54
 #, kde-format
 msgid "Project Completion"
-msgstr "השלמת פרוייקט"
+msgstr "השלמת מיזם"
 
 #: kateprojectconfigpage.cpp:24
 #, kde-format
@@ -538,45 +536,44 @@ msgstr ""
 #: kateprojectconfigpage.cpp:29
 #, kde-format
 msgid "&Git"
-msgstr ""
+msgstr "&Git"
 
 #: kateprojectconfigpage.cpp:32
 #, kde-format
 msgid "&Subversion"
-msgstr ""
+msgstr "&Subversion"
 
 #: kateprojectconfigpage.cpp:34
 #, kde-format
 msgid "&Mercurial"
-msgstr ""
+msgstr "&Mercurial"
 
 #: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
-msgstr ""
+msgstr "&Fossil"
 
 #: kateprojectconfigpage.cpp:45
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr ""
+msgstr "התנהגות הפעלה"
 
 #: kateprojectconfigpage.cpp:46
 #, kde-format
 msgid "Session settings for projects"
-msgstr ""
+msgstr "הגדרות הפעלה למיזמים"
 
 #: kateprojectconfigpage.cpp:47
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Restore Open Projects"
-msgstr "פרוייקט נוכחי"
+msgstr "שחזור מיזמים פתוחים"
 
 #: kateprojectconfigpage.cpp:54
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
-msgstr "פרוייקטים"
+msgstr "מפתח מיזמים"
 
 #: kateprojectconfigpage.cpp:55
 #, kde-format
@@ -613,10 +610,9 @@ msgid ""
 msgstr ""
 
 #: kateprojectconfigpage.cpp:72
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Cross-Project Completion"
-msgstr "השלמת פרוייקט"
+msgstr "השלמה חוצת מיזמים"
 
 #: kateprojectconfigpage.cpp:74
 #, kde-format
@@ -637,13 +633,12 @@ msgstr ""
 #: kateprojectconfigpage.cpp:87 kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "No Action"
-msgstr ""
+msgstr "אין פעולה"
 
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open file"
-msgstr "פתח באמצעות"
+msgstr "פתיחת קובץ"
 
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
@@ -658,34 +653,33 @@ msgstr ""
 #: kateprojectconfigpage.cpp:133 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
-msgstr "פרוייקטים"
+msgstr "מיזמים"
 
 #: kateprojectconfigpage.cpp:138
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
-msgstr "השלמת פרוייקט"
+msgstr "מאפייני מיזמים"
 
 #: kateprojectinfoview.cpp:36
 #, kde-format
 msgid "Terminal (.kateproject)"
-msgstr ""
+msgstr "מסוף (‎.kateproject)"
 
 #: kateprojectinfoview.cpp:44
-#, fuzzy, kde-format
-#| msgid "Terminal"
+#, kde-format
 msgid "Terminal (Base)"
-msgstr "מסוף"
+msgstr "מסוף (בסיס)"
 
 #: kateprojectinfoview.cpp:51
 #, kde-format
 msgid "Code Index"
-msgstr "אינדקס קוד"
+msgstr "מפתח קוד"
 
 #: kateprojectinfoview.cpp:56
 #, kde-format
 msgid "Code Analysis"
-msgstr "ניתוח קוד"
+msgstr "אבחון קוד"
 
 #: kateprojectinfoview.cpp:61
 #, kde-format
@@ -695,14 +689,13 @@ msgstr "הערות"
 #: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
 msgid "Start Analysis..."
-msgstr "התחל ניתוח"
+msgstr "התחלת אבחון…"
 
 #: kateprojectinfoviewcodeanalysis.cpp:43
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "ניתוח קוד"
+msgstr "אבחון קוד - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
@@ -721,10 +714,9 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212
 #: kateprojectinfoviewcodeanalysis.cpp:216
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
-msgstr "ניתוח קוד"
+msgstr "אבחון קוד"
 
 #: kateprojectinfoviewcodeanalysis.cpp:207
 #, kde-format
@@ -742,7 +734,7 @@ msgstr[3] ""
 #: kateprojectinfoviewcodeanalysis.cpp:215
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr ""
+msgstr "האבחון נכשל עם קוד היציאה %1, שגיאה: %2"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
@@ -767,42 +759,42 @@ msgstr "שורה"
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Search"
-msgstr ""
+msgstr "חיפוש"
 
 #: kateprojectinfoviewindex.cpp:198
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
-msgstr "אין אפשרות ליצור את האינדקס. אנא התקן את \"ctags\"."
+msgstr "אין אפשרות ליצור את המפתח. נא להתקין את ‚ctags’."
 
 #: kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Indexing is not enabled"
-msgstr ""
+msgstr "רישום במפתח לא פעיל"
 
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "שגיאה"
 
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "File name already exists"
-msgstr ""
+msgstr "שם הקובץ כבר קיים"
 
 #: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr ""
+msgstr "אישור סגירת מיזם: %1"
 
 #: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
-msgstr ""
+msgstr "לסגור את המיזם %1 ואת %2 המסמכים הקשורים?"
 
 #: kateprojectplugin.cpp:557
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr ""
+msgstr "נתיב מלא למיזם הנוכחי ללא שם הקובץ."
 
 #: kateprojectplugin.cpp:574
 #, kde-format
@@ -810,264 +802,256 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
+"נתיב מלא למיזם הנוכחי כולל שם הקובץ, עם מפריד הנתיבים הטבעי (לוכסן הפוך ב־"
+"Windows)."
 
 #: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:233 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
-#, fuzzy, kde-format
+#, kde-format
 msgid "Project"
-msgstr "פרוייקטים"
+msgstr "מיזם"
 
 #: kateprojectpluginview.cpp:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "Project Manager"
-msgstr "פרוייקטים"
+msgstr "הנהלת המיזם"
 
 #: kateprojectpluginview.cpp:78
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Open projects list"
-msgstr "פרוייקט נוכחי"
+msgstr "פתיחת רשימת מיזמים"
 
 #: kateprojectpluginview.cpp:83
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Reload project"
-msgstr "פרוייקט נוכחי"
+msgstr "רענון המיזם"
 
 #: kateprojectpluginview.cpp:86
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close project"
-msgstr "פרוייקט נוכחי"
+msgstr "סגירת המיזם"
 
 #: kateprojectpluginview.cpp:106
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "רענון מצב ה־git"
 
 #: kateprojectpluginview.cpp:184
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open Folder..."
-msgstr "פתח באמצעות"
+msgstr "פתיחת תיקייה…"
 
 #: kateprojectpluginview.cpp:189
-#, fuzzy, kde-format
-#| msgid "Projects"
+#, kde-format
 msgid "Project TODOs"
-msgstr "פרוייקטים"
+msgstr "המטלות של המיזם"
 
 #: kateprojectpluginview.cpp:193
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "הפעלת המיזם הקודם"
 
 #: kateprojectpluginview.cpp:198
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "הפעלת המיזם הבא"
 
 #: kateprojectpluginview.cpp:203
 #, kde-format
 msgid "Lookup"
-msgstr ""
+msgstr "איתור"
 
 #: kateprojectpluginview.cpp:207
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Project"
-msgstr "פרוייקט נוכחי"
+msgstr "סגירת המיזם"
 
 #: kateprojectpluginview.cpp:211
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close All Projects"
-msgstr "פרוייקט נוכחי"
+msgstr "סגירת כל המיזמים"
 
 #: kateprojectpluginview.cpp:216
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Orphaned Projects"
-msgstr "פרוייקט נוכחי"
+msgstr "סגירת מיזמים יתומים"
 
 #: kateprojectpluginview.cpp:220
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Reload Project"
-msgstr "פרוייקט נוכחי"
+msgstr "רענון מיזם"
 
 #: kateprojectpluginview.cpp:230
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "משיכת ענף Git"
 
 #: kateprojectpluginview.cpp:236 kateprojectpluginview.cpp:810
 #, kde-format
 msgid "Lookup: %1"
-msgstr ""
+msgstr "איתור: %1"
 
 #: kateprojectpluginview.cpp:237 kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Goto: %1"
-msgstr ""
+msgstr "מעבר אל: %1"
 
 #: kateprojectpluginview.cpp:311
-#, fuzzy, kde-format
+#, kde-format
 msgid "Projects Index"
-msgstr "פרוייקטים"
+msgstr "מפתח מיזמים"
 
 #: kateprojectpluginview.cpp:855
 #, kde-format
 msgid "Choose a directory"
-msgstr ""
+msgstr "בחירת תיקייה"
 
 #: kateprojecttreeviewcontextmenu.cpp:42
 #, kde-format
 msgid "Enter name:"
-msgstr ""
+msgstr "נא למלא שם:"
 
 #: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "הוספה"
 
 #: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "העתקת מקום"
 
 #: kateprojecttreeviewcontextmenu.cpp:69
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgid "Add File"
-msgstr "קובץ"
+msgstr "הוספת קובץ"
 
 #: kateprojecttreeviewcontextmenu.cpp:70
 #, kde-format
 msgid "Add Folder"
-msgstr ""
+msgstr "הוספת תיקייה"
 
 #: kateprojecttreeviewcontextmenu.cpp:77
 #, kde-format
 msgid "&Rename"
-msgstr ""
+msgstr "&שינוי שם"
 
 #: kateprojecttreeviewcontextmenu.cpp:84
-#, fuzzy, kde-format
+#, kde-format
 msgid "Properties"
-msgstr "השלמת פרוייקט"
+msgstr "מאפיינים"
 
 #: kateprojecttreeviewcontextmenu.cpp:88
 #, kde-format
 msgid "Open With"
-msgstr "פתח באמצעות"
+msgstr "פתיחה באמצעות"
 
 #: kateprojecttreeviewcontextmenu.cpp:96
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "פתיחת מסוף פנימי כאן"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "פתיחת מסוף חיצוני כאן"
 
 #: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr ""
+msgstr "&פתיחת התיקייה המכילה"
 
 #: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "הצגת היסטוריית Git"
 
 #: kateprojecttreeviewcontextmenu.cpp:124
 #, kde-format
 msgid "Delete File"
-msgstr ""
+msgstr "מחיקת קובץ"
 
 #: kateprojecttreeviewcontextmenu.cpp:125
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
-msgstr ""
+msgstr "למחוק את הקובץ ‚%1’."
 
 #: kateprojectviewtree.cpp:136
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr ""
+msgstr "יצירת הקובץ נכשלה: %1. שגיאה: %2"
 
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr ""
+msgstr "יצירת התיקייה נכשלה: %1"
 
 #: stashdialog.cpp:36
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
-msgstr ""
+msgstr "הודעת ההטמנה (Stash - כרשות). Enter לאישור. Esc לנטישה."
 
 #: stashdialog.cpp:43
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
-msgstr ""
+msgstr "נא להקליד כדי לסנן, Enter כדי לשלוף הטמנה (stash), Esc לנטישה."
 
 #: stashdialog.cpp:142
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr ""
+msgstr "הטמנת השינויים %1 נכשלה"
 
 #: stashdialog.cpp:144
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr ""
+msgstr "השינויים הוטמנו (stashed) בהצלחה."
 
 #: stashdialog.cpp:163
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr ""
+msgstr "משיכת רשימת הטמנות (Stash) נכשלה. שגיאה: "
 
 #: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr ""
+msgstr "החלת ההטמנה (Stash) נכשלה. שגיאה: "
 
 #: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr ""
+msgstr "השמטת ההטמנה (Stash) נכשלה. שגיאה: "
 
 #: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr ""
+msgstr "שליפת ההטמנה (Stash) נכשלה. שגיאה: "
 
 #: stashdialog.cpp:187
 #, kde-format
 msgid "Stash applied successfully."
-msgstr ""
+msgstr "ההטמנה (Stash) הוחלה בהצלחה."
 
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr ""
+msgstr "ההטמעה (Stash) הושמטה בהצלחה."
 
 #: stashdialog.cpp:191
 #, kde-format
 msgid "Stash popped successfully."
-msgstr ""
+msgstr "ההטמנה (Stash) נשלפה בהצלחה."
 
 #: stashdialog.cpp:220
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr ""
+msgstr "הצגת ההטמנה (stash) נכשלה. שגיאה: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9
 #, kde-format
 msgid "&Projects"
-msgstr "&פרוייקטים"
+msgstr "מי&זמים"
 
 #, fuzzy
 #~| msgid "Copy Filename"

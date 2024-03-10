@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-23 00:40+0000\n"
+"POT-Creation-Date: 2024-03-10 00:39+0000\n"
 "PO-Revision-Date: 2024-02-19 05:10+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -1288,7 +1288,7 @@ msgstr ""
 "აქ Kate-ის ყველა ხელმისაწვდომი დამატების ნახვა შეგიძლიათ. ისინი, რომლებსაც "
 "თოლია უზის, ჩატვირთულია და ჩაიტვირთება მაშინაც, როცა Kate კიდევ გაეშვება."
 
-#: lib/katedocmanager.cpp:297
+#: lib/katedocmanager.cpp:270
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1297,32 +1297,32 @@ msgstr ""
 "<p>დოკუმენტი '%1' შეცვლილია, შენახული კი - არა.</p><p>გნებავთ ცვლილებების "
 "შენახვა თუ მოვაცილო ისინი?</p>"
 
-#: lib/katedocmanager.cpp:300 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:273 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "დოკუმენტის დახურვა"
 
-#: lib/katedocmanager.cpp:309
+#: lib/katedocmanager.cpp:282
 #, kde-format
 msgid "Save As"
 msgstr "შენახვა როგორც"
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate-ის დახურვისას ახალი ფაილი გაიხსნა. დახურვა გაუქმდა."
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "Closing Aborted"
 msgstr "დახურვა გაუქმდა"
 
-#: lib/katedocmanager.cpp:405
+#: lib/katedocmanager.cpp:378
 #, kde-format
 msgid "Starting Up"
 msgstr "გაშვება"
 
-#: lib/katedocmanager.cpp:406
+#: lib/katedocmanager.cpp:379
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "წინა სესიის ფაილების თავიდან გახსნა..."

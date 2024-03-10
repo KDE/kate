@@ -3,28 +3,29 @@
 #
 # Diego Iastrubni <elcuco@kde.org>, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
+# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-11 01:45+0000\n"
-"PO-Revision-Date: 2017-05-16 06:36-0400\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2024-03-09 23:44+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
 #: ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
-msgstr "הצג פונקציות"
+msgstr "הצגת פונקציות"
 
 #: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40
 #: julia_parser.cpp:55 php_parser.cpp:34 python_parser.cpp:45
@@ -36,12 +37,12 @@ msgstr "פונקציות"
 #: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Macros"
-msgstr "הצג מקרואים"
+msgstr "הצגת מקרואים"
 
 #: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:86
 #, kde-format
 msgid "Show Structures"
-msgstr ""
+msgstr "הצגת מבנים"
 
 #: cpp_parser.cpp:41 julia_parser.cpp:56
 #, kde-format
@@ -51,22 +52,22 @@ msgstr "מאקרואים"
 #: cpp_parser.cpp:42 julia_parser.cpp:54
 #, kde-format
 msgid "Structures"
-msgstr ""
+msgstr "מבנים"
 
 #: fortran_parser.cpp:35 perl_parser.cpp:23
 #, kde-format
 msgid "Show Subroutines"
-msgstr "הצג רוטינות משנה"
+msgstr "הצגת רוטינות משנה"
 
 #: fortran_parser.cpp:36
 #, kde-format
 msgid "Show Modules"
-msgstr "הצג מודולים"
+msgstr "הצגת מודולים"
 
 #: fortran_parser.cpp:41 perl_parser.cpp:35
 #, kde-format
 msgid "Subroutines"
-msgstr "הצג רוטינות"
+msgstr "תת־שגרות"
 
 #: fortran_parser.cpp:42
 #, kde-format
@@ -96,7 +97,7 @@ msgstr "Pragmas"
 #: php_parser.cpp:31
 #, kde-format
 msgid "Namespaces"
-msgstr "מתחמים"
+msgstr "מתחמי שם"
 
 #: php_parser.cpp:32
 #, kde-format
@@ -106,7 +107,7 @@ msgstr "הגדרות"
 #: php_parser.cpp:33 python_parser.cpp:44 ruby_parser.cpp:32
 #, kde-format
 msgid "Classes"
-msgstr "מחקלות"
+msgstr "מחלקות"
 
 #: plugin_katesymbolviewer.cpp:68
 #, kde-format
@@ -114,27 +115,24 @@ msgid "SymbolViewer"
 msgstr "SymbolViewer"
 
 #: plugin_katesymbolviewer.cpp:77
-#, fuzzy, kde-format
-#| msgid "List/Tree Mode"
+#, kde-format
 msgid "Tree Mode"
-msgstr "מצב עץ או רשימה"
+msgstr "מצב עץ"
 
 #: plugin_katesymbolviewer.cpp:79
 #, kde-format
 msgid "Expand Tree"
-msgstr ""
+msgstr "הרחבת העץ"
 
 #: plugin_katesymbolviewer.cpp:81
-#, fuzzy, kde-format
-#| msgid "Show Subroutines"
+#, kde-format
 msgid "Show Sorted"
-msgstr "הצג רוטינות משנה"
+msgstr "הצגת ממוינים"
 
 #: plugin_katesymbolviewer.cpp:90
-#, fuzzy, kde-format
-#| msgid "Show Params"
+#, kde-format
 msgid "Show Parameters"
-msgstr "הצג ארגומרנטים"
+msgstr "הצגת פרמטרים"
 
 #: plugin_katesymbolviewer.cpp:116
 #, kde-format
@@ -144,7 +142,7 @@ msgstr "רשימת סמלים"
 #: plugin_katesymbolviewer.cpp:134
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "סינון…"
 
 #: plugin_katesymbolviewer.cpp:144
 #, kde-format
@@ -156,38 +154,37 @@ msgstr "סמלים"
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
-msgstr "מיקום"
+msgstr "מקום"
 
 #: plugin_katesymbolviewer.cpp:362
-#, fuzzy, kde-format
-#| msgid "Sorry. Language not supported yet"
+#, kde-format
 msgid "Sorry, not supported yet!"
-msgstr "שפת התכנות לא נתמכת עוד."
+msgstr "אין תמיכה עדיין, מחילה!"
 
 #: plugin_katesymbolviewer.cpp:366
 #, kde-format
 msgid "File type: %1"
-msgstr ""
+msgstr "סוג קובץ: %1"
 
 #: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Display functions parameters"
-msgstr "הצג ארגומנטים של פונקציות"
+msgstr "הצגת פרמטרים של פונקציות"
 
 #: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
-msgstr "הרחב באופן אוטומי את הענפים בעץ"
+msgstr "הרחבת הענפים בעץ אוטומטית"
 
 #: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Always display symbols in tree mode"
-msgstr "הצג סמלים תמיד במצב עץ"
+msgstr "הצגת סמלים תמיד במצב עץ"
 
 #: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Always sort symbols"
-msgstr "תמיד מיין סמלים"
+msgstr "תמיד למיין סמלים"
 
 #: plugin_katesymbolviewer.cpp:484
 #, kde-format
@@ -202,54 +199,53 @@ msgstr "מציג סמלים"
 #: plugin_katesymbolviewer.cpp:517
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
-msgstr "עמוד הגדרות מפענח סמלים"
+msgstr "עמוד הגדרות מציג סמלים"
 
 #: python_parser.cpp:26 ruby_parser.cpp:22
 #, kde-format
 msgid "Show Methods"
-msgstr "הצג מתודות"
+msgstr "הצגת מתודות"
 
 #: python_parser.cpp:27 ruby_parser.cpp:23
 #, kde-format
 msgid "Show Classes"
-msgstr "הצג מחלקות"
+msgstr "הצגת מחלקות"
 
 #: tcl_parser.cpp:36
 #, kde-format
 msgid "Globals"
-msgstr "גלובאלים"
+msgstr "משתנים כלליים"
 
 #. i18n: ectx: Menu (view)
 #: ui.rc:6
 #, kde-format
 msgid "&Settings"
-msgstr "&הגדרות"
+msgstr "ה&גדרות"
 
 #: xml_parser.cpp:25
-#, fuzzy, kde-format
-#| msgid "Show Pragmas"
+#, kde-format
 msgid "Show Tags"
-msgstr "הצג Pragmas"
+msgstr "הצגת תגיות"
 
 #: xslt_parser.cpp:22
 #, kde-format
 msgid "Show Params"
-msgstr "הצג ארגומרנטים"
+msgstr "הצגת פרמטרים"
 
 #: xslt_parser.cpp:23
 #, kde-format
 msgid "Show Variables"
-msgstr "הצג משתנים"
+msgstr "הצגת משתנים"
 
 #: xslt_parser.cpp:24
 #, kde-format
 msgid "Show Templates"
-msgstr "הצג תבניות"
+msgstr "הצגת תבניות"
 
 #: xslt_parser.cpp:34
 #, kde-format
 msgid "Params"
-msgstr "ארגומרנטים"
+msgstr "פרמטרים"
 
 #: xslt_parser.cpp:35
 #, kde-format

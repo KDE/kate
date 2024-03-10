@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-23 00:40+0000\n"
+"POT-Creation-Date: 2024-03-10 00:39+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -1307,7 +1307,7 @@ msgstr ""
 "bevestig merk word gelaai, en sal wees gelaai weer die volgende tyd Kate is "
 "beginne."
 
-#: lib/katedocmanager.cpp:297
+#: lib/katedocmanager.cpp:270
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
@@ -1319,34 +1319,34 @@ msgstr ""
 "<p>Die dokument '%1' was verander, maar nog nie gestoor nie.<p>Wil jy jou "
 "veranderinge stoor of weggooi?"
 
-#: lib/katedocmanager.cpp:300 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:273 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Maak Dokument Toe"
 
-#: lib/katedocmanager.cpp:309
+#: lib/katedocmanager.cpp:282
 #, fuzzy, kde-format
 msgid "Save As"
 msgstr "Stoor As..."
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Nuwe lêer was oopgemaak terwyl Kate besig was om toe te maak. Toemaak "
 "gestaak."
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Toemaak gestaak"
 
-#: lib/katedocmanager.cpp:405
+#: lib/katedocmanager.cpp:378
 #, kde-format
 msgid "Starting Up"
 msgstr "Besig om op te start"
 
-#: lib/katedocmanager.cpp:406
+#: lib/katedocmanager.cpp:379
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Maak die lêers van die vorige sessie oop..."

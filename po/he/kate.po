@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-23 00:40+0000\n"
-"PO-Revision-Date: 2024-03-03 13:30+0200\n"
+"POT-Creation-Date: 2024-03-10 00:39+0000\n"
+"PO-Revision-Date: 2024-03-10 00:12+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -63,7 +63,7 @@ msgstr "(c) 2000‏-2022 Kate יוצרי"
 #: kate/main.cpp:136
 #, kde-format
 msgid "Start Kate with a given session."
-msgstr "התחל את Kate עם ההפעלה הנתונה "
+msgstr "התחלת Kate עם ההפעלה הנתונה."
 
 #: kate/main.cpp:137
 #, kde-format
@@ -106,7 +106,7 @@ msgstr ""
 #: kate/main.cpp:165 kwrite/main.cpp:98
 #, kde-format
 msgid "Set encoding for the file to open."
-msgstr "קבע קידוד עבור הקובץ שיפתח."
+msgstr "הגדרת קידוד לקובץ לפתיחה."
 
 #: kate/main.cpp:166 kwrite/main.cpp:99
 #, kde-format
@@ -116,7 +116,7 @@ msgstr "קידוד"
 #: kate/main.cpp:170 kwrite/main.cpp:103
 #, kde-format
 msgid "Navigate to this line."
-msgstr "דילוג לשורה זו."
+msgstr "ניווט לשורה הזאת."
 
 #: kate/main.cpp:170 kwrite/main.cpp:103
 #, kde-format
@@ -126,7 +126,7 @@ msgstr ""
 #: kate/main.cpp:175 kwrite/main.cpp:107
 #, kde-format
 msgid "Navigate to this column."
-msgstr ".דלג לטור זה"
+msgstr "ניווט לעמודה הזאת."
 
 #: kate/main.cpp:176 kwrite/main.cpp:107
 #, kde-format
@@ -136,17 +136,17 @@ msgstr "עמודה"
 #: kate/main.cpp:180 kwrite/main.cpp:111
 #, kde-format
 msgid "Read the contents of stdin."
-msgstr "קרא את תוכן הקלט."
+msgstr "לקרוא את תוכן קלט שורת הפקודה (stdin)."
 
 #: kate/main.cpp:185 kwrite/main.cpp:115
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
-msgstr "הקובץ או הכתובת שנפתחה ע\"י האפליקציה תמחק אחרי השימוש"
+msgstr "הקובץ/הכתובות שנפתחו על ידי היישום יימחקו לאחר השימוש"
 
 #: kate/main.cpp:189 kwrite/main.cpp:119
 #, kde-format
 msgid "Documents to open."
-msgstr "מסמך לפתיחה."
+msgstr "מסמכים לפתיחה."
 
 #: kate/main.cpp:189 kwrite/main.cpp:119
 #, kde-format
@@ -270,7 +270,7 @@ msgstr "&הגדרות"
 #: lib/data/kateui.rc:137
 #, kde-format
 msgid "&Help"
-msgstr "&עזרה"
+msgstr "ע&זרה"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: lib/data/kateui.rc:142
@@ -624,7 +624,7 @@ msgstr ""
 #: lib/kateapp.cpp:277
 #, kde-format
 msgid "Christoph Cullmann"
-msgstr "Christoph Cullmann"
+msgstr "כריסטוף קלמן"
 
 #: lib/kateapp.cpp:277
 #, kde-format
@@ -634,7 +634,7 @@ msgstr "מתחזק"
 #: lib/kateapp.cpp:278
 #, kde-format
 msgid "Dominik Haumann"
-msgstr "Dominik Haumann"
+msgstr "דומיניק האומאן"
 
 #: lib/kateapp.cpp:278 lib/kateapp.cpp:281 lib/kateapp.cpp:282
 #: lib/kateapp.cpp:284 lib/kateapp.cpp:287 lib/kateapp.cpp:293
@@ -665,37 +665,37 @@ msgstr ""
 #: lib/kateapp.cpp:282
 #, kde-format
 msgid "Anders Lund"
-msgstr "Anders Lund"
+msgstr "אנדרס לונד"
 
 #: lib/kateapp.cpp:283
 #, kde-format
 msgid "Joseph Wenninger"
-msgstr "Joseph Wenninger"
+msgstr "ג׳וזף ונינגר"
 
 #: lib/kateapp.cpp:287
 #, kde-format
 msgid "Hamish Rodda"
-msgstr "Hamish Rodda"
+msgstr "האמיש רודה"
 
 #: lib/kateapp.cpp:288
 #, kde-format
 msgid "Alexander Neundorf"
-msgstr "Anders Lund"
+msgstr "אלכסנדר נוינדורף"
 
 #: lib/kateapp.cpp:289
 #, kde-format
 msgid "Waldo Bastian"
-msgstr "Waldo Bastian"
+msgstr "ולדו בסטיאן"
 
 #: lib/kateapp.cpp:289
 #, kde-format
 msgid "The cool buffersystem"
-msgstr "מערכת המאגרים המגניבה"
+msgstr "מערכת זיכרון המטמון המגניבה"
 
 #: lib/kateapp.cpp:290
 #, kde-format
 msgid "Charles Samuels"
-msgstr "Charles Samuels"
+msgstr "צ׳ארלס סמואלס"
 
 #: lib/kateapp.cpp:290
 #, kde-format
@@ -705,17 +705,17 @@ msgstr "פקודות העריכה"
 #: lib/kateapp.cpp:291
 #, kde-format
 msgid "Matt Newell"
-msgstr "Matt Newell"
+msgstr "מט ניואל"
 
 #: lib/kateapp.cpp:291
 #, kde-format
 msgid "Testing, ..."
-msgstr "בדיקה, ..."
+msgstr "בדיקה, …"
 
 #: lib/kateapp.cpp:292
 #, kde-format
 msgid "Michael Bartl"
-msgstr "Michael Bartl"
+msgstr "מייקל ברטל"
 
 #: lib/kateapp.cpp:292
 #, kde-format
@@ -725,7 +725,7 @@ msgstr "מפתח מרכזי לשעבר"
 #: lib/kateapp.cpp:293
 #, kde-format
 msgid "Michael McCallum"
-msgstr "Michael McCallum"
+msgstr "מייקל מקקולום"
 
 #: lib/kateapp.cpp:294
 #, kde-format
@@ -735,12 +735,12 @@ msgstr "Jochen Wilhemly"
 #: lib/kateapp.cpp:294
 #, kde-format
 msgid "KWrite Author"
-msgstr "הכותב של KWrite"
+msgstr "היוצר של KWrite"
 
 #: lib/kateapp.cpp:295
 #, kde-format
 msgid "Michael Koch"
-msgstr "Michael Koch"
+msgstr "מייקל קוך"
 
 #: lib/kateapp.cpp:295
 #, kde-format
@@ -750,27 +750,27 @@ msgstr "הסבת KWrite ל־KParts"
 #: lib/kateapp.cpp:296
 #, kde-format
 msgid "Christian Gebauer"
-msgstr "Christian Gebauer"
+msgstr "כריסטיאן גבאואר"
 
 #: lib/kateapp.cpp:297
 #, kde-format
 msgid "Simon Hausmann"
-msgstr "Simon Hausmann"
+msgstr "סיימון האוסמן"
 
 #: lib/kateapp.cpp:298
 #, kde-format
 msgid "Glen Parker"
-msgstr "Glen Parker"
+msgstr "גלן פרקר"
 
 #: lib/kateapp.cpp:298
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
-msgstr "היסטוריית הביטול של KWrite, שילוב עם Kspell"
+msgstr "היסטוריית הביטול של KWrite, שילוב מול Kspell"
 
 #: lib/kateapp.cpp:299
 #, kde-format
 msgid "Scott Manson"
-msgstr "Scott Manson"
+msgstr "סקוט מנסון"
 
 #: lib/kateapp.cpp:299
 #, kde-format
@@ -780,7 +780,7 @@ msgstr "התמיכה של KWrite בהדגשת תחביר XML"
 #: lib/kateapp.cpp:300
 #, kde-format
 msgid "John Firebaugh"
-msgstr "John Firebaugh"
+msgstr "ג׳ון פיירבו"
 
 #: lib/kateapp.cpp:300
 #, kde-format
@@ -790,7 +790,7 @@ msgstr "טלאים ועוד"
 #: lib/kateapp.cpp:301
 #, kde-format
 msgid "Pablo Martín"
-msgstr "Pablo Martín"
+msgstr "פבלו מרטין"
 
 #: lib/kateapp.cpp:302
 #, kde-format
@@ -820,52 +820,52 @@ msgstr ""
 #: lib/kateapp.cpp:314
 #, kde-format
 msgid "Matteo Merli"
-msgstr "Matteo Merli"
+msgstr "מתיאו מרלי"
 
 #: lib/kateapp.cpp:314
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
-msgstr "הדגשה עבור קבצי Spec של RPM וגם Perl, Diff ועוד"
+msgstr "הדגשה לקובצי Spec של RPM וגם Perl,‏ Diff ועוד"
 
 #: lib/kateapp.cpp:315
 #, kde-format
 msgid "Rocky Scaletta"
-msgstr "Rocky Scaletta"
+msgstr "רוקי סקלטה"
 
 #: lib/kateapp.cpp:315
 #, kde-format
 msgid "Highlighting for VHDL"
-msgstr "הדגשת VHDL"
+msgstr "הדגשה ל־VHDL"
 
 #: lib/kateapp.cpp:316
 #, kde-format
 msgid "Yury Lebedev"
-msgstr "Yury Lebedev"
+msgstr "יורי לבדב"
 
 #: lib/kateapp.cpp:316
 #, kde-format
 msgid "Highlighting for SQL"
-msgstr "הדגש SQL"
+msgstr "הדגשה ל־SQL"
 
 #: lib/kateapp.cpp:317
 #, kde-format
 msgid "Chris Ross"
-msgstr "Chris Ross"
+msgstr "כריס רוס"
 
 #: lib/kateapp.cpp:317
 #, kde-format
 msgid "Highlighting for Ferite"
-msgstr "הדגשת Ferite"
+msgstr "הדגשה ל־Ferite"
 
 #: lib/kateapp.cpp:318
 #, kde-format
 msgid "Nick Roux"
-msgstr "Nick Roux"
+msgstr "ניק רוקס"
 
 #: lib/kateapp.cpp:318
 #, kde-format
 msgid "Highlighting for ILERPG"
-msgstr "הדגשת ILERPG"
+msgstr "הדגשה ל־ILERPG"
 
 #: lib/kateapp.cpp:319
 #, kde-format
@@ -1308,7 +1308,7 @@ msgstr ""
 "כאן באפשרותך לראות את כל התוספים הזמינים של Kate. התוספים המסומנים טעונים "
 "כרגע וייטענו שוב בפעם הבאה ש־Kate יופעל."
 
-#: lib/katedocmanager.cpp:297
+#: lib/katedocmanager.cpp:270
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1317,32 +1317,32 @@ msgstr ""
 "<p>המסמך \"%1\" עבר שינוי, אך לא נשמר</p><p>האם אתה רוצה לשמור את השינויים, "
 "או לבטל אותם?</p>"
 
-#: lib/katedocmanager.cpp:300 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:273 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "סגור מסמך"
 
-#: lib/katedocmanager.cpp:309
+#: lib/katedocmanager.cpp:282
 #, kde-format
 msgid "Save As"
 msgstr "שמירה בשם"
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "נפתח קובץ חדש בעת סגירת Kate, הסגירה בוטלה."
 
-#: lib/katedocmanager.cpp:327 lib/katemainwindow.cpp:700
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:700
 #, kde-format
 msgid "Closing Aborted"
 msgstr "הסגירה בוטלה"
 
-#: lib/katedocmanager.cpp:405
+#: lib/katedocmanager.cpp:378
 #, kde-format
 msgid "Starting Up"
 msgstr "מפעיל"
 
-#: lib/katedocmanager.cpp:406
+#: lib/katedocmanager.cpp:379
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "פותח מחדש קבצים מההפעלה הקודמת..."
@@ -1393,7 +1393,7 @@ msgstr "השתמש בפקודה זו כדי להציג או להסתיר את ש
 #: lib/katemainwindow.cpp:241
 #, kde-format
 msgid "Show &Tabs"
-msgstr "הצג לשוניות"
+msgstr "הצגת &לשוניות"
 
 #: lib/katemainwindow.cpp:244
 #, kde-format
@@ -1423,17 +1423,17 @@ msgstr ""
 #: lib/katemainwindow.cpp:264
 #, kde-format
 msgid "&Previous Tab"
-msgstr "הלשונית הקודמת"
+msgstr "הלשונית ה&קודמת"
 
 #: lib/katemainwindow.cpp:265
 #, kde-format
 msgid "Focus the previous tab."
-msgstr "התמקד בלשונית הקודמת"
+msgstr "התמקדות בלשונית הקודמת."
 
 #: lib/katemainwindow.cpp:270
 #, kde-format
 msgid "&Next Tab"
-msgstr "הלשונית הבאה"
+msgstr "הלשונית ה&באה"
 
 #: lib/katemainwindow.cpp:271
 #, kde-format
@@ -2828,29 +2828,24 @@ msgid "No recent documents or projects"
 msgstr "מסמכים פתוחים"
 
 #: lib/welcomeview/welcomeview.cpp:63
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "מסמכים פתוחים"
+msgstr "אין מסמכים אחרונים"
 
 #: lib/welcomeview/welcomeview.cpp:116
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "&שמור הפעלה"
+msgstr "אין הפעלות שמורות"
 
 #: lib/welcomeview/welcomeview.cpp:246
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "פתיחת קובץ"
+msgstr "פתיחת הקבצים הנבחרים…"
 
 #: lib/welcomeview/welcomeview.cpp:259
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "מיקום"
+msgstr "העתקת מ&קום"
 
 #: lib/welcomeview/welcomeview.cpp:274
 #, kde-format
@@ -2865,31 +2860,27 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "פתיחת קובץ"
+msgstr "קובץ חדש"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Folder..."
-msgstr "פתיחת קובץ"
+msgstr "פתיחת תיקייה…"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgid "Delete File?"
+#, kde-format
 msgid "Recent Files"
-msgstr "למחוק קובץ?"
+msgstr "קבצים אחרונים"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "פתיחת קובץ"
+msgstr "פתיחת קובץ…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
@@ -2899,10 +2890,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:270
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "&עזרה"
+msgstr "עזרה"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:280
@@ -2924,24 +2914,21 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:353
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "&שמור הפעלה"
+msgstr "הפעלות שמורות"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:389
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "&נהל הפעלות..."
+msgstr "ניהול הפעלות…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "צור מסמך חדש"
+msgstr "הצגת מסך קבלת פנים בחלונות חדשים"
 
 #, fuzzy
 #~| msgid "Create a new document"

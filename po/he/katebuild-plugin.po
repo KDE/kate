@@ -3,31 +3,32 @@
 #
 # Diego Iastrubni <elcuco@kde.org>, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
+# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-17 01:37+0000\n"
-"PO-Revision-Date: 2017-05-16 06:36-0400\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2024-03-10 00:05+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "צוות התרגום של KDE ישראל"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "kde-l10n-he@kde.org"
 
 #. i18n: ectx: attribute (title), widget (QWidget, errs)
 #: build.ui:36
@@ -50,46 +51,42 @@ msgstr "בטל"
 #: buildconfig.cpp:26
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "להוסיף שגיאות ואזהרות לאבחון"
 
 #: buildconfig.cpp:27
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "להחליף ללוח הפלט בעת הרצה על היעד הנבחר"
 
 #: buildconfig.cpp:40
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "בנה שוב"
+msgstr "בנייה והרצה"
 
 #: buildconfig.cpp:46
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "בנה את המטרה הנבחרת"
+msgstr "הגדרות בנייה והרצה"
 
 #: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1225
-#, fuzzy, kde-format
+#, kde-format
 msgid "Build"
-msgstr "&בנה"
+msgstr "בנייה"
 
 #: plugin_katebuild.cpp:222
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select Target..."
-msgstr "בנה מטרה..."
+msgstr "בחירת יעד…"
 
 #: plugin_katebuild.cpp:227
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build Selected Target"
-msgstr "בנה את המטרה הנבחרת"
+msgstr "בניית היעד הנבחר"
 
 #: plugin_katebuild.cpp:232
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and Run Selected Target"
-msgstr "בנה את המטרה הנבחרת"
+msgstr "בנייה והרצה של היעד הנבחר"
 
 #: plugin_katebuild.cpp:237
 #, kde-format
@@ -100,13 +97,13 @@ msgstr "עצור"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "העברת המיקוד ללשונית הבאה משמאל"
 
 #: plugin_katebuild.cpp:262
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "העברת המיקוד ללשונית הבאה מימין"
 
 #: plugin_katebuild.cpp:284
 #, kde-format
@@ -115,10 +112,9 @@ msgid "Target Settings"
 msgstr "הגדרות של מטרות"
 
 #: plugin_katebuild.cpp:403
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "בנה שוב"
+msgstr "פרטי בנייה"
 
 #: plugin_katebuild.cpp:620
 #, kde-format
@@ -137,6 +133,8 @@ msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
+"לא ניתן להריץ את הפקודה: %1\n"
+"נתיב העבודה לא קיים: %2"
 
 #: plugin_katebuild.cpp:688
 #, kde-format
@@ -151,7 +149,7 @@ msgstr "בנייה של <b>%1</b> בוטלה"
 #: plugin_katebuild.cpp:810
 #, kde-format
 msgid "No target available for building."
-msgstr ""
+msgstr "אין יעד זמין לבנייה."
 
 #: plugin_katebuild.cpp:824
 #, fuzzy, kde-format
@@ -161,7 +159,7 @@ msgstr "אין קובץ או ספרייה מוגדרת עבור בנייה"
 #: plugin_katebuild.cpp:830
 #, kde-format
 msgid "Already building..."
-msgstr ""
+msgstr "כבר מתבצעת בנייה…"
 
 #: plugin_katebuild.cpp:857
 #, kde-format
@@ -172,12 +170,12 @@ msgstr "בנה את המטרה <b>%1</b>...."
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
-msgstr ""
+msgstr "<title>תוצאות ה־Make (הכנה):</title><nl/>%1"
 
 #: plugin_katebuild.cpp:907
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "בניית <b>%1</b> הושלמה. %2 שגיאות, %3 אזהרות, %4 הערות"
 
 #: plugin_katebuild.cpp:913
 #, fuzzy, kde-format
@@ -229,9 +227,7 @@ msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
 #: plugin_katebuild.cpp:1182
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "שגיאה"
@@ -269,7 +265,7 @@ msgstr "נקה"
 #: plugin_katebuild.cpp:1227
 #, kde-format
 msgid "Config"
-msgstr ""
+msgstr "הגדרה"
 
 #: plugin_katebuild.cpp:1228
 #, fuzzy, kde-format
@@ -312,12 +308,12 @@ msgstr ""
 #: TargetModel.cpp:530
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "מיזם"
 
 #: TargetModel.cpp:530
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "הפעלה"
 
 #: TargetModel.cpp:624
 #, kde-format
@@ -332,7 +328,7 @@ msgstr "ספריית עבודה"
 #: TargetModel.cpp:630
 #, kde-format
 msgid "Run Command"
-msgstr ""
+msgstr "הרצת פקודות"
 
 #: targets.cpp:23
 #, kde-format
@@ -392,12 +388,12 @@ msgstr "&בנה"
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
-msgstr ""
+msgstr "הוספת נתיב"
 
 #: UrlInserter.cpp:51
 #, kde-format
 msgid "Select directory to insert"
-msgstr ""
+msgstr "בחירת תיקייה להוספה"
 
 #~ msgid "Project Plugin Targets"
 #~ msgstr "מטרות תוסף פרוייקטים"

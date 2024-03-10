@@ -11,19 +11,20 @@
 #
 # Diego Iastrubni <elcuco@kde.org>, 2005, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
+# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2017-05-16 06:36-0400\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2024-03-09 23:39+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
 
@@ -42,9 +43,7 @@ msgstr ""
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
 "to be able to do this, contact your system administrator."
-msgstr ""
-"אתה לא יכול להפעיל כל יישום חיצוני. אם אתה רוצה לאפשר את זה, פנה אל מנהל "
-"המערכת."
+msgstr "אפשר להפעיל כל יישום חיצוני. כדי לאפשר את זה, נא לפנות להנהלת המערכת."
 
 #: plugin_katetextfilter.cpp:154
 #, kde-format
@@ -52,9 +51,9 @@ msgid "Access Restrictions"
 msgstr "מניעת גישה"
 
 #: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
-#, fuzzy, kde-format
+#, kde-format
 msgid "Text Filter"
-msgstr "סינון"
+msgstr "מסנן טקסט"
 
 #: plugin_katetextfilter.cpp:238
 #, kde-format
@@ -73,37 +72,37 @@ msgstr ""
 #: plugin_katetextfilter.cpp:265
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr ""
+msgstr "&סינון מבעד לפקודה…"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "חלונית"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilter)
 #: textfilterwidget.ui:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enter command to &pipe selected text through:"
-msgstr "הזן את הפקודה שדרכה יש להעביר את הטקסט הנבחר:"
+msgstr "נא למלא פקודה להעברת הטקסט הנבחר &דרכה:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, newDoc)
 #: textfilterwidget.ui:39
 #, kde-format
 msgid "Open results in a new document"
-msgstr ""
+msgstr "פתיחת תוצאות במסמך חדש"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
-msgstr "העתק את התוצאה אל לוח העריכה והשאר את המסמך ללא שינוי."
+msgstr "העתקת התוצאה ללוח העריכה ולהשאיר את המסמך ללא שינוי."
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:49
 #, kde-format
 msgid "Copy the result instead of pasting it"
-msgstr "העתק את התוצאה במקום להדביק אותה"
+msgstr "להעתיק את התוצאה במקום להדביק אותה"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:57
@@ -113,14 +112,14 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
-"אם נבחר, התוצאה של STDOUT ו־STDERR תמוזג ולא ידווחו שגיאות כלשהן.\n"
+"אם האפשרות נבחרה, הפלט של STDOUT ו־STDERR ימוזג ולא ידווחו שגיאות כלשהן.\n"
 "אחרת - STDERR יוצג בתור הודעה פסיבית."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60
 #, kde-format
 msgid "Merge STDOUT and STDERR"
-msgstr "מזג STDOUT ו־STDERR"
+msgstr "מיזוג STDOUT ו־STDERR"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

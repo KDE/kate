@@ -13,41 +13,42 @@
 # Diego Iastrubni <elcuco@kdemail.net>, 2004.
 # Diego Iastrubni <elcuco@kdemai.net>, 2004, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
+# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2017-05-16 06:36-0400\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2024-03-09 23:33+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
 
 #: plugin_katexmltools.cpp:118
 #, kde-format
 msgid "XML Tools"
-msgstr ""
+msgstr "כלי XML"
 
 #: plugin_katexmltools.cpp:121
 #, kde-format
 msgid "&Insert Element..."
-msgstr "הוסף &מרכיב..."
+msgstr "הוספת &רכיב…"
 
 #: plugin_katexmltools.cpp:126
 #, kde-format
 msgid "&Close Element"
-msgstr "&סגור מרכיב"
+msgstr "&סגירת רכיב"
 
 #: plugin_katexmltools.cpp:131
 #, kde-format
 msgid "Assign Meta &DTD..."
-msgstr "&הקצא Meta DTD..."
+msgstr "ה&קצאת Meta DTD…"
 
 #: plugin_katexmltools.cpp:442
 #, kde-format
@@ -60,7 +61,7 @@ msgid ""
 "The current file has been identified as a document of type \"%1\". The meta "
 "DTD for this document type will now be loaded."
 msgstr ""
-"הקובץ הנוכחי זוהה בתור מסמך מסוג \"%1\". ה־Meta DTD של סוג מסמך זה ייטען כעת."
+"הקובץ הנוכחי זוהה בתור מסמך מסוג „%1”. ה־Meta DTD של סוג מסמך זה ייטען כעת."
 
 #: plugin_katexmltools.cpp:452
 #, kde-format
@@ -70,22 +71,22 @@ msgstr "טעינת Meta DTD של XML"
 #: plugin_katexmltools.cpp:484
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
-msgstr "אין אפשרות לפתוח את הקובץ \"%1\". השרת החזיר שגיאה."
+msgstr "אי אפשר לפתוח את הקובץ „%1”. השרת החזיר שגיאה."
 
 #: plugin_katexmltools.cpp:487 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
 msgid "XML Plugin Error"
-msgstr "שגיאה בתוסף של XML"
+msgstr "שגיאה בתוסף ה־XML"
 
 #: plugin_katexmltools.cpp:985
 #, kde-format
 msgid "XML entities"
-msgstr "יישויות של XML"
+msgstr "יישויות XML"
 
 #: plugin_katexmltools.cpp:987
 #, kde-format
 msgid "XML attribute values"
-msgstr "ערכים של מאפייני XML"
+msgstr "ערכי מאפייני XML"
 
 #: plugin_katexmltools.cpp:989
 #, kde-format
@@ -95,12 +96,12 @@ msgstr "מאפייני XML"
 #: plugin_katexmltools.cpp:992
 #, kde-format
 msgid "XML elements"
-msgstr "מרכיבים של XML"
+msgstr "רכיבי XML"
 
 #: plugin_katexmltools.cpp:1031
 #, kde-format
 msgid "Insert XML Element"
-msgstr "הוספת מרכיב XML"
+msgstr "הוספת רכיב XML"
 
 #: plugin_katexmltools.cpp:1036
 #, kde-format
@@ -108,7 +109,7 @@ msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "
 "supplied):"
 msgstr ""
-"הזן את שם תגית ה-XML ואת מאפייניה (התוסף ידאג לתווים \"<\", \">\" ולתגית "
+"נא למלא את שם תגית ה־XML ואת מאפייניה (התוסף ידאג לתווים „<”, „>” ולתגית "
 "הסוגרת)."
 
 #: pseudo_dtd.cpp:45
@@ -116,7 +117,7 @@ msgstr ""
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
-msgstr "אין אפשרות לפרק את הקובץ \"%1\". ודא שהקובץ מכיל XML בנוי כהלכה."
+msgstr "אי אפשר לפענח את הקובץ „%1”. נא לוודא שהקובץ מכיל XML בתבנית נכונה."
 
 #: pseudo_dtd.cpp:54
 #, kde-format
@@ -127,20 +128,20 @@ msgid ""
 "You can produce such files with dtdparse. See the Kate Plugin documentation "
 "for more information."
 msgstr ""
-"הקובץ \"%1\" אינו בתבנית הצפויה. בדוק שהקובץ הנו מהסוג הבא:\n"
+"הקובץ ‚%1’ אינו בתבנית הצפויה. נא לבדוק שהקובץ הוא מהסוג:\n"
 "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
-"באפשרותך ליצור קבצים כאלה בעזרת dtdparse. עיין בתיעוד של התוספים של Kate "
-"למידע נוסף."
+"אפשר לייצר קבצים כאלה עם dtdparse. יש לעיין בתיעוד התוספים של Kate לקבלת "
+"מידע נוסף."
 
 #: pseudo_dtd.cpp:70
 #, kde-format
 msgid "Analyzing meta DTD..."
-msgstr "מאבחן Meta DTD..."
+msgstr "‏Meta DTD מאובחן…"
 
 #: pseudo_dtd.cpp:70
 #, kde-format
 msgid "Cancel"
-msgstr "בטל"
+msgstr "ביטול"
 
 #. i18n: ectx: Menu (xml)
 #: ui.rc:6

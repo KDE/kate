@@ -24,6 +24,7 @@
         "Description[ru]": "Встроенный отладчик",
         "Description[sl]": "Zagotavlja integracijo razhroščevalnika",
         "Description[sv]": "Tillhandahåller integrering med avlusare",
+        "Description[ta]": "பிழைநீக்கியை ஒருங்கிணைக்கும்",
         "Description[tr]": "Hata ayıklayıcı tümleştirmesi sağlar",
         "Description[uk]": "Надає інтеграцію із засобом діагностики",
         "Description[x-test]": "xxProvides debugger integrationxx",

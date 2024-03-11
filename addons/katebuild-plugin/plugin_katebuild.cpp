@@ -646,6 +646,18 @@ void KateBuildView::clearBuildResults()
 }
 
 /******************************************************************/
+QString KateBuildView::parseWorkDir(QString dir) const
+{
+    // When adding new placeholders, also update the tooltip in TargetHtmlDelegate::createEditor()
+    if (m_projectPluginView) {
+        const QFileInfo baseDir(m_projectPluginView->property("projectBaseDir").toString());
+        dir.replace(QStringLiteral("%B"), baseDir.absoluteFilePath());
+        dir.replace(QStringLiteral("%b"), baseDir.baseName());
+    }
+    return dir;
+}
+
+/******************************************************************/
 bool KateBuildView::startProcess(const QString &dir, const QString &command)
 {
     if (m_proc.state() != QProcess::NotRunning) {
@@ -817,7 +829,7 @@ bool KateBuildView::buildCurrentTarget()
     QString workDir = ind.data(TargetModel::WorkDirRole).toString();
     QString targetSet = ind.data(TargetModel::TargetSetNameRole).toString();
 
-    QString dir = workDir;
+    QString dir = parseWorkDir(workDir);
     if (workDir.isEmpty()) {
         dir = docFInfo.absolutePath();
         if (dir.isEmpty()) {
@@ -835,14 +847,9 @@ bool KateBuildView::buildCurrentTarget()
         slotRunAfterBuild();
         return true;
     }
-    // a single target can serve to build lots of projects with similar directory layout
-    if (m_projectPluginView) {
-        const QFileInfo baseDir(m_projectPluginView->property("projectBaseDir").toString());
-        dir.replace(QStringLiteral("%B"), baseDir.absoluteFilePath());
-        dir.replace(QStringLiteral("%b"), baseDir.baseName());
-    }
 
     // Check if the command contains the file name or directory
+    // When adding new placeholders, also update the tooltip in TargetHtmlDelegate::createEditor()
     if (buildCmd.contains(QLatin1String("%f")) || buildCmd.contains(QLatin1String("%d")) || buildCmd.contains(QLatin1String("%n"))) {
         if (docFInfo.absoluteFilePath().isEmpty()) {
             return false;
@@ -951,7 +958,7 @@ void KateBuildView::slotRunAfterBuild()
         // Nothing to run, and not a problem
         return;
     }
-    const QString workDir = idx.data(TargetModel::WorkDirRole).toString();
+    const QString workDir = parseWorkDir(idx.data(TargetModel::WorkDirRole).toString());
     if (workDir.isEmpty()) {
         displayBuildResult(i18n("Cannot execute: %1 No working directory set.", runCmd), KTextEditor::Message::Warning);
         return;

@@ -131,6 +131,7 @@ private:
     bool startProcess(const QString &dir, const QString &command);
     bool checkLocal(const QUrl &dir);
     void clearBuildResults();
+    QString parseWorkDir(QString dir) const;
 
     void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);

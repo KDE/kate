@@ -102,7 +102,14 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
     } else if (index.column() == 1) {
         UrlInserter *urlEditor = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
         editor = urlEditor;
-        editor->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
+        int const rowtype = index.data(TargetModel::RowTypeRole).toInt();
+        if (rowtype == TargetModel::TargetSetRow) {
+            // Working directory
+            editor->setToolTip(i18n("Use:\n\"%B\" for project base directory\n\"%b\" for name of project base directory"));
+        } else {
+            // Command
+            editor->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
+        }
     } else {
         QLineEdit *e = new QLineEdit(dparent);
         QCompleter *completer = new QCompleter(e);

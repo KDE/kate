@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-17 01:37+0000\n"
+"POT-Creation-Date: 2024-03-13 00:40+0000\n"
 "PO-Revision-Date: 2024-02-09 23:18+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -65,7 +65,7 @@ msgstr "빌드하고 실행"
 msgid "Build & Run Settings"
 msgstr "빌드하고 실행 설정"
 
-#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1225
+#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1232
 #, kde-format
 msgid "Build"
 msgstr "빌드"
@@ -125,7 +125,7 @@ msgid ""
 msgstr ""
 "파일 \"%1\"이(가) 로컬 파일이 아닙니다. 로컬 파일만 컴파일할 수 있습니다."
 
-#: plugin_katebuild.cpp:674
+#: plugin_katebuild.cpp:686
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -134,86 +134,86 @@ msgstr ""
 "명령을 실행할 수 없음: %1\n"
 "작업 경로가 없음: %2"
 
-#: plugin_katebuild.cpp:688
+#: plugin_katebuild.cpp:700
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\"을(를) 실행할 수 없습니다. 종료 상태 = %2"
 
-#: plugin_katebuild.cpp:703
+#: plugin_katebuild.cpp:715
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "<b>%1</b> 빌드 취소됨"
 
-#: plugin_katebuild.cpp:810
+#: plugin_katebuild.cpp:822
 #, kde-format
 msgid "No target available for building."
 msgstr "빌드할 대상이 없습니다."
 
-#: plugin_katebuild.cpp:824
+#: plugin_katebuild.cpp:836
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "빌드할 로컬 파일이나 디렉터리가 지정되지 않았습니다."
 
-#: plugin_katebuild.cpp:830
+#: plugin_katebuild.cpp:842
 #, kde-format
 msgid "Already building..."
 msgstr "이미 빌드 중..."
 
-#: plugin_katebuild.cpp:857
+#: plugin_katebuild.cpp:864
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "대상 <b>%1</b> 빌드 중..."
 
-#: plugin_katebuild.cpp:871
+#: plugin_katebuild.cpp:878
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make 결과:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:907
+#: plugin_katebuild.cpp:914
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1</b> 빌드가 완료되었습니다. 오류 %2개, 경고 %3개, 메모 %4개"
 
-#: plugin_katebuild.cpp:913
+#: plugin_katebuild.cpp:920
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "오류 %1개를 발견했습니다."
 
-#: plugin_katebuild.cpp:917
+#: plugin_katebuild.cpp:924
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "경고 %1개를 발견했습니다."
 
-#: plugin_katebuild.cpp:920
+#: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "메모 %1개를 발견했습니다."
 
-#: plugin_katebuild.cpp:925
+#: plugin_katebuild.cpp:932
 #, kde-format
 msgid "Build failed."
 msgstr "빌드가 실패했습니다."
 
-#: plugin_katebuild.cpp:927
+#: plugin_katebuild.cpp:934
 #, kde-format
 msgid "Build completed without problems."
 msgstr "빌드가 성공적으로 끝났습니다."
 
-#: plugin_katebuild.cpp:932
+#: plugin_katebuild.cpp:939
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1 빌드가 취소되었습니다</b>. 오류 %2개, 경고 %3개, 메모 %4개"
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:963
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "실행할 수 없음: %1 작업 디렉터리가 설정되지 않았습니다."
 
-#: plugin_katebuild.cpp:1182
+#: plugin_katebuild.cpp:1189
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -221,7 +221,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "오류"
 
-#: plugin_katebuild.cpp:1185
+#: plugin_katebuild.cpp:1192
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -229,13 +229,13 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "경고"
 
-#: plugin_katebuild.cpp:1188
+#: plugin_katebuild.cpp:1195
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1191
+#: plugin_katebuild.cpp:1198
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'ld' uses to mark an ..."
 #| msgid "undefined reference"
@@ -243,27 +243,27 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "정의되지 않은 참조"
 
-#: plugin_katebuild.cpp:1224 TargetModel.cpp:285 TargetModel.cpp:297
+#: plugin_katebuild.cpp:1231 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "대상 설정"
 
-#: plugin_katebuild.cpp:1226
+#: plugin_katebuild.cpp:1233
 #, kde-format
 msgid "Clean"
 msgstr "청소"
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1234
 #, kde-format
 msgid "Config"
 msgstr "설정"
 
-#: plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:1235
 #, kde-format
 msgid "ConfigClean"
 msgstr "설정 청소"
 
-#: plugin_katebuild.cpp:1419
+#: plugin_katebuild.cpp:1426
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "빌드 대상을 다음에 저장할 수 없음: %1"
@@ -289,7 +289,15 @@ msgstr ""
 "비워 두면 현재 문서의 디렉터리를 사용합니다.\n"
 "검색할 디렉터리를 ';' 문자로 구분해서 입력하십시오"
 
-#: TargetHtmlDelegate.cpp:105
+#: TargetHtmlDelegate.cpp:108
+#, kde-format
+msgid ""
+"Use:\n"
+"\"%B\" for project base directory\n"
+"\"%b\" for name of project base directory"
+msgstr ""
+
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"

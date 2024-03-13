@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-17 01:37+0000\n"
+"POT-Creation-Date: 2024-03-13 00:40+0000\n"
 "PO-Revision-Date: 2022-12-30 15:31+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -70,7 +70,7 @@ msgstr "Κατασκευή ξανά"
 msgid "Build & Run Settings"
 msgstr "Κατασκευή και εκτέλεση επιλεγμένου προορισμού"
 
-#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1225
+#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1232
 #, kde-format
 msgid "Build"
 msgstr "Κατασκευή"
@@ -132,7 +132,7 @@ msgstr ""
 "Το αρχείο \"%1\" δεν είναι ένα τοπικό αρχείο. Μη τοπικά αρχεία δεν είναι "
 "δυνατό να μεταγλωττιστούν."
 
-#: plugin_katebuild.cpp:674
+#: plugin_katebuild.cpp:686
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -141,62 +141,62 @@ msgstr ""
 "Αδυναμία εκτέλεσης εντολής: %1\n"
 "Η διαδρομή δεν υπάρχει: %2"
 
-#: plugin_katebuild.cpp:688
+#: plugin_katebuild.cpp:700
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Αποτυχία εκτέλεσης \"%1\". κατάστασηΕξόδου = %2"
 
-#: plugin_katebuild.cpp:703
+#: plugin_katebuild.cpp:715
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Η κατασκευή του <b>%1</b> ακυρώθηκε"
 
-#: plugin_katebuild.cpp:810
+#: plugin_katebuild.cpp:822
 #, kde-format
 msgid "No target available for building."
 msgstr "Μη διαθέσιμος προορισμός προς κατασκευή."
 
-#: plugin_katebuild.cpp:824
+#: plugin_katebuild.cpp:836
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Δεν υπάρχει τοπικό αρχείο ή κατάλογος καθορισμένος για κατασκευή."
 
-#: plugin_katebuild.cpp:830
+#: plugin_katebuild.cpp:842
 #, kde-format
 msgid "Already building..."
 msgstr "Υπό κατασκευή..."
 
-#: plugin_katebuild.cpp:857
+#: plugin_katebuild.cpp:864
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Κατασκευή προορισμού <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:871
+#: plugin_katebuild.cpp:878
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Αποτελέσματα Make:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:907
+#: plugin_katebuild.cpp:914
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:913
+#: plugin_katebuild.cpp:920
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Βρέθηκε ένα σφάλμα."
 msgstr[1] "Βρέθηκαν %1 σφάλματα."
 
-#: plugin_katebuild.cpp:917
+#: plugin_katebuild.cpp:924
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Βρέθηκε μία προειδοποίηση."
 msgstr[1] "Βρέθηκαν %1 προειδοποιήσεις."
 
-#: plugin_katebuild.cpp:920
+#: plugin_katebuild.cpp:927
 #, fuzzy, kde-format
 #| msgid "Found one error."
 #| msgid_plural "Found %1 errors."
@@ -205,27 +205,27 @@ msgid_plural "Found %1 notes."
 msgstr[0] "Βρέθηκε ένα σφάλμα."
 msgstr[1] "Βρέθηκαν %1 σφάλματα."
 
-#: plugin_katebuild.cpp:925
+#: plugin_katebuild.cpp:932
 #, kde-format
 msgid "Build failed."
 msgstr "Η κατασκευή απέτυχε."
 
-#: plugin_katebuild.cpp:927
+#: plugin_katebuild.cpp:934
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Ολοκλήρωση κατασκευής χωρίς προβλήματα."
 
-#: plugin_katebuild.cpp:932
+#: plugin_katebuild.cpp:939
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:963
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Αδυναμία εκτέλεσης: %1 Δεν έχει ρυθμιστεί ο κατάλογος εργασίας."
 
-#: plugin_katebuild.cpp:1182
+#: plugin_katebuild.cpp:1189
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -233,7 +233,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "σφάλμα"
 
-#: plugin_katebuild.cpp:1185
+#: plugin_katebuild.cpp:1192
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -241,39 +241,39 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "προειδοποίηση"
 
-#: plugin_katebuild.cpp:1188
+#: plugin_katebuild.cpp:1195
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1191
+#: plugin_katebuild.cpp:1198
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "μη ορισμένη αναφορά"
 
-#: plugin_katebuild.cpp:1224 TargetModel.cpp:285 TargetModel.cpp:297
+#: plugin_katebuild.cpp:1231 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "Σύνολο προορισμών"
 
-#: plugin_katebuild.cpp:1226
+#: plugin_katebuild.cpp:1233
 #, kde-format
 msgid "Clean"
 msgstr "Καθαρισμός"
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1234
 #, kde-format
 msgid "Config"
 msgstr "Διαμόρφωση"
 
-#: plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:1235
 #, kde-format
 msgid "ConfigClean"
 msgstr "ΚαθαρισμόςΔιαμόρφωσης"
 
-#: plugin_katebuild.cpp:1419
+#: plugin_katebuild.cpp:1426
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""
@@ -300,7 +300,15 @@ msgstr ""
 "Να προστεθούν κατάλογοι αναζήτησης προσθέτοντας διαδρομές με διαχωριστικό το "
 "';'"
 
-#: TargetHtmlDelegate.cpp:105
+#: TargetHtmlDelegate.cpp:108
+#, kde-format
+msgid ""
+"Use:\n"
+"\"%B\" for project base directory\n"
+"\"%b\" for name of project base directory"
+msgstr ""
+
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"

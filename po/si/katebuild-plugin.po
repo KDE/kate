@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-17 01:37+0000\n"
+"POT-Creation-Date: 2024-03-13 00:40+0000\n"
 "PO-Revision-Date: 2011-08-09 05:54+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <info@hanthana.org>\n"
@@ -68,7 +68,7 @@ msgstr "Build ප්ලගිනය"
 msgid "Build & Run Settings"
 msgstr "ගොඩනැගීම අසාර්ථකයි."
 
-#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1225
+#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1232
 #, kde-format
 msgid "Build"
 msgstr "Build"
@@ -131,71 +131,71 @@ msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "\"%1\" ගොනුව දේශීය ගොනුවක් නොවේ. දේශීය-නොවන ගොනුව සම්පාදනය කල නොහැක."
 
-#: plugin_katebuild.cpp:674
+#: plugin_katebuild.cpp:686
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:688
+#: plugin_katebuild.cpp:700
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" ධාවනය අසාර්ථක විය. පිටවීම්තත්වය = %2"
 
-#: plugin_katebuild.cpp:703
+#: plugin_katebuild.cpp:715
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr ""
 
-#: plugin_katebuild.cpp:810
+#: plugin_katebuild.cpp:822
 #, kde-format
 msgid "No target available for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:824
+#: plugin_katebuild.cpp:836
 #, fuzzy, kde-format
 #| msgid "There is no file or directory specified for building."
 msgid "There is no local file or directory specified for building."
 msgstr "තැනීම ගොඩනැගීම"
 
-#: plugin_katebuild.cpp:830
+#: plugin_katebuild.cpp:842
 #, kde-format
 msgid "Already building..."
 msgstr ""
 
-#: plugin_katebuild.cpp:857
+#: plugin_katebuild.cpp:864
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building target <b>%1</b> ..."
 msgstr "ගොඩනැගීම අසාර්ථකයි."
 
-#: plugin_katebuild.cpp:871
+#: plugin_katebuild.cpp:878
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:907
+#: plugin_katebuild.cpp:914
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:913
+#: plugin_katebuild.cpp:920
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "එක් දෝශයක් හමුවිය"
 msgstr[1] "දෝශ %1 හමුවිය"
 
-#: plugin_katebuild.cpp:917
+#: plugin_katebuild.cpp:924
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "එක් අවවාදයක් හමුවිය"
 msgstr[1] "අවවාද %1ක් හමුවිය"
 
-#: plugin_katebuild.cpp:920
+#: plugin_katebuild.cpp:927
 #, fuzzy, kde-format
 #| msgid "Found one error."
 #| msgid_plural "Found %1 errors."
@@ -204,27 +204,27 @@ msgid_plural "Found %1 notes."
 msgstr[0] "එක් දෝශයක් හමුවිය"
 msgstr[1] "දෝශ %1 හමුවිය"
 
-#: plugin_katebuild.cpp:925
+#: plugin_katebuild.cpp:932
 #, kde-format
 msgid "Build failed."
 msgstr "ගොඩනැගීම අසාර්ථකයි."
 
-#: plugin_katebuild.cpp:927
+#: plugin_katebuild.cpp:934
 #, kde-format
 msgid "Build completed without problems."
 msgstr "දෝශයකින් තොරව ගොඩනැගීම සම්පූර්ණ විය."
 
-#: plugin_katebuild.cpp:932
+#: plugin_katebuild.cpp:939
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:963
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1182
+#: plugin_katebuild.cpp:1189
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -232,7 +232,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "දෝෂය"
 
-#: plugin_katebuild.cpp:1185
+#: plugin_katebuild.cpp:1192
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -240,41 +240,41 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "අවවාදය"
 
-#: plugin_katebuild.cpp:1188
+#: plugin_katebuild.cpp:1195
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1191
+#: plugin_katebuild.cpp:1198
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "නොදෙන ලද යොමුව"
 
-#: plugin_katebuild.cpp:1224 TargetModel.cpp:285 TargetModel.cpp:297
+#: plugin_katebuild.cpp:1231 TargetModel.cpp:285 TargetModel.cpp:297
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "ඉලක්ක"
 
-#: plugin_katebuild.cpp:1226
+#: plugin_katebuild.cpp:1233
 #, kde-format
 msgid "Clean"
 msgstr "පිරිසිදු කරන්න"
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1234
 #, kde-format
 msgid "Config"
 msgstr "සකසන්න"
 
-#: plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:1235
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"
 msgstr "සකසන්න"
 
-#: plugin_katebuild.cpp:1419
+#: plugin_katebuild.cpp:1426
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""
@@ -299,7 +299,15 @@ msgid ""
 "Add search directories by adding paths separated by ';'"
 msgstr "වත්මන් ලේඛනය සඳහා බහලුම යොදාගැනීමට එය හිස්ව තබන්න."
 
-#: TargetHtmlDelegate.cpp:105
+#: TargetHtmlDelegate.cpp:108
+#, kde-format
+msgid ""
+"Use:\n"
+"\"%B\" for project base directory\n"
+"\"%b\" for name of project base directory"
+msgstr ""
+
+#: TargetHtmlDelegate.cpp:111
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use:\n"

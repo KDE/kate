@@ -6,11 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>854</width>
+    <width>928</width>
     <height>325</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -21,9 +24,6 @@
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
-   </property>
-   <property name="spacing">
     <number>0</number>
    </property>
    <item>
@@ -366,7 +366,7 @@
           <item row="1" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="KUrlComboRequester" name="folderRequester" native="true"/>
+             <widget class="KUrlComboRequester" name="folderRequester"/>
             </item>
             <item>
              <widget class="QToolButton" name="folderUpButton">
@@ -460,6 +460,26 @@
              </widget>
             </item>
             <item>
+             <widget class="QSpinBox" name="sizeLimitSpinBox">
+              <property name="suffix">
+               <string>MB</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>8192</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Size limit</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_2">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -490,13 +510,13 @@
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QWidget</extends>
+   <class>KUrlComboRequester</class>
+   <extends>KUrlRequester</extends>
    <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
-   <class>KUrlComboRequester</class>
-   <extends>KUrlRequester</extends>
+   <class>KUrlRequester</class>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
@@ -512,6 +532,7 @@
   <tabstop>currentFolderButton</tabstop>
   <tabstop>matchCase</tabstop>
   <tabstop>useRegExp</tabstop>
+  <tabstop>filterBtn</tabstop>
   <tabstop>expandResults</tabstop>
   <tabstop>newTabButton</tabstop>
   <tabstop>displayOptions</tabstop>
@@ -523,6 +544,7 @@
   <tabstop>hiddenCheckBox</tabstop>
   <tabstop>symLinkCheckBox</tabstop>
   <tabstop>binaryCheckBox</tabstop>
+  <tabstop>sizeLimitSpinBox</tabstop>
   <tabstop>resultWidget</tabstop>
  </tabstops>
  <resources/>

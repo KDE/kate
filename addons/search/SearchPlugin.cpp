@@ -214,12 +214,7 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
 
     // we use the object names here because there can be multiple trees (on multiple result tabs)
     if (next) {
-        if (currentWidget->objectName() == QLatin1String("treeView") || currentWidget == m_ui.binaryCheckBox) {
-            m_ui.searchCombo->setFocus();
-            *found = true;
-            return;
-        }
-        if (currentWidget == m_ui.excludeCombo && m_ui.searchPlaceCombo->currentIndex() > MatchModel::Folder) {
+        if (currentWidget->objectName() == QLatin1String("treeView") || currentWidget == m_ui.sizeLimitSpinBox) {
             m_ui.searchCombo->setFocus();
             *found = true;
             return;
@@ -256,8 +251,8 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
                     m_ui.displayOptions->setFocus();
                     *found = true;
                     return;
-                } else if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::Folder) {
-                    m_ui.binaryCheckBox->setFocus();
+                } else if (m_ui.searchPlaceCombo->currentIndex() >= MatchModel::Folder) {
+                    m_ui.sizeLimitSpinBox->setFocus();
                     *found = true;
                     return;
                 } else {
@@ -870,10 +865,10 @@ void KatePluginSearchView::folderFileListChanged()
         m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
     }
 
-    startDiskFileSearch(fileList, m_curResults->regExp, m_ui.binaryCheckBox->isChecked());
+    startDiskFileSearch(fileList, m_curResults->regExp, m_ui.binaryCheckBox->isChecked(), m_ui.sizeLimitSpinBox->value());
 }
 
-void KatePluginSearchView::startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, bool includeBinaryFiles)
+void KatePluginSearchView::startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, const bool includeBinaryFiles, const int sizeLimit)
 {
     if (fileList.isEmpty()) {
         searchDone();
@@ -891,7 +886,7 @@ void KatePluginSearchView::startDiskFileSearch(const QStringList &fileList, cons
     for (int i = 0; i < threadCount; ++i) {
         // new runnable, will pull work from the worklist itself!
         // worklist is used to drive if we need to stop the work, too!
-        SearchDiskFiles *runner = new SearchDiskFiles(m_worklistForDiskFiles, reg, includeBinaryFiles);
+        SearchDiskFiles *runner = new SearchDiskFiles(m_worklistForDiskFiles, reg, includeBinaryFiles, sizeLimit);
 
         // queued connection for the results, this is emitted by a different thread than the runnable object and this one!
         connect(runner, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound, Qt::QueuedConnection);
@@ -1222,7 +1217,7 @@ void KatePluginSearchView::startSearch()
         }
         // We don't want to search for binary files in the project, so false is used instead of the checkbox
         // which is disabled in this case
-        startDiskFileSearch(files, m_curResults->regExp, false);
+        startDiskFileSearch(files, m_curResults->regExp, false, m_ui.sizeLimitSpinBox->value());
     } else {
         qDebug() << "Case not handled:" << m_ui.searchPlaceCombo->currentIndex();
         Q_ASSERT_X(false, "KatePluginSearchView::startSearch", "case not handled");
@@ -2008,6 +2003,7 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     m_ui.hiddenCheckBox->setChecked(cg.readEntry("HiddenFiles", false));
     m_ui.symLinkCheckBox->setChecked(cg.readEntry("FollowSymLink", false));
     m_ui.binaryCheckBox->setChecked(cg.readEntry("BinaryFiles", false));
+    m_ui.sizeLimitSpinBox->setValue(cg.readEntry("SizeLimit", 128));
     m_ui.folderRequester->comboBox()->clear();
     m_ui.folderRequester->comboBox()->addItems(cg.readEntry("SearchDiskFiless", QStringList()));
     m_ui.folderRequester->setText(cg.readEntry("SearchDiskFiles", QString()));
@@ -2049,6 +2045,7 @@ void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
     cg.writeEntry("HiddenFiles", m_ui.hiddenCheckBox->isChecked());
     cg.writeEntry("FollowSymLink", m_ui.symLinkCheckBox->isChecked());
     cg.writeEntry("BinaryFiles", m_ui.binaryCheckBox->isChecked());
+    cg.writeEntry("SizeLimit", m_ui.sizeLimitSpinBox->value());
     QStringList folders;
     for (int i = 0; i < qMin(m_ui.folderRequester->comboBox()->count(), 10); i++) {
         folders << m_ui.folderRequester->comboBox()->itemText(i);

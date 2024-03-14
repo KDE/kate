@@ -171,7 +171,7 @@ private:
     void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QList<int> lineNumbers);
 
     QStringList filterFiles(const QStringList &fileList) const;
-    void startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, bool includeBinaryFiles);
+    void startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, const bool includeBinaryFiles, const int sizeLimit);
     void cancelDiskFileSearch();
     bool searchingDiskFiles();
 

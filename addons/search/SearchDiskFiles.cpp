@@ -12,10 +12,11 @@
 #include <QTextStream>
 #include <QUrl>
 
-SearchDiskFiles::SearchDiskFiles(SearchDiskFilesWorkList &worklist, const QRegularExpression &regexp, const bool includeBinaryFiles)
+SearchDiskFiles::SearchDiskFiles(SearchDiskFilesWorkList &worklist, const QRegularExpression &regexp, const bool includeBinaryFiles, const int sizeLimit)
     : m_worklist(worklist)
     , m_regExp(regexp.pattern(), regexp.patternOptions()) // we WANT to kill the sharing, ELSE WE LOCK US DEAD!
     , m_includeBinaryFiles(includeBinaryFiles)
+    , m_sizeLimit(sizeLimit)
 {
     // ensure we have a proper thread name during e.g. perf profiling
     setObjectName(QStringLiteral("SearchDiskFiles"));
@@ -42,6 +43,11 @@ void SearchDiskFiles::run()
         // open file early, this allows mime-type detection & search to use same io device
         QFile file(fileName);
         if (!file.open(QFile::ReadOnly)) {
+            continue;
+        }
+
+        // skip files that hit the limit or files we can't get the size, that might lead to oom
+        if (const auto s = file.size(); s <= 0 || (s / (1024 * 1024)) > m_sizeLimit) {
             continue;
         }
 

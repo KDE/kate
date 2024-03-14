@@ -165,7 +165,7 @@ class SearchDiskFiles : public QObject, public QRunnable
     Q_OBJECT
 
 public:
-    SearchDiskFiles(SearchDiskFilesWorkList &worklist, const QRegularExpression &regexp, const bool includeBinaryFiles);
+    SearchDiskFiles(SearchDiskFilesWorkList &worklist, const QRegularExpression &regexp, const bool includeBinaryFiles, const int sizeLimit);
 
     void run() override;
 
@@ -179,5 +179,6 @@ private:
 private:
     SearchDiskFilesWorkList &m_worklist;
     const QRegularExpression m_regExp;
-    bool m_includeBinaryFiles = false;
+    const bool m_includeBinaryFiles;
+    const bool m_sizeLimit;
 };

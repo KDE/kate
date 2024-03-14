@@ -383,8 +383,6 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_inlayHints;
     QPointer<KActionMenu> m_requestCodeAction;
 
-    QList<QAction *> m_contextMenuActions;
-
     // toolview
     std::unique_ptr<QWidget> m_toolView;
     QPointer<ClosableTabWidget> m_tabWidget;
@@ -604,27 +602,14 @@ public:
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
         m_restartAll->setText(i18n("Restart All LSP Servers"));
 
-        auto addSeparator = [this]() {
-            auto *sep1 = new QAction(this);
-            sep1->setSeparator(true);
-            m_contextMenuActions << sep1;
-        };
-
-        m_contextMenuActions << m_requestCodeAction;
-        addSeparator();
-
         QAction *goToAction = new QAction(i18n("Go To"));
+        actionCollection()->addAction(QStringLiteral("lspclient_goto_menu"), goToAction);
         QMenu *goTo = new QMenu();
         goToAction->setMenu(goTo);
         goTo->addActions({m_findDecl, m_findDef, m_findTypeDef, m_switchSourceHeader});
 
-        m_contextMenuActions << goToAction;
-        addSeparator();
-        m_contextMenuActions << m_findRef;
-        m_contextMenuActions << m_triggerRename;
-        addSeparator();
-
         QAction *lspOtherAction = new QAction(i18n("LSP Client"));
+        actionCollection()->addAction(QStringLiteral("lspclient_other_menu"), lspOtherAction);
         QMenu *lspOther = new QMenu();
         lspOtherAction->setMenu(lspOther);
         lspOther->addAction(m_findImpl);
@@ -657,9 +642,6 @@ public:
         moreOptions->addAction(m_messages);
         moreOptions->addSeparator();
         moreOptions->addAction(m_memoryUsage);
-
-        m_contextMenuActions << lspOtherAction;
-        addSeparator();
 
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
@@ -2290,12 +2272,17 @@ public:
                 m_semHighlightingManager.doSemanticHighlighting(activeView, false);
             }
 
-            connect(activeView, &KTextEditor::View::contextMenuAboutToShow, this, &self_type::prepareContextMenu, Qt::UniqueConnection);
-
             if (caps.inlayHintProvider && m_inlayHints->isChecked()) {
                 m_inlayHintsHandler.setActiveView(activeView);
             }
         }
+
+        // show context menu actions only if server is active
+        actionCollection()->action(QStringLiteral("lspclient_code_action"))->setVisible(server != nullptr);
+        actionCollection()->action(QStringLiteral("lspclient_goto_menu"))->setVisible(server != nullptr);
+        actionCollection()->action(QStringLiteral("lspclient_find_references"))->setVisible(server != nullptr);
+        actionCollection()->action(QStringLiteral("lspclient_rename"))->setVisible(server != nullptr);
+        actionCollection()->action(QStringLiteral("lspclient_other_menu"))->setVisible(server != nullptr);
 
         if (m_findDef) {
             m_findDef->setEnabled(defEnabled);
@@ -2372,46 +2359,6 @@ public:
         // connect for cleanup stuff
         if (activeView) {
             connect(activeView, &KTextEditor::View::destroyed, this, &self_type::viewDestroyed, Qt::UniqueConnection);
-        }
-    }
-
-    void prepareContextMenu(KTextEditor::View *view, QMenu *menu)
-    {
-        Q_UNUSED(view);
-
-        // make sure the parent is set
-        for (auto *act : m_contextMenuActions) {
-            act->setParent(menu);
-        }
-
-        QAction *insertBefore = nullptr;
-        // the name is used in KXMLGUI as object name
-        // we want to insert before the cut action to ensure the KTE spelling menu is still on top
-        const auto cutName = KStandardAction::name(KStandardAction::StandardAction::Cut);
-
-        for (auto *act : menu->actions()) {
-            if (act->objectName() == cutName) {
-                insertBefore = act;
-                break;
-            }
-        }
-
-        if (!insertBefore) {
-            Q_ASSERT(!menu->actions().isEmpty());
-            insertBefore = menu->actions().first();
-        }
-
-        // insert lsp actions at the beginning of the menu
-        menu->insertActions(insertBefore, m_contextMenuActions);
-
-        connect(menu, &QMenu::aboutToHide, this, &self_type::cleanUpContextMenu, Qt::UniqueConnection);
-    }
-
-    void cleanUpContextMenu()
-    {
-        // We need to remove our list or they will accumulated on next show event
-        for (auto *act : m_contextMenuActions) {
-            qobject_cast<QWidget *>(act->parent())->removeAction(act);
         }
     }
 

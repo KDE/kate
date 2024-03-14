@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="lspclient" library="lspclient" version="22" translationDomain="lspclient">
+<gui name="lspclient" library="lspclient" version="23" translationDomain="lspclient">
   <MenuBar>
     <Menu name="LSPClient Menubar">
       <text>LSP Client</text>
@@ -50,5 +50,15 @@
       </Menu>
     </Menu>
   </MenuBar>
+  <Menu name="ktexteditor_popup" noMerge="1">
+    <Action name="lspclient_code_action"/>
+    <Separator/>
+    <Action name="lspclient_goto_menu"/>
+    <Separator/>
+    <Action name="lspclient_find_references"/>
+    <Action name="lspclient_rename"/>
+    <Separator/>
+    <Action name="lspclient_other_menu"/>
+  </Menu>
 </gui>
 <!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

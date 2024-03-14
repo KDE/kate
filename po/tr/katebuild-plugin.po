@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-13 00:40+0000\n"
-"PO-Revision-Date: 2024-02-09 17:45+0300\n"
+"PO-Revision-Date: 2024-03-13 13:53+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -128,7 +128,7 @@ msgstr "Derleme için herhangi bir dosya veya dizin belirtilmedi."
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
-msgstr "\"%1\" yerel bir dosya değil. Yerel olmayan dosyalar derlenemez."
+msgstr "“%1” yerel bir dosya değil. Yerel olmayan dosyalar derlenemez."
 
 #: plugin_katebuild.cpp:686
 #, kde-format
@@ -142,7 +142,7 @@ msgstr ""
 #: plugin_katebuild.cpp:700
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "\"%1\" çalıştırılamadı. Çıktı durumu = %2"
+msgstr "“%1” çalıştırılamadı. Çıktı durumu = %2"
 
 #: plugin_katebuild.cpp:715
 #, kde-format
@@ -289,7 +289,7 @@ msgid ""
 "Add search directories by adding paths separated by ';'"
 msgstr ""
 "Geçerli dosyanın dizinini kullanmak için boş bırakın.\n"
-"';' ile ayrılmış yollar ekleyerek arama dizinleri ekleyin"
+"‘;’ ile ayrılmış yollar ekleyerek arama dizinleri ekleyin"
 
 #: TargetHtmlDelegate.cpp:108
 #, kde-format
@@ -298,6 +298,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Kullanım:\n"
+"proje taban dizini için ‘%B’\n"
+"proje taban dizininin adı için ‘%b’"
 
 #: TargetHtmlDelegate.cpp:111
 #, kde-format
@@ -308,9 +311,9 @@ msgid ""
 "\"%n\" for current file name without suffix"
 msgstr ""
 "Kullanım:\n"
-"geçerli dosya için \"%f\"\n"
-"geçerli dosyanın bulunduğu dizin için \"%d\"\n"
-"soneki olmadan geçerli dosya adı için \"%n\""
+"geçerli dosya için ‘%f’\n"
+"geçerli dosyanın bulunduğu dizin için ‘%d’\n"
+"sonek olmadan geçerli dosya adı için ‘%n’"
 
 #: TargetModel.cpp:530
 #, kde-format

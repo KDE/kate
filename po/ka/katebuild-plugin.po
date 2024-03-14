@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-17 01:37+0000\n"
+"POT-Creation-Date: 2024-03-13 00:40+0000\n"
 "PO-Revision-Date: 2023-12-17 05:10+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -66,7 +66,7 @@ msgstr "აგება და გაშვება"
 msgid "Build & Run Settings"
 msgstr "აგებისა და გაშვების მორგება"
 
-#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1225
+#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1232
 #, kde-format
 msgid "Build"
 msgstr "აგება"
@@ -126,7 +126,7 @@ msgid ""
 msgstr ""
 "ფაილი \"%1\" ლოკალური ფაილი არაა. არალოკალური ფაილების აგება შეუძლებელია."
 
-#: plugin_katebuild.cpp:674
+#: plugin_katebuild.cpp:686
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -135,133 +135,133 @@ msgstr ""
 "ბრძანების გაშვება შეუძლებელია: %1\n"
 "სამუშაო ბილიკი არ არსებობს: %2"
 
-#: plugin_katebuild.cpp:688
+#: plugin_katebuild.cpp:700
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\"-ის გაშვების შეცდომა. exitStatus = %2"
 
-#: plugin_katebuild.cpp:703
+#: plugin_katebuild.cpp:715
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "<b>%1</b> -ის აგება გაუქმდა"
 
-#: plugin_katebuild.cpp:810
+#: plugin_katebuild.cpp:822
 #, kde-format
 msgid "No target available for building."
 msgstr "ასაგები სამიზნე ხელმიუწვდომელია."
 
-#: plugin_katebuild.cpp:824
+#: plugin_katebuild.cpp:836
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "აგებისთვის ლოკალური არც საქაღალდეა მითითებული, არც ფაილი."
 
-#: plugin_katebuild.cpp:830
+#: plugin_katebuild.cpp:842
 #, kde-format
 msgid "Already building..."
 msgstr "აგება უკვე მიმდინარეობს..."
 
-#: plugin_katebuild.cpp:857
+#: plugin_katebuild.cpp:864
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "სამიზნის აგება <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:871
+#: plugin_katebuild.cpp:878
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>აგების შედეგები:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:907
+#: plugin_katebuild.cpp:914
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1</b>-ის აგება დასრულდა. %2 შეცდომა, %3 გაფრთხილება, %4 შენიშვნა"
 
-#: plugin_katebuild.cpp:913
+#: plugin_katebuild.cpp:920
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "ნაპოვნია ერთი შეცდომა."
 msgstr[1] "ნაპოვნია %1 შეცდომა."
 
-#: plugin_katebuild.cpp:917
+#: plugin_katebuild.cpp:924
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "ნაპოვნია ერთი გაფრთხილება."
 msgstr[1] "ნაპოვნია %1 გაფრთხილება."
 
-#: plugin_katebuild.cpp:920
+#: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "ნაპოვნია ერთი შენიშვნა."
 msgstr[1] "ნაპოვნია %1 შენიშვნა."
 
-#: plugin_katebuild.cpp:925
+#: plugin_katebuild.cpp:932
 #, kde-format
 msgid "Build failed."
 msgstr "აგების შეცდომა."
 
-#: plugin_katebuild.cpp:927
+#: plugin_katebuild.cpp:934
 #, kde-format
 msgid "Build completed without problems."
 msgstr "აგება პრობლემების გარეშე შესრულდა."
 
-#: plugin_katebuild.cpp:932
+#: plugin_katebuild.cpp:939
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1-ის აგება გაუქმდა</b>. %2 შეცდომა, %3 გაფრთხილება, %4 შენიშვნა"
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:963
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "შესრულებ შეუძლებელია: %1 სამუშაო საქაღალდე დაყენებული არაა."
 
-#: plugin_katebuild.cpp:1182
+#: plugin_katebuild.cpp:1189
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "შეცდომა"
 
-#: plugin_katebuild.cpp:1185
+#: plugin_katebuild.cpp:1192
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "გაფრთხილება"
 
-#: plugin_katebuild.cpp:1188
+#: plugin_katebuild.cpp:1195
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "შენიშვნა|ინფორმაცია"
 
-#: plugin_katebuild.cpp:1191
+#: plugin_katebuild.cpp:1198
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "აღუწერელი ბმა"
 
-#: plugin_katebuild.cpp:1224 TargetModel.cpp:285 TargetModel.cpp:297
+#: plugin_katebuild.cpp:1231 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "სამიზნე დაყენებულია"
 
-#: plugin_katebuild.cpp:1226
+#: plugin_katebuild.cpp:1233
 #, kde-format
 msgid "Clean"
 msgstr "გასუფთავება"
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1234
 #, kde-format
 msgid "Config"
 msgstr "კონფიგურაცია"
 
-#: plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:1235
 #, kde-format
 msgid "ConfigClean"
 msgstr "ConfigClean"
 
-#: plugin_katebuild.cpp:1419
+#: plugin_katebuild.cpp:1426
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "შეუძლებელია აგების სამიზნეების შენახვა მისამართზე: %1"
@@ -287,7 +287,15 @@ msgstr ""
 "მიმდინარე დოკუმენტის საქაღალდის გამოსაყენებლად ცარიელი დატოვეთ.\n"
 "მოსაძებნი საქაღალდეების დამატება \";\"-ით გამოტოვებით შეგიძლიათ"
 
-#: TargetHtmlDelegate.cpp:105
+#: TargetHtmlDelegate.cpp:108
+#, kde-format
+msgid ""
+"Use:\n"
+"\"%B\" for project base directory\n"
+"\"%b\" for name of project base directory"
+msgstr ""
+
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"

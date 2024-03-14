@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2024-03-10 00:26+0200\n"
+"PO-Revision-Date: 2024-03-13 10:14+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -28,12 +28,12 @@ msgstr ""
 #: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
-msgstr ""
+msgstr "יצירת ענף חדש"
 
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr ""
+msgstr "יצירת ענף חדש מתוך…"
 
 #: branchcheckoutdialog.cpp:53
 #, kde-format
@@ -68,84 +68,84 @@ msgstr ""
 #: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Branch"
-msgstr ""
+msgstr "ענף"
 
 #: branchdeletedialog.cpp:126
 #, kde-format
 msgid "Last Commit"
-msgstr ""
+msgstr "הגשה אחרונה"
 
 #: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "מחיקה"
 
 #: branchdeletedialog.cpp:144
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "למחוק את הענף הנבחר?"
+msgstr[1] "למחוק את הענפים הנבחרים?"
+msgstr[2] "למחוק את הענפים הנבחרים?"
+msgstr[3] "למחוק את הענפים הנבחרים?"
 
 #: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "בחירת ענף…"
 
 #: branchesdialog.cpp:126 gitwidget.cpp:536 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: comparebranchesview.cpp:145
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "חזרה"
 
 #: currentgitbranchbutton.cpp:124
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr ""
+msgstr "ה־HEAD נמצא על ההגשה %1"
 
 #: currentgitbranchbutton.cpp:126
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "ה־HEAD מכוון לתגית %1"
 
 #: currentgitbranchbutton.cpp:128
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "ענף פעיל: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "הגשת השינויים"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:262
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "הגשה"
 
 #: gitcommitdialog.cpp:74
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "ביטול"
 
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "כתיבת הודעת הגשה…"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "תיאור הגשה מורחב…"
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -171,7 +171,7 @@ msgstr ""
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 / 52"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
@@ -192,7 +192,7 @@ msgstr "לא במעקב"
 #: gitstatusmodel.cpp:89
 #, kde-format
 msgid "Conflict"
-msgstr ""
+msgstr "סתירה"
 
 #: gitstatusmodel.cpp:91
 #, kde-format
@@ -222,7 +222,7 @@ msgstr ""
 #: gitwidget.cpp:325 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "סינון…"
 
 #: gitwidget.cpp:415
 #, kde-format
@@ -232,7 +232,7 @@ msgstr ""
 #: gitwidget.cpp:620
 #, kde-format
 msgid " error: %1"
-msgstr ""
+msgstr " שגיאה: %1"
 
 #: gitwidget.cpp:626
 #, kde-format
@@ -287,17 +287,17 @@ msgstr ""
 #: gitwidget.cpp:823
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "הודעת ההגשה לא יכולה להישאר ריקה."
 
 #: gitwidget.cpp:943
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr ""
+msgstr "לא תועדו הבדלים בפער %1…%2"
 
 #: gitwidget.cpp:949
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "ההשוואה %1…%2 נכשלה"
 
 #: gitwidget.cpp:964
 #, kde-format
@@ -332,7 +332,7 @@ msgstr "הצגת הגשה"
 #: gitwidget.cpp:1048
 #, kde-format
 msgid "Commit hash"
-msgstr ""
+msgstr "גיבוב הגשה"
 
 #: gitwidget.cpp:1055
 #, kde-format
@@ -342,7 +342,7 @@ msgstr "פתיחת הגשה…"
 #: gitwidget.cpp:1058 gitwidget.cpp:1097
 #, kde-format
 msgid "Stash"
-msgstr ""
+msgstr "הטמנה"
 
 #: gitwidget.cpp:1068
 #, kde-format
@@ -357,12 +357,12 @@ msgstr ""
 #: gitwidget.cpp:1105
 #, kde-format
 msgid "Pop Stash"
-msgstr ""
+msgstr "שליפת ההטמנה (Pop Stash)"
 
 #: gitwidget.cpp:1109
 #, kde-format
 msgid "Apply Last Stash"
-msgstr ""
+msgstr "החלת ההטמנה (Stash) האחרונה"
 
 #: gitwidget.cpp:1111
 #, kde-format
@@ -423,7 +423,7 @@ msgstr ""
 #: gitwidget.cpp:1185
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "להתעלם מכל השינויים?"
 
 #: gitwidget.cpp:1209
 #, kde-format
@@ -433,7 +433,7 @@ msgstr "פתיחת קובץ"
 #: gitwidget.cpp:1211
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr ""
+msgstr "הצגה בכלי הבדלי Git חיצוני"
 
 #: gitwidget.cpp:1212
 #, kde-format
@@ -453,22 +453,22 @@ msgstr ""
 #: gitwidget.cpp:1214
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "הסרה"
 
 #: gitwidget.cpp:1214
 #, kde-format
 msgid "Discard"
-msgstr ""
+msgstr "התעלמות"
 
 #: gitwidget.cpp:1231
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "להתעלם מהשינויים בקובץ הזה?"
 
 #: gitwidget.cpp:1240
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr ""
+msgstr "להסיר את הקובץ הזה?"
 
 #: gitwidget.cpp:1251
 #, kde-format
@@ -488,22 +488,22 @@ msgstr ""
 #: gitwidget.cpp:1319
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "התעלמות מהקבצים נבחרים"
 
 #: gitwidget.cpp:1323
 #, kde-format
 msgid "Remove Selected Files"
-msgstr ""
+msgstr "הסרת הקבצים הנבחרים"
 
 #: gitwidget.cpp:1336
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "להתעלם מהשינויים?"
 
 #: gitwidget.cpp:1341
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
-msgstr ""
+msgstr "להסיר את השינויים הלא מתועדים האלה?"
 
 #: kateproject.cpp:218
 #, kde-format
@@ -583,7 +583,7 @@ msgstr ""
 #: kateprojectconfigpage.cpp:56 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
-msgstr ""
+msgstr "הפעלת סידור במפתח"
 
 #: kateprojectconfigpage.cpp:59
 #, kde-format
@@ -623,7 +623,7 @@ msgstr ""
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: kateprojectconfigpage.cpp:85
 #, kde-format

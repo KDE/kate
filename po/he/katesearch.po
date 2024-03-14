@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-25 00:41+0000\n"
-"PO-Revision-Date: 2024-03-03 14:06+0200\n"
+"PO-Revision-Date: 2024-03-13 10:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -111,37 +111,31 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: MatchModel.cpp:571
-#, fuzzy, kde-format
-#| msgid "<b><i>One match found</i></b>"
-#| msgid_plural "<b><i>%1 matches found</i></b>"
+#, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] "<b><i>נמצאה התאמה אחת</i></b>"
-msgstr[1] "<b><i>נמצאו %1 התאמות</i></b>"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "<b><i>נמצאה תוצאה אחת (%2) בקובץ</i></b>"
+msgstr[1] "<b><i>נמצאו שתי תוצאות (%2) בקובץ</i></b>"
+msgstr[2] "<b><i>נמצאו %1 תוצאות (%2) בקובץ</i></b>"
+msgstr[3] "<b><i>נמצאו %1 תוצאות (%2) בקובץ</i></b>"
 
 #: MatchModel.cpp:573
-#, fuzzy, kde-format
-#| msgid "<b><i>One match found in open files</i></b>"
-#| msgid_plural "<b><i>%1 matches found in open files</i></b>"
+#, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
-msgstr[0] "<b><i>נמצאה התאמה אחת בקבצים הפתוחים</i></b>"
-msgstr[1] "<b><i>נמצאו %1 התאמות בקבצים הפתוחים</i></b>"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "<b><i>נמצאה תוצאה אחת (%2) בקבצים הפתוחים</i></b>"
+msgstr[1] "<b><i>נמצאו שתי תוצאות (%2) בקבצים הפתוחים</i></b>"
+msgstr[2] "<b><i>נמצאו %1 תוצאות (%2) בקבצים הפתוחים</i></b>"
+msgstr[3] "<b><i>נמצאו %1 תוצאות (%2) בקבצים הפתוחים</i></b>"
 
 #: MatchModel.cpp:576
-#, fuzzy, kde-format
-#| msgid "<b><i>One match found in folder %2</i></b>"
-#| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
+#, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
-msgstr[0] "<b><i>נמצאה התאמה אחת בספרייה %2</i></b>"
-msgstr[1] "<b><i>נמצאו %1 התאמות בספרייה %2</i></b>"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "<b><i>נמצאה תוצאה אחת (%3) בתיקייה %2</i></b>"
+msgstr[1] "<b><i>נמצאו שתי תוצאות (%3) בתיקייה %2</i></b>"
+msgstr[2] "<b><i>נמצאו %1 תוצאות (%3) בתיקייה %2</i></b>"
+msgstr[3] "<b><i>נמצאו %1 תוצאות (%3) בתיקייה %2</i></b>"
 
 #: MatchModel.cpp:583
 #, fuzzy, kde-format
@@ -149,21 +143,25 @@ msgstr[3] ""
 #| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
-msgstr[0] "<b><i>נמצאה התאמה אחת בפרוייקט %2 (%3)</i></b>"
-msgstr[1] "<b><i>נמצאו %1 התאמות בפרוייקט %2 (%3)</i></b>"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "<b><i>נמצאה תוצאה אחת (%4) במיזם %2 (%3)</i></b>"
+msgstr[1] "<b><i>נמצאו שתי תוצאות (%4) במיזם %2 (%3)</i></b>"
+msgstr[2] "<b><i>נמצאו %1 תוצאות (%4) במיזם %2 (%3)</i></b>"
+msgstr[3] "<b><i>נמצאו %1 תוצאות (%4) במיזם %2 (%3)</i></b>"
 
 #: MatchModel.cpp:592
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
-msgstr[0] "<b><i>נמצאה התאמה אחת בפרוייקט %2 (%3)</i></b>"
-msgstr[1] "<b><i>נמצאו %1 התאמות בפרוייקט %2 (%3)</i></b>"
+msgstr[0] ""
+"<b><i>נמצאה תוצאה אחת (%3) בכל המיזמים הפתוחים (הורה משותף: %2)</i></b>"
+msgstr[1] ""
+"<b><i>נמצאו %1 תוצאות (%3) בכל המיזמים הפתוחים (הורה משותף: %2)</i></b>"
 msgstr[2] ""
+"<b><i>נמצאו %1 תוצאות (%3) בכל המיזמים הפתוחים (הורה משותף: %2)</i></b>"
 msgstr[3] ""
+"<b><i>נמצאו %1 תוצאות (%3) בכל המיזמים הפתוחים (הורה משותף: %2)</i></b>"
 
 #: MatchModel.cpp:706 MatchModel.cpp:708
 #, kde-format
@@ -189,48 +187,40 @@ msgstr[2] "נמצאו %1 תוצאות, מתבצע חיפוש: %2"
 msgstr[3] "נמצאו %1 תוצאות, מתבצע חיפוש: %2"
 
 #: MatchModel.cpp:726
-#, fuzzy, kde-format
-#| msgid "<b><i>One match found</i></b>"
-#| msgid_plural "<b><i>%1 matches found</i></b>"
+#, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
-msgstr[0] "<b><i>נמצאה התאמה אחת</i></b>"
-msgstr[1] "<b><i>נמצאו %1 התאמות</i></b>"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "נמצאה תוצאה אחת (%2) בקובץ"
+msgstr[1] "נמצאו שתי תוצאות (%2) בקובץ"
+msgstr[2] "נמצאו %1 תוצאות (%2) בקובץ"
+msgstr[3] "נמצאו %1 תוצאות (%2) בקובץ"
 
 #: MatchModel.cpp:728
-#, fuzzy, kde-format
-#| msgid "<b><i>One match found in open files</i></b>"
-#| msgid_plural "<b><i>%1 matches found in open files</i></b>"
+#, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
-msgstr[0] "<b><i>נמצאה התאמה אחת בקבצים הפתוחים</i></b>"
-msgstr[1] "<b><i>נמצאו %1 התאמות בקבצים הפתוחים</i></b>"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "נמצאה תוצאה אחת (%2) בקבצים הפתוחים"
+msgstr[1] "נמצאו שתי תוצאות (%2) בקבצים הפתוחים"
+msgstr[2] "נמצאו %1 תוצאות (%2) בקבצים הפתוחים"
+msgstr[3] "נמצאו %1 תוצאות (%2) בקבצים הפתוחים"
 
 #: MatchModel.cpp:731
-#, fuzzy, kde-format
-#| msgid "<b><i>One match found in folder %2</i></b>"
-#| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
+#, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
-msgstr[0] "<b><i>נמצאה התאמה אחת בספרייה %2</i></b>"
-msgstr[1] "<b><i>נמצאו %1 התאמות בספרייה %2</i></b>"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "נמצאה תוצאה אחת (%3) בתיקייה %2"
+msgstr[1] "נמצאו שתי תוצאות (%3) בתיקייה %2"
+msgstr[2] "נמצאו %1 תוצאות (%3) בתיקייה %2"
+msgstr[3] "נמצאו %1 תוצאות (%3) בתיקייה %2"
 
 #: MatchModel.cpp:734
-#, fuzzy, kde-format
-#| msgid "<b><i>One match found in project %2 (%3)</i></b>"
-#| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"
+#, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] "<b><i>נמצאה התאמה אחת בפרוייקט %2 (%3)</i></b>"
-msgstr[1] "<b><i>נמצאו %1 התאמות בפרוייקט %2 (%3)</i></b>"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "נמצאה תוצאה אחת (%4) במיזם %2 (%3)"
+msgstr[1] "נמצאו שתי תוצאות (%4) במיזם %2 (%3)"
+msgstr[2] "נמצאו %1 תוצאות (%4) במיזם %2 (%3)"
+msgstr[3] "נמצאו %1 תוצאות (%4) במיזם %2 (%3)"
 
 #: MatchModel.cpp:743
 #, kde-format

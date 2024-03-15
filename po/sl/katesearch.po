@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-25 00:41+0000\n"
+"POT-Creation-Date: 2024-03-15 00:39+0000\n"
 "PO-Revision-Date: 2024-02-27 01:27+0100\n"
 "Last-Translator: Jure Repinc <jlp@holodeck1.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -240,7 +240,7 @@ msgstr "Filter…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:37 search.ui:40 SearchPlugin.cpp:299
+#: search.ui:37 search.ui:40 SearchPlugin.cpp:294
 #, kde-format
 msgid "Search"
 msgstr "Poišči"
@@ -300,7 +300,7 @@ msgid "..."
 msgstr "…"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:195 SearchPlugin.cpp:512
+#: search.ui:195 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "Zamenjaj"
@@ -394,6 +394,18 @@ msgstr "Sledi simbolnim povezavam"
 #, kde-format
 msgid "Include binary files"
 msgstr "Vključi dvojiške datoteke"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
+#: search.ui:465
+#, kde-format
+msgid "MB"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: search.ui:478
+#, kde-format
+msgid "Size limit"
+msgstr ""
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -555,37 +567,37 @@ msgstr "Zajem malih črk 0–9"
 msgid "Lower-cased capture 0-999"
 msgstr "Zajem malih črk 0–999"
 
-#: SearchPlugin.cpp:292
+#: SearchPlugin.cpp:287
 #, kde-format
 msgid "Search & Replace"
 msgstr "Poišči in zamenjaj"
 
-#: SearchPlugin.cpp:333
+#: SearchPlugin.cpp:328
 #, kde-format
 msgid "Find in Files"
 msgstr "Poišči v datotekah"
 
-#: SearchPlugin.cpp:339
+#: SearchPlugin.cpp:334
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Poišči v datotekah (v novem zavihku)"
 
-#: SearchPlugin.cpp:345
+#: SearchPlugin.cpp:340
 #, kde-format
 msgid "Go to Next Match"
 msgstr "Pojdi na naslednje ujemanje"
 
-#: SearchPlugin.cpp:351
+#: SearchPlugin.cpp:346
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "Pojdi na predhodno ujemanje"
 
-#: SearchPlugin.cpp:357
+#: SearchPlugin.cpp:352
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "Izreži ujemajoče se vrstice"
 
-#: SearchPlugin.cpp:359
+#: SearchPlugin.cpp:354
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
@@ -594,12 +606,12 @@ msgstr ""
 "To bo izrezalo vse osvetljene ujemajoče se vrstice iskanja iz trenutnega "
 "dokumenta na odložišče"
 
-#: SearchPlugin.cpp:364
+#: SearchPlugin.cpp:359
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "Kopiraj ujemajoče se vrstice"
 
-#: SearchPlugin.cpp:366
+#: SearchPlugin.cpp:361
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -608,7 +620,7 @@ msgstr ""
 "To bo kopiralo vse osvetljene ujemajoče se vrstice iskanja iz trenutnega "
 "dokumenta na odložišče"
 
-#: SearchPlugin.cpp:399
+#: SearchPlugin.cpp:394
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
@@ -616,7 +628,7 @@ msgstr ""
 "Z vejico ločen seznam vseh vrst datotek, ki naj bodo preiskane, npr.:  »*."
 "cpp,*.h«\n"
 
-#: SearchPlugin.cpp:400
+#: SearchPlugin.cpp:395
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
@@ -625,97 +637,97 @@ msgstr ""
 "Z vejico ločen seznam datotek in map, ki bodo izločene iz iskanja. Primer: "
 "»build*«"
 
-#: SearchPlugin.cpp:402
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
 msgstr "Kliknite za filtriranje skozi rezultate"
 
-#: SearchPlugin.cpp:492
+#: SearchPlugin.cpp:487
 #, kde-format
 msgid "Find"
 msgstr "Najdi"
 
-#: SearchPlugin.cpp:1332
+#: SearchPlugin.cpp:1327
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Iskanje med tipkanjem je bilo prekinjeno, ker bi trajalo predolgo."
 
-#: SearchPlugin.cpp:1665
+#: SearchPlugin.cpp:1660
 #, kde-format
 msgid "Search Match"
 msgstr "Poišči ustrezne"
 
-#: SearchPlugin.cpp:1845 SearchPlugin.cpp:1922
+#: SearchPlugin.cpp:1840 SearchPlugin.cpp:1917
 #, kde-format
 msgid "Next from cursor"
 msgstr "Naslednje od kazalke"
 
-#: SearchPlugin.cpp:1862
+#: SearchPlugin.cpp:1857
 #, kde-format
 msgid "Starting from first match"
 msgstr "Začenjanje od prvega ujemanja"
 
-#: SearchPlugin.cpp:1882
+#: SearchPlugin.cpp:1877
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Nadaljevanje od prvega ujemanja"
 
-#: SearchPlugin.cpp:1939
+#: SearchPlugin.cpp:1934
 #, kde-format
 msgid "Starting from last match"
 msgstr "Začenjam od zadnjega ujemanja"
 
-#: SearchPlugin.cpp:1959
+#: SearchPlugin.cpp:1954
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Nadaljevanje od zadnjega ujemanja"
 
-#: SearchPlugin.cpp:2118
+#: SearchPlugin.cpp:2115
 #, kde-format
 msgid "Search: %1"
 msgstr "Poišči: %1"
 
-#: SearchPlugin.cpp:2249
+#: SearchPlugin.cpp:2246
 #, kde-format
 msgid "Copy all"
 msgstr "Kopiraj vse"
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2251
 #, kde-format
 msgid "Copy expanded"
 msgstr "Kopiraj razširjeno"
 
-#: SearchPlugin.cpp:2257
+#: SearchPlugin.cpp:2254
 #, kde-format
 msgid "Export matches"
 msgstr "Izvozi zadetke"
 
-#: SearchPlugin.cpp:2263
+#: SearchPlugin.cpp:2260
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Odpri kot zavihek urejevalnika"
 
-#: SearchPlugin.cpp:2270
+#: SearchPlugin.cpp:2267
 #, kde-format
 msgid "Clear"
 msgstr "Počisti"
 
-#: SearchPlugin.cpp:2380 SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2377 SearchPlugin.cpp:2411
 #, kde-format
 msgid "Add..."
 msgstr "Dodaj …"
 
-#: SearchPlugin.cpp:2392
+#: SearchPlugin.cpp:2389
 #, kde-format
 msgid "Search As You Type"
 msgstr "Išči že med tipkanjem"
 
-#: SearchPlugin.cpp:2463
+#: SearchPlugin.cpp:2460
 #, kde-format
 msgid "In Current Project"
 msgstr "V trenutnem projektu"
 
-#: SearchPlugin.cpp:2465
+#: SearchPlugin.cpp:2462
 #, kde-format
 msgid "In All Open Projects"
 msgstr "V vseh odprtih projektih"

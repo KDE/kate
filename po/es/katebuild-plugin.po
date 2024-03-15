@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Ignacio Poggi <ignaciop.3@gmail.com>, 2008.
-# SPDX-FileCopyrightText: 2009, 2010, 2014, 2018, 2019, 2020, 2021, 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2009, 2010, 2014, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
 # Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>, 2011, 2012.
 # Rocio Gallego <traducciones@rociogallego.com>, 2012, 2013, 2014, 2015.
 msgid ""
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-13 00:40+0000\n"
-"PO-Revision-Date: 2023-12-19 17:28+0100\n"
+"PO-Revision-Date: 2024-03-13 11:49+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -302,6 +302,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Uso:\n"
+"«%B» para el directorio base del proyecto\n"
+"«%b» para el nombre del directorio base del proyecto"
 
 #: TargetHtmlDelegate.cpp:111
 #, kde-format

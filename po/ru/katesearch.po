@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-25 00:41+0000\n"
+"POT-Creation-Date: 2024-03-15 00:39+0000\n"
 "PO-Revision-Date: 2023-12-24 18:37+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -248,7 +248,7 @@ msgstr "Фильтр…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:37 search.ui:40 SearchPlugin.cpp:299
+#: search.ui:37 search.ui:40 SearchPlugin.cpp:294
 #, kde-format
 msgid "Search"
 msgstr "Выполнить поиск"
@@ -308,7 +308,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:195 SearchPlugin.cpp:512
+#: search.ui:195 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "Заменить"
@@ -404,6 +404,18 @@ msgstr "Следовать по символическим ссылкам"
 #, kde-format
 msgid "Include binary files"
 msgstr "Искать в двоичных файлах"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
+#: search.ui:465
+#, kde-format
+msgid "MB"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: search.ui:478
+#, kde-format
+msgid "Size limit"
+msgstr ""
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -565,49 +577,49 @@ msgstr "Захват символов нижнего регистра 0-9"
 msgid "Lower-cased capture 0-999"
 msgstr "Захват символов нижнего регистра 0-999"
 
-#: SearchPlugin.cpp:292
+#: SearchPlugin.cpp:287
 #, kde-format
 msgid "Search & Replace"
 msgstr "Поиск и замена"
 
-#: SearchPlugin.cpp:333
+#: SearchPlugin.cpp:328
 #, kde-format
 msgid "Find in Files"
 msgstr "Поиск в файлах"
 
-#: SearchPlugin.cpp:339
+#: SearchPlugin.cpp:334
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Поиск в файлах (в новой вкладке)"
 
-#: SearchPlugin.cpp:345
+#: SearchPlugin.cpp:340
 #, kde-format
 msgid "Go to Next Match"
 msgstr "Перейти к следующему совпадению"
 
-#: SearchPlugin.cpp:351
+#: SearchPlugin.cpp:346
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "Перейти к предыдущему совпадению"
 
-#: SearchPlugin.cpp:357
+#: SearchPlugin.cpp:352
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "Вырезать подходящие строки"
 
-#: SearchPlugin.cpp:359
+#: SearchPlugin.cpp:354
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr "Вырезать найденные выделенные строки текущего документа в буфер обмена"
 
-#: SearchPlugin.cpp:364
+#: SearchPlugin.cpp:359
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "Копировать подходящие строки"
 
-#: SearchPlugin.cpp:366
+#: SearchPlugin.cpp:361
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -615,7 +627,7 @@ msgid ""
 msgstr ""
 "Копировать найденные выделенные строки текущего документа в буфер обмена"
 
-#: SearchPlugin.cpp:399
+#: SearchPlugin.cpp:394
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
@@ -623,7 +635,7 @@ msgstr ""
 "Список типов просматриваемых файлов (через запятую). Например: \"*.cpp,*.h"
 "\"\n"
 
-#: SearchPlugin.cpp:400
+#: SearchPlugin.cpp:395
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
@@ -632,98 +644,98 @@ msgstr ""
 "Список файлов и каталогов, исключаемых из рассмотрения (через запятую). "
 "Например: \"build*\""
 
-#: SearchPlugin.cpp:402
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
 msgstr "Нажмите для фильтрации результатов"
 
-#: SearchPlugin.cpp:492
+#: SearchPlugin.cpp:487
 #, kde-format
 msgid "Find"
 msgstr "Поиск"
 
-#: SearchPlugin.cpp:1332
+#: SearchPlugin.cpp:1327
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "Поиск текста по мере набора был прерван. Он занимает слишком много времени."
 
-#: SearchPlugin.cpp:1665
+#: SearchPlugin.cpp:1660
 #, kde-format
 msgid "Search Match"
 msgstr "Совпадения поиска"
 
-#: SearchPlugin.cpp:1845 SearchPlugin.cpp:1922
+#: SearchPlugin.cpp:1840 SearchPlugin.cpp:1917
 #, kde-format
 msgid "Next from cursor"
 msgstr "Начать справа от курсора"
 
-#: SearchPlugin.cpp:1862
+#: SearchPlugin.cpp:1857
 #, kde-format
 msgid "Starting from first match"
 msgstr "Начать с первого совпадения"
 
-#: SearchPlugin.cpp:1882
+#: SearchPlugin.cpp:1877
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Продолжить с первого совпадения"
 
-#: SearchPlugin.cpp:1939
+#: SearchPlugin.cpp:1934
 #, kde-format
 msgid "Starting from last match"
 msgstr "Начать с последнего совпадения"
 
-#: SearchPlugin.cpp:1959
+#: SearchPlugin.cpp:1954
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Продолжить с последнего совпадения"
 
-#: SearchPlugin.cpp:2118
+#: SearchPlugin.cpp:2115
 #, kde-format
 msgid "Search: %1"
 msgstr "Поиск: %1"
 
-#: SearchPlugin.cpp:2249
+#: SearchPlugin.cpp:2246
 #, kde-format
 msgid "Copy all"
 msgstr "Копировать всё"
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2251
 #, kde-format
 msgid "Copy expanded"
 msgstr "Копировать развёрнутые"
 
-#: SearchPlugin.cpp:2257
+#: SearchPlugin.cpp:2254
 #, kde-format
 msgid "Export matches"
 msgstr "Экспорт совпадений"
 
-#: SearchPlugin.cpp:2263
+#: SearchPlugin.cpp:2260
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Открыть как вкладку в редакторе"
 
-#: SearchPlugin.cpp:2270
+#: SearchPlugin.cpp:2267
 #, kde-format
 msgid "Clear"
 msgstr "Очистить"
 
-#: SearchPlugin.cpp:2380 SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2377 SearchPlugin.cpp:2411
 #, kde-format
 msgid "Add..."
 msgstr "Добавить..."
 
-#: SearchPlugin.cpp:2392
+#: SearchPlugin.cpp:2389
 #, kde-format
 msgid "Search As You Type"
 msgstr "Поиск по мере набора"
 
-#: SearchPlugin.cpp:2463
+#: SearchPlugin.cpp:2460
 #, kde-format
 msgid "In Current Project"
 msgstr "В текущем проекте"
 
-#: SearchPlugin.cpp:2465
+#: SearchPlugin.cpp:2462
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Во всех открытых проектах"

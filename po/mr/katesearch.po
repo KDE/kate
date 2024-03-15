@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-25 00:41+0000\n"
+"POT-Creation-Date: 2024-03-15 00:39+0000\n"
 "PO-Revision-Date: 2013-03-22 15:44+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -196,7 +196,7 @@ msgstr "गाळणी"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:37 search.ui:40 SearchPlugin.cpp:299
+#: search.ui:37 search.ui:40 SearchPlugin.cpp:294
 #, kde-format
 msgid "Search"
 msgstr "शोधा"
@@ -255,7 +255,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:195 SearchPlugin.cpp:512
+#: search.ui:195 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr ""
@@ -354,6 +354,18 @@ msgstr ""
 #, kde-format
 msgid "Include binary files"
 msgstr "बायनरी फाईल समाविष्ट करा"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
+#: search.ui:465
+#, kde-format
+msgid "MB"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: search.ui:478
+#, kde-format
+msgid "Size limit"
+msgstr ""
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -515,165 +527,165 @@ msgstr ""
 msgid "Lower-cased capture 0-999"
 msgstr ""
 
-#: SearchPlugin.cpp:292
+#: SearchPlugin.cpp:287
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search & Replace"
 msgstr "शोधा"
 
-#: SearchPlugin.cpp:333
+#: SearchPlugin.cpp:328
 #, fuzzy, kde-format
 #| msgid "Include binary files"
 msgid "Find in Files"
 msgstr "बायनरी फाईल समाविष्ट करा"
 
-#: SearchPlugin.cpp:339
+#: SearchPlugin.cpp:334
 #, fuzzy, kde-format
 #| msgid "Include binary files"
 msgid "Find in Files (in a New Tab)"
 msgstr "बायनरी फाईल समाविष्ट करा"
 
-#: SearchPlugin.cpp:345
+#: SearchPlugin.cpp:340
 #, kde-format
 msgid "Go to Next Match"
 msgstr ""
 
-#: SearchPlugin.cpp:351
+#: SearchPlugin.cpp:346
 #, kde-format
 msgid "Go to Previous Match"
 msgstr ""
 
-#: SearchPlugin.cpp:357
+#: SearchPlugin.cpp:352
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr ""
 
-#: SearchPlugin.cpp:359
+#: SearchPlugin.cpp:354
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
 
-#: SearchPlugin.cpp:364
+#: SearchPlugin.cpp:359
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr ""
 
-#: SearchPlugin.cpp:366
+#: SearchPlugin.cpp:361
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
 
-#: SearchPlugin.cpp:399
+#: SearchPlugin.cpp:394
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr ""
 
-#: SearchPlugin.cpp:400
+#: SearchPlugin.cpp:395
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
 "Example: \"build*\""
 msgstr ""
 
-#: SearchPlugin.cpp:402
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
 msgstr ""
 
-#: SearchPlugin.cpp:492
+#: SearchPlugin.cpp:487
 #, kde-format
 msgid "Find"
 msgstr ""
 
-#: SearchPlugin.cpp:1332
+#: SearchPlugin.cpp:1327
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 
-#: SearchPlugin.cpp:1665
+#: SearchPlugin.cpp:1660
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search Match"
 msgstr "शोधा"
 
-#: SearchPlugin.cpp:1845 SearchPlugin.cpp:1922
+#: SearchPlugin.cpp:1840 SearchPlugin.cpp:1917
 #, kde-format
 msgid "Next from cursor"
 msgstr ""
 
-#: SearchPlugin.cpp:1862
+#: SearchPlugin.cpp:1857
 #, kde-format
 msgid "Starting from first match"
 msgstr ""
 
-#: SearchPlugin.cpp:1882
+#: SearchPlugin.cpp:1877
 #, kde-format
 msgid "Continuing from first match"
 msgstr ""
 
-#: SearchPlugin.cpp:1939
+#: SearchPlugin.cpp:1934
 #, kde-format
 msgid "Starting from last match"
 msgstr ""
 
-#: SearchPlugin.cpp:1959
+#: SearchPlugin.cpp:1954
 #, kde-format
 msgid "Continuing from last match"
 msgstr ""
 
-#: SearchPlugin.cpp:2118
+#: SearchPlugin.cpp:2115
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search: %1"
 msgstr "शोधा"
 
-#: SearchPlugin.cpp:2249
+#: SearchPlugin.cpp:2246
 #, kde-format
 msgid "Copy all"
 msgstr ""
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2251
 #, kde-format
 msgid "Copy expanded"
 msgstr ""
 
-#: SearchPlugin.cpp:2257
+#: SearchPlugin.cpp:2254
 #, kde-format
 msgid "Export matches"
 msgstr ""
 
-#: SearchPlugin.cpp:2263
+#: SearchPlugin.cpp:2260
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr ""
 
-#: SearchPlugin.cpp:2270
+#: SearchPlugin.cpp:2267
 #, kde-format
 msgid "Clear"
 msgstr ""
 
-#: SearchPlugin.cpp:2380 SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2377 SearchPlugin.cpp:2411
 #, kde-format
 msgid "Add..."
 msgstr "जोडा..."
 
-#: SearchPlugin.cpp:2392
+#: SearchPlugin.cpp:2389
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search As You Type"
 msgstr "शोधा"
 
-#: SearchPlugin.cpp:2463
+#: SearchPlugin.cpp:2460
 #, kde-format
 msgid "In Current Project"
 msgstr ""
 
-#: SearchPlugin.cpp:2465
+#: SearchPlugin.cpp:2462
 #, kde-format
 msgid "In All Open Projects"
 msgstr ""

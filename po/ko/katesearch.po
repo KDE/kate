@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-25 00:41+0000\n"
+"POT-Creation-Date: 2024-03-15 00:39+0000\n"
 "PO-Revision-Date: 2024-02-09 23:20+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -179,7 +179,7 @@ msgstr "필터..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:37 search.ui:40 SearchPlugin.cpp:299
+#: search.ui:37 search.ui:40 SearchPlugin.cpp:294
 #, kde-format
 msgid "Search"
 msgstr "찾기"
@@ -239,7 +239,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:195 SearchPlugin.cpp:512
+#: search.ui:195 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "바꾸기"
@@ -333,6 +333,18 @@ msgstr "심볼릭 링크 따라가기"
 #, kde-format
 msgid "Include binary files"
 msgstr "바이너리 파일 포함"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
+#: search.ui:465
+#, kde-format
+msgid "MB"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: search.ui:478
+#, kde-format
+msgid "Size limit"
+msgstr ""
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -494,37 +506,37 @@ msgstr "소문자 캡처 0-9"
 msgid "Lower-cased capture 0-999"
 msgstr "소문자 캡처 0-999"
 
-#: SearchPlugin.cpp:292
+#: SearchPlugin.cpp:287
 #, kde-format
 msgid "Search & Replace"
 msgstr "찾아 바꾸기"
 
-#: SearchPlugin.cpp:333
+#: SearchPlugin.cpp:328
 #, kde-format
 msgid "Find in Files"
 msgstr "파일에서 찾기"
 
-#: SearchPlugin.cpp:339
+#: SearchPlugin.cpp:334
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "파일에서 찾기(새 탭으로)"
 
-#: SearchPlugin.cpp:345
+#: SearchPlugin.cpp:340
 #, kde-format
 msgid "Go to Next Match"
 msgstr "다음 일치로 이동"
 
-#: SearchPlugin.cpp:351
+#: SearchPlugin.cpp:346
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "이전 일치로 이동"
 
-#: SearchPlugin.cpp:357
+#: SearchPlugin.cpp:352
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "일치하는 줄 잘라내기"
 
-#: SearchPlugin.cpp:359
+#: SearchPlugin.cpp:354
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
@@ -532,12 +544,12 @@ msgid ""
 msgstr ""
 "모든 강조된 검색 항목과 일치하는 줄을 현재 문서에서 클립보드로 잘라냅니다"
 
-#: SearchPlugin.cpp:364
+#: SearchPlugin.cpp:359
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "일치하는 줄 복사"
 
-#: SearchPlugin.cpp:366
+#: SearchPlugin.cpp:361
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -545,13 +557,13 @@ msgid ""
 msgstr ""
 "모든 강조된 검색 항목과 일치하는 줄을 현재 문서에서 클립보드로 복사합니다"
 
-#: SearchPlugin.cpp:399
+#: SearchPlugin.cpp:394
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr "검색할 파일 형식을 쉼표로 구분하십시오. 예: \"*.cpp,*.h\"\n"
 
-#: SearchPlugin.cpp:400
+#: SearchPlugin.cpp:395
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
@@ -560,97 +572,97 @@ msgstr ""
 "검색에서 제외할 파일과 디렉터리 목록을 쉼표로 구분해서 입력하십시오. 예: "
 "\"build*\""
 
-#: SearchPlugin.cpp:402
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
 msgstr "클릭하여 검색 결과에서 필터"
 
-#: SearchPlugin.cpp:492
+#: SearchPlugin.cpp:487
 #, kde-format
 msgid "Find"
 msgstr "찾기"
 
-#: SearchPlugin.cpp:1332
+#: SearchPlugin.cpp:1327
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "증분 검색 처리 시간이 길어져 비활성화되었습니다."
 
-#: SearchPlugin.cpp:1665
+#: SearchPlugin.cpp:1660
 #, kde-format
 msgid "Search Match"
 msgstr "일치하는 것 찾기"
 
-#: SearchPlugin.cpp:1845 SearchPlugin.cpp:1922
+#: SearchPlugin.cpp:1840 SearchPlugin.cpp:1917
 #, kde-format
 msgid "Next from cursor"
 msgstr "커서 위치 이후"
 
-#: SearchPlugin.cpp:1862
+#: SearchPlugin.cpp:1857
 #, kde-format
 msgid "Starting from first match"
 msgstr "첫 일치부터 다시 시작"
 
-#: SearchPlugin.cpp:1882
+#: SearchPlugin.cpp:1877
 #, kde-format
 msgid "Continuing from first match"
 msgstr "첫 일치부터 다시 시작"
 
-#: SearchPlugin.cpp:1939
+#: SearchPlugin.cpp:1934
 #, kde-format
 msgid "Starting from last match"
 msgstr "마지막 일치부터 다시 시작"
 
-#: SearchPlugin.cpp:1959
+#: SearchPlugin.cpp:1954
 #, kde-format
 msgid "Continuing from last match"
 msgstr "마지막 일치부터 계속 진행"
 
-#: SearchPlugin.cpp:2118
+#: SearchPlugin.cpp:2115
 #, kde-format
 msgid "Search: %1"
 msgstr "찾기: %1"
 
-#: SearchPlugin.cpp:2249
+#: SearchPlugin.cpp:2246
 #, kde-format
 msgid "Copy all"
 msgstr "모두 복사"
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2251
 #, kde-format
 msgid "Copy expanded"
 msgstr "확장된 것 복사"
 
-#: SearchPlugin.cpp:2257
+#: SearchPlugin.cpp:2254
 #, kde-format
 msgid "Export matches"
 msgstr "일치 내보내기"
 
-#: SearchPlugin.cpp:2263
+#: SearchPlugin.cpp:2260
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "편집기 탭으로 열기"
 
-#: SearchPlugin.cpp:2270
+#: SearchPlugin.cpp:2267
 #, kde-format
 msgid "Clear"
 msgstr "지우기"
 
-#: SearchPlugin.cpp:2380 SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2377 SearchPlugin.cpp:2411
 #, kde-format
 msgid "Add..."
 msgstr "추가..."
 
-#: SearchPlugin.cpp:2392
+#: SearchPlugin.cpp:2389
 #, kde-format
 msgid "Search As You Type"
 msgstr "입력하는 대로 찾기"
 
-#: SearchPlugin.cpp:2463
+#: SearchPlugin.cpp:2460
 #, kde-format
 msgid "In Current Project"
 msgstr "현재 프로젝트에서"
 
-#: SearchPlugin.cpp:2465
+#: SearchPlugin.cpp:2462
 #, kde-format
 msgid "In All Open Projects"
 msgstr "모든 열린 프로젝트에서"

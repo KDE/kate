@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-25 00:41+0000\n"
+"POT-Creation-Date: 2024-03-15 00:39+0000\n"
 "PO-Revision-Date: 2023-11-09 16:36+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -210,7 +210,7 @@ msgstr "Iragazi..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:37 search.ui:40 SearchPlugin.cpp:299
+#: search.ui:37 search.ui:40 SearchPlugin.cpp:294
 #, kde-format
 msgid "Search"
 msgstr "Bilatu"
@@ -271,7 +271,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:195 SearchPlugin.cpp:512
+#: search.ui:195 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
 msgstr "Ordeztu"
@@ -365,6 +365,18 @@ msgstr "Jarraitu esteka sinbolikoei"
 #, kde-format
 msgid "Include binary files"
 msgstr "Barneratu fitxategi bitarrak"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
+#: search.ui:465
+#, kde-format
+msgid "MB"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: search.ui:478
+#, kde-format
+msgid "Size limit"
+msgstr ""
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -526,37 +538,37 @@ msgstr "Minuskuladun atzematea 0-9"
 msgid "Lower-cased capture 0-999"
 msgstr "Minuskuladun atzematea 0-999"
 
-#: SearchPlugin.cpp:292
+#: SearchPlugin.cpp:287
 #, kde-format
 msgid "Search & Replace"
 msgstr "Bilatu eta ordeztu"
 
-#: SearchPlugin.cpp:333
+#: SearchPlugin.cpp:328
 #, kde-format
 msgid "Find in Files"
 msgstr "Bilatu fitxategietan"
 
-#: SearchPlugin.cpp:339
+#: SearchPlugin.cpp:334
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Bilatu fitxategietan (fitxa berri batean)"
 
-#: SearchPlugin.cpp:345
+#: SearchPlugin.cpp:340
 #, kde-format
 msgid "Go to Next Match"
 msgstr "Joan hurrengo bat-etortzera"
 
-#: SearchPlugin.cpp:351
+#: SearchPlugin.cpp:346
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "Joan aurreko bat-etortzera"
 
-#: SearchPlugin.cpp:357
+#: SearchPlugin.cpp:352
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "Ebaki bat datozen lerroak"
 
-#: SearchPlugin.cpp:359
+#: SearchPlugin.cpp:354
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
@@ -565,12 +577,12 @@ msgstr ""
 "Horrek uneko dokumentuan nabarmendutako bilaketen emaitza guztiak arbelera "
 "ebakiko ditu"
 
-#: SearchPlugin.cpp:364
+#: SearchPlugin.cpp:359
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "Kopiatu bat datozen lerroak"
 
-#: SearchPlugin.cpp:366
+#: SearchPlugin.cpp:361
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -579,7 +591,7 @@ msgstr ""
 "Horrek uneko dokumentuan nabarmendutako bilaketen emaitza guztiak arbelera "
 "kopiatuko ditu"
 
-#: SearchPlugin.cpp:399
+#: SearchPlugin.cpp:394
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
@@ -587,7 +599,7 @@ msgstr ""
 "Koma bidez banatutako, barnean bilatu beharreko fitxategi moten zerrenda: "
 "\"*.cpp,*.h\"\n"
 
-#: SearchPlugin.cpp:400
+#: SearchPlugin.cpp:395
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
@@ -596,97 +608,97 @@ msgstr ""
 "Koma bidez banatutako, bilaketatik kanporatu beharreko fitxategien eta "
 "direktorioen zerrenda. Adibidez: \"*build\""
 
-#: SearchPlugin.cpp:402
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
 msgstr "Egin klik emaitzak iragazteko"
 
-#: SearchPlugin.cpp:492
+#: SearchPlugin.cpp:487
 #, kde-format
 msgid "Find"
 msgstr "Aurkitu"
 
-#: SearchPlugin.cpp:1332
+#: SearchPlugin.cpp:1327
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Tekleatu ahala bilatzea eten egin da. Luzeegia zatekeen."
 
-#: SearchPlugin.cpp:1665
+#: SearchPlugin.cpp:1660
 #, kde-format
 msgid "Search Match"
 msgstr "Bilaketa bat etortzea"
 
-#: SearchPlugin.cpp:1845 SearchPlugin.cpp:1922
+#: SearchPlugin.cpp:1840 SearchPlugin.cpp:1917
 #, kde-format
 msgid "Next from cursor"
 msgstr "Hurrengoa kurtsoretik"
 
-#: SearchPlugin.cpp:1862
+#: SearchPlugin.cpp:1857
 #, kde-format
 msgid "Starting from first match"
 msgstr "Lehen bat-etortzetik hasten"
 
-#: SearchPlugin.cpp:1882
+#: SearchPlugin.cpp:1877
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Lehen bat-etortzetik jarraitzen"
 
-#: SearchPlugin.cpp:1939
+#: SearchPlugin.cpp:1934
 #, kde-format
 msgid "Starting from last match"
 msgstr "Azken bat-etortzetik hasita"
 
-#: SearchPlugin.cpp:1959
+#: SearchPlugin.cpp:1954
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Azken bat-etortzetik jarraitzen"
 
-#: SearchPlugin.cpp:2118
+#: SearchPlugin.cpp:2115
 #, kde-format
 msgid "Search: %1"
 msgstr "Bilatu: %1"
 
-#: SearchPlugin.cpp:2249
+#: SearchPlugin.cpp:2246
 #, kde-format
 msgid "Copy all"
 msgstr "Kopiatu guztia"
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2251
 #, kde-format
 msgid "Copy expanded"
 msgstr "Kopiatu hedatua"
 
-#: SearchPlugin.cpp:2257
+#: SearchPlugin.cpp:2254
 #, kde-format
 msgid "Export matches"
 msgstr "Esportatu bat-etortzeak"
 
-#: SearchPlugin.cpp:2263
+#: SearchPlugin.cpp:2260
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Ireki  editorearen fitxa gisa"
 
-#: SearchPlugin.cpp:2270
+#: SearchPlugin.cpp:2267
 #, kde-format
 msgid "Clear"
 msgstr "Garbitu"
 
-#: SearchPlugin.cpp:2380 SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2377 SearchPlugin.cpp:2411
 #, kde-format
 msgid "Add..."
 msgstr "Gehitu..."
 
-#: SearchPlugin.cpp:2392
+#: SearchPlugin.cpp:2389
 #, kde-format
 msgid "Search As You Type"
 msgstr "Bilatu tekleatu ahala"
 
-#: SearchPlugin.cpp:2463
+#: SearchPlugin.cpp:2460
 #, kde-format
 msgid "In Current Project"
 msgstr "Uneko proiektuan"
 
-#: SearchPlugin.cpp:2465
+#: SearchPlugin.cpp:2462
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Proiektu guztietan"

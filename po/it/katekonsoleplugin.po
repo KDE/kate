@@ -3,22 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2007, 2008, 2009.
 # Federico Zenith <zenith@chemeng.ntnu.no>, 2008, 2014.
-# Paolo Zamponi <feus73@gmail.com>, 2017, 2019, 2021, 2023.
+# SPDX-FileCopyrightText: 2017, 2019, 2021, 2023, 2024 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-04 00:39+0000\n"
-"PO-Revision-Date: 2023-04-09 18:19+0200\n"
-"Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
+"PO-Revision-Date: 2024-03-09 17:17+0100\n"
+"Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: kateconsole.cpp:56
 #, kde-format
@@ -63,26 +63,22 @@ msgid "&Focus Terminal Panel"
 msgstr "&Attiva il pennello del terminale"
 
 #: kateconsole.cpp:168
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "&Nascondi il pannello del terminale"
+msgstr "&Dividi il terminale verticalmente"
 
 #: kateconsole.cpp:173
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "&Dividi il terminale orizzontalmente"
 
 #: kateconsole.cpp:178
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "&Mostra il pannello del terminale"
+msgstr "&Nuova scheda Terminale"
 
 #: kateconsole.cpp:319
 #, kde-format

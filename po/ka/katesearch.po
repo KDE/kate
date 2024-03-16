@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-15 00:39+0000\n"
-"PO-Revision-Date: 2023-11-10 05:25+0100\n"
+"PO-Revision-Date: 2024-03-15 04:37+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -361,13 +361,13 @@ msgstr "ბინარული ფაილების ჩათვლით"
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "მბ"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "ზომის ლიმიტი"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format

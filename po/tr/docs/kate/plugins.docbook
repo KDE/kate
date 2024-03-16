@@ -3369,9 +3369,9 @@ kate /klasöre/olan/yol
 >"hidden"</code
 > seçeneği 0 ise gizli dosyalar alınmaz. <code
 >"exclude_patterns"</code
->, dosyaları ve klasörleri proje ağacından dışarıda tutmak için kullanılabilecek bir düzenli ifade dizgileri listesidir. Bu örnekte, kök düzeydeki <filename
+>, dosyaları ve klasörleri proje ağacından dışlamak için kullanılabilecek bir düzenli ifade dizgileri listesidir. Bu örnekte, kök düzeydeki <filename
 >build</filename
-> klasöründeki tüm dosyalar ve klasörler dışarıda tutulacaktır. </para>
+> klasöründeki tüm dosyalar ve klasörler dışlanacaktır. </para>
 
 <para id="projects-build-support"
 >Yapım desteği eklemek istiyorsanız <filename
@@ -4154,7 +4154,7 @@ Projects Replicode run / stop-->
 >"highlightingModeRegex", &kate; tarafından kullanılan vurgulama kipini sunucunun dil kimliğine eşlemek için kullanılır. Düzenli ifade verilmezse dil kimliğinin kendisi kullanılır. Bir "documentLanguageId" girişi false olarak ayarlanırsa belgeyi açarken sunucuya herhangi bir dil kimliği sağlanmaz. Bu, belge türünü belirlemede Kate kipine dayalı olarak yapmaktan daha hassas olan bazı sunucular için daha iyi sonuçlara sahip olabilir. </para>
 
 <para
->Yukarıdaki örnekte ana düşünce açıktır. Ek olarak, her sunucu girdi nesnesi, 'initialize' yönteminin bir parçası olarak sunucuya iletilen bir "initializationOptions" girdisine de sahip olabilir. Varsa 'workspace/didChangeConfiguration' bildirimi aracılığıyla sunucuya bir "settings" girdisi iletilir. "completionTriggerCharacters" veya "signatureTriggerCharacters" dizileri üyeleri "exclude" ve/veya "include" olan bir JSON nesnesi olarak belirtilebilir. Bunlar, sunucu tarafından sağlanan ilgili tetikleyici setine bazı karakterleri sırasıyla dışarıda tutmak veya eklemek için kullanılacaktır. </para>
+>Yukarıdaki örnekte ana düşünce açıktır. Ek olarak, her sunucu girdi nesnesi, 'initialize' yönteminin bir parçası olarak sunucuya iletilen bir "initializationOptions" girdisine de sahip olabilir. Varsa 'workspace/didChangeConfiguration' bildirimi aracılığıyla sunucuya bir "settings" girdisi iletilir. "completionTriggerCharacters" veya "signatureTriggerCharacters" dizileri üyeleri "exclude" ve/veya "include" olan bir JSON nesnesi olarak belirtilebilir. Bunlar, sunucu tarafından sağlanan ilgili tetikleyici kümesine bazı karakterleri sırasıyla dışlamak veya eklemek için kullanılacaktır. </para>
 
 <para
 >Üzerine yazma veya birleştirmenin çeşitli aşamaları uygulanır; <itemizedlist>
@@ -4696,7 +4696,7 @@ its view and place the cursor at the start of the definition.
 <varlistentry>
 <term
 ><guilabel
->Dışarıda Tut</guilabel
+>Dışla</guilabel
 ></term>
 <listitem
 ><para

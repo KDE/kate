@@ -532,7 +532,7 @@
 ></term>
 <listitem>
 <para
->Bu, düzenleyici penceresinin altındaki artımlı arama çubuğunu açar. Çubuğun sol tarafında, çubuğu kapatmak için bir simgenin bulunduğu bir düğme ve ardından arama modelini girmek için küçük bir metin kutusu bulunur.</para>
+>Bu, düzenleyici penceresinin altındaki artımlı arama çubuğunu açar. Çubuğun sol tarafında, çubuğu kapatmak için bir simgenin bulunduğu bir düğme ve ardından arama dizgisini girmek için küçük bir metin kutusu bulunur.</para>
 <para
 >Arama dizginizin karakterlerini girmeye başladığınızda arama hemen başlar. Metinde bir eşleşme varsa bu vurgulanır ve giriş alanının arka plan rengi açık yeşile döner. Arama dizgisi metindeki herhangi bir diziyle eşleşmiyorsa bu durum giriş alanının açık kırmızı arka plan rengiyle gösterilir.</para>
 <para

@@ -1,20 +1,20 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# g.sora <g.sora@tiscali.it>, 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023.
+# g.sora <g.sora@tiscali.it>, 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-15 00:39+0000\n"
-"PO-Revision-Date: 2023-11-09 15:15+0100\n"
+"PO-Revision-Date: 2024-03-15 18:37+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 21.12.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: KateSearchCommand.cpp:80
@@ -360,13 +360,13 @@ msgstr "Il include files binari"
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "Limite de grandor"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-15 00:39+0000\n"
-"PO-Revision-Date: 2024-03-01 15:44+0300\n"
+"PO-Revision-Date: 2024-03-15 13:38+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -78,14 +78,14 @@ msgstr "Sonuç"
 #: MatchModel.cpp:545 MatchModel.cpp:547
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr "<b><i>Dosya listesi oluşturuluyor: ...%1</i></b>"
+msgstr "<b><i>Dosya listesi üretiliyor: …%1</i></b>"
 
 #: MatchModel.cpp:555
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] "<b><i>Bir eşleşme bulundu, aranıyor: ...%2</i></b>"
-msgstr[1] "<b><i>%1 eşleşme bulundu, aranıyor: ...%2</i></b>"
+msgstr[0] "<b><i>Bir eşleşme bulundu, aranıyor: …%2</i></b>"
+msgstr[1] "<b><i>%1 eşleşme bulundu, aranıyor: …%2</i></b>"
 
 #: MatchModel.cpp:560
 #, kde-format
@@ -145,14 +145,14 @@ msgstr[1] ""
 #: MatchModel.cpp:706 MatchModel.cpp:708
 #, kde-format
 msgid "Generating file list: ...%1"
-msgstr "Dosya listesi oluşturuluyor: ...%1"
+msgstr "Dosya listesi üretiliyor: …%1"
 
 #: MatchModel.cpp:716
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] "Bir eşleşme bulundu, aranıyor: ...%2"
-msgstr[1] "%1 eşleşme bulundu, aranıyor: ...%2"
+msgstr[0] "Bir eşleşme bulundu, aranıyor: …%2"
+msgstr[1] "%1 eşleşme bulundu, aranıyor: …%2"
 
 #: MatchModel.cpp:718
 #, kde-format
@@ -199,7 +199,7 @@ msgstr[1] "Tüm açık projelerde %1 eşleşme (%3) bulundu (ortak üst: %2)"
 #: Results.cpp:32
 #, kde-format
 msgid "Filter..."
-msgstr "Süz..."
+msgstr "Süz…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -261,7 +261,7 @@ msgstr "Sonuçları genişlet"
 #: search.ui:179 search.ui:249 search.ui:262
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
 #: search.ui:195 SearchPlugin.cpp:507
@@ -363,13 +363,13 @@ msgstr "İkili dosyaları içer"
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "Boyut sınırı"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -489,7 +489,7 @@ msgstr "Boşluk alan olmayan (satır sonları içerilmez)"
 #: SearchPlugin.cpp:122
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
-msgstr "Sözcük karakteri (harfler, sayılar ve '_')"
+msgstr "Sözcük karakteri (harfler, sayılar ve ‘_’)"
 
 #: SearchPlugin.cpp:123
 #, kde-format
@@ -504,32 +504,32 @@ msgstr "Düzenli ifade yakala 0 (tam eşleşme)"
 #: SearchPlugin.cpp:136
 #, kde-format
 msgid "Regular expression capture 1-9"
-msgstr "Düzenli ifade yakala 1-9"
+msgstr "Düzenli ifade yakala 1–9"
 
 #: SearchPlugin.cpp:137
 #, kde-format
 msgid "Regular expression capture 0-999"
-msgstr "Düzenli ifade yakala 0-999"
+msgstr "Düzenli ifade yakala 0–999"
 
 #: SearchPlugin.cpp:139
 #, kde-format
 msgid "Upper-cased capture 0-9"
-msgstr "BÜYÜK harf yakala 0-9"
+msgstr "BÜYÜK harf yakala 0–9"
 
 #: SearchPlugin.cpp:140
 #, kde-format
 msgid "Upper-cased capture 0-999"
-msgstr "BÜYÜK harf yakala 0-999"
+msgstr "BÜYÜK harf yakala 0–999"
 
 #: SearchPlugin.cpp:141
 #, kde-format
 msgid "Lower-cased capture 0-9"
-msgstr "Küçük harf yakala 0-9"
+msgstr "Küçük harf yakala 0–9"
 
 #: SearchPlugin.cpp:142
 #, kde-format
 msgid "Lower-cased capture 0-999"
-msgstr "Küçük harf yakala 0-999"
+msgstr "Küçük harf yakala 0–999"
 
 #: SearchPlugin.cpp:287
 #, kde-format
@@ -588,8 +588,8 @@ msgstr ""
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr ""
-"İçinde aranılacak virgülle ayrılmış dosya türü listesi. Örnek: \"*.cpp,*.h"
-"\"\n"
+"İçinde aranılacak, virgülle ayrılmış dosya türleri listesi. Örnek: “*.cpp,*."
+"h”\n"
 
 #: SearchPlugin.cpp:395
 #, kde-format
@@ -598,7 +598,7 @@ msgid ""
 "Example: \"build*\""
 msgstr ""
 "Aramadan dışlanacak dosya ve dizinlerin virgülle ayrılmış listesi. Örnek: "
-"\"build*\""
+"“build*”"
 
 #: SearchPlugin.cpp:397
 #, kde-format
@@ -678,7 +678,7 @@ msgstr "Temizle"
 #: SearchPlugin.cpp:2377 SearchPlugin.cpp:2411
 #, kde-format
 msgid "Add..."
-msgstr "Ekle..."
+msgstr "Ekle…"
 
 #: SearchPlugin.cpp:2389
 #, kde-format

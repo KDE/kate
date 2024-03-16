@@ -166,7 +166,7 @@ doğrudan uyumlu değildir.</synopsis>
 <para
 ><emphasis
 >Geriye başvurular</emphasis
-> kavramını destekleyen düzenli ifade yazılımı, dizinin eşleşen kısmının tümünü ve parantez içine alınmış alt kalıpları kaydettiği için bu başvurulara bazı erişim araçları verildiğinde, ya eşleşmenin tümünü (düzenli bir ifadeyle bir düzenleyicide bir metin belgesi aranırken, bu genellikle seçilmiş olarak işaretlenir) ya da bulunan ad ya da yüklemin son kısmını ele alabiliriz.</para>
+> kavramını destekleyen düzenli ifade yazılımı, dizinin eşleşen kısmının tümünü ve parantez içine alınmış alt dizgileri kaydettiği için bu başvurulara bazı erişim araçları verildiğinde, ya eşleşmenin tümünü (düzenli bir ifadeyle bir düzenleyicide bir metin belgesi aranırken, bu genellikle seçilmiş olarak işaretlenir) ya da bulunan ad ya da yüklemin son kısmını ele alabiliriz.</para>
 
 <para
 >Tümü birlikte, ifade nerede eşleşmesini istiyorsak yalnızca orada eşleşir.</para>

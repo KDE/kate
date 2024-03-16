@@ -130,16 +130,6 @@
 >Düzenleyici işaretlendiğinde, metinde bir sekmenin varlığını belirtmek için bir &raquo; sembolü görüntüleyecektir.</para
 ></listitem>
 </varlistentry>
-<varlistentry>
-<term
-><guilabel
->Düzenleyicinin çevresinde odak çerçevesini göster</guilabel
-></term>
-<listitem
-><para
->Düzenleyici işaretlendiğinde, ana kaynak metin denetiminin çevresindeki odak çerçevesini gösterir.</para
-></listitem>
-</varlistentry>
 
 <varlistentry>
 <term

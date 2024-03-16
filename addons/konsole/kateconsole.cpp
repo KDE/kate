@@ -31,6 +31,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPainter>
+#include <QPointer>
 #include <QPushButton>
 #include <QShowEvent>
 #include <QStyle>

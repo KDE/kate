@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2007, 2008, 2009.
 # Federico Zenith <zenith@chemeng.ntnu.no>, 2008, 2014.
-# Paolo Zamponi <feus73@gmail.com>, 2017, 2019, 2021, 2023.
+# SPDX-FileCopyrightText: 2017, 2019, 2021, 2023, 2024 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: kateconsole.cpp:56
 #, kde-format

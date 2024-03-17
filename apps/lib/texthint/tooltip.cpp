@@ -22,8 +22,8 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 #include <KWindowSystem>
-
-// #include <ktexteditor_utils.h>
+#include <QMenu>
+#include <QScopedValueRollback>
 
 class TooltipPrivate : public QTextBrowser
 {
@@ -234,7 +234,6 @@ public:
 protected:
     void enterEvent(QEnterEvent *event) override
     {
-        inContextMenu = false;
         m_hideTimer.stop();
         QTextBrowser::enterEvent(event);
     }
@@ -257,8 +256,16 @@ protected:
 
     void contextMenuEvent(QContextMenuEvent *e) override
     {
-        inContextMenu = true;
-        QTextBrowser::contextMenuEvent(e);
+        QScopedValueRollback r(inContextMenu, true);
+        auto m = createStandardContextMenu();
+        m->setParent(this);
+        e->accept();
+        m->exec(mapToGlobal(e->pos()));
+
+        // if cursor has left the widget -> hide
+        if (!rect().contains(mapFromGlobal(QCursor::pos()))) {
+            hideTooltip();
+        }
     }
 
 private:

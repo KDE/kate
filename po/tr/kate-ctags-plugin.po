@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-15 01:41+0000\n"
-"PO-Revision-Date: 2024-03-01 16:05+0300\n"
+"PO-Revision-Date: 2024-03-17 02:37+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -349,12 +349,12 @@ msgstr "İndekse bir dizin ekleyin."
 #: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:115
 #, kde-format
 msgid "Remove a directory."
-msgstr "Bir dizin sil."
+msgstr "Bir dizini kaldırın."
 
 #: kate_ctags_plugin.cpp:83
 #, kde-format
 msgid "(Re-)generate the common CTags database."
-msgstr "CTags genel veritabanı dosyasını yeniden oluştur."
+msgstr "CTags genel veritabanı dosyasını yeniden oluşturun."
 
 #: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
 #: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:548

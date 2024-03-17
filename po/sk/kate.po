@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-10 00:39+0000\n"
+"POT-Creation-Date: 2024-03-17 00:39+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -2469,22 +2469,22 @@ msgstr "Nepresné filtrovanie"
 msgid "Wildcard Filtering"
 msgstr "Filtrovanie pomocou zástupných znakov"
 
-#: lib/session/katesessionmanagedialog.cpp:27
+#: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
 msgid "Manage Sessions"
 msgstr "Správca sedení"
 
-#: lib/session/katesessionmanagedialog.cpp:63
+#: lib/session/katesessionmanagedialog.cpp:64
 #, kde-format
 msgid "Session Chooser"
 msgstr "Voľba sedenia"
 
-#: lib/session/katesessionmanagedialog.cpp:147
+#: lib/session/katesessionmanagedialog.cpp:148
 #, kde-format
 msgid "Restore"
 msgstr "Obnoviť"
 
-#: lib/session/katesessionmanagedialog.cpp:304
+#: lib/session/katesessionmanagedialog.cpp:305
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Sedenie sa vymaže po zatvorení dialógového okna"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-10 00:39+0000\n"
+"POT-Creation-Date: 2024-03-17 00:39+0000\n"
 "PO-Revision-Date: 2024-02-19 17:41+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -2481,22 +2481,22 @@ msgstr "Нечітке фільтрування"
 msgid "Wildcard Filtering"
 msgstr "Фільтрування за шаблоном"
 
-#: lib/session/katesessionmanagedialog.cpp:27
+#: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
 msgid "Manage Sessions"
 msgstr "Керування сеансами"
 
-#: lib/session/katesessionmanagedialog.cpp:63
+#: lib/session/katesessionmanagedialog.cpp:64
 #, kde-format
 msgid "Session Chooser"
 msgstr "Вибір сеансу"
 
-#: lib/session/katesessionmanagedialog.cpp:147
+#: lib/session/katesessionmanagedialog.cpp:148
 #, kde-format
 msgid "Restore"
 msgstr "Відновити"
 
-#: lib/session/katesessionmanagedialog.cpp:304
+#: lib/session/katesessionmanagedialog.cpp:305
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Сеанс буде вилучено після закриття вікна"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-10 00:39+0000\n"
+"POT-Creation-Date: 2024-03-17 00:39+0000\n"
 "PO-Revision-Date: 2024-03-06 14:51+0000\n"
 "Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -2444,22 +2444,22 @@ msgstr "Loðin síun"
 msgid "Wildcard Filtering"
 msgstr "Síun með algildistákni"
 
-#: lib/session/katesessionmanagedialog.cpp:27
+#: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
 msgid "Manage Sessions"
 msgstr "Umsjón með setum"
 
-#: lib/session/katesessionmanagedialog.cpp:63
+#: lib/session/katesessionmanagedialog.cpp:64
 #, kde-format
 msgid "Session Chooser"
 msgstr "Setuval"
 
-#: lib/session/katesessionmanagedialog.cpp:147
+#: lib/session/katesessionmanagedialog.cpp:148
 #, kde-format
 msgid "Restore"
 msgstr "Endurheimta"
 
-#: lib/session/katesessionmanagedialog.cpp:304
+#: lib/session/katesessionmanagedialog.cpp:305
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Setu verður eytt þegar svarglugginn lokast"

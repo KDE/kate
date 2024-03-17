@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-04 00:39+0000\n"
+"POT-Creation-Date: 2024-03-17 00:39+0000\n"
 "PO-Revision-Date: 2023-04-27 12:09+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -21,47 +21,47 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Generator: Lokalize 21.12.3\n"
 
-#: kateconsole.cpp:56
+#: kateconsole.cpp:57
 #, kde-format
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "ليس لديك صلاحيّات كافية للنّفاذ إلى صدفة أو محاكي طرفيّة"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:702
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
 #, kde-format
 msgid "Terminal"
 msgstr "الطّرفيّة"
 
-#: kateconsole.cpp:143
+#: kateconsole.cpp:144
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "مرّر إلى ال&طّرفيّة"
 
-#: kateconsole.cpp:147
+#: kateconsole.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "زامن الطّرفيّة مع المستند الحاليّ"
 
-#: kateconsole.cpp:151
+#: kateconsole.cpp:152
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "شغل المستند الحالي"
 
-#: kateconsole.cpp:156 kateconsole.cpp:520
+#: kateconsole.cpp:157 kateconsole.cpp:521
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "اعرض &لوحة الطرفيّة"
 
-#: kateconsole.cpp:162
+#: kateconsole.cpp:163
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "ركّز &على الطّرفيّة"
 
-#: kateconsole.cpp:168
+#: kateconsole.cpp:169
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Hide Terminal Panel"
@@ -69,13 +69,13 @@ msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "اخف لوحة ال&طّرفيّة"
 
-#: kateconsole.cpp:173
+#: kateconsole.cpp:174
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
 msgstr ""
 
-#: kateconsole.cpp:178
+#: kateconsole.cpp:179
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "S&how Terminal Panel"
@@ -83,40 +83,40 @@ msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "اعرض &لوحة الطرفيّة"
 
-#: kateconsole.cpp:319
+#: kateconsole.cpp:320
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr "كونسول غير مثبت. فضلا ثبته لتتمكن من استعمال الطرفية."
 
-#: kateconsole.cpp:395
+#: kateconsole.cpp:396
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
 "contained commands with your user rights."
 msgstr "أمتأكّد من تمرير النّصّ إلى الطّرفيّة؟ سينفّذ هذا أيّة أوامر بصلاحيّات حسابك."
 
-#: kateconsole.cpp:396
+#: kateconsole.cpp:397
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "أأمرّر إلى الطّرفيّة؟"
 
-#: kateconsole.cpp:397
+#: kateconsole.cpp:398
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "مرّر إلى الطّرفيّة"
 
-#: kateconsole.cpp:425
+#: kateconsole.cpp:426
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
 msgstr "آسفون، تعذّر الانتقال إلى '%1'"
 
-#: kateconsole.cpp:461
+#: kateconsole.cpp:462
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "ليس ملفّاً محليّاً: '%1'"
 
-#: kateconsole.cpp:494
+#: kateconsole.cpp:495
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -129,60 +129,60 @@ msgstr ""
 "بصلاحيّات حسابك:\n"
 "'%1'"
 
-#: kateconsole.cpp:501
+#: kateconsole.cpp:502
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "ن&فّذ في طرفيّة؟"
 
-#: kateconsole.cpp:502
+#: kateconsole.cpp:503
 #, kde-format
 msgid "Run"
 msgstr "شغّل"
 
-#: kateconsole.cpp:517
+#: kateconsole.cpp:518
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "اخف لوحة ال&طّرفيّة"
 
-#: kateconsole.cpp:528
+#: kateconsole.cpp:529
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "أزِل التّركيز عن لوحة الطّرفيّة"
 
-#: kateconsole.cpp:529 kateconsole.cpp:530
+#: kateconsole.cpp:530 kateconsole.cpp:531
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "ركّز على لوحة الطّرفيّة"
 
-#: kateconsole.cpp:635
+#: kateconsole.cpp:636
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
 "possible"
 msgstr "زامن الطّرفيّة آليًّا مع المستند الحاليّ إن كان ممكنًا"
 
-#: kateconsole.cpp:639 kateconsole.cpp:660
+#: kateconsole.cpp:640 kateconsole.cpp:661
 #, kde-format
 msgid "Run in terminal"
 msgstr "شغّل في الطّرفيّة"
 
-#: kateconsole.cpp:641
+#: kateconsole.cpp:642
 #, kde-format
 msgid "&Remove extension"
 msgstr "أزل الا&متداد"
 
-#: kateconsole.cpp:646
+#: kateconsole.cpp:647
 #, kde-format
 msgid "Prefix:"
 msgstr "البادئة:"
 
-#: kateconsole.cpp:654
+#: kateconsole.cpp:655
 #, kde-format
 msgid "&Show warning next time"
 msgstr "أ&ظهر تحذير في المرة القادمة"
 
-#: kateconsole.cpp:656
+#: kateconsole.cpp:657
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -191,24 +191,24 @@ msgstr ""
 "في المرة التالية التي يتم فيها تنفيذ '%1'، تأكد من ظهور نافذة تحذير، تعرض "
 "الأمر الذي سيتم إرساله إلى الطرفية للمراجعة."
 
-#: kateconsole.cpp:667
+#: kateconsole.cpp:668
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "اضبط متغيّر البي&ئة EDITOR إلى 'kate -b'"
 
-#: kateconsole.cpp:670
+#: kateconsole.cpp:671
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "هامّ: يجب إغلاق المستند ليتابع تطبيق الطّرفيّة"
 
-#: kateconsole.cpp:673
+#: kateconsole.cpp:674
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "أخفِ كونسول عند الضغط على زر 'Esc'"
 
-#: kateconsole.cpp:676
+#: kateconsole.cpp:677
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -217,7 +217,7 @@ msgstr ""
 "قد يتسبب هذا في حدوث مشكلات مع التطبيقات الطرفية التي تستخدم مفتاح Esc ، على "
 "سبيل المثال vim. أضف هذه التطبيقات في الإدخال أدناه (قائمة مفصولة بفواصل)"
 
-#: kateconsole.cpp:707
+#: kateconsole.cpp:708
 #, kde-format
 msgid "Terminal Settings"
 msgstr "إعدادات الطّرفيّة"

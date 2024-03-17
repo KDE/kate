@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-10 00:39+0000\n"
+"POT-Creation-Date: 2024-03-17 00:39+0000\n"
 "PO-Revision-Date: 2024-02-19 17:36+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -2493,22 +2493,22 @@ msgstr "Filtrado difuso"
 msgid "Wildcard Filtering"
 msgstr "Filtrado mediante comodines"
 
-#: lib/session/katesessionmanagedialog.cpp:27
+#: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
 msgid "Manage Sessions"
 msgstr "Gestionar sesiones"
 
-#: lib/session/katesessionmanagedialog.cpp:63
+#: lib/session/katesessionmanagedialog.cpp:64
 #, kde-format
 msgid "Session Chooser"
 msgstr "Selector de sesión"
 
-#: lib/session/katesessionmanagedialog.cpp:147
+#: lib/session/katesessionmanagedialog.cpp:148
 #, kde-format
 msgid "Restore"
 msgstr "Restaurar"
 
-#: lib/session/katesessionmanagedialog.cpp:304
+#: lib/session/katesessionmanagedialog.cpp:305
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "La sesión se borrará al cerrar el diálogo"

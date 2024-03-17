@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-04 00:39+0000\n"
+"POT-Creation-Date: 2024-03-17 00:39+0000\n"
 "PO-Revision-Date: 2023-05-27 14:34+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -20,49 +20,49 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: kateconsole.cpp:56
+#: kateconsole.cpp:57
 #, kde-format
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr ""
 "Du har ikkje god nok karma til å få tilgang til eit skal eller ei "
 "terminalemulering"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:702
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
 
-#: kateconsole.cpp:143
+#: kateconsole.cpp:144
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "&Send i røyr til terminalen"
 
-#: kateconsole.cpp:147
+#: kateconsole.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "S&ynkroniser terminalen med dokumentet"
 
-#: kateconsole.cpp:151
+#: kateconsole.cpp:152
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Køyr gjeldande dokument"
 
-#: kateconsole.cpp:156 kateconsole.cpp:520
+#: kateconsole.cpp:157 kateconsole.cpp:521
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "Vis &terminalrute"
 
-#: kateconsole.cpp:162
+#: kateconsole.cpp:163
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "&Fokus på terminalruta"
 
-#: kateconsole.cpp:168
+#: kateconsole.cpp:169
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Hide Terminal Panel"
@@ -70,13 +70,13 @@ msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "&Gøym terminalruta"
 
-#: kateconsole.cpp:173
+#: kateconsole.cpp:174
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
 msgstr ""
 
-#: kateconsole.cpp:178
+#: kateconsole.cpp:179
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "S&how Terminal Panel"
@@ -84,14 +84,14 @@ msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "Vis &terminalrute"
 
-#: kateconsole.cpp:319
+#: kateconsole.cpp:320
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 "Konsole er ikkje installert. Installer Konsole viss du vil bruka terminalen."
 
-#: kateconsole.cpp:395
+#: kateconsole.cpp:396
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -100,27 +100,27 @@ msgstr ""
 "Vil du verkeleg senda i røyr til terminalen? Dette vil føra til at "
 "eventuelle kommandoar som ligg i teksten vert køyrde med dine brukarrettar."
 
-#: kateconsole.cpp:396
+#: kateconsole.cpp:397
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Vil du senda i røyr til terminalen?"
 
-#: kateconsole.cpp:397
+#: kateconsole.cpp:398
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Send i røyr til terminalen"
 
-#: kateconsole.cpp:425
+#: kateconsole.cpp:426
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
 msgstr "Kan ikkje byta mappe til «%1»"
 
-#: kateconsole.cpp:461
+#: kateconsole.cpp:462
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "Ikkje ei lokal fil: «%1»"
 
-#: kateconsole.cpp:494
+#: kateconsole.cpp:495
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -133,33 +133,33 @@ msgstr ""
 "dine brukarrettar, i terminalen:\n"
 "«%1»"
 
-#: kateconsole.cpp:501
+#: kateconsole.cpp:502
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Køyra i terminal?"
 
-#: kateconsole.cpp:502
+#: kateconsole.cpp:503
 #, kde-format
 msgid "Run"
 msgstr "Køyr"
 
-#: kateconsole.cpp:517
+#: kateconsole.cpp:518
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Gøym terminalruta"
 
-#: kateconsole.cpp:528
+#: kateconsole.cpp:529
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Fokus vekk frå terminalruta"
 
-#: kateconsole.cpp:529 kateconsole.cpp:530
+#: kateconsole.cpp:530 kateconsole.cpp:531
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Fokus på terminalruta"
 
-#: kateconsole.cpp:635
+#: kateconsole.cpp:636
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
@@ -167,27 +167,27 @@ msgid ""
 msgstr ""
 "&Synkroniser terminalen automatisk med det gjeldande dokumentet når mogleg"
 
-#: kateconsole.cpp:639 kateconsole.cpp:660
+#: kateconsole.cpp:640 kateconsole.cpp:661
 #, kde-format
 msgid "Run in terminal"
 msgstr "Køyr i terminal"
 
-#: kateconsole.cpp:641
+#: kateconsole.cpp:642
 #, kde-format
 msgid "&Remove extension"
 msgstr "&Fjern etternamn"
 
-#: kateconsole.cpp:646
+#: kateconsole.cpp:647
 #, kde-format
 msgid "Prefix:"
 msgstr "Prefiks:"
 
-#: kateconsole.cpp:654
+#: kateconsole.cpp:655
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&Vis åtvaring neste gong"
 
-#: kateconsole.cpp:656
+#: kateconsole.cpp:657
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -196,12 +196,12 @@ msgstr ""
 "Neste gong «%1» vert køyrt, vis eit åtvaringsvindauge med informasjon om "
 "kommandoen som vert sendt til terminalen, for eventuell godkjenning."
 
-#: kateconsole.cpp:667
+#: kateconsole.cpp:668
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Set miljøvariabelen &EDITOR til «kate -b»"
 
-#: kateconsole.cpp:670
+#: kateconsole.cpp:671
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -209,12 +209,12 @@ msgid ""
 msgstr ""
 "Viktig: Dokumentet må lukkast for at konsollprogrammet skal halda fram."
 
-#: kateconsole.cpp:673
+#: kateconsole.cpp:674
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Gøym Konsole ved trykk på «Escape»"
 
-#: kateconsole.cpp:676
+#: kateconsole.cpp:677
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -224,7 +224,7 @@ msgstr ""
 "for eksempel Vim. Legg til desse programma nedanfor (skil programnamna med "
 "komma)."
 
-#: kateconsole.cpp:707
+#: kateconsole.cpp:708
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminalinnstillingar"

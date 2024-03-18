@@ -1,13 +1,13 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2022, 2023 Kishore G <kishore96@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-15 00:39+0000\n"
-"PO-Revision-Date: 2023-12-07 21:38+0530\n"
+"PO-Revision-Date: 2024-03-17 17:45+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -363,13 +363,13 @@ msgstr "இருமக் கோப்புகளை உட்படுத்�
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "மெ.பை."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "அளவு வரம்பு"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -434,12 +434,12 @@ msgstr "அல்லது"
 #: SearchPlugin.cpp:107
 #, kde-format
 msgid "Set of characters"
-msgstr ""
+msgstr "எழுத்துக்களின் திரட்டு"
 
 #: SearchPlugin.cpp:108
 #, kde-format
 msgid "Negative set of characters"
-msgstr ""
+msgstr "இருக்கக்கூடாத எழுத்துகளின் திரட்டு"
 
 #: SearchPlugin.cpp:109
 #, kde-format
@@ -459,12 +459,12 @@ msgstr ""
 #: SearchPlugin.cpp:116
 #, kde-format
 msgid "Word boundary"
-msgstr ""
+msgstr "சொல்லின் எல்லை"
 
 #: SearchPlugin.cpp:117
 #, kde-format
 msgid "Not word boundary"
-msgstr ""
+msgstr "சொல்லின் எல்லை இல்லாத‍து"
 
 #: SearchPlugin.cpp:118
 #, kde-format

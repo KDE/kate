@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-13 00:40+0000\n"
-"PO-Revision-Date: 2024-03-10 11:51+0530\n"
+"PO-Revision-Date: 2024-03-17 17:48+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -94,13 +94,13 @@ msgstr "நிறுத்து"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "இடதிலுள்ள அடுத்த கீற்றுக்கு தாவு"
 
 #: plugin_katebuild.cpp:262
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "வலதிலுள்ள அடுத்த கீற்றுக்கு தாவு"
 
 #: plugin_katebuild.cpp:284
 #, kde-format
@@ -130,6 +130,8 @@ msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
+"கட்டளையை இயக்க முடியவில்லை: %1\n"
+"பணி அடைவு இல்லை: %2"
 
 #: plugin_katebuild.cpp:700
 #, kde-format
@@ -154,7 +156,7 @@ msgstr ""
 #: plugin_katebuild.cpp:842
 #, kde-format
 msgid "Already building..."
-msgstr ""
+msgstr "ஏற்கனவே இரும‍மாக்கப்படுகிறது..."
 
 #: plugin_katebuild.cpp:864
 #, kde-format
@@ -165,7 +167,7 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
-msgstr ""
+msgstr "<title>இரும‍மாக்கலின் விளைவுகள்:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:914
 #, kde-format
@@ -176,32 +178,32 @@ msgstr ""
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ஒரு சிக்கல் கண்டறியப்பட்டது."
+msgstr[1] "%1 சிக்கல்கள் கண்டறியப்பட்டன."
 
 #: plugin_katebuild.cpp:924
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ஒரு எச்சரிக்கை கண்டறியப்பட்டது."
+msgstr[1] "%1 எச்சரிக்கைகள் கண்டறியப்பட்டன."
 
 #: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ஒரு குறிப்பு கண்டறியப்பட்டது."
+msgstr[1] "%1 குறிப்புகள் கண்டறியப்பட்டன."
 
 #: plugin_katebuild.cpp:932
 #, kde-format
 msgid "Build failed."
-msgstr ""
+msgstr "இரும‍மாக்குவது தோல்வியடைந்தது"
 
 #: plugin_katebuild.cpp:934
 #, kde-format
 msgid "Build completed without problems."
-msgstr ""
+msgstr "சிக்கல்களில்லாமல் இரும‍மாக்கப்பட்டது."
 
 #: plugin_katebuild.cpp:939
 #, kde-format

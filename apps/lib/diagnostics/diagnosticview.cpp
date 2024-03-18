@@ -139,11 +139,14 @@ public:
                     }
                 }
                 ret = count > 0;
-            } else if (item && item->type() == DiagnosticItem_Fix) {
+            } else if (item) {
+                ret = false;
                 if (item->parent() && item->parent()->type() == DiagnosticItem_Diag) {
                     auto castedItem = static_cast<DiagnosticItem *>(item);
                     ret = castedItem->m_diagnostic.severity == severity;
                 }
+            } else {
+                ret = false;
             }
         }
 

@@ -845,6 +845,8 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         }
     }
     topItem->addProvider(provider);
+    // emit so that proxy can update
+    m_model.dataChanged(topItem->index(), topItem->index());
 
     QList<QStandardItem *> diagItems;
     diagItems.reserve(diagnostics.diagnostics.size());

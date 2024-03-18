@@ -214,7 +214,7 @@ private:
     Q_SLOT void clearAllMarks(KTextEditor::Document *doc);
     Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled);
 
-    bool syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow);
+    bool syncDiagnostics(KTextEditor::Document *document, KTextEditor::Cursor pos, bool allowTop, bool doShow);
     void updateDiagnosticsSuppression(struct DocumentDiagnosticItem *topItem, KTextEditor::Document *doc, bool force = false);
 
     void onContextMenuRequested(const QPoint &pos);

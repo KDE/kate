@@ -372,7 +372,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
         auto v = m_mainWindow->activeView();
         if (v) {
             if (auto doc = v->document()) {
-                syncDiagnostics(doc, v->cursorPosition().line(), true, false);
+                syncDiagnostics(doc, v->cursorPosition(), true, false);
             }
         }
     });
@@ -923,7 +923,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
     // also sync updated diagnostic to current position
     auto currentView = m_mainWindow->activeView();
     if (topItem && currentView && currentView->document()) {
-        if (!syncDiagnostics(currentView->document(), currentView->cursorPosition().line(), false, false)) {
+        if (!syncDiagnostics(currentView->document(), currentView->cursorPosition(), false, false)) {
             // avoid jitter; only restore previous if applicable
             if (row >= 0 && row < topItem->rowCount()) {
                 m_diagnosticsTree->scrollTo(toProxyIndex(topItem->child(row)->index()));
@@ -1308,7 +1308,7 @@ void DiagnosticsView::goToItemLocation(QModelIndex index)
 void DiagnosticsView::onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled)
 {
     // no action if no mark was sprinkled here
-    if (m_diagnosticsMarks.contains(document) && syncDiagnostics(document, mark.line, false, true)) {
+    if (m_diagnosticsMarks.contains(document) && syncDiagnostics(document, {mark.line, 0}, false, true)) {
         handled = true;
     }
 }
@@ -1331,14 +1331,14 @@ void DiagnosticsView::filterViewTo(DiagnosticsProvider *provider)
     }
 }
 
-bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow)
+bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, KTextEditor::Cursor pos, bool allowTop, bool doShow)
 {
     auto hint = QAbstractItemView::PositionAtTop;
     DocumentDiagnosticItem *topItem = getItem(m_model, document->url());
     updateDiagnosticsSuppression(topItem, document);
     auto proxy = static_cast<DiagnosticsProxyModel *>(m_proxy);
     auto severity = proxy->activeSeverity();
-    QStandardItem *targetItem = getItem(topItem, {line, 0}, true, severity);
+    QStandardItem *targetItem = getItem(topItem, pos, /*onlyLine=*/pos.column() == 0, severity);
     if (targetItem) {
         hint = QAbstractItemView::PositionAtCenter;
     }
@@ -1348,8 +1348,13 @@ bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, int line,
     if (targetItem) {
         m_diagnosticsTree->blockSignals(true);
         const auto idx = m_proxy->mapFromSource(targetItem->index());
-        m_diagnosticsTree->scrollTo(idx, hint);
-        m_diagnosticsTree->setCurrentIndex(idx);
+        if (idx.isValid()) {
+            m_diagnosticsTree->scrollTo(idx, hint);
+            m_diagnosticsTree->setCurrentIndex(idx);
+        } else {
+            qWarning() << "Invalid idx for" << targetItem->text();
+            Q_ASSERT(false);
+        }
         m_diagnosticsTree->blockSignals(false);
         if (doShow) {
             m_mainWindow->showToolView(qobject_cast<QWidget *>(parent()));

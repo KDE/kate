@@ -110,6 +110,11 @@ public:
                 if (item->type() == DiagnosticItem_File) {
                     ret = static_cast<DocumentDiagnosticItem *>(item)->providers().contains(activeProvider);
                 } else {
+                    // check parent item if the item is not diag
+                    if (item->type() != DiagnosticItem_Diag && item->parent()) {
+                        Q_ASSERT(item->parent()->type() == DiagnosticItem_Diag);
+                        index = item->parent()->index();
+                    }
                     ret = index.data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>() == activeProvider;
                 }
             }

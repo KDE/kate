@@ -101,6 +101,11 @@ public:
         invalidateFilter();
     }
 
+    DiagnosticSeverity activeSeverity() const
+    {
+        return this->severity;
+    }
+
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
         bool ret = true;
@@ -611,7 +616,7 @@ static DocumentDiagnosticItem *getItem(const QStandardItemModel &model, const QU
     return nullptr;
 }
 
-static QStandardItem *getItem(const QStandardItem *topItem, KTextEditor::Cursor pos, bool onlyLine)
+static QStandardItem *getItem(const QStandardItem *topItem, KTextEditor::Cursor pos, bool onlyLine, DiagnosticSeverity severity = DiagnosticSeverity::Unknown)
 {
     QStandardItem *targetItem = nullptr;
     if (topItem) {
@@ -646,8 +651,14 @@ static QStandardItem *getItem(const QStandardItem *topItem, KTextEditor::Cursor 
             if (!(item->flags() & Qt::ItemIsEnabled)) {
                 continue;
             }
+
             auto range = item->data(DiagnosticModelRole::RangeRole).value<KTextEditor::Range>();
             if ((onlyLine && pos.line() == range.start().line()) || (range.contains(pos))) {
+                // the severity must match if it was specified
+                if (severity != DiagnosticSeverity::Unknown && item->type() == DiagnosticItem_Diag
+                    && static_cast<DiagnosticItem *>(item)->m_diagnostic.severity != severity) {
+                    continue;
+                }
                 targetItem = item;
                 break;
             }
@@ -1325,7 +1336,9 @@ bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, int line,
     auto hint = QAbstractItemView::PositionAtTop;
     DocumentDiagnosticItem *topItem = getItem(m_model, document->url());
     updateDiagnosticsSuppression(topItem, document);
-    QStandardItem *targetItem = getItem(topItem, {line, 0}, true);
+    auto proxy = static_cast<DiagnosticsProxyModel *>(m_proxy);
+    auto severity = proxy->activeSeverity();
+    QStandardItem *targetItem = getItem(topItem, {line, 0}, true, severity);
     if (targetItem) {
         hint = QAbstractItemView::PositionAtCenter;
     }

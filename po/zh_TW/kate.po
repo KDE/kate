@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-10 03:05+0000\n"
+"POT-Creation-Date: 2024-03-19 02:31+0000\n"
 "PO-Revision-Date: 2023-12-30 17:41+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -247,7 +247,7 @@ msgstr "工具(&T)"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:274
+#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:287
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -298,115 +298,115 @@ msgstr ""
 msgid "All"
 msgstr "全部"
 
-#: lib/diagnostics/diagnosticview.cpp:316
+#: lib/diagnostics/diagnosticview.cpp:329
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "診斷檢視"
 
-#: lib/diagnostics/diagnosticview.cpp:321
+#: lib/diagnostics/diagnosticview.cpp:334
 #, kde-format
 msgid "Quick Fix"
 msgstr "快速修正"
 
-#: lib/diagnostics/diagnosticview.cpp:327
+#: lib/diagnostics/diagnosticview.cpp:340
 #, kde-format
 msgid "Next Item"
 msgstr "下一個項目"
 
-#: lib/diagnostics/diagnosticview.cpp:333
+#: lib/diagnostics/diagnosticview.cpp:346
 #, kde-format
 msgid "Previous Item"
 msgstr "上一個項目"
 
-#: lib/diagnostics/diagnosticview.cpp:341
+#: lib/diagnostics/diagnosticview.cpp:354
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "清除診斷過濾器"
 
-#: lib/diagnostics/diagnosticview.cpp:386
+#: lib/diagnostics/diagnosticview.cpp:399
 #, kde-format
 msgid "Diagnostics"
 msgstr "診斷"
 
-#: lib/diagnostics/diagnosticview.cpp:429
+#: lib/diagnostics/diagnosticview.cpp:442
 #, kde-format
 msgid "Errors"
 msgstr "錯誤"
 
-#: lib/diagnostics/diagnosticview.cpp:445
+#: lib/diagnostics/diagnosticview.cpp:458
 #, kde-format
 msgid "Warnings"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:459
+#: lib/diagnostics/diagnosticview.cpp:472
 #, kde-format
 msgid "Filter..."
 msgstr "過濾..."
 
-#: lib/diagnostics/diagnosticview.cpp:1052 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1071 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "錯誤"
 
-#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1075 lib/kateconfigdialog.cpp:151
 #: lib/kateconfigdialog.cpp:685
 #, kde-format
 msgid "Warning"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:1060
+#: lib/diagnostics/diagnosticview.cpp:1079
 #, kde-format
 msgid "Information"
 msgstr "資訊"
 
-#: lib/diagnostics/diagnosticview.cpp:1180
+#: lib/diagnostics/diagnosticview.cpp:1199
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [已抑制：%2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1319
+#: lib/diagnostics/diagnosticview.cpp:1345
 #, kde-format
 msgid "Expand All"
 msgstr "全部展開"
 
-#: lib/diagnostics/diagnosticview.cpp:1320
+#: lib/diagnostics/diagnosticview.cpp:1346
 #, kde-format
 msgid "Collapse All"
 msgstr "全部收起"
 
-#: lib/diagnostics/diagnosticview.cpp:1326
+#: lib/diagnostics/diagnosticview.cpp:1352
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "複製到剪貼簿"
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1377
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "移除全域抑制"
 
-#: lib/diagnostics/diagnosticview.cpp:1353
+#: lib/diagnostics/diagnosticview.cpp:1379
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "新增全域抑制"
 
-#: lib/diagnostics/diagnosticview.cpp:1357
+#: lib/diagnostics/diagnosticview.cpp:1383
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "移除本地抑制"
 
-#: lib/diagnostics/diagnosticview.cpp:1359
+#: lib/diagnostics/diagnosticview.cpp:1385
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "新增本地抑制"
 
-#: lib/diagnostics/diagnosticview.cpp:1374
+#: lib/diagnostics/diagnosticview.cpp:1400
 #, kde-format
 msgid "Disable Suppression"
 msgstr "停用抑制"
 
-#: lib/diagnostics/diagnosticview.cpp:1376
+#: lib/diagnostics/diagnosticview.cpp:1402
 #, kde-format
 msgid "Enable Suppression"
 msgstr "啟用抑制"

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-10 03:05+0000\n"
+"POT-Creation-Date: 2024-03-19 02:31+0000\n"
 "PO-Revision-Date: 2023-08-30 10:19+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -259,7 +259,7 @@ msgstr "H&ulpmiddelen"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:274
+#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:287
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -310,115 +310,115 @@ msgstr ""
 msgid "All"
 msgstr "Alles"
 
-#: lib/diagnostics/diagnosticview.cpp:316
+#: lib/diagnostics/diagnosticview.cpp:329
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Weergave van diagnostische meldingen"
 
-#: lib/diagnostics/diagnosticview.cpp:321
+#: lib/diagnostics/diagnosticview.cpp:334
 #, kde-format
 msgid "Quick Fix"
 msgstr "Snelle reparatie"
 
-#: lib/diagnostics/diagnosticview.cpp:327
+#: lib/diagnostics/diagnosticview.cpp:340
 #, kde-format
 msgid "Next Item"
 msgstr "Volgend item"
 
-#: lib/diagnostics/diagnosticview.cpp:333
+#: lib/diagnostics/diagnosticview.cpp:346
 #, kde-format
 msgid "Previous Item"
 msgstr "Vorig item"
 
-#: lib/diagnostics/diagnosticview.cpp:341
+#: lib/diagnostics/diagnosticview.cpp:354
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Diagnostisch filter wissen"
 
-#: lib/diagnostics/diagnosticview.cpp:386
+#: lib/diagnostics/diagnosticview.cpp:399
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostische meldingen"
 
-#: lib/diagnostics/diagnosticview.cpp:429
+#: lib/diagnostics/diagnosticview.cpp:442
 #, kde-format
 msgid "Errors"
 msgstr "Fouten"
 
-#: lib/diagnostics/diagnosticview.cpp:445
+#: lib/diagnostics/diagnosticview.cpp:458
 #, kde-format
 msgid "Warnings"
 msgstr "Waarschuwingen"
 
-#: lib/diagnostics/diagnosticview.cpp:459
+#: lib/diagnostics/diagnosticview.cpp:472
 #, kde-format
 msgid "Filter..."
 msgstr "Filteren..."
 
-#: lib/diagnostics/diagnosticview.cpp:1052 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1071 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "Fout"
 
-#: lib/diagnostics/diagnosticview.cpp:1056 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1075 lib/kateconfigdialog.cpp:151
 #: lib/kateconfigdialog.cpp:685
 #, kde-format
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: lib/diagnostics/diagnosticview.cpp:1060
+#: lib/diagnostics/diagnosticview.cpp:1079
 #, kde-format
 msgid "Information"
 msgstr "Informatie"
 
-#: lib/diagnostics/diagnosticview.cpp:1180
+#: lib/diagnostics/diagnosticview.cpp:1199
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [onderdrukt: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1319
+#: lib/diagnostics/diagnosticview.cpp:1345
 #, kde-format
 msgid "Expand All"
 msgstr "Alles uitvouwen"
 
-#: lib/diagnostics/diagnosticview.cpp:1320
+#: lib/diagnostics/diagnosticview.cpp:1346
 #, kde-format
 msgid "Collapse All"
 msgstr "Alles invouwen"
 
-#: lib/diagnostics/diagnosticview.cpp:1326
+#: lib/diagnostics/diagnosticview.cpp:1352
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Naar klembord kopiëren"
 
-#: lib/diagnostics/diagnosticview.cpp:1351
+#: lib/diagnostics/diagnosticview.cpp:1377
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Globale onderdrukking verwijderen"
 
-#: lib/diagnostics/diagnosticview.cpp:1353
+#: lib/diagnostics/diagnosticview.cpp:1379
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Globale onderdrukking toevoegen"
 
-#: lib/diagnostics/diagnosticview.cpp:1357
+#: lib/diagnostics/diagnosticview.cpp:1383
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Lokale onderdrukking verwijderen"
 
-#: lib/diagnostics/diagnosticview.cpp:1359
+#: lib/diagnostics/diagnosticview.cpp:1385
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Lokale onderdrukking toevoegen"
 
-#: lib/diagnostics/diagnosticview.cpp:1374
+#: lib/diagnostics/diagnosticview.cpp:1400
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Onderdrukken uitschakelen"
 
-#: lib/diagnostics/diagnosticview.cpp:1376
+#: lib/diagnostics/diagnosticview.cpp:1402
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Onderdrukken inschakelen"

@@ -1,0 +1,100 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Guðmundur Erlingsson <gudmundure@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2023-12-13 01:36+0000\n"
+"PO-Revision-Date: 2024-03-18 15:12+0000\n"
+"Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
+"Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
+"Language: is\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.08.3\n"
+
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
+#: FormatterFactory.h:59
+#, kde-format
+msgid "Format"
+msgstr "Snið"
+
+#: FormatApply.h:22
+#, kde-format
+msgid "Failed to write a temp file"
+msgstr "Mistókst að skrifa bráðabirgðaskrá"
+
+#: FormatApply.h:35
+#, kde-format
+msgid "Failed to run git diff: %1"
+msgstr "Mistókst að keyra git diff: %1"
+
+#: FormatConfig.cpp:122
+#, kde-format
+msgid "User Settings"
+msgstr "Stillingar notanda"
+
+#: FormatConfig.cpp:130
+#, kde-format
+msgid "Default Settings"
+msgstr "Sjálfgefnar stillingar"
+
+#: FormatConfig.h:19 FormatPlugin.cpp:112
+#, kde-format
+msgid "Formatting"
+msgstr "Forsnið"
+
+#: FormatConfig.h:24
+#, kde-format
+msgid "Formatting Settings"
+msgstr "Forsniðsstillingar"
+
+#: FormatPlugin.cpp:82
+#, kde-format
+msgid "Failed to read settings.json. Error: %1"
+msgstr "Mistókst að lesa settings.json. Villa: %1"
+
+#: FormatPlugin.cpp:118
+#, kde-format
+msgid "Format Document"
+msgstr "Forsníða skjal"
+
+#: FormatPlugin.cpp:136
+#, kde-format
+msgid "Format on Save"
+msgstr "Forsníða við vistun"
+
+#: FormatPlugin.cpp:139
+#, kde-format
+msgid "Disable formatting on save without persisting it in settings"
+msgstr "Gera forsnið við vistun óvirka án þess að festa það í stillingum"
+
+#: FormatterFactory.h:59
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr "Mistókst að keyra forsnið. %1 er ekki stutt"
+
+#: Formatters.cpp:110
+#, kde-format
+msgid "%1: Unexpected empty command!"
+msgstr "%1: Óvænt auð skipun!"
+
+#: Formatters.cpp:117
+#, kde-format
+msgid ""
+"%1 is not installed, please install it to be able to format this document!"
+msgstr "%1 er ekki uppsett. Settu það upp til að geta forsniðið þetta skjal!"
+
+#: Formatters.cpp:252
+#, kde-format
+msgid "Please install node and prettier"
+msgstr "Settu upp node og prettier"
+
+#: Formatters.cpp:259
+#, kde-format
+msgid "PrettierFormat: Failed to create temporary file"
+msgstr "PrettierFormat: Mistókst að búa til bráðabirgðaskrá"

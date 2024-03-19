@@ -376,7 +376,7 @@ msgstr "Včetně binárních souborů"
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478

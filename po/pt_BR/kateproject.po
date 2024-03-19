@@ -6,20 +6,21 @@
 # Marcus Gama <marcus.gama@gmail.com>, 2012.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023.
 # Camila de Azevedo Moura <camilaraw@gmail.com>, 2016.
+# SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2023-03-03 10:01-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"PO-Revision-Date: 2024-03-17 08:53-0300\n"
+"Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -105,24 +106,22 @@ msgid "Back"
 msgstr "Voltar"
 
 #: currentgitbranchbutton.cpp:124
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "Falha ao dar commit: %1"
+msgstr "HEAD no commit %1"
 
 #: currentgitbranchbutton.cpp:126
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD está nesta tag %1"
 
 #: currentgitbranchbutton.cpp:128
-#, fuzzy, kde-format
-#| msgid "Checked out to new branch: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "Feito checkout para uma nova branch: %1"
+msgstr "Branch ativo: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -334,16 +333,14 @@ msgid "Show Commit"
 msgstr "Mostrar commit"
 
 #: gitwidget.cpp:1048
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "Mudanças do commit"
+msgstr "Commit hash"
 
 #: gitwidget.cpp:1055
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Abrir pasta..."
+msgstr "Abrir commit..."
 
 #: gitwidget.cpp:1058 gitwidget.cpp:1097
 #, kde-format
@@ -353,7 +350,7 @@ msgstr "Modificação temporária"
 #: gitwidget.cpp:1068
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Diff - stash"
 
 #: gitwidget.cpp:1101
 #, kde-format
@@ -707,35 +704,30 @@ msgid "Start Analysis..."
 msgstr "Iniciar análise..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:43
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "Análise de código"
+msgstr "Análise de código - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>A ferramenta a ser usada em todos os projetos que correspondem a "
-"esta lista de extensões de arquivos:<br/><br/><b>%2</b>"
+"'%1' não está instalado em seu sistema, %2.<br/><br/>%3. A ferramenta será "
+"executada em todos os arquivos de projeto que correspondam a esta lista de "
+"extensões de arquivo:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>A ferramenta a ser usada em todos os projetos que correspondem a "
-"esta lista de extensões de arquivos:<br/><br/><b>%2</b>"
+"Usando %1 instalado em: %2.<br/><br/>%3. A ferramenta será executada em "
+"todos os arquivos de projeto que correspondam a esta lista de extensões de "
+"arquivo:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212
@@ -746,24 +738,20 @@ msgid "CodeAnalysis"
 msgstr "Análise de código"
 
 #: kateprojectinfoviewcodeanalysis.cpp:207
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "Análise em %1 arquivo concluída."
-msgstr[1] "Análise em %1 arquivos concluída."
+msgstr[0] "[%1]A análise do arquivo %2 foi concluída."
+msgstr[1] "[%1]A análise de %2 arquivos foi concluída."
 
 #: kateprojectinfoviewcodeanalysis.cpp:215
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "A análise em %1 arquivo falhou com o código de saída %2."
+msgstr "A análise falhou com o código de saída %1, Erro: %2"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
@@ -864,7 +852,7 @@ msgstr "Fechar projeto"
 #: kateprojectpluginview.cpp:106
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Atualizar o git status"
 
 #: kateprojectpluginview.cpp:184
 #, kde-format

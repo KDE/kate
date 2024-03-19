@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-17 00:39+0000\n"
+"POT-Creation-Date: 2024-03-19 00:40+0000\n"
 "PO-Revision-Date: 2023-07-06 10:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -252,7 +252,7 @@ msgstr "أ&دوات"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:277
+#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:290
 #: lib/diagnostics/ui.rc:8
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
@@ -304,123 +304,123 @@ msgstr ""
 msgid "All"
 msgstr "الكل"
 
-#: lib/diagnostics/diagnosticview.cpp:284
+#: lib/diagnostics/diagnosticview.cpp:297
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:327
+#: lib/diagnostics/diagnosticview.cpp:340
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "التشخيص"
 
-#: lib/diagnostics/diagnosticview.cpp:332
+#: lib/diagnostics/diagnosticview.cpp:345
 #, kde-format
 msgid "Quick Fix"
 msgstr "إصلاح سريع"
 
-#: lib/diagnostics/diagnosticview.cpp:338
+#: lib/diagnostics/diagnosticview.cpp:351
 #, kde-format
 msgid "Next Item"
 msgstr "العنصر التالي"
 
-#: lib/diagnostics/diagnosticview.cpp:344
+#: lib/diagnostics/diagnosticview.cpp:357
 #, kde-format
 msgid "Previous Item"
 msgstr "العنصر السّابق"
 
-#: lib/diagnostics/diagnosticview.cpp:352
+#: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "امسح مرشح التشخيص"
 
-#: lib/diagnostics/diagnosticview.cpp:410 lib/kateconfigdialog.cpp:339
+#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Diagnostics"
 msgstr "التشخيص"
 
-#: lib/diagnostics/diagnosticview.cpp:453
+#: lib/diagnostics/diagnosticview.cpp:466
 #, kde-format
 msgid "Errors"
 msgstr "الأخطاء"
 
-#: lib/diagnostics/diagnosticview.cpp:469
+#: lib/diagnostics/diagnosticview.cpp:482
 #, kde-format
 msgid "Warnings"
 msgstr "التّحذيرات"
 
-#: lib/diagnostics/diagnosticview.cpp:483
+#: lib/diagnostics/diagnosticview.cpp:496
 #, kde-format
 msgid "Filter..."
 msgstr "رشّح..."
 
-#: lib/diagnostics/diagnosticview.cpp:1102 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
 msgstr "خطأ"
 
-#: lib/diagnostics/diagnosticview.cpp:1106 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:151
 #: lib/kateconfigdialog.cpp:703
 #, kde-format
 msgid "Warning"
 msgstr "التّحذيرات"
 
-#: lib/diagnostics/diagnosticview.cpp:1110
+#: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Information"
 msgstr "المعلومات"
 
-#: lib/diagnostics/diagnosticview.cpp:1230
+#: lib/diagnostics/diagnosticview.cpp:1251
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [مقيد: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1369
+#: lib/diagnostics/diagnosticview.cpp:1397
 #, kde-format
 msgid "Expand All"
 msgstr "وسّع الكل"
 
-#: lib/diagnostics/diagnosticview.cpp:1370
+#: lib/diagnostics/diagnosticview.cpp:1398
 #, kde-format
 msgid "Collapse All"
 msgstr "اطوِ الكل"
 
-#: lib/diagnostics/diagnosticview.cpp:1376
+#: lib/diagnostics/diagnosticview.cpp:1404
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "انسخ إلى الحافظة"
 
-#: lib/diagnostics/diagnosticview.cpp:1401
+#: lib/diagnostics/diagnosticview.cpp:1429
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "أزل التقييد العام"
 
-#: lib/diagnostics/diagnosticview.cpp:1403
+#: lib/diagnostics/diagnosticview.cpp:1431
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "أضف تقييد العام"
 
-#: lib/diagnostics/diagnosticview.cpp:1407
+#: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "أزل التقييد المحلي"
 
-#: lib/diagnostics/diagnosticview.cpp:1409
+#: lib/diagnostics/diagnosticview.cpp:1437
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "أضف تقييد محلي"
 
-#: lib/diagnostics/diagnosticview.cpp:1424
+#: lib/diagnostics/diagnosticview.cpp:1452
 #, kde-format
 msgid "Disable Suppression"
 msgstr "عطل التقييد"
 
-#: lib/diagnostics/diagnosticview.cpp:1426
+#: lib/diagnostics/diagnosticview.cpp:1454
 #, kde-format
 msgid "Enable Suppression"
 msgstr "مكن التقييد"

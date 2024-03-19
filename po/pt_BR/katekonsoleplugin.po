@@ -6,20 +6,21 @@
 # Maj Gama <marcus.gama@gmail.com>, 2009.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2011, 2013, 2014, 2018.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2019, 2020, 2021, 2023.
+# SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-17 00:39+0000\n"
-"PO-Revision-Date: 2023-07-05 18:04-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
+"PO-Revision-Date: 2024-03-17 08:44-0300\n"
+"Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: kateconsole.cpp:57
 #, kde-format
@@ -64,26 +65,22 @@ msgid "&Focus Terminal Panel"
 msgstr "&Focar painel do terminal"
 
 #: kateconsole.cpp:169
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "&Ocultar painel do terminal"
+msgstr "&Dividir terminal verticalmente"
 
 #: kateconsole.cpp:174
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "&Dividir o terminal horizontalmente"
 
 #: kateconsole.cpp:179
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "&Mostrar painel do terminal"
+msgstr "&Nova guia de terminal"
 
 #: kateconsole.cpp:320
 #, kde-format

@@ -1,21 +1,23 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2022, 2023.
+# SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
+# SPDX-FileCopyrightText: 2024 Geraldo Simiao <geraldosimiao@fedoraproject.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2023-03-03 10:03-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"PO-Revision-Date: 2024-03-18 16:38-0300\n"
+"Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -30,7 +32,7 @@ msgstr "Arquivo JSON mal formado '%1': %2"
 #: keyboardmacrosplugin.cpp:80
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
-msgstr ""
+msgstr "Não foi possível carregar '%1': macro malformada; a limpar."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
@@ -88,12 +90,12 @@ msgstr "Uso: %1 <nome>."
 #: keyboardmacrosplugincommands.cpp:62
 #, kde-format
 msgid "No keyboard macro named '%1' found."
-msgstr ""
+msgstr "Não foi encontrada nenhuma macro de teclado com o nome '%1'."
 
 #: keyboardmacrosplugincommands.cpp:50
 #, kde-format
 msgid "Cannot save empty keyboard macro."
-msgstr ""
+msgstr "Não é possível guardar uma macro de teclado vazia."
 
 #: keyboardmacrosplugincommands.cpp:82
 #, kde-format
@@ -126,38 +128,41 @@ msgstr ""
 #: keyboardmacrospluginview.cpp:33
 #, kde-format
 msgid "&Keyboard Macros"
-msgstr ""
+msgstr "Macros de &teclado"
 
 #: keyboardmacrospluginview.cpp:36
 #, kde-format
 msgid "Record and play keyboard macros."
-msgstr ""
+msgstr "Gravar e reproduza macros de teclado."
 
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:158
 #, kde-format
 msgid "&Record Macro..."
-msgstr ""
+msgstr "&Gravar macro..."
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
 msgid "Start/stop recording a macro (i.e., keyboard action sequence)."
 msgstr ""
+"Iniciar/parar a gravação de uma macro (ou seja, sequência de ações do "
+"teclado)."
 
 #: keyboardmacrospluginview.cpp:52
 #, kde-format
 msgid "&Cancel Macro Recording"
-msgstr ""
+msgstr "&Cancelar gravação de macro"
 
 #: keyboardmacrospluginview.cpp:54
 #, kde-format
 msgid ""
 "Cancel ongoing recording (and keep the previous macro as the current one)."
 msgstr ""
+"Cancele a gravação em andamento (e mantenha a macro anterior como a atual)."
 
 #: keyboardmacrospluginview.cpp:64
 #, kde-format
 msgid "&Play Macro"
-msgstr ""
+msgstr "&Reproduzir macro"
 
 #: keyboardmacrospluginview.cpp:66
 #, kde-format
@@ -165,93 +170,93 @@ msgid ""
 "Play current macro (i.e., execute the last recorded keyboard action "
 "sequence)."
 msgstr ""
+"Reproduzir a macro atual (ou seja, executar a última sequência de ação do "
+"teclado gravada)."
 
 #: keyboardmacrospluginview.cpp:76
 #, kde-format
 msgid "&Save Current Macro"
-msgstr ""
+msgstr "&Salvar macro atual"
 
 #: keyboardmacrospluginview.cpp:78
 #, kde-format
 msgid "Give a name to the current macro and persistently save it."
-msgstr ""
+msgstr "Dê um nome à macro atual e salve-a persistentemente."
 
 #: keyboardmacrospluginview.cpp:90
 #, kde-format
 msgid "&Load Named Macro..."
-msgstr ""
+msgstr "&Carregar macro nomeada..."
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
 msgid "Load a named macro as the current one."
-msgstr ""
+msgstr "Carrega uma macro nomeada como a atual."
 
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
 msgid "&Play Named Macro..."
-msgstr ""
+msgstr "&Reproduzir macro nomeada..."
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
 msgid "Play a named macro without loading it."
-msgstr ""
+msgstr "Reproduza uma macro nomeada sem carregá-la."
 
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr ""
+msgstr "&Apagar macro nomeada..."
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format
 msgid "Wipe a named macro."
-msgstr ""
+msgstr "Limpe uma macro nomeada."
 
 #: keyboardmacrospluginview.cpp:150
 #, kde-format
 msgid "End Macro &Recording"
-msgstr ""
+msgstr "Finalizar macro e &gravação"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "Carregou '%1'"
+msgstr "Carregar %1"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
 msgid "Load the '%1' macro as the current one."
-msgstr ""
+msgstr "Carregue a macro '%1' como a atual."
 
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Jogar %1"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
 msgid "Play the '%1' macro without loading it."
-msgstr ""
+msgstr "Reproduza a macro '%1' sem carregá-la."
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "Limpou '%1'"
+msgstr "Limpar %1"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format
 msgid "Wipe the '%1' macro."
-msgstr ""
+msgstr "Limpe a macro '%1'."
 
 #: keyboardmacrospluginview.cpp:286
 #, kde-format
 msgid "Save current macro as?"
-msgstr ""
+msgstr "Salvar a macro atual como?"
 
 #: keyboardmacrospluginview.cpp:320
 #, kde-format
 msgid "Wipe the '%1' macro?"
-msgstr ""
+msgstr "Limpar a macro '%1'?"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

@@ -6,20 +6,21 @@
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Camila Moura <camila.moura@kde.org>, 2017.
 # Thiago Masato Costa Sueto <herzenschein@gmail.com>, 2019.
+# SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-15 00:39+0000\n"
-"PO-Revision-Date: 2023-01-16 23:45-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"PO-Revision-Date: 2024-03-17 08:47-0300\n"
+"Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -218,7 +219,7 @@ msgctxt ""
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr "Substituir as verificadas"
+msgstr "Substituir Verificado"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
@@ -365,13 +366,13 @@ msgstr "Incluir arquivos binários"
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "Tamanho limite"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -561,7 +562,7 @@ msgstr "Ir para a ocorrência anterior"
 #: SearchPlugin.cpp:352
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Cortar linhas correspondentes"
 
 #: SearchPlugin.cpp:354
 #, kde-format
@@ -569,11 +570,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Esta ação corta para a área de transferência todas as linhas de "
+"correspondência de pesquisa destacadas do documento atual"
 
 #: SearchPlugin.cpp:359
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Copiar linhas correspondentes"
 
 #: SearchPlugin.cpp:361
 #, kde-format
@@ -581,6 +584,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Esta ação copia todas as linhas de correspondência de pesquisa realçadas no "
+"documento atual para a a área de transferência"
 
 #: SearchPlugin.cpp:394
 #, kde-format

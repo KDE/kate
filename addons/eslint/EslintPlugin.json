@@ -21,6 +21,7 @@
         "Description[nl]": "Voert ESLint uit op huidig bestand",
         "Description[pl]": "Uruchamia ESLint na bieżącym pliku",
         "Description[pt]": "Executa o ESLint sobre o ficheiro actual",
+        "Description[pt_BR]": "Executa ESLint no arquivo atual",
         "Description[ru]": "Запускает ESLint для текущего файла",
         "Description[sk]": "Spustí ESLint na aktuálnom súbore",
         "Description[sl]": "Požene ESLint na trenutni datoteki",

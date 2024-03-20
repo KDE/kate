@@ -18,6 +18,7 @@
 
 #include <KActionCollection>
 #include <KLocalizedString>
+#include <KMultiTabBar>
 #include <KNetworkMounts>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
@@ -148,6 +149,13 @@ QWidget *toolviewForName(KTextEditor::MainWindow *mainWindow, const QString &too
 {
     QWidget *toolView = nullptr;
     QMetaObject::invokeMethod(mainWindow->parent(), "toolviewForName", Qt::DirectConnection, Q_RETURN_ARG(QWidget *, toolView), Q_ARG(QString, toolviewName));
+    return toolView;
+}
+
+QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side)
+{
+    QWidget *toolView = nullptr;
+    QMetaObject::invokeMethod(mainWindow->parent(), "activeViewToolView", Qt::DirectConnection, Q_RETURN_ARG(QWidget *, toolView), Q_ARG(int, side));
     return toolView;
 }
 

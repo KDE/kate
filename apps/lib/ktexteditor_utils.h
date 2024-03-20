@@ -83,6 +83,8 @@ KATE_PRIVATE_EXPORT QAction *toolviewShowAction(KTextEditor::MainWindow *, const
 
 KATE_PRIVATE_EXPORT QWidget *toolviewForName(KTextEditor::MainWindow *, const QString &toolviewName);
 
+KATE_PRIVATE_EXPORT QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side);
+
 /*** BEGIN KTextEditor::MainWindow extensions **/
 KATE_PRIVATE_EXPORT void
 showMessage(const QString &message, const QIcon &icon, const QString &category, MessageType type, KTextEditor::MainWindow *mainWindow = nullptr);

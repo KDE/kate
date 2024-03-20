@@ -229,6 +229,11 @@ public:
         m_sectionSize = size;
     }
 
+    int activeTab() const
+    {
+        return m_activeTab;
+    }
+
 Q_SIGNALS:
     void lastTabRemoved(MultiTabBar *);
 
@@ -282,6 +287,8 @@ public:
     {
         return m_idToWidget.size();
     }
+
+    ToolView *firstVisibleToolView();
 
     /**
      * Will the sidebar expand when some tool has to be visible in any section,
@@ -482,6 +489,12 @@ public:
      * @param hideFullySilent hide the stuff forever, e.g. for KWrite
      */
     void setSidebarsVisibleInternal(bool visible, bool hideFullySilent);
+
+    /**
+     * Returns the first currently visible toolview for given @p pos or null
+     * if no toolview was visible
+     */
+    ToolView *activeViewToolView(KMultiTabBar::KMultiTabBarPosition pos);
 
 public Q_SLOTS:
     /**

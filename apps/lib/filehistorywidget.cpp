@@ -224,6 +224,7 @@ public:
     const QString m_gitDir;
     const QPointer<QWidget> m_toolView;
     const QPointer<KTextEditor::MainWindow> m_mainWindow;
+    QPointer<QWidget> m_lastActiveToolview;
 
 Q_SIGNALS:
     void backClicked();
@@ -256,6 +257,9 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
         deleteLater();
         m_mainWindow->hideToolView(m_toolView);
         m_toolView->deleteLater();
+        if (m_lastActiveToolview) {
+            m_mainWindow->showToolView(m_lastActiveToolview.data());
+        }
     });
     connect(m_listView, &QListView::clicked, this, &FileHistoryWidget::itemClicked);
     connect(m_listView, &QListView::activated, this, &FileHistoryWidget::itemClicked);
@@ -378,10 +382,15 @@ void FileHistory::showFileHistory(const QString &file, KTextEditor::MainWindow *
     const QString identifier = QStringLiteral("git_file_history_%1").arg(file);
     const QString title = i18nc("@title:tab", "File History - %1", fi.fileName());
     auto toolView = Utils::toolviewForName(mainWindow, identifier);
+    auto activeToolview = Utils::activeToolviewForSide(mainWindow, KTextEditor::MainWindow::Left);
     if (!toolView) {
         toolView = mainWindow->createToolView(nullptr, identifier, KTextEditor::MainWindow::Left, gitIcon(), title);
         new FileHistoryWidget(repoBase.value(), file, mainWindow, toolView);
     }
+    if (auto w = toolView->findChild<FileHistoryWidget *>()) {
+        w->m_lastActiveToolview = activeToolview;
+    }
+
     mainWindow->showToolView(toolView);
 }
 

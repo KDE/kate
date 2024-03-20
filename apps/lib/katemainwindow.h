@@ -507,6 +507,11 @@ public Q_SLOTS:
         return toolView(identifier);
     }
 
+    QWidget *activeViewToolView(int pos)
+    {
+        return KateMDI::MainWindow::activeViewToolView(static_cast<KMultiTabBar::KMultiTabBarPosition>(pos));
+    }
+
     /**
      * Move the toolview \p widget to position \p pos.
      * \param widget the toolview to move, where the widget was constructed

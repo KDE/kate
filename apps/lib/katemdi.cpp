@@ -887,6 +887,18 @@ bool Sidebar::isCollapsed()
     return m_splitter->sizes().at(m_ownSplitIndex) == 0;
 }
 
+ToolView *Sidebar::firstVisibleToolView()
+{
+    for (int i = 0; i < tabBarCount(); ++i) {
+        auto tabbar = tabBar(i);
+        if (tabbar->isToolActive()) {
+            Q_ASSERT(tabbar->tabCount() > 0);
+            return m_idToWidget[tabbar->activeTab()];
+        }
+    }
+    return nullptr;
+}
+
 void Sidebar::handleCollapse(int pos, int index)
 {
     Q_UNUSED(pos);
@@ -1705,6 +1717,15 @@ void MainWindow::setSidebarsVisibleInternal(bool visible, bool hideFullySilent)
                                  QString(),
                                  QStringLiteral("Kate hide sidebars notification message"));
     }
+}
+
+ToolView *MainWindow::activeViewToolView(KMultiTabBar::KMultiTabBarPosition pos)
+{
+    const auto side = static_cast<size_t>(pos);
+    if (side >= 4) {
+        return nullptr;
+    }
+    return m_sidebars[side]->firstVisibleToolView();
 }
 
 bool MainWindow::sidebarsVisible() const

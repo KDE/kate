@@ -18,6 +18,7 @@
 
 #include <QAbstractListModel>
 #include <QApplication>
+#include <QClipboard>
 #include <QDir>
 #include <QHBoxLayout>
 #include <QIcon>
@@ -587,6 +588,9 @@ public:
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &BreadCrumbView::updatePalette, Qt::QueuedConnection);
         updatePalette();
 
+        setContextMenuPolicy(Qt::CustomContextMenu);
+        connect(this, &BreadCrumbView::customContextMenuRequested, this, &BreadCrumbView::onContextMenu);
+
         auto onConfigChanged = [this] {
             KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("General"));
             auto v = cg.readEntry("Show Symbol In Navigation Bar", true);
@@ -865,6 +869,28 @@ public:
         m.setFocus();
         m.exec(pos);
         m_isNavigating = false;
+    }
+
+    void onContextMenu(const QPoint &pos)
+    {
+        if (selectedIndexes().empty()) {
+            return;
+        }
+        QMenu menu = QMenu(viewport());
+        QModelIndex selectedIndex = selectedIndexes().first();
+        bool last = selectedIndex == m_model.index(m_model.rowCount() - 1, 0);
+        auto path = selectedIndex.data(BreadCrumbRole::PathRole).toString();
+        if (!path.isEmpty()) {
+            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18nc("@menu:action", "Copy Location"), this, [this, path] {
+                QGuiApplication::clipboard()->setText(path);
+            });
+        }
+        if (last) {
+            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@menu:action", "Copy Filename"), this, [this, selectedIndex] {
+                QGuiApplication::clipboard()->setText(selectedIndex.data().toString());
+            });
+        }
+        menu.exec(mapToGlobal(pos));
     }
 
     bool navigating() const

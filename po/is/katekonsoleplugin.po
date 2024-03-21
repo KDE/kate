@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-21 02:24+0000\n"
+"POT-Creation-Date: 2024-03-21 02:29+0000\n"
 "PO-Revision-Date: 2023-12-06 21:14+0000\n"
 "Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -19,54 +19,54 @@ msgstr ""
 "X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: kateconsole.cpp:56
+#: kateconsole.cpp:57
 #, kde-format
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "Þú ert ekki með nóg karma til að geta opnað skel eða skjáhermi"
 
-#: kateconsole.cpp:104 kateconsole.cpp:134 kateconsole.cpp:655
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:656
 #, kde-format
 msgid "Terminal"
 msgstr "Skjáhermir"
 
-#: kateconsole.cpp:143
+#: kateconsole.cpp:144
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "Senda í &pípu í skjáhermi"
 
-#: kateconsole.cpp:147
+#: kateconsole.cpp:148
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "Sa&mstilla skjáhermi við núverandi skjal"
 
-#: kateconsole.cpp:151
+#: kateconsole.cpp:152
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Keyra núverandi skjal"
 
-#: kateconsole.cpp:156 kateconsole.cpp:505
+#: kateconsole.cpp:157 kateconsole.cpp:506
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "Sýna skjá&hermisspjald"
 
-#: kateconsole.cpp:162
+#: kateconsole.cpp:163
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "Gefa skjáhermisspjaldi &fókus"
 
-#: kateconsole.cpp:304
+#: kateconsole.cpp:305
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 "Konsole er ekki uppsett. Settu upp konsole til að geta notað skjáherminn."
 
-#: kateconsole.cpp:380
+#: kateconsole.cpp:381
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -75,27 +75,27 @@ msgstr ""
 "Viltu í alvöru senda textann í skeljarglugga? Ef einhver skipun er í "
 "textanum mun hún verða keyrð með þínum notandaheimildum."
 
-#: kateconsole.cpp:381
+#: kateconsole.cpp:382
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Senda í pípu í skjáhermi?"
 
-#: kateconsole.cpp:382
+#: kateconsole.cpp:383
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Senda í pípu í skjáhermi"
 
-#: kateconsole.cpp:410
+#: kateconsole.cpp:411
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
 msgstr "Get því miður ekki farið í '%1' með cd-skipuninni"
 
-#: kateconsole.cpp:446
+#: kateconsole.cpp:447
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "Ekki skrá á þessu skráakerfi: '%1'"
 
-#: kateconsole.cpp:479
+#: kateconsole.cpp:480
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -108,33 +108,33 @@ msgstr ""
 "með þínum notandaheimildum í skjáhermi:\n"
 "'%1'"
 
-#: kateconsole.cpp:486
+#: kateconsole.cpp:487
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Keyra í skjáhermi?"
 
-#: kateconsole.cpp:487
+#: kateconsole.cpp:488
 #, kde-format
 msgid "Run"
 msgstr "Keyra"
 
-#: kateconsole.cpp:502
+#: kateconsole.cpp:503
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Fela skjáhermisspjald"
 
-#: kateconsole.cpp:513
+#: kateconsole.cpp:514
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Taka fókus af skjáhermisspjaldi"
 
-#: kateconsole.cpp:514 kateconsole.cpp:515
+#: kateconsole.cpp:515 kateconsole.cpp:516
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Gefa skjáhermisspjaldi fókus"
 
-#: kateconsole.cpp:588
+#: kateconsole.cpp:589
 #, kde-format
 msgid ""
 "&Automatically synchronize the terminal with the current document when "
@@ -142,27 +142,27 @@ msgid ""
 msgstr ""
 "S&amstilla skjáherminn sjálfkrafa við núverandi skjal þegar það er hægt"
 
-#: kateconsole.cpp:592 kateconsole.cpp:613
+#: kateconsole.cpp:593 kateconsole.cpp:614
 #, kde-format
 msgid "Run in terminal"
 msgstr "Keyra í skjáhermi"
 
-#: kateconsole.cpp:594
+#: kateconsole.cpp:595
 #, kde-format
 msgid "&Remove extension"
 msgstr "Fja&rlægja skráarendingu"
 
-#: kateconsole.cpp:599
+#: kateconsole.cpp:600
 #, kde-format
 msgid "Prefix:"
 msgstr "Forskeyti:"
 
-#: kateconsole.cpp:607
+#: kateconsole.cpp:608
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&Sýna viðvörun næst"
 
-#: kateconsole.cpp:609
+#: kateconsole.cpp:610
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -171,12 +171,12 @@ msgstr ""
 "Næst þegar '%1' er keyrð skaltu tryggja að viðvörunargluggi opnist semsýnir "
 "skipunina sem á að senda í skjáherminn, svo þú getir yfirfarið hana."
 
-#: kateconsole.cpp:620
+#: kateconsole.cpp:621
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Stilla umhverfisbreytuna &EDITOR á 'kate -b'"
 
-#: kateconsole.cpp:623
+#: kateconsole.cpp:624
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -184,12 +184,12 @@ msgid ""
 msgstr ""
 "Mikilvægt: Það verður að loka skjalinu til að láta skeljaforritið halda áfram"
 
-#: kateconsole.cpp:626
+#: kateconsole.cpp:627
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Fela Konsole þegar ýtt er á 'Esc'"
 
-#: kateconsole.cpp:629
+#: kateconsole.cpp:630
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -199,7 +199,7 @@ msgstr ""
 "d. vim. Bættu þessum forritum við í reitnum hér fyrir neðan (aðskilið með "
 "kommum)"
 
-#: kateconsole.cpp:660
+#: kateconsole.cpp:661
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Skjáhermisstillingar"

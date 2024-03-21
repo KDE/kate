@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-19 00:40+0000\n"
+"POT-Creation-Date: 2024-03-21 00:40+0000\n"
 "PO-Revision-Date: 2024-02-19 09:52+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -160,7 +160,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Editor de text"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
+#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:251
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
@@ -178,7 +178,7 @@ msgid "Copy Location"
 msgstr "Copia la ubicació"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:374
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -188,7 +188,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Resum no vàlid"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:374
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 no existeix en cap repositori del Git."
@@ -564,31 +564,31 @@ msgstr "Fitxer suprimit %1"
 msgid "No differences found"
 msgstr "No s'ha trobat cap diferència"
 
-#: lib/filehistorywidget.cpp:288
+#: lib/filehistorywidget.cpp:292
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Ha fallat en obtenir l'historial de fitxers: no s'ha trobat l'executable "
 "«git» en el PATH"
 
-#: lib/filehistorywidget.cpp:301
+#: lib/filehistorywidget.cpp:305
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Ha fallat en obtenir l'historial de fitxers: %1"
 
-#: lib/filehistorywidget.cpp:312
+#: lib/filehistorywidget.cpp:316
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Copia el resum de la comissió"
 
-#: lib/filehistorywidget.cpp:320
+#: lib/filehistorywidget.cpp:324
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Mostra la comissió completa"
 
-#: lib/filehistorywidget.cpp:379
+#: lib/filehistorywidget.cpp:383
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1805,67 +1805,67 @@ msgstr "Mostra el botó %1"
 msgid "Focus %1"
 msgstr "Dona el focus a %1"
 
-#: lib/katemdi.cpp:1076
+#: lib/katemdi.cpp:1088
 #, kde-format
 msgid "Configure..."
 msgstr "Configura..."
 
-#: lib/katemdi.cpp:1080
+#: lib/katemdi.cpp:1092
 #, kde-format
 msgid "Hide Button"
 msgstr "Oculta el botó"
 
-#: lib/katemdi.cpp:1082
+#: lib/katemdi.cpp:1094
 #, kde-format
 msgid "Move To"
 msgstr "Mou a"
 
-#: lib/katemdi.cpp:1087
+#: lib/katemdi.cpp:1099
 #, kde-format
 msgid "Own Section"
 msgstr "Secció pròpia"
 
-#: lib/katemdi.cpp:1093 lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1105 lib/katemdi.cpp:1113
 #, kde-format
 msgid "One Down"
 msgstr "Una avall"
 
-#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1107 lib/katemdi.cpp:1118
 #, kde-format
 msgid "One Right"
 msgstr "Una a la dreta"
 
-#: lib/katemdi.cpp:1099
+#: lib/katemdi.cpp:1111
 #, kde-format
 msgid "One Up"
 msgstr "Una amunt"
 
-#: lib/katemdi.cpp:1104
+#: lib/katemdi.cpp:1116
 #, kde-format
 msgid "One Left"
 msgstr "Una a l'esquerra"
 
-#: lib/katemdi.cpp:1113
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barra lateral esquerra"
 
-#: lib/katemdi.cpp:1117
+#: lib/katemdi.cpp:1129
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barra lateral dreta"
 
-#: lib/katemdi.cpp:1121
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barra lateral superior"
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1137
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barra lateral inferior"
 
-#: lib/katemdi.cpp:1698
+#: lib/katemdi.cpp:1710
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

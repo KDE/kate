@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-19 00:40+0000\n"
+"POT-Creation-Date: 2024-03-21 00:40+0000\n"
 "PO-Revision-Date: 2024-02-20 11:57+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
@@ -176,7 +176,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Éditeur de texte"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
+#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:251
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
@@ -194,7 +194,7 @@ msgid "Copy Location"
 msgstr "Copier un emplacement"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:374
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -204,7 +204,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Hachage non valable"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:374
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 n'existe pas dans un dépôt « Git »"
@@ -583,31 +583,31 @@ msgstr "Supprimer le fichier %1"
 msgid "No differences found"
 msgstr "Aucune différence trouvée"
 
-#: lib/filehistorywidget.cpp:288
+#: lib/filehistorywidget.cpp:292
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Impossible d'obtenir l'historique du fichier : il a été impossible de "
 "trouver l'exécutable associé à Git dans la variable d'environnement « PATH »"
 
-#: lib/filehistorywidget.cpp:301
+#: lib/filehistorywidget.cpp:305
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Impossible d'obtenir l'historique des fichiers : %1"
 
-#: lib/filehistorywidget.cpp:312
+#: lib/filehistorywidget.cpp:316
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Copier le code de hachage du commit"
 
-#: lib/filehistorywidget.cpp:320
+#: lib/filehistorywidget.cpp:324
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Afficher le commit global"
 
-#: lib/filehistorywidget.cpp:379
+#: lib/filehistorywidget.cpp:383
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1850,67 +1850,67 @@ msgstr "Afficher un bouton %1"
 msgid "Focus %1"
 msgstr "Faire un focus sur %1"
 
-#: lib/katemdi.cpp:1076
+#: lib/katemdi.cpp:1088
 #, kde-format
 msgid "Configure..."
 msgstr "Configurer..."
 
-#: lib/katemdi.cpp:1080
+#: lib/katemdi.cpp:1092
 #, kde-format
 msgid "Hide Button"
 msgstr "Masquer un bouton"
 
-#: lib/katemdi.cpp:1082
+#: lib/katemdi.cpp:1094
 #, kde-format
 msgid "Move To"
 msgstr "Déplacer vers"
 
-#: lib/katemdi.cpp:1087
+#: lib/katemdi.cpp:1099
 #, kde-format
 msgid "Own Section"
 msgstr "Votre propre section"
 
-#: lib/katemdi.cpp:1093 lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1105 lib/katemdi.cpp:1113
 #, kde-format
 msgid "One Down"
 msgstr "Un vers le bas"
 
-#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1107 lib/katemdi.cpp:1118
 #, kde-format
 msgid "One Right"
 msgstr "Un vers la droite"
 
-#: lib/katemdi.cpp:1099
+#: lib/katemdi.cpp:1111
 #, kde-format
 msgid "One Up"
 msgstr "Un vers le haut"
 
-#: lib/katemdi.cpp:1104
+#: lib/katemdi.cpp:1116
 #, kde-format
 msgid "One Left"
 msgstr "Un vers la gauche"
 
-#: lib/katemdi.cpp:1113
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barre latérale gauche"
 
-#: lib/katemdi.cpp:1117
+#: lib/katemdi.cpp:1129
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barre latérale droite"
 
-#: lib/katemdi.cpp:1121
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barre latérale en haut"
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1137
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barre latérale en bas"
 
-#: lib/katemdi.cpp:1698
+#: lib/katemdi.cpp:1710
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

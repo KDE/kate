@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-19 00:40+0000\n"
+"POT-Creation-Date: 2024-03-21 00:40+0000\n"
 "PO-Revision-Date: 2014-01-31 19:52+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -178,7 +178,7 @@ msgid "KWrite - Text Editor"
 msgstr "Kate, napredni uređivač teksta"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
+#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:251
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
@@ -197,7 +197,7 @@ msgid "Copy Location"
 msgstr "lokacija"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:374
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -207,7 +207,7 @@ msgstr ""
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:374
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -595,30 +595,30 @@ msgstr "Obrisati datoteku?"
 msgid "No differences found"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:288
+#: lib/filehistorywidget.cpp:292
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:301
+#: lib/filehistorywidget.cpp:305
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:312
+#: lib/filehistorywidget.cpp:316
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:320
+#: lib/filehistorywidget.cpp:324
 #, fuzzy, kde-format
 #| msgid "&Show Full Path"
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Prikaži punu &stazu"
 
-#: lib/filehistorywidget.cpp:379
+#: lib/filehistorywidget.cpp:383
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1853,69 +1853,69 @@ msgstr "Prikaži %1"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1076
+#: lib/katemdi.cpp:1088
 #, fuzzy, kde-format
 #| msgid "Configure ..."
 msgid "Configure..."
 msgstr "Konfiguriši ..."
 
-#: lib/katemdi.cpp:1080
+#: lib/katemdi.cpp:1092
 #, kde-format
 msgid "Hide Button"
 msgstr ""
 
-#: lib/katemdi.cpp:1082
+#: lib/katemdi.cpp:1094
 #, kde-format
 msgid "Move To"
 msgstr "Premjesti u"
 
-#: lib/katemdi.cpp:1087
+#: lib/katemdi.cpp:1099
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "Otvori sesiju"
 
-#: lib/katemdi.cpp:1093 lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1105 lib/katemdi.cpp:1113
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1107 lib/katemdi.cpp:1118
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1099
+#: lib/katemdi.cpp:1111
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1104
+#: lib/katemdi.cpp:1116
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1113
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Left Sidebar"
 msgstr "lijevu bočnu traku"
 
-#: lib/katemdi.cpp:1117
+#: lib/katemdi.cpp:1129
 #, kde-format
 msgid "Right Sidebar"
 msgstr "desnu bočnu traku"
 
-#: lib/katemdi.cpp:1121
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "Top Sidebar"
 msgstr "gornju bočnu traku"
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1137
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "donju bočnu traku"
 
-#: lib/katemdi.cpp:1698
+#: lib/katemdi.cpp:1710
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-19 00:40+0000\n"
+"POT-Creation-Date: 2024-03-21 00:40+0000\n"
 "PO-Revision-Date: 2022-10-28 19:12+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -146,7 +146,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Redactor de textus"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
+#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:251
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
@@ -164,7 +164,7 @@ msgid "Copy Location"
 msgstr "Copiar li localisation"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:374
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -174,7 +174,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:370
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:374
 #, fuzzy, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "Li rute %1 ne existe"
@@ -552,29 +552,29 @@ msgstr "Deleter li file"
 msgid "No differences found"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:288
+#: lib/filehistorywidget.cpp:292
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:301
+#: lib/filehistorywidget.cpp:305
 #, fuzzy, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Ne successat aperter un file por scrition: %1"
 
-#: lib/filehistorywidget.cpp:312
+#: lib/filehistorywidget.cpp:316
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:320
+#: lib/filehistorywidget.cpp:324
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:379
+#: lib/filehistorywidget.cpp:383
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1747,67 +1747,67 @@ msgstr "Monstrar li icone"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1076
+#: lib/katemdi.cpp:1088
 #, kde-format
 msgid "Configure..."
 msgstr "Configurar..."
 
-#: lib/katemdi.cpp:1080
+#: lib/katemdi.cpp:1092
 #, kde-format
 msgid "Hide Button"
 msgstr "Celar li buton"
 
-#: lib/katemdi.cpp:1082
+#: lib/katemdi.cpp:1094
 #, kde-format
 msgid "Move To"
 msgstr "Mover a"
 
-#: lib/katemdi.cpp:1087
+#: lib/katemdi.cpp:1099
 #, fuzzy, kde-format
 msgid "Own Section"
 msgstr "Section: "
 
-#: lib/katemdi.cpp:1093 lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1105 lib/katemdi.cpp:1113
 #, fuzzy, kde-format
 msgid "One Down"
 msgstr "Mover li selectet element al sequent linea"
 
-#: lib/katemdi.cpp:1095 lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1107 lib/katemdi.cpp:1118
 #, fuzzy, kde-format
 msgid "One Right"
 msgstr "Dextri"
 
-#: lib/katemdi.cpp:1099
+#: lib/katemdi.cpp:1111
 #, fuzzy, kde-format
 msgid "One Up"
 msgstr "Mover li selectet element al precedent linea"
 
-#: lib/katemdi.cpp:1104
+#: lib/katemdi.cpp:1116
 #, fuzzy, kde-format
 msgid "One Left"
 msgstr "Left"
 
-#: lib/katemdi.cpp:1113
+#: lib/katemdi.cpp:1125
 #, fuzzy, kde-format
 msgid "Left Sidebar"
 msgstr "Panel láteral sinistri"
 
-#: lib/katemdi.cpp:1117
+#: lib/katemdi.cpp:1129
 #, fuzzy, kde-format
 msgid "Right Sidebar"
 msgstr "Panel láteral dextri"
 
-#: lib/katemdi.cpp:1121
+#: lib/katemdi.cpp:1133
 #, fuzzy, kde-format
 msgid "Top Sidebar"
 msgstr "In li panel lateral"
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1137
 #, fuzzy, kde-format
 msgid "Bottom Sidebar"
 msgstr "A bass"
 
-#: lib/katemdi.cpp:1698
+#: lib/katemdi.cpp:1710
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

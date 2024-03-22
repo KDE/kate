@@ -697,7 +697,7 @@ QList<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursiv
 
 void KateProjectWorker::scanDirRec(const QString& dir, const QString& dirPath,
                                    const QStringList &nameFilters, QDir::Filters filterFlags, bool recursive,
-                                   QList<QString>& files)
+                                   QList<QString>& files, std::set<QString>* scannedDirs)
 {
     if (QFile::exists(dir + QStringLiteral("/CMakeCache.txt"))
         && !QFile::exists(dir + QStringLiteral("/CMakeLists.txt"))) {
@@ -705,6 +705,9 @@ void KateProjectWorker::scanDirRec(const QString& dir, const QString& dirPath,
         // do we know other files which are a sure sign that it's an out-of-source build directory ?
         return;
     }
+
+    scannedDirs->insert(QFileInfo(dir).canonicalFilePath());
+
     QDirIterator dirIterator(dir, nameFilters, filterFlags);
     while (dirIterator.hasNext()) {
         dirIterator.next();
@@ -716,8 +719,12 @@ void KateProjectWorker::scanDirRec(const QString& dir, const QString& dirPath,
 
         // make it relative path
         files.append(dirIterator.filePath().remove(dirPath));
-        if (recursive && dirIterator.fileInfo().isDir()) {
-            scanDirRec(nextFile, dirPath, nameFilters, filterFlags, recursive, files);
+        if (recursive) {
+            const QFileInfo fi = dirIterator.fileInfo();
+            const QString canonicalPath = fi.canonicalFilePath();
+            if (fi.isDir() && scannedDirs->find(canonicalPath) ==  scannedDirs->end()) {
+                scanDirRec(nextFile, dirPath, nameFilters, filterFlags, recursive, files, scannedDirs);
+            }
         }
     }
 }
@@ -737,7 +744,8 @@ QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, b
     QList<QString> files;
     const QString dirPath = dir.path() + QLatin1Char('/');
 
-    scanDirRec(dir.canonicalPath(), dirPath, filters, filterFlags, recursive, files);
+    std::set<QString> scannedDirs;
+    scanDirRec(dir.canonicalPath(), dirPath, filters, filterFlags, recursive, files, &scannedDirs);
 
     return files;
 }

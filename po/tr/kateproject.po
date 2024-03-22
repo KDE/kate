@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2017, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
 # Emir SARI <emir_sari@icloud.com>, 2023.
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2023-11-26 13:01+0300\n"
+"PO-Revision-Date: 2024-03-22 01:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -64,7 +64,7 @@ msgstr "Yeni dala çıkış yapıldı: %1"
 #: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr "Yeni dal oluşturulamadı. Hata \"%1\""
+msgstr "Yeni dal oluşturulamadı. Hata: “%1”"
 
 #: branchdeletedialog.cpp:126
 #, kde-format
@@ -236,7 +236,7 @@ msgstr " hatası: %1"
 #: gitwidget.cpp:626
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr "\"%1\" başarıyla çalıştırıldı: %2"
+msgstr "“%1” başarıyla yürütüldü: %2"
 
 #: gitwidget.cpp:646
 #, kde-format
@@ -346,7 +346,7 @@ msgstr "Zulala"
 #: gitwidget.cpp:1068
 #, kde-format
 msgid "Diff - stash"
-msgstr "Diff - zulala"
+msgstr "Diff — Zulala"
 
 #: gitwidget.cpp:1101
 #, kde-format
@@ -427,7 +427,7 @@ msgstr "Tüm değişiklikleri atmak istediğinizden emin misiniz?"
 #: gitwidget.cpp:1209
 #, kde-format
 msgid "Open File"
-msgstr "Dosya Aç"
+msgstr "Dosyayı Aç"
 
 #: gitwidget.cpp:1211
 #, kde-format
@@ -700,7 +700,7 @@ msgstr "Çözümlemeyi Başlat..."
 #, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "Kod Çözümlemesi - %1"
+msgstr "Kod Çözümlemesi — %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format

@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-21 02:29+0000\n"
-"PO-Revision-Date: 2024-03-08 19:38+0300\n"
+"PO-Revision-Date: 2024-03-21 20:46+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -50,12 +50,12 @@ msgstr "Kate"
 #: kate/main.cpp:90
 #, kde-format
 msgid "Kate - Advanced Text Editor"
-msgstr "Kate - Gelişmiş Metin Düzenleyicisi"
+msgstr "Kate — Gelişmiş Metin Düzenleyicisi"
 
 #: kate/main.cpp:92 kwrite/main.cpp:47
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
-msgstr "(c) 2000-2022 Kate Yazarları"
+msgstr "(c) 2000–2022 Kate Yazarları"
 
 #: kate/main.cpp:138
 #, kde-format
@@ -165,7 +165,7 @@ msgstr "K Yaz"
 #: kwrite/main.cpp:45
 #, kde-format
 msgid "KWrite - Text Editor"
-msgstr "K Yaz - Metin Düzenleyicisi"
+msgstr "K Yaz — Metin Düzenleyicisi"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:250
@@ -587,7 +587,7 @@ msgstr "Tüm İşlemeyi Göster"
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Dosya Geçmişi - %1"
+msgstr "Dosya Geçmişi — %1"
 
 #: lib/kateapp.cpp:105
 msgid ""
@@ -815,7 +815,7 @@ msgstr "Matteo Merli"
 #: lib/kateapp.cpp:314
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
-msgstr "RPM Spec-Dosyaları Perl, Diff ve diğerleri için vurgulama"
+msgstr "RPM Spec Dosyaları, Perl, Diff ve diğerleri için vurgulama"
 
 #: lib/kateapp.cpp:315
 #, kde-format

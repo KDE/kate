@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # obsoleteman <tulliana@gmail.com>, 2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2022.
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-24 01:36+0000\n"
-"PO-Revision-Date: 2023-11-22 15:10+0300\n"
+"PO-Revision-Date: 2024-03-22 01:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -698,7 +698,7 @@ msgid ""
 "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
 "Advanced Settings -> Source file search paths"
 msgstr ""
-"<title>Dosya açılamadı:</title><nl/>%1<br/>Gelişmiş Ayarlar -> Kaynak dosya "
+"<title>Dosya açılamadı:</title><nl/>%1<br/>Gelişmiş Ayarlar → Kaynak dosya "
 "arama yolları menüsünden bir arama yolu eklemeyi deneyin"
 
 #: plugin_kategdb.cpp:265
@@ -719,7 +719,7 @@ msgstr "Sürdür"
 #: plugin_kategdb.cpp:288
 #, kde-format
 msgid "Toggle Breakpoint / Break"
-msgstr "Kesme Noktası-Kesme Ekle/Kaldır"
+msgstr "Kesme Noktası–Kesme Ekle/Kaldır"
 
 #: plugin_kategdb.cpp:294
 #, kde-format
@@ -790,7 +790,7 @@ msgstr "İş Parçacığı %1"
 #: plugin_kategdb.cpp:810
 #, kde-format
 msgid "IO"
-msgstr "Girdi-Çıktı"
+msgstr "Girdi–Çıktı"
 
 #: plugin_kategdb.cpp:894
 #, kde-format

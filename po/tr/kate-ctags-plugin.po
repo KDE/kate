@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-15 01:41+0000\n"
-"PO-Revision-Date: 2024-03-17 02:37+0300\n"
+"PO-Revision-Date: 2024-03-21 20:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -278,7 +278,7 @@ msgstr ""
 #: gotosymbolwidget.cpp:315
 #, kde-format
 msgid "File for '%1' not found."
-msgstr "'%1' için dosya bulunamadı."
+msgstr "“%1“ için dosya bulunamadı."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:33
@@ -339,7 +339,7 @@ msgstr "Öntanımlı komuta geri dön"
 #: kate_ctags.ui:208
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:112
 #, kde-format
@@ -406,7 +406,7 @@ msgstr "Geçerli Metni Ara"
 #: kate_ctags_view.cpp:76
 #, kde-format
 msgid "Configure ..."
-msgstr "Yapılandır..."
+msgstr "Yapılandır…"
 
 #: kate_ctags_view.cpp:91
 #, kde-format

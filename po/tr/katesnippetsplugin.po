@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-19 00:39+0000\n"
-"PO-Revision-Date: 2024-02-09 17:45+0300\n"
+"PO-Revision-Date: 2024-03-21 20:44+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -115,7 +115,7 @@ msgstr ""
 #: editsnippet.cpp:190
 #, kde-format
 msgid "Warning - Unsaved Changes"
-msgstr "Uyarı - Kaydedilmemiş Değişiklikler Var"
+msgstr "Uyarı — Kaydedilmemiş Değişiklikler Var"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -157,11 +157,11 @@ msgstr ""
 "belirtebilirsiniz. <tt>öntanımlı</tt>, herhangi bir JavaScript ifadesi "
 "olabilir.<br> <tt>${field_name=metin}</tt> kullanarak öntanımlı değer için "
 "sabit bir metin dizisi kullanabilirsiniz. <br><tt>${func(other_field1, "
-"other_field2, ...)}</tt> ile her düzenlemede bir JavaScript işlevini "
+"other_field2, …)}</tt> ile her düzenlemede bir JavaScript işlevini "
 "çalıştıran ve içeriğini içeren bir alan oluşturulabilir. Ayrıntılı bilgi "
 "için Betikler sekmesine bakın. <br><tt>${cursor}</tt>, her şey "
 "doldurulduktan sonra imlecin bitiş konumunu belirlemek için kullanılabilir."
-"\">Daha Fazla...</a>"
+"\">Daha Fazla…</a>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:82
@@ -199,7 +199,7 @@ msgstr ""
 "yazımı API’sini kullanarak seçili metni, tam metni, dosya adını ve daha "
 "fazlasını <tt>document</tt> ve <tt>view</tt> kullanarak alabilirsiniz. Daha "
 "ayrıntılı bilgi için betik yazımı API belgelendirmesine bakabilirsiniz.<a "
-"href=\"\">Daha Fazla...</a>"
+"href=\"\">Daha Fazla…</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:105
@@ -252,7 +252,7 @@ msgstr ""
 #: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
-msgstr "'%1' çıktı dosyası yazma için açılamadı"
+msgstr "“%1“ çıktı dosyası yazma için açılamadı"
 
 #: snippetrepository.cpp:273
 #, kde-format
@@ -338,15 +338,15 @@ msgstr "Depo: %1"
 #: snippetview.cpp:282
 #, kde-format
 msgid "Do you really want to delete the snippet \"%1\"?"
-msgstr "\"%1\" parçacığını gerçekten silmek istiyor musunuz?"
+msgstr "“%1“ parçacığını gerçekten silmek istiyor musunuz?"
 
 #: snippetview.cpp:324
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"
 msgstr ""
-"\"%1\" deposunu içindeki tüm parçacıklar ile birlikte gerçekten silmek "
-"istiyor musunuz?"
+"“%1“ deposunu içindeki tüm parçacıklar ile birlikte gerçekten silmek istiyor "
+"musunuz?"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
 #: snippetview.ui:35
@@ -358,7 +358,7 @@ msgstr "Süzgeci burada tanımla"
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr "Süz..."
+msgstr "Süz…"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

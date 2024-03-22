@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2024-02-09 17:45+0300\n"
+"PO-Revision-Date: 2024-03-22 01:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -34,7 +34,7 @@ msgstr "Yeni Dal Oluştur"
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr "Şuradan Yeni Dal Oluştur..."
+msgstr "Şuradan Yeni Dal Oluştur…"
 
 #: branchcheckoutdialog.cpp:53
 #, kde-format
@@ -64,7 +64,7 @@ msgstr "Yeni dala çıkış yapıldı: %1"
 #: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr "Yeni dal oluşturulamadı. Hata \"%1\""
+msgstr "Yeni dal oluşturulamadı. Hata: “%1”"
 
 #: branchdeletedialog.cpp:126
 #, kde-format
@@ -91,7 +91,7 @@ msgstr[1] "Seçili dalları silmek istediğinizden emin misiniz?"
 #: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
-msgstr "Dal Seç..."
+msgstr "Dal Seç…"
 
 #: branchesdialog.cpp:126 gitwidget.cpp:536 kateprojectpluginview.cpp:67
 #, kde-format
@@ -139,12 +139,12 @@ msgstr "İptal"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "İşleme iletisi yaz..."
+msgstr "İşleme iletisi yaz…"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr "Genişletilmiş işleme açıklaması..."
+msgstr "Genişletilmiş işleme açıklaması…"
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -221,12 +221,12 @@ msgstr " iptal edildi."
 #: gitwidget.cpp:325 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
-msgstr "Süz..."
+msgstr "Süz…"
 
 #: gitwidget.cpp:415
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
-msgstr "'%1' için .git dizini bulunamadı, düzgün çalışmayabilir"
+msgstr "“%1“ için .git dizini bulunamadı, düzgün çalışmayabilir"
 
 #: gitwidget.cpp:620
 #, kde-format
@@ -236,7 +236,7 @@ msgstr " hatası: %1"
 #: gitwidget.cpp:626
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr "\"%1\" başarıyla çalıştırıldı: %2"
+msgstr "“%1” başarıyla yürütüldü: %2"
 
 #: gitwidget.cpp:646
 #, kde-format
@@ -291,17 +291,17 @@ msgstr "İşleme iletisi boş olamaz."
 #: gitwidget.cpp:943
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr "%1...%2 için diff yok"
+msgstr "%1…%2 için diff yok"
 
 #: gitwidget.cpp:949
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr "%1...%2 karşılaştırılamadı"
+msgstr "%1…%2 karşılaştırılamadı"
 
 #: gitwidget.cpp:964
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr "%1...%2 diff yapılırken sayı istatistikleri alınamadı"
+msgstr "%1…%2 diff yapılırken sayı istatistikleri alınamadı"
 
 #: gitwidget.cpp:1003
 #, kde-format
@@ -321,7 +321,7 @@ msgstr "Dalı Sil"
 #: gitwidget.cpp:1043
 #, kde-format
 msgid "Compare Branch with..."
-msgstr "Dalı Şununla Karşılaştır..."
+msgstr "Dalı Şununla Karşılaştır…"
 
 #: gitwidget.cpp:1048
 #, kde-format
@@ -336,7 +336,7 @@ msgstr "İşleme sağlaması"
 #: gitwidget.cpp:1055
 #, kde-format
 msgid "Open Commit..."
-msgstr "İşleme Aç..."
+msgstr "İşleme Aç…"
 
 #: gitwidget.cpp:1058 gitwidget.cpp:1097
 #, kde-format
@@ -346,7 +346,7 @@ msgstr "Zulala"
 #: gitwidget.cpp:1068
 #, kde-format
 msgid "Diff - stash"
-msgstr "Diff - zulala"
+msgstr "Diff — Zulala"
 
 #: gitwidget.cpp:1101
 #, kde-format
@@ -412,7 +412,7 @@ msgstr ".gitignore’u Aç"
 #: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
-msgstr "Diff’i göster"
+msgstr "Diff’i Göster"
 
 #: gitwidget.cpp:1180
 #, kde-format
@@ -427,7 +427,7 @@ msgstr "Tüm değişiklikleri atmak istediğinizden emin misiniz?"
 #: gitwidget.cpp:1209
 #, kde-format
 msgid "Open File"
-msgstr "Dosya Aç"
+msgstr "Dosyayı Aç"
 
 #: gitwidget.cpp:1211
 #, kde-format
@@ -437,7 +437,7 @@ msgstr "Dış Git Diff Aracında Göster"
 #: gitwidget.cpp:1212
 #, kde-format
 msgid "Open at HEAD"
-msgstr "HEAD’de aç"
+msgstr "HEAD’de Aç"
 
 #: gitwidget.cpp:1213
 #, kde-format
@@ -507,7 +507,7 @@ msgstr "Bu izlenmeyen değişiklikleri kaldırmak istediğinizden emin misiniz?"
 #: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr "Hatalı oluşturulmuş JSON dosyası '%1': %2"
+msgstr "Hatalı oluşturulmuş JSON dosyası “%1“: %2"
 
 #: kateproject.cpp:518
 #, kde-format
@@ -694,13 +694,13 @@ msgstr "Notlar"
 #: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
 msgid "Start Analysis..."
-msgstr "Çözümlemeyi Başlat..."
+msgstr "Çözümlemeyi Başlat…"
 
 #: kateprojectinfoviewcodeanalysis.cpp:43
 #, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "Kod Çözümlemesi - %1"
+msgstr "Kod Çözümlemesi — %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
@@ -708,7 +708,7 @@ msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"'%1' sisteminizde kurulu değil, %2.<br/><br/>%3. Araç, şu dosya uzantıları "
+"“%1“ sisteminizde kurulu değil, %2.<br/><br/>%3. Araç, şu dosya uzantıları "
 "listesiyle eşleşen tüm proje dosyaları üzerinde çalışacaktır:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
@@ -848,7 +848,7 @@ msgstr "Git durumunu yenile"
 #: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Open Folder..."
-msgstr "Klasör Aç..."
+msgstr "Klasör Aç…"
 
 #: kateprojectpluginview.cpp:189
 #, kde-format
@@ -983,7 +983,7 @@ msgstr "Dosyayı Sil"
 #: kateprojecttreeviewcontextmenu.cpp:125
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
-msgstr "'%1' dosyasını silmek istiyor musunuz?"
+msgstr "“%1“ dosyasını silmek istiyor musunuz?"
 
 #: kateprojectviewtree.cpp:136
 #, kde-format

@@ -8,13 +8,13 @@
 # Rıdvan CAN <ridvan@geleceklinux.org>, 2003.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014, 2015.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2023-11-25 15:28+0300\n"
+"PO-Revision-Date: 2024-03-21 20:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: plugin_katexmltools.cpp:118
 #, kde-format
@@ -32,7 +32,7 @@ msgstr "XML Araçları"
 #: plugin_katexmltools.cpp:121
 #, kde-format
 msgid "&Insert Element..."
-msgstr "Öge &Ekle..."
+msgstr "Öge &Ekle…"
 
 #: plugin_katexmltools.cpp:126
 #, kde-format
@@ -42,7 +42,7 @@ msgstr "&Ögeyi Kapat"
 #: plugin_katexmltools.cpp:131
 #, kde-format
 msgid "Assign Meta &DTD..."
-msgstr "Meta &DTD Ata..."
+msgstr "Meta &DTD Ata…"
 
 #: plugin_katexmltools.cpp:442
 #, kde-format
@@ -55,7 +55,7 @@ msgid ""
 "The current file has been identified as a document of type \"%1\". The meta "
 "DTD for this document type will now be loaded."
 msgstr ""
-"Geçerli dosya \"%1\" türünde bir belge olarak tanımlandı. Bu belge türü için "
+"Geçerli dosya “%1“ türünde bir belge olarak tanımlandı. Bu belge türü için "
 "meta DTD bilgi şimdi yüklenecektir."
 
 #: plugin_katexmltools.cpp:452
@@ -66,7 +66,7 @@ msgstr "XML Meta DTD yükleniyor"
 #: plugin_katexmltools.cpp:484
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
-msgstr "'%1' adlı dosya açılamadı. Sunucu hata verdi."
+msgstr "“%1“ adlı dosya açılamadı. Sunucu hata verdi."
 
 #: plugin_katexmltools.cpp:487 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
@@ -113,7 +113,7 @@ msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr ""
-"'%1' adlı dosya ayrıştırılamadı. Dosyanın iyi oluşturulmuş bir XML olduğunu "
+"“%1“ adlı dosya ayrıştırılamadı. Dosyanın iyi oluşturulmuş bir XML olduğunu "
 "denetleyin."
 
 #: pseudo_dtd.cpp:54
@@ -125,7 +125,7 @@ msgid ""
 "You can produce such files with dtdparse. See the Kate Plugin documentation "
 "for more information."
 msgstr ""
-"'%1' adlı dosya beklenen türde değil. Dosyanın şu türde geçerli bir XML "
+"“%1“ adlı dosya beklenen türde değil. Dosyanın şu türde geçerli bir XML "
 "dosyası olduğunu denetleyin:\n"
 "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
 "Bu türdeki dosyaları dtdparse ile üretebilirsiniz. Daha fazla bilgi için "
@@ -134,7 +134,7 @@ msgstr ""
 #: pseudo_dtd.cpp:70
 #, kde-format
 msgid "Analyzing meta DTD..."
-msgstr "Meta DTD çözümleniyor..."
+msgstr "Meta DTD çözümleniyor…"
 
 #: pseudo_dtd.cpp:70
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 01:39+0000\n"
-"PO-Revision-Date: 2024-02-09 17:45+0300\n"
+"PO-Revision-Date: 2024-03-21 20:46+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -169,7 +169,7 @@ msgstr "&Ekle"
 #: configwidget.ui:36
 #, kde-format
 msgid "&Edit..."
-msgstr "Dü&zenle..."
+msgstr "Dü&zenle…"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnRemove)
 #: configwidget.ui:43
@@ -183,7 +183,7 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
-"'%1' yürütülebiliri bulunamadı. Yürütülebilir dosyanın var olduğundan ve "
+"“%1“ yürütülebiliri bulunamadı. Yürütülebilir dosyanın var olduğundan ve "
 "kullanılmışsa değişken adlarının doğru olduğundan emin olun"
 
 #: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
@@ -222,7 +222,7 @@ msgstr "%1, %2 çıkış koduyla bitti"
 #: kateexternaltoolscommand.cpp:38
 #, kde-format
 msgid "Starts the external tool '%1'"
-msgstr "'%1' dış aracıyla başlar"
+msgstr "“%1“ dış aracıyla başlar"
 
 #: kateexternaltoolsconfigwidget.cpp:132
 #, kde-format
@@ -262,7 +262,7 @@ msgstr "Mime Türleri Seçin"
 #: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
-msgstr "Araç Ekle..."
+msgstr "Araç Ekle…"
 
 #: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
@@ -293,7 +293,7 @@ msgstr "Yeni Kategori %1"
 #: kateexternaltoolsview.cpp:103
 #, kde-format
 msgid "Configure..."
-msgstr "Yapılandır..."
+msgstr "Yapılandır…"
 
 #: kateexternaltoolsview.cpp:165
 #, kde-format
@@ -316,7 +316,7 @@ msgstr "&Ad:"
 #: tooldialog.ui:32
 #, kde-format
 msgid "The name will be displayed in the 'Tools->External Tools' menu."
-msgstr "Ad, 'Araçlar->Dış Araçlar' menüsünde görüntülenecektir."
+msgstr "Ad, “Araçlar → Dış Araçlar” menüsünde görüntülenecektir."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtName)
 #: tooldialog.ui:35

@@ -1,14 +1,14 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 # Emir SARI <emir_sari@icloud.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2023-11-25 14:43+0300\n"
+"PO-Revision-Date: 2024-03-21 20:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,22 +16,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
 msgid "Could not open file '%1'."
-msgstr "'%1' dosyası açılamadı."
+msgstr "“%1“ dosyası açılamadı."
 
 #: keyboardmacrosplugin.cpp:72
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr "Hatalı oluşturulmuş JSON dosyası '%1': %2"
+msgstr "Hatalı oluşturulmuş JSON dosyası “%1“: %2"
 
 #: keyboardmacrosplugin.cpp:80
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
-msgstr "'%1' yüklenemedi: Hatalı oluşturulmuş makro, siliniyor."
+msgstr "“%1“ yüklenemedi: Hatalı oluşturulmuş makro, siliniyor."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
@@ -68,17 +68,17 @@ msgstr "%1 kaydediliyor"
 #: keyboardmacrosplugin.cpp:307
 #, kde-format
 msgid "Saved '%1'"
-msgstr "'%1' kaydedildi"
+msgstr "“%1“ kaydedildi"
 
 #: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Loaded '%1'"
-msgstr "'%1' yüklendi"
+msgstr "“%1“ yüklendi"
 
 #: keyboardmacrosplugin.cpp:345
 #, kde-format
 msgid "Wiped '%1'"
-msgstr "'%1' silindi"
+msgstr "“%1“ silindi"
 
 #: keyboardmacrosplugincommands.cpp:27
 #, kde-format
@@ -89,7 +89,7 @@ msgstr "Kullanım: %1 <ad>."
 #: keyboardmacrosplugincommands.cpp:62
 #, kde-format
 msgid "No keyboard macro named '%1' found."
-msgstr "'%1' adlı bir klavye makrosu bulunamadı."
+msgstr "“%1“ adlı bir klavye makrosu bulunamadı."
 
 #: keyboardmacrosplugincommands.cpp:50
 #, kde-format
@@ -146,7 +146,7 @@ msgstr "Klavye makroları kaydedin ve oynatın."
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:158
 #, kde-format
 msgid "&Record Macro..."
-msgstr "Makro &Kaydet..."
+msgstr "Makro &Kaydet…"
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
@@ -192,7 +192,7 @@ msgstr "Geçerli makroya bir ad verin ve kalıcı olarak kaydedin."
 #: keyboardmacrospluginview.cpp:90
 #, kde-format
 msgid "&Load Named Macro..."
-msgstr "Adlı Makroyu &Yükle..."
+msgstr "Adlı Makroyu &Yükle…"
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
@@ -202,7 +202,7 @@ msgstr "Adlı bir makroyu, geçerli olarak yükleyin."
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
 msgid "&Play Named Macro..."
-msgstr "Adlı Makroyu &Oynat..."
+msgstr "Adlı Makroyu &Oynat…"
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
@@ -212,7 +212,7 @@ msgstr "Adlı bir makroyu, onu yüklemeden oynatın."
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr "Adlı Makroyu &Sil..."
+msgstr "Adlı Makroyu &Sil…"
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format
@@ -232,7 +232,7 @@ msgstr "Yükle: %1"
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
 msgid "Load the '%1' macro as the current one."
-msgstr "'%1' makrosunu geçerli makro olarak yükleyin."
+msgstr "“%1“ makrosunu geçerli makro olarak yükleyin."
 
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
@@ -242,7 +242,7 @@ msgstr "Oynat: %1"
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
 msgid "Play the '%1' macro without loading it."
-msgstr "'%1' makrosunu yüklemeden oynatın."
+msgstr "“%1“ makrosunu yüklemeden oynatın."
 
 #: keyboardmacrospluginview.cpp:204
 #, kde-format
@@ -252,7 +252,7 @@ msgstr "Sil: %1"
 #: keyboardmacrospluginview.cpp:205
 #, kde-format
 msgid "Wipe the '%1' macro."
-msgstr "'%1' makrosunu silin."
+msgstr "“%1“ makrosunu silin."
 
 #: keyboardmacrospluginview.cpp:286
 #, kde-format
@@ -262,7 +262,7 @@ msgstr "Geçerli makro ne olarak kaydedilslin?"
 #: keyboardmacrospluginview.cpp:320
 #, kde-format
 msgid "Wipe the '%1' macro?"
-msgstr "'%1' makrosu silinsin mi?"
+msgstr "“%1“ makrosu silinsin mi?"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

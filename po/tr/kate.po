@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-21 00:40+0000\n"
-"PO-Revision-Date: 2024-03-08 19:38+0300\n"
+"PO-Revision-Date: 2024-03-21 20:46+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -50,12 +50,12 @@ msgstr "Kate"
 #: kate/main.cpp:88
 #, kde-format
 msgid "Kate - Advanced Text Editor"
-msgstr "Kate - Gelişmiş Metin Düzenleyicisi"
+msgstr "Kate — Gelişmiş Metin Düzenleyicisi"
 
 #: kate/main.cpp:90 kwrite/main.cpp:47
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
-msgstr "(c) 2000-2022 Kate Yazarları"
+msgstr "(c) 2000–2022 Kate Yazarları"
 
 #: kate/main.cpp:136
 #, kde-format
@@ -155,7 +155,7 @@ msgstr "Açılacak belgeler."
 #: kate/main.cpp:189 kwrite/main.cpp:119
 #, kde-format
 msgid "[urls...]"
-msgstr "[url’ler...]"
+msgstr "[url’ler…]"
 
 #: kwrite/main.cpp:43
 #, kde-format
@@ -165,7 +165,7 @@ msgstr "K Yaz"
 #: kwrite/main.cpp:45
 #, kde-format
 msgid "KWrite - Text Editor"
-msgstr "K Yaz - Metin Düzenleyicisi"
+msgstr "K Yaz — Metin Düzenleyicisi"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:251
@@ -361,7 +361,7 @@ msgstr "Uyarılar"
 #: lib/diagnostics/diagnosticview.cpp:496
 #, kde-format
 msgid "Filter..."
-msgstr "Süz..."
+msgstr "Süz…"
 
 #: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:151
 #, kde-format
@@ -596,7 +596,7 @@ msgstr "Tüm İşlemeyi Göster"
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Dosya Geçmişi - %1"
+msgstr "Dosya Geçmişi — %1"
 
 #: lib/kateapp.cpp:105
 msgid ""
@@ -709,7 +709,7 @@ msgstr "Matt Newell"
 #: lib/kateapp.cpp:291
 #, kde-format
 msgid "Testing, ..."
-msgstr "Sınamalar, ..."
+msgstr "Sınamalar, …"
 
 #: lib/kateapp.cpp:292
 #, kde-format
@@ -824,7 +824,7 @@ msgstr "Matteo Merli"
 #: lib/kateapp.cpp:314
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
-msgstr "RPM Spec-Dosyaları Perl, Diff ve diğerleri için vurgulama"
+msgstr "RPM Spec Dosyaları, Perl, Diff ve diğerleri için vurgulama"
 
 #: lib/kateapp.cpp:315
 #, kde-format
@@ -945,7 +945,7 @@ msgstr "Klasörler yalnızca projeler eklentisi etkinleştirildiğinde açılabi
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
-msgstr "'%1' adlı dosya açılamıyor: normal bir dosya değil, bu bir dizin."
+msgstr "“%1“ adlı dosya açılamıyor: normal bir dosya değil, bu bir dizin."
 
 #: lib/kateconfigdialog.cpp:54
 #, kde-format
@@ -1338,7 +1338,7 @@ msgstr "Başlatılıyor"
 #: lib/katedocmanager.cpp:379
 #, kde-format
 msgid "Reopening files from the last session..."
-msgstr "Son oturumdaki dosyalar açılıyor..."
+msgstr "Son oturumdaki dosyalar açılıyor…"
 
 #: lib/katefileactions.cpp:74
 #, kde-format
@@ -1373,7 +1373,7 @@ msgstr "“%1” dosyası silinemedi."
 #: lib/katefileactions.cpp:202
 #, kde-format
 msgid "&Other Application..."
-msgstr "&Diğer Uygulama..."
+msgstr "&Diğer Uygulama…"
 
 #: lib/katemainwindow.cpp:238
 #, kde-format
@@ -1498,7 +1498,7 @@ msgstr "İçeren K&lasörü Aç"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Yeniden Adlandır..."
+msgstr "Yeniden Adlandır…"
 
 #: lib/katemainwindow.cpp:374
 #, kde-format
@@ -1664,7 +1664,7 @@ msgstr "Tüm Oturu&mlar"
 #: lib/katemainwindow.cpp:505
 #, kde-format
 msgid "&Manage Sessions..."
-msgstr "Oturumları &Yönet..."
+msgstr "Oturumları &Yönet…"
 
 #: lib/katemainwindow.cpp:514
 #, kde-format
@@ -1674,7 +1674,7 @@ msgstr "O&turumu Kaydet"
 #: lib/katemainwindow.cpp:520
 #, kde-format
 msgid "Save Session &As..."
-msgstr "Oturumu &Farklı Kaydet..."
+msgstr "Oturumu &Farklı Kaydet…"
 
 #: lib/katemainwindow.cpp:527 lib/kateviewspace.cpp:57
 #, kde-format
@@ -1802,7 +1802,7 @@ msgstr "%1"
 #: lib/katemdi.cpp:1088
 #, kde-format
 msgid "Configure..."
-msgstr "Yapılandır..."
+msgstr "Yapılandır…"
 
 #: lib/katemdi.cpp:1092
 #, kde-format
@@ -1961,7 +1961,7 @@ msgid ""
 "'%1'"
 msgstr ""
 "Belge kaydedilemiyor \n"
-"'%1'"
+"“%1“"
 
 #: lib/katemwmodonhddialog.cpp:312
 #, kde-format
@@ -1990,7 +1990,7 @@ msgstr "[YENİ]"
 #: lib/kateoutputview.cpp:174
 #, kde-format
 msgid "Search..."
-msgstr "Ara..."
+msgstr "Ara…"
 
 #: lib/kateoutputview.cpp:191
 #, kde-format
@@ -2531,13 +2531,13 @@ msgstr "Bir daha sorma"
 #: lib/session/katesessionmanagedialog.ui:134
 #, kde-format
 msgid "Duplicate..."
-msgstr "Çoğalt..."
+msgstr "Çoğalt…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
 #: lib/session/katesessionmanagedialog.ui:141
 #, kde-format
 msgid "&Rename..."
-msgstr "Yeniden Adlandı&r..."
+msgstr "Yeniden Adlandı&r…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
 #: lib/session/katesessionmanagedialog.ui:161
@@ -2551,7 +2551,7 @@ msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
-"'%1' oturumu, halihazırda başka bir Kate örneğinde açık. Bu örnekte mi "
+"“%1“ oturumu, halihazırda başka bir Kate örneğinde açık. Bu örnekte mi "
 "açılsın yoksa o örneğe mi geçilsin?"
 
 #: lib/session/katesessionmanager.cpp:133
@@ -2569,8 +2569,7 @@ msgstr "Yeniden Aç"
 #: lib/session/katesessionmanager.cpp:335
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
-msgstr ""
-"Oturum, \"%1\" olarak yeniden adlandırılamadı; \"%2\" konumuna yazılamadı"
+msgstr "Oturum, “%1“ olarak yeniden adlandırılamadı; “%2“ konumuna yazılamadı"
 
 #: lib/session/katesessionmanager.cpp:336
 #, kde-format
@@ -2787,7 +2786,7 @@ msgstr "Kayıtlı oturum yok"
 #: lib/welcomeview/welcomeview.cpp:246
 #, kde-format
 msgid "Open Selected Files..."
-msgstr "Seçili Dosyaları Aç..."
+msgstr "Seçili Dosyaları Aç…"
 
 #: lib/welcomeview/welcomeview.cpp:259
 #, kde-format
@@ -2815,7 +2814,7 @@ msgstr "Yeni Dosya"
 #: lib/welcomeview/welcomeview.ui:186
 #, kde-format
 msgid "Open Folder..."
-msgstr "Klasör Aç..."
+msgstr "Klasör Aç…"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
@@ -2827,7 +2826,7 @@ msgstr "Son Kullanılan Dosyalar"
 #: lib/welcomeview/welcomeview.ui:203
 #, kde-format
 msgid "Open File..."
-msgstr "Dosya Aç..."
+msgstr "Dosya Aç…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
@@ -2869,7 +2868,7 @@ msgstr "Kaydedilmiş Oturumlar"
 #: lib/welcomeview/welcomeview.ui:389
 #, kde-format
 msgid "Manage Sessions..."
-msgstr "Oturumları Yönet..."
+msgstr "Oturumları Yönet…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442

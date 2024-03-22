@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-17 00:39+0000\n"
-"PO-Revision-Date: 2024-03-08 19:39+0300\n"
+"PO-Revision-Date: 2024-03-21 20:41+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -110,12 +110,12 @@ msgstr "Uçbirime Veriyolu Yap"
 #: kateconsole.cpp:426
 #, kde-format
 msgid "Sorry, cannot cd into '%1'"
-msgstr "Üzgünüm, '%1' içine cd yapılamadı"
+msgstr "Üzgünüm, “%1“ içine cd yapılamadı"
 
 #: kateconsole.cpp:462
 #, kde-format
 msgid "Not a local file: '%1'"
-msgstr "Yerel bir dosya değil: '%1'"
+msgstr "Yerel bir dosya değil: “%1“"
 
 #: kateconsole.cpp:495
 #, kde-format
@@ -128,7 +128,7 @@ msgstr ""
 "Belgeyi gerçekten çalıştırmak istiyor musunuz?\n"
 "Bu işlem uçbirimde aşağıdaki komutu sizin\n"
 "kullanıcı haklarınızla çalıştıracak:\n"
-"'%1'"
+"“%1“"
 
 #: kateconsole.cpp:502
 #, kde-format
@@ -189,7 +189,7 @@ msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
-"'%1' bir sonraki çalıştırıldığında, bir uyarı penceresinin açıldığından emin "
+"“%1“ bir sonraki çalıştırıldığında, bir uyarı penceresinin açıldığından emin "
 "olun,incelenmek üzere uçbirime gönderilecek komutu gösterir."
 
 #: kateconsole.cpp:668

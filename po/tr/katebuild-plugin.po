@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-13 00:40+0000\n"
-"PO-Revision-Date: 2024-03-13 13:53+0300\n"
+"PO-Revision-Date: 2024-03-21 20:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -79,7 +79,7 @@ msgstr "Yap"
 #: plugin_katebuild.cpp:222
 #, kde-format
 msgid "Select Target..."
-msgstr "Hedef Seç..."
+msgstr "Hedef Seç…"
 
 #: plugin_katebuild.cpp:227
 #, kde-format
@@ -162,12 +162,12 @@ msgstr "Yapım için herhangi bir dosya veya dizin belirtilmedi."
 #: plugin_katebuild.cpp:842
 #, kde-format
 msgid "Already building..."
-msgstr "Halihazırda yapılıyor..."
+msgstr "Halihazırda yapılıyor…"
 
 #: plugin_katebuild.cpp:864
 #, kde-format
 msgid "Building target <b>%1</b> ..."
-msgstr "<b>%1</b> hedefi yapılıyor..."
+msgstr "<b>%1</b> hedefi yapılıyor…"
 
 #: plugin_katebuild.cpp:878
 #, kde-kuit-format

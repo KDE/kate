@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-18 02:00+0000\n"
-"PO-Revision-Date: 2024-02-09 17:45+0300\n"
+"PO-Revision-Date: 2024-03-21 20:41+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: plugin_katexmlcheck.cpp:96
 #, kde-format
@@ -49,12 +49,12 @@ msgstr "Bir DOCTYPE bulunamadı, yalnızca düzgün yazım denetlenecek."
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
-msgstr "'%1' bulunamadı, yalnızca düzgün yazım denetlenecek."
+msgstr "“%1“ bulunamadı, yalnızca düzgün yazım denetlenecek."
 
 #: plugin_katexmlcheck.cpp:233
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
-msgstr "<b>Hata:</b> Geçici dosya '%1' oluşturulamadı."
+msgstr "<b>Hata:</b> Geçici dosya “%1“ oluşturulamadı."
 
 #: plugin_katexmlcheck.cpp:252
 #, kde-format

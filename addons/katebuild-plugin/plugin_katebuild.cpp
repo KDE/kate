@@ -999,6 +999,22 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
 
     setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, name, cmakeFA.getBuildDir(), true, cmakeConfig);
 
+    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("All"),
+                                                                   QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4")
+                                                                     .arg(cmakeFA.getCMakeExecutable())
+                                                                     .arg(cmakeFA.getBuildDir())
+                                                                     .arg(cmakeConfig)
+                                                                     .arg(numCores),
+                                                         QString());
+
+    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Clean"),
+                                                                   QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target clean")
+                                                                     .arg(cmakeFA.getCMakeExecutable())
+                                                                     .arg(cmakeFA.getBuildDir())
+                                                                     .arg(cmakeConfig)
+                                                                     .arg(numCores),
+                                                         QString());
+
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Rerun CMake"),
                                                                    QStringLiteral("%1 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B \"%2\" -S \"%3\"")
                                                                      .arg(cmakeFA.getCMakeExecutable())
@@ -1015,29 +1031,21 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                            QString());
     }
 
-    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("All"),
-                                                                   QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4")
-                                                                     .arg(cmakeFA.getCMakeExecutable())
-                                                                     .arg(cmakeFA.getBuildDir())
-                                                                     .arg(cmakeConfig)
-                                                                     .arg(numCores),
-                                                         QString());
-
-    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Clean"),
-                                                                   QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target clean")
-                                                                     .arg(cmakeFA.getCMakeExecutable())
-                                                                     .arg(cmakeFA.getBuildDir())
-                                                                     .arg(cmakeConfig)
-                                                                     .arg(numCores),
-                                                         QString());
-    for(const QString& tgt : cmakeFA.getTargets(cmakeConfig)) {
-        setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, tgt,
+    std::vector<QCMakeFileApi::Target> targets = cmakeFA.getTargets(cmakeConfig);
+    std::sort(targets.begin(), targets.end(), [](const QCMakeFileApi::Target& a, const QCMakeFileApi::Target& b) {
+        if (a.type == b.type) {
+            return (a.name < b.name);
+        }
+        return (int(a.type) < int(b.type));
+    });
+    for(const QCMakeFileApi::Target& tgt : targets) {
+        setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, tgt.name,
                                                                        QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target %5")
                                                                           .arg(cmakeFA.getCMakeExecutable())
                                                                           .arg(cmakeFA.getBuildDir())
                                                                           .arg(cmakeConfig)
                                                                           .arg(numCores)
-                                                                          .arg(tgt),
+                                                                          .arg(tgt.name),
                                                              QString());
     }
 

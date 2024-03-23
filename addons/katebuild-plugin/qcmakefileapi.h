@@ -43,8 +43,15 @@ public:
     const QString& getSourceDir() const;
     
     const std::set<QString>& getSourceFiles() const;
-    const std::vector<QString>& getTargets(const QString& config) const;
 
+    enum class TargetType { Executable = 0, Library = 1, Utility = 2, Unknown = 3 };
+
+    struct Target {
+        QString name;
+        TargetType type = TargetType::Unknown;
+    };
+
+    const std::vector<Target>& getTargets(const QString& config) const;
 
 private Q_SLOTS:
     void handleStarted();
@@ -54,6 +61,7 @@ private Q_SLOTS:
 private:
     QJsonObject readJsonFile(const QString& filename) const;
     QString findCMakeExecutable(const QString& cmakeCacheFile) const;
+    TargetType typeFromJson(const QString& typeStr) const;
     void writeQueryFile(const char* objectKind, int version);
 
     QString m_cmakeExecutable;
@@ -65,7 +73,7 @@ private:
     bool m_cmakeSuccess = true;
 
     std::set<QString> m_sourceFiles;
-    std::map<QString /*config*/, std::vector<QString /*targetName*/>> m_targets;
-    const std::vector<QString /*targetName*/> m_emptyTargets = {};
+    std::map<QString /*config*/, std::vector<Target>> m_targets;
+    const std::vector<Target> m_emptyTargets = {};
     std::vector<QString> m_configs;
 };

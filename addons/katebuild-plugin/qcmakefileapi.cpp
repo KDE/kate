@@ -186,6 +186,21 @@ bool QCMakeFileApi::haveKateReplyFiles() const
     return (replyObj.contains(QStringLiteral("client-kate")) && (replyObj.value(QStringLiteral("client-kate")).isObject()));
 }
 
+
+QCMakeFileApi::TargetType QCMakeFileApi::typeFromJson(const QString& typeStr) const
+{
+    if (typeStr == QStringLiteral("EXECUTABLE")) {
+        return TargetType::Executable;
+    }
+    else if (typeStr == QStringLiteral("UTILITY")) {
+        return TargetType::Utility;
+    }
+    else if (typeStr.contains(QStringLiteral("LIBRARY"))) {
+        return TargetType::Library;
+    }
+    return TargetType::Unknown;
+}
+
 bool QCMakeFileApi::readReplyFiles()
 {
     const QDir replyDir(QStringLiteral("%1/.cmake/api/v1/reply/").arg(m_buildDir));
@@ -251,7 +266,7 @@ bool QCMakeFileApi::readReplyFiles()
     qWarning() << "configs: " << configs;
 
     for(int i=0; i<configs.count(); i++) {
-        std::vector<QString> targetsVec;
+        std::vector<Target> targetsVec;
         QJsonObject configObj = configs.at(i).toObject();
         QString configName = configObj.value(QStringLiteral("name")).toString();
         if (configName.isEmpty()) {
@@ -283,7 +298,8 @@ bool QCMakeFileApi::readReplyFiles()
             QJsonObject targetDoc = readJsonFile(targetJsonFile);
             bool fromGenerator = targetDoc.value(QStringLiteral("isGeneratorProvided")).toBool();
             if (!fromGenerator) {
-                targetsVec.push_back(targetName);
+                TargetType type = typeFromJson(targetDoc.value(QStringLiteral("type")).toString());
+                targetsVec.push_back({targetName, type});
 
                 if (m_withSourceFiles) {
                     QJsonArray sources = targetDoc.value(QStringLiteral("sources")).toArray();
@@ -320,7 +336,7 @@ const std::set<QString>& QCMakeFileApi::getSourceFiles() const
 }
 
 
-const std::vector<QString>& QCMakeFileApi::getTargets(const QString& config) const
+const std::vector<QCMakeFileApi::Target>& QCMakeFileApi::getTargets(const QString& config) const
 {
     auto it = m_targets.find(config);
     if (it == m_targets.end()) {

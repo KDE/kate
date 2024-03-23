@@ -27,7 +27,7 @@ QCMakeFileApi::QCMakeFileApi(const QString& cmakeCacheFile, bool withSourceFiles
 , m_buildDir()
 , m_withSourceFiles(withSourceFiles)
 {
-    qDebug() << "--------------- cachefile: "<< cmakeCacheFile;
+    qDebug() << "cachefile: "<< cmakeCacheFile;
     QFileInfo fi(cmakeCacheFile);
     if (fi.isDir()) {
         qDebug() << "isDir" << "filepath: " << fi.absoluteFilePath() << " path " << fi.absolutePath();
@@ -112,19 +112,19 @@ bool QCMakeFileApi::runCMake()
 
 void QCMakeFileApi::handleStarted()
 {
-    printf("Started !\n");
+    qDebug() << "Started !";
 }
 
 
 void QCMakeFileApi::handleStateChanged(QProcess::ProcessState newState)
 {
-    printf("State changed: %d !\n", (int)newState);
+    qDebug() << "State changed: " << (int)newState << "!";
 }
 
 
 void QCMakeFileApi::handleError()
 {
-    printf("error !\n");
+    qDebug() << "CMake File API error !";
     m_cmakeSuccess = false;
 }
 
@@ -157,7 +157,7 @@ QJsonObject QCMakeFileApi::readJsonFile(const QString& filename) const
     const QDir replyDir(QStringLiteral("%1/.cmake/api/v1/reply/").arg(m_buildDir));
     
     QString indexFile = replyDir.absoluteFilePath(filename);
-    fprintf(stderr, "reply index files: %s\n", indexFile.toUtf8().data());
+    qDebug() << "Reading file: " << indexFile;
     
     QFile file(indexFile);
     bool success = file.open(QIODevice::ReadOnly);
@@ -201,6 +201,7 @@ QCMakeFileApi::TargetType QCMakeFileApi::typeFromJson(const QString& typeStr) co
     return TargetType::Unknown;
 }
 
+
 bool QCMakeFileApi::readReplyFiles()
 {
     const QDir replyDir(QStringLiteral("%1/.cmake/api/v1/reply/").arg(m_buildDir));
@@ -214,36 +215,36 @@ bool QCMakeFileApi::readReplyFiles()
     m_targets.clear();
     
     QString indexFile = replyDir.absoluteFilePath(indexFiles.at(0));
-    fprintf(stderr, "reply index files: %s\n", indexFile.toUtf8().data());
+    qDebug() << "Reply index file: " << indexFile;
     
     QJsonObject docObj = readJsonFile(indexFile);
-    qWarning() << "docObj: " << docObj;
+    // qWarning() << "docObj: " << docObj;
 
     QJsonObject cmakeObj = docObj.value(QStringLiteral("cmake")).toObject();
-    qWarning() << "cmake: " << cmakeObj;
+    // qWarning() << "cmake: " << cmakeObj;
     
     QJsonObject replyObj = docObj.value(QStringLiteral("reply")).toObject();
-    qWarning() << "reply: " << replyObj;
+    // qWarning() << "reply: " << replyObj;
     
     QJsonObject kateObj = replyObj.value(QStringLiteral("client-kate")).toObject();
-    qWarning() << "kate: " << kateObj;
+    // qWarning() << "kate: " << kateObj;
 
     QJsonObject cmakeFilesObj = kateObj.value(QStringLiteral("cmakeFiles-v1")).toObject();
-    qWarning() << "cmakefiles: " << cmakeFilesObj;
+    // qWarning() << "cmakefiles: " << cmakeFilesObj;
     QString cmakeFilesFile = cmakeFilesObj.value(QStringLiteral("jsonFile")).toString();
     
     QJsonObject codeModelObj = kateObj.value(QStringLiteral("codemodel-v2")).toObject();
-    qWarning() << "code model: " << codeModelObj;
+    // qWarning() << "code model: " << codeModelObj;
     QString codemodelFile = codeModelObj.value(QStringLiteral("jsonFile")).toString();
     
-    qWarning() << "cmakeFiles: " << cmakeFilesFile << " codemodelfile: " << codemodelFile;
+    // qWarning() << "cmakeFiles: " << cmakeFilesFile << " codemodelfile: " << codemodelFile;
 
 
     QJsonObject cmakeFilesDoc = readJsonFile(cmakeFilesFile);
 
     QJsonObject pathsObj = cmakeFilesDoc.value(QStringLiteral("paths")).toObject();
     m_sourceDir = pathsObj.value(QStringLiteral("source")).toString();
-    qWarning() << "srcdir: " << m_sourceDir;
+    // qWarning() << "srcdir: " << m_sourceDir;
     
     if (m_withSourceFiles) {
         QJsonArray cmakeFiles = cmakeFilesDoc.value(QStringLiteral("inputs")).toArray();
@@ -263,7 +264,7 @@ bool QCMakeFileApi::readReplyFiles()
 
     QJsonObject codeModelDoc = readJsonFile(codemodelFile);
     QJsonArray configs = codeModelDoc.value(QStringLiteral("configurations")).toArray();
-    qWarning() << "configs: " << configs;
+    // qWarning() << "configs: " << configs;
 
     for(int i=0; i<configs.count(); i++) {
         std::vector<Target> targetsVec;
@@ -281,7 +282,7 @@ bool QCMakeFileApi::readReplyFiles()
             if (!projectName.isEmpty()) {
                 // this will usually be the first one. Should we check that this
                 // one contains directoryIndex 0 ?
-                qDebug() << "------------ projectname: " << projectName;
+                qDebug() << "projectname: " << projectName;
                 m_projectName = projectName;
                 break;
             }
@@ -293,7 +294,7 @@ bool QCMakeFileApi::readReplyFiles()
 
             QString targetJsonFile = targetObj.value(QStringLiteral("jsonFile")).toString();
             
-            qWarning() << "config: " << configName << " target: " << targetName << " json: " << targetJsonFile;
+            // qWarning() << "config: " << configName << " target: " << targetName << " json: " << targetJsonFile;
             
             QJsonObject targetDoc = readJsonFile(targetJsonFile);
             bool fromGenerator = targetDoc.value(QStringLiteral("isGeneratorProvided")).toBool();
@@ -306,7 +307,7 @@ bool QCMakeFileApi::readReplyFiles()
                     for(int srcIdx=0; srcIdx<sources.count(); srcIdx++) {
                         QJsonObject sourceObj = sources.at(srcIdx).toObject();
                         QString filePath = sourceObj.value(QStringLiteral("path")).toString();
-                        qWarning() << "source: " << filePath;
+                        // qWarning() << "source: " << filePath;
                         m_sourceFiles.insert(filePath);
                     }
                 }

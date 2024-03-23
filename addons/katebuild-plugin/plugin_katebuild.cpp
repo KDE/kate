@@ -945,7 +945,7 @@ void KateBuildView::slotLoadCMakeTargets()
 {
     const QString cmakeFile = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Select CMake Build Dir"), QDir::currentPath(),
                                                            QStringLiteral("CMake Cache file (CMakeCache.txt)"));
-    fprintf(stderr, "cmake: %s\n", cmakeFile.toUtf8().data());
+    qDebug() << "cmake: " << cmakeFile;
     if (cmakeFile.isEmpty()) {
         return;
     }

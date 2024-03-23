@@ -210,6 +210,8 @@ public:
         changeView(m_tabBar->currentIndex());
     }
 
+    void setToggleSynchronisedScrollingCheckedState(bool checked);
+
 protected:
     // DND
     void dragEnterEvent(QDragEnterEvent *e) override;

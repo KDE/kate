@@ -1179,6 +1179,7 @@ void KateViewManager::slotSynchroniseScrolling(bool checked)
     }
     // If invalid, do nothing
     if (!userSelectedView) {
+        activeViewSpace()->setToggleSynchronisedScrollingCheckedState(false);
         return;
     }
     // If not already added to sync, then add to sync

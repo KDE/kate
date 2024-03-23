@@ -926,6 +926,11 @@ void KateViewSpace::focusNavigationBar()
     }
 }
 
+void KateViewSpace::setToggleSynchronisedScrollingCheckedState(bool checked)
+{
+    m_toggleSynchronisedScrolling->setChecked(checked);
+}
+
 void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c, bool calledExternally)
 {
     // We don't care about invalid urls (Fixed Diff View / Untitled docs)

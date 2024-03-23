@@ -17,7 +17,7 @@ public:
 
     class KateViewManager *viewManager();
     class KateViewSpace *viewSpace();
-    QIcon seperator();
+    QIcon separator();
 
     void updateForDocument(KTextEditor::Document *doc);
 

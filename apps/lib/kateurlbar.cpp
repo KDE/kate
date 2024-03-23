@@ -629,14 +629,14 @@ public:
         m_symbolsModel = nullptr;
 
         size_t i = 0;
-        QIcon seperator = m_urlBar->seperator();
+        QIcon separator = m_urlBar->separator();
         for (const auto &dir : dirs) {
             auto item = new QStandardItem(dir.name);
             item->setData(dir.path, BreadCrumbRole::PathRole);
             m_model.appendRow(item);
 
             if (i < dirs.size() - 1) {
-                auto sep = new QStandardItem(seperator, {});
+                auto sep = new QStandardItem(separator, {});
                 sep->setSelectable(false);
                 sep->setData(true, BreadCrumbRole::IsSeparator);
                 m_model.appendRow(sep);
@@ -681,13 +681,13 @@ public:
         }
         std::reverse(dirs.begin(), dirs.end());
 
-        QIcon seperator = m_urlBar->seperator();
+        QIcon separator = m_urlBar->separator();
         for (const auto &dir : dirs) {
             auto item = new QStandardItem(dir.name);
             item->setData(dir.path, BreadCrumbRole::PathRole);
             m_model.appendRow(item);
 
-            auto sep = new QStandardItem(seperator, {});
+            auto sep = new QStandardItem(separator, {});
             sep->setSelectable(false);
             sep->setData(true, BreadCrumbRole::IsSeparator);
             m_model.appendRow(sep);
@@ -721,7 +721,7 @@ public:
         }
 
         // Add separator
-        auto sep = new QStandardItem(QIcon(m_urlBar->seperator()), {});
+        auto sep = new QStandardItem(QIcon(m_urlBar->separator()), {});
         sep->setSelectable(false);
         sep->setData(true, BreadCrumbRole::IsSeparator);
         m_model.appendRow(sep);
@@ -757,7 +757,7 @@ public:
 
         if (!item || !item->data(BreadCrumbRole::IsSymbolCrumb).toBool()) {
             // Add separator
-            auto sep = new QStandardItem(QIcon(m_urlBar->seperator()), {});
+            auto sep = new QStandardItem(QIcon(m_urlBar->separator()), {});
             sep->setSelectable(false);
             sep->setData(true, BreadCrumbRole::IsSeparator);
             m_model.appendRow(sep);
@@ -907,13 +907,13 @@ public:
         }
     }
 
-    void updateSeperatorIcon()
+    void updateSeparatorIcon()
     {
-        auto newSeperator = m_urlBar->seperator();
+        auto newSeparator = m_urlBar->separator();
         for (int i = 0; i < m_model.rowCount(); ++i) {
             auto item = m_model.item(i);
             if (item && item->data(BreadCrumbRole::IsSeparator).toBool()) {
-                item->setIcon(newSeperator);
+                item->setIcon(newSeparator);
             }
         }
     }
@@ -1063,7 +1063,7 @@ public:
             [this] {
                 m_sepPixmap = QPixmap();
                 initSeparatorIcon();
-                m_mainCrumbView->updateSeperatorIcon();
+                m_mainCrumbView->updateSeparatorIcon();
             },
             Qt::QueuedConnection);
 
@@ -1202,7 +1202,7 @@ KateViewSpace *KateUrlBar::viewSpace()
     return m_parentViewSpace;
 }
 
-QIcon KateUrlBar::seperator()
+QIcon KateUrlBar::separator()
 {
     return m_urlBarView->separatorPixmap();
 }

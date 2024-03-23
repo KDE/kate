@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-21 00:40+0000\n"
-"PO-Revision-Date: 2024-03-14 13:15+0200\n"
+"PO-Revision-Date: 2024-03-22 08:37+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -190,7 +190,7 @@ msgstr ""
 #: lib/commitfilesview.cpp:518
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "גיבוב שגוי"
 
 #: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:374
 #, kde-format
@@ -201,7 +201,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr ""
+msgstr "הגשה %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -258,7 +258,7 @@ msgstr "&כלים"
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
-msgstr ""
+msgstr "תצוגת אבחון"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -282,7 +282,7 @@ msgstr "סרגל כלים ראשי"
 #: lib/data/kateui.rc:158
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "סרגל כלים תפריט המבורגר"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:176
@@ -297,11 +297,13 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"שגיאה בביטוי הרגולרי: %1\n"
+"היסט %2‏: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:61
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "הכול"
 
 #: lib/diagnostics/diagnosticview.cpp:297
 #, kde-format
@@ -314,7 +316,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr ""
+msgstr "תצוגת אבחון"
 
 #: lib/diagnostics/diagnosticview.cpp:345
 #, fuzzy, kde-format
@@ -337,22 +339,22 @@ msgstr "הלשונית הקודמת"
 #: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr ""
+msgstr "פינוי מסנן האבחון"
 
 #: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "תצוגת אבחון"
 
 #: lib/diagnostics/diagnosticview.cpp:466
 #, kde-format
 msgid "Errors"
-msgstr ""
+msgstr "שגיאות:"
 
 #: lib/diagnostics/diagnosticview.cpp:482
 #, kde-format
 msgid "Warnings"
-msgstr ""
+msgstr "אזהרות"
 
 #: lib/diagnostics/diagnosticview.cpp:496
 #, fuzzy, kde-format
@@ -363,13 +365,13 @@ msgstr "&אחר..."
 #: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "שגיאה: "
 
 #: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:151
 #: lib/kateconfigdialog.cpp:703
 #, kde-format
 msgid "Warning"
-msgstr ""
+msgstr "אזהרה: "
 
 #: lib/diagnostics/diagnosticview.cpp:1131
 #, fuzzy, kde-format
@@ -386,7 +388,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:1397
 #, kde-format
 msgid "Expand All"
-msgstr ""
+msgstr "להרחיב הכול"
 
 #: lib/diagnostics/diagnosticview.cpp:1398
 #, fuzzy, kde-format
@@ -440,7 +442,7 @@ msgstr "החלפת סגנון"
 #: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:321
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "זה לצד זה"
 
 #: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:322
 #, fuzzy, kde-format
@@ -451,7 +453,7 @@ msgstr "שונה"
 #: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:323
 #, kde-format
 msgid "Raw"
-msgstr ""
+msgstr "גולמי"
 
 #: lib/diff/diffeditor.cpp:219
 #, kde-format
@@ -2300,10 +2302,9 @@ msgid "Focus Navigation Bar"
 msgstr ""
 
 #: lib/kateviewmanager.cpp:265
-#, fuzzy, kde-format
-#| msgid "Focus the next tab."
+#, kde-format
 msgid "Focus the navigation bar"
-msgstr "התמקד בלשונית הבאה"
+msgstr "התמקדות על שורת הניווט"
 
 #: lib/kateviewmanager.cpp:272
 #, kde-format
@@ -2348,11 +2349,10 @@ msgid ""
 msgstr ""
 
 #: lib/kateviewmanager.cpp:540
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "פתיחת קובץ"
+msgstr "פתיחת תיקייה"
 
 #: lib/kateviewmanager.cpp:541
 #, kde-format
@@ -2410,10 +2410,9 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: lib/kateviewspace.cpp:1021
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close Tab"
-msgstr "ס&גור הכל"
+msgstr "סגירת לשונית"
 
 #: lib/kateviewspace.cpp:1039
 #, kde-format
@@ -2426,16 +2425,14 @@ msgid "Close Other &Documents"
 msgstr "סגירת &שאר המסמכים"
 
 #: lib/kateviewspace.cpp:1041
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close &All Documents"
-msgstr "סגור את כל המסמכים"
+msgstr "סגירת &כל המסמכים"
 
 #: lib/kateviewspace.cpp:1044
-#, fuzzy, kde-format
-#| msgid "Close Document"
+#, kde-format
 msgid "D&etach Document"
-msgstr "סגור מסמך"
+msgstr "&ניתוק המסמך"
 
 #: lib/kateviewspace.cpp:1046
 #, kde-format
@@ -2443,16 +2440,14 @@ msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
 #: lib/kateviewspace.cpp:1055
-#, fuzzy, kde-format
-#| msgid "Close the current document."
+#, kde-format
 msgid "Compare with Active Document"
-msgstr "סגירת המסמך הנוכחי."
+msgstr "השוואה מול המסמך הפעיל"
 
 #: lib/kateviewspace.cpp:1061
-#, fuzzy, kde-format
-#| msgid "Close the current document."
+#, kde-format
 msgid "Compare with Active Document Using"
-msgstr "סגירת המסמך הנוכחי."
+msgstr "השוואה מול המסמך הפעיל בעזרת"
 
 #: lib/kateviewspace.cpp:1128
 #, kde-format
@@ -2511,10 +2506,9 @@ msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
 #: lib/session/katesessionmanagedialog.ui:30
-#, fuzzy, kde-format
-#| msgid "Sessions"
+#, kde-format
 msgid "Filter Sessions"
-msgstr "הפעלות"
+msgstr "סינון הפעלות"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
 #: lib/session/katesessionmanagedialog.ui:55
@@ -2525,10 +2519,9 @@ msgstr "שם ההפעלה"
 #. i18n: The number of open documents
 #. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
 #: lib/session/katesessionmanagedialog.ui:60
-#, fuzzy, kde-format
-#| msgid "&File"
+#, kde-format
 msgid "Files"
-msgstr "&קובץ"
+msgstr "קבצים"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
 #: lib/session/katesessionmanagedialog.ui:68
@@ -2575,10 +2568,9 @@ msgstr "&שינוי שם…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
 #: lib/session/katesessionmanagedialog.ui:161
-#, fuzzy, kde-format
-#| msgid "Deleted"
+#, kde-format
 msgid "Delete"
-msgstr "נמחק"
+msgstr "מחיקה"
 
 #: lib/session/katesessionmanager.cpp:131
 #, fuzzy, kde-format
@@ -2641,23 +2633,20 @@ msgid "To save a session, you must specify a name."
 msgstr "כדי לשמור הפעלה, יש לתת לה שם."
 
 #: lib/session/katesessionmanager.cpp:517
-#, fuzzy, kde-format
-#| msgid "Specify New Name for Session"
+#, kde-format
 msgid "Specify a name for this session"
-msgstr "קבע שם להפעלה החדשה"
+msgstr "נא לציין שם להפעלה הזאת"
 
 #: lib/session/katesessionmanager.cpp:519
-#, fuzzy, kde-format
-#| msgid "Specify New Name for Session"
+#, kde-format
 msgid "Specify a new name for session: %1"
-msgstr "קבע שם להפעלה החדשה"
+msgstr "ציון שם חדש להפעלה: %1"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
 #: lib/ui/sessionconfigwidget.ui:17
-#, fuzzy, kde-format
-#| msgid "Application Options"
+#, kde-format
 msgid "Application Startup Behavior"
-msgstr "אפשרויות יישום"
+msgstr "התנהגות בעליית היישום"
 
 #. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
 #: lib/ui/sessionconfigwidget.ui:23
@@ -2679,10 +2668,9 @@ msgstr "בחירת הפעלה באופן &ידני"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47
-#, fuzzy, kde-format
-#| msgid "Application Options"
+#, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "אפשרויות יישום"
+msgstr "התנהגות בעליית/סגירת היישום"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
@@ -2710,10 +2698,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "צור מסמך חדש"
+msgstr "הצגת תצוגת קבלת פנים בחלונות חדשים"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2805,25 +2792,19 @@ msgid "Welcome to %1"
 msgstr ""
 
 #: lib/welcomeview/welcomeview.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "מסמכים פתוחים"
+msgstr "מסמכים או מיזמים אחרונים"
 
 #: lib/welcomeview/welcomeview.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents"
-msgstr "מסמכים פתוחים"
+msgstr "מסמכים אחרונים"
 
 #: lib/welcomeview/welcomeview.cpp:63
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "מסמכים פתוחים"
+msgstr "אין מסמכים או מיזמים אחרונים"
 
 #: lib/welcomeview/welcomeview.cpp:63
 #, kde-format

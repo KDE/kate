@@ -983,6 +983,8 @@ void KateBuildView::slotLoadCMakeTargets()
 
     QFile::copy(compileCommandsFile, cmakeFA.getSourceDir() + QStringLiteral("/compile_commands.json"));
 
+    QUrl fileUrl = QUrl::fromLocalFile(cmakeFA.getSourceDir() + QStringLiteral("/CMakeLists.txt"));
+    m_win->openUrl(fileUrl);
     // see whether the project plugin can load a project for the source directory
     if (QObject *plugin = KTextEditor::Editor::instance()->application()->plugin(QStringLiteral("kateprojectplugin"))) {
         QMetaObject::invokeMethod(plugin, "projectForDir", Q_ARG(QDir, cmakeFA.getSourceDir()), Q_ARG(bool, true));

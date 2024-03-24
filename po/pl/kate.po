@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1676129 $
+# Version: $Revision: 1676331 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-21 00:40+0000\n"
+"POT-Creation-Date: 2024-03-24 00:40+0000\n"
 "PO-Revision-Date: 2024-02-24 17:09+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -2079,6 +2079,20 @@ msgstr ""
 "Dane, jakie chciałeś zapisać, nie mogły być zapisane. Proszę zdecydować co "
 "dalej."
 
+#: lib/kateurlbar.cpp:884
+#, fuzzy, kde-format
+#| msgid "Copy Location"
+msgctxt "@menu:action"
+msgid "Copy Location"
+msgstr "Skopiuj położenie"
+
+#: lib/kateurlbar.cpp:889
+#, fuzzy, kde-format
+#| msgid "Copy Filename"
+msgctxt "@menu:action"
+msgid "Copy Filename"
+msgstr "Kopiuj nazwę pliku"
+
 #: lib/kateviewmanager.cpp:130
 #, kde-format
 msgid "Split Ve&rtical"
@@ -2385,52 +2399,52 @@ msgstr[2] ""
 "Obecnie otwartych jest jeszcze %1 dokumentów. Aby zobaczyć wszystkie otwarte "
 "dokumenty, naciśnij tutaj, aby przełączyć się do widoku szybkiego otwierania."
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1026
 #, kde-format
 msgid "Close Tab"
 msgstr "Zamknij kartę"
 
-#: lib/kateviewspace.cpp:1039
+#: lib/kateviewspace.cpp:1044
 #, kde-format
 msgid "&Close Document"
 msgstr "&Zamknij dokument"
 
-#: lib/kateviewspace.cpp:1040
+#: lib/kateviewspace.cpp:1045
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Zamknij pozostałe &dokumenty"
 
-#: lib/kateviewspace.cpp:1041
+#: lib/kateviewspace.cpp:1046
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Z&amknij wszystkie dokumenty"
 
-#: lib/kateviewspace.cpp:1044
+#: lib/kateviewspace.cpp:1049
 #, kde-format
 msgid "D&etach Document"
 msgstr "Odłącz dokum&ent"
 
-#: lib/kateviewspace.cpp:1046
+#: lib/kateviewspace.cpp:1051
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Otwiera dokument w nowym oknie i zamyka go w bieżącym oknie"
 
-#: lib/kateviewspace.cpp:1055
+#: lib/kateviewspace.cpp:1060
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Porównaj z bieżącym dokumentem "
 
-#: lib/kateviewspace.cpp:1061
+#: lib/kateviewspace.cpp:1066
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Porównaj z bieżącym dokumentem używając"
 
-#: lib/kateviewspace.cpp:1128
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Could not start program"
 msgstr "Nie można uruchomi programu"
 
-#: lib/kateviewspace.cpp:1129
+#: lib/kateviewspace.cpp:1134
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Nie można uruchomić wybranego programu. Może nie został on wgrany."
@@ -3326,9 +3340,6 @@ msgstr "Pokaż ekran powitalny dla nowo otwartych okien"
 
 #~ msgid " BLOCK "
 #~ msgstr " BLOK "
-
-#~ msgid "Copy Filename"
-#~ msgstr "Kopiuj nazwę pliku"
 
 #~ msgid "Copy the filename of the file."
 #~ msgstr "Kopiuj nazwę pliku."

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ./messages/kdebase/kate.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-21 00:40+0000\n"
+"POT-Creation-Date: 2024-03-24 00:40+0000\n"
 "PO-Revision-Date: 2004-09-22 16:07+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -2074,6 +2074,20 @@ msgid ""
 "want to proceed."
 msgstr ""
 
+#: lib/kateurlbar.cpp:884
+#, fuzzy, kde-format
+#| msgid "Choose Location"
+msgctxt "@menu:action"
+msgid "Copy Location"
+msgstr "Dibab lec'hiadur"
+
+#: lib/kateurlbar.cpp:889
+#, fuzzy, kde-format
+#| msgid "Filename"
+msgctxt "@menu:action"
+msgid "Copy Filename"
+msgstr "Anv ar restr"
+
 #: lib/kateviewmanager.cpp:130
 #, kde-format
 msgid "Split Ve&rtical"
@@ -2377,57 +2391,57 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1026
 #, fuzzy, kde-format
 #| msgid "&Close Tab"
 msgid "Close Tab"
 msgstr "&Serriñ ar vevennig"
 
-#: lib/kateviewspace.cpp:1039
+#: lib/kateviewspace.cpp:1044
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "Serriñ an teul"
 
-#: lib/kateviewspace.cpp:1040
+#: lib/kateviewspace.cpp:1045
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "Serriñ an teul"
 
-#: lib/kateviewspace.cpp:1041
+#: lib/kateviewspace.cpp:1046
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close &All Documents"
 msgstr "Serriñ an teulioù digor holl."
 
-#: lib/kateviewspace.cpp:1044
+#: lib/kateviewspace.cpp:1049
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "&Teul"
 
-#: lib/kateviewspace.cpp:1046
+#: lib/kateviewspace.cpp:1051
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1055
+#: lib/kateviewspace.cpp:1060
 #, fuzzy, kde-format
 msgid "Compare with Active Document"
 msgstr "Krouiñ un teul nevez"
 
-#: lib/kateviewspace.cpp:1061
+#: lib/kateviewspace.cpp:1066
 #, fuzzy, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Krouiñ un teul nevez"
 
-#: lib/kateviewspace.cpp:1128
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1129
+#: lib/kateviewspace.cpp:1134
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

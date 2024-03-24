@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-21 00:40+0000\n"
+"POT-Creation-Date: 2024-03-24 00:40+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -2128,6 +2128,20 @@ msgid ""
 msgstr ""
 "Τα δεδομένα δεν μπορούν να αποθηκευτούν. Παρακαλώ επιλέξτε πώς θα συνεχίσετε."
 
+#: lib/kateurlbar.cpp:884
+#, fuzzy, kde-format
+#| msgid "Copy Location"
+msgctxt "@menu:action"
+msgid "Copy Location"
+msgstr "Αντιγραφή τοποθεσίας"
+
+#: lib/kateurlbar.cpp:889
+#, fuzzy, kde-format
+#| msgid "Copy Filename"
+msgctxt "@menu:action"
+msgid "Copy Filename"
+msgstr "Αντιγραφή ονόματος αρχείου"
+
 #: lib/kateviewmanager.cpp:130
 #, kde-format
 msgid "Split Ve&rtical"
@@ -2431,52 +2445,52 @@ msgstr[1] ""
 "Αυτή τη στιγμή είναι ανοιχτά %1 ακόμα έγγραφα. Για να δείτε όλα τα ανοιχτά "
 "έγγραφα, κάντε εναλλαγή σε προβολή \"Γρήγορου ανοίγματος\" κάνοντας κλικ εδώ."
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1026
 #, kde-format
 msgid "Close Tab"
 msgstr "Κλείσιμο καρτέλας"
 
-#: lib/kateviewspace.cpp:1039
+#: lib/kateviewspace.cpp:1044
 #, kde-format
 msgid "&Close Document"
 msgstr "&Κλείσιμο εγγράφου"
 
-#: lib/kateviewspace.cpp:1040
+#: lib/kateviewspace.cpp:1045
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Κλείσιμο των άλλων &εγγράφων"
 
-#: lib/kateviewspace.cpp:1041
+#: lib/kateviewspace.cpp:1046
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Κλείσιμο ό&λων των εγγράφων"
 
-#: lib/kateviewspace.cpp:1044
+#: lib/kateviewspace.cpp:1049
 #, kde-format
 msgid "D&etach Document"
 msgstr "Απόσπαση &εγγράφου"
 
-#: lib/kateviewspace.cpp:1046
+#: lib/kateviewspace.cpp:1051
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Ανοίγει το έγγραφο σε νέο παράθυρο και το κλείνει στο τρέχον"
 
-#: lib/kateviewspace.cpp:1055
+#: lib/kateviewspace.cpp:1060
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Σύγκρινε με το ενεργό έγγραφο"
 
-#: lib/kateviewspace.cpp:1061
+#: lib/kateviewspace.cpp:1066
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Σύγκρινε με το ενεργό έγγραφο με χρήση"
 
-#: lib/kateviewspace.cpp:1128
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Could not start program"
 msgstr "Αδυναμία εκκίνησης προγράμματος"
 
-#: lib/kateviewspace.cpp:1129
+#: lib/kateviewspace.cpp:1134
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -3356,9 +3370,6 @@ msgstr "Να εμφανίζεται η προβολή υποδοχής για ν
 
 #~ msgid " BLOCK "
 #~ msgstr " ΤΜΗΜΑ "
-
-#~ msgid "Copy Filename"
-#~ msgstr "Αντιγραφή ονόματος αρχείου"
 
 #~ msgid "Copy the filename of the file."
 #~ msgstr "Αντιγραφή του ονόματος του αρχείου."

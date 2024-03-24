@@ -28,7 +28,7 @@ public:
     const QString& getCMakeExecutable() const;
     QString getCMakeGuiExecutable() const;
     
-    void writeQueryFiles();
+    bool writeQueryFiles();
     
     bool readReplyFiles();
 
@@ -61,10 +61,12 @@ private Q_SLOTS:
 private:
     QJsonObject readJsonFile(const QString& filename) const;
     QString findCMakeExecutable(const QString& cmakeCacheFile) const;
+    QString findCMakeGuiExecutable(const QString& cmakeExecutable) const;
     TargetType typeFromJson(const QString& typeStr) const;
-    void writeQueryFile(const char* objectKind, int version);
+    bool writeQueryFile(const char* objectKind, int version);
 
     QString m_cmakeExecutable;
+    QString m_cmakeGuiExecutable;
     QString m_cacheFile;
     QString m_buildDir;
     QString m_sourceDir;

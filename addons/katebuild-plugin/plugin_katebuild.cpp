@@ -943,7 +943,7 @@ bool KateBuildView::buildCurrentTarget()
 /******************************************************************/
 void KateBuildView::slotLoadCMakeTargets()
 {
-    const QString cmakeFile = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Select CMake Build Dir"), QDir::currentPath(),
+    const QString cmakeFile = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Select CMake Build Dir by Selecting the CMakeCache.txt"), QDir::currentPath(),
                                                            QStringLiteral("CMake Cache file (CMakeCache.txt)"));
     qDebug() << "cmake: " << cmakeFile;
     if (cmakeFile.isEmpty()) {
@@ -951,21 +951,41 @@ void KateBuildView::slotLoadCMakeTargets()
     }
 
     QCMakeFileApi cmakeFA(cmakeFile, false);
+    if (cmakeFA.getCMakeExecutable().isEmpty()) {
+        KMessageBox::error(nullptr, i18n("Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND entry !", cmakeFile));
+        return;
+    }
+
     const QString compileCommandsFile = cmakeFA.getBuildDir() + QStringLiteral("/compile_commands.json");
-    if (!cmakeFA.haveKateReplyFiles() || !QFile::exists(compileCommandsFile)) {
+    if (!cmakeFA.haveKateReplyFiles() || !QFile::exists(compileCommandsFile))
+    {
 
         QStringList commandLine = cmakeFA.getCMakeRequestCommandLine();
         if (!isCommandLineAllowed(commandLine)) {
             return;
         }
 
-        cmakeFA.writeQueryFiles();
-        bool success = cmakeFA.runCMake(/*this*/);
-        qDebug() << "cmake success: " << success;
+        bool success = cmakeFA.writeQueryFiles();
+        if (!success) {
+            KMessageBox::error(nullptr, i18n("Could not write CMake File API query files for build directory %1 !",
+                                         cmakeFA.getBuildDir()));
+
+            return;
+        }
+        success = cmakeFA.runCMake();
+        if (!success) {
+            KMessageBox::error(nullptr, i18n("Could not run CMake (%2) for build directory %1 !",
+                                         cmakeFA.getBuildDir(),
+                                         cmakeFA.getCMakeExecutable()));
+
+            return;
+        }
     }
 
     if (!cmakeFA.haveKateReplyFiles()) {
         qDebug() << "generating reply files failed !";
+        KMessageBox::error(nullptr, i18n("Generating CMake File API reply files for build directory %1 failed (using %2) !",
+                                         cmakeFA.getBuildDir(), cmakeFA.getCMakeExecutable()));
         return;
     }
 
@@ -1028,8 +1048,9 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
     qDebug() << "cmakeGui: " << cmakeGui;
     if (!cmakeGui.isEmpty()) {
       setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Run CMake-Gui"),
-                                                                     QStringLiteral("%1 -B \"%2\"").arg(cmakeGui)
-                                                                      .arg(cmakeFA.getBuildDir()),
+                                                                     QStringLiteral("%1 -B \"%2\" -S \"%3\"").arg(cmakeGui)
+                                                                      .arg(cmakeFA.getBuildDir())
+                                                                      .arg(cmakeFA.getSourceDir()),
                                                            QString());
     }
 

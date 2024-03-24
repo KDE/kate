@@ -44,6 +44,7 @@ QCMakeFileApi::QCMakeFileApi(const QString& cmakeCacheFile, bool withSourceFiles
 
     // get cmake name from file, ensure in any case we compute some absolute name, beside inside containers
     m_cmakeExecutable = safeExecutableName(findCMakeExecutable(m_cacheFile));
+    m_cmakeGuiExecutable = safeExecutableName(findCMakeGuiExecutable(m_cmakeExecutable));
 }
 
 
@@ -55,13 +56,22 @@ const QString& QCMakeFileApi::getCMakeExecutable() const
 
 QString QCMakeFileApi::getCMakeGuiExecutable() const
 {
-    QString cmakeGui;
-    QFileInfo fi(m_cmakeExecutable);
+    return m_cmakeGuiExecutable;
+}
+
+
+QString QCMakeFileApi::findCMakeGuiExecutable(const QString& cmakeExecutable) const
+{
+    if (!cmakeExecutable.isEmpty()) {
+        QFileInfo fi(cmakeExecutable);
 //    qDebug() << "++++++++++ cmake: " << m_cmakeExecutable << " abs: " << fi.
-    if (fi.isAbsolute() && fi.isFile() && fi.isExecutable()) {
-        cmakeGui = fi.absolutePath() + QStringLiteral("/cmake-gui") + (m_cmakeExecutable.endsWith(QStringLiteral(".exe")) ? QStringLiteral(".exe") : QString());
+        QString cmakeGui = fi.absolutePath() + QStringLiteral("/cmake-gui") + (cmakeExecutable.endsWith(QStringLiteral(".exe")) ? QStringLiteral(".exe") : QString());
+        QFileInfo guiFi(cmakeGui);
+        if (guiFi.isAbsolute() && guiFi.isFile() && guiFi.isExecutable()) {
+            return cmakeGui;
+        }
     }
-    return cmakeGui;
+    return QString();
 }
 
 
@@ -76,17 +86,26 @@ QString QCMakeFileApi::findCMakeExecutable(const QString& cmakeCacheFile) const
             QString line = in.readLine();
             QRegularExpressionMatch match = re.match(line);
             if (match.hasMatch()) {
-                return match.captured(1);
+                QString cmakeExecutable = match.captured(1);
+                QFileInfo fi(cmakeExecutable);
+                if (fi.isAbsolute() && fi.isFile() && fi.isExecutable()) {
+                    return cmakeExecutable;
+                }
+                break;
             }
         }
     }
 
-    return QString(QStringLiteral("cmake"));
+    return QString();
 }
 
 
 QStringList QCMakeFileApi::getCMakeRequestCommandLine() const
 {
+    if (m_cmakeExecutable.isEmpty()) {
+        return QStringList();
+    }
+
     const QStringList commandLine = {m_cmakeExecutable, QStringLiteral("-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"), m_buildDir};
     return {m_cmakeExecutable, QStringLiteral("-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"), m_buildDir};
 }
@@ -94,6 +113,10 @@ QStringList QCMakeFileApi::getCMakeRequestCommandLine() const
 
 bool QCMakeFileApi::runCMake()
 {
+    if (m_cmakeExecutable.isEmpty()) {
+        return false;
+    }
+
     QStringList commandLine = getCMakeRequestCommandLine();
 
     m_cmakeSuccess = true;
@@ -129,15 +152,18 @@ void QCMakeFileApi::handleError()
 }
 
 
-void QCMakeFileApi::writeQueryFiles()
+bool QCMakeFileApi::writeQueryFiles()
 {
-    writeQueryFile("codemodel", 2);
-    writeQueryFile("cmakeFiles", 1);
+    bool success = true;
+    success = success && writeQueryFile("codemodel", 2);
+    success = success && writeQueryFile("cmakeFiles", 1);
+    return success;
 }
 
 
-void QCMakeFileApi::writeQueryFile(const char* objectKind, int version)
+bool QCMakeFileApi::writeQueryFile(const char* objectKind, int version)
 {
+    return false;
     QDir buildDir(m_buildDir);
     QString queryFileDir = QStringLiteral("%1/.cmake/api/v1/query/client-kate/")
                                  .arg(m_buildDir);
@@ -147,8 +173,9 @@ void QCMakeFileApi::writeQueryFile(const char* objectKind, int version)
                                .arg(queryFileDir).arg(QLatin1String(objectKind)).arg(version);
     QFile file(queryFilePath);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        return;
+        return false;
     }
+    return true;
 }
 
 

@@ -1020,6 +1020,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
     const int numCores = QThread::idealThreadCount();
 
     setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, name, cmakeFA.getBuildDir(), true, cmakeConfig);
+    const QModelIndex targetSetIndex = setIndex;
 
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("All"),
                                                                    QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4")
@@ -1028,6 +1029,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                                      .arg(cmakeConfig)
                                                                      .arg(numCores),
                                                          QString());
+    const QModelIndex allIndex = setIndex;
 
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Clean"),
                                                                    QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target clean")
@@ -1071,6 +1073,10 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                                           .arg(tgt.name),
                                                              QString());
     }
+
+    // open the new target set subtree and select the "Build all" target
+    m_targetsUi->targetsView->expand(m_targetsUi->proxyModel.mapFromSource(targetSetIndex));
+    m_targetsUi->targetsView->setCurrentIndex(m_targetsUi->proxyModel.mapFromSource(allIndex));
 
     return setIndex;
 }

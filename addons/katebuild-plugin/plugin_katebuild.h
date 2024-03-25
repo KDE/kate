@@ -72,6 +72,9 @@ public:
 
     QUrl docUrl();
 
+public Q_SLOTS:
+    void loadCMakeTargets(const QString& cmakeFile);
+
 private Q_SLOTS:
 
     // Building

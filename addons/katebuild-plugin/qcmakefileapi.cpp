@@ -163,7 +163,6 @@ bool QCMakeFileApi::writeQueryFiles()
 
 bool QCMakeFileApi::writeQueryFile(const char* objectKind, int version)
 {
-    return false;
     QDir buildDir(m_buildDir);
     QString queryFileDir = QStringLiteral("%1/.cmake/api/v1/query/client-kate/")
                                  .arg(m_buildDir);

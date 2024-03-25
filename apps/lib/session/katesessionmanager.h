@@ -81,7 +81,7 @@ public:
      * @param rememberAsLast remember this session as last used?
      * @return success
      */
-    bool saveActiveSession(bool rememberAsLast = false);
+    bool saveActiveSession(bool rememberAsLast = false, bool isAutoSave = false);
 
     /**
      * return the current active session
@@ -234,7 +234,7 @@ private:
     /**
      * helper function to save the session to a given config object
      */
-    static void saveSessionTo(KConfig *sc);
+    static void saveSessionTo(KConfig *sc, bool isAutoSave);
 
     /**
      * restore sessions documents, windows, etc...

@@ -63,7 +63,7 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
     connect(dm, &KateDocManager::documentDeleted, &m_sessionSaveTimer, startTimer);
     m_sessionSaveTimer.callOnTimeout(this, [this] {
         if (m_sessionSaveTimerBlocked == 0) {
-            saveActiveSession(true);
+            saveActiveSession(true, /*isAutoSave=*/true);
         }
     });
 }
@@ -269,7 +269,7 @@ KateSession::Ptr KateSessionManager::giveSession(const QString &name)
     }
 
     KateSession::Ptr s = KateSession::create(sessionFileForName(name), name);
-    saveSessionTo(s->config());
+    saveSessionTo(s->config(), /*isAutoSave=*/false);
     m_sessions[name] = s;
     // Due to this add to m_sessions will updateSessionList() no signal emit,
     // but it's important to add. Otherwise could it be happen that m_activeSession
@@ -354,15 +354,17 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
     return name;
 }
 
-void KateSessionManager::saveSessionTo(KConfig *sc)
+void KateSessionManager::saveSessionTo(KConfig *sc, bool isAutoSave)
 {
-    // Clear the session file to avoid to accumulate outdated entries
-    const auto groupList = sc->groupList();
-    for (const auto &group : groupList) {
-        // Don't delete groups for loaded documents that have
-        // ViewSpace config in session but do not have any views.
-        if (!isViewLessDocumentViewSpaceGroup(group)) {
-            sc->deleteGroup(group);
+    if (!isAutoSave) {
+        // Clear the session file to avoid to accumulate outdated entries
+        const auto groupList = sc->groupList();
+        for (const auto &group : groupList) {
+            // Don't delete groups for loaded documents that have
+            // ViewSpace config in session but do not have any views.
+            if (!isViewLessDocumentViewSpaceGroup(group)) {
+                sc->deleteGroup(group);
+            }
         }
     }
 
@@ -405,7 +407,7 @@ void KateSessionManager::saveSessionTo(KConfig *sc)
     }
 }
 
-bool KateSessionManager::saveActiveSession(bool rememberAsLast)
+bool KateSessionManager::saveActiveSession(bool rememberAsLast, bool isAutoSave)
 {
     if (!activeSession()) {
         return false;
@@ -413,7 +415,7 @@ bool KateSessionManager::saveActiveSession(bool rememberAsLast)
 
     KConfig *sc = activeSession()->config();
 
-    saveSessionTo(sc);
+    saveSessionTo(sc, isAutoSave);
 
     if (rememberAsLast && !activeSession()->isAnonymous()) {
         KSharedConfigPtr c = KSharedConfig::openConfig();

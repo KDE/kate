@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-24 00:40+0000\n"
-"PO-Revision-Date: 2024-02-18 15:53+0530\n"
+"PO-Revision-Date: 2024-03-24 17:54+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1554,15 +1554,14 @@ msgid "Close all open documents."
 msgstr "திறந்துள்ள அனைத்து ஆவணங்களையும் மூடும்."
 
 #: lib/katemainwindow.cpp:421
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "திறந்துள்ள அனைத்து ஆவணங்களையும் மீளேற்றும்."
+msgstr "&கடைசியாக முடிய ஆவணத்தை மீளேற்று"
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "கடைசியாக மூடிய ஆவணத்தை அல்லது ஆவணங்களை மீண்டும் திறக்கும்"
 
 #: lib/katemainwindow.cpp:429
 #, kde-format
@@ -1612,7 +1611,7 @@ msgstr " திருத்தும் பகுதிகளையும் ப
 #: lib/katemainwindow.cpp:463
 #, kde-format
 msgid "&Plugins Handbook"
-msgstr "&சொருகுப்பொருள்கள் கைப்புத்தகம்"
+msgstr "&செருகுநிரல்களுக்கான கையேடு"
 
 #: lib/katemainwindow.cpp:465
 #, kde-format
@@ -2054,18 +2053,16 @@ msgstr ""
 "தேர்ந்தெடுக்கவும்."
 
 #: lib/kateurlbar.cpp:884
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "இருப்பிடத்தை நகலெடு"
 
 #: lib/kateurlbar.cpp:889
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr "கோப்புப் பெயர்"
+msgstr "கோப்புப்பெயரை நகலெடு"
 
 #: lib/kateviewmanager.cpp:130
 #, kde-format
@@ -2856,10 +2853,9 @@ msgstr "அமர்வுகளை நிர்வகி..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "புதிய சாளரங்களில் வரவேற்புப்பக்கத்தை காட்டு"
+msgstr "புதிய சாளரத்தில் வரவேற்புப்பக்கத்தை காட்டு"
 
 #~ msgid "Show for new window"
 #~ msgstr "புதிய சாளரத்திற்கு காட்டு"

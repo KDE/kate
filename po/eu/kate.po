@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-24 00:40+0000\n"
-"PO-Revision-Date: 2024-02-19 20:39+0100\n"
+"PO-Revision-Date: 2024-03-24 21:13+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -2082,15 +2082,13 @@ msgstr ""
 "jarraitu nahi duzun."
 
 #: lib/kateurlbar.cpp:884
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Kopiatu kokalekua"
 
 #: lib/kateurlbar.cpp:889
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Kopiatu fitxategi-izena"

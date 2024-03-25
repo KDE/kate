@@ -1,17 +1,17 @@
 # Translation for katebuild-plugin.po to Euskara/Basque (eu).
-# Copyright (C) 2011-2023 This file is copyright:
+# Copyright (C) 2011-2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2023 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2020, 2021, 2022, 2023.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-13 00:40+0000\n"
-"PO-Revision-Date: 2023-12-17 08:41+0100\n"
+"PO-Revision-Date: 2024-03-24 21:13+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -299,6 +299,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Erabili:\n"
+"\"%B\" proiektuaren oinarri-direktoriorako\n"
+"\"%b\" proiektuaren oinarri-direktorioaren izenerako"
 
 #: TargetHtmlDelegate.cpp:111
 #, kde-format

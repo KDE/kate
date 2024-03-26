@@ -2784,7 +2784,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 ></term>
 <listitem>
 <para
->Düzenleyici penceresinin alt kısmında yazım denetimi için kullanılabilir tüm sözlükleri içeren bir açılır kutu görüntüler. Bu, yazım denetimi sözlüğünün farklı dillerdeki metinlerin otomatik yazım denetimi için kolayca değiştirilmesine olanak tanır.</para>
+>Düzenleyici penceresinin alt kısmında yazım denetimi için kullanılabilir tüm sözlükleri içeren bir açılır kutu görüntüler. Bu, yazım denetimi sözlüğünün farklı dillerdeki metinlerin kendiliğinden yazımının denetimi için kolayca değiştirilmesine olanak tanır.</para>
 </listitem>
 </varlistentry>
 

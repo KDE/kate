@@ -1930,7 +1930,7 @@
 > bakın. </para>
 
 <para
->Katlanmış çizgiler, bir dosya kapatıldığında anımsanır, böylece dosyayı yeniden açtığınızda katlanmış düğümler hala katlanmış olacaktır. Bu aynı zamanda yeniden yükleme işlemleri için de geçerlidir.</para>
+>Katlanmış çizgiler, bir dosya kapatıldığında anımsanır, böylece dosyayı yeniden açtığınızda katlanmış düğümler hâlâ katlanmış olacaktır. Bu aynı zamanda yeniden yükleme işlemleri için de geçerlidir.</para>
 
 <para
 >Kod katlama özelliğini kullanmak istemiyorsanız düzenleyici yapılandırmasının <link linkend="appearance"

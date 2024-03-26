@@ -128,7 +128,7 @@
 >Giriş</title>
 
 <para
->&katepart;, birçok &Qt; ve &kde; uygulaması için tam özellikli bir düzenleyici bileşendir. &katepart;, bir metin düzenleyicisinden fazlasıdır; bir programcı düzenleyicisi olarak tasarlanmıştır ve daha güçlü düzenleyicilere en azından kısımsal bir alternatif olarak düşünülebilir. &katepart;'ın temel özelliklerinden biri, sözdizim renklendirmesidir ve bu özellik bir çok programlama dili için özelleştirilmiştir: C/C++, &Java;, Python, Perl, Bash, Modula 2, &HTML; ve Ada. </para>
+>&katepart;, birçok &Qt; ve &kde; uygulaması için tam özellikli bir düzenleyici bileşendir. &katepart;, bir metin düzenleyicisinden fazlasıdır; bir programcı düzenleyicisi olarak tasarlanmıştır ve daha güçlü düzenleyicilere en azından kısımsal bir alternatif olarak düşünülebilir. &katepart;'ın temel özelliklerinden biri, sözdizim renklendirmesidir ve bu özellik birçok programlama dili için özelleştirilmiştir: C/C++, &Java;, Python, Perl, Bash, Modula 2, &HTML; ve Ada. </para>
 <para
 >&kwrite;, &katepart; temelli yalın bir metin düzenleyicisidir. Pencere başına o anda bir dosyayı düzenlemenizi sağlayan tek bir belge arabirimi (<acronym
 >SDI</acronym
@@ -252,7 +252,7 @@
 >&katepart; belgelendirmesi, özgün &kwrite; belgelendirmesi temellidir ve &katepart; ile alakalı olacak şekilde değiştirilmiştir. </para>
 
 <para
->Özgün &kwrite; belgelendirmesi, &Thad.McGinnis; &Thad.McGinnis.mail; tarafından yazılmış, &Cristian.Tibirna; &Cristian.Tibirna.mail; tarafından  bir çok düzeltme almıştır. &Lauri.Watts; &Lauri.Watts.mail; tarafından docbook biçimine dönüştürülmüş, &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; ve &Anders.Lund; &Anders.Lund.mail; tarafından güncellenmiştir </para>
+>Özgün &kwrite; belgelendirmesi, &Thad.McGinnis; &Thad.McGinnis.mail; tarafından yazılmış, &Cristian.Tibirna; &Cristian.Tibirna.mail; tarafından  birçok düzeltme almıştır. &Lauri.Watts; &Lauri.Watts.mail; tarafından docbook biçimine dönüştürülmüş, &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; ve &Anders.Lund; &Anders.Lund.mail; tarafından güncellenmiştir </para>
 
 <para
 >Geçerli &katepart; belgelendirmesi bakımı &TC.Hollingsworth; &TC.Hollingsworth.mail; tarafından yapılmaktadır. Yorumlarınızı ve önerilerinizi lütfen &katepart; geliştirme posta listesine (<email

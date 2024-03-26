@@ -208,7 +208,7 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
         QHelpEvent *e = static_cast<QHelpEvent *>(event);
         QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
         Q_ASSERT(quickOpen);
-        QToolTip::showText(e->globalPos(), button->toolTip() + QStringLiteral(" (%1)").arg(quickOpen->shortcut().toString()), button);
+        QToolTip::showText(e->globalPos(), button->toolTip() + QStringLiteral(" (%1)").arg(quickOpen->shortcut().toString(QKeySequence::NativeText)), button);
         return true;
     }
 

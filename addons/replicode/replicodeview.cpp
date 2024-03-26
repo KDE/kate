@@ -61,8 +61,8 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
                                                        i18n("Replicode Config")));
     m_configView = new ReplicodeConfig(m_configSidebar.get());
 
-    m_runButton = new QPushButton(i18nc("shortcut for action", "Run (%1)", m_runAction->shortcut().toString()));
-    m_stopButton = new QPushButton(i18nc("shortcut for action", "Stop (%1)", m_stopAction->shortcut().toString()));
+    m_runButton = new QPushButton(i18nc("shortcut for action", "Run (%1)", m_runAction->shortcut().toString(QKeySequence::NativeText)));
+    m_stopButton = new QPushButton(i18nc("shortcut for action", "Stop (%1)", m_stopAction->shortcut().toString(QKeySequence::NativeText)));
     m_stopButton->setEnabled(false);
 
     QFormLayout *l = qobject_cast<QFormLayout *>(m_configView->widget(0)->layout());

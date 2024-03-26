@@ -889,7 +889,7 @@ void KateMainWindow::toggleShowMenuBar(bool showMessage)
     } else {
         // we have a hamburger button in the toolbar, we can avoid the message if that is still visible
         if (showMessage && toolBar()->isHidden()) {
-            const QString accel = m_paShowMenuBar->shortcut().toString();
+            const QString accel = m_paShowMenuBar->shortcut().toString(QKeySequence::NativeText);
             KMessageBox::information(this,
                                      i18n("This will hide the menu bar completely."
                                           " You can show it again by typing %1.",

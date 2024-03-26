@@ -1,0 +1,2249 @@
+<!--pulled in by kwrite too-->
+<chapter id="vi-input-mode-chapter">
+<chapterinfo>
+<authorgroup
+><author
+>&Erlend.Hamberg; &Erlend.Hamberg.mail; </author>
+<othercredit role="translator"
+><firstname
+>Matjaž</firstname
+><surname
+>Jeran</surname
+><affiliation
+><address
+><email
+>matjaz.jeran@amis.net</email
+></address
+></affiliation
+><contrib
+>Prevod</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+
+<title
+>Vnosni način VI</title>
+
+<sect1 id="vi-mode-sect1">
+<title
+>VI Vnosni način</title>
+
+<para
+>Cilj načina VI ni popolna zamenjava za Vim in podpiranje vseh funkcij Vima. Njegov cilj je omogočiti <quote
+>Vimov način</quote
+> urejanja besedila – in pridobljene navade Vim – za programe, ki uporabljajo &kappname; urejevalnik besedil kot njihov notranji urejevalnik.</para>
+
+<para
+>Način VI se želi lepo integrirati s programom in odstopati od vedenja Vim, kjer je to smiselno. Na primer, <userinput
+><command
+>:w</command
+></userinput
+> bo odprl pogovorno okno za shranjevanje v načinu VI &kappname;.</para>
+
+<para
+>Če želite omogočiti način vnosa VI za vse nove poglede, pojdite na <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guimenuitem
+>Konfiguriraj &kappname;...</guimenuitem
+> <guimenu
+>Urejanje</guimenu
+><guimenuitem
+>Vnos VI Način</guimenuitem
+></menuchoice
+>. Na tem zavihku lahko nastavite možnosti za način vnosa VI ter definirate in uredite preslikavo tipk v tem načinu. Način vnosa VI lahko preklapljate tudi z nastavitvijo <guimenuitem
+>Način vnosa VI</guimenuitem
+> v meniju <guimenu
+>Uredi</guimenu
+>. (Privzeta bližnjična tipka je <keycombo action="simul"
+>&Meta;&Ctrl;<keycap
+>V</keycap
+></keycombo
+> – kjer je &Meta; običajno tipka <keysym
+>Windows</keysym
+>).</para>
+
+<note>
+<para
+>Številni ukazi na tipkovnici načina Vi razlikujejo med velikimi in malimi črkami, za razliko od večine &kde; bližnjice na tipkovnici. To pomeni, da sta <userinput
+>y</userinput
+> in <userinput
+>Y</userinput
+> različna ukaza. Če želite vnesti ukaz <userinput
+>y</userinput
+> (yank), se prepričajte, da je <keysym
+>Caps Lock(Zaklepanje tipk)</keysym
+> onemogočen, in pritisnite <keycap
+>Y</keycap
+>. Če želite vnesti ukaz <userinput
+>Y</userinput
+> (potegnite na konec vrstice), <keycombo action="simul"
+>&Shift;<keycap
+>Y</keycap
+></keycombo
+>.</para>
+
+<para
+>To ne velja za ukaze, ki uporabljajo &Ctrl; tipko, ki jo lahko vnesete ne glede na način <keycap
+>Caps Lock (Zaklepanje tipk)</keycap
+> in brez pritiska &Shift;. Vendar nekateri ukazi zahtevajo uporabo kombinacije tipk &Ctrl;, ki ji sledi druga tipka, ki razlikuje med velikimi in malimi črkami. Na primer, za vnos <quote
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+>, <userinput
+>h</userinput
+></quote
+> (preklop na deljeni pogled desno) poskrbite, da je <keycap
+>Caps Lock (Zaklepanje tipk)</keycap
+> onemogočen, pritisnite <keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+>, spustite in nato pritisnite <keycap
+>H</keycap 
+>.</para>
+</note>
+
+<sect2 id="vi-incompatibilities">
+<title
+>Nezdružljivosti z Vim</title>
+
+<para
+>Obstaja le nekaj funkcij načina VI &kappname;, ki niso združljive z Vimom (če manjkajo stvari). Spodaj so navedeni skupaj z ustreznimi razlogi.</para>
+<itemizedlist>
+<listitem>
+<para
+>&kappname;: <userinput
+>U</userinput
+> in <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> se ponovi.</para>
+<para
+>Vim: <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> je običajno ponavljanje, <keycap
+>U</keycap
+> se uporablja za razveljavitev vseh zadnjih sprememb v eni vrstici.</para>
+<para
+>Razlog za to, da <keycap
+>U</keycap
+> deluje kot ponavljanje v načinu VI &kappname; je, da je bližnjica <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> privzeto prevzame zamenjavna funkcija &kappname; (iskanje in zamenjava). Privzeto način VI ne bo preglasil bližnjic &kappname; (to je mogoče konfigurirati v <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guimenuitem
+>Konfiguriraj &kappname;...</guimenuitem
+> <guimenu
+>Urejanje</guimenu
+><guimenuitem
+>Vnosni način Vi</guimenuitem
+></menuchoice
+>), zato mora biti dejanje ponovitve na voljo tudi kot <quote
+>običajen</quote
+> pritisk tipke. Poleg tega se vedenje ukaza <userinput
+>U</userinput
+> v Vimu ne ujema dobro z notranjim sistemom za razveljavitev &kappname;, tako da bi bilo vseeno netrivialno podpreti.</para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+><command
+>print</command
+></userinput
+> prikaže pogovorno okno <guilabel
+>Natisni</guilabel
+>.</para>
+<para
+>Vim: <userinput
+><command
+>print</command
+></userinput
+> natisne vrstice danega obsega kot njegov stari ed.</para>
+<para
+>Ukazi, kot je <userinput
+><command
+>:print</command
+></userinput
+>, niso na voljo le v načinu VI, ampak tudi za uporabnike, ki uporabljajo <quote
+>običajni</quote
+> &kappname; - torej <userinput
+><command 
+>:print</command
+></userinput
+> ukaz odpre pogovorno okno za tiskanje - po načelu najmanjšega presenečenja namesto posnemanja vedenja Vima.</para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+>Y</userinput
+> potegne na konec vrstice.</para>
+<para
+>Vim: <userinput
+>Y</userinput
+> potegne celotno vrstico, tako kot <userinput
+>y</userinput
+><userinput
+>y</userinput
+>.</para>
+<para
+>Vedenje VI za ukaz <userinput
+>Y</userinput
+> je v praksi napaka. Za ukaze za spreminjanje in brisanje bo <userinput
+>c</userinput
+><userinput
+>c</userinput
+>/ <userinput
+>d</userinput
+><userinput
+>d</userinput
+> opravil svoje dejanje v trenutni vrstici in <userinput
+>C</userinput
+>/<userinput
+>D</userinput
+> bo deloval od kazalnega stolpca do konca vrstice. Vendar tako <userinput
+>y</userinput
+><userinput
+>y</userinput
+> kot <userinput
+>Y</userinput
+> potegne trenutno vrstico. V načinu VI &kappname; bo <userinput
+>Y</userinput
+> potegnil na konec vrstice. To je opisano kot <quote
+>bolj logično</quote
+> v <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y"
+>dokumentaciji</ulink
+> za Vim. </para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+>O</userinput
+> in <userinput
+>o</userinput
+> odpre [<replaceable
+>count</replaceable
+>] novih vrstic in vas postavi v način vstavljanja.</para>
+<para
+>Vim: <userinput
+>O</userinput
+> in <userinput
+>o</userinput
+> odpre novo vrstico in vstavi besedilo [<replaceable
+>count</replaceable
+>]-krat, ko zapusti način vstavljanja.</para>
+<para
+>To se večinoma zgodi kot posledica opazovanja mnogih ljudi, ki jih to vedenje zmede na vim &irc; kanal (#vim na Libera Chatu).</para>
+</listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2 id="vi-switching-modes">
+<title
+>Preklapljanje načinov</title>
+
+<itemizedlist>
+<listitem>
+<para
+><emphasis
+>Običajni način</emphasis
+> vam omogoča vnos ukazov za krmarjenje ali urejanje dokumenta in je privzeti način. Nanj se lahko vrnete iz katerega koli drugega načina s pritiskom &Esc;. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Vizualni način</emphasis
+> vam omogoča, da označite besedilo v dokumentu. Večina ukazov običajnega načina je veljavnih tudi v tem načinu. Vnesete ga lahko tako, da pritisnete <userinput
+>v</userinput
+> za izbiro znakov ali <userinput
+>V</userinput
+> za izbiro vrstic. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Način vstavljanja</emphasis
+> vam omogoča neposredno urejanje dokumenta. Vnesete ga lahko tako, da pritisnete <userinput
+>i</userinput
+> ali enega od več drugih ukazov, navedenih spodaj. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Ukazni način</emphasis
+> prikliče ukazno vrstico &kappname;, kar vam omogoča zagon številnih ukazov, ki so na voljo v implementacijah Vi, kot tudi nekaterih specifičnih za &kappname;. Za več informacij o teh ukazih glejte <xref linkend="advanced-editing-tools-commandline"/>. Če ga želite uporabiti, pritisnite <keycap
+>:</keycap
+>, vnesite ukaz in pritisnite &Enter;.</para>
+</listitem>
+</itemizedlist>
+<!-- add a picture like https://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
+</sect2>
+
+<sect2 id="vi-integration">
+<title
+>Integracija z &kate; Lastnosti</title>
+<itemizedlist>
+
+<listitem>
+<para
+>Vizualni način se vstopi samodejno, ko z miško izberete besedilo. Vnese se tudi pri uporabi funkcij &kate; ki izberejo besedilo, na primer Izberi vse (iz menija ali prek <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+> </keycombo
+>.)</para>
+</listitem>
+
+<listitem>
+<para
+>Vi oznake in <link linkend="kate-part-bookmarks"
+>&kate; zaznamki</link
+> so integrirani. Ko je oznaka ustvarjena v načinu Vi, se ustrezen &kate; zaznamek je ustvarjen in prikazan v meniju <guimenu
+>Zaznamki</guimenu
+>. Nasprotno, ko &kate; ustvari zaznamek, se ustvari tudi ustrezna oznaka Vi v stolpcu 0.</para>
+</listitem>
+
+</itemizedlist>
+</sect2>
+
+<sect2 id="vi-normal-visual-mode-commands">
+<title
+>Podprti ukazi običajnega/vizualnega načina</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>a</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v način vstavljanja; pripni za kazalko</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>A</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v način vstavljanja; pripni za vrstico</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v način vstavljanja; vstavi pred kazalko</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Ins;</para
+></entry>
+<entry
+><para
+>Vstopite v način vstavljanja; vstavi pred kazalko</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>I</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v način vstavljanja; vstavi pred prvim znakom v vrstici, ki ni prazen</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gi</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v način vstavljanja; vstavi pred mestom, kjer zapusti zadnji način vstavljanja</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>v</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v vizualni način; izberite znake</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>V</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v vizualni način; izberite vrstice</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>v</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Vstopite v vizualni način; izberite bloke</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gb</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v vizualni način; ponovno izberite zadnjo izbiro</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>o</userinput
+></para
+></entry>
+<entry
+><para
+>Odprite novo vrstico pod trenutno vrstico</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>O</userinput
+></para
+></entry>
+<entry
+><para
+>Odprite novo vrstico nad trenutno vrstico</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>J</userinput
+></para
+></entry>
+<entry
+><para
+>Združi črte</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>c</userinput
+></para
+></entry>
+<entry
+><para
+>Spremeni: sledi gib za brisanje in vstop v način vstavljanja</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>C</userinput
+></para
+></entry>
+<entry
+><para
+>Spremeni do konca vrstice: Izbrišite do konca vrstice in vstopite v način vstavljanja</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>cc</userinput
+></para
+></entry>
+<entry
+><para
+>Spremeni vrstico: Izbrišite vrstico in vstopite v način vstavljanja</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>s</userinput
+></para
+></entry>
+<entry
+><para
+>Nadomestni črko</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>S</userinput
+></para
+></entry>
+<entry
+><para
+>Nadomestna vrstica</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>dd</userinput
+></para
+></entry>
+<entry
+><para
+>Izbriši vrstico</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>d</userinput
+></para
+></entry>
+<entry
+><para
+>Sledi predlog za brisanje</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>D</userinput
+></para
+></entry>
+<entry
+><para
+>Izbriši do konca vrstice</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>x</userinput
+></para
+></entry>
+<entry
+><para
+>Izbriši znak desno od kazalca</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Del;</para
+></entry>
+<entry
+><para
+>Izbriši znak desno od kazalca</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>X</userinput
+></para
+></entry>
+<entry
+><para
+>Izbriši znak levo od kazalca</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gu</userinput
+></para
+></entry>
+<entry
+><para
+>Sledite gibu, da naredite male črke</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>guu</userinput
+></para
+></entry>
+<entry
+><para
+>Naj bo trenutna vrstica mala</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gU</userinput
+></para
+></entry>
+<entry
+><para
+>Sledite gibu, da naredite velike črke</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gUU</userinput
+></para
+></entry>
+<entry
+><para
+>Naj bo trenutna vrstica velika</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>y</userinput
+></para
+></entry>
+<entry
+><para
+>Sledi gib za <quote
+>potegnite</quote
+> (kopiraj)</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>yy</userinput
+></para
+></entry>
+<entry
+><para
+>Yank (kopiraj) vrstico</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>Y</userinput
+></para
+></entry>
+<entry
+><para
+>Yank (kopiraj) vrstico</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>p</userinput
+></para
+></entry>
+<entry
+><para
+>Prilepi za kazalko</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>P</userinput
+></para
+></entry>
+<entry
+><para
+>Prilepi pred kazalko</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]p</userinput
+></para
+></entry>
+<entry
+><para
+>Prilepi za zamikom kazalke</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[p</userinput
+></para
+></entry>
+<entry
+><para
+>Prilepi pred zamikom kazalke</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>r</userinput
+></para
+></entry>
+<entry
+><para
+>Sledi znak za zamenjavo znaka za kazalko</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>R</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v način zamenjave</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>:</userinput
+></para
+></entry>
+<entry
+><para
+>Vstopite v ukazni način</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>/</userinput
+></para
+></entry>
+<entry
+><para
+>Iskanje</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>u</userinput
+></para
+></entry>
+<entry
+><para
+>Razveljavi</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Ponovi</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>U</userinput
+></para
+></entry>
+<entry
+><para
+>Ponovi</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>m</userinput
+></para
+></entry>
+<entry
+><para
+>Nastavi oznako (lahko jo uporabite pozneje)</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>n</userinput
+></para
+></entry>
+<entry
+><para
+>Poišči naslednjega</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>N</userinput
+></para
+></entry>
+<entry
+><para
+>Poišči prejšnjo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>Zamik vrstice</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Prekliči zamik vrstice</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>Zamik vrstic</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Prekliči zamik vrstic</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Stran navzdol</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Stran gor</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ga</userinput
+></para
+></entry>
+<entry
+><para
+>Natisnite ASCII; vrednost znaka</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>.</userinput
+></para
+></entry>
+<entry
+><para
+>Ponovi zadnjo spremembo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>==</userinput
+></para
+></entry>
+<entry
+><para
+>ukazPoravnajVrstico</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>=</userinput
+></para
+></entry>
+<entry
+><para
+>ukazPoravnajVrstico</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>~</userinput
+></para
+></entry>
+<entry
+><para
+>Spremenite velike in male črke trenutnega znaka</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Razdeli pogled vodoravno</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>V</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Razdeljen pogled navpično</para
+></entry>
+</row>
+<row
+><entry
+><para
+>Razdeli pogled navpično<keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>w</userinput
+></para
+></entry>
+<entry
+><para
+>Preklop na naslednje razdeljeno okno</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>h</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Pojdite na levo razdeljeno okno</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>l</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Pojdite na desno razdeljeno okno</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>k</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Pojdite na zgornje razdeljeno okno</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>j</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Pojdite na spodnje razdeljeno okno</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-motions">
+<title
+>Podprti gibi</title>
+
+<para
+>Te lahko uporabite za premikanje po dokumentu v običajnem ali vizualnem načinu ali v povezavi z enim od zgornjih ukazov. Pred njimi je lahko štetje, ki nakazuje, koliko ustreznih gibov je treba narediti.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>h</userinput
+></para
+></entry>
+<entry
+><para
+>&Ctrl;&Left;</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Left;</para
+></entry>
+<entry
+><para
+>&Ctrl;&Left;</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Backspace;</para
+></entry>
+<entry
+><para
+>&Ctrl;&Left;</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>j</userinput
+></para
+></entry>
+<entry
+><para
+>Dol</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Down;</para
+></entry>
+<entry
+><para
+>Dol</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>k</userinput
+></para
+></entry>
+<entry
+><para
+>Gor</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Up;</para
+></entry>
+<entry
+><para
+>Gor</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>l</userinput
+></para
+></entry>
+<entry
+><para
+>Desno</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Right;</para
+></entry>
+<entry
+><para
+>Desno</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Space;</para
+></entry>
+<entry
+><para
+>Desno</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>$</userinput
+></para
+></entry>
+<entry
+><para
+>Konec vrstice</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&End;</para
+></entry>
+<entry
+><para
+>Konec vrstice</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>0</userinput
+></para
+></entry>
+<entry
+><para
+>Prvi znak vrstice (stolpec 0)</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Home;</para
+></entry>
+<entry
+><para
+>Prvi znak vrstice</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>^</userinput
+></para
+></entry>
+<entry
+><para
+>Prvi znak v vrstici, ki ni prazen</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>f</userinput
+></para
+></entry>
+<entry
+><para
+>Sledite znaku, da se premaknete desno od kazalca</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>F</userinput
+></para
+></entry>
+<entry
+><para
+>Sledite znaku, da se premaknete levo od kazalke</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>t</userinput
+></para
+></entry>
+<entry
+><para
+>Sledite znaku, da se premaknete desno od kazalke, tako da kazalko postavite na znak pred njim</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>T</userinput
+></para
+></entry>
+<entry
+><para
+>Sledite znaku, da se premaknete levo od kazalke, tako da kazalko postavite na znak pred njo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gg</userinput
+></para
+></entry>
+<entry
+><para
+>Prva vrsta</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>G</userinput
+></para
+></entry>
+<entry
+><para
+>Zadnja vrstica</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>w</userinput
+></para
+></entry>
+<entry
+><para
+>Naslednja beseda</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>W</userinput
+></para
+></entry>
+<entry
+><para
+>Naslednja beseda je ločena s presledkom</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>b</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnja beseda</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>B</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnja beseda ločena s presledkom</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>e</userinput
+></para
+></entry>
+<entry
+><para
+>Konec besede</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>E</userinput
+></para
+></entry>
+<entry
+><para
+>Konec besede ločen s presledkom</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ge</userinput
+></para
+></entry>
+<entry
+><para
+>Konec prejšnje besede</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gE</userinput
+></para
+></entry>
+<entry
+><para
+>Konec prejšnje besede, ločen s presledkom</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>|</userinput
+></para
+></entry>
+<entry
+><para
+>Sledi številka stolpca, da se premaknete na ta stolpec</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>%</userinput
+></para
+></entry>
+<entry
+><para
+>Sledite elementu, da se premaknete na ta element</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>`</userinput
+></para
+></entry>
+<entry
+><para
+>Znamenje</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>‘</userinput
+></para
+></entry>
+<entry
+><para
+>Prvi znak, ki ni presledek v vrstici, na kateri je oznaka</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[[</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji začetni oklepaj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]]</userinput
+></para
+></entry>
+<entry
+><para
+>Naslednji začetni oklepaj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[]</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji zaključni oklepaj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>][</userinput
+></para
+></entry>
+<entry
+><para
+>Naslednji zaključni oklepaj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Skoči na naslednjo lokacijo</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Skoči na prejšnjo lokacijo</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>H</userinput
+></para
+></entry>
+<entry
+>Pojdite v prvo vrstico zaslona</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>M</userinput
+></para
+></entry>
+<entry
+>Pojdite na srednjo vrstico zaslona</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>L</userinput
+></para
+></entry>
+<entry
+>Pojdite na zadnjo vrstico zaslona</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>%<replaceable
+>odstotek</replaceable
+></userinput
+></para
+></entry>
+<entry
+><para
+>Pojdite na določen odstotek dokumenta</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gk</userinput
+></para
+></entry>
+<entry
+><para
+>Vizualno pojdite za eno vrstico navzgor (pri uporabi dinamičnega preloma besed)</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gj</userinput
+></para
+></entry>
+<entry
+><para
+>Vizualno pojdite eno vrstico navzdol (pri uporabi dinamičnega preloma besed)</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Premakni eno besedo levo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Premakni eno besedo desno</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-text-objects">
+<title
+>Podprti besedilni predmeti</title>
+
+<para
+>Ti se lahko uporabljajo za izbiro določenih delov dokumenta.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>iw</userinput
+></para
+></entry>
+<entry
+><para
+>Notranja beseda: beseda, vključno s presledki</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>aw</userinput
+></para
+></entry>
+<entry
+><para
+>Beseda: beseda brez presledkov</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i"</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji dvojni narekovaj (<userinput
+>"</userinput
+>) do naslednjega dvojnega narekovaja, vključno z narekovaji</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a”</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji dvojni narekovaj (<userinput
+>"</userinput
+>) do naslednjega dvojnega narekovaja, brez narekovajev</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i'</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji enojni narekovaj (<userinput
+>'</userinput
+>) na naslednji enojni narekovaj, vključno z narekovaji</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a'</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji enojni narekovaj (<userinput
+>'</userinput
+>) na naslednji enojni narekovaj, brez narekovajev</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i(</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji začetni oklepaj [<userinput
+>(</userinput
+>] do naslednjega zaključnega oklepaja [<userinput
+>)</userinput
+>], vključno z oklepajem</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a(</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji začetni oklepaj [<userinput
+>(</userinput
+>] do naslednjega zaključnega oklepaja [<userinput
+>)</userinput
+>], razen oklepaja</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i[</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji začetni oglati oklepaj (<userinput
+>[</userinput
+>) do naslednjega zapiralni oglati oklepaj (<userinput
+>]</userinput
+>), vključno z oklepaji</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a[</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji začetni oglati oklepaj (<userinput
+>[</userinput
+>) do naslednjega zaključnega oglatega oklepaja (<userinput
+>]</userinput
+>), razen oklepajev</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i{</userinput
+></para
+></entry>
+<entry
+><para
+>Od prejšnjega začetnega zavitega oklepaja (<userinput
+>{</userinput
+>) do naslednjega zapirajočega zavitega oklepaja (<userinput
+>}</userinput
+>), vključno z oklepaji</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a{</userinput
+></para
+></entry>
+<entry
+><para
+>Od prejšnjega začetnega zavitega oklepaja (<userinput
+>{</userinput
+>) do naslednjega zapirajočega zavitega oklepaja (<userinput
+>}</userinput
+>), razen oklepajev</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji začetni kotni oklepaj (<userinput
+>&lt;</userinput
+>) do naslednjega zaključnega kotnega oklepaja (<userinput
+>&gt;</userinput
+>), vključno z oklepaji</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnji začetni kotni oklepaj (<userinput
+>&lt;</userinput
+>) do naslednjega zaključnega oglatega oklepaja (<userinput
+>&gt;</userinput
+>), razen oklepajev</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i`</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnja povratna oznaka (<userinput
+>`</userinput
+>) do naslednje povratne oznake, vključno z povratnimi oznakami</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a`</userinput
+></para
+></entry>
+<entry
+><para
+>Prejšnja povratna oznaka (<userinput
+>`</userinput
+>) do naslednje povratne oznake, razen povratnih oznak</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-insert-mode-commands">
+<title
+>Podprti ukazi načina vstavljanja</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Prekliči zamik</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Zamik</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Vstavite od spodaj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Y</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Izbriši besedo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Izbriši besedo</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Izbriši vrstico</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Nova vrstica</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Izbriši znak nazaj</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Premakni se na prvi znak v dokumentu</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> <userinput
+>n</userinput
+></para
+></entry>
+<entry
+>Vstavite vsebino registra <literal
+>n</literal
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+>, <replaceable
+>command</replaceable
+></para
+></entry>
+<entry
+><para
+>Vstopite v običajni način samo za en ukaz</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Povečaj trenutno izbrano številko</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>X</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Zmanjšajte trenutno izbrano številko</para
+></entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-text-object">
+<title
+>Besedilni predmet vejica</title>
+
+<para
+>Ta predmet manjka v Vimu. Besedilni predmet z vejico olajša spreminjanje seznamov parametrov v jezikih, podobnih C, in drugih seznamov, ločenih z vejico. V bistvu je območje med dvema vejicama ali med vejico in oklepajem. V vrstici, prikazani na sliki, so označeni trije obsegi, ki jih ta besedilni predmet lahko zajema.</para>
+
+<screenshot id="screenshot-resources">
+<screeninfo
+>Primer besedilnega predmeta z vejico</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="comma-to.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Primer besedilnega predmeta z vejico</phrase
+></textobject>
+<caption
+><para
+>Območja besedilnih predmetov vejice. Če je kazalec nad &eg; <replaceable
+>arg2</replaceable
+>, s pritiskom <userinput
+>ci</userinput
+>, (<quote
+>spremeni notranjo vejico</quote
+>) bi izbrisali <replaceable
+>dvojni arg2</replaceable
+> in postavili kazalko med dve vejici v načinu vstavljanja. Zelo priročen način za spreminjanje parametrov funkcije.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="vi-missing-features">
+<title
+>Manjkajoče funkcije</title>
+
+<para
+>Kot smo že omenili, cilj načina VI &kappname; ni podpirati 100 % Vimovih funkcij.</para>
+</sect2>
+
+</sect1>
+
+</chapter>

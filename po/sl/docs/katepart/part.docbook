@@ -1,0 +1,1047 @@
+<!--pulled in by kwrite too-->
+<chapter id="kate-part">
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<othercredit role="translator"
+><contrib
+>Prevod</contrib
+><firstname
+>Andrej</firstname
+><surname
+>Vernekar</surname
+><affiliation
+><address
+><email
+>andrej.vernekar@moj.net</email
+></address
+></affiliation
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Delo z &kappname; urednik</title>
+
+<sect1 id="kate-part-overview">
+
+<title
+>Pregled</title>
+
+<para
+>&kappname; urejevalnik je področje urejanja datoteke &kappname; okno. Ta urejevalnik si delita &kate; in &kwrite;, uporablja pa se lahko tudi v &konqueror; za prikaz besedilnih datotek iz vašega lokalnega računalnika ali iz omrežja.</para>
+
+<para
+>Urejevalnik je sestavljen iz naslednjih komponent:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+>Območje urejanja</term>
+<listitem
+><para
+>Tukaj se nahaja besedilo vašega dokumenta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Drsni trakovi</term>
+<listitem>
+<para
+>Drsni trakovi označujejo položaj vidnega dela besedila dokumenta in se lahko uporabljajo za premikanje po dokumentu. Vlečenje drsnih trakov ne bo povzročilo premikanja kazalca za vstavljanje.</para>
+<para
+>Drsni trakovi so po potrebi prikazani in skriti.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Meja ikone</term>
+<listitem>
+<para
+>Obroba ikone je majhno podokno na levi strani urejevalnika, ki prikazuje majhno ikono poleg označenih vrstic.</para>
+<para
+><link linkend="kate-part-bookmarks"
+>Zaznamek</link
+> lahko nastavite ali odstranite v vidni vrstici tako, da kliknete &LMB; na obrobi ikone poleg te vrstice.</para>
+<para
+>Prikaz obrobe ikone lahko preklopite z menijsko postavko <menuchoice
+><guimenu
+>Pogled</guimenu
+> <guimenuitem
+>Pokaži obrobo ikone</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Podokno s številkami vrstic</term>
+<listitem>
+<para
+>Podokno Številke vrstic prikazuje številke vrstic vseh vidnih vrstic v dokumentu.</para>
+<para
+>Prikaz podokna s številkami vrstic lahko preklapljate z menijsko postavko <menuchoice
+><guimenu
+>Pogled</guimenu
+> <guimenuitem
+>Prikaži številke vrstic</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Zložljivo podokno</term>
+<listitem>
+<para
+>Zložljivo podokno vam omogoča, da strnete ali razširite zložljive bloke črt. Izračun prepogljivih območij se izvede v skladu s pravili v definiciji poudarjanja sintakse za dokument.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<itemizedlist>
+<title
+>Tudi v tem poglavju:</title>
+<listitem
+><para
+><link linkend="kate-part-navigation"
+>Krmarjenje po besedilu</link
+> </para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-selection"
+>Delo z izborom</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-copy-and-paste"
+>Kopiranje in lepljenje besedila</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-find-replace"
+>Iskanje in zamenjava besedila</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-bookmarks"
+>Uporaba zaznamkov</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-auto-wrap"
+>Samodejno prelivanje besedila</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-autoindent"
+>Uporaba samodejnega zamika</link
+></para
+></listitem>
+</itemizedlist>
+
+</sect1>
+
+<sect1 id="kate-part-navigation">
+<title
+>Krmarjenje po besedilu</title>
+
+<para
+>Premikanje po besedilu v &kappname; je podoben večini grafičnih urejevalnikov besedil. Kazalec premikate s puščičnimi tipkami in &PgUp;, &PgDn;, &Home; in &End; tipke v kombinaciji s tipko &Ctrl; in &Shift; modifikatorji. &Shift; tipka se vedno uporablja za ustvarjanje izbire, medtem ko &Ctrl; tipka ima različne učinke na različne tipke: <itemizedlist>
+<listitem
+><para
+>Za &Up; in &Down; tipke pomeni pomikanje in ne premikanje kazalke.</para
+></listitem>
+<listitem
+><para
+>Za &Left; in &Right; tipke pomeni preskakovanje besed in ne znakov.</para
+></listitem>
+<listitem
+><para
+>Za &PgUp; in &PgDn; tipke pomeni pomik na vidni rob pogleda namesto brskanja.</para>
+</listitem>
+<listitem
+><para
+>Za &Home; in &Konec; tipke pomeni pomik na začetek ali konec dokumenta in ne na začetek ali konec vrstice.</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>&kappname; omogoča tudi hiter skok na ujemajoči se oklepaj ali oklepaj: postavite kazalec na notranjo stran znaka oklepaja ali oklepaja in pritisnite <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+> za skok na ujemajoči se oklepaj ali oklepaj.</para>
+
+<para
+>Poleg tega lahko uporabite <link linkend="kate-part-bookmarks"
+>zaznamke</link
+> za hiter skok na položaje, ki jih določite sami.</para>
+
+</sect1>
+
+<sect1 id="kate-part-selection">
+<title
+>Delo z izborom</title>
+
+<para
+>Obstajata dva osnovna načina izbiranja besedila v &kappname;: z miško in s tipkovnico.</para>
+
+<para
+>Za izbiro z miško pridržite tipko &LMB; medtem ko vlečete kazalec miške od mesta, kjer naj se izbira začne, do želene končne točke. Besedilo se izbere med vlečenjem.</para>
+
+<para
+>Če dvakrat kliknete besedo, jo izberete.</para>
+
+<para
+>Če trikrat kliknete v vrstico, boste izbrali celotno vrstico.</para>
+
+<para
+>Če &Shift; med klikanjem držite pritisnjeno, bo izbrano besedilo:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Če še ni nič izbrano, od položaja kazalca besedila do položaja kazalca miške.</para
+></listitem>
+<listitem
+><para
+>Če obstaja izbor, od in vključno s tem izborom do položaja kazalca miške.</para
+></listitem>
+</itemizedlist>
+
+<note>
+<para
+>Pri izbiri besedila z vlečenjem miške se izbrano besedilo prekopira v odložišče in ga lahko prilepite s klikom na srednji gumb miške v urejevalniku ali v kateri koli drugi aplikaciji, v katero želite prilepiti besedilo. </para>
+</note>
+
+<para
+>Za izbiro s tipkovnico pridržite &Shift; med uporabo navigacijskih tipk (puščice, &PgUp;, &PgDn;, &Home; in &End;, po možnosti v kombinaciji s &Ctrl; za podaljšanje premika besedilnega kazalca).</para>
+
+<para
+>Glejte tudi razdelek <link linkend="kate-part-navigation"
+>Krmarjenje po besedilu</link
+> v tem poglavju.</para>
+
+<para
+>Če želite <action
+>Kopirati</action
+> trenutni izbor, uporabite menijski element <menuchoice
+><guimenu
+>Uredi</guimenu
+> <guimenuitem
+>Kopiraj</guimenuitem
+></menuchoice
+> ali bližnjico na tipkovnici (privzeto na <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+>).</para>
+
+<para
+>Za <action
+>Preklic</action
+> trenutnega izbora uporabite menijski element <menuchoice
+><guimenu
+>Uredi</guimenu
+> <guimenuitem
+>Prekliči izbor</guimenuitem
+></menuchoice
+> ali bližnjico na tipkovnici (privzeto je <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>A</keycap
+></keycombo
+>) ali kliknite z &LMB; v urejevalniku.</para>
+
+<sect2 id="kate-part-selection-block">
+<title
+>Uporaba izbire blokov</title>
+
+<para
+>Ko je omogočena izbira blokov, lahko naredite <quote
+>navpične izbire</quote
+> v besedilu, kar pomeni, da izberete omejene stolpce iz več vrstic. To je priročno na primer za delo z vrsticami, ločenimi s tabulatorji.</para>
+
+<para
+>Izbiro bloka lahko preklopite z menijsko postavko <menuchoice
+><guimenu
+>Uredi</guimenu
+> <guimenuitem
+>Način izbire bloka</guimenuitem
+></menuchoice
+>. Privzeta bližnjica na tipkovnici je <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>B</keycap
+> </keycombo
+>.</para>
+
+</sect2>
+
+<sect2 id="kate-part-selection-overwrite">
+<!-- term not used in settings Editing Text Seöection Mode, it is called "Normal"-->
+<title
+>Uporaba Prepiši izbor</title>
+
+<para
+>Če je omogočena možnost Prepiši izbor, bo vnos ali lepljenje besedila v izbor povzročilo zamenjavo izbranega besedila. Če ni omogočeno, bo novo besedilo dodano na položaj besedilnega kazalca.</para>
+
+<para
+>Prepiši izbor je privzeto omogočen.</para>
+
+<para
+>Če želite spremeniti nastavitev za to možnost, uporabite <link linkend="pref-edit-cursor-selection"
+>Kazalka &amp; Stran za izbiro</link
+> v <link linkend="config-dialog"
+>konfiguracijskem pogovornem oknu</link
+>.</para>
+
+</sect2>
+
+<sect2 id="kate-part-selection-persistent">
+
+<title
+>Uporaba trajne izbire</title>
+
+<para
+>Ko je vztrajna izbira omogočena, vnašanje znakov ali premikanje kazalca ne bo povzročilo preklica izbire. To pomeni, da lahko premaknete kazalec stran od izbora in vnesete besedilo.</para>
+
+<para
+>Trajna izbira je privzeto onemogočena.</para>
+
+<para
+>Vztrajno izbiro lahko omogočite v <link linkend="pref-edit-cursor-selection"
+>Kazalka &amp; Stran za izbiro</link
+> v <link linkend="config-dialog"
+>konfiguracijskem pogovornem oknu</link
+>.</para>
+
+<warning
+> <!-- is that still possible in 4.4? radio button Normal + Persistent!-->
+<para
+>Če sta omogočeni tako Trajna izbira kot Prepiši izbiro, bo vnašanje ali lepljenje besedila, ko je besedilni kazalka znotraj izbora, povzročilo njegovo zamenjavo in preklic izbire.</para>
+</warning>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-part-copy-and-paste">
+
+<title
+>Kopiranje in lepljenje besedila</title>
+
+<para
+>Če želite kopirati besedilo, ga izberite in uporabite menijsko postavko <menuchoice
+><guimenu
+>Uredi</guimenu
+> <guimenuitem
+>Kopiraj</guimenuitem
+></menuchoice
+>. Poleg tega bo izbira besedila z miško povzročila kopiranje izbranega besedila v izbor X.</para>
+
+<para
+>Če želite prilepiti besedilo, ki je trenutno v odložišču, uporabite menijsko postavko <menuchoice
+> <guimenu
+>Uredi</guimenu
+><guimenuitem
+>Prilepi</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Poleg tega lahko besedilo, izbrano z miško, prilepite s klikom na &MMB; na želenem položaju.</para>
+
+<tip>
+<para
+>Če uporabljate &kde; namizja, lahko prej kopirano besedilo pridobite iz katere koli aplikacije z uporabo &klipper; ikono v sistemski vrstici.</para>
+</tip>
+
+</sect1>
+
+<!-- changed in 4.5-->
+<sect1 id="kate-part-find-replace">
+<title
+>Iskanje in zamenjava besedila</title>
+
+<sect2 id="find-replace-bars">
+<title
+>Vrstici za iskanje in zamenjavo</title>
+
+
+<para
+>&kappname; ima inkrementalno vrstico za iskanje in zmogljivo vrstico za iskanje in zamenjavo, ki ponuja sredstva za vnos nadomestnega niza skupaj z nekaj dodatnimi možnostmi.</para>
+
+<para
+>Vrstice ponujajo naslednje običajne možnosti:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Poišči</guilabel
+></term>
+<listitem
+><para
+>Tukaj vnesete iskalni niz. Razlaga niza je odvisna od nekaterih spodaj opisanih možnosti.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Primer ujemanja</guilabel
+></term>
+<listitem>
+<para
+>Če je omogočeno, bo iskanje omejeno na vnose, ki se ujemajo z velikimi ali malimi črkami vsakega od znakov v iskalnem vzorcu.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Močna vrstica za iskanje in zamenjavo ponuja nekaj dodatnih možnosti:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Golo besedilo</guilabel
+></term>
+<listitem>
+<para
+>Dobesedno ujemanje s katero koli pojavitvijo iskalnega niza.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Cele besede</guilabel
+></term>
+<listitem>
+<para
+>Če je izbrano, se bo iskanje ujemalo le, če je na obeh koncih ujemajočega se niza besedna meja, kar pomeni, da ni alfanumerični znak – bodisi kakšen drug viden znak ali konec vrstice.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ubežna zaporedja</guilabel
+></term>
+<listitem>
+<para
+>Če je izbrano, bo menijski element <guibutton
+>Dodaj</guibutton
+> na dnu kontekstnega menija besedilnih polj omogočen in vam omogoča dodajanje ubežnih zaporedij iskalnemu vzorcu iz vnaprej določenega seznama.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Regularni izraz</guilabel
+></term>
+<listitem>
+<para
+>Če izberete, se iskalni niz interpretira kot regularni izraz. Menijski element <guibutton
+>Dodaj</guibutton
+> na dnu kontekstnega menija besedilnih polj bo omogočen in vam bo omogočil dodajanje postavk regularnega izraza iskalnemu vzorcu iz vnaprej določenega seznama.</para>
+<para
+>Glejte <link linkend="regular-expressions"
+>Regularni izrazi</link
+> za več o tem.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Išči samo v izboru</guilabel
+></term>
+<listitem>
+<para
+>Če je označeno, bo iskanje in zamenjava izvedena samo znotraj izbranega besedila.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Najdi vse</guilabel
+></term>
+<listitem>
+<para
+>Klik na ta gumb označi vse zadetke v dokumentu in prikaže število najdenih zadetkov v majhnem pojavnem oknu. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-find"
+> -->
+<sect2 id="finding-text">
+<title
+>Iskanje besedila</title>
+
+<para
+>Če želite poiskati besedilo, zaženite inkrementalno iskalno vrstico s <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+> ali iz <menuchoice
+><guimenu
+>Uredi</guimenu
+> <guimenuitem
+>Najdi ...</guimenuitem
+></menuchoice
+> element menija.</para>
+<para
+>To odpre vrstico za postopno iskanje na dnu okna urejevalnika. Na levi strani vrstice je gumb z ikono za zapiranje vrstice, ki mu sledi majhno besedilno polje za vnos iskalnega vzorca.</para>
+<para
+>Ko začnete vnašati znake iskalnega vzorca, se iskanje začne takoj. Če se besedilo ujema, je to označeno in barva ozadja vnosnega polja se spremeni v svetlo zeleno. Če se iskalni vzorec ne ujema z nobenim nizom v besedilu, je to označeno s svetlo rdečo barvo ozadja vnosnega polja.</para>
+<para
+>Uporabite <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> ali <inlinemediaobject
+><imageobject
+><imagedata fileref=" arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> gumb za skok na naslednje ali prejšnje ujemanje v dokumentu.</para>
+<para
+>Ujemanja v dokumentu so označena tudi, ko zaprete iskalno vrstico. Če želite počistiti to označevanje, pritisnite &Esc; ključ.</para>
+<para
+>Izberete lahko, ali naj iskanje razlikuje med velikimi in malimi črkami. Če izberete <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, boste omejili najdbe na vnose, ki se ujemajo z velikimi ali malimi črkami ) vsakega od znakov v iskalnem vzorcu.</para>
+<para
+>Za preklop na vrstica za iskanje in zamenjavo moči. </para>
+<para
+>Če želite ponoviti zadnjo operacijo iskanja, če obstaja, brez klica prirastne vrstice za iskanje, uporabite <menuchoice
+> <shortcut
+><keycombo action="simul"
+><keycap
+>F3</keycap
+></keycombo
+></shortcut
+> <guimenu 
+>Uredi</guimenu
+><guimenuitem
+>Poišči naslednje</guimenuitem
+></menuchoice
+> ali <menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>F3</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Uredi</guimenu
+><guimenuitem
+>Poišči prejšnje</guimenuitem
+></menuchoice
+>. </para>
+
+</sect2>
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-replace"
+> -->
+<sect2 id="replacing-text">
+<title
+>Zamenjava besedila</title>
+
+<para
+>Če želite zamenjati besedilo, zaženite zmogljivo vrstico za iskanje in zamenjavo z ukazom <menuchoice
+><guimenu
+>Uredi</guimenu
+> <guimenuitem
+>Zamenjaj</guimenuitem
+></menuchoice
+> ali <keycombo action="simul"
+>&Ctrl; Bližnjica <keycap
+>R</keycap
+></keycombo
+>.</para>
+<para
+>Na zgornji levi strani vrstice je gumb z ikono za zapiranje vrstice, ki mu sledi majhno kombinirano polje za vnos iskalnega vzorca. Škatla si zapomni nedavno uporabljene vzorce.</para>
+<para
+>Način iskanja lahko nadzorujete tako, da izberete možnosti <guilabel
+>Navadno besedilo</guilabel
+>, <guilabel
+>Cele besede</guilabel
+>, <guilabel
+>Ubežna zaporedja</guilabel
+> ali <guilabel
+>Regularni izraz</guilabel
+> iz spustno polje. </para>
+<para
+>Če so izbrana <guilabel
+>Ubežna zaporedja</guilabel
+> ali <guilabel
+>Regularni izraz</guilabel
+>, bo omogočen menijski element <guibutton
+>Dodaj ...</guibutton
+> na dnu priročnega menija besedilnih polj in vam omogoča dodajanje ubežnih zaporedij ali postavk regularnega izraza v vzorec iskanja ali zamenjave iz vnaprej določenih seznamov.</para>
+<para
+>Uporabite <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> ali <inlinemediaobject
+><imageobject
+><imagedata fileref=" arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> gumb za skok na naslednje ali prejšnje ujemanje v dokumentu.</para>
+<para
+>V besedilno polje z oznako <guilabel
+>Zamenjaj</guilabel
+> vnesite besedilo, s katerim želite zamenjati, in kliknite gumb <guibutton
+>Zamenjaj</guibutton
+>, da zamenjate samo označeno besedilo, ali gumb <guibutton
+>Zamenjaj vse</guibutton
+>, da zamenjajte iskalno besedilo v celotnem dokumentu. </para>
+<para
+>Obnašanje iskanja in zamenjave lahko spremenite tako, da izberete različne možnosti na dnu vrstice. Če izberete <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, boste omejili iskanje na vnose, ki se ujemajo z velikimi ali malimi črkami ) vsakega od znakov v iskalnem vzorcu. <inlinemediaobject
+><imageobject
+><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> bo iskal in zamenjal samo znotraj trenutnega izbora. Gumb <guilabel
+>Najdi vse</guilabel
+> označi vse zadetke v dokumentu in prikaže število najdenih zadetkov v majhnem pojavnem oknu. </para>
+<para
+>Kliknite gumb <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> na desni strani zmogljive vrstice za iskanje in zamenjavo za preklopite na vrstico za postopno iskanje. </para>
+<tip>
+<para
+>Če uporabljate regularni izraz za iskanje besedila za zamenjavo, lahko uporabite povratne reference za ponovno uporabo besedila, zajetega v podvzorcih izraza v oklepajih.</para>
+<para
+>Glejte <link linkend="regular-expressions"
+>Regularni izrazi</link
+> za več o tem.</para>
+</tip>
+
+<tip
+><para
+>Izvedete lahko <command
+>najdi</command
+>, <command
+>zamenjaj</command
+> in <command
+>inajdi</command
+> (inkrementalno iskanje) z ukazom <link linkend="advanced-editing-tools-commandline"
+> vrstica</link
+>.</para>
+</tip>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-part-bookmarks">
+<title
+>Uporaba zaznamkov</title>
+
+<para
+>Funkcija zaznamkov vam omogoča, da označite določene vrstice, da jih lahko znova enostavno najdete.</para>
+
+<para
+>Zaznamek v vrstici lahko nastavite ali odstranite na dva načina:</para>
+
+<itemizedlist>
+<listitem>
+<para
+>Kazalec za vstavljanje premaknite v vrstico in aktivirajte <menuchoice
+><guimenu
+>Zaznamki</guimenu
+><guimenuitem
+>Nastavi zaznamek</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+>).</para>
+</listitem>
+<listitem>
+<para
+>Kliknite obrobo ikone poleg črte.</para>
+</listitem>
+</itemizedlist>
+
+
+<para
+>Zaznamki so na voljo v meniju <guimenu
+>Zaznamki</guimenu
+>. Posamezni zaznamki so na voljo kot menijski elementi, označeni s številko vrstice vrstice z zaznamkom in prvih nekaj znakov besedila v vrstici. Če želite premakniti kazalec za vstavljanje na začetek označene vrstice, odprite meni in izberite zaznamek.</para>
+
+<para
+>Za hitro premikanje med zaznamki ali na naslednji/prejšnji zaznamek uporabite <menuchoice
+><guimenu
+>Zaznamki</guimenu
+><guimenuitem
+>Naprej</guimenuitem
+> </menuchoice
+> (<keycombo action="simul"
+>&Alt;&PgDn;</keycombo
+>) ali <menuchoice
+> <guimenu
+>Zaznamki</guimenu
+><guimenuitem
+>Prejšnji</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Alt;&PgUp;</keycombo
+>) ukazi.</para>
+
+</sect1>
+
+<sect1 id="kate-part-auto-wrap">
+<!--dynamic word wrap needs description here-->
+<title
+>Samodejno prelivanje besedila</title>
+
+<para
+>Ta funkcija vam omogoča, da besedilo oblikujete na zelo preprost način: besedilo bo prelojeno, tako da nobena vrstica ne bo presegla največjega števila znakov na vrstico, razen če obstaja daljši niz znakov, ki niso presledki.</para>
+
+<para
+>Če ga želite omogočiti/onemogočiti, označite/počistite potrditveno polje <guibutton
+>Statični prelom besed</guibutton
+> na <link linkend="pref-word-wrap"
+>strani za urejanje</link
+> v <link linkend="config- dialog"
+>konfiguracijsko pogovorno okno</link
+>.</para>
+
+<para
+>Če želite nastaviti največjo širino vrstice (največje število znakov na vrstico), uporabite možnost <link linkend="pref-wrap-words-at"
+><guibutton
+>Prelomi besede v</guibutton
+></link
+> v Stran<link linkend="pref-edit"
+>Urejanje</link
+> v <link linkend="config-dialog"
+>konfiguracijskem pogovornem oknu</link
+>.</para>
+
+<para
+>Če je omogočeno, ima naslednje učinke: <itemizedlist>
+<listitem
+><para
+>Med tipkanjem bo urejevalnik samodejno vstavil trdi prelom vrstice za zadnjim presledkom na mestu, preden je dosežena največja širina vrstice.</para
+></listitem>
+<listitem
+><para
+>Med nalaganjem dokumenta bo urejevalnik prelil besedilo na podoben način, tako da nobena vrstica ni daljša od največje širine vrstice, če vsebuje presledek, ki to omogoča.</para
+></listitem>
+</itemizedlist>
+
+</para>
+
+<note
+><para
+>Trenutno ni mogoče nastaviti prelivanja besed za vrste dokumentov ali celo omogočiti ali onemogočiti funkcijo na ravni dokumenta. To bo popravljeno v prihodnji različici &kappname;.</para
+></note>
+
+</sect1>
+
+<sect1 id="kate-part-autoindent">
+<title
+>Uporaba samodejnega zamika</title>
+
+<para
+>Komponenta urejevalnika &kappname; podpira različne načine samodejnega zamika, zasnovane za različne formate besedila. Izbirate lahko med razpoložljivimi načini z uporabo menija <menuchoice
+><guimenu
+>Orodja</guimenu
+><guisubmenu
+>Zamik</guisubmenu
+></menuchoice
+>. Moduli za samodejni zamik nudijo tudi funkcijo <menuchoice
+><guimenu
+>Orodja</guimenu
+><guimenuitem
+>Oblika zamika</guimenuitem
+></menuchoice
+>, ki bo znova izračunala zamik izbrane ali trenutne vrstice. Tako lahko celoten dokument ponovno zamaknete tako, da izberete celotno besedilo in aktivirate to dejanje.</para>
+
+<para
+>Vsi načini zamika uporabljajo nastavitve, povezane z zamikom, v aktivnem dokumentu.</para>
+
+<tip
+><para
+>Nastavite lahko vse vrste konfiguracijskih spremenljivk, vključno s tistimi, ki so povezane z zamikom, z uporabo <link linkend="config-variables"
+>spremenljivk dokumenta</link
+> in <link linkend="pref-open-save-modes-filetypes"
+>vrst datotek </link
+>.</para
+></tip>
+
+<variablelist>
+
+<title
+>Razpoložljivi načini samodejnega zamika</title>
+
+<varlistentry>
+<term
+>Noben</term>
+<listitem
+><para
+>Če izberete ta način, samodejno zamikanje popolnoma izklopite.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Normalno</term>
+<listitem
+><para
+>Ta zamik preprosto ohrani zamik, podoben prejšnji vrstici, s katero koli vsebino, razen presledkov. To lahko kombinirate z dejanji zamikanja in odstranjevanja zamikov po lastnem okusu. </para
+></listitem>
+</varlistentry>
+
+<varlistentry
+><term
+>C slog</term>
+<listitem
+><para
+>Zamik za C in podobne jezike, kot so C++, C#, &Java;, &javascript; in tako naprej. Ta zamik ne bo deloval s skriptnimi jeziki, kot sta Perl ali PHP.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Haskell</term>
+<listitem
+><para
+>Zamik za funkcijski programski jezik Haskell. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Lilypond</term>
+<listitem
+><para
+>Zamik za notni jezik Lilypond za glasbo. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Lisp</term>
+<listitem
+><para
+>Indender posebej za skriptni jezik Lisp in narečja Lisp. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Python</term>
+<listitem
+><para
+>Indender posebej za skriptni jezik python. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Slog XML</term>
+<listitem
+><para
+>Indender posebej za jezike, podobne XML. </para
+></listitem>
+</varlistentry>
+<!--Ruby + Lua missing -->
+</variablelist>
+
+</sect1>
+
+<sect1 id="kate-part-line-modification">
+<title
+>Indikatorji spremembe vrstice</title>
+
+<para
+>Indikatorji spreminjanja vrstice &kappname; vam omogočajo, da preprosto vidite, kaj ste nedavno spremenili v datoteki. Privzeto so shranjene spremembe označene z zeleno vrstico na levi strani dokumenta, medtem ko so neshranjene spremembe označene z oranžno vrstico.</para>
+
+<para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="line-modification-system.png"/></imageobject>
+<caption
+><para
+>Indikatorji spreminjanja črte v akciji.</para
+></caption>
+</mediaobject>
+</para>
+
+<para
+>Spremenite lahko barve, uporabljene v <link linkend="prefcolors"
+><guilabel
+>Pisave &amp; Barve</guilabel
+>konfiguracijska plošča</link
+>, ali pa lahko to funkcijo popolnoma onemogočite na zavihku <link linkend="appearance-borders"
+><guilabel
+>Obrobe</guilabel
+> v <guilabel
+>Videzu</guilabel
+> konfiguracijska plošča</link
+>.</para>
+
+</sect1>
+
+<sect1 id="kate-part-scrollbar-minimap">
+<title
+>Minikarta drsnega traku</title>
+
+<para
+>Minikarta drsnega traku &kappname; prikaže predogled dokumentov namesto drsnega traku. Trenutno vidni del dokumenta je označen. </para>
+
+<para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="minimap.png"/></imageobject>
+<caption
+><para
+>Minikarta drsnega traku prikazuje predogled datoteke &kate; izvorna koda. </para
+></caption>
+</mediaobject>
+</para>
+
+<para
+>Minimap lahko začasno omogočite ali onemogočite tako, da izberete <menuchoice
+><guimenu
+>Pogled</guimenu
+><guimenuitem
+>Ogled drsnega traku Minimap</guimenuitem
+></menuchoice
+> ali trajno v <link linkend="appearance-borders"
+>Videz razdelek konfiguracije &kappname;</link
+>.</para>
+
+</sect1>
+
+<sect1 id="kate-part-multiple-cursors">
+<title
+>Več kazalk</title>
+
+<para
+>Podpora za več kazalk je bila predstavljena z različico katepart 5.93.</para>
+
+<sect2 id="kate-part-create-multiple-cursors">
+<title
+>Ustvarjanje več kazalk</title>
+
+<itemizedlist>
+<listitem
+><para
+>Če jih želite ustvariti z miško, uporabite &lt; + mLB;. Modifikator je mogoče konfigurirati, glejte <link linkend="multicursor-modifier-configure"
+>Konfigurirajte modifikator večkazalk</link
+></para
+></listitem>
+
+<listitem
+><para
+>Za ustvarjanje prek tipkovnice pritisnite <keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+>, da ustvarite kazalko nad primarno kazalko, in <keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
+> za ustvarite kazalko spodaj. Te bližnjice je tudi mogoče konfigurirati</para
+></listitem>
+
+<listitem
+><para
+>Če želite iz izbora ustvariti kazalko, najprej izberite besedilo in nato pritisnite <keycombo action="simul"
+>&Shift;&Alt;<keycap
+>I</keycap
+></keycombo
+>. To bo ustvarilo kazalko na koncu vsake vrstice v izboru.</para
+></listitem>
+
+<listitem
+><para
+>Uporabite <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+>, da poiščete naslednjo pojavitev besede pod kazalcem in jo izberete + ustvarite kazalka. Če želite preskočiti trenutno besedo pod kazalcem, pritisnite <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> in trenutno izbrano besedo bo označil kot preskočeno. Ko znova pritisnete <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+>, bo preklicala izbiro trenutne besede in se premaknila na naslednjo besedo.</para>
+</listitem>
+
+<listitem
+><para
+>Uporabite <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
+></keycombo
+>, da poiščete vse pojavitve besede pod kazalko in jih izberete s kazalko na koncu vsakega izbora. Uporabite lahko <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> za kroženje med izbranimi besedami in uporabite <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap 
+></keycombo
+> za preklic izbire katere koli besede, kot je omenjeno v prejšnjem odstavku.</para
+></listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2
+><title
+>Delo z več kazalkami</title>
+<para
+>Ko ustvarite nekaj kazalk, lahko na njih izvajate večino operacij urejanja, kot bi to storili na enem samem kazalcu. Če na primer vtipkate črko, jo boste vnesli za vsako kazalko. Podobno lahko izvajate transformacije besedila &eg;, velike črke za vse položaje ali izbore.</para>
+
+<para
+>Včasih boste želeli odstraniti kazalce. Če želite to narediti, lahko &Alt; + &LMB; na kazalcu, ki ga želite odstraniti. Če samo želite odstraniti kazalce na praznih vrsticah, je za to že pripravljeno dejanje, ki bo to storilo namesto vas. Če želite priklicati dejanje, odprite ukazno vrstico s <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>I</keycap
+></keycombo
+> in poiščite <guimenuitem
+>Odstrani kazalce iz praznih vrstic</guimenuitem
+> in pritisnite &Enter;. Za to dejanje lahko konfigurirate tudi bližnjico.</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>

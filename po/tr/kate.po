@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-24 00:40+0000\n"
+"POT-Creation-Date: 2024-03-28 00:42+0000\n"
 "PO-Revision-Date: 2024-03-24 14:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -2588,12 +2588,12 @@ msgstr "Oturum, “%1“ olarak yeniden adlandırılamadı; “%2“ konumuna ya
 msgid "Session Renaming"
 msgstr "Oturum Yeniden Adlandırma"
 
-#: lib/session/katesessionmanager.cpp:486
+#: lib/session/katesessionmanager.cpp:488
 #, kde-format
 msgid "Session name:"
 msgstr "Oturum adı:"
 
-#: lib/session/katesessionmanager.cpp:488
+#: lib/session/katesessionmanager.cpp:490
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2602,17 +2602,17 @@ msgstr ""
 "Seçtiğiniz ad başka bir oturum tarafından kullanılıyor: %1\n"
 "Lütfen başka bir ad seçin."
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:492
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Bir oturumu kaydetmek için bir ad belirtmelisiniz."
 
-#: lib/session/katesessionmanager.cpp:517
+#: lib/session/katesessionmanager.cpp:519
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Bu oturum için yeni bir ad girin"
 
-#: lib/session/katesessionmanager.cpp:519
+#: lib/session/katesessionmanager.cpp:521
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Oturum için yeni ad girin: %1"

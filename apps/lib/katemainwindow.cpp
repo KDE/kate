@@ -284,6 +284,45 @@ void KateMainWindow::setupImportantActions()
     auto hamburgerMenu = static_cast<KHamburgerMenu *>(actionCollection()->addAction(KStandardAction::HamburgerMenu, QStringLiteral("hamburger_menu")));
     hamburgerMenu->setMenuBar(menuBar());
     hamburgerMenu->setShowMenuBarAction(m_paShowMenuBar);
+    connect(hamburgerMenu, &KHamburgerMenu::aboutToShowMenu, this, &KateMainWindow::updateHamburgerMenu);
+}
+
+void KateMainWindow::updateHamburgerMenu()
+{
+    auto *hamburgerMenu = actionCollection()->action(QStringLiteral("hamburger_menu"));
+    auto menu = hamburgerMenu->menu();
+
+    if (!menu) {
+        menu = new QMenu(this);
+        hamburgerMenu->setMenu(menu);
+    } else {
+        menu->clear();
+    }
+
+    menu->addAction(actionCollection()->action(QStringLiteral("file_new")));
+    menu->addAction(actionCollection()->action(QStringLiteral("file_open")));
+    menu->addSeparator();
+
+    auto &&view = viewManager()->activeView();
+    if (!view) {
+        return;
+    }
+
+    menu->addAction(view->actionCollection()->action(QStringLiteral("file_save")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("file_save_as")));
+    menu->addSeparator();
+
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_undo")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_redo")));
+    menu->addSeparator();
+
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_cut")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_copy")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_paste")));
+    menu->addSeparator();
+
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_find")));
+    menu->addSeparator();
 }
 
 void KateMainWindow::setupMainWindow()
@@ -806,7 +845,7 @@ void KateMainWindow::readOptions()
 
     m_paShowPath->setChecked(generalGroup.readEntry("Show Full Path in Title", false));
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
-    m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
+    m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", KateApp::isKate()));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
     m_paShowUrlNavBar->setChecked(generalGroup.readEntry("Show Url Nav Bar", KateApp::isKate()));
 

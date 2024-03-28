@@ -1936,6 +1936,10 @@ QWidget *MainWindow::createContainer(QWidget *parent, int index, const QDomEleme
     QWidget *createdContainer = KParts::MainWindow::createContainer(parent, index, element, containerAction);
     if (element.tagName() == QLatin1String("ToolBar")) {
         KAcceleratorManager::setNoAccel(createdContainer);
+
+        // ensure actions visible in any toolbar are hidden from the hamburger menu
+        auto hamburgerMenu = static_cast<KHamburgerMenu *>(actionCollection()->action(QStringLiteral("hamburger_menu")));
+        hamburgerMenu->hideActionsOf(createdContainer);
     }
     return createdContainer;
 }

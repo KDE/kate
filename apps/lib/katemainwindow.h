@@ -218,6 +218,7 @@ private Q_SLOTS:
     void updateCaption(KTextEditor::Document *doc);
     // calls updateCaption(doc) with the current document
     void updateCaption();
+    void updateHamburgerMenu();
 
     static void pluginHelp();
     void slotFullScreen(bool);

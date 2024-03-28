@@ -286,7 +286,7 @@ void KateViewSpace::tabBarToggled()
 
 void KateViewSpace::urlBarToggled(bool show)
 {
-    const bool tabBarVisible = m_viewManager->mainWindow()->showTabBar();
+    const bool tabBarVisible = m_tabBar->isVisible();
     bool showButtons = true;
     if (!show && !tabBarVisible) {
         // Tab bar was already hidden, now url bar is also hidden

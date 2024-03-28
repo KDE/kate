@@ -881,12 +881,12 @@ public:
         bool last = selectedIndex == m_model.index(m_model.rowCount() - 1, 0);
         auto path = selectedIndex.data(BreadCrumbRole::PathRole).toString();
         if (!path.isEmpty()) {
-            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18nc("@menu:action", "Copy Location"), this, [this, path] {
+            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18nc("@menu:action", "Copy Location"), this, [path] {
                 QGuiApplication::clipboard()->setText(path);
             });
         }
         if (last) {
-            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@menu:action", "Copy Filename"), this, [this, selectedIndex] {
+            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@menu:action", "Copy Filename"), this, [selectedIndex] {
                 QGuiApplication::clipboard()->setText(selectedIndex.data().toString());
             });
         }

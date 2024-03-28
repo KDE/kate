@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/rbql">
+        <file alias="rbql.js">../../3rdparty/rbql/rbql.js</file>
+    </qresource>
+</RCC>

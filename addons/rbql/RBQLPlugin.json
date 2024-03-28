@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "Run SQL-like queries using RBQL",
+        "Name": "Rainbow CSV",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+This is the rbql core. The original source lives here https://github.com/mechatroner/RBQL/
+
+Changes done to the original source:
+1. Removed async/await keywords as QJSEngine doesn't support them

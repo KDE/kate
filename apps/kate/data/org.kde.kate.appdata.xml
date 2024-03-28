@@ -1129,6 +1129,22 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="zh-TW">使用 Kate 編輯程式碼</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate.png</image>
     </screenshot>
+    <screenshot environment="windows">
+      <caption>Kate with some Git based project</caption>
+      <image>https://cdn.kde.org/screenshots/kate/kate-windows-light.png</image>
+    </screenshot>
+    <screenshot environment="windows">
+      <caption>Kate with split view</caption>
+      <image>https://cdn.kde.org/screenshots/kate/kate-windows-light2.png</image>
+    </screenshot>
+    <screenshot environment="windows">
+      <caption>Kate in dark mode</caption>
+      <image>https://cdn.kde.org/screenshots/kate/kate-windows-dark.png</image>
+    </screenshot>
+    <screenshot environment="windows">
+      <caption>Create a new Git branch with Kate</caption>
+      <image>https://cdn.kde.org/screenshots/kate/kate-windows-dark2.png</image>
+    </screenshot>
   </screenshots>
   <project_group>KDE</project_group>
   <provides>

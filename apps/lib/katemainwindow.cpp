@@ -284,7 +284,9 @@ void KateMainWindow::setupImportantActions()
     auto hamburgerMenu = static_cast<KHamburgerMenu *>(actionCollection()->addAction(KStandardAction::HamburgerMenu, QStringLiteral("hamburger_menu")));
     hamburgerMenu->setMenuBar(menuBar());
     hamburgerMenu->setShowMenuBarAction(m_paShowMenuBar);
-    connect(hamburgerMenu, &KHamburgerMenu::aboutToShowMenu, this, &KateMainWindow::updateHamburgerMenu);
+    if (KateApp::isKWrite()) {
+        connect(hamburgerMenu, &KHamburgerMenu::aboutToShowMenu, this, &KateMainWindow::updateHamburgerMenu);
+    }
 }
 
 void KateMainWindow::updateHamburgerMenu()

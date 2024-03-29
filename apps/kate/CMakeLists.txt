@@ -9,8 +9,8 @@ add_executable(kate-bin
     katewaiter.cpp
 
     # single application handing for the non-dbus case
-    SingleApplication/singleapplication.cpp
-    SingleApplication/singleapplication_p.cpp)
+    ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication.cpp
+    ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication_p.cpp)
 target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF6::DBusAddons)
 
 # X11 startup handling

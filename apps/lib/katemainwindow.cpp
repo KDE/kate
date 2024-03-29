@@ -172,9 +172,10 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
 
     // prior to this there was (possibly) no view, therefore not context menu.
     // Hence, we have to take care of the menu bar here
+#if KATE_ALLOW_MENU_BAR_HIDE
     toggleShowMenuBar(false);
-
     ensureHamburgerBarSize();
+#endif
 
     // trigger proper focus restore
     m_viewManager->triggerActiveViewFocus();
@@ -236,7 +237,11 @@ void KateMainWindow::setupImportantActions()
 {
     m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleShowStatusBar()), actionCollection());
     m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
+
+#if KATE_ALLOW_MENU_BAR_HIDE
     m_paShowMenuBar = KStandardAction::showMenubar(this, SLOT(toggleShowMenuBar()), actionCollection());
+    m_paShowMenuBar->setVisible(false);
+#endif
 
     m_paShowTabBar = new KToggleAction(i18n("Show &Tabs"), this);
     actionCollection()->addAction(QStringLiteral("settings_show_tab_bar"), m_paShowTabBar);
@@ -280,6 +285,7 @@ void KateMainWindow::setupImportantActions()
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
+#if KATE_ALLOW_MENU_BAR_HIDE
     // enable hamburger menu
     auto hamburgerMenu = static_cast<KHamburgerMenu *>(actionCollection()->addAction(KStandardAction::HamburgerMenu, QStringLiteral("hamburger_menu")));
     hamburgerMenu->setMenuBar(menuBar());
@@ -287,44 +293,7 @@ void KateMainWindow::setupImportantActions()
     if (KateApp::isKWrite()) {
         connect(hamburgerMenu, &KHamburgerMenu::aboutToShowMenu, this, &KateMainWindow::updateHamburgerMenu);
     }
-}
-
-void KateMainWindow::updateHamburgerMenu()
-{
-    auto *hamburgerMenu = actionCollection()->action(QStringLiteral("hamburger_menu"));
-    auto menu = hamburgerMenu->menu();
-
-    if (!menu) {
-        menu = new QMenu(this);
-        hamburgerMenu->setMenu(menu);
-    } else {
-        menu->clear();
-    }
-
-    menu->addAction(actionCollection()->action(QStringLiteral("file_new")));
-    menu->addAction(actionCollection()->action(QStringLiteral("file_open")));
-    menu->addSeparator();
-
-    auto &&view = viewManager()->activeView();
-    if (!view) {
-        return;
-    }
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("file_save")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("file_save_as")));
-    menu->addSeparator();
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_undo")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_redo")));
-    menu->addSeparator();
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_cut")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_copy")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_paste")));
-    menu->addSeparator();
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_find")));
-    menu->addSeparator();
+#endif
 }
 
 void KateMainWindow::setupMainWindow()
@@ -605,32 +574,6 @@ void KateMainWindow::setupDiagnosticsView(KConfig *sconfig)
     m_diagView->actionCollection()->addAssociatedWidget(m_viewManager);
 }
 
-void KateMainWindow::ensureHamburgerBarSize()
-{
-    // Ensure the hamburger menu never gets pushed into the toolbar overflow
-    // by setting a minimum size on the bar based on the button's size.
-    if (auto *hamburgerBar = toolBar(QStringLiteral("hamburgerBar"))) {
-        auto *hamburgerMenu = actionCollection()->action(QStringLiteral("hamburger_menu"));
-        if (auto *hamburgerButton = hamburgerBar->widgetForAction(hamburgerMenu)) {
-            int neededButtonWidth = hamburgerButton->minimumSizeHint().width();
-            // Add toolbar margins.
-            const QMargins combinedMargins = hamburgerBar->contentsMargins() + hamburgerBar->layout()->contentsMargins();
-            neededButtonWidth += combinedMargins.left();
-            neededButtonWidth += combinedMargins.right();
-
-            // The dynamic spacer is also an action leading to spacing being added.
-            // Not observable with Breeze but e.g. Fusion style has toolbar button spacing.
-            if (hamburgerBar->actions().count() > 1) {
-                neededButtonWidth += hamburgerBar->layout()->spacing();
-            }
-
-            QSize minimumSize = hamburgerBar->minimumSize();
-            minimumSize.setWidth(std::max(minimumSize.width(), neededButtonWidth));
-            hamburgerBar->setMinimumSize(minimumSize);
-        }
-    }
-}
-
 void KateMainWindow::slotDocumentCloseAll()
 {
     if (!KateApp::self()->documentManager()->documentList().empty()
@@ -847,13 +790,17 @@ void KateMainWindow::readOptions()
 
     m_paShowPath->setChecked(generalGroup.readEntry("Show Full Path in Title", false));
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
-    m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", KateApp::isKate()));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
     m_paShowUrlNavBar->setChecked(generalGroup.readEntry("Show Url Nav Bar", KateApp::isKate()));
 
-    for (auto a : {m_paShowMenuBar, m_paShowTabBar, m_paShowPath, m_paShowUrlNavBar, m_paShowStatusBar}) {
+    for (auto a : {m_paShowTabBar, m_paShowPath, m_paShowUrlNavBar, m_paShowStatusBar}) {
         connect(a, &QAction::toggled, this, &KateMainWindow::saveOptions);
     }
+
+#if KATE_ALLOW_MENU_BAR_HIDE
+    m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", KateApp::isKate()));
+    connect(m_paShowMenuBar, &QAction::toggled, this, &KateMainWindow::saveOptions);
+#endif
 
     m_mouseButtonBackAction = (MouseBackButtonAction)generalGroup.readEntry("Mouse back button action", 0);
     m_mouseButtonForwardAction = (MouseForwardButtonAction)generalGroup.readEntry("Mouse forward button action", 0);
@@ -876,11 +823,15 @@ void KateMainWindow::saveOptions()
 
     generalGroup.writeEntry("Show Full Path in Title", m_paShowPath->isChecked());
     generalGroup.writeEntry("Show Status Bar", m_paShowStatusBar->isChecked());
-    generalGroup.writeEntry("Show Menu Bar", m_paShowMenuBar->isChecked());
     generalGroup.writeEntry("Show Tab Bar", m_paShowTabBar->isChecked());
     generalGroup.writeEntry("Show Url Nav Bar", m_paShowUrlNavBar->isChecked());
+
+#if KATE_ALLOW_MENU_BAR_HIDE
+    generalGroup.writeEntry("Show Menu Bar", m_paShowMenuBar->isChecked());
+#endif
 }
 
+#if KATE_ALLOW_MENU_BAR_HIDE
 void KateMainWindow::toggleShowMenuBar(bool showMessage)
 {
     if (m_paShowMenuBar->isChecked()) {
@@ -905,6 +856,71 @@ void KateMainWindow::toggleShowMenuBar(bool showMessage)
         }
     }
 }
+
+void KateMainWindow::ensureHamburgerBarSize()
+{
+    // Ensure the hamburger menu never gets pushed into the toolbar overflow
+    // by setting a minimum size on the bar based on the button's size.
+    if (auto *hamburgerBar = toolBar(QStringLiteral("hamburgerBar"))) {
+        auto *hamburgerMenu = actionCollection()->action(QStringLiteral("hamburger_menu"));
+        if (auto *hamburgerButton = hamburgerBar->widgetForAction(hamburgerMenu)) {
+            int neededButtonWidth = hamburgerButton->minimumSizeHint().width();
+            // Add toolbar margins.
+            const QMargins combinedMargins = hamburgerBar->contentsMargins() + hamburgerBar->layout()->contentsMargins();
+            neededButtonWidth += combinedMargins.left();
+            neededButtonWidth += combinedMargins.right();
+
+            // The dynamic spacer is also an action leading to spacing being added.
+            // Not observable with Breeze but e.g. Fusion style has toolbar button spacing.
+            if (hamburgerBar->actions().count() > 1) {
+                neededButtonWidth += hamburgerBar->layout()->spacing();
+            }
+
+            QSize minimumSize = hamburgerBar->minimumSize();
+            minimumSize.setWidth(std::max(minimumSize.width(), neededButtonWidth));
+            hamburgerBar->setMinimumSize(minimumSize);
+        }
+    }
+}
+
+void KateMainWindow::updateHamburgerMenu()
+{
+    auto *hamburgerMenu = actionCollection()->action(QStringLiteral("hamburger_menu"));
+    auto menu = hamburgerMenu->menu();
+
+    if (!menu) {
+        menu = new QMenu(this);
+        hamburgerMenu->setMenu(menu);
+    } else {
+        menu->clear();
+    }
+
+    menu->addAction(actionCollection()->action(QStringLiteral("file_new")));
+    menu->addAction(actionCollection()->action(QStringLiteral("file_open")));
+    menu->addSeparator();
+
+    auto &&view = viewManager()->activeView();
+    if (!view) {
+        return;
+    }
+
+    menu->addAction(view->actionCollection()->action(QStringLiteral("file_save")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("file_save_as")));
+    menu->addSeparator();
+
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_undo")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_redo")));
+    menu->addSeparator();
+
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_cut")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_copy")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_paste")));
+    menu->addSeparator();
+
+    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_find")));
+    menu->addSeparator();
+}
+#endif
 
 void KateMainWindow::toggleShowStatusBar()
 {

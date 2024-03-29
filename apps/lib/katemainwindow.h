@@ -25,6 +25,13 @@
 #include <QStackedLayout>
 #include <QUrl>
 
+// makes no sense on macOS
+#ifdef Q_OS_MACOS
+#define KATE_ALLOW_MENU_BAR_HIDE 0
+#else
+#define KATE_ALLOW_MENU_BAR_HIDE 1
+#endif
+
 class QMenu;
 
 namespace KIO
@@ -218,7 +225,6 @@ private Q_SLOTS:
     void updateCaption(KTextEditor::Document *doc);
     // calls updateCaption(doc) with the current document
     void updateCaption();
-    void updateHamburgerMenu();
 
     static void pluginHelp();
     void slotFullScreen(bool);
@@ -228,7 +234,12 @@ private Q_SLOTS:
     void onApplicationStateChanged(Qt::ApplicationState);
 
 private Q_SLOTS:
+#if KATE_ALLOW_MENU_BAR_HIDE
     void toggleShowMenuBar(bool showMessage = true);
+    void ensureHamburgerBarSize();
+    void updateHamburgerMenu();
+#endif
+
     void toggleShowStatusBar();
     void toggleShowTabBar();
 
@@ -607,8 +618,6 @@ private Q_SLOTS:
     void slotDocumentCloseSelected(const QList<KTextEditor::Document *> &);
 
 private:
-    void ensureHamburgerBarSize();
-
     /**
      * Wrapper of main window for KTextEditor
      */
@@ -644,10 +653,14 @@ private:
 
     // options: show statusbar + show path
     KToggleAction *m_paShowPath = nullptr;
-    KToggleAction *m_paShowMenuBar = nullptr;
     KToggleAction *m_paShowStatusBar = nullptr;
     KToggleAction *m_paShowTabBar = nullptr;
     KToggleAction *m_paShowUrlNavBar = nullptr;
+
+    // makes no sense on macOS
+#if KATE_ALLOW_MENU_BAR_HIDE
+    KToggleAction *m_paShowMenuBar = nullptr;
+#endif
 
     QWidget *m_bottomViewBarContainer = nullptr;
     KateContainerStackedLayout *m_bottomContainerStack = nullptr;

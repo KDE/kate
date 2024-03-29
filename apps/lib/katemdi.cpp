@@ -1938,8 +1938,9 @@ QWidget *MainWindow::createContainer(QWidget *parent, int index, const QDomEleme
         KAcceleratorManager::setNoAccel(createdContainer);
 
         // ensure actions visible in any toolbar are hidden from the hamburger menu
-        auto hamburgerMenu = static_cast<KHamburgerMenu *>(actionCollection()->action(QStringLiteral("hamburger_menu")));
-        hamburgerMenu->hideActionsOf(createdContainer);
+        if (auto hamburgerMenu = static_cast<KHamburgerMenu *>(actionCollection()->action(QStringLiteral("hamburger_menu")))) {
+            hamburgerMenu->hideActionsOf(createdContainer);
+        }
     }
     return createdContainer;
 }

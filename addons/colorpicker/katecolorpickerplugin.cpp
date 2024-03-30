@@ -161,9 +161,11 @@ void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine)
 
 QList<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
 {
-    if (!m_colorNoteIndices.contains(line)) {
+    auto it = m_colorNoteIndices.constFind(line);
+    if (it == m_colorNoteIndices.cend()) {
         const QString lineText = m_doc->line(line);
         auto matchIter = m_colorRegex.globalMatch(lineText);
+        ColorIndices colorsForLine;
         while (matchIter.hasNext()) {
             const auto match = matchIter.next();
             if (!QColor(match.captured()).isValid()) {
@@ -182,13 +184,17 @@ QList<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
                 end = match.capturedStart();
             }
 
-            auto &colorIndices = m_colorNoteIndices[line];
-            colorIndices.colorNoteIndices.append(start);
-            colorIndices.otherColorIndices.append(end);
+            colorsForLine.colorNoteIndices.append(start);
+            colorsForLine.otherColorIndices.append(end);
         }
+
+        if (!colorsForLine.colorNoteIndices.isEmpty()) {
+            m_colorNoteIndices.insert(line, colorsForLine);
+        }
+        return colorsForLine.colorNoteIndices;
     }
 
-    return m_colorNoteIndices[line].colorNoteIndices;
+    return it->colorNoteIndices;
 }
 
 QSize ColorPickerInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note) const
@@ -201,11 +207,16 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
     const auto line = note.position().line();
     auto colorEnd = note.position().column();
 
-    const QList<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
+    auto it = m_colorNoteIndices.constFind(line);
+    if (it == m_colorNoteIndices.cend()) {
+        return;
+    }
+
+    const QList<int> &colorNoteIndices = it->colorNoteIndices;
     // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes(), we can use binary search to find the index (or color note
     // number) for the line
     const int colorNoteNumber = std::lower_bound(colorNoteIndices.cbegin(), colorNoteIndices.cend(), colorEnd) - colorNoteIndices.cbegin();
-    auto colorStart = m_colorNoteIndices[line].otherColorIndices[colorNoteNumber];
+    auto colorStart = it->otherColorIndices[colorNoteNumber];
 
     if (colorStart > colorEnd) {
         colorEnd = colorStart;

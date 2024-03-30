@@ -60,6 +60,12 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
     connect(m_doc, &KTextEditor::Document::textInserted, this, [lineChanged](KTextEditor::Document *, const KTextEditor::Cursor &cur, const QString &) {
         lineChanged(cur.line());
     });
+    connect(m_doc, &KTextEditor::Document::lineWrapped, this, [lineChanged](KTextEditor::Document *, KTextEditor::Cursor cur) {
+        lineChanged(cur.line());
+    });
+    connect(m_doc, &KTextEditor::Document::lineUnwrapped, this, [lineChanged](KTextEditor::Document *, int line) {
+        lineChanged(line);
+    });
     connect(m_doc, &KTextEditor::Document::textRemoved, this, [lineChanged](KTextEditor::Document *, const KTextEditor::Range &range, const QString &) {
         lineChanged(range.start().line());
     });

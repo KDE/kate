@@ -1,0 +1,53 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Emir SARI <emir_sari@icloud.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-03-30 00:39+0000\n"
+"PO-Revision-Date: 2024-03-30 14:08+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 24.04.70\n"
+
+#: RBQLPlugin.cpp:34
+#, kde-format
+msgid "RBQL"
+msgstr "RBQL"
+
+#: RBQLWidget.cpp:54
+#, kde-format
+msgid "Enter RBQL query"
+msgstr "RBQL Sorgusu Gir"
+
+#: RBQLWidget.cpp:56
+#, kde-format
+msgid "Add new tab"
+msgstr "Yeni Sekme Ekle"
+
+#: RBQLWidget.cpp:58
+#, kde-format
+msgid "Execute query"
+msgstr "Sorguyu Yürüt"
+
+#: RBQLWidget.cpp:73
+#, kde-format
+msgid "File has header"
+msgstr "Dosyanın üstbilgisi var"
+
+#: RBQLWidget.cpp:113
+#, kde-format
+msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
+msgstr "Geçerli belge için ayırıcı alınamadı. Bir CSV/TSV dosyası değil mi?"
+
+#: RBQLWidget.cpp:122
+#, kde-format
+msgid "Document is empty"
+msgstr "Belge boş"

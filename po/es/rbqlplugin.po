@@ -1,0 +1,57 @@
+# Spanish translations for rbqlplugin.po package.
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Automatically generated, 2024.
+#
+# SPDX-FileCopyrightText: 2024 Eloy Cuadra <ecuadra@eloihr.net>
+msgid ""
+msgstr ""
+"Project-Id-Version: rbqlplugin\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-03-30 00:39+0000\n"
+"PO-Revision-Date: 2024-03-30 03:01+0100\n"
+"Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
+"Language-Team: Spanish <kde-l10n-es@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 24.02.1\n"
+
+#: RBQLPlugin.cpp:34
+#, kde-format
+msgid "RBQL"
+msgstr "RBQL"
+
+#: RBQLWidget.cpp:54
+#, kde-format
+msgid "Enter RBQL query"
+msgstr "Introducir consulta RBQL"
+
+#: RBQLWidget.cpp:56
+#, kde-format
+msgid "Add new tab"
+msgstr "Añadir nueva pestaña"
+
+#: RBQLWidget.cpp:58
+#, kde-format
+msgid "Execute query"
+msgstr "Ejecutar consulta"
+
+#: RBQLWidget.cpp:73
+#, kde-format
+msgid "File has header"
+msgstr "El archivo tiene cabecera"
+
+#: RBQLWidget.cpp:113
+#, kde-format
+msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
+msgstr ""
+"No se ha podido obtener el separador del documento actual. ¿No es un "
+"documento CSV/TSV?"
+
+#: RBQLWidget.cpp:122
+#, kde-format
+msgid "Document is empty"
+msgstr "El documento está vacío"

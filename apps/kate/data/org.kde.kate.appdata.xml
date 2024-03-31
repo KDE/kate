@@ -541,6 +541,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">моћно истицање синтаксе и поклапање заграда</li>
       <li xml:lang="sr-ijekavianlatin">moćno isticanje sintakse i poklapanje zagrada</li>
       <li xml:lang="sv">Kraftfull syntaxfärgläggning och parentesmatchning</li>
+      <li xml:lang="ta">ஆற்றல்வாயந்த இலக்கண முன்னிலைப்படுத்தலும் அடைப்புக்குறிப் பொருத்தமும்</li>
       <li xml:lang="tr">Güçlü sözdizim vurgulaması ve parantez eşleştirme</li>
       <li xml:lang="uk">Потужні засоби підсвічування синтаксичних конструкцій та відповідних дужок.</li>
       <li xml:lang="vi">Tô sáng cú pháp và tìm dấu ngoặc cùng cặp hiệu quả</li>
@@ -1138,8 +1139,11 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ka">Kate რომელიმე Git-ზე დაჰოსტილი პროექტით</caption>
       <caption xml:lang="nl">Kate met een op Git gebaseerd project</caption>
       <caption xml:lang="sl">Kate z nekim projektom, ki temelji na Gitu</caption>
+      <caption xml:lang="ta">Git திட்டப்பணியில் கேட்</caption>
+      <caption xml:lang="tr">Git tabanlı bir proje ile Kate</caption>
       <caption xml:lang="uk">Kate із заснованим на Git проєктом</caption>
       <caption xml:lang="x-test">xxKate with some Git based projectxx</caption>
+      <caption xml:lang="zh-CN">Kate 正在打开某个基于 Git 的项目</caption>
       <caption xml:lang="zh-TW">正在檢視某個 Git 專案的 Kate</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate-windows-light.png</image>
     </screenshot>
@@ -1152,8 +1156,11 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ka">Kate გაყოფილი ხედით</caption>
       <caption xml:lang="nl">Kate met gesplitst beeld</caption>
       <caption xml:lang="sl">Kate z deljenim pogledom</caption>
+      <caption xml:lang="ta">பிரிந்த காட்சிமுறையுடன் கேட்</caption>
+      <caption xml:lang="tr">Bölünmüş görünüm ile Kate</caption>
       <caption xml:lang="uk">Kate із розділеним переглядом</caption>
       <caption xml:lang="x-test">xxKate with split viewxx</caption>
+      <caption xml:lang="zh-CN">Kate 正在显示拆分视图</caption>
       <caption xml:lang="zh-TW">分割檢視下的 Kate</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate-windows-light2.png</image>
     </screenshot>
@@ -1166,8 +1173,11 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ka">Kate მუქ რეჟიმში</caption>
       <caption xml:lang="nl">Kate in modus donker</caption>
       <caption xml:lang="sl">Kate v temnem načinu</caption>
+      <caption xml:lang="ta">கருமையான நிறத்திட்டத்துடன் கேட்</caption>
+      <caption xml:lang="tr">Koyu kipte Kate</caption>
       <caption xml:lang="uk">Kate у темному режимі</caption>
       <caption xml:lang="x-test">xxKate in dark modexx</caption>
+      <caption xml:lang="zh-CN">Kate 的深色模式</caption>
       <caption xml:lang="zh-TW">使用暗色模式的 Kate</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate-windows-dark.png</image>
     </screenshot>
@@ -1180,8 +1190,11 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ka">შექმენით ახალი Git ბრენჩი Kate-ით</caption>
       <caption xml:lang="nl">Nieuwe git-branch met Kate aanmaken</caption>
       <caption xml:lang="sl">S Kate ustvari novo vejo Git</caption>
+      <caption xml:lang="ta">கேட்டால் புதிய git கிளையை உருவாக்குவது</caption>
+      <caption xml:lang="tr">Kate ile yeni bir Git dalı oluştur</caption>
       <caption xml:lang="uk">Створення нової гілки Git за допомогою Kate</caption>
       <caption xml:lang="x-test">xxCreate a new Git branch with Katexx</caption>
+      <caption xml:lang="zh-CN">用 Kate 创建一个新的 Git 分支</caption>
       <caption xml:lang="zh-TW">用 Kate 建立新的 Git 分支</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate-windows-dark2.png</image>
     </screenshot>

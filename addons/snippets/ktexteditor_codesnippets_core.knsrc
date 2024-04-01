@@ -42,6 +42,7 @@ Name[zh_CN]=文本编辑器片段
 Name[zh_TW]=文字編輯器片段
 
 ProvidersUrl=https://autoconfig.kde.org/ocs/providers.xml
+ContentWarning=Executables
 Categories=KTextEditor Snippet
 UploadCategories=KTextEditor Snippet
 TargetDir=/ktexteditor_snippets/ghns

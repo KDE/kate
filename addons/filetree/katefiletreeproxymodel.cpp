@@ -56,12 +56,9 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
     }
 
     case KateFileTreeModel::PathRole: {
-        const auto l = model->data(left, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-        const auto r = model->data(right, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-        if (l && r) {
-            return l->url() < r->url();
-        }
-        return false;
+        const QUrl left_path(model->data(left, KateFileTreeModel::PathRole).toString());
+        const QUrl right_path(model->data(right, KateFileTreeModel::PathRole).toString());
+        return left_path < right_path;
     }
 
     case KateFileTreeModel::OpeningOrderRole:

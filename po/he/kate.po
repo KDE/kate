@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-30 00:39+0000\n"
-"PO-Revision-Date: 2024-03-22 08:37+0200\n"
+"PO-Revision-Date: 2024-03-31 23:56+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1232,10 +1232,9 @@ msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:364
-#, fuzzy, kde-format
-#| msgid "Sessions"
+#, kde-format
 msgid "Session"
-msgstr "הפעלות"
+msgstr "הפעלה"
 
 #: lib/kateconfigdialog.cpp:366
 #, kde-format
@@ -1355,10 +1354,9 @@ msgid "Rename file"
 msgstr ""
 
 #: lib/katefileactions.cpp:74
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgid "New file name"
-msgstr "שם הקובץ"
+msgstr "שם קובץ חדש"
 
 #: lib/katefileactions.cpp:108
 #, kde-format
@@ -1371,10 +1369,9 @@ msgid "Do you really want to delete file \"%1\"?"
 msgstr ""
 
 #: lib/katefileactions.cpp:130
-#, fuzzy, kde-format
-#| msgid "Delete File?"
+#, kde-format
 msgid "Delete file"
-msgstr "למחוק קובץ?"
+msgstr "מחיקת קובץ"
 
 #: lib/katefileactions.cpp:151
 #, kde-format
@@ -1382,10 +1379,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr ""
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "יישום"
+msgstr "יישום &אחר…"
 
 #: lib/katemainwindow.cpp:239
 #, kde-format
@@ -1453,10 +1449,9 @@ msgid "Open a form to quick open documents."
 msgstr "פתח חלון לפתיחה מהירה של מסמכים"
 
 #: lib/katemainwindow.cpp:322
-#, fuzzy, kde-format
-#| msgid "Diff Output"
+#, kde-format
 msgid "Output"
-msgstr "פלט של diff"
+msgstr "פלט"
 
 #: lib/katemainwindow.cpp:332
 #, kde-format
@@ -1507,11 +1502,10 @@ msgid "&Open Containing Folder"
 msgstr "פתח תיקיה מכילה"
 
 #: lib/katemainwindow.cpp:379
-#, fuzzy, kde-format
-#| msgid "&Rename..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "&שינוי שם..."
+msgstr "שינוי שם…"
 
 #: lib/katemainwindow.cpp:384
 #, fuzzy, kde-format
@@ -1520,11 +1514,10 @@ msgid "Renames the file belonging to the current document."
 msgstr "סגירת המסמך הנוכחי."
 
 #: lib/katemainwindow.cpp:388
-#, fuzzy, kde-format
-#| msgid "Deleted"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
-msgstr "נמחק"
+msgstr "מחיקה"
 
 #: lib/katemainwindow.cpp:393 lib/katemainwindow.cpp:402
 #, fuzzy, kde-format
@@ -1608,16 +1601,14 @@ msgid "Close this window"
 msgstr "סגור חלון זה"
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "&New Window"
 msgstr "&חלון חדש"
 
 #: lib/katemainwindow.cpp:446
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Create a new window."
-msgstr "צור מסמך חדש"
+msgstr "יצירת חלון חדש."
 
 #: lib/katemainwindow.cpp:453
 #, kde-format
@@ -1761,11 +1752,10 @@ msgid "Open Files Recursively"
 msgstr ""
 
 #: lib/katemainwindow.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr "פתיחת קובץ"
+msgstr "פתיחת כל הקבצים"
 
 #: lib/katemainwindow.cpp:1240
 #, kde-format
@@ -1810,10 +1800,9 @@ msgid "Show %1"
 msgstr "הצגת %1"
 
 #: lib/katemdi.cpp:179
-#, fuzzy, kde-format
-#| msgid "Show %1"
+#, kde-format
 msgid "Show %1 Button"
-msgstr "הצג %1"
+msgstr "הצגת כפתור %1"
 
 #: lib/katemdi.cpp:195
 #, kde-format
@@ -1821,10 +1810,9 @@ msgid "Focus %1"
 msgstr ""
 
 #: lib/katemdi.cpp:1088
-#, fuzzy, kde-format
-#| msgid "Configure ..."
+#, kde-format
 msgid "Configure..."
-msgstr "הגדר ..."
+msgstr "הגדרה…"
 
 #: lib/katemdi.cpp:1092
 #, kde-format
@@ -1988,14 +1976,11 @@ msgstr ""
 "‚%1’"
 
 #: lib/katemwmodonhddialog.cpp:312
-#, fuzzy, kde-format
-#| msgid ""
-#| "The diff command failed. Please make sure that diff(1) is installed and "
-#| "in your PATH."
+#, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
-msgstr "הפקודה diff נכשלה. אנא בדוק שתוכנה diff נמצאת בנתיב שלך (PATH$)"
+msgstr "הפקודה diff נכשלה. נא לודא ש־git מותקנת ונמצאת בנתיב (PATH) שלך."
 
 #: lib/katemwmodonhddialog.cpp:314
 #, kde-format
@@ -2062,16 +2047,11 @@ msgid "Save Documents"
 msgstr "שמירת מסמכים"
 
 #: lib/katesavemodifieddialog.cpp:154
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
-msgstr ""
-"<p>המסמך \"%1\" עבר שינוי, אך לא נשמר</p><p>האם אתה רוצה לשמור את השינויים, "
-"או לבטל אותם?</p>"
+msgstr "המסמך „%1” נערך. לשמור את השינויים או לבטל אותם?"
 
 #: lib/katesavemodifieddialog.cpp:158
 #, kde-format
@@ -2103,18 +2083,16 @@ msgid ""
 msgstr "לא ניתן לכתוב את המידע שבחרת לשמור. נא לבחור איך להמשיך."
 
 #: lib/kateurlbar.cpp:884
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "העתקת מקום"
 
 #: lib/kateurlbar.cpp:889
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr "שם הקובץ"
+msgstr "העתקת שם הקובץ"
 
 #: lib/kateviewmanager.cpp:130
 #, kde-format

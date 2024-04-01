@@ -1,21 +1,22 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Freek de Kruijf <freekdekruijf@kde.nl>
+# SPDX-FileCopyrightText: 2024 Matjaž Jeran <matjaz.jeran@amis.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-30 00:39+0000\n"
-"PO-Revision-Date: 2024-03-30 14:27+0100\n"
-"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
-"Language-Team: \n"
-"Language: nl\n"
+"PO-Revision-Date: 2024-03-31 07:02+0200\n"
+"Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
+"Language-Team: Slovenian <lugos-slo@lugos.si>\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 23.08.5\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 
 #: RBQLPlugin.cpp:34
 #, kde-format
@@ -25,31 +26,30 @@ msgstr "RBQL"
 #: RBQLWidget.cpp:54
 #, kde-format
 msgid "Enter RBQL query"
-msgstr "RBQL-zoekvraag invoeren"
+msgstr "Vnesi poizvedbo RBQL"
 
 #: RBQLWidget.cpp:56
 #, kde-format
 msgid "Add new tab"
-msgstr "Nieuw tabblad toevoegen"
+msgstr "Dodaj nov zavihek"
 
 #: RBQLWidget.cpp:58
 #, kde-format
 msgid "Execute query"
-msgstr "Zoekvraag uitvoeren"
+msgstr "Izvedi poizvedbo"
 
 #: RBQLWidget.cpp:73
 #, kde-format
 msgid "File has header"
-msgstr "Bestand heeft header"
+msgstr "Datoteka ima glavo"
 
 #: RBQLWidget.cpp:113
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr ""
-"Ophalen van scheiding voor huidige document is mislukt. Geen CSV/TSV "
-"document?"
+"Ni bilo mogoče pridobiti ločila za trenutni dokument. Ni dokument CSV/TSV?"
 
 #: RBQLWidget.cpp:122
 #, kde-format
 msgid "Document is empty"
-msgstr "Document is leeg"
+msgstr "Dokument je prazen"

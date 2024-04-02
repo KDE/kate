@@ -1139,6 +1139,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ia">Kate con alcun projectos basate sur Git</caption>
       <caption xml:lang="ka">Kate რომელიმე Git-ზე დაჰოსტილი პროექტით</caption>
       <caption xml:lang="nl">Kate met een op Git gebaseerd project</caption>
+      <caption xml:lang="pl">Kate z projektem Git</caption>
       <caption xml:lang="sl">Kate z nekim projektom, ki temelji na Gitu</caption>
       <caption xml:lang="ta">Git திட்டப்பணியில் கேட்</caption>
       <caption xml:lang="tr">Git tabanlı bir proje ile Kate</caption>
@@ -1157,6 +1158,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ia">Kate con vista dividite</caption>
       <caption xml:lang="ka">Kate გაყოფილი ხედით</caption>
       <caption xml:lang="nl">Kate met gesplitst beeld</caption>
+      <caption xml:lang="pl">Kate z widokiem podzielonym</caption>
       <caption xml:lang="sl">Kate z deljenim pogledom</caption>
       <caption xml:lang="ta">பிரிந்த காட்சிமுறையுடன் கேட்</caption>
       <caption xml:lang="tr">Bölünmüş görünüm ile Kate</caption>
@@ -1175,6 +1177,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ia">Kate in modo obscur</caption>
       <caption xml:lang="ka">Kate მუქ რეჟიმში</caption>
       <caption xml:lang="nl">Kate in modus donker</caption>
+      <caption xml:lang="pl">Kate na ciemno</caption>
       <caption xml:lang="sl">Kate v temnem načinu</caption>
       <caption xml:lang="ta">கருமையான நிறத்திட்டத்துடன் கேட்</caption>
       <caption xml:lang="tr">Koyu kipte Kate</caption>
@@ -1193,6 +1196,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ia">Crea un nove branca de Git con Kate</caption>
       <caption xml:lang="ka">შექმენით ახალი Git ბრენჩი Kate-ით</caption>
       <caption xml:lang="nl">Nieuwe git-branch met Kate aanmaken</caption>
+      <caption xml:lang="pl">Utwórz nową gałąź Git z Kate</caption>
       <caption xml:lang="sl">S Kate ustvari novo vejo Git</caption>
       <caption xml:lang="ta">கேட்டால் புதிய git கிளையை உருவாக்குவது</caption>
       <caption xml:lang="tr">Kate ile yeni bir Git dalı oluştur</caption>

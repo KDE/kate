@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2024-04-02 00:39+0000\n"
 "PO-Revision-Date: 2023-03-12 21:39+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -79,12 +79,12 @@ msgstr "Kolorelektilo"
 msgid "Color Picker Settings"
 msgstr "Agordoj de Kolora Elektilo"
 
-#: katecolorpickerplugin.cpp:241
+#: katecolorpickerplugin.cpp:258
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "Elekti Koloron (16uma eligo)"
 
-#: katecolorpickerplugin.cpp:244
+#: katecolorpickerplugin.cpp:261
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "Rigardi Koloron [Nur Legu]"

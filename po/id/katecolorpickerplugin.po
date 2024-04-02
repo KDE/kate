@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:54+0000\n"
+"POT-Creation-Date: 2024-04-02 00:39+0000\n"
 "PO-Revision-Date: 2022-10-25 06:53+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -79,12 +79,12 @@ msgstr "Penukil Warna"
 msgid "Color Picker Settings"
 msgstr "Pengaturan Penukil Warna"
 
-#: katecolorpickerplugin.cpp:241
+#: katecolorpickerplugin.cpp:258
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "Pilih Warna (Keluaran hex)"
 
-#: katecolorpickerplugin.cpp:244
+#: katecolorpickerplugin.cpp:261
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "Warna Tampilan [Hanya baca]"

@@ -69,7 +69,7 @@ private:
     static QList<QString> filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters);
     static void scanDirRec(const QString& dir, const QString& dirPath,
                            const QStringList &nameFilters, QDir::Filters filterFlags, bool recursive,
-                           QList<QString>& files, std::set<QString>* scannedDirs);
+                           QList<QString>& files, std::set<QString>* scannedDirs, bool topLevel);
 
     static QList<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);
 

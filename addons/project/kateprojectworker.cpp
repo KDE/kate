@@ -697,9 +697,10 @@ QList<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursiv
 
 void KateProjectWorker::scanDirRec(const QString& dir, const QString& dirPath,
                                    const QStringList &nameFilters, QDir::Filters filterFlags, bool recursive,
-                                   QList<QString>& files, std::set<QString>* scannedDirs)
+                                   QList<QString>& files, std::set<QString>* scannedDirs, bool topLevel)
 {
-    if (QFile::exists(dir + QStringLiteral("/CMakeCache.txt"))
+    if ((topLevel == false)
+        &&  QFile::exists(dir + QStringLiteral("/CMakeCache.txt"))
         && !QFile::exists(dir + QStringLiteral("/CMakeLists.txt"))) {
         // don't include cmake build dirs in a project
         // do we know other files which are a sure sign that it's an out-of-source build directory ?
@@ -723,7 +724,7 @@ void KateProjectWorker::scanDirRec(const QString& dir, const QString& dirPath,
             const QFileInfo fi = dirIterator.fileInfo();
             const QString canonicalPath = fi.canonicalFilePath();
             if (fi.isDir() && scannedDirs->find(canonicalPath) ==  scannedDirs->end()) {
-                scanDirRec(nextFile, dirPath, nameFilters, filterFlags, recursive, files, scannedDirs);
+                scanDirRec(nextFile, dirPath, nameFilters, filterFlags, recursive, files, scannedDirs, false);
             }
         }
     }
@@ -745,7 +746,7 @@ QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, b
     const QString dirPath = dir.path() + QLatin1Char('/');
 
     std::set<QString> scannedDirs;
-    scanDirRec(dir.canonicalPath(), dirPath, filters, filterFlags, recursive, files, &scannedDirs);
+    scanDirRec(dir.canonicalPath(), dirPath, filters, filterFlags, recursive, files, &scannedDirs, true);
 
     return files;
 }

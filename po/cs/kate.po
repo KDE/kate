@@ -2030,18 +2030,16 @@ msgstr ""
 "přejete pokračovat."
 
 #: lib/kateurlbar.cpp:884
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
-msgstr "Kopírovat umístění"
+msgstr ""
 
 #: lib/kateurlbar.cpp:889
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr "Název souboru"
+msgstr ""
 
 #: lib/kateviewmanager.cpp:130
 #, kde-format

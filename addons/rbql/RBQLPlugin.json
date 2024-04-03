@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Run SQL-like queries using RBQL",
+        "Description[ca@valencia]": "Executa consultes similars a SQL fent servir RBQL",
         "Description[ca]": "Executa consultes similars a l'SQL fent servir RBQL",
         "Description[es]": "Ejecutar consultas de tipo SQL usando RBQL",
         "Description[fr]": "Lancer des requêtes de type « SQL » en utilisant « RBQL »",
@@ -11,7 +12,9 @@
         "Description[tr]": "RBQL kullanarak SQL tarzı sorgular çalıştır",
         "Description[uk]": "Надсилання SQL-подібних запитів за допомогою RBQL",
         "Description[x-test]": "xxRun SQL-like queries using RBQLxx",
+        "Description[zh_CN]": "使用 RBQL 运行 SQL 式查询",
         "Name": "Rainbow CSV",
+        "Name[ca@valencia]": "Rainbow CSV",
         "Name[ca]": "Rainbow CSV",
         "Name[es]": "Rainbow CSV",
         "Name[fr]": "Rainbow CSV",
@@ -22,6 +25,7 @@
         "Name[tr]": "Rainbow CSV",
         "Name[uk]": "CSV Rainbow",
         "Name[x-test]": "xxRainbow CSVxx",
+        "Name[zh_CN]": "Rainbow CSV",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

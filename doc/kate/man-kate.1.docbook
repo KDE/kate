@@ -138,8 +138,8 @@ url="help:/kate">help:/kate</ulink>
 (either enter this &URL; into &konqueror;, or run
 <userinput><command>khelpcenter</command>
 <parameter>help:/kate</parameter></userinput>).</member>
-<member>kf5options(7)</member>
-<member>qt5options(7)</member>
+<member>kf6options(7)</member>
+<member>qt6options(7)</member>
 <member>There is also further information available at the <ulink
 url="https://kate-editor.org/">&kate; website</ulink>.</member>
 </simplelist>

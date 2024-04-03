@@ -922,8 +922,32 @@ void KateMainWindow::updateHamburgerMenu()
     menu->addAction(view->actionCollection()->action(QStringLiteral("edit_paste")));
     menu->addSeparator();
 
+    menu->addAction(view->actionCollection()->action(QStringLiteral("file_print")));
+    menu->addSeparator();
+
     menu->addAction(view->actionCollection()->action(QStringLiteral("edit_find")));
     menu->addSeparator();
+
+    menu->addAction(view->actionCollection()->action(QStringLiteral("view_inc_font_sizes")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("view_dec_font_sizes")));
+    menu->addAction(view->actionCollection()->action(QStringLiteral("view_reset_font_sizes")));
+    menu->addSeparator();
+
+    auto selectionMenu = static_cast<QMenu *>(factory()->container(QStringLiteral("selection"), nullptr));
+    selectionMenu->setIcon(QIcon::fromTheme(QStringLiteral("selection-symbolic")));
+    menu->addMenu(selectionMenu);
+
+    auto spellingMenu = static_cast<QMenu *>(factory()->container(QStringLiteral("spelling"), nullptr));
+    spellingMenu->setIcon(QIcon::fromTheme(QStringLiteral("tools-check-spelling-symbolic")));
+    menu->addMenu(spellingMenu);
+
+    auto speechMenu = static_cast<QMenu *>(factory()->container(QStringLiteral("speech"), nullptr));
+    speechMenu->setIcon(QIcon::fromTheme(QStringLiteral("text-speak-symbolic")));
+    menu->addMenu(speechMenu);
+
+    auto settingsMenu = static_cast<QMenu *>(factory()->container(QStringLiteral("settings"), nullptr));
+    settingsMenu->setIcon(QIcon::fromTheme(QStringLiteral("settings-configure-symbolic")));
+    menu->addMenu(settingsMenu);
 }
 #endif
 

@@ -1136,8 +1136,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ca-valencia">Kate amb projectes basats en Git</caption>
       <caption xml:lang="eo">Kate kun iu Git-bazita projekto</caption>
       <caption xml:lang="es">Kate con un proyecto basado en Git</caption>
+      <caption xml:lang="eu">Kate, oinarria Git-en duen proiektu batekin</caption>
       <caption xml:lang="fr">Kate avec certains projets reposant sur Git</caption>
       <caption xml:lang="ia">Kate con alcun projectos basate sur Git</caption>
+      <caption xml:lang="it">Kate con qualche progetto basato su Git</caption>
       <caption xml:lang="ka">Kate რომელიმე Git-ზე დაჰოსტილი პროექტით</caption>
       <caption xml:lang="nl">Kate met een op Git gebaseerd project</caption>
       <caption xml:lang="pl">Kate z projektem Git</caption>
@@ -1156,8 +1158,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ca-valencia">Kate amb una vista dividida</caption>
       <caption xml:lang="eo">Kate kun dividita vido</caption>
       <caption xml:lang="es">Kate con una vista dividida</caption>
+      <caption xml:lang="eu">Kate ikuspegi zatituarekin</caption>
       <caption xml:lang="fr">Kate avec vues scindées</caption>
       <caption xml:lang="ia">Kate con vista dividite</caption>
+      <caption xml:lang="it">Kate nella vista divisa</caption>
       <caption xml:lang="ka">Kate გაყოფილი ხედით</caption>
       <caption xml:lang="nl">Kate met gesplitst beeld</caption>
       <caption xml:lang="pl">Kate z widokiem podzielonym</caption>
@@ -1176,8 +1180,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ca-valencia">Kate en mode fosc</caption>
       <caption xml:lang="eo">Kate en malhela reĝimo</caption>
       <caption xml:lang="es">Kate en modo oscuro</caption>
+      <caption xml:lang="eu">Kate modu ilunean</caption>
       <caption xml:lang="fr">Kate en mode sombre</caption>
       <caption xml:lang="ia">Kate in modo obscur</caption>
+      <caption xml:lang="it">Kate in modalità scura</caption>
       <caption xml:lang="ka">Kate მუქ რეჟიმში</caption>
       <caption xml:lang="nl">Kate in modus donker</caption>
       <caption xml:lang="pl">Kate na ciemno</caption>
@@ -1196,8 +1202,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ca-valencia">Creeu una branca nova de Git amb Kate</caption>
       <caption xml:lang="eo">Krei novan Git-branĉon per Kate</caption>
       <caption xml:lang="es">Creación de una nueva rama de Git con Kate</caption>
+      <caption xml:lang="eu">Sortu Git adar berri bat «Kate»rekin</caption>
       <caption xml:lang="fr">Créer une nouvelle branche « Git » avec Kate</caption>
       <caption xml:lang="ia">Crea un nove branca de Git con Kate</caption>
+      <caption xml:lang="it">Crea un nuovo ramo Git con Kate</caption>
       <caption xml:lang="ka">შექმენით ახალი Git ბრენჩი Kate-ით</caption>
       <caption xml:lang="nl">Nieuwe git-branch met Kate aanmaken</caption>
       <caption xml:lang="pl">Utwórz nową gałąź Git z Kate</caption>

@@ -130,16 +130,6 @@
 >Indien geactiveerd zal de editor het symbool &raquo; tonen om de aanwezigheid van een tab in de tekst aan te geven.</para
 ></listitem>
 </varlistentry>
-<varlistentry>
-<term
-><guilabel
->Focusframe rond bewerker tonen</guilabel
-></term>
-<listitem
-><para
->Indien geactiveerd, toont de editor geen frame rond de besturing van de hoofdbrontekst.</para
-></listitem>
-</varlistentry>
 
 <varlistentry>
 <term

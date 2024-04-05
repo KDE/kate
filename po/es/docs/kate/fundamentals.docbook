@@ -344,7 +344,7 @@
 >Subversion</application
 >. Dichos sistemas esperan bloquear el editor hasta que se haya introducido el mensaje porque es entonces cuando abren el archivo temporal, el cual estaría vacío si &kate; volviese inmediatamente al llamante. </para>
 <para
->Esta opción también es necesaria con KIO (&kde; entrada/salida) si usted abre un archivo remoto (que se haya descargado a un archivo temporal) y tiene que recargarse después de que lo guarde. </para
+>Esta opción también es necesaria con KIO (&kde; entrada/salida) si abre un archivo remoto (que se haya descargado a un archivo temporal) y tiene que recargarse después de que lo guarde. </para
 ></listitem>
 </varlistentry>
 
@@ -450,8 +450,8 @@
 >El <link linkend="quick-start"
 >Inicio rápido</link
 > le mostrará como conmutar cuatro opciones sencillas que le permiten configurar de manera inmediata algunas de las características más potentes de &kate;. <link linkend="keystroke-commands"
->Accesos rápidos</link
-> muestra algunos de los accesos rápidos del teclado predeterminados para aquellos que no pueden o no quieren utilizar el ratón. </para>
+>Atajos de teclado</link
+> muestra algunos de los atajos de teclado predeterminados para aquellos que no pueden o no quieren utilizar el ratón. </para>
 
 <sect2 id="quick-start">
 <title
@@ -460,7 +460,7 @@
 <para
 >Esta sección describirá algunos elementos del menú <guimenu
 >Ver</guimenu
-> para que usted pueda configurar rápidamente &kate; como desee. </para>
+> para que pueda configurar rápidamente &kate; como desee. </para>
 
 <para
 >Cuando inicie &kate; por primera vez, verá dos ventanas con fondo blanco. Por encima de las ventanas, hay una barra de herramientas con los iconos etiquetados de la forma habitual y por encima de ella, una barra de menú. </para>
@@ -480,13 +480,13 @@
 > para abrir archivos. </para>
 
 <para
->Puede conmutar todas las ventanas de los paneles laterales desde el menú <menuchoice
+>Puede conmutar todas las ventanas de los paneles laterales con la opción del menú <menuchoice
 ><guimenu
 >Ver</guimenu
 ><guisubmenu
 >Vistas de herramientas</guisubmenu
 ></menuchoice
-> o el acceso rápido <keycombo action="simul"
+> o con el atajo de teclado <keycombo action="simul"
 >&Ctrl;&Alt;&Shift;<keycap
 >F</keycap
 ></keycombo
@@ -501,10 +501,10 @@
 
 <sect2 id="keystroke-commands">
 <title
->Accesos rápidos</title>
+>Atajos de teclado</title>
 
 <para
->Muchas de las órdenes de combinaciones de teclas (accesos rápidos) de &kate; son configurables a través del menú <link linkend="settings"
+>Muchas de las órdenes de combinaciones de teclas (atajos de teclado) de &kate; son configurables a través del menú <link linkend="settings"
 > Preferencias</link
 >. De forma predeterminada, &kate; admite las siguientes asociaciones de teclas. </para>
 
@@ -771,13 +771,27 @@ action="simul"
 >Anterior pestaña</para
 ></entry>
 </row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Volver a abrir los últimos documentos cerrados</para
+></entry>
+</row>
 
 </tbody>
 </tgroup>
 </informaltable>
 
 <para
->De forma adicional, puede usar los accesos rápidos proporcionados por el componente <ulink url="help:/katepart/keybindings.html"
+>De forma adicional, puede usar los atajos de teclado proporcionados por el componente <ulink url="help:/katepart/keybindings.html"
 >&katepart;</ulink
 > y por todos los <link linkend="plungins"
 >complementos de &kate;</link
@@ -919,13 +933,83 @@ action="simul"
 > con una cadena vacía <replaceable
 >''</replaceable
 >.</para>
-<!--FIXME still valid for kf5 -->
+
 <para
 >Desde &kate; 2.5.1 el <acronym
 >PID</acronym
 > de la instancia actual se exporta a la variable de entorno <envar
 >KATE_PID</envar
 >. Cuando se abren archivos desde un terminal integrado, Kate seleccionará automáticamente la instancia actual si no se indica otra cosa en la línea de órdenes.</para>
+
+</sect1>
+
+<sect1 id="fundamentals-quick-open">
+<title
+>Apertura rápida</title>
+
+<para
+>Kate contiene un diálogo de apertura rápida que permite abrir de forma inmediata archivos o cambiar rápidamente entre ellos. Puede acceder a este diálogo con <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+>. </para>
+
+<para
+>La apertura rápida puede mostrar todos los documentos abiertos en Kate además de todos los archivos de los proyectos abiertos. Para poder ver archivos de proyectos, debe activar el <link linkend="kate-application-plugin-projects"
+>Complemento de proyectos</link
+>. </para>
+
+<sect2>
+<title
+>Uso de la apertura rápida</title>
+
+<para
+>El uso de la apertura rápida es muy sencillo. Tras abrirla, escriba el nombre o partes de nombre del archivo que quiera abrir para que la apertura rápida filtre la lista según lo que haya escrito. Si pulsa &Enter; se abrirá el archivo seleccionado. Si pulsa &Esc; se ocultará la apertura rápida. </para>
+<para
+>De forma predeterminada, solo se buscan coincidencias del nombre del archivo durante el filtrado. Si quiere tener en cuenta la ruta tendrá que añadir «/» al texto que escriba. Por ejemplo: «doc/index» coincidirá con todos los archivos que contengan «index» dentro de la carpeta «doc». </para>
+<para
+>Los documentos que ya están abiertos se resaltan en negrita y se muestran en la parte superior de la lista cuando se abre el diálogo. Además, cuando aparece la apertura rápida, el documento abierto anterior ya estará seleccionado, por lo que puede pulsar &Enter; para ir a dicho documento. </para>
+
+</sect2>
+
+<sect2>
+<title
+>Configuración de la apertura rápida</title>
+<screenshot id="screenshot-project-quickopen">
+<screeninfo
+>Apertura rápida</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+<para
+>La apertura rápida proporciona varias opciones de configuración. Para acceder a ellas, haga clic derecho en la línea de edición. </para>
+<variablelist>
+<varlistentry>
+<term
+>Las opciones disponibles en la actualidad son:</term>
+<listitem>
+<para
+><userinput
+>Proyecto actual</userinput
+>: Muestra solo los archivos del proyecto actual.</para>
+<para
+><userinput
+>Todos los proyectos</userinput
+>: Muestra los archivos de todos los proyectos abiertos.</para>
+<para
+><userinput
+>Filtrado difuso</userinput
+>: Usar el algoritmo de coincidencia difusa para filtrar los archivos.</para>
+<para
+><userinput
+>Filtrado mediante comodines</userinput
+>: Usar la coincidencia de comodines para filtrar los archivos.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
 
 </sect1>
 

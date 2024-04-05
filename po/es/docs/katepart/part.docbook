@@ -246,7 +246,7 @@
 >Hay dos modos básicos de selección de texto en &kappname;: utilizando el ratón y utilizando el teclado.</para>
 
 <para
->Para seleccionar usando el ratón, mantenga pulsado el &LMB; mientras arrastra el cursor del ratón desde donde debe comenzar la selección, hasta donde desee. El texto se selecciona mientras usted arrastra.</para>
+>Para seleccionar usando el ratón, mantenga pulsado el &LMB; mientras arrastra el cursor del ratón desde donde debe comenzar la selección, hasta donde desee. El texto se selecciona mientras arrastra.</para>
 
 <para
 >Pulsando dos veces sobre una palabra selecciona dicha palabra.</para>
@@ -290,7 +290,7 @@
 > <guimenuitem
 >Copiar</guimenuitem
 ></menuchoice
-> o los accesos rápidos del teclado (de forma predeterminada <keycombo action="simul"
+> o el atajo de teclado (el predeterminado es <keycombo action="simul"
 >&Ctrl;<keycap
 >C</keycap
 ></keycombo
@@ -305,7 +305,7 @@
 > <guimenuitem
 >Deseleccionar</guimenuitem
 ></menuchoice
-> o los accesos rápidos del teclado (De forma predeterminada <keycombo action="simul"
+> o el atajo de teclado (el predeterminado es <keycombo action="simul"
 >&Ctrl;<keycap
 >A</keycap
 ></keycombo
@@ -325,7 +325,7 @@
 > <guimenuitem
 >Cambiar modo de selección de bloque</guimenuitem
 ></menuchoice
->. El acceso rápido de teclado predeterminado es <keycombo action="simul"
+>. El atajo de teclado predeterminado es <keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >B </keycap
 > </keycombo
@@ -625,7 +625,7 @@
 > <guimenuitem
 >Reemplazar</guimenuitem
 ></menuchoice
-> o pulse el acceso rápido <keycombo action="simul"
+> o pulse el atajo de teclado <keycombo action="simul"
 >&Ctrl;<keycap
 >R</keycap
 ></keycombo
@@ -834,7 +834,7 @@
 ><guimenu
 >Herramientas</guimenu
 > <guimenuitem
->Alinear</guimenuitem
+>Formatear sangrado</guimenuitem
 ></menuchoice
 > que recalculará el sangrado del texto seleccionado o de la línea actual. De esta forma, puede volver a establecer el sangrado completo de su documento seleccionando todo el texto y activando esta acción.</para>
 
@@ -992,6 +992,99 @@
 > o permanentemente en <link linkend="appearance-borders"
 >la sección de apariencia de la configuración de &kappname; </link
 >.</para>
+
+</sect1>
+
+<sect1 id="kate-part-multiple-cursors">
+<title
+>Cursores múltiples</title>
+
+<para
+>El uso del cursor múltiple se introdujo con la versión 5.93 de katepart.</para>
+
+<sect2 id="kate-part-create-multiple-cursors">
+<title
+>Creación de múltiples cursores</title>
+
+<itemizedlist>
+<listitem
+><para
+>Para crearlos usando el ratón, use &Alt; + &LMB;. El modificador se puede configurar (consulte <link linkend="multicursor-modifier-configure"
+>Configurar el modificador para multicursor</link
+>).</para
+></listitem>
+
+<listitem
+><para
+>Para crearlos usando el teclado, pulse <keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+> para crear el cursor por encima del cursor principal y <keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
+> para crear el cursor inferior. Estos atajos de teclado también se pueden configurar.</para
+></listitem>
+
+<listitem
+><para
+>Para crear cursores fuera de una selección, seleccione primero un texto y pulse luego <keycombo action="simul"
+>&Shift;&Alt;<keycap
+>I</keycap
+></keycombo
+>. Esto creará un cursor al final de cada línea de la selección.</para
+></listitem>
+
+<listitem
+><para
+>Use <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> para encontrar la siguiente ocurrencia de la palabra que hay bajo el cursor, seleccionarla y crear un cursor. Si quiere omitir la palabra actual que hay bajo el cursor, pulse <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> para marcar la palabra actual como omitida. Si vuelve a pulsar <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> de nuevo, se deseleccionará la palabra actual y se moverá a la siguiente palabra.</para>
+</listitem>
+
+<listitem
+><para
+>Use <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
+></keycombo
+> para encontrar todas las coincidencias de la palabra que hay bajo el cursor, seleccionarlas y crear un cursor al final de cada selección. Puede usar <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> para recorrer las palabras seleccionadas y <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> para deseleccionar cualquier palabra como se ha mencionado en el párrafo anterior.</para
+></listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2
+><title
+>Trabajando con múltiples cursores</title>
+<para
+>Tras haber creado varios cursores, puede realizar la mayoría de las operaciones de edición sobre ellos del mismo modo que lo haría sobre un único cursor. Por ejemplo, si escribe una letra se escribirá en cada uno de los cursores. Del mismo modo, puede realizar transformaciones del texto (como capitalización para todas las posiciones o selecciones).</para>
+
+<para
+>En algunas ocasiones querrá eliminar cursores. Para ello, puede pulsar &Alt; + &LMB; sobre el cursor que quiera eliminar. Si quiere eliminar los cursores solo en las líneas que están vacías, puede usar una acción ya prevista para este fin. Para invocarla, abra la barra de órdenes usando <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>I</keycap
+></keycombo
+>, busque la opción <guimenuitem
+>Eliminar cursores de las líneas vacías</guimenuitem
+> y pulse &Enter;. También puede configurar un atajo de teclado para esta acción.</para>
+
+</sect2>
 
 </sect1>
 

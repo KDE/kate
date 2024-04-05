@@ -51,10 +51,6 @@
 ></group
 > <group choice="opt"
 ><option
->--new-session</option
-></group
-> <group choice="opt"
-><option
 >-n, --new</option
 ></group
 > <group choice="opt"
@@ -143,18 +139,6 @@
 <term
 ><option
 >--startanon</option
-></term>
-<listitem
-><para
->Inicia &kate; con una nueva sesión anónima; implica <option
->-n</option
-> (obsoleto).</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><option
->--new-session</option
 ></term>
 <listitem
 ><para
@@ -299,9 +283,9 @@
 ></userinput
 >).</member>
 <member
->kf5options(7)</member>
+>kf6options(7)</member>
 <member
->qt5options(7)</member>
+>qt6options(7)</member>
 <member
 >También existe más información disponible en <ulink url="https://kate-editor.org/"
 >el sitio web de &kate;</ulink

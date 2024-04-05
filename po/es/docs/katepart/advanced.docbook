@@ -104,7 +104,7 @@
 ><guimenuitem
 >Poner marca de comentario</guimenuitem
 ></menuchoice
-> o el acceso directo de teclado correspondiente, que de forma predeterminada es <keycombo action="simul"
+> o el atajo de teclado correspondiente, que de forma predeterminada es <keycombo action="simul"
 >&Ctrl;<keycap
 >D</keycap
 ></keycombo
@@ -121,7 +121,7 @@
 ><guimenuitem
 >Quitar marca de comentario</guimenuitem
 ></menuchoice
-> o el acceso directo de teclado correspondiente, que de forma predeterminado es <keycombo action="simul"
+> o el atajo de teclado correspondiente, que de forma predeterminado es <keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >D</keycap
 ></keycombo
@@ -140,7 +140,7 @@
 > <guimenuitem
 >Cambiar a línea de órdenes</guimenuitem
 ></menuchoice
-> o utilizar el acceso rápido (de forma predeterminada es <keycombo action="simul"
+> o utilizar el atajo de teclado (de forma predeterminada es <keycombo action="simul"
 ><keycap
 >F7</keycap
 ></keycombo
@@ -1076,7 +1076,7 @@
 >, mencionada en la línea 3902 del archivo fuente no está definida.</para>
 
 <para
->«¡Vaya por Dios!» pensará usted, es que se trataba de <classname
+>Es probable que piense: «¡Vaya!». Es que se trataba de <classname
 >MyClass</classname
 >. Se desplaza a la línea 3902 y en vez de intentar buscar la palabra en el texto, abre el diálogo de la orden de edición, introduce <userinput
 >s/myclass/MyClass/i</userinput
@@ -1091,7 +1091,7 @@
 >Sustitución de texto en todo el archivo</title>
 
 <para
->Imagine que tiene un archivo, en el que menciona a «Señorita Jensen» varias veces, cuando resulta que alguien viene y le dice que se acaba de casar con «Señora Jones». Usted querrá, desde luego, sustituir cada aparición de «Señorita Jensen» por «Señora Jensen».</para>
+>Imagine que tiene un archivo, en el que menciona a «Señorita Jensen» varias veces, cuando resulta que alguien viene y le dice que se acaba de casar con «Señora Jones». Por supuesto, querrá sustituir cada aparición de «Señorita Jensen» por «Señora Jensen».</para>
 
 <para
 >Inicie la línea de órdenes y teclee la orden <userinput
@@ -1109,14 +1109,14 @@
 >referencias anteriores</emphasis
 > así como de una <emphasis
 >clase de caracteres</emphasis
-> (si no sabe lo que es esto, por favor consulte la documentación citada más adelante).</para>
+> (si no sabe lo que es esto, consulte la documentación citada más adelante).</para>
 
 <para
 >Suponga que tiene la siguiente línea: <programlisting
 >void MyClass::DoStringOps( String      &amp;foo, String &amp;bar, String *p, int  &amp;a, int &amp;b )</programlisting>
 </para>
 <para
->Pero usted se da cuenta de que ese código no está bien, y decide que quiere utilizar la palabra clave <constant
+>Pero entonces se da cuenta de que ese código no está bien, y decide que quiere utilizar la palabra clave <constant
 >const</constant
 > en todos los argumentos «address of», que se caracterizan por tener un operador &amp; delante del nombre del argumento. También desea simplificar el espacio en blanco, de forma que solo haya uno entre cada palabra.</para>
 
@@ -1308,6 +1308,35 @@
 ><para
 >Eliminar todos los espacios en blanco del texto seleccionado o de todo el documento.</para
 ></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>alignon</command
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Esta orden alinea las líneas del bloque seleccionado o de todo el documento en la columna indicada por una expresión regular que se proporciona como argumento.</para>
+<para
+>Si proporciona un patrón vacío, se alinearán de forma predeterminada en el primer carácter que no esté en blanco.</para>
+<para
+>Si el patrón contiene una captura, se sangrarán en la coincidencia capturada.</para>
+<para
+><emphasis
+>Ejemplos:</emphasis
+></para>
+<para
+><userinput
+>alignon -</userinput
+> insertará espacios antes del primer «-» de cada línea para alinearlas en la misma columna.</para>
+<para
+><userinput
+>alignon :\\s+(.)</userinput
+> insertará espacios antes del primer carácter que no esté en blanco y que aparezca tras un punto para alinearlas en la misma columna.</para>
+</listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1522,7 +1551,7 @@
 ><guimenuitem
 >Buscar siguiente</guimenuitem
 ></menuchoice
-> (el acceso rápido predeterminado es <keycap
+> (el atajo de teclado predeterminado es <keycap
 >F3</keycap
 >).</para>
 <para

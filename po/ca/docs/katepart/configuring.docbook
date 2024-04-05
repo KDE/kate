@@ -130,16 +130,6 @@
 >Quan està marcada, l'editor mostrarà un símbol &raquo; per a indicar la presència d'un tabulador en el text.</para
 ></listitem>
 </varlistentry>
-<varlistentry>
-<term
-><guilabel
->Mostra el marc del focus al voltant de l'editor</guilabel
-></term>
-<listitem
-><para
->Quan està marcada, l'editor mostrarà el marc del focus al voltant del control de text principal.</para
-></listitem>
-</varlistentry>
 
 <varlistentry>
 <term

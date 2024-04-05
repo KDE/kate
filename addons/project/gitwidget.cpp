@@ -600,7 +600,7 @@ void GitWidget::runPushPullCmd(const QStringList &args)
 {
     auto git = gitp(args);
     // Honor the user's SSH_ASKPASS env if set
-    QString pass = QString::fromUtf8(qgetenv("SSH_ASKPASS"));
+    QString pass = qEnvironmentVariable("SSH_ASKPASS");
     // otherwise try to use ksshaskpass
     if (pass.isEmpty()) {
         pass = ksshaskpass();

@@ -263,7 +263,7 @@ int main(int argc, char **argv)
         // two possibilities: pid given or not...
         if ((!force_new) && serviceName.isEmpty()) {
             if ((parser.isSet(usePidOption)) || (!qEnvironmentVariableIsEmpty("KATE_PID"))) {
-                QString usePid = (parser.isSet(usePidOption)) ? parser.value(usePidOption) : QString::fromLocal8Bit(qgetenv("KATE_PID"));
+                QString usePid = (parser.isSet(usePidOption)) ? parser.value(usePidOption) : qEnvironmentVariable("KATE_PID");
 
                 serviceName = QLatin1String("org.kde.kate-") + usePid;
                 const auto it = std::find_if(kateServices.cbegin(), kateServices.cend(), [&serviceName](const auto &instance) {

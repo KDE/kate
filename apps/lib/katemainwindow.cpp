@@ -164,7 +164,9 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
 
     setAcceptDrops(true);
 
-    connect(KateApp::self()->sessionManager(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
+    connect(KateApp::self()->sessionManager(), &KateSessionManager::sessionChanged, this, [this] {
+        updateCaption(nullptr);
+    });
 
     connect(this, &KateMDI::MainWindow::sigShowPluginConfigPage, this, &KateMainWindow::showPluginConfigPage);
 
@@ -249,7 +251,9 @@ void KateMainWindow::setupImportantActions()
 
     m_paShowPath = new KToggleAction(i18n("Sho&w Path in Titlebar"), this);
     actionCollection()->addAction(QStringLiteral("settings_show_full_path"), m_paShowPath);
-    connect(m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()));
+    connect(m_paShowPath, &QAction::toggled, this, [this] {
+        updateCaption(nullptr);
+    });
     m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 
     m_paShowUrlNavBar = new KToggleAction(i18n("Show Navigation Bar"), this);
@@ -418,7 +422,9 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("file_close_other"));
     a->setText(i18n("Close Other"));
-    connect(a, SIGNAL(triggered()), this, SLOT(slotDocumentCloseOther()));
+    connect(a, &QAction::triggered, this, [this] {
+        slotDocumentCloseOther(nullptr);
+    });
     a->setWhatsThis(i18n("Close other open documents."));
 
     a = actionCollection()->addAction(QStringLiteral("file_close_all"));

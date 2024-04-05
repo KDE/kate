@@ -385,7 +385,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
         KConfigGroup cg(config, QStringLiteral("Document %1").arg(i));
         KTextEditor::Document *doc = createDoc();
 
-        connect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
+        connect(doc, &KTextEditor::Document::completed, this, &KateDocManager::documentOpened);
         connect(doc, &KParts::ReadOnlyPart::canceled, this, &KateDocManager::documentOpened);
 
         doc->readSessionConfig(cg);
@@ -516,7 +516,7 @@ void KateDocManager::documentOpened()
     if (!doc) {
         return; // should never happen, but who knows
     }
-    disconnect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
+    disconnect(doc, &KTextEditor::Document::completed, this, &KateDocManager::documentOpened);
     disconnect(doc, &KParts::ReadOnlyPart::canceled, this, &KateDocManager::documentOpened);
 
     // Only set "no success" when doc is empty to avoid close of files

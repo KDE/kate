@@ -81,7 +81,9 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     connect(m_tabBar, &KateTabBar::tabCloseRequested, this, &KateViewSpace::closeTabRequest, Qt::QueuedConnection);
     connect(m_tabBar, &KateTabBar::contextMenuRequest, this, &KateViewSpace::showContextMenu, Qt::QueuedConnection);
     connect(m_tabBar, &KateTabBar::newTabRequested, this, &KateViewSpace::createNewDocument);
-    connect(m_tabBar, SIGNAL(activateViewSpaceRequested()), this, SLOT(makeActive()));
+    connect(m_tabBar, &KateTabBar::activateViewSpaceRequested, this, [this] {
+        makeActive(true);
+    });
     hLayout->addWidget(m_tabBar);
 
     // add quick open

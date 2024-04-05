@@ -243,7 +243,7 @@ private Q_SLOTS:
      * Making it active goes through the KateViewManager.
      * @param focusCurrentView if @e true, the current view will get focus
      */
-    void makeActive(bool focusCurrentView = true);
+    void makeActive(bool focusCurrentView);
 
     /**
      * This slot is called by the tabbar, if tab @p id was closed through the

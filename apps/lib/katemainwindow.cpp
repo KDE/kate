@@ -240,7 +240,6 @@ void KateMainWindow::setupImportantActions()
 
 #if KATE_ALLOW_MENU_BAR_HIDE
     m_paShowMenuBar = KStandardAction::showMenubar(this, SLOT(toggleShowMenuBar()), actionCollection());
-    m_paShowMenuBar->setVisible(false);
 #endif
 
     m_paShowTabBar = new KToggleAction(i18n("Show &Tabs"), this);

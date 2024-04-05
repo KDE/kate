@@ -103,7 +103,7 @@ bool CMakeCompletion::shouldStartCompletion(KTextEditor::View *view, const QStri
     if (!userInsertion) {
         return false;
     }
-    if (insertedText.isEmpty()) {
+    if (QStringView(insertedText).trimmed().isEmpty()) {
         return false;
     }
     // Dont invoke for comments, wont handle everything of course

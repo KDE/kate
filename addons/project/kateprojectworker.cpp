@@ -694,38 +694,55 @@ QList<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursiv
     return files;
 }
 
-
-void KateProjectWorker::scanDirRec(const QString& dir, const QString& dirPath,
-                                   const QStringList &nameFilters, QDir::Filters filterFlags, bool recursive,
-                                   QList<QString>& files, std::set<QString>* scannedDirs, bool topLevel)
+void KateProjectWorker::scanDirRec(QDir dir,
+                                   const QString &baseDirPath,
+                                   const QStringList &nameFilters,
+                                   QDir::Filters filterFlags,
+                                   bool recursive,
+                                   QList<QString> &files,
+                                   QSet<QString> &scannedDirs)
 {
-    if ((topLevel == false)
-        &&  QFile::exists(dir + QStringLiteral("/CMakeCache.txt"))
-        && !QFile::exists(dir + QStringLiteral("/CMakeLists.txt"))) {
+    // empty canonicalDir is bad, such stuff just doesn't exist on disk
+    const QString canonicalDir = dir.canonicalPath();
+    if (canonicalDir.isEmpty()) {
+        return;
+    }
+
+    // for non toplevel directories filter some things
+    if (!scannedDirs.isEmpty() // not toplevel
+        && dir.exists(QStringLiteral("CMakeCache.txt")) && !dir.exists(QStringLiteral("CMakeLists.txt"))) {
         // don't include cmake build dirs in a project
         // do we know other files which are a sure sign that it's an out-of-source build directory ?
         return;
     }
 
-    scannedDirs->insert(QFileInfo(dir).canonicalFilePath());
+    // do recursion check, might happen with symlinks
+    if (scannedDirs.contains(canonicalDir)) {
+        return;
+    }
+    scannedDirs.insert(canonicalDir);
 
-    QDirIterator dirIterator(dir, nameFilters, filterFlags);
+    // collect dir entries
+    dir.setFilter(filterFlags);
+    if (!nameFilters.isEmpty()) {
+        dir.setNameFilters(nameFilters);
+    }
+    QDirIterator dirIterator(dir);
     while (dirIterator.hasNext()) {
         dirIterator.next();
-        QString nextFile = dirIterator.filePath();
+        const QString nextFile = dirIterator.filePath();
+
+        // don't include backup files in the project
         if (nextFile.endsWith(QStringLiteral("~")) || nextFile.endsWith(QStringLiteral(".bak"))) {
-            // don't include backup files in the project
             continue;
         }
 
-        // make it relative path
-        files.append(dirIterator.filePath().remove(dirPath));
-        if (recursive) {
-            const QFileInfo fi = dirIterator.fileInfo();
-            const QString canonicalPath = fi.canonicalFilePath();
-            if (fi.isDir() && scannedDirs->find(canonicalPath) ==  scannedDirs->end()) {
-                scanDirRec(nextFile, dirPath, nameFilters, filterFlags, recursive, files, scannedDirs, false);
-            }
+        // make it relative path to the base dir
+        files.append(dirIterator.filePath().remove(baseDirPath));
+
+        // try to recurse if needed
+        if (recursive && dirIterator.fileInfo().isDir()) {
+            scanDirRec(QDir(nextFile), baseDirPath, nameFilters, filterFlags, recursive, files, scannedDirs);
         }
     }
 }
@@ -736,18 +753,16 @@ QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, b
      * setup our filters
      */
     QDir::Filters filterFlags = QDir::Files | QDir::Dirs | QDir::NoDot | QDir::NoDotDot;
-    if(hidden)
+    if (hidden) {
         filterFlags |= QDir::Hidden;
+    }
 
     /**
-     * create iterator and collect all files
+     * trigger potential recursive directory search
      */
     QList<QString> files;
-    const QString dirPath = dir.path() + QLatin1Char('/');
-
-    std::set<QString> scannedDirs;
-    scanDirRec(dir.canonicalPath(), dirPath, filters, filterFlags, recursive, files, &scannedDirs, true);
-
+    QSet<QString> scannedDirs;
+    scanDirRec(dir.path(), dir.path() + QLatin1Char('/'), filters, filterFlags, recursive, files, scannedDirs);
     return files;
 }
 

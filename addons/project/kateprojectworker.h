@@ -12,8 +12,7 @@
 #include <QDir>
 #include <QHash>
 #include <QRunnable>
-
-#include <set>
+#include <QSet>
 
 class KateProjectItem;
 
@@ -67,9 +66,13 @@ private:
     static QList<QString> filesFromDarcs(const QDir &dir, bool recursive);
     static QList<QString> filesFromFossil(const QDir &dir, bool recursive);
     static QList<QString> filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters);
-    static void scanDirRec(const QString& dir, const QString& dirPath,
-                           const QStringList &nameFilters, QDir::Filters filterFlags, bool recursive,
-                           QList<QString>& files, std::set<QString>* scannedDirs, bool topLevel);
+    static void scanDirRec(QDir dir,
+                           const QString &baseDirPath,
+                           const QStringList &nameFilters,
+                           QDir::Filters filterFlags,
+                           bool recursive,
+                           QList<QString> &files,
+                           QSet<QString> &scannedDirs);
 
     static QList<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);
 

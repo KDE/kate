@@ -1063,12 +1063,12 @@ void KateFileTreeModel::updateBackgrounds(bool force)
     for (const auto &[item, brush] : m_brushes) {
         oldBrushes.erase(item);
         const QModelIndex idx = createIndex(item->row(), 0, item);
-        dataChanged(idx, idx);
+        Q_EMIT dataChanged(idx, idx);
     }
 
     for (const auto &[item, brush] : oldBrushes) {
         const QModelIndex idx = createIndex(item->row(), 0, item);
-        dataChanged(idx, idx);
+        Q_EMIT dataChanged(idx, idx);
     }
 }
 
@@ -1472,7 +1472,7 @@ void KateFileTreeModel::resetHistory()
 
     for (ProxyItem *item : std::as_const(list)) {
         QModelIndex idx = createIndex(item->row(), 0, item);
-        dataChanged(idx, idx, QList<int>(1, Qt::BackgroundRole));
+        Q_EMIT dataChanged(idx, idx, QList<int>(1, Qt::BackgroundRole));
     }
 }
 

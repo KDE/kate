@@ -536,7 +536,7 @@ void RainbowParenConfigPage::apply()
     config.writeEntry("color4", m_btns[3].color().name(QColor::HexRgb));
     config.writeEntry("color5", m_btns[4].color().name(QColor::HexRgb));
     config.sync();
-    Q_EMIT m_plugin->readConfig();
+    m_plugin->readConfig();
 }
 
 void RainbowParenConfigPage::reset()

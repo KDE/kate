@@ -33,6 +33,23 @@
 #include <unistd.h>
 #endif
 
+namespace
+{
+QStringList getAllSessionsInDir(const QString &dirPath)
+{
+    // Let's get a list of all session we have atm
+    QDir dir(dirPath, QStringLiteral("*.katesession"), QDir::Time);
+    QStringList sessionList;
+    sessionList.reserve(dir.count());
+    for (unsigned int i = 0; i < dir.count(); ++i) {
+        QString name = dir[i];
+        name.chop(12); // .katesession
+        sessionList << QUrl::fromPercentEncoding(name.toLatin1());
+    }
+    return sessionList;
+}
+}
+
 // BEGIN KateSessionManager
 
 KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsDir)
@@ -68,26 +85,16 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
     });
 }
 
-KateSessionManager::~KateSessionManager() = default;
+KateSessionManager::~KateSessionManager()
+{
+    // write jump list actions to disk in the kate.desktop file
+    updateJumpListActions();
+}
 
 void KateSessionManager::updateSessionList()
 {
-    QStringList list;
-
-    // Let's get a list of all session we have atm
-    QDir dir(m_sessionsDir, QStringLiteral("*.katesession"), QDir::Time);
-
-    for (unsigned int i = 0; i < dir.count(); ++i) {
-        QString name = dir[i];
-        name.chop(12); // .katesession
-        list << QUrl::fromPercentEncoding(name.toLatin1());
-    }
-
-    // write jump list actions to disk in the kate.desktop file
-    updateJumpListActions(list);
-
+    const QStringList list = getAllSessionsInDir(m_sessionsDir);
     bool changed = false;
-
     // Add new sessions to our list
     for (const QString &session : std::as_const(list)) {
         if (!m_sessions.contains(session)) {
@@ -592,8 +599,14 @@ KateSessionList KateSessionManager::sessionList()
     return m_sessions.values();
 }
 
-void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
+void KateSessionManager::updateJumpListActions()
 {
+    // Let's get a list of all session we have atm
+    QStringList sessionList = getAllSessionsInDir(m_sessionsDir);
+    if (sessionList.isEmpty()) {
+        return;
+    }
+
     KService::Ptr service = KService::serviceByStorageId(qApp->desktopFileName());
     if (!service) {
         return;
@@ -615,8 +628,7 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     const int maxEntryCount = std::min<int>(sessionList.count(), 10);
 
     // sessionList is ordered by time, but we like it alphabetical to avoid even more a needed update
-    QStringList sessionSubList = sessionList.mid(0, maxEntryCount);
-    sessionSubList.sort();
+    std::sort(sessionList.begin(), sessionList.begin() + maxEntryCount);
 
     // we compute the new group names in advance so we can tell whether we changed something
     // and avoid touching the desktop file leading to an expensive ksycoca recreation
@@ -625,7 +637,7 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
 
     for (int i = 0; i < maxEntryCount; ++i) {
         sessionActions
-            << QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(sessionSubList.at(i).toUtf8(), QCryptographicHash::Md5).toHex()));
+            << QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(sessionList.at(i).toUtf8(), QCryptographicHash::Md5).toHex()));
     }
 
     newActions += sessionActions;
@@ -651,7 +663,7 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
 
     for (int i = 0; i < maxEntryCount; ++i) {
         const QString &action = sessionActions.at(i); // is a transform of sessionSubList, so count and order is identical
-        const QString &session = sessionSubList.at(i);
+        const QString &session = sessionList.at(i);
 
         KConfigGroup grp = df->actionGroup(action);
         grp.writeEntry("Name", session);

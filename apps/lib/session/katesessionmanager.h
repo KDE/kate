@@ -244,7 +244,7 @@ private:
     /**
      * Writes sessions as jump list actions to the kate.desktop file
      */
-    static void updateJumpListActions(const QStringList &sessionList);
+    void updateJumpListActions();
 
     /**
      * Given a config group name, determines if the group represents

@@ -237,11 +237,11 @@ QSize KateMainWindow::sizeHint() const
 
 void KateMainWindow::setupImportantActions()
 {
-    m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleShowStatusBar()), actionCollection());
+    m_paShowStatusBar = KStandardAction::showStatusbar(this, &KateMainWindow::toggleShowStatusBar, actionCollection());
     m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
 #if KATE_ALLOW_MENU_BAR_HIDE
-    m_paShowMenuBar = KStandardAction::showMenubar(this, SLOT(toggleShowMenuBar()), actionCollection());
+    m_paShowMenuBar = KStandardAction::showMenubar(this, &KateMainWindow::toggleShowMenuBar, actionCollection());
 #endif
 
     m_paShowTabBar = new KToggleAction(i18n("Show &Tabs"), this);
@@ -332,10 +332,10 @@ void KateMainWindow::setupActions()
     QAction *a;
 
     actionCollection()
-        ->addAction(KStandardAction::New, QStringLiteral("file_new"), m_viewManager, SLOT(slotDocumentNew()))
+        ->addAction(KStandardAction::New, QStringLiteral("file_new"), m_viewManager, &KateViewManager::slotDocumentNew)
         ->setWhatsThis(i18n("Create a new document"));
     actionCollection()
-        ->addAction(KStandardAction::Open, QStringLiteral("file_open"), m_viewManager, SLOT(slotDocumentOpen()))
+        ->addAction(KStandardAction::Open, QStringLiteral("file_open"), m_viewManager, &KateViewManager::slotDocumentOpen)
         ->setWhatsThis(i18n("Open an existing document for editing"));
 
     m_fileOpenRecent = KStandardAction::openRecent(
@@ -417,7 +417,7 @@ void KateMainWindow::setupActions()
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::closeOrphaned);
     a->setWhatsThis(i18n("Close all documents in the file list that could not be reopened, because they are not accessible anymore."));
 
-    a = actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), m_viewManager, SLOT(slotDocumentClose()));
+    a = actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), m_viewManager, qOverload<>(&KateViewManager::slotDocumentClose));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-close")));
     a->setWhatsThis(i18n("Close the current document."));
 
@@ -465,13 +465,13 @@ void KateMainWindow::setupActions()
     // no open with for KWrite ATM
     documentOpenWith->setVisible(KateApp::isKate());
 
-    a = KStandardAction::keyBindings(this, SLOT(editKeys()), actionCollection());
+    a = KStandardAction::keyBindings(this, &KateMainWindow::editKeys, actionCollection());
     a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-    a = KStandardAction::configureToolbars(this, SLOT(slotEditToolbars()), actionCollection());
+    a = KStandardAction::configureToolbars(this, &KateMainWindow::slotEditToolbars, actionCollection());
     a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
-    QAction *settingsConfigure = KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+    QAction *settingsConfigure = KStandardAction::preferences(this, &KateMainWindow::slotConfigure, actionCollection());
     settingsConfigure->setWhatsThis(i18n("Configure various aspects of this application and the editing component."));
 
     if (KateApp::self()->pluginManager()->pluginList().size() > 0) {

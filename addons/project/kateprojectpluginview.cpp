@@ -180,47 +180,57 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     /**
      * back + forward
      */
-    auto a = actionCollection()->addAction(QStringLiteral("projects_open_project"), this, SLOT(openDirectoryOrProject()));
+    auto a = actionCollection()->addAction(QStringLiteral("projects_open_project"), this, [this] {
+        openDirectoryOrProject();
+    });
     a->setText(i18n("Open Folder..."));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open-folder")));
     actionCollection()->setDefaultShortcut(a, QKeySequence(QKeySequence(QStringLiteral("Ctrl+T, O"), QKeySequence::PortableText)));
 
-    m_projectTodosAction = a = actionCollection()->addAction(QStringLiteral("projects_todos"), this, SLOT(showProjectTodos()));
+    m_projectTodosAction = a = actionCollection()->addAction(QStringLiteral("projects_todos"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::showProjectTodos);
     a->setText(i18n("Project TODOs"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("korg-todo")));
 
-    m_projectPrevAction = a = actionCollection()->addAction(QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()));
+    m_projectPrevAction = a = actionCollection()->addAction(QStringLiteral("projects_prev_project"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::slotProjectPrev);
     a->setText(i18n("Activate Previous Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
 
-    m_projectNextAction = a = actionCollection()->addAction(QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
+    m_projectNextAction = a = actionCollection()->addAction(QStringLiteral("projects_next_project"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::slotProjectNext);
     a->setText(i18n("Activate Next Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
 
-    m_projectGotoIndexAction = a = actionCollection()->addAction(QStringLiteral("projects_goto_index"), this, SLOT(slotProjectIndex()));
+    m_projectGotoIndexAction = a = actionCollection()->addAction(QStringLiteral("projects_goto_index"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::slotProjectIndex);
     a->setText(i18n("Lookup"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
 
-    m_projectCloseAction = a = actionCollection()->addAction(QStringLiteral("projects_close"), this, SLOT(slotCloseProject()));
+    m_projectCloseAction = a = actionCollection()->addAction(QStringLiteral("projects_close"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::slotCloseProject);
     a->setText(i18n("Close Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
 
-    m_projectCloseAllAction = a = actionCollection()->addAction(QStringLiteral("projects_close_all"), this, SLOT(slotCloseAllProjects()));
+    m_projectCloseAllAction = a = actionCollection()->addAction(QStringLiteral("projects_close_all"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::slotCloseAllProjects);
     a->setText(i18n("Close All Projects"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
 
-    m_projectCloseWithoutDocumentsAction = a =
-        actionCollection()->addAction(QStringLiteral("projects_close_without_open_documents"), this, SLOT(slotCloseAllProjectsWithoutDocuments()));
+    m_projectCloseWithoutDocumentsAction = a = actionCollection()->addAction(QStringLiteral("projects_close_without_open_documents"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::slotCloseAllProjectsWithoutDocuments);
     a->setText(i18n("Close Orphaned Projects"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
 
-    m_projectReloadAction = a = actionCollection()->addAction(QStringLiteral("project_reload"), this, SLOT(slotProjectReload()));
+    m_projectReloadAction = a = actionCollection()->addAction(QStringLiteral("project_reload"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::slotProjectReload);
     a->setText(i18n("Reload Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
 
-    m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"), this, SLOT(slotGotoSymbol()));
+    m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::slotGotoSymbol);
 
     auto chckbrAct = actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [this] {
         BranchCheckoutDialog bd(mainWindow()->window(), projectBaseDir());

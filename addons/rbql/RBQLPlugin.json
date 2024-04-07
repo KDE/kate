@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Run SQL-like queries using RBQL",
+        "Description[bg]": "Изпълняване на SQL-подобни заявки, използвайки RBQL",
         "Description[ca@valencia]": "Executa consultes similars a SQL fent servir RBQL",
         "Description[ca]": "Executa consultes similars a l'SQL fent servir RBQL",
         "Description[es]": "Ejecutar consultas de tipo SQL usando RBQL",
@@ -16,6 +17,7 @@
         "Description[x-test]": "xxRun SQL-like queries using RBQLxx",
         "Description[zh_CN]": "使用 RBQL 运行 SQL 式查询",
         "Name": "Rainbow CSV",
+        "Name[bg]": "Rainbow CSV",
         "Name[ca@valencia]": "Rainbow CSV",
         "Name[ca]": "Rainbow CSV",
         "Name[es]": "Rainbow CSV",

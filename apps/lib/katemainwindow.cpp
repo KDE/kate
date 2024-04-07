@@ -905,34 +905,31 @@ void KateMainWindow::updateHamburgerMenu()
     menu->addAction(actionCollection()->action(QStringLiteral("file_open")));
     menu->addSeparator();
 
-    auto &&view = viewManager()->activeView();
-    if (!view) {
-        return;
+    if (auto view = viewManager()->activeView()) {
+        menu->addAction(view->actionCollection()->action(QStringLiteral("file_save")));
+        menu->addAction(view->actionCollection()->action(QStringLiteral("file_save_as")));
+        menu->addSeparator();
+
+        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_undo")));
+        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_redo")));
+        menu->addSeparator();
+
+        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_cut")));
+        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_copy")));
+        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_paste")));
+        menu->addSeparator();
+
+        menu->addAction(view->actionCollection()->action(QStringLiteral("file_print")));
+        menu->addSeparator();
+
+        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_find")));
+        menu->addSeparator();
+
+        menu->addAction(view->actionCollection()->action(QStringLiteral("view_inc_font_sizes")));
+        menu->addAction(view->actionCollection()->action(QStringLiteral("view_dec_font_sizes")));
+        menu->addAction(view->actionCollection()->action(QStringLiteral("view_reset_font_sizes")));
+        menu->addSeparator();
     }
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("file_save")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("file_save_as")));
-    menu->addSeparator();
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_undo")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_redo")));
-    menu->addSeparator();
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_cut")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_copy")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_paste")));
-    menu->addSeparator();
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("file_print")));
-    menu->addSeparator();
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("edit_find")));
-    menu->addSeparator();
-
-    menu->addAction(view->actionCollection()->action(QStringLiteral("view_inc_font_sizes")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("view_dec_font_sizes")));
-    menu->addAction(view->actionCollection()->action(QStringLiteral("view_reset_font_sizes")));
-    menu->addSeparator();
 
     for (QAction *menuAction : menuBar()->actions()) {
         menu->addAction(menuAction);

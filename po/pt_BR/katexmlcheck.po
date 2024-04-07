@@ -2,20 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2016, 2017, 2022.
+# SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-18 02:00+0000\n"
-"PO-Revision-Date: 2022-08-19 15:41-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"PO-Revision-Date: 2024-04-05 10:52-0300\n"
+"Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #: plugin_katexmlcheck.cpp:96
 #, kde-format
@@ -30,7 +31,7 @@ msgstr "Validar XML"
 #: plugin_katexmlcheck.cpp:131
 #, kde-format
 msgid "Validate process crashed"
-msgstr ""
+msgstr "Validar processo falhou"
 
 #: plugin_katexmlcheck.cpp:131 plugin_katexmlcheck.cpp:149
 #: plugin_katexmlcheck.cpp:209 plugin_katexmlcheck.cpp:234
@@ -43,13 +44,13 @@ msgstr "Verificar XML"
 #: plugin_katexmlcheck.cpp:145
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
-msgstr ""
+msgstr "Não foi encontrado nenhum DOCTYPE, apenas verificará a boa forma."
 
 #: plugin_katexmlcheck.cpp:147
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
-msgstr ""
+msgstr "'%1' não encontrado, apenas verificará a boa forma."
 
 #: plugin_katexmlcheck.cpp:233
 #, kde-format

@@ -147,10 +147,12 @@ public:
                 hideTooltip();
             }
             break;
-        case QEvent::MouseMove:
-            if (!m_manual && !hasFocus())
+        case QEvent::MouseMove: {
+            auto me = static_cast<QMouseEvent *>(e);
+            if (!m_manual && !hasFocus() && !rect().contains(me->position().toPoint())) {
                 hideTooltipWithDelay();
-            break;
+            }
+        } break;
         case QEvent::MouseButtonPress:
         case QEvent::MouseButtonRelease:
         case QEvent::MouseButtonDblClick:

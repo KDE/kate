@@ -1050,7 +1050,6 @@ void KatePluginSearchView::startSearch()
     }
 
     KTextEditor::View *activeView = m_mainWindow->activeView();
-    QList<KTextEditor::Document *> documents;
     if ((m_ui.searchPlaceCombo->currentIndex() == MatchModel::CurrentFile && !activeView)
         || (m_ui.searchPlaceCombo->currentIndex() == MatchModel::OpenFiles && m_kateApp->documents().isEmpty())) {
         return;

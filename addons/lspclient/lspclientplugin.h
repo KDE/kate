@@ -85,7 +85,7 @@ public:
 
 Q_SIGNALS:
     // signal settings update
-    void update();
+    void update() const;
 
     void showMessage(KTextEditor::Message::MessageType level, const QString &msg);
 

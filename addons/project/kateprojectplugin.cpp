@@ -603,13 +603,13 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
             const QVariantMap sMap = QJsonDocument::fromJson(project.toUtf8()).toVariant().toMap();
 
             // valid file backed project?
-            if (const auto file = sMap[QStringLiteral("file")].toString(); !file.isEmpty() && QFileInfo(file).exists()) {
+            if (const auto file = sMap[QStringLiteral("file")].toString(); !file.isEmpty() && QFileInfo::exists(file)) {
                 createProjectForFileName(file);
                 continue;
             }
 
             // valid path + data project?
-            if (const auto path = sMap[QStringLiteral("path")].toString(); !path.isEmpty() && QFileInfo(path).exists()) {
+            if (const auto path = sMap[QStringLiteral("path")].toString(); !path.isEmpty() && QFileInfo::exists(path)) {
                 createProjectForDirectory(QDir(path), sMap[QStringLiteral("data")].toMap());
                 continue;
             }

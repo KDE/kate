@@ -1132,6 +1132,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     </screenshot>
     <screenshot environment="windows">
       <caption>Kate with some Git based project</caption>
+      <caption xml:lang="bg">Kate с Git базиран проект</caption>
       <caption xml:lang="ca">El Kate amb projectes basats en el Git</caption>
       <caption xml:lang="ca-valencia">Kate amb projectes basats en Git</caption>
       <caption xml:lang="eo">Kate kun iu Git-bazita projekto</caption>
@@ -1154,6 +1155,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     </screenshot>
     <screenshot environment="windows">
       <caption>Kate with split view</caption>
+      <caption xml:lang="bg">Kate с разделен вид</caption>
       <caption xml:lang="ca">El Kate amb una vista dividida</caption>
       <caption xml:lang="ca-valencia">Kate amb una vista dividida</caption>
       <caption xml:lang="eo">Kate kun dividita vido</caption>
@@ -1176,6 +1178,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     </screenshot>
     <screenshot environment="windows">
       <caption>Kate in dark mode</caption>
+      <caption xml:lang="bg">Kate в тъмен режим</caption>
       <caption xml:lang="ca">El Kate en mode fosc</caption>
       <caption xml:lang="ca-valencia">Kate en mode fosc</caption>
       <caption xml:lang="eo">Kate en malhela reĝimo</caption>
@@ -1198,6 +1201,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     </screenshot>
     <screenshot environment="windows">
       <caption>Create a new Git branch with Kate</caption>
+      <caption xml:lang="bg">Създаване на нов Git бранш с Kate</caption>
       <caption xml:lang="ca">Creació d'una branca nova del Git amb el Kate</caption>
       <caption xml:lang="ca-valencia">Creeu una branca nova de Git amb Kate</caption>
       <caption xml:lang="eo">Krei novan Git-branĉon per Kate</caption>

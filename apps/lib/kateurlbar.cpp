@@ -877,7 +877,7 @@ public:
             return;
         }
         QMenu menu = QMenu(viewport());
-        QModelIndex selectedIndex = selectedIndexes().first();
+        QModelIndex selectedIndex = selectedIndexes().constFirst();
         bool last = selectedIndex == m_model.index(m_model.rowCount() - 1, 0);
         auto path = selectedIndex.data(BreadCrumbRole::PathRole).toString();
         if (!path.isEmpty()) {

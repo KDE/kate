@@ -993,8 +993,8 @@ KateViewSpace *KateViewManager::findIntuitiveNeighborView(KateSplitter *splitter
             } else { // otherwise we need to find in which of the two child to go based on the cursor position
                 QPoint cursorCoord = activeView()->mapToGlobal(activeView()->cursorPositionCoordinates());
                 QPoint targetSplitterCoord = targetSplitter->widget(0)->mapToGlobal(QPoint(0, 0));
-                if ((o == Qt::Horizontal && (targetSplitterCoord.y() + targetSplitter->sizes()[0] > cursorCoord.y()))
-                    || (o == Qt::Vertical && (targetSplitterCoord.x() + targetSplitter->sizes()[0] > cursorCoord.x()))) {
+                if ((o == Qt::Horizontal && (targetSplitterCoord.y() + targetSplitter->sizes().constFirst() > cursorCoord.y()))
+                    || (o == Qt::Vertical && (targetSplitterCoord.x() + targetSplitter->sizes().constFirst() > cursorCoord.x()))) {
                     targetChild = targetSplitter->widget(0);
                 } else {
                     targetChild = targetSplitter->widget(1);

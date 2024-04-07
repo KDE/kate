@@ -414,7 +414,7 @@ void GdbBackend::slotReadDebugStdOut()
 
 void GdbBackend::slotReadDebugStdErr()
 {
-    m_errBuffer += QString::fromLocal8Bit(m_debugProcess.readAllStandardError().data());
+    m_errBuffer += QString::fromLocal8Bit(m_debugProcess.readAllStandardError().constData());
     int end = 0;
     // add whole lines at a time to the error list
     do {

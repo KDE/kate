@@ -337,7 +337,7 @@ int main(int argc, char **argv)
                 QDBusMessage res = QDBusConnection::sessionBus().call(m);
                 if (res.type() == QDBusMessage::ReplyMessage) {
                     if (res.arguments().count() == 1) {
-                        QVariant v = res.arguments()[0];
+                        QVariant v = res.arguments().constFirst();
                         if (v.isValid()) {
                             QString s = v.toString();
                             if ((!s.isEmpty()) && (s != QLatin1String("ERROR"))) {

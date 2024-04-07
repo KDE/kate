@@ -105,7 +105,7 @@ void KateSessionManagerTest::renameSession()
     m_manager->renameSession(s, newName); // non-collision path
     QCOMPARE(s->name(), newName);
     QCOMPARE(m_manager->sessionList().size(), 1);
-    QCOMPARE(m_manager->sessionList().first(), s);
+    QCOMPARE(m_manager->sessionList().constFirst(), s);
 
     // cleanup again for next test
     QVERIFY(m_manager->activateAnonymousSession());

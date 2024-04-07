@@ -167,7 +167,7 @@ QString AppOutput::runningProcess()
         return d->terminalProcess;
     }
 
-    QString program = d->process.program().isEmpty() ? QString() : d->process.program().first();
+    QString program = d->process.program().isEmpty() ? QString() : d->process.program().constFirst();
     return d->process.state() == QProcess::NotRunning ? QString() : program;
 }
 

@@ -43,7 +43,7 @@ public:
 Q_SIGNALS:
     void requestOpenDiffDocument(const QUrl &documentUrl);
 
-private Q_SLOTS:
+private:
     void slotIgnore();
     void slotOverwrite();
     void slotReload();

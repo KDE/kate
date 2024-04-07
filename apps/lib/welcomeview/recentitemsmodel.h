@@ -13,8 +13,6 @@
 
 class RecentItemsModel : public QAbstractListModel
 {
-    Q_OBJECT
-
 public:
     explicit RecentItemsModel(QObject *parent = nullptr);
 

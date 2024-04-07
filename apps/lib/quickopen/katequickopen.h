@@ -23,7 +23,6 @@ class QuickOpenFilterProxyModel;
 
 class KateQuickOpen : public QFrame
 {
-    Q_OBJECT
 public:
     KateQuickOpen(KateMainWindow *mainWindow);
 
@@ -37,7 +36,7 @@ public:
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
-private Q_SLOTS:
+private:
     void reselectFirst();
 
     /**

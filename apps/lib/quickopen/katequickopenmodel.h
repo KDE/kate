@@ -30,7 +30,6 @@ enum KateQuickOpenModelList : int { CurrentProject, AllProjects };
 
 class KateQuickOpenModel : public QAbstractTableModel
 {
-    Q_OBJECT
 public:
     enum Role { FileName = Qt::UserRole + 1, FilePath, Score, Document };
     explicit KateQuickOpenModel(QObject *parent = nullptr);

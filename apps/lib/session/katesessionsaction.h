@@ -13,12 +13,10 @@ class KateSessionManager;
 
 class KATE_PRIVATE_EXPORT KateSessionsAction : public KActionMenu
 {
-    Q_OBJECT
-
 public:
     KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager, bool allSessions);
 
-public Q_SLOTS:
+public:
     void slotAboutToShow();
     void openSession(QAction *action);
     void slotSessionChanged();

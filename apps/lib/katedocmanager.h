@@ -98,7 +98,7 @@ public:
         m_daysMetaInfos = i;
     }
 
-public Q_SLOTS:
+public:
     /**
      * saves all documents that has at least one view.
      * documents with no views are ignored :P
@@ -160,11 +160,12 @@ Q_SIGNALS:
      */
     void documentsDeleted(const QList<KTextEditor::Document *> &documents);
 
-private Q_SLOTS:
+private:
     void slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::Document::ModifiedOnDiskReason reason);
     void slotModChanged(KTextEditor::Document *doc);
     void slotModChanged1(KTextEditor::Document *doc);
     void slotUrlChanged(const QUrl &newUrl);
+    void documentOpened();
 
 private:
     bool loadMetaInfos(KTextEditor::Document *doc, const QUrl &url);
@@ -178,7 +179,4 @@ private:
     int m_daysMetaInfos;
 
     QList<QUrl> m_recentlyClosedUrls;
-
-private Q_SLOTS:
-    void documentOpened();
 };

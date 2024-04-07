@@ -45,7 +45,6 @@ using namespace std::chrono_literals;
 
 class FuzzyFilterModel final : public QSortFilterProxyModel
 {
-    Q_OBJECT
 public:
     explicit FuzzyFilterModel(QObject *parent = nullptr)
         : QSortFilterProxyModel(parent)
@@ -205,7 +204,6 @@ using FilterableTreeView = FilterableItemView<QTreeView>;
 
 class DirFilesModel : public QAbstractListModel
 {
-    Q_OBJECT
 public:
     DirFilesModel(QObject *parent = nullptr)
         : QAbstractListModel(parent)
@@ -516,7 +514,6 @@ enum BreadCrumbRole {
 
 class BreadCrumbDelegate : public QStyledItemDelegate
 {
-    Q_OBJECT
 public:
     using QStyledItemDelegate::QStyledItemDelegate;
 
@@ -1007,7 +1004,6 @@ Q_SIGNALS:
 // TODO: Merge this class back into KateUrlBar
 class UrlbarContainer : public QWidget
 {
-    Q_OBJECT
 public:
     UrlbarContainer(KateUrlBar *parent)
         : QWidget(parent)

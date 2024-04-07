@@ -45,12 +45,10 @@ class ToolView;
 
 class ToggleToolViewAction : public KToggleAction
 {
-    Q_OBJECT
-
 public:
     ToggleToolViewAction(const QString &text, ToolView *tv, QObject *parent);
 
-protected Q_SLOTS:
+protected:
     void slotToggled(bool) override;
     void toolVisibleChanged(bool);
 
@@ -69,7 +67,7 @@ public:
     void unregisterToolView(ToolView *tv);
     void updateSidebarsVisibleAction();
 
-private Q_SLOTS:
+private:
     void clientAdded(KXMLGUIClient *client);
     void updateActions();
 
@@ -237,7 +235,7 @@ public:
 Q_SIGNALS:
     void lastTabRemoved(MultiTabBar *);
 
-private Q_SLOTS:
+private:
     void tabClicked(int);
 
 private:
@@ -339,7 +337,7 @@ protected:
     void dragMoveEvent(QDragMoveEvent *) override;
     void dropEvent(QDropEvent *) override;
 
-private Q_SLOTS:
+private:
     void buttonPopupActivate(QAction *);
     void readConfig();
     void handleCollapse(int pos, int index);

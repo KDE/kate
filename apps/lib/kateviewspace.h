@@ -221,12 +221,12 @@ protected:
 Q_SIGNALS:
     void viewSpaceEmptied(KateViewSpace *vs);
 
-public Q_SLOTS:
+public:
     void documentDestroyed(QObject *doc);
     void updateDocumentName(KTextEditor::Document *doc);
     void updateDocumentUrl(KTextEditor::Document *doc);
 
-private Q_SLOTS:
+private:
     void tabBarToggled();
     void urlBarToggled(bool);
     void changeView(int buttonId);

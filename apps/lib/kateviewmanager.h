@@ -75,7 +75,7 @@ public:
 
     KTextEditor::View *openViewForDoc(KTextEditor::Document *doc);
 
-public Q_SLOTS:
+public:
     void openUrl(const QUrl &url);
     void openUrlOrProject(const QUrl &url);
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor pos);
@@ -86,11 +86,11 @@ public:
 
     void moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *src, DocOrWidget doc);
 
-private Q_SLOTS:
+private:
     void activateView(KTextEditor::View *view);
     void activateSpace(KTextEditor::View *v);
 
-public Q_SLOTS:
+public:
     void slotDocumentNew();
     void slotDocumentOpen();
     void slotDocumentClose();
@@ -155,7 +155,7 @@ public:
     bool removeWidget(QWidget *w);
     bool activateWidget(QWidget *w);
 
-private Q_SLOTS:
+private:
     void slotViewChanged();
 
     void documentWillBeDeleted(KTextEditor::Document *doc);
@@ -191,7 +191,7 @@ private Q_SLOTS:
      */
     void slotScrollSynchedViews(KTextEditor::View *view);
 
-public Q_SLOTS:
+public:
     /**
      * Splits a KateViewSpace into two in the following steps:
      * 1. create a KateSplitter in the parent of the KateViewSpace to be split

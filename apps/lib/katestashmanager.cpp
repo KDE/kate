@@ -16,11 +16,6 @@
 #include <QStringDecoder>
 #include <QUrl>
 
-KateStashManager::KateStashManager(QObject *parent)
-    : QObject(parent)
-{
-}
-
 void KateStashManager::clearStashForSession(const KateSession::Ptr session)
 {
     const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
@@ -150,5 +145,3 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
         }
     }
 }
-
-#include "moc_katestashmanager.cpp"

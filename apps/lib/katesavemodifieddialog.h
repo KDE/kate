@@ -17,7 +17,6 @@ class QPushButton;
 
 class KateSaveModifiedDialog : public QDialog
 {
-    Q_OBJECT
 public:
     KateSaveModifiedDialog(QWidget *parent, const std::vector<KTextEditor::Document *> &documents);
     ~KateSaveModifiedDialog() override;
@@ -26,7 +25,8 @@ public:
 protected:
     void showEvent(QShowEvent *event) override;
     bool doSave();
-protected Q_SLOTS:
+
+private:
     void slotSelectAll();
     void slotItemActivated(QTreeWidgetItem *, int);
     void slotSaveSelected();

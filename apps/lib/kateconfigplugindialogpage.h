@@ -23,7 +23,7 @@ public:
 Q_SIGNALS:
     void stateChange(KatePluginListItem *, bool);
 
-private Q_SLOTS:
+private:
     void stateChanged(QTreeWidgetItem *);
 };
 
@@ -34,7 +34,7 @@ class KateConfigPluginPage : public QFrame
 public:
     KateConfigPluginPage(QWidget *parent, class KateConfigDialog *dialog);
 
-public Q_SLOTS:
+public:
     void slotApply();
 
 private:
@@ -43,7 +43,7 @@ private:
 Q_SIGNALS:
     void changed();
 
-private Q_SLOTS:
+private:
     void stateChange(KatePluginListItem *, bool);
 
     void loadPlugin(KatePluginListItem *);

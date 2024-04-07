@@ -83,5 +83,3 @@ QUrl RecentItemsModel::url(const QModelIndex &index) const
 
     return QUrl();
 }
-
-#include "moc_recentitemsmodel.cpp"

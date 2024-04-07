@@ -27,8 +27,6 @@
 
 class TooltipPrivate : public QTextBrowser
 {
-    Q_OBJECT
-
 public:
     void setTooltipText(const QString &text, TextHintMarkupKind kind)
     {
@@ -167,12 +165,12 @@ public:
         return false;
     }
 
-    Q_SLOT void hideTooltip()
+    void hideTooltip()
     {
         deleteLater();
     }
 
-    Q_SLOT void hideTooltipWithDelay()
+    void hideTooltipWithDelay()
     {
         m_hideTimer.start(100);
     }
@@ -301,5 +299,3 @@ void KateTooltip::show(const QString &text, TextHintMarkupKind kind, QPoint pos,
     tooltip->place(pos);
     tooltip->show();
 }
-
-#include "tooltip.moc"

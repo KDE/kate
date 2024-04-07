@@ -13,8 +13,6 @@
 
 class SavedSessionsModel : public QAbstractListModel
 {
-    Q_OBJECT
-
 public:
     explicit SavedSessionsModel(QObject *parent = nullptr);
 

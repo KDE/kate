@@ -16,11 +16,10 @@ class Document;
 
 class KateViewManager;
 
-class KateStashManager : QObject
+class KateStashManager
 {
-    Q_OBJECT
 public:
-    explicit KateStashManager(QObject *parent = nullptr);
+    KateStashManager() = default;
 
     bool stashUnsavedChanges() const
     {

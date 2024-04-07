@@ -8,7 +8,6 @@
 
 class LineNumArea final : public QWidget
 {
-    Q_OBJECT
 public:
     explicit LineNumArea(class DiffEditor *parent);
 

@@ -1139,7 +1139,7 @@ QString MatchModel::generateReplaceString(const QRegularExpressionMatch &match, 
 {
     // Modify the replace string according to this match
     QString replaceText = replaceString;
-    replaceText.replace(QLatin1String("\\\\"), QLatin1String("¤Search&Replace¤"));
+    replaceText.replace(QLatin1String("\\\\"), QStringLiteral("¤Search&Replace¤"));
 
     // allow captures \0 .. \9
     for (int j = qMin(9, match.lastCapturedIndex()); j >= 0; --j) {
@@ -1147,7 +1147,7 @@ QString MatchModel::generateReplaceString(const QRegularExpressionMatch &match, 
         QString captureUX = QStringLiteral("\\U\\%1").arg(j);
         QString captureX = QStringLiteral("\\%1").arg(j);
         QString captured = match.captured(j);
-        captured.replace(QLatin1String("\\"), QLatin1String("¤Search&Replace¤"));
+        captured.replace(QLatin1String("\\"), QStringLiteral("¤Search&Replace¤"));
         replaceText.replace(captureLX, captured.toLower());
         replaceText.replace(captureUX, captured.toUpper());
         replaceText.replace(captureX, captured);
@@ -1159,7 +1159,7 @@ QString MatchModel::generateReplaceString(const QRegularExpressionMatch &match, 
         QString captureUX = QStringLiteral("\\U\\{%1}").arg(j);
         QString captureX = QStringLiteral("\\{%1}").arg(j);
         QString captured = match.captured(j);
-        captured.replace(QLatin1String("\\"), QLatin1String("¤Search&Replace¤"));
+        captured.replace(QLatin1String("\\"), QStringLiteral("¤Search&Replace¤"));
         replaceText.replace(captureLX, captured.toLower());
         replaceText.replace(captureUX, captured.toUpper());
         replaceText.replace(captureX, captured);
@@ -1167,7 +1167,7 @@ QString MatchModel::generateReplaceString(const QRegularExpressionMatch &match, 
 
     replaceText.replace(QLatin1String("\\n"), QLatin1String("\n"));
     replaceText.replace(QLatin1String("\\t"), QLatin1String("\t"));
-    replaceText.replace(QLatin1String("¤Search&Replace¤"), QLatin1String("\\"));
+    replaceText.replace(QStringLiteral("¤Search&Replace¤"), QLatin1String("\\"));
 
     return replaceText;
 }

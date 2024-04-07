@@ -757,6 +757,20 @@ action="simul"
 >Scheda precedente</para
 ></entry>
 </row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Riapri gli ultimi documenti chiusi</para
+></entry>
+</row>
 
 </tbody>
 </tgroup>

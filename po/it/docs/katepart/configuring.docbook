@@ -130,16 +130,6 @@
 >Se spuntato l'editor mostra un simbolo &raquo; per indicare la presenza di una tabulazione nel testo.</para
 ></listitem>
 </varlistentry>
-<varlistentry>
-<term
-><guilabel
->Mostra cornice del focus attorno all'editor</guilabel
-></term>
-<listitem
-><para
->Se selezionato, l'editor mostra la cornice del focus attorno al controllo del testo della fonte principale.</para
-></listitem>
-</varlistentry>
 
 <varlistentry>
 <term

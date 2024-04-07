@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-06 00:40+0000\n"
+"POT-Creation-Date: 2024-04-07 00:41+0000\n"
 "PO-Revision-Date: 2023-01-02 07:25+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -171,7 +171,7 @@ msgstr "Tutup"
 msgid "Open File"
 msgstr "Buka File"
 
-#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:360
+#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:364
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy Location"
@@ -239,7 +239,7 @@ msgid "&View"
 msgstr "&Tampilan"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:114
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:116
 #, kde-format
 msgid "Split View"
 msgstr "Tampilan Belah"
@@ -1324,14 +1324,14 @@ msgstr "Tutup Dokumen"
 msgid "Save As"
 msgstr "Simpan Sebagai"
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:683
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:689
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "File baru telah terbuka ketika mencoba untuk menutup Kate, menutup "
 "dibatalkan."
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:683
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:689
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Menutup Dibatalkan"
@@ -1382,91 +1382,91 @@ msgstr "File \"%1\" tidak dapat dihapus."
 msgid "&Other Application..."
 msgstr "Aplikasi"
 
-#: lib/katemainwindow.cpp:239
+#: lib/katemainwindow.cpp:241
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr ""
 "Gunakan perintah ini untuk menampilkan atau menyembunyikan tampilan bilah "
 "status"
 
-#: lib/katemainwindow.cpp:245
+#: lib/katemainwindow.cpp:247
 #, kde-format
 msgid "Show &Tabs"
 msgstr "Tampilkan &Tab"
 
-#: lib/katemainwindow.cpp:248
+#: lib/katemainwindow.cpp:250
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr ""
 "Gunakan perintah ini untuk menampilkan atau menyembunyikan tab untuk tampilan"
 
-#: lib/katemainwindow.cpp:250
+#: lib/katemainwindow.cpp:252
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "Tam&pilkan Alur di Bilah Judul"
 
-#: lib/katemainwindow.cpp:253
+#: lib/katemainwindow.cpp:257
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Tampilkan alur dokumen lengkap di judul jendela"
 
-#: lib/katemainwindow.cpp:255
+#: lib/katemainwindow.cpp:259
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:264
+#: lib/katemainwindow.cpp:268
 #, fuzzy, kde-format
 #| msgid "&Color Scheme"
 msgid "&Window Color Scheme"
 msgstr "Skema &Warna"
 
-#: lib/katemainwindow.cpp:268
+#: lib/katemainwindow.cpp:272
 #, kde-format
 msgid "&Previous Tab"
 msgstr "&Tab Sebelumnya"
 
-#: lib/katemainwindow.cpp:269
+#: lib/katemainwindow.cpp:273
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "Fokus ke tab sebelumnya."
 
-#: lib/katemainwindow.cpp:274
+#: lib/katemainwindow.cpp:278
 #, kde-format
 msgid "&Next Tab"
 msgstr "Tab &Selanjutnya"
 
-#: lib/katemainwindow.cpp:275
+#: lib/katemainwindow.cpp:279
 #, kde-format
 msgid "Focus the next tab."
 msgstr "Fokus ke tab selanjutnya."
 
-#: lib/katemainwindow.cpp:282
+#: lib/katemainwindow.cpp:286
 #, kde-format
 msgid "&Quick Open"
 msgstr "&Buka Cepat"
 
-#: lib/katemainwindow.cpp:285
+#: lib/katemainwindow.cpp:289
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Membuka formulir untuk membuka dokumen dengan cepat."
 
-#: lib/katemainwindow.cpp:321
+#: lib/katemainwindow.cpp:325
 #, kde-format
 msgid "Output"
 msgstr "Output"
 
-#: lib/katemainwindow.cpp:331
+#: lib/katemainwindow.cpp:335
 #, kde-format
 msgid "Create a new document"
 msgstr "Ciptakan sebuah dokumen baru"
 
-#: lib/katemainwindow.cpp:334
+#: lib/katemainwindow.cpp:338
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Buka dokumen yang ada untuk penyuntingan"
 
-#: lib/katemainwindow.cpp:344
+#: lib/katemainwindow.cpp:348
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1475,84 +1475,84 @@ msgstr ""
 "Ini adalah daftar file yang baru saja Anda buka dan memudahkan Anda "
 "membukanya kembali."
 
-#: lib/katemainwindow.cpp:348
+#: lib/katemainwindow.cpp:352
 #, kde-format
 msgid "Save A&ll"
 msgstr "Simpan S&emua"
 
-#: lib/katemainwindow.cpp:351
+#: lib/katemainwindow.cpp:355
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Simpan semua dokumen yang terbuka dan terubah ke disk."
 
-#: lib/katemainwindow.cpp:354
+#: lib/katemainwindow.cpp:358
 #, kde-format
 msgid "&Reload All"
 msgstr "&Muat Ulang Semua"
 
-#: lib/katemainwindow.cpp:356
+#: lib/katemainwindow.cpp:360
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Memuat ulang semua dokumen yang terbuka."
 
-#: lib/katemainwindow.cpp:365 lib/katemainwindow.cpp:374
+#: lib/katemainwindow.cpp:369 lib/katemainwindow.cpp:378
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Menyalin alur file-nya file saat ini ke papan klip."
 
-#: lib/katemainwindow.cpp:369 lib/welcomeview/welcomeview.cpp:266
+#: lib/katemainwindow.cpp:373 lib/welcomeview/welcomeview.cpp:266
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Buka Folder Yang Mengandungnya"
 
-#: lib/katemainwindow.cpp:378
+#: lib/katemainwindow.cpp:382
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Ubah nama..."
 
-#: lib/katemainwindow.cpp:383
+#: lib/katemainwindow.cpp:387
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "Mengubah nama file milik dokumen saat ini."
 
-#: lib/katemainwindow.cpp:387
+#: lib/katemainwindow.cpp:391
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Hapus"
 
-#: lib/katemainwindow.cpp:392 lib/katemainwindow.cpp:401
+#: lib/katemainwindow.cpp:396 lib/katemainwindow.cpp:405
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "Menghapus file milik dokumen saat ini."
 
-#: lib/katemainwindow.cpp:396
+#: lib/katemainwindow.cpp:400
 #, kde-format
 msgid "Properties"
 msgstr "Properti"
 
-#: lib/katemainwindow.cpp:404 lib/katemainwindow.cpp:406
+#: lib/katemainwindow.cpp:408 lib/katemainwindow.cpp:410
 #, kde-format
 msgid "Compare"
 msgstr "Bandingkan"
 
-#: lib/katemainwindow.cpp:406
+#: lib/katemainwindow.cpp:410
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "Gunakan menu konteks Tabbar untuk membandingkan dua dokumen"
 
-#: lib/katemainwindow.cpp:408
+#: lib/katemainwindow.cpp:412
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Menampilkan sebuah petunjuk bagaimana membandingkan dokumen."
 
-#: lib/katemainwindow.cpp:411
+#: lib/katemainwindow.cpp:415
 #, kde-format
 msgid "Close Orphaned"
 msgstr "Tutup Dokumen Tanpa Induk"
 
-#: lib/katemainwindow.cpp:413
+#: lib/katemainwindow.cpp:417
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1561,64 +1561,64 @@ msgstr ""
 "Menutup semua dokumen pada daftar file yang tidak bisa dibuka kembali, "
 "karena tidak dapat diakses."
 
-#: lib/katemainwindow.cpp:417
+#: lib/katemainwindow.cpp:421
 #, kde-format
 msgid "Close the current document."
 msgstr "Tutup dokumen saat ini."
 
-#: lib/katemainwindow.cpp:420
+#: lib/katemainwindow.cpp:424
 #, kde-format
 msgid "Close Other"
 msgstr "Tutup Lainnya"
 
-#: lib/katemainwindow.cpp:422
+#: lib/katemainwindow.cpp:428
 #, kde-format
 msgid "Close other open documents."
 msgstr "Menutup dokumen terbuka lainnya."
 
-#: lib/katemainwindow.cpp:425
+#: lib/katemainwindow.cpp:431
 #, kde-format
 msgid "Clos&e All"
 msgstr "Tutup S&emua"
 
-#: lib/katemainwindow.cpp:427
+#: lib/katemainwindow.cpp:433
 #, kde-format
 msgid "Close all open documents."
 msgstr "Tutup semua dokumen yang terbuka."
 
-#: lib/katemainwindow.cpp:430
+#: lib/katemainwindow.cpp:436
 #, fuzzy, kde-format
 #| msgid "Reload all open documents."
 msgid "&Reopen latest closed document(s)."
 msgstr "Memuat ulang semua dokumen yang terbuka."
 
-#: lib/katemainwindow.cpp:433
+#: lib/katemainwindow.cpp:439
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr ""
 
-#: lib/katemainwindow.cpp:438
+#: lib/katemainwindow.cpp:444
 #, kde-format
 msgid "Close this window"
 msgstr "Tutup jendela ini"
 
-#: lib/katemainwindow.cpp:442
+#: lib/katemainwindow.cpp:448
 #, kde-format
 msgid "&New Window"
 msgstr "Je&ndela Baru"
 
-#: lib/katemainwindow.cpp:445
+#: lib/katemainwindow.cpp:451
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Create a new window."
 msgstr "Ciptakan sebuah dokumen baru"
 
-#: lib/katemainwindow.cpp:452
+#: lib/katemainwindow.cpp:458
 #, kde-format
 msgid "Open W&ith"
 msgstr "Buka D&engan"
 
-#: lib/katemainwindow.cpp:454
+#: lib/katemainwindow.cpp:460
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1627,98 +1627,98 @@ msgstr ""
 "Buka dokumen saat ini menggunakan aplikasi lain yang terdaftar jenis "
 "filenya, atau menggunakan aplikasi pilihan Anda."
 
-#: lib/katemainwindow.cpp:462
+#: lib/katemainwindow.cpp:468
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Konfigurasikan penempatan pintasan keyboard untuk aplikasi."
 
-#: lib/katemainwindow.cpp:465
+#: lib/katemainwindow.cpp:471
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Konfigurasikan butir mana saja yang ditampilkan pada bilah alat."
 
-#: lib/katemainwindow.cpp:468
+#: lib/katemainwindow.cpp:474
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Mengkonfigurasi berbagai aspek aplikasi dan komponen penyuntingan."
 
-#: lib/katemainwindow.cpp:472
+#: lib/katemainwindow.cpp:478
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "Buku Panduan &Pengaya"
 
-#: lib/katemainwindow.cpp:474
+#: lib/katemainwindow.cpp:480
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Menunjukkan file bantuan untuk berbagai pengaya yang tersedia."
 
-#: lib/katemainwindow.cpp:491
+#: lib/katemainwindow.cpp:497
 #, kde-format
 msgid "Sess&ions"
 msgstr "Ses&i"
 
-#: lib/katemainwindow.cpp:497
+#: lib/katemainwindow.cpp:503
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Sesi &Baru"
 
-#: lib/katemainwindow.cpp:502
+#: lib/katemainwindow.cpp:508
 #, fuzzy, kde-format
 #| msgid "&Open Session"
 msgid "&Recent Sessions"
 msgstr "&Buka Sesi"
 
-#: lib/katemainwindow.cpp:507
+#: lib/katemainwindow.cpp:513
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "&All Sessions"
 msgstr "Ses&i"
 
-#: lib/katemainwindow.cpp:514
+#: lib/katemainwindow.cpp:520
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Mengelola Sesi..."
 
-#: lib/katemainwindow.cpp:523
+#: lib/katemainwindow.cpp:529
 #, kde-format
 msgid "&Save Session"
 msgstr "&Simpan Sesi"
 
-#: lib/katemainwindow.cpp:529
+#: lib/katemainwindow.cpp:535
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Simpan Sesi &Sebagai..."
 
-#: lib/katemainwindow.cpp:536 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:542 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:545 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:551 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:553
+#: lib/katemainwindow.cpp:559
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:580
+#: lib/katemainwindow.cpp:586
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Ini akan menutup semua dokumen yang terbuka. Apakah Anda yakin ingin "
 "melanjutkan?"
 
-#: lib/katemainwindow.cpp:581
+#: lib/katemainwindow.cpp:587
 #, kde-format
 msgid "Close all documents"
 msgstr "Tutup semua dokumen"
 
-#: lib/katemainwindow.cpp:596
+#: lib/katemainwindow.cpp:602
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1727,12 +1727,12 @@ msgstr ""
 "Ini akan menutup dokumen yang terbuka kecuali dokumen saat ini. Apakah Anda "
 "yakin ingin melanjutkan?"
 
-#: lib/katemainwindow.cpp:597
+#: lib/katemainwindow.cpp:603
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Tutup semua dokumen kecuali dokumen saat ini"
 
-#: lib/katemainwindow.cpp:846
+#: lib/katemainwindow.cpp:852
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1740,12 +1740,12 @@ msgstr ""
 "Ini akan menyembunyikan menubar. Anda dapat menampilkannya lagi dengan "
 "mengetik %1."
 
-#: lib/katemainwindow.cpp:849
+#: lib/katemainwindow.cpp:855
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Sembunyikan menubar"
 
-#: lib/katemainwindow.cpp:1013
+#: lib/katemainwindow.cpp:1019
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1757,21 +1757,21 @@ msgstr ""
 "Anda menjatuhkan direktori %1 kedalam Kate. Apakah Anda ingin memuat semua "
 "file yang ada didalamnya?"
 
-#: lib/katemainwindow.cpp:1016
+#: lib/katemainwindow.cpp:1022
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Muat file secara rekursif?"
 
-#: lib/katemainwindow.cpp:1017
+#: lib/katemainwindow.cpp:1023
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Buka File"
 
-#: lib/katemainwindow.cpp:1239
+#: lib/katemainwindow.cpp:1245
 #, kde-format
 msgid " [read only]"
 msgstr " [hanya baca]"
@@ -2399,34 +2399,34 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:96
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:99 lib/kateviewspace.cpp:220
+#: lib/kateviewspace.cpp:101 lib/kateviewspace.cpp:222
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klik di sini untuk mengubah ke tampilan Buka Cepat."
 
-#: lib/kateviewspace.cpp:115
+#: lib/kateviewspace.cpp:117
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Kendali tampilan pemisahan ruang"
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:120
 #, kde-format
 msgid "S&ynchronize Scrolling"
 msgstr ""
 
-#: lib/kateviewspace.cpp:120
+#: lib/kateviewspace.cpp:122
 #, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
 msgstr ""
 
-#: lib/kateviewspace.cpp:221
+#: lib/kateviewspace.cpp:223
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2441,57 +2441,57 @@ msgstr[1] ""
 "Saat ini, ada %1 lagi dokumen yang terbuka. Untuk melihat semua dokumen yang "
 "terbuka, ganti ke tampilan Buka Cepat dengan klik di sini."
 
-#: lib/kateviewspace.cpp:1026
+#: lib/kateviewspace.cpp:1028
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "Tutup"
 
-#: lib/kateviewspace.cpp:1044
+#: lib/kateviewspace.cpp:1046
 #, kde-format
 msgid "&Close Document"
 msgstr "&Tutup Dokumen"
 
-#: lib/kateviewspace.cpp:1045
+#: lib/kateviewspace.cpp:1047
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Tutup &Dokumen Lainnya"
 
-#: lib/kateviewspace.cpp:1046
+#: lib/kateviewspace.cpp:1048
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Tutup semua dokumen"
 
-#: lib/kateviewspace.cpp:1049
+#: lib/kateviewspace.cpp:1051
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Dokumen Selanjutnya"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1053
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1060
+#: lib/kateviewspace.cpp:1062
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1066
+#: lib/kateviewspace.cpp:1068
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "Could not start program"
 msgstr "Tidak bisa memulai program"
 
-#: lib/kateviewspace.cpp:1134
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Program yang dipilih tidak bisa dimulai. Mungkin ia belum diinstal."

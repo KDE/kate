@@ -1050,6 +1050,27 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="reopen-latest-closed-document">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Visualizza</guimenu
+> <guimenuitem
+>Riapri l'ultimo documento chiuso</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Riapri l'ultimo documento, o gli ultimi documenti, chiusi.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="view-quick-open">
 <term
 ><menuchoice

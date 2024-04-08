@@ -46,6 +46,7 @@ LocationHistoryTest::LocationHistoryTest(QObject *parent)
 
 LocationHistoryTest::~LocationHistoryTest()
 {
+    delete m_tempdir;
     delete app;
 }
 

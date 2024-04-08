@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-15 00:39+0000\n"
+"POT-Creation-Date: 2024-04-08 00:40+0000\n"
 "PO-Revision-Date: 2023-01-02 16:55+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -614,87 +614,87 @@ msgstr "Με κλικ φιλτράρονται τα αποτελέσματα"
 msgid "Find"
 msgstr "Εύρεση"
 
-#: SearchPlugin.cpp:1327
+#: SearchPlugin.cpp:1326
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Η αναζήτηση καθώς πρηκτρολογείτε διεκόπη. Θα είχε διαρκέσει πολύ."
 
-#: SearchPlugin.cpp:1660
+#: SearchPlugin.cpp:1659
 #, kde-format
 msgid "Search Match"
 msgstr "Αναζήτηση αποτελέσματος"
 
-#: SearchPlugin.cpp:1840 SearchPlugin.cpp:1917
+#: SearchPlugin.cpp:1839 SearchPlugin.cpp:1916
 #, kde-format
 msgid "Next from cursor"
 msgstr "Επόμενο από τον δρομέα"
 
-#: SearchPlugin.cpp:1857
+#: SearchPlugin.cpp:1856
 #, kde-format
 msgid "Starting from first match"
 msgstr "Έναρξη της αναζήτησης από το πρώτο αποτέλεσμα"
 
-#: SearchPlugin.cpp:1877
+#: SearchPlugin.cpp:1876
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Συνέχιση της αναζήτησης από το πρώτο αποτέλεσμα"
 
-#: SearchPlugin.cpp:1934
+#: SearchPlugin.cpp:1933
 #, kde-format
 msgid "Starting from last match"
 msgstr "Έναρξη της αναζήτησης από το τελευταίο αποτέλεσμα"
 
-#: SearchPlugin.cpp:1954
+#: SearchPlugin.cpp:1953
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Συνέχιση της αναζήτησης από το τελευταίο αποτέλεσμα"
 
-#: SearchPlugin.cpp:2115
+#: SearchPlugin.cpp:2114
 #, kde-format
 msgid "Search: %1"
 msgstr "Αναζήτηση: %1"
 
-#: SearchPlugin.cpp:2246
+#: SearchPlugin.cpp:2245
 #, kde-format
 msgid "Copy all"
 msgstr "Αντιγραφή όλων"
 
-#: SearchPlugin.cpp:2251
+#: SearchPlugin.cpp:2250
 #, kde-format
 msgid "Copy expanded"
 msgstr "Αντιγραφή επεκτάσεων"
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2253
 #, kde-format
 msgid "Export matches"
 msgstr "Εξαγωγή αποτελεσμάτων"
 
-#: SearchPlugin.cpp:2260
+#: SearchPlugin.cpp:2259
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Άνοιγμα ως καρτέλα του κειμενογράφου"
 
-#: SearchPlugin.cpp:2267
+#: SearchPlugin.cpp:2266
 #, kde-format
 msgid "Clear"
 msgstr "Καθαρισμός"
 
-#: SearchPlugin.cpp:2377 SearchPlugin.cpp:2411
+#: SearchPlugin.cpp:2376 SearchPlugin.cpp:2410
 #, kde-format
 msgid "Add..."
 msgstr "Προσθήκη..."
 
-#: SearchPlugin.cpp:2389
+#: SearchPlugin.cpp:2388
 #, kde-format
 msgid "Search As You Type"
 msgstr "Αναζήτηση κατά την πληκτρολόγηση"
 
-#: SearchPlugin.cpp:2460
+#: SearchPlugin.cpp:2459
 #, kde-format
 msgid "In Current Project"
 msgstr "Στο τρέχον έργο"
 
-#: SearchPlugin.cpp:2462
+#: SearchPlugin.cpp:2461
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Σε όλα τα ανοικτά έργα"

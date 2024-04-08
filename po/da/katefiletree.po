@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-23 00:39+0000\n"
+"POT-Creation-Date: 2024-04-08 00:40+0000\n"
 "PO-Revision-Date: 2017-03-22 17:11+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -385,22 +385,22 @@ msgstr "Næste dokument"
 msgid "&Show Active Document"
 msgstr "&Vis aktive"
 
-#: katefiletreeplugin.cpp:272
+#: katefiletreeplugin.cpp:273
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: katefiletreeplugin.cpp:273
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save the current document"
 msgstr "Gem det aktive dokument"
 
-#: katefiletreeplugin.cpp:277
+#: katefiletreeplugin.cpp:279
 #, kde-format
 msgid "Save As"
 msgstr ""
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:280
 #, fuzzy, kde-format
 #| msgid "Save current document under new name"
 msgid "Save the current document under a new name"

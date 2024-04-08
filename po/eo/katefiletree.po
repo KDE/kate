@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-23 00:39+0000\n"
+"POT-Creation-Date: 2024-04-08 00:40+0000\n"
 "PO-Revision-Date: 2024-02-09 22:05+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -375,22 +375,22 @@ msgstr "Sekva Dokumento"
 msgid "&Show Active Document"
 msgstr "&Montri Aktivan Dokumenton"
 
-#: katefiletreeplugin.cpp:272
+#: katefiletreeplugin.cpp:273
 #, kde-format
 msgid "Save"
 msgstr "Konservi"
 
-#: katefiletreeplugin.cpp:273
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save the current document"
 msgstr "Konservi la nunan dokumenton"
 
-#: katefiletreeplugin.cpp:277
+#: katefiletreeplugin.cpp:279
 #, kde-format
 msgid "Save As"
 msgstr "Konservi kiel"
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:280
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Konservi la nunan dokumenton sub nova nomo"

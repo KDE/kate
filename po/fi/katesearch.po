@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-15 00:39+0000\n"
+"POT-Creation-Date: 2024-04-08 00:40+0000\n"
 "PO-Revision-Date: 2024-02-23 19:47+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -615,7 +615,7 @@ msgstr "Suodata tuloksia napsauttamalla"
 msgid "Find"
 msgstr "Etsi"
 
-#: SearchPlugin.cpp:1327
+#: SearchPlugin.cpp:1326
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
@@ -623,85 +623,85 @@ msgstr ""
 "kauan.Kirjoitettaessa tehtävä haku keskeytettiin, koska se olisi kestänyt "
 "liian kauan."
 
-#: SearchPlugin.cpp:1660
+#: SearchPlugin.cpp:1659
 #, kde-format
 msgid "Search Match"
 msgstr "Etsi osumaa"
 
-#: SearchPlugin.cpp:1840 SearchPlugin.cpp:1917
+#: SearchPlugin.cpp:1839 SearchPlugin.cpp:1916
 #, kde-format
 msgid "Next from cursor"
 msgstr "Kohdistimesta seuraava"
 
-#: SearchPlugin.cpp:1857
+#: SearchPlugin.cpp:1856
 #, kde-format
 msgid "Starting from first match"
 msgstr "Jatketaan ensimmäisestä osumasta"
 
-#: SearchPlugin.cpp:1877
+#: SearchPlugin.cpp:1876
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Jatketaan ensimmäisestä osumasta"
 
-#: SearchPlugin.cpp:1934
+#: SearchPlugin.cpp:1933
 #, kde-format
 msgid "Starting from last match"
 msgstr "Aloitetaan viimeisestä osumasta"
 
-#: SearchPlugin.cpp:1954
+#: SearchPlugin.cpp:1953
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Jatketaan viimeisestä osumasta"
 
-#: SearchPlugin.cpp:2115
+#: SearchPlugin.cpp:2114
 #, kde-format
 msgid "Search: %1"
 msgstr "Etsi: %1"
 
-#: SearchPlugin.cpp:2246
+#: SearchPlugin.cpp:2245
 #, kde-format
 msgid "Copy all"
 msgstr "Kopioi kaikki"
 
 # *** TARKISTA: Mihin ”expanded” tässä viittaa?
-#: SearchPlugin.cpp:2251
+#: SearchPlugin.cpp:2250
 #, kde-format
 msgid "Copy expanded"
 msgstr "Kopioi laajennettu"
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2253
 #, kde-format
 msgid "Export matches"
 msgstr "Vie tulokset"
 
-#: SearchPlugin.cpp:2260
+#: SearchPlugin.cpp:2259
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Avaa muokkainvälilehtenä"
 
-#: SearchPlugin.cpp:2267
+#: SearchPlugin.cpp:2266
 #, kde-format
 msgid "Clear"
 msgstr "Tyhjennä"
 
-#: SearchPlugin.cpp:2377 SearchPlugin.cpp:2411
+#: SearchPlugin.cpp:2376 SearchPlugin.cpp:2410
 #, kde-format
 msgid "Add..."
 msgstr "Lisää…"
 
-#: SearchPlugin.cpp:2389
+#: SearchPlugin.cpp:2388
 #, kde-format
 msgid "Search As You Type"
 msgstr "Etsi kirjoittaessasi"
 
 # Konteksti: ”Etsi” ”projektista”
-#: SearchPlugin.cpp:2460
+#: SearchPlugin.cpp:2459
 #, kde-format
 msgid "In Current Project"
 msgstr "nykyisestä projektista"
 
 # Konteksti: ”Etsi” ”projektista”
-#: SearchPlugin.cpp:2462
+#: SearchPlugin.cpp:2461
 #, kde-format
 msgid "In All Open Projects"
 msgstr "kaikista avoimista projekteista"

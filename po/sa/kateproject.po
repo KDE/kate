@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-01 01:39+0000\n"
+"POT-Creation-Date: 2024-04-08 00:40+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -810,7 +810,7 @@ msgstr ""
 "प्रतिक्रिया) सह ।."
 
 #: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:233 kateprojectviewtree.cpp:136
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:157
 #, kde-format
 msgid "Project"
@@ -841,72 +841,72 @@ msgstr "परियोजनां बन्दं कुर्वन्तु"
 msgid "Refresh git status"
 msgstr "\"git\" स्थितिं ताजगीं कुर्वन्तु"
 
-#: kateprojectpluginview.cpp:184
+#: kateprojectpluginview.cpp:186
 #, kde-format
 msgid "Open Folder..."
 msgstr "पुटं उद्घाटयन्तु..."
 
-#: kateprojectpluginview.cpp:189
+#: kateprojectpluginview.cpp:192
 #, kde-format
 msgid "Project TODOs"
 msgstr "परियोजना कर्तव्यम्"
 
-#: kateprojectpluginview.cpp:193
+#: kateprojectpluginview.cpp:197
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "पूर्व परियोजना सक्रिय करें"
 
-#: kateprojectpluginview.cpp:198
+#: kateprojectpluginview.cpp:203
 #, kde-format
 msgid "Activate Next Project"
 msgstr "अग्रिमः परियोजना सक्रियं कुर्वन्तु"
 
-#: kateprojectpluginview.cpp:203
+#: kateprojectpluginview.cpp:209
 #, kde-format
 msgid "Lookup"
 msgstr "पश्यतु"
 
-#: kateprojectpluginview.cpp:207
+#: kateprojectpluginview.cpp:214
 #, kde-format
 msgid "Close Project"
 msgstr "परियोजनां बन्दं कुर्वन्तु"
 
-#: kateprojectpluginview.cpp:211
+#: kateprojectpluginview.cpp:219
 #, kde-format
 msgid "Close All Projects"
 msgstr "सर्वाणि परियोजनानि बन्दं कुर्वन्तु"
 
-#: kateprojectpluginview.cpp:216
+#: kateprojectpluginview.cpp:224
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "अनाथ परियोजनानि बन्दं कुर्वन्तु"
 
-#: kateprojectpluginview.cpp:220
+#: kateprojectpluginview.cpp:229
 #, kde-format
 msgid "Reload Project"
 msgstr "परियोजना आरोपयतु"
 
-#: kateprojectpluginview.cpp:230
+#: kateprojectpluginview.cpp:240
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "गिट् शाखां अधिक्रियते"
 
-#: kateprojectpluginview.cpp:236 kateprojectpluginview.cpp:810
+#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:820
 #, kde-format
 msgid "Lookup: %1"
 msgstr "अवलोकनम् : %1"
 
-#: kateprojectpluginview.cpp:237 kateprojectpluginview.cpp:811
+#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:821
 #, kde-format
 msgid "Goto: %1"
 msgstr "गच्छतु: %1"
 
-#: kateprojectpluginview.cpp:311
+#: kateprojectpluginview.cpp:321
 #, kde-format
 msgid "Projects Index"
 msgstr "परियोजना अनुक्रमणिका"
 
-#: kateprojectpluginview.cpp:855
+#: kateprojectpluginview.cpp:865
 #, kde-format
 msgid "Choose a directory"
 msgstr "पुटं चिनोतु"

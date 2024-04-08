@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-23 00:39+0000\n"
+"POT-Creation-Date: 2024-04-08 00:40+0000\n"
 "PO-Revision-Date: 2022-11-03 07:59+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -367,22 +367,22 @@ msgstr "Sequent document"
 msgid "&Show Active Document"
 msgstr "Mon&strar li activ document"
 
-#: katefiletreeplugin.cpp:272
+#: katefiletreeplugin.cpp:273
 #, kde-format
 msgid "Save"
 msgstr "Gardar"
 
-#: katefiletreeplugin.cpp:273
+#: katefiletreeplugin.cpp:274
 #, kde-format
 msgid "Save the current document"
 msgstr "Gardar li actual document"
 
-#: katefiletreeplugin.cpp:277
+#: katefiletreeplugin.cpp:279
 #, kde-format
 msgid "Save As"
 msgstr "Gardar quam"
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:280
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr ""

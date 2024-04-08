@@ -94,5 +94,3 @@ void BranchesDialogModel::clearBranchCreationItems()
     m_modelEntries.removeFirst();
     endRemoveRows();
 }
-
-#include "moc_branchesdialogmodel.cpp"

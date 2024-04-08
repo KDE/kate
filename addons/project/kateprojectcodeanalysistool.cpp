@@ -40,5 +40,3 @@ void KateProjectCodeAnalysisTool::setMainWindow(KTextEditor::MainWindow *mainWin
 {
     m_mainWindow = mainWin;
 }
-
-#include "moc_kateprojectcodeanalysistool.cpp"

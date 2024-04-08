@@ -18,8 +18,6 @@ class KateProject;
  */
 class KateProjectInfoViewNotes : public QWidget
 {
-    Q_OBJECT
-
 public:
     /**
      * construct project info view for given project

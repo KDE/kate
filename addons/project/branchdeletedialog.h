@@ -11,7 +11,6 @@
 
 class BranchDeleteDialog : public QDialog
 {
-    Q_OBJECT
 public:
     explicit BranchDeleteDialog(const QString &dotGitPath, QWidget *parent = nullptr);
     QStringList branchesToDelete() const;

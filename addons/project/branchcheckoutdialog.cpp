@@ -126,5 +126,3 @@ void BranchCheckoutDialog::createNewBranch(const QString &branch, const QString 
     clearLineEdit();
     hide();
 }
-
-#include "moc_branchcheckoutdialog.cpp"

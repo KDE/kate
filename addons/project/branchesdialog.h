@@ -38,7 +38,7 @@ public:
 Q_SIGNALS:
     void branchSelected(const QString &branch);
 
-private Q_SLOTS:
+private:
     void slotReturnPressed(const QModelIndex &index) override;
 
 protected:

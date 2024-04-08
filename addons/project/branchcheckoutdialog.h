@@ -9,7 +9,6 @@
 
 class BranchCheckoutDialog : public BranchesDialog
 {
-    Q_OBJECT
 public:
     BranchCheckoutDialog(QWidget *mainWindow, QString projectPath);
     ~BranchCheckoutDialog() override;

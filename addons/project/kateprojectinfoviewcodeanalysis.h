@@ -34,8 +34,6 @@ class Document;
  */
 class KateProjectInfoViewCodeAnalysis : public QWidget
 {
-    Q_OBJECT
-
 public:
     /**
      * construct project info view for given project
@@ -58,7 +56,7 @@ public:
         return m_project;
     }
 
-private Q_SLOTS:
+private /*Q_SLOTS*/:
     /**
      * Called if the tool is changed (currently via Combobox)
      */

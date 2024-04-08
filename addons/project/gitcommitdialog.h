@@ -16,7 +16,6 @@ class QFont;
 
 class GitCommitDialog : public QDialog
 {
-    Q_OBJECT
 public:
     explicit GitCommitDialog(const QString &lastCommit, QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
@@ -27,7 +26,7 @@ public:
     void setAmendingCommit();
 
 private:
-    Q_SLOT void updateLineSizeLabel();
+    void updateLineSizeLabel();
     void loadCommitMessage(const QString &lastCommit);
 
     QLineEdit m_le;

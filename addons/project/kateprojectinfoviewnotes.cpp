@@ -26,5 +26,3 @@ KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProject *project)
     m_edit->setDocument(project->notesDocument());
     setFocusProxy(m_edit);
 }
-
-#include "moc_kateprojectinfoviewnotes.cpp"

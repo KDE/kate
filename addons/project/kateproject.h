@@ -20,7 +20,6 @@ class KateProjectIndex;
 
 class KateProjectModel : public QStandardItemModel
 {
-    Q_OBJECT
 public:
     using QStandardItemModel::QStandardItemModel;
 

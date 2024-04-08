@@ -17,8 +17,6 @@ class KateProject;
  */
 class KateProjectViewTree : public QTreeView
 {
-    Q_OBJECT
-
 public:
     /**
      * construct project view for given project
@@ -72,7 +70,7 @@ public:
      */
     void openTerminal(const QString &dirPath);
 
-private Q_SLOTS:
+private /*Q_SLOTS*/:
     /**
      * item got clicked, do stuff, like open document
      * @param index model index of clicked item

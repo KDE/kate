@@ -25,8 +25,6 @@ class FileHistoryWidget;
  */
 class KateProjectView : public QWidget
 {
-    Q_OBJECT
-
 public:
     /**
      * construct project view for given project
@@ -60,7 +58,7 @@ public:
      */
     void openSelectedDocument();
 
-private Q_SLOTS:
+private /*Q_SLOTS*/:
     /**
      * React on filter change
      * @param filterText new filter text

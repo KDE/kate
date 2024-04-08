@@ -193,5 +193,3 @@ void KateProjectConfigPage::slotMyChanged()
     m_changed = true;
     Q_EMIT changed();
 }
-
-#include "moc_kateprojectconfigpage.cpp"

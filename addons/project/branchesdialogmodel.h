@@ -13,7 +13,6 @@
 
 class BranchesDialogModel : public QAbstractTableModel
 {
-    Q_OBJECT
 public:
     enum Role { FuzzyScore = Qt::UserRole + 1, CheckoutName, RefType, Creator, ItemTypeRole };
     enum ItemType { BranchItem, CreateBranch, CreateBranchFrom };

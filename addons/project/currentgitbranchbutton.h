@@ -20,7 +20,6 @@ class View;
  */
 class CurrentGitBranchButton : public QToolButton
 {
-    Q_OBJECT
 public:
     explicit CurrentGitBranchButton(KTextEditor::MainWindow *mainWindow, QWidget *parent = nullptr);
     ~CurrentGitBranchButton() override;

@@ -24,7 +24,6 @@ class MainWindow;
  */
 class KateProjectCodeAnalysisTool : public QObject
 {
-    Q_OBJECT
 protected:
     explicit KateProjectCodeAnalysisTool(QObject *parent = nullptr);
 

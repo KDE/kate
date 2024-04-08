@@ -15,7 +15,6 @@ class QComboBox;
 
 class KateProjectConfigPage : public KTextEditor::ConfigPage
 {
-    Q_OBJECT
 public:
     explicit KateProjectConfigPage(QWidget *parent = nullptr, KateProjectPlugin *plugin = nullptr);
     ~KateProjectConfigPage() override
@@ -26,12 +25,12 @@ public:
     QString fullName() const override;
     QIcon icon() const override;
 
-public Q_SLOTS:
+public /*Q_SLOTS*/:
     void apply() override;
     void defaults() override;
     void reset() override;
 
-private Q_SLOTS:
+private:
     void slotMyChanged();
 
 private:

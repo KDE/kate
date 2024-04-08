@@ -207,5 +207,3 @@ void GitCommitDialog::updateLineSizeLabel()
         m_leLen.setText(i18nc("Number of characters", "<span style=\"color:%1;\">%2</span> / 52", red.name(), QString::number(len)));
     }
 }
-
-#include "moc_gitcommitdialog.cpp"

@@ -22,6 +22,8 @@ class QStandardItemModel;
  */
 class KateProjectInfoViewIndex : public QWidget
 {
+    Q_OBJECT
+
 public:
     /**
      * construct project info view for given project

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-09 00:40+0000\n"
 "PO-Revision-Date: 2024-03-24 09:29+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -2564,7 +2564,7 @@ msgstr "Ca&nvia el nom..."
 msgid "Delete"
 msgstr "Elimina"
 
-#: lib/session/katesessionmanager.cpp:131
+#: lib/session/katesessionmanager.cpp:138
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2573,35 +2573,35 @@ msgstr ""
 "La sessió «%1» ja es troba oberta en una altra instància de Kate. Voleu "
 "canviar-hi o tornar-la a obrir en esta instància?"
 
-#: lib/session/katesessionmanager.cpp:133
+#: lib/session/katesessionmanager.cpp:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Canvia a la instància"
 
-#: lib/session/katesessionmanager.cpp:134
+#: lib/session/katesessionmanager.cpp:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Torne a obrir"
 
-#: lib/session/katesessionmanager.cpp:335
+#: lib/session/katesessionmanager.cpp:342
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "La sessió no es pot canviar de nom a «%1». No s'ha pogut escriure a «%2»"
 
-#: lib/session/katesessionmanager.cpp:336
+#: lib/session/katesessionmanager.cpp:343
 #, kde-format
 msgid "Session Renaming"
 msgstr "Canviant de nom una sessió"
 
-#: lib/session/katesessionmanager.cpp:488
+#: lib/session/katesessionmanager.cpp:495
 #, kde-format
 msgid "Session name:"
 msgstr "Nom de la sessió:"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:497
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2610,17 +2610,17 @@ msgstr ""
 "Ja hi ha una sessió existent amb el nom triat: %1\n"
 "Seleccioneu-ne un de diferent."
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:499
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Per a guardar una sessió, heu d'especificar un nom."
 
-#: lib/session/katesessionmanager.cpp:519
+#: lib/session/katesessionmanager.cpp:526
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Especifiqueu un nom per a esta sessió"
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:528
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Especifiqueu un nom nou per a la sessió: %1"

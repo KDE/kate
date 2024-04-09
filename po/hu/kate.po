@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-09 00:40+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2560,7 +2560,7 @@ msgstr "Átne&vezés…"
 msgid "Delete"
 msgstr "Törlés"
 
-#: lib/session/katesessionmanager.cpp:131
+#: lib/session/katesessionmanager.cpp:138
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2569,36 +2569,36 @@ msgstr ""
 "A(z) „%1” munkamenet már meg van nyitva egy másik Kate példányban, átvált "
 "arra, vagy újramegnyitja ebben a példányban?"
 
-#: lib/session/katesessionmanager.cpp:133
+#: lib/session/katesessionmanager.cpp:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Váltás a példányra"
 
-#: lib/session/katesessionmanager.cpp:134
+#: lib/session/katesessionmanager.cpp:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Újranyitás"
 
-#: lib/session/katesessionmanager.cpp:335
+#: lib/session/katesessionmanager.cpp:342
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Nem sikerült átnevezni a munkamenetet erre: „%1”. Nem sikerült írni ezt: "
 "„%2”."
 
-#: lib/session/katesessionmanager.cpp:336
+#: lib/session/katesessionmanager.cpp:343
 #, kde-format
 msgid "Session Renaming"
 msgstr "Munkamenet átnevezése"
 
-#: lib/session/katesessionmanager.cpp:488
+#: lib/session/katesessionmanager.cpp:495
 #, kde-format
 msgid "Session name:"
 msgstr "A munkamenet neve:"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:497
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2607,17 +2607,17 @@ msgstr ""
 "Már létezik ilyen nevű munkamenet: %1\n"
 "Válasszon egy másik nevet."
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:499
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Munkamenet mentéséhez meg kell adni egy nevet."
 
-#: lib/session/katesessionmanager.cpp:519
+#: lib/session/katesessionmanager.cpp:526
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Adja meg a munkamenet nevét"
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:528
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Adja meg a munkamenet új nevét: %1"

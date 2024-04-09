@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-09 00:40+0000\n"
 "PO-Revision-Date: 2012-12-27 17:53+0200\n"
 "Last-Translator: Maris Nartiss <maris.kde@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -2630,7 +2630,7 @@ msgstr "Pā&rdēvēt..."
 msgid "Delete"
 msgstr "Dzēsts"
 
-#: lib/session/katesessionmanager.cpp:131
+#: lib/session/katesessionmanager.cpp:138
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2642,19 +2642,19 @@ msgstr ""
 "Sesija “%1” jau ir atvērta citā Kate instancē, pārslēgties uz turieni, vai "
 "atvērt no jauna?"
 
-#: lib/session/katesessionmanager.cpp:133
+#: lib/session/katesessionmanager.cpp:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:134
+#: lib/session/katesessionmanager.cpp:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:335
+#: lib/session/katesessionmanager.cpp:342
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2663,17 +2663,17 @@ msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Neizdevās pārdēvēt sesiju par “%1”, jau pastāv cita sesija ar šādu nosaukumu"
 
-#: lib/session/katesessionmanager.cpp:336
+#: lib/session/katesessionmanager.cpp:343
 #, kde-format
 msgid "Session Renaming"
 msgstr "Sesiju pārdēvēšana"
 
-#: lib/session/katesessionmanager.cpp:488
+#: lib/session/katesessionmanager.cpp:495
 #, kde-format
 msgid "Session name:"
 msgstr "Sesijas nosaukums:"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:497
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2687,18 +2687,18 @@ msgstr ""
 "Lūdzu, izvēlieties citu nosaukumu.\n"
 "Sesijas nosaukums:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:499
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Lai saglabātu sesiju, jānorāda tās nosaukums."
 
-#: lib/session/katesessionmanager.cpp:519
+#: lib/session/katesessionmanager.cpp:526
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Norādiet jaunās sesijas nosaukumu"
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:528
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

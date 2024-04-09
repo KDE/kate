@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
-"PO-Revision-Date: 2024-03-31 23:56+0300\n"
+"POT-Creation-Date: 2024-04-09 00:40+0000\n"
+"PO-Revision-Date: 2024-04-08 19:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -887,7 +887,7 @@ msgstr "Per Wigren"
 #: lib/kateapp.cpp:319
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
-msgstr "הדגשת קבצי Make, Python"
+msgstr "הדגשת קובצי Make, Python"
 
 #: lib/kateapp.cpp:320
 #, kde-format
@@ -2564,7 +2564,7 @@ msgstr "&שינוי שם…"
 msgid "Delete"
 msgstr "מחיקה"
 
-#: lib/session/katesessionmanager.cpp:131
+#: lib/session/katesessionmanager.cpp:138
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2576,36 +2576,36 @@ msgstr ""
 "ההפעלה \"%1\" כבר פתוחה על ידי מופע אחר של kate, האם לשנות שם במקום לפתוח "
 "מחדש?"
 
-#: lib/session/katesessionmanager.cpp:133
+#: lib/session/katesessionmanager.cpp:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:134
+#: lib/session/katesessionmanager.cpp:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:335
+#: lib/session/katesessionmanager.cpp:342
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "אין אפשרות לשנות את ההפעלה אל \"%1\", נכשל בכתיבה ל־\"%2\""
 
-#: lib/session/katesessionmanager.cpp:336
+#: lib/session/katesessionmanager.cpp:343
 #, kde-format
 msgid "Session Renaming"
 msgstr "שינוי שם ההפעלה"
 
-#: lib/session/katesessionmanager.cpp:488
+#: lib/session/katesessionmanager.cpp:495
 #, kde-format
 msgid "Session name:"
 msgstr "שם ההפעלה:"
 
-#: lib/session/katesessionmanager.cpp:490
+#: lib/session/katesessionmanager.cpp:497
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2619,17 +2619,17 @@ msgstr ""
 "אנא בחר שם אחר\n"
 "שם ההפעלה:"
 
-#: lib/session/katesessionmanager.cpp:492
+#: lib/session/katesessionmanager.cpp:499
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "כדי לשמור הפעלה, יש לתת לה שם."
 
-#: lib/session/katesessionmanager.cpp:519
+#: lib/session/katesessionmanager.cpp:526
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "נא לציין שם להפעלה הזאת"
 
-#: lib/session/katesessionmanager.cpp:521
+#: lib/session/katesessionmanager.cpp:528
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "ציון שם חדש להפעלה: %1"

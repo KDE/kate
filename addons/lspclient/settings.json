@@ -136,6 +136,17 @@
             "url": "https://github.com/sumneko/lua-language-server",
             "highlightingModeRegex": "^Lua$"
         },
+        "markdown": {
+            "command": ["marksman","server"],
+            "rootIndicatorFileNames": [".git",".marksman.toml"],
+            "url": "https://github.com/artempyanykh/marksman",
+            "highlightingModeRegex": "^Markdown$"
+        },
+        "nix": {
+            "command": ["nil"],
+            "url": "https://github.com/oxalica/nil",
+            "highlightingModeRegex": "^Nix$"
+        },
         "nim": {
             "command": ["nimlsp"],
             "path": ["%{ENV:HOME}/.nimble/bin", "%{ENV:USERPROFILE}/.nimble/bin"],

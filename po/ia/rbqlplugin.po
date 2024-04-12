@@ -1,0 +1,55 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# giovanni <g.sora@tiscali.it>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-03-30 00:39+0000\n"
+"PO-Revision-Date: 2024-04-11 11:21+0200\n"
+"Last-Translator: giovanni <g.sora@tiscali.it>\n"
+"Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
+"Language: ia\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.12.3\n"
+
+#: RBQLPlugin.cpp:34
+#, kde-format
+msgid "RBQL"
+msgstr "RBQL"
+
+#: RBQLWidget.cpp:54
+#, kde-format
+msgid "Enter RBQL query"
+msgstr "Inserta un demanda de cerca (query)  de RBQL"
+
+#: RBQLWidget.cpp:56
+#, kde-format
+msgid "Add new tab"
+msgstr "Adde nove scheda"
+
+#: RBQLWidget.cpp:58
+#, kde-format
+msgid "Execute query"
+msgstr "Exeque query"
+
+#: RBQLWidget.cpp:73
+#, kde-format
+msgid "File has header"
+msgstr "File ha un capite"
+
+#: RBQLWidget.cpp:113
+#, kde-format
+msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
+msgstr ""
+"Falleva a obtener separator per le documento currente. Nonne es un doc CSV/"
+"TSV ? "
+
+#: RBQLWidget.cpp:122
+#, kde-format
+msgid "Document is empty"
+msgstr "Documento es vacue"

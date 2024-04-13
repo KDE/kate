@@ -44,7 +44,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                          QStringLiteral(KATE_VERSION),
                          i18n("KWrite - Text Editor"),
                          KAboutLicense::LGPL_V2,
-                         i18n("(c) 2000-2022 The Kate Authors"),
+                         i18n("(c) 2000-2024 The Kate Authors"),
                          // use the other text field to get our mascot into the about dialog
                          QStringLiteral("<img height=\"362\" width=\"512\" src=\":/kate/mascot.png\"/>"),
                          QStringLiteral("https://kate-editor.org"));

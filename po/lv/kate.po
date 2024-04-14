@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:40+0000\n"
+"POT-Creation-Date: 2024-04-14 00:40+0000\n"
 "PO-Revision-Date: 2012-12-27 17:53+0200\n"
 "Last-Translator: Maris Nartiss <maris.kde@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -47,7 +47,7 @@ msgstr "Kate - jaudīgs teksta redaktors"
 #: kate/main.cpp:90 kwrite/main.cpp:47
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2005 The Kate Authors"
-msgid "(c) 2000-2022 The Kate Authors"
+msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2005 Kate autori"
 
 #: kate/main.cpp:136

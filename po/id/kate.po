@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:40+0000\n"
+"POT-Creation-Date: 2024-04-14 00:40+0000\n"
 "PO-Revision-Date: 2023-01-02 07:25+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -43,7 +43,7 @@ msgstr "Kate - Editor Teks Tingkat Lanjut"
 #: kate/main.cpp:90 kwrite/main.cpp:47
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2021 The Kate Authors"
-msgid "(c) 2000-2022 The Kate Authors"
+msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2021 Para Penulis Kate"
 
 #: kate/main.cpp:136

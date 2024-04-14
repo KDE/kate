@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:40+0000\n"
+"POT-Creation-Date: 2024-04-14 00:40+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -39,7 +39,7 @@ msgstr "Kate - Gevorderde Teks Redigeerder"
 #: kate/main.cpp:90 kwrite/main.cpp:47
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2005 The Kate Authors"
-msgid "(c) 2000-2022 The Kate Authors"
+msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2005 Die Kate Outeure"
 
 #: kate/main.cpp:136

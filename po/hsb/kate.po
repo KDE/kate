@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:40+0000\n"
+"POT-Creation-Date: 2024-04-14 00:40+0000\n"
 "PO-Revision-Date: 2005-04-18 18:18+0200\n"
 "Last-Translator:  <hertn@gmx.de>\n"
 "Language-Team: Hornjoserbšćina <hsb@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 
 #: kate/main.cpp:90 kwrite/main.cpp:47
 #, kde-format
-msgid "(c) 2000-2022 The Kate Authors"
+msgid "(c) 2000-2024 The Kate Authors"
 msgstr ""
 
 #: kate/main.cpp:136

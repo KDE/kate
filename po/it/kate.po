@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:40+0000\n"
+"POT-Creation-Date: 2024-04-14 00:40+0000\n"
 "PO-Revision-Date: 2024-03-29 09:19+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -47,8 +47,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Editor di testi avanzato"
 
 #: kate/main.cpp:90 kwrite/main.cpp:47
-#, kde-format
-msgid "(c) 2000-2022 The Kate Authors"
+#, fuzzy, kde-format
+#| msgid "(c) 2000-2022 The Kate Authors"
+msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000-2022 Gli autori di Kate"
 
 #: kate/main.cpp:136

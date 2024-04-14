@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:40+0000\n"
+"POT-Creation-Date: 2024-04-14 00:40+0000\n"
 "PO-Revision-Date: 2007-02-17 11:32+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -47,7 +47,7 @@ msgstr "Kate - Напреден уредувач на текст во KDE "
 #: kate/main.cpp:90 kwrite/main.cpp:47
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2005 The Kate Authors"
-msgid "(c) 2000-2022 The Kate Authors"
+msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2005 Авторите на Kate"
 
 #: kate/main.cpp:136

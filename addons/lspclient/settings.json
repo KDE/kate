@@ -247,6 +247,20 @@
             "url": "https://github.com/Prince781/vala-language-server",
             "highlightingModeRegex": "^Vala$"
         },
+        "vue": {
+            "command": [ "vue-language-server", "--stdio"],
+            "rootIndicationFileNames": ["package.json", "package-lock.json"],
+            "url": "https://www.npmjs.com/package/@vue/language-server",
+            "highlightingModeRegex": "^Vue.*$",
+            "initializationOptions": {
+                "typescript": {
+                    "tsdk": "./node_modules/typescript/lib"
+                },
+                "vue": {
+                    "hybridMode": false
+                }
+            }
+        },
         "xml": {
             "command": ["lemminx"],
             "url": "https://github.com/redhat-developer/vscode-xml#lemminx-binary",

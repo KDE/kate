@@ -36,7 +36,11 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
 
     reset();
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(m_box, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
+#else
+    connect(m_box, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
+#endif
     connect(m_outputStyleWidget, &OutputStyleWidget::changed, this, &KateSQLConfigPage::changed);
 }
 

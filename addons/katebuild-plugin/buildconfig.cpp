@@ -31,7 +31,11 @@ KateBuildConfigPage::KateBuildConfigPage(QWidget *parent)
     layout->addStretch(1);
     reset();
     for (const auto *item : {m_useDiagnosticsCB, m_autoSwitchToOutput})
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
         connect(item, &QCheckBox::stateChanged, this, &KateBuildConfigPage::changed);
+#else
+        connect(item, &QCheckBox::checkStateChanged, this, &KateBuildConfigPage::changed);
+#endif
 }
 
 /******************************************************************/

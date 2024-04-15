@@ -39,8 +39,16 @@ KateColorPickerConfigPage::KateColorPickerConfigPage(QWidget *parent, KateColorP
     chkPreviewAfterColor = new QCheckBox(i18n("Place preview after text color"), this);
     layout->addWidget(chkPreviewAfterColor);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(chkNamedColors, &QCheckBox::stateChanged, this, &KateColorPickerConfigPage::changed);
+#else
+    connect(chkNamedColors, &QCheckBox::checkStateChanged, this, &KateColorPickerConfigPage::changed);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(chkPreviewAfterColor, &QCheckBox::stateChanged, this, &KateColorPickerConfigPage::changed);
+#else
+    connect(chkPreviewAfterColor, &QCheckBox::checkStateChanged, this, &KateColorPickerConfigPage::changed);
+#endif
 
     QGroupBox *hexGroup = new QGroupBox(i18n("Hex color matching"), this);
     QVBoxLayout *hexLayout = new QVBoxLayout();
@@ -53,7 +61,11 @@ KateColorPickerConfigPage::KateColorPickerConfigPage(QWidget *parent, KateColorP
 
     for (const auto &[_, chk] : std::as_const(chkHexLengths)) {
         hexLayout->addWidget(chk);
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
         connect(chk, &QCheckBox::stateChanged, this, &KateColorPickerConfigPage::changed);
+#else
+        connect(chk, &QCheckBox::checkStateChanged, this, &KateColorPickerConfigPage::changed);
+#endif
     }
     hexGroup->setLayout(hexLayout);
     layout->addWidget(hexGroup);

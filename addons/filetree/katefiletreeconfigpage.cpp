@@ -127,10 +127,26 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     connect(kcbEditShade, &KColorButton::changed, this, &KateFileTreeConfigPage::slotMyChanged);
     connect(cmbSort, QOverload<int>::of(&QComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
     connect(cmbMode, QOverload<int>::of(&QComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbShowFullPath, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+#else
+    connect(cbShowFullPath, &QCheckBox::checkStateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbShowToolbar, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+#else
+    connect(cbShowToolbar, &QCheckBox::checkStateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbShowClose, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+#else
+    connect(cbShowClose, &QCheckBox::checkStateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbMiddleClick, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+#else
+    connect(cbMiddleClick, &QCheckBox::checkStateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+#endif
 }
 
 QString KateFileTreeConfigPage::name() const

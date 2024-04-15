@@ -110,7 +110,11 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, QWidget *parent, Qt:
     m_cbAmend.setChecked(false);
     m_cbAmend.setText(i18n("Amend"));
     m_cbAmend.setToolTip(i18n("Amend Last Commit"));
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(&m_cbAmend, &QCheckBox::stateChanged, this, [this](int state) {
+#else
+    connect(&m_cbAmend, &QCheckBox::checkStateChanged, this, [this](int state) {
+#endif
         if (state != Qt::Checked) {
             ok.setText(i18n("Commit"));
             setWindowTitle(i18n("Commit Changes"));

@@ -685,11 +685,27 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
     reset();
     lo->addStretch();
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbAutoSyncronize, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
+#else
+    connect(cbAutoSyncronize, &QCheckBox::checkStateChanged, this, &KateKonsoleConfigPage::changed);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbRemoveExtension, &QCheckBox::stateChanged, this, &KTextEditor::ConfigPage::changed);
+#else
+    connect(cbRemoveExtension, &QCheckBox::checkStateChanged, this, &KTextEditor::ConfigPage::changed);
+#endif
     connect(lePrefix, &QLineEdit::textChanged, this, &KateKonsoleConfigPage::changed);
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbSetEditor, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
+#else
+    connect(cbSetEditor, &QCheckBox::checkStateChanged, this, &KateKonsoleConfigPage::changed);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbSetEscHideKonsole, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
+#else
+    connect(cbSetEscHideKonsole, &QCheckBox::checkStateChanged, this, &KateKonsoleConfigPage::changed);
+#endif
     connect(leEscExceptions, &QLineEdit::textChanged, this, &KateKonsoleConfigPage::changed);
 }
 

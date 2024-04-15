@@ -14,6 +14,7 @@
 #include "eslint.h"
 #include "flake8.h"
 #include "shellcheck.h"
+#include "tidy.h"
 
 QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
 {
@@ -37,6 +38,8 @@ QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
         new ESLint(model),
         // clippy
         new Clippy(model),
+        // html tidy
+        new HtmlTidyTool(model),
     };
 
     QList<QStandardItem *> column;

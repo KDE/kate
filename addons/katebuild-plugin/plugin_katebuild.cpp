@@ -965,8 +965,7 @@ void KateBuildView::loadCMakeTargets(const QString& cmakeFile)
     }
 
     const QString compileCommandsFile = cmakeFA.getBuildDir() + QStringLiteral("/compile_commands.json");
-    if (!cmakeFA.haveKateReplyFiles() || !QFile::exists(compileCommandsFile))
-    {
+    if (!cmakeFA.haveKateReplyFiles() || !QFile::exists(compileCommandsFile)) {
 
         QStringList commandLine = cmakeFA.getCMakeRequestCommandLine();
         if (!isCommandLineAllowed(commandLine)) {
@@ -1026,6 +1025,15 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                 const QCMakeFileApi& cmakeFA, const QString& cmakeConfig)
 {
     const int numCores = QThread::idealThreadCount();
+
+    const QList<TargetModel::TargetSet> existingTargetSets = m_targetsUi->targetsModel.sessionTargetSets();
+    for (int i = 0; i < existingTargetSets.size(); i++) {
+        if (existingTargetSets[i].loadedViaCMake && (existingTargetSets[i].cmakeConfigName == cmakeConfig)
+                                                 && (existingTargetSets[i].workDir == cmakeFA.getBuildDir())) {
+            // this target set has already been loaded, don't add it once more
+            return setIndex;
+        }
+    }
 
     setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, name, cmakeFA.getBuildDir(), true, cmakeConfig);
     const QModelIndex targetSetIndex = setIndex;

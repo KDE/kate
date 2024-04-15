@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-14 00:40+0000\n"
-"PO-Revision-Date: 2024-03-24 14:25+0300\n"
+"PO-Revision-Date: 2024-04-14 12:00+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.04.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -53,10 +53,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate — Gelişmiş Metin Düzenleyicisi"
 
 #: kate/main.cpp:90 kwrite/main.cpp:47
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000–2022 Kate Yazarları"
+msgstr "(c) 2000–2024 Kate Yazarları"
 
 #: kate/main.cpp:136
 #, kde-format

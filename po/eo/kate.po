@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-14 00:40+0000\n"
-"PO-Revision-Date: 2024-03-24 06:06+0100\n"
+"PO-Revision-Date: 2024-04-14 23:12+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -41,10 +41,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kejt' - Altnivela KDE-tekstredaktilo"
 
 #: kate/main.cpp:90 kwrite/main.cpp:47
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000-2022 The Kate Authors"
+msgstr "(c) 2000-2024 The Kate Authors"
 
 #: kate/main.cpp:136
 #, kde-format

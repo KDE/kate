@@ -13,6 +13,7 @@
 #include "cppcheck.h"
 #include "eslint.h"
 #include "flake8.h"
+#include "ruff.h"
 #include "shellcheck.h"
 #include "tidy.h"
 
@@ -28,6 +29,8 @@ QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
         new KateProjectCodeAnalysisToolCppcheck(model),
         // flake8, for Python
         new KateProjectCodeAnalysisToolFlake8(model),
+        // ruff (python)
+        new RuffTool(model),
         // ShellCheck, for sh/bash scripts
         new KateProjectCodeAnalysisToolShellcheck(model),
         // clazy for Qt C++

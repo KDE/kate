@@ -32,7 +32,8 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
     } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css")) {
         return new PrettierFormat(config, doc);
     } else if (is("json")) {
-        Formatters f = formatterForName(config.value(QStringLiteral("formatterForJson")).toString(), Formatters::Prettier);
+        const auto configValue = config.value(QStringLiteral("formatterForJson")).toString();
+        Formatters f = formatterForName(configValue, Formatters::Prettier);
         if (f == Formatters::Prettier) {
             return new PrettierFormat(config, doc);
         } else if (f == Formatters::ClangFormat) {
@@ -40,7 +41,7 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         } else if (f == Formatters::Jq) {
             return new JsonJqFormat(config, doc);
         }
-        qWarning() << "Unexpected formatterForJson value: " << (int)f;
+        Utils::showMessage(i18n("Unknown formatterForJson: %1", configValue), {}, i18n("Format"), MessageType::Error);
         return new JsonJqFormat(config, doc);
     } else if (is("rust")) {
         return new RustFormat(config, doc);
@@ -53,7 +54,15 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
     } else if (is("cmake")) {
         return new CMakeFormat(config, doc);
     } else if (is("python")) {
-        return new AutoPep8Format(config, doc);
+        const auto configValue = config.value(QStringLiteral("formatterForPython")).toString();
+        Formatters f = formatterForName(configValue, Formatters::Ruff);
+        if (f == Formatters::Ruff) {
+            return new RuffFormat(config, doc);
+        } else if (f == Formatters::Autopep8) {
+            return new AutoPep8Format(config, doc);
+        }
+        Utils::showMessage(i18n("Unknown formatterForPython: %1", configValue), {}, i18n("Format"), MessageType::Error);
+        return new RuffFormat(config, doc);
     }
 
     Utils::showMessage(i18n("Failed to run formatter. Unsupported language %1", mode), {}, i18n("Format"), MessageType::Info);

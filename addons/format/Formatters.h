@@ -350,3 +350,24 @@ public:
         return {m_doc->url().toLocalFile()};
     }
 };
+
+class RuffFormat : public AbstractFormatter
+{
+public:
+    using AbstractFormatter::AbstractFormatter;
+    QString name() const override
+    {
+        return QStringLiteral("ruff");
+    }
+
+    QStringList args(KTextEditor::Document *) const override
+    {
+        return {QStringLiteral("format"), QStringLiteral("--stdin-filename"), QStringLiteral("a.py")};
+    }
+
+private:
+    bool supportsStdin() const override
+    {
+        return true;
+    }
+};

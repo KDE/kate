@@ -16,7 +16,8 @@ enum class Formatters {
     GoFmt,
     ZigFmt,
     CMakeFormat,
-    Autopep8
+    Autopep8,
+    Ruff,
 };
 
 inline Formatters formatterForName(const QString &name, Formatters defaultValue)

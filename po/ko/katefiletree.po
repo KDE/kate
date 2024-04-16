@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-02-19 21:33+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -334,13 +334,13 @@ msgstr ""
 "이 옵션을 사용하면 문서 목록 위에 \"저장\"과 같은 동작이 있는 도구 모음을 표"
 "시합니다."
 
-#: katefiletreeconfigpage.cpp:138 katefiletreeplugin.cpp:130
+#: katefiletreeconfigpage.cpp:154 katefiletreeplugin.cpp:130
 #: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
 msgstr "문서"
 
-#: katefiletreeconfigpage.cpp:143
+#: katefiletreeconfigpage.cpp:159
 #, kde-format
 msgid "Configure Documents"
 msgstr "문서 설정"

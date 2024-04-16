@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-02 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2021-01-20 09:37+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -35,42 +35,42 @@ msgstr ""
 msgid "Place preview after text color"
 msgstr "Colocar a antevisão a seguir à cor do texto"
 
-#: colorpickerconfigpage.cpp:45
+#: colorpickerconfigpage.cpp:53
 #, kde-format
 msgid "Hex color matching"
 msgstr "Correspondência de cores hexadecimais"
 
-#: colorpickerconfigpage.cpp:48
+#: colorpickerconfigpage.cpp:56
 #, kde-format
 msgid "12 digits (#RRRRGGGGBBBB)"
 msgstr "12 algarismos (#RRRRGGGGBBBB)"
 
-#: colorpickerconfigpage.cpp:49
+#: colorpickerconfigpage.cpp:57
 #, kde-format
 msgid "9 digits (#RRRGGGBBB)"
 msgstr "9 algarismos (#RRRGGGBBB)"
 
-#: colorpickerconfigpage.cpp:50
+#: colorpickerconfigpage.cpp:58
 #, kde-format
 msgid "8 digits (#AARRGGBB)"
 msgstr "8 algarismos (#AARRGGBB)"
 
-#: colorpickerconfigpage.cpp:51
+#: colorpickerconfigpage.cpp:59
 #, kde-format
 msgid "6 digits (#RRGGBB)"
 msgstr "6 algarismos (#RRGGBB)"
 
-#: colorpickerconfigpage.cpp:52
+#: colorpickerconfigpage.cpp:60
 #, kde-format
 msgid "3 digits (#RGB)"
 msgstr "3 algarismos (#RGB)"
 
-#: colorpickerconfigpage.cpp:72
+#: colorpickerconfigpage.cpp:84
 #, kde-format
 msgid "Color Picker"
 msgstr "Obter uma Cor"
 
-#: colorpickerconfigpage.cpp:77
+#: colorpickerconfigpage.cpp:89
 #, kde-format
 msgid "Color Picker Settings"
 msgstr "Configuração da Extracção de Cores"

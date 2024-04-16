@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-13 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-03-14 03:48+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -56,12 +56,12 @@ msgstr "შეცდომებისა და გაფრთხილებ�
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr "ავტომატური გადართვა გამოტანის პანელზე მონიშნულ სამიზნეზე შესრულებისას"
 
-#: buildconfig.cpp:40
+#: buildconfig.cpp:44
 #, kde-format
 msgid "Build & Run"
 msgstr "აგება და გაშვება"
 
-#: buildconfig.cpp:46
+#: buildconfig.cpp:50
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "აგებისა და გაშვების მორგება"

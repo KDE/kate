@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-13 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2012-06-30 13:38+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -58,13 +58,13 @@ msgstr ""
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr ""
 
-#: buildconfig.cpp:40
+#: buildconfig.cpp:44
 #, fuzzy, kde-format
 #| msgid "Build Plugin"
 msgid "Build & Run"
 msgstr "Būvēšanas spraudnis"
 
-#: buildconfig.cpp:46
+#: buildconfig.cpp:50
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build & Run Settings"

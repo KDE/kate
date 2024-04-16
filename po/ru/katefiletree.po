@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2022-12-21 11:27+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -353,13 +353,13 @@ msgstr ""
 "При включении этого параметра над списком документов будет показана панель "
 "инструментов с различными действиями (например, «Сохранить»)."
 
-#: katefiletreeconfigpage.cpp:138 katefiletreeplugin.cpp:130
+#: katefiletreeconfigpage.cpp:154 katefiletreeplugin.cpp:130
 #: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
 msgstr "Документы"
 
-#: katefiletreeconfigpage.cpp:143
+#: katefiletreeconfigpage.cpp:159
 #, kde-format
 msgid "Configure Documents"
 msgstr "Управление документами"

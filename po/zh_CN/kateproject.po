@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-03-30 19:36\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -116,12 +116,12 @@ msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
 msgstr "活动分支：%1"
 
-#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
+#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Commit Changes"
 msgstr "提交变更"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:262
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:262
 #, kde-format
 msgid "Commit"
 msgstr "提交"
@@ -146,7 +146,7 @@ msgstr "补充的提交描述..."
 msgid "Sign off"
 msgstr "签名"
 
-#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:120
+#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amend"
 msgstr "修订"
@@ -156,18 +156,18 @@ msgstr "修订"
 msgid "Amend Last Commit"
 msgstr "修改最后的提交"
 
-#: gitcommitdialog.cpp:119
+#: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
 msgstr "正在修改提交"
 
-#: gitcommitdialog.cpp:203
+#: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -645,12 +645,12 @@ msgstr "暂存 / 取消暂存"
 msgid "Double click action in the git status view"
 msgstr "Git 状态视图中的双击操作"
 
-#: kateprojectconfigpage.cpp:133 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "工程"
 
-#: kateprojectconfigpage.cpp:138
+#: kateprojectconfigpage.cpp:170
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

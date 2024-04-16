@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-02 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2021-05-16 20:35+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -38,42 +38,42 @@ msgstr ""
 msgid "Place preview after text color"
 msgstr "글자색 다음에 미리 보기 표시"
 
-#: colorpickerconfigpage.cpp:45
+#: colorpickerconfigpage.cpp:53
 #, kde-format
 msgid "Hex color matching"
 msgstr "십육진수 색상 일치"
 
-#: colorpickerconfigpage.cpp:48
+#: colorpickerconfigpage.cpp:56
 #, kde-format
 msgid "12 digits (#RRRRGGGGBBBB)"
 msgstr "12자리(#RRRRGGGGBBBB)"
 
-#: colorpickerconfigpage.cpp:49
+#: colorpickerconfigpage.cpp:57
 #, kde-format
 msgid "9 digits (#RRRGGGBBB)"
 msgstr "9자리(#RRRGGGBBB)"
 
-#: colorpickerconfigpage.cpp:50
+#: colorpickerconfigpage.cpp:58
 #, kde-format
 msgid "8 digits (#AARRGGBB)"
 msgstr "8자리(#AARRGGBB)"
 
-#: colorpickerconfigpage.cpp:51
+#: colorpickerconfigpage.cpp:59
 #, kde-format
 msgid "6 digits (#RRGGBB)"
 msgstr "6자리(#RRGGBB)"
 
-#: colorpickerconfigpage.cpp:52
+#: colorpickerconfigpage.cpp:60
 #, kde-format
 msgid "3 digits (#RGB)"
 msgstr "3자리(#RGB)"
 
-#: colorpickerconfigpage.cpp:72
+#: colorpickerconfigpage.cpp:84
 #, kde-format
 msgid "Color Picker"
 msgstr "색상 선택기"
 
-#: colorpickerconfigpage.cpp:77
+#: colorpickerconfigpage.cpp:89
 #, kde-format
 msgid "Color Picker Settings"
 msgstr "색상 선택기 설정"

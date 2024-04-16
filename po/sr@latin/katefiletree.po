@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2016-11-28 01:31+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -359,14 +359,14 @@ msgid ""
 "list of documents."
 msgstr ""
 
-#: katefiletreeconfigpage.cpp:138 katefiletreeplugin.cpp:130
+#: katefiletreeconfigpage.cpp:154 katefiletreeplugin.cpp:130
 #: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
 msgstr "Dokumenti|/|$[svojstva aku 'Dokumente']"
 
 # >> @title
-#: katefiletreeconfigpage.cpp:143
+#: katefiletreeconfigpage.cpp:159
 #, kde-format
 msgid "Configure Documents"
 msgstr "Podešavanje dokumenata"

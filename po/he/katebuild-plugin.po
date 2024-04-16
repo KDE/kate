@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-13 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-03-13 10:06+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -58,12 +58,12 @@ msgstr "להוסיף שגיאות ואזהרות לאבחון"
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr "להחליף ללוח הפלט בעת הרצה על היעד הנבחר"
 
-#: buildconfig.cpp:40
+#: buildconfig.cpp:44
 #, kde-format
 msgid "Build & Run"
 msgstr "בנייה והרצה"
 
-#: buildconfig.cpp:46
+#: buildconfig.cpp:50
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "הגדרות בנייה והרצה"

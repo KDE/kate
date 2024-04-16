@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-02-18 15:54+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -333,13 +333,13 @@ msgstr ""
 "இது இயக்கப்பட்டிருந்தால், ஆவணங்களின் பட்டியலுக்கு மேல் சேமித்தல் போன்ற செயல்களைக் கொண்ட "
 "கருவிப்பட்டை காட்டப்படும்."
 
-#: katefiletreeconfigpage.cpp:138 katefiletreeplugin.cpp:130
+#: katefiletreeconfigpage.cpp:154 katefiletreeplugin.cpp:130
 #: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
 msgstr "ஆவணங்கள்"
 
-#: katefiletreeconfigpage.cpp:143
+#: katefiletreeconfigpage.cpp:159
 #, kde-format
 msgid "Configure Documents"
 msgstr "ஆவணங்களை அமை"

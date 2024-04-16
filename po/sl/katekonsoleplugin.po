@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-17 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-03-04 09:44+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Nimate dovolj karme, da bi lahko dostopali do lupine ali posnemovalnika "
 "terminala"
 
-#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:719
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
@@ -220,7 +220,7 @@ msgstr ""
 "Esc, kot je npr. vim. Dodajte te aplikacije vhod spodaj (Seznam ločen z "
 "vejicami)"
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:724
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Nastavitve terminala"

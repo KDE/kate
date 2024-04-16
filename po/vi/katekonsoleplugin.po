@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-17 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2021-09-09 16:20+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "Bạn không đủ quyền truy cập trình giả lập thiết bị đầu cuối hoặc hệ vỏ"
 
-#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:719
 #, kde-format
 msgid "Terminal"
 msgstr "Dòng lệnh"
@@ -216,7 +216,7 @@ msgstr ""
 "vim. Thêm các ứng dụng như vậy vào ô bên dưới (danh sách phân cách bởi dấu "
 "phẩy)"
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:724
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Thiết lập dòng lệnh"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-13 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2014-02-08 10:06+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -61,13 +61,13 @@ msgstr ""
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr ""
 
-#: buildconfig.cpp:40
+#: buildconfig.cpp:44
 #, fuzzy, kde-format
 #| msgid "Build Plugin"
 msgid "Build & Run"
 msgstr "Izgradi priključak"
 
-#: buildconfig.cpp:46
+#: buildconfig.cpp:50
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build & Run Settings"

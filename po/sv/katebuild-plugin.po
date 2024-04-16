@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-13 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2023-08-01 08:12+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -58,12 +58,12 @@ msgstr "Lägg till fel och varningar i diagnostik"
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr ""
 
-#: buildconfig.cpp:40
+#: buildconfig.cpp:44
 #, kde-format
 msgid "Build & Run"
 msgstr "Bygg och kör"
 
-#: buildconfig.cpp:46
+#: buildconfig.cpp:50
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Bygg och körinställningar"

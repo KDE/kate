@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-17 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-03-17 08:44-0300\n"
 "Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Você não possui permissões suficientes para acessar um console ou linha de "
 "comando"
 
-#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:719
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
@@ -224,7 +224,7 @@ msgstr ""
 "por exemplo o vim. Adicione estes aplicativos no campo de entrada abaixo "
 "(lista separada por vírgulas)"
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:724
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Configurações do terminal"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-17 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2014-08-14 16:55+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Du hest nich de nödigen Verlöven un muttst keen Konsool oder "
 "Terminalemuleren bruken"
 
-#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:719
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
@@ -232,7 +232,7 @@ msgid ""
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:724
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminalinstellen"

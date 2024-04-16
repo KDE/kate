@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-13 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-03-17 10:49+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -58,12 +58,12 @@ msgstr "Dodaj błędy i ostrzeżenia do diagnostyki"
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr "Sam przełącz na wyjście tekstowe z programu przed jego wykonaniem"
 
-#: buildconfig.cpp:40
+#: buildconfig.cpp:44
 #, kde-format
 msgid "Build & Run"
 msgstr "Zbuduj i uruchom"
 
-#: buildconfig.cpp:46
+#: buildconfig.cpp:50
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Ustawienia budowania i uruchamiania"

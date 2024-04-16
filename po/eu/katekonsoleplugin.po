@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-17 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-03-05 19:41+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "Ez duzu shell edo terminal emulatzaile bat atzitzeko adinako karmarik"
 
-#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:719
 #, kde-format
 msgid "Terminal"
 msgstr "Terminala"
@@ -221,7 +221,7 @@ msgstr ""
 "litzake, adib. vim. Gehitu aplikazio horiek beheko sarrerakoan (koma bidez "
 "bereizita)"
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:724
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminalaren ezarpenak"

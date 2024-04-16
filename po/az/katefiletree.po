@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2023-06-30 15:57+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -335,13 +335,13 @@ msgstr ""
 "Aktiv edildikdə, \"Saxlayın\" kimi əməlləri olan alətlər paneli sənədlər "
 "siyahısının üstündə göstərilir."
 
-#: katefiletreeconfigpage.cpp:138 katefiletreeplugin.cpp:130
+#: katefiletreeconfigpage.cpp:154 katefiletreeplugin.cpp:130
 #: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
 msgstr "Sənədlər"
 
-#: katefiletreeconfigpage.cpp:143
+#: katefiletreeconfigpage.cpp:159
 #, kde-format
 msgid "Configure Documents"
 msgstr "Sənədlərin tənzimlənməsi"

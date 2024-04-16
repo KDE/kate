@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-13 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2024-03-17 05:34+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -57,12 +57,12 @@ msgstr "Aldoni erarojn kaj avertojn al Diagnozo"
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr "Aŭtomate ŝalti al eligpanelo je efektivigo de la elektita celo"
 
-#: buildconfig.cpp:40
+#: buildconfig.cpp:44
 #, kde-format
 msgid "Build & Run"
 msgstr "Konstrui & Lanĉi"
 
-#: buildconfig.cpp:46
+#: buildconfig.cpp:50
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Agordoj por Konstrui & Lanĉi"

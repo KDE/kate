@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-17 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2023-04-27 12:09+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "ليس لديك صلاحيّات كافية للنّفاذ إلى صدفة أو محاكي طرفيّة"
 
-#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:719
 #, kde-format
 msgid "Terminal"
 msgstr "الطّرفيّة"
@@ -217,7 +217,7 @@ msgstr ""
 "قد يتسبب هذا في حدوث مشكلات مع التطبيقات الطرفية التي تستخدم مفتاح Esc ، على "
 "سبيل المثال vim. أضف هذه التطبيقات في الإدخال أدناه (قائمة مفصولة بفواصل)"
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:724
 #, kde-format
 msgid "Terminal Settings"
 msgstr "إعدادات الطّرفيّة"

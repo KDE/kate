@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-17 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2023-06-30 13:45+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -23,7 +23,7 @@ msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr ""
 "Örtüyə və terminal emulyatoruna girmək üçün kifayət qədər imtiyaznız yoxdur"
 
-#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:719
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
@@ -220,7 +220,7 @@ msgstr ""
 "yaranmasına səbəb ola bilər. Bu tətbiqləri aşağıdakı girişə əlavə edin "
 "(vergüllə ayrılmış siyahı)"
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:724
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminal ayarları"

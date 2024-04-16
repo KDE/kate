@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2021-04-18 01:36+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -124,12 +124,12 @@ msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
 msgstr "Mencheckout ke cabang baru: %1"
 
-#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
+#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Commit Changes"
 msgstr "Commit Perubahan"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:262
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:262
 #, kde-format
 msgid "Commit"
 msgstr "Commit"
@@ -154,7 +154,7 @@ msgstr "Deskripsi commit diperpanjang..."
 msgid "Sign off"
 msgstr "Keluar"
 
-#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:120
+#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amend"
 msgstr ""
@@ -164,18 +164,18 @@ msgstr ""
 msgid "Amend Last Commit"
 msgstr ""
 
-#: gitcommitdialog.cpp:119
+#: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
 msgstr ""
 
-#: gitcommitdialog.cpp:203
+#: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -672,12 +672,12 @@ msgstr "Stage / Unstage"
 msgid "Double click action in the git status view"
 msgstr "Aksi klik ganda dalam tampilan status git"
 
-#: kateprojectconfigpage.cpp:133 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projek"
 
-#: kateprojectconfigpage.cpp:138
+#: kateprojectconfigpage.cpp:170
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

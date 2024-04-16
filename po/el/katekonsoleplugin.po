@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-17 00:39+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2021-06-14 10:01+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Δεν έχετε αρκετά δικαιώματα για πρόσβαση σε ένα κέλυφος ή εξομοίωση "
 "τερματικού"
 
-#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:703
+#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:719
 #, kde-format
 msgid "Terminal"
 msgstr "Τερματικό"
@@ -228,7 +228,7 @@ msgstr ""
 "χρησιμοποιούν το πλήκτρο Esc, π.χ. το vim. Προσθέστε αυτές τις εφαρμογές "
 "στην παρακάτω είσοδο δεδομένων (λίστα με διαχωριστικό το κόμμα)"
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:724
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Ρυθμίσεις τερματικού"

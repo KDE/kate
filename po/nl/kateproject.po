@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2023-11-26 14:16+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -120,12 +120,12 @@ msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
 msgstr "Actieve branch: %1"
 
-#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
+#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Commit Changes"
 msgstr "Wijzigingen vastleggen (commit)"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:262
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:262
 #, kde-format
 msgid "Commit"
 msgstr "Vastleggen (commit)"
@@ -150,7 +150,7 @@ msgstr "Uitgebreide beschrijving van commit..."
 msgid "Sign off"
 msgstr "Afmelden"
 
-#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:120
+#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amend"
 msgstr "Uitleggen"
@@ -160,18 +160,18 @@ msgstr "Uitleggen"
 msgid "Amend Last Commit"
 msgstr "Uitleg geven bij commit (vastleggen)"
 
-#: gitcommitdialog.cpp:119
+#: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
 msgstr "Uitleg wordt gegeven bij commit"
 
-#: gitcommitdialog.cpp:203
+#: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -655,12 +655,12 @@ msgstr "In stage zetten / uit stage halen"
 msgid "Double click action in the git status view"
 msgstr "Actie met een dubbelklik in de git statusweergave"
 
-#: kateprojectconfigpage.cpp:133 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projecten"
 
-#: kateprojectconfigpage.cpp:138
+#: kateprojectconfigpage.cpp:170
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

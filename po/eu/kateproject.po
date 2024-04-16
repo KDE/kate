@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-16 00:40+0000\n"
 "PO-Revision-Date: 2023-12-02 07:02+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -120,12 +120,12 @@ msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
 msgstr "Adar aktiboa: %1"
 
-#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
+#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Commit Changes"
 msgstr "Baliozkotu aldaketak"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:262
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:262
 #, kde-format
 msgid "Commit"
 msgstr "Baliozkotu"
@@ -150,7 +150,7 @@ msgstr "Baliozkotze azalpen hedatua..."
 msgid "Sign off"
 msgstr "Saioa itxi"
 
-#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:120
+#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amend"
 msgstr "Zuzendu"
@@ -160,18 +160,18 @@ msgstr "Zuzendu"
 msgid "Amend Last Commit"
 msgstr "Zuzendu azken baliozkotzea"
 
-#: gitcommitdialog.cpp:119
+#: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
 msgstr "Baliozkotzea zuzentzen"
 
-#: gitcommitdialog.cpp:203
+#: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -657,12 +657,12 @@ msgstr "Ipini / Atera antolaketa(tan/tik)"
 msgid "Double click action in the git status view"
 msgstr "Klik bikoitzeko ekintza «git status» ikuspegian"
 
-#: kateprojectconfigpage.cpp:133 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Proiektuak"
 
-#: kateprojectconfigpage.cpp:138
+#: kateprojectconfigpage.cpp:170
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

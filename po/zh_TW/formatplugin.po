@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-13 01:36+0000\n"
+"POT-Creation-Date: 2024-04-17 00:40+0000\n"
 "PO-Revision-Date: 2023-12-22 02:48+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 24.01.80\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
-#: FormatterFactory.h:59
+#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
 #, kde-format
 msgid "Format"
 msgstr "格式"
@@ -73,7 +73,17 @@ msgstr "儲存時格式化"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "暫時停用儲存檔案時的格式化，不記住此設定"
 
-#: FormatterFactory.h:59
+#: FormatterFactory.h:44
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr ""
+
+#: FormatterFactory.h:64
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr ""
+
+#: FormatterFactory.h:68
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "執行格式器時失敗。不支援的語言 %1"

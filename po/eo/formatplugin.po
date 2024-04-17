@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-13 01:36+0000\n"
+"POT-Creation-Date: 2024-04-17 00:40+0000\n"
 "PO-Revision-Date: 2023-12-13 07:55+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
-#: FormatterFactory.h:59
+#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
 #, kde-format
 msgid "Format"
 msgstr "Formato"
@@ -73,7 +73,17 @@ msgstr "Formati je Konservado"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Malebligi formatadon je konservado sen persistigi ĝin en agordoj"
 
-#: FormatterFactory.h:59
+#: FormatterFactory.h:44
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr ""
+
+#: FormatterFactory.h:64
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr ""
+
+#: FormatterFactory.h:68
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Malsukcesis efektivigi formatilon. Nesubtenata lingvo %1"

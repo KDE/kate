@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-13 01:36+0000\n"
+"POT-Creation-Date: 2024-04-17 00:40+0000\n"
 "PO-Revision-Date: 2023-11-27 10:55+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 22.12.3\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
-#: FormatterFactory.h:59
+#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
 #, kde-format
 msgid "Format"
 msgstr "Formato"
@@ -74,7 +74,17 @@ msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
 "Dishabilita formttar sur salveguardar sin prerequirer lo in preferentias"
 
-#: FormatterFactory.h:59
+#: FormatterFactory.h:44
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr ""
+
+#: FormatterFactory.h:64
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr ""
+
+#: FormatterFactory.h:68
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Falleva a executar gormattator (formatter). Linguage non supportate %1"

@@ -19,6 +19,7 @@
         "Description[uk]": "Надсилання SQL-подібних запитів за допомогою RBQL",
         "Description[x-test]": "xxRun SQL-like queries using RBQLxx",
         "Description[zh_CN]": "使用 RBQL 运行 SQL 式查询",
+        "Description[zh_TW]": "使用 RBQL 來執行類似 SQL 的查詢",
         "Name": "Rainbow CSV",
         "Name[bg]": "Rainbow CSV",
         "Name[ca@valencia]": "Rainbow CSV",
@@ -38,6 +39,7 @@
         "Name[uk]": "CSV Rainbow",
         "Name[x-test]": "xxRainbow CSVxx",
         "Name[zh_CN]": "Rainbow CSV",
+        "Name[zh_TW]": "彩虹 CSV",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

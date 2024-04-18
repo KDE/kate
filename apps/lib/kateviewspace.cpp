@@ -1127,7 +1127,10 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     } else if (choice == aRenameFile) {
         KateFileActions::renameDocumentFile(this, doc);
     } else if (choice == aDeleteFile) {
-        KateFileActions::deleteDocumentFile(this, doc);
+        // use single shot as this action can trigger deletion of this viewspace!
+        QTimer::singleShot(0, this, [this, doc]() {
+            KateFileActions::deleteDocumentFile(this, doc);
+        });
     } else if (choice->parent() == compareUsing) {
         QString actionData = choice->data().toString(); // name of the executable of the diff program
         if (!KateFileActions::compareWithExternalProgram(activeDocument, doc, actionData)) {

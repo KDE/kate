@@ -120,7 +120,7 @@ private Q_SLOTS:
 
     void matchesFound(const QUrl &url, const QList<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
 
-    void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr);
+    void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr, const QRegularExpression &regexp);
 
     void searchDone();
     void searchWhileTypingDone();
@@ -140,7 +140,7 @@ private Q_SLOTS:
     void updateCheckState(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles);
     void updateMatchMarks();
 
-    void syncModelRanges();
+    void syncModelRanges(QPointer<Results> resultsTab);
 
     void resultTabChanged(int index);
 
@@ -197,7 +197,8 @@ private:
 
     QTimer m_diskSearchDoneTimer;
     QTimer m_updateCheckedStateTimer;
-    Results *m_curResults = nullptr;
+    QPointer<Results> m_searchingTab = nullptr;
+    QPointer<Results> m_currentTab = nullptr;
     QTabBar *m_tabBar = nullptr;
     bool m_searchJustOpened = false;
     int m_projectSearchPlaceIndex = 0;

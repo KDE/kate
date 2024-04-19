@@ -836,7 +836,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
 
 void KatePluginSearchView::folderFileListChanged()
 {
-    if (!m_curResults) {
+    if (!m_searchingTab) {
         qWarning() << "This is a bug";
         searchDone();
         return;
@@ -862,10 +862,10 @@ void KatePluginSearchView::folderFileListChanged()
     // earliest after first event loop.
     // The DiskFile might finish immediately
     if (!openList.empty()) {
-        m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
+        m_searchOpenFiles.startSearch(openList, m_searchingTab->regExp);
     }
 
-    startDiskFileSearch(fileList, m_curResults->regExp, m_ui.binaryCheckBox->isChecked(), m_ui.sizeLimitSpinBox->value());
+    startDiskFileSearch(fileList, m_searchingTab->regExp, m_ui.binaryCheckBox->isChecked(), m_ui.sizeLimitSpinBox->value());
 }
 
 void KatePluginSearchView::startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, const bool includeBinaryFiles, const int sizeLimit)
@@ -973,12 +973,13 @@ void KatePluginSearchView::searchPlaceChanged()
 
 void KatePluginSearchView::matchesFound(const QUrl &url, const QList<KateSearchMatch> &searchMatches, KTextEditor::Document *doc)
 {
-    if (!m_curResults) {
+    if (!m_searchingTab) {
+        qWarning() << "BUG: A search tab should be set when search results arrive";
         return;
     }
 
-    m_curResults->matchModel.addMatches(url, searchMatches, doc);
-    m_curResults->matches += searchMatches.size();
+    m_searchingTab->matchModel.addMatches(url, searchMatches, doc);
+    m_searchingTab->matches += searchMatches.size();
 }
 
 void KatePluginSearchView::stopClicked()
@@ -1078,9 +1079,9 @@ void KatePluginSearchView::startSearch()
         m_ui.folderRequester->comboBox()->insertItem(0, m_ui.folderRequester->comboBox()->currentText());
         m_ui.folderRequester->comboBox()->setCurrentIndex(0);
     }
-    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
-    if (!m_curResults) {
-        qWarning() << "This is a bug";
+    m_searchingTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
+    if (!m_searchingTab) {
+        qWarning() << "BUG: Failed to find a search tab";
         return;
     }
 
@@ -1104,11 +1105,11 @@ void KatePluginSearchView::startSearch()
 
     Q_EMIT searchBusy(true);
 
-    m_curResults->searchStr = currentSearchText;
-    m_curResults->regExp = reg;
-    m_curResults->useRegExp = m_ui.useRegExp->isChecked();
-    m_curResults->matchCase = m_ui.matchCase->isChecked();
-    m_curResults->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
+    m_searchingTab->searchStr = currentSearchText;
+    m_searchingTab->regExp = reg;
+    m_searchingTab->useRegExp = m_ui.useRegExp->isChecked();
+    m_searchingTab->matchCase = m_ui.matchCase->isChecked();
+    m_searchingTab->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
 
     m_ui.newTabButton->setDisabled(true);
     m_ui.searchCombo->setDisabled(true);
@@ -1126,7 +1127,7 @@ void KatePluginSearchView::startSearch()
     m_ui.currentFolderButton->setDisabled(true);
 
     clearMarksAndRanges();
-    m_curResults->matches = 0;
+    m_searchingTab->matches = 0;
 
     // BUG: 441340 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
     QString tabName = m_ui.searchCombo->currentText();
@@ -1138,10 +1139,10 @@ void KatePluginSearchView::startSearch()
     const bool inCurrentProject = m_ui.searchPlaceCombo->currentIndex() == MatchModel::Project;
     const bool inAllOpenProjects = m_ui.searchPlaceCombo->currentIndex() == MatchModel::AllProjects;
 
-    m_curResults->matchModel.clear();
-    m_curResults->matchModel.setSearchPlace(static_cast<MatchModel::SearchPlaces>(m_curResults->searchPlaceIndex));
-    m_curResults->matchModel.setSearchState(MatchModel::Searching);
-    m_curResults->expandRoot();
+    m_searchingTab->matchModel.clear();
+    m_searchingTab->matchModel.setSearchPlace(static_cast<MatchModel::SearchPlaces>(m_searchingTab->searchPlaceIndex));
+    m_searchingTab->matchModel.setSearchState(MatchModel::Searching);
+    m_searchingTab->expandRoot();
 
     if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::CurrentFile) {
         m_resultBaseDir.clear();
@@ -1160,7 +1161,7 @@ void KatePluginSearchView::startSearch()
         if (!m_resultBaseDir.isEmpty() && !m_resultBaseDir.endsWith(QLatin1Char('/'))) {
             m_resultBaseDir += QLatin1Char('/');
         }
-        m_curResults->matchModel.setBaseSearchPath(m_resultBaseDir);
+        m_searchingTab->matchModel.setBaseSearchPath(m_resultBaseDir);
         m_folderFilesList.generateList(m_ui.folderRequester->text(),
                                        m_ui.recursiveCheckBox->isChecked(),
                                        m_ui.hiddenCheckBox->isChecked(),
@@ -1177,10 +1178,10 @@ void KatePluginSearchView::startSearch()
         if (m_projectPluginView) {
             if (inCurrentProject) {
                 m_resultBaseDir = m_projectPluginView->property("projectBaseDir").toString();
-                m_curResults->matchModel.setProjectName(m_projectPluginView->property("projectName").toString());
+                m_searchingTab->matchModel.setProjectName(m_projectPluginView->property("projectName").toString());
             } else {
                 m_resultBaseDir = m_projectPluginView->property("allProjectsCommonBaseDir").toString();
-                m_curResults->matchModel.setProjectName(m_projectPluginView->property("projectName").toString());
+                m_searchingTab->matchModel.setProjectName(m_projectPluginView->property("projectName").toString());
             }
 
             if (!m_resultBaseDir.endsWith(QLatin1Char('/'))) {
@@ -1196,7 +1197,7 @@ void KatePluginSearchView::startSearch()
 
             files = filterFiles(projectFiles);
         }
-        m_curResults->matchModel.setBaseSearchPath(m_resultBaseDir);
+        m_searchingTab->matchModel.setBaseSearchPath(m_resultBaseDir);
 
         QList<KTextEditor::Document *> openList;
         const auto docs = m_kateApp->documents();
@@ -1212,11 +1213,11 @@ void KatePluginSearchView::startSearch()
         // earliest after first event loop.
         // The DiskFile might finish immediately
         if (!openList.empty()) {
-            m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
+            m_searchOpenFiles.startSearch(openList, m_searchingTab->regExp);
         }
         // We don't want to search for binary files in the project, so false is used instead of the checkbox
         // which is disabled in this case
-        startDiskFileSearch(files, m_curResults->regExp, false, m_ui.sizeLimitSpinBox->value());
+        startDiskFileSearch(files, m_searchingTab->regExp, false, m_ui.sizeLimitSpinBox->value());
     } else {
         qDebug() << "Case not handled:" << m_ui.searchPlaceCombo->currentIndex();
         Q_ASSERT_X(false, "KatePluginSearchView::startSearch", "case not handled");
@@ -1248,9 +1249,9 @@ void KatePluginSearchView::startSearchWhileTyping()
         return;
     }
 
-    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
-    if (!m_curResults) {
-        qWarning() << "This is a bug";
+    m_searchingTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
+    if (!m_searchingTab) {
+        qWarning() << "BUG: Failed to find a search tab";
         return;
     }
 
@@ -1269,7 +1270,7 @@ void KatePluginSearchView::startSearchWhileTyping()
     if (!m_ui.matchCase->isChecked()) {
         patternOptions |= QRegularExpression::CaseInsensitiveOption;
     }
-    if (m_curResults->useRegExp && pattern.contains(QLatin1String("\\n"))) {
+    if (m_searchingTab->useRegExp && pattern.contains(QLatin1String("\\n"))) {
         patternOptions |= QRegularExpression::MultilineOption;
     }
     QRegularExpression reg(pattern, patternOptions);
@@ -1284,8 +1285,8 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     Q_EMIT searchBusy(true);
 
-    m_curResults->regExp = reg;
-    m_curResults->useRegExp = m_ui.useRegExp->isChecked();
+    m_searchingTab->regExp = reg;
+    m_searchingTab->useRegExp = m_ui.useRegExp->isChecked();
 
     m_ui.replaceCheckedBtn->setDisabled(true);
     m_ui.replaceButton->setDisabled(true);
@@ -1310,12 +1311,12 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     // Prepare for the new search content
     m_resultBaseDir.clear();
-    m_curResults->matches = 0;
+    m_searchingTab->matches = 0;
 
-    m_curResults->matchModel.clear();
-    m_curResults->matchModel.setSearchPlace(MatchModel::CurrentFile);
-    m_curResults->matchModel.setSearchState(MatchModel::Searching);
-    m_curResults->expandRoot();
+    m_searchingTab->matchModel.clear();
+    m_searchingTab->matchModel.setSearchPlace(MatchModel::CurrentFile);
+    m_searchingTab->matchModel.setSearchState(MatchModel::Searching);
+    m_searchingTab->expandRoot();
 
     // Do the search
     int searchStoppedAt = m_searchOpenFiles.searchOpenFile(doc, reg, 0);
@@ -1363,24 +1364,24 @@ void KatePluginSearchView::searchDone()
 
     Q_EMIT searchBusy(false);
 
-    if (!m_curResults) {
+    if (!m_searchingTab) {
         return;
     }
 
-    m_ui.replaceCheckedBtn->setDisabled(m_curResults->matches < 1);
-    m_ui.replaceButton->setDisabled(m_curResults->matches < 1);
-    m_ui.nextButton->setDisabled(m_curResults->matches < 1);
-    m_ui.filterBtn->setDisabled(m_curResults->matches <= 1);
+    m_ui.replaceCheckedBtn->setDisabled(m_searchingTab->matches < 1);
+    m_ui.replaceButton->setDisabled(m_searchingTab->matches < 1);
+    m_ui.nextButton->setDisabled(m_searchingTab->matches < 1);
+    m_ui.filterBtn->setDisabled(m_searchingTab->matches <= 1);
 
     // Set search to done. This sorts the model and collapses all items in the view
-    m_curResults->matchModel.setSearchState(MatchModel::SearchDone);
+    m_searchingTab->matchModel.setSearchState(MatchModel::SearchDone);
 
     // expand the "header item " to display all files and all results if configured
     expandResults();
 
-    m_curResults->treeView->resizeColumnToContents(0);
+    m_searchingTab->treeView->resizeColumnToContents(0);
 
-    indicateMatch(m_curResults->matches > 0 ? MatchType::HasMatch : MatchType::NoMatch);
+    indicateMatch(m_searchingTab->matches > 0 ? MatchType::HasMatch : MatchType::NoMatch);
 
     m_toolView->unsetCursor();
 
@@ -1389,8 +1390,8 @@ void KatePluginSearchView::searchDone()
     }
 
     m_searchJustOpened = false;
-    m_curResults->searchStr = m_ui.searchCombo->currentText();
-    m_curResults = nullptr;
+    m_searchingTab->searchStr = m_ui.searchCombo->currentText();
+    m_searchingTab = nullptr;
     updateMatchMarks();
 
     // qDebug() << "done:" << s_timer.elapsed();
@@ -1400,30 +1401,30 @@ void KatePluginSearchView::searchWhileTypingDone()
 {
     Q_EMIT searchBusy(false);
 
-    if (!m_curResults) {
+    if (!m_searchingTab) {
         return;
     }
 
     bool popupVisible = m_ui.searchCombo->lineEdit()->completer()->popup()->isVisible();
 
-    m_ui.replaceCheckedBtn->setDisabled(m_curResults->matches < 1);
-    m_ui.replaceButton->setDisabled(m_curResults->matches < 1);
-    m_ui.nextButton->setDisabled(m_curResults->matches < 1);
-    m_ui.filterBtn->setDisabled(m_curResults->matches <= 1);
+    m_ui.replaceCheckedBtn->setDisabled(m_searchingTab->matches < 1);
+    m_ui.replaceButton->setDisabled(m_searchingTab->matches < 1);
+    m_ui.nextButton->setDisabled(m_searchingTab->matches < 1);
+    m_ui.filterBtn->setDisabled(m_searchingTab->matches <= 1);
 
-    m_curResults->treeView->expandAll();
-    m_curResults->treeView->resizeColumnToContents(0);
-    if (m_curResults->treeView->columnWidth(0) < m_curResults->treeView->width() - 30) {
-        m_curResults->treeView->setColumnWidth(0, m_curResults->treeView->width() - 30);
+    m_searchingTab->treeView->expandAll();
+    m_searchingTab->treeView->resizeColumnToContents(0);
+    if (m_searchingTab->treeView->columnWidth(0) < m_searchingTab->treeView->width() - 30) {
+        m_searchingTab->treeView->setColumnWidth(0, m_searchingTab->treeView->width() - 30);
     }
 
     // Set search to done. This sorts the model and collapses all items in the view
-    m_curResults->matchModel.setSearchState(MatchModel::SearchDone);
+    m_searchingTab->matchModel.setSearchState(MatchModel::SearchDone);
 
     // expand the "header item " to display all files and all results if configured
     expandResults();
 
-    indicateMatch(m_curResults->matches > 0 ? MatchType::HasMatch : MatchType::NoMatch);
+    indicateMatch(m_searchingTab->matches > 0 ? MatchType::HasMatch : MatchType::NoMatch);
 
     if (popupVisible) {
         m_ui.searchCombo->lineEdit()->completer()->complete();
@@ -1433,9 +1434,9 @@ void KatePluginSearchView::searchWhileTypingDone()
     }
 
     m_searchJustOpened = false;
-    m_curResults->searchStr = m_ui.searchCombo->currentText();
+    m_searchingTab->searchStr = m_ui.searchCombo->currentText();
 
-    m_curResults = nullptr;
+    m_searchingTab = nullptr;
 
     updateMatchMarks();
 }
@@ -1507,8 +1508,10 @@ void KatePluginSearchView::replaceSingleMatch()
 
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
 
-    // FIXME The document might have been edited after the search.
-    // Fix the ranges before attempting the replace
+    // The document might have been edited after the search.
+    // Sync the ranges before attempting the replace
+    syncModelRanges(res);
+
     res->replaceSingleMatch(doc, itemIndex, res->regExp, m_ui.replaceCombo->currentText());
 
     goToNextMatch();
@@ -1516,8 +1519,14 @@ void KatePluginSearchView::replaceSingleMatch()
 
 void KatePluginSearchView::replaceChecked()
 {
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
+    if (!res) {
+        qWarning() << "BUG: Results tab not found";
+        return;
+    }
+
     // Sync the current documents ranges with the model in case it has been edited
-    syncModelRanges();
+    syncModelRanges(res);
 
     // Clear match marks and ranges
     // we MUST do this because after we are done replacing, our current moving ranges
@@ -1533,12 +1542,6 @@ void KatePluginSearchView::replaceChecked()
     if (m_ui.replaceCombo->findText(m_ui.replaceCombo->currentText()) == -1) {
         m_ui.replaceCombo->insertItem(1, m_ui.replaceCombo->currentText());
         m_ui.replaceCombo->setCurrentIndex(1);
-    }
-
-    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
-    if (!m_curResults) {
-        qWarning() << "Results not found";
-        return;
     }
 
     Q_EMIT searchBusy(true);
@@ -1558,9 +1561,9 @@ void KatePluginSearchView::replaceChecked()
     m_ui.expandResults->setDisabled(true);
     m_ui.currentFolderButton->setDisabled(true);
 
-    m_curResults->replaceStr = m_ui.replaceCombo->currentText();
+    res->replaceStr = m_ui.replaceCombo->currentText();
 
-    m_curResults->matchModel.replaceChecked(m_curResults->regExp, m_curResults->replaceStr);
+    res->matchModel.replaceChecked(res->regExp, res->replaceStr);
 }
 
 void KatePluginSearchView::replaceDone()
@@ -1594,9 +1597,6 @@ void KatePluginSearchView::clearMarksAndRanges()
 
 void KatePluginSearchView::clearDocMarksAndRanges(KTextEditor::Document *doc)
 {
-    // Before removing the ranges try to update the ranges in the model in case we have document changes.
-    syncModelRanges();
-
     if (doc) {
         const QHash<int, KTextEditor::Mark *> marks = doc->marks();
         QHashIterator<int, KTextEditor::Mark *> i(marks);
@@ -1620,7 +1620,10 @@ void KatePluginSearchView::clearDocMarksAndRanges(KTextEditor::Document *doc)
                         m_matchRanges.end());
 }
 
-void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr)
+void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
+                                           const KateSearchMatch &match,
+                                           KTextEditor::Attribute::Ptr attr,
+                                           const QRegularExpression &regExp)
 {
     if (!doc || !match.checked) {
         return;
@@ -1629,18 +1632,16 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc, const Kat
     bool isReplaced = !match.replaceText.isEmpty();
 
     // Check that the match still matches
-    if (m_curResults) {
-        if (!isReplaced) {
-            auto regMatch = MatchModel::rangeTextMatches(doc->text(match.range), m_curResults->regExp);
-            if (regMatch.capturedStart() != 0) {
-                // qDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
-                return;
-            }
-        } else {
-            if (doc->text(match.range) != match.replaceText) {
-                // qDebug() << doc->text(match.range) << "Does not match" << match.replaceText;
-                return;
-            }
+    if (!isReplaced) {
+        auto regMatch = MatchModel::rangeTextMatches(doc->text(match.range), regExp);
+        if (regMatch.capturedStart() != 0) {
+            // qDebug() << doc->text(match.range) << "Does not match" << regExp.pattern();
+            return;
+        }
+    } else {
+        if (doc->text(match.range) != match.replaceText) {
+            // qDebug() << doc->text(match.range) << "Does not match" << match.replaceText;
+            return;
         }
     }
 
@@ -1692,7 +1693,6 @@ void KatePluginSearchView::updateMatchMarks()
     if (!res || res->isEmpty()) {
         return;
     }
-    m_curResults = res;
 
     // add the marks if it is not already open
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
@@ -1709,58 +1709,57 @@ void KatePluginSearchView::updateMatchMarks()
     // Add match marks for all matches in the file
     const QList<KateSearchMatch> &fileMatches = res->matchModel.fileMatches(doc);
     for (const KateSearchMatch &match : fileMatches) {
-        addRangeAndMark(doc, match, m_resultAttr);
+        addRangeAndMark(doc, match, m_resultAttr, res->regExp);
     }
 }
 
-void KatePluginSearchView::syncModelRanges()
+void KatePluginSearchView::syncModelRanges(QPointer<Results> resultsTab)
 {
-    if (!m_curResults) {
+    if (!resultsTab || resultsTab->isEmpty()) {
         return;
     }
     // NOTE: We assume there are only ranges for one document in the ranges at a time...
-    m_curResults->matchModel.updateMatchRanges(m_matchRanges);
+    resultsTab->matchModel.updateMatchRanges(m_matchRanges);
 }
 
 void KatePluginSearchView::expandResults()
 {
-    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
-    if (!m_curResults) {
+    Results *currentTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
+    if (!currentTab) {
         qWarning() << "Results not found";
         return;
     }
 
     // we expand recursively if we either are told so or we have just one toplevel match item
-    auto *model = m_curResults->treeView->model();
+    auto *model = currentTab->treeView->model();
     QModelIndex rootItem = model->index(0, 0);
     if ((m_ui.expandResults->isChecked() && model->rowCount(rootItem) < 200) || model->rowCount(rootItem) == 1) {
-        m_curResults->treeView->expandAll();
+        currentTab->treeView->expandAll();
     } else {
-        // first collapse all and the expand the root, much faster than collapsing all children manually
-        m_curResults->treeView->collapseAll();
-        m_curResults->treeView->expand(rootItem);
+        // first collapse all and then expand the root, much faster than collapsing all children manually
+        currentTab->treeView->collapseAll();
+        currentTab->treeView->expand(rootItem);
     }
 }
 
 void KatePluginSearchView::itemSelected(const QModelIndex &item)
 {
-    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
-    if (!m_curResults) {
+    Results *currentTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
+    if (!currentTab) {
         qDebug() << "No result widget available";
         return;
     }
 
     // Sync the current document matches with the model before jumping
-    // FIXME do we want to do this on every edit in stead?
-    syncModelRanges();
+    syncModelRanges(currentTab);
 
     // open any children to go to the first match in the file
     QModelIndex matchItem = item;
-    if (item.model() == m_curResults->model()) {
-        while (m_curResults->model()->hasChildren(matchItem)) {
-            matchItem = m_curResults->model()->index(0, 0, matchItem);
+    if (item.model() == currentTab->model()) {
+        while (currentTab->model()->hasChildren(matchItem)) {
+            matchItem = currentTab->model()->index(0, 0, matchItem);
         }
-        m_curResults->treeView->setCurrentIndex(matchItem);
+        currentTab->treeView->setCurrentIndex(matchItem);
     }
 
     // get stuff
@@ -1812,7 +1811,6 @@ void KatePluginSearchView::goToNextMatch()
     if (!res) {
         return;
     }
-    m_curResults = res;
 
     m_ui.displayOptions->setChecked(false);
 
@@ -1889,7 +1887,6 @@ void KatePluginSearchView::goToPreviousMatch()
     if (!res) {
         return;
     }
-    m_curResults = res;
 
     m_ui.displayOptions->setChecked(false);
 
@@ -2113,9 +2110,6 @@ void KatePluginSearchView::detachTabToMainWindow(Results *res)
     res->setWindowIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
     res->setWindowTitle(i18n("Search: %1", m_tabBar->tabText(i)));
     m_mainWindow->addWidget(res);
-    if (res == m_curResults) {
-        m_curResults = nullptr;
-    }
     res->isDetachedToMainWindow = true;
     m_tabBar->removeTab(i);
     addTab();
@@ -2123,22 +2117,27 @@ void KatePluginSearchView::detachTabToMainWindow(Results *res)
 
 void KatePluginSearchView::tabCloseRequested(int index)
 {
-    Results *tmp = qobject_cast<Results *>(m_ui.resultWidget->widget(index));
-    if (m_curResults == tmp) {
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->widget(index));
+    if (!res) {
+        qWarning() << "BUG: Result tab not found";
+        return;
+    }
+
+    if (m_searchingTab == res) {
         m_searchOpenFiles.cancelSearch();
         cancelDiskFileSearch();
         m_folderFilesList.terminateSearch();
+        m_searchingTab = nullptr;
     }
+
+    res->matchModel.cancelReplace();
 
     if (m_ui.resultWidget->count() > 1) {
         m_tabBar->blockSignals(true);
         m_tabBar->removeTab(index);
-        if (m_curResults == tmp) {
-            m_curResults = nullptr;
-        }
-        m_ui.resultWidget->removeWidget(tmp);
+        m_ui.resultWidget->removeWidget(res);
         m_tabBar->blockSignals(false);
-        delete tmp;
+        delete res;
     }
 
     // focus the tab after or the first one if it is the last
@@ -2162,6 +2161,12 @@ void KatePluginSearchView::resultTabChanged(int index)
         // qDebug() << "No res found";
         return;
     }
+
+    // Synchronize the old tab's moving-ranges and matches
+    if (m_currentTab) {
+        syncModelRanges(m_currentTab);
+    }
+    m_currentTab = res;
 
     // Restore display folder option state
     m_ui.displayOptions->setChecked(res->displayFolderOptions);
@@ -2236,6 +2241,10 @@ void KatePluginSearchView::onResize(const QSize &size)
 
 void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
 {
+    QPointer<Results> res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
+    if (!res) {
+        return;
+    }
     QTreeView *tree = qobject_cast<QTreeView *>(sender());
     if (tree == nullptr) {
         return;
@@ -2251,17 +2260,17 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     menu->addAction(copyExpanded);
 
     QAction *exportMatches = new QAction(i18n("Export matches"), tree);
-    if (m_curResults && m_curResults->useRegExp) {
+    if (res->useRegExp) {
         menu->addAction(exportMatches);
     }
 
-    if (m_curResults) {
-        QAction *openAsEditorTab = new QAction(i18n("Open as Editor Tab"), tree);
-        connect(openAsEditorTab, &QAction::triggered, this, [this] {
-            detachTabToMainWindow(m_curResults);
-        });
-        menu->addAction(openAsEditorTab);
-    }
+    QAction *openAsEditorTab = new QAction(i18n("Open as Editor Tab"), tree);
+    connect(openAsEditorTab, &QAction::triggered, this, [this, res] {
+        if (res) {
+            detachTabToMainWindow(res);
+        }
+    });
+    menu->addAction(openAsEditorTab);
 
     QAction *clear = menu->addAction(i18n("Clear"));
 
@@ -2323,7 +2332,7 @@ void KatePluginSearchView::showExportMatchesDialog()
     if (!res) {
         return;
     }
-    MatchExportDialog matchExportDialog(m_mainWindow->window(), m_curResults->model(), &m_curResults->regExp);
+    MatchExportDialog matchExportDialog(m_mainWindow->window(), res->model(), &res->regExp);
     matchExportDialog.exec();
 }
 

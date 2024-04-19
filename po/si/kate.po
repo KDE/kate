@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-14 00:40+0000\n"
+"POT-Creation-Date: 2024-04-19 00:40+0000\n"
 "PO-Revision-Date: 2011-08-04 10:19+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <danishka@gmail.com>\n"
@@ -2497,12 +2497,12 @@ msgstr "වත්මන් ලේඛනය වසන්න"
 msgid "Compare with Active Document Using"
 msgstr "වත්මන් ලේඛනය වසන්න"
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1138
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1136
+#: lib/kateviewspace.cpp:1139
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

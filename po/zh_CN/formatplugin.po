@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-17 00:40+0000\n"
-"PO-Revision-Date: 2024-03-30 19:36\n"
+"PO-Revision-Date: 2024-04-18 19:50\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -76,12 +76,12 @@ msgstr "禁用保存时格式化但不保存到设置"
 #: FormatterFactory.h:44
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr ""
+msgstr "未知 formatterForJson：%1"
 
 #: FormatterFactory.h:64
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr ""
+msgstr "未知 formatterForPython：%1"
 
 #: FormatterFactory.h:68
 #, kde-format

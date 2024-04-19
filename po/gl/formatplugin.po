@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-17 00:40+0000\n"
-"PO-Revision-Date: 2024-01-27 11:02+0100\n"
+"PO-Revision-Date: 2024-04-18 18:24+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
 #: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
@@ -76,12 +76,12 @@ msgstr "Desactivar a formatación ao gardar sen aplicalo á configuración."
 #: FormatterFactory.h:44
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr ""
+msgstr "formatterForJson (formatador para JSON) descoñecido: %1"
 
 #: FormatterFactory.h:64
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr ""
+msgstr "formatterForPython (formatador para Python) descoñecido: %1"
 
 #: FormatterFactory.h:68
 #, kde-format

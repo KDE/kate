@@ -39,7 +39,7 @@ public:
      * @param type type for this item
      * @param text text for this item
      */
-    KateProjectItem(Type type, const QString &text);
+    KateProjectItem(Type type, const QString &text, const QString &path);
 
     /**
      * deconstruct project
@@ -73,6 +73,9 @@ private:
      * type
      */
     const Type m_type;
+
+    // File path this item represents
+    QString m_path;
 
     /**
      * cached icon

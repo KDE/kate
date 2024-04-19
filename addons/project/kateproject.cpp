@@ -83,7 +83,7 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
                 const QString newFile = destDir + QStringLiteral("/") + url.fileName();
                 const QFileInfo fi(newFile);
                 if (fi.exists() && fi.isFile()) {
-                    KateProjectItem *i = new KateProjectItem(KateProjectItem::File, url.fileName());
+                    KateProjectItem *i = new KateProjectItem(KateProjectItem::File, url.fileName(), fi.absoluteFilePath());
                     item->appendRow(i);
                     m_project->addFile(newFile, i);
                 } else {
@@ -110,6 +110,15 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
 bool KateProjectModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int, int, const QModelIndex &) const
 {
     return data && data->hasUrls() && action == Qt::CopyAction;
+}
+
+Qt::ItemFlags KateProjectModel::flags(const QModelIndex &index) const
+{
+    Qt::ItemFlags flags = QStandardItemModel::flags(index);
+    if (index.data(KateProjectItem::TypeRole) == KateProjectItem::File) {
+        flags.setFlag(Qt::ItemIsDropEnabled, false);
+    }
+    return flags;
 }
 
 KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QString &fileName)
@@ -515,13 +524,13 @@ void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
 {
     // perhaps create the parent item
     if (!m_untrackedDocumentsRoot) {
-        m_untrackedDocumentsRoot = new KateProjectItem(KateProjectItem::Directory, i18n("<untracked>"));
+        m_untrackedDocumentsRoot = new KateProjectItem(KateProjectItem::Directory, i18n("<untracked>"), QString());
         m_model.insertRow(0, m_untrackedDocumentsRoot);
     }
 
     // create document item
     QFileInfo fileInfo(document->url().toLocalFile());
-    KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileInfo.fileName());
+    KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileInfo.fileName(), document->url().toLocalFile());
     fileItem->slotModifiedChanged(document);
     connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
     connect(document, &KTextEditor::Document::modifiedOnDisk, this, &KateProject::slotModifiedOnDisk);
@@ -538,7 +547,6 @@ void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
         m_untrackedDocumentsRoot->appendRow(fileItem);
     }
 
-    fileItem->setData(document->url().toLocalFile(), Qt::UserRole);
     fileItem->setData(QVariant(true), Qt::UserRole + 3);
 
     if (!m_file2Item) {

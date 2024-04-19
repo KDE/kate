@@ -137,8 +137,7 @@ void KateProjectViewTree::addFile(const QModelIndex &idx, const QString &fileNam
         return;
     }
 
-    KateProjectItem *i = new KateProjectItem(KateProjectItem::File, fileName);
-    i->setData(fullFileName, Qt::UserRole);
+    KateProjectItem *i = new KateProjectItem(KateProjectItem::File, fileName, fullFileName);
     item->appendRow(i);
     m_project->addFile(fullFileName, i);
     item->sortChildren(0);
@@ -158,8 +157,7 @@ void KateProjectViewTree::addDirectory(const QModelIndex &idx, const QString &na
         return;
     }
 
-    KateProjectItem *i = new KateProjectItem(KateProjectItem::Directory, name);
-    i->setData(fullDirName, Qt::UserRole);
+    KateProjectItem *i = new KateProjectItem(KateProjectItem::Directory, name, fullDirName);
     item->appendRow(i);
     item->sortChildren(0);
 }

@@ -116,7 +116,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
         /**
          * recurse
          */
-        QStandardItem *subProjectItem = new KateProjectItem(KateProjectItem::Project, subProject[keyName].toString());
+        QStandardItem *subProjectItem = new KateProjectItem(KateProjectItem::Project, subProject[keyName].toString(), QString());
         loadProject(subProjectItem, subProject, file2Item, baseDir);
         parent->appendRow(subProjectItem);
     }
@@ -164,8 +164,7 @@ QStandardItem *KateProjectWorker::directoryParent(const QDir &base, QHash<QStrin
      * simple, no recursion, append new item toplevel
      */
     if (slashIndex < 0) {
-        const auto item = new KateProjectItem(KateProjectItem::Directory, path);
-        item->setData(base.absoluteFilePath(path), Qt::UserRole);
+        const auto item = new KateProjectItem(KateProjectItem::Directory, path, base.absoluteFilePath(path));
         dir2Item[path] = item;
         dir2Item[QString()]->appendRow(item);
         return item;
@@ -187,8 +186,7 @@ QStandardItem *KateProjectWorker::directoryParent(const QDir &base, QHash<QStrin
     /**
      * else: recurse on left side
      */
-    const auto item = new KateProjectItem(KateProjectItem::Directory, rightPart);
-    item->setData(base.absoluteFilePath(path), Qt::UserRole);
+    const auto item = new KateProjectItem(KateProjectItem::Directory, rightPart, base.absoluteFilePath(path));
     dir2Item[path] = item;
     directoryParent(base, dir2Item, leftPart)->appendRow(item);
     return item;
@@ -261,8 +259,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
              * construct the item with right directory prefix
              * already hang in directories in tree
              */
-            KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::LinkedProject, fileName);
-            fileItem->setData(filePath, Qt::UserRole);
+            KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::LinkedProject, fileName, filePath);
 
             /**
              * projects are directories, register them, we walk in order over the projects
@@ -334,13 +331,9 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
          * construct the item with info about filename + full file path
          */
         if (info.isFile()) {
-            projectItem = new KateProjectItem(KateProjectItem::File, fileName);
-            projectItem->setData(fullFilePath, Qt::UserRole);
-        }
-        else if(info.isDir() && QDir(fullFilePath).isEmpty())
-        {
-            projectItem = new KateProjectItem(KateProjectItem::Directory, fileName);
-            projectItem->setData(fullFilePath, Qt::UserRole);
+            projectItem = new KateProjectItem(KateProjectItem::File, fileName, fullFilePath);
+        } else if (info.isDir() && QDir(fullFilePath).isEmpty()) {
+            projectItem = new KateProjectItem(KateProjectItem::Directory, fileName, fullFilePath);
         }
     });
 

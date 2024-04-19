@@ -117,8 +117,7 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
          * construct the item with right directory prefix
          * already hang in directories in tree
          */
-        KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileName);
-        fileItem->setData(fullFilePath, Qt::UserRole);
+        KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileName, fullFilePath);
         fileItem->setData(file.statusChar, Qt::UserRole + 1);
         fileItem->setData(file.linesAdded, Qt::UserRole + 2);
         fileItem->setData(file.linesRemoved, Qt::UserRole + 3);

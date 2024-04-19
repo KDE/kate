@@ -20,15 +20,11 @@
 
 #include <KTextEditor/Document>
 
-KateProjectItem::KateProjectItem(Type type, const QString &text)
+KateProjectItem::KateProjectItem(Type type, const QString &text, const QString &path)
     : QStandardItem(text)
     , m_type(type)
+    , m_path(path)
 {
-    if (type == File) {
-        auto flags = this->flags();
-        flags.setFlag(Qt::ItemIsDropEnabled, false);
-        setFlags(flags);
-    }
 }
 
 KateProjectItem::~KateProjectItem()
@@ -73,6 +69,10 @@ void KateProjectItem::slotModifiedOnDisk(KTextEditor::Document *document, bool i
 
 QVariant KateProjectItem::data(int role) const
 {
+    if (role == Qt::UserRole) {
+        return m_path;
+    }
+
     if (role == Qt::DecorationRole) {
         /**
          * this should only happen in main thread
@@ -154,7 +154,7 @@ void KateProjectItem::setData(const QVariant &value, int role)
         }
 
         auto oldFileName = data(Qt::DisplayRole).toString();
-        auto oldName = data(Qt::UserRole).toString();
+        auto oldName = m_path;
         QString newName = oldName;
         newName.replace(oldFileName, newFileName);
 
@@ -173,7 +173,7 @@ void KateProjectItem::setData(const QVariant &value, int role)
         project->renameFile(newName, oldName);
 
         // change internal path
-        setData(newName, Qt::UserRole);
+        m_path = newName;
     }
 
     QStandardItem::setData(value, role);

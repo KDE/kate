@@ -201,6 +201,7 @@ void KateExternalToolsPlugin::reload()
         // first start -> use system config
         for (const auto &tool : std::as_const(m_defaultTools)) {
             m_tools.push_back(new KateExternalTool(tool));
+            save(m_tools.back(), {});
         }
     }
 

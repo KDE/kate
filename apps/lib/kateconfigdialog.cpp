@@ -275,7 +275,7 @@ void KateConfigDialog::addBehaviorPage()
     connect(m_tabsElided, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_tabsElided);
 
-    m_openNewTabInFrontOfCurrent = new QCheckBox(i18n("Open new tab to the right of current tab."), this);
+    m_openNewTabInFrontOfCurrent = new QCheckBox(i18n("Open new tabs to the right of the current tab"), this);
     m_openNewTabInFrontOfCurrent->setChecked(cgGeneral.readEntry("Open New Tab To The Right Of Current", false));
     m_openNewTabInFrontOfCurrent->setToolTip(i18n("If unchecked the new tab will open at the end."));
     connect(m_openNewTabInFrontOfCurrent, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);

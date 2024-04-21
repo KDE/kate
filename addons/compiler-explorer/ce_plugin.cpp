@@ -57,10 +57,7 @@ void CEPluginView::openANewTab()
 
     m_mainWidget = new CEWidget(this, m_mainWindow);
 
-    QWidget *mw = m_mainWindow->window();
-    // clang-format off
-    QMetaObject::invokeMethod(mw, "addWidget", Q_ARG(QWidget*, m_mainWidget));
-    // clang-format on
+    m_mainWindow->addWidget(m_mainWidget);
 }
 
 // required for TextFilterPluginFactory vtable

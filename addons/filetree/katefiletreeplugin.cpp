@@ -212,12 +212,10 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     connect(mainWindow, &KTextEditor::MainWindow::widgetRemoved, this, &KateFileTreePluginView::slotWidgetRemoved);
 
     connect(m_fileTree, &KateFileTree::closeWidget, this, [this](QWidget *w) {
-        auto mw = m_mainWindow->window();
-        QMetaObject::invokeMethod(mw, "removeWidget", Q_ARG(QWidget *, w));
+        m_mainWindow->removeWidget(w);
     });
     connect(m_fileTree, &KateFileTree::activateWidget, this, [this](QWidget *w) {
-        auto mw = m_mainWindow->window();
-        QMetaObject::invokeMethod(mw, "activateWidget", Q_ARG(QWidget *, w));
+        m_mainWindow->activateWidget(w);
     });
 
     //
@@ -344,9 +342,7 @@ void KateFileTreePluginView::setToolbarVisible(bool visible)
 
 void KateFileTreePluginView::viewChanged(KTextEditor::View *)
 {
-    auto mw = m_mainWindow->window();
-    QWidget *activeWidget = nullptr;
-    QMetaObject::invokeMethod(mw, "activeWidget", Q_RETURN_ARG(QWidget *, activeWidget));
+    QWidget *activeWidget = m_mainWindow->activeWidget();
     if (!activeWidget) {
         return;
     }

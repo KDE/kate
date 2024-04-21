@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2023-11-02 13:58+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1120,8 +1120,9 @@ msgid "When checked tab text might be elided if its too long."
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:278
-#, kde-format
-msgid "Open new tab to the right of current tab."
+#, fuzzy, kde-format
+#| msgid "Open new tab to the right of current tab."
+msgid "Open new tabs to the right of the current tab"
 msgstr "Otevřít novou kartu napravo od současné."
 
 #: lib/kateconfigdialog.cpp:280

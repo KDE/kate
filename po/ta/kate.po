@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2024-03-24 17:54+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1140,8 +1140,9 @@ msgstr ""
 "இது குறிக்கப்பட்டிருந்தால், கீற்றின் தலைப்பு மிகநீளமாக இருக்கும் பட்சத்தில் வெட்டப்படும்."
 
 #: lib/kateconfigdialog.cpp:278
-#, kde-format
-msgid "Open new tab to the right of current tab."
+#, fuzzy, kde-format
+#| msgid "Open new tab to the right of current tab."
+msgid "Open new tabs to the right of the current tab"
 msgstr "புதிய கீற்றை தற்போதையதன் வலதில் திற"
 
 #: lib/kateconfigdialog.cpp:280

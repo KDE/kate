@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1678251 $
+# Version: $Revision: 1678372 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2024-04-01 08:01+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1162,8 +1162,9 @@ msgid "When checked tab text might be elided if its too long."
 msgstr "Po zaznaczeniu, tekst kart może zostać pominięty, jeśli jest za długi."
 
 #: lib/kateconfigdialog.cpp:278
-#, kde-format
-msgid "Open new tab to the right of current tab."
+#, fuzzy, kde-format
+#| msgid "Open new tab to the right of current tab."
+msgid "Open new tabs to the right of the current tab"
 msgstr "Otwórz nową kartę na prawo od bieżącej."
 
 #: lib/kateconfigdialog.cpp:280

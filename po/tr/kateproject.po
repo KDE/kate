@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2024-03-22 01:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -98,7 +98,7 @@ msgstr "Dal Seç…"
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:145
+#: comparebranchesview.cpp:144
 #, kde-format
 msgid "Back"
 msgstr "Geri"
@@ -504,12 +504,12 @@ msgstr "Değişiklikleri atmak istediğinizden emin misiniz?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Bu izlenmeyen değişiklikleri kaldırmak istediğinizden emin misiniz?"
 
-#: kateproject.cpp:218
+#: kateproject.cpp:227
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Hatalı oluşturulmuş JSON dosyası “%1“: %2"
 
-#: kateproject.cpp:518
+#: kateproject.cpp:527
 #, kde-format
 msgid "<untracked>"
 msgstr "<untracked>"
@@ -815,7 +815,7 @@ msgstr ""
 
 #: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:136
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Project"
 msgstr "Proje"
@@ -990,7 +990,7 @@ msgstr "“%1“ dosyasını silmek istiyor musunuz?"
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Dosya oluşturulamadı: %1, Hata: %2"
 
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Dizin oluşturulamadı: %1"

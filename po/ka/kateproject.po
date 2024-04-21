@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2023-11-27 03:14+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -95,7 +95,7 @@ msgstr "აირჩიეთ ბრენჩი..."
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:145
+#: comparebranchesview.cpp:144
 #, kde-format
 msgid "Back"
 msgstr "უკან"
@@ -503,12 +503,12 @@ msgstr "დარწმუნებული ბრძანდებით, რ
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "მართლა გნებავთ წაშალოთ ეს მიუთვალყურებელი ცვლილებები?"
 
-#: kateproject.cpp:218
+#: kateproject.cpp:227
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "არასწორი JSON ფაილი '%1': %2"
 
-#: kateproject.cpp:518
+#: kateproject.cpp:527
 #, kde-format
 msgid "<untracked>"
 msgstr "<მიუთვალყურებელი>"
@@ -813,7 +813,7 @@ msgstr ""
 
 #: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:136
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Project"
 msgstr "პროექტი"
@@ -988,7 +988,7 @@ msgstr "ნამდვილად გსურთ, წაშალოთ ფ�
 msgid "Failed to create file: %1, Error: %2"
 msgstr "ფაილის (%1) შექმნის შეცდომა: %2"
 
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "საქაღალდის შექმნის შეცდომა: %1"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2023-11-26 09:14+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -102,7 +102,7 @@ msgstr "Виберіть гілку…"
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:145
+#: comparebranchesview.cpp:144
 #, kde-format
 msgid "Back"
 msgstr "Назад"
@@ -510,12 +510,12 @@ msgstr ""
 "Ви справді хочете вилучити ці зміни, за якими не ведеться стеження у системі "
 "керування версіями?"
 
-#: kateproject.cpp:218
+#: kateproject.cpp:227
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Помилкове форматування файла JSON «%1»: %2"
 
-#: kateproject.cpp:518
+#: kateproject.cpp:527
 #, kde-format
 msgid "<untracked>"
 msgstr "<стеження не виконується>"
@@ -825,7 +825,7 @@ msgstr ""
 
 #: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:136
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Project"
 msgstr "Проєкт"
@@ -1000,7 +1000,7 @@ msgstr "Ви справді хочете вилучити файл «%1»?"
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Не вдалося створити файл: %1, повідомлення про помилку: %2"
 
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Не вдалося створити каталог: %1"

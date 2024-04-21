@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -1135,8 +1135,9 @@ msgid "When checked tab text might be elided if its too long."
 msgstr "यदा अभिवृत ट्याब् पाठ्य लुप्त भवेत् यदि तस्य अतिदीर्घः ।."
 
 #: lib/kateconfigdialog.cpp:278
-#, kde-format
-msgid "Open new tab to the right of current tab."
+#, fuzzy, kde-format
+#| msgid "Open new tab to the right of current tab."
+msgid "Open new tabs to the right of the current tab"
 msgstr "वर्तमान ट्याब् इत्यस्य दक्षिणभागे नूतनं ट्याब् उद्घाटयन्तु ।."
 
 #: lib/kateconfigdialog.cpp:280

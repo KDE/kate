@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 01:39+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2023-03-06 16:07+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -179,7 +179,7 @@ msgstr "&Editar..."
 msgid "&Remove"
 msgstr "&Remover"
 
-#: externaltoolsplugin.cpp:286
+#: externaltoolsplugin.cpp:287
 #, kde-format
 msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
@@ -189,35 +189,35 @@ msgstr ""
 "executável existe e que os nomes das variáveis, se forem usados, estão "
 "correctos"
 
-#: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:298
-#: externaltoolsplugin.cpp:415 kateexternaltoolsconfigwidget.cpp:272
+#: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
+#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:272
 #: kateexternaltoolsconfigwidget.cpp:277 kateexternaltoolsview.cpp:159
 #: kateexternaltoolsview.cpp:163 kateexternaltoolsview.cpp:211
 #, kde-format
 msgid "External Tools"
 msgstr "Ferramentas Externas"
 
-#: externaltoolsplugin.cpp:294
+#: externaltoolsplugin.cpp:295
 #, kde-format
 msgid "Running %1: %2 %3"
 msgstr "A executar o %1: %2 %3"
 
-#: externaltoolsplugin.cpp:295
+#: externaltoolsplugin.cpp:296
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
 msgstr "A executar o %1: %2 %3 com os dados de entrada '%4'"
 
-#: externaltoolsplugin.cpp:398
+#: externaltoolsplugin.cpp:399
 #, kde-format
 msgid "Data written to stderr:\n"
 msgstr "Dados escritos no 'stderr':\n"
 
-#: externaltoolsplugin.cpp:409
+#: externaltoolsplugin.cpp:410
 #, kde-format
 msgid "%1 crashed"
 msgstr "O %1 estoirou"
 
-#: externaltoolsplugin.cpp:411
+#: externaltoolsplugin.cpp:412
 #, kde-format
 msgid "%1 finished with exit code %2"
 msgstr "O %1 terminou com o código de saída %2"

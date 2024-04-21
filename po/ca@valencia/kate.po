@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2024-04-14 09:25+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -1159,8 +1159,9 @@ msgstr ""
 "Si se selecciona, el text de les pestanyes es podrà elidir si és massa llarg."
 
 #: lib/kateconfigdialog.cpp:278
-#, kde-format
-msgid "Open new tab to the right of current tab."
+#, fuzzy, kde-format
+#| msgid "Open new tab to the right of current tab."
+msgid "Open new tabs to the right of the current tab"
 msgstr "Obri una pestanya nova a la dreta de l'actual."
 
 #: lib/kateconfigdialog.cpp:280

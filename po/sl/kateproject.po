@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2023-11-27 07:26+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -102,7 +102,7 @@ msgstr "Izberi vejo..."
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:145
+#: comparebranchesview.cpp:144
 #, kde-format
 msgid "Back"
 msgstr "Nazaj"
@@ -510,12 +510,12 @@ msgstr "Ali ste prepričani, da želite zavreči spremembe?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Ali ste prepričani, da želite odstraniti te nesledene spremembe?"
 
-#: kateproject.cpp:218
+#: kateproject.cpp:227
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Pokvarjena datoteka JSON '%1': %2"
 
-#: kateproject.cpp:518
+#: kateproject.cpp:527
 #, kde-format
 msgid "<untracked>"
 msgstr "<ni sledeno>"
@@ -825,7 +825,7 @@ msgstr ""
 
 #: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:136
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Project"
 msgstr "Projekt"
@@ -1000,7 +1000,7 @@ msgstr "Ali želite zbrisati datoteko '%1'?"
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Ustvarjanje datoteke ni uspelo: %1, Napaka: %2"
 
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Ustvarjanje imenika ni uspelo: %1"

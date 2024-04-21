@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2023-11-26 14:16+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -97,7 +97,7 @@ msgstr "Branch selecteren..."
 msgid "Git"
 msgstr "Git"
 
-#: comparebranchesview.cpp:145
+#: comparebranchesview.cpp:144
 #, kde-format
 msgid "Back"
 msgstr "Terug"
@@ -504,12 +504,12 @@ msgstr "Wilt u de wijzigingen verwerpen?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Wilt u deze niet-gevolgde wijzigingen verwijderen?"
 
-#: kateproject.cpp:218
+#: kateproject.cpp:227
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Misvormd JSON-bestand '%1': %2"
 
-#: kateproject.cpp:518
+#: kateproject.cpp:527
 #, kde-format
 msgid "<untracked>"
 msgstr "<untracked>"
@@ -817,7 +817,7 @@ msgstr ""
 
 #: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:136
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Project"
 msgstr "Project"
@@ -992,7 +992,7 @@ msgstr "Wilt u het bestand '%1' verwijderen?"
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Bestand aanmaken is mislukt: %1, fout: %2"
 
-#: kateprojectviewtree.cpp:157
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Map aanmaken is mislukt: %1"

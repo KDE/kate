@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:40+0000\n"
+"POT-Creation-Date: 2024-04-21 00:40+0000\n"
 "PO-Revision-Date: 2010-03-01 22:47+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -1143,7 +1143,7 @@ msgstr ""
 
 #: lib/kateconfigdialog.cpp:278
 #, kde-format
-msgid "Open new tab to the right of current tab."
+msgid "Open new tabs to the right of the current tab"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:280

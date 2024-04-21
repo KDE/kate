@@ -214,9 +214,7 @@ void TabSwitcherPluginView::raiseView(KTextEditor::View *view)
         if (view && view->document()) {
             return view->document();
         }
-        QWidget *active = nullptr;
-        QMetaObject::invokeMethod(m_mainWindow->window(), "activeWidget", Q_RETURN_ARG(QWidget *, active));
-        return active;
+        return m_mainWindow->activeWidget();
     }();
 
     if (activeWidget.isNull() || m_documents.find(activeWidget) == m_documents.end()) {
@@ -315,8 +313,7 @@ void TabSwitcherPluginView::activateView(const QModelIndex &index)
     if (doc.doc()) {
         m_mainWindow->activateView(doc.doc());
     } else if (doc.widget()) {
-        auto mw = m_mainWindow->window();
-        QMetaObject::invokeMethod(mw, "activateWidget", Q_ARG(QWidget *, doc.widget()));
+        m_mainWindow->activateWidget(doc.widget());
     }
 
     m_treeView->hide();
@@ -333,8 +330,7 @@ void TabSwitcherPluginView::closeView()
     if (doc.doc()) {
         KTextEditor::Editor::instance()->application()->closeDocument(doc.doc());
     } else if (doc.widget()) {
-        auto mw = m_mainWindow->window();
-        QMetaObject::invokeMethod(mw, "removeWidget", Q_ARG(QWidget *, doc.widget()));
+        m_mainWindow->removeWidget(doc.widget());
     }
 }
 

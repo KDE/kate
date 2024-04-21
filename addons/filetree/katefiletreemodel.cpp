@@ -506,8 +506,7 @@ void KateFileTreeModel::initModel()
     }
 
     if (m_mainWindow) {
-        QWidgetList widgets;
-        QMetaObject::invokeMethod(m_mainWindow->window(), "widgets", Q_RETURN_ARG(QWidgetList, widgets));
+        QWidgetList widgets = m_mainWindow->widgets();
         for (auto *w : std::as_const(widgets)) {
             addWidget(w);
         }

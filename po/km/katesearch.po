@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:40+0000\n"
+"POT-Creation-Date: 2024-04-22 00:40+0000\n"
 "PO-Revision-Date: 2012-06-08 16:41+0700\n"
 "Last-Translator: sutha <sutha@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros>\n"
@@ -596,91 +596,91 @@ msgstr ""
 msgid "Find"
 msgstr ""
 
-#: SearchPlugin.cpp:1326
+#: SearchPlugin.cpp:1327
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 
-#: SearchPlugin.cpp:1659
+#: SearchPlugin.cpp:1660
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search Match"
 msgstr "ស្វែងរក"
 
-#: SearchPlugin.cpp:1839 SearchPlugin.cpp:1916
+#: SearchPlugin.cpp:1837 SearchPlugin.cpp:1913
 #, kde-format
 msgid "Next from cursor"
 msgstr ""
 
-#: SearchPlugin.cpp:1856
+#: SearchPlugin.cpp:1854
 #, kde-format
 msgid "Starting from first match"
 msgstr ""
 
-#: SearchPlugin.cpp:1876
+#: SearchPlugin.cpp:1874
 #, kde-format
 msgid "Continuing from first match"
 msgstr ""
 
-#: SearchPlugin.cpp:1933
+#: SearchPlugin.cpp:1930
 #, kde-format
 msgid "Starting from last match"
 msgstr ""
 
-#: SearchPlugin.cpp:1953
+#: SearchPlugin.cpp:1950
 #, kde-format
 msgid "Continuing from last match"
 msgstr ""
 
-#: SearchPlugin.cpp:2114
+#: SearchPlugin.cpp:2111
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search: %1"
 msgstr "ស្វែងរក"
 
-#: SearchPlugin.cpp:2245
+#: SearchPlugin.cpp:2254
 #, kde-format
 msgid "Copy all"
 msgstr ""
 
-#: SearchPlugin.cpp:2250
+#: SearchPlugin.cpp:2259
 #, kde-format
 msgid "Copy expanded"
 msgstr ""
 
-#: SearchPlugin.cpp:2253
+#: SearchPlugin.cpp:2262
 #, kde-format
 msgid "Export matches"
 msgstr ""
 
-#: SearchPlugin.cpp:2259
+#: SearchPlugin.cpp:2267
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr ""
 
-#: SearchPlugin.cpp:2266
+#: SearchPlugin.cpp:2275
 #, kde-format
 msgid "Clear"
 msgstr ""
 
-#: SearchPlugin.cpp:2376 SearchPlugin.cpp:2410
+#: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
 #, kde-format
 msgid "Add..."
 msgstr "បន្ថែម..."
 
-#: SearchPlugin.cpp:2388
+#: SearchPlugin.cpp:2397
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search As You Type"
 msgstr "ស្វែងរក"
 
-#: SearchPlugin.cpp:2459
+#: SearchPlugin.cpp:2468
 #, fuzzy, kde-format
 #| msgid "in Project"
 msgid "In Current Project"
 msgstr "ក្នុង​គម្រោង"
 
-#: SearchPlugin.cpp:2461
+#: SearchPlugin.cpp:2470
 #, fuzzy, kde-format
 #| msgid "in Project"
 msgid "In All Open Projects"

@@ -26,6 +26,7 @@
 
 #include "FolderFilesList.h"
 #include "MatchModel.h"
+#include "Results.h"
 #include "SearchDiskFiles.h"
 #include "SearchOpenFiles.h"
 

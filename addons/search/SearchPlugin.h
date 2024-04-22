@@ -141,7 +141,7 @@ private Q_SLOTS:
     void updateCheckState(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles);
     void updateMatchMarks();
 
-    void syncModelRanges(QPointer<Results> resultsTab);
+    void syncModelRanges(Results *resultsTab);
 
     void resultTabChanged(int index);
 

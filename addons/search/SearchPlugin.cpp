@@ -1713,7 +1713,7 @@ void KatePluginSearchView::updateMatchMarks()
     }
 }
 
-void KatePluginSearchView::syncModelRanges(QPointer<Results> resultsTab)
+void KatePluginSearchView::syncModelRanges(Results *resultsTab)
 {
     if (!resultsTab || resultsTab->isEmpty()) {
         return;

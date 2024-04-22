@@ -19,12 +19,17 @@ generate_export_header(
 target_include_directories(
   kateprivate
   PUBLIC
-    ${CMAKE_SOURCE_DIR}/3rdparty
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/session
     ${CMAKE_CURRENT_SOURCE_DIR}/quickopen
     ${CMAKE_CURRENT_SOURCE_DIR}/diff
     ${CMAKE_CURRENT_BINARY_DIR} # kateprivate_export.h
+)
+
+target_include_directories(
+  kateprivate
+  SYSTEM PUBLIC
+    ${CMAKE_SOURCE_DIR}/3rdparty
 )
 
 find_package(

@@ -9,11 +9,12 @@
 #include <KTextEditor/Command>
 #include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
-#include <QAction>
 #include <ktexteditor/application.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/sessionconfiginterface.h>
 
+#include <QAction>
+#include <QPointer>
 #include <QThreadPool>
 #include <QTimer>
 #include <QTreeView>

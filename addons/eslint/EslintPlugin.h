@@ -17,7 +17,6 @@
 
 class ESLintPlugin final : public KTextEditor::Plugin
 {
-    Q_OBJECT
 public:
     explicit ESLintPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
 
@@ -35,8 +34,6 @@ struct DiagnosticWithFix {
 
 class ESLintPluginView final : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     explicit ESLintPluginView(KTextEditor::MainWindow *mainwindow);
     ~ESLintPluginView();

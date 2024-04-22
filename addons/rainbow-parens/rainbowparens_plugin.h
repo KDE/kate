@@ -20,8 +20,6 @@
 
 class RainbowParenPlugin final : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
 public:
     explicit RainbowParenPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
 
@@ -40,17 +38,12 @@ public:
 
     void readConfig();
 
-Q_SIGNALS:
-    void configUpdated();
-
 private:
     std::vector<KTextEditor::Attribute::Ptr> attrs;
 };
 
 class RainbowParenPluginView final : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     explicit RainbowParenPluginView(RainbowParenPlugin *plugin, KTextEditor::MainWindow *mainwindow);
 
@@ -61,8 +54,8 @@ public:
     void rehighlight(KTextEditor::View *view);
     void viewChanged(KTextEditor::View *view);
 
-    Q_SLOT void clearRanges(KTextEditor::Document *doc);
-    Q_SLOT void clearSavedRangesForDoc(KTextEditor::Document *doc);
+    void clearRanges(KTextEditor::Document *doc);
+    void clearSavedRangesForDoc(KTextEditor::Document *doc);
 
     struct SavedRanges {
         QPointer<KTextEditor::Document> doc;
@@ -85,7 +78,6 @@ private:
 
 class RainbowParenConfigPage final : public KTextEditor::ConfigPage
 {
-    Q_OBJECT
 public:
     explicit RainbowParenConfigPage(QWidget *parent, RainbowParenPlugin *plugin);
 

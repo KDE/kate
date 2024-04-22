@@ -76,7 +76,6 @@ K_PLUGIN_FACTORY_WITH_JSON(OpenLinkPluginFactory, "OpenLinkPlugin.json", registe
 
 class GotoLinkHover : public QObject
 {
-    Q_OBJECT
 public:
     void highlight(KTextEditor::View *activeView, KTextEditor::Range range)
     {
@@ -122,7 +121,7 @@ public:
     QPointer<QWidget> viewInternal;
 
 private:
-    Q_SLOT void clearMovingRange(KTextEditor::Document *doc)
+    void clearMovingRange(KTextEditor::Document *doc)
     {
         if (m_movingRange && m_movingRange->document() == doc) {
             m_movingRange.reset();

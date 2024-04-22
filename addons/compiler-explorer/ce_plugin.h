@@ -11,8 +11,6 @@
 
 class CEPlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
 public:
     /**
      * Plugin constructor.
@@ -29,8 +27,6 @@ public:
  */
 class CEPluginView : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     /**
      * Construct plugin view
@@ -44,7 +40,7 @@ public:
      */
     ~CEPluginView() override;
 
-private Q_SLOTS:
+private:
     void openANewTab();
 
 private:

@@ -49,8 +49,6 @@ private:
 
 class FormatPluginView final : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     explicit FormatPluginView(FormatPlugin *plugin, KTextEditor::MainWindow *mainwindow);
     ~FormatPluginView();

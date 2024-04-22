@@ -10,7 +10,6 @@
 
 class FormatConfigPage final : public KTextEditor::ConfigPage
 {
-    Q_OBJECT
 public:
     explicit FormatConfigPage(class FormatPlugin *plugin, QWidget *parent = nullptr);
 

@@ -43,7 +43,6 @@ struct AsmRow {
 
 class AsmViewModel : public QAbstractTableModel
 {
-    Q_OBJECT
 public:
     explicit AsmViewModel(QObject *parent);
 

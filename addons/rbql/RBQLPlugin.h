@@ -10,13 +10,12 @@
 #include <KTextEditor/Plugin>
 #include <KXMLGUIClient>
 
+#include <QJSEngine>
 #include <QPointer>
 #include <QVariant>
-#include <QJSEngine>
 
 class RBQLPlugin final : public KTextEditor::Plugin
 {
-    Q_OBJECT
 public:
     explicit RBQLPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
 
@@ -25,8 +24,6 @@ public:
 
 class RBQLPluginView final : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     explicit RBQLPluginView(RBQLPlugin *plugin, KTextEditor::MainWindow *mainwindow);
     ~RBQLPluginView();

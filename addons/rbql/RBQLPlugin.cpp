@@ -32,8 +32,8 @@ RBQLPluginView::RBQLPluginView(RBQLPlugin *plugin, KTextEditor::MainWindow *main
                                             KTextEditor::MainWindow::Bottom,
                                             QIcon::fromTheme(QStringLiteral("text-csv")),
                                             i18n("RBQL"));
+    m_toolview.reset(toolview);
     new RBQLWidget(mainWin, toolview);
-
     m_mainWindow->guiFactory()->addClient(this);
 }
 

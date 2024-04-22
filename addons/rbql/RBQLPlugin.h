@@ -33,4 +33,5 @@ public:
 
 private:
     KTextEditor::MainWindow *m_mainWindow;
+    std::unique_ptr<QWidget> m_toolview;
 };

@@ -9,11 +9,10 @@
 
 class MatchProxyModel final : public QSortFilterProxyModel
 {
-    Q_OBJECT
 public:
     using QSortFilterProxyModel::QSortFilterProxyModel;
 
     bool filterAcceptsRow(int sourceRow, const QModelIndex &parent) const override;
 
-    Q_SLOT void setFilterText(const QString &text);
+    void setFilterText(const QString &text);
 };

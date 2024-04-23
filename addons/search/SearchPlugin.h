@@ -58,8 +58,6 @@ protected:
 
 class KatePluginSearch : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
 public:
     explicit KatePluginSearch(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~KatePluginSearch() override;
@@ -85,7 +83,7 @@ public:
     static void addRegexHelperActionsForReplace(QSet<QAction *> *actionList, QMenu *menu);
     static void regexHelperActOnAction(QAction *resultAction, const QSet<QAction *> &actionList, QLineEdit *lineEdit);
 
-public Q_SLOTS:
+public /*Q_SLOTS*/:
     void stopClicked();
     void startSearch();
     void setSearchString(const QString &pattern);
@@ -104,6 +102,9 @@ private:
     enum class MatchType { NoMatch, HasMatch, InvalidRegExp };
 
 private Q_SLOTS:
+    void slotProjectFileNameChanged();
+
+private /*Q_SLOTS*/:
     void openSearchView();
     void handleEsc(QEvent *e);
     void nextFocus(QWidget *currentWidget, bool *found, bool next);
@@ -153,7 +154,6 @@ private Q_SLOTS:
      */
     void slotPluginViewCreated(const QString &name, QObject *pluginView);
     void slotPluginViewDeleted(const QString &name, QObject *pluginView);
-    void slotProjectFileNameChanged();
 
     void copySearchToClipboard(CopyResultType type);
     void showExportMatchesDialog();

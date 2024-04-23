@@ -25,16 +25,14 @@ public:
     bool searching() const;
     void terminateSearch();
 
-public Q_SLOTS:
+public /*Q_SLOTS*/:
     void cancelSearch();
 
     /// return 0 on success or a line number where we stopped.
     int searchOpenFile(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 
-private Q_SLOTS:
-    void doSearchNextFile(int startLine);
-
 private:
+    void doSearchNextFile(int startLine);
     int searchSingleLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
     int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 

@@ -13,15 +13,12 @@
 
 class MatchExportDialog : public QDialog, public Ui::MatchExportDialog
 {
-    Q_OBJECT
-
 public:
     MatchExportDialog(QWidget *parent, QAbstractItemModel *matchModel, QRegularExpression *regExp);
 
     ~MatchExportDialog() override;
 
-protected Q_SLOTS:
-
+protected /*Q_SLOTS*/:
     void generateMatchExport();
 
 private:

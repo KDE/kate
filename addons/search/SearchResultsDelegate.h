@@ -11,8 +11,6 @@
 
 class SearchResultsDelegate : public QStyledItemDelegate
 {
-    Q_OBJECT
-
 public:
     explicit SearchResultsDelegate(QObject *parent);
 

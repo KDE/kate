@@ -24,6 +24,7 @@
         "Description[nl]": "Somt XML-elementen, -atributen, -atribuutwaarden en -entiteiten op die door de DTD zijn toegestaan",
         "Description[pl]": "Lista elementów XML, atrybutów, wartości atrybutów i jednostek dozwolonych przez DTD",
         "Description[pt]": "Apresenta os elementos, atributos, valores dos atributos e entidades permitidos pela DTD",
+        "Description[pt_BR]": "Lista elementos XML, atributos, valores de atributos e entidades permitidas pelo DTD",
         "Description[ru]": "Вывод элементов XML, их атрибутов, значений атрибутов и записей, разрешённых DTD",
         "Description[sk]": "Vypísanie zoznamu XML elementov, atribútov, hodnôt atribútov a entity povolené od DTD",
         "Description[sl]": "Prikaži seznam elementov XML, lastnosti in dovoljene entitete v DTD",

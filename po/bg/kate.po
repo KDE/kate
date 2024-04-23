@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-21 00:40+0000\n"
-"PO-Revision-Date: 2024-04-15 10:04+0200\n"
+"PO-Revision-Date: 2024-04-22 10:18+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -1154,8 +1154,7 @@ msgstr ""
 "При активиране на тази опция, текстът ще бъде съкратен, ако е много дълъг."
 
 #: lib/kateconfigdialog.cpp:278
-#, fuzzy, kde-format
-#| msgid "Open new tab to the right of current tab."
+#, kde-format
 msgid "Open new tabs to the right of the current tab"
 msgstr "Отваряне на нов раздел вдясно от текущия."
 

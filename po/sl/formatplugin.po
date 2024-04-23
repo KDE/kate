@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:40+0000\n"
+"POT-Creation-Date: 2024-04-23 00:40+0000\n"
 "PO-Revision-Date: 2024-04-17 07:18+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -41,12 +41,12 @@ msgstr "Uporabniške nastavitve"
 msgid "Default Settings"
 msgstr "Privzete nastavitve"
 
-#: FormatConfig.h:19 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:112
 #, kde-format
 msgid "Formatting"
 msgstr "Oblikovanje"
 
-#: FormatConfig.h:24
+#: FormatConfig.h:23
 #, kde-format
 msgid "Formatting Settings"
 msgstr "Nastavitve oblikovanja"

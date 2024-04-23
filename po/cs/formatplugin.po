@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:40+0000\n"
+"POT-Creation-Date: 2024-04-23 00:40+0000\n"
 "PO-Revision-Date: 2024-01-19 16:00+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -43,12 +43,12 @@ msgstr "Nastavení uživatele"
 msgid "Default Settings"
 msgstr "Výchozí nastavení"
 
-#: FormatConfig.h:19 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:112
 #, kde-format
 msgid "Formatting"
 msgstr "Formátování"
 
-#: FormatConfig.h:24
+#: FormatConfig.h:23
 #, kde-format
 msgid "Formatting Settings"
 msgstr ""

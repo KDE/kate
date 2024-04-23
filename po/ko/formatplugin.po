@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:40+0000\n"
+"POT-Creation-Date: 2024-04-23 00:40+0000\n"
 "PO-Revision-Date: 2024-02-09 23:18+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -43,12 +43,12 @@ msgstr "사용자 설정"
 msgid "Default Settings"
 msgstr "기본 설정"
 
-#: FormatConfig.h:19 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:112
 #, kde-format
 msgid "Formatting"
 msgstr "형식 지정"
 
-#: FormatConfig.h:24
+#: FormatConfig.h:23
 #, kde-format
 msgid "Formatting Settings"
 msgstr "형식 지정 설정"

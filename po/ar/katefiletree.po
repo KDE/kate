@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-04-23 00:40+0000\n"
 "PO-Revision-Date: 2022-12-22 12:54+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -352,44 +352,44 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "البريمجات المفتوحة"
 
-#: katefiletreemodel.cpp:644
+#: katefiletreemodel.cpp:643
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>عدّل تطبيق آخر المستند.</p>"
 
-#: katefiletreeplugin.cpp:255
+#: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
 msgstr "المستند السّابق"
 
-#: katefiletreeplugin.cpp:261
+#: katefiletreeplugin.cpp:259
 #, kde-format
 msgid "Next Document"
 msgstr "المستند التّالي"
 
-#: katefiletreeplugin.cpp:267
+#: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "&Show Active Document"
 msgstr "أ&ظهر المستند النّشط"
 
-#: katefiletreeplugin.cpp:273
+#: katefiletreeplugin.cpp:271
 #, kde-format
 msgid "Save"
 msgstr "احفظ"
 
-#: katefiletreeplugin.cpp:274
+#: katefiletreeplugin.cpp:272
 #, kde-format
 msgid "Save the current document"
 msgstr "احفظ المستند الحاليّ"
 
-#: katefiletreeplugin.cpp:279
+#: katefiletreeplugin.cpp:277
 #, kde-format
 msgid "Save As"
 msgstr "احفظ كَ‍"
 
-#: katefiletreeplugin.cpp:280
+#: katefiletreeplugin.cpp:278
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "احفظ المستند الحاليّ باسم جديد"

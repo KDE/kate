@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:40+0000\n"
+"POT-Creation-Date: 2024-04-23 00:40+0000\n"
 "PO-Revision-Date: 2023-11-27 16:41+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -44,12 +44,12 @@ msgstr ""
 msgid "Default Settings"
 msgstr ""
 
-#: FormatConfig.h:19 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:112
 #, kde-format
 msgid "Formatting"
 msgstr ""
 
-#: FormatConfig.h:24
+#: FormatConfig.h:23
 #, kde-format
 msgid "Formatting Settings"
 msgstr ""

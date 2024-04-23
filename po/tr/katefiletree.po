@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-04-23 00:40+0000\n"
 "PO-Revision-Date: 2024-03-21 20:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -353,7 +353,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Açık Araç Takımları"
 
-#: katefiletreemodel.cpp:644
+#: katefiletreemodel.cpp:643
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""
@@ -361,37 +361,37 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>Bu belge başka bir uygulama tarafından değiştirildi.</p>"
 
-#: katefiletreeplugin.cpp:255
+#: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
 msgstr "Önceki Belge"
 
-#: katefiletreeplugin.cpp:261
+#: katefiletreeplugin.cpp:259
 #, kde-format
 msgid "Next Document"
 msgstr "Sonraki Belge"
 
-#: katefiletreeplugin.cpp:267
+#: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Etkin Belgeyi &Göster"
 
-#: katefiletreeplugin.cpp:273
+#: katefiletreeplugin.cpp:271
 #, kde-format
 msgid "Save"
 msgstr "Kaydet"
 
-#: katefiletreeplugin.cpp:274
+#: katefiletreeplugin.cpp:272
 #, kde-format
 msgid "Save the current document"
 msgstr "Geçerli belgeyi kaydet"
 
-#: katefiletreeplugin.cpp:279
+#: katefiletreeplugin.cpp:277
 #, kde-format
 msgid "Save As"
 msgstr "Farklı Kaydet"
 
-#: katefiletreeplugin.cpp:280
+#: katefiletreeplugin.cpp:278
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Geçerli belgeyi yeni bir adla kaydet"

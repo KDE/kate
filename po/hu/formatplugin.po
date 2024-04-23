@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:40+0000\n"
+"POT-Creation-Date: 2024-04-23 00:40+0000\n"
 "PO-Revision-Date: 2024-01-12 21:52+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -43,12 +43,12 @@ msgstr "Felhasználóbeállítások"
 msgid "Default Settings"
 msgstr "Alapértelmezett beállítások"
 
-#: FormatConfig.h:19 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:112
 #, kde-format
 msgid "Formatting"
 msgstr "Formázás"
 
-#: FormatConfig.h:24
+#: FormatConfig.h:23
 #, kde-format
 msgid "Formatting Settings"
 msgstr "Formázási beállítások"

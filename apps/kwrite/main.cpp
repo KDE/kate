@@ -17,7 +17,7 @@
 #include <QIcon>
 #include <QStandardPaths>
 
-extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     /**
      * Do all needed pre-application init steps, shared between Kate and KWrite

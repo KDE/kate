@@ -79,7 +79,7 @@
 #include <unistd.h>
 #endif
 
-#if HAVE_DAEMON
+#ifdef HAVE_DAEMON
 #include <unistd.h>
 #endif
 

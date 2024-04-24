@@ -42,10 +42,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - rozšířený textový editor KDE"
 
 #: kate/main.cpp:90 kwrite/main.cpp:47
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000-2022 autoři Kate"
+msgstr ""
 
 #: kate/main.cpp:136
 #, kde-format
@@ -1120,10 +1119,9 @@ msgid "When checked tab text might be elided if its too long."
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:278
-#, fuzzy, kde-format
-#| msgid "Open new tab to the right of current tab."
+#, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr "Otevřít novou kartu napravo od současné."
+msgstr ""
 
 #: lib/kateconfigdialog.cpp:280
 #, kde-format

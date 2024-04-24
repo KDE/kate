@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-23 00:40+0000\n"
-"PO-Revision-Date: 2024-01-13 07:55+0100\n"
+"PO-Revision-Date: 2024-04-19 18:17+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
 #: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
@@ -78,12 +78,12 @@ msgstr ""
 #: FormatterFactory.h:44
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr ""
+msgstr "formatterForJson sconosciuto: %1"
 
 #: FormatterFactory.h:64
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr ""
+msgstr "formatterForPython sconosciuto: %1"
 
 #: FormatterFactory.h:68
 #, kde-format

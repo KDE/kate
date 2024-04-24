@@ -17,14 +17,16 @@
 
 #include <KActionCollection>
 #include <KShell>
-#include <QAction>
 #include <kde_terminal_interface.h>
 #include <kparts/part.h>
 
 #include <KMessageBox>
 
+#include <QAction>
 #include <QApplication>
+#include <QButtonGroup>
 #include <QCheckBox>
+#include <QDir>
 #include <QFileInfo>
 #include <QGroupBox>
 #include <QIcon>
@@ -33,6 +35,7 @@
 #include <QPainter>
 #include <QPointer>
 #include <QPushButton>
+#include <QRadioButton>
 #include <QShowEvent>
 #include <QStyle>
 #include <QTabWidget>
@@ -48,6 +51,16 @@
 K_PLUGIN_FACTORY_WITH_JSON(KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 
 static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral("vim"), QStringLiteral("nvim"), QStringLiteral("git")};
+
+// directory to use for given view
+static QString directoryForView(const KTextEditor::View *view)
+{
+    if (const QUrl u = view ? view->document()->url() : QUrl(); u.isValid() && u.isLocalFile()) {
+        QFileInfo fi(u.toLocalFile());
+        return fi.absolutePath();
+    }
+    return QString();
+}
 
 KateKonsolePlugin::KateKonsolePlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
@@ -199,12 +212,8 @@ KateConsole::~KateConsole()
     }
 }
 
-void KateConsole::loadConsoleIfNeeded()
+void KateConsole::loadConsoleIfNeeded(QString directory)
 {
-    if (m_part) {
-        return;
-    }
-
     if (!window() || !parent()) {
         return;
     }
@@ -212,18 +221,9 @@ void KateConsole::loadConsoleIfNeeded()
         return;
     }
 
-    if (hasKonsole()) {
-        /**
-         * get konsole part factory
-         */
-        const QString konsolePart = QStringLiteral("kf6/parts/konsolepart");
-        KPluginFactory *factory = KPluginFactory::loadFactory(konsolePart).plugin;
-        if (!factory) {
-            return;
-        }
-
-        m_part = factory->create<KParts::ReadOnlyPart>(this);
-
+    const bool firstShell = !m_part;
+    if (hasKonsole() && !m_part) {
+        m_part = pluginFactory()->create<KParts::ReadOnlyPart>(this);
         if (!m_part) {
             return;
         }
@@ -234,11 +234,7 @@ void KateConsole::loadConsoleIfNeeded()
         }
         layout()->addWidget(m_part->widget());
 
-        // start the terminal
-        qobject_cast<TerminalInterface *>(m_part)->showShellInDir(QString());
-
         //   KGlobal::locale()->insertCatalog("konsole"); // FIXME KF5: insert catalog
-
         setFocusProxy(m_part->widget());
 
         connect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);
@@ -247,8 +243,51 @@ void KateConsole::loadConsoleIfNeeded()
         // clang-format on
     }
 
-    if (KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("AutoSyncronize", true)) {
-        slotSync();
+    // if we want one terminal per directory, we will try to locate a tab that has the
+    // right one or start a new one
+    if (auto konsoleTabWidget = qobject_cast<QTabWidget *>(m_part->widget()); konsoleTabWidget && (m_syncMode == SyncCreateTabPerDir)) {
+        // if no dir is set, use explictly the current working dir to be able to re-use even that konsole
+        if (directory.isEmpty()) {
+            directory = QDir::currentPath();
+        }
+
+        // we attach a property to the tabs to find the right one
+        QWidget *tabWithRightDirectory = nullptr;
+
+        // use always the first one
+        if (firstShell) {
+            // mark it and change dir
+            tabWithRightDirectory = konsoleTabWidget->currentWidget();
+            tabWithRightDirectory->setProperty("kate_shell_directory", directory);
+            qobject_cast<TerminalInterface *>(m_part)->showShellInDir(directory);
+        }
+
+        // shortcut for common case: on the right tab already
+        else if (konsoleTabWidget->currentWidget()->property("kate_shell_directory").toString() == directory) {
+            tabWithRightDirectory = konsoleTabWidget->currentWidget();
+        }
+
+        // search
+        else {
+            for (int i = 0; i < konsoleTabWidget->count(); ++i) {
+                if (konsoleTabWidget->widget(i)->property("kate_shell_directory").toString() == directory) {
+                    tabWithRightDirectory = konsoleTabWidget->widget(i);
+                    break;
+                }
+            }
+        }
+
+        // found the right one? make it active
+        if (tabWithRightDirectory) {
+            konsoleTabWidget->setCurrentWidget(tabWithRightDirectory);
+        } else {
+            // trigger new shell tab and mark it
+            QMetaObject::invokeMethod(m_part, "createSession", Q_ARG(QString, QString()), Q_ARG(QString, directory));
+            konsoleTabWidget->currentWidget()->setProperty("kate_shell_directory", directory);
+        }
+    } else if (firstShell) {
+        // start the terminal on the first run
+        qobject_cast<TerminalInterface *>(m_part)->showShellInDir((m_syncMode == SyncNothing) ? QString() : directory);
     }
 }
 
@@ -297,11 +336,7 @@ void KateConsole::overrideShortcut(QKeyEvent *, bool &override)
 
 void KateConsole::showEvent(QShowEvent *)
 {
-    if (m_part) {
-        return;
-    }
-
-    loadConsoleIfNeeded();
+    loadConsoleIfNeeded(directoryForView(m_mw->activeView()));
 }
 
 void KateConsole::paintEvent(QPaintEvent *e)
@@ -417,14 +452,10 @@ void KateConsole::slotPipeToConsole()
 
 void KateConsole::slotSync()
 {
-    if (m_mw->activeView()) {
-        QUrl u = m_mw->activeView()->document()->url();
-        if (u.isValid() && u.isLocalFile()) {
-            QFileInfo fi(u.toLocalFile());
-            cd(fi.absolutePath());
-        } else if (!u.isEmpty()) {
-            sendInput(QStringLiteral("### ") + i18n("Sorry, cannot cd into '%1'", u.toLocalFile()) + QLatin1Char('\n'));
-        }
+    const auto newDir = directoryForView(m_mw->activeView());
+    loadConsoleIfNeeded(newDir);
+    if ((m_syncMode == SyncCurrentTab) && !newDir.isEmpty()) {
+        cd(newDir);
     }
 }
 
@@ -441,11 +472,15 @@ void KateConsole::slotViewOrUrlChanged(KTextEditor::View *view)
 
 void KateConsole::slotManualSync()
 {
-    m_currentPath.clear();
-    slotSync();
-
     if (!m_part || !m_part->widget()->isVisible()) {
         m_mw->showToolView(qobject_cast<QWidget *>(parent()));
+    }
+
+    m_currentPath.clear();
+    const auto newDir = directoryForView(m_mw->activeView());
+    loadConsoleIfNeeded(newDir);
+    if (!newDir.isEmpty()) {
+        cd(newDir);
     }
 }
 
@@ -585,12 +620,17 @@ void KateConsole::slotToggleFocus()
     }
 }
 
+// default is the least intrusive: no sync, people can chose
+static constexpr int defaultAutoSyncronizeMode = KateConsole::SyncNothing;
+
 void KateConsole::readConfig()
 {
+    m_syncMode = static_cast<KateConsole::SyncMode>(
+        KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("AutoSyncronizeMode", defaultAutoSyncronizeMode));
+
     disconnect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotViewOrUrlChanged);
     disconnect(m_urlChangedConnection);
-
-    if (KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("AutoSyncronize", true)) {
+    if (m_syncMode != SyncNothing) {
         connect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotViewOrUrlChanged);
     }
 
@@ -633,8 +673,21 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
     QVBoxLayout *lo = new QVBoxLayout(this);
     lo->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
 
-    cbAutoSyncronize = new QCheckBox(i18n("&Automatically synchronize the terminal with the current document when possible"), this);
-    lo->addWidget(cbAutoSyncronize);
+    QVBoxLayout *vboxSync = new QVBoxLayout;
+    auto groupSync = new QGroupBox(i18n("Terminal Synchronization Mode"), this);
+    m_syncMode = new QButtonGroup(this);
+    m_syncMode->setExclusive(true);
+    auto sync = new QRadioButton(i18n("&Don't synchronize terminal tab with current document"), groupSync);
+    vboxSync->addWidget(sync);
+    m_syncMode->addButton(sync, KateConsole::SyncNothing);
+    sync = new QRadioButton(i18n("&Automatically synchronize the current terminal tab with the current document when possible"), groupSync);
+    vboxSync->addWidget(sync);
+    m_syncMode->addButton(sync, KateConsole::SyncCurrentTab);
+    sync = new QRadioButton(i18n("&Automatically create a terminal tab for the directory of the current document and switch to it"), groupSync);
+    vboxSync->addWidget(sync);
+    m_syncMode->addButton(sync, KateConsole::SyncCreateTabPerDir);
+    groupSync->setLayout(vboxSync);
+    lo->addWidget(groupSync);
 
     QVBoxLayout *vboxRun = new QVBoxLayout;
     QGroupBox *groupRun = new QGroupBox(i18n("Run in terminal"), this);
@@ -685,11 +738,8 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
     reset();
     lo->addStretch();
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(cbAutoSyncronize, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
-#else
-    connect(cbAutoSyncronize, &QCheckBox::checkStateChanged, this, &KateKonsoleConfigPage::changed);
-#endif
+    connect(m_syncMode, &QButtonGroup::buttonToggled, this, &KateKonsoleConfigPage::changed);
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbRemoveExtension, &QCheckBox::stateChanged, this, &KTextEditor::ConfigPage::changed);
 #else
@@ -732,7 +782,7 @@ QIcon KateKonsoleConfigPage::icon() const
 void KateKonsoleConfigPage::apply()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Konsole"));
-    config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
+    config.writeEntry("AutoSyncronizeMode", m_syncMode->checkedId());
     config.writeEntry("RemoveExtension", cbRemoveExtension->isChecked());
     config.writeEntry("RunPrefix", lePrefix->text());
     config.writeEntry("SetEditor", cbSetEditor->isChecked());
@@ -745,7 +795,7 @@ void KateKonsoleConfigPage::apply()
 void KateKonsoleConfigPage::reset()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Konsole"));
-    cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", true));
+    m_syncMode->button(config.readEntry("AutoSyncronizeMode", defaultAutoSyncronizeMode))->setChecked(true);
     cbRemoveExtension->setChecked(config.readEntry("RemoveExtension", false));
     lePrefix->setText(config.readEntry("RunPrefix", ""));
     cbSetEditor->setChecked(config.readEntry("SetEditor", false));

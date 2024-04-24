@@ -103,6 +103,11 @@ public:
      */
     ~KateConsole() override;
 
+    /**
+     * sync mode
+     */
+    enum SyncMode { SyncNothing = 0, SyncCurrentTab = 1, SyncCreateTabPerDir = 2 };
+
     void readConfig();
 
     /**
@@ -182,7 +187,7 @@ private Q_SLOTS:
     /**
      * construct console if needed
      */
-    void loadConsoleIfNeeded();
+    void loadConsoleIfNeeded(QString directory = QString());
 
     /**
      * Show or hide the konsole view as appropriate.
@@ -242,6 +247,9 @@ private:
     KateKonsolePlugin *m_plugin;
     QString m_currentPath;
     QMetaObject::Connection m_urlChangedConnection;
+
+    // current sync mode as read from the config
+    SyncMode m_syncMode = SyncNothing;
 };
 
 class KateKonsoleConfigPage : public KTextEditor::ConfigPage
@@ -264,7 +272,7 @@ public:
     }
 
 private:
-    class QCheckBox *cbAutoSyncronize;
+    class QButtonGroup *m_syncMode;
     class QCheckBox *cbRemoveExtension;
     class QLineEdit *lePrefix;
     class QCheckBox *cbSetEditor;
@@ -278,3 +286,5 @@ private Q_SLOTS:
      */
     static void slotEnableRunWarning();
 };
+
+Q_DECLARE_METATYPE(KateConsole::SyncMode)

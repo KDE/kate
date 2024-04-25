@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-04-25 00:40+0000\n"
 "PO-Revision-Date: 2024-03-04 11:08+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -20,65 +20,65 @@ msgstr ""
 "X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: kateconsole.cpp:57
+#: kateconsole.cpp:70
 #, kde-format
 msgid "You do not have enough karma to access a shell or terminal emulation"
 msgstr "U hebt onvoldoende rechten om een shell of terminal te openen."
 
-#: kateconsole.cpp:105 kateconsole.cpp:135 kateconsole.cpp:719
+#: kateconsole.cpp:118 kateconsole.cpp:148 kateconsole.cpp:769
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
 
-#: kateconsole.cpp:144
+#: kateconsole.cpp:157
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "&Pipe naar terminal"
 
-#: kateconsole.cpp:148
+#: kateconsole.cpp:161
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "Terminal met huidig document s&ynchroniseren"
 
-#: kateconsole.cpp:152
+#: kateconsole.cpp:165
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Huidig document uitvoeren"
 
-#: kateconsole.cpp:157 kateconsole.cpp:521
+#: kateconsole.cpp:170 kateconsole.cpp:556
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "Terminalpaneel &tonen"
 
-#: kateconsole.cpp:163
+#: kateconsole.cpp:176
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "&Focus op terminalpaneel"
 
-#: kateconsole.cpp:169
+#: kateconsole.cpp:182
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "Terminal verticaal &splitsen"
 
-#: kateconsole.cpp:174
+#: kateconsole.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
 msgstr "Terminal horizontaal &splitsen"
 
-#: kateconsole.cpp:179
+#: kateconsole.cpp:192
 #, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "&Nieuw terminaltabblad"
 
-#: kateconsole.cpp:320
+#: kateconsole.cpp:355
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
@@ -86,7 +86,7 @@ msgstr ""
 "Konsole niet geïnstalleerd. Installeer konsole om de terminal te kunnen "
 "gebruiken."
 
-#: kateconsole.cpp:396
+#: kateconsole.cpp:431
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -95,27 +95,22 @@ msgstr ""
 "Wilt u de tekst via een pipe naar de console sturen? Dit zal alle commando's "
 "die het bevat uitvoeren onder uw gebruikersrechten."
 
-#: kateconsole.cpp:397
+#: kateconsole.cpp:432
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Naar terminal verzenden?"
 
-#: kateconsole.cpp:398
+#: kateconsole.cpp:433
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Naar terminal verzenden"
 
-#: kateconsole.cpp:426
-#, kde-format
-msgid "Sorry, cannot cd into '%1'"
-msgstr "Kan map '%1' niet binnengaan"
-
-#: kateconsole.cpp:462
+#: kateconsole.cpp:497
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "Geen lokaal bestand: '%1'"
 
-#: kateconsole.cpp:495
+#: kateconsole.cpp:530
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -128,62 +123,89 @@ msgstr ""
 "met uw gebruikersrechten, in de terminal:\n"
 "'%1'"
 
-#: kateconsole.cpp:502
+#: kateconsole.cpp:537
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "In terminal uitvoeren?"
 
-#: kateconsole.cpp:503
+#: kateconsole.cpp:538
 #, kde-format
 msgid "Run"
 msgstr "Uitvoeren"
 
-#: kateconsole.cpp:518
+#: kateconsole.cpp:553
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "Terminalpaneel &verbergen"
 
-#: kateconsole.cpp:529
+#: kateconsole.cpp:564
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Focus van terminalpaneel weghalen"
 
-#: kateconsole.cpp:530 kateconsole.cpp:531
+#: kateconsole.cpp:565 kateconsole.cpp:566
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Focus op terminalpaneel"
 
-#: kateconsole.cpp:636
+#: kateconsole.cpp:677
 #, kde-format
+msgid "Terminal Synchronization Mode"
+msgstr ""
+
+#: kateconsole.cpp:680
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "S&ynchronize Terminal with Current Document"
+msgid "&Don't synchronize terminal tab with current document"
+msgstr "Terminal met huidig document s&ynchroniseren"
+
+#: kateconsole.cpp:683
+#, fuzzy, kde-format
+#| msgid ""
+#| "&Automatically synchronize the terminal with the current document when "
+#| "possible"
 msgid ""
-"&Automatically synchronize the terminal with the current document when "
-"possible"
+"&Automatically synchronize the current terminal tab with the current "
+"document when possible"
 msgstr ""
 "De terminal &automatisch synchroniseren met het huidige document, wanneer "
 "mogelijk"
 
-#: kateconsole.cpp:640 kateconsole.cpp:661
+#: kateconsole.cpp:686
+#, fuzzy, kde-format
+#| msgid ""
+#| "&Automatically synchronize the terminal with the current document when "
+#| "possible"
+msgid ""
+"&Automatically create a terminal tab for the directory of the current "
+"document and switch to it"
+msgstr ""
+"De terminal &automatisch synchroniseren met het huidige document, wanneer "
+"mogelijk"
+
+#: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format
 msgid "Run in terminal"
 msgstr "In terminal uitvoeren"
 
-#: kateconsole.cpp:642
+#: kateconsole.cpp:695
 #, kde-format
 msgid "&Remove extension"
 msgstr "Extensie ve&rwijderen"
 
-#: kateconsole.cpp:647
+#: kateconsole.cpp:700
 #, kde-format
 msgid "Prefix:"
 msgstr "Voorvoegsel:"
 
-#: kateconsole.cpp:655
+#: kateconsole.cpp:708
 #, kde-format
 msgid "&Show warning next time"
 msgstr "De volgende keer waarschuwing &tonen"
 
-#: kateconsole.cpp:657
+#: kateconsole.cpp:710
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -193,12 +215,12 @@ msgstr ""
 "waarschuwingsvenster verschijnt, die het commando toont dat wordt verzonden "
 "naar de terminal, om te bekijken."
 
-#: kateconsole.cpp:668
+#: kateconsole.cpp:721
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Stel de omgevingsvariabele &EDITOR in op 'kate -b'"
 
-#: kateconsole.cpp:671
+#: kateconsole.cpp:724
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -207,12 +229,12 @@ msgstr ""
 "Belangrijk: Het document moet gesloten zijn om het console-programma door te "
 "laten gaan"
 
-#: kateconsole.cpp:674
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Konsole verbergen bij indrukken van 'Esc'"
 
-#: kateconsole.cpp:677
+#: kateconsole.cpp:730
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -222,7 +244,7 @@ msgstr ""
 "gebruiken, voor bijv., vim. Voeg deze toepassingen toe aan de onderstaande "
 "invoer (kommagescheiden lijst)"
 
-#: kateconsole.cpp:724
+#: kateconsole.cpp:774
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminalinstellingen"
@@ -232,6 +254,9 @@ msgstr "Terminalinstellingen"
 #, kde-format
 msgid "&Tools"
 msgstr "H&ulpmiddelen"
+
+#~ msgid "Sorry, cannot cd into '%1'"
+#~ msgstr "Kan map '%1' niet binnengaan"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

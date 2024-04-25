@@ -57,7 +57,7 @@ std::vector<KateRunningInstanceInfo> fillinRunningKateAppInstances()
         if (s.startsWith(QLatin1String("org.kde.kate")) && !s.endsWith(my_pid)) {
             // ignore instancer we not even can query the lastActivationChange
             KateRunningInstanceInfo instance(s);
-            if (instance.lastActivationChange > 0) {
+            if (instance.lastActivationChange != 0) {
                 instances.push_back(std::move(instance));
             }
         }

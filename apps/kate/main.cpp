@@ -275,7 +275,8 @@ int main(int argc, char **argv)
             }
         }
 
-        // prefer the Kate instance that got activated last
+        // prefer the Kate instance that got activated last, lastActivationChange is negative for wrong virtual desktop on X11
+        // the start with lastUsedChosen = 0 will therefore filter that out, see bug 486066
         bool foundRunningService = false;
         if (!force_new && serviceName.isEmpty()) {
             qint64 lastUsedChosen = 0;

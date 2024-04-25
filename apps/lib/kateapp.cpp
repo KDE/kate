@@ -32,6 +32,9 @@
 #define HAVE_X11 __has_include(<KStartupInfo>)
 #if HAVE_X11
 #include <KStartupInfo>
+#include <KWindowInfo>
+#include <KWindowSystem>
+#include <KX11Extras>
 #endif
 
 #ifdef WITH_KUSERFEEDBACK
@@ -823,6 +826,25 @@ bool KateApp::documentVisibleInOtherWindows(KTextEditor::Document *doc, KateMain
 bool KateApp::isInsideTerminal()
 {
     return insideTerminal;
+}
+
+qint64 KateApp::lastActivationChange() const
+{
+#if HAVE_X11
+    // we invert the result if we are on the wrong virtual desktop
+    // this allows for easy filtering in the client process, bug 486066
+    if (KWindowSystem::isPlatformX11()) {
+        for (auto win : m_mainWindows) {
+            KWindowInfo info(win->winId(), NET::WMDesktop);
+            if (info.valid() && info.isOnCurrentDesktop()) {
+                return m_lastActivationChange;
+            }
+        }
+        return -m_lastActivationChange;
+    }
+#endif
+
+    return m_lastActivationChange;
 }
 
 #include "moc_kateapp.cpp"

@@ -390,13 +390,10 @@ public Q_SLOTS:
     }
 
     /**
-     * last time some QEvent::ActivationChange occured
+     * last time some QEvent::ActivationChange occured, negated if no windows on the current active desktop
      * used to determine which instance to reuse, if we have multiple
      */
-    qint64 lastActivationChange() const
-    {
-        return m_lastActivationChange;
-    }
+    qint64 lastActivationChange() const;
 
     /**
      * A message is received from an external instance, if we use QtSingleApplication

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 02:28+0000\n"
-"PO-Revision-Date: 2024-03-04 10:26+0100\n"
+"PO-Revision-Date: 2024-04-25 12:33+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -156,38 +156,30 @@ msgstr "Dona el focus al plafó del terminal"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "Mode de sincronització del terminal"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "S&incronitza el terminal amb el document actual"
+msgstr "&No sincronitzis la pestanya de terminal amb el document actual"
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr ""
-"Sincronitza &automàticament el terminal amb el document actual quan sigui "
-"possible"
+"Sincronitza &automàticament la pestanya del terminal actual amb el document "
+"actual quan sigui possible"
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr ""
-"Sincronitza &automàticament el terminal amb el document actual quan sigui "
-"possible"
+"Crea &automàticament una pestanya de terminal per al directori del document "
+"actual i canvia-hi"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format

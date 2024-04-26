@@ -3,13 +3,13 @@
 #
 # Jure Repinc <jlp@holodeck1.com>, 2011.
 # Andrej Mernik <andrejm@ubuntu.si>, 2012, 2013, 2014, 2018.
-# Matjaž Jeran <matjaz.jeran@amis.net>, 2020, 2021.
+# SPDX-FileCopyrightText: 2020, 2021, 2024 Matjaž Jeran <matjaz.jeran@amis.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 02:28+0000\n"
-"PO-Revision-Date: 2024-03-04 09:44+0100\n"
+"PO-Revision-Date: 2024-04-25 16:07+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #: kateconsole.cpp:70
 #, kde-format
@@ -154,34 +154,30 @@ msgstr "Plošča terminala v žarišču"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "Način sinhronizacije terminala"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "Uskladi terminal s trenutnim dokumentom"
+msgstr "Ne uskladi zavihek terminala s trenutnim dokumentom"
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
-msgstr "Ko je mogoče, s&amodejno uskladi terminal s trenutnim dokumentom"
+msgstr ""
+"S&amodejno uskladi trenutni zavihek terminala s trenutnim dokumentom, ko je "
+"to mogoče"
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "Ko je mogoče, s&amodejno uskladi terminal s trenutnim dokumentom"
+msgstr ""
+"S&amodejno ustvari zavihek terminala za imenik trenutnega dokumenta in se "
+"preklopi nanj"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format

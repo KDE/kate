@@ -255,6 +255,3 @@ msgstr "Terminalinnstillingar"
 #, kde-format
 msgid "&Tools"
 msgstr "V&erktøy"
-
-#~ msgid "Sorry, cannot cd into '%1'"
-#~ msgstr "Kan ikkje byta mappe til «%1»"

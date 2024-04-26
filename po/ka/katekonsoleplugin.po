@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 02:28+0000\n"
-"PO-Revision-Date: 2024-03-04 17:52+0100\n"
+"PO-Revision-Date: 2024-04-25 06:49+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -150,38 +150,30 @@ msgstr "ტერმინალის პანელის ფოკუსი"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "ტერმინალის სინქრონიზაციის რეჟიმი"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "&ტერმინალის სინქრონიზაცია მიმდინარე დოკუმენტთნ"
+msgstr "&ტერმინალის ჩანართი მიმდინარე დოკუმენტთან არ დასინქრონდება"
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr ""
-"&ტერმინალის მიმდინარე დოკუმენტთან ავტომატური სინქრონიზაცია, როცა ეს "
-"შესაძლებელია"
+"&ტერმინალის მიმდინარე ჩანართის ავტომატური სინქრონიზაცია მიმდინარე "
+"დოკუმენტთან, როცა ეს შესაძლებელია"
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr ""
-"&ტერმინალის მიმდინარე დოკუმენტთან ავტომატური სინქრონიზაცია, როცა ეს "
-"შესაძლებელია"
+"&ტერმინალის ჩანართის ავტომატურ შექმნა მიმდინარე დოკუმენტის საქაღალდეში და "
+"მასზე გადართვა"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format

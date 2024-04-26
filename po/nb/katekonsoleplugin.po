@@ -241,6 +241,3 @@ msgstr "Terminalinnstillinger"
 #, kde-format
 msgid "&Tools"
 msgstr "Verk&tøy"
-
-#~ msgid "Sorry, cannot cd into '%1'"
-#~ msgstr "Kan dessverre ikke cd til «%1»"

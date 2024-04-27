@@ -85,6 +85,10 @@ The **doc** directory contains the Kate, KWrite & KatePart manuals.
 The **LICENSES** directory contains the license files as referenced in the individual source files.
 For any used **SPDX-License-Identifier** the matching license should be located there.
 
+### 3rdparty
+
+The 3rdparty folder contains 3rdparty components we bundle to be used internally.
+
 ## Kate's Mascot: Kate the Cyber Woodpecker
 
 Kate's mascot, Kate the Cyber Woodpecker, was designed by [Tyson Tan](https://www.tysontan.com/).

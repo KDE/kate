@@ -42,7 +42,6 @@
 #include <KMessageBox>
 #include <KMultiTabBar>
 #include <KOpenWithDialog>
-#include <KRecentDocument>
 #include <KRecentFilesAction>
 #include <KSharedConfig>
 #include <KShortcutsDialog>
@@ -1630,11 +1629,6 @@ void KateMainWindow::addRecentOpenedFile(const QUrl &url)
 
     // to our local list, aka menu
     m_fileOpenRecent->addUrl(url);
-
-    /** FIXME Disabled because this can be too slow 100ms/doc sometimes,
-     renable when it is 0/ms again*/
-    // to the global "Recent Document Menu", see bug 420504
-    // KRecentDocument::add(url);
 }
 
 void KateMainWindow::onApplicationStateChanged(Qt::ApplicationState)

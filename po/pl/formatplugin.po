@@ -1,14 +1,14 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmai.com>
+# SPDX-FileCopyrightText: 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmai.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-23 00:40+0000\n"
-"PO-Revision-Date: 2023-12-16 11:27+0100\n"
-"Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmai.com>\n"
+"PO-Revision-Date: 2024-04-27 10:12+0200\n"
+"Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
 #: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
@@ -78,12 +78,12 @@ msgstr ""
 #: FormatterFactory.h:44
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr ""
+msgstr "Nieznany formatterForJson: %1"
 
 #: FormatterFactory.h:64
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr ""
+msgstr "Nieznany formatterForPython: %1"
 
 #: FormatterFactory.h:68
 #, kde-format

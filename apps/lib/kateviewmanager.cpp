@@ -366,7 +366,16 @@ void KateViewManager::slotDocumentOpen()
 void KateViewManager::slotDocumentClose(KTextEditor::Document *document)
 {
     // Close document
-    if (KateApp::self()->documentManager()->closeDocument(document) && KateApp::self()->documentManager()->documentList().size() == 0) {
+    const auto url = document->url();
+    if (!KateApp::self()->documentManager()->closeDocument(document)) {
+        return;
+    }
+
+    // keep recent used files up to date
+    mainWindow()->addRecentOpenedFile(url);
+
+    // we might need to close the app or show the welcome page
+    if (KateApp::self()->documentManager()->documentList().isEmpty()) {
         // Close window if specified
         if (m_mainWindow->modCloseAfterLast()) {
             KateApp::self()->shutdownKate(m_mainWindow);

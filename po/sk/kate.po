@@ -6,7 +6,7 @@
 # Jozef Riha <jose1711@gmail.com>, 2006.
 # Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019.
 # Mthw <jari_45@hotmail.com>, 2018, 2019.
-# Matej Mrenica <matejm98mthw@gmail.com>, 2019, 2020, 2021, 2022.
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2024 Matej Mrenica <matejm98mthw@gmail.com>
 # Dušan Kazik <prescott66@gmail.com>, 2020.
 # Ferdinand Galko <galko.ferdinand@gmail.com>, 2023.
 msgid ""
@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-27 02:22+0000\n"
-"PO-Revision-Date: 2023-02-07 18:18+0100\n"
-"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
-"Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
+"PO-Revision-Date: 2024-04-27 16:24+0200\n"
+"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
+"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.02.2\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -47,10 +47,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - pokročilý textový editor"
 
 #: kate/main.cpp:90 kwrite/main.cpp:47
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000-2022 Autori Kate"
+msgstr "(c) 2000-2024 Autori Kate"
 
 #: kate/main.cpp:136
 #, kde-format
@@ -323,16 +322,14 @@ msgid "Quick Fix"
 msgstr "Rýchla oprava"
 
 #: lib/diagnostics/diagnosticview.cpp:351
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "&Nasledujúca karta"
+msgstr "Nasledujúca položka"
 
 #: lib/diagnostics/diagnosticview.cpp:357
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Predchádzajúca karta"
+msgstr "Predchádzajúca položka"
 
 #: lib/diagnostics/diagnosticview.cpp:365
 #, fuzzy, kde-format
@@ -346,16 +343,14 @@ msgid "Diagnostics"
 msgstr "Diagnostika"
 
 #: lib/diagnostics/diagnosticview.cpp:466
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Chyba"
+msgstr "Chyby"
 
 #: lib/diagnostics/diagnosticview.cpp:482
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Upozornenie"
+msgstr "Upozornenia"
 
 #: lib/diagnostics/diagnosticview.cpp:496
 #, kde-format
@@ -2092,15 +2087,13 @@ msgstr ""
 "postupovať."
 
 #: lib/kateurlbar.cpp:881
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Kopírovať umiestnenie"
 
 #: lib/kateurlbar.cpp:886
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Kopírovať názov súboru"
@@ -2808,10 +2801,9 @@ msgid "No saved sessions"
 msgstr "Žiadne uložené sedenia"
 
 #: lib/welcomeview/welcomeview.cpp:246
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Otvoriť súbor..."
+msgstr "Otvoriť vybraté súbory..."
 
 #: lib/welcomeview/welcomeview.cpp:259
 #, kde-format

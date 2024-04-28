@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 02:28+0000\n"
-"PO-Revision-Date: 2024-03-04 22:05+0100\n"
+"PO-Revision-Date: 2024-04-27 10:27+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #: kateconsole.cpp:70
 #, kde-format
@@ -153,38 +153,30 @@ msgstr "Enfocar o panel de terminal"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "Modo de sincronización de terminal"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "&Sincronizar a terminal co documento actual"
+msgstr "Non &sincronizar a lapela do terminal co documento actual."
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr ""
-"Sincronizar &automaticamente a terminal co documento actual cando sexa "
-"posíbel"
+"Sincronizar &automaticamente a lapela actual do terminal co documento actual "
+"cando sexa posíbel."
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr ""
-"Sincronizar &automaticamente a terminal co documento actual cando sexa "
-"posíbel"
+"Crear &automaticamente unha lapela de terminal para o cartafol do documento "
+"actual e cambiar a ela."
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format

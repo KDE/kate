@@ -773,6 +773,9 @@ void KateViewSpace::updateDocumentUrl(KTextEditor::Document *doc)
         m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString(QUrl::PreferLocalFile));
         m_tabBar->setModifiedStateIcon(buttonId, doc);
     }
+
+    // update recent files for e.g. saveAs, bug 486203
+    m_viewManager->mainWindow()->addRecentOpenedFile(doc->url());
 }
 
 void KateViewSpace::closeTabRequest(int idx)

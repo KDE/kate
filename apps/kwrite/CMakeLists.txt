@@ -1,9 +1,6 @@
 # KWrite application
-
-find_package(KF6DBusAddons ${KF5_DEP_VERSION} REQUIRED)
-
-add_executable(kwrite main.cpp  data/kwrite.qrc)
-target_link_libraries(kwrite PRIVATE kateprivate PUBLIC KF6::DBusAddons)
+add_executable(kwrite main.cpp data/kwrite.qrc)
+target_link_libraries(kwrite PRIVATE kateprivate)
 
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kwrite PRIVATE TRANSLATION_DOMAIN="kate")

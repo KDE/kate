@@ -60,6 +60,14 @@ if (NOT WIN32 AND NOT HAIKU)
     target_link_libraries(kateprivate PRIVATE ${Intl_LIBRARIES})
 endif()
 
+# we use dbus only on real unices
+if (UNIX AND NOT ANDROID AND NOT APPLE)
+    set(WITH_DBUS TRUE PARENT_SCOPE)
+    find_package(KF6DBusAddons ${KF5_DEP_VERSION} REQUIRED)
+    target_compile_definitions(kateprivate PUBLIC -DWITH_DBUS)
+    target_link_libraries(kateprivate PUBLIC KF6::DBusAddons)
+endif()
+
 # optional KUserFeedback integration
 find_package(KF6UserFeedback ${KF5_DEP_VERSION} CONFIG)
 

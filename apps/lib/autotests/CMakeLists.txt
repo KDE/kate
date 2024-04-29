@@ -14,29 +14,14 @@ macro(kate_executable_tests)
     endforeach()
 endmacro()
 
-# some test ATM timeout with Qt 6 in the CI
-if (WIN32)
-    kate_executable_tests(
-        session_test
-        # session_manager_test
-        # sessions_action_test
-        urlinfo_test
-        json_utils_test
-        kate_doc_manager_tests
-        # location_history_test
-        # kate_view_mgmt_tests
-        bytearraysplitter_tests
-        diffwidget_tests)
-else()
-    kate_executable_tests(
-        session_test
-        session_manager_test
-        sessions_action_test
-        urlinfo_test
-        json_utils_test
-        kate_doc_manager_tests
-        location_history_test
-        kate_view_mgmt_tests
-        bytearraysplitter_tests
-        diffwidget_tests)
-endif()
+kate_executable_tests(
+    session_test
+    session_manager_test
+    sessions_action_test
+    urlinfo_test
+    json_utils_test
+    kate_doc_manager_tests
+    location_history_test
+    kate_view_mgmt_tests
+    bytearraysplitter_tests
+    diffwidget_tests)

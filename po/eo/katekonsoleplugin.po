@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 02:28+0000\n"
-"PO-Revision-Date: 2024-03-04 23:34+0100\n"
+"PO-Revision-Date: 2024-04-27 17:28+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
 "Language: eo\n"
@@ -151,34 +151,30 @@ msgstr "Fokusi Terminal-Panelon"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "Terminal-Sinkroniga Reĝimo"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "S&inkronigi terminalon per aktuala dokumento"
+msgstr "Ne sinkronigi terminal-langeton kun aktuala &dokumento"
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
-msgstr "&Aŭtomate sinkronigi la terminalon kun la aktuala dokumento kiam eble"
+msgstr ""
+"&Aŭtomate sinkronigi la aktualan terminal-langeton kun la dokumento kiam "
+"eblas"
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "&Aŭtomate sinkronigi la terminalon kun la aktuala dokumento kiam eble"
+msgstr ""
+"&Aŭtomate krei terminal-langeton por la dosierujo de la aktuala dokumento "
+"kaj ŝanĝi al ĝi"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format
@@ -246,6 +242,3 @@ msgstr "Agordoj de terminalo"
 #, kde-format
 msgid "&Tools"
 msgstr "&Iloj"
-
-#~ msgid "Sorry, cannot cd into '%1'"
-#~ msgstr "Pardonu, mi ne povas cd en '%1'"

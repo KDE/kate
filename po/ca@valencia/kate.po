@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-27 02:22+0000\n"
-"PO-Revision-Date: 2024-04-14 09:25+0200\n"
+"PO-Revision-Date: 2024-04-21 08:33+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -976,8 +976,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
-"Si se selecciona, cada document s'obrirà en la seua pròpia finestra. Si no "
-"se selecciona, cada document s'obrirà en una pestanya nova de la finestra "
+"Si està marcada, cada document s'obrirà en la seua pròpia finestra. Si no "
+"està marcada, cada document s'obrirà en una pestanya nova de la finestra "
 "actual."
 
 #: lib/kateconfigdialog.cpp:146
@@ -1025,10 +1025,9 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
-"Si se selecciona, s'utilitzarà un diàleg modal per a mostrar tots els "
-"fitxers modificats. Si no se selecciona, se us demanarà individualment què "
-"fer per a cada fitxer modificat només quan la vista d'este fitxer reba el "
-"focus."
+"Si està marcada, s'utilitzarà un diàleg modal per a mostrar tots els fitxers "
+"modificats. Si no està marcada, se us demanarà individualment què fer per a "
+"cada fitxer modificat només quan la vista d'este fitxer reba el focus."
 
 #: lib/kateconfigdialog.cpp:182
 #, kde-format
@@ -1047,8 +1046,8 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
-"Quan se selecciona, la mida de la secció es determinarà per la posició de "
-"les tabulacions.\n"
+"Quan es marca, la mida de la secció es determinarà per la posició de les "
+"tabulacions.\n"
 "Esta opció no afecta la barra lateral inferior."
 
 #: lib/kateconfigdialog.cpp:193
@@ -1077,8 +1076,8 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
-"Un límit alt pot fer augmentar la mida de la finestra. Seleccioneu «Permet "
-"el desplaçament de les pestanyes» per a evitar-ho. Les pestanyes sense límit "
+"Un límit alt pot fer augmentar la mida de la finestra. Activeu «Permet el "
+"desplaçament de les pestanyes» per a evitar-ho. Les pestanyes sense límit "
 "sempre es poden desplaçar."
 
 #: lib/kateconfigdialog.cpp:236
@@ -1090,7 +1089,7 @@ msgstr "&Oculta automàticament les pestanyes"
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
-"Si se selecciona, les pestanyes s'ocultaran si només hi ha un document obert."
+"Si està marcada, les pestanyes s'ocultaran si només hi ha un document obert."
 
 #: lib/kateconfigdialog.cpp:242
 #, kde-format
@@ -1100,7 +1099,7 @@ msgstr "Mo&stra el botó de tancament"
 #: lib/kateconfigdialog.cpp:244
 #, kde-format
 msgid "When checked each tab will display a close button."
-msgstr "Si se selecciona, cada pestanya mostrarà un botó de tancament."
+msgstr "Si està marcada, cada pestanya mostrarà un botó de tancament."
 
 #: lib/kateconfigdialog.cpp:248
 #, kde-format
@@ -1111,7 +1110,7 @@ msgstr "Ex&pandix les pestanyes"
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
-"Si se selecciona, les pestanyes prendran tota la mida que siga possible."
+"Si està marcada, les pestanyes prendran tota la mida que siga possible."
 
 #: lib/kateconfigdialog.cpp:254
 #, kde-format
@@ -1121,7 +1120,7 @@ msgstr "El &doble clic obri un document nou"
 #: lib/kateconfigdialog.cpp:256
 #, kde-format
 msgid "When checked double click opens a new document."
-msgstr "Si se selecciona, el doble clic obrirà un document nou."
+msgstr "Si està marcada, el doble clic obrirà un document nou."
 
 #: lib/kateconfigdialog.cpp:260
 #, kde-format
@@ -1131,7 +1130,7 @@ msgstr "El clic del &mig tanca un document"
 #: lib/kateconfigdialog.cpp:262
 #, kde-format
 msgid "When checked middle click closes a document."
-msgstr "Si se selecciona, el clic del mig tancarà un document."
+msgstr "Si està marcada, el clic del mig tancarà un document."
 
 #: lib/kateconfigdialog.cpp:266
 #, kde-format
@@ -1144,7 +1143,7 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
-"Si se selecciona, es permetrà desplaçar la barra de pestanyes quan el nombre "
+"Si està marcada, es permetrà desplaçar la barra de pestanyes quan el nombre "
 "de pestanyes és gran."
 
 #: lib/kateconfigdialog.cpp:272
@@ -1156,18 +1155,17 @@ msgstr "Elidix el text de les pestanyes"
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
-"Si se selecciona, el text de les pestanyes es podrà elidir si és massa llarg."
+"Si està marcada, el text de les pestanyes es podrà elidir si és massa llarg."
 
 #: lib/kateconfigdialog.cpp:278
-#, fuzzy, kde-format
-#| msgid "Open new tab to the right of current tab."
+#, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr "Obri una pestanya nova a la dreta de l'actual."
+msgstr "Obri les pestanyes noves a la dreta de l'actual"
 
 #: lib/kateconfigdialog.cpp:280
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr "Si no se selecciona, la pestanya nova s'obrirà al final."
+msgstr "Si no està marcada, la pestanya nova s'obrirà al final."
 
 #: lib/kateconfigdialog.cpp:286
 #, kde-format
@@ -2679,8 +2677,7 @@ msgstr "Fitxers amb canvis sense guardar"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
-"Si està desactivada, es mostrarà un document sense títol en les finestres "
-"noves."
+"Si està marcada, es mostrarà un document sense títol en les finestres noves."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
@@ -2695,7 +2692,7 @@ msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
-"Si se selecciona, l'aplicació es tancarà quan es tanque l'últim fitxer en "
+"Si està marcada, l'aplicació es tancarà quan es tanque l'últim fitxer en "
 "editar-se, altrament, s'obrirà una pàgina en blanc per a començar un fitxer "
 "nou."
 
@@ -2742,7 +2739,7 @@ msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
 msgstr ""
-"Seleccioneu-la si voleu que es restauren totes les vistes i els marcs cada "
+"Marqueu-la si voleu que es restauren totes les vistes i els marcs cada "
 "vegada que obriu l'aplicació."
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
@@ -2759,8 +2756,8 @@ msgid ""
 "be saved past editor sessions. The configuration will be restored if the "
 "document has not changed when reopened."
 msgstr ""
-"Seleccioneu-la si voleu que la configuració del document, com per exemple "
-"els punts, es guarde després de les sessions de l'editor. La configuració es "
+"Marqueu-la si voleu que la configuració del document, com per exemple els "
+"punts, es guarde després de les sessions de l'editor. La configuració es "
 "restaurarà si el document no ha canviat en tornar-lo a obrir."
 
 #. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)

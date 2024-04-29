@@ -238,13 +238,6 @@
    <header>kpluralhandlingspinbox.h</header>
   </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>spinBoxRecentFilesCount</tabstop>
-  <tabstop>restoreVC</tabstop>
-  <tabstop>startNewSessionRadioButton</tabstop>
-  <tabstop>loadLastUserSessionRadioButton</tabstop>
-  <tabstop>manuallyChooseSessionRadioButton</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -195,11 +195,12 @@ void KateConfigDialog::addBehaviorPage()
         connect(m_showTextForLeftRightSidebars, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
         vbox->addWidget(m_showTextForLeftRightSidebars);
 
-        label = new QLabel(i18n("Icon size for left and right sidebar buttons"), buttonGroup);
+        label = new QLabel(i18n("Icon size for left and right sidebar buttons:"), buttonGroup);
         m_leftRightSidebarsIconSize = new QSpinBox(buttonGroup);
         m_leftRightSidebarsIconSize->setMinimum(16);
         m_leftRightSidebarsIconSize->setMaximum(48);
         m_leftRightSidebarsIconSize->setValue(cgGeneral.readEntry("Icon size for left and right sidebar buttons", 32));
+        label->setBuddy(m_leftRightSidebarsIconSize);
         connect(m_leftRightSidebarsIconSize, &QSpinBox::textChanged, this, &KateConfigDialog::slotChanged);
         hlayout = new QHBoxLayout;
         hlayout->addWidget(label);

@@ -322,7 +322,9 @@ void KateConfigDialog::addBehaviorPage()
     m_diffStyle->addItem(i18n("Side By Side"));
     m_diffStyle->addItem(i18n("Unified"));
     m_diffStyle->addItem(i18n("Raw"));
-    hlayout->addWidget(new QLabel(i18n("Diff Style:")));
+    label = new QLabel(i18n("Diff Style:"));
+    label->setBuddy(m_diffStyle);
+    hlayout->addWidget(label);
     hlayout->addWidget(m_diffStyle);
     m_diffStyle->setCurrentIndex(cgGeneral.readEntry("Diff Show Style", 0));
     connect(m_diffStyle, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);

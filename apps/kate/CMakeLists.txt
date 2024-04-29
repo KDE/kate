@@ -1,17 +1,20 @@
 # Kate application
+if(WITH_DBUS)
+    add_executable(kate-bin
+        katewaiter.cpp
+        main.cpp
+        data/kate.qrc)
+else()
+    add_executable(kate-bin
+        ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication.cpp
+        ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication_p.cpp
+        main.cpp
+        data/kate.qrc)
 
-find_package(KF6DBusAddons ${KF5_DEP_VERSION} REQUIRED)
-
-add_executable(kate-bin
-    main.cpp
-    data/kate.qrc
-
-    katewaiter.cpp
-
-    # single application handing for the non-dbus case
-    ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication.cpp
-    ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication_p.cpp)
-target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF6::DBusAddons)
+    # ensure consistent SingleApplication usage
+    target_compile_definitions(kate-bin PRIVATE -DQAPPLICATION_CLASS=QApplication)
+endif()
+target_link_libraries(kate-bin PRIVATE kateprivate)
 
 # X11 startup handling
 if (UNIX AND NOT APPLE)
@@ -20,9 +23,6 @@ endif()
 
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kate-bin PRIVATE TRANSLATION_DOMAIN="kate")
-
-# ensure consistent SingleApplication usage
-target_compile_definitions(kate-bin PRIVATE -DQAPPLICATION_CLASS=QApplication)
 
 # we have different windows icons, less margins
 set(ICONS_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/icons/unix)

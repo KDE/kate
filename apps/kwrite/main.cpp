@@ -9,8 +9,11 @@
 #include "kateapp.h"
 
 #include <KAboutData>
-#include <KDBusService>
 #include <KLocalizedString>
+
+#ifdef WITH_DBUS
+#include <KDBusService>
+#endif
 
 #include <QApplication>
 #include <QCommandLineParser>
@@ -26,14 +29,14 @@ int main(int argc, char **argv)
 
     /**
      * Create application first
-     * Enforce application name even if the executable is renamed
      */
     QApplication app(argc, argv);
-    app.setApplicationName(QStringLiteral("kwrite"));
 
     /**
+     * Enforce application name even if the executable is renamed
      * Connect application with translation catalogs, Kate & KWrite share the same one
      */
+    app.setApplicationName(QStringLiteral("kwrite"));
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));
 
     /**
@@ -146,10 +149,12 @@ int main(int argc, char **argv)
         return 0;
     }
 
+#ifdef WITH_DBUS
     /**
      * finally register this kwrite instance for dbus, don't die if no dbus is around!
      */
     const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
+#endif
 
     /**
      * Run the event loop

@@ -7,11 +7,8 @@
  */
 
 #include "kateapp.h"
-#include "katerunninginstanceinfo.h"
-#include "katewaiter.h"
 
 #include <KAboutData>
-#include <KDBusService>
 #include <KLocalizedString>
 
 // X11 startup handling
@@ -37,13 +34,19 @@
 #include <qglobal.h>
 #include <urlinfo.h>
 
-#include "SingleApplication/SingleApplication"
-
 // X11 startup handling
 #define HAVE_X11 __has_include(<KX11Extras>)
 #if HAVE_X11
 #include <KX11Extras>
 #include <private/qtx11extras_p.h>
+#endif
+
+#ifdef WITH_DBUS
+#include "katerunninginstanceinfo.h"
+#include "katewaiter.h"
+#include <KDBusService>
+#else
+#include "SingleApplication/SingleApplication"
 #endif
 
 int main(int argc, char **argv)
@@ -68,15 +71,19 @@ int main(int argc, char **argv)
 
     /**
      * Create application first
-     * We always use a single application that allows to start multiple instances.
-     * This allows for communication even without DBus and better testing of these code paths.
+     * For DBus just a normal application
      */
+#ifdef WITH_DBUS
+    QApplication app(argc, argv);
+#else
     SingleApplication app(argc, argv, true);
-    app.setApplicationName(QStringLiteral("kate"));
+#endif
 
     /**
+     * Enforce application name even if the executable is renamed
      * Connect application with translation catalogs, Kate & KWrite share the same one
      */
+    app.setApplicationName(QStringLiteral("kate"));
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));
 
     /**
@@ -227,13 +234,12 @@ int main(int argc, char **argv)
      */
     const bool needToBlock = parser.isSet(startBlockingOption) && !urls.isEmpty();
 
+#ifdef WITH_DBUS
     /**
      * use dbus, if available for linux and co.
      * allows for reuse of running Kate instances
-     * we have some env var to forbid this for easier testing of the single application code paths: KATE_SKIP_DBUS
      */
-    if (QDBusConnectionInterface *const sessionBusInterface = QDBusConnection::sessionBus().interface();
-        sessionBusInterface && qEnvironmentVariableIsEmpty("KATE_SKIP_DBUS")) {
+    if (const auto sessionBusInterface = QDBusConnection::sessionBus().interface()) {
         /**
          * try to get the current running kate instances
          */
@@ -459,12 +465,12 @@ int main(int argc, char **argv)
             return needToBlock ? app.exec() : 0;
         }
     }
-
+#else
     /**
      * if we had no DBus session bus, we can try to use the SingleApplication communication.
      * only try to reuse existing kate instances if not already forbidden by arguments
      */
-    else if (!force_new && app.isSecondary()) {
+    if (!force_new && app.isSecondary()) {
         /**
          * construct one big message with all urls to open
          * later we will add additional data to this
@@ -491,6 +497,7 @@ int main(int argc, char **argv)
                                 1000,
                                 needToBlock ? SingleApplication::BlockUntilPrimaryExit : SingleApplication::NonBlocking);
     }
+#endif
 
     /**
      * if we arrive here, we need to start a new kate instance!
@@ -512,15 +519,17 @@ int main(int argc, char **argv)
         return 0;
     }
 
+#ifdef WITH_DBUS
     /**
      * finally register this kate instance for dbus, don't die if no dbus is around!
      */
     const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
-
+#else
     /**
-     * listen to single application messages in any case
+     * listen to single application messages if no DBus
      */
     QObject::connect(&app, &SingleApplication::receivedMessage, &kateApp, &KateApp::remoteMessageReceived);
+#endif
 
     /**
      * start main event loop for our application

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-15 00:39+0000\n"
-"PO-Revision-Date: 2024-02-24 22:28+0300\n"
+"PO-Revision-Date: 2024-04-30 00:20+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.04.70\n"
+"X-Generator: Lokalize 24.07.70\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
@@ -82,7 +82,7 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
-"Kullanıcı, şu eklentinin başlatılmasını kalıcı olarak engelledi: ‘%1’\n"
+"Kullanıcı, şu eklentinin başlatılmasını kalıcı olarak engelledi: “%1”\n"
 "Bu engellemeyi geri almak için eklentinin yapılandırma sayfasını kullanın."
 
 #: lspclientpluginview.cpp:437 lspclientpluginview.cpp:673
@@ -412,12 +412,12 @@ msgstr "%2 sunucusu başlatıldı: %1"
 #: lspclientservermanager.cpp:886
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
-msgstr "Sunucu yapılandırması ‘%1’ bulunamadı: JSON nesnesi yok"
+msgstr "Sunucu yapılandırması “%1” bulunamadı: JSON nesnesi yok"
 
 #: lspclientservermanager.cpp:889
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
-msgstr "Sunucu yapılandırması ‘%1’ ayrıştırılamadı: %2"
+msgstr "Sunucu yapılandırması “%1” ayrıştırılamadı: %2"
 
 #: lspclientservermanager.cpp:893
 #, kde-format

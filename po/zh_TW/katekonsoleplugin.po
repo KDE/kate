@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 02:28+0000\n"
-"PO-Revision-Date: 2024-03-06 18:40+0900\n"
+"PO-Revision-Date: 2024-04-29 18:50+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -36,13 +36,13 @@ msgstr "終端機"
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
-msgstr "導向到主控台(&P)"
+msgstr "送至終端機(&P)"
 
 #: kateconsole.cpp:161
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
-msgstr "以目前的文件同步終端機裡的內容(&Y)"
+msgstr "將終端機與目前文件同步(&Y)"
 
 #: kateconsole.cpp:165
 #, kde-format
@@ -124,7 +124,7 @@ msgstr ""
 #: kateconsole.cpp:537
 #, kde-format
 msgid "Run in Terminal?"
-msgstr "在終端器執行？"
+msgstr "在終端機執行？"
 
 #: kateconsole.cpp:538
 #, kde-format
@@ -150,34 +150,26 @@ msgstr "聚焦於終端機面板"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "終端機同步模式"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "以目前的文件同步終端機裡的內容(&Y)"
+msgstr "不讓終端機分頁與目前文件同步(&D)"
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
-msgstr "自動以目前的文件來同步終端機(&A)"
+msgstr "可能時自動將目前終端機與目前的文件同步(&A)"
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "自動以目前的文件來同步終端機(&A)"
+msgstr "自動為目前文件的目錄建立新的終端機分頁並切換到它(&A)"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format
@@ -205,8 +197,8 @@ msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
-"當下一次「%1」執行時，請確定警告視窗會顯示，並且顯示要傳送到終端器的指令以供"
-"再次確認。"
+"當下一次「%1」執行時，確保警告視窗會顯示，並且顯示要傳送到終端機的指令以供再"
+"次確認。"
 
 #: kateconsole.cpp:721
 #, kde-format

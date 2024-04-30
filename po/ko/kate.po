@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-27 02:22+0000\n"
+"POT-Creation-Date: 2024-04-30 02:27+0000\n"
 "PO-Revision-Date: 2024-02-19 21:33+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -31,38 +31,38 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name,sptcedna@gmail.com"
 
-#: kate/main.cpp:86
+#: kate/main.cpp:93
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:88
+#: kate/main.cpp:95
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - 고급 문서 편집기"
 
-#: kate/main.cpp:90 kwrite/main.cpp:47
+#: kate/main.cpp:97 kwrite/main.cpp:50
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2022 The Kate Authors"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2022 The Kate Authors"
 
-#: kate/main.cpp:136
+#: kate/main.cpp:143
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "지정한 세션으로 Kate를 시작합니다."
 
-#: kate/main.cpp:137
+#: kate/main.cpp:144
 #, kde-format
 msgid "session"
 msgstr "세션"
 
-#: kate/main.cpp:142
+#: kate/main.cpp:149
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "이름 없는 새 세션으로 Kate를 시작합니다. '-n'이 지정됩니다."
 
-#: kate/main.cpp:147
+#: kate/main.cpp:154
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -72,7 +72,7 @@ msgstr ""
 "새 Kate 인스턴스를 강제로 시작합니다(다른 Kate 인스턴스에서 지정한 세션을 열"
 "어 둔 경우 제외). 만약 인자나 URL이 지정되지 않았으면 강제로 지정됩니다."
 
-#: kate/main.cpp:153
+#: kate/main.cpp:160
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -80,7 +80,7 @@ msgid ""
 msgstr ""
 "만약 실행 중인 Kate 인스턴스가 있고 URL을 지정했으면 끝날 때까지 기다립니다."
 
-#: kate/main.cpp:159
+#: kate/main.cpp:166
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -89,67 +89,67 @@ msgstr ""
 "이 PID와 연결되어 있는 Kate 인스턴스를 다시 사용합니다(다른 Kate 인스턴스에"
 "서 지정한 세션을 열어 둔 경우 제외)."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:167
 #, kde-format
 msgid "pid"
 msgstr "PID"
 
-#: kate/main.cpp:165 kwrite/main.cpp:98
+#: kate/main.cpp:172 kwrite/main.cpp:101
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "열 파일의 인코딩을 지정합니다."
 
-#: kate/main.cpp:166 kwrite/main.cpp:99
+#: kate/main.cpp:173 kwrite/main.cpp:102
 #, kde-format
 msgid "encoding"
 msgstr "인코딩"
 
-#: kate/main.cpp:170 kwrite/main.cpp:103
+#: kate/main.cpp:177 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this line."
 msgstr "이 줄로 찾아갑니다."
 
-#: kate/main.cpp:170 kwrite/main.cpp:103
+#: kate/main.cpp:177 kwrite/main.cpp:106
 #, kde-format
 msgid "line"
 msgstr "줄"
 
-#: kate/main.cpp:175 kwrite/main.cpp:107
+#: kate/main.cpp:182 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "이 칸으로 찾아갑니다."
 
-#: kate/main.cpp:176 kwrite/main.cpp:107
+#: kate/main.cpp:183 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "칸"
 
-#: kate/main.cpp:180 kwrite/main.cpp:111
+#: kate/main.cpp:187 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "표준 입력의 내용을 읽어옵니다."
 
-#: kate/main.cpp:185 kwrite/main.cpp:115
+#: kate/main.cpp:192 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "앱에서 연 파일/URL을 사용한 후 삭제합니다"
 
-#: kate/main.cpp:189 kwrite/main.cpp:119
+#: kate/main.cpp:196 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "열 문서입니다."
 
-#: kate/main.cpp:189 kwrite/main.cpp:119
+#: kate/main.cpp:196 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
 
-#: kwrite/main.cpp:43
+#: kwrite/main.cpp:46
 #, kde-format
 msgid "KWrite"
 msgstr "KWrite"
 
-#: kwrite/main.cpp:45
+#: kwrite/main.cpp:48
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - 텍스트 편집기"
@@ -2271,36 +2271,36 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "큰 파일 열기"
 
-#: lib/kateviewmanager.cpp:514
+#: lib/kateviewmanager.cpp:523
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1에서 폴더를 열 수 없음"
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:540
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "폴더를 열 때 필요한 플러그인을 찾을 수 없음"
 
-#: lib/kateviewmanager.cpp:537
+#: lib/kateviewmanager.cpp:546
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 "폴더를 열려면 <b>%1</b> 플러그인을 활성화해야 합니다. 활성화하시겠습니까?"
 
-#: lib/kateviewmanager.cpp:540
+#: lib/kateviewmanager.cpp:549
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "폴더 열기"
 
-#: lib/kateviewmanager.cpp:541
+#: lib/kateviewmanager.cpp:550
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "활성화"
 
-#: lib/kateviewmanager.cpp:548
+#: lib/kateviewmanager.cpp:557
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> 플러그인을 활성화할 수 없음"
@@ -2344,52 +2344,52 @@ msgstr[0] ""
 "문서 %1개가 더 열려 있습니다. 모든 열린 문서를 보려면 여기를 클릭해서 빠른 열"
 "기 화면으로 전환하십시오."
 
-#: lib/kateviewspace.cpp:1028
+#: lib/kateviewspace.cpp:1031
 #, kde-format
 msgid "Close Tab"
 msgstr "탭 닫기"
 
-#: lib/kateviewspace.cpp:1046
+#: lib/kateviewspace.cpp:1049
 #, kde-format
 msgid "&Close Document"
 msgstr "문서 닫기(&C)"
 
-#: lib/kateviewspace.cpp:1047
+#: lib/kateviewspace.cpp:1050
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "다른 문서 닫기(&D)"
 
-#: lib/kateviewspace.cpp:1048
+#: lib/kateviewspace.cpp:1051
 #, kde-format
 msgid "Close &All Documents"
 msgstr "모든 문서 닫기(&A)"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1054
 #, kde-format
 msgid "D&etach Document"
 msgstr "문서 떼내기(&E)"
 
-#: lib/kateviewspace.cpp:1053
+#: lib/kateviewspace.cpp:1056
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "현재 문서를 새 창으로 열고 현재 창에 열린 문서 닫기"
 
-#: lib/kateviewspace.cpp:1062
+#: lib/kateviewspace.cpp:1065
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "활성 문서와 비교"
 
-#: lib/kateviewspace.cpp:1068
+#: lib/kateviewspace.cpp:1071
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "다음을 사용하여 활성 문서와 비교"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1141
 #, kde-format
 msgid "Could not start program"
 msgstr "프로그램을 시작할 수 없음"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "선택한 프로그램을 시작할 수 없습니다. 설치 상태를 확인하십시오."

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-27 02:22+0000\n"
+"POT-Creation-Date: 2024-04-30 02:27+0000\n"
 "PO-Revision-Date: 2024-04-27 16:24+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -36,37 +36,37 @@ msgstr ""
 "visnovsky@kde.org,wizzardsk@gmail.com,prescott66@gmail.com,galko."
 "ferdinand@gmail.com"
 
-#: kate/main.cpp:86
+#: kate/main.cpp:93
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:88
+#: kate/main.cpp:95
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - pokročilý textový editor"
 
-#: kate/main.cpp:90 kwrite/main.cpp:47
+#: kate/main.cpp:97 kwrite/main.cpp:50
 #, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 Autori Kate"
 
-#: kate/main.cpp:136
+#: kate/main.cpp:143
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Spustiť Kate v danom sedení."
 
-#: kate/main.cpp:137
+#: kate/main.cpp:144
 #, kde-format
 msgid "session"
 msgstr "sedenie"
 
-#: kate/main.cpp:142
+#: kate/main.cpp:149
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Spustiť Kate s novým anonymným sedením, vyžaduje '-n'."
 
-#: kate/main.cpp:147
+#: kate/main.cpp:154
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -77,7 +77,7 @@ msgstr ""
 "iná Kate inštancia už má dané sedenie otvorené), vynútené ak nie sú zadané "
 "žiadne parametre a žiadne URL."
 
-#: kate/main.cpp:153
+#: kate/main.cpp:160
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -86,7 +86,7 @@ msgstr ""
 "Ak sa používa už bežiaca Kate inštancia, blokovať kým existuje, ak sú dané "
 "URL na otvorenie."
 
-#: kate/main.cpp:159
+#: kate/main.cpp:166
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -95,67 +95,67 @@ msgstr ""
 "Pokúsiť sa znovu použiť iba Kate inštanciu s týmto pid (ignorované, ak sa "
 "použije štart a iná kate inštancia už má dané sedenie otvorené)."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:167
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:165 kwrite/main.cpp:98
+#: kate/main.cpp:172 kwrite/main.cpp:101
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Nastaviť kódovanie otváraného súboru."
 
-#: kate/main.cpp:166 kwrite/main.cpp:99
+#: kate/main.cpp:173 kwrite/main.cpp:102
 #, kde-format
 msgid "encoding"
 msgstr "kódovanie"
 
-#: kate/main.cpp:170 kwrite/main.cpp:103
+#: kate/main.cpp:177 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Prejsť na tento riadok."
 
-#: kate/main.cpp:170 kwrite/main.cpp:103
+#: kate/main.cpp:177 kwrite/main.cpp:106
 #, kde-format
 msgid "line"
 msgstr "riadok"
 
-#: kate/main.cpp:175 kwrite/main.cpp:107
+#: kate/main.cpp:182 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Prejsť na tento stĺpec."
 
-#: kate/main.cpp:176 kwrite/main.cpp:107
+#: kate/main.cpp:183 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "stĺpec"
 
-#: kate/main.cpp:180 kwrite/main.cpp:111
+#: kate/main.cpp:187 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Načítať obsah zo štandardného vstupu."
 
-#: kate/main.cpp:185 kwrite/main.cpp:115
+#: kate/main.cpp:192 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "Súbory/URL otvorené aplikáciou budú odstránené po použití"
 
-#: kate/main.cpp:189 kwrite/main.cpp:119
+#: kate/main.cpp:196 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "Dokument na otvorenie."
 
-#: kate/main.cpp:189 kwrite/main.cpp:119
+#: kate/main.cpp:196 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[url...]"
 
-#: kwrite/main.cpp:43
+#: kwrite/main.cpp:46
 #, kde-format
 msgid "KWrite"
 msgstr "KWrite"
 
-#: kwrite/main.cpp:45
+#: kwrite/main.cpp:48
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "Kate - pokročilý textový editor"
@@ -2322,17 +2322,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Otváranie veľkého súboru"
 
-#: lib/kateviewmanager.cpp:514
+#: lib/kateviewmanager.cpp:523
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 nemôže otvoriť priečinky"
 
-#: lib/kateviewmanager.cpp:531
+#: lib/kateviewmanager.cpp:540
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Zásuvný modul potrebný na otvorenie priečinkov nebol nájdený"
 
-#: lib/kateviewmanager.cpp:537
+#: lib/kateviewmanager.cpp:546
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2340,19 +2340,19 @@ msgstr ""
 "Aby bolo možné otvárať priečinky, musí byť povolený zásuvný modul <b>%1</b>. "
 "Povoliť ho?"
 
-#: lib/kateviewmanager.cpp:540
+#: lib/kateviewmanager.cpp:549
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Otvoriť priečinok"
 
-#: lib/kateviewmanager.cpp:541
+#: lib/kateviewmanager.cpp:550
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Povoliť"
 
-#: lib/kateviewmanager.cpp:548
+#: lib/kateviewmanager.cpp:557
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Nepodarilo sa povoliť zásuvný modul <b>%1</b>"
@@ -2402,52 +2402,52 @@ msgstr[2] ""
 "Aktuálne je otvorených ešte %1 dokumentov. Na zobrazenie všetkých otvorených "
 "dokumentov prepnite na pohľad Rýchle otvorenie kliknutím sem."
 
-#: lib/kateviewspace.cpp:1028
+#: lib/kateviewspace.cpp:1031
 #, kde-format
 msgid "Close Tab"
 msgstr "Zatvoriť kartu"
 
-#: lib/kateviewspace.cpp:1046
+#: lib/kateviewspace.cpp:1049
 #, kde-format
 msgid "&Close Document"
 msgstr "&Zavrieť dokument"
 
-#: lib/kateviewspace.cpp:1047
+#: lib/kateviewspace.cpp:1050
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "&Zavrieť ostatné dokumenty"
 
-#: lib/kateviewspace.cpp:1048
+#: lib/kateviewspace.cpp:1051
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Z&atvoriť všetky dokumenty"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1054
 #, kde-format
 msgid "D&etach Document"
 msgstr "Odpojiť dokument"
 
-#: lib/kateviewspace.cpp:1053
+#: lib/kateviewspace.cpp:1056
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Otvorí dokument v novom okne a zatvorí ho v aktuálnom okne"
 
-#: lib/kateviewspace.cpp:1062
+#: lib/kateviewspace.cpp:1065
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Porovnať s aktívnym dokumentom"
 
-#: lib/kateviewspace.cpp:1068
+#: lib/kateviewspace.cpp:1071
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Porovnať s aktívnym dokumentom pomocou"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1141
 #, kde-format
 msgid "Could not start program"
 msgstr "Nepodarilo sa spustiť program"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Vybratý program sa nepodarilo spustiť. Možno nie je nainštalovaný."

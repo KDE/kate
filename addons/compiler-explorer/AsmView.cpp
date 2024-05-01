@@ -152,9 +152,6 @@ public:
                 f = QTextCharFormat();
                 f.setForeground(stringColor);
                 fmts.append({strOpen, strClose - strOpen, f});
-
-                // move forward
-                i = strClose;
             }
 
             auto labels = this->rowLabels(index);

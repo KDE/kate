@@ -283,9 +283,9 @@
 ></userinput
 >).</member>
 <member
->kf5options(7)</member>
+>kf6options(7)</member>
 <member
->qt5options(7)</member>
+>qt6options(7)</member>
 <member
 >Ulteriori informazioni sono inoltre disponibili ne <ulink url="https://kate-editor.org/"
 >il sito web di &kate;</ulink

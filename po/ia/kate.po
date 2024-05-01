@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-30 02:27+0000\n"
-"PO-Revision-Date: 2024-04-17 14:09+0200\n"
+"PO-Revision-Date: 2024-04-30 11:56+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1149,10 +1149,9 @@ msgstr ""
 "Quando marcate le texto de scheda poterea esse elidite si es troppo longe."
 
 #: lib/kateconfigdialog.cpp:278
-#, fuzzy, kde-format
-#| msgid "Open new tab to the right of current tab."
+#, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr "Aperi nove scheda a dextera del scheda currente."
+msgstr "Aperi nove schedas a dextera del scheda currente"
 
 #: lib/kateconfigdialog.cpp:280
 #, kde-format

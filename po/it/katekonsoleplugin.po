@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 02:28+0000\n"
-"PO-Revision-Date: 2024-03-09 17:17+0100\n"
+"PO-Revision-Date: 2024-04-27 14:59+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #: kateconsole.cpp:70
 #, kde-format
@@ -154,38 +154,30 @@ msgstr "Attiva il pennello del terminale"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "Modalità di sincronizzazione del terminale"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "S&incronizza il terminale con il documento attuale"
+msgstr "Non sincronizza la sche&da del terminale con il documento attuale"
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr ""
-"Sincronizza &automaticamente il terminale con il documento attuale quando "
-"possibile"
+"Sincronizza &automaticamente la scheda del terminale con il documento "
+"attuale quando possibile"
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr ""
-"Sincronizza &automaticamente il terminale con il documento attuale quando "
-"possibile"
+"Crea &automaticamente una scheda di terminale per la cartella del documento "
+"attuale e passa ad essa"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format

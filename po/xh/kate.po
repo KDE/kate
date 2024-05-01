@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-30 00:41+0000\n"
+"POT-Creation-Date: 2024-05-01 00:40+0000\n"
 "PO-Revision-Date: 2002-11-15 12:44+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -328,7 +328,7 @@ msgstr "Imboniselo Edlulileyo"
 msgid "Clear Diagnostics Filter"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:339
+#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:342
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
@@ -354,7 +354,7 @@ msgid "Error"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:151
-#: lib/kateconfigdialog.cpp:703
+#: lib/kateconfigdialog.cpp:706
 #, kde-format
 msgid "Warning"
 msgstr ""
@@ -421,17 +421,17 @@ msgstr "Intlanganiso"
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:321
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:322
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:322
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:323
 #, fuzzy, kde-format
 msgid "Unified"
 msgstr " - Iguqulwe kancinane"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:323
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:324
 #, kde-format
 msgid "Raw"
 msgstr ""
@@ -536,7 +536,7 @@ msgid ""
 msgstr ""
 
 #: lib/diff/diffwidget.cpp:555 lib/diff/diffwidget.cpp:1156
-#: lib/kateconfigdialog.cpp:315
+#: lib/kateconfigdialog.cpp:316
 #, kde-format
 msgid "Diff"
 msgstr ""
@@ -986,8 +986,8 @@ msgstr ""
 msgid "&Limit output view history:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:163 lib/kateconfigdialog.cpp:227
-#: lib/kateconfigdialog.cpp:347
+#: lib/kateconfigdialog.cpp:163 lib/kateconfigdialog.cpp:228
+#: lib/kateconfigdialog.cpp:350
 #, kde-format
 msgid "Unlimited"
 msgstr ""
@@ -1030,187 +1030,187 @@ msgstr ""
 
 #: lib/kateconfigdialog.cpp:198
 #, kde-format
-msgid "Icon size for left and right sidebar buttons"
+msgid "Icon size for left and right sidebar buttons:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:217
+#: lib/kateconfigdialog.cpp:218
 #, fuzzy, kde-format
 msgid "&Tabs"
 msgstr "Bonisa &Amanani Elayini"
 
-#: lib/kateconfigdialog.cpp:221
+#: lib/kateconfigdialog.cpp:222
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:232
+#: lib/kateconfigdialog.cpp:233
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:236
+#: lib/kateconfigdialog.cpp:237
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:238
+#: lib/kateconfigdialog.cpp:239
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:242
+#: lib/kateconfigdialog.cpp:243
 #, kde-format
 msgid "&Show close button"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:244
+#: lib/kateconfigdialog.cpp:245
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:248
+#: lib/kateconfigdialog.cpp:249
 #, kde-format
 msgid "&Expand tabs"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:250
+#: lib/kateconfigdialog.cpp:251
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:254
+#: lib/kateconfigdialog.cpp:255
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "&Double click opens a new document"
 msgstr "Yenza uxwebhu olutsha"
 
-#: lib/kateconfigdialog.cpp:256
+#: lib/kateconfigdialog.cpp:257
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:260
+#: lib/kateconfigdialog.cpp:261
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "&Middle click closes a document"
 msgstr "Vala onke amaxwebhu avuliweyo."
 
-#: lib/kateconfigdialog.cpp:262
+#: lib/kateconfigdialog.cpp:263
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:266
+#: lib/kateconfigdialog.cpp:267
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:268
+#: lib/kateconfigdialog.cpp:269
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:272
+#: lib/kateconfigdialog.cpp:273
 #, kde-format
 msgid "Elide tab text"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:274
+#: lib/kateconfigdialog.cpp:275
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:278
+#: lib/kateconfigdialog.cpp:279
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:280
+#: lib/kateconfigdialog.cpp:281
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:286
+#: lib/kateconfigdialog.cpp:287
 #, kde-format
 msgid "&Mouse"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:291
+#: lib/kateconfigdialog.cpp:292
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:296
+#: lib/kateconfigdialog.cpp:297
 #, fuzzy, kde-format
 msgid "Previous tab"
 msgstr "Imboniselo Edlulileyo"
 
-#: lib/kateconfigdialog.cpp:296
+#: lib/kateconfigdialog.cpp:297
 #, kde-format
 msgid "History back"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:302
+#: lib/kateconfigdialog.cpp:303
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:307
+#: lib/kateconfigdialog.cpp:308
 #, fuzzy, kde-format
 msgid "Next tab"
 msgstr "&Vala Okwangoku"
 
-#: lib/kateconfigdialog.cpp:307
+#: lib/kateconfigdialog.cpp:308
 #, kde-format
 msgid "History forward"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:324
+#: lib/kateconfigdialog.cpp:325
 #, kde-format
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:329
+#: lib/kateconfigdialog.cpp:332
 #, fuzzy, kde-format
 msgid "Navigation Bar"
 msgstr "Vala uxwebhu lwangoku."
 
-#: lib/kateconfigdialog.cpp:334
+#: lib/kateconfigdialog.cpp:337
 #, fuzzy, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Vala uxwebhu lwangoku."
 
-#: lib/kateconfigdialog.cpp:344
+#: lib/kateconfigdialog.cpp:347
 #, fuzzy, kde-format
 msgid "Diagnostics limit:"
 msgstr "&Saa Ngokuthe nkqo"
 
-#: lib/kateconfigdialog.cpp:349
+#: lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:364
+#: lib/kateconfigdialog.cpp:367
 #, fuzzy, kde-format
 msgid "Session"
 msgstr "Intlanganiso"
 
-#: lib/kateconfigdialog.cpp:366
+#: lib/kateconfigdialog.cpp:369
 #, fuzzy, kde-format
 msgid "Session Management"
 msgstr "Intlanganiso"
 
-#: lib/kateconfigdialog.cpp:377
+#: lib/kateconfigdialog.cpp:380
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:378
+#: lib/kateconfigdialog.cpp:381
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1218,29 +1218,29 @@ msgid_plural " days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateconfigdialog.cpp:411
+#: lib/kateconfigdialog.cpp:414
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:446
+#: lib/kateconfigdialog.cpp:449
 #, kde-format
 msgid "Plugins"
 msgstr "Iiplagi ezifakiweyo"
 
-#: lib/kateconfigdialog.cpp:448
+#: lib/kateconfigdialog.cpp:451
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Umphathi Weplagi Yangaphakathi"
 
-#: lib/kateconfigdialog.cpp:466 lib/kateconfigdialog.cpp:468
+#: lib/kateconfigdialog.cpp:469 lib/kateconfigdialog.cpp:471
 #, kde-format
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:702
+#: lib/kateconfigdialog.cpp:705
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

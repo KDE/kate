@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-30 00:41+0000\n"
+"POT-Creation-Date: 2024-05-01 00:40+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -325,7 +325,7 @@ msgstr "पूर्व द्रव्यम्"
 msgid "Clear Diagnostics Filter"
 msgstr "निदानं फ़िल्टरं स्वच्छं कुर्वन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:339
+#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:342
 #, kde-format
 msgid "Diagnostics"
 msgstr "निदानम्"
@@ -351,7 +351,7 @@ msgid "Error"
 msgstr "त्रुटि"
 
 #: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:151
-#: lib/kateconfigdialog.cpp:703
+#: lib/kateconfigdialog.cpp:706
 #, kde-format
 msgid "Warning"
 msgstr "चेतवानी"
@@ -417,17 +417,17 @@ msgstr "दमनं सक्षमं कुर्वन्तु"
 msgid "Change Style"
 msgstr "शैली परिवर्तयतु"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:321
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:322
 #, kde-format
 msgid "Side By Side"
 msgstr "पार्श्वतः पार्श्वे"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:322
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:323
 #, kde-format
 msgid "Unified"
 msgstr "एकीकृत"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:323
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:324
 #, kde-format
 msgid "Raw"
 msgstr "अपक्व"
@@ -532,7 +532,7 @@ msgstr ""
 "downloads इति पश्यन्तु"
 
 #: lib/diff/diffwidget.cpp:555 lib/diff/diffwidget.cpp:1156
-#: lib/kateconfigdialog.cpp:315
+#: lib/kateconfigdialog.cpp:316
 #, kde-format
 msgid "Diff"
 msgstr "भेद्"
@@ -987,8 +987,8 @@ msgstr "वृत्त"
 msgid "&Limit output view history:"
 msgstr "&निर्गमदृश्य इतिहासं सीमितं कुर्वन्तु:"
 
-#: lib/kateconfigdialog.cpp:163 lib/kateconfigdialog.cpp:227
-#: lib/kateconfigdialog.cpp:347
+#: lib/kateconfigdialog.cpp:163 lib/kateconfigdialog.cpp:228
+#: lib/kateconfigdialog.cpp:350
 #, kde-format
 msgid "Unlimited"
 msgstr "असीमित"
@@ -1036,21 +1036,22 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "वामदक्षिणपार्श्वपट्टिकागण्डयोः कृते पाठ्यं दर्शयतु"
 
 #: lib/kateconfigdialog.cpp:198
-#, kde-format
-msgid "Icon size for left and right sidebar buttons"
+#, fuzzy, kde-format
+#| msgid "Icon size for left and right sidebar buttons"
+msgid "Icon size for left and right sidebar buttons:"
 msgstr "वामदक्षिणपार्श्वपट्टिकागण्डयोः कृते चिह्नस्य आकारः"
 
-#: lib/kateconfigdialog.cpp:217
+#: lib/kateconfigdialog.cpp:218
 #, kde-format
 msgid "&Tabs"
 msgstr "&टेब्स्"
 
-#: lib/kateconfigdialog.cpp:221
+#: lib/kateconfigdialog.cpp:222
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "&ट्याब्स् संख्यां सीमितं कुर्वन्तु:"
 
-#: lib/kateconfigdialog.cpp:232
+#: lib/kateconfigdialog.cpp:233
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1059,63 +1060,63 @@ msgstr ""
 "उच्चसीमा गवाक्ष आकारं वर्धयितुं शक्नोति, कृपया तत् निवारयितुं 'ट्याब् सारणनं अनुमन्यताम्' "
 "सक्षमं कुर्वन्तु । असीमित ट्याब्स् सर्वदा सारण कर्तुं शक्यन्ते ।."
 
-#: lib/kateconfigdialog.cpp:236
+#: lib/kateconfigdialog.cpp:237
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "&स्वयं गोपन ट्याब्स्"
 
-#: lib/kateconfigdialog.cpp:238
+#: lib/kateconfigdialog.cpp:239
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 "यदा अभिवृत कृतं तदा ट्याब्स् गोपिताः भविष्यन्ति यदि केवलम् एकः दस्तावेजः उद्घाटितः अस्ति ।."
 
-#: lib/kateconfigdialog.cpp:242
+#: lib/kateconfigdialog.cpp:243
 #, kde-format
 msgid "&Show close button"
 msgstr "&पिधायस्य गण्डं दर्शयतु"
 
-#: lib/kateconfigdialog.cpp:244
+#: lib/kateconfigdialog.cpp:245
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "यदा अभिवृत क्रियते तदा प्रत्येकं ट्याब् एकं पिधाय गण्डं प्रदर्शयिष्यति ।."
 
-#: lib/kateconfigdialog.cpp:248
+#: lib/kateconfigdialog.cpp:249
 #, kde-format
 msgid "&Expand tabs"
 msgstr "&ट्याब्स् विस्तारयन्तु"
 
-#: lib/kateconfigdialog.cpp:250
+#: lib/kateconfigdialog.cpp:251
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "यदा अभिवृत कृतानि ट्याब्स् यथासम्भवं आकारं गृह्णन्ति ।."
 
-#: lib/kateconfigdialog.cpp:254
+#: lib/kateconfigdialog.cpp:255
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&द्विवारं नोदनम् कृत्वा नूतनं दस्तावेजं उद्घाट्यते"
 
-#: lib/kateconfigdialog.cpp:256
+#: lib/kateconfigdialog.cpp:257
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "यदा अभिवृत भवति तदा डबल क्लिक् कृत्वा नूतनं दस्तावेजं उद्घाट्यते ।."
 
-#: lib/kateconfigdialog.cpp:260
+#: lib/kateconfigdialog.cpp:261
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "&मध्य नोदनम् कृत्वा दस्तावेजं बन्दं भवति"
 
-#: lib/kateconfigdialog.cpp:262
+#: lib/kateconfigdialog.cpp:263
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "यदा अभिवृत भवति तदा मध्यक्लिक् कृत्वा दस्तावेजं बन्दं करोति ।."
 
-#: lib/kateconfigdialog.cpp:266
+#: lib/kateconfigdialog.cpp:267
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "ट्याब् स्क्रॉलिंग् इत्यस्य अनुमतिं ददातु"
 
-#: lib/kateconfigdialog.cpp:268
+#: lib/kateconfigdialog.cpp:269
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -1124,105 +1125,105 @@ msgstr ""
 "यदा अभिवृत भवति तदा एतत् ट्याब्-पट्टिकायां स्क्रॉलं कर्तुं शक्नोति यदा ट्याब्-सङ्ख्या अधिका "
 "भवति ।."
 
-#: lib/kateconfigdialog.cpp:272
+#: lib/kateconfigdialog.cpp:273
 #, kde-format
 msgid "Elide tab text"
 msgstr "ट्याब् पाठ्यः लुम्पते"
 
-#: lib/kateconfigdialog.cpp:274
+#: lib/kateconfigdialog.cpp:275
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr "यदा अभिवृत ट्याब् पाठ्य लुप्त भवेत् यदि तस्य अतिदीर्घः ।."
 
-#: lib/kateconfigdialog.cpp:278
+#: lib/kateconfigdialog.cpp:279
 #, fuzzy, kde-format
 #| msgid "Open new tab to the right of current tab."
 msgid "Open new tabs to the right of the current tab"
 msgstr "वर्तमान ट्याब् इत्यस्य दक्षिणभागे नूतनं ट्याब् उद्घाटयन्तु ।."
 
-#: lib/kateconfigdialog.cpp:280
+#: lib/kateconfigdialog.cpp:281
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr "यदि अप्रतिहत कृतः तर्हि नूतनं ट्याब् अन्ते उद्घाट्यते ।."
 
-#: lib/kateconfigdialog.cpp:286
+#: lib/kateconfigdialog.cpp:287
 #, kde-format
 msgid "&Mouse"
 msgstr "&मूषकः"
 
-#: lib/kateconfigdialog.cpp:291
+#: lib/kateconfigdialog.cpp:292
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "&पश्चात्तापं गण्डं दबाधितम् :"
 
-#: lib/kateconfigdialog.cpp:296
+#: lib/kateconfigdialog.cpp:297
 #, kde-format
 msgid "Previous tab"
 msgstr "पूर्वः ट्याब्"
 
-#: lib/kateconfigdialog.cpp:296
+#: lib/kateconfigdialog.cpp:297
 #, kde-format
 msgid "History back"
 msgstr "इतिहासः पृष्ठतः"
 
-#: lib/kateconfigdialog.cpp:302
+#: lib/kateconfigdialog.cpp:303
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "&अग्रे इति गण्ड दबाधितम् :"
 
-#: lib/kateconfigdialog.cpp:307
+#: lib/kateconfigdialog.cpp:308
 #, kde-format
 msgid "Next tab"
 msgstr "अग्रिमः ट्याब्"
 
-#: lib/kateconfigdialog.cpp:307
+#: lib/kateconfigdialog.cpp:308
 #, kde-format
 msgid "History forward"
 msgstr "इतिहास अग्रे"
 
-#: lib/kateconfigdialog.cpp:324
+#: lib/kateconfigdialog.cpp:325
 #, kde-format
 msgid "Diff Style:"
 msgstr "भिन्नः शैली :"
 
-#: lib/kateconfigdialog.cpp:329
+#: lib/kateconfigdialog.cpp:332
 #, kde-format
 msgid "Navigation Bar"
 msgstr "नेविगेशन बार"
 
-#: lib/kateconfigdialog.cpp:334
+#: lib/kateconfigdialog.cpp:337
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "नेविगेशन-पट्टिकायां वर्तमान-चिह्नं दर्शयतु"
 
-#: lib/kateconfigdialog.cpp:344
+#: lib/kateconfigdialog.cpp:347
 #, fuzzy, kde-format
 #| msgid "Diagnostics View"
 msgid "Diagnostics limit:"
 msgstr "निदानं दृश्यम्"
 
-#: lib/kateconfigdialog.cpp:349
+#: lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:364
+#: lib/kateconfigdialog.cpp:367
 #, kde-format
 msgid "Session"
 msgstr "सत्र"
 
-#: lib/kateconfigdialog.cpp:366
+#: lib/kateconfigdialog.cpp:369
 #, kde-format
 msgid "Session Management"
 msgstr "सत्र प्रबन्धन"
 
-#: lib/kateconfigdialog.cpp:377
+#: lib/kateconfigdialog.cpp:380
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(कदापि न)"
 
-#: lib/kateconfigdialog.cpp:378
+#: lib/kateconfigdialog.cpp:381
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1230,7 +1231,7 @@ msgid_plural " days"
 msgstr[0] " दिनं"
 msgstr[1] " दिनानि"
 
-#: lib/kateconfigdialog.cpp:411
+#: lib/kateconfigdialog.cpp:414
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1239,22 +1240,22 @@ msgstr ""
 "यदा कश्चन गवाक्ष पिहितः भवति तदा केवलम् अस्मिन् गवाक्ष मध्ये उद्घाटिताः दस्तावेजाः अपि "
 "पिहिताः भवन्ति ।."
 
-#: lib/kateconfigdialog.cpp:446
+#: lib/kateconfigdialog.cpp:449
 #, kde-format
 msgid "Plugins"
 msgstr "प्लगिन्स्"
 
-#: lib/kateconfigdialog.cpp:448
+#: lib/kateconfigdialog.cpp:451
 #, kde-format
 msgid "Plugin Manager"
 msgstr "प्लगिन् प्रबन्धक"
 
-#: lib/kateconfigdialog.cpp:466 lib/kateconfigdialog.cpp:468
+#: lib/kateconfigdialog.cpp:469 lib/kateconfigdialog.cpp:471
 #, kde-format
 msgid "User Feedback"
 msgstr "उपयोक्तृप्रतिक्रिया"
 
-#: lib/kateconfigdialog.cpp:702
+#: lib/kateconfigdialog.cpp:705
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

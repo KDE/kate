@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-01 00:40+0000\n"
-"PO-Revision-Date: 2024-04-21 09:15+0300\n"
+"PO-Revision-Date: 2024-05-01 13:14+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -1055,10 +1055,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "Показувати текст для кнопок на лівій і правій бічних панелях"
 
 #: lib/kateconfigdialog.cpp:198
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "Розмір піктограми для кнопок на лівій і правій бічних панелях"
+msgstr "Розмір піктограми для кнопок на лівій і правій бічних панелях:"
 
 #: lib/kateconfigdialog.cpp:218
 #, kde-format

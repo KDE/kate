@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-01 00:40+0000\n"
-"PO-Revision-Date: 2024-04-21 17:34+0200\n"
+"PO-Revision-Date: 2024-05-01 10:58+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -1068,10 +1068,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "Tekst tonen bij knoppen in linker en rechter zijbalk"
 
 #: lib/kateconfigdialog.cpp:198
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "Grootte van pictogrammen voor knoppen in linker en rechter zijbalk"
+msgstr "Grootte van pictogrammen voor knoppen in linker en rechter zijbalk:"
 
 #: lib/kateconfigdialog.cpp:218
 #, kde-format

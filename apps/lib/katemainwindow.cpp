@@ -1070,12 +1070,6 @@ void KateMainWindow::editKeys()
     const QList<KXMLGUIClient *> clients = guiFactory()->clients();
 
     for (KXMLGUIClient *client : clients) {
-        // FIXME there appear to be invalid clients after session switching
-        //     qCDebug(LOG_KATE)<<"adding client to shortcut editor";
-        //     qCDebug(LOG_KATE)<<client;
-        //     qCDebug(LOG_KATE)<<client->actionCollection();
-        //     qCDebug(LOG_KATE)<<client->componentData().aboutData();
-        //     qCDebug(LOG_KATE)<<client->componentData().aboutData()->programName();
         dlg.addCollection(client->actionCollection(), client->componentName());
     }
     dlg.configure();
@@ -1107,19 +1101,16 @@ bool KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterfa
     }
     delete dlg;
 
-    m_viewManager->replugActiveView(); // gui (toolbars...) needs to be updated, because
+    // gui (toolbars...) needs to be updated, because
     // of possible changes that the configure dialog
     // could have done on it, specially for plugins.
-
+    m_viewManager->replugActiveView();
     return true;
 }
 
 QUrl KateMainWindow::activeDocumentUrl()
 {
-    // anders: i make this one safe, as it may be called during
-    // startup (by the file selector)
-    KTextEditor::View *v = m_viewManager->activeView();
-    if (v) {
+    if (auto v = m_viewManager->activeView()) {
         return v->document()->url();
     }
     return QUrl();
@@ -1127,32 +1118,16 @@ QUrl KateMainWindow::activeDocumentUrl()
 
 void KateMainWindow::mSlotFixOpenWithMenu()
 {
-    KTextEditor::View *activeView = m_viewManager->activeView();
-    if (!activeView) {
-        return;
+    if (auto v = m_viewManager->activeView(); v && v->document()) {
+        KateFileActions::prepareOpenWithMenu(v->document()->url(), documentOpenWith->menu());
     }
-
-    KTextEditor::Document *doc = activeView->document();
-    if (!doc) {
-        return;
-    }
-
-    KateFileActions::prepareOpenWithMenu(doc->url(), documentOpenWith->menu());
 }
 
 void KateMainWindow::slotOpenWithMenuAction(QAction *a)
 {
-    auto activeView = m_viewManager->activeView();
-    if (!activeView) {
-        return;
+    if (auto v = m_viewManager->activeView(); v && v->document()) {
+        KateFileActions::showOpenWithMenu(this, v->document()->url(), a);
     }
-
-    auto doc = activeView->document();
-    if (!doc) {
-        return;
-    }
-
-    KateFileActions::showOpenWithMenu(this, doc->url(), a);
 }
 
 void KateMainWindow::pluginHelp()

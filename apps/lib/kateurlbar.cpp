@@ -415,11 +415,14 @@ public:
         m_activeView = v;
         m_tree.setModel(model);
         m_tree.view()->expandAll();
-        const auto idxToSelect = model->match(model->index(0, 0), 0, text, 1, Qt::MatchExactly);
-        if (!idxToSelect.isEmpty()) {
-            m_tree.setCurrentIndex(idxToSelect.constFirst());
-        }
+        const auto idxToSelect = m_tree.model()->match(model->index(0, 0), 0, text, 1, Qt::MatchExactly | Qt::MatchRecursive);
+
         updateGeometry();
+
+        if (!idxToSelect.isEmpty()) {
+            m_tree.view()->selectionModel()->setCurrentIndex(idxToSelect.constFirst(), QItemSelectionModel::ClearAndSelect);
+            m_tree.view()->scrollTo(idxToSelect.constFirst());
+        }
     }
 
     bool eventFilter(QObject *o, QEvent *e) override
@@ -473,13 +476,14 @@ public:
         const int rowCount = model->rowCount(index);
         for (int i = 0; i < rowCount; ++i) {
             const auto idx = model->index(i, 0, index);
-            if (idx.data(SymbolRange).value<KTextEditor::Range>().overlapsLine(line)) {
-                return idx;
-            } else if (model->hasChildren(idx)) {
+            if (model->hasChildren(idx)) {
                 const auto childIdx = symbolForCurrentLine(model, idx, line);
                 if (childIdx.isValid()) {
                     return childIdx;
                 }
+            }
+            if (idx.data(SymbolRange).value<KTextEditor::Range>().overlapsLine(line)) {
+                return idx;
             }
         }
         return {};
@@ -600,6 +604,10 @@ public:
         onConfigChanged();
 
         connect(this, &QListView::clicked, this, &BreadCrumbView::onClicked);
+
+        m_cursorChangedTimer.setSingleShot(true);
+        m_cursorChangedTimer.setInterval(500ms);
+        m_cursorChangedTimer.callOnTimeout(this, &BreadCrumbView::updateSymbolsCrumb);
     }
 
     void updatePalette()
@@ -623,6 +631,9 @@ public:
         const auto &dirs = splittedUrl(baseDir, s);
 
         m_model.clear();
+        if (m_symbolsModel) {
+            m_symbolsModel->disconnect(this);
+        }
         m_symbolsModel = nullptr;
 
         size_t i = 0;
@@ -693,6 +704,7 @@ public:
 
     void addSymbolCrumb(QObject *lsp)
     {
+        m_lastCursorLine = -1;
         QAbstractItemModel *model = nullptr;
         QMetaObject::invokeMethod(lsp, "documentSymbolsModel", Q_RETURN_ARG(QAbstractItemModel *, model));
         m_symbolsModel = model;
@@ -702,14 +714,21 @@ public:
 
         connect(m_symbolsModel, &QAbstractItemModel::modelReset, this, &BreadCrumbView::updateSymbolsCrumb);
 
-        if (model->rowCount({}) == 0) {
-            return;
-        }
-
         const auto view = m_urlBar->viewManager()->activeView();
         disconnect(m_connToView);
         if (view) {
-            m_connToView = connect(view, &KTextEditor::View::cursorPositionChanged, this, &BreadCrumbView::updateSymbolsCrumb);
+            m_connToView = connect(view, &KTextEditor::View::cursorPositionChanged, this, [this](KTextEditor::View *, KTextEditor::Cursor pos) {
+                if (pos.line() != m_lastCursorLine) {
+                    // start if the line changed
+                    m_lastCursorLine = pos.line();
+                    m_cursorChangedTimer.start();
+                }
+            });
+        }
+
+        if (model->rowCount({}) == 0) {
+            // the symbols are not ready
+            return;
         }
 
         const auto idx = getSymbolCrumbText();
@@ -995,6 +1014,8 @@ private:
     QMetaObject::Connection m_connToView; // Only one conn at a time
     bool m_isNavigating = false;
     bool m_showSymbolCrumb = true;
+    int m_lastCursorLine = -1;
+    QTimer m_cursorChangedTimer;
 
 Q_SIGNALS:
     void unsetFocus();

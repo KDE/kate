@@ -231,10 +231,13 @@ public:
         if (role == Qt::DisplayRole) {
             return fi.fileName();
         } else if (role == Qt::DecorationRole) {
+            if (!m_decorationsEnabled) {
+                return {};
+            }
             if (fi.isDir()) {
                 return QIcon(QIcon::fromTheme(QStringLiteral("folder")));
             } else if (fi.isFile()) {
-                return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(fi).iconName());
+                return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(fi, QMimeDatabase::MatchExtension).iconName());
             }
         } else if (role == FileInfo) {
             return QVariant::fromValue(fi);
@@ -254,14 +257,7 @@ public:
         m_currentDir = dir;
 
         beginResetModel();
-        const auto fileInfos = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs | QDir::Hidden);
-        for (const auto &fi : fileInfos) {
-            if (fi.isDir()) {
-                m_fileInfos.push_back(fi);
-            } else if (QMimeDatabase().mimeTypeForFile(fi).inherits(QStringLiteral("text/plain"))) {
-                m_fileInfos.push_back(fi);
-            }
-        }
+        m_fileInfos = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs | QDir::Hidden);
         endResetModel();
     }
 
@@ -270,8 +266,14 @@ public:
         return m_currentDir;
     }
 
+    void enableDecorationRole()
+    {
+        m_decorationsEnabled = true;
+    }
+
 private:
-    std::vector<QFileInfo> m_fileInfos;
+    bool m_decorationsEnabled = false;
+    QList<QFileInfo> m_fileInfos;
     QDir m_currentDir;
 };
 
@@ -331,6 +333,9 @@ public:
         int w = m_list.view()->sizeHintForColumn(0) + (vScroll ? vScroll->height() / 2 : 0);
 
         setFixedSize(qMin(w, 500), qMin(h, 600));
+
+        // enable decorations after resizing is finished
+        m_model.enableDecorationRole();
     }
 
     void onClicked(const QModelIndex &idx, Qt::KeyboardModifiers mod)

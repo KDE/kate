@@ -476,13 +476,13 @@ public:
         const int rowCount = model->rowCount(index);
         for (int i = 0; i < rowCount; ++i) {
             const auto idx = model->index(i, 0, index);
-            if (model->hasChildren(idx)) {
-                const auto childIdx = symbolForCurrentLine(model, idx, line);
-                if (childIdx.isValid()) {
-                    return childIdx;
-                }
-            }
             if (idx.data(SymbolRange).value<KTextEditor::Range>().overlapsLine(line)) {
+                if (model->hasChildren(idx)) {
+                    const auto childIdx = symbolForCurrentLine(model, idx, line);
+                    if (childIdx.isValid()) {
+                        return childIdx;
+                    }
+                }
                 return idx;
             }
         }

@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:40+0000\n"
+"POT-Creation-Date: 2024-05-03 00:40+0000\n"
 "PO-Revision-Date: 2024-04-08 19:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -1758,7 +1758,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "פתיחת כל הקבצים"
 
-#: lib/katemainwindow.cpp:1254
+#: lib/katemainwindow.cpp:1229
 #, kde-format
 msgid " [read only]"
 msgstr " [קריאה בלבד]"
@@ -2083,13 +2083,13 @@ msgid ""
 "want to proceed."
 msgstr "לא ניתן לכתוב את המידע שבחרת לשמור. נא לבחור איך להמשיך."
 
-#: lib/kateurlbar.cpp:881
+#: lib/kateurlbar.cpp:900
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "העתקת מקום"
 
-#: lib/kateurlbar.cpp:886
+#: lib/kateurlbar.cpp:905
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

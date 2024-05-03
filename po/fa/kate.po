@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:40+0000\n"
+"POT-Creation-Date: 2024-05-03 00:40+0000\n"
 "PO-Revision-Date: 2011-09-27 16:16+0330\n"
 "Last-Translator: Mohamad Reza Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <>\n"
@@ -1781,7 +1781,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "باز کردن پرونده"
 
-#: lib/katemainwindow.cpp:1254
+#: lib/katemainwindow.cpp:1229
 #, kde-format
 msgid " [read only]"
 msgstr ""
@@ -2136,14 +2136,14 @@ msgstr ""
 "داده‌ای را که می‌خواهید ذخیره شود را نمی‌توان نوشت. لطفاً، انتخاب کنید که "
 "می‌خواهید چگونه پیش بروید."
 
-#: lib/kateurlbar.cpp:881
+#: lib/kateurlbar.cpp:900
 #, fuzzy, kde-format
 #| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "محل"
 
-#: lib/kateurlbar.cpp:886
+#: lib/kateurlbar.cpp:905
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

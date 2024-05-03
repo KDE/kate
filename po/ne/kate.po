@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:40+0000\n"
+"POT-Creation-Date: 2024-05-03 00:40+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -1798,7 +1798,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "फाइल खोल्नुहोस्"
 
-#: lib/katemainwindow.cpp:1254
+#: lib/katemainwindow.cpp:1229
 #, kde-format
 msgid " [read only]"
 msgstr ""
@@ -2156,14 +2156,14 @@ msgstr ""
 "तपाईँले बचत गर्न अनुरोध गरेको डेटा लेख्न सकेन । तपाईँ कसरी अगाडि बढ्न चाहनुहुन्छ कृपया छनोट "
 "गर्नुहोस् ।"
 
-#: lib/kateurlbar.cpp:881
+#: lib/kateurlbar.cpp:900
 #, fuzzy, kde-format
 #| msgid "Choose Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "स्थान रोज्नुहोस्"
 
-#: lib/kateurlbar.cpp:886
+#: lib/kateurlbar.cpp:905
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

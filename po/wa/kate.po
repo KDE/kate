@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:40+0000\n"
+"POT-Creation-Date: 2024-05-03 00:40+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -1770,7 +1770,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Drovi fitchî"
 
-#: lib/katemainwindow.cpp:1254
+#: lib/katemainwindow.cpp:1229
 #, kde-format
 msgid " [read only]"
 msgstr ""
@@ -2120,14 +2120,14 @@ msgstr ""
 "Les dnêyes ki vs avoz dmandé d' schaper n' polèt nén esse sicrîtes. "
 "Tchoezixhoz, s' i vs plait, comint vs voloz fé."
 
-#: lib/kateurlbar.cpp:881
+#: lib/kateurlbar.cpp:900
 #, fuzzy, kde-format
 #| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Eplaeçmint"
 
-#: lib/kateurlbar.cpp:886
+#: lib/kateurlbar.cpp:905
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

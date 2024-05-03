@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:40+0000\n"
+"POT-Creation-Date: 2024-05-03 00:40+0000\n"
 "PO-Revision-Date: 2002-11-15 12:44+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -1718,7 +1718,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Vula Ifayile"
 
-#: lib/katemainwindow.cpp:1254
+#: lib/katemainwindow.cpp:1229
 #, kde-format
 msgid " [read only]"
 msgstr ""
@@ -2028,13 +2028,13 @@ msgid ""
 "want to proceed."
 msgstr ""
 
-#: lib/kateurlbar.cpp:881
+#: lib/kateurlbar.cpp:900
 #, fuzzy, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Isicelo"
 
-#: lib/kateurlbar.cpp:886
+#: lib/kateurlbar.cpp:905
 #, fuzzy, kde-format
 #| msgid "Sho&w Path"
 msgctxt "@menu:action"

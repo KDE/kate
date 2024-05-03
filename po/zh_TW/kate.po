@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:40+0000\n"
-"PO-Revision-Date: 2024-04-29 18:51+0900\n"
+"POT-Creation-Date: 2024-05-03 00:40+0000\n"
+"PO-Revision-Date: 2024-05-03 03:14+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -1035,10 +1035,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "為左右邊列按鈕顯示文字"
 
 #: lib/kateconfigdialog.cpp:198
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "左右邊列按鈕的圖示大小"
+msgstr "左右邊列按鈕的圖示大小："
 
 #: lib/kateconfigdialog.cpp:218
 #, kde-format
@@ -1706,7 +1705,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "開啟所有檔案"
 
-#: lib/katemainwindow.cpp:1254
+#: lib/katemainwindow.cpp:1229
 #, kde-format
 msgid " [read only]"
 msgstr " [唯讀]"
@@ -2021,13 +2020,13 @@ msgid ""
 "want to proceed."
 msgstr "無法寫入要求儲存的資料。請選擇您要如何繼續。"
 
-#: lib/kateurlbar.cpp:881
+#: lib/kateurlbar.cpp:900
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "複製位置"
 
-#: lib/kateurlbar.cpp:886
+#: lib/kateurlbar.cpp:905
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

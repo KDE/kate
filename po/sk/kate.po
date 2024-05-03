@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:40+0000\n"
+"POT-Creation-Date: 2024-05-03 00:40+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -1760,7 +1760,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otvoriť súbor"
 
-#: lib/katemainwindow.cpp:1254
+#: lib/katemainwindow.cpp:1229
 #, kde-format
 msgid " [read only]"
 msgstr " [iba na čítanie]"
@@ -2092,14 +2092,14 @@ msgstr ""
 "Dáta, ktoré ste žiadali uložiť nemôžu byť zapísané. Prosím zvoľte ako ďalej "
 "postupovať."
 
-#: lib/kateurlbar.cpp:881
+#: lib/kateurlbar.cpp:900
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Kopírovať umiestnenie"
 
-#: lib/kateurlbar.cpp:886
+#: lib/kateurlbar.cpp:905
 #, fuzzy, kde-format
 #| msgid "Copy Filename"
 msgctxt "@menu:action"

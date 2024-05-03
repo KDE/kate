@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:40+0000\n"
-"PO-Revision-Date: 2024-04-29 09:30+0200\n"
+"POT-Creation-Date: 2024-05-03 00:40+0000\n"
+"PO-Revision-Date: 2024-05-02 08:11+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -1050,10 +1050,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "Показване на текст за бутоните на лявата и дясната странична лента"
 
 #: lib/kateconfigdialog.cpp:198
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "Размер на иконите за бутоните на лявата и дясната странична лента"
+msgstr "Размер на иконите за бутоните на лявата и дясната странична лента:"
 
 #: lib/kateconfigdialog.cpp:218
 #, kde-format
@@ -1752,7 +1751,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Отваряне на всички файлове"
 
-#: lib/katemainwindow.cpp:1254
+#: lib/katemainwindow.cpp:1229
 #, kde-format
 msgid " [read only]"
 msgstr " [само за четене]"
@@ -2078,13 +2077,13 @@ msgid ""
 "want to proceed."
 msgstr "Данните, не могат да бъдат записани. Моля, изберете как да продължите."
 
-#: lib/kateurlbar.cpp:881
+#: lib/kateurlbar.cpp:900
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Копиране на местоположението"
 
-#: lib/kateurlbar.cpp:886
+#: lib/kateurlbar.cpp:905
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

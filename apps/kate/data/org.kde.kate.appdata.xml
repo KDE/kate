@@ -371,7 +371,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="et">Kodeeringute toetus (utf-8, utf-16, ascii jne.)</li>
       <li xml:lang="eu">Kodeketa euskarria (utf-8, utf-16, ascii etab.)</li>
       <li xml:lang="fi">Merkistökoodaustuki (UTF-8, UTF-16, ASCII jne.)</li>
-      <li xml:lang="fr">Prise en charge de l'encodage (utf-8, utf-16, ascii etc.)</li>
+      <li xml:lang="fr">Prise en charge de l'encodage (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="gl">Compatíbel con varios sistemas de codificación de texto (UTF-8, UTF-16, ASCII, etc.).</li>
       <li xml:lang="hu">Különböző kódolások támogatása (UTF-8, UTF-16, ASCII, stb)</li>
       <li xml:lang="ia">Supporto de codifica (utf-8, utf-16, ascii etc.)</li>
@@ -859,7 +859,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="es">Admite numerosos protocolos (http, ftp, ssh, webdav, etc.) </li>
       <li xml:lang="eu">Protokolo-euskarri zabala (http, ftp, ssh, webdav etab.)</li>
       <li xml:lang="fi">Laaja yhteyskäytäntötuki (HTTP, FTP, SSH, WebDAV jne.)</li>
-      <li xml:lang="fr">Prise en charge de protocoles variés (http, ftp, ssh, webdav, etc.)</li>
+      <li xml:lang="fr">Prise en charge de protocoles variés (http, ftp, ssh, WebDAV, etc.)</li>
       <li xml:lang="gl">Compatibilidade con numerosos protocolos (HTTP, FTP, SSH, WebDAV, etc.)</li>
       <li xml:lang="hu">Protokollok (HTTP, FTP, SSH, Webdav, stb) széleskörű támogatása</li>
       <li xml:lang="ia">Supporto de protocollo large (http, ftp, ssh, webdav etc.)</li>

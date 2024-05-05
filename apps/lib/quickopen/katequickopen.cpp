@@ -278,7 +278,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     QGraphicsDropShadowEffect *e = new QGraphicsDropShadowEffect(this);
     e->setColor(palette().color(QPalette::Dark));
     e->setOffset(0, 4);
-    e->setBlurRadius(48);
+    e->setBlurRadius(8);
     setGraphicsEffect(e);
 
     // handle resizing

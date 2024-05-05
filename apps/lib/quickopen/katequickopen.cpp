@@ -272,15 +272,14 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     : QFrame(mainWindow)
     , m_mainWindow(mainWindow)
 {
-    QGraphicsDropShadowEffect *e = new QGraphicsDropShadowEffect(this);
-    e->setColor(palette().color(QPalette::Shadow));
-    e->setOffset(2.);
-    e->setBlurRadius(8.);
-    setGraphicsEffect(e);
+    setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    setProperty("_breeze_force_frame", true);
 
-    setAutoFillBackground(true);
-    setFrameShadow(QFrame::Raised);
-    setFrameShape(QFrame::Box);
+    QGraphicsDropShadowEffect *e = new QGraphicsDropShadowEffect(this);
+    e->setColor(palette().color(QPalette::Dark));
+    e->setOffset(0, 4);
+    e->setBlurRadius(48);
+    setGraphicsEffect(e);
 
     // handle resizing
     mainWindow->installEventFilter(this);
@@ -288,16 +287,21 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     // ensure the components have some proper frame
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(0);
-    layout->setContentsMargins(2, 2, 2, 2);
+    layout->setContentsMargins(QMargins());
     setLayout(layout);
 
     m_inputLine = new QuickOpenLineEdit(this);
+    m_inputLine->setClearButtonEnabled(true);
+    m_inputLine->addAction(QIcon::fromTheme(QStringLiteral("search")), QLineEdit::LeadingPosition);
+    m_inputLine->setFrame(false);
+    m_inputLine->setTextMargins(QMargins() + style()->pixelMetric(QStyle::PM_ButtonMargin));
     setFocusProxy(m_inputLine);
 
     layout->addWidget(m_inputLine);
 
     m_listView = new QTreeView(this);
     layout->addWidget(m_listView, 1);
+    m_listView->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags(Qt::TopEdge)));
     m_listView->setTextElideMode(Qt::ElideLeft);
     m_listView->setUniformRowHeights(true);
 
@@ -530,8 +534,7 @@ void KateQuickOpen::updateViewGeometry()
 
     // set the position to the top-center of the parent
     // just below the menubar/toolbar (if any)
-    const QPoint position{boundingRect.center().x() - size.width() / 2, boundingRect.y()};
-
+    const QPoint position{boundingRect.center().x() - size.width() / 2, boundingRect.y() + 6};
     move(position);
 }
 

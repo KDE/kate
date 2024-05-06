@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-30 02:27+0000\n"
-"PO-Revision-Date: 2024-04-21 21:41+0530\n"
+"PO-Revision-Date: 2024-05-05 14:06+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -893,7 +893,7 @@ msgstr "ரோலன்டு பேபல்"
 #: lib/kateapp.cpp:325
 #, kde-format
 msgid "Highlighting for Scheme"
-msgstr ""
+msgstr "Scheme-க்கான முன்னிலைப்படுத்தல்"
 
 #: lib/kateapp.cpp:326
 #, kde-format
@@ -903,7 +903,7 @@ msgstr "கிரிஸ்டி டுமிட்ரெட்ஸு"
 #: lib/kateapp.cpp:326
 #, kde-format
 msgid "PHP Keyword/Datatype list"
-msgstr "PHP Keyword/Datatype list"
+msgstr "PHP முதன்மைச்சொல்/தரவுவகை பட்டியல்"
 
 #: lib/kateapp.cpp:327
 #, kde-format

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-03 00:40+0000\n"
-"PO-Revision-Date: 2024-04-21 21:41+0530\n"
+"PO-Revision-Date: 2024-05-05 14:06+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -893,7 +893,7 @@ msgstr "ரோலன்டு பேபல்"
 #: lib/kateapp.cpp:325
 #, kde-format
 msgid "Highlighting for Scheme"
-msgstr ""
+msgstr "Scheme-க்கான முன்னிலைப்படுத்தல்"
 
 #: lib/kateapp.cpp:326
 #, kde-format
@@ -903,7 +903,7 @@ msgstr "கிரிஸ்டி டுமிட்ரெட்ஸு"
 #: lib/kateapp.cpp:326
 #, kde-format
 msgid "PHP Keyword/Datatype list"
-msgstr "PHP Keyword/Datatype list"
+msgstr "PHP முதன்மைச்சொல்/தரவுவகை பட்டியல்"
 
 #: lib/kateapp.cpp:327
 #, kde-format
@@ -1040,10 +1040,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "வலது மற்றும் இடது ஓரப்பட்டைகளிலுள்ள பட்டன்களுக்கான உரையை காட்டு"
 
 #: lib/kateconfigdialog.cpp:198
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "வலது மற்றும் இடது ஓரப்பட்டைகளிலுள்ள சின்னங்களின் அளவு"
+msgstr "வலது மற்றும் இடது ஓரப்பட்டைகளிலுள்ள சின்னங்களின் அளவு:"
 
 #: lib/kateconfigdialog.cpp:218
 #, kde-format

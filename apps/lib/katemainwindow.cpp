@@ -770,16 +770,6 @@ void KateMainWindow::slotFileQuit()
     KateApp::self()->shutdownKate(this);
 }
 
-void KateMainWindow::slotFileClose()
-{
-    m_viewManager->slotDocumentClose();
-}
-
-void KateMainWindow::slotOpenDocument(const QUrl &url)
-{
-    m_viewManager->openUrl(url, QString(), true);
-}
-
 void KateMainWindow::readOptions()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();

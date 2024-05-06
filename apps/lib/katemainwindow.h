@@ -175,7 +175,6 @@ private:
     void dropEvent(QDropEvent *) override;
 
 public:
-    void slotFileClose();
     void slotFileQuit();
     void queueModifiedOnDisc(KTextEditor::Document *doc);
 
@@ -217,7 +216,6 @@ private:
     void slotEditToolbars();
     void slotNewToolbarConfig();
     void slotUpdateActionsNeedingUrl();
-    void slotOpenDocument(const QUrl &);
 
     void editKeys();
     void mSlotFixOpenWithMenu();

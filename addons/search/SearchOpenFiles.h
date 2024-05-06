@@ -25,7 +25,7 @@ public:
     bool searching() const;
     void terminateSearch();
 
-public /*Q_SLOTS*/:
+public:
     void cancelSearch();
 
     /// return 0 on success or a line number where we stopped.

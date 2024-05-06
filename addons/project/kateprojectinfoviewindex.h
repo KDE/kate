@@ -46,7 +46,7 @@ public:
         return m_project;
     }
 
-private /*Q_SLOTS*/:
+private:
     /**
      * Called if text in lineedit changes, then we need to search
      * @param text new text

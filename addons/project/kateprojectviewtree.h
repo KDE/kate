@@ -70,7 +70,7 @@ public:
      */
     void openTerminal(const QString &dirPath);
 
-private /*Q_SLOTS*/:
+private:
     /**
      * item got clicked, do stuff, like open document
      * @param index model index of clicked item

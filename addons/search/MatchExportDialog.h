@@ -18,7 +18,7 @@ public:
 
     ~MatchExportDialog() override;
 
-protected /*Q_SLOTS*/:
+protected:
     void generateMatchExport();
 
 private:

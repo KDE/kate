@@ -83,7 +83,7 @@ public:
     static void addRegexHelperActionsForReplace(QSet<QAction *> *actionList, QMenu *menu);
     static void regexHelperActOnAction(QAction *resultAction, const QSet<QAction *> &actionList, QLineEdit *lineEdit);
 
-public /*Q_SLOTS*/:
+public:
     void stopClicked();
     void startSearch();
     void setSearchString(const QString &pattern);
@@ -104,7 +104,7 @@ private:
 private Q_SLOTS:
     void slotProjectFileNameChanged();
 
-private /*Q_SLOTS*/:
+private:
     void openSearchView();
     void handleEsc(QEvent *e);
     void nextFocus(QWidget *currentWidget, bool *found, bool next);

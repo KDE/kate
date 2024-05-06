@@ -56,7 +56,7 @@ public:
         return m_project;
     }
 
-private /*Q_SLOTS*/:
+private:
     /**
      * Called if the tool is changed (currently via Combobox)
      */

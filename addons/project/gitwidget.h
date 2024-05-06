@@ -145,7 +145,7 @@ private:
     void enableCancel(QProcess *git);
     void hideCancel();
 
-private /*Q_SLOTS*/:
+private:
     /**
      * Does the real update
      */

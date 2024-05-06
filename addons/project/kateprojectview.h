@@ -58,7 +58,7 @@ public:
      */
     void openSelectedDocument();
 
-private /*Q_SLOTS*/:
+private:
     /**
      * React on filter change
      * @param filterText new filter text

@@ -50,7 +50,6 @@ class KateMwModOnHdDialog;
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
 {
-    Q_OBJECT
 public:
     explicit KateContainerStackedLayout(QWidget *parent);
     QSize sizeHint() const override;
@@ -175,7 +174,7 @@ private:
     void dragEnterEvent(QDragEnterEvent *) override;
     void dropEvent(QDropEvent *) override;
 
-public Q_SLOTS:
+public:
     void slotFileClose();
     void slotFileQuit();
     void queueModifiedOnDisc(KTextEditor::Document *doc);
@@ -206,6 +205,11 @@ public Q_SLOTS:
      * or internal signal connections
      */
 private Q_SLOTS:
+    // Connected to KTextEditor::View dropEventPass private signal so marked as Q_SLOT.
+    // TODO make the api public as it is apparently needed
+    void slotDropEvent(QDropEvent *);
+
+private:
     void slotConfigure();
 
     void slotOpenWithMenuAction(QAction *a);
@@ -215,7 +219,6 @@ private Q_SLOTS:
     void slotUpdateActionsNeedingUrl();
     void slotOpenDocument(const QUrl &);
 
-    void slotDropEvent(QDropEvent *);
     void editKeys();
     void mSlotFixOpenWithMenu();
     static void reloadXmlGui();
@@ -233,7 +236,7 @@ private Q_SLOTS:
 
     void onApplicationStateChanged(Qt::ApplicationState);
 
-private Q_SLOTS:
+private:
 #if KATE_ALLOW_MENU_BAR_HIDE
     void toggleShowMenuBar(bool showMessage = true);
     void ensureHamburgerBarSize();
@@ -610,7 +613,7 @@ public Q_SLOTS:
 
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 
-private Q_SLOTS:
+private:
     void slotUpdateBottomViewBar();
     void slotDocumentCloseAll();
     void slotDocumentCloseOther();
@@ -766,11 +769,10 @@ public:
         }
     }
 
+    void slotWindowActivated();
+
 private:
     static KateMwModOnHdDialog *s_modOnHdDialog;
-
-public Q_SLOTS:
-    void slotWindowActivated();
 
 protected:
     bool event(QEvent *e) override;

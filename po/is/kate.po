@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-03 00:40+0000\n"
-"PO-Revision-Date: 2024-04-14 18:06+0000\n"
+"POT-Creation-Date: 2024-05-07 00:41+0000\n"
+"PO-Revision-Date: 2024-05-06 12:07+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
@@ -1052,10 +1052,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "Sýna texta fyrir hægri og vinstri hnappa á hliðarstiku"
 
 #: lib/kateconfigdialog.cpp:198
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "Táknastærð fyrir vinstri og hægri hnappa á hliðarstiku"
+msgstr "Táknastærð fyrir hnappa á vinstri og hægri hliðarstiku"
 
 #: lib/kateconfigdialog.cpp:218
 #, kde-format
@@ -1153,10 +1152,9 @@ msgid "When checked tab text might be elided if its too long."
 msgstr "Þegar hakað er hér getur texti á flipa rúllað ef hann er of langur"
 
 #: lib/kateconfigdialog.cpp:279
-#, fuzzy, kde-format
-#| msgid "Open new tab to the right of current tab."
+#, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr "Opna nýjan flipa hægra megin við núverandi flipa."
+msgstr "Opna nýjan flipa hægra megin við núverandi flipa"
 
 #: lib/kateconfigdialog.cpp:281
 #, kde-format
@@ -2069,13 +2067,13 @@ msgstr ""
 "Ekki tókst að skrifa gögnin sem þú baðst um að yrðu vistuð. Veldu hvað þú "
 "vilt gera."
 
-#: lib/kateurlbar.cpp:900
+#: lib/kateurlbar.cpp:909
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Afrita staðsetningu"
 
-#: lib/kateurlbar.cpp:905
+#: lib/kateurlbar.cpp:914
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

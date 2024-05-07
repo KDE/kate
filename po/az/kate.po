@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-03 00:40+0000\n"
+"POT-Creation-Date: 2024-05-07 00:41+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -2077,14 +2077,14 @@ msgstr ""
 "Saxlanılmasını tələb etdiyiniz verilənlər yazıla bilmədi. Necə davam etmək "
 "istədiyinizi seçin."
 
-#: lib/kateurlbar.cpp:900
+#: lib/kateurlbar.cpp:909
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Ünvanı kopyalayın"
 
-#: lib/kateurlbar.cpp:905
+#: lib/kateurlbar.cpp:914
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

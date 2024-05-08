@@ -11,15 +11,22 @@
 #include "kateviewmanager.h"
 
 #include <kcoreaddons_version.h>
+#include <kiconthemes_version.h>
 
 #include <KAboutData>
 #include <KConfigGui>
 #include <KCrash>
+#include <KIconTheme>
 #include <KLazyLocalizedString>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNetworkMounts>
 #include <KSharedConfig>
+
+#define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
+#if HAVE_STYLE_MANAGER
+#include <KStyleManager>
+#endif
 
 // signal handler for SIGINT & SIGTERM
 #ifdef Q_OS_UNIX
@@ -122,6 +129,14 @@ void KateApp::initPreApplicationCreation(bool detach)
 #endif
 
     /**
+     * trigger initialisation of proper icon theme
+     * see https://invent.kde.org/frameworks/kiconthemes/-/merge_requests/136
+     */
+#if KICONTHEMES_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    KIconTheme::initTheme();
+#endif
+
+    /**
      * enable dark mode for title bar on Windows
      */
 #if defined(Q_OS_WIN)
@@ -193,12 +208,20 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
     , m_sessionManager(this, sessionsDir)
     , m_lastActivationChange(QDateTime::currentMSecsSinceEpoch())
 {
+#if HAVE_STYLE_MANAGER
+    /**
+     * trigger initialisation of proper application style
+     * see https://invent.kde.org/frameworks/kconfigwidgets/-/merge_requests/239
+     */
+    KStyleManager::initStyle();
+#else
     /**
      * For Windows and macOS: use Breeze if available
      * Of all tested styles that works the best for us
      */
 #if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
     QApplication::setStyle(QStringLiteral("breeze"));
+#endif
 #endif
 
     /**

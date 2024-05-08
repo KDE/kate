@@ -146,34 +146,26 @@ msgstr "聚焦终端面板"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "终端同步模式"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "以当前文档同步终端(&Y)"
+msgstr "不要将终端标签页与当前文档同步(&D)"
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
-msgstr "可能时自动以当前文档同步终端(&A)"
+msgstr "尽可能将当前终端标签页与当前文档同步(&A)"
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "可能时自动以当前文档同步终端(&A)"
+msgstr "自动为当前文档的目录创建终端标签页并切换到它(&A)"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format
@@ -239,6 +231,3 @@ msgstr "终端设置"
 #, kde-format
 msgid "&Tools"
 msgstr "工具(&T)"
-
-#~ msgid "Sorry, cannot cd into '%1'"
-#~ msgstr "抱歉，无法进入目录“%1”"

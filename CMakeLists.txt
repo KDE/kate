@@ -11,8 +11,13 @@ project(kate VERSION ${RELEASE_SERVICE_VERSION})
 
 # KF6 only
 set(QT_MIN_VERSION "6.5.0")
-set(KF5_DEP_VERSION "5.240.0")
+set(KF5_DEP_VERSION "6.0.0")
 set(QT_MAJOR_VERSION "6")
+
+# use C++20 like KF6 itself
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 # We need some parts of the ECM CMake helpers.
 find_package(ECM ${KF5_DEP_VERSION} QUIET REQUIRED NO_MODULE)

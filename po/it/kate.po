@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:41+0000\n"
-"PO-Revision-Date: 2024-04-25 17:52+0200\n"
+"PO-Revision-Date: 2024-05-05 18:27+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -1052,11 +1052,10 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "Mostra il testo dei pulsanti delle barre laterali sinistra e destra"
 
 #: lib/kateconfigdialog.cpp:198
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
 msgstr ""
-"Dimensione dell'icona dei pulsanti delle barre laterali sinistra e destra"
+"Dimensione dell'icona dei pulsanti delle barre laterali sinistra e destra:"
 
 #: lib/kateconfigdialog.cpp:218
 #, kde-format

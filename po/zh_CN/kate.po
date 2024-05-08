@@ -1032,10 +1032,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "显示左右侧边栏按钮"
 
 #: lib/kateconfigdialog.cpp:198
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "左右侧边栏图标大小"
+msgstr ""
 
 #: lib/kateconfigdialog.cpp:218
 #, kde-format

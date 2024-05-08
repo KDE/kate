@@ -3,22 +3,22 @@
 # SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023 Vít Pelčák <vit@pelcak.org>
 # Lukáš Tinkl <ltinkl@redhat.com>, 2011.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
-# Vit Pelcak <vit@pelcak.org>, 2021, 2023.
+# SPDX-FileCopyrightText: 2021, 2023, 2024 Vit Pelcak <vit@pelcak.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:41+0000\n"
-"PO-Revision-Date: 2023-11-02 13:58+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2024-05-07 10:57+0200\n"
+"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -44,7 +44,7 @@ msgstr "Kate - rozšířený textový editor KDE"
 #: kate/main.cpp:97 kwrite/main.cpp:50
 #, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr ""
+msgstr "(c) 2000-2024 autoři Kate"
 
 #: kate/main.cpp:143
 #, kde-format
@@ -1121,7 +1121,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:279
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr ""
+msgstr "Otevřít nové karty napravo od současné"
 
 #: lib/kateconfigdialog.cpp:281
 #, kde-format
@@ -1181,12 +1181,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:347
 #, kde-format
 msgid "Diagnostics limit:"
-msgstr ""
+msgstr "Limit diagnostiky:"
 
 #: lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
-msgstr ""
+msgstr "Maximální počet povolených diagnostik v pohledu Diagnostika."
 
 #: lib/kateconfigdialog.cpp:367
 #, kde-format
@@ -1535,12 +1535,12 @@ msgstr "Zavřít všechny otevřené dokumenty."
 #: lib/katemainwindow.cpp:436
 #, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr ""
+msgstr "Znovu otevřít nedávno uzavřené dokumenty."
 
 #: lib/katemainwindow.cpp:439
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "Znovu otevřít dokument nebo dokumenty které byly nedávno zavřeny"
 
 #: lib/katemainwindow.cpp:444
 #, kde-format
@@ -2033,13 +2033,13 @@ msgstr ""
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopírovat umístění"
 
 #: lib/kateurlbar.cpp:914
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr ""
+msgstr "Zkopírovat název souboru"
 
 #: lib/kateviewmanager.cpp:130
 #, kde-format
@@ -2814,4 +2814,4 @@ msgstr "Spravovat sezení..."
 #: lib/welcomeview/welcomeview.ui:442
 #, kde-format
 msgid "Show welcome page for new window"
-msgstr ""
+msgstr "Zobrazit uvítací stránku pro nové okno"

@@ -205,7 +205,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     // e.g. from gcc: "main.cpp:14:8: error: cannot convert ‘std::string’ to ‘int’ in return"
     // e.g. from icpc: "main.cpp(14): error: no suitable conversion function from "std::string" to "int" exists"
     // e.g. from clang: ""main.cpp(14,8): fatal error: 'boost/scoped_array.hpp' file not found"
-    , m_filenameDetector(QStringLiteral("(?<filename>(?:[a-np-zA-Z]:[\\\\/])?[^\\s:(]+)[:(](?<line>\\d+)[,:]?(?<column>\\d+)?[):]* (?<message>.*)"))
+    , m_filenameDetector(QStringLiteral("(?<filename>(?:[a-np-zA-Z]:[\\\\/])?[^\\s:(]+)[:(](?<line>\\d+)[,:]?(?<column>\\d+)?[):]*\\s*(?<message>.*)"))
     , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ '(.*)'"))
     , m_diagnosticsProvider(mw, this)
 {
@@ -319,6 +319,13 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         if (!QFile::exists(filePath)) {
             filePath = caseFixed(filePath);
             if (!QFile::exists(filePath)) {
+                QString paths = m_searchPaths.join(QStringLiteral("<br>"));
+                displayMessage(i18n("<b>File not found:</b> %1<br>"
+                                    "<b>Search paths:</b><br>%2<br>"
+                                    "Try adding a search path to the \"Working Directory\"",
+                                    match.captured(1),
+                                    paths),
+                               KTextEditor::Message::Warning);
                 return;
             }
         }
@@ -879,7 +886,7 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
 
     delete m_infoMessage;
     m_infoMessage = new KTextEditor::Message(xi18nc("@info", "<title>Make Results:</title><nl/>%1", msg), level);
-    m_infoMessage->setWordWrap(true);
+    m_infoMessage->setWordWrap(false);
     m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
     m_infoMessage->setAutoHide(5000);
     m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
@@ -897,7 +904,7 @@ void KateBuildView::displayMessage(const QString &msg, KTextEditor::Message::Mes
 
     delete m_infoMessage;
     m_infoMessage = new KTextEditor::Message(msg, level);
-    m_infoMessage->setWordWrap(true);
+    m_infoMessage->setWordWrap(false);
     m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
     m_infoMessage->setAutoHide(8000);
     m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);

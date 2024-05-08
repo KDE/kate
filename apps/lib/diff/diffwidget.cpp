@@ -428,7 +428,7 @@ void DiffWidget::applyDiff(const QString &diff, ApplyFlags flags)
     }
     setupGitProcess(*git, m_params.workingDir, args);
 
-    connect(git, &QProcess::finished, this, [=](int exitCode, QProcess::ExitStatus es) {
+    connect(git, &QProcess::finished, this, [this, git, file](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             onError(git->readAllStandardError(), git->exitCode());
         } else {
@@ -457,7 +457,7 @@ void DiffWidget::runGitDiff()
 
     QProcess *git = new QProcess(this);
     setupGitProcess(*git, workingDir, arguments);
-    connect(git, &QProcess::finished, this, [=](int, QProcess::ExitStatus) {
+    connect(git, &QProcess::finished, this, [this, git, lf, rf](int, QProcess::ExitStatus) {
         const auto params = m_params;
         clearData();
         m_params = params;

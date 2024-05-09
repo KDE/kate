@@ -20,7 +20,7 @@
 
 #include <KTextEditor/Command>
 #include <ktexteditor/application.h>
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 

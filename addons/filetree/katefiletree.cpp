@@ -13,8 +13,8 @@
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
 
+#include <KTextEditor/Document>
 #include <ktexteditor/application.h>
-#include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
 #include <KIO/CopyJob>

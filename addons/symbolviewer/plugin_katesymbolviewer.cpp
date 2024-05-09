@@ -48,8 +48,8 @@
 #include <QAction>
 #include <QKeyEvent>
 
+#include <KTextEditor/Document>
 #include <ktexteditor/cursor.h>
-#include <ktexteditor/document.h>
 
 #include <QGroupBox>
 #include <QVBoxLayout>

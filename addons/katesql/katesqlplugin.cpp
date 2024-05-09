@@ -8,7 +8,7 @@
 #include "katesqlconfigpage.h"
 #include "katesqlview.h"
 
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 
 #include <KLocalizedString>
 

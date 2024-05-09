@@ -11,7 +11,7 @@
 #include "MatchProxyModel.h"
 #include "Results.h"
 
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/view.h>

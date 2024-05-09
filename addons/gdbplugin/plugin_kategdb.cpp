@@ -32,7 +32,7 @@
 
 #include "debugconfigpage.h"
 #include <QDir>
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 

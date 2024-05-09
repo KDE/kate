@@ -9,8 +9,8 @@
 #include "dataoutputview.h"
 #include "exportwizard.h"
 
+#include <KTextEditor/Document>
 #include <ktexteditor/application.h>
-#include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>

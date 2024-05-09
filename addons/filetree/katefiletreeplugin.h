@@ -8,8 +8,8 @@
 
 #include <QTimer>
 
+#include <KTextEditor/Document>
 #include <KTextEditor/Plugin>
-#include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/sessionconfiginterface.h>

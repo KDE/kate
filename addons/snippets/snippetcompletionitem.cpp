@@ -10,9 +10,9 @@
 #include "snippetcompletionitem.h"
 
 #include <KLocalizedString>
+#include <KTextEditor/Document>
 #include <QModelIndex>
 #include <QTextEdit>
-#include <ktexteditor/document.h>
 
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/view.h>

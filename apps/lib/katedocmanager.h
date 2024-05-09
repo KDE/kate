@@ -9,7 +9,7 @@
 
 #include "kateprivate_export.h"
 
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 
 #include <QList>
 #include <QObject>

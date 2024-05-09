@@ -11,7 +11,7 @@
 #include "katemdi.h"
 #include "kateviewmanager.h"
 
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
 

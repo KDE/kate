@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 #include <ktexteditor/view.h>
 
 #include "doc_or_widget.h"

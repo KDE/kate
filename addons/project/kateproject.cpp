@@ -14,7 +14,7 @@
 #include <KJobWidgets>
 #include <KLocalizedString>
 #include <QTextDocument>
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 
 #include <json_utils.h>
 

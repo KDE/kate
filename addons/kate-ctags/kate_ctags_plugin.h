@@ -20,7 +20,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 #include <ktexteditor/view.h>
 
 #include <KTextEditor/ConfigPage>

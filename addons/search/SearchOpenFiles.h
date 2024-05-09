@@ -6,11 +6,11 @@
 
 #pragma once
 
+#include <KTextEditor/Document>
 #include <QElapsedTimer>
 #include <QObject>
 #include <QRegularExpression>
 #include <QTimer>
-#include <ktexteditor/document.h>
 
 #include "MatchModel.h"
 

@@ -13,7 +13,7 @@
 #include "snippetrepository.h"
 #include "snippetstore.h"
 
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 #include <ktexteditor/editor.h>
 
 #include <KConfigGroup>

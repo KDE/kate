@@ -6,9 +6,9 @@
 #include "cmaketoolsplugin.h"
 
 #include <KPluginFactory>
+#include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KXMLGUIFactory>
-#include <ktexteditor/document.h>
 
 #include <QDebug>
 

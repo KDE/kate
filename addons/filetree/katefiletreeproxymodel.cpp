@@ -8,8 +8,8 @@
 #include "katefiletreedebug.h"
 #include "katefiletreemodel.h"
 
+#include <KTextEditor/Document>
 #include <QCollator>
-#include <ktexteditor/document.h>
 
 KateFileTreeProxyModel::KateFileTreeProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)

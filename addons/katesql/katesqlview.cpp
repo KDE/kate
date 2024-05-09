@@ -17,8 +17,8 @@
 #include "sqlmanager.h"
 #include "textoutputwidget.h"
 
+#include <KTextEditor/Document>
 #include <ktexteditor/application.h>
-#include <ktexteditor/document.h>
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/view.h>
 

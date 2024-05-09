@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 
 #include <QDialog>
 

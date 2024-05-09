@@ -13,9 +13,9 @@
 #include <QFileSystemWatcher>
 #include <QThreadPool>
 
+#include <KTextEditor/Document>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
-#include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
 
 #include "kateprojectcompletion.h"

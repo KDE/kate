@@ -10,9 +10,9 @@
 
 #pragma once
 
+#include <KTextEditor/Document>
 #include <KTextEditor/SessionConfigInterface>
 #include <ktexteditor/configpage.h>
-#include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/plugin.h>
 

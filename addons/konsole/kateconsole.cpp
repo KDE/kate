@@ -11,7 +11,7 @@
 #include "kateconsole.h"
 
 #include <KLocalizedString>
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 #include <ktexteditor/message.h>
 #include <ktexteditor/view.h>
 

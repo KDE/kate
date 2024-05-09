@@ -18,9 +18,9 @@
 #include <KColorUtils>
 #include <KLocalizedString>
 
+#include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <ktexteditor/application.h>
-#include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
 #include "katefiletreedebug.h"

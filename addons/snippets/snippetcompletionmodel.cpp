@@ -9,7 +9,7 @@
 
 #include "snippetcompletionmodel.h"
 
-#include <ktexteditor/document.h>
+#include <KTextEditor/Document>
 #include <ktexteditor/view.h>
 
 #include "snippet.h"

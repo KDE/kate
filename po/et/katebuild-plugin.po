@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-05-09 00:41+0000\n"
 "PO-Revision-Date: 2020-06-05 19:31+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -68,7 +68,7 @@ msgstr "Ehita uuesti"
 msgid "Build & Run Settings"
 msgstr "Ehita valitud sihtmärk"
 
-#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1232
+#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1235
 #, kde-format
 msgid "Build"
 msgstr "Ehitamine"
@@ -119,19 +119,19 @@ msgstr "Sihtmärgi seadistused"
 msgid "Build Information"
 msgstr "Ehitamise käsk:"
 
-#: plugin_katebuild.cpp:620
+#: plugin_katebuild.cpp:623
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Ehitamiseks pole määratud faili ega kataloogi."
 
-#: plugin_katebuild.cpp:624
+#: plugin_katebuild.cpp:627
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
 "Fail \"%1\" ei ole kohalik fail. Mittekohalikke faile ei saa kompileerida."
 
-#: plugin_katebuild.cpp:686
+#: plugin_katebuild.cpp:689
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -140,62 +140,62 @@ msgstr ""
 "Käsku ei saa käivitada: %1\n"
 "Asukohta ei ole olemas: %2"
 
-#: plugin_katebuild.cpp:700
+#: plugin_katebuild.cpp:703
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" käivitamine nurjus. exitStatus = %2"
 
-#: plugin_katebuild.cpp:715
+#: plugin_katebuild.cpp:718
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "<b>%1</b> ehitamine katkestati"
 
-#: plugin_katebuild.cpp:822
+#: plugin_katebuild.cpp:825
 #, kde-format
 msgid "No target available for building."
 msgstr "Ehitamiseks puudub sihtmärk."
 
-#: plugin_katebuild.cpp:836
+#: plugin_katebuild.cpp:839
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Ehitamiseks pole määratud kohalikku faili ega kataloogi."
 
-#: plugin_katebuild.cpp:842
+#: plugin_katebuild.cpp:845
 #, kde-format
 msgid "Already building..."
 msgstr "Juba ehitatakse..."
 
-#: plugin_katebuild.cpp:864
+#: plugin_katebuild.cpp:867
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Ehitamise sihtmärk <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:878
+#: plugin_katebuild.cpp:881
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make'i tulemused:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:914
+#: plugin_katebuild.cpp:917
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:920
+#: plugin_katebuild.cpp:923
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Leiti üks viga."
 msgstr[1] "Leiti %1 viga."
 
-#: plugin_katebuild.cpp:924
+#: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Leiti üks hoiatus."
 msgstr[1] "Leiti %1 hoiatust."
 
-#: plugin_katebuild.cpp:927
+#: plugin_katebuild.cpp:930
 #, fuzzy, kde-format
 #| msgid "Found one error."
 #| msgid_plural "Found %1 errors."
@@ -204,27 +204,27 @@ msgid_plural "Found %1 notes."
 msgstr[0] "Leiti üks viga."
 msgstr[1] "Leiti %1 viga."
 
-#: plugin_katebuild.cpp:932
+#: plugin_katebuild.cpp:935
 #, kde-format
 msgid "Build failed."
 msgstr "Ehitamine nurjus."
 
-#: plugin_katebuild.cpp:934
+#: plugin_katebuild.cpp:937
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Ehitamine lõpetati probleemideta."
 
-#: plugin_katebuild.cpp:939
+#: plugin_katebuild.cpp:942
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:963
+#: plugin_katebuild.cpp:966
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1189
+#: plugin_katebuild.cpp:1192
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -232,7 +232,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "viga"
 
-#: plugin_katebuild.cpp:1192
+#: plugin_katebuild.cpp:1195
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -240,39 +240,39 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "hoiatus"
 
-#: plugin_katebuild.cpp:1195
+#: plugin_katebuild.cpp:1198
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1198
+#: plugin_katebuild.cpp:1201
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "defineerimata viide"
 
-#: plugin_katebuild.cpp:1231 TargetModel.cpp:285 TargetModel.cpp:297
+#: plugin_katebuild.cpp:1234 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "Sihtmärgikogum"
 
-#: plugin_katebuild.cpp:1233
+#: plugin_katebuild.cpp:1236
 #, kde-format
 msgid "Clean"
 msgstr "Puhasta"
 
-#: plugin_katebuild.cpp:1234
+#: plugin_katebuild.cpp:1237
 #, kde-format
 msgid "Config"
 msgstr "Seadistus"
 
-#: plugin_katebuild.cpp:1235
+#: plugin_katebuild.cpp:1238
 #, kde-format
 msgid "ConfigClean"
 msgstr "Seadistuse puhastamine"
 
-#: plugin_katebuild.cpp:1426
+#: plugin_katebuild.cpp:1429
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""
@@ -289,7 +289,7 @@ msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Kat:</B> %1"
 
-#: TargetHtmlDelegate.cpp:101
+#: TargetHtmlDelegate.cpp:103
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -299,7 +299,7 @@ msgstr ""
 "Otsinukataloogide lisamiseks lisa nende asukohad semikooloniga (';') "
 "eraldatult"
 
-#: TargetHtmlDelegate.cpp:108
+#: TargetHtmlDelegate.cpp:110
 #, kde-format
 msgid ""
 "Use:\n"
@@ -307,7 +307,7 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:111
+#: TargetHtmlDelegate.cpp:113
 #, kde-format
 msgid ""
 "Use:\n"

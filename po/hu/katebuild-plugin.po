@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-05-09 00:41+0000\n"
 "PO-Revision-Date: 2021-12-23 15:42+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -70,7 +70,7 @@ msgstr "Összeállítás újra"
 msgid "Build & Run Settings"
 msgstr "A kijelölt cél összeállítása"
 
-#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1232
+#: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1235
 #, kde-format
 msgid "Build"
 msgstr "Összeállítás"
@@ -121,18 +121,18 @@ msgstr "Célbeállítások"
 msgid "Build Information"
 msgstr "Felépítési parancs:"
 
-#: plugin_katebuild.cpp:620
+#: plugin_katebuild.cpp:623
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Nincs megadva fájl vagy mappa az összeállításhoz."
 
-#: plugin_katebuild.cpp:624
+#: plugin_katebuild.cpp:627
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "Ez nem helyi fájl: „%1” Távoli fájlokat nem lehet lefordítani."
 
-#: plugin_katebuild.cpp:686
+#: plugin_katebuild.cpp:689
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -141,62 +141,62 @@ msgstr ""
 "Nem lehet futtatni a parancsot: %1\n"
 "Az elérési útvonal nem létezik: %2"
 
-#: plugin_katebuild.cpp:700
+#: plugin_katebuild.cpp:703
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Nem sikerült futtatni: „%1”. Kilépési kód = %2"
 
-#: plugin_katebuild.cpp:715
+#: plugin_katebuild.cpp:718
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "<b>%1</b> összeállítása megszakítva"
 
-#: plugin_katebuild.cpp:822
+#: plugin_katebuild.cpp:825
 #, kde-format
 msgid "No target available for building."
 msgstr "Nincsenek összeállítási célok."
 
-#: plugin_katebuild.cpp:836
+#: plugin_katebuild.cpp:839
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Nincs megadva helyi fájl vagy mappa az összeállításhoz."
 
-#: plugin_katebuild.cpp:842
+#: plugin_katebuild.cpp:845
 #, kde-format
 msgid "Already building..."
 msgstr "Összeállítás folyamatban…"
 
-#: plugin_katebuild.cpp:864
+#: plugin_katebuild.cpp:867
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "<b>%1</b> cél összeállítása…"
 
-#: plugin_katebuild.cpp:878
+#: plugin_katebuild.cpp:881
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make eredményei:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:914
+#: plugin_katebuild.cpp:917
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:920
+#: plugin_katebuild.cpp:923
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "1 hiba."
 msgstr[1] "%1 hiba."
 
-#: plugin_katebuild.cpp:924
+#: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "1 figyelmeztetés."
 msgstr[1] "%1 figyelmeztetés."
 
-#: plugin_katebuild.cpp:927
+#: plugin_katebuild.cpp:930
 #, fuzzy, kde-format
 #| msgid "Found one error."
 #| msgid_plural "Found %1 errors."
@@ -205,27 +205,27 @@ msgid_plural "Found %1 notes."
 msgstr[0] "1 hiba."
 msgstr[1] "%1 hiba."
 
-#: plugin_katebuild.cpp:932
+#: plugin_katebuild.cpp:935
 #, kde-format
 msgid "Build failed."
 msgstr "Az összeállítás meghiúsult."
 
-#: plugin_katebuild.cpp:934
+#: plugin_katebuild.cpp:937
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Az összeállítás hibátlanul befejeződött."
 
-#: plugin_katebuild.cpp:939
+#: plugin_katebuild.cpp:942
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:963
+#: plugin_katebuild.cpp:966
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1189
+#: plugin_katebuild.cpp:1192
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -233,7 +233,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "hiba"
 
-#: plugin_katebuild.cpp:1192
+#: plugin_katebuild.cpp:1195
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -241,39 +241,39 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "figyelmeztetés"
 
-#: plugin_katebuild.cpp:1195
+#: plugin_katebuild.cpp:1198
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1198
+#: plugin_katebuild.cpp:1201
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "nem definiált hivatkozás"
 
-#: plugin_katebuild.cpp:1231 TargetModel.cpp:285 TargetModel.cpp:297
+#: plugin_katebuild.cpp:1234 TargetModel.cpp:285 TargetModel.cpp:297
 #, kde-format
 msgid "Target Set"
 msgstr "Célkészlet"
 
-#: plugin_katebuild.cpp:1233
+#: plugin_katebuild.cpp:1236
 #, kde-format
 msgid "Clean"
 msgstr "Tisztítás"
 
-#: plugin_katebuild.cpp:1234
+#: plugin_katebuild.cpp:1237
 #, kde-format
 msgid "Config"
 msgstr "Beállítás"
 
-#: plugin_katebuild.cpp:1235
+#: plugin_katebuild.cpp:1238
 #, kde-format
 msgid "ConfigClean"
 msgstr "Beállítástörlés"
 
-#: plugin_katebuild.cpp:1426
+#: plugin_katebuild.cpp:1429
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""
@@ -290,7 +290,7 @@ msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Mappa:</B> %1"
 
-#: TargetHtmlDelegate.cpp:101
+#: TargetHtmlDelegate.cpp:103
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -300,7 +300,7 @@ msgstr ""
 "Adjon hozzá keresési mappákat pontosvesszővel elválasztott útvonalak "
 "hozzáadásával"
 
-#: TargetHtmlDelegate.cpp:108
+#: TargetHtmlDelegate.cpp:110
 #, kde-format
 msgid ""
 "Use:\n"
@@ -308,7 +308,7 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:111
+#: TargetHtmlDelegate.cpp:113
 #, kde-format
 msgid ""
 "Use:\n"

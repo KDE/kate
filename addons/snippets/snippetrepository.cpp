@@ -17,6 +17,7 @@
 #include <QFileInfo>
 #include <QTimer>
 
+#include <QDir>
 #include <QDomDocument>
 #include <QDomElement>
 

@@ -687,13 +687,13 @@ QList<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursiv
     return files;
 }
 
-void KateProjectWorker::scanDirRec(QDir dir,
-                                   const QString &baseDirPath,
-                                   const QStringList &nameFilters,
-                                   QDir::Filters filterFlags,
-                                   bool recursive,
-                                   QList<QString> &files,
-                                   QSet<QString> &scannedDirs)
+static void scanDirRec(QDir dir,
+                       const QString &baseDirPath,
+                       const QStringList &nameFilters,
+                       QDir::Filters filterFlags,
+                       bool recursive,
+                       QList<QString> &files,
+                       QSet<QString> &scannedDirs)
 {
     // empty canonicalDir is bad, such stuff just doesn't exist on disk
     const QString canonicalDir = dir.canonicalPath();

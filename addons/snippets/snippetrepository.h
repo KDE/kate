@@ -10,13 +10,10 @@
 
 #pragma once
 
-#include <QDir>
 #include <QStandardItem>
 #include <QStringList>
 
-namespace KTextEditor
-{
-}
+class QDir;
 
 /**
  * Each object of this type represents a repository of snippets. Each repository

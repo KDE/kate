@@ -19,8 +19,8 @@
 #include "ktexteditor_utils.h"
 
 #include <KTextEditor/Command>
-#include <ktexteditor/application.h>
 #include <KTextEditor/Document>
+#include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 

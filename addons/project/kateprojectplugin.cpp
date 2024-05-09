@@ -25,6 +25,7 @@
 #include <KSharedConfig>
 
 #include <QCoreApplication>
+#include <QDir>
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QMessageBox>

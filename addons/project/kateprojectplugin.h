@@ -9,7 +9,6 @@
 
 #include <unordered_map>
 
-#include <QDir>
 #include <QFileSystemWatcher>
 #include <QThreadPool>
 
@@ -21,6 +20,7 @@
 #include "kateprojectcompletion.h"
 
 class KateProject;
+class QDir;
 
 enum class ClickAction : uint8_t {
     NoAction = 0,

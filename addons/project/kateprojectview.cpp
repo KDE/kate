@@ -6,7 +6,6 @@
  */
 
 #include "kateprojectview.h"
-#include "branchcheckoutdialog.h"
 #include "gitprocess.h"
 #include "gitwidget.h"
 #include "kateprojectfiltermodel.h"
@@ -23,6 +22,7 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 
+#include <QFileInfo>
 #include <QPushButton>
 #include <QVBoxLayout>
 

@@ -13,8 +13,8 @@
 #include <KIO/CopyJob>
 #include <KJobWidgets>
 #include <KLocalizedString>
-#include <QTextDocument>
 #include <KTextEditor/Document>
+#include <QTextDocument>
 
 #include <json_utils.h>
 

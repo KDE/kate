@@ -29,6 +29,7 @@
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
+#include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 

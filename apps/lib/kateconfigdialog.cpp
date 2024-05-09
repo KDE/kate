@@ -17,7 +17,6 @@
 #include "kateapp.h"
 #include "kateconfigplugindialogpage.h"
 #include "katedebug.h"
-#include "katedocmanager.h"
 #include "katemainwindow.h"
 #include "katepluginmanager.h"
 #include "katequickopenmodel.h"

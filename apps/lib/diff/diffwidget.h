@@ -10,7 +10,11 @@
 
 #include "kateprivate_export.h"
 
-#include <KTextEditor/Document>
+namespace KTextEditor
+{
+class MainWindow;
+class Document;
+}
 
 namespace KSyntaxHighlighting
 {

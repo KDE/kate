@@ -8,8 +8,12 @@
 
 #pragma once
 
-#include "dap/entities.h"
 #include <QObject>
+
+namespace dap
+{
+struct Variable;
+}
 
 class GDBVariableParser : public QObject
 {

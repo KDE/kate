@@ -31,8 +31,8 @@
 #include <KPluginFactory>
 
 #include "debugconfigpage.h"
-#include <QDir>
 #include <KTextEditor/Document>
+#include <QDir>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 

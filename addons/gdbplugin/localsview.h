@@ -7,9 +7,13 @@
 
 #pragma once
 
-#include "dap/entities.h"
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+
+namespace dap
+{
+struct Variable;
+}
 
 class LocalsView : public QTreeWidget
 {

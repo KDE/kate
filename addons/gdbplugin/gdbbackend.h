@@ -21,10 +21,14 @@
 
 #include "backendinterface.h"
 #include "configview.h"
-#include "dap/entities.h"
 #include "gdbmi/parser.h"
 #include "gdbmi/records.h"
 #include "gdbvariableparser.h"
+
+namespace dap
+{
+struct StackFrame;
+}
 
 struct GdbCommand {
     QStringList arguments;

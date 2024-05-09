@@ -4,6 +4,7 @@
 
 #include "test_gdbvariableparser.h"
 
+#include "dap/entities.h"
 #include "gdbvariableparser.h"
 
 #include <QDebug>

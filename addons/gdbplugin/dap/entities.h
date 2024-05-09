@@ -10,7 +10,6 @@
 #include <QList>
 #include <QString>
 #include <optional>
-#include <utility>
 
 class QJsonObject;
 

@@ -6,6 +6,8 @@
 //  SPDX-License-Identifier: LGPL-2.0-only
 
 #include "localsview.h"
+#include "dap/entities.h"
+
 #include <KLocalizedString>
 #include <QDebug>
 #include <QLabel>

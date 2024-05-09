@@ -24,6 +24,7 @@
 // SPDX-License-Identifier: LGPL-2.0-only
 
 #include "gdbvariableparser.h"
+#include "dap/entities.h"
 
 // Smaller ids are reserved for scopes
 static constexpr int MIN_VAR_ID = 10;

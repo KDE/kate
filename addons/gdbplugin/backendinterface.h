@@ -12,7 +12,6 @@
 #include <ktexteditor/message.h>
 #include <optional>
 
-#include "configview.h"
 #include "dap/entities.h"
 
 class BackendInterface : public QObject

@@ -10,9 +10,7 @@
 #include <QJsonObject>
 #include <QObject>
 #include <functional>
-#include <memory>
 #include <optional>
-#include <utility>
 
 #include "bus.h"
 #include "entities.h"

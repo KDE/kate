@@ -10,6 +10,7 @@
 //  SPDX-License-Identifier: LGPL-2.0-only
 
 #include "gdbbackend.h"
+#include "dap/entities.h"
 #include "gdbmi/tokens.h"
 #include "hostprocess.h"
 
@@ -28,7 +29,6 @@
 
 #include <algorithm>
 #include <signal.h>
-#include <stdlib.h>
 
 // #define DEBUG_GDBMI
 

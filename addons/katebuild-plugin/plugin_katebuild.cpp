@@ -757,8 +757,70 @@ QString KateBuildView::parseWorkDir(QString dir) const
     return dir;
 }
 
+static QString expandEnvVars(const QString &key, const QString &inValue, const QHash<QString, QString> &userEnv, const QProcessEnvironment &env)
+{
+    if (!inValue.contains(u'$')) {
+        return inValue;
+    }
+
+    auto expandVar = [inValue, key, userEnv, env](const QString &var) {
+        // lookup in user provided env first, skip if the key is same as the var we are looking up to avoid infinite recursion
+        if (auto it = userEnv.find(var); it != userEnv.end() && key != var) {
+            return it.value();
+        } else {
+            return env.value(var);
+        }
+    };
+
+    QString value;
+    int i = 0;
+    while (true) {
+        if (i >= inValue.size()) {
+            break;
+        }
+
+        if (inValue.at(i) != u'$') {
+            value.append(inValue.at(i++));
+            continue;
+        }
+
+        i++; // skip $
+        bool hasDelim = false;
+        if (inValue.at(i) == u'{') {
+            hasDelim = true;
+            i++;
+        }
+
+        int end = -1;
+        if (hasDelim) {
+            end = inValue.indexOf(u'}', i);
+            if (end == -1) {
+                qWarning() << "Invalid var expansion in" << inValue;
+                return inValue;
+            }
+            QString var = inValue.mid(i, end - i);
+            value.append(expandVar(var));
+            i += end;
+        } else {
+            int start = i;
+            for (; i < inValue.length(); ++i) {
+                char c = inValue.at(i).toLatin1();
+                if (std::isalnum(c) || c == '_') {
+                    continue;
+                } else {
+                    break;
+                }
+            }
+            QString var = inValue.mid(start, i - start);
+            value.append(expandVar(var));
+        }
+    }
+    // recurse
+    return expandEnvVars(key, value, userEnv, env);
+}
+
 /******************************************************************/
-bool KateBuildView::startProcess(const QString &dir, const QString &command)
+bool KateBuildView::startProcess(const QString &dir, const QString &command, const QHash<QString, QString> &buildEnv)
 {
     if (m_proc.state() != QProcess::NotRunning) {
         return false;
@@ -791,6 +853,19 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     // Define PWD so that shell scripts can get a path with symbolic links intact
     auto env = QProcessEnvironment::systemEnvironment();
     env.insert(QStringLiteral("PWD"), QDir(m_makeDir).absolutePath());
+
+    // perform env var expansion
+    auto envCopy = buildEnv;
+    for (const auto &[key, value] : buildEnv.asKeyValueRange()) {
+        envCopy[key] = expandEnvVars(key, value, buildEnv, env);
+        qDebug() << key << value << "->" << expandEnvVars(key, value, buildEnv, env);
+    }
+
+    // insert in actual env
+    for (const auto &[key, value] : std::as_const(envCopy).asKeyValueRange()) {
+        env.insert(key, value);
+    }
+
     m_proc.setProcessEnvironment(env);
     m_proc.setWorkingDirectory(m_makeDir);
     m_proc.setShellCommand(command);
@@ -930,7 +1005,7 @@ void KateBuildView::slotCompileCurrentFile()
     }
 
     qCDebug(KTEBUILD) << "slotCompileCurrentFile(): starting build: " << it->second.command << " in " << it->second.workingDir;
-    startProcess(it->second.workingDir, it->second.command);
+    startProcess(it->second.workingDir, it->second.command, {});
 }
 
 /******************************************************************/
@@ -1041,6 +1116,7 @@ bool KateBuildView::buildCurrentTarget()
     m_searchPaths = ind.data(TargetModel::SearchPathsRole).toStringList();
     QString workDir = ind.data(TargetModel::WorkDirRole).toString();
     QString targetSet = ind.data(TargetModel::TargetSetNameRole).toString();
+    const auto buildEnv = ind.data(TargetModel::BuildEnvRole).value<QHash<QString, QString>>();
 
     QString dir = parseWorkDir(workDir);
     if (workDir.isEmpty()) {
@@ -1076,7 +1152,7 @@ bool KateBuildView::buildCurrentTarget()
     m_buildCancelled = false;
     QString msg = i18n("Building target <b>%1</b> ...", m_currentlyBuildingTarget);
     m_buildUi.buildStatusLabel->setText(msg);
-    return startProcess(dir, buildCmd);
+    return startProcess(dir, buildCmd, buildEnv);
 }
 
 /******************************************************************/
@@ -1188,7 +1264,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                              .arg(cmakeFA.getBuildDir())
                                                              .arg(cmakeConfig)
                                                              .arg(numCores),
-                                                         QString());
+                                                         {});
     const QModelIndex allIndex = setIndex;
 
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
@@ -1198,7 +1274,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                              .arg(cmakeFA.getBuildDir())
                                                              .arg(cmakeConfig)
                                                              .arg(numCores),
-                                                         QString());
+                                                         {});
 
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
                                                          QStringLiteral("Rerun CMake"),
@@ -1206,7 +1282,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                              .arg(cmakeFA.getCMakeExecutable())
                                                              .arg(cmakeFA.getBuildDir())
                                                              .arg(cmakeFA.getSourceDir()),
-                                                         QString());
+                                                         {});
 
     QString cmakeGui = cmakeFA.getCMakeGuiExecutable();
     qCDebug(KTEBUILD) << "Creating cmake targets, cmakeGui: " << cmakeGui;
@@ -1215,7 +1291,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
             setIndex,
             QStringLiteral("Run CMake-Gui"),
             QStringLiteral("%1 -B \"%2\" -S \"%3\"").arg(cmakeGui).arg(cmakeFA.getBuildDir()).arg(cmakeFA.getSourceDir()),
-            QString());
+            {});
     }
 
     std::vector<QCMakeFileApi::Target> targets = cmakeFA.getTargets(cmakeConfig);
@@ -1234,7 +1310,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                                  .arg(cmakeConfig)
                                                                  .arg(numCores)
                                                                  .arg(tgt.name),
-                                                             QString());
+                                                             {});
     }
 
     // open the new target set subtree and select the "Build all" target
@@ -1714,7 +1790,14 @@ void KateBuildView::addProjectTargets()
         if (tgtName.isEmpty() || buildCmd.isEmpty()) {
             continue;
         }
-        QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommandAfter(set, tgtName, buildCmd, runCmd);
+        const QVariantMap buildEnvJson = targetMap[QLatin1String("build_env")].toMap();
+        QHash<QString, QString> buildEnv;
+        for (auto it = buildEnvJson.constBegin(); it != buildEnvJson.constEnd(); ++it) {
+            if (!it.key().isEmpty()) {
+                buildEnv[it.key()] = it.value().toString();
+            }
+        }
+        QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommandAfter(set, tgtName, buildCmd, runCmd, buildEnv);
         if (tgtName == defaultTarget) {
             // A bit of backwards compatibility, move the "default" target to the top
             while (idx.row() > 0) {

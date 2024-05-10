@@ -281,7 +281,11 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex,
     return index(bNode.targetSetRow, 0, index(bNode.rootRow, 0));
 }
 
-QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd)
+QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex,
+                                         const QString &cmdName,
+                                         const QString &buildCmd,
+                                         const QString &runCmd,
+                                         QHash<QString, QString> env)
 {
     // qDebug() << "addCommandAfter" << beforeIndex << cmdName;
     NodeInfo bNode = modelToNodeInfo(beforeIndex);
@@ -333,7 +337,7 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
 
     QModelIndex targetSetIndex = index(bNode.targetSetRow, 0, index(bNode.rootRow, 0));
     beginInsertRows(targetSetIndex, bNode.commandRow, bNode.commandRow);
-    commands.insert(bNode.commandRow, {.name = newName, .buildCmd = buildCmd, .runCmd = runCmd});
+    commands.insert(bNode.commandRow, Command{.name = newName, .buildCmd = buildCmd, .runCmd = runCmd, .buildEnv = env});
     endInsertRows();
     if (m_rootNodes[bNode.rootRow].isProject) {
         Q_EMIT projectTargetChanged();
@@ -574,6 +578,8 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return CommandRow;
         case IsProjectTargetRole:
             return m_rootNodes[node.rootRow].isProject;
+        case BuildEnvRole:
+            return QVariant::fromValue(command.buildEnv);
         }
     }
 

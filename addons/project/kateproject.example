@@ -63,7 +63,14 @@ struct
 
       /// "targets" contains a vector of targets (as in a makefile). Each target has a name
       /// a build command and a run command. The commands are executed in the build directory.
-      vector< {string name, string build_cmd, string run_cmd} > targets;
+      vector< {
+          string name,
+          string build_cmd,
+          string run_cmd
+          struct build_env {
+            string env_var;
+          };
+    } > targets;
 
       /// "default_target" must be set to one of the target names in "targets". This is the target
       /// which will be built by the "Build default target" action of the build plugin.
@@ -164,7 +171,7 @@ it retrieves the file list from git, and a long list of targets for the build pl
        "default_target": "all",
        "clean_target": "clean",
        "targets":[
-           { "name":"all", "build_cmd":"/usr/bin/gmake -C /home/neundorf/src/CMake/build -j8 all" },
+           { "name":"all", "build_cmd":"/usr/bin/gmake -C /home/neundorf/src/CMake/build -j8 all", "run_cmd":"./my_target", "build_env": { "PATH": "/path/to/bin:$PATH"} },
            { "name":"clean", "build_cmd":"/usr/bin/gmake -C /home/neundorf/src/CMake/build -j8 clean" },
            { "name":"cmLocalGenerator.cxx.o", "build_cmd":"/usr/bin/gmake -C /home/neundorf/src/CMake/build/Source -j8 cmLocalGenerator.cxx.o" },
            { "name":"cmLocalGenerator.cxx.i", "build_cmd":"/usr/bin/gmake -C /home/neundorf/src/CMake/build/Source -j8 cmLocalGenerator.cxx.i" },

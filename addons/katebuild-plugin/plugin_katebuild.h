@@ -149,7 +149,7 @@ private:
     void addError(const OutputLine &err);
     void updateDiagnostics(Diagnostic diagnostic, const QUrl uri);
     void clearDiagnostics();
-    bool startProcess(const QString &dir, const QString &command);
+    bool startProcess(const QString &dir, const QString &command, const QHash<QString, QString> &buildEnv);
     bool checkLocal(const QUrl &dir);
     void clearBuildResults();
     QString parseWorkDir(QString dir) const;

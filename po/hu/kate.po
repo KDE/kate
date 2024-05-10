@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-09 02:41+0000\n"
+"POT-Creation-Date: 2024-05-10 02:31+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2078,14 +2078,14 @@ msgstr ""
 "Az elmentésre kijelölt adatokat nem sikerült kiírni. Válassza ki, mit "
 "szeretne tenni."
 
-#: lib/kateurlbar.cpp:881
+#: lib/kateurlbar.cpp:909
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Hely másolása"
 
-#: lib/kateurlbar.cpp:886
+#: lib/kateurlbar.cpp:914
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

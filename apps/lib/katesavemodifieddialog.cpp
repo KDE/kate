@@ -146,9 +146,9 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
 
         // Display a "warning" label as QMessageBox does
         const auto icon = QApplication::style()->standardIcon(QStyle::SP_MessageBoxWarning);
-        const auto size = icon.actualSize(QSize(64, 64));
+        const int iconSize = QApplication::style()->pixelMetric(QStyle::PM_MessageBoxIconSize, nullptr, this);
         auto *iconLabel = new QLabel;
-        iconLabel->setPixmap(icon.pixmap(size));
+        iconLabel->setPixmap(icon.pixmap(QSize(iconSize, iconSize)));
         wrapperLayout->addWidget(iconLabel, 0, 0);
 
         m_label->setText(i18n("The document \"%1\" has been modified. Do you want to save your changes or discard them?", documents.front()->documentName()));

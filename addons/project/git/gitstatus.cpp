@@ -64,62 +64,62 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, const QSt
 
         switch (xy) {
         case StatusXY::QQ:
-            untracked.append({file, GitStatus::Untracked, 'U', 0, 0});
+            untracked.append({.file = file, .status = GitStatus::Untracked, .statusChar = 'U', .linesAdded = 0, .linesRemoved = 0});
             break;
         case StatusXY::II:
-            untracked.append({file, GitStatus::Ignored, 'I', 0, 0});
+            untracked.append({.file = file, .status = GitStatus::Ignored, .statusChar = 'I', .linesAdded = 0, .linesRemoved = 0});
             break;
 
         case StatusXY::DD:
-            unmerge.append({file, GitStatus::Unmerge_BothDeleted, x, 0, 0});
+            unmerge.append({.file = file, .status = GitStatus::Unmerge_BothDeleted, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case StatusXY::AU:
-            unmerge.append({file, GitStatus::Unmerge_AddedByUs, x, 0, 0});
+            unmerge.append({.file = file, .status = GitStatus::Unmerge_AddedByUs, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case StatusXY::UD:
-            unmerge.append({file, GitStatus::Unmerge_DeletedByThem, x, 0, 0});
+            unmerge.append({.file = file, .status = GitStatus::Unmerge_DeletedByThem, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case StatusXY::UA:
-            unmerge.append({file, GitStatus::Unmerge_AddedByThem, x, 0, 0});
+            unmerge.append({.file = file, .status = GitStatus::Unmerge_AddedByThem, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case StatusXY::DU:
-            unmerge.append({file, GitStatus::Unmerge_DeletedByUs, x, 0, 0});
+            unmerge.append({.file = file, .status = GitStatus::Unmerge_DeletedByUs, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case StatusXY::AA:
-            unmerge.append({file, GitStatus::Unmerge_BothAdded, x, 0, 0});
+            unmerge.append({.file = file, .status = GitStatus::Unmerge_BothAdded, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case StatusXY::UU:
-            unmerge.append({file, GitStatus::Unmerge_BothModified, x, 0, 0});
+            unmerge.append({.file = file, .status = GitStatus::Unmerge_BothModified, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         }
 
         switch (x) {
         case 'M':
-            staged.append({file, GitStatus::Index_Modified, x, 0, 0});
+            staged.append({.file = file, .status = GitStatus::Index_Modified, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case 'A':
-            staged.append({file, GitStatus::Index_Added, x, 0, 0});
+            staged.append({.file = file, .status = GitStatus::Index_Added, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case 'D':
-            staged.append({file, GitStatus::Index_Deleted, x, 0, 0});
+            staged.append({.file = file, .status = GitStatus::Index_Deleted, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case 'R':
-            staged.append({file, GitStatus::Index_Renamed, x, 0, 0});
+            staged.append({.file = file, .status = GitStatus::Index_Renamed, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         case 'C':
-            staged.append({file, GitStatus::Index_Copied, x, 0, 0});
+            staged.append({.file = file, .status = GitStatus::Index_Copied, .statusChar = x, .linesAdded = 0, .linesRemoved = 0});
             break;
         }
 
         switch (y) {
         case 'M':
-            changed.append({file, GitStatus::WorkingTree_Modified, y, 0, 0});
+            changed.append({.file = file, .status = GitStatus::WorkingTree_Modified, .statusChar = y, .linesAdded = 0, .linesRemoved = 0});
             break;
         case 'D':
-            changed.append({file, GitStatus::WorkingTree_Deleted, y, 0, 0});
+            changed.append({.file = file, .status = GitStatus::WorkingTree_Deleted, .statusChar = y, .linesAdded = 0, .linesRemoved = 0});
             break;
         case 'A':
-            changed.append({file, GitStatus::WorkingTree_IntentToAdd, y, 0, 0});
+            changed.append({.file = file, .status = GitStatus::WorkingTree_IntentToAdd, .statusChar = y, .linesAdded = 0, .linesRemoved = 0});
             break;
         }
     }
@@ -144,7 +144,7 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, const QSt
     numStatForStatus(changed, workingDir, true);
     numStatForStatus(staged, workingDir, false);
 
-    return {untracked, unmerge, staged, changed, nonUniqueFileNames};
+    return {.untracked = untracked, .unmerge = unmerge, .staged = staged, .changed = changed, .nonUniqueFileNames = nonUniqueFileNames};
 }
 
 QString GitUtils::statusString(GitUtils::GitStatus s)

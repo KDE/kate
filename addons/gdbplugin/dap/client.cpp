@@ -824,7 +824,7 @@ std::optional<Client::HeaderInfo> Client::readHeader()
         return std::nullopt;
     }
 
-    return HeaderInfo{end, length};
+    return HeaderInfo{.payloadStart = end, .payloadLength = length};
 }
 
 void Client::start()

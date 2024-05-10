@@ -238,7 +238,7 @@ void CEWidget::setAvailableCompilers(const QByteArray &data)
         const auto lang = value[QStringLiteral("lang")].toString();
         const auto id = value[QStringLiteral("id")];
 
-        Compiler compiler{compilerName, id};
+        Compiler compiler{.name = compilerName, .id = id};
         m_langToCompiler.push_back({lang, compiler});
     }
 
@@ -521,7 +521,7 @@ void CEWidget::addExtraActionstoTextEditor()
     QMenu *menu = new QMenu(this);
     menu->addAction(i18n("Reveal linked code"), this, [this] {
         auto line = m_textEditor->cursorPosition().line();
-        SourcePos p{QString(), line + 1, 0};
+        SourcePos p{.file = QString(), .line = line + 1, .col = 0};
         AsmViewModel::CodeGenLines asmLines = m_model->asmForSourcePos(p);
         //         qDebug() << "Linked code for: " << line;
         if (!asmLines.empty()) {

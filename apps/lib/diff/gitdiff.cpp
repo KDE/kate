@@ -286,8 +286,15 @@ std::vector<DiffHunk> parseHunks(VcsDiff &diff)
 
         // The number of filenames present in the diff should match the number
         // of hunks
-        ret.push_back(
-            DiffHunk{oldRange.first, oldRange.second, newRange.first, newRange.second, firstLineIdx, curSrcFileName, curTgtFileName, heading, hunkLines});
+        ret.push_back(DiffHunk{.srcStart = oldRange.first,
+                               .srcCount = oldRange.second,
+                               .tgtStart = newRange.first,
+                               .tgtCount = newRange.second,
+                               .headingLineIdx = firstLineIdx,
+                               .srcFile = curSrcFileName,
+                               .tgtFile = curTgtFileName,
+                               .heading = heading,
+                               .lines = hunkLines});
     }
 
     // If the diff ends with a newline, for the last hunk, when splitting into lines above

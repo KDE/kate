@@ -60,14 +60,14 @@ void KatePluginManager::setupPluginList()
     };
 
     const std::array<PluginNameAndSortOrder, 8> defaultPlugins = {
-        {{"katefiletreeplugin", -1000},
-         {"katesearchplugin", -900},
-         {"kateprojectplugin", -800},
-         {"tabswitcherplugin", -100},
-         {"textfilterplugin", -100},
-         {"externaltoolsplugin", -100},
-         {"lspclientplugin", -100},
-         {"katekonsoleplugin", -100}},
+        {{.name = "katefiletreeplugin", .sortOrder = -1000},
+         {.name = "katesearchplugin", .sortOrder = -900},
+         {.name = "kateprojectplugin", .sortOrder = -800},
+         {.name = "tabswitcherplugin", .sortOrder = -100},
+         {.name = "textfilterplugin", .sortOrder = -100},
+         {.name = "externaltoolsplugin", .sortOrder = -100},
+         {.name = "lspclientplugin", .sortOrder = -100},
+         {.name = "katekonsoleplugin", .sortOrder = -100}},
     };
 
     // handle all install KTextEditor plugins

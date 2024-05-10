@@ -542,7 +542,7 @@ public:
                 }
                 it->revision = revision;
             } else {
-                m_models.insert(0, {doc, revision, nullptr});
+                m_models.insert(0, {.document = doc, .revision = revision, .model = nullptr});
                 if (m_models.size() > MAX_MODELS) {
                     m_models.pop_back();
                 }

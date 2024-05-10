@@ -125,7 +125,7 @@ public:
             f.setForeground(funcColor);
             int colon = findColon(text);
             if (colon > -1) {
-                fmts.append({0, colon + 1, f});
+                fmts.append({.start = 0, .length = colon + 1, .format = f});
             }
 
         } else {
@@ -142,7 +142,7 @@ public:
 
             if (i >= 0 && nextSpace > i) {
                 f.setForeground(keywordColor);
-                fmts.append({i, nextSpace - i, f});
+                fmts.append({.start = i, .length = nextSpace - i, .format = f});
 
                 i = nextSpace + 1;
             }
@@ -151,7 +151,7 @@ public:
             if (strOpen >= 0) {
                 f = QTextCharFormat();
                 f.setForeground(stringColor);
-                fmts.append({strOpen, strClose - strOpen, f});
+                fmts.append({.start = strOpen, .length = strClose - strOpen, .format = f});
             }
 
             auto labels = this->rowLabels(index);
@@ -160,7 +160,7 @@ public:
                 f.setForeground(funcColor);
                 f.setUnderlineStyle(QTextCharFormat::SingleUnderline);
                 for (const auto &label : labels) {
-                    fmts.append({label.col, label.len, f});
+                    fmts.append({.start = label.col, .length = label.len, .format = f});
                 }
             }
         }
@@ -244,7 +244,7 @@ public:
         if (errIdx != -1) {
             QTextCharFormat f;
             f.setForeground(keywordColor);
-            fmts.append({errIdx, 5, f});
+            fmts.append({.start = errIdx, .length = 5, .format = f});
         }
 
         Utils::paintItemViewText(p, text, option, fmts);

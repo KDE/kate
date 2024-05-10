@@ -224,7 +224,7 @@ public:
         QTextCharFormat gray;
         gray.setForeground(Qt::gray);
         gray.setFontPointSize(options.font.pointSize() - 1);
-        formats.append({nameLen + space, static_cast<int>(path.length()), gray});
+        formats.append({.start = nameLen + space, .length = static_cast<int>(path.length()), .format = gray});
         if (!pathFormats.isEmpty()) {
             formats.append(pathFormats);
         }

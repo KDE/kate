@@ -123,7 +123,7 @@ void LineNumArea::paintEvent(QPaintEvent *event)
     c.setAlphaF(0.6f);
     const QPen removed = c;
 
-    LineNumColors colors{otherLines /*, currentLine*/, added, removed};
+    LineNumColors colors{.otherLine = otherLines /*, currentLine*/, .added = added, .removed = removed};
 
     painter.setFont(font());
     const int w = lineNumAreaWidth();

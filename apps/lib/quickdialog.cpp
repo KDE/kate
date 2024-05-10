@@ -97,7 +97,7 @@ void HUDStyleDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
     auto ranges = KFuzzyMatcher::matchedRanges(m_filterString, text);
     QList<QTextLayout::FormatRange> resFmts;
     std::transform(ranges.begin(), ranges.end(), std::back_inserter(resFmts), [fmt](const KFuzzyMatcher::Range &fr) {
-        return QTextLayout::FormatRange{fr.start, fr.length, fmt};
+        return QTextLayout::FormatRange{.start = fr.start, .length = fr.length, .format = fmt};
     });
 
     formats.append(resFmts);

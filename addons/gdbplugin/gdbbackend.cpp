@@ -78,17 +78,17 @@ bool GdbCommand::check(const QString &part1, const QString &part2) const
 
 void GdbBackend::enqueue(const QString &command)
 {
-    m_nextCommands << PendingCommand{command, std::nullopt, Default};
+    m_nextCommands << PendingCommand{.command = command, .data = std::nullopt, .captureMode = Default};
 }
 
 void GdbBackend::enqueue(const QString &command, const QJsonValue &data, uint8_t captureMode)
 {
-    m_nextCommands << PendingCommand{command, data, captureMode};
+    m_nextCommands << PendingCommand{.command = command, .data = data, .captureMode = captureMode};
 }
 
 void GdbBackend::prepend(const QString &command)
 {
-    m_nextCommands.prepend({command, std::nullopt, Default});
+    m_nextCommands.prepend({.command = command, .data = std::nullopt, .captureMode = Default});
 }
 
 GdbBackend::GdbBackend(QObject *parent)
@@ -253,7 +253,7 @@ void GdbBackend::enqueue(const QStringList &commands, bool prepend)
     }
     if (prepend) {
         for (int n = commands.size() - 1; n >= 0; --n) {
-            m_nextCommands.prepend({commands[n], std::nullopt, Default});
+            m_nextCommands.prepend({.command = commands[n], .data = std::nullopt, .captureMode = Default});
         }
     } else {
         for (const auto &cmd : commands) {

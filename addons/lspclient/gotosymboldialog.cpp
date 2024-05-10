@@ -80,7 +80,7 @@ public:
             QTextCharFormat fmt;
             fmt.setForeground(keywordColor);
             fmt.setFont(monoFont);
-            fmts.append({0, colons, fmt});
+            fmts.append({.start = 0, .length = colons, .format = fmt});
             i = colons + 2;
         }
         // symbol name
@@ -88,7 +88,7 @@ public:
             QTextCharFormat f;
             f.setForeground(colorForSymbolKind(kind));
             f.setFont(monoFont);
-            fmts.append({i, int(text.length() - i), f});
+            fmts.append({.start = i, .length = int(text.length() - i), .format = f});
         }
 
         // add file name to the text we are going to display
@@ -100,7 +100,7 @@ public:
         {
             QTextCharFormat f;
             f.setForeground(Qt::gray);
-            fmts.append({textLength, int(text.length() - textLength), f});
+            fmts.append({.start = textLength, .length = int(text.length() - textLength), .format = f});
         }
 
         options.rect = textRect;
@@ -247,7 +247,7 @@ void GotoSymbolHUDDialog::slotTextChanged(const QString &text)
         model->clear();
         for (const auto &sym : symbols) {
             auto item = new QStandardItem(iconForSymbolKind(sym.kind), sym.name);
-            item->setData(QVariant::fromValue(GotoSymbolItem{sym.url, sym.range.start(), sym.kind}), SymbolInfoRole);
+            item->setData(QVariant::fromValue(GotoSymbolItem{.fileUrl = sym.url, .pos = sym.range.start(), .kind = sym.kind}), SymbolInfoRole);
             model->appendRow(item);
         }
         m_treeView.setCurrentIndex(model->index(0, 0));

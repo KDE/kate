@@ -941,7 +941,7 @@ void DapBackend::runToCursor(QUrl const &url, int line)
         m_breakpoints[path] << std::nullopt;
     }
 
-    m_runToCursor = Cursor{line, path};
+    m_runToCursor = Cursor{.line = line, .path = path};
     pushRequest();
     m_client->requestSetBreakpoints(path, m_wantedBreakpoints[path], true);
 }

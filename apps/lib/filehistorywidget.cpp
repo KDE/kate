@@ -86,7 +86,14 @@ static std::vector<Commit> parseCommits(const QByteArray raw)
             file = (*it).toByteArray().trimmed();
         }
 
-        Commit c{hash, author, email, authorDate, commitDate, parent, msg, file};
+        Commit c{.hash = hash,
+                 .authorName = author,
+                 .email = email,
+                 .authorDate = authorDate,
+                 .commitDate = commitDate,
+                 .parentHash = parent,
+                 .msg = msg,
+                 .fileName = file};
         commits.push_back(std::move(c));
     }
 

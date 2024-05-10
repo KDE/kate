@@ -71,7 +71,7 @@ int GdbmiParser::parseRecord(const QByteArray &message, int position)
     case '(': {
         const auto tok = tryPrompt(message, position);
         if (!tok.hasError()) {
-            Q_EMIT recordProduced(Record{Record::Prompt, QString(), {}, std::nullopt});
+            Q_EMIT recordProduced(Record{.category = Record::Prompt, .resultClass = QString(), .value = {}, .token = std::nullopt});
             position = tok.position;
         } else {
             Q_EMIT parserError(tok.error.value());
@@ -101,12 +101,12 @@ GdbmiParser::ParserHead GdbmiParser::parseResponse(const QByteArray &message)
     while (pos < size) {
         const int newPos = parseRecord(message, pos);
         if (newPos <= pos) {
-            return {pos, true};
+            return {.last = pos, .error = true};
         }
         pos = newPos;
     }
 
-    return {pos, false};
+    return {.last = pos, .error = false};
 }
 
 bool GdbmiParser::isMIRequest(const QString &message)

@@ -637,7 +637,7 @@ struct HunkChangedLine {
     int lineNo;
     // Which portion of the line changed (len, pos)
     bool added;
-    Change c = {-1, -1};
+    Change c = {.pos = -1, .len = -1};
 };
 using HunkChangedLines = std::vector<HunkChangedLine>;
 

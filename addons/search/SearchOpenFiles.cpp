@@ -118,13 +118,13 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
             QString preContext = lineStr.mid(preContextStart, column - preContextStart);
             QString postContext = lineStr.mid(endColumn, postContextLen);
 
-            matches.push_back(KateSearchMatch{preContext,
-                                              match.captured(),
-                                              postContext,
-                                              QString(),
-                                              KTextEditor::Range{line, column, line, int(column + match.capturedLength())},
-                                              true,
-                                              true});
+            matches.push_back(KateSearchMatch{.preMatchStr = preContext,
+                                              .matchStr = match.captured(),
+                                              .postMatchStr = postContext,
+                                              .replaceText = QString(),
+                                              .range = KTextEditor::Range{line, column, line, int(column + match.capturedLength())},
+                                              .checked = true,
+                                              .matchesFilter = true});
             match = regExp.match(doc->line(line), column + match.capturedLength());
             column = match.capturedStart();
         }
@@ -201,8 +201,13 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         QString preContext = doc->line(startLine).mid(preContextStart, startColumn - preContextStart);
         QString postContext = doc->line(endLine).mid(endColumn, MatchModel::PostContextLen);
 
-        matches.push_back(
-            KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{startLine, startColumn, endLine, endColumn}, true, true});
+        matches.push_back(KateSearchMatch{.preMatchStr = preContext,
+                                          .matchStr = match.captured(),
+                                          .postMatchStr = postContext,
+                                          .replaceText = QString(),
+                                          .range = KTextEditor::Range{startLine, startColumn, endLine, endColumn},
+                                          .checked = true,
+                                          .matchesFilter = true});
         match = tmpRegExp.match(m_fullDoc, column + match.capturedLength());
         column = match.capturedStart();
 

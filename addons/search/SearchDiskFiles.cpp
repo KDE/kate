@@ -104,13 +104,13 @@ QList<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
             const auto [preContextStart, postContextLen] = MatchModel::contextLengths(line.size(), column, endColumn);
             const QString preContext = line.mid(preContextStart, column - preContextStart);
             const QString postContext = line.mid(endColumn, postContextLen);
-            matches.push_back(KateSearchMatch{preContext,
-                                              match.captured(),
-                                              postContext,
-                                              QString(),
-                                              KTextEditor::Range{currentLineNumber, column, currentLineNumber, int(column + match.capturedLength())},
-                                              true,
-                                              true});
+            matches.push_back(KateSearchMatch{.preMatchStr = preContext,
+                                              .matchStr = match.captured(),
+                                              .postMatchStr = postContext,
+                                              .replaceText = QString(),
+                                              .range = KTextEditor::Range{currentLineNumber, column, currentLineNumber, int(column + match.capturedLength())},
+                                              .checked = true,
+                                              .matchesFilter = true});
 
             // advance match column
             columnToStartMatch = column + match.capturedLength();
@@ -191,8 +191,13 @@ QList<KateSearchMatch> SearchDiskFiles::searchMultiLineRegExp(QFile &file)
         QString preContext = fullDoc.mid(preContextStart, column - preContextStart);
         QString postContext = fullDoc.mid(column + match.captured().length(), MatchModel::PostContextLen);
 
-        matches.push_back(
-            KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{line, startColumn, endLine, endColumn}, true, true});
+        matches.push_back(KateSearchMatch{.preMatchStr = preContext,
+                                          .matchStr = match.captured(),
+                                          .postMatchStr = postContext,
+                                          .replaceText = QString(),
+                                          .range = KTextEditor::Range{line, startColumn, endLine, endColumn},
+                                          .checked = true,
+                                          .matchesFilter = true});
 
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();

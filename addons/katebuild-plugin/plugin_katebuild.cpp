@@ -1166,7 +1166,7 @@ KateBuildView::OutputLine KateBuildView::processOutputLine(QString line)
     QRegularExpressionMatch match = m_filenameDetector.match(line);
 
     if (!match.hasMatch()) {
-        return {Category::Normal, line, line, QString(), 0, 0};
+        return {.category = Category::Normal, .lineStr = line, .message = line, .file = QString(), .lineNr = 0, .column = 0};
     }
 
     QString filename = match.captured(QStringLiteral("filename"));
@@ -1213,7 +1213,7 @@ KateBuildView::OutputLine KateBuildView::processOutputLine(QString line)
         category = Category::Info;
     }
     // Now we have the data we need show the error/warning
-    return {category, line, msg, filename, line_n.toInt(), col_n.toInt()};
+    return {.category = category, .lineStr = line, .message = msg, .file = filename, .lineNr = line_n.toInt(), .column = col_n.toInt()};
 }
 
 /******************************************************************/

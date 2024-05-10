@@ -219,7 +219,7 @@ public:
             if (lastSlash != -1) {
                 QTextCharFormat fmt;
                 fmt.setFontWeight(QFont::Bold);
-                formats.append({lastSlash + 1, int(text.length() - (lastSlash + 1)), fmt});
+                formats.append({.start = lastSlash + 1, .length = int(text.length() - (lastSlash + 1)), .format = fmt});
             }
         } else {
             // mind translation; let's hope/assume the colon survived
@@ -231,7 +231,7 @@ public:
                 QTextCharFormat fmt;
                 fmt.setFont(m_monoFont);
                 int codeStart = nextColon + 1;
-                formats.append({codeStart, int(text.length() - codeStart), fmt});
+                formats.append({.start = codeStart, .length = int(text.length() - codeStart), .format = fmt});
             }
         }
 
@@ -1550,7 +1550,7 @@ public:
 
     static RangeItem locationToRangeItem(const LSPLocation &loc)
     {
-        return {loc.uri, loc.range, LSPDocumentHighlightKind::Text};
+        return {.uri = loc.uri, .range = loc.range, .kind = LSPDocumentHighlightKind::Text};
     }
 
     void goToDefinition()
@@ -1600,7 +1600,7 @@ public:
 
         auto title = i18nc("@title:tab", "Highlight: %1", currentWord());
         auto converter = [url](const LSPDocumentHighlight &hl) {
-            return RangeItem{url, hl.range, hl.kind};
+            return RangeItem{.uri = url, .range = hl.range, .kind = hl.kind};
         };
 
         processLocations<LSPDocumentHighlight, false>(title, &LSPClientServer::documentHighlight, true, converter);
@@ -1722,7 +1722,7 @@ public:
         } else {
             qCInfo(LSPCLIENT) << "ignoring edit";
         }
-        h({m_accept_edit, QString()});
+        h({.applied = m_accept_edit, .failureReason = QString()});
     }
 
     template<typename Collection>
@@ -1776,7 +1776,7 @@ public:
             }
         };
 
-        auto options = LSPFormattingOptions{tabSize, insertSpaces, QJsonObject()};
+        auto options = LSPFormattingOptions{.tabSize = tabSize, .insertSpaces = insertSpaces, .extra = QJsonObject()};
         auto handle = !lastChar.isNull()
             ? server->documentOnTypeFormatting(document->url(), activeView->cursorPosition(), lastChar, options, this, h)
             : (activeView->selection() ? server->documentRangeFormatting(document->url(), activeView->selectionRange(), options, this, h)

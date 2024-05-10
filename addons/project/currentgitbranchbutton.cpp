@@ -36,8 +36,8 @@ static CurrentGitBranchButton::BranchResult getCurrentBranchName(const QString &
         if (git.waitForStarted() && git.waitForFinished(-1)) {
             if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
                 return {
-                    QString::fromUtf8(git.readAllStandardOutput().trimmed()),
-                    static_cast<CurrentGitBranchButton::BranchType>(i),
+                    .branch = QString::fromUtf8(git.readAllStandardOutput().trimmed()),
+                    .type = static_cast<CurrentGitBranchButton::BranchType>(i),
                 };
             }
         }

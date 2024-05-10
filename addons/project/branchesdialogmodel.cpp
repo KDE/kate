@@ -64,15 +64,16 @@ void BranchesDialogModel::refresh(const QList<GitUtils::Branch> &branches, bool 
 {
     QList<Branch> temp;
     if (checkingOut) {
-        Branch create{branches.at(0).name, {}, {}, 0, ItemType::CreateBranch};
-        Branch createFrom{branches.at(1).name, {}, {}, 0, ItemType::CreateBranchFrom};
+        Branch create{.name = branches.at(0).name, .remote = {}, .refType = {}, .score = 0, .itemType = ItemType::CreateBranch};
+        Branch createFrom{.name = branches.at(1).name, .remote = {}, .refType = {}, .score = 0, .itemType = ItemType::CreateBranchFrom};
         temp.push_back(create);
         temp.push_back(createFrom);
     }
 
     int i = checkingOut ? 2 : 0;
     for (; i < branches.size(); ++i) {
-        temp.append({branches.at(i).name, branches.at(i).remote, branches.at(i).type, -1, ItemType::BranchItem});
+        temp.append(
+            {.name = branches.at(i).name, .remote = branches.at(i).remote, .refType = branches.at(i).type, .score = -1, .itemType = ItemType::BranchItem});
     }
 
     beginResetModel();

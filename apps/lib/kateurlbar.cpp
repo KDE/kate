@@ -989,7 +989,7 @@ private:
         const QString path = dir.absolutePath();
 
         std::vector<DirNamePath> dirsList;
-        dirsList.push_back(DirNamePath{fileName, path});
+        dirsList.push_back(DirNamePath{.name = fileName, .path = path});
 
         // arrived at base?
         if (dir.absolutePath() == base) {
@@ -1003,7 +1003,7 @@ private:
                 continue;
             }
 
-            DirNamePath dnp{dirName, dir.absolutePath()};
+            DirNamePath dnp{.name = dirName, .path = dir.absolutePath()};
             dirsList.push_back(dnp);
 
             dirName = dir.dirName();

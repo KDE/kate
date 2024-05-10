@@ -86,7 +86,7 @@ FileDiagnostics KateProjectCodeAnalysisToolFlake8::parseLine(const QString &line
     d.severity = DiagnosticSeverity::Warning;
     int ln = elements[1].toInt() - 1;
     d.range = KTextEditor::Range(ln, 0, ln, -1);
-    return {url, {d}};
+    return {.uri = url, .diagnostics = {d}};
 }
 
 QString KateProjectCodeAnalysisToolFlake8::stdinMessages()

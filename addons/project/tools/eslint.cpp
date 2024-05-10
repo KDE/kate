@@ -117,7 +117,7 @@ FileDiagnostics ESLint::parseLine(const QString &line) const
         }
         diags << diag;
     }
-    return {uri, diags};
+    return {.uri = uri, .diagnostics = diags};
 }
 
 QString ESLint::stdinMessages()

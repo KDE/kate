@@ -42,7 +42,7 @@ public:
 
         const auto ranges = KFuzzyMatcher::matchedRanges(m_filterString, name);
         std::transform(ranges.begin(), ranges.end(), std::back_inserter(formats), [offset, fmt](const KFuzzyMatcher::Range &fr) {
-            return QTextLayout::FormatRange{fr.start + offset, fr.length, fmt};
+            return QTextLayout::FormatRange{.start = fr.start + offset, .length = fr.length, .format = fmt};
         });
 
         if (!branchItem) {
@@ -64,7 +64,7 @@ public:
         QTextCharFormat lf;
         lf.setFontItalic(true);
         lf.setForeground(Qt::gray);
-        formats.append({nameLen, len, lf});
+        formats.append({.start = nameLen, .length = len, .format = lf});
 
         painter->save();
 

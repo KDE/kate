@@ -551,7 +551,7 @@ const CommitInfo &KateGitBlamePluginView::blameInfo(int lineNr)
 
 const CommitInfo &KateGitBlamePluginView::blameGetUpdateInfo(int lineNr)
 {
-    static const CommitInfo dummy{"hash", i18n("Not Committed Yet"), QDateTime::currentDateTime(), {}};
+    static const CommitInfo dummy{.hash = "hash", .authorName = i18n("Not Committed Yet"), .authorDate = QDateTime::currentDateTime(), .summary = {}};
     if (m_blamedLines.empty() || lineNr < 0 || lineNr >= (int)m_blamedLines.size()) {
         return dummy;
     }

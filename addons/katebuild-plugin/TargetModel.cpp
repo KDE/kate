@@ -321,7 +321,7 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
 
     QModelIndex targetSetIndex = index(bNode.targetSetRow, 0, index(bNode.rootRow, 0));
     beginInsertRows(targetSetIndex, bNode.commandRow, bNode.commandRow);
-    commands.insert(bNode.commandRow, {newName, buildCmd, runCmd});
+    commands.insert(bNode.commandRow, {.name = newName, .buildCmd = buildCmd, .runCmd = runCmd});
     endInsertRows();
     return index(bNode.commandRow, 0, targetSetIndex);
 }

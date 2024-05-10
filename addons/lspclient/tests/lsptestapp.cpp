@@ -106,7 +106,7 @@ int main(int argc, char **argv)
         std::cout << "edits: " << edits.length() << std::endl;
         q.quit();
     };
-    lsp.documentFormatting(document, {2, true, QJsonObject()}, &app, fmt_h);
+    lsp.documentFormatting(document, {.tabSize = 2, .insertSpaces = true, .extra = QJsonObject()}, &app, fmt_h);
     q.exec();
 
     // lsp.didOpen(document, 0, QStringLiteral("blah"));

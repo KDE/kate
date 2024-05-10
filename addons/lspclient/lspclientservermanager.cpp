@@ -837,7 +837,7 @@ private:
                                              root,
                                              realLangId,
                                              serverConfig.value(QStringLiteral("initializationOptions")),
-                                             {folders, caps, completionOverride, signatureOverride}));
+                                             {.folders = folders, .caps = caps, .completion = completionOverride, .signature = signatureOverride}));
             connect(server.get(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
             if (!server->start(m_plugin->m_debugMode)) {
                 QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));
@@ -927,7 +927,9 @@ private:
             // TODO: Further simplify once we are Qt6
             // track document
             connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack, Qt::UniqueConnection);
-            it = m_docs.insert(doc, {server, serverConfig, doc, doc->url(), 0, false, false, {}});
+            it = m_docs.insert(
+                doc,
+                {.server = server, .config = serverConfig, .doc = doc, .url = doc->url(), .version = 0, .open = false, .modified = false, .changes = {}});
             connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::aboutToClose, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::destroyed, this, &self_type::untrack, Qt::UniqueConnection);
@@ -1042,7 +1044,7 @@ private:
     {
         auto info = getDocumentInfo(doc);
         if (info) {
-            info->changes.push_back({LSPRange{position, position}, text});
+            info->changes.push_back({.range = LSPRange{position, position}, .text = text});
         }
     }
 
@@ -1051,7 +1053,7 @@ private:
         (void)text;
         auto info = getDocumentInfo(doc);
         if (info) {
-            info->changes.push_back({range, QString()});
+            info->changes.push_back({.range = range, .text = QString()});
         }
     }
 
@@ -1072,7 +1074,7 @@ private:
             LSPRange oldrange{{line - 1, 0}, {line + 1, 0}};
             LSPRange newrange{{line - 1, 0}, {line, 0}};
             auto text = doc->text(newrange);
-            info->changes.push_back({oldrange, text});
+            info->changes.push_back({.range = oldrange, .text = text});
         }
     }
 
@@ -1128,7 +1130,7 @@ private:
 
     static LSPWorkspaceFolder workspaceFolder(const QString &baseDir, const QString &name)
     {
-        return {QUrl::fromLocalFile(baseDir), name};
+        return {.uri = QUrl::fromLocalFile(baseDir), .name = name};
     }
 
     void updateWorkspace(bool added, const QObject *project)

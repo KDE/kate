@@ -620,7 +620,7 @@ static QList<LSPTextEdit> parseTextEdit(const rapidjson::Value &result)
     for (const auto &edit : result.GetArray()) {
         auto text = GetStringValue(edit, "newText");
         auto range = parseRange(GetJsonObjectForKey(edit, MEMBER_RANGE));
-        ret.push_back({range, std::move(text)});
+        ret.push_back({.range = range, .newText = std::move(text)});
     }
     return ret;
 }
@@ -630,7 +630,7 @@ static LSPDocumentHighlight parseDocumentHighlight(const rapidjson::Value &resul
     auto range = parseRange(GetJsonObjectForKey(result, MEMBER_RANGE));
     // default is DocumentHighlightKind.Text
     auto kind = (LSPDocumentHighlightKind)GetIntValue(result, MEMBER_KIND, (int)LSPDocumentHighlightKind::Text);
-    return {range, kind};
+    return {.range = range, .kind = kind};
 }
 
 static QList<LSPDocumentHighlight> parseDocumentHighlightList(const rapidjson::Value &result)
@@ -828,7 +828,16 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const rapidjson::Value &
             data = rapidJsonStringify(dataIt->value);
         }
 
-        ret.push_back({label, label, kind, detail, doc, sortText, insertText, additionalTextEdits, lspTextEdit, data});
+        ret.push_back({.label = label,
+                       .originalLabel = label,
+                       .kind = kind,
+                       .detail = detail,
+                       .documentation = doc,
+                       .sortText = sortText,
+                       .insertText = insertText,
+                       .additionalTextEdits = additionalTextEdits,
+                       .textEdit = lspTextEdit,
+                       .data = data});
     }
     return ret;
 }
@@ -879,7 +888,7 @@ static LSPSignatureInformation parseSignatureInformation(const rapidjson::Value 
                 }
             }
         }
-        info.parameters.push_back({begin, end});
+        info.parameters.push_back({.start = begin, .end = end});
     }
     return info;
 }
@@ -953,7 +962,7 @@ static LSPCommand parseCommand(const rapidjson::Value &result)
     auto title = GetStringValue(result, MEMBER_TITLE);
     auto command = GetStringValue(result, MEMBER_COMMAND);
     auto args = rapidJsonStringify(GetJsonArrayForKey(result, MEMBER_ARGUMENTS));
-    return {title, command, args};
+    return {.title = title, .command = command, .arguments = args};
 }
 
 static QList<LSPDiagnostic> parseDiagnosticsArray(const rapidjson::Value &result)
@@ -993,10 +1002,10 @@ static QList<LSPDiagnostic> parseDiagnosticsArray(const rapidjson::Value &result
             }
             LSPLocation relLocation = parseLocation(GetJsonObjectForKey(related, MEMBER_LOCATION));
             auto relMessage = GetStringValue(related, MEMBER_MESSAGE);
-            relatedInfoList.push_back({relLocation, relMessage});
+            relatedInfoList.push_back({.location = relLocation, .message = relMessage});
         }
 
-        ret.push_back({range, severity, code, source, message, relatedInfoList});
+        ret.push_back({.range = range, .severity = severity, .code = code, .source = source, .message = message, .relatedInformation = relatedInfoList});
     }
     return ret;
 }
@@ -1023,11 +1032,11 @@ static QList<LSPCodeAction> parseCodeAction(const rapidjson::Value &result)
             auto edit = parseWorkSpaceEdit(GetJsonObjectForKey(action, MEMBER_EDIT));
 
             auto diagnostics = parseDiagnosticsArray(GetJsonArrayForKey(action, MEMBER_DIAGNOSTICS));
-            ret.push_back({title, kind, diagnostics, edit, command});
+            ret.push_back({.title = title, .kind = kind, .diagnostics = diagnostics, .edit = edit, .command = command});
         } else {
             // Command
             auto command = parseCommand(action);
-            ret.push_back({command.title, QString(), {}, {}, command});
+            ret.push_back({.title = command.title, .kind = QString(), .diagnostics = {}, .edit = {}, .command = command});
         }
     }
     return ret;
@@ -2048,7 +2057,7 @@ public:
             for (const auto &action : actions) {
                 QString title = GetStringValue(action, MEMBER_TITLE);
                 QJsonObject actionToSubmit = QJsonDocument::fromJson(rapidJsonStringify(action)).object();
-                v.append(LSPMessageRequestAction{title, [=]() {
+                v.append(LSPMessageRequestAction{.title = title, .choose = [=]() {
                                                      responder(actionToSubmit);
                                                  }});
             }

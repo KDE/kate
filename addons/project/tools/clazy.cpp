@@ -140,7 +140,7 @@ FileDiagnostics KateProjectCodeAnalysisToolClazy::parseLine(const QString &line)
     int col = columnNo.toInt() - 1;
     col = col < 0 ? 0 : col;
     d.range = KTextEditor::Range(ln, col, ln, col);
-    return {url, {d}};
+    return {.uri = url, .diagnostics = {d}};
 }
 
 QString KateProjectCodeAnalysisToolClazy::stdinMessages()

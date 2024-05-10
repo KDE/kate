@@ -231,7 +231,7 @@ public:
         if (lastSlash != -1) {
             QTextCharFormat fmt;
             fmt.setFontWeight(QFont::Bold);
-            formats.append({lastSlash + 1, int(text.length() - (lastSlash + 1)), fmt});
+            formats.append({.start = lastSlash + 1, .length = int(text.length() - (lastSlash + 1)), .format = fmt});
         }
 
         /** There might be an icon? Make sure to not draw over it **/

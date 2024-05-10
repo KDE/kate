@@ -96,14 +96,14 @@ GitUtils::CheckoutResult GitUtils::checkoutNewBranch(const QString &repo, const 
 static GitUtils::Branch parseLocalBranch(const QString &raw)
 {
     static const int len = QStringLiteral("refs/heads/").length();
-    return GitUtils::Branch{raw.mid(len), QString(), GitUtils::Head, QString()};
+    return GitUtils::Branch{.name = raw.mid(len), .remote = QString(), .type = GitUtils::Head, .lastCommit = QString()};
 }
 
 static GitUtils::Branch parseRemoteBranch(const QString &raw)
 {
     static const int len = QStringLiteral("refs/remotes/").length();
     int indexofRemote = raw.indexOf(QLatin1Char('/'), len);
-    return GitUtils::Branch{raw.mid(len), raw.mid(len, indexofRemote - len), GitUtils::Remote, QString()};
+    return GitUtils::Branch{.name = raw.mid(len), .remote = raw.mid(len, indexofRemote - len), .type = GitUtils::Remote, .lastCommit = QString()};
 }
 
 QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, RefType ref)
@@ -142,7 +142,7 @@ QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, Ref
                 branches.append(parseRemoteBranch(o));
             } else if (ref & Tag && o.startsWith(QLatin1String("refs/tags/"))) {
                 static const int len = QStringLiteral("refs/tags/").length();
-                branches.append({o.mid(len), {}, RefType::Tag, QString()});
+                branches.append({.name=o.mid(len), .remote={}, .type=RefType::Tag, .lastCommit=QString()});
             }
         }
         // clang-format on
@@ -180,10 +180,10 @@ QList<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(const
                 continue;
             }
             int commitStart = seperatorIdx + 4;
-            branches << GitUtils::Branch{QString::fromUtf8(row.mid(len, seperatorIdx - len)),
-                                         QString(),
-                                         GitUtils::Head,
-                                         QString::fromUtf8(row.mid(commitStart))};
+            branches << GitUtils::Branch{.name = QString::fromUtf8(row.mid(len, seperatorIdx - len)),
+                                         .remote = QString(),
+                                         .type = GitUtils::Head,
+                                         .lastCommit = QString::fromUtf8(row.mid(commitStart))};
         }
     }
 
@@ -240,8 +240,8 @@ GitUtils::Result GitUtils::deleteBranches(const QStringList &branches, const QSt
     startHostProcess(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         QString out = QString::fromLatin1(git.readAllStandardError()) + QString::fromLatin1(git.readAllStandardOutput());
-        return {out, git.exitCode()};
+        return {.error = out, .returnCode = git.exitCode()};
     }
     Q_UNREACHABLE();
-    return {QString(), -1};
+    return {.error = QString(), .returnCode = -1};
 }

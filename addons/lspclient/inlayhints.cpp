@@ -484,8 +484,8 @@ InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Ra
     // New document
     if (it == m_hintDataByDoc.end()) {
         auto &r = m_hintDataByDoc.emplace_back();
-        r = HintData{doc, doc->checksum(), newHints};
-        return {true, {}, r.m_hints};
+        r = HintData{.doc = doc, .checksum = doc->checksum(), .m_hints = newHints};
+        return {.newDoc = true, .changedLines = {}, .addedHints = r.m_hints};
     }
     // Old
     auto &existing = it->m_hints;
@@ -507,7 +507,7 @@ InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Ra
                                               return false;
                                           }),
                            existing.end());
-            return {false, {affectedLines.begin(), affectedLines.end()}, existing};
+            return {.newDoc = false, .changedLines = {affectedLines.begin(), affectedLines.end()}, .addedHints = existing};
         }
         return {};
     }
@@ -547,7 +547,7 @@ InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Ra
         return l.position < r.position;
     });
 
-    return {false, {affectedLines.begin(), affectedLines.end()}, existing};
+    return {.newDoc = false, .changedLines = {affectedLines.begin(), affectedLines.end()}, .addedHints = existing};
 }
 
 #include "moc_inlayhints.cpp"

@@ -308,7 +308,7 @@ static void parseNumStat(const QByteArray &raw, std::vector<GitFileItem> *items)
 
         const auto file = cols.at(2);
 
-        items->push_back(GitFileItem{file, add, sub});
+        items->push_back(GitFileItem{.file = file, .linesAdded = add, .linesRemoved = sub});
     }
 }
 

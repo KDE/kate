@@ -192,11 +192,11 @@ FileDiagnostics Clippy::parseLine(const QString &line) const
         if (!range.isValid()) {
             range = diag.range;
         }
-        diag.relatedInformation.push_back(DiagnosticRelatedInformation{{u, range}, msg});
+        diag.relatedInformation.push_back(DiagnosticRelatedInformation{.location = {.uri = u, .range = range}, .message = msg});
     }
 
     // qDebug() << uri << diag.message << diag.range;
-    return {uri, {diag}};
+    return {.uri = uri, .diagnostics = {diag}};
 }
 
 QString Clippy::stdinMessages()

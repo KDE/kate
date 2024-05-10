@@ -64,7 +64,7 @@ void GotoSymbolModel::refresh(const QString &filePath)
     static const auto fullExecutablePath = safeExecutableName(QStringLiteral("ctags"));
     if (fullExecutablePath.isEmpty()) {
         beginResetModel();
-        m_rows.append(SymbolItem{i18n("CTags executable not found."), -1, QIcon()});
+        m_rows.append(SymbolItem{.name = i18n("CTags executable not found."), .line = -1, .icon = QIcon()});
         endResetModel();
         return;
     }
@@ -77,7 +77,7 @@ void GotoSymbolModel::refresh(const QString &filePath)
         out = p.readAllStandardOutput();
     } else {
         beginResetModel();
-        m_rows.append(SymbolItem{i18n("CTags executable failed to execute."), -1, QIcon()});
+        m_rows.append(SymbolItem{.name = i18n("CTags executable failed to execute."), .line = -1, .icon = QIcon()});
         endResetModel();
         return;
     }
@@ -145,7 +145,7 @@ void GotoSymbolModel::refresh(const QString &filePath)
     if (!symItems.isEmpty()) {
         m_rows = std::move(symItems);
     } else {
-        m_rows.append(SymbolItem{i18n("CTags was unable to parse this file."), -1, QIcon()});
+        m_rows.append(SymbolItem{.name = i18n("CTags was unable to parse this file."), .line = -1, .icon = QIcon()});
     }
     endResetModel();
 }

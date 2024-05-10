@@ -176,7 +176,7 @@ static FileDiagnostics parseLine(const QString &line, std::vector<DiagnosticWith
                     DiagnosticWithFix df;
                     d.message += QStringLiteral(" (fix available)");
                     df.diag = d;
-                    df.fix = {s, e, v.toString()};
+                    df.fix = {.rangeStart = s, .rangeEnd = e, .text = v.toString()};
                     diagWithFix.push_back(df);
                 }
             }
@@ -184,7 +184,7 @@ static FileDiagnostics parseLine(const QString &line, std::vector<DiagnosticWith
 
         diags << d;
     }
-    return {uri, diags};
+    return {.uri = uri, .diagnostics = diags};
 }
 
 void ESLintPluginView::onReadyRead()
@@ -207,7 +207,7 @@ void ESLintPluginView::onReadyRead()
     }
 
     for (auto it = fileDiagnostics.cbegin(); it != fileDiagnostics.cend(); ++it) {
-        m_provider.diagnosticsAdded(FileDiagnostics{it.key(), it.value()});
+        m_provider.diagnosticsAdded(FileDiagnostics{.uri = it.key(), .diagnostics = it.value()});
     }
 }
 

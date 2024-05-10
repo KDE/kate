@@ -86,7 +86,7 @@ FileDiagnostics KateProjectCodeAnalysisToolCppcheck::parseLine(const QString &li
     } else {
         d.severity = DiagnosticSeverity::Information;
     }
-    return {url, {d}};
+    return {.uri = url, .diagnostics = {d}};
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::stdinMessages()

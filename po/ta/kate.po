@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-09 00:41+0000\n"
+"POT-Creation-Date: 2024-05-10 00:40+0000\n"
 "PO-Revision-Date: 2024-05-05 14:06+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -329,7 +329,7 @@ msgstr "முந்தைய உருப்படி"
 msgid "Clear Diagnostics Filter"
 msgstr "பிழைநீக்க விவர வடிகட்டியை காலியாக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:342
+#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:341
 #, kde-format
 msgid "Diagnostics"
 msgstr "பிழைநீக்க விவரங்கள்"
@@ -349,13 +349,13 @@ msgstr "எச்சரிக்கைகள்"
 msgid "Filter..."
 msgstr "வடிகட்டு..."
 
-#: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:151
+#: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:150
 #, kde-format
 msgid "Error"
 msgstr "பிழை"
 
-#: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:151
-#: lib/kateconfigdialog.cpp:706
+#: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:150
+#: lib/kateconfigdialog.cpp:705
 #, kde-format
 msgid "Warning"
 msgstr "எச்சரிக்கை"
@@ -421,17 +421,17 @@ msgstr "அடக்கலை இயக்கு"
 msgid "Change Style"
 msgstr "தோற்றமுறையை மாற்று"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:322
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:321
 #, kde-format
 msgid "Side By Side"
 msgstr "பக்கத்துப்பக்கத்தில்"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:323
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:322
 #, kde-format
 msgid "Unified"
 msgstr "ஒருங்கே"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:324
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:323
 #, kde-format
 msgid "Raw"
 msgstr "வடிவூட்டாமல்"
@@ -472,59 +472,59 @@ msgstr[1] "வரிகளை ஏற்றரங்கிலிருந்த�
 msgid "Unstage Hunk"
 msgstr "பகுதியை ஏற்றரங்கிலிருந்து நீக்கு"
 
-#: lib/diff/diffwidget.cpp:61
+#: lib/diff/diffwidget.cpp:62
 #, kde-format
 msgid "Diff %1"
 msgstr "%1-இல் வித்தியாசங்காண்"
 
-#: lib/diff/diffwidget.cpp:63
+#: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "%1..%2 இடையே வித்தியாசங்காண்"
 
-#: lib/diff/diffwidget.cpp:84
+#: lib/diff/diffwidget.cpp:85
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "%1 .. %2 இடையே வித்தியாசங்காண்"
 
-#: lib/diff/diffwidget.cpp:114
+#: lib/diff/diffwidget.cpp:115
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "பதிவின் விவரங்களை காட்டு/மறை"
 
-#: lib/diff/diffwidget.cpp:119
+#: lib/diff/diffwidget.cpp:120
 #, kde-format
 msgid "Jump to Next File"
 msgstr "அடுத்த கோப்புக்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:123
+#: lib/diff/diffwidget.cpp:124
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "முந்தைய கோப்புக்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:127
+#: lib/diff/diffwidget.cpp:128
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "அடுத்த பாளத்திற்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:131
+#: lib/diff/diffwidget.cpp:132
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "முந்தைய பாளத்திற்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:135
+#: lib/diff/diffwidget.cpp:136
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "மாற்றக்காட்சியை மீளேற்று"
 
-#: lib/diff/diffwidget.cpp:139
+#: lib/diff/diffwidget.cpp:140
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "மாற்றப்பட்ட வரிகளை சுற்றியுள்ளவற்றையும் காட்டும்"
 
-#: lib/diff/diffwidget.cpp:552
+#: lib/diff/diffwidget.cpp:553
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -535,23 +535,23 @@ msgstr ""
 "தேவை. கிட் ஏற்கனவே நிறுவப்பட்டிருந்தால், அதற்கான பாதை உங்கள் PATH சூழ்மாறியில் உள்ளதா என "
 "சரிபாருங்கள். விவரங்களுக்கு https://git-scm.com/downloads என்பதைப் பாருங்கள்."
 
-#: lib/diff/diffwidget.cpp:555 lib/diff/diffwidget.cpp:1156
-#: lib/kateconfigdialog.cpp:316
+#: lib/diff/diffwidget.cpp:556 lib/diff/diffwidget.cpp:1157
+#: lib/kateconfigdialog.cpp:315
 #, kde-format
 msgid "Diff"
 msgstr "வித்தியாசம்"
 
-#: lib/diff/diffwidget.cpp:767 lib/diff/diffwidget.cpp:971
+#: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
 #, kde-format
 msgid "New file %1"
 msgstr "புதிய கோப்பு %1"
 
-#: lib/diff/diffwidget.cpp:769 lib/diff/diffwidget.cpp:973
+#: lib/diff/diffwidget.cpp:770 lib/diff/diffwidget.cpp:974
 #, kde-format
 msgid "Deleted file %1"
 msgstr "நீக்கப்பட்ட கோப்பு %1"
 
-#: lib/diff/diffwidget.cpp:1139 lib/diff/diffwidget.cpp:1140
+#: lib/diff/diffwidget.cpp:1140 lib/diff/diffwidget.cpp:1141
 #, kde-format
 msgid "No differences found"
 msgstr "வித்தியாசங்கள் இல்லை"
@@ -932,32 +932,32 @@ msgid ""
 msgstr ""
 "'%1' என்கிற கோப்பை திறக்க முடியவில்லை: இது ஒரு சாதாரண கோப்பு அல்ல, இது ஒரு அடைவு."
 
-#: lib/kateconfigdialog.cpp:54
+#: lib/kateconfigdialog.cpp:53
 #, kde-format
 msgid "Configure"
 msgstr "அமை"
 
-#: lib/kateconfigdialog.cpp:120
+#: lib/kateconfigdialog.cpp:119
 #, kde-format
 msgid "Behavior"
 msgstr "நடத்தை"
 
-#: lib/kateconfigdialog.cpp:122
+#: lib/kateconfigdialog.cpp:121
 #, kde-format
 msgid "Behavior Options"
 msgstr "நடத்தை விருப்பத்தேர்வுகள்"
 
-#: lib/kateconfigdialog.cpp:128
+#: lib/kateconfigdialog.cpp:127
 #, kde-format
 msgid "&Behavior"
 msgstr "&நடத்தை"
 
-#: lib/kateconfigdialog.cpp:133
+#: lib/kateconfigdialog.cpp:132
 #, kde-format
 msgid "Open each document in its own window"
 msgstr "ஒவ்வொரு ஆவணத்தையும் தனி சாளரத்தில் திற"
 
-#: lib/kateconfigdialog.cpp:136
+#: lib/kateconfigdialog.cpp:135
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
@@ -966,43 +966,43 @@ msgstr ""
 "இது இயக்கப்பட்டிருந்தால், ஒவ்வொரு ஆவணமும் ஓர் புதிய சாளரத்தில் திறக்கப்படும். இல்லையேல், "
 "தற்போதைய சாளரத்தில் புதிய கீற்றாகவே திறக்கப்படும்."
 
-#: lib/kateconfigdialog.cpp:146
+#: lib/kateconfigdialog.cpp:145
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "&இவ்வகையான செய்தி வரும்போது வெளியீட்டு பலகைக்கு தாவு:"
 
-#: lib/kateconfigdialog.cpp:151
+#: lib/kateconfigdialog.cpp:150
 #, kde-format
 msgid "Never"
 msgstr "ஒருபோதும் வேண்டாம்"
 
-#: lib/kateconfigdialog.cpp:151
+#: lib/kateconfigdialog.cpp:150
 #, kde-format
 msgid "Info"
 msgstr "தகவல்"
 
-#: lib/kateconfigdialog.cpp:151
+#: lib/kateconfigdialog.cpp:150
 #, kde-format
 msgid "Log"
 msgstr "பதிவு"
 
-#: lib/kateconfigdialog.cpp:157
+#: lib/kateconfigdialog.cpp:156
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&வெளியீட்டுப்பலகையின் வரலாற்றை வரம்புப்படுத்து:"
 
-#: lib/kateconfigdialog.cpp:163 lib/kateconfigdialog.cpp:228
-#: lib/kateconfigdialog.cpp:350
+#: lib/kateconfigdialog.cpp:162 lib/kateconfigdialog.cpp:227
+#: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Unlimited"
 msgstr "வரம்பற்றது"
 
-#: lib/kateconfigdialog.cpp:170
+#: lib/kateconfigdialog.cpp:169
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr "வேறு செயலியால் மாற்றப்பட்ட கோப்புகளை நிர்வகிக்க தனி &சாளரத்தை பயன்படுத்து"
 
-#: lib/kateconfigdialog.cpp:173
+#: lib/kateconfigdialog.cpp:172
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -1013,17 +1013,17 @@ msgstr ""
 "மாறாக இயக்கப்படவில்லையெனில், மாற்றப்பட்டுள்ள கோப்பைக் காட்டும் காட்சிப்பகுதி குவியத்தைப் "
 "பெறும்போது அந்த கோப்பை என்ன செய்யவேண்டுமென்பது உங்களிடம் கேட்கப்படும்."
 
-#: lib/kateconfigdialog.cpp:182
+#: lib/kateconfigdialog.cpp:181
 #, kde-format
 msgid "&Sidebars"
 msgstr "&ஓரப்பட்டைகள்"
 
-#: lib/kateconfigdialog.cpp:185
+#: lib/kateconfigdialog.cpp:184
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "பகுதியின் அளவை கீற்றுகளைப் பொறுத்து அமை"
 
-#: lib/kateconfigdialog.cpp:188
+#: lib/kateconfigdialog.cpp:187
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -1034,27 +1034,27 @@ msgstr ""
 "அமையும்.\n"
 "கீழ் ஓரப்பட்டையை இத்தேர்வு பாதிக்காது."
 
-#: lib/kateconfigdialog.cpp:193
+#: lib/kateconfigdialog.cpp:192
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "வலது மற்றும் இடது ஓரப்பட்டைகளிலுள்ள பட்டன்களுக்கான உரையை காட்டு"
 
-#: lib/kateconfigdialog.cpp:198
+#: lib/kateconfigdialog.cpp:197
 #, kde-format
 msgid "Icon size for left and right sidebar buttons:"
 msgstr "வலது மற்றும் இடது ஓரப்பட்டைகளிலுள்ள சின்னங்களின் அளவு:"
 
-#: lib/kateconfigdialog.cpp:218
+#: lib/kateconfigdialog.cpp:217
 #, kde-format
 msgid "&Tabs"
 msgstr "&கீற்றுகள்"
 
-#: lib/kateconfigdialog.cpp:222
+#: lib/kateconfigdialog.cpp:221
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "கீற்றுகளின் எண்ணிக்கையை &வரம்புப்படுத்து:"
 
-#: lib/kateconfigdialog.cpp:233
+#: lib/kateconfigdialog.cpp:232
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1064,168 +1064,168 @@ msgstr ""
 "உருளலை இயக்குங்கள். கீற்றுகளின் எண்ணிக்கைக்கு வரம்பில்லாத பட்சத்தில், கீற்று உலாவல் தானாக "
 "இயக்கப்படும்."
 
-#: lib/kateconfigdialog.cpp:237
+#: lib/kateconfigdialog.cpp:236
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "கீற்றுகளை தானாக மறை"
 
-#: lib/kateconfigdialog.cpp:239
+#: lib/kateconfigdialog.cpp:238
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 "இது குறிக்கப்படிருந்தால், ஒரே ஆவணம் திறக்கப்பட்டிருக்கும் பட்சத்தில் கீற்றுப்பட்டை மறைக்கப்படும்."
 
-#: lib/kateconfigdialog.cpp:243
+#: lib/kateconfigdialog.cpp:242
 #, kde-format
 msgid "&Show close button"
 msgstr "&மூடுவதற்கான பட்டனை காட்டு"
 
-#: lib/kateconfigdialog.cpp:245
+#: lib/kateconfigdialog.cpp:244
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "இது குறிக்கப்பட்டிருந்தால், ஒவ்வொரு கீற்றிலும் மூடுவதற்கான பட்டன் காட்டப்படும்."
 
-#: lib/kateconfigdialog.cpp:249
+#: lib/kateconfigdialog.cpp:248
 #, kde-format
 msgid "&Expand tabs"
 msgstr "கீற்றுகளை வி&ரிவுபடுத்து"
 
-#: lib/kateconfigdialog.cpp:251
+#: lib/kateconfigdialog.cpp:250
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "இது குறிக்கப்பட்டிருந்தால், கீற்றுகள் முடிந்த அளவு நீளமாக்கப்படும்."
 
-#: lib/kateconfigdialog.cpp:255
+#: lib/kateconfigdialog.cpp:254
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&இரட்டை க்ளிக் புதிய ஆவணத்தை திறக்கும்"
 
-#: lib/kateconfigdialog.cpp:257
+#: lib/kateconfigdialog.cpp:256
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "இது குறிக்கப்பட்டிருந்தால், இரட்டை க்ளிக் புதிய ஆவணத்தை திறக்கும்."
 
-#: lib/kateconfigdialog.cpp:261
+#: lib/kateconfigdialog.cpp:260
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "&நடு க்ளிக் ஆவணத்தை மூடும்"
 
-#: lib/kateconfigdialog.cpp:263
+#: lib/kateconfigdialog.cpp:262
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "இது குறிக்கப்பட்டிருந்தால், நடு க்ளிக் ஆவணத்தை மூடும்."
 
-#: lib/kateconfigdialog.cpp:267
+#: lib/kateconfigdialog.cpp:266
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "கீற்றுப்பட்டையில் உருளவிடு"
 
-#: lib/kateconfigdialog.cpp:269
+#: lib/kateconfigdialog.cpp:268
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr "கீற்றுகளின் எண்ணிக்கை அதிகமாகும் பட்சத்தில், உருளலை இத்தேர்வு அனுமதிக்கும்."
 
-#: lib/kateconfigdialog.cpp:273
+#: lib/kateconfigdialog.cpp:272
 #, kde-format
 msgid "Elide tab text"
 msgstr "கீற்றிலுள்ள உரையை சுருக்கு"
 
-#: lib/kateconfigdialog.cpp:275
+#: lib/kateconfigdialog.cpp:274
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 "இது குறிக்கப்பட்டிருந்தால், கீற்றின் தலைப்பு மிகநீளமாக இருக்கும் பட்சத்தில் வெட்டப்படும்."
 
-#: lib/kateconfigdialog.cpp:279
+#: lib/kateconfigdialog.cpp:278
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
 msgstr "புதிய கீற்றுகளை தற்போதையதன் வலதில் திற"
 
-#: lib/kateconfigdialog.cpp:281
+#: lib/kateconfigdialog.cpp:280
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr ""
 "இது குறிக்கப்படவில்லையெனில், புதிய கீற்றுகள் கீற்றுப்பட்டையின் கடைசியில் திறக்கப்படும்."
 
-#: lib/kateconfigdialog.cpp:287
+#: lib/kateconfigdialog.cpp:286
 #, kde-format
 msgid "&Mouse"
 msgstr "&சுட்டி"
 
-#: lib/kateconfigdialog.cpp:292
+#: lib/kateconfigdialog.cpp:291
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "&பின்செல்வதற்கான பட்டன் அழுத்தப்படும்போது:"
 
-#: lib/kateconfigdialog.cpp:297
+#: lib/kateconfigdialog.cpp:296
 #, kde-format
 msgid "Previous tab"
 msgstr "முந்தைய கீற்று"
 
-#: lib/kateconfigdialog.cpp:297
+#: lib/kateconfigdialog.cpp:296
 #, kde-format
 msgid "History back"
 msgstr "வரலாற்றில் முந்தையதற்கு செல்"
 
-#: lib/kateconfigdialog.cpp:303
+#: lib/kateconfigdialog.cpp:302
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "&முன்செல்வதற்கான பட்டன் அழுத்தப்படும்போது:"
 
-#: lib/kateconfigdialog.cpp:308
+#: lib/kateconfigdialog.cpp:307
 #, kde-format
 msgid "Next tab"
 msgstr "அடுத்த கீற்று"
 
-#: lib/kateconfigdialog.cpp:308
+#: lib/kateconfigdialog.cpp:307
 #, kde-format
 msgid "History forward"
 msgstr "வரலாற்றில் பின்தையதற்கு செல்"
 
-#: lib/kateconfigdialog.cpp:325
+#: lib/kateconfigdialog.cpp:324
 #, kde-format
 msgid "Diff Style:"
 msgstr "வித்தியாசக்காட்சியின் பாங்கு:"
 
-#: lib/kateconfigdialog.cpp:332
+#: lib/kateconfigdialog.cpp:331
 #, kde-format
 msgid "Navigation Bar"
 msgstr "உலாவல் பட்டை"
 
-#: lib/kateconfigdialog.cpp:337
+#: lib/kateconfigdialog.cpp:336
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "தற்போதைய கூறை உலாவல் பட்டையை காட்டு"
 
-#: lib/kateconfigdialog.cpp:347
+#: lib/kateconfigdialog.cpp:346
 #, kde-format
 msgid "Diagnostics limit:"
 msgstr "பிழைநீக்க வரம்பு:"
 
-#: lib/kateconfigdialog.cpp:352
+#: lib/kateconfigdialog.cpp:351
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "பிழைநீக்கக் காட்சிப்பகுதியில் அனுமதிக்கப்படும் அதிகபட்ச செய்திகள்"
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:366
 #, kde-format
 msgid "Session"
 msgstr "அமர்வு"
 
-#: lib/kateconfigdialog.cpp:369
+#: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Session Management"
 msgstr "அமர்வு மேலாண்மை"
 
-#: lib/kateconfigdialog.cpp:380
+#: lib/kateconfigdialog.cpp:379
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(ஒருபோதும் வேண்டாம்)"
 
-#: lib/kateconfigdialog.cpp:381
+#: lib/kateconfigdialog.cpp:380
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1233,29 +1233,29 @@ msgid_plural " days"
 msgstr[0] " நாள்"
 msgstr[1] " நாட்கள்"
 
-#: lib/kateconfigdialog.cpp:414
+#: lib/kateconfigdialog.cpp:413
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr "ஓர் சாளரம் மூடப்படும்போது அச்சாளரத்திலுள்ள ஆவணங்களும் மூடப்படும்."
 
-#: lib/kateconfigdialog.cpp:449
+#: lib/kateconfigdialog.cpp:448
 #, kde-format
 msgid "Plugins"
 msgstr "செருகுநிரல்கள்"
 
-#: lib/kateconfigdialog.cpp:451
+#: lib/kateconfigdialog.cpp:450
 #, kde-format
 msgid "Plugin Manager"
 msgstr "செருகுநிரல் மேலாளர்"
 
-#: lib/kateconfigdialog.cpp:469 lib/kateconfigdialog.cpp:471
+#: lib/kateconfigdialog.cpp:468 lib/kateconfigdialog.cpp:470
 #, kde-format
 msgid "User Feedback"
 msgstr "பயனர் பின்னூட்டம்"
 
-#: lib/kateconfigdialog.cpp:705
+#: lib/kateconfigdialog.cpp:704
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1693,7 +1693,7 @@ msgstr ""
 msgid "Close all documents beside current one"
 msgstr "நடப்பு ஆவணத்தை தவிர மற்ற எல்லா ஆவணங்களையும் மூடு"
 
-#: lib/katemainwindow.cpp:852
+#: lib/katemainwindow.cpp:842
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1701,12 +1701,12 @@ msgstr ""
 "இது பட்டிப் பட்டையை முழுதாக மறைத்துவிடும். %1 என்பதை தட்டி நீங்கள் மறுபடியும் அதை "
 "காட்டலாம்."
 
-#: lib/katemainwindow.cpp:855
+#: lib/katemainwindow.cpp:845
 #, kde-format
 msgid "Hide menu bar"
 msgstr "பட்டிப் பட்டையை மறை"
 
-#: lib/katemainwindow.cpp:1028
+#: lib/katemainwindow.cpp:1018
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1715,19 +1715,19 @@ msgstr ""
 "%1 என்ற அடைவை நீங்கள் கேட்டிற்குள் இழுத்து போட்டுள்ளீர்கள். அதிலுள்ள அனைத்து கோப்புகளையும் "
 "திறக்க வேண்டுமா?"
 
-#: lib/katemainwindow.cpp:1031
+#: lib/katemainwindow.cpp:1021
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "அடைவுகளுக்குள் உள்ள கோப்புகளை திறக்கலாமா?"
 
-#: lib/katemainwindow.cpp:1032
+#: lib/katemainwindow.cpp:1022
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "அனைத்து கோப்புகளையும் திற"
 
-#: lib/katemainwindow.cpp:1229
+#: lib/katemainwindow.cpp:1219
 #, kde-format
 msgid " [read only]"
 msgstr " [படித்தல் மட்டும்]"
@@ -1852,12 +1852,12 @@ msgstr ""
 "செய்யுங்கள். விசை சுருக்குவழிகள் மூலமும் நீங்கள் கருவி காட்சிப்பகுதிகளை காட்டலாம்/"
 "மறைக்கலாம்.</qt>"
 
-#: lib/katemwmodonhddialog.cpp:54
+#: lib/katemwmodonhddialog.cpp:53
 #, kde-format
 msgid "Documents Modified on Disk"
 msgstr "வட்டில் ஆவணங்கள் மாற்றப்பட்டுள்ளன"
 
-#: lib/katemwmodonhddialog.cpp:70
+#: lib/katemwmodonhddialog.cpp:69
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1867,37 +1867,37 @@ msgstr ""
 "தேர்ந்தெடுத்து, ஏதாவதொரு செயல் பட்டனை அழுத்தவும். பட்டியல் காலியாகும்வரை இவ்வாறு நீங்கள் "
 "செய்ய வேண்டும்.</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:80
+#: lib/katemwmodonhddialog.cpp:79
 #, kde-format
 msgid "Filename"
 msgstr "கோப்புப் பெயர்"
 
-#: lib/katemwmodonhddialog.cpp:80
+#: lib/katemwmodonhddialog.cpp:79
 #, kde-format
 msgid "Status on Disk"
 msgstr "வட்டில் நிலை"
 
-#: lib/katemwmodonhddialog.cpp:85
+#: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Modified"
 msgstr "மாற்றப்பட்டது"
 
-#: lib/katemwmodonhddialog.cpp:85
+#: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Created"
 msgstr "உருவாக்கப்பட்டது"
 
-#: lib/katemwmodonhddialog.cpp:85
+#: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Deleted"
 msgstr "நீக்கப்பட்டது"
 
-#: lib/katemwmodonhddialog.cpp:108
+#: lib/katemwmodonhddialog.cpp:107
 #, kde-format
 msgid "&View Difference"
 msgstr "&வித்தியாசங்களை காட்டு"
 
-#: lib/katemwmodonhddialog.cpp:109
+#: lib/katemwmodonhddialog.cpp:108
 #, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
@@ -1906,32 +1906,32 @@ msgstr ""
 "திருத்தியிலுள்ள தேர்ந்தெடுக்கப்பட்ட ஆவணத்தின் பதிவிற்கும், வட்டிலுள்ள அதன் பதிவிற்கும் "
 "இடையேயான வித்தியாசங்களை கண்டுபிடித்து காட்டும்."
 
-#: lib/katemwmodonhddialog.cpp:117
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "மா&ற்றங்களை பொருட்படுத்தாதே"
 
-#: lib/katemwmodonhddialog.cpp:118
+#: lib/katemwmodonhddialog.cpp:117
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "தேர்ந்தெடுக்கப்பட்ட ஆவணங்கள் மாற்றப்பட்டன என்ற குறிப்பை நீக்கு"
 
-#: lib/katemwmodonhddialog.cpp:124
+#: lib/katemwmodonhddialog.cpp:123
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "வட்டிலுள்ள மாற்றங்களை கைவிட்டு தேர்ந்தெடுக்கப்பட்ட ஆவணங்களை மேலெழுதும்"
 
-#: lib/katemwmodonhddialog.cpp:128
+#: lib/katemwmodonhddialog.cpp:127
 #, kde-format
 msgid "&Reload"
 msgstr "&மீளேற்று"
 
-#: lib/katemwmodonhddialog.cpp:130
+#: lib/katemwmodonhddialog.cpp:129
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "வட்டிலிருந்து தேர்ந்தெடுக்கப்பட்ட ஆவணங்களை மீளேற்று"
 
-#: lib/katemwmodonhddialog.cpp:194
+#: lib/katemwmodonhddialog.cpp:193
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1940,7 +1940,7 @@ msgstr ""
 "'%1'\n"
 "என்ற ஆவணத்தை சேமிக்க முடியவில்லை"
 
-#: lib/katemwmodonhddialog.cpp:312
+#: lib/katemwmodonhddialog.cpp:311
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -1949,17 +1949,17 @@ msgstr ""
 "diff கட்டளை தோல்வியடைந்தது. git நிறுவப்பட்டுள்ளதென்றும், உங்கள் PATH-இல் உள்ளதென்றும் "
 "உறுதி செய்யுங்கள்."
 
-#: lib/katemwmodonhddialog.cpp:314
+#: lib/katemwmodonhddialog.cpp:313
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "வித்தியாசங்களை கண்டுபிடிப்பதில் சிக்கல்"
 
-#: lib/katemwmodonhddialog.cpp:321
+#: lib/katemwmodonhddialog.cpp:320
 #, kde-format
 msgid "[OLD]"
 msgstr "[பழையது]"
 
-#: lib/katemwmodonhddialog.cpp:322
+#: lib/katemwmodonhddialog.cpp:321
 #, kde-format
 msgid "[NEW]"
 msgstr "[புதியது]"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-05-10 00:40+0000\n"
 "PO-Revision-Date: 2024-01-21 01:23+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -614,27 +614,27 @@ msgstr "gdb-mi: 無法剖析上一個回應：%1。太多連續錯誤。將停�
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: 無法剖析上一個回應：%1"
 
-#: localsview.cpp:17
+#: localsview.cpp:19
 #, kde-format
 msgid "Symbol"
 msgstr "符號"
 
-#: localsview.cpp:18
+#: localsview.cpp:20
 #, kde-format
 msgid "Value"
 msgstr "數值"
 
-#: localsview.cpp:41
+#: localsview.cpp:43
 #, kde-format
 msgid "type"
 msgstr "類型"
 
-#: localsview.cpp:50
+#: localsview.cpp:52
 #, kde-format
 msgid "indexed items"
 msgstr "已索引項目"
 
-#: localsview.cpp:53
+#: localsview.cpp:55
 #, kde-format
 msgid "named items"
 msgstr "有名稱的項目"

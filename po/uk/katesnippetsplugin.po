@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-19 00:39+0000\n"
+"POT-Creation-Date: 2024-05-10 00:40+0000\n"
 "PO-Revision-Date: 2020-09-13 08:34+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -236,12 +236,12 @@ msgstr "<порожній фрагмент>"
 msgid "insert snippet %1"
 msgstr "вставити фрагмент %1"
 
-#: snippetrepository.cpp:45
+#: snippetrepository.cpp:46
 #, kde-format
 msgid "<empty repository>"
 msgstr "<порожнє сховище>"
 
-#: snippetrepository.cpp:232
+#: snippetrepository.cpp:233
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -252,28 +252,28 @@ msgstr ""
 "межами вашого особистого каталогу даних. У вашому особистому каталозі даних "
 "створено копію початкового файла даних."
 
-#: snippetrepository.cpp:238
+#: snippetrepository.cpp:239
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Не вдалося відкрити для запису файл для виведення даних «%1»"
 
-#: snippetrepository.cpp:273
+#: snippetrepository.cpp:274
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Не вдалося відкрити сховище фрагментів %1."
 
-#: snippetrepository.cpp:280
+#: snippetrepository.cpp:281
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Було знайдено помилку <b>%4</b><br /> у файлі %1 в %2/%3</qt>"
 
-#: snippetrepository.cpp:291
+#: snippetrepository.cpp:292
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Некоректний файл XML фрагментів: %1"
 
-#: snippetrepository.cpp:353
+#: snippetrepository.cpp:354
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -282,12 +282,12 @@ msgstr ""
 "Сховище вимкнено, під час доповнення коду програма не показуватиме "
 "фрагментів, що у ньому містяться."
 
-#: snippetrepository.cpp:356
+#: snippetrepository.cpp:357
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Застосовувати до файлів усіх типів"
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:359
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Застосовувати лише до файлів типів: %1"

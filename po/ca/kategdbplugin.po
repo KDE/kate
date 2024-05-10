@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-05-10 00:40+0000\n"
 "PO-Revision-Date: 2024-01-12 15:49+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -623,27 +623,27 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: no s'ha pogut analitzar la darrera resposta: %1"
 
-#: localsview.cpp:17
+#: localsview.cpp:19
 #, kde-format
 msgid "Symbol"
 msgstr "Símbol"
 
-#: localsview.cpp:18
+#: localsview.cpp:20
 #, kde-format
 msgid "Value"
 msgstr "Valor"
 
-#: localsview.cpp:41
+#: localsview.cpp:43
 #, kde-format
 msgid "type"
 msgstr "tipus"
 
-#: localsview.cpp:50
+#: localsview.cpp:52
 #, kde-format
 msgid "indexed items"
 msgstr "elements indexats"
 
-#: localsview.cpp:53
+#: localsview.cpp:55
 #, kde-format
 msgid "named items"
 msgstr "elements amb nom"

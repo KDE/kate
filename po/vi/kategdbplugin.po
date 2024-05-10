@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-05-10 00:40+0000\n"
 "PO-Revision-Date: 2023-03-21 18:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -618,27 +618,27 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Không phân tách được lời hồi đáp cuối: %1"
 
-#: localsview.cpp:17
+#: localsview.cpp:19
 #, kde-format
 msgid "Symbol"
 msgstr "Kí hiệu"
 
-#: localsview.cpp:18
+#: localsview.cpp:20
 #, kde-format
 msgid "Value"
 msgstr "Giá trị"
 
-#: localsview.cpp:41
+#: localsview.cpp:43
 #, kde-format
 msgid "type"
 msgstr "kiểu"
 
-#: localsview.cpp:50
+#: localsview.cpp:52
 #, kde-format
 msgid "indexed items"
 msgstr "mục được lập chỉ mục"
 
-#: localsview.cpp:53
+#: localsview.cpp:55
 #, kde-format
 msgid "named items"
 msgstr "mục được đặt tên"

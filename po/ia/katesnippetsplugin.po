@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-19 00:39+0000\n"
+"POT-Creation-Date: 2024-05-10 00:40+0000\n"
 "PO-Revision-Date: 2021-10-31 22:02+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -232,12 +232,12 @@ msgstr "<empty snippet>"
 msgid "insert snippet %1"
 msgstr "inserta fragmento %1"
 
-#: snippetrepository.cpp:45
+#: snippetrepository.cpp:46
 #, kde-format
 msgid "<empty repository>"
 msgstr "<empty repository>"
 
-#: snippetrepository.cpp:232
+#: snippetrepository.cpp:233
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -248,29 +248,29 @@ msgstr ""
 "directorio de datos personal; como tal, un copia del file original ha essite "
 "create intra tu directorio  de datos personal."
 
-#: snippetrepository.cpp:238
+#: snippetrepository.cpp:239
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "File de exito '%1' non poteva esser aperite in scriptura"
 
-#: snippetrepository.cpp:273
+#: snippetrepository.cpp:274
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Non pote aperir repositorio de fragmento %1"
 
-#: snippetrepository.cpp:280
+#: snippetrepository.cpp:281
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>Le error <b>%4</b><br /> ha essite discoperite in le file %1 a %2/%3</qt>"
 
-#: snippetrepository.cpp:291
+#: snippetrepository.cpp:292
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Invalide file de fragmento XML: %1"
 
-#: snippetrepository.cpp:353
+#: snippetrepository.cpp:354
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -279,12 +279,12 @@ msgstr ""
 "Le repositorio es dishabilitate, le fragmentos continite non essera "
 "monstrate durante le completion de codice."
 
-#: snippetrepository.cpp:356
+#: snippetrepository.cpp:357
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Applica a omne typos de file"
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:359
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Applica al sequente typos de file: %1"

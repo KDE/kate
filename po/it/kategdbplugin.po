@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-05-10 00:40+0000\n"
 "PO-Revision-Date: 2023-07-02 19:03+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -617,27 +617,27 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: impossibile elaborare l'ultima risposta: %1"
 
-#: localsview.cpp:17
+#: localsview.cpp:19
 #, kde-format
 msgid "Symbol"
 msgstr "Simbolo"
 
-#: localsview.cpp:18
+#: localsview.cpp:20
 #, kde-format
 msgid "Value"
 msgstr "Valore"
 
-#: localsview.cpp:41
+#: localsview.cpp:43
 #, kde-format
 msgid "type"
 msgstr "tipo"
 
-#: localsview.cpp:50
+#: localsview.cpp:52
 #, kde-format
 msgid "indexed items"
 msgstr "elementi indicizzati"
 
-#: localsview.cpp:53
+#: localsview.cpp:55
 #, kde-format
 msgid "named items"
 msgstr "elementi con nome"

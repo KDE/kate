@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-22 00:39+0000\n"
+"POT-Creation-Date: 2024-05-10 00:40+0000\n"
 "PO-Revision-Date: 2023-01-02 10:17+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -618,27 +618,27 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Αδυναμία ανάλυσης της τελευταίας απάντησης: %1"
 
-#: localsview.cpp:17
+#: localsview.cpp:19
 #, kde-format
 msgid "Symbol"
 msgstr "Σύμβολο"
 
-#: localsview.cpp:18
+#: localsview.cpp:20
 #, kde-format
 msgid "Value"
 msgstr "Τιμή"
 
-#: localsview.cpp:41
+#: localsview.cpp:43
 #, kde-format
 msgid "type"
 msgstr "τύπος"
 
-#: localsview.cpp:50
+#: localsview.cpp:52
 #, kde-format
 msgid "indexed items"
 msgstr "δεικτοδοτημένα αντικείμενα"
 
-#: localsview.cpp:53
+#: localsview.cpp:55
 #, kde-format
 msgid "named items"
 msgstr "αντικείμενα με όνομα"

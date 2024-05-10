@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-19 00:39+0000\n"
+"POT-Creation-Date: 2024-05-10 00:40+0000\n"
 "PO-Revision-Date: 2020-09-14 10:29+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -232,12 +232,12 @@ msgstr "<leeg fragment>"
 msgid "insert snippet %1"
 msgstr "fragment %1 invoegen"
 
-#: snippetrepository.cpp:45
+#: snippetrepository.cpp:46
 #, kde-format
 msgid "<empty repository>"
 msgstr "<lege opslagruimte>"
 
-#: snippetrepository.cpp:232
+#: snippetrepository.cpp:233
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -248,28 +248,28 @@ msgstr ""
 "persoonlijke map staat, daarom is er een kopie van het originele bestand "
 "aangemaakt in uw persoonlijke gegevensmap."
 
-#: snippetrepository.cpp:238
+#: snippetrepository.cpp:239
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Uitvoerbestand '%1' kon niet voor schrijven worden geopend"
 
-#: snippetrepository.cpp:273
+#: snippetrepository.cpp:274
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Kan fragment-opslagruimte %1 niet openen."
 
-#: snippetrepository.cpp:280
+#: snippetrepository.cpp:281
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>De fout <b>%4</b><br /> is ontdekt in het bestand %1 op %2/%3</qt>"
 
-#: snippetrepository.cpp:291
+#: snippetrepository.cpp:292
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Ongeldig XML-fragmentbestand: %1"
 
-#: snippetrepository.cpp:353
+#: snippetrepository.cpp:354
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -278,12 +278,12 @@ msgstr ""
 "Repository is uitgeschakeld, de fragmente daarin zullen niet getoond worden "
 "tijdens code-aanvulling."
 
-#: snippetrepository.cpp:356
+#: snippetrepository.cpp:357
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Is van toepassing op alle bestandstypen"
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:359
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Is van toepassing op de volgende bestandstypen: %1"

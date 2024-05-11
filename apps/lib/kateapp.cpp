@@ -10,9 +10,6 @@
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
 
-#include <kcoreaddons_version.h>
-#include <kiconthemes_version.h>
-
 #include <KAboutData>
 #include <KConfigGui>
 #include <KCrash>

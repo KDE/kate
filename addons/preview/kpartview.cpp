@@ -15,7 +15,6 @@
 #include <KLocalizedString>
 #include <KParts/ReadOnlyPart>
 #include <KPluginFactory>
-#include <kparts_version.h>
 
 #include <KParts/NavigationExtension>
 

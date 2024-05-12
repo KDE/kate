@@ -7,7 +7,6 @@
 
 #include <KProcess>
 #include <KSandbox>
-#include <kcoreaddons_version.h>
 
 QString safeExecutableName(const QString &executableName, const QStringList &paths)
 {

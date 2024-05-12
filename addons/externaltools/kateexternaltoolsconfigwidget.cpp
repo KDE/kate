@@ -11,7 +11,6 @@
 #include <KLineEdit>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
-#include <ktexteditor_version.h>
 
 #include <KConfig>
 #include <KConfigGroup>

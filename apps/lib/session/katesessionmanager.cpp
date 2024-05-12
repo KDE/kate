@@ -20,7 +20,6 @@
 #include <KService>
 #include <KSharedConfig>
 #include <KShell>
-#include <kwidgetsaddons_version.h>
 
 #include <QApplication>
 #include <QCryptographicHash>

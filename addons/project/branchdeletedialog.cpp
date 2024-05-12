@@ -17,8 +17,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <ktexteditor/editor.h>
-#include <ktexteditor_version.h>
-#include <kwidgetsaddons_version.h>
 
 class CheckableHeaderView : public QHeaderView
 {

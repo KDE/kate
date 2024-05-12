@@ -24,7 +24,6 @@
 #include <KMessageBox>
 #include <KPropertiesDialog>
 #include <KService>
-#include <kio_version.h>
 
 #include <QAction>
 #include <QApplication>

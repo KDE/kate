@@ -13,7 +13,6 @@
 #include "katemainwindow.h"
 #include "kateupdatedisabler.h"
 #include "welcomeview/welcomeview.h"
-#include <kwidgetsaddons_version.h>
 
 #include <KTextEditor/Attribute>
 #include <KTextEditor/Document>

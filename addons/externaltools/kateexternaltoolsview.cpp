@@ -25,7 +25,6 @@
 #include <KXMLGUIFactory>
 #include <QMenu>
 #include <QStandardPaths>
-#include <ktexteditor_version.h>
 
 #include <QFontDatabase>
 #include <QKeyEvent>

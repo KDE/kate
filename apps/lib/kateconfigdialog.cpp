@@ -28,7 +28,6 @@
 #include <KMessageBox>
 #include <KPluralHandlingSpinBox>
 #include <KSharedConfig>
-#include <kwidgetsaddons_version.h>
 
 #include <QCheckBox>
 #include <QComboBox>

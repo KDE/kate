@@ -27,7 +27,6 @@
 #include <KSharedConfig>
 #include <KTextEditor/MainWindow>
 #include <KXMLGUIFactory>
-#include <kwidgetsaddons_version.h>
 
 enum CE_Options {
     CE_Option_FilterLabel = 1,

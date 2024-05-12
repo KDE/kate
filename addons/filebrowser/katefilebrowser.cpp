@@ -28,7 +28,6 @@
 #include <KSharedConfig>
 #include <KToolBar>
 #include <KUrlNavigator>
-#include <kwidgetsaddons_version.h>
 
 #include <QAbstractItemView>
 #include <QAction>

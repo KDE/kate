@@ -13,7 +13,6 @@
 #include <KMessageBox>
 #include <KPasswordLineEdit>
 #include <KUrlRequester>
-#include <kio_version.h>
 
 #include <QFormLayout>
 #include <QSpinBox>

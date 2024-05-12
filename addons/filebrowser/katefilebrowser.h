@@ -14,7 +14,6 @@
 
 #include <KDirOperator>
 #include <KFile>
-#include <kio_version.h>
 
 #include <QMenu>
 #include <QUrl>

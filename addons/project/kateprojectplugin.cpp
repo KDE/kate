@@ -14,7 +14,6 @@
 
 #include <kateapp.h>
 
-#include <kcoreaddons_version.h>
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>

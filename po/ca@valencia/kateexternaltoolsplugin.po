@@ -173,7 +173,7 @@ msgstr "Afi&g"
 #: configwidget.ui:36
 #, kde-format
 msgid "&Edit..."
-msgstr "&Edita..."
+msgstr "&Edita…"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnRemove)
 #: configwidget.ui:43
@@ -267,7 +267,7 @@ msgstr "Seleccioneu els tipus MIME"
 #: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
-msgstr "Afig una eina..."
+msgstr "Afig una eina…"
 
 #: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
@@ -298,7 +298,7 @@ msgstr "Categoria nova %1"
 #: kateexternaltoolsview.cpp:103
 #, kde-format
 msgid "Configure..."
-msgstr "Configura..."
+msgstr "Configura…"
 
 #: kateexternaltoolsview.cpp:165
 #, kde-format

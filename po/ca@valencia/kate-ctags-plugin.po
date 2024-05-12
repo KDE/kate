@@ -339,7 +339,7 @@ msgstr "Revertix a l'ordre predeterminada"
 #: kate_ctags.ui:208
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:112
 #, kde-format
@@ -406,7 +406,7 @@ msgstr "Busca el text actual"
 #: kate_ctags_view.cpp:76
 #, kde-format
 msgid "Configure ..."
-msgstr "Configura..."
+msgstr "Configura…"
 
 #: kate_ctags_view.cpp:91
 #, kde-format

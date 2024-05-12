@@ -41,7 +41,7 @@ msgstr "Obri amb"
 #: katefilebrowser.cpp:323
 #, kde-format
 msgid "&Other..."
-msgstr "Al&tres..."
+msgstr "Al&tres…"
 
 #: katefilebrowser.cpp:351
 #, kde-format

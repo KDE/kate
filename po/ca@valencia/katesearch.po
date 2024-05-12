@@ -77,14 +77,14 @@ msgstr "Resultat"
 #: MatchModel.cpp:545 MatchModel.cpp:547
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr "<b><i>S'està generant la llista de fitxers: ...%1</i></b>"
+msgstr "<b><i>S'està generant la llista de fitxers: …%1</i></b>"
 
 #: MatchModel.cpp:555
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] "<b><i>S'ha trobat una coincidència, buscant: ...%2</i></b>"
-msgstr[1] "<b><i>S'han trobat %1 coincidències, buscant: ...%2</i></b>"
+msgstr[0] "<b><i>S'ha trobat una coincidència, buscant: …%2</i></b>"
+msgstr[1] "<b><i>S'han trobat %1 coincidències, buscant: …%2</i></b>"
 
 #: MatchModel.cpp:560
 #, kde-format
@@ -149,14 +149,14 @@ msgstr[1] ""
 #: MatchModel.cpp:706 MatchModel.cpp:708
 #, kde-format
 msgid "Generating file list: ...%1"
-msgstr "S'està generant la llista de fitxers: ...%1"
+msgstr "S'està generant la llista de fitxers: …%1"
 
 #: MatchModel.cpp:716
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] "S'ha trobat una coincidència, buscant: ...%2"
-msgstr[1] "S'han trobat %1 coincidències, buscant: ...%2"
+msgstr[0] "S'ha trobat una coincidència, buscant: …%2"
+msgstr[1] "S'han trobat %1 coincidències, buscant: …%2"
 
 #: MatchModel.cpp:718
 #, kde-format
@@ -207,7 +207,7 @@ msgstr[1] ""
 #: Results.cpp:32
 #, kde-format
 msgid "Filter..."
-msgstr "Filtre..."
+msgstr "Filtre…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -269,7 +269,7 @@ msgstr "Amplia els resultats"
 #: search.ui:179 search.ui:249 search.ui:262
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
 #: search.ui:195 SearchPlugin.cpp:507
@@ -687,7 +687,7 @@ msgstr "Neteja"
 #: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
 #, kde-format
 msgid "Add..."
-msgstr "Afig..."
+msgstr "Afig…"
 
 #: SearchPlugin.cpp:2397
 #, kde-format

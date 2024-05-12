@@ -102,7 +102,7 @@ msgstr "Copia el camí i el nom del fitxer a dins del porta-retalls."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Canvia el nom..."
+msgstr "Canvia el nom…"
 
 #: katefiletree.cpp:151
 #, kde-format

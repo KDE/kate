@@ -51,7 +51,7 @@ msgstr "Funció"
 #: btbrowserwidget.ui:72
 #, kde-format
 msgid "Configure Paths..."
-msgstr "Configura els camins..."
+msgstr "Configura els camins…"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnClipboard)
 #: btbrowserwidget.ui:79
@@ -63,7 +63,7 @@ msgstr "Utilitza el porta-retalls"
 #: btbrowserwidget.ui:86
 #, kde-format
 msgid "Load File..."
-msgstr "Carrega un fitxer..."
+msgstr "Carrega un fitxer…"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gFolderList)
 #: btconfigwidget.ui:14
@@ -149,7 +149,7 @@ msgstr "Llista de les extensions de fitxer. Exemples: *.cpp, *.h, *.c, etc."
 #: katebacktracebrowser.cpp:91
 #, kde-format
 msgid "Indexing files..."
-msgstr "S'estan indexant els fitxers..."
+msgstr "S'estan indexant els fitxers…"
 
 #: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
 #, kde-format

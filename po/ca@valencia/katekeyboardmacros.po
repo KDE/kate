@@ -146,7 +146,7 @@ msgstr "Grava i reproduïx macros de teclat."
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:158
 #, kde-format
 msgid "&Record Macro..."
-msgstr "&Grava una macro..."
+msgstr "&Grava una macro…"
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
@@ -194,7 +194,7 @@ msgstr "Dona un nom a la macro actual i la guarda permanentment."
 #: keyboardmacrospluginview.cpp:90
 #, kde-format
 msgid "&Load Named Macro..."
-msgstr "&Carrega una macro amb nom..."
+msgstr "&Carrega una macro amb nom…"
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
@@ -204,7 +204,7 @@ msgstr "Carrega una macro amb nom com a macro actual."
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
 msgid "&Play Named Macro..."
-msgstr "Re&produïx una macro amb nom..."
+msgstr "Re&produïx una macro amb nom…"
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
@@ -214,7 +214,7 @@ msgstr "Reproduïx una macro amb nom sense carregar-la."
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr "&Esborra una macro amb nom..."
+msgstr "&Esborra una macro amb nom…"
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format

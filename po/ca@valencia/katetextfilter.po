@@ -68,7 +68,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:265
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr "&Filtre a través d'ordres..."
+msgstr "&Filtre a través d'ordres…"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14
@@ -109,7 +109,7 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
-"Si se selecciona, es fusionarà l'eixida de STDOUT i STDERR, i no s'informarà "
+"Si està marcada, es fusionarà l'eixida de STDOUT i STDERR, i no s'informarà "
 "de cap error.\n"
 "En cas contrari, STDERR es mostrarà com un missatge passiu."
 

@@ -96,7 +96,7 @@ static bool insideTerminal = false;
 /**
  * singleton instance pointer
  */
-static KateApp *appSelf = Q_NULLPTR;
+static KateApp *appSelf = nullptr;
 
 Q_LOGGING_CATEGORY(LOG_KATE, "kate", QtWarningMsg)
 
@@ -133,16 +133,12 @@ void KateApp::initPreApplicationCreation(bool detach)
     KIconTheme::initTheme();
 #endif
 
-    /**
-     * enable dark mode for title bar on Windows
-     */
 #if defined(Q_OS_WIN)
+    // enable dark mode for title bar on Windows
     if (!qEnvironmentVariableIsSet("QT_QPA_PLATFORM")) {
         qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
     }
-#endif
 
-#ifdef Q_OS_WIN
     // Enable on windows to see output in console
     if (AttachConsole(ATTACH_PARENT_PROCESS)) {
         // we are inside a terminal

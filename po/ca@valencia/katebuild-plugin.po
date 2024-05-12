@@ -80,7 +80,7 @@ msgstr "Construïx"
 #: plugin_katebuild.cpp:222
 #, kde-format
 msgid "Select Target..."
-msgstr "Seleccioneu l'objectiu..."
+msgstr "Seleccioneu l'objectiu…"
 
 #: plugin_katebuild.cpp:227
 #, kde-format
@@ -165,12 +165,12 @@ msgstr "No s'ha especificat cap fitxer o carpeta locals per a construir."
 #: plugin_katebuild.cpp:842
 #, kde-format
 msgid "Already building..."
-msgstr "Ja està construint-se..."
+msgstr "Ja s'està construint…"
 
 #: plugin_katebuild.cpp:864
 #, kde-format
 msgid "Building target <b>%1</b> ..."
-msgstr "S'està construint l'objectiu <b>%1</b>..."
+msgstr "S'està construint l'objectiu <b>%1</b>…"
 
 #: plugin_katebuild.cpp:878
 #, kde-kuit-format

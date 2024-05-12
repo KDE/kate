@@ -38,7 +38,7 @@ msgstr "Ordre de GDB"
 #: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
 #: advanced_settings.ui:37

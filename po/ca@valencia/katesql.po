@@ -177,7 +177,7 @@ msgstr "Copia"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
-msgstr "Exporta..."
+msgstr "Exporta…"
 
 #: dataoutputwidget.cpp:80 textoutputwidget.cpp:47
 #, kde-format
@@ -213,7 +213,7 @@ msgstr "Destinació de l'eixida"
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
-msgstr "Seleccioneu el destí de l'eixida."
+msgstr "Seleccioneu la destinació de l'eixida."
 
 #: exportwizard.cpp:46
 #, kde-format
@@ -353,7 +353,7 @@ msgstr "Esquema SQL"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr "Afig una connexió..."
+msgstr "Afig una connexió…"
 
 #: katesqlview.cpp:111
 #, kde-format
@@ -365,7 +365,7 @@ msgstr "Elimina la connexió"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
-msgstr "Edita la connexió..."
+msgstr "Edita la connexió…"
 
 #: katesqlview.cpp:121
 #, kde-format

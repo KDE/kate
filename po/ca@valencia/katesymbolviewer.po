@@ -144,7 +144,7 @@ msgstr "Llista de símbols"
 #: plugin_katesymbolviewer.cpp:134
 #, kde-format
 msgid "Filter..."
-msgstr "Filtre..."
+msgstr "Filtre…"
 
 #: plugin_katesymbolviewer.cpp:144
 #, kde-format

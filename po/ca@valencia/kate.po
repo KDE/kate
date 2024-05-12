@@ -147,7 +147,7 @@ msgstr "Documents que s'obriran."
 #: kate/main.cpp:196 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
-msgstr "[URL...]"
+msgstr "[URL…]"
 
 #: kwrite/main.cpp:46
 #, kde-format
@@ -353,7 +353,7 @@ msgstr "Avisos"
 #: lib/diagnostics/diagnosticview.cpp:496
 #, kde-format
 msgid "Filter..."
-msgstr "Filtre..."
+msgstr "Filtre…"
 
 #: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:151
 #, kde-format
@@ -703,7 +703,7 @@ msgstr "Matt Newell"
 #: lib/kateapp.cpp:316
 #, kde-format
 msgid "Testing, ..."
-msgstr "Proves..."
+msgstr "Proves…"
 
 #: lib/kateapp.cpp:317
 #, kde-format
@@ -1341,7 +1341,7 @@ msgstr "S'està iniciant"
 #: lib/katedocmanager.cpp:379
 #, kde-format
 msgid "Reopening files from the last session..."
-msgstr "S'estan tornant a obrir els fitxers de l'última sessió..."
+msgstr "S'estan tornant a obrir els fitxers de l'última sessió…"
 
 #: lib/katefileactions.cpp:74
 #, kde-format
@@ -1376,7 +1376,7 @@ msgstr "No s'ha pogut suprimir el fitxer «%1»."
 #: lib/katefileactions.cpp:202
 #, kde-format
 msgid "&Other Application..."
-msgstr "Al&tres aplicacions..."
+msgstr "Al&tres aplicacions…"
 
 #: lib/katemainwindow.cpp:241
 #, kde-format
@@ -1503,7 +1503,7 @@ msgstr "O&bri la carpeta contenidora"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Canvia el nom..."
+msgstr "Canvia el nom…"
 
 #: lib/katemainwindow.cpp:388
 #, kde-format
@@ -1672,7 +1672,7 @@ msgstr "&Totes les sessions"
 #: lib/katemainwindow.cpp:521
 #, kde-format
 msgid "&Manage Sessions..."
-msgstr "&Gestiona les sessions..."
+msgstr "&Gestiona les sessions…"
 
 #: lib/katemainwindow.cpp:530
 #, kde-format
@@ -1682,7 +1682,7 @@ msgstr "Guarda la &sessió"
 #: lib/katemainwindow.cpp:536
 #, kde-format
 msgid "Save Session &As..."
-msgstr "Anomena i gu&arda la sessió..."
+msgstr "Anomena i gu&arda la sessió…"
 
 #: lib/katemainwindow.cpp:543 lib/kateviewspace.cpp:57
 #, kde-format
@@ -1810,7 +1810,7 @@ msgstr "Dona el focus a %1"
 #: lib/katemdi.cpp:1088
 #, kde-format
 msgid "Configure..."
-msgstr "Configura..."
+msgstr "Configura…"
 
 #: lib/katemdi.cpp:1092
 #, kde-format
@@ -1998,7 +1998,7 @@ msgstr "[NOU]"
 #: lib/kateoutputview.cpp:174
 #, kde-format
 msgid "Search..."
-msgstr "Busca..."
+msgstr "Busca…"
 
 #: lib/kateoutputview.cpp:191
 #, kde-format
@@ -2549,13 +2549,13 @@ msgstr "No ho tornes a preguntar"
 #: lib/session/katesessionmanagedialog.ui:134
 #, kde-format
 msgid "Duplicate..."
-msgstr "Duplica..."
+msgstr "Duplica…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
 #: lib/session/katesessionmanagedialog.ui:141
 #, kde-format
 msgid "&Rename..."
-msgstr "Ca&nvia el nom..."
+msgstr "Ca&nvia el nom…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
 #: lib/session/katesessionmanagedialog.ui:161
@@ -2805,7 +2805,7 @@ msgstr "No hi ha cap sessió guardada"
 #: lib/welcomeview/welcomeview.cpp:246
 #, kde-format
 msgid "Open Selected Files..."
-msgstr "Obri els fitxers seleccionats..."
+msgstr "Obri els fitxers seleccionats…"
 
 #: lib/welcomeview/welcomeview.cpp:259
 #, kde-format
@@ -2833,7 +2833,7 @@ msgstr "Fitxer nou"
 #: lib/welcomeview/welcomeview.ui:186
 #, kde-format
 msgid "Open Folder..."
-msgstr "Obri una carpeta..."
+msgstr "Obri una carpeta…"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
@@ -2845,7 +2845,7 @@ msgstr "Fitxers recents"
 #: lib/welcomeview/welcomeview.ui:203
 #, kde-format
 msgid "Open File..."
-msgstr "Obri un fitxer..."
+msgstr "Obri un fitxer…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
@@ -2887,7 +2887,7 @@ msgstr "Sessions guardades"
 #: lib/welcomeview/welcomeview.ui:389
 #, kde-format
 msgid "Manage Sessions..."
-msgstr "Gestiona les sessions..."
+msgstr "Gestiona les sessions…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442

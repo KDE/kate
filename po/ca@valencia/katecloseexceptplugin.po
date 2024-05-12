@@ -94,7 +94,7 @@ msgstr "S'ha produït un error"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
-msgstr "No hi ha cap fitxer per a tancar «...»"
+msgstr "No hi ha cap fitxer per a tancar «…»"
 
 #: close_except_plugin.cpp:261
 #, kde-format

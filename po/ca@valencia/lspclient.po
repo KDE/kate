@@ -24,7 +24,7 @@ msgstr ""
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
 msgid "Filter..."
-msgstr "Filtre..."
+msgstr "Filtre…"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: lspclientconfigpage.cpp:99 lspclientconfigpage.cpp:104
@@ -326,7 +326,7 @@ msgstr "Sense accions"
 #: lspclientpluginview.cpp:1640
 #, kde-format
 msgid "Loading..."
-msgstr "S'està carregant..."
+msgstr "S'està carregant…"
 
 #: lspclientpluginview.cpp:1732
 #, kde-format
@@ -386,7 +386,7 @@ msgstr "NO s'està reiniciant"
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
-"El servidor ha finalitzat inesperadament... %1 [%2] [pàgina inicial: %3] "
+"El servidor ha finalitzat inesperadament… %1 [%2] [pàgina inicial: %3] "
 
 #: lspclientservermanager.cpp:801
 #, kde-format
@@ -518,7 +518,7 @@ msgstr "Afig les importacions automàticament si és necessari en finalitzar"
 #: lspconfigwidget.ui:110
 #, kde-format
 msgid "Navigation:"
-msgstr "Navegació:"
+msgstr "Navegueu:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
 #: lspconfigwidget.ui:117

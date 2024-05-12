@@ -35,7 +35,7 @@ msgstr "Crea una branca nova"
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr "Crea una branca nova des de..."
+msgstr "Crea una branca nova des de…"
 
 #: branchcheckoutdialog.cpp:53
 #, kde-format
@@ -93,7 +93,7 @@ msgstr[1] "Segur que voleu suprimir les branques seleccionades?"
 #: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
-msgstr "Selecciona la branca..."
+msgstr "Selecciona la branca…"
 
 #: branchesdialog.cpp:126 gitwidget.cpp:536 kateprojectpluginview.cpp:67
 #, kde-format
@@ -141,12 +141,12 @@ msgstr "Cancel·la"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "Escriviu el missatge de comissió..."
+msgstr "Escriviu el missatge de comissió…"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr "Descripció ampliada de la comissió..."
+msgstr "Descripció ampliada de la comissió…"
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -223,7 +223,7 @@ msgstr " s'ha cancel·lat."
 #: gitwidget.cpp:325 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
-msgstr "Filtre..."
+msgstr "Filtre…"
 
 #: gitwidget.cpp:415
 #, kde-format
@@ -296,17 +296,17 @@ msgstr "El missatge de comissió no pot estar buit."
 #: gitwidget.cpp:943
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr "No hi ha «diff» per a %1...%2"
+msgstr "No hi ha «diff» per a %1…%2"
 
 #: gitwidget.cpp:949
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr "No s'ha pogut comparar %1...%2"
+msgstr "No s'ha pogut comparar %1…%2"
 
 #: gitwidget.cpp:964
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr "No s'ha pogut obtindre el número d'estat en diferenciar %1...%2"
+msgstr "No s'ha pogut obtindre el número d'estat en diferenciar %1…%2"
 
 #: gitwidget.cpp:1003
 #, kde-format
@@ -326,7 +326,7 @@ msgstr "Suprimix la branca"
 #: gitwidget.cpp:1043
 #, kde-format
 msgid "Compare Branch with..."
-msgstr "Compara la branca amb..."
+msgstr "Compara la branca amb…"
 
 #: gitwidget.cpp:1048
 #, kde-format
@@ -341,7 +341,7 @@ msgstr "Resum de comissió"
 #: gitwidget.cpp:1055
 #, kde-format
 msgid "Open Commit..."
-msgstr "Obri una comissió..."
+msgstr "Obri una comissió…"
 
 #: gitwidget.cpp:1058 gitwidget.cpp:1097
 #, kde-format
@@ -700,7 +700,7 @@ msgstr "Notes"
 #: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
 msgid "Start Analysis..."
-msgstr "Inicia l'anàlisi..."
+msgstr "Inicia l'anàlisi…"
 
 #: kateprojectinfoviewcodeanalysis.cpp:43
 #, kde-format
@@ -855,7 +855,7 @@ msgstr "Actualitza l'estat de «git»"
 #: kateprojectpluginview.cpp:186
 #, kde-format
 msgid "Open Folder..."
-msgstr "Obri una carpeta..."
+msgstr "Obri una carpeta…"
 
 # skip-rule: kct-todo
 #: kateprojectpluginview.cpp:192

@@ -157,11 +157,11 @@ msgstr ""
 "${nom_camp=predeterminat}</tt> es pot emprar per a indicar un valor "
 "predeterminat del camp. <tt>predeterminat</tt> pot ser qualsevol expressió "
 "JavaScript.<br>Utilitzeu <tt>${nom_camp=text}</tt> per a indicar una cadena "
-"fixa com a valor predeterminat.<br><tt>${func(altre_camp1, altre_camp2, ...)}"
-"</tt> es pot emprar per a crear un camp que avalue una funció JavaScript en "
+"fixa com a valor predeterminat.<br><tt>${func(altre_camp1, altre_camp2, …)}</"
+"tt> es pot emprar per a crear un camp que avalue una funció JavaScript en "
 "cada edició i continga el seu contingut. Per a més informació, vegeu la "
 "pestanya «Scripts».<br><tt>${cursor}</tt> es pot emprar per a marcar la "
-"posició final del cursor després d'emplenar-ho tot.\">Més...</a>"
+"posició final del cursor després d'emplenar-ho tot.\">Més…</a>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:82
@@ -200,7 +200,7 @@ msgstr ""
 "per a crear scripts de Kate per a obtindre el text seleccionat, tot el text, "
 "el nom del fitxer i més utilitzant els mètodes adequats dels objectes "
 "<tt>document</tt> i <tt>view</tt>. Per a més informació, consulteu la "
-"documentació de l'API per a crear scripts.\">Més...</a>"
+"documentació de l'API per a crear scripts.\">Més…</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:105
@@ -359,7 +359,7 @@ msgstr "Definiu ací el filtre"
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr "Filtre..."
+msgstr "Filtre…"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

@@ -30,7 +30,7 @@ msgstr "Eines XML"
 #: plugin_katexmltools.cpp:121
 #, kde-format
 msgid "&Insert Element..."
-msgstr "&Inserix un element..."
+msgstr "&Inserix un element…"
 
 #: plugin_katexmltools.cpp:126
 #, kde-format
@@ -40,7 +40,7 @@ msgstr "&Tanca l'element"
 #: plugin_katexmltools.cpp:131
 #, kde-format
 msgid "Assign Meta &DTD..."
-msgstr "Assigna la meta &DTD..."
+msgstr "Assigna la meta &DTD…"
 
 #: plugin_katexmltools.cpp:442
 #, kde-format
@@ -132,7 +132,7 @@ msgstr ""
 #: pseudo_dtd.cpp:70
 #, kde-format
 msgid "Analyzing meta DTD..."
-msgstr "S'està analitzant la meta DTD..."
+msgstr "S'està analitzant la meta DTD…"
 
 #: pseudo_dtd.cpp:70
 #, kde-format

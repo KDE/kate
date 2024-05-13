@@ -128,6 +128,7 @@
     <Action name="sessions"/>
     <Menu name="settings">
       <text>&amp;Settings</text>
+      <Action name="settings_style"/>
       <Action name="colorscheme_menu" group="color"/>
       <DefineGroup name="color"/>
       <Action name="settings_show_tab_bar" append="show_merge"/>

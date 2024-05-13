@@ -51,6 +51,11 @@
 #include <KWindowConfig>
 #include <KXMLGUIFactory>
 
+#define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
+#if HAVE_STYLE_MANAGER
+#include <KStyleManager>
+#endif
+
 #include <QApplication>
 #include <QDir>
 #include <QFontDatabase>
@@ -258,6 +263,11 @@ void KateMainWindow::setupImportantActions()
     connect(m_paShowUrlNavBar, &QAction::toggled, this, [this](bool v) {
         m_viewManager->setShowUrlNavBar(v);
     });
+
+    // style config
+#if HAVE_STYLE_MANAGER
+    actionCollection()->addAction(QStringLiteral("settings_style"), KStyleManager::createConfigureAction(this));
+#endif
 
     // Load themes
     KColorSchemeManager *manager = new KColorSchemeManager(this);

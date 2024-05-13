@@ -123,6 +123,9 @@ attributes, attribute values and entities allowed by DTD</para>
 <listitem>
 <para><link linkend="kate-application-plugin-compilerexplorer">Compiler Explorer</link>- Interface to compiler explorer tool</para>
 </listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-formatting">Formatting</link>- Code formatting plugin</para>
+</listitem>
 </itemizedlist>
 </sect1>
 
@@ -4406,5 +4409,148 @@ The first thing you need to do is to open a compiler explorer tab. Hit <keycombo
 </sect2>
 
 </sect1>
+
+<!-- BEGIN Format plugin -->
+
+<sect1 id="kate-application-plugin-formatting">
+<title>Formatting Plugin</title>
+
+<para>The formatting plugin allows one to format code easily. The plugin aims to preserve the
+document's undo history and user's cursor position when formatting the code so that the formatting
+of code doesn't disrupt user's work. This is especially important for automatic formatting on save.</para>
+
+<sect2 id="formatting-how-to-use">
+<title>Usage</title>
+
+<para>
+It allows the user to format code in two ways:
+<itemizedlist>
+<listitem><para>Manually using the "Format Document" action.</para></listitem>
+<listitem><para>Automatically on save</para></listitem>
+</itemizedlist>
+</para>
+
+<tip><para>You can search for this action in the command bar and bind a shortcut to it for easier access</para></tip>
+
+</sect2>
+
+<sect2 id="formatting-supported-langs-formatters">
+<title>Supported languages and formatters</title>
+
+<para>
+The current list of supported languages and formatters are as follows:
+<itemizedlist>
+
+<listitem><para>C/C++/ObjectiveC/ObjectiveC++/Protobuf - <command>clang-format</command>
+</para></listitem>
+
+<listitem><para>Javascript/Typescript/JSX/TSX - <command>prettier</command>
+</para></listitem>
+
+<listitem><para>JSON
+<itemizedlist>
+  <listitem><para><command>prettier</command></para></listitem>
+  <listitem><para><command>clang-format</command></para></listitem>
+  <listitem><para><command>jq</command></para></listitem>
+</itemizedlist>
+</para></listitem>
+
+<listitem><para>Dart - <command>dartfmt</command>
+</para></listitem>
+<listitem><para>Rust - <command>rustfmt</command>
+</para></listitem>
+<listitem><para>Go - <command>gofmt</command>
+</para></listitem>
+<listitem><para>XML - <command>xmllint</command>
+</para></listitem>
+<listitem><para>Zig - <command>zigfmt</command>
+</para></listitem>
+<listitem><para>CMake - <command>cmake-format</command>
+</para></listitem>
+
+<listitem><para>Python
+<itemizedlist>
+  <listitem><para><command>autopep8</command></para></listitem>
+  <listitem><para><command>ruff</command></para></listitem>
+</itemizedlist>
+</para></listitem>
+
+</itemizedlist>
+</para>
+
+</sect2>
+
+<sect2 id="formatting-plugin-configuring">
+<title>Configuring</title>
+
+<para>The plugin can be configured in two ways:
+<itemizedlist>
+<listitem><para>Globally, from the Configure dialog</para></listitem>
+<listitem><para>On a per project basis using the <filename>.kateproject</filename> file</para></listitem>
+</itemizedlist>
+</para>
+
+<para>When reading the config, the plugin will first try to read the config from <filename>.kateproject</filename> file and then read the global config.
+Example:
+</para>
+
+<screen>
+{
+    "formatOnSave": true,
+    "formatterForJson": "jq",
+    "cmake-format": {
+        "formatOnSave": false
+    },
+    "autopep8": {
+        "formatOnSave": false
+    }
+}
+</screen>
+
+<para>The above:
+<itemizedlist>
+<listitem><para>enables "format on save" globally</para></listitem>
+<listitem><para>specifies "jq" as the formatter for JSON</para></listitem>
+<listitem><para>disables "format on save" for cmake-format and autopep8</para></listitem>
+</itemizedlist>
+</para>
+
+<para>To configure formatting for a project, first create a <filename>.kateproject</filename> file and then add a <code>"formatting"</code> object to it.
+In the <code>"formatting"</code> object you can specify your settings as shown in the previous example. Example:
+</para>
+<note><para>You need to enable the <link linkend="kate-application-plugin-projects">Project plugin</link> for this to work</para></note>
+
+<screen>
+{
+    "name": "My Cool Project",
+    "files": [
+        {
+            "git": 1
+        }
+    ],
+    "formatting": {
+        "formatterForJson": "clang-format",
+        "autopep8": {
+            "formatOnSave": false
+        }
+    }
+}
+</screen>
+
+</sect2>
+
+<sect2 id="formatting-plugin-temp-disable-autosave-format">
+<title>Temporarily disable format on save</title>
+
+<para>
+While working you will often need to disable the formatting for a short while due to any reason.
+You can do this from the menubar, <menuchoice><guimenu>Tools</guimenu> <guimenuitem>Format on Save</guimenuitem></menuchoice>. You can also trigger this action from the <guilabel>Command bar</guilabel>.
+</para>
+
+</sect2>
+
+</sect1>
+
+<!-- END Format plugin -->
 
 </chapter>

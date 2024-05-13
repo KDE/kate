@@ -22,7 +22,7 @@
         "Description[ka]": "SQL ბაზაზე გასაშვები მოთოვნა",
         "Description[ko]": "SQL 데이터베이스에 질의 수행",
         "Description[nl]": "Zoekopdracht uitvoeren op SQL-databases",
-        "Description[pl]": "Wykonaj kwerendę na bazie danych SQL",
+        "Description[pl]": "Wysyła zapytania do baz danych SQL",
         "Description[pt]": "Executar uma pesquisa em bases de dados SQL",
         "Description[pt_BR]": "Executar query em bancos de dados SQL",
         "Description[ru]": "Выполнение запросов SQL к базам данных",

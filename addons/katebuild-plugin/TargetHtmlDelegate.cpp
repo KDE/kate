@@ -22,6 +22,7 @@
 #include "UrlInserter.h"
 
 #include <QDebug>
+#include <qnamespace.h>
 
 TargetHtmlDelegate::TargetHtmlDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
@@ -123,7 +124,7 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
     }
     editor->setAutoFillBackground(true);
     Q_EMIT sendEditStart();
-    connect(editor, &QWidget::destroyed, this, &TargetHtmlDelegate::editEnded);
+    connect(editor, &QWidget::destroyed, this, &TargetHtmlDelegate::editEnded, Qt::QueuedConnection);
     return editor;
 }
 

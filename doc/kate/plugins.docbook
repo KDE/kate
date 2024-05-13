@@ -120,6 +120,9 @@ attributes, attribute values and entities allowed by DTD</para>
 <listitem>
 <para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
 </listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-compilerexplorer">Compiler Explorer</link>- Interface to compiler explorer tool</para>
+</listitem>
 </itemizedlist>
 </sect1>
 
@@ -4378,6 +4381,30 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 <para>&kde; SC 4 version copyright 2010 Tomáš Trnka</para>
 <para>Documentation copyright 2001,2002 &Daniel.Naber;</para>
 </sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-compilerexplorer">
+<title>Compiler Explorer Plugin</title>
+
+<para>The compiler explorer plugin allows you to use compiler explorer from within Kate. Compiler explorer is usually limited to 1 file only and it is difficult to use it to see the codegen of a file in your project. This plugin aims to simplify this process by automatically detecting compile commands for your file.</para>
+
+<sect2 id="ce-how-to-use">
+<title>Usage</title>
+
+<para>
+The first thing you need to do is to open a compiler explorer tab. Hit <keycombo action="simul">&Ctrl;&Alt;<keycap>I</keycap></keycombo> to open the command bar and search for "Open Current File in Compiler Explorer" and hit enter. You can add this action to the toolbar or assign a shortcut to it for easier access.
+</para>
+
+<para>Next you need to setup a local instance of compiler explorer or use the public <ulink url="https://godbolt.org/">https://godbolt.org/</ulink> instance. See <ulink url="https://github.com/compiler-explorer/compiler-explorer">https://github.com/compiler-explorer/compiler-explorer</ulink>. Once you have an instance, click on <guilabel>Option</guilabel> combobox in the compiler explorer tab you opened earlier and select <guilabel>Change Url...</guilabel> and then enter the url of the compiler explorer server.</para>
+
+<para>Next you need a compile_commands.json if you need to see codegen for a file in your project. Otherwise you can skip this part. This can easily be obtained if you are using a modern build system like CMake or Meson. For CMake it is enough to pass <code>-DCMAKE_EXPORT_COMPILE_COMMANDS=ON</code> when invoking cmake. The <code>compile_commands.json</code> should be placed at the root of your project. Close and reopen the compiler explorer tab in Kate. After reopening the tab it should show the compile commands need to compile the file</para>
+
+<para>If you are just using compiler explorer to see the codegen for something temporary, you can just write down the compile commands for your file and click the <guilabel>Compile</guilabel>. Note that auto recompilation on editing is not supported. You need to click Compile every time you want to recompile the file</para>
+
+<para>Once the file is compiled you should see the codegen on the right hand side. You can right-click and select <guilabel>Reveal linked code</guilabel> to see the codegen for a particular line. Similarly on the right hand side, you can right click and select <guilabel>Scroll to source</guilabel> to show the source code for a given codegen line</para>
+
+</sect2>
+
 </sect1>
 
 </chapter>

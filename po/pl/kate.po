@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1679674 $
+# Version: $Revision: 1679953 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-10 02:31+0000\n"
-"PO-Revision-Date: 2024-04-27 10:13+0200\n"
+"PO-Revision-Date: 2024-05-12 09:45+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -1011,7 +1011,7 @@ msgstr "Dziennik"
 #: lib/kateconfigdialog.cpp:157
 #, kde-format
 msgid "&Limit output view history:"
-msgstr "&Ogranicz historię widoku wynikowego:"
+msgstr "&Ogranicz historię widoku wyniku:"
 
 #: lib/kateconfigdialog.cpp:163 lib/kateconfigdialog.cpp:227
 #: lib/kateconfigdialog.cpp:347
@@ -1213,12 +1213,12 @@ msgstr "Wygląd różnicy:"
 #: lib/kateconfigdialog.cpp:329
 #, kde-format
 msgid "Navigation Bar"
-msgstr "Pasek poruszania się"
+msgstr "Pasek przemieszczania się"
 
 #: lib/kateconfigdialog.cpp:334
 #, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Pokaż bieżący symbol na pasku poruszania się"
+msgstr "Pokaż bieżący symbol na pasku przemieszczania się"
 
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
@@ -1407,7 +1407,7 @@ msgstr "Pokaż pełną ścieżkę do dokumentu w pasku tytułowym okna"
 #: lib/katemainwindow.cpp:259
 #, kde-format
 msgid "Show Navigation Bar"
-msgstr "Pokaż pasek poruszania się"
+msgstr "Pokaż pasek przemieszczania się"
 
 #: lib/katemainwindow.cpp:268
 #, kde-format
@@ -1447,7 +1447,7 @@ msgstr "Otwórz formularz do szybkiego otwierania dokumentów."
 #: lib/katemainwindow.cpp:326
 #, kde-format
 msgid "Output"
-msgstr "Wyjście"
+msgstr "Wynik"
 
 #: lib/katemainwindow.cpp:336
 #, kde-format
@@ -1562,12 +1562,12 @@ msgstr "Zamknij bieżący dokument."
 #: lib/katemainwindow.cpp:425
 #, kde-format
 msgid "Close Other"
-msgstr "Zamknij inne"
+msgstr "Zamknij pozostałe"
 
 #: lib/katemainwindow.cpp:429
 #, kde-format
 msgid "Close other open documents."
-msgstr "Zamknij inne otwarte dokumenty."
+msgstr "Zamknij pozostałe otwarte dokumenty."
 
 #: lib/katemainwindow.cpp:432
 #, kde-format
@@ -1770,7 +1770,7 @@ msgstr "Przyciski paska bocznego"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr "Skupienie na widoku narzędzia"
+msgstr "Przełącz się na widok narzędzia"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1800,7 +1800,7 @@ msgstr "Pokaż przycisk %1"
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr "Skup się na %1"
+msgstr "Przełącz się na %1"
 
 #: lib/katemdi.cpp:1088
 #, kde-format
@@ -2152,7 +2152,7 @@ msgstr "Zamknij obecnie aktywny podzielony widok"
 #: lib/kateviewmanager.cpp:172
 #, kde-format
 msgid "Close Inactive Views"
-msgstr "Zamknij niebieżące widoki"
+msgstr "Zamknij pozostałe widoki"
 
 #: lib/kateviewmanager.cpp:175
 #, kde-format
@@ -2282,12 +2282,12 @@ msgstr "Przesuń linię dzielącą bieżącego widoku w dół"
 #: lib/kateviewmanager.cpp:264
 #, kde-format
 msgid "Focus Navigation Bar"
-msgstr "Przejdź do paska poruszania się"
+msgstr "Przełącz na pasek przemieszczania się"
 
 #: lib/kateviewmanager.cpp:265
 #, kde-format
 msgid "Focus the navigation bar"
-msgstr "Przejdź do paska poruszania się"
+msgstr "Przełącz na pasek przemieszczania się"
 
 #: lib/kateviewmanager.cpp:272
 #, kde-format
@@ -2534,7 +2534,7 @@ msgstr "Nowe posiedzenie"
 #: lib/session/katesessionmanagedialog.ui:107
 #, kde-format
 msgid "Open as Template"
-msgstr "Otwórz jako szablon"
+msgstr "Otwórz jako wzorzec"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
 #: lib/session/katesessionmanagedialog.ui:114
@@ -2626,7 +2626,7 @@ msgstr "Wpisz nową nazwę dla posiedzenia: %1"
 #: lib/ui/sessionconfigwidget.ui:17
 #, kde-format
 msgid "Application Startup Behavior"
-msgstr "Zachowanie przy uruchamianiu"
+msgstr "Zachowanie zaraz po uruchomieniu"
 
 #. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
 #: lib/ui/sessionconfigwidget.ui:23
@@ -2656,7 +2656,7 @@ msgstr "Zachowanie aplikacji przy jej otwieraniu/zamykaniu"
 #: lib/ui/sessionconfigwidget.ui:55
 #, kde-format
 msgid "Automatically save and restore:"
-msgstr "Samoczynnie zapisz i przywróć:"
+msgstr "Sam zapisz i przywróć:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
 #: lib/ui/sessionconfigwidget.ui:67
@@ -2868,7 +2868,7 @@ msgstr "Odwiedź stronę domową"
 #: lib/welcomeview/welcomeview.ui:293
 #, kde-format
 msgid "Get involved"
-msgstr "Współtwórz"
+msgstr "Dołącz do twórców"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:306

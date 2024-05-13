@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-12 00:41+0000\n"
-"PO-Revision-Date: 2024-03-13 11:49+0100\n"
+"PO-Revision-Date: 2024-05-12 12:04+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -115,18 +115,13 @@ msgid "Target Settings"
 msgstr "Preferencias del objetivo"
 
 #: plugin_katebuild.cpp:323
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>No se ha podido abrir el archivo:</title><nl/>%1<br/>Pruebe a añadir "
-"una ruta de búsqueda al directorio de trabajo en las preferencias del "
-"objetivo."
+"<b>Archivo no encontrado:</b> %1<br><b>Rutas de búsqueda:</b><br>"
+"%2<br>Pruebe a añadir la ruta de búsqueda al «Directorio de trabajo»."
 
 #: plugin_katebuild.cpp:410
 #, kde-format

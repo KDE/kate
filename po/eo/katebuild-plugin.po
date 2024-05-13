@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-12 00:41+0000\n"
-"PO-Revision-Date: 2024-03-17 05:34+0100\n"
+"PO-Revision-Date: 2024-05-12 10:35+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -116,6 +116,8 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>Ne trovis dosieron:</b> %1<br><b>Serĉvojoj:</b><br>%2<br>Provu aldoni "
+"serĉvojon al la \"Working Directory\""
 
 #: plugin_katebuild.cpp:410
 #, kde-format

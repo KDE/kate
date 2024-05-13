@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-12 00:41+0000\n"
-"PO-Revision-Date: 2024-03-13 07:48+0100\n"
+"PO-Revision-Date: 2024-05-12 07:41+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -114,17 +114,13 @@ msgid "Target Settings"
 msgstr "Nastavitve cilja"
 
 #: plugin_katebuild.cpp:323
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>Ni mogoče odpreti datoteke:</title><nl/>%1<br/>Poskusite dodati pot "
-"do delovne mape v nastavitvah cilja"
+"<b>Datoteke ni bilo mogoče najti:</b> %1<br><b>Poti iskanja:</b><br>"
+"%2<br>Poskusite dodati pot iskanja v \"Delovni imenik\""
 
 #: plugin_katebuild.cpp:410
 #, kde-format

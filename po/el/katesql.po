@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-16 00:40+0000\n"
+"POT-Creation-Date: 2024-05-13 00:40+0000\n"
 "PO-Revision-Date: 2023-01-02 21:09+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -19,90 +19,90 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 21.12.3\n"
 
-#: connectionwizard.cpp:28
+#: connectionwizard.cpp:27
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
 msgstr "Βοηθός σύνδεσης"
 
-#: connectionwizard.cpp:43
+#: connectionwizard.cpp:42
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
 msgstr "Οδηγός βάσης δεδομένων"
 
-#: connectionwizard.cpp:44
+#: connectionwizard.cpp:43
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
 msgstr "Επιλογή οδηγού βάσης δεδομένων"
 
-#: connectionwizard.cpp:51
+#: connectionwizard.cpp:50
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "Οδηγός βάσης δεδομένων:"
 
-#: connectionwizard.cpp:80 connectionwizard.cpp:168
+#: connectionwizard.cpp:79 connectionwizard.cpp:167
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
 msgstr "Παράμετροι σύνδεσης"
 
-#: connectionwizard.cpp:81
+#: connectionwizard.cpp:80
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
 msgstr "Εισαγωγή παραμέτρων σύνδεσης"
 
-#: connectionwizard.cpp:93
+#: connectionwizard.cpp:92
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
 msgstr "Προεπιλεγμένο"
 
-#: connectionwizard.cpp:96
+#: connectionwizard.cpp:95
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
 msgstr "Όνομα υπολογιστή:"
 
-#: connectionwizard.cpp:97
+#: connectionwizard.cpp:96
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
 msgstr "Όνομα χρήστη:"
 
-#: connectionwizard.cpp:98
+#: connectionwizard.cpp:97
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
 msgstr "Κωδικός πρόσβασης:"
 
-#: connectionwizard.cpp:99
+#: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
 msgstr "Θύρα:"
 
-#: connectionwizard.cpp:100
+#: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Όνομα βάσης δεδομένων:"
 
-#: connectionwizard.cpp:101 connectionwizard.cpp:180
+#: connectionwizard.cpp:100 connectionwizard.cpp:179
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "Επιλογές σύνδεσης:"
 
-#: connectionwizard.cpp:153
+#: connectionwizard.cpp:152
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "Αδυναμία σύνδεσης με βάση δεδομένων."
 
-#: connectionwizard.cpp:170
+#: connectionwizard.cpp:169
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -112,41 +112,41 @@ msgstr ""
 "Δώστε τη διαδρομή για το αρχείο της βάσης δεδομένων SQLite.\n"
 "Αν το αρχείο δεν υπάρχει, μια νέα βάση δεδομένων θα δημιουργηθεί."
 
-#: connectionwizard.cpp:178
+#: connectionwizard.cpp:177
 #, kde-format
 msgid "Database files"
 msgstr "Αρχεία βάσης δεδομένων"
 
-#: connectionwizard.cpp:178 exportwizard.cpp:55
+#: connectionwizard.cpp:177 exportwizard.cpp:54
 #, kde-format
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
-#: connectionwizard.cpp:179
+#: connectionwizard.cpp:178
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Διαδρομή:"
 
-#: connectionwizard.cpp:212
+#: connectionwizard.cpp:211
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "Αδυναμία σύνδεσης με τη βάση δεδομένων.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:227
+#: connectionwizard.cpp:226
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "Όνομα σύνδεσης"
 
-#: connectionwizard.cpp:228
+#: connectionwizard.cpp:227
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Δώστε ένα μοναδικό όνομα σύνδεσης"
 
-#: connectionwizard.cpp:234
+#: connectionwizard.cpp:233
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -194,43 +194,43 @@ msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Αδυναμία ανοίγματος του αρχείου <filename>%1</filename>"
 
-#: exportwizard.cpp:26
+#: exportwizard.cpp:25
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "Βοηθός Εξαγωγής"
 
-#: exportwizard.cpp:41
+#: exportwizard.cpp:40
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "Όνομα Προορισμού"
 
-#: exportwizard.cpp:42
+#: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "Επιλογή προορισμού"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "Τρέχον έγγραφο"
 
-#: exportwizard.cpp:47
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "Πρόχειρο"
 
-#: exportwizard.cpp:48
+#: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Αρχείο"
 
-#: exportwizard.cpp:55
+#: exportwizard.cpp:54
 #, fuzzy, kde-format
 #| msgid ""
 #| "*.csv|Comma Separated Values\n"
@@ -240,13 +240,13 @@ msgstr ""
 "*.csv|Λίστα τιμών διαχωρισμένες με κόμμα (CSV)\n"
 "*|Όλα τα αρχεία"
 
-#: exportwizard.cpp:97
+#: exportwizard.cpp:96
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Μορφή πεδίων"
 
-#: exportwizard.cpp:98
+#: exportwizard.cpp:97
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -256,55 +256,55 @@ msgstr ""
 "Επιλογή μορφής πεδίων.\n"
 "Πατήστε \"Τέλος\" για εξαγωγή δεδομένων."
 
-#: exportwizard.cpp:102
+#: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Κεφαλίδες"
 
-#: exportwizard.cpp:105
+#: exportwizard.cpp:104
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Εξαγωγή ονομάτων στηλών"
 
-#: exportwizard.cpp:106
+#: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Εξαγωγή αρίθμησης γραμμών"
 
-#: exportwizard.cpp:113
+#: exportwizard.cpp:112
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Εισαγωγικά"
 
-#: exportwizard.cpp:116
+#: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Παράθεση συμβολοσειρών"
 
-#: exportwizard.cpp:117
+#: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Παράθεση αριθμών"
 
-#: exportwizard.cpp:125 exportwizard.cpp:128
+#: exportwizard.cpp:124 exportwizard.cpp:127
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Χαρακτήρας:"
 
-#: exportwizard.cpp:134
+#: exportwizard.cpp:133
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Διαχωριστές"
 
-#: exportwizard.cpp:140
+#: exportwizard.cpp:139
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"

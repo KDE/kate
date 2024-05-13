@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-12 00:41+0000\n"
-"PO-Revision-Date: 2024-03-14 03:48+0100\n"
+"PO-Revision-Date: 2024-05-12 03:40+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -115,6 +115,8 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>ფაილი ვერ ვიპოვე:</b> %1<br><br>ძებნის ბილიკებია:</b><br>%2<br>სცადეთ, "
+"\"სამუშაო საქაღალდეს\" ძებნის ბილიკი დაამატოთ"
 
 #: plugin_katebuild.cpp:410
 #, kde-format

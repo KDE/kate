@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-22 00:40+0000\n"
-"PO-Revision-Date: 2024-03-17 10:59+0100\n"
+"PO-Revision-Date: 2024-05-12 09:44+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -235,7 +235,7 @@ msgstr "Odfiltruj..."
 #: search.ui:37 search.ui:40 SearchPlugin.cpp:294
 #, kde-format
 msgid "Search"
-msgstr "Poszukaj"
+msgstr "Szukanie"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
@@ -344,7 +344,7 @@ msgstr "Katalog:"
 #: search.ui:374
 #, kde-format
 msgid "Go one folder up."
-msgstr "Idź jeden katalog do góry."
+msgstr "Przejdź jeden katalog do góry."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
 #: search.ui:383
@@ -564,12 +564,12 @@ msgstr "Przechwycenie małymi literami od 0 do 999"
 #: SearchPlugin.cpp:287
 #, kde-format
 msgid "Search & Replace"
-msgstr "Znajdź i zamień"
+msgstr "Poszukaj i zamień"
 
 #: SearchPlugin.cpp:328
 #, kde-format
 msgid "Find in Files"
-msgstr "Znajdź w plikach"
+msgstr "Poszukaj w plikach"
 
 #: SearchPlugin.cpp:334
 #, kde-format
@@ -579,12 +579,12 @@ msgstr "Poszukaj w plikach (w nowej karcie)"
 #: SearchPlugin.cpp:340
 #, kde-format
 msgid "Go to Next Match"
-msgstr "Idź do następnego pasującego wyrażenia"
+msgstr "Przejdź do następnego pasującego wyrażenia"
 
 #: SearchPlugin.cpp:346
 #, kde-format
 msgid "Go to Previous Match"
-msgstr "Idź do poprzedniego pasującego wyrażenia"
+msgstr "Przejdź do poprzedniego pasującego wyrażenia"
 
 #: SearchPlugin.cpp:352
 #, kde-format
@@ -639,7 +639,7 @@ msgstr "Naciśnij, aby przefiltrować przez wyniki"
 #: SearchPlugin.cpp:487
 #, kde-format
 msgid "Find"
-msgstr "Znajdź"
+msgstr "Poszukaj"
 
 #: SearchPlugin.cpp:1327
 #, kde-format
@@ -691,7 +691,7 @@ msgstr "Skopiuj wszystko"
 #: SearchPlugin.cpp:2259
 #, kde-format
 msgid "Copy expanded"
-msgstr "Rozwinięto kopię"
+msgstr "Skopiuj rozwinięte"
 
 #: SearchPlugin.cpp:2262
 #, kde-format

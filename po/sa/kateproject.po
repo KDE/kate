@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-05-13 00:40+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -59,22 +59,22 @@ msgstr "नूतनशाखायाः कृते जाँचितम्:
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "नूतनशाखायाः निर्माणे असफलः अभवत् । \"%1\" इति त्रुटिः ।"
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Branch"
 msgstr "शाखा"
 
-#: branchdeletedialog.cpp:126
+#: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Commit"
 msgstr "अन्तिमप्रतिबद्धता"
 
-#: branchdeletedialog.cpp:139 kateprojecttreeviewcontextmenu.cpp:78
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
 msgid "Delete"
 msgstr "लोपयन्तु"
 
-#: branchdeletedialog.cpp:144
+#: branchdeletedialog.cpp:142
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
@@ -86,7 +86,7 @@ msgstr[1] "किं भवन्तः निश्चिताः सन्त
 msgid "Select Branch..."
 msgstr "शाखा चयनं कुर्वन्तु..."
 
-#: branchesdialog.cpp:126 gitwidget.cpp:536 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:126 gitwidget.cpp:535 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "गिट्"
@@ -119,7 +119,7 @@ msgstr "सक्रियशाखाः %1"
 msgid "Commit Changes"
 msgstr "परिवर्तनं प्रतिबद्धं कुर्वन्तु"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:262
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:261
 #, kde-format
 msgid "Commit"
 msgstr "प्रतिबद्धतु"
@@ -149,7 +149,7 @@ msgstr "हस्ताक्षरं कुर्वन्तु"
 msgid "Amend"
 msgstr "संशोधन"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1011
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1010
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "अन्तिम समिति संशोधन"
@@ -191,308 +191,308 @@ msgstr "द्वंद"
 msgid "Modified"
 msgstr "परिवर्तित"
 
-#: gitwidget.cpp:270
+#: gitwidget.cpp:269
 #, kde-format
 msgid "Git Push"
 msgstr "गित् पुश"
 
-#: gitwidget.cpp:283
+#: gitwidget.cpp:282
 #, kde-format
 msgid "Git Pull"
 msgstr "गित् पुल"
 
-#: gitwidget.cpp:296
+#: gitwidget.cpp:295
 #, kde-format
 msgid "Cancel Operation"
 msgstr "संचालन रद्दतुं"
 
-#: gitwidget.cpp:304
+#: gitwidget.cpp:303
 #, kde-format
 msgid " canceled."
 msgstr " रद्दं कृतम् ।."
 
-#: gitwidget.cpp:325 kateprojectview.cpp:59
+#: gitwidget.cpp:324 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
 msgstr "छायांकन..."
 
-#: gitwidget.cpp:415
+#: gitwidget.cpp:414
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr "'%1' कृते .git पुटं अन्वेष्टुं असफलम्, वस्तूनि सम्यक् कार्यं न कर्तुं शक्नुवन्ति"
 
-#: gitwidget.cpp:620
+#: gitwidget.cpp:619
 #, kde-format
 msgid " error: %1"
 msgstr " त्रुटिः %1"
 
-#: gitwidget.cpp:626
+#: gitwidget.cpp:625
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "%1 सफलतया निष्पादितम्: %2"
 
-#: gitwidget.cpp:646
+#: gitwidget.cpp:645
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "सञ्चिकां प्रतिष्ठापयतुं असफलम्। त्रुटि:"
 
-#: gitwidget.cpp:659
+#: gitwidget.cpp:658
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "सञ्चिकां विमोचयितुं असफलम्। त्रुटि:"
 
-#: gitwidget.cpp:670
+#: gitwidget.cpp:669
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "परिवर्तनं परित्यक्तुं असफलम्। त्रुटि:"
 
-#: gitwidget.cpp:681
+#: gitwidget.cpp:680
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "निष्कासयितुं असफलः अभवत्। त्रुटि:"
 
-#: gitwidget.cpp:697
+#: gitwidget.cpp:696
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "HEAD: %1 इत्यत्र सञ्चिकां उद्घाटयितुं असफलम्"
 
-#: gitwidget.cpp:729
+#: gitwidget.cpp:728
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "सञ्चिकायाः भेद प्राप्तुं असफलम्: %1"
 
-#: gitwidget.cpp:796
+#: gitwidget.cpp:795
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "प्रतिबद्धं कर्तुं असफलम्: %1"
 
-#: gitwidget.cpp:800
+#: gitwidget.cpp:799
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "परिवर्तनं सफलतया प्रतिबद्धम्।."
 
-#: gitwidget.cpp:810
+#: gitwidget.cpp:809
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "न किमपि प्रतिबद्धम्। कृपया प्रथमं स्वपरिवर्तनानि प्रतिष्ठापयन्तु।."
 
-#: gitwidget.cpp:823
+#: gitwidget.cpp:822
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "प्रतिबद्धसन्देशः रिक्तः न भवितुम् अर्हति ।."
 
-#: gitwidget.cpp:943
+#: gitwidget.cpp:942
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "%1...%2 कृते कोऽपि भेदः नास्ति"
 
-#: gitwidget.cpp:949
+#: gitwidget.cpp:948
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "%1...%2 तुलनां कर्तुं असफलम्"
 
-#: gitwidget.cpp:964
+#: gitwidget.cpp:963
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "%1...%2 भिन्नं कुर्वन् संख्यासांख्यिकीयम् प्राप्तुं असफलम्"
 
-#: gitwidget.cpp:1003
+#: gitwidget.cpp:1002
 #, kde-format
 msgid "Refresh"
 msgstr "ताजाय"
 
-#: gitwidget.cpp:1019
+#: gitwidget.cpp:1018
 #, kde-format
 msgid "Checkout Branch"
 msgstr "शाखां अधिक्रियते"
 
-#: gitwidget.cpp:1031
+#: gitwidget.cpp:1030
 #, kde-format
 msgid "Delete Branch"
 msgstr "शाखा विलोपयतु"
 
-#: gitwidget.cpp:1043
+#: gitwidget.cpp:1042
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "शाखायाः तुलनां कुर्वन्तु..."
 
-#: gitwidget.cpp:1048
+#: gitwidget.cpp:1047
 #, kde-format
 msgid "Show Commit"
 msgstr "प्रतिबद्धं दर्शयतु"
 
-#: gitwidget.cpp:1048
+#: gitwidget.cpp:1047
 #, kde-format
 msgid "Commit hash"
 msgstr "हैशं प्रतिबद्धं कुर्वन्तु"
 
-#: gitwidget.cpp:1055
+#: gitwidget.cpp:1054
 #, kde-format
 msgid "Open Commit..."
 msgstr "प्रतिबद्धता उद्घाटयतु..."
 
-#: gitwidget.cpp:1058 gitwidget.cpp:1097
+#: gitwidget.cpp:1057 gitwidget.cpp:1096
 #, kde-format
 msgid "Stash"
 msgstr "संग्रह"
 
-#: gitwidget.cpp:1068
+#: gitwidget.cpp:1067
 #, kde-format
 msgid "Diff - stash"
 msgstr "विभेद - संग्रह"
 
-#: gitwidget.cpp:1101
+#: gitwidget.cpp:1100
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "अन्तिम संग्रहं पॉप् कुर्वन्तु"
 
-#: gitwidget.cpp:1105
+#: gitwidget.cpp:1104
 #, kde-format
 msgid "Pop Stash"
 msgstr "संग्रहं पॉप् कुर्वन्तु"
 
-#: gitwidget.cpp:1109
+#: gitwidget.cpp:1108
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "अन्तिम् संग्रह प्रयोजयन्तु"
 
-#: gitwidget.cpp:1111
+#: gitwidget.cpp:1110
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "संग्रह (स्थानं प्रतिष्ठापयतु)"
 
-#: gitwidget.cpp:1115
+#: gitwidget.cpp:1114
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "संग्रह (अनिरीक्षितं समावेशयन्तु)"
 
-#: gitwidget.cpp:1119
+#: gitwidget.cpp:1118
 #, kde-format
 msgid "Apply Stash"
 msgstr "संग्रह प्रयोजयन्तु"
 
-#: gitwidget.cpp:1120
+#: gitwidget.cpp:1119
 #, kde-format
 msgid "Drop Stash"
 msgstr "संग्रह पतनम्"
 
-#: gitwidget.cpp:1121
+#: gitwidget.cpp:1120
 #, kde-format
 msgid "Show Stash Content"
 msgstr "संग्रह सामग्रीं दर्शयतु"
 
-#: gitwidget.cpp:1157
+#: gitwidget.cpp:1156
 #, kde-format
 msgid "Stage All"
 msgstr "सर्वः स्थानं प्रतिष्ठापयति"
 
-#: gitwidget.cpp:1159
+#: gitwidget.cpp:1158
 #, kde-format
 msgid "Remove All"
 msgstr "सर्वं निष्कासयतु"
 
-#: gitwidget.cpp:1159
+#: gitwidget.cpp:1158
 #, kde-format
 msgid "Discard All"
 msgstr "सर्वाणि परित्यजन्तु"
 
-#: gitwidget.cpp:1162
+#: gitwidget.cpp:1161
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore इति उद्घाटयन्तु"
 
-#: gitwidget.cpp:1163 gitwidget.cpp:1210 gitwidget.cpp:1252
+#: gitwidget.cpp:1162 gitwidget.cpp:1209 gitwidget.cpp:1251
 #: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
 msgstr "भेद दर्शयतु"
 
-#: gitwidget.cpp:1180
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "किं भवन्तः एताः सञ्चिकाः हर्तुं इच्छन्ति इति निश्चितम्?"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1184
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "किं भवान् निश्चयेन सर्वान् परिवर्तनान् परित्यक्तुं इच्छति?"
 
-#: gitwidget.cpp:1209
+#: gitwidget.cpp:1208
 #, kde-format
 msgid "Open File"
 msgstr "सञ्चिकां उद्घाटयन्तु"
 
-#: gitwidget.cpp:1211
+#: gitwidget.cpp:1210
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "बाह्य Git भेद् उपकरणं इत्यत्र दर्शयतु"
 
-#: gitwidget.cpp:1212
+#: gitwidget.cpp:1211
 #, kde-format
 msgid "Open at HEAD"
 msgstr "HEAD इत्यत्र उद्घाटितम्"
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1212
 #, kde-format
 msgid "Unstage File"
 msgstr "सञ्चिकां स्थाने अप्रतिष्ठाप्यते"
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1212
 #, kde-format
 msgid "Stage File"
 msgstr "सञ्चिकां स्थानं प्रतिष्ठापयति"
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1213
 #, kde-format
 msgid "Remove"
 msgstr "निष्कासयतु"
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1213
 #, kde-format
 msgid "Discard"
 msgstr "परित्यजतु"
 
-#: gitwidget.cpp:1231
+#: gitwidget.cpp:1230
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "किं भवान् निश्चयेन अस्मिन् सञ्चिकायां परिवर्तनं परित्यक्तुं इच्छति?"
 
-#: gitwidget.cpp:1240
+#: gitwidget.cpp:1239
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "किं भवान् निश्चितः अस्ति यत् भवान् एतां सञ्चिकां हर्तुं इच्छति?"
 
-#: gitwidget.cpp:1251
+#: gitwidget.cpp:1250
 #, kde-format
 msgid "Unstage All"
 msgstr "सर्वाणी स्थाने अप्रतिष्ठाप्यते"
 
-#: gitwidget.cpp:1318
+#: gitwidget.cpp:1317
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "चयनितसञ्चिकाः स्थाने अप्रतिष्ठाप्यते"
 
-#: gitwidget.cpp:1318
+#: gitwidget.cpp:1317
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "चयनितसञ्चिकाः स्थानं प्रतिष्ठापयति"
 
-#: gitwidget.cpp:1319
+#: gitwidget.cpp:1318
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "चयनितसञ्चिकाः परित्यजन्तु"
 
-#: gitwidget.cpp:1323
+#: gitwidget.cpp:1322
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "चयनितसञ्चिकाः निष्कासयन्तु"
 
-#: gitwidget.cpp:1336
+#: gitwidget.cpp:1335
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "किं भवन्तः परिवर्तनं परित्यक्तुं इच्छन्ति इति निश्चितम्?"
 
-#: gitwidget.cpp:1341
+#: gitwidget.cpp:1340
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "किं भवान् निश्चितः अस्ति यत् भवान् एतान् अनिरीक्षितपरिवर्तनानि दूरीकर्तुं इच्छति?"
@@ -785,22 +785,22 @@ msgstr "त्रुटि"
 msgid "File name already exists"
 msgstr "सञ्चिकानाम पूर्वमेव अस्ति"
 
-#: kateprojectplugin.cpp:218
+#: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "परियोजना समापनस्य पुष्टिं कुर्वन्तु: %1"
 
-#: kateprojectplugin.cpp:219
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "किं भवान् परियोजना %1 तथा तत्सम्बद्धानि %2 उद्घाटितदस्तावेजानि पिधातुम् इच्छति?"
 
-#: kateprojectplugin.cpp:558
+#: kateprojectplugin.cpp:557
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "सञ्चिकानाम विहाय वर्तमानप्रकल्पस्य पूर्णमार्गः ।."
 
-#: kateprojectplugin.cpp:575
+#: kateprojectplugin.cpp:574
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -809,7 +809,7 @@ msgstr ""
 "सञ्चिकानाम विहाय वर्तमानप्रकल्पस्य पूर्णमार्गः, देशीमार्गविभाजकेन (गवाक्ष इत्यत्र "
 "प्रतिक्रिया) सह ।."
 
-#: kateprojectplugin.cpp:692 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:156
 #, kde-format

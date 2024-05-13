@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-12 00:41+0000\n"
-"PO-Revision-Date: 2024-03-13 12:03+0100\n"
+"PO-Revision-Date: 2024-05-12 09:51+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -121,6 +121,8 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>Fitxer no trobat:</b> %1<br><b>Camins de cerca:</b><br>%2<br>Intenteu "
+"afegir un camí de cerca al «Directori de treball»"
 
 #: plugin_katebuild.cpp:410
 #, kde-format

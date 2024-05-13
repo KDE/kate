@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-21 00:40+0000\n"
+"POT-Creation-Date: 2024-05-13 00:40+0000\n"
 "PO-Revision-Date: 2019-09-13 22:15-0700\n"
 "Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -180,9 +180,9 @@ msgid ""
 msgstr ""
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
-#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:272
-#: kateexternaltoolsconfigwidget.cpp:277 kateexternaltoolsview.cpp:159
-#: kateexternaltoolsview.cpp:163 kateexternaltoolsview.cpp:211
+#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:271
+#: kateexternaltoolsconfigwidget.cpp:276 kateexternaltoolsview.cpp:158
+#: kateexternaltoolsview.cpp:162 kateexternaltoolsview.cpp:210
 #, kde-format
 msgid "External Tools"
 msgstr ""
@@ -217,78 +217,78 @@ msgstr ""
 msgid "Starts the external tool '%1'"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:132
+#: kateexternaltoolsconfigwidget.cpp:131
 #, kde-format
 msgid "Edit External Tool"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:165
+#: kateexternaltoolsconfigwidget.cpp:164
 #, kde-format
 msgid "Revert tool to default settings"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:190 kateexternaltoolsconfigwidget.cpp:196
+#: kateexternaltoolsconfigwidget.cpp:189 kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "External Tool"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:190
+#: kateexternaltoolsconfigwidget.cpp:189
 #, kde-format
 msgid "You must specify at least a name and an executable"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:196
+#: kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:205
+#: kateexternaltoolsconfigwidget.cpp:204
 #, kde-format
 msgid "Select the MimeTypes for which to enable this tool."
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:207
+#: kateexternaltoolsconfigwidget.cpp:206
 #, kde-format
 msgid "Select Mime Types"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:241
+#: kateexternaltoolsconfigwidget.cpp:240
 #, kde-format
 msgid "Add Tool..."
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:242
+#: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool from Defaults"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:244
+#: kateexternaltoolsconfigwidget.cpp:243
 #, kde-format
 msgid "Add Category"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:291 kateexternaltoolsconfigwidget.cpp:404
-#: kateexternaltoolsconfigwidget.cpp:451
+#: kateexternaltoolsconfigwidget.cpp:290 kateexternaltoolsconfigwidget.cpp:403
+#: kateexternaltoolsconfigwidget.cpp:450
 #, kde-format
 msgid "Uncategorized"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:493
+#: kateexternaltoolsconfigwidget.cpp:492
 #, kde-format
 msgid "New Category"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:496
+#: kateexternaltoolsconfigwidget.cpp:495
 #, kde-format
 msgid "New Category %1"
 msgstr ""
 
-#: kateexternaltoolsview.cpp:103
+#: kateexternaltoolsview.cpp:102
 #, kde-format
 msgid "Configure..."
 msgstr ""
 
-#: kateexternaltoolsview.cpp:165
+#: kateexternaltoolsview.cpp:164
 #, kde-format
 msgid "Launch external helper applications"
 msgstr ""

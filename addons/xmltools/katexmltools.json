@@ -22,7 +22,7 @@
         "Description[ka]": "DTD-ის მიერ დაშვებული XML ელემენტების, ატრიბუტების, ატრიბუტის მნიშვნელობებისა და ჩანაწერების ჩვენება",
         "Description[ko]": "XML 구성 요소, 속성과 값, DTD가 허용하는 엔티티 표시",
         "Description[nl]": "Somt XML-elementen, -atributen, -atribuutwaarden en -entiteiten op die door de DTD zijn toegestaan",
-        "Description[pl]": "Lista elementów XML, atrybutów, wartości atrybutów i jednostek dozwolonych przez DTD",
+        "Description[pl]": "Wypisuje atrybuty, ich wartości i zapisy dozwolonych przez DTD dla XMLa",
         "Description[pt]": "Apresenta os elementos, atributos, valores dos atributos e entidades permitidos pela DTD",
         "Description[pt_BR]": "Lista elementos XML, atributos, valores de atributos e entidades permitidas pelo DTD",
         "Description[ru]": "Вывод элементов XML, их атрибутов, значений атрибутов и записей, разрешённых DTD",

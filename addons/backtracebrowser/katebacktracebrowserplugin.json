@@ -22,7 +22,7 @@
         "Description[ka]": "C/C++ უკუტრეისის ნავიგაციის ხელსაწყოს ხედი",
         "Description[ko]": "C/C++ 역추적 탐색기 도구 보기",
         "Description[nl]": "C/C++ Backtrace hulpmiddel voor navigatieweergave",
-        "Description[pl]": "Widok narzędzia nawigacji śladu C/C++",
+        "Description[pl]": "Narzędzie do poruszania się po śladzie wykonywania C/C++",
         "Description[pt]": "Ferramenta de navegação de registos de chamadas de C/C++",
         "Description[pt_BR]": "Visualização da ferramenta de navegação Backtrace C/C++",
         "Description[ru]": "Панель навигации по стеку вызовов C/C++",

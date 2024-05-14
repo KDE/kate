@@ -22,7 +22,7 @@
         "Description[ka]": "Git-ის და სხვა საწყისი კოდის კონტროლის სისტემების ინტეგრაცია",
         "Description[ko]": "Git 및 다른 버전 관리 시스템 통합",
         "Description[nl]": "Integratie met Git en andere controlesystemen voor broncode",
-        "Description[pl]": "Współpraca z Git i innymi systemami do zarządzania wersjami",
+        "Description[pl]": "Dodaje obsługę Gita i innych systemów do zarządzania wersjami",
         "Description[pt]": "Integração com o Git e outros sistemas de controlo de versões",
         "Description[pt_BR]": "Integração com Git e outros sistemas de controle de origem",
         "Description[ru]": "Интеграция с Git и другими системами управления кодом",

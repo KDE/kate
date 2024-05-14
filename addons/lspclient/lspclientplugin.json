@@ -22,7 +22,7 @@
         "Description[ka]": "ენის სერვერის პროტოკოლის კლიენტი",
         "Description[ko]": "언어 서버 프로토콜 클라이언트",
         "Description[nl]": "Language Server Protocol Client",
-        "Description[pl]": "Klient protokołu języka serwera",
+        "Description[pl]": "Obsługa protokołu serwera językowego",
         "Description[pt]": "Cliente do Protocolo LSP (Language Server Protocol)",
         "Description[pt_BR]": "Cliente de protocolo de servidor de idiomas",
         "Description[ru]": "Клиент Language Server Protocol (протокол языкового сервера)",

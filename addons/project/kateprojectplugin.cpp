@@ -175,6 +175,22 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
         }
     }
 
+    if (userSpecified) {
+        // if the user selected a cmake build directory, ask the build plugin to load the
+        // build targets, which will in turn open the accompanying source dir as project
+        if (QFile::exists(originalDir.absolutePath() + QStringLiteral("/CMakeCache.txt"))) {
+
+            QTimer::singleShot(0, this, [originalDir]() {
+                if (auto buildPluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("katebuildplugin"))) {
+                    QMetaObject::invokeMethod(buildPluginView, "loadCMakeTargets", Q_ARG(QString, originalDir.absolutePath()));
+                }
+            });
+
+            return nullptr;
+
+        }
+    }
+
     /**
      * if we arrive here, we found no .kateproject
      * => we want to invent a project based on e.g. version control system info

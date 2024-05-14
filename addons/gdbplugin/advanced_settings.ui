@@ -170,7 +170,7 @@
        <item>
         <widget class="QLineEdit" name="u_ttyPort">
          <property name="text">
-          <string comment="KDE::DoNotExtract">/dev/ttyUSB0</string>
+          <string notr="true">/dev/ttyUSB0</string>
          </property>
          <property name="showClearButton" stdset="0">
           <bool>true</bool>
@@ -191,32 +191,32 @@
          </property>
          <item>
           <property name="text">
-           <string comment="KDE::DoNotExtract">9600</string>
+           <string notr="true">9600</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string comment="KDE::DoNotExtract">14400</string>
+           <string notr="true">14400</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string comment="KDE::DoNotExtract">19200</string>
+           <string notr="true">19200</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string comment="KDE::DoNotExtract">38400</string>
+           <string notr="true">38400</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string comment="KDE::DoNotExtract">57600</string>
+           <string notr="true">57600</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string comment="KDE::DoNotExtract">115200</string>
+           <string notr="true">115200</string>
           </property>
          </item>
         </widget>

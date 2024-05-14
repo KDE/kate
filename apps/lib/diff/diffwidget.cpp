@@ -3,6 +3,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "diffwidget.h"
+#include "commitinfoview.h"
 #include "gitdiff.h"
 #include "gitprocess.h"
 #include "hostprocess.h"
@@ -194,7 +195,7 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     : QWidget(parent)
     , m_left(new DiffEditor(p.flags, this))
     , m_right(new DiffEditor(p.flags, this))
-    , m_commitInfo(new QPlainTextEdit(this))
+    , m_commitInfo(new CommitInfoView(this))
     , m_toolbar(new Toolbar(this))
     , m_params(p)
 {

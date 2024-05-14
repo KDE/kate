@@ -1008,7 +1008,13 @@ void KateBuildView::loadCMakeTargets(const QString& cmakeFile)
         createCMakeTargetSet(setIndex, projectName, cmakeFA, config);
     }
 
-    QFile::copy(compileCommandsFile, cmakeFA.getSourceDir() + QStringLiteral("/compile_commands.json"));
+    const QString compileCommandsDest = cmakeFA.getSourceDir() + QStringLiteral("/compile_commands.json");
+#ifdef Q_OS_WIN
+    QFile::remove(compileCommandsDest);
+    QFile::copy(compileCommandsFile, compileCommandsDest);
+#else
+    QFile::link(compileCommandsFile, compileCommandsDest);
+#endif
 
     QUrl fileUrl = QUrl::fromLocalFile(cmakeFA.getSourceDir() + QStringLiteral("/CMakeLists.txt"));
     m_win->openUrl(fileUrl);

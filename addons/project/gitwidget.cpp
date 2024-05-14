@@ -1148,6 +1148,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
     if (!idx.isValid())
         return;
     auto treeItem = idx.data(GitStatusModel::TreeItemType);
+    auto treeItemParent = idx.parent().data(GitStatusModel::TreeItemType);
 
     if (treeItem == GitStatusModel::NodeChanges || treeItem == GitStatusModel::NodeUntrack) {
         QMenu menu(this);
@@ -1243,7 +1244,13 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         } else if (act == launchDifftoolAct) {
             launchExternalDiffTool(idx.data(GitStatusModel::FileNameRole).toString(), staged);
         } else if (act == openFile) {
-            m_mainWin->openUrl(QUrl::fromLocalFile(file));
+            auto view = m_mainWin->openUrl(QUrl::fromLocalFile(file));
+            if (view && treeItemParent == GitStatusModel::NodeConflict) {
+                auto ranges = view->document()->searchText(view->document()->documentRange(), QStringLiteral("<<<<<<< HEAD"));
+                if (!ranges.isEmpty()) {
+                    view->setCursorPosition(ranges.first().start());
+                }
+            }
         }
     } else if (treeItem == GitStatusModel::NodeStage) {
         QMenu menu(this);

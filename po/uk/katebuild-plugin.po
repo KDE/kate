@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-12 00:41+0000\n"
+"POT-Creation-Date: 2024-05-14 00:40+0000\n"
 "PO-Revision-Date: 2024-05-12 09:06+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
@@ -283,19 +283,19 @@ msgstr "Очистити налаштування"
 msgid "Cannot save build targets in: %1"
 msgstr "Не вдалося зберегти цілі збирання у %1"
 
-#: TargetHtmlDelegate.cpp:50
+#: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>НЦ:</B> %1"
 
-#: TargetHtmlDelegate.cpp:52
+#: TargetHtmlDelegate.cpp:53
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Каталог:</B> %1"
 
-#: TargetHtmlDelegate.cpp:103
+#: TargetHtmlDelegate.cpp:104
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -305,7 +305,7 @@ msgstr ""
 "документ.\n"
 "Додайте каталоги для пошуку, відокремивши їхні записи символом «;»"
 
-#: TargetHtmlDelegate.cpp:110
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -316,7 +316,7 @@ msgstr ""
 "«%B» — базовий каталог проєкту\n"
 "«%b» — назва базового каталогу проєкту"
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:114
 #, kde-format
 msgid ""
 "Use:\n"

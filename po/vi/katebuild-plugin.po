@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-12 00:41+0000\n"
+"POT-Creation-Date: 2024-05-14 00:40+0000\n"
 "PO-Revision-Date: 2023-02-20 11:23+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -284,19 +284,19 @@ msgstr "Làm sạch cấu hình"
 msgid "Cannot save build targets in: %1"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:50
+#: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>MT:</B> %1"
 
-#: TargetHtmlDelegate.cpp:52
+#: TargetHtmlDelegate.cpp:53
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Thư mục:</B> %1"
 
-#: TargetHtmlDelegate.cpp:103
+#: TargetHtmlDelegate.cpp:104
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -305,7 +305,7 @@ msgstr ""
 "Để trống để dùng thư mục của tài liệu hiện tại.\n"
 "Thêm các thư mục tìm kiếm bằng cách thêm các đường dẫn phân cách bởi dấu ';'"
 
-#: TargetHtmlDelegate.cpp:110
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -313,7 +313,7 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:114
 #, kde-format
 msgid ""
 "Use:\n"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-12 00:41+0000\n"
+"POT-Creation-Date: 2024-05-14 00:40+0000\n"
 "PO-Revision-Date: 2023-04-23 12:59+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -276,19 +276,19 @@ msgstr "Limpeza da Configuração"
 msgid "Cannot save build targets in: %1"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:50
+#: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>A:</B> %1"
 
-#: TargetHtmlDelegate.cpp:52
+#: TargetHtmlDelegate.cpp:53
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Pasta:</B> %1"
 
-#: TargetHtmlDelegate.cpp:103
+#: TargetHtmlDelegate.cpp:104
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -297,7 +297,7 @@ msgstr ""
 "Deixe em branco para usar a pasta do documento actual.\n"
 "Adicione pastas de pesquisa, adicionando localizações separadas por ';'"
 
-#: TargetHtmlDelegate.cpp:110
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -305,7 +305,7 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:114
 #, kde-format
 msgid ""
 "Use:\n"

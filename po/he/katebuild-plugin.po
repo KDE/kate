@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-12 00:41+0000\n"
+"POT-Creation-Date: 2024-05-14 00:40+0000\n"
 "PO-Revision-Date: 2024-03-13 10:06+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -280,19 +280,19 @@ msgstr "ניקוי הגדרות (ConfigClean)"
 msgid "Cannot save build targets in: %1"
 msgstr "לא ניתן לשמור את יעדי הבנייה תחת: %1"
 
-#: TargetHtmlDelegate.cpp:50
+#: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>י:</B> %1"
 
-#: TargetHtmlDelegate.cpp:52
+#: TargetHtmlDelegate.cpp:53
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>תיקייה:</B> %1"
 
-#: TargetHtmlDelegate.cpp:103
+#: TargetHtmlDelegate.cpp:104
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -301,7 +301,7 @@ msgstr ""
 "להשאיר ריק כדי שייעשה שימוש בתיקיית המסמך הנוכחי.\n"
 "אפשר להוסיף תיקיות חיפוש על ידי הוספת נתיבים עם ‚;’ ביניהם."
 
-#: TargetHtmlDelegate.cpp:110
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -312,7 +312,7 @@ msgstr ""
 "„%B” לייצוג תיקיית הבסיס של המיזם\n"
 "„%b” לייצוג שם תיקיית הבסיס של המיזם"
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:114
 #, kde-format
 msgid ""
 "Use:\n"

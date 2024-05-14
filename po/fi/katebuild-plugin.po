@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-12 00:41+0000\n"
+"POT-Creation-Date: 2024-05-14 00:40+0000\n"
 "PO-Revision-Date: 2024-02-02 17:36+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -286,19 +286,19 @@ msgstr "Asetusten nollaus"
 msgid "Cannot save build targets in: %1"
 msgstr "Koostamiskohteita ei voi tallentaa kansioon: %1"
 
-#: TargetHtmlDelegate.cpp:50
+#: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>KJ:</B> %1"
 
-#: TargetHtmlDelegate.cpp:52
+#: TargetHtmlDelegate.cpp:53
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Kansio:</B> %1"
 
-#: TargetHtmlDelegate.cpp:103
+#: TargetHtmlDelegate.cpp:104
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -307,7 +307,7 @@ msgstr ""
 "Jätä tyhjäksi käyttääksesi nykyisen tiedoston kansiota.\n"
 "Etsittäviä kansioita voi lisätä erottamalla ne puolipistein (;)"
 
-#: TargetHtmlDelegate.cpp:110
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -315,7 +315,7 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:114
 #, kde-format
 msgid ""
 "Use:\n"

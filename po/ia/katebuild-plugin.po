@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-12 00:41+0000\n"
-"PO-Revision-Date: 2024-03-15 18:37+0100\n"
+"POT-Creation-Date: 2024-05-14 00:40+0000\n"
+"PO-Revision-Date: 2024-05-13 11:44+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -111,17 +111,13 @@ msgid "Target Settings"
 msgstr "Preferentias de objectivo"
 
 #: plugin_katebuild.cpp:323
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>Non pote aperir file:</title><nl/>%1<br/>Essaya adder un percurso de "
-"cerca al directorio de travalio in le Preferentias de Objectivo"
+"<b>File non trovate:</b> %1<br><b>Percursos de cerca:</b><br>%2<br>Essaya "
+"adder un percurso d ecerca al  \"Directorio de Labor\""
 
 #: plugin_katebuild.cpp:410
 #, kde-format
@@ -281,19 +277,19 @@ msgstr "Configura e Netta"
 msgid "Cannot save build targets in: %1"
 msgstr "Non pote salveguardar objectivos construite in: %1"
 
-#: TargetHtmlDelegate.cpp:50
+#: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>T:</B> %1"
 
-#: TargetHtmlDelegate.cpp:52
+#: TargetHtmlDelegate.cpp:53
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Dir:</B> %1"
 
-#: TargetHtmlDelegate.cpp:103
+#: TargetHtmlDelegate.cpp:104
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -302,7 +298,7 @@ msgstr ""
 "Lassa vacue pro usar le directorio del documento currente. \n"
 "Adder directorios de cerca per adder percursos separate per ';'"
 
-#: TargetHtmlDelegate.cpp:110
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -313,7 +309,7 @@ msgstr ""
 "\"%B\" perdirectoriobase de projecto\n"
 "\"%b\" per nomine de directorio base de projecto"
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:114
 #, kde-format
 msgid ""
 "Use:\n"

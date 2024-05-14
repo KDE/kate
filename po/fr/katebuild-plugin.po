@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-12 00:41+0000\n"
-"PO-Revision-Date: 2024-05-06 16:08+0200\n"
+"POT-Creation-Date: 2024-05-14 00:40+0000\n"
+"PO-Revision-Date: 2024-05-12 18:21+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -122,18 +122,14 @@ msgid "Target Settings"
 msgstr "Configuration des cibles"
 
 #: plugin_katebuild.cpp:323
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>Impossible d'ouvrir le fichier :</title><nl/>%1<br/> Essayer "
-"d'ajouter un emplacement de recherche vers le dossier de travail dans les "
-"réglages pour la cible."
+"<b>Impossible de trouver le fichier : </b> %1<br><b>Emplacements de "
+"recherche :</b><br>%2<br/>Veuillez essayer d'ajouter un emplacement de "
+"recherche au « dossier de travail »"
 
 #: plugin_katebuild.cpp:410
 #, kde-format
@@ -293,19 +289,19 @@ msgstr "NettoyerConfig"
 msgid "Cannot save build targets in: %1"
 msgstr "Impossible d'enregistrer les cibles compilées dans : %1"
 
-#: TargetHtmlDelegate.cpp:50
+#: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>C:</B> %1"
 
-#: TargetHtmlDelegate.cpp:52
+#: TargetHtmlDelegate.cpp:53
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>D:</B> %1"
 
-#: TargetHtmlDelegate.cpp:103
+#: TargetHtmlDelegate.cpp:104
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -315,7 +311,7 @@ msgstr ""
 "Ajoutez des dossiers de recherche par ajout d'emplacements séparés par des "
 "« ; »"
 
-#: TargetHtmlDelegate.cpp:110
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -326,7 +322,7 @@ msgstr ""
 "« %B » pour le dossier racine du projet \n"
 "« %b » pour le nom du dossier racine du projet"
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:114
 #, kde-format
 msgid ""
 "Use:\n"

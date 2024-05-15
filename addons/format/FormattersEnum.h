@@ -55,5 +55,8 @@ inline Formatters formatterForName(const QString &name, Formatters defaultValue)
     if (eq("autopep8")) {
         return Formatters::Autopep8;
     }
+    if (eq("ruff")) {
+        return Formatters::Ruff;
+    }
     return defaultValue;
 }

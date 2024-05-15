@@ -183,6 +183,18 @@
 >Validació &XML;</link
 >: Valida els fitxers en &XML; utilitzant el «xmllint»</para>
 </listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-compilerexplorer"
+>Explorador de compiladors</link
+>: Interfície a l'eina d'exploració de compiladors</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-formatting"
+>Doina format</link
+>: Connector de donar format al codi</para>
+</listitem>
 </itemizedlist>
 </sect1>
 
@@ -6661,5 +6673,306 @@ VALUES ("<replaceable
 >Copyright de la documentació, 2001, 2002 per en &Daniel.Naber;</para>
 </sect2>
 </sect1>
+
+<sect1 id="kate-application-plugin-compilerexplorer">
+<title
+>Connector Explorador de compiladors</title>
+
+<para
+>El connector explorador de compiladors permet utilitzar l'explorador de compiladors des del Kate. L'explorador de compiladors normalment es limita a només 1 fitxer i és difícil utilitzar-lo per veure el codi generat d'un fitxer en el projecte. Aquest connector té com a objectiu simplificar aquest procés detectant automàticament les ordres de compilació del fitxer.</para>
+
+<sect2 id="ce-how-to-use">
+<title
+>Ús</title>
+
+<para
+>El primer que cal fer és obrir una pestanya de l'explorador de compiladors. Premeu <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>I</keycap
+></keycombo
+> per a obrir la barra d'ordres i cercar «Obre el fitxer actual a l'explorador de compiladors» i premeu la tecla d'entrada. Podeu afegir aquesta acció a la barra d'eines o assignar-hi una drecera per a un accés més fàcil. </para>
+
+<para
+>A continuació, heu de configurar una instància local de l'explorador de compiladors o utilitzar la instància pública <ulink url="https://godbolt.org/"
+>https://godbolt.org/</ulink
+>. Vegeu <ulink url="https://github.com/compiler-explorer/compiler-explorer"
+>https://github.com/compiler-explorer/compiler-explorer</ulink
+>. Un cop tingueu una instància, feu clic al quadre combinat <guilabel
+>Opció</guilabel
+> a la pestanya de l'explorador de compiladors que heu obert abans i seleccioneu <guilabel
+>Canvia l'URL...</guilabel
+> i després introduïu l'URL del servidor de l'explorador de compiladors.</para>
+
+<para
+>A continuació, necessitareu un «compile_commands.json» si necessiteu veure el codi generat d'un fitxer del projecte. En cas contrari, podeu ometre aquesta part. Això es pot obtenir fàcilment si utilitzeu un sistema de construcció modern com el CMake o el Meson. Per al CMake és suficient passar <code
+>-DCMAKE_EXPORT_COMPILE_COMMANDS=ON</code
+> quan s'invoca el «cmake». El <code
+>compile_commands.json</code
+> s'hauria de situar a l'arrel del projecte. Tanqueu i torneu a obrir la pestanya de l'explorador de compiladors al Kate. Després de tornar a obrir la pestanya, hauria de mostrar les ordres de compilació necessàries per a compilar el fitxer</para>
+
+<para
+>Si esteu utilitzant l'explorador de compiladors per a veure el codi generat d'una cosa temporal, només podeu escriure les ordres de compilació del fitxer i fer clic a <guilabel
+>Compila</guilabel
+>. Tingueu en compte que no s'accepta la recompilació automàtica en l'edició. Cal fer clic a Compila cada vegada que vulgueu tornar a compilar el fitxer</para>
+
+<para
+>Un cop compilat el fitxer, haureu de veure el codi generat a la dreta. Podeu fer clic amb el botó dret i seleccionar <guilabel
+>Mostra el codi enllaçat</guilabel
+> per a veure el codi generat d'una línia en particular. De la mateixa manera a la dreta, podeu fer clic dret i seleccionar <guilabel
+>Desplaça al codi font</guilabel
+> per a mostrar el codi font d'una línia donada de codi generat</para>
+
+</sect2>
+
+</sect1>
+
+<!-- BEGIN Format plugin -->
+
+<sect1 id="kate-application-plugin-formatting">
+<title
+>Connector de donar format</title>
+
+<para
+>El connector de donar format permet donar format al codi fàcilment. El connector té com a objectiu conservar l'historial de desfer del document i la posició del cursor de l'usuari en donar format al codi de manera que el format del codi no pertorbi el treball de l'usuari. Això és especialment important per a donar format automàticament en desar.</para>
+
+<sect2 id="formatting-how-to-use">
+<title
+>Ús</title>
+
+<para
+>Permet a l'usuari donar format al codi de dues maneres: <itemizedlist>
+<listitem
+><para
+>Utilitzant manualment l'acció «Dona format a un document».</para
+></listitem>
+<listitem
+><para
+>Automàticament en desar</para
+></listitem>
+</itemizedlist>
+</para>
+
+<tip
+><para
+>Podeu cercar aquesta acció a la barra d'ordres i vincular-hi una drecera per a un accés més fàcil</para
+></tip>
+
+</sect2>
+
+<sect2 id="formatting-supported-langs-formatters">
+<title
+>Llenguatges i formatadors admesos</title>
+
+<para
+>La llista actual de llenguatges i formatadors admesos és la següent: <itemizedlist>
+
+<listitem
+><para
+>C/C++/ObjectiveC/ObjectiveC++/Protobuf: <command
+>clang-format</command
+> </para
+></listitem>
+
+<listitem
+><para
+>Javascript/Typescript/JSX/TSX: <command
+>prettier</command
+> </para
+></listitem>
+
+<listitem
+><para
+>JSON <itemizedlist>
+  <listitem
+><para
+><command
+>prettier</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>clang-format</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>jq</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+<listitem
+><para
+>Dart: <command
+>dartfmt</command
+> </para
+></listitem>
+<listitem
+><para
+>Rust: <command
+>rustfmt</command
+> </para
+></listitem>
+<listitem
+><para
+>Go: <command
+>gofmt</command
+> </para
+></listitem>
+<listitem
+><para
+>XML: <command
+>xmllint</command
+> </para
+></listitem>
+<listitem
+><para
+>Zig: <command
+>zigfmt</command
+> </para
+></listitem>
+<listitem
+><para
+>CMake: <command
+>cmake-format</command
+> </para
+></listitem>
+
+<listitem
+><para
+>Python <itemizedlist>
+  <listitem
+><para
+><command
+>autopep8</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>ruff</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+</itemizedlist>
+</para>
+
+</sect2>
+
+<sect2 id="formatting-plugin-configuring">
+<title
+>Configuració</title>
+
+<para
+>El connector es pot configurar dues maneres: <itemizedlist>
+<listitem
+><para
+>Globalment, des del diàleg de configuració</para
+></listitem>
+<listitem
+><para
+>En una base per projecte utilitzant el fitxer <filename
+>.kateproject</filename
+></para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>En llegir la configuració, el connector primer intentarà llegir la configuració des del fitxer <filename
+>.kateproject</filename
+> i després llegirà la configuració global. Exemple: </para>
+
+<screen
+>{
+    "formatOnSave": true,
+    "formatterForJson": "jq",
+    "cmake-format": {
+        "formatOnSave": false
+    },
+    "autopep8": {
+        "formatOnSave": false
+    }
+}
+</screen>
+
+<para
+>L'anterior: <itemizedlist>
+<listitem
+><para
+>activa «dona format en desar» ("format on save") globalment</para
+></listitem>
+<listitem
+><para
+>especifica «jq» com a formatador per al JSON</para
+></listitem>
+<listitem
+><para
+>desactiva «dona format en desar» ("format on save") per al cmake-format i autopep8</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Per a configurar el format d'un projecte, primer creeu un fitxer <filename
+>.kateproject</filename
+> i després afegiu-hi un objecte <code
+>"formatting"</code
+>. A l'objecte <code
+>"formatting"</code
+> podeu especificar la vostra configuració com es mostra a l'exemple anterior. Exemple: </para>
+<note
+><para
+>Cal activar el <link linkend="kate-application-plugin-projects"
+>Connector de projecte</link
+> per a que això funcioni</para
+></note>
+
+<screen
+>{
+    "name": "My Cool Project",
+    "files": [
+        {
+            "git": 1
+        }
+    ],
+    "formatting": {
+        "formatterForJson": "clang-format",
+        "autopep8": {
+            "formatOnSave": false
+        }
+    }
+}
+</screen>
+
+</sect2>
+
+<sect2 id="formatting-plugin-temp-disable-autosave-format">
+<title
+>Desactiva temporalment el format en desar</title>
+
+<para
+>Mentre treballeu, sovint haureu de desactivar el format durant un temps curt per qualsevol motiu. Podeu fer-ho des de la barra de menús, <menuchoice
+><guimenu
+>Eines</guimenu
+> <guimenuitem
+>Format en desar</guimenuitem
+></menuchoice
+>. També podeu activar aquesta acció des de la <guilabel
+>barra d'ordres</guilabel
+>. </para>
+
+</sect2>
+
+</sect1>
+
+<!-- END Format plugin -->
 
 </chapter>

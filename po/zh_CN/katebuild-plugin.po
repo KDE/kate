@@ -114,6 +114,8 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>没有找到文件：</b> %1<br><b>搜索路径：</b><br>%2<br>请尝试添加一个搜索路径"
+"到“工作目录”"
 
 #: plugin_katebuild.cpp:410
 #, kde-format

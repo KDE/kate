@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-14 00:40+0000\n"
-"PO-Revision-Date: 2024-03-17 19:34+0100\n"
+"PO-Revision-Date: 2024-05-14 15:05+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -115,17 +115,13 @@ msgid "Target Settings"
 msgstr "Impostazioni obiettivo"
 
 #: plugin_katebuild.cpp:323
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>Impossibile aprire il file:</title><nl/>%1<br/>Prova ad aggiungere un "
-"percorso di ricerca alla cartella di lavoro nelle Impostazioni obiettivo"
+"<b>File non trovato:</b> %1<br><b>Percorsi di ricerca:</b><br>%2<br>Prova ad "
+"aggiungere un percorso di ricerca alla «Cartella di lavoro»"
 
 #: plugin_katebuild.cpp:410
 #, kde-format

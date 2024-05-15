@@ -197,6 +197,18 @@
 >Перевірка &XML;</link
 > перевіряє коректність файлів &XML; за допомогою xmllint.</para>
 </listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-compilerexplorer"
+>Навігатор компілятора</link
+> — інтерфейс до засобу навігації результатами збирання</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-formatting"
+>Форматування</link
+> — додаток для форматування коду</para>
+</listitem>
 </itemizedlist>
 </sect1>
 
@@ -6720,5 +6732,306 @@ VALUES ("<replaceable
 >Авторські права на документацію до додатка належать &Daniel.Naber;, 2001, 2002.</para>
 </sect2>
 </sect1>
+
+<sect1 id="kate-application-plugin-compilerexplorer">
+<title
+>Додаток навігації результатами збирання</title>
+
+<para
+>Додаток навігатора компілятора надає вам змогу використовувати навігатор компілятора з самої програми Kate. Навігатор компілятора зазвичай обмежений лише одним файлом, і його важко використовувати для перегляду коду файла у вашому проєкті. Цей додаток призначено для спрощення цього процесу шляхом автоматичного визначення команд компіляції для вашого файла.</para>
+
+<sect2 id="ce-how-to-use">
+<title
+>Користування</title>
+
+<para
+>Спочатку вам треба відкрити вкладку навігатора компілятора. Натисніть комбінацію клавіш <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>I</keycap
+></keycombo
+>, щоб відкрити панель команд і пошукайте пункт «Відкрити поточний файл у навігаторі компілятора», позначте його і натисніть клавішу &Enter;. Ви можете додати відповідну кнопку на панель інструментів або пов'язати з цією дією клавіатурне скорочення, щоб спрости доступ до інструмента. </para>
+
+<para
+>Потім вам потрібно налаштувати локальний екземпляр навігатора компілятора або скористатися загальнодоступним екземпляром <ulink url="https://godbolt.org/"
+>https://godbolt.org/</ulink
+>. Див. <ulink url="https://github.com/compiler-explorer/compiler-explorer"
+>https://github.com/compiler-explorer/compiler-explorer</ulink
+>. Щойно у вас з'явиться екземпляр, клацніть на спадному списку <guilabel
+>Варіант</guilabel
+> на вкладці навігатора компілятора, яку ви раніше відкрили, і виберіть <guilabel
+>Змінити адресу...</guilabel
+>, а потім введіть адресу сервера навігатора компілятора.</para>
+
+<para
+>Далі вам знадобиться compile_commands.json, якщо вам потрібно переглянути codegen для файла у вашому проєкті. В іншому випадку ви можете пропустити цю частину. Потрібного результату можна легко досягти, якщо ви використовуєте сучасну систему збирання, як-от CMake або Meson. Для CMake достатньо передати <code
+>-DCMAKE_EXPORT_COMPILE_COMMANDS=ON</code
+> під час виклику cmake. <code
+>compile_commands.json</code
+> слід розмістити в корені вашого проєкту. Закрийте та знову відкрийте вкладку навігатора компілятора у Kate. Після повторного відкриття вкладки має бути показано команди компіляції, необхідні для збирання файла</para>
+
+<para
+>Якщо ви просто використовуєте навігатор компілятора, щоб побачити codegen для чогось тимчасового, ви можете просто записати команди компіляції для вашого файла та натиснути кнопку <guilabel 
+>Компілювати</guilabel 
+>. Зауважте, що підтримки автоматичної перекомпіляції під час редагування не передбачено. Вам потрібно натискати «Компілювати» кожного разу, коли ви хочете знову зібрати файл</para>
+
+<para
+>Після того, як файл буде скомпільовано, ви побачите файл codegen праворуч. Ви можете клацнути правою кнопкою миші та вибрати <guilabel
+>Показати пов'язаний код</guilabel 
+>, щоб побачити codegen для певного рядка. Подібно до правої панелі, ви можете клацнути правою кнопкою миші та вибрати <guilabel
+>Гортати до джерела</guilabel
+>, щоб переглянути початковий вихідний код для певного рядка codegen</para>
+
+</sect2>
+
+</sect1>
+
+<!-- BEGIN Format plugin -->
+
+<sect1 id="kate-application-plugin-formatting">
+<title
+>Додаток форматування</title>
+
+<para
+>За допомогою додатка форматування можна форматувати код. У додатку передбачено збереження журналу скасувань дій з документом та розташування курсора користувача під час форматування коду, щоб форматування коду не заважало роботі. Це особливо важливо для автоматичного форматування під час збереження.</para>
+
+<sect2 id="formatting-how-to-use">
+<title
+>Користування</title>
+
+<para
+>Надає змогу користувачеві форматувати код у два способи: <itemizedlist>
+<listitem
+><para
+>Вручну за допомогою пункту «Форматувати документ»</para
+></listitem>
+<listitem
+><para
+>Автоматично при збереженні</para
+></listitem>
+</itemizedlist>
+</para>
+
+<tip
+><para
+>Ви можете пошукати відповідний пункт на панелі команд і пов'язати з ним клавіатурне скорочення для спрощення доступу до інструмента</para
+></tip>
+
+</sect2>
+
+<sect2 id="formatting-supported-langs-formatters">
+<title
+>Підтримувані мови і засоби форматування</title>
+
+<para
+>Поточний список підтримуваних мов і засобів форматування: <itemizedlist>
+
+<listitem
+><para
+>C/C++/ObjectiveC/ObjectiveC++/Protobuf - <command
+>clang-format</command
+> </para
+></listitem>
+
+<listitem
+><para
+>Javascript/Typescript/JSX/TSX - <command
+>prettier</command
+> </para
+></listitem>
+
+<listitem
+><para
+>JSON <itemizedlist>
+  <listitem
+><para
+><command
+>prettier</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>clang-format</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>jq</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+<listitem
+><para
+>Dart - <command
+>dartfmt</command
+> </para
+></listitem>
+<listitem
+><para
+>Rust - <command
+>rustfmt</command
+> </para
+></listitem>
+<listitem
+><para
+>Go - <command
+>gofmt</command
+> </para
+></listitem>
+<listitem
+><para
+>XML - <command
+>xmllint</command
+> </para
+></listitem>
+<listitem
+><para
+>Zig - <command
+>zigfmt</command
+> </para
+></listitem>
+<listitem
+><para
+>CMake - <command
+>cmake-format</command
+> </para
+></listitem>
+
+<listitem
+><para
+>Python <itemizedlist>
+  <listitem
+><para
+><command
+>autopep8</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>ruff</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+</itemizedlist>
+</para>
+
+</sect2>
+
+<sect2 id="formatting-plugin-configuring">
+<title
+>Налаштовування</title>
+
+<para
+>Додаток можна налаштувати у два способи: <itemizedlist>
+<listitem
+><para
+>На загальному рівні за допомогою вікна налаштувань програми</para
+></listitem>
+<listitem
+><para
+>На рівні проєкту за допомогою файла <filename
+>.kateproject</filename
+></para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>При читанні налаштувань додаток спочатку намагається прочитати дані з файла <filename
+>.kateproject</filename
+>, а потім виконує читання загальних налаштувань. Приклад: </para>
+
+<screen
+>{
+    "formatOnSave": true,
+    "formatterForJson": "jq",
+    "cmake-format": {
+        "formatOnSave": false
+    },
+    "autopep8": {
+        "formatOnSave": false
+    }
+}
+</screen>
+
+<para
+>Код вище: <itemizedlist>
+<listitem
+><para
+>вмикає «форматування при збереженні» на загальному рівні</para
+></listitem>
+<listitem
+><para
+>визначає «jq», як засіб форматування для JSON</para
+></listitem>
+<listitem
+><para
+>вимикає «форматування при збереженні» для cmake-format і autopep8</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Щоб налаштувати форматування проєкту, спочатку створіть файл <filename
+>.kateproject</filename
+>, а потім додайте до нього об'єкт <code
+>"formatting"</code
+>. В об'єкті <code
+>"formatting"</code
+> ви можете вказати параметри, як це показано у попередньому прикладі. Приклад: </para>
+<note
+><para
+>Для того, щоб додаток працював, вам треба увімкнути <link linkend="kate-application-plugin-projects"
+>додаток проєктів</link
+></para
+></note>
+
+<screen
+>{
+    "name": "My Cool Project",
+    "files": [
+        {
+            "git": 1
+        }
+    ],
+    "formatting": {
+        "formatterForJson": "clang-format",
+        "autopep8": {
+            "formatOnSave": false
+        }
+    }
+}
+</screen>
+
+</sect2>
+
+<sect2 id="formatting-plugin-temp-disable-autosave-format">
+<title
+>Тимчасове вимикання форматування при збереженні</title>
+
+<para
+>При роботі часто виникатиме потреба у тимчасовому вимиканні форматування з певної причини. Зробити це можна за допомогою меню — <menuchoice
+><guimenu
+>Інструменти</guimenu
+> <guimenuitem
+>Форматувати при збереженні</guimenuitem
+></menuchoice
+>. Також відповідну дію можна виконати за допомогою <guilabel
+>Панелі команд</guilabel
+>. </para>
+
+</sect2>
+
+</sect1>
+
+<!-- END Format plugin -->
 
 </chapter>

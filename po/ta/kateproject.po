@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2024-05-15 00:41+0000\n"
 "PO-Revision-Date: 2024-03-10 11:45+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -384,118 +384,118 @@ msgstr ""
 msgid "Show Stash Content"
 msgstr ""
 
-#: gitwidget.cpp:1156
+#: gitwidget.cpp:1157
 #, kde-format
 msgid "Stage All"
 msgstr ""
 
-#: gitwidget.cpp:1158
+#: gitwidget.cpp:1159
 #, kde-format
 msgid "Remove All"
 msgstr ""
 
-#: gitwidget.cpp:1158
+#: gitwidget.cpp:1159
 #, kde-format
 msgid "Discard All"
 msgstr ""
 
-#: gitwidget.cpp:1161
+#: gitwidget.cpp:1162
 #, kde-format
 msgid "Open .gitignore"
 msgstr ""
 
-#: gitwidget.cpp:1162 gitwidget.cpp:1209 gitwidget.cpp:1251
+#: gitwidget.cpp:1163 gitwidget.cpp:1210 gitwidget.cpp:1258
 #: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
 #, kde-format
 msgid "Show Diff"
 msgstr ""
 
-#: gitwidget.cpp:1179
+#: gitwidget.cpp:1180
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr ""
 
-#: gitwidget.cpp:1184
+#: gitwidget.cpp:1185
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr ""
 
-#: gitwidget.cpp:1208
+#: gitwidget.cpp:1209
 #, kde-format
 msgid "Open File"
 msgstr ""
 
-#: gitwidget.cpp:1210
+#: gitwidget.cpp:1211
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr ""
 
-#: gitwidget.cpp:1211
+#: gitwidget.cpp:1212
 #, kde-format
 msgid "Open at HEAD"
 msgstr ""
 
-#: gitwidget.cpp:1212
+#: gitwidget.cpp:1213
 #, kde-format
 msgid "Unstage File"
 msgstr ""
 
-#: gitwidget.cpp:1212
+#: gitwidget.cpp:1213
 #, kde-format
 msgid "Stage File"
 msgstr ""
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1214
 #, kde-format
 msgid "Remove"
 msgstr "நீக்கு"
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1214
 #, kde-format
 msgid "Discard"
 msgstr "கைவிடு"
 
-#: gitwidget.cpp:1230
+#: gitwidget.cpp:1231
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr ""
 
-#: gitwidget.cpp:1239
+#: gitwidget.cpp:1240
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr ""
 
-#: gitwidget.cpp:1250
+#: gitwidget.cpp:1257
 #, kde-format
 msgid "Unstage All"
 msgstr ""
 
-#: gitwidget.cpp:1317
+#: gitwidget.cpp:1324
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr ""
 
-#: gitwidget.cpp:1317
+#: gitwidget.cpp:1324
 #, kde-format
 msgid "Stage Selected Files"
 msgstr ""
 
-#: gitwidget.cpp:1318
+#: gitwidget.cpp:1325
 #, kde-format
 msgid "Discard Selected Files"
 msgstr ""
 
-#: gitwidget.cpp:1322
+#: gitwidget.cpp:1329
 #, kde-format
 msgid "Remove Selected Files"
 msgstr ""
 
-#: gitwidget.cpp:1335
+#: gitwidget.cpp:1342
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr ""
 
-#: gitwidget.cpp:1340
+#: gitwidget.cpp:1347
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""

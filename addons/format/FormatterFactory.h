@@ -44,25 +44,25 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         Utils::showMessage(i18n("Unknown formatterForJson: %1", configValue), {}, i18n("Format"), MessageType::Error);
         return new JsonJqFormat(config, doc);
     } else if (is("rust")) {
-        return new RustFormat(config, doc);
+        return rustFormat(config, doc);
     } else if (is("xml")) {
         return new XmlLintFormat(config, doc);
     } else if (is("go")) {
-        return new GoFormat(config, doc);
+        return goFormat(config, doc);
     } else if (is("zig")) {
-        return new ZigFormat(config, doc);
+        return zigFormat(config, doc);
     } else if (is("cmake")) {
-        return new CMakeFormat(config, doc);
+        return cMakeFormat(config, doc);
     } else if (is("python")) {
         const auto configValue = config.value(QStringLiteral("formatterForPython")).toString();
         Formatters f = formatterForName(configValue, Formatters::Ruff);
         if (f == Formatters::Ruff) {
-            return new RuffFormat(config, doc);
+            return ruffFormat(config, doc);
         } else if (f == Formatters::Autopep8) {
-            return new AutoPep8Format(config, doc);
+            return autoPep8Format(config, doc);
         }
         Utils::showMessage(i18n("Unknown formatterForPython: %1", configValue), {}, i18n("Format"), MessageType::Error);
-        return new RuffFormat(config, doc);
+        return ruffFormat(config, doc);
     }
 
     Utils::showMessage(i18n("Failed to run formatter. Unsupported language %1", mode), {}, i18n("Format"), MessageType::Info);

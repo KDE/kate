@@ -227,19 +227,6 @@ void DartFormat::onResultReady(const RunOutput &out)
     }
 }
 
-void RustFormat::onResultReady(const RunOutput &out)
-{
-    if (!out.err.isEmpty()) {
-        Q_EMIT error(QString::fromUtf8(out.err));
-        return;
-    }
-    if (out.out.isEmpty()) {
-        return;
-    }
-
-    textFormatted(this, m_doc, out.out);
-}
-
 void PrettierFormat::setupNode()
 {
     if (s_nodeProcess && s_nodeProcess->state() == QProcess::Running) {
@@ -323,16 +310,6 @@ void PrettierFormat::run(KTextEditor::Document *doc)
     o[QStringLiteral("source")] = originalText;
     o[QStringLiteral("cursorOffset")] = doc->cursorToOffset(m_pos);
     s_nodeProcess->write(QJsonDocument(o).toJson(QJsonDocument::Compact) + '\0');
-}
-
-void GoFormat::onResultReady(const RunOutput &out)
-{
-    if (out.exitCode == 0) {
-        const auto parsed = parseDiff(m_doc, QString::fromUtf8(out.out));
-        Q_EMIT textFormattedPatch(m_doc, parsed);
-    } else if (!out.err.isEmpty()) {
-        Q_EMIT error(QString::fromUtf8(out.err));
-    }
 }
 
 #include "moc_Formatters.cpp"

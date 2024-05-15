@@ -211,29 +211,6 @@ private:
     RunOutput m_runOutput;
 };
 
-class RustFormat : public AbstractFormatter
-{
-public:
-    using AbstractFormatter::AbstractFormatter;
-    QString name() const override
-    {
-        return QStringLiteral("rustfmt");
-    }
-
-    QStringList args(KTextEditor::Document *) const override
-    {
-        return {QStringLiteral("--color=never"), QStringLiteral("--emit=stdout")};
-    }
-
-private:
-    bool supportsStdin() const override
-    {
-        return true;
-    }
-
-    void onResultReady(const RunOutput &out) override;
-};
-
 class XmlLintFormat : public AbstractFormatter
 {
 public:
@@ -277,18 +254,23 @@ public:
     }
 };
 
-class GoFormat : public AbstractFormatter
+class StdinFormatter : public AbstractFormatter
 {
 public:
-    using AbstractFormatter::AbstractFormatter;
-    QString name() const override
+    StdinFormatter(const QJsonObject &obj, KTextEditor::Document *parent, const QString &name, const QStringList &args)
+        : AbstractFormatter(obj, parent)
+        , m_name(name)
+        , m_args(args)
     {
-        return QStringLiteral("gofmt");
     }
 
+    QString name() const override
+    {
+        return m_name;
+    }
     QStringList args(KTextEditor::Document *) const override
     {
-        return {QStringLiteral("-d")};
+        return m_args;
     }
 
 private:
@@ -297,77 +279,24 @@ private:
         return true;
     }
 
-    void onResultReady(const RunOutput &out) override;
+    QString m_name;
+    QStringList m_args;
 };
 
-class ZigFormat : public AbstractFormatter
-{
-public:
-    using AbstractFormatter::AbstractFormatter;
-    QString name() const override
-    {
-        return QStringLiteral("zig");
+#define S(s) QStringLiteral(s)
+
+#define DEFINE_STDIN_FORMATTER(FN_NAME, NAME, ARGS)                                                                                                            \
+    inline AbstractFormatter *FN_NAME(const QJsonObject &obj, KTextEditor::Document *parent)                                                                   \
+    {                                                                                                                                                          \
+        return new StdinFormatter(obj, parent, QLatin1String(NAME), ARGS);                                                                                     \
     }
 
-    QStringList args(KTextEditor::Document *) const override
-    {
-        return {QStringLiteral("fmt"), QStringLiteral("--stdin")};
-    }
+DEFINE_STDIN_FORMATTER(rustFormat, "rustfmt", (QStringList{S("--color=never"), S("--emit=stdout")}));
+DEFINE_STDIN_FORMATTER(zigFormat, "zig", (QStringList{S("fmt"), S("--stdin")}));
+DEFINE_STDIN_FORMATTER(ruffFormat, "ruff", (QStringList{S("format"), S("-q"), S("--stdin-filename"), S("a.py")}));
+DEFINE_STDIN_FORMATTER(goFormat, "gofmt", (QStringList{}));
+DEFINE_STDIN_FORMATTER(autoPep8Format, "autopep8", (QStringList{S("-")}));
+DEFINE_STDIN_FORMATTER(cMakeFormat, "cmake-format", (QStringList{S("-")}));
 
-private:
-    bool supportsStdin() const override
-    {
-        return true;
-    }
-};
-
-class CMakeFormat : public AbstractFormatter
-{
-public:
-    using AbstractFormatter::AbstractFormatter;
-    QString name() const override
-    {
-        return QStringLiteral("cmake-format");
-    }
-
-    QStringList args(KTextEditor::Document *) const override
-    {
-        return {m_doc->url().toLocalFile()};
-    }
-};
-
-class AutoPep8Format : public AbstractFormatter
-{
-public:
-    using AbstractFormatter::AbstractFormatter;
-    QString name() const override
-    {
-        return QStringLiteral("autopep8");
-    }
-
-    QStringList args(KTextEditor::Document *) const override
-    {
-        return {m_doc->url().toLocalFile()};
-    }
-};
-
-class RuffFormat : public AbstractFormatter
-{
-public:
-    using AbstractFormatter::AbstractFormatter;
-    QString name() const override
-    {
-        return QStringLiteral("ruff");
-    }
-
-    QStringList args(KTextEditor::Document *) const override
-    {
-        return {QStringLiteral("format"), QStringLiteral("--stdin-filename"), QStringLiteral("a.py")};
-    }
-
-private:
-    bool supportsStdin() const override
-    {
-        return true;
-    }
-};
+#undef S
+#undef DEFINE_STDIN_FORMATTER

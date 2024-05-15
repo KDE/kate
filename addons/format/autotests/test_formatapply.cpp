@@ -57,22 +57,12 @@ void FormatApplyTest::testFormatterForName()
         switch (f) {
         case Formatters::ClangFormat:
             return "clang-format";
-        case Formatters::DartFmt:
-            return "dartfmt";
         case Formatters::Prettier:
             return "prettier";
         case Formatters::Jq:
             return "jq";
-        case Formatters::RustFmt:
-            return "rustfmt";
         case Formatters::XmlLint:
             return "xmllint";
-        case Formatters::GoFmt:
-            return "gofmt";
-        case Formatters::ZigFmt:
-            return "zigfmt";
-        case Formatters::CMakeFormat:
-            return "cmake-format";
         case Formatters::Autopep8:
             return "autopep8";
         case Formatters::Ruff:

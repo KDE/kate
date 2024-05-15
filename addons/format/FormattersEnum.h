@@ -7,15 +7,13 @@
 #include <QString>
 
 enum class Formatters {
+    // Not all formatters that we support need to be specified here.
+    // Only those that languages that have multiple formatters e.g., json
+    // should be specified
     ClangFormat = 0,
-    DartFmt,
     Prettier,
     Jq,
-    RustFmt,
     XmlLint,
-    GoFmt,
-    ZigFmt,
-    CMakeFormat,
     Autopep8,
     Ruff,
 
@@ -32,29 +30,14 @@ inline Formatters formatterForName(const QString &name, Formatters defaultValue)
     if (eq("clangformat") || eq("clang-format")) {
         return Formatters::ClangFormat;
     }
-    if (eq("dart") || eq("dartfmt")) {
-        return Formatters::DartFmt;
-    }
     if (eq("prettier")) {
         return Formatters::Prettier;
     }
     if (eq("jq")) {
         return Formatters::Jq;
     }
-    if (eq("rustfmt")) {
-        return Formatters::RustFmt;
-    }
     if (eq("xmllint")) {
         return Formatters::XmlLint;
-    }
-    if (eq("gofmt")) {
-        return Formatters::GoFmt;
-    }
-    if (eq("zig") || eq("zigfmt")) {
-        return Formatters::ZigFmt;
-    }
-    if (eq("cmake-format") || eq("cmakeformat")) {
-        return Formatters::CMakeFormat;
     }
     if (eq("autopep8")) {
         return Formatters::Autopep8;

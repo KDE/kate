@@ -65,7 +65,11 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         return ruffFormat(config, doc);
     }
 
-    Utils::showMessage(i18n("Failed to run formatter. Unsupported language %1", mode), {}, i18n("Format"), MessageType::Info);
+    static QList<QString> alreadyWarned;
+    if (!alreadyWarned.contains(mode)) {
+        alreadyWarned.push_back(mode);
+        Utils::showMessage(i18n("Failed to run formatter. Unsupported language %1", mode), {}, i18n("Format"), MessageType::Info);
+    }
 
     return nullptr;
 }

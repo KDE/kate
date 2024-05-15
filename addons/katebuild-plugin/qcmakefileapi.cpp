@@ -126,7 +126,8 @@ bool QCMakeFileApi::runCMake()
     connect(&cmakeProc, &QProcess::started, this, &QCMakeFileApi::handleStarted);
     connect(&cmakeProc, &QProcess::stateChanged, this, &QCMakeFileApi::handleStateChanged);
     connect(&cmakeProc, &QProcess::errorOccurred, this, &QCMakeFileApi::handleError);
-    cmakeProc.start();
+    startHostProcess(cmakeProc);
+
     cmakeProc.waitForFinished();
     return m_cmakeSuccess;
     

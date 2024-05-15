@@ -11,4 +11,5 @@ class FormatApplyTest : public QObject
     Q_OBJECT
 private Q_SLOTS:
     void testFormatApply();
+    void testFormatterForName();
 };

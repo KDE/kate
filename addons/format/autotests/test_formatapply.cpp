@@ -5,6 +5,7 @@
 #include "test_formatapply.h"
 
 #include "FormatApply.h"
+#include "FormattersEnum.h"
 #include <KTextEditor/Editor>
 
 #include <QTest>
@@ -48,6 +49,45 @@ int main()
     puts("hello");
 })");
     QCOMPARE(doc->text(), formatted);
+}
+
+void FormatApplyTest::testFormatterForName()
+{
+    auto fmtToStr = [](Formatters f) {
+        switch (f) {
+        case Formatters::ClangFormat:
+            return "clang-format";
+        case Formatters::DartFmt:
+            return "dartfmt";
+        case Formatters::Prettier:
+            return "prettier";
+        case Formatters::Jq:
+            return "jq";
+        case Formatters::RustFmt:
+            return "rustfmt";
+        case Formatters::XmlLint:
+            return "xmllint";
+        case Formatters::GoFmt:
+            return "gofmt";
+        case Formatters::ZigFmt:
+            return "zigfmt";
+        case Formatters::CMakeFormat:
+            return "cmake-format";
+        case Formatters::Autopep8:
+            return "autopep8";
+        case Formatters::Ruff:
+            return "ruff";
+        case Formatters::COUNT:
+            Q_ASSERT(false);
+            return "";
+        }
+        return "";
+    };
+
+    for (int i = (int)Formatters::FIRST; i < (int)Formatters::COUNT; ++i) {
+        auto fmt = fmtToStr((Formatters)i);
+        QCOMPARE(formatterForName(QString::fromLatin1(fmt), Formatters::COUNT), (Formatters)i);
+    }
 }
 
 #include "moc_test_formatapply.cpp"

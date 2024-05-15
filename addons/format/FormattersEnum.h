@@ -18,6 +18,10 @@ enum class Formatters {
     CMakeFormat,
     Autopep8,
     Ruff,
+
+    // keep at end
+    COUNT,
+    FIRST = ClangFormat,
 };
 
 inline Formatters formatterForName(const QString &name, Formatters defaultValue)

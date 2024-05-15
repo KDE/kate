@@ -14,8 +14,11 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QLoggingCategory>
 
 #include <KTextEditor/Editor>
+
+Q_LOGGING_CATEGORY(FORMATTING, "kate.formatting", QtWarningMsg)
 
 static QStringList readCommandFromJson(const QJsonObject &o)
 {
@@ -140,6 +143,7 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
     }
     m_procHandle->setProcessEnvironment(env());
 
+    qCDebug(FORMATTING) << "executing" << name << args;
     startHostProcess(*p, name, args);
 
     if (supportsStdin()) {

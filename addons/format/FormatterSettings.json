@@ -36,5 +36,17 @@
     },
     "ruff": {
         "command": ["ruff"]
+    },
+    "dfmt": {
+        "command": ["dfmt"]
+    },
+    "fish_indent": {
+        "command": ["fish_indent"]
+    },
+    "shfmt": {
+        "command": ["shfmt"]
+    },
+    "nixfmt": {
+        "command": ["nixfmt"]
     }
 }

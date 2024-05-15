@@ -63,6 +63,14 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         }
         Utils::showMessage(i18n("Unknown formatterForPython: %1", configValue), {}, i18n("Format"), MessageType::Error);
         return ruffFormat(config, doc);
+    } else if (is("d")) {
+        return dfmt(config, doc);
+    } else if (is("fish")) {
+        return fishIndent(config, doc);
+    } else if (is("bash")) {
+        return shfmt(config, doc);
+    } else if (is("nixfmt")) {
+        return nixfmt(config, doc);
     }
 
     static QList<QString> alreadyWarned;

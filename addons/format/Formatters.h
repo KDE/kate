@@ -297,6 +297,17 @@ DEFINE_STDIN_FORMATTER(ruffFormat, "ruff", (QStringList{S("format"), S("-q"), S(
 DEFINE_STDIN_FORMATTER(goFormat, "gofmt", (QStringList{}));
 DEFINE_STDIN_FORMATTER(autoPep8Format, "autopep8", (QStringList{S("-")}));
 DEFINE_STDIN_FORMATTER(cMakeFormat, "cmake-format", (QStringList{S("-")}));
+DEFINE_STDIN_FORMATTER(dfmt, "dfmt", (QStringList{}));
+DEFINE_STDIN_FORMATTER(fishIndent, "fish_indent", (QStringList{}));
+DEFINE_STDIN_FORMATTER(nixfmt, "nixfmt", (QStringList{}));
+
+inline AbstractFormatter *shfmt(const QJsonObject &obj, KTextEditor::Document *parent)
+{
+    int width = parent->configValue(QStringLiteral("indent-width")).toInt();
+    width = width == 0 ? 4 : width;
+    bool spaces = parent->configValue(QStringLiteral("replace-tabs")).toBool();
+    return new StdinFormatter(obj, parent, QStringLiteral("shfmt"), QStringList{QStringLiteral("--indent"), QString::number(spaces ? width : 0)});
+}
 
 #undef S
 #undef DEFINE_STDIN_FORMATTER

@@ -210,7 +210,16 @@ public:
         changeView(m_tabBar->currentIndex());
     }
 
-    void setToggleSynchronisedScrollingCheckedState(bool checked);
+    /**
+     * Toggle and trigger the Scroll Sync tool button
+     */
+    void toggleScrollSync();
+
+    /**
+     * @brief setScrollSyncToolButtonVisible changes the visibility of the Scroll Sync indicator tool button
+     * @param visible decide visibility
+     */
+    void setScrollSyncToolButtonVisible(bool visible);
 
 protected:
     // DND
@@ -335,6 +344,13 @@ private:
     // tab bar that contains viewspace tabs
     KateTabBar *m_tabBar;
 
+    /**
+     * @brief m_scrollSync scroll synchronization button
+     * Option in the Viewspace tab bar to
+     * Synchronise (vertical) scrollbars of the active view
+     */
+    QToolButton *m_scrollSync;
+
     // split action
     QToolButton *m_split;
 
@@ -362,8 +378,4 @@ private:
 
     // Block adding position to history if this is true
     bool m_blockAddHistory = false;
-
-    // Option in Split Views toolButton menu to
-    // Synchronise (vertical) scrollbars of the active view
-    KToggleAction *m_toggleSynchronisedScrolling;
 };

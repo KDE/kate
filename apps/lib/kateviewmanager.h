@@ -208,7 +208,28 @@ public:
     /**
      * Set the synchronisation of scrolling of multiple views according to user input
      */
-    void slotSynchroniseScrolling(bool checked);
+    void slotSynchroniseScrolling(bool checked, KateViewSpace *correspondingViewSpace);
+
+    /**
+     * @brief clearSyncOfDeletedView
+     * @param obj KTextEditor::View* that got deleted
+     */
+    void clearSyncOfDeletedView(QObject *view);
+
+    /**
+     * Remove the given KateViewSpace pointer from scroll synced viewspaces
+     */
+    void removeSyncedViewSpace(QObject *obj);
+
+    /**
+     * Will tell you whether or not all Scroll Sync indicators are to be displayed
+     */
+    bool hasScrollSync();
+
+    /**
+     * Will iterate over all viewspaces and show/hide the Scroll Sync indicators
+     */
+    void updateScrollSyncIndicatorVisibility();
 
     /**
      * Sets the currentView as the scroll-synched view
@@ -411,7 +432,7 @@ private:
          * @param initScrollValue stores the offset position of the scroll bar to the reference scroll value using which the sync will occur
          */
         struct ScrollBarInfo {
-            QScrollBar *scrollBar;
+            QScrollBar *scrollBar = nullptr;
             int initScrollValue;
         };
 
@@ -424,6 +445,9 @@ private:
 
         ScrollBarInfo getViewScrollBarInfo(KTextEditor::View *view)
         {
+            if (!view) {
+                return ScrollBarInfo{};
+            }
             const QList<QScrollBar *> scrollBars = view->findChildren<QScrollBar *>();
             // Cannot use std::find_if because QList<>::last() is inclusive
             ScrollSynchronisation::ScrollBarInfo scrollBarInfo;

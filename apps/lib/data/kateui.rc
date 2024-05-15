@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="103" translationDomain="kate">
+<gui name="kate" version="104" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -91,6 +91,7 @@
         <Action name="view_close_others"/>
         <Separator/>
         <Action name="view_hide_others"/>
+        <Action name="toggle_active_viewspace_scroll_sync"/>
         <Separator/>
         <Action name="view_split_move_left"/>
         <Action name="view_split_move_right"/>

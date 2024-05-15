@@ -86,6 +86,27 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     });
     hLayout->addWidget(m_tabBar);
 
+    // add Scroll Sync Indicator
+    m_scrollSync = new QToolButton(this);
+    m_scrollSync->setHidden(!m_viewManager->hasScrollSync());
+    m_scrollSync->setCheckable(true);
+    m_scrollSync->setAutoRaise(true);
+    m_scrollSync->setToolTip(i18n("Synchronize Scrolling"));
+    m_scrollSync->setIcon(QIcon::fromTheme(QStringLiteral("link")));
+    m_scrollSync->setWhatsThis(i18n("Synchronize scrolling of this split-view with other synchronized split-views"));
+    connect(m_scrollSync, &QToolButton::toggled, this, [this](bool checked) {
+        if (currentView()) {
+            m_viewManager->slotSynchroniseScrolling(checked, this);
+        } else {
+            // If invalid, undo check
+            const QSignalBlocker blockToggle(m_scrollSync);
+            m_scrollSync->setChecked(!checked);
+        }
+        m_viewManager->updateScrollSyncIndicatorVisibility();
+    });
+    KAcceleratorManager::setNoAccel(m_scrollSync);
+    hLayout->addWidget(m_scrollSync);
+
     // add quick open
     m_quickOpen = new QToolButton(this);
     m_quickOpen->setAutoRaise(true);
@@ -116,13 +137,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_split->setToolTip(i18n("Split View"));
     m_split->setWhatsThis(i18n("Control view space splitting"));
 
-    //  add action for Synchronous scrolling. This needs to be one per ViewSpace instance
-    m_toggleSynchronisedScrolling = new KToggleAction(i18n("S&ynchronize Scrolling"), this);
-    m_toggleSynchronisedScrolling->setIcon(QIcon::fromTheme(QStringLiteral("view-sync")));
-    m_toggleSynchronisedScrolling->setWhatsThis(i18n("Synchronize Scrolling of this split-view with other synchronized split-views"));
-    m_split->addAction(m_toggleSynchronisedScrolling);
-    connect(m_toggleSynchronisedScrolling, &QAction::triggered, m_viewManager, &KateViewManager::slotSynchroniseScrolling);
-
+    m_scrollSync->installEventFilter(this); // on click, active this view space
     m_split->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_split);
 
@@ -931,9 +946,14 @@ void KateViewSpace::focusNavigationBar()
     }
 }
 
-void KateViewSpace::setToggleSynchronisedScrollingCheckedState(bool checked)
+void KateViewSpace::toggleScrollSync()
 {
-    m_toggleSynchronisedScrolling->setChecked(checked);
+    m_scrollSync->toggle();
+}
+
+void KateViewSpace::setScrollSyncToolButtonVisible(bool visible)
+{
+    m_scrollSync->setHidden(!visible);
 }
 
 void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c, bool calledExternally)

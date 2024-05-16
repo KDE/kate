@@ -71,6 +71,8 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         return shfmt(config, doc);
     } else if (is("nixfmt")) {
         return nixfmt(config, doc);
+    } else if (is("qml")) {
+        return new QMLFormat(config, doc);
     }
 
     static QList<QString> alreadyWarned;

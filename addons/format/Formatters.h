@@ -283,6 +283,21 @@ private:
     QStringList m_args;
 };
 
+class QMLFormat : public AbstractFormatter
+{
+public:
+    using AbstractFormatter::AbstractFormatter;
+    QString name() const override
+    {
+        return QStringLiteral("qmlformat");
+    }
+
+    QStringList args(KTextEditor::Document *) const override
+    {
+        return {m_doc->url().toLocalFile()};
+    }
+};
+
 #define S(s) QStringLiteral(s)
 
 #define DEFINE_STDIN_FORMATTER(FN_NAME, NAME, ARGS)                                                                                                            \

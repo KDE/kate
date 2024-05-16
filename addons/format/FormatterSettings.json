@@ -48,5 +48,8 @@
     },
     "nixfmt": {
         "command": ["nixfmt"]
+    },
+    "qmlformat": {
+        "command": ["qmlformat"]
     }
 }

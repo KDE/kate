@@ -118,15 +118,16 @@ FormatPluginView::FormatPluginView(FormatPlugin *plugin, KTextEditor::MainWindow
     a->setText(i18n("Format Document"));
     connect(mainWin, &KTextEditor::MainWindow::viewChanged, this, &FormatPluginView::onActiveViewChanged);
 
-    const QString guiDescription = QStringLiteral(
-        ""
-        "<!DOCTYPE gui><gui name=\"formatplugin\">"
-        "<MenuBar>"
-        "    <Menu name=\"tools\">"
-        "        <Action name=\"format_on_save\"/>"
-        "    </Menu>"
-        "</MenuBar>"
-        "</gui>");
+    const QString guiDescription = QStringLiteral(R"xml(
+<!DOCTYPE gui><gui name="formatplugin">
+<MenuBar>
+    <Menu name="edit">
+        <Action name="format_on_save"/>
+        <Action name="format_document"/>
+    </Menu>
+</MenuBar></gui>
+)xml");
+
     setXML(guiDescription);
     a = actionCollection()->addAction(QStringLiteral("format_on_save"), this, [this](bool b) {
         m_plugin->formatOnSave = b;

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2024-05-16 00:41+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -158,8 +158,8 @@ msgstr "KWrite - पाठ्य सम्पादक"
 msgid "Close"
 msgstr "पिधाय"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:324
-#: lib/kateviewmanager.cpp:326
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:348
+#: lib/kateviewmanager.cpp:350
 #, kde-format
 msgid "Open File"
 msgstr "सञ्चिकां उद्घाटयन्तु"
@@ -228,51 +228,51 @@ msgid "&View"
 msgstr "&दृश्यं"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:116
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:137
 #, kde-format
 msgid "Split View"
 msgstr "विभक्त दृश्य"
 
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:109 lib/diagnostics/ui.rc:6
+#: lib/data/kateui.rc:110 lib/diagnostics/ui.rc:6
 #, kde-format
 msgid "&Tools"
 msgstr "&उपकरणाः"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:290
+#: lib/data/kateui.rc:125 lib/diagnostics/diagnosticview.cpp:290
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
 msgstr "निदानं दृश्यम्"
 
 #. i18n: ectx: Menu (settings)
-#: lib/data/kateui.rc:129
+#: lib/data/kateui.rc:130
 #, kde-format
 msgid "&Settings"
 msgstr "&समयोजनानि"
 
 #. i18n: ectx: Menu (help)
-#: lib/data/kateui.rc:137
+#: lib/data/kateui.rc:138
 #, kde-format
 msgid "&Help"
 msgstr "&साहाय्यम्‌"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: lib/data/kateui.rc:142
+#: lib/data/kateui.rc:143
 #, kde-format
 msgid "Main Toolbar"
 msgstr "मुख्य साधनपट्टी"
 
 #. i18n: ectx: ToolBar (hamburgerBar)
-#: lib/data/kateui.rc:158
+#: lib/data/kateui.rc:159
 #, kde-format
 msgid "Hamburger Menu Toolbar"
 msgstr "हैम्बर्गर विकल्पसूचि साधनशलाका"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
-#: lib/data/kateui.rc:176
+#: lib/data/kateui.rc:177
 #, kde-format
 msgid "&Status Bar Items"
 msgstr "&स्थिति पट्टी द्रव्यम्"
@@ -468,59 +468,59 @@ msgstr[1] "रेखाः अप्रतिष्ठाप्यते"
 msgid "Unstage Hunk"
 msgstr "हंक अप्रतिष्ठाप्यते"
 
-#: lib/diff/diffwidget.cpp:62
+#: lib/diff/diffwidget.cpp:63
 #, kde-format
 msgid "Diff %1"
 msgstr "भेद %1"
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:65
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "भेद %1..%2"
 
-#: lib/diff/diffwidget.cpp:85
+#: lib/diff/diffwidget.cpp:86
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "भेद %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:115
+#: lib/diff/diffwidget.cpp:116
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Commit सूचना दर्शयतु/गोपयतु"
 
-#: lib/diff/diffwidget.cpp:120
+#: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Jump to Next File"
 msgstr "अग्रिमः सञ्चिका इत्यत्र कूदन्तु"
 
-#: lib/diff/diffwidget.cpp:124
+#: lib/diff/diffwidget.cpp:125
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "पूर्वसञ्चिकां प्रति कूदन्तु"
 
-#: lib/diff/diffwidget.cpp:128
+#: lib/diff/diffwidget.cpp:129
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "अग्रिमः हङ्कः इत्यत्र कूदन्तु"
 
-#: lib/diff/diffwidget.cpp:132
+#: lib/diff/diffwidget.cpp:133
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "पूर्वः हङ्कः इत्यत्र कूदन्तु"
 
-#: lib/diff/diffwidget.cpp:136
+#: lib/diff/diffwidget.cpp:137
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "पुनः भारितम् अन्तरम्"
 
-#: lib/diff/diffwidget.cpp:140
+#: lib/diff/diffwidget.cpp:141
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "पूर्णसन्दर्भेण सह भेद दर्शयन्तु, न केवलं परिवर्तितानि रेखाः"
 
-#: lib/diff/diffwidget.cpp:553
+#: lib/diff/diffwidget.cpp:554
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -531,23 +531,23 @@ msgstr ""
 "अस्ति तर्हि सुनिश्चितं कुर्वन्तु यत् एषः भवतः PATH चरः अस्ति । https://git-scm.com/"
 "downloads इति पश्यन्तु"
 
-#: lib/diff/diffwidget.cpp:556 lib/diff/diffwidget.cpp:1157
+#: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
 #: lib/kateconfigdialog.cpp:314
 #, kde-format
 msgid "Diff"
 msgstr "भेद्"
 
-#: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
+#: lib/diff/diffwidget.cpp:769 lib/diff/diffwidget.cpp:973
 #, kde-format
 msgid "New file %1"
 msgstr "नूतनसञ्चिका %1"
 
-#: lib/diff/diffwidget.cpp:770 lib/diff/diffwidget.cpp:974
+#: lib/diff/diffwidget.cpp:771 lib/diff/diffwidget.cpp:975
 #, kde-format
 msgid "Deleted file %1"
 msgstr "%1 सञ्चिका विलोपिता"
 
-#: lib/diff/diffwidget.cpp:1140 lib/diff/diffwidget.cpp:1141
+#: lib/diff/diffwidget.cpp:1141 lib/diff/diffwidget.cpp:1142
 #, kde-format
 msgid "No differences found"
 msgstr "न भेदाः लब्धाः"
@@ -2065,32 +2065,32 @@ msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "सञ्चिकानाम"
 
-#: lib/kateviewmanager.cpp:129
+#: lib/kateviewmanager.cpp:142
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "विभक्त &लम्बवत"
 
-#: lib/kateviewmanager.cpp:133
+#: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "वर्तमान सक्रियदृश्यं लम्बवत् द्वयोः दृश्ययोः विभजन्तु ।."
 
-#: lib/kateviewmanager.cpp:137
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "विभक्त &क्षैतिजः"
 
-#: lib/kateviewmanager.cpp:141
+#: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "वर्तमान सक्रियदृश्यं क्षैतिजरूपेण द्वयोः दृश्ययोः विभजन्तु ।."
 
-#: lib/kateviewmanager.cpp:145
+#: lib/kateviewmanager.cpp:158
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "दस्तावेजं नवीन ऊर्ध्वाधर विभाजन इत्यत्र स्थानान्तरयन्तु"
 
-#: lib/kateviewmanager.cpp:149
+#: lib/kateviewmanager.cpp:162
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -2099,12 +2099,12 @@ msgstr ""
 "वर्तमान सक्रियदृश्यं लम्बवत् द्वयोः दृश्ययोः विभज्य वर्तमान सक्रियदस्तावेजं दक्षिणदृश्यं प्रति "
 "स्थानान्तरयन्तु ।."
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:167
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "दस्तावेजं नवीन क्षैतिजविभाजनं प्रति स्थानान्तरयन्तु"
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -2113,167 +2113,178 @@ msgstr ""
 "वर्तमान सक्रियदृश्यं क्षैतिजरूपेण द्वयोः दृश्ययोः विभज्य वर्तमान सक्रियदस्तावेजं अधः द्रष्टुं "
 "चालयन्तु ।."
 
-#: lib/kateviewmanager.cpp:163
+#: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "वर्तमान दृश्य &पिधाय"
 
-#: lib/kateviewmanager.cpp:167
+#: lib/kateviewmanager.cpp:180
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "वर्तमानं सक्रियं विभक्तदृश्यं पिधाय"
 
-#: lib/kateviewmanager.cpp:171
+#: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "निष्क्रियदृश्यानि बन्दं कुर्वन्तु"
 
-#: lib/kateviewmanager.cpp:174
+#: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "प्रत्येकं दृश्यं पिधाय किन्तु सक्रियं दृश्यम्"
 
-#: lib/kateviewmanager.cpp:178
+#: lib/kateviewmanager.cpp:191
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "निष्क्रियदृश्यानि गोपयन्तु"
 
-#: lib/kateviewmanager.cpp:182
+#: lib/kateviewmanager.cpp:195
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "प्रत्येकं दृश्यं गोपयन्तु परन्तु सक्रियं दृश्यम्"
 
-#: lib/kateviewmanager.cpp:185
+#: lib/kateviewmanager.cpp:198
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "अभिविन्यासं टॉगल कुर्वन्तु"
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:201
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "वर्तमानस्य विभक्तदृश्यस्य अभिमुखीकरणं टॉगल करोति"
 
-#: lib/kateviewmanager.cpp:191
+#: lib/kateviewmanager.cpp:204
 #, kde-format
 msgid "Next Split View"
 msgstr "अग्रिमः विभक्तदृश्यः"
 
-#: lib/kateviewmanager.cpp:196
+#: lib/kateviewmanager.cpp:209
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "अग्रिमं विभक्तदृश्यं सक्रियं कुर्वन्तु ।."
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:212
 #, kde-format
 msgid "Previous Split View"
 msgstr "पूर्व विभक्त दृश्य"
 
-#: lib/kateviewmanager.cpp:204
+#: lib/kateviewmanager.cpp:217
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "पूर्वविभक्तदृश्यं सक्रियं कुर्वन्तु ।."
 
-#: lib/kateviewmanager.cpp:207
+#: lib/kateviewmanager.cpp:220
 #, kde-format
 msgid "Left Split View"
 msgstr "वामविभक्तदृश्यम्"
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "वामे स्थितं विभक्तदृश्यं सहजतया सक्रियं कुर्वन्तु ।."
 
-#: lib/kateviewmanager.cpp:215
+#: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Right Split View"
 msgstr "दक्षिण विभक्त दृश्य"
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "दक्षिणभागे विभक्तदृश्यं सहजतया सक्रियं कुर्वन्तु ।."
 
-#: lib/kateviewmanager.cpp:223
+#: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Upward Split View"
 msgstr "ऊर्ध्वं विभक्तं दृश्यम्"
 
-#: lib/kateviewmanager.cpp:228
+#: lib/kateviewmanager.cpp:241
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "विभक्तदृश्यं सहजतया सक्रियस्य उपरि कुर्वन्तु।."
 
-#: lib/kateviewmanager.cpp:231
+#: lib/kateviewmanager.cpp:244
 #, kde-format
 msgid "Downward Split View"
 msgstr "अधोमुखी विभक्त दृश्य"
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "विभक्तदृश्यं सहजतया सक्रियस्य अधः कृत्वा कुर्वन्तु।."
 
-#: lib/kateviewmanager.cpp:239
+#: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "विभाजकं दक्षिणतः चालयन्तु"
 
-#: lib/kateviewmanager.cpp:242
+#: lib/kateviewmanager.cpp:255
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "वर्तमानदृश्यस्य विभक्तं दक्षिणतः चालयन्तु"
 
-#: lib/kateviewmanager.cpp:245
+#: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "विभाजकं वामभागे चालयन्तु"
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "वर्तमानदृश्यस्य विभक्तं वामभागे चालयन्तु"
 
-#: lib/kateviewmanager.cpp:251
+#: lib/kateviewmanager.cpp:264
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "विभाजकं उपरि चालयन्तु"
 
-#: lib/kateviewmanager.cpp:254
+#: lib/kateviewmanager.cpp:267
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "वर्तमानदृश्यस्य विभक्तं उपरि चालयन्तु"
 
-#: lib/kateviewmanager.cpp:257
+#: lib/kateviewmanager.cpp:270
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "विभाजकं अधः चालयन्तु"
 
-#: lib/kateviewmanager.cpp:260
+#: lib/kateviewmanager.cpp:273
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "वर्तमानदृश्यस्य विभक्तं अधः चालयन्तु"
 
-#: lib/kateviewmanager.cpp:263
+#: lib/kateviewmanager.cpp:276
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "फोकस नेविगेशन बार"
 
-#: lib/kateviewmanager.cpp:264
+#: lib/kateviewmanager.cpp:277
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "नेविगेशन-पट्टिकां केन्द्रीक्रियताम्"
 
-#: lib/kateviewmanager.cpp:271
+#: lib/kateviewmanager.cpp:284
 #, kde-format
 msgid "Welcome Page"
 msgstr "स्वागत पृष्ठ"
 
-#: lib/kateviewmanager.cpp:276
+#: lib/kateviewmanager.cpp:289
 #, kde-format
 msgid "Show the welcome page"
 msgstr "स्वागतपृष्ठं दर्शयतु"
 
-#: lib/kateviewmanager.cpp:345
+#: lib/kateviewmanager.cpp:295
+#, kde-format
+msgid "Toggle Scroll Synchronization"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:296
+#, fuzzy, kde-format
+#| msgid "Toggles the orientation of the current split view"
+msgid "Toggle scroll synchronization for the current view"
+msgstr "वर्तमानस्य विभक्तदृश्यस्य अभिमुखीकरणं टॉगल करोति"
+
+#: lib/kateviewmanager.cpp:369
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2284,72 +2295,76 @@ msgstr ""
 "अग्रे गन्तुम् इच्छति?</p><p><strong>सावधानं भवतु यत् केठ् बृहत् सञ्चिकाः उद्घाटयन् किञ्चित्कालं "
 "यावत् प्रतिक्रियां दातुं स्थगयितुं शक्नोति ।</strong></p>"
 
-#: lib/kateviewmanager.cpp:348
+#: lib/kateviewmanager.cpp:372
 #, kde-format
 msgid "Opening Large File"
 msgstr "बृहत् सञ्चिकां उद्घाटयति"
 
-#: lib/kateviewmanager.cpp:522
+#: lib/kateviewmanager.cpp:546
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 पुटं उद्घाटयितुं न शक्नोति"
 
-#: lib/kateviewmanager.cpp:539
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "पुटं उद्घाटयितुं आवश्यकं प्लगिन् न प्राप्तम्"
 
-#: lib/kateviewmanager.cpp:545
+#: lib/kateviewmanager.cpp:569
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr "पुटं उद्घाटयितुं <b>%1</b> प्लगिन् सक्षमं भवितुमर्हति । तत् सक्षमं कुर्वन्तु?"
 
-#: lib/kateviewmanager.cpp:548
+#: lib/kateviewmanager.cpp:572
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "पुटं उद्घाटयन्तु"
 
-#: lib/kateviewmanager.cpp:549
+#: lib/kateviewmanager.cpp:573
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "सक्रियं करोतु"
 
-#: lib/kateviewmanager.cpp:556
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> प्लगिन् सक्षमीकरणे असफलम्"
 
+#: lib/kateviewspace.cpp:94
+#, fuzzy, kde-format
+#| msgid "S&ynchronize Scrolling"
+msgid "Synchronize Scrolling"
+msgstr "&समन्वयनम् सारणं"
+
 #: lib/kateviewspace.cpp:96
+#, fuzzy, kde-format
+#| msgid ""
+#| "Synchronize Scrolling of this split-view with other synchronized split-"
+#| "views"
+msgid ""
+"Synchronize scrolling of this split-view with other synchronized split-views"
+msgstr "अन्यैः समन्वयितैः विभक्त-दृश्यैः सह अस्य विभक्त-दृश्यस्य सारणं समन्वययन्तु"
+
+#: lib/kateviewspace.cpp:117
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:101 lib/kateviewspace.cpp:222
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:237
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "शीघ्रं उद्घाटितम् दृश्यं प्रति गन्तुं अत्र क्लिक् कुर्वन्तु ।."
 
-#: lib/kateviewspace.cpp:117
+#: lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Control view space splitting"
 msgstr "दृश्यस्थानविभाजनं नियन्त्रयन्तु"
 
-#: lib/kateviewspace.cpp:120
-#, kde-format
-msgid "S&ynchronize Scrolling"
-msgstr "&समन्वयनम् सारणं"
-
-#: lib/kateviewspace.cpp:122
-#, kde-format
-msgid ""
-"Synchronize Scrolling of this split-view with other synchronized split-views"
-msgstr "अन्यैः समन्वयितैः विभक्त-दृश्यैः सह अस्य विभक्त-दृश्यस्य सारणं समन्वययन्तु"
-
-#: lib/kateviewspace.cpp:223
+#: lib/kateviewspace.cpp:238
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2364,52 +2379,52 @@ msgstr[1] ""
 "सम्प्रति %1 दस्तावेजाः अपि उद्घाटितम् सन्ति। सर्वाणि मुक्तदस्तावेजानि द्रष्टुं अत्र क्लिक् कृत्वा "
 "त्वरित उद्घाटनम् दृश्यं प्रति गच्छन्तु ।."
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1051
 #, kde-format
 msgid "Close Tab"
 msgstr "ट्याब् बन्दं कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1049
+#: lib/kateviewspace.cpp:1069
 #, kde-format
 msgid "&Close Document"
 msgstr "&दस्तावेज पिधाय"
 
-#: lib/kateviewspace.cpp:1050
+#: lib/kateviewspace.cpp:1070
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "अन्ये &दस्तावेजाः पिधाय"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1071
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&सर्वाणि दस्तावेजानि पिधाय"
 
-#: lib/kateviewspace.cpp:1054
+#: lib/kateviewspace.cpp:1074
 #, kde-format
 msgid "D&etach Document"
 msgstr "दस्तावेजं &विच्छेदं कुरुत"
 
-#: lib/kateviewspace.cpp:1056
+#: lib/kateviewspace.cpp:1076
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "नूतने गवाक्षस्य मध्ये दस्तावेजं उद्घाटयति वर्तमानगवाक्ष मध्ये च पिधायति"
 
-#: lib/kateviewspace.cpp:1065
+#: lib/kateviewspace.cpp:1085
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "सक्रियदस्तावेजेन सह तुलनां कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1071
+#: lib/kateviewspace.cpp:1091
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "सक्रियदस्तावेजस्य उपयोगेन सह तुलनां कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1141
+#: lib/kateviewspace.cpp:1161
 #, kde-format
 msgid "Could not start program"
 msgstr "कार्यक्रमं आरभुं न शक्तवान्"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1162
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "चयनितः कार्यक्रमः आरभ्यतुं न शक्तवान् । कदाचित् न संस्थापितम्।."

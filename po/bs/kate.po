@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2024-05-16 00:41+0000\n"
 "PO-Revision-Date: 2014-01-31 19:52+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -184,8 +184,8 @@ msgstr "Kate, napredni uređivač teksta"
 msgid "Close"
 msgstr "Zatvori"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:324
-#: lib/kateviewmanager.cpp:326
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:348
+#: lib/kateviewmanager.cpp:350
 #, kde-format
 msgid "Open File"
 msgstr "Otvaranje datoteke"
@@ -258,20 +258,20 @@ msgid "&View"
 msgstr "Pri&kaz"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:116
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:137
 #, kde-format
 msgid "Split View"
 msgstr "Raz&voji prikaz"
 
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:109 lib/diagnostics/ui.rc:6
+#: lib/data/kateui.rc:110 lib/diagnostics/ui.rc:6
 #, kde-format
 msgid "&Tools"
 msgstr "&Alati"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:290
+#: lib/data/kateui.rc:125 lib/diagnostics/diagnosticview.cpp:290
 #: lib/diagnostics/ui.rc:8
 #, fuzzy, kde-format
 #| msgid "List View"
@@ -279,31 +279,31 @@ msgid "Diagnostics View"
 msgstr "Prrikaz u spisku"
 
 #. i18n: ectx: Menu (settings)
-#: lib/data/kateui.rc:129
+#: lib/data/kateui.rc:130
 #, kde-format
 msgid "&Settings"
 msgstr "&Postavke"
 
 #. i18n: ectx: Menu (help)
-#: lib/data/kateui.rc:137
+#: lib/data/kateui.rc:138
 #, kde-format
 msgid "&Help"
 msgstr "P&omoć"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: lib/data/kateui.rc:142
+#: lib/data/kateui.rc:143
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Glavna alatna traka"
 
 #. i18n: ectx: ToolBar (hamburgerBar)
-#: lib/data/kateui.rc:158
+#: lib/data/kateui.rc:159
 #, kde-format
 msgid "Hamburger Menu Toolbar"
 msgstr ""
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
-#: lib/data/kateui.rc:176
+#: lib/data/kateui.rc:177
 #, kde-format
 msgid "&Status Bar Items"
 msgstr "Elementi &Statusne trake"
@@ -511,60 +511,60 @@ msgstr[2] ""
 msgid "Unstage Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:62
+#: lib/diff/diffwidget.cpp:63
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:65
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:85
+#: lib/diff/diffwidget.cpp:86
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:115
+#: lib/diff/diffwidget.cpp:116
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:120
+#: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Jump to Next File"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:124
+#: lib/diff/diffwidget.cpp:125
 #, kde-format
 msgid "Jump to Previous File"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:128
+#: lib/diff/diffwidget.cpp:129
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:132
+#: lib/diff/diffwidget.cpp:133
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:136
+#: lib/diff/diffwidget.cpp:137
 #, fuzzy, kde-format
 #| msgid "&Reload"
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "&Učitaj ponovo"
 
-#: lib/diff/diffwidget.cpp:140
+#: lib/diff/diffwidget.cpp:141
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:553
+#: lib/diff/diffwidget.cpp:554
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -572,25 +572,25 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:556 lib/diff/diffwidget.cpp:1157
+#: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
 #: lib/kateconfigdialog.cpp:314
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:768 lib/diff/diffwidget.cpp:972
+#: lib/diff/diffwidget.cpp:769 lib/diff/diffwidget.cpp:973
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "ime datoteke"
 
-#: lib/diff/diffwidget.cpp:770 lib/diff/diffwidget.cpp:974
+#: lib/diff/diffwidget.cpp:771 lib/diff/diffwidget.cpp:975
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
 msgstr "Obrisati datoteku?"
 
-#: lib/diff/diffwidget.cpp:1140 lib/diff/diffwidget.cpp:1141
+#: lib/diff/diffwidget.cpp:1141 lib/diff/diffwidget.cpp:1142
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -2157,32 +2157,32 @@ msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Kopiraj ime datoteke"
 
-#: lib/kateviewmanager.cpp:129
+#: lib/kateviewmanager.cpp:142
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Podijeli &uspravno"
 
-#: lib/kateviewmanager.cpp:133
+#: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Podijeli tekući prikaz uspravno na dva prikaza."
 
-#: lib/kateviewmanager.cpp:137
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Podijeli &vodoravno"
 
-#: lib/kateviewmanager.cpp:141
+#: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Podijeli tekući prikaz vodoravno na dva prikaza."
 
-#: lib/kateviewmanager.cpp:145
+#: lib/kateviewmanager.cpp:158
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:149
+#: lib/kateviewmanager.cpp:162
 #, fuzzy, kde-format
 #| msgid "Split the currently active view vertically into two views."
 msgid ""
@@ -2190,12 +2190,12 @@ msgid ""
 "currently active document to right view."
 msgstr "Podijeli tekući prikaz uspravno na dva prikaza."
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:167
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:171
 #, fuzzy, kde-format
 #| msgid "Split the currently active view horizontally into two views."
 msgid ""
@@ -2203,178 +2203,189 @@ msgid ""
 "currently active document to view below."
 msgstr "Podijeli tekući prikaz vodoravno na dva prikaza."
 
-#: lib/kateviewmanager.cpp:163
+#: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "&Zatvori tekući prikaz"
 
-#: lib/kateviewmanager.cpp:167
+#: lib/kateviewmanager.cpp:180
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Zatvori trenutni razdvojeni pogled"
 
-#: lib/kateviewmanager.cpp:171
+#: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Zatvori neaktivni prikaz"
 
-#: lib/kateviewmanager.cpp:174
+#: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Zatvori svaki prikaz osim aktivnog."
 
-#: lib/kateviewmanager.cpp:178
+#: lib/kateviewmanager.cpp:191
 #, fuzzy, kde-format
 #| msgid "Close Inactive Views"
 msgid "Hide Inactive Views"
 msgstr "Zatvori neaktivni prikaz"
 
-#: lib/kateviewmanager.cpp:182
+#: lib/kateviewmanager.cpp:195
 #, fuzzy, kde-format
 #| msgid "Close every view but the active one"
 msgid "Hide every view but the active one"
 msgstr "Zatvori svaki prikaz osim aktivnog."
 
-#: lib/kateviewmanager.cpp:185
+#: lib/kateviewmanager.cpp:198
 #, kde-format
 msgid "Toggle Orientation"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:201
 #, fuzzy, kde-format
 #| msgid "Move the splitter of the current view up"
 msgid "Toggles the orientation of the current split view"
 msgstr "Pomjeri razdvajač trenutnog pogleda gore"
 
-#: lib/kateviewmanager.cpp:191
+#: lib/kateviewmanager.cpp:204
 #, kde-format
 msgid "Next Split View"
 msgstr "Sljedeći podijeljeni prikaz"
 
-#: lib/kateviewmanager.cpp:196
+#: lib/kateviewmanager.cpp:209
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Aktivira sljedeći podijeljeni prikaz."
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:212
 #, kde-format
 msgid "Previous Split View"
 msgstr "Prethodni podijeljeni prikaz"
 
-#: lib/kateviewmanager.cpp:204
+#: lib/kateviewmanager.cpp:217
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Aktivira prethodni podijeljeni prikaz."
 
-#: lib/kateviewmanager.cpp:207
+#: lib/kateviewmanager.cpp:220
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Left Split View"
 msgstr "Sljedeći podijeljeni prikaz"
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:225
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Aktivira sljedeći podijeljeni prikaz."
 
-#: lib/kateviewmanager.cpp:215
+#: lib/kateviewmanager.cpp:228
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Right Split View"
 msgstr "Sljedeći podijeljeni prikaz"
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:233
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Aktivira sljedeći podijeljeni prikaz."
 
-#: lib/kateviewmanager.cpp:223
+#: lib/kateviewmanager.cpp:236
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Upward Split View"
 msgstr "Raz&voji prikaz"
 
-#: lib/kateviewmanager.cpp:228
+#: lib/kateviewmanager.cpp:241
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively upward the active one."
 msgstr "Aktivira sljedeći podijeljeni prikaz."
 
-#: lib/kateviewmanager.cpp:231
+#: lib/kateviewmanager.cpp:244
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Downward Split View"
 msgstr "Raz&voji prikaz"
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:249
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively downward the active one."
 msgstr "Aktivira sljedeći podijeljeni prikaz."
 
-#: lib/kateviewmanager.cpp:239
+#: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Pomjeri razdvajač desno"
 
-#: lib/kateviewmanager.cpp:242
+#: lib/kateviewmanager.cpp:255
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Pomjeri razdvajač trenutnog pogleda desno"
 
-#: lib/kateviewmanager.cpp:245
+#: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Pomjeri razdvajač lijevo"
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Pomjeri razdvajač trenutnog pogleda lijevo"
 
-#: lib/kateviewmanager.cpp:251
+#: lib/kateviewmanager.cpp:264
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Pomjeri razdvajač gore"
 
-#: lib/kateviewmanager.cpp:254
+#: lib/kateviewmanager.cpp:267
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Pomjeri razdvajač trenutnog pogleda gore"
 
-#: lib/kateviewmanager.cpp:257
+#: lib/kateviewmanager.cpp:270
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Pomjeri razdvajač dolje"
 
-#: lib/kateviewmanager.cpp:260
+#: lib/kateviewmanager.cpp:273
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Pomjeri razdvajač trenutnog pogleda dolje"
 
-#: lib/kateviewmanager.cpp:263
+#: lib/kateviewmanager.cpp:276
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:264
+#: lib/kateviewmanager.cpp:277
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:271
+#: lib/kateviewmanager.cpp:284
 #, kde-format
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:276
+#: lib/kateviewmanager.cpp:289
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:345
+#: lib/kateviewmanager.cpp:295
+#, kde-format
+msgid "Toggle Scroll Synchronization"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:296
+#, fuzzy, kde-format
+#| msgid "Move the splitter of the current view up"
+msgid "Toggle scroll synchronization for the current view"
+msgstr "Pomjeri razdvajač trenutnog pogleda gore"
+
+#: lib/kateviewmanager.cpp:369
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2385,74 +2396,74 @@ msgstr ""
 "ul><p>Želite li nastaviti?</p><p><strong>Pazite da kate može prestati da se "
 "javlja neko vrijeme dok otvara velike datoteke.</strong></p>"
 
-#: lib/kateviewmanager.cpp:348
+#: lib/kateviewmanager.cpp:372
 #, kde-format
 msgid "Opening Large File"
 msgstr "Otvaranje velike datoteke"
 
-#: lib/kateviewmanager.cpp:522
+#: lib/kateviewmanager.cpp:546
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:539
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:545
+#: lib/kateviewmanager.cpp:569
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:548
+#: lib/kateviewmanager.cpp:572
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Otvaranje datoteke"
 
-#: lib/kateviewmanager.cpp:549
+#: lib/kateviewmanager.cpp:573
 #, fuzzy, kde-format
 #| msgid "Enabled"
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Uključeno"
 
-#: lib/kateviewmanager.cpp:556
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
+#: lib/kateviewspace.cpp:94
+#, kde-format
+msgid "Synchronize Scrolling"
+msgstr ""
+
 #: lib/kateviewspace.cpp:96
+#, kde-format
+msgid ""
+"Synchronize scrolling of this split-view with other synchronized split-views"
+msgstr ""
+
+#: lib/kateviewspace.cpp:117
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr ""
 
-#: lib/kateviewspace.cpp:101 lib/kateviewspace.cpp:222
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:237
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
 
-#: lib/kateviewspace.cpp:117
+#: lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:120
-#, kde-format
-msgid "S&ynchronize Scrolling"
-msgstr ""
-
-#: lib/kateviewspace.cpp:122
-#, kde-format
-msgid ""
-"Synchronize Scrolling of this split-view with other synchronized split-views"
-msgstr ""
-
-#: lib/kateviewspace.cpp:223
+#: lib/kateviewspace.cpp:238
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2464,59 +2475,59 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1051
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "Zatvori"
 
-#: lib/kateviewspace.cpp:1049
+#: lib/kateviewspace.cpp:1069
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "Zatvori dokument"
 
-#: lib/kateviewspace.cpp:1050
+#: lib/kateviewspace.cpp:1070
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "Zatvori dokument"
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1071
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Zatvori sve dokumente"
 
-#: lib/kateviewspace.cpp:1054
+#: lib/kateviewspace.cpp:1074
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Naredni dokument"
 
-#: lib/kateviewspace.cpp:1056
+#: lib/kateviewspace.cpp:1076
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1065
+#: lib/kateviewspace.cpp:1085
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "Zatvori tekući dokument."
 
-#: lib/kateviewspace.cpp:1071
+#: lib/kateviewspace.cpp:1091
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "Zatvori tekući dokument."
 
-#: lib/kateviewspace.cpp:1141
+#: lib/kateviewspace.cpp:1161
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1162
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

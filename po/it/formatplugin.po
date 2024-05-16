@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-23 00:40+0000\n"
+"POT-Creation-Date: 2024-05-16 00:41+0000\n"
 "PO-Revision-Date: 2024-04-19 18:17+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 24.02.1\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
+#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:79
 #, kde-format
 msgid "Format"
 msgstr "Formatta"
@@ -85,28 +85,28 @@ msgstr "formatterForJson sconosciuto: %1"
 msgid "Unknown formatterForPython: %1"
 msgstr "formatterForPython sconosciuto: %1"
 
-#: FormatterFactory.h:68
+#: FormatterFactory.h:79
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Impossibile eseguire il formattatore. Lingua non supportata %1"
 
-#: Formatters.cpp:110
+#: Formatters.cpp:113
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: comando vuoto inaspettato."
 
-#: Formatters.cpp:117
+#: Formatters.cpp:120
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 non è installato. Installalo per poter formattare questo documento."
 
-#: Formatters.cpp:252
+#: Formatters.cpp:243
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Installa node e prettier"
 
-#: Formatters.cpp:259
+#: Formatters.cpp:250
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: impossibile creare un file temporaneo"

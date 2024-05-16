@@ -183,6 +183,18 @@
 >Validatie van &XML;</link
 >- Valideert -bestanden met behulp van xmllint</para>
 </listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-compilerexplorer"
+>Compiler-verkenner</link
+>- Interface naar hulpmiddel compiler-verkenner</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-formatting"
+>Formattering</link
+>- Plug-in voor formatteren van code</para>
+</listitem>
 </itemizedlist>
 </sect1>
 
@@ -6698,5 +6710,306 @@ VALUES ("<replaceable
 >Documentatie copyright 2001,2002 &Daniel.Naber;</para>
 </sect2>
 </sect1>
+
+<sect1 id="kate-application-plugin-compilerexplorer">
+<title
+>Plug-in voor compiler-verkenner</title>
+
+<para
+>De plug-in voor de compiler-verkenner biedt u het gebruik van de compiler-verkenner vanuit Kate. Compiler-verkenner is gewoonlijk beperkt tot slechts 1 bestand en het is moeilijk om te gebruiken voor het bekijken van de codegen van een bestand in uw project. Deze plug-in richt zich op het vereenvoudigen van dit proces door automatisch compilatiecommando's voor uw bestand te detecteren.</para>
+
+<sect2 id="ce-how-to-use">
+<title
+>Gebruik</title>
+
+<para
+>Het eerste wat u moet doen is een tabblad compiler-verkenner openen. Druk op <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>I</keycap
+></keycombo
+> om de opdrachtenbalk te openen en zoek naar "Huidig bestand in compiler-verkenner openen" en druk op Enter. U kunt deze actie toevoegen aan de werkbalk of toekennen aan een sneltoets voor gemakkelijker toegang. </para>
+
+<para
+>Vervolgens moet u een lokaal exemplaar van de compiler-verkenner opzetten of de publieke exemplaar <ulink url="https://godbolt.org/"
+>https://godbolt.org/</ulink
+> gebruiken. Zie <ulink url="https://github.com/compiler-explorer/compiler-explorer"
+>https://github.com/compiler-explorer/compiler-explorer</ulink
+>. Nadat u een exemplaar hebt, klik op de keuzelijst <guilabel
+>Optie</guilabel
+> in het tabblad compiler-verkenner die u eerder hebt geopend en selecteer <guilabel
+>Url wijzigen...</guilabel
+> en voer daarna de url van de server van de compiler-verkenner in.</para>
+
+<para
+>Vervolgens hebt u een compile_commands.json nodig als u codegen wilt zien voor een bestand in uw project. Anders kunt u dit gedeelte overslaan. Dit kan gemakkelijk verkregen worden als u een modern bouwsysteem gebruikt zoals CMake of Meson. Voor CMake is het genoeg om <code
+>-DCMAKE_EXPORT_COMPILE_COMMANDS=ON</code
+> door te geven bij aanroepen van cmake. De <code
+>compile_commands.json</code
+> zou geplaatst moeten worden in de hoogste map van uw project. Sluit en open opnieuw het tabblad compiler-verkenner in Kate. Na opnieuw openen van het tabblad zou het de compilatiecommando's moeten tonen die nodig zijn om het bestand te compileren</para>
+
+<para
+>Als u alleen de compiler-verkenner gebruikt om tijdelijk de codegen te zien, dan kunt u de compilatiecommando's voor uw bestand noteren en klikken op <guilabel
+>Compileren</guilabel
+>. Merk op dat automatisch opnieuw compileren bij bewerken niet wordt ondersteund. U moet op Compileren klikken elke keer dat u het bestand opnieuw wilt compileren</para>
+
+<para
+>Nadat het bestand is gecompileerd zou u de codegen moeten zien aan de rechterkant. U kunt rechts klikken en <guilabel
+>Gekoppelde code onthullen</guilabel
+> selecteren om de codegen voor een specifieke regel te zien. Overeenkomstig aan de rechterkant kunt u rechts klikken en <guilabel
+>Naar broncode schuiven</guilabel
+> om de broncode te tonen voor een gegeven regel codegen</para>
+
+</sect2>
+
+</sect1>
+
+<!-- BEGIN Format plugin -->
+
+<sect1 id="kate-application-plugin-formatting">
+<title
+>Plug-in voor formatteren</title>
+
+<para
+>De plug-in voor formatteren biedt het gemakkelijk formatteren van broncode. De plug-in richt zich op het behouden van de geschiedenis van het ongedaan maken van het document en de cursorpositie van de gebruiker toen formatteren van de code startte zodat het formatteren van de code het werk van de gebruiker niet verstoort. Dit is speciaal belangrijk voor automatisch formatteren bij opslaan.</para>
+
+<sect2 id="formatting-how-to-use">
+<title
+>Gebruik</title>
+
+<para
+>Het biedt de gebruiker om code op twee manieren te formatteren: <itemizedlist>
+<listitem
+><para
+>Handmatig met de actie "Document formatteren".</para
+></listitem>
+<listitem
+><para
+>Automatisch bij opslaan</para
+></listitem>
+</itemizedlist>
+</para>
+
+<tip
+><para
+>U kunt naar deze actie zoeken in de opdrachtenbalk en er een sneltoets aan verbinden voor gemakkelijker toegang</para
+></tip>
+
+</sect2>
+
+<sect2 id="formatting-supported-langs-formatters">
+<title
+>Ondersteunde talen en formatteerders</title>
+
+<para
+>De huidige lijst met ondersteunde talen en formatteerders is als volgt: <itemizedlist>
+
+<listitem
+><para
+>C/C++/ObjectiveC/ObjectiveC++/Protobuf - <command
+>clang-format</command
+> </para
+></listitem>
+
+<listitem
+><para
+>Javascript/Typescript/JSX/TSX - <command
+>fijner</command
+> </para
+></listitem>
+
+<listitem
+><para
+>JSON <itemizedlist>
+  <listitem
+><para
+><command
+>prettier</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>clang-format</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>jq</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+<listitem
+><para
+>Dart - <command
+>dartfmt</command
+> </para
+></listitem>
+<listitem
+><para
+>Rust - <command
+>rustfmt</command
+> </para
+></listitem>
+<listitem
+><para
+>Go - <command
+>gofmt</command
+> </para
+></listitem>
+<listitem
+><para
+>XML - <command
+>xmllint</command
+> </para
+></listitem>
+<listitem
+><para
+>Zig - <command
+>zigfmt</command
+> </para
+></listitem>
+<listitem
+><para
+>CMake - <command
+>cmake-format</command
+> </para
+></listitem>
+
+<listitem
+><para
+>Python <itemizedlist>
+  <listitem
+><para
+><command
+>autopep8</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>ruff</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+</itemizedlist>
+</para>
+
+</sect2>
+
+<sect2 id="formatting-plugin-configuring">
+<title
+>Bezig met configureren</title>
+
+<para
+>De plug-in kan op twee manieren geconfigureerd worden: <itemizedlist>
+<listitem
+><para
+>Globaal, vanuit de dialoog Configureren</para
+></listitem>
+<listitem
+><para
+>Op een per project basis met het bestand <filename
+>.kateproject</filename
+></para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Bij lezen van de configuratie, de plug-in zal eerst proberen de configuratie uit het bestand <filename
+>.kateproject</filename
+> te lezen en daarna de globale configuratie lezen. Voorbeeld: </para>
+
+<screen
+>{
+    "formatOnSave": true,
+    "formatterForJson": "jq",
+    "cmake-format": {
+        "formatOnSave": false
+    },
+    "autopep8": {
+        "formatOnSave": false
+    }
+}
+</screen>
+
+<para
+>Het bovenstaande: <itemizedlist>
+<listitem
+><para
+>schakelt "formatteren bij opslaan" globaal in</para
+></listitem>
+<listitem
+><para
+>specificeert "jq" als de formatteerder voor JSON</para
+></listitem>
+<listitem
+><para
+>schakelt "formatteren bij opslaan" uit voor cmake-format en autopep8</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Om formatteren voor een project te configureren, maak eerst een bestand <filename
+>.kateproject</filename
+> en voeg daarna het object <code
+>"formatting"</code
+> er aan toe. In het object <code
+>"formatting"</code
+> kunt u uw instellingen specificeren zoals getoond in het vorige voorbeeld. Voorbeeld: </para>
+<note
+><para
+>U moet de <link linkend="kate-application-plugin-projects"
+>Projectplug-in</link
+> inschakelen om dit te laten werken</para
+></note>
+
+<screen
+>{
+    "name": "My Cool Project",
+    "files": [
+        {
+            "git": 1
+        }
+    ],
+    "formatting": {
+        "formatterForJson": "clang-format",
+        "autopep8": {
+            "formatOnSave": false
+        }
+    }
+}
+</screen>
+
+</sect2>
+
+<sect2 id="formatting-plugin-temp-disable-autosave-format">
+<title
+>Tijdelijk formatteren bij opslaan uitschakelen</title>
+
+<para
+>Tijdens het werk zal het vaak nodig zijn het formatteren gedurende om de een of andere reden een korte tijd uit te schakelen. U kunt dit doen vanuit de menubalk, <menuchoice
+><guimenu
+>Hulpmiddelen</guimenu
+> <guimenuitem
+>Formatteren bij opslaan</guimenuitem
+></menuchoice
+>. U kunt deze actie ook starten vanuit de <guilabel
+>Opdrachtenbalk</guilabel
+>. </para>
+
+</sect2>
+
+</sect1>
+
+<!-- END Format plugin -->
 
 </chapter>

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-23 00:40+0000\n"
+"POT-Creation-Date: 2024-05-16 00:41+0000\n"
 "PO-Revision-Date: 2024-04-19 01:59+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 24.04.70\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
+#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:79
 #, kde-format
 msgid "Format"
 msgstr "格式"
@@ -83,28 +83,28 @@ msgstr "未知的 JSON 格式器：%1"
 msgid "Unknown formatterForPython: %1"
 msgstr "未知的 Python 格式器：%1"
 
-#: FormatterFactory.h:68
+#: FormatterFactory.h:79
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "執行格式器時失敗。不支援的語言 %1"
 
-#: Formatters.cpp:110
+#: Formatters.cpp:113
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1：未預期的空白命令！"
 
-#: Formatters.cpp:117
+#: Formatters.cpp:120
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 未安裝，請安裝它才能格式化這個文件！"
 
-#: Formatters.cpp:252
+#: Formatters.cpp:243
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "請安裝 node 和 prettier"
 
-#: Formatters.cpp:259
+#: Formatters.cpp:250
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat：無法建立暫存檔"

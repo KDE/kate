@@ -1,0 +1,136 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Matjaž Jeran <matjaz.jeran@amis.net>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"PO-Revision-Date: 2024-05-15 11:18+0200\n"
+"Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
+"Language-Team: Slovenian <lugos-slo@lugos.si>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 24.02.2\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
+
+#: AsmView.cpp:299
+#, kde-format
+msgid "Scroll to source"
+msgstr "Pomakni se na vir"
+
+#: AsmView.cpp:309
+#, kde-format
+msgid "Jump to label"
+msgstr "Skoči na oznako"
+
+#: AsmView.cpp:335
+#, kde-format
+msgid "Copy"
+msgstr "Kopiraj"
+
+#: AsmView.cpp:347
+#, kde-format
+msgid "Select All"
+msgstr "Izberi vse"
+
+#: ce_plugin.cpp:35
+#, kde-format
+msgid "Compiler Explorer"
+msgstr "Compiler Explorer"
+
+#: ce_plugin.cpp:38
+#, kde-format
+msgid "&Open Current File in Compiler Explorer"
+msgstr "&Odpri trenutno datoteko v orodju Compiler Explorer"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgid "No file open"
+msgstr "Ni odprte datoteke"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgctxt "error category title"
+msgid "CompilerExplorer"
+msgstr "CompilerExplorer"
+
+#: ce_widget.cpp:125
+#, kde-format
+msgid "Do you really want to close %1?"
+msgstr "Ali zares želite zapreti %1?"
+
+#: ce_widget.cpp:185
+#, kde-format
+msgid "Compile"
+msgstr "Prevedi"
+
+#: ce_widget.cpp:282
+#, kde-format
+msgid "Options"
+msgstr "Možnosti"
+
+#: ce_widget.cpp:299
+#, kde-format
+msgid "Demangle Identifiers"
+msgstr "Demangliraj identifikatorje"
+
+#: ce_widget.cpp:300
+#, kde-format
+msgid "Filter Library Functions"
+msgstr "Filtriraj funkcije knjižnice"
+
+#: ce_widget.cpp:301
+#, kde-format
+msgid "Filter Unused Labels"
+msgstr "Filtriraj neuporabljene oznake"
+
+#: ce_widget.cpp:302
+#, kde-format
+msgid "Filter Comments"
+msgstr "Filtriraj komentarje"
+
+#: ce_widget.cpp:303
+#, kde-format
+msgid "Intel Syntax"
+msgstr "Intel Syntax"
+
+#: ce_widget.cpp:305
+#, kde-format
+msgid "Change Url..."
+msgstr "Spremeni Url..."
+
+#: ce_widget.cpp:311
+#, kde-format
+msgid "Enter Url"
+msgstr "Vnesi Url"
+
+#: ce_widget.cpp:312
+#, kde-format
+msgid ""
+"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+msgstr "Vnesi Url za pojavek CompilerExplorer. Npr. http://localhost:10240"
+
+#: ce_widget.cpp:372
+#, kde-format
+msgid "Compiler returned: %1"
+msgstr "Prevajalnik je vrnil: %1"
+
+#: ce_widget.cpp:521
+#, kde-format
+msgid "Reveal linked code"
+msgstr "Pokaži povezano kodo"
+
+#: ce_widget.cpp:543
+#, kde-format
+msgid "CompilerExplorer"
+msgstr "CompilerExplorer"
+
+#: ce_widget.cpp:559
+#, kde-format
+msgid "'%1' compiler flags were found. Output may not be useful."
+msgstr "Najdene so prevajalnikove zastavice '%1'. Izhod morda ne bo uporaben."

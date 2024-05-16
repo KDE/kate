@@ -186,8 +186,8 @@
 <listitem>
 <para
 ><link linkend="kate-application-plugin-compilerexplorer"
->Explorador de compiladors</link
->: Interfície a l'eina d'exploració de compiladors</para>
+>Explorador del compilador</link
+>: Interfície a l'eina d'exploració del compilador</para>
 </listitem>
 <listitem>
 <para
@@ -6676,42 +6676,42 @@ VALUES ("<replaceable
 
 <sect1 id="kate-application-plugin-compilerexplorer">
 <title
->Connector Explorador de compiladors</title>
+>Connector Explorador del compilador</title>
 
 <para
->El connector explorador de compiladors permet utilitzar l'explorador de compiladors des del Kate. L'explorador de compiladors normalment es limita a només 1 fitxer i és difícil utilitzar-lo per veure el codi generat d'un fitxer en el projecte. Aquest connector té com a objectiu simplificar aquest procés detectant automàticament les ordres de compilació del fitxer.</para>
+>El connector explorador del compilador permet utilitzar l'explorador del compilador des del Kate. L'explorador del compilador normalment es limita a només 1 fitxer i és difícil utilitzar-lo per veure el codi generat d'un fitxer en el projecte. Aquest connector té com a objectiu simplificar aquest procés detectant automàticament les ordres de compilació del fitxer.</para>
 
 <sect2 id="ce-how-to-use">
 <title
 >Ús</title>
 
 <para
->El primer que cal fer és obrir una pestanya de l'explorador de compiladors. Premeu <keycombo action="simul"
+>El primer que cal fer és obrir una pestanya de l'explorador del compilador. Premeu <keycombo action="simul"
 >&Ctrl;&Alt;<keycap
 >I</keycap
 ></keycombo
-> per a obrir la barra d'ordres i cercar «Obre el fitxer actual a l'explorador de compiladors» i premeu la tecla d'entrada. Podeu afegir aquesta acció a la barra d'eines o assignar-hi una drecera per a un accés més fàcil. </para>
+> per a obrir la barra d'ordres i cercar «Obre el fitxer actual a l'explorador del compilador» i premeu la tecla d'entrada. Podeu afegir aquesta acció a la barra d'eines o assignar-hi una drecera per a un accés més fàcil. </para>
 
 <para
->A continuació, heu de configurar una instància local de l'explorador de compiladors o utilitzar la instància pública <ulink url="https://godbolt.org/"
+>A continuació, heu de configurar una instància local de l'explorador del compilador o utilitzar la instància pública <ulink url="https://godbolt.org/"
 >https://godbolt.org/</ulink
 >. Vegeu <ulink url="https://github.com/compiler-explorer/compiler-explorer"
 >https://github.com/compiler-explorer/compiler-explorer</ulink
 >. Un cop tingueu una instància, feu clic al quadre combinat <guilabel
 >Opció</guilabel
-> a la pestanya de l'explorador de compiladors que heu obert abans i seleccioneu <guilabel
+> a la pestanya de l'explorador del compilador que heu obert abans i seleccioneu <guilabel
 >Canvia l'URL...</guilabel
-> i després introduïu l'URL del servidor de l'explorador de compiladors.</para>
+> i després introduïu l'URL del servidor de l'explorador del compilador.</para>
 
 <para
 >A continuació, necessitareu un «compile_commands.json» si necessiteu veure el codi generat d'un fitxer del projecte. En cas contrari, podeu ometre aquesta part. Això es pot obtenir fàcilment si utilitzeu un sistema de construcció modern com el CMake o el Meson. Per al CMake és suficient passar <code
 >-DCMAKE_EXPORT_COMPILE_COMMANDS=ON</code
 > quan s'invoca el «cmake». El <code
 >compile_commands.json</code
-> s'hauria de situar a l'arrel del projecte. Tanqueu i torneu a obrir la pestanya de l'explorador de compiladors al Kate. Després de tornar a obrir la pestanya, hauria de mostrar les ordres de compilació necessàries per a compilar el fitxer</para>
+> s'hauria de situar a l'arrel del projecte. Tanqueu i torneu a obrir la pestanya de l'explorador del compilador al Kate. Després de tornar a obrir la pestanya, hauria de mostrar les ordres de compilació necessàries per a compilar el fitxer</para>
 
 <para
->Si esteu utilitzant l'explorador de compiladors per a veure el codi generat d'una cosa temporal, només podeu escriure les ordres de compilació del fitxer i fer clic a <guilabel
+>Si esteu utilitzant l'explorador del compilador per a veure el codi generat d'una cosa temporal, només podeu escriure les ordres de compilació del fitxer i fer clic a <guilabel
 >Compila</guilabel
 >. Tingueu en compte que no s'accepta la recompilació automàtica en l'edició. Cal fer clic a Compila cada vegada que vulgueu tornar a compilar el fitxer</para>
 

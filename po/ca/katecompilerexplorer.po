@@ -1,0 +1,141 @@
+# Translation of katecompilerexplorer.po to Catalan
+# Copyright (C) 2024 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Josep M. Ferrer <txemaq@gmail.com>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"PO-Revision-Date: 2024-05-15 10:21+0200\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.12.3\n"
+
+#: AsmView.cpp:299
+#, kde-format
+msgid "Scroll to source"
+msgstr "Desplaça al codi font"
+
+#: AsmView.cpp:309
+#, kde-format
+msgid "Jump to label"
+msgstr "Ves a l'etiqueta"
+
+#: AsmView.cpp:335
+#, kde-format
+msgid "Copy"
+msgstr "Copia"
+
+#: AsmView.cpp:347
+#, kde-format
+msgid "Select All"
+msgstr "Selecciona-ho tot"
+
+#: ce_plugin.cpp:35
+#, kde-format
+msgid "Compiler Explorer"
+msgstr "Explorador del compilador"
+
+#: ce_plugin.cpp:38
+#, kde-format
+msgid "&Open Current File in Compiler Explorer"
+msgstr "&Obre el fitxer actual a l'explorador del compilador"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgid "No file open"
+msgstr "Cap fitxer obert"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgctxt "error category title"
+msgid "CompilerExplorer"
+msgstr "CompilerExplorer"
+
+#: ce_widget.cpp:125
+#, kde-format
+msgid "Do you really want to close %1?"
+msgstr "Segur que voleu tancar %1?"
+
+#: ce_widget.cpp:185
+#, kde-format
+msgid "Compile"
+msgstr "Compila"
+
+#: ce_widget.cpp:282
+#, kde-format
+msgid "Options"
+msgstr "Opcions"
+
+#: ce_widget.cpp:299
+#, kde-format
+msgid "Demangle Identifiers"
+msgstr "Descodifica els identificadors"
+
+#: ce_widget.cpp:300
+#, kde-format
+msgid "Filter Library Functions"
+msgstr "Filtra les funcions de biblioteques"
+
+#: ce_widget.cpp:301
+#, kde-format
+msgid "Filter Unused Labels"
+msgstr "Filtra les etiquetes sense ús"
+
+#: ce_widget.cpp:302
+#, kde-format
+msgid "Filter Comments"
+msgstr "Filtra els comentaris"
+
+#: ce_widget.cpp:303
+#, kde-format
+msgid "Intel Syntax"
+msgstr "Sintaxi d'Intel"
+
+#: ce_widget.cpp:305
+#, kde-format
+msgid "Change Url..."
+msgstr "Canvia l'URL..."
+
+#: ce_widget.cpp:311
+#, kde-format
+msgid "Enter Url"
+msgstr "Introduïu un URL"
+
+#: ce_widget.cpp:312
+#, kde-format
+msgid ""
+"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+msgstr ""
+"Introduïu l'URL a la instància del CompilerExplorer. Per exemple, http://"
+"localhost:10240"
+
+#: ce_widget.cpp:372
+#, kde-format
+msgid "Compiler returned: %1"
+msgstr "El compilador ha retornat: %1"
+
+#: ce_widget.cpp:521
+#, kde-format
+msgid "Reveal linked code"
+msgstr "Mostra el codi enllaçat"
+
+#: ce_widget.cpp:543
+#, kde-format
+msgid "CompilerExplorer"
+msgstr "CompilerExplorer"
+
+#: ce_widget.cpp:559
+#, kde-format
+msgid "'%1' compiler flags were found. Output may not be useful."
+msgstr ""
+"S'han trobat els indicadors «%1» del compilador. La sortida potser no és "
+"útil."

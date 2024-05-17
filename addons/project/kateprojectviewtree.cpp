@@ -120,11 +120,20 @@ void KateProjectViewTree::openSelectedDocument()
 
 void KateProjectViewTree::addFile(const QModelIndex &idx, const QString &fileName)
 {
-    auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
-    auto index = proxyModel->mapToSource(idx);
-    auto item = m_project->model()->itemFromIndex(index);
+    QStandardItem *item = [idx, this] {
+        if (idx.isValid()) {
+            auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
+            auto index = proxyModel->mapToSource(idx);
+            return m_project->model()->itemFromIndex(index);
+        }
+        return m_project->model()->invisibleRootItem();
+    }();
+    if (!item) {
+        return;
+    }
 
-    const QString fullFileName = index.data(Qt::UserRole).toString() + QLatin1Char('/') + fileName;
+    const QString base = idx.isValid() ? idx.data(Qt::UserRole).toString() : m_project->baseDir();
+    const QString fullFileName = base + QLatin1Char('/') + fileName;
 
     /**
      * Create an actual file on disk
@@ -145,12 +154,22 @@ void KateProjectViewTree::addFile(const QModelIndex &idx, const QString &fileNam
 
 void KateProjectViewTree::addDirectory(const QModelIndex &idx, const QString &name)
 {
-    auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
-    auto index = proxyModel->mapToSource(idx);
-    auto item = m_project->model()->itemFromIndex(index);
-    const QString fullDirName = index.data(Qt::UserRole).toString() + QLatin1Char('/') + name;
+    QStandardItem *item = [idx, this] {
+        if (idx.isValid()) {
+            auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
+            auto index = proxyModel->mapToSource(idx);
+            return m_project->model()->itemFromIndex(index);
+        }
+        return m_project->model()->invisibleRootItem();
+    }();
+    if (!item) {
+        return;
+    }
 
-    QDir dir(index.data(Qt::UserRole).toString());
+    const QString base = idx.isValid() ? idx.data(Qt::UserRole).toString() : m_project->baseDir();
+    const QString fullDirName = base + QLatin1Char('/') + name;
+
+    QDir dir(base);
     if (!dir.mkdir(name)) {
         const auto icon = QIcon::fromTheme(QStringLiteral("folder-new"));
         Utils::showMessage(i18n("Failed to create dir: %1", name), icon, i18n("Project"), MessageType::Error);
@@ -237,8 +256,8 @@ void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)
     /**
      * get path file path or don't do anything
      */
-    QModelIndex index = selectionModel()->currentIndex();
-    QString filePath = index.data(Qt::UserRole).toString();
+    const QModelIndex index = indexAt(event->pos());
+    const QString filePath = index.isValid() ? index.data(Qt::UserRole).toString() : m_project->baseDir();
     if (filePath.isEmpty()) {
         QTreeView::contextMenuEvent(event);
         return;

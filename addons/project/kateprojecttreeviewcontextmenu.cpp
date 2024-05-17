@@ -63,9 +63,11 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      */
     QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18n("Copy Location"));
 
+    const bool isRootDirectory = !index.isValid();
+
     QAction *addFile = nullptr;
     QAction *addFolder = nullptr;
-    if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
+    if (isRootDirectory || index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
         addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("Add File"));
         addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("Add Folder"));
     }

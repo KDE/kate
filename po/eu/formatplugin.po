@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-16 00:41+0000\n"
+"POT-Creation-Date: 2024-05-17 00:41+0000\n"
 "PO-Revision-Date: 2024-04-19 22:11+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 24.02.2\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:79
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:242
+#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:81
 #, kde-format
 msgid "Format"
 msgstr "Formatua"
@@ -66,12 +66,12 @@ msgstr "«settings.json» irakurtzea huts egin du. Errorea: %1"
 msgid "Format Document"
 msgstr "Dokumentu bati formatua ematea"
 
-#: FormatPlugin.cpp:136
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Format on Save"
 msgstr "Eman formatua gordetzean"
 
-#: FormatPlugin.cpp:139
+#: FormatPlugin.cpp:140
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Ezgaitu gordetzean formatua ematea, ezarpenetan aldaketarik egin gabe"
@@ -86,7 +86,7 @@ msgstr "«formatterForJson» ezezaguna: %1"
 msgid "Unknown formatterForPython: %1"
 msgstr "«formatterForPython» ezezaguna: %1"
 
-#: FormatterFactory.h:79
+#: FormatterFactory.h:81
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""

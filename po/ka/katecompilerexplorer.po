@@ -1,57 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 00:41+0000\n"
-"PO-Revision-Date: 2024-05-15 09:46+0300\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian\n"
-"Language: uk\n"
+"PO-Revision-Date: 2024-05-16 08:12+0200\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
+"Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: AsmView.cpp:299
 #, kde-format
 msgid "Scroll to source"
-msgstr "Гортати до джерела"
+msgstr "გადახვევა წყარომდე"
 
 #: AsmView.cpp:309
 #, kde-format
 msgid "Jump to label"
-msgstr "Перейти до мітки"
+msgstr "გადასვლა ჭდეზე"
 
 #: AsmView.cpp:335
 #, kde-format
 msgid "Copy"
-msgstr "Копіювати"
+msgstr "კოპირება"
 
 #: AsmView.cpp:347
 #, kde-format
 msgid "Select All"
-msgstr "Позначити все"
+msgstr "ყველას მონიშვნა"
 
 #: ce_plugin.cpp:35
 #, kde-format
 msgid "Compiler Explorer"
-msgstr "Навігатор компілятора"
+msgstr "Compiler Explorer"
 
 #: ce_plugin.cpp:38
 #, kde-format
 msgid "&Open Current File in Compiler Explorer"
-msgstr "&Відкрити поточний файл у навігаторі компілятора"
+msgstr "&მიმდინარე ფაილის გახსნა Compile Explorer-ში"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgid "No file open"
-msgstr "Не відкрито жодного файла"
+msgstr "ფაილი გახსნილი არაა"
 
 #: ce_plugin.cpp:54
 #, kde-format
@@ -62,69 +62,70 @@ msgstr "CompilerExplorer"
 #: ce_widget.cpp:125
 #, kde-format
 msgid "Do you really want to close %1?"
-msgstr "Ви справді хочете закрити %1?"
+msgstr "მართლა გნებავთ, %1 დახუროთ?"
 
 #: ce_widget.cpp:185
 #, kde-format
 msgid "Compile"
-msgstr "Компілювати"
+msgstr "კომპილაცია"
 
 #: ce_widget.cpp:282
 #, kde-format
 msgid "Options"
-msgstr "Параметри"
+msgstr "მორგება"
 
 #: ce_widget.cpp:299
 #, kde-format
 msgid "Demangle Identifiers"
-msgstr "Розшифрувати ідентифікатори"
+msgstr "იდენტიფიკატორების მოხსნა"
 
 #: ce_widget.cpp:300
 #, kde-format
 msgid "Filter Library Functions"
-msgstr "Фільтрувати бібліотечні функції"
+msgstr "ბიბლიოთეკის ფუნქციების გაფილტვრა"
 
 #: ce_widget.cpp:301
 #, kde-format
 msgid "Filter Unused Labels"
-msgstr "Фільтрувати невикористані мітки"
+msgstr "გამოუყენებელი ჭდეების გაფილტვრა"
 
 #: ce_widget.cpp:302
 #, kde-format
 msgid "Filter Comments"
-msgstr "Фільтрувати коментарі"
+msgstr "კომენტარების გაფილტვრა"
 
 #: ce_widget.cpp:303
 #, kde-format
 msgid "Intel Syntax"
-msgstr "Синтаксис Intel"
+msgstr "Intel-ის სინტაქსი"
 
 #: ce_widget.cpp:305
 #, kde-format
 msgid "Change Url..."
-msgstr "Змінити адресу…"
+msgstr "URL-ის შეცვლა..."
 
 #: ce_widget.cpp:311
 #, kde-format
 msgid "Enter Url"
-msgstr "Введіть адресу"
+msgstr "შეიყვანეთ URL"
 
 #: ce_widget.cpp:312
 #, kde-format
 msgid ""
 "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgstr ""
-"Введіть адресу екземпляра CompilerExplorer. Приклад: http://localhost:10240"
+"შეიყვანეთ URL CompileExplorer-ის გაშვებული ასლისთვის. მაგ: http://"
+"localhost:10240"
 
 #: ce_widget.cpp:372
 #, kde-format
 msgid "Compiler returned: %1"
-msgstr "Повернуто компілятором: %1"
+msgstr "კომპილატორმა დააბრუნა: %1"
 
 #: ce_widget.cpp:521
 #, kde-format
 msgid "Reveal linked code"
-msgstr "Показати пов'язаний код"
+msgstr "მიბმული კოდის ჩვენება"
 
 #: ce_widget.cpp:543
 #, kde-format
@@ -135,4 +136,4 @@ msgstr "CompilerExplorer"
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr ""
-"Виявлено прапорці компілятора «%1». Виведені дані можуть бути неактуальними."
+"აღმოჩენილია '%1' კომპილატორის ალამი. გამოტანა, შეიძლება, სასარგებლო არ იყოს."

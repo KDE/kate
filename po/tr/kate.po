@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-16 00:41+0000\n"
-"PO-Revision-Date: 2024-05-01 14:22+0300\n"
+"PO-Revision-Date: 2024-05-16 14:04+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2301,13 +2301,12 @@ msgstr "Karşılama sayfasını göster"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Sarma Eşzamanlamasını Aç/Kapat"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Güncel ayrık görünüm yönelimini değiştirir"
+msgstr "Geçerli görünüm için sarma eşzamanlamasını aç/kapat"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2362,16 +2361,12 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> eklentisi etkinleştirilemedi"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "Sarmayı &Eşzamanla"
+msgstr "Sarmayı Eşzamanla"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""

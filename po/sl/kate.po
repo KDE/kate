@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-16 00:41+0000\n"
-"PO-Revision-Date: 2024-05-01 06:29+0200\n"
+"PO-Revision-Date: 2024-05-16 09:34+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -266,7 +266,7 @@ msgstr "Pogled diagnostike"
 #: lib/data/kateui.rc:130
 #, kde-format
 msgid "&Settings"
-msgstr "Nastavitve"
+msgstr "Na&stavitve"
 
 #. i18n: ectx: Menu (help)
 #: lib/data/kateui.rc:138
@@ -1091,7 +1091,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:235
 #, kde-format
 msgid "&Auto hide tabs"
-msgstr "Samodejno skrivaj zavihke"
+msgstr "S&amodejno skrivaj zavihke"
 
 #: lib/kateconfigdialog.cpp:237
 #, kde-format
@@ -1177,7 +1177,7 @@ msgstr "Če ni označeno, se bo nov zavihek odprl na koncu."
 #: lib/kateconfigdialog.cpp:285
 #, kde-format
 msgid "&Mouse"
-msgstr "Miška"
+msgstr "&Miška"
 
 #: lib/kateconfigdialog.cpp:290
 #, kde-format
@@ -1578,7 +1578,7 @@ msgstr "Zapre vse druge odprte dokumente."
 #: lib/katemainwindow.cpp:429
 #, kde-format
 msgid "Clos&e All"
-msgstr "Zapri vse"
+msgstr "Zapri vs&e"
 
 #: lib/katemainwindow.cpp:431
 #, kde-format
@@ -1588,7 +1588,7 @@ msgstr "Zapri vse odprte dokumente."
 #: lib/katemainwindow.cpp:434
 #, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Ponovno odpri zadnje zaprte dokumente."
+msgstr "Ponovno odpri zadnje zap&rte dokumente."
 
 #: lib/katemainwindow.cpp:437
 #, kde-format
@@ -1684,7 +1684,7 @@ msgstr "&Shrani sejo"
 #: lib/katemainwindow.cpp:533
 #, kde-format
 msgid "Save Session &As..."
-msgstr "Shrani sejo kot..."
+msgstr "Shr&ani sejo kot..."
 
 #: lib/katemainwindow.cpp:540 lib/kateviewspace.cpp:57
 #, kde-format
@@ -1939,7 +1939,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "&Ignore Changes"
-msgstr "Prezri spremembe"
+msgstr "Prezr&i spremembe"
 
 #: lib/katemwmodonhddialog.cpp:117
 #, kde-format
@@ -2100,7 +2100,7 @@ msgstr "Kopiraj ime datoteke"
 #: lib/kateviewmanager.cpp:142
 #, kde-format
 msgid "Split Ve&rtical"
-msgstr "Razdeli navpično"
+msgstr "&Razdeli navpično"
 
 #: lib/kateviewmanager.cpp:146
 #, kde-format
@@ -2148,7 +2148,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Cl&ose Current View"
-msgstr "Zapri trenuten pogled"
+msgstr "Zapri trenutni p&ogled"
 
 #: lib/kateviewmanager.cpp:180
 #, kde-format
@@ -2308,13 +2308,12 @@ msgstr "Prikazuj stran dobrodošlice"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Preklopi sinhronizacijo drsenja"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Preklopi usmerjenost trenutnega razdeljenega pogleda"
+msgstr "Preklopi sinhronizacijo drsenja za trenutni pogled"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2367,16 +2366,12 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Omogočenje vtičnika <b>%1</b> ni uspelo"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "&Sinhroniziraj drsenje"
+msgstr "Sinhroniziraj drsenje"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
@@ -2575,7 +2570,7 @@ msgstr "Dupliciraj..."
 #: lib/session/katesessionmanagedialog.ui:141
 #, kde-format
 msgid "&Rename..."
-msgstr "Preimenuj..."
+msgstr "P&reimenuj..."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
 #: lib/session/katesessionmanagedialog.ui:161
@@ -2654,7 +2649,7 @@ msgstr "Obnašanje programa ob zagonu"
 #: lib/ui/sessionconfigwidget.ui:23
 #, kde-format
 msgid "&Start new session"
-msgstr "Začni novo sejo"
+msgstr "Začni novo &sejo"
 
 #. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
 #: lib/ui/sessionconfigwidget.ui:30
@@ -2833,7 +2828,7 @@ msgstr "Kopiraj mesto"
 #: lib/welcomeview/welcomeview.cpp:274
 #, kde-format
 msgid "&Remove"
-msgstr "Odstrani"
+msgstr "Odst&rani"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17

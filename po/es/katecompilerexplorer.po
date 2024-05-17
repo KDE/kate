@@ -1,16 +1,18 @@
+# Spanish translations for katecompilerexplorer.po package.
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
+# Automatically generated, 2024.
 #
-# SPDX-FileCopyrightText: 2024 Freek de Kruijf <freekdekruijf@kde.nl>
+# SPDX-FileCopyrightText: 2024 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
-"Project-Id-Version: kate\n"
+"Project-Id-Version: katecompilerexplorer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 00:41+0000\n"
-"PO-Revision-Date: 2024-05-15 10:27+0200\n"
-"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
-"Language-Team: \n"
-"Language: nl\n"
+"PO-Revision-Date: 2024-05-16 12:13+0200\n"
+"Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
+"Language-Team: Spanish <kde-l10n-es@kde.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,118 +22,120 @@ msgstr ""
 #: AsmView.cpp:299
 #, kde-format
 msgid "Scroll to source"
-msgstr "Naar broncode schuiven"
+msgstr "Desplazar al código fuente"
 
 #: AsmView.cpp:309
 #, kde-format
 msgid "Jump to label"
-msgstr "Naar label springen"
+msgstr "Ir a etiqueta"
 
 #: AsmView.cpp:335
 #, kde-format
 msgid "Copy"
-msgstr "Kopiëren"
+msgstr "Copiar"
 
 #: AsmView.cpp:347
 #, kde-format
 msgid "Select All"
-msgstr "Alles selecteren"
+msgstr "Seleccionar todo"
 
 #: ce_plugin.cpp:35
 #, kde-format
 msgid "Compiler Explorer"
-msgstr "Compiler-verkenner"
+msgstr "Compiler Explorer"
 
 #: ce_plugin.cpp:38
 #, kde-format
 msgid "&Open Current File in Compiler Explorer"
-msgstr "Huidig bestand in compiler-verkenner &openen"
+msgstr "&Abrir el archivo actual en Compiler Explorer"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgid "No file open"
-msgstr "Geen geopend bestand"
+msgstr "Ningún archivo abierto"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgctxt "error category title"
 msgid "CompilerExplorer"
-msgstr "Compiler-verkenner"
+msgstr "CompilerExplorer"
 
 #: ce_widget.cpp:125
 #, kde-format
 msgid "Do you really want to close %1?"
-msgstr "Wilt u %1 sluiten?"
+msgstr "¿Realmente quiere cerrar %1?"
 
 #: ce_widget.cpp:185
 #, kde-format
 msgid "Compile"
-msgstr "Compileren"
+msgstr "Compilar"
 
 #: ce_widget.cpp:282
 #, kde-format
 msgid "Options"
-msgstr "Opties"
+msgstr "Opciones"
 
 #: ce_widget.cpp:299
 #, kde-format
 msgid "Demangle Identifiers"
-msgstr "Identifiers ontwarren"
+msgstr "Despojar identificadores"
 
 #: ce_widget.cpp:300
 #, kde-format
 msgid "Filter Library Functions"
-msgstr "Bibliotheekfuncties filteren"
+msgstr "Filtrar funciones de biblioteca"
 
 #: ce_widget.cpp:301
 #, kde-format
 msgid "Filter Unused Labels"
-msgstr "Ongebruikte labels filteren"
+msgstr "Filtrar etiquetas sin usar"
 
 #: ce_widget.cpp:302
 #, kde-format
 msgid "Filter Comments"
-msgstr "Commentaren filteren"
+msgstr "Filtrar comentarios"
 
 #: ce_widget.cpp:303
 #, kde-format
 msgid "Intel Syntax"
-msgstr "Intel-syntaxis"
+msgstr "Sintaxis de Intel"
 
 #: ce_widget.cpp:305
 #, kde-format
 msgid "Change Url..."
-msgstr "URL wijzigen..."
+msgstr "Cambiar URL..."
 
 #: ce_widget.cpp:311
 #, kde-format
 msgid "Enter Url"
-msgstr "URL invoeren"
+msgstr "Introducir URL"
 
 #: ce_widget.cpp:312
 #, kde-format
 msgid ""
 "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgstr ""
-"Url naar exemplaar van compiler-verkenner invoeren. Voor bijv., http://"
-"localhost:10240"
+"Introduzca URL a la instancia de CompilerExplorer (por ejemplo, http://"
+"localhost:10240)."
 
 #: ce_widget.cpp:372
 #, kde-format
 msgid "Compiler returned: %1"
-msgstr "Compiler gaf terug: %1"
+msgstr "El compilador ha devuelto: %1"
 
 #: ce_widget.cpp:521
 #, kde-format
 msgid "Reveal linked code"
-msgstr "Gekoppelde code onthullen"
+msgstr "Revelar código enlazado"
 
 #: ce_widget.cpp:543
 #, kde-format
 msgid "CompilerExplorer"
-msgstr "Compiler-verkenner"
+msgstr "CompilerExplorer"
 
 #: ce_widget.cpp:559
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
-msgstr "'%1' compiler-vlaggen zijn gevonden. Uitvoer kan niet nuttig zijn."
+msgstr ""
+"Se han encontrado los indicadores del compilador «%1». Es posible que la "
+"salida no sea útil."

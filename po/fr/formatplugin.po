@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-16 00:41+0000\n"
+"POT-Creation-Date: 2024-05-17 00:41+0000\n"
 "PO-Revision-Date: 2024-04-29 18:58+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:79
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:242
+#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:81
 #, kde-format
 msgid "Format"
 msgstr "Format"
@@ -61,12 +61,12 @@ msgstr "Impossible de lire le fichier « settings.json ». Erreur : %1"
 msgid "Format Document"
 msgstr "Formater un document"
 
-#: FormatPlugin.cpp:136
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Format on Save"
 msgstr "Format de l'enregistrement"
 
-#: FormatPlugin.cpp:139
+#: FormatPlugin.cpp:140
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
@@ -83,7 +83,7 @@ msgstr "Formateur « json » inconnu : %1"
 msgid "Unknown formatterForPython: %1"
 msgstr "Formateur pour Python inconnu : %1"
 
-#: FormatterFactory.h:79
+#: FormatterFactory.h:81
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Impossible de lancer le formateur. Langue non prise en charge %1"

@@ -20,116 +20,117 @@ msgstr ""
 #: AsmView.cpp:299
 #, kde-format
 msgid "Scroll to source"
-msgstr ""
+msgstr "滚动到来源"
 
 #: AsmView.cpp:309
 #, kde-format
 msgid "Jump to label"
-msgstr ""
+msgstr "跳转到标签"
 
 #: AsmView.cpp:335
 #, kde-format
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 #: AsmView.cpp:347
 #, kde-format
 msgid "Select All"
-msgstr ""
+msgstr "选择全部"
 
 #: ce_plugin.cpp:35
 #, kde-format
 msgid "Compiler Explorer"
-msgstr ""
+msgstr "编译器浏览器"
 
 #: ce_plugin.cpp:38
 #, kde-format
 msgid "&Open Current File in Compiler Explorer"
-msgstr ""
+msgstr "用编译器浏览器打开当前文件"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgid "No file open"
-msgstr ""
+msgstr "没有打开文件"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgctxt "error category title"
 msgid "CompilerExplorer"
-msgstr ""
+msgstr "编译器浏览器"
 
 #: ce_widget.cpp:125
 #, kde-format
 msgid "Do you really want to close %1?"
-msgstr ""
+msgstr "您确定要关闭 %1 吗？"
 
 #: ce_widget.cpp:185
 #, kde-format
 msgid "Compile"
-msgstr ""
+msgstr "编译"
 
 #: ce_widget.cpp:282
 #, kde-format
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 #: ce_widget.cpp:299
 #, kde-format
 msgid "Demangle Identifiers"
-msgstr ""
+msgstr "识别解码标识符"
 
 #: ce_widget.cpp:300
 #, kde-format
 msgid "Filter Library Functions"
-msgstr ""
+msgstr "按函数过滤库"
 
 #: ce_widget.cpp:301
 #, kde-format
 msgid "Filter Unused Labels"
-msgstr ""
+msgstr "过滤未使用的标签"
 
 #: ce_widget.cpp:302
 #, kde-format
 msgid "Filter Comments"
-msgstr ""
+msgstr "过滤注释"
 
 #: ce_widget.cpp:303
 #, kde-format
 msgid "Intel Syntax"
-msgstr ""
+msgstr "Intel 语法"
 
 #: ce_widget.cpp:305
 #, kde-format
 msgid "Change Url..."
-msgstr ""
+msgstr "更改 URL..."
 
 #: ce_widget.cpp:311
 #, kde-format
 msgid "Enter Url"
-msgstr ""
+msgstr "输入 URL"
 
 #: ce_widget.cpp:312
 #, kde-format
 msgid ""
 "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgstr ""
+"输入 CompilerExplorer (编译器浏览器) 实例的 URL。例如：http://localhost:10240"
 
 #: ce_widget.cpp:372
 #, kde-format
 msgid "Compiler returned: %1"
-msgstr ""
+msgstr "编译器返回：%1"
 
 #: ce_widget.cpp:521
 #, kde-format
 msgid "Reveal linked code"
-msgstr ""
+msgstr "显示链接代码"
 
 #: ce_widget.cpp:543
 #, kde-format
 msgid "CompilerExplorer"
-msgstr ""
+msgstr "编译器浏览器"
 
 #: ce_widget.cpp:559
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
-msgstr ""
+msgstr "找不到“%1”编译器旗标。输出可能没有意义。"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-16 00:41+0000\n"
+"POT-Creation-Date: 2024-05-17 00:41+0000\n"
 "PO-Revision-Date: 2024-01-12 21:52+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.08.4\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:79
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:242
+#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:81
 #, kde-format
 msgid "Format"
 msgstr "Formázás"
@@ -63,12 +63,12 @@ msgstr "Nem sikerült olvasni a settings.json fájlt. Hiba: %1"
 msgid "Format Document"
 msgstr "Dokumentum formázása"
 
-#: FormatPlugin.cpp:136
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Format on Save"
 msgstr "Formázás mentéskor"
 
-#: FormatPlugin.cpp:139
+#: FormatPlugin.cpp:140
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
@@ -84,7 +84,7 @@ msgstr ""
 msgid "Unknown formatterForPython: %1"
 msgstr ""
 
-#: FormatterFactory.h:79
+#: FormatterFactory.h:81
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Nem sikerült futtatni a formázót. Nem támogatott nyelv: %1"

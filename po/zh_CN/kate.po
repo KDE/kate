@@ -2243,10 +2243,9 @@ msgid "Toggle Scroll Synchronization"
 msgstr ""
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "切换当前视图的拆分方向"
+msgstr ""
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2297,19 +2296,15 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "启用插件 <b>%1</b> 失败"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "同步滚动(&Y)"
+msgstr ""
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
-msgstr "同步滚动此拆分视图和其他同步的拆分视图"
+msgstr ""
 
 #: lib/kateviewspace.cpp:117
 #, kde-format

@@ -2251,10 +2251,9 @@ msgid "Toggle Scroll Synchronization"
 msgstr ""
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Přepne orientaci současného děleného pohledu"
+msgstr ""
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2306,10 +2305,9 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "S&ynchronizovat posun"
+msgstr ""
 
 #: lib/kateviewspace.cpp:96
 #, kde-format

@@ -6846,37 +6846,61 @@ VALUES ("<replaceable
 ><para
 >Dart - <command
 >dartfmt</command
-> </para
+></para
 ></listitem>
 <listitem
 ><para
 >Rust - <command
 >rustfmt</command
-> </para
+></para
 ></listitem>
 <listitem
 ><para
 >Go - <command
 >gofmt</command
-> </para
+></para
 ></listitem>
 <listitem
 ><para
 >XML - <command
 >xmllint</command
-> </para
+></para
 ></listitem>
 <listitem
 ><para
 >Zig - <command
 >zigfmt</command
-> </para
+></para
 ></listitem>
 <listitem
 ><para
 >CMake - <command
 >cmake-format</command
-> </para
+></para
+></listitem>
+<listitem
+><para
+>D - <command
+>dfmt</command
+></para
+></listitem>
+<listitem
+><para
+>Fish Shell - <command
+>fish_indent</command
+></para
+></listitem>
+<listitem
+><para
+>Bash - <command
+>shfmt</command
+></para
+></listitem>
+<listitem
+><para
+>Nix - <command
+>nixfmt</command
+></para
 ></listitem>
 
 <listitem

@@ -2,15 +2,15 @@
 # Copyright (C) 2002, 2003, 2004 Free Software Foundation, Inc.
 # Heiko Evermann <heiko@evermann.de>, 2002, 2003.
 # Matthias Peick <matthias@peick.de>, 2004.
-# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
+# Oliver Kellogg <olivermkellogg@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-10 02:31+0000\n"
-"PO-Revision-Date: 2024-04-21 17:45+0100\n"
-"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"PO-Revision-Date: 2024-05-05 18:09+0100\n"
+"Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -27,8 +27,7 @@ msgstr "Wolfram Diestel, Axel Rousseau, Oliver Kellogg"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
-"wolfram@steloj.de, axel@esperanto-jeunes.org, okellogg@users.sourceforge.net"
+msgstr "wolfram@steloj.de, axel@esperanto-jeunes.org, olivermkellogg@gmail.com"
 
 #: kate/main.cpp:93
 #, kde-format
@@ -1076,7 +1075,7 @@ msgstr "&Aŭtomate kaŝi langetojn"
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
-"Kiam kontrolitaj langetoj estos kaŝitaj se nur unu dokumento estas "
+"Kiam estas markita, langetoj estos kaŝitaj se nur unu dokumento estas "
 "malfermita."
 
 #: lib/kateconfigdialog.cpp:242
@@ -1087,7 +1086,7 @@ msgstr "&Montri fermbutonon"
 #: lib/kateconfigdialog.cpp:244
 #, kde-format
 msgid "When checked each tab will display a close button."
-msgstr "Kiam estas kontrolita, ĉiu langeto montros fermbutonon."
+msgstr "Kiam estas markita, ĉiu langeto montros fermbutonon."
 
 #: lib/kateconfigdialog.cpp:248
 #, kde-format
@@ -1097,7 +1096,7 @@ msgstr "&Etendi langetojn"
 #: lib/kateconfigdialog.cpp:250
 #, kde-format
 msgid "When checked tabs take as much size as possible."
-msgstr "Kiam kontrolitaj langetoj prenas tiom da grandeco kiel eble."
+msgstr "Kiam markitaj langetoj prenas tiom da grandeco kiel eble."
 
 #: lib/kateconfigdialog.cpp:254
 #, kde-format
@@ -1107,7 +1106,7 @@ msgstr "&Duobla klako malfermas novan dokumenton"
 #: lib/kateconfigdialog.cpp:256
 #, kde-format
 msgid "When checked double click opens a new document."
-msgstr "Se kontrolita duobla klako malfermas novan dokumenton."
+msgstr "Se estas markita, duobla klako malfermas novan dokumenton."
 
 #: lib/kateconfigdialog.cpp:260
 #, kde-format

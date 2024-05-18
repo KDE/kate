@@ -1,15 +1,15 @@
 # Translation of katexmlcheck.pot into esperanto.
 # Copyright (C) 2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the kate package.
-# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
+# Oliver Kellogg <olivermkellogg@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-18 02:00+0000\n"
-"PO-Revision-Date: 2023-03-12 21:39+0100\n"
-"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"PO-Revision-Date: 2024-05-05 18:09+0100\n"
+"Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: plugin_katexmlcheck.cpp:96
 #, kde-format
 msgid "XML Check"
-msgstr "XML Kontrolo"
+msgstr "XML-Kontrolo"
 
 #: plugin_katexmlcheck.cpp:101
 #, kde-format

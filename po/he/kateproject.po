@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"POT-Creation-Date: 2024-05-18 00:41+0000\n"
 "PO-Revision-Date: 2024-03-22 08:32+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -75,7 +75,7 @@ msgstr "ענף"
 msgid "Last Commit"
 msgstr "הגשה אחרונה"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:78
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
 msgstr "מחיקה"
@@ -808,8 +808,8 @@ msgstr ""
 "Windows)."
 
 #: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:136
-#: kateprojectviewtree.cpp:156
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
+#: kateprojectviewtree.cpp:175
 #, kde-format
 msgid "Project"
 msgstr "מיזם"
@@ -924,67 +924,67 @@ msgstr "הוספה"
 msgid "Copy Location"
 msgstr "העתקת מקום"
 
-#: kateprojecttreeviewcontextmenu.cpp:69
+#: kateprojecttreeviewcontextmenu.cpp:71
 #, kde-format
 msgid "Add File"
 msgstr "הוספת קובץ"
 
-#: kateprojecttreeviewcontextmenu.cpp:70
+#: kateprojecttreeviewcontextmenu.cpp:72
 #, kde-format
 msgid "Add Folder"
 msgstr "הוספת תיקייה"
 
-#: kateprojecttreeviewcontextmenu.cpp:77
+#: kateprojecttreeviewcontextmenu.cpp:79
 #, kde-format
 msgid "&Rename"
 msgstr "&שינוי שם"
 
-#: kateprojecttreeviewcontextmenu.cpp:84
+#: kateprojecttreeviewcontextmenu.cpp:86
 #, kde-format
 msgid "Properties"
 msgstr "מאפיינים"
 
-#: kateprojecttreeviewcontextmenu.cpp:88
+#: kateprojecttreeviewcontextmenu.cpp:90
 #, kde-format
 msgid "Open With"
 msgstr "פתיחה באמצעות"
 
-#: kateprojecttreeviewcontextmenu.cpp:96
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "פתיחת מסוף פנימי כאן"
 
-#: kateprojecttreeviewcontextmenu.cpp:105
+#: kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "פתיחת מסוף חיצוני כאן"
 
-#: kateprojecttreeviewcontextmenu.cpp:110
+#: kateprojecttreeviewcontextmenu.cpp:112
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&פתיחת התיקייה המכילה"
 
-#: kateprojecttreeviewcontextmenu.cpp:119
+#: kateprojecttreeviewcontextmenu.cpp:121
 #, kde-format
 msgid "Show Git History"
 msgstr "הצגת היסטוריית Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:124
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "Delete File"
 msgstr "מחיקת קובץ"
 
-#: kateprojecttreeviewcontextmenu.cpp:125
+#: kateprojecttreeviewcontextmenu.cpp:127
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "למחוק את הקובץ ‚%1’."
 
-#: kateprojectviewtree.cpp:136
+#: kateprojectviewtree.cpp:145
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "יצירת הקובץ נכשלה: %1. שגיאה: %2"
 
-#: kateprojectviewtree.cpp:156
+#: kateprojectviewtree.cpp:175
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "יצירת התיקייה נכשלה: %1"

@@ -1,130 +1,137 @@
+#
+# SPDX-FileCopyrightText: 2024 Xavier Besnard <xavier.besnard@kde.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 00:41+0000\n"
-"PO-Revision-Date: 2024-05-16 05:31+0200\n"
-"Last-Translator: KDE Francophone <kde-francophone@kde.org>\n"
-"Language-Team: KDE Francophone <kde-francophone@kde.org>\n"
+"PO-Revision-Date: 2024-05-16 11:23+0200\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
+"Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: AsmView.cpp:299
 #, kde-format
 msgid "Scroll to source"
-msgstr ""
+msgstr "Faire défiler jusqu'à la source"
 
 #: AsmView.cpp:309
 #, kde-format
 msgid "Jump to label"
-msgstr ""
+msgstr "Se positionner à l'étiquette"
 
 #: AsmView.cpp:335
 #, kde-format
 msgid "Copy"
-msgstr ""
+msgstr "Copier"
 
 #: AsmView.cpp:347
 #, kde-format
 msgid "Select All"
-msgstr ""
+msgstr "Tout sélectionner"
 
 #: ce_plugin.cpp:35
 #, kde-format
 msgid "Compiler Explorer"
-msgstr ""
+msgstr "Explorateur de compilateurs"
 
 #: ce_plugin.cpp:38
 #, kde-format
 msgid "&Open Current File in Compiler Explorer"
-msgstr ""
+msgstr "&Ouvrir le fichier courant dans l'explorateur de compilateurs"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgid "No file open"
-msgstr ""
+msgstr "Aucun fichier ouvert"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgctxt "error category title"
 msgid "CompilerExplorer"
-msgstr ""
+msgstr "CompilerExplorer"
 
 #: ce_widget.cpp:125
 #, kde-format
 msgid "Do you really want to close %1?"
-msgstr ""
+msgstr "Voulez-vous vraiment fermer %1 ?"
 
 #: ce_widget.cpp:185
 #, kde-format
 msgid "Compile"
-msgstr ""
+msgstr "Compiler"
 
 #: ce_widget.cpp:282
 #, kde-format
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 #: ce_widget.cpp:299
 #, kde-format
 msgid "Demangle Identifiers"
-msgstr ""
+msgstr "Décoder les identifiants"
 
 #: ce_widget.cpp:300
 #, kde-format
 msgid "Filter Library Functions"
-msgstr ""
+msgstr "Filtrer les fonctions de bibliothèques"
 
 #: ce_widget.cpp:301
 #, kde-format
 msgid "Filter Unused Labels"
-msgstr ""
+msgstr "Filtrer les étiquettes inutilisées"
 
 #: ce_widget.cpp:302
 #, kde-format
 msgid "Filter Comments"
-msgstr ""
+msgstr "Filtrer les commentaires"
 
 #: ce_widget.cpp:303
 #, kde-format
 msgid "Intel Syntax"
-msgstr ""
+msgstr "Syntaxe Intel"
 
 #: ce_widget.cpp:305
 #, kde-format
 msgid "Change Url..."
-msgstr ""
+msgstr "Modifier l’URL..."
 
 #: ce_widget.cpp:311
 #, kde-format
 msgid "Enter Url"
-msgstr ""
+msgstr "Saisir une URL"
 
 #: ce_widget.cpp:312
 #, kde-format
 msgid ""
 "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgstr ""
+"Saisir l'URL de l'instance de CompilerExplorer, par exemple, http ://"
+"localhost :10240"
 
 #: ce_widget.cpp:372
 #, kde-format
 msgid "Compiler returned: %1"
-msgstr ""
+msgstr "Le compilateur a renvoyé : %1"
 
 #: ce_widget.cpp:521
 #, kde-format
 msgid "Reveal linked code"
-msgstr ""
+msgstr "Révéler le code lié"
 
 #: ce_widget.cpp:543
 #, kde-format
 msgid "CompilerExplorer"
-msgstr ""
+msgstr "CompilerExplorer"
 
 #: ce_widget.cpp:559
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr ""
+"Les étiquettes « %1 » de compilateur ont été trouvés. La sortie pourrait ne "
+"pas être utile."

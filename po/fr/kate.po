@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-18 00:41+0000\n"
-"PO-Revision-Date: 2024-05-04 10:43+0200\n"
+"PO-Revision-Date: 2024-05-17 16:16+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -2359,13 +2359,14 @@ msgstr "Afficher la page de bienvenue"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Activer / Désactiver la synchronisation du défilement"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Bascule l'orientation de la séparation de la vue actuelle"
+msgstr ""
+"Activer / Désactiver la synchronisation du défilement pour l'affichage "
+"courant"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2422,20 +2423,17 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Impossible d'activer le module externe <b>%1</b>"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "S&ynchroniser le défilement"
+msgstr "Synchroniser les défilement"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
-"Synchroniser le défilement de la vue scindée avec les autres vues scindées."
+"Synchroniser le défilement de cette vue scindée avec les autres vues "
+"scindées synchronisées."
 
 #: lib/kateviewspace.cpp:117
 #, kde-format

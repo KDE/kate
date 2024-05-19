@@ -1,0 +1,135 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"PO-Revision-Date: 2024-05-18 16:32+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 24.04.70\n"
+
+#: AsmView.cpp:299
+#, kde-format
+msgid "Scroll to source"
+msgstr "捲動至來源"
+
+#: AsmView.cpp:309
+#, kde-format
+msgid "Jump to label"
+msgstr "跳至旗標"
+
+#: AsmView.cpp:335
+#, kde-format
+msgid "Copy"
+msgstr "複製"
+
+#: AsmView.cpp:347
+#, kde-format
+msgid "Select All"
+msgstr "全部選取"
+
+#: ce_plugin.cpp:35
+#, kde-format
+msgid "Compiler Explorer"
+msgstr "編譯器探索工具"
+
+#: ce_plugin.cpp:38
+#, kde-format
+msgid "&Open Current File in Compiler Explorer"
+msgstr "用編譯器探索工具開啟目前檔案(&O)"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgid "No file open"
+msgstr "沒有開啟的檔案"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgctxt "error category title"
+msgid "CompilerExplorer"
+msgstr "CompilerExplorer"
+
+#: ce_widget.cpp:125
+#, kde-format
+msgid "Do you really want to close %1?"
+msgstr "您確定要關閉 %1 嗎？"
+
+#: ce_widget.cpp:185
+#, kde-format
+msgid "Compile"
+msgstr "編譯"
+
+#: ce_widget.cpp:282
+#, kde-format
+msgid "Options"
+msgstr "選項"
+
+#: ce_widget.cpp:299
+#, kde-format
+msgid "Demangle Identifiers"
+msgstr "顯示未被改變過的識別子"
+
+#: ce_widget.cpp:300
+#, kde-format
+msgid "Filter Library Functions"
+msgstr "過濾函式庫函數"
+
+#: ce_widget.cpp:301
+#, kde-format
+msgid "Filter Unused Labels"
+msgstr "過濾未使用的旗標"
+
+#: ce_widget.cpp:302
+#, kde-format
+msgid "Filter Comments"
+msgstr "過濾註解"
+
+#: ce_widget.cpp:303
+#, kde-format
+msgid "Intel Syntax"
+msgstr "Intel 語法"
+
+#: ce_widget.cpp:305
+#, kde-format
+msgid "Change Url..."
+msgstr "變更 URL…"
+
+#: ce_widget.cpp:311
+#, kde-format
+msgid "Enter Url"
+msgstr "輸入 URL"
+
+#: ce_widget.cpp:312
+#, kde-format
+msgid ""
+"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+msgstr "輸入 CompilerExplorer 實體的網址，例如 http://localhost:10240"
+
+#: ce_widget.cpp:372
+#, kde-format
+msgid "Compiler returned: %1"
+msgstr "編譯器回傳：%1"
+
+#: ce_widget.cpp:521
+#, kde-format
+msgid "Reveal linked code"
+msgstr "顯示已連結的程式碼"
+
+#: ce_widget.cpp:543
+#, kde-format
+msgid "CompilerExplorer"
+msgstr "CompilerExplorer"
+
+#: ce_widget.cpp:559
+#, kde-format
+msgid "'%1' compiler flags were found. Output may not be useful."
+msgstr "找到了編譯旗標「%1」。輸出可能不是很有用。"

@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-18 00:41+0000\n"
-"PO-Revision-Date: 2024-05-09 06:49+0900\n"
+"PO-Revision-Date: 2024-05-18 16:24+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -2241,13 +2241,12 @@ msgstr "顯示歡迎頁面"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "切換捲動同步"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "切換目前分割檢視的分向"
+msgstr "為目前分割檢視切換捲動同步"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2299,16 +2298,12 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "啟用 <b>%1</b> 外掛程式時失敗"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "同步捲動(&Y)"
+msgstr "同步捲動"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr "與其他已同步捲動的分割檢視同步這個分割檢視的捲動"

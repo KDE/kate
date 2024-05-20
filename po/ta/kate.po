@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-10 02:31+0000\n"
-"PO-Revision-Date: 2024-05-05 14:06+0530\n"
+"PO-Revision-Date: 2024-05-19 16:09+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -71,6 +71,9 @@ msgid ""
 "kate instance already has the given session opened), forced if no parameters "
 "and no URLs are given at all."
 msgstr ""
+"கேட்டின் புதிய சாளரத்தைக் கட்டாயாமாகத் திற (start பயன்படுத்தப்பட்டு அந்த அமர்வு ஏற்கனவே "
+"இன்னொரு சாளரத்தில் திறக்கப்பட்டிருந்தால் அந்த சாளரமே முன்னுக்கு கொண்டுவரப்படும்), எந்த "
+"தருமதிப்புகளோ முகவரிகளோ தரப்படாதபோதும்."
 
 #: kate/main.cpp:160
 #, kde-format
@@ -87,6 +90,9 @@ msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
+"குறிப்பிட்ட பணியெண்ணைக் கொண்ட கேட் சாளரத்தை மட்டும் பயன்படுத்த முயற்சி (start "
+"பயன்படுத்தப்பட்டு அந்த அமர்வு ஏற்கனவே இன்னொரு சாளரத்தில் திறக்கப்பட்டிருந்தால் இத்தேர்வு "
+"பொருட்படுத்தப்படாது)."
 
 #: kate/main.cpp:167
 #, kde-format

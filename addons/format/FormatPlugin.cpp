@@ -151,6 +151,7 @@ FormatPluginView::~FormatPluginView()
 void FormatPluginView::onConfigChanged()
 {
     m_lastChecksum = {};
+    m_lastMergedConfig = {};
     onActiveViewChanged(nullptr);
     onActiveViewChanged(m_mainWindow->activeView());
 }

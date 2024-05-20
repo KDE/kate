@@ -38,9 +38,6 @@ static QString filenameFromMode(KTextEditor::Document *doc)
     auto is = [m](const char *s) {
         return m.compare(QLatin1String(s), Qt::CaseInsensitive) == 0;
     };
-    auto is_or_contains = [m](const char *s) {
-        return m.compare(QLatin1String(s), Qt::CaseInsensitive) == 0 || m.contains(QLatin1String(s));
-    };
 
     QString path = doc->url().toLocalFile();
     bool needsStdinFileName;
@@ -74,7 +71,7 @@ static QString filenameFromMode(KTextEditor::Document *doc)
         prefix = QStringLiteral("a");
     }
 
-    if (is_or_contains("c++")) {
+    if (is("c++") || is("iso c++")) {
         return prefix.append(QLatin1String(".cpp"));
     } else if (is("c")) {
         return prefix.append(QLatin1String(".c"));

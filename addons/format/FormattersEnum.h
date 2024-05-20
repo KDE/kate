@@ -25,29 +25,21 @@ enum class Formatters {
 
 inline Formatters formatterForName(const QString &name, Formatters defaultValue)
 {
-    auto eq = [&](const char *s) {
-        return name.compare(QLatin1String(s), Qt::CaseInsensitive) == 0;
+    static const std::pair<const char *, Formatters> strToFmt[] = {
+        {"clang-format", Formatters::ClangFormat},
+        {"clangformat", Formatters::ClangFormat},
+        {"prettier", Formatters::Prettier},
+        {"jq", Formatters::Jq},
+        {"xmllint", Formatters::XmlLint},
+        {"autopep8", Formatters::Autopep8},
+        {"ruff", Formatters::Ruff},
+        {"yamlfmt", Formatters::YamlFmt},
     };
-    if (eq("clangformat") || eq("clang-format")) {
-        return Formatters::ClangFormat;
-    }
-    if (eq("prettier")) {
-        return Formatters::Prettier;
-    }
-    if (eq("jq")) {
-        return Formatters::Jq;
-    }
-    if (eq("xmllint")) {
-        return Formatters::XmlLint;
-    }
-    if (eq("autopep8")) {
-        return Formatters::Autopep8;
-    }
-    if (eq("ruff")) {
-        return Formatters::Ruff;
-    }
-    if (eq("yamlfmt")) {
-        return Formatters::YamlFmt;
+
+    for (const auto &[fmtName, enumValue] : strToFmt) {
+        if (name.compare(QLatin1String(fmtName), Qt::CaseInsensitive) == 0) {
+            return enumValue;
+        }
     }
     return defaultValue;
 }

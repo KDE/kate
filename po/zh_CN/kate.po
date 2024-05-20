@@ -2240,12 +2240,12 @@ msgstr "显示欢迎页面"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "启用/关闭滚动同步"
 
 #: lib/kateviewmanager.cpp:296
 #, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr ""
+msgstr "启用/关闭当前视图的滚动同步"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2298,13 +2298,13 @@ msgstr "启用插件 <b>%1</b> 失败"
 #: lib/kateviewspace.cpp:94
 #, kde-format
 msgid "Synchronize Scrolling"
-msgstr ""
+msgstr "同步滚动"
 
 #: lib/kateviewspace.cpp:96
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
-msgstr ""
+msgstr "同步滚动此拆分视图和其他同步的拆分视图"
 
 #: lib/kateviewspace.cpp:117
 #, kde-format

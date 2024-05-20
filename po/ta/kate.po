@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-18 00:41+0000\n"
-"PO-Revision-Date: 2024-05-05 14:06+0530\n"
+"PO-Revision-Date: 2024-05-19 16:11+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -71,6 +71,9 @@ msgid ""
 "kate instance already has the given session opened), forced if no parameters "
 "and no URLs are given at all."
 msgstr ""
+"கேட்டின் புதிய சாளரத்தைக் கட்டாயாமாகத் திற (start பயன்படுத்தப்பட்டு அந்த அமர்வு ஏற்கனவே "
+"இன்னொரு சாளரத்தில் திறக்கப்பட்டிருந்தால் அந்த சாளரமே முன்னுக்கு கொண்டுவரப்படும்), எந்த "
+"தருமதிப்புகளோ முகவரிகளோ தரப்படாதபோதும்."
 
 #: kate/main.cpp:160
 #, kde-format
@@ -87,6 +90,9 @@ msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
+"குறிப்பிட்ட பணியெண்ணைக் கொண்ட கேட் சாளரத்தை மட்டும் பயன்படுத்த முயற்சி (start "
+"பயன்படுத்தப்பட்டு அந்த அமர்வு ஏற்கனவே இன்னொரு சாளரத்தில் திறக்கப்பட்டிருந்தால் இத்தேர்வு "
+"பொருட்படுத்தப்படாது)."
 
 #: kate/main.cpp:167
 #, kde-format
@@ -2273,16 +2279,14 @@ msgid "Show the welcome page"
 msgstr "வரவேற்புப் பக்கத்தைக் காட்டு"
 
 #: lib/kateviewmanager.cpp:295
-#, fuzzy, kde-format
-#| msgid "Auto Synchronization"
+#, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr "தானியங்கி ஒத்தியக்கி"
+msgstr "உருளல் ஒத்திசைவை நிலைமாற்று"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "தற்போதைய காட்சிப்பகுதியின் நோக்குநிலையை மாற்றும்"
+msgstr "தற்போதைய காட்சிப்பகுதிக்கு உருளல் ஒத்திசைவை இயக்கும்/முடக்கும்"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2334,19 +2338,15 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> செருகுநிரலை இயக்க முடியவில்லை"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "&உருளலை ஒத்திசையசெய்"
+msgstr "உருளலை ஒத்திசையசெய்"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
-msgstr "இந்த காட்சிப்பகுதியில் உருள்வதை மற்ற காட்சிப்பகுதிகளுடன் ஒத்திசைசெய்"
+msgstr "இந்த காட்சிப்பகுதியில் உருள்வதை மற்ற ஒத்திசைந்த காட்சிப்பகுதிகளுடன் ஒத்திசைசெய்"
 
 #: lib/kateviewspace.cpp:117
 #, kde-format

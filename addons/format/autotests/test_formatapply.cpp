@@ -67,6 +67,8 @@ void FormatApplyTest::testFormatterForName()
             return "autopep8";
         case Formatters::Ruff:
             return "ruff";
+        case Formatters::YamlFmt:
+            return "yamlfmt";
         case Formatters::COUNT:
             Q_ASSERT(false);
             return "";

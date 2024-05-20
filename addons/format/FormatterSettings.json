@@ -2,6 +2,7 @@
     "formatOnSave": true,
     "formatterForJson": "jq",
     "formatterForPython": "ruff",
+    "formatterForYaml": "yamlfmt",
     "clang-format": {
         "command": ["clang-format", "--fallback-style=Webkit"],
         "formatModifiedLinesOnly": true,
@@ -51,5 +52,8 @@
     },
     "qmlformat": {
         "command": ["qmlformat"]
+    },
+    "yamlfmt": {
+        "command": ["yamlfmt", "-quiet", "-"]
     }
 }

@@ -4465,11 +4465,20 @@ The current list of supported languages and formatters are as follows:
 <listitem><para>Fish Shell - <command>fish_indent</command></para></listitem>
 <listitem><para>Bash - <command>shfmt</command></para></listitem>
 <listitem><para>Nix - <command>nixfmt</command></para></listitem>
+<listitem><para>QML - <command>qmlformat</command></para></listitem>
+<listitem><para>HTML - <command>prettier</command></para></listitem>
 
 <listitem><para>Python
 <itemizedlist>
   <listitem><para><command>autopep8</command></para></listitem>
   <listitem><para><command>ruff</command></para></listitem>
+</itemizedlist>
+</para></listitem>
+
+<listitem><para>YAML
+<itemizedlist>
+  <listitem><para><command>yamlfmt</command></para></listitem>
+  <listitem><para><command>prettier</command></para></listitem>
 </itemizedlist>
 </para></listitem>
 

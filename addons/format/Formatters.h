@@ -315,6 +315,7 @@ DEFINE_STDIN_FORMATTER(cMakeFormat, "cmake-format", (QStringList{S("-")}));
 DEFINE_STDIN_FORMATTER(dfmt, "dfmt", (QStringList{}));
 DEFINE_STDIN_FORMATTER(fishIndent, "fish_indent", (QStringList{}));
 DEFINE_STDIN_FORMATTER(nixfmt, "nixfmt", (QStringList{}));
+DEFINE_STDIN_FORMATTER(yamlfmt, "yamlfmt", (QStringList{}));
 
 inline AbstractFormatter *shfmt(const QJsonObject &obj, KTextEditor::Document *parent)
 {

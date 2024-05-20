@@ -98,6 +98,8 @@ static QString filenameFromMode(KTextEditor::Document *doc)
         return prefix.append(QLatin1String(".css"));
     } else if (is("html")) {
         return prefix.append(QLatin1String(".html"));
+    } else if (is("yaml")) {
+        return prefix.append(QLatin1String(".yml"));
     }
     return {};
 }

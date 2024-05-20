@@ -16,6 +16,7 @@ enum class Formatters {
     XmlLint,
     Autopep8,
     Ruff,
+    YamlFmt,
 
     // keep at end
     COUNT,
@@ -44,6 +45,9 @@ inline Formatters formatterForName(const QString &name, Formatters defaultValue)
     }
     if (eq("ruff")) {
         return Formatters::Ruff;
+    }
+    if (eq("yamlfmt")) {
+        return Formatters::YamlFmt;
     }
     return defaultValue;
 }

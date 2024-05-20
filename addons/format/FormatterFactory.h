@@ -23,6 +23,7 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         return mode == QLatin1String(s) || mode.contains(QLatin1String(s));
     };
 
+    // NOTE: When adding a new formatter ensure that it is documented in plugins.docbook
     if (is_or_contains("c++") || is("c") || is("objective-c") || is("objective-c++") || is("protobuf")) {
         return new ClangFormat(config, doc);
     } else if (is("dart")) {
@@ -73,6 +74,16 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         return nixfmt(config, doc);
     } else if (is("qml")) {
         return new QMLFormat(config, doc);
+    } else if (is("yaml")) {
+        const auto configValue = config.value(QStringLiteral("formatterForYaml")).toString();
+        Formatters f = formatterForName(configValue, Formatters::YamlFmt);
+        if (f == Formatters::YamlFmt) {
+            return yamlfmt(config, doc);
+        } else if (f == Formatters::Prettier) {
+            return new PrettierFormat(config, doc);
+        }
+        Utils::showMessage(i18n("Unknown formatterForYaml: %1, falling back to yamlfmt", configValue), {}, i18n("Format"), MessageType::Error);
+        return yamlfmt(config, doc);
     }
 
     static QList<QString> alreadyWarned;

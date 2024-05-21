@@ -40,10 +40,10 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         } else if (f == Formatters::ClangFormat) {
             return new ClangFormat(config, doc);
         } else if (f == Formatters::Jq) {
-            return new JsonJqFormat(config, doc);
+            return jqFmt(config, doc);
         }
         Utils::showMessage(i18n("Unknown formatterForJson: %1", configValue), {}, i18n("Format"), MessageType::Error);
-        return new JsonJqFormat(config, doc);
+        return jqFmt(config, doc);
     } else if (is("rust")) {
         return rustFormat(config, doc);
     } else if (is("xml")) {

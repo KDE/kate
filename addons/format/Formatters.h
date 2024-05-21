@@ -143,38 +143,6 @@ private:
     void onResultReady(const RunOutput &out) override;
 };
 
-class JsonJqFormat : public AbstractFormatter
-{
-public:
-    using AbstractFormatter::AbstractFormatter;
-    QString name() const override
-    {
-        return QStringLiteral("jq");
-    }
-
-    QStringList args(KTextEditor::Document *doc) const override
-    {
-        // Reuse doc's indent
-        bool ok = false;
-        int width = doc->configValue(QStringLiteral("indent-width")).toInt(&ok);
-        if (!ok) {
-            width = 4;
-        }
-        return {
-            QStringLiteral("."),
-            QStringLiteral("--indent"),
-            QString::number(width),
-            QStringLiteral("-M"), // no color
-        };
-    }
-
-private:
-    bool supportsStdin() const override
-    {
-        return true;
-    }
-};
-
 class PrettierFormat : public AbstractFormatter
 {
 public:
@@ -319,6 +287,17 @@ inline AbstractFormatter *shfmt(const QJsonObject &obj, KTextEditor::Document *p
     width = width == 0 ? 4 : width;
     bool spaces = parent->configValue(QStringLiteral("replace-tabs")).toBool();
     return new StdinFormatter(obj, parent, QStringLiteral("shfmt"), QStringList{QStringLiteral("--indent"), QString::number(spaces ? width : 0)});
+}
+
+inline AbstractFormatter *jqFmt(const QJsonObject &obj, KTextEditor::Document *doc)
+{
+    // Reuse doc's indent
+    bool ok = false;
+    int width = doc->configValue(QStringLiteral("indent-width")).toInt(&ok);
+    width = ok ? width : 4;
+
+    const QStringList args{QStringLiteral("."), QStringLiteral("--indent"), QString::number(width), QStringLiteral("-M")}; // -M => no color
+    return new StdinFormatter(obj, doc, QStringLiteral("jq"), args);
 }
 
 #undef S

@@ -21,8 +21,6 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
-#include <QDBusMessage>
-#include <QDBusReply>
 #include <QIcon>
 #include <QJsonDocument>
 #include <QRegularExpression>
@@ -45,6 +43,8 @@
 #include "katerunninginstanceinfo.h"
 #include "katewaiter.h"
 #include <KDBusService>
+#include <QDBusMessage>
+#include <QDBusReply>
 #else
 #include "SingleApplication/SingleApplication"
 #endif

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-18 00:41+0000\n"
+"POT-Creation-Date: 2024-05-21 00:41+0000\n"
 "PO-Revision-Date: 2023-11-26 18:19+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -786,24 +786,24 @@ msgstr "Eraro"
 msgid "File name already exists"
 msgstr "Dosiernomo jam ekzistas"
 
-#: kateprojectplugin.cpp:217
+#: kateprojectplugin.cpp:233
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Konfirmu projektofermon: %1"
 
-#: kateprojectplugin.cpp:218
+#: kateprojectplugin.cpp:234
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "Ĉu vi volas fermi la projekton %1 kaj la rilatajn %2 malfermitajn "
 "dokumentojn?"
 
-#: kateprojectplugin.cpp:557
+#: kateprojectplugin.cpp:573
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Plena vojo al nuna projekto ekskludante la dosiernomon."
 
-#: kateprojectplugin.cpp:574
+#: kateprojectplugin.cpp:590
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -812,7 +812,7 @@ msgstr ""
 "Plena vojo al aktuala projekto ekskludante la dosiernomon, kun denaska "
 "padodisigilo (malantaŭa oblikvo en Vindozo)."
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:720 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

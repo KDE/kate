@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-18 00:41+0000\n"
+"POT-Creation-Date: 2024-05-21 00:41+0000\n"
 "PO-Revision-Date: 2023-04-17 16:12+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -793,22 +793,22 @@ msgstr "Erro"
 msgid "File name already exists"
 msgstr "O nome do ficheiro já existe"
 
-#: kateprojectplugin.cpp:217
+#: kateprojectplugin.cpp:233
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Confirmar o fecho do projecto: %1"
 
-#: kateprojectplugin.cpp:218
+#: kateprojectplugin.cpp:234
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Deseja fechar o projecto %1 e os %2 documentos abertos relacionados?"
 
-#: kateprojectplugin.cpp:557
+#: kateprojectplugin.cpp:573
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Localização completa do projecto actual, excluindo o nome do ficheiro."
 
-#: kateprojectplugin.cpp:574
+#: kateprojectplugin.cpp:590
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -817,7 +817,7 @@ msgstr ""
 "Localização completa do projecto actual, excluindo o nome do ficheiro, com o "
 "separador de pastas nativo (barra invertida no Windows)."
 
-#: kateprojectplugin.cpp:691 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:720 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-18 00:41+0000\n"
-"PO-Revision-Date: 2024-05-05 18:09+0100\n"
+"PO-Revision-Date: 2024-05-20 13:35+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -141,7 +141,7 @@ msgstr "Dokumentoj por malfermi."
 #: kate/main.cpp:196 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
-msgstr "[urloj...]"
+msgstr "[url-oj...]"
 
 #: kwrite/main.cpp:46
 #, kde-format
@@ -480,7 +480,7 @@ msgstr "Diferenco %1"
 #: lib/diff/diffwidget.cpp:65
 #, kde-format
 msgid "Diff %1..%2"
-msgstr "Diferenco %1...%2"
+msgstr "Diferenco %1..%2"
 
 #: lib/diff/diffwidget.cpp:86
 #, kde-format
@@ -947,7 +947,7 @@ msgstr "Agmaniero"
 #: lib/kateconfigdialog.cpp:120
 #, kde-format
 msgid "Behavior Options"
-msgstr "Kondutaj Opcioj"
+msgstr "Kondutaj Elektebloj"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -1035,7 +1035,7 @@ msgid ""
 msgstr ""
 "Kiam ĝi estas ebligita, la sekcia grandeco estos determinita de la pozicio "
 "de la langetoj.\n"
-"Ĉi tiu opcio ne influas la malsupran flankan kolon."
+"Ĉi tiu elekteblo ne influas la malsupran flankan kolon."
 
 #: lib/kateconfigdialog.cpp:191
 #, kde-format
@@ -2288,13 +2288,12 @@ msgstr "Montri la bonvenan paĝon"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Baskuligi Ruluman Sinkronigon"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Ŝaltas la orientiĝon de la nuna dividita vido"
+msgstr "Baskuligi ruluman sinkronigon por la nuna vido"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2348,16 +2347,12 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Malsukcesis aktivigi aldonaĵon <b>%1</b>"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "S&inkronigi Rulumadon"
+msgstr "Sinkronigi Rulumadon"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""

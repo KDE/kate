@@ -30,8 +30,7 @@
 
 #include "qcmakefileapi.h"
 
-#include <cassert>
-
+#include <QAction>
 #include <QApplication>
 #include <QCompleter>
 #include <QDir>
@@ -43,13 +42,12 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QKeyEvent>
+#include <QMessageBox>
 #include <QRegularExpressionMatch>
 #include <QScrollBar>
 #include <QString>
 #include <QThread>
 #include <QTimer>
-
-#include <QAction>
 
 #include <KActionCollection>
 #include <KTextEditor/Application>
@@ -58,7 +56,6 @@
 #include <KAboutData>
 #include <KColorScheme>
 #include <KLocalizedString>
-#include <KMessageBox>
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
@@ -686,17 +683,22 @@ QUrl KateBuildView::docUrl()
     return kv->document()->url();
 }
 
+void KateBuildView::sendError(const QString &msg)
+{
+    Utils::showMessage(msg, QIcon::fromTheme(QStringLiteral("run-build")), i18n("Build"), MessageType::Error, m_win);
+}
+
 /******************************************************************/
 bool KateBuildView::checkLocal(const QUrl &dir)
 {
     if (dir.path().isEmpty()) {
-        KMessageBox::error(nullptr, i18n("There is no file or directory specified for building."));
+        sendError(i18n("There is no file or directory specified for building."));
         return false;
     } else if (!dir.isLocalFile()) {
-        KMessageBox::error(nullptr,
-                           i18n("The file \"%1\" is not a local file. "
-                                "Non-local files cannot be compiled.",
-                                dir.path()));
+        sendError(
+            i18n("The file \"%1\" is not a local file. "
+                 "Non-local files cannot be compiled.",
+                 dir.path()));
         return false;
     }
     return true;
@@ -756,7 +758,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_makeDirStack.push(m_makeDir);
 
     if (!QFile::exists(m_makeDir)) {
-        KMessageBox::error(nullptr, i18n("Cannot run command: %1\nWork path does not exist: %2", command, m_makeDir));
+        sendError(i18n("Cannot run command: %1\nWork path does not exist: %2", command, m_makeDir));
         return false;
     }
 
@@ -770,7 +772,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     startHostProcess(m_proc);
 
     if (!m_proc.waitForStarted(500)) {
-        KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
+        sendError(i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
         return false;
     }
 
@@ -892,7 +894,7 @@ bool KateBuildView::buildCurrentTarget()
     QModelIndex ind = m_targetsUi->targetsView->currentIndex();
     m_previousIndex = ind;
     if (!ind.isValid()) {
-        KMessageBox::error(nullptr, i18n("No target available for building."));
+        sendError(i18n("No target available for building."));
         return false;
     }
 
@@ -906,7 +908,7 @@ bool KateBuildView::buildCurrentTarget()
     if (workDir.isEmpty()) {
         dir = docFInfo.absolutePath();
         if (dir.isEmpty()) {
-            KMessageBox::error(nullptr, i18n("There is no local file or directory specified for building."));
+            sendError(i18n("There is no local file or directory specified for building."));
             return false;
         }
     }
@@ -959,7 +961,7 @@ void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
 {
     QCMakeFileApi cmakeFA(cmakeFile, false);
     if (cmakeFA.getCMakeExecutable().isEmpty()) {
-        KMessageBox::error(nullptr, i18n("Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND entry !", cmakeFile));
+        sendError(i18n("Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND entry !", cmakeFile));
         return;
     }
 
@@ -972,13 +974,13 @@ void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
 
         bool success = cmakeFA.writeQueryFiles();
         if (!success) {
-            KMessageBox::error(nullptr, i18n("Could not write CMake File API query files for build directory %1 !", cmakeFA.getBuildDir()));
+            sendError(i18n("Could not write CMake File API query files for build directory %1 !", cmakeFA.getBuildDir()));
 
             return;
         }
         success = cmakeFA.runCMake();
         if (!success) {
-            KMessageBox::error(nullptr, i18n("Could not run CMake (%2) for build directory %1 !", cmakeFA.getBuildDir(), cmakeFA.getCMakeExecutable()));
+            sendError(i18n("Could not run CMake (%2) for build directory %1 !", cmakeFA.getBuildDir(), cmakeFA.getCMakeExecutable()));
 
             return;
         }
@@ -986,8 +988,7 @@ void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
 
     if (!cmakeFA.haveKateReplyFiles()) {
         qDebug() << "generating reply files failed !";
-        KMessageBox::error(
-            nullptr,
+        sendError(
             i18n("Generating CMake File API reply files for build directory %1 failed (using %2) !", cmakeFA.getBuildDir(), cmakeFA.getCMakeExecutable()));
         return;
     }

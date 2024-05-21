@@ -70,6 +70,8 @@ public:
 
     QUrl docUrl();
 
+    void sendError(const QString &);
+
 public Q_SLOTS:
     void loadCMakeTargets(const QString &cmakeFile);
 

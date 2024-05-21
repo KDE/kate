@@ -22,6 +22,7 @@
 #include <KMessageBox>
 #include <KNetworkMounts>
 #include <KSharedConfig>
+#include <KWindowSystem>
 
 #define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
 #if HAVE_STYLE_MANAGER
@@ -40,7 +41,6 @@
 #if HAVE_X11
 #include <KStartupInfo>
 #include <KWindowInfo>
-#include <KWindowSystem>
 #include <KX11Extras>
 #endif
 

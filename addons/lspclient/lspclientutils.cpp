@@ -43,7 +43,10 @@ void applyEdits(KTextEditor::Document *doc, const LSPClientRevisionSnapshot *sna
     if (!ranges.empty()) {
         KTextEditor::Document::EditingTransaction transaction(doc);
         for (int i = 0; i < ranges.length(); ++i) {
-            doc->replaceText(ranges.at(i)->toRange(), edits.at(i).newText);
+            auto range = ranges.at(i)->toRange();
+            if (range.isValid()) {
+                doc->replaceText(range, edits.at(i).newText);
+            }
         }
     }
 

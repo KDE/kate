@@ -81,7 +81,7 @@ public:
     void saveDocumentList(KConfig *config);
     void restoreDocumentList(KConfig *config);
 
-    inline bool getSaveMetaInfos()
+    inline bool getSaveMetaInfos() const
     {
         return m_saveMetaInfos;
     }
@@ -90,7 +90,7 @@ public:
         m_saveMetaInfos = b;
     }
 
-    inline int getDaysMetaInfos()
+    inline int getDaysMetaInfos() const
     {
         return m_daysMetaInfos;
     }

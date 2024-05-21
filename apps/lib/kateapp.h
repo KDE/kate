@@ -13,7 +13,10 @@
 #include <KUserFeedback/Provider>
 #endif
 
+#ifdef WITH_DBUS
 #include "kateappadaptor.h"
+#endif
+
 #include "katedocmanager.h"
 #include "katepluginmanager.h"
 #include "kateprivate_export.h"
@@ -29,7 +32,6 @@ class KateMainWindow;
 class KatePluginManager;
 class KateDocManager;
 class KateAppCommands;
-class KateAppAdaptor;
 class QCommandLineParser;
 
 /**
@@ -403,6 +405,11 @@ public Q_SLOTS:
      */
     void remoteMessageReceived(quint32 instanceId, QByteArray message);
 
+    /**
+     * activate this kate instance
+     */
+    void activate(const QString &token = QString());
+
 Q_SIGNALS:
     /**
      * Emitted when the configuration got changed via the global config dialog.
@@ -452,11 +459,13 @@ private:
      */
     KTextEditor::Application m_wrapper;
 
+#ifdef WITH_DBUS
     /**
      * dbus interface, must survive longer than m_docManager
      * e.g. the destroyed signal of the document might access this
      */
     KateAppAdaptor m_adaptor;
+#endif
 
     /**
      * document manager

@@ -71,6 +71,11 @@ if (UNIX AND NOT ANDROID AND NOT APPLE)
     find_package(KF6DBusAddons ${KF5_DEP_VERSION} REQUIRED)
     target_compile_definitions(kateprivate PUBLIC -DWITH_DBUS)
     target_link_libraries(kateprivate PUBLIC KF6::DBusAddons)
+    target_sources(
+        kateprivate
+        PRIVATE
+        kateappadaptor.cpp
+    )
 endif()
 
 # optional KUserFeedback integration
@@ -109,7 +114,6 @@ target_sources(
     quickopen/katequickopenlineedit.cpp
 
     kateapp.cpp
-    kateappadaptor.cpp
     kateconfigdialog.cpp
     kateconfigplugindialogpage.cpp
     katedocmanager.cpp

@@ -18,6 +18,7 @@
 #include <QPointer>
 #include <QScrollBar>
 
+#include <span>
 #include <unordered_map>
 
 namespace KTextEditor
@@ -69,7 +70,7 @@ public:
                                    bool ignoreForRecentFiles = false,
                                    const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    KTextEditor::Document *openUrls(const QList<QUrl> &url, const QString &encoding, const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *openUrls(std::span<const QUrl> url, const QString &encoding, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     KTextEditor::View *openUrlWithView(const QUrl &url, const QString &encoding);
 

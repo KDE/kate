@@ -16,6 +16,7 @@
 
 #include <KConfig>
 
+#include <span>
 #include <unordered_map>
 
 class KateMainWindow;
@@ -64,13 +65,13 @@ public:
     KTextEditor::Document *openUrl(const QUrl &, const QString &encoding = QString(), const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     std::vector<KTextEditor::Document *>
-    openUrls(const QList<QUrl> &, const QString &encoding = QString(), const KateDocumentInfo &docInfo = KateDocumentInfo());
+    openUrls(std::span<const QUrl>, const QString &encoding = QString(), const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     QList<QUrl> popRecentlyClosedUrls();
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
-    bool closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl = true);
-    bool closeDocumentList(const QList<KTextEditor::Document *> &documents, KateMainWindow *window);
+    bool closeDocuments(std::span<KTextEditor::Document *const> documents, bool closeUrl = true);
+    bool closeDocumentList(std::span<KTextEditor::Document *const> documents, KateMainWindow *window);
     bool closeAllDocuments(bool closeUrl = true);
     bool closeOtherDocuments(KTextEditor::Document *);
 
@@ -169,7 +170,7 @@ private:
 
 private:
     bool loadMetaInfos(KTextEditor::Document *doc, const QUrl &url);
-    void saveMetaInfos(const QList<KTextEditor::Document *> &docs);
+    void saveMetaInfos(std::span<KTextEditor::Document *const> docs);
 
     QList<KTextEditor::Document *> m_docList;
     std::unordered_map<KTextEditor::Document *, KateDocumentInfo> m_docInfos;

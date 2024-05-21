@@ -110,7 +110,7 @@ KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
     return it == m_docInfos.end() ? nullptr : it->first;
 }
 
-std::vector<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, const KateDocumentInfo &docInfo)
+std::vector<KTextEditor::Document *> KateDocManager::openUrls(std::span<const QUrl> urls, const QString &encoding, const KateDocumentInfo &docInfo)
 {
     std::vector<KTextEditor::Document *> docs;
     docs.reserve(urls.size());
@@ -151,7 +151,7 @@ QList<QUrl> KateDocManager::popRecentlyClosedUrls()
     return recentlyClosedUrls;
 }
 
-bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl)
+bool KateDocManager::closeDocuments(std::span<KTextEditor::Document *const> documents, bool closeUrl)
 {
     if (documents.empty()) {
         return false;
@@ -205,10 +205,10 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
         return false;
     }
 
-    return closeDocuments({doc}, closeUrl);
+    return closeDocuments({&doc, 1}, closeUrl);
 }
 
-bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *> &documents, KateMainWindow *window)
+bool KateDocManager::closeDocumentList(std::span<KTextEditor::Document *const> documents, KateMainWindow *window)
 {
     std::vector<KTextEditor::Document *> modifiedDocuments;
     for (KTextEditor::Document *document : documents) {
@@ -445,7 +445,7 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
  * Save file's meta-information if doc is in 'unmodified' state
  */
 
-void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documents)
+void KateDocManager::saveMetaInfos(std::span<KTextEditor::Document *const> documents)
 {
     /**
      * skip work if no meta infos wanted
@@ -493,7 +493,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
 
 void KateDocManager::slotModChanged(KTextEditor::Document *doc)
 {
-    saveMetaInfos({doc});
+    saveMetaInfos({&doc, 1});
 }
 
 void KateDocManager::slotModChanged1(KTextEditor::Document *doc)

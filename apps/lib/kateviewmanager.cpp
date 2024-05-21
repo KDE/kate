@@ -445,7 +445,7 @@ void KateViewManager::slotRestoreLastClosedDocument()
 KTextEditor::Document *
 KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool ignoreForRecentFiles, const KateDocumentInfo &docInfo)
 {
-    auto doc = openUrls({url}, encoding, docInfo);
+    auto doc = openUrls({&url, 1}, encoding, docInfo);
     if (!doc) {
         return nullptr;
     }
@@ -461,7 +461,7 @@ KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate
     return doc;
 }
 
-KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const QString &encoding, const KateDocumentInfo &docInfo)
+KTextEditor::Document *KateViewManager::openUrls(std::span<const QUrl> urls, const QString &encoding, const KateDocumentInfo &docInfo)
 {
     // remember if we have just one view with an unmodified untitled document, if yes, we close that one
     // same heuristics we had before in the document manager for the single untitled doc, but this works for multiple main windows
@@ -513,7 +513,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const 
 
 KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QString &encoding)
 {
-    KTextEditor::Document *doc = openUrls({url}, encoding);
+    KTextEditor::Document *doc = openUrls({&url, 1}, encoding);
     if (!doc) {
         return nullptr;
     }

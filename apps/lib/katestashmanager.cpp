@@ -30,7 +30,7 @@ void KateStashManager::clearStashForSession(const KateSession::Ptr session)
     }
 }
 
-void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::Document *> &documents) const
+void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Document *const> documents) const
 {
     if (!canStash()) {
         return;

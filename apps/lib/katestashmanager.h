@@ -9,6 +9,8 @@
 #include "katesession.h"
 #include "kconfiggroup.h"
 
+#include <span>
+
 namespace KTextEditor
 {
 class Document;
@@ -43,7 +45,7 @@ public:
 
     bool canStash() const;
 
-    void stashDocuments(KConfig *cfg, const QList<KTextEditor::Document *> &documents) const;
+    void stashDocuments(KConfig *cfg, std::span<KTextEditor::Document *const> documents) const;
 
     bool willStashDoc(KTextEditor::Document *doc) const;
 

@@ -1,7 +1,6 @@
 
 #include "kate_doc_manager_tests.h"
 #include "katedocmanager.h"
-#include "katemainwindow.h"
 
 #include <KLocalizedString>
 
@@ -108,8 +107,9 @@ void KateDocManagerTests::popRecentlyClosedUrlsReturnsUrlIfTabClosedDuringSessio
 {
     auto documentManager = app->documentManager();
     const auto createdDocuments = createTestDocumentsWithUrls(documentManager);
+    std::span<KTextEditor::Document *const> firstDoc{createdDocuments.data(), 1};
 
-    const bool documentClosed = documentManager->closeDocuments({createdDocuments[0]}, false);
+    const bool documentClosed = documentManager->closeDocuments(firstDoc, false);
     Q_ASSERT(documentClosed);
 
     const auto recentlyClosedUrls = documentManager->popRecentlyClosedUrls();

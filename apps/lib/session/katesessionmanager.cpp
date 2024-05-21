@@ -11,7 +11,10 @@
 #include "kateapp.h"
 #include "katemainwindow.h"
 #include "katepluginmanager.h"
+
+#ifdef WITH_DBUS
 #include "katerunninginstanceinfo.h"
+#endif
 
 #include <KConfigGroup>
 #include <KDesktopFile>
@@ -128,6 +131,7 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
     // we want no auto saving during session switches
     AutoSaveBlocker blocker(this);
 
+#ifdef WITH_DBUS
     if (!session->isAnonymous()) {
         // check if the requested session is already open in another instance
         const auto instances = fillinRunningKateAppInstances();
@@ -148,6 +152,8 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
             }
         }
     }
+#endif
+
     // try to close and save last session
     if (closeAndSaveLast) {
         if (KateApp::self()->activeKateMainWindow()) {
@@ -573,12 +579,16 @@ bool KateSessionManager::sessionIsActive(const QString &session)
         return true;
     }
 
+#ifdef WITH_DBUS
     // check if the requested session is open in another instance
     const auto instances = fillinRunningKateAppInstances();
     const auto it = std::find_if(instances.cbegin(), instances.cend(), [&session](const auto &instance) {
         return instance.sessionName == session;
     });
     return it != instances.end();
+#else
+    return false;
+#endif
 }
 
 QString KateSessionManager::anonymousSessionFile() const

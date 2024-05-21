@@ -70,6 +70,7 @@ if (UNIX AND NOT ANDROID AND NOT APPLE)
         kateprivate
         PRIVATE
         kateappadaptor.cpp
+        katerunninginstanceinfo.cpp
     )
 endif()
 
@@ -118,7 +119,6 @@ target_sources(
     katemwmodonhddialog.cpp
     katepluginmanager.cpp
 
-    katerunninginstanceinfo.cpp
     katesavemodifieddialog.cpp
     katetabbar.cpp
     katesplitter.cpp

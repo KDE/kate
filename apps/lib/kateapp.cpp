@@ -203,7 +203,9 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
     : m_args(args)
     , m_mode(mode)
     , m_wrapper(appSelf = this)
+#ifdef WITH_DBUS
     , m_adaptor(this)
+#endif
     , m_docManager(this)
     , m_sessionManager(this, sessionsDir)
     , m_lastActivationChange(QDateTime::currentMSecsSinceEpoch())
@@ -275,6 +277,7 @@ KateApp::~KateApp()
     // we want no auto saving during application closing, we handle that explicitly
     KateSessionManager::AutoSaveBlocker blocker(sessionManager());
 
+#ifdef WITH_DBUS
     /**
      * unregister from dbus before we get unusable...
      */
@@ -282,6 +285,7 @@ KateApp::~KateApp()
         m_adaptor.emitExiting();
         QDBusConnection::sessionBus().unregisterObject(QStringLiteral("/MainApplication"));
     }
+#endif
 
     /**
      * delete all main windows before the document manager & co. die
@@ -597,8 +601,10 @@ void KateApp::openDocUrlDocumentDestroyed(QObject *document)
         m_tempFilesToDelete.erase(tempFilesIt);
     }
 
+#ifdef WITH_DBUS
     // emit token signal to unblock remove blocking instances
     m_adaptor.emitDocumentClosed(QString::number(reinterpret_cast<qptrdiff>(document)));
+#endif
 }
 
 KTextEditor::Cursor KateApp::cursorFromArgs()
@@ -830,7 +836,7 @@ void KateApp::remoteMessageReceived(quint32, QByteArray message)
     }
 
     // try to activate current window
-    m_adaptor.activate();
+    activate();
     if (doc && activeMainWindow()) {
         activeMainWindow()->activateView(doc);
     }
@@ -868,6 +874,30 @@ qint64 KateApp::lastActivationChange() const
 #endif
 
     return m_lastActivationChange;
+}
+
+void KateApp::activate(const QString &token)
+{
+    KateMainWindow *win = activeKateMainWindow();
+    if (!win) {
+        return;
+    }
+
+    // like QtSingleApplication
+    win->setWindowState(win->windowState() & ~Qt::WindowMinimized);
+    win->raise();
+    win->activateWindow();
+
+    // try to raise window, see bug 407288
+    if (KWindowSystem::isPlatformX11()) {
+#if HAVE_X11
+        KStartupInfo::setNewStartupId(win->windowHandle(), token.toUtf8());
+#endif
+    } else if (KWindowSystem::isPlatformWayland()) {
+        KWindowSystem::setCurrentXdgActivationToken(token);
+    }
+
+    KWindowSystem::activateWindow(win->windowHandle());
 }
 
 #include "moc_kateapp.cpp"

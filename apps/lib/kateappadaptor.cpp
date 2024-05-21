@@ -13,14 +13,6 @@
 
 #include "katedebug.h"
 
-// X11 startup handling
-#define HAVE_X11 __has_include(<KStartupInfo>)
-#if HAVE_X11
-#include <KStartupInfo>
-#endif
-
-#include <KWindowSystem>
-
 #include <QApplication>
 
 /**
@@ -35,26 +27,7 @@ KateAppAdaptor::KateAppAdaptor(KateApp *app)
 
 void KateAppAdaptor::activate(const QString &token)
 {
-    KateMainWindow *win = m_app->activeKateMainWindow();
-    if (!win) {
-        return;
-    }
-
-    // like QtSingleApplication
-    win->setWindowState(win->windowState() & ~Qt::WindowMinimized);
-    win->raise();
-    win->activateWindow();
-
-    // try to raise window, see bug 407288
-    if (KWindowSystem::isPlatformX11()) {
-#if HAVE_X11
-        KStartupInfo::setNewStartupId(win->windowHandle(), token.toUtf8());
-#endif
-    } else if (KWindowSystem::isPlatformWayland()) {
-        KWindowSystem::setCurrentXdgActivationToken(token);
-    }
-
-    KWindowSystem::activateWindow(win->windowHandle());
+    m_app->activate(token);
 }
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)

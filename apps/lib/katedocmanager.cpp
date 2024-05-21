@@ -313,15 +313,6 @@ void KateDocManager::saveAll()
     }
 }
 
-void KateDocManager::saveSelected(const QList<KTextEditor::Document *> &docList)
-{
-    for (KTextEditor::Document *doc : docList) {
-        if (doc->isModified()) {
-            doc->documentSave();
-        }
-    }
-}
-
 void KateDocManager::reloadAll()
 {
     // reload all docs that are NOT modified on disk

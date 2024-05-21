@@ -117,11 +117,6 @@ public:
      */
     void closeOrphaned();
 
-    /**
-     * save selected documents from the File List
-     */
-    static void saveSelected(const QList<KTextEditor::Document *> &);
-
 Q_SIGNALS:
     /**
      * This signal is emitted when the \p document was created.

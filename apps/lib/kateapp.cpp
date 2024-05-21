@@ -52,7 +52,6 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
-#include <QDBusConnection>
 #include <QFileInfo>
 #include <QFileOpenEvent>
 #include <QJsonArray>
@@ -62,6 +61,10 @@
 #include <QStringDecoder>
 #include <QTimer>
 #include <QUrlQuery>
+
+#ifdef WITH_DBUS
+#include <QDBusConnection>
+#endif
 
 #include <urlinfo.h>
 

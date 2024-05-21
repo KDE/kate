@@ -46,8 +46,7 @@ static QDebug operator<<(QDebug debug, const NodeInfo &node)
     return debug;
 }
 
-TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir,
-                                  bool _loadedViaCMake, QString _cmakeConfigName)
+TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir, bool _loadedViaCMake, QString _cmakeConfigName)
     : name(_name)
     , workDir(_dir)
     , loadedViaCMake(_loadedViaCMake)
@@ -234,8 +233,11 @@ QModelIndex TargetModel::projectRootIndex() const
     return QModelIndex();
 }
 
-QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex, const QString &setName, const QString &workDir,
-                                              bool loadedViaCMake, const QString& cmakeConfig)
+QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex,
+                                              const QString &setName,
+                                              const QString &workDir,
+                                              bool loadedViaCMake,
+                                              const QString &cmakeConfig)
 {
     // qDebug() << "Inserting TargetSet after:" << beforeIndex << setName <<workDir;
     NodeInfo bNode = modelToNodeInfo(beforeIndex);

@@ -44,9 +44,7 @@
 #include "targets.h"
 #include "ui_build.h"
 
-
 class QCMakeFileApi;
-
 
 /******************************************************************/
 class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
@@ -73,7 +71,7 @@ public:
     QUrl docUrl();
 
 public Q_SLOTS:
-    void loadCMakeTargets(const QString& cmakeFile);
+    void loadCMakeTargets(const QString &cmakeFile);
 
 private Q_SLOTS:
 
@@ -148,14 +146,13 @@ private:
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
 
     void addProjectTarget();
-    QModelIndex createCMakeTargetSet(QModelIndex setIndex, const QString& name,
-                                     const QCMakeFileApi& cmakeFA, const QString& cmakeConfig);
+    QModelIndex createCMakeTargetSet(QModelIndex setIndex, const QString &name, const QCMakeFileApi &cmakeFA, const QString &cmakeConfig);
 
     /** Check if given command line is allowed to be executed.
-      * Might ask the user for permission.
-      * @param cmdline full command line including program to check
-      * @return execution allowed?
-      */
+     * Might ask the user for permission.
+     * @param cmdline full command line including program to check
+     * @return execution allowed?
+     */
     bool isCommandLineAllowed(const QStringList &cmdline);
 
     KTextEditor::MainWindow *m_win;

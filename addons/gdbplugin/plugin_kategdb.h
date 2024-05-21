@@ -140,7 +140,7 @@ private:
     bool m_focusOnInput;
     QPointer<KTextEditor::Message> m_infoMessage;
 
-    //Debug buttons
+    // Debug buttons
     QWidget *m_buttonWidget;
     QToolButton *m_continueButton;
 };

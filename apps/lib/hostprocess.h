@@ -11,4 +11,5 @@
 KATE_PRIVATE_EXPORT QString safeExecutableName(const QString &executableName, const QStringList &paths = {});
 /// convenience wrapper to start a process on the host (as opposed to potentially inside a sandbox - e.g. flatpak)
 KATE_PRIVATE_EXPORT void startHostProcess(QProcess &proc, QProcess::OpenMode mode = QProcess::ReadWrite);
-KATE_PRIVATE_EXPORT void startHostProcess(QProcess &proc, const QString &program, const QStringList &arguments = {}, QProcess::OpenMode mode = QProcess::ReadWrite);
+KATE_PRIVATE_EXPORT void
+startHostProcess(QProcess &proc, const QString &program, const QStringList &arguments = {}, QProcess::OpenMode mode = QProcess::ReadWrite);

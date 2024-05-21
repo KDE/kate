@@ -22,8 +22,7 @@ public:
     };
 
     struct TargetSet {
-        TargetSet(const QString &_name, const QString &_workDir,
-                  bool _loadedViaCMake, QString _cmakeConfigName = QString());
+        TargetSet(const QString &_name, const QString &_workDir, bool _loadedViaCMake, QString _cmakeConfigName = QString());
         QString name;
         QString workDir;
         QList<Command> commands;
@@ -65,8 +64,11 @@ public Q_SLOTS:
 
     /** This function insert a target set and returns the model-index of the newly
      * inserted target-set */
-    QModelIndex insertTargetSetAfter(const QModelIndex &beforeIndex, const QString &setName, const QString &workDir,
-                                     bool loadedViaCMake, const QString& cmakeConfig = QString());
+    QModelIndex insertTargetSetAfter(const QModelIndex &beforeIndex,
+                                     const QString &setName,
+                                     const QString &workDir,
+                                     bool loadedViaCMake,
+                                     const QString &cmakeConfig = QString());
 
     /** This function adds a new command to a target-set and returns the model index */
     QModelIndex addCommandAfter(const QModelIndex &beforeIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd);

@@ -179,7 +179,6 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
         // if the user selected a cmake build directory, ask the build plugin to load the
         // build targets, which will in turn open the accompanying source dir as project
         if (QFile::exists(originalDir.absolutePath() + QStringLiteral("/CMakeCache.txt"))) {
-
             QTimer::singleShot(0, this, [originalDir]() {
                 if (auto buildPluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("katebuildplugin"))) {
                     QMetaObject::invokeMethod(buildPluginView, "loadCMakeTargets", Q_ARG(QString, originalDir.absolutePath()));
@@ -187,7 +186,6 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
             });
 
             return nullptr;
-
         }
     }
 
@@ -656,8 +654,7 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
         if (info.isDir()) {
             if (QFile::exists(info.absoluteFilePath() + QStringLiteral("/CMakeCache.txt"))) {
                 cmakeBuildDir = info.absoluteFilePath();
-            }
-            else {
+            } else {
                 projectToActivate = projectForDir(info.absoluteFilePath(), true);
             }
         }
@@ -678,8 +675,7 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
                 static_cast<KateProjectPluginView *>(pluginView)->openProject(projectToActivate);
             }
         });
-    }
-    else if (!cmakeBuildDir.isEmpty()) {
+    } else if (!cmakeBuildDir.isEmpty()) {
         QTimer::singleShot(0, this, [cmakeBuildDir]() {
             if (auto buildPluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("katebuildplugin"))) {
                 QMetaObject::invokeMethod(buildPluginView, "loadCMakeTargets", Q_ARG(QString, cmakeBuildDir));

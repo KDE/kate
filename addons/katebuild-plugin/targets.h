@@ -54,6 +54,5 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
-
     TargetHtmlDelegate *m_delegate = nullptr;
 };

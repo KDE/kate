@@ -46,8 +46,8 @@
 #include <QRegularExpressionMatch>
 #include <QScrollBar>
 #include <QString>
-#include <QTimer>
 #include <QThread>
+#include <QTimer>
 
 #include <QAction>
 
@@ -79,7 +79,6 @@ static const QString DefCleanCmd = QStringLiteral("make clean");
 static const QString DiagnosticsPrefix = QStringLiteral("katebuild");
 static const QString ConfigAllowedCommands = QStringLiteral("AllowedCommandLines");
 static const QString ConfigBlockedCommands = QStringLiteral("BlockedCommandLines");
-
 
 #ifdef Q_OS_WIN
 /******************************************************************/
@@ -592,7 +591,6 @@ void KateBuildView::readConfig()
     for (const auto &cmd : blocked) {
         m_commandLineToAllowedState[cmd] = false;
     }
-
 }
 
 /******************************************************************/
@@ -944,7 +942,9 @@ bool KateBuildView::buildCurrentTarget()
 /******************************************************************/
 void KateBuildView::slotLoadCMakeTargets()
 {
-    const QString cmakeFile = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Select CMake Build Dir by Selecting the CMakeCache.txt"), QDir::currentPath(),
+    const QString cmakeFile = QFileDialog::getOpenFileName(nullptr,
+                                                           QStringLiteral("Select CMake Build Dir by Selecting the CMakeCache.txt"),
+                                                           QDir::currentPath(),
                                                            QStringLiteral("CMake Cache file (CMakeCache.txt)"));
     qDebug() << "cmake: " << cmakeFile;
     if (cmakeFile.isEmpty()) {
@@ -954,9 +954,8 @@ void KateBuildView::slotLoadCMakeTargets()
     loadCMakeTargets(cmakeFile);
 }
 
-
 /******************************************************************/
-void KateBuildView::loadCMakeTargets(const QString& cmakeFile)
+void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
 {
     QCMakeFileApi cmakeFA(cmakeFile, false);
     if (cmakeFA.getCMakeExecutable().isEmpty()) {
@@ -966,7 +965,6 @@ void KateBuildView::loadCMakeTargets(const QString& cmakeFile)
 
     const QString compileCommandsFile = cmakeFA.getBuildDir() + QStringLiteral("/compile_commands.json");
     if (!cmakeFA.haveKateReplyFiles() || !QFile::exists(compileCommandsFile)) {
-
         QStringList commandLine = cmakeFA.getCMakeRequestCommandLine();
         if (!isCommandLineAllowed(commandLine)) {
             return;
@@ -974,16 +972,13 @@ void KateBuildView::loadCMakeTargets(const QString& cmakeFile)
 
         bool success = cmakeFA.writeQueryFiles();
         if (!success) {
-            KMessageBox::error(nullptr, i18n("Could not write CMake File API query files for build directory %1 !",
-                                         cmakeFA.getBuildDir()));
+            KMessageBox::error(nullptr, i18n("Could not write CMake File API query files for build directory %1 !", cmakeFA.getBuildDir()));
 
             return;
         }
         success = cmakeFA.runCMake();
         if (!success) {
-            KMessageBox::error(nullptr, i18n("Could not run CMake (%2) for build directory %1 !",
-                                         cmakeFA.getBuildDir(),
-                                         cmakeFA.getCMakeExecutable()));
+            KMessageBox::error(nullptr, i18n("Could not run CMake (%2) for build directory %1 !", cmakeFA.getBuildDir(), cmakeFA.getCMakeExecutable()));
 
             return;
         }
@@ -991,16 +986,16 @@ void KateBuildView::loadCMakeTargets(const QString& cmakeFile)
 
     if (!cmakeFA.haveKateReplyFiles()) {
         qDebug() << "generating reply files failed !";
-        KMessageBox::error(nullptr, i18n("Generating CMake File API reply files for build directory %1 failed (using %2) !",
-                                         cmakeFA.getBuildDir(), cmakeFA.getCMakeExecutable()));
+        KMessageBox::error(
+            nullptr,
+            i18n("Generating CMake File API reply files for build directory %1 failed (using %2) !", cmakeFA.getBuildDir(), cmakeFA.getCMakeExecutable()));
         return;
     }
 
     bool success = cmakeFA.readReplyFiles();
     qDebug() << "reply success: " << success;
 
-    for(const QString& config : cmakeFA.getConfigurations()) {
-
+    for (const QString &config : cmakeFA.getConfigurations()) {
         QString projectName = QStringLiteral("%1@%2 - [%3]").arg(cmakeFA.getProjectName()).arg(cmakeFA.getBuildDir()).arg(config);
 
         QModelIndex setIndex = m_targetsUi->targetsModel.sessionRootIndex();
@@ -1022,20 +1017,17 @@ void KateBuildView::loadCMakeTargets(const QString& cmakeFile)
     if (QObject *plugin = KTextEditor::Editor::instance()->application()->plugin(QStringLiteral("kateprojectplugin"))) {
         QMetaObject::invokeMethod(plugin, "projectForDir", Q_ARG(QDir, cmakeFA.getSourceDir()), Q_ARG(bool, true));
     }
-
 }
 
-
 /******************************************************************/
-QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QString& name,
-                                                const QCMakeFileApi& cmakeFA, const QString& cmakeConfig)
+QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QString &name, const QCMakeFileApi &cmakeFA, const QString &cmakeConfig)
 {
     const int numCores = QThread::idealThreadCount();
 
     const QList<TargetModel::TargetSet> existingTargetSets = m_targetsUi->targetsModel.sessionTargetSets();
     for (int i = 0; i < existingTargetSets.size(); i++) {
         if (existingTargetSets[i].loadedViaCMake && (existingTargetSets[i].cmakeConfigName == cmakeConfig)
-                                                 && (existingTargetSets[i].workDir == cmakeFA.getBuildDir())) {
+            && (existingTargetSets[i].workDir == cmakeFA.getBuildDir())) {
             // this target set has already been loaded, don't add it once more
             return setIndex;
         }
@@ -1044,55 +1036,59 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
     setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, name, cmakeFA.getBuildDir(), true, cmakeConfig);
     const QModelIndex targetSetIndex = setIndex;
 
-    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("All"),
-                                                                   QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4")
-                                                                     .arg(cmakeFA.getCMakeExecutable())
-                                                                     .arg(cmakeFA.getBuildDir())
-                                                                     .arg(cmakeConfig)
-                                                                     .arg(numCores),
+    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
+                                                         QStringLiteral("All"),
+                                                         QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4")
+                                                             .arg(cmakeFA.getCMakeExecutable())
+                                                             .arg(cmakeFA.getBuildDir())
+                                                             .arg(cmakeConfig)
+                                                             .arg(numCores),
                                                          QString());
     const QModelIndex allIndex = setIndex;
 
-    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Clean"),
-                                                                   QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target clean")
-                                                                     .arg(cmakeFA.getCMakeExecutable())
-                                                                     .arg(cmakeFA.getBuildDir())
-                                                                     .arg(cmakeConfig)
-                                                                     .arg(numCores),
+    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
+                                                         QStringLiteral("Clean"),
+                                                         QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target clean")
+                                                             .arg(cmakeFA.getCMakeExecutable())
+                                                             .arg(cmakeFA.getBuildDir())
+                                                             .arg(cmakeConfig)
+                                                             .arg(numCores),
                                                          QString());
 
-    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Rerun CMake"),
-                                                                   QStringLiteral("%1 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B \"%2\" -S \"%3\"")
-                                                                     .arg(cmakeFA.getCMakeExecutable())
-                                                                     .arg(cmakeFA.getBuildDir())
-                                                                     .arg(cmakeFA.getSourceDir()),
+    setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
+                                                         QStringLiteral("Rerun CMake"),
+                                                         QStringLiteral("%1 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B \"%2\" -S \"%3\"")
+                                                             .arg(cmakeFA.getCMakeExecutable())
+                                                             .arg(cmakeFA.getBuildDir())
+                                                             .arg(cmakeFA.getSourceDir()),
                                                          QString());
 
     QString cmakeGui = cmakeFA.getCMakeGuiExecutable();
     qDebug() << "cmakeGui: " << cmakeGui;
     if (!cmakeGui.isEmpty()) {
-      setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, QStringLiteral("Run CMake-Gui"),
-                                                                     QStringLiteral("%1 -B \"%2\" -S \"%3\"").arg(cmakeGui)
-                                                                      .arg(cmakeFA.getBuildDir())
-                                                                      .arg(cmakeFA.getSourceDir()),
-                                                           QString());
+        setIndex = m_targetsUi->targetsModel.addCommandAfter(
+            setIndex,
+            QStringLiteral("Run CMake-Gui"),
+            QStringLiteral("%1 -B \"%2\" -S \"%3\"").arg(cmakeGui).arg(cmakeFA.getBuildDir()).arg(cmakeFA.getSourceDir()),
+            QString());
     }
 
     std::vector<QCMakeFileApi::Target> targets = cmakeFA.getTargets(cmakeConfig);
-    std::sort(targets.begin(), targets.end(), [](const QCMakeFileApi::Target& a, const QCMakeFileApi::Target& b) {
+    std::sort(targets.begin(), targets.end(), [](const QCMakeFileApi::Target &a, const QCMakeFileApi::Target &b) {
         if (a.type == b.type) {
             return (a.name < b.name);
         }
         return (int(a.type) < int(b.type));
     });
-    for(const QCMakeFileApi::Target& tgt : targets) {
-        setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex, tgt.name,
-                                                                       QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target %5")
-                                                                          .arg(cmakeFA.getCMakeExecutable())
-                                                                          .arg(cmakeFA.getBuildDir())
-                                                                          .arg(cmakeConfig)
-                                                                          .arg(numCores)
-                                                                          .arg(tgt.name),
+    for (const QCMakeFileApi::Target &tgt : targets) {
+        setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
+                                                             tgt.name,
+                                                             QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target %5")
+                                                                 .arg(cmakeFA.getCMakeExecutable())
+                                                                 .arg(cmakeFA.getBuildDir())
+                                                                 .arg(cmakeConfig)
+                                                                 .arg(numCores)
+                                                                 .arg(tgt.name),
                                                              QString());
     }
 
@@ -1102,7 +1098,6 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
 
     return setIndex;
 }
-
 
 bool KateBuildView::isCommandLineAllowed(const QStringList &cmdline)
 {
@@ -1132,15 +1127,14 @@ bool KateBuildView::isCommandLineAllowed(const QStringList &cmdline)
 
     // inform the user if it was forbidden! do this here to just emit this once
     // if (!allowed) {
-        // Q_EMIT showMessage(KTextEditor::Message::Information,
-                           // i18n("User permanently blocked start of: '%1'.\nUse the config page of the plugin to undo this block.", fullCommandLineString));
+    // Q_EMIT showMessage(KTextEditor::Message::Information,
+    // i18n("User permanently blocked start of: '%1'.\nUse the config page of the plugin to undo this block.", fullCommandLineString));
     // }
 
     // flush config to not loose that setting
     // writeConfig();
     return allowed;
 }
-
 
 /******************************************************************/
 void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message::MessageType level)
@@ -1613,8 +1607,7 @@ void KateBuildView::addProjectTarget()
                 const auto obj = setVal.toObject();
                 const QString setName = obj[QStringLiteral("name")].toString();
                 const QString workDir = obj[QStringLiteral("directory")].toString();
-                const QModelIndex setIdx = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, setName,
-                                                                                          workDir, false);
+                const QModelIndex setIdx = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, setName, workDir, false);
                 for (const auto &targetVals : obj[QStringLiteral("targets")].toArray()) {
                     const auto tgtObj = targetVals.toObject();
                     const QString name = tgtObj[QStringLiteral("name")].toString();
@@ -1657,8 +1650,7 @@ void KateBuildView::addProjectTarget()
         projectsBuildDir = QDir(projectsBaseDir).absoluteFilePath(projectsBuildDir);
     }
 
-    const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, projectName,
-                                                                           projectsBuildDir, false);
+    const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, projectName, projectsBuildDir, false);
     const QString defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
 
     const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();

@@ -167,12 +167,7 @@ void AbstractFormatter::onResultReady(const RunOutput &o)
 QStringList ClangFormat::args(KTextEditor::Document *doc) const
 {
     QString file = doc->url().toLocalFile();
-    int off = m_doc->cursorToOffset(m_pos);
     QStringList args;
-    if (off != -1) {
-        const_cast<ClangFormat *>(this)->m_withCursor = true;
-        args << QStringLiteral("--cursor=%1").arg(off);
-    }
 
     args << QStringLiteral("--assume-filename=%1").arg(filenameFromMode(doc));
 
@@ -191,29 +186,6 @@ QStringList ClangFormat::args(KTextEditor::Document *doc) const
         }
     }
     return args;
-}
-
-void ClangFormat::onResultReady(const RunOutput &o)
-{
-    if (!o.err.isEmpty()) {
-        Q_EMIT error(QString::fromUtf8(o.err));
-        return;
-    }
-    if (!o.out.isEmpty()) {
-        if (m_withCursor) {
-            int p = o.out.indexOf('\n');
-            if (p >= 0) {
-                QJsonParseError e;
-                auto jd = QJsonDocument::fromJson(o.out.mid(0, p), &e);
-                if (e.error == QJsonParseError::NoError && jd.isObject()) {
-                    auto v = jd.object()[QLatin1String("Cursor")].toInt(-1);
-                    Q_EMIT textFormatted(this, m_doc, o.out.mid(p + 1), v);
-                }
-            }
-        } else {
-            Q_EMIT textFormatted(this, m_doc, o.out);
-        }
-    }
 }
 
 void DartFormat::onResultReady(const RunOutput &out)

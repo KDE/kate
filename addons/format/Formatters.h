@@ -114,15 +114,11 @@ public:
     }
 
     QStringList args(KTextEditor::Document *doc) const override;
-    void onResultReady(const RunOutput &o) override;
 
     bool supportsStdin() const override
     {
         return true;
     }
-
-private:
-    bool m_withCursor = false;
 };
 
 class DartFormat : public AbstractFormatter

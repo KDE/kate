@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-17 00:41+0000\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
 "PO-Revision-Date: 2024-04-18 22:24+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
@@ -18,8 +18,9 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 23.04.3\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:242
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:81
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
+#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Format"
 msgstr "Формат"
@@ -74,27 +75,32 @@ msgstr "Форматувати при збереженні"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Вимкнути форматування при збереженні без збереження його у параметрах"
 
-#: FormatterFactory.h:44
+#: FormatterFactory.h:45
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Невідомий formatterForJson: %1"
 
-#: FormatterFactory.h:64
+#: FormatterFactory.h:65
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Невідомий formatterForPython: %1"
 
-#: FormatterFactory.h:81
+#: FormatterFactory.h:85
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr ""
+
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Не вдалося запустити засіб форматування. Непідтримувана мова %1"
 
-#: Formatters.cpp:113
+#: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: неочікувана порожня команда!"
 
-#: Formatters.cpp:120
+#: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -102,12 +108,12 @@ msgstr ""
 "%1 не встановлено. Будь ласка, встановіть його, щоб мати змогу форматувати "
 "цей документ!"
 
-#: Formatters.cpp:243
+#: Formatters.cpp:214
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Будь ласка, встановіть node і prettier"
 
-#: Formatters.cpp:250
+#: Formatters.cpp:221
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: не вдалося створити тимчасовий файл"

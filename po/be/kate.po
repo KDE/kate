@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-18 00:41+0000\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
 "PO-Revision-Date: 2024-02-26 19:21\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -585,342 +585,342 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr ""
 
-#: lib/kateapp.cpp:112
+#: lib/kateapp.cpp:115
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:119
+#: lib/kateapp.cpp:122
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:280
+#: lib/kateapp.cpp:287
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr ""
 
-#: lib/kateapp.cpp:280
+#: lib/kateapp.cpp:287
 #, kde-format
 msgid "Maintainer"
 msgstr "Суправаджальнік"
 
-#: lib/kateapp.cpp:281
+#: lib/kateapp.cpp:288
 #, kde-format
 msgid "Dominik Haumann"
 msgstr ""
 
-#: lib/kateapp.cpp:281 lib/kateapp.cpp:284 lib/kateapp.cpp:285
-#: lib/kateapp.cpp:287 lib/kateapp.cpp:290 lib/kateapp.cpp:296
+#: lib/kateapp.cpp:288 lib/kateapp.cpp:291 lib/kateapp.cpp:292
+#: lib/kateapp.cpp:294 lib/kateapp.cpp:297 lib/kateapp.cpp:303
 #, kde-format
 msgid "Core Developer"
 msgstr "Асноўны распрацоўнік"
 
-#: lib/kateapp.cpp:282
+#: lib/kateapp.cpp:289
 #, kde-format
 msgid "Sven Brauch"
 msgstr ""
 
-#: lib/kateapp.cpp:282 lib/kateapp.cpp:283 lib/kateapp.cpp:291
+#: lib/kateapp.cpp:289 lib/kateapp.cpp:290 lib/kateapp.cpp:298
 #, kde-format
 msgid "Developer"
 msgstr "Распрацоўнік"
 
-#: lib/kateapp.cpp:283
+#: lib/kateapp.cpp:290
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kåre Särs"
 
-#: lib/kateapp.cpp:284
+#: lib/kateapp.cpp:291
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr ""
 
-#: lib/kateapp.cpp:285
+#: lib/kateapp.cpp:292
 #, kde-format
 msgid "Anders Lund"
 msgstr ""
 
-#: lib/kateapp.cpp:286
+#: lib/kateapp.cpp:293
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Joseph Wenninger"
 
-#: lib/kateapp.cpp:290
+#: lib/kateapp.cpp:297
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "Hamish Rodda"
 
-#: lib/kateapp.cpp:291
+#: lib/kateapp.cpp:298
 #, kde-format
 msgid "Alexander Neundorf"
 msgstr "Alexander Neundorf"
 
-#: lib/kateapp.cpp:292
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "Waldo Bastian"
 
-#: lib/kateapp.cpp:292
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "Цудоўная сістэма буфераў"
 
-#: lib/kateapp.cpp:293
+#: lib/kateapp.cpp:300
 #, kde-format
 msgid "Charles Samuels"
 msgstr "Charles Samuels"
 
-#: lib/kateapp.cpp:293
+#: lib/kateapp.cpp:300
 #, kde-format
 msgid "The Editing Commands"
 msgstr "Загады рэдагавання"
 
-#: lib/kateapp.cpp:294
+#: lib/kateapp.cpp:301
 #, kde-format
 msgid "Matt Newell"
 msgstr ""
 
-#: lib/kateapp.cpp:294
+#: lib/kateapp.cpp:301
 #, kde-format
 msgid "Testing, ..."
 msgstr "Тэставанне, ..."
 
-#: lib/kateapp.cpp:295
+#: lib/kateapp.cpp:302
 #, kde-format
 msgid "Michael Bartl"
 msgstr ""
 
-#: lib/kateapp.cpp:295
+#: lib/kateapp.cpp:302
 #, kde-format
 msgid "Former Core Developer"
 msgstr "Былы асноўны распрацоўнік"
 
-#: lib/kateapp.cpp:296
+#: lib/kateapp.cpp:303
 #, kde-format
 msgid "Michael McCallum"
 msgstr ""
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:304
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr ""
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:304
 #, kde-format
 msgid "KWrite Author"
 msgstr "Стваральнік KWrite"
 
-#: lib/kateapp.cpp:298
+#: lib/kateapp.cpp:305
 #, kde-format
 msgid "Michael Koch"
 msgstr ""
 
-#: lib/kateapp.cpp:298
+#: lib/kateapp.cpp:305
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "Перанос KWrite на KParts"
 
-#: lib/kateapp.cpp:299
+#: lib/kateapp.cpp:306
 #, kde-format
 msgid "Christian Gebauer"
 msgstr ""
 
-#: lib/kateapp.cpp:300
+#: lib/kateapp.cpp:307
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "Simon Hausmann"
 
-#: lib/kateapp.cpp:301
+#: lib/kateapp.cpp:308
 #, kde-format
 msgid "Glen Parker"
 msgstr ""
 
-#: lib/kateapp.cpp:301
+#: lib/kateapp.cpp:308
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "Гісторыя адраблення для KWrite, інтэграцыя з KSpell"
 
-#: lib/kateapp.cpp:302
+#: lib/kateapp.cpp:309
 #, kde-format
 msgid "Scott Manson"
 msgstr ""
 
-#: lib/kateapp.cpp:302
+#: lib/kateapp.cpp:309
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "Падтрымка падсвятлення сінтаксісу XML для KWrite"
 
-#: lib/kateapp.cpp:303
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "John Firebaugh"
 msgstr ""
 
-#: lib/kateapp.cpp:303
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "Patches and more"
 msgstr "Патчы і інш."
 
-#: lib/kateapp.cpp:304
+#: lib/kateapp.cpp:311
 #, kde-format
 msgid "Pablo Martín"
 msgstr ""
 
-#: lib/kateapp.cpp:305
+#: lib/kateapp.cpp:312
 #, kde-format
 msgid "Python Plugin Developer"
 msgstr ""
 
-#: lib/kateapp.cpp:308
+#: lib/kateapp.cpp:315
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr ""
 
-#: lib/kateapp.cpp:309
+#: lib/kateapp.cpp:316
 #, kde-format
 msgid "QA and Scripting"
 msgstr ""
 
-#: lib/kateapp.cpp:313
+#: lib/kateapp.cpp:320
 #, kde-format
 msgid "Tyson Tan"
 msgstr ""
 
-#: lib/kateapp.cpp:314
+#: lib/kateapp.cpp:321
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr ""
 
-#: lib/kateapp.cpp:317
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "Matteo Merli"
 msgstr ""
 
-#: lib/kateapp.cpp:317
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "Падсвятленне для файлаў спецыфікацыі RPM, Perl, Diff і інш."
 
-#: lib/kateapp.cpp:318
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr ""
 
-#: lib/kateapp.cpp:318
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "Падсвятленне для VHDL"
 
-#: lib/kateapp.cpp:319
+#: lib/kateapp.cpp:326
 #, kde-format
 msgid "Yury Lebedev"
 msgstr ""
 
-#: lib/kateapp.cpp:319
+#: lib/kateapp.cpp:326
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "Падсвятленне для SQL"
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:327
 #, kde-format
 msgid "Chris Ross"
 msgstr ""
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:327
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "Падсвятленне для Ferite"
 
-#: lib/kateapp.cpp:321
+#: lib/kateapp.cpp:328
 #, kde-format
 msgid "Nick Roux"
 msgstr ""
 
-#: lib/kateapp.cpp:321
+#: lib/kateapp.cpp:328
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "Падсвятленне для ILERPG"
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:329
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr ""
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:329
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "Падсвятленне для LaTeX"
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:330
 #, kde-format
 msgid "Per Wigren"
 msgstr ""
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:330
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "Падсвятленне для Makefiles, Python"
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:331
 #, kde-format
 msgid "Jan Fritz"
 msgstr ""
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:331
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "Падсвятленне для Python"
 
-#: lib/kateapp.cpp:325
+#: lib/kateapp.cpp:332
 #, kde-format
 msgid "Daniel Naber"
 msgstr ""
 
-#: lib/kateapp.cpp:326
+#: lib/kateapp.cpp:333
 #, kde-format
 msgid "Roland Pabel"
 msgstr ""
 
-#: lib/kateapp.cpp:326
+#: lib/kateapp.cpp:333
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "Падсвятленне для Scheme"
 
-#: lib/kateapp.cpp:327
+#: lib/kateapp.cpp:334
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr ""
 
-#: lib/kateapp.cpp:327
+#: lib/kateapp.cpp:334
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "Спіс ключавых слоў/тыпаў даных PHP"
 
-#: lib/kateapp.cpp:328
+#: lib/kateapp.cpp:335
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: lib/kateapp.cpp:328
+#: lib/kateapp.cpp:335
 #, kde-format
 msgid "Very nice help"
 msgstr "Вельмі зручная даведка"
 
-#: lib/kateapp.cpp:329
+#: lib/kateapp.cpp:336
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Усе іншыя людзі, якія дапамагалі, але я забыўся ўзгадаць іх"
 
-#: lib/kateapp.cpp:458
+#: lib/kateapp.cpp:465
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:548
+#: lib/kateapp.cpp:555
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2491,58 +2491,58 @@ msgstr "З&мяніць назву..."
 msgid "Delete"
 msgstr "Выдаліць"
 
-#: lib/session/katesessionmanager.cpp:137
+#: lib/session/katesessionmanager.cpp:141
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:139
+#: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:140
+#: lib/session/katesessionmanager.cpp:144
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Адкрыць нанова"
 
-#: lib/session/katesessionmanager.cpp:341
+#: lib/session/katesessionmanager.cpp:347
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:342
+#: lib/session/katesessionmanager.cpp:348
 #, kde-format
 msgid "Session Renaming"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:494
+#: lib/session/katesessionmanager.cpp:500
 #, kde-format
 msgid "Session name:"
 msgstr "Назва сеанса:"
 
-#: lib/session/katesessionmanager.cpp:496
+#: lib/session/katesessionmanager.cpp:502
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
 "Please choose a different one."
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:498
+#: lib/session/katesessionmanager.cpp:504
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Каб захаваць сеанс, трэба вызначыць яго назву."
 
-#: lib/session/katesessionmanager.cpp:525
+#: lib/session/katesessionmanager.cpp:531
 #, kde-format
 msgid "Specify a name for this session"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:527
+#: lib/session/katesessionmanager.cpp:533
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr ""

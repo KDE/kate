@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-17 00:41+0000\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
 "PO-Revision-Date: 2024-04-30 15:44+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -17,8 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Lokalize 24.02.2\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:242
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:81
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
+#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Format"
 msgstr "Formát"
@@ -73,38 +74,43 @@ msgstr ""
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
 
-#: FormatterFactory.h:44
+#: FormatterFactory.h:45
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Neznámý formatterForJson: %1"
 
-#: FormatterFactory.h:64
+#: FormatterFactory.h:65
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Neznámý formatterForPython: %1"
 
-#: FormatterFactory.h:81
+#: FormatterFactory.h:85
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr ""
+
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""
 
-#: Formatters.cpp:113
+#: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr ""
 
-#: Formatters.cpp:120
+#: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
 
-#: Formatters.cpp:243
+#: Formatters.cpp:214
 #, kde-format
 msgid "Please install node and prettier"
 msgstr ""
 
-#: Formatters.cpp:250
+#: Formatters.cpp:221
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr ""

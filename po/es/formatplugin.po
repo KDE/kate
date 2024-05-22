@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: formatplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-17 00:41+0000\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
 "PO-Revision-Date: 2024-04-18 01:38+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -19,8 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 24.02.1\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:242
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:81
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
+#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Format"
 msgstr "Formatear"
@@ -75,38 +76,43 @@ msgstr "Formatear al guardar"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Desactivar el formateo al guardar sin insistir en las preferencias"
 
-#: FormatterFactory.h:44
+#: FormatterFactory.h:45
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Formateador Json desconocido: %1"
 
-#: FormatterFactory.h:64
+#: FormatterFactory.h:65
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Formateador Python desconocido: %1"
 
-#: FormatterFactory.h:81
+#: FormatterFactory.h:85
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr ""
+
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "La ejecución del formateador ha fallado. Lenguaje %1 no reconocido."
 
-#: Formatters.cpp:113
+#: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Orden vacía no esperada."
 
-#: Formatters.cpp:120
+#: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 no está instalado. Instálelo para poder formatear este documento."
 
-#: Formatters.cpp:243
+#: Formatters.cpp:214
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Instale «node» y «prettier»"
 
-#: Formatters.cpp:250
+#: Formatters.cpp:221
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: No se ha podido crear un archivo temporal"

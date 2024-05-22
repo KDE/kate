@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-17 00:41+0000\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
 "PO-Revision-Date: 2024-04-17 14:33+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -17,8 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 24.04.70\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:242
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:81
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
+#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Format"
 msgstr "Biçimlendir"
@@ -73,38 +74,43 @@ msgstr "Kaydederken Biçimlendir"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Ayarı kalıcı yapmadan kaydederken biçimlendirmeyi devre dışı bırak"
 
-#: FormatterFactory.h:44
+#: FormatterFactory.h:45
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Bilinmeyen JSON biçimlendiricisi: %1"
 
-#: FormatterFactory.h:64
+#: FormatterFactory.h:65
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Bilinmeyen Python biçimlendiricisi: %1"
 
-#: FormatterFactory.h:81
+#: FormatterFactory.h:85
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr ""
+
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Biçimlendirici çalıştırılamadı. Desteklenmeyen dil %1"
 
-#: Formatters.cpp:113
+#: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Beklenmedik boş komut!"
 
-#: Formatters.cpp:120
+#: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 kurulu değil, bu belgeyi biçimlendirebilmek için önce onu kurun!"
 
-#: Formatters.cpp:243
+#: Formatters.cpp:214
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Lütfen node ve prettier kurun"
 
-#: Formatters.cpp:250
+#: Formatters.cpp:221
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: Geçici dosya oluşturulamadı"

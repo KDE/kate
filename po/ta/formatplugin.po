@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-17 00:41+0000\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
 "PO-Revision-Date: 2024-04-21 21:40+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -17,8 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 24.02.2\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:242
-#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:81
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
+#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Format"
 msgstr "வடிவமை"
@@ -73,38 +74,43 @@ msgstr "சேமிக்கும்போது வடிவமை"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "இந்த ஒருமுறை மட்டும் சேமிக்கும்போது வடிவமைக்காதே (இந்த அமைப்பை சேமிக்காமல்)"
 
-#: FormatterFactory.h:44
+#: FormatterFactory.h:45
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "தெரியாத formatterForJson: %1"
 
-#: FormatterFactory.h:64
+#: FormatterFactory.h:65
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "தெரியாத formatterForPython: %1"
 
-#: FormatterFactory.h:81
+#: FormatterFactory.h:85
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr ""
+
+#: FormatterFactory.h:92
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "வடிவமைப்பியை இயக்க முடியவில்லை. ஆதரிக்கப்படாத மொழி: %1"
 
-#: Formatters.cpp:113
+#: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: எதிர்பார்க்கப்படாத காலியான கட்டளை!"
 
-#: Formatters.cpp:120
+#: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 நிறுவப்படவில்லை, இந்த ஆவணத்தை வடிவமைக்க அதை நிறுவ‍வும்!"
 
-#: Formatters.cpp:243
+#: Formatters.cpp:214
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "node-ஐயும் prettier-ஐயும் நிறுவ‍வும்"
 
-#: Formatters.cpp:250
+#: Formatters.cpp:221
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: தற்காலிக‍க் கோப்பை உருவாக்க முடியவில்லை"

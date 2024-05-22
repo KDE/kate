@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-21 00:41+0000\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
 "PO-Revision-Date: 2021-05-15 17:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -806,22 +806,22 @@ msgstr ""
 msgid "File name already exists"
 msgstr ""
 
-#: kateprojectplugin.cpp:233
+#: kateprojectplugin.cpp:231
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr ""
 
-#: kateprojectplugin.cpp:234
+#: kateprojectplugin.cpp:232
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 
-#: kateprojectplugin.cpp:573
+#: kateprojectplugin.cpp:571
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Calea completă spre proiectul actual, excluzând denumirea fișierului."
 
-#: kateprojectplugin.cpp:590
+#: kateprojectplugin.cpp:588
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -830,7 +830,7 @@ msgstr ""
 "Calea completă spre proiectul actual, excluzând denumirea fișierului, cu "
 "separator de cale nativ (bară oblică inversă în Windows)."
 
-#: kateprojectplugin.cpp:720 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:716 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

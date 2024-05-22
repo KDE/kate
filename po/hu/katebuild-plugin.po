@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-21 00:41+0000\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
 "PO-Revision-Date: 2021-12-23 15:42+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -70,57 +70,58 @@ msgstr "Összeállítás újra"
 msgid "Build & Run Settings"
 msgstr "A kijelölt cél összeállítása"
 
-#: plugin_katebuild.cpp:219 plugin_katebuild.cpp:226 plugin_katebuild.cpp:1508
+#: plugin_katebuild.cpp:215 plugin_katebuild.cpp:222 plugin_katebuild.cpp:688
+#: plugin_katebuild.cpp:1503
 #, kde-format
 msgid "Build"
 msgstr "Összeállítás"
 
-#: plugin_katebuild.cpp:229
+#: plugin_katebuild.cpp:225
 #, kde-format
 msgid "Select Target..."
 msgstr "Cél kiválasztása…"
 
-#: plugin_katebuild.cpp:234
+#: plugin_katebuild.cpp:230
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build Selected Target"
 msgstr "A kijelölt cél összeállítása"
 
-#: plugin_katebuild.cpp:239
+#: plugin_katebuild.cpp:235
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and Run Selected Target"
 msgstr "A kijelölt cél összeállítása"
 
-#: plugin_katebuild.cpp:244
+#: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Stop"
 msgstr "Leállítás"
 
-#: plugin_katebuild.cpp:249
+#: plugin_katebuild.cpp:245
 #, kde-format
 msgid "Load targets from CMake Build Dir"
 msgstr ""
 
-#: plugin_katebuild.cpp:253
+#: plugin_katebuild.cpp:249
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
 msgstr ""
 
-#: plugin_katebuild.cpp:273
+#: plugin_katebuild.cpp:269
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
 msgstr ""
 
-#: plugin_katebuild.cpp:295
+#: plugin_katebuild.cpp:291
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Célbeállítások"
 
-#: plugin_katebuild.cpp:334
+#: plugin_katebuild.cpp:330
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid ""
@@ -133,7 +134,7 @@ msgstr ""
 "<title>Nem sikerült megnyitni a fájlt:</title><nl/>%1<br/>Adjon hozzá a "
 "munkakönyvtár keresési útvonalát a Célbeállításokban"
 
-#: plugin_katebuild.cpp:421
+#: plugin_katebuild.cpp:417
 #, fuzzy, kde-format
 #| msgid "Build Command:"
 msgid "Build Information"
@@ -189,7 +190,7 @@ msgstr "Összeállítás folyamatban…"
 msgid "Building target <b>%1</b> ..."
 msgstr "<b>%1</b> cél összeállítása…"
 
-#: plugin_katebuild.cpp:963
+#: plugin_katebuild.cpp:964
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -201,24 +202,24 @@ msgstr ""
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 
-#: plugin_katebuild.cpp:984
+#: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr ""
 
-#: plugin_katebuild.cpp:994
+#: plugin_katebuild.cpp:992
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1118
+#: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr ""
 
-#: plugin_katebuild.cpp:1121
+#: plugin_katebuild.cpp:1117
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -227,32 +228,32 @@ msgid ""
 "altered via the config page of the plugin."
 msgstr ""
 
-#: plugin_katebuild.cpp:1154
+#: plugin_katebuild.cpp:1149
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make eredményei:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1190
+#: plugin_katebuild.cpp:1185
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:1196
+#: plugin_katebuild.cpp:1191
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "1 hiba."
 msgstr[1] "%1 hiba."
 
-#: plugin_katebuild.cpp:1200
+#: plugin_katebuild.cpp:1195
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "1 figyelmeztetés."
 msgstr[1] "%1 figyelmeztetés."
 
-#: plugin_katebuild.cpp:1203
+#: plugin_katebuild.cpp:1198
 #, fuzzy, kde-format
 #| msgid "Found one error."
 #| msgid_plural "Found %1 errors."
@@ -261,27 +262,27 @@ msgid_plural "Found %1 notes."
 msgstr[0] "1 hiba."
 msgstr[1] "%1 hiba."
 
-#: plugin_katebuild.cpp:1208
+#: plugin_katebuild.cpp:1203
 #, kde-format
 msgid "Build failed."
 msgstr "Az összeállítás meghiúsult."
 
-#: plugin_katebuild.cpp:1210
+#: plugin_katebuild.cpp:1205
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Az összeállítás hibátlanul befejeződött."
 
-#: plugin_katebuild.cpp:1215
+#: plugin_katebuild.cpp:1210
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:1239
+#: plugin_katebuild.cpp:1234
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1465
+#: plugin_katebuild.cpp:1460
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -289,7 +290,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "hiba"
 
-#: plugin_katebuild.cpp:1468
+#: plugin_katebuild.cpp:1463
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -297,39 +298,39 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "figyelmeztetés"
 
-#: plugin_katebuild.cpp:1471
+#: plugin_katebuild.cpp:1466
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1474
+#: plugin_katebuild.cpp:1469
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "nem definiált hivatkozás"
 
-#: plugin_katebuild.cpp:1507 TargetModel.cpp:289 TargetModel.cpp:301
+#: plugin_katebuild.cpp:1502 TargetModel.cpp:291 TargetModel.cpp:303
 #, kde-format
 msgid "Target Set"
 msgstr "Célkészlet"
 
-#: plugin_katebuild.cpp:1509
+#: plugin_katebuild.cpp:1504
 #, kde-format
 msgid "Clean"
 msgstr "Tisztítás"
 
-#: plugin_katebuild.cpp:1510
+#: plugin_katebuild.cpp:1505
 #, kde-format
 msgid "Config"
 msgstr "Beállítás"
 
-#: plugin_katebuild.cpp:1511
+#: plugin_katebuild.cpp:1506
 #, kde-format
 msgid "ConfigClean"
 msgstr "Beállítástörlés"
 
-#: plugin_katebuild.cpp:1704
+#: plugin_katebuild.cpp:1697
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""
@@ -377,27 +378,27 @@ msgstr ""
 "„%d” az aktuális fájl mappájához\n"
 "„%n” a jelenlegi fájlnévhez utótag nélkül"
 
-#: TargetModel.cpp:534
+#: TargetModel.cpp:536
 #, kde-format
 msgid "Project"
 msgstr ""
 
-#: TargetModel.cpp:534
+#: TargetModel.cpp:536
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:628
+#: TargetModel.cpp:630
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Parancs/célkészlet neve"
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:633
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Munkakönyvtár / Parancs"
 
-#: TargetModel.cpp:634
+#: TargetModel.cpp:636
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"

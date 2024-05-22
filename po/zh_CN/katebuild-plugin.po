@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-21 00:41+0000\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -65,55 +65,56 @@ msgstr "构建并运行"
 msgid "Build & Run Settings"
 msgstr "构建并运行设置"
 
-#: plugin_katebuild.cpp:219 plugin_katebuild.cpp:226 plugin_katebuild.cpp:1508
+#: plugin_katebuild.cpp:215 plugin_katebuild.cpp:222 plugin_katebuild.cpp:688
+#: plugin_katebuild.cpp:1503
 #, kde-format
 msgid "Build"
 msgstr "构建"
 
-#: plugin_katebuild.cpp:229
+#: plugin_katebuild.cpp:225
 #, kde-format
 msgid "Select Target..."
 msgstr "选择目标..."
 
-#: plugin_katebuild.cpp:234
+#: plugin_katebuild.cpp:230
 #, kde-format
 msgid "Build Selected Target"
 msgstr "构建选中的目标"
 
-#: plugin_katebuild.cpp:239
+#: plugin_katebuild.cpp:235
 #, kde-format
 msgid "Build and Run Selected Target"
 msgstr "构建并运行选中的目标"
 
-#: plugin_katebuild.cpp:244
+#: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Stop"
 msgstr "停止"
 
-#: plugin_katebuild.cpp:249
+#: plugin_katebuild.cpp:245
 #, kde-format
 msgid "Load targets from CMake Build Dir"
 msgstr ""
 
-#: plugin_katebuild.cpp:253
+#: plugin_katebuild.cpp:249
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
 msgstr "焦点移动到左侧的下一个标签页"
 
-#: plugin_katebuild.cpp:273
+#: plugin_katebuild.cpp:269
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
 msgstr "焦点移动到右侧的下一个标签页"
 
-#: plugin_katebuild.cpp:295
+#: plugin_katebuild.cpp:291
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "目标设置"
 
-#: plugin_katebuild.cpp:334
+#: plugin_katebuild.cpp:330
 #, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
@@ -122,7 +123,7 @@ msgstr ""
 "<b>没有找到文件：</b> %1<br><b>搜索路径：</b><br>%2<br>请尝试添加一个搜索路径"
 "到“工作目录”"
 
-#: plugin_katebuild.cpp:421
+#: plugin_katebuild.cpp:417
 #, kde-format
 msgid "Build Information"
 msgstr "构建信息"
@@ -177,7 +178,7 @@ msgstr "已经在构建..."
 msgid "Building target <b>%1</b> ..."
 msgstr "构建目标 <b>%1</b>..."
 
-#: plugin_katebuild.cpp:963
+#: plugin_katebuild.cpp:964
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -189,24 +190,24 @@ msgstr ""
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 
-#: plugin_katebuild.cpp:984
+#: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr ""
 
-#: plugin_katebuild.cpp:994
+#: plugin_katebuild.cpp:992
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1118
+#: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr ""
 
-#: plugin_katebuild.cpp:1121
+#: plugin_katebuild.cpp:1117
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -215,100 +216,100 @@ msgid ""
 "altered via the config page of the plugin."
 msgstr ""
 
-#: plugin_katebuild.cpp:1154
+#: plugin_katebuild.cpp:1149
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make 的结果：</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1190
+#: plugin_katebuild.cpp:1185
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1</b> 的构建已完成。返回 %2 条错误，%3 条警告，%4 条提醒"
 
-#: plugin_katebuild.cpp:1196
+#: plugin_katebuild.cpp:1191
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "发现 %1 个错误。"
 
-#: plugin_katebuild.cpp:1200
+#: plugin_katebuild.cpp:1195
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "发现 %1 个警告。"
 
-#: plugin_katebuild.cpp:1203
+#: plugin_katebuild.cpp:1198
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "发现 %1 条提醒。"
 
-#: plugin_katebuild.cpp:1208
+#: plugin_katebuild.cpp:1203
 #, kde-format
 msgid "Build failed."
 msgstr "构建失败。"
 
-#: plugin_katebuild.cpp:1210
+#: plugin_katebuild.cpp:1205
 #, kde-format
 msgid "Build completed without problems."
 msgstr "构建完成，没有出现问题。"
 
-#: plugin_katebuild.cpp:1215
+#: plugin_katebuild.cpp:1210
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1</b> 的构建已取消。返回 %2 条错误，%3 条警告，%4 条提醒"
 
-#: plugin_katebuild.cpp:1239
+#: plugin_katebuild.cpp:1234
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "无法执行：%1 未设置工作目录。"
 
-#: plugin_katebuild.cpp:1465
+#: plugin_katebuild.cpp:1460
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "错误"
 
-#: plugin_katebuild.cpp:1468
+#: plugin_katebuild.cpp:1463
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "警告"
 
-#: plugin_katebuild.cpp:1471
+#: plugin_katebuild.cpp:1466
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "提醒|信息"
 
-#: plugin_katebuild.cpp:1474
+#: plugin_katebuild.cpp:1469
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "未定义的引用"
 
-#: plugin_katebuild.cpp:1507 TargetModel.cpp:289 TargetModel.cpp:301
+#: plugin_katebuild.cpp:1502 TargetModel.cpp:291 TargetModel.cpp:303
 #, kde-format
 msgid "Target Set"
 msgstr "目标集"
 
-#: plugin_katebuild.cpp:1509
+#: plugin_katebuild.cpp:1504
 #, kde-format
 msgid "Clean"
 msgstr "清理"
 
-#: plugin_katebuild.cpp:1510
+#: plugin_katebuild.cpp:1505
 #, kde-format
 msgid "Config"
 msgstr "配置"
 
-#: plugin_katebuild.cpp:1511
+#: plugin_katebuild.cpp:1506
 #, kde-format
 msgid "ConfigClean"
 msgstr "清理配置"
 
-#: plugin_katebuild.cpp:1704
+#: plugin_katebuild.cpp:1697
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "无法保存构建目标：%1"
@@ -358,27 +359,27 @@ msgstr ""
 "\"%d\" 为当前文件的目录\n"
 "\"%n\" 为不包括后缀的当前文件名"
 
-#: TargetModel.cpp:534
+#: TargetModel.cpp:536
 #, kde-format
 msgid "Project"
 msgstr "项目"
 
-#: TargetModel.cpp:534
+#: TargetModel.cpp:536
 #, kde-format
 msgid "Session"
 msgstr "会话"
 
-#: TargetModel.cpp:628
+#: TargetModel.cpp:630
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "命令/目标集名称"
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:633
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "工作目录 / 命令"
 
-#: TargetModel.cpp:634
+#: TargetModel.cpp:636
 #, kde-format
 msgid "Run Command"
 msgstr "运行命令"

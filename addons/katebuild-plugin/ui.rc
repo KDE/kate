@@ -7,6 +7,7 @@
       <Action name="select_target"/>
       <Action name="build_selected_target"/>
       <Action name="build_and_run_selected_target" />
+      <Action name="compile_current_file" />
       <Action name="stop"/>
       <Separator/>
       <Action name="goto_prev"/>

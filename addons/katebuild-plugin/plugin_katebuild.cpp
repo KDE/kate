@@ -236,6 +236,11 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     connect(a, &QAction::triggered, this, &KateBuildView::slotBuildAndRunSelectedTarget);
 
+    a = actionCollection()->addAction(QStringLiteral("compile_current_file"));
+    a->setText(i18n("Compile Current File"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("run-build")));
+    connect(a, &QAction::triggered, this, &KateBuildView::slotCompileCurrentFile);
+
     a = actionCollection()->addAction(QStringLiteral("stop"));
     a->setText(i18n("Stop"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
@@ -793,6 +798,90 @@ bool KateBuildView::slotStop()
         return true;
     }
     return false;
+}
+
+
+/******************************************************************/
+QString KateBuildView::findCompileCommands(const QString& file) const
+{
+    QDir dir = QFileInfo(file).absoluteDir();
+
+    while(true) {
+        if (dir.exists(QStringLiteral("compile_commands.jsonx"))) {
+            return dir.filePath(QStringLiteral("compile_commands.json"));
+        }
+        if (dir.isRoot() || (dir == QDir::home())) { // don't "escape" the users home dir
+            break;
+        }
+        dir.cdUp();
+    }
+
+    QString msg = i18n("Did not found a compile_commands.json for file \"%1\". ", file);
+
+    Utils::showMessage(msg, QIcon::fromTheme(QStringLiteral("run-build")), i18n("Build"), MessageType::Warning, m_win);
+
+    return QString();
+}
+
+
+/******************************************************************/
+KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QString& compileCommandsFile) const
+{
+    qDebug() << "Loading compile commands from " << compileCommandsFile;
+    CompileCommands res;
+    res.filename = compileCommandsFile;
+    res.date = QFileInfo(compileCommandsFile).lastModified();
+
+    QFile file(compileCommandsFile);
+    file.open(QIODevice::ReadOnly);
+    QByteArray fileContents = file.readAll();
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(fileContents);
+
+    QJsonArray cmds = jsonDoc.array();
+
+    for(int i=0; i<cmds.count(); i++) {
+        QJsonObject cmdObj = cmds.at(i).toObject();
+        const QString filename = cmdObj.value(QStringLiteral("file")).toString();
+        const QString command = cmdObj.value(QStringLiteral("command")).toString();
+        const QString dir = cmdObj.value(QStringLiteral("directory")).toString();
+        if (dir.isEmpty() || command.isEmpty() || filename.isEmpty()) {
+            continue; // should not happen
+        }
+        res.commands[filename] = {dir, command};
+    }
+
+    return res;
+}
+
+
+/******************************************************************/
+void KateBuildView::slotCompileCurrentFile()
+{
+    KTextEditor::Document *currentDocument = m_win->activeView()->document();
+    if (!currentDocument) {
+        return;
+    }
+
+    const QString currentFile = currentDocument->url().path();
+    QString compileCommandsFile = findCompileCommands(currentFile);
+    if (compileCommandsFile.isEmpty()) {
+        qDebug() << "Did not find compile_commands.json";
+        return;
+    }
+
+    if ((m_parsedCompileCommands.filename != compileCommandsFile)
+        || (m_parsedCompileCommands.date < QFileInfo(compileCommandsFile).lastModified())) {
+        m_parsedCompileCommands = parseCompileCommandsFile(compileCommandsFile);
+    }
+
+    auto it = m_parsedCompileCommands.commands.find(currentFile);
+
+    if (it == m_parsedCompileCommands.commands.end()) {
+        qDebug() << "Did not find file " << currentFile << " in " << compileCommandsFile;
+        return;
+    }
+
+    startProcess(it->second.workingDir, it->second.command);
 }
 
 /******************************************************************/

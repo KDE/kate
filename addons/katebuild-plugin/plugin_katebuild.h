@@ -82,6 +82,7 @@ private Q_SLOTS:
     void slotBuildSelectedTarget();
     void slotBuildAndRunSelectedTarget();
     void slotBuildPreviousTarget();
+    void slotCompileCurrentFile();
     bool slotStop();
 
     void slotLoadCMakeTargets();
@@ -134,6 +135,20 @@ private:
         int column;
     };
 
+    // Support for compile_commands.json
+    struct CompileCommand {
+        QString workingDir;
+        QString command;
+    };
+
+    struct CompileCommands {
+        std::map<QString /* file*/, CompileCommand> commands;
+        QString filename;
+        QDateTime date;
+    };
+
+    CompileCommands m_parsedCompileCommands;
+
     OutputLine processOutputLine(QString line);
     QString toOutputHtml(const KateBuildView::OutputLine &out);
     void addError(const OutputLine &err);
@@ -156,6 +171,9 @@ private:
      * @return execution allowed?
      */
     bool isCommandLineAllowed(const QStringList &cmdline);
+
+    QString findCompileCommands(const QString& file) const;
+    CompileCommands parseCompileCommandsFile(const QString& compileCommandsFile) const;
 
     KTextEditor::MainWindow *m_win;
     QWidget *m_toolView;

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-05-23 00:40+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1364,12 +1364,12 @@ msgstr "Νέο αρχείο άνοιξε όσο έκλεινε το Kate, το �
 msgid "Closing Aborted"
 msgstr "Το κλείσιμο ακυρώθηκε"
 
-#: lib/katedocmanager.cpp:378
+#: lib/katedocmanager.cpp:369
 #, kde-format
 msgid "Starting Up"
 msgstr "Εκκίνηση"
 
-#: lib/katedocmanager.cpp:379
+#: lib/katedocmanager.cpp:370
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Ξανά άνοιγμα των αρχείων της τελευταίας συνεδρίας..."

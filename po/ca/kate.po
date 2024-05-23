@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-05-23 00:40+0000\n"
 "PO-Revision-Date: 2024-05-16 15:47+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -1332,12 +1332,12 @@ msgstr ""
 msgid "Closing Aborted"
 msgstr "Tancament interromput"
 
-#: lib/katedocmanager.cpp:378
+#: lib/katedocmanager.cpp:369
 #, kde-format
 msgid "Starting Up"
 msgstr "S'està engegant"
 
-#: lib/katedocmanager.cpp:379
+#: lib/katedocmanager.cpp:370
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "S'estan reobrint els fitxers de l'última sessió..."

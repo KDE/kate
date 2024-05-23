@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-04-17 05:07+0200\n"
+"PO-Revision-Date: 2024-05-22 04:28+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -88,7 +88,7 @@ msgstr "უცნობი formatterForPython: %1"
 #: FormatterFactory.h:85
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr ""
+msgstr "უცნობი formatterForYaml: %1, გადართვა პროგრამაზე yamlfmt"
 
 #: FormatterFactory.h:92
 #, kde-format

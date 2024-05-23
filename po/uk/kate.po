@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-05-23 00:40+0000\n"
 "PO-Revision-Date: 2024-05-16 09:06+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
@@ -1335,12 +1335,12 @@ msgstr "При спробі закриття Kate, був відкритий н�
 msgid "Closing Aborted"
 msgstr "Вихід перервано"
 
-#: lib/katedocmanager.cpp:378
+#: lib/katedocmanager.cpp:369
 #, kde-format
 msgid "Starting Up"
 msgstr "Запуск"
 
-#: lib/katedocmanager.cpp:379
+#: lib/katedocmanager.cpp:370
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Відкриття файлів останнього сеансу…"

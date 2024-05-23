@@ -94,7 +94,7 @@ msgstr "停止"
 #: plugin_katebuild.cpp:245
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "加载来自 CMake 构建目录的目标"
 
 #: plugin_katebuild.cpp:249
 #, kde-format
@@ -183,29 +183,29 @@ msgstr "构建目标 <b>%1</b>..."
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
-msgstr ""
+msgstr "无法加载目标，文件 %1 没有包含一个正确的 CMAKE_COMMAND 条目。"
 
 #: plugin_katebuild.cpp:977
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
-msgstr ""
+msgstr "无法在构建目录 %1 中写入 CMake 文件 API 查询文件。"
 
 #: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "无法在构建目录 %1 中运行 CMake (%2)。"
 
 #: plugin_katebuild.cpp:992
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
-msgstr ""
+msgstr "生成构建目录 %1 的 CMake 文件 API 回复文件失败 (使用 %2)。"
 
 #: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "构建插件想要执行程序"
 
 #: plugin_katebuild.cpp:1117
 #, kde-format
@@ -215,6 +215,9 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Kate 的构建插件需要执行一个外部指令以读取来自构建树的目标。<br><br>此命令的完"
+"整命令行为：<br><br><b>%1</b><br><br>您想要继续并允许程序运行此命令吗？"
+"<br><br>此选择可以在插件的配置页面进行更改。"
 
 #: plugin_katebuild.cpp:1149
 #, kde-kuit-format

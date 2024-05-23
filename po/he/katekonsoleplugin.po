@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 00:40+0000\n"
-"PO-Revision-Date: 2024-03-10 00:01+0200\n"
+"PO-Revision-Date: 2024-05-22 15:25+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #: kateconsole.cpp:70
 #, kde-format
@@ -149,34 +149,26 @@ msgstr "התמקדות על לוח מסוף"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "מצב סנכרון מסוף"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "&סנכרון המסוף עם המסמך הנוכחי"
+msgstr "לא &לסנכרן את לשונית המסוף עם המסמך הנוכחי"
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
-msgstr "ל&סנכרן את המסוף מול המסמך הנוכחי אוטומטית כשאפשר"
+msgstr "ל&סנכרן את לשונית המסוף הנוכחית מול המסמך הנוכחי אוטומטית כשאפשר"
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "ל&סנכרן את המסוף מול המסמך הנוכחי אוטומטית כשאפשר"
+msgstr "לי&צור לשונית מסוף לתיקיית המסמך הנוכחי ולעבור אליה"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format

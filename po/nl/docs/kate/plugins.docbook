@@ -6902,6 +6902,18 @@ VALUES ("<replaceable
 >nixfmt</command
 ></para
 ></listitem>
+<listitem
+><para
+>QML - <command
+>qmlformat</command
+></para
+></listitem>
+<listitem
+><para
+>HTML - <command
+>prettier</command
+></para
+></listitem>
 
 <listitem
 ><para
@@ -6916,6 +6928,25 @@ VALUES ("<replaceable
 ><para
 ><command
 >ruff</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+<listitem
+><para
+>YAML <itemizedlist>
+  <listitem
+><para
+><command
+>yamlfmt</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>prettier</command
 ></para
 ></listitem>
 </itemizedlist>

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-04-17 14:27+0200\n"
+"PO-Revision-Date: 2024-05-22 10:12+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -89,7 +89,7 @@ msgstr "«formatterForPython» desconegut: %1"
 #: FormatterFactory.h:85
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr ""
+msgstr "«formatterForYaml» desconegut: %1, es torna de nou al «yamlfmt»"
 
 #: FormatterFactory.h:92
 #, kde-format

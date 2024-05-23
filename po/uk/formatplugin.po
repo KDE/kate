@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-04-18 22:24+0300\n"
+"PO-Revision-Date: 2024-05-22 08:59+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -89,6 +89,7 @@ msgstr "Невідомий formatterForPython: %1"
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
+"Невідомий засіб форматування для Yaml: %1, повертаємося до резервного yamlfmt"
 
 #: FormatterFactory.h:92
 #, kde-format

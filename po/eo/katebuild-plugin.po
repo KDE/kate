@@ -200,7 +200,7 @@ msgstr ""
 #: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Ne eblis ruli CMake (%2) por konstrudosierujo %1 !"
 
 #: plugin_katebuild.cpp:992
 #, kde-format
@@ -208,6 +208,8 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Generado de responddosieroj laŭ CMake File API por konstrua dosierujo %1 "
+"malsukcesis (uzante %2) !"
 
 #: plugin_katebuild.cpp:1114
 #, kde-format
@@ -222,6 +224,10 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"La Kate-konstrua kromaĵo devas efektivigi eksteran komandon por legi la "
+"celojn el la konstruarbo.<br><br>La plena komandlinio estas:<br><br><b>%1</"
+"b><br><br>Ĉu daŭrigi kaj permesi ruli ĉi tiun komandon ?<br><br>La elekto "
+"povas esti ŝanĝita per la agorda paĝo de la kromprogramo."
 
 #: plugin_katebuild.cpp:1149
 #, kde-kuit-format

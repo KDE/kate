@@ -4,6 +4,14 @@ target_link_libraries(katebuildplugin PRIVATE KF6::I18n KF6::TextEditor katepriv
 
 ki18n_wrap_ui(katebuildplugin build.ui)
 
+include(ECMQtDeclareLoggingCategory)
+ecm_qt_declare_logging_category(
+  DEBUG_SOURCES
+  HEADER kate_buildplugin_debug.h
+  IDENTIFIER KTEBUILD
+  CATEGORY_NAME "katebuildplugin"
+)
+
 target_sources(
   katebuildplugin
   PRIVATE
@@ -17,6 +25,7 @@ target_sources(
     buildconfig.cpp
     plugin.qrc
     qcmakefileapi.cpp
+    ${DEBUG_SOURCES}
 )
 
 if (BUILD_PCH)

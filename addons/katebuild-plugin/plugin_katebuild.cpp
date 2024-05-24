@@ -27,7 +27,7 @@
 #include "AppOutput.h"
 #include "buildconfig.h"
 #include "hostprocess.h"
-
+#include "kate_buildplugin_debug.h"
 #include "qcmakefileapi.h"
 
 #include <QAction>
@@ -807,7 +807,7 @@ QString KateBuildView::findCompileCommands(const QString& file) const
     QDir dir = QFileInfo(file).absoluteDir();
 
     while(true) {
-        if (dir.exists(QStringLiteral("compile_commands.jsonx"))) {
+        if (dir.exists(QStringLiteral("compile_commands.json"))) {
             return dir.filePath(QStringLiteral("compile_commands.json"));
         }
         if (dir.isRoot() || (dir == QDir::home())) { // don't "escape" the users home dir
@@ -816,10 +816,6 @@ QString KateBuildView::findCompileCommands(const QString& file) const
         dir.cdUp();
     }
 
-    QString msg = i18n("Did not found a compile_commands.json for file \"%1\". ", file);
-
-    Utils::showMessage(msg, QIcon::fromTheme(QStringLiteral("run-build")), i18n("Build"), MessageType::Warning, m_win);
-
     return QString();
 }
 
@@ -827,7 +823,7 @@ QString KateBuildView::findCompileCommands(const QString& file) const
 /******************************************************************/
 KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QString& compileCommandsFile) const
 {
-    qDebug() << "Loading compile commands from " << compileCommandsFile;
+    qCDebug(KTEBUILD) << "parseCompileCommandsFile(): " << compileCommandsFile;
     CompileCommands res;
     res.filename = compileCommandsFile;
     res.date = QFileInfo(compileCommandsFile).lastModified();
@@ -838,6 +834,7 @@ KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QSt
     QJsonDocument jsonDoc = QJsonDocument::fromJson(fileContents);
 
     QJsonArray cmds = jsonDoc.array();
+    qCDebug(KTEBUILD) << "parseCompileCommandsFile(): got " << cmds.count() << " entries";
 
     for(int i=0; i<cmds.count(); i++) {
         QJsonObject cmdObj = cmds.at(i).toObject();
@@ -845,6 +842,7 @@ KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QSt
         const QString command = cmdObj.value(QStringLiteral("command")).toString();
         const QString dir = cmdObj.value(QStringLiteral("directory")).toString();
         if (dir.isEmpty() || command.isEmpty() || filename.isEmpty()) {
+            qCDebug(KTEBUILD) << "parseCompileCommandsFile(): got empty entry at " << i << " !";
             continue; // should not happen
         }
         res.commands[filename] = {dir, command};
@@ -857,30 +855,38 @@ KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QSt
 /******************************************************************/
 void KateBuildView::slotCompileCurrentFile()
 {
+    qCDebug(KTEBUILD) << "slotCompileCurrentFile()";
     KTextEditor::Document *currentDocument = m_win->activeView()->document();
     if (!currentDocument) {
+        qCDebug(KTEBUILD) << "slotCompileCurrentFile(): no file";
         return;
     }
 
     const QString currentFile = currentDocument->url().path();
     QString compileCommandsFile = findCompileCommands(currentFile);
+    qCDebug(KTEBUILD) << "slotCompileCurrentFile(): file: " << currentFile << " compile_commands: " <<compileCommandsFile;
+
     if (compileCommandsFile.isEmpty()) {
-        qDebug() << "Did not find compile_commands.json";
+        QString msg = i18n("Did not find a compile_commands.json for file \"%1\". ", currentFile);
+        Utils::showMessage(msg, QIcon::fromTheme(QStringLiteral("run-build")), i18n("Build"), MessageType::Warning, m_win);
         return;
     }
 
     if ((m_parsedCompileCommands.filename != compileCommandsFile)
         || (m_parsedCompileCommands.date < QFileInfo(compileCommandsFile).lastModified())) {
+        qCDebug(KTEBUILD) << "slotCompileCurrentFile(): loading compile_commands.json";
         m_parsedCompileCommands = parseCompileCommandsFile(compileCommandsFile);
     }
 
     auto it = m_parsedCompileCommands.commands.find(currentFile);
 
     if (it == m_parsedCompileCommands.commands.end()) {
-        qDebug() << "Did not find file " << currentFile << " in " << compileCommandsFile;
+        QString msg = i18n("Did not find a a compile command for file \"%1\" in \"%2\". ", currentFile, compileCommandsFile);
+        Utils::showMessage(msg, QIcon::fromTheme(QStringLiteral("run-build")), i18n("Build"), MessageType::Warning, m_win);
         return;
     }
 
+    qCDebug(KTEBUILD) << "slotCompileCurrentFile(): starting build: " << it->second.command << " in " << it->second.workingDir;
     startProcess(it->second.workingDir, it->second.command);
 }
 

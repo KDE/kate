@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-05-12 14:19+0200\n"
+"PO-Revision-Date: 2024-05-24 08:33+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -100,7 +100,7 @@ msgstr "Deter"
 #: plugin_katebuild.cpp:245
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Cargar os obxectivos do cartafol de construción de CMake"
 
 #: plugin_katebuild.cpp:249
 #, kde-format
@@ -193,16 +193,20 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Non é posíbel cargar os obxectivos, o ficheiro %1 non contén unha entrada de "
+"CMAKE_COMMAND correcta!"
 
 #: plugin_katebuild.cpp:977
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Non foi posíbel escribir os ficheiros de consulta da API de ficheiros de "
+"CMake para o cartafol de construción %1!"
 
 #: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Non foi posíbel executar CMake (%2) para o cartafol de construción %1!"
 
 #: plugin_katebuild.cpp:992
 #, kde-format
@@ -210,11 +214,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Fallou a xeración de ficheiros de resposta da API de ficheiros de CMake para "
+"o cartafol de construción %1 (con %2)!"
 
 #: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "O complemento de construción quere executar a orde"
 
 #: plugin_katebuild.cpp:1117
 #, kde-format
@@ -224,6 +230,10 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"O complemento de construción de Kate necesita executar unha orde externa "
+"para ler os obxectivos da árbore de construción.<br><br>A liña completa da "
+"orde é:<br><br><b>%1</b><br><br>Quere permitir executar a orde?<br><br>A "
+"escolla pode modificarse mediante a páxina de configuración do complemento."
 
 #: plugin_katebuild.cpp:1149
 #, kde-kuit-format

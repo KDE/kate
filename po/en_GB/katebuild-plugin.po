@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Andrew Coles <andrew_coles@yahoo.co.uk>, 2009, 2010, 2011.
-# Steve Allewell <steve.allewell@gmail.com>, 2014, 2015, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2014, 2015, 2019, 2020, 2021, 2022, 2023, 2024 Steve Allewell <steve.allewell@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2023-04-22 11:01+0100\n"
+"PO-Revision-Date: 2024-05-24 17:00+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -49,24 +49,22 @@ msgstr "Cancel"
 #: buildconfig.cpp:26
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "Add errors and warnings to Diagnostics"
 
 #: buildconfig.cpp:27
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "Automatically switch to output pane on executing the selected target"
 
 #: buildconfig.cpp:44
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "Build again"
+msgstr "Build & Run"
 
 #: buildconfig.cpp:50
-#, fuzzy, kde-format
-#| msgid "Build and Run Selected Target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "Build and Run Selected Target"
+msgstr "Build & Run Settings"
 
 #: plugin_katebuild.cpp:215 plugin_katebuild.cpp:222 plugin_katebuild.cpp:688
 #: plugin_katebuild.cpp:1503
@@ -97,7 +95,7 @@ msgstr "Stop"
 #: plugin_katebuild.cpp:245
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Load targets from CMake Build Dir"
 
 #: plugin_katebuild.cpp:249
 #, kde-format
@@ -118,17 +116,13 @@ msgid "Target Settings"
 msgstr "Target Settings"
 
 #: plugin_katebuild.cpp:330
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
-"the working directory in the Target Settings"
+"<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
+"search path to the \"Working Directory\""
 
 #: plugin_katebuild.cpp:417
 #, kde-format
@@ -192,16 +186,18 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
+"entry !"
 
 #: plugin_katebuild.cpp:977
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
-msgstr ""
+msgstr "Could not write CMake File API query files for build directory %1 !"
 
 #: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Could not run CMake (%2) for build directory %1 !"
 
 #: plugin_katebuild.cpp:992
 #, kde-format
@@ -209,11 +205,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Generating CMake File API reply files for build directory %1 failed (using "
+"%2) !"
 
 #: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Build plugin wants to execute program"
 
 #: plugin_katebuild.cpp:1117
 #, kde-format
@@ -223,6 +221,10 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"The Kate build plugin needs to execute an external command to read the "
+"targets from the build tree.<br><br>The full command line is:<br><br><b>%1</"
+"b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
+"altered via the config page of the plugin."
 
 #: plugin_katebuild.cpp:1149
 #, kde-kuit-format
@@ -323,7 +325,7 @@ msgstr "ConfigClean"
 #: plugin_katebuild.cpp:1697
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "Cannot save build targets in: %1"
 
 #: TargetHtmlDelegate.cpp:51
 #, kde-format
@@ -353,6 +355,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Use:\n"
+"\"%B\" for project base directory\n"
+"\"%b\" for name of project base directory"
 
 #: TargetHtmlDelegate.cpp:114
 #, kde-format
@@ -370,12 +375,12 @@ msgstr ""
 #: TargetModel.cpp:536
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Project"
 
 #: TargetModel.cpp:536
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Session"
 
 #: TargetModel.cpp:630
 #, kde-format

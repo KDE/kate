@@ -13,7 +13,7 @@
         "c": {
             "command": ["clangd", "-log=error", "--background-index", "--limit-results=500", "--completion-style=bundled"],
             "commandDebug": ["clangd", "-log=verbose", "--background-index"],
-            "url": "https://clang.llvm.org/extra/clangd/",
+            "url": "https://clangd.llvm.org",
             "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
         },
         "css": {

@@ -1,11 +1,10 @@
-#
 # SPDX-FileCopyrightText: 2023, 2024 Xavier Besnard <xavier.besnard@kde.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-04-29 18:58+0200\n"
+"PO-Revision-Date: 2024-05-24 10:29+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -88,6 +87,7 @@ msgstr "Formateur pour Python inconnu : %1"
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
+"Module « formatterForYaml » inconnu : %1. Retour au module « yamlfmt »."
 
 #: FormatterFactory.h:92
 #, kde-format

@@ -70,9 +70,6 @@
         "Name[vi]": "Dấu ngoặc được tô màu",
         "Name[x-test]": "xxColored Bracketsxx",
         "Name[zh_CN]": "彩色括号",
-        "Name[zh_TW]": "彩色括號",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "彩色括號"
     }
 }

@@ -70,9 +70,6 @@
         "Name[vi]": "Hoàn tất XML",
         "Name[x-test]": "xxXML Completionxx",
         "Name[zh_CN]": "XML 代码补全",
-        "Name[zh_TW]": "XML 補完",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "XML 補完"
     }
 }

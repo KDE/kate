@@ -71,9 +71,6 @@
         "Name[vi]": "Kiểm nhận XML",
         "Name[x-test]": "xxXML Validationxx",
         "Name[zh_CN]": "XML 验证",
-        "Name[zh_TW]": "XML 檢驗",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "XML 檢驗"
     }
 }

@@ -64,9 +64,6 @@
         "Name[vi]": "ESLint",
         "Name[x-test]": "xxESLintxx",
         "Name[zh_CN]": "ESLint",
-        "Name[zh_TW]": "ESLint",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "ESLint"
     }
 }

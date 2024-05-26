@@ -66,9 +66,6 @@
         "Name[vi]": "Dòng lệnh",
         "Name[x-test]": "xxTerminalxx",
         "Name[zh_CN]": "终端",
-        "Name[zh_TW]": "終端機",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "終端機"
     }
 }

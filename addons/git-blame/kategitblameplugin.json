@@ -70,9 +70,6 @@
         "Name[vi]": "Git Blame",
         "Name[x-test]": "xxGit Blamexx",
         "Name[zh_CN]": "Git Blame",
-        "Name[zh_TW]": "Git Blame",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "Git Blame"
     }
 }

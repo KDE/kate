@@ -68,9 +68,6 @@
         "Name[vi]": "Cây tài liệu",
         "Name[x-test]": "xxDocuments Treexx",
         "Name[zh_CN]": "文档树",
-        "Name[zh_TW]": "文件樹狀圖",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "文件樹狀圖"
     }
 }

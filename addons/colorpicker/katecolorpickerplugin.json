@@ -71,9 +71,6 @@
         "Name[vi]": "Trình nhặt màu",
         "Name[x-test]": "xxColor Pickerxx",
         "Name[zh_CN]": "拾色器",
-        "Name[zh_TW]": "取色工具",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "取色工具"
     }
 }

@@ -73,9 +73,6 @@
         "Name[vi]": "Trình chuyển tài liệu",
         "Name[x-test]": "xxDocument Switcherxx",
         "Name[zh_CN]": "文档切换器",
-        "Name[zh_TW]": "文件切換器",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "文件切換器"
     }
 }

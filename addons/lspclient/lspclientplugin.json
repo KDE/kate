@@ -71,9 +71,6 @@
         "Name[vi]": "Trình khách LSP",
         "Name[x-test]": "xxLSP Clientxx",
         "Name[zh_CN]": "LSP 客户端",
-        "Name[zh_TW]": "LSP 用戶端",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "LSP 用戶端"
     }
 }

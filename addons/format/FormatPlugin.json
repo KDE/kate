@@ -68,9 +68,6 @@
         "Name[vi]": "Định dạng",
         "Name[x-test]": "xxFormattingxx",
         "Name[zh_CN]": "格式",
-        "Name[zh_TW]": "格式化",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "格式化"
     }
 }

@@ -69,7 +69,6 @@
         "Name[zh_CN]": "代码片段",
         "Name[zh_TW]": "片段",
         "ServiceTypes": [
-            "KTextEditor/Plugin",
             "KDevelop/Plugin"
         ]
     }

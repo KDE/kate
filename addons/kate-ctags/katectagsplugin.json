@@ -74,7 +74,6 @@
         "Name[zh_CN]": "CTags",
         "Name[zh_TW]": "CTags",
         "ServiceTypes": [
-            "KTextEditor/Plugin",
             "KDevelop/Plugin"
         ]
     }

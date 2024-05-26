@@ -72,9 +72,6 @@
         "Name[vi]": "Bộ lọc văn bản",
         "Name[x-test]": "xxText Filterxx",
         "Name[zh_CN]": "文本过滤器",
-        "Name[zh_TW]": "文字過濾器",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "文字過濾器"
     }
 }

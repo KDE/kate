@@ -72,9 +72,6 @@
         "Name[vi]": "Trình xem kí hiệu",
         "Name[x-test]": "xxSymbol Viewerxx",
         "Name[zh_CN]": "符号查看器",
-        "Name[zh_TW]": "符號檢視器",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "符號檢視器"
     }
 }

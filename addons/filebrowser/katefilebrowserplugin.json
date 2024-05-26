@@ -72,9 +72,6 @@
         "Name[vi]": "Trình duyệt hệ thống tệp",
         "Name[x-test]": "xxFile System Browserxx",
         "Name[zh_CN]": "文件系统浏览器",
-        "Name[zh_TW]": "檔案系統瀏覽器",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "檔案系統瀏覽器"
     }
 }

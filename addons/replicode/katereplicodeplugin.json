@@ -115,9 +115,6 @@
         "Name[vi]": "Replicode",
         "Name[x-test]": "xxReplicodexx",
         "Name[zh_CN]": "Replicode",
-        "Name[zh_TW]": "Replicode",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "Replicode"
     }
 }

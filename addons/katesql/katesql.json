@@ -71,9 +71,6 @@
         "Name[vi]": "Phần cài cắm SQL",
         "Name[x-test]": "xxSQL Pluginxx",
         "Name[zh_CN]": "SQL 插件",
-        "Name[zh_TW]": "SQL 外掛程式",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "SQL 外掛程式"
     }
 }

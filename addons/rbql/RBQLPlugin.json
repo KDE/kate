@@ -42,9 +42,6 @@
         "Name[uk]": "CSV Rainbow",
         "Name[x-test]": "xxRainbow CSVxx",
         "Name[zh_CN]": "Rainbow CSV",
-        "Name[zh_TW]": "彩虹 CSV",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "彩虹 CSV"
     }
 }

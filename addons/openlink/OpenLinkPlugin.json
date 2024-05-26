@@ -62,9 +62,6 @@
         "Name[uk]": "Відкрити посилання",
         "Name[x-test]": "xxOpen Linkxx",
         "Name[zh_CN]": "打开链接",
-        "Name[zh_TW]": "開啟連結",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "開啟連結"
     }
 }

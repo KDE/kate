@@ -76,9 +76,6 @@
         "Name[vi]": "Công cụ bên ngoài",
         "Name[x-test]": "xxExternal Toolsxx",
         "Name[zh_CN]": "外部工具",
-        "Name[zh_TW]": "外部工具",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "外部工具"
     }
 }

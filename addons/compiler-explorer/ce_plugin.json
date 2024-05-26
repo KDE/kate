@@ -68,9 +68,6 @@
         "Name[vi]": "Trình khảo sát trình biên dịch",
         "Name[x-test]": "xxCompiler Explorerxx",
         "Name[zh_CN]": "编译器浏览器",
-        "Name[zh_TW]": "編譯器探索工具",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "編譯器探索工具"
     }
 }

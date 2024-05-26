@@ -70,9 +70,6 @@
         "Name[vi]": "Trình duyệt vết ngăn xếp",
         "Name[x-test]": "xxBacktrace Browserxx",
         "Name[zh_CN]": "回溯跟踪浏览器",
-        "Name[zh_TW]": "回溯追蹤瀏覽器",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "回溯追蹤瀏覽器"
     }
 }

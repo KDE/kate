@@ -73,9 +73,6 @@
         "Name[vi]": "Tìm kiếm & thay thế",
         "Name[x-test]": "xxSearch & Replacexx",
         "Name[zh_CN]": "搜索和替换",
-        "Name[zh_TW]": "搜尋與取代",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "搜尋與取代"
     }
 }

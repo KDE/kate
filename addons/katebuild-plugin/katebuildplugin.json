@@ -56,9 +56,6 @@
         "Name[uk]": "Зібрати і запустити",
         "Name[x-test]": "xxBuild & Runxx",
         "Name[zh_CN]": "构建并运行",
-        "Name[zh_TW]": "編譯與執行",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "編譯與執行"
     }
 }

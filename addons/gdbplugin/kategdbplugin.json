@@ -61,9 +61,6 @@
         "Name[uk]": "Зневадник Kate",
         "Name[x-test]": "xxKate Debuggerxx",
         "Name[zh_CN]": "Kate 调试器",
-        "Name[zh_TW]": "Kate 除錯器",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "Kate 除錯器"
     }
 }

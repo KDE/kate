@@ -70,10 +70,7 @@
         "Name[vi]": "Đóng ngoại trừ / theo kiểu",
         "Name[x-test]": "xxClose Except/Likexx",
         "Name[zh_CN]": "批量关闭",
-        "Name[zh_TW]": "關閉「例外/喜歡」",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
+        "Name[zh_TW]": "關閉「例外/喜歡」"
     },
     "X-KDE-Version": "4.0",
     "X-Kate-Load": "True",

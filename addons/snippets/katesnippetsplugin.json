@@ -67,9 +67,7 @@
         "Name[vi]": "Mảnh mã",
         "Name[x-test]": "xxSnippetsxx",
         "Name[zh_CN]": "代码片段",
-        "Name[zh_TW]": "片段",
-        "ServiceTypes": [
-            "KDevelop/Plugin"
-        ]
-    }
+        "Name[zh_TW]": "片段"
+    },
+    "LoadInKDevelop": true
 }

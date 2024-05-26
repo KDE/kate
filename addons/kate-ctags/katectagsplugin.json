@@ -72,9 +72,7 @@
         "Name[vi]": "CTags",
         "Name[x-test]": "xxCTagsxx",
         "Name[zh_CN]": "CTags",
-        "Name[zh_TW]": "CTags",
-        "ServiceTypes": [
-            "KDevelop/Plugin"
-        ]
-    }
+        "Name[zh_TW]": "CTags"
+    },
+    "LoadInKDevelop": true
 }

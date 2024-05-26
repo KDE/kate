@@ -144,9 +144,7 @@
         "Name[vi]": "Xem thử tài liệu",
         "Name[x-test]": "xxDocument Previewxx",
         "Name[zh_CN]": "文档预览",
-        "Name[zh_TW]": "文件預覽",
-        "ServiceTypes": [
-            "KDevelop/Plugin"
-        ]
-    }
+        "Name[zh_TW]": "文件預覽"
+    },
+    "LoadInKDevelop": true
 }

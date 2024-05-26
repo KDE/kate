@@ -74,6 +74,5 @@
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]
-    },
-    "author": "Dominik Haumann, dhaumann@kde.org"
+    }
 }

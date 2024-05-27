@@ -23,6 +23,7 @@
   <name xml:lang="fi">KWrite</name>
   <name xml:lang="fr">KWrite</name>
   <name xml:lang="gl">KWrite</name>
+  <name xml:lang="he">KWrite</name>
   <name xml:lang="hi">केराईट</name>
   <name xml:lang="hu">KWrite</name>
   <name xml:lang="ia">Kwrite</name>
@@ -76,6 +77,7 @@
   <summary xml:lang="fi">Tekstimuokkain</summary>
   <summary xml:lang="fr">Éditeur de texte</summary>
   <summary xml:lang="gl">Editor de textos</summary>
+  <summary xml:lang="he">עורך טקסט</summary>
   <summary xml:lang="hi">पाठ संपादक</summary>
   <summary xml:lang="hu">Szövegszerkesztő</summary>
   <summary xml:lang="ia">Editor de texto</summary>
@@ -131,6 +133,7 @@
     <p xml:lang="fi">KWrite on KDE:n tekstimuokkain, joka perustuu Katen muokkainosaan.</p>
     <p xml:lang="fr">KWrite est un éditeur de texte fait par KDE et s'appuyant sur le composant éditeur de Kate.</p>
     <p xml:lang="gl">KWrite é un editor de texto creado por KDE baseado no compoñente de editor de Kate.</p>
+    <p xml:lang="he">KWrite הוא עורך טקסט מבית KDE, מבוסס על רכיב העריכה של Kate.</p>
     <p xml:lang="hu">A KWrite egy, a Kate szerkesztőkomponensén alapuló szövegszerkesztő a KDE-től.</p>
     <p xml:lang="ia">KWrite es un editor de texto per KDE, basate sur le componente de editor de Kate.</p>
     <p xml:lang="id">KWrite adalah sebuah pengedit teks oleh KDE, berdasarkan pada komponen editor Kate.</p>
@@ -181,6 +184,7 @@
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
+    <p xml:lang="he">יכולות:</p>
     <p xml:lang="hi">विशेषताएँ:</p>
     <p xml:lang="hu">Szolgáltatások:</p>
     <p xml:lang="ia">Characteristicas:</p>
@@ -234,6 +238,7 @@
       <li xml:lang="fi">Syntaksin korostus tiedostotyypin perusteella</li>
       <li xml:lang="fr">Coloration syntaxique selon le type de fichier</li>
       <li xml:lang="gl">Realce de sintaxe segundo o tipo do ficheiro.</li>
+      <li xml:lang="he">הדגשת תחביר לפי סוג הקובץ</li>
       <li xml:lang="hi">फ़ाईल प्रकार से सिंटेक्स हाईलाइटिंग</li>
       <li xml:lang="hu">Szintaxiskiemelés a fájltípusnak megfelelően</li>
       <li xml:lang="ia">Evidentiation de syntaxe secundo le typo de file</li>
@@ -286,6 +291,7 @@
       <li xml:lang="fi">Sanantäydennys</li>
       <li xml:lang="fr">Auto-complètement des mots</li>
       <li xml:lang="gl">Completado de palabras.</li>
+      <li xml:lang="he">השלמת מילים</li>
       <li xml:lang="hi">शब्द पूर्णता</li>
       <li xml:lang="hu">Szókiegészítés</li>
       <li xml:lang="ia">Completion de parola</li>
@@ -339,6 +345,7 @@
       <li xml:lang="fi">Automaattinen sisennys</li>
       <li xml:lang="fr">Indentation automatique</li>
       <li xml:lang="gl">Sangrado automático.</li>
+      <li xml:lang="he">הזחה אוטומטית</li>
       <li xml:lang="hi">स्वतः हाशिया</li>
       <li xml:lang="hu">Automatikus behúzás</li>
       <li xml:lang="ia">Auto indentation</li>
@@ -390,6 +397,7 @@
       <li xml:lang="fi">Liitännäistuki</li>
       <li xml:lang="fr">Gestion des extensions</li>
       <li xml:lang="gl">Compatibilidade con complementos.</li>
+      <li xml:lang="he">תמיכה בתוספים</li>
       <li xml:lang="hi">प्लगिन समर्थन</li>
       <li xml:lang="hu">Bővíthetőség kiegészítőkkel</li>
       <li xml:lang="ia">Supporto de plugin</li>
@@ -443,6 +451,7 @@
       <li xml:lang="fi">VI-syöttötila</li>
       <li xml:lang="fr">Mode d'entrée Vi</li>
       <li xml:lang="gl">Modo de entrada de Vi.</li>
+      <li xml:lang="he">מצב קלט Vi</li>
       <li xml:lang="hi">Vi इनपुट पद्दति</li>
       <li xml:lang="hu">Vi beviteli mód</li>
       <li xml:lang="ia">Modo de ingresso de Vi</li>
@@ -502,6 +511,7 @@
       <caption xml:lang="fi">Koodin muokkaus KWritella</caption>
       <caption xml:lang="fr">Modification de code avec KWrite</caption>
       <caption xml:lang="gl">Editando código con KWrite</caption>
+      <caption xml:lang="he">עריכת קוד עם KWrite</caption>
       <caption xml:lang="hu">Kódszerkesztés KWrite-tal</caption>
       <caption xml:lang="ia">Modificante codice con KWrite</caption>
       <caption xml:lang="id">Pengeditan kode menggunakan KWrite</caption>

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-03-13 10:06+0200\n"
+"PO-Revision-Date: 2024-05-26 08:09+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -97,7 +97,7 @@ msgstr "עצירה"
 #: plugin_katebuild.cpp:245
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "טעינת יעדים מתיקיית בנייה של CMake"
 
 #: plugin_katebuild.cpp:249
 #, kde-format
@@ -123,6 +123,8 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>הקובץ לא נמצא:</b> %1<br><b>נתיבי חיפוש:</b><br>%2<br>כדאי לנסותלהוסיף "
+"נתיב חיפוש ל„תיקיית העבודה”"
 
 #: plugin_katebuild.cpp:417
 #, kde-format
@@ -184,29 +186,29 @@ msgstr "המטרה <b>%1</b> נבנית…"
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
-msgstr ""
+msgstr "לא ניתן לטעון יעדים, הקובץ %1 לא מכיל רשומת CMAKE_COMMAND הולמת!"
 
 #: plugin_katebuild.cpp:977
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
-msgstr ""
+msgstr "לא ניתן לכתובת קובצי שאילתת API לקובץ CMake לתיקיית הבנייה %1!"
 
 #: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "לא ניתן להריץ את CMake (%2) לתיקיית הבנייה %1!"
 
 #: plugin_katebuild.cpp:992
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
-msgstr ""
+msgstr "יצירת קובצי תגובת API לקובץ CMake לתיקיית הבנייה %1 נכשלה (דרך %2)!"
 
 #: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "תוסף הבנייה רוצה להריץ תוכנית"
 
 #: plugin_katebuild.cpp:1117
 #, kde-format
@@ -216,6 +218,9 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"תוסף הבנייה של Kate צריך להפעיל פקודה חיצונית כדי ליצור יעדים מעץ הבנייה."
+"<br><br> שורת הפקודה המלאה היא:<br><br><b>%1</b><br><br>להמשיך ולהתיר את "
+"הרצת הפקודה הזאת?<br><br>אפשר לשנות את הבחירה הזאת דרך עמוד ההגדרות של התוסף."
 
 #: plugin_katebuild.cpp:1149
 #, kde-kuit-format

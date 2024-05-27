@@ -87,7 +87,7 @@ msgstr "未知 formatterForPython：%1"
 #: FormatterFactory.h:85
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr ""
+msgstr "未知的 formatterForYaml：%1，将退而使用 yamlfmt"
 
 #: FormatterFactory.h:92
 #, kde-format

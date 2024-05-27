@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-23 00:40+0000\n"
-"PO-Revision-Date: 2024-04-08 19:12+0300\n"
+"PO-Revision-Date: 2024-05-26 08:03+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -733,7 +733,7 @@ msgstr "מייקל מקקולום"
 #: lib/kateapp.cpp:304
 #, kde-format
 msgid "Jochen Wilhemly"
-msgstr "Jochen Wilhemly"
+msgstr "יוכן וילהלמלי"
 
 #: lib/kateapp.cpp:304
 #, kde-format
@@ -803,7 +803,7 @@ msgstr "מפתח תוספים של Python"
 #: lib/kateapp.cpp:315
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
-msgstr "Gerald Senarclens de Grancy"
+msgstr "גירלט סנרקלנס דה גרנסי"
 
 #: lib/kateapp.cpp:316
 #, kde-format
@@ -873,7 +873,7 @@ msgstr "הדגשה ל־ILERPG"
 #: lib/kateapp.cpp:329
 #, kde-format
 msgid "Carsten Niehaus"
-msgstr "Carsten Niehaus"
+msgstr "קרסטן ניהאוס"
 
 #: lib/kateapp.cpp:329
 #, kde-format
@@ -883,7 +883,7 @@ msgstr "הדגשת LaTeX"
 #: lib/kateapp.cpp:330
 #, kde-format
 msgid "Per Wigren"
-msgstr "Per Wigren"
+msgstr "פר ויגרן"
 
 #: lib/kateapp.cpp:330
 #, kde-format
@@ -893,7 +893,7 @@ msgstr "הדגשת קובצי Make, Python"
 #: lib/kateapp.cpp:331
 #, kde-format
 msgid "Jan Fritz"
-msgstr "Jan Fritz"
+msgstr "יאן פריץ"
 
 #: lib/kateapp.cpp:331
 #, kde-format
@@ -903,12 +903,12 @@ msgstr "הדגשת Python"
 #: lib/kateapp.cpp:332
 #, kde-format
 msgid "Daniel Naber"
-msgstr "Daniel Naber"
+msgstr "דניאל נייבר"
 
 #: lib/kateapp.cpp:333
 #, kde-format
 msgid "Roland Pabel"
-msgstr "Roland Pabel"
+msgstr "רולנד פייבל"
 
 #: lib/kateapp.cpp:333
 #, kde-format
@@ -918,7 +918,7 @@ msgstr "הדגשת Scheme"
 #: lib/kateapp.cpp:334
 #, kde-format
 msgid "Cristi Dumitrescu"
-msgstr "Cristi Dumitrescu"
+msgstr "קריסטי דומיטרסקו"
 
 #: lib/kateapp.cpp:334
 #, kde-format
@@ -928,7 +928,7 @@ msgstr "רשימת טיפוסי נתונים\\מילות מפתח של PHP"
 #: lib/kateapp.cpp:335
 #, kde-format
 msgid "Carsten Pfeiffer"
-msgstr "Carsten Pfeiffer"
+msgstr "קרסטן פייפר"
 
 #: lib/kateapp.cpp:335
 #, kde-format
@@ -949,12 +949,12 @@ msgstr ""
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
-msgstr "לא ניתן לפתוח את הקובץ \"%1\", הוא לא קובץ רגיל אלא תיקייה."
+msgstr "לא ניתן לפתוח את הקובץ ‚%1’, זה לא קובץ רגיל אלא תיקייה."
 
 #: lib/kateconfigdialog.cpp:52
 #, kde-format
 msgid "Configure"
-msgstr "הגדר"
+msgstr "הגדרה"
 
 #: lib/kateconfigdialog.cpp:118
 #, kde-format
@@ -1457,7 +1457,7 @@ msgstr "פלט"
 #: lib/katemainwindow.cpp:343
 #, kde-format
 msgid "Create a new document"
-msgstr "צור מסמך חדש"
+msgstr "יצירת מסמך חדש"
 
 #: lib/katemainwindow.cpp:346
 #, kde-format
@@ -1469,27 +1469,27 @@ msgstr "פתיחת מסמך קיים לעריכה"
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
 "open them again."
-msgstr "מציג את רשימת הקבצים שפתחת לאחרונה, ומאפשר לך לפתוח אותם שוב בקלות."
+msgstr "הצגת רשימת הקבצים שפתחת לאחרונה, בנוסף לאפשרות לפתוח אותם שוב בקלות."
 
 #: lib/katemainwindow.cpp:360
 #, kde-format
 msgid "Save A&ll"
-msgstr "שמור ה&כל"
+msgstr "שמירה של ה&כול"
 
 #: lib/katemainwindow.cpp:363
 #, kde-format
 msgid "Save all open, modified documents to disk."
-msgstr "שמירה לדיסק של כל המסמכים הפתוחים ששונו."
+msgstr "שמירה לכונן של כל המסמכים הפתוחים שנערכו."
 
 #: lib/katemainwindow.cpp:366
 #, kde-format
 msgid "&Reload All"
-msgstr "&טען מחדש הכול"
+msgstr "טעינה של הכול מ&חדש"
 
 #: lib/katemainwindow.cpp:368
 #, kde-format
 msgid "Reload all open documents."
-msgstr "טען מחדש את כל המסמכים הפתוחים."
+msgstr "טעינת כל המסמכים הפתוחים מחדש."
 
 #: lib/katemainwindow.cpp:377 lib/katemainwindow.cpp:386
 #, fuzzy, kde-format
@@ -1500,7 +1500,7 @@ msgstr "שנה את  הכיוון של התצוגה המפוצלת"
 #: lib/katemainwindow.cpp:381 lib/welcomeview/welcomeview.cpp:266
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr "פתח תיקיה מכילה"
+msgstr "פתיחת תיקייה מכילה"
 
 #: lib/katemainwindow.cpp:390
 #, kde-format
@@ -1550,7 +1550,7 @@ msgstr "פתח חלון לפתיחה מהירה של מסמכים"
 #: lib/katemainwindow.cpp:423
 #, kde-format
 msgid "Close Orphaned"
-msgstr "סגור מסמכים יתומים"
+msgstr "סגירת מסמכים יתומים"
 
 #: lib/katemainwindow.cpp:425
 #, kde-format

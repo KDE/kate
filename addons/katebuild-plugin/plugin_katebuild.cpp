@@ -804,6 +804,8 @@ bool KateBuildView::slotStop()
 /******************************************************************/
 QString KateBuildView::findCompileCommands(const QString& file) const
 {
+    QSet<QString> visitedDirs;
+
     QDir dir = QFileInfo(file).absoluteDir();
 
     while(true) {
@@ -813,7 +815,11 @@ QString KateBuildView::findCompileCommands(const QString& file) const
         if (dir.isRoot() || (dir == QDir::home())) { // don't "escape" the users home dir
             break;
         }
+        visitedDirs.insert(dir.canonicalPath());
         dir.cdUp();
+        if (visitedDirs.contains(dir.canonicalPath())) {
+            break;
+        }
     }
 
     return QString();

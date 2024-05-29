@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-05-12 18:21+0200\n"
+"PO-Revision-Date: 2024-05-27 07:45+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -23,9 +23,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
-"X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
+"X-Environment: kde\n"
+"X-Generator: Lokalize 23.08.5\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -107,7 +107,7 @@ msgstr "Arrêter"
 #: plugin_katebuild.cpp:245
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Charger les cibles à partir du dossier de compilation de CMake"
 
 #: plugin_katebuild.cpp:249
 #, kde-format
@@ -200,16 +200,21 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Impossible de charger les cibles. Le fichier %1 ne contient aucune entrée "
+"« CMAKE_COMMAND » correcte !"
 
 #: plugin_katebuild.cpp:977
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Impossible d'écrire les fichiers de requêtes « API »  du fichier de CMake "
+"pour le répertoire de compilation %1 !"
 
 #: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr ""
+"Impossible d'exécuter CMake (%2) pour le répertoire de compilation %1 !"
 
 #: plugin_katebuild.cpp:992
 #, kde-format
@@ -217,11 +222,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Échec de la génération des fichiers de réponses « API » du fichier de CMake "
+"pour le répertoire de compilation %1 (En utilisant %2) !"
 
 #: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Le module externe de compilation veut exécuter le programme"
 
 #: plugin_katebuild.cpp:1117
 #, kde-format
@@ -231,6 +238,11 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Le module externe de compilation de Kate doit exécuter une commande externe "
+"pour lire les cibles de l'arborescence de compilation.<br><br>La ligne de "
+"commandes complète est &nbsp; : <br><br><b>%1</b><br><br>Continuer et "
+"autoriser l'exécution de cette commande ?<br><br>Le choix peut être modifié "
+"grâce à la page de configuration du module externe."
 
 #: plugin_katebuild.cpp:1149
 #, kde-kuit-format

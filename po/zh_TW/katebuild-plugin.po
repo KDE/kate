@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-05-18 16:24+0900\n"
+"PO-Revision-Date: 2024-05-30 03:10+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -98,7 +98,7 @@ msgstr "停止"
 #: plugin_katebuild.cpp:245
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "從 CMake 編譯目錄載入目標"
 
 #: plugin_katebuild.cpp:249
 #, kde-format
@@ -187,29 +187,29 @@ msgstr "編譯目標 <b>%1</b> 中..."
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
-msgstr ""
+msgstr "無法載入目標，檔案 %1 不包含正確的 CMAKE_COMMAND 條目！"
 
 #: plugin_katebuild.cpp:977
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
-msgstr ""
+msgstr "無法為編譯目錄 %1 寫入 CMake 檔案 API 查詢檔案！"
 
 #: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "無法為編譯目錄 %1 執行 CMake (%2)！"
 
 #: plugin_katebuild.cpp:992
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
-msgstr ""
+msgstr "為編譯目錄 %1 產生 CMake 檔案 API 回覆檔時失敗了（使用 %2）！"
 
 #: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "編譯外掛程式希望執行程式"
 
 #: plugin_katebuild.cpp:1117
 #, kde-format
@@ -219,6 +219,9 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Kate 編譯外掛程式需要執行外部命令來從編譯樹讀取目標。<br><br>完整命令列是："
+"<br><br><b>%1</b><br><br>要繼續並允許執行此命令嗎？<br><br>此選項可在外掛程式"
+"的設定頁面修改。"
 
 #: plugin_katebuild.cpp:1149
 #, kde-kuit-format

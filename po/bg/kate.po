@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 02:33+0000\n"
-"PO-Revision-Date: 2024-04-22 10:18+0200\n"
+"PO-Revision-Date: 2024-05-30 18:36+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -27,7 +27,7 @@ msgstr "Ясен Праматаров,Златко Попов, Минчо Кон
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "yasen@lindeas.com,zlatkopopov@fsa-bg.org"
+msgstr "yasen@lindeas.com,zlatkopopov@fsa-bg.org,mkondarev@yahoo.de"
 
 #: kate/main.cpp:93
 #, kde-format
@@ -2304,8 +2304,8 @@ msgid ""
 "you want to proceed?</p><p><strong>Beware that kate may stop responding for "
 "some time when opening large files.</strong></p>"
 msgstr ""
-"<p> Опитвате се да отворите един или повече големи файлове: </p> <ul>%1</ul> "
-"<p> Искате ли да продължите? </p> <p> <strong> Внимавайте, че Kate може да "
+"<p> Опитвате се да отворите един или повече големи файлове: </p><ul>%1</ul> "
+"<p> Искате ли да продължите? </p><p><strong> Внимавайте, че Kate може да "
 "спре да отговаря за известно време при отваряне на големи файлове. </strong> "
 "</p>"
 
@@ -2889,6 +2889,3 @@ msgstr "Управление на сесиите..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Показване на приветствената страница за нови прозорци"
-
-#~ msgid "Show for new window"
-#~ msgstr "Показване за нов прозорец"

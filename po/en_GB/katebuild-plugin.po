@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Andrew Coles <andrew_coles@yahoo.co.uk>, 2009, 2010, 2011.
-# Steve Allewell <steve.allewell@gmail.com>, 2014, 2015, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2014, 2015, 2019, 2020, 2021, 2022, 2023, 2024 Steve Allewell <steve.allewell@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-16 00:40+0000\n"
-"PO-Revision-Date: 2023-04-22 11:01+0100\n"
+"PO-Revision-Date: 2024-05-30 19:31+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -49,24 +49,22 @@ msgstr "Cancel"
 #: buildconfig.cpp:26
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "Add errors and warnings to Diagnostics"
 
 #: buildconfig.cpp:27
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "Automatically switch to output pane on executing the selected target"
 
 #: buildconfig.cpp:44
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "Build again"
+msgstr "Build & Run"
 
 #: buildconfig.cpp:50
-#, fuzzy, kde-format
-#| msgid "Build and Run Selected Target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "Build and Run Selected Target"
+msgstr "Build & Run Settings"
 
 #: plugin_katebuild.cpp:212 plugin_katebuild.cpp:219 plugin_katebuild.cpp:1232
 #, kde-format
@@ -266,7 +264,7 @@ msgstr "ConfigClean"
 #: plugin_katebuild.cpp:1426
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "Cannot save build targets in: %1"
 
 #: TargetHtmlDelegate.cpp:50
 #, kde-format
@@ -296,6 +294,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Use:\n"
+"\"%B\" for project base directory\n"
+"\"%b\" for name of project base directory"
 
 #: TargetHtmlDelegate.cpp:111
 #, kde-format
@@ -313,12 +314,12 @@ msgstr ""
 #: TargetModel.cpp:530
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Project"
 
 #: TargetModel.cpp:530
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Session"
 
 #: TargetModel.cpp:624
 #, kde-format

@@ -3,13 +3,13 @@
 #
 # Malcolm Hunter <malcolm.hunter@gmx.co.uk>, 2002,2003, 2004, 2005.
 # Andrew Coles <andrew_coles@yahoo.co.uk>, 2004, 2005, 2009, 2010.
-# Steve Allewell <steve.allewell@gmail.com>, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Steve Allewell <steve.allewell@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 02:33+0000\n"
-"PO-Revision-Date: 2023-06-17 12:08+0100\n"
+"PO-Revision-Date: 2024-05-30 19:29+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -41,10 +41,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Advanced Text Editor"
 
 #: kate/main.cpp:97 kwrite/main.cpp:50
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000-2022 The Kate Authors"
+msgstr "(c) 2000-2024 The Kate Authors"
 
 #: kate/main.cpp:143
 #, kde-format
@@ -247,10 +246,9 @@ msgstr "&Tools"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:124 lib/diagnostics/diagnosticview.cpp:290
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Diagnostics"
+msgstr "Diagnostics View"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:129
@@ -303,13 +301,14 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
+"Diagnostics limit reached, ignoring further diagnostics. The limit can be "
+"configured in settings."
 
 #: lib/diagnostics/diagnosticview.cpp:340
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "Diagnostics"
+msgstr "Diagnostics View"
 
 #: lib/diagnostics/diagnosticview.cpp:345
 #, kde-format
@@ -1142,12 +1141,12 @@ msgstr "When ticked tab text might be elided if its too long."
 #: lib/kateconfigdialog.cpp:278
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr ""
+msgstr "Open new tabs to the right of the current tab"
 
 #: lib/kateconfigdialog.cpp:280
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "If not ticked the new tab will open at the end."
 
 #: lib/kateconfigdialog.cpp:286
 #, kde-format
@@ -1200,15 +1199,14 @@ msgid "Show current symbol in navigation bar"
 msgstr "Show current symbol in navigation bar"
 
 #: lib/kateconfigdialog.cpp:344
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Diagnostics"
+msgstr "Diagnostics limit:"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
-msgstr ""
+msgstr "Max number of diagnostics allowed in the Diagnostics toolview."
 
 #: lib/kateconfigdialog.cpp:364
 #, kde-format
@@ -1559,15 +1557,14 @@ msgid "Close all open documents."
 msgstr "Close all open documents."
 
 #: lib/katemainwindow.cpp:437
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Reload all open documents."
+msgstr "&Reopen latest closed document(s)."
 
 #: lib/katemainwindow.cpp:440
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "Reopen the document or documents that were most recently closed"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -2061,15 +2058,13 @@ msgstr ""
 "want to proceed."
 
 #: lib/kateurlbar.cpp:909
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Copy Location"
 
 #: lib/kateurlbar.cpp:914
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Copy Filename"
@@ -2349,16 +2344,16 @@ msgid "Control view space splitting"
 msgstr "Control view space splitting"
 
 #: lib/kateviewspace.cpp:120
-#, fuzzy, kde-format
-#| msgid "&New Synchronized Window"
+#, kde-format
 msgid "S&ynchronize Scrolling"
-msgstr "&New Synchronised Window"
+msgstr "S&ynchronise Scrolling"
 
 #: lib/kateviewspace.cpp:122
 #, kde-format
 msgid ""
 "Synchronize Scrolling of this split-view with other synchronized split-views"
 msgstr ""
+"Synchronise Scrolling of this split-view with other synchronised split-views"
 
 #: lib/kateviewspace.cpp:223
 #, kde-format
@@ -2863,10 +2858,9 @@ msgstr "Manage Sessions..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "Show welcome view for new windows"
+msgstr "Show welcome page for new window"
 
 #~ msgid "Show for new window"
 #~ msgstr "Show for new window"

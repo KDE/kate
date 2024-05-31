@@ -1,0 +1,139 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"PO-Revision-Date: 2024-05-30 11:29+0200\n"
+"Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
+"Language-Team: Polish <kde-i18n-doc@kde.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 23.08.5\n"
+
+#: AsmView.cpp:299
+#, kde-format
+msgid "Scroll to source"
+msgstr "Przewiń do źródła"
+
+#: AsmView.cpp:309
+#, kde-format
+msgid "Jump to label"
+msgstr "Przejdź do etykiety"
+
+#: AsmView.cpp:335
+#, kde-format
+msgid "Copy"
+msgstr "Skopiuj"
+
+#: AsmView.cpp:347
+#, kde-format
+msgid "Select All"
+msgstr "Zaznacz wszystko"
+
+#: ce_plugin.cpp:35
+#, kde-format
+msgid "Compiler Explorer"
+msgstr "Przeglądarka kompilatora"
+
+#: ce_plugin.cpp:38
+#, kde-format
+msgid "&Open Current File in Compiler Explorer"
+msgstr "Otwórz bieżący plik w Przeglądarce Kompilatora"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgid "No file open"
+msgstr "Nie otwarto żadnego pliku"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgctxt "error category title"
+msgid "CompilerExplorer"
+msgstr "Przeglądarka Kompilatora"
+
+#: ce_widget.cpp:125
+#, kde-format
+msgid "Do you really want to close %1?"
+msgstr "Czy na pewno zamknąć %1?"
+
+#: ce_widget.cpp:185
+#, kde-format
+msgid "Compile"
+msgstr "Zbuduj"
+
+#: ce_widget.cpp:282
+#, kde-format
+msgid "Options"
+msgstr "Ustawienia"
+
+#: ce_widget.cpp:299
+#, kde-format
+msgid "Demangle Identifiers"
+msgstr "Odszyfruj identyfikatory"
+
+#: ce_widget.cpp:300
+#, kde-format
+msgid "Filter Library Functions"
+msgstr "Odfiltruj funkcje biblioteczne"
+
+#: ce_widget.cpp:301
+#, kde-format
+msgid "Filter Unused Labels"
+msgstr "Odfiltruj nieużywane etykiety"
+
+#: ce_widget.cpp:302
+#, kde-format
+msgid "Filter Comments"
+msgstr "Odfiltruj uwagi"
+
+#: ce_widget.cpp:303
+#, kde-format
+msgid "Intel Syntax"
+msgstr "Składnia Intela"
+
+#: ce_widget.cpp:305
+#, kde-format
+msgid "Change Url..."
+msgstr "Zmień adres URL..."
+
+#: ce_widget.cpp:311
+#, kde-format
+msgid "Enter Url"
+msgstr "Wpisz adres URL"
+
+#: ce_widget.cpp:312
+#, kde-format
+msgid ""
+"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+msgstr ""
+"Wpisz adres URL do wystąpienia Przeglądarki Kompilatora. Na przykład, http://"
+"localhost:10240"
+
+#: ce_widget.cpp:372
+#, kde-format
+msgid "Compiler returned: %1"
+msgstr "Kompilator zwrócił: %1"
+
+#: ce_widget.cpp:521
+#, kde-format
+msgid "Reveal linked code"
+msgstr "Odkryj powiązany kod"
+
+#: ce_widget.cpp:543
+#, kde-format
+msgid "CompilerExplorer"
+msgstr "Przeglądarka Kompilatora"
+
+#: ce_widget.cpp:559
+#, kde-format
+msgid "'%1' compiler flags were found. Output may not be useful."
+msgstr ""
+"Znaleziono flagi budowania '%1'. Wynik na wyjściu może nie być użyteczny."

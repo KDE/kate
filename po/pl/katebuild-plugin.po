@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-05-12 08:18+0200\n"
+"PO-Revision-Date: 2024-05-30 11:25+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -96,7 +97,7 @@ msgstr "Zatrzymaj"
 #: plugin_katebuild.cpp:245
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Wczytaj cele z katalogu budowania CMake"
 
 #: plugin_katebuild.cpp:249
 #, kde-format
@@ -187,16 +188,20 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Nie udało się wczytać celów, plik %1 nie zawiera poprawnego wpisu "
+"CMAKE_COMMAND!"
 
 #: plugin_katebuild.cpp:977
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Nie udało się zapisać plików odpytujących API CMake dla katalogu budowania "
+"%1!"
 
 #: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Nie udało się uruchomić CMake (%2) dla katalogu budowania %1!"
 
 #: plugin_katebuild.cpp:992
 #, kde-format
@@ -204,11 +209,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Nie udało się utworzyć plików odpowiedzi API CMake dla katalogu budowania %1 "
+"(użyto%2)!"
 
 #: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Wtyczka budowania chce wykonać program"
 
 #: plugin_katebuild.cpp:1117
 #, kde-format
@@ -218,6 +225,10 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Wtyczka budowania Kate potrzebuje wykonać zewnętrzne polecenie, aby odczytać "
+"cele z drzewa budowania.<br><br>Pełne polecenie to:<br><br><b>%1</"
+"b><br><br>Czy zatwierdzasz i wykonujemy to polecenie?<br><br>Wybór można "
+"później zmienić na stronie ustawień wtyczki."
 
 #: plugin_katebuild.cpp:1149
 #, kde-kuit-format

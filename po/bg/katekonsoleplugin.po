@@ -242,6 +242,3 @@ msgstr "Настройки на терминала"
 #, kde-format
 msgid "&Tools"
 msgstr "&Инструменти"
-
-#~ msgid "Sorry, cannot cd into '%1'"
-#~ msgstr "Съжалявам,  не може да се премине в директория \"%1\""

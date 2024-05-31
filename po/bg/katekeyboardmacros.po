@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2024-05-13 22:47+0200\n"
+"PO-Revision-Date: 2024-05-30 11:56+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -103,6 +103,8 @@ msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
 "macro as <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
+"<qt><p>Използване: <code>kmsave &lt;име&gt;</code></p><p>Запазване на "
+"текущия клавиатурен макрос като <code>&lt;име&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:85
 #, kde-format
@@ -214,10 +216,9 @@ msgid "End Macro &Recording"
 msgstr ""
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "Заредено '%1'"
+msgstr "Зареждане на %1"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format

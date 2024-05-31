@@ -399,9 +399,3 @@ msgstr "Запазване на текущия документ под ново 
 #, kde-format
 msgid "&Go"
 msgstr "Навига&ция"
-
-#~ msgid ""
-#~ "When enabled, this will show a close button for opened documents on hover."
-#~ msgstr ""
-#~ "Когато е активирано, това ще покаже бутон за затваряне за отворени "
-#~ "документи при поставяне на курсора на мишката."

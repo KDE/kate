@@ -1,22 +1,22 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1681059 $
+# Version: $Revision: 1681191 $
 # Kate polish translation file.
 # Main translation work:
-#   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
 # Michal Rudolf <mrudolf@kdewebdev.org>, 2003, 2004.
 # Mikolaj Machowski <mikmach@wp.pl>, 2004, 2005.
 # Krzysztof Lichota <lichota@mimuw.edu.pl>, 2005, 2006.
 # Robert Gomulka <rgom@o2.pl>, 2006.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2008, 2012, 2013.
 # Michał Smoczyk <msmoczyk@wp.pl>, 2009, 2010.
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-23 00:40+0000\n"
-"PO-Revision-Date: 2024-05-12 09:45+0200\n"
+"PO-Revision-Date: 2024-05-30 11:38+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -25,6 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2301,13 +2302,12 @@ msgstr "Pokaż tę stronę powitalną"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Przełącz synchronizację przewijania"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Przełącza kierunek bieżącego widoku podzielonego"
+msgstr "Przełącz synchronizację przewijania dla bieżącego widoku"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2317,7 +2317,7 @@ msgid ""
 "some time when opening large files.</strong></p>"
 msgstr ""
 "<p>Masz zamia otworzyć jeden lub więcej dużych plików:</p><ul>%1</ul><p> Czy "
-"chcesz kontynuować?</p><p><strong>Bądź świadomym, że kate może przestać "
+"chcesz kontynuować?</p><p><strong>Miej na uwadze, że kate może przestać "
 "odpowiadać przez pewien czas przy otwieraniu dużych plików.</strong></p>"
 
 #: lib/kateviewmanager.cpp:372
@@ -2361,16 +2361,12 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Nie udało się włączyć wtyczki <b>%1</b>"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "Zs&ynchronizuj przewijanie"
+msgstr "Zsynchronizuj przewijanie"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""

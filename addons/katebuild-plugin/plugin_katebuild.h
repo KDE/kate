@@ -122,6 +122,8 @@ private Q_SLOTS:
      */
     void saveProjectTargets();
 
+    void enableCompileCurrentFile();
+
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 

@@ -238,6 +238,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     a = actionCollection()->addAction(QStringLiteral("compile_current_file"));
     a->setText(i18n("Compile Current File"));
+    a->setToolTip(i18n("Try to compile the current file by searching a compile_commands.json"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("run-build")));
     connect(a, &QAction::triggered, this, &KateBuildView::slotCompileCurrentFile);
 
@@ -406,6 +407,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(&m_proc, &KProcess::readyReadStandardOutput, this, &KateBuildView::slotReadReadyStdOut);
 
     connect(m_win, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateBuildView::handleEsc);
+    connect(m_win, &KTextEditor::MainWindow::viewChanged, this, &KateBuildView::enableCompileCurrentFile);
 
     m_toolView->installEventFilter(this);
 
@@ -800,6 +802,26 @@ bool KateBuildView::slotStop()
     return false;
 }
 
+/******************************************************************/
+void KateBuildView::enableCompileCurrentFile()
+{
+    QAction* a = actionCollection()->action(QStringLiteral("compile_current_file"));
+    if (!a) {
+        return;
+    }
+
+    bool enable = false;
+    if (m_win && m_win->activeView()) {
+        KTextEditor::Document *currentDocument = m_win->activeView()->document();
+        if (currentDocument) {
+            const QString currentFile = currentDocument->url().path();
+            QString compileCommandsFile = findCompileCommands(currentFile);
+            enable = !compileCommandsFile.isEmpty();
+        }
+    }
+
+    a->setEnabled(enable);
+}
 
 /******************************************************************/
 QString KateBuildView::findCompileCommands(const QString& file) const
@@ -887,7 +909,7 @@ void KateBuildView::slotCompileCurrentFile()
     auto it = m_parsedCompileCommands.commands.find(currentFile);
 
     if (it == m_parsedCompileCommands.commands.end()) {
-        QString msg = i18n("Did not find a a compile command for file \"%1\" in \"%2\". ", currentFile, compileCommandsFile);
+        QString msg = i18n("Did not find a compile command for file \"%1\" in \"%2\". ", currentFile, compileCommandsFile);
         Utils::showMessage(msg, QIcon::fromTheme(QStringLiteral("run-build")), i18n("Build"), MessageType::Warning, m_win);
         return;
     }

@@ -65,8 +65,14 @@ if (NOT WIN32 AND NOT HAIKU)
     target_link_libraries(kateprivate PRIVATE ${Intl_LIBRARIES})
 endif()
 
-# we use dbus only on real unices
-if (UNIX AND NOT ANDROID AND NOT APPLE)
+# shall we use DBus?
+# enabled per default on Linux & BSD systems
+set(USE_DBUS_DEFAULT OFF)
+if(UNIX AND NOT APPLE AND NOT ANDROID AND NOT HAIKU)
+    set(USE_DBUS_DEFAULT ON)
+endif()
+option(USE_DBUS "Build components using DBus" ${USE_DBUS_DEFAULT})
+if(USE_DBUS)
     set(WITH_DBUS TRUE PARENT_SCOPE)
     find_package(KF6DBusAddons ${KF5_DEP_VERSION} REQUIRED)
     target_compile_definitions(kateprivate PUBLIC -DWITH_DBUS)

@@ -139,18 +139,15 @@ void EditSnippet::setSnippetText(const QString &text)
 void EditSnippet::validate()
 {
     const QString &name = m_ui->snippetNameEdit->text();
-    bool valid = !name.isEmpty() && !m_snippetView->document()->isEmpty();
+    bool valid = !name.simplified().isEmpty() && !m_snippetView->document()->isEmpty();
     // make sure the snippetname includes no spaces
     if (name.contains(QLatin1Char(' ')) || name.contains(QLatin1Char('\t'))) {
-        m_ui->messageWidget->setText(i18n("Snippet name cannot contain spaces"));
+        // allow with a warning
+        m_ui->messageWidget->setText(i18n("Snippet names with spaces may not work well in completions"));
         m_ui->messageWidget->animatedShow();
-        valid = false;
     } else {
         // hide message widget if snippet does not include spaces
         m_ui->messageWidget->animatedHide();
-    }
-    if (valid) {
-        m_ui->messageWidget->hide();
     }
     m_okButton->setEnabled(valid);
 }
@@ -185,10 +182,12 @@ void EditSnippet::save()
 void EditSnippet::reject()
 {
     if (m_topBoxModified || m_snippetView->document()->isModified() || m_scriptsView->document()->isModified()) {
-        int ret = KMessageBox::warningContinueCancel(qApp->activeWindow(),
-                                                     i18n("The snippet contains unsaved changes. Do you want to continue and lose all changes?"),
-                                                     i18n("Warning - Unsaved Changes"));
-        if (ret == KMessageBox::Cancel) {
+        int ret = KMessageBox::warningTwoActions(qApp->activeWindow(),
+                                                 i18n("The snippet contains unsaved changes. Do you want to discard all changes?"),
+                                                 i18n("Warning - Unsaved Changes"),
+                                                 KStandardGuiItem::discard(),
+                                                 KGuiItem(i18n("Continue editing")));
+        if (ret == KMessageBox::SecondaryAction) {
             return;
         }
     }

@@ -485,7 +485,6 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
             QCMakeFileApi cmakeFA(buildDir, false);
             if (cmakeFA.haveKateReplyFiles()) {
                 cmakeFA.readReplyFiles();
-                // qDebug() << "reply success: " << success;
 
                 setIndex = createCMakeTargetSet(setIndex, targetSetName, cmakeFA, cmakeConfigName);
             }
@@ -1071,7 +1070,7 @@ void KateBuildView::slotLoadCMakeTargets()
                                                            QStringLiteral("Select CMake Build Dir by Selecting the CMakeCache.txt"),
                                                            QDir::currentPath(),
                                                            QStringLiteral("CMake Cache file (CMakeCache.txt)"));
-    qDebug() << "cmake: " << cmakeFile;
+    qCDebug(KTEBUILD) << "Loading cmake targets for file " << cmakeFile;
     if (cmakeFile.isEmpty()) {
         return;
     }
@@ -1110,14 +1109,14 @@ void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
     }
 
     if (!cmakeFA.haveKateReplyFiles()) {
-        qDebug() << "generating reply files failed !";
+        qCDebug(KTEBUILD) <<  "Generating CMake reply files failed !";
         sendError(
             i18n("Generating CMake File API reply files for build directory %1 failed (using %2) !", cmakeFA.getBuildDir(), cmakeFA.getCMakeExecutable()));
         return;
     }
 
     bool success = cmakeFA.readReplyFiles();
-    qDebug() << "reply success: " << success;
+    qCDebug(KTEBUILD) << "CMake reply success: " << success;
 
     for (const QString &config : cmakeFA.getConfigurations()) {
         QString projectName = QStringLiteral("%1@%2 - [%3]").arg(cmakeFA.getProjectName()).arg(cmakeFA.getBuildDir()).arg(config);
@@ -1188,7 +1187,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                          QString());
 
     QString cmakeGui = cmakeFA.getCMakeGuiExecutable();
-    qDebug() << "cmakeGui: " << cmakeGui;
+    qCDebug(KTEBUILD) << "Creating cmake targets, cmakeGui: " << cmakeGui;
     if (!cmakeGui.isEmpty()) {
         setIndex = m_targetsUi->targetsModel.addCommandAfter(
             setIndex,

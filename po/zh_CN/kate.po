@@ -2356,7 +2356,7 @@ msgstr "关闭所有文档(&A)"
 #: lib/kateviewspace.cpp:1074
 #, kde-format
 msgid "D&etach Document"
-msgstr "分离文档(&E)"
+msgstr "分离文档到新窗口(&E)"
 
 #: lib/kateviewspace.cpp:1076
 #, kde-format

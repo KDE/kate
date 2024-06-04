@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2020-09-17 15:01+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -86,7 +86,7 @@ msgstr "主目錄的簡短名稱"
 msgid "Prefix to show in code completion"
 msgstr "源碼補完要顯示的前綴"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "編輯 %2 裡的片段 %1"
@@ -96,24 +96,31 @@ msgstr "編輯 %2 裡的片段 %1"
 msgid "Create New Snippet in Repository %1"
 msgstr "在主目錄 %1 中新增片段"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "片段名稱不能含空白"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "片段中有未儲存的變更。\n"
 "您要丟棄所有變更並繼續嗎？"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "警告 - 有未儲存的變更"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -349,6 +356,9 @@ msgstr "過濾器..."
 #, kde-format
 msgid "&Tools"
 msgstr "工具(&T)"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "片段名稱不能含空白"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "片段工具檢視"

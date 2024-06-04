@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2023-03-12 21:39+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -86,7 +86,7 @@ msgstr "Mallonga nomo por la deponejo"
 msgid "Prefix to show in code completion"
 msgstr "Prefikso por montri en kodkompletigo"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Redakti fragmenton %1 en %2"
@@ -96,24 +96,31 @@ msgstr "Redakti fragmenton %1 en %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Krei Novan Fragmenton en Deponejo %1"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Fragmentnomo ne povas enhavi spacojn"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "La fragmento enhavas nekonservitajn ŝanĝojn. Ĉu vi volas daŭrigi kaj perdi "
 "ĉiujn ŝanĝojn?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Averto - Nekonservitaj Ŝanĝoj"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -359,3 +366,6 @@ msgstr "Filtrilo..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Iloj"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Fragmentnomo ne povas enhavi spacojn"

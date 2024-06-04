@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2012-11-15 03:24-0800\n"
 "Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr ""
 msgid "Prefix to show in code completion"
 msgstr ""
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr ""
@@ -94,21 +94,25 @@ msgstr ""
 msgid "Create New Snippet in Repository %1"
 msgstr ""
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
+
+#: editsnippet.cpp:186
+#, kde-format
+msgid ""
+"The snippet contains unsaved changes. Do you want to discard all changes?"
+msgstr ""
+
+#: editsnippet.cpp:187
+#, kde-format
+msgid "Warning - Unsaved Changes"
 msgstr ""
 
 #: editsnippet.cpp:189
 #, kde-format
-msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
-msgstr ""
-
-#: editsnippet.cpp:190
-#, kde-format
-msgid "Warning - Unsaved Changes"
+msgid "Continue editing"
 msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)

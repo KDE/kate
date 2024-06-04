@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2014-08-14 17:07+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Prefix to show in code completion"
 msgstr ""
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Snippel %1 mit %2 bewerken"
@@ -95,24 +95,31 @@ msgstr "Snippel %1 mit %2 bewerken"
 msgid "Create New Snippet in Repository %1"
 msgstr "Nieg Snippel binnen Archiev „%1“ opstellen"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Binnen Snippelnaams mutt dat keen Freetekens geven"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "De Snippel bargt nich sekert Ännern. Wullt Du wiedermaken un all Ännern "
 "wegsmieten?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Wohrschoen - Nich sekert Ännern"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -340,6 +347,9 @@ msgstr ""
 #, kde-format
 msgid "&Tools"
 msgstr "&Warktüüch"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Binnen Snippelnaams mutt dat keen Freetekens geven"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Snippel-Warktüüchansicht"

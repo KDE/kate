@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2021-07-22 23:53+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: \n"
@@ -88,7 +88,7 @@ msgstr "اسم قصير للمستودع"
 msgid "Prefix to show in code completion"
 msgstr "سابقة لإظهارها في إكمال الكود"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "حرّر القصاصة %1 في %2"
@@ -98,22 +98,29 @@ msgstr "حرّر القصاصة %1 في %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "أنشئ قصاصة جديدة في المستودع %1"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "لا يمكن أن يحوي اسم القصاصة مسافات"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr "في القصاصة تعديلات غير محفوظة. أتريد المتابعة وفقدها؟"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "تحذير - تعديلات غير محفوظة"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -352,6 +359,9 @@ msgstr "رشّح..."
 #, kde-format
 msgid "&Tools"
 msgstr "أ&دوات"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "لا يمكن أن يحوي اسم القصاصة مسافات"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "منظور أداة للقصاصات"

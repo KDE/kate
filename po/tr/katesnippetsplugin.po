@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2024-03-21 20:44+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -88,7 +88,7 @@ msgstr "Depo için kısa ad"
 msgid "Prefix to show in code completion"
 msgstr "Kod tamamlamada gösterilecek önek"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%1 Parçacığını %2 İçinde Düzenle"
@@ -98,24 +98,31 @@ msgstr "%1 Parçacığını %2 İçinde Düzenle"
 msgid "Create New Snippet in Repository %1"
 msgstr "%1 Deposunda Yeni Parçacık Oluştur"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Parçacık adı boşluk içeremez"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Parçacık kaydedilmemiş değişiklikler içeriyor. Sürdürerek bu değişiklikleri "
 "kaybetmek istiyor musunuz?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Uyarı — Kaydedilmemiş Değişiklikler Var"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -365,6 +372,9 @@ msgstr "Süz…"
 #, kde-format
 msgid "&Tools"
 msgstr "&Araçlar"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Parçacık adı boşluk içeremez"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Kod Parçağı araçları görünümü"

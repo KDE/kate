@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2020-12-13 08:38+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -86,7 +86,7 @@ msgstr "Krótka nazwa dla repozytorium"
 msgid "Prefix to show in code completion"
 msgstr "Przedrostek do pokazania przy uzupełnianiu kodu"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Edytuj wstawkę %1 w %2"
@@ -96,24 +96,31 @@ msgstr "Edytuj wstawkę %1 w %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Utwórz nową wstawkę w repozytorium %1"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Nazwa wstawki nie może zawierać odstępów"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Wstawka zawiera niezapisane zmiany. Czy chcesz kontynuować i stracić "
 "wszystkie zmiany?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Ostrzeżenie: niezapisane zmiany"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -362,6 +369,9 @@ msgstr "Filtruj…"
 #, kde-format
 msgid "&Tools"
 msgstr "&Narzędzia"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Nazwa wstawki nie może zawierać odstępów"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Widok narzędzia wstawek"

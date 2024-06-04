@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2020-12-22 18:47+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -88,7 +88,7 @@ msgstr "Tietokannan lyhyt nimi"
 msgid "Prefix to show in code completion"
 msgstr "Koodin täydennyksessä näytettävä etuliite"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Muokkaa leikettä %1 tietokannasta %2"
@@ -98,23 +98,30 @@ msgstr "Muokkaa leikettä %1 tietokannasta %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Luo uusi leike tietokantaan %1"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Leikkeen nimessä ei voi olla välilyöntejä"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Leikkeessä on muutoksia tallentamattta. Haluatko jatkaa menettäen muutokset?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Varoitus: muutoksia tallentamatta"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -359,6 +366,9 @@ msgstr "Suodata…"
 #, kde-format
 msgid "&Tools"
 msgstr "T&yökalut"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Leikkeen nimessä ei voi olla välilyöntejä"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Leikenäkymä"

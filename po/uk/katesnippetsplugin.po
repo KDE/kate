@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2020-09-13 08:34+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -89,7 +89,7 @@ msgstr "Скорочена назва сховища"
 msgid "Prefix to show in code completion"
 msgstr "Префікс, який слід показувати у автозавершенні коду"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Зміна фрагмента %1 у %2"
@@ -99,24 +99,31 @@ msgstr "Зміна фрагмента %1 у %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Створення нового фрагмента у сховищі %1"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Назва фрагмента не повинна містити пробілів"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "У фрагменті містяться незбережені зміни. Чи бажаєте ви продовжити виконання "
 "дії з втратою всіх змін?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Попередження: незбережені зміни"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -365,6 +372,9 @@ msgstr "Фільтрувати…"
 #, kde-format
 msgid "&Tools"
 msgstr "&Інструменти"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Назва фрагмента не повинна містити пробілів"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Перегляд панелі засобу фрагментів"

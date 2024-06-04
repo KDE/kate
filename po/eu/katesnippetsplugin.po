@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2020-10-10 18:51+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -89,7 +89,7 @@ msgstr "Gordetegiarentzako izen labur bat"
 msgid "Prefix to show in code completion"
 msgstr "Kode osatzean erakutsi beharreko aurrizkia"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Editatu %2(e)ko %1 testu-zatia"
@@ -99,24 +99,31 @@ msgstr "Editatu %2(e)ko %1 testu-zatia"
 msgid "Create New Snippet in Repository %1"
 msgstr "Sortu testu-zati berria %1 gordetegian"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Testu-zati izenak ezin du zuriunerik izan"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Testu-zatiak gorde gabeko aldaketak ditu. Jarraitu nahi duzu eta aldaketa "
 "guztiak galdu?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Abisua - Gorde gabeko aldaketak"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -364,6 +371,9 @@ msgstr "Iragazkia..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Tresnak"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Testu-zati izenak ezin du zuriunerik izan"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Testu-zatien tresnaren ikuspegia"

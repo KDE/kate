@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2021-05-22 20:06+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr "Krátky názov pre repozitár"
 msgid "Prefix to show in code completion"
 msgstr "Predpona na zobrazenie v ukončovaní kódu"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Upraviť úryvok %1 v %2"
@@ -94,23 +94,30 @@ msgstr "Upraviť úryvok %1 v %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Vytvoriť nový úryvok v repozitári %1"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Názov úryvku nemôže obsahovať medzery"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Úryvok obsahuje neuložené zmeny. Chcete pokračovať a stratiť všetky zmeny?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Upozornenie - neuložené zmeny"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -355,6 +362,9 @@ msgstr "Filter..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Nástroje"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Názov úryvku nemôže obsahovať medzery"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Pohľad nástroja úryvkov"

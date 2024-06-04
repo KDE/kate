@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -90,7 +90,7 @@ msgstr "Префикс у приказу допуне кода"
 
 # >> @title:window
 # rewrite-msgid: /in /in repository/
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Уређивање исечка %1 из ризнице %2"
@@ -101,24 +101,31 @@ msgstr "Уређивање исечка %1 из ризнице %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Стварање новог исечка у ризници %1"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Име исечка не може да садржи размаке."
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Исечак садржи несачуване измене. Желите ли да наставите и изгубите све "
 "измене?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Упозорење — несачуване измене"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -369,6 +376,9 @@ msgstr "Филтер..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Алатке"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Име исечка не може да садржи размаке."
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Алатни приказ исечака"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2021-03-09 11:08+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -85,7 +85,7 @@ msgstr "Fraqment toplusunun qısa adı"
 msgid "Prefix to show in code completion"
 msgstr "Kod tamamlanmasında prefikslər göstərilsin"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%1 kod fraqmentinə %2 daxilində düzəliş edin"
@@ -95,24 +95,31 @@ msgstr "%1 kod fraqmentinə %2 daxilində düzəliş edin"
 msgid "Create New Snippet in Repository %1"
 msgstr "%1 kod toplusu içərisində kod fraqmenti yaradın"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Kod fraqmenti adında boşluqlar ola bilməz"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Kod fraqmentində saxlanılmamış dəyişikliklər var. Davam edərək bu "
 "dəyişiklikləri itirmək istəyirsiniz?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Xəbərdarlıq - Saxlanılmamış dəyişikliklər"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -362,6 +369,9 @@ msgstr "Süzgəc..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Alətlər"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Kod fraqmenti adında boşluqlar ola bilməz"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Fraqmentlərin idarə edilməsi"

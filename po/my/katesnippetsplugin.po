@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2021-09-15 04:32+0630\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -86,7 +86,7 @@ msgstr "ရီပိုစစ်တိုရီ၏ အမည်တို"
 msgid "Prefix to show in code completion"
 msgstr ""
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%2 တွင် စာအတိုအထွာ %1 တည်းဖြတ်မည်"
@@ -96,22 +96,26 @@ msgstr "%2 တွင် စာအတိုအထွာ %1 တည်းဖြတ�
 msgid "Create New Snippet in Repository %1"
 msgstr "ရီပိုစစ်တိုရီ %1 စာအတိုအထွာအသစ်တွင်ဖန်တီးမည်"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
+msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 
-#: editsnippet.cpp:189
+#: editsnippet.cpp:186
 #, kde-format
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "သတိ - မသိမ်းဆည်းရသေးသောပြောင်းလဲမှုများ"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2022-07-13 08:26+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -85,7 +85,7 @@ msgstr "Một tên ngắn đặt cho kho"
 msgid "Prefix to show in code completion"
 msgstr "Tiền tố để hiển thị trong phần hoàn tất mã"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Sửa mảnh mã %1 trong %2"
@@ -95,24 +95,31 @@ msgstr "Sửa mảnh mã %1 trong %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Tạo mảnh mã mới trong kho %1"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Tên mảnh mã không được chứa dấu cách"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Mảnh mã có các thay đổi chưa được lưu. Bạn có muốn tiếp tục và sẽ mất tất cả "
 "các thay đổi đó không?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Cảnh báo - thay đổi chưa lưu"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -357,6 +364,9 @@ msgstr "Lọc..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Công cụ"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Tên mảnh mã không được chứa dấu cách"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "Khung xem công cụ \"mảnh mã\""

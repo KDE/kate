@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-04 00:41+0000\n"
 "PO-Revision-Date: 2020-09-20 09:48+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -88,7 +88,7 @@ msgstr "Eit kort namn for lageret"
 msgid "Prefix to show in code completion"
 msgstr "Prefiks som skal visast i kodefullføring"
 
-#: editsnippet.cpp:97 editsnippet.cpp:177
+#: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Rediger tekstbit %1 i %2"
@@ -98,24 +98,31 @@ msgstr "Rediger tekstbit %1 i %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Opprett ny tekstbit i lager %1"
 
-#: editsnippet.cpp:145
+#: editsnippet.cpp:146
 #, kde-format
-msgid "Snippet name cannot contain spaces"
-msgstr "Namn på tekstbitar kan ikkje innehalda mellomrom"
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
 
-#: editsnippet.cpp:189
-#, kde-format
+#: editsnippet.cpp:186
+#, fuzzy, kde-format
+#| msgid ""
+#| "The snippet contains unsaved changes. Do you want to continue and lose "
+#| "all changes?"
 msgid ""
-"The snippet contains unsaved changes. Do you want to continue and lose all "
-"changes?"
+"The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Tekstbiten har endringar som ikkje er lagra. Vil du gå vidare og forkasta "
 "alle endringane?"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Åtvaring – ulagra endringar"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid "Continue editing"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
@@ -362,3 +369,6 @@ msgstr "Filtrer …"
 #, kde-format
 msgid "&Tools"
 msgstr "&Verktøy"
+
+#~ msgid "Snippet name cannot contain spaces"
+#~ msgstr "Namn på tekstbitar kan ikkje innehalda mellomrom"

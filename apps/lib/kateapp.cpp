@@ -137,11 +137,6 @@ void KateApp::initPreApplicationCreation(bool detach)
 #endif
 
 #if defined(Q_OS_WIN)
-    // enable dark mode for title bar on Windows
-    if (!qEnvironmentVariableIsSet("QT_QPA_PLATFORM")) {
-        qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
-    }
-
     // Enable on windows to see output in console
     if (AttachConsole(ATTACH_PARENT_PROCESS)) {
         // we are inside a terminal

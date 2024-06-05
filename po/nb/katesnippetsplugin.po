@@ -340,6 +340,3 @@ msgstr "Filtrer  …"
 #, kde-format
 msgid "&Tools"
 msgstr "Verk&tøy"
-
-#~ msgid "Snippet name cannot contain spaces"
-#~ msgstr "Det kan ikke være tomrom i navn på tekstbiter"

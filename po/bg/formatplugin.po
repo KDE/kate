@@ -1,118 +1,121 @@
-# Copyright (C) 2023 This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2023, 2024 Paolo Zamponi <feus73@gmail.com>
 #
+# SPDX-FileCopyrightText: 2024 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-05-28 15:23+0200\n"
-"Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
-"Language-Team: Italian <kde-i18n-it@kde.org>\n"
-"Language: it\n"
+"PO-Revision-Date: 2024-06-04 22:24+0200\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
 #: FormatterFactory.h:92
 #, kde-format
 msgid "Format"
-msgstr "Formatta"
+msgstr "Форматиране"
 
 #: FormatApply.h:22
 #, kde-format
 msgid "Failed to write a temp file"
-msgstr "Impossibile scrivere un file temporaneo"
+msgstr "Неуспешно записване на временен файл"
 
 #: FormatApply.h:35
 #, kde-format
 msgid "Failed to run git diff: %1"
-msgstr "Impossibile eseguire git diff: %1"
+msgstr "Неуспешно изпълнение на git diff: %1"
 
 #: FormatConfig.cpp:122
 #, kde-format
 msgid "User Settings"
-msgstr "Impostazioni utente"
+msgstr "Потребителски настройки"
 
 #: FormatConfig.cpp:130
 #, kde-format
 msgid "Default Settings"
-msgstr "Impostazioni predefinite"
+msgstr "Настройки по подразбиране"
 
 #: FormatConfig.h:18 FormatPlugin.cpp:112
 #, kde-format
 msgid "Formatting"
-msgstr "Formattazione"
+msgstr "Форматиране"
 
 #: FormatConfig.h:23
 #, kde-format
 msgid "Formatting Settings"
-msgstr "Impostazioni formattazione"
+msgstr "Настройки за форматиране"
 
 #: FormatPlugin.cpp:82
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
-msgstr "Impossibile leggere settings.json. Errore: %1"
+msgstr "Неуспешно четене на settings.json. Грешка: %1"
 
 #: FormatPlugin.cpp:118
 #, kde-format
 msgid "Format Document"
-msgstr "Formatta documento"
+msgstr "Форматиране на документ"
 
 #: FormatPlugin.cpp:137
 #, kde-format
 msgid "Format on Save"
-msgstr "Formattazione al salvataggio"
+msgstr "Форматиране при запазване"
 
 #: FormatPlugin.cpp:140
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
-"Disabilita la formattazione al salvataggio senza renderlo persistente nelle "
-"impostazioni"
+"Деактивиране на форматирането при запазване, без да го запазвате в "
+"настройките"
 
 #: FormatterFactory.h:45
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr "formatterForJson sconosciuto: %1"
+msgstr "Неизвестен formatterForJson: %1"
 
 #: FormatterFactory.h:65
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr "formatterForPython sconosciuto: %1"
+msgstr "Неизвестен formatterForPython: %1"
 
 #: FormatterFactory.h:85
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr "formatterForYaml sconosciuto: %1, ripiego su yamlfmt"
+msgstr "Неизвестен formatterForYaml: %1, връщане към yamlfmt"
 
 #: FormatterFactory.h:92
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
-msgstr "Impossibile eseguire il formattatore. Lingua non supportata %1"
+msgstr ""
+"Неуспешно стартиране на инструмента за форматиране. Неподдържан език %1"
 
 #: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
-msgstr "%1: comando vuoto inaspettato."
+msgstr "%1: Неочаквана празна команда!"
 
 #: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
-msgstr "%1 non è installato. Installalo per poter formattare questo documento."
+msgstr ""
+"%1 не е инсталиран, моля, инсталирайте го, за да можете да форматирате този "
+"документ!"
 
 #: Formatters.cpp:214
 #, kde-format
 msgid "Please install node and prettier"
-msgstr "Installa node e prettier"
+msgstr "Моля, инсталирайте node и prettier"
 
 #: Formatters.cpp:221
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
-msgstr "PrettierFormat: impossibile creare un file temporaneo"
+msgstr "PrettierFormat: Неуспешно създаване на временен файл"

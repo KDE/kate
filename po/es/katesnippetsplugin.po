@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Eloy Cuadra <ecuadra@eloihr.net>, 2013, 2014, 2016, 2020.
+# SPDX-FileCopyrightText: 2013, 2014, 2016, 2020, 2024 Eloy Cuadra <ecuadra@eloihr.net>
 # Rocio Gallego <traducciones@rociogallego.com>, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2020-11-21 09:43+0100\n"
+"PO-Revision-Date: 2024-06-05 01:32+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.08.3\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -101,17 +101,16 @@ msgstr "Crear nuevo fragmento de código en el repositorio %1"
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"Es posible que los nombres de fragmentos de código con espacios no funcionen "
+"correctamente en terminaciones"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"El fragmento de código contiene cambios sin guardar. ¿Desea continuar y "
-"perder todos los cambios?"
+"El fragmento de código contiene cambios sin guardar. ¿Desea descartar todos "
+"los cambios?"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -121,7 +120,7 @@ msgstr "Advertencia: cambios sin guardar"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Continuar la edición"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

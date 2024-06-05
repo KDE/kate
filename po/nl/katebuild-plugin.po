@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2024-05-21 10:24+0200\n"
+"PO-Revision-Date: 2024-06-04 12:15+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -93,12 +93,14 @@ msgstr "Geselecteerd doel bouwen en uitvoeren"
 #: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Huidig bestand compileren"
 
 #: plugin_katebuild.cpp:241
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
+"Probeer het huidige bestand te compileren door te zoeken naar een "
+"compile_commands.json"
 
 #: plugin_katebuild.cpp:246
 #, kde-format
@@ -177,12 +179,12 @@ msgstr "Bouwen van <b>%1</b> geannuleerd"
 #: plugin_katebuild.cpp:898
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Hebt u een compile_commands.json voor bestand \"%1\" gevonden. "
 
 #: plugin_katebuild.cpp:912
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Hebt u een compile-opdracht in \"%2\" gevonden voor bestand \"%1\"."
 
 #: plugin_katebuild.cpp:1020
 #, kde-format

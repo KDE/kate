@@ -1,16 +1,16 @@
 # Translation of katesnippetsplugin.po to Catalan
-# Copyright (C) 2012-2023 This_file_is_part_of_KDE
+# Copyright (C) 2012-2024 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2012, 2014, 2015, 2016, 2020, 2023.
+# Josep M. Ferrer <txemaq@gmail.com>, 2012, 2014, 2015, 2016, 2020, 2023, 2024.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2015, 2019, 2020, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2023-09-19 19:28+0200\n"
+"PO-Revision-Date: 2024-06-04 13:56+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -103,16 +103,13 @@ msgstr "Crea un retall nou al repositori %1"
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"Els noms de retalls amb espais potser no funcionin bé a les complecions"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
-msgstr ""
-"El retall conté canvis sense desar. Voleu continuar i perdre tots els canvis?"
+msgstr "El retall conté canvis sense desar. Voleu descartar tots els canvis?"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -122,7 +119,7 @@ msgstr "Avís: Canvis sense desar"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Continua l'edició"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

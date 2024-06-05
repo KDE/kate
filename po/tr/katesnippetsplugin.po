@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2024-03-21 20:44+0300\n"
+"PO-Revision-Date: 2024-06-04 12:07+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -102,17 +102,15 @@ msgstr "%1 Deposunda Yeni Parçacık Oluştur"
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"Boşluk içeren parçacık adları tamamlamalarda pek iyi sonuç vermeyebilir"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"Parçacık kaydedilmemiş değişiklikler içeriyor. Sürdürerek bu değişiklikleri "
-"kaybetmek istiyor musunuz?"
+"Parçacık kaydedilmemiş değişiklikler içeriyor. Tüm değişiklikleri atmak "
+"istiyor musunuz?"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -122,7 +120,7 @@ msgstr "Uyarı — Kaydedilmemiş Değişiklikler Var"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Düzenlemeyi Sürdür"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2023-09-13 06:21+0200\n"
+"PO-Revision-Date: 2024-06-04 05:48+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -99,18 +99,14 @@ msgstr "რეპოზიტორიაში %1 ახალი ფრაგ�
 #: editsnippet.cpp:146
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
-msgstr ""
+msgstr "ჰარეების შემცველი ნაგლეჯ სახელები დასრულებებში კარგად არ მუშაობს"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"ფრაგმენტი შეუნახავ ცვლილებებს შეიცავს. გნებავთ, გააგრძელოთ და დაკარგოთ ყველა "
-"თქვენი ცვლილება?"
+"ფრაგმენტი შეუნახავ ცვლილებებს შეიცავს. გნებავთ, მოაცილოთ ყველა ცვლილება?"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -120,7 +116,7 @@ msgstr "გაფრთხილება - შეუნახავი ცვ�
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "ჩასწორების გაგრძელება"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

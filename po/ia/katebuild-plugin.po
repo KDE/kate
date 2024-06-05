@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2024-05-21 10:05+0200\n"
+"PO-Revision-Date: 2024-06-04 12:02+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -91,12 +91,12 @@ msgstr "Construe e exeque objectivo seligite"
 #: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Compila File Currente"
 
 #: plugin_katebuild.cpp:241
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "Essaya compilar le file currente per cercar un compile_commands.json"
 
 #: plugin_katebuild.cpp:246
 #, kde-format
@@ -175,12 +175,12 @@ msgstr "Cancellate construction <b>%1</b>"
 #: plugin_katebuild.cpp:898
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Il non trovava un  compile_commands.json per le file \"%1\". "
 
 #: plugin_katebuild.cpp:912
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Il non trovava un commando de compilar per le file \"%1\" in \"%2\". "
 
 #: plugin_katebuild.cpp:1020
 #, kde-format

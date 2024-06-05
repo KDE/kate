@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2024-05-21 16:14+0200\n"
+"PO-Revision-Date: 2024-06-04 13:58+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -96,12 +96,12 @@ msgstr "Construeix i executa l'objectiu seleccionat"
 #: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Compila el fitxer actual"
 
 #: plugin_katebuild.cpp:241
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "Intenta compilar el fitxer actual cercant un «compile_commands.json»"
 
 #: plugin_katebuild.cpp:246
 #, kde-format
@@ -180,12 +180,12 @@ msgstr "S'ha cancel·lat la construcció de <b>%1</b>"
 #: plugin_katebuild.cpp:898
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "No s'ha trobat cap «compile_commands.json» per al fitxer «%1». "
 
 #: plugin_katebuild.cpp:912
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "No s'ha trobat cap ordre de compilació per al fitxer «%1» a «%2». "
 
 #: plugin_katebuild.cpp:1020
 #, kde-format

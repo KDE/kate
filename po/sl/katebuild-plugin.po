@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2024-05-21 09:39+0200\n"
+"PO-Revision-Date: 2024-06-04 06:54+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -94,12 +94,12 @@ msgstr "Izgradi in zaženi izbrani cilj"
 #: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Prevedi trenutno datoteko"
 
 #: plugin_katebuild.cpp:241
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "Poskusi prevesti trenutno datoteko z iskanjem compile_commands.json"
 
 #: plugin_katebuild.cpp:246
 #, kde-format
@@ -177,12 +177,12 @@ msgstr "Izgrajevanje <b>%1</b> preklicano"
 #: plugin_katebuild.cpp:898
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Ni najdene compile_commands.json za datoteko \"%1\"."
 
 #: plugin_katebuild.cpp:912
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Ni najdene datoteke ukazov prevajanja za datoteko \"%1\" v \"%2\". "
 
 #: plugin_katebuild.cpp:1020
 #, kde-format

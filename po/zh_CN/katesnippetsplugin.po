@@ -101,13 +101,10 @@ msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
-msgstr "代码片段包含未保存的更改。您想要继续并丢弃全部更改吗？"
+msgstr ""
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -352,6 +349,3 @@ msgstr "过滤..."
 #, kde-format
 msgid "&Tools"
 msgstr "工具(&T)"
-
-#~ msgid "Snippet name cannot contain spaces"
-#~ msgstr "代码片段名称不能包含空格"

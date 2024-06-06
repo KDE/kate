@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2023-03-12 21:39+0100\n"
+"PO-Revision-Date: 2024-06-05 21:43+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -99,18 +99,15 @@ msgstr "Krei Novan Fragmenton en Deponejo %1"
 #: editsnippet.cpp:146
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
-msgstr ""
+msgstr "Fragmentnomoj kun spacetoj eble ne bone funkcias en kompletigoj"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"La fragmento enhavas nekonservitajn ŝanĝojn. Ĉu vi volas daŭrigi kaj perdi "
-"ĉiujn ŝanĝojn?"
+"La fragmento enhavas nekonservitajn ŝanĝojn. Ĉu vi volas forĵeti ĉiujn "
+"ŝanĝojn?"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -120,7 +117,7 @@ msgstr "Averto - Nekonservitaj Ŝanĝoj"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Daŭrigi redaktadon"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

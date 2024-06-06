@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2024-05-21 23:26+0100\n"
+"PO-Revision-Date: 2024-06-05 21:43+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -91,12 +91,12 @@ msgstr "Konstrui kaj Lanĉi Elektitan Celon"
 #: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Kompili Aktualan Dosieron"
 
 #: plugin_katebuild.cpp:241
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "Provi kompili la aktualan dosieron per serĉo de compile_commands.json"
 
 #: plugin_katebuild.cpp:246
 #, kde-format
@@ -175,12 +175,12 @@ msgstr "Konstruado de <b>%1</b> nuligita"
 #: plugin_katebuild.cpp:898
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Ne trovis compile_commands.json por dosiero \"%1\". "
 
 #: plugin_katebuild.cpp:912
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Ne trovis kompilkomandon por dosiero \"%1\" en \"%2\". "
 
 #: plugin_katebuild.cpp:1020
 #, kde-format

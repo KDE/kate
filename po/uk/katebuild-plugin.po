@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-04 00:41+0000\n"
-"PO-Revision-Date: 2024-05-21 06:49+0300\n"
+"PO-Revision-Date: 2024-06-05 08:31+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -93,12 +93,13 @@ msgstr "Зібрати і запустити позначену ціль"
 #: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Компілювати поточний файл"
 
 #: plugin_katebuild.cpp:241
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
+"Спробувати скомпілювати поточний файл шляхом пошуку compile_commands.json"
 
 #: plugin_katebuild.cpp:246
 #, kde-format
@@ -175,12 +176,12 @@ msgstr "Збирання <b>%1</b> скасовано"
 #: plugin_katebuild.cpp:898
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Не знайдено compile_commands.json для файла «%1». "
 
 #: plugin_katebuild.cpp:912
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Не вдалося знайти команду компіляції для файла «%1» у «%2». "
 
 #: plugin_katebuild.cpp:1020
 #, kde-format

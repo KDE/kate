@@ -164,8 +164,7 @@ void KateApp::initPreApplicationCreation(bool detach)
     }
 #endif
 
-    // blacklist macOS, crashes on start with this
-    // TODO: investigate why
+    // fork without exec not supported on macOS, will just crash, avoid that there
 #if !defined(Q_OS_MACOS) && defined(HAVE_DAEMON)
     if (detach) {
         // just try it, if it doesn't work we just continue in the foreground

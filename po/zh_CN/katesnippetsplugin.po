@@ -98,13 +98,13 @@ msgstr "在仓库 %1 中创建新代码片段"
 #: editsnippet.cpp:146
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
-msgstr ""
+msgstr "带有空格的代码片段名称可能在代码补全中无法正常工作"
 
 #: editsnippet.cpp:186
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
-msgstr ""
+msgstr "代码片段包含未保存的更改。您想要丢弃全部更改吗？"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -114,7 +114,7 @@ msgstr "警告 - 未保存的更改"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "继续编辑"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-06 00:41+0000\n"
+"POT-Creation-Date: 2024-06-07 00:41+0000\n"
 "PO-Revision-Date: 2023-07-06 10:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -624,328 +624,328 @@ msgstr ""
 "ذلك، استخدم المحرر بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا "
 "لزم الأمر."
 
-#: lib/kateapp.cpp:282
+#: lib/kateapp.cpp:281
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "كريستوف كولمان"
 
-#: lib/kateapp.cpp:282
+#: lib/kateapp.cpp:281
 #, kde-format
 msgid "Maintainer"
 msgstr "المصين"
 
-#: lib/kateapp.cpp:283
+#: lib/kateapp.cpp:282
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "دومينيك هاومان"
 
-#: lib/kateapp.cpp:283 lib/kateapp.cpp:286 lib/kateapp.cpp:287
-#: lib/kateapp.cpp:289 lib/kateapp.cpp:292 lib/kateapp.cpp:298
+#: lib/kateapp.cpp:282 lib/kateapp.cpp:285 lib/kateapp.cpp:286
+#: lib/kateapp.cpp:288 lib/kateapp.cpp:291 lib/kateapp.cpp:297
 #, kde-format
 msgid "Core Developer"
 msgstr "مطوّر اللبّ"
 
-#: lib/kateapp.cpp:284
+#: lib/kateapp.cpp:283
 #, kde-format
 msgid "Sven Brauch"
 msgstr "سفين بروش"
 
-#: lib/kateapp.cpp:284 lib/kateapp.cpp:285 lib/kateapp.cpp:293
+#: lib/kateapp.cpp:283 lib/kateapp.cpp:284 lib/kateapp.cpp:292
 #, kde-format
 msgid "Developer"
 msgstr "مطوّر"
 
-#: lib/kateapp.cpp:285
+#: lib/kateapp.cpp:284
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kåre Särs"
 
-#: lib/kateapp.cpp:286
+#: lib/kateapp.cpp:285
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr "وقار أحمد"
 
-#: lib/kateapp.cpp:287
+#: lib/kateapp.cpp:286
 #, kde-format
 msgid "Anders Lund"
 msgstr "أندرس لوند"
 
-#: lib/kateapp.cpp:288
+#: lib/kateapp.cpp:287
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "جوزيف وينينجر"
 
-#: lib/kateapp.cpp:292
+#: lib/kateapp.cpp:291
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "هاميش رودا"
 
-#: lib/kateapp.cpp:293
+#: lib/kateapp.cpp:292
 #, kde-format
 msgid "Alexander Neundorf"
 msgstr "ألكساندر نيوندورف"
 
-#: lib/kateapp.cpp:294
+#: lib/kateapp.cpp:293
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "والدو باستيان"
 
-#: lib/kateapp.cpp:294
+#: lib/kateapp.cpp:293
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "نظام الصِّوانات الرائع"
 
-#: lib/kateapp.cpp:295
+#: lib/kateapp.cpp:294
 #, kde-format
 msgid "Charles Samuels"
 msgstr "تشارلز صامويلز"
 
-#: lib/kateapp.cpp:295
+#: lib/kateapp.cpp:294
 #, kde-format
 msgid "The Editing Commands"
 msgstr "أوامر التّحرير"
 
-#: lib/kateapp.cpp:296
+#: lib/kateapp.cpp:295
 #, kde-format
 msgid "Matt Newell"
 msgstr "مات نيويل"
 
-#: lib/kateapp.cpp:296
+#: lib/kateapp.cpp:295
 #, kde-format
 msgid "Testing, ..."
 msgstr "الاختبار، ..."
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:296
 #, kde-format
 msgid "Michael Bartl"
 msgstr "مايكل بارتل"
 
-#: lib/kateapp.cpp:297
+#: lib/kateapp.cpp:296
 #, kde-format
 msgid "Former Core Developer"
 msgstr "مطوّر اللبّ السّابق"
 
-#: lib/kateapp.cpp:298
+#: lib/kateapp.cpp:297
 #, kde-format
 msgid "Michael McCallum"
 msgstr "مايكل ماكالوم"
 
-#: lib/kateapp.cpp:299
+#: lib/kateapp.cpp:298
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr "Jochen Wilhemly"
 
-#: lib/kateapp.cpp:299
+#: lib/kateapp.cpp:298
 #, kde-format
 msgid "KWrite Author"
 msgstr "مؤلّف «كاتبك»"
 
-#: lib/kateapp.cpp:300
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "Michael Koch"
 msgstr "ميخائيل كوش"
 
-#: lib/kateapp.cpp:300
+#: lib/kateapp.cpp:299
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "نقل «كاتبك» إلى «أجزائك»"
 
-#: lib/kateapp.cpp:301
+#: lib/kateapp.cpp:300
 #, kde-format
 msgid "Christian Gebauer"
 msgstr "كريستيان جيباور"
 
-#: lib/kateapp.cpp:302
+#: lib/kateapp.cpp:301
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "سيمون هاوسمان"
 
-#: lib/kateapp.cpp:303
+#: lib/kateapp.cpp:302
 #, kde-format
 msgid "Glen Parker"
 msgstr "غلين باركر"
 
-#: lib/kateapp.cpp:303
+#: lib/kateapp.cpp:302
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "تأريخ التّراجع في «كاتبك»، التّكامل مع «هجائك»"
 
-#: lib/kateapp.cpp:304
+#: lib/kateapp.cpp:303
 #, kde-format
 msgid "Scott Manson"
 msgstr "سكوت مانسون"
 
-#: lib/kateapp.cpp:304
+#: lib/kateapp.cpp:303
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "دعم إبراز صياغة XML في «كاتبك»"
 
-#: lib/kateapp.cpp:305
+#: lib/kateapp.cpp:304
 #, kde-format
 msgid "John Firebaugh"
 msgstr "جون فايربو"
 
-#: lib/kateapp.cpp:305
+#: lib/kateapp.cpp:304
 #, kde-format
 msgid "Patches and more"
 msgstr "الرّقع وغيرها"
 
-#: lib/kateapp.cpp:306
+#: lib/kateapp.cpp:305
 #, kde-format
 msgid "Pablo Martín"
 msgstr "بابلو مارتين"
 
-#: lib/kateapp.cpp:307
+#: lib/kateapp.cpp:306
 #, kde-format
 msgid "Python Plugin Developer"
 msgstr "مطوّر إضافة بيثون"
 
-#: lib/kateapp.cpp:310
+#: lib/kateapp.cpp:309
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr "جيرالد سيناركلينز دي جرانسي"
 
-#: lib/kateapp.cpp:311
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "QA and Scripting"
 msgstr "ضمان الجودة والسّكربتة"
 
-#: lib/kateapp.cpp:315
+#: lib/kateapp.cpp:314
 #, kde-format
 msgid "Tyson Tan"
 msgstr "Tyson Tan"
 
-#: lib/kateapp.cpp:316
+#: lib/kateapp.cpp:315
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr "مصمم تميمة كيت \"Kate the Cyber Woodpecker\""
 
-#: lib/kateapp.cpp:319
+#: lib/kateapp.cpp:318
 #, kde-format
 msgid "Matteo Merli"
 msgstr "ماتيو ميرلي"
 
-#: lib/kateapp.cpp:319
+#: lib/kateapp.cpp:318
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "إبراز ملفّات المواصفات ل‍RPM، وبيرل، وملفّات الفرق وغيرها"
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:319
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "روكي سكاليتا"
 
-#: lib/kateapp.cpp:320
+#: lib/kateapp.cpp:319
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "إبراز VHDL"
 
-#: lib/kateapp.cpp:321
+#: lib/kateapp.cpp:320
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "يوري ليبيديف"
 
-#: lib/kateapp.cpp:321
+#: lib/kateapp.cpp:320
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "إبراز SQL"
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:321
 #, kde-format
 msgid "Chris Ross"
 msgstr "كريس روس"
 
-#: lib/kateapp.cpp:322
+#: lib/kateapp.cpp:321
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "إبراز Ferite"
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:322
 #, kde-format
 msgid "Nick Roux"
 msgstr "نيك رو"
 
-#: lib/kateapp.cpp:323
+#: lib/kateapp.cpp:322
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "إبراز ILERPG"
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:323
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "كارستن نيهاوس"
 
-#: lib/kateapp.cpp:324
+#: lib/kateapp.cpp:323
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "إبراز لاتخ"
 
-#: lib/kateapp.cpp:325
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "Per Wigren"
 msgstr "بير ويغرين"
 
-#: lib/kateapp.cpp:325
+#: lib/kateapp.cpp:324
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "إبراز Makefile وبيثون"
 
-#: lib/kateapp.cpp:326
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Jan Fritz"
 msgstr "جان فريتز"
 
-#: lib/kateapp.cpp:326
+#: lib/kateapp.cpp:325
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "إبراز بيثون"
 
-#: lib/kateapp.cpp:327
+#: lib/kateapp.cpp:326
 #, kde-format
 msgid "Daniel Naber"
 msgstr "دانييل نابر"
 
-#: lib/kateapp.cpp:328
+#: lib/kateapp.cpp:327
 #, kde-format
 msgid "Roland Pabel"
 msgstr "رولاند بابل"
 
-#: lib/kateapp.cpp:328
+#: lib/kateapp.cpp:327
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "إبراز المخططات"
 
-#: lib/kateapp.cpp:329
+#: lib/kateapp.cpp:328
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "كريستي دوميتريسكو"
 
-#: lib/kateapp.cpp:329
+#: lib/kateapp.cpp:328
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "قائمة أنواع البيانات والكلمات المفتاحيّة ل‍PHP"
 
-#: lib/kateapp.cpp:330
+#: lib/kateapp.cpp:329
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "كارستن فايفر"
 
-#: lib/kateapp.cpp:330
+#: lib/kateapp.cpp:329
 #, kde-format
 msgid "Very nice help"
 msgstr "مساعدة لطيفة جدًّا"
 
-#: lib/kateapp.cpp:331
+#: lib/kateapp.cpp:330
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "كلّ مَن ساهم ونسيت ذكره"
 
-#: lib/kateapp.cpp:460
+#: lib/kateapp.cpp:459
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "لا يمكن فتح المجلدات إلا عند تمكين ملحق المشاريع"
 
-#: lib/kateapp.cpp:550
+#: lib/kateapp.cpp:549
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

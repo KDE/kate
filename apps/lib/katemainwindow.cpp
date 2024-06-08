@@ -592,8 +592,8 @@ void KateMainWindow::slotDocumentCloseAll()
     if (!KateApp::self()->documentManager()->documentList().empty()
         && KMessageBox::warningContinueCancel(this,
                                               i18n("This will close all open documents. Are you sure you want to continue?"),
-                                              i18n("Close all documents"),
-                                              KStandardGuiItem::cont(),
+                                              i18n("Close all documents?"),
+                                              KGuiItem(i18n("Close All"), QStringLiteral("document-close")),
                                               KStandardGuiItem::cancel(),
                                               QStringLiteral("closeAll"))
             != KMessageBox::Cancel) {
@@ -608,8 +608,8 @@ void KateMainWindow::slotDocumentCloseOther(KTextEditor::Document *document)
     if (KateApp::self()->documentManager()->documentList().size() > 1
         && KMessageBox::warningContinueCancel(this,
                                               i18n("This will close all open documents beside the current one. Are you sure you want to continue?"),
-                                              i18n("Close all documents beside current one"),
-                                              KStandardGuiItem::cont(),
+                                              i18n("Close all documents beside current one?"),
+                                              KGuiItem(i18n("Close Others"), QStringLiteral("document-close")),
                                               KStandardGuiItem::cancel(),
                                               QStringLiteral("closeOther"))
             != KMessageBox::Cancel) {

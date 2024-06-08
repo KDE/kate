@@ -279,7 +279,10 @@ void SnippetView::slotRemoveSnippet()
         return;
     }
 
-    int ans = KMessageBox::warningContinueCancel(QApplication::activeWindow(), i18n("Do you really want to delete the snippet \"%1\"?", item->text()));
+    int ans = KMessageBox::warningContinueCancel(QApplication::activeWindow(),
+                                                 i18n("Do you really want to delete the snippet \"%1\"?", item->text()),
+                                                 QString(),
+                                                 KStandardGuiItem::del());
     if (ans == KMessageBox::Continue) {
         item->parent()->removeRow(item->row());
         repo->save();
@@ -321,7 +324,9 @@ void SnippetView::slotRemoveRepo()
     }
 
     int ans = KMessageBox::warningContinueCancel(QApplication::activeWindow(),
-                                                 i18n("Do you really want to delete the repository \"%1\" with all its snippets?", repo->text()));
+                                                 i18n("Do you really want to delete the repository \"%1\" with all its snippets?", repo->text()),
+                                                 QString(),
+                                                 KStandardGuiItem::del());
     if (ans == KMessageBox::Continue) {
         repo->remove();
     }

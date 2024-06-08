@@ -1,6 +1,7 @@
 # Finnish messages for kate.
 # Copyright © 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011, 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2022, 2024 Lasse Liehu <lasse.liehu@gmail.com>
 # Kim Enkovaara <kim.enkovaara@iki.fi>, 2002, 2003.
 # Tapio Kautto <eleknader@phnet.fi>, 2004.
 # Ilpo Kantonen <ilpo@iki.fi>, 2005, 2006.
@@ -8,7 +9,6 @@
 # Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006.
 # Tommi Nieminen <translator@legisign.org>, 2009.
 # Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
-# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2022, 2024 Lasse Liehu <lasse.liehu@gmail.com>
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011, 2012.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
 #
@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 02:33+0000\n"
-"PO-Revision-Date: 2024-02-25 03:13+0200\n"
-"Last-Translator: Lasse Liehu <lasse.liehu@iki.fi>\n"
+"PO-Revision-Date: 2024-03-11 15:17+0200\n"
+"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2013-01-13 20:43:20+0000\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1584,15 +1584,14 @@ msgid "Close all open documents."
 msgstr "Sulje kaikki avoimet tiedostot."
 
 #: lib/katemainwindow.cpp:437
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Lataa uudelleen kaikki avoimet tiedostot."
+msgstr "Avaa &suljetut tiedostot &uudelleen."
 
 #: lib/katemainwindow.cpp:440
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "Avaa äskettäin suljetut tiedosto(t) uudelleen"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format

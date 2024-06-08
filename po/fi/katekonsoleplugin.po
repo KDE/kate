@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Mikko Piippo <piippo@cc.helsinki.fi>, 2008.
-# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2018, 2020, 2021, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2018, 2020, 2021, 2023, 2024.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2013, 2014.
 #
 # KDE Finnish translation sprint participants:
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 00:40+0000\n"
-"PO-Revision-Date: 2023-04-20 17:33+0300\n"
+"PO-Revision-Date: 2024-03-11 15:16+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -65,26 +65,22 @@ msgid "&Focus Terminal Panel"
 msgstr "&Kohdista päätepaneeliin"
 
 #: kateconsole.cpp:182
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "P&iilota päätepaneeli"
+msgstr "&Jaa pääte pystysuuntaan"
 
 #: kateconsole.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "Jaa pääte &vaakasuuntaan"
 
 #: kateconsole.cpp:192
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "Näytä &päätepaneeli"
+msgstr "&Uusi päätevälilehti"
 
 #: kateconsole.cpp:355
 #, kde-format

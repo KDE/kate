@@ -431,7 +431,7 @@ void KateMainWindow::setupActions()
     a = actionCollection()->addAction(QStringLiteral("file_close_other"));
     a->setText(i18n("Close Other"));
     connect(a, &QAction::triggered, this, [this] {
-        slotDocumentCloseOther(nullptr);
+        slotDocumentCloseOther();
     });
     a->setWhatsThis(i18n("Close other open documents."));
 

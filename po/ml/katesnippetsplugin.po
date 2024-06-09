@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-04 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2019-12-03 10:44+0000\n"
 "Last-Translator: Subin Siby <subins2000@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -302,12 +302,12 @@ msgstr ""
 msgid "Repository: %1"
 msgstr ""
 
-#: snippetview.cpp:282
+#: snippetview.cpp:283
 #, kde-format
 msgid "Do you really want to delete the snippet \"%1\"?"
 msgstr ""
 
-#: snippetview.cpp:324
+#: snippetview.cpp:327
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"

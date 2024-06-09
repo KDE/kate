@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2020-07-27 23:03+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -1714,9 +1714,16 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Dette vil lukke alle åbne dokumenter. Vil du virkelig fortsætte?"
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close all documents?"
 msgstr "Luk alle dokumenter"
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All"
+msgstr "Luk &alle"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1728,9 +1735,16 @@ msgstr ""
 "fortsætte?"
 
 #: lib/katemainwindow.cpp:611
-#, kde-format
-msgid "Close all documents beside current one"
+#, fuzzy, kde-format
+#| msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
 msgstr "Luk alle dokumenter undtagen det aktuelle"
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close Others"
+msgstr "Luk andre"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

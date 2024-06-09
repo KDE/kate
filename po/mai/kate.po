@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2010-09-24 20:22+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -1690,9 +1690,16 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Close all documents?"
+msgstr "दस्तावेज बन्न करू"
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Close"
+msgid "Close All"
+msgstr "बन्न करू"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1703,8 +1710,14 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:611
 #, kde-format
-msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
 msgstr ""
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Close Others"
+msgstr "दस्तावेज बन्न करू"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

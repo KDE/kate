@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2024-05-16 14:04+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -1698,9 +1698,16 @@ msgstr ""
 "Bu işlem tüm açık belgeleri kapatacak. Sürdürmek istediğinizden emin misiniz?"
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close all documents?"
 msgstr "Tüm belgeleri kapat"
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All"
+msgstr "Tümünü &Kapat"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1712,9 +1719,16 @@ msgstr ""
 "istediğinizden emin misiniz?"
 
 #: lib/katemainwindow.cpp:611
-#, kde-format
-msgid "Close all documents beside current one"
+#, fuzzy, kde-format
+#| msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
 msgstr "Geçerli belge dışındaki tüm belgeleri kapat"
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close Others"
+msgstr "Diğerlerini Kapat"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

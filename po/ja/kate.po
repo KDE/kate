@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2024-02-23 02:55+0900\n"
 "Last-Translator: Ryuichi Yamada <ryuichi_ya220@outlook.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -1677,9 +1677,16 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "開いているすべての文書を閉じます。続行してもよろしいですか？"
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close all documents?"
 msgstr "すべての文書を閉じます。"
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All"
+msgstr "すべて閉じる(&E)"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1689,9 +1696,17 @@ msgid ""
 msgstr "現在の文書以外のすべての文書を閉じます。続行してもよろしいですか？"
 
 #: lib/katemainwindow.cpp:611
-#, kde-format
-msgid "Close all documents beside current one"
+#, fuzzy, kde-format
+#| msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
 msgstr "現在の文書以外の文書を閉じる"
+
+# ACCELERATOR added by translator
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close Others"
+msgstr "他を閉じる"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

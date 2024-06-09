@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2012-12-27 17:53+0200\n"
 "Last-Translator: Maris Nartiss <maris.kde@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -1747,9 +1747,16 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Tas aizvērs visus atvērtos dokumentus. Vai tiešām vēlaties turpināt?"
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close all documents?"
 msgstr "Aizvērt visus dokumentus"
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All"
+msgstr "Aizvē&rt visu"
 
 #: lib/katemainwindow.cpp:610
 #, fuzzy, kde-format
@@ -1763,8 +1770,14 @@ msgstr "Tas aizvērs visus atvērtos dokumentus. Vai tiešām vēlaties turpinā
 #: lib/katemainwindow.cpp:611
 #, fuzzy, kde-format
 #| msgid "Close all documents"
-msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
 msgstr "Aizvērt visus dokumentus"
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close Others"
+msgstr "Aizvērt citu"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

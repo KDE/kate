@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2019-09-25 17:04+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -1652,9 +1652,16 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Close all documents?"
+msgstr "Пӯшидани ҳуҷҷат"
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Close"
+msgid "Close All"
+msgstr "Пӯшидан"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1664,9 +1671,15 @@ msgid ""
 msgstr ""
 
 #: lib/katemainwindow.cpp:611
-#, kde-format
-msgid "Close all documents beside current one"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Close the current document view"
+msgid "Close all documents beside current one?"
+msgstr "Намуди ҳуҷҷати шоранда пӯшидан"
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+msgid "Close Others"
+msgstr "Ҳуҷҷати ҳозира пӯшидан "
 
 #: lib/katemainwindow.cpp:850
 #, kde-format
@@ -3872,10 +3885,6 @@ msgstr ""
 #~ msgstr "Рафтор"
 
 #, fuzzy
-#~ msgid "Close &Other Tabs"
-#~ msgstr "Ҳуҷҷати ҳозира пӯшидан "
-
-#, fuzzy
 #~ msgid "Remember"
 #~ msgstr "&Газполои аз ёд кардан:"
 
@@ -4082,9 +4091,6 @@ msgstr ""
 #~ msgid "Override the system wide setting for the default editing component"
 #~ msgstr ""
 #~ "Бекоркунии гузориши васъи системавӣ барои ҷузъҳои таҳриркунӣ бо нобаёнӣ"
-
-#~ msgid "Close the current document view"
-#~ msgstr "Намуди ҳуҷҷати шоранда пӯшидан"
 
 #~ msgid ""
 #~ "The given file could not be read, check if it exists or if it is readable "

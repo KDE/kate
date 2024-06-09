@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2011-08-04 10:19+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <danishka@gmail.com>\n"
@@ -1731,9 +1731,16 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "මෙය සියළු විවෘත ලේඛන වසාදමනු ඇත. ඔබට ඉදිරියට යාමට ඇවැසිද?"
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close all documents?"
 msgstr "සියලු ලේඛන වසන්න"
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All"
+msgstr "සියල්ල වසන්න (&C)"
 
 #: lib/katemainwindow.cpp:610
 #, fuzzy, kde-format
@@ -1747,8 +1754,14 @@ msgstr "මෙය සියළු විවෘත ලේඛන වසාදම�
 #: lib/katemainwindow.cpp:611
 #, fuzzy, kde-format
 #| msgid "Close all documents"
-msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
 msgstr "සියලු ලේඛන වසන්න"
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close Others"
+msgstr "වෙනකක් වසන්න"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2014-01-31 19:52+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -1748,9 +1748,16 @@ msgstr ""
 "nastavite?"
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close all documents?"
 msgstr "Zatvori sve dokumente"
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All"
+msgstr "Zatvori sv&e"
 
 #: lib/katemainwindow.cpp:610
 #, fuzzy, kde-format
@@ -1766,8 +1773,14 @@ msgstr ""
 #: lib/katemainwindow.cpp:611
 #, fuzzy, kde-format
 #| msgid "Close all documents"
-msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
 msgstr "Zatvori sve dokumente"
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close Others"
+msgstr "Zatvori druge"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

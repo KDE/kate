@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2023-11-07 21:26+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -1630,7 +1630,12 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:595
 #, kde-format
-msgid "Close all documents"
+msgid "Close all documents?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:596
+#, kde-format
+msgid "Close All"
 msgstr ""
 
 #: lib/katemainwindow.cpp:610
@@ -1642,7 +1647,12 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:611
 #, kde-format
-msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:612
+#, kde-format
+msgid "Close Others"
 msgstr ""
 
 #: lib/katemainwindow.cpp:850

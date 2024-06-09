@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2024-06-01 17:50\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -1659,9 +1659,16 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents?"
+msgstr "Закрыць усе адкрытыя дакументы."
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All"
+msgstr "&Закрыць усе"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1671,9 +1678,15 @@ msgid ""
 msgstr ""
 
 #: lib/katemainwindow.cpp:611
-#, kde-format
-msgid "Close all documents beside current one"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents beside current one?"
+msgstr "Закрыць усе адкрытыя дакументы."
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+msgid "Close Others"
+msgstr "Закрыць бягучую ўкладку."
 
 #: lib/katemainwindow.cpp:850
 #, kde-format
@@ -4155,10 +4168,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Sorting Behavior"
 #~ msgstr "Паводзіны"
-
-#, fuzzy
-#~ msgid "Close &Other Tabs"
-#~ msgstr "Закрыць бягучую ўкладку."
 
 #, fuzzy
 #~ msgid "Close &All Tabs"

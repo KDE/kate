@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2013-08-28 04:47+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -1736,9 +1736,16 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Барлық ашық құжаттар жабылады. Жалғастырмақсыз ба?"
 
 #: lib/katemainwindow.cpp:595
-#, kde-format
-msgid "Close all documents"
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close all documents?"
 msgstr "Бүкіл құжаттарды жабу."
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All"
+msgstr "Бүкілін жа&бу"
 
 #: lib/katemainwindow.cpp:610
 #, fuzzy, kde-format
@@ -1752,8 +1759,14 @@ msgstr "Барлық ашық құжаттар жабылады. Жалғаст�
 #: lib/katemainwindow.cpp:611
 #, fuzzy, kde-format
 #| msgid "Close all documents"
-msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
 msgstr "Бүкіл құжаттарды жабу."
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close Others"
+msgstr "Қалғандарын жабу"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

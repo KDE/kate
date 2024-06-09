@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-07 00:41+0000\n"
+"POT-Creation-Date: 2024-06-09 00:41+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -1678,8 +1678,14 @@ msgstr ""
 #: lib/katemainwindow.cpp:595
 #, fuzzy, kde-format
 #| msgid "Close Document"
-msgid "Close all documents"
+msgid "Close all documents?"
 msgstr "Tampar lo document"
+
+#: lib/katemainwindow.cpp:596
+#, fuzzy, kde-format
+#| msgid "Close"
+msgid "Close All"
+msgstr "Tampar"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1691,7 +1697,13 @@ msgstr ""
 #: lib/katemainwindow.cpp:611
 #, fuzzy, kde-format
 #| msgid "Close Document"
-msgid "Close all documents beside current one"
+msgid "Close all documents beside current one?"
+msgstr "Tampar lo document"
+
+#: lib/katemainwindow.cpp:612
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Close Others"
 msgstr "Tampar lo document"
 
 #: lib/katemainwindow.cpp:850

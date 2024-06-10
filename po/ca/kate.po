@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2024-05-16 15:47+0200\n"
+"PO-Revision-Date: 2024-06-09 11:03+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -1703,16 +1703,14 @@ msgstr ""
 "Això tancarà tots els documents oberts. Esteu segur que voleu continuar?"
 
 #: lib/katemainwindow.cpp:595
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Tanca tots els documents"
+msgstr "Tanco tots els documents?"
 
 #: lib/katemainwindow.cpp:596
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Tan&ca-ho tot"
+msgstr "Tanca'ls tots"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1724,14 +1722,12 @@ msgstr ""
 "voleu continuar?"
 
 #: lib/katemainwindow.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Tanca tots els documents excepte l'actual"
+msgstr "Tanco tots els documents excepte l'actual?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Tanca els altres"
 

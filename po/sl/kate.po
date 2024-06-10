@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2024-05-16 09:34+0200\n"
+"PO-Revision-Date: 2024-06-09 09:23+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1707,16 +1707,14 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "To zapre vse odprte dokumente. Ali res želite nadaljevati?"
 
 #: lib/katemainwindow.cpp:595
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Zapri vse dokumente"
+msgstr "Naj zaprem vse dokumente?"
 
 #: lib/katemainwindow.cpp:596
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Zapri vs&e"
+msgstr "Zapri vse"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1728,16 +1726,14 @@ msgstr ""
 "želite nadaljevati?"
 
 #: lib/katemainwindow.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Zapri vse dokumente poleg trenutnega"
+msgstr "Naj zaprem vse dokumente poleg trenutnega?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
-msgstr "Zapri druge"
+msgstr "Zapri ostale"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

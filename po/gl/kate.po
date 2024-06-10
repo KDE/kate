@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2024-05-17 21:20+0200\n"
+"PO-Revision-Date: 2024-06-09 09:56+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1695,16 +1695,14 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Isto ha pechar todos os documentos. Seguro que quere continuar?"
 
 #: lib/katemainwindow.cpp:595
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Pechar todos os documentos"
+msgstr "Quere pechar todos os documentos?"
 
 #: lib/katemainwindow.cpp:596
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "P&echar todo"
+msgstr "Pechalos todos"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1716,16 +1714,14 @@ msgstr ""
 "continuar?"
 
 #: lib/katemainwindow.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Pechar todos os documentos salvo o actual"
+msgstr "Quere pechar todos os documentos salvo o actual?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
-msgstr "Pechar os outros"
+msgstr "Pechar o resto"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

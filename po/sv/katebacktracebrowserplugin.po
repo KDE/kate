@@ -2,14 +2,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2009, 2014, 2017.
+# Stefan Asserhäll <stefan.asserhall@gmail.com>, 2009, 2014, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
 "PO-Revision-Date: 2017-05-18 17:05+0100\n"
-"Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
+"Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -196,7 +196,7 @@ msgstr "Inställningar av bläddring i bakåtspårning"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "Your emails"
-#~ msgstr "stefan.asserhall@bredband.net"
+#~ msgstr "stefan.asserhall@gmail.com"
 
 #~ msgid "Backtrace Browser"
 #~ msgstr "Bläddring i bakåtspårning"

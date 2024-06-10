@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2024-05-20 13:35+0100\n"
+"PO-Revision-Date: 2024-06-09 06:15+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1689,16 +1689,14 @@ msgstr ""
 "daŭrigi?"
 
 #: lib/katemainwindow.cpp:595
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Fermi ĉiujn dokumentojn"
+msgstr "Ĉu fermi ĉiujn dokumentojn"
 
 #: lib/katemainwindow.cpp:596
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "F&ermi ĉiujn"
+msgstr "Fermi Ĉiujn"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1710,16 +1708,14 @@ msgstr ""
 "vi volas daŭrigi?"
 
 #: lib/katemainwindow.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Fermi ĉiujn dokumentojn apud la nuna"
+msgstr "Ĉu fermi ĉiujn dokumentojn apud la nuna?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
-msgstr "Fermi Alian"
+msgstr "Fermi Aliajn"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

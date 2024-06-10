@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2024-05-16 09:06+0300\n"
+"PO-Revision-Date: 2024-06-09 09:09+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -1707,16 +1707,14 @@ msgstr ""
 "бажаєте виконання цієї дії?"
 
 #: lib/katemainwindow.cpp:595
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Закрити всі документи"
+msgstr "Закрити всі документи?"
 
 #: lib/katemainwindow.cpp:596
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "&Закрити все"
+msgstr "Закрити все"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1728,14 +1726,12 @@ msgstr ""
 "поточного. Ви справді бажаєте виконання цієї дії?"
 
 #: lib/katemainwindow.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Закрити всі документи, окрім поточного"
+msgstr "Закрити всі документи, окрім поточного?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Закрити інші"
 

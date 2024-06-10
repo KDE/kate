@@ -1658,16 +1658,14 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "这样将关闭所有打开的文档。您确定要继续吗？"
 
 #: lib/katemainwindow.cpp:595
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "关闭所有文档"
+msgstr "关闭所有文档？"
 
 #: lib/katemainwindow.cpp:596
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "全部关闭(&E)"
+msgstr "关闭全部"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1677,16 +1675,14 @@ msgid ""
 msgstr "这样将关闭除当前文档外所有打开的文档。您确定要继续吗？"
 
 #: lib/katemainwindow.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "关闭除当前文档外所有文档"
+msgstr "关闭除了当前文档之外的所有文档？"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
-msgstr "关闭其他文档"
+msgstr "关闭其他"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

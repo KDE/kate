@@ -46,6 +46,12 @@ public:
 
 public Q_SLOTS:
     void targetActivated(const QModelIndex &index);
+    void customTargetsMenuRequested(const QPoint &pos);
+
+private Q_SLOTS:
+    void copyCurrentItem();
+    void cutCurrentItem();
+    void pasteAfterCurrentItem();
 
 Q_SIGNALS:
     void enterPressed();

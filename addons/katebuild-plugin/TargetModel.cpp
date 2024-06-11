@@ -8,8 +8,11 @@
 #include "TargetModel.h"
 #include <KLocalizedString>
 #include <QDebug>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonParseError>
 #include <QTimer>
-
 namespace
 {
 struct NodeInfo {
@@ -272,6 +275,9 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex,
     TargetModel::TargetSet targetSet(newName, workDir, loadedViaCMake, cmakeConfig);
     targetSets.insert(bNode.targetSetRow, targetSet);
     endInsertRows();
+    if (m_rootNodes[bNode.rootRow].isProject) {
+        Q_EMIT projectTargetChanged();
+    }
     return index(bNode.targetSetRow, 0, index(bNode.rootRow, 0));
 }
 
@@ -329,10 +335,13 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
     beginInsertRows(targetSetIndex, bNode.commandRow, bNode.commandRow);
     commands.insert(bNode.commandRow, {.name = newName, .buildCmd = buildCmd, .runCmd = runCmd});
     endInsertRows();
+    if (m_rootNodes[bNode.rootRow].isProject) {
+        Q_EMIT projectTargetChanged();
+    }
     return index(bNode.commandRow, 0, targetSetIndex);
 }
 
-QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &copyIndex)
+QModelIndex TargetModel::cloneTargetOrSet(const QModelIndex &copyIndex)
 {
     NodeInfo cpNode = modelToNodeInfo(copyIndex);
     if (!nodeExists(m_rootNodes, cpNode)) {
@@ -359,6 +368,9 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &copyIndex)
         beginInsertRows(rootIndex, cpNode.targetSetRow + 1, cpNode.targetSetRow + 1);
         targetSets.insert(cpNode.targetSetRow + 1, targetSetCopy);
         endInsertRows();
+        if (m_rootNodes[cpNode.rootRow].isProject) {
+            Q_EMIT projectTargetChanged();
+        }
         return index(cpNode.targetSetRow + 1, 0, rootIndex);
     }
 
@@ -377,6 +389,9 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &copyIndex)
     beginInsertRows(tgSetIndex, cpNode.commandRow + 1, cpNode.commandRow + 1);
     commands.insert(cpNode.commandRow + 1, commandCopy);
     endInsertRows();
+    if (m_rootNodes[cpNode.rootRow].isProject) {
+        Q_EMIT projectTargetChanged();
+    }
     return index(cpNode.commandRow + 1, 0, tgSetIndex);
 }
 
@@ -392,6 +407,8 @@ void TargetModel::deleteItem(const QModelIndex &itemIndex)
         return;
     }
 
+    bool wasProjectNode = m_rootNodes[node.rootRow].isProject;
+
     if (node.isRoot()) {
         beginRemoveRows(itemIndex, 0, m_rootNodes[node.rootRow].targetSets.size() - 1);
         m_rootNodes[node.rootRow].targetSets.clear();
@@ -404,6 +421,9 @@ void TargetModel::deleteItem(const QModelIndex &itemIndex)
         beginRemoveRows(itemIndex.parent(), itemIndex.row(), itemIndex.row());
         m_rootNodes[node.rootRow].targetSets[node.targetSetRow].commands.removeAt(node.commandRow);
         endRemoveRows();
+    }
+    if (wasProjectNode) {
+        Q_EMIT projectTargetChanged();
     }
 }
 
@@ -448,6 +468,9 @@ void TargetModel::moveRowUp(const QModelIndex &itemIndex)
         beginMoveRows(parent, row, row, parent, row - 1);
         targetSets.move(row, row - 1);
         endMoveRows();
+        if (m_rootNodes[node.rootRow].isProject) {
+            Q_EMIT projectTargetChanged();
+        }
         return;
     }
 
@@ -456,6 +479,9 @@ void TargetModel::moveRowUp(const QModelIndex &itemIndex)
     beginMoveRows(parent, row, row, parent, row - 1);
     commands.move(row, row - 1);
     endMoveRows();
+    if (m_rootNodes[node.rootRow].isProject) {
+        Q_EMIT projectTargetChanged();
+    }
 }
 
 void TargetModel::moveRowDown(const QModelIndex &itemIndex)
@@ -488,6 +514,9 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
         beginMoveRows(parent, row, row, parent, row + 2);
         targetSets.move(row, row + 1);
         endMoveRows();
+        if (m_rootNodes[node.rootRow].isProject) {
+            Q_EMIT projectTargetChanged();
+        }
         return;
     }
 
@@ -496,22 +525,15 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
     beginMoveRows(parent, row, row, parent, row + 2);
     commands.move(row, row + 1);
     endMoveRows();
+    if (m_rootNodes[node.rootRow].isProject) {
+        Q_EMIT projectTargetChanged();
+    }
 }
 
 const QList<TargetModel::TargetSet> TargetModel::sessionTargetSets() const
 {
     for (int i = 0; i < m_rootNodes.size(); ++i) {
         if (m_rootNodes[i].isProject == false) {
-            return m_rootNodes[i].targetSets;
-        }
-    }
-    return QList<TargetModel::TargetSet>();
-}
-
-const QList<TargetModel::TargetSet> TargetModel::projectTargetSets() const
-{
-    for (int i = 0; i < m_rootNodes.size(); ++i) {
-        if (m_rootNodes[i].isProject == true) {
             return m_rootNodes[i].targetSets;
         }
     }
@@ -819,6 +841,123 @@ QModelIndex TargetModel::parent(const QModelIndex &child) const
 
     // child is a command node
     return createIndex(targetSetRow, 0, toInternalId(rootRow, -1));
+}
+
+static QJsonObject toJson(const TargetModel::Command &target)
+{
+    QJsonObject obj;
+    obj[QStringLiteral("name")] = target.name;
+    obj[QStringLiteral("build_cmd")] = target.buildCmd;
+    obj[QStringLiteral("run_cmd")] = target.runCmd;
+    return obj;
+}
+
+static QJsonObject toJson(const TargetModel::TargetSet &set)
+{
+    QJsonObject obj;
+    obj[QStringLiteral("name")] = set.name;
+    obj[QStringLiteral("directory")] = set.workDir;
+
+    QJsonArray targets;
+    for (const auto &target : set.commands) {
+        targets << toJson(target);
+    }
+    obj[QStringLiteral("targets")] = targets;
+    return obj;
+}
+
+static QJsonObject toJson(const TargetModel::RootNode &root)
+{
+    QJsonObject obj;
+    QJsonArray sets;
+    for (const auto &set : root.targetSets) {
+        sets << toJson(set);
+    }
+    obj[QStringLiteral("target_sets")] = sets;
+    return obj;
+}
+
+bool TargetModel::validTargetsJson(const QString &jsonStr) const
+{
+    QJsonParseError error;
+    const QJsonDocument doc = QJsonDocument::fromJson(jsonStr.toUtf8(), &error);
+    if (error.error != QJsonParseError::NoError) {
+        return false;
+    }
+    const QJsonObject obj = doc.object();
+    return obj.contains(QStringLiteral("target_sets")) || obj.contains(QStringLiteral("targets")) || obj.contains(QStringLiteral("name"));
+}
+
+QJsonObject TargetModel::indexToJsonObj(const QModelIndex &modelIndex) const
+{
+    NodeInfo node = modelToNodeInfo(modelIndex);
+    if (!nodeExists(m_rootNodes, node)) {
+        return QJsonObject();
+    }
+
+    QJsonObject obj;
+    if (node.isRoot()) {
+        obj = toJson(m_rootNodes[node.rootRow]);
+    } else if (node.isTargetSet()) {
+        obj = toJson(m_rootNodes[node.rootRow].targetSets[node.targetSetRow]);
+    } else if (node.isCommand()) {
+        obj = toJson(m_rootNodes[node.rootRow].targetSets[node.targetSetRow].commands[node.commandRow]);
+    }
+
+    return obj;
+}
+
+QString TargetModel::indexToJson(const QModelIndex &modelIndex) const
+{
+    QJsonDocument doc(indexToJsonObj(modelIndex));
+    return QString::fromUtf8(doc.toJson(QJsonDocument::Indented));
+}
+
+QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QString &jsonStr)
+{
+    QJsonParseError error;
+    const QJsonDocument doc = QJsonDocument::fromJson(jsonStr.toUtf8(), &error);
+    if (error.error != QJsonParseError::NoError) {
+        qWarning() << "Could not parse the provided Json";
+        return QModelIndex();
+    }
+    return insertAfter(modelIndex, doc.object());
+}
+
+QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonObject &obj)
+{
+    QModelIndex currentIndex = modelIndex;
+    if (obj.contains(QStringLiteral("target_sets"))) {
+        const QJsonArray sets = obj[QStringLiteral("target_sets")].toArray();
+        for (const auto &set : sets) {
+            currentIndex = insertAfter(currentIndex, set.toObject());
+            if (!currentIndex.isValid()) {
+                qWarning() << "Failed to insert targetset";
+                return QModelIndex();
+            }
+        }
+    } else if (obj.contains(QStringLiteral("targets"))) {
+        QString dir = obj[QStringLiteral("directory")].toString();
+        QString name = obj[QStringLiteral("name")].toString();
+        currentIndex = insertTargetSetAfter(currentIndex, name, dir);
+        QModelIndex setIndex = currentIndex;
+        const QJsonArray targets = obj[QStringLiteral("targets")].toArray();
+        for (const auto target : targets) {
+            currentIndex = insertAfter(currentIndex, target.toObject());
+            if (!currentIndex.isValid()) {
+                qWarning() << "Failed to insert target";
+                break;
+            }
+        }
+        currentIndex = setIndex;
+    } else if (obj.contains(QStringLiteral("name"))) {
+        QString name = obj[QStringLiteral("name")].toString();
+        QString cmd = obj[QStringLiteral("build_cmd")].toString();
+        QString run = obj[QStringLiteral("run_cmd")].toString();
+        currentIndex = addCommandAfter(currentIndex, name, cmd, run);
+    }
+
+    return currentIndex;
 }
 
 #include "moc_TargetModel.cpp"

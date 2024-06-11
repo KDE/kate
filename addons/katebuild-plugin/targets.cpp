@@ -8,11 +8,13 @@
 #include "targets.h"
 #include <KLocalizedString>
 #include <QApplication>
+#include <QClipboard>
 #include <QDebug>
 #include <QEvent>
 #include <QHeaderView>
 #include <QIcon>
 #include <QKeyEvent>
+#include <QMenu>
 
 TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     : QWidget(parent)
@@ -28,7 +30,7 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     newTarget->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
 
     copyTarget = new QToolButton(this);
-    copyTarget->setToolTip(i18n("Copy command or target set"));
+    copyTarget->setToolTip(i18n("Clone command or target set"));
     copyTarget->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
 
     deleteTarget = new QToolButton(this);
@@ -100,6 +102,9 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
         targetsView->scrollTo(targetsView->currentIndex());
     });
 
+    targetsView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(targetsView, &QTreeView::customContextMenuRequested, this, &TargetsUi::customTargetsMenuRequested);
+
     targetsView->installEventFilter(this);
     targetFilterEdit->installEventFilter(this);
 }
@@ -154,17 +159,90 @@ void TargetsUi::updateTargetsButtonStates()
     runButton->setEnabled(hasRunCmd);
 }
 
+void TargetsUi::copyCurrentItem()
+{
+    const QModelIndex treeIndex = targetsView->currentIndex();
+    const QModelIndex modelIndex = proxyModel.mapToSource(treeIndex);
+    QApplication::clipboard()->setText(targetsModel.indexToJson(modelIndex));
+}
+
+void TargetsUi::cutCurrentItem()
+{
+    const QModelIndex treeIndex = targetsView->currentIndex();
+    const QModelIndex modelIndex = proxyModel.mapToSource(treeIndex);
+    QApplication::clipboard()->setText(targetsModel.indexToJson(modelIndex));
+    targetsModel.deleteItem(modelIndex);
+}
+
+void TargetsUi::pasteAfterCurrentItem()
+{
+    const QModelIndex treeIndex = targetsView->currentIndex();
+    const QModelIndex modelIndex = proxyModel.mapToSource(treeIndex);
+    targetsModel.insertAfter(modelIndex, QApplication::clipboard()->text());
+}
+
+void TargetsUi::customTargetsMenuRequested(const QPoint &pos)
+{
+    QTreeView *tree = qobject_cast<QTreeView *>(sender());
+    if (tree == nullptr) {
+        return;
+    }
+    QMenu *menu = new QMenu(tree);
+
+    QAction *copy = new QAction(i18n("Copy"), tree);
+    menu->addAction(copy);
+    copy->setShortcut(QKeySequence::Copy);
+
+    QAction *cut = new QAction(i18n("Cut"), tree);
+    menu->addAction(cut);
+    cut->setShortcut(QKeySequence::Cut);
+
+    QAction *paste = new QAction(i18n("Paste after"), tree);
+    menu->addAction(paste);
+    paste->setShortcut(QKeySequence::Paste);
+
+    if (!targetsModel.validTargetsJson(QApplication::clipboard()->text())) {
+        paste->setEnabled(false);
+    }
+
+    connect(copy, &QAction::triggered, this, &TargetsUi::copyCurrentItem);
+    connect(cut, &QAction::triggered, this, &TargetsUi::cutCurrentItem);
+    connect(paste, &QAction::triggered, this, &TargetsUi::pasteAfterCurrentItem);
+
+    menu->popup(tree->viewport()->mapToGlobal(pos));
+}
+
 bool TargetsUi::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::KeyPress) {
+    if (event->type() == QEvent::ShortcutOverride) {
+        // Ignore copy in ShortcutOverride and handle it in the KeyPress event
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        if (ke->matches(QKeySequence::Copy) || ke->matches(QKeySequence::Cut) || ke->matches(QKeySequence::Paste)) {
+            event->accept();
+            return true;
+        }
+    } else if (event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == targetsView) {
+            if (keyEvent->matches(QKeySequence::Copy)) {
+                copyCurrentItem();
+                event->accept();
+                return true;
+            } else if (keyEvent->matches(QKeySequence::Cut)) {
+                cutCurrentItem();
+                event->accept();
+                return true;
+            }
+            if (keyEvent->matches(QKeySequence::Paste)) {
+                pasteAfterCurrentItem();
+                event->accept();
+                return true;
+            }
             if (((keyEvent->key() == Qt::Key_Return) || (keyEvent->key() == Qt::Key_Enter)) && m_delegate && !m_delegate->isEditing()) {
                 Q_EMIT enterPressed();
                 return true;
             }
-        }
-        if (obj == targetFilterEdit) {
+        } else if (obj == targetFilterEdit) {
             switch (keyEvent->key()) {
             case Qt::Key_Up:
             case Qt::Key_Down:

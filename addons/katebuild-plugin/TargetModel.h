@@ -9,7 +9,10 @@
 
 #include <QAbstractItemModel>
 #include <QByteArray>
+
 #include <limits>
+
+class QJsonObject;
 
 class TargetModel : public QAbstractItemModel
 {
@@ -60,6 +63,14 @@ public:
     /** This function returns the root item for the Project TargetSets */
     QModelIndex projectRootIndex() const;
 
+    bool validTargetsJson(const QString &jsonStr) const;
+
+    /** This function returns the menu node as a Json objekt */
+    QJsonObject indexToJsonObj(const QModelIndex &modelIndex) const;
+    QString indexToJson(const QModelIndex &modelIndex) const;
+
+    QModelIndex insertAfter(const QModelIndex &modelIndex, const QString &jsonStr);
+
 public Q_SLOTS:
 
     /** This function insert a target set and returns the model-index of the newly
@@ -67,7 +78,7 @@ public Q_SLOTS:
     QModelIndex insertTargetSetAfter(const QModelIndex &beforeIndex,
                                      const QString &setName,
                                      const QString &workDir,
-                                     bool loadedViaCMake,
+                                     bool loadedViaCMake = false,
                                      const QString &cmakeConfig = QString());
 
     /** This function adds a new command to a target-set and returns the model index */
@@ -75,7 +86,7 @@ public Q_SLOTS:
 
     /** This function copies the target(-set) the model index points to and returns
      * the model index of the copy. */
-    QModelIndex copyTargetOrSet(const QModelIndex &index);
+    QModelIndex cloneTargetOrSet(const QModelIndex &index);
 
     /** This function deletes the index */
     void deleteItem(const QModelIndex &index);
@@ -87,7 +98,6 @@ public Q_SLOTS:
     void moveRowDown(const QModelIndex &index);
 
     const QList<TargetSet> sessionTargetSets() const;
-    const QList<TargetSet> projectTargetSets() const;
 
 Q_SIGNALS:
     void projectTargetChanged();
@@ -110,5 +120,7 @@ public:
     };
 
 private:
+    QModelIndex insertAfter(const QModelIndex &modelIndex, const QJsonObject &jsonObj);
+
     QList<RootNode> m_rootNodes;
 };

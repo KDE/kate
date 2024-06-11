@@ -96,7 +96,7 @@ private Q_SLOTS:
 
     // Settings
     void targetSetNew();
-    void targetOrSetCopy();
+    void targetOrSetClone();
     void targetDelete();
 
     void slotAddTargetClicked();
@@ -164,7 +164,7 @@ private:
     void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
 
-    void addProjectTarget();
+    void addProjectTargets();
     QModelIndex createCMakeTargetSet(QModelIndex setIndex, const QString &name, const QCMakeFileApi &cmakeFA, const QString &cmakeConfig);
 
     /** Check if given command line is allowed to be executed.
@@ -207,6 +207,8 @@ private:
     DiagnosticsProvider m_diagnosticsProvider;
     bool m_addDiagnostics = true;
     bool m_autoSwitchToOutput = true;
+    QTimer m_saveProjTargetsTimer;
+    bool m_addingProjTargets = false;
 
     // hash of allowed and blacklisted command lines
     std::map<QString, bool> m_commandLineToAllowedState;

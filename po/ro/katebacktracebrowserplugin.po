@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Sergiu Bivol <sergiu@cip.md>, 2011.
+# Sergiu Bivol <sergiu@cip.md>, 2011, 2024.
 # Cristian Oneț <onet.cristian@gmail.com>, 2011.
 #
 msgid ""
@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2011-06-09 23:01+0300\n"
-"Last-Translator: Cristian Oneț <onet.cristian@gmail.com>\n"
+"PO-Revision-Date: 2024-02-27 21:45+0000\n"
+"Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
 #: btbrowserwidget.ui:27
@@ -78,25 +79,7 @@ msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QListWidget, lstFolders)
 #: btconfigwidget.ui:39
-#, fuzzy, kde-format
-#| msgid ""
-#| "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#| "REC-html40/strict.dtd\">\n"
-#| "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#| "css\">\n"
-#| "p, li { white-space: pre-wrap; }\n"
-#| "</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; "
-#| "font-weight:400; font-style:normal;\">\n"
-#| "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#| "right:0px; -qt-block-indent:0; text-indent:0px;\">Insert the source "
-#| "folders here. As example, for KDE development you have to add the Qt and "
-#| "kdelibs source folders:</p>\n"
-#| "<ul style=\"-qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-"
-#| "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
-#| "indent:0px;\">/path/to/kdelibs</li>\n"
-#| "<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-"
-#| "right:0px; -qt-block-indent:0; text-indent:0px;\">/path/to/qt/src</li></"
-#| "ul></body></html>"
+#, kde-format
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -124,15 +107,15 @@ msgstr ""
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">Inseraţi directoarele "
-"sursă aici. Ca exemplu, pentru dezvoltarea KDE-ului trebuie să adăugaţi "
-"directoarele sursă ale Qt şi kdelibs-ului:</p>\n"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Introduceți aici dosarele-"
+"sursă. De exemplu, pentru dezvoltarea KDE trebuie să adăugați dosarele-sursă "
+"ale Qt și Frameworks:</p>\n"
 "<ul style=\"-qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-"
 "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
-"indent:0px;\">/path/to/kdelibs</li>\n"
+"indent:0px;\">/calea/spre/kdelibs</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">/path/to/qt/src</li></ul></"
-"body></html>"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">/calea/spre/qt/src</li></"
+"ul></body></html>"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnRemove)
 #: btconfigwidget.ui:61
@@ -164,10 +147,9 @@ msgid "Indexing files..."
 msgstr "Se indexează fișierele..."
 
 #: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
-#, fuzzy, kde-format
-#| msgid "Load Backtrace"
+#, kde-format
 msgid "Backtrace"
-msgstr "Încarcă stivă de apeluri"
+msgstr "Stivă de apeluri"
 
 #: katebacktracebrowser.cpp:150
 #, kde-format
@@ -200,10 +182,9 @@ msgid "No debugging information available"
 msgstr "Nu sunt disponibile informații de depanare"
 
 #: katebacktracebrowser.cpp:284
-#, fuzzy, kde-format
-#| msgid "Backtrace Browser Settings"
+#, kde-format
 msgid "Backtrace Settings"
-msgstr "Configurări Navigator de stivă de apeluri"
+msgstr "Configurări stivă de apeluri"
 
 #: katebacktracebrowser.cpp:358
 #, kde-format

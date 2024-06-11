@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2024-05-16 10:19+0200\n"
+"PO-Revision-Date: 2024-06-10 11:53+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1697,16 +1697,14 @@ msgstr ""
 "Isto claudera omne documentos aperite. Tu es secur que tu vole continuar?"
 
 #: lib/katemainwindow.cpp:595
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Claude omne documentos "
+msgstr "Claude omne documentos ?"
 
 #: lib/katemainwindow.cpp:596
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Claud&e Omne"
+msgstr "Claude omne"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1718,16 +1716,14 @@ msgstr ""
 "que tu vole continuar?"
 
 #: lib/katemainwindow.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Claude omne documentos in ultra a lo currente"
+msgstr "Claude omne documentos in ultra a lo currente?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
-msgstr "Claude altere"
+msgstr "Claude  alteres"
 
 #: lib/katemainwindow.cpp:850
 #, kde-format

@@ -1,17 +1,18 @@
 # translation of katexmltools.po to Romanian
 # translation of @PACKAGE.po to @LANGUAGE
 # Copyright (C) 2004 Free Software Foundation, Inc.
-#
 # Claudiu Costin <claudiuc@kde.org>, 2003, 2004.
 # Cristian Oneț <onet.cristian@gmail.com>, 2011.
 # Cristian Buzduga <cristianbzdg@gmail.com>, 2011.
+# Sergiu Bivol <sergiu@cip.md>, 2024.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2011-07-02 14:11+0300\n"
-"Last-Translator: Cristian Oneț <onet.cristian@gmail.com>\n"
+"PO-Revision-Date: 2024-02-27 21:46+0000\n"
+"Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -19,16 +20,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: plugin_katexmltools.cpp:118
 #, kde-format
 msgid "XML Tools"
-msgstr ""
+msgstr "Unelte XML"
 
 #: plugin_katexmltools.cpp:121
 #, kde-format
 msgid "&Insert Element..."
-msgstr "&Inserează element..."
+msgstr "&Inserează element…"
 
 #: plugin_katexmltools.cpp:126
 #, kde-format
@@ -38,7 +40,7 @@ msgstr "În&chide elementul"
 #: plugin_katexmltools.cpp:131
 #, kde-format
 msgid "Assign Meta &DTD..."
-msgstr "Atribuie Meta &DTD..."
+msgstr "Atribuie Meta &DTD…"
 
 #: plugin_katexmltools.cpp:442
 #, kde-format
@@ -72,23 +74,22 @@ msgstr "Eroare modul XML"
 #: plugin_katexmltools.cpp:985
 #, kde-format
 msgid "XML entities"
-msgstr ""
+msgstr "Entități XML"
 
 #: plugin_katexmltools.cpp:987
 #, kde-format
 msgid "XML attribute values"
-msgstr ""
+msgstr "Valori atribute XML"
 
 #: plugin_katexmltools.cpp:989
 #, kde-format
 msgid "XML attributes"
-msgstr ""
+msgstr "Atribute XML"
 
 #: plugin_katexmltools.cpp:992
-#, fuzzy, kde-format
-#| msgid "Insert XML Element"
+#, kde-format
 msgid "XML elements"
-msgstr "Inserează element XML"
+msgstr "Elemente XML"
 
 #: plugin_katexmltools.cpp:1031
 #, kde-format

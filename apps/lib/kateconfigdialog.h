@@ -50,12 +50,6 @@ public:
      */
     static int recentFilesMaxCount();
 
-    /**
-     * Overwrite size hint for better default window sizes
-     * @return size hint
-     */
-    QSize sizeHint() const override;
-
 public:
     void addPluginPage(KTextEditor::Plugin *plugin);
     void removePluginPage(KTextEditor::Plugin *plugin);

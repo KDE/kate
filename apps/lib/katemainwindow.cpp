@@ -1088,7 +1088,15 @@ void KateMainWindow::slotConfigure()
 
 bool KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id)
 {
-    KateConfigDialog *dlg = new KateConfigDialog(this);
+    QPointer<KateConfigDialog> dlg = new KateConfigDialog(this);
+
+    // default dialog size is bad
+    // start with a bit enlarged default size hint to minimize changes of useless scrollbars
+    // enlarge it to half of the main window size, if that is larger
+    // bounded size to available real screen space
+    QSize dialogSize = dlg->sizeHint() * 1.3;
+    dialogSize = dialogSize.expandedTo(size() * 0.5);
+    dlg->resize(dialogSize.boundedTo(screen()->availableSize() * 0.9));
 
     if (configpageinterface) {
         dlg->showAppPluginPage(configpageinterface, id);

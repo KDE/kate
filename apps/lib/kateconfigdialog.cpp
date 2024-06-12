@@ -97,18 +97,6 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
 }
 
-QSize KateConfigDialog::sizeHint() const
-{
-    // start with a bit enlarged default size hint to minimize changes of useless scrollbars
-    QSize size = KPageDialog::sizeHint() * 1.3;
-
-    // enlarge it to half of the main window size, if that is larger
-    size = size.expandedTo(m_mainWindow->size() * 0.5);
-
-    // return bounded size to available real screen space
-    return size.boundedTo(screen()->availableSize() * 0.9);
-}
-
 void KateConfigDialog::addBehaviorPage()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();

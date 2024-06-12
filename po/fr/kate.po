@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2024-05-17 16:16+0200\n"
+"PO-Revision-Date: 2024-06-10 09:44+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -1748,16 +1748,14 @@ msgstr ""
 "continuer ?"
 
 #: lib/katemainwindow.cpp:595
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Fermer tous les documents"
+msgstr "Voulez-vous fermer tous les documents ?"
 
 #: lib/katemainwindow.cpp:596
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Tout f&ermer"
+msgstr "Tout fermer"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1769,14 +1767,12 @@ msgstr ""
 "Voulez-vous vraiment continuer ?"
 
 #: lib/katemainwindow.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Fermer tous les documents sauf le document actuel"
+msgstr "Voulez-vous fermer tous les documents sauf le document courant ?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Fermer les autres"
 

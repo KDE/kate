@@ -1520,6 +1520,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     // central frame for all stuff
     QFrame *hb = new QFrame(this);
+    hb->setObjectName("KateCentralWidget");
     setCentralWidget(hb);
 
     // top level vbox for all stuff + bottom bar

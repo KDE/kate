@@ -18,21 +18,6 @@ class TargetModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    struct Command {
-        QString name;
-        QString buildCmd;
-        QString runCmd;
-    };
-
-    struct TargetSet {
-        TargetSet(const QString &_name, const QString &_workDir, bool _loadedViaCMake, QString _cmakeConfigName = QString());
-        QString name;
-        QString workDir;
-        QList<Command> commands;
-        bool loadedViaCMake;
-        QString cmakeConfigName;
-    };
-
     enum RowType {
         RootRow,
         TargetSetRow,
@@ -97,8 +82,6 @@ public Q_SLOTS:
     void moveRowUp(const QModelIndex &index);
     void moveRowDown(const QModelIndex &index);
 
-    const QList<TargetSet> sessionTargetSets() const;
-
 Q_SIGNALS:
     void projectTargetChanged();
 
@@ -113,6 +96,21 @@ public:
     QModelIndex parent(const QModelIndex &child) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+
+    struct Command {
+        QString name;
+        QString buildCmd;
+        QString runCmd;
+    };
+
+    struct TargetSet {
+        TargetSet(const QString &_name, const QString &_workDir, bool _loadedViaCMake, QString _cmakeConfigName = QString());
+        QString name;
+        QString workDir;
+        QList<Command> commands;
+        bool loadedViaCMake;
+        QString cmakeConfigName;
+    };
 
     struct RootNode {
         bool isProject = false;

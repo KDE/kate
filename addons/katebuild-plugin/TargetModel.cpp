@@ -530,16 +530,6 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
     }
 }
 
-const QList<TargetModel::TargetSet> TargetModel::sessionTargetSets() const
-{
-    for (int i = 0; i < m_rootNodes.size(); ++i) {
-        if (m_rootNodes[i].isProject == false) {
-            return m_rootNodes[i].targetSets;
-        }
-    }
-    return QList<TargetModel::TargetSet>();
-}
-
 QVariant TargetModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
@@ -857,6 +847,8 @@ static QJsonObject toJson(const TargetModel::TargetSet &set)
     QJsonObject obj;
     obj[QStringLiteral("name")] = set.name;
     obj[QStringLiteral("directory")] = set.workDir;
+    obj[QStringLiteral("loaded_via_cmake")] = set.loadedViaCMake;
+    obj[QStringLiteral("cmake_config")] = set.cmakeConfigName;
 
     QJsonArray targets;
     for (const auto &target : set.commands) {

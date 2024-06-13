@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="katebuild-plugin" library="katebuildplugin" version="14" translationDomain="katebuild-plugin">
+<gui name="katebuild-plugin" library="katebuildplugin" version="15" translationDomain="katebuild-plugin">
   <MenuBar>
     <Menu name="Build Menubar">
       <text>&amp;Build</text>

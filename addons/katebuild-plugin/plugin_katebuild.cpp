@@ -447,7 +447,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_saveProjTargetsTimer.setSingleShot(true);
     connect(&m_saveProjTargetsTimer, &QTimer::timeout, this, &KateBuildView::saveProjectTargets);
     connect(&m_targetsUi->targetsModel, &TargetModel::projectTargetChanged, this, [this]() {
-        qDebug() << sender();
         if (!m_addingProjTargets) {
             m_saveProjTargetsTimer.start(1);
         }
@@ -566,31 +565,39 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         }
     }
 
-    const QList<TargetModel::TargetSet> targets = m_targetsUi->targetsModel.sessionTargetSets();
-
-    // Don't save project target-set, but save the row index
+    // Don't save project target-sets, but save the root-row index
     QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
     m_projectTargetsetRow = projRootIndex.row();
     cg.writeEntry("ProjectTargetSetRow", m_projectTargetsetRow);
-    cg.writeEntry("NumTargets", targets.size());
 
-    for (int i = 0; i < targets.size(); i++) {
-        cg.writeEntry(QStringLiteral("%1 Target").arg(i), targets[i].name);
-        cg.writeEntry(QStringLiteral("%1 BuildPath").arg(i), targets[i].workDir);
-        cg.writeEntry(QStringLiteral("%1 LoadedViaCMake").arg(i), targets[i].loadedViaCMake);
-        cg.writeEntry(QStringLiteral("%1 CMakeConfig").arg(i), targets[i].cmakeConfigName);
+    // Save session target-sets
+    QModelIndex sessionRootIndex = m_targetsUi->targetsModel.sessionRootIndex();
+    QJsonObject sessionSetsObj = m_targetsUi->targetsModel.indexToJsonObj(sessionRootIndex);
+    QJsonArray setsArray = sessionSetsObj[QStringLiteral("target_sets")].toArray();
 
-        if (targets[i].loadedViaCMake) {
+    cg.writeEntry("NumTargets", setsArray.size());
+
+    for (int i = 0; i < setsArray.size(); ++i) {
+        auto setObj = setsArray[i].toObject();
+        bool loadedViaCMake = setObj[QStringLiteral("loaded_via_cmake")].toBool();
+        cg.writeEntry(QStringLiteral("%1 Target").arg(i), setObj[QStringLiteral("name")].toString());
+        cg.writeEntry(QStringLiteral("%1 BuildPath").arg(i), setObj[QStringLiteral("directory")].toString());
+        cg.writeEntry(QStringLiteral("%1 LoadedViaCMake").arg(i), loadedViaCMake);
+        cg.writeEntry(QStringLiteral("%1 CMakeConfig").arg(i), setObj[QStringLiteral("cmake_config")].toString());
+
+        if (loadedViaCMake) {
             // don't save the build commands, they'll be reloaded via the CMake file API
             continue;
         }
 
         QStringList cmdNames;
+        QJsonArray targetsArray = setObj[QStringLiteral("targets")].toArray();
 
-        for (int j = 0; j < targets[i].commands.count(); j++) {
-            const QString &cmdName = targets[i].commands[j].name;
-            const QString &buildCmd = targets[i].commands[j].buildCmd;
-            const QString &runCmd = targets[i].commands[j].runCmd;
+        for (int j = 0; j < targetsArray.size(); ++j) {
+            auto targetObj = targetsArray[j].toObject();
+            const QString &cmdName = targetObj[QStringLiteral("name")].toString();
+            const QString &buildCmd = targetObj[QStringLiteral("build_cmd")].toString();
+            const QString &runCmd = targetObj[QStringLiteral("run_cmd")].toString();
             cmdNames << cmdName;
             cg.writeEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(cmdName), buildCmd);
             cg.writeEntry(QStringLiteral("%1 RunCmd %2").arg(i).arg(cmdName), runCmd);
@@ -1166,10 +1173,16 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
 {
     const int numCores = QThread::idealThreadCount();
 
-    const QList<TargetModel::TargetSet> existingTargetSets = m_targetsUi->targetsModel.sessionTargetSets();
-    for (int i = 0; i < existingTargetSets.size(); i++) {
-        if (existingTargetSets[i].loadedViaCMake && (existingTargetSets[i].cmakeConfigName == cmakeConfig)
-            && (existingTargetSets[i].workDir == cmakeFA.getBuildDir())) {
+    QModelIndex sessionRootIndex = m_targetsUi->targetsModel.sessionRootIndex();
+    QJsonObject sessionSetsObj = m_targetsUi->targetsModel.indexToJsonObj(sessionRootIndex);
+    QJsonArray setsArray = sessionSetsObj[QStringLiteral("target_sets")].toArray();
+
+    for (const auto &setValue : setsArray) {
+        const auto &setObj = setValue.toObject();
+        const bool loadedViaCMake = setObj[QStringLiteral("loaded_via_cmake")].toBool();
+        const QString setCmakeConfig = setObj[QStringLiteral("cmake_config")].toString();
+        const QString buildDir = setObj[QStringLiteral("directory")].toString();
+        if (loadedViaCMake && setCmakeConfig == cmakeConfig && buildDir == cmakeFA.getBuildDir()) {
             // this target set has already been loaded, don't add it once more
             return setIndex;
         }
@@ -1791,8 +1804,6 @@ void KateBuildView::saveProjectTargets()
     if (!m_projectPluginView) {
         return;
     }
-    qDebug() << "#### SAVING Proj Targets";
-
     const QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
     const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
     const QString userOverride = projectsBaseDir + QStringLiteral("/.kateproject.build");

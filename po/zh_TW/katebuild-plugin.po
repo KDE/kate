@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-07 00:41+0000\n"
-"PO-Revision-Date: 2024-05-30 03:10+0900\n"
+"PO-Revision-Date: 2024-06-13 03:07+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -93,7 +93,7 @@ msgstr "編譯並執行選取的目標"
 #: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "編譯目前檔案"
 
 #: plugin_katebuild.cpp:241
 #, kde-format
@@ -175,12 +175,12 @@ msgstr "已取消 <b>%1</b> 的編譯"
 #: plugin_katebuild.cpp:897
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "沒有找到檔案「%1」的 compile_commands.json。"
 
 #: plugin_katebuild.cpp:911
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "在「%2」中沒有找到檔案「%1」的編譯命令。"
 
 #: plugin_katebuild.cpp:1019
 #, kde-format

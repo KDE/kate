@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2024-06-13 00:41+0000\n"
 "PO-Revision-Date: 2024-05-06 12:07+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -340,7 +340,7 @@ msgstr "Fyrra atriði"
 msgid "Clear Diagnostics Filter"
 msgstr "Hreinsa greiningarsíu"
 
-#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:340
+#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:328
 #, kde-format
 msgid "Diagnostics"
 msgstr "Greining"
@@ -360,13 +360,13 @@ msgstr "Viðvaranir"
 msgid "Filter..."
 msgstr "Sía..."
 
-#: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:149
+#: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:137
 #, kde-format
 msgid "Error"
 msgstr "Villa"
 
-#: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:149
-#: lib/kateconfigdialog.cpp:704
+#: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:137
+#: lib/kateconfigdialog.cpp:692
 #, kde-format
 msgid "Warning"
 msgstr "Viðvörun"
@@ -432,17 +432,17 @@ msgstr "Virkja útilokun"
 msgid "Change Style"
 msgstr "Breyta stíl"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:320
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:308
 #, kde-format
 msgid "Side By Side"
 msgstr "Hlið við hlið"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:321
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:309
 #, kde-format
 msgid "Unified"
 msgstr "Sameinað"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:322
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:310
 #, kde-format
 msgid "Raw"
 msgstr "Hrátt"
@@ -547,7 +547,7 @@ msgstr ""
 "Sjá https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
-#: lib/kateconfigdialog.cpp:314
+#: lib/kateconfigdialog.cpp:302
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
@@ -948,27 +948,27 @@ msgstr ""
 msgid "Configure"
 msgstr "Grunnstilla"
 
-#: lib/kateconfigdialog.cpp:118
+#: lib/kateconfigdialog.cpp:106
 #, kde-format
 msgid "Behavior"
 msgstr "Hegðun"
 
-#: lib/kateconfigdialog.cpp:120
+#: lib/kateconfigdialog.cpp:108
 #, kde-format
 msgid "Behavior Options"
 msgstr "Hegðunarvalkostir"
 
-#: lib/kateconfigdialog.cpp:126
+#: lib/kateconfigdialog.cpp:114
 #, kde-format
 msgid "&Behavior"
 msgstr "&Hegðun"
 
-#: lib/kateconfigdialog.cpp:131
+#: lib/kateconfigdialog.cpp:119
 #, kde-format
 msgid "Open each document in its own window"
 msgstr "Opna hvert skjal í eigin glugga"
 
-#: lib/kateconfigdialog.cpp:134
+#: lib/kateconfigdialog.cpp:122
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
@@ -977,45 +977,45 @@ msgstr ""
 "Ef þetta er virkt er hvert skjal opnað í sínum eigin glugga. Ef þetta er "
 "ekki virkt er hvert skjal opnað í nýjum flipa í núverandi glugga."
 
-#: lib/kateconfigdialog.cpp:144
+#: lib/kateconfigdialog.cpp:132
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "&Skipta í úttaksyfirlit eftir gerð skilaboða:"
 
-#: lib/kateconfigdialog.cpp:149
+#: lib/kateconfigdialog.cpp:137
 #, kde-format
 msgid "Never"
 msgstr "Aldrei"
 
-#: lib/kateconfigdialog.cpp:149
+#: lib/kateconfigdialog.cpp:137
 #, kde-format
 msgid "Info"
 msgstr "Upplýsingar"
 
-#: lib/kateconfigdialog.cpp:149
+#: lib/kateconfigdialog.cpp:137
 #, kde-format
 msgid "Log"
 msgstr "Annáll"
 
-#: lib/kateconfigdialog.cpp:155
+#: lib/kateconfigdialog.cpp:143
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&Takmarka feril úttaksyfirlits:"
 
-#: lib/kateconfigdialog.cpp:161 lib/kateconfigdialog.cpp:226
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:149 lib/kateconfigdialog.cpp:214
+#: lib/kateconfigdialog.cpp:336
 #, kde-format
 msgid "Unlimited"
 msgstr "Ótakmarkað"
 
-#: lib/kateconfigdialog.cpp:168
+#: lib/kateconfigdialog.cpp:156
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 "Nota sérstakan &svarglugga til að meðhöndla skrár sem var breytt utan "
 "forritsins"
 
-#: lib/kateconfigdialog.cpp:171
+#: lib/kateconfigdialog.cpp:159
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -1026,17 +1026,17 @@ msgstr ""
 "verið breytt. Ef þetta er ekki virkt verður spurt um hverja skrá fyrir sig "
 "en aðeins þegar breytt skrá fær fókus í Kate."
 
-#: lib/kateconfigdialog.cpp:180
+#: lib/kateconfigdialog.cpp:168
 #, kde-format
 msgid "&Sidebars"
 msgstr "Hliðar&stikur"
 
-#: lib/kateconfigdialog.cpp:183
+#: lib/kateconfigdialog.cpp:171
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Stilla stærð hluta eftir stöðu flipa"
 
-#: lib/kateconfigdialog.cpp:186
+#: lib/kateconfigdialog.cpp:174
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -1046,27 +1046,27 @@ msgstr ""
 "Þegar þetta er virkt verður stærð hlutans ákvörðuð út frá stöðu flipanna.\n"
 "Þessi valkostur hefur ekki áhrif á neðri hliðarstikuna."
 
-#: lib/kateconfigdialog.cpp:191
+#: lib/kateconfigdialog.cpp:179
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Sýna texta fyrir hægri og vinstri hnappa á hliðarstiku"
 
-#: lib/kateconfigdialog.cpp:196
+#: lib/kateconfigdialog.cpp:184
 #, kde-format
 msgid "Icon size for left and right sidebar buttons:"
 msgstr "Táknastærð fyrir hnappa á vinstri og hægri hliðarstiku"
 
-#: lib/kateconfigdialog.cpp:216
+#: lib/kateconfigdialog.cpp:204
 #, kde-format
 msgid "&Tabs"
 msgstr "&Flipar"
 
-#: lib/kateconfigdialog.cpp:220
+#: lib/kateconfigdialog.cpp:208
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "&Takmarka fjölda flipa:"
 
-#: lib/kateconfigdialog.cpp:231
+#: lib/kateconfigdialog.cpp:219
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1076,63 +1076,63 @@ msgstr ""
 "í veg fyrir það. Alltaf er hægt að skruna þegar ótakmarkaður fjöldi flipa er "
 "valinn."
 
-#: lib/kateconfigdialog.cpp:235
+#: lib/kateconfigdialog.cpp:223
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "&Fela flipa sjálfkrafa"
 
-#: lib/kateconfigdialog.cpp:237
+#: lib/kateconfigdialog.cpp:225
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 "Þegar hakað er við þetta eru fliparnir faldir ef aðeins ein skrá er opin."
 
-#: lib/kateconfigdialog.cpp:241
+#: lib/kateconfigdialog.cpp:229
 #, kde-format
 msgid "&Show close button"
 msgstr "&Sýna lokunarhnapp"
 
-#: lib/kateconfigdialog.cpp:243
+#: lib/kateconfigdialog.cpp:231
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Þegar hakað er við þetta birtist lokunarhnappur á hverjum flipa."
 
-#: lib/kateconfigdialog.cpp:247
+#: lib/kateconfigdialog.cpp:235
 #, kde-format
 msgid "&Expand tabs"
 msgstr "&Víkka út flipa"
 
-#: lib/kateconfigdialog.cpp:249
+#: lib/kateconfigdialog.cpp:237
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "Þegar hakað er við þetta taka fliparnir eins mikið pláss og hægt er."
 
-#: lib/kateconfigdialog.cpp:253
+#: lib/kateconfigdialog.cpp:241
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&Tvísmellur opnar nýtt skjal"
 
-#: lib/kateconfigdialog.cpp:255
+#: lib/kateconfigdialog.cpp:243
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Þegar hakað er hér opnast nýtt skjal þegar tvísmellt er."
 
-#: lib/kateconfigdialog.cpp:259
+#: lib/kateconfigdialog.cpp:247
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "&Miðjusmellur lokar skjali"
 
-#: lib/kateconfigdialog.cpp:261
+#: lib/kateconfigdialog.cpp:249
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Þegar hakað er hér lokast skjalið við miðjusmell."
 
-#: lib/kateconfigdialog.cpp:265
+#: lib/kateconfigdialog.cpp:253
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Leyfa flipaskrun"
 
-#: lib/kateconfigdialog.cpp:267
+#: lib/kateconfigdialog.cpp:255
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -1141,103 +1141,103 @@ msgstr ""
 "Þegar hakað er hér er hægt að skruna á flipastikunni þegar mjög margir "
 "flipar eru opnir."
 
-#: lib/kateconfigdialog.cpp:271
+#: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "Elide tab text"
 msgstr "Rúlla flipatexta"
 
-#: lib/kateconfigdialog.cpp:273
+#: lib/kateconfigdialog.cpp:261
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr "Þegar hakað er hér getur texti á flipa rúllað ef hann er of langur"
 
-#: lib/kateconfigdialog.cpp:277
+#: lib/kateconfigdialog.cpp:265
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
 msgstr "Opna nýjan flipa hægra megin við núverandi flipa"
 
-#: lib/kateconfigdialog.cpp:279
+#: lib/kateconfigdialog.cpp:267
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr "Ef ekki er hakað hér opnast nýi flipinn úti á enda."
 
-#: lib/kateconfigdialog.cpp:285
+#: lib/kateconfigdialog.cpp:273
 #, kde-format
 msgid "&Mouse"
 msgstr "&Mús"
 
-#: lib/kateconfigdialog.cpp:290
+#: lib/kateconfigdialog.cpp:278
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "&Ýtt á Til baka-hnappinn:"
 
-#: lib/kateconfigdialog.cpp:295
+#: lib/kateconfigdialog.cpp:283
 #, kde-format
 msgid "Previous tab"
 msgstr "Fyrri flipi"
 
-#: lib/kateconfigdialog.cpp:295
+#: lib/kateconfigdialog.cpp:283
 #, kde-format
 msgid "History back"
 msgstr "Til baka í ferli"
 
-#: lib/kateconfigdialog.cpp:301
+#: lib/kateconfigdialog.cpp:289
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "&Ýtt á Áfram-hnappinn:"
 
-#: lib/kateconfigdialog.cpp:306
+#: lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "Next tab"
 msgstr "Næsti flipi"
 
-#: lib/kateconfigdialog.cpp:306
+#: lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "History forward"
 msgstr "Áfram í ferli"
 
-#: lib/kateconfigdialog.cpp:323
+#: lib/kateconfigdialog.cpp:311
 #, kde-format
 msgid "Diff Style:"
 msgstr "Stílsnið fyrir diff:"
 
-#: lib/kateconfigdialog.cpp:330
+#: lib/kateconfigdialog.cpp:318
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Yfirlitsstika"
 
-#: lib/kateconfigdialog.cpp:335
+#: lib/kateconfigdialog.cpp:323
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Sýna núverandi tákn á yfirlitsstikunni"
 
-#: lib/kateconfigdialog.cpp:345
+#: lib/kateconfigdialog.cpp:333
 #, kde-format
 msgid "Diagnostics limit:"
 msgstr "Greiningarmörk:"
 
-#: lib/kateconfigdialog.cpp:350
+#: lib/kateconfigdialog.cpp:338
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "Leyfður hámarksfjöldi greininga í Greiningaryfirlitinu."
 
-#: lib/kateconfigdialog.cpp:365
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Session"
 msgstr "Seta"
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:355
 #, kde-format
 msgid "Session Management"
 msgstr "Setustjórn"
 
-#: lib/kateconfigdialog.cpp:378
+#: lib/kateconfigdialog.cpp:366
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(aldrei)"
 
-#: lib/kateconfigdialog.cpp:379
+#: lib/kateconfigdialog.cpp:367
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1245,7 +1245,7 @@ msgid_plural " days"
 msgstr[0] " dag"
 msgstr[1] " daga"
 
-#: lib/kateconfigdialog.cpp:412
+#: lib/kateconfigdialog.cpp:400
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1254,22 +1254,22 @@ msgstr ""
 "Þegar glugga er lokað er skjölunum sem voru bara opnuð í þessum glugga "
 "einnig lokað."
 
-#: lib/kateconfigdialog.cpp:447
+#: lib/kateconfigdialog.cpp:435
 #, kde-format
 msgid "Plugins"
 msgstr "Viðbætur"
 
-#: lib/kateconfigdialog.cpp:449
+#: lib/kateconfigdialog.cpp:437
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Umsjón viðbóta"
 
-#: lib/kateconfigdialog.cpp:467 lib/kateconfigdialog.cpp:469
+#: lib/kateconfigdialog.cpp:455 lib/kateconfigdialog.cpp:457
 #, kde-format
 msgid "User Feedback"
 msgstr "Umsagnir notenda"
 
-#: lib/kateconfigdialog.cpp:703
+#: lib/kateconfigdialog.cpp:691
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1755,7 +1755,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Opna allar skrár"
 
-#: lib/katemainwindow.cpp:1227
+#: lib/katemainwindow.cpp:1235
 #, kde-format
 msgid " [read only]"
 msgstr "[skrifvarið]"
@@ -1865,7 +1865,7 @@ msgstr "Efsta hliðarstika"
 msgid "Bottom Sidebar"
 msgstr "Neðsta hliðarstika"
 
-#: lib/katemdi.cpp:1710
+#: lib/katemdi.cpp:1711
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

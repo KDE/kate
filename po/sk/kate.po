@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2024-06-13 00:41+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -340,7 +340,7 @@ msgstr "Predchádzajúca karta"
 msgid "Clear Diagnostics Filter"
 msgstr "Diagnostika"
 
-#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:340
+#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:328
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostika"
@@ -362,13 +362,13 @@ msgstr "Upozornenie"
 msgid "Filter..."
 msgstr "&Iné..."
 
-#: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:149
+#: lib/diagnostics/diagnosticview.cpp:1123 lib/kateconfigdialog.cpp:137
 #, kde-format
 msgid "Error"
 msgstr "Chyba"
 
-#: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:149
-#: lib/kateconfigdialog.cpp:704
+#: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:137
+#: lib/kateconfigdialog.cpp:692
 #, kde-format
 msgid "Warning"
 msgstr "Upozornenie"
@@ -434,17 +434,17 @@ msgstr "Povoliť lokálne potlačenie"
 msgid "Change Style"
 msgstr "Zmeniť štýl"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:320
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:308
 #, kde-format
 msgid "Side By Side"
 msgstr "Vedľa seba"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:321
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:309
 #, kde-format
 msgid "Unified"
 msgstr "Zjednotený"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:322
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:310
 #, kde-format
 msgid "Raw"
 msgstr "Nespracované"
@@ -552,7 +552,7 @@ msgstr ""
 "https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
-#: lib/kateconfigdialog.cpp:314
+#: lib/kateconfigdialog.cpp:302
 #, kde-format
 msgid "Diff"
 msgstr "Rozdiely"
@@ -966,27 +966,27 @@ msgstr ""
 msgid "Configure"
 msgstr "Konfigurovať"
 
-#: lib/kateconfigdialog.cpp:118
+#: lib/kateconfigdialog.cpp:106
 #, kde-format
 msgid "Behavior"
 msgstr "Správanie"
 
-#: lib/kateconfigdialog.cpp:120
+#: lib/kateconfigdialog.cpp:108
 #, kde-format
 msgid "Behavior Options"
 msgstr "Možnosti správania"
 
-#: lib/kateconfigdialog.cpp:126
+#: lib/kateconfigdialog.cpp:114
 #, kde-format
 msgid "&Behavior"
 msgstr "&Správanie"
 
-#: lib/kateconfigdialog.cpp:131
+#: lib/kateconfigdialog.cpp:119
 #, kde-format
 msgid "Open each document in its own window"
 msgstr "Otvoriť každý dokument vo vlastnom okne"
 
-#: lib/kateconfigdialog.cpp:134
+#: lib/kateconfigdialog.cpp:122
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
@@ -995,44 +995,44 @@ msgstr ""
 "Ak je táto možnosť povolená, každý dokument sa otvorí vo vlastnom okne. Ak "
 "nie je povolená, každý dokument sa otvorí na novej karte v súčasnom okne."
 
-#: lib/kateconfigdialog.cpp:144
+#: lib/kateconfigdialog.cpp:132
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "Prepnúť na zobrazenie výstupu podľa typu správy:"
 
-#: lib/kateconfigdialog.cpp:149
+#: lib/kateconfigdialog.cpp:137
 #, kde-format
 msgid "Never"
 msgstr "Nikdy"
 
-#: lib/kateconfigdialog.cpp:149
+#: lib/kateconfigdialog.cpp:137
 #, kde-format
 msgid "Info"
 msgstr "Informácie"
 
-#: lib/kateconfigdialog.cpp:149
+#: lib/kateconfigdialog.cpp:137
 #, kde-format
 msgid "Log"
 msgstr "Výpis"
 
-#: lib/kateconfigdialog.cpp:155
+#: lib/kateconfigdialog.cpp:143
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "Obmedziť históriu zobrazenia výstupu:"
 
-#: lib/kateconfigdialog.cpp:161 lib/kateconfigdialog.cpp:226
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:149 lib/kateconfigdialog.cpp:214
+#: lib/kateconfigdialog.cpp:336
 #, kde-format
 msgid "Unlimited"
 msgstr "Neobmedzené"
 
-#: lib/kateconfigdialog.cpp:168
+#: lib/kateconfigdialog.cpp:156
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 "Na spracovanie externe upravených súborov použiť samostatné dialógové okno"
 
-#: lib/kateconfigdialog.cpp:171
+#: lib/kateconfigdialog.cpp:159
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -1044,17 +1044,17 @@ msgstr ""
 "požiadaní, čo robiť s každým upraveným súborom, až keď bude zobrazenie "
 "daného súboru aktívne."
 
-#: lib/kateconfigdialog.cpp:180
+#: lib/kateconfigdialog.cpp:168
 #, kde-format
 msgid "&Sidebars"
 msgstr "Bočné panely"
 
-#: lib/kateconfigdialog.cpp:183
+#: lib/kateconfigdialog.cpp:171
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Synchronizovať veľkosť sekcie s pozíciami kariet"
 
-#: lib/kateconfigdialog.cpp:186
+#: lib/kateconfigdialog.cpp:174
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -1064,28 +1064,28 @@ msgstr ""
 "Ak je táto možnosť povolená, veľkosť sekcie sa určí podľa polohy kariet.\n"
 "Táto možnosť nemá vplyv na spodný bočný panel."
 
-#: lib/kateconfigdialog.cpp:191
+#: lib/kateconfigdialog.cpp:179
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Zobraziť text pre tlačidlá ľavého a pravého bočného panela"
 
-#: lib/kateconfigdialog.cpp:196
+#: lib/kateconfigdialog.cpp:184
 #, fuzzy, kde-format
 #| msgid "Icon size for left and right sidebar buttons"
 msgid "Icon size for left and right sidebar buttons:"
 msgstr "Veľkosť ikon pre tlačidlá ľavého a pravého bočného panela"
 
-#: lib/kateconfigdialog.cpp:216
+#: lib/kateconfigdialog.cpp:204
 #, kde-format
 msgid "&Tabs"
 msgstr "Karty"
 
-#: lib/kateconfigdialog.cpp:220
+#: lib/kateconfigdialog.cpp:208
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "Obmedziť počet kariet na:"
 
-#: lib/kateconfigdialog.cpp:231
+#: lib/kateconfigdialog.cpp:219
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1095,64 +1095,64 @@ msgstr ""
 "možnosť „Povoliť posúvanie kariet“. Neobmedzený počet kariet je vždy "
 "posúvateľný."
 
-#: lib/kateconfigdialog.cpp:235
+#: lib/kateconfigdialog.cpp:223
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "&Automaticky skrývať karty"
 
-#: lib/kateconfigdialog.cpp:237
+#: lib/kateconfigdialog.cpp:225
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 "Ak je začiarknuté, karty budú skryté, ak je otvorený len jeden dokument."
 
-#: lib/kateconfigdialog.cpp:241
+#: lib/kateconfigdialog.cpp:229
 #, kde-format
 msgid "&Show close button"
 msgstr "Zobraziť tlačidlo Zatvoriť"
 
-#: lib/kateconfigdialog.cpp:243
+#: lib/kateconfigdialog.cpp:231
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr ""
 "Po začiarknutí tejto možnosti sa na každej karte zobrazí tlačidlo Zatvoriť."
 
-#: lib/kateconfigdialog.cpp:247
+#: lib/kateconfigdialog.cpp:235
 #, kde-format
 msgid "&Expand tabs"
 msgstr "Rozbaliť karty"
 
-#: lib/kateconfigdialog.cpp:249
+#: lib/kateconfigdialog.cpp:237
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "Keď začiarknuté karty majú čo najväčšiu veľkosť."
 
-#: lib/kateconfigdialog.cpp:253
+#: lib/kateconfigdialog.cpp:241
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "Dvojitým kliknutím sa otvorí nový dokument"
 
-#: lib/kateconfigdialog.cpp:255
+#: lib/kateconfigdialog.cpp:243
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Ak je začiarknuté, dvojitým kliknutím sa otvorí nový dokument."
 
-#: lib/kateconfigdialog.cpp:259
+#: lib/kateconfigdialog.cpp:247
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "Stredné kliknutie zatvorí dokument"
 
-#: lib/kateconfigdialog.cpp:261
+#: lib/kateconfigdialog.cpp:249
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Ak je začiarknuté, stredné kliknutie zatvorí dokument."
 
-#: lib/kateconfigdialog.cpp:265
+#: lib/kateconfigdialog.cpp:253
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Povoliť rolovanie kariet"
 
-#: lib/kateconfigdialog.cpp:267
+#: lib/kateconfigdialog.cpp:255
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -1161,104 +1161,104 @@ msgstr ""
 "Ak je táto možnosť zaškrtnutá, umožní sa rolovanie v paneli kariet, keď je "
 "počet kariet veľký."
 
-#: lib/kateconfigdialog.cpp:271
+#: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "Elide tab text"
 msgstr "Skrátiť text karty"
 
-#: lib/kateconfigdialog.cpp:273
+#: lib/kateconfigdialog.cpp:261
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr "Keď začiarknuté karty majú čo najväčšiu veľkosť."
 
-#: lib/kateconfigdialog.cpp:277
+#: lib/kateconfigdialog.cpp:265
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:279
+#: lib/kateconfigdialog.cpp:267
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:285
+#: lib/kateconfigdialog.cpp:273
 #, kde-format
 msgid "&Mouse"
 msgstr "&Myš"
 
-#: lib/kateconfigdialog.cpp:290
+#: lib/kateconfigdialog.cpp:278
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "Stlačené tlačidlo späť:"
 
-#: lib/kateconfigdialog.cpp:295
+#: lib/kateconfigdialog.cpp:283
 #, kde-format
 msgid "Previous tab"
 msgstr "Predchádzajúca karta"
 
-#: lib/kateconfigdialog.cpp:295
+#: lib/kateconfigdialog.cpp:283
 #, kde-format
 msgid "History back"
 msgstr "História späť"
 
-#: lib/kateconfigdialog.cpp:301
+#: lib/kateconfigdialog.cpp:289
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Stlačené tlačidlo vpred:"
 
-#: lib/kateconfigdialog.cpp:306
+#: lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "Next tab"
 msgstr "&Nasledujúca karta"
 
-#: lib/kateconfigdialog.cpp:306
+#: lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "History forward"
 msgstr "História dopredu"
 
-#: lib/kateconfigdialog.cpp:323
+#: lib/kateconfigdialog.cpp:311
 #, kde-format
 msgid "Diff Style:"
 msgstr "Štýl rozdielov:"
 
-#: lib/kateconfigdialog.cpp:330
+#: lib/kateconfigdialog.cpp:318
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Navigačný panel"
 
-#: lib/kateconfigdialog.cpp:335
+#: lib/kateconfigdialog.cpp:323
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Zobraziť aktuálny symbol v navigačnom paneli"
 
-#: lib/kateconfigdialog.cpp:345
+#: lib/kateconfigdialog.cpp:333
 #, fuzzy, kde-format
 #| msgid "Diagnostics"
 msgid "Diagnostics limit:"
 msgstr "Diagnostika"
 
-#: lib/kateconfigdialog.cpp:350
+#: lib/kateconfigdialog.cpp:338
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:365
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Session"
 msgstr "Sedenie"
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:355
 #, kde-format
 msgid "Session Management"
 msgstr "Správca sedení"
 
-#: lib/kateconfigdialog.cpp:378
+#: lib/kateconfigdialog.cpp:366
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(nikdy)"
 
-#: lib/kateconfigdialog.cpp:379
+#: lib/kateconfigdialog.cpp:367
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1267,29 +1267,29 @@ msgstr[0] " deň"
 msgstr[1] " dni"
 msgstr[2] " dni"
 
-#: lib/kateconfigdialog.cpp:412
+#: lib/kateconfigdialog.cpp:400
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr "Po zatvorení okna sa zatvoria aj dokumenty otvorené len v tomto okne."
 
-#: lib/kateconfigdialog.cpp:447
+#: lib/kateconfigdialog.cpp:435
 #, kde-format
 msgid "Plugins"
 msgstr "Moduly"
 
-#: lib/kateconfigdialog.cpp:449
+#: lib/kateconfigdialog.cpp:437
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Správca modulov"
 
-#: lib/kateconfigdialog.cpp:467 lib/kateconfigdialog.cpp:469
+#: lib/kateconfigdialog.cpp:455 lib/kateconfigdialog.cpp:457
 #, kde-format
 msgid "User Feedback"
 msgstr "Používateľská odozva"
 
-#: lib/kateconfigdialog.cpp:703
+#: lib/kateconfigdialog.cpp:691
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1774,7 +1774,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otvoriť súbor"
 
-#: lib/katemainwindow.cpp:1227
+#: lib/katemainwindow.cpp:1235
 #, kde-format
 msgid " [read only]"
 msgstr " [iba na čítanie]"
@@ -1884,7 +1884,7 @@ msgstr "Vrchný bočný panel"
 msgid "Bottom Sidebar"
 msgstr "Spodný bočný panel"
 
-#: lib/katemdi.cpp:1710
+#: lib/katemdi.cpp:1711
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

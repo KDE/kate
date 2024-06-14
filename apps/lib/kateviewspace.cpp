@@ -634,8 +634,8 @@ bool KateViewSpace::acceptsDroppedTab(const QMimeData *md)
 {
     if (auto tabMimeData = qobject_cast<const TabMimeData *>(md)) {
         return this != tabMimeData->sourceVS && // must not be same viewspace
-            viewManager() == tabMimeData->sourceVS->viewManager() && // for now we don't support dropping into different windows
-            !hasDocument(tabMimeData->doc);
+                                                // for now we don't support dropping into different windows if no document
+            ((viewManager() == tabMimeData->sourceVS->viewManager()) || tabMimeData->doc.doc()) && !hasDocument(tabMimeData->doc);
     }
     return TabMimeData::hasValidData(md);
 }
@@ -662,7 +662,16 @@ void KateViewSpace::dragLeaveEvent(QDragLeaveEvent *e)
 void KateViewSpace::dropEvent(QDropEvent *e)
 {
     if (auto mimeData = qobject_cast<const TabMimeData *>(e->mimeData())) {
-        m_viewManager->moveViewToViewSpace(this, mimeData->sourceVS, mimeData->doc);
+        if (viewManager() == mimeData->sourceVS->viewManager()) {
+            m_viewManager->moveViewToViewSpace(this, mimeData->sourceVS, mimeData->doc);
+        } else {
+            Q_ASSERT(mimeData->doc.doc()); // we ensure that in acceptsDroppedTab
+            auto sourceView = mimeData->sourceVS->findViewForDocument(mimeData->doc.doc());
+            auto view = m_viewManager->activateView(mimeData->doc.doc(), this);
+            if (sourceView && view) {
+                view->setCursorPosition(sourceView->cursorPosition());
+            }
+        }
         m_dropIndicator.reset();
         e->accept();
         return;

@@ -113,9 +113,13 @@ public:
      */
     bool hasDocument(DocOrWidget doc) const;
 
-    bool hasViewForDocument(KTextEditor::Document *doc) const
+    /**
+     * Find view for given document, if any.
+     */
+    KTextEditor::View *findViewForDocument(KTextEditor::Document *doc) const
     {
-        return m_docToView.find(doc) != m_docToView.end();
+        auto it = m_docToView.find(doc);
+        return (it != m_docToView.end()) ? it->second : nullptr;
     }
 
     /**

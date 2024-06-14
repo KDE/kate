@@ -167,7 +167,7 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
     }
 
     int tab = tabAt(event->pos());
-    if (event->button() == Qt::LeftButton && tab != -1 && count() > 1) {
+    if (event->button() == Qt::LeftButton && tab != -1) {
         dragStartPos = event->position();
         dragStartGlobalPos = event->globalPosition();
         auto r = tabRect(tab);

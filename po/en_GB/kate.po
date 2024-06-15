@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-13 00:41+0000\n"
+"POT-Creation-Date: 2024-06-15 00:41+0000\n"
 "PO-Revision-Date: 2024-05-24 17:01+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -2394,52 +2394,52 @@ msgstr[1] ""
 "Currently, there are %1 more documents open. To see all open documents, "
 "switch to the Quick Open view by clicking here."
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1060
 #, kde-format
 msgid "Close Tab"
 msgstr "Close Tab"
 
-#: lib/kateviewspace.cpp:1069
+#: lib/kateviewspace.cpp:1078
 #, kde-format
 msgid "&Close Document"
 msgstr "&Close Document"
 
-#: lib/kateviewspace.cpp:1070
+#: lib/kateviewspace.cpp:1079
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Close Other &Documents"
 
-#: lib/kateviewspace.cpp:1071
+#: lib/kateviewspace.cpp:1080
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Close &All Documents"
 
-#: lib/kateviewspace.cpp:1074
+#: lib/kateviewspace.cpp:1083
 #, kde-format
 msgid "D&etach Document"
 msgstr "D&etach Document"
 
-#: lib/kateviewspace.cpp:1076
+#: lib/kateviewspace.cpp:1085
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Opens the document in a new window and closes it in the current window"
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1094
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Compare with Active Document"
 
-#: lib/kateviewspace.cpp:1091
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Compare with Active Document Using"
 
-#: lib/kateviewspace.cpp:1161
+#: lib/kateviewspace.cpp:1170
 #, kde-format
 msgid "Could not start program"
 msgstr "Could not start program"
 
-#: lib/kateviewspace.cpp:1162
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "The selected program could not be started. Maybe it is not installed."

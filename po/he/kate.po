@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-13 00:41+0000\n"
+"POT-Creation-Date: 2024-06-15 00:41+0000\n"
 "PO-Revision-Date: 2024-05-26 08:03+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -2427,52 +2427,52 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1060
 #, kde-format
 msgid "Close Tab"
 msgstr "סגירת לשונית"
 
-#: lib/kateviewspace.cpp:1069
+#: lib/kateviewspace.cpp:1078
 #, kde-format
 msgid "&Close Document"
 msgstr "&סגירת המסמך"
 
-#: lib/kateviewspace.cpp:1070
+#: lib/kateviewspace.cpp:1079
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "סגירת &שאר המסמכים"
 
-#: lib/kateviewspace.cpp:1071
+#: lib/kateviewspace.cpp:1080
 #, kde-format
 msgid "Close &All Documents"
 msgstr "סגירת &כל המסמכים"
 
-#: lib/kateviewspace.cpp:1074
+#: lib/kateviewspace.cpp:1083
 #, kde-format
 msgid "D&etach Document"
 msgstr "&ניתוק המסמך"
 
-#: lib/kateviewspace.cpp:1076
+#: lib/kateviewspace.cpp:1085
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1094
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "השוואה מול המסמך הפעיל"
 
-#: lib/kateviewspace.cpp:1091
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "השוואה מול המסמך הפעיל בעזרת"
 
-#: lib/kateviewspace.cpp:1161
+#: lib/kateviewspace.cpp:1170
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1162
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

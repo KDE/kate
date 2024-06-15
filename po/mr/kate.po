@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-13 00:41+0000\n"
+"POT-Creation-Date: 2024-06-15 00:41+0000\n"
 "PO-Revision-Date: 2013-03-29 16:35+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -2390,59 +2390,59 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1060
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "बंद करा"
 
-#: lib/kateviewspace.cpp:1069
+#: lib/kateviewspace.cpp:1078
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "दस्तऐवज बंद करा"
 
-#: lib/kateviewspace.cpp:1070
+#: lib/kateviewspace.cpp:1079
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "दस्तऐवज बंद करा"
 
-#: lib/kateviewspace.cpp:1071
+#: lib/kateviewspace.cpp:1080
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "सर्व दस्तऐवज बंद करा"
 
-#: lib/kateviewspace.cpp:1074
+#: lib/kateviewspace.cpp:1083
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "पुढील दस्तऐवज"
 
-#: lib/kateviewspace.cpp:1076
+#: lib/kateviewspace.cpp:1085
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1094
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "वर्तमान दस्तऐवज बंद करा."
 
-#: lib/kateviewspace.cpp:1091
+#: lib/kateviewspace.cpp:1100
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "वर्तमान दस्तऐवज बंद करा."
 
-#: lib/kateviewspace.cpp:1161
+#: lib/kateviewspace.cpp:1170
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1162
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

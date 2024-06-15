@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-13 00:41+0000\n"
+"POT-Creation-Date: 2024-06-15 00:41+0000\n"
 "PO-Revision-Date: 2023-07-02 02:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
@@ -2454,52 +2454,52 @@ msgstr[1] ""
 "De momento, existem mais %1 documentos abertos. Para ver todos os documentos "
 "abertos, mude para a área de Abertura Rápida, carregado para tal aqui."
 
-#: lib/kateviewspace.cpp:1051
+#: lib/kateviewspace.cpp:1060
 #, kde-format
 msgid "Close Tab"
 msgstr "Fechar a Página"
 
-#: lib/kateviewspace.cpp:1069
+#: lib/kateviewspace.cpp:1078
 #, kde-format
 msgid "&Close Document"
 msgstr "Fe&char o Documento"
 
-#: lib/kateviewspace.cpp:1070
+#: lib/kateviewspace.cpp:1079
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Fechar os Outros &Documentos"
 
-#: lib/kateviewspace.cpp:1071
+#: lib/kateviewspace.cpp:1080
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Fechar &Todos os Documentos"
 
-#: lib/kateviewspace.cpp:1074
+#: lib/kateviewspace.cpp:1083
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Dissociar o Documento"
 
-#: lib/kateviewspace.cpp:1076
+#: lib/kateviewspace.cpp:1085
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Abre o documento numa nova janela e fecha-o na actual"
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1094
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Comparar com o Documento Activo"
 
-#: lib/kateviewspace.cpp:1091
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Comparar com o Documento Activo Com"
 
-#: lib/kateviewspace.cpp:1161
+#: lib/kateviewspace.cpp:1170
 #, kde-format
 msgid "Could not start program"
 msgstr "Não foi possível iniciar o programa"
 
-#: lib/kateviewspace.cpp:1162
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

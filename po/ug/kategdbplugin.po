@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:40+0000\n"
+"POT-Creation-Date: 2024-06-15 00:41+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -366,134 +366,134 @@ msgstr ""
 msgid "terminate debuggee"
 msgstr ""
 
-#: dapbackend.cpp:958
+#: dapbackend.cpp:968
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr ""
 
-#: dapbackend.cpp:976 dapbackend.cpp:1011 dapbackend.cpp:1049
-#: dapbackend.cpp:1083 dapbackend.cpp:1119 dapbackend.cpp:1155
-#: dapbackend.cpp:1191 dapbackend.cpp:1291 dapbackend.cpp:1353
+#: dapbackend.cpp:986 dapbackend.cpp:1021 dapbackend.cpp:1059
+#: dapbackend.cpp:1093 dapbackend.cpp:1129 dapbackend.cpp:1165
+#: dapbackend.cpp:1201 dapbackend.cpp:1301 dapbackend.cpp:1363
 #, kde-format
 msgid "syntax error: %1"
 msgstr ""
 
-#: dapbackend.cpp:984 dapbackend.cpp:1019 dapbackend.cpp:1298
-#: dapbackend.cpp:1361
+#: dapbackend.cpp:994 dapbackend.cpp:1029 dapbackend.cpp:1308
+#: dapbackend.cpp:1371
 #, kde-format
 msgid "invalid line: %1"
 msgstr ""
 
-#: dapbackend.cpp:991 dapbackend.cpp:996 dapbackend.cpp:1026
-#: dapbackend.cpp:1031 dapbackend.cpp:1322 dapbackend.cpp:1327
-#: dapbackend.cpp:1368 dapbackend.cpp:1373
+#: dapbackend.cpp:1001 dapbackend.cpp:1006 dapbackend.cpp:1036
+#: dapbackend.cpp:1041 dapbackend.cpp:1332 dapbackend.cpp:1337
+#: dapbackend.cpp:1378 dapbackend.cpp:1383
 #, kde-format
 msgid "file not specified: %1"
 msgstr ""
 
-#: dapbackend.cpp:1061 dapbackend.cpp:1095 dapbackend.cpp:1131
-#: dapbackend.cpp:1167 dapbackend.cpp:1203
+#: dapbackend.cpp:1071 dapbackend.cpp:1105 dapbackend.cpp:1141
+#: dapbackend.cpp:1177 dapbackend.cpp:1213
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr ""
 
-#: dapbackend.cpp:1067 dapbackend.cpp:1101 dapbackend.cpp:1137
-#: dapbackend.cpp:1173 dapbackend.cpp:1209
+#: dapbackend.cpp:1077 dapbackend.cpp:1111 dapbackend.cpp:1147
+#: dapbackend.cpp:1183 dapbackend.cpp:1219
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr ""
 
-#: dapbackend.cpp:1220
+#: dapbackend.cpp:1230
 #, kde-format
 msgid "Available commands:"
 msgstr ""
 
-#: dapbackend.cpp:1308
+#: dapbackend.cpp:1318
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr ""
 
-#: dapbackend.cpp:1316
+#: dapbackend.cpp:1326
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr ""
 
-#: dapbackend.cpp:1336
+#: dapbackend.cpp:1346
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr ""
 
-#: dapbackend.cpp:1381
+#: dapbackend.cpp:1391
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr ""
 
-#: dapbackend.cpp:1387
+#: dapbackend.cpp:1397
 #, kde-format
 msgid "Current thread: "
 msgstr ""
 
-#: dapbackend.cpp:1392 dapbackend.cpp:1399 dapbackend.cpp:1423
+#: dapbackend.cpp:1402 dapbackend.cpp:1409 dapbackend.cpp:1433
 #, kde-format
 msgid "none"
 msgstr ""
 
-#: dapbackend.cpp:1395
+#: dapbackend.cpp:1405
 #, kde-format
 msgid "Current frame: "
 msgstr ""
 
-#: dapbackend.cpp:1402
+#: dapbackend.cpp:1412
 #, kde-format
 msgid "Session state: "
 msgstr ""
 
-#: dapbackend.cpp:1405
+#: dapbackend.cpp:1415
 #, kde-format
 msgid "initializing"
 msgstr ""
 
-#: dapbackend.cpp:1408
+#: dapbackend.cpp:1418
 #, kde-format
 msgid "running"
 msgstr ""
 
-#: dapbackend.cpp:1411
+#: dapbackend.cpp:1421
 #, kde-format
 msgid "stopped"
 msgstr ""
 
-#: dapbackend.cpp:1414
+#: dapbackend.cpp:1424
 #, kde-format
 msgid "terminated"
 msgstr ""
 
-#: dapbackend.cpp:1417
+#: dapbackend.cpp:1427
 #, kde-format
 msgid "disconnected"
 msgstr ""
 
-#: dapbackend.cpp:1420
+#: dapbackend.cpp:1430
 #, kde-format
 msgid "post mortem"
 msgstr ""
 
-#: dapbackend.cpp:1476
+#: dapbackend.cpp:1486
 #, kde-format
 msgid "command not found"
 msgstr ""
 
-#: dapbackend.cpp:1497
+#: dapbackend.cpp:1507
 #, kde-format
 msgid "missing thread id"
 msgstr ""
 
-#: dapbackend.cpp:1605
+#: dapbackend.cpp:1615
 #, kde-format
 msgid "killing backend"
 msgstr ""
 
-#: dapbackend.cpp:1663
+#: dapbackend.cpp:1673
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr ""

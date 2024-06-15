@@ -52,6 +52,9 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     QTreeView *listView = new QTreeView(this);
     layout->addWidget(listView);
     listView->setRootIsDecorated(false);
+    listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    listView->setAllColumnsShowFocus(true);
+    listView->setDragDropMode(QAbstractItemView::NoDragDrop);
     listView->setWhatsThis(
         i18n("Here you can see all available Kate plugins. Those with a check mark are loaded, and will be loaded again the next time Kate is started."));
 

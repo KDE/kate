@@ -14,6 +14,7 @@
 
 #include <KLocalizedString>
 
+#include <QLineEdit>
 #include <QSortFilterProxyModel>
 #include <QStandardItem>
 #include <QStandardItemModel>
@@ -32,6 +33,24 @@ public:
 
 private:
     KatePluginInfo *mInfo;
+};
+
+class KatePluginFilterProxyModel : public QSortFilterProxyModel
+{
+public:
+    KatePluginFilterProxyModel(QObject *parent)
+        : QSortFilterProxyModel(parent)
+    {
+    }
+
+protected:
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+    {
+        QModelIndex index0 = sourceModel()->index(sourceRow, 0, sourceParent);
+        QModelIndex index1 = sourceModel()->index(sourceRow, 1, sourceParent);
+        return (sourceModel()->data(index0).toString().contains(filterRegularExpression())
+                || sourceModel()->data(index1).toString().contains(filterRegularExpression()));
+    }
 };
 
 KatePluginListItem::KatePluginListItem(bool checked, KatePluginInfo *info)
@@ -73,7 +92,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
      * attach our persistent model to the view with filter in-between
      */
     auto m = listView->selectionModel();
-    auto sortModel = new QSortFilterProxyModel(this);
+    auto sortModel = new KatePluginFilterProxyModel(this);
     sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     sortModel->setSortCaseSensitivity(Qt::CaseInsensitive);
     sortModel->setSourceModel(pluginModel);
@@ -83,6 +102,16 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     listView->resizeColumnToContents(0);
     listView->setSortingEnabled(true);
     listView->sortByColumn(0, Qt::AscendingOrder);
+
+    // add filter to allow to search for plugins
+    auto filter = new QLineEdit(this);
+    layout->addWidget(filter);
+    filter->setPlaceholderText(QStringLiteral("Filter..."));
+    filter->setClearButtonEnabled(true);
+    filter->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
+    connect(filter, &QLineEdit::textChanged, sortModel, [sortModel](const QString &text) {
+        sortModel->setFilterRegularExpression(QRegularExpression(text, QRegularExpression::CaseInsensitiveOption));
+    });
 }
 
 void KateConfigPluginPage::slotApply()

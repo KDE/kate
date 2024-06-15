@@ -14,9 +14,13 @@
 
 #include <KLocalizedString>
 
+#include <QSortFilterProxyModel>
+#include <QStandardItem>
+#include <QStandardItemModel>
+#include <QTreeView>
 #include <QVBoxLayout>
 
-class KatePluginListItem : public QTreeWidgetItem
+class KatePluginListItem : public QStandardItem
 {
 public:
     KatePluginListItem(bool checked, KatePluginInfo *info);
@@ -26,9 +30,6 @@ public:
         return mInfo;
     }
 
-protected:
-    void stateChange(bool);
-
 private:
     KatePluginInfo *mInfo;
 };
@@ -36,19 +37,8 @@ private:
 KatePluginListItem::KatePluginListItem(bool checked, KatePluginInfo *info)
     : mInfo(info)
 {
-    setCheckState(0, checked ? Qt::Checked : Qt::Unchecked);
-}
-
-KatePluginListView::KatePluginListView(QWidget *parent)
-    : QTreeWidget(parent)
-{
-    setRootIsDecorated(false);
-    connect(this, &KatePluginListView::itemChanged, this, &KatePluginListView::stateChanged);
-}
-
-void KatePluginListView::stateChanged(QTreeWidgetItem *item)
-{
-    Q_EMIT stateChange(static_cast<KatePluginListItem *>(item), item->checkState(0) == Qt::Checked);
+    setCheckable(true);
+    setCheckState(checked ? Qt::Checked : Qt::Unchecked);
 }
 
 KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *dialog)
@@ -59,39 +49,43 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
 
-    KatePluginListView *listView = new KatePluginListView(this);
+    QTreeView *listView = new QTreeView(this);
     layout->addWidget(listView);
-
-    QStringList headers;
-    headers << i18n("Name") << i18n("Description");
-    listView->setHeaderLabels(headers);
+    listView->setRootIsDecorated(false);
     listView->setWhatsThis(
         i18n("Here you can see all available Kate plugins. Those with a check mark are loaded, and will be loaded again the next time Kate is started."));
 
     KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
+    auto pluginModel = new QStandardItemModel(this);
+    pluginModel->setHorizontalHeaderLabels({i18n("Name"), i18n("Description")});
     for (auto &pluginInfo : pluginList) {
         auto item = new KatePluginListItem(pluginInfo.load, &pluginInfo);
-        item->setText(0, pluginInfo.metaData.name());
-        item->setText(1, pluginInfo.metaData.description());
-        listView->addTopLevelItem(item);
+        item->setText(pluginInfo.metaData.name());
+        pluginModel->appendRow({item, new QStandardItem(pluginInfo.metaData.description())});
         m_pluginItems.push_back(item);
     }
+    connect(pluginModel, &QStandardItemModel::itemChanged, this, &KateConfigPluginPage::changed);
+
+    /**
+     * attach our persistent model to the view with filter in-between
+     */
+    auto m = listView->selectionModel();
+    auto sortModel = new QSortFilterProxyModel(this);
+    sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    sortModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+    sortModel->setSourceModel(pluginModel);
+    listView->setModel(sortModel);
+    delete m;
 
     listView->resizeColumnToContents(0);
+    listView->setSortingEnabled(true);
     listView->sortByColumn(0, Qt::AscendingOrder);
-    connect(listView, &KatePluginListView::stateChange, this, &KateConfigPluginPage::stateChange);
-}
-
-void KateConfigPluginPage::stateChange(KatePluginListItem * /*item*/, bool /*b*/)
-{
-    // just signal change to dialog, we will unload/load the plugins on apply
-    Q_EMIT changed();
 }
 
 void KateConfigPluginPage::slotApply()
 {
     for (auto item : m_pluginItems) {
-        if (item->checkState(0) == Qt::Checked) {
+        if (item->checkState() == Qt::Checked) {
             loadPlugin(item);
         } else {
             unloadPlugin(item);
@@ -112,7 +106,7 @@ void KateConfigPluginPage::loadPlugin(KatePluginListItem *item)
     KateApp::self()->pluginManager()->enablePluginGUI(item->info());
     myDialog->addPluginPage(item->info()->plugin);
 
-    item->setCheckState(0, Qt::Checked);
+    item->setCheckState(Qt::Checked);
 }
 
 void KateConfigPluginPage::unloadPlugin(KatePluginListItem *item)
@@ -124,7 +118,7 @@ void KateConfigPluginPage::unloadPlugin(KatePluginListItem *item)
     myDialog->removePluginPage(item->info()->plugin);
     KateApp::self()->pluginManager()->unloadPlugin(item->info());
 
-    item->setCheckState(0, Qt::Unchecked);
+    item->setCheckState(Qt::Unchecked);
 }
 
 #include "moc_kateconfigplugindialogpage.cpp"

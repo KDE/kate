@@ -9,23 +9,8 @@
 #pragma once
 
 #include <QFrame>
-#include <QTreeWidget>
 
 class KatePluginListItem;
-
-class KatePluginListView : public QTreeWidget
-{
-    Q_OBJECT
-
-public:
-    explicit KatePluginListView(QWidget *parent = nullptr);
-
-Q_SIGNALS:
-    void stateChange(KatePluginListItem *, bool);
-
-private:
-    void stateChanged(QTreeWidgetItem *);
-};
 
 class KateConfigPluginPage : public QFrame
 {
@@ -44,8 +29,6 @@ Q_SIGNALS:
     void changed();
 
 private:
-    void stateChange(KatePluginListItem *, bool);
-
     void loadPlugin(KatePluginListItem *);
     void unloadPlugin(KatePluginListItem *);
 

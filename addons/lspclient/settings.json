@@ -177,6 +177,12 @@
             "url": "https://github.com/phpactor/phpactor",
             "highlightingModeRegex": "^PHP \\(HTML\\)$"
         },
+        "purescript": {
+            "command": ["purescript-language-server", "--stdio"],
+            "rootIndicationFileNames": ["spago.dhall"],
+            "url": "https://github.com/nwolverson/purescript-language-server",
+            "highlightingModeRegex": "^PureScript$"
+        },
         "python": {
             "command": ["pylsp", "--check-parent-process"],
             "url": "https://github.com/python-lsp/python-lsp-server",

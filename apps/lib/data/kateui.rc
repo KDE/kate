@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="104" translationDomain="kate">
+<gui name="kate" version="105" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -161,10 +161,6 @@
     <Spacer/>
     <Action name="hamburger_menu" />
   </ToolBar>
-  <Menu name="ktexteditor_popup" noMerge="1">
-    <DefineGroup name="popup_operations"/>
-    <DefineGroup name="popup_operations2"/>
-  </Menu>
   <Menu name="viewspace_popup" noMerge="1">
     <Action name="view_split_vert"/>
     <Action name="view_split_horiz"/>

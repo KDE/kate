@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1274,17 +1274,7 @@ msgstr ""
 "Sizin saxlanılmamış dəyişiklikləriniz var. Bu dəyişiklikləri saxlamaq yoxsa "
 "ləğv etmək istəyirsiniz?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Adı"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "Təsviri"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1292,6 +1282,16 @@ msgid ""
 msgstr ""
 "Burada Siz bütün Kate qoşmalarını görə bilərsiniz. Seçim işarəsi olanlar "
 "yüklənirlər və Kate növbəti dəfə açıldıqda yenidən yüklənəcəklər."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Adı"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "Təsviri"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

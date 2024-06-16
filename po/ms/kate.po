@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2006-10-20 20:16+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -1287,17 +1287,7 @@ msgstr ""
 "<p>Dokumen'%1' telah diubah suai, tetapi tidak disimpan.<p>Anda ingin "
 "menyimpan perubahan anda atau membuangnya?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Nama"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-msgid "Description"
-msgstr "S&krip:"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1305,6 +1295,16 @@ msgid ""
 msgstr ""
 "Di sini anda boleh lihat semua plugin Kate yang ada. Plugin yang ditanda "
 "dimuatkan, dan akan dimuatkan lagi apabila Kate dimulakan semula."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Nama"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+msgid "Description"
+msgstr "S&krip:"
 
 #: lib/katedocmanager.cpp:270
 #, fuzzy, kde-format

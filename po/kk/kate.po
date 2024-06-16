@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2013-08-28 04:47+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -1302,18 +1302,7 @@ msgstr ""
 "<p>'%1' деген құжат өзертіліп, әлі сақталмаған.</p><p>Өзгерістер сақталсын "
 "немесе ысырып тасталсын ба?</p>"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Атауы"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "Description:"
-msgid "Description"
-msgstr "Сипаттамасы:"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1321,6 +1310,17 @@ msgid ""
 msgstr ""
 "Мұнда барлық Kate плагиндері көрсетілген. Белгісі барлары жүктелген және "
 "Kate келесі рет іске қосылғанда қайта жүктеледі."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Атауы"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+#| msgid "Description:"
+msgid "Description"
+msgstr "Сипаттамасы:"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2023-01-02 07:25+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -1285,17 +1285,7 @@ msgstr ""
 "Kamu memiliki perubahan yang belum disimpan. Apakah kamu ingin menerapkan "
 "perubahan atau membuangnya?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Nama"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "Keterangan"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1304,6 +1294,16 @@ msgstr ""
 "Di sini Anda dapat melihat semua pengaya Kate yang tersedia. Mereka dengan "
 "tanda centang yang sedang dimuat, dan akan dimuat kembali setiap kali Kate "
 "dijalankan."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Nama"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "Keterangan"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

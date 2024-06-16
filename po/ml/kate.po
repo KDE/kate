@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2020-03-17 11:50+0000\n"
 "Last-Translator: amrithandh m <amrithanadhm@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -1249,17 +1249,7 @@ msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
 msgstr ""
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "പേര്"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "വിവരണം"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1267,6 +1257,16 @@ msgid ""
 msgstr ""
 "ലഭ്യമായ എല്ലാ കേറ്റ് പ്ലഗ്ഗിനുകളും ഇവിടെ കാണാം. ടിക് മാർക്ക് ഉള്ളവ ലോഡുചെയ്തിട്ടുണ്ട്, കൂടാതെ "
 "അവ അടുത്തതവണ കേറ്റ് തുറക്കുമ്പോൾ സ്വതേ ലോഡുചെയ്യപ്പെടും."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "പേര്"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "വിവരണം"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

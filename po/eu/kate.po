@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2024-04-23 21:29+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1286,17 +1286,7 @@ msgid ""
 msgstr ""
 "Gorde gabeko aldaketak dituzu. Aldaketak ezarri edo baztertu nahi dituzu?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Izena"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "Azalpena"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1304,6 +1294,16 @@ msgid ""
 msgstr ""
 "Hemen Kate-ren plugin erabilgarri guztiak ikus ditzakezu. Marka dutenak "
 "zamatuak daude, eta berriz zamatuko dira Kate hasten den hurrengoan."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Izena"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "Azalpena"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

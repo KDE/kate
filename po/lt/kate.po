@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2024-02-02 16:47+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -1293,17 +1293,7 @@ msgstr ""
 "<p>Dokumentas „%1“ buvo pakeistas, tačiau neišsaugotas.</p><p>Ar norite "
 "išsaugoti pakeitimus, ar juos atmesti?</p>"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Vardas"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "Aprašymas"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1311,6 +1301,16 @@ msgid ""
 msgstr ""
 "Čia galite pasižiūrėti visus prieinamus Kate įskiepius. Tie, kurie turi "
 "žymę, yra įkelti ir vėl bus įkeliami kitą kartą paleidžiant Kate."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Vardas"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "Aprašymas"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

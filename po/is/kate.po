@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2024-05-06 12:07+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -1275,17 +1275,7 @@ msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
 msgstr "Þú ert með óvistaðar breytingar. Viltu vista þær eða henda þeim?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Heiti"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "Lýsing"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1293,6 +1283,16 @@ msgid ""
 msgstr ""
 "Hér getur þú séð viðbætur fyrir Kate. Þær sem hakað er við, hefur verið "
 "hlaðið inn og verður hlaðið inn næst þegar þú ræsir Kate."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Heiti"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "Lýsing"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

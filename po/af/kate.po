@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -1287,17 +1287,7 @@ msgstr ""
 "<p>Die dokument '%1' was verander, maar nog nie gestoor nie.<p>Wil jy jou "
 "veranderinge stoor of weggooi?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Naam"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-msgid "Description"
-msgstr "Skript:"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1306,6 +1296,16 @@ msgstr ""
 "Hier jy kan sien alle beskikbaar Kate inprop modules. Daardie met 'n "
 "bevestig merk word gelaai, en sal wees gelaai weer die volgende tyd Kate is "
 "beginne."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Naam"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+msgid "Description"
+msgstr "Skript:"
 
 #: lib/katedocmanager.cpp:270
 #, fuzzy, kde-format

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2021-08-21 16:25+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: kde-hindi\n"
@@ -1283,17 +1283,7 @@ msgstr ""
 "<p>दस्तावेज़ '%1' परिवर्धित किया गया है, पर सहेजा नहीं गया है.</p><p>क्या आप इसे रखना "
 "चाहते हैं या अपने परिवर्तनों को फेंकना चाहते हैं?</p>"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "नाम"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "वर्णन"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1301,6 +1291,16 @@ msgid ""
 msgstr ""
 "यहाँ आप के-एटीई के सभी उपलब्ध प्लगइन्स को देख सकते हैं. जिनमें चेक मार्क हैं, वे लोडेड हैं, तथा "
 "अगली बार जब के-एटीई चालू होगा तो लोड होंगे."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "नाम"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "वर्णन"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

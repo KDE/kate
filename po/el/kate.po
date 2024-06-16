@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1315,17 +1315,7 @@ msgstr ""
 "Έχετε μη αποθηκευμένες αλλαγές. Θέλετε να τις αποθηκεύσετε ή να τις "
 "απορρίψετε;"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Όνομα"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "Περιγραφή"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1334,6 +1324,16 @@ msgstr ""
 "Εδώ μπορείτε να δείτε όλα τα διαθέσιμα πρόσθετα του Kate. Τα επιλεγμένα "
 "είναι φορτωμένα, και θα φορτωθούν ξανά την επόμενη φορά που θα ξεκινήσει το "
 "Kate."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Όνομα"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "Περιγραφή"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

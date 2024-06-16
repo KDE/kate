@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1296,18 +1296,7 @@ msgstr ""
 "<p>ឯកសារ '%1' ត្រូវ​បាន​កែប្រែ ប៉ុន្តែ​មិនបាន​រក្សាទុក​ទេ ។</p><p>តើ​អ្នក​ចង់​រក្សាទុក​ការ​ផ្លាស់ប្ដូរ​"
 "របស់​អ្នក ឬ​បោះបង់​វា​ចោល ?</p>"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "ឈ្មោះ"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "Location"
-msgid "Description"
-msgstr "ទីតាំង"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1315,6 +1304,17 @@ msgid ""
 msgstr ""
 "នៅ​ទីនេះ អ្នក​អាច​ឃើញ​កម្មវិធី​ជំនួយ​ខាង​ក្នុង Kate ដែល​មាន​ទាំងអស់ ។ កម្មវិធី​ជំនួយ​ខាង​ក្នុង​ដែល​មាន​សញ្ញា​ធីក "
 "ត្រូវ​បាន​ផ្ទុក ហើយ​នឹង​ត្រូវ​បាន​ផ្ទុក​ម្ដង​ទៀត នៅ​ពេល​ចាប់ផ្ដើម Kate លើក​ក្រោយ ។"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "ឈ្មោះ"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Description"
+msgstr "ទីតាំង"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

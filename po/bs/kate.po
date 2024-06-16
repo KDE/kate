@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2014-01-31 19:52+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -1309,18 +1309,7 @@ msgstr ""
 "<p>Dokument „%1“ je izmijenjen, ali nije sačuvan.</p><p>Želite li da "
 "sačuvate ili odbacite izmjene?</p>"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "ime"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "Description:"
-msgid "Description"
-msgstr "Opis:"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1328,6 +1317,17 @@ msgid ""
 msgstr ""
 "Ovdje možete vidjeti sve dostupne priključke za Kate. Označeni će biti "
 "učitani, sada kao i kad sljedeći put pokrenete Kate."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "ime"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+#| msgid "Description:"
+msgid "Description"
+msgstr "Opis:"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

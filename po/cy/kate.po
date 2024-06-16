@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2004-06-30 15:15+0100\n"
 "Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -1273,17 +1273,7 @@ msgstr ""
 "<p>Addaswyd y ddogfen '%1', ond ni'i gadwyd. <p>Ydych am gadw eich "
 "newidiadu, neu eu taflu?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Enw"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-msgid "Description"
-msgstr "S&gript :"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1291,6 +1281,16 @@ msgid ""
 msgstr ""
 "Yma gallwch weld pob ategyn Kate sydd ar gael. Mae'r sawl a nôd brith yn eu "
 "herbyn yn llwythiedig, ac fe'i llwythir tro nesaf y cychwynnir Kate."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Enw"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+msgid "Description"
+msgstr "S&gript :"
 
 #: lib/katedocmanager.cpp:270
 #, fuzzy, kde-format

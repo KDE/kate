@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -1299,18 +1299,7 @@ msgstr ""
 "<p>कागजात '%1' परिमार्जन गरिएको छ, तर बचत गरिएको छैन ।<p>तपाईँ परिवर्तनहरू बचत "
 "गर्न चाहनुहुन्छ वा तीनिहरूलाई छोड्न ?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "नाम"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "&Description:"
-msgid "Description"
-msgstr "वर्णन:"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1318,6 +1307,17 @@ msgid ""
 msgstr ""
 "तपाईँले यहाँ सबै उपलब्ध क्येट प्लगइन हेर्न सक्नुहुन्छ । तीनिहरू जाँच चिन्हसँग लोड गरिएका छन् र "
 "क्येट पछिल्लो समयमा सुरु हुँदा पुन: लोड हुन्छन् ।"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "नाम"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+#| msgid "&Description:"
+msgid "Description"
+msgstr "वर्णन:"
 
 #: lib/katedocmanager.cpp:270
 #, fuzzy, kde-format

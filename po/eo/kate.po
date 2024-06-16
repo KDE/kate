@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2024-06-09 06:15+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -1270,17 +1270,7 @@ msgstr ""
 "Vi havas nekonservitajn ŝanĝojn. Ĉu vi volas apliki la ŝanĝojn aŭ forĵeti "
 "ilin?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Nomo"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "Priskribo"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1288,6 +1278,16 @@ msgid ""
 msgstr ""
 "Ĉi tie vi povas vidi ĉiujn haveblajn Kejt-kromaĵojn. Tiuj kun marko jam "
 "estas lanĉita, kaj denove lanĉos ĉiam kiam Kejt' lanĉos."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Nomo"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "Priskribo"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

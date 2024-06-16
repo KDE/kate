@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2006-05-07 10:37+0200\n"
 "Last-Translator: Rinse de Vries <RinseDeVries@home.nl>\n"
 "Language-Team:  <nl@li.org>\n"
@@ -1287,17 +1287,7 @@ msgstr ""
 "<p>Dit dokumint '%1' is bewurke, mar net op skiif bewarre.<p>Wolle jo de "
 "bewurkings bewarje of fuortsmite?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "Namme"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-msgid "Description"
-msgstr "Sk&ript:"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1306,6 +1296,16 @@ msgstr ""
 "Hjir sjogge jo alle beskikbere Kate plugins. Dyselden dy't laden binne hawwe "
 "in markearring, en sille op 'e nij laden wurde de folgjende kear as Kate "
 "úteinset."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "Namme"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+msgid "Description"
+msgstr "Sk&ript:"
 
 #: lib/katedocmanager.cpp:270
 #, fuzzy, kde-format

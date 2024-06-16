@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2024-06-09 06:20+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -1269,17 +1269,7 @@ msgstr ""
 "გაქვთ შეუნახავი ცვლილებები.გნებავთ ამ ცვლილებების გადატარება, თუ მოვაცილო "
 "ისინი?"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "სახელი"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "აღწერა"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1287,6 +1277,16 @@ msgid ""
 msgstr ""
 "აქ Kate-ის ყველა ხელმისაწვდომი დამატების ნახვა შეგიძლიათ. ისინი, რომლებსაც "
 "თოლია უზის, ჩატვირთულია და ჩაიტვირთება მაშინაც, როცა Kate კიდევ გაეშვება."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "სახელი"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Description"
+msgstr "აღწერა"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

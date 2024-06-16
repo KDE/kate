@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2011-08-04 10:19+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <danishka@gmail.com>\n"
@@ -1297,18 +1297,7 @@ msgstr ""
 "<p>'%1' ලේඛනය වෙනස් කර ඇති නමුත්, සුරැක නොමැත.</p><p>ඔබට අවශ්‍ය වෙනස්කම් සුරැකීමටද ඉවත "
 "දැමීමටද?</p>"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "න"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "Location"
-msgid "Description"
-msgstr "පිහිටුම"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1316,6 +1305,17 @@ msgid ""
 msgstr ""
 "මෙහිදී ඔබට පවතින සියළු Kate ප්ලගින දැකගත හැක. සලකුණු කර ඇත්තේ පූර්ණිත සහ ඊලඟ වතාවේ Kate "
 "ඇරඹෙන විට නැවත පූර්ණය වන ප්ලගිනයි."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "න"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Description"
+msgstr "පිහිටුම"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

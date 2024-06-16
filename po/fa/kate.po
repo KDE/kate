@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-06-16 00:41+0000\n"
 "PO-Revision-Date: 2011-09-27 16:16+0330\n"
 "Last-Translator: Mohamad Reza Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <>\n"
@@ -1289,18 +1289,7 @@ msgstr ""
 "<p>سند »%1« تغییر کرده، اما ذخیره نشده است.</p><p>می‌خواهید تغییرات خود را "
 "ذخیره کنید یا آنها را دور بریزید؟</p>"
 
-#: lib/kateconfigplugindialogpage.cpp:66
-#, kde-format
-msgid "Name"
-msgstr "نام"
-
-#: lib/kateconfigplugindialogpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "Location"
-msgid "Description"
-msgstr "محل"
-
-#: lib/kateconfigplugindialogpage.cpp:69
+#: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
 msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
@@ -1308,6 +1297,17 @@ msgid ""
 msgstr ""
 "در اینجا می‌توانید همه وصله‌های موجود Kate را ببینید. آنهایی که نشان‌دار هستند، "
 "بارگذاری شده‌اند، و بار دیگر که Kate آغاز شد، دوباره بارگذاری می‌شوند."
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, kde-format
+msgid "Name"
+msgstr "نام"
+
+#: lib/kateconfigplugindialogpage.cpp:82
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Description"
+msgstr "محل"
 
 #: lib/katedocmanager.cpp:270
 #, kde-format

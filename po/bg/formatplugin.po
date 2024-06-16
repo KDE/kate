@@ -1,0 +1,115 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Mincho Kondarev <mkondarev@yahoo.de>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-04-17 00:40+0000\n"
+"PO-Revision-Date: 2024-06-15 22:49+0200\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 24.05.0\n"
+
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
+#: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
+#, kde-format
+msgid "Format"
+msgstr "Формат"
+
+#: FormatApply.h:22
+#, kde-format
+msgid "Failed to write a temp file"
+msgstr "Неуспешно записване на временен файл"
+
+#: FormatApply.h:35
+#, kde-format
+msgid "Failed to run git diff: %1"
+msgstr "Неуспешно изпълнение на git diff: %1"
+
+#: FormatConfig.cpp:122
+#, kde-format
+msgid "User Settings"
+msgstr "Потребителски настройки"
+
+#: FormatConfig.cpp:130
+#, kde-format
+msgid "Default Settings"
+msgstr "Настройки по подразбиране"
+
+#: FormatConfig.h:19 FormatPlugin.cpp:112
+#, kde-format
+msgid "Formatting"
+msgstr "Форматиране"
+
+#: FormatConfig.h:24
+#, kde-format
+msgid "Formatting Settings"
+msgstr "Настройки за форматиране"
+
+#: FormatPlugin.cpp:82
+#, kde-format
+msgid "Failed to read settings.json. Error: %1"
+msgstr "Неуспешно четене на settings.json. Грешка: %1"
+
+#: FormatPlugin.cpp:118
+#, kde-format
+msgid "Format Document"
+msgstr "Форматиране на документ"
+
+#: FormatPlugin.cpp:136
+#, kde-format
+msgid "Format on Save"
+msgstr "Форматиране при запазване"
+
+#: FormatPlugin.cpp:139
+#, kde-format
+msgid "Disable formatting on save without persisting it in settings"
+msgstr ""
+"Деактивиране на форматирането при запазване, без да го запазвате в "
+"настройките"
+
+#: FormatterFactory.h:44
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr "Неизвестен formatterForJson: %1"
+
+#: FormatterFactory.h:64
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr "Неизвестен formatterForPython: %1"
+
+#: FormatterFactory.h:68
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr ""
+"Неуспешно стартиране на инструмента за форматиране. Неподдържан език %1"
+
+#: Formatters.cpp:110
+#, kde-format
+msgid "%1: Unexpected empty command!"
+msgstr "%1: Неочаквана празна команда!"
+
+#: Formatters.cpp:117
+#, kde-format
+msgid ""
+"%1 is not installed, please install it to be able to format this document!"
+msgstr ""
+"%1 не е инсталиран, моля, инсталирайте го, за да можете да форматирате този "
+"документ!"
+
+#: Formatters.cpp:252
+#, kde-format
+msgid "Please install node and prettier"
+msgstr "Моля, инсталирайте node и prettier"
+
+#: Formatters.cpp:259
+#, kde-format
+msgid "PrettierFormat: Failed to create temporary file"
+msgstr "PrettierFormat: Неуспешно създаване на временен файл"

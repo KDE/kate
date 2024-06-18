@@ -1080,6 +1080,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">可使用 JavaScript</li>
     </ul>
   </description>
+  <launchable type="desktop-id">org.kde.kate.desktop</launchable>
   <url type="homepage">https://kate-editor.org/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kate</url>
   <url type="help">https://docs.kde.org/?application=kate</url>

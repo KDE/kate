@@ -3,6 +3,7 @@
   <id>org.kde.kate.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
+  <developer_name translate="no">KDE</developer_name>
   <name>Kate</name>
   <name xml:lang="ar">كيت</name>
   <name xml:lang="ast">Kate</name>

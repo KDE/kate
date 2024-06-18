@@ -218,37 +218,57 @@ void KateViewSpace::readConfig()
 
 bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 {
-    QToolButton *button = qobject_cast<QToolButton *>(obj);
+    if (auto button = qobject_cast<QToolButton *>(obj)) {
+        // quick open button: show tool tip with shortcut
+        if (button == m_quickOpen && event->type() == QEvent::ToolTip) {
+            QHelpEvent *e = static_cast<QHelpEvent *>(event);
+            QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
+            Q_ASSERT(quickOpen);
+            QToolTip::showText(e->globalPos(),
+                               button->toolTip() + QStringLiteral(" (%1)").arg(quickOpen->shortcut().toString(QKeySequence::NativeText)),
+                               button);
+            return true;
+        }
 
-    // quick open button: show tool tip with shortcut
-    if (button == m_quickOpen && event->type() == QEvent::ToolTip) {
-        QHelpEvent *e = static_cast<QHelpEvent *>(event);
-        QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
-        Q_ASSERT(quickOpen);
-        QToolTip::showText(e->globalPos(), button->toolTip() + QStringLiteral(" (%1)").arg(quickOpen->shortcut().toString(QKeySequence::NativeText)), button);
-        return true;
-    }
+        // quick open button: What's This
+        if (button == m_quickOpen && event->type() == QEvent::WhatsThis) {
+            QHelpEvent *e = static_cast<QHelpEvent *>(event);
+            const int hiddenDocs = hiddenDocuments();
+            QString helpText = (hiddenDocs == 0)
+                ? i18n("Click here to switch to the Quick Open view.")
+                : i18np("Currently, there is one more document open. To see all open documents, switch to the Quick Open view by clicking here.",
+                        "Currently, there are %1 more documents open. To see all open documents, switch to the Quick Open view by clicking here.",
+                        hiddenDocs);
+            QWhatsThis::showText(e->globalPos(), helpText, m_quickOpen);
+            return true;
+        }
 
-    // quick open button: What's This
-    if (button == m_quickOpen && event->type() == QEvent::WhatsThis) {
-        QHelpEvent *e = static_cast<QHelpEvent *>(event);
-        const int hiddenDocs = hiddenDocuments();
-        QString helpText = (hiddenDocs == 0)
-            ? i18n("Click here to switch to the Quick Open view.")
-            : i18np("Currently, there is one more document open. To see all open documents, switch to the Quick Open view by clicking here.",
-                    "Currently, there are %1 more documents open. To see all open documents, switch to the Quick Open view by clicking here.",
-                    hiddenDocs);
-        QWhatsThis::showText(e->globalPos(), helpText, m_quickOpen);
-        return true;
-    }
-
-    // on mouse press on view space bar tool buttons: activate this space
-    if (button && !isActiveSpace() && event->type() == QEvent::MouseButtonPress) {
-        m_viewManager->setActiveSpace(this);
-        if (currentView()) {
-            m_viewManager->activateView(currentView()->document(), this);
+        // on mouse press on view space bar tool buttons: activate this space
+        if (button && !isActiveSpace() && event->type() == QEvent::MouseButtonPress) {
+            m_viewManager->setActiveSpace(this);
+            if (currentView()) {
+                m_viewManager->activateView(currentView()->document(), this);
+            }
         }
     }
+
+    // ensure proper view space activation even for widgets
+    if (event->type() == QEvent::FocusIn && !isActiveSpace() && currentWidget()) {
+        m_viewManager->setActiveSpace(this);
+        activateWidget(currentWidget());
+        return false;
+    }
+
+    // keep track of new sub-widgets
+    if (event->type() == QEvent::ChildAdded || event->type() == QEvent::ChildRemoved) {
+        QChildEvent *c = static_cast<QChildEvent *>(event);
+        if (c->added()) {
+            c->child()->installEventFilter(this);
+        } else if (c->removed()) {
+            c->child()->removeEventFilter(this);
+        }
+    }
+
     return false;
 }
 
@@ -824,6 +844,11 @@ void KateViewSpace::removeWidget(QWidget *w)
     bool shouldClose = true;
     QMetaObject::invokeMethod(w, "shouldClose", Q_RETURN_ARG(bool, shouldClose));
     if (shouldClose) {
+        w->removeEventFilter(this);
+        for (auto c : w->findChildren<QWidget *>()) {
+            c->removeEventFilter(this);
+        }
+
         stack->removeWidget(w);
         m_registeredDocuments.removeOne(w);
 
@@ -889,6 +914,12 @@ void KateViewSpace::focusNextTab()
 
 void KateViewSpace::addWidgetAsTab(QWidget *widget)
 {
+    // ensure we keep track of focus changes, KTextEditor::View has some extra focusIn signal
+    widget->installEventFilter(this);
+    for (auto c : widget->findChildren<QWidget *>()) {
+        c->installEventFilter(this);
+    }
+
     stack->addWidget(widget);
     // disconnect changeView, we are just adding the widget here
     // and don't want any unnecessary viewChanged signals

@@ -1,21 +1,21 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Stefan Asserhäll <stefan.asserhall@gmail.com>, 2022.
+# SPDX-FileCopyrightText: 2022, 2024 Stefan Asserhäll <stefan.asserhall@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-25 01:36+0000\n"
-"PO-Revision-Date: 2022-10-02 21:49+0200\n"
-"Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
+"PO-Revision-Date: 2024-06-17 21:28+0200\n"
+"Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -226,10 +226,9 @@ msgid "End Macro &Recording"
 msgstr "Avsluta mak&roinspelning"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "Läste in '%1'"
+msgstr "Läs in %1"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
@@ -239,7 +238,7 @@ msgstr "Läs in makro '%1' som det nuvarande."
 #: keyboardmacrospluginview.cpp:189
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Spela %1"
 
 #: keyboardmacrospluginview.cpp:190
 #, kde-format
@@ -247,10 +246,9 @@ msgid "Play the '%1' macro without loading it."
 msgstr "Spela upp makro '%1' utan att läsa in det."
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "Suddade '%1'"
+msgstr "Sudda %1"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format

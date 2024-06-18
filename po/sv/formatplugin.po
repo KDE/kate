@@ -1,0 +1,118 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Stefan Asserhäll <stefan.asserhall@bredband.net>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"PO-Revision-Date: 2024-06-17 21:25+0200\n"
+"Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
+"Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 23.08.5\n"
+
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
+#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
+#: FormatterFactory.h:92
+#, kde-format
+msgid "Format"
+msgstr "Format"
+
+#: FormatApply.h:22
+#, kde-format
+msgid "Failed to write a temp file"
+msgstr "Misslyckades skriva tillfällig fil"
+
+#: FormatApply.h:35
+#, kde-format
+msgid "Failed to run git diff: %1"
+msgstr "Misslyckades köra git jämför: %1"
+
+#: FormatConfig.cpp:122
+#, kde-format
+msgid "User Settings"
+msgstr "Användarinställningar"
+
+#: FormatConfig.cpp:130
+#, kde-format
+msgid "Default Settings"
+msgstr "Standardinställningar"
+
+#: FormatConfig.h:18 FormatPlugin.cpp:112
+#, kde-format
+msgid "Formatting"
+msgstr "Formatering"
+
+#: FormatConfig.h:23
+#, kde-format
+msgid "Formatting Settings"
+msgstr "Formateringsinställningar"
+
+#: FormatPlugin.cpp:82
+#, kde-format
+msgid "Failed to read settings.json. Error: %1"
+msgstr "Misslyckades läsa settings.json: Fel: %1"
+
+#: FormatPlugin.cpp:118
+#, kde-format
+msgid "Format Document"
+msgstr "Formatera dokument"
+
+#: FormatPlugin.cpp:137
+#, kde-format
+msgid "Format on Save"
+msgstr "Formatera vid spara"
+
+#: FormatPlugin.cpp:140
+#, kde-format
+msgid "Disable formatting on save without persisting it in settings"
+msgstr ""
+"Inaktivera formatera vid spara utan att göra det permanent i inställningarna."
+
+#: FormatterFactory.h:45
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr "Okänd formatering för Json: %1"
+
+#: FormatterFactory.h:65
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr "Okänd formatering för Python: %1"
+
+#: FormatterFactory.h:85
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr "Okänd formatering för Yaml: %1, återgår till yamlfmt"
+
+#: FormatterFactory.h:92
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr "Misslyckades köra formatering. Språket %1 stöds inte."
+
+#: Formatters.cpp:112
+#, kde-format
+msgid "%1: Unexpected empty command!"
+msgstr "%1: Oväntat tomt kommando."
+
+#: Formatters.cpp:119
+#, kde-format
+msgid ""
+"%1 is not installed, please install it to be able to format this document!"
+msgstr ""
+"%1 är inte installerat, installera det för att kunna formatera dokumentet."
+
+#: Formatters.cpp:214
+#, kde-format
+msgid "Please install node and prettier"
+msgstr "Installera node och prettier"
+
+#: Formatters.cpp:221
+#, kde-format
+msgid "PrettierFormat: Failed to create temporary file"
+msgstr "PrettierFormat: Misslyckades skapa tillfällig fil"

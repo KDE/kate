@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhäll <stefan.asserhall@gmail.com>, 2008, 2009, 2010.
+# SPDX-FileCopyrightText: 2008, 2009, 2010, 2024 Stefan Asserhäll <stefan.asserhall@gmail.com>
 # Stefan Asserhall <stefan.asserhall@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
 # Arve Eriksson <031299870@telia.com>, 2011.
 msgid ""
@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-07 00:41+0000\n"
-"PO-Revision-Date: 2023-08-01 08:12+0200\n"
-"Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
+"PO-Revision-Date: 2024-06-17 21:42+0200\n"
+"Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -56,7 +56,7 @@ msgstr "Lägg till fel och varningar i diagnostik"
 #: buildconfig.cpp:27
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "Byt automatiskt till utmatningsrutan när det valda målet körs"
 
 #: buildconfig.cpp:44
 #, kde-format
@@ -92,12 +92,14 @@ msgstr "Bygg och kör markerat mål"
 #: plugin_katebuild.cpp:240
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Kompilera nuvarande fil"
 
 #: plugin_katebuild.cpp:241
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
+"Försök kompilera den nuvarande filen genom att söka efter compile_commands."
+"json"
 
 #: plugin_katebuild.cpp:246
 #, kde-format
@@ -107,7 +109,7 @@ msgstr "Stoppa"
 #: plugin_katebuild.cpp:251
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Läs in mål från CMake byggkatalog"
 
 #: plugin_katebuild.cpp:255
 #, kde-format
@@ -128,17 +130,13 @@ msgid "Target Settings"
 msgstr "Målinställningar"
 
 #: plugin_katebuild.cpp:336
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>Kunde inte öppna fil:</title><nl/>%1<br/>Försök att lägga till en "
-"sökväg till arbetskatalogen i målinställningarna"
+"<b>Filen hittades inte:</b> %1<br><b>Sökvägar:</b><br>%2<br>Försök lägga "
+"till en sökväg till \"arbetskatalogen\""
 
 #: plugin_katebuild.cpp:424
 #, kde-format
@@ -179,12 +177,12 @@ msgstr "Byggning av <b>%1</b> avbruten"
 #: plugin_katebuild.cpp:897
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Hittade inte compile_commands.json för filen \"%1\". "
 
 #: plugin_katebuild.cpp:911
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Hittade inte ett kompileringskommando för filen \"%1\" i \"%2\". "
 
 #: plugin_katebuild.cpp:1019
 #, kde-format
@@ -212,16 +210,19 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Kan inte läsa in mål, filen %1 innehåller inte en riktig CMAKE_COMMAND post."
 
 #: plugin_katebuild.cpp:1099
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Kunde inte skriva frågefiler för CMake-filens programmeringsgränssnitt i "
+"byggkatalogen %1."
 
 #: plugin_katebuild.cpp:1105
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Kunde inte köra CMake (%2) för byggkatalogen %1."
 
 #: plugin_katebuild.cpp:1114
 #, kde-format
@@ -229,11 +230,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Misslyckades skapa svarsfiler för CMake-filens programmeringsgränssnitt i "
+"byggkatalogen %1 (med användning av %2)."
 
 #: plugin_katebuild.cpp:1236
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Bygginsticksprogrammet vill köra program"
 
 #: plugin_katebuild.cpp:1239
 #, kde-format
@@ -243,6 +246,10 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Kates bygginsticksprogram måste köra ett externt kommando för att läsa målen "
+"från byggträdet.<br><br>Den fullständiga kommandoraden är:<br><br><b>%1</"
+"b><br>< br>Fortsätt och tillåt att kommandot körs?<br><br>Valet kan ändras "
+"via insticksprogrammets inställningssida."
 
 #: plugin_katebuild.cpp:1271
 #, kde-kuit-format
@@ -343,7 +350,7 @@ msgstr "Rensa Config"
 #: plugin_katebuild.cpp:1819
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "Kan inte spara byggmål i: %1"
 
 #: TargetHtmlDelegate.cpp:51
 #, kde-format
@@ -373,6 +380,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Använd:\n"
+"\"%B\" för projektets baskatalog\n"
+"\"%b\" för namnet på projektets baskatalog"
 
 #: TargetHtmlDelegate.cpp:114
 #, kde-format
@@ -390,12 +400,12 @@ msgstr ""
 #: TargetModel.cpp:536
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: TargetModel.cpp:536
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Session"
 
 #: TargetModel.cpp:630
 #, kde-format

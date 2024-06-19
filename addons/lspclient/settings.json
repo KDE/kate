@@ -248,6 +248,13 @@
             "use": "javascript",
             "highlightingModeRegex": "^TypeScript.*$"
         },
+        "typst": {
+            "command": ["typst-lsp"],
+            "path": ["%{ENV:HOME}/.cargo/bin"],
+            "root": ".",
+            "url": "https://github.com/nvarner/typst-lsp",
+            "highlightingModeRegex": "^Typst$"
+        },
         "vala": {
             "command": ["vala-language-server"],
             "url": "https://github.com/Prince781/vala-language-server",

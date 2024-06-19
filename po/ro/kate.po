@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-17 00:41+0000\n"
+"POT-Creation-Date: 2024-06-19 00:41+0000\n"
 "PO-Revision-Date: 2023-06-18 19:22+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -2438,7 +2438,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:237
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:238
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Apăsați aici pentru a comuta la vizualizarea „Deschidere rapidă”."
@@ -2448,7 +2448,7 @@ msgstr "Apăsați aici pentru a comuta la vizualizarea „Deschidere rapidă”.
 msgid "Control view space splitting"
 msgstr "Controlează despărțirea spațiului de vizualizare"
 
-#: lib/kateviewspace.cpp:238
+#: lib/kateviewspace.cpp:239
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2467,53 +2467,53 @@ msgstr[2] ""
 "documentele deschise, comutați la vizualizarea „Deschidere rapidă” apăsând "
 "aici."
 
-#: lib/kateviewspace.cpp:1060
+#: lib/kateviewspace.cpp:1091
 #, kde-format
 msgid "Close Tab"
 msgstr "Închide fila"
 
-#: lib/kateviewspace.cpp:1078
+#: lib/kateviewspace.cpp:1109
 #, kde-format
 msgid "&Close Document"
 msgstr "În&chide documentul"
 
-#: lib/kateviewspace.cpp:1079
+#: lib/kateviewspace.cpp:1110
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Închide celelalte &documente"
 
-#: lib/kateviewspace.cpp:1080
+#: lib/kateviewspace.cpp:1111
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Închide to&ate documentele"
 
-#: lib/kateviewspace.cpp:1083
+#: lib/kateviewspace.cpp:1114
 #, kde-format
 msgid "D&etach Document"
 msgstr "D&etașează documentul"
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1116
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Deschide documentul într-o fereastră nouă și-l închide în fereastra actuală"
 
-#: lib/kateviewspace.cpp:1094
+#: lib/kateviewspace.cpp:1125
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Compară cu documentul activ"
 
-#: lib/kateviewspace.cpp:1100
+#: lib/kateviewspace.cpp:1131
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Compară cu documentul activ folosind"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1201
 #, kde-format
 msgid "Could not start program"
 msgstr "Nu s-a putut porni programul"
 
-#: lib/kateviewspace.cpp:1171
+#: lib/kateviewspace.cpp:1202
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Programul ales nu a putut fi pornit Poate nu e instalat."

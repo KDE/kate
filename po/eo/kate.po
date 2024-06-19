@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-17 00:41+0000\n"
+"POT-Creation-Date: 2024-06-19 00:41+0000\n"
 "PO-Revision-Date: 2024-06-09 06:15+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -2374,7 +2374,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:237
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:238
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klaku ĉi tie por ŝanĝi al la Rapida Malferma vido."
@@ -2384,7 +2384,7 @@ msgstr "Klaku ĉi tie por ŝanĝi al la Rapida Malferma vido."
 msgid "Control view space splitting"
 msgstr "Stiri vidspacdividon"
 
-#: lib/kateviewspace.cpp:238
+#: lib/kateviewspace.cpp:239
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2399,53 +2399,53 @@ msgstr[1] ""
 "Aktuale estas %1 pliaj dokumentoj malfermataj. Por vidi ĉiujn malfermajn "
 "dokumentojn, ŝanĝu al la Rapid-Malferma vido klakante ĉi tie."
 
-#: lib/kateviewspace.cpp:1060
+#: lib/kateviewspace.cpp:1091
 #, kde-format
 msgid "Close Tab"
 msgstr "Fermi Langeton"
 
-#: lib/kateviewspace.cpp:1078
+#: lib/kateviewspace.cpp:1109
 #, kde-format
 msgid "&Close Document"
 msgstr "&Fermi Dokumenton"
 
-#: lib/kateviewspace.cpp:1079
+#: lib/kateviewspace.cpp:1110
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Fermi Aliajn &Dokumentojn"
 
-#: lib/kateviewspace.cpp:1080
+#: lib/kateviewspace.cpp:1111
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Fermu &Ĉiujn Dokumentojn"
 
-#: lib/kateviewspace.cpp:1083
+#: lib/kateviewspace.cpp:1114
 #, kde-format
 msgid "D&etach Document"
 msgstr "Malkroĉi Dokum&enton"
 
-#: lib/kateviewspace.cpp:1085
+#: lib/kateviewspace.cpp:1116
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Malfermas la dokumenton en nova fenestro kaj fermas ĝin en la nuna fenestro"
 
-#: lib/kateviewspace.cpp:1094
+#: lib/kateviewspace.cpp:1125
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Kompari kun Aktiva Dokumento"
 
-#: lib/kateviewspace.cpp:1100
+#: lib/kateviewspace.cpp:1131
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Kompari kun Aktiva Dokumenta Uzado"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1201
 #, kde-format
 msgid "Could not start program"
 msgstr "Ne eblis komenci programon"
 
-#: lib/kateviewspace.cpp:1171
+#: lib/kateviewspace.cpp:1202
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

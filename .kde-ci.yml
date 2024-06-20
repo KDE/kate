@@ -13,7 +13,11 @@ Dependencies:
     'frameworks/ktexteditor': '@latest-kf6'
     'frameworks/ktextwidgets': '@latest-kf6'
     'frameworks/kuserfeedback': '@latest-kf6'
+- 'on': ['Linux']
+  'require':
+    'sdk/selenium-webdriver-at-spi': '@latest-kf6'
 
 Options:
-  test-before-installing: True
+  run-tests: True
   require-passing-tests-on: [ 'Linux', 'FreeBSD', 'Windows' ]
+

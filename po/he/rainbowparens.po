@@ -1,0 +1,33 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-02-23 00:39+0000\n"
+"PO-Revision-Date: 2024-06-21 15:26+0300\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 24.02.2\n"
+
+#: rainbowparens_plugin.cpp:469
+#, kde-format
+msgid "Choose colors that will be used for bracket coloring:"
+msgstr "נא לבחור צבעים לצביעת הסוגריים:"
+
+#: rainbowparens_plugin.cpp:489
+#, kde-format
+msgid "Colored Brackets"
+msgstr "סוגריים צבעוניים"
+
+#: rainbowparens_plugin.cpp:494
+#, kde-format
+msgid "Colored Brackets Settings"
+msgstr "הגדרות סוגריים צבעוניים"

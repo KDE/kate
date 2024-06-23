@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 #
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-15 00:39+0000\n"
-"PO-Revision-Date: 2023-09-17 13:15+0200\n"
+"PO-Revision-Date: 2024-06-22 09:03+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
@@ -62,7 +63,7 @@ msgstr "Usuń wszystkie wpisy"
 #: lspclientplugin.cpp:224
 #, kde-format
 msgid "LSP server start requested"
-msgstr "Zażądano uruchomienia serwera LSP"
+msgstr "Żądanie uruchomienia serwera LSP"
 
 #: lspclientplugin.cpp:227
 #, kde-format
@@ -71,8 +72,9 @@ msgid ""
 "<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
 "the plugin."
 msgstr ""
-"Czy uruchomić serwer LSP?<br><br>Pełne polecenie w wierszu poleceń to:"
-"<br><br><b>%1</b><br><br>Wybór można zmienić na stronie ustawień wtyczki."
+"Czy uruchomić serwer LSP?<br><br>Polecenie, które zostanie wykonane to:"
+"<br><br><b>%1</b><br><br>Wybór ten będzie można później zmienić na stronie "
+"ustawień wtyczki."
 
 #: lspclientplugin.cpp:240
 #, kde-format

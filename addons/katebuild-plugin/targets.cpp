@@ -16,6 +16,12 @@
 #include <QKeyEvent>
 #include <QMenu>
 
+static const QString DefConfigCmd = QStringLiteral("cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../");
+static const QString DefConfClean;
+static const QString DefTargetName = QStringLiteral("build");
+static const QString DefBuildCmd = QStringLiteral("make");
+static const QString DefCleanCmd = QStringLiteral("make clean");
+
 TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     : QWidget(parent)
 {
@@ -104,6 +110,11 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
 
     targetsView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(targetsView, &QTreeView::customContextMenuRequested, this, &TargetsUi::customTargetsMenuRequested);
+
+    connect(newTarget, &QToolButton::clicked, this, &TargetsUi::targetSetNew);
+    connect(copyTarget, &QToolButton::clicked, this, &TargetsUi::targetOrSetClone);
+    connect(deleteTarget, &QToolButton::clicked, this, &TargetsUi::targetDelete);
+    connect(addButton, &QToolButton::clicked, this, &TargetsUi::slotAddTargetClicked);
 
     targetsView->installEventFilter(this);
     targetFilterEdit->installEventFilter(this);
@@ -210,6 +221,58 @@ void TargetsUi::customTargetsMenuRequested(const QPoint &pos)
     connect(paste, &QAction::triggered, this, &TargetsUi::pasteAfterCurrentItem);
 
     menu->popup(tree->viewport()->mapToGlobal(pos));
+}
+
+void TargetsUi::slotAddTargetClicked()
+{
+    QModelIndex current = targetsView->currentIndex();
+    QString currName = DefTargetName;
+    QString currCmd;
+    QString currRun;
+
+    current = proxyModel.mapToSource(current);
+    QModelIndex index = targetsModel.addCommandAfter(current, currName, currCmd, currRun);
+    index = proxyModel.mapFromSource(index);
+    targetsView->setCurrentIndex(index);
+}
+
+void TargetsUi::targetSetNew()
+{
+    targetFilterEdit->setText(QString());
+    QModelIndex currentIndex = proxyModel.mapToSource(targetsView->currentIndex());
+    QModelIndex index = targetsModel.insertTargetSetAfter(currentIndex, i18n("Target Set"), QString());
+    QModelIndex buildIndex = targetsModel.addCommandAfter(index, i18n("Build"), DefBuildCmd, QString());
+    targetsModel.addCommandAfter(index, i18n("Clean"), DefCleanCmd, QString());
+    targetsModel.addCommandAfter(index, i18n("Config"), DefConfigCmd, QString());
+    targetsModel.addCommandAfter(index, i18n("ConfigClean"), DefConfClean, QString());
+    buildIndex = proxyModel.mapFromSource(buildIndex);
+    targetsView->setCurrentIndex(buildIndex);
+}
+
+void TargetsUi::targetOrSetClone()
+{
+    QModelIndex currentIndex = targetsView->currentIndex();
+    currentIndex = proxyModel.mapToSource(currentIndex);
+    targetFilterEdit->setText(QString());
+    QModelIndex newIndex = targetsModel.cloneTargetOrSet(currentIndex);
+    if (targetsModel.hasChildren(newIndex)) {
+        newIndex = proxyModel.mapFromSource(newIndex);
+        targetsView->setCurrentIndex(newIndex.model()->index(0, 0, newIndex));
+        return;
+    }
+    newIndex = proxyModel.mapFromSource(newIndex);
+    targetsView->setCurrentIndex(newIndex);
+}
+
+void TargetsUi::targetDelete()
+{
+    QModelIndex currentIndex = targetsView->currentIndex();
+    currentIndex = proxyModel.mapToSource(currentIndex);
+    targetsModel.deleteItem(currentIndex);
+
+    if (targetsModel.rowCount() == 0) {
+        targetSetNew();
+    }
 }
 
 bool TargetsUi::eventFilter(QObject *obj, QEvent *event)

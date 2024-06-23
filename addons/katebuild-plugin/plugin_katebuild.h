@@ -94,13 +94,6 @@ private Q_SLOTS:
     void slotRunAfterBuild();
     void updateTextBrowser();
 
-    // Settings
-    void targetSetNew();
-    void targetOrSetClone();
-    void targetDelete();
-
-    void slotAddTargetClicked();
-
     void handleEsc(QEvent *e);
 
     /**

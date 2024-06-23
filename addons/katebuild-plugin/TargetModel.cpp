@@ -343,56 +343,8 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
 
 QModelIndex TargetModel::cloneTargetOrSet(const QModelIndex &copyIndex)
 {
-    NodeInfo cpNode = modelToNodeInfo(copyIndex);
-    if (!nodeExists(m_rootNodes, cpNode)) {
-        return QModelIndex();
-    }
-
-    if (cpNode.isRoot()) {
-        return QModelIndex();
-    }
-
-    QList<TargetSet> &targetSets = m_rootNodes[cpNode.rootRow].targetSets;
-    QModelIndex rootIndex = index(cpNode.rootRow, 0);
-    if (cpNode.isTargetSet()) {
-        TargetSet targetSetCopy = targetSets[cpNode.targetSetRow];
-        // Make the name unique
-        QString newName = targetSetCopy.name;
-        for (int i = 0; i < targetSets.size(); ++i) {
-            if (targetSets[i].name == newName) {
-                newName += QStringLiteral("+");
-                i = -1;
-            }
-        }
-        targetSetCopy.name = newName;
-        beginInsertRows(rootIndex, cpNode.targetSetRow + 1, cpNode.targetSetRow + 1);
-        targetSets.insert(cpNode.targetSetRow + 1, targetSetCopy);
-        endInsertRows();
-        if (m_rootNodes[cpNode.rootRow].isProject) {
-            Q_EMIT projectTargetChanged();
-        }
-        return index(cpNode.targetSetRow + 1, 0, rootIndex);
-    }
-
-    // This is a command-row
-    QList<Command> &commands = targetSets[cpNode.targetSetRow].commands;
-    Command commandCopy = commands[cpNode.commandRow];
-    QString newName = commandCopy.name;
-    for (int i = 0; i < commands.size(); i++) {
-        if (commands[i].name == newName) {
-            newName += QStringLiteral("+");
-            i = -1;
-        }
-    }
-    commandCopy.name = newName;
-    QModelIndex tgSetIndex = index(cpNode.targetSetRow, 0, rootIndex);
-    beginInsertRows(tgSetIndex, cpNode.commandRow + 1, cpNode.commandRow + 1);
-    commands.insert(cpNode.commandRow + 1, commandCopy);
-    endInsertRows();
-    if (m_rootNodes[cpNode.rootRow].isProject) {
-        Q_EMIT projectTargetChanged();
-    }
-    return index(cpNode.commandRow + 1, 0, tgSetIndex);
+    QJsonObject jsonCopy = indexToJsonObj(copyIndex);
+    return insertAfter(copyIndex, jsonCopy);
 }
 
 void TargetModel::deleteItem(const QModelIndex &itemIndex)

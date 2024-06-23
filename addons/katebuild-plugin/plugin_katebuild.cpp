@@ -68,11 +68,6 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateBuildPluginFactory, "katebuildplugin.json", registerPlugin<KateBuildPlugin>();)
 
-static const QString DefConfigCmd = QStringLiteral("cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../");
-static const QString DefConfClean;
-static const QString DefTargetName = QStringLiteral("build");
-static const QString DefBuildCmd = QStringLiteral("make");
-static const QString DefCleanCmd = QStringLiteral("make clean");
 static const QString DiagnosticsPrefix = QStringLiteral("katebuild");
 static const QString ConfigAllowedCommands = QStringLiteral("AllowedCommandLines");
 static const QString ConfigBlockedCommands = QStringLiteral("BlockedCommandLines");
@@ -411,11 +406,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_buildUi.buildAgainButton, &QPushButton::clicked, this, &KateBuildView::slotBuildPreviousTarget);
     connect(m_buildUi.cancelBuildButton, &QPushButton::clicked, this, &KateBuildView::slotStop);
 
-    connect(m_targetsUi->newTarget, &QToolButton::clicked, this, &KateBuildView::targetSetNew);
-    connect(m_targetsUi->copyTarget, &QToolButton::clicked, this, &KateBuildView::targetOrSetClone);
-    connect(m_targetsUi->deleteTarget, &QToolButton::clicked, this, &KateBuildView::targetDelete);
-
-    connect(m_targetsUi->addButton, &QToolButton::clicked, this, &KateBuildView::slotAddTargetClicked);
     connect(m_targetsUi->buildButton, &QToolButton::clicked, this, &KateBuildView::slotBuildSelectedTarget);
     connect(m_targetsUi->runButton, &QToolButton::clicked, this, &KateBuildView::slotBuildAndRunSelectedTarget);
     connect(m_targetsUi, &TargetsUi::enterPressed, this, &KateBuildView::slotBuildAndRunSelectedTarget);
@@ -1629,62 +1619,6 @@ KateBuildView::OutputLine KateBuildView::processOutputLine(QString line)
     }
     // Now we have the data we need show the error/warning
     return {.category = category, .lineStr = line, .message = msg, .file = filename, .lineNr = line_n.toInt(), .column = col_n.toInt()};
-}
-
-/******************************************************************/
-void KateBuildView::slotAddTargetClicked()
-{
-    QModelIndex current = m_targetsUi->targetsView->currentIndex();
-    QString currName = DefTargetName;
-    QString currCmd;
-    QString currRun;
-
-    current = m_targetsUi->proxyModel.mapToSource(current);
-    QModelIndex index = m_targetsUi->targetsModel.addCommandAfter(current, currName, currCmd, currRun);
-    index = m_targetsUi->proxyModel.mapFromSource(index);
-    m_targetsUi->targetsView->setCurrentIndex(index);
-}
-
-/******************************************************************/
-void KateBuildView::targetSetNew()
-{
-    m_targetsUi->targetFilterEdit->setText(QString());
-    QModelIndex currentIndex = m_targetsUi->proxyModel.mapToSource(m_targetsUi->targetsView->currentIndex());
-    QModelIndex index = m_targetsUi->targetsModel.insertTargetSetAfter(currentIndex, i18n("Target Set"), QString());
-    QModelIndex buildIndex = m_targetsUi->targetsModel.addCommandAfter(index, i18n("Build"), DefBuildCmd, QString());
-    m_targetsUi->targetsModel.addCommandAfter(index, i18n("Clean"), DefCleanCmd, QString());
-    m_targetsUi->targetsModel.addCommandAfter(index, i18n("Config"), DefConfigCmd, QString());
-    m_targetsUi->targetsModel.addCommandAfter(index, i18n("ConfigClean"), DefConfClean, QString());
-    buildIndex = m_targetsUi->proxyModel.mapFromSource(buildIndex);
-    m_targetsUi->targetsView->setCurrentIndex(buildIndex);
-}
-
-/******************************************************************/
-void KateBuildView::targetOrSetClone()
-{
-    QModelIndex currentIndex = m_targetsUi->targetsView->currentIndex();
-    currentIndex = m_targetsUi->proxyModel.mapToSource(currentIndex);
-    m_targetsUi->targetFilterEdit->setText(QString());
-    QModelIndex newIndex = m_targetsUi->targetsModel.cloneTargetOrSet(currentIndex);
-    if (m_targetsUi->targetsModel.hasChildren(newIndex)) {
-        newIndex = m_targetsUi->proxyModel.mapFromSource(newIndex);
-        m_targetsUi->targetsView->setCurrentIndex(newIndex.model()->index(0, 0, newIndex));
-        return;
-    }
-    newIndex = m_targetsUi->proxyModel.mapFromSource(newIndex);
-    m_targetsUi->targetsView->setCurrentIndex(newIndex);
-}
-
-/******************************************************************/
-void KateBuildView::targetDelete()
-{
-    QModelIndex currentIndex = m_targetsUi->targetsView->currentIndex();
-    currentIndex = m_targetsUi->proxyModel.mapToSource(currentIndex);
-    m_targetsUi->targetsModel.deleteItem(currentIndex);
-
-    if (m_targetsUi->targetsModel.rowCount() == 0) {
-        targetSetNew();
-    }
 }
 
 /******************************************************************/

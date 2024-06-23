@@ -53,6 +53,11 @@ private Q_SLOTS:
     void cutCurrentItem();
     void pasteAfterCurrentItem();
 
+    void targetSetNew();
+    void targetOrSetClone();
+    void targetDelete();
+    void slotAddTargetClicked();
+
 Q_SIGNALS:
     void enterPressed();
 

@@ -21,7 +21,7 @@
         "Description[ka]": "ხაზშივე ტექსტის ფერის გადახედვის/ამრჩევის დამატება (მაგ: #FFFFFF, თეთრი)",
         "Description[ko]": "문자열 내 인라인 색상 미리 보기/선택기 추가(예: #FFFFFF, 흰색)",
         "Description[nl]": "Voegt een inline kleurenvoorbeeld/kiezer toe aan kleuren in de tekst (bijv. #FFFFFF, wit)",
-        "Description[pl]": "Dodaje wbudowany wybierak barwy dla barw tekstu (np. #FFFFFF, biały)",
+        "Description[pl]": "Dodaje wbudowany wybierak barw jeśli w tekście zapisano barwę (np. #FFFFFF to biały)",
         "Description[pt]": "Adiciona uma antevisão/selector de cores incorporado para as cores no texto (p.ex. #FFFFFF, white)",
         "Description[pt_BR]": "Adiciona uma visualização/seletor de cores embutido às cores do texto (por exemplo, #FFFFFF, branco)",
         "Description[ru]": "Добавление в текст встроенного средства предварительного просмотра и выбора цвета (например, #FFFFFF, white (белый))",

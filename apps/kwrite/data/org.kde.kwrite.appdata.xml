@@ -3,6 +3,11 @@
   <id>org.kde.kwrite.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
+  <developer id="org.kde">
+    <name translate="no">KDE</name>
+    <url>https://kde.org</url>
+  </developer>
+  <launchable type="desktop-id">org.kde.kwrite.desktop</launchable>
   <name>KWrite</name>
   <name xml:lang="ar">كاتبك</name>
   <name xml:lang="ast">KWrite</name>

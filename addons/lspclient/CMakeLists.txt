@@ -41,9 +41,6 @@ if (BUILD_PCH)
     target_precompile_headers(lspclientplugin REUSE_FROM katepch)
 endif()
 
-set(RAPIDJSON_INCLUDES ${CMAKE_CURRENT_LIST_DIR}/rapidjson/include)
-target_include_directories(lspclientplugin SYSTEM PUBLIC ${RAPIDJSON_INCLUDES})
-
 if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()

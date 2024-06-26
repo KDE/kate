@@ -1,21 +1,21 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023 Vit Pelcak <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024 Vit Pelcak <vit@pelcak.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-15 00:39+0000\n"
-"PO-Revision-Date: 2023-11-02 14:00+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2024-06-25 10:58+0200\n"
+"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 24.05.1\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
@@ -42,7 +42,7 @@ msgstr "Data JSON jsou platná."
 #: lspclientconfigpage.cpp:225
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Data JSON jsou neplatná: žádný objekt JSON"
 
 #: lspclientconfigpage.cpp:228
 #, kde-format

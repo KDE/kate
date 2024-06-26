@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-19 00:41+0000\n"
-"PO-Revision-Date: 2024-06-11 09:28+0200\n"
+"PO-Revision-Date: 2024-06-25 10:58+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 24.05.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2248,12 +2248,12 @@ msgstr ""
 #: lib/kateviewmanager.cpp:284
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "Uvítací stránka"
 
 #: lib/kateviewmanager.cpp:289
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "Zobrazit uvítací stránku"
 
 #: lib/kateviewmanager.cpp:295
 #, kde-format

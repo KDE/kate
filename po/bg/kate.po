@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-19 00:41+0000\n"
-"PO-Revision-Date: 2024-05-30 20:46+0200\n"
+"PO-Revision-Date: 2024-06-25 19:13+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 24.05.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1699,16 +1699,14 @@ msgstr ""
 "продължите?"
 
 #: lib/katemainwindow.cpp:595
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Затваряне на всички документи"
+msgstr "Да се затворят ли всички документи?"
 
 #: lib/katemainwindow.cpp:596
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Зат&варяне на всичко"
+msgstr "Зат&варяне на всички"
 
 #: lib/katemainwindow.cpp:610
 #, kde-format
@@ -1720,14 +1718,12 @@ msgstr ""
 "искате да продължите?"
 
 #: lib/katemainwindow.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Затваряне на всички документи освен на текущия"
+msgstr "Да се затворят ли всички документи освен текущия?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Затваряне на другите"
 

@@ -912,6 +912,13 @@ void KateViewSpace::focusNextTab()
     }
 }
 
+void KateViewSpace::focusTab(const int id)
+{
+    if (m_tabBar->containsTab(id)) {
+        changeView(id);
+    }
+}
+
 void KateViewSpace::addWidgetAsTab(QWidget *widget)
 {
     // ensure we keep track of focus changes, KTextEditor::View has some extra focusIn signal

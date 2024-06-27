@@ -180,6 +180,7 @@ public:
 
     void slotFocusPrevTab();
     void slotFocusNextTab();
+    void slotSwitchToTab(const int i);
 
     /**
      * Show quick open

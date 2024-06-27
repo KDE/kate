@@ -287,6 +287,23 @@ void KateMainWindow::setupImportantActions()
     actionCollection()->setDefaultShortcuts(a, a->shortcuts() << KStandardShortcut::tabNext());
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusNextTab);
 
+    const int SWITCH_TO_TAB_COUNT = 10;
+    const int SHORTCUT_TO_KEY_0 = 10;
+    for (int i = 1; i <= SWITCH_TO_TAB_COUNT; ++i) {
+        auto *action = new QAction(i18nc("@action Shortcut entry", "Switch to Tab %1", i), this);
+        connect(action, &QAction::triggered, this, [this, i]() {
+            slotSwitchToTab(i - 1);
+        });
+        actionCollection()->addAction(QStringLiteral("switch_to_tab_%1").arg(i), action);
+
+        // only add default shortcut bindings for the first 10 tabs, regardless of SWITCH_TO_TAB_COUNT
+        if (i < SHORTCUT_TO_KEY_0) {
+            actionCollection()->setDefaultShortcut(action, QStringLiteral("Alt+%1").arg(i));
+        } else if (i == SHORTCUT_TO_KEY_0) {
+            actionCollection()->setDefaultShortcut(action, QKeySequence(Qt::ALT | Qt::Key_0));
+        }
+    }
+
     // the quick open action is used by the KateViewSpace "quick open button"
     a = actionCollection()->addAction(QStringLiteral("view_quick_open"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
@@ -1518,6 +1535,11 @@ void KateMainWindow::slotFocusNextTab()
     if (m_viewManager->activeViewSpace()) {
         m_viewManager->activeViewSpace()->focusNextTab();
     }
+}
+
+void KateMainWindow::slotSwitchToTab(const int i)
+{
+    m_viewManager->activeViewSpace()->focusTab(i);
 }
 
 void KateMainWindow::handleBackButtonAction()

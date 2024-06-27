@@ -151,6 +151,11 @@ public:
     void focusNextTab();
 
     /**
+     * Focus directly to tab index @p id
+     */
+    void focusTab(const int id);
+
+    /**
      * Add a non KTE-View as a tab
      */
     void addWidgetAsTab(QWidget *widget);

@@ -68,6 +68,13 @@
             "url": "https://github.com/fsharp/FsAutoComplete",
             "highlightingModeRegex": "^FSharp$"
         },
+        "gleam":
+        {
+            "command": ["gleam", "lsp"],
+            "rootIndicationFileNames": ["gleam.toml"],
+            "url": "https://gleam.run/",
+            "highlightingModeRegex": "^Gleam$"
+        },
         "glsl": {
             "command": ["glslls", "--stdin"],
             "root": "",

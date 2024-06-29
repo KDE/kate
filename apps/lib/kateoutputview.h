@@ -132,4 +132,9 @@ private:
     QString m_warnColor;
     QString m_errColor;
     QString m_keywordColor;
+
+    /**
+     * Include date to to the output timestamps
+     */
+    bool m_withDate;
 };

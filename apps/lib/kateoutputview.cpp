@@ -159,6 +159,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
     , m_textEdit(new KateOutputEdit(this))
+    , m_withDate(false)
 {
     setFocusPolicy(Qt::NoFocus);
 
@@ -365,9 +366,13 @@ void KateOutputView::slotMessage(const QVariantMap &message)
 
     /**
      * date time column: we want to know when a message arrived
-     * TODO: perhaps store full date time for more stuff later
      */
     const QDateTime current = QDateTime::currentDateTime();
+    if (m_withDate) {
+        // TODO: Enable with a setting
+        meta += current.date().toString(Qt::RFC2822Date);
+        meta += QString::fromStdString(" ");
+    }
     meta += current.time().toString(Qt::TextDate);
 
     /**

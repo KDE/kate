@@ -13,14 +13,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 02:33+0000\n"
-"PO-Revision-Date: 2024-04-14 18:06+0000\n"
+"PO-Revision-Date: 2024-06-27 15:26+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 "\n"
 "\n"
@@ -1152,10 +1152,9 @@ msgid "When checked tab text might be elided if its too long."
 msgstr "Þegar hakað er hér getur texti á flipa rúllað ef hann er of langur"
 
 #: lib/kateconfigdialog.cpp:278
-#, fuzzy, kde-format
-#| msgid "Open new tab to the right of current tab."
+#, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr "Opna nýjan flipa hægra megin við núverandi flipa."
+msgstr "Opna nýja flipa hægra megin við núverandi flipa."
 
 #: lib/kateconfigdialog.cpp:280
 #, kde-format

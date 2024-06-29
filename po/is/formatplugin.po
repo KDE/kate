@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-17 00:40+0000\n"
-"PO-Revision-Date: 2024-03-18 15:12+0000\n"
-"Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
+"PO-Revision-Date: 2024-06-27 15:25+0000\n"
+"Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:241
 #: FormatterFactory.h:44 FormatterFactory.h:64 FormatterFactory.h:68
@@ -76,12 +76,12 @@ msgstr "Gera forsnið við vistun óvirka án þess að festa það í stillingu
 #: FormatterFactory.h:44
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr ""
+msgstr "Óþekkt formatterForJson: %1"
 
 #: FormatterFactory.h:64
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr ""
+msgstr "Óþekkt formatterForPython: %1"
 
 #: FormatterFactory.h:68
 #, kde-format

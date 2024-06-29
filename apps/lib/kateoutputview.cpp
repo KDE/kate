@@ -305,6 +305,8 @@ void KateOutputView::readConfig()
     m_warnColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Warning)).name();
     m_errColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Error)).name();
     m_keywordColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::DataType)).name();
+
+    m_withDate = cgGeneral.readEntry("Output With Date", false);
 }
 
 static void wrapLinksWithHref(QString &text)
@@ -369,9 +371,8 @@ void KateOutputView::slotMessage(const QVariantMap &message)
      */
     const QDateTime current = QDateTime::currentDateTime();
     if (m_withDate) {
-        // TODO: Enable with a setting
         meta += current.date().toString(Qt::RFC2822Date);
-        meta += QString::fromStdString(" ");
+        meta += QStringLiteral(" ");
     }
     meta += current.time().toString(Qt::TextDate);
 

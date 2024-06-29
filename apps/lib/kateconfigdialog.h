@@ -85,6 +85,7 @@ private:
     QComboBox *m_mouseForwardActions = nullptr;
     QCheckBox *m_sdiMode = nullptr;
     QCheckBox *m_modNotifications = nullptr;
+    QCheckBox *m_withDate = nullptr;
     QCheckBox *m_syncSectionSizeWithSidebarTabs = nullptr;
     QCheckBox *m_showTextForLeftRightSidebars = nullptr;
     QSpinBox *m_leftRightSidebarsIconSize = nullptr;

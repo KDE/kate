@@ -161,6 +161,12 @@ void KateConfigDialog::addBehaviorPage()
              "only when that file's view receives focus."));
     connect(m_modNotifications, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
+    m_withDate = new QCheckBox(i18n("Output timestamps with date"), buttonGroup);
+    m_withDate->setChecked(cgGeneral.readEntry("Output With Date", false));
+    m_withDate->setToolTip(i18n("When enabled, the output line timestamp headers will be prefixed with date."));
+    connect(m_withDate, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+
+    vbox->addWidget(m_withDate);
     vbox->addWidget(m_modNotifications);
     buttonGroup->setLayout(vbox);
 
@@ -610,6 +616,7 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Show Symbol In Navigation Bar", m_urlBarShowSymbols->isChecked());
 
         cg.writeEntry("Diagnostics Limit", m_diagnosticsLimit->value());
+        cg.writeEntry("Output With Date", m_withDate->isChecked());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

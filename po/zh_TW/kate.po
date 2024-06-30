@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-19 00:41+0000\n"
+"POT-Creation-Date: 2024-06-30 00:41+0000\n"
 "PO-Revision-Date: 2024-06-13 03:08+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -170,7 +170,7 @@ msgstr "關閉"
 msgid "Open File"
 msgstr "開啟舊檔"
 
-#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:372
+#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:389
 #, kde-format
 msgid "Copy Location"
 msgstr "複製位置"
@@ -331,7 +331,7 @@ msgstr "上一個項目"
 msgid "Clear Diagnostics Filter"
 msgstr "清除診斷過濾器"
 
-#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:328
+#: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:334
 #, kde-format
 msgid "Diagnostics"
 msgstr "診斷"
@@ -357,7 +357,7 @@ msgid "Error"
 msgstr "錯誤"
 
 #: lib/diagnostics/diagnosticview.cpp:1127 lib/kateconfigdialog.cpp:137
-#: lib/kateconfigdialog.cpp:692
+#: lib/kateconfigdialog.cpp:699
 #, kde-format
 msgid "Warning"
 msgstr "警告"
@@ -423,17 +423,17 @@ msgstr "啟用抑制"
 msgid "Change Style"
 msgstr "變更風格"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:308
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:314
 #, kde-format
 msgid "Side By Side"
 msgstr "並排"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:309
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:315
 #, kde-format
 msgid "Unified"
 msgstr "統一"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:310
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:316
 #, kde-format
 msgid "Raw"
 msgstr "原始"
@@ -534,7 +534,7 @@ msgstr ""
 "的 PATH 環境變數中。也請參閱 https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
-#: lib/kateconfigdialog.cpp:302
+#: lib/kateconfigdialog.cpp:308
 #, kde-format
 msgid "Diff"
 msgstr "比對差異"
@@ -986,8 +986,8 @@ msgstr "紀錄"
 msgid "&Limit output view history:"
 msgstr "限制輸出檢視歷史(&L)："
 
-#: lib/kateconfigdialog.cpp:149 lib/kateconfigdialog.cpp:214
-#: lib/kateconfigdialog.cpp:336
+#: lib/kateconfigdialog.cpp:149 lib/kateconfigdialog.cpp:220
+#: lib/kateconfigdialog.cpp:342
 #, kde-format
 msgid "Unlimited"
 msgstr "無限"
@@ -1007,19 +1007,30 @@ msgstr ""
 "若啟用，將會使用情境對話方塊顯示所有已修改的檔案。若未啟用，則將只會在檔案的"
 "檢視視窗取得焦點時才會單獨詢問您要對每個修改的檔案進行什麼操作。"
 
+#: lib/kateconfigdialog.cpp:164
+#, kde-format
+msgid "Output timestamps with date"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:166
+#, kde-format
+msgid ""
+"When enabled, the output line timestamp headers will be prefixed with date."
+msgstr ""
+
 # Kate 的 sidebar 不像 Gwenview 的 sidebar 一樣是可以稱作 drawer 或甚至 panel 的。它們真的只有一列的大小，就好像 Lokalize 的狀態列一樣，只是在上下左右都有。翻成側邊欄感覺有點太大；翻成面板又會更大。在這裡「邊列」可能真的是最好的選項。
 # -- kisaragi
-#: lib/kateconfigdialog.cpp:168
+#: lib/kateconfigdialog.cpp:174
 #, kde-format
 msgid "&Sidebars"
 msgstr "邊列(&S)"
 
-#: lib/kateconfigdialog.cpp:171
+#: lib/kateconfigdialog.cpp:177
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "與分頁位置同步區段大小"
 
-#: lib/kateconfigdialog.cpp:174
+#: lib/kateconfigdialog.cpp:180
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -1029,27 +1040,27 @@ msgstr ""
 "啟用時區段大小會由分頁位置來決定。\n"
 "這個選項不影響底部邊列。"
 
-#: lib/kateconfigdialog.cpp:179
+#: lib/kateconfigdialog.cpp:185
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "為左右邊列按鈕顯示文字"
 
-#: lib/kateconfigdialog.cpp:184
+#: lib/kateconfigdialog.cpp:190
 #, kde-format
 msgid "Icon size for left and right sidebar buttons:"
 msgstr "左右邊列按鈕的圖示大小："
 
-#: lib/kateconfigdialog.cpp:204
+#: lib/kateconfigdialog.cpp:210
 #, kde-format
 msgid "&Tabs"
 msgstr "分頁(&T)"
 
-#: lib/kateconfigdialog.cpp:208
+#: lib/kateconfigdialog.cpp:214
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "限制分頁數量：(&L)"
 
-#: lib/kateconfigdialog.cpp:219
+#: lib/kateconfigdialog.cpp:225
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1058,194 +1069,194 @@ msgstr ""
 "較高的限制會增加視窗大小，請啟用「允許捲動分頁」來避免這個狀況。無限制的分頁"
 "則會一律可捲動。"
 
-#: lib/kateconfigdialog.cpp:223
+#: lib/kateconfigdialog.cpp:229
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "自動隱藏分頁(&A)"
 
-#: lib/kateconfigdialog.cpp:225
+#: lib/kateconfigdialog.cpp:231
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr "若勾選，只有開啟一個文件時會隱藏分頁列。"
 
-#: lib/kateconfigdialog.cpp:229
+#: lib/kateconfigdialog.cpp:235
 #, kde-format
 msgid "&Show close button"
 msgstr "顯示關閉按鈕(&S)"
 
-#: lib/kateconfigdialog.cpp:231
+#: lib/kateconfigdialog.cpp:237
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "若勾選，每個分頁都將會顯示關閉按鈕。"
 
-#: lib/kateconfigdialog.cpp:235
+#: lib/kateconfigdialog.cpp:241
 #, kde-format
 msgid "&Expand tabs"
 msgstr "展開分頁(&E)"
 
-#: lib/kateconfigdialog.cpp:237
+#: lib/kateconfigdialog.cpp:243
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "若勾選，分頁將會盡可能變大。"
 
-#: lib/kateconfigdialog.cpp:241
+#: lib/kateconfigdialog.cpp:247
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "雙擊開啟新聞鍵(&D)"
 
-#: lib/kateconfigdialog.cpp:243
+#: lib/kateconfigdialog.cpp:249
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "若勾選，雙集會開啟新聞件。"
 
-#: lib/kateconfigdialog.cpp:247
+#: lib/kateconfigdialog.cpp:253
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "中鍵點擊關閉文件(&M)"
 
-#: lib/kateconfigdialog.cpp:249
+#: lib/kateconfigdialog.cpp:255
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "若勾選，中鍵點擊會關閉文件。"
 
-#: lib/kateconfigdialog.cpp:253
+#: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "允許捲動分頁"
 
-#: lib/kateconfigdialog.cpp:255
+#: lib/kateconfigdialog.cpp:261
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr "若勾選，這將會在分頁數量太多時允許在分頁列中捲動。"
 
-#: lib/kateconfigdialog.cpp:259
+#: lib/kateconfigdialog.cpp:265
 #, kde-format
 msgid "Elide tab text"
 msgstr "省略分頁文字"
 
-#: lib/kateconfigdialog.cpp:261
+#: lib/kateconfigdialog.cpp:267
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr "若勾選，分頁文字可能會在過長時被省略。"
 
-#: lib/kateconfigdialog.cpp:265
+#: lib/kateconfigdialog.cpp:271
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
 msgstr "在目前分頁右方開啟新的分頁"
 
-#: lib/kateconfigdialog.cpp:267
+#: lib/kateconfigdialog.cpp:273
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr "取消勾選時新分頁會開在尾端。"
 
-#: lib/kateconfigdialog.cpp:273
+#: lib/kateconfigdialog.cpp:279
 #, kde-format
 msgid "&Mouse"
 msgstr "滑鼠(&M)"
 
-#: lib/kateconfigdialog.cpp:278
+#: lib/kateconfigdialog.cpp:284
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "按下返回按鈕時(&B)："
 
-#: lib/kateconfigdialog.cpp:283
+#: lib/kateconfigdialog.cpp:289
 #, kde-format
 msgid "Previous tab"
 msgstr "前一個分頁"
 
-#: lib/kateconfigdialog.cpp:283
+#: lib/kateconfigdialog.cpp:289
 #, kde-format
 msgid "History back"
 msgstr "歷史返回"
 
-#: lib/kateconfigdialog.cpp:289
+#: lib/kateconfigdialog.cpp:295
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "按下前進按鈕時(&F)："
 
-#: lib/kateconfigdialog.cpp:294
+#: lib/kateconfigdialog.cpp:300
 #, kde-format
 msgid "Next tab"
 msgstr "下一個分頁"
 
-#: lib/kateconfigdialog.cpp:294
+#: lib/kateconfigdialog.cpp:300
 #, kde-format
 msgid "History forward"
 msgstr "歷史往前"
 
-#: lib/kateconfigdialog.cpp:311
+#: lib/kateconfigdialog.cpp:317
 #, kde-format
 msgid "Diff Style:"
 msgstr "差異風格："
 
-#: lib/kateconfigdialog.cpp:318
+#: lib/kateconfigdialog.cpp:324
 #, kde-format
 msgid "Navigation Bar"
 msgstr "導覽列"
 
-#: lib/kateconfigdialog.cpp:323
+#: lib/kateconfigdialog.cpp:329
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "在導覽列中顯示目前符號"
 
-#: lib/kateconfigdialog.cpp:333
+#: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Diagnostics limit:"
 msgstr "診斷限制："
 
-#: lib/kateconfigdialog.cpp:338
+#: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "診斷工具檢視中允許的最大診斷數量。"
 
-#: lib/kateconfigdialog.cpp:353
+#: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid "Session"
 msgstr "工作階段"
 
-#: lib/kateconfigdialog.cpp:355
+#: lib/kateconfigdialog.cpp:361
 #, kde-format
 msgid "Session Management"
 msgstr "工作階段管理"
 
-#: lib/kateconfigdialog.cpp:366
+#: lib/kateconfigdialog.cpp:372
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(永不)"
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
 msgid_plural " days"
 msgstr[0] " 天"
 
-#: lib/kateconfigdialog.cpp:400
+#: lib/kateconfigdialog.cpp:406
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr "關閉視窗時，如果有文件只有在該視窗內開啟，則它也會被一同關閉。"
 
-#: lib/kateconfigdialog.cpp:435
+#: lib/kateconfigdialog.cpp:441
 #, kde-format
 msgid "Plugins"
 msgstr "外掛"
 
-#: lib/kateconfigdialog.cpp:437
+#: lib/kateconfigdialog.cpp:443
 #, kde-format
 msgid "Plugin Manager"
 msgstr "外掛程式管理器"
 
-#: lib/kateconfigdialog.cpp:455 lib/kateconfigdialog.cpp:457
+#: lib/kateconfigdialog.cpp:461 lib/kateconfigdialog.cpp:463
 #, kde-format
 msgid "User Feedback"
 msgstr "使用者回饋"
 
-#: lib/kateconfigdialog.cpp:691
+#: lib/kateconfigdialog.cpp:698
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1288,12 +1299,12 @@ msgstr "關閉文件"
 msgid "Save As"
 msgstr "另存新檔"
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:697
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:714
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "當嘗試關閉 Kate 時新檔案被開啟，中止關閉程序。"
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:697
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:714
 #, kde-format
 msgid "Closing Aborted"
 msgstr "關閉已中止"
@@ -1399,323 +1410,331 @@ msgid "Focus the next tab."
 msgstr "焦點置於下一個分頁"
 
 #: lib/katemainwindow.cpp:293
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Switch to Instance"
+msgctxt "@action Shortcut entry"
+msgid "Switch to Tab %1"
+msgstr "切換到實體"
+
+#: lib/katemainwindow.cpp:310
 #, kde-format
 msgid "&Quick Open"
 msgstr "快速開啟(&Q)"
 
-#: lib/katemainwindow.cpp:296
+#: lib/katemainwindow.cpp:313
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "開啟一表單以快速開啟文件。"
 
-#: lib/katemainwindow.cpp:333
+#: lib/katemainwindow.cpp:350
 #, kde-format
 msgid "Output"
 msgstr "輸出"
 
-#: lib/katemainwindow.cpp:343
+#: lib/katemainwindow.cpp:360
 #, kde-format
 msgid "Create a new document"
 msgstr "建立一份新文件"
 
-#: lib/katemainwindow.cpp:346
+#: lib/katemainwindow.cpp:363
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "開啟一個既存的文件來編輯"
 
-#: lib/katemainwindow.cpp:356
+#: lib/katemainwindow.cpp:373
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
 "open them again."
 msgstr "這是您最近開啟的檔案清單，並且讓您可以很容易的再次開啟它們。"
 
-#: lib/katemainwindow.cpp:360
+#: lib/katemainwindow.cpp:377
 #, kde-format
 msgid "Save A&ll"
 msgstr "全部儲存(&L)"
 
-#: lib/katemainwindow.cpp:363
+#: lib/katemainwindow.cpp:380
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "將所有開啟、修改過的文件存入磁碟。"
 
-#: lib/katemainwindow.cpp:366
+#: lib/katemainwindow.cpp:383
 #, kde-format
 msgid "&Reload All"
 msgstr "全部重新載入(&R)"
 
-#: lib/katemainwindow.cpp:368
+#: lib/katemainwindow.cpp:385
 #, kde-format
 msgid "Reload all open documents."
 msgstr "重新載入所有開啟的文件。"
 
-#: lib/katemainwindow.cpp:377 lib/katemainwindow.cpp:386
+#: lib/katemainwindow.cpp:394 lib/katemainwindow.cpp:403
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "複製目前檔案的位置到剪貼簿"
 
-#: lib/katemainwindow.cpp:381 lib/welcomeview/welcomeview.cpp:266
+#: lib/katemainwindow.cpp:398 lib/welcomeview/welcomeview.cpp:266
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "開啟存放資料夾(&O)"
 
-#: lib/katemainwindow.cpp:390
+#: lib/katemainwindow.cpp:407
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "重新命名…"
 
-#: lib/katemainwindow.cpp:395
+#: lib/katemainwindow.cpp:412
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "重新命名屬於目前文件的檔案。"
 
-#: lib/katemainwindow.cpp:399
+#: lib/katemainwindow.cpp:416
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "刪除"
 
-#: lib/katemainwindow.cpp:404 lib/katemainwindow.cpp:413
+#: lib/katemainwindow.cpp:421 lib/katemainwindow.cpp:430
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "刪除屬於目前文件的檔案。"
 
-#: lib/katemainwindow.cpp:408
+#: lib/katemainwindow.cpp:425
 #, kde-format
 msgid "Properties"
 msgstr "屬性"
 
-#: lib/katemainwindow.cpp:416 lib/katemainwindow.cpp:418
+#: lib/katemainwindow.cpp:433 lib/katemainwindow.cpp:435
 #, kde-format
 msgid "Compare"
 msgstr "比較"
 
-#: lib/katemainwindow.cpp:418
+#: lib/katemainwindow.cpp:435
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "使用分頁欄的內容目錄來比較兩個文件"
 
-#: lib/katemainwindow.cpp:420
+#: lib/katemainwindow.cpp:437
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "顯示比較文件的方法提示。"
 
-#: lib/katemainwindow.cpp:423
+#: lib/katemainwindow.cpp:440
 #, kde-format
 msgid "Close Orphaned"
 msgstr "關閉遺棄項目"
 
-#: lib/katemainwindow.cpp:425
+#: lib/katemainwindow.cpp:442
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
 "they are not accessible anymore."
 msgstr "關閉所有在檔案清單中無法被重新開啟的文件，因為無法存取。"
 
-#: lib/katemainwindow.cpp:429
+#: lib/katemainwindow.cpp:446
 #, kde-format
 msgid "Close the current document."
 msgstr "關閉目前的文件。"
 
-#: lib/katemainwindow.cpp:432
+#: lib/katemainwindow.cpp:449
 #, kde-format
 msgid "Close Other"
 msgstr "關閉其他分頁"
 
-#: lib/katemainwindow.cpp:436
+#: lib/katemainwindow.cpp:453
 #, kde-format
 msgid "Close other open documents."
 msgstr "關閉其他開啟的文件。"
 
-#: lib/katemainwindow.cpp:439
+#: lib/katemainwindow.cpp:456
 #, kde-format
 msgid "Clos&e All"
 msgstr "全部關閉(&C)"
 
-#: lib/katemainwindow.cpp:441
+#: lib/katemainwindow.cpp:458
 #, kde-format
 msgid "Close all open documents."
 msgstr "關閉所有開啟的文件。"
 
-#: lib/katemainwindow.cpp:444
+#: lib/katemainwindow.cpp:461
 #, kde-format
 msgid "&Reopen latest closed document(s)."
 msgstr "重新開啟最近關閉的文件(&R)"
 
-#: lib/katemainwindow.cpp:447
+#: lib/katemainwindow.cpp:464
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr "重新開啟最近所關閉的文件"
 
-#: lib/katemainwindow.cpp:452
+#: lib/katemainwindow.cpp:469
 #, kde-format
 msgid "Close this window"
 msgstr "關閉這個視窗"
 
-#: lib/katemainwindow.cpp:456
+#: lib/katemainwindow.cpp:473
 #, kde-format
 msgid "&New Window"
 msgstr "新視窗(&N)"
 
-#: lib/katemainwindow.cpp:459
+#: lib/katemainwindow.cpp:476
 #, kde-format
 msgid "Create a new window."
 msgstr "建立一個新視窗。"
 
-#: lib/katemainwindow.cpp:466
+#: lib/katemainwindow.cpp:483
 #, kde-format
 msgid "Open W&ith"
 msgstr "以..開啟(&N)"
 
-#: lib/katemainwindow.cpp:468
+#: lib/katemainwindow.cpp:485
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
 "type, or an application of your choice."
 msgstr "使用其他註冊為該檔案類型或是您所選擇的應用程式來開啟目前的文件。"
 
-#: lib/katemainwindow.cpp:476
+#: lib/katemainwindow.cpp:493
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "設定該應用程式的鍵盤快速鍵配置。"
 
-#: lib/katemainwindow.cpp:479
+#: lib/katemainwindow.cpp:496
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "設定那些項目應該出現在工具列中。"
 
-#: lib/katemainwindow.cpp:482
+#: lib/katemainwindow.cpp:499
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "設定這個應用程式的各種樣態並編輯元件。"
 
-#: lib/katemainwindow.cpp:486
+#: lib/katemainwindow.cpp:503
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "外掛程式手冊(&P)"
 
-#: lib/katemainwindow.cpp:488
+#: lib/katemainwindow.cpp:505
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "這會顯示各種可用的外掛程式的協助檔案。"
 
-#: lib/katemainwindow.cpp:505
+#: lib/katemainwindow.cpp:522
 #, kde-format
 msgid "Sess&ions"
 msgstr "工作階段(&I)"
 
-#: lib/katemainwindow.cpp:511
+#: lib/katemainwindow.cpp:528
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "新增工作階段(&N)"
 
-#: lib/katemainwindow.cpp:516
+#: lib/katemainwindow.cpp:533
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "最近的工作階段(&R)"
 
-#: lib/katemainwindow.cpp:521
+#: lib/katemainwindow.cpp:538
 #, kde-format
 msgid "&All Sessions"
 msgstr "所有工作階段(&A)"
 
-#: lib/katemainwindow.cpp:528
+#: lib/katemainwindow.cpp:545
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "管理工作階段(&M)..."
 
-#: lib/katemainwindow.cpp:537
+#: lib/katemainwindow.cpp:554
 #, kde-format
 msgid "&Save Session"
 msgstr "儲存工作階段(&S)"
 
-#: lib/katemainwindow.cpp:543
+#: lib/katemainwindow.cpp:560
 #, kde-format
 msgid "Save Session &As..."
 msgstr "另存工作階段(&A)..."
 
-#: lib/katemainwindow.cpp:550 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:567 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "前往上一個位置"
 
-#: lib/katemainwindow.cpp:559 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:576 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
 msgstr "前往下一個位置"
 
-#: lib/katemainwindow.cpp:567
+#: lib/katemainwindow.cpp:584
 #, kde-format
 msgid "Show File Git History"
 msgstr "顯示檔案 Git 歷史紀錄"
 
-#: lib/katemainwindow.cpp:594
+#: lib/katemainwindow.cpp:611
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "這樣會關閉所有開啟的文件。您確定要繼續嗎？"
 
-#: lib/katemainwindow.cpp:595
+#: lib/katemainwindow.cpp:612
 #, kde-format
 msgid "Close all documents?"
 msgstr "關閉所有文件？"
 
-#: lib/katemainwindow.cpp:596
+#: lib/katemainwindow.cpp:613
 #, kde-format
 msgid "Close All"
 msgstr "關閉全部"
 
-#: lib/katemainwindow.cpp:610
+#: lib/katemainwindow.cpp:627
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr "這樣會關閉除了目前這個以外所有開啟的文件。您確定要繼續嗎？"
 
-#: lib/katemainwindow.cpp:611
+#: lib/katemainwindow.cpp:628
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "關閉除了目前文件以外所有文件？"
 
-#: lib/katemainwindow.cpp:612
+#: lib/katemainwindow.cpp:629
 #, kde-format
 msgid "Close Others"
 msgstr "關閉其他文件"
 
-#: lib/katemainwindow.cpp:850
+#: lib/katemainwindow.cpp:867
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "這會完全隱藏選單列。您可以按下 %1 重新顯示選單列。"
 
-#: lib/katemainwindow.cpp:853
+#: lib/katemainwindow.cpp:870
 #, kde-format
 msgid "Hide menu bar"
 msgstr "隱藏選單列"
 
-#: lib/katemainwindow.cpp:1026
+#: lib/katemainwindow.cpp:1043
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr "您已將目錄 %1 拖曳至 Kate 內。您要開啟目錄中的所有檔案嗎？"
 
-#: lib/katemainwindow.cpp:1029
+#: lib/katemainwindow.cpp:1046
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "遞迴開啟檔案"
 
-#: lib/katemainwindow.cpp:1030
+#: lib/katemainwindow.cpp:1047
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "開啟所有檔案"
 
-#: lib/katemainwindow.cpp:1235
+#: lib/katemainwindow.cpp:1252
 #, kde-format
 msgid " [read only]"
 msgstr " [唯讀]"
@@ -1945,40 +1964,40 @@ msgstr "[舊]"
 msgid "[NEW]"
 msgstr "[新]"
 
-#: lib/kateoutputview.cpp:174
+#: lib/kateoutputview.cpp:175
 #, kde-format
 msgid "Search..."
 msgstr "搜尋…"
 
-#: lib/kateoutputview.cpp:191
+#: lib/kateoutputview.cpp:192
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "複製所有文字到剪貼簿"
 
-#: lib/kateoutputview.cpp:196
+#: lib/kateoutputview.cpp:197
 #, kde-format
 msgid "Clear all messages"
 msgstr "清除所有訊息"
 
-#: lib/kateoutputview.cpp:399
+#: lib/kateoutputview.cpp:405
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "錯誤"
 
-#: lib/kateoutputview.cpp:403
+#: lib/kateoutputview.cpp:409
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "警告"
 
-#: lib/kateoutputview.cpp:407
+#: lib/kateoutputview.cpp:413
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "資訊"
 
-#: lib/kateoutputview.cpp:412
+#: lib/kateoutputview.cpp:418
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2346,52 +2365,52 @@ msgstr[0] ""
 "目前還有 %1 份文件待開啟。要查看所有開啟的文件，請點擊此出來切換到快速開啟檢"
 "視。"
 
-#: lib/kateviewspace.cpp:1091
+#: lib/kateviewspace.cpp:1098
 #, kde-format
 msgid "Close Tab"
 msgstr "關閉分頁"
 
-#: lib/kateviewspace.cpp:1109
+#: lib/kateviewspace.cpp:1116
 #, kde-format
 msgid "&Close Document"
 msgstr "關閉文件(&C)"
 
-#: lib/kateviewspace.cpp:1110
+#: lib/kateviewspace.cpp:1117
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "關閉其他的文件(&D)"
 
-#: lib/kateviewspace.cpp:1111
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "Close &All Documents"
 msgstr "關閉所有文件(&A)"
 
-#: lib/kateviewspace.cpp:1114
+#: lib/kateviewspace.cpp:1121
 #, kde-format
 msgid "D&etach Document"
 msgstr "在獨立視窗顯示文件(&E)"
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1123
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "在新視窗開啟文件並在此視窗關閉它"
 
-#: lib/kateviewspace.cpp:1125
+#: lib/kateviewspace.cpp:1132
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "與作用中文件比對差異"
 
-#: lib/kateviewspace.cpp:1131
+#: lib/kateviewspace.cpp:1138
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "使用此工具與作用中文件比對差異"
 
-#: lib/kateviewspace.cpp:1201
+#: lib/kateviewspace.cpp:1208
 #, kde-format
 msgid "Could not start program"
 msgstr "無法開啟程式"
 
-#: lib/kateviewspace.cpp:1202
+#: lib/kateviewspace.cpp:1209
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "無法啟動選擇的程式，也許還沒安裝該程式。"

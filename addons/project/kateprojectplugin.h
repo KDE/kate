@@ -125,6 +125,16 @@ public:
     bool autoMercurial() const;
     bool autoFossil() const;
 
+    bool autoCMake() const
+    {
+        return m_autoCMake;
+    }
+
+    void setAutoCMake(bool state)
+    {
+        m_autoCMake = state;
+    }
+
     void setIndex(bool enabled, const QUrl &directory);
     bool getIndexEnabled() const;
     QUrl getIndexDirectory() const;
@@ -262,6 +272,7 @@ private:
     bool m_autoSubversion = true;
     bool m_autoMercurial = true;
     bool m_autoFossil = true;
+    bool m_autoCMake = true;
 
     // restore projects on session loading?
     bool m_restoreProjectsForSession = true;

@@ -507,6 +507,8 @@ void KateProjectPlugin::readConfig()
     m_autoMercurial = autorepository.contains(MercurialConfig);
     m_autoFossil = autorepository.contains(FossilConfig);
 
+    m_autoCMake = config.readEntry("autoCMake", true);
+
     m_indexEnabled = config.readEntry("index", false);
     m_indexDirectory = config.readEntry("indexDirectory", QUrl());
 
@@ -543,6 +545,8 @@ void KateProjectPlugin::writeConfig()
     }
 
     config.writeEntry("autorepository", repos);
+
+    config.writeEntry("autoCMake", m_autoCMake);
 
     config.writeEntry("index", m_indexEnabled);
     config.writeEntry("indexDirectory", m_indexDirectory);

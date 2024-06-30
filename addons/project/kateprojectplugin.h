@@ -232,6 +232,7 @@ private:
     KateProject *detectSubversion(const QDir &dir);
     KateProject *detectMercurial(const QDir &dir);
     KateProject *detectFossil(const QDir &dir);
+    KateProject *detectCMake(const QDir &dir);
 
     void readSessionConfig(const KConfigGroup &config) override;
     void writeSessionConfig(KConfigGroup &config) override;

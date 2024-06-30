@@ -175,28 +175,15 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
         }
     }
 
-    if (userSpecified) {
-        // if the user selected a cmake build directory, ask the build plugin to load the
-        // build targets, which will in turn open the accompanying source dir as project
-        if (QFile::exists(originalDir.absolutePath() + QStringLiteral("/CMakeCache.txt"))) {
-            QTimer::singleShot(0, this, [originalDir]() {
-                if (auto buildPluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("katebuildplugin"))) {
-                    QMetaObject::invokeMethod(buildPluginView, "loadCMakeTargets", Q_ARG(QString, originalDir.absolutePath()));
-                }
-            });
-
-            return nullptr;
-        }
-    }
-
     /**
      * if we arrive here, we found no .kateproject
      * => we want to invent a project based on e.g. version control system info
      */
     for (const QString &dir : directoryStack) {
-        // try to invent project based on version control stuff
+        // try to invent project based on CMake & version control stuff, try CMake first
         KateProject *project = nullptr;
-        if ((project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir)) || (project = detectFossil(dir))) {
+        if ((project = detectCMake(dir)) || (project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir))
+            || (project = detectFossil(dir))) {
             return project;
         }
     }
@@ -337,6 +324,15 @@ KateProject *KateProjectPlugin::detectMercurial(const QDir &dir)
 KateProject *KateProjectPlugin::detectFossil(const QDir &dir)
 {
     if (m_autoFossil && dir.exists(FossilCheckoutFileName) && QFileInfo(dir, FossilCheckoutFileName).isReadable()) {
+        return createProjectForRepository(QStringLiteral("fossil"), dir);
+    }
+
+    return nullptr;
+}
+
+KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
+{
+    if (m_autoFossil && dir.exists(QStringLiteral("CMakeCache.txt"))) {
         return createProjectForRepository(QStringLiteral("fossil"), dir);
     }
 
@@ -650,24 +646,19 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
     KateProject *projectToActivate = nullptr;
 
     // open directories as projects
-    QString cmakeBuildDir;
     auto args = qApp->arguments();
     args.removeFirst(); // The first argument is the executable name
     for (const QString &arg : std::as_const(args)) {
         QFileInfo info(arg);
         if (info.isDir()) {
-            if (QFile::exists(info.absoluteFilePath() + QStringLiteral("/CMakeCache.txt"))) {
-                cmakeBuildDir = info.absoluteFilePath();
-            } else {
-                projectToActivate = projectForDir(info.absoluteFilePath(), true);
-            }
+            projectToActivate = projectForDir(info.absoluteFilePath(), true);
         }
     }
 
     /**
      * open project for our current working directory, if this kate has a terminal
      */
-    if (!projectToActivate && cmakeBuildDir.isEmpty() && KateApp::isInsideTerminal()) {
+    if (!projectToActivate && KateApp::isInsideTerminal()) {
         projectToActivate = projectForDir(QDir::current());
     }
 
@@ -677,12 +668,6 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
         QTimer::singleShot(0, projectToActivate, [projectToActivate]() {
             if (auto pluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("kateprojectplugin"))) {
                 static_cast<KateProjectPluginView *>(pluginView)->openProject(projectToActivate);
-            }
-        });
-    } else if (!cmakeBuildDir.isEmpty()) {
-        QTimer::singleShot(0, this, [cmakeBuildDir]() {
-            if (auto buildPluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("katebuildplugin"))) {
-                QMetaObject::invokeMethod(buildPluginView, "loadCMakeTargets", Q_ARG(QString, cmakeBuildDir));
             }
         });
     }

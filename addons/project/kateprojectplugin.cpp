@@ -28,10 +28,12 @@
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QMessageBox>
+#include <QRegularExpression>
 #include <QString>
 #include <QTime>
 #include <QTimer>
 
+#include <qregularexpression.h>
 #include <vector>
 
 namespace
@@ -332,8 +334,34 @@ KateProject *KateProjectPlugin::detectFossil(const QDir &dir)
 
 KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
 {
-    if (m_autoFossil && dir.exists(QStringLiteral("CMakeCache.txt"))) {
-        return createProjectForRepository(QStringLiteral("fossil"), dir);
+    if (m_autoCMake && dir.exists(QStringLiteral("CMakeCache.txt"))) {
+        // detect the source dir by fast grepping the file
+        static const QByteArray sourceDirPrefix("CMAKE_HOME_DIRECTORY:INTERNAL=");
+        QFile cache(dir.absolutePath() + QStringLiteral("/CMakeCache.txt"));
+        if (cache.open(QFile::ReadOnly)) {
+            while (!cache.atEnd()) {
+                auto line = cache.readLine();
+                if (!line.startsWith(sourceDirPrefix)) {
+                    continue;
+                }
+
+                // kill trailing newline stuff
+                while (line.back() == QLatin1Char('\n') || line.back() == QLatin1Char('\r')) {
+                    line.removeLast();
+                }
+
+                // we assume proper UTF-8 encoding
+                const QDir sourceDir(QString::fromUtf8(line.mid(sourceDirPrefix.size())));
+
+                // we don't detect stuff for in source build, that will endless loop ATM
+                if (dir.canonicalPath() == sourceDir.canonicalPath()) {
+                    return nullptr;
+                }
+
+                // just trigger load of source dir
+                return projectForDir(sourceDir, true);
+            }
+        }
     }
 
     return nullptr;

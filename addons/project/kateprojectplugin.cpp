@@ -366,6 +366,14 @@ KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
                 KateProject *project = nullptr;
                 if ((project = detectGit(sourceDir, cnf)) || (project = detectSubversion(sourceDir, cnf)) || (project = detectMercurial(sourceDir, cnf))
                     || (project = detectFossil(sourceDir, cnf)) || (project = createProjectForDirectory(sourceDir, cnf))) {
+                    // trigger CMake target load
+                    QTimer::singleShot(0, this, [dir]() {
+                        if (auto buildPluginView =
+                                KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("katebuildplugin"))) {
+                            QMetaObject::invokeMethod(buildPluginView, "loadCMakeTargets", Q_ARG(QString, dir.absolutePath()));
+                        }
+                    });
+
                     return project;
                 }
 

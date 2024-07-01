@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-09 09:23+0200\n"
+"PO-Revision-Date: 2024-06-30 07:56+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1041,13 +1041,15 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Izhodni časovni žigi z datumom"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"Ko je omogočeno, bodo glave časovnih žigov izhodnih vrstic imele predpono "
+"datuma."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1452,12 +1454,10 @@ msgid "Focus the next tab."
 msgstr "Postavi naslednji zavihek v žarišče."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Preklopi na pojavek"
+msgstr "Preklopi na zavihek %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

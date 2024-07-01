@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-09 09:09+0300\n"
+"PO-Revision-Date: 2024-06-30 09:38+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -1032,13 +1032,15 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Виводити часові позначки з датою"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"Якщо увімкнено, заголовки часових позначок рядка виведення матимуть префікс "
+"— дату."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1449,12 +1451,10 @@ msgid "Focus the next tab."
 msgstr "Фокусувати наступну вкладку."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Перемкнутися на екземпляр"
+msgstr "Перемкнутися на вкладку %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

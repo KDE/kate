@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-09 21:12+0300\n"
+"PO-Revision-Date: 2024-06-30 18:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -55,7 +55,7 @@ msgstr "Kate — Gelişmiş Metin Düzenleyicisi"
 #: kate/main.cpp:97 kwrite/main.cpp:50
 #, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000–2024 Kate Yazarları"
+msgstr "© 2000–2024 Kate Yazarları"
 
 #: kate/main.cpp:143
 #, kde-format
@@ -70,7 +70,7 @@ msgstr "oturum"
 #: kate/main.cpp:149
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
-msgstr "Kate’i yeni bir anonim oturum ile başlat, ’-n’ ile aynı."
+msgstr "Kate’i yeni bir anonim oturum ile başlat, “-n” ile aynı."
 
 #: kate/main.cpp:154
 #, kde-format
@@ -1034,13 +1034,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Zaman damgalarında tarihi içer"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
-msgstr ""
+msgstr "Etkinleştirildiğinde, zaman damgası üstbilgisine tarih de eklenir."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1442,12 +1442,10 @@ msgid "Focus the next tab."
 msgstr "Sonraki sekmeye odaklanın."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Örneğe Geç"
+msgstr "%1. Sekmeye Geç"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

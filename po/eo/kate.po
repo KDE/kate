@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-09 06:15+0200\n"
+"PO-Revision-Date: 2024-06-30 09:00+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1019,13 +1019,15 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Eligi tempindikojn kun dato"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"Kiam ĝi estas ebligita, la eligliniaj tempindikaj kapoj estos antaŭfiksitaj "
+"per dato."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1431,12 +1433,10 @@ msgid "Focus the next tab."
 msgstr "Fokusi la sekvan langeton."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Ŝanĝi al Instanco"
+msgstr "Ŝanĝi al Langeto %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

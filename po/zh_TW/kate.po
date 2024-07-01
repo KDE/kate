@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-13 03:08+0900\n"
+"PO-Revision-Date: 2024-06-30 12:00+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -1010,13 +1010,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "輸出時間戳時包含日期"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
-msgstr ""
+msgstr "啟用時，輸出行的時間戳標頭前方會加上日期。"
 
 # Kate 的 sidebar 不像 Gwenview 的 sidebar 一樣是可以稱作 drawer 或甚至 panel 的。它們真的只有一列的大小，就好像 Lokalize 的狀態列一樣，只是在上下左右都有。翻成側邊欄感覺有點太大；翻成面板又會更大。在這裡「邊列」可能真的是最好的選項。
 # -- kisaragi
@@ -1410,12 +1410,10 @@ msgid "Focus the next tab."
 msgstr "焦點置於下一個分頁"
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "切換到實體"
+msgstr "切換到分頁 %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

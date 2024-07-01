@@ -1,136 +1,136 @@
-# translation of katecompilerexplorer.pot to Esperanto
-# Copyright (C) 2024 Free Software Foundation, Inc.
+# Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Oliver Kellogg <olivermkellogg@gmail.com>, 2024.
 #
+# Alexander Yavorsky <kekcuha@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 00:41+0000\n"
-"PO-Revision-Date: 2024-05-26 00:23+0200\n"
-"Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
-"Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
-"Language: eo\n"
+"PO-Revision-Date: 2024-06-26 09:45+0300\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 21.08.3\n"
 
 #: AsmView.cpp:299
 #, kde-format
 msgid "Scroll to source"
-msgstr "Rulumi al fonto"
+msgstr ""
 
 #: AsmView.cpp:309
 #, kde-format
 msgid "Jump to label"
-msgstr "Salti al etikedo"
+msgstr "Перейти к метке"
 
 #: AsmView.cpp:335
 #, kde-format
 msgid "Copy"
-msgstr "Kopii"
+msgstr "Копировать"
 
 #: AsmView.cpp:347
 #, kde-format
 msgid "Select All"
-msgstr "Elekti Ĉion"
+msgstr "Выбрать все"
 
 #: ce_plugin.cpp:35
 #, kde-format
 msgid "Compiler Explorer"
-msgstr "Esploristo de Kompililo"
+msgstr "Просмотр компиляции"
 
 #: ce_plugin.cpp:38
 #, kde-format
 msgid "&Open Current File in Compiler Explorer"
-msgstr "Malfermi Aktualan Dosier&on en Kompilila Esplorilo"
+msgstr ""
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgid "No file open"
-msgstr "Neniu dosiero malfermita"
+msgstr ""
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgctxt "error category title"
 msgid "CompilerExplorer"
-msgstr "CompilerExplorer"
+msgstr ""
 
 #: ce_widget.cpp:125
 #, kde-format
 msgid "Do you really want to close %1?"
-msgstr "Ĉu vi vere volas fermi %1?"
+msgstr ""
 
 #: ce_widget.cpp:185
 #, kde-format
 msgid "Compile"
-msgstr "Kompilu"
+msgstr ""
 
 #: ce_widget.cpp:282
 #, kde-format
 msgid "Options"
-msgstr "Elektebloj"
+msgstr ""
 
 #: ce_widget.cpp:299
 #, kde-format
 msgid "Demangle Identifiers"
-msgstr "Maltordi Identigilojn"
+msgstr ""
 
 #: ce_widget.cpp:300
 #, kde-format
 msgid "Filter Library Functions"
-msgstr "Filtri Bibliotekajn Funkciojn"
+msgstr ""
 
 #: ce_widget.cpp:301
 #, kde-format
 msgid "Filter Unused Labels"
-msgstr "Filtri Neuzitajn Etikedojn"
+msgstr ""
 
 #: ce_widget.cpp:302
 #, kde-format
 msgid "Filter Comments"
-msgstr "Filtri Komentojn"
+msgstr ""
 
 #: ce_widget.cpp:303
 #, kde-format
 msgid "Intel Syntax"
-msgstr "Intel-Sintakso"
+msgstr ""
 
 #: ce_widget.cpp:305
 #, kde-format
 msgid "Change Url..."
-msgstr "Ŝanĝi URL..."
+msgstr ""
 
 #: ce_widget.cpp:311
 #, kde-format
 msgid "Enter Url"
-msgstr "Enigi URL"
+msgstr ""
 
 #: ce_widget.cpp:312
 #, kde-format
 msgid ""
 "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
-msgstr "Enigu URL al KompililEsplorila instanco. Ekz. http://localhost:10240"
+msgstr ""
 
 #: ce_widget.cpp:372
 #, kde-format
 msgid "Compiler returned: %1"
-msgstr "Kompililo redonis: %1"
+msgstr ""
 
 #: ce_widget.cpp:521
 #, kde-format
 msgid "Reveal linked code"
-msgstr "Malkaŝi binditan kodon"
+msgstr ""
 
 #: ce_widget.cpp:543
 #, kde-format
 msgid "CompilerExplorer"
-msgstr "KompililEsplorilo"
+msgstr ""
 
 #: ce_widget.cpp:559
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
-msgstr "'%1' kompililaj flagoj estis trovitaj. Eligo povus esti nehelpa."
+msgstr ""

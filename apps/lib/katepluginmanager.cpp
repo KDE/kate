@@ -61,8 +61,7 @@ void KatePluginManager::setupPluginList()
     constexpr PluginNameAndSortOrder defaultPlugins[] = {
         {.name = "katefiletreeplugin", .sortOrder = -1000},
         {.name = "katesearchplugin", .sortOrder = -900},
-        {.name = "katebuildplugin", .sortOrder = -800},
-        {.name = "kateprojectplugin", .sortOrder = -700},
+        {.name = "kateprojectplugin", .sortOrder = -800},
         {.name = "tabswitcherplugin", .sortOrder = -100},
         {.name = "textfilterplugin", .sortOrder = -100},
         {.name = "externaltoolsplugin", .sortOrder = -100},

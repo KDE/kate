@@ -30,8 +30,9 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
         /**
          * terminal for the directory with the .kateproject file inside
          */
-        const QString projectPath = QFileInfo(QFileInfo(m_project->fileName()).path()).absoluteFilePath();
-        if (!projectPath.isEmpty()) {
+        const QFileInfo projectInfo(QFileInfo(m_project->fileName()).path());
+        const QString projectPath = projectInfo.absoluteFilePath();
+        if (!projectPath.isEmpty() && projectInfo.exists()) {
             m_terminal = new KateProjectInfoViewTerminal(pluginView, projectPath);
             addTab(m_terminal, i18n("Terminal (.kateproject)"));
         }
@@ -39,9 +40,20 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
         /**
          * terminal for the base directory, if different to directory of .kateproject
          */
-        const QString basePath = QFileInfo(m_project->baseDir()).absoluteFilePath();
-        if (!basePath.isEmpty() && projectPath != basePath) {
+        const QFileInfo baseInfo(m_project->baseDir());
+        const QString basePath = baseInfo.absoluteFilePath();
+        if (!basePath.isEmpty() && projectPath != basePath && baseInfo.exists()) {
             addTab(new KateProjectInfoViewTerminal(pluginView, basePath), i18n("Terminal (Base)"));
+        }
+
+        /**
+         * terminal for the build directory
+         */
+        const QFileInfo buildInfo(m_project->projectMap().value(QStringLiteral("build")).toMap().value(QStringLiteral("directory")).toString());
+        const QString buildPath = buildInfo.absoluteFilePath();
+        if (!buildPath.isEmpty() && projectPath != buildPath && basePath != buildPath && buildInfo.exists()) {
+            m_terminal = new KateProjectInfoViewTerminal(pluginView, buildPath);
+            addTab(m_terminal, i18n("Terminal (build)"));
         }
     }
 

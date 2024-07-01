@@ -359,8 +359,8 @@ KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
                 // trigger load via other heuristics or explicit directory load
                 // mimics behavior of old CMake addon generator
                 KateProject *project = nullptr;
-                if ((project = detectGit(dir, cnf)) || (project = detectSubversion(dir, cnf)) || (project = detectMercurial(dir, cnf))
-                    || (project = detectFossil(dir, cnf)) || (project = createProjectForDirectory(dir, cnf))) {
+                if ((project = detectGit(sourceDir, cnf)) || (project = detectSubversion(sourceDir, cnf)) || (project = detectMercurial(sourceDir, cnf))
+                    || (project = detectFossil(sourceDir, cnf)) || (project = createProjectForDirectory(sourceDir, cnf))) {
                     return project;
                 }
 

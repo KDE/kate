@@ -351,6 +351,11 @@ KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
                 // we assume proper UTF-8 encoding
                 const QDir sourceDir(QString::fromUtf8(line.mid(sourceDirPrefix.size())));
 
+                // avoid empty dir or non-existing
+                if (sourceDir.absolutePath().isEmpty() || !sourceDir.exists()) {
+                    return nullptr;
+                }
+
                 // add build dir to base project config
                 QVariantMap cnf, build;
                 build[QStringLiteral("directory")] = dir.absolutePath();

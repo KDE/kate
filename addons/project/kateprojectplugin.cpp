@@ -293,38 +293,38 @@ void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
     }
 }
 
-KateProject *KateProjectPlugin::detectGit(const QDir &dir)
+KateProject *KateProjectPlugin::detectGit(const QDir &dir, const QVariantMap &baseProjectMap)
 {
     // allow .git as dir and file (file for git worktree stuff, https://git-scm.com/docs/git-worktree)
     if (m_autoGit && dir.exists(GitFolderName)) {
-        return createProjectForRepository(QStringLiteral("git"), dir);
+        return createProjectForRepository(QStringLiteral("git"), dir, baseProjectMap);
     }
 
     return nullptr;
 }
 
-KateProject *KateProjectPlugin::detectSubversion(const QDir &dir)
+KateProject *KateProjectPlugin::detectSubversion(const QDir &dir, const QVariantMap &baseProjectMap)
 {
     if (m_autoSubversion && dir.exists(SubversionFolderName) && QFileInfo(dir, SubversionFolderName).isDir()) {
-        return createProjectForRepository(QStringLiteral("svn"), dir);
+        return createProjectForRepository(QStringLiteral("svn"), dir, baseProjectMap);
     }
 
     return nullptr;
 }
 
-KateProject *KateProjectPlugin::detectMercurial(const QDir &dir)
+KateProject *KateProjectPlugin::detectMercurial(const QDir &dir, const QVariantMap &baseProjectMap)
 {
     if (m_autoMercurial && dir.exists(MercurialFolderName) && QFileInfo(dir, MercurialFolderName).isDir()) {
-        return createProjectForRepository(QStringLiteral("hg"), dir);
+        return createProjectForRepository(QStringLiteral("hg"), dir, baseProjectMap);
     }
 
     return nullptr;
 }
 
-KateProject *KateProjectPlugin::detectFossil(const QDir &dir)
+KateProject *KateProjectPlugin::detectFossil(const QDir &dir, const QVariantMap &baseProjectMap)
 {
     if (m_autoFossil && dir.exists(FossilCheckoutFileName) && QFileInfo(dir, FossilCheckoutFileName).isReadable()) {
-        return createProjectForRepository(QStringLiteral("fossil"), dir);
+        return createProjectForRepository(QStringLiteral("fossil"), dir, baseProjectMap);
     }
 
     return nullptr;
@@ -351,13 +351,21 @@ KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
                 // we assume proper UTF-8 encoding
                 const QDir sourceDir(QString::fromUtf8(line.mid(sourceDirPrefix.size())));
 
-                // we don't detect stuff for in source build, that will endless loop ATM
-                if (dir.canonicalPath() == sourceDir.canonicalPath()) {
-                    return nullptr;
+                // add build dir to base project config
+                QVariantMap cnf, build;
+                build[QStringLiteral("directory")] = dir.absolutePath();
+                cnf[QStringLiteral("build")] = build;
+
+                // trigger load via other heuristics or explicit directory load
+                // mimics behavior of old CMake addon generator
+                KateProject *project = nullptr;
+                if ((project = detectGit(dir, cnf)) || (project = detectSubversion(dir, cnf)) || (project = detectMercurial(dir, cnf))
+                    || (project = detectFossil(dir, cnf)) || (project = createProjectForDirectory(dir, cnf))) {
+                    return project;
                 }
 
-                // just trigger load of source dir
-                return projectForDir(sourceDir, true);
+                // bad luck
+                return nullptr;
             }
         }
     }
@@ -365,18 +373,18 @@ KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
     return nullptr;
 }
 
-KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir)
+KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir, const QVariantMap &baseProjectMap)
 {
-    QVariantMap cnf, files;
+    QVariantMap cnf = baseProjectMap, files;
     files[type] = 1;
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
     return createProjectForDirectoryWithProjectMap(dir, cnf);
 }
 
-KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
+KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const QVariantMap &baseProjectMap)
 {
-    QVariantMap cnf, files;
+    QVariantMap cnf = baseProjectMap, files;
     files[QStringLiteral("directory")] = QStringLiteral("./");
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);

@@ -28,12 +28,10 @@
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QMessageBox>
-#include <QRegularExpression>
 #include <QString>
 #include <QTime>
 #include <QTimer>
 
-#include <qregularexpression.h>
 #include <vector>
 
 namespace

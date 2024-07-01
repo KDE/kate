@@ -41,6 +41,7 @@ private:
     QCheckBox *m_cbAutoSubversion;
     QCheckBox *m_cbAutoMercurial;
     QCheckBox *m_cbAutoFossil;
+    QCheckBox *m_cbAutoCMake;
     QCheckBox *m_cbIndexEnabled;
     KUrlRequester *m_indexPath;
     QCheckBox *m_cbMultiProjectCompletion;

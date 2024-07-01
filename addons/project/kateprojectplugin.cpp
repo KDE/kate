@@ -369,45 +369,23 @@ KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
 
 KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir)
 {
-    // check if we already have the needed project opened
-    if (auto project = openProjectForDirectory(dir)) {
-        return project;
-    }
-
     QVariantMap cnf, files;
     files[type] = 1;
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
-
-    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.absolutePath());
-
-    m_projects.append(project);
-
-    Q_EMIT projectCreated(project);
-    return project;
+    return createProjectForDirectoryWithProjectMap(dir, cnf);
 }
 
 KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
 {
-    // check if we already have the needed project opened
-    if (auto project = openProjectForDirectory(dir)) {
-        return project;
-    }
-
     QVariantMap cnf, files;
     files[QStringLiteral("directory")] = QStringLiteral("./");
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
-
-    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.absolutePath());
-
-    m_projects.append(project);
-
-    Q_EMIT projectCreated(project);
-    return project;
+    return createProjectForDirectoryWithProjectMap(dir, cnf);
 }
 
-KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const QVariantMap &projectMap)
+KateProject *KateProjectPlugin::createProjectForDirectoryWithProjectMap(const QDir &dir, const QVariantMap &projectMap)
 {
     // check if we already have the needed project opened
     if (auto project = openProjectForDirectory(dir)) {
@@ -652,7 +630,7 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 
             // valid path + data project?
             if (const auto path = sMap[QStringLiteral("path")].toString(); !path.isEmpty() && QFileInfo::exists(path)) {
-                createProjectForDirectory(QDir(path), sMap[QStringLiteral("data")].toMap());
+                createProjectForDirectoryWithProjectMap(QDir(path), sMap[QStringLiteral("data")].toMap());
                 continue;
             }
 

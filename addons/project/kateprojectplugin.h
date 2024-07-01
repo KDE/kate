@@ -227,7 +227,7 @@ public Q_SLOTS:
 private:
     KateProject *createProjectForRepository(const QString &type, const QDir &dir);
     KateProject *createProjectForDirectory(const QDir &dir);
-    KateProject *createProjectForDirectory(const QDir &dir, const QVariantMap &projectMap);
+    KateProject *createProjectForDirectoryWithProjectMap(const QDir &dir, const QVariantMap &projectMap);
     KateProject *detectGit(const QDir &dir);
     KateProject *detectSubversion(const QDir &dir);
     KateProject *detectMercurial(const QDir &dir);

@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 02:33+0000\n"
-"PO-Revision-Date: 2024-04-21 12:22+0300\n"
+"PO-Revision-Date: 2024-06-30 18:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.04.70\n"
+"X-Generator: Lokalize 24.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -55,7 +55,7 @@ msgstr "Kate — Gelişmiş Metin Düzenleyicisi"
 #: kate/main.cpp:97 kwrite/main.cpp:50
 #, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000–2024 Kate Yazarları"
+msgstr "© 2000–2024 Kate Yazarları"
 
 #: kate/main.cpp:143
 #, kde-format
@@ -70,7 +70,7 @@ msgstr "oturum"
 #: kate/main.cpp:149
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
-msgstr "Kate’i yeni bir anonim oturum ile başlat, ’-n’ ile aynı."
+msgstr "Kate’i yeni bir anonim oturum ile başlat, “-n” ile aynı."
 
 #: kate/main.cpp:154
 #, kde-format

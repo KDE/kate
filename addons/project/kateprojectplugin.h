@@ -125,6 +125,16 @@ public:
     bool autoMercurial() const;
     bool autoFossil() const;
 
+    bool autoCMake() const
+    {
+        return m_autoCMake;
+    }
+
+    void setAutoCMake(bool state)
+    {
+        m_autoCMake = state;
+    }
+
     void setIndex(bool enabled, const QUrl &directory);
     bool getIndexEnabled() const;
     QUrl getIndexDirectory() const;
@@ -215,13 +225,14 @@ public Q_SLOTS:
     void slotDocumentUrlChanged(KTextEditor::Document *document);
 
 private:
-    KateProject *createProjectForRepository(const QString &type, const QDir &dir);
-    KateProject *createProjectForDirectory(const QDir &dir);
-    KateProject *createProjectForDirectory(const QDir &dir, const QVariantMap &projectMap);
-    KateProject *detectGit(const QDir &dir);
-    KateProject *detectSubversion(const QDir &dir);
-    KateProject *detectMercurial(const QDir &dir);
-    KateProject *detectFossil(const QDir &dir);
+    KateProject *createProjectForRepository(const QString &type, const QDir &dir, const QVariantMap &baseProjectMap = QVariantMap());
+    KateProject *createProjectForDirectory(const QDir &dir, const QVariantMap &baseProjectMap = QVariantMap());
+    KateProject *createProjectForDirectoryWithProjectMap(const QDir &dir, const QVariantMap &projectMap);
+    KateProject *detectGit(const QDir &dir, const QVariantMap &baseProjectMap = QVariantMap());
+    KateProject *detectSubversion(const QDir &dir, const QVariantMap &baseProjectMap = QVariantMap());
+    KateProject *detectMercurial(const QDir &dir, const QVariantMap &baseProjectMap = QVariantMap());
+    KateProject *detectFossil(const QDir &dir, const QVariantMap &baseProjectMap = QVariantMap());
+    KateProject *detectCMake(const QDir &dir);
 
     void readSessionConfig(const KConfigGroup &config) override;
     void writeSessionConfig(KConfigGroup &config) override;
@@ -262,6 +273,7 @@ private:
     bool m_autoSubversion = true;
     bool m_autoMercurial = true;
     bool m_autoFossil = true;
+    bool m_autoCMake = true;
 
     // restore projects on session loading?
     bool m_restoreProjectsForSession = true;

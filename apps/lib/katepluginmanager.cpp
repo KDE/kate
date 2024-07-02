@@ -19,7 +19,6 @@
 #include <KTextEditor/SessionConfigInterface>
 
 #include <QFileInfo>
-#include <array>
 
 QString KatePluginInfo::saveName() const
 {
@@ -59,15 +58,15 @@ void KatePluginManager::setupPluginList()
         int sortOrder;
     };
 
-    const std::array<PluginNameAndSortOrder, 8> defaultPlugins = {
-        {{.name = "katefiletreeplugin", .sortOrder = -1000},
-         {.name = "katesearchplugin", .sortOrder = -900},
-         {.name = "kateprojectplugin", .sortOrder = -800},
-         {.name = "tabswitcherplugin", .sortOrder = -100},
-         {.name = "textfilterplugin", .sortOrder = -100},
-         {.name = "externaltoolsplugin", .sortOrder = -100},
-         {.name = "lspclientplugin", .sortOrder = -100},
-         {.name = "katekonsoleplugin", .sortOrder = -100}},
+    constexpr PluginNameAndSortOrder defaultPlugins[] = {
+        {.name = "katefiletreeplugin", .sortOrder = -1000},
+        {.name = "katesearchplugin", .sortOrder = -900},
+        {.name = "kateprojectplugin", .sortOrder = -800},
+        {.name = "tabswitcherplugin", .sortOrder = -100},
+        {.name = "textfilterplugin", .sortOrder = -100},
+        {.name = "externaltoolsplugin", .sortOrder = -100},
+        {.name = "lspclientplugin", .sortOrder = -100},
+        {.name = "katekonsoleplugin", .sortOrder = -100},
     };
 
     // handle all install KTextEditor plugins

@@ -21,9 +21,9 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     QVBoxLayout *layout = new QVBoxLayout(this);
 
     QVBoxLayout *vbox = new QVBoxLayout;
-    QGroupBox *group = new QGroupBox(i18nc("Groupbox title", "Autoload Repositories"), this);
+    QGroupBox *group = new QGroupBox(i18nc("Groupbox title", "Autoload Repositories && Build Trees"), this);
     group->setWhatsThis(
-        i18n("Project plugin is able to autoload repository working copies when "
+        i18n("Project plugin is able to autoload repository working copies and build trees when "
              "there is no .kateproject file defined yet."));
 
     m_cbAutoGit = new QCheckBox(i18n("&Git"), this);
@@ -35,6 +35,8 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     vbox->addWidget(m_cbAutoMercurial);
     m_cbAutoFossil = new QCheckBox(i18n("&Fossil"), this);
     vbox->addWidget(m_cbAutoFossil);
+    m_cbAutoCMake = new QCheckBox(i18n("&CMake"), this);
+    vbox->addWidget(m_cbAutoCMake);
 
     vbox->addStretch(1);
     group->setLayout(vbox);
@@ -132,6 +134,11 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     connect(m_cbAutoFossil, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
 #endif
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+    connect(m_cbAutoCMake, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
+#else
+    connect(m_cbAutoCMake, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(m_cbSessionRestoreOpenProjects, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
 #else
     connect(m_cbSessionRestoreOpenProjects, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
@@ -187,6 +194,7 @@ void KateProjectConfigPage::apply()
                                 m_cbAutoSubversion->checkState() == Qt::Checked,
                                 m_cbAutoMercurial->checkState() == Qt::Checked,
                                 m_cbAutoFossil->checkState() == Qt::Checked);
+    m_plugin->setAutoCMake(m_cbAutoCMake->checkState() == Qt::Checked);
     m_plugin->setIndex(m_cbIndexEnabled->checkState() == Qt::Checked, m_indexPath->url());
     m_plugin->setMultiProject(m_cbMultiProjectCompletion->checkState() == Qt::Checked, m_cbMultiProjectGoto->checkState() == Qt::Checked);
 
@@ -202,6 +210,7 @@ void KateProjectConfigPage::reset()
     m_cbAutoSubversion->setCheckState(m_plugin->autoSubversion() ? Qt::Checked : Qt::Unchecked);
     m_cbAutoMercurial->setCheckState(m_plugin->autoMercurial() ? Qt::Checked : Qt::Unchecked);
     m_cbAutoFossil->setCheckState(m_plugin->autoFossil() ? Qt::Checked : Qt::Unchecked);
+    m_cbAutoCMake->setCheckState(m_plugin->autoCMake() ? Qt::Checked : Qt::Unchecked);
     m_cbIndexEnabled->setCheckState(m_plugin->getIndexEnabled() ? Qt::Checked : Qt::Unchecked);
     m_indexPath->setUrl(m_plugin->getIndexDirectory());
     m_cbMultiProjectCompletion->setCheckState(m_plugin->multiProjectCompletion() ? Qt::Checked : Qt::Unchecked);

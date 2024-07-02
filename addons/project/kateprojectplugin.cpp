@@ -175,28 +175,15 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
         }
     }
 
-    if (userSpecified) {
-        // if the user selected a cmake build directory, ask the build plugin to load the
-        // build targets, which will in turn open the accompanying source dir as project
-        if (QFile::exists(originalDir.absolutePath() + QStringLiteral("/CMakeCache.txt"))) {
-            QTimer::singleShot(0, this, [originalDir]() {
-                if (auto buildPluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("katebuildplugin"))) {
-                    QMetaObject::invokeMethod(buildPluginView, "loadCMakeTargets", Q_ARG(QString, originalDir.absolutePath()));
-                }
-            });
-
-            return nullptr;
-        }
-    }
-
     /**
      * if we arrive here, we found no .kateproject
      * => we want to invent a project based on e.g. version control system info
      */
     for (const QString &dir : directoryStack) {
-        // try to invent project based on version control stuff
+        // try to invent project based on CMake & version control stuff, try CMake first
         KateProject *project = nullptr;
-        if ((project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir)) || (project = detectFossil(dir))) {
+        if ((project = detectCMake(dir)) || (project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir))
+            || (project = detectFossil(dir))) {
             return project;
         }
     }
@@ -306,84 +293,118 @@ void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
     }
 }
 
-KateProject *KateProjectPlugin::detectGit(const QDir &dir)
+KateProject *KateProjectPlugin::detectGit(const QDir &dir, const QVariantMap &baseProjectMap)
 {
     // allow .git as dir and file (file for git worktree stuff, https://git-scm.com/docs/git-worktree)
     if (m_autoGit && dir.exists(GitFolderName)) {
-        return createProjectForRepository(QStringLiteral("git"), dir);
+        return createProjectForRepository(QStringLiteral("git"), dir, baseProjectMap);
     }
 
     return nullptr;
 }
 
-KateProject *KateProjectPlugin::detectSubversion(const QDir &dir)
+KateProject *KateProjectPlugin::detectSubversion(const QDir &dir, const QVariantMap &baseProjectMap)
 {
     if (m_autoSubversion && dir.exists(SubversionFolderName) && QFileInfo(dir, SubversionFolderName).isDir()) {
-        return createProjectForRepository(QStringLiteral("svn"), dir);
+        return createProjectForRepository(QStringLiteral("svn"), dir, baseProjectMap);
     }
 
     return nullptr;
 }
 
-KateProject *KateProjectPlugin::detectMercurial(const QDir &dir)
+KateProject *KateProjectPlugin::detectMercurial(const QDir &dir, const QVariantMap &baseProjectMap)
 {
     if (m_autoMercurial && dir.exists(MercurialFolderName) && QFileInfo(dir, MercurialFolderName).isDir()) {
-        return createProjectForRepository(QStringLiteral("hg"), dir);
+        return createProjectForRepository(QStringLiteral("hg"), dir, baseProjectMap);
     }
 
     return nullptr;
 }
 
-KateProject *KateProjectPlugin::detectFossil(const QDir &dir)
+KateProject *KateProjectPlugin::detectFossil(const QDir &dir, const QVariantMap &baseProjectMap)
 {
     if (m_autoFossil && dir.exists(FossilCheckoutFileName) && QFileInfo(dir, FossilCheckoutFileName).isReadable()) {
-        return createProjectForRepository(QStringLiteral("fossil"), dir);
+        return createProjectForRepository(QStringLiteral("fossil"), dir, baseProjectMap);
     }
 
     return nullptr;
 }
 
-KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir)
+KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
 {
-    // check if we already have the needed project opened
-    if (auto project = openProjectForDirectory(dir)) {
-        return project;
+    if (m_autoCMake && dir.exists(QStringLiteral("CMakeCache.txt"))) {
+        // detect the source dir by fast grepping the file
+        static const QByteArray sourceDirPrefix("CMAKE_HOME_DIRECTORY:INTERNAL=");
+        QFile cache(dir.absolutePath() + QStringLiteral("/CMakeCache.txt"));
+        if (cache.open(QFile::ReadOnly)) {
+            while (!cache.atEnd()) {
+                auto line = cache.readLine();
+                if (!line.startsWith(sourceDirPrefix)) {
+                    continue;
+                }
+
+                // kill trailing newline stuff
+                while (line.back() == QLatin1Char('\n') || line.back() == QLatin1Char('\r')) {
+                    line.removeLast();
+                }
+
+                // we assume proper UTF-8 encoding
+                const QDir sourceDir(QString::fromUtf8(line.mid(sourceDirPrefix.size())));
+
+                // avoid empty dir or non-existing
+                if (sourceDir.absolutePath().isEmpty() || !sourceDir.exists()) {
+                    return nullptr;
+                }
+
+                // add build dir to base project config
+                QVariantMap cnf, build;
+                build[QStringLiteral("directory")] = dir.absolutePath();
+                cnf[QStringLiteral("build")] = build;
+
+                // trigger load via other heuristics or explicit directory load
+                // mimics behavior of old CMake addon generator
+                KateProject *project = nullptr;
+                if ((project = detectGit(sourceDir, cnf)) || (project = detectSubversion(sourceDir, cnf)) || (project = detectMercurial(sourceDir, cnf))
+                    || (project = detectFossil(sourceDir, cnf)) || (project = createProjectForDirectory(sourceDir, cnf))) {
+                    // trigger CMake target load
+                    QTimer::singleShot(0, this, [dir]() {
+                        if (auto buildPluginView =
+                                KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("katebuildplugin"))) {
+                            QMetaObject::invokeMethod(buildPluginView, "loadCMakeTargets", Q_ARG(QString, dir.absolutePath()));
+                        }
+                    });
+
+                    return project;
+                }
+
+                // bad luck
+                return nullptr;
+            }
+        }
     }
 
-    QVariantMap cnf, files;
+    return nullptr;
+}
+
+KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir, const QVariantMap &baseProjectMap)
+{
+    QVariantMap cnf = baseProjectMap, files;
     files[type] = 1;
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
-
-    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.absolutePath());
-
-    m_projects.append(project);
-
-    Q_EMIT projectCreated(project);
-    return project;
+    return createProjectForDirectoryWithProjectMap(dir, cnf);
 }
 
-KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
+KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const QVariantMap &baseProjectMap)
 {
-    // check if we already have the needed project opened
-    if (auto project = openProjectForDirectory(dir)) {
-        return project;
-    }
-
-    QVariantMap cnf, files;
+    QVariantMap cnf = baseProjectMap, files;
     files[QStringLiteral("directory")] = QStringLiteral("./");
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
-
-    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.absolutePath());
-
-    m_projects.append(project);
-
-    Q_EMIT projectCreated(project);
-    return project;
+    return createProjectForDirectoryWithProjectMap(dir, cnf);
 }
 
-KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const QVariantMap &projectMap)
+KateProject *KateProjectPlugin::createProjectForDirectoryWithProjectMap(const QDir &dir, const QVariantMap &projectMap)
 {
     // check if we already have the needed project opened
     if (auto project = openProjectForDirectory(dir)) {
@@ -507,6 +528,8 @@ void KateProjectPlugin::readConfig()
     m_autoMercurial = autorepository.contains(MercurialConfig);
     m_autoFossil = autorepository.contains(FossilConfig);
 
+    m_autoCMake = config.readEntry("autoCMake", true);
+
     m_indexEnabled = config.readEntry("index", false);
     m_indexDirectory = config.readEntry("indexDirectory", QUrl());
 
@@ -543,6 +566,8 @@ void KateProjectPlugin::writeConfig()
     }
 
     config.writeEntry("autorepository", repos);
+
+    config.writeEntry("autoCMake", m_autoCMake);
 
     config.writeEntry("index", m_indexEnabled);
     config.writeEntry("indexDirectory", m_indexDirectory);
@@ -624,7 +649,7 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 
             // valid path + data project?
             if (const auto path = sMap[QStringLiteral("path")].toString(); !path.isEmpty() && QFileInfo::exists(path)) {
-                createProjectForDirectory(QDir(path), sMap[QStringLiteral("data")].toMap());
+                createProjectForDirectoryWithProjectMap(QDir(path), sMap[QStringLiteral("data")].toMap());
                 continue;
             }
 
@@ -646,24 +671,19 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
     KateProject *projectToActivate = nullptr;
 
     // open directories as projects
-    QString cmakeBuildDir;
     auto args = qApp->arguments();
     args.removeFirst(); // The first argument is the executable name
     for (const QString &arg : std::as_const(args)) {
         QFileInfo info(arg);
         if (info.isDir()) {
-            if (QFile::exists(info.absoluteFilePath() + QStringLiteral("/CMakeCache.txt"))) {
-                cmakeBuildDir = info.absoluteFilePath();
-            } else {
-                projectToActivate = projectForDir(info.absoluteFilePath(), true);
-            }
+            projectToActivate = projectForDir(info.absoluteFilePath(), true);
         }
     }
 
     /**
      * open project for our current working directory, if this kate has a terminal
      */
-    if (!projectToActivate && cmakeBuildDir.isEmpty() && KateApp::isInsideTerminal()) {
+    if (!projectToActivate && KateApp::isInsideTerminal()) {
         projectToActivate = projectForDir(QDir::current());
     }
 
@@ -673,12 +693,6 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
         QTimer::singleShot(0, projectToActivate, [projectToActivate]() {
             if (auto pluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("kateprojectplugin"))) {
                 static_cast<KateProjectPluginView *>(pluginView)->openProject(projectToActivate);
-            }
-        });
-    } else if (!cmakeBuildDir.isEmpty()) {
-        QTimer::singleShot(0, this, [cmakeBuildDir]() {
-            if (auto buildPluginView = KTextEditor::Editor::instance()->application()->activeMainWindow()->pluginView(QStringLiteral("katebuildplugin"))) {
-                QMetaObject::invokeMethod(buildPluginView, "loadCMakeTargets", Q_ARG(QString, cmakeBuildDir));
             }
         });
     }

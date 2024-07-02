@@ -1408,12 +1408,10 @@ msgid "Focus the next tab."
 msgstr "焦点转移到下一个标签页。"
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "切换到该实例"
+msgstr ""
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

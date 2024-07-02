@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-30 20:20+0200\n"
+"PO-Revision-Date: 2024-07-01 10:09+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -41,7 +41,7 @@ msgstr ""
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "rinsedevries@kde.nl,,,,,,freekdekruijf@kde.nl"
+msgstr "rinsedevries@kde.nl,,,,,,freekdekruijf@kde.nl,"
 
 #: kate/main.cpp:93
 #, kde-format

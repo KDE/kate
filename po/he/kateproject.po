@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-07-03 00:41+0000\n"
 "PO-Revision-Date: 2024-03-22 08:32+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -410,7 +410,7 @@ msgid "Open .gitignore"
 msgstr "פתיחת ‎.gitignore"
 
 #: gitwidget.cpp:1163 gitwidget.cpp:1210 gitwidget.cpp:1258
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "הצגת הבדל"
@@ -521,16 +521,18 @@ msgid "Project Completion"
 msgstr "השלמת מיזם"
 
 #: kateprojectconfigpage.cpp:24
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Groupbox title"
+#| msgid "Autoload Repositories"
 msgctxt "Groupbox title"
-msgid "Autoload Repositories"
+msgid "Autoload Repositories && Build Trees"
 msgstr "טעינת מאגרים אוטומטית"
 
 #: kateprojectconfigpage.cpp:26
 #, kde-format
 msgid ""
-"Project plugin is able to autoload repository working copies when there is "
-"no .kateproject file defined yet."
+"Project plugin is able to autoload repository working copies and build trees "
+"when there is no .kateproject file defined yet."
 msgstr ""
 
 #: kateprojectconfigpage.cpp:29
@@ -553,44 +555,49 @@ msgstr "&Mercurial"
 msgid "&Fossil"
 msgstr "&Fossil"
 
-#: kateprojectconfigpage.cpp:45
+#: kateprojectconfigpage.cpp:38
+#, kde-format
+msgid "&CMake"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:47
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr "התנהגות הפעלה"
 
-#: kateprojectconfigpage.cpp:46
+#: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Session settings for projects"
 msgstr "הגדרות הפעלה למיזמים"
 
-#: kateprojectconfigpage.cpp:47
+#: kateprojectconfigpage.cpp:49
 #, kde-format
 msgid "Restore Open Projects"
 msgstr "שחזור מיזמים פתוחים"
 
-#: kateprojectconfigpage.cpp:54
+#: kateprojectconfigpage.cpp:56
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "מפתח מיזמים"
 
-#: kateprojectconfigpage.cpp:55
+#: kateprojectconfigpage.cpp:57
 #, kde-format
 msgid "Project ctags index settings"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:56 kateprojectinfoviewindex.cpp:209
+#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
 msgstr "הפעלת סידור במפתח"
 
-#: kateprojectconfigpage.cpp:59
+#: kateprojectconfigpage.cpp:61
 #, kde-format
 msgid "Directory for index files"
 msgstr "תיקייה לקובצי המפתח"
 
-#: kateprojectconfigpage.cpp:63
+#: kateprojectconfigpage.cpp:65
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -599,91 +606,97 @@ msgstr ""
 "תיקיית המערכת הזמנית לשימוש אם לא צוינה, יכולה גם לעלות על גדותיה במקרה של "
 "מאגרים גדולים במיוחד"
 
-#: kateprojectconfigpage.cpp:70
+#: kateprojectconfigpage.cpp:72
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:71
+#: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:72
+#: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "השלמה חוצת מיזמים"
 
-#: kateprojectconfigpage.cpp:74
+#: kateprojectconfigpage.cpp:76
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:82
+#: kateprojectconfigpage.cpp:84
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:85
+#: kateprojectconfigpage.cpp:87
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:87 kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "No Action"
 msgstr "אין פעולה"
 
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Open file"
 msgstr "פתיחת קובץ"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:172 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "מיזמים"
 
-#: kateprojectconfigpage.cpp:170
+#: kateprojectconfigpage.cpp:177
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "מאפייני מיזמים"
 
-#: kateprojectinfoview.cpp:36
+#: kateprojectinfoview.cpp:37
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "מסוף (‎.kateproject)"
 
-#: kateprojectinfoview.cpp:44
+#: kateprojectinfoview.cpp:46
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "מסוף (בסיס)"
 
-#: kateprojectinfoview.cpp:51
+#: kateprojectinfoview.cpp:56
+#, fuzzy, kde-format
+#| msgid "Terminal (Base)"
+msgid "Terminal (build)"
+msgstr "מסוף (בסיס)"
+
+#: kateprojectinfoview.cpp:63
 #, kde-format
 msgid "Code Index"
 msgstr "מפתח קוד"
 
-#: kateprojectinfoview.cpp:56
+#: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Code Analysis"
 msgstr "אבחון קוד"
 
-#: kateprojectinfoview.cpp:61
+#: kateprojectinfoview.cpp:73
 #, kde-format
 msgid "Notes"
 msgstr "הערות"
@@ -783,22 +796,22 @@ msgstr "שגיאה"
 msgid "File name already exists"
 msgstr "שם הקובץ כבר קיים"
 
-#: kateprojectplugin.cpp:231
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "אישור סגירת מיזם: %1"
 
-#: kateprojectplugin.cpp:232
+#: kateprojectplugin.cpp:219
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "לסגור את המיזם %1 ואת %2 המסמכים הקשורים?"
 
-#: kateprojectplugin.cpp:571
+#: kateprojectplugin.cpp:596
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "נתיב מלא למיזם הנוכחי ללא שם הקובץ."
 
-#: kateprojectplugin.cpp:588
+#: kateprojectplugin.cpp:613
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -807,7 +820,7 @@ msgstr ""
 "נתיב מלא למיזם הנוכחי כולל שם הקובץ, עם מפריד הנתיבים הטבעי (לוכסן הפוך ב־"
 "Windows)."
 
-#: kateprojectplugin.cpp:716 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:730 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

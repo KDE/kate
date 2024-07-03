@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 00:42+0000\n"
-"PO-Revision-Date: 2024-05-06 12:07+0000\n"
+"PO-Revision-Date: 2024-06-28 12:00+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
@@ -87,7 +87,7 @@ msgstr "Óþekkt formatterForPython: %1"
 #: FormatterFactory.h:85
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr ""
+msgstr "Óþekkt formatterForYaml: %1, nota í staðinn yamlfmt"
 
 #: FormatterFactory.h:92
 #, kde-format

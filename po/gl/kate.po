@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-09 09:56+0200\n"
+"PO-Revision-Date: 2024-07-02 17:49+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 24.05.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1029,13 +1029,15 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Marcas de tempo de saída con data."
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"Activar para que as cabeceiras de marca de tempo de liñas de saída teñan a "
+"data como prefixo."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1438,12 +1440,10 @@ msgid "Focus the next tab."
 msgstr "Ir ao seguinte separador."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Cambiar á instancia"
+msgstr "Ir á lapela %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

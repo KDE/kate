@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-10 09:44+0200\n"
+"PO-Revision-Date: 2024-07-01 11:16+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -32,9 +32,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
-"X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
+"X-Environment: kde\n"
+"X-Generator: Lokalize 23.08.5\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -1061,13 +1061,15 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Horodatages de sortie avec date"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"Lorsque cette option est activée, les en-têtes d'horodatage des lignes de "
+"sortie seront préfixés avec la date."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1483,12 +1485,10 @@ msgid "Focus the next tab."
 msgstr "Passer à l'onglet suivant."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Basculer vers une instance"
+msgstr "Basculer vers l'onglet %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

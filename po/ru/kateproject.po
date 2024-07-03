@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-07-03 00:41+0000\n"
 "PO-Revision-Date: 2024-02-11 11:16+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -420,7 +420,7 @@ msgid "Open .gitignore"
 msgstr "Открыть .gitignore"
 
 #: gitwidget.cpp:1163 gitwidget.cpp:1210 gitwidget.cpp:1258
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Показать различия"
@@ -531,16 +531,21 @@ msgid "Project Completion"
 msgstr "Завершение проекта"
 
 #: kateprojectconfigpage.cpp:24
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Groupbox title"
+#| msgid "Autoload Repositories"
 msgctxt "Groupbox title"
-msgid "Autoload Repositories"
+msgid "Autoload Repositories && Build Trees"
 msgstr "Автоматическая загрузка репозиториев"
 
 #: kateprojectconfigpage.cpp:26
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Project plugin is able to autoload repository working copies when there "
+#| "is no .kateproject file defined yet."
 msgid ""
-"Project plugin is able to autoload repository working copies when there is "
-"no .kateproject file defined yet."
+"Project plugin is able to autoload repository working copies and build trees "
+"when there is no .kateproject file defined yet."
 msgstr ""
 "Модуль проектов позволяет загружать рабочие копии репозиториев в случае, "
 "если файл .kateproject не был найден."
@@ -565,44 +570,49 @@ msgstr "&Mercurial"
 msgid "&Fossil"
 msgstr "&Fossil"
 
-#: kateprojectconfigpage.cpp:45
+#: kateprojectconfigpage.cpp:38
+#, kde-format
+msgid "&CMake"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:47
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr "Поведение сеанса"
 
-#: kateprojectconfigpage.cpp:46
+#: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Session settings for projects"
 msgstr "Параметры сеанса для проектов"
 
-#: kateprojectconfigpage.cpp:47
+#: kateprojectconfigpage.cpp:49
 #, kde-format
 msgid "Restore Open Projects"
 msgstr "Восстанавливать открытые проекты"
 
-#: kateprojectconfigpage.cpp:54
+#: kateprojectconfigpage.cpp:56
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "Индексирование проекта"
 
-#: kateprojectconfigpage.cpp:55
+#: kateprojectconfigpage.cpp:57
 #, kde-format
 msgid "Project ctags index settings"
 msgstr "Параметры индекса ctags проекта"
 
-#: kateprojectconfigpage.cpp:56 kateprojectinfoviewindex.cpp:209
+#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
 msgstr "Включить индексирование"
 
-#: kateprojectconfigpage.cpp:59
+#: kateprojectconfigpage.cpp:61
 #, kde-format
 msgid "Directory for index files"
 msgstr "Каталог файлов индекса"
 
-#: kateprojectconfigpage.cpp:63
+#: kateprojectconfigpage.cpp:65
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -612,13 +622,13 @@ msgstr ""
 "файлов, что может привести к исчерпанию его свободного объёма в случае "
 "индексирования репозитория большого размера"
 
-#: kateprojectconfigpage.cpp:70
+#: kateprojectconfigpage.cpp:72
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr "Межпроектная функциональность"
 
-#: kateprojectconfigpage.cpp:71
+#: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
@@ -626,79 +636,85 @@ msgstr ""
 "Модуль проектов позволяет выполнять некоторые действия над несколькими "
 "проектами"
 
-#: kateprojectconfigpage.cpp:72
+#: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "Межпроектное завершение"
 
-#: kateprojectconfigpage.cpp:74
+#: kateprojectconfigpage.cpp:76
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr "Символ перехода между проектами"
 
-#: kateprojectconfigpage.cpp:82
+#: kateprojectconfigpage.cpp:84
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:85
+#: kateprojectconfigpage.cpp:87
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "Действие по одиночному щелчку в представлении состояния git"
 
-#: kateprojectconfigpage.cpp:87 kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "No Action"
 msgstr "Ничего не делать"
 
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Open file"
 msgstr "Открыть файл"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Применить или отменить промежуточное сохранение"
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Действие по двойному щелчку в представлении состояния git"
 
-#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:172 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Проекты"
 
-#: kateprojectconfigpage.cpp:170
+#: kateprojectconfigpage.cpp:177
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Управление проектами"
 
-#: kateprojectinfoview.cpp:36
+#: kateprojectinfoview.cpp:37
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Терминал (.kateproject)"
 
-#: kateprojectinfoview.cpp:44
+#: kateprojectinfoview.cpp:46
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Терминал (Основной)"
 
-#: kateprojectinfoview.cpp:51
+#: kateprojectinfoview.cpp:56
+#, fuzzy, kde-format
+#| msgid "Terminal (Base)"
+msgid "Terminal (build)"
+msgstr "Терминал (Основной)"
+
+#: kateprojectinfoview.cpp:63
 #, kde-format
 msgid "Code Index"
 msgstr "Индекс кода"
 
-#: kateprojectinfoview.cpp:56
+#: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Code Analysis"
 msgstr "Анализ кода"
 
-#: kateprojectinfoview.cpp:61
+#: kateprojectinfoview.cpp:73
 #, kde-format
 msgid "Notes"
 msgstr "Примечания"
@@ -805,22 +821,22 @@ msgstr "Ошибка"
 msgid "File name already exists"
 msgstr "Файл с таким именем уже существует"
 
-#: kateprojectplugin.cpp:231
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Подтвердите закрытие проекта: %1"
 
-#: kateprojectplugin.cpp:232
+#: kateprojectplugin.cpp:219
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Закрыть проект «%1» и связанные с ним открытые документы (%2)?"
 
-#: kateprojectplugin.cpp:571
+#: kateprojectplugin.cpp:596
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Полный путь к текущему проекту, исключая имя файла."
 
-#: kateprojectplugin.cpp:588
+#: kateprojectplugin.cpp:613
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -829,7 +845,7 @@ msgstr ""
 "Полный путь к текущему проекту, исключая имя файла, со стандартными для ОС "
 "разделителями (обратная косая черта в Windows)."
 
-#: kateprojectplugin.cpp:716 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:730 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

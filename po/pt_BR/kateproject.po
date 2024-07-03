@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-07-03 00:41+0000\n"
 "PO-Revision-Date: 2024-03-17 08:53-0300\n"
 "Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -413,7 +413,7 @@ msgid "Open .gitignore"
 msgstr "Abrir .gitignore"
 
 #: gitwidget.cpp:1163 gitwidget.cpp:1210 gitwidget.cpp:1258
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Mostrar diferenças"
@@ -527,16 +527,21 @@ msgid "Project Completion"
 msgstr "Complementação do projeto"
 
 #: kateprojectconfigpage.cpp:24
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Groupbox title"
+#| msgid "Autoload Repositories"
 msgctxt "Groupbox title"
-msgid "Autoload Repositories"
+msgid "Autoload Repositories && Build Trees"
 msgstr "Carregar automaticamente os repositórios"
 
 #: kateprojectconfigpage.cpp:26
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Project plugin is able to autoload repository working copies when there "
+#| "is no .kateproject file defined yet."
 msgid ""
-"Project plugin is able to autoload repository working copies when there is "
-"no .kateproject file defined yet."
+"Project plugin is able to autoload repository working copies and build trees "
+"when there is no .kateproject file defined yet."
 msgstr ""
 "O plugin de projetos é capaz de carregar automaticamente as cópias de "
 "trabalho dos repositórios quando não existir um arquivo '.kateproject' já "
@@ -562,44 +567,49 @@ msgstr "&Mercurial"
 msgid "&Fossil"
 msgstr "%Fossil"
 
-#: kateprojectconfigpage.cpp:45
+#: kateprojectconfigpage.cpp:38
+#, kde-format
+msgid "&CMake"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:47
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr "Comportamento da sessão"
 
-#: kateprojectconfigpage.cpp:46
+#: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Session settings for projects"
 msgstr "Configurações para projetos da sessão"
 
-#: kateprojectconfigpage.cpp:47
+#: kateprojectconfigpage.cpp:49
 #, kde-format
 msgid "Restore Open Projects"
 msgstr "Restaurar projetos abertos"
 
-#: kateprojectconfigpage.cpp:54
+#: kateprojectconfigpage.cpp:56
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "Índice do projeto"
 
-#: kateprojectconfigpage.cpp:55
+#: kateprojectconfigpage.cpp:57
 #, kde-format
 msgid "Project ctags index settings"
 msgstr "Configurações do índice do CTags do projeto"
 
-#: kateprojectconfigpage.cpp:56 kateprojectinfoviewindex.cpp:209
+#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
 msgstr "Ativar indexação"
 
-#: kateprojectconfigpage.cpp:59
+#: kateprojectconfigpage.cpp:61
 #, kde-format
 msgid "Directory for index files"
 msgstr "Pasta para os arquivos do índice"
 
-#: kateprojectconfigpage.cpp:63
+#: kateprojectconfigpage.cpp:65
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -608,92 +618,98 @@ msgstr ""
 "A pasta temporária do sistema será usada se não for especificado, o que pode "
 "sobrecarregar no caso de repositórios muito grandes"
 
-#: kateprojectconfigpage.cpp:70
+#: kateprojectconfigpage.cpp:72
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr "Funcionalidade entre-projetos"
 
-#: kateprojectconfigpage.cpp:71
+#: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
 "O plugin de projetos consegue efetuar algumas operações entre vários projetos"
 
-#: kateprojectconfigpage.cpp:72
+#: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "Complementação entre-projetos"
 
-#: kateprojectconfigpage.cpp:74
+#: kateprojectconfigpage.cpp:76
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr "Símbolo ir para entre-projetos"
 
-#: kateprojectconfigpage.cpp:82
+#: kateprojectconfigpage.cpp:84
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:85
+#: kateprojectconfigpage.cpp:87
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "Ação de click único na visualização do status do git."
 
-#: kateprojectconfigpage.cpp:87 kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "No Action"
 msgstr "Nenhuma ação"
 
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Open file"
 msgstr "Abrir arquivo"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Stage / unstage"
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Ação de clique duplo na visualização do status do git."
 
-#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:172 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projetos"
 
-#: kateprojectconfigpage.cpp:170
+#: kateprojectconfigpage.cpp:177
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Propriedades do projeto"
 
-#: kateprojectinfoview.cpp:36
+#: kateprojectinfoview.cpp:37
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Terminal (.kateproject)"
 
-#: kateprojectinfoview.cpp:44
+#: kateprojectinfoview.cpp:46
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Terminal (base)"
 
-#: kateprojectinfoview.cpp:51
+#: kateprojectinfoview.cpp:56
+#, fuzzy, kde-format
+#| msgid "Terminal (Base)"
+msgid "Terminal (build)"
+msgstr "Terminal (base)"
+
+#: kateprojectinfoview.cpp:63
 #, kde-format
 msgid "Code Index"
 msgstr "Índice do código"
 
-#: kateprojectinfoview.cpp:56
+#: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Code Analysis"
 msgstr "Análise de código"
 
-#: kateprojectinfoview.cpp:61
+#: kateprojectinfoview.cpp:73
 #, kde-format
 msgid "Notes"
 msgstr "Notas"
@@ -798,22 +814,22 @@ msgstr "Erro"
 msgid "File name already exists"
 msgstr "O nome do arquivo já existe"
 
-#: kateprojectplugin.cpp:231
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Confirmar o fechamento do projeto: %1"
 
-#: kateprojectplugin.cpp:232
+#: kateprojectplugin.cpp:219
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Deseja fechar o projeto %1 e os %2 documentos abertos relacionados?"
 
-#: kateprojectplugin.cpp:571
+#: kateprojectplugin.cpp:596
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Caminho completo do projeto atual sem o nome do arquivo."
 
-#: kateprojectplugin.cpp:588
+#: kateprojectplugin.cpp:613
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -822,7 +838,7 @@ msgstr ""
 "Caminho completo do projeto atual sem o nome do arquivo e com o separador de "
 "pastas nativo (barra invertida no Windows)."
 
-#: kateprojectplugin.cpp:716 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:730 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

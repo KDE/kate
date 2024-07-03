@@ -13,14 +13,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-05-06 12:07+0000\n"
+"PO-Revision-Date: 2024-06-30 15:48+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 "\n"
 "\n"
@@ -1022,20 +1022,22 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
-"Ef þetta er virkt er svargluggi notaður til að sýna allar skrárnar sem hefur "
-"verið breytt. Ef þetta er ekki virkt verður spurt um hverja skrá fyrir sig "
-"en aðeins þegar breytt skrá fær fókus í Kate."
+"Ef þetta er virkt er svargluggi notaður til að sýna allar skrár sem búið "
+"erað breyta. Ef þetta er ekki virkt verður spurt um hverja skrá fyrir sig en "
+"aðeins þegar breytt skrá fær fókus í Kate."
 
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Dagsetning á tímastimplum úttaks"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"Þegar þetta er virkt birtist dagsetning fremst í tímastimpilshausum "
+"úttakslínu."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1435,12 +1437,10 @@ msgid "Focus the next tab."
 msgstr "Setja næsta flipa í fókus."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Skipta í tilvik"
+msgstr "Skipta í flipa %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format
@@ -1710,16 +1710,14 @@ msgstr ""
 "Þetta lokar öllum opnum skjölum. Ertu viss um að þú viljir halda áfram?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Loka öllum skjölum"
+msgstr "Loka öllum skjölum?"
 
 #: lib/katemainwindow.cpp:613
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Loka &öllum"
+msgstr "Loka öllu"
 
 #: lib/katemainwindow.cpp:627
 #, kde-format
@@ -1731,14 +1729,12 @@ msgstr ""
 "viljir halda áfram?"
 
 #: lib/katemainwindow.cpp:628
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Loka öllum skjölum fyrir utan þetta"
+msgstr "Loka öllum skjölum fyrir utan þetta?"
 
 #: lib/katemainwindow.cpp:629
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Loka öðrum"
 
@@ -2323,13 +2319,12 @@ msgstr "Birta upphafssíðuna"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Víxla skrunsamstillingu af/á"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Breyta því hvernig klofni glugginn snýr"
+msgstr "Víxla skrunsamstillingu af/á fyrir þetta yfirlit"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2383,16 +2378,12 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Mistókst að virkja viðbótina <b>%1</b>"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "Sa&mstilla skrun"
+msgstr "Samstilla skrun"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr "Samstilla skrun í þessum gluggahluta við aðra samstillta gluggahluta"

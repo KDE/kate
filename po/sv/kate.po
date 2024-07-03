@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-17 21:24+0200\n"
-"Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
+"PO-Revision-Date: 2024-07-02 21:26+0200\n"
+"Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -1024,13 +1024,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Skriv tidsstämplar med datum"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
-msgstr ""
+msgstr "När aktiverad, inleds utdataradernas tidsstämplar med datum."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1429,12 +1429,10 @@ msgid "Focus the next tab."
 msgstr "Fokusera på nästa flik."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Byt till instans"
+msgstr "Byt till flik %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

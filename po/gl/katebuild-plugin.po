@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-02 00:41+0000\n"
-"PO-Revision-Date: 2024-06-04 10:01+0200\n"
+"PO-Revision-Date: 2024-07-02 17:45+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 24.05.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -426,10 +426,9 @@ msgid "Create new set of targets"
 msgstr "Crear un novo grupo de obxectivos"
 
 #: targets.cpp:39
-#, fuzzy, kde-format
-#| msgid "Copy command or target set"
+#, kde-format
 msgid "Clone command or target set"
-msgstr "Copiar a orde ou grupo de obxectivos"
+msgstr "Clonar a orde ou grupo de obxectivos"
 
 #: targets.cpp:43
 #, kde-format
@@ -469,12 +468,12 @@ msgstr "Copiar"
 #: targets.cpp:207
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "Cortar"
 
 #: targets.cpp:211
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "Pegar despois"
 
 #: targets.cpp:245
 #, kde-format

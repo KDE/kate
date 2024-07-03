@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-07-03 00:41+0000\n"
 "PO-Revision-Date: 2023-11-27 03:14+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -408,7 +408,7 @@ msgid "Open .gitignore"
 msgstr ".gitignore-ის გახსნა"
 
 #: gitwidget.cpp:1163 gitwidget.cpp:1210 gitwidget.cpp:1258
-#: kateprojectconfigpage.cpp:88 kateprojectconfigpage.cpp:100
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "სხვაობის ჩვენება"
@@ -519,16 +519,21 @@ msgid "Project Completion"
 msgstr "პროექტის დასრულება"
 
 #: kateprojectconfigpage.cpp:24
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Groupbox title"
+#| msgid "Autoload Repositories"
 msgctxt "Groupbox title"
-msgid "Autoload Repositories"
+msgid "Autoload Repositories && Build Trees"
 msgstr "რეპოზიტორიების ავტომატური ჩატვირთვა"
 
 #: kateprojectconfigpage.cpp:26
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Project plugin is able to autoload repository working copies when there "
+#| "is no .kateproject file defined yet."
 msgid ""
-"Project plugin is able to autoload repository working copies when there is "
-"no .kateproject file defined yet."
+"Project plugin is able to autoload repository working copies and build trees "
+"when there is no .kateproject file defined yet."
 msgstr ""
 "პროექტის დამატებას აქვს შესაძლებლობა, ავტომატურად ჩატვირთოს რეპოზიტორიის "
 "მუშა ასლები მაშინ, როცა ჯერ .kateproject ფაილი აღწერილი არაა."
@@ -553,44 +558,49 @@ msgstr "&Mercurial"
 msgid "&Fossil"
 msgstr "&Fossil"
 
-#: kateprojectconfigpage.cpp:45
+#: kateprojectconfigpage.cpp:38
+#, kde-format
+msgid "&CMake"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:47
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr "სესის ქცევა"
 
-#: kateprojectconfigpage.cpp:46
+#: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Session settings for projects"
 msgstr "სესიის მორგება პროექტებისთვის"
 
-#: kateprojectconfigpage.cpp:47
+#: kateprojectconfigpage.cpp:49
 #, kde-format
 msgid "Restore Open Projects"
 msgstr "ღია პროექტების აღდგენა"
 
-#: kateprojectconfigpage.cpp:54
+#: kateprojectconfigpage.cpp:56
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "პროექტის ინდექსი"
 
-#: kateprojectconfigpage.cpp:55
+#: kateprojectconfigpage.cpp:57
 #, kde-format
 msgid "Project ctags index settings"
 msgstr "პროექტის ctags ინდექსის მორგება"
 
-#: kateprojectconfigpage.cpp:56 kateprojectinfoviewindex.cpp:209
+#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
 msgstr "ინდექსრების ჩართვა"
 
-#: kateprojectconfigpage.cpp:59
+#: kateprojectconfigpage.cpp:61
 #, kde-format
 msgid "Directory for index files"
 msgstr "საქაღალდე ინდექსის ფაილებისთვის"
 
-#: kateprojectconfigpage.cpp:63
+#: kateprojectconfigpage.cpp:65
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -599,92 +609,98 @@ msgstr ""
 "თუ მითითებული არაა, გამოიყენება სისტემის ნაგულისხმევი, დროებითი საქაღალდე, "
 "რომელიც, დიდი რეპოზიტორიების შემთხვევაში, შეიძლება, გადაივსოს"
 
-#: kateprojectconfigpage.cpp:70
+#: kateprojectconfigpage.cpp:72
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr "პროექტთშორისი ფუნქცონალი"
 
-#: kateprojectconfigpage.cpp:71
+#: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
 "პროექტის დამატებას ზოგიერთი ოპერაციის შესრულება ერთზე მეტ პროექტზე შეუძლია"
 
-#: kateprojectconfigpage.cpp:72
+#: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "პროექტთაშორისი დასრულება"
 
-#: kateprojectconfigpage.cpp:74
+#: kateprojectconfigpage.cpp:76
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr "პროექტთაშორის გადასვლის სიმბოლო"
 
-#: kateprojectconfigpage.cpp:82
+#: kateprojectconfigpage.cpp:84
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:85
+#: kateprojectconfigpage.cpp:87
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "ერთი წკაპი ქმედებაზე git-ის სტატუსის ხედში"
 
-#: kateprojectconfigpage.cpp:87 kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "No Action"
 msgstr "ქმედების გარეშე"
 
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Open file"
 msgstr "ფაილის გახსნა"
 
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "შუალედური შენახვის გამოყენება/გამორთვა"
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "ორმაგი წკაპი ქმედებაზე git-ის სტატუსის ხედში"
 
-#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:172 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "პროექტები"
 
-#: kateprojectconfigpage.cpp:170
+#: kateprojectconfigpage.cpp:177
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "პროექტის თვისებები"
 
-#: kateprojectinfoview.cpp:36
+#: kateprojectinfoview.cpp:37
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "ტერმინალი (.kateproject)"
 
-#: kateprojectinfoview.cpp:44
+#: kateprojectinfoview.cpp:46
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "ტერმინალი (ძირითადი)"
 
-#: kateprojectinfoview.cpp:51
+#: kateprojectinfoview.cpp:56
+#, fuzzy, kde-format
+#| msgid "Terminal (Base)"
+msgid "Terminal (build)"
+msgstr "ტერმინალი (ძირითადი)"
+
+#: kateprojectinfoview.cpp:63
 #, kde-format
 msgid "Code Index"
 msgstr "კოდის ინდექსი"
 
-#: kateprojectinfoview.cpp:56
+#: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Code Analysis"
 msgstr "კოდის ანალიზი"
 
-#: kateprojectinfoview.cpp:61
+#: kateprojectinfoview.cpp:73
 #, kde-format
 msgid "Notes"
 msgstr "შენიშვნები"
@@ -786,23 +802,23 @@ msgstr "შეცდომა"
 msgid "File name already exists"
 msgstr "ფაილის სახელი უკვე არსებობს"
 
-#: kateprojectplugin.cpp:231
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "დაადასტურეთ პროექტის დახურვა: %1"
 
-#: kateprojectplugin.cpp:232
+#: kateprojectplugin.cpp:219
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "მართლა გნებავთ დახუროთ პროექტი %1 და მასთან დაკავშირებული %2 ღია დოკუმენტი?"
 
-#: kateprojectplugin.cpp:571
+#: kateprojectplugin.cpp:596
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "მიმდინარე პროექტის სრული ბილიკი ფაილის სახელის გარეშე."
 
-#: kateprojectplugin.cpp:588
+#: kateprojectplugin.cpp:613
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -811,7 +827,7 @@ msgstr ""
 "სრული პროექტის ბილიკი სახელის არჩათვლით, სისტემის ბილიკის გამყოფით ('\\' "
 "Windows-ზე)."
 
-#: kateprojectplugin.cpp:716 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:730 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

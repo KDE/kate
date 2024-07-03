@@ -405,7 +405,7 @@ msgstr "创建新的目标集"
 #: targets.cpp:39
 #, kde-format
 msgid "Clone command or target set"
-msgstr ""
+msgstr "克隆命令或目标集"
 
 #: targets.cpp:43
 #, kde-format
@@ -440,17 +440,17 @@ msgstr "下移所选任务"
 #: targets.cpp:203
 #, kde-format
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 #: targets.cpp:207
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "剪切"
 
 #: targets.cpp:211
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "粘贴到后面"
 
 #: targets.cpp:245
 #, kde-format

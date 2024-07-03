@@ -476,8 +476,7 @@ msgid "Move selected target down"
 msgstr "Déplacer la cible sélectionnée vers le bas"
 
 #: targets.cpp:203
-#, fuzzy, kde-format
-#| msgid "Copy"
+#, kde-format
 msgid "Copy"
 msgstr "Copier"
 

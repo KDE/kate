@@ -1009,13 +1009,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "输出带日期的时间戳"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
-msgstr ""
+msgstr "如果启用，输出行时间戳头将用日期作为前缀。"
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1411,7 +1411,7 @@ msgstr "焦点转移到下一个标签页。"
 #, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr ""
+msgstr "切换到标签页 %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format

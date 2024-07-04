@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-03 00:41+0000\n"
-"PO-Revision-Date: 2023-11-27 03:14+0100\n"
+"PO-Revision-Date: 2024-07-03 05:44+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -519,24 +519,19 @@ msgid "Project Completion"
 msgstr "პროექტის დასრულება"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "რეპოზიტორიების ავტომატური ჩატვირთვა"
+msgstr "რეპოზიტორიების ავტომატური ჩატვირთვა && ხეების აგება"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
 "პროექტის დამატებას აქვს შესაძლებლობა, ავტომატურად ჩატვირთოს რეპოზიტორიის "
-"მუშა ასლები მაშინ, როცა ჯერ .kateproject ფაილი აღწერილი არაა."
+"მუშა ასლები და ააგოს ხეები მაშინ, როცა ჯერ .kateproject ფაილი აღწერილი არაა."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -561,7 +556,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -685,10 +680,9 @@ msgid "Terminal (Base)"
 msgstr "ტერმინალი (ძირითადი)"
 
 #: kateprojectinfoview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "ტერმინალი (ძირითადი)"
+msgstr "ტერმინალი (აგება)"
 
 #: kateprojectinfoview.cpp:63
 #, kde-format

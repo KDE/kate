@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2012, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2012, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
 # Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>, 2012.
 # Rocio Gallego <traducciones@rociogallego.com>, 2013, 2014, 2015.
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-03 00:41+0000\n"
-"PO-Revision-Date: 2023-11-27 00:46+0100\n"
+"PO-Revision-Date: 2024-07-03 17:08+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "com>\n"
 "com>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.05.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -522,25 +522,20 @@ msgid "Project Completion"
 msgstr "Completación del proyecto"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "Cargar repositorios automáticamente"
+msgstr "Cargar repositorios automáticamente y árboles de compilación"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
 "El complemento de proyecto es capaz de cargar automáticamente las copias de "
-"trabajo de los repositorios en el caso de que aún no se haya definido un "
-"archivo .kateproject"
+"trabajo de los repositorios y los árboles de compilación en el caso de que "
+"aún no se haya definido un archivo .kateproject"
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -565,7 +560,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -690,10 +685,9 @@ msgid "Terminal (Base)"
 msgstr "Terminal (Base)"
 
 #: kateprojectinfoview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "Terminal (Base)"
+msgstr "Terminal (build)"
 
 #: kateprojectinfoview.cpp:63
 #, kde-format

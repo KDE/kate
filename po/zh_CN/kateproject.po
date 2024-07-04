@@ -515,23 +515,17 @@ msgid "Project Completion"
 msgstr "工程补全"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "自动加载仓库"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"如果没有已定义的 .kateproject 文件，项目插件可以自动加载代码仓库工作副本。"
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -677,10 +671,9 @@ msgid "Terminal (Base)"
 msgstr "终端 (基础)"
 
 #: kateprojectinfoview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "终端 (基础)"
+msgstr ""
 
 #: kateprojectinfoview.cpp:63
 #, kde-format

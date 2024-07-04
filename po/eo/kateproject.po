@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-03 00:41+0000\n"
-"PO-Revision-Date: 2023-11-26 18:19+0100\n"
+"PO-Revision-Date: 2024-07-03 21:54+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -518,24 +518,19 @@ msgid "Project Completion"
 msgstr "Projekto Fino"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "Aŭtomate ŝargi Deponejojn"
+msgstr "Aŭtomate ŝargi Deponejojn && Konstru-Arbojn"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"Projekta kromaĵo kapablas aŭtomate ŝargi deponejajn laborkopiojn kiam "
-"ankoraŭ ne estas .kateproject-dosiero difinita."
+"Projekta kromaĵo kapablas aŭtomate ŝargi deponejajn laborkopiojn kaj konstru-"
+"arbojn kiam ankoraŭ ne estas difinita .kateproject-dosiero."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -560,7 +555,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -683,10 +678,9 @@ msgid "Terminal (Base)"
 msgstr "Terminalo (Bazo)"
 
 #: kateprojectinfoview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "Terminalo (Bazo)"
+msgstr "Terminalo (konstruo)"
 
 #: kateprojectinfoview.cpp:63
 #, kde-format

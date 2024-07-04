@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-03 00:41+0000\n"
-"PO-Revision-Date: 2024-06-17 21:29+0200\n"
-"Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
+"PO-Revision-Date: 2024-07-03 22:20+0200\n"
+"Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -518,24 +518,19 @@ msgid "Project Completion"
 msgstr "Projektkomplettering"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "Läs in arkiv automatiskt"
+msgstr "Läs in arkiv och bygg träd automatiskt"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"Projektinsticksprogrammet kan läsa in arbetskopior av arkiv i fallet då "
-"filen .kateproject inte ännu är definierad"
+"Projektinsticksprogrammet kan läsa in arbetskopior av arkiv och bygga träd i "
+"fallet då filen .kateproject inte ännu är definierad"
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -560,7 +555,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -685,10 +680,9 @@ msgid "Terminal (Base)"
 msgstr "Terminal (bas)"
 
 #: kateprojectinfoview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "Terminal (bas)"
+msgstr "Terminal (bygge)"
 
 #: kateprojectinfoview.cpp:63
 #, kde-format

@@ -518,7 +518,7 @@ msgstr "工程补全"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr ""
+msgstr "自动加载代码仓库和构建树"
 
 #: kateprojectconfigpage.cpp:26
 #, kde-format
@@ -526,6 +526,8 @@ msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
+"项目插件可以在尚未定义 .kateproject 文件的情况下自动加载代码仓库的工作副本和"
+"构建树。"
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -550,7 +552,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -673,7 +675,7 @@ msgstr "终端 (基础)"
 #: kateprojectinfoview.cpp:56
 #, kde-format
 msgid "Terminal (build)"
-msgstr ""
+msgstr "终端 (构建)"
 
 #: kateprojectinfoview.cpp:63
 #, kde-format

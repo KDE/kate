@@ -261,6 +261,18 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex,
 
     QList<TargetSet> &targetSets = m_rootNodes[bNode.rootRow].targetSets;
 
+    if (loadedViaCMake) {
+        // loadedViaCMake target-sets replace the previous with the same name
+        for (int i = 0; i < targetSets.count(); i++) {
+            if (targetSets[i].name == setName) {
+                beginRemoveRows(index(bNode.rootRow, 0), i, i);
+                m_rootNodes[bNode.rootRow].targetSets.removeAt(i);
+                endRemoveRows();
+                bNode.targetSetRow = i - 1;
+            }
+        }
+    }
+
     // Make the name unique
     QString newName = setName;
     for (int i = 0; i < targetSets.count(); i++) {

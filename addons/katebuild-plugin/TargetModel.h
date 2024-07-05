@@ -55,6 +55,7 @@ public:
     QString indexToJson(const QModelIndex &modelIndex) const;
 
     QModelIndex insertAfter(const QModelIndex &modelIndex, const QString &jsonStr);
+    QModelIndex insertAfter(const QModelIndex &modelIndex, const QJsonObject &jsonObj);
 
 public Q_SLOTS:
 
@@ -118,7 +119,5 @@ public:
     };
 
 private:
-    QModelIndex insertAfter(const QModelIndex &modelIndex, const QJsonObject &jsonObj);
-
     QList<RootNode> m_rootNodes;
 };

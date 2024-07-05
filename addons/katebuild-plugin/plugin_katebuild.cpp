@@ -37,6 +37,7 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QFontDatabase>
+#include <QHeaderView>
 #include <QIcon>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -65,6 +66,8 @@
 
 #include <kde_terminal_interface.h>
 #include <kparts/part.h>
+
+using namespace Qt::Literals::StringLiterals;
 
 K_PLUGIN_FACTORY_WITH_JSON(KateBuildPluginFactory, "katebuildplugin.json", registerPlugin<KateBuildPlugin>();)
 
@@ -535,8 +538,12 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
 
     m_targetsUi->updateTargetsButtonStates();
 
-    m_targetsUi->targetsView->resizeColumnToContents(1);
-    m_targetsUi->targetsView->resizeColumnToContents(2);
+    m_targetsUi->targetsView->header()->setSectionResizeMode(1, QHeaderView::Stretch);
+    m_targetsUi->targetsView->header()->setSectionResizeMode(2, QHeaderView::Stretch);
+    QTimer::singleShot(1000, this, [this]() {
+        m_targetsUi->targetsView->header()->setSectionResizeMode(1, QHeaderView::Interactive);
+        m_targetsUi->targetsView->header()->setSectionResizeMode(2, QHeaderView::Interactive);
+    });
 }
 
 /******************************************************************/
@@ -1134,12 +1141,10 @@ void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
     bool success = cmakeFA.readReplyFiles();
     qCDebug(KTEBUILD) << "CMake reply success: " << success;
 
+    QModelIndex rootIndex = m_targetsUi->targetsModel.projectRootIndex();
     for (const QString &config : cmakeFA.getConfigurations()) {
         QString projectName = QStringLiteral("%1@%2 - [%3]").arg(cmakeFA.getProjectName()).arg(cmakeFA.getBuildDir()).arg(config);
-
-        QModelIndex setIndex = m_targetsUi->targetsModel.sessionRootIndex();
-
-        createCMakeTargetSet(setIndex, projectName, cmakeFA, config);
+        createCMakeTargetSet(rootIndex, projectName, cmakeFA, config);
     }
 
     const QString compileCommandsDest = cmakeFA.getSourceDir() + QStringLiteral("/compile_commands.json");
@@ -1152,10 +1157,6 @@ void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
 
     QUrl fileUrl = QUrl::fromLocalFile(cmakeFA.getSourceDir() + QStringLiteral("/CMakeLists.txt"));
     m_win->openUrl(fileUrl);
-    // see whether the project plugin can load a project for the source directory
-    if (QObject *plugin = KTextEditor::Editor::instance()->application()->plugin(QStringLiteral("kateprojectplugin"))) {
-        QMetaObject::invokeMethod(plugin, "projectForDir", Q_ARG(QDir, cmakeFA.getSourceDir()), Q_ARG(bool, true));
-    }
 }
 
 /******************************************************************/
@@ -1670,17 +1671,36 @@ void KateBuildView::addProjectTargets()
     const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
 
     // Read the targets from the override if available
-    const QString userOverride = projectsBaseDir + QStringLiteral("/.kateproject.build");
+    const QString userOverride = projectsBaseDir + u"/.kateproject.build"_s;
     if (QFile::exists(userOverride)) {
         // We have user modified commands
         QFile file(userOverride);
         if (file.open(QIODevice::ReadOnly)) {
             QString jsonString = QString::fromUtf8(file.readAll());
-            QModelIndex addedIndex = m_targetsUi->targetsModel.insertAfter(projRootIndex, jsonString);
-            if (addedIndex != projRootIndex) {
-                return;
-                // The user file overrides the rest
-                // TODO maybe add heuristics for when to re-read the project data
+            QJsonParseError error;
+            const QJsonDocument doc = QJsonDocument::fromJson(jsonString.toUtf8(), &error);
+            if (error.error != QJsonParseError::NoError) {
+                qWarning() << "Could not parse the provided Json";
+            } else {
+                QJsonObject root = doc.object();
+                QJsonArray targetSets = root[u"target_sets"_s].toArray();
+                for (int i = targetSets.size() - 1; i >= 0; --i) {
+                    QJsonObject set = targetSets[i].toObject();
+                    if (set[u"loaded_via_cmake"_s].toBool()) {
+                        QString buildDir = set[u"directory"_s].toString();
+                        QTimer::singleShot(0, this, [this, buildDir]() {
+                            loadCMakeTargets(buildDir);
+                        });
+                        targetSets.removeAt(i);
+                    }
+                }
+                root[u"target_sets"_s] = targetSets;
+                QModelIndex addedIndex = m_targetsUi->targetsModel.insertAfter(projRootIndex, root);
+                if (addedIndex != projRootIndex) {
+                    return;
+                    // The user file overrides the rest
+                    // TODO maybe add heuristics for when to re-read the project data
+                }
             }
         }
     }
@@ -1740,18 +1760,36 @@ void KateBuildView::saveProjectTargets()
     }
     const QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
     const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
-    const QString userOverride = projectsBaseDir + QStringLiteral("/.kateproject.build");
+    const QString userOverride = projectsBaseDir + u"/.kateproject.build"_s;
+
+    QJsonObject root = m_targetsUi->targetsModel.indexToJsonObj(projRootIndex);
+    root[u"Auto_generated"_s] = u"This file is auto-generated. Any extra tags or formatting will be lost"_s;
+    // Do not save CMake auto generated targets
+    QJsonArray targetSets = root[u"target_sets"_s].toArray();
+    for (int i = targetSets.size() - 1; i >= 0; --i) {
+        QJsonObject set = targetSets[i].toObject();
+        if (set[u"loaded_via_cmake"_s].toBool()) {
+            // These will be loaded again when loadCMakeTargets is called
+            set[u"targets"_s] = {};
+            targetSets[i] = set;
+        }
+    }
+
+    if (targetSets.isEmpty()) {
+        // Nothing left for the userOverride -> remove the file
+        QFile::remove(userOverride);
+        // There are no target-sets left, try reloading the original project-targets
+        addProjectTargets();
+        return;
+    }
+    root[u"target_sets"_s] = targetSets;
 
     QFile file(userOverride);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
         displayMessage(i18n("Cannot save build targets in: %1", userOverride), KTextEditor::Message::Error);
         return;
     }
-
-    QJsonObject root = m_targetsUi->targetsModel.indexToJsonObj(projRootIndex);
-    root[QStringLiteral("Auto_generated")] = QStringLiteral("This file is auto-generated. Any extra tags or formatting will be lost");
     QJsonDocument doc(root);
-
     file.write(doc.toJson());
     file.close();
 }

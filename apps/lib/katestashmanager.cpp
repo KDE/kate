@@ -13,18 +13,24 @@
 
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QStringDecoder>
 #include <QUrl>
 
 void KateStashManager::clearStashForSession(const KateSession::Ptr session)
 {
+    // we should avoid to kill stuff for these, they can't be stashed
+    if (session->isAnonymous() || session->file().isEmpty()) {
+        return;
+    }
+
     const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     QDir dir(appDataPath);
     if (dir.exists(QStringLiteral("stash"))) {
         dir.cd(QStringLiteral("stash"));
-        const QString sessionName = session->name();
-        if (dir.exists(sessionName)) {
-            dir.cd(sessionName);
+        const QString stashName = QFileInfo(session->file()).fileName();
+        if (dir.exists(stashName)) {
+            dir.cd(stashName);
             dir.removeRecursively();
         }
     }
@@ -42,9 +48,9 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
     dir.mkdir(QStringLiteral("stash"));
     dir.cd(QStringLiteral("stash"));
 
-    const QString sessionName = KateApp::self()->sessionManager()->activeSession()->name();
-    dir.mkdir(sessionName);
-    dir.cd(sessionName);
+    const QString stashName = QFileInfo(KateApp::self()->sessionManager()->activeSession()->file()).fileName();
+    dir.mkdir(stashName);
+    dir.cd(stashName);
 
     int i = 0;
     for (KTextEditor::Document *doc : documents) {
@@ -84,6 +90,7 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     if (!willStashDoc(doc)) {
         return;
     }
+
     // Stash changes
     QString stashedFile = path + QStringLiteral("/") + stashfileName;
 
@@ -106,7 +113,7 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
 bool KateStashManager::canStash() const
 {
     const auto activeSession = KateApp::self()->sessionManager()->activeSession();
-    return activeSession && !activeSession->isAnonymous() && !activeSession->name().isEmpty();
+    return activeSession && !activeSession->isAnonymous() && !activeSession->file().isEmpty();
 }
 
 void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig)

@@ -60,7 +60,7 @@ public:
 
 private Q_SLOTS:
     void viewCreated(KTextEditor::View *);
-    void documentCreated(KTextEditor::Editor *, KTextEditor::Document *);
+    void documentCreated(KTextEditor::Document *);
     void updateMenuSlotStub(KTextEditor::Document *);
     void close(const QString &, const bool);
     void closeExcept(const QString &item)

@@ -82,7 +82,7 @@ CloseExceptPluginView::CloseExceptPluginView(KTextEditor::MainWindow *mw, CloseE
     actionCollection()->addAction(QStringLiteral("file_close_except"), m_except_menu);
     actionCollection()->addAction(QStringLiteral("file_close_like"), m_like_menu);
 
-    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::documentCreated, this, &CloseExceptPluginView::documentCreated);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &CloseExceptPluginView::documentCreated);
     // Configure toggle action and connect it to update state
     m_show_confirmation_action->setChecked(m_plugin->showConfirmationNeeded());
     connect(m_show_confirmation_action.data(), &KToggleAction::toggled, m_plugin, &CloseExceptPlugin::toggleShowConfirmation);
@@ -105,7 +105,7 @@ void CloseExceptPluginView::viewCreated(KTextEditor::View *view)
     updateMenu();
 }
 
-void CloseExceptPluginView::documentCreated(KTextEditor::Editor *, KTextEditor::Document *document)
+void CloseExceptPluginView::documentCreated(KTextEditor::Document *document)
 {
     connectToDocument(document);
     updateMenu();

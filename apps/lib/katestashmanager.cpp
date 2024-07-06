@@ -11,11 +11,15 @@
 #include "kateapp.h"
 #include "kateviewmanager.h"
 
+#include <KTextEditor/Editor>
+
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QStringDecoder>
 #include <QUrl>
+
+#include <memory>
 
 void KateStashManager::clearStashForSession(const KateSession::Ptr session)
 {
@@ -135,19 +139,14 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
 
     if (checksumOk) {
         // open file with stashed content
-        QFile input(stashedFile);
-        input.open(QIODevice::ReadOnly);
-
-        auto decoder = QStringDecoder(kconfig.readEntry("Encoding").toUtf8().constData());
-        QString text = decoder.isValid() ? decoder.decode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
-
-        // normalize line endings, to e.g. catch issues with \r\n on Windows
-        text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
-
-        doc->setText(text);
+        // use dummy document to have proper encoding and line ending handling, see bug 489360
+        std::unique_ptr<KTextEditor::Document> tmpDoc(KTextEditor::Editor::instance()->createDocument(nullptr));
+        tmpDoc->setEncoding(doc->encoding());
+        tmpDoc->openUrl(QUrl::fromLocalFile(stashedFile));
+        doc->setText(tmpDoc->text());
 
         // clean stashed file
-        if (!input.remove()) {
+        if (!QFile::remove(stashedFile)) {
             qCWarning(LOG_KATE) << "Could not remove stash file" << stashedFile;
         }
     }

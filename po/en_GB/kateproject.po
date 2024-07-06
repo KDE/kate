@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-03 00:41+0000\n"
-"PO-Revision-Date: 2024-05-24 16:57+0100\n"
+"PO-Revision-Date: 2024-07-05 13:42+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -516,24 +516,19 @@ msgid "Project Completion"
 msgstr "Project Completion"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "Autoload Repositories"
+msgstr "Autoload Repositories && Build Trees"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"Project plugin is able to autoload repository working copies when there is "
-"no .kateproject file defined yet."
+"Project plugin is able to autoload repository working copies and build trees "
+"when there is no .kateproject file defined yet."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -558,7 +553,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -682,10 +677,9 @@ msgid "Terminal (Base)"
 msgstr "Terminal (Base)"
 
 #: kateprojectinfoview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "Terminal (Base)"
+msgstr "Terminal (build)"
 
 #: kateprojectinfoview.cpp:63
 #, kde-format

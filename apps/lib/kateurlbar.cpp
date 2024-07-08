@@ -146,7 +146,7 @@ public:
 
     void setCurrentIndex(const QModelIndex &index)
     {
-        m_itemView.setCurrentIndex(index);
+        m_itemView.setCurrentIndex(m_proxyModel.mapFromSource(index));
     }
     QModelIndex currentIndex() const
     {

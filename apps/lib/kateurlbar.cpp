@@ -113,7 +113,9 @@ public:
 
         m_proxyModel.setFilterKeyColumn(0);
         m_proxyModel.setFilterRole(Qt::DisplayRole);
-        m_proxyModel.setRecursiveFilteringEnabled(true);
+        if constexpr (std::is_same_v<ItemView, QTreeView>) {
+            m_proxyModel.setRecursiveFilteringEnabled(true);
+        }
         m_itemView.setModel(&m_proxyModel);
         connect(&m_filterText, &QLineEdit::textChanged, &m_proxyModel, &FuzzyFilterModel::setFilterString);
         connect(&m_filterText, &QLineEdit::textChanged, this, [this] {

@@ -15,7 +15,7 @@
 #include <QFontDatabase>
 #include <QLocale>
 
-inline bool isNumeric(const QVariant::Type type)
+inline bool isNumeric(const int type)
 {
     return (type > 1 && type < 7);
 }
@@ -53,7 +53,7 @@ void DataOutputModel::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
 
-    KConfigGroup group = config.group("OutputCustomization");
+    KConfigGroup group = config.group(QStringLiteral("OutputCustomization"));
 
     KColorScheme scheme(QPalette::Active, KColorScheme::View);
 
@@ -99,7 +99,7 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
     }
 
     const QVariant value(CachedSqlQueryModel::data(index, Qt::DisplayRole));
-    const QVariant::Type type = value.type();
+    const auto type = value.typeId();
 
     if (value.isNull()) {
         if (role == Qt::FontRole) {
@@ -116,7 +116,7 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
         }
     }
 
-    if (type == QVariant::ByteArray) {
+    if (type == QMetaType::Type::QByteArray) {
         if (role == Qt::FontRole) {
             return QVariant(m_styles.value(QStringLiteral("blob"))->font);
         }
@@ -153,7 +153,7 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
         }
     }
 
-    if (type == QVariant::Bool) {
+    if (type == QMetaType::Bool) {
         if (role == Qt::FontRole) {
             return QVariant(m_styles.value(QStringLiteral("bool"))->font);
         }
@@ -168,7 +168,7 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
         }
     }
 
-    if (type == QVariant::Date || type == QVariant::Time || type == QVariant::DateTime) {
+    if (type == QMetaType::QDate || type == QMetaType::QTime || type == QMetaType::QDateTime) {
         if (role == Qt::FontRole) {
             return QVariant(m_styles.value(QStringLiteral("datetime"))->font);
         }
@@ -180,13 +180,13 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
         }
         if (role == Qt::DisplayRole || role == Qt::UserRole) {
             if (useSystemLocale()) {
-                if (type == QVariant::Date) {
+                if (type == QMetaType::QDate) {
                     return QVariant(QLocale().toString(value.toDate(), QLocale::ShortFormat));
                 }
-                if (type == QVariant::Time) {
+                if (type == QMetaType::QTime) {
                     return QVariant(QLocale().toString(value.toTime()));
                 }
-                if (type == QVariant::DateTime) {
+                if (type == QMetaType::QDateTime) {
                     return QVariant(QLocale().toString(value.toDateTime(), QLocale::ShortFormat));
                 }
             } else { // return sql server format

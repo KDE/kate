@@ -95,7 +95,7 @@ QTreeWidgetItem *OutputStyleWidget::addContext(const QString &key, const QString
 void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
-    KConfigGroup g = config.group("OutputCustomization").group(item->data(0, QLatin1String(Qt::UserRole).toString()));
+    KConfigGroup g = config.group(QStringLiteral("OutputCustomization")).group(item->data(0, Qt::UserRole).toString());
 
     QCheckBox *boldCheckBox = static_cast<QCheckBox *>(itemWidget(item, 1));
     QCheckBox *italicCheckBox = static_cast<QCheckBox *>(itemWidget(item, 2));
@@ -119,7 +119,7 @@ void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
 
-    KConfigGroup g = config.group("OutputCustomization").group(item->data(0, QLatin1String(Qt::UserRole).toString()));
+    KConfigGroup g = config.group(QStringLiteral("OutputCustomization")).group(item->data(0, Qt::UserRole).toString());
 
     QCheckBox *boldCheckBox = static_cast<QCheckBox *>(itemWidget(item, 1));
     QCheckBox *italicCheckBox = static_cast<QCheckBox *>(itemWidget(item, 2));

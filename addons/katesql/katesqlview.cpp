@@ -8,9 +8,7 @@
 #include "connectionmodel.h"
 #include "connectionwizard.h"
 #include "dataoutputmodel.h"
-#include "dataoutputview.h"
 #include "dataoutputwidget.h"
-#include "katesqlplugin.h"
 #include "outputwidget.h"
 #include "schemabrowserwidget.h"
 #include "schemawidget.h"
@@ -145,7 +143,7 @@ void KateSQLView::slotSQLMenuAboutToShow()
     qDeleteAll(m_connectionsGroup->actions());
 
     QMenu *sqlMenu = static_cast<QMenu *>(factory()->container(QStringLiteral("SQL"), this));
-    QAction *before = action("query_run");
+    QAction *before = action(QStringLiteral("query_run"));
     QAbstractItemModel *model = m_manager->connectionModel();
 
     int rows = model->rowCount(QModelIndex());

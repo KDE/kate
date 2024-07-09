@@ -4,7 +4,7 @@ set_package_properties(KF6Wallet PROPERTIES PURPOSE "Required to build the kates
 find_package(Qt6Sql ${QT_MIN_VERSION} QUIET)
 set_package_properties(Qt6Sql PROPERTIES PURPOSE "Required to build the katesql addon")
 
-if(NOT KF5Wallet_FOUND OR NOT Qt6Sql_FOUND)
+if(NOT KF6Wallet_FOUND OR NOT Qt6Sql_FOUND)
   return()
 endif()
 

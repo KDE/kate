@@ -112,7 +112,7 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
         return;
     }
 
-    m_model->setQuery(query);
+    m_model->setQuery(std::move(query));
 
     m_isEmpty = false;
 
@@ -317,7 +317,7 @@ void DataOutputWidget::exportData(QTextStream &stream,
             rows.insert(row);
         }
 
-        if (data.type() < 7) // is numeric or boolean
+        if (data.typeId() < 7) // is numeric or boolean
         {
             if (numbersQuoteChar != QLatin1Char('\0')) {
                 snapshot[qMakePair(row, col)] = numbersQuoteChar + data.toString() + numbersQuoteChar;

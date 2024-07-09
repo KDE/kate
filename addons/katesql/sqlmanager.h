@@ -11,7 +11,7 @@ class KConfigGroup;
 class QUrl;
 
 #include "connection.h"
-#include <KWallet>
+
 #include <QSqlQuery>
 #include <QUrl>
 
@@ -28,7 +28,6 @@ public:
     static bool testConnection(const Connection &conn, QSqlError &error);
     bool isValidAndOpen(const QString &connection);
 
-    KWallet::Wallet *openWallet();
     int storeCredentials(const Connection &conn);
     int readCredentials(const QString &name, QString &password);
     static const int K_WALLET_CONNECTION_SUCCESSFUL = 0;
@@ -57,5 +56,4 @@ Q_SIGNALS:
 
 private:
     ConnectionModel *m_model;
-    KWallet::Wallet *m_wallet = nullptr;
 };

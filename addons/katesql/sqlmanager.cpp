@@ -12,11 +12,14 @@
 #include <KLocalizedString>
 
 #include <QDebug>
+#include <QEventLoop>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlError>
 
-using KWallet::Wallet;
+#include <qt6keychain/keychain.h>
 
 SQLManager::SQLManager(QObject *parent)
     : QObject(parent)
@@ -32,7 +35,6 @@ SQLManager::~SQLManager()
     }
 
     delete m_model;
-    delete m_wallet;
 }
 
 void SQLManager::createConnection(const Connection &conn)
@@ -154,38 +156,9 @@ void SQLManager::reopenConnection(const QString &name)
     isValidAndOpen(name);
 }
 
-Wallet *SQLManager::openWallet()
-{
-    if (!m_wallet) {
-        /// FIXME get kate window id...
-        m_wallet = Wallet::openWallet(KWallet::Wallet::NetworkWallet(), 0);
-    }
-
-    if (!m_wallet) {
-        return nullptr;
-    }
-
-    QString folder(QStringLiteral("SQL Connections"));
-
-    if (!m_wallet->hasFolder(folder)) {
-        m_wallet->createFolder(folder);
-    }
-
-    m_wallet->setFolder(folder);
-
-    return m_wallet;
-}
-
 int SQLManager::storeCredentials(const Connection &conn)
 {
-    Wallet *wallet = openWallet();
-
-    if (!wallet) { // user reject
-        return SQLManager::K_WALLET_CONNECTION_REJECTED_BY_USER;
-    }
-
-    QMap<QString, QString> map;
-
+    QJsonObject map;
     map[QStringLiteral("driver")] = conn.driver.toUpper();
     map[QStringLiteral("options")] = conn.options;
 
@@ -199,29 +172,42 @@ int SQLManager::storeCredentials(const Connection &conn)
         map[QStringLiteral("hostname")] = conn.hostname.toUpper();
         map[QStringLiteral("port")] = QString::number(conn.port);
     }
-    const int result = (wallet->writeMap(conn.name, map) == SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) ? SQLManager::K_WALLET_CONNECTION_SUCCESSFUL
-                                                                                                        : SQLManager::K_WALLET_CONNECTION_ERROR;
-    return result;
+
+    // store the full map just as binary key as JSON
+    QKeychain::WritePasswordJob job(QStringLiteral("org.kde.kate.katesql"));
+    job.setAutoDelete(false);
+    job.setKey(conn.name);
+    job.setBinaryData(QJsonDocument(map).toJson(QJsonDocument::Compact));
+
+    // we need to have a blocking API
+    QEventLoop loop;
+    connect(&job, &QKeychain::Job::finished, &loop, &QEventLoop::quit);
+    job.start();
+    loop.exec();
+    return job.error() ? SQLManager::K_WALLET_CONNECTION_ERROR : SQLManager::K_WALLET_CONNECTION_SUCCESSFUL;
 }
 
 // if success, password contain the password
 int SQLManager::readCredentials(const QString &name, QString &password)
 {
-    Wallet *wallet = openWallet();
+    // get the full map just as binary key as JSON
+    QKeychain::ReadPasswordJob job(QStringLiteral("org.kde.kate.katesql"));
+    job.setAutoDelete(false);
+    job.setKey(name);
 
-    if (!wallet) { // user reject
-        return SQLManager::K_WALLET_CONNECTION_REJECTED_BY_USER;
-    }
-
-    QMap<QString, QString> map;
-
-    if (wallet->readMap(name, map) == 0) {
-        if (!map.isEmpty()) {
-            password = map.value(QStringLiteral("password"));
+    // we need to have a blocking API
+    QEventLoop loop;
+    connect(&job, &QKeychain::Job::finished, &loop, &QEventLoop::quit);
+    job.start();
+    loop.exec();
+    if (!job.error()) {
+        // check if data makes any sense
+        const QJsonObject map = QJsonDocument::fromJson(job.binaryData()).object();
+        if (!map.contains(QStringLiteral("password"))) {
+            password = map.value(QStringLiteral("password")).toString();
             return SQLManager::K_WALLET_CONNECTION_SUCCESSFUL;
         }
     }
-
     return SQLManager::K_WALLET_CONNECTION_ERROR;
 }
 

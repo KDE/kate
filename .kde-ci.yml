@@ -13,6 +13,8 @@ Dependencies:
     'frameworks/ktexteditor': '@latest-kf6'
     'frameworks/ktextwidgets': '@latest-kf6'
     'frameworks/kuserfeedback': '@latest-kf6'
+    'third-party/qtkeychain': '@latest'
+
 - 'on': ['Linux']
   'require':
     'sdk/selenium-webdriver-at-spi': '@latest-kf6'

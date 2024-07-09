@@ -1,10 +1,10 @@
-find_package(KF6Wallet ${KF5_DEP_VERSION} QUIET)
-set_package_properties(KF6Wallet PROPERTIES PURPOSE "Required to build the katesql addon")
-
 find_package(Qt6Sql ${QT_MIN_VERSION} QUIET)
 set_package_properties(Qt6Sql PROPERTIES PURPOSE "Required to build the katesql addon")
 
-if(NOT KF6Wallet_FOUND OR NOT Qt6Sql_FOUND)
+find_package(Qt6Keychain QUIET)
+set_package_properties(Qt6Keychain PROPERTIES PURPOSE "Required to build the katesql addon")
+
+if(NOT Qt6Sql_FOUND OR NOT Qt6Keychain_FOUND)
   return()
 endif()
 
@@ -16,9 +16,9 @@ target_link_libraries(
   PRIVATE
     KF6::I18n
     KF6::TextEditor
-    KF6::Wallet
     KF6::KIOWidgets
     Qt::Sql
+    qt6keychain
 )
 
 target_sources(

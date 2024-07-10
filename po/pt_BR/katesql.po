@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2024-07-10 00:41+0000\n"
 "PO-Revision-Date: 2023-07-05 18:03-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -331,54 +331,54 @@ msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "Configurações do plugin de SQL"
 
-#: katesqlview.cpp:45
+#: katesqlview.cpp:43
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:52
+#: katesqlview.cpp:50
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:58
+#: katesqlview.cpp:56
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "Esquema do SQL"
 
-#: katesqlview.cpp:106
+#: katesqlview.cpp:104
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Adicionar conexão..."
 
-#: katesqlview.cpp:111
+#: katesqlview.cpp:109
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Remover conexão"
 
-#: katesqlview.cpp:116
+#: katesqlview.cpp:114
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Editar conexão..."
 
-#: katesqlview.cpp:121
+#: katesqlview.cpp:119
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "Reconectar"
 
-#: katesqlview.cpp:127
+#: katesqlview.cpp:125
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "Conexão"
 
-#: katesqlview.cpp:131
+#: katesqlview.cpp:129
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -512,13 +512,13 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Atualizar"
 
-#: sqlmanager.cpp:349
+#: sqlmanager.cpp:335
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "A pesquisa foi concluída com sucesso"
 
-#: sqlmanager.cpp:352
+#: sqlmanager.cpp:338
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -526,7 +526,7 @@ msgid_plural "%1 records selected"
 msgstr[0] "%1 registro selecionado"
 msgstr[1] "%1 registros selecionados"
 
-#: sqlmanager.cpp:356
+#: sqlmanager.cpp:342
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

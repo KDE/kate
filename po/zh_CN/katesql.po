@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2024-07-10 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -327,54 +327,54 @@ msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "SQL 配置页面设置"
 
-#: katesqlview.cpp:45
+#: katesqlview.cpp:43
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:52
+#: katesqlview.cpp:50
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:58
+#: katesqlview.cpp:56
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL 纲目结构"
 
-#: katesqlview.cpp:106
+#: katesqlview.cpp:104
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "添加连接..."
 
-#: katesqlview.cpp:111
+#: katesqlview.cpp:109
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "移除连接"
 
-#: katesqlview.cpp:116
+#: katesqlview.cpp:114
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "编辑连接..."
 
-#: katesqlview.cpp:121
+#: katesqlview.cpp:119
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "重新连接"
 
-#: katesqlview.cpp:127
+#: katesqlview.cpp:125
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "连接"
 
-#: katesqlview.cpp:131
+#: katesqlview.cpp:129
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -508,20 +508,20 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "刷新"
 
-#: sqlmanager.cpp:349
+#: sqlmanager.cpp:335
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "查询已成功完成"
 
-#: sqlmanager.cpp:352
+#: sqlmanager.cpp:338
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
 msgstr[0] "%1 条记录已选中"
 
-#: sqlmanager.cpp:356
+#: sqlmanager.cpp:342
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

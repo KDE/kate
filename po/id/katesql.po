@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2024-07-10 00:41+0000\n"
 "PO-Revision-Date: 2022-08-19 20:36+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -336,14 +336,14 @@ msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "Pengaturan ConfigPage SQL"
 
-#: katesqlview.cpp:45
+#: katesqlview.cpp:43
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "SQL"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:52
+#: katesqlview.cpp:50
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "SQL"
@@ -351,7 +351,7 @@ msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:58
+#: katesqlview.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "SQL Schema Browser"
@@ -359,7 +359,7 @@ msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "Penelusur Skema SQL"
 
-#: katesqlview.cpp:106
+#: katesqlview.cpp:104
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add connection..."
@@ -367,7 +367,7 @@ msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Tambah koneksi..."
 
-#: katesqlview.cpp:111
+#: katesqlview.cpp:109
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Remove connection"
@@ -375,7 +375,7 @@ msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Buang koneksi"
 
-#: katesqlview.cpp:116
+#: katesqlview.cpp:114
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Edit connection..."
@@ -383,19 +383,19 @@ msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Edit koneksi..."
 
-#: katesqlview.cpp:121
+#: katesqlview.cpp:119
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "Koneksikan ulang"
 
-#: katesqlview.cpp:127
+#: katesqlview.cpp:125
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "Koneksi"
 
-#: katesqlview.cpp:131
+#: katesqlview.cpp:129
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Run query"
@@ -531,13 +531,13 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Segarkan"
 
-#: sqlmanager.cpp:349
+#: sqlmanager.cpp:335
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Queri berhasil diselesaikan"
 
-#: sqlmanager.cpp:352
+#: sqlmanager.cpp:338
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -545,7 +545,7 @@ msgid_plural "%1 records selected"
 msgstr[0] "%1 rekaman dipilih"
 msgstr[1] "%1 rekaman yang dipilih"
 
-#: sqlmanager.cpp:356
+#: sqlmanager.cpp:342
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

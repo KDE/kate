@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2024-07-10 00:41+0000\n"
 "PO-Revision-Date: 2016-07-26 18:30+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@linux.ee>\n"
@@ -332,14 +332,14 @@ msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "SQL-i plugina seadistused"
 
-#: katesqlview.cpp:45
+#: katesqlview.cpp:43
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "SQL"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:52
+#: katesqlview.cpp:50
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "SQL"
@@ -347,7 +347,7 @@ msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:58
+#: katesqlview.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "SQL Schema Browser"
@@ -355,7 +355,7 @@ msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL-i skeemi brauser"
 
-#: katesqlview.cpp:106
+#: katesqlview.cpp:104
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add connection..."
@@ -363,7 +363,7 @@ msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Lisa ühendus..."
 
-#: katesqlview.cpp:111
+#: katesqlview.cpp:109
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Remove connection"
@@ -371,7 +371,7 @@ msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Eemalda ühendus"
 
-#: katesqlview.cpp:116
+#: katesqlview.cpp:114
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Edit connection..."
@@ -379,19 +379,19 @@ msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Muuda ühendust..."
 
-#: katesqlview.cpp:121
+#: katesqlview.cpp:119
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "Ühenda uuesti"
 
-#: katesqlview.cpp:127
+#: katesqlview.cpp:125
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "Ühendus"
 
-#: katesqlview.cpp:131
+#: katesqlview.cpp:129
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Run query"
@@ -527,13 +527,13 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Värskenda"
 
-#: sqlmanager.cpp:349
+#: sqlmanager.cpp:335
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Päring lõpetati edukalt"
 
-#: sqlmanager.cpp:352
+#: sqlmanager.cpp:338
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -541,7 +541,7 @@ msgid_plural "%1 records selected"
 msgstr[0] "%1 kirje valitud"
 msgstr[1] "%1 kirjet valitud"
 
-#: sqlmanager.cpp:356
+#: sqlmanager.cpp:342
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

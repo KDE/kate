@@ -449,7 +449,8 @@ msgid "Move selected target down"
 msgstr "Siirrä valittua kohdetta alemmas"
 
 #: targets.cpp:203
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Copy"
 msgid "Copy"
 msgstr "Kopioi"
 

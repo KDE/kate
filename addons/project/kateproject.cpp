@@ -128,14 +128,18 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
     , m_fileName(QFileInfo(fileName).absoluteFilePath())
     , m_baseDir(QFileInfo(fileName).absolutePath())
 {
+    // link model
+    m_model.m_project = this;
+
     // ensure we get notified for project file changes
     connect(&m_plugin->fileWatcher(), &QFileSystemWatcher::fileChanged, this, &KateProject::slotFileChanged);
     m_plugin->fileWatcher().addPath(m_fileName);
 
-    m_model.m_project = this;
-
     // try to load the project map from our file, will start worker thread, too
     reload();
+
+    // fix roots
+    updateProjectRoots();
 }
 
 KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QVariantMap &globalProject, const QString &directory)
@@ -146,9 +150,14 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
     , m_baseDir(QDir(directory).absolutePath())
     , m_globalProject(globalProject)
 {
+    // link model
     m_model.m_project = this;
+
     // try to load the project map, will start worker thread, too
     load(globalProject);
+
+    // fix roots
+    updateProjectRoots();
 }
 
 KateProject::~KateProject()
@@ -313,6 +322,9 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
      * setup global attributes in this object
      */
     m_projectMap = globalProject;
+
+    // fix roots
+    updateProjectRoots();
 
     // emit that we changed stuff
     Q_EMIT projectMapChanged();
@@ -599,6 +611,24 @@ void KateProject::slotFileChanged(const QString &file)
     if (file == m_fileName) {
         reload();
     }
+}
+
+void KateProject::updateProjectRoots()
+{
+    m_projectRoots.clear();
+
+    const auto addPath = [this](const QString &dir) {
+        if (!dir.isEmpty()) {
+            m_projectRoots.insert(QFileInfo(dir).absoluteFilePath());
+            if (const auto canonical = QFileInfo(dir).canonicalFilePath(); !canonical.isEmpty()) {
+                m_projectRoots.insert(canonical);
+            }
+        }
+    };
+
+    addPath(QFileInfo(fileName()).absolutePath());
+    addPath(baseDir());
+    addPath(projectMap().value(QStringLiteral("build")).toMap().value(QStringLiteral("directory")).toString());
 }
 
 #include "moc_kateproject.cpp"

@@ -252,6 +252,20 @@ public:
      */
     void unregisterDocument(KTextEditor::Document *document);
 
+    /**
+     * All project roots, files below these roots are considered to be part of the project.
+     * This includes the directory with the project file, the baseDir and the build directory.
+     * Paths will be stored as absolute and canonical variants.
+     *
+     * This is used e.g. in KateProjectPlugin::openProjectForDirectory
+     *
+     * @return project root directories for fast lookup
+     */
+    const QSet<QString> &projectRoots() const
+    {
+        return m_projectRoots;
+    }
+
 private Q_SLOTS:
     bool load(const QVariantMap &globalProject, bool force = false);
 
@@ -307,6 +321,11 @@ private:
      * In case of an error, the returned object verifies isNull() is true.
      */
     QJsonDocument readJSONFile(const QString &fileName) const;
+
+    /**
+     * update project root directories, see projectRoots()
+     */
+    void updateProjectRoots();
 
 private:
     /**
@@ -378,4 +397,9 @@ private:
      * project configuration (read from file or injected)
      */
     QVariantMap m_globalProject;
+
+    /**
+     * project root directories, see projectRoots()
+     */
+    QSet<QString> m_projectRoots;
 };

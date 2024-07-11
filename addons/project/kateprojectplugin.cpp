@@ -126,11 +126,9 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
 KateProject *KateProjectPlugin::openProjectForDirectory(const QDir &dir)
 {
     // check for project and load it if found
-    const QDir absDir(dir.absolutePath());
-    const QString absolutePath = absDir.path();
-    const QString projectFileName = absDir.filePath(ProjectFileName);
+    const QString absolutePath = dir.absolutePath();
     for (KateProject *project : std::as_const(m_projects)) {
-        if (project->baseDir() == absolutePath || project->fileName() == projectFileName) {
+        if (project->projectRoots().contains(absolutePath)) {
             return project;
         }
     }

@@ -84,6 +84,8 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         }
         Utils::showMessage(i18n("Unknown formatterForYaml: %1, falling back to yamlfmt", configValue), {}, i18n("Format"), MessageType::Error);
         return yamlfmt(config, doc);
+    } else if (is("opsi-script")) {
+        return opsiScriptBeautifier(config, doc);
     }
 
     static QList<QString> alreadyWarned;

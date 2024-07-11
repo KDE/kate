@@ -4,56 +4,99 @@
     "formatterForPython": "ruff",
     "formatterForYaml": "yamlfmt",
     "clang-format": {
-        "command": ["clang-format", "--fallback-style=Webkit"],
+        "command": [
+            "clang-format",
+            "--fallback-style=Webkit"
+        ],
         "formatModifiedLinesOnly": true,
         "formatOnSave": true
     },
     "dart": {
-        "command": ["dart"]
+        "command": [
+            "dart"
+        ]
     },
     "jq": {
-        "command": ["jq"]
+        "command": [
+            "jq"
+        ]
     },
     "prettier": {
-        "command": ["node"]
+        "command": [
+            "node"
+        ]
     },
     "rustfmt": {
-        "command": ["rustfmt"]
+        "command": [
+            "rustfmt"
+        ]
     },
     "xmllint": {
-        "command": ["xmllint"]
+        "command": [
+            "xmllint"
+        ]
     },
     "gofmt": {
-        "command": ["gofmt"]
+        "command": [
+            "gofmt"
+        ]
     },
     "zig": {
-        "command": ["zig"]
+        "command": [
+            "zig"
+        ]
     },
     "cmake-format": {
-        "command": ["cmake-format"]
+        "command": [
+            "cmake-format"
+        ]
     },
     "autopep8": {
-        "command": ["autopep8"]
+        "command": [
+            "autopep8"
+        ]
     },
     "ruff": {
-        "command": ["ruff"]
+        "command": [
+            "ruff"
+        ]
     },
     "dfmt": {
-        "command": ["dfmt"]
+        "command": [
+            "dfmt"
+        ]
     },
     "fish_indent": {
-        "command": ["fish_indent"]
+        "command": [
+            "fish_indent"
+        ]
     },
     "shfmt": {
-        "command": ["shfmt"]
+        "command": [
+            "shfmt"
+        ]
     },
     "nixfmt": {
-        "command": ["nixfmt"]
+        "command": [
+            "nixfmt"
+        ]
     },
     "qmlformat": {
-        "command": ["qmlformat"]
+        "command": [
+            "qmlformat"
+        ]
     },
     "yamlfmt": {
-        "command": ["yamlfmt", "-quiet", "-"]
+        "command": [
+            "yamlfmt",
+            "-quiet",
+            "-"
+        ]
+    },
+    "opsi-script-beautifier": {
+        "command": [
+            "opsi-script-beautifier",
+            "-s"
+        ]
     }
 }

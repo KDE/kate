@@ -537,13 +537,6 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     m_targetsUi->targetsView->setCurrentIndex(cmdIndex);
 
     m_targetsUi->updateTargetsButtonStates();
-
-    m_targetsUi->targetsView->header()->setSectionResizeMode(1, QHeaderView::Stretch);
-    m_targetsUi->targetsView->header()->setSectionResizeMode(2, QHeaderView::Stretch);
-    QTimer::singleShot(1000, this, [this]() {
-        m_targetsUi->targetsView->header()->setSectionResizeMode(1, QHeaderView::Interactive);
-        m_targetsUi->targetsView->header()->setSectionResizeMode(2, QHeaderView::Interactive);
-    });
 }
 
 /******************************************************************/

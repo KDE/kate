@@ -15,6 +15,7 @@
 #include <QIcon>
 #include <QKeyEvent>
 #include <QMenu>
+#include <QTimer>
 
 static const QString DefConfigCmd = QStringLiteral("cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../");
 static const QString DefConfClean;
@@ -277,6 +278,12 @@ void TargetsUi::targetDelete()
 
 bool TargetsUi::eventFilter(QObject *obj, QEvent *event)
 {
+    if (event->type() == QEvent::Show && obj == targetsView) {
+        QTimer::singleShot(100, this, [this]() {
+            targetsView->header()->setSectionResizeMode(1, QHeaderView::Interactive);
+            targetsView->header()->setSectionResizeMode(2, QHeaderView::Interactive);
+        });
+    }
     if (event->type() == QEvent::ShortcutOverride) {
         // Ignore copy in ShortcutOverride and handle it in the KeyPress event
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);

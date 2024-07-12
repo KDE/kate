@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-09 00:41+0000\n"
-"PO-Revision-Date: 2024-04-23 21:29+0200\n"
+"PO-Revision-Date: 2024-07-11 18:16+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -1034,13 +1034,15 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Irteerako denbora-zigiluak datarekin"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"Gaituta dagoenean, irteera lerroko denbora-zigilu goiburuak data aurretik "
+"izango dute."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1069,10 +1071,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "Erakutsi testua ezker eta eskuin alboko-barrako botoietan"
 
 #: lib/kateconfigdialog.cpp:190
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "Ezker eta eskuin alboko-barrako botoietako ikonoen neurria"
+msgstr "Ezker eta eskuin alboko-barrako botoietako ikonoen neurria:"
 
 #: lib/kateconfigdialog.cpp:210
 #, kde-format
@@ -1446,12 +1447,10 @@ msgid "Focus the next tab."
 msgstr "Fokua hurrengo fitxari."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Aldatu instantziara"
+msgstr "Aldatu %1 fitxara"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format
@@ -1723,16 +1722,14 @@ msgstr ""
 "duzula?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Itxi dokumentu guztiak"
+msgstr "Dokumentu guztiak itxi?"
 
 #: lib/katemainwindow.cpp:613
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "It&xi guztiak"
+msgstr "Itxi guztiak"
 
 #: lib/katemainwindow.cpp:627
 #, kde-format
@@ -1744,14 +1741,12 @@ msgstr ""
 "jarraitu nahi duzula?"
 
 #: lib/katemainwindow.cpp:628
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Itxi dokumentu guztiak unekoa ezik"
+msgstr "Unekoaz gain, dokumentu guztiak itxi?"
 
 #: lib/katemainwindow.cpp:629
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Itxi besteak"
 
@@ -2338,13 +2333,12 @@ msgstr "Erakutsi ongietorri orria"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Txandakatu kiribiltze-sinkronizazioa"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Uneko ikuspegi zatituaren orientazioa txandakatzen du"
+msgstr "Txandakatu kiribiltze-sinkronizazioa uneko ikuspegirako"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2397,16 +2391,12 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> plugina gaitzea huts egin du"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "Sin&kronizatu kiribiltzea"
+msgstr "Sinkronizatu kiribiltzea"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""

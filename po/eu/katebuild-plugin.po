@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-02 00:41+0000\n"
-"PO-Revision-Date: 2024-03-24 21:13+0100\n"
+"PO-Revision-Date: 2024-07-12 00:11+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -94,12 +94,12 @@ msgstr "Eraiki eta ibili hautatutako jomuga"
 #: plugin_katebuild.cpp:254
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Konpilatu uneko fitxategia"
 
 #: plugin_katebuild.cpp:255
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "Saiatu uneko fitxategi konpilatzen «compile_commands.json» bat bilatuz"
 
 #: plugin_katebuild.cpp:260
 #, kde-format
@@ -109,7 +109,7 @@ msgstr "Gelditu"
 #: plugin_katebuild.cpp:265
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Zamatu jomugak CMake eraikitzeko direktoriotik"
 
 #: plugin_katebuild.cpp:269
 #, kde-format
@@ -130,17 +130,13 @@ msgid "Target Settings"
 msgstr "Jomuga ezarpenak"
 
 #: plugin_katebuild.cpp:350
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>Fitxategia ezin izan da ireki:</title><nl/>%1<br/>Saiatu «Jomugako "
-"ezarpenetan» laneko direktorioaren bilaketa bide-izena ipintzen"
+"<b>Fitxategia ez da aurkitu:</b> %1<br><b>Bilatzeko bide-izenak: </b><br>"
+"%2<br>Saiatu \"Laneko direktorioari\" bilaketa bide-izen bat gehitzen"
 
 #: plugin_katebuild.cpp:433
 #, kde-format
@@ -182,12 +178,12 @@ msgstr "<b>%1</b> eraikitzea utzi da"
 #: plugin_katebuild.cpp:914
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Ez du aurkitu \"%1\" fitxategirako «compile_commands.json» bat."
 
 #: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "\"%2\"(e)an ez du aurkitu \"%1\" fitxategia konpilatzeko komando bat."
 
 #: plugin_katebuild.cpp:1035
 #, kde-format
@@ -215,16 +211,20 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Ezin ditu jomugak zamatu, %1 fitxategiak ez dauka CMAKE_COMMAND sarrera "
+"egoki bat!"
 
 #: plugin_katebuild.cpp:1115
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Ezin izan da, eraikitzeko %1 direktoriorako, CMake fitxategiko API itaun "
+"fitxategirik idatzi!"
 
 #: plugin_katebuild.cpp:1121
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Ezin izan da, eraikitzeko %1 direktoriorako, CMake (%2) exekutatu!"
 
 #: plugin_katebuild.cpp:1130
 #, kde-format
@@ -232,11 +232,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Eraikitzeko %1 direktoriorako, CMake fitxategiko API itaun fitxategiak (%2 "
+"erabiliz) sortzea huts egin du!"
 
 #: plugin_katebuild.cpp:1258
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Eraikitzeko pluginak programa exekutatu nahi du"
 
 #: plugin_katebuild.cpp:1261
 #, kde-format
@@ -246,6 +248,10 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Katen eraikitzeko pluginak, eraikitzeko zuhaitzeko jomugak irakurtzeko, "
+"kanpoko programa bat exekutatzea behar du.<br><br>Comando-lerro osoa da:"
+"<br><br><b>%1</b><br><br>Jarraitu eta komando hori exekutatzea baimendu?"
+"<br><br>Aukera plugina konfiguratzeko orritik aldatu daiteke."
 
 #: plugin_katebuild.cpp:1293
 #, kde-kuit-format
@@ -414,10 +420,9 @@ msgid "Create new set of targets"
 msgstr "Sortu jomuga multzo berria"
 
 #: targets.cpp:39
-#, fuzzy, kde-format
-#| msgid "Copy command or target set"
+#, kde-format
 msgid "Clone command or target set"
-msgstr "Kopiatu komandoa edo jomuga multzoa"
+msgstr "Klonatu komandoa edo jomuga multzoa"
 
 #: targets.cpp:43
 #, kde-format
@@ -457,12 +462,12 @@ msgstr "Kopiatu"
 #: targets.cpp:207
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "Ebaki"
 
 #: targets.cpp:211
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "Itsatsi ondoren"
 
 #: targets.cpp:245
 #, kde-format

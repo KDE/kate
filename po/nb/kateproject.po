@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-03 00:41+0000\n"
+"POT-Creation-Date: 2024-07-12 00:41+0000\n"
 "PO-Revision-Date: 2016-03-24 14:51+0100\n"
 "Last-Translator: Bjørn <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -502,12 +502,12 @@ msgstr ""
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 
-#: kateproject.cpp:227
+#: kateproject.cpp:236
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:527
+#: kateproject.cpp:539
 #, kde-format
 msgid "<untracked>"
 msgstr "<ikke sporet>"
@@ -791,29 +791,29 @@ msgstr ""
 msgid "File name already exists"
 msgstr ""
 
-#: kateprojectplugin.cpp:218
+#: kateprojectplugin.cpp:216
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr ""
 
-#: kateprojectplugin.cpp:219
+#: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 
-#: kateprojectplugin.cpp:596
+#: kateprojectplugin.cpp:594
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr ""
 
-#: kateprojectplugin.cpp:613
+#: kateprojectplugin.cpp:611
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectplugin.cpp:730 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

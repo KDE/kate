@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-07-12 00:41+0000\n"
 "PO-Revision-Date: 2024-04-23 19:24\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:92
+#: FormatterFactory.h:94
 #, kde-format
 msgid "Format"
 msgstr "格式"
@@ -89,7 +89,7 @@ msgstr "未知 formatterForPython：%1"
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "未知的 formatterForYaml：%1，将退而使用 yamlfmt"
 
-#: FormatterFactory.h:92
+#: FormatterFactory.h:94
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "无法运行格式化程序。不支持的语言 %1"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-07-12 00:41+0000\n"
 "PO-Revision-Date: 2024-05-30 03:08+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:92
+#: FormatterFactory.h:94
 #, kde-format
 msgid "Format"
 msgstr "格式"
@@ -89,7 +89,7 @@ msgstr "未知的 Python 格式器：%1"
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "未知的 JSON 格式器：%1，將退回改用 yamlfmt"
 
-#: FormatterFactory.h:92
+#: FormatterFactory.h:94
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "執行格式器時失敗。不支援的語言 %1"

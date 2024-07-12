@@ -1,16 +1,16 @@
 # Translation for kateproject.po to Euskara/Basque (eu).
-# Copyright (C) 2018-2023 This file is copyright:
+# Copyright (C) 2018-2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2023 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2020, 2022, 2023.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2020, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-03 00:41+0000\n"
-"PO-Revision-Date: 2023-12-02 07:02+0100\n"
+"POT-Creation-Date: 2024-07-12 00:41+0000\n"
+"PO-Revision-Date: 2024-07-11 18:09+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -507,12 +507,12 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 "Ziur zaude aztarna jarraitzeke duten aldaketa hauek kendu nahi dituzula?"
 
-#: kateproject.cpp:227
+#: kateproject.cpp:236
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Gaizki osatutako JSON fitxategia '%1': %2"
 
-#: kateproject.cpp:527
+#: kateproject.cpp:539
 #, kde-format
 msgid "<untracked>"
 msgstr "<aztarna jarraitzeke>"
@@ -523,24 +523,20 @@ msgid "Project Completion"
 msgstr "Proiektuaren osatze maila"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "Automatikoki zamatu gordetegiak"
+msgstr "Gordetegiak automatikoki zamatu eta zuhaitzak eraiki"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"Proiektu plugina gordetegien laneko kopia automatikoki zamatzeko gai da "
-"oraindik .kateproject fitxategirik zehaztu gabe dagoenean."
+"Proiektu-plugina, .kateproject fitxategia zehaztu gabe dagoenean,  "
+"gordetegiko laneko kopiak automatikoki zamatzeko eta zuhaitzak eraikitzeko "
+"gai da."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -565,7 +561,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -689,10 +685,9 @@ msgid "Terminal (Base)"
 msgstr "Terminala (oinarria)"
 
 #: kateprojectinfoview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "Terminala (oinarria)"
+msgstr "Terminala (eraiki)"
 
 #: kateprojectinfoview.cpp:63
 #, kde-format
@@ -808,24 +803,24 @@ msgstr "Errorea"
 msgid "File name already exists"
 msgstr "Fitxategi-izena aurretik dago"
 
-#: kateprojectplugin.cpp:218
+#: kateprojectplugin.cpp:216
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Berretsi proiektua ixtea: %1"
 
-#: kateprojectplugin.cpp:219
+#: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "%1 proiektua eta harekin erlazioa duten irekitako %2 dokumentuak itxi nahi "
 "dituzu?"
 
-#: kateprojectplugin.cpp:596
+#: kateprojectplugin.cpp:594
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Uneko proiekturako bide-izen osoa fitxategi-izena salbu."
 
-#: kateprojectplugin.cpp:613
+#: kateprojectplugin.cpp:611
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -834,7 +829,7 @@ msgstr ""
 "Uneko proiekturako bide-izen osoa fitxategi-izena salbu, bide-izenen berezko "
 "banatzekoarekin (alderantzizko barra zeiharra Windows-en)."
 
-#: kateprojectplugin.cpp:730 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

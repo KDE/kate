@@ -1,17 +1,17 @@
 # Translation for katesnippetsplugin.po Euskara/Basque (eu).
 # Copyright (C) 2018, Free Software Foundation.
-# Copyright (C) 2019-2020, This file is copyright:
+# Copyright (C) 2019-2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# KDE euskaratzeko proiektuko arduraduna <xalba@euskalnet.net>.
+# SPDX-FileCopyrightText: 2024 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2018, 2020.
+# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2018, 2020, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2020-10-10 18:51+0200\n"
+"PO-Revision-Date: 2024-07-11 18:04+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.08.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -103,17 +103,15 @@ msgstr "Sortu testu-zati berria %1 gordetegian"
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"Baliteke zuriuneak dituzten testu-zatien izenak osatzean ondo ez ibiltzea"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"Testu-zatiak gorde gabeko aldaketak ditu. Jarraitu nahi duzu eta aldaketa "
-"guztiak galdu?"
+"Testu-zatiak gorde gabeko aldaketak ditu. Aldaketa guztiak baztertu nahi "
+"dituzu?"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -123,7 +121,7 @@ msgstr "Abisua - Gorde gabeko aldaketak"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Jarraitu editatzen"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

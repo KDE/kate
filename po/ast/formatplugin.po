@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-07-12 00:41+0000\n"
 "PO-Revision-Date: 2024-03-27 23:50+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: Asturian <alministradores@softastur.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:92
+#: FormatterFactory.h:94
 #, kde-format
 msgid "Format"
 msgstr ""
@@ -89,7 +89,7 @@ msgstr ""
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
 
-#: FormatterFactory.h:92
+#: FormatterFactory.h:94
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 00:42+0000\n"
+"POT-Creation-Date: 2024-07-12 00:41+0000\n"
 "PO-Revision-Date: 2024-01-12 21:52+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:92
+#: FormatterFactory.h:94
 #, kde-format
 msgid "Format"
 msgstr "Formázás"
@@ -90,7 +90,7 @@ msgstr ""
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
 
-#: FormatterFactory.h:92
+#: FormatterFactory.h:94
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Nem sikerült futtatni a formázót. Nem támogatott nyelv: %1"

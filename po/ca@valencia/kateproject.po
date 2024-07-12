@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-03 00:41+0000\n"
+"POT-Creation-Date: 2024-07-12 00:41+0000\n"
 "PO-Revision-Date: 2024-07-03 09:35+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -510,12 +510,12 @@ msgstr "Segur que voleu descartar els canvis?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Segur que voleu eliminar estos canvis sense seguir?"
 
-#: kateproject.cpp:227
+#: kateproject.cpp:236
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Fitxer JSON «%1» amb format incorrecte: %2"
 
-#: kateproject.cpp:527
+#: kateproject.cpp:539
 #, kde-format
 msgid "<untracked>"
 msgstr "<sense seguiment>"
@@ -807,22 +807,22 @@ msgstr "S'ha produït un error"
 msgid "File name already exists"
 msgstr "El nom de fitxer ja existix"
 
-#: kateprojectplugin.cpp:218
+#: kateprojectplugin.cpp:216
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Confirma el tancament del projecte: %1"
 
-#: kateprojectplugin.cpp:219
+#: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Voleu tancar el projecte %1 i els %2 documents oberts relacionats?"
 
-#: kateprojectplugin.cpp:596
+#: kateprojectplugin.cpp:594
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Camí complet del projecte actual excloent el nom del fitxer."
 
-#: kateprojectplugin.cpp:613
+#: kateprojectplugin.cpp:611
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -831,7 +831,7 @@ msgstr ""
 "Camí complet del projecte actual excloent el nom del fitxer, amb el "
 "separador de camí natiu (barra inversa a Windows)."
 
-#: kateprojectplugin.cpp:730 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

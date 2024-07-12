@@ -178,7 +178,7 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 // BEGIN ProxyItem
 ProxyItem::ProxyItem(const QString &d, ProxyItemDir *p, ProxyItem::Flags f)
     : m_path(d)
-    , m_parent(Q_NULLPTR)
+    , m_parent(nullptr)
     , m_row(-1)
     , m_flags(f)
 {

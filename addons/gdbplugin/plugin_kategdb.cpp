@@ -447,14 +447,13 @@ void KatePluginGDBView::aboutToShowMenu()
 
 void KatePluginGDBView::slotToggleBreakpoint()
 {
-    if (!actionCollection()->action(QStringLiteral("continue"))->isEnabled()) {
-        m_debugView->slotInterrupt();
+    KTextEditor::View *editView = m_mainWin->activeView();
+    QUrl currURL = editView->document()->url();
+    int line = editView->cursorPosition().line();
+    if ((editView->document()->mark(line) & KTextEditor::Document::MarkTypes::BreakpointActive) == KTextEditor::Document::MarkTypes::BreakpointActive) {
+        editView->document()->removeMark(line, KTextEditor::Document::MarkTypes::BreakpointActive);
     } else {
-        KTextEditor::View *editView = m_mainWin->activeView();
-        QUrl currURL = editView->document()->url();
-        int line = editView->cursorPosition().line();
-
-        m_debugView->toggleBreakpoint(currURL, line + 1);
+        editView->document()->addMark(line, KTextEditor::Document::MarkTypes::BreakpointActive);
     }
 }
 
@@ -529,8 +528,7 @@ void KatePluginGDBView::enableDebugActions(bool enable)
     actionCollection()->action(QStringLiteral("continue"))->setEnabled(enable && m_debugView->canContinue());
     actionCollection()->action(QStringLiteral("print_value"))->setEnabled(enable);
 
-    // "toggle breakpoint" doubles as interrupt while the program is running
-    actionCollection()->action(QStringLiteral("toggle_breakpoint"))->setEnabled(m_debugView->canSetBreakpoints());
+    actionCollection()->action(QStringLiteral("toggle_breakpoint"))->setEnabled(true);
     actionCollection()->action(QStringLiteral("kill"))->setEnabled(m_debugView->debuggerRunning());
     actionCollection()->action(QStringLiteral("rerun"))->setEnabled(m_debugView->debuggerRunning());
 
@@ -893,6 +891,33 @@ void KatePluginGDBView::enableBreakpointMarks(KTextEditor::Document *document)
         document->setEditableMarks(document->editableMarks() | KTextEditor::Document::BreakpointActive);
         document->setMarkDescription(KTextEditor::Document::BreakpointActive, i18n("Breakpoint"));
         document->setMarkIcon(KTextEditor::Document::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-record")));
+
+        connect(document, &KTextEditor::Document::viewCreated, this, &KatePluginGDBView::prepareDocumentBreakpoints);
+    }
+}
+
+void KatePluginGDBView::prepareDocumentBreakpoints(KTextEditor::Document *document)
+{
+    // If debugger is running and we open the file, check if there is a break point set in every line
+    // and add markers accordingly
+    if (m_debugView->debuggerRunning()) {
+        for (auto i = 0; i < document->lines(); i++) {
+            if (m_debugView->hasBreakpoint(document->url(), i)) {
+                document->setMark(i - 1, KTextEditor::Document::MarkTypes::BreakpointActive);
+            }
+        }
+    }
+    // Update breakpoints when they're added or removed to the debugger
+    connect(document, &KTextEditor::Document::markChanged, this, &KatePluginGDBView::updateBreakpoints);
+}
+
+void KatePluginGDBView::updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark)
+{
+    if (mark.type == KTextEditor::Document::MarkTypes::BreakpointActive) {
+        if (!actionCollection()->action(QStringLiteral("continue"))->isEnabled()) {
+            m_debugView->slotInterrupt();
+        }
+        m_debugView->toggleBreakpoint(document->url(), mark.line + 1);
     }
 }
 

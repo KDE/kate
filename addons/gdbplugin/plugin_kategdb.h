@@ -13,6 +13,7 @@
 
 #include <KActionMenu>
 #include <KTextEditor/Application>
+#include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
@@ -105,6 +106,8 @@ private Q_SLOTS:
     void clearMarks();
     void handleEsc(QEvent *e);
     void enableBreakpointMarks(KTextEditor::Document *document);
+    void prepareDocumentBreakpoints(KTextEditor::Document *document);
+    void updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;

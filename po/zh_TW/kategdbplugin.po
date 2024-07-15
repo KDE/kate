@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-07-15 00:41+0000\n"
 "PO-Revision-Date: 2024-01-21 01:23+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -769,22 +769,22 @@ msgstr "插入中斷點"
 msgid "Remove breakpoint"
 msgstr "移除中斷點"
 
-#: plugin_kategdb.cpp:571
+#: plugin_kategdb.cpp:569
 #, kde-format
 msgid "Execution point"
 msgstr "執行點"
 
-#: plugin_kategdb.cpp:710
+#: plugin_kategdb.cpp:708
 #, kde-format
 msgid "Thread %1"
 msgstr "執行緒 %1"
 
-#: plugin_kategdb.cpp:810
+#: plugin_kategdb.cpp:808
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:894
+#: plugin_kategdb.cpp:892
 #, kde-format
 msgid "Breakpoint"
 msgstr "中斷點"

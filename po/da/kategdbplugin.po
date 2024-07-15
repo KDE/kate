@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-07-15 00:41+0000\n"
 "PO-Revision-Date: 2015-02-19 20:27+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -775,22 +775,22 @@ msgstr "Indsæt stoppunkt"
 msgid "Remove breakpoint"
 msgstr "Fjern stoppunkt"
 
-#: plugin_kategdb.cpp:571
+#: plugin_kategdb.cpp:569
 #, kde-format
 msgid "Execution point"
 msgstr "Kørselspunkt"
 
-#: plugin_kategdb.cpp:710
+#: plugin_kategdb.cpp:708
 #, kde-format
 msgid "Thread %1"
 msgstr "Tråd %1"
 
-#: plugin_kategdb.cpp:810
+#: plugin_kategdb.cpp:808
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:894
+#: plugin_kategdb.cpp:892
 #, kde-format
 msgid "Breakpoint"
 msgstr "Stoppunkt"

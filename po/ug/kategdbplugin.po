@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-07-15 00:41+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -772,22 +772,22 @@ msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
 msgid "Remove breakpoint"
 msgstr "ئۈزۈلۈش نۇقتىسىنى چىقىرىۋەت"
 
-#: plugin_kategdb.cpp:571
+#: plugin_kategdb.cpp:569
 #, kde-format
 msgid "Execution point"
 msgstr "ئىجرا نۇقتىسى"
 
-#: plugin_kategdb.cpp:710
+#: plugin_kategdb.cpp:708
 #, kde-format
 msgid "Thread %1"
 msgstr ""
 
-#: plugin_kategdb.cpp:810
+#: plugin_kategdb.cpp:808
 #, kde-format
 msgid "IO"
 msgstr "كىرگۈزۈش چىقىرىش"
 
-#: plugin_kategdb.cpp:894
+#: plugin_kategdb.cpp:892
 #, kde-format
 msgid "Breakpoint"
 msgstr "توختاش نۇقتىسى"

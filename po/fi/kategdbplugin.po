@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-07-15 00:41+0000\n"
 "PO-Revision-Date: 2023-09-29 10:11+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -780,22 +780,22 @@ msgstr "Lisää keskeytyskohta"
 msgid "Remove breakpoint"
 msgstr "Poista keskeytyskohta"
 
-#: plugin_kategdb.cpp:571
+#: plugin_kategdb.cpp:569
 #, kde-format
 msgid "Execution point"
 msgstr "Suorituspiste"
 
-#: plugin_kategdb.cpp:710
+#: plugin_kategdb.cpp:708
 #, kde-format
 msgid "Thread %1"
 msgstr "Säie %1"
 
-#: plugin_kategdb.cpp:810
+#: plugin_kategdb.cpp:808
 #, kde-format
 msgid "IO"
 msgstr "Siirräntä"
 
-#: plugin_kategdb.cpp:894
+#: plugin_kategdb.cpp:892
 #, kde-format
 msgid "Breakpoint"
 msgstr "Keskeytyskohta"

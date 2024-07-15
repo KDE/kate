@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-15 00:41+0000\n"
+"POT-Creation-Date: 2024-07-15 00:41+0000\n"
 "PO-Revision-Date: 2021-07-22 23:51+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: \n"
@@ -778,22 +778,22 @@ msgstr "أدرج نقطة مقاطعة"
 msgid "Remove breakpoint"
 msgstr "أزل نقطة المقاطعة"
 
-#: plugin_kategdb.cpp:571
+#: plugin_kategdb.cpp:569
 #, kde-format
 msgid "Execution point"
 msgstr "نقطة التّنفيذ"
 
-#: plugin_kategdb.cpp:710
+#: plugin_kategdb.cpp:708
 #, kde-format
 msgid "Thread %1"
 msgstr "الخيط %1"
 
-#: plugin_kategdb.cpp:810
+#: plugin_kategdb.cpp:808
 #, kde-format
 msgid "IO"
 msgstr "الدّخل/الخرج"
 
-#: plugin_kategdb.cpp:894
+#: plugin_kategdb.cpp:892
 #, kde-format
 msgid "Breakpoint"
 msgstr "نقطة مقاطعة"

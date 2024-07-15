@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-02 00:41+0000\n"
-"PO-Revision-Date: 2024-05-30 11:25+0200\n"
+"PO-Revision-Date: 2024-07-14 13:11+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -92,12 +92,12 @@ msgstr "Zbuduj i uruchom wybrany cel"
 #: plugin_katebuild.cpp:254
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Zbuduj bieżący plik"
 
 #: plugin_katebuild.cpp:255
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "Spróbuj zbudować bieżący plik, wyszukując compile_commands.json"
 
 #: plugin_katebuild.cpp:260
 #, kde-format
@@ -175,12 +175,12 @@ msgstr "Porzucono budowanie <b>%1</b>"
 #: plugin_katebuild.cpp:914
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Nie znaleziono compile_commands.json dla pliku \"%1\". "
 
 #: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Nie znaleziono polecenia budowania dla pliku \"%1\" w \"%2\". "
 
 #: plugin_katebuild.cpp:1035
 #, kde-format
@@ -422,8 +422,7 @@ msgid "Create new set of targets"
 msgstr "Utwórz nowy zestaw celów"
 
 #: targets.cpp:39
-#, fuzzy, kde-format
-#| msgid "Copy command or target set"
+#, kde-format
 msgid "Clone command or target set"
 msgstr "Skopiuj polecenie lub zestaw celów"
 
@@ -458,20 +457,19 @@ msgid "Move selected target down"
 msgstr "Przesuń zaznaczony cel w dół"
 
 #: targets.cpp:203
-#, fuzzy, kde-format
-#| msgid "Copy"
+#, kde-format
 msgid "Copy"
-msgstr "Kopiuj"
+msgstr "Skopiuj"
 
 #: targets.cpp:207
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "Wytnij"
 
 #: targets.cpp:211
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "Wklej za"
 
 #: targets.cpp:245
 #, kde-format

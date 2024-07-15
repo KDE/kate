@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1684319 $
+# Version: $Revision: 1684772 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-09 00:41+0000\n"
-"PO-Revision-Date: 2024-05-30 11:38+0200\n"
+"PO-Revision-Date: 2024-07-14 13:10+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -1038,13 +1038,15 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Wypisuj znaczniki czasowe z datą"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"Po włączeniu, nagłówki znacznika czasu wierszy wyjściowych zostaną "
+"poprzedzone datą."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1446,12 +1448,10 @@ msgid "Focus the next tab."
 msgstr "Uaktywnij następną kartę."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Przełącz na wystąpienie"
+msgstr "Przełącz na kartę %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format
@@ -1722,16 +1722,14 @@ msgstr ""
 "kontynuować?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Zamknij wszystkie dokumenty"
+msgstr "Zamknąć wszystkie dokumenty?"
 
 #: lib/katemainwindow.cpp:613
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Zamknij wszystki&e"
+msgstr "Zamknij wszystkie"
 
 #: lib/katemainwindow.cpp:627
 #, kde-format
@@ -1743,14 +1741,12 @@ msgstr ""
 "chcesz kontynuować?"
 
 #: lib/katemainwindow.cpp:628
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Zamknij wszystkie dokumenty poza bieżącym"
+msgstr "Czy zamknąć wszystkie dokumenty poza bieżącym?"
 
 #: lib/katemainwindow.cpp:629
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Zamknij pozostałe"
 

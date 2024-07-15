@@ -1,15 +1,15 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
-# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2013.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-12 00:41+0000\n"
-"PO-Revision-Date: 2023-12-16 11:29+0100\n"
-"Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmai.com>\n"
+"PO-Revision-Date: 2024-07-14 13:12+0200\n"
+"Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -524,24 +525,20 @@ msgid "Project Completion"
 msgstr "Ukończenie Projektu"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "Samowczytywanie repozytoriów"
+msgstr "Sam wczytaj repozytoria i drzewa budowania"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"Wtyczka projektu może samoczynnie wczytać repozytorium kopii roboczych w "
-"przypadku, gdy plik .kateproject nie został jeszcze określony."
+"Wtyczka projektu może samoczynnie wczytać repozytorium kopii roboczych i "
+"drzewa budowania w przypadku, gdy plik .kateproject nie został jeszcze "
+"określony."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -566,7 +563,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -689,10 +686,9 @@ msgid "Terminal (Base)"
 msgstr "Terminal (Podstawa)"
 
 #: kateprojectinfoview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "Terminal (Podstawa)"
+msgstr "Terminal (zbuduj)"
 
 #: kateprojectinfoview.cpp:63
 #, kde-format

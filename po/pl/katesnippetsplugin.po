@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2013, 2014, 2015, 2016, 2020.
+# SPDX-FileCopyrightText: 2013, 2014, 2015, 2016, 2020, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Grzegorz Szymaszek <gszymaszek@short.pl>, 2020.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2020-12-13 08:38+0100\n"
+"PO-Revision-Date: 2024-07-14 13:13+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -100,17 +101,14 @@ msgstr "Utwórz nową wstawkę w repozytorium %1"
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"Nazwy wstawek zawierające odstępy mogą nie działać poprawnie przy "
+"uzupełnianiu"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
-msgstr ""
-"Wstawka zawiera niezapisane zmiany. Czy chcesz kontynuować i stracić "
-"wszystkie zmiany?"
+msgstr "Wstawka zawiera niezapisane zmiany. Czy porzucić wszystkie zmiany?"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -120,7 +118,7 @@ msgstr "Ostrzeżenie: niezapisane zmiany"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Wróć do edytowania"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

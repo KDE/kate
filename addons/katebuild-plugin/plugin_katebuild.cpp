@@ -1082,9 +1082,21 @@ bool KateBuildView::buildCurrentTarget()
 /******************************************************************/
 void KateBuildView::slotLoadCMakeTargets()
 {
+    QString path = QDir::currentPath();
+    QUrl url = docUrl();
+    QString projRoot;
+    if (m_projectPluginView) {
+        projRoot = m_projectPluginView->property("projectBaseDir").toString();
+    }
+    if (!projRoot.isEmpty()) {
+        path = projRoot;
+    } else if (!url.isEmpty() && url.isLocalFile()) {
+        path = QFileInfo(url.toLocalFile()).dir().absolutePath();
+    }
+
     const QString cmakeFile = QFileDialog::getOpenFileName(nullptr,
                                                            QStringLiteral("Select CMake Build Dir by Selecting the CMakeCache.txt"),
-                                                           QDir::currentPath(),
+                                                           path,
                                                            QStringLiteral("CMake Cache file (CMakeCache.txt)"));
     qCDebug(KTEBUILD) << "Loading cmake targets for file " << cmakeFile;
     if (cmakeFile.isEmpty()) {
@@ -1147,9 +1159,6 @@ void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
 #else
     QFile::link(compileCommandsFile, compileCommandsDest);
 #endif
-
-    QUrl fileUrl = QUrl::fromLocalFile(cmakeFA.getSourceDir() + QStringLiteral("/CMakeLists.txt"));
-    m_win->openUrl(fileUrl);
 }
 
 /******************************************************************/

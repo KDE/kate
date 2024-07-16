@@ -363,6 +363,7 @@ QString GdbBackend::makeCmdBreakInsert(const QUrl &url, int line, bool pending, 
 void GdbBackend::toggleBreakpoint(QUrl const &url, int line)
 {
     if (m_state != ready) {
+        Q_EMIT breakPointCleared(url, line);
         return;
     }
 
@@ -445,7 +446,7 @@ void GdbBackend::slotDebugFinished(int /*exitCode*/, QProcess::ExitStatus status
 
     // remove all old breakpoints
     for (auto it = m_breakpointTable.constBegin(); it != m_breakpointTable.constEnd(); ++it) {
-        Q_EMIT breakPointCleared(it.value().file, it.value().line - 1);
+        Q_EMIT breakPointCleared(it.value().file, it.value().line);
     }
     m_breakpointTable.clear();
 
@@ -678,7 +679,7 @@ void GdbBackend::processMIExec(const gdbmi::Record &record)
                 text << QLatin1String(" ") << i18n("Current frame: %1:%2", frame.source->path, QString::number(frame.line));
             }
             m_debugLocationChanged = true;
-            Q_EMIT debugLocationChanged(resolveFileName(frame.source->path), frame.line - 1);
+            Q_EMIT debugLocationChanged(resolveFileName(frame.source->path), frame.line);
         }
 
         Q_EMIT outputText(printEvent(text.join(QString())));
@@ -1135,7 +1136,7 @@ BreakPoint GdbBackend::parseBreakpoint(const QJsonObject &item)
 void GdbBackend::insertBreakpoint(const QJsonObject &item)
 {
     const BreakPoint breakPoint = parseBreakpoint(item);
-    Q_EMIT breakPointSet(breakPoint.file, breakPoint.line - 1);
+    Q_EMIT breakPointSet(breakPoint.file, breakPoint.line);
     m_breakpointTable[breakPoint.number] = std::move(breakPoint);
 }
 
@@ -1195,9 +1196,9 @@ void GdbBackend::notifyMIBreakpointModified(const gdbmi::Record &record)
         m_breakpointTable[newBp.number] = newBp;
         if (findFirstBreakpoint(oldFile, oldLine) < 0) {
             // this is the last bpoint in this line
-            Q_EMIT breakPointCleared(oldFile, oldLine - 1);
+            Q_EMIT breakPointCleared(oldFile, oldLine);
         }
-        Q_EMIT breakPointSet(newBp.file, newBp.line - 1);
+        Q_EMIT breakPointSet(newBp.file, newBp.line);
     }
 }
 
@@ -1209,7 +1210,7 @@ void GdbBackend::deleteBreakpoint(const int bpNumber)
     const auto bp = m_breakpointTable.take(bpNumber);
     if (findFirstBreakpoint(bp.file, bp.line) < 0) {
         // this is the last bpoint in this line
-        Q_EMIT breakPointCleared(bp.file, bp.line - 1);
+        Q_EMIT breakPointCleared(bp.file, bp.line);
     }
 }
 
@@ -1736,7 +1737,7 @@ void GdbBackend::changeStackFrame(int index)
 
     const auto &frame = m_stackFrames[index];
     if (frame.source) {
-        Q_EMIT debugLocationChanged(resolveFileName(frame.source->path), frame.line - 1);
+        Q_EMIT debugLocationChanged(resolveFileName(frame.source->path), frame.line);
     }
 
     Q_EMIT stackFrameChanged(index);

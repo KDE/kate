@@ -376,7 +376,7 @@ void DapBackend::clearBreakpoints()
         const auto path = QUrl::fromLocalFile(url);
         for (const auto &bp : breakpoints) {
             if (bp && bp->line) {
-                Q_EMIT breakPointCleared(path, bp->line.value() - 1);
+                Q_EMIT breakPointCleared(path, bp->line.value());
             }
         }
     }
@@ -632,7 +632,7 @@ void DapBackend::informBreakpointAdded(const QString &path, const dap::Breakpoin
     if (bpoint.line) {
         Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint set")).arg(path).arg(bpoint.line.value()));
         // zero based line expected
-        Q_EMIT breakPointSet(QUrl::fromLocalFile(path), bpoint.line.value() - 1);
+        Q_EMIT breakPointSet(QUrl::fromLocalFile(path), bpoint.line.value());
     }
 }
 
@@ -640,7 +640,7 @@ void DapBackend::informBreakpointRemoved(const QString &path, int line)
 {
     Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint cleared")).arg(path).arg(line));
     // zero based line expected
-    Q_EMIT breakPointCleared(QUrl::fromLocalFile(path), line - 1);
+    Q_EMIT breakPointCleared(QUrl::fromLocalFile(path), line);
 }
 
 void DapBackend::onSourceBreakpoints(const QString &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints)
@@ -849,6 +849,7 @@ bool DapBackend::hasBreakpoint(QUrl const &url, int line) const
 void DapBackend::toggleBreakpoint(QUrl const &url, int line)
 {
     if (m_task != Idle) {
+        Q_EMIT breakPointCleared(url, line);
         return;
     }
 
@@ -1672,7 +1673,7 @@ void DapBackend::changeStackFrame(int index)
         const auto id = frame.source->unifiedId();
         Q_EMIT outputText(QStringLiteral("\n") + i18n("Current frame [%3]: %1:%2 (%4)", id, QString::number(frame.line), QString::number(index), frame.name));
         // zero-based line
-        Q_EMIT debugLocationChanged(QUrl::fromLocalFile(resolveOrWarn(id)), frame.line - 1);
+        Q_EMIT debugLocationChanged(QUrl::fromLocalFile(resolveOrWarn(id)), frame.line);
     }
 
     Q_EMIT stackFrameChanged(index);

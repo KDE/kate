@@ -142,8 +142,11 @@ bool Backend::canContinue() const
 
 void Backend::toggleBreakpoint(QUrl const &url, int line)
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->toggleBreakpoint(url, line);
+    } else {
+        Q_EMIT breakPointCleared(url, line);
+    }
 }
 
 void Backend::movePC(QUrl const &url, int line)

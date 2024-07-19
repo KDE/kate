@@ -823,11 +823,12 @@ ToolView *Sidebar::addToolView(const QIcon &icon, const QString &text, const QSt
 
 bool Sidebar::removeToolView(ToolView *widget)
 {
-    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
+    auto it = m_widgetToId.find(widget);
+    if (it == m_widgetToId.end()) {
         return false;
     }
 
-    int id = m_widgetToId.at(widget);
+    int id = it->second;
 
     auto tbar = m_widgetToTabBar.at(widget);
     tbar->removeTab(id);
@@ -842,11 +843,12 @@ bool Sidebar::removeToolView(ToolView *widget)
 
 bool Sidebar::showToolView(ToolView *widget)
 {
-    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
+    auto it = m_widgetToId.find(widget);
+    if (it == m_widgetToId.end()) {
         return false;
     }
 
-    tabBar(widget)->showToolView(m_widgetToId.at(widget));
+    tabBar(widget)->showToolView(it->second);
     updateSidebar();
 
     return true;
@@ -854,12 +856,13 @@ bool Sidebar::showToolView(ToolView *widget)
 
 bool Sidebar::hideToolView(ToolView *widget)
 {
-    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
+    auto it = m_widgetToId.find(widget);
+    if (it == m_widgetToId.end()) {
         return false;
     }
 
     updateLastSize();
-    tabBar(widget)->hideToolView(m_widgetToId.at(widget));
+    tabBar(widget)->hideToolView(it->second);
     updateSidebar();
 
     return true;
@@ -1412,8 +1415,7 @@ void Sidebar::startRestoreSession(KConfigGroup &config)
         QStringList tvList = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(position()).arg(i), QStringList());
         for (int j = 0; j < tvList.size(); ++j) {
             // Don't add in case of a config mismatch blank tabs for some stuff twice
-            auto search = m_tvIdToTabId.find(tvList.at(j));
-            if (search == m_tvIdToTabId.end()) {
+            if (!m_tvIdToTabId.contains(tvList.at(j))) {
                 int id = tabBar(i)->addBlankTab();
                 m_tvIdToTabId.emplace(tvList.at(j), id);
                 m_tvIdToTabBar.emplace(tvList.at(j), i);

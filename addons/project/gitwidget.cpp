@@ -901,7 +901,8 @@ void GitWidget::parseStatusReady()
             continue;
         }
         const auto t = index.data(GitStatusModel::TreeItemType).toInt();
-        if (nodeIsExpanded.find(t) == nodeIsExpanded.end() || nodeIsExpanded[t]) {
+        auto it = nodeIsExpanded.find(t);
+        if (it == nodeIsExpanded.end() || it->second) {
             m_treeView->expand(index);
         } else {
             m_treeView->collapse(index);

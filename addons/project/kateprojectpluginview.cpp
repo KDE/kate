@@ -910,8 +910,9 @@ void KateProjectPluginView::openTerminal(const QString &dirPath, KateProject *pr
 {
     m_mainWindow->showToolView(m_toolInfoView);
 
-    if (m_project2View.contains(project)) {
-        m_project2View.find(project)->second->resetTerminal(dirPath);
+    auto it = m_project2View.constFind(project);
+    if (it != m_project2View.cend()) {
+        it->second->resetTerminal(dirPath);
     }
 }
 

@@ -1053,7 +1053,7 @@ void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)
     QList<KTextEditor::View *> closeList;
     const auto views = doc->views();
     for (KTextEditor::View *v : views) {
-        if (m_views.find(v) != m_views.end()) {
+        if (m_views.contains(v)) {
             closeList.append(v);
         }
     }

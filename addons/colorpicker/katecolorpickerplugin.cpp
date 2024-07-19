@@ -296,7 +296,7 @@ QObject *KateColorPickerPlugin::createView(KTextEditor::MainWindow *mainWindow)
 
 void KateColorPickerPlugin::addDocument(KTextEditor::Document *doc)
 {
-    if (m_inlineColorNoteProviders.find(doc) == m_inlineColorNoteProviders.end()) {
+    if (!m_inlineColorNoteProviders.contains(doc)) {
         m_inlineColorNoteProviders.emplace(doc, new ColorPickerInlineNoteProvider(doc));
     }
 

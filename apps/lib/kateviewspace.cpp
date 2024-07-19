@@ -397,7 +397,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     registerDocument(doc);
 
     // view shall still be not registered
-    Q_ASSERT(m_docToView.find(doc) == m_docToView.end());
+    Q_ASSERT(!m_docToView.contains(doc));
 
     // insert View into stack
     stack->addWidget(v);
@@ -786,7 +786,7 @@ void KateViewSpace::documentDestroyed(QObject *doc)
     /**
      * we shall have no views for this document at this point in time!
      */
-    Q_ASSERT(m_docToView.find(invalidDoc) == m_docToView.end());
+    Q_ASSERT(!m_docToView.contains(invalidDoc));
 
     // disconnect entirely
     disconnect(doc, nullptr, this, nullptr);

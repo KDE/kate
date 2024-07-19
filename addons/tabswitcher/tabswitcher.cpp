@@ -199,7 +199,7 @@ void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document *document)
 
 void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document *document)
 {
-    if (m_documents.find(document) == m_documents.end()) {
+    if (!m_documents.contains(document)) {
         return;
     }
 

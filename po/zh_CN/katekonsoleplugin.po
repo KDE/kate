@@ -165,7 +165,7 @@ msgstr "尽可能将当前终端标签页与当前文档同步(&A)"
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "自动为当前文档的目录创建终端标签页并切换到它(&A)"
+msgstr "自动创建并切换到当前文档所在目录的终端标签页(&A)"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:33+0000\n"
+"POT-Creation-Date: 2024-07-20 02:29+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -2120,14 +2120,14 @@ msgstr ""
 "Les dnêyes ki vs avoz dmandé d' schaper n' polèt nén esse sicrîtes. "
 "Tchoezixhoz, s' i vs plait, comint vs voloz fé."
 
-#: lib/kateurlbar.cpp:909
+#: lib/kateurlbar.cpp:911
 #, fuzzy, kde-format
 #| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Eplaeçmint"
 
-#: lib/kateurlbar.cpp:914
+#: lib/kateurlbar.cpp:916
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

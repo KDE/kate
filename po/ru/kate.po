@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:33+0000\n"
+"POT-Creation-Date: 2024-07-20 02:29+0000\n"
 "PO-Revision-Date: 2024-06-26 09:47+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -2086,14 +2086,14 @@ msgid ""
 "want to proceed."
 msgstr "Не удаётся сохранить данные."
 
-#: lib/kateurlbar.cpp:909
+#: lib/kateurlbar.cpp:911
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Копировать расположение"
 
-#: lib/kateurlbar.cpp:914
+#: lib/kateurlbar.cpp:916
 #, fuzzy, kde-format
 #| msgid "Copy Filename"
 msgctxt "@menu:action"

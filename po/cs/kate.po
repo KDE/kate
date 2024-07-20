@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:33+0000\n"
+"POT-Creation-Date: 2024-07-20 02:29+0000\n"
 "PO-Revision-Date: 2024-05-07 10:57+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2029,13 +2029,13 @@ msgstr ""
 "Data, která jste požadovali uložit, nelze zapsat. Prosím zvolte, jak si "
 "přejete pokračovat."
 
-#: lib/kateurlbar.cpp:909
+#: lib/kateurlbar.cpp:911
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Kopírovat umístění"
 
-#: lib/kateurlbar.cpp:914
+#: lib/kateurlbar.cpp:916
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

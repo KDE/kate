@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:33+0000\n"
+"POT-Creation-Date: 2024-07-20 02:29+0000\n"
 "PO-Revision-Date: 2024-06-27 15:26+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -2067,13 +2067,13 @@ msgstr ""
 "Ekki tókst að skrifa gögnin sem þú baðst um að yrðu vistuð. Veldu hvað þú "
 "vilt gera."
 
-#: lib/kateurlbar.cpp:909
+#: lib/kateurlbar.cpp:911
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Afrita staðsetningu"
 
-#: lib/kateurlbar.cpp:914
+#: lib/kateurlbar.cpp:916
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

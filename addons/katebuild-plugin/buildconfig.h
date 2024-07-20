@@ -14,11 +14,18 @@
 
 class QCheckBox;
 
+namespace Ui
+{
+class BuildConfigWidget;
+}
+
+class KateBuildPlugin;
+
 class KateBuildConfigPage : public KTextEditor::ConfigPage
 {
     Q_OBJECT
 public:
-    explicit KateBuildConfigPage(QWidget *parent = nullptr);
+    explicit KateBuildConfigPage(KateBuildPlugin *plugin, QWidget *parent = nullptr);
     ~KateBuildConfigPage() override
     {
     }
@@ -31,10 +38,10 @@ public:
     void reset() override;
     void defaults() override;
 
-Q_SIGNALS:
-    void configChanged();
+public Q_SLOTS:
+    void showContextMenuAllowedBlocked(const QPoint &pos);
 
 private:
-    QCheckBox *m_useDiagnosticsCB = nullptr;
-    QCheckBox *m_autoSwitchToOutput = nullptr;
+    Ui::BuildConfigWidget *ui;
+    KateBuildPlugin *m_plugin;
 };

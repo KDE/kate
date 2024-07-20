@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-12 00:41+0000\n"
+"POT-Creation-Date: 2024-07-20 00:42+0000\n"
 "PO-Revision-Date: 2024-02-10 00:49+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -151,7 +151,7 @@ msgstr "Sign off"
 msgid "Amend"
 msgstr "덧붙이기"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1010
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1011
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "마지막 커밋에 덧붙이기"
@@ -284,218 +284,218 @@ msgstr "커밋할 것이 없습니다. 변경 사항을 먼저 스테이지하�
 msgid "Commit message cannot be empty."
 msgstr "커밋 메시지를 비워 둘 수 없습니다."
 
-#: gitwidget.cpp:942
+#: gitwidget.cpp:943
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "%1...%2의 차이점 없음"
 
-#: gitwidget.cpp:948
+#: gitwidget.cpp:949
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "%1...%2 간을 비교할 수 없음"
 
-#: gitwidget.cpp:963
+#: gitwidget.cpp:964
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "%1...%2 간을 비교할 때 numstat을 가져올 수 없음"
 
-#: gitwidget.cpp:1002
+#: gitwidget.cpp:1003
 #, kde-format
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: gitwidget.cpp:1018
+#: gitwidget.cpp:1019
 #, kde-format
 msgid "Checkout Branch"
 msgstr "브랜치 체크아웃"
 
-#: gitwidget.cpp:1030
+#: gitwidget.cpp:1031
 #, kde-format
 msgid "Delete Branch"
 msgstr "브랜치 삭제"
 
-#: gitwidget.cpp:1042
+#: gitwidget.cpp:1043
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "다음과 브랜치 비교..."
 
-#: gitwidget.cpp:1047
+#: gitwidget.cpp:1048
 #, kde-format
 msgid "Show Commit"
 msgstr "커밋 표시"
 
-#: gitwidget.cpp:1047
+#: gitwidget.cpp:1048
 #, kde-format
 msgid "Commit hash"
 msgstr "커밋 해시"
 
-#: gitwidget.cpp:1054
+#: gitwidget.cpp:1055
 #, kde-format
 msgid "Open Commit..."
 msgstr "커밋 열기..."
 
-#: gitwidget.cpp:1057 gitwidget.cpp:1096
+#: gitwidget.cpp:1058 gitwidget.cpp:1097
 #, kde-format
 msgid "Stash"
 msgstr "스태시"
 
-#: gitwidget.cpp:1067
+#: gitwidget.cpp:1068
 #, kde-format
 msgid "Diff - stash"
 msgstr "Diff - 스태시"
 
-#: gitwidget.cpp:1100
+#: gitwidget.cpp:1101
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "마지막 스태시 팝"
 
-#: gitwidget.cpp:1104
+#: gitwidget.cpp:1105
 #, kde-format
 msgid "Pop Stash"
 msgstr "스태시 팝"
 
-#: gitwidget.cpp:1108
+#: gitwidget.cpp:1109
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "마지막 스태시 적용"
 
-#: gitwidget.cpp:1110
+#: gitwidget.cpp:1111
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "스태시(스테이지 유지)"
 
-#: gitwidget.cpp:1114
+#: gitwidget.cpp:1115
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "스태시(추적하지 않는 항목 포함)"
 
-#: gitwidget.cpp:1118
+#: gitwidget.cpp:1119
 #, kde-format
 msgid "Apply Stash"
 msgstr "스태시 적용"
 
-#: gitwidget.cpp:1119
+#: gitwidget.cpp:1120
 #, kde-format
 msgid "Drop Stash"
 msgstr "스태시 드롭"
 
-#: gitwidget.cpp:1120
+#: gitwidget.cpp:1121
 #, kde-format
 msgid "Show Stash Content"
 msgstr "스태시 내용 표시"
 
-#: gitwidget.cpp:1157
+#: gitwidget.cpp:1158
 #, kde-format
 msgid "Stage All"
 msgstr "모두 스테이지"
 
-#: gitwidget.cpp:1159
+#: gitwidget.cpp:1160
 #, kde-format
 msgid "Remove All"
 msgstr "모두 삭제"
 
-#: gitwidget.cpp:1159
+#: gitwidget.cpp:1160
 #, kde-format
 msgid "Discard All"
 msgstr "모두 버리기"
 
-#: gitwidget.cpp:1162
+#: gitwidget.cpp:1163
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore 열기"
 
-#: gitwidget.cpp:1163 gitwidget.cpp:1210 gitwidget.cpp:1258
+#: gitwidget.cpp:1164 gitwidget.cpp:1211 gitwidget.cpp:1259
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "차이점 표시"
 
-#: gitwidget.cpp:1180
+#: gitwidget.cpp:1181
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "이 파일을 삭제하시겠습니까?"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1186
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "모든 변경 사항을 삭제하시겠습니까?"
 
-#: gitwidget.cpp:1209
+#: gitwidget.cpp:1210
 #, kde-format
 msgid "Open File"
 msgstr "파일 열기"
 
-#: gitwidget.cpp:1211
+#: gitwidget.cpp:1212
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "외부 git diff 도구에 표시"
 
-#: gitwidget.cpp:1212
+#: gitwidget.cpp:1213
 #, kde-format
 msgid "Open at HEAD"
 msgstr "HEAD 기준으로 열기"
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1214
 #, kde-format
 msgid "Unstage File"
 msgstr "파일 스테이지 해제"
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1214
 #, kde-format
 msgid "Stage File"
 msgstr "파일 스테이지"
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1215
 #, kde-format
 msgid "Remove"
 msgstr "삭제"
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1215
 #, kde-format
 msgid "Discard"
 msgstr "버리기"
 
-#: gitwidget.cpp:1231
+#: gitwidget.cpp:1232
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "파일의 모든 변경 사항을 버리시겠습니까?"
 
-#: gitwidget.cpp:1240
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "이 파일을 삭제하시겠습니까?"
 
-#: gitwidget.cpp:1257
+#: gitwidget.cpp:1258
 #, kde-format
 msgid "Unstage All"
 msgstr "모두 스테이지 해제"
 
-#: gitwidget.cpp:1324
+#: gitwidget.cpp:1325
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "선택한 파일 스테이지 해제"
 
-#: gitwidget.cpp:1324
+#: gitwidget.cpp:1325
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "선택한 파일 스테이지"
 
-#: gitwidget.cpp:1325
+#: gitwidget.cpp:1326
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "선택한 파일 버리기"
 
-#: gitwidget.cpp:1329
+#: gitwidget.cpp:1330
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "선택한 파일 삭제"
 
-#: gitwidget.cpp:1342
+#: gitwidget.cpp:1343
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "모든 변경 사항을 버리시겠습니까?"
 
-#: gitwidget.cpp:1347
+#: gitwidget.cpp:1348
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "추적하지 않는 변경 사항을 삭제하시겠습니까?"

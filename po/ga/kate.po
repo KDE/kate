@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-09 00:41+0000\n"
+"POT-Creation-Date: 2024-07-20 00:42+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -1862,72 +1862,72 @@ msgstr "Taispeáin %1"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1088
+#: lib/katemdi.cpp:1091
 #, fuzzy, kde-format
 #| msgid "Configure ..."
 msgid "Configure..."
 msgstr "Cumraigh ..."
 
-#: lib/katemdi.cpp:1092
+#: lib/katemdi.cpp:1095
 #, fuzzy, kde-format
 #| msgid "Hide Path"
 msgid "Hide Button"
 msgstr "Folaigh Conair"
 
-#: lib/katemdi.cpp:1094
+#: lib/katemdi.cpp:1097
 #, kde-format
 msgid "Move To"
 msgstr "Bog Go"
 
-#: lib/katemdi.cpp:1099
+#: lib/katemdi.cpp:1102
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "Oscail Seisiún"
 
-#: lib/katemdi.cpp:1105 lib/katemdi.cpp:1113
+#: lib/katemdi.cpp:1108 lib/katemdi.cpp:1116
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1107 lib/katemdi.cpp:1118
+#: lib/katemdi.cpp:1110 lib/katemdi.cpp:1121
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1111
+#: lib/katemdi.cpp:1114
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1116
+#: lib/katemdi.cpp:1119
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1128
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barra Taoibh Ar Chlé"
 
-#: lib/katemdi.cpp:1129
+#: lib/katemdi.cpp:1132
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barra Taoibh Ar Dheis"
 
-#: lib/katemdi.cpp:1133
+#: lib/katemdi.cpp:1136
 #, fuzzy, kde-format
 #| msgid "Show Side&bars"
 msgid "Top Sidebar"
 msgstr "Taispeáin &Barraí Taoibh"
 
-#: lib/katemdi.cpp:1137
+#: lib/katemdi.cpp:1140
 #, fuzzy, kde-format
 #| msgid "Left Sidebar"
 msgid "Bottom Sidebar"
 msgstr "Barra Taoibh Ar Chlé"
 
-#: lib/katemdi.cpp:1711
+#: lib/katemdi.cpp:1713
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

@@ -782,9 +782,3 @@ msgstr "调试(&D)"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "调试插件"
-
-#~ msgid "popup_breakpoint"
-#~ msgstr "popup_breakpoint"
-
-#~ msgid "popup_run_to_cursor"
-#~ msgstr "popup_run_to_cursor"

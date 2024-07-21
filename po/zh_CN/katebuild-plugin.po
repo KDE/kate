@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-02 00:41+0000\n"
+"POT-Creation-Date: 2024-07-21 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -65,66 +65,66 @@ msgstr "构建并运行"
 msgid "Build & Run Settings"
 msgstr "构建并运行设置"
 
-#: plugin_katebuild.cpp:229 plugin_katebuild.cpp:236 plugin_katebuild.cpp:713
-#: plugin_katebuild.cpp:915 plugin_katebuild.cpp:928 targets.cpp:244
+#: plugin_katebuild.cpp:232 plugin_katebuild.cpp:239 plugin_katebuild.cpp:713
+#: plugin_katebuild.cpp:915 plugin_katebuild.cpp:928 targets.cpp:245
 #, kde-format
 msgid "Build"
 msgstr "构建"
 
-#: plugin_katebuild.cpp:239
+#: plugin_katebuild.cpp:242
 #, kde-format
 msgid "Select Target..."
 msgstr "选择目标..."
 
-#: plugin_katebuild.cpp:244
+#: plugin_katebuild.cpp:247
 #, kde-format
 msgid "Build Selected Target"
 msgstr "构建选中的目标"
 
-#: plugin_katebuild.cpp:249
+#: plugin_katebuild.cpp:252
 #, kde-format
 msgid "Build and Run Selected Target"
 msgstr "构建并运行选中的目标"
 
-#: plugin_katebuild.cpp:254
+#: plugin_katebuild.cpp:257
 #, kde-format
 msgid "Compile Current File"
 msgstr "编译当前文件"
 
-#: plugin_katebuild.cpp:255
+#: plugin_katebuild.cpp:258
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr "尝试通过搜索 compile_commands.json 来编译当前文件"
 
-#: plugin_katebuild.cpp:260
+#: plugin_katebuild.cpp:263
 #, kde-format
 msgid "Stop"
 msgstr "停止"
 
-#: plugin_katebuild.cpp:265
+#: plugin_katebuild.cpp:268
 #, kde-format
 msgid "Load targets from CMake Build Dir"
 msgstr "加载来自 CMake 构建目录的目标"
 
-#: plugin_katebuild.cpp:269
+#: plugin_katebuild.cpp:272
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
 msgstr "焦点移动到左侧的下一个标签页"
 
-#: plugin_katebuild.cpp:289
+#: plugin_katebuild.cpp:292
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
 msgstr "焦点移动到右侧的下一个标签页"
 
-#: plugin_katebuild.cpp:311
+#: plugin_katebuild.cpp:314
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "目标设置"
 
-#: plugin_katebuild.cpp:350
+#: plugin_katebuild.cpp:353
 #, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
@@ -133,7 +133,7 @@ msgstr ""
 "<b>没有找到文件：</b> %1<br><b>搜索路径：</b><br>%2<br>请尝试添加一个搜索路径"
 "到“工作目录”"
 
-#: plugin_katebuild.cpp:433
+#: plugin_katebuild.cpp:436
 #, kde-format
 msgid "Build Information"
 msgstr "构建信息"
@@ -198,36 +198,36 @@ msgstr "已经在构建..."
 msgid "Building target <b>%1</b> ..."
 msgstr "构建目标 <b>%1</b>..."
 
-#: plugin_katebuild.cpp:1102
+#: plugin_katebuild.cpp:1114
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr "无法加载目标，文件 %1 没有包含一个正确的 CMAKE_COMMAND 条目。"
 
-#: plugin_katebuild.cpp:1115
+#: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr "无法在构建目录 %1 中写入 CMake 文件 API 查询文件。"
 
-#: plugin_katebuild.cpp:1121
+#: plugin_katebuild.cpp:1133
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "无法在构建目录 %1 中运行 CMake (%2)。"
 
-#: plugin_katebuild.cpp:1130
+#: plugin_katebuild.cpp:1142
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr "生成构建目录 %1 的 CMake 文件 API 回复文件失败 (使用 %2)。"
 
-#: plugin_katebuild.cpp:1258
+#: plugin_katebuild.cpp:1261
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "构建插件想要执行程序"
 
-#: plugin_katebuild.cpp:1261
+#: plugin_katebuild.cpp:1264
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -239,80 +239,80 @@ msgstr ""
 "整命令行为：<br><br><b>%1</b><br><br>您想要继续并允许程序运行此命令吗？"
 "<br><br>此选择可以在插件的配置页面进行更改。"
 
-#: plugin_katebuild.cpp:1293
+#: plugin_katebuild.cpp:1296
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make 的结果：</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1329
+#: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1</b> 的构建已完成。返回 %2 条错误，%3 条警告，%4 条提醒"
 
-#: plugin_katebuild.cpp:1335
+#: plugin_katebuild.cpp:1338
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "发现 %1 个错误。"
 
-#: plugin_katebuild.cpp:1339
+#: plugin_katebuild.cpp:1342
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "发现 %1 个警告。"
 
-#: plugin_katebuild.cpp:1342
+#: plugin_katebuild.cpp:1345
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "发现 %1 条提醒。"
 
-#: plugin_katebuild.cpp:1347
+#: plugin_katebuild.cpp:1350
 #, kde-format
 msgid "Build failed."
 msgstr "构建失败。"
 
-#: plugin_katebuild.cpp:1349
+#: plugin_katebuild.cpp:1352
 #, kde-format
 msgid "Build completed without problems."
 msgstr "构建完成，没有出现问题。"
 
-#: plugin_katebuild.cpp:1354
+#: plugin_katebuild.cpp:1357
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "<b>%1</b> 的构建已取消。返回 %2 条错误，%3 条警告，%4 条提醒"
 
-#: plugin_katebuild.cpp:1378
+#: plugin_katebuild.cpp:1381
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "无法执行：%1 未设置工作目录。"
 
-#: plugin_katebuild.cpp:1604
+#: plugin_katebuild.cpp:1607
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "错误"
 
-#: plugin_katebuild.cpp:1607
+#: plugin_katebuild.cpp:1610
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "警告"
 
-#: plugin_katebuild.cpp:1610
+#: plugin_katebuild.cpp:1613
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "提醒|信息"
 
-#: plugin_katebuild.cpp:1613
+#: plugin_katebuild.cpp:1616
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "未定义的引用"
 
-#: plugin_katebuild.cpp:1747
+#: plugin_katebuild.cpp:1791
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "无法保存构建目标：%1"
@@ -362,107 +362,107 @@ msgstr ""
 "\"%d\" 为当前文件的目录\n"
 "\"%n\" 为不包括后缀的当前文件名"
 
-#: TargetModel.cpp:297 TargetModel.cpp:309 targets.cpp:243
+#: TargetModel.cpp:309 TargetModel.cpp:321 targets.cpp:244
 #, kde-format
 msgid "Target Set"
 msgstr "目标集"
 
-#: TargetModel.cpp:500
+#: TargetModel.cpp:512
 #, kde-format
 msgid "Project"
 msgstr "项目"
 
-#: TargetModel.cpp:500
+#: TargetModel.cpp:512
 #, kde-format
 msgid "Session"
 msgstr "会话"
 
-#: TargetModel.cpp:594
+#: TargetModel.cpp:606
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "命令/目标集名称"
 
-#: TargetModel.cpp:597
+#: TargetModel.cpp:609
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "工作目录 / 命令"
 
-#: TargetModel.cpp:600
+#: TargetModel.cpp:612
 #, kde-format
 msgid "Run Command"
 msgstr "运行命令"
 
-#: targets.cpp:31
+#: targets.cpp:32
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr "过滤目标，使用方向键选择，回车键执行"
 
-#: targets.cpp:35
+#: targets.cpp:36
 #, kde-format
 msgid "Create new set of targets"
 msgstr "创建新的目标集"
 
-#: targets.cpp:39
+#: targets.cpp:40
 #, kde-format
 msgid "Clone command or target set"
 msgstr "克隆命令或目标集"
 
-#: targets.cpp:43
+#: targets.cpp:44
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "删除当前目标或当前目标集"
 
-#: targets.cpp:48
+#: targets.cpp:49
 #, kde-format
 msgid "Add new target"
 msgstr "添加新目标"
 
-#: targets.cpp:52
+#: targets.cpp:53
 #, kde-format
 msgid "Build selected target"
 msgstr "构建选中的目标"
 
-#: targets.cpp:56
+#: targets.cpp:57
 #, kde-format
 msgid "Build and run selected target"
 msgstr "构建并运行选中的目标"
 
-#: targets.cpp:60
+#: targets.cpp:61
 #, kde-format
 msgid "Move selected target up"
 msgstr "上移所选任务"
 
-#: targets.cpp:64
+#: targets.cpp:65
 #, kde-format
 msgid "Move selected target down"
 msgstr "下移所选任务"
 
-#: targets.cpp:203
+#: targets.cpp:204
 #, kde-format
 msgid "Copy"
 msgstr "复制"
 
-#: targets.cpp:207
+#: targets.cpp:208
 #, kde-format
 msgid "Cut"
 msgstr "剪切"
 
-#: targets.cpp:211
+#: targets.cpp:212
 #, kde-format
 msgid "Paste after"
 msgstr "粘贴到后面"
 
-#: targets.cpp:245
+#: targets.cpp:246
 #, kde-format
 msgid "Clean"
 msgstr "清理"
 
-#: targets.cpp:246
+#: targets.cpp:247
 #, kde-format
 msgid "Config"
 msgstr "配置"
 
-#: targets.cpp:247
+#: targets.cpp:248
 #, kde-format
 msgid "ConfigClean"
 msgstr "清理配置"

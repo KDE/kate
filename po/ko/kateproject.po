@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-20 00:42+0000\n"
+"POT-Creation-Date: 2024-07-21 00:42+0000\n"
 "PO-Revision-Date: 2024-02-10 00:49+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -810,12 +810,12 @@ msgstr "프로젝트 닫기 확인: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "프로젝트 %1 및 열린 문서 %2개를 닫으시겠습니까?"
 
-#: kateprojectplugin.cpp:594
+#: kateprojectplugin.cpp:591
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "파일 이름을 제외한 현재 프로젝트의 전체 경로입니다."
 
-#: kateprojectplugin.cpp:611
+#: kateprojectplugin.cpp:608
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -824,7 +824,7 @@ msgstr ""
 "네이티브 경로 구분자를 사용하는 파일 이름을 제외한 현재 프로젝트의 전체 경로"
 "입니다(Windows의 경우 백슬래시)."
 
-#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:725 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

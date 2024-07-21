@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-20 00:42+0000\n"
+"POT-Creation-Date: 2024-07-21 00:42+0000\n"
 "PO-Revision-Date: 2024-03-22 08:32+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -806,12 +806,12 @@ msgstr "אישור סגירת מיזם: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "לסגור את המיזם %1 ואת %2 המסמכים הקשורים?"
 
-#: kateprojectplugin.cpp:594
+#: kateprojectplugin.cpp:591
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "נתיב מלא למיזם הנוכחי ללא שם הקובץ."
 
-#: kateprojectplugin.cpp:611
+#: kateprojectplugin.cpp:608
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -820,7 +820,7 @@ msgstr ""
 "נתיב מלא למיזם הנוכחי כולל שם הקובץ, עם מפריד הנתיבים הטבעי (לוכסן הפוך ב־"
 "Windows)."
 
-#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:725 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

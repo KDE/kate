@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-20 00:42+0000\n"
+"POT-Creation-Date: 2024-07-21 00:42+0000\n"
 "PO-Revision-Date: 2021-09-15 03:16+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -826,19 +826,19 @@ msgstr "ပရောဂျက်ပိတ်ခြင်း အတည်ပြ�
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 
-#: kateprojectplugin.cpp:594
+#: kateprojectplugin.cpp:591
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr ""
 
-#: kateprojectplugin.cpp:611
+#: kateprojectplugin.cpp:608
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:725 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

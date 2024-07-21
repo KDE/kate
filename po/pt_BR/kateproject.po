@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-20 00:42+0000\n"
+"POT-Creation-Date: 2024-07-21 00:42+0000\n"
 "PO-Revision-Date: 2024-03-17 08:53-0300\n"
 "Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -824,12 +824,12 @@ msgstr "Confirmar o fechamento do projeto: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Deseja fechar o projeto %1 e os %2 documentos abertos relacionados?"
 
-#: kateprojectplugin.cpp:594
+#: kateprojectplugin.cpp:591
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Caminho completo do projeto atual sem o nome do arquivo."
 
-#: kateprojectplugin.cpp:611
+#: kateprojectplugin.cpp:608
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -838,7 +838,7 @@ msgstr ""
 "Caminho completo do projeto atual sem o nome do arquivo e com o separador de "
 "pastas nativo (barra invertida no Windows)."
 
-#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:725 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-02 00:41+0000\n"
+"POT-Creation-Date: 2024-07-21 00:42+0000\n"
 "PO-Revision-Date: 2024-07-02 10:40+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -78,68 +78,68 @@ msgstr "Compiler et exécuter"
 msgid "Build & Run Settings"
 msgstr "Compiler et exécuter les paramètres"
 
-#: plugin_katebuild.cpp:229 plugin_katebuild.cpp:236 plugin_katebuild.cpp:713
-#: plugin_katebuild.cpp:915 plugin_katebuild.cpp:928 targets.cpp:244
+#: plugin_katebuild.cpp:232 plugin_katebuild.cpp:239 plugin_katebuild.cpp:713
+#: plugin_katebuild.cpp:915 plugin_katebuild.cpp:928 targets.cpp:245
 #, kde-format
 msgid "Build"
 msgstr "Construire"
 
-#: plugin_katebuild.cpp:239
+#: plugin_katebuild.cpp:242
 #, kde-format
 msgid "Select Target..."
 msgstr "Sélectionnez la cible..."
 
-#: plugin_katebuild.cpp:244
+#: plugin_katebuild.cpp:247
 #, kde-format
 msgid "Build Selected Target"
 msgstr "Compiler la cible sélectionnée"
 
-#: plugin_katebuild.cpp:249
+#: plugin_katebuild.cpp:252
 #, kde-format
 msgid "Build and Run Selected Target"
 msgstr "Compiler et exécuter la cible sélectionnée"
 
-#: plugin_katebuild.cpp:254
+#: plugin_katebuild.cpp:257
 #, kde-format
 msgid "Compile Current File"
 msgstr "Compiler le fichier courant"
 
-#: plugin_katebuild.cpp:255
+#: plugin_katebuild.cpp:258
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
 "Veuillez essayer de compiler le fichier courant en recherchant un programme "
 "« compile_commands.json »"
 
-#: plugin_katebuild.cpp:260
+#: plugin_katebuild.cpp:263
 #, kde-format
 msgid "Stop"
 msgstr "Arrêter"
 
-#: plugin_katebuild.cpp:265
+#: plugin_katebuild.cpp:268
 #, kde-format
 msgid "Load targets from CMake Build Dir"
 msgstr "Charger les cibles à partir du dossier de compilation de CMake"
 
-#: plugin_katebuild.cpp:269
+#: plugin_katebuild.cpp:272
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
 msgstr "Se focaliser sur le prochain onglet sur la gauche"
 
-#: plugin_katebuild.cpp:289
+#: plugin_katebuild.cpp:292
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
 msgstr "Se focaliser sur le prochain onglet sur la droite"
 
-#: plugin_katebuild.cpp:311
+#: plugin_katebuild.cpp:314
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Configuration des cibles"
 
-#: plugin_katebuild.cpp:350
+#: plugin_katebuild.cpp:353
 #, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
@@ -149,7 +149,7 @@ msgstr ""
 "recherche :</b><br>%2<br/>Veuillez essayer d'ajouter un emplacement de "
 "recherche au « dossier de travail »"
 
-#: plugin_katebuild.cpp:433
+#: plugin_katebuild.cpp:436
 #, kde-format
 msgid "Build Information"
 msgstr "Construire les informations"
@@ -220,7 +220,7 @@ msgstr "La construction est déjà en cours..."
 msgid "Building target <b>%1</b> ..."
 msgstr "Construction de la cible <b>%1</b>..."
 
-#: plugin_katebuild.cpp:1102
+#: plugin_katebuild.cpp:1114
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -229,20 +229,20 @@ msgstr ""
 "Impossible de charger les cibles. Le fichier %1 ne contient aucune entrée "
 "« CMAKE_COMMAND » correcte !"
 
-#: plugin_katebuild.cpp:1115
+#: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "Impossible d'écrire les fichiers de requêtes « API »  du fichier de CMake "
 "pour le répertoire de compilation %1 !"
 
-#: plugin_katebuild.cpp:1121
+#: plugin_katebuild.cpp:1133
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr ""
 "Impossible d'exécuter CMake (%2) pour le répertoire de compilation %1 !"
 
-#: plugin_katebuild.cpp:1130
+#: plugin_katebuild.cpp:1142
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -251,12 +251,12 @@ msgstr ""
 "Échec de la génération des fichiers de réponses « API » du fichier de CMake "
 "pour le répertoire de compilation %1 (En utilisant %2) !"
 
-#: plugin_katebuild.cpp:1258
+#: plugin_katebuild.cpp:1261
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "Le module externe de compilation veut exécuter le programme"
 
-#: plugin_katebuild.cpp:1261
+#: plugin_katebuild.cpp:1264
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -270,83 +270,83 @@ msgstr ""
 "autoriser l'exécution de cette commande ?<br><br>Le choix peut être modifié "
 "grâce à la page de configuration du module externe."
 
-#: plugin_katebuild.cpp:1293
+#: plugin_katebuild.cpp:1296
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Résultats de Make :</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1329
+#: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "Compilation <b>%1</b> terminée. %2 erreur(s), %3 alarme(s), %4 note(s)"
 
-#: plugin_katebuild.cpp:1335
+#: plugin_katebuild.cpp:1338
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "%1 erreur a été trouvée."
 msgstr[1] "%1 erreurs ont été trouvées."
 
-#: plugin_katebuild.cpp:1339
+#: plugin_katebuild.cpp:1342
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "%1 avertissement a été trouvé."
 msgstr[1] "%1 avertissements ont été trouvés."
 
-#: plugin_katebuild.cpp:1342
+#: plugin_katebuild.cpp:1345
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Une note a été trouvée."
 msgstr[1] "%1 notes ont été trouvées."
 
-#: plugin_katebuild.cpp:1347
+#: plugin_katebuild.cpp:1350
 #, kde-format
 msgid "Build failed."
 msgstr "La compilation a échoué."
 
-#: plugin_katebuild.cpp:1349
+#: plugin_katebuild.cpp:1352
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Compilation réalisée sans problème."
 
-#: plugin_katebuild.cpp:1354
+#: plugin_katebuild.cpp:1357
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "Compilation <b>%1 annulée</b>. %2 erreur(s), %3 alarme(s), %4 note(s)"
 
-#: plugin_katebuild.cpp:1378
+#: plugin_katebuild.cpp:1381
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Impossible d'exécuter %1 : aucun dossier de travail défini."
 
-#: plugin_katebuild.cpp:1604
+#: plugin_katebuild.cpp:1607
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "erreur"
 
-#: plugin_katebuild.cpp:1607
+#: plugin_katebuild.cpp:1610
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "avertissement"
 
-#: plugin_katebuild.cpp:1610
+#: plugin_katebuild.cpp:1613
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "note | info"
 
-#: plugin_katebuild.cpp:1613
+#: plugin_katebuild.cpp:1616
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "référence indéfinie"
 
-#: plugin_katebuild.cpp:1747
+#: plugin_katebuild.cpp:1791
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Impossible d'enregistrer les cibles compilées dans : %1"
@@ -397,109 +397,109 @@ msgstr ""
 "« %d » pour le dossier du fichier actuel\n"
 "« %n » pour le nom du fichier actuel sans suffixe"
 
-#: TargetModel.cpp:297 TargetModel.cpp:309 targets.cpp:243
+#: TargetModel.cpp:309 TargetModel.cpp:321 targets.cpp:244
 #, kde-format
 msgid "Target Set"
 msgstr "Ensemble de cibles"
 
-#: TargetModel.cpp:500
+#: TargetModel.cpp:512
 #, kde-format
 msgid "Project"
 msgstr "Projet"
 
-#: TargetModel.cpp:500
+#: TargetModel.cpp:512
 #, kde-format
 msgid "Session"
 msgstr "Session"
 
-#: TargetModel.cpp:594
+#: TargetModel.cpp:606
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nom de la commande / Ensemble de cibles"
 
-#: TargetModel.cpp:597
+#: TargetModel.cpp:609
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Dossier de travail / Commande"
 
-#: TargetModel.cpp:600
+#: TargetModel.cpp:612
 #, kde-format
 msgid "Run Command"
 msgstr "Exécuter une commande"
 
-#: targets.cpp:31
+#: targets.cpp:32
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 "Pour le filtrage des cibles, veuillez utiliser les touches de flèches et "
 "appuyer sur « Entrée » pour lancer l'exécution"
 
-#: targets.cpp:35
+#: targets.cpp:36
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Créer un nouvel ensemble de cibles"
 
-#: targets.cpp:39
+#: targets.cpp:40
 #, kde-format
 msgid "Clone command or target set"
 msgstr "Copier la commande ou l'ensemble des cibles"
 
-#: targets.cpp:43
+#: targets.cpp:44
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Supprimer la cible actuelle ou l'ensemble actuel de cibles"
 
-#: targets.cpp:48
+#: targets.cpp:49
 #, kde-format
 msgid "Add new target"
 msgstr "Ajouter une nouvelle cible"
 
-#: targets.cpp:52
+#: targets.cpp:53
 #, kde-format
 msgid "Build selected target"
 msgstr "Construire la cible sélectionnée"
 
-#: targets.cpp:56
+#: targets.cpp:57
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Compiler et exécuter la cible sélectionnée"
 
-#: targets.cpp:60
+#: targets.cpp:61
 #, kde-format
 msgid "Move selected target up"
 msgstr "Déplacer la cible sélectionnée vers le haut"
 
-#: targets.cpp:64
+#: targets.cpp:65
 #, kde-format
 msgid "Move selected target down"
 msgstr "Déplacer la cible sélectionnée vers le bas"
 
-#: targets.cpp:203
+#: targets.cpp:204
 #, kde-format
 msgid "Copy"
 msgstr "Copier"
 
-#: targets.cpp:207
+#: targets.cpp:208
 #, kde-format
 msgid "Cut"
 msgstr "Couper"
 
-#: targets.cpp:211
+#: targets.cpp:212
 #, kde-format
 msgid "Paste after"
 msgstr "Coller après"
 
-#: targets.cpp:245
+#: targets.cpp:246
 #, kde-format
 msgid "Clean"
 msgstr "Nettoyer"
 
-#: targets.cpp:246
+#: targets.cpp:247
 #, kde-format
 msgid "Config"
 msgstr "Config"
 
-#: targets.cpp:247
+#: targets.cpp:248
 #, kde-format
 msgid "ConfigClean"
 msgstr "NettoyerConfig"

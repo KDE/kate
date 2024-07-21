@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/katebuild-plugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-02 00:41+0000\n"
+"POT-Creation-Date: 2024-07-21 00:42+0000\n"
 "PO-Revision-Date: 2009-01-20 10:11-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -68,76 +68,76 @@ msgstr "Breiseán Tógála"
 msgid "Build & Run Settings"
 msgstr "Theip ar thógáil."
 
-#: plugin_katebuild.cpp:229 plugin_katebuild.cpp:236 plugin_katebuild.cpp:713
-#: plugin_katebuild.cpp:915 plugin_katebuild.cpp:928 targets.cpp:244
+#: plugin_katebuild.cpp:232 plugin_katebuild.cpp:239 plugin_katebuild.cpp:713
+#: plugin_katebuild.cpp:915 plugin_katebuild.cpp:928 targets.cpp:245
 #, kde-format
 msgid "Build"
 msgstr "Tóg"
 
-#: plugin_katebuild.cpp:239
+#: plugin_katebuild.cpp:242
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Select Target..."
 msgstr "Theip ar thógáil."
 
-#: plugin_katebuild.cpp:244
+#: plugin_katebuild.cpp:247
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build Selected Target"
 msgstr "Theip ar thógáil."
 
-#: plugin_katebuild.cpp:249
+#: plugin_katebuild.cpp:252
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build and Run Selected Target"
 msgstr "Theip ar thógáil."
 
-#: plugin_katebuild.cpp:254
+#: plugin_katebuild.cpp:257
 #, kde-format
 msgid "Compile Current File"
 msgstr ""
 
-#: plugin_katebuild.cpp:255
+#: plugin_katebuild.cpp:258
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
 
-#: plugin_katebuild.cpp:260
+#: plugin_katebuild.cpp:263
 #, kde-format
 msgid "Stop"
 msgstr "Stad"
 
-#: plugin_katebuild.cpp:265
+#: plugin_katebuild.cpp:268
 #, kde-format
 msgid "Load targets from CMake Build Dir"
 msgstr ""
 
-#: plugin_katebuild.cpp:269
+#: plugin_katebuild.cpp:272
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
 msgstr ""
 
-#: plugin_katebuild.cpp:289
+#: plugin_katebuild.cpp:292
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
 msgstr ""
 
-#: plugin_katebuild.cpp:311
+#: plugin_katebuild.cpp:314
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Socruithe Sprice"
 
-#: plugin_katebuild.cpp:350
+#: plugin_katebuild.cpp:353
 #, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
 
-#: plugin_katebuild.cpp:433
+#: plugin_katebuild.cpp:436
 #, fuzzy, kde-format
 #| msgid "Build command:"
 msgid "Build Information"
@@ -203,36 +203,36 @@ msgstr ""
 msgid "Building target <b>%1</b> ..."
 msgstr "Theip ar thógáil."
 
-#: plugin_katebuild.cpp:1102
+#: plugin_katebuild.cpp:1114
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1115
+#: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1121
+#: plugin_katebuild.cpp:1133
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1130
+#: plugin_katebuild.cpp:1142
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1258
+#: plugin_katebuild.cpp:1261
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr ""
 
-#: plugin_katebuild.cpp:1261
+#: plugin_katebuild.cpp:1264
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -241,18 +241,18 @@ msgid ""
 "altered via the config page of the plugin."
 msgstr ""
 
-#: plugin_katebuild.cpp:1293
+#: plugin_katebuild.cpp:1296
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:1329
+#: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:1335
+#: plugin_katebuild.cpp:1338
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -262,7 +262,7 @@ msgstr[2] "Aimsíodh %1 earráid."
 msgstr[3] "Aimsíodh %1 n-earráid."
 msgstr[4] "Aimsíodh %1 earráid."
 
-#: plugin_katebuild.cpp:1339
+#: plugin_katebuild.cpp:1342
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -272,7 +272,7 @@ msgstr[2] "Aimsíodh %1 rabhadh."
 msgstr[3] "Aimsíodh %1 rabhadh."
 msgstr[4] "Aimsíodh %1 rabhadh."
 
-#: plugin_katebuild.cpp:1342
+#: plugin_katebuild.cpp:1345
 #, fuzzy, kde-format
 #| msgid "Found one error."
 #| msgid_plural "Found %1 errors."
@@ -284,27 +284,27 @@ msgstr[2] "Aimsíodh %1 earráid."
 msgstr[3] "Aimsíodh %1 n-earráid."
 msgstr[4] "Aimsíodh %1 earráid."
 
-#: plugin_katebuild.cpp:1347
+#: plugin_katebuild.cpp:1350
 #, kde-format
 msgid "Build failed."
 msgstr "Theip ar thógáil."
 
-#: plugin_katebuild.cpp:1349
+#: plugin_katebuild.cpp:1352
 #, kde-format
 msgid "Build completed without problems."
 msgstr "D'éirigh leis an tógáil gan fadhb ar bith."
 
-#: plugin_katebuild.cpp:1354
+#: plugin_katebuild.cpp:1357
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:1378
+#: plugin_katebuild.cpp:1381
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1604
+#: plugin_katebuild.cpp:1607
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -312,7 +312,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "earráid"
 
-#: plugin_katebuild.cpp:1607
+#: plugin_katebuild.cpp:1610
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -320,19 +320,19 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "rabhadh"
 
-#: plugin_katebuild.cpp:1610
+#: plugin_katebuild.cpp:1613
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1613
+#: plugin_katebuild.cpp:1616
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "tagairt gan sainmhíniú"
 
-#: plugin_katebuild.cpp:1747
+#: plugin_katebuild.cpp:1791
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""
@@ -377,112 +377,112 @@ msgstr ""
 "\"%f\" don chomhad reatha\n"
 "\"%d\" do chomhadlann an chomhaid reatha\"%n\" don chomhad reatha gan iarmhír"
 
-#: TargetModel.cpp:297 TargetModel.cpp:309 targets.cpp:243
+#: TargetModel.cpp:309 TargetModel.cpp:321 targets.cpp:244
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "Spriocanna"
 
-#: TargetModel.cpp:500
+#: TargetModel.cpp:512
 #, kde-format
 msgid "Project"
 msgstr ""
 
-#: TargetModel.cpp:500
+#: TargetModel.cpp:512
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:594
+#: TargetModel.cpp:606
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:597
+#: TargetModel.cpp:609
 #, fuzzy, kde-format
 #| msgid "Working directory"
 msgid "Working Directory / Command"
 msgstr "Comhadlann oibre"
 
-#: TargetModel.cpp:600
+#: TargetModel.cpp:612
 #, fuzzy, kde-format
 #| msgid "Clean command:"
 msgid "Run Command"
 msgstr "Ordú glanta:"
 
-#: targets.cpp:31
+#: targets.cpp:32
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 
-#: targets.cpp:35
+#: targets.cpp:36
 #, kde-format
 msgid "Create new set of targets"
 msgstr ""
 
-#: targets.cpp:39
+#: targets.cpp:40
 #, kde-format
 msgid "Clone command or target set"
 msgstr ""
 
-#: targets.cpp:43
+#: targets.cpp:44
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr ""
 
-#: targets.cpp:48
+#: targets.cpp:49
 #, kde-format
 msgid "Add new target"
 msgstr ""
 
-#: targets.cpp:52
+#: targets.cpp:53
 #, kde-format
 msgid "Build selected target"
 msgstr ""
 
-#: targets.cpp:56
+#: targets.cpp:57
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build and run selected target"
 msgstr "Theip ar thógáil."
 
-#: targets.cpp:60
+#: targets.cpp:61
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Move selected target up"
 msgstr "Theip ar thógáil."
 
-#: targets.cpp:64
+#: targets.cpp:65
 #, kde-format
 msgid "Move selected target down"
 msgstr ""
 
-#: targets.cpp:203
+#: targets.cpp:204
 #, kde-format
 msgid "Copy"
 msgstr "Cóipeáil"
 
-#: targets.cpp:207
+#: targets.cpp:208
 #, kde-format
 msgid "Cut"
 msgstr ""
 
-#: targets.cpp:211
+#: targets.cpp:212
 #, kde-format
 msgid "Paste after"
 msgstr ""
 
-#: targets.cpp:245
+#: targets.cpp:246
 #, kde-format
 msgid "Clean"
 msgstr "Glan"
 
-#: targets.cpp:246
+#: targets.cpp:247
 #, kde-format
 msgid "Config"
 msgstr "Cumraíocht"
 
-#: targets.cpp:247
+#: targets.cpp:248
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"

@@ -44,6 +44,8 @@
 #include "targets.h"
 #include "ui_build.h"
 
+class KateBuildPlugin;
+
 class QCMakeFileApi;
 
 /******************************************************************/
@@ -60,7 +62,7 @@ public:
 
     enum class Category { Normal, Info, Warning, Error };
 
-    KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
+    KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *mw);
     ~KateBuildView() override;
 
     void readSessionConfig(const KConfigGroup &config) override;
@@ -102,13 +104,6 @@ private Q_SLOTS:
     void slotPluginViewCreated(const QString &name, QObject *pluginView);
     void slotPluginViewDeleted(const QString &name, QObject *pluginView);
     void slotProjectMapChanged();
-
-    /**
-     * Read the non-session configurations
-     */
-    void readConfig();
-
-    void writeConfig();
 
     /**
      * Save the project build target updates
@@ -170,6 +165,7 @@ private:
     QString findCompileCommands(const QString& file) const;
     CompileCommands parseCompileCommandsFile(const QString& compileCommandsFile) const;
 
+    KateBuildPlugin *m_plugin;
     KTextEditor::MainWindow *m_win;
     QWidget *m_toolView;
     Ui::build m_buildUi{};
@@ -198,13 +194,8 @@ private:
     int m_projectTargetsetRow = 0;
     bool m_firstBuild = true;
     DiagnosticsProvider m_diagnosticsProvider;
-    bool m_addDiagnostics = true;
-    bool m_autoSwitchToOutput = true;
     QTimer m_saveProjTargetsTimer;
     bool m_addingProjTargets = false;
-
-    // hash of allowed and blacklisted command lines
-    std::map<QString, bool> m_commandLineToAllowedState;
 
     /**
      * current project plugin view, if any
@@ -229,6 +220,16 @@ public:
     int configPages() const override;
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
-Q_SIGNALS:
-    void configChanged();
+    /**
+     * Read the non-session configurations
+     */
+    void readConfig();
+
+    void writeConfig() const;
+
+    bool m_addDiagnostics = true;
+    bool m_autoSwitchToOutput = true;
+
+    // hash of allowed and blacklisted command lines
+    std::map<QString, bool> m_commandLineToAllowedState;
 };

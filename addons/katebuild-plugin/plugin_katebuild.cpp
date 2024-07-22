@@ -185,6 +185,7 @@ Q_DECLARE_METATYPE(ItemData)
 KateBuildPlugin::KateBuildPlugin(QObject *parent, const VariantList &)
     : KTextEditor::Plugin(parent)
 {
+    readConfig();
 }
 
 /******************************************************************/
@@ -206,14 +207,53 @@ KTextEditor::ConfigPage *KateBuildPlugin::configPage(int number, QWidget *parent
         return nullptr;
     }
 
-    KateBuildConfigPage *configPage = new KateBuildConfigPage(parent);
-    connect(configPage, &KateBuildConfigPage::configChanged, this, &KateBuildPlugin::configChanged);
+    KateBuildConfigPage *configPage = new KateBuildConfigPage(this, parent);
     return configPage;
 }
 
 /******************************************************************/
-KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
+void KateBuildPlugin::readConfig()
+{
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
+    m_addDiagnostics = config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true);
+    m_autoSwitchToOutput = config.readEntry(QStringLiteral("AutoSwitchToOutput"), true);
+
+    // read allow + block lists as two separate keys, let block always win
+    const auto allowed = config.readEntry(ConfigAllowedCommands, QStringList());
+    const auto blocked = config.readEntry(ConfigBlockedCommands, QStringList());
+    m_commandLineToAllowedState.clear();
+    for (const auto &cmd : allowed) {
+        m_commandLineToAllowedState[cmd] = true;
+    }
+    for (const auto &cmd : blocked) {
+        m_commandLineToAllowedState[cmd] = false;
+    }
+}
+
+/******************************************************************/
+void KateBuildPlugin::writeConfig() const
+{
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
+    config.writeEntry("UseDiagnosticsOutput", m_addDiagnostics);
+    config.writeEntry("AutoSwitchToOutput", m_autoSwitchToOutput);
+
+    // write allow + block lists as two separate keys
+    QStringList allowed, blocked;
+    for (const auto &it : m_commandLineToAllowedState) {
+        if (it.second) {
+            allowed.push_back(it.first);
+        } else {
+            blocked.push_back(it.first);
+        }
+    }
+    config.writeEntry(ConfigAllowedCommands, allowed);
+    config.writeEntry(ConfigBlockedCommands, blocked);
+}
+
+/******************************************************************/
+KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *mw)
     : QObject(mw)
+    , m_plugin(plugin)
     , m_win(mw)
     , m_buildWidget(nullptr)
     , m_proc(this)
@@ -459,12 +499,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         }
         m_targetsUi->targetsView->scrollTo(m_targetsUi->targetsView->currentIndex());
     });
-
-    KateBuildPlugin *bPlugin = qobject_cast<KateBuildPlugin *>(plugin);
-    if (bPlugin) {
-        connect(bPlugin, &KateBuildPlugin::configChanged, this, &KateBuildView::readConfig);
-    }
-    readConfig();
 }
 
 /******************************************************************/
@@ -597,45 +631,6 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
 }
 
 /******************************************************************/
-void KateBuildView::readConfig()
-{
-    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
-    m_addDiagnostics = config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true);
-    m_autoSwitchToOutput = config.readEntry(QStringLiteral("AutoSwitchToOutput"), true);
-
-    // read allow + block lists as two separate keys, let block always win
-    const auto allowed = config.readEntry(ConfigAllowedCommands, QStringList());
-    const auto blocked = config.readEntry(ConfigBlockedCommands, QStringList());
-    m_commandLineToAllowedState.clear();
-    for (const auto &cmd : allowed) {
-        m_commandLineToAllowedState[cmd] = true;
-    }
-    for (const auto &cmd : blocked) {
-        m_commandLineToAllowedState[cmd] = false;
-    }
-}
-
-/******************************************************************/
-void KateBuildView::writeConfig()
-{
-    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
-
-    // write allow + block lists as two separate keys
-    QStringList allowed, blocked;
-    for (const auto &it : m_commandLineToAllowedState) {
-        if (it.second) {
-            allowed.push_back(it.first);
-        } else {
-            blocked.push_back(it.first);
-        }
-    }
-    config.writeEntry(ConfigAllowedCommands, allowed);
-    config.writeEntry(ConfigBlockedCommands, blocked);
-
-    // Q_EMIT configUpdated();
-}
-
-/******************************************************************/
 static Diagnostic createDiagnostic(int line, int column, const QString &message, const DiagnosticSeverity &severity)
 {
     Diagnostic d;
@@ -666,7 +661,7 @@ void KateBuildView::addError(const KateBuildView::OutputLine &err)
         severity = DiagnosticSeverity::Information;
     }
 
-    if (!m_addDiagnostics) {
+    if (!m_plugin->m_addDiagnostics) {
         return;
     }
 
@@ -767,7 +762,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     // clear previous runs
     clearBuildResults();
 
-    if (m_autoSwitchToOutput) {
+    if (m_plugin->m_autoSwitchToOutput) {
         // activate the output tab
         m_buildUi.u_tabWidget->setCurrentIndex(1);
         m_win->showToolView(m_toolView);
@@ -1252,7 +1247,7 @@ bool KateBuildView::isCommandLineAllowed(const QStringList &cmdline)
     // check our allow list
     // if we already have stored some value, perfect, just use that one
     const QString fullCommandLineString = cmdline.join(QStringLiteral(" "));
-    if (const auto it = m_commandLineToAllowedState.find(fullCommandLineString); it != m_commandLineToAllowedState.end()) {
+    if (const auto it = m_plugin->m_commandLineToAllowedState.find(fullCommandLineString); it != m_plugin->m_commandLineToAllowedState.end()) {
         return it->second;
     }
 
@@ -1271,7 +1266,7 @@ bool KateBuildView::isCommandLineAllowed(const QStringList &cmdline)
     const bool allowed = (msgBox->exec() == QMessageBox::Yes);
 
     // store new configured value
-    m_commandLineToAllowedState.emplace(fullCommandLineString, allowed);
+    m_plugin->m_commandLineToAllowedState.emplace(fullCommandLineString, allowed);
 
     // inform the user if it was forbidden! do this here to just emit this once
     // if (!allowed) {
@@ -1280,7 +1275,7 @@ bool KateBuildView::isCommandLineAllowed(const QStringList &cmdline)
     // }
 
     // flush config to not loose that setting
-    // writeConfig();
+    m_plugin->writeConfig();
     return allowed;
 }
 

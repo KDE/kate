@@ -10,32 +10,35 @@
 // License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "buildconfig.h"
+#include "plugin_katebuild.h"
+#include "ui_buildconfigwidget.h"
 
-#include <QCheckBox>
 #include <QDebug>
-#include <QVBoxLayout>
-
-#include <KConfigGroup>
-#include <KLocalizedString>
-#include <KSharedConfig>
+#include <QMenu>
 
 /******************************************************************/
-KateBuildConfigPage::KateBuildConfigPage(QWidget *parent)
+KateBuildConfigPage::KateBuildConfigPage(KateBuildPlugin *plugin, QWidget *parent)
     : KTextEditor::ConfigPage(parent)
+    , m_plugin(plugin)
 {
-    m_useDiagnosticsCB = new QCheckBox(i18n("Add errors and warnings to Diagnostics"), this);
-    m_autoSwitchToOutput = new QCheckBox(i18n("Automatically switch to output pane on executing the selected target"), this);
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->addWidget(m_useDiagnosticsCB);
-    layout->addWidget(m_autoSwitchToOutput);
-    layout->addStretch(1);
+    ui = new Ui::BuildConfigWidget();
+    ui->setupUi(this);
+    ui->tabWidget->setDocumentMode(true);
+
     reset();
-    for (const auto *item : {m_useDiagnosticsCB, m_autoSwitchToOutput})
+
+    for (const auto *item : {ui->useDiagnosticsCB, ui->autoSwitchToOutput})
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
         connect(item, &QCheckBox::stateChanged, this, &KateBuildConfigPage::changed);
 #else
         connect(item, &QCheckBox::checkStateChanged, this, &KateBuildConfigPage::changed);
 #endif
+
+    connect(ui->allowedAndBlockedCommands, &QListWidget::itemChanged, this, &KateBuildConfigPage::changed);
+
+    // own context menu to delete entries
+    ui->allowedAndBlockedCommands->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->allowedAndBlockedCommands, &QWidget::customContextMenuRequested, this, &KateBuildConfigPage::showContextMenuAllowedBlocked);
 }
 
 /******************************************************************/
@@ -59,29 +62,55 @@ QIcon KateBuildConfigPage::icon() const
 /******************************************************************/
 void KateBuildConfigPage::apply()
 {
-    Q_ASSERT(m_useDiagnosticsCB);
-    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
-    config.writeEntry("UseDiagnosticsOutput", m_useDiagnosticsCB->isChecked());
-    config.writeEntry("AutoSwitchToOutput", m_autoSwitchToOutput->isChecked());
-    config.sync();
-    Q_EMIT configChanged();
+    m_plugin->m_addDiagnostics = ui->useDiagnosticsCB->isChecked();
+    m_plugin->m_autoSwitchToOutput = ui->autoSwitchToOutput->isChecked();
+
+    m_plugin->m_commandLineToAllowedState.clear();
+    for (int i = 0; i < ui->allowedAndBlockedCommands->count(); ++i) {
+        const auto item = ui->allowedAndBlockedCommands->item(i);
+        m_plugin->m_commandLineToAllowedState.emplace(item->text(), item->checkState() == Qt::Checked);
+    }
+
+    m_plugin->writeConfig();
 }
 
 /******************************************************************/
 void KateBuildConfigPage::reset()
 {
-    Q_ASSERT(m_useDiagnosticsCB);
-    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
-    m_useDiagnosticsCB->setChecked(config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true));
-    m_autoSwitchToOutput->setChecked(config.readEntry(QStringLiteral("AutoSwitchToOutput"), true));
+    ui->useDiagnosticsCB->setChecked(m_plugin->m_addDiagnostics);
+    ui->autoSwitchToOutput->setChecked(m_plugin->m_autoSwitchToOutput);
+
+    ui->allowedAndBlockedCommands->clear();
+    for (const auto &it : m_plugin->m_commandLineToAllowedState) {
+        auto item = new QListWidgetItem(it.first, ui->allowedAndBlockedCommands);
+        item->setCheckState(it.second ? Qt::Checked : Qt::Unchecked);
+    }
 }
 
 /******************************************************************/
 void KateBuildConfigPage::defaults()
 {
-    Q_ASSERT(m_useDiagnosticsCB);
-    m_useDiagnosticsCB->setCheckState(Qt::CheckState::Checked);
-    m_autoSwitchToOutput->setCheckState(Qt::CheckState::Checked);
+    ui->useDiagnosticsCB->setCheckState(Qt::CheckState::Checked);
+    ui->autoSwitchToOutput->setCheckState(Qt::CheckState::Checked);
+    ui->allowedAndBlockedCommands->clear();
+}
+
+void KateBuildConfigPage::showContextMenuAllowedBlocked(const QPoint &pos)
+{
+    // allow deletion of stuff
+    QMenu myMenu(this);
+
+    auto currentDelete = myMenu.addAction(i18n("Delete selected entries"), this, [this]() {
+        qDeleteAll(ui->allowedAndBlockedCommands->selectedItems());
+    });
+    currentDelete->setEnabled(!ui->allowedAndBlockedCommands->selectedItems().isEmpty());
+
+    auto allDelete = myMenu.addAction(i18n("Delete all entries"), this, [this]() {
+        ui->allowedAndBlockedCommands->clear();
+    });
+    allDelete->setEnabled(ui->allowedAndBlockedCommands->count() > 0);
+
+    myMenu.exec(ui->allowedAndBlockedCommands->mapToGlobal(pos));
 }
 
 #include "moc_buildconfig.cpp"

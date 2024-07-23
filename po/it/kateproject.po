@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Nicola Ruggero <nicola@nxnt.org>, 2013.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2016, 2018, 2019, 2021, 2022, 2023 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2018, 2019, 2021, 2022, 2023, 2024 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-21 00:42+0000\n"
-"PO-Revision-Date: 2023-11-28 15:43+0100\n"
+"PO-Revision-Date: 2024-07-19 19:10+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -562,7 +562,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format

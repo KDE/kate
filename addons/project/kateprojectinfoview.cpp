@@ -52,8 +52,7 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
         const QFileInfo buildInfo(m_project->projectMap().value(QStringLiteral("build")).toMap().value(QStringLiteral("directory")).toString());
         const QString buildPath = buildInfo.absoluteFilePath();
         if (!buildPath.isEmpty() && projectPath != buildPath && basePath != buildPath && buildInfo.exists()) {
-            m_terminal = new KateProjectInfoViewTerminal(pluginView, buildPath);
-            addTab(m_terminal, i18n("Terminal (build)"));
+            addTab(new KateProjectInfoViewTerminal(pluginView, buildPath), i18n("Terminal (build)"));
         }
     }
 

@@ -406,9 +406,3 @@ msgstr "Desa el document actual amb un nom nou"
 #, kde-format
 msgid "&Go"
 msgstr "&Ves"
-
-#~ msgid ""
-#~ "When enabled, this will show a close button for opened documents on hover."
-#~ msgstr ""
-#~ "Quan està habilitada, es mostrarà un botó de tancament en passar el "
-#~ "ratolí per als documents oberts."

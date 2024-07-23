@@ -250,6 +250,3 @@ msgstr "Arranjament del terminal"
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
-
-#~ msgid "Sorry, cannot cd into '%1'"
-#~ msgstr "No es pot fer «cd» a dins de «%1»"

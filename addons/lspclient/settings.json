@@ -216,6 +216,11 @@
             "url": "https://github.com/jeapostrophe/racket-langserver",
             "highlightingModeRegex": "^Racket$"
         },
+        "rpmspec": {
+            "command": ["rpm_lsp_server", "--stdio"],
+            "url": "https://github.com/dcermak/rpm-spec-language-server",
+            "highlightingModeRegex": "^RPM Spec$"
+        },
         "rst": {
             "command": ["python", "-m", "esbonio"],
             "initializationOptions": {

@@ -1703,11 +1703,13 @@ void KateBuildView::addProjectTargets()
     }
 
     // query new project map
-    QVariantMap projectMap = m_projectPluginView->property("projectMap").toMap();
+    const QVariantMap projectMap = m_projectPluginView->property("projectMap").toMap();
 
     // do we have a valid map for build settings?
-    QVariantMap buildMap = projectMap.value(QStringLiteral("build")).toMap();
-    if (buildMap.isEmpty()) {
+    // ignore it if we have no targets there
+    const QVariantMap buildMap = projectMap.value(QStringLiteral("build")).toMap();
+    const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
+    if (targetsets.isEmpty()) {
         return;
     }
 
@@ -1721,7 +1723,6 @@ void KateBuildView::addProjectTargets()
     const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, projectName, projectsBuildDir);
     const QString defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
 
-    const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
     for (const QVariant &targetVariant : targetsets) {
         const QVariantMap targetMap = targetVariant.toMap();
         const QString tgtName = targetMap[QStringLiteral("name")].toString();

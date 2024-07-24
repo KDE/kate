@@ -354,7 +354,10 @@ KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
                     return nullptr;
                 }
 
-                QVariantMap cnf;
+                // add build dir to base project config, we need that to have a terminal there
+                QVariantMap cnf, build;
+                build[QStringLiteral("directory")] = dir.absolutePath();
+                cnf[QStringLiteral("build")] = build;
 
                 // trigger load via other heuristics or explicit directory load
                 // mimics behavior of old CMake addon generator

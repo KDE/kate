@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-23 00:41+0000\n"
-"PO-Revision-Date: 2024-07-01 11:36+0900\n"
+"POT-Creation-Date: 2024-07-24 00:42+0000\n"
+"PO-Revision-Date: 2024-07-23 22:37+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -60,23 +60,20 @@ msgid "Build & Run Settings"
 msgstr "編譯與執行設定"
 
 #: buildconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Delete selected entries"
-msgstr "編譯選取的目標"
+msgstr "刪除選取的項目"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "刪除所有項目"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "目標設定"
+msgstr "一般設定"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
@@ -94,7 +91,7 @@ msgstr "執行選取目標時自動切換至輸出面板"
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "允許與封鎖的指令"
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:910 plugin_katebuild.cpp:923 targets.cpp:245
@@ -343,7 +340,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "未定義的參照"
 
-#: plugin_katebuild.cpp:1786
+#: plugin_katebuild.cpp:1787
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "無法儲存編譯目標於：%1"

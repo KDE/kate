@@ -6,20 +6,20 @@
 # Jeff Huang <s8321414@gmail.com>, 2016, 2020, 2022.
 # pan93412 <pan93412@gmail.com>, 2018.
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2008, 2009.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
+# SPDX-FileCopyrightText: 2023, 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-15 01:41+0000\n"
-"PO-Revision-Date: 2023-12-22 04:54+0900\n"
+"PO-Revision-Date: 2024-07-23 21:27+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.01.80\n"
+"X-Generator: Lokalize 24.04.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -94,7 +94,7 @@ msgstr "任何樣式"
 #: ctagskinds.cpp:34
 msgctxt "Tag Type"
 msgid "slot"
-msgstr "信號槽"
+msgstr "樣式槽"
 
 #: ctagskinds.cpp:35
 msgctxt "Tag Type"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-21 00:42+0000\n"
+"POT-Creation-Date: 2024-07-24 02:28+0000\n"
 "PO-Revision-Date: 2023-01-31 18:13+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -687,23 +687,23 @@ msgstr "Terminál (.kateproject)"
 msgid "Terminal (Base)"
 msgstr "Terminál (Základný)"
 
-#: kateprojectinfoview.cpp:56
+#: kateprojectinfoview.cpp:55
 #, fuzzy, kde-format
 #| msgid "Terminal (Base)"
 msgid "Terminal (build)"
 msgstr "Terminál (Základný)"
 
-#: kateprojectinfoview.cpp:63
+#: kateprojectinfoview.cpp:62
 #, kde-format
 msgid "Code Index"
 msgstr "Index kódu"
 
-#: kateprojectinfoview.cpp:68
+#: kateprojectinfoview.cpp:67
 #, kde-format
 msgid "Code Analysis"
 msgstr "Analýza kódu"
 
-#: kateprojectinfoview.cpp:73
+#: kateprojectinfoview.cpp:72
 #, kde-format
 msgid "Notes"
 msgstr "Poznámky"
@@ -823,12 +823,12 @@ msgstr "Potvrdiť zatvorenie projektu: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Chcete zatvoriť projekt %1 a súvisiace %2 otvorené dokumenty?"
 
-#: kateprojectplugin.cpp:591
+#: kateprojectplugin.cpp:594
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Úplná cesta k aktuálnemu projektu bez názvu súboru."
 
-#: kateprojectplugin.cpp:608
+#: kateprojectplugin.cpp:611
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -837,7 +837,7 @@ msgstr ""
 "Úplná cesta k aktuálnemu projektu s výnimkou názvu súboru, s natívnym "
 "oddeľovačom (spätné lomítko vo Windows)."
 
-#: kateprojectplugin.cpp:725 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

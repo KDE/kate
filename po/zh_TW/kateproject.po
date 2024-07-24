@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-21 00:42+0000\n"
+"POT-Creation-Date: 2024-07-24 02:28+0000\n"
 "PO-Revision-Date: 2024-07-08 17:28+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -675,22 +675,22 @@ msgstr "終端機（.kateproject）"
 msgid "Terminal (Base)"
 msgstr "終端機（基礎）"
 
-#: kateprojectinfoview.cpp:56
+#: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Terminal (build)"
 msgstr "終端機（編譯）"
 
-#: kateprojectinfoview.cpp:63
+#: kateprojectinfoview.cpp:62
 #, kde-format
 msgid "Code Index"
 msgstr "代碼索引"
 
-#: kateprojectinfoview.cpp:68
+#: kateprojectinfoview.cpp:67
 #, kde-format
 msgid "Code Analysis"
 msgstr "代碼分析"
 
-#: kateprojectinfoview.cpp:73
+#: kateprojectinfoview.cpp:72
 #, kde-format
 msgid "Notes"
 msgstr "備忘"
@@ -801,12 +801,12 @@ msgstr "確認關閉專案：%1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "您確定要關閉專案 %1 和它相關的 %2 個開啟中的文件嗎？"
 
-#: kateprojectplugin.cpp:591
+#: kateprojectplugin.cpp:594
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "指向目前專案的完整路徑 (不含檔名)。"
 
-#: kateprojectplugin.cpp:608
+#: kateprojectplugin.cpp:611
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -815,7 +815,7 @@ msgstr ""
 "指向目前專案的完整路徑 (不含檔名，使用原生路徑分隔符 - 在 Windows 上是反斜"
 "線)。"
 
-#: kateprojectplugin.cpp:725 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

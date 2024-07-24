@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-23 02:34+0000\n"
-"PO-Revision-Date: 2024-07-01 06:47+0200\n"
+"POT-Creation-Date: 2024-07-24 02:28+0000\n"
+"PO-Revision-Date: 2024-07-23 07:44+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -61,23 +61,20 @@ msgid "Build & Run Settings"
 msgstr "Izgradi in zaženi nastavitve"
 
 #: buildconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Delete selected entries"
-msgstr "Izgradi izbran cilj"
+msgstr "Izbriši izbrane vnose"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Izbriši vse vnose"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "Nastavitve cilja"
+msgstr "Splošne nastavitve"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
@@ -95,7 +92,7 @@ msgstr "Samodejno preklopi na izhodno podokno ob izvedbi izbranega cilja"
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "Dovoljeni in blokirani ukazi"
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:910 plugin_katebuild.cpp:923 targets.cpp:245
@@ -361,7 +358,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "nedoločen sklic"
 
-#: plugin_katebuild.cpp:1786
+#: plugin_katebuild.cpp:1787
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Ni mogoče shranjevati ciljev izgradnje v: %1"

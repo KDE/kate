@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-21 00:42+0000\n"
+"POT-Creation-Date: 2024-07-24 02:28+0000\n"
 "PO-Revision-Date: 2024-07-03 15:31+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -675,22 +675,22 @@ msgstr "Terminál (.kateproject)"
 msgid "Terminal (Base)"
 msgstr "Terminál (Základ)"
 
-#: kateprojectinfoview.cpp:56
+#: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Terminal (build)"
 msgstr "Terminál (sestavení)"
 
-#: kateprojectinfoview.cpp:63
+#: kateprojectinfoview.cpp:62
 #, kde-format
 msgid "Code Index"
 msgstr "Index kódu"
 
-#: kateprojectinfoview.cpp:68
+#: kateprojectinfoview.cpp:67
 #, kde-format
 msgid "Code Analysis"
 msgstr "Analýza kódu"
 
-#: kateprojectinfoview.cpp:73
+#: kateprojectinfoview.cpp:72
 #, kde-format
 msgid "Notes"
 msgstr "Poznámky"
@@ -799,19 +799,19 @@ msgstr ""
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 
-#: kateprojectplugin.cpp:591
+#: kateprojectplugin.cpp:594
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr ""
 
-#: kateprojectplugin.cpp:608
+#: kateprojectplugin.cpp:611
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectplugin.cpp:725 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

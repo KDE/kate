@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-21 00:42+0000\n"
+"POT-Creation-Date: 2024-07-24 02:28+0000\n"
 "PO-Revision-Date: 2024-07-03 21:54+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -677,22 +677,22 @@ msgstr "Terminalo (.kateproject)"
 msgid "Terminal (Base)"
 msgstr "Terminalo (Bazo)"
 
-#: kateprojectinfoview.cpp:56
+#: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Terminal (build)"
 msgstr "Terminalo (konstruo)"
 
-#: kateprojectinfoview.cpp:63
+#: kateprojectinfoview.cpp:62
 #, kde-format
 msgid "Code Index"
 msgstr "Koda Indekso"
 
-#: kateprojectinfoview.cpp:68
+#: kateprojectinfoview.cpp:67
 #, kde-format
 msgid "Code Analysis"
 msgstr "Koda Analizo"
 
-#: kateprojectinfoview.cpp:73
+#: kateprojectinfoview.cpp:72
 #, kde-format
 msgid "Notes"
 msgstr "Notoj"
@@ -808,12 +808,12 @@ msgstr ""
 "Ĉu vi volas fermi la projekton %1 kaj la rilatajn %2 malfermitajn "
 "dokumentojn?"
 
-#: kateprojectplugin.cpp:591
+#: kateprojectplugin.cpp:594
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Plena vojo al nuna projekto ekskludante la dosiernomon."
 
-#: kateprojectplugin.cpp:608
+#: kateprojectplugin.cpp:611
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -822,7 +822,7 @@ msgstr ""
 "Plena vojo al aktuala projekto ekskludante la dosiernomon, kun denaska "
 "padodisigilo (malantaŭa oblikvo en Vindozo)."
 
-#: kateprojectplugin.cpp:725 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

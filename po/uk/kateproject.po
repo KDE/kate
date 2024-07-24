@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-21 00:42+0000\n"
+"POT-Creation-Date: 2024-07-24 02:28+0000\n"
 "PO-Revision-Date: 2024-07-03 19:46+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
@@ -687,22 +687,22 @@ msgstr "Термінал (.kateproject)"
 msgid "Terminal (Base)"
 msgstr "Термінал (Основа)"
 
-#: kateprojectinfoview.cpp:56
+#: kateprojectinfoview.cpp:55
 #, kde-format
 msgid "Terminal (build)"
 msgstr "Термінал (build)"
 
-#: kateprojectinfoview.cpp:63
+#: kateprojectinfoview.cpp:62
 #, kde-format
 msgid "Code Index"
 msgstr "Покажчик коду"
 
-#: kateprojectinfoview.cpp:68
+#: kateprojectinfoview.cpp:67
 #, kde-format
 msgid "Code Analysis"
 msgstr "Аналіз коду"
 
-#: kateprojectinfoview.cpp:73
+#: kateprojectinfoview.cpp:72
 #, kde-format
 msgid "Notes"
 msgstr "Нотатки"
@@ -819,12 +819,12 @@ msgstr "Підтвердження закриття проєкту: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Хочете закрити проєкт %1 і пов'язані із ним відкриті документи (%2)?"
 
-#: kateprojectplugin.cpp:591
+#: kateprojectplugin.cpp:594
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Повний шлях до поточного проєкту без назви файла."
 
-#: kateprojectplugin.cpp:608
+#: kateprojectplugin.cpp:611
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -833,7 +833,7 @@ msgstr ""
 "Повний шлях до поточного проєкту без назви файла зі звичним для системи "
 "символом відокремлення частин шляху (зворотна похила риска у Windows)."
 
-#: kateprojectplugin.cpp:725 kateprojectpluginview.cpp:72
+#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
 #: kateprojectviewtree.cpp:175
 #, kde-format

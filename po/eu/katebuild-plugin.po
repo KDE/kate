@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-23 02:34+0000\n"
-"PO-Revision-Date: 2024-07-12 00:11+0200\n"
+"POT-Creation-Date: 2024-07-24 02:28+0000\n"
+"PO-Revision-Date: 2024-07-23 11:47+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -60,23 +60,20 @@ msgid "Build & Run Settings"
 msgstr "Eraiki eta exekutatu ezarpenak"
 
 #: buildconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Delete selected entries"
-msgstr "Eraiki hautatutako jomuga"
+msgstr "Ezabatu hautatutako sarrerak"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Ezabatu sarrera denak"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "Jomuga ezarpenak"
+msgstr "Ezarpen orokorrak"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
@@ -95,7 +92,7 @@ msgstr ""
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "Baimendutako eta blokeatutako komandoak"
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:910 plugin_katebuild.cpp:923 targets.cpp:245
@@ -356,7 +353,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "definitu gabeko aipamena"
 
-#: plugin_katebuild.cpp:1786
+#: plugin_katebuild.cpp:1787
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Ezin izan dira eraikitzeko helburuak hemen gorde: %1"

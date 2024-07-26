@@ -58,18 +58,18 @@ msgstr "构建并运行设置"
 #: buildconfig.cpp:103
 #, kde-format
 msgid "Delete selected entries"
-msgstr ""
+msgstr "删除所选条目"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "删除所有条目"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
 #, kde-format
 msgid "General Settings"
-msgstr ""
+msgstr "常规设置"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
@@ -87,7 +87,7 @@ msgstr "执行选定的目标时自动切换到输出窗格"
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "允许和阻止的服务器"
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:910 plugin_katebuild.cpp:923 targets.cpp:245

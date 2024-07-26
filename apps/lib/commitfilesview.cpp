@@ -514,7 +514,7 @@ void CommitView::openCommit(const QString &hash, const QString &path, KTextEdito
         return;
     }
 
-    if (hash.length() < 7) {
+    if (hash.length() < 7 && hash != QStringLiteral("HEAD")) {
         Utils::showMessage(i18n("Invalid hash"), gitIcon(), i18n("Git"), MessageType::Error, mainWindow);
         return;
     }

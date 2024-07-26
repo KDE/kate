@@ -1044,11 +1044,40 @@ void GitWidget::buildMenu(KActionCollection *ac)
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("git_show_commit"), this, [this] {
-        bool ok = false;
-        const QString hash = QInputDialog::getText(this, i18n("Show Commit"), i18n("Commit hash"), QLineEdit::Normal, {}, &ok);
-        if (ok && !hash.isEmpty()) {
-            const QString base = m_activeGitDirPath;
-            CommitView::openCommit(hash, base, m_mainWin);
+        QDialog dialog(this);
+        dialog.setWindowTitle(i18n("Show Commit"));
+
+        QVBoxLayout vLayout;
+        dialog.setLayout(&vLayout);
+        QHBoxLayout layout;
+
+        QLabel label(i18n("Commit"));
+        layout.addWidget(&label);
+        QLineEdit lineEdit;
+        layout.addWidget(&lineEdit);
+
+        QDialogButtonBox btns(QDialogButtonBox::Open | QDialogButtonBox::Cancel);
+        QPushButton openHeadBtn;
+        bool openHead = false;
+        connect(&openHeadBtn, &QPushButton::clicked, &dialog, [&openHead, &dialog] {
+            openHead = true;
+            dialog.accept();
+        });
+        openHeadBtn.setText(i18n("Show Last Commit"));
+        btns.addButton(&openHeadBtn, QDialogButtonBox::ActionRole);
+
+        connect(&btns, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+        connect(&btns, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+        vLayout.addLayout(&layout);
+        vLayout.addWidget(&btns);
+
+        if (dialog.exec() == QDialog::Accepted) {
+            const QString hash = openHead ? QStringLiteral("HEAD") : lineEdit.text();
+            if (!hash.isEmpty()) {
+                const QString base = m_activeGitDirPath;
+                CommitView::openCommit(hash, base, m_mainWin);
+            }
         }
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));

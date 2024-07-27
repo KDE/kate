@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-24 00:42+0000\n"
+"POT-Creation-Date: 2024-07-27 00:43+0000\n"
 "PO-Revision-Date: 2024-07-03 05:44+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -124,6 +124,7 @@ msgid "Commit Changes"
 msgstr "ცვლილებების გადაცემა"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:261
+#: gitwidget.cpp:1054
 #, kde-format
 msgid "Commit"
 msgstr "გადაცემა"
@@ -327,178 +328,179 @@ msgstr "ბრენჩის შედარება..."
 msgid "Show Commit"
 msgstr "გადაცემის ჩვენება"
 
-#: gitwidget.cpp:1048
-#, kde-format
-msgid "Commit hash"
-msgstr "ჰეშის გადაცემა"
+#: gitwidget.cpp:1066
+#, fuzzy, kde-format
+#| msgid "Last Commit"
+msgid "Show Last Commit"
+msgstr "ბოლო კომიტი"
 
-#: gitwidget.cpp:1055
+#: gitwidget.cpp:1084
 #, kde-format
 msgid "Open Commit..."
 msgstr "გადაცემის გახსნა..."
 
-#: gitwidget.cpp:1058 gitwidget.cpp:1097
+#: gitwidget.cpp:1087 gitwidget.cpp:1126
 #, kde-format
 msgid "Stash"
 msgstr "შენახვა საკუჭნაოში"
 
-#: gitwidget.cpp:1068
+#: gitwidget.cpp:1097
 #, kde-format
 msgid "Diff - stash"
 msgstr "სხვაობა - სამალავი"
 
-#: gitwidget.cpp:1101
+#: gitwidget.cpp:1130
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "ბოლო სამალავის ამოღება"
 
-#: gitwidget.cpp:1105
+#: gitwidget.cpp:1134
 #, kde-format
 msgid "Pop Stash"
 msgstr "სამალავიდან ამოღება"
 
-#: gitwidget.cpp:1109
+#: gitwidget.cpp:1138
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "ბოლო სამალავის გადატარება"
 
-#: gitwidget.cpp:1111
+#: gitwidget.cpp:1140
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "სამალავი (შუალედურების შენარჩუნება)"
 
-#: gitwidget.cpp:1115
+#: gitwidget.cpp:1144
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "სამალავი (მიუთვალყურებლების ჩათვლით)"
 
-#: gitwidget.cpp:1119
+#: gitwidget.cpp:1148
 #, kde-format
 msgid "Apply Stash"
 msgstr "სამალავის გადატარება"
 
-#: gitwidget.cpp:1120
+#: gitwidget.cpp:1149
 #, kde-format
 msgid "Drop Stash"
 msgstr "სამალავის მოცილება"
 
-#: gitwidget.cpp:1121
+#: gitwidget.cpp:1150
 #, kde-format
 msgid "Show Stash Content"
 msgstr "სამალავის შემცველობის ჩვენება"
 
-#: gitwidget.cpp:1158
+#: gitwidget.cpp:1187
 #, kde-format
 msgid "Stage All"
 msgstr "ყველა ფაილის შუალედური შენახვა"
 
-#: gitwidget.cpp:1160
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Remove All"
 msgstr "ყველას გამოერთება"
 
-#: gitwidget.cpp:1160
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Discard All"
 msgstr "ყველაფრის მოცილება"
 
-#: gitwidget.cpp:1163
+#: gitwidget.cpp:1192
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore-ის გახსნა"
 
-#: gitwidget.cpp:1164 gitwidget.cpp:1211 gitwidget.cpp:1259
+#: gitwidget.cpp:1193 gitwidget.cpp:1240 gitwidget.cpp:1288
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "სხვაობის ჩვენება"
 
-#: gitwidget.cpp:1181
+#: gitwidget.cpp:1210
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ ეს ფაილები?"
 
-#: gitwidget.cpp:1186
+#: gitwidget.cpp:1215
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, უგულებელყოთ ყველა ცვლილება?"
 
-#: gitwidget.cpp:1210
+#: gitwidget.cpp:1239
 #, kde-format
 msgid "Open File"
 msgstr "ფაილის გახსნა"
 
-#: gitwidget.cpp:1212
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "ჩვენება გარე Git-ის სხვაობების პროგრამაში"
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1242
 #, kde-format
 msgid "Open at HEAD"
 msgstr "HEAD-თან გახსნა"
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1243
 #, kde-format
 msgid "Unstage File"
 msgstr "ფაილის შუალედური შენახვის გაუქმება"
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1243
 #, kde-format
 msgid "Stage File"
 msgstr "ფაილის შუალედური შენახვა"
 
-#: gitwidget.cpp:1215
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Remove"
 msgstr "წაშლა"
 
-#: gitwidget.cpp:1215
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Discard"
 msgstr "გაუქმება"
 
-#: gitwidget.cpp:1232
+#: gitwidget.cpp:1261
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, გააუქმოთ ცვლილებები ამ ფაილში?"
 
-#: gitwidget.cpp:1241
+#: gitwidget.cpp:1270
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "დარწმუნებული ხართ, რომ გსურთ ამ ფაილის წაშლა?"
 
-#: gitwidget.cpp:1258
+#: gitwidget.cpp:1287
 #, kde-format
 msgid "Unstage All"
 msgstr "ყველა ფაილის შუალედური შენახვის გაუქმება"
 
-#: gitwidget.cpp:1325
+#: gitwidget.cpp:1354
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "მონიშნული ფაილების შუალედური შენახვის გაუქმება"
 
-#: gitwidget.cpp:1325
+#: gitwidget.cpp:1354
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "მონიშნული ფაილების შუალედური შენახვა"
 
-#: gitwidget.cpp:1326
+#: gitwidget.cpp:1355
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "მონიშნული ფალების მოცილება"
 
-#: gitwidget.cpp:1330
+#: gitwidget.cpp:1359
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "მონიშნული ფაილების წაშლა"
 
-#: gitwidget.cpp:1343
+#: gitwidget.cpp:1372
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, უგულებელყოთ ყველა ცვლილება?"
 
-#: gitwidget.cpp:1348
+#: gitwidget.cpp:1377
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "მართლა გნებავთ წაშალოთ ეს მიუთვალყურებელი ცვლილებები?"
@@ -1071,6 +1073,9 @@ msgstr "სამალავის ჩვენება ჩავარდა.
 #, kde-format
 msgid "&Projects"
 msgstr "&პროექტები"
+
+#~ msgid "Commit hash"
+#~ msgstr "ჰეშის გადაცემა"
 
 #~ msgid "Checkout branch"
 #~ msgstr "ბრენჩის გამოთხოვა"

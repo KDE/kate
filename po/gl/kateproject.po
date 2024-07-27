@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-24 00:42+0000\n"
+"POT-Creation-Date: 2024-07-27 00:43+0000\n"
 "PO-Revision-Date: 2024-07-03 16:58+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -125,6 +125,7 @@ msgid "Commit Changes"
 msgstr "Remitir os cambios"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:261
+#: gitwidget.cpp:1054
 #, kde-format
 msgid "Commit"
 msgstr "Remitir"
@@ -330,178 +331,179 @@ msgstr "Comparar a rama con…"
 msgid "Show Commit"
 msgstr "Amosar a remisión"
 
-#: gitwidget.cpp:1048
-#, kde-format
-msgid "Commit hash"
-msgstr "Código da remisión"
+#: gitwidget.cpp:1066
+#, fuzzy, kde-format
+#| msgid "Last Commit"
+msgid "Show Last Commit"
+msgstr "Última remisión"
 
-#: gitwidget.cpp:1055
+#: gitwidget.cpp:1084
 #, kde-format
 msgid "Open Commit..."
 msgstr "Abrir unha remisión…"
 
-#: gitwidget.cpp:1058 gitwidget.cpp:1097
+#: gitwidget.cpp:1087 gitwidget.cpp:1126
 #, kde-format
 msgid "Stash"
 msgstr "Reservar"
 
-#: gitwidget.cpp:1068
+#: gitwidget.cpp:1097
 #, kde-format
 msgid "Diff - stash"
 msgstr "Diferenza coa reserva"
 
-#: gitwidget.cpp:1101
+#: gitwidget.cpp:1130
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Sacar a última reserva"
 
-#: gitwidget.cpp:1105
+#: gitwidget.cpp:1134
 #, kde-format
 msgid "Pop Stash"
 msgstr "Sacar da reserva"
 
-#: gitwidget.cpp:1109
+#: gitwidget.cpp:1138
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Aplicar a última reserva"
 
-#: gitwidget.cpp:1111
+#: gitwidget.cpp:1140
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Reservar (manter na reserva)"
 
-#: gitwidget.cpp:1115
+#: gitwidget.cpp:1144
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Reservar (incluír sen seguimento)"
 
-#: gitwidget.cpp:1119
+#: gitwidget.cpp:1148
 #, kde-format
 msgid "Apply Stash"
 msgstr "Aplicar a reserva"
 
-#: gitwidget.cpp:1120
+#: gitwidget.cpp:1149
 #, kde-format
 msgid "Drop Stash"
 msgstr "Eliminar da reserva"
 
-#: gitwidget.cpp:1121
+#: gitwidget.cpp:1150
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Amosar o contido da reserva"
 
-#: gitwidget.cpp:1158
+#: gitwidget.cpp:1187
 #, kde-format
 msgid "Stage All"
 msgstr "Preseleccionalo todo"
 
-#: gitwidget.cpp:1160
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Remove All"
 msgstr "Retiralo todo"
 
-#: gitwidget.cpp:1160
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Discard All"
 msgstr "Descartalo todo"
 
-#: gitwidget.cpp:1163
+#: gitwidget.cpp:1192
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Abrir «.gitignore»"
 
-#: gitwidget.cpp:1164 gitwidget.cpp:1211 gitwidget.cpp:1259
+#: gitwidget.cpp:1193 gitwidget.cpp:1240 gitwidget.cpp:1288
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Amosar a diferenza"
 
-#: gitwidget.cpp:1181
+#: gitwidget.cpp:1210
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Seguro que quere eliminar estes ficheiros?"
 
-#: gitwidget.cpp:1186
+#: gitwidget.cpp:1215
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Seguro que quere descartar estes cambios?"
 
-#: gitwidget.cpp:1210
+#: gitwidget.cpp:1239
 #, kde-format
 msgid "Open File"
 msgstr "Abrir o ficheiro"
 
-#: gitwidget.cpp:1212
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Amosar nunha ferramenta externa de diferenza de Git"
 
-#: gitwidget.cpp:1213
+#: gitwidget.cpp:1242
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Abrir na CABECEIRA"
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1243
 #, kde-format
 msgid "Unstage File"
 msgstr "Retirar o ficheiro da preselección"
 
-#: gitwidget.cpp:1214
+#: gitwidget.cpp:1243
 #, kde-format
 msgid "Stage File"
 msgstr "Preseleccionar o ficheiro"
 
-#: gitwidget.cpp:1215
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Remove"
 msgstr "Retirar"
 
-#: gitwidget.cpp:1215
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Discard"
 msgstr "Descartar"
 
-#: gitwidget.cpp:1232
+#: gitwidget.cpp:1261
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Seguro que quere descartar os cambios neste ficheiro?"
 
-#: gitwidget.cpp:1241
+#: gitwidget.cpp:1270
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Seguro que quere retirar o ficheiro?"
 
-#: gitwidget.cpp:1258
+#: gitwidget.cpp:1287
 #, kde-format
 msgid "Unstage All"
 msgstr "Baleirar a preselección"
 
-#: gitwidget.cpp:1325
+#: gitwidget.cpp:1354
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Retirar o seleccionado da preselección"
 
-#: gitwidget.cpp:1325
+#: gitwidget.cpp:1354
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Preseleccionar os ficheiros seleccionados"
 
-#: gitwidget.cpp:1326
+#: gitwidget.cpp:1355
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Descartar os ficheiros seleccionados"
 
-#: gitwidget.cpp:1330
+#: gitwidget.cpp:1359
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Retirar os ficheiros seleccionados"
 
-#: gitwidget.cpp:1343
+#: gitwidget.cpp:1372
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Seguro que quere descartar os cambios?"
 
-#: gitwidget.cpp:1348
+#: gitwidget.cpp:1377
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Seguro que quere eliminar estes cambios sen seguimento?"
@@ -1075,6 +1077,9 @@ msgstr "Non foi posíbel amosar a reserva. Erro: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Proxectos"
+
+#~ msgid "Commit hash"
+#~ msgstr "Código da remisión"
 
 #~ msgid "Severity"
 #~ msgstr "Gravidade"

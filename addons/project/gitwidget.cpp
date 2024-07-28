@@ -420,6 +420,8 @@ void GitWidget::setDotGitPath()
     m_topLevelGitPath = dotGitPath.value();
     m_activeGitDirPath = m_topLevelGitPath;
 
+    m_gitIndexFilePath = repoIndexFile(m_topLevelGitPath).value_or(QString{});
+
     QMetaObject::invokeMethod(this, &GitWidget::setSubmodulesPaths, Qt::QueuedConnection);
 }
 

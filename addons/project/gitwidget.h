@@ -73,15 +73,13 @@ public:
 
     QString indexPath() const
     {
-        Q_ASSERT(!m_topLevelGitPath.isEmpty());
-        if (m_activeGitDirPath == m_topLevelGitPath) {
-            return m_activeGitDirPath + QStringLiteral(".git/index");
-        }
-        // Should we support submodules?
-        return QString();
+        return m_gitIndexFilePath;
     }
 
 private:
+    // The absolute path to the ".git/index" file
+    QString m_gitIndexFilePath;
+
     /** These ends with "/", always remember this */
 
     // This variable contains the current active git path

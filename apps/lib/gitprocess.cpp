@@ -106,6 +106,29 @@ std::optional<QString> getRepoBasePath(const QString &repo)
     return std::nullopt;
 }
 
+std::optional<QString> repoIndexFile(const QString &repo)
+{
+    // git rev-parse --path-format=absolute --git-path index
+    static const QStringList args = {
+        QStringLiteral("rev-parse"),
+        QStringLiteral("--path-format=absolute"),
+        QStringLiteral("--git-path"),
+        QStringLiteral("index"),
+    };
+    QProcess git;
+    if (!setupGitProcess(git, repo, args)) {
+        return std::nullopt;
+    }
+
+    startHostProcess(git, QProcess::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
+            return QString::fromUtf8(git.readAllStandardOutput().trimmed());
+        }
+    }
+    return std::nullopt;
+}
+
 QIcon gitIcon()
 {
     static const auto icon = KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg"));

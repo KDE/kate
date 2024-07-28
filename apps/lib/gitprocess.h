@@ -42,6 +42,13 @@ KATE_PRIVATE_EXPORT std::pair<int, int> getGitVersion(const QString &workingDir)
 KATE_PRIVATE_EXPORT std::optional<QString> getRepoBasePath(const QString &workingDir);
 
 /**
+ * @brief Returns the path to a repo's "index" file or std::nullopt on failure.
+ * This works for regular git repos, git worktrees, and git submodules.
+ * @param repo the top-level-dir of the current repo.
+ */
+KATE_PRIVATE_EXPORT std::optional<QString> repoIndexFile(const QString &repo);
+
+/**
  * @brief returns the git icon for use in UI
  */
 KATE_PRIVATE_EXPORT QIcon gitIcon();

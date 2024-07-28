@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:43+0000\n"
-"PO-Revision-Date: 2024-07-03 17:08+0200\n"
+"PO-Revision-Date: 2024-07-27 11:04+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "com>\n"
 "com>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -332,10 +332,9 @@ msgid "Show Commit"
 msgstr "Mostrar confirmación"
 
 #: gitwidget.cpp:1066
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Último envío"
+msgstr "Mostrar el último envío"
 
 #: gitwidget.cpp:1084
 #, kde-format

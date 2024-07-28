@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:43+0000\n"
-"PO-Revision-Date: 2024-07-03 07:45+0200\n"
+"PO-Revision-Date: 2024-07-27 06:58+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -336,10 +336,9 @@ msgid "Show Commit"
 msgstr "Pokaži potrjevanje"
 
 #: gitwidget.cpp:1066
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Zadnja potrditev"
+msgstr "Pokaži zadnjo potrditev"
 
 #: gitwidget.cpp:1084
 #, kde-format

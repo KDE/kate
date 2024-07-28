@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:43+0000\n"
-"PO-Revision-Date: 2024-07-03 16:58+0200\n"
+"PO-Revision-Date: 2024-07-27 15:53+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -332,10 +332,9 @@ msgid "Show Commit"
 msgstr "Amosar a remisión"
 
 #: gitwidget.cpp:1066
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Última remisión"
+msgstr "Amosar a última remisión"
 
 #: gitwidget.cpp:1084
 #, kde-format

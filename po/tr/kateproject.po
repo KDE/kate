@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:43+0000\n"
-"PO-Revision-Date: 2024-07-03 12:51+0300\n"
+"PO-Revision-Date: 2024-07-27 14:32+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -330,10 +330,9 @@ msgid "Show Commit"
 msgstr "İşlemeyi Göster"
 
 #: gitwidget.cpp:1066
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Son İşleme"
+msgstr "Son İşlemeyi Göster"
 
 #: gitwidget.cpp:1084
 #, kde-format

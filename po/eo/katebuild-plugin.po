@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-24 00:42+0000\n"
-"PO-Revision-Date: 2024-07-01 20:44+0200\n"
+"PO-Revision-Date: 2024-07-27 14:20+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -58,23 +58,20 @@ msgid "Build & Run Settings"
 msgstr "Agordoj por Konstrui & Lanĉi"
 
 #: buildconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Delete selected entries"
-msgstr "Konstrui elektitan celon"
+msgstr "Forigi elektitajn enskribojn"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Forigi ĉiujn enskribojn"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "Celaj Agordoj"
+msgstr "Ĝenerala Agordo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
@@ -92,7 +89,7 @@ msgstr "Aŭtomate ŝalti al eligpanelo je efektivigo de la elektita celo"
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "Permesitaj && Blokitaj Komandoj"
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:910 plugin_katebuild.cpp:923 targets.cpp:245

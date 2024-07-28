@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:43+0000\n"
-"PO-Revision-Date: 2024-07-03 21:54+0200\n"
+"PO-Revision-Date: 2024-07-27 14:20+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -328,10 +328,9 @@ msgid "Show Commit"
 msgstr "Montri Enmeton"
 
 #: gitwidget.cpp:1066
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Lasta Enmeto"
+msgstr "Montri Lastan Enmeton"
 
 #: gitwidget.cpp:1084
 #, kde-format
@@ -1071,6 +1070,3 @@ msgstr "Montri stash malsukcesis. Eraro:"
 #, kde-format
 msgid "&Projects"
 msgstr "&Projektoj"
-
-#~ msgid "Commit hash"
-#~ msgstr "Enmeta haketkodo"

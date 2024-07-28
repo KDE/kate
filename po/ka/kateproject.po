@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:43+0000\n"
-"PO-Revision-Date: 2024-07-03 05:44+0200\n"
+"PO-Revision-Date: 2024-07-27 05:33+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -329,10 +329,9 @@ msgid "Show Commit"
 msgstr "გადაცემის ჩვენება"
 
 #: gitwidget.cpp:1066
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "ბოლო კომიტი"
+msgstr "ბოლო კომიტის ჩვენება"
 
 #: gitwidget.cpp:1084
 #, kde-format

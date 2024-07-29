@@ -34,7 +34,15 @@ void applyEdits(KTextEditor::Document *doc, const LSPClientRevisionSnapshot *sna
     // so create moving ranges that will adjust to preceding edits as they are applied
     QList<KTextEditor::MovingRange *> ranges;
     for (const auto &edit : edits) {
-        auto range = snapshot ? transformRange(doc->url(), *snapshot, edit.range) : edit.range;
+        KTextEditor::Range editRange = edit.range;
+        // Some servers use values like INT_MAX to say they want to apply an edit to
+        // the whole document. Snap the range to document end for such cases. This is
+        // what VSCode does as well.
+        if (edit.range.isValid() && edit.range.end() > doc->documentEnd()) {
+            editRange.setEnd(doc->documentEnd());
+        }
+
+        auto range = snapshot ? transformRange(doc->url(), *snapshot, editRange) : editRange;
         KTextEditor::MovingRange *mr = doc->newMovingRange(range);
         ranges.append(mr);
     }

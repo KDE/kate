@@ -222,8 +222,8 @@ void KateConsole::loadConsoleIfNeeded(QString directory)
     }
 
     const bool firstShell = !m_part;
-    if (hasKonsole() && !m_part) {
-        m_part = pluginFactory()->create<KParts::ReadOnlyPart>(this);
+    if (!m_part) {
+        m_part = hasKonsole() ? pluginFactory()->create<KParts::ReadOnlyPart>(this) : nullptr;
         if (!m_part) {
             return;
         }

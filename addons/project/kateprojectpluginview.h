@@ -25,6 +25,7 @@ class QDir;
 class KateProject;
 class KateProjectPlugin;
 class KateProjectInfoView;
+class GitWidget;
 
 typedef QMap<QString, QString> QStringMap;
 Q_DECLARE_METATYPE(QStringMap)
@@ -308,6 +309,11 @@ private:
      * find current selected or under cursor word
      */
     QString currentWord() const;
+
+    /**
+     * Returns the current widget in m_stackedGitViews
+     */
+    GitWidget *gitWidget();
 
 private:
     /**

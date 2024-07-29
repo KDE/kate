@@ -129,8 +129,8 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotHandleProjectClosing);
 
     connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
-        if (auto widget = m_stackedGitViews->currentWidget()) {
-            qobject_cast<GitWidget *>(widget)->updateStatus();
+        if (auto widget = gitWidget()) {
+            widget->updateStatus();
         }
     });
 
@@ -548,7 +548,7 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     }
 
     // update git focus proxy + update status
-    if (QWidget *current = m_stackedGitViews->currentWidget()) {
+    if (auto current = gitWidget()) {
         m_stackedGitViews->setFocusProxy(current);
     }
 
@@ -697,8 +697,8 @@ void KateProjectPluginView::slotProjectReload()
     /**
      * Refresh git status
      */
-    if (auto widget = m_stackedGitViews->currentWidget()) {
-        qobject_cast<GitWidget *>(widget)->updateStatus();
+    if (auto widget = gitWidget()) {
+        widget->updateStatus();
     }
 }
 
@@ -842,8 +842,7 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
         return;
     }
 
-    auto widget = static_cast<GitWidget *>(m_stackedGitViews->currentWidget());
-    if (widget && widget->isInitialized()) {
+    if (auto widget = gitWidget(); widget && widget->isInitialized()) {
         // To support separate-git-dir always use dotGitPath
         // We need to add the path every time again because it's always a different file
         if (!m_gitChangedWatcherFile.isEmpty()) {
@@ -965,6 +964,12 @@ void KateProjectPluginView::updateGitBranchButton(KateProject *project)
     }
 
     static_cast<CurrentGitBranchButton *>(m_branchBtn.get())->refresh();
+}
+
+GitWidget *KateProjectPluginView::gitWidget()
+{
+    // static_cast since GitWidget is the only type in m_stackedGitViews
+    return static_cast<GitWidget *>(m_stackedGitViews->currentWidget());
 }
 
 #include "kateprojectpluginview.moc"

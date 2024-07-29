@@ -325,10 +325,9 @@ msgid "Show Commit"
 msgstr "显示提交"
 
 #: gitwidget.cpp:1066
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "最新提交"
+msgstr "显示上次提交"
 
 #: gitwidget.cpp:1084
 #, kde-format
@@ -1061,6 +1060,3 @@ msgstr "显示储藏失败。错误："
 #, kde-format
 msgid "&Projects"
 msgstr "工程(&P)"
-
-#~ msgid "Commit hash"
-#~ msgstr "提交哈希值"

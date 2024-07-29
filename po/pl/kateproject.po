@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:43+0000\n"
-"PO-Revision-Date: 2024-07-14 13:12+0200\n"
+"PO-Revision-Date: 2024-07-28 09:15+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -76,7 +76,7 @@ msgstr "Gałąź"
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Commit"
-msgstr "Ostatnie wdrożenie"
+msgstr "Ostatnie zmianę"
 
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -127,13 +127,13 @@ msgstr "Bieżąca gałąź: %1"
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Commit Changes"
-msgstr "Wdroż zmiany"
+msgstr "Dodaj zmianę"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:261
 #: gitwidget.cpp:1054
 #, kde-format
 msgid "Commit"
-msgstr "Wdrożenie"
+msgstr "Zmiana"
 
 #: gitcommitdialog.cpp:74
 #, kde-format
@@ -143,12 +143,12 @@ msgstr "Anuluj"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "Opisz wdrożenie..."
+msgstr "Opisz zmianę..."
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr "Rozbudowany opis wdrożenia..."
+msgstr "Rozbudowany opis zmiany..."
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -163,12 +163,12 @@ msgstr "Dołącz"
 #: gitcommitdialog.cpp:112 gitwidget.cpp:1011
 #, kde-format
 msgid "Amend Last Commit"
-msgstr "Dołącz do poprzedniego wdrożenia"
+msgstr "Dołącz do poprzedniego zmiany"
 
 #: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
-msgstr "Dołączanie do wdrożenia"
+msgstr "Dołączanie do zmiany"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
@@ -277,22 +277,22 @@ msgstr "Nie udało się uzyskać różnicy pliku: %1"
 #: gitwidget.cpp:795
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr "Nie udało się wdrożyć: %1"
+msgstr "Nie udało się dodać zmiany: %1"
 
 #: gitwidget.cpp:799
 #, kde-format
 msgid "Changes committed successfully."
-msgstr "Pomyślnie wdrożono zmiany."
+msgstr "Pomyślnie dodano zmiany."
 
 #: gitwidget.cpp:809
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr "Nie ma niczego do wdrożenia. Najpierw dobierz swoje zmiany."
+msgstr "Nie ma niczego do dodania. Najpierw dobierz swoje zmiany."
 
 #: gitwidget.cpp:822
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr "Opis wdrożenia nie może być pusty."
+msgstr "Opis zmiany nie może być pusty."
 
 #: gitwidget.cpp:943
 #, kde-format
@@ -332,18 +332,17 @@ msgstr "Porównaj gałąź z..."
 #: gitwidget.cpp:1048
 #, kde-format
 msgid "Show Commit"
-msgstr "Pokaż wdrożenie"
+msgstr "Pokaż zmianę"
 
 #: gitwidget.cpp:1066
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Ostatnie wdrożenie"
+msgstr "Pokaż ostatnią zmianę"
 
 #: gitwidget.cpp:1084
 #, kde-format
 msgid "Open Commit..."
-msgstr "Otwórz wdrożenie..."
+msgstr "Otwórz zmianę..."
 
 #: gitwidget.cpp:1087 gitwidget.cpp:1126
 #, kde-format

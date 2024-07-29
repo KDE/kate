@@ -842,7 +842,8 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
         return;
     }
 
-    if (auto widget = static_cast<GitWidget *>(m_stackedGitViews->currentWidget())) {
+    auto widget = static_cast<GitWidget *>(m_stackedGitViews->currentWidget());
+    if (widget && widget->isInitialized()) {
         // To support separate-git-dir always use dotGitPath
         // We need to add the path every time again because it's always a different file
         if (!m_gitChangedWatcherFile.isEmpty()) {

@@ -56,6 +56,11 @@ public:
      */
     void updateStatus();
 
+    bool isInitialized() const
+    {
+        return m_initialized;
+    }
+
     KTextEditor::MainWindow *mainWindow();
 
     // will just proxy the message to the plugin view
@@ -68,6 +73,7 @@ public:
 
     QString indexPath() const
     {
+        Q_ASSERT(!m_topLevelGitPath.isEmpty());
         if (m_activeGitDirPath == m_topLevelGitPath) {
             return m_activeGitDirPath + QStringLiteral(".git/index");
         }

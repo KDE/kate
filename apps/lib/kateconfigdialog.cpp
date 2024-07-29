@@ -102,7 +102,7 @@ void KateConfigDialog::addBehaviorPage()
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
-    QFrame *generalFrame = new QFrame;
+    QFrame *generalFrame = new QFrame(this);
     KPageWidgetItem *item = addScrollablePage(generalFrame, i18n("Behavior"));
     m_allPages.insert(item);
     item->setHeader(i18n("Behavior Options"));
@@ -310,11 +310,11 @@ void KateConfigDialog::addBehaviorPage()
     hlayout = new QHBoxLayout;
     vbox->addLayout(hlayout);
     layout->addWidget(buttonGroup);
-    m_diffStyle = new QComboBox;
+    m_diffStyle = new QComboBox(buttonGroup);
     m_diffStyle->addItem(i18n("Side By Side"));
     m_diffStyle->addItem(i18n("Unified"));
     m_diffStyle->addItem(i18n("Raw"));
-    label = new QLabel(i18n("Diff Style:"));
+    label = new QLabel(i18n("Diff Style:"), buttonGroup);
     label->setBuddy(m_diffStyle);
     hlayout->addWidget(label);
     hlayout->addWidget(m_diffStyle);
@@ -326,7 +326,7 @@ void KateConfigDialog::addBehaviorPage()
     hlayout = new QHBoxLayout;
     vbox->addLayout(hlayout);
     layout->addWidget(buttonGroup);
-    m_urlBarShowSymbols = new QCheckBox(i18n("Show current symbol in navigation bar"));
+    m_urlBarShowSymbols = new QCheckBox(i18n("Show current symbol in navigation bar"), buttonGroup);
     hlayout->addWidget(m_urlBarShowSymbols);
     m_urlBarShowSymbols->setChecked(cgGeneral.readEntry("Show Symbol In Navigation Bar", true));
     connect(m_urlBarShowSymbols, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
@@ -355,7 +355,7 @@ void KateConfigDialog::addSessionPage()
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
-    QWidget *sessionsPage = new QWidget();
+    QWidget *sessionsPage = new QWidget(this);
     auto item = addScrollablePage(sessionsPage, i18n("Session"));
     m_allPages.insert(item);
     item->setHeader(i18n("Session Management"));
@@ -719,12 +719,12 @@ KPageWidgetItem *KateConfigDialog::addScrollablePage(QWidget *page, const QStrin
 {
     // inspired by KPageWidgetItem *KConfigDialogPrivate::addPageInternal(QWidget *page, const QString &itemName, const QString &pixmapName, const QString
     // &header)
-    QWidget *frame = new QWidget;
+    QWidget *frame = new QWidget(this);
     QVBoxLayout *boxLayout = new QVBoxLayout(frame);
     boxLayout->setContentsMargins(0, 0, 0, 0);
     boxLayout->setContentsMargins(0, 0, 0, 0);
 
-    QScrollArea *scroll = new QScrollArea;
+    QScrollArea *scroll = new QScrollArea(frame);
     scroll->setFrameShape(QFrame::NoFrame);
     scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);

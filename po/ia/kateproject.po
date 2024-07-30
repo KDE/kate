@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:43+0000\n"
-"PO-Revision-Date: 2024-07-04 11:56+0200\n"
+"PO-Revision-Date: 2024-07-29 12:27+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -330,10 +330,9 @@ msgid "Show Commit"
 msgstr "Monstra Commit (Committer)"
 
 #: gitwidget.cpp:1066
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Ultime commit"
+msgstr "Monstra Ultime Commit"
 
 #: gitwidget.cpp:1084
 #, kde-format

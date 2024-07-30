@@ -2134,7 +2134,7 @@ msgstr "Копіювати назву файла"
 #: lib/kateviewmanager.cpp:142
 #, kde-format
 msgid "Split Ve&rtical"
-msgstr "Розбити &вертикально"
+msgstr "Розділити &вертикально"
 
 #: lib/kateviewmanager.cpp:146
 #, kde-format
@@ -2144,7 +2144,7 @@ msgstr "Вертикально розбиває поточний перегля�
 #: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Split &Horizontal"
-msgstr "Розбити &горизонтально"
+msgstr "Розділити &горизонтально"
 
 #: lib/kateviewmanager.cpp:154
 #, kde-format

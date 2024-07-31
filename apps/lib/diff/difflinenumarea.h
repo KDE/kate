@@ -38,6 +38,7 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *e) override;
+    void wheelEvent(QWheelEvent *e) override;
 
 private:
     void drawLineNumber(QPainter &painter, QRect rect, int blockNumber, int num, const struct LineNumColors &c);

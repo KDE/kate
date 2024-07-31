@@ -1224,12 +1224,31 @@ void DiffWidget::jumpToPrevFile()
 
 void DiffWidget::jumpToNextHunk()
 {
-    const int block = m_left->firstVisibleBlockNumber();
+    const bool fullContext = m_params.arguments.contains(u"-U5000");
     int nextHunkLineNo = 0;
-    for (const auto &i : m_lineToDiffHunkLine) {
-        if (i.line > block) {
-            nextHunkLineNo = i.line;
-            break;
+
+    if (fullContext) {
+        bool found = false;
+        const int block = m_left->firstVisibleBlockNumber();
+        int last = block;
+        for (auto i : m_lineToRawDiffLine) {
+            if (i.line > block && i.line != last + 1) {
+                nextHunkLineNo = i.line;
+                found = true;
+                break;
+            }
+            last = i.line;
+        }
+        if (!found) {
+            nextHunkLineNo = m_lineToRawDiffLine.front().line;
+        }
+    } else {
+        const int block = m_left->firstVisibleBlockNumber();
+        for (const auto &i : m_lineToDiffHunkLine) {
+            if (i.line > block) {
+                nextHunkLineNo = i.line;
+                break;
+            }
         }
     }
 
@@ -1242,12 +1261,29 @@ void DiffWidget::jumpToNextHunk()
 
 void DiffWidget::jumpToPrevHunk()
 {
-    const int block = m_left->firstVisibleBlockNumber();
+    const bool fullContext = m_params.arguments.contains(u"-U5000");
     int prevHunkLineNo = 0;
-    for (auto i = m_lineToDiffHunkLine.crbegin(); i != m_lineToDiffHunkLine.crend(); ++i) {
-        if (i->line < block) {
-            prevHunkLineNo = i->line;
-            break;
+    if (fullContext) {
+        bool found = false;
+        const int block = m_left->firstVisibleBlockNumber();
+        int last = block;
+        for (auto i : m_lineToRawDiffLine) {
+            if (i.line < block && i.line != last - 1) {
+                prevHunkLineNo = i.line;
+                break;
+            }
+            last = i.line;
+        }
+        if (!found) {
+            prevHunkLineNo = m_lineToRawDiffLine.back().line;
+        }
+    } else {
+        const int block = m_left->firstVisibleBlockNumber();
+        for (auto i = m_lineToDiffHunkLine.crbegin(); i != m_lineToDiffHunkLine.crend(); ++i) {
+            if (i->line < block) {
+                prevHunkLineNo = i->line;
+                break;
+            }
         }
     }
 

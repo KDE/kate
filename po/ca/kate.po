@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-20 00:42+0000\n"
-"PO-Revision-Date: 2024-06-30 08:45+0200\n"
+"PO-Revision-Date: 2024-07-31 11:54+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -2529,7 +2529,7 @@ msgstr "Restaura"
 #: lib/session/katesessionmanagedialog.cpp:305
 #, kde-format
 msgid "Session will be deleted on dialog close"
-msgstr "La sessió s'eliminarà en tancar el diàleg"
+msgstr "La sessió se suprimirà en tancar el diàleg"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
 #: lib/session/katesessionmanagedialog.ui:30
@@ -2597,7 +2597,7 @@ msgstr "&Reanomena..."
 #: lib/session/katesessionmanagedialog.ui:161
 #, kde-format
 msgid "Delete"
-msgstr "Elimina"
+msgstr "Suprimeix"
 
 #: lib/session/katesessionmanager.cpp:141
 #, kde-format

@@ -2289,12 +2289,12 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ><guisubmenu
 >Emmet</guisubmenu
 > <guimenuitem
->Elimina l'etiqueta sota el cursor</guimenuitem
+>Suprimeix l'etiqueta sota el cursor</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Si el cursor es troba actualment dins d'una etiqueta &HTML;/&XML;, aquesta opció eliminarà completament l'etiqueta. </para
+>Si el cursor es troba actualment dins d'una etiqueta &HTML;/&XML;, aquesta opció suprimirà completament l'etiqueta. </para
 ></listitem>
 </varlistentry>
 

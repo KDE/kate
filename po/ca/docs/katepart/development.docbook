@@ -3826,7 +3826,7 @@
 <para
 >En aquest <link linkend="config-dialog"
 >diàleg</link
-> podreu configurar tots els colors en qualsevol tema que tingueu, així com crear/copiar temes nous, eliminar-los, exportar-los a un fitxer <userinput
+> podreu configurar tots els colors en qualsevol tema que tingueu, així com crear/copiar temes nous, suprimir-los, exportar-los a un fitxer <userinput
 >.theme</userinput
 > amb <link linkend="color-themes-json"
 >format &JSON;</link

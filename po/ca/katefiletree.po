@@ -4,13 +4,13 @@
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2021.
-# Josep M. Ferrer <txemaq@gmail.com>, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024.
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-23 00:40+0000\n"
-"PO-Revision-Date: 2024-02-07 12:19+0100\n"
+"PO-Revision-Date: 2024-07-31 11:55+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -128,7 +128,7 @@ msgstr "Suprimeix"
 #: katefiletree.cpp:161
 #, kde-format
 msgid "Close and delete selected file from storage."
-msgstr "Tanca i elimina el fitxer seleccionat des de l'emmagatzematge."
+msgstr "Tanca i suprimeix el fitxer seleccionat des de l'emmagatzematge."
 
 #: katefiletree.cpp:165
 #, kde-format

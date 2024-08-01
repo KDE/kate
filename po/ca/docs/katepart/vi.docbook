@@ -474,7 +474,7 @@
 ></entry>
 <entry
 ><para
->Canvi: Segueix un moviment per a eliminar i entrar en el mode d'inserció</para
+>Canvi: Segueix un moviment per a suprimir i entrar en el mode d'inserció</para
 ></entry>
 </row>
 <row
@@ -486,7 +486,7 @@
 ></entry>
 <entry
 ><para
->Canvi al final de la línia: Elimina al final de la línia i entrar en el mode d'inserció</para
+>Canvi al final de la línia: Suprimeix al final de la línia i entrar en el mode d'inserció</para
 ></entry>
 </row>
 <row
@@ -546,7 +546,7 @@
 ></entry>
 <entry
 ><para
->Segueix un moviment per a eliminar</para
+>Segueix un moviment per a suprimir</para
 ></entry>
 </row>
 <row
@@ -2199,7 +2199,7 @@
 >arg2</replaceable
 >, prement <userinput
 >ci</userinput
->, («canvi de coma interior») que elimina <replaceable
+>, («canvi de coma interior») que suprimeix <replaceable
 >arg2 doble</replaceable
 > i situa el cursor entre les dues comes en el mode d'inserció. Una manera molt còmoda per a canviar els paràmetres d'una funció.</para
 ></caption>

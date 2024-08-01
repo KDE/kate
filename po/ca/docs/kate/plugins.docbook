@@ -550,7 +550,7 @@
 <para
 >De manera predeterminada es distribueixen diverses eines. No obstant això, si teniu més eines útils, col·laboreu amb elles a <email
 >kwrite-devel@kde.org</email
-> perquè puguem afegir-les a aquesta llista. De manera predeterminada totes les eines predeterminades estan visibles a la vista de llista. No obstant això, totes les eines es podran canviar al vostre gust, inclosa la categoria o fins i tot eliminar-les. Les eines eliminades es podran tornar a afegir fent clic al botó <guibutton
+> perquè puguem afegir-les a aquesta llista. De manera predeterminada totes les eines predeterminades estan visibles a la vista de llista. No obstant això, totes les eines es podran canviar al vostre gust, inclosa la categoria o fins i tot suprimir-les. Les eines suprimides es podran tornar a afegir fent clic al botó <guibutton
 >Afegeix</guibutton
 > que hi ha a la pàgina de configuració com s'ha descrit anteriorment. </para>
 
@@ -1247,7 +1247,7 @@
 ><imagedata fileref="edit-delete-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 ></guiicon
-> Elimina l'ordre actual o el conjunt d'objectius</member>
+> Suprimeix l'ordre actual o el conjunt d'objectius</member>
 </simplelist>
 
 </sect3>
@@ -4938,7 +4938,7 @@ its view and place the cursor at the start of the definition.
 </screenshot>
 
 <para
->Al plafó hauríeu de veure una llista dels repositoris de retalls, juntament amb les opcions per a crear el vostre, obtenir-los des d'Internet o carregar-los des d'un fitxer local. Cada repositori té una casella de selecció que es pot utilitzar per a activar o desactivar. També hi ha botons per a editar i eliminar els repositoris existents.</para>
+>Al plafó hauríeu de veure una llista dels repositoris de retalls, juntament amb les opcions per a crear el vostre, obtenir-los des d'Internet o carregar-los des d'un fitxer local. Cada repositori té una casella de selecció que es pot utilitzar per a activar o desactivar. També hi ha botons per a editar i suprimir els repositoris existents.</para>
 
 <sect3 id="snippets-repo-internet">
 <title

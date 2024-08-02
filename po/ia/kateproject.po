@@ -287,7 +287,7 @@ msgstr ""
 #: gitwidget.cpp:822
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr "Message de commit nonpote esser vacue."
+msgstr "Message de commit non pote esser vacue."
 
 #: gitwidget.cpp:943
 #, kde-format

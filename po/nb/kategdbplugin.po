@@ -783,9 +783,3 @@ msgstr "&Feilsøk"
 #, kde-format
 msgid "Debug Plugin"
 msgstr ""
-
-#~ msgid "popup_breakpoint"
-#~ msgstr "oppsprett_bruddpunkt"
-
-#~ msgid "popup_run_to_cursor"
-#~ msgstr "oppsprett_kjør_til_markør"

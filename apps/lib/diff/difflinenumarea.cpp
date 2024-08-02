@@ -5,6 +5,7 @@
 #include "difflinenumarea.h"
 #include "diffeditor.h"
 
+#include <QApplication>
 #include <QPainter>
 
 #include <KTextEditor/Editor>

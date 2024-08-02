@@ -5,4 +5,7 @@
         <file>prettier_script.js</file>
         <file>FormatterSettings.json</file>
     </qresource>
+    <qresource prefix="/kxmlgui5/formatplugin">
+        <file>ui.rc</file>
+    </qresource>
 </RCC>

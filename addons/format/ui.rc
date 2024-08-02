@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="formatplugin" library="formatplugin" version="1" translationDomain="formatplugin">
+    <MenuBar>
+        <Menu name="edit">
+            <Action name="format_on_save"/>
+            <Action name="format_document"/>
+        </Menu>
+    </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

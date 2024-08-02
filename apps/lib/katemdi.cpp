@@ -124,9 +124,8 @@ GUIClient::GUIClient(MainWindow *mw)
     sep_act->setSeparator(true);
     m_toolMenu->addAction(sep_act);
 
-    // read shortcuts
+    // Set config group
     actionCollection()->setConfigGroup(QStringLiteral("Shortcuts"));
-    actionCollection()->readSettings();
 
     actionCollection()->addAssociatedWidget(m_mw);
     const auto actions = actionCollection()->actions();
@@ -227,6 +226,9 @@ void GUIClient::clientAdded(KXMLGUIClient *client)
 {
     if (client == this) {
         updateActions();
+        // This should be called after createShellGUI in KateMainWindow ctor
+        // otherwise when the client is added it restores the default shortcuts!
+        actionCollection()->readSettings();
     }
 }
 

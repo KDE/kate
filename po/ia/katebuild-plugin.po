@@ -245,7 +245,7 @@ msgstr ""
 #: plugin_katebuild.cpp:1128
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr "Nonpoteva executar Cmake (%2) per construer directorio %1!"
+msgstr "Non poteva executar Cmake (%2) per construer directorio %1!"
 
 #: plugin_katebuild.cpp:1137
 #, kde-format

@@ -93,7 +93,7 @@ msgstr "Trovate necun macro de claviero denominate '%1'"
 #: keyboardmacrosplugincommands.cpp:50
 #, kde-format
 msgid "Cannot save empty keyboard macro."
-msgstr "Nonpote salveguardar macro de claviero vacue."
+msgstr "Non pote salveguardar macro de claviero vacue."
 
 #: keyboardmacrosplugincommands.cpp:82
 #, kde-format

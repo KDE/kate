@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:43+0000\n"
+"POT-Creation-Date: 2024-08-03 00:42+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -93,7 +93,7 @@ msgstr[1] "Biztosan törölni szeretné törölni a kijelölt ágakat?"
 msgid "Select Branch..."
 msgstr "Ág kiválasztása…"
 
-#: branchesdialog.cpp:126 gitwidget.cpp:535 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:126 gitwidget.cpp:537 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -129,7 +129,7 @@ msgid "Commit Changes"
 msgstr "Változtatások véglegesítése"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:261
-#: gitwidget.cpp:1054
+#: gitwidget.cpp:1056
 #, kde-format
 msgid "Commit"
 msgstr "Véglegesítés"
@@ -159,7 +159,7 @@ msgstr "Aláírás"
 msgid "Amend"
 msgstr "Javítás"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1011
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1013
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Legutolsó véglegesítés javítása"
@@ -236,286 +236,286 @@ msgstr ""
 "A .git mappa nem található, a dolgok nem biztos, hogy megfelelően fognak "
 "működni"
 
-#: gitwidget.cpp:619
+#: gitwidget.cpp:621
 #, kde-format
 msgid " error: %1"
 msgstr " hiba: %1"
 
-#: gitwidget.cpp:625
+#: gitwidget.cpp:627
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "„%1” sikeresen végrehajtva: %2"
 
-#: gitwidget.cpp:645
+#: gitwidget.cpp:647
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Nem sikerült kiválasztani a fájlt. Hiba:"
 
-#: gitwidget.cpp:658
+#: gitwidget.cpp:660
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Nem sikerült visszavonni a fájlt. Hiba:"
 
-#: gitwidget.cpp:669
+#: gitwidget.cpp:671
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Nem sikerült eldobni a változtatásokat. Hiba:"
 
-#: gitwidget.cpp:680
+#: gitwidget.cpp:682
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Sikertelen eltávolítás. Hiba:"
 
-#: gitwidget.cpp:696
+#: gitwidget.cpp:698
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Nem sikerült megnyitni a fájlt HEAD-en: %1"
 
-#: gitwidget.cpp:728
+#: gitwidget.cpp:730
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Nem sikerült lekérni a fájl különbözetét: %1"
 
-#: gitwidget.cpp:795
+#: gitwidget.cpp:797
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Sikertelen véglegesítés: %1"
 
-#: gitwidget.cpp:799
+#: gitwidget.cpp:801
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "A változtatások véglegesítése sikeresen befejeződött."
 
-#: gitwidget.cpp:809
+#: gitwidget.cpp:811
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Nincs mit véglegesíteni. Válassza ki a változtatásait előbb."
 
-#: gitwidget.cpp:822
+#: gitwidget.cpp:824
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "A véglegesítési üzenet nem lehet üres."
 
-#: gitwidget.cpp:943
+#: gitwidget.cpp:945
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Nincs különbözet ehhez: %1…%2"
 
-#: gitwidget.cpp:949
+#: gitwidget.cpp:951
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Sikertelen összehasonlítás: %1…%2"
 
-#: gitwidget.cpp:964
+#: gitwidget.cpp:966
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Sikertelen numstat %1…%2 összehasonlításakor"
 
-#: gitwidget.cpp:1003
+#: gitwidget.cpp:1005
 #, kde-format
 msgid "Refresh"
 msgstr "Frissítés"
 
-#: gitwidget.cpp:1019
+#: gitwidget.cpp:1021
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Ág átváltása"
 
-#: gitwidget.cpp:1031
+#: gitwidget.cpp:1033
 #, kde-format
 msgid "Delete Branch"
 msgstr "Ág törlése"
 
-#: gitwidget.cpp:1043
+#: gitwidget.cpp:1045
 #, fuzzy, kde-format
 #| msgid "Compare Branch with ..."
 msgid "Compare Branch with..."
 msgstr "Ág összehasonlítása ezzel…"
 
-#: gitwidget.cpp:1048
+#: gitwidget.cpp:1050
 #, fuzzy, kde-format
 #| msgid "Commit"
 msgid "Show Commit"
 msgstr "Véglegesítés"
 
-#: gitwidget.cpp:1066
+#: gitwidget.cpp:1068
 #, fuzzy, kde-format
 #| msgid "Last Commit"
 msgid "Show Last Commit"
 msgstr "Legutolsó véglegesítés"
 
-#: gitwidget.cpp:1084
+#: gitwidget.cpp:1086
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open Commit..."
 msgstr "Mappa megnyitása…"
 
-#: gitwidget.cpp:1087 gitwidget.cpp:1126
+#: gitwidget.cpp:1089 gitwidget.cpp:1128
 #, kde-format
 msgid "Stash"
 msgstr "Félretétel"
 
-#: gitwidget.cpp:1097
+#: gitwidget.cpp:1099
 #, kde-format
 msgid "Diff - stash"
 msgstr ""
 
-#: gitwidget.cpp:1130
+#: gitwidget.cpp:1132
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Utolsó félretett változat visszaállítása"
 
-#: gitwidget.cpp:1134
+#: gitwidget.cpp:1136
 #, kde-format
 msgid "Pop Stash"
 msgstr "Félretett változat visszaállítása"
 
-#: gitwidget.cpp:1138
+#: gitwidget.cpp:1140
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Utolsó félretett változat alkalmazása"
 
-#: gitwidget.cpp:1140
+#: gitwidget.cpp:1142
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Félretétel (maradjon kiválasztva)"
 
-#: gitwidget.cpp:1144
+#: gitwidget.cpp:1146
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Félretétel (beleértve a nem követetteket is)"
 
-#: gitwidget.cpp:1148
+#: gitwidget.cpp:1150
 #, kde-format
 msgid "Apply Stash"
 msgstr "Félretett változat alkalmazása"
 
-#: gitwidget.cpp:1149
+#: gitwidget.cpp:1151
 #, kde-format
 msgid "Drop Stash"
 msgstr "Félretett változat eldobása"
 
-#: gitwidget.cpp:1150
+#: gitwidget.cpp:1152
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Félretettek tartalmának megjelenítése"
 
-#: gitwidget.cpp:1187
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Stage All"
 msgstr "Összes kiválasztása"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1191
 #, kde-format
 msgid "Remove All"
 msgstr "Összes eltávolítása"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1191
 #, kde-format
 msgid "Discard All"
 msgstr "Összes eldobása"
 
-#: gitwidget.cpp:1192
+#: gitwidget.cpp:1194
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore megnyitása"
 
-#: gitwidget.cpp:1193 gitwidget.cpp:1240 gitwidget.cpp:1288
+#: gitwidget.cpp:1195 gitwidget.cpp:1242 gitwidget.cpp:1290
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Összehasonlítás megjelenítése"
 
-#: gitwidget.cpp:1210
+#: gitwidget.cpp:1212
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Biztosan törölni szeretné ezeket a fájlokat?"
 
-#: gitwidget.cpp:1215
+#: gitwidget.cpp:1217
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Biztosan szeretné eldobni az összes változtatást?"
 
-#: gitwidget.cpp:1239
+#: gitwidget.cpp:1241
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "Open File"
 msgstr "Fájl megnyitása"
 
-#: gitwidget.cpp:1241
+#: gitwidget.cpp:1243
 #, fuzzy, kde-format
 #| msgid "Show in external git diff tool"
 msgid "Show in External Git Diff Tool"
 msgstr "Megjelenítés külső git összehasonlító programmal"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Megnyitás a HEAD-en"
 
-#: gitwidget.cpp:1243
+#: gitwidget.cpp:1245
 #, fuzzy, kde-format
 #| msgid "Unstage file"
 msgid "Unstage File"
 msgstr "Fájl visszavonása"
 
-#: gitwidget.cpp:1243
+#: gitwidget.cpp:1245
 #, fuzzy, kde-format
 #| msgid "Stage file"
 msgid "Stage File"
 msgstr "Fájl kiválasztása"
 
-#: gitwidget.cpp:1244
+#: gitwidget.cpp:1246
 #, kde-format
 msgid "Remove"
 msgstr "Törlés"
 
-#: gitwidget.cpp:1244
+#: gitwidget.cpp:1246
 #, kde-format
 msgid "Discard"
 msgstr "Eldobás"
 
-#: gitwidget.cpp:1261
+#: gitwidget.cpp:1263
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Biztosan el szeretné dobni a változtatásokat ebben a fájlban?"
 
-#: gitwidget.cpp:1270
+#: gitwidget.cpp:1272
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Biztosan törölni szeretné ezt a fájlt?"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1289
 #, kde-format
 msgid "Unstage All"
 msgstr "Összes visszavonása"
 
-#: gitwidget.cpp:1354
+#: gitwidget.cpp:1356
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Kijelölt fájlok visszavonása"
 
-#: gitwidget.cpp:1354
+#: gitwidget.cpp:1356
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Kijelölt fájlok kiválasztása"
 
-#: gitwidget.cpp:1355
+#: gitwidget.cpp:1357
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Kijelölt fájlok eldobása"
 
-#: gitwidget.cpp:1359
+#: gitwidget.cpp:1361
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Kijelölt fájlok törlése"
 
-#: gitwidget.cpp:1372
+#: gitwidget.cpp:1374
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Biztosan el szeretné dobni a változtatásokat?"
 
-#: gitwidget.cpp:1377
+#: gitwidget.cpp:1379
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Biztosan törölni szeretné ezeket a nem követett változtatásokat?"

@@ -270,7 +270,11 @@ files is as follows:</para>
 </row>
 <row>
 <entry>On &Windows;</entry>
-<entry><filename>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename></entry>
+<entry><filename class="directory">%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename></entry>
+</row>
+<row>
+<entry>On &macOS;</entry>
+<entry><filename class="directory"><envar>$HOME</envar>/Library/Application Support/org.kde.syntax-highlighting/syntax/</filename></entry>
 </row>
 </tbody>
 </tgroup>
@@ -1439,7 +1443,11 @@ and in a Snap application that location is
 </row>
 <row>
 <entry>On &Windows;</entry>
-<entry><filename>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename></entry>
+<entry><filename class="directory">%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename></entry>
+</row>
+<row>
+<entry>On &macOS;</entry>
+<entry><filename class="directory"><envar>$HOME</envar>/Library/Application Support/org.kde.syntax-highlighting/themes/</filename></entry>
 </row>
 </tbody>
 </tgroup>

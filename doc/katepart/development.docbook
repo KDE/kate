@@ -2533,6 +2533,10 @@ package on Flathub</ulink> (only in GNU/Linux).</para>
 <ulink url="https://flathub.org/apps/details/org.gnome.design.Contrast">the Flatpak
 package on Flathub</ulink> (only in GNU/Linux).</para>
 
+<para>A python script in <ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/utils/theme_contrast_checker.py?ref_type=heads">Syntax
+Highlighting repository</ulink> lets you visualize all the colors in a theme,
+as well as the contrast with the various backgrounds configured.</para>
+
 </sect3>
 
 <sect3 id="color-themes-tips-and-tricks-consistency">

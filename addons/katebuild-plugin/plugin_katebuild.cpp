@@ -1252,7 +1252,7 @@ bool KateBuildView::isCommandLineAllowed(const QStringList &cmdline)
     }
 
     // ask user if the start should be allowed
-    QPointer<QMessageBox> msgBox(new QMessageBox(QApplication::activeWindow()));
+    QPointer<QMessageBox> msgBox(new QMessageBox(m_win->window()));
     msgBox->setWindowTitle(i18n("Build plugin wants to execute program"));
     msgBox->setTextFormat(Qt::RichText);
     msgBox->setText(

@@ -1,21 +1,20 @@
 # Translation of kate to Norwegian Nynorsk
 #
 # Gaute Hvoslef Kvalnes <gaute@verdsveven.com>, 1999, 2000, 2002, 2003, 2004, 2005.
-# Karl Ove Hufthammer <karl@huftis.org>, 2004, 2007, 2008, 2009, 2010, 2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Axel Bojer <fri_programvare@bojer.no>, 2004.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-20 00:42+0000\n"
-"PO-Revision-Date: 2023-08-04 22:21+0200\n"
+"POT-Creation-Date: 2024-08-04 00:42+0000\n"
+"PO-Revision-Date: 2024-08-03 13:16+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 24.11.70\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -42,10 +41,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate – avansert skriveprogram frå KDE"
 
 #: kate/main.cpp:97 kwrite/main.cpp:50
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "© 2000–2022 Kate-utviklarane"
+msgstr "© 2000–2024 Kate-utviklarane"
 
 #: kate/main.cpp:143
 #, kde-format
@@ -132,10 +130,12 @@ msgstr "kolonne"
 msgid "Read the contents of stdin."
 msgstr "Les innhaldet av standard inn."
 
+# Kommandolinjehjelp (kate --help) som skal ha avsluttande punktum.
 #: kate/main.cpp:192 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
-msgstr "Filene/nettadressene som er opna av programmet vert sletta etter bruk"
+msgstr ""
+"Filene/nettadressene som er opna av programmet, vert sletta etter bruk."
 
 #: kate/main.cpp:196 kwrite/main.cpp:122
 #, kde-format
@@ -184,18 +184,18 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:518
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "Ugyldig commit-ID"
 
 #: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 finst ikkje i eit Git-depot."
 
 #: lib/commitfilesview.cpp:539
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr ""
+msgstr "Commit %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -251,7 +251,7 @@ msgstr "V&erktøy"
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
-msgstr ""
+msgstr "Diagnostikkvising"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:130
@@ -275,7 +275,7 @@ msgstr "Hovudverktøylinje"
 #: lib/data/kateui.rc:160
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Hamburgermeny-verktøylinje"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:174
@@ -290,11 +290,13 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Feil i regulært uttrykk: %1\n"
+"posisjon %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:61
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: lib/diagnostics/diagnosticview.cpp:297
 #, kde-format
@@ -302,32 +304,34 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
+"Nådde diagnostikkgrensa. Hoppar over vidare diagnostikk. Du kan endra grensa "
+"i innstillingane."
 
 #: lib/diagnostics/diagnosticview.cpp:340
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr ""
+msgstr "Diagnostikkvising"
 
 #: lib/diagnostics/diagnosticview.cpp:345
 #, kde-format
 msgid "Quick Fix"
-msgstr ""
+msgstr "Kjappfiks"
 
 #: lib/diagnostics/diagnosticview.cpp:351
 #, kde-format
 msgid "Next Item"
-msgstr ""
+msgstr "Neste element"
 
 #: lib/diagnostics/diagnosticview.cpp:357
 #, kde-format
 msgid "Previous Item"
-msgstr ""
+msgstr "Førre element"
 
 #: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr ""
+msgstr "Tøm diagnostikkfilter"
 
 #: lib/diagnostics/diagnosticview.cpp:423 lib/kateconfigdialog.cpp:334
 #, kde-format
@@ -337,12 +341,12 @@ msgstr "Diagnostikk"
 #: lib/diagnostics/diagnosticview.cpp:466
 #, kde-format
 msgid "Errors"
-msgstr ""
+msgstr "Feil"
 
 #: lib/diagnostics/diagnosticview.cpp:482
 #, kde-format
 msgid "Warnings"
-msgstr ""
+msgstr "Åtvaringar"
 
 #: lib/diagnostics/diagnosticview.cpp:496
 #, kde-format
@@ -389,32 +393,32 @@ msgstr "Kopier til utklippstavla"
 #: lib/diagnostics/diagnosticview.cpp:1429
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Fjern global undertrykking"
 
 #: lib/diagnostics/diagnosticview.cpp:1431
 #, kde-format
 msgid "Add Global Suppression"
-msgstr ""
+msgstr "Legg til global undertrykking"
 
 #: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Fjern lokal undertrykking"
 
 #: lib/diagnostics/diagnosticview.cpp:1437
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Legg til lokal undertrykking"
 
 #: lib/diagnostics/diagnosticview.cpp:1452
 #, kde-format
 msgid "Disable Suppression"
-msgstr ""
+msgstr "Slå av undertrykking"
 
 #: lib/diagnostics/diagnosticview.cpp:1454
 #, kde-format
 msgid "Enable Suppression"
-msgstr ""
+msgstr "Slå på undertrykking"
 
 #: lib/diff/diffeditor.cpp:182
 #, kde-format
@@ -440,57 +444,57 @@ msgstr "Rå"
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Førebu linja"
+msgstr[1] "Førebu linjene"
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "Førebu blokka"
 
 #: lib/diff/diffeditor.cpp:231
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Forkast linja"
+msgstr[1] "Forkast linjene"
 
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Forkast blokka"
 
 #: lib/diff/diffeditor.cpp:243
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Løys vekk linja"
+msgstr[1] "Løys vekk linjene"
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "Løys vekk blokka"
 
 #: lib/diff/diffwidget.cpp:63
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "Vis forskjellar %1"
 
 #: lib/diff/diffwidget.cpp:65
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "Vis forskjellar for %1..%2"
 
 #: lib/diff/diffwidget.cpp:86
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "Vis forskjellar for %1 . .%2"
 
 #: lib/diff/diffwidget.cpp:116
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Vis/gøym commitinfo"
 
 #: lib/diff/diffwidget.cpp:121
 #, kde-format
@@ -522,7 +526,7 @@ msgstr "Last inn diff på nytt"
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "Viss diff med full kontekst, ikkje berre endra linjer"
 
 #: lib/diff/diffwidget.cpp:554
 #, kde-format
@@ -531,6 +535,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"Fann ikkje <b>git</b>. Programmet trengst for å visa forskjellar mellom "
+"dokumenta. Viss det alt er installert, sjå til at det finst i "
+"miljøvariabelen PATH. Sjå https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
 #: lib/kateconfigdialog.cpp:308
@@ -557,29 +564,31 @@ msgstr "Fann ingen forskjellar"
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
+"Klarte ikkje henta filhistorikk: fann ikkje programfila «git» i PATH-"
+"variabelen"
 
 #: lib/filehistorywidget.cpp:312
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "Klarte ikkje henta filhistorikk: %1"
 
 #: lib/filehistorywidget.cpp:323
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Kopiert commit-ID"
 
 #: lib/filehistorywidget.cpp:331
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "Vis full commit"
 
 #: lib/filehistorywidget.cpp:390
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr ""
+msgstr "Filhistorie – %1"
 
 #: lib/kateapp.cpp:115
 msgid ""
@@ -587,6 +596,9 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"Å køyra skriveprogrammet via sudo kan medføra feil og gjev deg sårbar for "
+"eventuelle tryggleiksfeil. Køyr heller programmet som vanleg brukar. Du vert "
+"automatisk spurt om utvida løyve når det trengst for å lagra dokument."
 
 #: lib/kateapp.cpp:122
 msgid ""
@@ -594,6 +606,9 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"Å køyra skriveprogrammet via kdesu kan medføra feil og gjev deg sårbar for "
+"eventuelle tryggleiksfeil. Køyr heller programmet som vanleg brukar. Du vert "
+"automatisk spurt om utvida løyve når det trengst for å lagra dokument."
 
 #: lib/kateapp.cpp:281
 #, kde-format
@@ -789,7 +804,7 @@ msgstr "Tyson Tan"
 #: lib/kateapp.cpp:315
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
-msgstr ""
+msgstr "Teikna Kate-maskoten «kyber­hakkespetten Kate»"
 
 #: lib/kateapp.cpp:318
 #, kde-format
@@ -799,7 +814,7 @@ msgstr "Matteo Merli"
 #: lib/kateapp.cpp:318
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
-msgstr "Syntaksmerking for RPM Spec-filer, Perl, Diff og andre"
+msgstr "Syntaksmerking for RPM Spec-filer, Perl, diff og andre"
 
 #: lib/kateapp.cpp:319
 #, kde-format
@@ -909,7 +924,7 @@ msgstr "Kjempebra hjelp"
 #: lib/kateapp.cpp:330
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
-msgstr "Alle dei som har bidrege, som eg har gløymt å nemna"
+msgstr "Alle dei som har bidrege, men som eg har gløymt å nemna"
 
 #: lib/kateapp.cpp:459
 #, kde-format
@@ -953,11 +968,13 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"Viss det er kryssa av her, vert alle dokument opna i kvart sitt vindauge. "
+"Viss ikkje, vert det dei opna i kvar si fane i det gjeldande vindauget."
 
 #: lib/kateconfigdialog.cpp:132
 #, kde-format
 msgid "&Switch to output view upon message type:"
-msgstr ""
+msgstr "&Byt til utdatavising basert på meldingstype:"
 
 #: lib/kateconfigdialog.cpp:137
 #, kde-format
@@ -977,7 +994,7 @@ msgstr "Logg"
 #: lib/kateconfigdialog.cpp:143
 #, kde-format
 msgid "&Limit output view history:"
-msgstr ""
+msgstr "&Avgrens lengd på utdatavising:"
 
 #: lib/kateconfigdialog.cpp:149 lib/kateconfigdialog.cpp:220
 #: lib/kateconfigdialog.cpp:342
@@ -988,7 +1005,7 @@ msgstr "Uavgrensa"
 #: lib/kateconfigdialog.cpp:156
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
-msgstr ""
+msgstr "Bruk eige &dialogvindauge for handtering av filer som er endra utanfrå"
 
 #: lib/kateconfigdialog.cpp:159
 #, kde-format
@@ -997,17 +1014,22 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
+"Viss det er kryssa av her, vert det vist ein modal dialog for alle endra "
+"filer. Viss ikkje, vert du spurt kva du vil gjera med kvar enkelte endra fil "
+"først når fila får fokus."
 
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Vis tidsinfo med dato"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"Viss det er kryssa av her, vert tidsinfo-linjene òg ha datoen med som "
+"prefiks."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1017,7 +1039,7 @@ msgstr "&Sidestolpar"
 #: lib/kateconfigdialog.cpp:177
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "Synkroniser blokkstorleik med faneplasseringar"
 
 #: lib/kateconfigdialog.cpp:180
 #, kde-format
@@ -1026,16 +1048,19 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"Viss det er kryssa av her, ved blokkstorleiken avgjort av plasseringa av "
+"fanene.\n"
+"Dette valet påverkar ikkje botnstolpen."
 
 #: lib/kateconfigdialog.cpp:185
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr ""
+msgstr "Vis tekst for knappar i venstre og høgre sidestolpe"
 
 #: lib/kateconfigdialog.cpp:190
 #, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr ""
+msgstr "Ikonstorleik for knappar i venstre og høgre sidestolpe:"
 
 #: lib/kateconfigdialog.cpp:210
 #, kde-format
@@ -1053,6 +1078,8 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
+"Ei høg grense kan auka storleiken på vindauget. Slå på «Tillat fanerulling» "
+"for å hindra dette. Uavgrensa faner er alltid rullbare."
 
 #: lib/kateconfigdialog.cpp:229
 #, kde-format
@@ -1108,6 +1135,7 @@ msgstr "&Midtklikk for å lukka dokument"
 msgid "When checked middle click closes a document."
 msgstr "Viss det er kryssa av her, vil eit midtklikk lukka dokumentet."
 
+# Hugs å oppdatera tilhøyrande hjelpetekst ved oppdateringar her.
 #: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "Allow tab scrolling"
@@ -1119,26 +1147,28 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
+"Viss det er kryssa av her, kan ein rulla gjennom heile fanelinja når det er "
+"mange faner opna."
 
 #: lib/kateconfigdialog.cpp:265
 #, kde-format
 msgid "Elide tab text"
-msgstr "Fokort fanetittel"
+msgstr "Forkort fanenamn"
 
 #: lib/kateconfigdialog.cpp:267
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
-msgstr ""
+msgstr "Viss det er kryssa av her, vert lange fanenamn forkorta."
 
 #: lib/kateconfigdialog.cpp:271
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr ""
+msgstr "Opna nye faner til høgre for den gjeldande fana"
 
 #: lib/kateconfigdialog.cpp:273
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "Viss det ikkje er kryssa av her, vert nye faner opna heilt til høgre."
 
 #: lib/kateconfigdialog.cpp:279
 #, kde-format
@@ -1188,18 +1218,18 @@ msgstr "Navigasjonslinje"
 #: lib/kateconfigdialog.cpp:329
 #, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr ""
+msgstr "Vis gjeldande symbol i navigasjonslinja"
 
 #: lib/kateconfigdialog.cpp:339
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "Diagnostikk"
+msgstr "Diagnostikkgrense:"
 
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
+"Maksgrense for talet på diagnostikk­meldingar viste i diagnostikkvisinga."
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
@@ -1209,7 +1239,7 @@ msgstr "Økt"
 #: lib/kateconfigdialog.cpp:361
 #, kde-format
 msgid "Session Management"
-msgstr "Økthandtering"
+msgstr "Økthandsaming"
 
 #: lib/kateconfigdialog.cpp:372
 #, kde-format
@@ -1225,12 +1255,15 @@ msgid_plural " days"
 msgstr[0] " dag"
 msgstr[1] " dagar"
 
+# Obs: Ikkje alle dokument opne i vindauget vert lukka. Det gjeld berre dei dokumenta som *berre* er opne i dette vindauget. (Viss eit dokument er ope i fleire vindauge, vert det altså ikkje lukka.)
 #: lib/kateconfigdialog.cpp:406
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"Når eit vindauge vert lukka, vert dokumenta som berre er opne i dette "
+"vindauget, òg lukka."
 
 #: lib/kateconfigdialog.cpp:441
 #, kde-format
@@ -1259,8 +1292,9 @@ msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
 "loaded, and will be loaded again the next time Kate is started."
 msgstr ""
-"Her ser du alle dei tilgjengelege programtillegga i Kate. Dei som er kryssa "
-"av er lasta inn og vert lasta inn på nytt neste gong Kate startar."
+"Her ser du alle programtillegga tilgjengelege i Kate. Dei som er kryssa av, "
+"er lasta inn, og dei vert automatisk lasta inn på nytt neste gong Kate "
+"startar."
 
 #: lib/kateconfigplugindialogpage.cpp:82
 #, kde-format
@@ -1778,82 +1812,82 @@ msgstr "Vis &sidestolpar"
 msgid "Hide All Tool Views"
 msgstr ""
 
-#: lib/katemdi.cpp:168
+#: lib/katemdi.cpp:167
 #, kde-format
 msgid "Show %1"
 msgstr "Vis %1"
 
-#: lib/katemdi.cpp:179
+#: lib/katemdi.cpp:178
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Vis %1-knapp"
 
-#: lib/katemdi.cpp:195
+#: lib/katemdi.cpp:194
 #, kde-format
 msgid "Focus %1"
 msgstr "Byt fokus til %1"
 
-#: lib/katemdi.cpp:1091
+#: lib/katemdi.cpp:1093
 #, kde-format
 msgid "Configure..."
 msgstr "Set opp …"
 
-#: lib/katemdi.cpp:1095
+#: lib/katemdi.cpp:1097
 #, kde-format
 msgid "Hide Button"
 msgstr "Gøym knapp"
 
-#: lib/katemdi.cpp:1097
+#: lib/katemdi.cpp:1099
 #, kde-format
 msgid "Move To"
 msgstr "Flytt til"
 
-#: lib/katemdi.cpp:1102
+#: lib/katemdi.cpp:1104
 #, kde-format
 msgid "Own Section"
 msgstr ""
 
-#: lib/katemdi.cpp:1108 lib/katemdi.cpp:1116
+#: lib/katemdi.cpp:1110 lib/katemdi.cpp:1118
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1110 lib/katemdi.cpp:1121
+#: lib/katemdi.cpp:1112 lib/katemdi.cpp:1123
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1114
+#: lib/katemdi.cpp:1116
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1121
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1128
+#: lib/katemdi.cpp:1130
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Venstre sidestolpe"
 
-#: lib/katemdi.cpp:1132
+#: lib/katemdi.cpp:1134
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Høgre sidestolpe"
 
-#: lib/katemdi.cpp:1136
+#: lib/katemdi.cpp:1138
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Øvre sidestolpe"
 
-#: lib/katemdi.cpp:1140
+#: lib/katemdi.cpp:1142
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Nedre sidestolpe"
 
-#: lib/katemdi.cpp:1713
+#: lib/katemdi.cpp:1715
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

@@ -530,12 +530,12 @@ void KateMainWindow::setupActions()
         connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionNew, Qt::QueuedConnection);
 
         // recent sessions menu
-        a = new KateSessionsAction(i18n("&Recent Sessions"), this, KateApp::self()->sessionManager(), false);
+        a = new KateSessionsAction(QIcon::fromTheme(QStringLiteral("document-swap")), i18n("&Recent Sessions"), this, KateApp::self()->sessionManager(), false);
         sessionsMenu->menu()->addAction(a);
         actionCollection()->addAction(QStringLiteral("session_open_recent"), a);
 
         // session menu
-        a = new KateSessionsAction(i18n("&All Sessions"), this, KateApp::self()->sessionManager(), true);
+        a = new KateSessionsAction(QIcon::fromTheme(QStringLiteral("document-multiple")), i18n("&All Sessions"), this, KateApp::self()->sessionManager(), true);
         sessionsMenu->menu()->addAction(a);
         actionCollection()->addAction(QStringLiteral("session_open_session"), a);
 

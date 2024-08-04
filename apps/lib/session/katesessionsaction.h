@@ -14,7 +14,7 @@ class KateSessionManager;
 class KATE_PRIVATE_EXPORT KateSessionsAction : public KActionMenu
 {
 public:
-    KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager, bool allSessions);
+    KateSessionsAction(const QIcon &icon, const QString &text, QObject *parent, KateSessionManager *manager, bool allSessions);
 
 public:
     void slotAboutToShow();

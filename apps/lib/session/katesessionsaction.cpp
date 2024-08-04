@@ -12,8 +12,8 @@
 #include <QMenu>
 #include <algorithm>
 
-KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager, bool allSessions)
-    : KActionMenu(text, parent)
+KateSessionsAction::KateSessionsAction(const QIcon &icon, const QString &text, QObject *parent, KateSessionManager *manager, bool allSessions)
+    : KActionMenu(icon, text, parent)
     , m_manager(manager)
     , m_allSessions(allSessions)
 {

@@ -36,7 +36,7 @@ KateSessionsActionTest::KateSessionsActionTest()
     m_app = new KateApp(parser, KateApp::ApplicationKWrite, m_tempdir->path());
     m_app->sessionManager()->activateAnonymousSession();
     m_manager = m_app->sessionManager();
-    m_ac = new KateSessionsAction(QStringLiteral("menu"), this, m_manager, false);
+    m_ac = new KateSessionsAction(QIcon::fromTheme(QStringLiteral("application-menu")), QStringLiteral("menu"), this, m_manager, false);
 }
 
 KateSessionsActionTest::~KateSessionsActionTest()

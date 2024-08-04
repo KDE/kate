@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-24 02:28+0000\n"
-"PO-Revision-Date: 2024-07-02 14:51+0300\n"
+"PO-Revision-Date: 2024-08-03 06:32+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -59,23 +59,20 @@ msgid "Build & Run Settings"
 msgstr "הגדרות בנייה והרצה"
 
 #: buildconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Delete selected entries"
-msgstr "בניית המטרה הנבחרת"
+msgstr "מחיקת הרשומות הנבחרות"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "מחיקת כל הרשומות"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "הגדרות של מטרות"
+msgstr "הגדרות כלליות"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
@@ -93,7 +90,7 @@ msgstr "להחליף ללוח הפלט בעת הרצה על היעד הנבחר"
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "פקודות מורשות וחסומות"
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:910 plugin_katebuild.cpp:923 targets.cpp:245
@@ -442,10 +439,9 @@ msgid "Create new set of targets"
 msgstr "יצירת קבוצת מטרות חדשה"
 
 #: targets.cpp:40
-#, fuzzy, kde-format
-#| msgid "Copy command or target set"
+#, kde-format
 msgid "Clone command or target set"
-msgstr "העתקת פקודת או קבוצת יעדים"
+msgstr "פקודת שיבוט או סדרת יעד"
 
 #: targets.cpp:44
 #, kde-format
@@ -480,17 +476,17 @@ msgstr "הורדת היעד הנבחר למטה"
 #: targets.cpp:204
 #, kde-format
 msgid "Copy"
-msgstr ""
+msgstr "העתקה"
 
 #: targets.cpp:208
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "גזירה"
 
 #: targets.cpp:212
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "הדבקה אחרי"
 
 #: targets.cpp:246
 #, kde-format

@@ -18,6 +18,7 @@
         "Description[ka]": "მიმდინარე ფაილზე ESLint-ის გაშვება",
         "Description[ko]": "현재 파일에 ESLint 실행",
         "Description[nl]": "Voert ESLint uit op huidig bestand",
+        "Description[nn]": "Køyr ESLint på gjeldande fil",
         "Description[pl]": "Uruchamia ESLint na bieżącym pliku",
         "Description[pt]": "Executa o ESLint sobre o ficheiro actual",
         "Description[pt_BR]": "Executa ESLint no arquivo atual",

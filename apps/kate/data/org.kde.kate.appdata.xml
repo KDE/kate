@@ -141,7 +141,7 @@
     <p xml:lang="ko">Kate는 KDE의 다문서 다화면 텍스트 편집기입니다. 코드 접기, 구문 강조, 동적 줄 바꿈, 내장된 콘솔, 플러그인 인터페이스, 스크립트 기능을 지원합니다.</p>
     <p xml:lang="ml">കെയ്റ്റ് എന്നത് കെ.ഡി.ഇ. യുടെ വിവിധോദ്യേശ പദാവലി എഡിറ്റർ ആണ്. ഇത് കോഡ് മടക്കൽ, സിന്റാക്സ് പ്രധാനീകരിക്കൽ, ചലനാത്മകമായ അക്ഷര സൗന്ദര്യവൽക്കരണം, ബന്ധിപ്പിച്ചിട്ടുള്ള കൺസോൾ, വിപുലമായ പ്ലഗ്ഇൻ വിനിമയതലം, അടിസ്ഥാനമായ സ്ക്രിപ്റ്റിംഗ് എന്നിവ പിന്തുണ നൽകുന്നു.</p>
     <p xml:lang="nl">Kate is een multi-document, multi-view tekstbewerker door KDE. Het bevat functies zoals opvouwen van code, accentuering van syntaxis, dynamisch afbreken van de regel, een ingebed console, een extensieve plug-in-interface en enige beginnende ondersteuning voor scripts.</p>
-    <p xml:lang="nn">Kate er eit skriveprogram frå KDE som kan handsama fleire dokument og fleire visingar samtidig. Det har funksjonar som kode­falding, syntaks­merking, dymamisk linje­bryting, ein innebygd terminal­emulator, eit omfattande grensesnitt for program­tillegg og enkel skriptstøtte.</p>
+    <p xml:lang="nn">Kate er eit skriveprogram frå KDE som kan ha ope fleire dokument og visingar samtidig. Det har funksjonar som kode­falding, syntaks­merking, dymamisk linje­bryting, ein innebygd terminal­emulator, eit omfattande grensesnitt for program­tillegg og enkel skriptstøtte.</p>
     <p xml:lang="pl">Kate jest wielodokumentowym, wielowidokowym edytorem tekstu stworzonym przez KDE. Umożliwia zwijanie kodu, podświetlanie składni, dynamiczne zawijanie wyrazów, osadzoną konsolę, rozbudowany interfejs dla wtyczek i zapewnia podstawową obsługę skryptów.</p>
     <p xml:lang="pt">O Kate é um editor de texto multi-documentos e multi-janelas do KDE. Oferece algumas funcionalidades como a dobragem de código, realce de sintaxe, mudanças de linha dinâmicas, uma consola incorporada, uma interface em 'plugins' alargada e algum suporte preliminar para programação.</p>
     <p xml:lang="pt-BR">Kate é um editor de texto multi-documentos e multi-janelas para o KDE. Oferece algumas funcionalidades como a dobradura de código, realce de sintaxe, quebra de linha dinâmica, um console incorporado, uma interface de plugins extensa e um suporte preliminar para criação de scripts.</p>
@@ -888,6 +888,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">მრავალი (http, ftp, ssh, WebDAV და სხვა) პროტოკოლის მხარდაჭერა</li>
       <li xml:lang="ko">다양한 프로토콜 지원(HTTP, FTP, SSH, WebDAV 등)</li>
       <li xml:lang="nl">Brede ondersteuning van protocollen (http, ftp, ssh, webdav etc.)</li>
+      <li xml:lang="nn">Omfattande protokollstøtte (http, ftp, ssh, webdav, …)</li>
       <li xml:lang="pl">Szeroka obsługa protokołów (http, ftp, ssh, webdav itp.)</li>
       <li xml:lang="pt">Suporte abrangente de protocolos (HTTP, FTP, SSH, WebDAV, etc.)</li>
       <li xml:lang="pt-BR">Suporte abrangente de protocolos (HTTP, FTP, SSH, WebDAV, etc.)</li>
@@ -931,7 +932,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ml">ആപ്ലിക്കേഷനും ചിട്ടപ്പെടുത്തൽ ഉപകരണത്തിനും പ്ലഗ് ഇൻ രൂപകല്പന</li>
       <li xml:lang="nb">Modularkitektur for programmet og redigeringskomponenten</li>
       <li xml:lang="nl">Plug-in-architectuur voor de applicatie- en editor-component</li>
-      <li xml:lang="nn">Støtte for programtillegg til programmet og redigeringskomponenten</li>
+      <li xml:lang="nn">Støtte for programtillegg både i programmet og redigeringskomponenten</li>
       <li xml:lang="pa">ਐਪਲੀਕੇਸ਼ਨ ਅਤੇ ਐਡੀਟਰ ਭਾਗਾਂ ਲਈ ਪਲੱਗਇਨ ਢਾਂਚਾ</li>
       <li xml:lang="pl">Architektura wtyczek dla programów i składników edytora</li>
       <li xml:lang="pt">Arquitectura modular para o componente de edição e a aplicação</li>
@@ -981,7 +982,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="my">စိတ်ကြိုက်ပြင်ဆင်နိုင်သော ဖြတ်လမ်းများ</li>
       <li xml:lang="nb">Brukerstyrte snarveier</li>
       <li xml:lang="nl">Aanpasbare sneltoetsen</li>
-      <li xml:lang="nn">Tilpassbare snarvegar</li>
+      <li xml:lang="nn">Tilpassbare snøggtastar</li>
       <li xml:lang="pl">Dostosowywalne skróty</li>
       <li xml:lang="pt">Atalhos de teclado personalizados</li>
       <li xml:lang="pt-BR">Atalhos de teclado personalizados</li>
@@ -1172,6 +1173,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="it">Kate con qualche progetto basato su Git</caption>
       <caption xml:lang="ka">Kate რომელიმე Git-ზე დაჰოსტილი პროექტით</caption>
       <caption xml:lang="nl">Kate met een op Git gebaseerd project</caption>
+      <caption xml:lang="nn">Kate med eit Git-basert prosjekt</caption>
       <caption xml:lang="pl">Kate z projektem Git</caption>
       <caption xml:lang="sl">Kate z nekim projektom, ki temelji na Gitu</caption>
       <caption xml:lang="sv">Kate med något Git-baserat projekt</caption>
@@ -1200,6 +1202,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="it">Kate nella vista divisa</caption>
       <caption xml:lang="ka">Kate გაყოფილი ხედით</caption>
       <caption xml:lang="nl">Kate met gesplitst beeld</caption>
+      <caption xml:lang="nn">Kate med delt vising</caption>
       <caption xml:lang="pl">Kate z widokiem podzielonym</caption>
       <caption xml:lang="sl">Kate z deljenim pogledom</caption>
       <caption xml:lang="sv">Kate med delad vy</caption>
@@ -1228,6 +1231,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="it">Kate in modalità scura</caption>
       <caption xml:lang="ka">Kate მუქ რეჟიმში</caption>
       <caption xml:lang="nl">Kate in modus donker</caption>
+      <caption xml:lang="nn">Kate med mørkt tema</caption>
       <caption xml:lang="pl">Kate na ciemno</caption>
       <caption xml:lang="sl">Kate v temnem načinu</caption>
       <caption xml:lang="sv">Kate i mörkt läge</caption>
@@ -1256,6 +1260,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="it">Crea un nuovo ramo Git con Kate</caption>
       <caption xml:lang="ka">შექმენით ახალი Git ბრენჩი Kate-ით</caption>
       <caption xml:lang="nl">Nieuwe git-branch met Kate aanmaken</caption>
+      <caption xml:lang="nn">Opprett ei ny Git-grein med Kate</caption>
       <caption xml:lang="pl">Utwórz nową gałąź Git z Kate</caption>
       <caption xml:lang="sl">S Kate ustvari novo vejo Git</caption>
       <caption xml:lang="sv">Skapa en ny gren i Git med Kate</caption>

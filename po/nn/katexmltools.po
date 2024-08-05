@@ -2,21 +2,20 @@
 #
 # Gaute Hvoslef Kvalnes <gaute@verdsveven.com>, 2002, 2004.
 # Tor Hveem <tor@hveem.no>, 2004.
-# Karl Ove Hufthammer <karl@huftis.org>, 2007, 2008, 2015, 2018.
 # Eirik U. Birkeland <eirbir@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2018-09-07 22:29+0200\n"
+"PO-Revision-Date: 2024-08-04 09:47+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 24.11.70\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -25,7 +24,7 @@ msgstr ""
 #: plugin_katexmltools.cpp:118
 #, kde-format
 msgid "XML Tools"
-msgstr ""
+msgstr "XML-verktøy"
 
 #: plugin_katexmltools.cpp:121
 #, kde-format
@@ -59,7 +58,7 @@ msgstr ""
 #: plugin_katexmltools.cpp:452
 #, kde-format
 msgid "Loading XML Meta DTD"
-msgstr "Opnar XML-meta-DTD"
+msgstr "Lastar XML-meta-DTD"
 
 #: plugin_katexmltools.cpp:484
 #, kde-format
@@ -102,8 +101,8 @@ msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "
 "supplied):"
 msgstr ""
-"Skriv inn XML-elementnamn og -attributt. «<», «>» og sluttaggar vert "
-"automatisk sett inn:"
+"Skriv inn XML-elementnamn og -attributt. Teikna «<», «>» og slutt-taggar "
+"vert automatisk sette inn:"
 
 #: pseudo_dtd.cpp:45
 #, kde-format

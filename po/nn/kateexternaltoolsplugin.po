@@ -1,12 +1,11 @@
 # Translation of kateexternaltoolsplugin to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2019, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-13 00:40+0000\n"
-"PO-Revision-Date: 2020-02-16 13:58+0100\n"
+"PO-Revision-Date: 2024-08-04 10:31+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -14,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.12.2\n"
+"X-Generator: Lokalize 24.11.70\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -41,7 +40,7 @@ msgstr "Clang-formater merkt tekst"
 #, kde-format
 msgctxt "External tool name"
 msgid "Compile and Run cpp"
-msgstr ""
+msgstr "Kompiler og køyr cpp"
 
 #. i18n: file: 7
 #, kde-format
@@ -68,23 +67,24 @@ msgctxt "External tool name"
 msgid "gitk"
 msgstr "gitk"
 
+# Det finst ein «fmt»-kommando i Go, men her er det skrive med stor forbokstav. Og andre tekstar viser til tilsvarande kommandoar (eks. for Rust) der kommandonamnet ikkje er «Fmt». Så skriv det heller som vanleg norsk. Tydinga er jo lett å forstå.
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "Go Fmt Full File"
-msgstr ""
+msgstr "Go-formater heile fila"
 
 #. i18n: file: 4
 #, kde-format
 msgctxt "External tool category"
 msgid "Go"
-msgstr ""
+msgstr "Go"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "GoImports Full File"
-msgstr ""
+msgstr "GoImports heile fila"
 
 #. i18n: file: 8
 #, kde-format
@@ -108,7 +108,7 @@ msgstr "JSON-formater heile fila"
 #, kde-format
 msgctxt "External tool name"
 msgid "Prettier Format Current File"
-msgstr ""
+msgstr "Finformater gjeldande fil"
 
 #. i18n: file: 8
 #, kde-format
@@ -132,19 +132,19 @@ msgstr "Køyr skalskript"
 #, kde-format
 msgctxt "External tool name"
 msgid "Rust Fmt Full File"
-msgstr ""
+msgstr "Rust-formater heile fila"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search KDE API"
-msgstr ""
+msgstr "Søk i KDE-API-et"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search Qt API"
-msgstr ""
+msgstr "Søk i Qt-API-et"
 
 #. i18n: file: 8
 #, kde-format
@@ -184,6 +184,8 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"Fann ikkje programfila «%1». Sjå til at fila finst og at eventuelle brukte "
+"variabelnamn er rette."
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
 #: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:271
@@ -196,27 +198,27 @@ msgstr "Eksterne verktøy"
 #: externaltoolsplugin.cpp:295
 #, kde-format
 msgid "Running %1: %2 %3"
-msgstr ""
+msgstr "Køyrer %1: %2 %3"
 
 #: externaltoolsplugin.cpp:296
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
-msgstr ""
+msgstr "Køyrer %1: %2 %3 med inndata %4"
 
 #: externaltoolsplugin.cpp:399
 #, kde-format
 msgid "Data written to stderr:\n"
-msgstr ""
+msgstr "Data skriven til stderr:\n"
 
 #: externaltoolsplugin.cpp:410
 #, kde-format
 msgid "%1 crashed"
-msgstr ""
+msgstr "%1 krasja"
 
 #: externaltoolsplugin.cpp:412
 #, kde-format
 msgid "%1 finished with exit code %2"
-msgstr ""
+msgstr "%1 fullført med status %2"
 
 #: kateexternaltoolscommand.cpp:38
 #, kde-format
@@ -246,7 +248,7 @@ msgstr "Du må oppgje minst namn og programfil"
 #: kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
-msgstr ""
+msgstr "Når utløysar er påslått, må minst ein MIME-type vera oppgjeven."
 
 #: kateexternaltoolsconfigwidget.cpp:204
 #, kde-format
@@ -315,7 +317,7 @@ msgstr "Na&mn:"
 #: tooldialog.ui:32
 #, kde-format
 msgid "The name will be displayed in the 'Tools->External Tools' menu."
-msgstr "Namnet vert visa på menyen «Verktøy → Eksterne verktøy»."
+msgstr "Namnet vert vist på menyen «Verktøy → Eksterne verktøy»."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtName)
 #: tooldialog.ui:35
@@ -440,19 +442,19 @@ msgstr "Alle dokumenta"
 #: tooldialog.ui:181
 #, kde-format
 msgid "Trigger"
-msgstr ""
+msgstr "Utløysar"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:194
 #, kde-format
 msgid "Before Save"
-msgstr ""
+msgstr "Før lagring"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:199
 #, kde-format
 msgid "After Save"
-msgstr ""
+msgstr "Etter lagring"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkReload)
 #: tooldialog.ui:207
@@ -528,8 +530,9 @@ msgid ""
 "line with the_name_you_specified_here. Please do not use spaces or tabs in "
 "the name."
 msgstr ""
-"Viss du skriv inn eit namn her, kan du køyra kommando frå kommandolinja med "
-"«namnet_du_oppgav_her». Ikkje bruk mellomrom eller tabulatorteikn i namnet."
+"Viss du skriv inn eit namn her, kan du køyra kommandoen frå kommandolinja "
+"med «namnet_du_oppgav_her». Ikkje bruk mellomrom eller tabulatorteikn i "
+"namnet."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
 #: tooldialog.ui:281

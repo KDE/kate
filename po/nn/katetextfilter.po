@@ -1,21 +1,20 @@
 # Translation of katetextfilter to Norwegian Nynorsk
 #
 # Gaute Hvoslef Kvalnes <gaute@verdsveven.com>, 2002.
-# Karl Ove Hufthammer <karl@huftis.org>, 2007, 2008, 2009, 2015, 2018.
 # Eirik U. Birkeland <eirbir@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2018-08-01 20:31+0100\n"
+"PO-Revision-Date: 2024-08-04 09:46+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 24.11.70\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -37,8 +36,8 @@ msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
 "to be able to do this, contact your system administrator."
 msgstr ""
-"Du har ikkje lov til å køyra vilkårlege eksterne program. Dersom du vil "
-"kunna gjera dette, må du kontakta systemadministratoren."
+"Du har ikkje løyve til å køyra vilkårlege eksterne program. Dersom du vil ha "
+"løyve til det, må du kontakta systemadministratoren."
 
 #: plugin_katetextfilter.cpp:154
 #, kde-format
@@ -79,13 +78,13 @@ msgstr "Dialogvindauge"
 #: textfilterwidget.ui:26
 #, kde-format
 msgid "Enter command to &pipe selected text through:"
-msgstr "Oppgje kommandoen du senda den merkte teksten til:"
+msgstr "Oppgje kommandoen du vil &senda den merkte teksten til:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, newDoc)
 #: textfilterwidget.ui:39
 #, kde-format
 msgid "Open results in a new document"
-msgstr ""
+msgstr "Opna resultatet i nytt dokument"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:46

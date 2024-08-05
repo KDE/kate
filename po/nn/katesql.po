@@ -1,12 +1,11 @@
 # Translation of katesql to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2011, 2015, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-10 00:41+0000\n"
-"PO-Revision-Date: 2020-08-28 18:31+0200\n"
+"PO-Revision-Date: 2024-08-04 10:05+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -14,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.08.0\n"
+"X-Generator: Lokalize 24.11.70\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -132,7 +131,7 @@ msgstr "Filadresse:"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
-msgstr "Klarte ikkje kopla til databasen.<nl/> <message>%1</message>"
+msgstr "Klarte ikkje kopla til databasen.<nl/><message>%1</message>"
 
 #: connectionwizard.cpp:226
 #, kde-format
@@ -156,13 +155,13 @@ msgstr "Tilkoplingsnamn:"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
-msgstr "Juster kolonnebreidd til innhald"
+msgstr "Juster kolonnebreidder til innhald"
 
 #: dataoutputwidget.cpp:66
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
-msgstr "Juster radhøgd til innhald"
+msgstr "Juster radhøgder til innhald"
 
 #: dataoutputwidget.cpp:70
 #, kde-format
@@ -234,7 +233,7 @@ msgstr "Fil"
 #: exportwizard.cpp:54
 #, kde-format
 msgid "Comma Separated Values"
-msgstr ""
+msgstr "Kommaskilde verdiar"
 
 #: exportwizard.cpp:96
 #, kde-format
@@ -333,37 +332,37 @@ msgstr "Innstillingar for SQL-ConfigPage"
 #: katesqlview.cpp:43
 #, kde-format
 msgid "SQL"
-msgstr ""
+msgstr "SQL"
 
 #: katesqlview.cpp:50
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
-msgstr ""
+msgstr "SQL"
 
 #: katesqlview.cpp:56
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr ""
+msgstr "SQL-skjema"
 
 #: katesqlview.cpp:104
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr ""
+msgstr "Legg til tilkopling …"
 
 #: katesqlview.cpp:109
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr ""
+msgstr "Fjern tilkopling"
 
 #: katesqlview.cpp:114
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
-msgstr ""
+msgstr "Rediger tilkopling …"
 
 #: katesqlview.cpp:119
 #, kde-format
@@ -381,7 +380,7 @@ msgstr "Tilkopling"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr ""
+msgstr "Køyr spørjing"
 
 #: outputstylewidget.cpp:29
 #, kde-format
@@ -477,7 +476,7 @@ msgstr "Systemtabellar"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "Vel data"
 
 #: schemawidget.cpp:273
 #, kde-format

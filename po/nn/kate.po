@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-04 00:42+0000\n"
-"PO-Revision-Date: 2024-08-03 13:16+0200\n"
+"PO-Revision-Date: 2024-08-03 19:54+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -275,7 +275,7 @@ msgstr "Hovudverktøylinje"
 #: lib/data/kateui.rc:160
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr "Hamburgermeny-verktøylinje"
+msgstr "Hamburgarmeny-verktøylinje"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:174
@@ -536,8 +536,8 @@ msgid ""
 "downloads"
 msgstr ""
 "Fann ikkje <b>git</b>. Programmet trengst for å visa forskjellar mellom "
-"dokumenta. Viss det alt er installert, sjå til at det finst i "
-"miljøvariabelen PATH. Sjå https://git-scm.com/downloads"
+"dokumenta. Viss det alt er installert, sjå til at det finst i søkjestien "
+"(PATH-variabelen). Sjå https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
 #: lib/kateconfigdialog.cpp:308
@@ -564,8 +564,8 @@ msgstr "Fann ingen forskjellar"
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
-"Klarte ikkje henta filhistorikk: fann ikkje programfila «git» i PATH-"
-"variabelen"
+"Klarte ikkje henta filhistorikk: fann ikkje programfila «git» i søkjestien "
+"(PATH-variabelen)"
 
 #: lib/filehistorywidget.cpp:312
 #, kde-format
@@ -588,7 +588,7 @@ msgstr "Vis full commit"
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Filhistorie – %1"
+msgstr "Filhistorikk – %1"
 
 #: lib/kateapp.cpp:115
 msgid ""
@@ -1090,7 +1090,7 @@ msgstr "&Gøym automatisk faner"
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
-"Viss det er kryssa av her, vert fanalinja gøymd når berre eitt dokument er "
+"Viss det er kryssa av her, vert fanelinja gøymd når berre eitt dokument er "
 "opna."
 
 #: lib/kateconfigdialog.cpp:235
@@ -1437,12 +1437,10 @@ msgid "Focus the next tab."
 msgstr "Fokus på neste fane."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Byt til instansen"
+msgstr "Byt til fane %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format
@@ -1567,7 +1565,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:446
 #, kde-format
 msgid "Close the current document."
-msgstr "Lukk gjeldane dokumentet."
+msgstr "Lukk gjeldande dokumentet."
 
 #: lib/katemainwindow.cpp:449
 #, kde-format
@@ -1590,15 +1588,14 @@ msgid "Close all open documents."
 msgstr "Lukk alle opne dokument."
 
 #: lib/katemainwindow.cpp:461
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen latest closed document(s)."
-msgstr "Last om att alle opne dokument."
+msgstr "Opna &sist lukka dokument på nytt."
 
 #: lib/katemainwindow.cpp:464
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "Gjenopna dokumentet eller dokumenta som sist vart lukka."
 
 #: lib/katemainwindow.cpp:469
 #, kde-format
@@ -1613,7 +1610,7 @@ msgstr "&Nytt vindauge"
 #: lib/katemainwindow.cpp:476
 #, kde-format
 msgid "Create a new window."
-msgstr ""
+msgstr "Opna eit nytt vindauge."
 
 #: lib/katemainwindow.cpp:483
 #, kde-format
@@ -1679,7 +1676,7 @@ msgstr "&Alle økter"
 #: lib/katemainwindow.cpp:545
 #, kde-format
 msgid "&Manage Sessions..."
-msgstr "&Handter økter …"
+msgstr "&Handsam økter …"
 
 #: lib/katemainwindow.cpp:554
 #, kde-format
@@ -1694,7 +1691,7 @@ msgstr "Lagra økta &som …"
 #: lib/katemainwindow.cpp:567 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
-msgstr "Gå til plassering"
+msgstr "Gå til førre plassering"
 
 #: lib/katemainwindow.cpp:576 lib/kateviewspace.cpp:69
 #, kde-format
@@ -1714,16 +1711,14 @@ msgstr ""
 "fram?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Lukk alle opne dokument"
+msgstr "Lukka alle opne dokument?"
 
 #: lib/katemainwindow.cpp:613
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Lukk all&e"
+msgstr "Lukk alle"
 
 #: lib/katemainwindow.cpp:627
 #, kde-format
@@ -1735,14 +1730,12 @@ msgstr ""
 "vil halda fram?"
 
 #: lib/katemainwindow.cpp:628
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Lukk alle opne dokument utanom dette"
+msgstr "Lukka alle opne dokument utanom dette?"
 
 #: lib/katemainwindow.cpp:629
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Lukk andre"
 
@@ -1780,18 +1773,19 @@ msgstr "Opna alle filer"
 #: lib/katemainwindow.cpp:1252
 #, kde-format
 msgid " [read only]"
-msgstr " [skriveverna]"
+msgstr " [skriveverna]"
 
 #: lib/katemdi.cpp:85
 #, kde-format
 msgid "Toolview Manager"
-msgstr ""
+msgstr "Handsam verktøyvisingar"
 
 #: lib/katemdi.cpp:103
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr "Sidestolpe-knappar"
 
+# Prefiks brukt på snarvegar som «Byt fokus: Byt fokus til terminal».
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
@@ -1810,7 +1804,7 @@ msgstr "Vis &sidestolpar"
 #: lib/katemdi.cpp:119
 #, kde-format
 msgid "Hide All Tool Views"
-msgstr ""
+msgstr "Gøym alle verktøyvisingar"
 
 #: lib/katemdi.cpp:167
 #, kde-format
@@ -1845,27 +1839,27 @@ msgstr "Flytt til"
 #: lib/katemdi.cpp:1104
 #, kde-format
 msgid "Own Section"
-msgstr ""
+msgstr "Eiga blokk"
 
 #: lib/katemdi.cpp:1110 lib/katemdi.cpp:1118
 #, kde-format
 msgid "One Down"
-msgstr ""
+msgstr "Éin ned"
 
 #: lib/katemdi.cpp:1112 lib/katemdi.cpp:1123
 #, kde-format
 msgid "One Right"
-msgstr ""
+msgstr "Éin til høgre"
 
 #: lib/katemdi.cpp:1116
 #, kde-format
 msgid "One Up"
-msgstr ""
+msgstr "Éin opp"
 
 #: lib/katemdi.cpp:1121
 #, kde-format
 msgid "One Left"
-msgstr ""
+msgstr "Éin til venstre"
 
 #: lib/katemdi.cpp:1130
 #, kde-format
@@ -1897,10 +1891,10 @@ msgid ""
 "with the assigned shortcuts.</qt>"
 msgstr ""
 "<qt>Du er i ferd med å gøyma sidestolpane. Med gøymde sidestolpar vil det "
-"ikkje vera mogleg å bruka verktøyvisingane direkte med musa lenger. Dersom "
-"du vil bruka sidestolpane igjen, kan du henta dei fram att med <b>Vis → "
-"Verktøyvisingar → Vis sidestolpar</b> i menyen. Det vil framleis vera mogleg "
-"å visa/gøyma verktøyvisingane med snøggtastar.</qt>"
+"ikkje vera mogleg å bruka verktøy­visingane direkte med musa lenger. Dersom "
+"du vil bruka side­stolpane på nytt, kan du henta dei fram att med <b>Vis → "
+"Verktøy­visingar → Vis sidestolpar</b> i menyen. Det vil framleis vera mogleg "
+"å visa/gøyma verktøy­visingane med snøggtastar.</qt>"
 
 #: lib/katemwmodonhddialog.cpp:53
 #, kde-format
@@ -1952,6 +1946,8 @@ msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
+"Viser skilnadane mellom den opne fila i skriveprogrammet og fila på "
+"harddisken."
 
 #: lib/katemwmodonhddialog.cpp:116
 #, kde-format
@@ -1966,7 +1962,7 @@ msgstr "Fjern endra-merke frå dei valde dokumenta"
 #: lib/katemwmodonhddialog.cpp:123
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
-msgstr "Overskriv dei valde dokumenta, og forkast endringer på disken"
+msgstr "Overskriv dei valde dokumenta, og forkast endringar på disken"
 
 #: lib/katemwmodonhddialog.cpp:127
 #, kde-format
@@ -1993,6 +1989,8 @@ msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
+"Diff-kommandoen gav feil. Sjå til at diff er installert og ligg i søkjestien "
+"(PATH-variabelen)."
 
 #: lib/katemwmodonhddialog.cpp:313
 #, kde-format
@@ -2002,12 +2000,12 @@ msgstr "Feil ved køyring av diff"
 #: lib/katemwmodonhddialog.cpp:320
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[GAMMAL]"
 
 #: lib/katemwmodonhddialog.cpp:321
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[NY]"
 
 #: lib/kateoutputview.cpp:175
 #, kde-format
@@ -2099,18 +2097,16 @@ msgstr ""
 "halda fram."
 
 #: lib/kateurlbar.cpp:911
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Kopier filadressa"
 
 #: lib/kateurlbar.cpp:916
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr "Filnamn"
+msgstr "Kopier filnamnet"
 
 #: lib/kateviewmanager.cpp:142
 #, kde-format
@@ -2135,7 +2131,7 @@ msgstr "Del ruta vassrett til to ruter, éi oppe og éi nede."
 #: lib/kateviewmanager.cpp:158
 #, kde-format
 msgid "Move Document to New Vertical Split"
-msgstr ""
+msgstr "Flytt dokumentet til ny loddrett deling"
 
 #: lib/kateviewmanager.cpp:162
 #, kde-format
@@ -2143,11 +2139,13 @@ msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
 msgstr ""
+"Del ruta loddrett til to ruter, éi til venstre og éi til høgre, og flyttar "
+"det gjeldande dokumentet til den høgre ruta."
 
 #: lib/kateviewmanager.cpp:167
 #, kde-format
 msgid "Move Document to New Horizontal Split"
-msgstr ""
+msgstr "Flytt dokumentet til ny vassrett deling"
 
 #: lib/kateviewmanager.cpp:171
 #, kde-format
@@ -2155,6 +2153,8 @@ msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
 msgstr ""
+"Del ruta vassrett til to ruter, éi oppe og éi nede, og flyttar det gjeldande "
+"dokumentet til den nedre ruta."
 
 #: lib/kateviewmanager.cpp:176
 #, kde-format
@@ -2189,12 +2189,12 @@ msgstr "Gøym alle visingar utanom den aktive"
 #: lib/kateviewmanager.cpp:198
 #, kde-format
 msgid "Toggle Orientation"
-msgstr "Ved retning"
+msgstr "Byt retning"
 
 #: lib/kateviewmanager.cpp:201
 #, kde-format
 msgid "Toggles the orientation of the current split view"
-msgstr "Vender retninga til gjeldande delte visinga"
+msgstr "Byter retninga til gjeldande delte visinga"
 
 #: lib/kateviewmanager.cpp:204
 #, kde-format
@@ -2219,42 +2219,42 @@ msgstr "Gå til førre delte vising."
 #: lib/kateviewmanager.cpp:220
 #, kde-format
 msgid "Left Split View"
-msgstr ""
+msgstr "Venstre rute"
 
 #: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr ""
+msgstr "Gje fokus til ruta som ligg til venstre."
 
 #: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Right Split View"
-msgstr ""
+msgstr "Høgre rute"
 
 #: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr ""
+msgstr "Gje fokus til ruta som ligg til høgre."
 
 #: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Upward Split View"
-msgstr ""
+msgstr "Øvre rute"
 
 #: lib/kateviewmanager.cpp:241
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr ""
+msgstr "Gje fokus til ruta som ligg oppe."
 
 #: lib/kateviewmanager.cpp:244
 #, kde-format
 msgid "Downward Split View"
-msgstr ""
+msgstr "Nedre rute"
 
 #: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr ""
+msgstr "Gje fokus til ruta som ligg nede."
 
 #: lib/kateviewmanager.cpp:252
 #, kde-format
@@ -2319,13 +2319,12 @@ msgstr "Vis velkomstsida"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Slå på/av rullesynkronisering"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Vender retninga til gjeldande delte visinga"
+msgstr "Slå på/av rullesynkronisering for gjeldande vising"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2334,8 +2333,8 @@ msgid ""
 "you want to proceed?</p><p><strong>Beware that kate may stop responding for "
 "some time when opening large files.</strong></p>"
 msgstr ""
-"<p>Du er i ferd med å opna éi eller fleire store filer:</p> <ul>%1 </ul> "
-"<p>Vil du halda fram?</p> <p><strong>Merk at Kate kan slutta å svara ei "
+"<p>Du er i ferd med å opna éi eller fleire store filer:</p><ul>%1 </"
+"ul><p>Vil du halda fram?</p><p><strong>Merk at Kate kan slutta å svara ei "
 "stund når store filer vert opna.</strong></p>"
 
 #: lib/kateviewmanager.cpp:372
@@ -2351,13 +2350,15 @@ msgstr "%1 kan ikkje opna mapper"
 #: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Fann ikkje programtillegget som trengst for å opna mapper"
 
 #: lib/kateviewmanager.cpp:569
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"For å opna mapper må du ha program­tillegget <b>%1</b> påslått. Vil du slå "
+"det på?"
 
 #: lib/kateviewmanager.cpp:572
 #, kde-format
@@ -2369,23 +2370,24 @@ msgstr "Opna mappe"
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Slå på"
 
 #: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "Klarte ikkje slå på programtillegget <b>%1</b>"
 
 #: lib/kateviewspace.cpp:94
 #, kde-format
 msgid "Synchronize Scrolling"
-msgstr ""
+msgstr "Synkroniser rulling"
 
 #: lib/kateviewspace.cpp:96
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
+"Synkronisering av denne delte visinga med andre synkroniserte delte visingar"
 
 #: lib/kateviewspace.cpp:117
 #, kde-format
@@ -2446,7 +2448,7 @@ msgstr "&Kopla frå dokumentet"
 #: lib/kateviewspace.cpp:1123
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
-msgstr ""
+msgstr "Opna dokumentet i eit nytt vindauge, og lukk utgåva i dette vindauget"
 
 #: lib/kateviewspace.cpp:1132
 #, kde-format
@@ -2498,7 +2500,7 @@ msgstr "Jokerteikn-filtrering"
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
 msgid "Manage Sessions"
-msgstr "Handter økter"
+msgstr "Handsam økter"
 
 #: lib/session/katesessionmanagedialog.cpp:64
 #, kde-format
@@ -2607,7 +2609,7 @@ msgstr "Opna på nytt"
 #: lib/session/katesessionmanager.cpp:347
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
-msgstr "Økta kunne ikkje endra namn til «%1». Klarte ikkje å skriva til «%2»."
+msgstr "Økta kunne ikkje endra namn til «%1». Klarte ikkje skriva til «%2»."
 
 #: lib/session/katesessionmanager.cpp:348
 #, kde-format
@@ -2696,6 +2698,8 @@ msgstr "Filer med ulagra endringar"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
+"Viss det ikkje er kryssa av her, vert eit namnlaust dokument vist for nye "
+"vindauge."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
@@ -2710,18 +2714,20 @@ msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
+"Viss det er kryssa av her, vert programmet automatisk avslutta når den siste "
+"fila vert lukka. Elles vert ei tom fil vist, som du kan redigera og lagra."
 
 #. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:101
 #, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr ""
+msgstr "Lukk programmet fullstendig når siste fil vert lukka"
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Lukk dokumenta med vindauget dei høyrer til i"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -2737,9 +2743,9 @@ msgid ""
 "bookmarks, cursor position etc. When the session is loaded all elements are "
 "restored."
 msgstr ""
-"Økta inneheld lista over opne dokument, liste over filer som nyleg er opna, "
-"bokmerke, plassering av skrivemerke, med meir. Alt dette vert gjenoppretta "
-"når økta vert lasta inn."
+"Økta inneheld lista over opne dokument, ei liste over filer som nyleg er "
+"opna, bokmerke, plassering av skrivemerke, med meir. Alt dette vert "
+"gjenoppretta når økta vert lasta inn."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/ui/sessionconfigwidget.ui:136
@@ -2754,6 +2760,8 @@ msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
 msgstr ""
+"Kryss av her om du vil at alle rutene og rammene skal gjenopprettast kvar "
+"gong du startar programmet."
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:167
@@ -2783,7 +2791,7 @@ msgstr "Ta vare på &metainformasjon mellom økter"
 #: lib/ui/sessionconfigwidget.ui:191
 #, kde-format
 msgid "Delete unused meta-information after:"
-msgstr "Slett ubrukt meta-informasjon etter:"
+msgstr "Slett ubrukt metainformasjon etter:"
 
 #: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
@@ -2818,7 +2826,7 @@ msgstr "Ingen lagra økter"
 #: lib/welcomeview/welcomeview.cpp:246
 #, kde-format
 msgid "Open Selected Files..."
-msgstr ""
+msgstr "Opna valde filer …"
 
 #: lib/welcomeview/welcomeview.cpp:259
 #, kde-format
@@ -2904,7 +2912,6 @@ msgstr "Handsam økter …"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
 msgstr "Vis velkomstsida for nye vindauge"

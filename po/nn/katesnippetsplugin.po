@@ -1,13 +1,12 @@
 # Translation of katesnippetsplugin to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2015, 2016, 2018, 2020.
 # Øystein Steffensen-Alværvik <oysteins.omsetting@protonmail.com>, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2020-09-20 09:48+0200\n"
+"PO-Revision-Date: 2024-08-04 09:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -15,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.08.1\n"
+"X-Generator: Lokalize 24.11.70\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -102,33 +101,30 @@ msgstr "Opprett ny tekstbit i lager %1"
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"Tekstbit-namn som inneheld mellomrom, fungerer ikkje bra med autoinnsetjing"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"Tekstbiten har endringar som ikkje er lagra. Vil du gå vidare og forkasta "
-"alle endringane?"
+"Tekstbiten har endringar som ikkje er lagra. Vil du forkasta alle endringane?"
 
 #: editsnippet.cpp:187
 #, kde-format
 msgid "Warning - Unsaved Changes"
-msgstr "Åtvaring – ulagra endringar"
+msgstr "Åtvaring – ulagra endringar"
 
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Rediger vidare"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
 #, kde-format
 msgid "will be shown in the completion list"
-msgstr " vert vist i fullføringslista"
+msgstr "vert vist i fullføringslista"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:62
@@ -165,7 +161,7 @@ msgstr ""
 "som standardverdi.<br><tt>${funksjon(annafelt1, annafelt2, …)}</tt> gjev eit "
 "felt som evaluerer ein JavaScript-funksjon ved kvar redigering og set inn "
 "resultatet. Sjå fana «Skript» for meir informasjon.<br><tt>${cursor}</tt> "
-"kan brukast for å markera sluttposisjonen til skrivemerket etter at alt anne "
+"kan brukast for å markera sluttposisjonen til skrivemerket etter at alt anna "
 "er fylt ut.\">Meir informasjon …</a>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
@@ -196,8 +192,8 @@ msgstr ""
 "\"Alle JavaScript-funksjonar skal returnera innhaldet du ønskjer å plassera "
 "i eit malfelt som ein tekststreng.<br>Funksjonar vert kalla i eit "
 "verkeområde som inneheld innhaldet til alle redigerbare malfelt som lokale "
-"variablar. For eksempel vil for ein tekstbit som inneheld <tt>${felt}</tt> "
-"det finnast ein variabel som heiter <tt>felt</tt>, og som inneheld oppdatert "
+"variablar. For eksempel vil for ein tekstbit som inneheld <tt>${felt}</tt>, "
+"det finnast ein variabel som heiter <tt>felt</tt> og som inneheld oppdatert "
 "innhald i malfeltet. Variablane kan anten brukast i funksjonen statisk eller "
 "sendast som argument, ved å bruka syntaksen <tt>${func(felt)}</tt> eller <tt>"
 "${felt2=func(felt)}</tt> i tekstbiten.<br>Du kan bruka skript-API-et til "
@@ -251,7 +247,7 @@ msgid ""
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
-"Du har redigert ei tekstbit-lager-fil som ikkje ligg i den personlege mappa "
+"Du har redigert ei tekstbitlager-fil som ikkje ligg i den personlege mappa "
 "di. Derfor vart det lagra ein kopi av fila med nytt namn der."
 
 #: snippetrepository.cpp:239

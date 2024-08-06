@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-12 00:41+0000\n"
+"POT-Creation-Date: 2024-08-06 02:33+0000\n"
 "PO-Revision-Date: 2024-05-22 08:59+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
@@ -18,7 +18,7 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 23.04.3\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:234
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
 #: FormatterFactory.h:94
 #, kde-format
@@ -65,12 +65,12 @@ msgstr "Не вдалося прочитати settings.json. Помилка: %1
 msgid "Format Document"
 msgstr "Форматувати документ"
 
-#: FormatPlugin.cpp:137
+#: FormatPlugin.cpp:128
 #, kde-format
 msgid "Format on Save"
 msgstr "Форматувати при збереженні"
 
-#: FormatPlugin.cpp:140
+#: FormatPlugin.cpp:131
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Вимкнути форматування при збереженні без збереження його у параметрах"

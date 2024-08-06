@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-12 00:41+0000\n"
+"POT-Creation-Date: 2024-08-06 02:33+0000\n"
 "PO-Revision-Date: 2024-04-23 19:24\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Crowdin-File: /kf6-stable/messages/kate/formatplugin.pot\n"
 "X-Crowdin-File-ID: 52350\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:234
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
 #: FormatterFactory.h:94
 #, kde-format
@@ -64,12 +64,12 @@ msgstr "读取 settings.json 失败。错误：%1"
 msgid "Format Document"
 msgstr "格式化文档"
 
-#: FormatPlugin.cpp:137
+#: FormatPlugin.cpp:128
 #, kde-format
 msgid "Format on Save"
 msgstr "保存时格式化"
 
-#: FormatPlugin.cpp:140
+#: FormatPlugin.cpp:131
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "禁用保存时格式化但不保存到设置"

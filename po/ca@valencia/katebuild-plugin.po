@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-24 02:28+0000\n"
-"PO-Revision-Date: 2024-07-23 10:06+0200\n"
+"PO-Revision-Date: 2024-07-31 11:55+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -458,7 +458,7 @@ msgstr "Clona l'ordre o el conjunt d'objectius"
 #: targets.cpp:44
 #, kde-format
 msgid "Delete current target or current set of targets"
-msgstr "Elimina l'objectiu o conjunt actual d'objectius"
+msgstr "Suprimix l'objectiu o conjunt actual d'objectius"
 
 #: targets.cpp:49
 #, kde-format

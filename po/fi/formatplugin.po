@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-12 00:41+0000\n"
+"POT-Creation-Date: 2024-08-06 02:33+0000\n"
 "PO-Revision-Date: 2023-11-29 17:22+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 22.12.3\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:243
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:234
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
 #: FormatterFactory.h:94
 #, kde-format
@@ -64,12 +64,12 @@ msgstr "settings.json-tiedoston lukeminen epäonnistui. Virhe: %1"
 msgid "Format Document"
 msgstr "Muotoile tiedosto"
 
-#: FormatPlugin.cpp:137
+#: FormatPlugin.cpp:128
 #, kde-format
 msgid "Format on Save"
 msgstr "Muotoile tallennettaessa"
 
-#: FormatPlugin.cpp:140
+#: FormatPlugin.cpp:131
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Poista muotoilu tallennettaessa, mutta säästä se asetuksissa"

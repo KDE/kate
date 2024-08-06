@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-20 00:42+0000\n"
+"POT-Creation-Date: 2024-08-06 02:33+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -1828,82 +1828,82 @@ msgstr "Zobraziť &bočné panely"
 msgid "Hide All Tool Views"
 msgstr "Skryť všetky zobrazenia nástrojov"
 
-#: lib/katemdi.cpp:168
+#: lib/katemdi.cpp:167
 #, kde-format
 msgid "Show %1"
 msgstr "Zobraziť %1"
 
-#: lib/katemdi.cpp:179
+#: lib/katemdi.cpp:178
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Zobraziť tlačidlo %1"
 
-#: lib/katemdi.cpp:195
+#: lib/katemdi.cpp:194
 #, kde-format
 msgid "Focus %1"
 msgstr "Aktivovať %1"
 
-#: lib/katemdi.cpp:1091
+#: lib/katemdi.cpp:1093
 #, kde-format
 msgid "Configure..."
 msgstr "Nas&taviť..."
 
-#: lib/katemdi.cpp:1095
+#: lib/katemdi.cpp:1097
 #, kde-format
 msgid "Hide Button"
 msgstr "Skryť tlačidlo"
 
-#: lib/katemdi.cpp:1097
+#: lib/katemdi.cpp:1099
 #, kde-format
 msgid "Move To"
 msgstr "Premiestniť do"
 
-#: lib/katemdi.cpp:1102
+#: lib/katemdi.cpp:1104
 #, kde-format
 msgid "Own Section"
 msgstr "Vlastná sekcia"
 
-#: lib/katemdi.cpp:1108 lib/katemdi.cpp:1116
+#: lib/katemdi.cpp:1110 lib/katemdi.cpp:1118
 #, kde-format
 msgid "One Down"
 msgstr "Jedno nadol"
 
-#: lib/katemdi.cpp:1110 lib/katemdi.cpp:1121
+#: lib/katemdi.cpp:1112 lib/katemdi.cpp:1123
 #, kde-format
 msgid "One Right"
 msgstr "Jedno vpravo"
 
-#: lib/katemdi.cpp:1114
+#: lib/katemdi.cpp:1116
 #, kde-format
 msgid "One Up"
 msgstr "Jedno nahor"
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1121
 #, kde-format
 msgid "One Left"
 msgstr "Jedno vľavo"
 
-#: lib/katemdi.cpp:1128
+#: lib/katemdi.cpp:1130
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Ľavý bočný panel"
 
-#: lib/katemdi.cpp:1132
+#: lib/katemdi.cpp:1134
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Pravý bočný panel"
 
-#: lib/katemdi.cpp:1136
+#: lib/katemdi.cpp:1138
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Vrchný bočný panel"
 
-#: lib/katemdi.cpp:1140
+#: lib/katemdi.cpp:1142
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Spodný bočný panel"
 
-#: lib/katemdi.cpp:1713
+#: lib/katemdi.cpp:1715
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

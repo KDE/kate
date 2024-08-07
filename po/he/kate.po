@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-04 00:42+0000\n"
-"PO-Revision-Date: 2024-08-03 07:00+0300\n"
+"PO-Revision-Date: 2024-08-05 08:21+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -100,7 +100,7 @@ msgstr ""
 #: kate/main.cpp:167
 #, kde-format
 msgid "pid"
-msgstr ""
+msgstr "מזהה תהליך"
 
 #: kate/main.cpp:172 kwrite/main.cpp:101
 #, kde-format
@@ -120,7 +120,7 @@ msgstr "ניווט לשורה הזאת."
 #: kate/main.cpp:177 kwrite/main.cpp:106
 #, kde-format
 msgid "line"
-msgstr ""
+msgstr "שורה"
 
 #: kate/main.cpp:182 kwrite/main.cpp:110
 #, kde-format
@@ -150,7 +150,7 @@ msgstr "מסמכים לפתיחה."
 #: kate/main.cpp:196 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
-msgstr ""
+msgstr "[כתובות…]"
 
 #: kwrite/main.cpp:46
 #, kde-format
@@ -230,7 +230,7 @@ msgstr "&בחירה"
 #: lib/data/kateui.rc:57
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "מ&עבר"
 
 #. i18n: ectx: Menu (view)
 #: lib/data/kateui.rc:73
@@ -1263,7 +1263,7 @@ msgstr "מנהל התוספים"
 #: lib/kateconfigdialog.cpp:461 lib/kateconfigdialog.cpp:463
 #, kde-format
 msgid "User Feedback"
-msgstr ""
+msgstr "משוב משתמש"
 
 #: lib/kateconfigdialog.cpp:698
 #, kde-format
@@ -1332,7 +1332,7 @@ msgstr "פותח מחדש קבצים מההפעלה הקודמת..."
 #: lib/katefileactions.cpp:73
 #, kde-format
 msgid "Rename file"
-msgstr ""
+msgstr "שינוי שם קובץ"
 
 #: lib/katefileactions.cpp:73
 #, kde-format
@@ -1342,12 +1342,12 @@ msgstr "שם קובץ חדש"
 #: lib/katefileactions.cpp:107
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
-msgstr ""
+msgstr "אי אפשר להעביר את הקובץ „%1” אל „%2”"
 
 #: lib/katefileactions.cpp:128
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
-msgstr ""
+msgstr "למחוק את „%1”?"
 
 #: lib/katefileactions.cpp:129
 #, kde-format
@@ -1357,7 +1357,7 @@ msgstr "מחיקת קובץ"
 #: lib/katefileactions.cpp:150
 #, kde-format
 msgid "File \"%1\" could not be deleted."
-msgstr ""
+msgstr "אי אפשר למחוק את הקובץ „%1”."
 
 #: lib/katefileactions.cpp:201
 #, kde-format
@@ -1392,7 +1392,7 @@ msgstr "הצגת הנתיב המלא של המסמך בכותרת החלון"
 #: lib/katemainwindow.cpp:261
 #, kde-format
 msgid "Show Navigation Bar"
-msgstr ""
+msgstr "הצגת סרגל ניווט"
 
 #: lib/katemainwindow.cpp:275
 #, kde-format
@@ -1423,7 +1423,7 @@ msgstr "התמקד בלשונית הבאה"
 #, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr ""
+msgstr "מעבר ללשונית %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format
@@ -1512,12 +1512,12 @@ msgstr "מחיקת הקובץ ששייך למסמך הנוכחי."
 #: lib/katemainwindow.cpp:425
 #, kde-format
 msgid "Properties"
-msgstr ""
+msgstr "מאפיינים"
 
 #: lib/katemainwindow.cpp:433 lib/katemainwindow.cpp:435
 #, kde-format
 msgid "Compare"
-msgstr ""
+msgstr "השוואה"
 
 #: lib/katemainwindow.cpp:435
 #, kde-format
@@ -2288,10 +2288,9 @@ msgid "Toggle Scroll Synchronization"
 msgstr ""
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "שינוי כיוון התצוגה המפוצלת"
+msgstr "החלפת מצב סנכרון גלילה לתצוגה הנוכחית"
 
 #: lib/kateviewmanager.cpp:369
 #, fuzzy, kde-format
@@ -2454,12 +2453,12 @@ msgstr "המיזם הנוכחי"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "סינון מעורפל"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "סינון עם תווי הכללה"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
@@ -2479,7 +2478,7 @@ msgstr "שחזור"
 #: lib/session/katesessionmanagedialog.cpp:305
 #, kde-format
 msgid "Session will be deleted on dialog close"
-msgstr ""
+msgstr "ההפעלה תימחק עם סגירת החלונית"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
 #: lib/session/katesessionmanagedialog.ui:30
@@ -2550,22 +2549,18 @@ msgid "Delete"
 msgstr "מחיקה"
 
 #: lib/session/katesessionmanager.cpp:141
-#, fuzzy, kde-format
-#| msgid ""
-#| "Session '%1' is already opened in another kate instance, change there "
-#| "instead of reopening?"
+#, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
-"ההפעלה \"%1\" כבר פתוחה על ידי מופע אחר של kate, האם לשנות שם במקום לפתוח "
-"מחדש?"
+"ההפעלה ‚%1’ כבר פתוחה בעותק אחר של Kate. לעבור אליה או לפתוח מחדש בעותק הזה?"
 
 #: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
-msgstr ""
+msgstr "מעבר למופע"
 
 #: lib/session/katesessionmanager.cpp:144
 #, kde-format

@@ -322,8 +322,18 @@
 <entry
 >У &Windows;:</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename
+></entry>
+</row>
+<row>
+<entry
+>У &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/syntax/</filename
 ></entry>
 </row>
 </tbody>
@@ -2334,8 +2344,18 @@
 <entry
 >У &Windows;:</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename
+></entry>
+</row>
+<row>
+<entry
+>У &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/themes/</filename
 ></entry>
 </row>
 </tbody>
@@ -4142,6 +4162,11 @@
 >. Встановити цю програму можна за допомогою <ulink url="https://flathub.org/apps/details/org.gnome.design.Contrast"
 >пакунка Flatpak з Flathub</ulink
 > (лише у GNU/Linux).</para>
+
+<para
+>За допомогою скрипту мовою python у <ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/utils/theme_contrast_checker.py?ref_type=heads"
+>сховищі підсвічувань синтаксичних конструкцій</ulink
+> ви можете візуалізувати усі кольори у темі, а також переглянути контрастність з різними налаштованими кольорами тла.</para>
 
 </sect3>
 

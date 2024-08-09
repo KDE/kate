@@ -304,10 +304,20 @@
 </row>
 <row>
 <entry
->A &Windows;</entry>
+>Al &Windows;</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename
+></entry>
+</row>
+<row>
+<entry
+>Al &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/syntax/</filename
 ></entry>
 </row>
 </tbody>
@@ -2294,10 +2304,20 @@
 </row>
 <row>
 <entry
->A &Windows;</entry>
+>Al &Windows;</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename
+></entry>
+</row>
+<row>
+<entry
+>Al &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/themes/</filename
 ></entry>
 </row>
 </tbody>
@@ -4016,6 +4036,11 @@
 > de GNOME és similar. Podeu descarregar <ulink url="https://flathub.org/apps/details/org.gnome.design.Contrast"
 >el paquet Flatpak a Flathub</ulink
 > (només en GNU/Linux).</para>
+
+<para
+>Un script en Python al <ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/utils/theme_contrast_checker.py?ref_type=heads"
+>repositori de ressaltat de la sintaxi</ulink
+> us permet visualitzar tots els colors d'un tema, així com el contrast amb els diversos fons configurats.</para>
 
 </sect3>
 

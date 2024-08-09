@@ -1,6 +1,5 @@
 # Translation of katekeyboardmacros to Norwegian Nynorsk
 #
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

@@ -304,7 +304,7 @@
 </row>
 <row>
 <entry
->A &Windows;</entry>
+>Al &Windows;</entry>
 <entry
 ><filename
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename
@@ -2294,7 +2294,7 @@
 </row>
 <row>
 <entry
->A &Windows;</entry>
+>Al &Windows;</entry>
 <entry
 ><filename
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename

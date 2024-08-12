@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 00:42+0000\n"
-"PO-Revision-Date: 2024-08-03 06:32+0300\n"
+"PO-Revision-Date: 2024-08-11 11:22+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -331,10 +331,9 @@ msgid "Show Commit"
 msgstr "הצגת הגשה"
 
 #: gitwidget.cpp:1068
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "הגשה אחרונה"
+msgstr "הצגת ההגשה האחרונה"
 
 #: gitwidget.cpp:1086
 #, kde-format

@@ -76,9 +76,9 @@
             "highlightingModeRegex": "^Gleam$"
         },
         "glsl": {
-            "command": ["glslls", "--stdin"],
+            "command": ["glsl_analyzer"],
             "root": "",
-            "url": "https://github.com/svenstaro/glsl-language-server",
+            "url": "https://github.com/nolanderc/glsl_analyzer",
             "highlightingModeRegex": "^GLSL$"
         },
         "go": {

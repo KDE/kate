@@ -153,7 +153,6 @@ OpenLinkPluginView::~OpenLinkPluginView()
     m_textHintProvider->setView(nullptr);
     delete m_textHintProvider;
     disconnect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &OpenLinkPluginView::onActiveViewChanged);
-    onActiveViewChanged(nullptr);
     m_mainWindow->guiFactory()->removeClient(this);
 }
 

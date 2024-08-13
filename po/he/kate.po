@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-06 02:33+0000\n"
-"PO-Revision-Date: 2024-08-05 08:21+0300\n"
+"PO-Revision-Date: 2024-08-12 08:43+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1150,12 +1150,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:271
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr ""
+msgstr "לפתוח לשוניות חדשות מימין ללשונית הנוכחית"
 
 #: lib/kateconfigdialog.cpp:273
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "אם האפשרות לא סומנה הלשונית החדשה תיפתח בסוף."
 
 #: lib/kateconfigdialog.cpp:279
 #, kde-format
@@ -1165,7 +1165,7 @@ msgstr "&עכבר"
 #: lib/kateconfigdialog.cpp:284
 #, kde-format
 msgid "&Backward button pressed:"
-msgstr ""
+msgstr "כפתור &אחורה נלחץ:"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1175,12 +1175,12 @@ msgstr "הלשונית הקודמת"
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
 msgid "History back"
-msgstr ""
+msgstr "אחורה בהיסטוריה"
 
 #: lib/kateconfigdialog.cpp:295
 #, kde-format
 msgid "&Forward button pressed:"
-msgstr ""
+msgstr "כפתור &קדימה נלחץ:"
 
 #: lib/kateconfigdialog.cpp:300
 #, kde-format
@@ -1190,7 +1190,7 @@ msgstr "הלשונית הבאה"
 #: lib/kateconfigdialog.cpp:300
 #, kde-format
 msgid "History forward"
-msgstr ""
+msgstr "קדימה בהיסטוריה"
 
 #: lib/kateconfigdialog.cpp:317
 #, kde-format
@@ -1210,12 +1210,12 @@ msgstr "הצגת הסמל הנוכחי בסרגל הניווט"
 #: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Diagnostics limit:"
-msgstr ""
+msgstr "מגבלת סטטיסטיקה:"
 
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
-msgstr ""
+msgstr "מספר האבחונים המורשה בתצוגת כלי הסטטיסטיקה."
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
@@ -1248,7 +1248,7 @@ msgstr[3] " ימים"
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
-msgstr ""
+msgstr "כשחלון נסגר המסמכים שפתוחים רק בחלון הזה נסגרים גם הם."
 
 #: lib/kateconfigdialog.cpp:441
 #, kde-format
@@ -1671,17 +1671,17 @@ msgstr "שמירת ה&פעלה בשם…"
 #: lib/katemainwindow.cpp:567 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
-msgstr ""
+msgstr "חזרה למקום הקודם"
 
 #: lib/katemainwindow.cpp:576 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
-msgstr ""
+msgstr "התקדמות למקום הבא"
 
 #: lib/katemainwindow.cpp:584
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "הצגת היסטוריית Git של הקובץ"
 
 #: lib/katemainwindow.cpp:611
 #, kde-format
@@ -1732,13 +1732,13 @@ msgstr "הסתרת תפריט"
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
-msgstr ""
+msgstr "גררת את התיקייה %1 לתוך Kate. לפתוח את כל הקבצים שבה?"
 
 #: lib/katemainwindow.cpp:1046
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
-msgstr ""
+msgstr "פתיחת קבצים ברקורסיה"
 
 #: lib/katemainwindow.cpp:1047
 #, kde-format
@@ -1804,7 +1804,7 @@ msgstr "הגדרה…"
 #: lib/katemdi.cpp:1097
 #, kde-format
 msgid "Hide Button"
-msgstr ""
+msgstr "הסתרת כפתור"
 
 #: lib/katemdi.cpp:1099
 #, kde-format
@@ -2265,7 +2265,7 @@ msgstr "הורדת המפריד של התצוגה הנוכחית מטה"
 #: lib/kateviewmanager.cpp:276
 #, kde-format
 msgid "Focus Navigation Bar"
-msgstr ""
+msgstr "התמקדות בסרגל הניווט"
 
 #: lib/kateviewmanager.cpp:277
 #, kde-format
@@ -2569,11 +2569,9 @@ msgid "Reopen"
 msgstr "לפתוח מחדש"
 
 #: lib/session/katesessionmanager.cpp:347
-#, fuzzy, kde-format
-#| msgid ""
-#| "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+#, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
-msgstr "אין אפשרות לשנות את ההפעלה אל \"%1\", נכשל בכתיבה ל־\"%2\""
+msgstr "אי אפשר לשנות את שם הפעלה ל־„%1”. הכתיבה אל „%2” נכשלה"
 
 #: lib/session/katesessionmanager.cpp:348
 #, kde-format
@@ -2586,18 +2584,13 @@ msgid "Session name:"
 msgstr "שם ההפעלה:"
 
 #: lib/session/katesessionmanager.cpp:502
-#, fuzzy, kde-format
-#| msgid ""
-#| "There is already an existing session with your chosen name.\n"
-#| "Please choose a different one\n"
-#| "Session name:"
+#, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
 "Please choose a different one."
 msgstr ""
-"יש כבר הפעלה פתוחה עם השם שבחרת.\n"
-"אנא בחר שם אחר\n"
-"שם ההפעלה:"
+"יש כבר הפעלה פתוחה בשם שבחרת: %1\n"
+"נא לבחור שם אחר."
 
 #: lib/session/katesessionmanager.cpp:504
 #, kde-format
@@ -2717,16 +2710,13 @@ msgstr "כמות הרשומות המרבית ברשימת הקבצים האחר�
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:164
-#, fuzzy, kde-format
-#| msgid ""
-#| "Check this if you want all your views and frames restored each time you "
-#| "open Kate."
+#, kde-format
 msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
 msgstr ""
-"בחר באפשרות זו אם ברצונך שכל התצוגות והמסגרות שלך ישוחזרו בכל פעם שתפעיל את "
-"Kate."
+"יש לסמן את האפשרות הזאת כדי שכל הצפיות והמסגרות שלך ישוחזרו עם כל פתיחה של "
+"היישום."
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:167

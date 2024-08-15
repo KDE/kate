@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 00:42+0000\n"
-"PO-Revision-Date: 2024-07-03 15:31+0200\n"
+"PO-Revision-Date: 2024-08-05 11:29+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -328,10 +328,9 @@ msgid "Show Commit"
 msgstr "Zobrazit Commit"
 
 #: gitwidget.cpp:1068
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Poslední commit"
+msgstr "Zobrazit poslední commit"
 
 #: gitwidget.cpp:1086
 #, kde-format

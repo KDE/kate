@@ -235,6 +235,18 @@
 >Validazione &XML;</link
 >: valida i file &XML; con xmllint</para>
 </listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-compilerexplorer"
+>Esploratore del compilatore</link
+>: interfaccia allo strumento Esploratore del compilatore</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-formatting"
+>Formattazione</link
+>: estensione per la formattazione del codice</para>
+</listitem>
 </itemizedlist>
 </sect1>
 
@@ -6752,5 +6764,359 @@ VALUES ("<replaceable
 >Copyright 2001, 2002 della documentazione di &Daniel.Naber;</para>
 </sect2>
 </sect1>
+
+<sect1 id="kate-application-plugin-compilerexplorer">
+<title
+>L'estensione Esploratore del compilatore</title>
+
+<para
+>L'estensione Esploratore del compilatore ti permette di usare direttamente in Kate l'esploratore del compilatore. Questo strumento è di solito limitato solamente a un file, ed è difficile vedere il codice generato di un file nel progetto. Questa estensione mira a semplificare questo processo, rilevando automaticamente i comandi di compilazione del tuo file.</para>
+
+<sect2 id="ce-how-to-use">
+<title
+>Uso</title>
+
+<para
+>La prima cosa che devi fare è aprire una scheda dell'esploratore del compilatore: premi <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>I</keycap
+></keycombo
+> per aprire la barra dei comandi, poi cerca «Apri il file corrente nell'Esploratore del compilatore» e premi Invio. Potresti anche voler aggiungere questa azione alla barra degli strumenti, oppure assegnarle una scorciatoia per un accesso più semplice. </para>
+
+<para
+>Successivamente devi impostare un'istanza locale dell'esploratore del compilatore, oppure di usare quella pubblica <ulink url="https://godbolt.org/"
+>https://godbolt.org/</ulink
+> instance. Vedi <ulink url="https://github.com/compiler-explorer/compiler-explorer"
+>https://github.com/compiler-explorer/compiler-explorer</ulink
+>. Dopo averla aggiunta, fai clic sulla casella combinata <guilabel
+>Option</guilabel
+> nella scheda dell'esploratore del compilatore che avevi aperto in precedenza, poi seleziona <guilabel
+>Modifica Url...</guilabel
+>. Inserisci quindi l'url del server dell'esploratore del compilatore.</para>
+
+<para
+>Se devi vedere il codice generato di un file nel progetto hai bisogno anche di un compile_commands.json, diversamente puoi saltare questa parte. Questo può essere ottenuto facilmente se stai utilizzando un sistema di compilazione moderno, ad esempio CMake o Meson. Per CMake è sufficiente passare <code
+>-DCMAKE_EXPORT_COMPILE_COMMANDS=ON</code
+> quando si invoca cmake. Il <code
+>compile_commands.json</code
+> dovrebbe essere messo nella radice del progetto. Chiudi la scheda dell'esploratore del compilatore: quando la riapri dovrebbe essere così. Chiudi la scheda dell'esploratore del compilatore in Kate: quando la riapri dovrebbe mostrare i comandi di compilazione necessari per compilare il file.</para>
+
+<para
+>Se stai usando l'esploratore del compilatore solo per vedere il codice generato per qualcosa di temporaneo, puoi semplicemente scrivere i comandi di compilazione per il tuo file e poi fare clic su <guilabel
+>Compila</guilabel
+>. Nota che la ricompilazione automatica alla modifica non è supportata: devi fare clic su Compila ogni volta che vuoi ricompilare.</para>
+
+<para
+>Quando il file è stato compilato, nella parte destra dovresti vedere il codice generato. Puoi fare clic col tasto destro e selezionare <guilabel
+>Rivela il codice collegato</guilabel
+> per vedere il codice generato di una particolare riga. In maniera simile, nella parte destra puoi fare clic col tasto destro e selezionare <guilabel
+>Scorri al sorgente</guilabel
+> per vedere il codice sorgente di una  certa riga di codice generato.</para>
+
+</sect2>
+
+</sect1>
+
+<!-- BEGIN Format plugin -->
+
+<sect1 id="kate-application-plugin-formatting">
+<title
+>L'estensione Formattazione</title>
+
+<para
+>L'estensione di formattazione permette di formattare il codice in maniera semplice. L'estensione mira a preservare la cronologia degli annullamenti e la posizione del cursore utente durante la formattazione del codice, in modo che l'azione non disturbi il lavoro dell'utente. Questo è particolarmente importante per la formattazione automatica al salvataggio.</para>
+
+<sect2 id="formatting-how-to-use">
+<title
+>Uso</title>
+
+<para
+>Permette all'utente di usare il formattatore del codice in due modi: <itemizedlist>
+<listitem
+><para
+>Manualmente, usando l'azione «Formatta documento».</para
+></listitem>
+<listitem
+><para
+>Automaticamente al salvataggio</para
+></listitem>
+</itemizedlist>
+</para>
+
+<tip
+><para
+>Per un accesso più semplice puoi cercare questa azione nella barra dei comandi, e poi associargli una scorciatoia</para
+></tip>
+
+</sect2>
+
+<sect2 id="formatting-supported-langs-formatters">
+<title
+>Linguaggi e formattatori supportati</title>
+
+<para
+>L'elenco attuale delle lingue e dei formattatori comprende: <itemizedlist>
+
+<listitem
+><para
+>C/C++/ObjectiveC/ObjectiveC++/Protobuf - <command
+>clang-format</command
+> </para
+></listitem>
+
+<listitem
+><para
+>Javascript/Typescript/JSX/TSX - <command
+>prettier</command
+> </para
+></listitem>
+
+<listitem
+><para
+>JSON <itemizedlist>
+  <listitem
+><para
+><command
+>prettier</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>clang-format</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>jq</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+<listitem
+><para
+>Dart - <command
+>dartfmt</command
+></para
+></listitem>
+<listitem
+><para
+>Rust - <command
+>rustfmt</command
+></para
+></listitem>
+<listitem
+><para
+>Go - <command
+>gofmt</command
+></para
+></listitem>
+<listitem
+><para
+>XML - <command
+>xmllint</command
+></para
+></listitem>
+<listitem
+><para
+>Zig - <command
+>zigfmt</command
+></para
+></listitem>
+<listitem
+><para
+>CMake - <command
+>cmake-format</command
+></para
+></listitem>
+<listitem
+><para
+>D - <command
+>dfmt</command
+></para
+></listitem>
+<listitem
+><para
+>Fish Shell - <command
+>fish_indent</command
+></para
+></listitem>
+<listitem
+><para
+>Bash - <command
+>shfmt</command
+></para
+></listitem>
+<listitem
+><para
+>Nix - <command
+>nixfmt</command
+></para
+></listitem>
+<listitem
+><para
+>QML - <command
+>qmlformat</command
+></para
+></listitem>
+<listitem
+><para
+>HTML - <command
+>prettier</command
+></para
+></listitem>
+
+<listitem
+><para
+>Python <itemizedlist>
+  <listitem
+><para
+><command
+>autopep8</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>ruff</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+<listitem
+><para
+>YAML <itemizedlist>
+  <listitem
+><para
+><command
+>yamlfmt</command
+></para
+></listitem>
+  <listitem
+><para
+><command
+>prettier</command
+></para
+></listitem>
+</itemizedlist>
+</para
+></listitem>
+
+</itemizedlist>
+</para>
+
+</sect2>
+
+<sect2 id="formatting-plugin-configuring">
+<title
+>Configurazione</title>
+
+<para
+>L'estensione può essere configurata in due modi: <itemizedlist>
+<listitem
+><para
+>Globalmente, dalla finestra Configura</para
+></listitem>
+<listitem
+><para
+>Per progetto, usando il file <filename
+>.kateproject</filename
+></para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Alla lettura della configurazione l'estensione prova prima a leggerla dal file <filename
+>.kateproject</filename
+>, quindi legge quella globale. Esempio: </para>
+
+<screen
+>{
+    "formatOnSave": true,
+    "formatterForJson": "jq",
+    "cmake-format": {
+        "formatOnSave": false
+    },
+    "autopep8": {
+        "formatOnSave": false
+    }
+}
+</screen>
+
+<para
+>Quanto sopra: <itemizedlist>
+<listitem
+><para
+>abilita "format on save" globalmente</para
+></listitem>
+<listitem
+><para
+>specifica "jq" come il formattatore per JSON</para
+></listitem>
+<listitem
+><para
+>disabilita "format on save" per cmake-format e per autopep8</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Per configurare il formattatore per un progetto, crea prima un file <filename
+>.kateproject</filename
+> e poi aggiungigli un oggetto <code
+>"formattatore"</code
+>. Qui dentro puoi specificare le impostazioni, come mostrato nell'esempio precedente. Esempio: </para>
+<note
+><para
+>Affinché funzioni devi abilitare l'<link linkend="kate-application-plugin-projects"
+>Estensione di progetto</link
+></para
+></note>
+
+<screen
+>{
+    "name": "My Cool Project",
+    "files": [
+        {
+            "git": 1
+        }
+    ],
+    "formatting": {
+        "formatterForJson": "clang-format",
+        "autopep8": {
+            "formatOnSave": false
+        }
+    }
+}
+</screen>
+
+</sect2>
+
+<sect2 id="formatting-plugin-temp-disable-autosave-format">
+<title
+>Disabilitare temporaneamente la formattazione al salvataggio</title>
+
+<para
+>Mentre lavori, potresti aver spesso bisogno di disabilitare temporaneamente il formattatore per vari di motivi. Puoi farlo dalla barra dei menu, <menuchoice
+><guimenu
+>Strumenti</guimenu
+> <guimenuitem
+>Formattazione al salvataggio</guimenuitem
+></menuchoice
+>. Puoi anche innescare questa azione dalla <guilabel
+>Barra dei comandi</guilabel
+>. </para>
+
+</sect2>
+
+</sect1>
+
+<!-- END Format plugin -->
 
 </chapter>

@@ -8,6 +8,7 @@
 #include "TargetModel.h"
 #include <KLocalizedString>
 #include <QDebug>
+#include <QDir>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -306,7 +307,7 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
         }
         if (m_rootNodes[0].targetSets.isEmpty()) {
             beginInsertRows(index(0, 0), 0, 0);
-            m_rootNodes[0].targetSets.append(TargetSet(i18n("Target Set"), QString(), false));
+            m_rootNodes[0].targetSets.append(TargetSet(i18n("Target Set"), QDir::homePath(), false));
             endInsertRows();
         }
         bNode.rootRow = 0;
@@ -318,7 +319,7 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
         // Add the new command to the first target-set of this root node (creating the targetset if needed)
         if (m_rootNodes[bNode.rootRow].targetSets.isEmpty()) {
             beginInsertRows(index(bNode.rootRow, 0), 0, 0);
-            m_rootNodes[bNode.rootRow].targetSets.append(TargetSet(i18n("Target Set"), QString(), false));
+            m_rootNodes[bNode.rootRow].targetSets.append(TargetSet(i18n("Target Set"), QDir::homePath(), false));
             endInsertRows();
         }
         bNode.targetSetRow = 0;

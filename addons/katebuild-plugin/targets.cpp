@@ -10,6 +10,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QDebug>
+#include <QDir>
 #include <QEvent>
 #include <QHeaderView>
 #include <QIcon>
@@ -17,11 +18,7 @@
 #include <QMenu>
 #include <QTimer>
 
-static const QString DefConfigCmd = QStringLiteral("cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../");
-static const QString DefConfClean;
-static const QString DefTargetName = QStringLiteral("build");
-static const QString DefBuildCmd = QStringLiteral("make");
-static const QString DefCleanCmd = QStringLiteral("make clean");
+using namespace Qt::Literals::StringLiterals;
 
 TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     : QWidget(parent)
@@ -227,7 +224,7 @@ void TargetsUi::customTargetsMenuRequested(const QPoint &pos)
 void TargetsUi::slotAddTargetClicked()
 {
     QModelIndex current = targetsView->currentIndex();
-    QString currName = DefTargetName;
+    QString currName = i18n("Build Command");
     QString currCmd;
     QString currRun;
 
@@ -239,15 +236,19 @@ void TargetsUi::slotAddTargetClicked()
 
 void TargetsUi::targetSetNew()
 {
+    static const QString configCmd = u"cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -G Ninja ../"_s;
+    static const QString buildCmd = u"ninja"_s;
+    static const QString runCmd;
+
     targetFilterEdit->setText(QString());
     QModelIndex currentIndex = proxyModel.mapToSource(targetsView->currentIndex());
-    QModelIndex index = targetsModel.insertTargetSetAfter(currentIndex, i18n("Target Set"), QString());
-    QModelIndex buildIndex = targetsModel.addCommandAfter(index, i18n("Build"), DefBuildCmd, QString());
-    targetsModel.addCommandAfter(index, i18n("Clean"), DefCleanCmd, QString());
-    targetsModel.addCommandAfter(index, i18n("Config"), DefConfigCmd, QString());
-    targetsModel.addCommandAfter(index, i18n("ConfigClean"), DefConfClean, QString());
-    buildIndex = proxyModel.mapFromSource(buildIndex);
-    targetsView->setCurrentIndex(buildIndex);
+    QString workingDir = QDir::homePath();
+
+    QModelIndex index = targetsModel.insertTargetSetAfter(currentIndex, i18n("Target Set"), workingDir);
+    index = targetsModel.addCommandAfter(index, i18n("Configure"), configCmd, QString());
+    index = targetsModel.addCommandAfter(index, i18n("Build Command"), buildCmd, runCmd);
+    index = proxyModel.mapFromSource(index);
+    targetsView->setCurrentIndex(index);
 }
 
 void TargetsUi::targetOrSetClone()

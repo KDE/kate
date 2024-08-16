@@ -354,8 +354,9 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
     m_buildUi.u_tabWidget->insertTab(0, m_targetsUi, i18nc("Tab label", "Target Settings"));
     m_buildUi.u_tabWidget->setCurrentWidget(m_targetsUi);
     m_buildUi.u_tabWidget->setTabsClosable(true);
-    m_buildUi.u_tabWidget->tabBar()->tabButton(0, QTabBar::RightSide)->hide();
-    m_buildUi.u_tabWidget->tabBar()->tabButton(1, QTabBar::RightSide)->hide();
+    // Remove close button. Don't just hide it or else tab button will still reserve room for it.
+    m_buildUi.u_tabWidget->tabBar()->setTabButton(0, QTabBar::RightSide, nullptr);
+    m_buildUi.u_tabWidget->tabBar()->setTabButton(1, QTabBar::RightSide, nullptr);
     connect(m_buildUi.u_tabWidget, &QTabWidget::tabCloseRequested, this, [this](int index) {
         // FIXME check if the process is still running
         m_buildUi.u_tabWidget->widget(index)->deleteLater();

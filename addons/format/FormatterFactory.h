@@ -86,6 +86,8 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, const QJso
         return yamlfmt(config, doc);
     } else if (is("opsi-script")) {
         return opsiScriptBeautifier(config, doc);
+    } else if (is("odin")) {
+        return odinFmt(config, doc);
     }
 
     static QList<QString> alreadyWarned;

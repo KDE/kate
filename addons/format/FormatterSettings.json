@@ -98,5 +98,10 @@
             "opsi-script-beautifier",
             "-s"
         ]
+    },
+    "odinfmt": {
+        "command": [
+            "odinfmt"
+        ]
     }
 }

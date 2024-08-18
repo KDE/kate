@@ -281,6 +281,7 @@ DEFINE_STDIN_FORMATTER(fishIndent, "fish_indent", (QStringList{}));
 DEFINE_STDIN_FORMATTER(nixfmt, "nixfmt", (QStringList{}));
 DEFINE_STDIN_FORMATTER(yamlfmt, "yamlfmt", (QStringList{}));
 DEFINE_STDIN_FORMATTER(opsiScriptBeautifier, "opsi-script-beautifier", (QStringList{S("-s")}));
+DEFINE_STDIN_FORMATTER(odinFmt, "odinfmt", (QStringList{S("--stdin")}));
 
 inline AbstractFormatter *shfmt(const QJsonObject &obj, KTextEditor::Document *parent)
 {

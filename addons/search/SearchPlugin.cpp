@@ -1733,7 +1733,7 @@ void KatePluginSearchView::expandResults()
     // we expand recursively if we either are told so or we have just one toplevel match item
     auto *model = currentTab->treeView->model();
     QModelIndex rootItem = model->index(0, 0);
-    if ((m_ui.expandResults->isChecked() && model->rowCount(rootItem) < 200) || model->rowCount(rootItem) == 1) {
+    if (m_ui.expandResults->isChecked() || model->rowCount(rootItem) == 1) {
         currentTab->treeView->expandAll();
     } else {
         // first collapse all and then expand the root, much faster than collapsing all children manually

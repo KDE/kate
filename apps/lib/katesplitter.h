@@ -18,5 +18,5 @@ public:
     explicit KateSplitter(QWidget *parent = nullptr);
 
 protected:
-    virtual QSplitterHandle *createHandle() override;
+    QSplitterHandle *createHandle() override;
 };

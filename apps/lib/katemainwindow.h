@@ -114,12 +114,12 @@ public:
     bool showModOnDiskPrompt(ModOnDiskMode mode);
 
 public:
-    /*reimp*/ void readProperties(const KConfigGroup &config) override;
-    /*reimp*/ void saveProperties(KConfigGroup &config) override
+    void readProperties(const KConfigGroup &config) override;
+    void saveProperties(KConfigGroup &config) override
     {
         saveProperties(config, true);
     }
-    /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig) override;
+    void saveGlobalProperties(KConfig *sessionConfig) override;
 
     void saveProperties(KConfigGroup &config, bool includeViewConfig);
 

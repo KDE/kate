@@ -25,7 +25,7 @@ public:
 
     QString fileExtensions() const override;
 
-    virtual QStringList filter(const QStringList &files) const override;
+    QStringList filter(const QStringList &files) const override;
 
     QString path() const override;
 

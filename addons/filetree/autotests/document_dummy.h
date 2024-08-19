@@ -374,11 +374,11 @@ public:
     {
     }
 
-    virtual qsizetype cursorToOffset(KTextEditor::Cursor) const override
+    qsizetype cursorToOffset(KTextEditor::Cursor) const override
     {
         return 0;
     }
-    virtual KTextEditor::Cursor offsetToCursor(qsizetype) const override
+    KTextEditor::Cursor offsetToCursor(qsizetype) const override
     {
         return {};
     }

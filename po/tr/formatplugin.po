@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-04 00:42+0000\n"
+"POT-Creation-Date: 2024-08-19 00:42+0000\n"
 "PO-Revision-Date: 2024-05-23 01:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:234
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:94
+#: FormatterFactory.h:96
 #, kde-format
 msgid "Format"
 msgstr "Biçimlendir"
@@ -89,7 +89,7 @@ msgstr "Bilinmeyen Python biçimlendiricisi: %1"
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Bilinmeyen YAML biçimlendiricisi: %1, yamlfmt’ye geri dönülüyor"
 
-#: FormatterFactory.h:94
+#: FormatterFactory.h:96
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Biçimlendirici çalıştırılamadı. Desteklenmeyen dil %1"

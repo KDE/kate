@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-17 00:41+0000\n"
+"POT-Creation-Date: 2024-08-20 00:43+0000\n"
 "PO-Revision-Date: 2024-07-23 22:37+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -94,7 +94,7 @@ msgid "Allowed && Blocked Commands"
 msgstr "允許與封鎖的指令"
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:709
-#: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924 targets.cpp:245
+#: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
 #, kde-format
 msgid "Build"
 msgstr "編譯"
@@ -390,110 +390,107 @@ msgstr ""
 "\"%d\" 表示目前檔案所在的目錄\n"
 "\"%n\" 表示目前的檔名，不含後置字串"
 
-#: TargetModel.cpp:309 TargetModel.cpp:321 targets.cpp:244
+#: TargetModel.cpp:310 TargetModel.cpp:322 targets.cpp:247
 #, kde-format
 msgid "Target Set"
 msgstr "目標集"
 
-#: TargetModel.cpp:512
+#: TargetModel.cpp:513
 #, kde-format
 msgid "Project"
 msgstr "專案"
 
-#: TargetModel.cpp:512
+#: TargetModel.cpp:513
 #, kde-format
 msgid "Session"
 msgstr "工作階段"
 
-#: TargetModel.cpp:606
+#: TargetModel.cpp:607
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "指令/目標集名稱"
 
-#: TargetModel.cpp:609
+#: TargetModel.cpp:610
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "工作目錄 / 指令"
 
-#: TargetModel.cpp:612
+#: TargetModel.cpp:613
 #, kde-format
 msgid "Run Command"
 msgstr "執行指令"
 
-#: targets.cpp:32
+#: targets.cpp:29
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr "過濾目標，用方向鍵來選取，Enter 來執行"
 
-#: targets.cpp:36
+#: targets.cpp:33
 #, kde-format
 msgid "Create new set of targets"
 msgstr "建立新的目標集"
 
-#: targets.cpp:40
+#: targets.cpp:37
 #, kde-format
 msgid "Clone command or target set"
 msgstr "重製指令或目標集"
 
-#: targets.cpp:44
+#: targets.cpp:41
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "刪除目前的目標或目前的目標集"
 
-#: targets.cpp:49
+#: targets.cpp:46
 #, kde-format
 msgid "Add new target"
 msgstr "新增目標"
 
-#: targets.cpp:53
+#: targets.cpp:50
 #, kde-format
 msgid "Build selected target"
 msgstr "編譯選取的目標"
 
-#: targets.cpp:57
+#: targets.cpp:54
 #, kde-format
 msgid "Build and run selected target"
 msgstr "編譯並執行選取的目標"
 
-#: targets.cpp:61
+#: targets.cpp:58
 #, kde-format
 msgid "Move selected target up"
 msgstr "將所選目標上移"
 
-#: targets.cpp:65
+#: targets.cpp:62
 #, kde-format
 msgid "Move selected target down"
 msgstr "將所選目標下移"
 
-#: targets.cpp:204
+#: targets.cpp:201
 #, kde-format
 msgid "Copy"
 msgstr "複製"
 
-#: targets.cpp:208
+#: targets.cpp:205
 #, kde-format
 msgid "Cut"
 msgstr "剪下"
 
-#: targets.cpp:212
+#: targets.cpp:209
 #, kde-format
 msgid "Paste after"
 msgstr "在後方貼上"
 
-#: targets.cpp:246
-#, kde-format
-msgid "Clean"
-msgstr "清除"
-
-#: targets.cpp:247
-#, kde-format
-msgid "Config"
-msgstr "設定"
+#: targets.cpp:227 targets.cpp:249
+#, fuzzy, kde-format
+#| msgid "Run Command"
+msgid "Build Command"
+msgstr "執行指令"
 
 #: targets.cpp:248
-#, kde-format
-msgid "ConfigClean"
-msgstr "設定清除"
+#, fuzzy, kde-format
+#| msgid "Config"
+msgid "Configure"
+msgstr "設定"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -510,6 +507,12 @@ msgstr "插入路徑"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "選擇要插入的目錄"
+
+#~ msgid "Clean"
+#~ msgstr "清除"
+
+#~ msgid "ConfigClean"
+#~ msgstr "設定清除"
 
 #~ msgid "Project Plugin Targets"
 #~ msgstr "專案外掛程式目標"

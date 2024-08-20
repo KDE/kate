@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-17 00:41+0000\n"
+"POT-Creation-Date: 2024-08-20 00:43+0000\n"
 "PO-Revision-Date: 2023-02-07 18:21+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -97,7 +97,7 @@ msgid "Allowed && Blocked Commands"
 msgstr ""
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:709
-#: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924 targets.cpp:245
+#: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
 #, kde-format
 msgid "Build"
 msgstr "Zostavenie"
@@ -405,113 +405,110 @@ msgstr ""
 "\"%d\" pre adresár aktuálneho súboru\n"
 "\"%n\" pre aktuálny názov súboru bez prípony"
 
-#: TargetModel.cpp:309 TargetModel.cpp:321 targets.cpp:244
+#: TargetModel.cpp:310 TargetModel.cpp:322 targets.cpp:247
 #, kde-format
 msgid "Target Set"
 msgstr "Sada cieľov"
 
-#: TargetModel.cpp:512
+#: TargetModel.cpp:513
 #, kde-format
 msgid "Project"
 msgstr ""
 
-#: TargetModel.cpp:512
+#: TargetModel.cpp:513
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:606
+#: TargetModel.cpp:607
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Názov príkazu/cieľovej sady"
 
-#: TargetModel.cpp:609
+#: TargetModel.cpp:610
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Pracovný adresár / príkaz"
 
-#: TargetModel.cpp:612
+#: TargetModel.cpp:613
 #, kde-format
 msgid "Run Command"
 msgstr "Spustiť príkaz"
 
-#: targets.cpp:32
+#: targets.cpp:29
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 "Filtrovanie cieľov, výber pomocou klávesov so šípkami, vykonanie pomocou "
 "klávesu Enter"
 
-#: targets.cpp:36
+#: targets.cpp:33
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Vytvoriť novú sadu cieľov"
 
-#: targets.cpp:40
+#: targets.cpp:37
 #, fuzzy, kde-format
 #| msgid "Copy command or target set"
 msgid "Clone command or target set"
 msgstr "Kopírovať príkaz alebo cieľovú sadu"
 
-#: targets.cpp:44
+#: targets.cpp:41
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Odstrániť aktuálny cieľ alebo aktuálnu skupinu cieľov"
 
-#: targets.cpp:49
+#: targets.cpp:46
 #, kde-format
 msgid "Add new target"
 msgstr "Pridať nový cieľ"
 
-#: targets.cpp:53
+#: targets.cpp:50
 #, kde-format
 msgid "Build selected target"
 msgstr "Zostaviť vybraný cieľ"
 
-#: targets.cpp:57
+#: targets.cpp:54
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Zostaviť a spustiť vybraný cieľ"
 
-#: targets.cpp:61
+#: targets.cpp:58
 #, kde-format
 msgid "Move selected target up"
 msgstr "Posunúť vybraný cieľ nahor"
 
-#: targets.cpp:65
+#: targets.cpp:62
 #, kde-format
 msgid "Move selected target down"
 msgstr "Posunúť vybraný cieľ nadol"
 
-#: targets.cpp:204
+#: targets.cpp:201
 #, kde-format
 msgid "Copy"
 msgstr ""
 
-#: targets.cpp:208
+#: targets.cpp:205
 #, kde-format
 msgid "Cut"
 msgstr ""
 
-#: targets.cpp:212
+#: targets.cpp:209
 #, kde-format
 msgid "Paste after"
 msgstr ""
 
-#: targets.cpp:246
-#, kde-format
-msgid "Clean"
-msgstr "Čistý"
-
-#: targets.cpp:247
-#, kde-format
-msgid "Config"
-msgstr "Konfigurácia"
+#: targets.cpp:227 targets.cpp:249
+#, fuzzy, kde-format
+#| msgid "Run Command"
+msgid "Build Command"
+msgstr "Spustiť príkaz"
 
 #: targets.cpp:248
-#, kde-format
-msgid "ConfigClean"
-msgstr "ConfigClean"
+#, fuzzy, kde-format
+#| msgid "Config"
+msgid "Configure"
+msgstr "Konfigurácia"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -528,6 +525,12 @@ msgstr "Vložiť cestu"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vybrať adresár na vloženie"
+
+#~ msgid "Clean"
+#~ msgstr "Čistý"
+
+#~ msgid "ConfigClean"
+#~ msgstr "ConfigClean"
 
 #~ msgid "Project Plugin Targets"
 #~ msgstr "Ciele pluginu projektu"

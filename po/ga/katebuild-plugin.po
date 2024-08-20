@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/katebuild-plugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-17 00:41+0000\n"
+"POT-Creation-Date: 2024-08-20 00:43+0000\n"
 "PO-Revision-Date: 2009-01-20 10:11-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -96,7 +96,7 @@ msgid "Allowed && Blocked Commands"
 msgstr ""
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:709
-#: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924 targets.cpp:245
+#: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
 #, kde-format
 msgid "Build"
 msgstr "Tóg"
@@ -404,115 +404,111 @@ msgstr ""
 "\"%f\" don chomhad reatha\n"
 "\"%d\" do chomhadlann an chomhaid reatha\"%n\" don chomhad reatha gan iarmhír"
 
-#: TargetModel.cpp:309 TargetModel.cpp:321 targets.cpp:244
+#: TargetModel.cpp:310 TargetModel.cpp:322 targets.cpp:247
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "Spriocanna"
 
-#: TargetModel.cpp:512
+#: TargetModel.cpp:513
 #, kde-format
 msgid "Project"
 msgstr ""
 
-#: TargetModel.cpp:512
+#: TargetModel.cpp:513
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:606
+#: TargetModel.cpp:607
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:609
+#: TargetModel.cpp:610
 #, fuzzy, kde-format
 #| msgid "Working directory"
 msgid "Working Directory / Command"
 msgstr "Comhadlann oibre"
 
-#: TargetModel.cpp:612
+#: TargetModel.cpp:613
 #, fuzzy, kde-format
 #| msgid "Clean command:"
 msgid "Run Command"
 msgstr "Ordú glanta:"
 
-#: targets.cpp:32
+#: targets.cpp:29
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 
-#: targets.cpp:36
+#: targets.cpp:33
 #, kde-format
 msgid "Create new set of targets"
 msgstr ""
 
-#: targets.cpp:40
+#: targets.cpp:37
 #, kde-format
 msgid "Clone command or target set"
 msgstr ""
 
-#: targets.cpp:44
+#: targets.cpp:41
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr ""
 
-#: targets.cpp:49
+#: targets.cpp:46
 #, kde-format
 msgid "Add new target"
 msgstr ""
 
-#: targets.cpp:53
+#: targets.cpp:50
 #, kde-format
 msgid "Build selected target"
 msgstr ""
 
-#: targets.cpp:57
+#: targets.cpp:54
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build and run selected target"
 msgstr "Theip ar thógáil."
 
-#: targets.cpp:61
+#: targets.cpp:58
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Move selected target up"
 msgstr "Theip ar thógáil."
 
-#: targets.cpp:65
+#: targets.cpp:62
 #, kde-format
 msgid "Move selected target down"
 msgstr ""
 
-#: targets.cpp:204
+#: targets.cpp:201
 #, kde-format
 msgid "Copy"
 msgstr "Cóipeáil"
 
-#: targets.cpp:208
+#: targets.cpp:205
 #, kde-format
 msgid "Cut"
 msgstr ""
 
-#: targets.cpp:212
+#: targets.cpp:209
 #, kde-format
 msgid "Paste after"
 msgstr ""
 
-#: targets.cpp:246
-#, kde-format
-msgid "Clean"
-msgstr "Glan"
-
-#: targets.cpp:247
-#, kde-format
-msgid "Config"
-msgstr "Cumraíocht"
+#: targets.cpp:227 targets.cpp:249
+#, fuzzy, kde-format
+#| msgid "Clean command:"
+msgid "Build Command"
+msgstr "Ordú glanta:"
 
 #: targets.cpp:248
 #, fuzzy, kde-format
 #| msgid "Config"
-msgid "ConfigClean"
+msgid "Configure"
 msgstr "Cumraíocht"
 
 #. i18n: ectx: Menu (Build Menubar)
@@ -530,6 +526,14 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
+
+#~ msgid "Clean"
+#~ msgstr "Glan"
+
+#, fuzzy
+#~| msgid "Config"
+#~ msgid "ConfigClean"
+#~ msgstr "Cumraíocht"
 
 #, fuzzy
 #~| msgid "Build"

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-24 02:28+0000\n"
-"PO-Revision-Date: 2024-07-25 16:10+0200\n"
+"PO-Revision-Date: 2024-08-16 09:22+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -124,7 +124,7 @@ msgstr "Compila il file corrente"
 #: plugin_katebuild.cpp:298
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "Prova a compilare il file corrente cercando un compile_commands.json"
 
 #: plugin_katebuild.cpp:303
 #, kde-format

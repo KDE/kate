@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-06 02:33+0000\n"
-"PO-Revision-Date: 2024-02-19 21:33+0100\n"
+"PO-Revision-Date: 2024-08-20 23:18+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -42,10 +42,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - 고급 문서 편집기"
 
 #: kate/main.cpp:97 kwrite/main.cpp:50
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000-2022 The Kate Authors"
+msgstr "(c) 2000-2024 The Kate Authors"
 
 #: kate/main.cpp:143
 #, kde-format
@@ -1013,13 +1012,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:164
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "날짜를 포함하여 타임스탬프 출력"
 
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
-msgstr ""
+msgstr "이 옵션을 사용하면 출력 줄 타임스탬프 헤더에 날짜를 추가합니다."
 
 #: lib/kateconfigdialog.cpp:174
 #, kde-format
@@ -1047,10 +1046,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "왼쪽과 오른쪽 사이드바 단추 텍스트 표시"
 
 #: lib/kateconfigdialog.cpp:190
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "왼쪽과 오른쪽 사이드바 단추 아이콘 크기"
+msgstr "왼쪽과 오른쪽 사이드바 단추 아이콘 크기:"
 
 #: lib/kateconfigdialog.cpp:210
 #, kde-format
@@ -1144,10 +1142,9 @@ msgid "When checked tab text might be elided if its too long."
 msgstr "이 옵션을 선택하면 탭 텍스트가 너무 길 때 중간을 생략합니다."
 
 #: lib/kateconfigdialog.cpp:271
-#, fuzzy, kde-format
-#| msgid "Open new tab to the right of current tab."
+#, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr "현재 탭 오른쪽에 새 탭을 엽니다."
+msgstr "현재 탭 오른쪽에 새 탭 열기"
 
 #: lib/kateconfigdialog.cpp:273
 #, kde-format
@@ -1414,12 +1411,10 @@ msgid "Focus the next tab."
 msgstr "다음 탭에 포커스를 맞춥니다."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "인스턴스로 전환"
+msgstr "탭 %1(으)로 전환"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format
@@ -1684,16 +1679,14 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "열려 있는 모든 문서를 닫습니다. 계속 진행하시겠습니까?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "모든 문서 닫기"
+msgstr "모든 문서 닫기?"
 
 #: lib/katemainwindow.cpp:613
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "모두 닫기(&E)"
+msgstr "모두 닫기"
 
 #: lib/katemainwindow.cpp:627
 #, kde-format
@@ -1704,16 +1697,14 @@ msgstr ""
 "현재 문서를 제외한 열려 있는 모든 문서를 닫습니다. 계속 진행하시겠습니까?"
 
 #: lib/katemainwindow.cpp:628
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "현재 문서를 제외한 모든 문서 닫기"
+msgstr "현재 문서를 제외한 모든 문서를 닫으시겠습니까?"
 
 #: lib/katemainwindow.cpp:629
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
-msgstr "다른 문서 닫기"
+msgstr "나머지 닫기"
 
 #: lib/katemainwindow.cpp:867
 #, kde-format
@@ -2068,18 +2059,16 @@ msgid ""
 msgstr "저장하기로 요청한 데이터를 쓸 수 없습니다. 어떻게 할지 선택하십시오."
 
 #: lib/kateurlbar.cpp:911
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "위치 복사"
 
 #: lib/kateurlbar.cpp:916
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr "파일 이름"
+msgstr "파일 이름 복사"
 
 #: lib/kateviewmanager.cpp:142
 #, kde-format
@@ -2292,13 +2281,12 @@ msgstr "환영 페이지 표시"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "스크롤 동기화 전환"
 
 #: lib/kateviewmanager.cpp:296
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "현재 분할 보기 방향 전환"
+msgstr "현재 보기의 스크롤 동기화 전환"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format
@@ -2351,16 +2339,12 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> 플러그인을 활성화할 수 없음"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "스크롤 동기화(&Y)"
+msgstr "스크롤 동기화"
 
 #: lib/kateviewspace.cpp:96
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr "이 분할 보기의 스크롤을 다른 분할 보기와 동기화"

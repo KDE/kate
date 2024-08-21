@@ -1173,6 +1173,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="is">Kate með verkefni sem byggir á Git</caption>
       <caption xml:lang="it">Kate con qualche progetto basato su Git</caption>
       <caption xml:lang="ka">Kate რომელიმე Git-ზე დაჰოსტილი პროექტით</caption>
+      <caption xml:lang="ko">Kate로 Git 기반 프로젝트 열기</caption>
       <caption xml:lang="nl">Kate met een op Git gebaseerd project</caption>
       <caption xml:lang="nn">Kate med eit Git-basert prosjekt</caption>
       <caption xml:lang="pl">Kate z projektem Git</caption>
@@ -1203,6 +1204,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="is">Kate með tvískiptan glugga</caption>
       <caption xml:lang="it">Kate nella vista divisa</caption>
       <caption xml:lang="ka">Kate გაყოფილი ხედით</caption>
+      <caption xml:lang="ko">Kate 분할 보기</caption>
       <caption xml:lang="nl">Kate met gesplitst beeld</caption>
       <caption xml:lang="nn">Kate med delt vising</caption>
       <caption xml:lang="pl">Kate z widokiem podzielonym</caption>
@@ -1233,6 +1235,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="is">Kate í dökku sniði</caption>
       <caption xml:lang="it">Kate in modalità scura</caption>
       <caption xml:lang="ka">Kate მუქ რეჟიმში</caption>
+      <caption xml:lang="ko">Kate 어두운 모드</caption>
       <caption xml:lang="nl">Kate in modus donker</caption>
       <caption xml:lang="nn">Kate med mørkt tema</caption>
       <caption xml:lang="pl">Kate na ciemno</caption>
@@ -1263,6 +1266,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="is">Búa til nýja Git-grein með Kate</caption>
       <caption xml:lang="it">Crea un nuovo ramo Git con Kate</caption>
       <caption xml:lang="ka">შექმენით ახალი Git ბრენჩი Kate-ით</caption>
+      <caption xml:lang="ko">Kate로 새 Git 브랜치 만들기</caption>
       <caption xml:lang="nl">Nieuwe git-branch met Kate aanmaken</caption>
       <caption xml:lang="nn">Opprett ei ny Git-grein med Kate</caption>
       <caption xml:lang="pl">Utwórz nową gałąź Git z Kate</caption>

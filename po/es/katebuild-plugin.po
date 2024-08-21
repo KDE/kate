@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-20 00:43+0000\n"
-"PO-Revision-Date: 2024-07-23 18:25+0200\n"
+"PO-Revision-Date: 2024-08-20 03:39+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -502,16 +502,14 @@ msgid "Paste after"
 msgstr "Pegar detrás"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgid "Build Command"
-msgstr "Ejecutar orden"
+msgstr "Orden de compilación"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgid "Configure"
-msgstr "Configuración"
+msgstr "Configurar"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

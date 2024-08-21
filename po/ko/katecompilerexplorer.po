@@ -1,0 +1,136 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2024 Shinjo Park <kde@peremen.name>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"PO-Revision-Date: 2024-08-20 23:25+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 23.08.5\n"
+
+#: AsmView.cpp:299
+#, kde-format
+msgid "Scroll to source"
+msgstr "소스로 스크롤"
+
+#: AsmView.cpp:309
+#, kde-format
+msgid "Jump to label"
+msgstr "레이블로 이동"
+
+#: AsmView.cpp:335
+#, kde-format
+msgid "Copy"
+msgstr "복사"
+
+#: AsmView.cpp:347
+#, kde-format
+msgid "Select All"
+msgstr "모두 선택"
+
+#: ce_plugin.cpp:35
+#, kde-format
+msgid "Compiler Explorer"
+msgstr "컴파일러 탐색기"
+
+#: ce_plugin.cpp:38
+#, kde-format
+msgid "&Open Current File in Compiler Explorer"
+msgstr "현재 파일을 컴파일러 탐색기에서 열기(&O)"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgid "No file open"
+msgstr "연 파일 없음"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgctxt "error category title"
+msgid "CompilerExplorer"
+msgstr "CompilerExplorer"
+
+#: ce_widget.cpp:125
+#, kde-format
+msgid "Do you really want to close %1?"
+msgstr "%1을(를) 닫으시겠습니까?"
+
+#: ce_widget.cpp:185
+#, kde-format
+msgid "Compile"
+msgstr "컴파일"
+
+#: ce_widget.cpp:282
+#, kde-format
+msgid "Options"
+msgstr "옵션"
+
+#: ce_widget.cpp:299
+#, kde-format
+msgid "Demangle Identifiers"
+msgstr "식별자 맹글링 복원"
+
+#: ce_widget.cpp:300
+#, kde-format
+msgid "Filter Library Functions"
+msgstr "라이브러리 함수 필터"
+
+#: ce_widget.cpp:301
+#, kde-format
+msgid "Filter Unused Labels"
+msgstr "사용하지 않는 레이블 필터"
+
+#: ce_widget.cpp:302
+#, kde-format
+msgid "Filter Comments"
+msgstr "주석 필터"
+
+#: ce_widget.cpp:303
+#, kde-format
+msgid "Intel Syntax"
+msgstr "인텔 문법"
+
+#: ce_widget.cpp:305
+#, kde-format
+msgid "Change Url..."
+msgstr "URL 변경..."
+
+#: ce_widget.cpp:311
+#, kde-format
+msgid "Enter Url"
+msgstr "URL 입력"
+
+#: ce_widget.cpp:312
+#, kde-format
+msgid ""
+"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+msgstr ""
+"CompilerExplorer 인스턴스 URL을 입력하십시오. 예: http://localhost:10240"
+
+#: ce_widget.cpp:372
+#, kde-format
+msgid "Compiler returned: %1"
+msgstr "컴파일러 반환값: %1"
+
+#: ce_widget.cpp:521
+#, kde-format
+msgid "Reveal linked code"
+msgstr "링크된 코드 표시"
+
+#: ce_widget.cpp:543
+#, kde-format
+msgid "CompilerExplorer"
+msgstr "CompilerExplorer"
+
+#: ce_widget.cpp:559
+#, kde-format
+msgid "'%1' compiler flags were found. Output may not be useful."
+msgstr "'%1' 컴파일러 플래그를 찾았습니다. 출력이 유용하지 않을 수도 있습니다."

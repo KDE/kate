@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 00:42+0000\n"
-"PO-Revision-Date: 2024-02-10 00:49+0100\n"
+"PO-Revision-Date: 2024-08-20 23:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -326,10 +326,9 @@ msgid "Show Commit"
 msgstr "커밋 표시"
 
 #: gitwidget.cpp:1068
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "마지막 커밋"
+msgstr "마지막 커밋 표시"
 
 #: gitwidget.cpp:1086
 #, kde-format
@@ -518,24 +517,19 @@ msgid "Project Completion"
 msgstr "프로젝트 완성"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "자동으로 저장소 불러오기"
+msgstr "자동으로 저장소 불러오고 트리 빌드"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
 "프로젝트 플러그인은 .kateproject 파일이 정의되지 않아도 자동으로 작업 사본을 "
-"불러올 수 있습니다."
+"불러오고 트리를 빌드할 수 있습니다."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -560,7 +554,7 @@ msgstr "Fossil(&F)"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "CMake(&C)"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -676,18 +670,17 @@ msgstr "프로젝트 속성"
 #: kateprojectinfoview.cpp:37
 #, kde-format
 msgid "Terminal (.kateproject)"
-msgstr "터미널 (.kateproject)"
+msgstr "터미널(.kateproject)"
 
 #: kateprojectinfoview.cpp:46
 #, kde-format
 msgid "Terminal (Base)"
-msgstr "터미널 (기본)"
+msgstr "터미널(기본)"
 
 #: kateprojectinfoview.cpp:55
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "터미널 (기본)"
+msgstr "터미널(빌드)"
 
 #: kateprojectinfoview.cpp:62
 #, kde-format

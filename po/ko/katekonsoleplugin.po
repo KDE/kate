@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2008, 2010, 2014, 2018, 2020, 2021, 2023.
+# SPDX-FileCopyrightText: 2008, 2010, 2014, 2018, 2020, 2021, 2023, 2024 Shinjo Park <kde@peremen.name>
 # Minori Hiraoka <minori@mnetwork.co.kr>, 2018.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-25 00:40+0000\n"
-"PO-Revision-Date: 2023-07-23 20:32+0200\n"
+"PO-Revision-Date: 2024-08-20 23:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: kateconsole.cpp:70
 #, kde-format
@@ -59,26 +59,22 @@ msgid "&Focus Terminal Panel"
 msgstr "터미널 패널에 포커스 맞추기(&F)"
 
 #: kateconsole.cpp:182
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "터미널 패널 숨기기(&H)"
+msgstr "수직으로 터미널 분할(&S)"
 
 #: kateconsole.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "수평으로 터미널 분할(&S)"
 
 #: kateconsole.cpp:192
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "터미널 패널 표시(&H)"
+msgstr "새 터미널 탭(&N)"
 
 #: kateconsole.cpp:355
 #, kde-format
@@ -152,34 +148,27 @@ msgstr "터미널에 포커스 맞추기"
 #: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "터미널 동기화 모드"
 
 #: kateconsole.cpp:680
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "현재 문서와 터미널 동기화하기(&Y)"
+msgstr "현재 문서와 터미널 동기화하지 않음(&D)"
 
 #: kateconsole.cpp:683
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
-msgstr "가능한 경우 현재 문서와 터미널 동기화(&A)"
+msgstr "가능한 경우 현재 문서와 터미널 탭을 자동으로 동기화(&A)"
 
 #: kateconsole.cpp:686
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "가능한 경우 현재 문서와 터미널 동기화(&A)"
+msgstr ""
+"가능한 경우 현재 문서의 디렉터리를 가리키는 터미널 탭을 자동으로 생성(&A)"
 
 #: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format

@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2013, 2014, 2015, 2016, 2020.
+# SPDX-FileCopyrightText: 2013, 2014, 2015, 2016, 2020, 2024 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2020-10-04 18:49+0200\n"
+"PO-Revision-Date: 2024-08-20 23:27+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -99,17 +99,16 @@ msgstr "저장소 %1에 새 스니펫 만들기"
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"스니펫 이름에 공백이 들어 있으면 자동 완성 시 올바르게 작동하지 않을 수도 있"
+"음"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"이 스니펫에 저장되지 않은 변경 사항이 있습니다. 계속 진행하여 변경 사항을 저"
-"장하지 않으시겠습니까?"
+"이 스니펫에 저장되지 않은 변경 사항이 있습니다. 변경 사항을 모두 버리시겠습니"
+"까?"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -119,7 +118,7 @@ msgstr "경고 - 저장되지 않은 변경 사항"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "계속 편집"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-20 00:43+0000\n"
-"PO-Revision-Date: 2024-07-31 11:55+0200\n"
+"PO-Revision-Date: 2024-08-20 09:36+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -504,16 +504,14 @@ msgid "Paste after"
 msgstr "Enganxa després"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgid "Build Command"
-msgstr "Executa una ordre"
+msgstr "Ordre de construcció"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgid "Configure"
-msgstr "Configuració"
+msgstr "Configura"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

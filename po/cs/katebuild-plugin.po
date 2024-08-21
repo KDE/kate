@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-20 00:43+0000\n"
-"PO-Revision-Date: 2024-07-23 14:43+0200\n"
+"PO-Revision-Date: 2024-08-20 14:11+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -476,16 +476,14 @@ msgid "Paste after"
 msgstr "Vložit po"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgid "Build Command"
-msgstr "Spustit příkaz"
+msgstr "Příkaz pro sestavení"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgid "Configure"
-msgstr "Nastavení"
+msgstr "Nastavit"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -502,6 +500,3 @@ msgstr "Vložit cestu"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vyberte adresář pro vložení"
-
-#~ msgid "Clean"
-#~ msgstr "Vyčistit"

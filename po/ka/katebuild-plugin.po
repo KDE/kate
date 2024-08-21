@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-20 00:43+0000\n"
-"PO-Revision-Date: 2024-07-23 05:24+0200\n"
+"PO-Revision-Date: 2024-08-20 06:05+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -427,7 +427,7 @@ msgstr "სამუშაო საქაღალდე / ბრძანე�
 #: TargetModel.cpp:613
 #, kde-format
 msgid "Run Command"
-msgstr "ბრძანების გაშვება"
+msgstr "გაშვების ბრძანება"
 
 #: targets.cpp:29
 #, kde-format
@@ -492,16 +492,14 @@ msgid "Paste after"
 msgstr "ჩასმა შემდეგ"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgid "Build Command"
-msgstr "ბრძანების გაშვება"
+msgstr "აგების ბრძანება"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgid "Configure"
-msgstr "კონფიგურაცია"
+msgstr "მორგება"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

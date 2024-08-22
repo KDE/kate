@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 00:42+0000\n"
-"PO-Revision-Date: 2024-07-04 09:57+0200\n"
+"PO-Revision-Date: 2024-08-16 13:48+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -345,10 +345,9 @@ msgid "Show Commit"
 msgstr "Afficher un Commit"
 
 #: gitwidget.cpp:1068
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Dernière validation"
+msgstr "Afficher la dernière validation"
 
 #: gitwidget.cpp:1086
 #, kde-format
@@ -602,7 +601,7 @@ msgstr "Index des projets"
 #: kateprojectconfigpage.cpp:57
 #, kde-format
 msgid "Project ctags index settings"
-msgstr "Réglages de l'index des « Ctag » de projet"
+msgstr "Réglages de l'index des « CTag » de projet"
 
 #: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:209
 #, kde-format

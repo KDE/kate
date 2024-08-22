@@ -477,16 +477,14 @@ msgid "Paste after"
 msgstr "粘贴到后面"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgid "Build Command"
-msgstr "运行命令"
+msgstr ""
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgid "Configure"
-msgstr "配置"
+msgstr ""
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -503,9 +501,3 @@ msgstr "插入路径"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "选择要插入的目录"
-
-#~ msgid "Clean"
-#~ msgstr "清理"
-
-#~ msgid "ConfigClean"
-#~ msgstr "清理配置"

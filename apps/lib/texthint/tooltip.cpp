@@ -16,6 +16,7 @@
 #include <QTimer>
 
 #include <KSyntaxHighlighting/Definition>
+#include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
 #include <KTextEditor/Document>
@@ -24,6 +25,29 @@
 #include <KWindowSystem>
 #include <QMenu>
 #include <QScopedValueRollback>
+
+class TooltipHighlighter final : public KSyntaxHighlighting::SyntaxHighlighter
+{
+public:
+    using KSyntaxHighlighting::SyntaxHighlighter::SyntaxHighlighter;
+
+    void highlightBlock(const QString &text) override
+    {
+        const auto fmt = currentBlock().blockFormat();
+        if (fmt.property(QTextFormat::BlockCodeLanguage).isValid()) {
+            // highlight blocks marked with BlockCodeLanguage format
+            return KSyntaxHighlighting::SyntaxHighlighter::highlightBlock(text);
+        }
+    }
+
+    void applyFormat(int offset, int length, const KSyntaxHighlighting::Format &format) override
+    {
+        if (format.textStyle() == KSyntaxHighlighting::Theme::TextStyle::Error) {
+            return;
+        }
+        KSyntaxHighlighting::SyntaxHighlighter::applyFormat(offset, length, format);
+    }
+};
 
 class TooltipPrivate : public QTextBrowser
 {
@@ -86,7 +110,7 @@ public:
 
             m_view = view;
 
-            hl.setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(m_view->document()->url().toString()));
+            hl->setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(m_view->document()->url().toString()));
 
             if (m_view && m_view->focusProxy()) {
                 m_view->focusProxy()->installEventFilter(this);
@@ -96,7 +120,7 @@ public:
 
     TooltipPrivate(QWidget *parent, bool manual)
         : QTextBrowser(parent)
-        , hl(document())
+        , hl(new TooltipHighlighter(document()))
         , m_manual(manual)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
@@ -113,7 +137,7 @@ public:
 
         auto updateColors = [this](KTextEditor::Editor *e) {
             auto theme = e->theme();
-            hl.setTheme(theme);
+            hl->setTheme(theme);
 
             auto pal = palette();
             const QColor bg = theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
@@ -271,7 +295,7 @@ private:
     bool inContextMenu = false;
     QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
-    KSyntaxHighlighting::SyntaxHighlighter hl;
+    KSyntaxHighlighting::SyntaxHighlighter *hl;
     bool m_manual;
     TextHintMarkupKind m_kind = TextHintMarkupKind::PlainText;
 };

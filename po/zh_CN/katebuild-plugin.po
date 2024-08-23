@@ -479,12 +479,12 @@ msgstr "粘贴到后面"
 #: targets.cpp:227 targets.cpp:249
 #, kde-format
 msgid "Build Command"
-msgstr ""
+msgstr "构建命令"
 
 #: targets.cpp:248
 #, kde-format
 msgid "Configure"
-msgstr ""
+msgstr "配置"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

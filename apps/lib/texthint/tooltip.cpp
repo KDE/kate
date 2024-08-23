@@ -39,7 +39,6 @@ public:
             setPlainText(text);
         } else {
             QString htext = text;
-            htext.replace(QLatin1Char('\n'), QStringLiteral("  \n"));
             setMarkdown(htext);
         }
         resizeTip(text);

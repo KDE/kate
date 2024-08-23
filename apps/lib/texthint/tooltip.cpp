@@ -152,7 +152,7 @@ public:
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
     }
 
-    bool eventFilter(QObject *, QEvent *e) override
+    bool eventFilter(QObject *o, QEvent *e) override
     {
         switch (e->type()) {
         // only consider KeyPress
@@ -169,19 +169,23 @@ public:
             }
             break;
         case QEvent::MouseMove: {
-            auto me = static_cast<QMouseEvent *>(e);
-            if (!m_manual && !hasFocus() && !rect().contains(me->position().toPoint())) {
+            if (o == verticalScrollBar() || o == horizontalScrollBar()) {
+                return false;
+            }
+            auto pos = mapFromGlobal(static_cast<QSinglePointEvent *>(e)->globalPosition()).toPoint();
+            if (!m_manual && !hasFocus() && !rect().contains(pos)) {
                 hideTooltipWithDelay();
             }
         } break;
         case QEvent::MouseButtonPress:
         case QEvent::MouseButtonRelease:
         case QEvent::MouseButtonDblClick:
-        case QEvent::Wheel:
-            if (!rect().contains(static_cast<QSinglePointEvent *>(e)->position().toPoint())) {
+        case QEvent::Wheel: {
+            auto pos = mapFromGlobal(static_cast<QSinglePointEvent *>(e)->globalPosition()).toPoint();
+            if (!rect().contains(pos)) {
                 hideTooltip();
             }
-            break;
+        } break;
         default:
             break;
         }

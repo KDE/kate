@@ -107,6 +107,13 @@ public:
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
     }
 
+    double distance(QPoint p1, QPoint p2)
+    {
+        auto dx = (p1.x() - p2.x());
+        auto dy = (p1.y() - p2.y());
+        return sqrt((dx * dx) + (dy * dy));
+    }
+
     bool eventFilter(QObject *o, QEvent *e) override
     {
         switch (e->type()) {
@@ -127,9 +134,25 @@ public:
             if (o == verticalScrollBar() || o == horizontalScrollBar()) {
                 return false;
             }
+
+            // initialize distance between current mouse pos and top left corner of the tooltip
+            if (prevDistance == 0.0) {
+                auto pt = static_cast<QSinglePointEvent *>(e)->globalPosition().toPoint();
+                prevDistance = distance(pt, mapToGlobal(rect().topLeft()));
+                return false;
+            }
+
+            auto pt = static_cast<QSinglePointEvent *>(e)->globalPosition().toPoint();
+            auto newDistance = distance(pt, mapToGlobal(rect().topLeft()));
+
             auto pos = mapFromGlobal(static_cast<QSinglePointEvent *>(e)->globalPosition()).toPoint();
             if (!m_manual && !hasFocus() && !rect().contains(pos)) {
-                hideTooltipWithDelay();
+                if (newDistance > prevDistance) {
+                    prevDistance = newDistance;
+                    hideTooltipWithDelay();
+                } else {
+                    prevDistance = newDistance;
+                }
             }
         } break;
         case QEvent::MouseButtonPress:
@@ -283,6 +306,7 @@ private:
     KSyntaxHighlighting::SyntaxHighlighter *m_hl;
     bool m_manual;
     HintState m_hintState;
+    double prevDistance = 0.0;
 };
 
 void KateTooltip::show(size_t instanceId, const QString &text, TextHintMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual)

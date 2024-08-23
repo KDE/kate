@@ -1286,7 +1286,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     <binary>kate</binary>
   </provides>
   <custom>
-    <value key="KDE::windows_store">https://www.microsoft.com/store/apps/9NWMW7BB59HW</value>
+    <value key="KDE::windows_store">https://apps.microsoft.com/detail/9NWMW7BB59HW</value>
   </custom>
   <content_rating type="oars-1.1"/>
   <releases>

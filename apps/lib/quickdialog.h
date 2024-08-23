@@ -15,7 +15,6 @@
 #include "kateprivate_export.h"
 
 class QAbstractItemModel;
-class QStyledItemDelegate;
 
 namespace KTextEditor
 {

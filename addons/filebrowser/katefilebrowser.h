@@ -23,7 +23,6 @@
 
 class KateBookmarkHandler;
 class KActionCollection;
-class KDirOperator;
 class KFileItem;
 class KHistoryComboBox;
 class KToolBar;

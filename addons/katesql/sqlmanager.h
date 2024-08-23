@@ -8,7 +8,6 @@
 
 class ConnectionModel;
 class KConfigGroup;
-class QUrl;
 
 #include "connection.h"
 

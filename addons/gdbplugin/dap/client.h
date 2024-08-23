@@ -16,8 +16,6 @@
 #include "entities.h"
 #include "settings.h"
 
-class QJsonObject;
-
 namespace dap
 {
 class Client : public QObject

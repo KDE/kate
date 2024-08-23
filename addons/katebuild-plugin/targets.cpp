@@ -224,7 +224,7 @@ void TargetsUi::customTargetsMenuRequested(const QPoint &pos)
 void TargetsUi::slotAddTargetClicked()
 {
     QModelIndex current = targetsView->currentIndex();
-    QString currName = i18n("Build Command");
+    QString currName = i18nc("Name/Label for a compilation or build command", "Build Command");
     QString currCmd;
     QString currRun;
 
@@ -245,8 +245,8 @@ void TargetsUi::targetSetNew()
     QString workingDir = QDir::homePath();
 
     QModelIndex index = targetsModel.insertTargetSetAfter(currentIndex, i18n("Target Set"), workingDir);
-    index = targetsModel.addCommandAfter(index, i18n("Configure"), configCmd, QString());
-    index = targetsModel.addCommandAfter(index, i18n("Build Command"), buildCmd, runCmd);
+    index = targetsModel.addCommandAfter(index, i18nc("Name/Label for a command to configure a build", "Configure"), configCmd, QString());
+    index = targetsModel.addCommandAfter(index, i18nc("Name/Label for a compilation or build command", "Build Command"), buildCmd, runCmd);
     index = proxyModel.mapFromSource(index);
     targetsView->setCurrentIndex(index);
 }

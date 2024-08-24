@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-20 00:43+0000\n"
+"POT-Creation-Date: 2024-08-24 00:42+0000\n"
 "PO-Revision-Date: 2013-10-05 13:17+0300\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -498,12 +498,14 @@ msgstr ""
 #: targets.cpp:227 targets.cpp:249
 #, fuzzy, kde-format
 #| msgid "Build Plugin"
+msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Modul construire"
 
 #: targets.cpp:248
 #, fuzzy, kde-format
 #| msgid "Config"
+msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Configurează"
 

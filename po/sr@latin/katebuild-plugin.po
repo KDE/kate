@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-20 00:43+0000\n"
+"POT-Creation-Date: 2024-08-24 00:42+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -498,6 +498,7 @@ msgstr ""
 #: targets.cpp:227 targets.cpp:249
 #, fuzzy, kde-format
 #| msgid "Build again"
+msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Izgradi ponovo"
 
@@ -505,6 +506,7 @@ msgstr "Izgradi ponovo"
 #: targets.cpp:248
 #, fuzzy, kde-format
 #| msgid "Config"
+msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Podesi"
 

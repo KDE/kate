@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-20 00:43+0000\n"
+"POT-Creation-Date: 2024-08-24 00:42+0000\n"
 "PO-Revision-Date: 2015-05-17 21:52+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -476,12 +476,14 @@ msgstr ""
 #: targets.cpp:227 targets.cpp:249
 #, fuzzy, kde-format
 #| msgid "Build again"
+msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Bygg igjen"
 
 #: targets.cpp:248
 #, fuzzy, kde-format
 #| msgid "Config"
+msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "RentOppsett"
 
@@ -500,9 +502,3 @@ msgstr "Sett inn sti"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Velg mappe som skal settes inn"
-
-#~ msgid "Clean"
-#~ msgstr "Rydd opp"
-
-#~ msgid "ConfigClean"
-#~ msgstr "RentOppsett"

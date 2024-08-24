@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-20 00:43+0000\n"
+"POT-Creation-Date: 2024-08-24 00:42+0000\n"
 "PO-Revision-Date: 2020-03-05 08:04+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -493,12 +493,14 @@ msgstr ""
 #: targets.cpp:227 targets.cpp:249
 #, fuzzy, kde-format
 #| msgid "Build again"
+msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Bangun lagi"
 
 #: targets.cpp:248
 #, fuzzy, kde-format
 #| msgid "Config"
+msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Konfigurasi"
 

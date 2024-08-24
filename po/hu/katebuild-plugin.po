@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-20 00:43+0000\n"
+"POT-Creation-Date: 2024-08-24 00:42+0000\n"
 "PO-Revision-Date: 2021-12-23 15:42+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -503,12 +503,14 @@ msgstr ""
 #: targets.cpp:227 targets.cpp:249
 #, fuzzy, kde-format
 #| msgid "Command:"
+msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Parancs:"
 
 #: targets.cpp:248
 #, fuzzy, kde-format
 #| msgid "Config"
+msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Beállítás"
 

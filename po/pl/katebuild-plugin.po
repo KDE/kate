@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-20 00:43+0000\n"
+"POT-Creation-Date: 2024-08-24 00:42+0000\n"
 "PO-Revision-Date: 2024-07-27 09:04+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -498,12 +498,14 @@ msgstr "Wklej za"
 #: targets.cpp:227 targets.cpp:249
 #, fuzzy, kde-format
 #| msgid "Run Command"
+msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Wykonaj polecenie"
 
 #: targets.cpp:248
 #, fuzzy, kde-format
 #| msgid "Config"
+msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Ustawienia"
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-20 00:43+0000\n"
+"POT-Creation-Date: 2024-08-24 00:42+0000\n"
 "PO-Revision-Date: 2024-08-20 09:27+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -493,12 +493,16 @@ msgid "Paste after"
 msgstr "Sonrasında Yapıştır"
 
 #: targets.cpp:227 targets.cpp:249
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Build Command"
+msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Yapı Komutu"
 
 #: targets.cpp:248
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Configure"
+msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Yapılandır"
 

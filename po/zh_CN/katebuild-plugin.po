@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-20 00:43+0000\n"
+"POT-Creation-Date: 2024-08-24 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -477,12 +477,16 @@ msgid "Paste after"
 msgstr "粘贴到后面"
 
 #: targets.cpp:227 targets.cpp:249
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Build Command"
+msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "构建命令"
 
 #: targets.cpp:248
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Configure"
+msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "配置"
 

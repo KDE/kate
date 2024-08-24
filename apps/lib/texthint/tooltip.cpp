@@ -65,7 +65,7 @@ public:
             QString htext = text;
             setMarkdown(htext);
         }
-        resizeTip(text);
+        resizeTip();
     }
 
     void appendMarkdown(const QString &text)
@@ -202,24 +202,24 @@ public:
         m_hideTimer.start(100);
     }
 
-    void resizeTip(const QString &text)
+    void resizeTip()
     {
-        QFontMetrics fm(font());
-        QSize size = fm.size(0, text);
-
-        const int height = fm.lineSpacing() * (document()->lineCount());
-
-        size.setHeight(std::min(height, m_view->height() / 3));
-        size.setWidth(std::min<int>(size.width(), m_view->width() / 2.5));
+        // get a natural size for the document
+        document()->adjustSize();
+        QSize size = document()->size().toSize();
 
         const int contentsMarginsWidth = this->contentsMargins().left() + this->contentsMargins().right();
         const int contentsMarginsHeight = this->contentsMargins().top() + this->contentsMargins().top();
         const int docMargin = 2 * document()->documentMargin();
         const int wMargins = contentsMarginsWidth + docMargin + verticalScrollBar()->height();
-        const int hMargins = contentsMarginsHeight + docMargin + horizontalScrollBar()->height();
+        const int hMargins = contentsMarginsHeight + docMargin + horizontalScrollBar()->width();
 
-        size.setWidth(size.width() + wMargins);
+        // add internal document padding and possible scrollbars to size
         size.setHeight(size.height() + hMargins);
+        size.setWidth(size.width() + wMargins);
+
+        // limit the tool tip size; the resize call will respect these limits
+        setMaximumSize(m_view->width() / 2.5, m_view->height() / 3);
         resize(size);
     }
 

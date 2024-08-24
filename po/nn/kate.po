@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-06 02:33+0000\n"
-"PO-Revision-Date: 2024-08-03 19:54+0200\n"
+"PO-Revision-Date: 2024-08-19 21:04+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -1605,7 +1605,7 @@ msgstr "Lukk dette vindauget"
 #: lib/katemainwindow.cpp:473
 #, kde-format
 msgid "&New Window"
-msgstr "&Nytt vindauge"
+msgstr "Nytt &vindauge"
 
 #: lib/katemainwindow.cpp:476
 #, kde-format
@@ -1967,7 +1967,7 @@ msgstr "Overskriv dei valde dokumenta, og forkast endringar på disken"
 #: lib/katemwmodonhddialog.cpp:127
 #, kde-format
 msgid "&Reload"
-msgstr "Last om a&tt"
+msgstr "Last o&m att"
 
 #: lib/katemwmodonhddialog.cpp:129
 #, kde-format

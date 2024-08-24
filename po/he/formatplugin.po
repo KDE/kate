@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-06 02:33+0000\n"
+"POT-Creation-Date: 2024-08-24 02:33+0000\n"
 "PO-Revision-Date: 2024-08-03 07:15+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:234
 #: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:94
+#: FormatterFactory.h:96
 #, kde-format
 msgid "Format"
 msgstr "תבנית"
@@ -90,7 +90,7 @@ msgstr "formatterForPython לא ידוע: %1"
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "formatterForYaml לא ידוע: %1, ניסוג ל־yamlfmt"
 
-#: FormatterFactory.h:94
+#: FormatterFactory.h:96
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "הרצת המסדר בתבניות נכשלה. השפה %1 לא נתמכת"

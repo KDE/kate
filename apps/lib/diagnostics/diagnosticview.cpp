@@ -1224,6 +1224,8 @@ void DiagnosticsView::updateDiagnosticsState(DocumentDiagnosticItem *&topItem)
     auto diagTopItem = static_cast<DocumentDiagnosticItem *>(topItem);
     auto enabled = diagTopItem->enabled;
     auto suppressions = enabled ? diagTopItem->diagnosticSuppression.get() : nullptr;
+    auto url = topItem->data(Qt::UserRole).toUrl();
+    auto doc = KTextEditor::Editor::instance()->application()->findUrl(url);
 
     const int totalCount = topItem->rowCount();
     int count = 0;
@@ -1233,7 +1235,7 @@ void DiagnosticsView::updateDiagnosticsState(DocumentDiagnosticItem *&topItem)
             continue;
         }
 
-        auto hide = suppressions && suppressions->match(*item);
+        auto hide = suppressions && suppressions->match(*item, doc);
         // mark accordingly as flag and (un)hide
         Qt::ItemFlags flags = item->flags();
         const bool itemIsEnabled = flags.testFlag(Qt::ItemIsEnabled);
@@ -1369,7 +1371,7 @@ bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, KTextEdit
 
 void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagTopItem, KTextEditor::Document *doc, bool force)
 {
-    if (!diagTopItem || !doc) {
+    if (!diagTopItem) {
         return;
     }
 
@@ -1377,14 +1379,18 @@ void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagT
     if (!suppressions || force) {
         std::vector<QJsonObject> providerSupressions;
         const QList<DiagnosticsProvider *> &providers = diagTopItem->providers();
-        for (auto p : providers) {
-            auto suppressions = p->suppressions(doc);
-            if (!suppressions.isEmpty()) {
-                providerSupressions.push_back(suppressions);
+        if (doc) {
+            for (auto p : providers) {
+                auto suppressions = p->suppressions(doc);
+                if (!suppressions.isEmpty()) {
+                    providerSupressions.push_back(suppressions);
+                }
             }
         }
-        const auto sessionSuppressions = m_sessionDiagnosticSuppressions->getSuppressions(doc->url().toLocalFile());
-        auto supp = new DiagnosticSuppression(doc, providerSupressions, sessionSuppressions);
+
+        const auto docUrl = diagTopItem->data(Qt::UserRole).toUrl();
+        const auto sessionSuppressions = m_sessionDiagnosticSuppressions->getSuppressions(docUrl.toLocalFile());
+        auto supp = new DiagnosticSuppression(docUrl, providerSupressions, sessionSuppressions);
         const bool hadSuppression = suppressions != nullptr;
         suppressions.reset(supp);
         if (!providerSupressions.empty() || !sessionSuppressions.empty() || hadSuppression) {
@@ -1425,7 +1431,24 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
                 } else {
                     m_sessionDiagnosticSuppressions->remove(file, diagnostic);
                 }
-                updateDiagnosticsSuppression(docDiagItem, docDiagItem->diagnosticSuppression->document(), true);
+
+                auto app = KTextEditor::Editor::instance()->application();
+                if (file.isEmpty()) {
+                    // global
+                    const int rows = m_model.rowCount();
+                    for (int i = 0; i < rows; ++i) {
+                        auto item = m_model.item(i);
+                        if (item->type() == DiagnosticItem_File && item->rowCount() > 0) {
+                            auto docItem = static_cast<DocumentDiagnosticItem *>(item);
+                            auto url = docItem->data(Qt::UserRole).toUrl();
+                            updateDiagnosticsSuppression(docItem, app->findUrl(url), true);
+                        }
+                    }
+                } else {
+                    // local
+                    auto url = docDiagItem->data(Qt::UserRole).toUrl();
+                    updateDiagnosticsSuppression(docDiagItem, app->findUrl(url), true);
+                }
             };
             using namespace std::placeholders;
             const auto empty = QString();

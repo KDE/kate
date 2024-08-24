@@ -23,12 +23,10 @@ class DiagnosticSuppression
         QRegularExpression diag, code;
     };
     std::vector<Suppression> m_suppressions;
-    QPointer<KTextEditor::Document> m_document;
 
 public:
     // construct from configuration
-    DiagnosticSuppression(KTextEditor::Document *doc, const std::vector<QJsonObject> &serverConfigs, const std::vector<QString> &sessionSuppressions)
-        : m_document(doc)
+    DiagnosticSuppression(const QUrl &docUrl, const std::vector<QJsonObject> &serverConfigs, const std::vector<QString> &sessionSuppressions)
     {
         // check regexp and report
         auto checkRegExp = [](const QRegularExpression &regExp) {
@@ -42,8 +40,7 @@ public:
             return valid;
         };
 
-        Q_ASSERT(doc);
-        const auto localPath = doc->url().toLocalFile();
+        const auto localPath = docUrl.toLocalFile();
         for (const auto &serverConfig : serverConfigs) {
             const auto supps = serverConfig.value(QStringLiteral("suppressions")).toObject();
             for (const auto &entry : supps) {
@@ -73,14 +70,14 @@ public:
         }
     }
 
-    bool match(const QStandardItem &item) const
+    bool match(const QStandardItem &item, KTextEditor::Document *doc) const
     {
         for (const auto &s : m_suppressions) {
             if (s.diag.match(item.text()).hasMatch()) {
                 // retrieve and check code text if we need to match the content as well
-                if (m_document && !s.code.pattern().isEmpty()) {
+                if (doc && !s.code.pattern().isEmpty()) {
                     auto range = item.data(/*RangeData::RangeRole*/).value<KTextEditor::Range>();
-                    auto code = m_document->text(range);
+                    auto code = doc->text(range);
                     if (!s.code.match(code).hasMatch()) {
                         continue;
                     }
@@ -89,10 +86,5 @@ public:
             }
         }
         return false;
-    }
-
-    KTextEditor::Document *document()
-    {
-        return m_document;
     }
 };

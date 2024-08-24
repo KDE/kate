@@ -1229,12 +1229,16 @@ void DiagnosticsView::updateDiagnosticsState(DocumentDiagnosticItem *&topItem)
     int count = 0;
     for (int i = 0; i < totalCount; ++i) {
         auto item = topItem->child(i);
-        auto hide = suppressions && item && suppressions->match(*item);
+        if (!item) {
+            continue;
+        }
+
+        auto hide = suppressions && suppressions->match(*item);
         // mark accordingly as flag and (un)hide
-        auto flags = item->flags();
-        const auto ENABLED = Qt::ItemFlag::ItemIsEnabled;
-        if ((flags & ENABLED) != !hide) {
-            flags = hide ? (flags & ~ENABLED) : (flags | ENABLED);
+        Qt::ItemFlags flags = item->flags();
+        const bool itemIsEnabled = flags.testFlag(Qt::ItemIsEnabled);
+        if (itemIsEnabled != !hide) {
+            flags.setFlag(Qt::ItemIsEnabled, !hide);
             if (item->flags() != flags) {
                 item->setFlags(flags);
             }

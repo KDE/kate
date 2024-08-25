@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-24 00:42+0000\n"
-"PO-Revision-Date: 2024-08-20 09:37+0300\n"
+"PO-Revision-Date: 2024-08-24 13:16+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -501,15 +501,13 @@ msgid "Paste after"
 msgstr "Вставити після"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Build Command"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Команда збирання"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Configure"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Налаштувати"

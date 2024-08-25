@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-24 00:42+0000\n"
-"PO-Revision-Date: 2024-08-03 13:03+0100\n"
+"PO-Revision-Date: 2024-08-24 12:02+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -487,18 +487,16 @@ msgid "Paste after"
 msgstr "Paste after"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "Run Command"
+msgstr "Build Command"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
-msgstr "Config"
+msgstr "Configure"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

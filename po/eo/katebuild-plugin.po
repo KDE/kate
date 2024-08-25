@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-24 00:42+0000\n"
-"PO-Revision-Date: 2024-08-22 22:54+0200\n"
+"PO-Revision-Date: 2024-08-24 09:18+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -490,15 +490,13 @@ msgid "Paste after"
 msgstr "Alglui post"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Build Command"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Konstru-Komando"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Configure"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Agordi"

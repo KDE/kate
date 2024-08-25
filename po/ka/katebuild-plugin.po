@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-24 00:42+0000\n"
-"PO-Revision-Date: 2024-08-20 06:05+0200\n"
+"PO-Revision-Date: 2024-08-24 05:20+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -492,15 +492,13 @@ msgid "Paste after"
 msgstr "ჩასმა შემდეგ"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Build Command"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "აგების ბრძანება"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Configure"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "მორგება"

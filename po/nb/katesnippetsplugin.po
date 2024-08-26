@@ -104,9 +104,6 @@ msgstr ""
 
 #: editsnippet.cpp:186
 #, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""

@@ -1535,7 +1535,6 @@ msgstr "Gidde buot rabas dokumeanttaid"
 
 #: lib/katemainwindow.cpp:461
 #, fuzzy, kde-format
-#| msgid "Close all open documents."
 msgid "&Reopen latest closed document(s)."
 msgstr "Gidde buot rabas dokumeanttaid"
 
@@ -1657,13 +1656,11 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:612
 #, fuzzy, kde-format
-#| msgid "Close all open documents."
 msgid "Close all documents?"
 msgstr "Gidde buot rabas dokumeanttaid"
 
 #: lib/katemainwindow.cpp:613
 #, fuzzy, kde-format
-#| msgid "Clos&e All"
 msgid "Close All"
 msgstr "Gidde &buot"
 
@@ -1676,13 +1673,11 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:628
 #, fuzzy, kde-format
-#| msgid "Close all open documents."
 msgid "Close all documents beside current one?"
 msgstr "Gidde buot rabas dokumeanttaid"
 
 #: lib/katemainwindow.cpp:629
 #, fuzzy, kde-format
-#| msgid "Close this window"
 msgid "Close Others"
 msgstr "Gidde dán láse"
 
@@ -2030,7 +2025,6 @@ msgstr ""
 
 #: lib/kateurlbar.cpp:911
 #, fuzzy, kde-format
-#| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Báiki"

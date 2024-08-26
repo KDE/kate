@@ -518,17 +518,12 @@ msgstr "Prosjektfullføring"
 
 #: kateprojectconfigpage.cpp:24
 #, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
 msgstr "Last kodelager automatisk"
 
 #: kateprojectconfigpage.cpp:26
 #, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
@@ -683,7 +678,6 @@ msgstr "Terminal (base)"
 
 #: kateprojectinfoview.cpp:55
 #, fuzzy, kde-format
-#| msgid "Terminal (Base)"
 msgid "Terminal (build)"
 msgstr "Terminal (base)"
 
@@ -715,9 +709,6 @@ msgstr ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
@@ -727,9 +718,6 @@ msgstr ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
 #, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"

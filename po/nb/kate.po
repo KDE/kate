@@ -1550,7 +1550,6 @@ msgstr "Lukk alle åpne dokumenter."
 
 #: lib/katemainwindow.cpp:461
 #, fuzzy, kde-format
-#| msgid "Reload all open documents."
 msgid "&Reopen latest closed document(s)."
 msgstr "Last inn på nytt alle åpne dokumenter."
 
@@ -1673,13 +1672,11 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:612
 #, fuzzy, kde-format
-#| msgid "Close all documents"
 msgid "Close all documents?"
 msgstr "Lukk alle dokumenter"
 
 #: lib/katemainwindow.cpp:613
 #, fuzzy, kde-format
-#| msgid "Clos&e All"
 msgid "Close All"
 msgstr "Lukk all&e"
 
@@ -1694,13 +1691,11 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:628
 #, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
 msgid "Close all documents beside current one?"
 msgstr "Lukk alle dokumenter unntatt gjjeldende dokument"
 
 #: lib/katemainwindow.cpp:629
 #, fuzzy, kde-format
-#| msgid "Close Other"
 msgid "Close Others"
 msgstr "Lukk andre"
 
@@ -2055,14 +2050,12 @@ msgstr "Det du ville lagre kunne ikke skrives. Velg hvordan du vil fortsette."
 
 #: lib/kateurlbar.cpp:911
 #, fuzzy, kde-format
-#| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Plassering"
 
 #: lib/kateurlbar.cpp:916
 #, fuzzy, kde-format
-#| msgid "Filename"
 msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Filnavn"
@@ -2278,7 +2271,6 @@ msgstr ""
 
 #: lib/kateviewmanager.cpp:296
 #, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
 msgid "Toggle scroll synchronization for the current view"
 msgstr "Vender orienteringen for den gjeldende delte visningen"
 

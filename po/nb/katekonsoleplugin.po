@@ -75,8 +75,6 @@ msgstr ""
 
 #: kateconsole.cpp:192
 #, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Pipe to Terminal"
 msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "&Send i rør til terminalen"
@@ -154,16 +152,11 @@ msgstr ""
 
 #: kateconsole.cpp:680
 #, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "S&ynkroniser terminalen med gjeldende dokument"
 
 #: kateconsole.cpp:683
 #, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
@@ -171,9 +164,6 @@ msgstr "Synkroniser &automatisk terminalen med gjeldende dokument når mulig"
 
 #: kateconsole.cpp:686
 #, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"

@@ -59,7 +59,6 @@ msgstr ""
 
 #: buildconfig.cpp:103
 #, fuzzy, kde-format
-#| msgid "Build selected target"
 msgid "Delete selected entries"
 msgstr "Bygg markert mål"
 
@@ -71,8 +70,6 @@ msgstr ""
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
 #, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
 msgid "General Settings"
 msgstr "Mål-innstillinger"
 
@@ -424,7 +421,6 @@ msgstr "Lag nytt målsett"
 
 #: targets.cpp:37
 #, fuzzy, kde-format
-#| msgid "Copy command or target set"
 msgid "Clone command or target set"
 msgstr "Kopier kommando eller målsett"
 
@@ -475,14 +471,12 @@ msgstr ""
 
 #: targets.cpp:227 targets.cpp:249
 #, fuzzy, kde-format
-#| msgid "Build again"
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Bygg igjen"
 
 #: targets.cpp:248
 #, fuzzy, kde-format
-#| msgid "Config"
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "RentOppsett"

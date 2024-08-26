@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-04 00:42+0000\n"
+"POT-Creation-Date: 2024-08-26 00:41+0000\n"
 "PO-Revision-Date: 2016-03-24 14:50+0100\n"
 "Last-Translator: Bjørn <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -283,7 +283,7 @@ msgstr ""
 msgid "&Status Bar Items"
 msgstr "Elementer på &statuslinja"
 
-#: lib/diagnostics/diagnostic_suppression.h:39
+#: lib/diagnostics/diagnostic_suppression.h:37
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -365,53 +365,53 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1251
+#: lib/diagnostics/diagnosticview.cpp:1257
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1397
+#: lib/diagnostics/diagnosticview.cpp:1407
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1398
+#: lib/diagnostics/diagnosticview.cpp:1408
 #, kde-format
 msgid "Collapse All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1404
+#: lib/diagnostics/diagnosticview.cpp:1414
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1429
+#: lib/diagnostics/diagnosticview.cpp:1456
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1431
+#: lib/diagnostics/diagnosticview.cpp:1458
 #, kde-format
 msgid "Add Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1435
+#: lib/diagnostics/diagnosticview.cpp:1462
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1437
+#: lib/diagnostics/diagnosticview.cpp:1464
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1452
+#: lib/diagnostics/diagnosticview.cpp:1479
 #, kde-format
 msgid "Disable Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1454
+#: lib/diagnostics/diagnosticview.cpp:1481
 #, kde-format
 msgid "Enable Suppression"
 msgstr ""
@@ -1550,7 +1550,6 @@ msgstr "Lukk alle åpne dokumenter."
 
 #: lib/katemainwindow.cpp:461
 #, fuzzy, kde-format
-#| msgid "Reload all open documents."
 msgid "&Reopen latest closed document(s)."
 msgstr "Last inn på nytt alle åpne dokumenter."
 
@@ -1673,13 +1672,11 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:612
 #, fuzzy, kde-format
-#| msgid "Close all documents"
 msgid "Close all documents?"
 msgstr "Lukk alle dokumenter"
 
 #: lib/katemainwindow.cpp:613
 #, fuzzy, kde-format
-#| msgid "Clos&e All"
 msgid "Close All"
 msgstr "Lukk all&e"
 
@@ -1694,13 +1691,11 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:628
 #, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
 msgid "Close all documents beside current one?"
 msgstr "Lukk alle dokumenter unntatt gjjeldende dokument"
 
 #: lib/katemainwindow.cpp:629
 #, fuzzy, kde-format
-#| msgid "Close Other"
 msgid "Close Others"
 msgstr "Lukk andre"
 
@@ -2055,14 +2050,12 @@ msgstr "Det du ville lagre kunne ikke skrives. Velg hvordan du vil fortsette."
 
 #: lib/kateurlbar.cpp:911
 #, fuzzy, kde-format
-#| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Plassering"
 
 #: lib/kateurlbar.cpp:916
 #, fuzzy, kde-format
-#| msgid "Filename"
 msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Filnavn"
@@ -2278,7 +2271,6 @@ msgstr ""
 
 #: lib/kateviewmanager.cpp:296
 #, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
 msgid "Toggle scroll synchronization for the current view"
 msgstr "Vender orienteringen for den gjeldende delte visningen"
 

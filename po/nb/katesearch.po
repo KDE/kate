@@ -204,7 +204,6 @@ msgstr "Søk"
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
 #, fuzzy, kde-format
-#| msgid "Replace"
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "

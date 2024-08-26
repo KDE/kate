@@ -526,9 +526,6 @@ msgstr ""
 
 #: kateprojectconfigpage.cpp:26
 #, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."

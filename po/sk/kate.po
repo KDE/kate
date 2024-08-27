@@ -6,7 +6,7 @@
 # Jozef Riha <jose1711@gmail.com>, 2006.
 # Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019.
 # Mthw <jari_45@hotmail.com>, 2018, 2019.
-# Matej Mrenica <matejm98mthw@gmail.com>, 2019, 2020, 2021, 2022.
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2024 Matej Mrenica <matejm98mthw@gmail.com>
 # Dušan Kazik <prescott66@gmail.com>, 2020.
 # Ferdinand Galko <galko.ferdinand@gmail.com>, 2023.
 msgid ""
@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-06 02:33+0000\n"
-"PO-Revision-Date: 2023-02-07 18:18+0100\n"
-"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
-"Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
+"PO-Revision-Date: 2024-08-26 17:11+0200\n"
+"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
+"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -47,10 +47,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - pokročilý textový editor"
 
 #: kate/main.cpp:97 kwrite/main.cpp:50
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000-2022 Autori Kate"
+msgstr "(c) 2000-2024 Autori Kate"
 
 #: kate/main.cpp:143
 #, kde-format
@@ -301,7 +300,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:61
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Všetko"
 
 #: lib/diagnostics/diagnosticview.cpp:297
 #, kde-format
@@ -323,16 +322,14 @@ msgid "Quick Fix"
 msgstr "Rýchla oprava"
 
 #: lib/diagnostics/diagnosticview.cpp:351
-#, fuzzy, kde-format
-#| msgid "Next tab"
+#, kde-format
 msgid "Next Item"
-msgstr "&Nasledujúca karta"
+msgstr "Ďalšia položka"
 
 #: lib/diagnostics/diagnosticview.cpp:357
-#, fuzzy, kde-format
-#| msgid "Previous tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Predchádzajúca karta"
+msgstr "Predošlá položka"
 
 #: lib/diagnostics/diagnosticview.cpp:365
 #, fuzzy, kde-format
@@ -346,16 +343,14 @@ msgid "Diagnostics"
 msgstr "Diagnostika"
 
 #: lib/diagnostics/diagnosticview.cpp:466
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Chyba"
+msgstr "Chyby"
 
 #: lib/diagnostics/diagnosticview.cpp:482
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Upozornenie"
+msgstr "Upozornenia"
 
 #: lib/diagnostics/diagnosticview.cpp:496
 #, kde-format
@@ -1081,10 +1076,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "Zobraziť text pre tlačidlá ľavého a pravého bočného panela"
 
 #: lib/kateconfigdialog.cpp:190
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "Veľkosť ikon pre tlačidlá ľavého a pravého bočného panela"
+msgstr "Veľkosť ikon pre tlačidlá ľavého a pravého bočného panela:"
 
 #: lib/kateconfigdialog.cpp:210
 #, kde-format
@@ -1455,12 +1449,10 @@ msgid "Focus the next tab."
 msgstr "Aktivovať ďalšiu kartu."
 
 #: lib/katemainwindow.cpp:293
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Prepnúť na inštanciu"
+msgstr "Prepnúť na kartu %1"
 
 #: lib/katemainwindow.cpp:310
 #, kde-format
@@ -1730,16 +1722,14 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Toto zatvorí všetky otvorené dokumenty. Určite chcete pokračovať?"
 
 #: lib/katemainwindow.cpp:612
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Zatvoriť všetky dokumenty"
+msgstr "Zatvoriť všetky dokumenty?"
 
 #: lib/katemainwindow.cpp:613
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Zav&rieť všetko"
+msgstr "Zavrieť všetko"
 
 #: lib/katemainwindow.cpp:627
 #, kde-format
@@ -1754,13 +1744,12 @@ msgstr ""
 #, fuzzy, kde-format
 #| msgid "Close all documents beside current one"
 msgid "Close all documents beside current one?"
-msgstr "Zatvoriť všetky dokumenty vedľa aktuálneho"
+msgstr "Zatvoriť všetky dokumenty vedľa aktuálneho?"
 
 #: lib/katemainwindow.cpp:629
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
-msgstr "Zatvoriť ostatné"
+msgstr "Zavrieť ostatné"
 
 #: lib/katemainwindow.cpp:867
 #, kde-format
@@ -2028,12 +2017,12 @@ msgstr "Chyba pri vytváraní rozdielu"
 #: lib/katemwmodonhddialog.cpp:320
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[Staré]"
 
 #: lib/katemwmodonhddialog.cpp:321
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[Nové]"
 
 #: lib/kateoutputview.cpp:175
 #, kde-format
@@ -2126,15 +2115,13 @@ msgstr ""
 "postupovať."
 
 #: lib/kateurlbar.cpp:911
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Kopírovať umiestnenie"
 
 #: lib/kateurlbar.cpp:916
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Kopírovať názov súboru"
@@ -2853,10 +2840,9 @@ msgid "No saved sessions"
 msgstr "Žiadne uložené sedenia"
 
 #: lib/welcomeview/welcomeview.cpp:246
-#, fuzzy, kde-format
-#| msgid "Open File..."
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Otvoriť súbor..."
+msgstr "Otvoriť vybraté súbory..."
 
 #: lib/welcomeview/welcomeview.cpp:259
 #, kde-format

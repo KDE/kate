@@ -296,13 +296,16 @@ void KateMainWindow::setupImportantActions()
         });
         actionCollection()->addAction(QStringLiteral("switch_to_tab_%1").arg(i), action);
 
-        // only add default shortcut bindings for the first 10 tabs, regardless of switchToTabCount
+#ifndef Q_OS_APPLE
+        // NOTE default shortucts added for non-macOS platforms only, due to macOS input complexities.
+        // Only add default shortcut bindings for the first 10 tabs, regardless of switchToTabCount.
         if (i < shortcutToKey0) {
             actionCollection()->setDefaultShortcut(action, QStringLiteral("Alt+%1").arg(i));
         } else if (i == shortcutToKey0) {
             actionCollection()->setDefaultShortcut(action, QKeySequence(Qt::ALT | Qt::Key_0));
         }
     }
+#endif
 
     // the quick open action is used by the KateViewSpace "quick open button"
     a = actionCollection()->addAction(QStringLiteral("view_quick_open"));

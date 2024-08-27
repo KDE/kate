@@ -92,6 +92,7 @@ public:
             appendMarkdown(text);
         }
 
+        resizeTip();
         // resize if too small
         if (height() < 300) {
             resize(width(), height() + 200);

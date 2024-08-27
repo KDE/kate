@@ -377,13 +377,13 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("file_save_all"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
-    a->setText(i18n("Save A&ll"));
+    a->setText(i18n("Sa&ve All"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_L));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::saveAll);
     a->setWhatsThis(i18n("Save all open, modified documents to disk."));
 
     a = actionCollection()->addAction(QStringLiteral("file_reload_all"));
-    a->setText(i18n("&Reload All"));
+    a->setText(i18n("Reload A&ll"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::reloadAll);
     a->setWhatsThis(i18n("Reload all open documents."));
 
@@ -440,7 +440,7 @@ void KateMainWindow::setupActions()
     a->setWhatsThis(i18n("Shows a hint how to compare documents."));
 
     a = actionCollection()->addAction(QStringLiteral("file_close_orphaned"));
-    a->setText(i18n("Close Orphaned"));
+    a->setText(i18n("Close Orp&haned"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::closeOrphaned);
     a->setWhatsThis(i18n("Close all documents in the file list that could not be reopened, because they are not accessible anymore."));
 
@@ -449,7 +449,7 @@ void KateMainWindow::setupActions()
     a->setWhatsThis(i18n("Close the current document."));
 
     a = actionCollection()->addAction(QStringLiteral("file_close_other"));
-    a->setText(i18n("Close Other"));
+    a->setText(i18n("Close O&ther"));
     connect(a, &QAction::triggered, this, [this] {
         slotDocumentCloseOther();
     });
@@ -473,7 +473,7 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("view_new_view"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));
-    a->setText(i18n("&New Window"));
+    a->setText(i18n("New &Window"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
     connect(a, &QAction::triggered, this, &KateMainWindow::newWindow);
     a->setWhatsThis(i18n("Create a new window."));

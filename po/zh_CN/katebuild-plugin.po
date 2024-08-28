@@ -477,16 +477,16 @@ msgid "Paste after"
 msgstr "粘贴到后面"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "构建命令"
+msgstr ""
 
 #: targets.cpp:248
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
-msgstr "配置"
+msgstr ""
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

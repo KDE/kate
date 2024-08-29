@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-26 00:41+0000\n"
+"POT-Creation-Date: 2024-08-29 00:41+0000\n"
 "PO-Revision-Date: 2024-08-12 08:43+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -175,7 +175,7 @@ msgstr "סגירה"
 msgid "Open File"
 msgstr "פתיחת קובץ"
 
-#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:389
+#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:392
 #, kde-format
 msgid "Copy Location"
 msgstr "העתקת מקום"
@@ -1309,12 +1309,12 @@ msgstr "סגירת המסמך"
 msgid "Save As"
 msgstr "שמירה בשם"
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:714
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:717
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "נפתח קובץ חדש בעת סגירת Kate, הסגירה בוטלה."
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:714
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:717
 #, kde-format
 msgid "Closing Aborted"
 msgstr "הסגירה בוטלה"
@@ -1425,116 +1425,116 @@ msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
 msgstr "מעבר ללשונית %1"
 
-#: lib/katemainwindow.cpp:310
+#: lib/katemainwindow.cpp:313
 #, kde-format
 msgid "&Quick Open"
 msgstr "פתיחה &מהירה"
 
-#: lib/katemainwindow.cpp:313
+#: lib/katemainwindow.cpp:316
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "פתח חלון לפתיחה מהירה של מסמכים"
 
-#: lib/katemainwindow.cpp:350
+#: lib/katemainwindow.cpp:353
 #, kde-format
 msgid "Output"
 msgstr "פלט"
 
-#: lib/katemainwindow.cpp:360
+#: lib/katemainwindow.cpp:363
 #, kde-format
 msgid "Create a new document"
 msgstr "יצירת מסמך חדש"
 
-#: lib/katemainwindow.cpp:363
+#: lib/katemainwindow.cpp:366
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "פתיחת מסמך קיים לעריכה"
 
-#: lib/katemainwindow.cpp:373
+#: lib/katemainwindow.cpp:376
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
 "open them again."
 msgstr "הצגת רשימת הקבצים שפתחת לאחרונה, בנוסף לאפשרות לפתוח אותם שוב בקלות."
 
-#: lib/katemainwindow.cpp:377
+#: lib/katemainwindow.cpp:380
 #, kde-format
 msgid "Save A&ll"
 msgstr "שמירה של ה&כול"
 
-#: lib/katemainwindow.cpp:380
+#: lib/katemainwindow.cpp:383
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "שמירה לכונן של כל המסמכים הפתוחים שנערכו."
 
-#: lib/katemainwindow.cpp:383
+#: lib/katemainwindow.cpp:386
 #, kde-format
 msgid "&Reload All"
 msgstr "טעינה של הכול מ&חדש"
 
-#: lib/katemainwindow.cpp:385
+#: lib/katemainwindow.cpp:388
 #, kde-format
 msgid "Reload all open documents."
 msgstr "טעינת כל המסמכים הפתוחים מחדש."
 
-#: lib/katemainwindow.cpp:394 lib/katemainwindow.cpp:403
+#: lib/katemainwindow.cpp:397 lib/katemainwindow.cpp:406
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "העתקת נתיב הקובץ הנוכחי ללוח הגזירים."
 
-#: lib/katemainwindow.cpp:398 lib/welcomeview/welcomeview.cpp:266
+#: lib/katemainwindow.cpp:401 lib/welcomeview/welcomeview.cpp:266
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "פתיחת תיקייה מכילה"
 
-#: lib/katemainwindow.cpp:407
+#: lib/katemainwindow.cpp:410
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "שינוי שם…"
 
-#: lib/katemainwindow.cpp:412
+#: lib/katemainwindow.cpp:415
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "שינוי שם הקובץ ששייך למסמך הנוכחי."
 
-#: lib/katemainwindow.cpp:416
+#: lib/katemainwindow.cpp:419
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "מחיקה"
 
-#: lib/katemainwindow.cpp:421 lib/katemainwindow.cpp:430
+#: lib/katemainwindow.cpp:424 lib/katemainwindow.cpp:433
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "מחיקת הקובץ ששייך למסמך הנוכחי."
 
-#: lib/katemainwindow.cpp:425
+#: lib/katemainwindow.cpp:428
 #, kde-format
 msgid "Properties"
 msgstr "מאפיינים"
 
-#: lib/katemainwindow.cpp:433 lib/katemainwindow.cpp:435
+#: lib/katemainwindow.cpp:436 lib/katemainwindow.cpp:438
 #, kde-format
 msgid "Compare"
 msgstr "השוואה"
 
-#: lib/katemainwindow.cpp:435
+#: lib/katemainwindow.cpp:438
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
 
-#: lib/katemainwindow.cpp:437
+#: lib/katemainwindow.cpp:440
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "הצגת רמז על איך להשוות מסמכים."
 
-#: lib/katemainwindow.cpp:440
+#: lib/katemainwindow.cpp:443
 #, kde-format
 msgid "Close Orphaned"
 msgstr "סגירת מסמכים יתומים"
 
-#: lib/katemainwindow.cpp:442
+#: lib/katemainwindow.cpp:445
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1542,62 +1542,62 @@ msgid ""
 msgstr ""
 "סגור את כל המסמכים ברשימת הקבצים שאין אפשרות לפתוח, כיוון שהם לא נגישים עוד."
 
-#: lib/katemainwindow.cpp:446
+#: lib/katemainwindow.cpp:449
 #, kde-format
 msgid "Close the current document."
 msgstr "סגירת המסמך הנוכחי."
 
-#: lib/katemainwindow.cpp:449
+#: lib/katemainwindow.cpp:452
 #, kde-format
 msgid "Close Other"
 msgstr "סגירת השאר"
 
-#: lib/katemainwindow.cpp:453
+#: lib/katemainwindow.cpp:456
 #, kde-format
 msgid "Close other open documents."
 msgstr "שגיאת שאר המסמכים הפתוחים."
 
-#: lib/katemainwindow.cpp:456
+#: lib/katemainwindow.cpp:459
 #, kde-format
 msgid "Clos&e All"
 msgstr "לס&גור הכול"
 
-#: lib/katemainwindow.cpp:458
+#: lib/katemainwindow.cpp:461
 #, kde-format
 msgid "Close all open documents."
 msgstr "שגירה של כל המסמכים הפתוחים."
 
-#: lib/katemainwindow.cpp:461
+#: lib/katemainwindow.cpp:464
 #, kde-format
 msgid "&Reopen latest closed document(s)."
 msgstr "פתיחת המסמכים האחרונים ש&נסגרו"
 
-#: lib/katemainwindow.cpp:464
+#: lib/katemainwindow.cpp:467
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr ""
 
-#: lib/katemainwindow.cpp:469
+#: lib/katemainwindow.cpp:472
 #, kde-format
 msgid "Close this window"
 msgstr "סגירת החלון הזה"
 
-#: lib/katemainwindow.cpp:473
+#: lib/katemainwindow.cpp:476
 #, kde-format
 msgid "&New Window"
 msgstr "&חלון חדש"
 
-#: lib/katemainwindow.cpp:476
+#: lib/katemainwindow.cpp:479
 #, kde-format
 msgid "Create a new window."
 msgstr "יצירת חלון חדש."
 
-#: lib/katemainwindow.cpp:483
+#: lib/katemainwindow.cpp:486
 #, kde-format
 msgid "Open W&ith"
 msgstr "פ&תיחה באמצעות"
 
-#: lib/katemainwindow.cpp:485
+#: lib/katemainwindow.cpp:488
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1606,147 +1606,147 @@ msgstr ""
 "פתיחת המסמך הנוכחי באמצעות יישום אחר שרשום עבור סוג קובץ זה, או יישום אחר "
 "לבחירתך."
 
-#: lib/katemainwindow.cpp:493
+#: lib/katemainwindow.cpp:496
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "הגדרת הקצאות קיצורי המקשים של היישום."
 
-#: lib/katemainwindow.cpp:496
+#: lib/katemainwindow.cpp:499
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "בחירת הפריטים שיופיעו בסרגלי הכלים."
 
-#: lib/katemainwindow.cpp:499
+#: lib/katemainwindow.cpp:502
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "שינוי הגדרות של היבטים מסוימים של יישום זה ושל רכיב העריכה."
 
-#: lib/katemainwindow.cpp:503
+#: lib/katemainwindow.cpp:506
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "ספרון ההדרכה ל&תוספים"
 
-#: lib/katemainwindow.cpp:505
+#: lib/katemainwindow.cpp:508
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "הצגת קובצי עזרה לתוספים הזמינים השונים."
 
-#: lib/katemainwindow.cpp:522
+#: lib/katemainwindow.cpp:525
 #, kde-format
 msgid "Sess&ions"
 msgstr "ה&פעלות"
 
-#: lib/katemainwindow.cpp:528
+#: lib/katemainwindow.cpp:531
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "ה&פעלה חדשה"
 
-#: lib/katemainwindow.cpp:533
+#: lib/katemainwindow.cpp:536
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "הפעלות &אחרונות"
 
-#: lib/katemainwindow.cpp:538
+#: lib/katemainwindow.cpp:541
 #, kde-format
 msgid "&All Sessions"
 msgstr "&כל ההפעלות"
 
-#: lib/katemainwindow.cpp:545
+#: lib/katemainwindow.cpp:548
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&ניהול הפעלות…"
 
-#: lib/katemainwindow.cpp:554
+#: lib/katemainwindow.cpp:557
 #, kde-format
 msgid "&Save Session"
 msgstr "&שמירת הפעלה"
 
-#: lib/katemainwindow.cpp:560
+#: lib/katemainwindow.cpp:563
 #, kde-format
 msgid "Save Session &As..."
 msgstr "שמירת ה&פעלה בשם…"
 
-#: lib/katemainwindow.cpp:567 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:570 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "חזרה למקום הקודם"
 
-#: lib/katemainwindow.cpp:576 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:579 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
 msgstr "התקדמות למקום הבא"
 
-#: lib/katemainwindow.cpp:584
+#: lib/katemainwindow.cpp:587
 #, kde-format
 msgid "Show File Git History"
 msgstr "הצגת היסטוריית Git של הקובץ"
 
-#: lib/katemainwindow.cpp:611
+#: lib/katemainwindow.cpp:614
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "פעולה זו תסגור את כל המסמכים הפתוחים. להמשיך?"
 
-#: lib/katemainwindow.cpp:612
+#: lib/katemainwindow.cpp:615
 #, kde-format
 msgid "Close all documents?"
 msgstr "לסגור את כל המסמכים?"
 
-#: lib/katemainwindow.cpp:613
+#: lib/katemainwindow.cpp:616
 #, kde-format
 msgid "Close All"
 msgstr "לסגור הכול"
 
-#: lib/katemainwindow.cpp:627
+#: lib/katemainwindow.cpp:630
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr "פעולה זו תסגור את כל המסמכים הפתוחים חוץ מהנוכחי. להמשיך?"
 
-#: lib/katemainwindow.cpp:628
+#: lib/katemainwindow.cpp:631
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "לסגור את כל המסמכים חוץ מהנוכחי?"
 
-#: lib/katemainwindow.cpp:629
+#: lib/katemainwindow.cpp:632
 #, kde-format
 msgid "Close Others"
 msgstr "לסגור את השאר"
 
-#: lib/katemainwindow.cpp:867
+#: lib/katemainwindow.cpp:870
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "פעולה זו תסתיר את סרגל התפריטים ללחלוטין. אפשר להציג אותו שוב בלחיצה על %1."
 
-#: lib/katemainwindow.cpp:870
+#: lib/katemainwindow.cpp:873
 #, kde-format
 msgid "Hide menu bar"
 msgstr "הסתרת תפריט"
 
-#: lib/katemainwindow.cpp:1043
+#: lib/katemainwindow.cpp:1046
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr "גררת את התיקייה %1 לתוך Kate. לפתוח את כל הקבצים שבה?"
 
-#: lib/katemainwindow.cpp:1046
+#: lib/katemainwindow.cpp:1049
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "פתיחת קבצים ברקורסיה"
 
-#: lib/katemainwindow.cpp:1047
+#: lib/katemainwindow.cpp:1050
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "פתיחת כל הקבצים"
 
-#: lib/katemainwindow.cpp:1252
+#: lib/katemainwindow.cpp:1255
 #, kde-format
 msgid " [read only]"
 msgstr " [קריאה בלבד]"

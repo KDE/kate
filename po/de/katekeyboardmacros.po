@@ -112,7 +112,7 @@ msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
 "macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>"
 msgstr ""
-"<qt>s<p>Aufruf: <code>kmload &lt;name&gt;</code></p><p>Gespeichertes "
+"<qt><p>Aufruf: <code>kmload &lt;name&gt;</code></p><p>Gespeichertes "
 "Tastaturmakro <code>&lt;name&gt;</code> als aktuelles Makro laden.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:89

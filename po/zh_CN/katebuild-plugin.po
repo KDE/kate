@@ -480,13 +480,13 @@ msgstr "粘贴到后面"
 #, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr ""
+msgstr "构建命令"
 
 #: targets.cpp:248
 #, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
-msgstr ""
+msgstr "配置"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

@@ -304,8 +304,8 @@ void KateMainWindow::setupImportantActions()
         } else if (i == shortcutToKey0) {
             actionCollection()->setDefaultShortcut(action, QKeySequence(Qt::ALT | Qt::Key_0));
         }
-    }
 #endif
+    }
 
     // the quick open action is used by the KateViewSpace "quick open button"
     a = actionCollection()->addAction(QStringLiteral("view_quick_open"));

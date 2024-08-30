@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kde 49i410\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-03 00:42+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2013-01-28 12:56+0000\n"
 "Last-Translator: Vedran Ljubovic <vljubovic@smartnet.ba>\n"
 "Language-Team: Bosnian\n"
@@ -864,7 +864,7 @@ msgstr ""
 #: kateprojectpluginview.cpp:186
 #, fuzzy, kde-format
 #| msgid "Open With"
-msgid "Open Folder..."
+msgid "Open &Folder..."
 msgstr "Otvori pomoću"
 
 #: kateprojectpluginview.cpp:192

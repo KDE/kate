@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2006-12-17 12:02+0000\n"
 "Last-Translator: Mashrab Kuvatov <kmashrab@uni-bremen.de>\n"
 "Language-Team: Uzbek <floss-uz-l10n@googlegroups.com>\n"
@@ -205,7 +205,7 @@ msgstr "Fayllar:"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Manzil"
 
 #. i18n: ectx: Menu (edit)
@@ -218,7 +218,7 @@ msgstr "&Tahrirlash"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "S&elected actions:"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Tanlangan ammalar:"
 
 #. i18n: ectx: Menu (go)
@@ -1484,8 +1484,9 @@ msgstr ""
 "uchun imkoniyat yaratadi."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Ha&mmasini saqlash"
 
 #: lib/katemainwindow.cpp:383
@@ -1494,9 +1495,10 @@ msgid "Save all open, modified documents to disk."
 msgstr "Hamma ochiq, oʻzgartirilgan hujjatlarni saqlash."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Reload A&ll"
+msgstr "Plaginlar"
 
 #: lib/katemainwindow.cpp:388
 #, fuzzy, kde-format
@@ -1564,7 +1566,7 @@ msgstr "Hamma ochiq hujjatlarni yopish."
 
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Joriy tabni yopish"
 
 #: lib/katemainwindow.cpp:445
@@ -1581,7 +1583,7 @@ msgstr "Joriy hujjatni yopish."
 
 #: lib/katemainwindow.cpp:452
 #, fuzzy, kde-format
-msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Joriy tabni yopish"
 
 #: lib/katemainwindow.cpp:456
@@ -1618,7 +1620,7 @@ msgstr "Shu oynani yopish"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Oyna"
 
 #: lib/katemainwindow.cpp:479

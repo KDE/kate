@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-03 00:42+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2016-03-24 14:51+0100\n"
 "Last-Translator: Bjørn <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -845,7 +845,7 @@ msgstr ""
 
 #: kateprojectpluginview.cpp:186
 #, kde-format
-msgid "Open Folder..."
+msgid "Open &Folder..."
 msgstr ""
 
 #: kateprojectpluginview.cpp:192

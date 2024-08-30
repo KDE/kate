@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2014-09-18 23:24+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -216,7 +216,7 @@ msgstr "&Datei"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Function"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Funkschoon"
 
 #. i18n: ectx: Menu (edit)
@@ -229,7 +229,7 @@ msgstr "&Bewerken"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "Function"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Funkschoon"
 
 #. i18n: ectx: Menu (go)
@@ -1506,8 +1506,9 @@ msgstr ""
 "warrn."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "&All sekern"
 
 #: lib/katemainwindow.cpp:383
@@ -1516,8 +1517,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "All opmaakt, ännert Dokmenten na de Fastplaat sekern."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&All nieg laden"
 
 #: lib/katemainwindow.cpp:388
@@ -1585,8 +1587,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Dokmenten över en Dialoog gau opmaken"
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Dokmenten ahn Born tomaken"
 
 #: lib/katemainwindow.cpp:445
@@ -1604,8 +1607,9 @@ msgid "Close the current document."
 msgstr "Dit Dokment tomaken."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Anner tomaken"
 
 #: lib/katemainwindow.cpp:456
@@ -1642,7 +1646,7 @@ msgstr "Dit Finster tomaken"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Finster"
 
 #: lib/katemainwindow.cpp:479

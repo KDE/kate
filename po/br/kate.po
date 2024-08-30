@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ./messages/kdebase/kate.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2004-09-22 16:07+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -202,7 +202,7 @@ msgstr "&Restr"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Functions"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Fonksionoù"
 
 #. i18n: ectx: Menu (edit)
@@ -215,7 +215,7 @@ msgstr "&Aozañ"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "S&elected actions:"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Obererezhioù d&ibabet :"
 
 #. i18n: ectx: Menu (go)
@@ -1477,8 +1477,9 @@ msgid ""
 msgstr ""
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Enrollañ an ho&ll re"
 
 #: lib/katemainwindow.cpp:383
@@ -1489,7 +1490,7 @@ msgstr "Serriñ an teulioù digor ha kemmet holl d'ar bladenn."
 #: lib/katemainwindow.cpp:386
 #, fuzzy, kde-format
 #| msgid "&Reload"
-msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&Adkargañ"
 
 #: lib/katemainwindow.cpp:388
@@ -1557,7 +1558,7 @@ msgstr "Serriñ an teulioù digor holl."
 
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Serriñ ar vevennig red"
 
 #: lib/katemainwindow.cpp:445
@@ -1574,7 +1575,7 @@ msgstr "Serriñ an teul-red."
 
 #: lib/katemainwindow.cpp:452
 #, fuzzy, kde-format
-msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Serriñ ar vevennig red"
 
 #: lib/katemainwindow.cpp:456
@@ -1611,7 +1612,7 @@ msgstr "Serriñ ar prenestr-se"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Prenestr"
 
 #: lib/katemainwindow.cpp:479

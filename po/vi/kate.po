@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -206,8 +206,9 @@ msgstr "&Tệp"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Hành động tệp"
 
 #. i18n: ectx: Menu (edit)
@@ -218,8 +219,9 @@ msgstr "&Sửa"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Chọ&n"
 
 #. i18n: ectx: Menu (go)
@@ -1472,8 +1474,9 @@ msgstr ""
 "Đây là danh sách những tệp bạn đã mở gần đây, để bạn dễ dàng mở lại chúng."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Lưu &tất cả"
 
 #: lib/katemainwindow.cpp:383
@@ -1482,8 +1485,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Lưu tất cả các tài liệu đang mở, đã bị chỉnh sửa vào đĩa."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "Tải &lại tất cả"
 
 #: lib/katemainwindow.cpp:388
@@ -1544,8 +1548,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Hiện một gợi ý cho cách so sánh các tài liệu."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Đóng thẻ mồ côi"
 
 #: lib/katemainwindow.cpp:445
@@ -1563,8 +1568,9 @@ msgid "Close the current document."
 msgstr "Đóng tài liệu hiện tại."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Đóng các thẻ khác"
 
 #: lib/katemainwindow.cpp:456
@@ -1599,8 +1605,9 @@ msgid "Close this window"
 msgstr "Đóng cửa sổ này"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "Cửa sổ &mới"
 
 #: lib/katemainwindow.cpp:479

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2006-10-20 20:16+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -207,7 +207,7 @@ msgstr "Fail:"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Lokasi"
 
 #. i18n: ectx: Menu (edit)
@@ -220,7 +220,7 @@ msgstr "&Edit..."
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "S&elected actions:"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Tindakan yang &Dipilih:"
 
 #. i18n: ectx: Menu (go)
@@ -1500,8 +1500,9 @@ msgstr ""
 "membukanya dengan mudah pada masa lain."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Simpan Semu&a"
 
 #: lib/katemainwindow.cpp:383
@@ -1510,9 +1511,10 @@ msgid "Save all open, modified documents to disk."
 msgstr "Simpan semua dokumen dibuka, diubah ke cakera."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Reload A&ll"
+msgstr "Plugin"
 
 #: lib/katemainwindow.cpp:388
 #, fuzzy, kde-format
@@ -1579,7 +1581,7 @@ msgstr "Tutup semua dokumen yang dibuka."
 
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Tutup tab semasa"
 
 #: lib/katemainwindow.cpp:445
@@ -1596,7 +1598,7 @@ msgstr "Tutup dokumen ini."
 
 #: lib/katemainwindow.cpp:452
 #, fuzzy, kde-format
-msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Tutup tab semasa"
 
 #: lib/katemainwindow.cpp:456
@@ -1633,7 +1635,7 @@ msgstr "Tutup tetingkap ini"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Tetingkap"
 
 #: lib/katemainwindow.cpp:479

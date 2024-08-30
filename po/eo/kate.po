@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2024-06-30 09:00+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -201,8 +201,9 @@ msgstr "&Dosiero"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Dosieraj Agoj"
 
 #. i18n: ectx: Menu (edit)
@@ -213,8 +214,9 @@ msgstr "R&edakti"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Selektado"
 
 #. i18n: ectx: Menu (go)
@@ -1473,8 +1475,9 @@ msgstr ""
 "permesas denove malfermi ilin."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Konservi ĉ&iujn"
 
 #: lib/katemainwindow.cpp:383
@@ -1483,8 +1486,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Konservi ĉiujn malfermitajn kaj ŝanĝitajn dokumentojn al disko."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&Reŝargi Ĉion"
 
 #: lib/katemainwindow.cpp:388
@@ -1545,8 +1549,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Montras sugeston kiel kompari dokumentojn."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Fermi Orfigitajn"
 
 #: lib/katemainwindow.cpp:445
@@ -1564,8 +1569,9 @@ msgid "Close the current document."
 msgstr "Fermas la nunan dokumenton."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Fermi Alian"
 
 #: lib/katemainwindow.cpp:456
@@ -1600,8 +1606,9 @@ msgid "Close this window"
 msgstr "Fermi la fenestron"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "&Nova Fenestro"
 
 #: lib/katemainwindow.cpp:479

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-03 00:42+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2023-06-30 15:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -866,8 +866,9 @@ msgid "Refresh git status"
 msgstr "Git statusunu təzələyin"
 
 #: kateprojectpluginview.cpp:186
-#, kde-format
-msgid "Open Folder..."
+#, fuzzy, kde-format
+#| msgid "Open Folder..."
+msgid "Open &Folder..."
 msgstr "Qovluğu açın..."
 
 #: kateprojectpluginview.cpp:192

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2023-11-07 21:26+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -193,7 +193,7 @@ msgstr ""
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
 #, kde-format
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr ""
 
 #. i18n: ectx: Menu (edit)
@@ -205,7 +205,7 @@ msgstr ""
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
 #, kde-format
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr ""
 
 #. i18n: ectx: Menu (go)
@@ -1419,7 +1419,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:380
 #, kde-format
-msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr ""
 
 #: lib/katemainwindow.cpp:383
@@ -1429,7 +1429,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:386
 #, kde-format
-msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr ""
 
 #: lib/katemainwindow.cpp:388
@@ -1491,7 +1491,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:443
 #, kde-format
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr ""
 
 #: lib/katemainwindow.cpp:445
@@ -1508,7 +1508,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:452
 #, kde-format
-msgid "Close Other"
+msgid "Close O&ther"
 msgstr ""
 
 #: lib/katemainwindow.cpp:456
@@ -1543,7 +1543,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:476
 #, kde-format
-msgid "&New Window"
+msgid "New &Window"
 msgstr ""
 
 #: lib/katemainwindow.cpp:479

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -209,7 +209,7 @@ msgstr "&Fitchî"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Function"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Fonccion"
 
 #. i18n: ectx: Menu (edit)
@@ -222,7 +222,7 @@ msgstr "&Candjî"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "Function"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Fonccion"
 
 #. i18n: ectx: Menu (go)
@@ -1494,8 +1494,9 @@ msgstr ""
 "permete delzès rdrovi åjheymint."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Schaper &ttafwait"
 
 #: lib/katemainwindow.cpp:383
@@ -1504,8 +1505,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Schape el deure plake tos les documints drovous et candjîs."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&Ritcherdjî ttafwait"
 
 #: lib/katemainwindow.cpp:388
@@ -1573,8 +1575,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Clôre les ôtes documints di drovous."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Clôre orfulins"
 
 #: lib/katemainwindow.cpp:445
@@ -1590,8 +1593,9 @@ msgid "Close the current document."
 msgstr "Clôre li documint do moumint."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Clôre ls ôtes"
 
 #: lib/katemainwindow.cpp:456
@@ -1628,7 +1632,7 @@ msgstr "Clôre cisse finiesse chal"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Purnea"
 
 #: lib/katemainwindow.cpp:479

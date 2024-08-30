@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2009-03-01 09:45+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -209,7 +209,7 @@ msgstr "फाइल (&F)"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Function"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "फंक्सन"
 
 #. i18n: ectx: Menu (edit)
@@ -222,7 +222,7 @@ msgstr "संपादन (&E)"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "Function"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "फंक्सन"
 
 #. i18n: ectx: Menu (go)
@@ -1490,8 +1490,9 @@ msgstr ""
 "से खोले देथे "
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "सब्बो सहेजव (&l)"
 
 #: lib/katemainwindow.cpp:383
@@ -1500,8 +1501,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "सब्बो खुले हुए, परिवर्धित कागद मन ल डिस्क मं सहेजव."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "सब्बो फिर से लोड करव (&R)"
 
 #: lib/katemainwindow.cpp:388
@@ -1571,7 +1573,7 @@ msgstr "अऊ दूसर खुले कागद बन्द करव."
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
 #| msgid "Close Other"
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "अऊ दूसर बंद करव"
 
 #: lib/katemainwindow.cpp:445
@@ -1587,8 +1589,9 @@ msgid "Close the current document."
 msgstr "अभी हाल के कागद बन्द करव"
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "अऊ दूसर बंद करव"
 
 #: lib/katemainwindow.cpp:456
@@ -1625,7 +1628,7 @@ msgstr "ये विंडो ल बन्द करव"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "विंडो (&W)"
 
 #: lib/katemainwindow.cpp:479

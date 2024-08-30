@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2023-06-25 16:57+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -210,8 +210,9 @@ msgstr "&Datei"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Datei-Aktionen"
 
 #. i18n: ectx: Menu (edit)
@@ -222,8 +223,9 @@ msgstr "&Bearbeiten"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Auswahl"
 
 #. i18n: ectx: Menu (go)
@@ -1493,8 +1495,9 @@ msgstr ""
 "können Sie sie leicht erneut öffnen."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "&Alle speichern"
 
 #: lib/katemainwindow.cpp:383
@@ -1503,8 +1506,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Alle geöffneten, geänderten Dokumente speichern."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&Alle neu laden"
 
 #: lib/katemainwindow.cpp:388
@@ -1567,8 +1571,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Zeigt einen Hinweis für das Vergleichen von Dokumenten."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Verwaiste schließen"
 
 #: lib/katemainwindow.cpp:445
@@ -1586,8 +1591,9 @@ msgid "Close the current document."
 msgstr "Das aktive Dokument schließen."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Andere schließen"
 
 #: lib/katemainwindow.cpp:456
@@ -1622,8 +1628,9 @@ msgid "Close this window"
 msgstr "Dieses Fenster schließen"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "&Neues Fenster"
 
 #: lib/katemainwindow.cpp:479

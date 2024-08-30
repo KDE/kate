@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2011-09-27 16:16+0330\n"
 "Last-Translator: Mohamad Reza Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <>\n"
@@ -209,7 +209,7 @@ msgstr "&پرونده‌"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "محل"
 
 #. i18n: ectx: Menu (edit)
@@ -222,7 +222,7 @@ msgstr "&ویرایش‌"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "S&elected actions:"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "کنشهای &برگزیده‌:‌"
 
 #. i18n: ectx: Menu (go)
@@ -1500,8 +1500,9 @@ msgstr ""
 "راحتی آنها را دوباره باز کنید."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "ذخیره &همه‌"
 
 #: lib/katemainwindow.cpp:383
@@ -1511,7 +1512,7 @@ msgstr "ذخیره همه اسناد باز و تغییریافته در دیس�
 
 #: lib/katemainwindow.cpp:386
 #, fuzzy, kde-format
-msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&بارگذاری مجدد‌"
 
 #: lib/katemainwindow.cpp:388
@@ -1581,7 +1582,7 @@ msgstr "بستن  اسناد باز دیگر."
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
 #| msgid "Close Other"
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "بستن بقیه"
 
 #: lib/katemainwindow.cpp:445
@@ -1597,8 +1598,9 @@ msgid "Close the current document."
 msgstr "بستن سند جاری."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "بستن بقیه"
 
 #: lib/katemainwindow.cpp:456
@@ -1634,7 +1636,7 @@ msgstr "بستن این پنجره"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&پنجره‌"
 
 #: lib/katemainwindow.cpp:479

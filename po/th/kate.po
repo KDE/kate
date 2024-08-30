@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2010-03-01 22:47+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -207,7 +207,7 @@ msgstr "แ&ฟ้ม"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "ตำแหน่ง"
 
 #. i18n: ectx: Menu (edit)
@@ -220,7 +220,7 @@ msgstr "แ&ก้ไข"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "ตำแหน่ง"
 
 #. i18n: ectx: Menu (go)
@@ -1480,8 +1480,9 @@ msgstr ""
 "และอนุญาตให้คุณได้เปิดมันอีกครั้งอย่างง่ายดาย"
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "บันทึก&ทั้งหมด"
 
 #: lib/katemainwindow.cpp:383
@@ -1490,8 +1491,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "บันทึกเอกสารที่เปิดอยู่ทั้้งหมด และจัดเก็บลงดิสก์"
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "เรียกใหม่ทั้งหมด"
 
 #: lib/katemainwindow.cpp:388
@@ -1561,7 +1563,7 @@ msgstr "ปิดเอกสารที่เปิดอยู่ตัวอ
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
 #| msgid "Close Other"
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "ปิดเอกสารอื่น ๆ"
 
 #: lib/katemainwindow.cpp:445
@@ -1577,8 +1579,9 @@ msgid "Close the current document."
 msgstr "ปิดเอกสารปัจจุบัน"
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "ปิดเอกสารอื่น ๆ"
 
 #: lib/katemainwindow.cpp:456
@@ -1615,7 +1618,7 @@ msgstr "ปิดหน้าต่างนี้"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "หน้า&ต่าง"
 
 #: lib/katemainwindow.cpp:479

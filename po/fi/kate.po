@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2024-03-11 15:17+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -226,8 +226,9 @@ msgstr "&Tiedosto"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Tiedostotoiminnot"
 
 #. i18n: ectx: Menu (edit)
@@ -238,8 +239,9 @@ msgstr "&Muokkaa"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Valinta"
 
 #. i18n: ectx: Menu (go)
@@ -1493,8 +1495,9 @@ msgstr ""
 "tästä haluamasi tiedoston."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Tallenna &kaikki"
 
 #: lib/katemainwindow.cpp:383
@@ -1503,8 +1506,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Tallentaa kaikki avoimet ja tallentamattomat tiedostot."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&Lataa kaikki uudelleen"
 
 #: lib/katemainwindow.cpp:388
@@ -1565,8 +1569,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Näyttää vihjeen, miten vertailla tiedostoja."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Sulje orvot"
 
 #: lib/katemainwindow.cpp:445
@@ -1584,8 +1589,9 @@ msgid "Close the current document."
 msgstr "Sulje nykyinen tiedosto."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Sulje muut"
 
 #: lib/katemainwindow.cpp:456
@@ -1619,8 +1625,9 @@ msgid "Close this window"
 msgstr "Sulje tämä ikkuna"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "&Uusi ikkuna"
 
 #: lib/katemainwindow.cpp:479

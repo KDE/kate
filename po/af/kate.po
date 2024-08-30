@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -205,7 +205,7 @@ msgstr "Lêers:"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Ligging"
 
 #. i18n: ectx: Menu (edit)
@@ -218,7 +218,7 @@ msgstr "Redigeer..."
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "S&elected actions:"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Gekiesde aksies:"
 
 #. i18n: ectx: Menu (go)
@@ -1502,8 +1502,9 @@ msgstr ""
 "open hulle weer."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Stoor Alle"
 
 #: lib/katemainwindow.cpp:383
@@ -1512,9 +1513,10 @@ msgid "Save all open, modified documents to disk."
 msgstr "Stoor alle veranderde oop dokumente na die skyf."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Reload A&ll"
+msgstr "Inprop modules"
 
 #: lib/katemainwindow.cpp:388
 #, fuzzy, kde-format
@@ -1582,7 +1584,7 @@ msgstr "Maak toe alle open dokumente."
 
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Maak die huidige oortjie toe"
 
 #: lib/katemainwindow.cpp:445
@@ -1599,7 +1601,7 @@ msgstr "Maak toe die huidige dokument."
 
 #: lib/katemainwindow.cpp:452
 #, fuzzy, kde-format
-msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Maak die huidige oortjie toe"
 
 #: lib/katemainwindow.cpp:456
@@ -1636,7 +1638,7 @@ msgstr "Maak toe hierdie venster"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "Venster"
 
 #: lib/katemainwindow.cpp:479

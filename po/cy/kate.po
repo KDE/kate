@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2004-06-30 15:15+0100\n"
 "Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -207,7 +207,7 @@ msgstr "Ffeiliau:"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Lleoliad"
 
 #. i18n: ectx: Menu (edit)
@@ -220,7 +220,7 @@ msgstr "&Golygu..."
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "S&elected actions:"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Gweithredoedd d&ewisiedig:"
 
 #. i18n: ectx: Menu (go)
@@ -1484,8 +1484,9 @@ msgstr ""
 "eich gadael i`w hagor eto yn hawdd."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Cadw P&opeth"
 
 #: lib/katemainwindow.cpp:383
@@ -1494,9 +1495,10 @@ msgid "Save all open, modified documents to disk."
 msgstr "Cadw pob dogfen agored neu addasiedig i ddisg"
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Reload A&ll"
+msgstr "Ategion"
 
 #: lib/katemainwindow.cpp:388
 #, fuzzy, kde-format
@@ -1564,7 +1566,7 @@ msgstr "Cau bob dogfen agored."
 
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Cau'r tab cyfredol"
 
 #: lib/katemainwindow.cpp:445
@@ -1581,7 +1583,7 @@ msgstr "Cau`r ddogfen cyfredol"
 
 #: lib/katemainwindow.cpp:452
 #, fuzzy, kde-format
-msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Cau'r tab cyfredol"
 
 #: lib/katemainwindow.cpp:456
@@ -1618,7 +1620,7 @@ msgstr "Cau'r ffenestr hon"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Ffenestr"
 
 #: lib/katemainwindow.cpp:479

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2024-06-01 17:50\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -211,8 +211,9 @@ msgstr "&Файл"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Дзеянні з файламі"
 
 #. i18n: ectx: Menu (edit)
@@ -223,8 +224,9 @@ msgstr "&Рэдагаванне"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Выбар"
 
 #. i18n: ectx: Menu (go)
@@ -1445,8 +1447,9 @@ msgid ""
 msgstr "Паказвае спіс раней адкрытых файлаў, дазваляе хутка адкрыць іх зноў."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Захаваць &усе"
 
 #: lib/katemainwindow.cpp:383
@@ -1455,9 +1458,10 @@ msgid "Save all open, modified documents to disk."
 msgstr "Захаваць усе адкрытыя, змененыя дакументы на дыск."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "&Reload"
+msgid "Reload A&ll"
+msgstr "&Перазагрузіць"
 
 #: lib/katemainwindow.cpp:388
 #, kde-format
@@ -1517,9 +1521,9 @@ msgid "Shows a hint how to compare documents."
 msgstr ""
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
-msgstr ""
+#, fuzzy, kde-format
+msgid "Close Orp&haned"
+msgstr "Закрыць бягучую ўкладку."
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1534,9 +1538,9 @@ msgid "Close the current document."
 msgstr "Закрыць бягучы дакумент."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
-msgstr ""
+#, fuzzy, kde-format
+msgid "Close O&ther"
+msgstr "Закрыць бягучую ўкладку."
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1570,7 +1574,7 @@ msgstr "Закрыць гэтае акно"
 
 #: lib/katemainwindow.cpp:476
 #, kde-format
-msgid "&New Window"
+msgid "New &Window"
 msgstr ""
 
 #: lib/katemainwindow.cpp:479

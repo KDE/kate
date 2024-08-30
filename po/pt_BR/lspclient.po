@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-15 00:39+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2023-03-03 10:00-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -24,9 +24,8 @@ msgstr ""
 msgid "Filter..."
 msgstr "Filtro..."
 
-#. i18n: ectx: Menu (LSPClient Menubar)
 #: lspclientconfigpage.cpp:99 lspclientconfigpage.cpp:104
-#: lspclientpluginview.cpp:470 lspclientpluginview.cpp:611 ui.rc:6
+#: lspclientpluginview.cpp:470 lspclientpluginview.cpp:611
 #, kde-format
 msgid "LSP Client"
 msgstr "Cliente LSP"
@@ -612,6 +611,13 @@ msgstr "Arquivo de configurações:"
 #, kde-format
 msgid "Default Server Settings"
 msgstr "Configuração padrão do servidor"
+
+#. i18n: ectx: Menu (LSPClient Menubar)
+#: ui.rc:6
+#, fuzzy, kde-format
+#| msgid "LSP Client"
+msgid "&LSP Client"
+msgstr "Cliente LSP"
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31

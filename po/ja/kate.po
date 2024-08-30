@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2024-02-23 02:55+0900\n"
 "Last-Translator: Ryuichi Yamada <ryuichi_ya220@outlook.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -208,8 +208,9 @@ msgstr "ファイル(&F)"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "ファイルのアクション"
 
 #. i18n: ectx: Menu (edit)
@@ -220,8 +221,9 @@ msgstr "編集(&E)"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "選択(&S)"
 
 #. i18n: ectx: Menu (go)
@@ -1456,8 +1458,9 @@ msgstr ""
 "ます。"
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "すべて保存(&L)"
 
 #: lib/katemainwindow.cpp:383
@@ -1466,8 +1469,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "開いている変更されたすべての文書を保存します。"
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "すべて再読み込み(&R)"
 
 #: lib/katemainwindow.cpp:388
@@ -1532,8 +1536,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "開いている他の文書を閉じます。"
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "孤立した文書を閉じる"
 
 #: lib/katemainwindow.cpp:445
@@ -1550,8 +1555,9 @@ msgstr "現在の文書を閉じます。"
 
 # ACCELERATOR added by translator
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "他を閉じる"
 
 #: lib/katemainwindow.cpp:456
@@ -1587,8 +1593,9 @@ msgid "Close this window"
 msgstr "このウィンドウを閉じます。"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "新しいウィンドウ(&N)"
 
 #: lib/katemainwindow.cpp:479

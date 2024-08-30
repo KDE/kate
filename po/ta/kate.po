@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2024-06-30 12:46+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -207,8 +207,9 @@ msgstr "&கோப்பு"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "கோப்புக்கான செயல்கள்"
 
 #. i18n: ectx: Menu (edit)
@@ -219,8 +220,9 @@ msgstr "&திருத்து"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "தே&ர்வு"
 
 #. i18n: ectx: Menu (go)
@@ -1470,8 +1472,9 @@ msgstr ""
 "நீங்கள் அண்மையில் திறந்த கோப்புகளை எளிதில் மறுபடியும் திறக்கும்படி இது பட்டியலிடும்."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "அனைத்தையும் சேமி"
 
 #: lib/katemainwindow.cpp:383
@@ -1480,8 +1483,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "மாற்றப்பட்ட அனைத்து திறந்த ஆவணங்களையும் வட்டுக்கு சேமி"
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&அனைத்தையும் மீளேற்று"
 
 #: lib/katemainwindow.cpp:388
@@ -1542,8 +1546,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "ஆவணங்களை ஒப்பிடுவது எப்படியென கூறும்."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "அனாதைகளை மூடு"
 
 #: lib/katemainwindow.cpp:445
@@ -1559,8 +1564,9 @@ msgid "Close the current document."
 msgstr "தற்போதைய கோப்பை மூடு."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "மற்றவற்றை மூடு"
 
 #: lib/katemainwindow.cpp:456
@@ -1594,8 +1600,9 @@ msgid "Close this window"
 msgstr "இந்த சாளரத்தை மூடு"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "&புதிய சாளரம்"
 
 #: lib/katemainwindow.cpp:479

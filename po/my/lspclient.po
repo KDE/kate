@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-15 00:39+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2021-09-19 13:41+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -23,9 +23,8 @@ msgstr ""
 msgid "Filter..."
 msgstr "စစ်ထုတ်မည်..."
 
-#. i18n: ectx: Menu (LSPClient Menubar)
 #: lspclientconfigpage.cpp:99 lspclientconfigpage.cpp:104
-#: lspclientpluginview.cpp:470 lspclientpluginview.cpp:611 ui.rc:6
+#: lspclientpluginview.cpp:470 lspclientpluginview.cpp:611
 #, kde-format
 msgid "LSP Client"
 msgstr "အယ်အက်စ်ပီ ပရိုဂရမ်"
@@ -612,6 +611,13 @@ msgstr "ဆက်တင် ဖိုင်လ် -"
 #, fuzzy, kde-format
 msgid "Default Server Settings"
 msgstr "ကိရိယာကို မူလသတ်မှတ်ချက်များသို့ ပြန်ပြောင်းမည်"
+
+#. i18n: ectx: Menu (LSPClient Menubar)
+#: ui.rc:6
+#, fuzzy, kde-format
+#| msgid "LSP Client"
+msgid "&LSP Client"
+msgstr "အယ်အက်စ်ပီ ပရိုဂရမ်"
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2022-10-05 20:28+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -194,8 +194,9 @@ msgstr "&Fဖိုင်လ်"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "ဖိုင်လ်လုပ်ဆောင်ချက်များ"
 
 #. i18n: ectx: Menu (edit)
@@ -206,8 +207,9 @@ msgstr "&Eတည်းဖြတ်"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Sရွေးချယ်မှု"
 
 #. i18n: ectx: Menu (go)
@@ -1444,8 +1446,9 @@ msgid ""
 msgstr ""
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "&lအားလုံးသိမ်းဆည်းမည်"
 
 #: lib/katemainwindow.cpp:383
@@ -1454,8 +1457,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "ဖွင့်ထားသော၊ မွမ်းမံထားသော မှတ်တမ်းစာအုပ်အားလုံးကို ဒစ်စ်သို့ သိမ်းမည်။"
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&Rအကုန်ပြန်တွန်းတင်မည်"
 
 #: lib/katemainwindow.cpp:388
@@ -1516,8 +1520,9 @@ msgid "Shows a hint how to compare documents."
 msgstr ""
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "သုံးခွင့်မရှိသည်များပိတ်မည်"
 
 #: lib/katemainwindow.cpp:445
@@ -1533,8 +1538,9 @@ msgid "Close the current document."
 msgstr "လက်ရှိမှတ်တမ်းစာအုပ် ပိတ်မည်"
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "အခြားဟာများပိတ်မည်"
 
 #: lib/katemainwindow.cpp:456
@@ -1569,8 +1575,9 @@ msgid "Close this window"
 msgstr "ဤဝင်းဒိုးကို ပိတ်မည်"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "ဝင်းဒိုး &Nအသစ်"
 
 #: lib/katemainwindow.cpp:479

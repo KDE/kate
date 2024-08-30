@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2006-05-07 10:37+0200\n"
 "Last-Translator: Rinse de Vries <RinseDeVries@home.nl>\n"
 "Language-Team:  <nl@li.org>\n"
@@ -206,7 +206,7 @@ msgstr "Triemmen:"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Lokaasje"
 
 #. i18n: ectx: Menu (edit)
@@ -219,7 +219,7 @@ msgstr "Be&wurkje..."
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "S&elected actions:"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "S&elekteare aksjes:"
 
 #. i18n: ectx: Menu (go)
@@ -1505,8 +1505,9 @@ msgstr ""
 "om hja maklik wer te iepenjen."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "A&lles bewarje"
 
 #: lib/katemainwindow.cpp:383
@@ -1515,9 +1516,10 @@ msgid "Save all open, modified documents to disk."
 msgstr "Alle iepen en bewurke dokuminten op skiif bewarje."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Reload A&ll"
+msgstr "Plugins"
 
 #: lib/katemainwindow.cpp:388
 #, fuzzy, kde-format
@@ -1585,7 +1587,7 @@ msgstr "Alle iepene dokuminten slúte."
 
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Slút de aktuele flap"
 
 #: lib/katemainwindow.cpp:445
@@ -1602,7 +1604,7 @@ msgstr "It aktuele dokumint slúte."
 
 #: lib/katemainwindow.cpp:452
 #, fuzzy, kde-format
-msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Slút de aktuele flap"
 
 #: lib/katemainwindow.cpp:456
@@ -1639,7 +1641,7 @@ msgstr "Dit finster slúte"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Finster"
 
 #: lib/katemainwindow.cpp:479

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2021-08-21 16:25+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: kde-hindi\n"
@@ -210,7 +210,7 @@ msgstr "फ़ाइल (&F)"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "स्थान"
 
 #. i18n: ectx: Menu (edit)
@@ -223,7 +223,7 @@ msgstr "संपादन (&E)"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "स्थान"
 
 #. i18n: ectx: Menu (go)
@@ -1489,8 +1489,9 @@ msgstr ""
 "देता है"
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "सभी सहेजें (&l)"
 
 #: lib/katemainwindow.cpp:383
@@ -1499,8 +1500,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "सभी खुले हुए, परिवर्धित दस्तावेज़ों को डिस्क में सहेजें."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "सभी फिर से लोड करें (&R)"
 
 #: lib/katemainwindow.cpp:388
@@ -1568,8 +1570,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "अन्य खुले दस्तावेज़ बन्द करें."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "बंद करें"
 
 #: lib/katemainwindow.cpp:445
@@ -1585,8 +1588,9 @@ msgid "Close the current document."
 msgstr "मौज़ूदा दस्तावेज़ बन्द करें"
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "अन्य बंद करें"
 
 #: lib/katemainwindow.cpp:456
@@ -1623,7 +1627,7 @@ msgstr "इस विंडो को बन्द करें"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "विंडो (&W)"
 
 #: lib/katemainwindow.cpp:479

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -212,7 +212,7 @@ msgstr "फाइल"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Functions"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "प्रकार्य"
 
 #. i18n: ectx: Menu (edit)
@@ -225,7 +225,7 @@ msgstr "सम्पादन गर्नुहोस्"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "S&elected actions:"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "चयन गरेको कार्य:"
 
 #. i18n: ectx: Menu (go)
@@ -1514,8 +1514,9 @@ msgstr ""
 "तपाईँले हालै खोल्नुभएको फाइल यसले सूचीकृत गर्छ र तीनिहरूलाई फेरि सजिलै खोल्न अनुमति दिन्छ ।"
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "सबै बचत गर्नुहोस्"
 
 #: lib/katemainwindow.cpp:383
@@ -1526,7 +1527,7 @@ msgstr "सबै खुला, परिमार्जित कागजा�
 #: lib/katemainwindow.cpp:386
 #, fuzzy, kde-format
 #| msgid "&Reload"
-msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "पुन: लोड गर्नुहोस्"
 
 #: lib/katemainwindow.cpp:388
@@ -1597,7 +1598,7 @@ msgstr "अन्य खुला कागजात बन्द गर्न�
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
 #| msgid "Close Other"
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "अन्य बन्द गर्नुहोस्"
 
 #: lib/katemainwindow.cpp:445
@@ -1613,8 +1614,9 @@ msgid "Close the current document."
 msgstr "हालको कागजात बन्द गर्नुहोस् ।"
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "अन्य बन्द गर्नुहोस्"
 
 #: lib/katemainwindow.cpp:456
@@ -1651,7 +1653,7 @@ msgstr "यो सञ्झ्याल बन्द गर्नुहोस्
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "सञ्झ्याल"
 
 #: lib/katemainwindow.cpp:479

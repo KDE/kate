@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2022-10-28 19:12+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -195,7 +195,7 @@ msgstr "&File"
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "_Actiones..."
 
 #. i18n: ectx: Menu (edit)
@@ -206,8 +206,9 @@ msgstr "&Redacter"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Selection"
 
 #. i18n: ectx: Menu (go)
@@ -1438,7 +1439,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:380
 #, fuzzy, kde-format
-msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "O&mni"
 
 #: lib/katemainwindow.cpp:383
@@ -1448,7 +1449,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:386
 #, fuzzy, kde-format
-msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "Recargar omni parametres"
 
 #: lib/katemainwindow.cpp:388
@@ -1514,7 +1515,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Orfanat"
 
 #: lib/katemainwindow.cpp:445
@@ -1530,8 +1531,9 @@ msgid "Close the current document."
 msgstr "Cluder li actual document"
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Cluder li altris"
 
 #: lib/katemainwindow.cpp:456
@@ -1565,8 +1567,9 @@ msgid "Close this window"
 msgstr "Cluder ci fenestre"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "&Nov fenestre"
 
 #: lib/katemainwindow.cpp:479

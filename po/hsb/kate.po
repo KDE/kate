@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2005-04-18 18:18+0200\n"
 "Last-Translator:  <hertn@gmx.de>\n"
 "Language-Team: Hornjoserbšćina <hsb@li.org>\n"
@@ -195,7 +195,7 @@ msgstr "Dataje:"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Application"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Program"
 
 #. i18n: ectx: Menu (edit)
@@ -208,7 +208,7 @@ msgstr "&Wobdźěłać"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "Application"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Program"
 
 #. i18n: ectx: Menu (go)
@@ -1445,8 +1445,9 @@ msgstr ""
 "wottud lochce wočinić."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "&Wšitko zawěsćić"
 
 #: lib/katemainwindow.cpp:383
@@ -1455,9 +1456,10 @@ msgid "Save all open, modified documents to disk."
 msgstr "Wšitke wočinjene, změnjene dokumenty zawěsćić."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Reload A&ll"
+msgstr "&Wšitko zawěsćić"
 
 #: lib/katemainwindow.cpp:388
 #, fuzzy, kde-format
@@ -1522,9 +1524,10 @@ msgid "Shows a hint how to compare documents."
 msgstr "Wšitke wočinjene dokumenty začinić"
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close Orp&haned"
+msgstr "Wšitke wočinjene dokumenty začinić"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1539,9 +1542,10 @@ msgid "Close the current document."
 msgstr "Tuchwilny dokument ma so začinić."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close O&ther"
+msgstr "Wšitke wočinjene dokumenty začinić"
 
 #: lib/katemainwindow.cpp:456
 #, fuzzy, kde-format
@@ -1576,7 +1580,7 @@ msgstr "Tute wokno začinić"
 
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
-msgid "&New Window"
+msgid "New &Window"
 msgstr "Před wupósłanjom zawěsćić?"
 
 #: lib/katemainwindow.cpp:479

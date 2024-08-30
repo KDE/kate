@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-03 00:42+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2019-12-18 18:06+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -882,7 +882,7 @@ msgstr ""
 #: kateprojectpluginview.cpp:186
 #, fuzzy, kde-format
 #| msgid "Open With"
-msgid "Open Folder..."
+msgid "Open &Folder..."
 msgstr "Avamine rakendusega"
 
 #: kateprojectpluginview.cpp:192

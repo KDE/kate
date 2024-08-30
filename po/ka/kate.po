@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2024-06-30 07:19+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -201,8 +201,9 @@ msgstr "&ფაილი"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "ფაილის ქმედებები"
 
 #. i18n: ectx: Menu (edit)
@@ -213,8 +214,9 @@ msgstr "&ჩასწორება"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "მონიშნული"
 
 #. i18n: ectx: Menu (go)
@@ -1471,8 +1473,9 @@ msgstr ""
 "ადვილად მიაგნოთ მათ."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "&ყველას შენახვა"
 
 #: lib/katemainwindow.cpp:383
@@ -1481,8 +1484,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "ყველა ღია დოკუმენტის შენახვა."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&ყველას თავიდან ჩატვირთვა"
 
 #: lib/katemainwindow.cpp:388
@@ -1544,8 +1548,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "მინიშნების ჩვენება, როგორ შეადაროთ დოკუმენტები."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "მიტოვებულების დახურვა"
 
 #: lib/katemainwindow.cpp:445
@@ -1563,8 +1568,9 @@ msgid "Close the current document."
 msgstr "მიმდინარე დოკუმენტის დახურვა."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "სხვების დახურვა"
 
 #: lib/katemainwindow.cpp:456
@@ -1599,8 +1605,9 @@ msgid "Close this window"
 msgstr "ამ ფანჯრის დახურვა"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "&ახალი ფანჯარა"
 
 #: lib/katemainwindow.cpp:479

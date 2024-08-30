@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2024-06-30 18:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -215,8 +215,9 @@ msgstr "&Dosya"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Dosya Eylemleri"
 
 #. i18n: ectx: Menu (edit)
@@ -227,8 +228,9 @@ msgstr "Dü&zen"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Seçim"
 
 #. i18n: ectx: Menu (go)
@@ -1482,8 +1484,9 @@ msgstr ""
 "sağlar."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Tümünü &Kaydet"
 
 #: lib/katemainwindow.cpp:383
@@ -1492,8 +1495,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Bütün açık, değiştirilmiş belgeleri diske kaydet."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "Tümünü &Yeniden Yükle"
 
 #: lib/katemainwindow.cpp:388
@@ -1554,8 +1558,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Belgeleri karşılaştırmak için bir ipucu göster."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Terk Edilmişi Kapat"
 
 #: lib/katemainwindow.cpp:445
@@ -1573,8 +1578,9 @@ msgid "Close the current document."
 msgstr "Geçerli belgeyi kapat."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Diğerlerini Kapat"
 
 #: lib/katemainwindow.cpp:456
@@ -1608,8 +1614,9 @@ msgid "Close this window"
 msgstr "Bu pencereyi kapat"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "Yeni &Pencere"
 
 #: lib/katemainwindow.cpp:479

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-15 00:39+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2023-09-10 17:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -22,9 +22,8 @@ msgstr ""
 msgid "Filter..."
 msgstr "வடிகட்டு..."
 
-#. i18n: ectx: Menu (LSPClient Menubar)
 #: lspclientconfigpage.cpp:99 lspclientconfigpage.cpp:104
-#: lspclientpluginview.cpp:470 lspclientpluginview.cpp:611 ui.rc:6
+#: lspclientpluginview.cpp:470 lspclientpluginview.cpp:611
 #, kde-format
 msgid "LSP Client"
 msgstr ""
@@ -609,6 +608,12 @@ msgstr "அமைப்புக்கோப்பு"
 #, kde-format
 msgid "Default Server Settings"
 msgstr "இயல்பிருப்பு சேவையக அமைப்புகள்"
+
+#. i18n: ectx: Menu (LSPClient Menubar)
+#: ui.rc:6
+#, kde-format
+msgid "&LSP Client"
+msgstr ""
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31

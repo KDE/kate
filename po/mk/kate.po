@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2007-02-17 11:32+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -213,7 +213,7 @@ msgstr "Датотеки:"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Location"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Локација"
 
 #. i18n: ectx: Menu (edit)
@@ -226,7 +226,7 @@ msgstr "&Уреди..."
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "S&elected actions:"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Избрани д&ејства:"
 
 #. i18n: ectx: Menu (go)
@@ -1517,8 +1517,9 @@ msgstr ""
 "да ги отворите повторно."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Сними ги с&ите"
 
 #: lib/katemainwindow.cpp:383
@@ -1527,9 +1528,10 @@ msgid "Save all open, modified documents to disk."
 msgstr "Ги снима сите отворени, променети документи на диск."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Reload A&ll"
+msgstr "Приклучоци"
 
 #: lib/katemainwindow.cpp:388
 #, fuzzy, kde-format
@@ -1597,7 +1599,7 @@ msgstr "Ги затвора сите отворени документи."
 
 #: lib/katemainwindow.cpp:443
 #, fuzzy, kde-format
-msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Затвори го активното ливче"
 
 #: lib/katemainwindow.cpp:445
@@ -1614,7 +1616,7 @@ msgstr "Го затвора тековниот документ."
 
 #: lib/katemainwindow.cpp:452
 #, fuzzy, kde-format
-msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Затвори го активното ливче"
 
 #: lib/katemainwindow.cpp:456
@@ -1651,7 +1653,7 @@ msgstr "Го затвора овој прозорец"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Прозорец"
 
 #: lib/katemainwindow.cpp:479

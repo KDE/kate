@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2020-07-27 23:03+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -212,7 +212,7 @@ msgstr "&Fil"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Actions"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Handlinger"
 
 #. i18n: ectx: Menu (edit)
@@ -225,7 +225,7 @@ msgstr "&Redigér"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "Actions"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "Handlinger"
 
 #. i18n: ectx: Menu (go)
@@ -1492,8 +1492,9 @@ msgstr ""
 "at åbne dem igen."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "Gem a&lle"
 
 #: lib/katemainwindow.cpp:383
@@ -1502,8 +1503,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Gem alle åbne, ændrede dokumenter til disken."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&Genindlæs alle"
 
 #: lib/katemainwindow.cpp:388
@@ -1564,8 +1566,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Viser et tip om hvordan dokumenter kan sammenlignes."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Luk forældreløse"
 
 #: lib/katemainwindow.cpp:445
@@ -1583,8 +1586,9 @@ msgid "Close the current document."
 msgstr "Luk nuværende dokument."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Luk andre"
 
 #: lib/katemainwindow.cpp:456
@@ -1621,7 +1625,7 @@ msgstr "Luk dette vindue"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Vindue"
 
 #: lib/katemainwindow.cpp:479

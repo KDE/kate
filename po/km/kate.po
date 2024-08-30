@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -225,7 +225,7 @@ msgstr "ឯកសារ​"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Application"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "កម្មវិធី"
 
 #. i18n: ectx: Menu (edit)
@@ -238,7 +238,7 @@ msgstr "កែសម្រួល​"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "Application"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "កម្មវិធី"
 
 #. i18n: ectx: Menu (go)
@@ -1506,8 +1506,9 @@ msgstr ""
 "អំពើ​នេះ​នឹង​រាយ​ឯកសារ ដែល​អ្នក​បាន​បើក​ថ្មីៗ​នេះ ហើយ​អនុញ្ញាត​ឲ្យ​អ្នក​បើក​ពួក​វា​ម្ដង​ទៀត​យ៉ាង​ងាយស្រួល ។"
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "រក្សាទុក​ទាំងអស់"
 
 #: lib/katemainwindow.cpp:383
@@ -1516,8 +1517,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "រក្សាទុក​ឯកសារ​ដែល​បាន​បើក ដែល​បាន​កែប្រែ​ទាំងអស់​ទៅ​ថាស ។"
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "ផ្ទុក​ឡើងវិញ​ទាំងអស់"
 
 #: lib/katemainwindow.cpp:388
@@ -1585,8 +1587,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "បិទ​ឯកសារ​ដែលបើក​ផ្សេងទៀត ។"
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "បិទ​អ្វី​ដែល​កំព្រា"
 
 #: lib/katemainwindow.cpp:445
@@ -1603,8 +1606,9 @@ msgid "Close the current document."
 msgstr "បិទ​ឯកសារ​បច្ចុប្បន្ន ។"
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "បិទ​ផ្សេងទៀត"
 
 #: lib/katemainwindow.cpp:456
@@ -1641,7 +1645,7 @@ msgstr "បិទ​បង្អួច​នេះ"
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&New Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "បង្អួច​ថ្មី"
 
 #: lib/katemainwindow.cpp:479

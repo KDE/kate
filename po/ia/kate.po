@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2024-07-01 10:57+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -201,8 +201,9 @@ msgstr "&File"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "Actiones de File"
 
 #. i18n: ectx: Menu (edit)
@@ -213,8 +214,9 @@ msgstr "&Edita"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Selection"
 
 #. i18n: ectx: Menu (go)
@@ -1480,8 +1482,9 @@ msgstr ""
 "facilemente de aperir illos de nove."
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "S&alveguarda omne"
 
 #: lib/katemainwindow.cpp:383
@@ -1490,8 +1493,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Salveguarda omne documentos aperite, modificate sur disco."
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "&Recarga omne"
 
 #: lib/katemainwindow.cpp:388
@@ -1552,8 +1556,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Monstra un suggestiones sur como comparar documentos."
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "Claude orphano"
 
 #: lib/katemainwindow.cpp:445
@@ -1571,8 +1576,9 @@ msgid "Close the current document."
 msgstr "Claude le documento currente."
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "Claude altere"
 
 #: lib/katemainwindow.cpp:456
@@ -1607,8 +1613,9 @@ msgid "Close this window"
 msgstr "Claude iste fenestra"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "&Nove Fenestra"
 
 #: lib/katemainwindow.cpp:479

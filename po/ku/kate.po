@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2008-09-22 00:54+0200\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@nospam.gmail.com>\n"
 "Language-Team: American English <>\n"
@@ -197,7 +197,7 @@ msgstr "&Pel"
 #: lib/data/kateui.rc:30
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
-msgid "File Actions"
+msgid "File Act&ions"
 msgstr "&Danişîn"
 
 #. i18n: ectx: Menu (edit)
@@ -210,7 +210,7 @@ msgstr "&Sererastkirin"
 #: lib/data/kateui.rc:54
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
-msgid "&Selection"
+msgid "Sele&ction"
 msgstr "&Danişîn"
 
 #. i18n: ectx: Menu (go)
@@ -1430,7 +1430,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:380
 #, kde-format
-msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr ""
 
 #: lib/katemainwindow.cpp:383
@@ -1440,7 +1440,7 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:386
 #, kde-format
-msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr ""
 
 #: lib/katemainwindow.cpp:388
@@ -1501,9 +1501,10 @@ msgid "Shows a hint how to compare documents."
 msgstr ""
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgid "Close Orp&haned"
+msgstr "&Belge"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1518,9 +1519,10 @@ msgid "Close the current document."
 msgstr ""
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgid "Close O&ther"
+msgstr "&Belge"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1555,7 +1557,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "&Window"
-msgid "&New Window"
+msgid "New &Window"
 msgstr "&Pace"
 
 #: lib/katemainwindow.cpp:479

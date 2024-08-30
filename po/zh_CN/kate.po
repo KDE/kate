@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-29 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -203,8 +203,9 @@ msgstr "文件(&F)"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, kde-format
-msgid "File Actions"
+#, fuzzy, kde-format
+#| msgid "File Actions"
+msgid "File Act&ions"
 msgstr "文件操作"
 
 #. i18n: ectx: Menu (edit)
@@ -215,8 +216,9 @@ msgstr "编辑(&E)"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, kde-format
-msgid "&Selection"
+#, fuzzy, kde-format
+#| msgid "&Selection"
+msgid "Sele&ction"
 msgstr "选择(&S)"
 
 #. i18n: ectx: Menu (go)
@@ -1446,8 +1448,9 @@ msgid ""
 msgstr "这会列举您最近打开的文件，并能让您轻松地再打开它们。"
 
 #: lib/katemainwindow.cpp:380
-#, kde-format
-msgid "Save A&ll"
+#, fuzzy, kde-format
+#| msgid "Save A&ll"
+msgid "Sa&ve All"
 msgstr "全部保存(&L)"
 
 #: lib/katemainwindow.cpp:383
@@ -1456,8 +1459,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "把所有打开、修改过的文档保存到磁盘上。"
 
 #: lib/katemainwindow.cpp:386
-#, kde-format
-msgid "&Reload All"
+#, fuzzy, kde-format
+#| msgid "&Reload All"
+msgid "Reload A&ll"
 msgstr "全部重新加载(&R)"
 
 #: lib/katemainwindow.cpp:388
@@ -1518,8 +1522,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "显示如何比较文档的提示。"
 
 #: lib/katemainwindow.cpp:443
-#, kde-format
-msgid "Close Orphaned"
+#, fuzzy, kde-format
+#| msgid "Close Orphaned"
+msgid "Close Orp&haned"
 msgstr "关闭孤立文件"
 
 #: lib/katemainwindow.cpp:445
@@ -1535,8 +1540,9 @@ msgid "Close the current document."
 msgstr "关闭当前文档。"
 
 #: lib/katemainwindow.cpp:452
-#, kde-format
-msgid "Close Other"
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close O&ther"
 msgstr "关闭其他文档"
 
 #: lib/katemainwindow.cpp:456
@@ -1570,8 +1576,9 @@ msgid "Close this window"
 msgstr "关闭该窗口"
 
 #: lib/katemainwindow.cpp:476
-#, kde-format
-msgid "&New Window"
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "New &Window"
 msgstr "新建窗口(&N)"
 
 #: lib/katemainwindow.cpp:479

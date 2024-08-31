@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-07-27 14:32+0300\n"
+"PO-Revision-Date: 2024-08-30 12:06+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.07.70\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -857,10 +857,9 @@ msgid "Refresh git status"
 msgstr "Git durumunu yenile"
 
 #: kateprojectpluginview.cpp:186
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "Klasör Aç…"
+msgstr "&Klasör Aç…"
 
 #: kateprojectpluginview.cpp:192
 #, kde-format

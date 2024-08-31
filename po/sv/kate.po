@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-07-02 21:26+0200\n"
+"PO-Revision-Date: 2024-08-30 06:40+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.05.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -207,10 +207,9 @@ msgstr "&Arkiv"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Filåtgärder"
+msgstr "F&ilåtgärder"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -220,10 +219,9 @@ msgstr "&Redigera"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
-msgstr "&Markering"
+msgstr "Mar&kering"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -1471,10 +1469,9 @@ msgstr ""
 "igen."
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
-msgstr "Spara a&lla"
+msgstr "S&para alla"
 
 #: lib/katemainwindow.cpp:383
 #, kde-format
@@ -1482,10 +1479,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Spara alla öppna, ändrade dokument till disk."
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "Upp&datera alla"
+msgstr "Uppdatera a&lla"
 
 #: lib/katemainwindow.cpp:388
 #, kde-format
@@ -1546,10 +1542,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Visar ett tips om hur man jämför dokument."
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Stäng övergivna"
+msgstr "Stäng över&givna"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1566,10 +1561,9 @@ msgid "Close the current document."
 msgstr "Stäng aktuellt dokument."
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Stäng övriga"
+msgstr "S&täng övriga"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1602,10 +1596,9 @@ msgid "Close this window"
 msgstr "Stänger det här fönstret"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "&Nytt fönster"
+msgstr "Nytt &fönster"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format

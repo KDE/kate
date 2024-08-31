@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2023-08-26 05:59+0200\n"
+"PO-Revision-Date: 2024-08-30 05:34+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -613,10 +613,9 @@ msgstr "სერვერის ნაგულისხმები პარ�
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
-#, fuzzy, kde-format
-#| msgid "LSP Client"
+#, kde-format
 msgid "&LSP Client"
-msgstr "LSP კლიენტი"
+msgstr "&LSP კლიენტი"
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31

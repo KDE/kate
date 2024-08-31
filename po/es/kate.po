@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-06-30 17:23+0200\n"
+"PO-Revision-Date: 2024-08-31 02:01+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -32,7 +32,7 @@ msgstr ""
 "the.blue.valkyrie@gmail.com>\n"
 "com>\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -223,10 +223,9 @@ msgstr "&Archivo"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Acciones de archivos"
+msgstr "Acc&iones de archivos"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -236,10 +235,9 @@ msgstr "&Editar"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
-msgstr "&Selección"
+msgstr "Sele&cción"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -1509,8 +1507,7 @@ msgstr ""
 "abrirlos con facilidad."
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "Guardar &todo"
 
@@ -1520,8 +1517,7 @@ msgid "Save all open, modified documents to disk."
 msgstr "Guardar documentos abiertos o modificados en el disco."
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
 msgstr "&Volver a cargar todo"
 
@@ -1584,10 +1580,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Muestra un consejo sobre cómo comparar documentos."
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Cerrar huérfanos"
+msgstr "Cerrar &huérfanos"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1604,10 +1599,9 @@ msgid "Close the current document."
 msgstr "Cerrar el documento actual."
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Cerrar los demás"
+msgstr "Cerrar los &demás"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1640,10 +1634,9 @@ msgid "Close this window"
 msgstr "Cerrar esta ventana"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "&Nueva ventana"
+msgstr "Nueva &ventana"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format

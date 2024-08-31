@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-07-27 15:53+0200\n"
+"PO-Revision-Date: 2024-08-30 12:25+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -861,10 +861,9 @@ msgid "Refresh git status"
 msgstr "Actualizar «git status»"
 
 #: kateprojectpluginview.cpp:186
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "Abrir o cartafol…"
+msgstr "Abrir o carta&fol…"
 
 #: kateprojectpluginview.cpp:192
 #, kde-format

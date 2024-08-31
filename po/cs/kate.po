@@ -1,6 +1,6 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023 Vít Pelčák <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024 Vít Pelčák <vit@pelcak.org>
 # Lukáš Tinkl <ltinkl@redhat.com>, 2011.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
 # SPDX-FileCopyrightText: 2021, 2023, 2024 Vit Pelcak <vit@pelcak.org>
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-06-25 10:58+0200\n"
+"PO-Revision-Date: 2024-08-30 16:25+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -203,10 +203,9 @@ msgstr "Soubor"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Činnosti souboru"
+msgstr "Činnost&i souboru"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -216,10 +215,9 @@ msgstr "Úpravy"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
-msgstr "&Výběr"
+msgstr "Vý&běr"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -1443,8 +1441,7 @@ msgstr ""
 "otevřít znovu."
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "U&ložit vše"
 
@@ -1454,10 +1451,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Uložit všechny otevřené a změněné soubory na disk."
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "Znovu načíst vše"
+msgstr "Znov&u načíst vše"
 
 #: lib/katemainwindow.cpp:388
 #, kde-format
@@ -1517,10 +1513,9 @@ msgid "Shows a hint how to compare documents."
 msgstr ""
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Zavřít osiřelé"
+msgstr "Zavřít osiř&elé"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1535,10 +1530,9 @@ msgid "Close the current document."
 msgstr "Zavřít aktuální dokument."
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Zavřít ostatní"
+msgstr "Zavřít os&tatní"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1571,10 +1565,9 @@ msgid "Close this window"
 msgstr "Zavřít toto okno"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "&Nové okno"
+msgstr "Nové &okno"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format

@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-07-31 11:54+0200\n"
+"PO-Revision-Date: 2024-08-30 11:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -207,10 +207,9 @@ msgstr "Fi&txer"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Accions de fitxer"
+msgstr "Acc&ions de fitxer"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -220,10 +219,9 @@ msgstr "E&dita"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
-msgstr "&Selecció"
+msgstr "Sele&cció"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -1491,8 +1489,7 @@ msgstr ""
 "facilitat una altra vegada."
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "Guarda-ho &tot"
 
@@ -1502,10 +1499,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Guarda al disc tots els documents oberts modificats."
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "Act&ualitza-ho tot"
+msgstr "Actua&litza-ho tot"
 
 #: lib/katemainwindow.cpp:388
 #, kde-format
@@ -1567,10 +1563,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Mostra un consell quant a comparar documents."
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Tanca els orfes"
+msgstr "Tanca els or&fes"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1587,10 +1582,9 @@ msgid "Close the current document."
 msgstr "Tanca el document actual."
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Tanca els altres"
+msgstr "Tanca els al&tres"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1624,10 +1618,9 @@ msgid "Close this window"
 msgstr "Tanca esta finestra"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "Finestra &nova"
+msgstr "&Finestra nova"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format

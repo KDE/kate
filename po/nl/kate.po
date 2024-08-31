@@ -20,14 +20,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-07-01 10:09+0200\n"
+"PO-Revision-Date: 2024-08-30 12:47+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -218,10 +218,9 @@ msgstr "&Bestand"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Bestandsacties"
+msgstr "Bestandsact&ies"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -231,10 +230,9 @@ msgstr "Be&werken"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
-msgstr "&Selectie"
+msgstr "Sele&ctie"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -1505,8 +1503,7 @@ msgstr ""
 "kunt u ze snel opnieuw openen."
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "A&lles opslaan"
 
@@ -1516,8 +1513,7 @@ msgid "Save all open, modified documents to disk."
 msgstr "Alle geopende, gewijzigde bestanden opslaan."
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
 msgstr "Alles he&rladen"
 
@@ -1581,10 +1577,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Toont een hint hoe documenten te vergelijken."
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Verweesden sluiten"
+msgstr "Verw&eesden sluiten"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1601,10 +1596,9 @@ msgid "Close the current document."
 msgstr "Het huidige document sluiten."
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Andere sluiten"
+msgstr "A&ndere sluiten"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1638,10 +1632,9 @@ msgid "Close this window"
 msgstr "Sluit dit venster"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "&Nieuw venster"
+msgstr "Nieuw &venster"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format

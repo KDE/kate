@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-07-11 18:16+0200\n"
+"PO-Revision-Date: 2024-08-30 18:05+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -212,10 +212,9 @@ msgstr "&Fitxategia"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Fitxategien ekintzak"
+msgstr "Fitxategien ek&intzak"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -225,8 +224,7 @@ msgstr "&Editatu"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
 msgstr "&Hautapena"
 
@@ -1489,10 +1487,9 @@ msgstr ""
 "berriz erraz irekitzen uzten dizu."
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
-msgstr "Gorde &guztiak"
+msgstr "&Gorde dena"
 
 #: lib/katemainwindow.cpp:383
 #, kde-format
@@ -1500,10 +1497,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Gorde ireki eta aldatutako dokumentu guztiak diskoan."
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "Bi&rzamatu denak"
+msgstr "Birzamatu &dena"
 
 #: lib/katemainwindow.cpp:388
 #, kde-format
@@ -1563,10 +1559,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Argibide bat erakusten du dokumentuak konparatzeko erari buruz."
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Itxi umezurtzak"
+msgstr "Itxi ume&zurtzak"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1583,10 +1578,9 @@ msgid "Close the current document."
 msgstr "Itxi uneko dokumentua."
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Itxi besteak"
+msgstr "Itxi bes&teak"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1619,10 +1613,9 @@ msgid "Close this window"
 msgstr "Itxi leiho hau"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "Leiho &berria"
+msgstr "&Leiho berria"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format

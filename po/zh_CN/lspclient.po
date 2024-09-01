@@ -608,10 +608,9 @@ msgstr "默认服务器设置"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
-#, fuzzy, kde-format
-#| msgid "LSP Client"
+#, kde-format
 msgid "&LSP Client"
-msgstr "LSP 客户端"
+msgstr "LSP 客户端(&L)"
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31

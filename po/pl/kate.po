@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1689080 $
+# Version: $Revision: 1689183 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-07-14 13:10+0200\n"
+"PO-Revision-Date: 2024-08-31 07:02+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -216,10 +216,9 @@ msgstr "&Plik"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Działania na plikach"
+msgstr "Działan&ia na plikach"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -229,10 +228,9 @@ msgstr "&Edycja"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
-msgstr "&Zaznaczenie"
+msgstr "Zazna&czenie"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -1490,8 +1488,7 @@ msgstr ""
 "z nich."
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "Zapisz w&szystkie"
 
@@ -1501,10 +1498,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Zapisz wszystkie otwarte lub zmienione pliki na dysk."
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "&Wczytaj ponownie wszystkie"
+msgstr "Wczytaj ponownie wsz&ystkie"
 
 #: lib/katemainwindow.cpp:388
 #, kde-format
@@ -1525,7 +1521,7 @@ msgstr "&Otwórz katalog zawierający"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Zmień nazwę..."
+msgstr "Przemianuj..."
 
 #: lib/katemainwindow.cpp:415
 #, kde-format
@@ -1564,10 +1560,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Podpowiada jak porównać dwa dokumenty."
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Zamknij porzucone"
+msgstr "Zamknij &porzucone"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1584,10 +1579,9 @@ msgid "Close the current document."
 msgstr "Zamknij bieżący dokument."
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Zamknij pozostałe"
+msgstr "Zamknij pozos&tałe"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1620,10 +1614,9 @@ msgid "Close this window"
 msgstr "Zamknij okno"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "&Nowe okno"
+msgstr "No&we okno"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
@@ -2029,7 +2022,7 @@ msgstr "[NOWY]"
 #: lib/kateoutputview.cpp:175
 #, kde-format
 msgid "Search..."
-msgstr "Szukaj..."
+msgstr "Poszukaj..."
 
 #: lib/kateoutputview.cpp:192
 #, kde-format

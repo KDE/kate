@@ -203,10 +203,9 @@ msgstr "文件(&F)"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "文件操作"
+msgstr "文件操作(&I)"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -216,10 +215,9 @@ msgstr "编辑(&E)"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
-msgstr "选择(&S)"
+msgstr "选择(&C)"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -1448,10 +1446,9 @@ msgid ""
 msgstr "这会列举您最近打开的文件，并能让您轻松地再打开它们。"
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
-msgstr "全部保存(&L)"
+msgstr "保存所有文档(&V)"
 
 #: lib/katemainwindow.cpp:383
 #, kde-format
@@ -1459,10 +1456,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "把所有打开、修改过的文档保存到磁盘上。"
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "全部重新加载(&R)"
+msgstr "重新加载所有文档(&L)"
 
 #: lib/katemainwindow.cpp:388
 #, kde-format
@@ -1522,10 +1518,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "显示如何比较文档的提示。"
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "关闭孤立文件"
+msgstr "关闭孤立文档(&H)"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1540,10 +1535,9 @@ msgid "Close the current document."
 msgstr "关闭当前文档。"
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "关闭其他文档"
+msgstr "关闭其他文档(&T)"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1553,7 +1547,7 @@ msgstr "关闭其他打开的文档。"
 #: lib/katemainwindow.cpp:459
 #, kde-format
 msgid "Clos&e All"
-msgstr "全部关闭(&E)"
+msgstr "关闭所有文档(&E)"
 
 #: lib/katemainwindow.cpp:461
 #, kde-format
@@ -1576,10 +1570,9 @@ msgid "Close this window"
 msgstr "关闭该窗口"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "新建窗口(&N)"
+msgstr "新建窗口(&W)"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
@@ -1689,7 +1682,7 @@ msgstr "关闭所有文档？"
 #: lib/katemainwindow.cpp:616
 #, kde-format
 msgid "Close All"
-msgstr "关闭全部"
+msgstr "关闭所有文档"
 
 #: lib/katemainwindow.cpp:630
 #, kde-format
@@ -1706,7 +1699,7 @@ msgstr "关闭除了当前文档之外的所有文档？"
 #: lib/katemainwindow.cpp:632
 #, kde-format
 msgid "Close Others"
-msgstr "关闭其他"
+msgstr "关闭其他文档"
 
 #: lib/katemainwindow.cpp:870
 #, kde-format
@@ -2274,12 +2267,12 @@ msgstr "显示欢迎页面"
 #: lib/kateviewmanager.cpp:295
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr "启用/关闭滚动同步"
+msgstr "打开/关闭滚动同步"
 
 #: lib/kateviewmanager.cpp:296
 #, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "启用/关闭当前视图的滚动同步"
+msgstr "打开/关闭当前视图的滚动同步"
 
 #: lib/kateviewmanager.cpp:369
 #, kde-format

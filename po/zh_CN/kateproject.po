@@ -846,10 +846,9 @@ msgid "Refresh git status"
 msgstr "刷新 git 状态"
 
 #: kateprojectpluginview.cpp:186
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "打开文件夹..."
+msgstr "打开文件夹(&F)..."
 
 #: kateprojectpluginview.cpp:192
 #, kde-format

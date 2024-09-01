@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1686566 $
+# Version: $Revision: 1689183 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-06 02:33+0000\n"
-"PO-Revision-Date: 2024-07-14 13:10+0200\n"
+"PO-Revision-Date: 2024-08-31 07:02+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -1521,7 +1521,7 @@ msgstr "&Otwórz katalog zawierający"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Zmień nazwę..."
+msgstr "Przemianuj..."
 
 #: lib/katemainwindow.cpp:412
 #, kde-format
@@ -2022,7 +2022,7 @@ msgstr "[NOWY]"
 #: lib/kateoutputview.cpp:175
 #, kde-format
 msgid "Search..."
-msgstr "Szukaj..."
+msgstr "Poszukaj..."
 
 #: lib/kateoutputview.cpp:192
 #, kde-format

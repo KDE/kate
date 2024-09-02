@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-07-30 18:40+0200\n"
+"PO-Revision-Date: 2024-09-01 15:32+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -863,10 +863,9 @@ msgid "Refresh git status"
 msgstr "Aggiorna lo stato di git"
 
 #: kateprojectpluginview.cpp:186
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "Apri cartella..."
+msgstr "Apri car&tella..."
 
 #: kateprojectpluginview.cpp:192
 #, kde-format

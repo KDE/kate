@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-08-16 13:48+0200\n"
+"PO-Revision-Date: 2024-08-31 09:20+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -876,10 +876,9 @@ msgid "Refresh git status"
 msgstr "Rafraîchir l'état « git »"
 
 #: kateprojectpluginview.cpp:186
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "Ouvrir un dossier..."
+msgstr "Ouvrir un &dossier..."
 
 #: kateprojectpluginview.cpp:192
 #, kde-format

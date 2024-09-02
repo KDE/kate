@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-24 00:42+0000\n"
-"PO-Revision-Date: 2024-07-23 16:27+0300\n"
+"PO-Revision-Date: 2024-08-31 21:43+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -489,15 +489,13 @@ msgid "Paste after"
 msgstr "הדבקה אחרי"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "הרצת פקודות"
+msgstr "פקודת בנייה"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "הגדרה"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2024-08-19 21:04+0200\n"
+"PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -205,10 +205,9 @@ msgstr "&Fil"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Filhandlingar"
+msgstr "&Filhandlingar"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -218,8 +217,7 @@ msgstr "&Rediger"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
 msgstr "&Utval"
 
@@ -1478,8 +1476,7 @@ msgstr ""
 "Ei liste over filer du nyleg har opna, slik at du lett kan opna dei på nytt."
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "La&gra alle"
 
@@ -1489,10 +1486,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Lagra alle opne, endra dokument."
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "Last &alle om att"
+msgstr "Last alle o&m att"
 
 #: lib/katemainwindow.cpp:388
 #, kde-format
@@ -1553,10 +1549,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Vis hint om samanlikning av dokument."
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Lukk utdaterte"
+msgstr "Lukk &utdaterte"
 
 #: lib/katemainwindow.cpp:445
 #, kde-format
@@ -1573,10 +1568,9 @@ msgid "Close the current document."
 msgstr "Lukk gjeldande dokumentet."
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Lukk andre"
+msgstr "Lukk an&dre"
 
 #: lib/katemainwindow.cpp:456
 #, kde-format
@@ -1609,8 +1603,7 @@ msgid "Close this window"
 msgstr "Lukk dette vindauget"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
 msgstr "Nytt &vindauge"
 

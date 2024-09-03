@@ -121,7 +121,7 @@ msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 msgstr ""
-"<qt><p>Aufruf: <code>kmplay &lt;name&gt;</code><p>Gespeichertes "
+"<qt><p>Aufruf: <code>kmplay &lt;name&gt;</code></p><p>Gespeichertes "
 "Tastaturmakro <code>&lt;name&gt;</code> ohne es zu laden wiedergeben.</p>%1</"
 "qt>"
 
@@ -131,7 +131,7 @@ msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
 "macro <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
-"<qt><p>Aufruf: <code>kmwipe &lt;name&gt;</code><p>Gespeichertes "
+"<qt><p>Aufruf: <code>kmwipe &lt;name&gt;</code></p><p>Gespeichertes "
 "Tastaturmakro <code>&lt;name&gt;</code> löschen.</p>%1</qt>"
 
 #: keyboardmacrospluginview.cpp:33

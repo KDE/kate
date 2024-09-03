@@ -13,6 +13,7 @@
         "Description[fi]": "Suorittaa ESLintin nykyiselle tiedostolle",
         "Description[fr]": "Exécute ESLint sur le fichier courant",
         "Description[gl]": "Executa ESLint no ficheiro actual.",
+        "Description[he]": "הרצת ESLint על הקובץ הנוכחי",
         "Description[hu]": "ESLint futtatása a jelenlegi fájlon",
         "Description[ia]": "Executa ESLint dur file currente",
         "Description[it]": "Esegue ESLint sul file corrente",

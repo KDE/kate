@@ -9,13 +9,13 @@
 # محمد سعد  Mohamed SAAD <metehyi@free.fr>, 2006.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, 2016, 2017.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:42+0000\n"
-"PO-Revision-Date: 2023-07-06 10:26+0400\n"
+"PO-Revision-Date: 2024-09-05 13:56+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -24,6 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -209,10 +210,9 @@ msgstr "&ملفّ"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "إجراءات الملف"
+msgstr "إجراءات ال&ملف"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -222,8 +222,7 @@ msgstr "ت&حرير"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
 msgstr "ال&تحديد"
 
@@ -255,10 +254,9 @@ msgstr "أ&دوات"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:125 lib/diagnostics/diagnosticview.cpp:290
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "التشخيص"
+msgstr "عرض التشخيص"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:130
@@ -313,11 +311,10 @@ msgid ""
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:340
-#, fuzzy, kde-format
-#| msgid "Diagnostics"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "التشخيص"
+msgstr "عرض التشخيص"
 
 #: lib/diagnostics/diagnosticview.cpp:345
 #, kde-format
@@ -1483,8 +1480,7 @@ msgid ""
 msgstr "يسرد هذا الملفّات التي فتحتها حديثًا، ويسمح لك بفتحها مجدّدًا بسهولة."
 
 #: lib/katemainwindow.cpp:380
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "احفظ ال&كلّ"
 
@@ -1494,8 +1490,7 @@ msgid "Save all open, modified documents to disk."
 msgstr "احفظ كلّ المستندات المفتوحة والمعدّلة إلى القرص."
 
 #: lib/katemainwindow.cpp:386
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
 msgstr "أ&عد تحميل الكلّ"
 
@@ -1557,8 +1552,7 @@ msgid "Shows a hint how to compare documents."
 msgstr "يظهر تلميحة حول كيفية مقارنة المستندات"
 
 #: lib/katemainwindow.cpp:443
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
 msgstr "أغلق اليتيمة"
 
@@ -1577,8 +1571,7 @@ msgid "Close the current document."
 msgstr "أغلق المستند الحاليّ."
 
 #: lib/katemainwindow.cpp:452
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
 msgstr "أغلق الأخرى"
 
@@ -1614,10 +1607,9 @@ msgid "Close this window"
 msgstr "أغلق هذه النّافذة"
 
 #: lib/katemainwindow.cpp:476
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "نافذة &جديدة"
+msgstr "&نافذة جديدة"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
@@ -1725,8 +1717,7 @@ msgid "Close all documents?"
 msgstr "أغلق كلّ المستندات."
 
 #: lib/katemainwindow.cpp:616
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
 msgstr "أ&غلق الكلّ"
 
@@ -1738,10 +1729,9 @@ msgid ""
 msgstr "سيُغلق هذا كلّ المستندات المفتوحة مع الحاليّ. أمتأكّد من المتابعة؟"
 
 #: lib/katemainwindow.cpp:631
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "أغلق كلّ المستندات مع الحاليّ."
+msgstr "أغلق كلّ المستندات مع الحاليّ؟"
 
 #: lib/katemainwindow.cpp:632
 #, fuzzy, kde-format
@@ -2097,18 +2087,16 @@ msgid ""
 msgstr "تعذّرت كتابة البيانات التي طلبت حفظها. فضلًا اختر كيفيّة المتابعة."
 
 #: lib/kateurlbar.cpp:911
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "انسخ المكان"
 
 #: lib/kateurlbar.cpp:916
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr "انسخ اسم الملف"
+msgstr "انسخ اسم الملفّ"
 
 #: lib/kateviewmanager.cpp:142
 #, kde-format
@@ -2380,10 +2368,9 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "فشل تفعيل محلقة <b>%1</b>"
 
 #: lib/kateviewspace.cpp:94
-#, fuzzy, kde-format
-#| msgid "&New Synchronized Window"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "نافذة مزامنة &جديدة"
+msgstr "زامِن التمرير"
 
 #: lib/kateviewspace.cpp:96
 #, kde-format
@@ -2916,8 +2903,7 @@ msgstr "أدر الجلسات..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
 msgstr "أظهر شاشة الترحيب للنوافذ الجديدة"
 

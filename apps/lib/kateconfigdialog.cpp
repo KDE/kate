@@ -30,6 +30,7 @@
 #include <KSharedConfig>
 
 #include <QCheckBox>
+#include <QCloseEvent>
 #include <QComboBox>
 #include <QDesktopServices>
 #include <QDialogButtonBox>

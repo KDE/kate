@@ -17,14 +17,17 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>
+#include <KToggleAction>
 #include <KToolBar>
 #include <KWindowConfig>
 #include <KXMLGUIFactory>
 
 #include <QApplication>
+#include <QChildEvent>
 #include <QContextMenuEvent>
 #include <QDomDocument>
 #include <QDrag>
+#include <QEvent>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMenu>
@@ -38,40 +41,29 @@
 
 namespace KateMDI
 {
-// BEGIN TOGGLETOOLVIEWACTION
-//
-ToggleToolViewAction::ToggleToolViewAction(const QString &text, ToolView *tv, QObject *parent)
-    : KToggleAction(text, parent)
-    , m_tv(tv)
+
+static KToggleAction *createToolViewToggleAction(const QString &text, ToolView *tv, QObject *parent)
 {
-    connect(this, &ToggleToolViewAction::toggled, this, &ToggleToolViewAction::slotToggled);
-    connect(m_tv, &ToolView::toolVisibleChanged, this, &ToggleToolViewAction::toolVisibleChanged);
-
-    setChecked(m_tv->toolVisible());
+    auto a = new KToggleAction(text, parent);
+    a->setChecked(tv->toolVisible());
+    QObject::connect(a, &KToggleAction::toggled, a, [tv](bool t) {
+        if (tv->toolVisible() == t) {
+            return;
+        }
+        if (t) {
+            tv->mainWindow()->showToolView(tv);
+            tv->setFocus();
+        } else {
+            tv->mainWindow()->hideToolView(tv);
+        }
+    });
+    QObject::connect(tv, &ToolView::toolVisibleChanged, a, [a](bool v) {
+        if (a->isChecked() != v) {
+            a->setChecked(v);
+        }
+    });
+    return a;
 }
-
-void ToggleToolViewAction::toolVisibleChanged(bool v)
-{
-    if (isChecked() != v) {
-        setChecked(v);
-    }
-}
-
-void ToggleToolViewAction::slotToggled(bool t)
-{
-    if (m_tv->toolVisible() == t) {
-        return;
-    }
-
-    if (t) {
-        m_tv->mainWindow()->showToolView(m_tv);
-        m_tv->setFocus();
-    } else {
-        m_tv->mainWindow()->hideToolView(m_tv);
-    }
-}
-
-// END TOGGLETOOLVIEWACTION
 
 // BEGIN GUICLIENT
 
@@ -164,7 +156,7 @@ void GUIClient::registerToolView(ToolView *tv)
     };
 
     /** Show ToolView Action **/
-    KToggleAction *a = new ToggleToolViewAction(i18n("Show %1", tv->text), tv, this);
+    KToggleAction *a = createToolViewToggleAction(i18n("Show %1", tv->text), tv, this);
     actionCollection()->setDefaultShortcuts(a, shortcutsForActionName(aname));
     actionCollection()->addAction(aname, a);
 

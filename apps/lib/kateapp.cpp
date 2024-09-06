@@ -7,6 +7,7 @@
 
 #include "kateapp.h"
 
+#include "doc_or_widget.h"
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
 
@@ -19,6 +20,7 @@
 #include <KMessageBox>
 #include <KNetworkMounts>
 #include <KSharedConfig>
+#include <KTextEditor/View>
 #include <KWindowSystem>
 
 #define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
@@ -544,7 +546,7 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
     if (noDir) {
         KateDocumentInfo docInfo;
         docInfo.startCursor = c;
-        doc = mainWindow->viewManager()->openUrl(url, encoding, activateView, isTempFile, docInfo);
+        doc = mainWindow->viewManager()->openUrl(url, encoding, activateView, isTempFile, &docInfo);
     } else {
         KMessageBox::error(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
     }

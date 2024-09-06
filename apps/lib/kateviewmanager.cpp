@@ -10,8 +10,10 @@
 #include "kateviewmanager.h"
 
 #include "kateapp.h"
+#include "katedocmanager.h"
 #include "katemainwindow.h"
 #include "kateupdatedisabler.h"
+#include "kateviewspace.h"
 #include "welcomeview/welcomeview.h"
 
 #include <KTextEditor/Attribute>
@@ -29,6 +31,7 @@
 #include <KXMLGUIFactory>
 
 #include <QFileDialog>
+#include <QScrollBar>
 #include <QTimer>
 
 // END Includes
@@ -378,7 +381,7 @@ void KateViewManager::slotDocumentOpen()
     // activate view of last opened document
     KateDocumentInfo docInfo;
     docInfo.openedByUser = true;
-    if (KTextEditor::Document *lastID = openUrls(urls, QString(), docInfo)) {
+    if (KTextEditor::Document *lastID = openUrls(urls, QString(), &docInfo)) {
         for (const QUrl &url : std::as_const(urls)) {
             m_mainWindow->addRecentOpenedFile(url);
         }
@@ -443,7 +446,7 @@ void KateViewManager::slotRestoreLastClosedDocument()
 }
 
 KTextEditor::Document *
-KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool ignoreForRecentFiles, const KateDocumentInfo &docInfo)
+KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool ignoreForRecentFiles, const KateDocumentInfo *docInfo)
 {
     auto doc = openUrls({&url, 1}, encoding, docInfo);
     if (!doc) {
@@ -461,7 +464,7 @@ KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate
     return doc;
 }
 
-KTextEditor::Document *KateViewManager::openUrls(std::span<const QUrl> urls, const QString &encoding, const KateDocumentInfo &docInfo)
+KTextEditor::Document *KateViewManager::openUrls(std::span<const QUrl> urls, const QString &encoding, const KateDocumentInfo *docInfo)
 {
     // remember if we have just one view with an unmodified untitled document, if yes, we close that one
     // same heuristics we had before in the document manager for the single untitled doc, but this works for multiple main windows
@@ -474,7 +477,7 @@ KTextEditor::Document *KateViewManager::openUrls(std::span<const QUrl> urls, con
     }
 
     // try to open all given files, early out if nothing done
-    auto docs = KateApp::self()->documentManager()->openUrls(urls, encoding, docInfo);
+    auto docs = KateApp::self()->documentManager()->openUrls(urls, encoding, docInfo ? *docInfo : KateDocumentInfo());
     if (docs.empty()) {
         return nullptr;
     }
@@ -1882,6 +1885,33 @@ void KateViewManager::triggerActiveViewFocus()
             return;
         }
     });
+}
+
+KateViewManager::ScrollSynchronisation::ScrollBarInfo KateViewManager::ScrollSynchronisation::getViewScrollBarInfo(KTextEditor::View *view)
+{
+    if (!view) {
+        return ScrollBarInfo{};
+    }
+    const QList<QScrollBar *> scrollBars = view->findChildren<QScrollBar *>();
+    // Cannot use std::find_if because QList<>::last() is inclusive
+    ScrollSynchronisation::ScrollBarInfo scrollBarInfo;
+    scrollBarInfo.scrollBar = [scrollBars] {
+        for (auto scrollBar : scrollBars) {
+            if (qstrcmp(scrollBar->metaObject()->className(), "KateScrollBar") == 0) {
+                return scrollBar;
+            }
+        }
+        Q_ASSERT_X(false,
+                   "void "
+                   "KateViewManager::ScrollSynchronisation::getViewScrollBarInfo("
+                   "KTextEditor::View *currentView)",
+                   "No QScrollBar* named \"KateScrollBar\" found in the selected View");
+        return static_cast<QScrollBar *>(nullptr);
+    }();
+    if (scrollBarInfo.scrollBar) {
+        scrollBarInfo.initScrollValue = scrollBarInfo.scrollBar->value() - this->referenceScrollValue;
+    }
+    return scrollBarInfo;
 }
 
 #include "moc_kateviewmanager.cpp"

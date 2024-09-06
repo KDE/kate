@@ -17,6 +17,7 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 
 #include <KColorScheme>
 #include <KMessageWidget>
@@ -1586,6 +1587,17 @@ void DiagnosticsView::nextItem()
 void DiagnosticsView::previousItem()
 {
     moveDiagnosticsSelection(false);
+}
+
+void DiagTabOverlay::paintEvent(QPaintEvent *)
+{
+    if (m_active) {
+        QPainter p(this);
+        p.setOpacity(0.25);
+        p.setBrush(KColorScheme().foreground(KColorScheme::NeutralText));
+        p.setPen(Qt::NoPen);
+        p.drawRect(rect().adjusted(1, 1, -1, -1));
+    }
 }
 
 #include "moc_diagnosticview.cpp"

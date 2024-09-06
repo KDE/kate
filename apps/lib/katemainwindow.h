@@ -11,16 +11,8 @@
 #include "katemdi.h"
 #include "kateviewmanager.h"
 
-#include <KTextEditor/Document>
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/view.h>
 
-#include <KIO/UDSEntry>
-#include <KParts/Part>
-
-#include <QDragEnterEvent>
-#include <QDropEvent>
-#include <QEvent>
 #include <QHash>
 #include <QStackedLayout>
 #include <QUrl>
@@ -38,6 +30,7 @@ namespace KIO
 {
 class UDSEntry;
 typedef class QList<UDSEntry> UDSEntryList;
+class Job;
 }
 
 class KFileItem;
@@ -46,6 +39,9 @@ class KRecentFilesAction;
 class KateOutputView;
 class KateViewManager;
 class KateMwModOnHdDialog;
+class QDragEnterEvent;
+class QDropEvent;
+class QEvent;
 
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
@@ -383,10 +379,7 @@ public Q_SLOTS:
      * \param document the document
      * \return activated view of this document
      */
-    KTextEditor::View *activateView(KTextEditor::Document *document)
-    {
-        return viewManager()->activateView(document);
-    }
+    KTextEditor::View *activateView(KTextEditor::Document *document);
 
     /**
      * Open the document \p url with the given \p encoding.

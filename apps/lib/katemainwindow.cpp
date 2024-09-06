@@ -38,10 +38,12 @@
 #include <KFileItem>
 #include <KHelpClient>
 #include <KIO/ListJob>
+#include <KIO/UDSEntry>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMultiTabBar>
 #include <KOpenWithDialog>
+#include <KParts/Part>
 #include <KRecentFilesAction>
 #include <KSharedConfig>
 #include <KShortcutsDialog>
@@ -58,6 +60,9 @@
 
 #include <QApplication>
 #include <QDir>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QEvent>
 #include <QFontDatabase>
 #include <QKeySequence>
 #include <QList>
@@ -1593,6 +1598,11 @@ QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin,
                                         const QString &text)
 {
     return KateMDI::MainWindow::createToolView(plugin, identifier, static_cast<KMultiTabBar::KMultiTabBarPosition>(pos), icon, text);
+}
+
+KTextEditor::View *KateMainWindow::activateView(KTextEditor::Document *document)
+{
+    return viewManager()->activateView(document);
 }
 
 bool KateMainWindow::moveToolView(QWidget *widget, KTextEditor::MainWindow::ToolViewPosition pos)

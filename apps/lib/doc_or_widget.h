@@ -59,7 +59,6 @@ public:
         *this = null();
     }
 };
-Q_DECLARE_METATYPE(DocOrWidget)
 
 namespace std
 {

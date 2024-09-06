@@ -10,13 +10,11 @@
 #include "diagnostic_types.h"
 
 #include <QJsonObject>
-#include <QPainter>
 #include <QPointer>
 #include <QStandardItemModel>
 #include <QUrl>
 #include <QWidget>
 
-#include <KColorScheme>
 #include <KXMLGUIClient>
 
 #include <KTextEditor/Document>
@@ -138,16 +136,7 @@ public:
     }
 
 protected:
-    void paintEvent(QPaintEvent *) override
-    {
-        if (m_active) {
-            QPainter p(this);
-            p.setOpacity(0.25);
-            p.setBrush(KColorScheme().foreground(KColorScheme::NeutralText));
-            p.setPen(Qt::NoPen);
-            p.drawRect(rect().adjusted(1, 1, -1, -1));
-        }
-    }
+    void paintEvent(QPaintEvent *) override;
 
 private:
     bool m_active = false;

@@ -8,15 +8,11 @@
 
 #pragma once
 
-#include "doc_or_widget.h"
-#include "katedocmanager.h"
 #include "kateprivate_export.h"
 #include "katesplitter.h"
-#include "kateviewspace.h"
 
 #include <QList>
 #include <QPointer>
-#include <QScrollBar>
 
 #include <span>
 #include <unordered_map>
@@ -25,14 +21,16 @@ namespace KTextEditor
 {
 class View;
 class Document;
+class Cursor;
 }
 
 class KateDocumentInfo;
-
+class DocOrWidget;
 class KConfigGroup;
 class KConfigBase;
 class KateMainWindow;
 class KateViewSpace;
+class QScrollBar;
 
 class KATE_PRIVATE_EXPORT KateViewManager : public KateSplitter
 {
@@ -64,13 +62,10 @@ public:
     /* restore it */
     void restoreViewConfiguration(const KConfigGroup &group);
 
-    KTextEditor::Document *openUrl(const QUrl &url,
-                                   const QString &encoding,
-                                   bool activate = true,
-                                   bool ignoreForRecentFiles = false,
-                                   const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *
+    openUrl(const QUrl &url, const QString &encoding, bool activate = true, bool ignoreForRecentFiles = false, const KateDocumentInfo *docInfo = nullptr);
 
-    KTextEditor::Document *openUrls(std::span<const QUrl> url, const QString &encoding, const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *openUrls(std::span<const QUrl> url, const QString &encoding, const KateDocumentInfo *docInfo = nullptr);
 
     KTextEditor::View *openUrlWithView(const QUrl &url, const QString &encoding);
 
@@ -444,32 +439,7 @@ private:
          */
         QHash<KTextEditor::View *, ScrollBarInfo> viewScrollInfo;
 
-        ScrollBarInfo getViewScrollBarInfo(KTextEditor::View *view)
-        {
-            if (!view) {
-                return ScrollBarInfo{};
-            }
-            const QList<QScrollBar *> scrollBars = view->findChildren<QScrollBar *>();
-            // Cannot use std::find_if because QList<>::last() is inclusive
-            ScrollSynchronisation::ScrollBarInfo scrollBarInfo;
-            scrollBarInfo.scrollBar = [scrollBars] {
-                for (auto scrollBar : scrollBars) {
-                    if (qstrcmp(scrollBar->metaObject()->className(), "KateScrollBar") == 0) {
-                        return scrollBar;
-                    }
-                }
-                Q_ASSERT_X(false,
-                           "void "
-                           "KateViewManager::ScrollSynchronisation::getViewScrollBarInfo("
-                           "KTextEditor::View *currentView)",
-                           "No QScrollBar* named \"KateScrollBar\" found in the selected View");
-                return static_cast<QScrollBar *>(nullptr);
-            }();
-            if (scrollBarInfo.scrollBar) {
-                scrollBarInfo.initScrollValue = scrollBarInfo.scrollBar->value() - this->referenceScrollValue;
-            }
-            return scrollBarInfo;
-        }
+        ScrollBarInfo getViewScrollBarInfo(KTextEditor::View *view);
     } m_scrollSynchronisation;
 
     /**

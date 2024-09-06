@@ -12,11 +12,8 @@
 #include <KParts/MainWindow>
 
 #include <KMultiTabBar>
-#include <KToggleAction>
 #include <KXMLGUIClient>
 
-#include <QChildEvent>
-#include <QEvent>
 #include <QFrame>
 #include <QPointer>
 #include <QSplitter>
@@ -33,33 +30,20 @@ class QStackedWidget;
 class KConfigBase;
 class QHBoxLayout;
 class QRubberBand;
+class QEvent;
+class QChildEvent;
 
 namespace KTextEditor
 {
 class ConfigPageInterface;
 }
-
+class KToggleAction;
 namespace KateMDI
 {
 class ToolView;
 
-class ToggleToolViewAction : public KToggleAction
-{
-public:
-    ToggleToolViewAction(const QString &text, ToolView *tv, QObject *parent);
-
-protected:
-    void slotToggled(bool) override;
-    void toolVisibleChanged(bool);
-
-private:
-    ToolView *m_tv;
-};
-
 class GUIClient : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     explicit GUIClient(class MainWindow *mw);
 
@@ -89,7 +73,6 @@ class ToolView : public QFrame
     friend class MultiTabBar;
     friend class MainWindow;
     friend class GUIClient;
-    friend class ToggleToolViewAction;
 
 protected:
     /**
@@ -111,6 +94,11 @@ public:
      */
     ~ToolView() override;
 
+    MainWindow *mainWindow()
+    {
+        return m_mainWin;
+    }
+
 Q_SIGNALS:
     /**
      * toolview hidden or shown
@@ -124,11 +112,6 @@ Q_SIGNALS:
      * some internal methodes needed by the main window and the sidebars
      */
 protected:
-    MainWindow *mainWindow()
-    {
-        return m_mainWin;
-    }
-
     Sidebar *sidebar()
     {
         return m_sidebar;

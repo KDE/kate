@@ -62,6 +62,14 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
 
     if (caps.semanticTokenProvider.range) {
         connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &SemanticHighlighter::semanticHighlightRange, Qt::UniqueConnection);
+    } else {
+        // semanticTokens/full
+        disconnect(m_verticalScrollConnection);
+        m_verticalScrollConnection = connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, [server, this]() {
+            const auto legend = &server->capabilities().semanticTokenProvider.legend;
+            // highlight the newly scrolled region
+            highlight(m_currentView, legend);
+        });
     }
 
     //  m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
@@ -182,18 +190,29 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
         return;
     }
 
+    const KTextEditor::Range visibleRange = Utils::getVisibleRange(view);
+
     uint32_t currentLine = 0;
     uint32_t start = 0;
     auto oldRanges = std::move(movingRanges);
 
     for (size_t i = 0; i < data.size(); i += 5) {
         const uint32_t deltaLine = data[i];
+
+        currentLine += deltaLine;
+
+        // we only highlight currently visible lines
+        if (!visibleRange.overlapsLine(currentLine)) {
+            if (visibleRange.end().line() < (int)currentLine) {
+                break;
+            }
+            continue;
+        }
+
         const uint32_t deltaStart = data[i + 1];
         const uint32_t len = data[i + 2];
         const uint32_t type = data[i + 3];
         // auto mod = data[i + 4];
-
-        currentLine += deltaLine;
 
         if (deltaLine == 0) {
             start += deltaStart;

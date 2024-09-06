@@ -96,4 +96,6 @@ private:
 
     QTimer m_requestTimer;
     QPointer<KTextEditor::View> m_currentView;
+
+    QMetaObject::Connection m_verticalScrollConnection;
 };

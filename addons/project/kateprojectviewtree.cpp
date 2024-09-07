@@ -19,6 +19,7 @@
 
 #include <QContextMenuEvent>
 #include <QDir>
+#include <QScrollBar>
 
 #include <KLocalizedString>
 
@@ -63,6 +64,19 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     connect(this, &KateProjectViewTree::activated, this, &KateProjectViewTree::slotClicked);
     connect(this, &KateProjectViewTree::clicked, this, &KateProjectViewTree::slotClicked);
     connect(m_project, &KateProject::modelChanged, this, &KateProjectViewTree::slotModelChanged);
+
+    connect(this, &QTreeView::expanded, this, [this](const QModelIndex &index) {
+        QString path = index.data(Qt::UserRole).toString().remove(m_project->baseDir());
+        m_expandedNodes.insert(path);
+    });
+
+    connect(this, &QTreeView::collapsed, this, [this](const QModelIndex &index) {
+        QString path = index.data(Qt::UserRole).toString().remove(m_project->baseDir());
+        m_expandedNodes.remove(path);
+    });
+    connect(m_project, &KateProject::projectMapChanged, this, [this] {
+        m_verticalScrollPosition = verticalScrollBar()->value();
+    });
 
     /**
      * trigger once some slots
@@ -249,6 +263,43 @@ void KateProjectViewTree::slotModelChanged()
     if (activeView && activeView->document()->url().isLocalFile()) {
         selectFile(activeView->document()->url().toLocalFile());
     }
+
+    auto findInParent = [](const QString &name, QStandardItem *parent) {
+        for (int i = 0; i < parent->rowCount(); ++i) {
+            if (parent->child(i)->text() == name) {
+                return parent->child(i);
+            }
+        }
+        return static_cast<QStandardItem *>(nullptr);
+    };
+
+    auto proxy = static_cast<QSortFilterProxyModel *>(model());
+    auto root = m_project->model()->invisibleRootItem();
+    for (const auto &path : std::as_const(m_expandedNodes)) {
+        QStringList parts = path.split(QStringLiteral("/"), Qt::SkipEmptyParts);
+        if (parts.empty()) {
+            continue;
+        }
+        QStandardItem *parent = root;
+        for (const auto &part : std::as_const(parts)) {
+            parent = findInParent(part, parent);
+            if (!parent) {
+                break;
+            }
+        }
+
+        if (parent) {
+            auto index = proxy->mapFromSource(m_project->model()->indexFromItem(parent));
+            expand(index);
+        }
+    }
+
+    QMetaObject::invokeMethod(
+        this,
+        [this] {
+            verticalScrollBar()->setValue(m_verticalScrollPosition);
+        },
+        Qt::QueuedConnection);
 }
 
 void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)

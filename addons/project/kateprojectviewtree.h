@@ -100,4 +100,14 @@ private:
      * our project
      */
     KateProject *m_project;
+
+    /**
+     * List of nodes that are expanded. This is used to restore expansion state after project reload
+     */
+    QSet<QString> m_expandedNodes;
+
+    /**
+     * saved scroll position for restore later
+     */
+    int m_verticalScrollPosition = 0;
 };

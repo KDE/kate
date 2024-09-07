@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-06 02:33+0000\n"
-"PO-Revision-Date: 2024-08-14 00:32+0330\n"
+"PO-Revision-Date: 2024-09-06 22:32+0330\n"
 "Last-Translator: Mohi Mirdamadi <mohi.pub@gmail.com>\n"
 "Language-Team: fa\n"
 "Language: fa\n"
@@ -691,7 +691,7 @@ msgstr ""
 #: lib/kateapp.cpp:293
 #, kde-format
 msgid "The cool buffersystem"
-msgstr "سیستم میان‌گیر cool"
+msgstr "سامانه میان‌گیر cool"
 
 #: lib/kateapp.cpp:294
 #, kde-format

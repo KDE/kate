@@ -1,22 +1,22 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Mohi Mirdamadi <mohi@ubuntu.ir>, 2014, ۲۰۱۶.
+# SPDX-FileCopyrightText: 2014, 2024 Mohi Mirdamadi <mohi@ubuntu.ir>
 # ehsan <ehsan.abdolahy@gmail.com>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-13 00:40+0000\n"
-"PO-Revision-Date: ۲۰۱۶-۰۸-۲۰ ۱۶:۴۶+0330\n"
-"Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
-"Language-Team: Persian <kde-i18n-fa@kde.org>\n"
+"PO-Revision-Date: 2024-09-06 22:32+0330\n"
+"Last-Translator: Mohi Mirdamadi <mohi.pub@gmail.com>\n"
+"Language-Team: fa\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: katefilebrowser.cpp:100
 #, kde-format
@@ -97,18 +97,18 @@ msgstr "ک&نش‌های انتخاب شده:"
 #: katefilebrowserconfig.cpp:84
 #, kde-format
 msgid "Filesystem Browser"
-msgstr "مرورگر سیستم پرونده"
+msgstr "مرورگر سامانه پرونده"
 
 #: katefilebrowserconfig.cpp:89
 #, kde-format
 msgid "Filesystem Browser Settings"
-msgstr "تنظیمات مرورگر سیستم پرونده"
+msgstr "تنظیمات مرورگر سامانه پرونده"
 
 #: katefilebrowserplugin.cpp:66
 #, fuzzy, kde-format
 #| msgid "Filesystem Browser"
 msgid "Filesystem"
-msgstr "مرورگر سیستم پرونده"
+msgstr "مرورگر سامانه پرونده"
 
 #~ msgid "Filter:"
 #~ msgstr "پالایه:"

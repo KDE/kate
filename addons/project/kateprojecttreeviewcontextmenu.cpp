@@ -36,12 +36,13 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
 
-static QString getName(QWidget *parent)
+static QString getName(QWidget *parent, const QString &title)
 {
     QInputDialog dlg(parent);
+    dlg.setWindowTitle(title);
     dlg.setLabelText(i18n("Enter name:"));
-    dlg.setOkButtonText(i18n("Add"));
     dlg.setInputMode(QInputDialog::TextInput);
+    dlg.resize(400, dlg.height());
 
     int res = dlg.exec();
     bool suc = res == QDialog::Accepted;
@@ -68,8 +69,8 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     QAction *addFile = nullptr;
     QAction *addFolder = nullptr;
     if (isRootDirectory || index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
-        addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("Add File"));
-        addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("Add Folder"));
+        addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("New File…"));
+        addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("New Folder…"));
     }
 
     // we can ATM only handle file renames
@@ -184,12 +185,12 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         } else if (action == fileHistory) {
             FileHistory::showFileHistory(index.data(Qt::UserRole).toString());
         } else if (addFile && action == addFile) {
-            QString name = getName(parent);
+            QString name = getName(parent, i18n("New File"));
             if (!name.isEmpty()) {
                 parent->addFile(index, name);
             }
         } else if (addFolder && action == addFolder) {
-            QString name = getName(parent);
+            QString name = getName(parent, i18n("New Folder"));
             if (!name.isEmpty()) {
                 parent->addDirectory(index, name);
             }

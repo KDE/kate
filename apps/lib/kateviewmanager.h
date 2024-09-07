@@ -13,6 +13,7 @@
 
 #include <QList>
 #include <QPointer>
+#include <QUrl>
 
 #include <span>
 #include <unordered_map>

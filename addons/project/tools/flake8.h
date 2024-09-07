@@ -8,6 +8,10 @@
 #pragma once
 
 #include "../kateprojectcodeanalysistool.h"
+#include "kateproject.h"
+
+#include <KLocalizedString>
+#include <QRegularExpression>
 
 /**
  * Information provider for flake8
@@ -15,25 +19,78 @@
 class KateProjectCodeAnalysisToolFlake8 : public KateProjectCodeAnalysisTool
 {
 public:
-    explicit KateProjectCodeAnalysisToolFlake8(QObject *parent = nullptr);
+    using KateProjectCodeAnalysisTool::KateProjectCodeAnalysisTool;
 
-    ~KateProjectCodeAnalysisToolFlake8() override;
+    QString name() const override
+    {
+        return i18n("Flake8 (Python)");
+    }
 
-    QString name() const override;
+    QString description() const override
+    {
+        return i18n("Flake8: Your Tool For Style Guide Enforcement for Python");
+    }
 
-    QString description() const override;
+    QString fileExtensions() const override
+    {
+        return QStringLiteral("py");
+    }
 
-    QString fileExtensions() const override;
+    QStringList filter(const QStringList &files) const override
+    {
+        // for now we expect files with extension
+        return files.filter(QRegularExpression(QStringLiteral("\\.(") + fileExtensions() + QStringLiteral(")$")));
+    }
 
-    QStringList filter(const QStringList &files) const override;
+    QString path() const override
+    {
+        /*
+         * for now, only the executable in the path can be called,
+         * but it would be great to be able to specify a version
+         * installed in a virtual environment
+         */
+        return QStringLiteral("flake8");
+    }
 
-    QString path() const override;
+    QStringList arguments() override
+    {
+        QStringList _args;
 
-    QStringList arguments() override;
+        _args << QStringLiteral("--exit-zero")
+              /*
+               * translating a flake8 code to a severity level is subjective,
+               * so the code is provided as a severity level.
+               */
+              << QStringLiteral("--format=%(path)s////%(row)d////%(code)s////%(text)s");
 
-    QString notInstalledMessage() const override;
+        if (m_project) {
+            auto &&fileList = filter(m_project->files());
+            setActualFilesCount(fileList.size());
+            _args.append(fileList);
+        }
 
-    FileDiagnostics parseLine(const QString &line) const override;
+        return _args;
+    }
 
-    QString stdinMessages() override;
+    QString notInstalledMessage() const override
+    {
+        return i18n("Please install 'flake8'.");
+    }
+
+    FileDiagnostics parseLine(const QString &line) const override
+    {
+        const QStringList elements = line.split(QLatin1String("////"), Qt::SkipEmptyParts);
+        const auto url = QUrl::fromLocalFile(elements[0]);
+        Diagnostic d;
+        d.message = elements[3];
+        d.severity = DiagnosticSeverity::Warning;
+        int ln = elements[1].toInt() - 1;
+        d.range = KTextEditor::Range(ln, 0, ln, -1);
+        return {.uri = url, .diagnostics = {d}};
+    }
+
+    QString stdinMessages() override
+    {
+        return QString();
+    }
 };

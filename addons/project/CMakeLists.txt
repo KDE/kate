@@ -44,15 +44,7 @@ target_sources(
     branchdeletedialog.cpp
     currentgitbranchbutton.cpp
 
-    tools/clazy.cpp
-    tools/clazycurrent.cpp
     tools/codeanalysisselector.cpp
-    tools/cppcheck.cpp
-    tools/flake8.cpp
-    tools/shellcheck.cpp
-    tools/eslint.cpp
-    tools/clippy.cpp
-
     git/gitutils.cpp
     git/gitstatus.cpp
 

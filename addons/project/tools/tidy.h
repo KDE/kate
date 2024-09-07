@@ -17,12 +17,7 @@
 class HtmlTidyTool : public KateProjectCodeAnalysisTool
 {
 public:
-    explicit HtmlTidyTool(QObject *parent = nullptr)
-        : KateProjectCodeAnalysisTool(parent)
-    {
-    }
-
-    ~HtmlTidyTool() override = default;
+    using KateProjectCodeAnalysisTool::KateProjectCodeAnalysisTool;
 
     QString name() const override
     {

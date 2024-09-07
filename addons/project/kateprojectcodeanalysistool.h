@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <KLocalizedString>
 #include <QObject>
 #include <QString>
 #include <QStringList>
@@ -24,7 +25,7 @@ class MainWindow;
  */
 class KateProjectCodeAnalysisTool : public QObject
 {
-protected:
+public:
     explicit KateProjectCodeAnalysisTool(QObject *parent = nullptr);
 
     /**
@@ -34,7 +35,6 @@ protected:
 
     KTextEditor::MainWindow *m_mainWindow;
 
-public:
     ~KateProjectCodeAnalysisTool() override;
 
     /**
@@ -128,5 +128,3 @@ public:
 private:
     int m_filesCount = 0;
 };
-
-Q_DECLARE_METATYPE(KateProjectCodeAnalysisTool *)

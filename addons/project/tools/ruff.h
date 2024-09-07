@@ -21,12 +21,7 @@
 class RuffTool : public KateProjectCodeAnalysisTool
 {
 public:
-    explicit RuffTool(QObject *parent = nullptr)
-        : KateProjectCodeAnalysisTool(parent)
-    {
-    }
-
-    ~RuffTool() override = default;
+    using KateProjectCodeAnalysisTool::KateProjectCodeAnalysisTool;
 
     QString name() const override
     {

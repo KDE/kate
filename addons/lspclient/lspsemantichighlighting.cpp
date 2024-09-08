@@ -109,6 +109,10 @@ void SemanticHighlighter::semanticHighlightRange(KTextEditor::View *view, const 
 {
     const auto range = Utils::getVisibleRange(view);
     if (m_currentHighlightedRange.contains(range)) {
+        auto server = m_serverManager->findServer(view);
+        if (server) {
+            highlight(view, &server->capabilities().semanticTokenProvider.legend);
+        }
         return;
     }
 

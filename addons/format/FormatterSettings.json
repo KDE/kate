@@ -89,6 +89,8 @@
     "yamlfmt": {
         "command": [
             "yamlfmt",
+            "-formatter",
+            "retain_line_breaks=true",
             "-quiet",
             "-"
         ]

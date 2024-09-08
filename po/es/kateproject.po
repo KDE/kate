@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:42+0000\n"
+"POT-Creation-Date: 2024-09-08 00:42+0000\n"
 "PO-Revision-Date: 2024-08-31 02:01+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -76,7 +76,7 @@ msgstr "Rama"
 msgid "Last Commit"
 msgstr "Último envío"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:81
 #, kde-format
 msgid "Delete"
 msgstr "Borrar"
@@ -930,75 +930,84 @@ msgstr "Índice de proyectos"
 msgid "Choose a directory"
 msgstr "Escoja un directorio"
 
-#: kateprojecttreeviewcontextmenu.cpp:42
+#: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Enter name:"
 msgstr "Introduzca el nombre:"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
-#, kde-format
-msgid "Add"
-msgstr "Añadir"
-
-#: kateprojecttreeviewcontextmenu.cpp:64
+#: kateprojecttreeviewcontextmenu.cpp:65
 #, kde-format
 msgid "Copy Location"
 msgstr "Copiar ubicación"
 
-#: kateprojecttreeviewcontextmenu.cpp:71
-#, kde-format
-msgid "Add File"
-msgstr "Añadir archivo"
-
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, kde-format
-msgid "Add Folder"
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "New File…"
+msgstr "Abrir archivo"
+
+#: kateprojecttreeviewcontextmenu.cpp:73
+#, fuzzy, kde-format
+#| msgid "Add Folder"
+msgid "New Folder…"
 msgstr "Añadir carpeta"
 
-#: kateprojecttreeviewcontextmenu.cpp:79
+#: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "&Rename"
 msgstr "Cambia&r nombre"
 
-#: kateprojecttreeviewcontextmenu.cpp:86
+#: kateprojecttreeviewcontextmenu.cpp:87
 #, kde-format
 msgid "Properties"
 msgstr "Propiedades"
 
-#: kateprojecttreeviewcontextmenu.cpp:90
+#: kateprojecttreeviewcontextmenu.cpp:91
 #, kde-format
 msgid "Open With"
 msgstr "Abrir con"
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:99
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Abrir terminal interno aquí"
 
-#: kateprojecttreeviewcontextmenu.cpp:107
+#: kateprojecttreeviewcontextmenu.cpp:108
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Usar terminal externo aquí"
 
-#: kateprojecttreeviewcontextmenu.cpp:112
+#: kateprojecttreeviewcontextmenu.cpp:113
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Abrir la carpeta que lo c&ontiene"
 
-#: kateprojecttreeviewcontextmenu.cpp:121
+#: kateprojecttreeviewcontextmenu.cpp:122
 #, kde-format
 msgid "Show Git History"
 msgstr "Mostrar el historial Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:127
 #, kde-format
 msgid "Delete File"
 msgstr "Borrar archivo"
 
-#: kateprojecttreeviewcontextmenu.cpp:127
+#: kateprojecttreeviewcontextmenu.cpp:128
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "¿Desea borrar el archivo «%1»?"
+
+#: kateprojecttreeviewcontextmenu.cpp:188
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "New File"
+msgstr "Abrir archivo"
+
+#: kateprojecttreeviewcontextmenu.cpp:193
+#, fuzzy, kde-format
+#| msgid "Add Folder"
+msgid "New Folder"
+msgstr "Añadir carpeta"
 
 #: kateprojectviewtree.cpp:145
 #, kde-format
@@ -1077,6 +1086,12 @@ msgstr "No se ha podido mostrar la reserva. Error: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Proyectos"
+
+#~ msgid "Add"
+#~ msgstr "Añadir"
+
+#~ msgid "Add File"
+#~ msgstr "Añadir archivo"
 
 #~ msgid "Commit hash"
 #~ msgstr "Hash de la confirmación"

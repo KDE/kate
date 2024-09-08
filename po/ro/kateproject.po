@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:42+0000\n"
+"POT-Creation-Date: 2024-09-08 00:42+0000\n"
 "PO-Revision-Date: 2021-05-15 17:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Last Commit"
 msgstr "Comite"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:81
 #, kde-format
 msgid "Delete"
 msgstr ""
@@ -959,77 +959,86 @@ msgstr "Index proiecte"
 msgid "Choose a directory"
 msgstr "Alegeți un dosar"
 
-#: kateprojecttreeviewcontextmenu.cpp:42
+#: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Enter name:"
 msgstr "Introduceți denumirea:"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
-#, kde-format
-msgid "Add"
-msgstr "Adaugă"
-
-#: kateprojecttreeviewcontextmenu.cpp:64
+#: kateprojecttreeviewcontextmenu.cpp:65
 #, fuzzy, kde-format
 #| msgid "No Action"
 msgid "Copy Location"
 msgstr "Nicio acțiune"
 
-#: kateprojecttreeviewcontextmenu.cpp:71
-#, kde-format
-msgid "Add File"
-msgstr "Adăugă fișier"
-
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, kde-format
-msgid "Add Folder"
+#, fuzzy, kde-format
+#| msgid "Open With"
+msgid "New File…"
+msgstr "Deschide cu"
+
+#: kateprojecttreeviewcontextmenu.cpp:73
+#, fuzzy, kde-format
+#| msgid "Add Folder"
+msgid "New Folder…"
 msgstr "Adaugă dosar"
 
-#: kateprojecttreeviewcontextmenu.cpp:79
+#: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "&Rename"
 msgstr "&Redenumește"
 
-#: kateprojecttreeviewcontextmenu.cpp:86
+#: kateprojecttreeviewcontextmenu.cpp:87
 #, kde-format
 msgid "Properties"
 msgstr "Proprietăți"
 
-#: kateprojecttreeviewcontextmenu.cpp:90
+#: kateprojecttreeviewcontextmenu.cpp:91
 #, kde-format
 msgid "Open With"
 msgstr "Deschide cu"
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:99
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:107
+#: kateprojecttreeviewcontextmenu.cpp:108
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:112
+#: kateprojecttreeviewcontextmenu.cpp:113
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Deschide d&osarul conținător"
 
-#: kateprojecttreeviewcontextmenu.cpp:121
+#: kateprojecttreeviewcontextmenu.cpp:122
 #, fuzzy, kde-format
 #| msgid "Show File History"
 msgid "Show Git History"
 msgstr "Arată istoricul fișierului"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:127
 #, kde-format
 msgid "Delete File"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:127
+#: kateprojecttreeviewcontextmenu.cpp:128
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr ""
+
+#: kateprojecttreeviewcontextmenu.cpp:188
+#, fuzzy, kde-format
+#| msgid "Open With"
+msgid "New File"
+msgstr "Deschide cu"
+
+#: kateprojecttreeviewcontextmenu.cpp:193
+#, fuzzy, kde-format
+#| msgid "Add Folder"
+msgid "New Folder"
+msgstr "Adaugă dosar"
 
 #: kateprojectviewtree.cpp:145
 #, kde-format
@@ -1106,6 +1115,12 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Proiecte"
+
+#~ msgid "Add"
+#~ msgstr "Adaugă"
+
+#~ msgid "Add File"
+#~ msgstr "Adăugă fișier"
 
 #, fuzzy
 #~| msgid "Commit"

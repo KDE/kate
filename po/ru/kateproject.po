@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:42+0000\n"
+"POT-Creation-Date: 2024-09-08 00:42+0000\n"
 "PO-Revision-Date: 2024-02-11 11:16+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -82,7 +82,7 @@ msgstr "Ветвь"
 msgid "Last Commit"
 msgstr "Последняя фиксация"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:80
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:81
 #, kde-format
 msgid "Delete"
 msgstr "Удалить"
@@ -950,75 +950,84 @@ msgstr "Индекс проекта"
 msgid "Choose a directory"
 msgstr "Выбор каталога"
 
-#: kateprojecttreeviewcontextmenu.cpp:42
+#: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Enter name:"
 msgstr "Введите имя:"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
-#, kde-format
-msgid "Add"
-msgstr "Добавить"
-
-#: kateprojecttreeviewcontextmenu.cpp:64
+#: kateprojecttreeviewcontextmenu.cpp:65
 #, kde-format
 msgid "Copy Location"
 msgstr "Копировать расположение"
 
-#: kateprojecttreeviewcontextmenu.cpp:71
-#, kde-format
-msgid "Add File"
-msgstr "Добавить файл"
-
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, kde-format
-msgid "Add Folder"
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "New File…"
+msgstr "Открыть файл"
+
+#: kateprojecttreeviewcontextmenu.cpp:73
+#, fuzzy, kde-format
+#| msgid "Add Folder"
+msgid "New Folder…"
 msgstr "Добавить папку"
 
-#: kateprojecttreeviewcontextmenu.cpp:79
+#: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "&Rename"
 msgstr "&Переименовать"
 
-#: kateprojecttreeviewcontextmenu.cpp:86
+#: kateprojecttreeviewcontextmenu.cpp:87
 #, kde-format
 msgid "Properties"
 msgstr "Свойства"
 
-#: kateprojecttreeviewcontextmenu.cpp:90
+#: kateprojecttreeviewcontextmenu.cpp:91
 #, kde-format
 msgid "Open With"
 msgstr "Открыть с помощью..."
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:99
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Открыть встроенный терминал в этой папке"
 
-#: kateprojecttreeviewcontextmenu.cpp:107
+#: kateprojecttreeviewcontextmenu.cpp:108
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Открыть внешний терминал в этой папке"
 
-#: kateprojecttreeviewcontextmenu.cpp:112
+#: kateprojecttreeviewcontextmenu.cpp:113
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Открыть содержащую папку"
 
-#: kateprojecttreeviewcontextmenu.cpp:121
+#: kateprojecttreeviewcontextmenu.cpp:122
 #, kde-format
 msgid "Show Git History"
 msgstr "Показать журнал Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:127
 #, kde-format
 msgid "Delete File"
 msgstr "Удалить файл"
 
-#: kateprojecttreeviewcontextmenu.cpp:127
+#: kateprojecttreeviewcontextmenu.cpp:128
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "Удалить файл «%1»?"
+
+#: kateprojecttreeviewcontextmenu.cpp:188
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "New File"
+msgstr "Открыть файл"
+
+#: kateprojecttreeviewcontextmenu.cpp:193
+#, fuzzy, kde-format
+#| msgid "Add Folder"
+msgid "New Folder"
+msgstr "Добавить папку"
 
 #: kateprojectviewtree.cpp:145
 #, kde-format
@@ -1099,6 +1108,12 @@ msgstr "Не удалось показать запасник. Ошибка: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Проекты"
+
+#~ msgid "Add"
+#~ msgstr "Добавить"
+
+#~ msgid "Add File"
+#~ msgstr "Добавить файл"
 
 #~ msgid "Commit hash"
 #~ msgstr "Хеш фиксации"

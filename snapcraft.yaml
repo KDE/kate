@@ -85,26 +85,69 @@ parts:
       - libgl-dev
       - libglvnd-dev
       - libxkbcommon-dev
+      - cmake
+      - kf6-extra-cmake-modules
+      - kf6-kconfig-dev
+      - kf6-kcrash-dev
+      - kf6-kdbusaddons-dev
+      - kf6-kcolorscheme-dev
+      - kf6-kdoctools-dev
+      - kf6-kguiaddons-dev
+      - kf6-ki18n-dev
+      - kf6-kiconthemes-dev
+      - kf6-kitemmodels-dev
+      - kf6-kjobwidgets-dev
+      - kf6-kio-dev
+      - kf6-knewstuff-dev
+      - kf6-kparts-dev
+      - kf6-kpty-dev
+      - kf6-syntax-highlighting-dev
+      - kf6-ktexteditor-dev
+      - kf6-threadweaver-dev
+      - kf6-kwallet-dev
+      - kf6-kwindowsystem-dev
+      - kf6-kuserfeedback-dev
+      - kf6-kxmlgui-dev
+      - libplasma-dev
+      - pkgconfig
+      - plasma-activities-dev
+      - qt6-base-dev
       - libpulse0
     stage-packages:
+      - kf6-kdeclarative
+      - kf6-ktexteditor
+      - libplasma6
+      - qt6-declarative
+      - kf6-kbookmarks
+      - kf6-kcolorscheme
+      - kf6-kcompletion
+      - kf6-kconfig
+      - kf6-kconfigwidgets
+      - kf6-kcoreaddons
+      - kf6-kcrash
+      - kf6-kdbusaddons
+      - kf6-kguiaddons
+      - kf6-ki18n
+      - kf6-kiconthemes
+      - kf6-kio
+      - kf6-knewstuff
+      - kf6-kparts
+      - kf6-kservice
+      - kf6-ktextwidgets
+      - kf6-kuserfeedback
+      - kf6-kwidgetsaddons
+      - kf6-kwindowsystem
+      - kf6-kxmlgui
+      - kf6-syntax-highlighting
+      - qt6-base
+      - kf6-sonnet
       - darcs
       - exuberant-ctags
       - git
+      - khelpcenter
+      - konsole-kpart
       - mercurial
       - subversion
-      - libsecret-1-0
-      - ibus
-      - ibus-wayland
-      - fcitx5
-      - fcitx5-modules
-      - fcitx-mozc
-      - libxkbcommon0
-      - libpulse0
-      - libjansson4
-      - libgif7
-      - patchelf
-      - samba-libs
-      - libpcre3
     source: .
     source-type: local
     build-attributes:

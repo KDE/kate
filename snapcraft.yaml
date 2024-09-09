@@ -109,7 +109,7 @@ parts:
       - kf6-kuserfeedback-dev
       - kf6-kxmlgui-dev
       - libplasma-dev
-      - pkgconfig
+      - pkgconf
       - plasma-activities-dev
       - qt6-base-dev
       - libpulse0

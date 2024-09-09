@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-24 02:28+0000\n"
-"PO-Revision-Date: 2024-03-10 11:45+0530\n"
+"PO-Revision-Date: 2024-09-08 12:39+0200\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -75,7 +75,7 @@ msgstr ""
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "நீக்கு"
 
 #: branchdeletedialog.cpp:142
 #, kde-format
@@ -392,12 +392,12 @@ msgstr ""
 #: gitwidget.cpp:1160
 #, kde-format
 msgid "Remove All"
-msgstr ""
+msgstr "அனைத்தையும் நீக்கு"
 
 #: gitwidget.cpp:1160
 #, kde-format
 msgid "Discard All"
-msgstr ""
+msgstr "அனைத்தையும் கைவிடு"
 
 #: gitwidget.cpp:1163
 #, kde-format

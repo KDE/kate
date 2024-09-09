@@ -620,6 +620,10 @@ private:
             return nullptr;
         }
 
+        if (m_plugin->m_alwaysDisabledLanguages.contains(langId)) {
+            return nullptr;
+        }
+
         // get project plugin infos if available
         const auto projectBase = Utils::projectBaseDirForDocument(document);
         const auto projectMap = Utils::projectMapForDocument(document);

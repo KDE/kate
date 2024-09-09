@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
+"POT-Creation-Date: 2024-09-09 00:41+0000\n"
 "PO-Revision-Date: 2024-08-30 11:06+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -833,8 +833,8 @@ msgstr ""
 "separador de camí natiu (barra inversa a Windows)."
 
 #: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
-#: kateprojectviewtree.cpp:175
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Project"
 msgstr "Projecte"
@@ -1014,12 +1014,12 @@ msgstr "Obri un fitxer"
 msgid "New Folder"
 msgstr "Afig una carpeta"
 
-#: kateprojectviewtree.cpp:145
+#: kateprojectviewtree.cpp:159
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "No s'ha pogut crear el fitxer: %1, Error: %2"
 
-#: kateprojectviewtree.cpp:175
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "No s'ha pogut crear el directori: %1"

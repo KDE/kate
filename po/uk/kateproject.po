@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
-"PO-Revision-Date: 2024-08-30 08:19+0300\n"
+"POT-Creation-Date: 2024-09-09 00:41+0000\n"
+"PO-Revision-Date: 2024-09-08 09:20+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -835,8 +835,8 @@ msgstr ""
 "символом відокремлення частин шляху (зворотна похила риска у Windows)."
 
 #: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
-#: kateprojectviewtree.cpp:175
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Project"
 msgstr "Проєкт"
@@ -947,16 +947,14 @@ msgid "Copy Location"
 msgstr "Копіювати адресу"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "Відкрити файл"
+msgstr "Створити файл…"
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Додати теку"
+msgstr "Створити теку…"
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -1004,23 +1002,21 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "Ви справді хочете вилучити файл «%1»?"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Відкрити файл"
+msgstr "Новий файл"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Додати теку"
+msgstr "Нова тека"
 
-#: kateprojectviewtree.cpp:145
+#: kateprojectviewtree.cpp:159
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Не вдалося створити файл: %1, повідомлення про помилку: %2"
 
-#: kateprojectviewtree.cpp:175
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Не вдалося створити каталог: %1"

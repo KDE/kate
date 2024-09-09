@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
-"PO-Revision-Date: 2024-08-30 06:44+0200\n"
+"POT-Creation-Date: 2024-09-09 00:41+0000\n"
+"PO-Revision-Date: 2024-09-08 07:55+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -835,8 +835,8 @@ msgstr ""
 "datotečnega sistema (\\ za Windows)."
 
 #: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
-#: kateprojectviewtree.cpp:175
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Project"
 msgstr "Projekt"
@@ -947,16 +947,14 @@ msgid "Copy Location"
 msgstr "Kopiraj mesto"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "Odpri datoteko"
+msgstr "Nova datoteka…"
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Dodaj mapo"
+msgstr "Nova mapa…"
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -1004,23 +1002,21 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "Ali želite zbrisati datoteko '%1'?"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Odpri datoteko"
+msgstr "Nova datoteka"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Dodaj mapo"
+msgstr "Nova mapa"
 
-#: kateprojectviewtree.cpp:145
+#: kateprojectviewtree.cpp:159
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Ustvarjanje datoteke ni uspelo: %1, Napaka: %2"
 
-#: kateprojectviewtree.cpp:175
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Ustvarjanje imenika ni uspelo: %1"

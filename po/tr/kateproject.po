@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
-"PO-Revision-Date: 2024-08-30 12:06+0300\n"
+"POT-Creation-Date: 2024-09-09 00:41+0000\n"
+"PO-Revision-Date: 2024-09-08 22:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -825,8 +825,8 @@ msgstr ""
 "projenin tam yolu."
 
 #: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
-#: kateprojectviewtree.cpp:175
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Project"
 msgstr "Proje"
@@ -937,16 +937,14 @@ msgid "Copy Location"
 msgstr "Konumu Kopyala"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "Dosyayı Aç"
+msgstr "Yeni Dosya…"
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Klasör Ekle"
+msgstr "Yeni Klasör…"
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -994,23 +992,21 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "“%1“ dosyasını silmek istiyor musunuz?"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Dosyayı Aç"
+msgstr "Yeni Dosya"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Klasör Ekle"
+msgstr "Yeni Klasör"
 
-#: kateprojectviewtree.cpp:145
+#: kateprojectviewtree.cpp:159
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Dosya oluşturulamadı: %1, Hata: %2"
 
-#: kateprojectviewtree.cpp:175
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Dizin oluşturulamadı: %1"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
+"POT-Creation-Date: 2024-09-09 00:41+0000\n"
 "PO-Revision-Date: 2024-08-31 09:20+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -844,8 +844,8 @@ msgstr ""
 "le séparateur natif (Par exemple, contre-oblique sous Windows)"
 
 #: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
-#: kateprojectviewtree.cpp:175
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Project"
 msgstr "Projet"
@@ -1024,12 +1024,12 @@ msgstr "Ouvrir un fichier"
 msgid "New Folder"
 msgstr "Ajouter un dossier"
 
-#: kateprojectviewtree.cpp:145
+#: kateprojectviewtree.cpp:159
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Impossible de créer un fichier : %1. Erreur : %2"
 
-#: kateprojectviewtree.cpp:175
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Impossible de créer un dossier : %1"

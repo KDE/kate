@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
-"PO-Revision-Date: 2024-08-30 18:02+0200\n"
+"POT-Creation-Date: 2024-09-09 00:41+0000\n"
+"PO-Revision-Date: 2024-09-08 09:12+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -831,8 +831,8 @@ msgstr ""
 "banatzekoarekin (alderantzizko barra zeiharra Windows-en)."
 
 #: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
-#: kateprojectviewtree.cpp:175
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Project"
 msgstr "Proiektua"
@@ -943,16 +943,14 @@ msgid "Copy Location"
 msgstr "Kopiatu kokalekua"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "Ireki fitxategia"
+msgstr "Fitxategi berria…"
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Gehitu karpeta"
+msgstr "Karpeta berria..."
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -1000,23 +998,21 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "'%1' fitxategia ezabatu nahi duzu?"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Ireki fitxategia"
+msgstr "Fitxategi berria"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Gehitu karpeta"
+msgstr "Karpeta berria"
 
-#: kateprojectviewtree.cpp:145
+#: kateprojectviewtree.cpp:159
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Fitxategia sortzea huts egin du: %1, Errorea: %2"
 
-#: kateprojectviewtree.cpp:175
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Karpeta sortzea huts egin du: %1"

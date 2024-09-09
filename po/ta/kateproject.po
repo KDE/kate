@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
-"PO-Revision-Date: 2024-03-10 11:45+0530\n"
+"POT-Creation-Date: 2024-09-09 00:41+0000\n"
+"PO-Revision-Date: 2024-09-08 12:39+0200\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -75,7 +75,7 @@ msgstr ""
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:81
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "நீக்கு"
 
 #: branchdeletedialog.cpp:142
 #, kde-format
@@ -393,12 +393,12 @@ msgstr ""
 #: gitwidget.cpp:1191
 #, kde-format
 msgid "Remove All"
-msgstr ""
+msgstr "அனைத்தையும் நீக்கு"
 
 #: gitwidget.cpp:1191
 #, kde-format
 msgid "Discard All"
-msgstr ""
+msgstr "அனைத்தையும் கைவிடு"
 
 #: gitwidget.cpp:1194
 #, kde-format
@@ -808,8 +808,8 @@ msgid ""
 msgstr ""
 
 #: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:145
-#: kateprojectviewtree.cpp:175
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Project"
 msgstr ""
@@ -984,12 +984,12 @@ msgstr ""
 msgid "New Folder"
 msgstr ""
 
-#: kateprojectviewtree.cpp:145
+#: kateprojectviewtree.cpp:159
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr ""
 
-#: kateprojectviewtree.cpp:175
+#: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr ""

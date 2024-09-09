@@ -439,7 +439,9 @@ DiagnosticsView::~DiagnosticsView()
     }
     Q_ASSERT(m_providers.empty());
 
-    m_mainWindow->guiFactory()->removeClient(this);
+    if (m_mainWindow) {
+        m_mainWindow->guiFactory()->removeClient(this);
+    }
 }
 
 void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)

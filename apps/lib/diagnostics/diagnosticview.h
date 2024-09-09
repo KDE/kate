@@ -211,7 +211,7 @@ private:
     void setupDiagnosticViewToolbar(class QVBoxLayout *mainLayout);
 
     int m_diagnosticsCount = 0;
-    KTextEditor::MainWindow *const m_mainWindow;
+    QPointer<KTextEditor::MainWindow> const m_mainWindow;
     class QTreeView *const m_diagnosticsTree;
     class QToolButton *const m_clearButton;
     class QLineEdit *const m_filterLineEdit;

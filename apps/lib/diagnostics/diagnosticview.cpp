@@ -450,7 +450,10 @@ DiagnosticsView::~DiagnosticsView()
     }
     Q_ASSERT(m_providers.empty());
 
-    m_mainWindow->guiFactory()->removeClient(this);
+    // KDevelop's main window is destroyed before plugins are unloaded
+    if (m_mainWindow) {
+        m_mainWindow->guiFactory()->removeClient(this);
+    }
 }
 
 void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)

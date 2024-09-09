@@ -22,6 +22,14 @@ class LSPClientPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
+    /**
+     * The list of language IDs to disable the LSP support for.
+     *
+     * @note This property allows applications that have better native support for some
+     *       programming languages to disable the LSP plugin for them. Set by KDevelop.
+     */
+    Q_PROPERTY(QStringList disabledLanguages MEMBER m_alwaysDisabledLanguages)
+
     explicit LSPClientPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~LSPClientPlugin() override;
 
@@ -38,6 +46,8 @@ public:
 
     // default config path
     const QUrl m_defaultConfigPath;
+
+    QStringList m_alwaysDisabledLanguages;
 
     // settings
     bool m_symbolDetails = false;

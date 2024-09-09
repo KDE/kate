@@ -623,6 +623,11 @@ private:
             return nullptr;
         }
 
+        if (m_plugin->m_alwaysDisabledLanguages.contains(langId)) {
+            qCInfo(LSPCLIENT) << "skipping always disabled language ID" << langId;
+            return nullptr;
+        }
+
         // get project plugin infos if available
         const auto projectBase = Utils::projectBaseDirForDocument(document);
         const auto projectMap = Utils::projectMapForDocument(document);

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-09 00:41+0000\n"
-"PO-Revision-Date: 2024-08-03 14:19+0900\n"
+"PO-Revision-Date: 2024-09-10 01:14+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.04.70\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -849,10 +849,9 @@ msgid "Refresh git status"
 msgstr "重新整理 git 狀態"
 
 #: kateprojectpluginview.cpp:186
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "開啟資料夾..."
+msgstr "開啟資料夾(&F)…"
 
 #: kateprojectpluginview.cpp:192
 #, kde-format
@@ -930,16 +929,14 @@ msgid "Copy Location"
 msgstr "複製位置"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "開啟檔案"
+msgstr "新增檔案…"
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "新增資料夾"
+msgstr "新增資料夾…"
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -987,16 +984,14 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "您確定刪除檔案 '%1' 嗎？"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "開啟檔案"
+msgstr "新檔案"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "新增資料夾"
+msgstr "新資料夾"
 
 #: kateprojectviewtree.cpp:159
 #, kde-format

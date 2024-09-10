@@ -926,16 +926,14 @@ msgid "Copy Location"
 msgstr "复制位置"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "打开文件"
+msgstr "新建文件…"
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "添加文件夹"
+msgstr "新建文件夹…"
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -983,16 +981,14 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "您想要删除文件“%1”吗？"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "打开文件"
+msgstr "新建文件"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "添加文件夹"
+msgstr "新建文件夹"
 
 #: kateprojectviewtree.cpp:159
 #, kde-format
@@ -1069,9 +1065,3 @@ msgstr "显示储藏失败。错误："
 #, kde-format
 msgid "&Projects"
 msgstr "工程(&P)"
-
-#~ msgid "Add"
-#~ msgstr "添加"
-
-#~ msgid "Add File"
-#~ msgstr "添加文件"

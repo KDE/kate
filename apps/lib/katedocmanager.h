@@ -38,6 +38,10 @@ public:
     bool wasDocumentEverModified = false;
 
     QUrl normalizedUrl;
+
+    // id of this document from the last session restore or as set by the last session save
+    // -1 if not valid
+    int sessionConfigId = -1;
 };
 
 class KATE_PRIVATE_EXPORT KateDocManager : public QObject
@@ -56,6 +60,11 @@ public:
 
     /** Returns the documentNumber of the doc with url URL or -1 if no such doc is found */
     KTextEditor::Document *findDocument(const QUrl &url) const;
+
+    /**
+     * Find the document matching the sessionConfigId you pass.
+     */
+    KTextEditor::Document *findDocumentForSessionConfigId(int sessionConfigId) const;
 
     const QList<KTextEditor::Document *> &documentList() const
     {

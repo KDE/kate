@@ -86,6 +86,13 @@ public:
      */
     QList<DocOrWidget> documentList() const;
 
+    /**
+     * Returns LRU sorted list of the documents registered for this tab bar.
+     * Used for session saving.
+     * @return lru sorted list of all registered documents
+     */
+    QList<KTextEditor::Document *> lruSortedDocuments() const;
+
 Q_SIGNALS:
     /**
      * This signal is emitted whenever the context menu is requested for

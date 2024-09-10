@@ -496,4 +496,19 @@ QList<DocOrWidget> KateTabBar::documentList() const
     return result;
 }
 
+QList<KTextEditor::Document *> KateTabBar::lruSortedDocuments() const
+{
+    QList<KTextEditor::Document *> docs;
+    docs.reserve(m_docToLruCounterAndHasTab.size());
+    for (const auto &doc : m_docToLruCounterAndHasTab) {
+        if (auto d = doc.first.doc()) {
+            docs.push_back(d);
+        }
+    }
+    std::sort(docs.begin(), docs.end(), [this](auto a, auto b) {
+        return m_docToLruCounterAndHasTab.at(DocOrWidget(a)).first < m_docToLruCounterAndHasTab.at(DocOrWidget(b)).first;
+    });
+    return docs;
+}
+
 #include "moc_katetabbar.cpp"

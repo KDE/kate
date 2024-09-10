@@ -1223,20 +1223,16 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
 
 void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &viewConfGrp)
 {
-    //   qCDebug(LOG_KATE)<<"KateViewSpace::saveConfig("<<myIndex<<", "<<viewConfGrp<<") - currentView: "<<currentView()<<")";
-    QString groupname = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(myIndex);
+    const QString groupname = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(myIndex);
 
-    // aggregate all views in view space (LRU ordered)
+    // aggregate all registered documents & views in view space (LRU ordered)
+    // we need even the documents without tabs to avoid that we later have issues with closing
+    // documents and not the right ones being used as replacement if you have a limit on tabs
     std::vector<KTextEditor::View *> views;
     QStringList lruList;
-    const auto docList = documentList();
-    for (DocOrWidget docOrWidget : docList) {
-        if (docOrWidget.widget()) {
-            continue;
-        }
-
+    const auto docList = m_tabBar->lruSortedDocuments();
+    for (auto doc : docList) {
         // we can only store stuff about documents that get an id
-        auto doc = docOrWidget.doc();
         const int sessionId = KateApp::self()->documentManager()->documentInfo(doc)->sessionConfigId;
         if (sessionId < 0) {
             continue;

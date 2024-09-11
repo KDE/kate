@@ -140,6 +140,7 @@
     <p xml:lang="ka">Kate მრავალდოკუმენტიანი და მრავალხედიანი ტექსტური რედაქტორია KDE-სგან. მის ფუნქციებშია კოდის გადატანა, სინტაქსის გამოკვეთა, ჩაშენებული კონსოლი, დამატებების ფართო ინტერფეისი და ვცდილობთ, სკრიპტინგის მხარდაჭერაც ჩავდოთ.</p>
     <p xml:lang="ko">Kate는 KDE의 다문서 다화면 텍스트 편집기입니다. 코드 접기, 구문 강조, 동적 줄 바꿈, 내장된 콘솔, 플러그인 인터페이스, 스크립트 기능을 지원합니다.</p>
     <p xml:lang="ml">കെയ്റ്റ് എന്നത് കെ.ഡി.ഇ. യുടെ വിവിധോദ്യേശ പദാവലി എഡിറ്റർ ആണ്. ഇത് കോഡ് മടക്കൽ, സിന്റാക്സ് പ്രധാനീകരിക്കൽ, ചലനാത്മകമായ അക്ഷര സൗന്ദര്യവൽക്കരണം, ബന്ധിപ്പിച്ചിട്ടുള്ള കൺസോൾ, വിപുലമായ പ്ലഗ്ഇൻ വിനിമയതലം, അടിസ്ഥാനമായ സ്ക്രിപ്റ്റിംഗ് എന്നിവ പിന്തുണ നൽകുന്നു.</p>
+    <p xml:lang="my">ကိတ်သည် မှတ်တမ်းစာအုပ်များ၊ မြင်ကွင်းများ တစ်ပြိုင်တည်း တည်းဖြတ်နိုင်သော စာသားတည်းဖြတ်ကိရိယာတစ်ခုဖြစ်သည်။</p>
     <p xml:lang="nl">Kate is een multi-document, multi-view tekstbewerker door KDE. Het bevat functies zoals opvouwen van code, accentuering van syntaxis, dynamisch afbreken van de regel, een ingebed console, een extensieve plug-in-interface en enige beginnende ondersteuning voor scripts.</p>
     <p xml:lang="nn">Kate er eit skriveprogram frå KDE som kan ha ope fleire dokument og visingar samtidig. Det har funksjonar som kode­falding, syntaks­merking, dymamisk linje­bryting, ein innebygd terminal­emulator, eit omfattande grensesnitt for program­tillegg og enkel skriptstøtte.</p>
     <p xml:lang="pl">Kate jest wielodokumentowym, wielowidokowym edytorem tekstu stworzonym przez KDE. Umożliwia zwijanie kodu, podświetlanie składni, dynamiczne zawijanie wyrazów, osadzoną konsolę, rozbudowany interfejs dla wtyczek i zapewnia podstawową obsługę skryptów.</p>
@@ -1029,6 +1030,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">ინტეგრირებული ბრძანების სტრიქონი</li>
       <li xml:lang="ko">내장 명령행</li>
       <li xml:lang="ml">ഏകീകരിച്ച ആജ്ഞാസ്ഥാനം</li>
+      <li xml:lang="my">ပေါင်းစပ်ထားသောအမိန့်ပေးတာမီနယ်</li>
       <li xml:lang="nb">Integrert kommandolinje</li>
       <li xml:lang="nl">Geïntegreerde opdrachtregel</li>
       <li xml:lang="nn">Integrert kommandolinje</li>
@@ -1174,6 +1176,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="it">Kate con qualche progetto basato su Git</caption>
       <caption xml:lang="ka">Kate რომელიმე Git-ზე დაჰოსტილი პროექტით</caption>
       <caption xml:lang="ko">Kate로 Git 기반 프로젝트 열기</caption>
+      <caption xml:lang="my">Gitအသုံးပြုပရောဂျက်ဖွင့်ပြထားသောကိတ်</caption>
       <caption xml:lang="nl">Kate met een op Git gebaseerd project</caption>
       <caption xml:lang="nn">Kate med eit Git-basert prosjekt</caption>
       <caption xml:lang="pl">Kate z projektem Git</caption>
@@ -1205,6 +1208,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="it">Kate nella vista divisa</caption>
       <caption xml:lang="ka">Kate გაყოფილი ხედით</caption>
       <caption xml:lang="ko">Kate 분할 보기</caption>
+      <caption xml:lang="my">မြင်ကွင်းအခွဲသုံးပြထားသောကိတ်</caption>
       <caption xml:lang="nl">Kate met gesplitst beeld</caption>
       <caption xml:lang="nn">Kate med delt vising</caption>
       <caption xml:lang="pl">Kate z widokiem podzielonym</caption>
@@ -1236,6 +1240,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="it">Kate in modalità scura</caption>
       <caption xml:lang="ka">Kate მუქ რეჟიმში</caption>
       <caption xml:lang="ko">Kate 어두운 모드</caption>
+      <caption xml:lang="my">အမှောင်ပုံစံသုံးထားသောကိတ်</caption>
       <caption xml:lang="nl">Kate in modus donker</caption>
       <caption xml:lang="nn">Kate med mørkt tema</caption>
       <caption xml:lang="pl">Kate na ciemno</caption>
@@ -1267,6 +1272,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="it">Crea un nuovo ramo Git con Kate</caption>
       <caption xml:lang="ka">შექმენით ახალი Git ბრენჩი Kate-ით</caption>
       <caption xml:lang="ko">Kate로 새 Git 브랜치 만들기</caption>
+      <caption xml:lang="my">Gitကုဒ်အခွဲကို ကိတ်ဖြင့်ဖန်တီးမည်</caption>
       <caption xml:lang="nl">Nieuwe git-branch met Kate aanmaken</caption>
       <caption xml:lang="nn">Opprett ei ny Git-grein med Kate</caption>
       <caption xml:lang="pl">Utwórz nową gałąź Git z Kate</caption>

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
+"POT-Creation-Date: 2024-09-11 00:41+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -1322,12 +1322,12 @@ msgstr "केट् बन्दं कर्तुं प्रयतमान
 msgid "Closing Aborted"
 msgstr "समापन Aborted"
 
-#: lib/katedocmanager.cpp:369
+#: lib/katedocmanager.cpp:374
 #, kde-format
 msgid "Starting Up"
 msgstr "Starting Up इति"
 
-#: lib/katedocmanager.cpp:370
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "अन्तिमसत्रात् सञ्चिकाः पुनः उद्घाटयति..."
@@ -2419,52 +2419,52 @@ msgstr[1] ""
 "सम्प्रति %1 दस्तावेजाः अपि उद्घाटितम् सन्ति। सर्वाणि मुक्तदस्तावेजानि द्रष्टुं अत्र क्लिक् कृत्वा "
 "त्वरित उद्घाटनम् दृश्यं प्रति गच्छन्तु ।."
 
-#: lib/kateviewspace.cpp:1098
+#: lib/kateviewspace.cpp:1099
 #, kde-format
 msgid "Close Tab"
 msgstr "ट्याब् बन्दं कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1117
 #, kde-format
 msgid "&Close Document"
 msgstr "&दस्तावेज पिधाय"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "अन्ये &दस्तावेजाः पिधाय"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1119
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&सर्वाणि दस्तावेजानि पिधाय"
 
-#: lib/kateviewspace.cpp:1121
+#: lib/kateviewspace.cpp:1122
 #, kde-format
 msgid "D&etach Document"
 msgstr "दस्तावेजं &विच्छेदं कुरुत"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1124
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "नूतने गवाक्षस्य मध्ये दस्तावेजं उद्घाटयति वर्तमानगवाक्ष मध्ये च पिधायति"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "सक्रियदस्तावेजेन सह तुलनां कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1139
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "सक्रियदस्तावेजस्य उपयोगेन सह तुलनां कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1208
+#: lib/kateviewspace.cpp:1209
 #, kde-format
 msgid "Could not start program"
 msgstr "कार्यक्रमं आरभुं न शक्तवान्"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "चयनितः कार्यक्रमः आरभ्यतुं न शक्तवान् । कदाचित् न संस्थापितम्।."

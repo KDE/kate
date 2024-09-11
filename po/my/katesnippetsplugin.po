@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2021-09-15 04:32+0630\n"
+"PO-Revision-Date: 2024-09-10 15:41+0630\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -26,7 +26,7 @@ msgstr "ဇေယျာလွင်"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "lw1nzayar@yandex.com"
+msgstr "zyl.pol.mm@zohomail.com"
 
 #: editrepository.cpp:81 editrepository.cpp:126
 #, kde-format
@@ -54,7 +54,7 @@ msgstr "အမည် -"
 #: editrepository.ui:36
 #, kde-format
 msgid "Namespace:"
-msgstr "နိမ်းစပေ့ -"
+msgstr "သတ်မှတ်နေရာ-"
 
 #. i18n: ectx: property (text), widget (QLabel, repoLicenseLabel)
 #: editrepository.ui:43
@@ -84,7 +84,7 @@ msgstr "ရီပိုစစ်တိုရီ၏ အမည်တို"
 #: editrepository.ui:103
 #, kde-format
 msgid "Prefix to show in code completion"
-msgstr ""
+msgstr "ကုဒ်ဖြည့်စွက်မှုတွင် ပြရန် ရှေ့ဆက်"
 
 #: editsnippet.cpp:97 editsnippet.cpp:174
 #, kde-format
@@ -115,13 +115,13 @@ msgstr "သတိ - မသိမ်းဆည်းရသေးသောပြေ
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "ဆက်လက်တည်းဖြတ်မည်"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
 #, kde-format
 msgid "will be shown in the completion list"
-msgstr ""
+msgstr "ပြီးစီးမှုစာရင်းတွင် ပြသမည်ဖြစ်သည်။"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:62
@@ -323,13 +323,13 @@ msgstr "စစ်ထုတ်မှု သတ်မှတ်မည်"
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr "စစ်ထုတ်မည်..."
+msgstr "စစ်ထုတ်မည်…"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
 #, kde-format
 msgid "&Tools"
-msgstr "&Tကိရိယာများ"
+msgstr "&ကိရိယာများ"
 
 #~ msgid "Snippets tool view"
 #~ msgstr "စာအတိုအထွာများ ကိရိယာမြင်ကွင်း"

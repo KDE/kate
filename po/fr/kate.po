@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
+"POT-Creation-Date: 2024-09-11 00:41+0000\n"
 "PO-Revision-Date: 2024-08-31 09:23+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -1382,12 +1382,12 @@ msgstr ""
 msgid "Closing Aborted"
 msgstr "Fermeture abandonnée"
 
-#: lib/katedocmanager.cpp:369
+#: lib/katedocmanager.cpp:374
 #, kde-format
 msgid "Starting Up"
 msgstr "Démarrage"
 
-#: lib/katedocmanager.cpp:370
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Réouverture des fichiers de la session précédente..."
@@ -2495,54 +2495,54 @@ msgstr[1] ""
 "Il reste actuellement %1 autres documents d'ouverts. Pour voir tous les "
 "documents ouverts, passez à la vue d'ouverture rapide en cliquant ici."
 
-#: lib/kateviewspace.cpp:1098
+#: lib/kateviewspace.cpp:1099
 #, kde-format
 msgid "Close Tab"
 msgstr "Fermer l'onglet"
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1117
 #, kde-format
 msgid "&Close Document"
 msgstr "&Fermer le document"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Fermer les autres &documents"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1119
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Fermer t&ous les documents"
 
-#: lib/kateviewspace.cpp:1121
+#: lib/kateviewspace.cpp:1122
 #, kde-format
 msgid "D&etach Document"
 msgstr "Détach&er un document"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1124
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Ouvre le document dans une nouvelle fenêtre et le ferme dans la fenêtre "
 "courante"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Comparer avec le document actif"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1139
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Comparer avec le document actif en utilisant"
 
-#: lib/kateviewspace.cpp:1208
+#: lib/kateviewspace.cpp:1209
 #, kde-format
 msgid "Could not start program"
 msgstr "Impossible de démarrer le programme"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

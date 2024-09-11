@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-11 01:45+0000\n"
-"PO-Revision-Date: 2021-09-15 05:08+0630\n"
+"PO-Revision-Date: 2024-09-10 15:42+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
@@ -140,7 +140,7 @@ msgstr "သင်္ကေတ စာရင်း"
 #: plugin_katesymbolviewer.cpp:134
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "စစ်ထုတ်မည်…"
 
 #: plugin_katesymbolviewer.cpp:144
 #, kde-format
@@ -152,7 +152,7 @@ msgstr "သင်္ကေတများ"
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
-msgstr "တည်နေရာ"
+msgstr "နေရာ"
 
 #: plugin_katesymbolviewer.cpp:362
 #, kde-format
@@ -167,7 +167,7 @@ msgstr "ဖိုင်လ်အမျိုးအစား - %1"
 #: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Display functions parameters"
-msgstr "functions ပေးချက်များ ပြမည်"
+msgstr "Functions ပေးချက်များ ပြမည်"
 
 #: plugin_katesymbolviewer.cpp:480
 #, kde-format

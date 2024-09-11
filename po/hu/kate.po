@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
+"POT-Creation-Date: 2024-09-11 00:41+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1325,12 +1325,12 @@ msgstr ""
 msgid "Closing Aborted"
 msgstr "A bezárás félbe lett szakítva"
 
-#: lib/katedocmanager.cpp:369
+#: lib/katedocmanager.cpp:374
 #, kde-format
 msgid "Starting Up"
 msgstr "Indulás"
 
-#: lib/katedocmanager.cpp:370
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "A legutóbb nyitva hagyott fájlok megnyitása…"
@@ -2450,53 +2450,53 @@ msgstr[1] ""
 "Jelenleg %1 további dokumentum van megnyitva. Az összes dokumentum "
 "megjelenítéséhez kattintson ide, a Gyors megnyitás nézetre váltáshoz."
 
-#: lib/kateviewspace.cpp:1098
+#: lib/kateviewspace.cpp:1099
 #, kde-format
 msgid "Close Tab"
 msgstr "Lap bezárása"
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1117
 #, kde-format
 msgid "&Close Document"
 msgstr "&Dokumentum bezárása"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Többi dokumentum bezárás&a"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1119
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Összes dokumentum bezárás&a"
 
-#: lib/kateviewspace.cpp:1121
+#: lib/kateviewspace.cpp:1122
 #, kde-format
 msgid "D&etach Document"
 msgstr "Dokumentum l&eválasztása"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1124
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Megnyitja a dokumentumot egy új ablakban, és bezárja a jelenlegi ablakot"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Összehasonlítás az aktív dokumentummal"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1139
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Összehasonlítás az aktív dokumentummal ezzel:"
 
-#: lib/kateviewspace.cpp:1208
+#: lib/kateviewspace.cpp:1209
 #, kde-format
 msgid "Could not start program"
 msgstr "Nem sikerült elindítani a programot"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "A kiválasztott program indítása sikertelen. Talán nincs is telepítve."

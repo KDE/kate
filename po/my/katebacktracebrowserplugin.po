@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2021-09-15 05:00+0630\n"
+"PO-Revision-Date: 2024-09-10 15:41+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
 #: btbrowserwidget.ui:27
@@ -28,7 +28,7 @@ msgstr "#"
 #: btbrowserwidget.ui:32
 #, kde-format
 msgid "File"
-msgstr "ဖိုင်လ်"
+msgstr "ဖိုင်"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
 #: btbrowserwidget.ui:37
@@ -46,7 +46,7 @@ msgstr "Function"
 #: btbrowserwidget.ui:72
 #, kde-format
 msgid "Configure Paths..."
-msgstr "လမ်းကြောင်းများ ပြင်ဆင်မည်..."
+msgstr "လမ်းကြောင်းများ ပြင်ဆင်မည်…"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnClipboard)
 #: btbrowserwidget.ui:79
@@ -58,13 +58,13 @@ msgstr "ကလစ်ဘုတ် သုံးမည်"
 #: btbrowserwidget.ui:86
 #, kde-format
 msgid "Load File..."
-msgstr "ဖိုင်လ် တွန်းတင်မည်..."
+msgstr "ဖိုင်တွန်းတင်မည်…"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gFolderList)
 #: btconfigwidget.ui:14
 #, kde-format
 msgid "Search Folders"
-msgstr "ဖိုလ်ဒါများ ရှာဖွေမည်"
+msgstr "ဖိုင်တွဲများ ရှာဖွေမည်"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: btconfigwidget.ui:20
@@ -72,7 +72,7 @@ msgstr "ဖိုလ်ဒါများ ရှာဖွေမည်"
 msgid ""
 "Please add the source folders in which to search for the files in the "
 "backtrace:"
-msgstr "နောက်ယောင်ခံလိုက်မှုဒေတာများရှာရန် ဇစ်မြစ််ဖိုလ်ဒါများ ထည့်ပါ -"
+msgstr "နောက်ယောင်ခံလိုက်မှုဒေတာများရှာရန် ဇစ်မြစ််ဖိုင်တွဲများ ထည့်ပါ -"
 
 #. i18n: ectx: property (whatsThis), widget (QListWidget, lstFolders)
 #: btconfigwidget.ui:39
@@ -136,12 +136,12 @@ msgstr "ဖိုင်အမျိုးအစားများ -"
 #: btconfigwidget.ui:89
 #, kde-format
 msgid "List of file extensions. Example: *.cpp, *.h, *.c, etc..."
-msgstr "ဖိုင်လ်တိုးချဲ့အမည်များ စာရင်း။ သာဓက။ ။ *.cpp ၊ *.h ၊ *.c ၊ ... ။"
+msgstr "ဖိုင်လ်တိုးချဲ့အမည်များ စာရင်း။ သာဓက။ ။ *.cpp ၊ *.h ၊ *.c ၊ … ။"
 
 #: katebacktracebrowser.cpp:91
 #, kde-format
 msgid "Indexing files..."
-msgstr "ဖိုင်လ်များကို အညွှန်းစဥ်နေသည်..."
+msgstr "ဖိုင်လ်များကို အညွှန်းစဥ်နေသည်…"
 
 #: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
 #, kde-format
@@ -181,12 +181,12 @@ msgstr "ဒီဘက်ဂင်အချက်အလက်များ မရ�
 #: katebacktracebrowser.cpp:284
 #, kde-format
 msgid "Backtrace Settings"
-msgstr "နောက်ယောင်ခံလိုက် ဆက်တင်"
+msgstr "နောက်ယောင်ခံလိုက်မှုဆိုင်ရာသတ်မှတ်ချက်များ"
 
 #: katebacktracebrowser.cpp:358
 #, kde-format
 msgid "Backtrace Browser Settings"
-msgstr "နောက်ယောင်ခံလိုက် ဘရောက်ဇာ ဆက်တင်"
+msgstr "နောက်ယောင်ခံလိုက်ဘရောက်ဇာ သတ်မှတ်ချတ်များ"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

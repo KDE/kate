@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2021-09-15 05:19+0630\n"
+"PO-Revision-Date: 2024-09-10 15:51+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -34,11 +34,12 @@ msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
 "to be able to do this, contact your system administrator."
 msgstr ""
+"ပြင်ပအပ္ပလီကေးရှင်းများကို သင့်အနေဖြင့်မောင်းနှင်ခွင့်မရှိပါ။ ခွင့်တောင်းရန် စနစ်အုပ်ချုပ်ရေးမှူးကို ဆက်သွယ်ပါ။"
 
 #: plugin_katetextfilter.cpp:154
 #, kde-format
 msgid "Access Restrictions"
-msgstr "ကန့်သတ်ထားသည်များ အသုံးပြုမည်"
+msgstr "သုံးစွဲမှုကန့်သတ်ချက်များ"
 
 #: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
 #, kde-format
@@ -48,7 +49,7 @@ msgstr "စာသားစစ်ထုတ်မှု"
 #: plugin_katetextfilter.cpp:238
 #, kde-format
 msgid "Usage: textfilter COMMAND"
-msgstr ""
+msgstr "အသုံးပြုနည်း - textfilter အမိန့်"
 
 #: plugin_katetextfilter.cpp:249
 #, kde-format
@@ -80,7 +81,7 @@ msgstr ""
 #: textfilterwidget.ui:39
 #, kde-format
 msgid "Open results in a new document"
-msgstr "ရလဒ်များကို မှတ်တမ်းပုံနှိပ်မူအသစ်တွင် ဖွင့်မည်"
+msgstr "ရလဒ်များကို မှတ်တမ်းစာအုပ်အသစ်တွင် ဖွင့်မည်"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:46
@@ -107,10 +108,10 @@ msgstr ""
 #: textfilterwidget.ui:60
 #, kde-format
 msgid "Merge STDOUT and STDERR"
-msgstr "STDOUT နှင့် STDERR ပေါင်းစည်းမည်"
+msgstr "STDOUT နှင့် STDERR ပေါင်းပြမည်"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
 #, kde-format
 msgid "&Tools"
-msgstr "&Tကိရိယာများ"
+msgstr "&ကိရိယာများ"

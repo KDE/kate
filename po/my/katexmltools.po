@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-01 01:39+0000\n"
-"PO-Revision-Date: 2021-09-15 05:21+0630\n"
+"PO-Revision-Date: 2024-09-10 16:05+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,11 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: plugin_katexmltools.cpp:118
-#, fuzzy, kde-format
-#| msgid "Kate XML Tools"
+#, kde-format
 msgid "XML Tools"
 msgstr "ကိတ် အိပ်စ်အမ်အယ် ကိရိယာများ"
 

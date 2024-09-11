@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
+"POT-Creation-Date: 2024-09-11 00:41+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1356,12 +1356,12 @@ msgstr "មាន​ឯកសារ​ថ្មី​បាន​បើក ខ�
 msgid "Closing Aborted"
 msgstr "ការ​បិទ​ត្រូវ​បាន​បោះបង់"
 
-#: lib/katedocmanager.cpp:369
+#: lib/katedocmanager.cpp:374
 #, kde-format
 msgid "Starting Up"
 msgstr "កំពុង​ចាប់ផ្ដើម​ឡើង"
 
-#: lib/katedocmanager.cpp:370
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "បើក​ឯកសារ​ឡើង​វិញ ពី​សម័យ​ចុងក្រោយ..."
@@ -2490,59 +2490,59 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1098
+#: lib/kateviewspace.cpp:1099
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "បិទ"
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1117
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "បិទ​ឯកសារ"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1118
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "បិទ​ឯកសារ"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1119
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "បិទ​គ្រប់​ឯកសារ​ទាំងអស់​"
 
-#: lib/kateviewspace.cpp:1121
+#: lib/kateviewspace.cpp:1122
 #, fuzzy, kde-format
 #| msgid "&Next Document"
 msgid "D&etach Document"
 msgstr "ឯកសារ​បន្ទាប់​"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1124
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1133
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "បិទ​ឯកសារ​បច្ចុប្បន្ន ។"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1139
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "បិទ​ឯកសារ​បច្ចុប្បន្ន ។"
 
-#: lib/kateviewspace.cpp:1208
+#: lib/kateviewspace.cpp:1209
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

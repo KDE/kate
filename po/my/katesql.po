@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-10 00:41+0000\n"
-"PO-Revision-Date: 2021-09-15 02:07+0630\n"
+"PO-Revision-Date: 2024-09-10 15:37+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -173,7 +173,7 @@ msgstr "ကူးယူမည်"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
-msgstr "ထုတ်ပို့မည်..."
+msgstr "ထုတ်ပို့မည်…"
 
 #: dataoutputwidget.cpp:80 textoutputwidget.cpp:47
 #, kde-format
@@ -230,14 +230,9 @@ msgid "File"
 msgstr "ဖိုင်လ်"
 
 #: exportwizard.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv | ကော်မာ ခြားထားသော တန်းဖိုးများ\n"
-"*|ဖိုင်လ်အားလုံး"
+msgstr "ကော်မာခြားထားသောဒေတာများ"
 
 #: exportwizard.cpp:96
 #, kde-format
@@ -334,51 +329,39 @@ msgid "SQL ConfigPage Settings"
 msgstr "အက်စ်ကျူအယ် ကွန်ဖစ်ပေ့ချ် ဆက်တင်"
 
 #: katesqlview.cpp:43
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgid "SQL"
-msgstr "အက်စ်ကျူအယ်"
+msgstr "SQL"
 
 #: katesqlview.cpp:50
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL"
-msgstr "အက်စ်ကျူအယ်"
+msgstr "SQL"
 
 #: katesqlview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Schema Browser"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr "အက်စ်ကျူအယ် စကင်းမား ဘရောက်ဇာ"
+msgstr "SQL Schema"
 
 #: katesqlview.cpp:104
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr "ချိတ်ဆက်မှု ထည့်သွင်းမည်..."
+msgstr "ချိတ်ဆက်မှု ထည့်သွင်းမည်…"
 
 #: katesqlview.cpp:109
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr "ချိတ်ဆက်မှု ဖယ်ရှားမည်"
+msgstr "ချိတ်ဆက်မှု ဖယ်ရှား"
 
 #: katesqlview.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
-msgstr "ချိတ်ဆက်မှု တည်းဖြတ်မည်..."
+msgstr "ချိတ်ဆက်မှု တည်းဖြတ်မည်…"
 
 #: katesqlview.cpp:119
 #, kde-format
@@ -393,9 +376,7 @@ msgid "Connection"
 msgstr "ချိတ်ဆက်မှု"
 
 #: katesqlview.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "ဒေတာတောင်းဆိုမှု လုပ်မည်"
@@ -494,7 +475,7 @@ msgstr "စစ်စတမ် တေဘယ်များ"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "ဒေတာရွေး"
 
 #: schemawidget.cpp:273
 #, kde-format
@@ -539,7 +520,7 @@ msgstr "ဒေတာတောင်းဆိုထားမှု အောင�
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
-msgstr[0] "ဆက်စပ်ဒေတာများအုပ်စု %1စု ရွေးချယ်ထားသည် "
+msgstr[0] "မှတ်တမ်း %1ခု ရွေးထားသည်"
 
 #: sqlmanager.cpp:342
 #, kde-format
@@ -552,7 +533,7 @@ msgstr[0] "တန်း %1ခု သက်ရောက်ခဲ့သည်"
 #: ui.rc:6
 #, kde-format
 msgid "&SQL"
-msgstr "&Sအက်စ်ကျူအယ်"
+msgstr "&SQL"
 
 #. i18n: ectx: ToolBar (SQLConnectionsToolBar)
 #: ui.rc:17

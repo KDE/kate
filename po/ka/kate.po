@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
+"POT-Creation-Date: 2024-09-11 00:41+0000\n"
 "PO-Revision-Date: 2024-08-30 05:34+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -1330,12 +1330,12 @@ msgstr "Kate-ის დახურვისას ახალი ფაილ�
 msgid "Closing Aborted"
 msgstr "დახურვა გაუქმდა"
 
-#: lib/katedocmanager.cpp:369
+#: lib/katedocmanager.cpp:374
 #, kde-format
 msgid "Starting Up"
 msgstr "გაშვება"
 
-#: lib/katedocmanager.cpp:370
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "წინა სესიის ფაილების თავიდან გახსნა..."
@@ -2415,52 +2415,52 @@ msgstr[1] ""
 "ამჟამად გაქვთ კიდევ %1 ღია დოკუმენტი. იმისთვის, რომ ნახოთ ყველა ღია "
 "დოკუმენტი, გადაერთეთ სწრაფი გახსნის ხედზე აქ დაწკაპუნებით."
 
-#: lib/kateviewspace.cpp:1098
+#: lib/kateviewspace.cpp:1099
 #, kde-format
 msgid "Close Tab"
 msgstr "ჩანართის დახურვა"
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1117
 #, kde-format
 msgid "&Close Document"
 msgstr "დოკუმენტის &დახურვა"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "სხვა &დოკუმენტების დახურვა"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1119
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&ყველა დოკუმენტის დახურვა"
 
-#: lib/kateviewspace.cpp:1121
+#: lib/kateviewspace.cpp:1122
 #, kde-format
 msgid "D&etach Document"
 msgstr "&დოკუმენტის მოხსნა"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1124
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "გახსნის დოკუმენტს ახალ ფანჯარაში და მიმდინარე ფანჯარას დახურავს"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "აქტიურ დოკუმენტთან შედარება"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1139
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "აქტიურ დოკუმენტთან შედარება გამოყენებით"
 
-#: lib/kateviewspace.cpp:1208
+#: lib/kateviewspace.cpp:1209
 #, kde-format
 msgid "Could not start program"
 msgstr "პროგრამის გაშვების შეცდომა"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "არჩეული პროგრამის გაშვება შეუძლებელია. შეიძლება, ის დაყენებული არაა."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-18 02:00+0000\n"
-"PO-Revision-Date: 2021-09-15 05:40+0630\n"
+"PO-Revision-Date: 2024-09-10 16:06+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,13 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: plugin_katexmlcheck.cpp:96
-#, fuzzy, kde-format
-#| msgid "XML Checker Output"
+#, kde-format
 msgid "XML Check"
-msgstr "အိပ်စ်အမ်အယ် စစ်ဆေးမှု ရလဒ်အထုတ်"
+msgstr "အိပ်စ်အမ်အယ် စစ်ဆေးမှု"
 
 #: plugin_katexmlcheck.cpp:101
 #, kde-format
@@ -37,10 +36,9 @@ msgstr ""
 #: plugin_katexmlcheck.cpp:131 plugin_katexmlcheck.cpp:149
 #: plugin_katexmlcheck.cpp:209 plugin_katexmlcheck.cpp:234
 #: plugin_katexmlcheck.cpp:254 plugin_katexmlcheck.cpp:337
-#, fuzzy, kde-format
-#| msgid "XML Checker Output"
+#, kde-format
 msgid "XMLCheck"
-msgstr "အိပ်စ်အမ်အယ် စစ်ဆေးမှု ရလဒ်အထုတ်"
+msgstr "အိပ်စ်အမ်အယ် စစ်ဆေးမှု"
 
 #: plugin_katexmlcheck.cpp:145
 #, kde-format

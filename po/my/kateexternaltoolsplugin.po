@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-13 00:40+0000\n"
-"PO-Revision-Date: 2021-09-15 03:45+0630\n"
+"PO-Revision-Date: 2024-09-10 15:34+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Full File"
-msgstr ""
+msgstr "Clang Format Full File"
 
 #. i18n: file: 4
 #, kde-format
@@ -34,44 +34,44 @@ msgstr "ကိရိယာများ"
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Selected Text"
-msgstr ""
+msgstr "Clang Format Selected Text"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Compile and Run cpp"
-msgstr "စီစီပီကို ကွန်ပိုင်းလုပ်၍ မောင်းနှင်မည်"
+msgstr "စီစီပီကို စက်စာပြောင်း၍ မောင်းနှင်မည်"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "git blame"
-msgstr "ဂစ် ဘလိမ်း"
+msgstr "git blame"
 
 #. i18n: file: 4
 #. i18n: file: 3
 #, kde-format
 msgctxt "External tool category"
 msgid "Git"
-msgstr "ဂစ်"
+msgstr "Git"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "git-cola"
-msgstr "ဂစ်-ကိုလာ"
+msgstr "git-cola"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "gitk"
-msgstr "ဂစ်ကေ"
+msgstr "gitk"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "Go Fmt Full File"
-msgstr ""
+msgstr "Go Fmt Full File"
 
 #. i18n: file: 4
 #, kde-format
@@ -83,55 +83,55 @@ msgstr "သွားမည်"
 #, kde-format
 msgctxt "External tool name"
 msgid "GoImports Full File"
-msgstr ""
+msgstr "GoImports Full File"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Google Selected Text"
-msgstr ""
+msgstr "Google Selected Text"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Insert UUID"
-msgstr "ယူယူအိုင်ဒီ ထည့်သွင်းမည်"
+msgstr "UUIDထည့်သွင်းမည်"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "JSON Format Full File"
-msgstr ""
+msgstr "JSON Format Full File"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Prettier Format Current File"
-msgstr ""
+msgstr "Prettier Format Current File"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Qt Quick 2 Preview (qmlscene)"
-msgstr ""
+msgstr "Qt Quick 2 Preview (qmlscene)"
 
 #. i18n: file: 4
 #, kde-format
 msgctxt "External tool category"
 msgid "Qt"
-msgstr "ကျူတီ"
+msgstr "Qt"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Run Shell Script"
-msgstr ""
+msgstr "Run Shell Script"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "Rust Fmt Full File"
-msgstr ""
+msgstr "Rust Fmt Full File"
 
 #. i18n: file: 10
 #, kde-format
@@ -149,7 +149,7 @@ msgstr "ကျူတီအေပီအိုင် တွင်ရှာဖွ�
 #, kde-format
 msgctxt "External tool name"
 msgid "XML Format Full File"
-msgstr ""
+msgstr "XML Format Full File"
 
 #. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
 #: configwidget.ui:17
@@ -162,19 +162,19 @@ msgstr ""
 #: configwidget.ui:29
 #, kde-format
 msgid "&Add"
-msgstr "&Aထည့်သွင်းမည်"
+msgstr "&ထည့်သွင်း"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnEdit)
 #: configwidget.ui:36
 #, kde-format
 msgid "&Edit..."
-msgstr "&Eတည်းဖြတ်..."
+msgstr "&တည်းဖြတ်…"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnRemove)
 #: configwidget.ui:43
 #, kde-format
 msgid "&Remove"
-msgstr "&Rဖယ်ရှားမည်"
+msgstr "&ဖယ်ရှား"
 
 #: externaltoolsplugin.cpp:287
 #, kde-format
@@ -204,7 +204,7 @@ msgstr "%4 ပေးချက်နှင့် မောင်းနှင်�
 #: externaltoolsplugin.cpp:399
 #, kde-format
 msgid "Data written to stderr:\n"
-msgstr "\"stderr\" သို့ရေးခဲ့သော ဒေတာ -\n"
+msgstr "Stderr သို့ရေးခဲ့သော ဒေတာ -\n"
 
 #: externaltoolsplugin.cpp:410
 #, kde-format
@@ -214,7 +214,7 @@ msgstr "%1 ပျက်သွားခဲ့သည်"
 #: externaltoolsplugin.cpp:412
 #, kde-format
 msgid "%1 finished with exit code %2"
-msgstr "%1 သည် အထွက်ကုတ် %2 နှင့် ပြီးသွားခဲ့သည်"
+msgstr "%1 သည် အထွက်ကုဒ် %2 နှင့် ပြီးသွားခဲ့သည်"
 
 #: kateexternaltoolscommand.cpp:38
 #, kde-format
@@ -239,7 +239,7 @@ msgstr "ပြင်ပကိရိယာ"
 #: kateexternaltoolsconfigwidget.cpp:189
 #, kde-format
 msgid "You must specify at least a name and an executable"
-msgstr "အနည်းဆုံး အမည်နှင့် လုပ်ဆောင်-ဖိုင်လ် သတ်မှတ်ပေးရမည်"
+msgstr "အနည်းဆုံး အမည်နှင့် လုပ်ဆောင်-ဖိုင် သတ်မှတ်ပေးရမည်"
 
 #: kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
@@ -259,7 +259,7 @@ msgstr "အမ်အိုင်အမ်အီးအမျိုးအစား
 #: kateexternaltoolsconfigwidget.cpp:240
 #, kde-format
 msgid "Add Tool..."
-msgstr "ကိရိယာထည့်သွင်းမည်..."
+msgstr "ကိရိယာထည့်သွင်းမည်…"
 
 #: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
@@ -290,7 +290,7 @@ msgstr "အမျိုးအစားအသစ် %1"
 #: kateexternaltoolsview.cpp:102
 #, kde-format
 msgid "Configure..."
-msgstr "ပြင်ဆင်မည်..."
+msgstr "ပြင်ဆင်…"
 
 #: kateexternaltoolsview.cpp:164
 #, kde-format
@@ -307,7 +307,7 @@ msgstr "ကိရိယာ တည်းဖြတ်မည်"
 #: tooldialog.ui:20
 #, kde-format
 msgid "Na&me:"
-msgstr "&mအမည် -"
+msgstr "အ&မည် -"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edtName)
 #: tooldialog.ui:32
@@ -325,7 +325,7 @@ msgstr "ကိရိယာ၏ အမည်တို"
 #: tooldialog.ui:47
 #, kde-format
 msgid "Executable:"
-msgstr "လုပ်ဆောင်-ဖိုင်လ် -"
+msgstr "လုပ်ဆောင်-ဖိုင် -"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, edtExecutable)
 #: tooldialog.ui:57
@@ -337,7 +337,7 @@ msgstr "အပ္ပလီကေးရှင်း သို့မဟုတ် �
 #: tooldialog.ui:64
 #, kde-format
 msgid "Ar&guments:"
-msgstr "&gပေးချက်များ -"
+msgstr "&ပေးချက်များ -"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtArgs)
 #: tooldialog.ui:74
@@ -349,7 +349,7 @@ msgstr "အမိန့်စာကြောင်း ပေးချက်မ�
 #: tooldialog.ui:81
 #, kde-format
 msgid "&Input:"
-msgstr "&Iအသွင်း -"
+msgstr "&အသွင်း -"
 
 #. i18n: ectx: property (placeholderText), widget (QTextEdit, edtInput)
 #: tooldialog.ui:91
@@ -361,7 +361,7 @@ msgstr ""
 #: tooldialog.ui:98
 #, kde-format
 msgid "Working directory:"
-msgstr "အလုပ်လုပ်မည့်ဒါရိုက်ထရီ -"
+msgstr "အလုပ်လုပ်မည့်ဖိုင်တွဲ -"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, edtWorkingDir)
 #: tooldialog.ui:108
@@ -373,7 +373,7 @@ msgstr "ဗလာဖြစ်နေပါက လက်ရှိမှတ်တ�
 #: tooldialog.ui:115
 #, kde-format
 msgid "Mime &types:"
-msgstr "&tအမ်အိုင်အမ်အီးအမျိုးအစားများ -"
+msgstr "အမ်အိုင်အမ်အီးအ&မျိုးအစားများ -"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edtMimeType)
 #: tooldialog.ui:127
@@ -421,13 +421,13 @@ msgstr "မသတ်မှတ်ထား"
 #: tooldialog.ui:168
 #, kde-format
 msgid "Current Document"
-msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ"
+msgstr "လက်ရှိမှတ်တမ်းစာအုပ်"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #: tooldialog.ui:173
 #, kde-format
 msgid "All Documents"
-msgstr "မှတ်တမ်းပုံနှိပ်မူအားလုံး"
+msgstr "မှတ်တမ်းစာအုပ်အားလုံး"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: tooldialog.ui:181
@@ -439,13 +439,13 @@ msgstr ""
 #: tooldialog.ui:194
 #, kde-format
 msgid "Before Save"
-msgstr ""
+msgstr "မသိမ်းခင်"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:199
 #, kde-format
 msgid "After Save"
-msgstr ""
+msgstr "သိမ်းဆည်းပြီးချိန်"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkReload)
 #: tooldialog.ui:207
@@ -457,13 +457,13 @@ msgstr ""
 #: tooldialog.ui:214
 #, kde-format
 msgid "O&utput:"
-msgstr "&uအထုတ် -"
+msgstr "အ&ထုတ် -"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:225
 #, kde-format
 msgid "Ignore"
-msgstr "လစ်လျူရှုမည်"
+msgstr "လစ်လျူရှူ"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:230
@@ -499,7 +499,7 @@ msgstr "မှတ်တမ်းပုံနှိပ်မူအသစ်တွ
 #: tooldialog.ui:255
 #, kde-format
 msgid "Copy to Clipboard"
-msgstr "ကလစ်ဘုတ်သို့ကူးယူမည်"
+msgstr "ကလစ်ဘုတ်သို့ကူးယူ"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:260
@@ -544,7 +544,7 @@ msgstr ""
 #: ui.rc:5
 #, kde-format
 msgid "&Tools"
-msgstr "&Tကိရိယာများ"
+msgstr "&ကိရိယာများ"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:9

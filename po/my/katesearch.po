@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-22 00:40+0000\n"
-"PO-Revision-Date: 2021-09-15 03:27+0630\n"
+"PO-Revision-Date: 2024-09-10 14:52+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -49,15 +49,15 @@ msgid "Usage: preg [regex pattern to search for in current project]"
 msgstr ""
 
 #: MatchExportDialog.cpp:20
-#, fuzzy, kde-format
+#, kde-format
 msgid "Export Search Result Matches"
-msgstr "နောက်ထပ်ရှာဖွေမှုရလဒ်သို့ သွားရန်"
+msgstr "ရှာဖွေမှုရလဒ်များတင်ပို့မည်"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
 #: MatchExportDialog.ui:31
-#, fuzzy, kde-format
+#, kde-format
 msgid "Export Pattern"
-msgstr "ထုတ်ပို့မည်..."
+msgstr "တင်ပို့မှုပုံစံ"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:38
@@ -174,10 +174,9 @@ msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter..."
-msgstr "စစ်ထုတ်ချက် -"
+msgstr "စစ်ထုတ်မည်…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -188,13 +187,13 @@ msgstr "ရှာမည်"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr "_Rအစားထိုးရန်"
+msgstr "အစားထိုးမှုစစ်ဆေးမှုအမှတ်အသား"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
@@ -212,9 +211,9 @@ msgstr "ရပ်မည်"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
 #: search.ui:118
-#, fuzzy, kde-format
+#, kde-format
 msgid "Match case"
-msgstr "ပေါင်းလဒ်စစ်တမ်းများ ကိုက်ညီသည်။"
+msgstr "စာလုံးအကြီးအသေးကိုက်ညီမှသာ"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:134
@@ -226,9 +225,9 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
 #: search.ui:163
-#, fuzzy, kde-format
+#, kde-format
 msgid "Expand results"
-msgstr "&Eတပ်ဘ်များဖြန့်မည်"
+msgstr "ရလဒ်များဖြန့်ကြည့်မည်"
 
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
@@ -236,43 +235,31 @@ msgstr "&Eတပ်ဘ်များဖြန့်မည်"
 #: search.ui:179 search.ui:249 search.ui:262
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
 #: search.ui:195 SearchPlugin.cpp:507
 #, kde-format
 msgid "Replace"
-msgstr "အစားထိုးမည်"
+msgstr "အစားထိုး"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:218
 #, kde-format
 msgid "In Current File"
-msgstr "လက်ရှိဖိုင်လ်ထဲတွင်"
+msgstr "လက်ရှိဖိုင်တွင်"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:223
-#, fuzzy, kde-format
+#, kde-format
 msgid "In Open Files"
-msgstr ""
-"ဤအပ္ပလီကေးရှင်းကို စတင်ရန် အမိန့် ရိုက်ထည့်ပါ။\n"
-"\n"
-"အမိန့်နောက်တွင် ပရိုဂရမ် မောင်းနှင်ချိန်တွင် တကယ်တန်ဖိုးများနှင့် အစားထိုးမည်ဖြစ်သော "
-"နေရာယူထားမှုအများအပြားလိုက်နိုင်သည်-\n"
-"\n"
-"%f - ဖိုင်လ်အမည်တစ်ခု\n"
-"%F - ဖိုင်လ်စာရင်း (ဖိုင်လ်အများအပြား တစ်ပြိုင်တည်း ဖွင့်နိုင်သည့် ပရိုဂရမ်းများအတွက်သာ)\n"
-"%u - ယူအာအယ်လ်တစ်ခုတည်း\n"
-"%U - ယူအာအယ်လ်စာရင်း\n"
-"%i - .desktop ဖိုင်လ်၏ ဝတ္တူ-မြင်ကွင်း\n"
-"%c - .desktop ဖိုင်လ်၏အမည်\n"
-"%k - .desktop ဖိုင်လ်၏တည်နေရာ"
+msgstr "ဖွင့်ထားသောဖိုင်များတွင်"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:228
 #, kde-format
 msgid "In Folder"
-msgstr "ဖိုလ်ဒါထဲတွင်"
+msgstr "ဖိုင်တွဲထဲတွင်"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
 #: search.ui:236
@@ -282,9 +269,9 @@ msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:246
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show more search options"
-msgstr "ရှာဖွေမှုဆိုင်ရာရွေးချယ်စရာများ"
+msgstr "နောက်ထပ်ရှာဖွေမှုဆိုင်ရာရွေးချယ်စရာများပြ"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
 #: search.ui:259
@@ -296,13 +283,13 @@ msgstr ""
 #: search.ui:356
 #, kde-format
 msgid "Folder:"
-msgstr "ဖိုလ်ဒါ -"
+msgstr "ဖိုင်တွဲ -"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
 #: search.ui:374
 #, kde-format
 msgid "Go one folder up."
-msgstr "ဖိုလ်ဒါအပေါ်တစ်ခု တက်မည်။"
+msgstr "ဖိုင်တွဲအပေါ်တစ်ခု တက်မည်။"
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
 #: search.ui:383
@@ -318,17 +305,9 @@ msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
 #: search.ui:413
-#, fuzzy, kde-format
+#, kde-format
 msgid "Exclude:"
-msgstr ""
-"<qt>\n"
-"<p>အထက်ပါ ကြားခံ-သတ်မှတ်ချက်များကို အသုံးပြုခြင်းမှ ထုတ်ထားရန် ကော်မာခံ၍ရေးထားသော အိမ်ရှင်အမည်များ၊ "
-"အိုင်ပီလိပ်စာများ စာရင်း ထည့်သွင်းပါ။</p>\n"
-"<p> ဒိုမိန်းတစ်ခု၏အိမ်ရှင်အားလုံးကို ထုတ်ထားလိုပါက ဒိုမိန်းအမည်ကို '.'အားရှေ့မှခံ ရေးထည့်ပါ။ သာဓက။ ။<i>kde."
-"org</i>ဒိုမိန်းကို ထုတ်လိုပါက <i>.kde.org</i> ဟုရိုက်သွင်းပါ။ '*'၊ '?' ကဲ့သို့ ဖြစ်ချင်ရာဖြစ်၍ရသော "
-"အက္ခရာများကို လက်မခံပါ။</p>\n"
-"<p> အိုင်ပီလိပ်စာများလည်း ရိုက်သွင်းနိုင်သည်။ သာဓက။ ။127.0.0.1၊ 192.168.0.1/24</p>\n"
-"</qt>"
+msgstr "ထုတ်ထား -"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
 #: search.ui:434
@@ -338,9 +317,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
 #: search.ui:444
-#, fuzzy, kde-format
+#, kde-format
 msgid "Include hidden"
-msgstr "ဖွက်ထား"
+msgstr "ဖွက်ထားသည်များအပါအဝင်"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
 #: search.ui:451
@@ -350,26 +329,26 @@ msgstr "အထိမ်းအမှတ်လင့်ခ်များနော
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
 #: search.ui:458
-#, fuzzy, kde-format
+#, kde-format
 msgid "Include binary files"
-msgstr "သိုလှောင်နေရာ (မစောင့်ကြည့်ထားသောဖိုင်လ်များအပါအဝင်)"
+msgstr "ဘိုင်နရီဖိုင်များအပါအဝင်"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "အရွယ်အစားကန့်သတ်ချက်"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
-#, fuzzy, kde-format
+#, kde-format
 msgid "Line break"
-msgstr "စာကြောင်း"
+msgstr "စာကြောင်းအဆုံးသတ်"
 
 #: SearchPlugin.cpp:82 SearchPlugin.cpp:115
 #, kde-format
@@ -389,7 +368,7 @@ msgstr "စာကြောင်းအဆုံး"
 #: SearchPlugin.cpp:96
 #, kde-format
 msgid "Any single character (excluding line breaks)"
-msgstr ""
+msgstr "မည်သည့်အက္ခရာတစ်လုံးမဆို(စာကြောင်းအဆုံးသတ်အက္ခရာများမပါ)"
 
 #: SearchPlugin.cpp:97
 #, kde-format
@@ -397,19 +376,19 @@ msgid "Literal dot"
 msgstr ""
 
 #: SearchPlugin.cpp:99
-#, fuzzy, kde-format
+#, kde-format
 msgid "One or more occurrences"
-msgstr "တစ်ခုထက်ပိုသောဖိုင်လ်ပေးထားသည်"
+msgstr "တစ်ကြိမ် သို့ တစ်ကြိမ်ထက်ပိုသောကိုက်ညီမှုများ"
 
 #: SearchPlugin.cpp:100
-#, fuzzy, kde-format
+#, kde-format
 msgid "Zero or more occurrences"
-msgstr "ပိုမို"
+msgstr ""
 
 #: SearchPlugin.cpp:101
-#, fuzzy, kde-format
+#, kde-format
 msgid "Zero or one occurrences"
-msgstr "တစ်ခုထက်ပိုသောဖိုင်လ်ပေးထားသည်"
+msgstr ""
 
 #: SearchPlugin.cpp:103
 #, kde-format
@@ -432,14 +411,14 @@ msgid "Set of characters"
 msgstr "အက္ခရာအစု"
 
 #: SearchPlugin.cpp:108
-#, fuzzy, kde-format
+#, kde-format
 msgid "Negative set of characters"
-msgstr "ယူအိုင်ဒီ သတ်မှတ်"
+msgstr ""
 
 #: SearchPlugin.cpp:109
-#, fuzzy, kde-format
+#, kde-format
 msgid "Group, non-capturing"
-msgstr "မတည်မြဲစေမည်"
+msgstr ""
 
 #: SearchPlugin.cpp:110
 #, kde-format
@@ -452,14 +431,14 @@ msgid "Negative lookahead"
 msgstr ""
 
 #: SearchPlugin.cpp:116
-#, fuzzy, kde-format
+#, kde-format
 msgid "Word boundary"
-msgstr "စကားလုံး အလိုလိုပြီးစေခြင်း"
+msgstr "စကားလုံးအစွန်းသတ်"
 
 #: SearchPlugin.cpp:117
-#, fuzzy, kde-format
+#, kde-format
 msgid "Not word boundary"
-msgstr "စကားလုံး အလိုလိုပြီးစေခြင်း"
+msgstr "စကားလုံးအစွန်းသတ်မဟုတ်"
 
 #: SearchPlugin.cpp:118
 #, kde-format
@@ -474,17 +453,17 @@ msgstr "ဂဏာန်းမဟုတ်သော"
 #: SearchPlugin.cpp:120
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
-msgstr ""
+msgstr "မမြင်ရသောအက္ခရာ(စာကြောင်းအဆုံးသတ်အက္ခရာမပါ)"
 
 #: SearchPlugin.cpp:121
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
-msgstr ""
+msgstr "မြင်ရသောအက္ခရာ(စာကြောင်းအဆုံးသတ်အက္ခရာမပါ)"
 
 #: SearchPlugin.cpp:122
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
-msgstr ""
+msgstr "စကားလုံးအက္ခရာ(စာလုံး၊ဂဏန်းနှင့် '_')"
 
 #: SearchPlugin.cpp:123
 #, kde-format
@@ -527,43 +506,29 @@ msgid "Lower-cased capture 0-999"
 msgstr ""
 
 #: SearchPlugin.cpp:287
-#, fuzzy, kde-format
-#| msgid "Search and Replace"
+#, kde-format
 msgid "Search & Replace"
-msgstr "ရှာပြီး အစားထိုးမည်"
+msgstr "ရှာဖွေ&အစားထိုး"
 
 #: SearchPlugin.cpp:328
-#, fuzzy, kde-format
+#, kde-format
 msgid "Find in Files"
-msgstr ""
-"ဤအပ္ပလီကေးရှင်းကို စတင်ရန် အမိန့် ရိုက်ထည့်ပါ။\n"
-"\n"
-"အမိန့်နောက်တွင် ပရိုဂရမ် မောင်းနှင်ချိန်တွင် တကယ်တန်ဖိုးများနှင့် အစားထိုးမည်ဖြစ်သော "
-"နေရာယူထားမှုအများအပြားလိုက်နိုင်သည်-\n"
-"\n"
-"%f - ဖိုင်လ်အမည်တစ်ခု\n"
-"%F - ဖိုင်လ်စာရင်း (ဖိုင်လ်အများအပြား တစ်ပြိုင်တည်း ဖွင့်နိုင်သည့် ပရိုဂရမ်းများအတွက်သာ)\n"
-"%u - ယူအာအယ်လ်တစ်ခုတည်း\n"
-"%U - ယူအာအယ်လ်စာရင်း\n"
-"%i - .desktop ဖိုင်လ်၏ ဝတ္တူ-မြင်ကွင်း\n"
-"%c - .desktop ဖိုင်လ်၏အမည်\n"
-"%k - .desktop ဖိုင်လ်၏တည်နေရာ"
+msgstr "ဖိုင်မန်နေဂျာတွင်ရှာမည်"
 
 #: SearchPlugin.cpp:334
-#, fuzzy, kde-format
-#| msgid "Search in Files (in new tab)"
+#, kde-format
 msgid "Find in Files (in a New Tab)"
-msgstr "ဖိုင်လ်များတွင် ရှာမည် (တပ်ဘ်အသစ်ဖြင့်)"
+msgstr "ဖိုင်မန်နေဂျာတွင်ရှာမည်(တပ်ဘ်အသစ်တွင်)"
 
 #: SearchPlugin.cpp:340
-#, fuzzy, kde-format
+#, kde-format
 msgid "Go to Next Match"
-msgstr "နောက်စာမျက်နှာသို့"
+msgstr "နောက်ကိုက်ညီမှုသို့သွား"
 
 #: SearchPlugin.cpp:346
-#, fuzzy, kde-format
+#, kde-format
 msgid "Go to Previous Match"
-msgstr "ရှေ့စာမျက်နှာသို့"
+msgstr "ယခင်ကိုက်ညီမှုသို့သွား"
 
 #: SearchPlugin.cpp:352
 #, kde-format
@@ -618,40 +583,39 @@ msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 
 #: SearchPlugin.cpp:1660
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search Match"
-msgstr "ပေါင်းလဒ်စစ်တမ်းများ ကိုက်ညီသည်။"
+msgstr "ရှာဖွေမှုကိုက်ညီချက်များ"
 
 #: SearchPlugin.cpp:1837 SearchPlugin.cpp:1913
-#, fuzzy, kde-format
+#, kde-format
 msgid "Next from cursor"
-msgstr "&Nကျော် >>"
+msgstr "ကာဆာမှ"
 
 #: SearchPlugin.cpp:1854
 #, kde-format
 msgid "Starting from first match"
-msgstr ""
+msgstr "ပထမဆုံးကိုက်ညီမှုမှစတင်မည်"
 
 #: SearchPlugin.cpp:1874
 #, kde-format
 msgid "Continuing from first match"
-msgstr ""
+msgstr "ပထမဆုံးကိုက်ညီမှုမှဆက်လုပ်မည်"
 
 #: SearchPlugin.cpp:1930
 #, kde-format
 msgid "Starting from last match"
-msgstr ""
+msgstr "နောက်ဆုံးကိုက်ညီမှုမှစတင်မည်"
 
 #: SearchPlugin.cpp:1950
 #, kde-format
 msgid "Continuing from last match"
-msgstr ""
+msgstr "နောက်ဆုံးကိုက်ညီမှုမှဆက်လုပ်မည်"
 
 #: SearchPlugin.cpp:2111
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "ရှာမည်"
+msgstr "ရှာဖွေမှု- %1"
 
 #: SearchPlugin.cpp:2254
 #, kde-format
@@ -659,24 +623,24 @@ msgid "Copy all"
 msgstr "အားလုံးကူးယူမည်"
 
 #: SearchPlugin.cpp:2259
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy expanded"
-msgstr "သို့ကူးယူရန်"
+msgstr ""
 
 #: SearchPlugin.cpp:2262
-#, fuzzy, kde-format
+#, kde-format
 msgid "Export matches"
-msgstr "ထုတ်ပို့မည်..."
+msgstr "ကိုက်ညီမှုရလဒ်များတင်ပို့မည်"
 
 #: SearchPlugin.cpp:2267
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "တည်းဖြတ်မှုတပ်ဘ်အဖြင့်ဖွင့်မည်"
 
 #: SearchPlugin.cpp:2275
 #, kde-format
 msgid "Clear"
-msgstr ""
+msgstr "ရှင်း"
 
 #: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
 #, kde-format
@@ -684,20 +648,19 @@ msgid "Add..."
 msgstr "ထည့်သွင်းမည်..."
 
 #: SearchPlugin.cpp:2397
-#, fuzzy, kde-format
-#| msgid "Search More"
+#, kde-format
 msgid "Search As You Type"
-msgstr "နောက်ထပ်ရှာဖွေမည်"
+msgstr "စာလုံးရိုက်သည်နှင့်တန်းရှာမည်"
 
 #: SearchPlugin.cpp:2468
-#, fuzzy, kde-format
+#, kde-format
 msgid "In Current Project"
-msgstr "လက်ရှိ ပရောဂျက်"
+msgstr "လက်ရှိပရောဂျက်တွင်"
 
 #: SearchPlugin.cpp:2470
-#, fuzzy, kde-format
+#, kde-format
 msgid "In All Open Projects"
-msgstr "ပရောဂျက် အားလုံး"
+msgstr "ဖွင့်ထားသောပရောဂျက်အားလုံးတွင်"
 
 #. i18n: ectx: Menu (edit)
 #: ui.rc:6

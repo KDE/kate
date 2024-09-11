@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-29 01:40+0000\n"
-"PO-Revision-Date: 2021-09-15 05:42+0630\n"
+"PO-Revision-Date: 2024-09-10 16:06+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
 "Language: my\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: kategitblameplugin.cpp:93
 #, kde-format
@@ -48,7 +48,7 @@ msgstr "ဂစ်ဘလိမ်း အသေးစိတ် ဖွင့်/ပ
 #: kategitblameplugin.cpp:331
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: kategitblameplugin.cpp:468
 #, kde-format

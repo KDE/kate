@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-08 00:42+0000\n"
+"POT-Creation-Date: 2024-09-11 00:41+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -1362,12 +1362,12 @@ msgstr "क्येट बन्द गर्ने प्रयास गर�
 msgid "Closing Aborted"
 msgstr "बन्द परित्याग गरियो"
 
-#: lib/katedocmanager.cpp:369
+#: lib/katedocmanager.cpp:374
 #, kde-format
 msgid "Starting Up"
 msgstr "सुरुआत हुँदैछ"
 
-#: lib/katedocmanager.cpp:370
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "अन्तिम सत्रबाट फाइलहरू पुन: खोल्दैछ..."
@@ -2526,59 +2526,59 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1098
+#: lib/kateviewspace.cpp:1099
 #, fuzzy, kde-format
 #| msgid "Close &All Tabs"
 msgid "Close Tab"
 msgstr "सबै ट्याब बन्द गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1117
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "कागजात बन्द गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1118
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "कागजात बन्द गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1119
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close &All Documents"
 msgstr "सबै खुला कागजात बन्द गर्नुहोस् ।"
 
-#: lib/kateviewspace.cpp:1121
+#: lib/kateviewspace.cpp:1122
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "कागजात"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1124
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1133
 #, fuzzy, kde-format
 #| msgid "Start with an &empty document"
 msgid "Compare with Active Document"
 msgstr "एउटा खाली कागजातसँग सुरु गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1139
 #, fuzzy, kde-format
 #| msgid "Start with an &empty document"
 msgid "Compare with Active Document Using"
 msgstr "एउटा खाली कागजातसँग सुरु गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1208
+#: lib/kateviewspace.cpp:1209
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

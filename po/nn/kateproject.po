@@ -1075,9 +1075,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Prosjekt"
-
-#~ msgid "Add"
-#~ msgstr "Legg til"
-
-#~ msgid "Add File"
-#~ msgstr "Legg til fil"

@@ -89,8 +89,7 @@ TODO:
 #include <KMessageBox>
 #include <KPluginFactory>
 #include <KXMLGUIClient>
-#include <kxmlguifactory.h>
-#include <map>
+#include <KXMLGUIFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON(PluginKateXMLToolsFactory, "katexmltools.json", registerPlugin<PluginKateXMLTools>();)
 
@@ -121,7 +120,7 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
     QAction *actionInsert = new QAction(i18n("&Insert Element..."), this);
     connect(actionInsert, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::slotInsertElement);
     actionCollection()->addAction(QStringLiteral("xml_tool_insert_element"), actionInsert);
-    actionCollection()->setDefaultShortcut(actionInsert, Qt::CTRL | Qt::Key_Return);
+    actionCollection()->setDefaultShortcut(actionInsert, Qt::CTRL | Qt::Key_Greater);
 
     QAction *actionClose = new QAction(i18n("&Close Element"), this);
     connect(actionClose, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::slotCloseElement);

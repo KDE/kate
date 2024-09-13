@@ -1233,8 +1233,15 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
         if (docOrWidget.widget()) {
             continue;
         }
+
+        // we can only store stuff about documents that get an id
         auto doc = docOrWidget.doc();
-        lruList << doc->url().toString();
+        const int sessionId = KateApp::self()->documentManager()->documentInfo(doc)->sessionConfigId;
+        if (sessionId < 0) {
+            continue;
+        }
+
+        lruList << QString::number(sessionId);
         auto it = m_docToView.find(doc);
         if (it != m_docToView.end()) {
             views.push_back(it->second);
@@ -1246,18 +1253,18 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
     group.writeEntry("Count", static_cast<int>(views.size()));
 
     if (currentView()) {
-        group.writeEntry("Active View", currentView()->document()->url().toString());
+        group.writeEntry("Active View", QString::number(KateApp::self()->documentManager()->documentInfo(currentView()->document())->sessionConfigId));
     }
 
     // Save file list, including cursor position in this instance.
     int idx = 0;
     for (auto view : views) {
-        const auto url = view->document()->url();
-        if (!url.isEmpty()) {
-            group.writeEntry(QStringLiteral("View %1").arg(idx), url.toString());
+        const int sessionId = KateApp::self()->documentManager()->documentInfo(view->document())->sessionConfigId;
+        if (sessionId >= 0) {
+            group.writeEntry(QStringLiteral("View %1").arg(idx), sessionId);
 
-            // view config, group: "ViewSpace <n> url"
-            QString vgroup = QStringLiteral("%1 %2").arg(groupname, url.toString());
+            // view config, group: "ViewSpace <n> id"
+            QString vgroup = QStringLiteral("%1 %2").arg(groupname, sessionId);
             KConfigGroup viewGroup(config, vgroup);
             view->writeSessionConfig(viewGroup);
         }
@@ -1281,25 +1288,39 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
     // restore Document lru list so that all tabs from the last session reappear
     const QStringList lruList = group.readEntry("Documents", QStringList());
-    for (const auto &url : lruList) {
-        // ignore untitled stuff
-        if (url.isEmpty()) {
+    for (const auto &idOrUrl : lruList) {
+        // ignore stuff with no id or url
+        if (idOrUrl.isEmpty()) {
             continue;
         }
 
-        // ignore non-existing documents
-        if (auto doc = KateApp::self()->documentManager()->findDocument(QUrl(url))) {
+        // if id use that, is the new format to allow to differentiate between different untitled documents
+        bool isInt = false;
+        KTextEditor::Document *doc = nullptr;
+        if (const int id = idOrUrl.toInt(&isInt, 10); isInt) {
+            doc = KateApp::self()->documentManager()->findDocumentForSessionConfigId(id);
+        } else {
+            doc = KateApp::self()->documentManager()->findDocument(QUrl(idOrUrl));
+        }
+        if (doc) {
             registerDocument(doc);
         }
     }
 
     // restore active view properties
-    const QString fn = group.readEntry("Active View");
-    if (!fn.isEmpty()) {
-        if (auto doc = KateApp::self()->documentManager()->findDocument(QUrl(fn))) {
+    if (const QString idOrUrl = group.readEntry("Active View"); !idOrUrl.isEmpty()) {
+        // if id use that, is the new format to allow to differentiate between different untitled documents
+        bool isInt = false;
+        KTextEditor::Document *doc = nullptr;
+        if (const int id = idOrUrl.toInt(&isInt, 10); isInt) {
+            doc = KateApp::self()->documentManager()->findDocumentForSessionConfigId(id);
+        } else {
+            doc = KateApp::self()->documentManager()->findDocument(QUrl(idOrUrl));
+        }
+        if (doc) {
             if (auto view = viewMan->createView(doc, this)) {
                 // view config, group: "ViewSpace <n> url"
-                const QString vgroup = QStringLiteral("%1 %2").arg(groupname, fn);
+                const QString vgroup = QStringLiteral("%1 %2").arg(groupname, idOrUrl);
                 view->readSessionConfig(KConfigGroup(config, vgroup));
                 m_tabBar->setCurrentDocument(doc);
             }

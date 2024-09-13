@@ -351,7 +351,7 @@ void KateDocManager::saveDocumentList(KConfig *config)
         const QString entryName = QStringLiteral("Document %1").arg(i);
         KConfigGroup cg(config, entryName);
         doc->writeSessionConfig(cg);
-
+        m_docInfos[doc].sessionConfigId = i;
         i++;
     }
 }
@@ -360,6 +360,11 @@ void KateDocManager::restoreDocumentList(KConfig *config)
 {
     KConfigGroup openDocGroup(config, QStringLiteral("Open Documents"));
     unsigned int count = openDocGroup.readEntry("Count", 0);
+
+    // kill the old stored id mappings
+    for (auto &info : m_docInfos) {
+        info.second.sessionConfigId = -1;
+    }
 
     if (count == 0) {
         return;
@@ -375,6 +380,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
     for (unsigned int i = 0; i < count; i++) {
         KConfigGroup cg(config, QStringLiteral("Document %1").arg(i));
         KTextEditor::Document *doc = createDoc();
+        m_docInfos[doc].sessionConfigId = i;
 
         connect(doc, &KTextEditor::Document::completed, this, &KateDocManager::documentOpened);
         connect(doc, &KParts::ReadOnlyPart::canceled, this, &KateDocManager::documentOpened);
@@ -522,6 +528,21 @@ void KateDocManager::documentOpened()
             info->openSuccess = false;
         }
     }
+}
+
+KTextEditor::Document *KateDocManager::findDocumentForSessionConfigId(int sessionConfigId) const
+{
+    if (sessionConfigId < 0) {
+        return nullptr;
+    }
+
+    for (const auto &info : m_docInfos) {
+        if (info.second.sessionConfigId == sessionConfigId) {
+            return info.first;
+        }
+    }
+
+    return nullptr;
 }
 
 #include "moc_katedocmanager.cpp"

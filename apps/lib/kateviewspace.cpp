@@ -361,12 +361,13 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 
     // restore the config of this view if possible
     if (!m_group.isEmpty()) {
-        QString fn = v->document()->url().toString();
-        if (!fn.isEmpty()) {
-            QString vgroup = QStringLiteral("%1 %2").arg(m_group, fn);
-
-            KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession();
-            if (as->config() && as->config()->hasGroup(vgroup)) {
+        if (KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession(); as->config()) {
+            // try id, fallback to url for old configs
+            QString vgroup = QStringLiteral("%1 %2").arg(m_group, KateApp::self()->documentManager()->documentInfo(v->document())->sessionConfigId);
+            if (!as->config()->hasGroup(vgroup)) {
+                vgroup = QStringLiteral("%1 %2").arg(m_group, v->document()->url().toString());
+            }
+            if (as->config()->hasGroup(vgroup)) {
                 KConfigGroup cg(as->config(), vgroup);
                 v->readSessionConfig(cg);
             }

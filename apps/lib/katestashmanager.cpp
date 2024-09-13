@@ -133,7 +133,7 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
 
     bool checksumOk = true;
     if (url.isValid()) {
-        const auto sum = kconfig.readEntry(QStringLiteral("checksum")).toLatin1().constData();
+        const auto sum = kconfig.readEntry(QStringLiteral("checksum")).toUtf8();
         checksumOk = sum != doc->checksum();
     }
 

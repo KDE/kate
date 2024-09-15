@@ -1000,6 +1000,7 @@ bool KateViewSpace::activateWidget(QWidget *widget)
     m_registeredDocuments.removeOne(widget);
     m_registeredDocuments.push_back(widget);
     m_tabBar->setCurrentDocument(DocOrWidget(widget));
+    widget->setFocus();
     return true;
 }
 

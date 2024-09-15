@@ -982,12 +982,12 @@ bool KateMainWindow::showTabBar()
 
 void KateMainWindow::slotWindowActivated()
 {
-    if (m_viewManager->activeView()) {
-        updateCaption(m_viewManager->activeView()->document());
+    if (auto v = m_viewManager->activeView()) {
+        updateCaption(v->document());
+    } else {
+        updateCaption(nullptr);
     }
-
-    // update proxy
-    centralWidget()->setFocusProxy(m_viewManager->activeView());
+    centralWidget()->setFocusProxy(activeWidget());
 }
 
 void KateMainWindow::slotUpdateActionsNeedingUrl()

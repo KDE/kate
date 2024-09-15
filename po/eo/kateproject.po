@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-09 00:41+0000\n"
-"PO-Revision-Date: 2024-07-27 14:20+0200\n"
+"PO-Revision-Date: 2024-09-14 11:22+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -856,10 +856,9 @@ msgid "Refresh git status"
 msgstr "Refreŝigi git-statuson"
 
 #: kateprojectpluginview.cpp:186
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "Malfermi dosierujon..."
+msgstr "Malfermi &Dosierujon..."
 
 #: kateprojectpluginview.cpp:192
 #, kde-format
@@ -937,16 +936,14 @@ msgid "Copy Location"
 msgstr "Kopii Lokon"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "Malfermi Dosieron"
+msgstr "Nova Dosiero…"
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Aldoni Dosierujon"
+msgstr "Nova Dosierujo…"
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -994,16 +991,14 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "Ĉu vi volas forigi la dosieron '%1'?"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Malfermi Dosieron"
+msgstr "Nova Dosiero"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Aldoni Dosierujon"
+msgstr "Nova Dosierujo"
 
 #: kateprojectviewtree.cpp:159
 #, kde-format
@@ -1080,9 +1075,3 @@ msgstr "Montri stash malsukcesis. Eraro:"
 #, kde-format
 msgid "&Projects"
 msgstr "&Projektoj"
-
-#~ msgid "Add"
-#~ msgstr "Aldoni"
-
-#~ msgid "Add File"
-#~ msgstr "Aldoni Dosieron"

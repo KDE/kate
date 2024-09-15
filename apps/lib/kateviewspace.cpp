@@ -127,13 +127,14 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_split->setAutoRaise(true);
     m_split->setPopupMode(QToolButton::InstantPopup);
     m_split->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
-    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert")));
-    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
-    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert_move_doc")));
-    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz_move_doc")));
-    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_current_space")));
-    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_others")));
-    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_hide_others")));
+    m_split->setMenu(new QMenu(this));
+    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert")));
+    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
+    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert_move_doc")));
+    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz_move_doc")));
+    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_current_space")));
+    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_others")));
+    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_hide_others")));
     m_split->setToolTip(i18n("Split View"));
     m_split->setWhatsThis(i18n("Control view space splitting"));
 
@@ -149,6 +150,15 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_quickOpen->installEventFilter(this);
     m_split->installEventFilter(this);
     // END tab bar
+
+    // more explicit enabling of the view space, see bug 485210
+    // we need to setMenu above and watch for aboutToShow to get that right
+    connect(m_quickOpen, &QAbstractButton::pressed, this, [this]() {
+        makeActive(true);
+    });
+    connect(m_split->menu(), &QMenu::aboutToShow, this, [this]() {
+        makeActive(true);
+    });
 
     m_urlBar = new KateUrlBar(this);
 

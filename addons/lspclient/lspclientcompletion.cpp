@@ -277,11 +277,13 @@ public:
                     if (pIndex.isValid()) {
                         auto self = const_cast<LSPClientCompletionImpl *>(this);
                         QModelIndex i = QModelIndex(pIndex);
-                        LSPCompletionItem &match = self->m_matches[i.row()];
-                        if (!c.documentation.value.isEmpty()) {
-                            match.documentation.value += c.documentation.value;
-                        }
-                        self->dataChanged(i, i);
+                        auto doc = self->m_matches[i.row()].documentation;
+                        // append to previous doc
+                        doc.value += c.documentation.value;
+                        self->m_matches[i.row()] = c;
+                        self->m_matches[i.row()].documentation = doc;
+                        self->m_matches[i.row()].m_docResolved = true;
+                        self->dataChanged(i, i, {KTextEditor::CodeCompletionModel::ExpandingWidget});
                     }
                 };
 
@@ -554,7 +556,7 @@ public:
             // (which takes care to use moving range, etc)
             if (!additionalTextEdits.isEmpty()) {
                 applyEdits(view->document(), nullptr, additionalTextEdits);
-            } else if (!item.data.isNull() && m_server->capabilities().completionProvider.resolveProvider) {
+            } else if (!item.m_docResolved && !item.data.isNull() && m_server->capabilities().completionProvider.resolveProvider) {
                 QPointer<KTextEditor::Document> doc = view->document();
                 auto h = [doc](const LSPCompletionItem &c) {
                     if (doc && !c.additionalTextEdits.isEmpty()) {

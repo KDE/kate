@@ -242,6 +242,7 @@ Q_SIGNALS:
 public:
     void documentDestroyed(QObject *doc);
     void updateDocumentName(KTextEditor::Document *doc);
+    void updateDocumentIcon(KTextEditor::Document *doc);
     void updateDocumentUrl(KTextEditor::Document *doc);
 
 private:

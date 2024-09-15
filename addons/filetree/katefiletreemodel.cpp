@@ -539,6 +539,8 @@ void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
     connect(doc, &KTextEditor::Document::modifiedOnDisk, this, &KateFileTreeModel::documentModifiedOnDisc);
+    // needed to get mime-type udate right, see bug 489452
+    connect(doc, &KTextEditor::Document::reloaded, this, &KateFileTreeModel::documentModifiedChanged);
 }
 
 QModelIndex KateFileTreeModel::docIndex(const KTextEditor::Document *doc) const
@@ -1104,6 +1106,7 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
     disconnect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
     disconnect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
     disconnect(doc, &KTextEditor::Document::modifiedOnDisk, this, &KateFileTreeModel::documentModifiedOnDisc);
+    disconnect(doc, &KTextEditor::Document::reloaded, this, &KateFileTreeModel::documentModifiedChanged);
 
     auto it = m_docmap.find(doc);
     if (it == m_docmap.end()) {

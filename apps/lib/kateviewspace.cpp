@@ -603,12 +603,9 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
      */
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateViewSpace::updateDocumentName);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateViewSpace::updateDocumentUrl);
-    connect(doc, &KTextEditor::Document::modifiedChanged, this, [this](KTextEditor::Document *doc) {
-        int tab = m_tabBar->documentIdx(doc);
-        if (tab >= 0) {
-            m_tabBar->setModifiedStateIcon(tab, doc);
-        }
-    });
+    connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateViewSpace::updateDocumentIcon);
+    // needed to get mime-type udate right, see bug 489452
+    connect(doc, &KTextEditor::Document::reloaded, this, &KateViewSpace::updateDocumentIcon);
 
     /**
      * allow signals again, now that the tab is there
@@ -807,6 +804,15 @@ void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
         QString tabName = doc->documentName();
         tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
         m_tabBar->setTabText(buttonId, tabName);
+    }
+}
+
+void KateViewSpace::updateDocumentIcon(KTextEditor::Document *doc)
+{
+    // update tab button if available, might not be the case for tab limit set!
+    const int buttonId = m_tabBar->documentIdx(doc);
+    if (buttonId >= 0) {
+        m_tabBar->setModifiedStateIcon(buttonId, doc);
     }
 }
 

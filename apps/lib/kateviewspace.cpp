@@ -244,18 +244,14 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
         }
 
         // on mouse press on view space bar tool buttons: activate this space
-        if (button && !isActiveSpace() && event->type() == QEvent::MouseButtonPress) {
-            m_viewManager->setActiveSpace(this);
-            if (currentView()) {
-                m_viewManager->activateView(currentView()->document(), this);
-            }
+        if (event->type() == QEvent::MouseButtonPress) {
+            makeActive(true);
         }
     }
 
     // ensure proper view space activation even for widgets
-    if (event->type() == QEvent::FocusIn && !isActiveSpace() && currentWidget()) {
-        m_viewManager->setActiveSpace(this);
-        activateWidget(currentWidget());
+    if (event->type() == QEvent::FocusIn) {
+        makeActive(true);
         return false;
     }
 
@@ -561,8 +557,12 @@ void KateViewSpace::makeActive(bool focusCurrentView)
 {
     if (!isActiveSpace()) {
         m_viewManager->setActiveSpace(this);
-        if (focusCurrentView && currentView()) {
-            m_viewManager->activateView(currentView()->document(), this);
+        if (focusCurrentView) {
+            if (currentView()) {
+                m_viewManager->activateView(currentView()->document(), this);
+            } else if (currentWidget()) {
+                activateWidget(currentWidget());
+            }
         }
     }
     Q_ASSERT(isActiveSpace());

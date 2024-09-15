@@ -507,6 +507,13 @@ public:
         // check if we have some server for the current view => trigger request
         auto view = m_mainWindow->activeView();
         if (auto server = m_serverManager->findServer(view)) {
+            // check if server supports what we need
+            if (!server->capabilities().documentSymbolProvider) {
+                // inform that support is missing
+                onDocumentSymbolsOrProblem({}, i18n("LSP server does not support symbol outline."));
+                return;
+            }
+
             // clear current model in any case
             // this avoids that we show stuff not matching the current view
             // but let's only do it if needed, e.g. when changing view

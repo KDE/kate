@@ -63,6 +63,7 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
     QString postfix;
     int start = 0;
     int len = 0;
+    bool m_docResolved = false;
 
     LSPClientCompletionItem(const LSPCompletionItem &item)
         : LSPCompletionItem(item)
@@ -270,6 +271,25 @@ public:
         } else if (role == KTextEditor::CodeCompletionModel::IsExpandable) {
             return !match.documentation.value.isEmpty();
         } else if (role == KTextEditor::CodeCompletionModel::ExpandingWidget && !match.documentation.value.isEmpty()) {
+            if (m_server->capabilities().completionProvider.resolveProvider && !match.m_docResolved) {
+                QPersistentModelIndex pIndex = QPersistentModelIndex(index);
+                auto h = [this, pIndex](const LSPCompletionItem &c) {
+                    if (pIndex.isValid()) {
+                        auto self = const_cast<LSPClientCompletionImpl *>(this);
+                        QModelIndex i = QModelIndex(pIndex);
+                        LSPCompletionItem &match = self->m_matches[i.row()];
+                        if (!c.documentation.value.isEmpty()) {
+                            match.documentation.value += c.documentation.value;
+                        }
+                        self->dataChanged(i, i);
+                    }
+                };
+
+                m_server->documentCompletionResolve(match, this, h);
+                auto self = const_cast<LSPClientCompletionImpl *>(this);
+                self->m_matches[index.row()].m_docResolved = true;
+            }
+
             // probably plaintext, but let's show markdown as-is for now
             // FIXME better presentation of markdown
             return match.documentation.value;

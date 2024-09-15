@@ -10,6 +10,7 @@
 #include "lspclient_debug.h"
 
 #include "ktexteditor_utils.h"
+#include "lspclientprotocol.h"
 
 #include <QCoreApplication>
 #include <QFileInfo>
@@ -770,6 +771,60 @@ static QList<LSPLocation> parseDocumentLocation(const rapidjson::Value &result)
     return ret;
 }
 
+static LSPCompletionItem parseCompletionItem(const rapidjson::Value &item)
+{
+    auto label = GetStringValue(item, MEMBER_LABEL);
+    auto detail = GetStringValue(item, MEMBER_DETAIL);
+    LSPMarkupContent doc;
+    auto it = item.FindMember(MEMBER_DOCUMENTATION);
+    if (it != item.MemberEnd()) {
+        doc = parseMarkupContent(it->value);
+    }
+
+    auto sortText = GetStringValue(item, "sortText");
+    if (sortText.isEmpty()) {
+        sortText = label;
+    }
+    auto insertText = GetStringValue(item, "insertText");
+    LSPTextEdit lspTextEdit;
+    const auto &textEdit = GetJsonObjectForKey(item, "textEdit");
+    if (textEdit.IsObject()) {
+        // Not a proper implementation of textEdit, but a workaround for KDE bug #445085
+        auto newText = GetStringValue(textEdit, "newText");
+        // Only override insertText with newText if insertText is empty. This avoids issues with
+        // servers such typescript-language-server which will provide a different value in newText
+        // which makes sense only if its used in combination with range. E.g.,
+        // string.length is expected
+        // but user gets => string..length because newText contains ".length"
+        insertText = insertText.isEmpty() ? newText : insertText;
+        lspTextEdit.newText = newText;
+        lspTextEdit.range = parseRange(GetJsonObjectForKey(textEdit, "range"));
+    }
+    if (insertText.isEmpty()) {
+        // if this happens, the server is broken but lets try the label anyways
+        insertText = label;
+    }
+    auto kind = static_cast<LSPCompletionItemKind>(GetIntValue(item, MEMBER_KIND, 1));
+    const auto additionalTextEdits = parseTextEdit(GetJsonArrayForKey(item, "additionalTextEdits"));
+
+    auto dataIt = item.FindMember("data");
+    QByteArray data;
+    if (dataIt != item.MemberEnd()) {
+        data = rapidJsonStringify(dataIt->value);
+    }
+
+    return {.label = label,
+            .originalLabel = label,
+            .kind = kind,
+            .detail = detail,
+            .documentation = doc,
+            .sortText = sortText,
+            .insertText = insertText,
+            .additionalTextEdits = additionalTextEdits,
+            .textEdit = lspTextEdit,
+            .data = data};
+}
+
 static QList<LSPCompletionItem> parseDocumentCompletion(const rapidjson::Value &result)
 {
     QList<LSPCompletionItem> ret;
@@ -788,56 +843,7 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const rapidjson::Value &
 
     const auto array = items->GetArray();
     for (const auto &item : array) {
-        auto label = GetStringValue(item, MEMBER_LABEL);
-        auto detail = GetStringValue(item, MEMBER_DETAIL);
-        LSPMarkupContent doc;
-        auto it = item.FindMember(MEMBER_DOCUMENTATION);
-        if (it != item.MemberEnd()) {
-            doc = parseMarkupContent(it->value);
-        }
-
-        auto sortText = GetStringValue(item, "sortText");
-        if (sortText.isEmpty()) {
-            sortText = label;
-        }
-        auto insertText = GetStringValue(item, "insertText");
-        LSPTextEdit lspTextEdit;
-        const auto &textEdit = GetJsonObjectForKey(item, "textEdit");
-        if (textEdit.IsObject()) {
-            // Not a proper implementation of textEdit, but a workaround for KDE bug #445085
-            auto newText = GetStringValue(textEdit, "newText");
-            // Only override insertText with newText if insertText is empty. This avoids issues with
-            // servers such typescript-language-server which will provide a different value in newText
-            // which makes sense only if its used in combination with range. E.g.,
-            // string.length is expected
-            // but user gets => string..length because newText contains ".length"
-            insertText = insertText.isEmpty() ? newText : insertText;
-            lspTextEdit.newText = newText;
-            lspTextEdit.range = parseRange(GetJsonObjectForKey(textEdit, "range"));
-        }
-        if (insertText.isEmpty()) {
-            // if this happens, the server is broken but lets try the label anyways
-            insertText = label;
-        }
-        auto kind = static_cast<LSPCompletionItemKind>(GetIntValue(item, MEMBER_KIND, 1));
-        const auto additionalTextEdits = parseTextEdit(GetJsonArrayForKey(item, "additionalTextEdits"));
-
-        auto dataIt = item.FindMember("data");
-        QByteArray data;
-        if (dataIt != item.MemberEnd()) {
-            data = rapidJsonStringify(dataIt->value);
-        }
-
-        ret.push_back({.label = label,
-                       .originalLabel = label,
-                       .kind = kind,
-                       .detail = detail,
-                       .documentation = doc,
-                       .sortText = sortText,
-                       .insertText = insertText,
-                       .additionalTextEdits = additionalTextEdits,
-                       .textEdit = lspTextEdit,
-                       .data = data});
+        ret.push_back(parseCompletionItem(item));
     }
     return ret;
 }
@@ -848,9 +854,7 @@ static LSPCompletionItem parseDocumentCompletionResolve(const rapidjson::Value &
     if (!result.IsObject()) {
         return ret;
     }
-    // we only support additionalTextEdits in textDocument/completion/resolve atm
-    ret.additionalTextEdits = parseTextEdit(GetJsonArrayForKey(result, "additionalTextEdits"));
-    return ret;
+    return parseCompletionItem(result);
 }
 
 static LSPSignatureInformation parseSignatureInformation(const rapidjson::Value &json)
@@ -1651,7 +1655,10 @@ private:
                                                 {QStringLiteral("completionItem"), QJsonObject{
                                                     {QStringLiteral("snippetSupport"), m_config.caps.snippetSupport},
                                                     {QStringLiteral("resolveSupport"), QJsonObject{
-                                                        {QStringLiteral("properties"), QJsonArray{ QStringLiteral("additionalTextEdits") }}
+                                                        {QStringLiteral("properties"), QJsonArray{
+                                                            QStringLiteral("additionalTextEdits"),
+                                                            QStringLiteral("documentation")
+                                                        }}
                                                     }}
                                                 }}
                                             }},

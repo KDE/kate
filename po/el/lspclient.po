@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:42+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: 2023-01-02 22:53+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -455,7 +455,12 @@ msgstr "Εμφάνιση λεπτομερειών"
 msgid "Symbols"
 msgstr "Σύμβολα"
 
-#: lspclientsymbolview.cpp:584
+#: lspclientsymbolview.cpp:513
+#, kde-format
+msgid "LSP server does not support symbol outline."
+msgstr ""
+
+#: lspclientsymbolview.cpp:591
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Δεν υπάρχει εξυπηρετητής LSP για αυτό το έγγραφο."
@@ -614,10 +619,9 @@ msgstr "Προκαθορισμένες ρυθμίσεις εξυπηρετητή
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
-#, fuzzy, kde-format
-#| msgid "LSP Client"
+#, kde-format
 msgid "&LSP Client"
-msgstr "Πελάτης LSP"
+msgstr "Πελάτης &LSP"
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31

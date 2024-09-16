@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:42+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: 2024-08-30 08:19+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -456,7 +456,12 @@ msgstr "Показати подробиці"
 msgid "Symbols"
 msgstr "Символи"
 
-#: lspclientsymbolview.cpp:584
+#: lspclientsymbolview.cpp:513
+#, kde-format
+msgid "LSP server does not support symbol outline."
+msgstr ""
+
+#: lspclientsymbolview.cpp:591
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Немає сервера LSP для цього документа."

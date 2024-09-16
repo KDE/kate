@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-11 00:41+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: 2024-01-03 14:01-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -229,7 +229,7 @@ msgid "&View"
 msgstr "ਵੇਖੋ(&V)"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:137
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Split View"
 msgstr "ਝਲਕ ਵੰਡੋ"
@@ -2374,17 +2374,17 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:238
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
 
-#: lib/kateviewspace.cpp:138
+#: lib/kateviewspace.cpp:139
 #, kde-format
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:239
+#: lib/kateviewspace.cpp:249
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2395,53 +2395,53 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1099
+#: lib/kateviewspace.cpp:1116
 #, kde-format
 msgid "Close Tab"
 msgstr "ਟੈਬ ਨੂੰ ਬੰਦ ਕਰੋ"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1134
 #, kde-format
 msgid "&Close Document"
 msgstr "ਡੌਕੂਮੈਂਟ ਨੂੰ ਬੰਦ ਕਰੋ(&C)"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "ਹੋਰ ਡੌਕੂਮੈਂਟਾਂ ਨੂੰ ਬੰਦ ਕਰੋ(&D)"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "Close &All Documents"
 msgstr "ਸਭ ਡੌਕੂਮੈਂਟਾਂ ਨੂੰ ਬੰਦ ਕਰੋ(&A)"
 
-#: lib/kateviewspace.cpp:1122
+#: lib/kateviewspace.cpp:1139
 #, kde-format
 msgid "D&etach Document"
 msgstr "ਡੌਕੂਮੈਂਟ ਨੂੰ ਵੱਖ ਕਰੋ(&e)"
 
-#: lib/kateviewspace.cpp:1124
+#: lib/kateviewspace.cpp:1141
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "ਸਰਗਰਮ ਡੌਕੂਮੈਂਟ ਨਾਲ ਤੁਲਨਾ ਕਰੋ"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1156
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "ਸਰਗਰਮ ਡੌਕੂਮੈਂਟ ਨਾਲ ਤੁਲਨਾ ਕਰੋ"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1226
 #, kde-format
 msgid "Could not start program"
 msgstr "ਪਰੋਗਰਾਮ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ"
 
-#: lib/kateviewspace.cpp:1210
+#: lib/kateviewspace.cpp:1227
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

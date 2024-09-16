@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:42+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: 2024-08-30 12:25+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -455,7 +455,12 @@ msgstr "Amosar os detalles"
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: lspclientsymbolview.cpp:584
+#: lspclientsymbolview.cpp:513
+#, kde-format
+msgid "LSP server does not support symbol outline."
+msgstr ""
+
+#: lspclientsymbolview.cpp:591
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Non hai un servidor de LSP para este documento."

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-09 00:41+0000\n"
-"PO-Revision-Date: 2024-08-30 11:06+0200\n"
+"PO-Revision-Date: 2024-09-08 11:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -946,16 +946,14 @@ msgid "Copy Location"
 msgstr "Copia la ubicació"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "Obri un fitxer"
+msgstr "Fitxer nou…"
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Afig una carpeta"
+msgstr "Carpeta nova…"
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -1003,16 +1001,14 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "Voleu suprimir el fitxer «%1»?"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Obri un fitxer"
+msgstr "Fitxer nou"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Afig una carpeta"
+msgstr "Carpeta nova"
 
 #: kateprojectviewtree.cpp:159
 #, kde-format
@@ -1093,9 +1089,3 @@ msgstr "No s'ha pogut mostrar la modificació temporal. Error: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectes"
-
-#~ msgid "Add"
-#~ msgstr "Afig"
-
-#~ msgid "Add File"
-#~ msgstr "Afig un fitxer"

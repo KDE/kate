@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:42+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: 2024-02-15 21:55+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -453,7 +453,12 @@ msgstr "Részletek megjelenítése"
 msgid "Symbols"
 msgstr "Szimbólumok"
 
-#: lspclientsymbolview.cpp:584
+#: lspclientsymbolview.cpp:513
+#, kde-format
+msgid "LSP server does not support symbol outline."
+msgstr ""
+
+#: lspclientsymbolview.cpp:591
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Nincs LSP kiszolgáló ehhez a dokumentumhoz."

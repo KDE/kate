@@ -878,10 +878,9 @@ msgid "Refresh git status"
 msgstr "Ανανέωση κατάστασης του git"
 
 #: kateprojectpluginview.cpp:186
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "Άνοιγμα φακέλου..."
+msgstr "Άνοιγμα φακέ&λου..."
 
 #: kateprojectpluginview.cpp:192
 #, kde-format
@@ -919,8 +918,7 @@ msgid "Close Orphaned Projects"
 msgstr "Κλείσιμο ορφανών έργων"
 
 #: kateprojectpluginview.cpp:229
-#, fuzzy, kde-format
-#| msgid "Reload project"
+#, kde-format
 msgid "Reload Project"
 msgstr "Επαναφόρτωση έργου"
 

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:42+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -449,7 +449,12 @@ msgstr "विवरणं दर्शयतु"
 msgid "Symbols"
 msgstr "प्रतीकाः"
 
-#: lspclientsymbolview.cpp:584
+#: lspclientsymbolview.cpp:513
+#, kde-format
+msgid "LSP server does not support symbol outline."
+msgstr ""
+
+#: lspclientsymbolview.cpp:591
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "अस्य दस्तावेजस्य कृते LSP वितारक् नास्ति ।."

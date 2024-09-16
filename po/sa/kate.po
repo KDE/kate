@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-11 00:41+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -230,7 +230,7 @@ msgid "&View"
 msgstr "&दृश्यं"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:137
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Split View"
 msgstr "विभक्त दृश्य"
@@ -2394,17 +2394,17 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:238
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "शीघ्रं उद्घाटितम् दृश्यं प्रति गन्तुं अत्र क्लिक् कुर्वन्तु ।."
 
-#: lib/kateviewspace.cpp:138
+#: lib/kateviewspace.cpp:139
 #, kde-format
 msgid "Control view space splitting"
 msgstr "दृश्यस्थानविभाजनं नियन्त्रयन्तु"
 
-#: lib/kateviewspace.cpp:239
+#: lib/kateviewspace.cpp:249
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2419,52 +2419,52 @@ msgstr[1] ""
 "सम्प्रति %1 दस्तावेजाः अपि उद्घाटितम् सन्ति। सर्वाणि मुक्तदस्तावेजानि द्रष्टुं अत्र क्लिक् कृत्वा "
 "त्वरित उद्घाटनम् दृश्यं प्रति गच्छन्तु ।."
 
-#: lib/kateviewspace.cpp:1099
+#: lib/kateviewspace.cpp:1116
 #, kde-format
 msgid "Close Tab"
 msgstr "ट्याब् बन्दं कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1134
 #, kde-format
 msgid "&Close Document"
 msgstr "&दस्तावेज पिधाय"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "अन्ये &दस्तावेजाः पिधाय"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&सर्वाणि दस्तावेजानि पिधाय"
 
-#: lib/kateviewspace.cpp:1122
+#: lib/kateviewspace.cpp:1139
 #, kde-format
 msgid "D&etach Document"
 msgstr "दस्तावेजं &विच्छेदं कुरुत"
 
-#: lib/kateviewspace.cpp:1124
+#: lib/kateviewspace.cpp:1141
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "नूतने गवाक्षस्य मध्ये दस्तावेजं उद्घाटयति वर्तमानगवाक्ष मध्ये च पिधायति"
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "सक्रियदस्तावेजेन सह तुलनां कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "सक्रियदस्तावेजस्य उपयोगेन सह तुलनां कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1226
 #, kde-format
 msgid "Could not start program"
 msgstr "कार्यक्रमं आरभुं न शक्तवान्"
 
-#: lib/kateviewspace.cpp:1210
+#: lib/kateviewspace.cpp:1227
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "चयनितः कार्यक्रमः आरभ्यतुं न शक्तवान् । कदाचित् न संस्थापितम्।."

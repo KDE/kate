@@ -21,8 +21,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "Εντολή GDB"
 

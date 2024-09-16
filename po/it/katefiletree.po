@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-23 00:40+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: 2024-02-09 17:09+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -360,7 +360,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Oggetti aperti"
 
-#: katefiletreemodel.cpp:643
+#: katefiletreemodel.cpp:645
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

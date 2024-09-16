@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-23 00:40+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: 2024-02-07 09:29+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -355,7 +355,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Відкриті віджети"
 
-#: katefiletreemodel.cpp:643
+#: katefiletreemodel.cpp:645
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

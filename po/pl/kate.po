@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1690024 $
+# Version: $Revision: 1690499 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-11 00:41+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: 2024-08-31 07:02+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -245,7 +245,7 @@ msgid "&View"
 msgstr "&Widok"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:137
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Split View"
 msgstr "Widok podzielony"
@@ -2408,17 +2408,17 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:238
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Naciśnij tutaj, aby przełączyć się do widoku szybkiego otwierania."
 
-#: lib/kateviewspace.cpp:138
+#: lib/kateviewspace.cpp:139
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Podział przestrzeni widoku sterowania"
 
-#: lib/kateviewspace.cpp:239
+#: lib/kateviewspace.cpp:249
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2436,52 +2436,52 @@ msgstr[2] ""
 "Obecnie otwartych jest jeszcze %1 dokumentów. Aby zobaczyć wszystkie otwarte "
 "dokumenty, naciśnij tutaj, aby przełączyć się do widoku szybkiego otwierania."
 
-#: lib/kateviewspace.cpp:1099
+#: lib/kateviewspace.cpp:1116
 #, kde-format
 msgid "Close Tab"
 msgstr "Zamknij kartę"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1134
 #, kde-format
 msgid "&Close Document"
 msgstr "&Zamknij dokument"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Zamknij pozostałe &dokumenty"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Z&amknij wszystkie dokumenty"
 
-#: lib/kateviewspace.cpp:1122
+#: lib/kateviewspace.cpp:1139
 #, kde-format
 msgid "D&etach Document"
 msgstr "Odłącz dokum&ent"
 
-#: lib/kateviewspace.cpp:1124
+#: lib/kateviewspace.cpp:1141
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Otwiera dokument w nowym oknie i zamyka go w bieżącym oknie"
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Porównaj z bieżącym dokumentem "
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Porównaj z bieżącym dokumentem używając"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1226
 #, kde-format
 msgid "Could not start program"
 msgstr "Nie można uruchomi programu"
 
-#: lib/kateviewspace.cpp:1210
+#: lib/kateviewspace.cpp:1227
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Nie można uruchomić wybranego programu. Może nie został on wgrany."

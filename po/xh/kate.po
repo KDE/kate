@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-11 00:41+0000\n"
+"POT-Creation-Date: 2024-09-16 00:42+0000\n"
 "PO-Revision-Date: 2002-11-15 12:44+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -233,7 +233,7 @@ msgid "&View"
 msgstr "Iimboniselo Zesixhobo"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:137
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:138
 #, fuzzy, kde-format
 msgid "Split View"
 msgstr "&Saa Ngokuthe nkqo"
@@ -2373,17 +2373,17 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr ""
 
-#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:238
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
 
-#: lib/kateviewspace.cpp:138
+#: lib/kateviewspace.cpp:139
 #, kde-format
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:239
+#: lib/kateviewspace.cpp:249
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2394,56 +2394,56 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1099
+#: lib/kateviewspace.cpp:1116
 #, fuzzy, kde-format
 msgid "Close Tab"
 msgstr "&Vala Okwangoku"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1134
 #, fuzzy, kde-format
 msgid "&Close Document"
 msgstr "&Uxwebhu"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1135
 #, fuzzy, kde-format
 msgid "Close Other &Documents"
 msgstr "&Uxwebhu"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1136
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close &All Documents"
 msgstr "Vala onke amaxwebhu avuliweyo."
 
-#: lib/kateviewspace.cpp:1122
+#: lib/kateviewspace.cpp:1139
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "&Uxwebhu"
 
-#: lib/kateviewspace.cpp:1124
+#: lib/kateviewspace.cpp:1141
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1150
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document"
 msgstr "Sync &isiphelo sendlela yokulinganisa ngoxwebhu olusebenzayo"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1156
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document Using"
 msgstr "Sync &isiphelo sendlela yokulinganisa ngoxwebhu olusebenzayo"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1226
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1210
+#: lib/kateviewspace.cpp:1227
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

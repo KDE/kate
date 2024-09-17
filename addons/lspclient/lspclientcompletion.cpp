@@ -271,17 +271,16 @@ public:
         } else if (role == KTextEditor::CodeCompletionModel::IsExpandable) {
             return !match.documentation.value.isEmpty();
         } else if (role == KTextEditor::CodeCompletionModel::ExpandingWidget && !match.documentation.value.isEmpty()) {
-            if (m_server->capabilities().completionProvider.resolveProvider && !match.m_docResolved) {
+            if (m_server->capabilities().completionProvider.resolveProvider && !match.m_docResolved && !match.data.isNull()) {
                 QPersistentModelIndex pIndex = QPersistentModelIndex(index);
                 auto h = [this, pIndex](const LSPCompletionItem &c) {
                     if (pIndex.isValid()) {
                         auto self = const_cast<LSPClientCompletionImpl *>(this);
                         QModelIndex i = QModelIndex(pIndex);
-                        auto doc = self->m_matches[i.row()].documentation;
-                        // append to previous doc
-                        doc.value += c.documentation.value;
-                        self->m_matches[i.row()] = c;
-                        self->m_matches[i.row()].documentation = doc;
+                        // we only support resolving additionalTextEdits and documentation so only
+                        // update those fields
+                        self->m_matches[i.row()].documentation.value += c.documentation.value;
+                        self->m_matches[i.row()].additionalTextEdits = c.additionalTextEdits;
                         self->m_matches[i.row()].m_docResolved = true;
                         self->dataChanged(i, i, {KTextEditor::CodeCompletionModel::ExpandingWidget});
                     }

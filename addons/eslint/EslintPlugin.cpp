@@ -88,10 +88,10 @@ static bool canLintDoc(KTextEditor::Document *d)
             || mode == QStringLiteral("javascript react (jsx)"));
 }
 
-void ESLintPluginView::onSaved(KTextEditor::Document *d)
+void ESLintPluginView::onSaved(KTextEditor::Document *)
 {
     m_diagsWithFix.clear();
-    if (!canLintDoc(d)) {
+    if (!canLintDoc(m_activeDoc)) {
         return;
     }
 
@@ -104,7 +104,7 @@ void ESLintPluginView::onSaved(KTextEditor::Document *d)
         // TODO: error
         return;
     }
-    const QStringList args{QStringLiteral("eslint"), QStringLiteral("-f"), QStringLiteral("json"), {d->url().toLocalFile()}};
+    const QStringList args{QStringLiteral("eslint"), QStringLiteral("-f"), QStringLiteral("json"), {m_activeDoc->url().toLocalFile()}};
     startHostProcess(m_eslintProcess, name, args);
 }
 

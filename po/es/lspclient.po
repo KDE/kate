@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-16 00:42+0000\n"
-"PO-Revision-Date: 2024-08-31 02:01+0200\n"
+"PO-Revision-Date: 2024-09-16 12:44+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
@@ -462,7 +462,7 @@ msgstr "Símbolos"
 #: lspclientsymbolview.cpp:513
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "El servidor LSP no permite esquema de símbolos."
 
 #: lspclientsymbolview.cpp:591
 #, kde-format

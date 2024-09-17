@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-16 00:42+0000\n"
-"PO-Revision-Date: 2024-08-30 12:47+0200\n"
+"PO-Revision-Date: 2024-09-16 12:15+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
@@ -80,7 +80,7 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
-"Gebruiker heeft permanent geblokkeerd het starten van: '%1'.\n"
+"Gebruiker heeft permanent het starten geblokkeerd van: '%1'.\n"
 "Gebruik de configuratiepagina van de plug-in om deze blokkade ongedaan te "
 "maken."
 
@@ -456,7 +456,7 @@ msgstr "Symbolen"
 #: lspclientsymbolview.cpp:513
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "LSP server ondersteunt geen omlijning van symbolen."
 
 #: lspclientsymbolview.cpp:591
 #, kde-format

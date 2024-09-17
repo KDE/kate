@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-16 00:42+0000\n"
-"PO-Revision-Date: 2024-08-30 11:06+0200\n"
+"PO-Revision-Date: 2024-09-16 10:02+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -463,7 +463,7 @@ msgstr "Símbols"
 #: lspclientsymbolview.cpp:513
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "El servidor LSP no permet esquemes de símbols."
 
 #: lspclientsymbolview.cpp:591
 #, kde-format

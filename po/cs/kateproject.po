@@ -925,16 +925,14 @@ msgid "Copy Location"
 msgstr "Kopírovat umístění"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "Otevřít soubor"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Přidat složku"
+msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -982,16 +980,14 @@ msgid "Do you want to delete the file '%1'?"
 msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Otevřít soubor"
+msgstr "Nový soubor"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Přidat složku"
+msgstr "Nová složka"
 
 #: kateprojectviewtree.cpp:159
 #, kde-format
@@ -1068,9 +1064,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Projekty"
-
-#~ msgid "Add"
-#~ msgstr "Přidat"
-
-#~ msgid "Add File"
-#~ msgstr "Přidat soubor"

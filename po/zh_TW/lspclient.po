@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-16 00:42+0000\n"
-"PO-Revision-Date: 2024-09-10 01:14+0900\n"
+"PO-Revision-Date: 2024-09-17 07:02+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.04.70\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
 #, kde-format
@@ -459,7 +459,7 @@ msgstr "符號"
 #: lspclientsymbolview.cpp:513
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "LSP 伺服器不支援符號大綱。"
 
 #: lspclientsymbolview.cpp:591
 #, kde-format

@@ -687,59 +687,6 @@ QList<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursiv
     return files;
 }
 
-static void scanDirRec(QDir dir,
-                       const QString &baseDirPath,
-                       const QStringList &nameFilters,
-                       QDir::Filters filterFlags,
-                       bool recursive,
-                       QList<QString> &files,
-                       QSet<QString> &scannedDirs)
-{
-    // empty canonicalDir is bad, such stuff just doesn't exist on disk
-    const QString canonicalDir = dir.canonicalPath();
-    if (canonicalDir.isEmpty()) {
-        return;
-    }
-
-    // for non toplevel directories filter some things
-    if (!scannedDirs.isEmpty() // not toplevel
-        && dir.exists(QStringLiteral("CMakeCache.txt")) && !dir.exists(QStringLiteral("CMakeLists.txt"))) {
-        // don't include cmake build dirs in a project
-        // do we know other files which are a sure sign that it's an out-of-source build directory ?
-        return;
-    }
-
-    // do recursion check, might happen with symlinks
-    if (scannedDirs.contains(canonicalDir)) {
-        return;
-    }
-    scannedDirs.insert(canonicalDir);
-
-    // collect dir entries
-    dir.setFilter(filterFlags);
-    if (!nameFilters.isEmpty()) {
-        dir.setNameFilters(nameFilters);
-    }
-    QDirIterator dirIterator(dir);
-    while (dirIterator.hasNext()) {
-        dirIterator.next();
-        const QString nextFile = dirIterator.filePath();
-
-        // don't include backup files in the project
-        if (nextFile.endsWith(QStringLiteral("~")) || nextFile.endsWith(QStringLiteral(".bak"))) {
-            continue;
-        }
-
-        // make it relative path to the base dir
-        files.append(dirIterator.filePath().remove(baseDirPath));
-
-        // try to recurse if needed
-        if (recursive && dirIterator.fileInfo().isDir()) {
-            scanDirRec(QDir(nextFile), baseDirPath, nameFilters, filterFlags, recursive, files, scannedDirs);
-        }
-    }
-}
-
 QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters)
 {
     /**
@@ -750,12 +697,30 @@ QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, b
         filterFlags |= QDir::Hidden;
     }
 
+    dir.setFilter(filterFlags);
+    if (!filters.isEmpty()) {
+        dir.setNameFilters(filters);
+    }
+
+    /**
+     * construct flags for iterator
+     */
+    QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
+    if (recursive) {
+        flags = flags | QDirIterator::Subdirectories | QDirIterator::FollowSymlinks;
+    }
+
     /**
      * trigger potential recursive directory search
      */
     QList<QString> files;
-    QSet<QString> scannedDirs;
-    scanDirRec(dir.path(), dir.path() + QLatin1Char('/'), filters, filterFlags, recursive, files, scannedDirs);
+    QDirIterator dirIterator(dir, flags);
+    const QString dirPath = dir.path() + QLatin1Char('/');
+    while (dirIterator.hasNext()) {
+        dirIterator.next();
+        // make it relative path
+        files.append(dirIterator.filePath().remove(dirPath));
+    }
     return files;
 }
 

@@ -444,10 +444,9 @@ msgid "Create new set of targets"
 msgstr "Δημιουργία νέου συνόλου προορισμών"
 
 #: targets.cpp:37
-#, fuzzy, kde-format
-#| msgid "Copy command or target set"
+#, kde-format
 msgid "Clone command or target set"
-msgstr "Αντιγραφή εντολής ή συνόλου προορισμών"
+msgstr "Κλωνοποίηση εντολής ή συνόλου προορισμών"
 
 #: targets.cpp:41
 #, kde-format

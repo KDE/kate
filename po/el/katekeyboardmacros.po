@@ -227,10 +227,9 @@ msgid "End Macro &Recording"
 msgstr "Τερματισμός καταγ&ραφής μακροεντολής"
 
 #: keyboardmacrospluginview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "Φορτώθηκε '%1'"
+msgstr "Φόρτωση %1"
 
 #: keyboardmacrospluginview.cpp:177
 #, kde-format
@@ -248,10 +247,9 @@ msgid "Play the '%1' macro without loading it."
 msgstr "Να γίνει αναπαραγωγή της μακροεντολής '%1' χωρίς να φορτωθεί."
 
 #: keyboardmacrospluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "Διαγράφηκε '%1'"
+msgstr "Καθαρισμός '%1'"
 
 #: keyboardmacrospluginview.cpp:205
 #, kde-format

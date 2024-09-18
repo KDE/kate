@@ -464,10 +464,9 @@ msgid "The CTags executable crashed"
 msgstr "Το εκτελέσιμο CTags κατέρρευσε"
 
 #: kate_ctags_view.cpp:576
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "Το πρόγραμμα CTags τερματίστηκε με κωδικό %1: %2"
+msgstr "Το πρόγραμμα CTags τερματίστηκε με κωδικό %2: %1"
 
 #~ msgid "Failed to run \"%1\". exitStatus = %2"
 #~ msgstr "Αποτυχία εκτέλεσης \"%1\". κατάστασηΕξόδου = %2"

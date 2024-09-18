@@ -519,10 +519,9 @@ msgid "Default Debug Adapter Settings"
 msgstr ""
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Διόρθωση"
+msgstr "Αποσφαλματωτής"
 
 #: debugconfigpage.cpp:128
 #, kde-format

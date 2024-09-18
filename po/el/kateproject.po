@@ -334,10 +334,9 @@ msgid "Show Commit"
 msgstr "Εμφάνιση υποβολής"
 
 #: gitwidget.cpp:1068
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Τελευταία υποβολή"
+msgstr "Υποβολή τελευταίας υποβολής"
 
 #: gitwidget.cpp:1086
 #, kde-format
@@ -718,11 +717,10 @@ msgid "Start Analysis..."
 msgstr "Έναρξη ανάλυσης..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:43
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "Ανάλυση κώδικα"
+msgstr "Ανάλυση κώδικα - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, fuzzy, kde-format
@@ -751,10 +749,9 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212
 #: kateprojectinfoviewcodeanalysis.cpp:216
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
-msgstr "Ανάλυση κώδικα"
+msgstr "ΑνάλυσηΚώδικα"
 
 #: kateprojectinfoviewcodeanalysis.cpp:207
 #, fuzzy, kde-format
@@ -1016,10 +1013,9 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "Θέλετε να διαγράψετε το αρχείο '%1';"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Άνοιγμα αρχείου"
+msgstr "Νέο αρχείο"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
 #, fuzzy, kde-format

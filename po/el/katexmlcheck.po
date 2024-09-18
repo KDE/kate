@@ -36,10 +36,9 @@ msgstr ""
 #: plugin_katexmlcheck.cpp:131 plugin_katexmlcheck.cpp:149
 #: plugin_katexmlcheck.cpp:209 plugin_katexmlcheck.cpp:234
 #: plugin_katexmlcheck.cpp:254 plugin_katexmlcheck.cpp:337
-#, fuzzy, kde-format
-#| msgid "XML Check"
+#, kde-format
 msgid "XMLCheck"
-msgstr "Έλεγχος XML"
+msgstr "ΈλεγχοςXML"
 
 #: plugin_katexmlcheck.cpp:145
 #, kde-format

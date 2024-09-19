@@ -502,15 +502,63 @@ void KateProject::slotModifiedOnDisk(KTextEditor::Document *document, bool isMod
     item->slotModifiedOnDisk(document, isModified, reason);
 }
 
+QStandardItem *KateProject::itemForPath(const QString &path) const
+{
+    auto findInParent = [](const QString &name, QStandardItem *parent) {
+        for (int i = 0; i < parent->rowCount(); ++i) {
+            if (parent->child(i)->text() == name) {
+                return parent->child(i);
+            }
+        }
+        return static_cast<QStandardItem *>(nullptr);
+    };
+
+    const QStringList parts = path.split(QStringLiteral("/"), Qt::SkipEmptyParts);
+    auto root = m_model.invisibleRootItem();
+    if (parts.empty()) {
+        return nullptr;
+    }
+    QStandardItem *parent = root;
+    for (const QString &part : parts) {
+        parent = findInParent(part, parent);
+        if (!parent) {
+            return nullptr;
+        }
+    }
+    return parent;
+}
+
 void KateProject::registerDocument(KTextEditor::Document *document)
 {
     // remember the document, if not already there
+    QString path = document->url().toLocalFile();
     if (!m_documents.contains(document)) {
-        m_documents[document] = document->url().toLocalFile();
+        m_documents[document] = path;
     }
 
     // try to get item for the document
-    KateProjectItem *item = itemForFile(document->url().toLocalFile());
+    KateProjectItem *item = itemForFile(path);
+
+    // a new document that we don't know? If it belong to the project add it
+    if (!item && path.startsWith(m_baseDir)) {
+        path = path.remove(m_baseDir);
+        // remove filename
+        int lastSlash = path.lastIndexOf(QLatin1Char('/'));
+        if (lastSlash != -1) {
+            path = path.remove(lastSlash, path.size() - lastSlash);
+            // find the item for parent directory of this file
+            auto dir = itemForPath(path);
+            // if found, add this file to the directory
+            if (dir && dir->data(KateProjectItem::TypeRole).value<int>() == KateProjectItem::Directory) {
+                QFileInfo fi(document->url().toLocalFile());
+                KateProjectItem *i = new KateProjectItem(KateProjectItem::File, fi.fileName(), fi.absoluteFilePath());
+                dir->appendRow(i);
+                dir->sortChildren(0);
+                addFile(path, i);
+                item = i;
+            }
+        }
+    }
 
     // if we got one, we are done, else create a dummy!
     // clang-format off

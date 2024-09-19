@@ -266,6 +266,13 @@ public:
         return m_projectRoots;
     }
 
+    /*
+     * For a given path, find the item corresponding to
+     * the last path part e.g., for "myProject/dir1/dir2/"
+     * return the item for "dir2" if found or nullptr otherwise
+     */
+    QStandardItem *itemForPath(const QString &path) const;
+
 private Q_SLOTS:
     bool load(const QVariantMap &globalProject, bool force = false);
 

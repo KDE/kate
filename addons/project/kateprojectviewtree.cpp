@@ -264,30 +264,13 @@ void KateProjectViewTree::slotModelChanged()
         selectFile(activeView->document()->url().toLocalFile());
     }
 
-    auto findInParent = [](const QString &name, QStandardItem *parent) {
-        for (int i = 0; i < parent->rowCount(); ++i) {
-            if (parent->child(i)->text() == name) {
-                return parent->child(i);
-            }
-        }
-        return static_cast<QStandardItem *>(nullptr);
-    };
-
     auto proxy = static_cast<QSortFilterProxyModel *>(model());
-    auto root = m_project->model()->invisibleRootItem();
     for (const auto &path : std::as_const(m_expandedNodes)) {
         QStringList parts = path.split(QStringLiteral("/"), Qt::SkipEmptyParts);
         if (parts.empty()) {
             continue;
         }
-        QStandardItem *parent = root;
-        for (const auto &part : std::as_const(parts)) {
-            parent = findInParent(part, parent);
-            if (!parent) {
-                break;
-            }
-        }
-
+        QStandardItem *parent = m_project->itemForPath(path);
         if (parent) {
             auto index = proxy->mapFromSource(m_project->model()->indexFromItem(parent));
             expand(index);

@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-16 00:42+0000\n"
-"PO-Revision-Date: 2024-09-17 20:17+0300\n"
+"PO-Revision-Date: 2024-09-18 22:54+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1156,12 +1156,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:266
 #, kde-format
 msgid "Elide tab text"
-msgstr ""
+msgstr "השמטת טקסט לשונית"
 
 #: lib/kateconfigdialog.cpp:268
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
-msgstr ""
+msgstr "כשהאפשרות מסומנת הטקסט יושמט אם הוא ארוך מדי."
 
 #: lib/kateconfigdialog.cpp:272
 #, kde-format
@@ -2385,7 +2385,7 @@ msgid "Control view space splitting"
 msgstr "שליטה על הרווח בין התצוגות"
 
 #: lib/kateviewspace.cpp:249
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
 "switch to the Quick Open view by clicking here."
@@ -2393,13 +2393,17 @@ msgid_plural ""
 "Currently, there are %1 more documents open. To see all open documents, "
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
-"כרגע יש עוד %1 מסמכים פתוחים. כדי לראות את כולם, החלף לתצוגת פתיחה מהירה ע"
-"\"י לחיצה כאן"
+"נכון לעכשיו, יש עוד מסמך פתוח. כדי לצפות בכל המסמכים הפתוחים, ניתן לעבור "
+"לתצוגת הפתיחה המהירה על ידי לחיצה כאן."
 msgstr[1] ""
-"כרגע יש עוד %1 מסמכים פתוחים. כדי לראות את כולם, החלף לתצוגת פתיחה מהירה ע"
-"\"י לחיצה כאן"
+"נכון לעכשיו, יש עוד שני מסמכים פתוחים. כדי לצפות בכל המסמכים הפתוחים, ניתן "
+"לעבור לתצוגת הפתיחה המהירה על ידי לחיצה כאן."
 msgstr[2] ""
+"נכון לעכשיו, יש עוד %1 מסמכים פתוחים. כדי לצפות בכל המסמכים הפתוחים, ניתן "
+"לעבור לתצוגת הפתיחה המהירה על ידי לחיצה כאן."
 msgstr[3] ""
+"נכון לעכשיו, יש עוד %1 מסמכים פתוחים. כדי לצפות בכל המסמכים הפתוחים, ניתן "
+"לעבור לתצוגת הפתיחה המהירה על ידי לחיצה כאן."
 
 #: lib/kateviewspace.cpp:1116
 #, kde-format

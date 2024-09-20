@@ -48,7 +48,6 @@ KatePluginGDB::KatePluginGDB(QObject *parent, const VariantList &)
     , m_settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/debugger"))
     , m_defaultConfigPath(QUrl::fromLocalFile(m_settingsPath + QStringLiteral("/dap.json")))
 {
-    // FIXME KF5 KGlobal::locale()->insertCatalog("kategdbplugin");
     QDir().mkpath(m_settingsPath);
     readConfig();
 }

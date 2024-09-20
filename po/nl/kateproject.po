@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-09 00:41+0000\n"
+"POT-Creation-Date: 2024-09-20 00:44+0000\n"
 "PO-Revision-Date: 2024-09-08 15:03+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -510,7 +510,7 @@ msgstr "Wilt u deze niet-gevolgde wijzigingen verwijderen?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Misvormd JSON-bestand '%1': %2"
 
-#: kateproject.cpp:539
+#: kateproject.cpp:587
 #, kde-format
 msgid "<untracked>"
 msgstr "<untracked>"

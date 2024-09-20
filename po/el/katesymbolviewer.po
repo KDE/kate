@@ -6,20 +6,21 @@
 # Toussis Manolis <manolis@koppermind.homelinux.org>, 2007, 2008.
 # Dimitrios Glentadakis <dglent@gmail.com>, 2012.
 # Stelios <sstavra@gmail.com>, 2018, 2019, 2023.
+# SPDX-FileCopyrightText: 2024 Antonis Geralis <capoiosct@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-11 01:45+0000\n"
-"PO-Revision-Date: 2023-01-02 21:11+0200\n"
-"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"PO-Revision-Date: 2024-09-19 15:22+0300\n"
+"Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
@@ -58,7 +59,7 @@ msgstr "Δομές"
 #: fortran_parser.cpp:35 perl_parser.cpp:23
 #, kde-format
 msgid "Show Subroutines"
-msgstr "Εμφάνιση υπορουτινών"
+msgstr "Εμφάνιση υπορουτίνων"
 
 #: fortran_parser.cpp:36
 #, kde-format

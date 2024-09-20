@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-09 00:41+0000\n"
+"POT-Creation-Date: 2024-09-20 00:44+0000\n"
 "PO-Revision-Date: 2023-02-20 11:25+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -508,7 +508,7 @@ msgstr "Bạn có chắc chắn muốn xoá những thay đổi chưa được t
 msgid "Malformed JSON file '%1': %2"
 msgstr "Tệp JSON '%1' sai dạng: %2"
 
-#: kateproject.cpp:539
+#: kateproject.cpp:587
 #, kde-format
 msgid "<untracked>"
 msgstr "<chưa theo dõi>"

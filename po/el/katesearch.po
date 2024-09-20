@@ -6,21 +6,21 @@
 # Dimitrios Glentadakis <dglent@gmail.com>, 2012.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014, 2015.
 # Petros Vidalis <pvidalis@gmail.com>, 2016.
-# Antonis Geralis <capoiosct@gmail.com>, 2024.
+# SPDX-FileCopyrightText: 2024 Antonis Geralis <capoiosct@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-22 00:40+0000\n"
-"PO-Revision-Date: 2024-09-01 00:12+0300\n"
+"PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
-"Language-Team: Greek <kde-i18n-doc@kde.org>\n"
+"Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -617,7 +617,7 @@ msgstr "Εύρεση"
 #: SearchPlugin.cpp:1327
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
-msgstr "Η αναζήτηση καθώς πρηκτρολογείτε διεκόπη. Θα είχε διαρκέσει πολύ."
+msgstr "Η αναζήτηση καθώς πληκτρολογείτε διεκόπη. Θα είχε διαρκέσει πολύ."
 
 #: SearchPlugin.cpp:1660
 #, kde-format
@@ -709,7 +709,7 @@ msgstr "&Επεξεργασία"
 #: ui.rc:9
 #, kde-format
 msgid "Find in Files Variants"
-msgstr "Έυρεση σε παραλλαγές αρχείων"
+msgstr "Εύρεση σε παραλλαγές αρχείων"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Αναζήτηση & αντικατάσταση Kate"

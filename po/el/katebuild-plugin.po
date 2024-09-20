@@ -5,21 +5,21 @@
 # Dimitrios Glentadakis <dglent@gmail.com>, 2012.
 # Stelios <sstavra@gmail.com>, 2012, 2015, 2018, 2019, 2020, 2021, 2022.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014, 2015.
-# Antonis Geralis <capoiosct@gmail.com>, 2024.
+# SPDX-FileCopyrightText: 2024 Antonis Geralis <capoiosct@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-24 00:42+0000\n"
-"PO-Revision-Date: 2024-09-01 02:17+0300\n"
+"PO-Revision-Date: 2024-09-19 15:20+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
-"Language-Team: Greek <kde-i18n-doc@kde.org>\n"
+"Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -201,7 +201,7 @@ msgstr ""
 #: plugin_katebuild.cpp:796
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "Αποτυχία εκτέλεσης \"%1\". κατάστασηΕξόδου = %2"
+msgstr "Αποτυχία εκτέλεσης \"%1\". κατάσταση Εξόδου = %2"
 
 #: plugin_katebuild.cpp:811
 #, kde-format

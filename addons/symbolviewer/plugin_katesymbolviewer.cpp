@@ -63,8 +63,6 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
     , m_mainWindow(mw)
     , m_plugin(plugin)
 {
-    // FIXME KF5 KGlobal::locale()->insertCatalog("katesymbolviewerplugin");
-
     KXMLGUIClient::setComponentName(QStringLiteral("katesymbolviewer"), i18n("SymbolViewer"));
     setXMLFile(QStringLiteral("ui.rc"));
 

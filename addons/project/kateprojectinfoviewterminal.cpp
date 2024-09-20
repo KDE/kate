@@ -90,11 +90,6 @@ void KateProjectInfoViewTerminal::loadTerminal()
         }
 
         /**
-         * init locale translation stuff
-         */
-        // FIXME KF5 KGlobal::locale()->insertCatalog("konsole");
-
-        /**
          * switch to right directory
          */
         qobject_cast<TerminalInterface *>(m_konsolePart)->showShellInDir(m_directory);

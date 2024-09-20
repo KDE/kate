@@ -234,7 +234,6 @@ void KateConsole::loadConsoleIfNeeded(QString directory)
         }
         layout()->addWidget(m_part->widget());
 
-        //   KGlobal::locale()->insertCatalog("konsole"); // FIXME KF5: insert catalog
         setFocusProxy(m_part->widget());
 
         connect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);

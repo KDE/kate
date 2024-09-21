@@ -102,6 +102,7 @@ private:
     QCheckBox *m_urlBarShowSymbols = nullptr;
     QCheckBox *m_openNewTabInFrontOfCurrent = nullptr;
     QSpinBox *m_diagnosticsLimit = nullptr;
+    QCheckBox *m_hintViewEnabled = nullptr;
 
     Ui::SessionConfigWidget sessionConfigUi;
 

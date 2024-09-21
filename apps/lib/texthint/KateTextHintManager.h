@@ -10,6 +10,8 @@
 #include <QObject>
 #include <QPointer>
 
+#include <vector>
+
 namespace KTextEditor
 {
 class MainWindow;
@@ -17,6 +19,7 @@ class View;
 class Cursor;
 }
 class KTETextHintProvider;
+class KateTextHintView;
 
 enum class TextHintMarkupKind {
     None = 0,
@@ -43,21 +46,30 @@ Q_SIGNALS:
 
 class KateTextHintManager : public QObject
 {
+    Q_OBJECT
 public:
     explicit KateTextHintManager(KTextEditor::MainWindow *mainWindow);
     ~KateTextHintManager() override;
 
-    void ontextHintRequested(KTextEditor::View *v, KTextEditor::Cursor c);
+    enum class Requestor {
+        HintProvider,
+        CursorChange,
+    };
+
+    void ontextHintRequested(KTextEditor::View *v, KTextEditor::Cursor c, Requestor hintSource);
 
     void registerProvider(KateTextHintProvider *provider);
 
 private:
-    void onTextHintAvailable(const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos);
-    void onShowTextHint(const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos);
-    void showTextHint(const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force);
+    void showTextHint(size_t instanceId, const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force);
 
 private:
     // KTextEditor provider
     KTETextHintProvider *const m_provider;
+
     std::vector<KateTextHintProvider *> m_providers;
+
+    // nullptr indicates absence of a hint view
+    KateTextHintView *m_hintView;
+    Requestor m_lastRequestor;
 };

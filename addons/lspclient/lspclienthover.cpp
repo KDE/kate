@@ -59,11 +59,19 @@ public:
             return {};
         }
 
+        const auto emitHint = [this, position, manual](const QString &tooltip, const LSPMarkupKind kind) {
+            if (manual) {
+                Q_EMIT m_textHintProvider->showTextHint(tooltip, toKateMarkupKind(kind), position);
+            } else {
+                Q_EMIT m_textHintProvider->textHintAvailable(tooltip, toKateMarkupKind(kind), position);
+            }
+        };
+
         // hack: delayed handling of tooltip on our own, the API is too dumb for a-sync feedback ;=)
         if (m_server) {
-            QPointer<KTextEditor::View> v(view);
-            auto h = [v, position, manual, this](const LSPHover &info) {
-                if (!v || info.contents.isEmpty()) {
+            QPointer v(view);
+            auto h = [v, emitHint, this](const LSPHover &info) {
+                if (!v) {
                     return;
                 }
 
@@ -80,17 +88,15 @@ public:
 
                 // make sure there is no selection, otherwise we interrupt
                 if (!v->selection()) {
-                    if (manual) {
-                        Q_EMIT m_textHintProvider->showTextHint(finalTooltip, toKateMarkupKind(kind), position);
-                    } else {
-                        Q_EMIT m_textHintProvider->textHintAvailable(finalTooltip, toKateMarkupKind(kind), position);
-                    }
+                    emitHint(finalTooltip, kind);
                 }
             };
 
             if (view && view->document()) {
                 auto doc = view->document();
                 if (doc->wordAt(position).isEmpty() || view->selection()) {
+                    // Emit an empty hint to unset previous state
+                    emitHint({}, LSPMarkupKind::PlainText);
                     return {};
                 }
                 m_handle.cancel() = m_server->documentHover(view->document()->url(), position, this, h);

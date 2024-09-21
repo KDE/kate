@@ -143,6 +143,8 @@ target_sources(
     diagnostics/diagnosticview.qrc
     texthint/KateTextHintManager.cpp
     texthint/tooltip.cpp
+    texthint/hintview.cpp
+    texthint/hintstate.cpp
 
     kateurlbar.cpp
 

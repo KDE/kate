@@ -4,8 +4,11 @@
 */
 #include "KateTextHintManager.h"
 
+#include "hintview.h"
 #include "tooltip.h"
+#include <kateapp.h>
 
+#include <KSharedConfig>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/TextHintInterface>
 #include <KTextEditor/View>
@@ -59,7 +62,7 @@ public:
 
     virtual QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
     {
-        m_mgr->ontextHintRequested(view, position);
+        m_mgr->ontextHintRequested(view, position, KateTextHintManager::Requestor::HintProvider);
         return {};
     }
 };
@@ -67,15 +70,31 @@ public:
 KateTextHintManager::KateTextHintManager(KTextEditor::MainWindow *mainWindow)
     : QObject(mainWindow)
     , m_provider(new KTETextHintProvider(this))
+    , m_hintView(nullptr)
 {
     connect(mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this](KTextEditor::View *v) {
         m_provider->setView(v);
     });
+
+    const auto updateConfig = [this, mainWindow] {
+        KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+        const auto hintViewEnabled = cgGeneral.readEntry("Enable Context ToolView", false);
+        if (hintViewEnabled && !m_hintView) {
+            m_hintView = new KateTextHintView(mainWindow, this);
+        } else if (!hintViewEnabled && m_hintView) {
+            delete m_hintView;
+            m_hintView = nullptr;
+        }
+    };
+
+    connect(KateApp::self(), &KateApp::configurationChanged, this, updateConfig);
+    updateConfig();
 }
 
 KateTextHintManager::~KateTextHintManager()
 {
     m_provider->setView(nullptr);
+    delete m_hintView;
     delete m_provider;
 }
 
@@ -84,26 +103,40 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
     if (std::find(m_providers.begin(), m_providers.end(), provider) == m_providers.end()) {
         m_providers.push_back(provider);
         connect(provider, &QObject::destroyed, this, [this](QObject *provider) {
-            auto it = std::find(m_providers.begin(), m_providers.end(), provider);
+            auto it = std::find(m_providers.begin(), m_providers.end(), qobject_cast<KateTextHintProvider *>(provider));
             if (it != m_providers.end()) {
                 m_providers.erase(it);
             }
         });
-        connect(provider, &KateTextHintProvider::textHintAvailable, this, &KateTextHintManager::onTextHintAvailable);
-        connect(provider, &KateTextHintProvider::showTextHint, this, &KateTextHintManager::onShowTextHint);
+
+        const auto slot = [=, this](auto forced) {
+            return [this, provider, forced](const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos) {
+                const auto instanceId = reinterpret_cast<std::uintptr_t>(provider);
+
+                if (m_lastRequestor == Requestor::CursorChange && m_hintView) {
+                    m_hintView->update(instanceId, hint, kind, m_provider->view());
+                    return;
+                }
+
+                showTextHint(instanceId, hint, kind, pos, forced);
+            };
+        };
+        connect(provider, &KateTextHintProvider::textHintAvailable, this, slot(false));
+        connect(provider, &KateTextHintProvider::showTextHint, this, slot(true));
     }
 }
 
-void KateTextHintManager::ontextHintRequested(KTextEditor::View *v, KTextEditor::Cursor c)
+void KateTextHintManager::ontextHintRequested(KTextEditor::View *v, KTextEditor::Cursor c, Requestor hintSource)
 {
-    for (auto provider : m_providers) {
+    for (const auto &provider : m_providers) {
         Q_EMIT provider->textHintRequested(v, c);
     }
+    m_lastRequestor = hintSource;
 }
 
-void KateTextHintManager::showTextHint(const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force)
+void KateTextHintManager::showTextHint(size_t instanceId, const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force)
 {
-    if (QStringView(hint).trimmed().isEmpty() || !pos.isValid()) {
+    if (!pos.isValid()) {
         return;
     }
     auto view = m_provider->view();
@@ -112,17 +145,7 @@ void KateTextHintManager::showTextHint(const QString &hint, TextHintMarkupKind k
     }
 
     QPoint p = view->cursorToCoordinate(pos);
-    KateTooltip::show(hint, kind, view->mapToGlobal(p), view, force);
-}
-
-void KateTextHintManager::onTextHintAvailable(const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos)
-{
-    showTextHint(hint, kind, pos, false);
-}
-
-void KateTextHintManager::onShowTextHint(const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos)
-{
-    showTextHint(hint, kind, pos, true);
+    KateTooltip::show(instanceId, hint, kind, view->mapToGlobal(p), view, force);
 }
 
 #include "moc_KateTextHintManager.cpp"

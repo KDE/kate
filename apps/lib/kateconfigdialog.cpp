@@ -348,6 +348,19 @@ void KateConfigDialog::addBehaviorPage()
     hlayout->addWidget(m_diagnosticsLimit);
     connect(m_diagnosticsLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
 
+    buttonGroup = new QGroupBox(i18n("Context"), generalFrame);
+    vbox = new QVBoxLayout(buttonGroup);
+    hlayout = new QHBoxLayout;
+    vbox->addLayout(hlayout);
+    layout->addWidget(buttonGroup);
+    m_hintViewEnabled = new QCheckBox(i18n("Enable tool view"), buttonGroup);
+    m_hintViewEnabled->setToolTip(
+        i18n("A tool view to display context associated with the current "
+             "cursor position (LSP hints, diagnostics)"));
+    hlayout->addWidget(m_hintViewEnabled);
+    m_hintViewEnabled->setChecked(cgGeneral.readEntry("Enable Context ToolView", false));
+    connect(m_hintViewEnabled, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+
     layout->addStretch(1); // :-] works correct without autoadd
 }
 
@@ -618,6 +631,8 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Diagnostics Limit", m_diagnosticsLimit->value());
         cg.writeEntry("Output With Date", m_withDate->isChecked());
+
+        cg.writeEntry("Enable Context ToolView", m_hintViewEnabled->isChecked());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

@@ -18,6 +18,5 @@ class View;
 class KateTooltip
 {
 public:
-    // tooltip hidden after timeout msec (if > 0)
-    static void show(const QString &text, TextHintMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual);
+    static void show(size_t instanceId, const QString &text, TextHintMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual);
 };

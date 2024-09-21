@@ -3,6 +3,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "tooltip.h"
+#include "hintstate.h"
 
 #include <QApplication>
 #include <QEvent>
@@ -52,53 +53,6 @@ public:
 class TooltipPrivate : public QTextBrowser
 {
 public:
-    void setTooltipText(const QString &text, TextHintMarkupKind kind)
-    {
-        if (text.isEmpty())
-            return;
-
-        m_kind = kind;
-        // we have to do this to handle soft line
-        if (kind == TextHintMarkupKind::PlainText) {
-            setPlainText(text);
-        } else {
-            QString htext = text;
-            setMarkdown(htext);
-        }
-        resizeTip();
-    }
-
-    void appendMarkdown(const QString &text)
-    {
-        auto md = toMarkdown();
-        // hbreak
-        md += QStringLiteral("\n----\n");
-        md += text;
-        setMarkdown(md);
-    }
-
-    void appendTooltipText(const QString &text, TextHintMarkupKind kind)
-    {
-        auto cursor = textCursor();
-        cursor.movePosition(QTextCursor::End);
-        if (m_kind == TextHintMarkupKind::PlainText && kind == TextHintMarkupKind::PlainText) {
-            cursor.insertText(QStringLiteral("\n"));
-            cursor.insertText(text);
-        } else if (m_kind == TextHintMarkupKind::MarkDown && kind == TextHintMarkupKind::MarkDown) {
-            appendMarkdown(text);
-        } else if (m_kind == TextHintMarkupKind::PlainText && kind == TextHintMarkupKind::MarkDown) {
-            appendMarkdown(text);
-        } else if (m_kind == TextHintMarkupKind::MarkDown && kind == TextHintMarkupKind::PlainText) {
-            appendMarkdown(text);
-        }
-
-        resizeTip();
-        // resize if too small
-        if (height() < 300) {
-            resize(width(), height() + 200);
-        }
-    }
-
     void setView(KTextEditor::View *view)
     {
         // view changed?
@@ -111,7 +65,7 @@ public:
 
             m_view = view;
 
-            hl->setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(m_view->document()->url().toString()));
+            m_hl->setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(m_view->document()->url().toString()));
 
             if (m_view && m_view->focusProxy()) {
                 m_view->focusProxy()->installEventFilter(this);
@@ -121,7 +75,7 @@ public:
 
     TooltipPrivate(QWidget *parent, bool manual)
         : QTextBrowser(parent)
-        , hl(new TooltipHighlighter(document()))
+        , m_hl(new TooltipHighlighter(document()))
         , m_manual(manual)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
@@ -138,7 +92,7 @@ public:
 
         auto updateColors = [this](KTextEditor::Editor *e) {
             auto theme = e->theme();
-            hl->setTheme(theme);
+            m_hl->setTheme(theme);
 
             auto pal = palette();
             const QColor bg = theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
@@ -259,6 +213,18 @@ public:
         this->move(p);
     }
 
+    void upsert(size_t instanceId, const QString &text, TextHintMarkupKind kind)
+    {
+        m_hintState.upsert(instanceId, text, kind);
+        triggerChange();
+    }
+
+    void remove(size_t instanceId)
+    {
+        m_hintState.remove(instanceId);
+        triggerChange();
+    }
+
 protected:
     void enterEvent(QEnterEvent *event) override
     {
@@ -297,33 +263,53 @@ protected:
     }
 
 private:
+    void triggerChange()
+    {
+        m_hintState.render([this](const auto &data) {
+            const auto &[text, kind] = data;
+            if (kind == TextHintMarkupKind::PlainText) {
+                setPlainText(text);
+            } else {
+                setMarkdown(text);
+            }
+
+            resizeTip();
+        });
+    }
+
     bool inContextMenu = false;
     QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
-    KSyntaxHighlighting::SyntaxHighlighter *hl;
+    KSyntaxHighlighting::SyntaxHighlighter *m_hl;
     bool m_manual;
-    TextHintMarkupKind m_kind = TextHintMarkupKind::PlainText;
+    HintState m_hintState;
 };
 
-void KateTooltip::show(const QString &text, TextHintMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual)
+void KateTooltip::show(size_t instanceId, const QString &text, TextHintMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual)
 {
-    if (text.isEmpty())
-        return;
-
     if (!v || !v->document()) {
         return;
     }
 
     static QPointer<TooltipPrivate> tooltip = nullptr;
     if (tooltip && tooltip->isVisible()) {
-        tooltip->appendTooltipText(text, kind);
+        if (text.isEmpty() || text.trimmed().isEmpty()) {
+            tooltip->remove(instanceId);
+            return;
+        }
+
+        tooltip->upsert(instanceId, text, kind);
         return;
     }
     delete tooltip;
 
+    if (text.isEmpty() || text.trimmed().isEmpty()) {
+        return;
+    }
+
     tooltip = new TooltipPrivate(v, manual);
     tooltip->setView(v);
-    tooltip->setTooltipText(text, kind);
+    tooltip->upsert(instanceId, text, kind);
     tooltip->place(pos);
     tooltip->show();
 }

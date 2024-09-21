@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-19 00:42+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2023-03-21 18:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -643,40 +643,40 @@ msgstr "mục được lập chỉ mục"
 msgid "named items"
 msgstr "mục được đặt tên"
 
-#: plugin_kategdb.cpp:105
+#: plugin_kategdb.cpp:104
 #, fuzzy, kde-format
 #| msgid "Kate GDB"
 msgid "Kate Debug"
 msgstr "GDB trong Kate"
 
-#: plugin_kategdb.cpp:109
+#: plugin_kategdb.cpp:108
 #, kde-format
 msgid "Debug View"
 msgstr "Khung xem gỡ lỗi"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:343
+#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:342
 #, kde-format
 msgid "Debug"
 msgstr "Gỡ lỗi"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
+#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Biến cục bộ và ngăn xếp"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Số"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Khung"
 
-#: plugin_kategdb.cpp:199
+#: plugin_kategdb.cpp:198
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -684,13 +684,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Đầu ra GDB"
 
-#: plugin_kategdb.cpp:200
+#: plugin_kategdb.cpp:199
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Thiết lập"
 
-#: plugin_kategdb.cpp:242
+#: plugin_kategdb.cpp:241
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -700,88 +700,88 @@ msgstr ""
 "<title>Không mở được tệp:</title><nl/>%1<br/>Hãy thử thêm một đường dẫn tìm "
 "kiếm vào Thiết lập nâng cao -> Đường dẫn tìm kiếm tệp nguồn"
 
-#: plugin_kategdb.cpp:267
+#: plugin_kategdb.cpp:266
 #, kde-format
 msgid "Start Debugging"
 msgstr "Bắt đầu gỡ lỗi"
 
-#: plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Diệt/dừng gỡ lỗi"
 
-#: plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Continue"
 msgstr "Tiếp tục"
 
-#: plugin_kategdb.cpp:290
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Bật/tắt điểm ngắt / ngắt"
 
-#: plugin_kategdb.cpp:297
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step In"
 msgstr "Bước vào"
 
-#: plugin_kategdb.cpp:304
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Over"
 msgstr "Bước qua"
 
-#: plugin_kategdb.cpp:311
+#: plugin_kategdb.cpp:310
 #, kde-format
 msgid "Step Out"
 msgstr "Bước ra"
 
-#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:350
+#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:349
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Chạy đến con trỏ"
 
-#: plugin_kategdb.cpp:325
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Khởi động lại việc gỡ lỗi"
 
-#: plugin_kategdb.cpp:333 plugin_kategdb.cpp:352
+#: plugin_kategdb.cpp:332 plugin_kategdb.cpp:351
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Di chuyển con trỏ lệnh"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:337
 #, kde-format
 msgid "Print Value"
 msgstr "In giá trị"
 
-#: plugin_kategdb.cpp:431 plugin_kategdb.cpp:447
+#: plugin_kategdb.cpp:430 plugin_kategdb.cpp:446
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Chèn điểm ngắt"
 
-#: plugin_kategdb.cpp:445
+#: plugin_kategdb.cpp:444
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Xoá điểm ngắt"
 
-#: plugin_kategdb.cpp:582
+#: plugin_kategdb.cpp:581
 #, kde-format
 msgid "Execution point"
 msgstr "Điểm thực thi"
 
-#: plugin_kategdb.cpp:721
+#: plugin_kategdb.cpp:720
 #, kde-format
 msgid "Thread %1"
 msgstr "Luồng %1"
 
-#: plugin_kategdb.cpp:821
+#: plugin_kategdb.cpp:820
 #, kde-format
 msgid "IO"
 msgstr "Vào/ra"
 
-#: plugin_kategdb.cpp:905
+#: plugin_kategdb.cpp:904
 #, kde-format
 msgid "Breakpoint"
 msgstr "Điểm ngắt"

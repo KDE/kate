@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-19 00:42+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2014-12-20 11:52+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -649,41 +649,41 @@ msgstr ""
 msgid "named items"
 msgstr ""
 
-#: plugin_kategdb.cpp:105
+#: plugin_kategdb.cpp:104
 #, fuzzy, kde-format
 #| msgid "Kate GDB"
 msgid "Kate Debug"
 msgstr "Кејтин ГДБ"
 
-#: plugin_kategdb.cpp:109
+#: plugin_kategdb.cpp:108
 #, kde-format
 msgid "Debug View"
 msgstr "Исправљачки приказ"
 
 # >> @title:menu
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:343
+#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:342
 #, kde-format
 msgid "Debug"
 msgstr "Исправљање"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
+#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Локалне и стек"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "бр."
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "оквир"
 
-#: plugin_kategdb.cpp:199
+#: plugin_kategdb.cpp:198
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -691,13 +691,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Излаз ГДБ‑а"
 
-#: plugin_kategdb.cpp:200
+#: plugin_kategdb.cpp:199
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Поставке"
 
-#: plugin_kategdb.cpp:242
+#: plugin_kategdb.cpp:241
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -705,89 +705,89 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:267
+#: plugin_kategdb.cpp:266
 #, kde-format
 msgid "Start Debugging"
 msgstr "Покрени исправљање"
 
-#: plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Укини/заустави исправљање"
 
-#: plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Continue"
 msgstr "Настави"
 
-#: plugin_kategdb.cpp:290
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Преломна тачка или прелом"
 
-#: plugin_kategdb.cpp:297
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step In"
 msgstr "Укорачи"
 
-#: plugin_kategdb.cpp:304
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Over"
 msgstr "Прекорачи"
 
-#: plugin_kategdb.cpp:311
+#: plugin_kategdb.cpp:310
 #, kde-format
 msgid "Step Out"
 msgstr "Искорачи"
 
-#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:350
+#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:349
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Изврши до курсора"
 
-#: plugin_kategdb.cpp:325
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Поново покрени исправљање"
 
-#: plugin_kategdb.cpp:333 plugin_kategdb.cpp:352
+#: plugin_kategdb.cpp:332 plugin_kategdb.cpp:351
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Помјери ⁠ПЦ"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:337
 #, kde-format
 msgid "Print Value"
 msgstr "Испиши вриједност"
 
-#: plugin_kategdb.cpp:431 plugin_kategdb.cpp:447
+#: plugin_kategdb.cpp:430 plugin_kategdb.cpp:446
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Уметни преломну тачку"
 
-#: plugin_kategdb.cpp:445
+#: plugin_kategdb.cpp:444
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Уклони преломну тачку"
 
-#: plugin_kategdb.cpp:582
+#: plugin_kategdb.cpp:581
 #, kde-format
 msgid "Execution point"
 msgstr "Извршна тачка"
 
 # >> @item:inlistbox
-#: plugin_kategdb.cpp:721
+#: plugin_kategdb.cpp:720
 #, kde-format
 msgid "Thread %1"
 msgstr "нит %1"
 
-#: plugin_kategdb.cpp:821
+#: plugin_kategdb.cpp:820
 #, kde-format
 msgid "IO"
 msgstr "У/И"
 
-#: plugin_kategdb.cpp:905
+#: plugin_kategdb.cpp:904
 #, kde-format
 msgid "Breakpoint"
 msgstr "Преломна тачка"

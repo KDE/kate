@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-19 00:42+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2023-05-09 02:04+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -644,51 +644,51 @@ msgstr "elementos indexados"
 msgid "named items"
 msgstr "elementos con nombre"
 
-#: plugin_kategdb.cpp:105
+#: plugin_kategdb.cpp:104
 #, kde-format
 msgid "Kate Debug"
 msgstr "Depuración de Kate"
 
-#: plugin_kategdb.cpp:109
+#: plugin_kategdb.cpp:108
 #, kde-format
 msgid "Debug View"
 msgstr "Vista de depuración"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:343
+#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:342
 #, kde-format
 msgid "Debug"
 msgstr "Depurar"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
+#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Locales y pila"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Núm."
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Marco"
 
-#: plugin_kategdb.cpp:199
+#: plugin_kategdb.cpp:198
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Salida de la depuración"
 
-#: plugin_kategdb.cpp:200
+#: plugin_kategdb.cpp:199
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Preferencias"
 
-#: plugin_kategdb.cpp:242
+#: plugin_kategdb.cpp:241
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -699,88 +699,88 @@ msgstr ""
 "ruta de búsqueda en «Preferencias avanzadas -> Rutas de búsqueda de archivos "
 "fuente»."
 
-#: plugin_kategdb.cpp:267
+#: plugin_kategdb.cpp:266
 #, kde-format
 msgid "Start Debugging"
 msgstr "Iniciar la depuración"
 
-#: plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Interrumpir/detener la depuración"
 
-#: plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Continue"
 msgstr "Continuar"
 
-#: plugin_kategdb.cpp:290
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Conmutar punto de interrupción"
 
-#: plugin_kategdb.cpp:297
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step In"
 msgstr "Avanzar"
 
-#: plugin_kategdb.cpp:304
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Over"
 msgstr "Pasar sobre"
 
-#: plugin_kategdb.cpp:311
+#: plugin_kategdb.cpp:310
 #, kde-format
 msgid "Step Out"
 msgstr "Pasar fuera"
 
-#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:350
+#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:349
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Ejecutar hasta el cursor"
 
-#: plugin_kategdb.cpp:325
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Reiniciar la depuración"
 
-#: plugin_kategdb.cpp:333 plugin_kategdb.cpp:352
+#: plugin_kategdb.cpp:332 plugin_kategdb.cpp:351
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Mover CP"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:337
 #, kde-format
 msgid "Print Value"
 msgstr "Imprimir valor"
 
-#: plugin_kategdb.cpp:431 plugin_kategdb.cpp:447
+#: plugin_kategdb.cpp:430 plugin_kategdb.cpp:446
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Insertar punto de interrupción"
 
-#: plugin_kategdb.cpp:445
+#: plugin_kategdb.cpp:444
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Eliminar punto de interrupción"
 
-#: plugin_kategdb.cpp:582
+#: plugin_kategdb.cpp:581
 #, kde-format
 msgid "Execution point"
 msgstr "Punto de ejecución"
 
-#: plugin_kategdb.cpp:721
+#: plugin_kategdb.cpp:720
 #, kde-format
 msgid "Thread %1"
 msgstr "Hilo %1"
 
-#: plugin_kategdb.cpp:821
+#: plugin_kategdb.cpp:820
 #, kde-format
 msgid "IO"
 msgstr "E/S"
 
-#: plugin_kategdb.cpp:905
+#: plugin_kategdb.cpp:904
 #, kde-format
 msgid "Breakpoint"
 msgstr "Punto de interrupción"

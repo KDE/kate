@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2010-12-14 10:24+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Language: km-KH\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
-#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
+#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25
 #: ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
@@ -31,12 +31,12 @@ msgstr "បង្ហាញ​អនុគមន៍"
 msgid "Functions"
 msgstr "អនុគមន៍"
 
-#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:84
+#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:82
 #, kde-format
 msgid "Show Macros"
 msgstr "បង្ហាញ​ម៉ាក្រូ"
 
-#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:86
+#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Structures"
 msgstr "បង្ហាញ​រចនា​សម្ព័ន្ធ"
@@ -106,98 +106,98 @@ msgstr "កំណត់​"
 msgid "Classes"
 msgstr "ថ្នាក់"
 
-#: plugin_katesymbolviewer.cpp:68
+#: plugin_katesymbolviewer.cpp:66
 #, kde-format
 msgid "SymbolViewer"
 msgstr "កម្មវិធី​​មើល​និមិត្តសញ្ញា"
 
-#: plugin_katesymbolviewer.cpp:77
+#: plugin_katesymbolviewer.cpp:75
 #, fuzzy, kde-format
 #| msgid "List/Tree Mode"
 msgid "Tree Mode"
 msgstr "រាយ/របៀប​​មែកធាង"
 
-#: plugin_katesymbolviewer.cpp:79
+#: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:81
+#: plugin_katesymbolviewer.cpp:79
 #, fuzzy, kde-format
 #| msgid "Show Structures"
 msgid "Show Sorted"
 msgstr "បង្ហាញ​រចនា​សម្ព័ន្ធ"
 
-#: plugin_katesymbolviewer.cpp:90
+#: plugin_katesymbolviewer.cpp:88
 #, fuzzy, kde-format
 #| msgid "Show Params"
 msgid "Show Parameters"
 msgstr "បង្ហាញ​ប៉ារ៉ាម៉ែត្រ"
 
-#: plugin_katesymbolviewer.cpp:116
+#: plugin_katesymbolviewer.cpp:114
 #, kde-format
 msgid "Symbol List"
 msgstr "បញ្ជី​និមិត្តសញ្ញា"
 
-#: plugin_katesymbolviewer.cpp:134
+#: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter..."
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "​និមិត្ត​សញ្ញា"
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "ទីតាំង​"
 
-#: plugin_katesymbolviewer.cpp:362
+#: plugin_katesymbolviewer.cpp:360
 #, fuzzy, kde-format
 #| msgid "Sorry. Language not supported yet"
 msgid "Sorry, not supported yet!"
 msgstr "សូម​អភ័យទោស មិនទាន់​គាំទ្រ​ភាសា​នៅឡើ​ទេ"
 
-#: plugin_katesymbolviewer.cpp:366
+#: plugin_katesymbolviewer.cpp:364
 #, kde-format
 msgid "File type: %1"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Display functions parameters"
 msgstr "បង្ហាញ​ប៉ារ៉ាម៉ែត្រ​អនុគមន៍"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "ពង្រីក​ថ្នាំង​ក្នុង​របៀប​មែកធាង​ដោយ​ស្វ័យប្រវត្តិ"
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:482
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Always sort symbols"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:484
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Parser Options"
 msgstr "ជម្រើស​ឧបករណ៍​ញែក"
 
-#: plugin_katesymbolviewer.cpp:512
+#: plugin_katesymbolviewer.cpp:510
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "កម្មវិធី​​មើល​និមិត្តសញ្ញា"
 
-#: plugin_katesymbolviewer.cpp:517
+#: plugin_katesymbolviewer.cpp:515
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "ទំព័រ​កំណត់​រចនាសម្ព័ន្ធ​កម្មវិធី​មើល​​និមិត្តសញ្ញា"

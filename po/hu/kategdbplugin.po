@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-19 00:42+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2021-12-23 14:57+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -647,40 +647,40 @@ msgstr ""
 msgid "named items"
 msgstr ""
 
-#: plugin_kategdb.cpp:105
+#: plugin_kategdb.cpp:104
 #, fuzzy, kde-format
 #| msgid "Kate GDB"
 msgid "Kate Debug"
 msgstr "Kate GDB"
 
-#: plugin_kategdb.cpp:109
+#: plugin_kategdb.cpp:108
 #, kde-format
 msgid "Debug View"
 msgstr "Hibakereső nézet"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:343
+#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:342
 #, kde-format
 msgid "Debug"
 msgstr "Hibakeresés"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
+#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Helyi változók és verem"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Sorszám"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Keret"
 
-#: plugin_kategdb.cpp:199
+#: plugin_kategdb.cpp:198
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -688,13 +688,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "GDB kimenet"
 
-#: plugin_kategdb.cpp:200
+#: plugin_kategdb.cpp:199
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Beállítások"
 
-#: plugin_kategdb.cpp:242
+#: plugin_kategdb.cpp:241
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -705,88 +705,88 @@ msgstr ""
 "keresési útvonalat a Speciális beállítások -> Forrásfájlok keresési útvonala "
 "lapon"
 
-#: plugin_kategdb.cpp:267
+#: plugin_kategdb.cpp:266
 #, kde-format
 msgid "Start Debugging"
 msgstr "Hibakeresés indítása"
 
-#: plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Hibakeresés kilövése/leállítása"
 
-#: plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Continue"
 msgstr "Folytatás"
 
-#: plugin_kategdb.cpp:290
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Töréspont beszúrása"
 
-#: plugin_kategdb.cpp:297
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step In"
 msgstr "Belépés"
 
-#: plugin_kategdb.cpp:304
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Over"
 msgstr "Átlépés"
 
-#: plugin_kategdb.cpp:311
+#: plugin_kategdb.cpp:310
 #, kde-format
 msgid "Step Out"
 msgstr "Kilépés"
 
-#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:350
+#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:349
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Futtatás a kurzorig"
 
-#: plugin_kategdb.cpp:325
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Hibakeresés újraindítása"
 
-#: plugin_kategdb.cpp:333 plugin_kategdb.cpp:352
+#: plugin_kategdb.cpp:332 plugin_kategdb.cpp:351
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Utasításszámláló léptetése"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:337
 #, kde-format
 msgid "Print Value"
 msgstr "Érték kiírása"
 
-#: plugin_kategdb.cpp:431 plugin_kategdb.cpp:447
+#: plugin_kategdb.cpp:430 plugin_kategdb.cpp:446
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Töréspont beszúrása"
 
-#: plugin_kategdb.cpp:445
+#: plugin_kategdb.cpp:444
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Töréspont eltávolítása"
 
-#: plugin_kategdb.cpp:582
+#: plugin_kategdb.cpp:581
 #, kde-format
 msgid "Execution point"
 msgstr "Végrehajtási pont"
 
-#: plugin_kategdb.cpp:721
+#: plugin_kategdb.cpp:720
 #, kde-format
 msgid "Thread %1"
 msgstr "%1. szál"
 
-#: plugin_kategdb.cpp:821
+#: plugin_kategdb.cpp:820
 #, kde-format
 msgid "IO"
 msgstr "I/O"
 
-#: plugin_kategdb.cpp:905
+#: plugin_kategdb.cpp:904
 #, kde-format
 msgid "Breakpoint"
 msgstr "Töréspont"

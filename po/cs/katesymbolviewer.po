@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecppsymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2022-01-11 17:41+0100\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Lokalize 21.12.0\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
-#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
+#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25
 #: ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
@@ -32,12 +32,12 @@ msgstr "Ukázat funkce"
 msgid "Functions"
 msgstr "Funkce"
 
-#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:84
+#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:82
 #, kde-format
 msgid "Show Macros"
 msgstr "Ukázat makra"
 
-#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:86
+#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Structures"
 msgstr "Ukázat struktury"
@@ -107,94 +107,94 @@ msgstr "Definice"
 msgid "Classes"
 msgstr "Třídy"
 
-#: plugin_katesymbolviewer.cpp:68
+#: plugin_katesymbolviewer.cpp:66
 #, kde-format
 msgid "SymbolViewer"
 msgstr "Prohlížeč symbolů"
 
-#: plugin_katesymbolviewer.cpp:77
+#: plugin_katesymbolviewer.cpp:75
 #, kde-format
 msgid "Tree Mode"
 msgstr "Stromový pohled"
 
-#: plugin_katesymbolviewer.cpp:79
+#: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
 msgstr "Rozbalit strom"
 
-#: plugin_katesymbolviewer.cpp:81
+#: plugin_katesymbolviewer.cpp:79
 #, kde-format
 msgid "Show Sorted"
 msgstr "Zobrazit seřazené"
 
-#: plugin_katesymbolviewer.cpp:90
+#: plugin_katesymbolviewer.cpp:88
 #, kde-format
 msgid "Show Parameters"
 msgstr "Zobrazit parametry"
 
-#: plugin_katesymbolviewer.cpp:116
+#: plugin_katesymbolviewer.cpp:114
 #, kde-format
 msgid "Symbol List"
 msgstr "Seznam symbolů"
 
-#: plugin_katesymbolviewer.cpp:134
+#: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter..."
 msgstr "Filtr..."
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "Symboly"
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "Umístění"
 
-#: plugin_katesymbolviewer.cpp:362
+#: plugin_katesymbolviewer.cpp:360
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr "Bohužel, zatím není podporováno."
 
-#: plugin_katesymbolviewer.cpp:366
+#: plugin_katesymbolviewer.cpp:364
 #, kde-format
 msgid "File type: %1"
 msgstr "Typ souboru: %1"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Zobrazit parametry funkcí"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Automaticky rozvinout uzly ve stromovém pohledu"
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Vždy zobrazit symboly v režimu stromu"
 
-#: plugin_katesymbolviewer.cpp:482
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Vždy seřadit symboly"
 
-#: plugin_katesymbolviewer.cpp:484
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Parser Options"
 msgstr "Volby analyzátoru"
 
-#: plugin_katesymbolviewer.cpp:512
+#: plugin_katesymbolviewer.cpp:510
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Prohlížeč symbolů"
 
-#: plugin_katesymbolviewer.cpp:517
+#: plugin_katesymbolviewer.cpp:515
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Konfigurační stránka prohlížeče symbolů"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-19 00:42+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2011-06-23 22:47+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -637,51 +637,51 @@ msgstr ""
 msgid "named items"
 msgstr ""
 
-#: plugin_kategdb.cpp:105
+#: plugin_kategdb.cpp:104
 #, fuzzy, kde-format
 msgid "Kate Debug"
 msgstr "Nyahpepijat"
 
-#: plugin_kategdb.cpp:109
+#: plugin_kategdb.cpp:108
 #, fuzzy, kde-format
 msgid "Debug View"
 msgstr "Nyahpepijat Paparkan"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:343
+#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:342
 #, fuzzy, kde-format
 msgid "Debug"
 msgstr "Nyahpepijat"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
+#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
 #, fuzzy, kde-format
 msgid "Locals and Stack"
 msgstr "Panggil Tindan"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, fuzzy, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:166
 #, fuzzy, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Bingkai"
 
-#: plugin_kategdb.cpp:199
+#: plugin_kategdb.cpp:198
 #, fuzzy, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Output"
 
-#: plugin_kategdb.cpp:200
+#: plugin_kategdb.cpp:199
 #, fuzzy, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Seting"
 
-#: plugin_kategdb.cpp:242
+#: plugin_kategdb.cpp:241
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -689,88 +689,88 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:267
+#: plugin_kategdb.cpp:266
 #, fuzzy, kde-format
 msgid "Start Debugging"
 msgstr "Mula Nyahpepijat"
 
-#: plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:276
 #, fuzzy, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Henti Nyahpepijat"
 
-#: plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:283
 #, fuzzy, kde-format
 msgid "Continue"
 msgstr "Teruskan"
 
-#: plugin_kategdb.cpp:290
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr ""
 
-#: plugin_kategdb.cpp:297
+#: plugin_kategdb.cpp:296
 #, fuzzy, kde-format
 msgid "Step In"
 msgstr "Langkah"
 
-#: plugin_kategdb.cpp:304
+#: plugin_kategdb.cpp:303
 #, fuzzy, kde-format
 msgid "Step Over"
 msgstr "Langkah Langkau"
 
-#: plugin_kategdb.cpp:311
+#: plugin_kategdb.cpp:310
 #, fuzzy, kde-format
 msgid "Step Out"
 msgstr "Langkah Keluar"
 
-#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:350
+#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:349
 #, fuzzy, kde-format
 msgid "Run To Cursor"
 msgstr "Laksana Kepada"
 
-#: plugin_kategdb.cpp:325
+#: plugin_kategdb.cpp:324
 #, fuzzy, kde-format
 msgid "Restart Debugging"
 msgstr "Ulangmula Nyahpepijat"
 
-#: plugin_kategdb.cpp:333 plugin_kategdb.cpp:352
+#: plugin_kategdb.cpp:332 plugin_kategdb.cpp:351
 #, fuzzy, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Pindah PC"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:337
 #, fuzzy, kde-format
 msgid "Print Value"
 msgstr "Cetak Nilai"
 
-#: plugin_kategdb.cpp:431 plugin_kategdb.cpp:447
+#: plugin_kategdb.cpp:430 plugin_kategdb.cpp:446
 #, fuzzy, kde-format
 msgid "Insert breakpoint"
 msgstr "Selit"
 
-#: plugin_kategdb.cpp:445
+#: plugin_kategdb.cpp:444
 #, fuzzy, kde-format
 msgid "Remove breakpoint"
 msgstr "Buang"
 
-#: plugin_kategdb.cpp:582
+#: plugin_kategdb.cpp:581
 #, fuzzy, kde-format
 msgid "Execution point"
 msgstr "Pelaksanaan"
 
-#: plugin_kategdb.cpp:721
+#: plugin_kategdb.cpp:720
 #, kde-format
 msgid "Thread %1"
 msgstr ""
 
-#: plugin_kategdb.cpp:821
+#: plugin_kategdb.cpp:820
 #, kde-format
 msgid "IO"
 msgstr ""
 
-#: plugin_kategdb.cpp:905
+#: plugin_kategdb.cpp:904
 #, kde-format
 msgid "Breakpoint"
 msgstr ""

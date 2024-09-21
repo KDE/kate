@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-15 01:41+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2015-10-16 19:04+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -342,46 +342,46 @@ msgstr "Врати на подразумевану наредбу"
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:112
+#: kate_ctags_plugin.cpp:75 kate_ctags_view.cpp:112
 #, kde-format
 msgid "Add a directory to index."
 msgstr "Додајте фасциклу у индекс."
 
-#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:115
+#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:115
 #, kde-format
 msgid "Remove a directory."
 msgstr "Уклоните фасциклу."
 
-#: kate_ctags_plugin.cpp:83
+#: kate_ctags_plugin.cpp:81
 #, kde-format
 msgid "(Re-)generate the common CTags database."
 msgstr "Изградите заједничку базу података Ц‑тагса."
 
-#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
+#: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
 #: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:548
 #: kate_ctags_view.cpp:561 kate_ctags_view.cpp:574 kate_ctags_view.cpp:578
 #, kde-format
 msgid "CTags"
 msgstr "Ц‑тагс"
 
-#: kate_ctags_plugin.cpp:107
+#: kate_ctags_plugin.cpp:105
 #, kde-format
 msgid "CTags Settings"
 msgstr "Поставке Ц‑тагса"
 
-#: kate_ctags_plugin.cpp:230 kate_ctags_view.cpp:559
+#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:559
 #, fuzzy, kde-format
 #| msgid "Failed to run \"%1\". exitStatus = %2"
 msgid "Failed to run. Error: %1, exit code: %2"
 msgstr "Неуспјело извршавање „%1“. Излазно стање: %2"
 
 # rewrite-msgid: /executable/process/
-#: kate_ctags_plugin.cpp:241
+#: kate_ctags_plugin.cpp:239
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "Процес Ц‑тагса се срушио."
 
-#: kate_ctags_plugin.cpp:243
+#: kate_ctags_plugin.cpp:241
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "Наредба Ц‑тагса завршила је са кодом %1"

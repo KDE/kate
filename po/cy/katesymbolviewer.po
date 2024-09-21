@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecppsymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2004-02-25 10:47+0000\n"
 "Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
-#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
+#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25
 #: ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
@@ -29,12 +29,12 @@ msgstr "Dangos Ffwythiannau"
 msgid "Functions"
 msgstr "Ffwythiannau"
 
-#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:84
+#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:82
 #, kde-format
 msgid "Show Macros"
 msgstr "Dangos Macros"
 
-#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:86
+#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Structures"
 msgstr "Dangos Adeileddau"
@@ -108,99 +108,99 @@ msgstr ""
 msgid "Classes"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:68
+#: plugin_katesymbolviewer.cpp:66
 #, fuzzy, kde-format
 msgid "SymbolViewer"
 msgstr "Rhestr Symbolau"
 
-#: plugin_katesymbolviewer.cpp:77
+#: plugin_katesymbolviewer.cpp:75
 #, fuzzy, kde-format
 #| msgid "List/Tree Mode"
 msgid "Tree Mode"
 msgstr "Modd Rhestr/Coeden"
 
-#: plugin_katesymbolviewer.cpp:79
+#: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:81
+#: plugin_katesymbolviewer.cpp:79
 #, fuzzy, kde-format
 #| msgid "Show Structures"
 msgid "Show Sorted"
 msgstr "Dangos Adeileddau"
 
-#: plugin_katesymbolviewer.cpp:90
+#: plugin_katesymbolviewer.cpp:88
 #, fuzzy, kde-format
 #| msgid "Show Macros"
 msgid "Show Parameters"
 msgstr "Dangos Macros"
 
-#: plugin_katesymbolviewer.cpp:116
+#: plugin_katesymbolviewer.cpp:114
 #, kde-format
 msgid "Symbol List"
 msgstr "Rhestr Symbolau"
 
-#: plugin_katesymbolviewer.cpp:134
+#: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter..."
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:142
 #, fuzzy, kde-format
 #| msgid "Symbols"
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "Symbolau"
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:142
 #, fuzzy, kde-format
 #| msgid "Position"
 msgctxt "@title:column"
 msgid "Position"
 msgstr "Lleoliad"
 
-#: plugin_katesymbolviewer.cpp:362
+#: plugin_katesymbolviewer.cpp:360
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:366
+#: plugin_katesymbolviewer.cpp:364
 #, kde-format
 msgid "File type: %1"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Display functions parameters"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:482
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Always sort symbols"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:484
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Parser Options"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:512
+#: plugin_katesymbolviewer.cpp:510
 #, fuzzy, kde-format
 msgid "Symbol Viewer"
 msgstr "Rhestr Symbolau"
 
-#: plugin_katesymbolviewer.cpp:517
+#: plugin_katesymbolviewer.cpp:515
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr ""

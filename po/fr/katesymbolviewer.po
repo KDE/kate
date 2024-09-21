@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 01:45+0000\n"
+"POT-Creation-Date: 2024-09-21 00:42+0000\n"
 "PO-Revision-Date: 2024-04-29 14:02+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Text-Markup: kde4\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
-#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:88 python_parser.cpp:25
+#: julia_parser.cpp:29 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25
 #: ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
@@ -37,12 +37,12 @@ msgstr "Afficher les fonctions"
 msgid "Functions"
 msgstr "Fonctions"
 
-#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:84
+#: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:82
 #, kde-format
 msgid "Show Macros"
 msgstr "Afficher les macros"
 
-#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:86
+#: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Structures"
 msgstr "Afficher les structures"
@@ -112,94 +112,94 @@ msgstr "Définitions"
 msgid "Classes"
 msgstr "Classes"
 
-#: plugin_katesymbolviewer.cpp:68
+#: plugin_katesymbolviewer.cpp:66
 #, kde-format
 msgid "SymbolViewer"
 msgstr "Afficheur de symboles"
 
-#: plugin_katesymbolviewer.cpp:77
+#: plugin_katesymbolviewer.cpp:75
 #, kde-format
 msgid "Tree Mode"
 msgstr "Mode en arborescence"
 
-#: plugin_katesymbolviewer.cpp:79
+#: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
 msgstr "Ouvrir l'arborescence"
 
-#: plugin_katesymbolviewer.cpp:81
+#: plugin_katesymbolviewer.cpp:79
 #, kde-format
 msgid "Show Sorted"
 msgstr "Afficher trié"
 
-#: plugin_katesymbolviewer.cpp:90
+#: plugin_katesymbolviewer.cpp:88
 #, kde-format
 msgid "Show Parameters"
 msgstr "Afficher les paramètres"
 
-#: plugin_katesymbolviewer.cpp:116
+#: plugin_katesymbolviewer.cpp:114
 #, kde-format
 msgid "Symbol List"
 msgstr "Liste des symboles"
 
-#: plugin_katesymbolviewer.cpp:134
+#: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrer..."
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "Symboles"
 
-#: plugin_katesymbolviewer.cpp:144
+#: plugin_katesymbolviewer.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "Position"
 
-#: plugin_katesymbolviewer.cpp:362
+#: plugin_katesymbolviewer.cpp:360
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr "Désolé, non pris en charge pour l'instant !"
 
-#: plugin_katesymbolviewer.cpp:366
+#: plugin_katesymbolviewer.cpp:364
 #, kde-format
 msgid "File type: %1"
 msgstr "Type de fichier : %1"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Afficher les paramètres des fonctions"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Développer automatiquement les nœuds en mode arborescence"
 
-#: plugin_katesymbolviewer.cpp:481
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Toujours afficher les symboles en mode arborescent"
 
-#: plugin_katesymbolviewer.cpp:482
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Toujours trier les symboles"
 
-#: plugin_katesymbolviewer.cpp:484
+#: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Parser Options"
 msgstr "Options d'analyse syntaxique"
 
-#: plugin_katesymbolviewer.cpp:512
+#: plugin_katesymbolviewer.cpp:510
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Afficheur de symboles"
 
-#: plugin_katesymbolviewer.cpp:517
+#: plugin_katesymbolviewer.cpp:515
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Page de configuration de l'afficheur de symboles"

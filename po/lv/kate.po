@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-09-22 00:43+0000\n"
 "PO-Revision-Date: 2012-12-27 17:53+0200\n"
 "Last-Translator: Maris Nartiss <maris.kde@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -388,7 +388,7 @@ msgid "Error"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1128 lib/kateconfigdialog.cpp:138
-#: lib/kateconfigdialog.cpp:700
+#: lib/kateconfigdialog.cpp:715
 #, kde-format
 msgid "Warning"
 msgstr ""
@@ -1263,25 +1263,42 @@ msgstr "Saraksta skatījums"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:360
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#, kde-format
+msgid "Context"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:356
+#, kde-format
+msgid "Enable tool view"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:358
+#, kde-format
+msgid ""
+"A tool view to display context associated with the current cursor position "
+"(LSP hints, diagnostics)"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:373
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Session"
 msgstr "Sesijas"
 
-#: lib/kateconfigdialog.cpp:362
+#: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Session Management"
 msgstr "Sesiju pārvaldība"
 
-#: lib/kateconfigdialog.cpp:373
+#: lib/kateconfigdialog.cpp:386
 #, fuzzy, kde-format
 #| msgid "(never)"
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(nekad)"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:387
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1290,29 +1307,29 @@ msgstr[0] " dienas"
 msgstr[1] " dienām"
 msgstr[2] " dienām"
 
-#: lib/kateconfigdialog.cpp:407
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:442
+#: lib/kateconfigdialog.cpp:455
 #, kde-format
 msgid "Plugins"
 msgstr "Spraudņi"
 
-#: lib/kateconfigdialog.cpp:444
+#: lib/kateconfigdialog.cpp:457
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Spraudņu pārvaldnieks"
 
-#: lib/kateconfigdialog.cpp:462 lib/kateconfigdialog.cpp:464
+#: lib/kateconfigdialog.cpp:475 lib/kateconfigdialog.cpp:477
 #, kde-format
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:699
+#: lib/kateconfigdialog.cpp:714
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "

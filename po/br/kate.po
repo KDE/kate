@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ./messages/kdebase/kate.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-09-22 00:43+0000\n"
 "PO-Revision-Date: 2004-09-22 16:07+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -361,7 +361,7 @@ msgid "Error"
 msgstr "Fazi"
 
 #: lib/diagnostics/diagnosticview.cpp:1128 lib/kateconfigdialog.cpp:138
-#: lib/kateconfigdialog.cpp:700
+#: lib/kateconfigdialog.cpp:715
 #, kde-format
 msgid "Warning"
 msgstr ""
@@ -1229,25 +1229,43 @@ msgstr "Gwell a heul"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:360
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#, fuzzy, kde-format
+#| msgid "Configure"
+msgid "Context"
+msgstr "Kefluniañ"
+
+#: lib/kateconfigdialog.cpp:356
+#, kde-format
+msgid "Enable tool view"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:358
+#, kde-format
+msgid ""
+"A tool view to display context associated with the current cursor position "
+"(LSP hints, diagnostics)"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:373
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Session"
 msgstr "Dalc'hioù"
 
-#: lib/kateconfigdialog.cpp:362
+#: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Session Management"
 msgstr "Mererezh an dalc'hioù"
 
-#: lib/kateconfigdialog.cpp:373
+#: lib/kateconfigdialog.cpp:386
 #, fuzzy, kde-format
 #| msgid "(never)"
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(gwech ebet)"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:387
 #, fuzzy, kde-format
 #| msgid " day(s)"
 msgctxt "The suffix of 'Delete unused meta-information after'"
@@ -1256,29 +1274,29 @@ msgid_plural " days"
 msgstr[0] " deiz(ioù)"
 msgstr[1] ""
 
-#: lib/kateconfigdialog.cpp:407
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:442
+#: lib/kateconfigdialog.cpp:455
 #, kde-format
 msgid "Plugins"
 msgstr "Lugentoù"
 
-#: lib/kateconfigdialog.cpp:444
+#: lib/kateconfigdialog.cpp:457
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Merour al lugentoù"
 
-#: lib/kateconfigdialog.cpp:462 lib/kateconfigdialog.cpp:464
+#: lib/kateconfigdialog.cpp:475 lib/kateconfigdialog.cpp:477
 #, kde-format
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:699
+#: lib/kateconfigdialog.cpp:714
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -3424,11 +3442,6 @@ msgstr "Krouiñ un teul nevez"
 #~| msgid "Move To"
 #~ msgid "Move PC"
 #~ msgstr "Fiñval da"
-
-#, fuzzy
-#~| msgid "Configure"
-#~ msgid "Continue"
-#~ msgstr "Kefluniañ"
 
 #, fuzzy
 #~| msgid "Remove"

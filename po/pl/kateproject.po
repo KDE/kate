@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-20 00:44+0000\n"
-"PO-Revision-Date: 2024-08-31 07:02+0200\n"
+"PO-Revision-Date: 2024-09-21 11:45+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -943,16 +943,14 @@ msgid "Copy Location"
 msgstr "Skopiuj położenie"
 
 #: kateprojecttreeviewcontextmenu.cpp:72
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "Otwórz plik"
+msgstr "Nowy plik…"
 
 #: kateprojecttreeviewcontextmenu.cpp:73
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Dodaj katalog"
+msgstr "Nowy katalog…"
 
 #: kateprojecttreeviewcontextmenu.cpp:80
 #, kde-format
@@ -1000,16 +998,14 @@ msgid "Do you want to delete the file '%1'?"
 msgstr "Czy na pewno usunąć plik '%1'?"
 
 #: kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Otwórz plik"
+msgstr "Nowy plik"
 
 #: kateprojecttreeviewcontextmenu.cpp:193
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Dodaj katalog"
+msgstr "Nowy katalog"
 
 #: kateprojectviewtree.cpp:159
 #, kde-format

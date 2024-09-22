@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1690499 $
+# Version: $Revision: 1691065 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-09-22 00:43+0000\n"
 "PO-Revision-Date: 2024-08-31 07:02+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -370,7 +370,7 @@ msgid "Error"
 msgstr "Błąd"
 
 #: lib/diagnostics/diagnosticview.cpp:1128 lib/kateconfigdialog.cpp:138
-#: lib/kateconfigdialog.cpp:700
+#: lib/kateconfigdialog.cpp:715
 #, kde-format
 msgid "Warning"
 msgstr "Ostrzeżenie"
@@ -1244,23 +1244,40 @@ msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 "Graniczna liczba diagnostyki dozwolona w widoku narzędzia diagnostycznego."
 
-#: lib/kateconfigdialog.cpp:360
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#, kde-format
+msgid "Context"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:356
+#, kde-format
+msgid "Enable tool view"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:358
+#, kde-format
+msgid ""
+"A tool view to display context associated with the current cursor position "
+"(LSP hints, diagnostics)"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Session"
 msgstr "Posiedzenie"
 
-#: lib/kateconfigdialog.cpp:362
+#: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Session Management"
 msgstr "Zarządzanie posiedzeniami"
 
-#: lib/kateconfigdialog.cpp:373
+#: lib/kateconfigdialog.cpp:386
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(nigdy)"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:387
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1269,7 +1286,7 @@ msgstr[0] " dniu"
 msgstr[1] " dniach"
 msgstr[2] " dniach"
 
-#: lib/kateconfigdialog.cpp:407
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1278,22 +1295,22 @@ msgstr ""
 "Przy zamykaniu okna, dokumenty otwarte tylko w tym oknie także zostaną "
 "zamknięte."
 
-#: lib/kateconfigdialog.cpp:442
+#: lib/kateconfigdialog.cpp:455
 #, kde-format
 msgid "Plugins"
 msgstr "Wtyczki"
 
-#: lib/kateconfigdialog.cpp:444
+#: lib/kateconfigdialog.cpp:457
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Zarządzanie wtyczkami"
 
-#: lib/kateconfigdialog.cpp:462 lib/kateconfigdialog.cpp:464
+#: lib/kateconfigdialog.cpp:475 lib/kateconfigdialog.cpp:477
 #, kde-format
 msgid "User Feedback"
 msgstr "Informacja zwrotna"
 
-#: lib/kateconfigdialog.cpp:699
+#: lib/kateconfigdialog.cpp:714
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

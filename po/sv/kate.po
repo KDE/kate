@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-09-22 00:43+0000\n"
 "PO-Revision-Date: 2024-08-30 06:40+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -361,7 +361,7 @@ msgid "Error"
 msgstr "Fel"
 
 #: lib/diagnostics/diagnosticview.cpp:1128 lib/kateconfigdialog.cpp:138
-#: lib/kateconfigdialog.cpp:700
+#: lib/kateconfigdialog.cpp:715
 #, kde-format
 msgid "Warning"
 msgstr "Varning"
@@ -1225,23 +1225,41 @@ msgstr "Diagnostikgräns:"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "Maximalt antal diagnostikposter som tillåts i verktygsvyn Diagnostik"
 
-#: lib/kateconfigdialog.cpp:360
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#, fuzzy, kde-format
+#| msgid "Continue"
+msgid "Context"
+msgstr "Fortsätt"
+
+#: lib/kateconfigdialog.cpp:356
+#, kde-format
+msgid "Enable tool view"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:358
+#, kde-format
+msgid ""
+"A tool view to display context associated with the current cursor position "
+"(LSP hints, diagnostics)"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Session"
 msgstr "Session"
 
-#: lib/kateconfigdialog.cpp:362
+#: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Session Management"
 msgstr "Sessionshantering"
 
-#: lib/kateconfigdialog.cpp:373
+#: lib/kateconfigdialog.cpp:386
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(aldrig)"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:387
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1249,7 +1267,7 @@ msgid_plural " days"
 msgstr[0] " dag"
 msgstr[1] " dagar"
 
-#: lib/kateconfigdialog.cpp:407
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1258,22 +1276,22 @@ msgstr ""
 "När ett fönster stängs, stängs också dokumenten som bara är öppnade i "
 "fönstret."
 
-#: lib/kateconfigdialog.cpp:442
+#: lib/kateconfigdialog.cpp:455
 #, kde-format
 msgid "Plugins"
 msgstr "Insticksprogram"
 
-#: lib/kateconfigdialog.cpp:444
+#: lib/kateconfigdialog.cpp:457
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Insticksprogramhanterare"
 
-#: lib/kateconfigdialog.cpp:462 lib/kateconfigdialog.cpp:464
+#: lib/kateconfigdialog.cpp:475 lib/kateconfigdialog.cpp:477
 #, kde-format
 msgid "User Feedback"
 msgstr "Användaråterkoppling"
 
-#: lib/kateconfigdialog.cpp:699
+#: lib/kateconfigdialog.cpp:714
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -4337,9 +4355,6 @@ msgstr "Visa välkomstsida för nya fönster"
 
 #~ msgid "Run To Cursor"
 #~ msgstr "Kör till markören"
-
-#~ msgid "Continue"
-#~ msgstr "Fortsätt"
 
 #~ msgid "Print Value"
 #~ msgstr "Skriv ut värde"

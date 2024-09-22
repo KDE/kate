@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-09-22 00:43+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -359,7 +359,7 @@ msgid "Error"
 msgstr "Feil"
 
 #: lib/diagnostics/diagnosticview.cpp:1128 lib/kateconfigdialog.cpp:138
-#: lib/kateconfigdialog.cpp:700
+#: lib/kateconfigdialog.cpp:715
 #, kde-format
 msgid "Warning"
 msgstr "Åtvaring"
@@ -1231,23 +1231,40 @@ msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 "Maksgrense for talet på diagnostikk­meldingar viste i diagnostikkvisinga."
 
-#: lib/kateconfigdialog.cpp:360
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#, kde-format
+msgid "Context"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:356
+#, kde-format
+msgid "Enable tool view"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:358
+#, kde-format
+msgid ""
+"A tool view to display context associated with the current cursor position "
+"(LSP hints, diagnostics)"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Session"
 msgstr "Økt"
 
-#: lib/kateconfigdialog.cpp:362
+#: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Session Management"
 msgstr "Økthandsaming"
 
-#: lib/kateconfigdialog.cpp:373
+#: lib/kateconfigdialog.cpp:386
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(aldri)"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:387
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1256,7 +1273,7 @@ msgstr[0] " dag"
 msgstr[1] " dagar"
 
 # Obs: Ikkje alle dokument opne i vindauget vert lukka. Det gjeld berre dei dokumenta som *berre* er opne i dette vindauget. (Viss eit dokument er ope i fleire vindauge, vert det altså ikkje lukka.)
-#: lib/kateconfigdialog.cpp:407
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1265,22 +1282,22 @@ msgstr ""
 "Når eit vindauge vert lukka, vert dokumenta som berre er opne i dette "
 "vindauget, òg lukka."
 
-#: lib/kateconfigdialog.cpp:442
+#: lib/kateconfigdialog.cpp:455
 #, kde-format
 msgid "Plugins"
 msgstr "Programtillegg"
 
-#: lib/kateconfigdialog.cpp:444
+#: lib/kateconfigdialog.cpp:457
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Handtering av tilleggsmodular"
 
-#: lib/kateconfigdialog.cpp:462 lib/kateconfigdialog.cpp:464
+#: lib/kateconfigdialog.cpp:475 lib/kateconfigdialog.cpp:477
 #, kde-format
 msgid "User Feedback"
 msgstr "Tilbakemeldingar"
 
-#: lib/kateconfigdialog.cpp:699
+#: lib/kateconfigdialog.cpp:714
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

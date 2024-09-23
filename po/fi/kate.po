@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-22 00:43+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: 2024-03-11 15:17+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -48,39 +48,39 @@ msgstr ""
 
 # pmap: =/gen=Katen/
 # pmap: =/elat=Katesta/
-#: kate/main.cpp:93
+#: kate/main.cpp:94
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:95
+#: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate – Kehittynyt tekstimuokkain"
 
-#: kate/main.cpp:97 kwrite/main.cpp:50
+#: kate/main.cpp:98 kwrite/main.cpp:50
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2022 The Kate Authors"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000–2022 Katen tekijät"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Käynnistä Kate annettuun istuntoon."
 
-#: kate/main.cpp:144
+#: kate/main.cpp:145
 #, kde-format
 msgid "session"
 msgstr "istunto"
 
-#: kate/main.cpp:149
+#: kate/main.cpp:150
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr ""
 "Käynnistää Katen uuteen nimettömään istuntoon (implikoi -n-valitsimen)."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -91,7 +91,7 @@ msgstr ""
 "käynnistystä ja toisessa Kate-ilmentymässä on valittu istunto jo auki). "
 "Pakotetaan, ellei muita parametreja eikä osoitteita ole annettu."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -100,7 +100,7 @@ msgstr ""
 "Jos käytetään jo käynnissä olevaa Kate-ilmentymää, odotetaan kunnes se "
 "päättyy, elleivät osoitteet avaudu."
 
-#: kate/main.cpp:166
+#: kate/main.cpp:167
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -110,58 +110,58 @@ msgstr ""
 "käytetään käynnistystä ja toisessa Kate-ilmentymässä on valittu istunto jo "
 "auki)."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:168
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:172 kwrite/main.cpp:101
+#: kate/main.cpp:173 kwrite/main.cpp:101
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Aseta koodaustapa avattavalle tiedostolle."
 
-#: kate/main.cpp:173 kwrite/main.cpp:102
+#: kate/main.cpp:174 kwrite/main.cpp:102
 #, kde-format
 msgid "encoding"
 msgstr "koodaus"
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Siirry tälle riville."
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "line"
 msgstr "rivi"
 
-#: kate/main.cpp:182 kwrite/main.cpp:110
+#: kate/main.cpp:183 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Siirry tähän sarakkeeseen."
 
-#: kate/main.cpp:183 kwrite/main.cpp:110
+#: kate/main.cpp:184 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "sarake"
 
-#: kate/main.cpp:187 kwrite/main.cpp:114
+#: kate/main.cpp:188 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Lue vakiosyötteen sisältö."
 
-#: kate/main.cpp:192 kwrite/main.cpp:118
+#: kate/main.cpp:193 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Sovelluksen avaamat tiedostot ja verkko-osoitteet poistetaan käytön jälkeen"
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "Avattavat tiedostot."
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[url:t...]"
@@ -1249,7 +1249,7 @@ msgstr "Diagnostiikkarajoitus:"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "Diagnostiikan enimmäismäärä Diagnostiikka-työkalunäkymässä."
 
-#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:23
 #, fuzzy, kde-format
 #| msgid "Continue"
 msgid "Context"

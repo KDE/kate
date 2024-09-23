@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-22 00:43+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -31,38 +31,38 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "toptan@kde.org.yu,caslav.ilic@gmx.net"
 
-#: kate/main.cpp:93
+#: kate/main.cpp:94
 #, kde-format
 msgid "Kate"
 msgstr "Кејт"
 
-#: kate/main.cpp:95
+#: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Кејт, напредни уређивач текста"
 
-#: kate/main.cpp:97 kwrite/main.cpp:50
+#: kate/main.cpp:98 kwrite/main.cpp:50
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2017 The Kate Authors"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000–2017, аутори Кејт"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Покрени Кејт са датом сесијом."
 
-#: kate/main.cpp:144
+#: kate/main.cpp:145
 #, kde-format
 msgid "session"
 msgstr "сесија"
 
-#: kate/main.cpp:149
+#: kate/main.cpp:150
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Покрени Кејт са новом анонимном сесијом (повлачи -n)."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -72,7 +72,7 @@ msgstr ""
 "Принудно покрени нови примерак Кејт ако није дат ниједан параметар нити УРЛ "
 "(игнорише се ако је сесија задата и већ отворена у другом примерку)."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -81,7 +81,7 @@ msgstr ""
 "Ако се користи већ покренути примерак Кејт, блокирај док не заврши ако су "
 "дати УРЛ‑ови за отварање."
 
-#: kate/main.cpp:166
+#: kate/main.cpp:167
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -90,57 +90,57 @@ msgstr ""
 "Покушај да употребиш само примерак Кејт са овим ПИД‑ом (игнорише се ако је "
 "сесија задата и већ отворена у другом примерку)."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:168
 #, kde-format
 msgid "pid"
 msgstr "ПИД"
 
-#: kate/main.cpp:172 kwrite/main.cpp:101
+#: kate/main.cpp:173 kwrite/main.cpp:101
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Кодирање за фајл који се отвара."
 
-#: kate/main.cpp:173 kwrite/main.cpp:102
+#: kate/main.cpp:174 kwrite/main.cpp:102
 #, kde-format
 msgid "encoding"
 msgstr "кодирање"
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Иди на овај ред."
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "line"
 msgstr "ред"
 
-#: kate/main.cpp:182 kwrite/main.cpp:110
+#: kate/main.cpp:183 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Иди на ову колону."
 
-#: kate/main.cpp:183 kwrite/main.cpp:110
+#: kate/main.cpp:184 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "колона"
 
-#: kate/main.cpp:187 kwrite/main.cpp:114
+#: kate/main.cpp:188 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Учитај садржај са стдул."
 
-#: kate/main.cpp:192 kwrite/main.cpp:118
+#: kate/main.cpp:193 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "Фајлови/УРЛ‑ови које је програм отворио биће обрисани након коришћења"
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "Документи за отварање."
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[УРЛ‑ови...]"
@@ -1240,7 +1240,7 @@ msgstr ""
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:23
 #, kde-format
 msgid "Context"
 msgstr ""

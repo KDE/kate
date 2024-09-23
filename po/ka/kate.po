@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-22 00:43+0000\n"
-"PO-Revision-Date: 2024-08-30 05:34+0200\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
+"PO-Revision-Date: 2024-09-22 05:30+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -28,37 +28,37 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Temuri.doghonadze@gmail.com"
 
-#: kate/main.cpp:93
+#: kate/main.cpp:94
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:95
+#: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - გაუმჯობესებული ტექსტური რედაქტორი"
 
-#: kate/main.cpp:97 kwrite/main.cpp:50
+#: kate/main.cpp:98 kwrite/main.cpp:50
 #, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 The Kate -ის ავტორები"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Kate-ის მითითებული სესიით გაშვება."
 
-#: kate/main.cpp:144
+#: kate/main.cpp:145
 #, kde-format
 msgid "session"
 msgstr "სესია"
 
-#: kate/main.cpp:149
+#: kate/main.cpp:150
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Kate-ის ახალი ანონიმური სესიის გაშვება. ივარაუდება '-n'."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -69,7 +69,7 @@ msgstr ""
 "ასლს მითითებული სესია უკვე ღია აქვს) შექმნა. ნაძალადევია, თუ პარამეტრები და "
 "ბმულები გადაცემული არაა."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -78,7 +78,7 @@ msgstr ""
 "Kate-ის უკვე გაშვებული ასლის გამოყენებისას, დაბლოკვა, სანამ ის მუშაობას "
 "დაასრულებს, თუ გასახსნელად ბმულებია მითითებული."
 
-#: kate/main.cpp:166
+#: kate/main.cpp:167
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -88,57 +88,57 @@ msgstr ""
 "ცდა(დაიგნორებულია, თუ გამოყენებულია გაშვება და სხვა Kate-ის გაშვებულ ასლს "
 "უკვე აქვს მითითებული სესია ღია)."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:168
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:172 kwrite/main.cpp:101
+#: kate/main.cpp:173 kwrite/main.cpp:101
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "აირჩიეთ გასახსნელი ფაილის კოდირება."
 
-#: kate/main.cpp:173 kwrite/main.cpp:102
+#: kate/main.cpp:174 kwrite/main.cpp:102
 #, kde-format
 msgid "encoding"
 msgstr "კოდირება"
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this line."
 msgstr "ამ ხაზზე გადასვლა."
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "line"
 msgstr "ხაზი"
 
-#: kate/main.cpp:182 kwrite/main.cpp:110
+#: kate/main.cpp:183 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "ამ სვეტზე გადასვლა."
 
-#: kate/main.cpp:183 kwrite/main.cpp:110
+#: kate/main.cpp:184 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "სვეტი"
 
-#: kate/main.cpp:187 kwrite/main.cpp:114
+#: kate/main.cpp:188 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Stdin-ის შემცველობის წაკითხვა."
 
-#: kate/main.cpp:192 kwrite/main.cpp:118
+#: kate/main.cpp:193 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "აპლიკაციის მიერ გახსნილი ფაილები/URL-ები წაიშლება გამოყენების შემდეგ"
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "გასახსნელი დოკუმენტები."
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
@@ -1226,15 +1226,15 @@ msgstr "დიაგნოსტიკის ლიმიტი:"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "დიაგნოსტიკის ხედში დაშვებული დიაგნოსტიკების მაქს. რაოდენობა."
 
-#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:23
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "კონტექსტი"
 
 #: lib/kateconfigdialog.cpp:356
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "ხელსაწყოს ხედვის ჩართვა"
 
 #: lib/kateconfigdialog.cpp:358
 #, kde-format
@@ -1242,6 +1242,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"ინსტრუმენტის ხედი კურსორის მიმდინარე პოზიციასთან დაკავშირებული კონტექსტის "
+"საჩვენებლად (LSP მინიშნებები, დიაგნოსტიკა)"
 
 #: lib/kateconfigdialog.cpp:373
 #, kde-format

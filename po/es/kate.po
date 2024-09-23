@@ -1,26 +1,18 @@
-# translation of kate.po to Spanish
-# traducción de kate.po a Español
-# translation of kate.po to
-# Translation to spanish
-# Copyright (C) 2000-2002
+# Translation of kate to Spanish
 #
-# Pablo de Vicente <vicente@oan.es>, 2000-2002.
-# Jaime Robles <jaime@kde.org>, 2003, 2005.
-# Miguel Revilla Rodríguez <yo@miguelrevilla.com>, 2003, 2004.
-# Pablo de Vicente <vicnte@oan.es>, 2003.
-# Pablo de Vicente <p.devicente@wanadoo.es>, 2004, 2005.
+# SPDX-FileCopyrightText: 2000, 2001, 2002 Pablo de Vicente <vicente@oan.es>
+# SPDX-FileCopyrightText: 2003, 2005 Jaime Robles <jaime@kde.org>
+# SPDX-FileCopyrightText: 2003, 2004 Miguel Revilla Rodríguez <yo@miguelrevilla.com>
+# SPDX-FileCopyrightText: 2003, 2004, 2005, 2006 Pablo de Vicente <p.devicente@wanadoo.es>
 # SPDX-FileCopyrightText: 2005, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
-# Pablo de Vicente <pablo.devicente@gmail.com>, 2006.
-# Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>, 2009.
-# Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>, 2011, 2012, 2013.
-# arklad, 2011.
-# Rocio Gallego <traducciones@rociogallego.com>, 2012, 2013, 2014, 2015.
+# SPDX-FileCopyrightText: 2009, 2011, 2012, 2013 Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-22 00:43+0000\n"
-"PO-Revision-Date: 2024-08-31 02:01+0200\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
+"PO-Revision-Date: 2024-09-22 20:15+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -32,7 +24,7 @@ msgstr ""
 "the.blue.valkyrie@gmail.com>\n"
 "com>\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -49,37 +41,37 @@ msgstr ""
 "ecuadra@eloihr.net,traducciones@rociogallego.com,jaime@kde.org,p."
 "devicente@wanadoo.es,coder@telefonica.net,the.blue.valkyrie@gmail.com"
 
-#: kate/main.cpp:93
+#: kate/main.cpp:94
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:95
+#: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Editor de texto avanzado"
 
-#: kate/main.cpp:97 kwrite/main.cpp:50
+#: kate/main.cpp:98 kwrite/main.cpp:50
 #, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000-2024 Los autores de Kate"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Iniciar Kate con una determinada sesión."
 
-#: kate/main.cpp:144
+#: kate/main.cpp:145
 #, kde-format
 msgid "session"
 msgstr "sesión"
 
-#: kate/main.cpp:149
+#: kate/main.cpp:150
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Iniciar Kate con una nueva sesión anónima, implica «-n»."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -90,7 +82,7 @@ msgstr ""
 "otra instancia de Kate ya tiene abierta la sesión dada) se efectúa si no se "
 "proporciona ningún parámetro ni URL"
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -99,7 +91,7 @@ msgstr ""
 "Si ya se está ejecutando una instancia de Kate y se ha solicitado abrir "
 "alguna URL, bloquear hasta que finalice dicha instancia"
 
-#: kate/main.cpp:166
+#: kate/main.cpp:167
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -108,59 +100,59 @@ msgstr ""
 "Intentar reutilizar solo la instancia de Kate con este PID (se ignora si se "
 "usa «Iniciar» y otra instancia ya tiene abierta dicha sesión)."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:168
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:172 kwrite/main.cpp:101
+#: kate/main.cpp:173 kwrite/main.cpp:101
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Establecer codificación para el archivo a abrir."
 
-#: kate/main.cpp:173 kwrite/main.cpp:102
+#: kate/main.cpp:174 kwrite/main.cpp:102
 #, kde-format
 msgid "encoding"
 msgstr "codificación"
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Navegar hasta esta línea."
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "line"
 msgstr "línea"
 
-#: kate/main.cpp:182 kwrite/main.cpp:110
+#: kate/main.cpp:183 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Navegar hasta esta columna."
 
-#: kate/main.cpp:183 kwrite/main.cpp:110
+#: kate/main.cpp:184 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "columna"
 
-#: kate/main.cpp:187 kwrite/main.cpp:114
+#: kate/main.cpp:188 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Leer el contenido de «stdin»."
 
-#: kate/main.cpp:192 kwrite/main.cpp:118
+#: kate/main.cpp:193 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Los archivos o URL abiertos por la aplicación se borrarán después de "
 "utilizarlos"
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "Documentos a abrir."
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[url...]"
@@ -1261,15 +1253,15 @@ msgstr ""
 "Número máximo de diagnósticos permitidos en el visor de la herramienta de "
 "diagnósticos."
 
-#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:23
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "Contexto"
 
 #: lib/kateconfigdialog.cpp:356
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Activar la vista de herramientas"
 
 #: lib/kateconfigdialog.cpp:358
 #, kde-format
@@ -1277,6 +1269,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"Una vista de herramientas que muestra contexto asociado a la posición actual "
+"del cursor (LSP, consejos, diagnósticos)"
 
 #: lib/kateconfigdialog.cpp:373
 #, kde-format

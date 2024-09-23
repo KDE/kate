@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-22 00:43+0000\n"
+"POT-Creation-Date: 2024-09-23 00:41+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -25,38 +25,38 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "skkalwar999@gmail.com"
 
-#: kate/main.cpp:93
+#: kate/main.cpp:94
 #, kde-format
 msgid "Kate"
 msgstr "केट्"
 
-#: kate/main.cpp:95
+#: kate/main.cpp:96
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "केट - उन्नत पाठ्य सम्पादक"
 
-#: kate/main.cpp:97 kwrite/main.cpp:50
+#: kate/main.cpp:98 kwrite/main.cpp:50
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2022 The Kate Authors"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) २०००-२०२२ केट लेखकाः"
 
-#: kate/main.cpp:143
+#: kate/main.cpp:144
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "दत्तसत्रेण केट् आरभत।."
 
-#: kate/main.cpp:144
+#: kate/main.cpp:145
 #, kde-format
 msgid "session"
 msgstr "सत्र"
 
-#: kate/main.cpp:149
+#: kate/main.cpp:150
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "केट् नूतनेन अनामिकेन सत्रेण आरभत, '-n' इत्यस्य तात्पर्यम् ।."
 
-#: kate/main.cpp:154
+#: kate/main.cpp:155
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -67,7 +67,7 @@ msgstr ""
 "उदाहरणस्य पूर्वमेव दत्तं सत्रं उद्घाटितं भवति तर्हि अवहेलितं भवति), यदि कोऽपि पैरामीटर् "
 "नास्ति तथा च URL सर्वथा न दत्तः तर्हि बलात् क्रियते."
 
-#: kate/main.cpp:160
+#: kate/main.cpp:161
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -76,7 +76,7 @@ msgstr ""
 "यदि पूर्वमेव चालितं केट् उदाहरणं उपयुज्यते तर्हि यावत् तत् निर्गच्छति तावत् अवरोधयन्तु, यदि "
 "URLs उद्घाटयितुं दत्ताः सन्ति ।."
 
-#: kate/main.cpp:166
+#: kate/main.cpp:167
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -86,57 +86,57 @@ msgstr ""
 "उपयोगः भवति तथा च अन्यस्य केट् उदाहरणं इत्यस्य पूर्वमेव दत्तं सत्रं उद्घाटितं भवति तर्हि "
 "उपेक्षितं भवति) ।."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:168
 #, kde-format
 msgid "pid"
 msgstr "पिड"
 
-#: kate/main.cpp:172 kwrite/main.cpp:101
+#: kate/main.cpp:173 kwrite/main.cpp:101
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "सञ्चिकायाः उद्घाटनार्थं सङ्कूटन निरूपयत् कुर्वन्तु ।."
 
-#: kate/main.cpp:173 kwrite/main.cpp:102
+#: kate/main.cpp:174 kwrite/main.cpp:102
 #, kde-format
 msgid "encoding"
 msgstr "सङ्कूटनम्"
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "Navigate to this line."
 msgstr "अस्याः पङ्क्तौ गच्छन्तु ।."
 
-#: kate/main.cpp:177 kwrite/main.cpp:106
+#: kate/main.cpp:178 kwrite/main.cpp:106
 #, kde-format
 msgid "line"
 msgstr "पंक्ति"
 
-#: kate/main.cpp:182 kwrite/main.cpp:110
+#: kate/main.cpp:183 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "अस्मिन् स्तम्भे गच्छन्तु ।."
 
-#: kate/main.cpp:183 kwrite/main.cpp:110
+#: kate/main.cpp:184 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "स्तम्भः"
 
-#: kate/main.cpp:187 kwrite/main.cpp:114
+#: kate/main.cpp:188 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "\"stdin\" इत्यस्य विषयवस्तु पठन्तु।."
 
-#: kate/main.cpp:192 kwrite/main.cpp:118
+#: kate/main.cpp:193 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "अनुप्रयोगेन उद्घाटिताः सञ्चिकाः/URLs उपयोगानन्तरं विलोपिताः भविष्यन्ति"
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "दस्तावेजाः उद्घाटयितुं।."
 
-#: kate/main.cpp:196 kwrite/main.cpp:122
+#: kate/main.cpp:197 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
@@ -1220,7 +1220,7 @@ msgstr "निदानं दृश्यम्"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:16
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:23
 #, kde-format
 msgid "Context"
 msgstr ""

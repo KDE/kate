@@ -17,7 +17,7 @@ environment:
   XDG_CONFIG_DIRS: $SNAP_USER_DATA/.config:$XDG_CONFIG_DIRS
   __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
   LIBGL_DRIVERS_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri"
-  LD_LIBRARY_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:${LD_LIBRARY_PATH}"
+  LD_LIBRARY_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:/snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/core22/current/lib:/snap/core22/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/core22/current/usr/lib${LD_LIBRARY_PATH}"
   PATH: $SNAP/usr/bin:${PATH}
   XDG_DATA_DIRS: $SNAP/usr/share:$SNAP_USER_DATA/.local/usr/share:$SNAP/usr/share:$SNAP/data-dir
   XDG_CONFIG_HOME: $SNAP_USER_DATA/.config

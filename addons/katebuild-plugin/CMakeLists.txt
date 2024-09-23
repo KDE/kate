@@ -25,6 +25,7 @@ target_sources(
     buildconfig.cpp
     plugin.qrc
     qcmakefileapi.cpp
+    FlutterSupport.cpp
     ${DEBUG_SOURCES}
 )
 

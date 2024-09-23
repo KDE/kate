@@ -30,6 +30,7 @@ struct AppOutput::Private {
     QTextEdit *outputArea = nullptr;
     QString terminalProcess;
     AppOutput *q = nullptr;
+    QString type;
 
     void addOutputText(QString const &text)
     {
@@ -135,19 +136,17 @@ AppOutput::~AppOutput()
     d->process.kill();
 }
 
-void AppOutput::setWorkingDir(const QString &path)
+void AppOutput::runCommand(const QString &cmd, const QString &workingDir, const QString &type)
 {
+    d->type = type;
+
     TerminalInterface *t = qobject_cast<TerminalInterface *>(d->part);
     if (t) {
-        t->showShellInDir(path);
+        t->showShellInDir(workingDir);
     } else {
-        d->process.setWorkingDirectory(path);
+        d->process.setWorkingDirectory(workingDir);
     }
-}
 
-void AppOutput::runCommand(const QString &cmd)
-{
-    TerminalInterface *t = qobject_cast<TerminalInterface *>(d->part);
     if (t) {
         t->sendInput(cmd + QLatin1Char('\n'));
         d->terminalProcess = cmd;
@@ -169,6 +168,21 @@ QString AppOutput::runningProcess()
 
     QString program = d->process.program().isEmpty() ? QString() : d->process.program().constFirst();
     return d->process.state() == QProcess::NotRunning ? QString() : program;
+}
+
+void AppOutput::sendInput(const QString &in)
+{
+    TerminalInterface *t = qobject_cast<TerminalInterface *>(d->part);
+    if (t) {
+        return t->sendInput(in);
+    } else {
+        d->process.write(in.toUtf8());
+    }
+}
+
+QString AppOutput::type() const
+{
+    return d->type;
 }
 
 #include "moc_AppOutput.cpp"

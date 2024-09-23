@@ -6,6 +6,7 @@
 //  SPDX-License-Identifier: LGPL-2.0-only
 
 #include "targets.h"
+#include <KActionCollection>
 #include <KLocalizedString>
 #include <QApplication>
 #include <QClipboard>
@@ -20,7 +21,20 @@
 
 using namespace Qt::Literals::StringLiterals;
 
-TargetsUi::TargetsUi(QObject *view, QWidget *parent)
+static void setToolbuttonAction(QToolButton *t, QAction *a)
+{
+    t->connect(a, &QAction::visibleChanged, t, [t, a] {
+        t->setVisible(a->isVisible());
+    });
+    t->connect(a, &QAction::enabledChanged, t, [t, a] {
+        t->setEnabled(a->isEnabled());
+    });
+    t->setEnabled(a->isEnabled());
+    t->setVisible(a->isVisible());
+    t->setDefaultAction(a);
+}
+
+TargetsUi::TargetsUi(QObject *view, KActionCollection *ac, QWidget *parent)
     : QWidget(parent)
 {
     proxyModel.setSourceModel(&targetsModel);
@@ -53,6 +67,12 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     runButton->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     runButton->setToolTip(i18n("Build and run selected target"));
 
+    hotReloadButton = new QToolButton(this);
+    setToolbuttonAction(hotReloadButton, ac->action(QStringLiteral("build_hot_reload")));
+
+    hotRestartButton = new QToolButton(this);
+    setToolbuttonAction(hotRestartButton, ac->action(QStringLiteral("build_hot_restart")));
+
     moveTargetUp = new QToolButton(this);
     moveTargetUp->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
     moveTargetUp->setToolTip(i18n("Move selected target up"));
@@ -79,6 +99,8 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     tLayout->addWidget(targetFilterEdit);
     tLayout->addWidget(buildButton);
     tLayout->addWidget(runButton);
+    tLayout->addWidget(hotReloadButton);
+    tLayout->addWidget(hotRestartButton);
     tLayout->addSpacing(15);
     tLayout->addWidget(addButton);
     tLayout->addWidget(newTarget);
@@ -229,7 +251,7 @@ void TargetsUi::slotAddTargetClicked()
     QString currRun;
 
     current = proxyModel.mapToSource(current);
-    QModelIndex index = targetsModel.addCommandAfter(current, currName, currCmd, currRun);
+    QModelIndex index = targetsModel.addCommandAfter(current, currName, currCmd, currRun, QString());
     index = proxyModel.mapFromSource(index);
     targetsView->setCurrentIndex(index);
 }
@@ -245,8 +267,8 @@ void TargetsUi::targetSetNew()
     QString workingDir = QDir::homePath();
 
     QModelIndex index = targetsModel.insertTargetSetAfter(currentIndex, i18n("Target Set"), workingDir);
-    index = targetsModel.addCommandAfter(index, i18nc("Name/Label for a command to configure a build", "Configure"), configCmd, QString());
-    index = targetsModel.addCommandAfter(index, i18nc("Name/Label for a compilation or build command", "Build Command"), buildCmd, runCmd);
+    index = targetsModel.addCommandAfter(index, i18nc("Name/Label for a command to configure a build", "Configure"), configCmd, QString(), QString());
+    index = targetsModel.addCommandAfter(index, i18nc("Name/Label for a compilation or build command", "Build Command"), buildCmd, runCmd, QString());
     index = proxyModel.mapFromSource(index);
     targetsView->setCurrentIndex(index);
 }

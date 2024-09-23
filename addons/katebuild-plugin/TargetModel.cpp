@@ -294,7 +294,8 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex,
     return index(bNode.targetSetRow, 0, index(bNode.rootRow, 0));
 }
 
-QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd)
+QModelIndex
+TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd, const QString &type)
 {
     // qDebug() << "addCommandAfter" << beforeIndex << cmdName;
     NodeInfo bNode = modelToNodeInfo(beforeIndex);
@@ -346,7 +347,7 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
 
     QModelIndex targetSetIndex = index(bNode.targetSetRow, 0, index(bNode.rootRow, 0));
     beginInsertRows(targetSetIndex, bNode.commandRow, bNode.commandRow);
-    commands.insert(bNode.commandRow, {.name = newName, .buildCmd = buildCmd, .runCmd = runCmd});
+    commands.insert(bNode.commandRow, {.name = newName, .buildCmd = buildCmd, .runCmd = runCmd, .type = type});
     endInsertRows();
     if (m_rootNodes[bNode.rootRow].isProject) {
         Q_EMIT projectTargetChanged();
@@ -577,6 +578,8 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return command.buildCmd;
         case CommandNameRole:
             return command.name;
+        case CommandTypeRole:
+            return command.type;
         case WorkDirRole:
             return targetSet.workDir.isEmpty() ? QString() : targetSet.workDir.split(QLatin1Char(';')).first();
         case SearchPathsRole:
@@ -911,7 +914,8 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonO
         QString name = obj[QStringLiteral("name")].toString();
         QString cmd = obj[QStringLiteral("build_cmd")].toString();
         QString run = obj[QStringLiteral("run_cmd")].toString();
-        currentIndex = addCommandAfter(currentIndex, name, cmd, run);
+        QString type = obj[QStringLiteral("type")].toString();
+        currentIndex = addCommandAfter(currentIndex, name, cmd, run, type);
     }
 
     return currentIndex;

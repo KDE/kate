@@ -25,6 +25,7 @@
 #include "plugin_katebuild.h"
 
 #include "AppOutput.h"
+#include "FlutterSupport.h"
 #include "buildconfig.h"
 #include "hostprocess.h"
 #include "kate_buildplugin_debug.h"
@@ -348,9 +349,39 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
         m_buildUi.u_tabWidget->widget(index)->setFocus();
     });
 
+    a = actionCollection()->addAction(QStringLiteral("build_hot_reload"), this);
+    a->setIcon(QIcon::fromTheme(QStringLiteral("refactor")));
+    a->setToolTip(i18n("Hot reload"));
+    a->setText(i18n("Hot reload"));
+    a->setVisible(false);
+    connect(a, &QAction::triggered, this, [this] {
+        for (int i = 2; i < m_buildUi.u_tabWidget->count(); ++i) {
+            QString tabToolTip = m_buildUi.u_tabWidget->tabToolTip(i);
+            auto out = qobject_cast<AppOutput *>(m_buildUi.u_tabWidget->widget(i));
+            if (out->type() == QStringLiteral("flutter")) {
+                out->sendInput(QStringLiteral("r"));
+            }
+        }
+    });
+
+    a = actionCollection()->addAction(QStringLiteral("build_hot_restart"), this);
+    a->setIcon(QIcon::fromTheme(QStringLiteral("exception")));
+    a->setToolTip(i18n("Hot restart"));
+    a->setText(i18n("Hot restart"));
+    a->setVisible(false);
+    connect(a, &QAction::triggered, this, [this] {
+        for (int i = 2; i < m_buildUi.u_tabWidget->count(); ++i) {
+            QString tabToolTip = m_buildUi.u_tabWidget->tabToolTip(i);
+            auto out = qobject_cast<AppOutput *>(m_buildUi.u_tabWidget->widget(i));
+            if (out->type() == QStringLiteral("flutter")) {
+                out->sendInput(QStringLiteral("R"));
+            }
+        }
+    });
+
     m_buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(m_buildWidget);
-    m_targetsUi = new TargetsUi(this, m_buildUi.u_tabWidget);
+    m_targetsUi = new TargetsUi(this, actionCollection(), m_buildUi.u_tabWidget);
     m_buildUi.u_tabWidget->insertTab(0, m_targetsUi, i18nc("Tab label", "Target Settings"));
     m_buildUi.u_tabWidget->setCurrentWidget(m_targetsUi);
     m_buildUi.u_tabWidget->setTabsClosable(true);
@@ -554,7 +585,7 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
             const QString &targetName = targetNames.at(tn);
             const QString &buildCmd = cg.readEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(targetName));
             const QString &runCmd = cg.readEntry(QStringLiteral("%1 RunCmd %2").arg(i).arg(targetName));
-            m_targetsUi->targetsModel.addCommandAfter(cmdIndex, targetName, buildCmd, runCmd);
+            m_targetsUi->targetsModel.addCommandAfter(cmdIndex, targetName, buildCmd, runCmd, QString());
         }
     }
 
@@ -1187,6 +1218,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                              .arg(cmakeFA.getBuildDir())
                                                              .arg(cmakeConfig)
                                                              .arg(numCores),
+                                                         QString(),
                                                          QString());
     const QModelIndex allIndex = setIndex;
 
@@ -1197,6 +1229,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                              .arg(cmakeFA.getBuildDir())
                                                              .arg(cmakeConfig)
                                                              .arg(numCores),
+                                                         QString(),
                                                          QString());
 
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
@@ -1205,6 +1238,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                              .arg(cmakeFA.getCMakeExecutable())
                                                              .arg(cmakeFA.getBuildDir())
                                                              .arg(cmakeFA.getSourceDir()),
+                                                         QString(),
                                                          QString());
 
     QString cmakeGui = cmakeFA.getCMakeGuiExecutable();
@@ -1214,6 +1248,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
             setIndex,
             QStringLiteral("Run CMake-Gui"),
             QStringLiteral("%1 -B \"%2\" -S \"%3\"").arg(cmakeGui).arg(cmakeFA.getBuildDir()).arg(cmakeFA.getSourceDir()),
+            QString(),
             QString());
     }
 
@@ -1233,6 +1268,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                                  .arg(cmakeConfig)
                                                                  .arg(numCores)
                                                                  .arg(tgt.name),
+                                                             QString(),
                                                              QString());
     }
 
@@ -1373,6 +1409,7 @@ void KateBuildView::slotRunAfterBuild()
         return;
     }
     const QString workDir = parseWorkDir(idx.data(TargetModel::WorkDirRole).toString());
+    const QString type = idx.data(TargetModel::CommandTypeRole).toString();
     if (workDir.isEmpty()) {
         displayBuildResult(i18n("Cannot execute: %1 No working directory set.", runCmd), KTextEditor::Message::Warning);
         return;
@@ -1418,12 +1455,15 @@ void KateBuildView::slotRunAfterBuild()
         });
     }
 
-    out->setWorkingDir(workDir);
-    out->runCommand(runCmd);
+    out->runCommand(runCmd, workDir, type);
 
     if (m_win->activeView()) {
         m_win->activeView()->setFocus();
     }
+
+    const bool canHotReloadRestart = type == QStringLiteral("flutter");
+    actionCollection()->action(QStringLiteral("build_hot_reload"))->setVisible(canHotReloadRestart);
+    actionCollection()->action(QStringLiteral("build_hot_restart"))->setVisible(canHotReloadRestart);
 }
 
 QString KateBuildView::toOutputHtml(const KateBuildView::OutputLine &out)
@@ -1710,9 +1750,6 @@ void KateBuildView::addProjectTargets()
     // ignore it if we have no targets there
     const QVariantMap buildMap = projectMap.value(QStringLiteral("build")).toMap();
     const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
-    if (targetsets.isEmpty()) {
-        return;
-    }
 
     // handle build directory as relative to project file, if possible, see bug 413306
     QString projectsBuildDir = buildMap.value(QStringLiteral("directory")).toString();
@@ -1721,7 +1758,7 @@ void KateBuildView::addProjectTargets()
         projectsBuildDir = QDir(projectsBaseDir).absoluteFilePath(projectsBuildDir);
     }
 
-    const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, projectName, projectsBuildDir);
+    const QPersistentModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, projectName, projectsBuildDir);
     const QString defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
 
     for (const QVariant &targetVariant : targetsets) {
@@ -1729,11 +1766,12 @@ void KateBuildView::addProjectTargets()
         const QString tgtName = targetMap[QStringLiteral("name")].toString();
         const QString buildCmd = targetMap[QStringLiteral("build_cmd")].toString();
         const QString runCmd = targetMap[QStringLiteral("run_cmd")].toString();
+        const QString type = targetMap[QStringLiteral("type")].toString();
 
         if (tgtName.isEmpty() || buildCmd.isEmpty()) {
             continue;
         }
-        QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommandAfter(set, tgtName, buildCmd, runCmd);
+        QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommandAfter(set, tgtName, buildCmd, runCmd, type);
         if (tgtName == defaultTarget) {
             // A bit of backwards compatibility, move the "default" target to the top
             while (idx.row() > 0) {
@@ -1741,6 +1779,9 @@ void KateBuildView::addProjectTargets()
             }
         }
     }
+
+    // Try read flutter targets if any
+    KFlutter::loadFlutterTargets(projectsBaseDir, &m_targetsUi->targetsModel, set);
 
     const auto index = m_targetsUi->proxyModel.mapFromSource(set);
     if (index.isValid()) {

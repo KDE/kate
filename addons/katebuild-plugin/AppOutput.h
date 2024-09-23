@@ -18,9 +18,11 @@ public:
     explicit AppOutput(QWidget *parent = nullptr);
     ~AppOutput(); // This one is needed for the std::unique_ptr
 
-    void setWorkingDir(const QString &path);
-    void runCommand(const QString &cmd);
+    void runCommand(const QString &cmd, const QString &workingDir, const QString &type);
     QString runningProcess();
+    QString type() const;
+
+    void sendInput(const QString &in);
 
 Q_SIGNALS:
     void runningChanged();

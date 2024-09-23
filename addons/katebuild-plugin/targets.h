@@ -18,12 +18,14 @@
 #include <QTreeView>
 #include <QWidget>
 
+class KActionCollection;
+
 class TargetsUi : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit TargetsUi(QObject *view, QWidget *parent = nullptr);
+    explicit TargetsUi(QObject *view, KActionCollection *ac, QWidget *parent = nullptr);
 
     QLabel *targetLabel = nullptr;
     QComboBox *targetCombo = nullptr;
@@ -41,6 +43,8 @@ public:
     QToolButton *addButton = nullptr;
     QToolButton *buildButton = nullptr;
     QToolButton *runButton = nullptr;
+    QToolButton *hotReloadButton = nullptr;
+    QToolButton *hotRestartButton = nullptr;
 
     void updateTargetsButtonStates();
 

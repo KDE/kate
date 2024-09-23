@@ -33,6 +33,7 @@ public:
         TargetSetNameRole,
         RowTypeRole,
         IsProjectTargetRole,
+        CommandTypeRole,
     };
     Q_ENUM(TargetRoles)
 
@@ -68,7 +69,7 @@ public Q_SLOTS:
                                      const QString &cmakeConfig = QString());
 
     /** This function adds a new command to a target-set and returns the model index */
-    QModelIndex addCommandAfter(const QModelIndex &beforeIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd);
+    QModelIndex addCommandAfter(const QModelIndex &beforeIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd, const QString &type);
 
     /** This function copies the target(-set) the model index points to and returns
      * the model index of the copy. */
@@ -102,6 +103,7 @@ public:
         QString name;
         QString buildCmd;
         QString runCmd;
+        QString type;
     };
 
     struct TargetSet {

@@ -380,7 +380,7 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
     m_buildUi.textBrowser->setReadOnly(true);
     m_buildUi.textBrowser->setOpenLinks(false);
     connect(m_buildUi.textBrowser, &QTextBrowser::anchorClicked, this, [this](const QUrl &url) {
-        static QRegularExpression fileRegExp(QStringLiteral("(.*):(\\d+):(\\d+)"));
+        static const QRegularExpression fileRegExp(QStringLiteral("(.*):(\\d+):(\\d+)"));
         const auto match = fileRegExp.match(url.toString(QUrl::None));
         if (!match.hasMatch() || !m_win) {
             return;
@@ -1599,15 +1599,15 @@ KateBuildView::OutputLine KateBuildView::processOutputLine(QString line)
     }
 
     Category category = Category::Normal;
-    static QRegularExpression errorRegExp(QStringLiteral("error:"), QRegularExpression::CaseInsensitiveOption);
-    static QRegularExpression errorRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'gcc' uses for an error.", "error")),
-                                            QRegularExpression::CaseInsensitiveOption);
-    static QRegularExpression warningRegExp(QStringLiteral("warning:"), QRegularExpression::CaseInsensitiveOption);
-    static QRegularExpression warningRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'gcc' uses for a warning.", "warning")),
-                                              QRegularExpression::CaseInsensitiveOption);
-    static QRegularExpression infoRegExp(QStringLiteral("(info|note):"), QRegularExpression::CaseInsensitiveOption);
-    static QRegularExpression infoRegExpTr(QStringLiteral("(%1):").arg(i18nc("The same words as 'gcc' uses for note or info.", "note|info")),
-                                           QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression errorRegExp(QStringLiteral("error:"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression errorRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'gcc' uses for an error.", "error")),
+                                                  QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression warningRegExp(QStringLiteral("warning:"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression warningRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'gcc' uses for a warning.", "warning")),
+                                                    QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression infoRegExp(QStringLiteral("(info|note):"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression infoRegExpTr(QStringLiteral("(%1):").arg(i18nc("The same words as 'gcc' uses for note or info.", "note|info")),
+                                                 QRegularExpression::CaseInsensitiveOption);
     if (msg.contains(errorRegExp) || msg.contains(errorRegExpTr) || msg.contains(QLatin1String("undefined reference"))
         || msg.contains(i18nc("The same word as 'ld' uses to mark an ...", "undefined reference"))) {
         category = Category::Error;

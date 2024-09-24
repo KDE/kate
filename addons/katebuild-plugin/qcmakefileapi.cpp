@@ -75,8 +75,7 @@ QString QCMakeFileApi::findCMakeExecutable(const QString &cmakeCacheFile) const
 {
     QFile cacheFile(cmakeCacheFile);
     if (cacheFile.open(QIODevice::ReadOnly)) {
-        QRegularExpression re(QStringLiteral("CMAKE_COMMAND:.+=(.+)$"));
-
+        static const QRegularExpression re(QStringLiteral("CMAKE_COMMAND:.+=(.+)$"));
         QTextStream in(&cacheFile);
         while (!in.atEnd()) {
             QString line = in.readLine();

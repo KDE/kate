@@ -78,10 +78,9 @@ QString QCMakeFileApi::findCMakeExecutable(const QString &cmakeCacheFile) const
         static const QRegularExpression re(QStringLiteral("CMAKE_COMMAND:.+=(.+)$"));
         QTextStream in(&cacheFile);
         while (!in.atEnd()) {
-            QString line = in.readLine();
-            QRegularExpressionMatch match = re.match(line);
-            if (match.hasMatch()) {
-                QString cmakeExecutable = match.captured(1);
+            const QString line = in.readLine();
+            if (const auto match = re.matchView(line); match.hasMatch()) {
+                const QString cmakeExecutable = match.captured(1);
                 QFileInfo fi(cmakeExecutable);
                 if (fi.isAbsolute() && fi.isFile() && fi.isExecutable()) {
                     return cmakeExecutable;

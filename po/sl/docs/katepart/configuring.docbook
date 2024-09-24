@@ -1,0 +1,2527 @@
+<chapter id="config-dialog">
+<title
+>Konfigurirajte &kappname;</title>
+<para
+>Če v meniju izberete <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guimenuitem
+>Konfiguriraj <replaceable
+>Aplikacijo</replaceable
+>...</guimenuitem
+></menuchoice
+>, se prikaže pogovorno okno <guilabel
+>Konfiguriraj</guilabel
+> škatla. To pogovorno okno lahko uporabite za spreminjanje številnih različnih nastavitev. Nastavitve, ki so na voljo za spreminjanje, se razlikujejo glede na to, katero kategorijo uporabnik izbere z navpičnega seznama na levi strani pogovornega okna. S pomočjo treh gumbov na dnu škatle lahko uporabnik nadzoruje proces. </para>
+
+<para
+>Lahko pokličete sistem <guilabel
+>pomoči</guilabel
+>, sprejmete trenutne nastavitve in zaprete pogovorno okno z gumbom <guibutton
+>V redu</guibutton
+> ali <guibutton
+>prekličete</guibutton
+> postopek. Kategorije <guilabel
+>Videz</guilabel
+>, <guilabel
+>Pisave &amp; Spodaj so podrobno opisane barve</guilabel
+>, <guilabel
+>Urejanje</guilabel
+>, <guilabel
+>Odpri/Shrani</guilabel
+> in <guilabel
+>Razširitve</guilabel
+>. </para>
+
+<sect1 id="config-dialog-editor">
+<title
+>Konfiguracija komponente urejevalnika</title>
+<para
+>Ta skupina vsebuje vse strani, povezane z urejevalnikom &kappname;. Večina nastavitev tukaj je privzetih in jih je mogoče preglasiti z <link linkend="pref-open-save-modes-filetypes"
+>definiranjem vrste datoteke</link
+>, s <link linkend="config-variables"
+>spremenljivkami dokumenta </link
+> ali tako, da jih spremenite za vsak dokument med sejo urejanja.</para>
+<sect2 id="appearance">
+<title
+>Videz</title>
+
+<sect3 id="appearance-general">
+<title
+>Splošno</title>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Pisava urejevalnika</guilabel
+></term>
+<listitem>
+<para
+>Tukaj lahko izberete pisavo besedila urejevalnika. Izbirate lahko med katero koli pisavo, ki je na voljo v vašem sistemu, in nastavite privzeto velikost. Vzorčno besedilo je prikazano na dnu pogovornega okna, tako da lahko vidite učinek svojih izbir. </para>
+<para
+>Za več informacij o izbiri pisave glejte razdelek <ulink url="help:/fundamentals/fonts.html"
+><emphasis
+>Izbira pisav</emphasis
+> v <emphasis
+>&kde; Osnove</emphasis
+> dokumentacija</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Pokaži indikatorje presledkov</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Nikoli</guilabel
+></term>
+<listitem
+><para
+>Urejevalnik ne bo nikoli prikazal pik, ki bi pokazale prisotnost presledkov.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Na koncu vrstice</guilabel
+></term>
+<listitem
+><para
+>Urejevalnik bo prikazal pike, ki označujejo prisotnost dodatnega presledka na koncu vrstic.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Vedno</guilabel
+></term>
+<listitem
+><para
+>Urejevalnik bo vedno prikazal pike, ki označujejo prisotnost presledkov.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Velikost indikatorja presledka</guilabel
+></term>
+<listitem
+><para
+>Z drsnikom spremenite velikost vidnega kazalnika.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Pokaži indikatorje zavihkov</guilabel
+></term>
+<listitem
+><para
+>Ko je označeno, bo urejevalnik prikazal &raquo; simbol, ki označuje prisotnost zavihka v besedilu.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ujemanje oklepajev </guilabel
+></term>
+<listitem
+><para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Označi obseg med izbranimi oklepaji </guilabel
+></term>
+<listitem
+><para
+>Če je to omogočeno, bo obseg med izbranimi ujemajočimi se oklepaji označen.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Pokaži predogled ujemajočega se odprtega oklepaja </guilabel
+></term>
+<listitem
+><para
+>Ko je omogočeno, bo urejevalnik prikazal opis orodja ujemajočega se odprtega oklepaja.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Utripa ujemajoči se oklepaj, ko se kazalec premakne na drug oklepaj v paru </guilabel
+></term>
+<listitem
+><para
+>Če je omogočeno, premikanje po oklepajih (<keycap
+>{</keycap
+>, <keycap
+>[</keycap
+>, <keycap
+>]</keycap
+>, <keycap
+>}</keycap
+>,<keycap
+>(</keycap
+> ali <keycap
+>)</keycap
+>) bo hitro utripal ustrezni oklepaj.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Prikaži črte zamikov </guilabel
+></term>
+<listitem
+><para
+>Če je to označeno, bo urejevalnik prikazal navpične črte za pomoč pri prepoznavanju zamikov.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Šteje </guilabel
+></term>
+<listitem
+><para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Pokaži število besed </guilabel
+></term>
+<listitem
+><para
+>Prikaže število besed in znakov v dokumentu in v trenutnem izboru v vrstici stanja. Ta možnost je na voljo tudi v kontekstnem meniju vrstice stanja.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Pokaži število vrstic </guilabel
+></term>
+<listitem
+><para
+>V statusni vrstici prikaže skupno število vrstic v dokumentu. Ta možnost je na voljo tudi v kontekstnem meniju vrstice stanja.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Prepognite prvo vrstico </guilabel
+></term>
+<listitem
+><para
+>Če je omogočeno, je prva vrstica prepognjena, če je to mogoče. To je uporabno, če se datoteka začne s komentarjem, kot je avtorska pravica</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Dinamični prelom besed</guilabel
+></term>
+<listitem>
+<para
+>Če je ta možnost označena, bodo vrstice besedila obrobljene ob meji pogleda na zaslonu.</para>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Dinamično prelomi pri statičnem označevalniku preloma besed </guilabel
+></term>
+<listitem
+><para
+>Ko je označeno, urejevalnik dinamično prelomi vrstice na <link linkend="pref-word-wrap"
+>statični položaj preloma besed</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ne upoštevajte besednih meja za dinamično oblivanje </guilabel
+></term>
+<listitem
+><para
+>Ko je označeno, urejevalnik ne upošteva besednih meja pri prelivanju besedilnih vrstic.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Indikatorji dinamičnega preloma besed</guilabel
+></term>
+<listitem
+><para
+>Izberite, kdaj naj bodo indikatorji dinamičnega preloma besed prikazani, <guilabel
+>Izklopljeno</guilabel
+>, <guilabel
+>Sledi številkam vrstic</guilabel
+> ali <guilabel
+>Vedno vključeno</guilabel
+>. </para
+></listitem
+></varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Zamik previtih vrstic </guilabel
+></term>
+<listitem
+><para
+>Poleg tega vam to omogoča nastavitev največje širine zaslona v odstotkih, po kateri dinamično zavite vrstice ne bodo več navpično poravnane. Na primer, pri 50 % črtah, katerih stopnja zamika je globlja od 50 % širine zaslona, ne bo uporabljena navpična poravnava za naslednje previte vrstice.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Množitelj višine vrstice </guilabel
+></term>
+<listitem
+><para
+>Ta vrednost bo pomnožena s privzeto višino vrstice pisave. Vrednost 1,0 pomeni, da bo uporabljena privzeta višina.</para
+></listitem
+></varlistentry>
+</variablelist>
+</sect3>
+
+<sect3 id="appearance-borders">
+<title
+>Meje</title>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Zlaganje bloka kode</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Prikaži puščice za strnitev blokov kode </guilabel
+></term>
+<listitem
+><para
+>Če je ta možnost označena, bo trenutni pogled prikazal oznake za zlaganje kode, če je na voljo zlaganje kode.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Prikaži predogled prepognjenih blokov ob lebdenju </guilabel
+></term>
+<listitem
+><para
+>Če je označeno, se s kazalcem miške nad prepognjeno regijo prikaže predogled prepognjenega besedila v pojavnem oknu.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Vidnost zložljivih puščic</guilabel
+></term>
+<listitem
+><para
+>Preklapljajte pregibne puščice med <guimenuitem
+>Prikaži ob lebdenju</guimenuitem
+> in <guimenuitem
+>Prikaži vedno</guimenuitem
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Leva stran</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Prikaži oznake </guilabel
+></term>
+<listitem
+><para
+>Če je to označeno, boste na levi strani videli obrobo ikone. Obroba ikone na primer prikazuje znake zaznamkov.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Pokaži številke vrstic </guilabel
+></term>
+<listitem
+><para
+>Če je to označeno, boste na levi strani videli številke vrstic.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Označite spremenjene in neshranjene vrstice </guilabel
+></term>
+<listitem
+><para
+>Če je to označeno, bodo vidni označevalci sprememb vrstic. Za več informacij glejte <xref linkend="kate-part-line-modification"/>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Drsni trakovi</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Prikaži oznake </guilabel
+></term>
+<listitem
+><para
+>Če je ta možnost označena, bodo trenutni pogled prikazovali oznake na navpičnem drsnem traku. Te oznake bodo na primer prikazale zaznamke.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Prikaži predogled, ko miškin kazalec premaknete nad drsni trak</guilabel
+></term>
+<listitem
+><para
+>Če je ta možnost označena in se z miškinim kazalcem pomaknete na drsni trak, se prikaže majhen predogled besedila z več vrsticami trenutnega dokumenta okoli položaja kazalke. To vam omogoča hiter preklop na drug del dokumenta.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Mini zemljevid</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Pokaži mini zemljevid</guilabel
+></term>
+<listitem
+><para
+>Če je ta možnost označena, bo vsak nov pogled prikazal mini zemljevid dokumenta na navpičnem drsnem traku.</para>
+<para
+>Za več informacij o mini zemljevidu drsnega traku glejte <xref linkend="kate-part-scrollbar-minimap"/>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Širina minikarte</guilabel
+></term>
+<listitem
+><para
+>Prilagodi širino mini zemljevida drsnega traku, definiranega v slikovnih pikah. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Vidnost drsnih trakov</guilabel
+></term>
+<listitem
+><para
+>Vklopite, izklopite drsni trak ali ga prikažite le, ko je to potrebno. Kliknite z &LMB; na modrem pravokotniku za prikaz obsega številk vrstice dokumenta, prikazanega na zaslonu. Obdržite &LMB; pritisnjen zunaj modrega pravokotnika za samodejno pomikanje po dokumentu. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Meni Razvrsti zaznamke</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Po datumu ustvarjanja </guilabel
+></term>
+<listitem
+><para
+>Vsak nov zaznamek bo dodan na dno, ne glede na mesto v dokumentu.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Po številki vrstice </guilabel
+></term>
+<listitem
+><para
+>Zaznamki bodo razvrščeni po številkah vrstic, v katerih so postavljeni.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+</sect2>
+
+<sect2 id="prefcolors">
+<title
+>Barvne teme</title>
+
+<para
+>Ta razdelek pogovornega okna vam omogoča konfiguracijo vseh barv v kateri koli barvni temi, ki jo imate, in ustvarjanje novih tem, brisanje obstoječih ali preprosto <guilabel
+>Sledite sistemski barvni shemi</guilabel
+>. Vsaka shema ima nastavitve za barve ter običajne in poudarjene sloge besedila. </para>
+
+<para
+>&kappname; bo namesto vas vnaprej izbral trenutno aktivno temo, če želite delati na drugi temi, začnite tako, da jo izberete v kombiniranem polju <guilabel
+>Izberi temo</guilabel
+>. Z gumboma <guibutton
+>Kopiraj</guibutton
+> in <guibutton
+>Izbriši</guibutton
+> lahko ustvarite novo temo (kopirate obstoječo) ali izbrišete obstoječe.</para>
+
+<para
+>To je podrobno opisano v <xref linkend="color-themes-gui"/>.</para>
+
+</sect2>
+
+<sect2 id="pref-edit">
+<title
+>Urejanje</title>
+
+<sect3 id="pref-edit-general">
+<title
+>Splošno</title>
+<variablelist>
+
+<varlistentry>
+<term id="pref-word-wrap"
+><guilabel
+>Prelom besed</guilabel
+></term>
+<listitem
+><para
+>Prelom besed je funkcija, ki povzroči, da urejevalnik samodejno začne novo vrstico besedila in premakne (prelomi) kazalec na začetek te nove vrstice. &kappname; samodejno začne novo vrstico besedila, ko trenutna vrstica doseže dolžino, določeno z možnostjo <link linkend="pref-wrap-words-at"
+>Prelomi besede na:</link
+>.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Zavijte besede v fiksni stolpec</guilabel
+></term>
+<listitem>
+<para
+>Vklopi ali izklopi statični prelom besed.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Narišite navpično črto v stolpcu za prelom besed</guilabel
+></term>
+<listitem>
+<para
+>Če je ta možnost označena, bo na stolpcu za prelom besed narisana navpična črta, kot je definirano v <menuchoice
+> <guimenu
+>Nastavitve</guimenu
+> <guimenuitem
+>Konfiguriraj urejevalnik ...</guimenuitem
+></menuchoice
+> v Zavihek za urejanje. Upoštevajte, da je oznaka za prelom besed narisana le, če uporabljate pisavo s fiksno višino.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term id="pref-wrap-words-at"
+><guilabel
+>Prelomi besede na:</guilabel
+></term>
+<listitem>
+<para
+>Če je izbrana možnost <link linkend="pref-word-wrap"
+>Prelomi besede v fiksni stolpec</link
+>, ta vnos določa dolžino (v znakih), pri kateri bo urejevalnik samodejno začel novo vrstico.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Privzeti način vnosa</guilabel
+></term
+> <listitem
+><para
+>Izbrani način vnosa bo omogočen, ko odprete nov pogled. Še vedno lahko vklopite/izklopite način vnosa vi za določen pogled v meniju <guimenu
+>Uredi</guimenu
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Oklepaji</guilabel
+></term
+> <listitem>
+<para
+>Če je izbrana možnost <guilabel
+>Samodejno zapri oklepaj ob vnosu odpirajočega oklepaja</guilabel
+>, ko uporabnik vnese levi oklepaj (<keycap
+>[</keycap
+>, <keycap
+>(</keycap
+> ali <keycap
+> {</keycap
+>) &kappname; samodejno vnese desni oklepaj (<keycap
+>}</keycap
+>, <keycap
+>)</keycap
+> ali <keycap
+>]</keycap
+>) desno od kazalke.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Oklepni znaki</guilabel
+></term
+> <listitem>
+<para
+>S pomočjo ustreznega spustnega seznama je možno izbrati obrobne znake.</para>
+<para
+>Ko je besedilo izbrano, vnos enega od teh znakov prelomi izbrano besedilo.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Kopiraj in prilepi</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Premakni izbrano besedilo med vlečenjem</guilabel
+></term
+> <listitem>
+<para
+>Ta možnost omogoča vlečenje in spuščanje izbranega besedila znotraj okna urejevalnika.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Kopiraj/izreži trenutno vrstico, če je priklicana brez izbranega besedila</guilabel
+></term
+> <listitem>
+<para
+>Če je ta možnost omogočena in je izbor besedila prazen, se dejanja kopiranja in izrezovanja izvedejo za vrstico besedila na dejanskem položaju kazalke.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Pri lepljenju z miško ne premikajte kazalca besedila</guilabel
+></term
+> <listitem>
+<para
+>Če je ta možnost omogočena in prilepite besedilo v okno urejevalnika s tipko &MMB; klik, &kappname; ne bo premaknil kazalca besedila na položaj, kjer ste kliknili.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-cursor-selection">
+<title
+>Besedilna navigacija</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Premikanje kazalca besedila</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Pameten dom in pameten konec</guilabel
+></term>
+<listitem>
+<para
+>Ko je izbrana, bo pritisk tipke Domov povzročil, da kazalec preskoči prazen prostor in se premakne na začetek besedila vrstice.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>PageUp/PageDown premakne kazalko</guilabel
+></term>
+<listitem>
+<para
+>Ta možnost spremeni obnašanje kazalca, ko uporabnik pritisne &PgUp; ali &PgDn; ključ. Če ni izbran, bo besedilni kazalec ohranil svoj relativni položaj znotraj vidnega besedila v &kappname; kot novo besedilo postane vidno kot rezultat operacije. Torej, če je kazalec na sredini vidnega besedila, ko se izvede operacija, bo ostal tam (razen ko dosežete začetek ali konec.) Ko je izbrana ta možnost, bo prvi pritisk tipke povzročil, da se kazalec premakne bodisi na vrh ali na dnu vidnega besedila, ko se prikaže nova stran besedila.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Omogoči premikanje kazalca v kamelji obliki</guilabel
+></term>
+<listitem>
+<para
+>Ta možnost spremeni vedenje kazalca, ko uporabnik pritisne <keycombo
+>&Ctrl;<keycap
+>Puščico levo</keycap
+></keycombo
+> ali <keycombo
+>&Ctrl;<keycap
+>Puščico desno</keycap
+></keycombo
+> bližnjica. Če ni izbrana, kazalka besedila skoči čez celotne besede. Ko je izbrana ta možnost, kazalka skoči in se prekine na grbinah kamel.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Kazalec samodejnega središča:</guilabel
+></term>
+<listitem>
+<para
+>Nastavi število vrstic, ki naj ostanejo vidne nad in pod kazalcem, kadar je to mogoče.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Način izbire besedila</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Običajno</guilabel
+></term>
+<listitem>
+<para
+>Izbire bo prepisalo vtipkano besedilo in bodo izgubljeni ob premikanju kazalca.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Vztrajen</guilabel
+></term>
+<listitem>
+<para
+>Izbire bodo ostale tudi po premikanju kazalca in tipkanju.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Dovoli pomikanje čez konec dokumenta</guilabel
+></term
+> <listitem>
+<para
+>Ta možnost vam omogoča, da se pomaknete čez konec dokumenta. To lahko uporabite za navpično centriranje dna dokumenta ali pa ga postavite na vrh trenutnega pogleda.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Tipka vračalka odstrani osnovo znakov z diakritičnimi znaki</guilabel
+></term
+> <listitem>
+<para
+>Ko izberete, se sestavljeni znaki odstranijo z diakritičnimi znaki, namesto da se odstrani le osnovni znak. To je uporabno za indijske jezike.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="multicursor-modifier-configure">
+<term
+><guilabel
+>Modifikator večkurzorja</guilabel
+></term>
+<listitem>
+<para
+>Ta možnost vam omogoča nastavitev modifikatorja, ki bo uporabljen za ustvarjanje več kazalcev z &LMB; kliknite. Pritisniti morate modifikatorje in klikniti &LMB; ustvarite kazalec na želenem mestu. Glejte <link linkend="kate-part-create-multiple-cursors"
+>Ustvarjanje več kazalcev</link
+>, če želite odkriti druge načine za ustvarjanje več kazalcev.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-indent">
+<title
+>Zamik</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Privzeti način zamika:</guilabel
+></term>
+<listitem>
+<para
+>Izberite način samodejnega zamika, ki ga želite uporabiti kot privzetega. Zelo priporočljivo je, da tukaj uporabite <userinput
+>Brez</userinput
+> ali <userinput
+>Normalno</userinput
+> in uporabite konfiguracije vrste datotek za nastavitev drugih načinov zamika za besedilne formate, kot sta koda C/C++ ali &XML;.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Uporaba zamika</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Tabulatorji</guilabel
+></term>
+<listitem>
+<para
+>Ko je to omogočeno, bo urejevalnik vstavil tabulatorske znake, ko pritisnete gumb &Tab; tipko ali uporabite <link linkend="kate-part-autoindent"
+>samodejno zamikanje</link
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Presledki</guilabel
+></term>
+<listitem>
+<para
+>Ko je to omogočeno, bo urejevalnik vstavil izračunano število presledkov glede na položaj v besedilu in nastavitev <option
+>širine zavihka</option
+>, ko pritisnete gumb &Tab; tipko ali uporabite <link linkend="kate-part-autoindent"
+>samodejno zamikanje</link
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Tabulatorji in presledki</guilabel
+></term>
+<listitem>
+<para
+>Ko je to omogočeno, bo urejevalnik vstavil presledke, kot je opisano zgoraj, ko zamika ali pritisne &Tab; na začetku vrstice, vendar vstavite tabulatorje, ko &Tab; je tipka pritisnjena na sredini ali koncu vrstice.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Širina zavihka:</guilabel
+></term>
+<listitem>
+<para
+>To konfigurira število presledkov, ki so prikazani namesto znaka tabulatorja.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Širina vdolbine:</guilabel
+></term>
+<listitem>
+<para
+>Širina zamika je število presledkov, ki se uporabljajo za zamik vrstice. Če je konfiguriran za zamik z uporabo tabulatorjev, se znak tabulatorja vstavi, če je zamik deljiv s širino zavihka.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Lastnosti zamika</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ohranite dodatne prostore</guilabel
+></term>
+<listitem
+><para
+>Če je ta možnost onemogočena, spreminjanje ravni zamika poravna črto na večkratnik širine, določene v <guilabel
+>Širina zamika</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Prilagodite zamik besedila, prilepljenega iz odložišča</guilabel
+></term>
+<listitem>
+<para
+>Če izberete to možnost, je besedilo, prilepljeno iz odložišča, zamaknjeno. Sprožitev dejanja <guimenuitem
+>Razveljavi</guimenuitem
+> odstrani zamik.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Dejanja zamika</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Tipka vračalka v začetni prazen prostor odstrani zamike</guilabel
+></term>
+<listitem>
+<para
+>Če je ta možnost izbrana, se tipka &Backspace; tipka zmanjša stopnjo zamika, če se kazalec nahaja na prvem praznem mestu vrstice.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Dejanje tipke Tab (če ni izbire)</guilabel
+></term>
+<listitem>
+<para
+>Če želite &Tab; da poravnate trenutno vrstico v trenutnem bloku kode, kot v &Emacs;, naredite &Tab; bližnjica do dejanja <guimenuitem
+>Oblika zamika</guimenuitem
+>. </para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Vedno se pomaknite na naslednji položaj zavihka</guilabel
+></term>
+<listitem>
+<para
+>Če je izbrana ta možnost, se &Tab; tipka vedno vstavi prazen prostor, tako da je dosežen naslednji položaj zavihka. Če je možnost <guilabel
+>Vstavi presledke namesto tabulatorjev</guilabel
+> na zavihku <guilabel
+>Splošno</guilabel
+> na strani <guilabel
+>Urejanje</guilabel
+> omogočena, se presledki vstavijo; drugače je vstavljen en tabulator.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Vedno povečajte stopnjo zamika</guilabel
+></term>
+<listitem>
+<para
+>Če je izbrana ta možnost, se &Tab; tipka vedno zamakne trenutno vrstico za število položajev znakov, določenih v <guilabel
+>Širina zamika</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Povečajte stopnjo zamika, če je na začetku prazen prostor</guilabel
+></term>
+<listitem>
+<para
+>Če je izbrana ta možnost, se &Tab; tipka zamakne trenutno vrstico ali se premakne na naslednji položaj zavihka. Če je točka vstavljanja na ali pred prvim znakom, ki ni presledek v vrstici, ali če obstaja izbor, je trenutna vrstica zamaknjena s številom položajev znakov, določenim v <guilabel
+>Širina zamika</guilabel
+>. Če je točka vstavljanja za prvim znakom, ki ni presledek v vrstici, in ni izbire, se vstavi prazen prostor, tako da je dosežen naslednji položaj zavihka: če je možnost <guilabel
+>Vstavi presledke namesto tabulatorjev</guilabel
+> na zavihku <guilabel
+>Splošno</guilabel
+> na strani <guilabel
+>Urejanje</guilabel
+> je omogočeno, presledki so vstavljeni; drugače je vstavljen en tabulator.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-autocompletion">
+<title
+>Samodejno dokončanje</title>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Splošno</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Omogoči samodejno dokončanje</guilabel
+></term>
+<listitem>
+<para
+>Če je omogočeno, se med tipkanjem samodejno pojavi polje za dokončanje besed, ki prikazuje seznam besedilnih vnosov za dokončanje trenutnega besedila pod kazalko.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Samodejna izbira prvega zaključnega vnosa</guilabel
+></term>
+<listitem>
+<para
+>Če je omogočeno, je prvi element samodokončanja vedno vnaprej izbran, tako da ga lahko vstavite z &Enter;. Če ne želite takšnega vedenja, &eg; če želite pritisniti &Enter; če želite samo vstaviti novo vrstico, nato onemogočite ta element.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Najmanjša dolžina besede za dokončanje</guilabel
+></term>
+<listitem
+><para
+>Med vnašanjem besedila dopolnjevanje besed išče besede v dokumentu, ki se začnejo z že vnesenim besedilom. Ta možnost konfigurira minimalno število znakov, ki so potrebni, da postane dopolnjevanje besed aktivno in se prikaže okno za dopolnjevanje.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ko končate, odstranite rep</guilabel
+></term>
+<listitem
+><para
+>Odstrani rep prejšnje besede, ko je element za dokončanje izbran s seznama. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Dokončanje ključne besede </guilabel
+></term>
+<listitem
+><para
+>Če je omogočeno, vgrajeno samodokončanje uporablja ključne besede, ki jih določa označevanje sintakse. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="pref-edit-spellcheck">
+<title
+>Preverjanje črkovanja</title>
+<para
+>Te konfiguracijske možnosti so opisane v dokumentaciji za &systemsettings; modul <ulink url="help:/kcontrol/spellchecking"
+>Črkovalnik</ulink
+>.</para>
+</sect3>
+
+<sect3 id="pref-edit-vi-input-mode">
+<title
+>Način vnosa Vi</title>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Splošno</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Naj ukazi Vi preglasijo bližnjice Kate</guilabel
+></term>
+<listitem>
+<para
+>Ko izberete, bodo ukazi Vi preglasili vgrajene ukaze &kappname;. Na primer: <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> bo ponovil in preglasil standardno dejanje (prikaz pogovornega okna za iskanje in zamenjavo).</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Prikaz relativnih številk vrstic </guilabel
+></term>
+<listitem
+><para
+>če je to omogočeno, se trenutna vrstica vedno nanaša na vrstico 0. Vrstici zgoraj in spodaj relativno povečata številko vrstice.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Preslikava ključev</guilabel
+></term>
+<listitem
+><para
+>Preslikava tipk se uporablja za spreminjanje pomena vnesenih tipk. To vam omogoča premikanje ukazov na druge tipke ali posebne pritiske tipk za izvajanje niza ukazov.</para>
+<para
+>Primer:</para>
+<para
+><keycap
+>F2</keycap
+> -> <userinput
+>I--</userinput
+> &Esc;</para>
+<para
+>To bo pred vrstico dodalo <userinput
+>IN--</userinput
+>, ko pritisnete <keycap
+>F2</keycap
+>. </para>
+</listitem>
+<!-- Normal Mode Insert Mode Visual Mode 
+Commands Repacement Recursuive?
+Remove selected Add new mapping Import from vimrc file-->
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="pref-open-save">
+<title
+>Odpri/Shrani</title>
+
+<sect3 id="pref-open-save-general">
+<title
+>Splošno</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Format datoteke</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Kodiranje</guilabel
+></term>
+<listitem>
+<para
+>To definira standardno kodiranje za odpiranje/shranjevanje datotek, če ni spremenjeno v pogovornem oknu za odpiranje/shranjevanje ali z uporabo možnosti ukazne vrstice.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Zaznavanje kodiranja</guilabel
+></term>
+<listitem>
+<para
+>V spustnem polju izberite element, da onemogočite samodejno zaznavanje ali uporabite <guilabel
+>Univerzalno</guilabel
+>, da omogočite samodejno zaznavanje za vsa kodiranja. Ker pa to verjetno zazna samo utf-8/utf-16, bo izbira regije za boljše rezultate uporabila hevristiko po meri. Če se niti zgoraj izbrano standardno kodiranje, niti kodiranje, določeno v pogovornem oknu za odpiranje/shranjevanje, niti kodiranje, določeno v ukazni vrstici, ne ujemajo z vsebino datoteke, se bo zagnalo to zaznavanje.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Nadomestno kodiranje</guilabel
+></term>
+<listitem>
+<para
+>To definira nadomestno kodiranje za poskus odpiranja datotek, če se niti kodiranje, izbrano kot standardno zgoraj, niti kodiranje, določeno v pogovornem oknu za odpiranje/shranjevanje, niti kodiranje, določeno v ukazni vrstici, ne ujemajo z vsebino datoteke. Preden se to uporabi, se bo poskusilo določiti kodiranje za uporabo z iskanjem oznake vrstnega reda bajtov na začetku datoteke: če je najdena, bo izbrano pravo kodiranje unicode; sicer se bo zagnalo zaznavanje kodiranja, če oba ne uspeta, se bo poskusilo nadomestno kodiranje.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Konec vrstice</guilabel
+></term>
+<listitem>
+<para
+>Izberite želeni način konca vrstice za vaš aktivni dokument. Izbirate lahko med &UNIX;, DOS/&Windows; ali Macintosh.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Samodejno zaznavanje konca vrstice</guilabel
+></term>
+<listitem>
+<para
+>Označite to, če želite, da urejevalnik samodejno zazna vrsto konca vrstice. Prva najdena vrsta konca vrstice bo uporabljena za celotno datoteko.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Omogoči oznako vrstnega reda bajtov (BOM)</guilabel
+></term>
+<listitem>
+<para
+>Oznaka vrstnega reda bajtov je posebno zaporedje na začetku dokumentov, kodiranih z Unicode. Urednikom pomaga odpreti besedilne dokumente s pravilnim kodiranjem unicode. Za več informacij glejte <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
+>Oznaka vrstnega reda bajtov</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Omejitev dolžine vrstice</guilabel
+></term>
+<listitem>
+<para
+>Na žalost zaradi pomanjkljivosti v &Qt;, &kappname; ima slabo delovanje pri delu z izjemno dolgimi linijami. Iz tega razloga &kappname; bo samodejno prelomil vrstice, ko bodo daljše od tukaj navedenega števila znakov. Če želite to onemogočiti, nastavite to na <userinput
+>0</userinput
+>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Samodejna čiščenja ob shranjevanju</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Odstranite končne presledke</guilabel
+></term>
+<listitem>
+<para
+>Urejevalnik bo med shranjevanjem datoteke samodejno odstranil dodatne presledke na koncih vrstic besedila. Izberete lahko <guilabel
+>Nikoli</guilabel
+>, da onemogočite to funkcijo, <guilabel
+>V spremenjenih vrsticah</guilabel
+>, da to storite samo v vrsticah, ki ste jih spremenili od zadnjega shranjevanja dokumenta, ali <guilabel
+>V celotnem dokumentu </guilabel
+>, da jih brezpogojno odstranite iz celotnega dokumenta.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Pri shranjevanju dodajte novo vrstico na konec datoteke</guilabel
+></term>
+<listitem>
+<para
+>Urejevalnik bo samodejno dodal novo vrstico na konec datoteke, če ta še ni prisotna ob shranjevanju datoteke.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Omogoči samodejno shranjevanje (samo lokalne datoteke)</guilabel
+></term>
+<listitem>
+<para
+>Označite to, če želite, da urejevalnik samodejno shrani dokumente, medtem ko delate na njih. </para>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Samodejno shrani dokument, ko fokus zapusti urejevalnik</guilabel
+></term>
+<listitem>
+<para
+>Urejevalnik bo samodejno shranil dokumente, ko preklopite na nekaj zunaj urejevalnika, &eg; terminalsko ploščo v &kate;.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Interval samodejnega shranjevanja</guilabel
+></term>
+<listitem>
+<para
+>Tu lahko določite interval samodejnega shranjevanja v sekundah. Če je interval 0, se dokument po intervalih ne bo samodejno shranil.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-open-save-advanced">
+<title
+>Napredno</title>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Napišite datoteko varnostne kopije pri shranjevanju za</guilabel
+></term>
+<listitem
+><para
+>Varnostno kopiranje ob shranjevanju bo povzročilo &kappname; da kopirate diskovno datoteko (prejšnjo shranjeno različico datoteke) v &lt;predpono&gt;&lt;ime datoteke&gt;&lt;pripono&gt; preden shranite nove spremembe. Varnostna kopija datoteke vam lahko pomaga obnoviti delo, če gre med shranjevanjem kaj narobe ali če želite pozneje obnoviti prejšnjo različico datoteke. Pripona je privzeto <emphasis role="bold"
+>~</emphasis
+>, predpona pa je privzeto prazna. </para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Lokalne datoteke</guilabel
+></term>
+<listitem>
+<para
+>Označite to, če želite pri shranjevanju varnostne kopije lokalnih datotek.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Oddaljene datoteke</guilabel
+></term>
+<listitem>
+<para
+>Označite to, če želite pri shranjevanju varnostne kopije oddaljenih datotek.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Predpona za varnostne kopije datotek</guilabel
+></term>
+<listitem>
+<para
+>Vnesite predpono, ki jo želite dodati pred imena datotek varnostne kopije.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Pripona za varnostne kopije datotek</guilabel
+></term>
+<listitem>
+<para
+>Vnesite pripono, ki jo želite dodati imenom datotek varnostne kopije.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Način izmenjave datotek</guilabel
+></term>
+<listitem>
+<para
+>&kappname; lahko obnovi (večino) neshranjenega dela v primeru zrušitve ali izpada električne energije. Izmenjalna datoteka (.&lt;filename&gt;.kate-swp) se ustvari, ko je dokument urejen. Če uporabnik ne shrani sprememb in &kappname; zruši, izmenjalna datoteka ostane na disku. Ko odprete datoteko, &kappname; preveri ali obstaja izmenjalna datoteka za dokument in če obstaja, vpraša uporabnika ali želi obnoviti izgubljene podatke ali ne. Uporabnik ima možnost videti tudi razlike med izvirno in obnovljeno datoteko. Izmenjalna datoteka se izbriše po vsakem shranjevanju in ob običajnem izhodu.</para>
+<para
+>&kappname; sinhronizira izmenjevalne datoteke na disku vsakih 15 sekund, vendar le, če so bile od zadnje sinhronizacije spremenjene. Uporabnik lahko onemogoči sinhronizacijo izmenjalnih datotek, če želi, tako da izbere <guilabel
+>Onemogoči</guilabel
+>, vendar lahko to povzroči večjo izgubo podatkov.</para>
+<para
+>Ko je izmenjalna datoteka omogočena, je mogoče preklapljati med dvema načinoma, in sicer <guilabel
+>Omogočeno, Shrani v privzeti imenik</guilabel
+> in <guilabel
+>Omogočeno, Shrani v imenik po meri</guilabel
+>. </para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Shranite izmenjalne datoteke v</guilabel
+></term>
+<listitem
+><para
+>Privzeto so izmenjalne datoteke shranjene v isto mapo kot datoteka. Ko je za način izmenjalne datoteke izbrano <guilabel
+>Omogočeno, shrani v imenik po meri</guilabel
+>, se izmenjalne datoteke ustvarijo v navedeni mapi. To je uporabno za omrežne datotečne sisteme, da se izognete nepotrebnemu omrežnemu prometu.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Shrani izmenjalne datoteke vsak</guilabel
+></term>
+<listitem
+><para
+>&kappname; sinhronizira izmenjevalne datoteke na disku vsakih 15 sekund, vendar le, če so bile od zadnje sinhronizacije spremenjene. Interval sinhronizacije lahko spremenite po želji.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-open-save-modes-filetypes">
+<title
+>Načini &amp; Vrste datotek</title>
+<para
+>Ta stran vam omogoča, da preglasite privzeto konfiguracijo za dokumente določenega &MIME; vrste. Ko urejevalnik naloži dokument, bo poskusil, ali se ujema z datotečnimi maskami ali &MIME; vrste za eno od definiranih vrst datotek, in če je tako, uporabite definirane spremenljivke. Če se ujema več vrst datotek, bo uporabljena tista z najvišjo prioriteto. </para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Vrsta datoteke:</guilabel
+></term>
+<listitem
+><para
+>Vrsta datoteke z najvišjo prioriteto je tista, ki je prikazana v prvem spustnem polju. Če je bilo najdenih več vrst datotek, so tudi te navedene.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Novo</guilabel
+></term>
+<listitem
+><para
+>To se uporablja za ustvarjanje nove vrste datoteke. Ko kliknete ta gumb, se spodnja polja izpraznijo in lahko izpolnite lastnosti, ki jih želite za novo vrsto datoteke.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Izbriši</guilabel
+></term>
+<listitem
+><para
+>Če želite odstraniti obstoječo vrsto datoteke, jo izberite v spustnem meniju in pritisnite gumb Izbriši.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem
+> </varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Lastnosti <replaceable
+>trenutne vrste datoteke</replaceable
+></guilabel
+></term>
+<listitem
+><para
+>Vrsta datoteke z najvišjo prioriteto je tista, ki je prikazana v prvem spustnem polju. Če je bilo najdenih več vrst datotek, so tudi te navedene.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ime:</guilabel
+></term>
+<listitem
+><para
+>Ime vrste datoteke bo besedilo ustrezne menijske postavke. To ime je prikazano v meniju <menuchoice
+><guimenu
+>Orodja</guimenu
+><guimenuitem
+>Vrste datotek</guimenuitem
+> </menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Razdelek:</guilabel
+></term>
+<listitem
+><para
+>Ime razdelka se uporablja za organiziranje vrst datotek v menijih. To se uporablja tudi v meniju <menuchoice
+><guimenu
+>Orodja</guimenu
+><guimenuitem
+>Vrste datotek</guimenuitem
+> </menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Spremenljivke:</guilabel
+></term>
+<listitem
+><para
+>Ta niz vam omogoča, da konfigurirate nastavitve &kappname; za datoteke, ki jih izbere ta &MIME; tipkajte z &kappname; spremenljivke. Nastavite lahko skoraj vse možnosti konfiguracije, kot so osvetlitev, način zamika &etc;</para>
+<para
+>Pritisnite <guibutton
+>Uredi</guibutton
+> za ogled seznama vseh razpoložljivih spremenljivk in njihovih opisov. Izberite potrditveno polje na levi, da omogočite določeno spremenljivko, nato pa nastavite vrednost spremenljivke na desni. Nekatere spremenljivke ponujajo spustno polje za izbiro možnih vrednosti, druge pa zahtevajo, da veljavno vrednost vnesete ročno.</para>
+<para
+>Za popolne informacije o teh spremenljivkah glejte <link linkend="config-variables"
+>Konfiguriranje s spremenljivkami dokumenta</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Označevanje:</guilabel
+></term>
+<listitem
+><para
+>Če ustvarite novo vrsto datoteke, vam ta spustni meni omogoča izbiro vrste datoteke za označevanje.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Način zamika:</guilabel
+></term>
+<listitem
+><para
+>Spustno polje določa način zamika za nove dokumente.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Pripone datotek:</guilabel
+></term>
+<listitem
+><para
+>Maska nadomestnih znakov omogoča izbiro datotek po imenu datoteke. Tipična maska uporablja zvezdico in pripono datoteke, na primer <filename
+>*.txt; *.text</filename
+>. Niz je s podpičjem ločen seznam mask.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Vrste MIME:</guilabel
+></term>
+<listitem
+><para
+>Prikaže čarovnika, ki vam pomaga enostavno izbrati &MIME; vrste.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Prednost:</guilabel
+></term>
+<listitem
+><para
+>Nastavi prednost za to vrsto datoteke. Če več kot ena vrsta datoteke izbere isto datoteko, bo uporabljena tista z najvišjo prioriteto.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem
+> </varlistentry>
+
+</variablelist>
+</sect3>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="config-variables">
+<title
+>Konfiguriranje s spremenljivkami dokumenta</title>
+
+<para
+>&kappname; variables je implementacija spremenljivk dokumenta &kappname;, podobna &Emacs; in vi modelines. V katepartu imajo vrstice naslednjo obliko: <userinput
+>kate: VARIABLENAME VALUE; [ VREDNOST IME SPREMENLJIVKE; ... ]</userinput
+> Vrstice so seveda lahko v komentarju, če je datoteka v formatu s komentarji. Imena spremenljivk so posamezne besede (brez presledkov) in vse do naslednjega podpičja je vrednost. Podpičje je obvezno.</para>
+
+<para
+>Tukaj je primer spremenljivke, ki vsiljuje nastavitve zamika za C++, &Java; ali &javascript; mapa: <programlisting
+>// kate: zamenjaj zavihke na; širina zamika 4; način zamika cstyle;</programlisting>
+</para>
+
+<note
+><para
+>Spremenljive vrstice se iščejo le v prvih in zadnjih 10 vrsticah.</para
+></note>
+
+<para
+>Poleg tega lahko spremenljivke dokumenta postavite v datoteko z imenom <filename
+>.kateconfig</filename
+> v katerem koli imeniku in konfigurirane nastavitve bodo uporabljene, kot da bi bili modeli vneseni v vsako datoteko v imeniku in njegovih podimenikih. Spremenljivke dokumenta v <filename
+>.kateconfig</filename
+> uporabljajo isto sintakso kot v modelines, vendar z <link linkend="kateconfig-extended-options"
+>razširjenimi možnostmi</link
+>.</para>
+
+<para
+>V &kappname; obstajajo spremenljivke, ki podpirajo skoraj vse konfiguracije, poleg tega pa lahko vtičniki uporabljajo spremenljivke; v tem primeru mora biti to dokumentirano v dokumentaciji vtičnika.</para>
+
+<para
+>&kappname; ima podporo za branje konfiguracij iz datotek <filename
+>.editorconfig</filename
+>, ko je nameščena knjižnica <ulink url="https://editorconfig.org/"
+>editorconfig</ulink
+>. &kappname; samodejno poišče <filename
+>.editorconfig</filename
+> vsakič, ko odprete datoteko. Vendar daje prednost datotekam <filename
+>.kateconfig</filename
+>. </para>
+
+<sect2 id="config-variables-howto">
+<title
+>Kako &kappname; uporablja spremenljivke</title>
+
+<para
+>Ko bere konfiguracijo, katepart išče na naslednjih mestih (v tem vrstnem redu): <itemizedlist
+> <listitem
+><para
+>Globalna konfiguracija.</para
+></listitem
+> <listitem
+><para
+>Izbirni podatki o seji.</para 
+></listitem
+> <listitem
+><para
+>Konfiguracija "Vrsta datoteke".</para
+></listitem
+> <listitem
+><para
+>Spremenljivke dokumenta v <filename
+>.kateconfig</filename
+>.</para
+></listitem
+> <listitem
+><para
+>Spremenljivke dokumenta v samem dokumentu.</para
+></listitem
+> <listitem
+><para
+>Nastavitve med urejanjem iz menija ali ukazne vrstice.</para
+></listitem
+> </itemizedlist 
+> Kot lahko vidite, spremenljivke dokumenta preglasijo samo spremembe, ki so narejene med izvajanjem. Kadarkoli je dokument shranjen, se spremenljivke dokumenta ponovno preberejo in prepišejo spremembe, narejene z uporabo elementov menija ali ukazne vrstice.</para>
+
+<para
+>Vsaka spremenljivka, ki ni navedena spodaj, je shranjena v dokumentu in po njej lahko poizvedujejo drugi objekti, kot so vtičniki, ki jih lahko uporabljajo za lastne namene. Na primer, način spremenljivega zamika za svojo konfiguracijo uporablja spremenljivke dokumenta.</para>
+
+<para
+>Tukaj navedene spremenljivke dokumentirajo &kappname; različica 5.38. V prihodnosti bo morda dodanih več spremenljivk. Obstajajo 3 možne vrste vrednosti za spremenljivke z naslednjimi veljavnimi izrazi: <itemizedlist>
+<listitem
+><para
+>BOOL - on|off|true|false|1|0</para
+></listitem>
+<listitem
+><para
+>INTEGER - poljubno celo število</para
+></listitem>
+<listitem
+><para
+>STRING – karkoli drugega</para
+></listitem>
+</itemizedlist>
+</para>
+
+</sect2>
+
+<sect2 id="config-variables-list">
+<title
+>Razpoložljive spremenljivke</title>
+
+<variablelist>
+
+<varlistentry id="variable-auto-brackets">
+<term
+><cmdsynopsis
+><command
+>samodejni oklepaji</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Omogoči samodejno vstavljanje oklepajev.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-auto-center-lines">
+<term
+><cmdsynopsis
+><command
+>samodejne sredinske črte</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite število črt samodejnega središča.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-background-color">
+<term
+><cmdsynopsis
+><command
+>barva-ozadje</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite barvo ozadja dokumenta. Vrednost mora biti nekaj, kar je mogoče ovrednotiti v veljavno barvo, na primer <userinput
+>#ff0000</userinput
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-backspace-indents">
+<term
+><cmdsynopsis
+><command
+>zamiki-vračalke</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Omogoči ali onemogoči odstranjevanje zamikov, ko &Backspace; je pritisnjen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-block-selection">
+<term
+><cmdsynopsis
+><command
+>izbira bloka</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite <link linkend="kate-part-selection-block"
+>izbira bloka</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-byte-order-mark">
+<term
+><cmdsynopsis
+><command
+>bom | byte-order-mark | byte-order-marker</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Omogoči/onemogoči oznako vrstnega reda bajtov (BOM) pri shranjevanju datotek v formatu Unicode (utf8, utf16, utf32).</para>
+<para
+>Od: &kate; 3.4 (&kde; 4.4)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-bracket-highlight-color">
+<term
+><cmdsynopsis
+><command
+>oklepaj-poudarjena-barva</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite barvo za osvetlitev oklepaja. Vrednost mora biti nekaj, kar je mogoče ovrednotiti v veljavno barvo, na primer <userinput
+>#ff0000</userinput
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-current-line-color">
+<term
+><cmdsynopsis
+><command
+>trenutna-barva-vrstice</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite barvo za trenutno vrstico. Vrednost mora biti nekaj, kar je mogoče ovrednotiti v veljavno barvo, na primer <userinput
+>#ff0000</userinput
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-default-dictionary">
+<term
+><cmdsynopsis
+><command
+>privzeti-slovar</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi privzeti slovar za preverjanje črkovanja.</para>
+<para
+>Od: &kate; 3.4 (&kde; 4.4)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-dynamic-word-wrap">
+<term
+><cmdsynopsis
+><command
+>dinamični-prelom-besed</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopi ali izklopi <link linkend="kate-part-auto-wrap"
+>dinamični prelom besed</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-end-of-line">
+<term
+><cmdsynopsis
+><command
+>eol | konec vrstice</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite način konca vrstice. Veljavne nastavitve so <userinput
+>unix</userinput
+>, <userinput
+>mac</userinput
+> in <userinput
+>dos</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-folding-markers">
+<term
+><cmdsynopsis
+><command
+>zložljivi-označevalci</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite prikaz <link linkend="advanced-editing-tools-code-folding"
+>oznak za zgibanje</link
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-folding-preview">
+<term
+><cmdsynopsis
+><command
+>zlaganje-predogled</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Omogoči predogled zgibanja v obrobi urejevalnika.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-font-size">
+<term
+><cmdsynopsis
+><command
+>velikost pisave</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite velikost pik pisave dokumenta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-font">
+<term
+><cmdsynopsis
+><command
+>pisava</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite pisavo dokumenta. Vrednost mora biti veljavno ime pisave, na primer <userinput
+>kurir</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-syntax">
+<term
+><cmdsynopsis
+><command
+>hl | sintaksa</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite označevanje sintakse. Veljavni nizi so vsa imena, ki so na voljo v menijih. Na primer, za C++ preprosto napišite <userinput
+>C++</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-icon-bar-color">
+<term
+><cmdsynopsis
+><command
+>barva-barve-ikone</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite barvo vrstice ikon. Vrednost mora biti nekaj, kar je mogoče ovrednotiti v veljavno barvo, na primer <userinput
+>#ff0000</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-icon-border">
+<term
+><cmdsynopsis
+><command
+>ikona-obroba</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite prikaz obrobe ikone.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-indent-mode">
+<term
+><cmdsynopsis
+><command
+>način-zamika</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite način samodejnega zamika. Možnosti <userinput
+>brez</userinput
+>, <userinput
+>normalno</userinput
+>, <userinput
+>cstyle</userinput
+>, <userinput
+>haskell</userinput
+>, <userinput
+>lilypond</userinput
+>, <userinput
+> lisp</userinput
+>, <userinput
+>python</userinput
+>, <userinput
+>ruby</userinput
+> in <userinput
+>xml</userinput
+> so prepoznani. Za podrobnosti glejte razdelek <xref linkend="kate-part-autoindent"/>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-indent-pasted-text">
+<term
+><cmdsynopsis
+><command
+>zamik-prilepljeno-besedilo</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Omogoči/onemogoči prilagajanje zamika besedila, prilepljenega iz odložišča.</para>
+<para
+>Od: &kate; 3.11 (&kde; 4.11)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-indent-width">
+<term
+><cmdsynopsis
+><command
+>širina-zamika</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite širino vdolbine.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-keep-extra-spaces">
+<term
+><cmdsynopsis
+><command
+>ohrani-dodatne-prostore</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite, ali želite obdržati dodatne presledke pri izračunu širine zamika.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-line-numbers">
+<term
+><cmdsynopsis
+><command
+>številke vrstic</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite prikaz številk vrstic.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-newline-at-eof">
+<term
+><cmdsynopsis
+><command
+>nova vrstica-na-eof</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Dodajte prazno vrstico na koncu datoteke (EOF), ko shranjujete dokument.</para>
+<para
+>Od: &kate; 3.9 (&kde; 4.9)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-overwrite-mode">
+<term
+><cmdsynopsis
+><command
+>način-prepisovanja</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite način prepisovanja.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-persistent-selection">
+<term
+><cmdsynopsis
+><command
+>vztrajna-izbira</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite <link linkend="kate-part-selection-persistent"
+>trajno izbiro</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-replace-tabs-save">
+<term
+><cmdsynopsis
+><command
+>zamenjaj-zavihke-shrani</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite pretvorbo tabulatorja v prostor ob vklopu ali izklopu shranjevanja.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-replace-tabs">
+<term
+><cmdsynopsis
+><command
+>zamenjaj zavihke</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite pretvorbo dinamičnega zavihka v prostor.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-remove-trailing-spaces">
+<term
+><cmdsynopsis
+><command
+>odstrani-končne-presledke</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Pri shranjevanju dokumenta odstrani končne presledke. Veljavne možnosti so:</para>
+<itemizedlist>
+<listitem
+><para
+><userinput
+>brez</userinput
+>, <userinput
+>-</userinput
+> ali <userinput
+>0</userinput
+>: nikoli ne odstranite končnih presledkov.</para
+></listitem>
+<listitem
+><para
+><userinput
+>spremenjeno</userinput
+>, <userinput
+>mod</userinput
+>, <userinput
+>+</userinput
+> ali <userinput
+>1</userinput
+>: odstranite končne presledke samo v spremenjenih vrsticah. Spremenjene črte so označene s sistemom modifikacije linij.</para
+></listitem>
+<listitem
+><para
+><userinput
+>vse</userinput
+>, <userinput
+>*</userinput
+> ali <userinput
+>2</userinput
+>: odstranite končne presledke v celotnem dokumentu.</para
+></listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-scrollbar-minimap">
+<term
+><cmdsynopsis
+><command
+>mini-zemljevid-z-drsnim-trakom</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Prikaži mini zemljevid z drsnim trakom.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-scrollbar-preview">
+<term
+><cmdsynopsis
+><command
+>predogled-drsnega-traku</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Prikaži predogled drsnega traku.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-scheme">
+<term
+><cmdsynopsis
+><command
+>shema</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite barvno shemo. Niz mora biti ime barvne sheme, ki obstaja v vaši konfiguraciji, da ima učinek.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-selection-color">
+<term
+><cmdsynopsis
+><command
+>barva-izbora</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite barvo izbire. Vrednost mora biti nekaj, kar je mogoče ovrednotiti v veljavno barvo, na primer <userinput
+>#ff0000</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-show-tabs">
+<term
+><cmdsynopsis
+><command
+>prikaz-zavihkov</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite znak vizualnega zavihka.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-smart-home">
+<term
+><cmdsynopsis
+><command
+>pametni-dom</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite <link linkend="pref-edit-cursor-selection"
+>navigacijo pametnega doma</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-tab-indents">
+<term
+><cmdsynopsis
+><command
+>zamiki-zavihkov</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi &Tab; vklop ali izklop zamika tipk.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-tab-width">
+<term
+><cmdsynopsis
+><command
+>širina zavihka</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite širino prikaza tabulatorskega znaka.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-undo-steps">
+<term
+><cmdsynopsis
+><command
+>razveljavitveni-koraki</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite število korakov razveljavitve, ki si jih morate zapomniti.</para>
+<para
+>Opomba: Zastarelo od &kate; 3 v &kde;4. Ta spremenljivka je prezrta. Največje število razveljavitvenih korakov je neomejeno.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-word-wrap-column">
+<term
+><cmdsynopsis
+><command
+>stolpec-za-previjanje-besed</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite širino <link linkend="kate-part-auto-wrap"
+>statičnega preloma besed</link
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-word-wrap-marker-color">
+<term
+><cmdsynopsis
+><command
+>beseda-prelom-barva-markerja</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavite barvo označevalnika za prelom besed. Vrednost mora biti nekaj, kar je mogoče ovrednotiti v veljavno barvo, na primer <userinput
+>#ff0000</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-word-wrap">
+<term
+><cmdsynopsis
+><command
+>prelom besed</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vklopite ali izklopite statično prelivanje besed.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="kateconfig-extended-options">
+<title
+>Razširjene možnosti v datotekah <filename
+>.kateconfig</filename
+></title>
+
+<para
+>&kappname; vedno poiščite datoteko <filename
+>.kateconfig</filename
+> za lokalne datoteke (ne oddaljene datoteke). Poleg tega je mogoče nastaviti možnosti, ki temeljijo na nadomestnih znakih (datotečnih končnicah), kot sledi:</para>
+
+<programlisting
+>kate: širina zavihka 4; širina zamika 4; zamenjaj zavihke na;
+kate-wildcard(*.xml): širina zamika 2;
+kate-wildcard(Makefile): zamenjava zavihkov izklopljena;
+</programlisting>
+
+<para
+>V tem primeru vse datoteke uporabljajo širino zavihka 4 presledke, širino zamika 4 presledke, zavihki pa so zamenjani razširjeni na presledke. Vendar pa je za vse datoteke <filename class="extension"
+>*.xml</filename
+> širina zamika nastavljena na 2 presledka. In Makefiles uporabljajo zavihke, &ie; zavihki niso nadomeščeni s presledki.</para>
+
+<para
+>Nadomestni znaki so ločeni s podpičjem, &ie; določite lahko tudi več končnic datotek, kot sledi: </para>
+
+<programlisting
+>kate-wildcard(*.json;*.xml): širina zamika 2;</programlisting>
+
+<para
+>Poleg tega lahko uporabite tudi &MIME; tip za ujemanje z določenimi datotekami, &eg; če želite zamakniti vse izvorne datoteke C++ s 4 presledki, lahko napišete: </para>
+
+<programlisting
+>kate-mimetype(text/x-c++src): širina zamika 4;</programlisting>
+
+<note
+><para
+>Poleg podpore v datotekah <filename
+>.kubeconfig</filename
+>, nadomestni znak in MIME; od tipa odvisne spremenljivke dokumenta so podprte tudi v samih datotekah kot komentarji. </para
+></note>
+
+</sect2>
+
+</sect1>
+
+</chapter>

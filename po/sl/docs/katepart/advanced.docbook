@@ -1,0 +1,1930 @@
+<chapter id="advanced-editing-tools">
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<othercredit role="translator"
+><contrib
+>Prevod</contrib
+><firstname
+>Andrej</firstname
+><surname
+>Vernekar</surname
+><affiliation
+><address
+><email
+>andrej.vernekar@moj.net</email
+></address
+></affiliation
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Napredna orodja za urejanje</title>
+
+<sect1 id="advanced-editing-tools-comment">
+
+<title
+>Komentiraj/Odkomentiraj</title>
+
+<para
+>Ukaza <guimenuitem
+>Komentiraj</guimenuitem
+> in <guimenuitem
+>Odkomentiraj</guimenuitem
+>, ki sta na voljo v meniju <guimenu
+>Orodja</guimenu
+>, omogočata dodajanje ali odstranjevanje označevalcev komentarjev izboru ali trenutni vrstici, če ni besedilo je izbrano, če format besedila, ki ga urejate, podpira komentarje.</para>
+
+<para
+>Pravila za komentiranje so opredeljena v definicijah sintakse, tako da, če označevanje sintakse ni uporabljeno, komentiranje/odkomentiranje ni mogoče. </para>
+
+<para
+>Nekateri formati določajo enovrstične oznake komentarjev, nekateri večvrstične oznake, nekateri pa oboje. Če večvrstični označevalniki niso na voljo, komentiranje izbora, ki ne vključuje v celoti zadnje vrstice, ni mogoče.</para>
+
+<para
+>Če je na voljo oznaka ene vrstice, je zaželeno komentiranje posameznih vrstic, kjer je to primerno, saj se tako izognete težavam z ugnezdenimi komentarji.</para>
+
+<para
+>Pri odstranjevanju označevalcev komentarjev ne sme biti izbrano nekomentirano besedilo. Pri odstranjevanju oznak za večvrstične komentarje iz izbora se vsak presledek zunaj oznak za komentarje prezre.</para>
+
+<para
+><indexterm
+><primary
+>komentar</primary
+></indexterm
+> Če želite postaviti oznake komentarjev, uporabite menijski element <menuchoice
+><guimenu
+>Orodja</guimenu
+><guimenuitem
+>Komentar</guimenuitem
+></menuchoice
+> ali povezano zaporedje bližnjic na tipkovnici, privzeto je <keycombo action="simul"
+> &Ctrl;<keycap
+>D</keycap
+></keycombo
+>.</para>
+
+<para
+><indexterm
+><primary
+>odkomentiraj</primary
+></indexterm
+> Če želite odstraniti oznake komentarjev, uporabite menijski element <menuchoice
+><guimenu
+>Orodja</guimenu
+><guimenuitem
+>Odkomentiraj</guimenuitem
+></menuchoice
+> ali povezano bližnjico na tipkovnici, privzeto je <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>D</keycap
+></keycombo
+>.</para>
+
+</sect1>
+
+<sect1 id="advanced-editing-tools-commandline">
+<title
+>Ukazna vrstica komponente urejevalnika</title>
+
+<para
+>Komponenta urejevalnika &kappname; ima notranjo ukazno vrstico, ki vam omogoča izvajanje različnih dejanj iz minimalnega &GUI;. Ukazna vrstica je vnos besedila na dnu območja urejevalnika; za prikaz izberite <menuchoice
+><guimenu
+>Pogled</guimenu
+><guimenuitem
+>Preklopi na ukazno vrstico</guimenuitem
+></menuchoice
+> ali uporabite bližnjico (privzeto je <keycombo action="simul"
+><keycap
+>F7</keycap
+></keycombo
+>). Urejevalnik ponuja nabor ukazov, kot je dokumentirano spodaj, dodatne ukaze pa lahko zagotovijo vtičniki.</para>
+
+<para
+>Če želite izvesti ukaz, vnesite ukaz in pritisnite tipko return. V ukazni vrstici bo prikazano, ali je uspelo, in morebiti prikazano sporočilo. Če ste vstopili v ukazno vrstico s pritiskom <keycap
+>F7</keycap
+>, se bo po nekaj sekundah samodejno skrila. Če želite počistiti sporočilo in vnesti nov ukaz, znova pritisnite <keycap
+>F7</keycap
+>.</para>
+
+<para
+>Ukazna vrstica ima vgrajen sistem pomoči; izdajte ukaz <command
+>pomoč</command
+>, da začnete. Če si želite ogledati seznam vseh razpoložljivih ukazov, izdajte <command
+>seznam pomoči</command
+>; če si želite ogledati pomoč za določen ukaz, naredite <command
+>pomoč <replaceable
+>ukaz</replaceable
+></command
+>.</para>
+
+<para
+>Ukazna vrstica ima vgrajeno zgodovino, tako da lahko ponovno uporabite že vnesene ukaze. Za krmarjenje po zgodovini uporabite &Up; in &Down; ključi. Pri prikazu zgodovinskih ukazov bo izbran del ukaza z argumenti, kar vam omogoča enostavno prepisovanje argumentov.</para>
+
+<sect2 id="advanced-editing-tools-commandline-commands">
+<title
+>Standardni ukazi ukazne vrstice</title>
+
+<variablelist>
+<title
+>Vrste argumentov</title>
+
+<varlistentry>
+<term
+>BOOLEAN</term>
+<listitem
+><para
+>To se uporablja z ukazi, ki vklopijo ali izklopijo stvari. Pravne vrednosti so <userinput
+>on</userinput
+>, <userinput
+>off</userinput
+>, <userinput
+>true</userinput
+>, <userinput
+>false</userinput
+>, <userinput
+>1</userinput
+> ali <userinput 
+>0</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>INTEGER</term>
+<listitem
+><para
+>Celo število.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>STRING</term>
+<listitem
+><para
+>Niz, obdan z enojnimi narekovaji (') ali dvojnimi narekovaji ("), če vsebuje presledke.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+
+
+<sect3 id="advanced-editing-tools-commandline-commands-configure">
+<title
+>Ukazi za konfiguracijo urejevalnika</title>
+
+<para
+>Te ukaze zagotavlja komponenta urejevalnika in vam omogočajo, da konfigurirate samo aktivni dokument in pogled. To je priročno, če želite uporabiti nastavitev, ki se razlikuje od privzetih nastavitev, na primer za zamik. </para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-širino-zavihka</command
+><arg choice="req"
+>INTEGER širina</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi širino zavihka na število <userinput
+>širina</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-širino-zamika</command
+><arg choice="req"
+>INTEGER širine</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi širino zamika na število <userinput
+>širina</userinput
+>. Uporablja se samo, če zamikate s presledki.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-stolpec-za-prelom-besed</command
+><arg choice="req"
+>INTEGER širina</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi širino črte za trdo previjanje na <userinput
+>širino</userinput
+>. To se uporablja, če imate samodejno prelom besedila.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavi-okvir-ikone</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+> </cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi vidnost obrobe ikone.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-zložljive-oznake</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi vidnost podokna z zgibnimi oznakami.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-številke-vrstice</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi vidnost podokna s številkami vrstic.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavi-zamenjaj-zavihke</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Če je omogočeno, se tabulatorji med tipkanjem zamenjajo s presledki. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-odstranite-končni-presledek</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Če je omogočeno, se končni presledek odstrani vsakič, ko kazalec zapusti črto.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-prikaz-zavihkov</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Če je omogočeno, bodo znaki TAB in presledki na koncu prikazani z majhno piko.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-prikaz-zamika</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Če je omogočeno, bo zamik prikazan z navpično pikčasto črto.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-presledke-za-zamike</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Če je omogočeno, bo urejevalnik zamaknil s presledki <option
+>indent-width</option
+> za vsako raven zamika namesto z enim znakom TAB.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-mešani-zamik</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Če je omogočeno, &kappname; bo za zamik uporabil kombinacijo TAB in presledkov. Vsaka raven zamika bo široka <option
+>širina-zamika</option
+>, več ravni zamika pa bo optimiziranih za uporabo čim več znakov TAB.</para>
+<para
+>Ko se ta ukaz izvede, bo dodatno omogočen zamik presledka in če širina zamika ni določena, bo nastavljena na polovico <option
+>širine zavihka</option
+> za dokument v času izvajanja.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-prelom-besed</command
+><arg choice="req"
+>BOOLEAN omogoči</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Omogoči dinamično prelivanje besed glede na <userinput
+>omogoči</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavi zamenjaj zavihke shrani</command
+><arg choice="req"
+>BOOLEAN omogoči </arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ko je omogočeno, bodo zavihki zamenjani s presledki vsakič, ko je dokument shranjen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavitev-odstrani-končni-prostor-prihrani</command
+><arg choice="req"
+>Omogoči BOOLEAN</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ko je omogočeno, bo končni presledek odstranjen iz vsake vrstice vsakič, ko je dokument shranjen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-način-zamika</command
+><arg choice="req"
+>STRING ime</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi način samodejnega zamika na <userinput
+>ime</userinput
+>. Če <userinput
+>ime</userinput
+> ni znano, je način nastavljen na 'brez'. Veljavni načini so 'none', 'normal', 'cstyle', 'haskell', 'lilypond', 'lisp', 'python', 'ruby' in 'xml'.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-samodejni-identifikator</command
+><arg choice="req"
+>BOOLEAN skript</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Omogoči ali onemogoči samodejni zamik.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavite-poudarek</command
+><arg choice="req"
+>označba STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Nastavi sistem označevanja sintakse za dokument. Argument mora biti veljavno ime osvetlitve, kot je prikazano v meniju <menuchoice
+><guimenu
+>Orodja</guimenu
+><guisubmenu
+>Označevanje</guisubmenu
+></menuchoice
+>. Ta ukaz ponuja seznam samodokončanja za svoj argument.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>reload-scripts</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ponovno naloži vse <link linkend="dev-scripting"
+>&javascript; skripti</link
+>, ki jih uporablja &kate;, vključno z zamiki in skripti ukazne vrstice.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nastavljeni-način</command
+><arg choice="req"
+>STRING način</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Izberite shemo vrste datoteke za trenutni dokument. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nn[oremap]</command
+><arg choice="req"
+>STRING original</arg
+> <arg choice="req"
+>STRING preslikan</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Preslikaj zaporedje tipk <userinput
+>original</userinput
+> v <userinput
+>preslikan</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="advanced-editing-tools-commandline-commands-edit">
+<title
+>Ukazi za urejanje</title>
+
+<para
+>Ti ukazi spremenijo trenutni dokument.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>indent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Zamakne izbrane vrstice ali trenutno vrstico.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>unindent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Razveljavi zamik izbranih vrstic ali trenutne vrstice.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>cleanindent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Počisti zamik izbranih vrstic ali trenutne vrstice glede na nastavitve zamika v dokumentu. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>comment</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vstavi označevalce komentarjev, da izbor ali izbrane vrstice ali trenutna vrstica postanejo komentar v skladu z obliko besedila, kot je določeno z definicijo poudarjanja sintakse za dokument.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>uncomment</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Odstrani označevalce komentarjev iz izbire ali izbranih vrstic ali trenutne vrstice v skladu z obliko besedila, kot je določeno z definicijo poudarjanja sintakse za dokument.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>kill-line</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Izbriše trenutno vrstico.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>zamenjaj</command
+><arg choice="req"
+> STRING vzorec</arg
+> <arg choice="req"
+>STRING zamenjava</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Zamenja besedilo, ki se ujema z <userinput
+>vzorcem</userinput
+> z <userinput
+>zamenjavo</userinput
+>. Če želite v <userinput
+>vzorec</userinput
+> vključiti presledek, morate tako <userinput
+>vzorec</userinput
+> kot <userinput
+>zamenjavo</userinput
+> dati v enojne ali dvojne narekovaje. Če argumenti niso v narekovajih, se prva beseda uporabi kot <userinput
+>vzorec</userinput
+>, ostala beseda pa za <userinput
+>zamenjava</userinput
+>. Če je <userinput
+>zamenjava</userinput
+> prazna, je vsak pojav <userinput
+>vzorca</userinput
+> odstranjen.</para>
+<para
+>Zastavice lahko nastavite za konfiguracijo iskanja tako, da dodate dvopičje, ki mu sledi ena ali več črk, od katerih vsaka predstavlja konfiguracijo, kar daje obliko <userinput
+>zamenjaj: možnosti zamenjava vzorca</userinput
+>. Razpoložljive možnosti so: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Išči nazaj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>Išči od položaja kazalca.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>e</userinput
+></term>
+<listitem
+><para
+>Išči samo v izboru.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Izvedite iskanje po regularnem izrazu. Če je nastavljeno, lahko uporabite <userinput
+>\IN</userinput
+>, kjer je N število, ki predstavlja zajeme v nadomestnem nizu.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>Iskanje razlikuje med velikimi in malimi črkami.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>p</userinput
+></term>
+<listitem
+><para
+>Poziv za dovoljenje za zamenjavo naslednjega pojava.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>w</userinput
+></term>
+<listitem
+><para
+>Ujemaj samo cele besede.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>datum</command
+><arg choice="req"
+>Oblika STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Vstavi niz datuma/časa, kot ga definira podani <userinput
+>format</userinput
+>, ali format <quote
+>llll-MM-dd hh:mm:ss</quote
+>, če noben ni določen. Pri interpretaciji <userinput
+>formata</userinput
+> se izvajajo naslednji prevodi: <informaltable
+> <tgroup cols="2"
+> <tbody>
+<row
+><entry
+><literal
+>d</literal
+></entry
+><entry
+>Dan kot številka brez začetne ničle (1-31).</entry
+></row>
+<row
+><entry
+><literal
+>dd</literal
+></entry
+><entry
+>Dan kot številka z ničlo na začetku (01-31).</entry
+></row>
+<row
+><entry
+><literal
+>ddd</literal
+></entry
+><entry
+>Skrajšano lokalizirano ime dneva (&eg; 'pon'..'ned').</entry
+></row>
+<row
+><entry
+><literal
+>dddd</literal
+></entry
+><entry
+>Dolgo lokalizirano ime dneva (&eg; 'ponedeljek'..'nedelja').</entry
+></row>
+<row
+><entry
+><literal
+>M</literal
+></entry
+><entry
+>Mesec kot številka brez začetne ničle (1-12).</entry
+></row>
+<row
+><entry
+><literal
+>MM</literal
+></entry
+><entry
+>Mesec kot številka z ničlo na začetku (01-12).</entry
+></row>
+<row
+><entry
+><literal
+>MMMM</literal
+></entry
+><entry
+>Dolgo lokalizirano ime meseca (&eg; 'januar'..'december').</entry
+></row>
+<row
+><entry
+><literal
+>MMM</literal
+></entry
+><entry
+>Skrajšano lokalizirano ime meseca (&eg; 'Jan'..'Dec').</entry
+></row>
+<row
+><entry
+><literal
+>yy</literal
+></entry
+><entry
+>Leto kot dvomestno število (00-99).</entry
+></row>
+<row
+><entry
+><literal
+>yyyy</literal
+></entry
+><entry
+>Leto kot štirimestno število (1752-8000).</entry
+></row>
+<row
+><entry
+><literal
+>h</literal
+></entry
+><entry
+>Ura brez vodilne ničle (0..23 ali 1..12, če je prikazan AM/PM).</entry
+></row>
+<row
+><entry
+><literal
+>hh</literal
+></entry
+><entry
+>Ura z vodilno ničlo (00..23 ali 01..12, če je prikazan AM/PM).</entry
+></row>
+<row
+><entry
+><literal
+>m</literal
+></entry
+><entry
+>Minuta brez vodilne ničle (0..59).</entry
+></row>
+<row
+><entry
+><literal
+>mm</literal
+></entry
+><entry
+>Minuta z vodilno ničlo (00..59).</entry
+></row>
+<row
+><entry
+><literal
+>s</literal
+></entry
+><entry
+>Druga brez vodilne ničle (0..59).</entry
+></row>
+<row
+><entry
+><literal
+>ss</literal
+></entry
+><entry
+>Drugi z vodilno ničlo (00..59).</entry
+></row>
+<row
+><entry
+><literal
+>z</literal
+></entry
+><entry
+>Milisekunde brez začetnih ničel (0..999).</entry
+></row>
+<row
+><entry
+><literal
+>zzz</literal
+></entry
+><entry
+>Milisekunde z začetnimi ničlami ​​(000..999).</entry
+></row>
+<row
+><entry
+><literal
+>AP</literal
+></entry
+><entry
+>Uporabite prikaz AM/PM. AP bo nadomeščen z "AM" ali "PM".</entry
+></row>
+<row
+><entry
+><literal
+>ap</literal
+></entry
+><entry
+>Uporabite prikaz zjutraj/popoldne. ap bo nadomeščen z "am" ali "pm".</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>char</command
+><arg choice="req"
+>identifikator STRING</arg
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Ta ukaz vam omogoča vstavljanje dobesednih znakov glede na njihov numerični identifikator v decimalni, osmiški ali šestnajstiški obliki. Če ga želite uporabiti, odprite pogovorno okno Ukaz za urejanje in v polje za vnos vnesite <userinput
+>char: [number]</userinput
+>, nato pritisnite <guibutton
+>V redu</guibutton
+>.</para>
+
+<example>
+<title
+><command
+>char</command
+> primeri</title>
+
+<para
+>Vnos: <userinput
+>char:234</userinput
+></para>
+<para
+>Izhod: <computeroutput
+>&#234;</computeroutput
+></para>
+<para
+>Vnos: <userinput
+>char:0x1234</userinput
+></para>
+<para
+>Izhod: <computeroutput
+>in#x1234;</computeroutput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<indexterm
+><primary
+>zamenjaj, slog sed</primary>
+<secondary
+>iskanje, slog sed</secondary
+></indexterm
+><command
+>s///[ig]</command
+> <command
+>%s///[ig]</command
+></term>
+
+<listitem>
+<para
+>Ta ukaz izvede operacijo iskanja/zamenjave, podobno sed-u, v trenutni vrstici ali v celotni datoteki (<command
+>%s///</command
+>).</para>
+
+<para
+>Skratka, v besedilu se išče besedilo, ki se ujema z <emphasis
+>iskalnim vzorcem</emphasis
+>, regularnim izrazom med prvo in drugo poševnico, in ko se najde ujemanje, se ujemajoči del besedila nadomesti z izrazom med drugo in zadnjo poševnico. Oklepaji v iskalnem vzorcu ustvarijo <emphasis
+>povratne reference</emphasis
+>, to pomeni, da si ukaz zapomni, kateri del niza se ujema v oklepajih; te nize je mogoče ponovno uporabiti v vzorcu zamenjave, imenovanem <userinput
+>\1</userinput
+> za prvi niz oklepajev, <userinput
+>\2</userinput
+> za drugega in tako naprej.</para>
+
+<para
+>Če želite poiskati literal <literal
+>(</literal
+> ali <literal
+>)</literal
+>, ga morate <emphasis
+>ubežati</emphasis
+> s poševnico nazaj: <userinput
+>\(\)</userinput 
+></para>
+
+<para
+>Če na koncu izraza postavite <userinput
+>i</userinput
+>, ujemanje ne bo razlikovalo med velikimi in malimi črkami. Če na koncu vstavite <userinput
+>g</userinput
+>, bodo zamenjane vse pojavitve vzorca, sicer bo zamenjana samo prva pojavitev.</para>
+
+<example>
+
+<title
+>Zamenjava besedila v trenutni vrstici</title>
+
+<para
+>Vaš prijazen prevajalnik se je pravkar ustavil in vam povedal, da razred <classname
+>myClass</classname
+>, omenjen v vrstici 3902 v vaši izvorni datoteki, ni definiran.</para>
+
+<para
+>&quot;Zaponka!&quot; mislite, da je to seveda <classname
+>MyClass</classname
+>. Pojdite v vrstico 3902 in namesto da bi poskušali najti besedo v besedilu, zaženete pogovorno okno ukazov za urejanje, vnesete <userinput
+>s/myclass/MyClass/i</userinput
+>, pritisnete <guibutton
+>OK</guibutton 
+>, shranite datoteko in prevedite &ndash; uspešno brez napake.</para>
+
+</example>
+
+<example>
+<title
+>Zamenjava besedila v celotni datoteki</title>
+
+<para
+>Predstavljajte si, da imate datoteko, v kateri večkrat omenjate <quote
+>gospodično Jensen</quote
+>, ko pride nekdo in vam pove, da se je pravkar poročila z <quote
+>gospodom Jonesom</quote
+>. Seveda želite vsako ponovitev <quote
+>gdč. Jensen</quote
+> zamenjati z <quote
+>gdč. Jones</quote
+>.</para>
+
+<para
+>Vnesite ukazno vrstico in izdajte ukaz <userinput
+>%s/Miss Jensen/Ms Jones/</userinput
+> in pritisnite return, končali ste.</para>
+
+</example>
+
+<example>
+<title
+>Naprednejši primer</title>
+
+<para
+>Ta primer uporablja <emphasis
+>povratne reference</emphasis
+> kot tudi <emphasis
+>razred znakov</emphasis
+> (če ne veste, kaj je to, si oglejte povezano dokumentacijo, omenjeno spodaj).</para>
+
+<para
+>Recimo, da imate naslednjo vrstico: <programlisting
+>void MyClass::DoStringOps( String &amp;foo, String &amp;bar, String *p, int &amp;a, int &amp;b )</programlisting>
+</para>
+<para
+>Zdaj se zavedate, da to ni lepa koda, in se odločite, da želite uporabiti ključno besedo <constant
+>const</constant
+> za vse argumente <quote
+>naslov</quote
+>, tiste, ki jih označuje &amp; operator pred imenom argumenta. Prav tako bi želeli poenostaviti prazen prostor, tako da bo med vsako besedo samo en presledek.</para>
+
+<para
+>Zaženite pogovorno okno ukazov za urejanje in vnesite: <userinput
+>s/\s+(\w+)\s+(&amp;)/ const \1 \2/g</userinput
+> in pritisnite gumb <guibutton
+>V redu</guibutton
+> . <userinput
+>g</userinput
+> na koncu izraza povzroči, da se regularni izraz znova prevede za vsako ujemanje, da se shranijo <emphasis
+>povratne reference</emphasis
+>.</para>
+
+<para
+>Izhod: <computeroutput
+>void MyClass::DoStringOps( const String &amp;foo, const String &amp;bar, String *p, const int &amp;a, const int &amp;b )</computeroutput
+></para>
+
+<para
+>Misija končana! Zdaj, kaj se je zgodilo? No, iskali smo nekaj presledka (<literal
+>\s+</literal
+>), ki mu sledi ena ali več abecednih znakov (<literal
+>\w+</literal
+>), čemur sledi še nekaj presledka (<literal
+>\s+</literal
+>), ki mu sledi ampersand, in pri tem shranil abecedni kos in ampersand za ponovno uporabo v operaciji zamenjave. Nato smo ujemajoči se del naše vrstice zamenjali z enim presledkom, ki mu je sledil <quote
+>const</quote
+>, ki mu je sledil en presledek, ki mu je sledil naš shranjeni abecedni del (<literal
+>\1</literal
+>), ki mu je sledil en presledek, ki mu je sledil naš shranjen ampersand (<literal
+>\2</literal
+>)</para>
+
+<para
+>Zdaj je bil v nekaterih primerih abecedni kos <quote
+>String</quote
+>, v nekaterih <quote
+>int</quote
+>, torej z uporabo razreda znakov <literal
+>\w</literal
+> in <literal
+>+</literal
+> kvantifikator se je izkazal za dragoceno sredstvo.</para>
+
+</example>
+
+</listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>sort</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Razvrsti izbrano besedilo ali celoten dokument.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>natsort</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Naravno razvrstite izbrane vrstice ali celoten dokument.</para>
+
+<example>
+<title
+><command
+>uredi</command
+> proti <command
+>naturedi</command
+></title>
+<para
+><userinput
+><command
+>uredi</command
+>(a10, a1, a2)</userinput
+> rezultira v <computeroutput
+>a1, a10, a2</computeroutput
+></para>
+<para
+><userinput
+><command
+>natsort</command
+>(a10, a1, a2)</userinput
+> povzroči <computeroutput
+>a1, a2, a10</computeroutput
+></para>
+</example
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>moveLinesDown</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Premakni izbrane vrstice navzdol.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>moveLinesUp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Premakni izbrane vrstice navzgor.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>uniq</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Odstranite podvojene vrstice iz izbranega besedila ali celotnega dokumenta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>rtrim</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Odstranite končni presledek iz izbranega besedila ali celotnega dokumenta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>ltrim</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Odstranite začetni presledek iz izbranega besedila ali celotnega dokumenta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>združi</command
+><arg choice="opt"
+>Ločilo STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Združi izbrane vrstice ali celoten dokument. Izbirno sprejme parameter, ki določa ločilo, na primer: <userinput
+><command
+>join</command
+> ', '</userinput
+> </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>rmblank</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Odstranite vse prazne prostore iz izbranega besedila ali celotnega dokumenta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>alignon</command
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Ta ukaz poravna vrstice v izbranem bloku ali celotnem dokumentu na stolpec, ki ga poda regularni izraz, podan kot argument.</para>
+<para
+>Če podate prazen vzorec, se bo privzeto poravnal s prvim znakom, ki ni prazen.</para>
+<para
+>Če ima vzorec zajem, se bo zajeto ujemanje zamaknilo.</para>
+<para
+><emphasis
+>Primeri:</emphasis
+></para>
+<para
+><userinput
+>alignon -</userinput
+> bo vstavil presledke pred prvi '-' vsake vrstice, da jih vse poravna v isti stolpec.</para>
+<para
+><userinput
+>alignon :\\s (.)</userinput
+> bo vstavil presledke pred prvi neprazen znak, ki se pojavi za dvopičjem, da jih vse poravna v isti stolpec.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>unwrap</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Odvijte izbrano besedilo ali celoten dokument.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>vsak</command
+><arg choice="req"
+>STRING skript</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Glede na &javascript; funkcijo kot argument, pokličite to za seznam izbranih vrstic in jih nadomestite s povratno vrednostjo tega povratnega klica.</para>
+
+<example>
+<title
+>Združi izbrane vrstice</title>
+<para
+><userinput
+><command
+>vsak</command
+> 'function(lines){return lines.join(", ")}' </userinput
+></para>
+
+<para
+>Ali bolj na kratko:</para>
+<para
+><userinput
+><command
+>vsak</command
+> 'lines.join(", ")'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>filter</command
+><arg choice="req"
+>Skript STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Glede na &javascript; funkcijo kot argument, pokličite to za seznam izbranih vrstic in odstranite tiste, kjer povratni klic vrne false.</para>
+
+<example>
+<title
+>Odstranite prazne vrstice</title>
+<para
+><userinput
+><command
+>filter</command
+> 'function(1){return 1.length 
+> 0;}' </userinput
+></para>
+
+<para
+>Ali bolj na kratko:</para>
+<para
+><userinput
+><command
+>filter</command
+> 'line.length 
+> 0'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>mapa</command
+><arg choice="req"
+>Skript STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Glede na &javascript; funkcijo kot argument, jo pokličite za seznam izbranih vrstic in zamenjajte vrstico z vrednostjo povratnega klica.</para>
+
+<example>
+<title
+>Odstranite prazne vrstice</title>
+<para
+><userinput
+><command
+>mapa</command
+> 'function(line){return line.replace(/^s+/,"");}' </userinput
+></para>
+
+<para
+>Ali bolj na kratko:</para>
+<para
+><userinput
+><command
+>mapa</command
+> 'line.replace(/^s+/,"")'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>duplicateLinesUp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Podvoji izbrane vrstice nad trenutno izbiro.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>duplicateLinesDown</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Podvoji izbrane vrstice pod trenutno izbiro.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="advanced-editing-tools-commandline-commands-navigation">
+<title
+>Ukazi za navigacijo</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>goto</command
+><arg choice="req"
+>INT line</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ta ukaz vodi do navedene vrstice.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>grep</command
+> <arg choice="req"
+>STRING vzorec</arg
+> </cmdsynopsis
+></term>
+<listitem
+><para
+>V dokumentu poiščite regularni izraz <userinput
+>vzorec</userinput
+>. Za več informacij glejte <xref linkend="regular-expressions"/>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>najdi</command
+><arg choice="req"
+>STRING vzorec</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ta ukaz se pomakne do prve pojavitve <userinput
+>vzorca</userinput
+> glede na konfiguracijo. Naslednje pojavitve lahko najdete z <menuchoice
+><guimenu
+>Uredi</guimenu
+><guimenuitem
+>Najdi naprej</guimenuitem
+></menuchoice
+> (privzeta bližnjica je <keycap
+>F3</keycap
+>).</para>
+<para
+>Ukaz za iskanje je mogoče konfigurirati tako, da dodate dvopičje, ki mu sledi ena ali več možnosti, oblika je <userinput
+>find:options pattern</userinput
+>. Podprte so naslednje možnosti:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Išči nazaj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>Išči od položaja kazalca.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>e</userinput
+></term>
+<listitem
+><para
+>Išči samo v izboru.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Izvedite iskanje po regularnem izrazu. Če je nastavljeno, lahko uporabite <userinput
+>\IN</userinput
+>, kjer je N število, ki predstavlja zajeme v nadomestnem nizu.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>Iskanje razlikuje med velikimi in malimi črkami.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>w</userinput
+></term>
+<listitem
+><para
+>Ujemaj samo cele besede.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>inajdi</command
+><arg choice="req"
+>STRING vzorec</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ta ukaz omogoča iskanje <quote
+>med tipkanjem</quote
+>. Obnašanje iskanja lahko konfigurirate tako, da dodate dvopičje, ki mu sledi ena ali več možnosti, na primer: <userinput
+>ifind:options pattern</userinput
+>. Dovoljene možnosti so: <variablelist>
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Išči nazaj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Izvedite iskanje po regularnem izrazu.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>Iskanje razlikuje med velikimi in malimi črkami.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>Išči od položaja kazalca.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+<sect3 id="advanced-editing-tools-commandline-commands-basic">
+<title
+>Ukazi za osnovne funkcije urejevalnika (ti so odvisni od aplikacije, v kateri se uporablja komponenta urejevalnika)</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>w</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Shranite trenutni dokument.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Shrani vse trenutno odprte dokumente.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>q</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Zapri trenutni dokument.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>qa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Zapri vse odprte dokumente.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wq</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Shranite in zaprite trenutni dokument.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wqa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Shranite in zaprite vse trenutno odprte dokumente.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>x</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Shrani in zapri trenutni dokument samo, če je bil spremenjen. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>x</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Shranite in zaprite vse trenutno odprte dokumente le, če so bili spremenjeni.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>bp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Pojdite na prejšnji dokument na seznamu dokumentov. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>bn</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Pojdite na naslednji dokument na seznamu dokumentov. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>new</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Odprite nov dokument v horizontalno razdeljenem pogledu. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>vnew</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Odprite nov dokument v navpičnem razdeljenem pogledu. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>e</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Znova naloži trenutni dokument, če se je spremenil na disku. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>enew</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Uredite nov dokument. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>print</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Odprite pogovorno okno Natisni, da natisnete trenutni dokument. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-editing-tools-code-folding">
+<title
+>Uporaba zgibanja kode</title>
+
+<para
+>Zgibanje kode vam omogoča, da skrijete dele dokumenta v urejevalniku, kar olajša pregledovanje velikih dokumentov. V &kappname; prepogljiva območja so izračunana z uporabo pravil, določenih v definicijah osvetlitve sintakse, zato je na voljo le v nekaterih formatih - običajno izvorna koda programa, oznaka XML in podobno. Večina definicij poudarkov, ki podpirajo zlaganje kode, vam omogoča tudi ročno definiranje prepogljivih območij, običajno z uporabo ključnih besed <userinput
+>BEGIN</userinput
+> in <userinput
+>END</userinput
+>.</para>
+
+<para
+>Če želite uporabiti funkcijo zgibanja kode, aktivirajte oznake za zlaganje z menijsko postavko <menuchoice
+><guimenu
+>Pogled</guimenu
+><guimenuitem
+>Pokaži oznake za zlaganje</guimenuitem
+></menuchoice
+>, če še niso vidne. Podokno z označevalniki za zlaganje na levi strani zaslona prikazuje grafični pogled prepogljivih območij s trikotnimi simboli, ki označujejo možno delovanje na danem območju: trikotnik zgoraj navzdol pomeni, da je območje razširjeno, s klikom nanj se bo območje strnilo namesto tega bo prikazan desno usmerjen trikotnik.</para>
+<!--FIXME change Three to Four when Unfold Toplevel Nodes action is back-->
+<para
+>Na voljo so trije ukazi za manipulacijo stanja zgibnih območij, glejte <link linkend="view-code-folding"
+>dokumentacijo menija</link
+>. </para>
+
+<para
+>Prepognjene črte se zapomnijo, ko je datoteka zaprta, tako da bodo prepognjena vozlišča še vedno prepognjena, ko znova odprete datoteko. To velja tudi za operacije ponovnega nalaganja.</para>
+
+<para
+>Če ne želite uporabljati funkcije zgibanja kode, lahko onemogočite možnost <guilabel
+>Pokaži oznake za zlaganje (če so na voljo)</guilabel
+> na strani <link linkend="appearance"
+>Videz</link
+> urejevalnika konfiguracijo.</para>
+
+</sect1>
+
+</chapter>

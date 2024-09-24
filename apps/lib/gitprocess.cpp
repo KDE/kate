@@ -62,7 +62,7 @@ static std::pair<int, int> getGitVersionUncached(const QString &workingDir)
 
     // match the version output
     const QString gitVersion = QString::fromUtf8(git.readAllStandardOutput());
-    const QRegularExpression gitRegex(QStringLiteral("git version\\s*(\\d+).(\\d+).(\\d+)+.*"));
+    static const QRegularExpression gitRegex(QStringLiteral("git version\\s*(\\d+).(\\d+).(\\d+)+.*"));
     const QRegularExpressionMatch gitMatch = gitRegex.match(gitVersion);
 
     bool okMajor = false;

@@ -618,7 +618,7 @@ QList<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive
         }
 
         auto str = QString::fromLocal8Bit(darcs.readAllStandardOutput());
-        QRegularExpression exp(QStringLiteral("Root: ([^\\n\\r]*)"));
+        static const QRegularExpression exp(QStringLiteral("Root: ([^\\n\\r]*)"));
         auto match = exp.match(str);
 
         if (!match.hasMatch()) {

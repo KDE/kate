@@ -289,7 +289,10 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
      */
     const QList<QString> files = findFiles(dir, filesEntry);
 
-    QStringList excludeFolderPatterns = m_projectMap.value(QStringLiteral("exclude_patterns")).toStringList();
+    /**
+     * precompute regex to exclude stuff for the worker threads
+     */
+    const QStringList excludeFolderPatterns = m_projectMap.value(QStringLiteral("exclude_patterns")).toStringList();
     std::vector<QRegularExpression> excludeRegexps;
     excludeRegexps.reserve(excludeFolderPatterns.size());
     for (const auto &pattern : excludeFolderPatterns) {

@@ -16,14 +16,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-23 00:41+0000\n"
-"PO-Revision-Date: 2024-09-10 01:13+0900\n"
+"PO-Revision-Date: 2024-09-23 20:42+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -1214,19 +1214,19 @@ msgstr "診斷工具檢視中允許的最大診斷數量。"
 #: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:23
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "情境"
 
 #: lib/kateconfigdialog.cpp:356
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "啟用工具檢視"
 
 #: lib/kateconfigdialog.cpp:358
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
-msgstr ""
+msgstr "顯示目前游標位置有關情境（例如 LSP 提示或診斷）的工具檢視"
 
 #: lib/kateconfigdialog.cpp:373
 #, kde-format

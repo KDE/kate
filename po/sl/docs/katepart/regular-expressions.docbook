@@ -1,0 +1,1367 @@
+<appendix id="regular-expressions">
+<appendixinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<othercredit role="translator"
+><firstname
+>Andrej</firstname
+><surname
+>Vernekar</surname
+><affiliation
+><address
+><email
+>andrej.vernekar@moj.net</email
+></address
+></affiliation
+></othercredit
+> 
+</authorgroup>
+</appendixinfo>
+
+<title
+>Regularni izrazi</title>
+
+<synopsis
+>Ta dodatek vsebuje kratko, a upajmo, da zadostno in
+zajema uvod v svet <emphasis
+>običajnega
+izrazi</emphasis
+>. Dokumentira regularne izraze v obrazcu
+na voljo znotraj &kappname;, ki ni združljiv z običajnim
+izrazi perla, niti z izrazi naprimer
+<command
+>grep</command
+>.</synopsis>
+
+<sect1>
+
+<title
+>Uvod</title>
+
+<para
+><emphasis
+>Regularni izrazi</emphasis
+> nam omogočajo, da opišemo nekatere možne vsebine besedilnega niza na način, ki ga razume majhen kos programske opreme, tako da lahko razišče, ali se besedilo ujema, in tudi v primeru napredne aplikacije s sredstvi za shranjevanje kosov ali ujemajočega se besedila.</para>
+
+<para
+>Primer: Recimo, da želite v besedilu poiskati odstavke, ki se začnejo z imeni <quote
+>Henrik</quote
+> ali <quote
+>Pernille</quote
+>, ki mu sledi neka oblika glagola <quote
+>say</quote 
+>.</para>
+
+<para
+>Z običajnim iskanjem bi začeli iskati prvo ime, <quote
+>Henrik</quote
+>, ki bi mu morda sledilo <quote
+>sa</quote
+>, takole: <userinput
+>Henrik sa</userinput
+>, in med iskanjem za ujemanja bi morali zavreči tiste, ki niso začetek odstavka, pa tudi tiste, v katerih beseda, ki se začne s črkama <quote
+>sa</quote
+>, ni bila niti <quote
+>pravi</quote
+>, <quote
+>rekel</quote
+> ali tako. In potem seveda vse to ponovite z naslednjim imenom ...</para>
+
+<para
+>Z regularnimi izrazi je to nalogo mogoče opraviti z enim samim iskanjem in z večjo stopnjo natančnosti.</para>
+
+<para
+>Da bi to dosegli, regularni izrazi določajo pravila za podrobno izražanje posplošitve niza za ujemanje. Naš primer, ki bi ga lahko dobesedno izrazili takole: <quote
+>Vrstica, ki se začne z <quote
+>Henrik</quote
+> ali <quote
+>Pernille</quote
+> (po možnosti sledijo do 4 presledki ali tabulatorji), ki ji sledi presledek, ki mu sledi <quote
+>sa</quote
+> in nato <quote
+>ys</quote
+> ali <quote
+>id</quote
+></quote
+>, se lahko izrazi z naslednjim regularnim izrazom:</para
+> <para
+><userinput
+>^[ \t]{0,4}(Henrik|Pernille) sa(ys|id)</userinput
+></para>
+
+<para
+>Zgornji primer prikazuje vse štiri glavne koncepte sodobnih regularnih izrazov, in sicer:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Vzorci</para
+></listitem>
+<listitem
+><para
+>Trditve</para
+></listitem>
+<listitem
+><para
+>Kvantifikatorji</para
+></listitem>
+<listitem
+><para
+>Reference za nazaj</para
+></listitem>
+</itemizedlist>
+
+<para
+>Karetica (<literal
+>^</literal
+>), ki začne izraz, je trditev, ki je resnična samo, če je naslednji ujemajoči se niz na začetku vrstice.</para>
+
+<para
+>Niza <literal
+>[ \t]</literal
+> in <literal
+>(Henrik|Pernille) sa(ys|id)</literal
+> sta vzorca. Prvi je <emphasis
+>razred znakov</emphasis
+>, ki se ujema s praznim ali (vodoravnim) tabulatorjem; drugi vzorec vsebuje najprej podvzorec, ki se ujema bodisi z <literal
+>Henrik</literal
+> <emphasis
+>ali</emphasis
+> <literal
+>Pernille</literal
+>, nato kos, ki se ujema z natančnim nizom <literal
+> sa</literal
+> in končno podvzorec, ki se ujema z <literal
+>ys</literal
+> <emphasis
+>ali</emphasis
+> <literal
+>id</literal
+></para>
+
+<para
+>Niz <literal
+>{0,4}</literal
+> je kvantifikator, ki pravi <quote
+>kjer koli od 0 do 4 prejšnjega</quote
+>.</para>
+
+<para
+>Ker programska oprema za regularne izraze, ki podpira koncept <emphasis
+>povratnih sklicev</emphasis
+>, shrani celoten ujemajoči se del niza kot tudi podvzorce, obdane z oklepaji, bi lahko dobili nekaj načinov dostopa do teh sklicev bodisi celotno ujemanje (pri iskanju besedilnega dokumenta v urejevalniku z regularnim izrazom, ki je pogosto označen kot izbrano) bodisi najdeno ime ali zadnji del glagola.</para>
+
+<para
+>Vse skupaj se bo izraz ujemal tam, kjer smo želeli, in samo tam.</para>
+
+<para
+>Naslednji razdelki bodo podrobno opisali, kako zgraditi in uporabiti vzorce, razrede znakov, trditve, kvantifikatorje in povratne reference, zadnji del pa bo dal nekaj uporabnih primerov.</para>
+
+</sect1>
+
+<sect1 id="regex-patterns">
+
+<title
+>Vzorci</title>
+
+<para
+>Vzorci so sestavljeni iz dobesednih nizov in znakovnih razredov. Vzorci lahko vsebujejo podvzorce, ki so vzorci v oklepajih.</para>
+
+<sect2>
+<title
+>Ubežni znaki</title>
+
+<para
+>Tako v vzorcih kot tudi v razredih znakov imajo nekateri znaki poseben pomen. Če se želite dobesedno ujemati s katerim koli od teh znakov, jih je treba označiti ali <emphasis
+>ubežati</emphasis
+>, da programska oprema za regularne izraze ve, da mora take znake interpretirati v njihovem dobesednem pomenu.</para>
+
+<para
+>To naredite tako, da pred znak dodate poševnico nazaj (<literal
+>\</literal
+>).</para>
+
+
+<para
+>Programska oprema za regularne izraze bo tiho prezrla ubežanje znaka, ki v kontekstu nima posebnega pomena, zato je ubežanje na primer <quote
+>j</quote
+> (<userinput
+>\j</userinput
+>) varno. Če ste v dvomih, ali ima znak lahko poseben pomen, se mu torej lahko varno izognete.</para>
+
+<para
+>Ubežanje seveda vključuje sam znak nazaj poševnice, da bi se dobesedno ujemal s takim, bi napisali <userinput
+>\\</userinput
+>.</para>
+
+</sect2>
+
+<sect2>
+<title
+>Razredi znakov in okrajšave</title>
+
+<para
+><emphasis
+>Razred znakov</emphasis
+> je izraz, ki se ujema z enim od definiranega niza znakov. V regularnih izrazih so razredi znakov definirani z dajanjem zakonitih znakov za razred v oglate oklepaje, <literal
+>[]</literal
+>, ali z uporabo enega od skrajšanih razredov, opisanih spodaj.</para>
+
+<para
+>Preprosti razredi znakov vsebujejo samo enega ali več dobesednih znakov, na primer <userinput
+>[abc]</userinput
+> (ki se ujema s katero koli od črk <quote
+>a</quote
+>, <quote
+>b</quote
+> ali <quote
+> c</quote
+>) ali <userinput
+>[0123456789]</userinput
+> (ujema se s katero koli števko).</para>
+
+<para
+>Ker imajo črke in števke logičen vrstni red, jih lahko skrajšate tako, da določite njihove obsege: <userinput
+>[a-c]</userinput
+> je enako <userinput
+>[abc]</userinput
+> in <userinput
+>[0-9 ]</userinput
+> je enako <userinput
+>[0123456789]</userinput
+>. Združevanje teh konstruktov, na primer <userinput
+>[a-fynot1-38]</userinput
+>, je popolnoma zakonito (zadnji bi se seveda ujemal s katerim koli od <quote
+>a</quote
+>,<quote
+>b</quote
+>,<quote
+>c</quote
+>,<quote
+>d</quote
+>, <quote
+>e</quote
+>,<quote
+>f</quote
+>,<quote
+>y</quote
+>,<quote
+> 
+>n</quote
+>,<quote
+>o</quote
+>,<quote
+>t</quote
+>, <quote
+>1</quote
+>,<quote
+>2</quote
+>,<quote
+>3</quote
+> 
+> ali <quote
+>8</quote
+>).</para>
+
+<para
+>Ker so velike črke različni znaki od njihovih nevelikih ustreznikov, morate za ustvarjanje razreda znakov brez velikih in velikih črk, ki se ujema z <quote
+>a</quote
+> ali <quote
+>b</quote
+>, v vsakem primeru napisati <userinput
+> [aAbB]</userinput
+>.</para>
+
+<para
+>Seveda je mogoče ustvariti <quote
+>negativen</quote
+> razred, ki se ujema kot <quote
+>karkoli, vendar</quote
+> Če želite to narediti, postavite kazalko (<literal
+>^</literal
+>) na začetek razreda : </para>
+
+<para
+><userinput
+>[^abc]</userinput
+> se bo ujemal s katerim koli znakom <emphasis
+>ampak</emphasis
+> <quote
+>a</quote
+>, <quote
+>b</quote
+> ali <quote
+>c</quote
+>.</para>
+
+<para
+>Poleg dobesednih znakov je definiranih nekaj okrajšav, ki olajšajo življenje: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>\a</userinput
+></term>
+<listitem
+><para
+>To se ujema z &ASCII; znak zvonca (BEL, 0x07).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\f</userinput
+></term>
+<listitem
+><para
+>To se ujema z &ASCII; znak podajanja obrazca (FF, 0x0C).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\n</userinput
+></term>
+<listitem
+><para
+>To se ujema z &ASCII; znak za začetek vrstice (LF, 0x0A, nova vrstica Unix).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\r</userinput
+></term>
+<listitem
+><para
+>To se ujema z &ASCII; znak za vrnitev na začetek (CR, 0x0D).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\t</userinput
+></term>
+<listitem
+><para
+>To se ujema z &ASCII; horizontalni tabulator (HT, 0x09).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\v</userinput
+></term>
+<listitem
+><para
+>To se ujema z &ASCII; navpični tabulator (VT, 0x0B).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>\xhhhh</userinput
+></term>
+
+<listitem
+><para
+>To se ujema z znakom Unicode, ki ustreza šestnajstiškemu številu hhhh (med 0x0000 in 0xFFFF). \0ooo (&ie;, \nič ooo) se ujema z znakom &ASCII;/Latin-1, ki ustreza osmiškemu številu ooo (med 0 in 0377).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>.</userinput
+> (pika)</term>
+<listitem
+><para
+>To se ujema s katerim koli znakom (vključno z novo vrstico).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\d</userinput
+></term>
+<listitem
+><para
+>To se ujema s števko. Enako <literal
+>[0-9]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\D</userinput
+></term>
+<listitem
+><para
+>To se ujema z neštevilko. Enako <literal
+>[^0-9]</literal
+> ali <literal
+>[^\d]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\s</userinput
+></term>
+<listitem
+><para
+>To se ujema s presledkom. Praktično enako <literal
+>[ \t\n\r]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\S</userinput
+></term>
+<listitem
+><para
+>To se ujema s presledkom, ki ni prazen. Praktično enako <literal
+>[^ \t\r\n]</literal
+> in enako <literal
+>[^\s]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\w</userinput
+></term>
+<listitem
+><para
+>Ujema se s katerim koli <quote
+>besednim znakom</quote
+> - v tem primeru s katero koli črko, številko ali podčrtajem. Enako <literal
+>[a-zA-Z0-9_]</literal
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\W</userinput
+></term>
+<listitem
+><para
+>Ujema se s katerim koli nebesednim znakom - karkoli razen črk, številk ali podčrtaja. Enako <literal
+>[^a-zA-Z0-9_]</literal
+> ali <literal
+>[^\w]</literal
+></para
+></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</para>
+
+<para
+>Podprt je tudi <emphasis
+>Zapis razredov POSIX</emphasis
+>, <userinput
+>[:&lt;ime razreda&gt;:]</userinput
+>. Na primer, <userinput
+>[:digit:]</userinput
+> je enakovreden <userinput
+>\d</userinput
+> in <userinput
+>[:space:]</userinput
+> <userinput
+>\s</userinput 
+>. Oglejte si celoten seznam znakovnih razredov POSIX <ulink url="https://www.regular-expressions.info/posixbrackets.html"
+>tukaj</ulink
+>.</para>
+
+<para
+>Skrajšane razrede lahko postavite v razred po meri, na primer, da se ujemajo z besednim znakom, presledkom ali piko, lahko napišete <userinput
+>[\w \.]</userinput
+></para>
+
+<sect3>
+<title
+>Znaki s posebnimi pomeni znotraj razredov znakov</title>
+
+<para
+>Naslednji znaki imajo poseben pomen znotraj konstrukcije razreda znakov <quote
+>[]</quote
+> in jih je treba ubežati, da so dobesedno vključeni v razred:</para>
+
+<variablelist>
+<varlistentry>
+<term
+><userinput
+>]</userinput
+></term>
+<listitem
+><para
+>Konča razred znakov. Mora biti ubežno, razen če je prvi znak v razredu (lahko sledi neubežni kazalki).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (kazalka)</term>
+<listitem
+><para
+>Označuje negativen razred, če je prvi znak. Če je prvi znak v razredu, ga je treba ubežati, da se dobesedno ujema.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>-</userinput
+> (pomišljaj)</term>
+<listitem
+><para
+>Označuje logično območje. Vedno mora biti ubežen znotraj razreda znakov.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>\</userinput
+> (poševnica nazaj)</term>
+<listitem
+><para
+>Pobegli znak. Vedno je treba pobegniti.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2>
+
+<title
+>Alternative: ujemanje z <quote
+>enim od</quote
+></title>
+
+<para
+>Če se želite ujemati z enim od nabora alternativnih vzorcev, jih lahko ločite z <literal
+>|</literal
+> (znak navpične črte).</para>
+
+<para
+>Na primer, da bi našli <quote
+>John</quote
+> ali <quote
+>Harry</quote
+>, bi uporabili izraz <userinput
+>John|Harry</userinput
+>.</para>
+
+</sect2>
+
+<sect2>
+
+<title
+>Podvzorci</title>
+
+<para
+><emphasis
+>Podvzorci</emphasis
+> so vzorci v oklepajih in imajo več uporab v svetu regularnih izrazov.</para>
+
+<sect3>
+
+<title
+>Določanje alternativ</title>
+
+<para
+>Podvzorec lahko uporabite za združevanje nabora alternativ znotraj večjega vzorca. Alternative so ločene z znakom <quote
+>|</quote
+> (navpična črta).</para>
+
+<para
+>Če želite na primer ujemati eno od besed <quote
+>int</quote
+>, <quote
+>float</quote
+> ali <quote
+>double</quote
+>, lahko uporabite vzorec <userinput
+>int|float|double</userinput
+>. Če želite enega najti le, če mu sledi nekaj presledkov in nato nekaj črk, postavite alternative znotraj podvzorca: <userinput
+>(int|float|double)\s+\w+</userinput
+>.</para>
+
+</sect3>
+
+<sect3 id="regex-capturing">
+
+<title
+>Zajem ujemajočega se besedila (povratne reference)</title>
+
+<para
+>Če želite uporabiti povratni sklic, uporabite podvzorec <userinput
+>(PATTERN)</userinput
+>, da si zapomnite želeni del vzorca. Če želite preprečiti, da bi si podvzorec zapomnil, uporabite nezajemljivo skupino <userinput
+>(?:PATTERN)</userinput
+>.</para>
+
+<para
+>Na primer, če želite poiskati dve pojavitvi iste besede, ločeni z vejico in po možnosti s presledkom, lahko napišete <userinput
+>(\w+),\s*\1</userinput
+>. Podvzorec <literal
+>\w+</literal
+> bi našel kos besednih znakov in celoten izraz bi se ujemal, če bi jim sledila vejica, 0 ali več presledkov in nato enak kos besednih znakov. (Niz <literal
+>\1</literal
+> se sklicuje na <emphasis
+>prvi podvzorec, obdan z oklepaji</emphasis
+>.)</para>
+
+<note>
+<para
+>Da bi se izognili dvoumnostim z uporabo <userinput
+>\1</userinput
+> z nekaj števkami za njim (&eg; <userinput
+>\12</userinput
+> je lahko 12. podvzorec ali samo prvi podvzorec z <userinput
+>2</userinput
+> ) uporabljamo <userinput
+>\{12}</userinput
+> kot sintakso za večmestne podvzorce.</para>
+<para
+>Primeri:</para>
+<itemizedlist>
+<listitem
+><para
+><userinput
+>\{12}1</userinput
+> je <quote
+>uporabi podvzorec 12</quote
+></para
+></listitem>
+<listitem
+><para
+><userinput
+>\123</userinput
+> je <quote
+>uporabi zajem 1 in nato 23 kot običajno besedilo</quote
+></para
+></listitem>
+</itemizedlist>
+
+</note>
+
+<!-- <para
+>See also <link linkend="backreferences"
+>Back references</link
+>.</para
+> -->
+
+</sect3>
+
+<sect3 id="lookahead-assertions">
+<title
+>Trditve za pogled naprej</title>
+
+<para
+>Trditev vnaprejšnjega pogleda je podvzorec, ki se začne z <literal
+>?=</literal
+> ali <literal
+>?!</literal
+>.</para>
+
+<para
+>Na primer, če želite ujemati dobesedni niz <quote
+>Bill</quote
+>, vendar le, če mu ne sledi <quote
+> Gates</quote
+>, lahko uporabite ta izraz: <userinput
+>Bill(?! Gates)</userinput
+>. (S tem bi našli <quote
+>Billa Clintona</quote
+> kot tudi <quote
+>Billy the kid</quote
+>, vendar bi prezrli druga ujemanja.)</para>
+
+<para
+>Podvzorci, uporabljeni za trditve, niso zajeti.</para>
+
+<para
+>Glejte tudi <link linkend="assertions"
+>Trditve</link
+>.</para>
+
+</sect3>
+
+<sect3 id="lookbehind-assertions">
+<title
+>Lookbehind trditve</title>
+
+<para
+>Trditev za nazaj je podvzorec, ki se začne z <literal
+>?&lt;=</literal
+> ali <literal
+>?&lt;!</literal
+>.</para>
+
+<para
+>Lookbehind ima enak učinek kot lookahead, vendar deluje nazaj. Na primer, če želite ujemati dobesedni niz <quote
+>sadje</quote
+>, vendar le, če pred njim ni <quote
+>grozdje</quote
+>, lahko uporabite ta izraz: <userinput
+>(?&lt;!grozdje)sadje</userinput 
+>.</para>
+
+<para
+>Podvzorci, uporabljeni za trditve, niso zajeti.</para>
+
+<para
+>Glejte tudi <link linkend="assertions"
+>Trditve</link
+></para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="special-characters-in-patterns">
+<title
+>Znaki s posebnim pomenom znotraj vzorcev</title>
+
+<para
+>Naslednji znaki imajo pomen znotraj vzorca in jih je treba ubežati, če jih želite dobesedno ujemati: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>\</userinput
+> (poševnica nazaj)</term>
+<listitem
+><para
+>Pobegli zank.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (kazalka)</term>
+<listitem
+><para
+>Premakni kazalko na začetek vrstice.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>$</userinput
+></term>
+<listitem
+><para
+>Uveljavi konec niza.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>()</userinput
+> (levi in desni oklepaj)</term>
+<listitem
+><para
+>Označuje podvzorce.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{}</userinput
+> (levi in desni zavit oklepaj)</term>
+<listitem
+><para
+>Označuje numerične kvantifikatorje.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>[]</userinput
+> (levi in desni oglati oklepaj)</term>
+<listitem
+><para
+>Označuje razrede znakov.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>|</userinput
+> (navpična vrstica)</term>
+<listitem
+><para
+>logični ALI. Ločuje alternative.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+> </userinput
+> (znak plus)</term>
+<listitem
+><para
+>Kvantifikator, 1 ali več.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>*</userinput
+> (zvezdica)</term>
+<listitem
+><para
+>Kvantifikator, 0 ali več.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>?</userinput
+> (vprašaj)</term>
+<listitem
+><para
+>Izbirni znak. Lahko se razlaga kot kvantifikator, 0 ali 1.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="quantifiers">
+<title
+>Kvantifikatorji</title>
+
+<para
+><emphasis
+>Kvantifikatorji</emphasis
+> omogočajo, da se regularni izraz ujema z določenim številom ali obsegom števil znaka, razreda znakov ali podvzorca.</para>
+
+<para
+>Kvantifikatorji so v zavitih oklepajih (<literal
+>{</literal
+> in <literal
+>}</literal
+>) in imajo splošno obliko <literal
+>{[minimum-occurrences][,[maximum-occurrences]]}</literal
+> </para>
+
+<para
+>Uporabo je najbolje pojasniti s primerom: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>{1}</userinput
+></term>
+<listitem
+><para
+>Točno 1 pojavitev</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{0,1}</userinput
+></term>
+<listitem
+><para
+>Nič ali 1 pojavitev</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{,1}</userinput
+></term>
+<listitem
+><para
+>Enako, z manj dela;)</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{5,10}</userinput
+></term>
+<listitem
+><para
+>Vsaj 5, vendar največ 10 pojavitev.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{5,}</userinput
+></term>
+<listitem
+><para
+>Vsaj 5 pojavitev, brez največje vrednosti.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<para
+>Poleg tega obstaja nekaj okrajšav: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>*</userinput
+> (zvezdica)</term>
+<listitem
+><para
+>podobno kot <literal
+>{0,}</literal
+>, najdi poljubno število pojavitev.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+> </userinput
+> (znak plus)</term>
+<listitem
+><para
+>podobno kot <literal
+>{1,}</literal
+>, vsaj 1 pojavitev.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>?</userinput
+> (vprašaj)</term>
+<listitem
+><para
+>podobno kot <literal
+>{0,1}</literal
+>, nič ali 1 pojavitev.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<sect2>
+
+<title
+>Pohlep</title>
+
+<para
+>Pri uporabi kvantifikatorjev brez največje vrednosti se regularni izrazi privzeto ujemajo s čim večjim delom iskanega niza, splošno znano kot <emphasis
+>pohlepno</emphasis
+> vedenje.</para>
+
+<para
+>Sodobna programska oprema za regularne izraze nudi sredstva za <quote
+>izklop požrešnosti</quote
+>, čeprav je v grafičnem okolju odvisno od vmesnika, ki vam omogoči dostop do te funkcije. Na primer, iskalno pogovorno okno, ki ponuja iskanje po regularnem izrazu, bi lahko imelo potrditveno polje z oznako <quote
+>Minimalno ujemanje</quote
+>, prav tako pa bi moralo označevati, ali je požrešnost privzeto vedenje.</para>
+
+</sect2>
+
+<sect2>
+<title
+>V primerih konteksta</title>
+
+<para
+>Tukaj je nekaj primerov uporabe kvantifikatorjev:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>^\d{4,5}\s</userinput
+></term>
+<listitem
+><para
+>Ujema se s številkami v <quote
+>1234 go</quote
+> in <quote
+>12345 zdaj</quote
+>, vendar ne v <quote
+>567 enajst</quote
+> niti v <quote
+>223459 nekje</quote
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\s </userinput
+></term>
+<listitem
+><para
+>Ujema se z enim ali več presledki.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(bla){1,}</userinput
+></term>
+<listitem
+><para
+>Ujema se z vsemi <quote
+>blablabla</quote
+> in <quote
+>bla</quote
+> v <quote
+>blackbird</quote
+> ali <quote
+>tabla</quote
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>/?&gt;</userinput
+></term>
+<listitem
+><para
+>Ujema se s <quote
+>/&gt;</quote
+> v <quote
+>&lt;closeditem/&gt;</quote
+> kot tudi <quote
+>&gt;</quote
+> v <quote
+>&lt;openitem&gt;</quote
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="assertions">
+<title
+>Trditve</title>
+
+<para
+><emphasis
+>Trditve</emphasis
+> omogočajo ujemanje regularnega izraza samo pod določenimi nadzorovanimi pogoji.</para>
+
+<para
+>Trditev ne potrebuje znaka za ujemanje, temveč razišče okolico možnega ujemanja, preden ga potrdi. Na primer, trditev o <emphasis
+>besedni meji</emphasis
+> ne poskuša najti nebesednega znaka nasproti besednega znaka ena na njegovem mestu, temveč poskrbi, da ni besednega znaka. To pomeni, da se lahko trditev ujema tam, kjer ni znaka, &ie; na koncih iskanega niza.</para>
+
+<para
+>Nekatere trditve dejansko imajo vzorec za ujemanje, vendar del ujemajočega se niza, ki ne bo del rezultata ujemanja polnega izraza.</para>
+
+<para
+>Regularni izrazi, kot so dokumentirani tukaj, podpirajo naslednje trditve: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (karetica: začetek niza)</term>
+<listitem
+><para
+>Premakni kazalko na začetek vrstice.</para
+> <para
+>Izraz <userinput
+>^Peter</userinput
+> se bo ujemal pri <quote
+>Peter</quote
+> v nizu <quote
+>Peter, hej!</quote
+>, vendar ne v <quote
+>Hej, Peter!</quote
+> </para
+> </listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>$</userinput
+> (konec niza)</term>
+<listitem
+><para
+>Ujema se s koncem iskanega niza.</para>
+
+<para
+>Izraz <userinput
+>you\?$</userinput
+> se bo zadnjič ujemal z vami v nizu <quote
+>Tega niste storili, kajne?</quote
+> vendar nikjer v <quote
+>You didn't do to, kajne?</quote
+></para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\b</userinput
+> (besedna meja)</term>
+<listitem
+><para
+>Ujema se, če je na eni strani besedni znak, na drugi pa ne.</para>
+<para
+>To je uporabno za iskanje koncev besed, na primer obeh koncev za iskanje cele besede. Izraz <userinput
+>\bin\b</userinput
+> se bo ujemal pri ločenem <quote
+>in</quote
+> v nizu <quote
+>On je prišel skozi okno</quote
+>, vendar ne pri <quote
+> v</quote
+> v <quote
+>oknu</quote
+>.</para
+></listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\B</userinput
+> (brez besedne meje)</term>
+<listitem
+><para
+>Ujema se povsod, kjer se <quote
+>\b</quote
+> ne ujema.</para>
+<para
+>To pomeni, da se bo ujemal na primer znotraj besed: Izraz <userinput
+>\Bin\B</userinput
+> se bo ujemal v <quote
+>oknu</quote
+>, ne pa v <quote
+>integer</quote
+> ali <quote 
+>Zaljubljen sem</quote
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?=PATTERN)</userinput
+> (Pozitiven pogled naprej)</term>
+<listitem
+><para
+>Trditev vnaprejšnjega pogleda gleda na del niza, ki sledi možnemu ujemanju. Pozitiven pogled naprej bo preprečil ujemanje niza, če se besedilo, ki sledi možnemu ujemanju, ne ujema z <emphasis
+>VZORCE</emphasis
+> trditve, vendar besedilo, ki se ujema s tem, ne bo vključeno v rezultat.</para>
+<para
+>Izraz <userinput
+>handy(?=\w)</userinput
+> se bo ujemal z <quote
+>handy</quote
+> v <quote
+>handyman</quote
+>, ne pa tudi z <quote
+>To je prišlo prav!</quote
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?!PATTERN)</userinput
+> (Negativni pogled naprej)</term>
+
+<listitem
+><para
+>Negativni pogled naprej preprečuje morebitno ujemanje, če se naslednji del iskanega niza ujema z njegovim <emphasis
+>VZORCEM</emphasis
+>.</para>
+<para
+>Izraz <userinput
+>const \w+\b(?!\s*&amp;)</userinput
+> se bo ujemal pri <quote
+>const char</quote
+> v nizu <quote
+>const char* foo</quote
+>, medtem ko ne more se ujemati z <quote
+>const QString</quote
+> v <quote
+>const QString&amp; bar</quote
+>, ker se <quote
+>&amp;</quote
+> ujema z vzorcem trditve negativnega vnaprejšnjega pogleda.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;=PATTERN)</userinput
+> (Pozitiven pogled nazaj)</term>
+<listitem
+><para
+>Lookbehind ima enak učinek kot lookahead, vendar deluje nazaj. Pogled nazaj pogleda del niza pred možnim ujemanjem. Pozitivni pogled nazaj se bo ujemal z nizom samo, če je pred njim <emphasis
+>VZOREC</emphasis
+> trditve, vendar besedilo, ki se ujema s tem, ne bo vključeno v rezultat.</para>
+<para
+>Izraz <userinput
+>(?&lt;=cup)cake</userinput
+> se bo ujemal pri <quote
+>cake</quote
+>, če ga nasledi <quote
+>cup</quote
+> (v <quote
+>cupcake</quote 
+> vendar ne samo v <quote
+>cheesecake</quote
+> ali v <quote
+>cake</quote
+>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;!PATTERN)</userinput
+> (Negativni pogled zadaj)</term>
+<listitem
+><para
+>Negativni pogled za nazaj preprečuje morebitno potrditev ujemanja, če se prejšnji del iskanega niza ujema z njegovim <emphasis
+>VZORCEM</emphasis
+>.</para>
+<para
+>Izraz <userinput
+>(?&lt;![\w\.])[0-9]+</userinput
+> se bo ujemal pri <quote
+>123</quote
+> v nizih <quote
+>=123</quote
+> in <quote
+>-123</quote
+>, medtem ko se ne more ujemati z <quote
+>123</quote
+> v <quote
+>.123</quote
+> ali <quote
+>word123</quote
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(PATTERN)</userinput
+> (skupina za zajem)</term>
+
+<listitem
+><para
+>Podvzorec v oklepajih se zajame in zapomni, tako da ga je mogoče uporabiti v povratnih sklicih. Na primer, izraz <userinput
+>(&amp;quot;+)[^&amp;quot;]*\1</userinput
+> se ujema z <userinput
+>&quot;&quot;&quot;&quot;besedilo&quot;&quot;&quot;&quot;</userinput
+> in <userinput
+>&quot;besedilo&quot;</userinput
+>.</para>
+<para
+>Za več informacij glejte razdelek <link linkend="regex-capturing"
+>Zajem ujemajočega se besedila (povratne reference)</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?:PATTERN)</userinput
+> (skupina brez zajemanja)</term>
+
+<listitem
+><para
+>Podvzorec v oklepajih ni zajet in si ni zapomnil. Priporočljivo je, da vedno uporabite skupine brez zajetja, če zajetja ne boste uporabili.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+</sect1>
+
+<!-- TODO sect1 id="backreferences">
+
+<title
+>Back References</title>
+
+<para
+></para>
+
+</sect1 -->
+
+</appendix>

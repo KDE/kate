@@ -150,7 +150,7 @@ void KateFileBrowserConfigPage::init()
                                  QStringLiteral("sync_dir"),
                                  QStringLiteral("configure")};
 
-    QRegularExpression re(QStringLiteral("&(?=[^&])"));
+    static const QRegularExpression re(QStringLiteral("&(?=[^&])"));
     QAction *ac = nullptr;
     QListWidget *lb;
     for (const auto &actionName : allActions) {

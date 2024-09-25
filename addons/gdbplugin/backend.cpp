@@ -8,7 +8,9 @@
 
 #include "backend.h"
 #include "dapbackend.h"
+#ifndef WIN32
 #include "gdbbackend.h"
+#endif
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -20,6 +22,7 @@ Backend::Backend(QObject *parent)
 
 void Backend::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
 {
+#ifndef WIN32
     if (m_debugger && m_debugger->debuggerRunning()) {
         KMessageBox::error(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
         return;
@@ -41,6 +44,7 @@ void Backend::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
     if (m_displayQueryLocals) {
         gdb->slotQueryLocals(*m_displayQueryLocals);
     }
+#endif
 }
 
 void Backend::runDebugger(const DAPTargetConf &conf)

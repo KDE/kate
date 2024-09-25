@@ -8,7 +8,6 @@
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QRegularExpression>
-#include <pthread.h>
 
 #include <KLocalizedString>
 

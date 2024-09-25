@@ -76,8 +76,10 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
 {
     m_clientCombo = new QComboBox(this);
     m_clientCombo->setEditable(false);
+#ifndef WIN32
     m_clientCombo->addItem(QStringLiteral("GDB"));
     m_clientCombo->insertSeparator(1);
+#endif
     m_dapConfigPath = plugin->configPath();
     readDAPSettings();
 
@@ -559,7 +561,11 @@ void ConfigView::slotDeleteTarget()
 
 bool ConfigView::debuggerIsGDB() const
 {
+#ifndef WIN32
     return m_clientCombo->currentIndex() == 0;
+#else
+    return false;
+#endif
 }
 
 void ConfigView::resizeEvent(QResizeEvent *)

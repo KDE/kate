@@ -383,6 +383,7 @@ void KatePluginGDBView::writeSessionConfig(KConfigGroup &config)
 
 void KatePluginGDBView::slotDebug()
 {
+#ifndef Q_OS_WIN
     disconnect(m_ioView.get(), &IOView::stdOutText, nullptr, nullptr);
     disconnect(m_ioView.get(), &IOView::stdErrText, nullptr, nullptr);
     if (m_configView->showIOTab()) {
@@ -396,6 +397,7 @@ void KatePluginGDBView::slotDebug()
     ioFifos << m_ioView->stdinFifo();
     ioFifos << m_ioView->stdoutFifo();
     ioFifos << m_ioView->stderrFifo();
+#endif
 
     enableDebugActions(true);
     m_mainWin->showToolView(m_toolView.get());
@@ -405,11 +407,15 @@ void KatePluginGDBView::slotDebug()
     m_scopeCombo->clear();
     m_localsView->clear();
 
+#ifndef Q_OS_WIN
     if (m_configView->debuggerIsGDB()) {
         m_debugView->runDebugger(m_configView->currentGDBTarget(), ioFifos);
     } else {
         m_debugView->runDebugger(m_configView->currentDAPTarget(true));
     }
+#else
+    m_debugView->runDebugger(m_configView->currentDAPTarget(true));
+#endif
 }
 
 void KatePluginGDBView::slotRestart()

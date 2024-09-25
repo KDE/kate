@@ -1,3 +1,7 @@
+if(WIN32)
+    return()
+endif()
+
 include(ECMMarkAsTest)
 
 find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)

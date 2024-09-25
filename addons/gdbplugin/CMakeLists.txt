@@ -1,7 +1,4 @@
 # Hasn't been ported to Windows yet.
-if(WIN32)
-  return()
-endif()
 
 kate_add_plugin(kategdbplugin)
 target_compile_definitions(kategdbplugin PRIVATE TRANSLATION_DOMAIN="kategdbplugin")
@@ -30,18 +27,23 @@ set(DAP_SOURCES
     dap/bus_selector.cpp
 )
 
-set(GDBMI_SOURCES
-    gdbmi/parser.cpp
-    gdbmi/records.h
-    gdbmi/tokens.cpp
-)
+set(GDB_BACKEND "")
+if(NOT WIN32)
+    set(GDB_BACKEND
+        gdbmi/parser.cpp
+        gdbmi/records.h
+        gdbmi/tokens.cpp
+
+        gdbvariableparser.cpp
+        gdbbackend.cpp
+    )
+endif()
 
 target_sources(
   kategdbplugin
   PRIVATE
     plugin_kategdb.cpp
     backendinterface.cpp
-    gdbbackend.cpp
     configview.cpp
     ioview.cpp
     localsview.cpp
@@ -49,11 +51,10 @@ target_sources(
     debugconfigpage.cpp
 
     ${DAP_SOURCES}
-    ${GDBMI_SOURCES}
+    ${GDB_BACKEND}
     ${DEBUG_SOURCES}
     json_placeholders.cpp
     dapbackend.cpp
-    gdbvariableparser.cpp
     backend.cpp
 
     plugin.qrc 

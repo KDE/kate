@@ -1662,13 +1662,7 @@ QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *config
     // a KateSplitter has two children, either KateSplitters and/or KateViewSpaces
     // special case: root splitter might have only one child (just for info)
     QStringList childList;
-    const auto sizes = s->sizes();
     for (int idx = 0; idx < s->count(); ++idx) {
-        // skip empty sized invisible ones, if not last one, we need one thing at least
-        if ((sizes[idx] == 0) && ((idx + 1 < s->count()) || !childList.empty())) {
-            continue;
-        }
-
         // For KateViewSpaces, ask them to save the file list.
         auto obj = s->widget(idx);
         if (auto kvs = qobject_cast<KateViewSpace *>(obj)) {
@@ -1696,7 +1690,7 @@ QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *config
 
     // Save sizes, orient, children for this splitter
     KConfigGroup config(configBase, grp);
-    config.writeEntry("Sizes", sizes);
+    config.writeEntry("Sizes", s->sizes());
     config.writeEntry("Orientation", int(s->orientation()));
     config.writeEntry("Children", childList);
     return grp;

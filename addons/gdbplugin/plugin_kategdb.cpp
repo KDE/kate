@@ -292,6 +292,12 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotToggleBreakpoint);
     buttonsLayout->addWidget(createDebugButton(a));
 
+    a = actionCollection()->addAction(u"clear_all_breakpoints"_s);
+    a->setText(i18n("Clear All Breakpoints"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear")));
+    connect(a, &QAction::triggered, this, &KatePluginGDBView::clearMarks);
+    buttonsLayout->addWidget(createDebugButton(a));
+
     a = actionCollection()->addAction(QStringLiteral("step_in"));
     a->setText(i18n("Step In"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-into")));
@@ -641,6 +647,7 @@ void KatePluginGDBView::clearMarks()
         while (i.hasNext()) {
             i.next();
             if ((i.value()->type == KTextEditor::Document::Execution) || (i.value()->type == KTextEditor::Document::BreakpointActive)) {
+                m_debugView->removeSavedBreakpoint(doc->url(), i.value()->line);
                 doc->removeMark(i.value()->line, i.value()->type);
             }
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kategdbplugin" library="kategdbplugin" version="2" translationDomain="kategdbplugin">
+<gui name="kategdbplugin" library="kategdbplugin" version="4" translationDomain="kategdbplugin">
   <MenuBar>
     <Menu name="debug">
       <Text>&amp;Debug</Text>
@@ -12,6 +12,7 @@
       <Action name="rerun"/>
       <Separator/>
       <Action name="toggle_breakpoint"/>
+      <Action name="clear_all_breakpoints"/>
       <Action name="step_in"/>
       <Action name="step_over"/>
       <Action name="step_out"/>
@@ -35,4 +36,4 @@
     <Action name="continue"/>
   </ToolBar>
 </gui>
-<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

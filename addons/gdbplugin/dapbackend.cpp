@@ -30,10 +30,18 @@ DapBackend::DapBackend(QObject *parent)
     , m_state(State::None)
     , m_requests(0)
 {
+    m_requestThreadsTimer.setInterval(100);
+    m_requestThreadsTimer.setSingleShot(true);
+    m_requestThreadsTimer.callOnTimeout(this, [this] {
+        if (m_client) {
+            m_client->requestThreads();
+        }
+    });
 }
 
 void DapBackend::unsetClient()
 {
+    m_requestThreadsTimer.stop();
     if (m_client) {
         disconnect(m_client->bus());
         disconnect(m_client);
@@ -476,6 +484,8 @@ void DapBackend::onDebuggingProcess(const dap::ProcessInfo &info)
 void DapBackend::onThreadEvent(const dap::ThreadEvent &info)
 {
     Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason).arg(i18n("thread %1", QString::number(info.threadId)))));
+    // Request threads again with a debounce, some clients (flutter) send 0 threads the first time. Also, this keeps threads up to date
+    m_requestThreadsTimer.start();
 }
 
 QString printModule(const dap::Module &module)

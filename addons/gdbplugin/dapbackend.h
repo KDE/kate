@@ -6,6 +6,7 @@
 #pragma once
 
 #include <QObject>
+#include <QTimer>
 
 #include "backendinterface.h"
 #include "configview.h"
@@ -172,4 +173,5 @@ private:
     std::map<QString, QList<std::optional<dap::Breakpoint>>> m_breakpoints;
     std::map<QString, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
     QList<dap::StackFrame> m_frames;
+    QTimer m_requestThreadsTimer;
 };

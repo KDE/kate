@@ -396,8 +396,6 @@ void DapBackend::onServerDisconnected()
         return;
     }
 
-    clearBreakpoints();
-
     if (!m_restart) {
         m_breakpoints.clear();
         m_wantedBreakpoints.clear();
@@ -420,7 +418,6 @@ void DapBackend::onProgramEnded(int exitCode)
 
 void DapBackend::onInitialized()
 {
-    Q_EMIT clearBreakpointMarks();
     if (!m_wantedBreakpoints.empty()) {
         for (const auto &[url, breakpoints] : m_wantedBreakpoints) {
             m_breakpoints[url].clear();
@@ -428,6 +425,11 @@ void DapBackend::onInitialized()
             m_client->requestSetBreakpoints(url, breakpoints, true);
         }
     }
+
+    // Send ConfigurationDone request. This is the last request in init sequence
+    // It indicates we have initialized fully
+    m_client->requestConfigurationDone();
+
     shutdownUntil(PostMortem);
     Q_EMIT outputText(newLine(i18n("*** waiting for user actions ***")));
 }
@@ -855,7 +857,7 @@ bool DapBackend::hasBreakpoint(QUrl const &url, int line) const
     return findBreakpoint(*resolveFilename(url.path()), line).has_value();
 }
 
-void DapBackend::toggleBreakpoint(QUrl const &url, int line)
+void DapBackend::toggleBreakpoint(QUrl const &url, int line, bool *)
 {
     if (m_task != Idle) {
         Q_EMIT breakPointCleared(url, line);
@@ -1507,6 +1509,19 @@ void DapBackend::setFileSearchPaths(const QStringList & /*paths*/)
     // TODO
 }
 
+void DapBackend::setPendingBreakpoints(const QHash<QUrl, QList<int>> &breakpoints)
+{
+    // these are set during initialization
+    Q_ASSERT(m_wantedBreakpoints.empty());
+    for (const auto &bp : breakpoints.asKeyValueRange()) {
+        const auto path = resolveOrWarn(bp.first.path());
+        auto &breakpoints = m_wantedBreakpoints[path];
+        for (auto line : bp.second) {
+            breakpoints.push_back(dap::SourceBreakpoint(line));
+        }
+    }
+}
+
 void DapBackend::slotInterrupt()
 {
     if (!isRunningState()) {
@@ -1568,9 +1583,7 @@ void DapBackend::slotContinue()
     if (!isAttachedState())
         return;
 
-    if (m_state == State::Initializing) {
-        m_client->requestConfigurationDone();
-    } else if (m_currentThread) {
+    if (m_currentThread) {
         m_client->requestContinue(*m_currentThread);
     }
 }

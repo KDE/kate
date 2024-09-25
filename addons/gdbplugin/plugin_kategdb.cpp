@@ -455,13 +455,25 @@ void KatePluginGDBView::aboutToShowMenu()
 
 void KatePluginGDBView::slotToggleBreakpoint()
 {
-    if (!m_debugView->canContinue()) {
+    if (m_debugView->debuggerRunning() && !m_debugView->canContinue()) {
         m_debugView->slotInterrupt();
     } else {
         KTextEditor::View *editView = m_mainWin->activeView();
         QUrl currURL = editView->document()->url();
-        int line = editView->cursorPosition().line();
-        m_debugView->toggleBreakpoint(currURL, line + 1);
+        int line = editView->cursorPosition().line() + 1;
+        bool added = true;
+        m_debugView->toggleBreakpoint(currURL, line, &added);
+
+        // We don't support setting breakpoints for gdb when the debugger is not running'
+        if (!m_debugView->debuggerRunning() && m_configView->debuggerIsGDB()) {
+            return;
+        }
+
+        if (added) {
+            slotBreakpointSet(currURL, line);
+        } else {
+            slotBreakpointCleared(currURL, line);
+        }
     }
 }
 
@@ -470,6 +482,7 @@ void KatePluginGDBView::slotBreakpointSet(const QUrl &file, int line)
     if (auto doc = m_kateApplication->findUrl(file)) {
         disconnect(doc, &KTextEditor::Document::markChanged, this, &KatePluginGDBView::updateBreakpoints);
         doc->addMark(line - 1, KTextEditor::Document::BreakpointActive);
+        m_debugView->saveBreakpoint(file, line);
         connect(doc, &KTextEditor::Document::markChanged, this, &KatePluginGDBView::updateBreakpoints);
     }
 }
@@ -479,6 +492,7 @@ void KatePluginGDBView::slotBreakpointCleared(const QUrl &file, int line)
     if (auto doc = m_kateApplication->findUrl(file)) {
         disconnect(doc, &KTextEditor::Document::markChanged, this, &KatePluginGDBView::updateBreakpoints);
         doc->removeMark(line - 1, KTextEditor::Document::BreakpointActive);
+        m_debugView->removeSavedBreakpoint(file, line);
         connect(doc, &KTextEditor::Document::markChanged, this, &KatePluginGDBView::updateBreakpoints);
     }
 }
@@ -544,7 +558,6 @@ void KatePluginGDBView::enableDebugActions(bool enable)
 
     m_breakpoint->setEnabled(m_debugView->debuggerRunning());
 
-    actionCollection()->action(u"toggle_breakpoint"_s)->setEnabled(m_debugView->debuggerRunning());
     const QIcon pauseToggle = m_debugView->canContinue() ? QIcon::fromTheme(u"media-record"_s) : QIcon::fromTheme(u"media-playback-pause"_s);
     actionCollection()->action(u"toggle_breakpoint"_s)->setIcon(pauseToggle);
     actionCollection()->action(QStringLiteral("kill"))->setEnabled(m_debugView->debuggerRunning());
@@ -596,6 +609,10 @@ void KatePluginGDBView::enableDebugActions(bool enable)
 
 void KatePluginGDBView::programEnded()
 {
+    if (auto doc = m_kateApplication->findUrl(m_lastExecUrl); doc && m_lastExecLine >= 0) {
+        doc->removeMark(m_lastExecLine, KTextEditor::Document::Execution);
+    }
+
     // don't set the execution mark on exit
     m_lastExecLine = -1;
     m_stackTree->clear();
@@ -613,7 +630,6 @@ void KatePluginGDBView::gdbEnded()
     m_outputArea->clear();
     m_localsView->clear();
     m_ioView->clearOutput();
-    clearMarks();
 }
 
 void KatePluginGDBView::clearMarks()
@@ -935,7 +951,8 @@ void KatePluginGDBView::updateBreakpoints(const KTextEditor::Document *document,
         if (m_debugView->debuggerRunning() && !m_debugView->canContinue()) {
             m_debugView->slotInterrupt();
         }
-        m_debugView->toggleBreakpoint(document->url(), mark.line + 1);
+        bool added = false;
+        m_debugView->toggleBreakpoint(document->url(), mark.line + 1, &added);
     }
 }
 

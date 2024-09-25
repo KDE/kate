@@ -360,7 +360,7 @@ QString GdbBackend::makeCmdBreakInsert(const QUrl &url, int line, bool pending, 
     return QStringLiteral("-break-insert %1 %2:%3").arg(flags).arg(url.path()).arg(line);
 }
 
-void GdbBackend::toggleBreakpoint(QUrl const &url, int line)
+void GdbBackend::toggleBreakpoint(QUrl const &url, int line, bool * /*added*/)
 {
     if (m_state != ready) {
         Q_EMIT breakPointCleared(url, line);

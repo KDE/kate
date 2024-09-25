@@ -61,6 +61,7 @@ void Backend::runDebugger(const DAPTargetConf &conf)
     m_mode = DAP;
     bind();
 
+    dap->setPendingBreakpoints(m_breakpoints);
     dap->runDebugger(conf);
 
     if (m_displayQueryLocals) {
@@ -144,12 +145,48 @@ bool Backend::canContinue() const
     return m_debugger && m_debugger->canContinue();
 }
 
-void Backend::toggleBreakpoint(QUrl const &url, int line)
+void Backend::toggleBreakpoint(QUrl const &url, int line, bool *added)
 {
-    if (m_debugger) {
+    if (m_debugger && m_debugger->debuggerRunning()) {
         m_debugger->toggleBreakpoint(url, line);
+    }
+    // update the breakpoint in our storage
+    auto it = m_breakpoints.find(url);
+    if (it != m_breakpoints.end()) {
+        auto &lines = *it;
+        auto existing = lines.indexOf(line);
+        if (existing != -1) {
+            lines.remove(existing);
+            *added = false;
+        } else {
+            it->push_back(line);
+        }
     } else {
-        Q_EMIT breakPointCleared(url, line);
+        m_breakpoints[url] = {line};
+    }
+}
+
+void Backend::saveBreakpoint(QUrl const &url, int line)
+{
+    auto it = m_breakpoints.find(url);
+    if (it != m_breakpoints.end()) {
+        auto &lines = *it;
+        auto existing = lines.indexOf(line);
+        if (existing == -1) {
+            lines.push_back(line);
+        }
+    }
+}
+
+void Backend::removeSavedBreakpoint(QUrl const &url, int line)
+{
+    auto it = m_breakpoints.find(url);
+    if (it != m_breakpoints.end()) {
+        auto &lines = *it;
+        auto existing = lines.indexOf(line);
+        if (existing != -1) {
+            lines.remove(existing);
+        }
     }
 }
 

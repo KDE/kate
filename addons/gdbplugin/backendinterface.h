@@ -55,8 +55,9 @@ public:
     virtual bool canMove() const = 0;
     /**
      * toggle breakpoint at url:line
+     * whether the breakpoint was added or not
      */
-    virtual void toggleBreakpoint(QUrl const &url, int line) = 0;
+    virtual void toggleBreakpoint(QUrl const &url, int line, bool *added = nullptr) = 0;
     /**
      * move PC to url:line
      */

@@ -32,12 +32,15 @@ public:
     bool canSetBreakpoints() const override;
     bool canMove() const override;
     bool canContinue() const override;
-    void toggleBreakpoint(QUrl const &url, int line) override;
+    void toggleBreakpoint(QUrl const &url, int line, bool *added = nullptr) override;
     void movePC(QUrl const &url, int line) override;
     void runToCursor(QUrl const &url, int line) override;
     void issueCommand(QString const &cmd) override;
     QString targetName() const override;
     void setFileSearchPaths(const QStringList &paths) override;
+
+    void saveBreakpoint(QUrl const &url, int line);
+    void removeSavedBreakpoint(QUrl const &url, int line);
 
 public Q_SLOTS:
     void slotInterrupt() override;
@@ -61,4 +64,5 @@ private:
 
     BackendInterface *m_debugger;
     std::optional<bool> m_displayQueryLocals = std::nullopt;
+    QHash<QUrl, QList<int>> m_breakpoints;
 };

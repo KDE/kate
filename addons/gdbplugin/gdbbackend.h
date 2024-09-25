@@ -87,7 +87,7 @@ public:
     bool canMove() const override;
     bool canContinue() const override;
 
-    void toggleBreakpoint(QUrl const &url, int line) override;
+    void toggleBreakpoint(QUrl const &url, int line, bool *added = nullptr) override;
     void movePC(QUrl const &url, int line) override;
     void runToCursor(QUrl const &url, int line) override;
 

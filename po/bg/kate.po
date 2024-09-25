@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-23 00:41+0000\n"
-"PO-Revision-Date: 2024-07-03 23:29+0200\n"
+"PO-Revision-Date: 2024-09-23 15:58+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -204,10 +204,9 @@ msgstr "&Файл"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Файлови операции"
+msgstr "Файлови о&перации"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -217,8 +216,7 @@ msgstr "&Редактиране"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
 msgstr "&Селекция"
 
@@ -1241,12 +1239,12 @@ msgstr "Максимален брой на диагностики, разреш�
 #: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:23
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "Контекст"
 
 #: lib/kateconfigdialog.cpp:356
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Активиране на изглед инструменти"
 
 #: lib/kateconfigdialog.cpp:358
 #, kde-format
@@ -1254,6 +1252,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"Изглед на инструмента за показване на контекста, свързан с текущата позиция "
+"на курсора (подсказки за LSP, диагностика)"
 
 #: lib/kateconfigdialog.cpp:373
 #, kde-format
@@ -1502,8 +1502,7 @@ msgid ""
 msgstr "Списък с последно използвани документи."
 
 #: lib/katemainwindow.cpp:385
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "Запис на вси&чко"
 
@@ -1513,8 +1512,7 @@ msgid "Save all open, modified documents to disk."
 msgstr "Запис на всички отворени и променени документи на диска."
 
 #: lib/katemainwindow.cpp:391
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
 msgstr "Презареждане на &всички"
 
@@ -1578,10 +1576,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Показва подсказки за сравняване на документи."
 
 #: lib/katemainwindow.cpp:448
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Затваряне на осиротелите"
+msgstr "Затваряне на &осиротелите"
 
 #: lib/katemainwindow.cpp:450
 #, kde-format
@@ -1598,10 +1595,9 @@ msgid "Close the current document."
 msgstr "Затваряне на текущия документ."
 
 #: lib/katemainwindow.cpp:457
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Затваряне на другите"
+msgstr "Затваряне на &другите"
 
 #: lib/katemainwindow.cpp:461
 #, kde-format
@@ -1635,8 +1631,7 @@ msgid "Close this window"
 msgstr "Затваряне на текущия прозорец"
 
 #: lib/katemainwindow.cpp:481
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
 msgstr "&Нов прозорец"
 

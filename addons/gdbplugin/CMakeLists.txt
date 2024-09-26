@@ -27,9 +27,9 @@ set(DAP_SOURCES
     dap/bus_selector.cpp
 )
 
-set(GDB_BACKEND "")
+set(GDB_SOURCES "")
 if(NOT WIN32)
-    set(GDB_BACKEND
+    set(GDB_SOURCES
         gdbmi/parser.cpp
         gdbmi/records.h
         gdbmi/tokens.cpp
@@ -51,7 +51,7 @@ target_sources(
     debugconfigpage.cpp
 
     ${DAP_SOURCES}
-    ${GDB_BACKEND}
+    ${GDB_SOURCES}
     ${DEBUG_SOURCES}
     json_placeholders.cpp
     dapbackend.cpp

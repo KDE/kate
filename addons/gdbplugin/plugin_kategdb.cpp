@@ -197,6 +197,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     m_tabWidget->addTab(m_gdbPage, i18nc("Tab label", "Debug Output"));
     m_tabWidget->addTab(m_configView, i18nc("Tab label", "Settings"));
+    m_tabWidget->setCurrentWidget(m_configView); // initially show config
 
     m_backend = new Backend(this);
     connect(m_backend, &BackendInterface::readyForInput, this, &KatePluginGDBView::enableDebugActions);
@@ -628,7 +629,7 @@ void KatePluginGDBView::programEnded()
 
     // Indicate the state change by showing the debug outputArea
     m_mainWin->showToolView(m_toolView.get());
-    m_tabWidget->setCurrentWidget(m_gdbPage);
+    m_tabWidget->setCurrentWidget(m_configView);
 }
 
 void KatePluginGDBView::gdbEnded()

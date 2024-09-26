@@ -112,8 +112,13 @@ public:
 
             auto pal = palette();
             const QColor bg = theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
-            pal.setColor(QPalette::Base, bg);
             const QColor normal = theme.textColor(KSyntaxHighlighting::Theme::Normal);
+            const QColor separator = theme.editorColor(KSyntaxHighlighting::Theme::Separator);
+            // Frame color
+            pal.setColor(QPalette::Dark, separator);
+            pal.setColor(QPalette::Light, separator);
+
+            pal.setColor(QPalette::Base, bg);
             pal.setColor(QPalette::Text, normal);
             setPalette(pal);
 

@@ -131,7 +131,7 @@ private:
     int m_activeThread;
     QTreeWidget *m_stackTree;
     QString m_lastCommand;
-    Backend *m_debugView;
+    Backend *m_backend;
     ConfigView *m_configView;
     std::unique_ptr<IOView> m_ioView;
     LocalsView *m_localsView;

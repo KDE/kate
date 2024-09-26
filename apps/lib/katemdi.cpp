@@ -148,7 +148,7 @@ void GUIClient::registerToolView(ToolView *tv)
         QList<QKeySequence> shortcuts;
         KSharedConfigPtr cfg = KSharedConfig::openConfig();
         const QString shortcutString = cfg->group(QStringLiteral("Shortcuts")).readEntry(aname, QString());
-        const auto shortcutStrings = shortcutString.split(QLatin1Char(';'));
+        const auto shortcutStrings = shortcutString.split(QStringLiteral("; "));
         for (const QString &shortcut : shortcutStrings) {
             shortcuts << QKeySequence::fromString(shortcut);
         }

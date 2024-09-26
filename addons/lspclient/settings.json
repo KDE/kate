@@ -42,9 +42,8 @@
             "command": ["dart", "language-server"],
             "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
             "highlightingModeRegex": "^Dart$",
-            "initializationOptions": {
-                "onlyAnalyzeProjectsWithOpenFiles": true
-            }
+            "useWorkspace": true,
+            "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"]
         },
         "docker": {
             "command": ["docker-langserver", "--stdio"],
@@ -244,6 +243,8 @@
             "command": ["rust-analyzer"],
             "path": ["%{ENV:CARGO_HOME}/bin", "%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
             "url": "https://rust-analyzer.github.io",
+            "useWorkspace": true,
+            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
             "highlightingModeRegex": "^Rust$"
         },
         "scala": {

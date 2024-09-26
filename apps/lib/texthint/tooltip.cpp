@@ -53,6 +53,10 @@ public:
                 QTextCharFormat charFmt = format(f.start);
                 charFmt.setProperty(QTextFormat::FontSizeAdjustment, 1);
                 setFormat(0, text.size(), charFmt);
+            } else if (f.format.fontFixedPitch()) {
+                QTextCharFormat charFmt = format(f.start);
+                charFmt.setBackground(m_inlineCodeSpanColor);
+                setFormat(f.start, f.length, charFmt);
             }
         }
     }
@@ -64,6 +68,8 @@ public:
         }
         KSyntaxHighlighting::SyntaxHighlighter::applyFormat(offset, length, format);
     }
+
+    QBrush m_inlineCodeSpanColor;
 };
 
 class TooltipPrivate : public QTextBrowser
@@ -121,6 +127,12 @@ public:
             pal.setColor(QPalette::Base, bg);
             pal.setColor(QPalette::Text, normal);
             setPalette(pal);
+
+            if (bg.lightness() < 127) {
+                m_hl->m_inlineCodeSpanColor = bg.lighter();
+            } else {
+                m_hl->m_inlineCodeSpanColor = bg.darker(120);
+            }
 
             setFont(KTextEditor::Editor::instance()->font());
         };

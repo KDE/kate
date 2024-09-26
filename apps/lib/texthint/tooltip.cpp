@@ -34,10 +34,26 @@ public:
 
     void highlightBlock(const QString &text) override
     {
-        const auto fmt = currentBlock().blockFormat();
+        QTextBlock block = currentBlock();
+        QTextBlockFormat fmt = block.blockFormat();
         if (fmt.property(QTextFormat::BlockCodeLanguage).isValid()) {
             // highlight blocks marked with BlockCodeLanguage format
             return KSyntaxHighlighting::SyntaxHighlighter::highlightBlock(text);
+        }
+        const int headingLevel = fmt.headingLevel();
+
+        const QList<QTextLayout::FormatRange> textFormats = block.textFormats();
+        for (const auto &f : textFormats) {
+            if (f.format.isAnchor()) {
+                QTextCharFormat charFmt = format(f.start);
+                charFmt.setFontUnderline(true);
+                // charFmt.setForeground(linkColor);
+                setFormat(f.start, f.length, charFmt);
+            } else if (headingLevel != 0 && f.format.hasProperty(QTextFormat::FontSizeAdjustment)) {
+                QTextCharFormat charFmt = format(f.start);
+                charFmt.setProperty(QTextFormat::FontSizeAdjustment, 1);
+                setFormat(0, text.size(), charFmt);
+            }
         }
     }
 
@@ -303,7 +319,7 @@ private:
     bool inContextMenu = false;
     QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
-    KSyntaxHighlighting::SyntaxHighlighter *m_hl;
+    TooltipHighlighter *m_hl;
     bool m_manual;
     HintState m_hintState;
     double prevDistance = 0.0;

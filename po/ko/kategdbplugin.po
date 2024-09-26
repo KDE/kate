@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-21 00:42+0000\n"
+"POT-Creation-Date: 2024-09-26 00:41+0000\n"
 "PO-Revision-Date: 2023-07-23 20:32+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -96,398 +96,398 @@ msgstr "solib-search-path"
 msgid "Custom Init Commands"
 msgstr "사용자 정의 초기화 명령"
 
-#: backend.cpp:24 backend.cpp:49 dapbackend.cpp:155
+#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:162
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr "디버깅 세션이 진행 중입니다. 현재 세션을 다시 시작하거나 정지하십시오."
 
-#: configview.cpp:93
+#: configview.cpp:95
 #, kde-format
 msgid "Add new target"
 msgstr "새 대상 추가"
 
-#: configview.cpp:97
+#: configview.cpp:99
 #, kde-format
 msgid "Copy target"
 msgstr "대상 복사"
 
-#: configview.cpp:101
+#: configview.cpp:103
 #, kde-format
 msgid "Delete target"
 msgstr "대상 삭제"
 
-#: configview.cpp:106
+#: configview.cpp:108
 #, kde-format
 msgid "Executable:"
 msgstr "실행 파일:"
 
-#: configview.cpp:126
+#: configview.cpp:128
 #, kde-format
 msgid "Working Directory:"
 msgstr "작업 디렉터리:"
 
-#: configview.cpp:134
+#: configview.cpp:136
 #, kde-format
 msgid "Process Id:"
 msgstr "프로세스 ID:"
 
-#: configview.cpp:139
+#: configview.cpp:141
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "인자:"
 
-#: configview.cpp:142
+#: configview.cpp:144
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "포커스 유지"
 
-#: configview.cpp:143
+#: configview.cpp:145
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "명령행에 포커스 유지"
 
-#: configview.cpp:145
+#: configview.cpp:147
 #, kde-format
 msgid "Redirect IO"
 msgstr "입출력 방향 전환"
 
-#: configview.cpp:146
+#: configview.cpp:148
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "디버깅 중인 프로그램의 입출력을 별도의 탭으로 전환"
 
-#: configview.cpp:148
+#: configview.cpp:150
 #, kde-format
 msgid "Advanced Settings"
 msgstr "고급 설정"
 
-#: configview.cpp:232
+#: configview.cpp:234
 #, kde-format
 msgid "Targets"
 msgstr "대상"
 
-#: configview.cpp:525 configview.cpp:538
+#: configview.cpp:527 configview.cpp:540
 #, kde-format
 msgid "Target %1"
 msgstr "대상 %1"
 
-#: dapbackend.cpp:169
+#: dapbackend.cpp:176
 #, kde-format
 msgid "DAP backend failed"
 msgstr "DAP 백엔드 실패"
 
-#: dapbackend.cpp:211
+#: dapbackend.cpp:218
 #, kde-format
 msgid "program terminated"
 msgstr "프로그램 중단됨"
 
-#: dapbackend.cpp:223
+#: dapbackend.cpp:230
 #, kde-format
 msgid "requesting disconnection"
 msgstr "연결 해제 요청 중"
 
-#: dapbackend.cpp:237
+#: dapbackend.cpp:244
 #, kde-format
 msgid "requesting shutdown"
 msgstr "종료 요청 중"
 
-#: dapbackend.cpp:261
+#: dapbackend.cpp:268
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "DAP 백엔드: %1"
 
-#: dapbackend.cpp:270 gdbbackend.cpp:654
+#: dapbackend.cpp:277 gdbbackend.cpp:654
 #, kde-format
 msgid "stopped (%1)."
 msgstr "정지됨(%1)."
 
-#: dapbackend.cpp:278 gdbbackend.cpp:658
+#: dapbackend.cpp:285 gdbbackend.cpp:658
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "활성 스레드: %1(모든 스레드 중단됨)."
 
-#: dapbackend.cpp:280 gdbbackend.cpp:660
+#: dapbackend.cpp:287 gdbbackend.cpp:660
 #, kde-format
 msgid "Active thread: %1."
 msgstr "활성 스레드: %1."
 
-#: dapbackend.cpp:285
+#: dapbackend.cpp:292
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "중단점에 도달함:"
 
-#: dapbackend.cpp:307
+#: dapbackend.cpp:314
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(다시 시작됨) 스레드 %1"
 
-#: dapbackend.cpp:309
+#: dapbackend.cpp:316
 #, kde-format
 msgid "all threads continued"
 msgstr "모든 스레드 다시 시작됨"
 
-#: dapbackend.cpp:316
+#: dapbackend.cpp:323
 #, kde-format
 msgid "(running)"
 msgstr "(실행 중)"
 
-#: dapbackend.cpp:404
+#: dapbackend.cpp:409
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** 서버와의 연결이 종료됨 ***"
 
-#: dapbackend.cpp:411
+#: dapbackend.cpp:416
 #, kde-format
 msgid "program exited with code %1"
 msgstr "프로그램이 코드 %1을(를) 반환하면서 종료됨"
 
-#: dapbackend.cpp:425
+#: dapbackend.cpp:434
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** 사용자 동작 대기 중 ***"
 
-#: dapbackend.cpp:430
+#: dapbackend.cpp:439
 #, kde-format
 msgid "error on response: %1"
 msgstr "반응 오류 발생: %1"
 
-#: dapbackend.cpp:445
+#: dapbackend.cpp:454
 #, kde-format
 msgid "important"
 msgstr "중요함"
 
-#: dapbackend.cpp:448
+#: dapbackend.cpp:457
 #, kde-format
 msgid "telemetry"
 msgstr "텔레메트리"
 
-#: dapbackend.cpp:467
+#: dapbackend.cpp:476
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "프로세스 [%1] %2 디버그 중"
 
-#: dapbackend.cpp:469
+#: dapbackend.cpp:478
 #, kde-format
 msgid "debugging process %1"
 msgstr "프로세스 %1 디버그 중"
 
-#: dapbackend.cpp:472
+#: dapbackend.cpp:481
 #, kde-format
 msgid "Start method: %1"
 msgstr "시작 메서드: %1"
 
-#: dapbackend.cpp:479
+#: dapbackend.cpp:488
 #, kde-format
 msgid "thread %1"
 msgstr "스레드 %1"
 
-#: dapbackend.cpp:633
+#: dapbackend.cpp:644
 #, kde-format
 msgid "breakpoint set"
 msgstr "중단점 설정됨"
 
-#: dapbackend.cpp:641
+#: dapbackend.cpp:652
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "중단점 비움"
 
-#: dapbackend.cpp:700
+#: dapbackend.cpp:711
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) 중단점"
 
-#: dapbackend.cpp:717
+#: dapbackend.cpp:728
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<평가되지 않음>"
 
-#: dapbackend.cpp:739
+#: dapbackend.cpp:750
 #, kde-format
 msgid "server capabilities"
 msgstr "서버 기능"
 
-#: dapbackend.cpp:742
+#: dapbackend.cpp:753
 #, kde-format
 msgid "supported"
 msgstr "지원함"
 
-#: dapbackend.cpp:742
+#: dapbackend.cpp:753
 #, kde-format
 msgid "unsupported"
 msgstr "지원하지 않음"
 
-#: dapbackend.cpp:745
+#: dapbackend.cpp:756
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "조건부 중단점"
 
-#: dapbackend.cpp:746
+#: dapbackend.cpp:757
 #, kde-format
 msgid "function breakpoints"
 msgstr "함수 중단점"
 
-#: dapbackend.cpp:747
+#: dapbackend.cpp:758
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "조건부 중단점에 도달함"
 
-#: dapbackend.cpp:748
+#: dapbackend.cpp:759
 #, kde-format
 msgid "log points"
 msgstr "로그 지점"
 
-#: dapbackend.cpp:748
+#: dapbackend.cpp:759
 #, kde-format
 msgid "modules request"
 msgstr "모듈 요청"
 
-#: dapbackend.cpp:749
+#: dapbackend.cpp:760
 #, kde-format
 msgid "goto targets request"
 msgstr "goto 대상 요청"
 
-#: dapbackend.cpp:750
+#: dapbackend.cpp:761
 #, kde-format
 msgid "terminate request"
 msgstr "종료 요청"
 
-#: dapbackend.cpp:751
+#: dapbackend.cpp:762
 #, kde-format
 msgid "terminate debuggee"
 msgstr "디버그 대상 종료"
 
-#: dapbackend.cpp:969
+#: dapbackend.cpp:980
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "구문 오류: 표현식을 찾을 수 없음"
 
-#: dapbackend.cpp:987 dapbackend.cpp:1022 dapbackend.cpp:1060
-#: dapbackend.cpp:1094 dapbackend.cpp:1130 dapbackend.cpp:1166
-#: dapbackend.cpp:1202 dapbackend.cpp:1302 dapbackend.cpp:1364
+#: dapbackend.cpp:998 dapbackend.cpp:1033 dapbackend.cpp:1071
+#: dapbackend.cpp:1105 dapbackend.cpp:1141 dapbackend.cpp:1177
+#: dapbackend.cpp:1213 dapbackend.cpp:1313 dapbackend.cpp:1375
 #, kde-format
 msgid "syntax error: %1"
 msgstr "구문 오류: %1"
 
-#: dapbackend.cpp:995 dapbackend.cpp:1030 dapbackend.cpp:1309
-#: dapbackend.cpp:1372
+#: dapbackend.cpp:1006 dapbackend.cpp:1041 dapbackend.cpp:1320
+#: dapbackend.cpp:1383
 #, kde-format
 msgid "invalid line: %1"
 msgstr "잘못된 줄: %1"
 
-#: dapbackend.cpp:1002 dapbackend.cpp:1007 dapbackend.cpp:1037
-#: dapbackend.cpp:1042 dapbackend.cpp:1333 dapbackend.cpp:1338
-#: dapbackend.cpp:1379 dapbackend.cpp:1384
+#: dapbackend.cpp:1013 dapbackend.cpp:1018 dapbackend.cpp:1048
+#: dapbackend.cpp:1053 dapbackend.cpp:1344 dapbackend.cpp:1349
+#: dapbackend.cpp:1390 dapbackend.cpp:1395
 #, kde-format
 msgid "file not specified: %1"
 msgstr "파일을 지정하지 않았음: %1"
 
-#: dapbackend.cpp:1072 dapbackend.cpp:1106 dapbackend.cpp:1142
-#: dapbackend.cpp:1178 dapbackend.cpp:1214
+#: dapbackend.cpp:1083 dapbackend.cpp:1117 dapbackend.cpp:1153
+#: dapbackend.cpp:1189 dapbackend.cpp:1225
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "잘못된 스레드 ID: %1"
 
-#: dapbackend.cpp:1078 dapbackend.cpp:1112 dapbackend.cpp:1148
-#: dapbackend.cpp:1184 dapbackend.cpp:1220
+#: dapbackend.cpp:1089 dapbackend.cpp:1123 dapbackend.cpp:1159
+#: dapbackend.cpp:1195 dapbackend.cpp:1231
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "스레드 ID를 지정하지 않았음: %1"
 
-#: dapbackend.cpp:1231
+#: dapbackend.cpp:1242
 #, kde-format
 msgid "Available commands:"
 msgstr "사용 가능한 명령:"
 
-#: dapbackend.cpp:1319
+#: dapbackend.cpp:1330
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "서버에서 조건부 중단점을 지원하지 않음"
 
-#: dapbackend.cpp:1327
+#: dapbackend.cpp:1338
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr "서버에서 조건부 중단점 도달을 지원하지 않음"
 
-#: dapbackend.cpp:1347
+#: dapbackend.cpp:1358
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "%1번째 줄에 중단점이 이미 설정되어 있음"
 
-#: dapbackend.cpp:1392
+#: dapbackend.cpp:1403
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "중단점을 찾을 수 없음(%1:%2)"
 
-#: dapbackend.cpp:1398
+#: dapbackend.cpp:1409
 #, kde-format
 msgid "Current thread: "
 msgstr "현재 스레드: "
 
-#: dapbackend.cpp:1403 dapbackend.cpp:1410 dapbackend.cpp:1434
+#: dapbackend.cpp:1414 dapbackend.cpp:1421 dapbackend.cpp:1445
 #, kde-format
 msgid "none"
 msgstr "없음"
 
-#: dapbackend.cpp:1406
+#: dapbackend.cpp:1417
 #, kde-format
 msgid "Current frame: "
 msgstr "현재 프레임: "
 
-#: dapbackend.cpp:1413
+#: dapbackend.cpp:1424
 #, kde-format
 msgid "Session state: "
 msgstr "세션 상태: "
 
-#: dapbackend.cpp:1416
+#: dapbackend.cpp:1427
 #, kde-format
 msgid "initializing"
 msgstr "초기화 중"
 
-#: dapbackend.cpp:1419
+#: dapbackend.cpp:1430
 #, kde-format
 msgid "running"
 msgstr "실행 중"
 
-#: dapbackend.cpp:1422
+#: dapbackend.cpp:1433
 #, kde-format
 msgid "stopped"
 msgstr "중지됨"
 
-#: dapbackend.cpp:1425
+#: dapbackend.cpp:1436
 #, kde-format
 msgid "terminated"
 msgstr "종료됨"
 
-#: dapbackend.cpp:1428
+#: dapbackend.cpp:1439
 #, kde-format
 msgid "disconnected"
 msgstr "연결 끊김"
 
-#: dapbackend.cpp:1431
+#: dapbackend.cpp:1442
 #, kde-format
 msgid "post mortem"
 msgstr "사후 분석"
 
-#: dapbackend.cpp:1487
+#: dapbackend.cpp:1498
 #, kde-format
 msgid "command not found"
 msgstr "명령을 찾을 수 없음"
 
-#: dapbackend.cpp:1508
+#: dapbackend.cpp:1532
 #, kde-format
 msgid "missing thread id"
 msgstr "스레드 ID 없음"
 
-#: dapbackend.cpp:1616
+#: dapbackend.cpp:1638
 #, kde-format
 msgid "killing backend"
 msgstr "백엔드 종료 중"
 
-#: dapbackend.cpp:1674
+#: dapbackend.cpp:1696
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "현재 프레임 [%3]: %1:%2(%4)"
@@ -646,7 +646,7 @@ msgstr "Kate 디버그"
 msgid "Debug View"
 msgstr "디버그 보기"
 
-#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:342
+#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:348
 #, kde-format
 msgid "Debug"
 msgstr "디버그"
@@ -711,67 +711,73 @@ msgid "Toggle Breakpoint / Break"
 msgstr "중단점 설정/해제"
 
 #: plugin_kategdb.cpp:296
+#, fuzzy, kde-format
+#| msgid "Breakpoint"
+msgid "Clear All Breakpoints"
+msgstr "중단점"
+
+#: plugin_kategdb.cpp:302
 #, kde-format
 msgid "Step In"
 msgstr "한 단계 안으로"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:309
 #, kde-format
 msgid "Step Over"
 msgstr "한 단계 건너뜀"
 
-#: plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:316
 #, kde-format
 msgid "Step Out"
 msgstr "한 단계 밖으로"
 
-#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:349
+#: plugin_kategdb.cpp:323 plugin_kategdb.cpp:355
 #, kde-format
 msgid "Run To Cursor"
 msgstr "커서까지 실행"
 
-#: plugin_kategdb.cpp:324
+#: plugin_kategdb.cpp:330
 #, kde-format
 msgid "Restart Debugging"
 msgstr "디버깅 다시 시작"
 
-#: plugin_kategdb.cpp:332 plugin_kategdb.cpp:351
+#: plugin_kategdb.cpp:338 plugin_kategdb.cpp:357
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "프로그램 카운터 이동"
 
-#: plugin_kategdb.cpp:337
+#: plugin_kategdb.cpp:343
 #, kde-format
 msgid "Print Value"
 msgstr "값 출력"
 
-#: plugin_kategdb.cpp:430 plugin_kategdb.cpp:446
+#: plugin_kategdb.cpp:442 plugin_kategdb.cpp:458
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "중단점 삽입"
 
-#: plugin_kategdb.cpp:444
+#: plugin_kategdb.cpp:456
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "중단점 삭제"
 
-#: plugin_kategdb.cpp:581
+#: plugin_kategdb.cpp:606
 #, kde-format
 msgid "Execution point"
 msgstr "실행 지점"
 
-#: plugin_kategdb.cpp:720
+#: plugin_kategdb.cpp:749
 #, kde-format
 msgid "Thread %1"
 msgstr "스레드 %1"
 
-#: plugin_kategdb.cpp:820
+#: plugin_kategdb.cpp:849
 #, kde-format
 msgid "IO"
 msgstr "입출력"
 
-#: plugin_kategdb.cpp:904
+#: plugin_kategdb.cpp:933
 #, kde-format
 msgid "Breakpoint"
 msgstr "중단점"
@@ -783,7 +789,7 @@ msgid "&Debug"
 msgstr "디버그(&D)"
 
 #. i18n: ectx: ToolBar (gdbplugin)
-#: ui.rc:29
+#: ui.rc:30
 #, kde-format
 msgid "Debug Plugin"
 msgstr "디버그 플러그인"

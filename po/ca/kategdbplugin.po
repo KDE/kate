@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-21 00:42+0000\n"
+"POT-Creation-Date: 2024-09-26 00:41+0000\n"
 "PO-Revision-Date: 2024-07-31 11:56+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -101,7 +101,7 @@ msgstr "solib-search-path"
 msgid "Custom Init Commands"
 msgstr "Ordres d'inici personalitzades"
 
-#: backend.cpp:24 backend.cpp:49 dapbackend.cpp:155
+#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:162
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -110,394 +110,394 @@ msgstr ""
 "Hi ha una sessió de depuració en curs. Torneu a executar o atureu la sessió "
 "actual."
 
-#: configview.cpp:93
+#: configview.cpp:95
 #, kde-format
 msgid "Add new target"
 msgstr "Afegeix un objectiu nou"
 
-#: configview.cpp:97
+#: configview.cpp:99
 #, kde-format
 msgid "Copy target"
 msgstr "Copia un objectiu"
 
-#: configview.cpp:101
+#: configview.cpp:103
 #, kde-format
 msgid "Delete target"
 msgstr "Suprimeix un objectiu"
 
-#: configview.cpp:106
+#: configview.cpp:108
 #, kde-format
 msgid "Executable:"
 msgstr "Executable:"
 
-#: configview.cpp:126
+#: configview.cpp:128
 #, kde-format
 msgid "Working Directory:"
 msgstr "Directori de treball:"
 
-#: configview.cpp:134
+#: configview.cpp:136
 #, kde-format
 msgid "Process Id:"
 msgstr "ID del procés:"
 
-#: configview.cpp:139
+#: configview.cpp:141
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Arguments:"
 
-#: configview.cpp:142
+#: configview.cpp:144
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Mantén el focus"
 
-#: configview.cpp:143
+#: configview.cpp:145
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Mantén el focus a la línia d'ordres"
 
-#: configview.cpp:145
+#: configview.cpp:147
 #, kde-format
 msgid "Redirect IO"
 msgstr "Redirigeix la E/S"
 
-#: configview.cpp:146
+#: configview.cpp:148
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Redirigeix la E/S dels programes depurats a una pestanya separada"
 
-#: configview.cpp:148
+#: configview.cpp:150
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Configuració avançada"
 
-#: configview.cpp:232
+#: configview.cpp:234
 #, kde-format
 msgid "Targets"
 msgstr "Objectius"
 
-#: configview.cpp:525 configview.cpp:538
+#: configview.cpp:527 configview.cpp:540
 #, kde-format
 msgid "Target %1"
 msgstr "Objectiu %1"
 
-#: dapbackend.cpp:169
+#: dapbackend.cpp:176
 #, kde-format
 msgid "DAP backend failed"
 msgstr "Ha fallat el dorsal DAP"
 
-#: dapbackend.cpp:211
+#: dapbackend.cpp:218
 #, kde-format
 msgid "program terminated"
 msgstr "programa terminat"
 
-#: dapbackend.cpp:223
+#: dapbackend.cpp:230
 #, kde-format
 msgid "requesting disconnection"
 msgstr "se sol·licita la desconnexió"
 
-#: dapbackend.cpp:237
+#: dapbackend.cpp:244
 #, kde-format
 msgid "requesting shutdown"
 msgstr "se sol·licita l'aturada"
 
-#: dapbackend.cpp:261
+#: dapbackend.cpp:268
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "Dorsal DAP: %1"
 
-#: dapbackend.cpp:270 gdbbackend.cpp:654
+#: dapbackend.cpp:277 gdbbackend.cpp:654
 #, kde-format
 msgid "stopped (%1)."
 msgstr "aturat (%1)."
 
-#: dapbackend.cpp:278 gdbbackend.cpp:658
+#: dapbackend.cpp:285 gdbbackend.cpp:658
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Fil actiu: %1 (tots els fils aturats)."
 
-#: dapbackend.cpp:280 gdbbackend.cpp:660
+#: dapbackend.cpp:287 gdbbackend.cpp:660
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Fil actiu: %1."
 
-#: dapbackend.cpp:285
+#: dapbackend.cpp:292
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "S'ha arribat al/s punt/s d'interrupció:"
 
-#: dapbackend.cpp:307
+#: dapbackend.cpp:314
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(ha continuat) fil %1"
 
-#: dapbackend.cpp:309
+#: dapbackend.cpp:316
 #, kde-format
 msgid "all threads continued"
 msgstr "tots els fils han continuat"
 
-#: dapbackend.cpp:316
+#: dapbackend.cpp:323
 #, kde-format
 msgid "(running)"
 msgstr "(en execució)"
 
-#: dapbackend.cpp:404
+#: dapbackend.cpp:409
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** s'ha tancat la connexió amb el servidor ***"
 
-#: dapbackend.cpp:411
+#: dapbackend.cpp:416
 #, kde-format
 msgid "program exited with code %1"
 msgstr "el programa ha finalitzat amb el codi %1"
 
-#: dapbackend.cpp:425
+#: dapbackend.cpp:434
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** en espera d'accions d'usuari ***"
 
-#: dapbackend.cpp:430
+#: dapbackend.cpp:439
 #, kde-format
 msgid "error on response: %1"
 msgstr "error en la resposta: %1"
 
-#: dapbackend.cpp:445
+#: dapbackend.cpp:454
 #, kde-format
 msgid "important"
 msgstr "important"
 
-#: dapbackend.cpp:448
+#: dapbackend.cpp:457
 #, kde-format
 msgid "telemetry"
 msgstr "telemetria"
 
-#: dapbackend.cpp:467
+#: dapbackend.cpp:476
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "depuració del procés [%1] %2"
 
-#: dapbackend.cpp:469
+#: dapbackend.cpp:478
 #, kde-format
 msgid "debugging process %1"
 msgstr "depuració del procés %1"
 
-#: dapbackend.cpp:472
+#: dapbackend.cpp:481
 #, kde-format
 msgid "Start method: %1"
 msgstr "Mètode d'inici: %1"
 
-#: dapbackend.cpp:479
+#: dapbackend.cpp:488
 #, kde-format
 msgid "thread %1"
 msgstr "fil %1"
 
-#: dapbackend.cpp:633
+#: dapbackend.cpp:644
 #, kde-format
 msgid "breakpoint set"
 msgstr "s'ha establert un punt d'interrupció"
 
-#: dapbackend.cpp:641
+#: dapbackend.cpp:652
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "s'ha netejat un punt d'interrupció"
 
-#: dapbackend.cpp:700
+#: dapbackend.cpp:711
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) punt d'interrupció"
 
-#: dapbackend.cpp:717
+#: dapbackend.cpp:728
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<no avaluat>"
 
-#: dapbackend.cpp:739
+#: dapbackend.cpp:750
 #, kde-format
 msgid "server capabilities"
 msgstr "capacitats del servidor"
 
-#: dapbackend.cpp:742
+#: dapbackend.cpp:753
 #, kde-format
 msgid "supported"
 msgstr "implementat"
 
-#: dapbackend.cpp:742
+#: dapbackend.cpp:753
 #, kde-format
 msgid "unsupported"
 msgstr "no implementat"
 
-#: dapbackend.cpp:745
+#: dapbackend.cpp:756
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "punts d'interrupció condicionals"
 
-#: dapbackend.cpp:746
+#: dapbackend.cpp:757
 #, kde-format
 msgid "function breakpoints"
 msgstr "punts d'interrupció de funció"
 
-#: dapbackend.cpp:747
+#: dapbackend.cpp:758
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "assoleix els punts d'interrupció condicionals"
 
-#: dapbackend.cpp:748
+#: dapbackend.cpp:759
 #, kde-format
 msgid "log points"
 msgstr "punts de registre"
 
-#: dapbackend.cpp:748
+#: dapbackend.cpp:759
 #, kde-format
 msgid "modules request"
 msgstr "sol·licitud de mòdul"
 
-#: dapbackend.cpp:749
+#: dapbackend.cpp:760
 #, kde-format
 msgid "goto targets request"
 msgstr "sol·licitud d'anar a objectius"
 
-#: dapbackend.cpp:750
+#: dapbackend.cpp:761
 #, kde-format
 msgid "terminate request"
 msgstr "sol·licitud de terminació"
 
-#: dapbackend.cpp:751
+#: dapbackend.cpp:762
 #, kde-format
 msgid "terminate debuggee"
 msgstr "depuració de terminació"
 
-#: dapbackend.cpp:969
+#: dapbackend.cpp:980
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "error de sintaxi: no s'ha trobat l'expressió"
 
-#: dapbackend.cpp:987 dapbackend.cpp:1022 dapbackend.cpp:1060
-#: dapbackend.cpp:1094 dapbackend.cpp:1130 dapbackend.cpp:1166
-#: dapbackend.cpp:1202 dapbackend.cpp:1302 dapbackend.cpp:1364
+#: dapbackend.cpp:998 dapbackend.cpp:1033 dapbackend.cpp:1071
+#: dapbackend.cpp:1105 dapbackend.cpp:1141 dapbackend.cpp:1177
+#: dapbackend.cpp:1213 dapbackend.cpp:1313 dapbackend.cpp:1375
 #, kde-format
 msgid "syntax error: %1"
 msgstr "error de sintaxi: %1"
 
-#: dapbackend.cpp:995 dapbackend.cpp:1030 dapbackend.cpp:1309
-#: dapbackend.cpp:1372
+#: dapbackend.cpp:1006 dapbackend.cpp:1041 dapbackend.cpp:1320
+#: dapbackend.cpp:1383
 #, kde-format
 msgid "invalid line: %1"
 msgstr "línia no vàlida: %1"
 
-#: dapbackend.cpp:1002 dapbackend.cpp:1007 dapbackend.cpp:1037
-#: dapbackend.cpp:1042 dapbackend.cpp:1333 dapbackend.cpp:1338
-#: dapbackend.cpp:1379 dapbackend.cpp:1384
+#: dapbackend.cpp:1013 dapbackend.cpp:1018 dapbackend.cpp:1048
+#: dapbackend.cpp:1053 dapbackend.cpp:1344 dapbackend.cpp:1349
+#: dapbackend.cpp:1390 dapbackend.cpp:1395
 #, kde-format
 msgid "file not specified: %1"
 msgstr "fitxer no especificat: %1"
 
-#: dapbackend.cpp:1072 dapbackend.cpp:1106 dapbackend.cpp:1142
-#: dapbackend.cpp:1178 dapbackend.cpp:1214
+#: dapbackend.cpp:1083 dapbackend.cpp:1117 dapbackend.cpp:1153
+#: dapbackend.cpp:1189 dapbackend.cpp:1225
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "ID de fil no vàlid: %1"
 
-#: dapbackend.cpp:1078 dapbackend.cpp:1112 dapbackend.cpp:1148
-#: dapbackend.cpp:1184 dapbackend.cpp:1220
+#: dapbackend.cpp:1089 dapbackend.cpp:1123 dapbackend.cpp:1159
+#: dapbackend.cpp:1195 dapbackend.cpp:1231
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "ID de fil no especificat: %1"
 
-#: dapbackend.cpp:1231
+#: dapbackend.cpp:1242
 #, kde-format
 msgid "Available commands:"
 msgstr "Ordres disponibles:"
 
-#: dapbackend.cpp:1319
+#: dapbackend.cpp:1330
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr ""
 "els punts d'interrupció condicionals no estan implementats en el servidor"
 
-#: dapbackend.cpp:1327
+#: dapbackend.cpp:1338
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr ""
 "assoleix els punts d'interrupció condicionals no està implementat en el "
 "servidor"
 
-#: dapbackend.cpp:1347
+#: dapbackend.cpp:1358
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "la línia %1 ja té un punt d'interrupció"
 
-#: dapbackend.cpp:1392
+#: dapbackend.cpp:1403
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "no s'ha trobat el punt d'interrupció (%1:%2)"
 
-#: dapbackend.cpp:1398
+#: dapbackend.cpp:1409
 #, kde-format
 msgid "Current thread: "
 msgstr "Fil actual: "
 
-#: dapbackend.cpp:1403 dapbackend.cpp:1410 dapbackend.cpp:1434
+#: dapbackend.cpp:1414 dapbackend.cpp:1421 dapbackend.cpp:1445
 #, kde-format
 msgid "none"
 msgstr "cap"
 
-#: dapbackend.cpp:1406
+#: dapbackend.cpp:1417
 #, kde-format
 msgid "Current frame: "
 msgstr "Marc actual: "
 
-#: dapbackend.cpp:1413
+#: dapbackend.cpp:1424
 #, kde-format
 msgid "Session state: "
 msgstr "Estat de la sessió: "
 
-#: dapbackend.cpp:1416
+#: dapbackend.cpp:1427
 #, kde-format
 msgid "initializing"
 msgstr "s'està inicialitzant"
 
-#: dapbackend.cpp:1419
+#: dapbackend.cpp:1430
 #, kde-format
 msgid "running"
 msgstr "en execució"
 
-#: dapbackend.cpp:1422
+#: dapbackend.cpp:1433
 #, kde-format
 msgid "stopped"
 msgstr "aturada"
 
-#: dapbackend.cpp:1425
+#: dapbackend.cpp:1436
 #, kde-format
 msgid "terminated"
 msgstr "terminada"
 
-#: dapbackend.cpp:1428
+#: dapbackend.cpp:1439
 #, kde-format
 msgid "disconnected"
 msgstr "desconnectada"
 
-#: dapbackend.cpp:1431
+#: dapbackend.cpp:1442
 #, kde-format
 msgid "post mortem"
 msgstr "post mortem"
 
-#: dapbackend.cpp:1487
+#: dapbackend.cpp:1498
 #, kde-format
 msgid "command not found"
 msgstr "no s'ha trobat l'ordre"
 
-#: dapbackend.cpp:1508
+#: dapbackend.cpp:1532
 #, kde-format
 msgid "missing thread id"
 msgstr "manca l'ID de fil"
 
-#: dapbackend.cpp:1616
+#: dapbackend.cpp:1638
 #, kde-format
 msgid "killing backend"
 msgstr "s'està matant el dorsal"
 
-#: dapbackend.cpp:1674
+#: dapbackend.cpp:1696
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Marc actual [%3]: %1:%2 (%4)"
@@ -658,7 +658,7 @@ msgstr "Depuració del Kate"
 msgid "Debug View"
 msgstr "Vista del depurador"
 
-#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:342
+#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:348
 #, kde-format
 msgid "Debug"
 msgstr "Depura"
@@ -725,67 +725,73 @@ msgid "Toggle Breakpoint / Break"
 msgstr "Commuta entre punt d'interrupció/interrupció"
 
 #: plugin_kategdb.cpp:296
+#, fuzzy, kde-format
+#| msgid "Breakpoint"
+msgid "Clear All Breakpoints"
+msgstr "Punt d'interrupció"
+
+#: plugin_kategdb.cpp:302
 #, kde-format
 msgid "Step In"
 msgstr "Avança per dins"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:309
 #, kde-format
 msgid "Step Over"
 msgstr "Avança per sobre"
 
-#: plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:316
 #, kde-format
 msgid "Step Out"
 msgstr "Avança per fora"
 
-#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:349
+#: plugin_kategdb.cpp:323 plugin_kategdb.cpp:355
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Executa fins al cursor"
 
-#: plugin_kategdb.cpp:324
+#: plugin_kategdb.cpp:330
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Reinicia la depuració"
 
-#: plugin_kategdb.cpp:332 plugin_kategdb.cpp:351
+#: plugin_kategdb.cpp:338 plugin_kategdb.cpp:357
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Mou el CP"
 
-#: plugin_kategdb.cpp:337
+#: plugin_kategdb.cpp:343
 #, kde-format
 msgid "Print Value"
 msgstr "Imprimeix el valor"
 
-#: plugin_kategdb.cpp:430 plugin_kategdb.cpp:446
+#: plugin_kategdb.cpp:442 plugin_kategdb.cpp:458
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Insereix un punt d'interrupció"
 
-#: plugin_kategdb.cpp:444
+#: plugin_kategdb.cpp:456
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Elimina el punt d'interrupció"
 
-#: plugin_kategdb.cpp:581
+#: plugin_kategdb.cpp:606
 #, kde-format
 msgid "Execution point"
 msgstr "Punt d'execució"
 
-#: plugin_kategdb.cpp:720
+#: plugin_kategdb.cpp:749
 #, kde-format
 msgid "Thread %1"
 msgstr "Fil %1"
 
-#: plugin_kategdb.cpp:820
+#: plugin_kategdb.cpp:849
 #, kde-format
 msgid "IO"
 msgstr "E/S"
 
-#: plugin_kategdb.cpp:904
+#: plugin_kategdb.cpp:933
 #, kde-format
 msgid "Breakpoint"
 msgstr "Punt d'interrupció"
@@ -797,7 +803,7 @@ msgid "&Debug"
 msgstr "&Depura"
 
 #. i18n: ectx: ToolBar (gdbplugin)
-#: ui.rc:29
+#: ui.rc:30
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Connector de depuració"

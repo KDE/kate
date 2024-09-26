@@ -7,6 +7,7 @@
 #include "kateprivate_export.h"
 
 #include <KTextEditor/Cursor>
+#include <KTextEditor/Range>
 #include <QObject>
 #include <QPointer>
 
@@ -72,4 +73,5 @@ private:
     // nullptr indicates absence of a hint view
     KateTextHintView *m_hintView;
     Requestor m_lastRequestor;
+    KTextEditor::Range m_lastRange = KTextEditor::Range::invalid();
 };

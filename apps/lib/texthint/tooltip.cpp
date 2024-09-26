@@ -95,10 +95,11 @@ public:
         }
     }
 
-    TooltipPrivate(QWidget *parent, bool manual)
+    TooltipPrivate(QWidget *parent, bool manual, KTextEditor::Range wordRange)
         : QTextBrowser(parent)
         , m_hl(new TooltipHighlighter(document()))
         , m_manual(manual)
+        , m_hoveredWordRange(wordRange)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setAttribute(Qt::WA_DeleteOnClose, true);
@@ -144,13 +145,6 @@ public:
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
     }
 
-    double distance(QPoint p1, QPoint p2)
-    {
-        auto dx = (p1.x() - p2.x());
-        auto dy = (p1.y() - p2.y());
-        return sqrt((dx * dx) + (dy * dy));
-    }
-
     bool eventFilter(QObject *o, QEvent *e) override
     {
         switch (e->type()) {
@@ -172,24 +166,16 @@ public:
                 return false;
             }
 
-            // initialize distance between current mouse pos and top left corner of the tooltip
-            if (prevDistance == 0.0) {
-                auto pt = static_cast<QSinglePointEvent *>(e)->globalPosition().toPoint();
-                prevDistance = distance(pt, mapToGlobal(rect().topLeft()));
+            auto pt = static_cast<QSinglePointEvent *>(e)->globalPosition().toPoint();
+            auto cursor = m_view->coordinatesToCursor(m_view->mapFromGlobal(pt));
+            // we are hovering over the word for which this tooltip exists, dont hide
+            if (m_hoveredWordRange == m_view->document()->wordRangeAt(cursor)) {
                 return false;
             }
 
-            auto pt = static_cast<QSinglePointEvent *>(e)->globalPosition().toPoint();
-            auto newDistance = distance(pt, mapToGlobal(rect().topLeft()));
-
             auto pos = mapFromGlobal(static_cast<QSinglePointEvent *>(e)->globalPosition()).toPoint();
             if (!m_manual && !hasFocus() && !rect().contains(pos)) {
-                if (newDistance > prevDistance) {
-                    prevDistance = newDistance;
-                    hideTooltipWithDelay();
-                } else {
-                    prevDistance = newDistance;
-                }
+                hideTooltip();
             }
         } break;
         case QEvent::MouseButtonPress:
@@ -343,34 +329,41 @@ private:
     TooltipHighlighter *m_hl;
     bool m_manual;
     HintState m_hintState;
-    double prevDistance = 0.0;
+    const KTextEditor::Range m_hoveredWordRange;
 };
 
-void KateTooltip::show(size_t instanceId, const QString &text, TextHintMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual)
+QObject *KateTooltip::show(size_t instanceId,
+                           const QString &text,
+                           TextHintMarkupKind kind,
+                           QPoint pos,
+                           KTextEditor::View *v,
+                           bool manual,
+                           KTextEditor::Range hoveredRange)
 {
     if (!v || !v->document()) {
-        return;
+        return nullptr;
     }
 
     static QPointer<TooltipPrivate> tooltip = nullptr;
     if (tooltip && tooltip->isVisible()) {
         if (text.isEmpty() || text.trimmed().isEmpty()) {
             tooltip->remove(instanceId);
-            return;
+            return tooltip;
         }
 
         tooltip->upsert(instanceId, text, kind);
-        return;
+        return tooltip;
     }
     delete tooltip;
 
     if (text.isEmpty() || text.trimmed().isEmpty()) {
-        return;
+        return tooltip;
     }
 
-    tooltip = new TooltipPrivate(v, manual);
+    tooltip = new TooltipPrivate(v, manual, hoveredRange);
     tooltip->setView(v);
     tooltip->upsert(instanceId, text, kind);
     tooltip->place(pos);
     tooltip->show();
+    return tooltip;
 }

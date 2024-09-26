@@ -128,6 +128,12 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
 
 void KateTextHintManager::ontextHintRequested(KTextEditor::View *v, KTextEditor::Cursor c, Requestor hintSource)
 {
+    auto wordRange = v->document()->wordRangeAt(c);
+    // avoid requesting if the range is same
+    if (wordRange == m_lastRange) {
+        return;
+    }
+    m_lastRange = wordRange;
     for (const auto &provider : m_providers) {
         Q_EMIT provider->textHintRequested(v, c);
     }
@@ -139,13 +145,20 @@ void KateTextHintManager::showTextHint(size_t instanceId, const QString &hint, T
     if (!pos.isValid()) {
         return;
     }
+
     auto view = m_provider->view();
     if (!view) {
         return;
     }
 
     QPoint p = view->cursorToCoordinate(pos);
-    KateTooltip::show(instanceId, hint, kind, view->mapToGlobal(p), view, force);
+    auto tooltip = KateTooltip::show(instanceId, hint, kind, view->mapToGlobal(p), view, force, m_lastRange);
+    if (tooltip) {
+        // unset the range if the tooltip is gone
+        connect(tooltip, &QObject::destroyed, this, [this] {
+            m_lastRange = KTextEditor::Range::invalid();
+        });
+    }
 }
 
 #include "moc_KateTextHintManager.cpp"

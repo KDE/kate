@@ -6,8 +6,10 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "hintview.h"
+#include "KateTextHintManager.h"
 
 #include <QKeyEvent>
+#include <QTextEdit>
 
 #include <KLocalizedString>
 #include <KTextEditor/MainWindow>
@@ -50,7 +52,7 @@ void KateTextHintView::setView(KTextEditor::View *view)
         disconnect(m_cursorTracker);
 
         if (m_view) {
-            m_cursorTracker = connect(m_view, &KTextEditor::View::cursorPositionChanged, this, [this](auto *v, auto c) {
+            m_cursorTracker = connect(m_view, &KTextEditor::View::cursorPositionChanged, this, [this](KTextEditor::View *v, KTextEditor::Cursor c) {
                 // Request hint
                 qobject_cast<KateTextHintManager *>(parent())->ontextHintRequested(v, c, KateTextHintManager::Requestor::CursorChange);
             });
@@ -71,7 +73,7 @@ void KateTextHintView::update(size_t instanceId, const QString &text, TextHintMa
 
 void KateTextHintView::render()
 {
-    m_state.render([this](const auto &contents) {
+    m_state.render([this](const HintState::Hint &contents) {
         const auto &[text, kind] = contents;
         if (kind == TextHintMarkupKind::PlainText) {
             m_edit->setPlainText(text);

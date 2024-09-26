@@ -288,7 +288,7 @@ protected:
 private:
     void triggerChange()
     {
-        m_hintState.render([this](const auto &data) {
+        m_hintState.render([this](const HintState::Hint &data) {
             const auto &[text, kind] = data;
             if (kind == TextHintMarkupKind::PlainText) {
                 setPlainText(text);

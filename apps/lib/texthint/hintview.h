@@ -7,10 +7,10 @@
 */
 #pragma once
 
-#include "KateTextHintManager.h"
 #include "hintstate.h"
 
-#include <QTextEdit>
+class QTextEdit;
+class KateTextHintManager;
 
 class KateTextHintView : public QObject
 {

@@ -109,7 +109,7 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
             }
         });
 
-        const auto slot = [=, this](auto forced) {
+        const auto slot = [provider, this](bool forced) {
             return [this, provider, forced](const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos) {
                 const auto instanceId = reinterpret_cast<std::uintptr_t>(provider);
 

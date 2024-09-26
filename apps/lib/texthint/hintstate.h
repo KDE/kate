@@ -12,7 +12,6 @@
 #include <QString>
 
 #include <functional>
-#include <tuple>
 
 class HintState
 {

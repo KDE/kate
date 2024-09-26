@@ -56,6 +56,7 @@ target_sources(
     json_placeholders.cpp
     dapbackend.cpp
     backend.cpp
+    launch_json_reader.cpp
 
     plugin.qrc 
 )

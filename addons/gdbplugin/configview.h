@@ -48,7 +48,7 @@ struct GDBTargetConf {
 };
 
 struct DAPAdapterSettings {
-    int index;
+    int index{};
     QJsonObject settings;
     QStringList variables;
 };
@@ -112,6 +112,7 @@ private:
     Field &getDapField(const QString &fieldName);
     void refreshUI();
     void readDAPSettings();
+    void readTargetsFromLaunchJson();
 
 private:
     KTextEditor::MainWindow *m_mainWindow;

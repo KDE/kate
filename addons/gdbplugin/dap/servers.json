@@ -140,9 +140,9 @@
                 "launch (debug)": {
                     "request": {
                         "command": "launch",
-                        "mode": "debug",
                         "program": "${file}",
-                        "args": "${args|list}"
+                        "args": "${args|list}",
+                        "cwd": "${workdir}"
                     }
                 }
             }
@@ -156,9 +156,9 @@
                 "launch (debug)": {
                     "request": {
                         "command": "launch",
-                        "mode": "debug",
                         "program": "${file}",
-                        "args": "${args|list}"
+                        "args": "${args|list}",
+                        "cwd": "${workdir}"
                     }
                 }
             }

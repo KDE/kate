@@ -34,17 +34,12 @@
 #include "advanced_settings.h"
 #include "dap/settings.h"
 #include "json_placeholders.h"
+#include "launch_json_reader.h"
 #include "plugin_kategdb.h"
+#include "target_json_keys.h"
 #include <json_utils.h>
 
 constexpr int CONFIG_VERSION = 5;
-const static QString F_TARGET = QStringLiteral("target");
-const static QString F_DEBUGGER = QStringLiteral("debuggerKey");
-const static QString F_PROFILE = QStringLiteral("debuggerProfile");
-const static QString F_FILE = QStringLiteral("file");
-const static QString F_WORKDIR = QStringLiteral("workdir");
-const static QString F_ARGS = QStringLiteral("args");
-const static QString F_PID = QStringLiteral("pid");
 
 void ConfigView::refreshUI()
 {
@@ -168,6 +163,8 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     connect(m_advancedSettings, &QPushButton::clicked, this, &ConfigView::slotAdvancedClicked);
 
     connect(m_clientCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ConfigView::refreshUI);
+
+    QMetaObject::invokeMethod(this, &ConfigView::readTargetsFromLaunchJson, Qt::QueuedConnection);
 }
 
 ConfigView::~ConfigView()
@@ -225,6 +222,40 @@ void ConfigView::readDAPSettings()
         m_dapAdapterSettings[itServer.key()] = profiles;
 
         m_clientCombo->insertSeparator(index++);
+    }
+}
+
+void ConfigView::readTargetsFromLaunchJson()
+{
+    // remove the first dummy target
+    if (m_targetCombo->count() == 1) {
+        auto json = m_targetCombo->itemData(0).toJsonObject();
+        const QString file = json.value(F_FILE).toString();
+        const QString args = json.value(F_ARGS).toString();
+        const QString cwd = json.value(F_WORKDIR).toString();
+        if (file.isEmpty() && args.isEmpty() && cwd.isEmpty()) {
+            m_targetCombo->removeItem(0);
+        }
+    }
+
+    QObject *project = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
+    if (!project) {
+        return;
+    }
+    QString baseDir = project->property("projectBaseDir").toString();
+    QJsonArray configurations = readLaunchJsonConfigs(baseDir);
+    for (const auto &configValue : configurations) {
+        QJsonObject configObject = configValue.toObject();
+        const QString name = configObject.value(QLatin1String("name")).toString();
+        const QString request = configObject.value(QLatin1String("request")).toString();
+        if (name.isEmpty() || request != QLatin1String("launch")) {
+            continue;
+        }
+        m_targetCombo->addItem(name, configObject);
+    }
+
+    if (m_targetCombo->count() == 0) {
+        slotAddTarget();
     }
 }
 
@@ -391,6 +422,10 @@ void ConfigView::writeConfig(KConfigGroup &group)
     group.writeEntry("lastTarget", m_targetCombo->currentIndex());
     for (int i = 0; i < m_targetCombo->count(); i++) {
         QJsonObject targetConf = m_targetCombo->itemData(i).toJsonObject();
+        if (targetConf.value(F_IS_LAUNCH_JSON).toBool()) {
+            // skip objects from launch.json
+            continue;
+        }
         group.writeEntry(targetKey.arg(i), serialize(targetConf));
     }
 
@@ -829,6 +864,9 @@ void ConfigView::saveCurrentToIndex(int index)
     }
 
     QJsonObject tmp = m_targetCombo->itemData(index).toJsonObject();
+    if (tmp.value(F_IS_LAUNCH_JSON).toBool()) {
+        return;
+    }
 
     tmp[F_TARGET] = m_targetCombo->itemText(index);
     if (debuggerIsGDB()) {
@@ -856,6 +894,7 @@ int ConfigView::loadFromIndex(int index)
     }
 
     QJsonObject tmp = m_targetCombo->itemData(index).toJsonObject();
+    // qDebug().noquote().nospace() << "Load from index" << QJsonDocument(tmp).toJson();
     // The custom init strings are set in slotAdvancedClicked().
 
     const QString &debuggerKey = tmp[F_DEBUGGER].toString();
@@ -871,9 +910,13 @@ int ConfigView::loadFromIndex(int index)
         if (!m_dapAdapterSettings.contains(debuggerKey))
             return -1;
         const QString &debuggerProfile = tmp[F_PROFILE].toString();
-        if (!m_dapAdapterSettings[debuggerKey].contains(debuggerProfile))
+        const auto &debuggerProfiles = m_dapAdapterSettings[debuggerKey];
+        if (debuggerProfiles.size() > 1 && !debuggerProfiles.contains(debuggerProfile))
             return -1;
-        auto map = tmp[QStringLiteral("variables")].toObject();
+
+        const bool isFromLaunchJson = tmp.value(F_IS_LAUNCH_JSON).toBool();
+
+        auto map = isFromLaunchJson ? tmp : tmp[QStringLiteral("variables")].toObject();
 
         m_executable->setText(map[F_FILE].toString());
         map.remove(F_FILE);
@@ -887,6 +930,10 @@ int ConfigView::loadFromIndex(int index)
         for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
             const auto &field = getDapField(it.key());
             field.input->setText(it.value().toString());
+        }
+
+        if (debuggerProfiles.size() == 1) {
+            return debuggerProfiles.begin()->index;
         }
 
         return m_dapAdapterSettings[debuggerKey][debuggerProfile].index;

@@ -42,7 +42,12 @@ void HintState::render(const std::function<void(const Hint &)> &callback)
             contents += QStringLiteral("\n");
         }
     } else {
+        bool first = true;
         for (const auto &[_, hint] : m_hints) {
+            if (!first) {
+                contents += QStringLiteral("\n----\n");
+            }
+            first = false;
             const auto &[text, kind] = hint;
             if (kind == TextHintMarkupKind::PlainText) {
                 // Render plaintext as-is
@@ -52,7 +57,6 @@ void HintState::render(const std::function<void(const Hint &)> &callback)
             } else {
                 contents += text;
             }
-            contents += QStringLiteral("\n----\n");
         }
     }
 

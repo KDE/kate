@@ -57,6 +57,7 @@ static void resolveVSCodeVars(QString &in, const QDir &baseDir)
 
 static QJsonObject toKateTarget(const QJsonObject &in, const QDir &baseDir)
 {
+    using namespace TargetKeys;
     QJsonObject ret = in;
     QString cwd = in.value(QLatin1String("cwd")).toString();
     if (cwd.isEmpty()) {
@@ -99,6 +100,7 @@ static QJsonObject toKateTarget(const QJsonObject &in, const QDir &baseDir)
 
 static QJsonObject processDartFlutterTarget(const QJsonObject &in)
 {
+    using namespace TargetKeys;
     QJsonObject ret = in;
     const QDir cwdDir(in.value(F_WORKDIR).toString());
     // TODO add better detection, this only detects standard config

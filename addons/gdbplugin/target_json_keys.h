@@ -1,10 +1,13 @@
 #pragma once
 
-const static QString F_TARGET = QStringLiteral("target");
-const static QString F_DEBUGGER = QStringLiteral("debuggerKey");
-const static QString F_PROFILE = QStringLiteral("debuggerProfile");
-const static QString F_FILE = QStringLiteral("file");
-const static QString F_WORKDIR = QStringLiteral("workdir");
-const static QString F_ARGS = QStringLiteral("args");
-const static QString F_PID = QStringLiteral("pid");
+namespace TargetKeys
+{
+constexpr static QLatin1String F_TARGET("target");
+constexpr static QLatin1String F_DEBUGGER("debuggerKey");
+constexpr static QLatin1String F_PROFILE("debuggerProfile");
+constexpr static QLatin1String F_FILE("file");
+constexpr static QLatin1String F_WORKDIR("workdir");
+constexpr static QLatin1String F_ARGS("args");
+constexpr static QLatin1String F_PID("pid");
 constexpr static QLatin1String F_IS_LAUNCH_JSON("loadedFromLaunchJson");
+}

@@ -39,6 +39,7 @@
 #include "target_json_keys.h"
 #include <json_utils.h>
 
+using namespace TargetKeys;
 constexpr int CONFIG_VERSION = 5;
 
 void ConfigView::refreshUI()

@@ -1,13 +1,13 @@
+# Translation of kategdbplugin to Spanish
 # Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the kate package.
 #
-# Eloy Cuadra <ecuadra@eloihr.net>, 2011, 2012, 2020, 2022, 2023.
-# Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>, 2011.
-# arklad, 2011.
-# Rocio Gallego <traducciones@rociogallego.com>, 2013, 2014.
+# SPDX-FileCopyrightText: 2011, 2012, 2020, 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2011 Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>
+# SPDX-FileCopyrightText: 2013, 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:42+0000\n"
 "PO-Revision-Date: 2023-05-09 02:04+0200\n"

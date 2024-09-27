@@ -1062,7 +1062,7 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
         return;
     }
 
-    KTextEditor::Range range = item->data(DiagnosticModelRole::RangeRole).value<KTextEditor::Range>();
+    const KTextEditor::Range range = item->data(DiagnosticModelRole::RangeRole).value<KTextEditor::Range>();
     if (!range.isValid()) {
         return;
     }
@@ -1120,8 +1120,14 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
     }
 
     // highlight the range
-    if (attr && !range.isEmpty()) {
-        KTextEditor::MovingRange *mr = doc->newMovingRange(range);
+    if (attr) {
+        KTextEditor::Range highlightedRange = range;
+        if (range.isEmpty()) {
+            auto end = highlightedRange.end();
+            end.setColumn(doc->lineLength(highlightedRange.start().line()));
+            highlightedRange.setEnd(end);
+        }
+        KTextEditor::MovingRange *mr = doc->newMovingRange(highlightedRange);
         mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
         mr->setAttribute(attr);
         mr->setAttributeOnlyForViews(true);

@@ -1134,6 +1134,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     QAction *aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("&Close Document"));
     QAction *aCloseOthers = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-other")), i18n("Close Other &Documents"));
     QAction *aCloseAll = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-all")), i18n("Close &All Documents"));
+    menu.addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("reopen_latest_closed_document")));
     menu.addSeparator();
     menu.addAction(KStandardAction::open(m_viewManager, &KateViewManager::slotDocumentOpen, this));
     QAction *aDetachTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-detach")), i18n("D&etach Document"));

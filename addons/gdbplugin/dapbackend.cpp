@@ -1612,11 +1612,6 @@ void DapBackend::slotKill()
         Q_EMIT gdbEnded();
         return;
     }
-    // if it is running, interrupt instead of killing
-    if (isRunningState() && !this->canContinue()) {
-        slotInterrupt();
-        return;
-    }
 
     if (!m_shutdown.userAction) {
         if (isRunningState()) {

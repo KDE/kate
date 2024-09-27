@@ -77,7 +77,8 @@ void Backend::bind()
     connect(m_debugger, &BackendInterface::clearBreakpointMarks, this, &BackendInterface::clearBreakpointMarks);
     connect(m_debugger, &BackendInterface::stackFrameInfo, this, &BackendInterface::stackFrameInfo);
     connect(m_debugger, &BackendInterface::stackFrameChanged, this, &BackendInterface::stackFrameChanged);
-    connect(m_debugger, &BackendInterface::threadInfo, this, &BackendInterface::threadInfo);
+    connect(m_debugger, &BackendInterface::threads, this, &BackendInterface::threads);
+    connect(m_debugger, &BackendInterface::threadUpdated, this, &BackendInterface::threadUpdated);
 
     connect(m_debugger, &BackendInterface::variableInfo, this, &BackendInterface::variableInfo);
     connect(m_debugger, &BackendInterface::variableScopeOpened, this, &BackendInterface::variableScopeOpened);

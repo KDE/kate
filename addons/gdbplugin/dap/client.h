@@ -105,7 +105,7 @@ Q_SIGNALS:
     void errorResponse(const QString &summary, const std::optional<Message> &message);
     void threadChanged(const ThreadEvent &);
     void moduleChanged(const ModuleEvent &);
-    void threads(const QList<Thread> &);
+    void threads(const QList<Thread> &, bool isError, const QString &errorString);
     void stackTrace(const int threadId, const StackTraceInfo &);
     void scopes(const int frameId, const QList<Scope> &);
     void variables(const int variablesReference, const QList<Variable> &);

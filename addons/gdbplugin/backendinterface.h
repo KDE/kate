@@ -21,6 +21,14 @@ public:
     BackendInterface(QObject *parent);
     ~BackendInterface() override = default;
 
+    enum ThreadState {
+        Started,
+        Running,
+        Stopped,
+        Exited,
+        Unknown,
+    };
+
     /**
      * true if debugger is running
      */
@@ -127,7 +135,8 @@ Q_SIGNALS:
     void clearBreakpointMarks();
     void stackFrameInfo(int level, QString const &info);
     void stackFrameChanged(int level);
-    void threadInfo(const dap::Thread &thread, bool active);
+    void threads(const QList<dap::Thread> &thread);
+    void threadUpdated(const dap::Thread &thread, ThreadState state, bool isActive);
 
     void variableInfo(int parentId, const dap::Variable &variable);
     void variableScopeOpened();

@@ -826,7 +826,7 @@ bool GdbBackend::responseMIThreadInfo(const gdbmi::Record &record)
     }
 
     // clear table
-    Q_EMIT threadInfo(dap::Thread(-1), false);
+    Q_EMIT threads({});
 
     int n_threads = 0;
 
@@ -850,6 +850,7 @@ bool GdbBackend::responseMIThreadInfo(const gdbmi::Record &record)
         hasName = false;
     }
 
+    QList<dap::Thread> newThreads;
     for (const auto &item : record.value[fCollection].toArray()) {
         const auto thread = item.toObject();
         dap::Thread info(thread[fId].toString().toInt());
@@ -857,9 +858,9 @@ bool GdbBackend::responseMIThreadInfo(const gdbmi::Record &record)
             info.name = thread[QLatin1String("name")].toString(thread[QLatin1String("target-id")].toString());
         }
 
-        Q_EMIT threadInfo(info, currentThread == info.id);
         ++n_threads;
     }
+    Q_EMIT threads(newThreads);
 
     if (m_queryLocals) {
         if (n_threads > 0) {

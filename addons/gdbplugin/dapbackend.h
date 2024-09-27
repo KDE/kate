@@ -73,7 +73,7 @@ private:
     void onError(const QString &message);
     void onTerminated();
     void onStopped(const dap::StoppedEvent &info);
-    void onThreads(const QList<dap::Thread> &threads);
+    void onThreads(const QList<dap::Thread> &threads, bool isError);
     void onStackTrace(const int, const dap::StackTraceInfo &info);
     void onProgramEnded(int exitCode);
     void onRunning();
@@ -151,7 +151,6 @@ private:
     QString m_file;
     QString m_workDir;
     std::optional<int> m_currentThread;
-    std::optional<int> m_watchedThread;
     std::optional<int> m_currentFrame;
     std::optional<int> m_currentScope;
     bool m_restart = false;

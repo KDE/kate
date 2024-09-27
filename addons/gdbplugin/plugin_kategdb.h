@@ -94,7 +94,8 @@ private Q_SLOTS:
     void stackFrameChanged(int level);
     void stackFrameSelected();
 
-    void insertThread(const dap::Thread &thread, bool active);
+    void onThreads(const QList<dap::Thread> &threads);
+    void updateThread(const dap::Thread &thread, Backend::ThreadState, bool isActive);
     void threadSelected(int thread);
 
     void insertScopes(const QList<dap::Scope> &scopes, std::optional<int> activeId);

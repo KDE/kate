@@ -279,9 +279,9 @@ void Client::processResponseLaunch(const Response &response, const QJsonValue &)
 void Client::processResponseThreads(const Response &response, const QJsonValue &)
 {
     if (response.success) {
-        Q_EMIT threads(Thread::parseList(response.body.toObject()[DAP_THREADS].toArray()));
+        Q_EMIT threads(Thread::parseList(response.body.toObject()[DAP_THREADS].toArray()), false, {});
     } else {
-        Q_EMIT threads(QList<Thread>());
+        Q_EMIT threads({}, true, response.message);
     }
 }
 

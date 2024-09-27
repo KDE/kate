@@ -233,7 +233,8 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     connect(m_backend, &BackendInterface::variableScopeClosed, m_localsView, &LocalsView::closeVariableScope);
     connect(m_backend, &BackendInterface::variableInfo, m_localsView, &LocalsView::addVariableLevel);
 
-    connect(m_backend, &BackendInterface::threadInfo, this, &KatePluginGDBView::insertThread);
+    connect(m_backend, &BackendInterface::threads, this, &KatePluginGDBView::onThreads);
+    connect(m_backend, &BackendInterface::threadUpdated, this, &KatePluginGDBView::updateThread);
 
     connect(m_backend, &BackendInterface::debuggeeOutput, this, &KatePluginGDBView::addOutput);
 
@@ -787,24 +788,72 @@ void KatePluginGDBView::scopeSelected(int scope)
     m_backend->changeScope(m_scopeCombo->itemData(scope).toInt());
 }
 
-void KatePluginGDBView::insertThread(const dap::Thread &thread, bool active)
+void KatePluginGDBView::onThreads(const QList<dap::Thread> &threads)
 {
-    if (thread.id < 0) {
-        m_threadCombo->clear();
-        m_activeThread = -1;
-        return;
+    m_threadCombo->clear();
+    int activeThread = m_activeThread;
+    m_activeThread = -1;
+    bool oldActiveThreadFound = false;
+
+    const auto pix = QIcon::fromTheme(QLatin1String("")).pixmap(10, 10);
+    for (const auto &thread : threads) {
+        QString name = i18n("Thread %1", thread.id);
+        if (!thread.name.isEmpty()) {
+            name += QStringLiteral(": %1").arg(thread.name);
+        }
+        QPixmap icon = pix;
+        if (thread.id == activeThread) {
+            icon = QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10);
+            oldActiveThreadFound = true;
+        }
+        m_threadCombo->addItem(icon, name, thread.id);
     }
-    QString text = i18n("Thread %1", thread.id);
-    if (!thread.name.isEmpty()) {
-        text += QStringLiteral(": %1").arg(thread.name);
+
+    // try to set an active thread
+    if (m_threadCombo->count() > 0) {
+        int idx = 0; // use first thread
+        if (oldActiveThreadFound) {
+            // if old active thread was found, use that instead
+            idx = m_threadCombo->findData(activeThread);
+            m_activeThread = activeThread;
+        } else {
+            m_activeThread = m_threadCombo->itemData(idx).toInt();
+        }
+        m_threadCombo->setCurrentIndex(idx);
     }
-    if (!active) {
-        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10, 10), text, thread.id);
-    } else {
-        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10), text, thread.id);
-        m_activeThread = m_threadCombo->count() - 1;
+}
+
+void KatePluginGDBView::updateThread(const dap::Thread &thread, Backend::ThreadState state, bool isActive)
+{
+    int idx = m_threadCombo->findData(thread.id);
+    if (idx == -1 && state != Backend::ThreadState::Exited) {
+        // thread wasn't found, add it
+        QString name = i18n("Thread %1", thread.id);
+        const QPixmap pix = QIcon::fromTheme(QLatin1String("")).pixmap(10, 10);
+        m_threadCombo->addItem(pix, name, thread.id);
+    } else if (idx != -1 && state == Backend::ThreadState::Exited) {
+        // remove exited thread
+        m_threadCombo->removeItem(idx);
     }
-    m_threadCombo->setCurrentIndex(m_activeThread);
+
+    // Try to set an active thread
+    if (isActive) {
+        if (m_activeThread != thread.id && m_activeThread != -1) {
+            int oldActiveIdx = m_threadCombo->findData(m_activeThread);
+            const QPixmap pix = QIcon::fromTheme(QLatin1String("")).pixmap(10, 10);
+            m_threadCombo->setItemIcon(oldActiveIdx, QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10));
+        }
+
+        m_activeThread = thread.id;
+        m_threadCombo->setItemIcon(idx, QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10));
+        m_threadCombo->setCurrentIndex(idx);
+    }
+
+    if (m_activeThread == -1 && m_threadCombo->count() > 0) {
+        // activate first thread if nothing active
+        m_activeThread = m_threadCombo->itemData(0).toInt();
+        m_threadCombo->setCurrentIndex(0);
+    }
 }
 
 void KatePluginGDBView::threadSelected(int thread)

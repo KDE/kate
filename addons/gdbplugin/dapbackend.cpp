@@ -61,7 +61,6 @@ void DapBackend::resetState(State state)
     if (state != Running) {
         m_currentThread = std::nullopt;
     }
-    m_watchedThread = std::nullopt;
     m_currentFrame = std::nullopt;
     m_commandQueue.clear();
     m_restart = false;
@@ -273,7 +272,7 @@ void DapBackend::onError(const QString &message)
 void DapBackend::onStopped(const dap::StoppedEvent &info)
 {
     setState(Stopped);
-    m_currentThread = m_watchedThread = info.threadId;
+    m_currentThread = info.threadId;
 
     QStringList text = {i18n("stopped (%1).", info.reason)};
     if (info.description) {
@@ -300,6 +299,7 @@ void DapBackend::onStopped(const dap::StoppedEvent &info)
 
     // request stack trace
     if (m_currentThread) {
+        Q_EMIT threadUpdated(dap::Thread(*m_currentThread), ThreadState::Stopped, true);
         pushRequest();
         m_client->requestStackTrace(*m_currentThread);
     }
@@ -312,6 +312,9 @@ void DapBackend::onStopped(const dap::StoppedEvent &info)
 void DapBackend::onContinuedEvent(const dap::ContinuedEvent &info)
 {
     resetState();
+
+    Q_EMIT threadUpdated(dap::Thread(info.threadId), ThreadState::Running, info.threadId == m_currentThread.value_or(-1));
+
     Q_EMIT outputText(printEvent(i18n("(continued) thread %1", QString::number(info.threadId))));
     if (info.allThreadsContinued) {
         Q_EMIT outputText(QStringLiteral(" (%1)").arg(i18n("all threads continued")));
@@ -329,17 +332,10 @@ void DapBackend::onRunning()
     }
 }
 
-void DapBackend::onThreads(const QList<dap::Thread> &threads)
+void DapBackend::onThreads(const QList<dap::Thread> &threads, bool isError)
 {
-    if (!m_currentThread) {
-        if (!threads.isEmpty()) {
-            m_currentThread = threads[0].id;
-        }
-    } else {
-        Q_EMIT threadInfo(dap::Thread(-1), false);
-        for (const auto &thread : threads) {
-            Q_EMIT threadInfo(thread, thread.id == m_currentThread.value_or(-1));
-        }
+    if (!isError) {
+        Q_EMIT this->threads(threads);
     }
     popRequest();
 }
@@ -486,6 +482,14 @@ void DapBackend::onDebuggingProcess(const dap::ProcessInfo &info)
 
 void DapBackend::onThreadEvent(const dap::ThreadEvent &info)
 {
+    ThreadState state = ThreadState::Unknown;
+    if (info.reason == QLatin1String("started")) {
+        state = ThreadState::Started;
+    } else if (info.reason == QLatin1String("exited")) {
+        state = ThreadState::Exited;
+    }
+    Q_EMIT threadUpdated(dap::Thread(info.threadId), state, m_currentThread.value_or(-1) == info.threadId);
+
     Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason).arg(i18n("thread %1", QString::number(info.threadId)))));
     // Request threads again with a debounce, some clients (flutter) send 0 threads the first time. Also, this keeps threads up to date
     m_requestThreadsTimer.start();
@@ -1724,13 +1728,10 @@ void DapBackend::changeThread(int index)
     if (!debuggerRunning())
         return;
 
-    if (!m_queryLocals)
+    if (m_currentThread && (*m_currentThread == index))
         return;
 
-    if (m_watchedThread && (*m_watchedThread == index))
-        return;
-
-    m_watchedThread = index;
+    m_currentThread = index;
 
     pushRequest();
     m_client->requestStackTrace(index);

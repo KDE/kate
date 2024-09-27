@@ -157,7 +157,11 @@ void GUIClient::registerToolView(ToolView *tv)
 
     /** Show ToolView Action **/
     KToggleAction *a = createToolViewToggleAction(i18n("Show %1", tv->text), tv, this);
-    actionCollection()->setDefaultShortcuts(a, shortcutsForActionName(aname));
+    //
+    QString s = QKeySequence::listToString(shortcutsForActionName(aname));
+    if (!(s.isEmpty())) {
+        a->setShortcuts(shortcutsForActionName(aname));
+    }
     actionCollection()->addAction(aname, a);
 
     m_toolMenu->addAction(a);
@@ -169,7 +173,10 @@ void GUIClient::registerToolView(ToolView *tv)
     aname = QStringLiteral("kate_mdi_show_toolview_button_") + tv->id;
     a = new KToggleAction(i18n("Show %1 Button", tv->text), this);
     a->setChecked(true);
-    actionCollection()->setDefaultShortcuts(a, shortcutsForActionName(aname));
+    s = QKeySequence::listToString(shortcutsForActionName(aname));
+    if (!(s.isEmpty())) {
+        a->setShortcuts(shortcutsForActionName(aname));
+    }
     actionCollection()->addAction(aname, a);
     connect(a, &KToggleAction::toggled, this, [toolview = QPointer<ToolView>(tv)](bool checked) {
         if (toolview) {
@@ -184,7 +191,10 @@ void GUIClient::registerToolView(ToolView *tv)
 
     aname = QStringLiteral("kate_mdi_focus_toolview_") + tv->id;
     QAction *act = new QAction(i18n("Focus %1", tv->text), this);
-    actionCollection()->setDefaultShortcuts(act, shortcutsForActionName(aname));
+    s = QKeySequence::listToString(shortcutsForActionName(aname));
+    if (!(s.isEmpty())) {
+        act->setShortcuts(shortcutsForActionName(aname));
+    }
     actionCollection()->addAction(aname, act);
     connect(act, &QAction::triggered, tv, [tv = QPointer(tv)] {
         if (tv && tv->mainWindow()) {

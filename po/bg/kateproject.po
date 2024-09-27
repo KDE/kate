@@ -1098,9 +1098,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Проекти"
-
-#~ msgid "Add"
-#~ msgstr "Добавяне"
-
-#~ msgid "Add File"
-#~ msgstr "Добавяне на файл"

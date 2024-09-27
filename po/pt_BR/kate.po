@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-23 00:41+0000\n"
+"POT-Creation-Date: 2024-09-27 00:42+0000\n"
 "PO-Revision-Date: 2024-03-18 16:31-0300\n"
 "Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -1244,7 +1244,7 @@ msgstr "Limite de diagnósticos:"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:23
+#: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
 msgstr ""

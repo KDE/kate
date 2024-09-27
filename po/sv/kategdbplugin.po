@@ -1,20 +1,20 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhall <stefan.asserhall@gmail.com>, 2010, 2011, 2013, 2014, 2020, 2022, 2023.
+# SPDX-FileCopyrightText: 2010, 2011, 2013, 2014, 2020, 2022, 2023, 2024 Stefan Asserhall <stefan.asserhall@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-26 00:41+0000\n"
-"PO-Revision-Date: 2023-07-26 13:43+0200\n"
+"PO-Revision-Date: 2024-09-26 20:40+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.08.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -714,10 +714,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "Växla brytpunkt"
 
 #: plugin_kategdb.cpp:296
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "Brytpunkt"
+msgstr "Ta bort alla brytpunkter"
 
 #: plugin_kategdb.cpp:302
 #, kde-format

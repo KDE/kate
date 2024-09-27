@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-26 00:41+0000\n"
-"PO-Revision-Date: 2023-05-10 05:48+0200\n"
+"PO-Revision-Date: 2024-09-26 05:35+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -715,10 +715,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "გამართვის წერტილის გადართვა / გაჩერება"
 
 #: plugin_kategdb.cpp:296
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "გამართვის წერტილი"
+msgstr "ყველა გამართვის წერტილის გასუფთავება"
 
 #: plugin_kategdb.cpp:302
 #, kde-format

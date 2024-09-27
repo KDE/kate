@@ -367,6 +367,15 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
     ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_C);
 
+    a = ac->addAction(QStringLiteral("diagnostics_show_hover"), this, [this]() {
+        if (auto v = m_mainWindow->activeView()) {
+            onTextHint(v, v->cursorPosition(), true);
+        }
+    });
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    a->setText(i18n("Show Hover Info"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
+
     m_posChangedTimer->setInterval(500);
     m_posChangedTimer->setSingleShot(true);
     m_posChangedTimer->callOnTimeout(this, [this] {
@@ -386,7 +395,9 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     // handle tab button creation
     connect(mainWindow->window(), SIGNAL(tabForToolViewAdded(QWidget *, QWidget *)), this, SLOT(tabForToolViewAdded(QWidget *, QWidget *)));
 
-    connect(m_textHintProvider.get(), &KateTextHintProvider::textHintRequested, this, &DiagnosticsView::onTextHint);
+    connect(m_textHintProvider.get(), &KateTextHintProvider::textHintRequested, this, [this](KTextEditor::View *v, KTextEditor::Cursor pos) {
+        onTextHint(v, pos, /*manual=*/false);
+    });
     connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &DiagnosticsView::handleEsc);
 
     mainWindow->guiFactory()->addClient(this);
@@ -1486,7 +1497,7 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
     menu->popup(m_diagnosticsTree->viewport()->mapToGlobal(pos));
 }
 
-void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position) const
+void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual) const
 {
     QString result;
     auto document = view->document();
@@ -1510,7 +1521,13 @@ void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cur
         }
     }
 
-    m_textHintProvider->textHintAvailable(result, TextHintMarkupKind::PlainText, position);
+    if (manual) {
+        if (!result.isEmpty()) {
+            m_textHintProvider->showTextHint(result, TextHintMarkupKind::PlainText, position);
+        }
+    } else {
+        m_textHintProvider->textHintAvailable(result, TextHintMarkupKind::PlainText, position);
+    }
 }
 
 void DiagnosticsView::onDocumentUrlChanged()

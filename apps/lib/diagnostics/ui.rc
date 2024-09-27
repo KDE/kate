@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate_diagnosticsview" version="1" translationDomain="kate">
+<gui name="kate_diagnosticsview" version="2" translationDomain="kate">
   <MenuBar>
     <Menu name="tools">
     <text>&amp;Tools</text>
@@ -10,6 +10,7 @@
         <Action name="goto_next_diagnostic"/>
         <Action name="goto_prev_diagnostic"/>
         <Action name="diagnostics_clear_filter"/>
+        <Action name="diagnostics_show_hover"/>
       </Menu>
     </Menu>
   </MenuBar>

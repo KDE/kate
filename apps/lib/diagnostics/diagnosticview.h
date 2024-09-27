@@ -161,7 +161,7 @@ public:
     void readSessionConfig(const KConfigGroup &config);
     void writeSessionConfig(KConfigGroup &config);
 
-    void onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position) const;
+    void onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual) const;
 
     void showToolview(DiagnosticsProvider *filterTo = nullptr);
     void filterViewTo(DiagnosticsProvider *provider);

@@ -302,3 +302,8 @@ void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)
 
     event->accept();
 }
+
+KTextEditor::MainWindow *KateProjectViewTree::mainWindow()
+{
+    return m_pluginView->mainWindow();
+}

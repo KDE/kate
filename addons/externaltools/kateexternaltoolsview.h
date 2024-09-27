@@ -136,6 +136,12 @@ public Q_SLOTS:
      */
     void handleEsc(QEvent *event);
 
+    /**
+     * Returns an action with a menu that has all the tools that
+     * match the mimetype of current document
+     */
+    QAction *externalToolsForDocumentAction(KTextEditor::Document *doc);
+
 private Q_SLOTS:
     void slotViewChanged(KTextEditor::View *v);
     void onDocumentSaved(KTextEditor::Document *doc);

@@ -416,6 +416,16 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
                         FileHistory::showFileHistory(url.toLocalFile());
                     }
                 });
+
+                auto externaltoolsplugin = m_mainWindow->pluginView(QStringLiteral("externaltoolsplugin"));
+                if (externaltoolsplugin) {
+                    QAction *a = nullptr;
+                    QMetaObject::invokeMethod(externaltoolsplugin, "externalToolsForDocumentAction", Q_RETURN_ARG(QAction *, a), doc);
+                    if (a) {
+                        a->setParent(&menu);
+                        menu.addAction(a);
+                    }
+                }
             }
 
             menu.addSeparator();

@@ -12,6 +12,11 @@
 class KateProjectPluginView;
 class KateProject;
 
+namespace KTextEditor
+{
+class MainWindow;
+}
+
 /**
  * A tree like view of project content.
  */
@@ -69,6 +74,8 @@ public:
      * Open project terminal at location dirPath
      */
     void openTerminal(const QString &dirPath);
+
+    KTextEditor::MainWindow *mainWindow();
 
 private:
     /**

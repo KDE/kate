@@ -19,6 +19,8 @@
 #include <KPropertiesDialog>
 #include <KTerminalLauncherJob>
 #include <KTextEditor/Document>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 
 #include <QAction>
 #include <QApplication>
@@ -120,6 +122,18 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     if (GitUtils::isGitRepo(QFileInfo(filename).absolutePath())) {
         menu.addSeparator();
         fileHistory = menu.addAction(i18n("Show Git History"));
+    }
+
+    auto externaltoolsplugin = parent->mainWindow()->pluginView(QStringLiteral("externaltoolsplugin"));
+    auto view = parent->mainWindow()->activeView();
+    auto doc = view ? view->document() : nullptr;
+    if (doc && externaltoolsplugin) {
+        QAction *a = nullptr;
+        QMetaObject::invokeMethod(externaltoolsplugin, "externalToolsForDocumentAction", Q_RETURN_ARG(QAction *, a), doc);
+        if (a) {
+            a->setParent(&menu);
+            menu.addAction(a);
+        }
     }
 
     auto handleDeleteFile = [parent, index](const QString &path) {

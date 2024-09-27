@@ -1483,10 +1483,10 @@ private:
             auto memIdIt = result.FindMember(MEMBER_ID);
             int msgid = -1;
             if (memIdIt != result.MemberEnd()) {
-                // allow id to be returned as a string value, happens e.g. for Perl LSP server
+                // According to the spec, the ID can be `integer | string | null`
                 if (memIdIt->value.IsString()) {
                     msgid = QByteArray(memIdIt->value.GetString()).toInt();
-                } else {
+                } else if (memIdIt->value.IsInt()) {
                     msgid = memIdIt->value.GetInt();
                 }
 

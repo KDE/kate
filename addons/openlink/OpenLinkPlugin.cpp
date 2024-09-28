@@ -199,7 +199,7 @@ void OpenLinkPluginView::gotoLink()
     }
 }
 
-static const QRegularExpression &linkRE()
+static const QRegularExpression &httplinkRE()
 {
     static const QRegularExpression re(
         QStringLiteral(R"re((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)))re"));
@@ -231,7 +231,7 @@ void OpenLinkPluginView::highlightIfLink(KTextEditor::Cursor c, QWidget *viewInt
         return;
     }
 
-    auto match = linkRE().match(line);
+    auto match = httplinkRE().match(line);
     const int capturedStart = match.capturedStart();
     int capturedEnd = match.capturedEnd();
 
@@ -289,24 +289,31 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
         ranges.clear();
     }
     // Loop over visible lines and highlight links
-    for (int i = startLine; i <= endLine; ++i) {
+    int linesChecked = 0;
+    for (int i = startLine; i <= endLine; ++i, ++linesChecked) {
+        // avoid checking too many lines
+        if (linesChecked > 400) {
+            break;
+        }
         const QString line = doc->line(i);
-        QRegularExpressionMatchIterator it = linkRE().globalMatch(line);
-        while (it.hasNext()) {
-            auto match = it.next();
-            if (match.hasMatch()) {
-                int capturedEnd = match.capturedEnd();
-                adjustMDLink(line, match.capturedStart(), capturedEnd);
-                KTextEditor::Range range(i, match.capturedStart(), i, capturedEnd);
-                KTextEditor::MovingRange *r = doc->newMovingRange(range);
-                static const KTextEditor::Attribute::Ptr attr([] {
-                    auto attr = new KTextEditor::Attribute;
-                    attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
-                    return attr;
-                }());
-                r->setAttribute(attr);
-                ranges.emplace_back(r);
-                // qDebug() << match.captured() << match.capturedStart() << match.capturedEnd();
+        if (line.contains(QLatin1String("http://")) || line.contains(QLatin1String("https://"))) {
+            QRegularExpressionMatchIterator it = httplinkRE().globalMatch(line);
+            while (it.hasNext()) {
+                auto match = it.next();
+                if (match.hasMatch()) {
+                    int capturedEnd = match.capturedEnd();
+                    adjustMDLink(line, match.capturedStart(), capturedEnd);
+                    KTextEditor::Range range(i, match.capturedStart(), i, capturedEnd);
+                    KTextEditor::MovingRange *r = doc->newMovingRange(range);
+                    static const KTextEditor::Attribute::Ptr attr([] {
+                        auto attr = new KTextEditor::Attribute;
+                        attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
+                        return attr;
+                    }());
+                    r->setAttribute(attr);
+                    ranges.emplace_back(r);
+                    // qDebug() << match.captured() << match.capturedStart() << match.capturedEnd();
+                }
             }
         }
     }

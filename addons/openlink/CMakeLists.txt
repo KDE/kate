@@ -8,3 +8,13 @@ target_sources(openlinkplugin PRIVATE OpenLinkPlugin.cpp)
 if(BUILD_PCH)
   target_precompile_headers(openlinkplugin REUSE_FROM katepch)
 endif()
+
+if (BUILD_TESTING)
+    include(ECMMarkAsTest)
+
+    find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
+    add_executable(linkmatchtest linkmatchtest.cpp)
+    add_test(NAME linkmatchtest COMMAND linkmatchtest ${OFFSCREEN_QPA})
+    target_link_libraries(linkmatchtest PRIVATE kateprivate Qt::Test Qt::Core)
+    ecm_mark_as_test(linkmatchtest)
+endif()

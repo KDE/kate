@@ -9,10 +9,10 @@
 #include "kateprojectindex.h"
 #include "kateprojectitem.h"
 
+#include "hostprocess.h"
 #include <bytearraysplitter.h>
 #include <gitprocess.h>
 
-#include "hostprocess.h"
 #include <QDir>
 #include <QDirIterator>
 #include <QFile>
@@ -23,6 +23,8 @@
 #include <QStandardPaths>
 #include <QThread>
 #include <QtConcurrent>
+
+#include <KLocalizedString>
 
 #include <algorithm>
 #include <tuple>
@@ -467,6 +469,11 @@ QList<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
         lsFilesUntrackedArgs.insert(4, QStringLiteral("--deduplicate"));
     }
 
+    if (major == -1) {
+        Q_EMIT errorOccurred(notInstalledErrorString(QStringLiteral("'git'")));
+        return {};
+    }
+
     // ls-files + ls-files untracked
     return gitFiles(dir, recursive, lsFilesArgs) << gitFiles(dir, recursive, lsFilesUntrackedArgs);
 }
@@ -502,6 +509,7 @@ QList<QString> KateProjectWorker::filesFromMercurial(const QDir &dir, bool recur
     QList<QString> files;
     static const auto fullExecutablePath = safeExecutableName(QStringLiteral("hg"));
     if (fullExecutablePath.isEmpty()) {
+        Q_EMIT errorOccurred(notInstalledErrorString(QStringLiteral("'hg'")));
         return files;
     }
 
@@ -534,6 +542,7 @@ QList<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool recu
     QList<QString> files;
     static const auto fullExecutablePath = safeExecutableName(QStringLiteral("svn"));
     if (fullExecutablePath.isEmpty()) {
+        Q_EMIT errorOccurred(notInstalledErrorString(QStringLiteral("'svn'")));
         return files;
     }
 
@@ -601,6 +610,7 @@ QList<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive
     QList<QString> files;
     static const auto fullExecutablePath = safeExecutableName(QStringLiteral("darcs"));
     if (fullExecutablePath.isEmpty()) {
+        Q_EMIT errorOccurred(notInstalledErrorString(QStringLiteral("'darcs'")));
         return files;
     }
 
@@ -664,6 +674,7 @@ QList<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursiv
     QList<QString> files;
     static const auto fullExecutablePath = safeExecutableName(QStringLiteral("fossil"));
     if (fullExecutablePath.isEmpty()) {
+        Q_EMIT errorOccurred(notInstalledErrorString(QStringLiteral("'fossil'")));
         return files;
     }
 
@@ -725,6 +736,14 @@ QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, b
         files.append(dirIterator.filePath().remove(dirPath));
     }
     return files;
+}
+
+QString KateProjectWorker::notInstalledErrorString(const QString &program)
+{
+    return i18n(
+        "Unable to load %1 based project because either %1 is not installed or it wasn't found in PATH envirnoment variable. Please install %1 or "
+        "alternatively disable the option 'Autoload Repositories && Build Trees' in project settings.",
+        program);
 }
 
 #include "moc_kateprojectworker.cpp"

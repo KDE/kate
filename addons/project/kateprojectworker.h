@@ -39,6 +39,7 @@ public:
 Q_SIGNALS:
     void loadDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQHashStringItem file2Item);
     void loadIndexDone(KateProjectSharedProjectIndex index);
+    void errorOccurred(const QString &);
 
 private:
     /**
@@ -58,18 +59,20 @@ private:
      */
     void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir);
 
-    static QList<QString> findFiles(const QDir &dir, const QVariantMap &filesEntry);
+    QList<QString> findFiles(const QDir &dir, const QVariantMap &filesEntry);
 
-    static QList<QString> filesFromGit(const QDir &dir, bool recursive);
-    static QList<QString> filesFromMercurial(const QDir &dir, bool recursive);
-    static QList<QString> filesFromSubversion(const QDir &dir, bool recursive);
-    static QList<QString> filesFromDarcs(const QDir &dir, bool recursive);
-    static QList<QString> filesFromFossil(const QDir &dir, bool recursive);
+    QList<QString> filesFromGit(const QDir &dir, bool recursive);
+    QList<QString> filesFromMercurial(const QDir &dir, bool recursive);
+    QList<QString> filesFromSubversion(const QDir &dir, bool recursive);
+    QList<QString> filesFromDarcs(const QDir &dir, bool recursive);
+    QList<QString> filesFromFossil(const QDir &dir, bool recursive);
     static QList<QString> filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters);
 
     static QList<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);
 
 private:
+    static QString notInstalledErrorString(const QString &program);
+
     /**
      * project base directory name
      */

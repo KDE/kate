@@ -17,6 +17,7 @@
 #include <QTextDocument>
 
 #include <json_utils.h>
+#include <ktexteditor_utils.h>
 
 #include <QApplication>
 #include <QDir>
@@ -292,6 +293,17 @@ QVariantMap KateProject::readProjectFile() const
     return project.toVariant().toMap();
 }
 
+static void onErrorOccurred(const QString &error)
+{
+    static QSet<QString> notifiedErrors;
+    // we only show the error once
+    if (notifiedErrors.contains(error)) {
+        return;
+    }
+    notifiedErrors.insert(error);
+    Utils::showMessage(error, QIcon(), i18n("Project"), MessageType::Error);
+}
+
 bool KateProject::load(const QVariantMap &globalProject, bool force)
 {
     /**
@@ -352,6 +364,7 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
     auto w = new KateProjectWorker(m_baseDir, indexDir, m_projectMap, force);
     connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone, Qt::QueuedConnection);
     connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone, Qt::QueuedConnection);
+    connect(w, &KateProjectWorker::errorOccurred, this, onErrorOccurred, Qt::QueuedConnection);
     m_threadPool.start(w);
 
     // we are done here

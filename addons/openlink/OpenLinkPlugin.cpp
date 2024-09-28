@@ -19,6 +19,20 @@
 #include <QToolTip>
 #include <QUrl>
 
+namespace
+{
+enum OpenLinkType {
+    HttpLink,
+    FileLink,
+};
+
+struct OpenLinkRange {
+    int start = 0;
+    int end = 0;
+    OpenLinkType type;
+};
+}
+
 class OpenLinkTextHint : public KTextEditor::TextHintProvider
 {
     OpenLinkPluginView *m_pview;
@@ -117,6 +131,7 @@ public:
         currentWord.clear();
     }
 
+    OpenLinkType linkType = HttpLink;
     QString currentWord;
     QPointer<QWidget> viewInternal;
 
@@ -194,8 +209,14 @@ void OpenLinkPluginView::clear(KTextEditor::Document *doc)
 void OpenLinkPluginView::gotoLink()
 {
     const QUrl u = QUrl::fromUserInput(m_ctrlHoverFeedback->currentWord);
-    if (u.isValid()) {
-        QDesktopServices::openUrl(u);
+    if (m_ctrlHoverFeedback->linkType == HttpLink) {
+        if (u.isValid()) {
+            QDesktopServices::openUrl(u);
+        }
+    } else if (m_ctrlHoverFeedback->linkType == FileLink) {
+        m_mainWindow->openUrl(u);
+    } else {
+        Q_ASSERT(false);
     }
 }
 
@@ -219,6 +240,45 @@ static void adjustMDLink(const QString &line, int capturedStart, int &capturedEn
     }
 }
 
+static std::pair<int, int> matchesFilePath(const QString &line, int from)
+{
+    int s = line.indexOf(QLatin1Char('/'), from);
+    if (s != -1) {
+        const bool matchNextQuote = s > 0 && line[s - 1] == u'"';
+        int e = -1;
+        if (!matchNextQuote) {
+            e = line.indexOf(u' ', s);
+            e = e == -1 ? line.size() : e;
+        } else {
+            e = line.indexOf(u'"', s);
+        }
+        if (e != -1 && QFileInfo(line.mid(s, e)).isFile()) {
+            return {s, e};
+        }
+    }
+    return {-1, -1};
+}
+
+static void matchLine(const QString &line, std::vector<OpenLinkRange> *outColumnRanges)
+{
+    outColumnRanges->clear();
+    if (line.contains(QLatin1String("http://")) || line.contains(QLatin1String("https://"))) {
+        QRegularExpressionMatchIterator it = httplinkRE().globalMatch(line);
+        while (it.hasNext()) {
+            auto match = it.next();
+            if (match.hasMatch()) {
+                int capturedEnd = match.capturedEnd();
+                adjustMDLink(line, match.capturedStart(), capturedEnd);
+                outColumnRanges->push_back({.start = (int)match.capturedStart(), .end = capturedEnd, .type = HttpLink});
+            }
+        }
+    }
+
+    if (auto [s, e] = matchesFilePath(line, 0); s >= 0 && e >= 0) {
+        outColumnRanges->push_back({.start = s, .end = e, .type = FileLink});
+    }
+}
+
 void OpenLinkPluginView::highlightIfLink(KTextEditor::Cursor c, QWidget *viewInternal)
 {
     if (!m_activeView || !m_activeView->document() || !c.isValid()) {
@@ -231,16 +291,17 @@ void OpenLinkPluginView::highlightIfLink(KTextEditor::Cursor c, QWidget *viewInt
         return;
     }
 
-    auto match = httplinkRE().match(line);
-    const int capturedStart = match.capturedStart();
-    int capturedEnd = match.capturedEnd();
-
-    if (match.hasMatch() && capturedStart <= c.column() && c.column() <= capturedEnd) {
-        adjustMDLink(line, capturedStart, capturedEnd);
-        m_ctrlHoverFeedback->currentWord = line.mid(capturedStart, capturedEnd - capturedStart);
-        m_ctrlHoverFeedback->viewInternal = viewInternal;
-        KTextEditor::Range range(c.line(), capturedStart, c.line(), capturedEnd);
-        m_ctrlHoverFeedback->highlight(m_activeView, range);
+    std::vector<OpenLinkRange> matchedRanges;
+    matchLine(line, &matchedRanges);
+    for (auto [start, end, type] : matchedRanges) {
+        if (start <= c.column() && c.column() <= end) {
+            m_ctrlHoverFeedback->currentWord = line.mid(start, end - start);
+            m_ctrlHoverFeedback->viewInternal = viewInternal;
+            m_ctrlHoverFeedback->linkType = type;
+            KTextEditor::Range range(c.line(), start, c.line(), end);
+            m_ctrlHoverFeedback->highlight(m_activeView, range);
+            break;
+        }
     }
 }
 
@@ -267,6 +328,18 @@ void OpenLinkPluginView::onViewScrolled()
     highlightLinks(KTextEditor::Range::invalid());
 }
 
+static KTextEditor::MovingRange *highlightRange(KTextEditor::Document *doc, KTextEditor::Range range)
+{
+    KTextEditor::MovingRange *r = doc->newMovingRange(range);
+    static const KTextEditor::Attribute::Ptr attr([] {
+        auto attr = new KTextEditor::Attribute;
+        attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
+        return attr;
+    }());
+    r->setAttribute(attr);
+    return r;
+}
+
 void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
 {
     if (!m_activeView) {
@@ -290,31 +363,17 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
     }
     // Loop over visible lines and highlight links
     int linesChecked = 0;
+    std::vector<OpenLinkRange> matchedRanges;
     for (int i = startLine; i <= endLine; ++i, ++linesChecked) {
         // avoid checking too many lines
         if (linesChecked > 400) {
             break;
         }
         const QString line = doc->line(i);
-        if (line.contains(QLatin1String("http://")) || line.contains(QLatin1String("https://"))) {
-            QRegularExpressionMatchIterator it = httplinkRE().globalMatch(line);
-            while (it.hasNext()) {
-                auto match = it.next();
-                if (match.hasMatch()) {
-                    int capturedEnd = match.capturedEnd();
-                    adjustMDLink(line, match.capturedStart(), capturedEnd);
-                    KTextEditor::Range range(i, match.capturedStart(), i, capturedEnd);
-                    KTextEditor::MovingRange *r = doc->newMovingRange(range);
-                    static const KTextEditor::Attribute::Ptr attr([] {
-                        auto attr = new KTextEditor::Attribute;
-                        attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
-                        return attr;
-                    }());
-                    r->setAttribute(attr);
-                    ranges.emplace_back(r);
-                    // qDebug() << match.captured() << match.capturedStart() << match.capturedEnd();
-                }
-            }
+        matchLine(line, &matchedRanges);
+        for (auto [startCol, endCol, _] : matchedRanges) {
+            KTextEditor::Range range(i, startCol, i, endCol);
+            ranges.emplace_back(highlightRange(doc, range));
         }
     }
 }

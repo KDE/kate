@@ -419,17 +419,17 @@ void ConfigView::writeConfig(KConfigGroup &group)
 
     QString targetKey(QStringLiteral("target_%1"));
 
-    group.writeEntry("targetCount", m_targetCombo->count());
     group.writeEntry("lastTarget", m_targetCombo->currentIndex());
+    int targetIdx = 0;
     for (int i = 0; i < m_targetCombo->count(); i++) {
         QJsonObject targetConf = m_targetCombo->itemData(i).toJsonObject();
         if (targetConf.value(F_IS_LAUNCH_JSON).toBool()) {
             // skip objects from launch.json
             continue;
         }
-        group.writeEntry(targetKey.arg(i), serialize(targetConf));
+        group.writeEntry(targetKey.arg(targetIdx++), serialize(targetConf));
     }
-
+    group.writeEntry("targetCount", targetIdx);
     group.writeEntry("alwaysFocusOnInput", m_takeFocus->isChecked());
     group.writeEntry("redirectTerminal", m_redirectTerminal->isChecked());
 }

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-26 00:41+0000\n"
+"POT-Creation-Date: 2024-09-28 00:42+0000\n"
 "PO-Revision-Date: 2011-10-21 07:41+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -104,79 +104,79 @@ msgid ""
 "session."
 msgstr ""
 
-#: configview.cpp:95
+#: configview.cpp:91
 #, fuzzy, kde-format
 #| msgid "Add executable target"
 msgid "Add new target"
 msgstr "ਚੱਲਣਯੋਗ ਟਾਰਗੇਟ ਸ਼ਾਮਲ"
 
-#: configview.cpp:99
+#: configview.cpp:95
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy target"
 msgstr "ਟਾਰਗੇਟ ਹਟਾਓ"
 
-#: configview.cpp:103
+#: configview.cpp:99
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Delete target"
 msgstr "ਟਾਰਗੇਟ ਹਟਾਓ"
 
-#: configview.cpp:108
+#: configview.cpp:104
 #, kde-format
 msgid "Executable:"
 msgstr ""
 
-#: configview.cpp:128
+#: configview.cpp:124
 #, fuzzy, kde-format
 #| msgid "&Working Directory:"
 msgid "Working Directory:"
 msgstr "ਵਰਕਿੰਗ ਡਾਇਰੈਕਟਰੀ(&W):"
 
-#: configview.cpp:136
+#: configview.cpp:132
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:141
+#: configview.cpp:137
 #, fuzzy, kde-format
 #| msgid "Remove Argument List"
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "ਆਰਗੂਮੈਂਟ ਲਿਸਟ ਹਟਾਓ"
 
-#: configview.cpp:144
+#: configview.cpp:140
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "ਫੋਕਸ ਰੱਖੋ"
 
-#: configview.cpp:145
+#: configview.cpp:141
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr ""
 
-#: configview.cpp:147
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect IO"
 msgstr ""
 
-#: configview.cpp:148
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 
-#: configview.cpp:150
+#: configview.cpp:146
 #, kde-format
 msgid "Advanced Settings"
 msgstr ""
 
-#: configview.cpp:234
+#: configview.cpp:266
 #, kde-format
 msgid "Targets"
 msgstr ""
 
-#: configview.cpp:527 configview.cpp:540
+#: configview.cpp:563 configview.cpp:576
 #, fuzzy, kde-format
 #| msgid "&Target:"
 msgid "Target %1"
@@ -683,7 +683,7 @@ msgctxt "Tab label"
 msgid "Settings"
 msgstr ""
 
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:242
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -691,27 +691,27 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:266
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Start Debugging"
 msgstr ""
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:277
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr ""
 
-#: plugin_kategdb.cpp:283
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "Continue"
 msgstr ""
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:290
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr ""
 
-#: plugin_kategdb.cpp:296
+#: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr ""

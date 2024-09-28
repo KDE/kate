@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-26 00:41+0000\n"
+"POT-Creation-Date: 2024-09-28 00:42+0000\n"
 "PO-Revision-Date: 2015-12-29 16:09+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -110,74 +110,74 @@ msgid ""
 "session."
 msgstr ""
 
-#: configview.cpp:95
+#: configview.cpp:91
 #, kde-format
 msgid "Add new target"
 msgstr "Pridėti naują tikslą"
 
-#: configview.cpp:99
+#: configview.cpp:95
 #, kde-format
 msgid "Copy target"
 msgstr "Kopijuoti tikslą"
 
-#: configview.cpp:103
+#: configview.cpp:99
 #, kde-format
 msgid "Delete target"
 msgstr "Trinti tikslą"
 
-#: configview.cpp:108
+#: configview.cpp:104
 #, kde-format
 msgid "Executable:"
 msgstr "Programa:"
 
-#: configview.cpp:128
+#: configview.cpp:124
 #, kde-format
 msgid "Working Directory:"
 msgstr "Darbinė direktorija:"
 
-#: configview.cpp:136
+#: configview.cpp:132
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:141
+#: configview.cpp:137
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumentai:"
 
-#: configview.cpp:144
+#: configview.cpp:140
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Išlaikyti fokusą"
 
-#: configview.cpp:145
+#: configview.cpp:141
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Išlaikyti fokusą komandinėje eilutėje"
 
-#: configview.cpp:147
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect IO"
 msgstr "Nukreipti IO"
 
-#: configview.cpp:148
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 
-#: configview.cpp:150
+#: configview.cpp:146
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Išsamesnės nuostatos"
 
-#: configview.cpp:234
+#: configview.cpp:266
 #, kde-format
 msgid "Targets"
 msgstr "Tikslas"
 
-#: configview.cpp:527 configview.cpp:540
+#: configview.cpp:563 configview.cpp:576
 #, kde-format
 msgid "Target %1"
 msgstr "Tikslas %1"
@@ -697,7 +697,7 @@ msgctxt "Tab label"
 msgid "Settings"
 msgstr "Nuostatos"
 
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:242
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -705,27 +705,27 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:266
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Start Debugging"
 msgstr "Pradėti derinimą"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:277
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Nutraukti / Sustabdyti derinimą"
 
-#: plugin_kategdb.cpp:283
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "Continue"
 msgstr "Tęsti"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:290
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Perjungti stabdos tašką / lūžį"
 
-#: plugin_kategdb.cpp:296
+#: plugin_kategdb.cpp:297
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"

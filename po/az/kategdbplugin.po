@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-26 00:41+0000\n"
+"POT-Creation-Date: 2024-09-28 00:42+0000\n"
 "PO-Revision-Date: 2023-06-30 16:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -105,76 +105,76 @@ msgstr ""
 "Sazlama sesiyası icra olunur. Lütfən yenidın başladın və ya cari sesiyanı "
 "dayandırın."
 
-#: configview.cpp:95
+#: configview.cpp:91
 #, kde-format
 msgid "Add new target"
 msgstr "Yeni hədəf əlavə edin"
 
-#: configview.cpp:99
+#: configview.cpp:95
 #, kde-format
 msgid "Copy target"
 msgstr "Hədəfi kopyalayın"
 
-#: configview.cpp:103
+#: configview.cpp:99
 #, kde-format
 msgid "Delete target"
 msgstr "Hədəfi silin"
 
-#: configview.cpp:108
+#: configview.cpp:104
 #, kde-format
 msgid "Executable:"
 msgstr "İcra edilə bilən:"
 
-#: configview.cpp:128
+#: configview.cpp:124
 #, kde-format
 msgid "Working Directory:"
 msgstr "İş qovluğu:"
 
-#: configview.cpp:136
+#: configview.cpp:132
 #, kde-format
 msgid "Process Id:"
 msgstr "Proses İD-si:"
 
-#: configview.cpp:141
+#: configview.cpp:137
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Arqumentlər:"
 
-#: configview.cpp:144
+#: configview.cpp:140
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Diqqət mərkəzuində saxlamaq"
 
-#: configview.cpp:145
+#: configview.cpp:141
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Əmr sətrini diqqət mərkəzində saxlayın"
 
-#: configview.cpp:147
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect IO"
 msgstr "Giriş-çıxışı yönləndirmək"
 
-#: configview.cpp:148
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Xəta sazlaması edilən proqramların Giriş-Çıxışlarının\n"
 "başqa vərəqə yönləndirin"
 
-#: configview.cpp:150
+#: configview.cpp:146
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Əlavə Ayarlar"
 
-#: configview.cpp:234
+#: configview.cpp:266
 #, kde-format
 msgid "Targets"
 msgstr "Hədəflər"
 
-#: configview.cpp:527 configview.cpp:540
+#: configview.cpp:563 configview.cpp:576
 #, kde-format
 msgid "Target %1"
 msgstr "Hədəf %1"
@@ -687,7 +687,7 @@ msgctxt "Tab label"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:242
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -697,27 +697,27 @@ msgstr ""
 "<title>Fayl aşıla bilmədi</title><nl/>%1<br/>Axtraış yolunu Əlavə ayarlar > "
 "Mənbə faylının axttarış yolları, yoluna əlavə etməyə cəhd edin"
 
-#: plugin_kategdb.cpp:266
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Start Debugging"
 msgstr "Xəta sazlamasını başladın"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:277
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Xəta sazlamasını sonlandırmaq/Dayandırmaq"
 
-#: plugin_kategdb.cpp:283
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "Continue"
 msgstr "Davam edin"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:290
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Qırılma nöqtəsini ilə qırılma arası keçid"
 
-#: plugin_kategdb.cpp:296
+#: plugin_kategdb.cpp:297
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"

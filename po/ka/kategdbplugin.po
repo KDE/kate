@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-26 00:41+0000\n"
+"POT-Creation-Date: 2024-09-28 00:42+0000\n"
 "PO-Revision-Date: 2024-09-26 05:35+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -106,74 +106,74 @@ msgstr ""
 "მიმდინარეობს გამართვის სესია. გამოიყენეთ თავიდან გაშვება ან გააჩერეთ "
 "მიმდინარე სესია."
 
-#: configview.cpp:95
+#: configview.cpp:91
 #, kde-format
 msgid "Add new target"
 msgstr "ახალი სამიზნის დამატება"
 
-#: configview.cpp:99
+#: configview.cpp:95
 #, kde-format
 msgid "Copy target"
 msgstr "სამიზნის კოპირება"
 
-#: configview.cpp:103
+#: configview.cpp:99
 #, kde-format
 msgid "Delete target"
 msgstr "სამიზნის წაშლა"
 
-#: configview.cpp:108
+#: configview.cpp:104
 #, kde-format
 msgid "Executable:"
 msgstr "გამშვები ფაილი:"
 
-#: configview.cpp:128
+#: configview.cpp:124
 #, kde-format
 msgid "Working Directory:"
 msgstr "სამუშაო საქაღალდე:"
 
-#: configview.cpp:136
+#: configview.cpp:132
 #, kde-format
 msgid "Process Id:"
 msgstr "პროცესის ID:"
 
-#: configview.cpp:141
+#: configview.cpp:137
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "არგუმენტები:"
 
-#: configview.cpp:144
+#: configview.cpp:140
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "ფოკუსის დატოვება"
 
-#: configview.cpp:145
+#: configview.cpp:141
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "ფოკუსის შენრჩუნება ბრძანების სტრიქონზე"
 
-#: configview.cpp:147
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect IO"
 msgstr "IO-ის გადამისამართება"
 
-#: configview.cpp:148
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "გამართვადი პროგრამების შეტანა/გამოტანის ცალკე ჩანართში გადამისამართება"
 
-#: configview.cpp:150
+#: configview.cpp:146
 #, kde-format
 msgid "Advanced Settings"
 msgstr "დამატებითი პარამეტრები"
 
-#: configview.cpp:234
+#: configview.cpp:266
 #, kde-format
 msgid "Targets"
 msgstr "სამიზნეები"
 
-#: configview.cpp:527 configview.cpp:540
+#: configview.cpp:563 configview.cpp:576
 #, kde-format
 msgid "Target %1"
 msgstr "სამიზნე %1"
@@ -684,7 +684,7 @@ msgctxt "Tab label"
 msgid "Settings"
 msgstr "მორგება"
 
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:242
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -694,27 +694,27 @@ msgstr ""
 "<title>ფაილის გახსნის შეცდომა:</title><nl/>%1<br/>სცადეთ დამაატოთ საძებნი "
 "ბილიკი დამატებით პარამეტრებში -> კოდის ფაილების ძებნის ბილიკები"
 
-#: plugin_kategdb.cpp:266
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Start Debugging"
 msgstr "გამარტვის დაწყება"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:277
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "გამართვის მოკვლა / გაჩერება"
 
-#: plugin_kategdb.cpp:283
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "Continue"
 msgstr "გაგრძელება"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:290
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "გამართვის წერტილის გადართვა / გაჩერება"
 
-#: plugin_kategdb.cpp:296
+#: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "ყველა გამართვის წერტილის გასუფთავება"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-26 00:41+0000\n"
+"POT-Creation-Date: 2024-09-28 00:42+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shreekant Kalwar\n"
 "Language-Team: Sanskrit\n"
@@ -103,74 +103,74 @@ msgstr ""
 "एकं त्रुटिनिवारणसत्रं प्रचलति । कृपया, वर्तमानसत्रं पुनः चालयन्तु अथवा स्थगयन्तु इति उपयोगं "
 "कुर्वन्तु ।."
 
-#: configview.cpp:95
+#: configview.cpp:91
 #, kde-format
 msgid "Add new target"
 msgstr "नूतनं लक्ष्यं योजयन्तु"
 
-#: configview.cpp:99
+#: configview.cpp:95
 #, kde-format
 msgid "Copy target"
 msgstr "लक्ष्यं प्रतिलिख्यताम्"
 
-#: configview.cpp:103
+#: configview.cpp:99
 #, kde-format
 msgid "Delete target"
 msgstr "लक्ष्यं विलोपयन्तु"
 
-#: configview.cpp:108
+#: configview.cpp:104
 #, kde-format
 msgid "Executable:"
 msgstr "निष्पादनीयः :"
 
-#: configview.cpp:128
+#: configview.cpp:124
 #, kde-format
 msgid "Working Directory:"
 msgstr "कार्यपुटम् :"
 
-#: configview.cpp:136
+#: configview.cpp:132
 #, kde-format
 msgid "Process Id:"
 msgstr "प्रक्रिया परिचयः:"
 
-#: configview.cpp:141
+#: configview.cpp:137
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "तर्काः :"
 
-#: configview.cpp:144
+#: configview.cpp:140
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "ध्यानं स्थापयन्तु"
 
-#: configview.cpp:145
+#: configview.cpp:141
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "आदेशपङ्क्तौ ध्यानं स्थापयन्तु"
 
-#: configview.cpp:147
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect IO"
 msgstr "पुनर्निर्देशन IO"
 
-#: configview.cpp:148
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "त्रुटिनिवारणं कृतानां कार्यक्रमानां IO पृथक् ट्याब् प्रति पुनः निर्देशयन्तु"
 
-#: configview.cpp:150
+#: configview.cpp:146
 #, kde-format
 msgid "Advanced Settings"
 msgstr "उन्नत समयोजनानि"
 
-#: configview.cpp:234
+#: configview.cpp:266
 #, kde-format
 msgid "Targets"
 msgstr "लक्ष्यम्"
 
-#: configview.cpp:527 configview.cpp:540
+#: configview.cpp:563 configview.cpp:576
 #, kde-format
 msgid "Target %1"
 msgstr "लक्ष्यं %1"
@@ -681,7 +681,7 @@ msgctxt "Tab label"
 msgid "Settings"
 msgstr "समयोजनानि"
 
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:242
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -691,27 +691,27 @@ msgstr ""
 "<title>सञ्चिकां उद्घाटयितुं न शक्तवती:</title><nl/>%1<br/>उन्नतसमयोजनानिस् -> "
 "स्रोतसञ्चिका अन्वेषणमार्गेषु अन्वेषणमार्गं योजयितुं प्रयतस्व"
 
-#: plugin_kategdb.cpp:266
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Start Debugging"
 msgstr "त्रुटिनिवारणं आरभत"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:277
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "मारयतु / त्रुटिनिवारणं स्थगयतु"
 
-#: plugin_kategdb.cpp:283
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "Continue"
 msgstr "अनुवर्तते"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:290
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "भङ्गबिन्दु विभाषयति / विरामं कुर्वन्तु"
 
-#: plugin_kategdb.cpp:296
+#: plugin_kategdb.cpp:297
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"

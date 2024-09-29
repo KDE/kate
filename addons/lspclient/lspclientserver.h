@@ -70,7 +70,7 @@ using ExpandMacroHandler = ReplyHandler<LSPExpandedMacro>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformation>>;
 using SelectionRangeReplyHandler = ReplyHandler<QList<std::shared_ptr<LSPSelectionRange>>>;
-using InlayHintsReplyHandler = ReplyHandler<QList<LSPInlayHint>>;
+using InlayHintsReplyHandler = ReplyHandler<std::vector<LSPInlayHint>>;
 
 class LSPClientPlugin;
 

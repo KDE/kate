@@ -32,7 +32,7 @@ public:
     InlayHintNoteProvider(InlayHintsManager *mgr);
     void viewChanged(KTextEditor::View *v);
 
-    const QList<LSPInlayHint> &hints() const;
+    const std::vector<LSPInlayHint> &hints() const;
     QList<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
     void paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const override;
@@ -53,7 +53,7 @@ public:
     void setActiveView(KTextEditor::View *v);
     void disable();
 
-    const QList<LSPInlayHint> &hintsForActiveView();
+    const std::vector<LSPInlayHint> &hintsForActiveView();
 
 private:
     void registerView(KTextEditor::View *);
@@ -67,9 +67,9 @@ private:
     struct InsertResult {
         const bool newDoc = false;
         const QVarLengthArray<int, 16> changedLines;
-        const QList<LSPInlayHint> addedHints;
+        const std::vector<LSPInlayHint> addedHints;
     };
-    InsertResult insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const QList<LSPInlayHint> &newHints);
+    InsertResult insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const std::vector<LSPInlayHint> &newHints);
 
     void onTextInserted(KTextEditor::Document *doc, KTextEditor::Cursor pos, const QString &text);
     void onTextRemoved(KTextEditor::Document *doc, KTextEditor::Range range, const QString &t);
@@ -79,7 +79,7 @@ private:
     struct HintData {
         QPointer<KTextEditor::Document> doc;
         QByteArray checksum;
-        QList<LSPInlayHint> m_hints;
+        std::vector<LSPInlayHint> m_hints;
     };
     std::vector<HintData> m_hintDataByDoc;
 
@@ -88,5 +88,5 @@ private:
     InlayHintNoteProvider m_noteProvider;
     std::shared_ptr<LSPClientServerManager> m_serverManager;
     QList<KTextEditor::Range> pendingRanges;
-    const QList<LSPInlayHint> m_emptyHintsArray;
+    const std::vector<LSPInlayHint> m_emptyHintsArray;
 };

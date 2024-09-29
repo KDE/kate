@@ -39,7 +39,7 @@ static auto binaryFind(T &&hints, int line)
     return hints.end();
 }
 
-static auto binaryFind(const QList<LSPInlayHint> &hints, KTextEditor::Cursor pos)
+static auto binaryFind(const std::vector<LSPInlayHint> &hints, KTextEditor::Cursor pos)
 {
     auto it = std::lower_bound(hints.begin(), hints.end(), pos, [](const LSPInlayHint &h, KTextEditor::Cursor p) {
         return h.position < p;
@@ -50,7 +50,7 @@ static auto binaryFind(const QList<LSPInlayHint> &hints, KTextEditor::Cursor pos
     return hints.end();
 }
 
-static void removeInvalidRanges(QList<LSPInlayHint> &hints, QList<LSPInlayHint>::iterator begin, QList<LSPInlayHint>::iterator end)
+static void removeInvalidRanges(std::vector<LSPInlayHint> &hints, std::vector<LSPInlayHint>::iterator begin, std::vector<LSPInlayHint>::iterator end)
 {
     hints.erase(std::remove_if(begin,
                                end,
@@ -75,7 +75,7 @@ void InlayHintNoteProvider::viewChanged(KTextEditor::View *v)
     }
 }
 
-const QList<LSPInlayHint> &InlayHintNoteProvider::hints() const
+const std::vector<LSPInlayHint> &InlayHintNoteProvider::hints() const
 {
     return m_mgr->hintsForActiveView();
 }
@@ -221,7 +221,7 @@ void InlayHintsManager::disable()
     m_currentView.clear();
 }
 
-const QList<LSPInlayHint> &InlayHintsManager::hintsForActiveView()
+const std::vector<LSPInlayHint> &InlayHintsManager::hintsForActiveView()
 {
     if (auto v = m_currentView) {
         auto doc = v->document();
@@ -277,7 +277,7 @@ void InlayHintsManager::sendRequest(KTextEditor::Range rangeToRequest)
     auto v = m_currentView;
     auto server = m_serverManager->findServer(v, false);
     if (server) {
-        server->documentInlayHint(url, rangeToRequest, this, [v = QPointer(m_currentView), rangeToRequest, this](QList<LSPInlayHint> hints) {
+        server->documentInlayHint(url, rangeToRequest, this, [v = QPointer(m_currentView), rangeToRequest, this](std::vector<LSPInlayHint> hints) {
             if (!v || m_currentView != v) {
                 return;
             }
@@ -482,7 +482,7 @@ void InlayHintsManager::clearHintsForDoc(KTextEditor::Document *doc)
 }
 
 InlayHintsManager::InsertResult
-InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const QList<LSPInlayHint> &newHints)
+InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const std::vector<LSPInlayHint> &newHints)
 {
     auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
         return hd.doc == doc;
@@ -495,7 +495,7 @@ InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Ra
     }
     // Old
     auto &existing = it->m_hints;
-    if (newHints.isEmpty()) {
+    if (newHints.empty()) {
         const auto r = requestedRange;
         auto bit = std::lower_bound(existing.begin(), existing.end(), r.start().line(), [](const LSPInlayHint &h, int l) {
             return h.position.line() < l;
@@ -543,7 +543,7 @@ InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Ra
     // now add new ones
     affectedLines.clear();
     for (const auto &h : rangesToInsert) {
-        existing.append(h);
+        existing.push_back(h);
         // update affectedLines with lines that are actually changed
         affectedLines.insert(h.position.line());
     }

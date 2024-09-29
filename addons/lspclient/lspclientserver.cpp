@@ -1097,9 +1097,9 @@ static LSPSemanticTokensDelta parseSemanticTokensDelta(const rapidjson::Value &r
     return ret;
 }
 
-static QList<LSPInlayHint> parseInlayHints(const rapidjson::Value &result)
+static std::vector<LSPInlayHint> parseInlayHints(const rapidjson::Value &result)
 {
-    QList<LSPInlayHint> ret;
+    std::vector<LSPInlayHint> ret;
     if (!result.IsArray()) {
         return ret;
     }

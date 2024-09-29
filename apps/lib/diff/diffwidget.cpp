@@ -662,7 +662,7 @@ static void markInlineDiffs(HunkChangedLines &hunkChangedLinesA,
     auto addHighlights = [](HunkChangedLines &hunkChangedLines, std::vector<LineHighlight> &hlts) {
         for (int i = 0; i < (int)hunkChangedLines.size(); ++i) {
             auto &change = hunkChangedLines[i];
-            for (int j = hlts.size() - 1; j >= 0; --j) {
+            for (int j = (int)hlts.size() - 1; j >= 0; --j) {
                 if (hlts.at(j).line == change.lineNo && hlts.at(j).added == change.added) {
                     hlts[j].changes.push_back(change.c);
                     break;

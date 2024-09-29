@@ -197,7 +197,7 @@ public:
 
     int tabCount() const
     {
-        return m_tabList.size();
+        return (int)m_tabList.size();
     }
 
     int sectionSize() const
@@ -266,7 +266,7 @@ public:
 
     int toolviewCount() const
     {
-        return m_idToWidget.size();
+        return (int)m_idToWidget.size();
     }
 
     ToolView *firstVisibleToolView();

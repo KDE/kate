@@ -198,7 +198,7 @@ DocOrWidget detail::TabswitcherFilesModel::item(int row) const
 void detail::TabswitcherFilesModel::updateItems()
 {
     post_process(data_);
-    Q_EMIT dataChanged(createIndex(0, 0), createIndex(data_.size() - 1, 1), {});
+    Q_EMIT dataChanged(createIndex(0, 0), createIndex((int)data_.size() - 1, 1), {});
 }
 
 int detail::TabswitcherFilesModel::columnCount(const QModelIndex &parent) const
@@ -210,7 +210,7 @@ int detail::TabswitcherFilesModel::columnCount(const QModelIndex &parent) const
 int detail::TabswitcherFilesModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return data_.size();
+    return (int)data_.size();
 }
 
 QVariant detail::TabswitcherFilesModel::data(const QModelIndex &index, int role) const

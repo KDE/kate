@@ -49,7 +49,7 @@ public:
 
     int rowCount(const QModelIndex &) const override
     {
-        return m_providers.size();
+        return (int)m_providers.size();
     }
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override

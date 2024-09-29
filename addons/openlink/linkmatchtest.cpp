@@ -21,9 +21,7 @@ public:
 private Q_SLOTS:
     void cleanupTestCase()
     {
-#ifndef Q_OS_WIN
         QFile::remove(QDir::current().absoluteFilePath(QStringLiteral("testfile")));
-#endif
     }
 
     void test_data()
@@ -35,7 +33,6 @@ private Q_SLOTS:
         QTest::addRow("1") << "Line has https://google.com" << R{OpenLinkRange{9, 27, HttpLink}};
         QTest::addRow("2") << "Line has https://google.com and https://google.com" << R{OpenLinkRange{9, 27, HttpLink}, OpenLinkRange{32, 50, HttpLink}};
 
-#ifndef Q_OS_WIN
         QFile file(QDir::current().absoluteFilePath(QStringLiteral("testfile")));
         file.open(QFile::WriteOnly);
         file.write("abc");
@@ -43,9 +40,19 @@ private Q_SLOTS:
 
         QString t = QLatin1String("Text has filepath: %1").arg(file.fileName());
         QTest::addRow("3") << t << R{OpenLinkRange{19, (int)(19 + file.fileName().size()), FileLink}};
+
         t = QLatin1String("// Text has filepath: %1").arg(file.fileName());
         QTest::addRow("4") << t << R{OpenLinkRange{22, (int)(22 + file.fileName().size()), FileLink}};
-#endif
+
+        t = QLatin1String("// Text has filepath: %1 -- /non/existent/path").arg(file.fileName());
+        QTest::addRow("4") << t << R{OpenLinkRange{22, (int)(22 + file.fileName().size()), FileLink}};
+
+        t = QLatin1String("// Text has filepath: %1 -- second: %1").arg(file.fileName());
+        QTest::addRow("4") << t
+                           << R{
+                                  OpenLinkRange{22, (int)(22 + file.fileName().size()), FileLink},
+                                  OpenLinkRange{(int)(22 + file.fileName().size() + 12), (int)(22 + (file.fileName().size() * 2) + 12), FileLink},
+                              };
     }
 
     void test()
@@ -57,8 +64,8 @@ private Q_SLOTS:
         matchLine(line, &ranges);
 
         // output on failure
-        qDebug() << "line" << line;
         if (ranges != expected) {
+            qDebug() << "Failed line:" << line;
             qDebug().nospace() << "Actual: ";
             for (auto [a, b, c] : ranges) {
                 qDebug() << a << b << c;

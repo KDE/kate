@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2014-11-11 22:20+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -214,13 +214,13 @@ msgstr "Åpne med"
 msgid "Show File Git History"
 msgstr ""
 
-#: katefiletree.cpp:451
+#: katefiletree.cpp:461
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Visningsmodus"
 
-#: katefiletree.cpp:455
+#: katefiletree.cpp:465
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

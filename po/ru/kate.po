@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-28 00:42+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2024-06-26 09:47+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1374,12 +1374,12 @@ msgstr "Закрыть документ"
 msgid "Save As"
 msgstr "Сохранить как"
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:722
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:721
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Открывается новый файл при выходе из Kate. Выход прерван."
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:722
+#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:721
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Выход прерван"
@@ -1644,36 +1644,36 @@ msgstr "Закрыть все открытые документы."
 #: lib/katemainwindow.cpp:469
 #, fuzzy, kde-format
 #| msgid "Reload all open documents."
-msgid "&Reopen latest closed document(s)."
+msgid "&Reopen latest closed document(s)"
 msgstr "Обновить все открытые документы."
 
-#: lib/katemainwindow.cpp:472
+#: lib/katemainwindow.cpp:471
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr ""
 
-#: lib/katemainwindow.cpp:477
+#: lib/katemainwindow.cpp:476
 #, kde-format
 msgid "Close this window"
 msgstr "Закрыть окно"
 
-#: lib/katemainwindow.cpp:481
+#: lib/katemainwindow.cpp:480
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "New &Window"
 msgstr "&Новое окно"
 
-#: lib/katemainwindow.cpp:484
+#: lib/katemainwindow.cpp:483
 #, kde-format
 msgid "Create a new window."
 msgstr "&Создать окно"
 
-#: lib/katemainwindow.cpp:491
+#: lib/katemainwindow.cpp:490
 #, kde-format
 msgid "Open W&ith"
 msgstr "Открыть &в"
 
-#: lib/katemainwindow.cpp:493
+#: lib/katemainwindow.cpp:492
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1682,120 +1682,120 @@ msgstr ""
 "Открывает текущий документ в другом приложении, зарегистрированным для этого "
 "типа файлов или в приложении, которые вы укажете вручную."
 
-#: lib/katemainwindow.cpp:501
+#: lib/katemainwindow.cpp:500
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Настройка привязок «горячих» клавиш."
 
-#: lib/katemainwindow.cpp:504
+#: lib/katemainwindow.cpp:503
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Выбор элементов для размещения на панелях инструментов."
 
-#: lib/katemainwindow.cpp:507
+#: lib/katemainwindow.cpp:506
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Настройка различных параметров программы."
 
-#: lib/katemainwindow.cpp:511
+#: lib/katemainwindow.cpp:510
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "Руководство по &модулям"
 
-#: lib/katemainwindow.cpp:513
+#: lib/katemainwindow.cpp:512
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Вывести справочную информацию по доступным модулям."
 
-#: lib/katemainwindow.cpp:530
+#: lib/katemainwindow.cpp:529
 #, kde-format
 msgid "Sess&ions"
 msgstr "Се&анс"
 
-#: lib/katemainwindow.cpp:536
+#: lib/katemainwindow.cpp:535
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "&Новый сеанс"
 
-#: lib/katemainwindow.cpp:541
+#: lib/katemainwindow.cpp:540
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "&Недавние сеансы"
 
-#: lib/katemainwindow.cpp:546
+#: lib/katemainwindow.cpp:545
 #, kde-format
 msgid "&All Sessions"
 msgstr "&Все сеансы"
 
-#: lib/katemainwindow.cpp:553
+#: lib/katemainwindow.cpp:552
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Управление сеансами..."
 
-#: lib/katemainwindow.cpp:562
+#: lib/katemainwindow.cpp:561
 #, kde-format
 msgid "&Save Session"
 msgstr "&Сохранить сеанс"
 
-#: lib/katemainwindow.cpp:568
+#: lib/katemainwindow.cpp:567
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Сохранить сеанс &как..."
 
-#: lib/katemainwindow.cpp:575 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:574 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Вернуться к предыдущему расположению"
 
-#: lib/katemainwindow.cpp:584 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:583 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Перейти к следующему расположению"
 
-#: lib/katemainwindow.cpp:592
+#: lib/katemainwindow.cpp:591
 #, kde-format
 msgid "Show File Git History"
 msgstr "Показать историю файла Git"
 
-#: lib/katemainwindow.cpp:619
+#: lib/katemainwindow.cpp:618
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Будут закрыты все открытые документы. Продолжить?"
 
-#: lib/katemainwindow.cpp:620
+#: lib/katemainwindow.cpp:619
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close all documents?"
 msgstr "Закрытие всех документов"
 
-#: lib/katemainwindow.cpp:621
+#: lib/katemainwindow.cpp:620
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All"
 msgstr "Закрыть вс&е"
 
-#: lib/katemainwindow.cpp:635
+#: lib/katemainwindow.cpp:634
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr "Будут закрыты все открытые документы кроме текущего. Продолжить?"
 
-#: lib/katemainwindow.cpp:636
+#: lib/katemainwindow.cpp:635
 #, fuzzy, kde-format
 #| msgid "Close all documents beside current one"
 msgid "Close all documents beside current one?"
 msgstr "Закрытие всех документов кроме текущего"
 
-#: lib/katemainwindow.cpp:637
+#: lib/katemainwindow.cpp:636
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close Others"
 msgstr "Закрыть остальные"
 
-#: lib/katemainwindow.cpp:875
+#: lib/katemainwindow.cpp:874
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1803,31 +1803,31 @@ msgstr ""
 "Это действие полностью скроет меню. Для того чтобы снова вывести его, "
 "нажмите %1."
 
-#: lib/katemainwindow.cpp:878
+#: lib/katemainwindow.cpp:877
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Скрытие строки меню"
 
-#: lib/katemainwindow.cpp:1051
+#: lib/katemainwindow.cpp:1050
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr "Открыть все файлы из каталога «%1»?"
 
-#: lib/katemainwindow.cpp:1054
+#: lib/katemainwindow.cpp:1053
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Рекурсивное открытие файлов"
 
-#: lib/katemainwindow.cpp:1055
+#: lib/katemainwindow.cpp:1054
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Открыть все файлы"
 
-#: lib/katemainwindow.cpp:1260
+#: lib/katemainwindow.cpp:1259
 #, kde-format
 msgid " [read only]"
 msgstr " [только для чтения]"
@@ -1867,77 +1867,77 @@ msgstr "Скрыть все боковые панели"
 msgid "Show %1"
 msgstr "Показать панель «%1»"
 
-#: lib/katemdi.cpp:170
+#: lib/katemdi.cpp:174
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Показывать кнопку %1"
 
-#: lib/katemdi.cpp:186
+#: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
 msgstr "Перейти в «%1»"
 
-#: lib/katemdi.cpp:1085
+#: lib/katemdi.cpp:1095
 #, kde-format
 msgid "Configure..."
 msgstr "Настроить…"
 
-#: lib/katemdi.cpp:1089
+#: lib/katemdi.cpp:1099
 #, kde-format
 msgid "Hide Button"
 msgstr "Скрыть кнопку"
 
-#: lib/katemdi.cpp:1091
+#: lib/katemdi.cpp:1101
 #, kde-format
 msgid "Move To"
 msgstr "Размещение"
 
-#: lib/katemdi.cpp:1096
+#: lib/katemdi.cpp:1106
 #, kde-format
 msgid "Own Section"
 msgstr "Собственный раздел"
 
-#: lib/katemdi.cpp:1102 lib/katemdi.cpp:1110
+#: lib/katemdi.cpp:1112 lib/katemdi.cpp:1120
 #, kde-format
 msgid "One Down"
 msgstr "На один вниз"
 
-#: lib/katemdi.cpp:1104 lib/katemdi.cpp:1115
+#: lib/katemdi.cpp:1114 lib/katemdi.cpp:1125
 #, kde-format
 msgid "One Right"
 msgstr "На один вправо"
 
-#: lib/katemdi.cpp:1108
+#: lib/katemdi.cpp:1118
 #, kde-format
 msgid "One Up"
 msgstr "На один вверх"
 
-#: lib/katemdi.cpp:1113
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "One Left"
 msgstr "На один влево"
 
-#: lib/katemdi.cpp:1122
+#: lib/katemdi.cpp:1132
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Слева"
 
-#: lib/katemdi.cpp:1126
+#: lib/katemdi.cpp:1136
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Справа"
 
-#: lib/katemdi.cpp:1130
+#: lib/katemdi.cpp:1140
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Сверху"
 
-#: lib/katemdi.cpp:1134
+#: lib/katemdi.cpp:1144
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Снизу"
 
-#: lib/katemdi.cpp:1708
+#: lib/katemdi.cpp:1718
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2507,32 +2507,32 @@ msgstr "Закрыть др&угие документы"
 msgid "Close &All Documents"
 msgstr "Закрыть &все документы"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1140
 #, kde-format
 msgid "D&etach Document"
 msgstr "Открыть в новом окне"
 
-#: lib/kateviewspace.cpp:1141
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Переместить документ в новое окно"
 
-#: lib/kateviewspace.cpp:1150
+#: lib/kateviewspace.cpp:1151
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Сравнить с активным документом"
 
-#: lib/kateviewspace.cpp:1156
+#: lib/kateviewspace.cpp:1157
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Сравнить с активным документом с помощью"
 
-#: lib/kateviewspace.cpp:1226
+#: lib/kateviewspace.cpp:1227
 #, kde-format
 msgid "Could not start program"
 msgstr "Невозможно запустить программу"
 
-#: lib/kateviewspace.cpp:1227
+#: lib/kateviewspace.cpp:1228
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Не удалось запустить выбранную программу, возможно она не установлена."

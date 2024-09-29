@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-20 00:44+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2022-12-08 23:08+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Last Commit"
 msgstr ""
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:81
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:83
 #, kde-format
 msgid "Delete"
 msgstr "Изтриване"
@@ -503,12 +503,19 @@ msgstr "Сигурни ли сте, че желаете да отхвърлит�
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Наистина ли искате да премахнете тези непроследени промени?"
 
-#: kateproject.cpp:236
+#: kateproject.cpp:237
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Неправилен JSON файл '%1': %2"
 
-#: kateproject.cpp:587
+#: kateproject.cpp:304 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
+#, kde-format
+msgid "Project"
+msgstr "Проект"
+
+#: kateproject.cpp:600
 #, kde-format
 msgid "<untracked>"
 msgstr "<непроследен>"
@@ -838,13 +845,6 @@ msgstr ""
 "Пълен път до текущия проект, с изключение на името на файла, с роден "
 "разделител на пътя (наклонена черта в Windows)."
 
-#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
-#: kateprojectviewtree.cpp:189
-#, kde-format
-msgid "Project"
-msgstr "Проект"
-
 #: kateprojectpluginview.cpp:56
 #, kde-format
 msgid "Project Manager"
@@ -944,80 +944,80 @@ msgstr "Индекс на проект"
 msgid "Choose a directory"
 msgstr "Избиране на директория"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
+#: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Enter name:"
 msgstr "Въведете име:"
 
-#: kateprojecttreeviewcontextmenu.cpp:65
+#: kateprojecttreeviewcontextmenu.cpp:67
 #, kde-format
 msgid "Copy Location"
 msgstr "Копиране на местоположението"
 
-#: kateprojecttreeviewcontextmenu.cpp:72
+#: kateprojecttreeviewcontextmenu.cpp:74
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "New File…"
 msgstr "Отваряне на файл"
 
-#: kateprojecttreeviewcontextmenu.cpp:73
+#: kateprojecttreeviewcontextmenu.cpp:75
 #, fuzzy, kde-format
 #| msgid "Add Folder"
 msgid "New Folder…"
 msgstr "Добавяне на папка"
 
-#: kateprojecttreeviewcontextmenu.cpp:80
+#: kateprojecttreeviewcontextmenu.cpp:82
 #, kde-format
 msgid "&Rename"
 msgstr "Пре&именуване"
 
-#: kateprojecttreeviewcontextmenu.cpp:87
+#: kateprojecttreeviewcontextmenu.cpp:89
 #, kde-format
 msgid "Properties"
 msgstr "Свойства"
 
-#: kateprojecttreeviewcontextmenu.cpp:91
+#: kateprojecttreeviewcontextmenu.cpp:93
 #, kde-format
 msgid "Open With"
 msgstr "Отваряне с:"
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:101
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Отваряне на вграден терминал тук"
 
-#: kateprojecttreeviewcontextmenu.cpp:108
+#: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Отваряне на външен терминал тук"
 
-#: kateprojecttreeviewcontextmenu.cpp:113
+#: kateprojecttreeviewcontextmenu.cpp:115
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Отваряне на съдържащата папка"
 
-#: kateprojecttreeviewcontextmenu.cpp:122
+#: kateprojecttreeviewcontextmenu.cpp:124
 #, kde-format
 msgid "Show Git History"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:127
+#: kateprojecttreeviewcontextmenu.cpp:141
 #, kde-format
 msgid "Delete File"
 msgstr "Изтриване на файл"
 
-#: kateprojecttreeviewcontextmenu.cpp:128
+#: kateprojecttreeviewcontextmenu.cpp:142
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:188
+#: kateprojecttreeviewcontextmenu.cpp:202
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "New File"
 msgstr "Отваряне на файл"
 
-#: kateprojecttreeviewcontextmenu.cpp:193
+#: kateprojecttreeviewcontextmenu.cpp:207
 #, fuzzy, kde-format
 #| msgid "Add Folder"
 msgid "New Folder"
@@ -1031,6 +1031,15 @@ msgstr ""
 #: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Failed to create dir: %1"
+msgstr ""
+
+#: kateprojectworker.cpp:744
+#, kde-format
+msgid ""
+"Unable to load %1 based project because either %1 is not installed or it "
+"wasn't found in PATH envirnoment variable. Please install %1 or "
+"alternatively disable the option 'Autoload Repositories && Build Trees' in "
+"project settings."
 msgstr ""
 
 #: stashdialog.cpp:36

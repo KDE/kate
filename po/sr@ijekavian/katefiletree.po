@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2016-11-28 01:31+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -227,13 +227,13 @@ msgstr "Отвори помоћу"
 msgid "Show File Git History"
 msgstr ""
 
-#: katefiletree.cpp:451
+#: katefiletree.cpp:461
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Режим приказа"
 
-#: katefiletree.cpp:455
+#: katefiletree.cpp:465
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2024-02-07 19:55+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -209,13 +209,13 @@ msgstr "Abrir con"
 msgid "Show File Git History"
 msgstr "Amosar o historial de Git do ficheiro"
 
-#: katefiletree.cpp:451
+#: katefiletree.cpp:461
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Modo de vista"
 
-#: katefiletree.cpp:455
+#: katefiletree.cpp:465
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

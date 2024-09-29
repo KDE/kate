@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-28 00:42+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2019-11-09 21:15+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -491,12 +491,12 @@ msgstr ""
 msgid "missing thread id"
 msgstr ""
 
-#: dapbackend.cpp:1638
+#: dapbackend.cpp:1633
 #, kde-format
 msgid "killing backend"
 msgstr ""
 
-#: dapbackend.cpp:1696
+#: dapbackend.cpp:1691
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr ""

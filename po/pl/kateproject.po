@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-20 00:44+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2024-09-21 11:45+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -78,7 +78,7 @@ msgstr "Gałąź"
 msgid "Last Commit"
 msgstr "Ostatnie zmianę"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:81
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:83
 #, kde-format
 msgid "Delete"
 msgstr "Usuń"
@@ -510,12 +510,19 @@ msgstr "Czy na pewno porzucić te zmiany?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Czy na pewno usunąć te nieśledzone zmiany?"
 
-#: kateproject.cpp:236
+#: kateproject.cpp:237
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Zniekształcony plik JSON '%1': %2"
 
-#: kateproject.cpp:587
+#: kateproject.cpp:304 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
+#, kde-format
+msgid "Project"
+msgstr "Projekt"
+
+#: kateproject.cpp:600
 #, kde-format
 msgid "<untracked>"
 msgstr "<nieśledzony>"
@@ -830,13 +837,6 @@ msgstr ""
 "Pełna ścieżka do bieżącego projektu wyłączając nazwę pliku, z macierzystymi "
 "znakami oddzielającym w ścieżce (ukośnik wsteczny na Windowsie)."
 
-#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
-#: kateprojectviewtree.cpp:189
-#, kde-format
-msgid "Project"
-msgstr "Projekt"
-
 #: kateprojectpluginview.cpp:56
 #, kde-format
 msgid "Project Manager"
@@ -932,77 +932,77 @@ msgstr "Indeks projektu"
 msgid "Choose a directory"
 msgstr "Wybierz katalog"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
+#: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Enter name:"
 msgstr "Wpisz nazwę:"
 
-#: kateprojecttreeviewcontextmenu.cpp:65
+#: kateprojecttreeviewcontextmenu.cpp:67
 #, kde-format
 msgid "Copy Location"
 msgstr "Skopiuj położenie"
 
-#: kateprojecttreeviewcontextmenu.cpp:72
+#: kateprojecttreeviewcontextmenu.cpp:74
 #, kde-format
 msgid "New File…"
 msgstr "Nowy plik…"
 
-#: kateprojecttreeviewcontextmenu.cpp:73
+#: kateprojecttreeviewcontextmenu.cpp:75
 #, kde-format
 msgid "New Folder…"
 msgstr "Nowy katalog…"
 
-#: kateprojecttreeviewcontextmenu.cpp:80
+#: kateprojecttreeviewcontextmenu.cpp:82
 #, kde-format
 msgid "&Rename"
 msgstr "P&rzemianuj"
 
-#: kateprojecttreeviewcontextmenu.cpp:87
+#: kateprojecttreeviewcontextmenu.cpp:89
 #, kde-format
 msgid "Properties"
 msgstr "Właściwości"
 
-#: kateprojecttreeviewcontextmenu.cpp:91
+#: kateprojecttreeviewcontextmenu.cpp:93
 #, kde-format
 msgid "Open With"
 msgstr "Otwórz w"
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:101
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Otwórz tutaj wewnętrzny terminal"
 
-#: kateprojecttreeviewcontextmenu.cpp:108
+#: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Otwórz tutaj zewnętrzny terminal"
 
-#: kateprojecttreeviewcontextmenu.cpp:113
+#: kateprojecttreeviewcontextmenu.cpp:115
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Otwórz zawierający katalog"
 
-#: kateprojecttreeviewcontextmenu.cpp:122
+#: kateprojecttreeviewcontextmenu.cpp:124
 #, kde-format
 msgid "Show Git History"
 msgstr "Pokaż historię w Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:127
+#: kateprojecttreeviewcontextmenu.cpp:141
 #, kde-format
 msgid "Delete File"
 msgstr "Usuń plik"
 
-#: kateprojecttreeviewcontextmenu.cpp:128
+#: kateprojecttreeviewcontextmenu.cpp:142
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "Czy na pewno usunąć plik '%1'?"
 
-#: kateprojecttreeviewcontextmenu.cpp:188
+#: kateprojecttreeviewcontextmenu.cpp:202
 #, kde-format
 msgid "New File"
 msgstr "Nowy plik"
 
-#: kateprojecttreeviewcontextmenu.cpp:193
+#: kateprojecttreeviewcontextmenu.cpp:207
 #, kde-format
 msgid "New Folder"
 msgstr "Nowy katalog"
@@ -1016,6 +1016,15 @@ msgstr "Nie udało się utworzyć pliku: %1, Błąd: %2"
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Nie udało się utworzyć katalogu: %1"
+
+#: kateprojectworker.cpp:744
+#, kde-format
+msgid ""
+"Unable to load %1 based project because either %1 is not installed or it "
+"wasn't found in PATH envirnoment variable. Please install %1 or "
+"alternatively disable the option 'Autoload Repositories && Build Trees' in "
+"project settings."
+msgstr ""
 
 #: stashdialog.cpp:36
 #, kde-format

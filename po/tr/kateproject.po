@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-20 00:44+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2024-09-08 22:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -76,7 +76,7 @@ msgstr "Dal"
 msgid "Last Commit"
 msgstr "Son İşleme"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:81
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:83
 #, kde-format
 msgid "Delete"
 msgstr "Sil"
@@ -505,12 +505,19 @@ msgstr "Değişiklikleri atmak istediğinizden emin misiniz?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Bu izlenmeyen değişiklikleri kaldırmak istediğinizden emin misiniz?"
 
-#: kateproject.cpp:236
+#: kateproject.cpp:237
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Hatalı oluşturulmuş JSON dosyası “%1“: %2"
 
-#: kateproject.cpp:587
+#: kateproject.cpp:304 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
+#, kde-format
+msgid "Project"
+msgstr "Proje"
+
+#: kateproject.cpp:600
 #, kde-format
 msgid "<untracked>"
 msgstr "<untracked>"
@@ -824,13 +831,6 @@ msgstr ""
 "Dosya adı hariç, yerel yol ayırıcılı (Windows’ta ters eğik çizgi) geçerli "
 "projenin tam yolu."
 
-#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
-#: kateprojectviewtree.cpp:189
-#, kde-format
-msgid "Project"
-msgstr "Proje"
-
 #: kateprojectpluginview.cpp:56
 #, kde-format
 msgid "Project Manager"
@@ -926,77 +926,77 @@ msgstr "Projeler İndeksi"
 msgid "Choose a directory"
 msgstr "Bir dizin seç"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
+#: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Enter name:"
 msgstr "Ad gir:"
 
-#: kateprojecttreeviewcontextmenu.cpp:65
+#: kateprojecttreeviewcontextmenu.cpp:67
 #, kde-format
 msgid "Copy Location"
 msgstr "Konumu Kopyala"
 
-#: kateprojecttreeviewcontextmenu.cpp:72
+#: kateprojecttreeviewcontextmenu.cpp:74
 #, kde-format
 msgid "New File…"
 msgstr "Yeni Dosya…"
 
-#: kateprojecttreeviewcontextmenu.cpp:73
+#: kateprojecttreeviewcontextmenu.cpp:75
 #, kde-format
 msgid "New Folder…"
 msgstr "Yeni Klasör…"
 
-#: kateprojecttreeviewcontextmenu.cpp:80
+#: kateprojecttreeviewcontextmenu.cpp:82
 #, kde-format
 msgid "&Rename"
 msgstr "&Yeniden Adlandır"
 
-#: kateprojecttreeviewcontextmenu.cpp:87
+#: kateprojecttreeviewcontextmenu.cpp:89
 #, kde-format
 msgid "Properties"
 msgstr "Özellikler"
 
-#: kateprojecttreeviewcontextmenu.cpp:91
+#: kateprojecttreeviewcontextmenu.cpp:93
 #, kde-format
 msgid "Open With"
 msgstr "Birlikte Aç"
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:101
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Burada İç Uçbirim Aç"
 
-#: kateprojecttreeviewcontextmenu.cpp:108
+#: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Burada Dış Uçbirim Aç"
 
-#: kateprojecttreeviewcontextmenu.cpp:113
+#: kateprojecttreeviewcontextmenu.cpp:115
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "İçeren Klasörü &Aç"
 
-#: kateprojecttreeviewcontextmenu.cpp:122
+#: kateprojecttreeviewcontextmenu.cpp:124
 #, kde-format
 msgid "Show Git History"
 msgstr "Git Geçmişini Göster"
 
-#: kateprojecttreeviewcontextmenu.cpp:127
+#: kateprojecttreeviewcontextmenu.cpp:141
 #, kde-format
 msgid "Delete File"
 msgstr "Dosyayı Sil"
 
-#: kateprojecttreeviewcontextmenu.cpp:128
+#: kateprojecttreeviewcontextmenu.cpp:142
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "“%1“ dosyasını silmek istiyor musunuz?"
 
-#: kateprojecttreeviewcontextmenu.cpp:188
+#: kateprojecttreeviewcontextmenu.cpp:202
 #, kde-format
 msgid "New File"
 msgstr "Yeni Dosya"
 
-#: kateprojecttreeviewcontextmenu.cpp:193
+#: kateprojecttreeviewcontextmenu.cpp:207
 #, kde-format
 msgid "New Folder"
 msgstr "Yeni Klasör"
@@ -1010,6 +1010,15 @@ msgstr "Dosya oluşturulamadı: %1, Hata: %2"
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Dizin oluşturulamadı: %1"
+
+#: kateprojectworker.cpp:744
+#, kde-format
+msgid ""
+"Unable to load %1 based project because either %1 is not installed or it "
+"wasn't found in PATH envirnoment variable. Please install %1 or "
+"alternatively disable the option 'Autoload Repositories && Build Trees' in "
+"project settings."
+msgstr ""
 
 #: stashdialog.cpp:36
 #, kde-format

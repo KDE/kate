@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2021-04-18 01:28+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -213,13 +213,13 @@ msgstr "Buka Dengan"
 msgid "Show File Git History"
 msgstr ""
 
-#: katefiletree.cpp:451
+#: katefiletree.cpp:461
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Mode Lihat"
 
-#: katefiletree.cpp:455
+#: katefiletree.cpp:465
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

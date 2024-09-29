@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-20 00:44+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2021-04-18 01:36+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -76,7 +76,7 @@ msgstr "Pilih Cabang..."
 msgid "Last Commit"
 msgstr "Commit"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:81
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:83
 #, kde-format
 msgid "Delete"
 msgstr ""
@@ -523,12 +523,19 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 "Apakah kamu yakin ingin menghapus perubahan yang tak terlacak tersebut?"
 
-#: kateproject.cpp:236
+#: kateproject.cpp:237
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:587
+#: kateproject.cpp:304 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
+#, kde-format
+msgid "Project"
+msgstr "Projek"
+
+#: kateproject.cpp:600
 #, kde-format
 msgid "<untracked>"
 msgstr "<tak terlacak>"
@@ -858,13 +865,6 @@ msgstr ""
 "Alur lengkap ke projek saat ini tidak termasuk nama file, dengan pemisah "
 "alur asli (garis-miring-terbalik pada Windows)."
 
-#: kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
-#: kateprojectviewtree.cpp:189
-#, kde-format
-msgid "Project"
-msgstr "Projek"
-
 #: kateprojectpluginview.cpp:56
 #, fuzzy, kde-format
 #| msgid "Kate Project Manager"
@@ -969,84 +969,84 @@ msgstr "Indeks Projek"
 msgid "Choose a directory"
 msgstr "Pilih sebuah direktori"
 
-#: kateprojecttreeviewcontextmenu.cpp:43
+#: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Enter name:"
 msgstr "Masukkan nama:"
 
-#: kateprojecttreeviewcontextmenu.cpp:65
+#: kateprojecttreeviewcontextmenu.cpp:67
 #, fuzzy, kde-format
 #| msgid "No Action"
 msgid "Copy Location"
 msgstr "Tanpa Aksi"
 
-#: kateprojecttreeviewcontextmenu.cpp:72
+#: kateprojecttreeviewcontextmenu.cpp:74
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "New File…"
 msgstr "Buka file"
 
-#: kateprojecttreeviewcontextmenu.cpp:73
+#: kateprojecttreeviewcontextmenu.cpp:75
 #, fuzzy, kde-format
 #| msgid "Add Folder"
 msgid "New Folder…"
 msgstr "Tambahkan Folder"
 
-#: kateprojecttreeviewcontextmenu.cpp:80
+#: kateprojecttreeviewcontextmenu.cpp:82
 #, kde-format
 msgid "&Rename"
 msgstr "&Ubah nama"
 
-#: kateprojecttreeviewcontextmenu.cpp:87
+#: kateprojecttreeviewcontextmenu.cpp:89
 #, kde-format
 msgid "Properties"
 msgstr "Properti"
 
-#: kateprojecttreeviewcontextmenu.cpp:91
+#: kateprojecttreeviewcontextmenu.cpp:93
 #, kde-format
 msgid "Open With"
 msgstr "Buka Dengan"
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:101
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:108
+#: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:113
+#: kateprojecttreeviewcontextmenu.cpp:115
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Buka Folder Yang Mengandungnya"
 
-#: kateprojecttreeviewcontextmenu.cpp:122
+#: kateprojecttreeviewcontextmenu.cpp:124
 #, fuzzy, kde-format
 #| msgid "Show File History"
 msgid "Show Git History"
 msgstr "Tampilkan Histori File"
 
-#: kateprojecttreeviewcontextmenu.cpp:127
+#: kateprojecttreeviewcontextmenu.cpp:141
 #, fuzzy, kde-format
 #| msgid "Discard Selected Files"
 msgid "Delete File"
 msgstr "Buang File-file Yang Dipilih"
 
-#: kateprojecttreeviewcontextmenu.cpp:128
+#: kateprojecttreeviewcontextmenu.cpp:142
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to remove these files?"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Apakah kamu yakin ingin menghapus file-file tersebut?"
 
-#: kateprojecttreeviewcontextmenu.cpp:188
+#: kateprojecttreeviewcontextmenu.cpp:202
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "New File"
 msgstr "Buka file"
 
-#: kateprojecttreeviewcontextmenu.cpp:193
+#: kateprojecttreeviewcontextmenu.cpp:207
 #, fuzzy, kde-format
 #| msgid "Add Folder"
 msgid "New Folder"
@@ -1061,6 +1061,15 @@ msgstr "Gagal membuat file: %1, Galat: %2"
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Gagal membuat direktori: %1"
+
+#: kateprojectworker.cpp:744
+#, kde-format
+msgid ""
+"Unable to load %1 based project because either %1 is not installed or it "
+"wasn't found in PATH envirnoment variable. Please install %1 or "
+"alternatively disable the option 'Autoload Repositories && Build Trees' in "
+"project settings."
+msgstr ""
 
 #: stashdialog.cpp:36
 #, kde-format

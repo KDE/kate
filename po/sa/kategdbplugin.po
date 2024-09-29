@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-28 00:42+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shreekant Kalwar\n"
 "Language-Team: Sanskrit\n"
@@ -482,12 +482,12 @@ msgstr "आदेशः न लब्धः"
 msgid "missing thread id"
 msgstr "लुप्तसूत्र परिचयः"
 
-#: dapbackend.cpp:1638
+#: dapbackend.cpp:1633
 #, kde-format
 msgid "killing backend"
 msgstr "पृष्ठभागं मारयन्"
 
-#: dapbackend.cpp:1696
+#: dapbackend.cpp:1691
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "वर्तमान खण्ड [%3]: %1:%2 (%4)"

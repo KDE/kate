@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-28 00:42+0000\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
 "PO-Revision-Date: 2023-07-23 20:32+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -482,12 +482,12 @@ msgstr "명령을 찾을 수 없음"
 msgid "missing thread id"
 msgstr "스레드 ID 없음"
 
-#: dapbackend.cpp:1638
+#: dapbackend.cpp:1633
 #, kde-format
 msgid "killing backend"
 msgstr "백엔드 종료 중"
 
-#: dapbackend.cpp:1696
+#: dapbackend.cpp:1691
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "현재 프레임 [%3]: %1:%2(%4)"

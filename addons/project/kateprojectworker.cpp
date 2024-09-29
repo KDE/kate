@@ -741,7 +741,7 @@ QList<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, b
 QString KateProjectWorker::notInstalledErrorString(const QString &program)
 {
     return i18n(
-        "Unable to load %1 based project because either %1 is not installed or it wasn't found in PATH envirnoment variable. Please install %1 or "
+        "Unable to load %1 based project because either %1 is not installed or it wasn't found in PATH environment variable. Please install %1 or "
         "alternatively disable the option 'Autoload Repositories && Build Trees' in project settings.",
         program);
 }

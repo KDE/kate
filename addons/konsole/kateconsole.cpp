@@ -520,7 +520,7 @@ void KateConsole::slotRun()
 
     // then filename
     QFileInfo fileInfo(url.toLocalFile());
-    const bool removeExt = cg.readEntry("RemoveExtension", true);
+    const bool removeExt = cg.readEntry("RemoveExtension", false);
     // append filename without extension (i.e. keep only the basename)
     const QString path = fileInfo.absolutePath() + QLatin1Char('/') + (removeExt ? fileInfo.baseName() : fileInfo.fileName());
     output_str += KShell::quoteArg(path);

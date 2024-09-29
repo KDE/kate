@@ -60,32 +60,32 @@ static void removeInvalidRanges(QList<LSPInlayHint> &hints, QList<LSPInlayHint>:
                 end);
 }
 
-InlayHintNoteProvider::InlayHintNoteProvider()
+InlayHintNoteProvider::InlayHintNoteProvider(InlayHintsManager *mgr)
+    : m_mgr(mgr)
 {
 }
 
-void InlayHintNoteProvider::setView(KTextEditor::View *v)
+void InlayHintNoteProvider::viewChanged(KTextEditor::View *v)
 {
-    m_view = v;
     if (v) {
         m_noteColor = QColor::fromRgba(v->theme().textColor(KSyntaxHighlighting::Theme::Normal));
         m_noteBgColor = m_noteColor;
         m_noteBgColor.setAlphaF(0.1f);
         m_noteColor.setAlphaF(0.5f);
     }
-    m_hints = {};
 }
 
-void InlayHintNoteProvider::setHints(const QList<LSPInlayHint> &hints)
+const QList<LSPInlayHint> &InlayHintNoteProvider::hints() const
 {
-    m_hints = hints;
+    return m_mgr->hintsForActiveView();
 }
 
 QList<int> InlayHintNoteProvider::inlineNotes(int line) const
 {
     QList<int> ret;
-    auto it = binaryFind(m_hints, line);
-    while (it != m_hints.cend() && it->position.line() == line) {
+    const auto &hints = this->hints();
+    auto it = binaryFind(hints, line);
+    while (it != hints.cend() && it->position.line() == line) {
         ret.push_back(it->position.column());
         ++it;
     }
@@ -94,8 +94,9 @@ QList<int> InlayHintNoteProvider::inlineNotes(int line) const
 
 QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note) const
 {
-    auto it = binaryFind(m_hints, note.position());
-    if (it == m_hints.end()) {
+    const auto &hints = this->hints();
+    auto it = binaryFind(hints, note.position());
+    if (it == hints.end()) {
         qWarning() << Q_FUNC_INFO << note.view()->document()->documentName() << "failed to find note in m_hints, Note.position:" << note.position();
         return {};
     }
@@ -112,8 +113,9 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
 
 void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const
 {
-    auto it = binaryFind(m_hints, note.position());
-    if (it != m_hints.end()) {
+    const auto &hints = this->hints();
+    auto it = binaryFind(hints, note.position());
+    if (it != hints.end()) {
         const auto font = qApp->font();
         painter.setFont(font);
         QRectF r{0., 0., (qreal)it->width, (qreal)note.lineHeight()};
@@ -140,6 +142,7 @@ void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note,
 
 InlayHintsManager::InlayHintsManager(const std::shared_ptr<LSPClientServerManager> &manager, QObject *parent)
     : QObject(parent)
+    , m_noteProvider(this)
     , m_serverManager(manager)
 {
     m_requestTimer.setSingleShot(true);
@@ -159,7 +162,7 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
         bool reloaded = m_currentView == v;
         m_currentView = v;
         m_currentView->registerInlineNoteProvider(&m_noteProvider);
-        m_noteProvider.setView(v);
+        m_noteProvider.viewChanged(v);
         auto d = v->document();
 
         connect(d, &Document::textInserted, this, &InlayHintsManager::onTextInserted, Qt::UniqueConnection);
@@ -173,14 +176,12 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
 
         // If the document was found and checksum hasn't changed
         if (it != m_hintDataByDoc.end() && it->checksum == d->checksum() && !it->m_hints.empty() && !reloaded) {
-            m_noteProvider.setHints(it->m_hints);
             m_noteProvider.inlineNotesReset();
         } else {
             if (it != m_hintDataByDoc.end()) {
                 m_hintDataByDoc.erase(it);
             }
             // clear hints from the inline note provider and reset it
-            m_noteProvider.setHints({});
             m_noteProvider.inlineNotesReset();
             // Send delayed request for inlay hints
             sendRequestDelayed(v->document()->documentRange(), 1);
@@ -205,7 +206,7 @@ void InlayHintsManager::unregisterView(KTextEditor::View *v)
             it->checksum = v->document()->checksum();
         }
     }
-    m_noteProvider.setView(nullptr);
+    m_noteProvider.viewChanged(nullptr);
 }
 
 void InlayHintsManager::setActiveView(KTextEditor::View *v)
@@ -218,6 +219,20 @@ void InlayHintsManager::disable()
 {
     unregisterView(m_currentView);
     m_currentView.clear();
+}
+
+const QList<LSPInlayHint> &InlayHintsManager::hintsForActiveView()
+{
+    if (auto v = m_currentView) {
+        auto doc = v->document();
+        for (const auto &e : m_hintDataByDoc) {
+            if (e.doc == doc) {
+                return e.m_hints;
+            }
+        }
+    }
+
+    return m_emptyHintsArray;
 }
 
 void InlayHintsManager::sendRequestDelayed(KTextEditor::Range r, int delay)
@@ -280,7 +295,6 @@ void InlayHintsManager::sendRequest(KTextEditor::Range rangeToRequest)
             }
 
             const auto result = insertHintsForDoc(v->document(), rangeToRequest, hints);
-            m_noteProvider.setHints(result.addedHints);
             if (result.newDoc) {
                 m_noteProvider.inlineNotesReset();
             } else {
@@ -300,7 +314,6 @@ void InlayHintsManager::onTextInserted(KTextEditor::Document *doc, KTextEditor::
     });
     if (it != m_hintDataByDoc.end()) {
         auto &list = it->m_hints;
-        bool changed = false;
         auto bit = binaryFind(list, pos.line());
         for (; bit != list.end(); ++bit) {
             if (bit->position.line() > pos.line()) {
@@ -308,11 +321,7 @@ void InlayHintsManager::onTextInserted(KTextEditor::Document *doc, KTextEditor::
             }
             if (bit->position > pos) {
                 bit->position.setColumn(bit->position.column() + text.size());
-                changed = true;
             }
-        }
-        if (changed) {
-            m_noteProvider.setHints(list);
         }
     }
 
@@ -365,7 +374,6 @@ void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::R
                 return l.position < r.position;
             });
         }
-        m_noteProvider.setHints(list);
     }
 
     KTextEditor::Range r(range.start().line(), 0, range.end().line(), doc->lineLength(range.end().line()));
@@ -410,7 +418,6 @@ void InlayHintsManager::onWrapped(KTextEditor::Document *doc, KTextEditor::Curso
     // remove invalidated stuff
     if (changed) {
         removeInvalidRanges(hints, removeBegin, removeEnd);
-        m_noteProvider.setHints(hints);
     }
 
     KTextEditor::Range r(position.line(), 0, position.line(), doc->lineLength(position.line()));
@@ -454,7 +461,6 @@ void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
     // remove invalidated stuff
     if (changed) {
         removeInvalidRanges(hints, removeBegin, removeEnd);
-        m_noteProvider.setHints(hints);
     }
 
     KTextEditor::Range r(line - 1, 0, line - 1, doc->lineLength(line));

@@ -15,7 +15,6 @@
 #include <KTextEditor/MovingRange>
 
 #include <memory>
-#include <unordered_map>
 #include <vector>
 
 namespace KTextEditor
@@ -25,14 +24,15 @@ class Document;
 }
 
 class LSPClientServerManager;
+class InlayHintsManager;
 
 class InlayHintNoteProvider : public KTextEditor::InlineNoteProvider
 {
 public:
-    InlayHintNoteProvider();
-    void setView(KTextEditor::View *v);
-    void setHints(const QList<LSPInlayHint> &hints);
+    InlayHintNoteProvider(InlayHintsManager *mgr);
+    void viewChanged(KTextEditor::View *v);
 
+    const QList<LSPInlayHint> &hints() const;
     QList<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
     void paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter, Qt::LayoutDirection) const override;
@@ -40,8 +40,7 @@ public:
 private:
     QColor m_noteColor;
     QColor m_noteBgColor;
-    QPointer<KTextEditor::View> m_view;
-    QList<LSPInlayHint> m_hints;
+    InlayHintsManager *const m_mgr;
 };
 
 class InlayHintsManager : public QObject
@@ -53,6 +52,8 @@ public:
 
     void setActiveView(KTextEditor::View *v);
     void disable();
+
+    const QList<LSPInlayHint> &hintsForActiveView();
 
 private:
     void registerView(KTextEditor::View *);
@@ -87,4 +88,5 @@ private:
     InlayHintNoteProvider m_noteProvider;
     std::shared_ptr<LSPClientServerManager> m_serverManager;
     QList<KTextEditor::Range> pendingRanges;
+    const QList<LSPInlayHint> m_emptyHintsArray;
 };

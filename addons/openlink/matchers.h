@@ -38,10 +38,24 @@ static void adjustMDLink(const QString &line, int capturedStart, int &capturedEn
     }
 }
 
-static std::pair<int, int> matchesFilePath(const QString &line, int from)
+static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outColumnRanges)
 {
-    int s = line.indexOf(QLatin1Char('/'), from);
-    if (s != -1) {
+#ifdef Q_OS_WIN
+    // windows paths not supported yet
+    return;
+#endif
+    int s = 0;
+    while (true) {
+        s = line.indexOf(QLatin1Char('/'), s);
+        if (s == -1) {
+            break;
+        }
+        // must be preceded by a space or d-quote
+        if (s != 0 && line[s - 1] != u'"' && line[s - 1] != u' ') {
+            s++;
+            continue;
+        }
+
         const bool matchNextQuote = s > 0 && line[s - 1] == u'"'; // last char is quote?
         int e = -1;
         if (!matchNextQuote) {
@@ -50,11 +64,12 @@ static std::pair<int, int> matchesFilePath(const QString &line, int from)
         } else {
             e = line.indexOf(u'"', s);
         }
+
         if (e != -1 && QFileInfo(line.mid(s, e - s)).isFile()) {
-            return {s, e};
+            outColumnRanges->push_back({s, e, FileLink});
         }
+        s = e;
     }
-    return {-1, -1};
 }
 
 [[maybe_unused]] static void matchLine(const QString &line, std::vector<OpenLinkRange> *outColumnRanges)
@@ -72,16 +87,5 @@ static std::pair<int, int> matchesFilePath(const QString &line, int from)
         }
     }
 
-    if (auto [s, e] = matchesFilePath(line, 0); s >= 0 && e >= 0) {
-        outColumnRanges->push_back({.start = s, .end = e, .type = FileLink});
-        while (true) {
-            auto [nextstart, nextend] = matchesFilePath(line, e + 1);
-            if (nextstart >= 0 && nextend >= 0) {
-                outColumnRanges->push_back({.start = nextstart, .end = nextend, .type = FileLink});
-                e = nextend;
-            } else {
-                break;
-            }
-        }
-    }
+    matchFilePaths(line, outColumnRanges);
 }

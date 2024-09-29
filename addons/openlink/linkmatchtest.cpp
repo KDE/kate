@@ -43,6 +43,8 @@ private Q_SLOTS:
 
         QString t = QLatin1String("Text has filepath: %1").arg(file.fileName());
         QTest::addRow("3") << t << R{OpenLinkRange{19, (int)(19 + file.fileName().size()), FileLink}};
+        t = QLatin1String("// Text has filepath: %1").arg(file.fileName());
+        QTest::addRow("4") << t << R{OpenLinkRange{22, (int)(22 + file.fileName().size()), FileLink}};
 #endif
     }
 
@@ -53,13 +55,21 @@ private Q_SLOTS:
 
         std::vector<OpenLinkRange> ranges;
         matchLine(line, &ranges);
-        // for (auto [a, b, c] : ranges) {
-        //     qDebug() << a << b << c;
-        // }
-        // qDebug() << "----";
-        // for (auto [a, b, c] : expected) {
-        //     qDebug() << a << b << c;
-        // }
+
+        // output on failure
+        qDebug() << "line" << line;
+        if (ranges != expected) {
+            qDebug().nospace() << "Actual: ";
+            for (auto [a, b, c] : ranges) {
+                qDebug() << a << b << c;
+            }
+            qDebug() << "----";
+            qDebug().nospace() << "Expected: ";
+            for (auto [a, b, c] : expected) {
+                qDebug() << a << b << c;
+            }
+        }
+
         QCOMPARE(ranges, expected);
     }
 };

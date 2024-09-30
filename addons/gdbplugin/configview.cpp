@@ -469,7 +469,20 @@ const DAPTargetConf ConfigView::currentDAPTarget(bool full) const
                 cfg.debugger = itS.key();
                 cfg.debuggerProfile = itP.key();
                 if (full) {
-                    cfg.dapSettings = itP.value();
+                    auto dapSettings = itP.value();
+                    const auto data = m_targetCombo->currentData().toJsonObject();
+                    // merge data from launch.json except for the fields that are already there
+                    if (data.value(F_IS_LAUNCH_JSON).toBool()) {
+                        auto &settings = dapSettings.settings;
+                        auto request = settings[QStringLiteral("request")].toObject();
+                        for (auto it = data.begin(); it != data.end(); ++it) {
+                            if (!request.contains(it.key())) {
+                                request[it.key()] = it.value();
+                            }
+                        }
+                        settings[QStringLiteral("request")] = request;
+                    }
+                    cfg.dapSettings = dapSettings;
                 }
                 found = true;
                 break;

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-09-28 08:32+0300\n"
+"PO-Revision-Date: 2024-09-29 09:11+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1627,8 +1627,7 @@ msgid "Close all open documents."
 msgstr "Закрити всі відкриті документи."
 
 #: lib/katemainwindow.cpp:469
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
 msgstr "&Повторно відкрити останні закриті документи"
 

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-09-28 08:01+0200\n"
+"PO-Revision-Date: 2024-09-29 08:49+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -1622,10 +1622,9 @@ msgid "Close all open documents."
 msgstr "Tanca tots els documents oberts."
 
 #: lib/katemainwindow.cpp:469
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
-msgstr "To&rna a obrir el/s darrer/s document/s tancat/s."
+msgstr "To&rna a obrir el/s darrer/s document/s tancat/s"
 
 #: lib/katemainwindow.cpp:471
 #, kde-format

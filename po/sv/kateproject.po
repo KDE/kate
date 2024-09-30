@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-09-08 09:40+0200\n"
+"POT-Creation-Date: 2024-09-30 00:41+0000\n"
+"PO-Revision-Date: 2024-09-29 08:21+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -529,7 +529,7 @@ msgstr "Projektkomplettering"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "Läs in arkiv och bygg träd automatiskt"
+msgstr "Läs in arkiv automatiskt och bygg träd"
 
 #: kateprojectconfigpage.cpp:26
 #, kde-format
@@ -1010,13 +1010,22 @@ msgid "Failed to create dir: %1"
 msgstr "Misslyckades skapa katalog: %1"
 
 #: kateprojectworker.cpp:744
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Unable to load %1 based project because either %1 is not installed or it "
+#| "wasn't found in PATH envirnoment variable. Please install %1 or "
+#| "alternatively disable the option 'Autoload Repositories && Build Trees' "
+#| "in project settings."
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
-"wasn't found in PATH envirnoment variable. Please install %1 or "
+"wasn't found in PATH environment variable. Please install %1 or "
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"Kunde inte läsa in projekt baserat på %1, eftersom antingen är %1 inte "
+"installerat eller så hittades det inte i miljövariabeln PATH. Installera %1 "
+"eller inaktivera alternativet \"Läs in arkiv automatiskt och bygg träd\" i "
+"projektinställningarna."
 
 #: stashdialog.cpp:36
 #, kde-format

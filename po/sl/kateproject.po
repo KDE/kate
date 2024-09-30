@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-09-08 07:55+0200\n"
+"POT-Creation-Date: 2024-09-30 00:41+0000\n"
+"PO-Revision-Date: 2024-09-29 08:16+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1022,13 +1022,22 @@ msgid "Failed to create dir: %1"
 msgstr "Ustvarjanje imenika ni uspelo: %1"
 
 #: kateprojectworker.cpp:744
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Unable to load %1 based project because either %1 is not installed or it "
+#| "wasn't found in PATH envirnoment variable. Please install %1 or "
+#| "alternatively disable the option 'Autoload Repositories && Build Trees' "
+#| "in project settings."
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
-"wasn't found in PATH envirnoment variable. Please install %1 or "
+"wasn't found in PATH environment variable. Please install %1 or "
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"Ni mogoče naložiti projekta na osnovi %1, ker %1 ni nameščen ali pa ga ni "
+"bilo mogoče najti v spremenljivki okolja PATH. Prosimo, namestite %1 ali pa "
+"onemogočite možnost »Samodejno nalaganje repozitorijev && gradnje dreves« v "
+"nastavitvah projekta."
 
 #: stashdialog.cpp:36
 #, kde-format

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-09-08 15:03+0200\n"
+"POT-Creation-Date: 2024-09-30 00:41+0000\n"
+"PO-Revision-Date: 2024-09-29 14:34+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1015,13 +1015,22 @@ msgid "Failed to create dir: %1"
 msgstr "Map aanmaken is mislukt: %1"
 
 #: kateprojectworker.cpp:744
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Unable to load %1 based project because either %1 is not installed or it "
+#| "wasn't found in PATH envirnoment variable. Please install %1 or "
+#| "alternatively disable the option 'Autoload Repositories && Build Trees' "
+#| "in project settings."
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
-"wasn't found in PATH envirnoment variable. Please install %1 or "
+"wasn't found in PATH environment variable. Please install %1 or "
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"Kan op %1 gebaseerd project niet laden omdat of %1 niet is geïnstalleerd of "
+"was het niet in de omgevingsvariabele PATH te vinden. Installeer %1 of "
+"schakel als alternatief de optie 'Opslagruimten automatisch laden && "
+"boomstructuren bouwen' uit in de projectinstellingen."
 
 #: stashdialog.cpp:36
 #, kde-format

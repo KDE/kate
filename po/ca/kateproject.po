@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-09-08 11:05+0200\n"
+"POT-Creation-Date: 2024-09-30 00:41+0000\n"
+"PO-Revision-Date: 2024-09-29 08:52+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1018,13 +1018,22 @@ msgid "Failed to create dir: %1"
 msgstr "Ha fallat en crear el directori: %1"
 
 #: kateprojectworker.cpp:744
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Unable to load %1 based project because either %1 is not installed or it "
+#| "wasn't found in PATH envirnoment variable. Please install %1 or "
+#| "alternatively disable the option 'Autoload Repositories && Build Trees' "
+#| "in project settings."
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
-"wasn't found in PATH envirnoment variable. Please install %1 or "
+"wasn't found in PATH environment variable. Please install %1 or "
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"No s'ha pogut carregar %1 en funció del projecte perquè %1 no està "
+"instal·lat o no s'ha trobat en la variable d'entorn PATH. Instal·leu %1 o de "
+"manera alternativa desactiveu l'opció «Carrega automàticament els "
+"repositoris i construeix els arbres» a la configuració del projecte."
 
 #: stashdialog.cpp:36
 #, kde-format

@@ -1,15 +1,16 @@
+# Translation of kateproject to Spanish
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
 # SPDX-FileCopyrightText: 2012, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
-# Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>, 2012.
-# Rocio Gallego <traducciones@rociogallego.com>, 2013, 2014, 2015.
+# SPDX-FileCopyrightText: 2012 Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>
+# SPDX-FileCopyrightText: 2013, 2014, 2015 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-09-08 04:34+0200\n"
+"POT-Creation-Date: 2024-09-30 00:41+0000\n"
+"PO-Revision-Date: 2024-09-30 02:29+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -19,7 +20,7 @@ msgstr ""
 "com>\n"
 "com>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1016,13 +1017,22 @@ msgid "Failed to create dir: %1"
 msgstr "No se ha podido crear el directorio: %1"
 
 #: kateprojectworker.cpp:744
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Unable to load %1 based project because either %1 is not installed or it "
+#| "wasn't found in PATH envirnoment variable. Please install %1 or "
+#| "alternatively disable the option 'Autoload Repositories && Build Trees' "
+#| "in project settings."
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
-"wasn't found in PATH envirnoment variable. Please install %1 or "
+"wasn't found in PATH environment variable. Please install %1 or "
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"No se ha podido cargar el proyecto basado en %1 porque %1 no está instalado "
+"o porque no se ha encontrado en la variable de entorno PATH. Instale %1 o "
+"desactive la opción «Cargar repositorios y árboles de compilación "
+"automáticamente» en las preferencias del proyecto."
 
 #: stashdialog.cpp:36
 #, kde-format

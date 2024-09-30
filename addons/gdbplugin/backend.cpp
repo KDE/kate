@@ -190,6 +190,22 @@ void Backend::removeSavedBreakpoint(QUrl const &url, int line)
     }
 }
 
+bool Backend::canHotReload() const
+{
+    if (auto dap = qobject_cast<DapBackend *>(m_debugger)) {
+        return dap->canHotReload();
+    }
+    return false;
+}
+
+bool Backend::canHotRestart() const
+{
+    if (auto dap = qobject_cast<DapBackend *>(m_debugger)) {
+        return dap->canHotRestart();
+    }
+    return false;
+}
+
 void Backend::movePC(QUrl const &url, int line)
 {
     if (m_debugger)
@@ -268,6 +284,24 @@ QString Backend::slotPrintVariable(const QString &variable)
     if (m_debugger)
         return m_debugger->slotPrintVariable(variable);
     return QString();
+}
+
+void Backend::slotHotReload()
+{
+    if (m_debugger) {
+        if (auto dap = qobject_cast<DapBackend *>(m_debugger)) {
+            dap->slotHotReload();
+        }
+    }
+}
+
+void Backend::slotHotRestart()
+{
+    if (m_debugger) {
+        if (auto dap = qobject_cast<DapBackend *>(m_debugger)) {
+            dap->slotHotRestart();
+        }
+    }
 }
 
 void Backend::slotQueryLocals(bool display)

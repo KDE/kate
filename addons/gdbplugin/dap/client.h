@@ -77,6 +77,8 @@ public:
     void requestWatch(const QString &expression, std::optional<int> frameId = std::nullopt);
     void requestGotoTargets(const QString &path, const int line, const std::optional<int> column = std::nullopt);
     void requestGotoTargets(const dap::Source &source, const int line, const std::optional<int> column = std::nullopt);
+    void requestHotReload();
+    void requestHotRestart();
 
     void detach();
 
@@ -154,6 +156,7 @@ private:
     void processResponseEvaluate(const Response &response, const QJsonValue &);
     void processResponseGotoTargets(const Response &response, const QJsonValue &);
     void processResponsePause(const Response &response, const QJsonValue &);
+    void processResponseHotReload(const Response &response, const QJsonValue &);
 
     /*
      * events

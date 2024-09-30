@@ -19,6 +19,7 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
 #include <KXMLGUIClient>
+#include <QTimer>
 #include <optional>
 
 #include "backend.h"
@@ -116,6 +117,7 @@ private:
     QString currentWord();
 
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
+    void enableHotReloadOnSave(KTextEditor::View *view);
     QToolButton *createDebugButton(QAction *action);
 
     KTextEditor::Application *m_kateApplication;
@@ -142,6 +144,10 @@ private:
     int m_lastExecFrame;
     bool m_focusOnInput;
     QPointer<KTextEditor::Message> m_infoMessage;
+
+    QAction *m_hotReloadOnSaveAction;
+    QTimer m_hotReloadTimer;
+    QMetaObject::Connection m_hotReloadOnSaveConnection;
 
     // Debug buttons
     QWidget *m_buttonWidget;

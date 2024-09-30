@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kategdbplugin" library="kategdbplugin" version="4" translationDomain="kategdbplugin">
+<gui name="kategdbplugin" library="kategdbplugin" version="5" translationDomain="kategdbplugin">
   <MenuBar>
     <Menu name="debug">
       <Text>&amp;Debug</Text>
@@ -21,6 +21,9 @@
       <Action name="continue"/>
       <Separator/>
       <Action name="print_value"/>
+      <Action name="debug_hot_reload"/>
+      <Action name="debug_hot_restart"/>
+      <Action name="debug_hot_reload_on_save"/>
     </Menu>
   </MenuBar>
   <Menu name="ktexteditor_popup" noMerge="1">

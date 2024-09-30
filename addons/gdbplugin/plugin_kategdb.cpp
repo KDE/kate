@@ -332,7 +332,31 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::SHIFT | Qt::Key_F7)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotRestart);
     buttonsLayout->addWidget(createDebugButton(a));
+
+    a = actionCollection()->addAction(QStringLiteral("debug_hot_reload"));
+    a->setText(i18n("Hot Reload"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("exception")));
+    a->setVisible(false);
+    connect(a, &QAction::triggered, m_backend, &Backend::slotHotReload);
+    buttonsLayout->addWidget(createDebugButton(a));
+
+    a = actionCollection()->addAction(QStringLiteral("debug_hot_restart"));
+    a->setText(i18n("Hot Restart"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-reset")));
+    a->setVisible(false);
+    connect(a, &QAction::triggered, m_backend, &Backend::slotHotRestart);
+    buttonsLayout->addWidget(createDebugButton(a));
+
     buttonsLayout->addStretch();
+
+    m_hotReloadOnSaveAction = a = actionCollection()->addAction(QStringLiteral("debug_hot_reload_on_save"));
+    a->setText(i18n("Enable Hot Reload on Save"));
+    a->setVisible(false);
+    a->setCheckable(true);
+    a->setChecked(true);
+    connect(a, &QAction::triggered, this, [this](bool e) {
+        enableHotReloadOnSave(e ? m_mainWin->activeView() : nullptr);
+    });
 
     a = actionCollection()->addAction(QStringLiteral("move_pc"));
     a->setText(i18nc("Move Program Counter (next execution)", "Move PC"));
@@ -366,6 +390,10 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     }
 
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KatePluginGDBView::enableBreakpointMarks);
+
+    m_hotReloadTimer.setInterval(10);
+    m_hotReloadTimer.setSingleShot(true);
+    m_hotReloadTimer.callOnTimeout(m_backend, &Backend::slotHotReload);
 
     m_toolView->installEventFilter(this);
 
@@ -561,6 +589,26 @@ void KatePluginGDBView::enableDebugActions(bool enable)
     actionCollection()->action(QStringLiteral("popup_gdb"))->setEnabled(enable);
     actionCollection()->action(QStringLiteral("continue"))->setEnabled(enable && m_backend->canContinue());
     actionCollection()->action(QStringLiteral("print_value"))->setEnabled(enable);
+
+    auto a = actionCollection()->action(QStringLiteral("debug_hot_reload"));
+    a->setVisible(enable && m_backend->canHotReload());
+    a->setEnabled(enable && m_backend->canHotReload());
+
+    m_hotReloadOnSaveAction->setVisible(enable && m_backend->canHotReload());
+    m_hotReloadOnSaveAction->setEnabled(enable && m_backend->canHotReload());
+
+    if (enable && m_backend->canHotReload()) {
+        connect(m_mainWin, &KTextEditor::MainWindow::viewChanged, this, &KatePluginGDBView::enableHotReloadOnSave, Qt::UniqueConnection);
+        enableHotReloadOnSave(m_mainWin->activeView());
+    } else {
+        m_hotReloadTimer.stop();
+        enableHotReloadOnSave(nullptr);
+        disconnect(m_mainWin, &KTextEditor::MainWindow::viewChanged, this, &KatePluginGDBView::enableHotReloadOnSave);
+    }
+
+    a = actionCollection()->action(QStringLiteral("debug_hot_restart"));
+    a->setVisible(enable && m_backend->canHotRestart());
+    a->setEnabled(enable && m_backend->canHotRestart());
 
     m_breakpoint->setEnabled(m_backend->debuggerRunning());
 
@@ -937,6 +985,15 @@ void KatePluginGDBView::enableBreakpointMarks(KTextEditor::Document *document)
     }
 }
 
+void KatePluginGDBView::enableHotReloadOnSave(KTextEditor::View *view)
+{
+    QObject::disconnect(m_hotReloadOnSaveConnection);
+    if (m_hotReloadOnSaveAction->isEnabled() && m_hotReloadOnSaveAction->isChecked() && view && view->document()) {
+        auto doc = view->document();
+        m_hotReloadOnSaveConnection = connect(doc, &KTextEditor::Document::documentSavedOrUploaded, &m_hotReloadTimer, qOverload<>(&QTimer::start));
+    }
+}
+
 void KatePluginGDBView::prepareDocumentBreakpoints(KTextEditor::Document *document)
 {
     // If debugger is running and we open the file, check if there is a break point set in every line
@@ -985,6 +1042,10 @@ QToolButton *KatePluginGDBView::createDebugButton(QAction *action)
     QToolButton *button = new QToolButton();
     button->setDefaultAction(action);
     button->setAutoRaise(true);
+    connect(action, &QAction::visibleChanged, button, [button, action] {
+        button->setVisible(action->isVisible());
+    });
+    button->setVisible(action->isVisible());
     return button;
 }
 

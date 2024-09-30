@@ -42,6 +42,9 @@ public:
     void saveBreakpoint(QUrl const &url, int line);
     void removeSavedBreakpoint(QUrl const &url, int line);
 
+    bool canHotReload() const;
+    bool canHotRestart() const;
+
 public Q_SLOTS:
     void slotInterrupt() override;
     void slotStepInto() override;
@@ -51,6 +54,8 @@ public Q_SLOTS:
     void slotKill() override;
     void slotReRun() override;
     QString slotPrintVariable(const QString &variable) override;
+    void slotHotReload();
+    void slotHotRestart();
     void slotQueryLocals(bool display) override;
     void changeStackFrame(int index) override;
     void changeThread(int thread) override;

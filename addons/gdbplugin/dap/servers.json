@@ -162,6 +162,30 @@
                     }
                 }
             }
+        },
+        "gdb": {
+            "url": "gdb",
+            "run": {
+                "command": [
+                    "gdb",
+                    "-i",
+                    "dap"
+                ],
+                "redirectStderr": true,
+                "redirectStdout": true,
+                "supportsSourceRequest": true
+            },
+            "configurations": {
+                "launch (debug)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "debug",
+                        "program": "${file}",
+                        "args": "${args|list}",
+                        "cwd": "${workdir}"
+                    }
+                }
+            }
         }
     }
 }

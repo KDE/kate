@@ -33,6 +33,8 @@ public:
     bool canSetBreakpoints() const override;
     bool canMove() const override;
     bool canContinue() const override;
+    bool canHotReload() const;
+    bool canHotRestart() const;
 
     void toggleBreakpoint(QUrl const &url, int line, bool *) override;
     void movePC(QUrl const &url, int line) override;
@@ -54,6 +56,8 @@ public Q_SLOTS:
     void slotKill() override;
     void slotReRun() override;
     QString slotPrintVariable(const QString &variable) override;
+    void slotHotReload();
+    void slotHotRestart();
 
     void slotQueryLocals(bool display) override;
     void changeStackFrame(int index) override;
@@ -135,6 +139,7 @@ private:
     void informStackFrame();
 
     QString m_targetName;
+    QString m_debuggerName;
 
     void start();
 

@@ -207,6 +207,7 @@ void DapBackend::start()
 void DapBackend::runDebugger(const DAPTargetConf &conf)
 {
     m_targetName = conf.targetName;
+    m_debuggerName = conf.debugger;
 
     target2dap(conf);
 
@@ -802,6 +803,16 @@ bool DapBackend::canMove() const
 bool DapBackend::canContinue() const
 {
     return (m_state == Initializing) || (m_state == Stopped);
+}
+
+bool DapBackend::canHotReload() const
+{
+    return m_debuggerName == QStringLiteral("flutter") && debuggerRunning();
+}
+
+bool DapBackend::canHotRestart() const
+{
+    return m_debuggerName == QStringLiteral("flutter") && debuggerRunning();
 }
 
 bool DapBackend::debuggerRunning() const
@@ -1670,6 +1681,16 @@ QString DapBackend::slotPrintVariable(const QString &variable)
     const auto cmd = QStringLiteral("print %1").arg(variable);
     issueCommand(cmd);
     return cmd;
+}
+
+void DapBackend::slotHotReload()
+{
+    m_client->requestHotReload();
+}
+
+void DapBackend::slotHotRestart()
+{
+    m_client->requestHotRestart();
 }
 
 void DapBackend::changeStackFrame(int index)

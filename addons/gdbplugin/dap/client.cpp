@@ -346,6 +346,10 @@ void Client::processResponseTerminate(const Response &, const QJsonValue &)
 {
 }
 
+void Client::processResponseHotReload(const Response &, const QJsonValue &)
+{
+}
+
 void Client::processResponseDisconnect(const Response &response, const QJsonValue &)
 {
     if (response.success) {
@@ -701,6 +705,16 @@ void Client::requestLaunchCommand()
         return;
 
     this->write(makeRequest(m_launchCommand, m_protocol.launchRequest, make_response_handler(&Client::processResponseLaunch, this)));
+}
+
+void Client::requestHotReload()
+{
+    this->write(makeRequest(QStringLiteral("hotReload"), {}, make_response_handler(&Client::processResponseHotReload, this)));
+}
+
+void Client::requestHotRestart()
+{
+    this->write(makeRequest(QStringLiteral("hotRestart"), {}, make_response_handler(&Client::processResponseHotReload, this)));
 }
 
 void Client::checkRunning()

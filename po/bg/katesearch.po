@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-22 00:40+0000\n"
-"PO-Revision-Date: 2024-03-20 13:45+0100\n"
+"PO-Revision-Date: 2024-09-29 14:37+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.07.70\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -82,7 +82,7 @@ msgstr "<b><i>Генериране на файлов списък: ...%1</i></b>
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>Едно съвпадение намерено, търсене: ...%2</i></b>"
-msgstr[1] "<b><i>%1 съвпадения намерени , търсене: ...%2</i></b>"
+msgstr[1] "<b><i>%1 съвпадения намерени, търсене: ...%2</i></b>"
 
 #: MatchModel.cpp:560
 #, kde-format

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-30 00:41+0000\n"
-"PO-Revision-Date: 2024-09-08 09:12+0200\n"
+"PO-Revision-Date: 2024-09-30 15:53+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1025,6 +1025,10 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"Ez da %1 oinarri duen proiektua zamatzeko gai, %1 ez dagoelako instalatuta "
+"edo ez duelako PATH ingurune aldagaian aurkitu. Mesedez, instalatu %1 edo, "
+"bestela, ezgaitu proiektu ezarpenetako 'Gordetegiak automatikoki zamatu eta "
+"zuhaitzak eraiki' aukera."
 
 #: stashdialog.cpp:36
 #, kde-format

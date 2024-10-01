@@ -330,10 +330,9 @@ msgid "Clear Diagnostics Filter"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Zobrazit/Skrýt informace o commitu"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:335
 #, kde-format
@@ -1208,7 +1207,7 @@ msgstr "Maximální počet povolených diagnostik v pohledu Diagnostika."
 #: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "Kontextový"
 
 #: lib/kateconfigdialog.cpp:356
 #, kde-format
@@ -1573,10 +1572,9 @@ msgid "Close all open documents."
 msgstr "Zavřít všechny otevřené dokumenty."
 
 #: lib/katemainwindow.cpp:469
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
-msgstr "Znovu otevřít nedávno uzavřené dokumenty."
+msgstr ""
 
 #: lib/katemainwindow.cpp:471
 #, kde-format

@@ -102,6 +102,7 @@ Q_SIGNALS:
     void textFormatted(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &text, int offset = -1);
     void textFormattedPatch(KTextEditor::Document *doc, const std::vector<PatchLine> &);
     void error(const QString &error);
+    void notInstalledError(const QString &error);
 };
 
 class ClangFormat : public AbstractFormatter

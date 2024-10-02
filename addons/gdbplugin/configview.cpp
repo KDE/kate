@@ -165,7 +165,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
 
     connect(m_clientCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ConfigView::refreshUI);
 
-    QMetaObject::invokeMethod(this, &ConfigView::readTargetsFromLaunchJson, Qt::QueuedConnection);
+    QMetaObject::invokeMethod(this, &ConfigView::initProjectPlugin, Qt::QueuedConnection);
 }
 
 ConfigView::~ConfigView()
@@ -952,6 +952,20 @@ int ConfigView::loadFromIndex(int index)
 
         return m_dapAdapterSettings[debuggerKey][debuggerProfile].index;
     }
+}
+
+void ConfigView::initProjectPlugin()
+{
+    auto slot = [this](const QString &pluginName, QObject *pluginView) {
+        if (pluginView && pluginName == QLatin1String("kateprojectplugin")) {
+            connect(pluginView, SIGNAL(projectMapChanged()), this, SLOT(readTargetsFromLaunchJson()), Qt::UniqueConnection);
+            readTargetsFromLaunchJson();
+        }
+    };
+    QString projectPlugin = QLatin1String("kateprojectplugin");
+    QObject *pluginView = m_mainWindow->pluginView(QLatin1String("kateprojectplugin"));
+    slot(QLatin1String("kateprojectplugin"), pluginView);
+    connect(m_mainWindow, &KTextEditor::MainWindow::pluginViewCreated, this, slot);
 }
 
 #include "moc_configview.cpp"

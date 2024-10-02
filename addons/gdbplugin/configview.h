@@ -97,6 +97,7 @@ private Q_SLOTS:
     void slotAdvancedClicked();
     void slotBrowseExec();
     void slotBrowseDir();
+    void readTargetsFromLaunchJson();
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
@@ -112,7 +113,7 @@ private:
     Field &getDapField(const QString &fieldName);
     void refreshUI();
     void readDAPSettings();
-    void readTargetsFromLaunchJson();
+    void initProjectPlugin();
 
 private:
     KTextEditor::MainWindow *m_mainWindow;

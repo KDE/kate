@@ -39,7 +39,6 @@ find_package(
   COMPONENTS
     Crash
     IconThemes
-    TextWidgets
     WindowSystem
     WidgetsAddons
 )
@@ -52,7 +51,6 @@ target_link_libraries(
     KF6::I18n
     KF6::IconThemes
     KF6::TextEditor
-    KF6::TextWidgets
     KF6::WindowSystem
     KF6::KIOGui
     KF6::KIOWidgets

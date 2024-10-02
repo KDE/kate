@@ -27,7 +27,6 @@ class QCheckBox;
 class QComboBox;
 class QSpinBox;
 class KateMainWindow;
-class KPluralHandlingSpinBox;
 
 struct PluginPageListItem {
     KTextEditor::Plugin *plugin;

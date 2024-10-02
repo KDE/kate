@@ -24,9 +24,9 @@
 #include "kateviewmanager.h"
 
 #include <KConfigGroup>
+#include <KLocalization>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KPluralHandlingSpinBox>
 #include <KSharedConfig>
 
 #include <QCheckBox>
@@ -43,6 +43,7 @@
 #include <QScreen>
 #include <QScrollArea>
 #include <QScrollBar>
+#include <QSpinBox>
 #include <QTimer>
 #include <QVBoxLayout>
 
@@ -384,19 +385,17 @@ void KateConfigDialog::addSessionPage()
     // meta infos days
     sessionConfigUi.daysMetaInfos->setMaximum(180);
     sessionConfigUi.daysMetaInfos->setSpecialValueText(i18nc("The special case of 'Delete unused meta-information after'", "(never)"));
-    sessionConfigUi.daysMetaInfos->setSuffix(ki18ncp("The suffix of 'Delete unused meta-information after'", " day", " days"));
+    KLocalization::setupSpinBoxFormatString(sessionConfigUi.daysMetaInfos,
+                                            ki18ncp("The suffix of 'Delete unused meta-information after'", "%v day", "%v days"));
     sessionConfigUi.daysMetaInfos->setValue(KateApp::self()->documentManager()->getDaysMetaInfos());
-    connect(sessionConfigUi.daysMetaInfos,
-            static_cast<void (KPluralHandlingSpinBox::*)(int)>(&KPluralHandlingSpinBox::valueChanged),
-            this,
-            &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi.daysMetaInfos, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
 
     // restore view  config
     sessionConfigUi.restoreVC->setChecked(cgGeneral.readEntry("Restore Window Configuration", true));
     connect(sessionConfigUi.restoreVC, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     sessionConfigUi.spinBoxRecentFilesCount->setValue(recentFilesMaxCount());
-    connect(sessionConfigUi.spinBoxRecentFilesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi.spinBoxRecentFilesCount, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
 
     QString sesStart(cgGeneral.readEntry("Startup Session", "manual"));
     if (sesStart == QLatin1String("new")) {

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-09-01 15:30+0200\n"
+"PO-Revision-Date: 2024-10-02 16:14+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -337,10 +337,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "Pulisci filtro diagnostica"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Mostra/nascondi informazioni di deposito"
+msgstr "Mostra informazioni al passaggio del mouse"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:335
 #, kde-format
@@ -1246,12 +1245,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:351 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "Contesto"
 
 #: lib/kateconfigdialog.cpp:356
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Abilita vista dello strumento"
 
 #: lib/kateconfigdialog.cpp:358
 #, kde-format
@@ -1259,6 +1258,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"Una vista dello strumento per visualizzare il contesto associato alla "
+"posizione del cursore (suggerimenti LSP e diagnostica)"
 
 #: lib/kateconfigdialog.cpp:373
 #, kde-format
@@ -1618,10 +1619,9 @@ msgid "Close all open documents."
 msgstr "Chiudi tutti i documenti aperti."
 
 #: lib/katemainwindow.cpp:469
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
-msgstr "&Riapri gli ultimi documenti chiusi."
+msgstr "&Riapri gli ultimi documenti chiusi"
 
 #: lib/katemainwindow.cpp:471
 #, kde-format

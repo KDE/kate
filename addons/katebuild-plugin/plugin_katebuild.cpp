@@ -561,8 +561,6 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     // Add project targets, if any
     addProjectTargets();
 
-    m_targetsUi->targetsView->expandAll();
-
     // pre-select the last active target or the first target of the first set
     int prevTargetSetRow = cg.readEntry(QStringLiteral("Active Target Index"), 0);
     int prevCmdRow = cg.readEntry(QStringLiteral("Active Target Command"), 0);

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 00:42+0000\n"
-"PO-Revision-Date: 2024-09-27 09:26+0200\n"
+"PO-Revision-Date: 2024-10-02 09:14+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -20,9 +20,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
-"X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
+"X-Environment: kde\n"
+"X-Generator: Lokalize 23.08.5\n"
 "X-Text-Markup: kde4\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -761,17 +761,17 @@ msgstr "Redémarrer le débogage"
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Rechargement à chaud"
 
 #: plugin_kategdb.cpp:345
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Redémarrage à chaud"
 
 #: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Activer le rechargement à chaud lors de l'enregistrement"
 
 #: plugin_kategdb.cpp:363 plugin_kategdb.cpp:382
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 00:42+0000\n"
-"PO-Revision-Date: 2024-09-26 12:35+0200\n"
+"PO-Revision-Date: 2024-10-03 10:12+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -750,17 +750,17 @@ msgstr "Re-initia cribrar"
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Recarga a calide (hot reload)"
 
 #: plugin_kategdb.cpp:345
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Re-Initia a calide (HOt restart)"
 
 #: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "HAbilita Recarga a calide (hot reload) quando on salveguarda"
 
 #: plugin_kategdb.cpp:363 plugin_kategdb.cpp:382
 #, kde-format

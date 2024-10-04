@@ -30,11 +30,6 @@ public:
     KateProjectInfoView(KateProjectPluginView *pluginView, KateProject *project);
 
     /**
-     * deconstruct info view
-     */
-    ~KateProjectInfoView() override;
-
-    /**
      * our project.
      * @return project
      */
@@ -54,13 +49,16 @@ public:
 
     void resetTerminal(const QString &directory);
 
-    void runCmdInTerminal(const QString &workingDir, const QString &cmd);
+private:
+    void initialize();
 
 private:
     /**
      * our project
      */
-    KateProject *m_project;
+    KateProject *const m_project;
+    KateProjectPluginView *const m_pluginView;
 
-    KateProjectInfoViewTerminal *m_terminal;
+    KateProjectInfoViewTerminal *m_terminal = nullptr;
+    bool m_initialized = false;
 };

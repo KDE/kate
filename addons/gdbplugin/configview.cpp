@@ -36,11 +36,11 @@
 #include "json_placeholders.h"
 #include "launch_json_reader.h"
 #include "plugin_kategdb.h"
+#include "sessionconfig.h"
 #include "target_json_keys.h"
 #include <json_utils.h>
 
 using namespace TargetKeys;
-constexpr int CONFIG_VERSION = 5;
 
 void ConfigView::refreshUI()
 {
@@ -66,10 +66,11 @@ std::optional<QJsonDocument> loadJSON(const QString &path)
     return json;
 }
 
-ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePluginGDB *plugin)
+ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePluginGDB *plugin, KSelectAction *targetsAction)
     : QWidget(parent)
     , m_mainWindow(mainWin)
 {
+    setTargetsAction(targetsAction);
     m_clientCombo = new QComboBox(this);
     m_clientCombo->setEditable(false);
 #ifndef WIN32
@@ -164,8 +165,6 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     connect(m_advancedSettings, &QPushButton::clicked, this, &ConfigView::slotAdvancedClicked);
 
     connect(m_clientCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ConfigView::refreshUI);
-
-    QMetaObject::invokeMethod(this, &ConfigView::initProjectPlugin, Qt::QueuedConnection);
 }
 
 ConfigView::~ConfigView()
@@ -260,130 +259,20 @@ void ConfigView::readTargetsFromLaunchJson()
     }
 }
 
-void ConfigView::registerActions(KActionCollection *actionCollection)
+void ConfigView::setTargetsAction(KSelectAction *action)
 {
-    m_targetSelectAction = actionCollection->add<KSelectAction>(QStringLiteral("targets"));
-    m_targetSelectAction->setText(i18n("Targets"));
+    m_targetSelectAction = action;
     connect(m_targetSelectAction, &KSelectAction::indexTriggered, this, &ConfigView::slotTargetSelected);
 }
 
-void upgradeConfigV1_3(QStringList &targetConfStrs)
-{
-    if (targetConfStrs.count() == 3) {
-        // valid old style config, translate it now; note the
-        // reordering happening here!
-        QStringList temp;
-        temp << targetConfStrs[2];
-        temp << targetConfStrs[1];
-        targetConfStrs.swap(temp);
-    }
-}
-
-void upgradeConfigV3_4(QStringList &targetConfStrs, const QStringList &args)
-{
-    targetConfStrs.prepend(targetConfStrs[0].right(15));
-
-    const QString targetName(QStringLiteral("%1<%2>"));
-
-    for (int i = 0; i < args.size(); ++i) {
-        const QString &argStr = args.at(i);
-        if (i > 0) {
-            // copy the firsts and change the arguments
-            targetConfStrs[0] = targetName.arg(targetConfStrs[0]).arg(i + 1);
-            if (targetConfStrs.count() > 3) {
-                targetConfStrs[3] = argStr;
-            }
-        }
-    }
-}
-
-void upgradeConfigV4_5(QStringList targetConfStrs, QJsonObject &conf)
-{
-    typedef ConfigView::TargetStringOrder I;
-
-    while (targetConfStrs.count() < I::CustomStartIndex) {
-        targetConfStrs << QString();
-    }
-
-    auto insertField = [&conf, targetConfStrs](const QString &field, I index) {
-        const QString value = targetConfStrs[index].trimmed();
-        if (!value.isEmpty()) {
-            conf[field] = value;
-        }
-    };
-
-    // read fields
-    insertField(F_TARGET, I::NameIndex);
-    insertField(F_FILE, I::ExecIndex);
-    insertField(F_WORKDIR, I::WorkDirIndex);
-    insertField(F_ARGS, I::ArgsIndex);
-    // read advanced settings
-    for (int i = 0; i < I::GDBIndex; ++i) {
-        targetConfStrs.takeFirst();
-    }
-    const auto advanced = AdvancedGDBSettings::upgradeConfigV4_5(targetConfStrs);
-    if (!advanced.isEmpty()) {
-        conf[QStringLiteral("advanced")] = advanced;
-    }
-}
-
-QByteArray serialize(const QJsonObject obj)
-{
-    const QJsonDocument doc(obj);
-    return doc.toJson(QJsonDocument::Compact);
-}
-
-QJsonObject unserialize(const QString map)
-{
-    const auto doc = QJsonDocument::fromJson(map.toLatin1());
-    return doc.object();
-}
-
-void ConfigView::readConfig(const KConfigGroup &group)
+void ConfigView::readConfig(const DebugPluginSessionConfig::ConfigData &config)
 {
     m_targetCombo->clear();
 
-    const int version = group.readEntry(QStringLiteral("version"), CONFIG_VERSION);
-    const int targetCount = group.readEntry(QStringLiteral("targetCount"), 1);
-    int lastTarget = group.readEntry(QStringLiteral("lastTarget"), 0);
+    int lastTarget = config.lastTarget;
     const QString targetKey(QStringLiteral("target_%1"));
 
-    QStringList args;
-    if (version < 4) {
-        const int argsListsCount = group.readEntry(QStringLiteral("argsCount"), 0);
-        const QString argsKey(QStringLiteral("args_%1"));
-        const QString targetName(QStringLiteral("%1<%2>"));
-
-        for (int nArg = 0; nArg < argsListsCount; ++nArg) {
-            const QString argStr = group.readEntry(argsKey.arg(nArg), QString());
-        }
-    }
-
-    for (int i = 0; i < targetCount; i++) {
-        QJsonObject targetConf;
-
-        if (version < 5) {
-            QStringList targetConfStrs;
-            targetConfStrs = group.readEntry(targetKey.arg(i), QStringList());
-            if (targetConfStrs.count() == 0) {
-                continue;
-            }
-
-            if (version == 1) {
-                upgradeConfigV1_3(targetConfStrs);
-            }
-
-            if (version < 4) {
-                upgradeConfigV3_4(targetConfStrs, args);
-            }
-            if (version < 5) {
-                upgradeConfigV4_5(targetConfStrs, targetConf);
-            }
-        } else {
-            const QString data = group.readEntry(targetKey.arg(i), QString());
-            targetConf = unserialize(data);
-        }
-
+    for (const auto &targetConf : config.targetConfigs) {
         if (!targetConf.isEmpty()) {
             m_targetCombo->addItem(targetConf[QStringLiteral("target")].toString(), targetConf);
         }
@@ -404,22 +293,19 @@ void ConfigView::readConfig(const KConfigGroup &group)
         lastTarget = 0;
     }
     m_targetCombo->setCurrentIndex(lastTarget);
+    m_takeFocus->setChecked(config.alwaysFocusOnInput);
+    m_redirectTerminal->setChecked(config.redirectTerminal);
 
-    m_takeFocus->setChecked(group.readEntry("alwaysFocusOnInput", false));
-
-    m_redirectTerminal->setChecked(group.readEntry("redirectTerminal", false));
+    initProjectPlugin();
 }
 
-void ConfigView::writeConfig(KConfigGroup &group)
+void ConfigView::writeConfig(DebugPluginSessionConfig::ConfigData &config)
 {
     // make sure the data is up to date before writing
     saveCurrentToIndex(m_currentTarget);
 
-    group.writeEntry("version", CONFIG_VERSION);
-
-    QString targetKey(QStringLiteral("target_%1"));
-
-    group.writeEntry("lastTarget", m_targetCombo->currentIndex());
+    config.lastTarget = m_targetCombo->currentIndex();
+    // group.writeEntry("lastTarget", m_targetCombo->currentIndex());
     int targetIdx = 0;
     for (int i = 0; i < m_targetCombo->count(); i++) {
         QJsonObject targetConf = m_targetCombo->itemData(i).toJsonObject();
@@ -427,11 +313,11 @@ void ConfigView::writeConfig(KConfigGroup &group)
             // skip objects from launch.json
             continue;
         }
-        group.writeEntry(targetKey.arg(targetIdx++), serialize(targetConf));
+        config.targetConfigs.push_back(targetConf);
     }
-    group.writeEntry("targetCount", targetIdx);
-    group.writeEntry("alwaysFocusOnInput", m_takeFocus->isChecked());
-    group.writeEntry("redirectTerminal", m_redirectTerminal->isChecked());
+    config.targetCount = targetIdx;
+    config.alwaysFocusOnInput = m_takeFocus->isChecked();
+    config.redirectTerminal = m_redirectTerminal->isChecked();
 }
 
 const GDBTargetConf ConfigView::currentGDBTarget() const

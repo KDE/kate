@@ -31,6 +31,10 @@ class QToolButton;
 class KActionCollection;
 class KConfigGroup;
 class KatePluginGDB;
+namespace DebugPluginSessionConfig
+{
+struct ConfigData;
+}
 
 namespace KTextEditor
 {
@@ -65,16 +69,12 @@ class ConfigView : public QWidget
 {
     Q_OBJECT
 public:
-    enum TargetStringOrder { NameIndex = 0, ExecIndex, WorkDirIndex, ArgsIndex, GDBIndex, CustomStartIndex };
-
-    ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePluginGDB *plugin);
+    ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePluginGDB *plugin, KSelectAction *targetsAction);
     ~ConfigView() override;
 
 public:
-    void registerActions(KActionCollection *actionCollection);
-
-    void readConfig(const KConfigGroup &config);
-    void writeConfig(KConfigGroup &config);
+    void readConfig(const DebugPluginSessionConfig::ConfigData &config);
+    void writeConfig(DebugPluginSessionConfig::ConfigData &config);
 
     const GDBTargetConf currentGDBTarget() const;
     const DAPTargetConf currentDAPTarget(bool full = false) const;
@@ -114,6 +114,7 @@ private:
     void refreshUI();
     void readDAPSettings();
     void initProjectPlugin();
+    void setTargetsAction(KSelectAction *action);
 
 private:
     KTextEditor::MainWindow *m_mainWindow;

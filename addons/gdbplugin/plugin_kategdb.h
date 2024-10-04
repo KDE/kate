@@ -27,6 +27,7 @@
 #include "dap/entities.h"
 #include "ioview.h"
 #include "localsview.h"
+#include "sessionconfig.h"
 
 class KHistoryComboBox;
 class QTextEdit;
@@ -116,11 +117,13 @@ protected:
 
 private:
     QString currentWord();
+    void initDebugToolview();
 
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
     void enableHotReloadOnSave(KTextEditor::View *view);
     QToolButton *createDebugButton(QAction *action);
 
+    KatePluginGDB *const m_plugin;
     KTextEditor::Application *m_kateApplication;
     KTextEditor::MainWindow *m_mainWin;
     std::unique_ptr<QWidget> m_toolView;
@@ -135,7 +138,7 @@ private:
     QTreeWidget *m_stackTree;
     QString m_lastCommand;
     Backend *m_backend;
-    ConfigView *m_configView;
+    ConfigView *m_configView = nullptr;
     std::unique_ptr<IOView> m_ioView;
     LocalsView *m_localsView;
     QPointer<KActionMenu> m_menu;
@@ -145,6 +148,7 @@ private:
     int m_lastExecFrame;
     bool m_focusOnInput;
     QPointer<KTextEditor::Message> m_infoMessage;
+    KSelectAction *m_targetSelectAction = nullptr;
 
     QAction *m_hotReloadOnSaveAction;
     QTimer m_hotReloadTimer;
@@ -153,4 +157,5 @@ private:
     // Debug buttons
     QWidget *m_buttonWidget;
     QToolButton *m_continueButton;
+    DebugPluginSessionConfig::ConfigData m_sessionConfig;
 };

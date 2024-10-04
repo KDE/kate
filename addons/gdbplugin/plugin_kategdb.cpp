@@ -92,6 +92,7 @@ QObject *KatePluginGDB::createView(KTextEditor::MainWindow *mainWindow)
 
 KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWindow *mainWin)
     : QObject(mainWin)
+    , m_plugin(plugin)
     , m_mainWin(mainWin)
 {
     m_lastExecUrl = QUrl();
@@ -189,15 +190,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     locStackSplitter->addWidget(stackContainer);
     locStackSplitter->setOrientation(Qt::Vertical);
 
-    // config page
-    m_configView = new ConfigView(nullptr, mainWin, plugin);
-
     m_ioView = std::make_unique<IOView>();
-    connect(m_configView, &ConfigView::showIO, this, &KatePluginGDBView::showIO);
-
-    m_tabWidget->addTab(m_gdbPage, i18nc("Tab label", "Debug Output"));
-    m_tabWidget->addTab(m_configView, i18nc("Tab label", "Settings"));
-    m_tabWidget->setCurrentWidget(m_configView); // initially show config
 
     m_backend = new Backend(this);
     connect(m_backend, &BackendInterface::readyForInput, this, &KatePluginGDBView::enableDebugActions);
@@ -251,18 +244,11 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_localsView, &LocalsView::localsVisible, m_backend, &BackendInterface::slotQueryLocals);
 
-    connect(m_configView, &ConfigView::configChanged, this, [this]() {
-        if (!m_configView->debuggerIsGDB())
-            return;
-
-        GDBTargetConf config = m_configView->currentGDBTarget();
-        if (m_backend->targetName() == config.targetName) {
-            m_backend->setFileSearchPaths(config.srcPaths);
-        }
-    });
-
     // Actions
-    m_configView->registerActions(actionCollection());
+    m_targetSelectAction = actionCollection()->add<KSelectAction>(QStringLiteral("targets"));
+    m_targetSelectAction->setText(i18n("Targets"));
+    m_targetSelectAction->setEnabled(true);
+    connect(m_targetSelectAction->menu(), &QMenu::aboutToShow, this, &KatePluginGDBView::initDebugToolview);
 
     QAction *a = actionCollection()->addAction(QStringLiteral("debug"));
     a->setText(i18n("Start Debugging"));
@@ -408,16 +394,23 @@ KatePluginGDBView::~KatePluginGDBView()
 
 void KatePluginGDBView::readSessionConfig(const KConfigGroup &config)
 {
-    m_configView->readConfig(config);
+    m_sessionConfig = DebugPluginSessionConfig::read(config);
 }
 
 void KatePluginGDBView::writeSessionConfig(KConfigGroup &config)
 {
-    m_configView->writeConfig(config);
+    if (m_configView) {
+        m_sessionConfig = {};
+        m_configView->writeConfig(m_sessionConfig);
+        DebugPluginSessionConfig::write(config, m_sessionConfig);
+    } else {
+        DebugPluginSessionConfig::write(config, m_sessionConfig);
+    }
 }
 
 void KatePluginGDBView::slotDebug()
 {
+    initDebugToolview();
 #ifndef Q_OS_WIN
     disconnect(m_ioView.get(), &IOView::stdOutText, nullptr, nullptr);
     disconnect(m_ioView.get(), &IOView::stdErrText, nullptr, nullptr);
@@ -494,13 +487,16 @@ void KatePluginGDBView::slotToggleBreakpoint()
         m_backend->slotInterrupt();
     } else {
         KTextEditor::View *editView = m_mainWin->activeView();
+        if (!editView) {
+            return;
+        }
         QUrl currURL = editView->document()->url();
         int line = editView->cursorPosition().line() + 1;
         bool added = true;
         m_backend->toggleBreakpoint(currURL, line, &added);
 
         // We don't support setting breakpoints for gdb when the debugger is not running'
-        if (!m_backend->debuggerRunning() && m_configView->debuggerIsGDB()) {
+        if (!m_backend->debuggerRunning() && m_configView && m_configView->debuggerIsGDB()) {
             return;
         }
 
@@ -914,6 +910,33 @@ QString KatePluginGDBView::currentWord()
     return linestr.mid(startPos + 1, endPos - startPos - 1);
 }
 
+void KatePluginGDBView::initDebugToolview()
+{
+    if (m_configView) {
+        return;
+    }
+    // config page
+    m_configView = new ConfigView(nullptr, m_mainWin, m_plugin, m_targetSelectAction);
+
+    connect(m_configView, &ConfigView::showIO, this, &KatePluginGDBView::showIO);
+
+    m_tabWidget->addTab(m_gdbPage, i18nc("Tab label", "Debug Output"));
+    m_tabWidget->addTab(m_configView, i18nc("Tab label", "Settings"));
+    m_tabWidget->setCurrentWidget(m_configView); // initially show config
+
+    connect(m_configView, &ConfigView::configChanged, this, [this]() {
+        if (!m_configView->debuggerIsGDB())
+            return;
+
+        GDBTargetConf config = m_configView->currentGDBTarget();
+        if (m_backend->targetName() == config.targetName) {
+            m_backend->setFileSearchPaths(config.srcPaths);
+        }
+    });
+
+    m_configView->readConfig(m_sessionConfig);
+}
+
 void KatePluginGDBView::slotValue()
 {
     QString variable;
@@ -1005,6 +1028,8 @@ bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
             event->accept();
             return true;
         }
+    } else if (event->type() == QEvent::Show) {
+        initDebugToolview();
     }
     return QObject::eventFilter(obj, event);
 }

@@ -220,11 +220,12 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     SymbolViewProxyModel *m_identityModel;
 
     // cached icons for model
-    QIcon m_icon_pkg = QIcon::fromTheme(QStringLiteral("code-block"));
-    QIcon m_icon_class = QIcon::fromTheme(QStringLiteral("code-class"));
-    QIcon m_icon_typedef = QIcon::fromTheme(QStringLiteral("code-typedef"));
-    QIcon m_icon_function = QIcon::fromTheme(QStringLiteral("code-function"));
-    QIcon m_icon_var = QIcon::fromTheme(QStringLiteral("code-variable"));
+    bool m_iconsInitialized = false;
+    QIcon m_icon_pkg;
+    QIcon m_icon_class;
+    QIcon m_icon_typedef;
+    QIcon m_icon_function;
+    QIcon m_icon_var;
 
 public:
     LSPClientSymbolViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, std::shared_ptr<LSPClientServerManager> manager)
@@ -312,7 +313,6 @@ public:
         QObject::connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, [this](KTextEditor::Editor *e) {
             colorIcons(e);
         });
-        colorIcons(KTextEditor::Editor::instance());
 
         // initial trigger of symbols view update
         configUpdated();
@@ -355,6 +355,8 @@ public:
 
     void makeNodes(const std::list<LSPSymbolInformation> &symbols, bool tree, bool show_detail, QStandardItemModel *model, QStandardItem *parent, bool &details)
     {
+        initIcons();
+
         const QIcon *icon = nullptr;
         for (const auto &symbol : symbols) {
             switch (symbol.kind) {
@@ -679,19 +681,27 @@ private:
         using KSyntaxHighlighting::Theme;
         auto theme = e->theme();
         auto varColor = QColor::fromRgba(theme.textColor(Theme::Variable));
-        m_icon_var = Utils::colorIcon(m_icon_var, varColor);
+        m_icon_var = Utils::colorIcon(QIcon::fromTheme(QStringLiteral("code-variable")), varColor);
 
         auto typeColor = QColor::fromRgba(theme.textColor(Theme::DataType));
-        m_icon_class = Utils::colorIcon(m_icon_class, typeColor);
+        m_icon_class = Utils::colorIcon(QIcon::fromTheme(QStringLiteral("code-class")), typeColor);
 
         auto enColor = QColor::fromRgba(theme.textColor(Theme::Constant));
-        m_icon_typedef = Utils::colorIcon(m_icon_typedef, enColor);
+        m_icon_typedef = Utils::colorIcon(QIcon::fromTheme(QStringLiteral("code-typedef")), enColor);
 
         auto funcColor = QColor::fromRgba(theme.textColor(Theme::Function));
-        m_icon_function = Utils::colorIcon(m_icon_function, funcColor);
+        m_icon_function = Utils::colorIcon(QIcon::fromTheme(QStringLiteral("code-function")), funcColor);
 
         auto blockColor = QColor::fromRgba(theme.textColor(Theme::Import));
-        m_icon_pkg = Utils::colorIcon(m_icon_pkg, blockColor);
+        m_icon_pkg = Utils::colorIcon(QIcon::fromTheme(QStringLiteral("code-block")), blockColor);
+    }
+
+    void initIcons()
+    {
+        if (!m_iconsInitialized) {
+            colorIcons(KTextEditor::Editor::instance());
+            m_iconsInitialized = true;
+        }
     }
 
 private Q_SLOTS:

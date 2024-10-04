@@ -54,6 +54,29 @@ static QString getName(QWidget *parent, const QString &title)
     return dlg.textValue();
 }
 
+static void onDeleteFile(const QModelIndex &index, const QString &path, KateProjectViewTree *parent)
+{
+    if (!index.isValid())
+        return;
+    const QPersistentModelIndex idx = index;
+    const QString title = i18n("Delete File");
+    const QString text = i18n("Do you want to delete the file '%1'?", path);
+    if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
+        if (!idx.isValid())
+            return;
+        const QList<KTextEditor::Document *> openDocuments = KTextEditor::Editor::instance()->application()->documents();
+
+        // if is open, close
+        for (auto doc : openDocuments) {
+            if (doc->url().adjusted(QUrl::RemoveScheme) == QUrl(path).adjusted(QUrl::RemoveScheme)) {
+                KTextEditor::Editor::instance()->application()->closeDocument(doc);
+                break;
+            }
+        }
+        parent->removeFile(idx, path);
+    }
+}
+
 void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelIndex &index, const QPoint &pos, KateProjectViewTree *parent)
 {
     /**
@@ -136,24 +159,6 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         }
     }
 
-    auto handleDeleteFile = [parent, index](const QString &path) {
-        // message box
-        const QString title = i18n("Delete File");
-        const QString text = i18n("Do you want to delete the file '%1'?", path);
-        if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
-            const QList<KTextEditor::Document *> openDocuments = KTextEditor::Editor::instance()->application()->documents();
-
-            // if is open, close
-            for (auto doc : openDocuments) {
-                if (doc->url().adjusted(QUrl::RemoveScheme) == QUrl(path).adjusted(QUrl::RemoveScheme)) {
-                    KTextEditor::Editor::instance()->application()->closeDocument(doc);
-                    break;
-                }
-            }
-            parent->removeFile(index, path);
-        }
-    };
-
     /**
      * run menu and handle the triggered action
      */
@@ -175,7 +180,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         } else if (action == openContaingFolderAction) {
             KIO::highlightInFileManager({url});
         } else if (fileDelete && action == fileDelete) {
-            handleDeleteFile(filename);
+            onDeleteFile(index, filename, parent);
         } else if (action == filePropertiesAction) {
             // code copied and adapted from frameworks/kio/src/filewidgets/knewfilemenu.cpp
             KFileItem fileItem(url);
@@ -183,6 +188,9 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             dlg->setAttribute(Qt::WA_DeleteOnClose);
             dlg->show();
         } else if (rename && action == rename) {
+            if (!index.isValid()) {
+                return;
+            }
             /**
              * hack:
              * We store a reference to project in the item so that

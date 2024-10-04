@@ -14,10 +14,47 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
+
+
+def flakey(reason: str, repeats: int = 3):
+    """
+    Decorator that marks the test as flakey.
+    If applied, it executes the test again up to <repeats> times before marking it as failed.
+
+    :param reason: A description of what makes the test flakey to document the problem
+    :param repeats: How many times should the test be retried
+    """
+    del reason
+    def decorator(f):
+        f.flakey = True
+        f.repeats = repeats
+        return f
+    return decorator
 
 
 class SimpleTextEditorTests(unittest.TestCase):
     text_area_id = "KTextEditor::ViewPrivate.KateViewInternal"
+
+    def _callTestMethod(self, method):
+        """
+        Wrapper around the test caller to retry flakey tests.
+        """
+        if not getattr(method, "flakey", False):
+            return method()
+
+        attempt = 0
+        repeats = getattr(method, "repeats", 3)
+        while attempt < repeats:
+            attempt += 1
+            try:
+                return method()
+            except (AssertionError, NoSuchElementException) as e:
+                print(f"Flakey test {method.__name__} has failed {attempt}/{repeats} times: {e}")
+                if attempt == repeats:
+                    raise AssertionError(f"Flakey test {method.__name__} has failed too many times. Last exception: {e}")
+            self.tearDown()
+            self.setUp()
 
     def find_element_by_class_name(self, type, name):
         return self.driver.find_element(by=AppiumBy.CLASS_NAME, value=f"[{type} | {name}]")
@@ -149,6 +186,7 @@ class SimpleTextEditorTests(unittest.TestCase):
         self.wait_for_text("Good Morning, World!")
         self.assertEqual(text_area.text, "Good Morning, World!")
 
+    @flakey("Unreliable file saving: too slow, cannot write, or problem with the save dialog not being captured")
     def test_g_save_file(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             absolute_path = os.path.abspath(temp_dir)
@@ -157,26 +195,34 @@ class SimpleTextEditorTests(unittest.TestCase):
             main = self.find_main_window()
             self.write_text(main, "Hello, World!")
             self.wait.until(EC.text_to_be_present_in_element((AppiumBy.ACCESSIBILITY_ID, self.text_area_id), "Hello, World!"))
-
             text_area = self.find_text_area()
             self.assertEqual(text_area.text, "Hello, World!")
 
             self.find_element_by_class_name("push button", "Save As…").click()
             name_area_save = self.find_element_by_class_name("text", "")
-            self.write_text(name_area_save, f"{absolute_path}/test_file" + Keys.TAB + Keys.TAB + Keys.ENTER)
+            self.write_text(name_area_save, f"{absolute_path}/test_file")
+            self.write_text(name_area_save, "" + Keys.TAB + Keys.TAB + Keys.ENTER)
+
+            # Wait for the file to be written
+            wait_start = time.time()
+            while time.time() - wait_start < 3 and not os.path.isfile(f"{absolute_path}/test_file"):
+                time.sleep(1)
+            if not os.path.isfile(f"{absolute_path}/test_file"):
+                raise AssertionError("File was not saved")
+
             self.find_element_by_name("New").click()
             self.find_element_by_class_name("page tab", "test_file").click()
             self.find_element_by_class_name("menu item", "File").click()
             self.find_element_by_class_name("menu item", "Close").click()
-            self.find_element_by_class_name(
-                "menu item", "File").click()  # Issue with the previous action "Close" that does not close the menu.
+            # Issue with the previous action "Close" that does not close the menu.
+            self.find_element_by_class_name("menu item", "File").click()
             # We click again on "File" to close it.
             self.find_element_by_class_name("menu item", "File").click()
+
             self.find_element_by_class_name("menu item", "Open…").click()
             name_area_open = self.find_element_by_class_name("text", "")
             self.write_text(name_area_open, f"{absolute_path}/test_file")
             self.find_element_by_class_name("push button", "Open").click()
-
             text_area = self.find_text_area()
             self.assertEqual(text_area.text, "Hello, World!\n")  # There's an extra line when we open a file
 

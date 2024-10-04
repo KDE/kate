@@ -101,7 +101,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     m_line = new QFrame(this);
     m_line->setFrameShadow(QFrame::Sunken);
 
-    m_execLabel = new QLabel(i18n("Executable:"));
+    m_execLabel = new QLabel(i18n("Executable:"), this);
     m_execLabel->setBuddy(m_targetCombo);
 
     m_executable = new QLineEdit(this);
@@ -121,7 +121,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     completer2->setModel(model2);
     m_workingDirectory->setCompleter(completer2);
     m_workingDirectory->setClearButtonEnabled(true);
-    m_workDirLabel = new QLabel(i18n("Working Directory:"));
+    m_workDirLabel = new QLabel(i18n("Working Directory:"), this);
     m_workDirLabel->setBuddy(m_workingDirectory);
     m_browseDir = new QToolButton(this);
     m_browseDir->setIcon(QIcon::fromTheme(QStringLiteral("inode-directory")));
@@ -140,10 +140,10 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     m_takeFocus = new QCheckBox(i18nc("Checkbox to for keeping focus on the command line", "Keep focus"));
     m_takeFocus->setToolTip(i18n("Keep the focus on the command line"));
 
-    m_redirectTerminal = new QCheckBox(i18n("Redirect IO"));
+    m_redirectTerminal = new QCheckBox(i18n("Redirect IO"), this);
     m_redirectTerminal->setToolTip(i18n("Redirect the debugged programs IO to a separate tab"));
 
-    m_advancedSettings = new QPushButton(i18n("Advanced Settings"));
+    m_advancedSettings = new QPushButton(i18n("Advanced Settings"), this);
 
     m_checBoxLayout = nullptr;
 

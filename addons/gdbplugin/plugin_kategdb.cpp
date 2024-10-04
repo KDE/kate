@@ -1088,7 +1088,7 @@ void KatePluginGDBView::displayMessage(const QString &msg, KTextEditor::Message:
 
 QToolButton *KatePluginGDBView::createDebugButton(QAction *action)
 {
-    QToolButton *button = new QToolButton();
+    QToolButton *button = new QToolButton(m_buttonWidget);
     button->setDefaultAction(action);
     button->setAutoRaise(true);
     connect(action, &QAction::visibleChanged, button, [button, action] {

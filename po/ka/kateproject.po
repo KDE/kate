@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-30 00:41+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2024-09-30 05:44+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -73,7 +73,7 @@ msgstr "ბრენჩი"
 msgid "Last Commit"
 msgstr "ბოლო კომიტი"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:83
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
 msgid "Delete"
 msgstr "წაშლა"
@@ -929,72 +929,72 @@ msgstr "აირჩიეთ საქაღალდე"
 msgid "Enter name:"
 msgstr "შეიყვანეთ სახელი:"
 
-#: kateprojecttreeviewcontextmenu.cpp:67
-#, kde-format
-msgid "Copy Location"
-msgstr "მდებარეობის კოპირება"
-
-#: kateprojecttreeviewcontextmenu.cpp:74
-#, kde-format
-msgid "New File…"
-msgstr "ახალი ფაილი…"
-
-#: kateprojecttreeviewcontextmenu.cpp:75
-#, kde-format
-msgid "New Folder…"
-msgstr "ახალი საქაღალდე…"
-
-#: kateprojecttreeviewcontextmenu.cpp:82
-#, kde-format
-msgid "&Rename"
-msgstr "&გადარქმევა"
-
-#: kateprojecttreeviewcontextmenu.cpp:89
-#, kde-format
-msgid "Properties"
-msgstr "პარამეტრები"
-
-#: kateprojecttreeviewcontextmenu.cpp:93
-#, kde-format
-msgid "Open With"
-msgstr "გამხსნელი პროგრამა"
-
-#: kateprojecttreeviewcontextmenu.cpp:101
-#, kde-format
-msgid "Open Internal Terminal Here"
-msgstr "შიდა ტერმინალის აქ გახსნა"
-
-#: kateprojecttreeviewcontextmenu.cpp:110
-#, kde-format
-msgid "Open External Terminal Here"
-msgstr "გარე ტერმინალის აქ გახსნა"
-
-#: kateprojecttreeviewcontextmenu.cpp:115
-#, kde-format
-msgid "&Open Containing Folder"
-msgstr "შემცველი საქაღალდის &გახსნა"
-
-#: kateprojecttreeviewcontextmenu.cpp:124
-#, kde-format
-msgid "Show Git History"
-msgstr "Git ისტორიის ჩვენება"
-
-#: kateprojecttreeviewcontextmenu.cpp:141
+#: kateprojecttreeviewcontextmenu.cpp:62
 #, kde-format
 msgid "Delete File"
 msgstr "ფაილის წაშლა"
 
-#: kateprojecttreeviewcontextmenu.cpp:142
+#: kateprojecttreeviewcontextmenu.cpp:63
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "ნამდვილად გსურთ, წაშალოთ ფაილი \"%1\"?"
 
-#: kateprojecttreeviewcontextmenu.cpp:202
+#: kateprojecttreeviewcontextmenu.cpp:90
+#, kde-format
+msgid "Copy Location"
+msgstr "მდებარეობის კოპირება"
+
+#: kateprojecttreeviewcontextmenu.cpp:97
+#, kde-format
+msgid "New File…"
+msgstr "ახალი ფაილი…"
+
+#: kateprojecttreeviewcontextmenu.cpp:98
+#, kde-format
+msgid "New Folder…"
+msgstr "ახალი საქაღალდე…"
+
+#: kateprojecttreeviewcontextmenu.cpp:105
+#, kde-format
+msgid "&Rename"
+msgstr "&გადარქმევა"
+
+#: kateprojecttreeviewcontextmenu.cpp:112
+#, kde-format
+msgid "Properties"
+msgstr "პარამეტრები"
+
+#: kateprojecttreeviewcontextmenu.cpp:116
+#, kde-format
+msgid "Open With"
+msgstr "გამხსნელი პროგრამა"
+
+#: kateprojecttreeviewcontextmenu.cpp:124
+#, kde-format
+msgid "Open Internal Terminal Here"
+msgstr "შიდა ტერმინალის აქ გახსნა"
+
+#: kateprojecttreeviewcontextmenu.cpp:133
+#, kde-format
+msgid "Open External Terminal Here"
+msgstr "გარე ტერმინალის აქ გახსნა"
+
+#: kateprojecttreeviewcontextmenu.cpp:138
+#, kde-format
+msgid "&Open Containing Folder"
+msgstr "შემცველი საქაღალდის &გახსნა"
+
+#: kateprojecttreeviewcontextmenu.cpp:147
+#, kde-format
+msgid "Show Git History"
+msgstr "Git ისტორიის ჩვენება"
+
+#: kateprojecttreeviewcontextmenu.cpp:210
 #, kde-format
 msgid "New File"
 msgstr "ახალი ფაილი"
 
-#: kateprojecttreeviewcontextmenu.cpp:207
+#: kateprojecttreeviewcontextmenu.cpp:215
 #, kde-format
 msgid "New Folder"
 msgstr "ახალი საქაღალდე"

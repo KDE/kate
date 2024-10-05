@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2023-02-05 17:53+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:260
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrovať..."
@@ -250,12 +250,12 @@ msgstr "Prejsť na"
 msgid "More options"
 msgstr "Viac možností"
 
-#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:295
+#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:296
 #, kde-format
 msgid "Expand All"
 msgstr "Rozbaliť všetko"
 
-#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:296
+#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:297
 #, kde-format
 msgid "Collapse All"
 msgstr "Zbaliť všetko"
@@ -423,42 +423,42 @@ msgstr "Nepodarilo sa spracovať nastavenia serveru '%1': %2"
 msgid "Failed to read server configuration: %1"
 msgstr "Nepodarilo sa prečítať nastavenia serveru: %1"
 
-#: lspclientsymbolview.cpp:241
+#: lspclientsymbolview.cpp:242
 #, kde-format
 msgid "Symbol Outline"
 msgstr "Obrys symbolov"
 
-#: lspclientsymbolview.cpp:286
+#: lspclientsymbolview.cpp:287
 #, kde-format
 msgid "Tree Mode"
 msgstr "Režim Strom"
 
-#: lspclientsymbolview.cpp:288
+#: lspclientsymbolview.cpp:289
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Automaticky rozšíriť strom"
 
-#: lspclientsymbolview.cpp:290
+#: lspclientsymbolview.cpp:291
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Zoradiť podľa abecedy"
 
-#: lspclientsymbolview.cpp:292
+#: lspclientsymbolview.cpp:293
 #, kde-format
 msgid "Show Details"
 msgstr "Zobraziť detaily"
 
-#: lspclientsymbolview.cpp:453
+#: lspclientsymbolview.cpp:455
 #, kde-format
 msgid "Symbols"
 msgstr "Symboly"
 
-#: lspclientsymbolview.cpp:513
+#: lspclientsymbolview.cpp:515
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr ""
 
-#: lspclientsymbolview.cpp:591
+#: lspclientsymbolview.cpp:593
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Pre tento dokument neexistuje žiadny server LSP."

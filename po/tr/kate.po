@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 00:42+0000\n"
-"PO-Revision-Date: 2024-09-29 21:58+0300\n"
+"PO-Revision-Date: 2024-10-05 01:27+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1278,15 +1278,12 @@ msgid "(never)"
 msgstr "(asla)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " gün"
-msgstr[1] " gün"
+msgstr[0] "%v gün"
+msgstr[1] "%v gün"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format

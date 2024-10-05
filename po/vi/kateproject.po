@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-30 00:41+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2023-02-20 11:25+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -72,7 +72,7 @@ msgstr "Nhánh"
 msgid "Last Commit"
 msgstr "Bản chuyển giao cuối"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:83
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
 msgid "Delete"
 msgstr "Xoá"
@@ -940,75 +940,75 @@ msgstr "Chọn một thư mục"
 msgid "Enter name:"
 msgstr "Nhập tên:"
 
-#: kateprojecttreeviewcontextmenu.cpp:67
+#: kateprojecttreeviewcontextmenu.cpp:62
+#, kde-format
+msgid "Delete File"
+msgstr "Xoá tệp"
+
+#: kateprojecttreeviewcontextmenu.cpp:63
+#, kde-format
+msgid "Do you want to delete the file '%1'?"
+msgstr "Bạn có muốn xoá tệp '%1' không?"
+
+#: kateprojecttreeviewcontextmenu.cpp:90
 #, kde-format
 msgid "Copy Location"
 msgstr "Chép địa điểm"
 
-#: kateprojecttreeviewcontextmenu.cpp:74
+#: kateprojecttreeviewcontextmenu.cpp:97
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "New File…"
 msgstr "Mở tệp"
 
-#: kateprojecttreeviewcontextmenu.cpp:75
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, fuzzy, kde-format
 #| msgid "Add Folder"
 msgid "New Folder…"
 msgstr "Thêm thư mục"
 
-#: kateprojecttreeviewcontextmenu.cpp:82
+#: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
 msgid "&Rename"
 msgstr "Đổi tê&n"
 
-#: kateprojecttreeviewcontextmenu.cpp:89
+#: kateprojecttreeviewcontextmenu.cpp:112
 #, kde-format
 msgid "Properties"
 msgstr "Thuộc tính"
 
-#: kateprojecttreeviewcontextmenu.cpp:93
+#: kateprojecttreeviewcontextmenu.cpp:116
 #, kde-format
 msgid "Open With"
 msgstr "Mở bằng"
 
-#: kateprojecttreeviewcontextmenu.cpp:101
+#: kateprojecttreeviewcontextmenu.cpp:124
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Mở dòng lệnh nội bộ tại đây"
 
-#: kateprojecttreeviewcontextmenu.cpp:110
+#: kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Mở dòng lệnh bên ngoài tại đây"
 
-#: kateprojecttreeviewcontextmenu.cpp:115
+#: kateprojecttreeviewcontextmenu.cpp:138
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Mở thư mục chứa"
 
-#: kateprojecttreeviewcontextmenu.cpp:124
+#: kateprojecttreeviewcontextmenu.cpp:147
 #, kde-format
 msgid "Show Git History"
 msgstr "Hiện lịch sử Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:141
-#, kde-format
-msgid "Delete File"
-msgstr "Xoá tệp"
-
-#: kateprojecttreeviewcontextmenu.cpp:142
-#, kde-format
-msgid "Do you want to delete the file '%1'?"
-msgstr "Bạn có muốn xoá tệp '%1' không?"
-
-#: kateprojecttreeviewcontextmenu.cpp:202
+#: kateprojecttreeviewcontextmenu.cpp:210
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "New File"
 msgstr "Mở tệp"
 
-#: kateprojecttreeviewcontextmenu.cpp:207
+#: kateprojecttreeviewcontextmenu.cpp:215
 #, fuzzy, kde-format
 #| msgid "Add Folder"
 msgid "New Folder"

@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 00:42+0000\n"
-"PO-Revision-Date: 2024-09-22 10:43+0200\n"
+"PO-Revision-Date: 2024-10-04 10:37+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -336,10 +336,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "Neteja el filtre de diagnòstics"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Mostra o oculta la informació de la comissió"
+msgstr "Mostra la informació en passar-hi per damunt"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
 #, kde-format
@@ -1283,15 +1282,12 @@ msgid "(never)"
 msgstr "(mai)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " dia"
-msgstr[1] " dies"
+msgstr[0] "%v dia"
+msgstr[1] "%v dies"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
@@ -1630,10 +1626,9 @@ msgid "Close all open documents."
 msgstr "Tanca tots els documents oberts."
 
 #: lib/katemainwindow.cpp:469
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
-msgstr "To&rna a obrir els darrers documents tancats."
+msgstr "To&rna a obrir els darrers documents tancats"
 
 #: lib/katemainwindow.cpp:471
 #, kde-format

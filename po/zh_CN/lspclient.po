@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-16 00:42+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Crowdin-File: /kf6-trunk/messages/kate/lspclient.pot\n"
 "X-Crowdin-File-ID: 44745\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:259
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:260
 #, kde-format
 msgid "Filter..."
 msgstr "过滤..."
@@ -249,12 +249,12 @@ msgstr "转到"
 msgid "More options"
 msgstr "更多选项"
 
-#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:295
+#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:296
 #, kde-format
 msgid "Expand All"
 msgstr "全部展开"
 
-#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:296
+#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:297
 #, kde-format
 msgid "Collapse All"
 msgstr "全部折叠"
@@ -421,42 +421,42 @@ msgstr "解析服务器配置失败：“%1”：%2"
 msgid "Failed to read server configuration: %1"
 msgstr "读取服务器配置失败：%1"
 
-#: lspclientsymbolview.cpp:241
+#: lspclientsymbolview.cpp:242
 #, kde-format
 msgid "Symbol Outline"
 msgstr "符号摘要"
 
-#: lspclientsymbolview.cpp:286
+#: lspclientsymbolview.cpp:287
 #, kde-format
 msgid "Tree Mode"
 msgstr "树状模式"
 
-#: lspclientsymbolview.cpp:288
+#: lspclientsymbolview.cpp:289
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "自动展开树状结构"
 
-#: lspclientsymbolview.cpp:290
+#: lspclientsymbolview.cpp:291
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "按字母排序"
 
-#: lspclientsymbolview.cpp:292
+#: lspclientsymbolview.cpp:293
 #, kde-format
 msgid "Show Details"
 msgstr "显示细节"
 
-#: lspclientsymbolview.cpp:453
+#: lspclientsymbolview.cpp:455
 #, kde-format
 msgid "Symbols"
 msgstr "符号"
 
-#: lspclientsymbolview.cpp:513
+#: lspclientsymbolview.cpp:515
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr ""
 
-#: lspclientsymbolview.cpp:591
+#: lspclientsymbolview.cpp:593
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "没有用于此文档的 LSP 服务器。"

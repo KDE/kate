@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-30 00:41+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -76,7 +76,7 @@ msgstr "Pilih Cabang..."
 msgid "Last Commit"
 msgstr "Commit"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:83
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
 msgid "Delete"
 msgstr ""
@@ -974,79 +974,79 @@ msgstr "Pilih sebuah direktori"
 msgid "Enter name:"
 msgstr "Masukkan nama:"
 
-#: kateprojecttreeviewcontextmenu.cpp:67
-#, fuzzy, kde-format
-#| msgid "No Action"
-msgid "Copy Location"
-msgstr "Tanpa Aksi"
-
-#: kateprojecttreeviewcontextmenu.cpp:74
-#, fuzzy, kde-format
-#| msgid "Open file"
-msgid "New File…"
-msgstr "Buka file"
-
-#: kateprojecttreeviewcontextmenu.cpp:75
-#, fuzzy, kde-format
-#| msgid "Add Folder"
-msgid "New Folder…"
-msgstr "Tambahkan Folder"
-
-#: kateprojecttreeviewcontextmenu.cpp:82
-#, kde-format
-msgid "&Rename"
-msgstr "&Ubah nama"
-
-#: kateprojecttreeviewcontextmenu.cpp:89
-#, kde-format
-msgid "Properties"
-msgstr "Properti"
-
-#: kateprojecttreeviewcontextmenu.cpp:93
-#, kde-format
-msgid "Open With"
-msgstr "Buka Dengan"
-
-#: kateprojecttreeviewcontextmenu.cpp:101
-#, kde-format
-msgid "Open Internal Terminal Here"
-msgstr ""
-
-#: kateprojecttreeviewcontextmenu.cpp:110
-#, kde-format
-msgid "Open External Terminal Here"
-msgstr ""
-
-#: kateprojecttreeviewcontextmenu.cpp:115
-#, kde-format
-msgid "&Open Containing Folder"
-msgstr "&Buka Folder Konten"
-
-#: kateprojecttreeviewcontextmenu.cpp:124
-#, fuzzy, kde-format
-#| msgid "Show File History"
-msgid "Show Git History"
-msgstr "Tampilkan Histori File"
-
-#: kateprojecttreeviewcontextmenu.cpp:141
+#: kateprojecttreeviewcontextmenu.cpp:62
 #, fuzzy, kde-format
 #| msgid "Discard Selected Files"
 msgid "Delete File"
 msgstr "Buang File-file Yang Dipilih"
 
-#: kateprojecttreeviewcontextmenu.cpp:142
+#: kateprojecttreeviewcontextmenu.cpp:63
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to remove these files?"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Apakah kamu yakin ingin menghapus file-file tersebut?"
 
-#: kateprojecttreeviewcontextmenu.cpp:202
+#: kateprojecttreeviewcontextmenu.cpp:90
+#, fuzzy, kde-format
+#| msgid "No Action"
+msgid "Copy Location"
+msgstr "Tanpa Aksi"
+
+#: kateprojecttreeviewcontextmenu.cpp:97
+#, fuzzy, kde-format
+#| msgid "Open file"
+msgid "New File…"
+msgstr "Buka file"
+
+#: kateprojecttreeviewcontextmenu.cpp:98
+#, fuzzy, kde-format
+#| msgid "Add Folder"
+msgid "New Folder…"
+msgstr "Tambahkan Folder"
+
+#: kateprojecttreeviewcontextmenu.cpp:105
+#, kde-format
+msgid "&Rename"
+msgstr "&Ubah nama"
+
+#: kateprojecttreeviewcontextmenu.cpp:112
+#, kde-format
+msgid "Properties"
+msgstr "Properti"
+
+#: kateprojecttreeviewcontextmenu.cpp:116
+#, kde-format
+msgid "Open With"
+msgstr "Buka Dengan"
+
+#: kateprojecttreeviewcontextmenu.cpp:124
+#, kde-format
+msgid "Open Internal Terminal Here"
+msgstr ""
+
+#: kateprojecttreeviewcontextmenu.cpp:133
+#, kde-format
+msgid "Open External Terminal Here"
+msgstr ""
+
+#: kateprojecttreeviewcontextmenu.cpp:138
+#, kde-format
+msgid "&Open Containing Folder"
+msgstr "&Buka Folder Konten"
+
+#: kateprojecttreeviewcontextmenu.cpp:147
+#, fuzzy, kde-format
+#| msgid "Show File History"
+msgid "Show Git History"
+msgstr "Tampilkan Histori File"
+
+#: kateprojecttreeviewcontextmenu.cpp:210
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "New File"
 msgstr "Buka file"
 
-#: kateprojecttreeviewcontextmenu.cpp:207
+#: kateprojecttreeviewcontextmenu.cpp:215
 #, fuzzy, kde-format
 #| msgid "Add Folder"
 msgid "New Folder"

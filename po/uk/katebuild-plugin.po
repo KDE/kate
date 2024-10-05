@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-24 00:42+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2024-08-24 13:16+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -93,8 +93,8 @@ msgstr ""
 msgid "Allowed && Blocked Commands"
 msgstr "Дозволені і заблоковані команди"
 
-#: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:709
-#: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
+#: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:707
+#: plugin_katebuild.cpp:909 plugin_katebuild.cpp:922
 #, kde-format
 msgid "Build"
 msgstr "Зібрати"
@@ -167,18 +167,18 @@ msgstr ""
 msgid "Build Information"
 msgstr "Інформація про випуск"
 
-#: plugin_katebuild.cpp:716
+#: plugin_katebuild.cpp:714
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Не було вказано файла або каталогу для збирання."
 
-#: plugin_katebuild.cpp:720
+#: plugin_katebuild.cpp:718
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "Файл «%1» не є локальним. Нелокальні файли не можна компілювати."
 
-#: plugin_katebuild.cpp:782
+#: plugin_katebuild.cpp:780
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -187,47 +187,47 @@ msgstr ""
 "Не вдалося виконати команду: %1\n"
 "Не існує робочого каталогу: %2"
 
-#: plugin_katebuild.cpp:796
+#: plugin_katebuild.cpp:794
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Не вдалося запустити «%1». exitStatus = %2"
 
-#: plugin_katebuild.cpp:811
+#: plugin_katebuild.cpp:809
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Збирання <b>%1</b> скасовано"
 
-#: plugin_katebuild.cpp:910
+#: plugin_katebuild.cpp:908
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr "Не знайдено compile_commands.json для файла «%1». "
 
-#: plugin_katebuild.cpp:923
+#: plugin_katebuild.cpp:921
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Не вдалося знайти команду компіляції для файла «%1» у «%2». "
 
-#: plugin_katebuild.cpp:1031
+#: plugin_katebuild.cpp:1029
 #, kde-format
 msgid "No target available for building."
 msgstr "Немає доступних цілей для збирання"
 
-#: plugin_katebuild.cpp:1045
+#: plugin_katebuild.cpp:1043
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Не було вказано локального файла або каталогу для збирання."
 
-#: plugin_katebuild.cpp:1051
+#: plugin_katebuild.cpp:1049
 #, kde-format
 msgid "Already building..."
 msgstr "Вже збирається…"
 
-#: plugin_katebuild.cpp:1073
+#: plugin_katebuild.cpp:1071
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Збираємо ціль <b>%1</b>…"
 
-#: plugin_katebuild.cpp:1110
+#: plugin_katebuild.cpp:1108
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -236,19 +236,19 @@ msgstr ""
 "Не вдалося завантажити цілі — у файлі %1 не міститься належного запису "
 "CMAKE_COMMAND!"
 
-#: plugin_katebuild.cpp:1123
+#: plugin_katebuild.cpp:1121
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "Не вдалося записати файли запиту програмного інтерфейсу роботи з файлами "
 "CMake для каталогу збирання %1!"
 
-#: plugin_katebuild.cpp:1129
+#: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "Не вдалося запустити CMake (%2) для каталогу збирання %1!"
 
-#: plugin_katebuild.cpp:1138
+#: plugin_katebuild.cpp:1136
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -257,12 +257,12 @@ msgstr ""
 "Не вдалося створити файли відповідей програмного інтерфейсу для роботи з "
 "файлами CMake для каталогу збирання %1 (за допомогою %2)!"
 
-#: plugin_katebuild.cpp:1257
+#: plugin_katebuild.cpp:1255
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "Додатку збирання потрібно виконати програму"
 
-#: plugin_katebuild.cpp:1260
+#: plugin_katebuild.cpp:1258
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -275,18 +275,18 @@ msgstr ""
 "b><br><br>Продовжити і дозволити виконання цієї команди?<br><br>Вибір можна "
 "змінити за допомогою сторінки налаштовування додатка."
 
-#: plugin_katebuild.cpp:1292
+#: plugin_katebuild.cpp:1290
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Результати збирання:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1326
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "Збирання <b>%1</b> завершено. %2 помилок, %3 попереджень, %4 зауважень"
 
-#: plugin_katebuild.cpp:1334
+#: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -295,7 +295,7 @@ msgstr[1] "Виявлено %1 помилки."
 msgstr[2] "Виявлено %1 помилок."
 msgstr[3] "Виявлено одну помилку."
 
-#: plugin_katebuild.cpp:1338
+#: plugin_katebuild.cpp:1336
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -304,7 +304,7 @@ msgstr[1] "Виявлено %1 попередження."
 msgstr[2] "Виявлено %1 попереджень."
 msgstr[3] "Виявлено одне попередження."
 
-#: plugin_katebuild.cpp:1341
+#: plugin_katebuild.cpp:1339
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
@@ -313,51 +313,51 @@ msgstr[1] "Виявлено %1 зауважень."
 msgstr[2] "Виявлено %1 зауважеь."
 msgstr[3] "Виявлено одне зауваження."
 
-#: plugin_katebuild.cpp:1346
+#: plugin_katebuild.cpp:1344
 #, kde-format
 msgid "Build failed."
 msgstr "Спроба збирання завершилася невдало."
 
-#: plugin_katebuild.cpp:1348
+#: plugin_katebuild.cpp:1346
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Збирання виконано без проблем."
 
-#: plugin_katebuild.cpp:1353
+#: plugin_katebuild.cpp:1351
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "Збирання <b>%1 скасовано</b>. %2 помилок, %3 попереджень, %4 зауважень"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Не вдалося виконати %1. Не встановлено робочого каталогу."
 
-#: plugin_katebuild.cpp:1603
+#: plugin_katebuild.cpp:1601
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "error|помилка"
 
-#: plugin_katebuild.cpp:1606
+#: plugin_katebuild.cpp:1604
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "warning|попередження"
 
-#: plugin_katebuild.cpp:1609
+#: plugin_katebuild.cpp:1607
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "note|info|нотатка|примітка|зауваження"
 
-#: plugin_katebuild.cpp:1612
+#: plugin_katebuild.cpp:1610
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "невизначене посилання"
 
-#: plugin_katebuild.cpp:1788
+#: plugin_katebuild.cpp:1786
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Не вдалося зберегти цілі збирання у %1"

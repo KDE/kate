@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-30 00:41+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2024-10-01 12:29+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -77,7 +77,7 @@ msgstr "Rama"
 msgid "Last Commit"
 msgstr "Último envío"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:83
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
 msgid "Delete"
 msgstr "Borrar"
@@ -936,72 +936,72 @@ msgstr "Escoja un directorio"
 msgid "Enter name:"
 msgstr "Introduzca el nombre:"
 
-#: kateprojecttreeviewcontextmenu.cpp:67
-#, kde-format
-msgid "Copy Location"
-msgstr "Copiar ubicación"
-
-#: kateprojecttreeviewcontextmenu.cpp:74
-#, kde-format
-msgid "New File…"
-msgstr "Nuevo archivo..."
-
-#: kateprojecttreeviewcontextmenu.cpp:75
-#, kde-format
-msgid "New Folder…"
-msgstr "Nueva carpeta..."
-
-#: kateprojecttreeviewcontextmenu.cpp:82
-#, kde-format
-msgid "&Rename"
-msgstr "Cambia&r nombre"
-
-#: kateprojecttreeviewcontextmenu.cpp:89
-#, kde-format
-msgid "Properties"
-msgstr "Propiedades"
-
-#: kateprojecttreeviewcontextmenu.cpp:93
-#, kde-format
-msgid "Open With"
-msgstr "Abrir con"
-
-#: kateprojecttreeviewcontextmenu.cpp:101
-#, kde-format
-msgid "Open Internal Terminal Here"
-msgstr "Abrir terminal interno aquí"
-
-#: kateprojecttreeviewcontextmenu.cpp:110
-#, kde-format
-msgid "Open External Terminal Here"
-msgstr "Usar terminal externo aquí"
-
-#: kateprojecttreeviewcontextmenu.cpp:115
-#, kde-format
-msgid "&Open Containing Folder"
-msgstr "Abrir la carpeta que lo c&ontiene"
-
-#: kateprojecttreeviewcontextmenu.cpp:124
-#, kde-format
-msgid "Show Git History"
-msgstr "Mostrar el historial Git"
-
-#: kateprojecttreeviewcontextmenu.cpp:141
+#: kateprojecttreeviewcontextmenu.cpp:62
 #, kde-format
 msgid "Delete File"
 msgstr "Borrar archivo"
 
-#: kateprojecttreeviewcontextmenu.cpp:142
+#: kateprojecttreeviewcontextmenu.cpp:63
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "¿Desea borrar el archivo «%1»?"
 
-#: kateprojecttreeviewcontextmenu.cpp:202
+#: kateprojecttreeviewcontextmenu.cpp:90
+#, kde-format
+msgid "Copy Location"
+msgstr "Copiar ubicación"
+
+#: kateprojecttreeviewcontextmenu.cpp:97
+#, kde-format
+msgid "New File…"
+msgstr "Nuevo archivo..."
+
+#: kateprojecttreeviewcontextmenu.cpp:98
+#, kde-format
+msgid "New Folder…"
+msgstr "Nueva carpeta..."
+
+#: kateprojecttreeviewcontextmenu.cpp:105
+#, kde-format
+msgid "&Rename"
+msgstr "Cambia&r nombre"
+
+#: kateprojecttreeviewcontextmenu.cpp:112
+#, kde-format
+msgid "Properties"
+msgstr "Propiedades"
+
+#: kateprojecttreeviewcontextmenu.cpp:116
+#, kde-format
+msgid "Open With"
+msgstr "Abrir con"
+
+#: kateprojecttreeviewcontextmenu.cpp:124
+#, kde-format
+msgid "Open Internal Terminal Here"
+msgstr "Abrir terminal interno aquí"
+
+#: kateprojecttreeviewcontextmenu.cpp:133
+#, kde-format
+msgid "Open External Terminal Here"
+msgstr "Usar terminal externo aquí"
+
+#: kateprojecttreeviewcontextmenu.cpp:138
+#, kde-format
+msgid "&Open Containing Folder"
+msgstr "Abrir la carpeta que lo c&ontiene"
+
+#: kateprojecttreeviewcontextmenu.cpp:147
+#, kde-format
+msgid "Show Git History"
+msgstr "Mostrar el historial Git"
+
+#: kateprojecttreeviewcontextmenu.cpp:210
 #, kde-format
 msgid "New File"
 msgstr "Nuevo archivo"
 
-#: kateprojecttreeviewcontextmenu.cpp:207
+#: kateprojecttreeviewcontextmenu.cpp:215
 #, kde-format
 msgid "New Folder"
 msgstr "Nueva carpeta"

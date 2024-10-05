@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-24 00:42+0000\n"
+"POT-Creation-Date: 2024-10-05 00:42+0000\n"
 "PO-Revision-Date: 2024-08-24 11:04+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -96,8 +96,8 @@ msgstr ""
 msgid "Allowed && Blocked Commands"
 msgstr "Ordres permeses i bloquejades"
 
-#: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:709
-#: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
+#: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:707
+#: plugin_katebuild.cpp:909 plugin_katebuild.cpp:922
 #, kde-format
 msgid "Build"
 msgstr "Construeix"
@@ -169,12 +169,12 @@ msgstr ""
 msgid "Build Information"
 msgstr "Informació de construcció"
 
-#: plugin_katebuild.cpp:716
+#: plugin_katebuild.cpp:714
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "No s'ha especificat cap fitxer o carpeta per a construir."
 
-#: plugin_katebuild.cpp:720
+#: plugin_katebuild.cpp:718
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -182,7 +182,7 @@ msgstr ""
 "El fitxer «%1» no és un fitxer local. Els fitxers que no són locals no es "
 "poden compilar."
 
-#: plugin_katebuild.cpp:782
+#: plugin_katebuild.cpp:780
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -191,47 +191,47 @@ msgstr ""
 "No s'ha pogut executar l'ordre: %1\n"
 "El camí de treball no existeix: %2"
 
-#: plugin_katebuild.cpp:796
+#: plugin_katebuild.cpp:794
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Ha fallat en executar «%1». Estat de la sortida = %2"
 
-#: plugin_katebuild.cpp:811
+#: plugin_katebuild.cpp:809
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "S'ha cancel·lat la construcció de <b>%1</b>"
 
-#: plugin_katebuild.cpp:910
+#: plugin_katebuild.cpp:908
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr "No s'ha trobat cap «compile_commands.json» per al fitxer «%1». "
 
-#: plugin_katebuild.cpp:923
+#: plugin_katebuild.cpp:921
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "No s'ha trobat cap ordre de compilació per al fitxer «%1» a «%2». "
 
-#: plugin_katebuild.cpp:1031
+#: plugin_katebuild.cpp:1029
 #, kde-format
 msgid "No target available for building."
 msgstr "No hi ha cap objectiu disponible per a construir."
 
-#: plugin_katebuild.cpp:1045
+#: plugin_katebuild.cpp:1043
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "No s'ha especificat cap fitxer o carpeta locals per a construir."
 
-#: plugin_katebuild.cpp:1051
+#: plugin_katebuild.cpp:1049
 #, kde-format
 msgid "Already building..."
 msgstr "Ja està construint-se..."
 
-#: plugin_katebuild.cpp:1073
+#: plugin_katebuild.cpp:1071
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "S'està construint l'objectiu <b>%1</b>..."
 
-#: plugin_katebuild.cpp:1110
+#: plugin_katebuild.cpp:1108
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -240,20 +240,20 @@ msgstr ""
 "No s'han pogut carregar els objectius, el fitxer %1 no conté cap entrada "
 "CMAKE_COMMAND apropiada!"
 
-#: plugin_katebuild.cpp:1123
+#: plugin_katebuild.cpp:1121
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "No s'han pogut escriure els fitxers de consulta de l'API del fitxer CMake "
 "per al directori de construcció %1!"
 
-#: plugin_katebuild.cpp:1129
+#: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr ""
 "No s'ha pogut executar el CMake (%2) per al directori de construcció %1!"
 
-#: plugin_katebuild.cpp:1138
+#: plugin_katebuild.cpp:1136
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -262,12 +262,12 @@ msgstr ""
 "Ha fallat la generació de fitxers de resposta de l'API del fitxer CMake per "
 "al directori de construcció %1 (utilitzant %2)!"
 
-#: plugin_katebuild.cpp:1257
+#: plugin_katebuild.cpp:1255
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "El connector de construcció vol executar el programa"
 
-#: plugin_katebuild.cpp:1260
+#: plugin_katebuild.cpp:1258
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -281,87 +281,87 @@ msgstr ""
 "aquesta ordre?<br><br>L'elecció es pot modificar a través de la pàgina de "
 "configuració del connector."
 
-#: plugin_katebuild.cpp:1292
+#: plugin_katebuild.cpp:1290
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Resultat del «make»:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1326
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 "S'ha completat la construcció de <b>%1</b>. %2 error/s, %3 aviso/s, %4 nota/"
 "es"
 
-#: plugin_katebuild.cpp:1334
+#: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "S'ha detectat un error."
 msgstr[1] "S'han detectat %1 errors."
 
-#: plugin_katebuild.cpp:1338
+#: plugin_katebuild.cpp:1336
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "S'ha detectat un avís."
 msgstr[1] "S'han detectat %1 avisos."
 
-#: plugin_katebuild.cpp:1341
+#: plugin_katebuild.cpp:1339
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "S'ha detectat una nota."
 msgstr[1] "S'han detectat %1 notes."
 
-#: plugin_katebuild.cpp:1346
+#: plugin_katebuild.cpp:1344
 #, kde-format
 msgid "Build failed."
 msgstr "Ha fallat la construcció."
 
-#: plugin_katebuild.cpp:1348
+#: plugin_katebuild.cpp:1346
 #, kde-format
 msgid "Build completed without problems."
 msgstr "S'ha completat la construcció sense problemes."
 
-#: plugin_katebuild.cpp:1353
+#: plugin_katebuild.cpp:1351
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 "S'ha cancel·lat la construcció de <b>%1</b>. %2 error/s, %3 aviso/s, %4 nota/"
 "es"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "No s'ha pogut executar: %1 No s'ha establert cap directori de treball."
 
-#: plugin_katebuild.cpp:1603
+#: plugin_katebuild.cpp:1601
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "error"
 
-#: plugin_katebuild.cpp:1606
+#: plugin_katebuild.cpp:1604
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "avís"
 
-#: plugin_katebuild.cpp:1609
+#: plugin_katebuild.cpp:1607
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "nota/informació"
 
-#: plugin_katebuild.cpp:1612
+#: plugin_katebuild.cpp:1610
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "referència no definida"
 
-#: plugin_katebuild.cpp:1788
+#: plugin_katebuild.cpp:1786
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "No s'han pogut desar els objectius de construcció en: %1"

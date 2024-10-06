@@ -11,9 +11,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include "advanced_settings.h"
-#include "target_json_keys.h"
-
 constexpr int CONFIG_VERSION = 5;
 
 namespace DebugPluginSessionConfig
@@ -29,66 +26,6 @@ struct ConfigData {
 };
 
 enum TargetStringOrder { NameIndex = 0, ExecIndex, WorkDirIndex, ArgsIndex, GDBIndex, CustomStartIndex };
-
-inline void upgradeConfigV1_3(QStringList &targetConfStrs)
-{
-    if (targetConfStrs.count() == 3) {
-        // valid old style config, translate it now; note the
-        // reordering happening here!
-        QStringList temp;
-        temp << targetConfStrs[2];
-        temp << targetConfStrs[1];
-        targetConfStrs.swap(temp);
-    }
-}
-
-inline void upgradeConfigV3_4(QStringList &targetConfStrs, const QStringList &args)
-{
-    targetConfStrs.prepend(targetConfStrs[0].right(15));
-
-    const QString targetName(QStringLiteral("%1<%2>"));
-
-    for (int i = 0; i < args.size(); ++i) {
-        const QString &argStr = args.at(i);
-        if (i > 0) {
-            // copy the firsts and change the arguments
-            targetConfStrs[0] = targetName.arg(targetConfStrs[0]).arg(i + 1);
-            if (targetConfStrs.count() > 3) {
-                targetConfStrs[3] = argStr;
-            }
-        }
-    }
-}
-
-inline void upgradeConfigV4_5(QStringList targetConfStrs, QJsonObject &conf)
-{
-    typedef TargetStringOrder I;
-
-    while (targetConfStrs.count() < I::CustomStartIndex) {
-        targetConfStrs << QString();
-    }
-
-    auto insertField = [&conf, targetConfStrs](const QString &field, I index) {
-        const QString value = targetConfStrs[index].trimmed();
-        if (!value.isEmpty()) {
-            conf[field] = value;
-        }
-    };
-
-    // read fields
-    insertField(TargetKeys::F_TARGET, I::NameIndex);
-    insertField(TargetKeys::F_FILE, I::ExecIndex);
-    insertField(TargetKeys::F_WORKDIR, I::WorkDirIndex);
-    insertField(TargetKeys::F_ARGS, I::ArgsIndex);
-    // read advanced settings
-    for (int i = 0; i < I::GDBIndex; ++i) {
-        targetConfStrs.takeFirst();
-    }
-    const auto advanced = AdvancedGDBSettings::upgradeConfigV4_5(targetConfStrs);
-    if (!advanced.isEmpty()) {
-        conf[QStringLiteral("advanced")] = advanced;
-    }
-}
 
 inline QByteArray serialize(const QJsonObject obj)
 {
@@ -110,37 +47,10 @@ inline ConfigData read(const KConfigGroup &group)
     int lastTarget = group.readEntry(QStringLiteral("lastTarget"), 0);
     const QString targetKey(QStringLiteral("target_%1"));
 
-    QStringList args;
-    if (config.version < 4) {
-        const int argsListsCount = group.readEntry(QStringLiteral("argsCount"), 0);
-        const QString argsKey(QStringLiteral("args_%1"));
-        const QString targetName(QStringLiteral("%1<%2>"));
-
-        for (int nArg = 0; nArg < argsListsCount; ++nArg) {
-            const QString argStr = group.readEntry(argsKey.arg(nArg), QString());
-        }
-    }
-
     for (int i = 0; i < config.targetCount; i++) {
         QJsonObject targetConf;
-
         if (config.version < 5) {
-            QStringList targetConfStrs;
-            targetConfStrs = group.readEntry(targetKey.arg(i), QStringList());
-            if (targetConfStrs.count() == 0) {
-                continue;
-            }
-
-            if (config.version == 1) {
-                upgradeConfigV1_3(targetConfStrs);
-            }
-
-            if (config.version < 4) {
-                upgradeConfigV3_4(targetConfStrs, args);
-            }
-            if (config.version < 5) {
-                upgradeConfigV4_5(targetConfStrs, targetConf);
-            }
+            // skip
         } else {
             const QString data = group.readEntry(targetKey.arg(i), QString());
             targetConf = unserialize(data);

@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1692054 $
+# Version: $Revision: 1692178 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 00:42+0000\n"
-"PO-Revision-Date: 2024-08-31 07:02+0200\n"
+"PO-Revision-Date: 2024-10-05 12:35+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -345,10 +345,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "Wyczyść filtr diagnostyczny"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Pokaż/Ukryj szczegóły o wdrożeniu"
+msgstr "Pokaż szczegóły po najechaniu"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
 #, kde-format
@@ -1253,12 +1252,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:352 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "Kontekst"
 
 #: lib/kateconfigdialog.cpp:357
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Włącz widok narzędzia"
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
@@ -1266,6 +1265,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"Widok narzędzia do wyświetlenia kontekstu skojarzonego z bieżącym położeniem "
+"kursora (wskazówki i diagnostyka od LSP)"
 
 #: lib/kateconfigdialog.cpp:374
 #, kde-format
@@ -1284,16 +1285,13 @@ msgid "(never)"
 msgstr "(nigdy)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " dniu"
-msgstr[1] " dniach"
-msgstr[2] " dniach"
+msgstr[0] "%v dzień"
+msgstr[1] "%v dni"
+msgstr[2] "%v dni"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
@@ -1625,10 +1623,9 @@ msgid "Close all open documents."
 msgstr "Zamknij wszystkie dokumenty."
 
 #: lib/katemainwindow.cpp:469
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
-msgstr "Otwó&rz ostatnio zamknięte dokumenty."
+msgstr "Otwó&rz ostatnio zamknięte dokumenty"
 
 #: lib/katemainwindow.cpp:471
 #, kde-format

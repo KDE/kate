@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 00:42+0000\n"
-"PO-Revision-Date: 2024-09-28 13:01+0200\n"
+"PO-Revision-Date: 2024-10-07 01:37+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1278,15 +1278,12 @@ msgid "(never)"
 msgstr "(nunca)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " día"
-msgstr[1] " días"
+msgstr[0] "%v día"
+msgstr[1] "%v días"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format

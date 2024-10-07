@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-07 00:42+0000\n"
 "PO-Revision-Date: 2024-09-30 05:44+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -677,32 +677,32 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "პროექტის თვისებები"
 
-#: kateprojectinfoview.cpp:37
+#: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "ტერმინალი (.kateproject)"
 
-#: kateprojectinfoview.cpp:46
+#: kateprojectinfoview.cpp:77
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "ტერმინალი (ძირითადი)"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:86
 #, kde-format
 msgid "Terminal (build)"
 msgstr "ტერმინალი (აგება)"
 
-#: kateprojectinfoview.cpp:62
+#: kateprojectinfoview.cpp:93
 #, kde-format
 msgid "Code Index"
 msgstr "კოდის ინდექსი"
 
-#: kateprojectinfoview.cpp:67
+#: kateprojectinfoview.cpp:98
 #, kde-format
 msgid "Code Analysis"
 msgstr "კოდის ანალიზი"
 
-#: kateprojectinfoview.cpp:72
+#: kateprojectinfoview.cpp:103
 #, kde-format
 msgid "Notes"
 msgstr "შენიშვნები"
@@ -904,12 +904,12 @@ msgstr "პროექტის თავიდან ჩატვირთვ�
 msgid "Checkout Git Branch"
 msgstr "Git-ის ბრენჩის გამოთხოვა"
 
-#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:820
+#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:810
 #, kde-format
 msgid "Lookup: %1"
 msgstr "მოძებნა: %1"
 
-#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:821
+#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Goto: %1"
 msgstr "გადასვლა: %1"
@@ -919,7 +919,7 @@ msgstr "გადასვლა: %1"
 msgid "Projects Index"
 msgstr "პროექტის ინდექსი"
 
-#: kateprojectpluginview.cpp:865
+#: kateprojectpluginview.cpp:855
 #, kde-format
 msgid "Choose a directory"
 msgstr "აირჩიეთ საქაღალდე"

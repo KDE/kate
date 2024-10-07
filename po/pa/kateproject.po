@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-07 00:42+0000\n"
 "PO-Revision-Date: 2024-01-01 12:44-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -674,35 +674,35 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "ਪਰੋਜੈਕਟ ਪੂਰਨਤਾ"
 
-#: kateprojectinfoview.cpp:37
+#: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr ""
 
-#: kateprojectinfoview.cpp:46
+#: kateprojectinfoview.cpp:77
 #, fuzzy, kde-format
 #| msgid "Terminal"
 msgid "Terminal (Base)"
 msgstr "ਟਰਮੀਨਲ"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:86
 #, fuzzy, kde-format
 #| msgid "Terminal"
 msgid "Terminal (build)"
 msgstr "ਟਰਮੀਨਲ"
 
-#: kateprojectinfoview.cpp:62
+#: kateprojectinfoview.cpp:93
 #, fuzzy, kde-format
 #| msgid "Index"
 msgid "Code Index"
 msgstr "ਇੰਡੈਕਸ"
 
-#: kateprojectinfoview.cpp:67
+#: kateprojectinfoview.cpp:98
 #, kde-format
 msgid "Code Analysis"
 msgstr ""
 
-#: kateprojectinfoview.cpp:72
+#: kateprojectinfoview.cpp:103
 #, kde-format
 msgid "Notes"
 msgstr "ਨੋਟਿਸ"
@@ -904,12 +904,12 @@ msgstr "ਮੌਜੂਦਾ ਪਰੋਜੈਕਟ"
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:820
+#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:810
 #, kde-format
 msgid "Lookup: %1"
 msgstr ""
 
-#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:821
+#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Goto: %1"
 msgstr ""
@@ -920,7 +920,7 @@ msgstr ""
 msgid "Projects Index"
 msgstr "ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:865
+#: kateprojectpluginview.cpp:855
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

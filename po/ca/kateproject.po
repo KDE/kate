@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-07 00:42+0000\n"
 "PO-Revision-Date: 2024-09-30 09:54+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -683,32 +683,32 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Propietats del projecte"
 
-#: kateprojectinfoview.cpp:37
+#: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Terminal (.kateproject)"
 
-#: kateprojectinfoview.cpp:46
+#: kateprojectinfoview.cpp:77
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Terminal (base)"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:86
 #, kde-format
 msgid "Terminal (build)"
 msgstr "Terminal (construcció)"
 
-#: kateprojectinfoview.cpp:62
+#: kateprojectinfoview.cpp:93
 #, kde-format
 msgid "Code Index"
 msgstr "Índex del codi"
 
-#: kateprojectinfoview.cpp:67
+#: kateprojectinfoview.cpp:98
 #, kde-format
 msgid "Code Analysis"
 msgstr "Anàlisi del codi"
 
-#: kateprojectinfoview.cpp:72
+#: kateprojectinfoview.cpp:103
 #, kde-format
 msgid "Notes"
 msgstr "Notes"
@@ -912,12 +912,12 @@ msgstr "Torna a carregar el projecte"
 msgid "Checkout Git Branch"
 msgstr "Extreu la branca del Git"
 
-#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:820
+#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:810
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Cerca: %1"
 
-#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:821
+#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ves a: %1"
@@ -927,7 +927,7 @@ msgstr "Ves a: %1"
 msgid "Projects Index"
 msgstr "Índex dels projectes"
 
-#: kateprojectpluginview.cpp:865
+#: kateprojectpluginview.cpp:855
 #, kde-format
 msgid "Choose a directory"
 msgstr "Seleccioneu un directori"

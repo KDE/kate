@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-07 00:42+0000\n"
 "PO-Revision-Date: 2023-02-20 11:25+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -680,33 +680,33 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Thuộc tính của dự án"
 
-#: kateprojectinfoview.cpp:37
+#: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Dòng lệnh (.kateproject)"
 
-#: kateprojectinfoview.cpp:46
+#: kateprojectinfoview.cpp:77
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Dòng lệnh (cơ sở)"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:86
 #, fuzzy, kde-format
 #| msgid "Terminal (Base)"
 msgid "Terminal (build)"
 msgstr "Dòng lệnh (cơ sở)"
 
-#: kateprojectinfoview.cpp:62
+#: kateprojectinfoview.cpp:93
 #, kde-format
 msgid "Code Index"
 msgstr "Chỉ mục mã"
 
-#: kateprojectinfoview.cpp:67
+#: kateprojectinfoview.cpp:98
 #, kde-format
 msgid "Code Analysis"
 msgstr "Phân tích mã"
 
-#: kateprojectinfoview.cpp:72
+#: kateprojectinfoview.cpp:103
 #, kde-format
 msgid "Notes"
 msgstr "Ghi chú"
@@ -915,12 +915,12 @@ msgstr "Tải lại dự án"
 msgid "Checkout Git Branch"
 msgstr "Lấy ra nhánh Git"
 
-#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:820
+#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:810
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Tra: %1"
 
-#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:821
+#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Goto: %1"
 msgstr "Đi đến: %1"
@@ -930,7 +930,7 @@ msgstr "Đi đến: %1"
 msgid "Projects Index"
 msgstr "Chỉ mục dự án"
 
-#: kateprojectpluginview.cpp:865
+#: kateprojectpluginview.cpp:855
 #, kde-format
 msgid "Choose a directory"
 msgstr "Chọn một thư mục"

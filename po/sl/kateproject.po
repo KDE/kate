@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-07 00:42+0000\n"
 "PO-Revision-Date: 2024-09-30 09:38+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -685,32 +685,32 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Lastnosti projekta"
 
-#: kateprojectinfoview.cpp:37
+#: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Terminal (.kateproject)"
 msgstr "Terminal (.kateproject)"
 
-#: kateprojectinfoview.cpp:46
+#: kateprojectinfoview.cpp:77
 #, kde-format
 msgid "Terminal (Base)"
 msgstr "Terminal (osnova)"
 
-#: kateprojectinfoview.cpp:55
+#: kateprojectinfoview.cpp:86
 #, kde-format
 msgid "Terminal (build)"
 msgstr "Terminal (izgradnja)"
 
-#: kateprojectinfoview.cpp:62
+#: kateprojectinfoview.cpp:93
 #, kde-format
 msgid "Code Index"
 msgstr "Kazalo kode"
 
-#: kateprojectinfoview.cpp:67
+#: kateprojectinfoview.cpp:98
 #, kde-format
 msgid "Code Analysis"
 msgstr "Preučevanje kode"
 
-#: kateprojectinfoview.cpp:72
+#: kateprojectinfoview.cpp:103
 #, kde-format
 msgid "Notes"
 msgstr "Opombe"
@@ -916,12 +916,12 @@ msgstr "Ponovno naloži projekt"
 msgid "Checkout Git Branch"
 msgstr "Izdaj Git vejo"
 
-#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:820
+#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:810
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Poišči: %1"
 
-#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:821
+#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Goto: %1"
 msgstr "Pojdi na: %1"
@@ -931,7 +931,7 @@ msgstr "Pojdi na: %1"
 msgid "Projects Index"
 msgstr "Indeks projektov"
 
-#: kateprojectpluginview.cpp:865
+#: kateprojectpluginview.cpp:855
 #, kde-format
 msgid "Choose a directory"
 msgstr "Izberi imenik"

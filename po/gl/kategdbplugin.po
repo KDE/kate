@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 00:42+0000\n"
-"PO-Revision-Date: 2024-09-28 13:02+0200\n"
+"PO-Revision-Date: 2024-10-07 01:39+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -751,17 +751,17 @@ msgstr "Reiniciar a depuración"
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Recarga sobre a marcha"
 
 #: plugin_kategdb.cpp:345
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Reinicio sobre a marcha"
 
 #: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Activar a recarga sobre a marca ao gardar."
 
 #: plugin_kategdb.cpp:363 plugin_kategdb.cpp:382
 #, kde-format

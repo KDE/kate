@@ -104,6 +104,15 @@ if(HAVE_DAEMON)
   target_compile_definitions(kateprivate PRIVATE HAVE_DAEMON)
 endif()
 
+include(ECMQtDeclareLoggingCategory)
+ecm_qt_declare_logging_category(
+    LIB_KATE_TIME_SOURCES
+    HEADER kate_timings_debug.h
+    IDENTIFIER LibKateTime
+    CATEGORY_NAME "libkate.time"
+    DEFAULT_SEVERITY Debug
+)
+
 ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui welcomeview/welcomeview.ui session/katesessionmanagedialog.ui)
 
 target_sources(
@@ -164,6 +173,7 @@ target_sources(
     welcomeview/welcomeview.cpp
     welcomeview/recentitemsmodel.cpp
     welcomeview/savedsessionsmodel.cpp
+    ${LIB_KATE_TIME_SOURCES}
 )
 
 if (BUILD_PCH)

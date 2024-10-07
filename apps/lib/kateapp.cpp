@@ -8,6 +8,7 @@
 #include "kateapp.h"
 
 #include "doc_or_widget.h"
+#include "kate_timings_debug.h"
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
 
@@ -22,6 +23,7 @@
 #include <KSharedConfig>
 #include <KTextEditor/View>
 #include <KWindowSystem>
+#include <QLoggingCategory>
 
 #define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
 #if HAVE_STYLE_MANAGER
@@ -683,7 +685,10 @@ KateMainWindow *KateApp::newMainWindow(KConfig *sconfig_, const QString &sgroup_
     KConfig *sconfig = sconfig_ ? sconfig_ : KSharedConfig::openConfig().data();
     QString sgroup = !sgroup_.isEmpty() ? sgroup_ : QStringLiteral("MainWindow0");
 
+    QElapsedTimer t;
+    t.start();
     KateMainWindow *mainWindow = new KateMainWindow(sconfig, sgroup, userTriggered);
+    qCDebug(LibKateTime, "Created KateMainWindow in %lld ms", t.elapsed());
     mainWindow->show();
 
     return mainWindow;

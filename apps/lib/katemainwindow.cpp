@@ -13,6 +13,7 @@
 
 #include "diagnostics/diagnosticview.h"
 #include "filehistorywidget.h"
+#include "kate_timings_debug.h"
 #include "kateapp.h"
 #include "kateconfigdialog.h"
 #include "katedocmanager.h"
@@ -145,7 +146,10 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
     KateApp::self()->addMainWindow(this);
 
     // enable plugin guis
+    QElapsedTimer t;
+    t.start();
     KateApp::self()->pluginManager()->enableAllPluginsGUI(this, sconfig);
+    qCDebug(LibKateTime, "All plugins loaded in %lld ms", t.elapsed());
 
     // caption update
     const auto documents = KateApp::self()->documentManager()->documentList();

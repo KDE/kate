@@ -18,6 +18,8 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
 
+#include "kate_timings_debug.h"
+#include <QElapsedTimer>
 #include <QFileInfo>
 
 QString KatePluginInfo::saveName() const
@@ -168,9 +170,13 @@ void KatePluginManager::unloadAllPlugins()
 
 void KatePluginManager::enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config)
 {
+    QElapsedTimer t;
+    t.start();
     for (auto &pluginInfo : m_pluginList) {
         if (pluginInfo.plugin) {
+            t.restart();
             enablePluginGUI(&pluginInfo, win, config);
+            qCDebug(LibKateTime, "-> %s load in %lld ms", qPrintable(pluginInfo.saveName()), t.elapsed());
         }
     }
 }

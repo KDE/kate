@@ -21,8 +21,10 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QElapsedTimer>
 #include <QIcon>
 #include <QJsonDocument>
+#include <QLoggingCategory>
 #include <QRegularExpression>
 #include <QSessionManager>
 #include <QStandardPaths>
@@ -49,8 +51,12 @@
 #include "SingleApplication/SingleApplication"
 #endif
 
+Q_LOGGING_CATEGORY(KateTime, "kate.time", QtDebugMsg)
+
 int main(int argc, char **argv)
 {
+    QElapsedTimer timer;
+    timer.start();
     /**
      * fork into the background if we don't need to be blocking
      * we need to do that early
@@ -80,6 +86,8 @@ int main(int argc, char **argv)
     SingleApplication app(argc, argv, true);
 #endif
 
+    qCDebug(KateTime, "QApplication initialized in %lld ms", timer.elapsed());
+    timer.restart();
     /**
      * Enforce application name even if the executable is renamed
      * Connect application with translation catalogs, Kate & KWrite share the same one
@@ -519,6 +527,7 @@ int main(int argc, char **argv)
     if (!kateApp.init()) {
         return 0;
     }
+    qCDebug(KateTime, "KateApp initialized in %lld ms", timer.elapsed());
 
 #ifdef WITH_DBUS
     /**

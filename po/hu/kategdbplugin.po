@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 00:42+0000\n"
+"POT-Creation-Date: 2024-10-08 00:42+0000\n"
 "PO-Revision-Date: 2021-12-23 14:57+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -106,75 +106,70 @@ msgid ""
 "session."
 msgstr ""
 
-#: configview.cpp:91
+#: configview.cpp:92
 #, kde-format
 msgid "Add new target"
 msgstr "Új cél hozzáadása"
 
-#: configview.cpp:95
+#: configview.cpp:96
 #, kde-format
 msgid "Copy target"
 msgstr "Cél másolása"
 
-#: configview.cpp:99
+#: configview.cpp:100
 #, kde-format
 msgid "Delete target"
 msgstr "Cél törlése"
 
-#: configview.cpp:104
+#: configview.cpp:105
 #, kde-format
 msgid "Executable:"
 msgstr "Végrehajtható:"
 
-#: configview.cpp:124
+#: configview.cpp:125
 #, kde-format
 msgid "Working Directory:"
 msgstr "Munkakönyvtár:"
 
-#: configview.cpp:132
+#: configview.cpp:133
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:137
+#: configview.cpp:138
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumentumok:"
 
-#: configview.cpp:140
+#: configview.cpp:141
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Fókusz megtartása"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Fókusz megtartása a parancssoron"
 
-#: configview.cpp:143
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect IO"
 msgstr "I/O átirányítása"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "A hibakeresés alatt álló program be- és kimenetének átirányítása külön lapra"
 
-#: configview.cpp:146
+#: configview.cpp:147
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Speciális beállítások"
 
-#: configview.cpp:266
-#, kde-format
-msgid "Targets"
-msgstr "Célok"
-
-#: configview.cpp:576 configview.cpp:589
+#: configview.cpp:462 configview.cpp:475
 #, kde-format
 msgid "Target %1"
 msgstr "%1. cél"
@@ -647,54 +642,40 @@ msgstr ""
 msgid "named items"
 msgstr ""
 
-#: plugin_kategdb.cpp:104
+#: plugin_kategdb.cpp:105
 #, fuzzy, kde-format
 #| msgid "Kate GDB"
 msgid "Kate Debug"
 msgstr "Kate GDB"
 
-#: plugin_kategdb.cpp:108
+#: plugin_kategdb.cpp:109
 #, kde-format
 msgid "Debug View"
 msgstr "Hibakereső nézet"
 
-#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:373
+#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:359
 #, kde-format
 msgid "Debug"
 msgstr "Hibakeresés"
 
-#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Helyi változók és verem"
 
-#: plugin_kategdb.cpp:166
+#: plugin_kategdb.cpp:167
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Sorszám"
 
-#: plugin_kategdb.cpp:166
+#: plugin_kategdb.cpp:167
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Keret"
 
-#: plugin_kategdb.cpp:198
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
-msgctxt "Tab label"
-msgid "Debug Output"
-msgstr "GDB kimenet"
-
-#: plugin_kategdb.cpp:199
-#, kde-format
-msgctxt "Tab label"
-msgid "Settings"
-msgstr "Beállítások"
-
-#: plugin_kategdb.cpp:243
+#: plugin_kategdb.cpp:236
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -705,109 +686,128 @@ msgstr ""
 "keresési útvonalat a Speciális beállítások -> Forrásfájlok keresési útvonala "
 "lapon"
 
-#: plugin_kategdb.cpp:268
+#: plugin_kategdb.cpp:249
+#, kde-format
+msgid "Targets"
+msgstr "Célok"
+
+#: plugin_kategdb.cpp:254
 #, kde-format
 msgid "Start Debugging"
 msgstr "Hibakeresés indítása"
 
-#: plugin_kategdb.cpp:278
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Hibakeresés kilövése/leállítása"
 
-#: plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Continue"
 msgstr "Folytatás"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:277
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Töréspont beszúrása"
 
-#: plugin_kategdb.cpp:298
+#: plugin_kategdb.cpp:284
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "Töréspont"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Step In"
 msgstr "Belépés"
 
-#: plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step Over"
 msgstr "Átlépés"
 
-#: plugin_kategdb.cpp:317
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Out"
 msgstr "Kilépés"
 
-#: plugin_kategdb.cpp:324 plugin_kategdb.cpp:380
+#: plugin_kategdb.cpp:310 plugin_kategdb.cpp:366
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Futtatás a kurzorig"
 
-#: plugin_kategdb.cpp:331
+#: plugin_kategdb.cpp:317
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Hibakeresés újraindítása"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:345
+#: plugin_kategdb.cpp:331
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:354
+#: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:363 plugin_kategdb.cpp:382
+#: plugin_kategdb.cpp:349 plugin_kategdb.cpp:368
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Utasításszámláló léptetése"
 
-#: plugin_kategdb.cpp:368
+#: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Print Value"
 msgstr "Érték kiírása"
 
-#: plugin_kategdb.cpp:471 plugin_kategdb.cpp:487
+#: plugin_kategdb.cpp:464 plugin_kategdb.cpp:480
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Töréspont beszúrása"
 
-#: plugin_kategdb.cpp:485
+#: plugin_kategdb.cpp:478
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Töréspont eltávolítása"
 
-#: plugin_kategdb.cpp:655
+#: plugin_kategdb.cpp:651
 #, kde-format
 msgid "Execution point"
 msgstr "Végrehajtási pont"
 
-#: plugin_kategdb.cpp:800 plugin_kategdb.cpp:831
+#: plugin_kategdb.cpp:796 plugin_kategdb.cpp:827
 #, kde-format
 msgid "Thread %1"
 msgstr "%1. szál"
 
-#: plugin_kategdb.cpp:946
+#: plugin_kategdb.cpp:923
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "GDB Output"
+msgctxt "Tab label"
+msgid "Debug Output"
+msgstr "GDB kimenet"
+
+#: plugin_kategdb.cpp:924
+#, kde-format
+msgctxt "Tab label"
+msgid "Settings"
+msgstr "Beállítások"
+
+#: plugin_kategdb.cpp:969
 #, kde-format
 msgid "IO"
 msgstr "I/O"
 
-#: plugin_kategdb.cpp:1030
+#: plugin_kategdb.cpp:1055
 #, kde-format
 msgid "Breakpoint"
 msgstr "Töréspont"

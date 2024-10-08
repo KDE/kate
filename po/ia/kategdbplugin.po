@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 00:42+0000\n"
+"POT-Creation-Date: 2024-10-08 00:42+0000\n"
 "PO-Revision-Date: 2024-10-03 10:12+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -105,74 +105,69 @@ msgstr ""
 "Un session de cribrar (debugging) es in corso.Pro favor ture-exeque o stoppa "
 "le session currente."
 
-#: configview.cpp:91
+#: configview.cpp:92
 #, kde-format
 msgid "Add new target"
 msgstr "Adde nove objectivo"
 
-#: configview.cpp:95
+#: configview.cpp:96
 #, kde-format
 msgid "Copy target"
 msgstr "Copia objectivo"
 
-#: configview.cpp:99
+#: configview.cpp:100
 #, kde-format
 msgid "Delete target"
 msgstr "Dele objectivo"
 
-#: configview.cpp:104
+#: configview.cpp:105
 #, kde-format
 msgid "Executable:"
 msgstr "Executabile:"
 
-#: configview.cpp:124
+#: configview.cpp:125
 #, kde-format
 msgid "Working Directory:"
 msgstr "Directorio de travalio:"
 
-#: configview.cpp:132
+#: configview.cpp:133
 #, kde-format
 msgid "Process Id:"
 msgstr "ID de processo: "
 
-#: configview.cpp:137
+#: configview.cpp:138
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumentos:"
 
-#: configview.cpp:140
+#: configview.cpp:141
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Mantene foco"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "mantene foco sur le linea de commando"
 
-#: configview.cpp:143
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect IO"
 msgstr "Re-dirige I/E (IO)"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Re-dirige le IE (IO) de programma cribrate a un scheda separate"
 
-#: configview.cpp:146
+#: configview.cpp:147
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Preferentias Avantiate"
 
-#: configview.cpp:266
-#, kde-format
-msgid "Targets"
-msgstr "Objectivos"
-
-#: configview.cpp:576 configview.cpp:589
+#: configview.cpp:462 configview.cpp:475
 #, kde-format
 msgid "Target %1"
 msgstr "Objectivo %1"
@@ -643,51 +638,39 @@ msgstr "elementos indicisate"
 msgid "named items"
 msgstr "elemento nominate"
 
-#: plugin_kategdb.cpp:104
+#: plugin_kategdb.cpp:105
 #, kde-format
 msgid "Kate Debug"
 msgstr "Debug (Cribrar) de Kate"
 
-#: plugin_kategdb.cpp:108
+#: plugin_kategdb.cpp:109
 #, kde-format
 msgid "Debug View"
 msgstr "Vista de cribrar"
 
-#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:373
+#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:359
 #, kde-format
 msgid "Debug"
 msgstr "Cribra (debug)"
 
-#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Locales e Stack"
 
-#: plugin_kategdb.cpp:166
+#: plugin_kategdb.cpp:167
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: plugin_kategdb.cpp:166
+#: plugin_kategdb.cpp:167
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Quadro"
 
-#: plugin_kategdb.cpp:198
-#, kde-format
-msgctxt "Tab label"
-msgid "Debug Output"
-msgstr "Exito de Debug (Cribrar)"
-
-#: plugin_kategdb.cpp:199
-#, kde-format
-msgctxt "Tab label"
-msgid "Settings"
-msgstr "Preferentias"
-
-#: plugin_kategdb.cpp:243
+#: plugin_kategdb.cpp:236
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -697,108 +680,125 @@ msgstr ""
 "<title>Non poteva aperir file:</title><nl/>%1<br/>Prova adder un percurso de "
 "cerca a Preferentias Avantiate -> Percurso de cerca de file fonte"
 
-#: plugin_kategdb.cpp:268
+#: plugin_kategdb.cpp:249
+#, kde-format
+msgid "Targets"
+msgstr "Objectivos"
+
+#: plugin_kategdb.cpp:254
 #, kde-format
 msgid "Start Debugging"
 msgstr "Initia cribrar"
 
-#: plugin_kategdb.cpp:278
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Occide/Stoppa cribrar"
 
-#: plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Continue"
 msgstr "Continua"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:277
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Pone/leva puncto de interruption/Interruption"
 
-#: plugin_kategdb.cpp:298
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Clara omne punctos de interruption"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Step In"
 msgstr "Entra de passo"
 
-#: plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step Over"
 msgstr "Salta de passo"
 
-#: plugin_kategdb.cpp:317
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Out"
 msgstr "Exi de passo"
 
-#: plugin_kategdb.cpp:324 plugin_kategdb.cpp:380
+#: plugin_kategdb.cpp:310 plugin_kategdb.cpp:366
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Executa usque le cursor es"
 
-#: plugin_kategdb.cpp:331
+#: plugin_kategdb.cpp:317
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Re-initia cribrar"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Hot Reload"
 msgstr "Recarga a calide (hot reload)"
 
-#: plugin_kategdb.cpp:345
+#: plugin_kategdb.cpp:331
 #, kde-format
 msgid "Hot Restart"
 msgstr "Re-Initia a calide (HOt restart)"
 
-#: plugin_kategdb.cpp:354
+#: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "HAbilita Recarga a calide (hot reload) quando on salveguarda"
 
-#: plugin_kategdb.cpp:363 plugin_kategdb.cpp:382
+#: plugin_kategdb.cpp:349 plugin_kategdb.cpp:368
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Move PC"
 
-#: plugin_kategdb.cpp:368
+#: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Print Value"
 msgstr "Imprime valor"
 
-#: plugin_kategdb.cpp:471 plugin_kategdb.cpp:487
+#: plugin_kategdb.cpp:464 plugin_kategdb.cpp:480
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Inserta puncto de interruption"
 
-#: plugin_kategdb.cpp:485
+#: plugin_kategdb.cpp:478
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Remove puncto de interruption"
 
-#: plugin_kategdb.cpp:655
+#: plugin_kategdb.cpp:651
 #, kde-format
 msgid "Execution point"
 msgstr "Puncto de execution"
 
-#: plugin_kategdb.cpp:800 plugin_kategdb.cpp:831
+#: plugin_kategdb.cpp:796 plugin_kategdb.cpp:827
 #, kde-format
 msgid "Thread %1"
 msgstr "Topico %1"
 
-#: plugin_kategdb.cpp:946
+#: plugin_kategdb.cpp:923
+#, kde-format
+msgctxt "Tab label"
+msgid "Debug Output"
+msgstr "Exito de Debug (Cribrar)"
+
+#: plugin_kategdb.cpp:924
+#, kde-format
+msgctxt "Tab label"
+msgid "Settings"
+msgstr "Preferentias"
+
+#: plugin_kategdb.cpp:969
 #, kde-format
 msgid "IO"
 msgstr "IE (IO)"
 
-#: plugin_kategdb.cpp:1030
+#: plugin_kategdb.cpp:1055
 #, kde-format
 msgid "Breakpoint"
 msgstr "Puncto de interruption"

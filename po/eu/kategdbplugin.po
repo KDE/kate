@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 00:42+0000\n"
+"POT-Creation-Date: 2024-10-08 00:42+0000\n"
 "PO-Revision-Date: 2024-10-01 17:31+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -109,74 +109,69 @@ msgstr ""
 "Arazteko saio bat martxan dago. Mesedez, erabili berriz exekutatu edo "
 "gelditu uneko saioa."
 
-#: configview.cpp:91
+#: configview.cpp:92
 #, kde-format
 msgid "Add new target"
 msgstr "Gehitu jomuga berria"
 
-#: configview.cpp:95
+#: configview.cpp:96
 #, kde-format
 msgid "Copy target"
 msgstr "Kopiatu jomuga"
 
-#: configview.cpp:99
+#: configview.cpp:100
 #, kde-format
 msgid "Delete target"
 msgstr "Kendu jomuga"
 
-#: configview.cpp:104
+#: configview.cpp:105
 #, kde-format
 msgid "Executable:"
 msgstr "Exekutagarria:"
 
-#: configview.cpp:124
+#: configview.cpp:125
 #, kde-format
 msgid "Working Directory:"
 msgstr "Laneko direktorioa:"
 
-#: configview.cpp:132
+#: configview.cpp:133
 #, kde-format
 msgid "Process Id:"
 msgstr "Prozesu ID:"
 
-#: configview.cpp:137
+#: configview.cpp:138
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumentuak:"
 
-#: configview.cpp:140
+#: configview.cpp:141
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Eutsi fokuari"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Eutsi fokuari komando-lerroan"
 
-#: configview.cpp:143
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect IO"
 msgstr "Birbideratu SI"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Birbideratu araztutako programaren SI banatutako fitxa batera"
 
-#: configview.cpp:146
+#: configview.cpp:147
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Ezarpen aurreratuak"
 
-#: configview.cpp:266
-#, kde-format
-msgid "Targets"
-msgstr "Helburuak"
-
-#: configview.cpp:576 configview.cpp:589
+#: configview.cpp:462 configview.cpp:475
 #, kde-format
 msgid "Target %1"
 msgstr "Jomuga %1"
@@ -644,51 +639,39 @@ msgstr "indexatutako elementuak"
 msgid "named items"
 msgstr "izendatutako elementuak"
 
-#: plugin_kategdb.cpp:104
+#: plugin_kategdb.cpp:105
 #, kde-format
 msgid "Kate Debug"
 msgstr "Kate araztu"
 
-#: plugin_kategdb.cpp:108
+#: plugin_kategdb.cpp:109
 #, kde-format
 msgid "Debug View"
 msgstr "Arazteko ikuspegia"
 
-#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:373
+#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:359
 #, kde-format
 msgid "Debug"
 msgstr "Araztu"
 
-#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Bertako aldagaiak eta dei-pila"
 
-#: plugin_kategdb.cpp:166
+#: plugin_kategdb.cpp:167
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Zk"
 
-#: plugin_kategdb.cpp:166
+#: plugin_kategdb.cpp:167
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Markoa"
 
-#: plugin_kategdb.cpp:198
-#, kde-format
-msgctxt "Tab label"
-msgid "Debug Output"
-msgstr "Araztailearen irteera"
-
-#: plugin_kategdb.cpp:199
-#, kde-format
-msgctxt "Tab label"
-msgid "Settings"
-msgstr "Ezarpenak"
-
-#: plugin_kategdb.cpp:243
+#: plugin_kategdb.cpp:236
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -699,108 +682,125 @@ msgstr ""
 "bilaketa bide-izen bat gehitzen, Ezarpen Aurreratuak -> Sorburu fitxategiak "
 "bilatzeko bide-izenak"
 
-#: plugin_kategdb.cpp:268
+#: plugin_kategdb.cpp:249
+#, kde-format
+msgid "Targets"
+msgstr "Helburuak"
+
+#: plugin_kategdb.cpp:254
 #, kde-format
 msgid "Start Debugging"
 msgstr "Hasi arazten"
 
-#: plugin_kategdb.cpp:278
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Hil / Gelditu arazketa"
 
-#: plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Continue"
 msgstr "Jarraitu"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:277
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Txandakatu Eten-puntua / Etena"
 
-#: plugin_kategdb.cpp:298
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Garbitu eten-puntu guztiak"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Step In"
 msgstr "Urratsa barrura"
 
-#: plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step Over"
 msgstr "Urratsa gainetik"
 
-#: plugin_kategdb.cpp:317
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Out"
 msgstr "Urratsa kanpora"
 
-#: plugin_kategdb.cpp:324 plugin_kategdb.cpp:380
+#: plugin_kategdb.cpp:310 plugin_kategdb.cpp:366
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Exekutatu kurtsorea arte"
 
-#: plugin_kategdb.cpp:331
+#: plugin_kategdb.cpp:317
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Berrabiarazi arazketa"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Hot Reload"
 msgstr "Beroan birzamatzea"
 
-#: plugin_kategdb.cpp:345
+#: plugin_kategdb.cpp:331
 #, kde-format
 msgid "Hot Restart"
 msgstr "Beroan berrabiatzea"
 
-#: plugin_kategdb.cpp:354
+#: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "Gordetzean gaitu Beroan birzamatzea"
 
-#: plugin_kategdb.cpp:363 plugin_kategdb.cpp:382
+#: plugin_kategdb.cpp:349 plugin_kategdb.cpp:368
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Mugitu PK"
 
-#: plugin_kategdb.cpp:368
+#: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Print Value"
 msgstr "Inprimatu balioa"
 
-#: plugin_kategdb.cpp:471 plugin_kategdb.cpp:487
+#: plugin_kategdb.cpp:464 plugin_kategdb.cpp:480
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Txertatu eten-puntua"
 
-#: plugin_kategdb.cpp:485
+#: plugin_kategdb.cpp:478
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Kendu eten-puntua"
 
-#: plugin_kategdb.cpp:655
+#: plugin_kategdb.cpp:651
 #, kde-format
 msgid "Execution point"
 msgstr "Exekuzio puntua"
 
-#: plugin_kategdb.cpp:800 plugin_kategdb.cpp:831
+#: plugin_kategdb.cpp:796 plugin_kategdb.cpp:827
 #, kde-format
 msgid "Thread %1"
 msgstr "%1 haria"
 
-#: plugin_kategdb.cpp:946
+#: plugin_kategdb.cpp:923
+#, kde-format
+msgctxt "Tab label"
+msgid "Debug Output"
+msgstr "Araztailearen irteera"
+
+#: plugin_kategdb.cpp:924
+#, kde-format
+msgctxt "Tab label"
+msgid "Settings"
+msgstr "Ezarpenak"
+
+#: plugin_kategdb.cpp:969
 #, kde-format
 msgid "IO"
 msgstr "SI"
 
-#: plugin_kategdb.cpp:1030
+#: plugin_kategdb.cpp:1055
 #, kde-format
 msgid "Breakpoint"
 msgstr "Eten-puntua"

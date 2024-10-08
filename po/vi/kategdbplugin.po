@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 00:42+0000\n"
+"POT-Creation-Date: 2024-10-08 00:42+0000\n"
 "PO-Revision-Date: 2023-03-21 18:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -105,75 +105,70 @@ msgid ""
 msgstr ""
 "Một phiên gỡ lỗi đang diễn ra. Vui lòng chạy lại hoặc dừng phiên hiện tại."
 
-#: configview.cpp:91
+#: configview.cpp:92
 #, kde-format
 msgid "Add new target"
 msgstr "Thêm mục tiêu mới"
 
-#: configview.cpp:95
+#: configview.cpp:96
 #, kde-format
 msgid "Copy target"
 msgstr "Sao chép mục tiêu"
 
-#: configview.cpp:99
+#: configview.cpp:100
 #, kde-format
 msgid "Delete target"
 msgstr "Xoá mục tiêu"
 
-#: configview.cpp:104
+#: configview.cpp:105
 #, kde-format
 msgid "Executable:"
 msgstr "Tệp thực thi:"
 
-#: configview.cpp:124
+#: configview.cpp:125
 #, kde-format
 msgid "Working Directory:"
 msgstr "Thư mục làm việc:"
 
-#: configview.cpp:132
+#: configview.cpp:133
 #, kde-format
 msgid "Process Id:"
 msgstr "Mã tiến trình:"
 
-#: configview.cpp:137
+#: configview.cpp:138
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Đối số:"
 
-#: configview.cpp:140
+#: configview.cpp:141
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Giữ nhắm"
 
-#: configview.cpp:141
+#: configview.cpp:142
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Giữ nhắm vào dòng lệnh"
 
-#: configview.cpp:143
+#: configview.cpp:144
 #, kde-format
 msgid "Redirect IO"
 msgstr "Chuyển hướng vào/ra"
 
-#: configview.cpp:144
+#: configview.cpp:145
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Chuyển hướng đầu vào / đầu ra của chương trình được gỡ lỗi sang một thẻ riêng"
 
-#: configview.cpp:146
+#: configview.cpp:147
 #, kde-format
 msgid "Advanced Settings"
 msgstr "Thiết lập nâng cao"
 
-#: configview.cpp:266
-#, kde-format
-msgid "Targets"
-msgstr "Mục tiêu"
-
-#: configview.cpp:576 configview.cpp:589
+#: configview.cpp:462 configview.cpp:475
 #, kde-format
 msgid "Target %1"
 msgstr "Mục tiêu %1"
@@ -643,54 +638,40 @@ msgstr "mục được lập chỉ mục"
 msgid "named items"
 msgstr "mục được đặt tên"
 
-#: plugin_kategdb.cpp:104
+#: plugin_kategdb.cpp:105
 #, fuzzy, kde-format
 #| msgid "Kate GDB"
 msgid "Kate Debug"
 msgstr "GDB trong Kate"
 
-#: plugin_kategdb.cpp:108
+#: plugin_kategdb.cpp:109
 #, kde-format
 msgid "Debug View"
 msgstr "Khung xem gỡ lỗi"
 
-#: plugin_kategdb.cpp:108 plugin_kategdb.cpp:373
+#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:359
 #, kde-format
 msgid "Debug"
 msgstr "Gỡ lỗi"
 
-#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:114
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Biến cục bộ và ngăn xếp"
 
-#: plugin_kategdb.cpp:166
+#: plugin_kategdb.cpp:167
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Số"
 
-#: plugin_kategdb.cpp:166
+#: plugin_kategdb.cpp:167
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Khung"
 
-#: plugin_kategdb.cpp:198
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
-msgctxt "Tab label"
-msgid "Debug Output"
-msgstr "Đầu ra GDB"
-
-#: plugin_kategdb.cpp:199
-#, kde-format
-msgctxt "Tab label"
-msgid "Settings"
-msgstr "Thiết lập"
-
-#: plugin_kategdb.cpp:243
+#: plugin_kategdb.cpp:236
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -700,109 +681,128 @@ msgstr ""
 "<title>Không mở được tệp:</title><nl/>%1<br/>Hãy thử thêm một đường dẫn tìm "
 "kiếm vào Thiết lập nâng cao -> Đường dẫn tìm kiếm tệp nguồn"
 
-#: plugin_kategdb.cpp:268
+#: plugin_kategdb.cpp:249
+#, kde-format
+msgid "Targets"
+msgstr "Mục tiêu"
+
+#: plugin_kategdb.cpp:254
 #, kde-format
 msgid "Start Debugging"
 msgstr "Bắt đầu gỡ lỗi"
 
-#: plugin_kategdb.cpp:278
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Diệt/dừng gỡ lỗi"
 
-#: plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Continue"
 msgstr "Tiếp tục"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:277
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Bật/tắt điểm ngắt / ngắt"
 
-#: plugin_kategdb.cpp:298
+#: plugin_kategdb.cpp:284
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "Điểm ngắt"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Step In"
 msgstr "Bước vào"
 
-#: plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step Over"
 msgstr "Bước qua"
 
-#: plugin_kategdb.cpp:317
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Out"
 msgstr "Bước ra"
 
-#: plugin_kategdb.cpp:324 plugin_kategdb.cpp:380
+#: plugin_kategdb.cpp:310 plugin_kategdb.cpp:366
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Chạy đến con trỏ"
 
-#: plugin_kategdb.cpp:331
+#: plugin_kategdb.cpp:317
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Khởi động lại việc gỡ lỗi"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:345
+#: plugin_kategdb.cpp:331
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:354
+#: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:363 plugin_kategdb.cpp:382
+#: plugin_kategdb.cpp:349 plugin_kategdb.cpp:368
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Di chuyển con trỏ lệnh"
 
-#: plugin_kategdb.cpp:368
+#: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Print Value"
 msgstr "In giá trị"
 
-#: plugin_kategdb.cpp:471 plugin_kategdb.cpp:487
+#: plugin_kategdb.cpp:464 plugin_kategdb.cpp:480
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Chèn điểm ngắt"
 
-#: plugin_kategdb.cpp:485
+#: plugin_kategdb.cpp:478
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Xoá điểm ngắt"
 
-#: plugin_kategdb.cpp:655
+#: plugin_kategdb.cpp:651
 #, kde-format
 msgid "Execution point"
 msgstr "Điểm thực thi"
 
-#: plugin_kategdb.cpp:800 plugin_kategdb.cpp:831
+#: plugin_kategdb.cpp:796 plugin_kategdb.cpp:827
 #, kde-format
 msgid "Thread %1"
 msgstr "Luồng %1"
 
-#: plugin_kategdb.cpp:946
+#: plugin_kategdb.cpp:923
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "GDB Output"
+msgctxt "Tab label"
+msgid "Debug Output"
+msgstr "Đầu ra GDB"
+
+#: plugin_kategdb.cpp:924
+#, kde-format
+msgctxt "Tab label"
+msgid "Settings"
+msgstr "Thiết lập"
+
+#: plugin_kategdb.cpp:969
 #, kde-format
 msgid "IO"
 msgstr "Vào/ra"
 
-#: plugin_kategdb.cpp:1030
+#: plugin_kategdb.cpp:1055
 #, kde-format
 msgid "Breakpoint"
 msgstr "Điểm ngắt"

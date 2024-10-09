@@ -66,9 +66,6 @@ KateExternalToolsPlugin::KateExternalToolsPlugin(QObject *parent, const QVariant
 
     migrateConfig();
 
-    // read built-in external tools from compiled-in resource file
-    m_defaultTools = readDefaultTools();
-
     // load config from disk
     reload();
 }
@@ -88,7 +85,6 @@ void KateExternalToolsPlugin::migrateConfig()
 
         const bool isFirstRun = oldGroup.readEntry("firststart", true);
         m_config->group(QStringLiteral("Global")).writeEntry("firststart", isFirstRun);
-        m_config->sync();
 
         const int toolCount = oldGroup.readEntry("tools", 0);
         for (int i = 0; i < toolCount; ++i) {
@@ -102,7 +98,6 @@ void KateExternalToolsPlugin::migrateConfig()
             KConfig newConfig(newConfPath);
             KConfigGroup newGroup = newConfig.group(QStringLiteral("General"));
             oldGroup.copyTo(&newGroup, KConfigBase::Persistent);
-            newConfig.sync();
         }
 
         QFile::remove(oldFile);
@@ -167,7 +162,6 @@ void KateExternalToolsPlugin::save(KateExternalTool *tool, const QString &oldNam
     KConfig config(toolsConfigDir() + name);
     KConfigGroup cg = config.group(QStringLiteral("General"));
     tool->save(cg);
-    config.sync();
 
     // The tool was renamed, remove the old config file
     if (!oldName.isEmpty()) {
@@ -199,10 +193,13 @@ void KateExternalToolsPlugin::reload()
         }
     } else {
         // first start -> use system config
-        for (const auto &tool : std::as_const(m_defaultTools)) {
+        const auto defaultTools = this->defaultTools();
+        for (const auto &tool : defaultTools) {
             m_tools.push_back(new KateExternalTool(tool));
             save(m_tools.back(), {});
         }
+        // not first start anymore
+        group.writeEntry("firststart", false);
     }
 
     // FIXME test for a command name first!
@@ -241,6 +238,9 @@ const QList<KateExternalTool *> &KateExternalToolsPlugin::tools() const
 
 QList<KateExternalTool> KateExternalToolsPlugin::defaultTools() const
 {
+    if (m_defaultTools.isEmpty()) {
+        const_cast<KateExternalToolsPlugin *>(this)->m_defaultTools = readDefaultTools();
+    }
     return m_defaultTools;
 }
 

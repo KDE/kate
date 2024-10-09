@@ -83,5 +83,5 @@
         "Name[zh_CN]": "CTags",
         "Name[zh_TW]": "CTags"
     },
-    "LoadInKDevelop": true
+    "LoadInKDevelop": "true"
 }

@@ -13,6 +13,23 @@
 
 #include <ktexteditor_utils.h>
 
+static KTextEditor::Range getExtendedVisibleRange(KTextEditor::View *view)
+{
+    auto visibleRange = Utils::getVisibleRange(view);
+    if (visibleRange.start().line() > 8) {
+        auto s = visibleRange.start();
+        s.setLine(s.line() - 8);
+        visibleRange.setStart(s);
+    }
+    if (visibleRange.end().line() + 8 < view->document()->lines()) {
+        auto e = visibleRange.end();
+        e.setLine(e.line() + 8);
+        e.setColumn(view->document()->lineLength(e.line()));
+        visibleRange.setEnd(e);
+    }
+    return visibleRange;
+}
+
 SemanticHighlighter::SemanticHighlighter(std::shared_ptr<LSPClientServerManager> serverManager, QObject *parent)
     : QObject(parent)
     , m_serverManager(std::move(serverManager))
@@ -60,17 +77,8 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
         connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &SemanticHighlighter::remove, Qt::UniqueConnection);
     }
 
-    if (caps.semanticTokenProvider.range) {
-        connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &SemanticHighlighter::semanticHighlightRange, Qt::UniqueConnection);
-    } else {
-        // semanticTokens/full
-        disconnect(m_verticalScrollConnection);
-        m_verticalScrollConnection = connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, [server, this]() {
-            const auto legend = &server->capabilities().semanticTokenProvider.legend;
-            // highlight the newly scrolled region
-            highlight(m_currentView, legend);
-        });
-    }
+    disconnect(m_verticalScrollConnection);
+    m_verticalScrollConnection = connect(view, SIGNAL(displayRangeChanged(KTextEditor::ViewPrivate *)), this, SLOT(highlightVisibleRange()));
 
     //  m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
 
@@ -83,20 +91,7 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
     };
 
     if (caps.semanticTokenProvider.range) {
-        auto visibleRange = Utils::getVisibleRange(view);
-        if (visibleRange.start().line() > 8) {
-            auto s = visibleRange.start();
-            s.setLine(s.line() - 8);
-            visibleRange.setStart(s);
-        }
-        if (visibleRange.end().line() + 8 < view->document()->lines()) {
-            auto e = visibleRange.end();
-            e.setLine(e.line() + 8);
-            e.setColumn(view->document()->lineLength(e.line()));
-            visibleRange.setEnd(e);
-        }
-        m_currentHighlightedRange = visibleRange;
-        server->documentSemanticTokensRange(doc->url(), visibleRange, this, h);
+        server->documentSemanticTokensRange(doc->url(), getExtendedVisibleRange(view), this, h);
     } else if (caps.semanticTokenProvider.fullDelta) {
         auto prevResultId = previousResultIdForDoc(doc);
         server->documentSemanticTokensFullDelta(doc->url(), prevResultId, this, h);
@@ -105,18 +100,23 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
     }
 }
 
-void SemanticHighlighter::semanticHighlightRange(KTextEditor::View *view, const KTextEditor::Cursor &)
+void SemanticHighlighter::highlightVisibleRange()
 {
-    const auto range = Utils::getVisibleRange(view);
-    if (m_currentHighlightedRange.contains(range)) {
-        auto server = m_serverManager->findServer(view);
-        if (server) {
-            highlight(view, &server->capabilities().semanticTokenProvider.legend);
-        }
+    if (!m_currentView) {
         return;
     }
-
-    doSemanticHighlighting(view, false);
+    auto view = m_currentView.data();
+    const auto range = Utils::getVisibleRange(view);
+    if (!m_currentHighlightedRange.contains(range)) {
+        auto server = m_serverManager->findServer(view);
+        if (server->capabilities().semanticTokenProvider.range) {
+            // request new range from the server
+            doSemanticHighlighting(view, false);
+        } else {
+            // highlight the newly visible portion
+            highlight(view, &server->capabilities().semanticTokenProvider.legend);
+        }
+    }
 }
 
 QString SemanticHighlighter::previousResultIdForDoc(KTextEditor::Document *doc) const
@@ -194,7 +194,8 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
         return;
     }
 
-    const KTextEditor::Range visibleRange = Utils::getVisibleRange(view);
+    auto visibleRange = getExtendedVisibleRange(view);
+    m_currentHighlightedRange = visibleRange;
 
     uint32_t currentLine = 0;
     uint32_t start = 0;

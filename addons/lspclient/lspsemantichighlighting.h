@@ -37,7 +37,7 @@ public:
 private:
     void doSemanticHighlighting_impl(KTextEditor::View *v);
 
-    void semanticHighlightRange(KTextEditor::View *view, const KTextEditor::Cursor &);
+    Q_SLOT void highlightVisibleRange();
 
     QString previousResultIdForDoc(KTextEditor::Document *doc) const;
 

@@ -157,5 +157,5 @@
         "Name[zh_CN]": "文档预览",
         "Name[zh_TW]": "文件預覽"
     },
-    "LoadInKDevelop": true
+    "LoadInKDevelop": "true"
 }

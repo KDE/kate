@@ -32,9 +32,9 @@ KateProjectIndex::KateProjectIndex(const QString &baseDir, const QString &indexD
         }
         m_ctagsIndexFile.reset(new QFile(path));
     } else {
-        auto fileName = QStringLiteral("/kate.project.ctags.%1.%2").arg(QDir(baseDir).dirName(), QCoreApplication::applicationPid());
         // indexDir is typically QDir::tempPath() or otherwise specified in configuration
-        m_ctagsIndexFile.reset(new QTemporaryFile(indexDir + fileName));
+        m_ctagsIndexFile.reset(new QTemporaryFile(
+            indexDir + QStringLiteral("/kate.project.ctags.%1.%2").arg(QDir(baseDir).dirName(), QString::number(QCoreApplication::applicationPid()))));
     }
 
     /**

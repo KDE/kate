@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-09 00:42+0000\n"
-"PO-Revision-Date: 2024-09-07 21:02+0200\n"
+"PO-Revision-Date: 2024-10-09 21:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -336,10 +336,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "பிழைநீக்க விவர வடிகட்டியை காலியாக்கு"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "பதிவின் விவரங்களை காட்டு/மறை"
+msgstr "சுட்டியை மேல்வைக்கும்போது விவரங்களைக் காட்டு"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
 #, kde-format
@@ -1235,12 +1234,12 @@ msgstr "பிழைநீக்கக் காட்சிப்பகுத�
 #: lib/kateconfigdialog.cpp:352 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "சூழல்"
 
 #: lib/kateconfigdialog.cpp:357
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "கருவி காட்சிப்பகுதியை இயக்கு"
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
@@ -1248,6 +1247,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"இடஞ்சுட்டியின் தற்போதைய இருப்பிடத்தைச் சார்ந்த கூடுதல் விவரங்களைக் காட்டும் கருவி "
+"காட்சிப்பகுதி (LSP துப்புகள், பிழைநீக்க விவரங்கள்)"
 
 #: lib/kateconfigdialog.cpp:374
 #, kde-format
@@ -1266,15 +1267,12 @@ msgid "(never)"
 msgstr "(ஒருபோதும் வேண்டாம்)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " நாள்"
-msgstr[1] " நாட்கள்"
+msgstr[0] "%v நாள்"
+msgstr[1] "%v நாட்கள்"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
@@ -1603,10 +1601,9 @@ msgid "Close all open documents."
 msgstr "திறந்துள்ள அனைத்து ஆவணங்களையும் மூடும்."
 
 #: lib/katemainwindow.cpp:473
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
-msgstr "&கடைசியாக முடிய ஆவணத்தை மீளேற்று"
+msgstr "&கடைசியாக முடிய ஆவணத்தைத் திற"
 
 #: lib/katemainwindow.cpp:475
 #, kde-format

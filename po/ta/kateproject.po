@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-24 02:28+0000\n"
-"PO-Revision-Date: 2024-09-08 12:39+0200\n"
+"PO-Revision-Date: 2024-10-09 21:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -97,7 +97,7 @@ msgstr ""
 #: comparebranchesview.cpp:144
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "பின்னே"
 
 #: currentgitbranchbutton.cpp:124
 #, kde-format
@@ -150,7 +150,7 @@ msgstr ""
 #: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "மாற்று"
 
 #: gitcommitdialog.cpp:112 gitwidget.cpp:1011
 #, kde-format
@@ -187,12 +187,12 @@ msgstr ""
 #: gitstatusmodel.cpp:89
 #, kde-format
 msgid "Conflict"
-msgstr ""
+msgstr " முரண்பாடு"
 
 #: gitstatusmodel.cpp:91
 #, kde-format
 msgid "Modified"
-msgstr ""
+msgstr "மாற்றப்பட்டது"
 
 #: gitwidget.cpp:269
 #, kde-format
@@ -207,7 +207,7 @@ msgstr ""
 #: gitwidget.cpp:295
 #, kde-format
 msgid "Cancel Operation"
-msgstr ""
+msgstr "செயலை ரத்து செய்"
 
 #: gitwidget.cpp:303
 #, kde-format

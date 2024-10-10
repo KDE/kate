@@ -441,6 +441,11 @@ void KateQuickOpen::slotReturnPressed()
             QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
             if (projectView) {
                 QMetaObject::invokeMethod(projectView, "switchToProject", Qt::DirectConnection, QDir(index.data(Qt::UserRole).toUrl().toLocalFile()));
+                auto toolview = m_mainWindow->toolviewForName(QStringLiteral("kate_mdi_focus_toolview_projects"));
+                if (toolview) {
+                    m_mainWindow->showToolView(toolview);
+                    toolview->setFocus();
+                }
             }
         } else {
             view = m_mainWindow->wrapper()->openUrl(index.data(Qt::UserRole).toUrl());

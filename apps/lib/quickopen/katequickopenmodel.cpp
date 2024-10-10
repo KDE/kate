@@ -10,6 +10,7 @@
 #include "kateapp.h"
 #include "katemainwindow.h"
 
+#include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
@@ -156,7 +157,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
 
     // Add projects to the docunents list, and the filepath is their base directory
     for (const auto &project : projects.asKeyValueRange()) {
-        allDocuments.push_back({project.second.toString(), project.first, nullptr, -1});
+        allDocuments.push_back({i18n("Project: %1", project.second.toString()), project.first, nullptr, -1});
     }
 
     beginResetModel();

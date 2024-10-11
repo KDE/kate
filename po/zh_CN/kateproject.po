@@ -518,7 +518,7 @@ msgstr "工程补全"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "自动加载代码仓库和构建树"
+msgstr "自动加载代码仓库及构建树"
 
 #: kateprojectconfigpage.cpp:26
 #, kde-format

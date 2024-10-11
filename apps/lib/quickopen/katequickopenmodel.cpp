@@ -10,6 +10,7 @@
 #include "kateapp.h"
 #include "katemainwindow.h"
 
+#include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
@@ -85,6 +86,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     const QStringList projectDocs = projectView
         ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList()
         : QStringList();
+    const auto projects = projectView ? projectView->property("allProjects").toMap() : QVariantMap();
     const QString projectBase = [projectView]() -> QString {
         if (!projectView) {
             return QString();
@@ -151,6 +153,13 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
         const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
         QString fileName = filePath.mid(slashIndex + 1);
         allDocuments.push_back({std::move(fileName), filePath, nullptr, -1});
+    }
+
+    // Add projects to the docunents list, and the filepath is their base directory
+    if (projects.count() > 1) {
+        for (const auto &project : projects.asKeyValueRange()) {
+            allDocuments.push_back({i18n("Project: %1", project.second.toString()), project.first, nullptr, -1});
+        }
     }
 
     beginResetModel();

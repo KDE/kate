@@ -19,7 +19,10 @@
 #include <KSharedConfig>
 
 #include <QCoreApplication>
+#include <QDir>
 #include <QEvent>
+#include <QFileInfo>
+#include <QMetaObject>
 #include <QPainter>
 #include <QPointer>
 #include <QSortFilterProxyModel>
@@ -431,7 +434,22 @@ void KateQuickOpen::slotReturnPressed()
     if (auto doc = index.data(KateQuickOpenModel::Document).value<KTextEditor::Document *>()) {
         view = m_mainWindow->activateView(doc);
     } else {
-        view = m_mainWindow->wrapper()->openUrl(index.data(Qt::UserRole).toUrl());
+        QFileInfo file(index.data(Qt::UserRole).toUrl().toLocalFile());
+        // If the file is a directory, we're likely opening a project
+        if (file.isDir()) {
+            // Make sure projectview exists, then invoke switchToProject method with the directory we have
+            QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
+            if (projectView) {
+                QMetaObject::invokeMethod(projectView, "switchToProject", Qt::DirectConnection, QDir(index.data(Qt::UserRole).toUrl().toLocalFile()));
+                auto toolview = m_mainWindow->toolviewForName(QStringLiteral("kate_mdi_focus_toolview_projects"));
+                if (toolview) {
+                    m_mainWindow->showToolView(toolview);
+                    toolview->setFocus();
+                }
+            }
+        } else {
+            view = m_mainWindow->wrapper()->openUrl(index.data(Qt::UserRole).toUrl());
+        }
     }
 
     const auto strs = m_inputLine->text().split(QLatin1Char(':'));

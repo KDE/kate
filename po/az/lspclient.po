@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-11 00:42+0000\n"
 "PO-Revision-Date: 2023-06-30 14:00+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -58,12 +58,12 @@ msgstr "Seçilmiş girişləri silin"
 msgid "Delete all entries"
 msgstr "Bütün girişləri silin"
 
-#: lspclientplugin.cpp:224
+#: lspclientplugin.cpp:220
 #, kde-format
 msgid "LSP server start requested"
 msgstr "LSP serverini başlatmaq tələbi"
 
-#: lspclientplugin.cpp:227
+#: lspclientplugin.cpp:223
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -73,7 +73,7 @@ msgstr ""
 "LSP serverinin başladılmasını istəyirsiniz?<br><br>Tam əmr sətri:<br><br><b>"
 "%1</b><br><br>Seçim qoşmanın tənzimləmə səhifəndə dəyişdirilə bilər."
 
-#: lspclientplugin.cpp:240
+#: lspclientplugin.cpp:236
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

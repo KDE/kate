@@ -694,10 +694,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "切换断点"
 
 #: plugin_kategdb.cpp:284
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "断点"
+msgstr "清除所有断点"
 
 #: plugin_kategdb.cpp:289
 #, kde-format
@@ -727,17 +726,17 @@ msgstr "重启调试"
 #: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "热重新加载"
 
 #: plugin_kategdb.cpp:331
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "热重启"
 
 #: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "保存时启用热重新加载"
 
 #: plugin_kategdb.cpp:349 plugin_kategdb.cpp:368
 #, kde-format

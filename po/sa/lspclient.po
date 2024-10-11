@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-11 00:42+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -56,12 +56,12 @@ msgstr "चयनितप्रविष्टयः विलोपयन्�
 msgid "Delete all entries"
 msgstr "सर्वाणि प्रविष्टयः विलोपयन्तु"
 
-#: lspclientplugin.cpp:224
+#: lspclientplugin.cpp:220
 #, kde-format
 msgid "LSP server start requested"
 msgstr "LSP विरतारक् आरम्भस्य अनुरोधः कृतः"
 
-#: lspclientplugin.cpp:227
+#: lspclientplugin.cpp:223
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -71,7 +71,7 @@ msgstr ""
 "किं भवान् इच्छति यत् LSP वितारक् आरभ्यताम्?<br><br>पूर्णा आदेशपङ्क्तिः अस्ति:<br><br><b>"
 "%1</b><br><br>प्लगिन् इत्यस्य विन्यासपृष्ठद्वारा विकल्पं परिवर्तयितुं शक्यते ।."
 
-#: lspclientplugin.cpp:240
+#: lspclientplugin.cpp:236
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

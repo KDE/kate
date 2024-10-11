@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-05 00:42+0000\n"
+"POT-Creation-Date: 2024-10-11 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -58,12 +58,12 @@ msgstr "删除所选条目"
 msgid "Delete all entries"
 msgstr "删除所有条目"
 
-#: lspclientplugin.cpp:224
+#: lspclientplugin.cpp:220
 #, kde-format
 msgid "LSP server start requested"
 msgstr "已请求 LSP 服务器启动"
 
-#: lspclientplugin.cpp:227
+#: lspclientplugin.cpp:223
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -73,7 +73,7 @@ msgstr ""
 "您想要启动 LSP 服务器吗？<br><br>完整命令行：<br><br><b>%1</b><br><br>相关选"
 "项可在插件的配置页面更改。"
 
-#: lspclientplugin.cpp:240
+#: lspclientplugin.cpp:236
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -454,7 +454,7 @@ msgstr "符号"
 #: lspclientsymbolview.cpp:515
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "LSP 服务器不支持符号大纲。"
 
 #: lspclientsymbolview.cpp:593
 #, kde-format

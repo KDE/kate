@@ -526,7 +526,7 @@ msgstr "工程补全"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "自动加载代码仓库和构建树"
+msgstr "自动加载代码仓库及构建树"
 
 #: kateprojectconfigpage.cpp:26
 #, kde-format
@@ -1008,6 +1008,8 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"无法加载基于 %1 的项目，因为没有安装 %1 或者没有在 PATH 环境变量中找到它。请"
+"安装 %1，或者在项目设置中禁用“自动加载代码仓库及构建树”选项。"
 
 #: stashdialog.cpp:36
 #, kde-format

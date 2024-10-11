@@ -330,10 +330,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "清除诊断信息过滤器"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "显示/隐藏提交信息"
+msgstr "显示悬停信息"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
 #, kde-format
@@ -1217,19 +1216,19 @@ msgstr "诊断工具视图允许的最大诊断数量。"
 #: lib/kateconfigdialog.cpp:352 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "上下文"
 
 #: lib/kateconfigdialog.cpp:357
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "启用工具视图"
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
-msgstr ""
+msgstr "用于显示与当前光标位置相关联的上下文的工具视图 (LSP 提示、诊断信息)"
 
 #: lib/kateconfigdialog.cpp:374
 #, kde-format
@@ -1248,14 +1247,11 @@ msgid "(never)"
 msgstr "(从不)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " 天"
+msgstr[0] "%v 天"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
@@ -1581,8 +1577,7 @@ msgid "Close all open documents."
 msgstr "关闭所有打开的文档。"
 
 #: lib/katemainwindow.cpp:473
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
 msgstr "重新打开最近关闭的文档(&R)"
 

@@ -103,7 +103,7 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
     if (std::find(m_providers.begin(), m_providers.end(), provider) == m_providers.end()) {
         m_providers.push_back(provider);
         connect(provider, &QObject::destroyed, this, [this](QObject *provider) {
-            auto it = std::find(m_providers.begin(), m_providers.end(), qobject_cast<KateTextHintProvider *>(provider));
+            auto it = std::find(m_providers.begin(), m_providers.end(), provider);
             if (it != m_providers.end()) {
                 m_providers.erase(it);
             }
